@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 
 /**
  * Command to return user back to home page.
@@ -21,9 +21,10 @@ public class HomeCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.HOME);
-        return new CommandResult(MESSAGE_SUCCESS, false, false, false, false,
-                false, false, true);
+        model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
+
+        return new CommandResultBuilder(MESSAGE_SUCCESS)
+                .setHome().build();
     }
 
     @Override

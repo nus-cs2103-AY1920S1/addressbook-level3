@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.EventClashException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -54,17 +54,17 @@ public class AddEventCommand extends Command {
             try {
                 if (name == null) {
                     model.addEvent(event);
-                    model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                    model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
                 } else {
                     model.addEvent(name, event);
-                    model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                    model.updateScheduleWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
                 }
-                return new CommandResult(String.format(MESSAGE_SUCCESS, event.getEventName().trim()));
+                return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, event.getEventName())).build();
 
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_UNABLE_TO_FIND_PERSON));
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_UNABLE_TO_FIND_PERSON)).build();
             } catch (EventClashException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_CLASH_IN_EVENTS));
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_CLASH_IN_EVENTS)).build();
             }
         }
     }

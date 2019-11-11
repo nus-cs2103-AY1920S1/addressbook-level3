@@ -32,8 +32,9 @@ public class ClosestLocationCommand extends Command {
             userInput = userInput + locationNameList.get(i) + " ";
         }
         try {
-            return new CommandResult(MESSAGE_SUCCESS
-                    + model.getClosestLocationDataString(locationNameList) + " location you entered: " + userInput);
+            return new CommandResultBuilder(MESSAGE_SUCCESS
+                    + model.getClosestLocationDataString(locationNameList)
+                    + " location you entered: " + userInput).build();
         } catch (Exception e) {
             e.printStackTrace();
         }

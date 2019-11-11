@@ -13,7 +13,8 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
-        return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, false, true);
+        return new CommandResultBuilder(MESSAGE_EXIT_ACKNOWLEDGEMENT)
+                .setExit().build();
     }
 
     @Override

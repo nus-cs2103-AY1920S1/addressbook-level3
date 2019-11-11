@@ -40,7 +40,7 @@ class PersonListTest {
         try {
             user = personList.editUser(ZACK);
             assertTrue(user.isSamePerson(zack));
-        } catch (NoPersonFieldsEditedException e) {
+        } catch (NoPersonFieldsEditedException | DuplicatePersonException e) {
             e.printStackTrace();
         }
     }
@@ -53,7 +53,7 @@ class PersonListTest {
         try {
             user = personList.editUser(nameChangeOnly);
             assertFalse(user.isSamePerson(zack));
-        } catch (NoPersonFieldsEditedException e) {
+        } catch (NoPersonFieldsEditedException | DuplicatePersonException e) {
             e.printStackTrace();
         }
     }

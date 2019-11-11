@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.exceptions.EventNotFoundException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -48,20 +48,20 @@ public class DeleteEventCommand extends Command {
 
             if (name == null) {
                 model.deleteEvent(eventName);
-                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
 
             } else {
                 model.deleteEvent(name, eventName);
-                model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+                model.updateScheduleWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
 
             }
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, eventName));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, eventName)).build();
 
         } catch (EventNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_EVENT_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_EVENT_NOT_FOUND)).build();
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
     }

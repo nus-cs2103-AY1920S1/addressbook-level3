@@ -24,16 +24,13 @@ import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditUserCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.ExportCommand;
-import seedu.address.logic.commands.FindGroupCommand;
-import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HomeCommand;
-import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LookAtGroupMemberCommand;
-import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.ScrollCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectFreeTimeCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowNusModCommand;
 import seedu.address.logic.commands.SwitchTabCommand;
@@ -104,9 +101,6 @@ public class TimeBookParser {
         case EditPersonCommand.COMMAND_WORD:
             return new EditPersonCommandParser().parse(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
-
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -137,12 +131,6 @@ public class TimeBookParser {
         case DeleteGroupCommand.COMMAND_WORD:
             return new DeleteGroupCommandParser().parse(arguments);
 
-        case FindPersonCommand.COMMAND_WORD:
-            return new FindPersonCommandParser().parse(arguments);
-
-        case FindGroupCommand.COMMAND_WORD:
-            return new FindGroupCommandParser().parse(arguments);
-
         case EditGroupCommand.COMMAND_WORD:
             return new EditGroupCommandParser().parse(arguments);
 
@@ -164,8 +152,8 @@ public class TimeBookParser {
         case ScrollCommand.COMMAND_WORD:
             return new ScrollCommand();
 
-        case PopupCommand.COMMAND_WORD:
-            return new PopupCommandParser().parse(arguments);
+        case SelectFreeTimeCommand.COMMAND_WORD:
+            return new SelectFreeTimeParser().parse(arguments);
 
         case ToggleNextWeekCommand.COMMAND_WORD:
             return new ToggleNextWeekCommand();

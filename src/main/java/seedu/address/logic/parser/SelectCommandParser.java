@@ -27,7 +27,6 @@ public class SelectCommandParser implements Parser<SelectCommand> {
 
         Name name;
         int week;
-        int day;
         int id;
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {

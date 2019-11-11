@@ -36,9 +36,13 @@ public class PersonList {
      * @return return true when successfully added
      */
     public Person addPerson(PersonDescriptor personDescriptor) throws DuplicatePersonException {
+
         try {
             findPerson(personDescriptor.getName());
         } catch (PersonNotFoundException e) {
+            if (personDescriptor.getName().equals(user.getName())) {
+                throw new DuplicatePersonException(personDescriptor.getName());
+            }
             Person person = new Person(personDescriptor);
             this.persons.add(person);
             return person;
@@ -73,14 +77,20 @@ public class PersonList {
      * @return user
      * @throws NoPersonFieldsEditedException
      */
-    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException {
+    public User editUser(PersonDescriptor personDescriptor)
+            throws NoPersonFieldsEditedException, DuplicatePersonException {
 
         if (!personDescriptor.isAnyFieldEdited()) {
             throw new NoPersonFieldsEditedException();
         }
 
         if (!personDescriptor.getName().equals(Name.emptyName())) {
-            user.setName(personDescriptor.getName());
+            try {
+                findPerson(personDescriptor.getName());
+                throw new DuplicatePersonException();
+            } catch (PersonNotFoundException e) {
+                user.setName(personDescriptor.getName());
+            }
         }
         if (!personDescriptor.getPhone().equals(Phone.emptyPhone())) {
             user.setPhone(personDescriptor.getPhone());
@@ -122,6 +132,9 @@ public class PersonList {
                 findPerson(otherName);
                 throw new DuplicatePersonException();
             } catch (PersonNotFoundException e) {
+                if (personDescriptor.getName().equals(user.getName())) {
+                    throw new DuplicatePersonException();
+                }
                 toEdit.setName(personDescriptor.getName());
             }
         }
@@ -201,21 +214,6 @@ public class PersonList {
             }
         }
         return null;
-    }
-
-    /**
-     * Converts to String.
-     *
-     * @return String
-     */
-    public String toString() {
-        int i;
-        String output = "";
-        for (i = 0; i < persons.size(); i++) {
-            output += persons.get(i).toString();
-            output += "\n";
-        }
-        return output;
     }
 
     /**

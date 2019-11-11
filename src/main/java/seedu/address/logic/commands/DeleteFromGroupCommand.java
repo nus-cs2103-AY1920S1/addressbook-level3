@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
@@ -55,14 +55,14 @@ public class DeleteFromGroupCommand extends Command {
         try {
             person = model.findPerson(name);
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
         Group group;
         try {
             group = model.findGroup(groupName);
         } catch (GroupNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
         PersonToGroupMapping mapping = new PersonToGroupMapping(person.getPersonId(), group.getGroupId());
@@ -70,11 +70,13 @@ public class DeleteFromGroupCommand extends Command {
         try {
             model.deletePersonToGroupMapping(mapping);
 
-            model.updateDisplayWithGroup(group.getGroupName(),
-                    LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+            model.updateScheduleWithGroup(group.getGroupName(),
+                    LocalDateTime.now(), ScheduleState.GROUP);
 
         } catch (MappingNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_MAPPING_NOT_FOUND)).build();
+        } catch (GroupNotFoundException e) {
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_GROUP_NOT_FOUND)).build();
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS,

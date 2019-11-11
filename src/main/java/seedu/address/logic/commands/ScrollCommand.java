@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 
 /**
  * Command to handle scrolling events using CLI.
@@ -12,7 +12,8 @@ public class ScrollCommand extends Command {
     public static final String COMMAND_WORD = "scroll";
 
     public static final String MESSAGE_SUCCESS = "Showing next view of schedule";
-    public static final String MESSAGE_FAILURE = "Nothing to scroll";
+    public static final String MESSAGE_FAILURE = "No schedule is shown.\n"
+            + "Scroll command requires an existing schedule to be present!";
 
     public ScrollCommand() {
     }
@@ -20,16 +21,13 @@ public class ScrollCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
 
-        ScheduleWindowDisplayType status = model.getState();
-        if (status == ScheduleWindowDisplayType.PERSON
-                || status == ScheduleWindowDisplayType.GROUP
-                || status == ScheduleWindowDisplayType.NONE) {
-            return new CommandResult(MESSAGE_SUCCESS, false, false, false, true);
+        ScheduleState status = model.getState();
+        if (status == ScheduleState.PERSON
+                || status == ScheduleState.GROUP) {
+            return new CommandResultBuilder(MESSAGE_SUCCESS).setScroll().build();
         } else {
-            return new CommandResult(MESSAGE_FAILURE, false, false, false, false);
+            throw new CommandException(MESSAGE_FAILURE);
         }
-
-
     }
 
     @Override

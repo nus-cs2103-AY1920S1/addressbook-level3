@@ -29,7 +29,7 @@ public class HelpCommandTest {
                 new HelpCommand().execute(model);
 
         CommandResult expectedCommandResult =
-                new CommandResult(HelpCommand.SHOWING_HELP_MESSAGE, true, false);
+                new CommandResultBuilder(HelpCommand.SHOWING_HELP_MESSAGE).setShowHelp().build();
 
         assertEquals(actualCommandResult, expectedCommandResult);
     }

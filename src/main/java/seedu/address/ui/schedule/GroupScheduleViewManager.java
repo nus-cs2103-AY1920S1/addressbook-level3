@@ -5,64 +5,62 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.model.display.schedulewindow.FreeSchedule;
-import seedu.address.model.display.schedulewindow.MonthSchedule;
-import seedu.address.model.display.schedulewindow.PersonSchedule;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.schedulewindow.WeekSchedule;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.display.timeslots.FreeSchedule;
+import seedu.address.model.display.timeslots.PersonSchedule;
+import seedu.address.model.display.timeslots.WeekSchedule;
 import seedu.address.model.group.GroupName;
 import seedu.address.model.person.Name;
 
 /**
  * Class to handle schedule view of groups
  */
-public class GroupScheduleViewManager implements ScheduleViewManager {
+public class GroupScheduleViewManager extends ScheduleViewManager {
 
     private List<PersonSchedule> originalPersonSchedules;
-    private List<MonthSchedule> filteredMonthSchedules;
+    private List<PersonSchedule> filteredPersonSchedules;
     private GroupName groupName;
     private ArrayList<FreeSchedule> freeSchedules;
-    private int weekNumber;
-    private ScheduleView scheduleView;
-    private LocalDate currentDate;
 
     public GroupScheduleViewManager(List<PersonSchedule> originalPersonSchedules,
                                     GroupName groupName, ArrayList<FreeSchedule> freeSchedules) {
         this.originalPersonSchedules = originalPersonSchedules;
-        this.filteredMonthSchedules = originalPersonSchedules.stream()
-                .map(PersonSchedule::getScheduleDisplay)
-                .collect(Collectors.toCollection(ArrayList::new));
+        this.filteredPersonSchedules = originalPersonSchedules;
         this.groupName = groupName;
         this.freeSchedules = freeSchedules;
-        this.weekNumber = 0;
-        this.currentDate = LocalDate.now();
-        initScheduleView();
+        super.weekNumber = 0;
+        super.currentDate = LocalDate.now();
+        super.type = ScheduleState.GROUP;
+        super.LOGGER.info("Generating schedule view for " + groupName.toString() + ".");
     }
 
     /**
      * Method to initialise or reinitialise group ScheduleView object to be displayed in the UI.
      * Group schedules show free time.
      */
-    private void initScheduleView() {
+    private void update() {
         LocalDate dateToShow = currentDate.plusDays(7 * weekNumber);
-        this.scheduleView = new ScheduleView(MonthSchedule.getWeekSchedulesOf(filteredMonthSchedules, weekNumber),
-                groupName.toString(), dateToShow);
+        ArrayList<WeekSchedule> weekSchedules = filteredPersonSchedules
+                .stream().map(personSchedule -> personSchedule.getScheduleDisplay().get(weekNumber))
+                .collect(Collectors.toCollection(ArrayList::new));
+        super.scheduleView = new ScheduleView(weekSchedules, "Week " + (weekNumber + 1) + " "
+                + groupName.toString(), dateToShow);
         //Required to set the free time schedule first before generating the schedule.
-        this.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
-        this.scheduleView.generateSchedule();
+        super.scheduleView.setFreeTime(freeSchedules.get(weekNumber));
+        super.scheduleView.generateSchedule();
     }
 
     /**
      *
      */
     private void filterPerson(List<Name> filteredList) {
-        filteredMonthSchedules = new ArrayList<>();
+        filteredPersonSchedules = new ArrayList<>();
         ArrayList<Name> filteredListCopy = new ArrayList<>(filteredList);
         for (PersonSchedule personSchedule : originalPersonSchedules) {
             if (filteredListCopy.contains(personSchedule.getPersonDisplay().getName())) {
                 //Person is found in the filtered list.
                 int index = originalPersonSchedules.indexOf(personSchedule);
-                filteredMonthSchedules.add(personSchedule.getScheduleDisplay());
+                filteredPersonSchedules.add(personSchedule);
                 filteredListCopy.remove(personSchedule.getPersonDisplay().getName());
             }
         }
@@ -73,26 +71,21 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
     @Override
     public void filterPersonsFromSchedule(List<Name> namesToFilter) {
         filterPerson(namesToFilter);
-        initScheduleView();
     }
 
     @Override
     public void toggleNext() {
-        this.weekNumber = (weekNumber + 1) % 4;
-        initScheduleView();
-    }
-
-    @Override
-    public ScheduleWindowDisplayType getScheduleWindowDisplayType() {
-        return ScheduleWindowDisplayType.GROUP;
+        super.weekNumber = (weekNumber + 1) % 4;
     }
 
     @Override
     public ScheduleView getScheduleViewCopy() {
-        List<WeekSchedule> weekToBeExported = MonthSchedule.getWeekSchedulesOf(originalPersonSchedules
-                .stream().map(PersonSchedule::getScheduleDisplay)
-                .collect(Collectors.toCollection(ArrayList::new)), weekNumber);
-        ScheduleView copy = new ScheduleView(weekToBeExported,
+        List<WeekSchedule> weekSchedules = new ArrayList<>();
+        for (int i = 0; i < originalPersonSchedules.size(); i++) {
+            weekSchedules.add(originalPersonSchedules.get(i).getScheduleDisplay().get(weekNumber));
+        }
+
+        ScheduleView copy = new ScheduleView(weekSchedules,
                 groupName.toString(), currentDate.plusDays(7 * weekNumber));
         copy.setFreeTime(freeSchedules.get(weekNumber));
         copy.generateSchedule();
@@ -101,11 +94,12 @@ public class GroupScheduleViewManager implements ScheduleViewManager {
 
     @Override
     public ScheduleView getScheduleView() {
-        return this.scheduleView;
+        update();
+        return super.scheduleView;
     }
 
     @Override
     public void scrollNext() {
-        this.scheduleView.scrollNext();
+        super.scheduleView.scrollNext();
     }
 }

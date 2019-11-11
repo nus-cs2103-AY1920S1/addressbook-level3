@@ -50,16 +50,20 @@ public class ShowNusModCommand extends Command {
                 Desktop.getDesktop().browse(new URL(String.format(NUSMODS_URL,
                         module.getModuleCode())).toURI());
             }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, module.getModuleCode()));
+            return new CommandResultBuilder(
+                    String.format(MESSAGE_SUCCESS, module.getModuleCode())).build();
+
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode));
+            return new CommandResultBuilder(
+                    String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode)).build();
+
         } catch (MalformedURLException | URISyntaxException e) {
             assert false; // should not happen
-            return new CommandResult(MESSAGE_INTERNAL_ERROR);
+            return new CommandResultBuilder(MESSAGE_INTERNAL_ERROR).build();
         } catch (IOException e) {
             // if the user default browser is not found, or it fails to be launched,
             // or the default handler application failed to be launched.
-            return new CommandResult(MESSAGE_BROWSER_FAILED);
+            return new CommandResultBuilder(MESSAGE_BROWSER_FAILED).build();
         }
     }
 

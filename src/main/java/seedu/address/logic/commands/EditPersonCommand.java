@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -66,19 +66,19 @@ public class EditPersonCommand extends Command {
             Person person = model.editPerson(name, personDescriptor);
 
             // update main window display
-            model.updateDisplayWithPerson(person.getName(), LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateScheduleWithPerson(person.getName(), LocalDateTime.now(), ScheduleState.PERSON);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, name.toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, name.toString())).build();
 
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         } catch (NoPersonFieldsEditedException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED)).build();
         } catch (DuplicatePersonException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON)).build();
         }
 
     }

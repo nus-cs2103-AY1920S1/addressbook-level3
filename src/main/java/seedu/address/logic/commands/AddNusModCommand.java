@@ -13,7 +13,7 @@ import java.util.Map;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.ModuleToEventMappingException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.module.AcadYear;
 import seedu.address.model.module.Holidays;
@@ -76,35 +76,39 @@ public class AddNusModCommand extends Command {
         try {
             person = getPerson(name, model);
         } catch (PersonNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
         }
 
         try {
             module = model.findModule(moduleId);
             event = mapModuleToEvent(module, startAcadSemDate, semesterNo, this.lessonTypeNumMap, holidays);
         } catch (ModuleNotFoundException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE,
-                    String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode)));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE,
+                    String.format(MESSAGE_MODULE_NOT_FOUND, moduleCode))).build();
         } catch (ModuleToEventMappingException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, e.getMessage()));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, e.getMessage())).build();
         }
 
         try {
             person.addEvent(event);
         } catch (EventClashException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_EVENTS_CLASH));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_EVENTS_CLASH)).build();
         }
 
         // updates UI.
         if (name == null) {
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         } else {
-            model.updateDisplayWithPerson(name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            try {
+                model.updateScheduleWithPerson(name, LocalDateTime.now(), ScheduleState.PERSON);
+            } catch (PersonNotFoundException e) {
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_PERSON_NOT_FOUND)).build();
+            }
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResultBuilder(MESSAGE_SUCCESS).build();
     }
 
     private Person getPerson(Name name, Model model) throws PersonNotFoundException {

@@ -34,7 +34,6 @@ public class SampleGroupList {
             groupList.addGroup(GROUP2);
             return groupList;
         } catch (DuplicateGroupException e) {
-            e.printStackTrace();
             return null;
         }
 

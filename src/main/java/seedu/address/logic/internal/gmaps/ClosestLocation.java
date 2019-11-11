@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ArrayListUtil;
 import seedu.address.commons.util.LocationArrayListUtils;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
 import seedu.address.model.gmaps.Location;
 import seedu.address.model.gmaps.LocationGraph;
 
@@ -56,8 +56,9 @@ public class ClosestLocation {
      * This method is used to find the closes location from the location graph
      * @return
      */
-    public ClosestCommonLocationData closestLocationData(ArrayList<String> locationNameList) {
-        requireNonNull(locationNameList);
+    public ClosestCommonLocationData closestLocationData(ArrayList<String> locationNameListOriginal) {
+        requireNonNull(locationNameListOriginal);
+        ArrayList<String> locationNameList = (ArrayList<String>) locationNameListOriginal.clone();
         ClosestCommonLocationData closestCommonLocationData = new ClosestCommonLocationData();
         closestCommonLocationData.setLocationEntered(locationNameList);
         String firstClosest = null;

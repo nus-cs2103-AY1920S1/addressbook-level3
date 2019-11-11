@@ -12,9 +12,10 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.PersonDescriptor;
 import seedu.address.model.person.User;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.NoPersonFieldsEditedException;
 
 /**
@@ -37,6 +38,7 @@ public class EditUserCommand extends Command {
     public static final String MESSAGE_FAILURE = "Unable to edit user: %s";
 
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_NAME_ALREADY_EXISTS = "This name already exists!";
 
     private final PersonDescriptor personDescriptor;
 
@@ -53,12 +55,14 @@ public class EditUserCommand extends Command {
         try {
             User user = model.editUser(personDescriptor);
 
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, user.getName().toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, user.getName().toString())).build();
 
         } catch (NoPersonFieldsEditedException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_NOT_EDITED)).build();
+        } catch (DuplicatePersonException e) {
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_NAME_ALREADY_EXISTS)).build();
         }
 
 

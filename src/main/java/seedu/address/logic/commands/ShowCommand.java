@@ -3,16 +3,17 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupName;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Command to show the details of a person.
@@ -37,51 +38,31 @@ public class ShowCommand<T> extends Command {
 
         if (name instanceof Name) {
             ObservableList<Person> personList = model.getObservablePersonList();
-            Optional<Person> person = Optional.empty();
 
-            if (name.equals(model.getUser().getName())) {
-                person = Optional.of(model.getUser());
-            }
-
-            for (Person p : personList) {
-                if (p.getName().equals((Name) name)) {
-                    person = Optional.of(p);
-                    break;
-                }
-            }
-
-            if (person.isEmpty()) {
+            try {
+                model.updateScheduleWithPerson((Name) name, LocalDateTime.now(), ScheduleState.PERSON);
+            } catch (PersonNotFoundException e) {
                 throw new CommandException(MESSAGE_PERSON_NOT_FOUND);
             }
 
-            if (person.get().equals(model.getUser())) {
-                model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-            } else {
-                model.updateDisplayWithPerson((Name) name, LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-            }
-            return new CommandResult(String.format(MESSAGE_SUCCESS, person.get().getName().toString()),
-                    false, false);
+            return new CommandResultBuilder(
+                    String.format(MESSAGE_SUCCESS, name.toString())).build();
+
         } else if (name instanceof GroupName) {
             ObservableList<Group> groupList = model.getObservableGroupList();
-            Optional<Group> group = Optional.empty();
-            for (Group g : groupList) {
-                if (g.getGroupName().equals((GroupName) name)) {
-                    group = Optional.of(g);
-                    break;
-                }
-            }
 
-            if (group.isEmpty()) {
+            try {
+                model.updateScheduleWithGroup((GroupName) name, LocalDateTime.now(), ScheduleState.GROUP);
+            } catch (GroupNotFoundException e) {
                 throw new CommandException(MESSAGE_GROUP_NOT_FOUND);
             }
 
-            model.updateDisplayWithGroup((GroupName) name, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, group.get().getGroupName().toString()),
-                    false, false);
+            return new CommandResultBuilder(
+                    String.format(MESSAGE_SUCCESS, name.toString())).build();
         } else {
-            model.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.PERSON);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, "Your schedule",
-                    false, false));
+
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.PERSON);
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, "Your schedule")).build();
         }
     }
 

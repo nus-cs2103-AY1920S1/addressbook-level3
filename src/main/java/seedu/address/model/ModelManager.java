@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.AppSettings;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.display.DisplayModelManager;
-import seedu.address.model.display.detailwindow.ClosestCommonLocationData;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplay;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.ScheduleManager;
+import seedu.address.model.display.locationdata.ClosestCommonLocationData;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplay;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
@@ -68,8 +68,7 @@ public class ModelManager implements Model {
 
     private GmapsModelManager gmapsModelManager;
 
-    // UI display
-    private DisplayModelManager displayModelManager;
+    private ScheduleManager scheduleManager;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -84,7 +83,7 @@ public class ModelManager implements Model {
         this.personToGroupMappingList = timeBook.getPersonToGroupMappingList();
         this.gmapsModelManager = gmapsModelManager;
         this.nusModsData = nusModsData;
-        this.displayModelManager = new DisplayModelManager(gmapsModelManager);
+        this.scheduleManager = new ScheduleManager(gmapsModelManager);
 
         int personCounter = -1;
         for (int i = 0; i < personList.getPersons().size(); i++) {
@@ -117,24 +116,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        // short circuit if same object
-        if (obj == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(obj instanceof ModelManager)) {
-            return false;
-        }
-
-        // state check
-        /*ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);*/
-
-        return false;
+    public TimeBook getTimeBook() {
+        return this.timeBook;
     }
 
     //=========== UserPrefs ==================================================================================
@@ -267,7 +250,8 @@ public class ModelManager implements Model {
         return personList.editPerson(name, personDescriptor);
     }
 
-    public User editUser(PersonDescriptor personDescriptor) throws NoPersonFieldsEditedException {
+    public User editUser(PersonDescriptor personDescriptor)
+            throws NoPersonFieldsEditedException, DuplicatePersonException {
         return personList.editUser(personDescriptor);
     }
 
@@ -392,57 +376,62 @@ public class ModelManager implements Model {
     //=========== UI Model =============================================================
 
     @Override
-    public ScheduleWindowDisplay getScheduleWindowDisplay() {
-        return displayModelManager.getScheduleWindowDisplay();
+    public ScheduleDisplay getScheduleDisplay() {
+        return scheduleManager.getScheduleDisplay();
     }
 
     @Override
     public SidePanelDisplay getSidePanelDisplay() {
-        return displayModelManager.getSidePanelDisplay();
+        return scheduleManager.getSidePanelDisplay();
     }
 
     @Override
-    public void updateScheduleWindowDisplay(ScheduleWindowDisplay scheduleWindowDisplay) {
-        displayModelManager.updateScheduleWindowDisplay(scheduleWindowDisplay);
+    public void updateScheduleWithPerson(Name name, LocalDateTime time, ScheduleState type)
+            throws PersonNotFoundException {
+        scheduleManager.updateScheduleWithPerson(timeBook.getPersonList().findPerson(name), time, type);
     }
 
     @Override
-    public void updateDisplayWithPerson(Name name, LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateDisplayWithPerson(name, time, type, timeBook);
+    public void updateScheduleWithUser(LocalDateTime time, ScheduleState type) {
+        scheduleManager.updateScheduleWithUser(timeBook.getPersonList().getUser(), time, type);
     }
 
     @Override
-    public void updateDisplayWithUser(LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateDisplayWithUser(time, type, timeBook);
+    public void updateScheduleWithGroup(GroupName groupName, LocalDateTime time, ScheduleState type)
+            throws GroupNotFoundException {
+        Group group = timeBook.getGroupList().findGroup(groupName);
+        scheduleManager.updateScheduleWithGroup(group,
+                timeBook.getPersonsOfGroup(groupName),
+                timeBook.getPersonToGroupMappingList().getMappingsOfGroup(group.getGroupId()),
+                time, type);
     }
 
     @Override
-    public void updateDisplayWithGroup(GroupName groupName, LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateDisplayWithGroup(groupName, time, type, timeBook);
-    }
-
-    @Override
-    public void updateDisplayWithPersons(ArrayList<Person> persons,
-                                         LocalDateTime time, ScheduleWindowDisplayType type) {
-        displayModelManager.updateDisplayWithPersons(persons, time, type, timeBook);
+    public void updateScheduleWithPersons(ArrayList<Person> persons,
+                                          LocalDateTime time, ScheduleState type) {
+        scheduleManager.updateScheduleWithPersons(persons, time, type);
     }
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplay sidePanelDisplay) {
-        displayModelManager.updateSidePanelDisplay(sidePanelDisplay);
+        scheduleManager.updateSidePanelDisplay(sidePanelDisplay);
     }
 
     @Override
     public void updateSidePanelDisplay(SidePanelDisplayType type) {
-        displayModelManager.updateSidePanelDisplay(type, timeBook);
+        scheduleManager.updateSidePanelDisplay(type,
+                timeBook.getPersonList().getPersons(), timeBook.getGroupList().getGroups());
     }
 
+    @Override
     public void initialiseDefaultWindowDisplay() {
-        displayModelManager.updateDisplayWithUser(LocalDateTime.now(), ScheduleWindowDisplayType.HOME, timeBook);
+        scheduleManager.updateScheduleWithUser(timeBook.getPersonList().getUser(),
+                LocalDateTime.now(), ScheduleState.HOME);
     }
 
-    public ScheduleWindowDisplayType getState() {
-        return displayModelManager.getState();
+    @Override
+    public ScheduleState getState() {
+        return scheduleManager.getState();
     }
 
     //=========== Suggesters =============================================================
@@ -547,30 +536,6 @@ public class ModelManager implements Model {
     @Override
     public String getClosestLocationDataString(ArrayList<String> locationNameList) {
         return gmapsModelManager.closestLocationDataString(locationNameList);
-    }
-
-    //=========== Others =============================================================
-
-    @Override
-    public String list() {
-        String output = "";
-        output += "PERSONS:\n";
-        output += personList.toString();
-
-        output += "--------------------------------------------\n";
-        output += "GROUPS:\n";
-        output += groupList.toString();
-
-        output += "--------------------------------------------\n";
-        output += "MAPPINGS: \n";
-        output += personToGroupMappingList.toString();
-
-        return output;
-    }
-
-    @Override
-    public TimeBook getTimeBook() {
-        return this.timeBook;
     }
 
 }

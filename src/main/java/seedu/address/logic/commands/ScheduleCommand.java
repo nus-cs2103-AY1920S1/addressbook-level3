@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.display.sidepanel.SidePanelDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -36,22 +35,19 @@ public class ScheduleCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
 
         ArrayList<Person> persons = new ArrayList<>();
-
+        persons.add(model.getUser());
         for (Name name: names) {
             try {
                 persons.add(model.findPerson(name));
             } catch (PersonNotFoundException e) {
-                return new CommandResult(String.format(MESSAGE_FAILURE, name.toString()));
+                return new CommandResultBuilder(String.format(MESSAGE_FAILURE, name.toString())).build();
             }
         }
 
         // update main window
-        model.updateDisplayWithPersons(persons, LocalDateTime.now(), ScheduleWindowDisplayType.GROUP);
+        model.updateScheduleWithPersons(persons, LocalDateTime.now(), ScheduleState.GROUP);
 
-        // update side panel
-        model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
-
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResultBuilder(MESSAGE_SUCCESS).build();
     }
 
     @Override

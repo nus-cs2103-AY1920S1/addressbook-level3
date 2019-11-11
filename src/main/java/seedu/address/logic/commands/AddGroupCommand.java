@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.group.Group;
 import seedu.address.model.group.GroupDescriptor;
@@ -45,16 +45,15 @@ public class AddGroupCommand extends Command {
             Group group = model.addGroup(groupDescriptor);
 
             // updates main window
-            model.updateDisplayWithGroup(group.getGroupName(), LocalDateTime.now(),
-                    ScheduleWindowDisplayType.GROUP);
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
             // updates side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.GROUP);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, group.getGroupName().toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, group.getGroupName().toString())).build();
 
         } catch (DuplicateGroupException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_GROUP));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_GROUP)).build();
         }
 
     }

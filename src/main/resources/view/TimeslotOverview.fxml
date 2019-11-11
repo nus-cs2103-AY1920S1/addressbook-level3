@@ -7,13 +7,14 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml">
+          xmlns:fx="http://javafx.com/fxml"
+          alignment="CENTER">
 
 
     <VBox fx:id="timeslotOverviewContainer" GridPane.halignment="CENTER">
 
         <StackPane>
-            <Label fx:id="eventName" style="-fx-font-size: 20"/>
+            <Label fx:id="eventName" style="-fx-font-size: 18"/>
         </StackPane>
 
         <StackPane>

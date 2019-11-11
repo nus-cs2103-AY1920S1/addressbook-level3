@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
 import seedu.address.model.display.sidepanel.SidePanelDisplayType;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonDescriptor;
@@ -56,16 +56,15 @@ public class AddPersonCommand extends Command {
             Person addedPerson = model.addPerson(personDescriptor);
 
             // update main window
-            model.updateDisplayWithPerson(addedPerson.getName(), LocalDateTime.now(),
-                    ScheduleWindowDisplayType.PERSON);
+            model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
             // update side panel
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, addedPerson.getName().toString()));
+            return new CommandResultBuilder(String.format(MESSAGE_SUCCESS, addedPerson.getName().toString())).build();
 
         } catch (DuplicatePersonException e) {
-            return new CommandResult(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON));
+            return new CommandResultBuilder(String.format(MESSAGE_FAILURE, MESSAGE_DUPLICATE_PERSON)).build();
         }
 
     }

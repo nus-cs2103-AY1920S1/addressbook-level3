@@ -13,11 +13,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.display.schedulewindow.ScheduleWindowDisplayType;
-import seedu.address.model.group.exceptions.DuplicateGroupException;
-import seedu.address.model.mapping.exceptions.DuplicateMappingException;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.group.exceptions.GroupNotFoundException;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.grouputil.TypicalGroups;
 import seedu.address.testutil.modelutil.TypicalModel;
@@ -29,10 +27,10 @@ public class LookAtGroupMemberCommandTest {
     private static final Person DANIEL = TypicalPersons.DANIEL;
     private ModelManager model;
     @BeforeEach
-    void init() throws DuplicateMappingException, DuplicatePersonException, DuplicateGroupException {
+    void init() throws GroupNotFoundException {
         model = TypicalModel.generateTypicalModel();
-        model.updateDisplayWithGroup(TypicalGroups.GROUP_NAME3, LocalDateTime.now(),
-                ScheduleWindowDisplayType.GROUP);
+        model.updateScheduleWithGroup(TypicalGroups.GROUP_NAME3, LocalDateTime.now(),
+                ScheduleState.GROUP);
     }
 
     @Test
@@ -41,8 +39,7 @@ public class LookAtGroupMemberCommandTest {
         CommandResult commandResult = command.execute(model);
         String feedback = String.format(LookAtGroupMemberCommand.MESSAGE_SUCCESS,
                 ALICE.getName().fullName + " " + CARL.getName().fullName);
-        CommandResult expectedResult = new CommandResult(feedback, false, false,
-                false, false , false, false, false, true);
+        CommandResult expectedResult = new CommandResultBuilder(feedback).setFilter().build();
         assertEquals(expectedResult, commandResult);
     }
 
@@ -51,8 +48,7 @@ public class LookAtGroupMemberCommandTest {
         LookAtGroupMemberCommand command = new LookAtGroupMemberCommand(new ArrayList<>());
         CommandResult commandResult = command.execute(model);
         String feedback = String.format(LookAtGroupMemberCommand.MESSAGE_SUCCESS, "");
-        CommandResult expectedResult = new CommandResult(feedback, false, false,
-                false, false , false, false, false, true);
+        CommandResult expectedResult = new CommandResultBuilder(feedback).setFilter().build();
         assertEquals(expectedResult, commandResult);
     }
 
@@ -64,8 +60,7 @@ public class LookAtGroupMemberCommandTest {
         String feedback = String.format(LookAtGroupMemberCommand.MESSAGE_SUCCESS,
                 ALICE.getName().fullName + " " + CARL.getName().fullName);
         feedback += "\n" + String.format(LookAtGroupMemberCommand.MESSAGE_NOT_FOUND, BENSON.getName().fullName);
-        CommandResult expectedResult = new CommandResult(feedback, false, false,
-                false, false , false, false, false, true);
+        CommandResult expectedResult = new CommandResultBuilder(feedback).setFilter().build();
         assertEquals(expectedResult, commandResult);
     }
 

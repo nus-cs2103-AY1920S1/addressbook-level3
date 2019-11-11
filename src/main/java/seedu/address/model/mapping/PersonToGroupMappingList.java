@@ -146,18 +146,16 @@ public class PersonToGroupMappingList {
     }
 
     /**
-     * Converts to String.
-     *
-     * @return String
+     * Finds all the mappings of a group.
      */
-    public String toString() {
-        int i;
-        String output = "";
-        for (i = 0; i < mappings.size(); i++) {
-            output += mappings.get(i).toString();
-            output += "\n";
+    public ArrayList<PersonToGroupMapping> getMappingsOfGroup(GroupId groupId) {
+        ArrayList<PersonToGroupMapping> mappingList = new ArrayList<>();
+        for (PersonToGroupMapping map : mappings) {
+            if (map.getGroupId().equals(groupId)) {
+                mappingList.add(map);
+            }
         }
-        return output;
+        return mappingList;
     }
 
     /**
