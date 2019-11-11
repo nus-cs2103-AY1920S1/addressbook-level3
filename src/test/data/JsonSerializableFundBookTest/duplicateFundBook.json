@@ -1,7 +1,9 @@
 {
   "currentRepeaterUniqueId": "0",
+  "currentLoanId": "0",
   "transactions" : [ ],
   "repeaters" : [ ],
+  "loans" : [ ],
   "budgets" : [ {
     "description" : "Overall budget",
     "amount" : "1337",

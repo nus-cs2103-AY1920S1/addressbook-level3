@@ -1,5 +1,6 @@
 {
   "currentRepeaterUniqueId" : "0",
+  "currentLoanId" : "0",
   "transactions" : [ {
     "description" : "Allowance from Daddy",
     "amount" : "500",
@@ -24,5 +25,6 @@
     "repeaterUniqueId" : ""
   } ],
   "repeaters" : [],
+  "loans" : [],
   "budgets" : []
 }
