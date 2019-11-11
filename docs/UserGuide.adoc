@@ -51,15 +51,28 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 SplitWiser data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually - you don't have to worry about forgetting to save!
 
-=== Persistent app state (v2.0 only)
-
-SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
-
 === Simplify debts automatically
 
 SplitWiser has a fast and effective algorithm to simplify all debts that you add.
 It handles huge groups (hundreds!) and all their expenses with ease!
 No need receipt-collecting and number-crunching anymore -- SplitWiser does it all, and more!
+
+=== Persistent app state (*v2.0 only*)
+
+SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
+
+// tag::limitations[]
+== Limitations
+
+=== Application window size
+
+For improved compatibility across different operating systems, the application window size is locked and not resizable by the user.
+
+=== Floating-point rounding
+
+Amounts smaller than $0.01 are not displayed to full precision. Instead, SplitWiser indicates that the amount is <$0.01.
+
+// end::limitations[]
 
 [[Commands]]
 == Commands
@@ -73,6 +86,7 @@ No need receipt-collecting and number-crunching anymore -- SplitWiser does it al
 * Parameters may be supplied in any order unless specified otherwise, e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+// tag::guicommands[]
 === Viewing help : `help`
 Brings up the help dialog. +
 
@@ -81,6 +95,10 @@ Format: `help`
 === List all contacts or activities : `list`
 
 Switches the current view to list either all contacts or activities. +
+
+The following screenshot displays the appearance of the list of contacts and activities respectively.
+
+image::../images/ListComparison.png[width="600"]
 
 ****
 * Argument values supplied with parameters are ignored for this command.
@@ -92,6 +110,10 @@ Format: `list c/` for contacts *OR* `list a/` for activities
 
 Switches the current view to show details of a contact or activity based on their display index in the current/last viewed list. +
 
+The following screenshot displays the details panel for a contact and activity respectively.
+
+image::../images/ViewComparison.png[width="600"]
+
 Format: `view a/ACTIVITY_ID` *OR* `view c/CONTACT_ID` +
 
 Examples:
@@ -100,6 +122,7 @@ Examples:
 Views the details of the first activity, if the activity list was last displaying one or more activities
 * `view c/2` +
 Views the details of the second contact, if the contact list was last displaying at least two contacts
+// end::guicommands[]
 
 === Create new contact: `contact`
 
@@ -425,9 +448,10 @@ Format: `varexpense p/PERSON e/AMOUNT [d/DESCRIPTION] [(p/PERSON e/AMOUNT) ...]`
 ****
 //end::varexpense[]
 
+// tag::futurecommands[]
 === Assign an activity as a sub-activity: `assign` (*v2.0 only*)
 
-Assigns an activity as a sub-activity of the currently viewed activity. If no activity is currently being viewed, or an invalid activity ID is provided, no change is made.
+Assigns a specified activity by display index as a sub-activity of the currently viewed activity. If no activity is currently being viewed, or the specified index does not correspond to an activity in the list of activities, no change is made.
 
 Multiple activities can be assigned at once.
 
@@ -436,7 +460,8 @@ Format: `assign a/ACTIVITY_ID ...`
 Examples:
 
 * `assign 3 5`
-If viewing an activity with title 'Family trip', assigns the activities with IDs 3 and 5 as sub-activities of 'Family trip'. Otherwise does nothing.
+If viewing an activity with title 'Family trip', assigns the activities with display indices 3 and 5 as sub-activities of 'Family trip', if the list of activities contain at least five activities.
+// end::futurecommands[]
 
 === Exiting the program : `exit`
 

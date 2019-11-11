@@ -71,6 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -79,14 +80,24 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` class that comprises parts from two categories:
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+* _Common parts_ that are displayed regardless of the current application context, e.g. `CommandBox`, `ResultDisplay`,`StatusBarFooter` etc.
+* _Contextual parts_ that are only displayed in the respective application context, e.g. `ActivityListPanel`, `PersonDetailsPanel`.
+
+All of these UI classes, including `MainWindow` itself, inherit from the abstract `UiPart` class. The _common_ UI classes are shown above `MainWindow` in the above class diagram, whereas the _contextual_ UI classes are shown below `MainWindow`.
+
+All UI classes are built upon the JavaFX GUI framework. The structure of each UI part `X` is defined in a matching `X.fxml` file in the folder `src/main/resources/view`. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`].
+
+To create a visually cohesive and pleasant GUI, custom CSS styling rules were also employed to style each UI part individually. These stylesheets may be found as `.css` files in the folder `src/main/resources/view``.
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for some changes to `Model` data so that relevant UI parts may be re-rendered with the modified data.
+* Parses the returned `CommandResult` to perform appropriate additional actions, such as exiting the application or switching the contextual part being displayed.
+** The behaviour of the `MainWindow` part is further detailed in <<GUI commands: List and View features>>.
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -414,32 +425,83 @@ Updating of the balance sheet and matrices by the expense command is performed i
 ** *Cons*: Seems overkill and needlessly over-engineered.
 // end::algorithm[]
 
-=== List feature
+// tag::guicommands[]
+=== GUI commands: List and View features
 
-The List mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
+==== Introduction
+To reduce the amount of typing required of the user, it was decided that the app would support _contextual commands_ that operate differently based on the data the user was currently viewing.
 
-`Context` is an immutable utility class that describes the nature of the current view of the app. It stores state information about the `ContextType` as well as an optional `Object` of interest. A `Context` may be instantiated either by
+The List and View commands (collectively, _GUI commands_) were thus introduced to enable the user to switch between different views (panels) of the app, of which there are four:
 
-* one of the factory methods `newListActivityContext` or `newListContactContext`
-* invoking the constructor with either an `Activity` or `Contact` of interest
+* Contact list (`PersonListPanel`) - displays brief information (e.g. name, mobile number) of every tracked contact
+* Activity list (`ActivityListPanel`) - displays brief information (e.g. title) of every tracked activity
+* Contact details (`PersonDetailsPanel`) - displays full details of a specific contact, including that contact's activity history
+* Activity details (`ActivityDetailsPanel`) - displays full details of a specific activity, including all expenses, settlements and required transfers
 
-The `Context` class exposes relevant getter methods `Context#getType`, `Context#getActivity` and `Context#getContact`, and thus supports contextual behaviour of other commands.
+These mechanism of GUI commands is facilitated by a combination of three classes, `MainWindow`, `Model` and `Context`.
 
-During execution, the List command creates the intended `Context` and updates the `Model` with it, along with the appropriate `FilteredList`. As `MainWindow` tracks both `FilteredList`, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes.
+==== Context class
 
-The updated `ContextType` of the `Model` is then returned to the `MainWindow` UI controller via the `CommandResult`, where it is used to switch the content displayed.
+`Context` is an immutable utility class introduced to describe the nature of the current view of the app. It stores state information about the current `ContextType` and an optional `Object` of interest, and is essential for the UI, Model and Logic components to maintain a consistent
+
+A `Context` may be instantiated in one of three ways:
+
+* invoking the factory method `newListContactContext` or `newListContactContext`, which creates a new `Context` of type `LIST_ACTIVITY` or `LIST_CONTACT` respectively
+* invoking the constructor with an `Activity`, which creates a new `Context` of type `VIEW_ACTIVITY` with that activity
+* invoking the constructor with a `Person`, which creates a new `Context` of type `VIEW_CONTACT` with that contact
+
+.Class diagram of `Context` class and `ContextType` enum
+image::ContextClassDiagram.png[width="400"]
+
+The `Context` class exposes relevant getter methods `Context#getType`, `Context#getActivity` and `Context#getContact`. This enables contextual commands and the UI to retrieve the `Activity` or `Person` of interest, thus supporting contextual behaviour of the UI and other commands.
+
+During the execution of any command that changes the active view of the app, a new `Context` is created, with the relevant `Activity` or `Person`, if any. The command then updates the `Model` with the method `Model#setContext`.
+
+The updated `Context` of the `Model` is then wrapped as part of the `CommandResult` and returned to the `MainWindow`, which prompts the UI to perform additional actions.
+
+==== UI context switching
+
+After executing a command successfully, the `MainWindow` receives a `CommandResult`, which it uses to determine if any additional actions need to be performed.
+
+If the `CommandResult` contains a `Context`, then `MainWindow` switches the currently displayed panel out for the appropriate panel specified by the `ContextType`. The following activity diagram encapsulates the additional actions that may be performed as a result of `MainWindow` parsing the `CommandResult`.
+
+.Activity diagram for UI after successful command execution
+image::ContextSwitchActivityDiagram.png[]
+
+==== List feature
+
+During execution, the List command creates the specified `Context` (either of type `LIST_ACTIVITY` or `LIST_CONTACT`). It then updates the `Model` with the new `Context`, alongside the `FilteredList` of `Activity` or `Person` respectively.
+
+As `MainWindow` observes both `FilteredList`, JavaFX will automatically re-render the contained card entries when the respective list undergoes structural changes. The updated `Context` is then returned to `MainWindow` via the `CommandResult`, where it switches to displaying the specified list.
 
 Given below is an example usage scenario of a user intending to view the list of activities.
 
-Step 1. The user launches the `SplitWiser` application for the first time, which defaults to displaying the list of contacts.
+Step 1. The user launches *SplitWiser* for the first time, which defaults to displaying the list of contacts.
 
-Step 2. The user executes the command string `list a/` to prompt the app to display the full list of activities.
+Step 2. The user executes `list a/` to prompt the app to display the full list of activities.
 
-The following sequence diagram demonstrates the role of the respective components.
+The following sequence diagram demonstrates the role of the Logic and Model components in the execution of GUI commands. The role of the UI component is detailed in <<UI context switching>>.
 
+.Sequence diagram for listing all activities
 image::ListSequenceDiagram.png[]
 
-==== Design Considerations
+NOTE: The lifeline for `ListCommand` and `ListCommandParser` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of the diagram.
+
+==== View feature
+
+The View feature is intended to be used in tandem with the List feature, and displays the full details of the entry at a specified display index of the specified list. Note however, this takes into account the filter applied on the specified list, e.g. from the Find feature.
+
+During execution of the View command, a new `Context` is created, along with the `Person` or `Activity` to be viewed, obtained from the `Model`. The rest of the execution follows that of the List command.
+
+Given below is an example usage scenario of a user intending to view the second activity.
+
+Step 1. The user launches *SplitWiser* for the first time, which defaults to displaying the list of contacts.
+
+Step 2. The user executes `list a/` to prompt the app to display the full list of activities.
+
+Step 3. The user executes `view a/2` to view the full details of the second activity, which succeeds if the list contains two or more activities.
+
+==== Design considerations
 
 ===== Aspect: representing the current context state
 
@@ -450,7 +512,7 @@ image::ListSequenceDiagram.png[]
 * **Alternative 2:** Storing the `Context` state in a designated central component, e.g. the `ModelManager`, and exposing relevant methods to other components.
 ** Pros: Trivial to implement.
 ** Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.
-
+// end::guicommands[]
 
 // tag::findfeature[]
 === Find feature
@@ -592,95 +654,6 @@ NOTE: The activity diagram for deletion of expense and contact are omitted as th
 ** *Pros*: Easy to implement.
 ** *Cons*: Have to keep retyping the field for deletion which is inconvenient.
 // end::delete[]
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 

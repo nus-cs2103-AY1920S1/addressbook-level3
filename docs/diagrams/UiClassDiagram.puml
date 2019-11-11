@@ -3,18 +3,32 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
+skinparam ArrowFontSize 18
 
 package UI <<Rectangle>>{
 Interface Ui <<Interface>>
-Class "{abstract}\nUiPart" as UiPart
+Class "{abstract}\nUiPart" as UiPartTop
+Class "{abstract}\nUiPart" as UiPartBottom
 Class UiManager
 Class MainWindow
+Class CommandBox
 Class HelpWindow
 Class ResultDisplay
+Class StatusBarFooter
 Class PersonListPanel
 Class PersonCard
-Class StatusBarFooter
-Class CommandBox
+Class ActivityListPanel
+Class ActivityCard
+Class PersonDetailsPanel
+Class ActivityHistoryCard
+Class ActivityDetailsPanel
+Class ExpenseCard
+Class TransferCard
+
+Package Util {
+Class UiUtil
+}
+
 }
 
 package Model <<Rectangle>> {
@@ -26,35 +40,71 @@ Class HiddenLogic #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
+Class HiddenBottom #FFFFFF
 HiddenOutside ..> Ui
 
-UiManager .left.|> Ui
+note top of UiPartTop
+The same abstract UiPart class is shown in
+two separate instances in this diagram for
+better organisation and reduced clutter.
+end note
+
+UiManager .up.|> Ui
 UiManager -down-> MainWindow
-MainWindow --> HelpWindow
-MainWindow *-down-> CommandBox
-MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
-MainWindow *-down-> StatusBarFooter
 
-PersonListPanel -down-> PersonCard
-
-MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow -down-|> UiPart
-
-PersonCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+MainWindow *-up-> "1" CommandBox
+MainWindow *-left-> "          1" HelpWindow
+MainWindow *-up-> "1" ResultDisplay
+MainWindow *-up-> "1" StatusBarFooter
 
-MainWindow -[hidden]-|> UiPart
+MainWindow -up-> UiPartTop
+CommandBox -up-> UiPartTop
+HelpWindow -up-> UiPartTop
+ResultDisplay -up-> UiPartTop
+StatusBarFooter -up-> UiPartTop
+
+MainWindow *-down-> "1" PersonListPanel
+MainWindow *-down-> "1" ActivityListPanel
+MainWindow *-down-> "0..1" PersonDetailsPanel
+MainWindow *-down-> "0..1" ActivityDetailsPanel
+
+ActivityListPanel o-down-> "*" ActivityCard
+' ActivityCard .down.> Model
+ActivityCard .down.> UiUtil
+
+PersonListPanel o-down-> "*" PersonCard
+
+PersonDetailsPanel o-down-> "*" ActivityHistoryCard
+ActivityHistoryCard .down.> UiUtil
+
+ActivityDetailsPanel o-down-> "*" TransferCard
+ActivityDetailsPanel o-down-> "*" ExpenseCard
+ExpenseCard ..> UiUtil
+TransferCard ..> UiUtil
+
+PersonListPanel -down-> UiPartBottom
+ActivityDetailsPanel -down-> UiPartBottom
+PersonDetailsPanel -down-> UiPartBottom
+ActivityListPanel -down-> UiPartBottom
+PersonCard -down-> UiPartBottom
+TransferCard -down-> UiPartBottom
+ExpenseCard -right-> UiPartBottom
+ActivityCard -right-> UiPartBottom
+ActivityHistoryCard -left-> UiPartBottom
+
+UiUtil -[hidden]down-> HiddenBottom
+UiUtil -[hidden]down-> Model
+
+PersonCard .down.> Model
+ActivityHistoryCard .right..> Model
+ExpenseCard .right..> Model
+TransferCard .down.> Model
+
+UiPartBottom -[hidden]left- Model
+StatusBarFooter -[hidden]left- HelpWindow
+ActivityHistoryCard -[hidden]down- HiddenBottom
+HiddenBottom -[hidden]right-> Model
 @enduml
