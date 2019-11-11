@@ -12,6 +12,7 @@ import budgetbuddy.commons.core.index.Index;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.UniqueAccountList;
 import budgetbuddy.model.account.exceptions.AccountNotFoundException;
+import budgetbuddy.model.account.exceptions.DuplicateAccountException;
 import budgetbuddy.model.account.exceptions.EmptyAccountListException;
 import budgetbuddy.model.attributes.Description;
 import budgetbuddy.model.attributes.Direction;
@@ -42,15 +43,20 @@ public class AccountsManager {
      * Creates a new list of accounts, with a default account set as the active account.
      */
     public AccountsManager() {
-        this.accounts = new UniqueAccountList();
-        filteredAccounts = new FilteredList<>(this.getAccounts());
         // TODO add proper default data
-        addAccount(new Account(new Name("Default"), new Description("Default"), new TransactionList()));
-        setActiveAccountByIndex(DEFAULT_INDEX);
+        Account defaultAccount = new Account(new Name("Default"), new Description("Default"), new TransactionList());
+        accounts = new UniqueAccountList();
+        accounts.add(defaultAccount);
+
         activeTransactionList = new TransactionList();
-        activeTransactionList.setAll(getActiveAccount().getTransactionList());
+        activeTransactionList.setAll(defaultAccount.getTransactionList());
+
         sortedTransactions = new SortedList<>(activeTransactionList.asUnmodifiableObservableList());
         filteredTransactions = new FilteredList<>(sortedTransactions);
+
+        filteredAccounts = new FilteredList<>(getAccounts());
+
+        setActiveAccountByIndex(DEFAULT_INDEX);
     }
 
     /**
@@ -60,11 +66,20 @@ public class AccountsManager {
      */
     public AccountsManager(List<Account> accounts, Index activeAccountIndex) {
         requireNonNull(accounts);
-        this.accounts = new UniqueAccountList(accounts);
+
+        UniqueAccountList uniqueAccounts;
+        try {
+            uniqueAccounts = new UniqueAccountList(accounts);
+        } catch (DuplicateAccountException e) {
+            uniqueAccounts = new UniqueAccountList();
+        }
+        this.accounts = uniqueAccounts;
+
         filteredAccounts = new FilteredList<>(this.getAccounts());
         activeTransactionList = new TransactionList();
         sortedTransactions = new SortedList<>(activeTransactionList.asUnmodifiableObservableList());
         filteredTransactions = new FilteredList<>(sortedTransactions);
+
         try {
             setActiveAccountByIndex(activeAccountIndex);
         } catch (IndexOutOfBoundsException e) {
@@ -333,7 +348,6 @@ public class AccountsManager {
         if (!filteredAccounts.contains(account)) {
             resetFilteredAccountList();
         }
-        Index newActiveIndex = accounts.indexOfEquivalent(account);
         if (activeTransactionList != null) {
             activeTransactionList.setAll(account.getTransactionList());
         }
