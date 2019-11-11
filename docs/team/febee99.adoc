@@ -64,16 +64,14 @@ allowing the user to add items and have them arranged in an organised fashion.
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=febee99&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[Reposense]]
 //[https://github.com[Functional code]] [https://github.com[Test code]]
 * *Other contributions*:
-** Team tasks:
-*** Refactor Person to Item (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/3[#3])
-*** Set up and maintain the issue tracker, assign issues to team members for each milestone, integrate the team repository with Github's project board
+*** Team task: Refactor Person to Item (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/3[#3])
+*** Team task: Set up and maintain the issue tracker, assign issues to team members for each milestone, integrate the team repository with Github's project board
 
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** *Enhancements to existing features:*
 
-*** Add functionality to view different lists, edit FXML files (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
+*** Add functionality to view different lists, edit FXML files, allow storage of both lists in a single json object (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
 *** Create new parser and integrate existing commands with the replenish list(Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/198[#198])
-*** Allow storage of both lists in a single json object (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
 *** Suggest closely related words when command executed displays no results (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/92[#92], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/121[#121])
 *** Wrote Sort Command, and relevant tests for its dependencies (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/7[#7], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/16[#16], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/82[#82])
 *** Render commands stackable (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/71[#71])
