@@ -193,6 +193,21 @@ public class Statistics {
     }
 
     /**
+     * Returns true if both statistics have the same data.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof Statistics)) {
+            return false;
+        }
+        Statistics otherStatistics = (Statistics) other;
+        return otherStatistics.data.equals(data);
+    }
+
+    /**
      * Represents a student data entry and their respective scores.
      */
     private class StudentStat {

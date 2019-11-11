@@ -1039,7 +1039,7 @@ See <<Feature-Statistics, statistics print feature>>
 
 [NOTE]
 The screenshot will be saved based on the current settings of your event schedule.
-For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23.
+For example if you are viewing 2019-11-23 on a weekly mode, the filename will be saved as WEEKLY_2019-11-23. NJoy will also overwrite any screenshots from the past with the same event name, to ensure that the screenshot in the printable directory is the most updated.
 
 
 * Example: `event screenshot` +
@@ -1162,7 +1162,7 @@ Creates a high priority note with title _'Tuesday 1pm'_ and description _'Scienc
 
 ==== Editing a note
 
-Edit a note currently stored. All fields are *optional* but at least one field has to be provided for editing. +
+Edit a note currently stored. All fields are *optional* but at least one field has to be provided for editing. The new note should not be the same as the original one and should have a unique note title. +
 Format: `note [INDEX] note/... desc/... priority/...`
 
 [NOTE]
@@ -1297,9 +1297,9 @@ The general rule for the file format is to ensure all entries in the file are as
 The statistics report generated uses weighted average scores across the different subjects to perform analysis. All scores carry equal weight. The statistics generated
 allow you to see some of the common descriptive statistics and their relative distributions both in terms of frequency and percentile terms.
 
-The figure below illustrates a sample data set that fulfills all of the above specifications.
+The screenshot below illustrates a sample data set that fulfills all of the above specifications.
 
-.Excel format
+.Screenshot of Valid Excel format
 image::ExcelFormat.png[]
 
 === Help ​-​ `help`

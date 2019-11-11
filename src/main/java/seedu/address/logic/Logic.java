@@ -10,10 +10,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.note.Note;
-import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
@@ -33,26 +31,6 @@ public interface Logic {
      * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, IOException;
-
-    //region AddressBook
-
-    /**
-     * Returns the AddressBook.
-     *
-     * @see seedu.address.model.Model#getAddressBook()
-     */
-    ReadOnlyAddressBook getAddressBook();
-
-    /**
-     * Returns an unmodifiable view of the filtered list of persons
-     */
-    ObservableList<Person> getFilteredPersonList();
-
-    /**
-     * Returns the user prefs' address book file path.
-     */
-    Path getAddressBookFilePath();
-    //endregion
 
     //region Questions
     /**

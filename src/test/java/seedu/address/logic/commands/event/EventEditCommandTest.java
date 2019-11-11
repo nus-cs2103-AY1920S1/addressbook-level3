@@ -27,6 +27,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+/**
+ * Tests for event edit command.
+ * Contains integration testing due to interactions between model manager and EditCommand.
+ */
 public class EventEditCommandTest {
 
     private static final String EDITED_EVENT_NAME = "Edited event name";
@@ -77,7 +81,7 @@ public class EventEditCommandTest {
 
         Model expectedModel = new ModelManager();
         expectedModel.setEventRecord(getTypicalEventsRecord());
-        expectedModel.setVEvent(INDEX_ONE, editedVEvent);
+        expectedModel.setVEvent(indexLastVEvent, editedVEvent);
 
         assertCommandSuccess(editCommand, model, new CommandResult(expectedMessage, CommandResultType.SHOW_SCHEDULE),
                 expectedModel);
@@ -108,7 +112,6 @@ public class EventEditCommandTest {
         EventEditCommand editCommand = new EventEditCommand(outOfBoundIndex, descriptor);
         assertThrows(CommandException.class, () -> editCommand.execute(model), MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
     }
-
 
     @Test
     public void equals() {

@@ -1,5 +1,6 @@
 package seedu.address.storage.printable;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_SCREENSHOT_SCHEDULE_FILE_ERROR;
 import static seedu.address.commons.util.FileUtil.isValidFileName;
 
@@ -21,6 +22,8 @@ public class SchedulePrintable implements NjoyPrintable {
     private final String fileName;
 
     public SchedulePrintable(WritableImage image, String fileName) {
+        requireNonNull(image);
+        requireNonNull(fileName);
         this.image = image;
         this.fileName = fileName;
     }

@@ -17,10 +17,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.NjoyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.note.Note;
-import seedu.address.model.person.Person;
 import seedu.address.model.question.Question;
 import seedu.address.model.statistics.Statistics;
 import seedu.address.model.student.Student;
@@ -54,7 +52,6 @@ public class LogicManager implements Logic {
         commandResult = command.execute(model);
 
         try {
-            storage.saveAddressBook(model.getAddressBook());
             storage.saveStudentRecord(model.getStudentRecord());
             storage.saveQuestions(model.getSavedQuestions());
             storage.saveEvents(model.getEventRecord());
@@ -76,24 +73,10 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }
-
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
-    }
-
-    @Override
     public ObservableList<Student> getFilteredStudentList() {
         return model.getFilteredStudentList();
     }
 
-    @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }
 
     @Override
     public ObservableList<Question> getSlideshowQuestions() {

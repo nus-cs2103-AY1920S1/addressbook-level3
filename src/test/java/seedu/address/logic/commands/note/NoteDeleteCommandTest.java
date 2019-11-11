@@ -1,10 +1,10 @@
 package seedu.address.logic.commands.note;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_ONE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_TWO;
 import static seedu.address.testutil.note.TypicalNotes.getTypicalNotesRecord;
@@ -30,16 +30,15 @@ public class NoteDeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndex_success() {
+    public void execute_validIndex_success() throws Exception {
         Note noteToDelete = model.getFilteredNotesList().get(INDEX_ONE.getZeroBased());
         NoteDeleteCommand deleteCommand = new NoteDeleteCommand(INDEX_ONE);
 
         String expectedMessage = String.format(NoteDeleteCommand.MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete);
 
-        ModelManager expectedModel = new ModelManager();
-        expectedModel.setNotesRecord(getTypicalNotesRecord());
+        CommandResult commandResult = deleteCommand.execute(model);
 
-        assertCommandSuccess(deleteCommand, model, new CommandResult(expectedMessage), expectedModel);
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
     }
 
     @Test

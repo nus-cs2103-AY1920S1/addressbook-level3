@@ -15,10 +15,8 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.EventRecord;
@@ -36,8 +34,6 @@ import seedu.address.model.student.StudentRecord;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.model.util.SampleNotesUtil;
 import seedu.address.model.util.SampleStatisticUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -81,8 +77,6 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(
-            userPrefs.getAddressBookFilePath());
         StudentRecordStorage studentRecordStorage =
             new JsonStudentRecordStorage(userPrefs.getStudentRecordFilePath());
         QuestionStorage savedQuestionStorage =
@@ -92,7 +86,7 @@ public class MainApp extends Application {
         QuizStorage savedQuizStorage =
                 new JsonQuizStorage(userPrefs.getSavedQuizzesFilePath());
         NotesRecordStorage notesRecordStorage = new JsonNotesRecordStorage(userPrefs.getNotesRecordFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage, studentRecordStorage,
+        storage = new StorageManager(userPrefsStorage, studentRecordStorage,
             savedQuestionStorage, savedQuizStorage, notesRecordStorage, eventStorage);
 
         initLogging(config);
@@ -111,14 +105,12 @@ public class MainApp extends Application {
      * occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
         Optional<ReadOnlyStudentRecord> studentRecordOptional;
         Optional<ReadOnlyQuestions> questionsOptional;
         Optional<ReadOnlyEvents> eventsOptional;
         Optional<ReadOnlyQuizzes> quizzesOptional;
         Optional<ReadOnlyNotesRecord> notesRecordOptional;
 
-        ReadOnlyAddressBook initialAddressBook;
         ReadOnlyStudentRecord initialStudentRecord;
         ReadOnlyQuestions initialQuestions;
         ReadOnlyEvents initialEvents;
@@ -127,16 +119,12 @@ public class MainApp extends Application {
         ReadOnlyStatisticsRecord initialStatisticsRecord;
 
         try {
-            addressBookOptional = storage.readAddressBook();
             studentRecordOptional = storage.readStudentRecord();
             questionsOptional = storage.readQuestions();
             eventsOptional = storage.readEvents();
             quizzesOptional = storage.readQuizzes();
             notesRecordOptional = storage.readNotesRecord();
 
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
-            }
             if (!studentRecordOptional.isPresent()) {
                 logger.info("Student file not found. Will be starting with a student record with a sample student.");
             }
@@ -152,8 +140,6 @@ public class MainApp extends Application {
             if (!notesRecordOptional.isPresent()) {
                 logger.info("Notes Record not found. Will start with sample NotesRecord");
             }
-            initialAddressBook = addressBookOptional
-                .orElseGet(SampleDataUtil::getSampleAddressBook);
             initialStudentRecord = studentRecordOptional.orElseGet(SampleDataUtil::getSampleStudents);
             initialQuestions = questionsOptional.orElseGet(SampleDataUtil::getSampleQuestionList);
             initialEvents = eventsOptional.orElseGet(SampleDataUtil::getSampleEventsList);
@@ -164,8 +150,7 @@ public class MainApp extends Application {
 
         } catch (DataConversionException e) {
             logger.warning(
-                "Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialAddressBook = new AddressBook();
+                "Data file not in the correct format. Will be starting with an empty NJoy assistant");
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
             initialEvents = new EventRecord();
@@ -175,8 +160,7 @@ public class MainApp extends Application {
 
         } catch (IOException e) {
             logger.warning(
-                "Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialAddressBook = new AddressBook();
+                "Problem while reading from the file. Will be starting with an empty  NJoy assistant");
             initialStudentRecord = new StudentRecord();
             initialQuestions = new SavedQuestions();
             initialEvents = new EventRecord();
@@ -185,7 +169,7 @@ public class MainApp extends Application {
             initialStatisticsRecord = new StatisticsRecord();
         }
 
-        return new ModelManager(initialAddressBook, initialStudentRecord, initialQuestions, initialQuizzes,
+        return new ModelManager(initialStudentRecord, initialQuestions, initialQuizzes,
                 initialNotesRecord, initialEvents, initialStatisticsRecord, userPrefs);
     }
 
