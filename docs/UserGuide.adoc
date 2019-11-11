@@ -120,11 +120,11 @@ image::tip.png[width = "20", float = "left"]
 * You can toggle the eye icon to see your password. Be wary of surveillance by secret agents or people standing behind you
 ====
 
-This reminder will be shown 30 days before your password expires.
+You will see this reminder 30 days before your password expires.
 
 image::PasswordExpiring.png[width="300"]
 
-This reminder will be shown if you have *not* changed your password for over a year.
+You will see this reminder if you have *not* changed your password for over a year.
 
 image::PasswordExpired.png[width="300"]
 

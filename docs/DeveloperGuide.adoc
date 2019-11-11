@@ -144,7 +144,88 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
+=== Password Management
+==== Model
+The `Password` model is created to support the password management feature of our application.
+It stores the information of all the passwords created by the user. The class diagram of the `Password` model is as follows:
+
+image::PasswordClassDiagram.png[]
+
+The `Password` model consists of a `Password` class which has its attributes implemented as
+separate classes to follow *Single Responsibility Principle*. The attributes are as follows:
+
+`Username`: The username of the password model
+
+`PasswordValue`: The actual password value of the password model
+
+`PasswordDescription`: The description of the password model.
+
+`Website`: The website where the password is being used for.
+
+`PasswordModifiedAt`: The local date when the password is last modified.
+
+`PasswordExpiredAt`: The local date 1 year after the password is last modified.
+
+`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close local time is when compared to the expiry date of the password.
+
+The `Password` are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
+add the functionality managing passwords into the application. Minimal functionality are added to adhere to the *YAGNI* principle.
+
+==== Design Considerations:
+===== Aspect: Model Manager for Password.
+This would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
+
+* **Alternative 1 (current choice):** The current model manager is extended to handle the filtered lists of all the models.
+** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating.
+** Cons: It might increase coupling in the model manager.
+
+* **Alternative 2:** Create another `Model` interface and another `Model Manager` class.
+** Pros: Easy to implement.
+** Cons: Does not adhere to *DRY* design principle, where additional `Model Manager` class are created.
+
+==== Logic
+In this feature, you are able to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `Parser` and `Command`
+classes are included to enhance the functionality. The class diagram for all `Command` classes available for `Password` model is as follows:
+
+image::CopyCommand.png[]
+
+
+===== Aspect: Logic Manager for Password model.
+This would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
+
+* **Alternative 1 (current choice):** The current logic manager is extended to handle the model parsers. The logic manager
+checks for the current mode of the system and decides which model parser class to use.
+** Pros: This adheres to the Open-closed principle in SOLID. Same command words can be used in different modes and it does not increase coupling in the application.
+** Cons: Hard to implement. Requires another command to switch modes. Similar command classes will need to be implemented in different model such as `AddPasswordCommand`, `AddNoteCommand`, `AddCardCommand`.
+However, all the fields in the command classes are different and separating them into different classes reduces coupling.
+* **Alternative 2:** Extending one parser class to handle all the different commands. Different command will have different `add` command words.
+
+** Pros: Easy to implement.
+** Cons: User will have to remember different command words for the same `add` command for different modes. This will decrease the usability of the application.
+
+==== Copy Command:
+===== Current Implementation:
+`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class.
+
+These three classes are implemented together with `CopyCommandParser` class to create the functionality of copying the required details onto clipboard using CLI.
+Since this is a command that would be used frequently, command alias are added to increase the efficiency for the user.
+The activity diagram below describes the flow of the `CopyPasswordCommand`:
+
+Some diagram.
+
+The following sequence diagram describes the detailed interactions between any `CopyPasswordCommand` and the architecture:
+
+==== Design Considerations:
+===== Aspect: Implementation of `CopyPasswordCommand`
+* **Alternative 1 (current choice):** The `CopyPasswordCommand` class extends `Command` class. `CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extend `CopyPasswordCommand`.
+** Pros: This follows closely to *Polymorphism* and *Inheritance* concepts as all three commands share the similar functionality.
+The common functionality is abstracted out and placed inside the `CopyPasswordCommand`.
+** Cons: Any further enhancement of the child commands will have to follow `Liskov Substitution Principle` and it needs to be more restrictive than the parent command.
+
+* **Alternative 2:** `CopyPasswordValueCommand`, `CopyWebsiteCommand` , `CopyUsernameCommand` will extend `Command` class.
+** Pros: Easy to implement. `PasswordBookParser` can directly check for the command word instead of splitting into 2 command words.
+** Cons: Violates *DRY* design principle.
+
 === Analyse Password
 The following class diagram is the current structure of the `Analyser` component, using `DictionaryAnalyser` as an example:
 
