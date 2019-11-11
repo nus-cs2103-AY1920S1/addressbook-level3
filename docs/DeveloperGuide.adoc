@@ -498,8 +498,12 @@ Use case ends.
 
 ==== Extensions
 
-. 1a. user does not indicate any parameters.
-  . 1a1. GuiltTrip requests for correct parameters.
+. 1a. User does not indicate any parameters.
+.. 1a1. GuiltTrip requests for correct parameters.
+. 1b. LowerBound above UpperBound.
+.. 1b1. GuiltTrip requests for suitable bound values.
+. 1b. End before Start.
+.. 1b1. GuiltTrip requests for suitabledate.
 
 === Use Case 10: Set EntryReminder
 
@@ -514,8 +518,10 @@ Use case ends.
 
 . 1a. Entry Date before Current Date.
   . 1a1. GuiltTrip notifies user that reminder can only be created for events after today.
-. 1b. Ineterval between notificaitons larger than period.
+. 1b. Interval between notificaitons larger than period.
   . 1b1. GuiltTrip notifies user that frequency must be smaller than period.
+ . 1c. Index out of bounds.
+  . 1b1. GuiltTrip requests for suitable index.
   
  === Use Case 11: Edit Reminder
 
@@ -532,10 +538,10 @@ Use case ends.
 
 . 1a. index out of bounds.
   . 1a1. GuiltTrip requests for suitable index.
-. 1b. User tries to set frequency/ period for a General Reminder
-  . 1b1. GuiltTrip notifies user that reminder can only be created for events after today.
-. 1c. Ineterval between notificaitons larger than period.
-  . 1c1. GuiltTrip notifies user that frequency must be smaller than period.
+. 3a. User tries to set frequency/ period for a General Reminder
+  . 3a1. GuiltTrip notifies user that reminder can only be created for events after today.
+. 3b. Ineterval between notificaitons larger than period.
+  . 3b1. GuiltTrip notifies user that frequency must be smaller than period.
 
 [appendix]
 == Non Functional Requirements
