@@ -288,7 +288,7 @@ Given below is a Class Diagram showing the structure of `Parser` within the `Log
 image::CashierInventoryParser3.png[width="350"]
 
 The XYZTabParser represents the InventoryTabParser for the Inventory tab and CashierTabParser for the Cashier tab.
-As seen above, the XYZTabParser which is the package tab parser creates individual parser, ABCParser.
+As seen above, the XYZTabParser which is the package tab parser, creates individual parser, ABCParser.
 
 {End of First Extract from Developer Guide}
 
