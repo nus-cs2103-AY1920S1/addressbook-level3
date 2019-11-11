@@ -111,17 +111,19 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
   in $/120 d/31122019 n/work
 
-. Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.
-. The income has not utilized the optional `CATEGORY` field.
-. Initial balance (red box in Figure 1) has a value of $0.
-
+. Logging income
+* Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.
+* The income has not utilized the optional `CATEGORY` field.
+* Initial balance (red box in Figure 1) has a value of $0.
++
 .Income Logging Example 1
 image::in_ug_1.png[]
-
-. The income is added to the empty *Transactions* tab.
-. The added income is given a `GENERAL` category.
-. Balance has increased from $0 to $120 (red box in Figure 2).
-
++
+. Income added
+* The income is added to the empty *Transactions* tab.
+* The added income is given a `GENERAL` category.
+* Balance has increased from $0 to $120 (red box in Figure 2).
++
 .Sample Income 1 Added
 image::in_ug_2.png[]
 
@@ -129,17 +131,19 @@ image::in_ug_2.png[]
 
   in $/500.50 n/allowance d/01012020 c/parents
 
-. Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
-. The income includes `parents` under the `CATEGORY` field.
-. Initial balance (red box in Figure 3) has a value of $120.
-
+. Logging income
+* Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
+* The income includes `parents` under the `CATEGORY` field.
+* Initial balance (red box in Figure 3) has a value of $120.
++
 .Income Logging Example 2
 image::in_ug_3.png[]
-
-. The income is added to the bottom of the *Transactions* tab.
-. The added income tagged under `parents` category.
-. Balance has increased from $120 to $620.50 (red box in Figure 4).
-
++
+. Income added
+* The income is added to the bottom of the *Transactions* tab.
+* The added income tagged under `parents` category.
+* Balance has increased from $120 to $620.50 (red box in Figure 4).
++
 .Sample Income 2 Added
 image::in_ug_4.png[]
 
@@ -169,7 +173,8 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ==== Important Details:
 
-Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
+* Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
+* `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to example 3).
 
 ==== Example Usage
 
@@ -177,18 +182,20 @@ Note that `out` transactions differ from `in` transactions in the display amount
 
  out $/5 d/01012020 n/burger
 
-. Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.
-. The expenditure has not utilized the optional `CATEGORY` field.
-. Initial balance (red box in Figure 5) has a value of $620.50.
-
+. Expenditure logging
+* Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.
+* The expenditure has not utilized the optional `CATEGORY` field.
+* Initial balance (red box in Figure 5) has a value of $620.50.
++
 .Expenditure Logging Example 1
 image::out_ug_1.png[]
-
-. The expenditure is added to the bottom of the *Transactions* tab.
-. The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).
-. The added expenditure is given a `GENERAL` category.
-. Balance has decreased from $620.50 to $615.50 (red box in Figure 6).
-
++
+. Expenditure added
+* The expenditure is added to the bottom of the *Transactions* tab.
+* The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).
+* The added expenditure is given a `GENERAL` category.
+* Balance has decreased from $620.50 to $615.50 (red box in Figure 6).
++
 .Sample Expenditure 1 Added
 image::out_ug_2.png[]
 
@@ -196,20 +203,55 @@ image::out_ug_2.png[]
 
  out $/1000 n/maintenance d/02012020 c/car c/transport
 
-. Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.
-. The income includes `car` and `transport` under the `CATEGORY` field.
-. Initial balance (red box in Figure 7) has a value of $615.50.
-
+. Expenditure logging
+* Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.
+* The income includes `car` and `transport` under the `CATEGORY` field.
+* Initial balance (red box in Figure 7) has a value of $615.50.
++
 .Expenditure Logging Example 2
 image::out_ug_3.png[]
-
-. The expenditure is added to the bottom of the *Transactions* tab.
-. The added expenditure is tagged under `car` and `transport` category.
-. Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).
-. The negative value of the balance indicates that the total spending amount outweighs the total savings amount.
-
++
+. Expenditure added
+* The expenditure is added to the bottom of the *Transactions* tab.
+* The added expenditure is tagged under `car` and `transport` category.
+* Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).
+* The negative value of the balance indicates that the total spending amount outweighs the total savings amount.
++
 .Sample Expenditure 2 Added
 image::out_ug_4.png[]
+
+===== Example 3
+
+ out $/100 n/pants d/02012020 c/clothes
+
+. Expenditure logging
+* Inputs an expenditure of $100 with description set to 'pants' and date set on 02/01/2020.
+* The income includes `clothes` under the `CATEGORY` field.
++
+.Expenditure Logging Example 3
+image::out_ug_5.png[]
++
+. Budget with similar categories and time period.
+* Entry 3 of the `Budget` tab has `clothes` under its `CATEGORY` field.
+* Entry 3 of the `Budget` tab has a deadline set to `01/01/2021`.
++
+.Budget with 'clothes' category
+image::out_ug_6.png[]
++
+. Expenditure added
+* The expenditure is added to the bottom of the *Transactions* tab.
+* The added expenditure has a date set to `02/01/2020`.
+* The added expenditure is tagged under the `clothes` category.
++
+.Sample Expenditure 3 Added
+image::out_ug_7.png[]
++
+. Budget entry updated
+* Remaining amount of entry 3 of the `Budget` tab has decreased from $1000 to $900.
++
+.Budget entry updated
+image::out_ug_8.png[]
+
 
 ===== Example Commands:
 
@@ -521,7 +563,7 @@ Format (Projections): Cannot be updated
 
 ==== Important Details:
 
-* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
+* `update` requires at least one field to be updated. (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
 * `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
 * You can not change an `in` Transaction to an `out` Transaction.
 * Changing an expenditure (`out` Transaction) with the same category fields as a `Budget` entry will reflect changes on that particular `Budget` entry as well.
