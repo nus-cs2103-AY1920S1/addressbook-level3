@@ -116,11 +116,10 @@ Secondly, I rearranged the features of the UG into better headings such as Visua
 
 Thirdly, I wrote the Theme Feature, Calendar Feature, Navigation Feature and Game Feature portion of the UG. I will show the Game Feature portion of the UG here below.
 
-.Game Feature EASY
 image::icesiolz/UG3.png[]
 
-.Game Feature HARD
 image::icesiolz/UG4.png[]
+.Game Feature
 
 == Contributions to the Developer Guide
 
@@ -128,4 +127,19 @@ image::icesiolz/UG4.png[]
 |_Given below are sections I contributed to the Developer Guide for my main feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=priority]
+I updated the UI component of the DG as it had been refactored and new classes are added such as TaskListPanel, TaskListCard, ElisaDialogBox etc.
+
+.UI component
+image::icesiolz/DG4.png[]
+
++
+
+I also updated the Game Features portion of the DG as it is a major feature that I have implemented.
+
+image::icesiolz/DG1.png[]
+image::icesiolz/DG2.png[]
+image::icesiolz/DG3.png[]
+
+.GameFeature
+
+
