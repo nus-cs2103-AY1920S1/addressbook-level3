@@ -501,8 +501,14 @@ This command would not work if there are no activities scheduled in the day.
 // tag::undoredocommand[]
 === Undo: `undo`
 
-Undo by one action +
+Allows user to undo by one action. Only Undoable commands executed previously by the user can
+be undone. Refer to the list below for all possible undoable commands. +
+
 Format: `undo` +
+
+[NOTE]
+undo command cannot be chained (i.e. 'undo undo undo' does not result in 3 undos applied), but typed
+one at a time.
 
 // tag::undoredolist[]
 *List of UndoableCommand:*
@@ -520,10 +526,15 @@ Format: `undo` +
 
 === Redo: `redo`
 
-Redo by one action. Any undoable command is able to be redone. +
-Format: `redo`
+Redo by one action. Only to be used after undo has been called. This command is to revert
+the changes of the latest undo. +
 
-Examples: Undo/Redo optimise budget command
+Format: `redo` +
+
+[NOTE]
+redo command cannot be called after an Undoable command is executed by the user.
+
+The *4 screenshots* below demonstrates the Undo/Redo command when the user executes `optimise budget command`.
 
 * Before optimise
 
