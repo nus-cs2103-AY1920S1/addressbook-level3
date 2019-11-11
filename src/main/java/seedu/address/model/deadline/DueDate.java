@@ -36,7 +36,6 @@ public class DueDate {
         requireNonNull(deadline);
         this.dateStr = deadline;
         checkArgument(isValidDate(deadline), MESSAGE_CONSTRAINTS);
-        checkArgument(isLaterDate(deadline), EARLY_DATE);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate date = LocalDate.parse(deadline, formatter);
         this.localDate = date;
@@ -71,7 +70,7 @@ public class DueDate {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate testDate = LocalDate.parse(test, formatter);
         Period difference = Period.between(testDate, today);
-        if (difference.getDays() > 1) {
+        if (difference.getDays() <= 1) {
             return false;
         }
         return true;

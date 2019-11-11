@@ -4,9 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import seedu.address.model.deadline.Deadline;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 //@@author dalsontws
 /**
@@ -34,16 +38,13 @@ public class DeadlinePanel extends UiPart<Region> {
         Text deadlineText = new Text (deadline.getTask().toString());
         deadlineText.setId("deadlinetext");
         task.getChildren().add(deadlineText);
-        //TODO: use date to colour code each deadline
-        //LocalDate today = LocalDate.now();
-        //deadline.getDueDate();
-
-        dueDate.setText("Due Date: " + deadline.getDueDate().toString());
-        /*todo
-        if (false) {
+        LocalDate today = LocalDate.now();
+        LocalDate due = deadline.getDueDate().getLocalDate();
+        if (true) {
             deadlineText.setFill(Paint.valueOf("red"));
         }
-        */
+
+        dueDate.setText("Due Date: " + deadline.getDueDate().toString());
 
     }
 
