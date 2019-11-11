@@ -308,7 +308,7 @@ To mark an unwatched show in the watchlist as watched, use the command format li
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 [TIP]
-Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user's show data: `sync`, `sync`>>
+Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user\'s show data: `sync`, `sync`>>
 command to ensure that the TV show's season and episode details are up to date.
 
 *Example Usage:*
@@ -511,7 +511,7 @@ Returns shows within the watchlist with actor named "Tom"
 // end::search[]
 
 // tag::sync[]
-==== Synchronise user's show data: `sync`
+==== Synchronise user\'s show data: `sync`
 
 If user has lack of information about a certain show in their watch list, User can use `sync` command.
 Synchronise, `sync`, command will transfer all the information about a certain show (for example: show A) found in
