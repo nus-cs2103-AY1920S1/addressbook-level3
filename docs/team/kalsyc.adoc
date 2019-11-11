@@ -59,7 +59,9 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=delete]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=tag]
+
+include::../UserGuide.adoc[tag=undoredo]
 
 == Contributions to the Developer Guide
 
@@ -69,7 +71,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=tag]
 
 
 == PROJECT: PowerPointLabs

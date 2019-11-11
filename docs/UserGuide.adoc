@@ -643,6 +643,7 @@ Items with the same name will be sorted by their expiry dates.
 //_{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
+// tag::undoredo[]
 ==== Undo previous command : `undo`
 Undo the previous command that you have entered in. +
 Format: `undo`
@@ -657,6 +658,7 @@ Redo an earlier command that you have entered in. +
 Format: `redo`
 
 This command works in the opposite direction as `undo`, it will redo any command that you have undid in the past.
+// end::undoredo[]
 
 == FAQ
 
