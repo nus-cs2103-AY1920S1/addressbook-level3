@@ -147,10 +147,6 @@ public class StatusManager {
         if (availableMen.size() == 0) {
             throw new NoMoreAvailableDeliverymanException();
         }
-/*
-        Deliveryman removed = availableMen.remove(0);
-        return updateStatusOf(removed, DELIVERING_STATUS);
-*/
         return availableMen.get(0);
     }
 
