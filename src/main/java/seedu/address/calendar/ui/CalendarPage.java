@@ -19,9 +19,6 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CommandBox;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CodeWindow;
 import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
@@ -133,6 +130,30 @@ public class CalendarPage extends UiPart<Region> implements Page {
         monthViewPlaceholder.getChildren().add(MonthView.generateMonthGrid(viewOnlyMonth, monthViewWidth));
     }
 
+    /**
+     * Opens the code window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleCode() {
+        if (!codeWindow.isShowing()) {
+            codeWindow.show();
+        } else {
+            codeWindow.focus();
+        }
+    }
+
+    /**
+     * Opens the help window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleHelp() {
+        if (!helpWindow.isShowing()) {
+            helpWindow.show();
+        } else {
+            helpWindow.focus();
+        }
+    }
+
     @Override
     public void closeResources() {
         helpWindow.hide();
@@ -180,6 +201,10 @@ public class CalendarPage extends UiPart<Region> implements Page {
             if (commandResult.isShowList()) {
                 handleShowList(commandResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser("");
+            }
+
+            if (commandResult.isShowHelp()) {
+                handleHelp();
             }
 
             return commandResult;
