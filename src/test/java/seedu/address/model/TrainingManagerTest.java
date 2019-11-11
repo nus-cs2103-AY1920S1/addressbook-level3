@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.training.AttendanceEntry;
 import seedu.address.model.training.Training;
 
-class AttendanceTest {
+class TrainingManagerTest {
 
     @Test
     void constructor() {
