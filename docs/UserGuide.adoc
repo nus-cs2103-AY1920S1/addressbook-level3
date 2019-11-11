@@ -16,9 +16,20 @@ endif::[]
 
 By: `Team AY1920S1-CS2103T-W11-4`      Since: `Sep 2019`      Licence: `MIT`
 
+
 == Introduction
 
 CaloFit is suitable for those who prefer to track their calories gained from day-to-day meals. CaloFit is primarily uses a Command Line Interface(CLI) while still displaying the results through a Graphical User Interface(GUI). You can set your daily calorie target and CaloFit will do its best to help you stay on track.
+
+As of our latest version, v1.4. CaloFit would be able to run on all computers, be it Windows, Mac, Linux and more!
+
+Currently our product would be able to let you set a desired calorie budget, track your meals, provide assistance to keep you on track, last but not least a monthly report will be provided for you!
+
+== About
+
+This user guide provides the user a simple yet useful utility guide on how CaloFit operates.
+
+There will be very minimal prior technical knowledge that the user would need to have in order to use Calofit.
 
 
 
@@ -326,3 +337,16 @@ e.g. `suggest`
 e.g. `report`
 * *Help* : `help` +
 e.g. `help`
+
+
+== Trouble shooting/FAQ
+Q: Do I need to key in the date or time? +
+A: There won't be a need to as CaloFit automatically update the current system date and time for the user.
+
+Q: Do I have to pay for anything? +
+A: Currently CaloFit is totally free!
+
+Q: Will the dishes that I add be saved for future use? +
+A:
+
+== Product Glossary
