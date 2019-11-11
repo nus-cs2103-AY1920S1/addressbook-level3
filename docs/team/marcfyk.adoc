@@ -24,7 +24,7 @@ this single application.
 This is a layout of how our application looks like:
 
 .Application Page Layout
-image::ug/StartUpUI.png[]
+image::ug/StartUpUI.png[300,300]
 
 In Figure 1, there are three boxes labelled with numbers.
 These are the shared GUI sections across all the features:
@@ -53,7 +53,7 @@ information stored in Jarvis to local storage.
 == Summary of Contributions
 
 * Features added:
-** Undo and redo feature
+** Undo and redo feature.
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/7[#7]
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/9[#9]
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/10[#10]
@@ -112,10 +112,294 @@ https://github.com/AY1920S1-CS2103T-T10-1/main/pull/161[#161]
 * Community
 ** Reviewed other PRs, with comments on improving code
 quality, defensive coding, testing, code design and code
-practices.
+practices. Here are the
+https://github.com/AY1920S1-CS2103T-T10-1/main/pulls?q=is%3Apr+reviewed-by%3Amarcfyk+is%3Aclosed[list of reviews].
 * Code contributed
 ** This is a link to my contributions displayed on
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=marcfyk&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense].
 ** Here is a list of all my
 https://github.com/AY1920S1-CS2103T-T10-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+author%3Amarcfyk[pull requests].
 
+== Undo and redo feature
+
+The following sections covers brief versions from the *Developer Guide*
+and *User Guide* explaining the following points:
+
+* Design Considerations (Developer Guide)
+* Feature Details (Developer Guide)
+* Implementation (Developer Guide)
+* Commands (User Guide)
+* Use case for `undo`, `redo` and `list-history` (User Guide)
+
+
+
+'''
+
+=== Design Considerations
+There were several available behavioral design patterns that we were
+considering to adopt to implement our undo/redo feature in the application.
+
+* Command Pattern
+* Memento Pattern
+
+These patterns are common useful patterns to enable undo/redo functions.
+These are also viable options as our application design allows both of these
+approaches to be integrated easily.
+
+==== Command Pattern
+The application already makes use of the command pattern to decouple the
+internal state of the application and the user action.
+
+===== Characteristics
+* Space efficient due to storing commands instead of states of the entire
+application. Efficient usage of RAM and local storage for the application.
+* Commands logic will be more complex as they must know how to undo its
+execution. Commands contain more data to retain information needed to undo
+its execution.
+* Complex inverse executions may be unnecessarily convoluted compared other
+approaches (such as the memento pattern). This involves more planning and
+support on the classes that commands execute on.
+* Requires implementation and testing of each command (and future commands)
+to enable undo/redo function with respect to that command. Development of the
+application will involve more overhead when integrating new commands to the
+application as there are more behaviour to test.
+* Development of `HistoryManager` scales along with commands that are added
+to the application. Even after `HistoryManager` is developed and integrated
+into the application, additional work is required with each command, such as
+supporting inverse execution and serializing the command (for local storage).
+This can affect development schedule and add time constraints when working
+with tight deadlines.
+
+==== Memento Pattern
+The application follows a structural facade pattern, storing the data in
+ModelManager which implements the Model, which is an interface for commands
+to interact with. ModelManager manages classes that wrap their respective data.
+
+===== Characteristics
+* Expensive on space due to storing multiple copies of the application
+state. This increases the usage of RAM and local storage for the
+application.
+* Simple robust implementation that can be developed quickly, which can be
+useful for tight schedules in the development process.
+* Protects the encapsulation of private data of the application state
+(provided local storage data is also encrypted). This prevents violation of
+encapsulation of classes.
+* Development of `HistoryManager` scales with how the information to be
+remembered changes. Whenever the nature of the information to be remembered
+changes, the memento class `Version` needs to be updated along with how
+`VersionedModel` updates and saves its state. Adding new commands also do not
+require any changed to `HistoryManager` unless there are changes to the data
+fields to be saved in `Model`.
+
+==== Our Thoughts
+These are the following questions we asked ourselves when deciding between
+these two approaches
+
+* RAM and storage
+* Development process
+* Software design principles
+
+===== Design Choice
+
+We determined that going along with the command pattern. We want to cater
+this application to students whose laptops may not have generous amounts of
+RAM. On top of the fact that students typically use their browsers
+_extensively_, we felt that we should be mindful of RAM usage.
+
+Comparisons between command pattern and memento pattern with respect to the
+development process were trivial since the `Model` and command sets are
+already planned, and future changes to `Model` and commands would not have
+any serious drawback regardless of the approach.
+
+'''
+
+=== Feature Details
+
+The application should be able to undo and redo changes made by commands to
+give the user more flexibility in their inputs. Undo and redo operations
+should also be undo or redo multiple commands in a command. In the event that
+a undo/redo command that comprises of multiple undo/redo operations fails at
+any point, all changes made by the command should be rolled back. This is
+reflected in the Activity Diagrams below.
+
+Therefore there is a need to remember commands that change the state of the
+`Model`. Commands that just render a view without actually changing the
+application should not be stored as it does not make sense to undo or redo
+them. We will distinguish these types of commands into two categories,
+*invertible commands* and *non-invertible commands*.
+
+* *Invertible commands* -- commands that mutate the state of the `Model` and
+should be stored for undo/redo functions.
+
+* *Non-invertible commands* -- commands that do not mutate the state of the
+  `Model` and should not be stored for undo/redo functions.
+
+[NOTE]
+Undo and redo commands will be considered non-invertible commands even though
+they technically change the state of the `Model`. The reason is that they are
+commands facilitating the undo and redo operation, thus they should not be
+stored.
+
+The following activity diagram illustrates how commands are remembered when a
+user types in a command:
+
+.Activity Diagram for how commands are remembered after their successful execution
+image::InverseCommandActivityDiagram.png[200,200]
+
+'''
+
+=== Implementation
+
+The undo/redo feature mechanism is facilitated by `HistoryManager`.
+`HistoryManager` remembers *invertible commands*. These commands are stored
+internally in two `CommandDeque` objects, `executedCommands` and
+`inverselyExecutedCommands`. `CommandDeque` serve as custom `Deque` data
+structure, which stores the latest added command to the top.
+
+An undo operation would comprise of taking the latest executed command from
+`executedCommands`, inversely executing it, and adding it to
+`inverselyExecutedCommands`. A redo operation would comprise of a taking the
+latest inversely executed command from `inverselyExecutedCommands`, executing
+it, and adding it to `executedCommands`.
+
+`Model` supports operations to facilitate undo and redo capabilities by
+extending the `HistoryModel`.
+
+Below is a class diagram between `Model`, `ModelManager`, `HistoryManager`,
+`CommandDeque` and `Command`.
+
+.Class Diagram for `Model`, `ModelManager`, `HistoryManager`, `CommandDeque` and `Command`
+image::HistoryManagerModelClassDiagram.png[300,300]
+
+Undo and redo operations are executed with `UndoCommand` and `RedoCommand`
+These commands store an integer value referencing the number of commands to
+undo or redo, represented by `UndoCommand#numberOfTimes` and
+`RedoCommand#numberOfTimes`. The Class Diagram below shows details about
+`UndoCommand` and `RedoCommand`.
+
+.Class Diagram for `UndoCommand`, `RedoCommand` and `Command`
+image::CommandClassDiagram.png[300,300]
+
+Below is a sequence diagram for how an `UndoCommand` executes in the program.
+
+.Sequence Diagram for `UndoCommand` (undo a single command)
+image::UndoSequenceDiagramNew.png[]
+
+'''
+
+=== Commands
+
+You can see how to undo and redo commands in JARVIS in the following
+sections below, which will cover two new commands:
+
+* `undo [NUMBER]`
+* `redo [NUMBER]`
+* `list-history`
+
+[NOTE]
+`[NUMBER]` is an optional argument indicating the number of commands that you
+want to undo/redo.
+ +
+ +
+`[NUMBER]` should be a positive integer that is not larger than
+the available number of commands that can be undone/redone (Don't worry, JARVIS
+will let you know if `[NUMBER]` is out of range).
+ +
+ +
+If `[NUMBER]` parameter is not
+supplied, then `[NUMBER]` is taken to be the value *1*.
+
+==== Undo command(s): `undo`
+Format: `undo [NUMBER]`
+
+where `[NUMBER]` is an optional argument indicating the number of commands that you
+want to `undo`.
+
+[NOTE]
+`[NUMBER]` should be a positive integer, no larger than
+the available number of commands that can be undone. (Don't worry, JARVIS
+will let you know if `[NUMBER]` is out of range).
+ +
+ +
+If `[NUMBER]` is not
+supplied, then it is taken to be the default value of *1*.
+
+===== Example
+
+* `undo` -- This command will undo the latest command entered by the user.
+It is equivalent to the command `undo 1`
+* `undo 5` -- This command will undo the 5 latest commands entered by the user,
+starting from the latest command.
+
+==== Redo command(s): `redo`
+Format: `redo [NUMBER]`
+
+where `[NUMBER]` is an optional argument indicating the number of commands that you
+want to `redo`.
+
+[NOTE]
+`[NUMBER]` should be a positive integer, no larger than
+the available number of commands that can be undone. (Don't worry, JARVIS
+will let you know if `[NUMBER]` is out of range).
+ +
+ +
+If `[NUMBER]` is not
+supplied, then it is taken to be the default value of *1*.
+
+===== Example
+
+`redo` -- This command will redo the latest command undone by the user.
+It is equivalent to the command `redo 1`
+
+`redo 5` -- This command will redo the 5 latest commands undone by the user,
+starting from the latest command that was undone.
+
+[NOTE]
+If you have entered new commands after undoing previous commands, you will not be able to redo the old
+commands.
+
+==== List the number of commands you can undo or redo: `list-history`
+`Jarvis` can provide you with the maximum number of commands you can `undo` and `redo` - which will be shown
+in the Command Result Box.
+
+Format: `list-history`
+
+Lists the number of available commands to be undone, number of available commands to be redone,
+and the limit of the maximum number of commands Jarvis can remember for you to support undo and
+redo commands.
+
+'''
+
+==== Use case for `undo`, `redo` and `list-history`
+
+Let's say you would like to delete the first task in the `Planner`, highlighted by the
+green box in Figure 19 below.
+
+.Before deleting the task highlighted in the green box
+image::ug/undo-redo-1.png[300,300]
+
+Deleting the task in Jarvis would then trigger the appropriate command result as seen in the
+figure below.
+
+.You have just deleted a task as shown in the command result display
+image::ug/undo-redo-2.png[300,300]
+
+As shown in the picture below, entering the command `undo`,  would revert the delete command that
+you had entered earlier.
+
+.The deleted task is back in Jarvis
+image::ug/undo-redo-3.png[300,300]
+
+You can enter the command `redo`, re-applying the delete command on Jarvis
+as shown in the picture below.
+
+.You have just redone that latest undone command
+image::ug/undo-redo-4.png[300,300]
+
+You can enter the command `list-history`, displaying the number
+of commands that can be undone and redone.
+
+.You can see the number of commands that you can undo and redo
+image::ug/list-history.png[300,300]
+
+'''
