@@ -23,7 +23,7 @@ Mark has a visually appealing graphical user interface (GUI) to visually guide t
 //TODO: replace gui pic with well populated data
 
 .Dashboard tab view of Mark.
-image::dashboardMark.png[]
+image::dashboardMark.png[300,300]
 
 
 My role was to design and implement the _annotation_ feature so users can conveniently make notes on
@@ -115,7 +115,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitl
 We had to update the original AB3 User Guide with instructions for the enhancements that we had added.
 
 |===
-|_Given below are sections I contributed to our User Guide for Mark. They showcase my ability to write documentation targeting end-users._
+|_Given below is one of the sections I contributed to our User Guide for Mark. They showcase my ability to write documentation targeting end-users._
 |===
 
 _Start of extract from Mark User Guide_
@@ -135,7 +135,7 @@ We also had to update the original AB3 Developer Guide to reflect the design of 
 
 _Start of extract from Mark Developer Guide_
 
-include::../DeveloperGuide.adoc[tag=annotation]
+include::../DeveloperGuide.adoc[tag=addAnn]
 
 //include::../DeveloperGuide.adoc[tag=dataencryption]
 

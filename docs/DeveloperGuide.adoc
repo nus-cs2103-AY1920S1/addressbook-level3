@@ -488,7 +488,7 @@ The following aspects of the autotag mechanism were considered when designing th
 ** Cons: More complicated to implement.
 // end::autotag[]
 
-// tag::annotation[]
+// tag::addAnn[]
 === Annotation feature
 ==== Implementation
 The annotation feature builds upon the structure of an offline document used to represent a _Readability4J-derived cache_.
@@ -507,13 +507,13 @@ Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the a
 You can study the hierarchy of the _family of annotation commands_ here:
 
 .Structure of the _family of annotation commands_.
-image::AnnotationCommandStructure.png[]
+image::AnnotationCommandStructure.png[300, 300]
 
 The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
 
 [[sd-annotation-general]]
 .Sequence diagram showing how annotation commands generally work. `cmdStr` is the string representing the command input by the user. `arguments` is `cmdStr` without the command word.
-image::AnnotationSequenceDiagram.png[]
+image::AnnotationSequenceDiagram.png[400,450]
 
 NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -527,7 +527,7 @@ Adding an annotation works as described by the <<sd-annotation-general, general 
 sequence diagram referred to by the reference frame:
 
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
-image::AddAnnotationSequenceDiagram.png[]
+image::AddAnnotationSequenceDiagram.png[350,350]
 
 
 The above example adds an annotation to a `:TrueParagraph`. Alternatively, if the user chooses to add a general note instead,
@@ -535,13 +535,14 @@ The above example adds an annotation to a `:TrueParagraph`. Alternatively, if th
 
 NOTE: A `:TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. A `:PhantomParagraph` is a temporary holding place for a general note and has no content.
 
+
 ===== Deleting annotations
 Users can delete the highlight and/or note of a paragraph or delete all annotations on the document.
 Deleting an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
 sequence diagram referred to by the reference frame:
 
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
-image::DeleteAnnotationSequenceDiagram.png[]
+image::DeleteAnnotationSequenceDiagram.png[350,350]
 
 
 The above example deletes only the highlight from a `:TrueParagraph` which has a note, and then creates a `:PhantomParagraph` to keep a reference to the note.
@@ -557,8 +558,7 @@ Editing an annotation also works as described by the <<sd-annotation-general, ge
 sequence diagram referred to by the reference frame:
 
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-edit 1 p/g1 to/p1 h/green`. `ARGS` include `origPid`, `targetPid` and `newHighlight` and `newNote`.
-image::EditAnnotationSequenceDiagram.png[]
-
+image::EditAnnotationSequenceDiagram.png[350,350]
 
 The above example moves general note `G1` to paragraph `P1` and highlights `P1` green. As per the specifications, users are not allowed to move any annotation to `:PhantomParagraph` using `annotate-edit`, so `targetP` must either be `null` or a `:TrueParagraph`.
 However, `origP` can be anything as long as it is an instance of a derived class of `Paragraph`.
@@ -569,17 +569,14 @@ If you want, you can easily extend the edit function to be able to allow moving 
 ===== Summmary
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
-//TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
 
-image::AnnotationActivityDiagram.png[]
-
-You are welcome to extend the annotation feature by adding more forms of annotation.
+image::AnnotationActivityDiagram.png[400,400]
 
 ==== Design Considerations
 The following are a few design considerations made in deciding how to implement the annotation feature:
 
 ===== Aspect: How to structure the offline components to store annotations
-Each annotation is tagged to a paragraph and an offline document is composed of multiple paragraphs.
+An offline document is composed of multiple paragraphs, each having at most 1 annotation.
 A cached copy has the original cache of the website.
 There are hence a few alternatives in which we can combine these elements and store them:
 
@@ -594,27 +591,8 @@ There are hence a few alternatives in which we can combine these elements and st
 I decided to proceed with Alternative 1 as it is easier to implement and more feasible to implement in light of time constraints. This alternative offers accessibility to
 model components that are highly related in functionality.
 
-===== Aspect: How to handle annotation commands
-The _family of annotation commands_ includes the three main aspects: add, delete and edit. Each aspect can encompass
-more than one kind of use case (e.g. `annotate-delete` can be used to delete the entire annotation from a paragraph; it can also
-be used to delete just the highlight of a paragraph, which also makes the attached note, if any, general).
-However, all of them manipulate annotations.
-This means there are multiple options to choose from to parse an annotation command:
-
-* **Alternative 1:**  Use a single parser to parse all annotation commands.
-** Pros: Will likely be faster due to less layers of abstraction.
-** Cons: Does not abide by the Single Responsibility Principle and Open-close Principle.
-
-* **Alternative 2 (current choice):** Use a different parser for each command word.
-** Pros: Easier to implement. This ensures the individual command words are parsed separately and in
-a similar way as the other commands, improving the overall clarity of the implementations.
-** Cons: Need to write many lines of code due to multiple layers of abstraction.
-
-I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Furthermore,
-responsibility is more segregated which makes it easier to manipulate objects to achieve a functionality.
-
 ===== Aspect: How to implement command to delete annotations
-There are multiple choices when it comes to deleting annotations, each specifically deletes a part or whole of an annotation. In particular, deleting
+An `annotate-delete` command deletes a part or whole of an annotation. In particular, deleting
 only the highlight of a paragraph with a note will have a side effect where the note becomes general.
 Considering these variations, there are a few alternatives that we can consider to implement the delete function:
 
@@ -630,9 +608,9 @@ I decided to proceed with Alternative 2 as it is easy and feasible to implement 
 this alternative makes it less cumbersome to modify if there needed to be a change in delete functionality.
 
 ===== Aspect: How to implement command to edit annotations
-The edit function for manipulating annotations also has multiple functions: editing existing
-annotations and moving annotations from paragraph to paragraph. These functions can be combined together.
-Hence, there are also a few options we can take to implement the edit functionality:
+An `annotate-edit` command can edit existing
+annotations and/or moving annotations from paragraph to paragraph.
+As the functionality can be mixed, there are a few options we can take to implement the edit functionality:
 
 * **Alternative 1 (current choice):** Use a single `EditAnnotationCommand` object to execute the entire edit functionality
 ** Pros: Easier to implement and also makes it clear as all related functionality are packaged in the same class.
@@ -644,8 +622,7 @@ Hence, there are also a few options we can take to implement the edit functional
 
 I decided to proceed with Alternative 1 as it is easier to implement. The overlaps in use cases of the `annotate-edit` command
 makes it difficult to separate the responsibility. Hence the first alternative is more feasible to implement.
-// end::annotation[]
-
+// end::addAnn[]
 
 // tag::folders[]
 === Folders feature
