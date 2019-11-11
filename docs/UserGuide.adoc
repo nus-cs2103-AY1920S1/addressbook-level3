@@ -580,14 +580,8 @@ image::warning.png[width = "20", float = "left"]
 //@@author {lawncegoh}
 // tag::introduction[]
 ---
-The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively.
-They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once
-you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that
-we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this
-list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check`
-feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you.
-Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
-
+[source, java]
+The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively. They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check` feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you. Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
 // end::introduction[]
 
 // tag::gotofeature[]
