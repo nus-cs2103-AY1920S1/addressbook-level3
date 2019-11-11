@@ -14,6 +14,8 @@ public class Picture {
 
     public static final String VALIDATION_REGEX = "([^\\s]+(\\.(?i)(jpg|png|gif|bmp))$)";
 
+    public static final String NULL_PICTURE = "null";
+
     public final String value;
 
     /**
@@ -23,7 +25,7 @@ public class Picture {
      */
     public Picture(String picture) {
         requireNonNull(picture);
-        if (!("null".equals(picture))) {
+        if (!(NULL_PICTURE.equals(picture))) {
             checkArgument(isValidPicture(picture), MESSAGE_CONSTRAINTS);
         }
         value = picture;

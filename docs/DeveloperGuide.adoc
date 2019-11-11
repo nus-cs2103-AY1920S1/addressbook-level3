@@ -495,18 +495,19 @@ check with the rest of the prior `Task` object, to ensure that there is no dupli
 object have been successfully added.
 // end::Calendar[]
 
+//tag::NotesDG[]
 === Notes Features
 ==== Add Notes
 The `addnote` command allows for tutors to add their notes into TutorAid.
 
 The format for the `addnote` command is as follows:
 
- addnote mod/<MODULE_CODE> c/<CONTENT>
+ addnote c/<MODULE_CODE> type/<CLASS_TYPE> note/<NOTE_CONTENT>
 
 *Overview*
 
 The add claim `addnotes` mechanism is facilitated by `AddNotesCommand` and `AddNotesCommandParser`, taking in the
-following input from the user: `Module_Code`, `Content`, which will construct `Notes` objects.
+following input from the user: `Module_Code`, `Class_Type` and `Note_Content`, which will construct `Notes` objects.
 
 .Add Note Command Sequence Diagram
 image::AddNotesSequenceDiagram.png[]
@@ -514,27 +515,30 @@ image::AddNotesSequenceDiagram.png[]
 The `AddNotesCommand` implements `Parser` with the following operation:
 
 * `AddNotesCommandParser#parse()` - This operation will take in a `String` input from the user and create
-individual objects based on the prefixes `mod/` and `c/`. The `String` value after the respective prefixes
+individual objects based on the prefixes `c/`, `type/` and `note/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
-enter the correct format of the respectives objects.
+enter the correct format of the respective objects.
 
-** `code` would use `ParserUtil#parseModuleCode()` to ensure that the module code typed by the user is in the correct format of
+** `c` would use `ParserUtil#parseClassId()` to ensure that the module code entered by the user is in the correct format of
 CSXXXX.
 
-** `content` would use `ParserUtil#parseContent()` to ensure that the content typed in by the user is in not empty.
+** `type` would use `ParserUtil#parseClassType()` to ensure that the class typed input by the user is in the correct format of
+CSXXXX.
 
-* After validation of the individual objects, a `Notes` object would be created with the parameters `code` and `content`.
+** `note` would use `ParserUtil#parseContent()` to ensure that the content typed in by the user is in not empty.
+
+* After validation of the individual objects, a `Notes` object would be created with the parameters `code`, `type` and `content`.
 
 * `AddNotesCommandParser` would then return a `AddNotesCommand` object with the parameter, `Notes` object.
 
 The following activity diagram summarizes what happens when a user executes a new command.
 
-##diagram to be added
+image::AddNotesActivityDiagram.png[width="200"]
 
 *Example Scenerio*
 
-* Step 1: The user enters `addnote mod/CS2103T c/Update Project` to add a note for teaching classes.
+* Step 1: The user enters `addnote c/CS2103T type/tut note/Update Project` to add a note for teaching classes.
 This adds a `Notes` object that the user has added to record what needs to be done for the class.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
@@ -543,7 +547,7 @@ This adds a `Notes` object that the user has added to record what needs to be do
 the given command is `addnote`, thus, `AddNotesCommandParser` object would be created with the user's input.
 
 * Step 4: `AddNotesCommandParser` performs a validation check on each of the respective objects through
-`AddNotesCommandParser#parse()`. In this case, it would use `ParserUtil#parseModuleCode()` and `ParserUtil#parseContent()`.
+`AddNotesCommandParser#parse()`. In this case, it would use `ParserUtil#parseClassId()`, `ParserUtil#parserClassType()` and `ParserUtil#parseContent()`.
 It would then return a `AddNotesCommand` object with an `Notes` object.
 
 * Step 5: `LogicManager` would execute `AddNotesCommand#execute`. In this particular method, the `Notes` object will be
@@ -553,26 +557,28 @@ check with the rest of the prior `Notes` object, to ensure that there is no dupl
 * Step 6: `AddNotesCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Notes` object have been successfully added.
 
+//end::NotesDG[]
 
+//tag::reminders[]
 === Reminder Features
 ==== Add Reminder
-The `addReminder` command allows for tutors to add their reminders into TutorAid.
+The `add_reminder` command allows for tutors to add their reminders into TutorAid.
 
-The format for the `addReminder` command is as follows:
+The format for the `add_reminder` command is as follows:
 
- addReminder rd/<DESCRIPTION rt/<TIME>
+ add_reminder rd/<DESCRIPTION rt/<TIME>
 
 *Overview*
 
-The add claim `addReminder` mechanism is facilitated by `AddReminderCommand` and `AddReminderParser`, taking in the
+The add claim `add_reminder` mechanism is facilitated by `addReminderCommand` and `addReminderParser`, taking in the
 following input from the user: `Description`, `Time`, which will construct `Reminder` objects.
 
 .Add Reminder Command Sequence Diagram
 ##diagram to be added
 
-The `AddReminderCommand` implements `Parser` with the following operation:
+The `addReminderCommand` implements `Parser` with the following operation:
 
-* `AddReminderParser#parse()` - This operation will take in a `String` input from the user and create
+* `addReminderParser#parse()` - This operation will take in a `String` input from the user and create
 individual objects based on the prefixes `rd/` and `rt/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
@@ -584,7 +590,7 @@ enter the correct format of the respectives objects.
 
 * After validation of the individual objects, a `Reminder` object would be created with the parameters `description` and `time`.
 
-* `AddReminderParser` would then return a `AddReminderCommand` object with the parameter, `Reminder` object.
+* `addReminderParser` would then return a `addReminderCommand` object with the parameter, `Reminder` object.
 
 The following activity diagram summarizes what happens when a user executes a new command.
 
@@ -592,32 +598,33 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 *Example Scenerio*
 
-* Step 1: The user enters `addReminder rd/teach rt/23/01/2019` to add a reminder for teaching classes.
+* Step 1: The user enters `add_reminder rd/teach rt/23/01/2019` to add a reminder for teaching classes.
 This adds an `Notes` object that the user has added to record what needs to be done for the class.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
 * Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
-the given command is `addReminder`, thus, `AddReminderParser` object would be created with the user's input.
+the given command is `add_reminder`, thus, `addReminderParser` object would be created with the user's input.
 
-* Step 4: `AddReminderParser` performs a validation check on each of the respective objects through
-`AddReminderParser#parse()`. In this case, it would use `ParserUtil#parseReminderDescription()` and `ParserUtil#parseReminderTime()`.
-It would then return a `AddReminderCommand` object with a `Reminder` object.
+* Step 4: `addReminderParser` performs a validation check on each of the respective objects through
+`addReminderParser#parse()`. In this case, it would use `ParserUtil#parseReminderDescription()` and `ParserUtil#parseReminderTime()`.
+It would then return a `addReminderCommand` object with a `Reminder` object.
 
-* Step 5: `LogicManager` would execute `AddReminderCommand#execute`. In this particular method, the `Reminder` object will be
+* Step 5: `LogicManager` would execute `addReminderCommand#execute`. In this particular method, the `Reminder` object will be
 check with the rest of the prior `Reminder` object, to ensure that there is no duplicate `Reminder` object. If there are no similar
 `Reminder` object with the same parameters created previously, it would then be added into the reminder list.
 
-* Step 6: `AddReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
+* Step 6: `addReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Reminder` object have been successfully added.
+//end::reminders[]
 
 // tag::learncustomcommands[]
 === Learn wrong commands as custom commands feature
-==== Implementation
 The main point of this feature is to learn a user's typing habits so as to give them a more seamless experience
 while using TutorAid by adapting to their typing style so that they do not have to memorize
 built in commands. This is done by having TutorAid trigger in and out of "learner" mode.
 
+==== Implementation
 A `CommandResult` object now has an added boolean `isUnknown` instance variable to indicate if the command entered is
 an unknown command. Using this, TutorAid shifts between "learner" mode and normal mode:
 
@@ -630,41 +637,35 @@ image::changeNormal.png[width="800"]
 The effect of being in "learner" mode results in the `TutorAidParser` using different methods to parse the command. This will be elaborated on in the sample use scenario below.
 
 While in "learner" mode, TutorAid can map wrong commands to the actions of known commands. These wrong/custom command keywords and their mappings are stored locally in TutorAid.json with
-the help of `JsonAdaptedCommand`.
+the help of `JsonAdaptedCommand` and the fact that commands are now modelled as a `CommandObject` that contains their `CommandWord` and `CommandAction`.
 
 A TreeMap is now being used in the process of parsing commands. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
-
-* `TutorAidParser#checkCommand` -- Separate "parser" functions for unknown command operations.
-Checks if the command a user wants to map his unknown command to is valid and exists or if the user wishes
-to exit the operation.
-* `TutorAidParser#initialiseBasicCommands` -- Initialises the functionality of the `TutorAidParser` by adding
-the basic command mappings to its TreeMap.
-
+// end::learncustomcommands[]
+// tag::stepsCustomCommands[]
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `TutorAidParser` will be initialized and all basic
-commands and previous existing custom commands will be added to its TreeMap via `TutorAidParser#initialiseBasicCommands`.
+commands and previous existing custom commands will be added to its TreeMap via `TutorAidParser#initialiseBasicCommands()`.
 
-Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap in the `TutorAidParser#parseCommand(String userInput)` method and returns a new `UnknownCommand` since
-the TreeMap does not contain the keyword "plus".
+Step 2. The user enters `plus` instead of `add`. `TutorAidParser` does a lookup in its TreeMap in the `TutorAidParser#parseCommand(String userInput)` method and returns a new `UnknownCommand` since
+the TreeMap does not contain the keyword `plus`.
 
-Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on `savedCommand` in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
+Step 3. The `UnknownCommand` is executed by `Logic` and `plus` is saved on the `savedCommand` Stack in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`.
-
-[NOTE]
-Logic#execute(String userInput) has been changed to Logic#execute(String userInput, boolean isUnknown) to account for different execution pathways when in normal and "learner" mode.
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters `ad` instead of `add`. Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`. Note that `prevUnknownCommand` is the last saved command retrieved from the `savedCommand` Stack.
 
 [NOTE]
-`prevUnknownCommand` variable is retrieved from executing a `peek()` command on the `savedCommand` stack in `Model`.
+`Logic#execute(String userInput)` has been changed to `Logic#execute(String userInput, boolean isUnknown)` to account for different execution pathways when in normal and "learner" mode.
 
-Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and "ad" is also saved.
-Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".
+Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and `ad` is also saved.
+Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in `cancel`.
 
-Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new command mapping with the help of `Model`.
+Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the Stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new command mapping with the help of `Model`.
 
 Step 7. `NewCommand` has a `CommandResult` with an `isUnknown` value of `false`. This will trigger TutorAid back to normal mode. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
 
+// end::stepsCustomCommands[]
+// tag::diagramsCustomCommands[]
 The following sequence diagrams shows how the learn custom command operation works:
 
 Firstly an unknown command is supplied,
@@ -676,7 +677,8 @@ NOTE: The lifeline for `UnknownCommand` should end at the destroy marker (X) but
 After which, a known command is supplied,
 
 image::NewCommandDiagram.png[width="700"]
-
+// end::diagramsCustomCommands[]
+// tag::activityCustomCommands[]
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::LearnCustomCommandsActivityDiagram.png[width="500"]
@@ -685,15 +687,15 @@ image::LearnCustomCommandsActivityDiagram.png[width="500"]
 
 ===== Aspect: Data structure to support the learning of custom commands
 
-* **Alternative 1 (current choice):** Add all CommandObject objects in the ObservableList<CommandObject> into a TreeMap.
+* **Alternative 1 (current choice):** Add all `CommandObject` objects in the `ObservableList<CommandObject>` into a TreeMap.
 ** Pros: Future queries to determine if a command exists or not only requires O(1) time.
 ** Cons: The first iteration to populate the TreeMap still takes O(n) time.
-* **Alternative 2:** Iterate through the ObservableList<CommandObject> to check if the command exists.
+* **Alternative 2:** Iterate through the `ObservableList<CommandObject>` to check if the command exists.
 ** Pros: We do not need to maintain a separate data structure, and just reuse what is already in the codebase. We also
 do not need to waste time populating a TreeMap.
 ** Cons: Every single query costs O(n) time to check if the command exists.
-// end::learncustomcommands[]
 
+// end::activityCustomCommands[]
 // tag::undoAndRedo[]
 === Undo/Redo feature
 
@@ -749,6 +751,7 @@ image::UndoRedoState4.png[]
 Step 6. The user executes `clear`, which calls `Model#commitTutorAid()`. Since the `currentStatePointer` is not pointing at the end of the `tutorAidStateList`, all tutor aid states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add_task c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
+// end::undoAndRedo[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -764,7 +767,7 @@ image::CommitActivityDiagram.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
-// end::undoAndRedo[]
+
 
 
 === Logging
@@ -840,7 +843,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |caring tutor user |check the upcoming events |remind my students
 |=======================================================================
-
+// end::userStoriesAndCase[]
 _{More to be added}_
 
 [appendix]
@@ -877,7 +880,7 @@ Use case ends.
 +
 Use case resumes at step 2. +
 
-// end::userStoriesAndCase[]
+
 
 
 [discrete]

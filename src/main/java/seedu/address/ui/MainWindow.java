@@ -459,7 +459,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void deleteReminderButton(int index) throws ParseException, CommandException {
         try {
-            String userCommand = "deleteReminder " + index;
+            String userCommand = "delete_reminder " + index;
             executeCommand(userCommand);
         } catch (CommandException e) {
             logger.info("User attempting to change tab during the learning of an unknown command!");
@@ -477,11 +477,13 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText, this.isUnknown);
             if (this.isUnknown) {
                 if (!commandResult.isUnknown()) {
+                    logger.info("TutorAid back to normal mode.");
                     setUnknownFalse();
                 }
             }
 
             if (commandResult.isUnknown()) {
+                logger.info("TutorAid going to learner mode.");
                 setUnknownTrue();
             } else if (commandResult.isExit()) {
                 handleExit();

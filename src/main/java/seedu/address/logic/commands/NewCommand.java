@@ -14,23 +14,24 @@ import seedu.address.model.commands.CommandWord;
 public class NewCommand extends Command {
 
     public static final String SHOWING_NEW_COMMAND_MESSAGE = "Got it! You can now use %1$s as ";
-    private final String userInput;
+    private final String commandAction;
     private final String prevUnknownCommand;
 
-    public NewCommand(String userInput, String prevUnknownCommand) {
-        this.userInput = userInput;
+    public NewCommand(String commandAction, String prevUnknownCommand) {
+        this.commandAction = commandAction;
         this.prevUnknownCommand = prevUnknownCommand;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        CommandObject newCommand = new CommandObject(new CommandWord(this.prevUnknownCommand),
-                new CommandAction(this.userInput));
+        CommandWord newCommandWord = new CommandWord(this.prevUnknownCommand);
+        CommandAction newCommandAction = new CommandAction(this.commandAction);
+        CommandObject newCommand = new CommandObject(newCommandWord, newCommandAction);
 
         model.addCommand(newCommand);
 
-        return new CommandResult(String.format(SHOWING_NEW_COMMAND_MESSAGE + this.userInput,
+        return new CommandResult(String.format(SHOWING_NEW_COMMAND_MESSAGE + this.commandAction,
                 this.prevUnknownCommand));
 
     }

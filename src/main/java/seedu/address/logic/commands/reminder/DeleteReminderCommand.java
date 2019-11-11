@@ -16,7 +16,7 @@ import seedu.address.model.reminder.Reminder;
  * command to delete tasks.
  */
 public class DeleteReminderCommand extends Command {
-    public static final String COMMAND_WORD = "deleteReminder";
+    public static final String COMMAND_WORD = "delete_reminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the reminder identified by the index number used in the displayed reminder list.\n"

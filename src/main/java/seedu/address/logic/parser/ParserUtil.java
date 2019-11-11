@@ -48,6 +48,9 @@ import seedu.address.logic.commands.note.FindNotesCommand;
 import seedu.address.logic.commands.note.ListNotesCommand;
 import seedu.address.logic.commands.reminder.AddReminderCommand;
 import seedu.address.logic.commands.reminder.DeleteReminderCommand;
+import seedu.address.logic.commands.reminder.FindReminderCommand;
+import seedu.address.logic.commands.reminder.ListReminderBasedOnDateCommand;
+import seedu.address.logic.commands.reminder.ListReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.WindowView;
 import seedu.address.model.account.Username;
@@ -452,9 +455,12 @@ public class ParserUtil {
         commandList.put(FindEarningsCommand.COMMAND_WORD, FindEarningsCommand.COMMAND_WORD);
         commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
         commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
+        commandList.put(ListReminderCommand.COMMAND_WORD, ListReminderCommand.COMMAND_WORD);
         commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
         commandList.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.COMMAND_WORD);
         commandList.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD);
+        commandList.put(FindReminderCommand.COMMAND_WORD, FindReminderCommand.COMMAND_WORD);
+        commandList.put(ListReminderBasedOnDateCommand.COMMAND_WORD, ListReminderBasedOnDateCommand.COMMAND_WORD);
         commandList.put(ListTasksBasedOnDateCommand.COMMAND_WORD,
                 ListTasksBasedOnDateCommand.COMMAND_WORD);
         commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);

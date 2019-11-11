@@ -26,6 +26,7 @@ public class SuggestionsField extends TextField {
 
     public SuggestionsField() {
         super();
+        assert TutorAidParser.getCommandList() != null : "list of commands need to be initialised first";
         commandList = TutorAidParser.getCommandList();
         resultBox = new ContextMenu();
         resultBox.setOpacity(0.7);
@@ -76,7 +77,7 @@ public class SuggestionsField extends TextField {
             Label commandDescription = new Label(
                     commandWord + " - executes a <" + commandList.get(commandWord) + "> command."
             );
-            CustomMenuItem commandMenuItem = new CustomMenuItem(commandDescription, false);
+            CustomMenuItem commandMenuItem = new CustomMenuItem(commandDescription, true);
             itemsToDisplay.push(commandMenuItem);
             EventHandler<ActionEvent> onEnter = new EventHandler<>() {
                 @Override
