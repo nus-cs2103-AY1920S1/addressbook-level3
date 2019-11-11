@@ -29,7 +29,7 @@ Responsibilities: Logic + Model
 
 === Sebastian Lie Hsien Yong
 image::sebastianlie.png[width="150", align="left"]
-{empty}[https://github.com/SebastianLie[github]] [<<sebastianlie#, portfolio>>]
+{empty}[https://github.com/SebastianLie[github]] [<<SebastianLie#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data + UI
