@@ -258,10 +258,11 @@ will list all items that match all of the specified tags.
 === Clearing specific feature's data: `clear`
 
 [WARNING]
+Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data from the
+mode you are in!
 
-Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data depending on the mode you are in!
-
-Clears the data in specific feature. Depending on the _mode_ that the user is in, the `clear` command will only clear the specific feature's data.
+Clears the data in a specific feature. Depending on the _mode_ that the user is in, the `clear` command will only
+clear the specific feature's data.
 
 Example usage:
 
@@ -275,7 +276,6 @@ Expected output:
 === Clearing entire application's data: `clear all`
 
 [WARNING]
-
 Proceed with care when using this function!! Using the clear function will IMMEDIATELY clear ALL of the data in StudyBuddyPro!
 
 
@@ -506,7 +506,6 @@ Are you sure you would like to delete the following flashcard?
 ```
 
 [IMPORTANT]
-
 Inputting invalid commands will *NOT* offer another prompt to the user.
 For example, calling `delete 3`, then an `invalid command` and then `delete 3` again will immediately delete the 3rd item without a prompt.
 
@@ -628,7 +627,6 @@ Here are your overdue flashcards:
 ```
 
 == Notes Feature:
-
 
 Have too many things memorized in your head, with nowhere to write them down? Tired of jotting down thoughts in loose text files on your computer? Then give our Notes a try! Quick and easy to use, they help you keep track of all the loose bits of knowledge that you want to keep around but don't have the brain space to keep! Take note of these Notes and studying will be a breeze!
 
@@ -914,7 +912,7 @@ information, and to simply, save the day.
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _cheatsheet_ mode. To be sure
-you are _cheatsheet_ mode, please ensure you used the `switch cs` command before this. Your
+you are in the _cheatsheet_ mode, please ensure you used the `switch cs` command before this. Your
 screen should now look like the one found in the screenshot below.
 ====
 
