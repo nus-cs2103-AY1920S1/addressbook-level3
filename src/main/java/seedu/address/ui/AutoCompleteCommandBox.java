@@ -54,6 +54,8 @@ public class AutoCompleteCommandBox extends JFXTextField {
         this.commandExecutor = commandExecutor;
         this.setPromptText("What can I do for you?");
 
+        this.setOnAction(event -> handleCommandEntered());
+
         commandSuggestionSet.addAll(commandSuggestionList);
         commandsPopup = new ContextMenu();
         textProperty().addListener(new ChangeListener<String>() {
