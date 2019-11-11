@@ -487,14 +487,17 @@ In this activity diagram, the catch-all term 'report' is used to encompass the a
 // end::incidentfillandsubmit[]
 
 // tag::incidentsearch[]
-=== Incident Search feature
+=== Incident Finding and Listing feature
 ==== Implementation
 
-The incident search mechanism features a set of different types of searches that a user could utilise to list out all related incidents, inclusive of incomplete drafts, complete drafts and completed reports. Further documentation on the commands available in this set can be found in the User Guide. The types of searches are as listed:
+The incident search mechanism features a set of different types of searches that a user could utilise to list out all related incidents, regardless of status of report. Further documentation on the commands available in this set can be found in the User Guide. It is facilitated by the List Incidents Command and the Find Incidents Command. To differentiate the reports by statuses, the Incident Filling and Submission feature cover these capabilities already, as mentioned earlier.
 
-* Unfiltered - Displays all incidents in `Model` +
+===== Overview of Finding and Listing commands
+
+. Listing all - Displays all incidents in `Model`, taking in no parameters +
 eg. `list-i`
 
+. Finding based on parameters- Displays all incidents in `Model` based on matching parameters indicated +
 * ID - Displays all incidents with exact matches in `IncidentId incidentId` in `Incident incident`, within `Model` +
 eg. `find-i id/0620150001`
 
@@ -508,9 +511,11 @@ eg. `find-i op/bill`
 eg. `find-i self`
 
 ****
-* Each parameter in `find-i` search commands can be combined in any order and quantity, returning only results that abide by all filtering by each parameter used
-* Search by keywords is case-insensitive
-* Each parameter in `find-i` accepts multiple keywords, and searches for matches containing any of these keywords
+* `list-i` does not take any parameters, and returns errors if parameters are added to the command
+* Search by keywords is case-insensitive for convenience and ease of use
+* Each parameter in `find-i` search commands can be combined in any order and quantity, returning only results that return a match in all predicates indicated
+* Each parameter in `find-i` accepts multiple keywords, and searches for matches containing any or all of these keywords
+* `find-i` can take in
 ****
 
 The incident search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Incidents> filteredIncidents`, which internally stores the list of displayed incidents in the GUI. Additionally, it implements the following key method:
@@ -1282,3 +1287,4 @@ Incident pane must be visible in GUI.
 .. Prerequisites: User must be logged in.
 .. Test case: `list-v` +
     Expected: Message "Listed all vehicles", and all vehicles in database will be listed in the vehicle pane.
+
