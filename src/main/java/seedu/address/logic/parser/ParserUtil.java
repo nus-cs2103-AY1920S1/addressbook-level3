@@ -8,7 +8,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECURRENCE_TYP
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCHEDULE_VIEW_MODE;
 import static seedu.address.commons.util.EventUtil.BAD_DATE_FORMAT;
 import static seedu.address.commons.util.EventUtil.DAILY_RECUR_RULE_STRING;
-import static seedu.address.commons.util.EventUtil.INVALID_RECURRENCE_TYPE;
 import static seedu.address.commons.util.EventUtil.NONE_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.WEEKLY_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.dateToLocalDateTimeFormatter;

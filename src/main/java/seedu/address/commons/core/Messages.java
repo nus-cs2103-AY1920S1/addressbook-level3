@@ -50,9 +50,12 @@ public class Messages {
             + " have the same event name, start date time and end date time.";
     public static final String MESSAGE_INVALID_SCHEDULE_VIEW_MODE = "Invalid schedule view mode."
             + " Please input weekly or daily only.";
-    public static final String MESSAGE_INVALID_DATE = "Invalid date input passed. Should be of format YYYY-MM-DD and be a valid date.";
+    public static final String MESSAGE_INVALID_DATE = "Invalid date input passed. "
+            + "Should be of format YYYY-MM-DD and be a valid date.";
     public static final String MESSAGE_EVENT_NAME_BACKSLASH = "Event name contains backslash.";
-    public static final String MESSAGE_INVALID_COLOR_STRING = "Invalid color input. Please input a number in range from [0-23].";
-    public static final String MESSAGE_INVALID_RECURRENCE_TYPE = "Invalid recurrence type. Please input either none, weekly or daily.";
+    public static final String MESSAGE_INVALID_COLOR_STRING = "Invalid color input."
+            + " Please input a number in range from [0-23].";
+    public static final String MESSAGE_INVALID_RECURRENCE_TYPE = "Invalid recurrence type."
+            + " Please input either none, weekly or daily.";
     public static final String MESSAGE_INDEX_EMPTY_EVENT_NAME = "Please input a event name to be used in search.";
 }
