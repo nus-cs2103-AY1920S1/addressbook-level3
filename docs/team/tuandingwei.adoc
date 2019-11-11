@@ -32,7 +32,7 @@ The `Add` was greatly enhanced to allow the student user to add new modules to G
 
 === Major Enhancement: Ravamped User-Interface (UI)
 
-image::CapUI.png[width="800"]
+image::CapUI.png[width="800"][align="center", width="500"]
 
 The UI is revamped to a new design that features modern curved edges and shadow-like background panes. Borders are taken away to promote a more cohesive flow of content. The aim is to deliver a "less is more" simplicity concept. Much attention is given to the effects of having a grey-like background matching with the black fonts and white background. It is designed in a way to display the services that Modulo offers without ambiguity, in order to draw our users' attention and keep them on our site.
 
@@ -70,32 +70,21 @@ As the Grades Tracker feature does not have indexes the original delete command 
 *** Integrated a third party library (https://o7planning.org/en/11057/javafx-tooltip-tutorial[Tooltip]) for the pie chart animation (https://github.com[#42])
 
 == Contributions to the User Guide
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/UserGuide.html[link] to view the entire User Guide._
-|===
-
+You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/UserGuide.html[link] to view the entire User Guide.
 Following are the links to the PR:
 
 https://github.com/AY1920S1-CS2103-T16-2/main/pull/166[UG Contribution 1]
-
 https://github.com/AY1920S1-CS2103-T16-2/main/pull/171[UG Contribution 2]
-
 https://github.com/AY1920S1-CS2103-T16-2/main/pull/53[UG Contribution 3]
 
 include::../UserGuide.adoc[tag=intro]
 include::../UserGuide.adoc[tag=grades1]
 
 == Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/DeveloperGuide.html[link] to the entire developer guide._
-|===
-
+You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/DeveloperGuide.html[link] to the entire developer guide.
 Following are the links to the PR:
 
 https://github.com/AY1920S1-CS2103-T16-2/main/pull/100[DG Contribution 1]
-
 https://github.com/AY1920S1-CS2103-T16-2/main/pull/53[DG Contribution 2]
 
 
@@ -103,7 +92,7 @@ https://github.com/AY1920S1-CS2103-T16-2/main/pull/53[DG Contribution 2]
 === Architecture
 
 .Architecture Diagram for a feature
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagram.png[][align="center", width="400"]
 
 
 `Main` has two classes called link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/Main.java[`Main`] and link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
@@ -131,7 +120,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component for the feature Cap
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram.png[][align="center", width="500"]
 
 // tag::rationale[]
 [discrete]
@@ -145,8 +134,8 @@ The features in _Modulo_ are quite distinct and having minimal overlaps, each fe
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete CS2103` when in the feature _Module_.
 
-.Component interactions for `delete 1` command in _Cap_ feature
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `delete CS2103` command in _Cap_ feature
+image::ArchitectureSequenceDiagram.png[][align="center", width="400"]
 
 The sections below give more details of each component.
 
@@ -157,7 +146,7 @@ The sections below give more details of each component.
 The following activity diagram displays the sequence of events after the user inputs to add a new module.
 
 .Class Diagram of Module
-image::CapActivityDiagram.png[]
+image::CapActivityDiagram.png[][align="center", width="200"]
 
 For the user to add new modules to the Modulo Grades Tracker, the `Module` has to be designed to satisfy the requirements of a module and the needs of the user.
 
@@ -166,7 +155,7 @@ For the user to add new modules to the Modulo Grades Tracker, the `Module` has t
 * Each class has their respective getter methods and validity-check method.
 
 .Class Diagram of Module
-image::ModuleClassDiagram.png[]
+image::ModuleClassDiagram.png[][align="center", width="400"]
 
 ==== Implementation of Module commands
 
@@ -199,13 +188,3 @@ The search for the matching module code is implemented with a linear search. Wit
 
 An alternative would be to use a search algorithm that comprises a Hash set and linear search.
 
-.Considerations when designing the Module class
-[width="80%" cols="^3, ^10" options="header"]
-|=======
-| Field | Validity
-| ModuleCode | Module code should contain a set of 4 integers and no excessive characters. The student is provided with the liberty to input any module code in consideration that new modules and faculties may be created in the future.
-| Semester | Semester should contain valid academic years and semester period. The academic year stated can only be +/-5 years than the current year, assuming that students are able to graduate in at most five years. While the semester period allows input from 1 to 4.
-| Title | The title of the module is left for the user to define. This is to take into account that there might be new modules released in teh future hence the user needs to have the ability to customise the title. It is valid as long as it does not have special characters.
-| Credit | As stated by NUS, the range of modular credit ranges from 2 to 23.
-| Grade | Only NUS approved grades are allowed i.e. A+, A, A-, B+, B, B-, C+, C, D+, D and F
-|=======
