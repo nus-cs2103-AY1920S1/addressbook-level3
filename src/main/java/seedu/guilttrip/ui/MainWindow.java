@@ -34,7 +34,6 @@ import seedu.guilttrip.ui.expense.ExpenseListPanel;
 import seedu.guilttrip.ui.income.IncomeListPanel;
 import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
-import seedu.guilttrip.ui.stats.StatisticsPieChartPanel;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
 import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.PanelName;

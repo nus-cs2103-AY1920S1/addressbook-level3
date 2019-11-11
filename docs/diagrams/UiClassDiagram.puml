@@ -52,20 +52,18 @@ MainWindow *--> StatisticsWindow
 MainWindow *--> StatusBarFooter
 MainWindow *--> FontName
 MainWindow *--> Theme
+MainWindow *--> StatisticsBarChart
 
 ExpenseListPanel --> ExpenseCard
+IncomeListPanel --> IncomeCard
+XYZPanel --> XYZCard
 
 StatisticsWindow *-->"1" StatisticsPieChartPanel
 StatisticsPieChartPanel *-->"0..2" StatisticsPieChart
 StatisticsWindow *-->"1" StatisticsTablePanel
 StatisticsTablePanel *-->"0..2" StatisticsTable
 
-IncomeListPanel --> IncomeCard
-
-XYZPanel --> XYZCard
-
-MainWindow -left-|> UiPart
-
+MainWindow --|> UiPart
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
 ExpenseListPanel --|> UiPart
@@ -82,9 +80,6 @@ StatisticsPieChart --|> UiPart
 StatisticsPieChartPanel --|> UiPart
 StatisticsTablePanel --|> UiPart
 
-MainWindow --> StatisticsWindow
-MainWindow --> StatisticsBarChart
-
 StatusBarFooter -down-|> UiPart
 HelpWindow -down-|> UiPart
 
@@ -95,15 +90,15 @@ XYZCard .down.> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-HelpWindow -[hidden]right- ExpenseListPanel
+/'HelpWindow -[hidden]right- ExpenseListPanel
 ExpenseListPanel -[hidden]right- IncomeListPanel
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
 StatusBarFooter -[hidden]left- FontName
-FontName -[hidden]left- Theme
+FontName -[hidden]left- Theme'/
 
-MainWindow -[hidden]-|> UiPart
+/'MainWindow -[hidden]-|> UiPart'/
 
 note right of XYZPanel: XYZPanel refers to\n\
 BudgetPanel,\n\
