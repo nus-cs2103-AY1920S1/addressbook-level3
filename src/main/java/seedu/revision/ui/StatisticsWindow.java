@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
@@ -19,13 +18,14 @@ import seedu.revision.model.RevisionTool;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
 import seedu.revision.ui.answerables.AnswerableListPanel;
-
+import seedu.revision.ui.statistics.StatisticsListPanel;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Statistics Window. Provides the basic application layout containing
+ * a menu bar and space where other JavaFX elements can be placed,
+ * especially showing results breakdown of quizzes.
  */
-public class MainWindow extends ParentWindow {
+public class StatisticsWindow extends ParentWindow {
 
     protected static final String FXML = "MainWindow.fxml";
 
@@ -36,7 +36,7 @@ public class MainWindow extends ParentWindow {
      * @param primaryStage the stage where scenes can be added to.
      * @param logic the logic that will be used to drive the app.
      */
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public StatisticsWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage, logic);
     }
 
@@ -44,17 +44,18 @@ public class MainWindow extends ParentWindow {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
-        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+
+        statisticsListPanel = new StatisticsListPanel(logic.getStatisticsList());
+        answerableListPanelPlaceholder.getChildren().add(statisticsListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplay.setFeedbackToUser("Statistics of all quiz attempts shown!");
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRevisionToolFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, true);
-        //CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -142,6 +143,9 @@ public class MainWindow extends ParentWindow {
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        MainWindow mainWindow = new MainWindow(primaryStage, logic);
+        mainWindow.show(); //This should be called before creating other UI parts
+        mainWindow.fillInnerParts();
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -172,9 +176,9 @@ public class MainWindow extends ParentWindow {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
 }
+

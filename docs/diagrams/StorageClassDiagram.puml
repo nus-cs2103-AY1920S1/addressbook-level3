@@ -6,19 +6,24 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface HistoryStorage <<Interface>>
+Interface RevisionToolStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonHistoryStorage
+Class JsonRevisionToolStorage
 
-StorageManager .left.|> Storage
+StorageManager .up.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o-left-> HistoryStorage
+StorageManager o-down-> RevisionToolStorage
 
+JsonHistoryStorage .right.|> HistoryStorage
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonRevisionToolStorage .up.|> RevisionToolStorage
+JsonRevisionToolStorage .down.> JsonSerializableRevisionTool
+JsonSerializableRevisionTool .right.> JsonAdaptedAnswerable
+JsonHistoryStorage .down.> JsonSerializableHistory
+JsonSerializableHistory .down.> JsonAdaptedStatistics
 @enduml

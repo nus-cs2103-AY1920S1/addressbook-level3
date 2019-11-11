@@ -47,7 +47,7 @@ Responsibilities: In charge of Documentation
 
 === Sim Khiang Leon
 image::khiangleon.png[width="150", align="left"]
-{empty}[http://github.com/khiangleon[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/khiangleon[github]] [<<khiangleon#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Storage

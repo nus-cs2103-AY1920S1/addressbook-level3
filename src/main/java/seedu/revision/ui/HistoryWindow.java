@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-
 import seedu.revision.commons.core.GuiSettings;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
@@ -16,27 +15,31 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.RevisionTool;
+import seedu.revision.model.quiz.GraphList;
 import seedu.revision.model.quiz.Mode;
 import seedu.revision.model.util.SampleDataUtil;
 import seedu.revision.ui.answerables.AnswerableListPanel;
-
+import seedu.revision.ui.statistics.GraphListPanel;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The History Window. Provides the basic application layout containing
+ * a menu bar and space where other JavaFX elements can be placed,
+ * especially for generating line graphs.
  */
-public class MainWindow extends ParentWindow {
+public class HistoryWindow extends ParentWindow {
 
     protected static final String FXML = "MainWindow.fxml";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    private GraphList graphList;
+
     /**
-     * Initialises the GUI when App is started.
+     * Initialises the GUI when History is called.
      * @param primaryStage the stage where scenes can be added to.
      * @param logic the logic that will be used to drive the app.
      */
-    public MainWindow(Stage primaryStage, Logic logic) {
+    public HistoryWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage, logic);
     }
 
@@ -44,17 +47,20 @@ public class MainWindow extends ParentWindow {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        answerableListPanel = new AnswerableListPanel(logic.getFilteredAnswerableList());
-        answerableListPanelPlaceholder.getChildren().add(answerableListPanel.getRoot());
+
+        graphList = new GraphList((logic.getStatisticsList()));
+        graphListPanel = new GraphListPanel(graphList.getGraphList());
+        answerableListPanelPlaceholder.getChildren().add(graphListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
+        resultDisplay.setFeedbackToUser("History of all quiz attempts shown: \n" + logic.getStatisticsList()
+                        + "\nYou have attempted " + logic.getStatisticsList().size() + " quizzes so far.");
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRevisionToolFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, true);
-        //CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -142,6 +148,9 @@ public class MainWindow extends ParentWindow {
      */
     @Override
     protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        MainWindow mainWindow = new MainWindow(primaryStage, logic);
+        mainWindow.show(); //This should be called before creating other UI parts
+        mainWindow.fillInnerParts();
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -172,9 +181,9 @@ public class MainWindow extends ParentWindow {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
     }
 }
+
