@@ -621,12 +621,12 @@ The optional arguments take the following default values if left unspecified:
 
 | Description | "No Description"
 | Name | "No Name"
-| Start Day | "-1" (Offset ignored)
-| Start Month | "-1" (Offset ignored)
-| Start Year | "-1" (Offset ignored)
-| End Day | "-1" (Offset ignored)
-| End Month | "-1" (Offset ignored)
-| End Year | "-1" (Offset ignored)
+| Start Day | "12"
+| Start Month | "12"
+| Start Year | "2019"
+| End Day | "1"
+| End Month | "2"
+| End Year | "2020"
 |==============================
 
 .Usage of 'add'
