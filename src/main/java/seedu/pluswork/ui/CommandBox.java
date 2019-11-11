@@ -78,7 +78,7 @@ public class CommandBox extends UiPart<Region> {
     // adapted from group T12-2's autocomplete textfield architecture
     public void getSuggestions() {
         commandTextField.textProperty().addListener((observableValue, oldStr, newStr) -> {
-            String text = commandTextField.getText().toLowerCase();
+            String text = commandTextField.getText().trim().toLowerCase();
             if (text.length() == 0 || text == null) {
                 entriesPopup.hide();
             } else {
