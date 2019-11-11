@@ -13,7 +13,7 @@ We are a student team based in the http://www.comp.nus.edu.sg[School of Computin
 
 === Bryan Lim
 image::blimyj.png[width="150", align="left"]
-{empty}[http://github.com/blimyj[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/blimyj[github]] [<<blimyj#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Commons
@@ -40,7 +40,7 @@ Responsibilities: Logic
 
 === Low Cheng Yi
 image::Icesiolz.png[width="150", align="left"]
-{empty}[http://github.com/Icesiolz[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Icesiolz[github]] [<<icesiolz#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI

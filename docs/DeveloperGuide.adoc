@@ -222,18 +222,21 @@ The accepted parameters for `-auto` is `day`, `week`, `month` and the format of 
 
 The following diagram shows the process of adding an Event with -auto flag:
 
-.Activity diagram of adding an Event with -auto flag
-image::AutoRescheduleActivity.png[100, 400]
-
-In the diagram, when we add the Event initially, we would check the start time of the Event and update it accordingly.
-However, this is not the only place where rescheduling occurs.
+[Cols="2,2"]
+|===
+|Activity diagram of adding an Event with -auto flag |Explanation:
+a|image:AutoRescheduleActivity.png[100, 400]
+|In the diagram, when we add the Event initially, we would check the start time of the Event and update it accordingly.
+However, this is not the only place where rescheduling occurs. +
 
 *3 places where rescheduling can occur:* +
 
-. When the event is created, as shown in the diagram above.
-. While the app is running, the Event's start time will be continuously updated when it has passed. +
-This is done using `Timer` and `TimerTask`, using `Timer#scheduleAtFixedRate()`.
-. When the app is started and Events are loaded from the storage. The stored Event time might already be over, as such the time has to be updated to the latest upcoming one.
+1) When the event is created, as shown in the diagram above. +
+2) While the app is running, the Event's start time will be continuously updated when it has passed. +
+This is done using `Timer` and `TimerTask`, using `Timer#scheduleAtFixedRate()`. +
+3) When the app is started and Events are loaded from the storage. The stored Event time might already be over, as such the time has to be updated to the latest upcoming one.
+|===
+
 
 To illustrate how they work, first we need to know what classes are involved before we can understand the sequence of actions carried out. +
 The classes involved in the above rescheduling are: +
@@ -269,7 +272,7 @@ As mentioned, the key points to take note of in the diagram above is `Event#setA
 The significance of these methods will be shown in the continuing diagram below:
 
 .LogicManager executing AddEventCommand and create task for AutoRescheduleManager
-image::AutoRescheduleSequence_2.png[]
+image::AutoRescheduleSequence_2.png[100, 700]
 
 From the above diagram, we can see that the presence of `AutoReschedulePeriod` in Event results in the creation of `RescheduleTask` which would be queued into the Timer managed by `AutoRescheduleManager`.
 
