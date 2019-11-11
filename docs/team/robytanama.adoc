@@ -169,8 +169,6 @@ https://github.com/AY1920S1-CS2103T-F13-2/main/pull/177[#177]]
 
 *** Updated Theme feature of the Developer Guide [PR https://github.com/AY1920S1-CS2103T-F13-2/main/pull/333[#333]]
 
-<<<
-
 == Contributions to the User Guide
 
 This section shows the contributions that I have made to the general feature of the User Guide.
