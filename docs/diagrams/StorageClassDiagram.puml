@@ -17,10 +17,18 @@ StorageManager o-right-> UserPrefsStorage
 StorageManager o--> MarkStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonMarkStorage .left.|> MarkStorage
+JsonMarkStorage .up.|> MarkStorage
 JsonMarkStorage .down.> JsonSerializableMark
-JsonSerializableMark .right.> JsonAdaptedBookmark
-JsonSerializableMark .down> JsonAdaptedFolderStructure
-JsonAdaptedBookmark .right.> JsonAdaptedTag
-JsonAdaptedBookmark .up.> JsonAdaptedCachedCopy
+JsonSerializableMark .> JsonAdaptedBookmark
+JsonSerializableMark .left.> JsonAdaptedFolderStructure
+JsonSerializableMark .down.> JsonAdaptedReminder
+JsonAdaptedBookmark .up.> JsonAdaptedTag
+JsonAdaptedBookmark .> JsonAdaptedCachedCopy
+JsonAdaptedCachedCopy .up.> JsonAdaptedOfflineDocument
+JsonAdaptedOfflineDocument .up.> JsonAdaptedParagraph
+JsonAdaptedParagraph .left.> JsonAdaptedAnnotation
+
+JsonSerializableMark .down.> JsonAdaptedAutotagController
+JsonAdaptedAutotagController .down.> JsonAdaptedSelectiveBookmarkTagger
+JsonAdaptedSelectiveBookmarkTagger .right.> JsonAdaptedBookmarkPredicate
 @enduml
