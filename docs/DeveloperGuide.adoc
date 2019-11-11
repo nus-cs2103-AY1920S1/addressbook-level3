@@ -313,6 +313,7 @@ The `execute` method will return the `CommandResult`, correct or wrong. The curr
 
 
 image::SaqAnswerCheckerClassDiagram.png[width=790]
+image::SaqIsCorrectSequenceDiagram.png[width=790]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
