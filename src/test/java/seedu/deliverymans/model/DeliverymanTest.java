@@ -9,11 +9,6 @@ import static seedu.deliverymans.model.util.SampleDataUtil.getTagSet;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Set;
-
-import seedu.deliverymans.model.Name;
-import seedu.deliverymans.model.Phone;
-import seedu.deliverymans.model.Tag;
 import seedu.deliverymans.model.deliveryman.Deliveryman;
 import seedu.deliverymans.model.deliveryman.deliverymanstatus.StatusTag;
 
