@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.appointments.AddApptCommand;
-import seedu.address.logic.commands.appointments.CancelApptCommand;
+import seedu.address.logic.commands.appointments.AddAppCommand;
+import seedu.address.logic.commands.appointments.CancelAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -30,14 +30,14 @@ import seedu.address.model.events.parameters.Timing;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AddApptCommandParser implements Parser<ReversibleActionPairCommand> {
+public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_REFERENCEID = "the reference id is not belong to any patient";
     public static final String MESSAGE_REFERENCEID_BELONGS_TO_STAFF =
             "Appointments should only be scheduled for patients.";
 
     private Model model;
 
-    public AddApptCommandParser(Model model) {
+    public AddAppCommandParser(Model model) {
         this.model = model;
     }
 
@@ -54,13 +54,13 @@ public class AddApptCommandParser implements Parser<ReversibleActionPairCommand>
 
         if (!argMultimap.arePrefixesPresent(PREFIX_ID, PREFIX_START)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddApptCommand.MESSAGE_USAGE));
+                    AddAppCommand.MESSAGE_USAGE));
         }
 
         ReferenceId referenceId = ParserUtil.lookupPatientReferenceId(
                 argMultimap.getValue(PREFIX_ID).get(), MESSAGE_REFERENCEID_BELONGS_TO_STAFF);
         if (!model.hasPatient(referenceId)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddApptCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_REFERENCEID, AddAppCommand.MESSAGE_USAGE));
         }
 
         String startString = argMultimap.getValue(PREFIX_START).get();
@@ -74,7 +74,7 @@ public class AddApptCommandParser implements Parser<ReversibleActionPairCommand>
 
             if (!reoccurringString.equals("w") && !reoccurringString.equals("m") && !reoccurringString.equals("y")) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddApptCommand.MESSAGE_USAGE));
+                        AddAppCommand.MESSAGE_USAGE));
             }
 
             Index reoccurringTimes = ParserUtil.parseTimes(reoccurringStringTimesOptional.get());
@@ -82,17 +82,17 @@ public class AddApptCommandParser implements Parser<ReversibleActionPairCommand>
             Appointment event = new Appointment(referenceId,
                     model.resolvePatient(referenceId).getName(), timing, new Status());
             List<Event> eventList = ParserUtil.getRecEvents(event, reoccurringString, times);
-            return new ReversibleActionPairCommand(new AddApptCommand(eventList),
-                    new CancelApptCommand(eventList));
+            return new ReversibleActionPairCommand(new AddAppCommand(eventList),
+                    new CancelAppCommand(eventList));
         } else {
             if (ParserUtil.unmatchedReoccurring(reoccurringStringOptional, reoccurringStringTimesOptional)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddApptCommand.MESSAGE_USAGE));
+                        AddAppCommand.MESSAGE_USAGE));
             }
             Appointment event = new Appointment(referenceId,
                     model.resolvePatient(referenceId).getName(), timing, new Status());
-            return new ReversibleActionPairCommand(new AddApptCommand(event),
-                    new CancelApptCommand(event));
+            return new ReversibleActionPairCommand(new AddAppCommand(event),
+                    new CancelAppCommand(event));
         }
     }
 

@@ -13,13 +13,13 @@ import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SetFocusOnTabCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.appointments.AckApptCommand;
-import seedu.address.logic.commands.appointments.AddApptCommand;
+import seedu.address.logic.commands.appointments.AckAppCommand;
+import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.commands.appointments.AppointmentsCommand;
-import seedu.address.logic.commands.appointments.CancelApptCommand;
-import seedu.address.logic.commands.appointments.EditApptCommand;
-import seedu.address.logic.commands.appointments.MissApptCommand;
-import seedu.address.logic.commands.appointments.SettleApptCommand;
+import seedu.address.logic.commands.appointments.CancelAppCommand;
+import seedu.address.logic.commands.appointments.EditAppCommand;
+import seedu.address.logic.commands.appointments.MissAppCommand;
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.Command;
 import seedu.address.logic.commands.common.CommandHistory;
 import seedu.address.logic.commands.duties.AddDutyShiftCommand;
@@ -38,13 +38,13 @@ import seedu.address.logic.commands.queue.ResumeCommand;
 import seedu.address.logic.commands.staff.EditStaffDetailsCommand;
 import seedu.address.logic.commands.staff.ListStaffCommand;
 import seedu.address.logic.commands.staff.RegisterStaffCommand;
-import seedu.address.logic.parser.appointments.AckApptCommandParser;
-import seedu.address.logic.parser.appointments.AddApptCommandParser;
+import seedu.address.logic.parser.appointments.AckAppCommandParser;
+import seedu.address.logic.parser.appointments.AddAppCommandParser;
 import seedu.address.logic.parser.appointments.AppointmentsCommandParser;
-import seedu.address.logic.parser.appointments.CancelApptCommandParser;
-import seedu.address.logic.parser.appointments.EditApptCommandParser;
-import seedu.address.logic.parser.appointments.MissApptCommandParser;
-import seedu.address.logic.parser.appointments.SettleApptCommandParser;
+import seedu.address.logic.parser.appointments.CancelAppCommandParser;
+import seedu.address.logic.parser.appointments.EditAppCommandParser;
+import seedu.address.logic.parser.appointments.MissAppCommandParser;
+import seedu.address.logic.parser.appointments.SettleAppCommandParser;
 import seedu.address.logic.parser.duties.AddDutyShiftCommandParser;
 import seedu.address.logic.parser.duties.CancelDutyShiftCommandParser;
 import seedu.address.logic.parser.duties.ChangeDutyShiftCommandTimingParser;
@@ -141,14 +141,14 @@ public class SystemCommandParser {
         case AppointmentsCommand.COMMAND_WORD:
             return new AppointmentsCommandParser(model).parse(arguments);
 
-        case AddApptCommand.COMMAND_WORD:
-            return new AddApptCommandParser(model).parse(arguments);
+        case AddAppCommand.COMMAND_WORD:
+            return new AddAppCommandParser(model).parse(arguments);
 
-        case CancelApptCommand.COMMAND_WORD:
-            return new CancelApptCommandParser(model).parse(arguments);
+        case CancelAppCommand.COMMAND_WORD:
+            return new CancelAppCommandParser(model).parse(arguments);
 
-        case EditApptCommand.COMMAND_WORD:
-            return new EditApptCommandParser(model).parse(arguments);
+        case EditAppCommand.COMMAND_WORD:
+            return new EditAppCommandParser(model).parse(arguments);
 
 
         case DutyShiftCommand.COMMAND_WORD:
@@ -164,14 +164,14 @@ public class SystemCommandParser {
             return new ChangeDutyShiftCommandTimingParser(model).parse(arguments);
 
 
-        case AckApptCommand.COMMAND_WORD:
-            return new AckApptCommandParser(model).parse(arguments);
+        case AckAppCommand.COMMAND_WORD:
+            return new AckAppCommandParser(model).parse(arguments);
 
-        case MissApptCommand.COMMAND_WORD:
-            return new MissApptCommandParser().parse(arguments);
+        case MissAppCommand.COMMAND_WORD:
+            return new MissAppCommandParser().parse(arguments);
 
-        case SettleApptCommand.COMMAND_WORD:
-            return new SettleApptCommandParser(model).parse(arguments);
+        case SettleAppCommand.COMMAND_WORD:
+            return new SettleAppCommandParser(model).parse(arguments);
 
 
         case AddConsultationRoomCommand.COMMAND_WORD:
@@ -233,12 +233,12 @@ public class SystemCommandParser {
         case RemoveRoomCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.DOCTORS_TAB);
 
-        case AddApptCommand.COMMAND_WORD:
-        case AckApptCommand.COMMAND_WORD:
-        case CancelApptCommand.COMMAND_WORD:
-        case EditApptCommand.COMMAND_WORD:
-        case MissApptCommand.COMMAND_WORD:
-        case SettleApptCommand.COMMAND_WORD:
+        case AddAppCommand.COMMAND_WORD:
+        case AckAppCommand.COMMAND_WORD:
+        case CancelAppCommand.COMMAND_WORD:
+        case EditAppCommand.COMMAND_WORD:
+        case MissAppCommand.COMMAND_WORD:
+        case SettleAppCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.APPOINTMENTS_TAB);
 
         case AddDutyShiftCommand.COMMAND_WORD:

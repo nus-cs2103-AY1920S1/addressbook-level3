@@ -14,7 +14,7 @@ import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 /**
  * Acknowledge a person to the address book.
  */
-public class AckApptCommand extends ReversibleCommand {
+public class AckAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "ackappt";
 
 
@@ -36,7 +36,7 @@ public class AckApptCommand extends ReversibleCommand {
     /**
      * Creates an AckAppCommand to add the specified {@code Event}
      */
-    public AckApptCommand(Event eventToEdit, Event editedEvent) {
+    public AckAppCommand(Event eventToEdit, Event editedEvent) {
         requireNonNull(eventToEdit);
         requireNonNull(editedEvent);
         this.eventToEdit = eventToEdit;
@@ -84,8 +84,8 @@ public class AckApptCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AckApptCommand // instanceof handles nulls
-                && editedEvent.equals(((AckApptCommand) other).editedEvent));
+                || (other instanceof AckAppCommand // instanceof handles nulls
+                && editedEvent.equals(((AckAppCommand) other).editedEvent));
     }
 
 }

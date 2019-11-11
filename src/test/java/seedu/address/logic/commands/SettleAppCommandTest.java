@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appointments.SettleApptCommand;
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -23,18 +23,18 @@ class SettleAppCommandTest {
 
     @Test
     public void constructor_nullEvent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new SettleApptCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new SettleAppCommand(null, null));
     }
 
     @Test
     public void execute_validUnfilteredList_success() throws Exception {
         Event eventToSettled = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         Event eventSettled = new EventBuilder(eventToSettled).withStatus("SETTLED").build();
-        CommandResult commandResult = new SettleApptCommand(eventToSettled, eventSettled).execute(model);
-        assertEquals(String.format(SettleApptCommand.MESSAGE_SUCCESS, eventSettled.getPersonId(),
+        CommandResult commandResult = new SettleAppCommand(eventToSettled, eventSettled).execute(model);
+        assertEquals(String.format(SettleAppCommand.MESSAGE_SUCCESS, eventSettled.getPersonId(),
                 eventSettled.getPersonName(), eventSettled),
                 commandResult.getFeedbackToUser());
-        new SettleApptCommand(eventSettled, eventToSettled).execute(model);
+        new SettleAppCommand(eventSettled, eventToSettled).execute(model);
     }
 
     @Test
@@ -45,14 +45,14 @@ class SettleAppCommandTest {
         Event secondEvent = new EventBuilder(BENSON).build();
         Event secondSettledEvent = new EventBuilder(secondEvent).withStatus("SETTLED").build();
 
-        SettleApptCommand firstSettledCommand = new SettleApptCommand(firstEvent, firstSettledEvent);
-        SettleApptCommand secondSettledCommand = new SettleApptCommand(secondEvent, secondSettledEvent);
+        SettleAppCommand firstSettledCommand = new SettleAppCommand(firstEvent, firstSettledEvent);
+        SettleAppCommand secondSettledCommand = new SettleAppCommand(secondEvent, secondSettledEvent);
 
         // same object -> returns true
         assertTrue(firstSettledCommand.equals(firstSettledCommand));
 
         // same values -> returns true
-        SettleApptCommand settleApptCommand = new SettleApptCommand(firstEvent, firstSettledEvent);
+        SettleAppCommand settleApptCommand = new SettleAppCommand(firstEvent, firstSettledEvent);
         assertTrue(firstSettledCommand.equals(settleApptCommand));
 
 

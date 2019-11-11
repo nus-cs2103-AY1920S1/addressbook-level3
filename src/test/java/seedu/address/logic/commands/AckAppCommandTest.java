@@ -10,7 +10,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appointments.AckApptCommand;
+import seedu.address.logic.commands.appointments.AckAppCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -23,18 +23,18 @@ class AckAppCommandTest {
 
     @Test
     public void constructor_nullEvent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AckApptCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new AckAppCommand(null, null));
     }
 
     @Test
     public void execute_validUnfilteredList_success() throws Exception {
         Event eventToAcked = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
         Event eventAcked = new EventBuilder(eventToAcked).withStatus("ACKNOWLEDGED").build();
-        CommandResult commandResult = new AckApptCommand(eventToAcked, eventAcked).execute(model);
-        assertEquals(String.format(AckApptCommand.MESSAGE_SUCCESS, eventAcked.getPersonId(),
+        CommandResult commandResult = new AckAppCommand(eventToAcked, eventAcked).execute(model);
+        assertEquals(String.format(AckAppCommand.MESSAGE_SUCCESS, eventAcked.getPersonId(),
                 eventAcked.getPersonName(), eventAcked),
                 commandResult.getFeedbackToUser());
-        new AckApptCommand(eventAcked, eventToAcked).execute(model);
+        new AckAppCommand(eventAcked, eventToAcked).execute(model);
     }
 
     @Test
@@ -45,14 +45,14 @@ class AckAppCommandTest {
         Event secondEvent = new EventBuilder(BENSON).build();
         Event secondEventAcked = new EventBuilder(secondEvent).withStatus("ACKNOWLEDGED").build();
 
-        AckApptCommand firstAckCommand = new AckApptCommand(firstEvent, firstEventAcked);
-        AckApptCommand secondAckCommand = new AckApptCommand(secondEvent, secondEventAcked);
+        AckAppCommand firstAckCommand = new AckAppCommand(firstEvent, firstEventAcked);
+        AckAppCommand secondAckCommand = new AckAppCommand(secondEvent, secondEventAcked);
 
         // same object -> returns true
         assertTrue(firstAckCommand.equals(firstAckCommand));
 
         // same values -> returns true
-        AckApptCommand firstAckCommandCopy = new AckApptCommand(firstEvent, firstEventAcked);
+        AckAppCommand firstAckCommandCopy = new AckAppCommand(firstEvent, firstEventAcked);
         assertTrue(firstAckCommand.equals(firstAckCommandCopy));
 
 

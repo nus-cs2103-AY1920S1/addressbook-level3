@@ -15,7 +15,7 @@ import seedu.address.model.events.predicates.EventsMissedPredicate;
 /**
  * mark a appointment's status as SETTLED for a patient.
  */
-public class SettleApptCommand extends ReversibleCommand {
+public class SettleAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "settleappt";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": settle a missed appointment. "
@@ -36,7 +36,7 @@ public class SettleApptCommand extends ReversibleCommand {
     /**
      * Creates an SettleAppCommand to add the specified {@code Person}
      */
-    public SettleApptCommand(Event eventToEdit, Event editedEvent) {
+    public SettleAppCommand(Event eventToEdit, Event editedEvent) {
         requireNonNull(eventToEdit);
         requireNonNull(editedEvent);
         this.eventToEdit = eventToEdit;
@@ -76,8 +76,8 @@ public class SettleApptCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SettleApptCommand // instanceof handles nulls
-                && editedEvent.equals(((SettleApptCommand) other).editedEvent));
+                || (other instanceof SettleAppCommand // instanceof handles nulls
+                && editedEvent.equals(((SettleAppCommand) other).editedEvent));
     }
 
 }

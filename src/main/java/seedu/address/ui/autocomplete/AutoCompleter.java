@@ -13,13 +13,13 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.NextCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.appointments.AckApptCommand;
-import seedu.address.logic.commands.appointments.AddApptCommand;
+import seedu.address.logic.commands.appointments.AckAppCommand;
+import seedu.address.logic.commands.appointments.AddAppCommand;
 import seedu.address.logic.commands.appointments.AppointmentsCommand;
-import seedu.address.logic.commands.appointments.CancelApptCommand;
-import seedu.address.logic.commands.appointments.EditApptCommand;
-import seedu.address.logic.commands.appointments.MissApptCommand;
-import seedu.address.logic.commands.appointments.SettleApptCommand;
+import seedu.address.logic.commands.appointments.CancelAppCommand;
+import seedu.address.logic.commands.appointments.EditAppCommand;
+import seedu.address.logic.commands.appointments.MissAppCommand;
+import seedu.address.logic.commands.appointments.SettleAppCommand;
 import seedu.address.logic.commands.duties.AddDutyShiftCommand;
 import seedu.address.logic.commands.duties.CancelDutyShiftCommand;
 import seedu.address.logic.commands.duties.ChangeDutyShiftCommand;
@@ -70,13 +70,13 @@ public class AutoCompleter {
             EnqueueCommand.COMMAND_WORD,
             DequeueCommand.COMMAND_WORD,
 
-            AckApptCommand.COMMAND_WORD,
-            AddApptCommand.COMMAND_WORD,
+            AckAppCommand.COMMAND_WORD,
+            AddAppCommand.COMMAND_WORD,
             AppointmentsCommand.COMMAND_WORD,
-            CancelApptCommand.COMMAND_WORD,
-            EditApptCommand.COMMAND_WORD,
-            MissApptCommand.COMMAND_WORD,
-            SettleApptCommand.COMMAND_WORD,
+            CancelAppCommand.COMMAND_WORD,
+            EditAppCommand.COMMAND_WORD,
+            MissAppCommand.COMMAND_WORD,
+            SettleAppCommand.COMMAND_WORD,
 
             DutyShiftCommand.COMMAND_WORD,
             AddDutyShiftCommand.COMMAND_WORD,

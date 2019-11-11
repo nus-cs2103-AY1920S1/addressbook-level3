@@ -3,7 +3,7 @@ package seedu.address.logic.parser.appointments;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.logic.commands.appointments.AckApptCommand;
+import seedu.address.logic.commands.appointments.AckAppCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -21,7 +21,7 @@ import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 /**
  * Parses input arguments and creates a new AddCommand object
  */
-public class AckApptCommandParser implements Parser<ReversibleActionPairCommand> {
+public class AckAppCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_NOTING_ACK = "there is no appointment under this patient.";
     public static final String MESSAGE_NOT_SAME_DAY_ACK = "You can only acknowledge today's upcoming appointment!";
 
@@ -33,7 +33,7 @@ public class AckApptCommandParser implements Parser<ReversibleActionPairCommand>
     private ObservableList<Event> filterEventList;
 
 
-    public AckApptCommandParser(Model model) {
+    public AckAppCommandParser(Model model) {
         this.model = model;
     }
 
@@ -47,7 +47,7 @@ public class AckApptCommandParser implements Parser<ReversibleActionPairCommand>
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args);
 
         if (args.trim().isEmpty()) {
-            throw new ParseException(AckApptCommand.MESSAGE_USAGE);
+            throw new ParseException(AckAppCommand.MESSAGE_USAGE);
         } else {
             ReferenceId referenceId = ParserUtil.lookupPatientReferenceId(
                     argMultimap.getPreamble(),
@@ -71,8 +71,8 @@ public class AckApptCommandParser implements Parser<ReversibleActionPairCommand>
                 Event toAck = new Appointment(referenceId,
                         model.resolvePatient(referenceId).getName(), timing, status);
 
-                return new ReversibleActionPairCommand(new AckApptCommand(unAck, toAck),
-                        new AckApptCommand(toAck, unAck));
+                return new ReversibleActionPairCommand(new AckAppCommand(unAck, toAck),
+                        new AckAppCommand(toAck, unAck));
             }
         }
     }
