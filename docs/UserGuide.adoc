@@ -976,6 +976,15 @@ Allows the user to make a list of things (inventory of things) he/she needs for 
 * delete <index of item> : deletes the item at the specified index from the inventory list
 
 
+=== Help
+The help feature gives the user an avenue to find additional help. It consists of only one command `help` with no other fields.
+
+NOTE: Help can be called from any page in the application
+
+Upon executing the command `help` the user is shown a link to the _User Guide_ (this document). A popup will appear containing the link to our _User Guide_:
+
+image::help.png[title="The help popup",width=400]
+
 == General info
 
 ====

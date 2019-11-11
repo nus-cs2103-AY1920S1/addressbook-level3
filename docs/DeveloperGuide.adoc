@@ -776,10 +776,10 @@ image::us4.PNG[]
 
 [appendix]
 == Use Cases
+[[UC1]]
+* *Use case: UC1 - Add Trip*
 
-**Use case: UC1 - Add Trip**
-
-***MSS***
+** **MSS**
 
 1.  User requests to **Trip Manager** to list trips
 
@@ -787,31 +787,33 @@ image::us4.PNG[]
 
 3.  User requests to add a specific **Trip** to the list
 
-4.  User <span class="underline">edits the **Trip** (UC2)</span>
+4.  User edits the **Trip** (<<UC2>>)
 
 5.  TravelPal adds the **Trip**
 
 6.  TravelPal shows the list of **Trips**.
+
 Use case ends.
 
-***Extensions***
+** *Extensions*
 
-5a. The trip added clashes with another trip
+*** 5a. The trip added clashes with another trip
 
-5a1. TravelPal shows an error message
+*** 5a1. TravelPal shows an error message
 
-5a2. TravelPal does not discard information the user has provided
+*** 5a2. TravelPal does not discard information the user has provided
 
-5a3. TravelPal displays the **Edit Trip** page containing the user’s
+*** 5a3. TravelPal displays the **Edit Trip** page containing the user’s
 previous input
 
-5a4. TravelPal requests the user to change the dates of the **Trip**
+*** 5a4. TravelPal requests the user to change the dates of the **Trip**
 
-Steps 5a1-5a2 are repeated until no clashes occur between trips
+*** Steps 5a1-5a2 are repeated until no clashes occur between trips
 
-<span class="underline">Use case: UC2 – Edit Trip</span>
+[[UC2]]
+* *Use case: UC2 – Edit Trip*
 
-***MSS***
+** *MSS*
 
 1.  User chooses to edit specific **Trip**
 
@@ -820,42 +822,43 @@ Steps 5a1-5a2 are repeated until no clashes occur between trips
 3.  User edits the information in the specified **Trip**
 
 4.  User submits the details and confirms the edit.
-Use case ends.
-
-***Extensions***
-
-3a. User enters an invalid field
-
-3a1. TravelPal shows an error message
-
-3a2. TravelPal does not edit invalid field
-
-Use case continues at step 2
-
-3b. User requests to list of **Days** in the trip
-
-3b1. TravelPal shows a list of days to the user (can be empty)
-
-3b2. User chooses to <span class="underline">add/edit/delete (UC4/5/6)
-**Day**</span>
-
-Use case continues at step 4
-
-4b. User leaves necessary information empty
-
-4a1. TravelPal shows an error message
-
-4a2. TravelPal does not submit the details and does not confirm the edit
-
-4a3. User enters new data
-
-Steps 4a1-4a3 are repeated until the data entered are non empty
 
 Use case ends.
 
-**Use case: UC3 – Delete Trip**
+** *Extensions*
 
-***MSS***
+*** 3a. User enters an invalid field
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not edit invalid field
+
+**** Use case continues at step 2
+
+*** 3b. User requests to list of **Days** in the trip
+
+**** 3b1. TravelPal shows a list of days to the user (can be empty)
+
+**** 3b2. User chooses to add/edit/delete (<<UC4>>, <<UC5>>. <<UC6>>) **Day**
+
+**** Use case continues at step 4
+
+*** 4b. User leaves necessary information empty
+
+**** 4b1. TravelPal shows an error message
+
+**** 4b2. TravelPal does not submit the details and does not confirm the edit
+
+**** 4b3. User enters new data
+
+**** Steps 4a1-4a3 are repeated until the data entered are non empty
+
+**** Use case ends.
+
+[[UC3]]
+* *Use case: UC3 – Delete Trip*
+
+** *MSS*
 
 1.  User requests to **Trip Manager** to list **Trips**
 
@@ -865,50 +868,51 @@ Use case ends.
 
 4.  TravelPal deletes the **Trip**
 
-> Use case ends
-`
-***Extensions***
-
-2a. The list is empty
-
 Use case ends
 
-3a. The **Name** provided is invalid
+** *Extensions*
 
-3a1. TravelPal shows an error message
+*** 2a. The list is empty
 
-3a2. TravelPal does not delete any trips
+**** Use case ends
 
-Use case ends
+*** 3a. The *Name* provided is invalid
 
-**Use case: UC4 – Add Day**
+*** 3a1. TravelPal shows an error message
 
-***MSS***
+*** 3a2. TravelPal does not delete any trips
 
+*** Use case ends
+
+[[UC4]]
+*Use case: UC4 – Add Day*
+
+** *MSS*
 1.  User chooses to add a **Day** to a specified **Trip**
 
 2.  User _edits the day (UC5)_
 
 3.  TravelPal saves the **Day**
 
-***Extensions***
+** *Extensions*
 
-3a **Day** added clashes with other days in the **Trip**
+*** 3a. **Day** added clashes with other days in the **Trip**
 
-3a1. TravelPal shows an error message
+**** 3a1. TravelPal shows an error message
 
-3a2. TravelPal does not discard information the user has provided
+**** 3a2. TravelPal does not discard information the user has provided
 
-3a3. TravelPal displays the **Edit Day** page containing the user’s
+**** 3a3. TravelPal displays the **Edit Day** page containing the user’s
 input
 
-3a4. TravelPal requests the user to change the date of the **Day**
+**** 3a4. TravelPal requests the user to change the date of the **Day**
 
-Steps 3a1 – 3a4 are repeated until the user provided non clashing date
+**** Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
-**Use case: UC5 – Edit Day**
+[[UC5]]
+* **Use case: UC5 – Edit Day**
 
-***MSS***
+** *MSS*
 
 1.  User requests to edit specific **Day**
 
@@ -918,65 +922,67 @@ Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
 4.  User submits and confirms the edit
 
-> Use case ends
+Use case ends
 
-***Extensions***
+** *Extensions*
 
-3a. User enters an invalid field
+*** 3a. User enters an invalid field
 
-3a1. TravelPal shows an error message
+**** 3a1. TravelPal shows an error message
 
-3a2. TravelPal does not edit invalid field
+**** 3a2. TravelPal does not edit invalid field
 
-Use case continues at step 2
+**** Use case continues at step 2
 
-3b. User requests to list of **Events** in the trip
+*** 3b. User requests to list of **Events** in the trip
 
-3b1. TravelPal shows a list of **Events** to the user (can be empty)
+**** 3b1. TravelPal shows a list of **Events** to the user (can be empty)
 
-3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
+**** 3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
 
-Use case continues at step 4
+**** Use case continues at step 4
 
-4b. User leaves necessary information empty
+*** 4b. User leaves necessary information empty
 
-4a1. TravelPal shows an error message
+**** 4a1. TravelPal shows an error message
 
-4a2. TravelPal does not submit the details and does not confirm the edit
+**** 4a2. TravelPal does not submit the details and does not confirm the edit
 
-4a3. User enters new data
+**** 4a3. User enters new data
 
-Steps 4a1-4a3 are repeated until the data entered are correct
+**** Steps 4a1-4a3 are repeated until the data entered are correct
 
-Use case ends.
+**** Use case ends.
 
-**User case: UC6 – Delete Day**
+[[UC6]]
+* *User case: UC6 – Delete Day*
 
-***MSS***
+** *MSS*
 
 1.  User requests to delete a specific **Day** in the list
 
 2.  TravelPal deletes the **Day**
 
-> Use case ends
-
-***Extensions***
-
-2a. The list is empty
-
 Use case ends
 
-3a. The **Name** provided is invalid
+** *Extensions*
 
-3a1. TravelPal shows an error message
+*** 2a. The list is empty
 
-3a2. TravelPal does not delete any **Day**
+**** Use case ends
 
-Use case ends
+*** 3a. The **Name** provided is invalid
 
-**User case: UC7 – Add Event**
+**** 3a1. TravelPal shows an error message
 
-***MSS***
+**** 3a2. TravelPal does not delete any **Day**
+
+**** Use case ends
+
+[[UC7]]
+* *User case: UC7 – Add Event*
+
+** *MSS*
 
 1.  User chooses to add a **Event** to a specified **Day**
 
@@ -984,24 +990,25 @@ Use case ends
 
 3.  TravelPal saves the **Event**
 
-***Extensions***
+** *Extensions*
 
-3a **Event** added clashes with other **Events** in the **Day**
+*** 3a **Event** added clashes with other **Events** in the **Day**
 
-3a1. TravelPal shows an error message
+**** 3a1. TravelPal shows an error message
 
-3a2. TravelPal does not discard information the user has provided
+**** 3a2. TravelPal does not discard information the user has provided
 
-3a3. TravelPal displays the **Edit Event** page containing the user’s
+**** 3a3. TravelPal displays the **Edit Event** page containing the user’s
 input
 
-3a4. TravelPal requests the user to change the date of the **Event**
+**** 3a4. TravelPal requests the user to change the date of the **Event**
 
-Steps 3a1 – 3a4 are repeated until the user provided non clashing date
+**** Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
-**User case UC8 – Edit Event**
+[[UC8]]
+* **User case UC8 – Edit Event**
 
-***MSS***
+** *MSS*
 
 1.  User requests to edit specific **Day**
 
@@ -1011,60 +1018,61 @@ Steps 3a1 – 3a4 are repeated until the user provided non clashing date
 
 4.  User submits and confirms the edit
 
-> Use case ends
+Use case ends
 
-***Extensions***
+** *Extensions*
 
-3a. User enters an invalid field
+*** 3a. User enters an invalid field
 
-3a1. TravelPal shows an error message
+**** 3a1. TravelPal shows an error message
 
-3a2. TravelPal does not edit invalid field
+**** 3a2. TravelPal does not edit invalid field
 
-Use case continues at step 2
+**** Use case continues at step 2
 
-3b. User requests to list of **Events** in the **trip**
+*** 3b. User requests to list of **Events** in the **trip**
 
-3b1. TravelPal shows a list of **Events** to the user (can be empty)
+**** 3b1. TravelPal shows a list of **Events** to the user (can be empty)
 
-3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
-Use case continues at step 4
+**** 3b2. User chooses to _add/edit/delete (UC 7/8/9) **Event**_
+**** Use case continues at step 4
 
-4b. User leaves necessary information empty
+*** 4b. User leaves necessary information empty
 
-4a1. TravelPal shows an error message
+**** 4a1. TravelPal shows an error message
 
-4a2. TravelPal does not submit the details and does not confirm the edit
+**** 4a2. TravelPal does not submit the details and does not confirm the edit
 
-4a3. User enters new data
+**** 4a3. User enters new data
 
-Steps 4a1-4a3 are repeated until the data entered are non empty
+**** Steps 4a1-4a3 are repeated until the data entered are non empty
 
-Use case ends.
+**** Use case ends.
 
-**User case UC9 – Delete Event**
+[[UC9]]
+* *User case UC9 – Delete Event*
 
-***MSS***
+** *MSS*
 
 1.  User requests to delete a specific **Event** in the list
 
 2.  TravelPal deletes the **Event**
 
-> Use case ends
-
-***Extensions***
-
-2a. The list is empty
-
 Use case ends
 
-3a. The **Name** provided is invalid
+** *Extensions*
 
-3a1. TravelPal shows an error message
+*** 2a. The list is empty
 
-3a2. TravelPal does not delete any **Event**
+**** Use case ends
 
-Use case ends
+*** 3a. The **Name** provided is invalid
+
+**** 3a1. TravelPal shows an error message
+
+**** 3a2. TravelPal does not delete any **Event**
+
+**** Use case ends
 
 [appendix]
 == Non Functional Requirements
@@ -1087,8 +1095,6 @@ Use case ends
 
 6.	Application does not depend on online resources to operate
 
-7.	Products is not required to make decisions for the user
-
 [appendix]
 == Glossary
 
@@ -1105,6 +1111,10 @@ form of user interface that allows users to interact
 with the hardware and allows other programs to run
 
 **Mainstream OS** - Windows, Linux, Unix, OS-X
+
+**Use Cases (UC)** - A description of a set of sequences of actions, including variants, that a system performs to yield an observable result of value to an actor
+
+**UML Class Diagrams** - UML class diagrams describe the structure (but not the behavior) of an OOP solution.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1128,26 +1138,25 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a Trip
 
-=== Deleting a person
+. Delete a trip
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: Navigate to the _Trip Page_. Ensure there are at least one trip in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: The first trip in the list is deleted and all the cards have their index updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No trip is deleted. Error message is displayed.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+   Expected: Similar to previous. Error message shows the error committed.
 
-_{ more test cases ... }_
+. Adding inventory item
 
-=== Saving data
+.. Prerequisites: Navigate to the _Inventory Page_. Start with an empty list.
+.. Test case: `add item` +
+   Expected: A new item with index following the last is added
+.. Test case: `delete 0` +
+   Expected: The first item in the list is deleted and indexes decrease by one to match the change
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous. Error message show sthe error committed.
 
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
