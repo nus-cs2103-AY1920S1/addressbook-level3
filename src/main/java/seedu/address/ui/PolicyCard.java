@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.policy.EndAge;
 import seedu.address.model.policy.Policy;
+import seedu.address.model.policy.StartAge;
 
 /**
  * An UI component that displays information of a {@code Policy}.
@@ -60,12 +61,12 @@ public class PolicyCard extends UiPart<Region> {
         if (!policy.getStartAge().age.equals("0")) {
             startAge.setText("Minimum age: " + policy.getStartAge().age);
         } else {
-            startAge.setText("No minimum age");
+            startAge.setText(StartAge.MESSAGE_NO_MINIMUM_AGE);
         }
         if (!policy.getEndAge().age.equals(EndAge.AGE_INFINITY)) {
             endAge.setText("Maximum age: " + policy.getEndAge().age);
         } else {
-            endAge.setText("No maximum age");
+            endAge.setText(EndAge.MESSAGE_NO_MAXIMUM_AGE);
         }
         policy.getCriteria().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

@@ -51,9 +51,13 @@ public class PolicyInformationHolder extends UiPart<Region> {
         price.setText(priceHeader + policy.getPrice().price);
         if (!policy.getStartAge().age.equals(StartAge.AGE_ZERO)) {
             informationHolder.getChildren().add(new Label(startAgeHeader + policy.getStartAge().age));
+        } else {
+            informationHolder.getChildren().add(new Label(StartAge.MESSAGE_NO_MINIMUM_AGE));
         }
         if (!policy.getEndAge().age.equals(EndAge.AGE_INFINITY)) {
             informationHolder.getChildren().add(new Label(endAgeHeader + policy.getEndAge().age));
+        } else {
+            informationHolder.getChildren().add(new Label(EndAge.MESSAGE_NO_MAXIMUM_AGE));
         }
         policy.getCriteria().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
