@@ -685,7 +685,7 @@ This is the standard way to implement the history function.
 === Up/Down key feature
 ==== Implementation
 
-Pressing Up(`&uarr;`)/Down(`&darr;`) key in `TextFiled` can navigate through the command history.
+You can navigate through the command history by pressing Up(`&uarr;`)/Down(`&darr;`) key in `TextFiled`.
 
 This feature makes use of the command history and state pointer stored while executing the previous command.
 
@@ -724,7 +724,7 @@ it will return the last command to the user rather than attempting to get the ne
 The following sequence diagram shows how the Up(`&uarr;`)key works:
 
 .Interactions between components of CommandBox and CommandHistory for the Up(`&uarr;`)key
-image::UpkeySequenceDiagram.png[]
+image::UpKeySequenceDiagram.png[]
 
 The Down(`&darr;`) key does the opposite — it calls CommandHistory#peekPreviousCmd(),
 which shifts the statePointer once to the left,
