@@ -494,7 +494,7 @@ The sequence of events are very likely to those of the other commands in _Financ
 
 *Activity Diagram example:*
 
-The activity diagram below shows how `edits` command works.
+The activity diagram below shows how `edit` command works.
 
 image::FinancialTrackerActivityDiagram.png[width=800]
 
