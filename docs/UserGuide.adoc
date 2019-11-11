@@ -135,6 +135,7 @@ Now we are ready to jump into the features itself!
 
 === CLI Features
 
+//tag::add[]
 ==== Adding a task: `task`
 
 Adds a task to the task list +
@@ -176,7 +177,9 @@ Examples:
 
 [NOTE]
 It is not possible to set a reminder in the past.
+//end::add[]
 
+//tag::edit[]
 ==== Editing an item : `edit`
 
 This command is used to edit any of the items that you might have. +
@@ -227,8 +230,9 @@ Here are some example commands for edit:
 Edits item 1 of the current list. Changes the description to `read books`, deadline to `3.day.later` and priority to `low`.
 * `edit 3 -desc CS2103 team meeting -r 3.hour.later -p high` +
 Edits item 2 of the current list. Changes the description to `CS2103 team meeting`, reminder to `3.hour.later` and priority to `high`.
+//end::edit[]
 
-// tag::delete[]
+//tag::delete[]
 ==== Deleting a reminder/task/event : `delete`
 
 Deletes the reminder/task/event from ELISA. +
@@ -247,6 +251,7 @@ Examples:
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
 
+//tag::autoreschedule[]
 === AutoReschedule Feature
 
 Do you have to go to the supermarket weekly? Complete a quiz weekly? Jog daily? +
@@ -278,6 +283,8 @@ Here are some interesting commands you can try:
 * `event grocery shopping -d 9/9/2019 1200 -auto week`
 * `event jog -d 23/11/2019 0800 -auto day`
 * `event smile -d 1.min.later -auto 1.min.later` (it's good to be happy)
+//end::autoreschedule[]
+
 
 === Reminder Feature
 
