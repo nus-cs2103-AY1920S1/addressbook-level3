@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.lesson.Lesson;
 
 /**
- * Adds a lesson to the classroom.
+ * Adds a lesson to the notebook.
  */
 public class AddLessonCommand extends Command {
 
@@ -35,6 +35,9 @@ public class AddLessonCommand extends Command {
 
     private final Lesson toAdd;
 
+    /**
+     * Creates an AddLessonCommand to add the specified {@code Lesson}
+     */
     public AddLessonCommand(Lesson lesson) {
         requireNonNull(lesson);
         toAdd = lesson;

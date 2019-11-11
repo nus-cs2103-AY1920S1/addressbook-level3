@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Objects;
 
 /**
- * Represents a Lesson in the Classroom.
+ * Represents a Lesson in the notebook.
  */
 public class Lesson {
     private final Time startTime;

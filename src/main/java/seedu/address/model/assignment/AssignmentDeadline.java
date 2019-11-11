@@ -35,6 +35,10 @@ public class AssignmentDeadline {
         this.assignmentDeadlineCalendar = setAssignmentDeadlineCalendar();
     }
 
+    /**
+     * Gets the AssignmentDeadline in Calendar format.
+     * @return Calendar representing the assignment deadline.
+     */
     public Calendar getAssignmentDeadlineCalendar() {
         return this.assignmentDeadlineCalendar;
     }
@@ -53,6 +57,10 @@ public class AssignmentDeadline {
         }
     }
 
+    /**
+     * Formats the assignment deadline into a Calendar format.
+     * @return Calendar representation of the assignment deadline.
+     */
     private Calendar setAssignmentDeadlineCalendar() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HHmm");
         Date date = null;

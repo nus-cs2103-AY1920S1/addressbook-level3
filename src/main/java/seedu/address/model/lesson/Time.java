@@ -26,38 +26,29 @@ public class Time {
         this.time = time;
     }
 
+    /** Gets the time in Calendar format. */
     public Calendar getTime() {
         return this.time;
     }
 
-    public Date getTimeToCompare() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy h:mm a");
-        Date date = null;
-        try {
-            date = formatter.parse(getStringTime());
-        } catch (ParseException e) {
-            e.getMessage();
-        }
-        return date;
-    }
-
+    /** Gets the day in String format. */
     public String getStringDay() {
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE");
         return formatter.format(time.getTime());
     }
 
+    /** Gets the time in String format. */
     public String getStringTime() {
         return this.toString();
     }
 
+    /** Gets the time in Json format. */
     public String getJsonStringTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
         return formatter.format(time.getTime());
     }
 
-    /**
-     * Returns if a given string is a valid time.
-     */
+    /** Returns if a given string is a valid time. */
     public static boolean isValidTime(String test) {
         return test.matches(VALIDATION_REGEX);
     }

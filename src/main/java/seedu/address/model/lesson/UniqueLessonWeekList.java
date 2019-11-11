@@ -38,11 +38,6 @@ public class UniqueLessonWeekList implements Iterable<UniqueLessonList> {
      */
     public void setLessons(List<UniqueLessonList> uniqueLessonLists) {
         requireAllNonNull(uniqueLessonLists);
-        /*
-        if (!lessonsAreUnique(uniqueLessonLists)) {
-            throw new DuplicateLessonException();
-        }
-         */
 
         List<UniqueLessonList> listToAdd = new ArrayList<>();
         for (UniqueLessonList uniqueLesson : uniqueLessonLists) {

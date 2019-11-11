@@ -23,8 +23,8 @@ import seedu.address.logic.commands.CommandMasterList;
 //@@author SebastianLie
 /**
  * AutoComplete added to textfield.
- * listens to user input and populates
- * drop down menu with existing commands
+ * Listens to user input and populates
+ * drop down menu with existing commands.
  */
 public class AutoCompleteTextField extends TextField {
 
@@ -35,9 +35,9 @@ public class AutoCompleteTextField extends TextField {
     private ArrayList<String> entriesList = new ArrayList<>();
 
     /**
-     * the listener that will be added to textproperty
+     * The listener that will be added to textproperty
      * listens for changes in user input and suggests
-     * commands accordingly, filters by contains()
+     * commands accordingly, filters by contains().
      */
     private ChangeListener<String> changeListener = new ChangeListener<>() {
         @Override
@@ -67,8 +67,8 @@ public class AutoCompleteTextField extends TextField {
     };
 
     /**
-     * initialises all commands and their usages,
-     * popup-menu as well as listener
+     * Initialises all commands and their usages,
+     * popup-menu as well as listener.
      */
     public AutoCompleteTextField() {
         super();
@@ -81,7 +81,7 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * adds listener to suggest commands
+     * Adds listener to suggest commands.
      */
     private void setListener() {
         textProperty().addListener(changeListener);
@@ -89,9 +89,9 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * populates contextmenu with suggestions from listener
+     * Populates contextmenu with suggestions from listener
      * if any suggestion is selected,
-     * set the textfield to suggestion
+     * set the textfield to suggestion.
      * @param searchResults
      * @param searchRequest
      */
@@ -120,9 +120,9 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * helper for populatePopup
-     * builds highlighted portion of text
-     * for each popup entry
+     * Helper for populatePopup.
+     * Builds highlighted portion of text
+     * for each popup entry.
      * @param mainText
      * @param portionToHighlight
      * @return
@@ -138,10 +138,10 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * upon selection,
+     * Upon selection,
      * item text placed into textfield,
      * cursor set to back of command and
-     * popup menu closed
+     * popup menu closed.
      * @param popUpItem
      * @param mainText
      */
@@ -154,7 +154,7 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * shutsdown listener for autocomplete
+     * Shuts down listener for autocomplete.
      */
     public void shutdown() {
         logger.info("Shutting down autocomplete listener for textfield....");
@@ -162,8 +162,8 @@ public class AutoCompleteTextField extends TextField {
     }
 
     /**
-     * helps to autocomplete on ctrl key press
-     * sets cursor position at
+     * Helps to autocomplete on ctrl key press
+     * sets cursor position at.
      */
     public void setAutoCompleteResult() {
         // return if no suggestions
@@ -176,7 +176,7 @@ public class AutoCompleteTextField extends TextField {
         entriesPopup.hide();
     }
     /**
-     * hide autocomplete results if needed
+     * Hide autocomplete results if needed.
      */
     public void hidePopUp() {
         entriesPopup.hide();
