@@ -189,6 +189,8 @@ Format: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] 
 
 * e.g. `editdoctor -entry 1 -phone 91234567 -email johndoe@example.com`
 
+// tag::queue[]
+
 ==== Marks the doctor as on-duty: `onduty` ====
 
 Marks the doctor, based on the index given, as on-duty and adds him/her to a list of on-duty doctors. +
@@ -247,6 +249,8 @@ Allows patients to be directed to a doctor. e.g. Doctor is back from his/her bre
 Format: `resume <ENTRY_ID>`
 
 * e.g.
+
+// end::queue[]
 
 === Appointment Management
 
@@ -439,6 +443,7 @@ All except search actions can be re-done.
 
 Format: `redo`
 
+// tag::summary[]
 == Commands Summary ==
 
 * *Patient Management* +
@@ -491,4 +496,6 @@ Format: `redo`
 ** exit: `exit`
 ** undo: `undo`
 ** redo: `redo`
+// end::summary[]
+
 
