@@ -85,6 +85,7 @@ image::searchIpMan.png[width='500']
 .Watchlist page after entry.
 image::watchlistIpMan.png[width='500']
 
+
 And that's it. Our <<Quick Start, quick start guide>> will guide you to set up our application. If you like to learn more head straight into our <<Features, features guide>> for a run down on our major features, or
 go to our <<UserCommands, commands guide>> to learn more on our commands. Otherwise, if you're a developer and are interested to
 understand how each of our features were implemented, our <<DeveloperGuide#, developer guide>> breaks down each of our major components.
@@ -109,7 +110,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<UserCommands>> for details of each command.
 
-// end:: intro[]
+// end::intro[]
+
 == Features
 
 === User-Interface
@@ -202,7 +204,7 @@ your EzWatchlist usage. EzWatchlist will create your own personalized recommenda
 2. Then head to the <<Statistics Page, Statistics Page>> by clicking kbd:[4] or pressing the `Statistics.` button on the
 in the interface.
 
-3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and Tv Series recommendations on the right.
+3. Now your recommendations as seen in Figure 5 will be shown prominently on the bottom of the Statistics Page, with movie recommendations on the left, and tv series recommendations on the right.
 
 .Recommendations shown in the Statistics Page.
 image::recommendations.png[width="900]
@@ -284,7 +286,7 @@ Step 1. User click (or press kbd:[3]) on search page. User then input `add 1` on
 image::add2.png[width="790"]
 
 Step 2. User click (or press kbd:[1]) on watch list page. User will see `Joker`
-movie added to watch list.
+movie added to watch list. kbd:[Keyboard characters]
 
 image::add3.png[width="790"]
 
