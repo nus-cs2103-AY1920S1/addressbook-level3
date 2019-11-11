@@ -120,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
-            } else if (event.getCode() == KeyCode.CONTROL) {
+            } else if (event.getCode() == KeyCode.RIGHT) {
                 commandBox.handleShiftPressed();
             }
         });
