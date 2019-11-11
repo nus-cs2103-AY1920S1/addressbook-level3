@@ -1,6 +1,6 @@
 = Tan Yan Zhen, Natalie - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ../images/nattanyz
 :stylesDir: ../stylesheets
 
 == PROJECT: FlashCard Pro
@@ -12,31 +12,51 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 
 == Summary of contributions
 
-* *Major enhancement*: added the *ability for user to view their statistics*.
-** What it does:
-*** Allows the user to see their *past login sessions*, *total duration spent in the app*, and their *test sessions involving each deck*.
-*** More detailed statistics are also provided, allowing the user to drill down into a granular view of their activity, e.g. login sessions by week.
-*** The user can also see their *statistics by deck*, which is useful if they want to gauge how much time they're spending reviewing each subject. The *average score* for test sessions conducted on the deck is also provided, giving the user feedback on their performance.
-** Justification:
-*** This feature improves the product by allowing the user to reflect on their activity in the app, and whether the time spent was productive.
-*** Users can also see their improvement over time and feel encouraged by it.
-** Highlights:
-*** This enhancement required some degree of analysis of how the application handles various commands, in particular the startup and shutdown of the application, in order to time the duration of each login session.
-*** Additions to the  `Storage` component and learning to use Haliq's JSON storage features were required to store and load the `SessionList` objects.
-*** My team's decision to make `State` non-static influenced me to decouple `UserStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
-*** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
+*Major enhancement*: added the *ability for user to view their statistics*.
 
-* *Major enhancement*: contributions to the GUI of the app.
-** What I've done:
-*** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern.
-// todo: attach screenshot here
-*** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before working on integrating the GUI and CLI, then making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have still made a number of improvements since.
+* What it does:
+** Allows the user to see their *past login sessions*, *total duration spent in the app*, and their *test sessions involving each deck*.
+** More detailed statistics are also provided, allowing the user to drill down into a granular view of their activity, e.g. login sessions by week.
+** The user can also see their *statistics by deck*, which is useful if they want to gauge how much time they're spending reviewing each subject. The *average score* for test sessions conducted on the deck is also provided, giving the user feedback on their performance.
+* Justification:
+** This feature improves the product by allowing the user to reflect on their activity in the app, and whether the time spent was productive.
+** Users can also see their improvement over time and feel encouraged by it.
+* Highlights:
+** This enhancement required some degree of analysis of how the application handles various commands, in particular the startup and shutdown of the application, in order to time the duration of each login session.
+** Additions to the  `Storage` component and learning to use Haliq's JSON storage features were required to store and load the `SessionList` objects.
+** My team's decision to make `State` non-static influenced me to decouple `UserStats` and `DeckStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
+** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). I also implemented `SessionListUtil` and `StatsDisplayUtil` for handling the calculation of average scores and the display of `TableView` objects. The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
+
+image::{imagesDir}/stats window.png[width="650", align="center"]
+The Statistics window contains key statistics like the user's number of login sessions, duration of login sessions, number of decks, number of cards, and average score for test sessions. It also displays the user's login sessions in a table format, which can be sorted by clicking on the column headers. Similarly, the user's decks are summarised in a table. Double-clicking on a table row will open the corresponding deck statistics window.
+
+image::{imagesDir}/deck stats window.png[width="650", align="center"]
+The Deck Statistics window shows the user's statistics pertaining to the deck, and all of their test sessions involving the deck in a table format.
+
+*Major enhancement*: contributions to the GUI of the app.
+
+* What I've done:
+** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern.
+** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before working on integrating the GUI and CLI, then making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have made a number of improvements since.
 ** Justification:
+*** Although the application was and would be functional without many of these enhancements I have made, I believe they help to *increase the usability* of the application. For example, the box containing the MCQ options the user has inputted was previously too small. I have changed it to expand and show all MCQ options by default.
+*** To see some more examples of my work, refer to the table below.
+*** Cosmetic changes help make our app *more appealing* to the user and appear *more polished* overall.
 ** Planned future enhancements:
+*** For scrollable content, set the default scrollbar position to the top, rather than the bottom, when dealing with scrollable content. This was something that troubled me for a while, but I did not manage to fix in the end.
 ** Highlights:
 *** From my first baby steps in working with GUIs during the individual project, I can safely say that I have learnt a great deal since. In particular, I am now more familiar with the JavaFX library.
 *** I can now build a JavaFX GUI (albeit a simpler one) programmatically, without using SceneBuilder, as I have done in the earlier stages of the project.
 *** I can also author new components via SceneBuilder (such as `StatisticsWindow`) and make significant changes to existing components (such as `MainWindow` and the various displays). By referring to the API, I was able to overcome a number of challenges to achieve my desired behaviour (e.g. components being laid out with appropriate padding, preserving the size and scale of components when the window is resized).
+*** I have also designed a different layout for my statistics windows, consisting of big numbers with labels, which is more creative and visually appealing than my initial design, which displayed the information in a bland way.
+
+image::{imagesDir}/old stats window.png[]
+My old design for the statistics window, which has since been substantially improved, as my comfort level with JavaFX has increased. See above for the new statistics window.
+
+image::{imagesDir}/initial design.png[]
+My initial design work on Figma.
+
+The following table provides a summary of my GUI enhancements:
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
