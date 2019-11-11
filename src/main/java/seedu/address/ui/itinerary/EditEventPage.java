@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -15,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+
+import javafx.scene.input.KeyCode;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -168,6 +171,17 @@ public class EditEventPage extends Page<AnchorPane> {
                 } else {
                     setText(item.getName().fullName);
                 }
+            }
+        });
+
+        listView.setOnKeyPressed(keyEvent -> {
+            int indexOfSelectedRow = listView.getSelectionModel().getSelectedIndex();
+
+            indexOfSelectedRow++;
+
+            if (keyEvent.getCode().equals(KeyCode.BACK_SPACE)) {
+                mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
+                        + " " + PREFIX_DELETE_INVENTORY + indexOfSelectedRow);
             }
         });
 
