@@ -260,7 +260,7 @@ that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** Only `Out` Transactions can affect `Budget`.
 ** The activity diagram below shows how and when a `Transaction` object affects `Budget`.
 
-.Activity diagram for Out Transaction affecting Budget
+.Activity Diagram for Out Transaction affecting Budget
 image::OutbudgetActivityDiagram.png[]
 
 
@@ -285,7 +285,7 @@ A `Budget` stores an *initial amount*, *amount* (the current amount), *deadline*
 There is a need for a `Budget` to store both *initial amount* and *amount* as it allows for percentage of budget remaining to be calculated. +
 Shown below is the class diagram of `Budget` class:
 
-.Class diagram of Budget class
+.Class Diagram of Budget class
 image::BudgetClassDiagram.png[]
 
 
@@ -382,7 +382,7 @@ A `LendMoney` instance is created for each person and executed.
 
 Below shows how a typical command from the user is executed by the program.
 
-.Sequence diagram for executing a `SplitCommand`
+.Sequence Diagram for executing a `SplitCommand`
 image::Split.png[]
 
 **Step 1**: User enters `split $/200 n/a n/b n/c a/desc` into the command line to split *$200* among *a*, *b* and *c*.
@@ -407,14 +407,14 @@ Within the function call, the actual update of balances is handled in `Ledger#ha
 **Step 8**: A `CommandResult` is then returned to the `LogicManager` which is then displayed to the user.
 
 
-.Activity diagram for creating a `Split` object
+.Activity Diagram for creating a `Split` object
 image::SplitBehaviour.png[pdfwidth=60%]
 
 ==== Design Considerations
 
 Below shows how the classes involved with `Ledger` interact with each other.
 
-.Class diagram for operations that deal with Ledger
+.Class Diagram for operations that deal with Ledger
 image::LedgerOperationDiagram.png[pdfwidth=60%]
 
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
