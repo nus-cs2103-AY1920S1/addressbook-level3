@@ -13,10 +13,14 @@ import seedu.address.commons.exceptions.AlfredException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Mentor;
+import seedu.address.model.entity.Participant;
 import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.MentorBuilder;
 import seedu.address.testutil.TeamBuilder;
+import seedu.address.testutil.TypicalMentors;
+import seedu.address.testutil.TypicalParticipants;
+import seedu.address.testutil.TypicalTeams;
 
 
 public class AssignMentorCommandTest {
@@ -39,8 +43,8 @@ public class AssignMentorCommandTest {
     @Test
     public void execute_mentorNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Team validTeam = TypicalTeams.EMPTY.copy();
+        Mentor validMentor = TypicalMentors.A.copy();
 
         modelStub.addTeam(validTeam);
 
@@ -55,8 +59,8 @@ public class AssignMentorCommandTest {
     @Test
     public void execute_teamNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Team validTeam = TypicalTeams.EMPTY.copy();
+        Mentor validMentor = TypicalMentors.A.copy();
 
         modelStub.addMentor(validMentor);
 
@@ -71,8 +75,8 @@ public class AssignMentorCommandTest {
     @Test
     public void execute_mentorAssignedInModel_assignSuccessful() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Team validTeam = TypicalTeams.EMPTY.copy();
+        Mentor validMentor = TypicalMentors.A.copy();
 
         modelStub.addTeam(validTeam);
         modelStub.addMentor(validMentor);
@@ -96,9 +100,9 @@ public class AssignMentorCommandTest {
     @Test
     public void execute_teamAlreadyHasMentor_throwsCommandException() throws AlfredException {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Mentor validMentor2 = new MentorBuilder().withName("A1").withId(5).build();
-        Team validTeam = new TeamBuilder().build();
+        Team validTeam = TypicalTeams.EMPTY.copy();
+        Mentor validMentor = TypicalMentors.A.copy();
+        Mentor validMentor2 = TypicalMentors.B.copy();
 
         modelStub.addTeam(validTeam);
         modelStub.addMentor(validMentor);

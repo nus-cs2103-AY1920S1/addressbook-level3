@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_MENTOR;
 import static seedu.address.testutil.TypicalIds.ID_FIRST_TEAM;
+import static seedu.address.testutil.TypicalTeams.EMPTY;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,6 +18,8 @@ import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.MentorBuilder;
 import seedu.address.testutil.TeamBuilder;
+import seedu.address.testutil.TypicalMentors;
+import seedu.address.testutil.TypicalTeams;
 
 
 public class RemoveMentorCommandTest {
@@ -39,13 +42,11 @@ public class RemoveMentorCommandTest {
     @Test
     public void execute_mentorNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Team validTeam = new TeamBuilder().build();
 
-        modelStub.addTeam(validTeam);
+        modelStub.addTeam(TypicalTeams.EMPTY.copy());
 
 
-        RemoveMentorCommand command = new RemoveMentorCommand(validMentor.getId(), validTeam.getId());
+        RemoveMentorCommand command = new RemoveMentorCommand(TypicalMentors.A.getId(), TypicalTeams.EMPTY.getId());
 
         assertThrows(
                 CommandException.class,
@@ -55,13 +56,11 @@ public class RemoveMentorCommandTest {
     @Test
     public void execute_teamNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Team validTeam = new TeamBuilder().build();
 
-        modelStub.addMentor(validMentor);
+        modelStub.addMentor(TypicalMentors.A.copy());
 
 
-        RemoveMentorCommand command = new RemoveMentorCommand(validMentor.getId(), validTeam.getId());
+        RemoveMentorCommand command = new RemoveMentorCommand(TypicalMentors.A.getId(), TypicalTeams.EMPTY.getId());
 
         assertThrows(
                 CommandException.class,
@@ -72,8 +71,9 @@ public class RemoveMentorCommandTest {
     @Test
     public void execute_removeMentorFromTeam_removeSuccessful() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+
+        Team validTeam = TypicalTeams.EMPTY.copy();
+        Mentor validMentor = TypicalMentors.A.copy();
 
         modelStub.addTeam(validTeam);
         modelStub.addMentor(validMentor);
@@ -100,8 +100,9 @@ public class RemoveMentorCommandTest {
     @Test
     public void execute_mentorNotAssignedToTeam_throwsCommandException() throws AlfredException {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Mentor validMentor = new MentorBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+
+        Team validTeam = TypicalTeams.EMPTY.copy();
+        Mentor validMentor = TypicalMentors.A.copy();
 
         modelStub.addTeam(validTeam);
         modelStub.addMentor(validMentor);

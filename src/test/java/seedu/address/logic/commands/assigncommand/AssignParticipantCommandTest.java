@@ -16,6 +16,8 @@ import seedu.address.model.entity.Team;
 import seedu.address.stub.ModelManagerStub;
 import seedu.address.testutil.ParticipantBuilder;
 import seedu.address.testutil.TeamBuilder;
+import seedu.address.testutil.TypicalParticipants;
+import seedu.address.testutil.TypicalTeams;
 
 public class AssignParticipantCommandTest {
 
@@ -37,8 +39,8 @@ public class AssignParticipantCommandTest {
     @Test
     public void execute_participantNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Participant validParticipant = TypicalParticipants.A.copy();
+        Team validTeam = TypicalTeams.EMPTY.copy();
 
         modelStub.addTeam(validTeam);
 
@@ -53,8 +55,8 @@ public class AssignParticipantCommandTest {
     @Test
     public void execute_teamNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Participant validParticipant = TypicalParticipants.A.copy();
+        Team validTeam = TypicalTeams.EMPTY.copy();
 
         modelStub.addParticipant(validParticipant);
 
@@ -69,8 +71,8 @@ public class AssignParticipantCommandTest {
     @Test
     public void execute_participantAssignedInModel_assignSuccessful() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Participant validParticipant = TypicalParticipants.A.copy();
+        Team validTeam = TypicalTeams.EMPTY.copy();
 
         modelStub.addTeam(validTeam);
         modelStub.addParticipant(validParticipant);
@@ -94,11 +96,12 @@ public class AssignParticipantCommandTest {
     @Test
     public void execute_participantAlreadyInTeam_throwsCommandException() throws AlfredException {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
+        Participant validParticipant = TypicalParticipants.A.copy();
+        Team validTeam = TypicalTeams.EMPTY.copy();
 
         modelStub.addTeam(validTeam);
         modelStub.addParticipant(validParticipant);
+        modelStub.addParticipantToTeam(validTeam.getId(), validParticipant);
 
         AssignParticipantCommand command = new AssignParticipantCommand(validParticipant.getId(), validTeam.getId());
 
