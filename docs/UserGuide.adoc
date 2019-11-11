@@ -150,7 +150,7 @@ as you like. The image below gives an overview of the GUI of the feature:
 
 [[transactionsScreenshot]]
 .Transaction tab
-image::TransactionsScreenshot.png[]
+image::TransactionsScreenshot.png[width=640, pdfwidth=640px, align="center"]
 
 Before we introduce the commands you can use, let us briefly run through the labelled components of our GUI.
 
@@ -160,7 +160,7 @@ We give a further breakdown of the information each transaction cell displays in
 
 [[transactionCell]]
 .Information in a transaction cell
-image::TransactionCell.png[]
+image::TransactionCell.png[width=640, pdfwidth=640px, align="center"]
 
 [NOTE]
 We differentiate income items from expenditure items using the color of the text for the "Amount" field. A green
@@ -200,29 +200,29 @@ transactions. `filter` does the job for you.
 Let's say you are currently viewing transactions from
 September 2018. The GUI of Ichifund may look like this:
 
-image::filtertx1.png[]
+image::filtertx1.png[width=640, pdfwidth=640px, align="center"]
 
 Suppose you want to view transactions from a different month, say, September 2018.
 You can simply enter the command `filter m/9 y/2018`, which results in the following view:
 
-image::filtertx2.png[]
+image::filtertx2.png[width=640, pdfwidth=640px, align="center"]
 
 
 Now, if you want to only see expenditure items, simply enter the command `filter ty/exp`.
 
-image::filtertx3.png[]
+image::filtertx3.png[width=640, pdfwidth=640px, align="center"]
 
 You may find that this view of the list is still too cluttered for you. In that case,
 you can further limit the transactions in the list to contain only items from the category "FOOD" using
 the command `filter c/food`
 
-image::filtertx4.png[]
+image::filtertx4.png[width=640, pdfwidth=640px, align="center"]
 
 If you want to see expenditure items of the same time, but in a different month, say, August 2019, enter
 the command `filter m/8`. Note that you do not need to enter the year, category, or transaction type again.
 The GUI will update accordingly, as follows:
 
-image::filtertx5.png[]
+image::filtertx5.png[width=640, pdfwidth=640px, align="center"]
 
 [NOTE]
 Categories are case-insensitive, and can contain up to 50 alphanumerical characters, including spaces.
@@ -235,7 +235,7 @@ also applies when you are adding transactions in <<addtx>>
 Now, if you want to remove both the category filter and the transaction type, you can enter the command
 `filter c/!all ty/!all`.
 
-image::filtertx6.png[]
+image::filtertx6.png[width=640, pdfwidth=640px, align="center"]
 
 [NOTE]
 You can only remove the category and transaction type filter using the `!all` argument. We do not support
@@ -258,15 +258,13 @@ record your transactions. `add` eases this process.
 Imagine you are browsing your transactions under the category of "Transportation"
 in November. Your GUI may look like this:
 
-image::addtx1.png[width=960]
+image::addtx1.png[width=480, pdfwidth=480px, align="center"]
 
 Let's say you remember that spent $12.31 on lunch on 31 October 2019.
 If you want to record this transaction under the category "FOOD", you can enter the full
-command `add de/Lunch a/12.31 c/food d/31 m/10 y/2019 ty/exp`
+command `add de/Lunch a/12.31 c/food d/31 m/10 y/2019 ty/exp`. The application now looks like this:
 
-The application now looks like this:
-
-image::addtx2.png[]
+image::addtx2.png[width=480, pdfwidth=480px, align="center"]
 
 Here, IchiFund automatically changes the filter for you, so that you can review the addition
 you made. This makes it convenient if you want to edit your transactions, as detailed in <<edittx>>
@@ -284,13 +282,13 @@ When specifying whether a transaction is an expenditure item or an income item, 
 You may find the command used earlier too cumbersome to type. If so, you can leave out some of the optional
 arguments. To illustrate this, let's return to the earlier scenario:
 
-image::addtx1.png[]
+image::addtx1.png[width=480, pdfwidth=480px, align="center"]
 
 Let's say it is 1 November 2019 today. You have just spent another $10.00 hiring a cab to go to the hospital,
 and want to record this transaction under the category of "Transportation". You can simply enter
 the command `add a/10 de/Cab to hospital`, and obtain the following result:
 
-image::addtx3.png[]
+image::addtx3.png[width=480, pdfwidth=480px, align="center"]
 
 Here, as the month, year, and category arguments are left empty, IchiFund fills it in according to the
 filter title. The day argument is taken to be the current day of the month, according to the system date.
@@ -298,6 +296,7 @@ IchiFund also assumes that most transactions are expenditure items, and uses tha
 
 The following table summarizes the default values that optional arguments take if left unspecified.
 
+[cols="30%, 70%"]
 |==============================
 | Argument | Default values
 
@@ -311,6 +310,8 @@ The following table summarizes the default values that optional arguments take i
 [TIP]
 The default value of the day argument is the current day of month in the system time. Hence, to utilise this
 feature to its fullest, you are recommended to add transactions on the day it occurs.
+
+// end::addtx[]
 
 ===== Constraints
 The feature for adding transactions is built to work best under these constraints:
@@ -329,8 +330,6 @@ The feature for adding transactions is built to work best under these constraint
 
 Additionally, the transaction feature works best when the system time functions normally, with no change in time zone.
 
-// end::addtx[]
-
 [[edittx]]
 ==== Editing transaction: `edit`
 Format: `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [d/DAY] [m/MONTH] [y/YEAR] [ty/TRANSACTION_TYPE]`
@@ -342,11 +341,11 @@ be as if it never happened.
 Suppose you wanted to record your cab fare to the hospital, and you mistakenly record the amount you spent as
 $10.00 instead of $20.00:
 
-image::addtx3.png[]
+image::addtx3.png[width=640, pdfwidth=640px, align="center"]]
 
 You can rectify this error simply by entering the command `edit 2 a/20.00`:
 
-image::edittx.png[]
+image::edittx.png[width=640, pdfwidth=640px, align="center"]
 
 Here, the number "2" specified near the start of the command corresponds to the index of the transaction
 you want to edit, as shown in the current transaction list.
@@ -371,12 +370,12 @@ influx of precious money, do take a moment to update IchiFund using `delete`.
 
 Let's say you have just recorded and edited your cab ride to the hospital:
 
-image::addtx3.png[]
+image::addtx3.png[width=640, pdfwidth=640px, align="center"]
 
 Suppose you now find out that the expenditure is somehow covered by your insurance plan.
 Simply enter the command `delete 2`:
 
-image::deletetx.png[]
+image::deletetx.png[width=640, pdfwidth=640px, align="center"]
 
 Voila! The transaction is now deleted.
 

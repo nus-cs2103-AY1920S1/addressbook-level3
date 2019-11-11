@@ -263,7 +263,7 @@ The control flow for this handler is similar to that of the shortcut keys.
 In designing the specific commands for tab switching, we considered an alternative implementation for
 passing information about tab switching to `Ui`.
 
-[options='header']
+[cols="40%, 60%", options='header']
 |====================
 | Description of Implementation | Pros and Cons
 | `Ui` detects change through an `InvalidationListener` (current choice) |
@@ -327,7 +327,7 @@ Naturally, this implies that a filter for `Month` and `Year` is always applied t
 We defer the demonstration of how `TransactionContext` is used to filter the list of transactions to <<filtertx>>
 
 The `TransactionContext` is also used to fill in optional fields that are not specified by the user when adding transactions.
-Later, in <<addtx>>, we demonstrate how this is implemented.
+In <<addtx>>, we demonstrate how this is implemented.
 
 We summarise the role of the `TransactionContext` class in the following conceptual class diagram:
 
@@ -341,7 +341,7 @@ we considered, as well as the rationale for the current implementation.
 ====== Multiplicity of `Category`
 Currently, each `Transaction` object can have only one `Category` object associated to it. In the problem domain, it is
 also natural to think of transactions being associated with multiple categories. The table below summarizes the pros and cons of each choice.
-[options='header']
+[cols="40%, 60%", options='header']
 |====================
 | Description of Implementation | Pros and Cons
 | Each `Transaction` only has one `Category`  (current choice) |
@@ -357,7 +357,6 @@ also natural to think of transactions being associated with multiple categories.
 While both implementations are visible, we chose to only have one `Category` associated to each
 `Transaction` as the absence of overlaps in expenditure allows us to eventually implement a clean visual
 breakdown of expenditure by category in the future.
-
 Developers, however, are welcome to implement an additional `Tags` field for `Transaction` objects, to allow
 for multiple associations.
 
@@ -365,7 +364,7 @@ for multiple associations.
 Currently, we differentiate transactions that are income items and expenditure items using the `TransactionType` field in
 `Transaction`. We considered the natural alternative of using inheritance as well.
 
-[options='header']
+[cols="40%, 60%", options='header']
 |====================
 | Description of Implementation | Pros and Cons
 | Using the field `TransactionType` (current choice) |
@@ -380,7 +379,6 @@ Currently, we differentiate transactions that are income items and expenditure i
 |====================
 While it was a tough decision, we eventually decided to use `TransactionType` for differentiation as we valued maintaining the
 symmetry in the implementation of parsing in our current architecture, and we did not want to use separate commands for adding transactions.
-
 Furthermore, we did not envision further use of polymorphism in future developments. Hence the benefit of using inheritance becomes
 very limited.
 // end::overviewtx[]
@@ -391,15 +389,8 @@ very limited.
 
 The filter transactions feature allows the user to change the filter for the list of transactions.
 As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `FilterTransactionCommandParser`, and `FilterTransactionCommand`.
-The arguments supported by this feature includes:
-
-- `Month` (optional)
-- `Year` (optional)
-- `Category` (optional)
-- `TransactionType` (optional)
-
-Although all arguments are optional, the user has to input at least one argument for the command
-to be valid.
+The arguments supported by this feature are: `Month`, `Year`, `Category` and `TransactionType`. All of these arguments are
+optional, but the user has to input at least one argument for the command to be valid.
 
 ===== Implementation
 
@@ -408,7 +399,6 @@ we immediately delve into the details of `FilterTransactionCommand#execute`.
 
 As prefaced in <<overviewtx>>, the `filter` command interacts with `TransactionContext` to filter the list of
 transactions exposed to the UI component.
-
 Following the creation of `FilterTransactionCommand`, the execution of the command results
 in the following chain of events:
 
@@ -433,15 +423,8 @@ image::FilterTransactionSequenceDiagram.png[]
 The add transaction feature allows the user to add a transaction into IchiFund. It further ensures that the current
 filter of the list of transactions is changed to allow the user to view the transaction.
 As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `AddTransactionCommandParser`, and `AddTransactionCommand`.
-The arguments supported by this feature includes:
-
-- `Description`
-- `Amount`
-- `Category` (optional)
-- `Day` (optional)
-- `Month` (optional)
-- `Year` (optional)
-- `TransactionType` (optional)
+The arguments supported by this feature are: `Description`, `Amount`, `Category`, `Day`, `Month`, `Year` and `TransactionType`.
+Of these arguments, only `Description` and `Amount` are mandatory.
 
 ===== Implementation
 
@@ -450,7 +433,6 @@ we immediately delve into the details of the `AddTransactionCommand#execute`.
 
 As prefaced in <<overviewtx>>, `AddTransactionCommand` interacts with `TransactionContext` to generate
 a `Transaction` to be added to the model.
-
 The execution of an `AddTransactionCommand` results in the following sequence of events:
 
 *Step 1*: `AddTransactionCommand` retrieves the current `TransactionContext` from the model.
@@ -474,9 +456,9 @@ The above activity diagram shows the decision flow for a general optional argume
 arguments are never stored in `TransactionContext`, and some are always stored in `TransactionContext`. The
 following table describes the particular details for each optional argument, including the default values.
 
-[options='header']
+[cols="20%, 38%, 42%", options='header']
 |====
-| Argument | Present in `TransactionContext`? | Default value
+| Argument | Stored in `TransactionContext`? | Default value
 | `Day` | Never | Current day of month from system time
 | `Month` | Always | Not applicable
 | `Year` | Always | Not applicable
@@ -494,7 +476,7 @@ transactions. Currently, we store all transactions in a single iterable list. Gi
 month and year filter, a natural alternative would be to store each month's worth of transactions in a
 list, and stores these lists in another list, forming a multi-level list.
 
-[options='header']
+[cols="40%, 60%", options='header']
 |====================
 | Description of Implementation | Pros and Cons
 | Storing all transactions in a single list (current choice) |
@@ -508,9 +490,8 @@ list, and stores these lists in another list, forming a multi-level list.
 *Cons*: May disrupt abstractions in current architecture, more time needed to implement
 |====================
 
-Ultimately, we prioritised developing a minimal viable product for v1.4, and decided to avoid disrupting the
-existing architecture, and instead focus our efforts on developing more features to better address the needs of
-the target user profile.
+Ultimately, we decided to avoid disrupting the existing architecture, and instead focus our efforts on
+developing more features to better address the needs of the target user profile.
 
 However, moving forward, we recognise that the current architecture severely lacks scalability,
 especially given the constantly growing number of transactions we expect users to create. Hence, we eventually
