@@ -135,7 +135,8 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/issues/131[#131])
 
 |===
 |_Given below are extracts of sections I contributed to in the User Guide.
-They showcase my ability to write documentation targeting end-users._
+They showcase my ability to write documentation targeting end-users.
+The full User Guide can be found https://ay1920s1-cs2103t-t12-3.github.io/main/UserGuide.html[here]._
 |===
 
 _[Start of extract from User Guide]_
