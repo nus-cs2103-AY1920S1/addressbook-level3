@@ -76,7 +76,7 @@ public class EditCommand extends Command {
         model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson),
                 false, false, false, false,
-                true, true, false, false);
+                false, true, false, false);
     }
 
     /**

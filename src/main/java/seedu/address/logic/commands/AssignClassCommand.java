@@ -5,7 +5,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -41,14 +44,14 @@ public class AssignClassCommand extends Command {
 
     /**
      * @param index stores an arraylist of indexes of people in the filtered person list to edit
-     * @param editEarningsDescriptor details to edit the people with
+     * @param editPersonDescriptor details to edit the people with
      */
-    public AssignClassCommand(ArrayList<Index> index, EditPersonDescriptor editEarningsDescriptor) {
+    public AssignClassCommand(ArrayList<Index> index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
-        requireNonNull(editEarningsDescriptor);
+        requireNonNull(editPersonDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editEarningsDescriptor);
+        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
     @Override
@@ -56,11 +59,17 @@ public class AssignClassCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        for (Index index : this.index) {
-            if (index.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-            }
+        HashMap<Person, Person> editedPeople = new HashMap<>();
 
+        //Check through all indexes are valid before executing
+        for (Index index : this.index) {
+            System.out.println(lastShownList.size());
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PEOPLE_DISPLAYED_INDEX);
+            }
+        }
+
+        for (Index index : this.index) {
             Person personToEdit = lastShownList.get(index.getZeroBased());
             Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -68,14 +77,25 @@ public class AssignClassCommand extends Command {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
             }
 
-            model.setPerson(personToEdit, editedPerson);
+            //to solve problem of lastShownList changing after setting a person causing IndexOutOfBound
+            editedPeople.put(personToEdit, editedPerson);
 
         }
-        model.commitTutorAid();
+
+        Iterator hmIterator = editedPeople.entrySet().iterator();
+
+        while (hmIterator.hasNext()) {
+            Map.Entry mapElement = (Map.Entry) hmIterator.next();
+            Person toEdit = (Person) mapElement.getKey();
+            Person editedPerson = (Person) mapElement.getValue();
+            model.setPerson(toEdit, editedPerson);
+        }
+
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS),
                 false, false, false, false,
-                true, true, false, false);
+                false, true, false, false);
     }
 
     /**

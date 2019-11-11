@@ -15,7 +15,7 @@ import seedu.address.model.reminder.Reminder;
  * command to add reminders.
  */
 public class AddReminderCommand extends Command {
-    public static final String COMMAND_WORD = "addReminder";
+    public static final String COMMAND_WORD = "add_reminder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a Reminder for a certain task. "
             + "Parameters: "

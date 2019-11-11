@@ -72,7 +72,7 @@ public class AutoCommand extends Command {
                         throw new CommandException("Unable to auto add weekly earnings. " + MESSAGE_DUPLICATE_EARNINGS);
                     }
                     model.addEarnings(newEarnings);
-                    Earnings.getEarningsList().add(newEarnings);
+                    //Earnings.getEarningsList().add(newEarnings);
                 } else if (Integer.parseInt(e.getCount().count) == 0) {
                     earnings.removeEarnings(currentDay, e);
                 }

@@ -459,7 +459,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     public void deleteReminderButton(int index) throws ParseException, CommandException {
         try {
-            String userCommand = "deleteReminder " + index;
+            String userCommand = "delete_reminder " + index;
             executeCommand(userCommand);
         } catch (CommandException e) {
             logger.info("User attempting to change tab during the learning of an unknown command!");

@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.model.Model;
 import seedu.address.model.earnings.Earnings;
 
@@ -27,9 +29,10 @@ public class TotalEarningsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        List<Earnings> lastShownList = model.getFilteredEarningsList();
 
         if (Earnings.getTotalEarnings().equals("0.00")) {
-            for (Earnings e : Earnings.getEarningsList()) {
+            for (Earnings e : lastShownList) {
                 Earnings.addToTotalEarnings(e.getAmount());
             }
         }

@@ -53,6 +53,9 @@ import seedu.address.logic.commands.note.FindNotesCommand;
 import seedu.address.logic.commands.note.ListNotesCommand;
 import seedu.address.logic.commands.reminder.AddReminderCommand;
 import seedu.address.logic.commands.reminder.DeleteReminderCommand;
+import seedu.address.logic.commands.reminder.FindReminderCommand;
+import seedu.address.logic.commands.reminder.ListReminderBasedOnDateCommand;
+import seedu.address.logic.commands.reminder.ListReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.commands.CommandObject;
 
@@ -104,8 +107,9 @@ public class TutorAidParser {
             return new CancelCommand();
         } else {
             if (TutorAidParser.commandList.containsKey(trimmedInput)) {
-                TutorAidParser.commandList.put(prevUnknownCommand, TutorAidParser.commandList.get(trimmedInput));
-                return new NewCommand(TutorAidParser.commandList.get(trimmedInput), prevUnknownCommand);
+                String commandAction = TutorAidParser.commandList.get(trimmedInput);
+                TutorAidParser.commandList.put(prevUnknownCommand, commandAction);
+                return new NewCommand(commandAction, prevUnknownCommand);
             } else {
                 return new UnknownCommand(trimmedInput);
             }
@@ -181,6 +185,14 @@ public class TutorAidParser {
                 } else {
                     throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
                 }
+
+            case ListReminderCommand.COMMAND_WORD:
+                if (arguments.isEmpty()) {
+                    return new ListReminderCommand();
+                } else {
+                    throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                }
+
             case UpdateEarningsCommand.COMMAND_WORD:
                 return new UpdateEarningsCommandParser().parse(arguments);
 
@@ -216,6 +228,12 @@ public class TutorAidParser {
 
             case DeleteReminderCommand.COMMAND_WORD:
                 return new DeleteReminderParser().parse(arguments);
+
+            case ListReminderBasedOnDateCommand.COMMAND_WORD:
+                return new ListReminderBasedOnDateCommandParser().parse(arguments);
+
+            case FindReminderCommand.COMMAND_WORD:
+                return new FindReminderCommandParser().parse(arguments);
 
             case ListTasksBasedOnDateCommand.COMMAND_WORD:
                 return new ListTasksBasedOnDateCommandParser().parse(arguments);

@@ -55,6 +55,19 @@ public class ReminderTime implements Comparable<ReminderTime> {
         }
         return dateStart != null;
     }
+
+    /**
+     * Returns starttime in date format for comparable feature.
+     */
+    public Date getStartTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        try {
+            return simpleDateFormat.parse(starting);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
     /*
     public boolean hasTimeConflict(TaskTime otherTaskTime) throws ParseException {
         Date thisStarting = convertToDate(starting);
