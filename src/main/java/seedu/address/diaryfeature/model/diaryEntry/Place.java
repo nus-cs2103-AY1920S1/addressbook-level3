@@ -1,10 +1,13 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
+/**
+ * Place
+ */
 public class Place {
 
-    public static final String MESSAGE_CONSTRAINTS = "" +
-            "Place, while optional, if input, " +
-            "can't be the empty string, can't only be spaces ";
+    public static final String MESSAGE_CONSTRAINTS = ""
+            + "Place, while optional, if input, "
+            + "can't be the empty string, can't only be spaces ";
 
     public static final int PLACE_MAX_LENGTH = 100;
 

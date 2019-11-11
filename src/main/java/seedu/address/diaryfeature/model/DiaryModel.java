@@ -21,8 +21,8 @@ import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
  * Represents the in-memory model of the address book data.
  */
 public class DiaryModel {
-    private static final Logger logger = LogsCenter.getLogger(DiaryModel.class);
     public static final Predicate<DiaryEntry> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    private static final Logger logger = LogsCenter.getLogger(DiaryModel.class);
 
 
     private final DiaryBook diaryBook;
@@ -99,12 +99,19 @@ public class DiaryModel {
         return filteredDiaryBook;
     }
 
-
+    /**
+     *
+     * @param predicate
+     */
     public void updateFilteredDiaryList(Predicate<DiaryEntry> predicate) {
         requireNonNull(predicate);
         filteredDiaryBook.setPredicate(predicate);
     }
 
+    /**
+     *
+     * @param input
+     */
     public void setinnerDetails(Optional<Details> input) {
         diaryBook.setinnerDetails(input);
     }
@@ -123,7 +130,7 @@ public class DiaryModel {
     public XYChart.Series<String, Number> getDiaryBarChart() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-yyyy");
         Function<DiaryEntry, MonthData> toMonthDataFunction =
-                diaryEntry -> new MonthData(0, dateFormatter.format(diaryEntry.getDate()));
+            diaryEntry -> new MonthData(0, dateFormatter.format(diaryEntry.getDate()));
         return StatisticsUtil.getMonthDataSeries(filteredDiaryBook, toMonthDataFunction);
     }
 

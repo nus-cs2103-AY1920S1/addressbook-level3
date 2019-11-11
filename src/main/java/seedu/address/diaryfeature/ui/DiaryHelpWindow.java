@@ -11,6 +11,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
+/**
+ * Diary Help
+ */
 public class DiaryHelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html";

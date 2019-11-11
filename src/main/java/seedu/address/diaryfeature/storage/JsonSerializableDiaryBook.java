@@ -14,6 +14,9 @@ import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Json serializable diary book
+ */
 @JsonRootName(value = "diaryBook")
 public class JsonSerializableDiaryBook {
 
@@ -38,7 +41,10 @@ public class JsonSerializableDiaryBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableDiaryBook(DiaryBook source) {
-        entries.addAll(source.getDiaryEntryList().stream().map(JsonAdaptedDiaryEntry::new).collect(Collectors.toList()));
+        entries.addAll(
+                source.getDiaryEntryList().stream().
+                        map(JsonAdaptedDiaryEntry::new).
+                        collect(Collectors.toList()));
         detail = new JsonAdaptedDetails(source.getDetails());
     }
 

@@ -2,7 +2,6 @@ package seedu.address.diaryfeature.storage;
 
 import java.util.Date;
 
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
