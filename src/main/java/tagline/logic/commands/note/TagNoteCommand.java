@@ -31,6 +31,7 @@ public class TagNoteCommand extends NoteCommand {
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + " #tagline ";
 
+    public static final String TAGS_HAVE_BEEN_TAGGED = "Some tags in the parameter have been tagged to the note";
 
     private final NoteId noteId;
     private final List<Tag> tags;
@@ -54,6 +55,18 @@ public class TagNoteCommand extends NoteCommand {
 
         if (noteFound.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_INDEX);
+        }
+
+        // A round of validation on all tags.
+        var existingTags = noteFound.get().getTags();
+        for (Tag tag : tags) {
+            if (!tag.isValidInModel(model)) {
+                throw new CommandException(Messages.NON_EXISTING_TAG);
+            }
+
+            if (existingTags.contains(tag)) {
+                throw new CommandException(TAGS_HAVE_BEEN_TAGGED);
+            }
         }
 
         for (Tag tag : tags) {
