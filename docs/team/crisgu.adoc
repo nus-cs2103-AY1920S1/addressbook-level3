@@ -3,22 +3,33 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: AddressBook - Level 3
+== PROJECT: AddMIn+
 
 ---
 
-== Overview
+== Overview of Project
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+AddMin+ is an all-in-one administration desktop application, specially designed to ease the workload of the admin staffs in these companies and allow him/her to effectively handle the administrative tasks of the company. It is mainly a CLI application, but also has a GUI built with JavaFX. AddMin+ was developed by a team of software engineering students, with a codebase of about 15k lines of code.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
+* *Major enhancement*: added and implemented the entire *Finance* section of the project which includes major GUI implementations
+and 2 Finance related commands.
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
+** What does it do: The *Finance* section was implemented to allow users to get the detail of all employees in a easy manner.
+The tab shows three finance related details which are 'Total Salary' 'Pending To Pay' 'Salary Paid'. Two commands were
+implemented which are 'pay' and 'undo_pay', allow user to make the payment or undo the payment for the employee.
+
+** Justification: In the HR department, *Finance* is a very big issue to handle because after every event there are
+too many payslips. Having a dedicated *Finance* tab, along with the 'pay' and 'undo_pay' commands will increase the efficiency
+of the HR staff greatly.
+
+** Highlights: This enhancement requires handling and dealing with the `Event` objects extensively. The implementation of the *Schedule* feature
+required an in-depth analysis of the application's storage and modeling architecture. The *Schedule* feature was also challenging as
+it required the implementation of an additional `DistinctDate` object for the `generate_schedule` command which was also used in the
+`Employee` window. During the designing of the *Schedule* component, deep consideration was needed to ensure that the user interface was clean
+and optimal for the users.
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
