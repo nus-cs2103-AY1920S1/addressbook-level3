@@ -16,7 +16,7 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 ****
-We’re hardworking studious students who want only the best-quality software for our learning. And we’re always on the go to achieve that perfect 5.0. That’s why we created KeyboardFlashCards: a highly efficient flashcard manager catered to the fastest typists, saving time for the optimal learning experience.
+We are a team of hardworking and studious students who want only the best-quality software for our learning. And we’re always on the go to achieve that perfect 5.0. That’s why we created _KeyboardFlashCards_: a highly efficient flashcard manager catered to the fastest typists, saving time for the optimal learning experience.
 ****
 * This is a desktop Flashcard management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is developed mainly to assist students in learning and preparing for examinations.
@@ -33,6 +33,6 @@ We’re hardworking studious students who want only the best-quality software fo
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://poi.apache.org/[Apache POI], https://github.com/google/gson[Google Gson]
 
 == Licence : link:LICENSE[MIT]

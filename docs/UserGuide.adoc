@@ -29,6 +29,14 @@ can help you manage your flashcards much more efficiently than traditional GUI a
 Interested? You should be! KFC is perfect for NUS Computing students. We even have additional
 features not available with most flashcard managers that we're sure you'll love. Enjoy!
 
+Please also note the following icons, which will indicate points of interest throughout this document.
+
+NOTE: A point of information that you may wish to note
+
+TIP: A tip or suggestion
+
+CAUTION: A cautionary word of advice
+
 == Quick Start
 
 .  Ensure you have Java 11 or above installed in your Computer.
@@ -39,7 +47,6 @@ features not available with most flashcard managers that we're sure you'll love.
 .Graphical User Interface of KeyboardFlashCards[
 image::annotatedUi.png[width="790"]
 
-<<<
 //tag::features[]
 
 == Features
@@ -56,15 +63,6 @@ This section contains the features and their respective commands.
 ====
 //end::features[]
 
-Please also note the following icons, which will indicate points of interest throughout this document.
-
-NOTE: A point of information that you may wish to note
-
-TIP: A tip or suggestion
-
-WARNING: A cautionary word of advice
-
-<<<
 //tag::flashcardAll[]
 //tag::flashcard[]
 === Add new FlashCard: `add q>QUESTION a>ANSWER [c>CATEGORY]...`
@@ -355,7 +353,7 @@ You can stop the test any time simply by typing `end`.
 You can use this command to export all your FlashCards in a particular category, to an external file.
 This may be useful if you wish to publish your FlashCards somewhere, print them out, or share them with a friend.
 The file will be located at the file path that you specify, and the format of the file will be inferred from the
-extension. We currently support exporting to JSON (.json) and document (.docx) file formats. +
+extension. We currently support exporting to JSON ('.json') and document ('.docx') file formats. +
 Example: `export c>CS2105 p>C:\Documents\cs2105.json`
 
 Suppose you have a category named `CS2105`, and you wanted to export the FlashCards in that category to an external file
@@ -369,19 +367,27 @@ image::ExportDemo1.png[width="600"]
 +
 image::ExportDemo2.png[width="600"]
 
-. Navigate to the directory that you specified in the command (in this case, it would be 'C:\Documents'). Sure enough, your exported file is there!
+. Using your file explorer, navigate to the directory that you specified in the command (in this case, it would be `C:\Documents`). Sure enough, your exported file is there!
 +
 image::ExportDemo3.png[width="600"]
 
-NOTE: Only the questions and answers of FlashCards will be exported.
+Please refer to the table below for a summary of the file formats that we support exporting to:
+
+|====
+|**Format**|Document ('.docx')|JSON ('.json')
+|**Intended purpose**|For use as a cheat sheet|For sharing
+|**What is copied from each FlashCard**|Question and answer only|Question, answer, and the category which you specified in the export command
+|====
+
+NOTE: If you're on a Unix-based operating system (e.g. Mac OS, Linux), any absolute paths that you specify will have to begin from the root directory `/`, not the user directory `~`. For example, if you were on a Mac and your username was "jason", and you wanted to export to a document file on your desktop, the file path would be `/Users/jason/Desktop/document.docx`.
 
 CAUTION: Your file paths must be comprised solely of alphanumeric characters, spaces, and the following characters: `~\/-_!:[]()` +
-It must also end in either `.json` or `.docx`.
+It must also end in one of the supported file extensions - either `.json` or `.docx`. +
+{blank} +
+Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories. +
+{blank} +
+Please take care not to modify exported JSON files - your friends might have trouble importing them otherwise.
 
-CAUTION: Do note that some directories may be protected by your operating system (`C:\` on Windows, `/` on Unix). You may not be allowed to save files to these directories.
-
-TIP: Use this to export your flashcards into an easily-printable cheat sheet! Use them for your assessments or
-self-learning.
 
 // end::flashcardexport[]
 
@@ -392,10 +398,10 @@ self-learning.
 === Import flashcards from a JSON file: `import p>FILE_PATH`
 
 You can use this command to import FlashCards from a file that you or someone else had exported to earlier.
-We currently only support importing from JSON (.json) files. +
+We currently only support importing from JSON ('.json') files. +
 Example: `import p>C:\Downloads\cs2105.json`
 
-Suppose your friend has kindly exported some of his FlashCards for you to use. You have download the `.json` file that he sent you,
+Suppose that your friend has kindly exported some of his FlashCards for you to use. You have download the JSON file that he sent you,
 and it's currently located at the following path: `C:\Downloads\cs2105.json`.
 Your next step is to get those FlashCards into your copy of KFC. Here's how you'd go about this:
 
@@ -408,7 +414,7 @@ Furthermore, the category list on the left will now display the category of the 
 +
 image::ImportDemo2.png[width="600"]
 
-NOTE: Duplicate FlashCards will not be imported. You will be notified when we detect duplicate FlashCards in the file you provide.
+NOTE: Duplicate FlashCards will not be imported. _KFC_ will notify you if it detects duplicate FlashCards in the provided file.
 
 // end::flashcardimport[]
 
