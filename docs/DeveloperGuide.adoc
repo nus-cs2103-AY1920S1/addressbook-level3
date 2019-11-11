@@ -234,94 +234,138 @@ The decryption process is similar to the encryption process, except that the `EN
 // end::dataencryption[]
 
 === Notes Feature
-==== Key basic features
+==== Open Note
 
-Within the notes feature, the user will be able to perform operations to `add`, `open`, `delete` and `edit` a note.
+The user is able to open a note in the note book in a separate panel to easily read and edit its contents.
 
-The `open` command allows users to open the note in a separate panel to edit and save through the UI of the app.
-The following sequence diagram illustrates how the note is retrieved and editable via the `open` command.
+The following sequence diagram illustrates how the note is retrieved and edited through the UI via the `open` command.
 
 image::OpenNoteSequenceDiagram.png[]
 
 Below is the sub-diagram for retrieving the note through the `open` command.
-****
-* Note that the sequence diagram for `add`, `delete` and `edit` commands are similar to the one below, hence are omitted.
-****
 
 image::OpenNoteSequenceDiagramRef.png[]
+
+****
+* Note that the sequence diagram for the `edit` command is similar to the `open` command shown above, hence is omitted.
+****
+
+Given below is an example usage of scenario of the `open` command in notes, where a user intends to open a note to read
+or edit its contents.
+
+*Step 1.* Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
+`open 1`.
+
+*Step 2.* The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
+the `ParserUtil#parseIndex()` method.
+
+*Step 3.* If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
+within the app.
+
+*Step 4.* The user proceeds to edit the `Title`, `Description` and `Content` field of the note through this panel and saves his
+edits using the save button. This executes the `Logic#EditNoteCommand()` which edits the note in the note book.
+
+*Step 5.* The note book is now updated with the note edited by the user.
+
 
 ==== Undo/Redo
 ===== Implementation
 The undo/redo mechanism is facilitated by the VersionedNoteBook, which extends NoteBook with a undo/redo history.
-This history is stored in two stacks - the undo stack which store the history of NoteBooks before the current state and
-the redo stack which stores the history of NoteBooks after the current state. The key operations that support this mechanisms are:
+This history is stored in two stacks - the undo stack and the redo stack. The undo stack stores the states of NoteBooks
+before the current state and the redo stack which stores the states of NoteBooks after the current state.
+The key operations that support this mechanisms are:
 
-`VersionedNoteBook#commit()` — Saves the current NoteBook state and its corresponding command in its history.
+`VersionedNoteBook#commit()` — Saves the current NoteBook state and its corresponding command in the undo stack.
 
-`VersionedNoteBook#undo()` — Restores the previous note book state from its history and returns its corresponding command
-to inform the user what command is undone.
+`VersionedNoteBook#undo()` — Restores the previous note book state from the undo stack and returns its corresponding command
+to inform the user what command is undone. It also stores the current state of the note book into the redo stack.
 
-`VersionedNoteBook#redo()` — Restores a previously undone note book state from its history and returns its corresponding
-command to inform the user what command is redone.
+`VersionedNoteBook#redo()` — Restores a previously undone note book state from the redo stack and returns its corresponding
+command to inform the user what command is redone. It also stores the current state of the note book into the undo stack.
 
-Below is a comprehensive activity diagram to illustrate how the undo/redo mechanism works.
+Below is a comprehensive activity diagram to illustrate how the undo & redo mechanism works.
 
 image::UndoRedoActivityDiagram.png[]
 
-Undo-able and redo-able commands are commands that modify the modifies the note book. They include: `add`, `delete`,
-`clear`, `edit` and `open`. `open` command is considered undo-able and redo-able because it updates the number of access
-to the note opened.
+Not all commands are undo-able. Undo-able commands are those that modifies the note book which includes: `add`, `delete`,
+`clear`, `edit` and `open`.
 
-On an undo command, the current state of the note book is first stored in the history (NoteBook's redo stack) before being
-reverted to the previous notebook state. The previous notebook state is then removed from its history (NoteBook's undo stack).
+====
+* The `open` command is considered undo-able because it updates the number of access
+to the note that is opened.
+====
 
-Similarly, on a redo command, the current state of the note book is first stored in the history (NoteBook's undo stack) before being
-restored to the next notebook state. The next notebook state is then removed from its history (NoteBook's redo stack).
+Below is an example run through of how the undo command is executed:
 
+. User executes `undo` command which calls the `VersionedNoteBook#undo()`.
+. This method call first checks if the undo stack is empty.
+.. The undo stack will be empty if no undo-able command were called prior
+to calling the `undo` command.
+.. The undo mechanism will only proceed only if the undo stack is not empty,
+else an `InvalidUndoException` will be thrown.
+. The current state of the note book is then checked against the previous state of the note book.
+.. In the event that they are the same, the
+previous note book state is popped from the undo stack and the `undo` command is called recursively (starting from step 2).
+This recursive call is performed until either the current and previous note book state are different or until the undo stack is empty.
+.. In the event that they are different, proceed on to step 4.
 
-When an undoable command is executed, the current state of the `NoteBook` is checked against its previous NoteBook state in
-its history within the commit command. The current state of the `NoteBook` is only saved to its history if it is not equals to
-the previous one. Similarly, the same check is done on `VersionedNoteBook#undo()` command, and only if the current state is not
-equal to the previous one, will the current state be set to the state of its previous `NoteBook`. This is to prevent users from being
-able to perform undo and redo actions when there is no change to be undone or redone.
+. The current state of the note book is first stored in the redo stack.
+. The note book is then reverted to the previous note book state. This same previous note book state is removed from
+the undo stack.
+. Undo command is complete.
+
+====
+* Step 3 is to prevent users from being able to perform `undo` actions when there is no change to be undone.
+====
+
 
 ===== Design Considerations
 
 ====== Aspect: How undo & redo executes
 * Alternative 1 (current choice): Saves the entire note book.
-** Pros: Easy to implement and can check if current state of note book is equals to previous state of note book easily.
+** Pros: Less complex and easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 
 * Alternative 2: Individual command knows how to undo/redo by itself.
 ** Pros: Makes use of lesser memory.
-** Cons: More complex to implement and more prone to bugs because each individual command must be correct to work correctly.
+** Cons: More complex to implement and more prone to bugs as each individual command must be correct to work correctly.
 
-The reason why we chose alternative 1 is to introduce less bugs by adopting a less complex implementation which works
-well with our undo & redo mechanism.
+*The reason why we chose alternative 1:*
+By adopting a simpler implementation, we aim to introduce less bugs into system. Furthermore, this implementation better
+supports future extensions as undoable commands can be added much easier.
 
 ===== Aspect: Data structure to support the undo/redo commands
 * Alternative 1 (current choice): Use two stacks to store the history of note book states - one for undo, one for redo.
 ** Pros: Very easy to implement.
 ** Cons: Using two data structures may incur additional overhead in terms of memory.
 
-* Alternative 2: Use a single linked list to store the history of note book states that supports both undo and redo.
+* Alternative 2: Use a single linked list to store the history of note book states which supports both undo and redo.
 ** Pros: May incur less overhead in terms of memory usage as only one data structure is used.
 ** Cons: More complex to implement.
 
-The reason why we chose alternative 1 is because it is less complex to implement and the code is much cleaner for better
-readability which helps in future extensions.
+*The reason why we chose alternative 1:*
+It is less complex to implement and the code is much cleaner for better readability which also helps in future extensions.
 
 ==== Sort Note feature
 
 Sorting of notes is handled by the MultipleSortByCond class, which allows the notes in the NoteBook to be sorted in
-three different ways - by date modified, date added or number of access. Below is a
+three different ways - by date modified, date added or number of access.
+
+Below is a
 class diagram to illustrate how the NoteBook class and MultipleSortByCond class interact with one another.
 
 image::SortNoteClassDiagram.png[]
 
-More than one of the conditions can be used to sort the notes in the note book at one time, with the leftmost condition
-having the greatest precedence. This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the string
-of conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
+Sorting the note book rearranges the notes according to the sort conditions provided.
+
+More than one of the conditions can be used to sort the notes in the note book at one time, with the first condition
+having the greatest precedence.
+
+Example: `sort by/NumOfAccess DateAdded`
+
+* NumOfAccess and DateAdded are the sort conditions, with NumOfAccess having greater precedence over DateAdded.
+
+This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the sort conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
 in NoteBook.
 
 
