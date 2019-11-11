@@ -607,17 +607,30 @@ As you can see the logic follows the two paths outlined above. One path where th
 Both paths can lead to the chart updating, followed by the end of the command. Each path will be explored in slightly further detail below.
 
 ===== Update to displayed expenses
-The current `ExpenseChart` observes the list of expenses that are contained in the `MainWindow`. When a command which updates the expenses is executed,
-that command updates the list of expenses in the model. That update propagates to the list of expenses in `MainWindow`, which notifies
-the current chart of its changes.
+. The current `ExpenseChart` observes the list of expenses that are contained in the `MainWindow`.
+. When a command which updates the expenses is executed, that command updates the list of expenses in the model.
+. That update propagates to the list of expenses in `MainWindow`, which notifies the current chart of its changes.
+. Using a `StatisticsGenerator`, the `ExpenseChart` then generates the statistics to be displayed from the new expenses.
+. In this manner, changes to the list of expenses are propagated to the display.
 
-Using a `StatisticsGenerator`, the `ExpenseChart` then generates the statistics to be displayed from the new expenses. In this manner,
-changes to the list of expenses are propagated to the display. An example of how this works can be seen in the sequence diagram
-below, in the example where the user changes the displayed expenses by using the `ListCommand`.
+An example of how this works can be seen in the sequence diagram below, in the example where the user changes the displayed expenses by using the `ListCommand`.
 
-.Structure of the Statistics Generation Component
+image::UpdateExpensesSequenceDiagram.png[]
+
+{nbsp} +
+
+===== DisplayStatsCommand is called
+. The orchestrating `ChartBox` observes `StatisticsFormat` and `StatisticsFormatOptions` in the model.
+. When `DisplayStatsCommand` is called, it updates those two objects in the model sequentially.
+. First, `ChartBox` is notified about `StatisticsFormat`, and if there is a new one, it creates the appropriate chart and renders it.
+. Next, if there are changes to `StatisticsFormatOptions`, the `ChartBox` propagates the relevant changes to the current displayed chart, to update its display.
+. In this manner, the current chart can be updated with the new `StatisticsFormat` and `StatisticsFormatOptions`.
+
+An example of how this works can be seen in the sequence diagram below, where `DisplayStatsCommand` is called with a new `StatisticsFormat`.
+`StatisticsFormatOptions` is omitted for simplicity.
+
 image::DisplayStatisticsSequenceDiagram.png[]
-
+{nbsp} +
 
 ==== Design Considerations
 
