@@ -196,7 +196,7 @@ The following sequence diagram shows how the undo operation works:
 
 image::UndoSequenceDiagram.png[width="750", align="center"]
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `UndoCommand` and `UndoState` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 The `redo` command does the opposite -- it calls `Model#redoEngagementList()`, which shifts the `versionPointer` once to the right, pointing to the previously undone state, and restores the engagement list to that state.
 
@@ -534,7 +534,7 @@ The following sequence diagram shows how the sort operation works:
 
 image::SortSequenceDiagram.png[width="750", align="center"]
 
-NOTE: The lifeline for `SortCommand` and `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `SortCommand` and the 3 Stages should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 Step 3. The user executes `add d/meeting ... p/high` to add a new engagement. The `add` command also calls `Model#updateSortedEngagementList()` with `currentComparator`, causing the execution of sorting after the new engagement is added to the list, to preserve the current ordering.
 
