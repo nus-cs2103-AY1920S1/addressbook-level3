@@ -732,6 +732,34 @@ Windows, Linux, Unix, OS-X
 
 Given below are instructions to test the app manually.
 
+To create an empty deck with name `German`:
+
+* `create deck/German`
+
+To add a Front Back card with default priority level of `low` to the deck `German`:
+
+* `add deck/German front/hello back/moin moin`
+
+To add a Front and Back card with priority level of `high` to the deck `German`:
+
+* `add deck/German priority/high front/Good morning back/guten morgen`
+
+To edit a Front and Back card's front text, with the card as the only card in the `German` deck:
+
+* `edit deck/German index/1 front/Good bye`
+
+To add an Multiple Choice card with priority level of `high` 3 options and the second option is the correct answer:
+
+* `add deck/German priority/high front/Good morning back/2 choice/klair choice/guten morgen choice/moin`
+
+To delete the first card from the `German` deck:
+
+* `delete deck/German index/1`
+
+To delete the deck `German`:
+
+* `delete deck/German`
+
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 

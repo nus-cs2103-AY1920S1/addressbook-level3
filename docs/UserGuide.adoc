@@ -199,7 +199,7 @@ Creates a new empty deck named `german`.
 
 Creates an Front Back card or Multiple Choice Card in a deck of FlashCard Pro library.
 
-Format: `create deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]...`
+Format: `add deck/DECK_NAME [priority/PRIORITY_LEVEL] front/FRONT_TEXT back/BACK_TEXT [choice/CHOICE_TEXT]...`
 
 ****
 * The `DECK_NAME` must be a name of an existing deck in FlashCard Pro.
