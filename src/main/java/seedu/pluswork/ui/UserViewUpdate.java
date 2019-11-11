@@ -148,12 +148,10 @@ public class UserViewUpdate {
             paneToRender.getChildren().add(userViewMain.loadInventories());
             break;
 
-
         case GetStatisticsCommand
                 .COMMAND_WORD_MEMBER:
             paneToRender.getChildren().add(userViewMain.loadMemberStats());
             break;
-
 
         case GetStatisticsCommand.COMMAND_WORD_TASK:
             paneToRender.getChildren().add(userViewMain.loadTaskStats());
