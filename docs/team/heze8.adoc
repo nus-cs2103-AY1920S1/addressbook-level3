@@ -16,11 +16,11 @@ Ultimately, we made the decision to modify it into a management application for 
 
 === 1.1 Overview
 
-image::Ui.png[]
+image::Ui.png[width=600]
 Figure 1. The graphical interface for `EzWatchlist`.
 
 `EzWatchlist` is an application that saves movies and television shows the user adds into a watchlist.
-The user interacts with ``EzWatchlist` through typing commands or the graphical interface seen in Figure 1.
+The user interacts with `EzWatchlist` through typing commands or the graphical interface seen in Figure 1.
 This enhanced application boasts the following features:
 
 . Keeps track of the movies and television shows that they planed to watch.
@@ -35,9 +35,7 @@ The following symbols, abbreviations and formatting used in this document:
 
 |===
 | *API - Application Programming Interface* | An interface as a intermediary to use other programs or software.
-
 | *`Highlighted words`* | Our application related components such as commands, classes, methods, e.t.c.
-
 | image:keyboard.png[] | Keyboard characters on the desktop.
 | https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests[#number] | Pull request links based on their serial number.
 |===
@@ -46,7 +44,7 @@ The following sections illustrate these enhancements in more detail, as well as 
 I have added to the user and developer guides in relation to these enhancements.
 
 == 2. Summary of contributions
-This section shows a summary of my role in the project, my technical ability to code, document, and other helpful contributions to the
+This section shows a summary of my role in the project, my technical ability to code, document, and other beneficial contributions to the
 team project.
 
 === Role
@@ -57,7 +55,7 @@ should be readily available to the user.
 
 Moreover, I took the supervising role of team lead in this project.
 I made sure that the team was well coordinated and that we were all clear on the overall vision of the application at every point in the development.
-Ensuring clear communication throughout the team, so that we all knew what to do. And that issues that arrived were handle smoothly and cleanly.
+Ensuring clear communication throughout the team, so that we all knew what to do. And that issues that arrived were handled smoothly and cleanly.
 
 === *Major enhancement*:
 Added the ability for the application to integrate with an *online database of movies and tv shows*.
@@ -153,29 +151,29 @@ I wrote the introduction to ease the user into the main features of the applicat
 |===
 |_The following is an excerpt from our `EzWatchlist` User Guide, showing additions that I have
 made for the Introduction:_
+
 |===
 include::../UserGuide.adoc[tag=intro]
 
-|===
-|_The following is an excerpt from the Advanced Features portion:_
-|===
 ___
-include::../UserGuide.adoc[tag=advancedfeatures]
 
+|===
+|_Moreover I also wrote the Advanced Features portion of the user guide available https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#advanced-features[here]._
+|===
 
 == Contributions to the Developer Guide
-This sections showcases my contribution to the EzWatchlist Developer Guide, which serve to document the implementation of our features to technical users. It demonstrates my capability to use diagrams
+This sections showcases my contribution to the `EzWatchlist` Developer Guide, which serve to document the implementation of our features to technical users. It demonstrates my capability to use diagrams
 and illustrate technical details.
 
 |===
-|_Given below are sections for the Api Component I wrote to introduce the design architecture in the application.
+|_The following are sections for the Api Component I wrote to introduce the design architecture in the application._
 |===
 
 include::../DeveloperGuide.adoc[tag=apicomponent]
 
 |===
-|_Given below are sections for features I wrote to illustrate the implementation of the Api Model classes, Image Retrieval, and generation of Recommendations._
+|_Moreover, I also contributed in the developer guide, the implementation of the Api Model classes, Image Retrieval, and generation of Recommendations. The following is only an excerpt of my design considerations. The full portion can be found https://ay1920s1-cs2103t-f13-4.github.io/main/DeveloperGuide.html#online-data[here]_
 |===
 
-include::../DeveloperGuide.adoc[tag=onlinedata]
+include::../DeveloperGuide.adoc[tag=apiimpl]
 

@@ -66,7 +66,7 @@ through a button press on the graphical interface.
 
 ==== Interaction
 .EzWatchlist's command line interface.
-image::commandline.png[width="900"]
+image::commandline.png[width="600"]
 
 
 EzWatchlist uses <<UserCommands, Commands>> entered through the command line interface in figure 2 to interact with the application.
@@ -93,7 +93,7 @@ understand how each of our features were implemented, our <<DeveloperGuide#, dev
 
 What are you waiting for? Start using `EzWatchlist` now!
 
-
+// end::intro[]
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -110,7 +110,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<UserCommands>> for details of each command.
 
-// end::intro[]
 
 == Features
 
