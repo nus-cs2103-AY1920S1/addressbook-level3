@@ -94,7 +94,7 @@ p/High
 ```
 
 .Typee's prompt in response to the user entering `add` +
-image::interactive_parsing_1.png[height='125' width="800"]
+image::interactive_parsing_1.png[height='90' width="800"]
 
 Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
 Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
@@ -109,10 +109,10 @@ a/John | Smith p/High
 ```
 
 .A user about to pass 3 arguments to Typee in one input, following `add`. +
-image::interactive_parsing_2.png[height='125' width='800']
+image::interactive_parsing_2.png[height='90' width='800']
 
 .Typee's response to the above input. +
-image::interactive_parsing_3.png[height='125' width='800']
+image::interactive_parsing_3.png[height='90' width='800']
 
 Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
 the entire command at once. This is identical to the format introduced in the beginning of this section: -
@@ -179,14 +179,14 @@ This happens because the parser expects an argument for `s/`, but there is no su
 As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
 
 .Typee's response to `add t/meeting l/Meeting Room 2`. +
-image::interactive_parsing_6.png[width='800' height='125']
+image::interactive_parsing_6.png[width='800' height='90']
 
 
 Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
 and `p/` untouched.
 
 .Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`. +
-image::interactive_parsing_7.png[width='800' height='125']
+image::interactive_parsing_7.png[width='800' height='90']
 
 
 [NOTE]
@@ -210,10 +210,10 @@ and prompts the user to enter an acceptable engagement type instead. Since Typee
 the subsequent input must begin with `t/...`
 
 .A user about to enter an invalid input. +
-image::interactive_parsing_4.png[height='125' width='800']
+image::interactive_parsing_4.png[height='90' width='800']
 
 .Typee's response to the invalid input. +
-image::interactive_parsing_5.png[height='125' width='800']
+image::interactive_parsing_5.png[height='90' width='800']
 
 
 Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
@@ -272,7 +272,7 @@ Adds an engagement to the system. There are three types of engagements; `Appoint
 Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES[Separated by '|'] p/PRIORITY`
 
 .Enters Add Engagement Command in Command Input Text field.
-image::add_1.png[width="800" height='125']
+image::add_1.png[width="800" height='90']
 
 Examples:
 
