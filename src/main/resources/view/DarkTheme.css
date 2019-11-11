@@ -165,6 +165,10 @@
     -fx-border-color: #121212;
 }
 
+.scroll-pane > .viewport {
+    -fx-background-color: #121212;
+}
+
 .pane-with-border {
      -fx-background-color: #121212;
      -fx-border-color: derive(#121212, 25%);
@@ -525,7 +529,7 @@
 
 .box {
     -fx-background-color: #121212;
-    -fx-border-width: 0;
+    -fx-border-width: 1;
 }
 
 /* Styling for SelectedBodyCard */

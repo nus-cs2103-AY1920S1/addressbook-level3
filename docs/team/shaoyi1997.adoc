@@ -39,28 +39,42 @@ My role encompassed the complete design of the GUI and auxiliary features. The f
 
 This section gives an overview of my contributions to Mortago. A list of my pull requests (PRs) can be found https://github.com/AY1920S1-CS2103T-T13-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+assignee%3Ashaoyi1997+is%3Aclosed[here].
 
-*2.1. Major Enhancements*
+=== 2.1. Major Enhancements
 
+I have contributed 2 major enhancements for Mortago, which will be detailed here.
 
-*2.2. Minor enhancement*:
+==== 2.1.1 Major Enhancement 1: I did a major redesign of the Graphical User Interface (GUI) from AB3.
+* What it does: The GUI allows users to view all the entries in Mortago and serves as a visual representation of the data in the system
+* Justification: This feature is important for users as a visually appealing GUI will attract and retain users. Users will find it easy to locate minute details in a large amount of information through the dashboard.
+* Highlights
 
-*2.3. Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shaoyi1997&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via RepoSense]]
+=== 2.2. Minor Enhancement
 
-*2.4. Other contributions*
+=== 2.3. Code contributed
+
+You can view the code that I have contributed https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shaoyi1997&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via RepoSense].
+
+=== 2.4. Other contributions
 
 The following sections document other contributions made towards the project.
 
 ** Project management
-*** The project was separated to 3 milestones, from version 1.2 - 1.4. I managed the v1.3 milestone and its associated issues in Github.
+*** The project was separated to 3 milestones, from version 1.2 - 1.4. I managed the v1.3 milestone and its associated issues in Github
+** Enhancement to existing features
+*** Added the ability to add photos for Worker
 ** Documentation
-
+*** Wrote the User Guide and Developer Guide for the `add` command and use interface
+*** Morphed the AB3 User Guide for Mortago in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22]
+*** Added use cases for dashboard and add command to the Developer Guide in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/45[#45]
+*** Added the Command Specifications and Appendix for the User Guide in PRs https://github.com/AY1920S1-CS2103T-T13-2/main/pull/84[#84], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/116[#116], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/282[#282]
 ** Community
-*** Reviewed PRs with non-trivial comments: https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/100[#100]
+*** Reviewed PRs with non-trivial comments in PRs https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/100[#100]
 *** Contributed to forum discussions in the following issues: https://github.com/nus-cs2103-AY1920S1/forum/issues/111[#111], https://github.com/nus-cs2103-AY1920S1/forum/issues/133[#133], https://github.com/nus-cs2103-AY1920S1/forum/issues/150[#150]
 *** Reported bugs and offered suggestions for other teams (view at https://github.com/shaoyi1997/ped/issues[this repo])
 ** Tools:
-*** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/79[#79]
-*** Integrated a Continuous Integration platform for Github (AppVeyor) to the team repo.
+*** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AYu1920S1-CS2103T-T13-2/main/pull/79[#79]
+*** Integrated TestFx and adapted Graphical User Interface tests from AB4 in https://github.com/AY1920S1-CS2103T-T13-2/main/commit/34dec528d451b84dea466daeacb24d82dd643258#diff-7319d9e22324ed2aaaac3f06ade9f486[this commit]
+*** Integrated a Continuous Integration platform for Github (AppVeyor) to the team repo
 
 == 3. Contributions to the User Guide
 
@@ -70,29 +84,20 @@ The following sections document other contributions made towards the project.
 |===
 
 _{start of extract 1}_: Command Specifications
-
-
 include::../UserGuide.adoc[tag=commandspecs]
-
-'''
 
 _{end of extract 1}_
 
 _{start of extract 2}_: Add Command
 
 '''
-
 include::../UserGuide.adoc[tag=add]
-
-'''
 
 _{end of extract 2}_
 
 _{start of extract 3}_: Appendix
 
 include::../UserGuide.adoc[tag=appendix]
-
-'''
 
 _{end of extract 3}_
 
@@ -102,11 +107,25 @@ _{end of extract 3}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-_{start of extract}_
+_{start of extract 1}_: Unique Identification Number
 
-include::../DeveloperGuide.adoc[tag=uniqueIdentificationNumber[]
+'''
+include::../DeveloperGuide.adoc[tag=uniqueIdentificationNumber]
+_{end of extract 1}_
+
+
+_{start of extract 2}_: Photo
+
+'''
+include::../DeveloperGuide.adoc[tag=photo]
+
+_{end of extract 2}_
+
+
+_{start of extract 3}_: User Interface
+
+'''
 include::../DeveloperGuide.adoc[tag=ui]
-
-_{end of extract}_
+_{end of extract 3}_
 
 

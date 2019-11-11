@@ -11,18 +11,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="450.0" prefWidth="294.0" styleClass="box" stylesheets="@DarkTheme.css" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" maxHeight="1.7976931348623157E308" prefWidth="294.0" stylesheets="@DarkTheme.css" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
-    <VBox fx:id="selectedBody" alignment="CENTER" minHeight="105" prefWidth="280.0" styleClass="box">
+    <VBox fx:id="selectedBody" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" minHeight="105" prefWidth="280.0" styleClass="box">
       <padding>
         <Insets left="10.0" right="5.0" top="30.0" />
       </padding>
-         <Label fx:id="selectedBodyId" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" styleClass="cell_small_label" text="Body ID">
+         <Label fx:id="selectedBodyId" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="0.0" styleClass="cell_small_label" text="Body ID" VBox.vgrow="ALWAYS">
             <VBox.margin>
                <Insets bottom="10.0" />
             </VBox.margin>
          </Label>
-     <Label fx:id="selectedBodyName" text="Name">
+     <Label fx:id="selectedBodyName" text="Name" wrapText="true" VBox.vgrow="ALWAYS">
        <minWidth>
          <!-- Ensures that the label text is never truncated -->
          <Region fx:constant="USE_PREF_SIZE" />
@@ -31,7 +31,7 @@
                <Font name="System Bold" size="18.0" />
             </font>
      </Label>
-      <HBox alignment="CENTER" fillHeight="false" spacing="5.0">
+      <HBox alignment="CENTER" fillHeight="false" spacing="5.0" VBox.vgrow="ALWAYS">
          <Label fx:id="selectedBodyNric" text="NRIC" />
             <Text fill="#ff0266" strokeType="OUTSIDE" strokeWidth="0.0" text="|" />
         <Label fx:id="selectedBodySex" text="Sex">
@@ -41,7 +41,7 @@
             <Text fill="#ff0266" strokeType="OUTSIDE" strokeWidth="0.0" text="|" />
             <Label fx:id="selectedBodyReligion" text="Religion" />
       </HBox>
-         <VBox fx:id="dateBox" alignment="CENTER">
+         <VBox fx:id="dateBox" alignment="CENTER" VBox.vgrow="ALWAYS">
             <children>
                <AnchorPane prefWidth="260.0">
                   <children>
@@ -78,7 +78,7 @@
                <Insets left="10.0" right="10.0" top="25.0" />
             </VBox.margin>
          </VBox>
-         <VBox prefHeight="0.0" prefWidth="129.0">
+         <VBox prefWidth="129.0" VBox.vgrow="ALWAYS">
             <children>
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Organs For Donation">
                   <font>
@@ -96,15 +96,15 @@
                <Insets top="25.0" />
             </VBox.margin>
          </VBox>
-         <AnchorPane prefWidth="237.0">
+         <AnchorPane prefWidth="237.0" VBox.vgrow="ALWAYS">
             <children>
                <HBox alignment="CENTER" layoutX="-35.0" layoutY="12.0">
                   <children>
                   <Label fx:id="NOK" alignment="CENTER" contentDisplay="RIGHT" text="Next of Kin" />
-                     <VBox alignment="CENTER_LEFT" prefHeight="72.0" prefWidth="160.0">
+                     <VBox alignment="CENTER_LEFT" prefWidth="160.0">
                         <children>
-                           <Label fx:id="selectedBodyNokName" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Name" />
-                           <Label fx:id="selectedBodyNokRelationship" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Relationship" />
+                           <Label fx:id="selectedBodyNokName" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Name" wrapText="true" />
+                           <Label fx:id="selectedBodyNokRelationship" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Relationship" wrapText="true" />
                            <Label fx:id="selectedBodyNokPhone" alignment="CENTER_RIGHT" contentDisplay="CENTER" text="NOK Phone" />
                         </children>
                         <opaqueInsets>
@@ -121,7 +121,7 @@
                <Insets top="20.0" />
             </VBox.margin>
          </AnchorPane>
-         <VBox prefHeight="111.0" prefWidth="260.0">
+         <VBox maxHeight="1.7976931348623157E308" prefWidth="260.0" VBox.vgrow="ALWAYS">
             <children>
                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Cause Of Death">
                   <VBox.margin>
@@ -131,14 +131,17 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Text>
-            <Label fx:id="selectedBodyCauseOfDeath" text="COD">
+            <Label fx:id="selectedBodyCauseOfDeath" maxHeight="1.7976931348623157E308" text="COD" wrapText="true" VBox.vgrow="ALWAYS">
                   <VBox.margin>
                      <Insets top="10.0" />
                   </VBox.margin></Label>
             </children>
             <padding>
-               <Insets bottom="30.0" top="20.0" />
+               <Insets top="20.0" />
             </padding>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
          </VBox>
     </VBox>
    </content>

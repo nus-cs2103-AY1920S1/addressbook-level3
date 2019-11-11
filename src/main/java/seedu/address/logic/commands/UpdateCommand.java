@@ -120,7 +120,7 @@ public class UpdateCommand extends UndoableCommand {
 
                 if ((originalBodyDescriptor.getBodyStatus().equals(Optional.of(CLAIMED))
                         || originalBodyDescriptor.getBodyStatus().equals(Optional.of(DONATED)))
-                        && !updateBodyDescriptor.getFridgeId().equals(Optional.ofNullable(null))) {
+                        && !updateBodyDescriptor.getFridgeId().equals(Optional.empty())) {
                     throw new CommandException(MESSAGE_CANNOT_ASSIGN_FRIDGE);
                 }
 

@@ -218,6 +218,8 @@ add -b +
 Before specifying a `fridgeId`, ensure that a `fridge` with this id exists!
 |===
 
+[IMPORTANT]
+Please refer to <<Valid-Values, Appendix 7.1>> for a comprehensive list of valid values and formats for various attributes like sex, phone and dates.
 
 Example:
 
@@ -476,13 +478,23 @@ You can select a body and view its full details by entering a select command wit
 
 Format: `select id`
 
-Example: `select 1` +
+Example: `select 1`
 
-View a body with the ID B00000001.
+The following illustrates how you can use the select command.
 
+. Suppose you wish to select a body with ID B00000001.
 
+image::Select1.png[]
 
+[start=2]
+. Enter in `select 1` in the command box.
 
+image::Select2.png[]
+
+[start=3]
+. The body with ID B00000001 will be selected and you can view all its details on the side panel.
+
+image::Select3.png[]
 
 // end::select[]
 
@@ -958,7 +970,6 @@ and controlling peripherals +
 *Portable Document Format (PDF)* : a file format for capturing and sending electronic documents in exactly the intended format
 
 
-// tag::appendix[]
 == Appendix
 
 [[bodyStatus]]
@@ -975,11 +986,15 @@ The following table specifies all valid values, or format, that you must follow 
 
 |Sex
 a|
+The following values are valid for sex:
+
 * Male
 * Female
 
 |Body Status
 a|
+The following values are valid for body status:
+
 * Arrived
 * Pending Identification
 * Pending Claim
@@ -1005,7 +1020,7 @@ It is not necessary to include the time for certain `ATTRIBUTES` such as the dat
 |Path to Photo
 a|
 If you wish to provide a photo for the worker entry, please provide the absolute path of the image file.
-You can follow the steps <<Copy-File-Path, here>> to obtain the absolute path of the file.
+You can follow the steps <<Copy-File-Path, here>> to obtain the absolute path of the file. Only `.jpeg`, `.jpg` and `.png` files are valid for the application.
 
 |NRIC
 a|
@@ -1013,22 +1028,39 @@ A valid NRIC number has 9 alphanumeric letters in total, with an alphabetic lett
 
 |===
 
+// tag::appendix[]
+
 === Copy a file's absolute path into the clipboard
 
 anchor:Copy-File-Path[]
 
-The following steps guide you to copy the absolute path of a file into the clipboard.
+The following steps will guide you on how to copy the absolute path of a file into the clipboard.
 
-
-* For *Windows* User:
+* For *Windows* Users:
 . Navigate to the image file you wish to upload.
-. While holding down kbd:[Shift], right-click on the image file.
-. In the menu that appears, click `Copy as path`. The absolute path of the file is copied into your clipboard.
+. *While* holding down kbd:[Shift], right-click on the image file.
+. In the menu that appears, as seen in the figure below, click on `Copy as path` to copy the absolute path into your clipboard.
 
-* For *Mac* User:
++
+image::Appendix1.png[align="center", width=60%]
+
+
+* For *Mac* Users:
 . Navigate to the image file you wish to upload.
-. Right-click on the image file, then hold down the kbd:[Option] button.
-. In the menu that appears, click `Copy <file name> as Pathname`. The absolute path of the file is copied into your
-clipboard.
+. Right-click on the image file, *then* hold down the kbd:[Option] button.
+. In the menu that appears, click on `Copy <your file name> as Pathname`, as seen in red box in the figure below, to copy the absolute path into your clipboard.
 
++
+image::Appendix2.png[align="center", width=70%]
+
++
+
+Alternatively,
+
+. Navigate to the image file you wish to upload and click on it.
+. Press `Command` and `i` simultaneously to bring up `Get Info`, as seen in the figure below.
++
+image::Appendix3.png[align="center", width=60%]
++
+. Highlight the text next to `Where`, as seen in the red box in the figure above, then press `Command` and `c` simultaneously to copy the full path to the clipboard.
 // end::appendix[]

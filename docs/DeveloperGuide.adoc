@@ -154,25 +154,28 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag:uniqueIdentificationNumber[]
+// tag::uniqueIdentificationNumber[]
+
 === Unique Identification Number
 
-In Mortago, each entity is assigned a unique `IdentificationNumber`.
+In Mortago, you will find that each entity is assigned a unique `IdentificationNumber`.
 
-* `IdentificationNumbers` in Mortago consist of two parts: the `String typeOfEntity` referring to whether it is a worker, body or fridge, and `Integer idNum` referring to its unique ID number.
-* Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
-* The generation of unique `IdentificationNumbers` allows the user to identify different entities solely based on their `IdentificationNumber`, without relying on attributes such
+* The `IdentificationNumber` for each entity is a central aspect of Mortago as most interactions with and identification of entities in the application are made through their `IdentificationNumbers`.
+* You can identify different entities solely based on their `IdentificationNumber` due to its uniqueness, without relying on attributes such
 as `name` which may have similar duplications within the system.
+* `IdentificationNumbers` in Mortago consist of two parts: `String typeOfEntity` that tells you whether it is a worker, body or fridge, and `Integer idNum` that refers to its unique ID number.
+* Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
+
 
 ==== Implementation
 
 The generation of unique `IdentificationNumbers` is facilitated by `UniqueIdentificationNumberMaps`.
-The class diagram below illustrates the relation between `IdentificationNumber` and `UniqueIdentificationNumberMaps`.
+You can refer to the class diagram below that illustrates the relation between `IdentificationNumber` and `UniqueIdentificationNumberMaps`.
 
 .Unique `IdentificationNumber` Class Diagram
 image::UniqueIdentificationNumberClassDiagram.png[]
 
-===== The first consideration to examine is determining the next free number.
+===== An important consideration to examine is determining the next free number.
 
 Note that in the diagram above, `UniqueIdentificationNumberMaps` keeps three `HashMap`, one for each entity.
 In each `HashMap`, the `Integer` ID number serves as the key, which maps to the entity it is assigned to.
@@ -201,7 +204,7 @@ This sequential iteration checks for any number that is not assigned to any work
 If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
 If there is no gap available, the next highest number is assigned to the worker.
 
-===== Hence, this leads us to forumulate the execution sequence of generating a unique `IdentificationNumber` for a worker:
+===== This leads us to forumulate the execution sequence of generating a unique `IdentificationNumber` for a worker:
 
 . The user executes `add -w /name Zach ...` to add a new worker to Mortago.
 . `AddCommandParser` parses the given input and calls the `Worker` constructor.
@@ -214,14 +217,14 @@ The figure below illustrates the sequence diagram of the aforementioned steps.
 .Generation of unique `IdentificationNumber` Sequence Diagram
 image::UniqueIdentificationNumberSequenceDiagram.png[]
 
-Note that the execution sequence is similar for the generation of unique `IdentificationNumber` for fridges and bodies.
+You will find that the execution sequence will be similar for the generation of unique `IdentificationNumber` for fridges and bodies.
 
 ==== Design Considerations
 
 When designing this feature, it is important to keep in mind the scalability of the application.
-When the data set becomes large, the ID number can become arbitrarily large if gaps in the middle are not filled.
+When the number of entities grows exponentially, the ID number can become arbitrarily large if gaps in the middle are not (re)assigned.
 
-*Aspect: Tracking of numbers and determination of next free number*
+===== Aspect: Tracking of numbers and determination of next free number*
 
 * Alternative 1: Three counters that track the total number of each entity in the system and assigns the next highest number to the added entity.
 ** Pros:
@@ -236,18 +239,82 @@ When the data set becomes large, the ID number can become arbitrarily large if g
 ** Cons:
 *** Harder to implement, especially for unit testing since a unique `IdentificationNumber` cannot be duplicated usually.
 
-Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` in terms of:
+Alternative 2 is chosen due to the comprehensive benefits of utilizing `HashMap` given below:
 
 * Tracking of unique keys
 * Catering for deletion of ID numbers and filling of the gap
 * Increasing the ease of accessibility of mapped entities
 
 The difficulty in testing can be circumvented by executing `UniqueIdentificationNumberMaps::clearAllEntries()`
-before each unit test to reset the `HashMaps`. This resets the `HashMaps` and allows the newly added entities to start with the first ID number, simulating a fresh launch of the application.
+before each unit test. This resets the `HashMaps` and allows the newly added entities to start with the first ID number, simulating a fresh launch of the application.
+
 // end::uniqueIdentificationNumber[]
 
+// tag::photo[]
+=== Photo Feature
+
+When adding a worker in Mortago, you can assign a photo to the worker so as to identify your workers. This is especially useful when you are more visual oriented as this allows you to identify your workers more easily when sieving through a long list of workers.
+
+==== Implementation
+
+This section covers how the `Photo` feature is implemented. To gain a better overview of its implementation, you can refer to the following class diagram that illustrates how `Photo` and `Worker` are associated with the `Ui` component.
+
+.Class Diagram of Photo Feature
+image::PhotoClassDiagram.png[]
+
+Here, notice that a `WorkerCard` contains an `ImageView` which serves to display the `Photo`. The `ImageView` displays the `Photo` by first retrieving the file path of the photo through the `Worker` in `WorkerCard`. This is demonstrated in the following code snippet:
+
+```
+displayPhoto.setImage(new Image(worker.getPhoto().get().getPathToDataDirectory()));
+```
+
+This brings us to explain how `Photo` is constructed, as demonstrated in the following diagram and the sequence of steps further below.
+
+.Activity Diagram of Adding a Photo
+image::PhotoActivityDiagram.png[]
+
+. When the user wishes to add a photo, the user can do this through the add or update command.
+. Before constructing a `Photo` object, the validity of the absolute file path of the image is checked first through the `Photo::isValidPhoto(pathToPhoto)` method, as part of a defensive programming measure.
+[TIP]
+This method checks whether the image file exists, using `FileUtil::isFileExists(Path)` as seen in Figure 11, and whether it ends with the common image file extensions: `.jpeg`, `.jpg` and `.png`.
+. If the file is valid, the `Photo` object is constructed.
+. In its construction, the image file is copied into the `data/images/` directory (where all images are stored) and this path is saved as an instance variable, `dataDirectory`. The `Photo` is then assigned to an instance variable in `Worker`.
+[IMPORTANT]
+Copying the image file allows the application to retrieve it even when the user has deleted the original file.
+
+After construction of the `Photo`, when the image needs to be retrieved, `Photo#getPathToDataDirectory` needs to be called to obtain the modified file path to the image, which can then be used for display via the `ImageView` node. The following code snippet shows how the file path is modified so that it can be used directly for image retrieval and display.
+
+```
+    /**
+     * Returns the file path of the copied photo in the data directory.
+     * Intended for {@code ImageView} to reference to the photo.
+     */
+    public String getPathToDataDirectory() {
+        return "file://" + Paths.get(dataDirectory).toAbsolutePath().toUri().getPath();
+    }
+```
+
+Note that appending `file://` to the front is necessary for file retrieval.
+
+==== Design Considerations
+
+When designing `Photo`, it is important to consider the user profile. Given that our users are generally fast at typing and prefers a Command Line Interface, some thoughts had to be made to design how the user can upload the photo.
+
+===== Aspect: How the user uploads the photo
+
+* **Alternative 1 (current choice)**: Users must specify the absolute file path of the image file
+** Pros: This ensures accurate retrieval of the file.
+** Cons: Users require additional steps to obtain the absolute file path of the file.
+* **Alternative 2 (current choice)**: Users can upload their image file through a popup dialog
+** Pros: Graphical dialog allows visual navigation towards where the file is.
+** Cons: Users might find it slow to navigate through a graphical interface.
+
+Alternative 1 is chosen due to the user profile of our application. As they prefer typing over using the mouse, it will be much faster for them to provide the absolute file path as compared to navigating through a graphical dialog.
+
+// end::photo[]
+
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo/Redo Feature
 The undo/redo feature allows you to undo a command that you have made or redo a command you have undone.
 
 ==== Implementation
@@ -612,132 +679,9 @@ Alternative 1 is the current choice because this implementation does not require
 Alternative 1 is the current choice because manager will be able to save time and reduce work-related stress when manager is able to view an organised report.
 // end::genpdf[]
 
-=== Logging
-
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
-
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
-
-*Logging Levels*
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
-
-[[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
-
-// tag::ui[]
-=== User Interface and Dashboard Enhancement
-
-The dashboard of Mortago plays a key part in presenting a sleek, organised, and concise overview to the entities in the system.
-Thus, designing an aesthetic and functional dashboard is a crucial aspect for Mortago.
-
-==== Surface Design and Coloring
-
-Mortago draws upon the guidelines specified in https://material.io/design/color/dark-theme.html#[Material.io] to design a dark theme
-that enhances visual ergonomics and minimises eye strain due to the bright luminance emitted by screens.
-
-*Visual Contrast Between Surfaces and Text*
-
-With reference to  Web Content Accessibility Guidelines’ (WCAG), the guidelines recommend that the contrast level
-between dark surfaces and white text to be at least 15:8:1 to ensure visual accessibility.
-Thus, the following color values are set within Mortago:
-
-
-|===
-|Aspect of Mortago |Color |Preview
-
-|Background
-|derive(#121212, 25%)
-a| image::Background Color.png[]
-
-|Surface
-|#121212
-a| image::Surface Color.png[]
-
-|Primary
-|#FF7597
-a| image::Primary Color.png[]
-|===
-
-
-The background color uses the `derive` function in `JavaFX`, which computes a color that is brighter or darker than the original,
-based on the brightness offset supplied. Here, notice that the background color is brighter than the surface color, as opposed to what Material.io dictates.
-This is because bulk of the screen space in the Mortago is taken up by surfaces to optimize the amount of information available to the user,
-hence by giving surfaces a darker brightness, this improves *overall* accessibility and visual ergonomics.
-In addition, this achieves elevation between surfaces and the background, which is aided by drop shadows by surfaces as well.
-
-The primary color is desaturated to reach a WCAG's AA standard of minimally 4:5:1.
-This facilitates a mild yet impressionable visual aspect to Mortago while minimizing eye strain, as saturated colors can cause optical vibrations against the dark surface and exacerbate eye strain.
-
-==== Replacing Window's Title Bar
-
-In spirit with producing a sleek design, the standard Windows platform title bar was removed. This exposes the user interface to become one that is self-contained, while providing extra space at the top.
-
-*Removing Window's Title Bar*
-
-The following code snippet was placed in `MainApp#start()` to achieve this.
-
-```
-primaryStage.initStyle(StageStyle.TRANSPARENT);
-```
-
-Note that this has to be done before the stage is shown. Otherwise, the application will close automatically upon running.
-
-However, with this removal, the default windows functions such as the default OS close button will be inevitably removed as well. Hence, these buttons will have to be rebuilt into the application.
-
-*Rebuilding Window Functions*
-
-The following image illustrates the minimise, maximise and exit buttons rebuilt into the menu bar.
-
-(insert photo)
-
-Each button was assigned its respective handler method, based on different events.
-
-. Exit Button
-* The method for exiting the application has already been implemented in `handleExit()`. Thus, setting the handler for the exit button to this method within the `MainWindow.fxml` file is sufficient.
-
-. Minimise Button
-* Minimisation of the application is implemented such that when the user clicks on the  minimise button, it triggers an `onMouseClicked` event that calls the following code.
-```
-primaryStage.setIconified(true)
-```
-
-[start = 3]
-. Maximise Button
-* Maximisation is implemented similarly to minimization. When the maximise button is clicked *initially*, it triggers a mouse click event, which is handled by the following code snippet.
-
-```
-maximiseButton.setOnMouseClicked(click -> {
-            primaryStage.setMaximized(true);
-            maximiseButton.setId("restoreButton");
-        });
-```
-
-* However, when the button is clicked for the second time, the window is restored to its pre-maximised size. In order to implement this, a handler for the `onMousePressed` event has to be set, as seen in the following code snippet.
-
-```
-maximiseButton.setOnMousePressed(click -> {
-            primaryStage.setMaximized(false);
-            maximiseButton.setId("maximisevButton");
-        });
-```
-
-Finally, the last functionality to rebuilt is the resizability of the Window. This implementation is adapted from a https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage[post] in StackOverFlow. Briefly,  `ResizableWindow::enableResizableWindow()` allows the Windows to be resizable by implementing a helper class `ResizeListener`. The helper class listens to mouse events and tracks the mouse's movements to pinpoint the coordinates of the mouse. This determines the change in size of the Window, which will then be resized accordingly.
-
-
-// end::ui[]
 // tag::statistics[]
-
-=== Statistics feature
-
-==== Current Implementation
+=== Statistics Feature
+==== Implementation
 
 The statistics feature appears as a line chart of the number of bodies admitted over the past 10 days (default view) and is facilitated by `LineChartPanel`. It extends `UiPart` with an internal storage of the number of bodies admitted per day over the past 10 days. The line chart is part of the user interface and is initialised automatically when Mortago is launched. Users can switch the view to a specified week, month, or view.
 
@@ -752,12 +696,12 @@ The above operations are invoked through a wrapper function `LineChartPanel#make
 
 The line chart is updated automatically because it takes in an ObservableList<Body> from the `AddressBook`, so it re-intialises once a change has been detected. The following sequence diagram shows hows adding a body changes the `AddressBook`, and then how`LineChartPanel` interacts `AddressBook` to obtain an observable list of bodies, creates a line chart from it, and then passes the line chart to be displayed in `MainWindow` with dynamic update:
 
-.Sequence diagram showing the dynamic update of the line chart when user adds a new body.
+)Sequence diagram showing the dynamic update of the line chart when user adds a new body.
 image::LineChartAddBodySequenceDiagram.png[]
 
 The user is able to switch the time frame of the line chart between the last ten days or a particular week, month, or year with the `stats` command (See User Guide). The following sequence diagram shows how the stats command affect the appearance of the line chart:
 
-.Sequence diagram showing the changing view of the line chart when user specifies a different time frame.
+)Sequence diagram showing the changing view of the line chart when user specifies a different time frame.
 image::LineChartTimeFrameSequenceDiagram.png[]
 
 ==== Design Considerations
@@ -770,7 +714,7 @@ The line chart needs data to refer to. Below are two alternatives for how to acc
 
 The following activity diagram illustrates the current choice for accessing and updating data:
 
-.Activity diagram for how the line chart populate values over the last ten days.
+)Activity diagram for how the line chart populate values over the last ten days.
 image::LineChartActivityDiagram.png[]
 
 ** Pros: Implementation is easy.
@@ -794,6 +738,170 @@ Currently the line chart supports four types of time frames as aforementioned. B
 ** Cons: Implementation is difficult.
 
 //end::statistics[]
+
+// tag::ui[]
+=== User Interface and Dashboard Enhancement
+
+The dashboard of Mortago plays a key part in presenting a sleek, organised, and concise overview to the entities in the system.
+Thus, designing an aesthetic and functional dashboard is a crucial aspect for Mortago.
+
+==== Surface Design and Coloring
+
+This section illustrates the motivations made behind Mortago's color scheme.
+
+===== 4.6.1.1. Implementation
+
+Mortago draws upon the guidelines specified in https://material.io/design/color/dark-theme.html#[Material.io] to design a dark theme
+that enhances visual ergonomics and minimises eye strain due to the bright luminance emitted by screens.
+
+*Designing the Visual Contrast Between Surfaces and Text*
+
+With reference to  Web Content Accessibility Guidelines’ (WCAG), the guidelines recommend that the contrast level
+between dark surfaces and white text to be at least 15:8:1 to ensure visual accessibility.
+Thus, the following color values that complies with the above standards are chosen:
+
+
+|===
+|Aspect of Mortago |Color |Color Preview
+
+|Background
+|derive(#121212, 25%)
+a| image::Background Color.png[]
+
+|Surface
+|#121212
+a| image::Surface Color.png[]
+
+|Primary
+|#FF7597
+a| image::Primary Color.png[]
+|===
+
+
+The background color uses the `derive` function in `JavaFX`, which computes a color that is brighter or darker than the original,
+based on the brightness offset supplied.
+The primary color is also desaturated to reach a WCAG's AA standard of minimally 4:5:1.
+This facilitates a mild yet impressionable visual aspect to Mortago while minimizing eye strain, as saturated colors can cause optical vibrations against the dark surface and exacerbate eye strain.
+
+===== 4.6.1.2. Design Considerations
+
+This section details an aspect considered when designing Mortago's color scheme.
+
+===== Aspect: The contrast in brightness between the background and surfaces
+
+
+* **Alternative 1 (current choice)**: Background is brighter than the surface.
+** Pros: Drop shadows designed to simulate elevation are more realistic
+** Cons: A deviation from what Material.io dictates
+
+* **Alternative 2**: Background is darker than the surface.
+** Pros: A different representation of elevation can be achieved
+** Cons: Overall visual brightness will be brighter compared to Alternative 1
+
+Alternative 1 was chosen because, aside from the pros that it has to offer, bulk of the screen space in the Mortago is taken up by surfaces to optimize the amount of information available to the user, hence by giving surfaces a darker brightness, this improves *overall* visual ergonomics.
+
+==== Replacing Window's Title Bar
+
+This section details how the default window's title bar is replaced with a custom title bar.
+
+===== 4.6.2.1. Implementation
+
+In spirit with designing a sleek and functional dashboard, the standard Windows platform title bar was removed. This exposes the user interface to become one that is self-contained, while providing extra space at the top that allows more details to be shown to the user.
+
+*How the window's title bar was removed*
+
+The following code snippet demonstrates how the title bar was removed.
+
+```
+primaryStage.initStyle(StageStyle.TRANSPARENT);
+```
+
+Note that this code was placed in `MainApp#start()` and has to be done before the stage is shown. Otherwise, the application will close automatically upon running.
+
+However, with this removal, the default windows functions such as the default OS close button will inevitably be removed as well. Hence, these buttons will have to be rebuilt into the application.
+
+*How the default window functions were rebuilt*
+
+This section demonstrates how the default window function were rebuilt into the application.
+
+Three buttons were manually created and customised to simulate the original window buttons. Each button was assigned to its respective handler method, based on different events. The following details the function of each button is recreated:
+
+. Exit Button
+* The method for exiting the application has already been implemented in `handleExit()` in Address Book 3. Thus, setting the handler for the exit button to this method within the `MainWindow.fxml` file is sufficient.
+
+. Minimise Button
+* Minimisation of the application is implemented such that when the user clicks on the  minimise button, it triggers an `onMouseClicked` event that calls `primaryStage.setIconified(true)` which minimises the window. Hence, setting the `onMouseClicked` handler to call this function is sufficient to implement minimisation through this button..
+
+. Maximise Button
+* Maximisation is implemented slightly different compared to minimisation. When the maximise button is clicked *initially*, the window should be maximised. When the button is clicked for the second time, the window should be restored to its pre-maximised size. Hence, notice that this button has two functions: maximisation and restoration. This switch in function is achieved via the following code snipped shown below.
++
+```
+    /**
+     * Enables the maximization and restoration of the window.
+     */
+    private void maximiseRestore() {
+        if (primaryStage.isMaximized()) {
+            primaryStage.setMaximized(false);
+            if (primaryStage.getScene().getWindow().getY() < 0) {
+                primaryStage.getScene().getWindow().setY(0);
+            }
+            maximiseButton.setId("maximiseButton");
+        } else {
+            Rectangle windowBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            primaryStage.setMaximized(true);
+            primaryStage.setHeight(windowBounds.height);
+            primaryStage.setWidth(windowBounds.width);
+            maximiseButton.setId("restoreButton");
+        }
+    }
+```
+
+* The `onMouseClicked` handler is set to call the above function such that when the button is clicked, if the window is maximised, the window will be restored to its original size, and if the window is not maximised, the window will be maximised.
+* Notice also that the button is assigned to different `FXML` ids for the `if` and `else` blocks. This allows the button image to change accordingly, which is defined in the `DarkTheme.css` stylesheet.
+
+Finally, the last thing is to rebuild the resizability of the window.
+The implementation of this feature is adapted from this hyperlinked https://stackoverflow.com/questions/19455059/allow-user-to-resize-an-undecorated-stage[post] in StackOverFlow. Briefly,  `ResizableWindow::enableResizableWindow()` allows the Windows to be resizable by implementing a helper class `ResizeListener`. The helper class listens to mouse events and tracks the mouse's movements to pinpoint the coordinates of the mouse. This determines the change in size of the Window, which will then be resized accordingly.
+
+===== 4.6.2.2. Design Consideration
+
+The following section details an aspect to consider when designing the title bar.
+
+===== Aspect: Designing the default window's title bar
+
+* **Alternative 1 (current choice)**: Replace the default title bar with a custom title bar
+** Pros: Sleek interface that is pleasing to the eye and showcases a comprehensive product design
+** Cons: Default window functions have to be rebuilt into the application
+
+* **Alternative 2**: Retain the default title bar
+** Pros: Window functions will be perfectly working
+** Cons: The default title bar does not fit into the theme of the user interface
+
+Alternative 1 was chosen despite the need to rebuild the default window functions as it is imperative to produce a complete product design. The visual appearance of the dashboard is a significant feature of the application as it details all the necessary information to the user. Hence, a product design that is visually appealing is necessary to attract more users and gain traction into opting our application.
+
+// end::ui[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption

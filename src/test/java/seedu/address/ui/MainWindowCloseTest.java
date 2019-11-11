@@ -51,23 +51,25 @@ public class MainWindowCloseTest extends GuiUnitTest {
     }
 
     @Test
-    public void close_menuBarExitButton_allWindowsClosed() {
+    public void close_menuBarExitButton_allWindowsClosed() throws InterruptedException {
         mainWindowHandle.clickOnMenuExitButton();
+        Thread.sleep(3000);
         // The application will exit when all windows are closed.
-        Platform.runLater(() -> assertEquals(Collections.emptyList(), guiRobot.listWindows()));
+        assertEquals(Collections.emptyList(), guiRobot.listWindows());
     }
 
     @Test
-    public void close_externalRequest_exitAppRequestEventPosted() {
+    public void close_externalRequest_exitAppRequestEventPosted() throws InterruptedException {
         mainWindowHandle.clickOnMenuHelpButton();
+        Thread.sleep(3000);
         assertTrue(HelpWindowHandle.isWindowPresent());
         mainWindowHandle.closeMainWindowExternally();
         // The application will exit when all windows are closed.
-        Platform.runLater(() -> assertEquals(Collections.emptyList(), guiRobot.listWindows()));
+        assertEquals(Collections.emptyList(), guiRobot.listWindows());
     }
 
     @Test
-    public void minimise_minimiseButton_windowMinimised() {
+    public void minimise_minimiseButton_windowMinimised() throws InterruptedException {
         mainWindowHandle.clickOnMinimiseButton();
         assertTrue(guiRobot.getStage("Address App").isIconified());
         Platform.runLater(() -> guiRobot.getStage("Address App").setIconified(false));
