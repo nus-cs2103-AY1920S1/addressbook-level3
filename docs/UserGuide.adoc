@@ -401,7 +401,8 @@ Format: `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
 ====
-CAUTION: shares can be 0 but result is not guaranteed to be meaningful
+
+CAUTION: Shares can be 0 but result is not guaranteed to be meaningful
 
 ===== Ledger GUI
 
@@ -414,6 +415,8 @@ all transactions that have to do with the _Ledger_. +
 _Ledger_'s balance is separate from PalPay's balance. It is displayed in the same position,
 at the bottom right corner.
 
+NOTE: `split` *does not* include how much you spent into the _Ledger_ balance.
+
 ==== Example Usage:
 
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
@@ -422,16 +425,16 @@ at the bottom right corner.
 
 . Enter appropriate command into the command line.
 +
-.Splitting evenly
+.Input for Splitting evenly
 image::SplitEven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
-.Splitting evenly (result)
+.Amy, Betty, Catherine and Dan owes $200 each
 image::SplitEven2.png[pdfwidth=70%]
 +
 For an even split of $1000, each person pays $200. Therefore _Ledger_ shows $200 on the tab of each person.
-_Ledger_ balance *does not* include the amount spent by the user. In this bill, the user is owed $800 in total
+_Ledger_ balance *does not* include how much you spend. In this bill, one is owed $800 in total
 from the rest of his friends. Therefore _Ledger_ balance is -$800, as shown in the bottom right.
 
 * `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7 a/kbbq dinner`
@@ -440,13 +443,15 @@ from the rest of his friends. Therefore _Ledger_ balance is -$800, as shown in t
 
 . Enter appropriate command into the command line.
 +
-.Splitting unevenly
+.Input for Splitting Unevenly
 image::SplitUneven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Uneven split results
 image::SplitUneven2.png[pdfwidth=70%]
++
+Since the number of shares is equal to the number of people listed, you are not included in the splitting of the bill.
 // end::split[]
 
 // tag::receive[]
@@ -694,15 +699,15 @@ Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
 Format: `delete TYPE+INDEX`
 
 ****
-* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a *Budget* of index 1).
+* `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a _Budget_ of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
 ==== Important Details:
 
-* PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
-* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
+* PalPay deletes an item based on the entry index of the target item. You can delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
+* You can only delete an existing _Transaction_ or _Budget_. Nothing will be deleted if the _Transaction_ or _Budget_ index does not exists.
 
 ==== Example Usage:
 
@@ -710,14 +715,17 @@ Format: `delete TYPE+INDEX`
 
 . Note the index of the entry you want to delete. In this example, *entry 5* is the field we will be deleting.
 +
+.Delete Transaction Command
 image::delete_ug_1.png[]
 +
-. Since we are deleting a *Transaction* entry of index 5, we will input `t` into our `TYPE` field and `5` into our `INDEX` field.
+. Since we are deleting a _Transaction_ entry of index 5, we will input "t" into our `TYPE` field and "5" into our `INDEX` field.
 +
+.Delete Transaction Input
 image::delete_ug_2.png[]
 +
 . Success message will be displayed upon successful deletion.
 +
+.Delete Transaction Successful
 image::delete_ug_3.png[]
 
 ===== Example Commands:
