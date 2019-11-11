@@ -66,7 +66,8 @@ By using the _Projections_ feature, you can project your:
 . Budget Deficits / Surpluses
 
 These projections are cast upon a specified `DATE`, and optionally, a specified `CATEGORY`. Upon casting a
-projection, it is automatically stored and thereafter accessible through the _Projection_ tab.
+projection, it is automatically stored and thereafter accessible through the _Projection_ tab via the `view`
+command (see <<View>>).
 
 
 [[Commands]]
@@ -354,22 +355,15 @@ image::Receive2.png[]
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 
 [[Project]]
-=== Projecting Your Future Balance : `project`
+=== Projecting Future Balance and Budgets : `project`
 
 Cast a projection on your future balance amount and budget statuses based on your transaction history. +
-Format: `project d/DATE [c/CATEGORY]`
 
-****
-* `DATE` input only accepts dates in the following format: DDMMYYYY.
-* `DATE` input must be preceded by its tag `d/`.
-* `DATE` input must be set in the future.
-* `DATE` cannot be more than *720* days from the day of projection.
-* `CATEGORY` must be preceded by its tag `c/`.
-* There must be a minimum of *5* transactions in total, or in the specified `CATEGORY`
-for a projection to be successfully cast.
-* Should the number of `transactions` in a `projection` fall below *5*, the `projection`
-will be automatically deleted.
-****
+Format: `project d/DATE [c/CATEGORY]`
+[[Project-auto-cast]]
+[NOTE]
+If a `CATEGORY` is not specified, it will be set as `GENERAL` by default. `GENERAL` projections project
+upon *ALL* transactions, regardless of their categories.
 
 ==== Example Usage:
 
@@ -381,6 +375,55 @@ will be automatically deleted.
 
  Projected balance: $188.04
  You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!
+
+==== Usage Constraints
+===== Command Format
+* `DATE` input only accepts dates in the following format: DDMMYYYY.
+* `DATE` input must be preceded by its tag `d/`.
+* `DATE` input must be set in the future.
+* `CATEGORY` must be preceded by its tag `c/`.
+A violation of any of the above will produce the following error message:
+****
+Invalid command format! +
+project: Project future balance based on past income/outflow. +
+Parameters: d/DATE [c/CATEGORY] +
+Example: project d/12122103 c/Food
+****
+===== Date Range +
+* `DATE` cannot be more than *720* days from the day of projection.
+A violation of the above will produce the following error message:
+****
+Projections should be a maximum of 2 years (730 days) from now.
+****
+===== Minimum Number of Transactions
+* There must be a minimum of *5* transactions in total, or in the specified `CATEGORY`
+for a projection to be successfully cast.
+Should the requirement above be unmet, the following error message will be produced:
+****
+There are no transactions in [CATEGORY]. It is impossible to cast a projection.
+[NOTE]
+[GENERAL] will be displayed in place of [CATEGORY] if a `CATEGORY` is not specified. This is due to
+the auto-casting of uncategorised projections to the `GENERAL` category as explained <<Project-auto-cast, here>>.
+****
+* Should the number of transactions in a `projection` fall below *5*, it
+will be automatically deleted, as shown below:
+. Suppose there are *5* transactions, and a `GENERAL` projection, which projects upon them.
++
+.Five transactions under the projection tab
+image::project1.png[]
++
+[[Figure19]]
+.A projection which is cast based on the 5 transactions above
+image::project2.png[]
++
+. Should a transaction be deleted, the number of transactions being projected upon will fall below 5,
+and thus, the projection will automatically be deleted.
++
+.The fifth transaction has been deleted.
+image::project3.png[]
++
+.The project earlier seen in <<Figure19, Figure 19>> has been automatically deleted.
+image::project4.png[]
 
 === Display a Projection Graph: `display`
 
@@ -410,9 +453,9 @@ representation of the budget will be additionally displayed.
 image::display3.png[]
 +
 
+
 [[View]]
 // tag::view[]
-
 === Switching Tabs : `view`
 
 Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
@@ -441,7 +484,6 @@ image::view2.png[]
 +
 image::view3.png[]
 
-// end::view[]
 
 [[Delete]]
 // tag::delete[]
