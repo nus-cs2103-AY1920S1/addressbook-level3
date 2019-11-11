@@ -466,8 +466,6 @@ If no recommendations can be generated, a `NoRecommendationsExceptions` is throw
 `OnlineConnectionException` is still thrown when not connected to the internet.
 
 
-
-
 [[Implementation-Configuration]]
 === Configuration
 
