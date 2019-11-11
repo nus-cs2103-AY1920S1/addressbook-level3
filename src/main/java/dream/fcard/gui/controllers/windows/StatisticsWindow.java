@@ -55,7 +55,6 @@ public class StatisticsWindow extends ScrollPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
         } catch (IOException e) {
-            //TODO: replace with logger
             e.printStackTrace();
         }
 

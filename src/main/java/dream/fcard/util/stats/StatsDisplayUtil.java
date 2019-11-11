@@ -106,18 +106,16 @@ public class StatsDisplayUtil {
         TableColumn<Deck, Integer> numCardsColumn = new TableColumn<>("Number of cards");
         numCardsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfCards"));
 
-        //TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
-        //numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
+        TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
+        numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
 
-        //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
-        //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
-        // todo: figure out how to call getAverageScore() on the sessionList instead of also making
-        //  averageScore an attribute of Deck
+        TableColumn<Deck, String> avgScoreColumn = new TableColumn<>("Average score");
+        avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
 
         deckTableView.getColumns().add(nameColumn);
         deckTableView.getColumns().add(numCardsColumn);
-        //deckTableView.getColumns().add(numSessionsColumn);
-        //deckTableView.getColumns().add(avgScoreColumn);
+        deckTableView.getColumns().add(numSessionsColumn);
+        deckTableView.getColumns().add(avgScoreColumn);
 
         return deckTableView;
     }

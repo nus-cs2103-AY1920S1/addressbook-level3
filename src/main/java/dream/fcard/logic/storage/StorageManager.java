@@ -323,7 +323,7 @@ public class StorageManager {
         try {
             JsonValue deckStatsJson = JsonParser.parseJsonInput(FileReadWrite.read(
                     deckStatsFileFullPath));
-            JsonArray keys = deckStatsJson.getObject().get(Schema.STATS_DECK_SESSIONS).getArray();
+            JsonArray keys = deckStatsJson.getObject().get(Schema.STATS_DECK_STRINGS).getArray();
             JsonArray sessions = deckStatsJson.getObject().get(Schema.STATS_DECK_SESSIONS).getArray();
             for (int i = 0; i < keys.size(); i++) {
                 String deckName = keys.get(i).getString();

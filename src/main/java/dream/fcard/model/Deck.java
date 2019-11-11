@@ -384,7 +384,12 @@ public class Deck implements JsonInterface {
     public int getSize() {
         return cards.size();
     }
-    //@@author nattanyz
+
+    /** Gets the average score of the test sessions for this deck. */
+    public String getAverageScore() {
+        return this.getTestSessionList().getAverageScore();
+    }
+    //@@author
 
     /**
      * Returns a duplicate of the deck.
