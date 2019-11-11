@@ -10,7 +10,7 @@
 == Overview
 
 SugarMummy is a desktop application used to manage a type-II diabetic lifestyle. The user interacts with it using a CLI,
-and it has a GUI created with JavaFx. It is written in Java and has about 24 kLOC.
+and it has a GUI created with JavaFx. It is written in Java and has about 30 kLOC.
 
 == Summary of contributions
 
@@ -55,3 +55,5 @@ include::../UserGuide.adoc[tag=calendar]
 |===
 
 include::../DeveloperGuide.adoc[tag=calendar]
+
+https://github.com/AY1920S1-CS2103-T16-1/main/blob/master/docs/DeveloperGuide.adoc#reminder-and-event-command[More on manual testing on calendar related command]
