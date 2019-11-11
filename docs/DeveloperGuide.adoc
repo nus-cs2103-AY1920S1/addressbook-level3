@@ -395,6 +395,10 @@ The structure of Statistics-related classes is depicted in the class diagram bel
 
 image::nattanyz/class diagram.png[]
 
+Or, simplified:
+
+image::nattanyz/class diagram simplified.png[]
+
 The following sequence diagram depicts the starting, ending and saving of the user's `Session` when they open and close the app.
 
 image::nattanyz/sequence diagram.png[]
