@@ -16,7 +16,6 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.quiz.QuizCommandParser;
 import seedu.address.model.tag.Tag;
 
 /**
