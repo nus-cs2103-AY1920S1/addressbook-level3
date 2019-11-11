@@ -3,21 +3,97 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-This portfolio outlines my contributions to the project SecureIT.
+image::eejian97.png[width = "100"]
+{empty}[https://github.com/eejian97[github]]
+Role: Developer, Analyst +
+Responsibilities: Code Quality
+
 
 == PROJECT: SecureIT
-
----
-Project SecureIT was made possible with the combined effort of team F11-03 which comprises of myself, Leow Jit Yong, Hoon Chee Ping, Ni Tian Zhen and Hui Ting.
-The project was completed in November 2019 as part of a Software Engineering module (CS2103T) in the National University of Singapore.
-
 == Overview
-SecureIT is your all-in-one management tool for confidential information. The idea of creating SecureIT came about because
-my group and I felt that...
+---
+Nowadays, digital is just how business gets done. Employees are more connected, and on more apps and websites than ever before.
+However, this transformation has also made managing their digital life that much more complex.
+Many times, workers end up practicing bad and unsafe security habits (e.g. reusing the same password for all their various accounts).
 
+My group and I realised this problem, and hence set out to tackle this issue by creating **SecureIT**.
+SecureIT is a morphosis of the desktop addressbook application provided to us to enhance for our software engineering project.
+
+SecureIT is designed to be your all-in-one management tool for all confidential information, and boasts management capabilities for:
+
+* Password | Secret Files | Secret Notes | Credit cards
+
+SecureIT targets workers in small and medium enterprises, as well as those in startups, where security enforcement tends to be looser.
+
+image::EJPPPIntro.png[width="450"]
 
 == Summary of contributions
-This section acts as a summary of my contributions to SecureIT.
+|===
+|_This section acts as a summary of my contributions to SecureIT._
+|===
+* *Major enhancement: the ability to analyse the level of security of the users' passwords.*
 
-* Major enhancement: I added the ability to analyse passwords.
-**
+** What it does: The password analysis feature provides the ability to evaluate the security level of each of the user's passwords from six unique aspects. Following which, users are able to view a either (i) a *summary report* for *all* passwords, or (ii) a *detailed report* for a *specific* password.
+The six aspects are:
+
+
+** Justification: This feature greatly improves the utility of SecureIT because it can provide users with insight as to how secure their passwords really are in, and in a simple, hassle-free, human-readable way.
+Each analysis aspect allows the user to identify different weaknesses in their password and thereby make the necessary corrections to ensure the security of each account.
+
+** Highlights: It was highly challenging to implement the analysis feature. Some of the key highlights include:
+
+*** Design: The design of the entire analysis component follows that of a *Command Pattern*. This greatly increases the extensibility of the analysis feature to accommodate even more types of analysis aspects in the future.
+Also, careful consideration was needed to design and encapsulate the various objects used in the entire analysis feature. (e.g. Analyser, Result, Match, AnalysisReport)
+*** Data structure and algorithms: The implementation of the various analysis aspects proved highly complex. Algorithms included the use of more complex concepts such as recursion and multiple pointers.
+The implementation also required knowledge on the use of more complex data structures such as TreeMaps and HashMaps in order to help boost the efficiency of the product.
+
+** Credits: [https://github.com/rrice/java-string-similarity/blob/master/src/main/java/net/ricecode/similarity/LevenshteinDistanceStrategy.java[Levenshten-Distance algorithm]]
+* *Major enhancement: the ability to generate random passwords.*
+
+** What is does: The password generation feature provides the ability to generate customisable and truly random passwords whenever they users a new password.
+
+** Justification: This feature greatly improves the utility of SecureIT because it alleviates the user of needing to think of a password, and guarantees that the password provided is random and thereby secure.
+
+** Highlights: It was challenging to implement truly random password generation.
+In-depth research was required on how best to generate truly random passwords.
+The generation of passwords leverages on the `java.security.SecureRandom` API for a cryptographically strong random number generator (RNG) to make the password generation as random as possible.
+
+* *Code contributed:* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=eejian97&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Reposense]]
+
+* *Other contributions:*
+
+** Team contributions:
+*** Implemented the method to copy text into the user's local clipboard, which was subsequently used by my teammates in the copy features they implemented. (examples: https://github.com/AY1920S1-CS2103T-F11-3/main/blob/master/src/main/java/seedu/address/logic/commands/CopyCardNumberCommand.java[1], https://github.com/AY1920S1-CS2103T-F11-3/main/blob/master/src/main/java/seedu/address/logic/commands/CopyPasswordValueCommand.java[2], https://github.com/AY1920S1-CS2103T-F11-3/main/blob/master/src/main/java/seedu/address/logic/commands/CopyUsernameCommand.java[3])
+*** Reported bugs and offered suggestions for teammates. (examples: https://github.com/AY1920S1-CS2103T-F11-3/main/issues/189[#189], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/190[#190])
+*** Reviewed Pull Requests (with non-trivial review comments):
+** Project management:
+*** Helped decide the timeline for the project what to acheive in various stages
+*** Created and assigned issues to achieve for each milestone in the lead up to the project submission. (examples: https://github.com/AY1920S1-CS2103T-F11-3/main/issues/29[#29], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/28[#28], https://github.com/AY1920S1-CS2103T-F11-3/main/issues/26[#26])
+** Documentation
+*** Made cosmetic improvements to the existing User Guide by creating the project logo.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=generate]
+include::../UserGuide.adoc[tag=analyse]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=generate]
+
+include::../DeveloperGuide.adoc[tag=analyse]
+
+'''
+
+
+
+
+

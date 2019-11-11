@@ -16,6 +16,8 @@ endif::[]
 
 By: `SecureIT`      Since: `August 2019`      Licence: `MIT`
 
+// tag::intro[]
+
 == Introduction
 
 Welcome to SecureIT!
@@ -33,6 +35,8 @@ For those of you who are type fast, SecureIT can manage your confidential inform
 
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+// end::intro[]
 
 == Basic Information
 This following guide will teach you how you can use `SecureIT` to keep track of your confidential information so you will never have to worry about your information ever again.
@@ -223,6 +227,8 @@ image::tip.png[width = "20", float = "left"]
 
 Example: `find Gmail`
 
+// tag::generate[]
+
 ==== Generating a new password: `generate`
 
 Lazy to think of a strong password?
@@ -261,10 +267,13 @@ Example: `generate length/10`
 Example: `generate lower/false special/false`
 
 .Example user input for generate password
-image::GeneratePasswordScreenShot0.png[]
+image::GeneratePasswordScreenShot0.png[width="500"]
 
 .Example outcome for generate password
-image::GeneratePasswordScreenShot1.png[]
+image::GeneratePasswordScreenShot1.png[width="500"]
+// end::generate[]
+
+// tag::analyse[]
 
 ==== Analysing passwords : `analyse`
 
@@ -298,16 +307,18 @@ Example: `analyse`
 Example: `analyse strong/8`
 
 .Example user input for analyse
-image::AnalysePasswordScreenShot0.png[]
+image::AnalysePasswordScreenShot0.png[width="500"]
 
 .Example outcome for analyse
-image::AnalysePasswordScreenShot1.png[]
+image::AnalysePasswordScreenShot1.png[width="500"]
 
 .Example user input for analyse strong
-image::AnalyseStrongPasswordScreenShot0.png[]
+image::AnalyseStrongPasswordScreenShot0.png[width="500"]
 
 .Example outcome for analyse strong
-image::AnalyseStrongPasswordScreenShot1.png[]
+image::AnalyseStrongPasswordScreenShot1.png[width="500"]
+
+// end::analyse[]
 
 === Card
 
