@@ -20,6 +20,8 @@ public class UndoCommand extends Command {
 
     private String unusedArguments = null;
 
+    public UndoCommand() {}
+
     public UndoCommand(String unusedArguments) {
         if (!unusedArguments.equals("")) {
             this.unusedArguments = unusedArguments;

@@ -52,7 +52,7 @@ IMPORTANT: Denotes important details to take note of.
 This section describes the contributions that I have made to *LiBerry*.
 
 Here is the link to the code that I contributed to the project:
-Code contributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=cronyxx&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cronyxx&tabRepo=AY1920S1-CS2103T-F13-1%2Fmain%5Bmaster%5D[RepoSense Report]
+Code contributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=Cronyxx[RepoSense Report]
 
 === Major enhancement - Undo/Redo feature:
 
