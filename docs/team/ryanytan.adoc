@@ -15,6 +15,8 @@
 :pr_refactorclisyntax_110: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/110
 :pr_tabswitching_b832: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/193/commits/b8326f689ff2ad94354b3cb846a776619000e417
 :pr_tabswitching_4d9f: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/319/commits/4d9f595bf7495cc0d0ad6d9091cc07a9d5a54ecd
+:pr_commandboxhilite_8cf0: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/330/commits/8cf01071c3d6a3f6d268cab8bca183f1041731ba
+:pr_entertofocus_f84c: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/331/commits/f84c5f7361459af22ab37cb0ba0795c0118f3abc
 :pr_dg1_156: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/156
 :pr_dg2_159: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/159
 :pr_dg3_169: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/169
@@ -27,17 +29,17 @@
 :misc_codecontributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ryanytan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true
 :misc_tree: https://en.wikipedia.org/wiki/Tree_(data_structure)
 
-Jarvis was developed by {gh_team}[AY1920-CS2103T-T10-1]. We are a team based
-in the {nus_comp}[School of Computing, National University of Singapore].
-
 == Project Portfolio for Ryan Tan
 
 === About the Project
 
+Jarvis was developed by {gh_team}[AY1920-CS2103T-T10-1]. We are a team
+based in the {nus_comp}[School of Computing, National University of Singapore].
+
 My team of 5 students in a Software Engineering module, including myself, was
 tasked with enhancing a program named {nus_ab3}[AddressBook]. AddressBook is
 a basic desktop application that features a Command Line Interface (CLI)
-style of input - meaning that a mouse need not be used for the application.
+style of input - meaning that a mouse is used minimally in the application.
 
 We chose to enhance AddressBook into a Student Lifestyle application named
 **Jarvis**. Jarvis is meant to be able to manage many aspects of a regular
@@ -50,9 +52,9 @@ Shown below is the UI of Jarvis, showing my feature:
 image::ryanytan-JarvisUi.png[]
 
 My role in the development of Jarvis was the Course Planner feature. This
-document illustrate the methods I've used to integrate this feature into
-Jarvis, along with the challenges I have faced and how I have overcome them,
-plus any other contributions I had in the entire project.
+document illustrates the methods I've used to integrate this feature into
+Jarvis, along with the challenges I have faced, plus any other contributions I
+had in the entire project.
 
 The link to the repository can be found {gh_team}[here].
 
@@ -87,12 +89,11 @@ implementation using the new knowledge gained from my research.
 2. Management of the large amount of data from University courses proved
 challenging as many approaches could be taken to manage the data. This is
 mainly in terms of the data's storage and retrieval while the app was
-running.
+running, where a poor solution could result in program freezes in the order of
+seconds, which would be detrimental to the user experience.
 +
-A poor solution could result in program freezes in the order of seconds, which
-would be detrimental to the user experience. Eventually, a reasonable solution
-to this problem of data storage and retrieval was reached after considering
-many avenues, that was relatively neat and had good performance.
+Eventually, a reasonable solution the problem was reached after considering
+a few avenues, that was relatively neat and had good performance.
 
 ===== Credits
 * {credit_nusmods}[NUSMods API]
@@ -103,7 +104,6 @@ from NUSMods.
 * {credit_jackson}[Jackson JSON API]
 +
 Processing of `.json` files were handled by the Jackson JSON API.
-
 
 ==== Other Contributions
 
@@ -155,14 +155,20 @@ or use the mouse. I felt that this made the user experience more seamless and
 in line with the target audience's (fast typists used to a Command Line
 Interface) preferences.
 
-** Implemented Command-Box highlighting
+** Implemented Command-Box highlighting {pr_commandboxhilite_8cf0}[8cf0]
 +
 The colour scheme we had gone with in Jarvis did not allow us to highlight the
 text of wrong commands without it looking unappealing. Thus, I made the UI
 show a red highlighted box instead, as shown below:
 +
 .Command Box Highlighting with Wrong Command
-image::ryanytan-CommandBoxHighlight.png[]
+image::ryanytan-CommandBoxHighlight.png[500,400]
+
+** Implemented `<ENTER>` to focus {pr_entertofocus_f84c}[f84c]
++
+In an attempt to streamline the user experience even further, I implemented
+pressing `<ENTER>` to automatically focus on the command box. This means that
+the user will not have to use their mouse to click the command box.
 
 ** Implemented Styling for User Interface {pr_ui_330}[#330]
 +
@@ -174,11 +180,46 @@ colour scheme of individual components and general look and feel of the UI.
 
 We were put in charge of our own sections of the User Guide content while
 another member had styled and verified the cohesiveness of the User Guide as a
-whole. The following is my section of the User Guide:
+whole. The following is a small excerpt of my section in the User Guide:
 
 '''
 
-include::../UserGuide.adoc[tag=courseplanner]
+=== Course Planner
+
+Unable to keep track of what modules you have been taking? Need to quickly
+know what your CAP is? Want to know how far you are in determining your
+focus areas? Jarvis has a feature just for you! The Course Planner serves to
+solve these problems.
+
+Let's see how the Course Planner looks like:
+
+.GUI for the Course Planner
+image::ug/CoursePlannerUI.png[]
+
+The default display for the Course Planner is a list of courses on the left and
+an empty Result Box on the right - as shown in Figure 12. This box will display
+different pieces of information depending on the commands entered.
+
+Let's see what the Course Planner can do:
+
+==== Look up a course's information: `lookup`
+You can also retrieve information about a specific course - such as course
+title, course code, number of credits and what the course is about. The
+information will be displayed in the result box on the right of the Course
+Planner, as shown below:
+
+.Display for lookup
+image::ug/lookup.png[]
+
+Any information you will want to know about any course is shown within the
+result box.
+
+Format: `lookup c/COURSECODE`
+
+===== Example
+----
+lookup c/CS1010
+----
 
 '''
 
@@ -186,22 +227,209 @@ include::../UserGuide.adoc[tag=courseplanner]
 
 As stated above, after the assigning of roles amongst the team, I was put
 in charge of the Developer Guide. While each person wrote their own sections,
-I was to audit them to ensure that they conformed to the specified format so
-as to give the document structure and cohesion.
-
-===== PlantUML
-
-I was initially in charge of drawing diagrams using PlantUML. This was
-handed over to another person further along the project. These are some of the
-diagrams I drew:
+I was to audit them and the relevant diagrams to ensure that they conformed to
+the specified format so as to give the document both structure and cohesion.
 
 ===== Course Planner Section
 
-The following is an excerpt for my own section of the Developer Guide.
+The following is an excerpt for my own section of the Developer Guide. Some
+of the sections have been stripped down to accommodate the page limit.
 
 '''
 
-include::../DeveloperGuide.adoc[tag=courseplanner]
+=== Course Planner feature
 
-'''
+==== Overview
+The Course Planner feature allows the user to track what courses they have
+taken, are taking, and want to take.
 
+The feature offers updated information on courses offered by NUS, along with
+convenient add, delete and check operations on the user's course list.
+
+==== The Course Planner Model
+
+The `CoursePlanner` class within the model provides an interface between the
+components of the feature and the updating of the overall model.
+
+Some of the more interesting methods within `CoursePlanner` are shown below:
+
+* `Model#addCourse(Course)` - Adds a course to the user's list
+* `Model#deleteCourse(Course)` - Deletes the course from the user's list
+* `Model#lookUpCourse(Course)` - Looks up information about the given course
+* `Model#checkCourse(Course)` - Checks if the user can take this course
+* `Model#hasCourse(Course)` - Checks if the given course exists in the user's
+list
+
+The list of courses of the user is stored internally using a `UniqueCourseList`
+object, providing an abstraction with `add` and `delete` operations that
+are called by `CoursePlanner` and its model.
+
+The text that is displayed to the user within the UI showing information about
+the Course Planner is abstracted within the course text display. The class
+uses `Observable` to track changes as the program runs.
+
+Shown below is the Class diagram for the Course Planner.
+
+.Course Model Class Diagram
+image::ModelCoursePlannerClassDiagram.png[]
+
+==== Design Considerations
+
+This section will discuss about the individual components that were created
+for this feature, the alternative Software Engineering design choices for each
+one, and our thought process of the eventual choices made for each component.
+
+===== And-Or Tree
+
+The `AndOrTree<R>` is a tree data structure served by the `util/andor` package
+that provides an abstraction for processing the prerequisite tree.  The
+prerequisite tree (henceforth referred to as `prereqTree`) is an attribute of a
+`Course` that is available in the NUSMod's course data-set, the data comes in
+the form of a `String` and will be covered shortly.
+
+Before covering the tree itself, it would be helpful to cover its building
+blocks.
+
+====== The `AndOrNode` Class
+
+Each node in the tree of type `R` is represented by an `AndOrNode<R>`. Every
+node has a `List<AndOrNode<R>>`, to be used in checking the truth condition
+of the tree, and every node is either an `AndNode`, `OrNode` or `DataNode`
+node. This determines the conditional used to check the truth condition of a
+node.
+
+The truth condition of a node is determined using the method:
+`boolean fulfills(Collection<R>)`. This checks the truth condition of the node
+based on the following predicates:
+
+1. The node is an `AndNode`
++
+Any subset of elements in `Collection<R>` must match all children of this
+node.
+
+2. The node is an `OrNode`
++
+Any element in `Collection<R>` must match at least one of the children of this
+node.
+
+3. The node is a `DataNode`
++
+Any element in `Collection<R>` must match the data stored in this node.
+
+So, an `AndNode<String>` with children `{"1", "2", "3"}` will match `true`
+against a collection of `{"1", "2", "3", "4"}` and `false` against a collection
+of `{"2", "3"}`.
+
+====== The `AndOrTree` Class
+
+The following are `public` methods in `AndOrTree`.
+
+* `buildTree(String, Function<String, ? extends R>)`
++
+Builds a tree from the given jsonString. `Function` is a mapper that processes
+a `String` and returns a value of type `R`, where `R` is the type of data
+stored by each node in the tree.
+
+* `fulfills(Collection<R>)`
++
+Checks if the given `Collection` of type `R` fulfills the condition specified
+by this tree. `AndOrNode` has its own corresponding `fulfill` that checks its
+children or data against `Collection`.
+
+Due to the arbitrary ordering of the tree, `insert()` and `delete()` operations
+commonly found in implementations of ordered trees are difficult to implement.
+Instead, the tree is fully created upon the call to `buildTree()` and is then
+enforced to be immutable once built. This is reflected in the class' lack of
+mutator methods.
+
+
+====== Building of the `AndOrTree`
+
+As mentioned above, we use the `prereqTree` attribute in order to build the
+tree. An example of a json string is as such:
+
+----
+"prereqTree": {
+    "and": [
+        {
+            "or": [
+                "CD1111",
+                "XY2222"
+            ]
+        },
+        "EF3333"
+    ]
+}
+----
+
+This can be read as:
+
+----
+To take AB1234, you require...
+ |
+ └ all of
+   ├── one of
+   |   ├─ "CD1111"
+   |   └─ "XY2222"
+   └─ "EF3333"
+----
+
+This means that to take the fictional course `AB1234`, a user would have to
+complete `EF3333`, **and** either `CD1111` or `XY2222`.
+
+The Jackson API uses this string to create a root `JsonNode` object, and the
+tree is built recursively from the root. The sequence diagram of the tree
+building process is shown below:
+
+.buildTree() Sequence Diagram
+image::ryanytan-AndOrSequenceDiagramSimplified.png[]
+
+The class looks at each node - checks if its is an `Object`, `Array` or a
+`String`, and does the appropriate actions and function calls.
+
+====== Dependency on Course
+
+`AndOrTree` posed some difficulty for us, in the decision to couple the
+implementation of `AndOrTree` with `Course`. This is because the tree will
+only ever be used by the Course Planner within the program, and thus it is
+not required to implement the tree using generics. Below are our considerations
+in implementing this data structure:
+
+* **Option 1: Couple `AndOrTree` to `Course`**
++
+This means that there is no need to pass any mapper function into the
+`buildTree()` method as the class does not need to know how to map from `String`
+to `R`. This also makes handling mapping exceptions easier as they can be
+handled directly by `Course` instead of by `AndOrTree`.
++
+However, this increases coupling between the tree and `Course`, which reduces
+testability of `AndOrTree`. The tree
+will also only be locked to `Course` and is non-extendable.
+
+* **Option 2: Using Generics**
++
+This makes the tree reusable in the future. The tree will also
+be able to store any data-type which allows for easier unit testing, since
+it won't be dependent on the correctness of `Course`. Instead, well-tested
+libraries such as Java's `String` API can be used to test the class instead.
++
+However, due to how the tree is built, a
+mapper function must be passed into the `buildTree()` method to process
+the string in each node to the generic type of the tree.
+
+====== Our Thoughts
+
+Due to its benefits far outweighing its disadvantages, we picked the second
+choice of using generics. While extendability and re-usability of the class is
+a nice bonus, the decrease in coupling and increase in testability was the
+deciding factor in choosing between these two approaches.
+
+==== Implementation
+
+The `check` operation allows users to check if they are able to take a certain
+course. Whether the user can take the course depends on the courses in their
+list. The following is the activity diagram of general overview of the process
+when the user types a `check` command.
+
+.Check Command Activity Diagram
+image::ryanytan-CheckActivityDiagram.png[]
