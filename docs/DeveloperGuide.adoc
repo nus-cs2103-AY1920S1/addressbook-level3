@@ -685,7 +685,6 @@ closest common location.
 `ClosestLocation#closestLocationData` executes algorithm above to compute the closest common location. Similar to how
 `JSON` is used to transfer data in `HTTP APIs`, `ClosestCommonLocationData` is used to transfer the relevant data to the
 `UI` to display the popup.
-// end::Closest-Common-Location[]
 
 ==== Design Considerations
 
@@ -703,6 +702,7 @@ identify `AS6-0114` but not `AS6-0223`.
 | 1. Save time and space complexity as the number of venues will decrease by a factor of 10.
 | 1. Increase in complexity of the code base as an additional step of processing will be required.
 |===
+// end::Closest-Common-Location[]
 
 // tag::nusmods[]
 === Add NUSMods To Schedule
