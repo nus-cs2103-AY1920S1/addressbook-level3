@@ -26,21 +26,21 @@ public class FindSpecificPredicate implements Predicate<DiaryEntry> {
     public boolean test(DiaryEntry diaryEntry) {
         boolean answer = false;
         switch (this.category) {
-            case TITLE:
-                answer = checkStrings(diaryEntry.getTitle().toString(), userIsLookingFor);
-                break;
-            case DATE:
-                answer = checkStrings(diaryEntry.getDateAsStringtoStore(), userIsLookingFor);
-                break;
-            case PLACE:
-                answer = checkStrings(diaryEntry.getPlace().toString(), userIsLookingFor);
-                break;
-            case MEMORY:
-                answer = checkStrings(diaryEntry.getMemory().toString(), userIsLookingFor);
-                break;
-            default:
-                assert this.category != null;
-                System.out.println("Parser Exception");
+        case TITLE:
+            answer = checkStrings(diaryEntry.getTitle().toString(), userIsLookingFor);
+            break;
+        case DATE:
+            answer = checkStrings(diaryEntry.getDateAsStringtoStore(), userIsLookingFor);
+            break;
+        case PLACE:
+            answer = checkStrings(diaryEntry.getPlace().toString(), userIsLookingFor);
+            break;
+        case MEMORY:
+            answer = checkStrings(diaryEntry.getMemory().toString(), userIsLookingFor);
+            break;
+        default:
+            assert this.category != null;
+            System.out.println("Parser Exception");
         }
         return answer;
     }

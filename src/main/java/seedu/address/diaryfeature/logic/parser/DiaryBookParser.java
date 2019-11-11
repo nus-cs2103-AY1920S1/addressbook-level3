@@ -1,11 +1,10 @@
 package seedu.address.diaryfeature.logic.parser;
 
-
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.diaryfeature.logic.commands.AddCommand;
 import seedu.address.diaryfeature.logic.commands.DeleteCommand;
@@ -26,7 +25,6 @@ import seedu.address.logic.commands.GoToCommand;
 import seedu.address.logic.parser.GoToParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import java.util.logging.Logger;
 
 /**
  * Overall user input parser.
@@ -52,44 +50,44 @@ public class DiaryBookParser {
         final String arguments = matcher.group("arguments");
         //  try {
         switch (commandWord) {
-            case AddCommand.COMMAND_WORD:
-                return new AddCommandParser().parse(arguments);
+        case AddCommand.COMMAND_WORD:
+            return new AddCommandParser().parse(arguments);
 
-            case DeleteCommand.COMMAND_WORD:
-                return new DeleteCommandParser().parse(arguments);
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
 
-            case GoToCommand.COMMAND_WORD:
-                return new GoToParser().parse(arguments);
+        case GoToCommand.COMMAND_WORD:
+            return new GoToParser().parse(arguments);
 
-            case ExitCommand.COMMAND_WORD:
-                return new ExitCommand();
+        case ExitCommand.COMMAND_WORD:
+            return new ExitCommand();
 
-            case ListCommand.COMMAND_WORD:
-                return new ListCommand();
+        case ListCommand.COMMAND_WORD:
+            return new ListCommand();
 
-            case FindCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
+        case FindCommand.COMMAND_WORD:
+            return new FindCommandParser().parse(arguments);
 
-            case FindSpecificCommand.COMMAND_WORD:
-                return new FindSpecificCommandParser().parse(arguments);
+        case FindSpecificCommand.COMMAND_WORD:
+            return new FindSpecificCommandParser().parse(arguments);
 
-            case HelpCommand.COMMAND_WORD:
-                return new HelpCommand();
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
 
-            case PrivateCommand.COMMAND_WORD:
-                return new PrivateCommandParser().parse(arguments);
+        case PrivateCommand.COMMAND_WORD:
+            return new PrivateCommandParser().parse(arguments);
 
-            case UnPrivateCommand.COMMAND_WORD:
-                return new UnPrivateCommandParser().parse(arguments);
+        case UnPrivateCommand.COMMAND_WORD:
+            return new UnPrivateCommandParser().parse(arguments);
 
-            case UnLockCommand.COMMAND_WORD:
-                return new UnLockCommandParser().parse(arguments);
+        case UnLockCommand.COMMAND_WORD:
+            return new UnLockCommandParser().parse(arguments);
 
-            case SetDetailsCommand.COMMAND_WORD:
-                return new SetDetailsCommandParser().parse(arguments);
+        case SetDetailsCommand.COMMAND_WORD:
+            return new SetDetailsCommandParser().parse(arguments);
 
-            default:
-                return new ErrorCommand(new DiaryUnknownException());
+        default:
+            return new ErrorCommand(new DiaryUnknownException());
         }
 
     }

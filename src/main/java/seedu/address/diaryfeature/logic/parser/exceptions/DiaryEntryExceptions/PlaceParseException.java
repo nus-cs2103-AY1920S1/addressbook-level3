@@ -5,9 +5,9 @@ package seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions;
  */
 public class PlaceParseException extends DiaryEntryParseException {
     private final String ERROR_MESSAGE =
-            "In particular (if you put in the p/ prefix):\n" +
-                    "1) Place can't be empty. \n" +
-                    "2) Place can't be too long (maximum of 100 characters).";
+            "In particular (if you put in the p/ prefix):\n"
+                    + "1) Place can't be empty. \n"
+                    + "2) Place can't be too long (maximum of 100 characters).";
 
     /**
      * @return String representation of the Error message

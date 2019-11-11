@@ -10,8 +10,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new PrivateCommand object
  */
 public class PrivateCommandParser {
-    private static final String PRIVATE_USAGE = "In particular, input your private command like this: \n" +
-            "private TARGET | Eg: private 1. \nNote that the input has to be a number and  more than or equal to 1";
+    private static final String PRIVATE_USAGE = "In particular, input your private command like this: \n"
+            + "private TARGET | Eg: private 1. \nNote that the input has to be a number and  more than or equal to 1";
 
     /**
      * Parses the given {@code String} of arguments in the context of the PrivateCommand

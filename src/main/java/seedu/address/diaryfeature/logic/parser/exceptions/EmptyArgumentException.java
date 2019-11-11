@@ -5,8 +5,8 @@ package seedu.address.diaryfeature.logic.parser.exceptions;
  * Generic Empty Exception if the user leaves the argument blank
  */
 public class EmptyArgumentException extends Exception {
-    private String parserName;
     private static String filler = "Something is wrong with the ";
+    private String parserName;
     private String usage;
 
     /**
