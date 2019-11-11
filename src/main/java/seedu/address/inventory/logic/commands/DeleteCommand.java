@@ -21,6 +21,7 @@ public class DeleteCommand extends Command {
      * Creates an DeleteIndexCommand to delete the specified {@code Item} by index.
      */
     public DeleteCommand(int index) {
+        assert(index >= 1);
         this.isByIndex = true;
         this.index = index;
     }
@@ -29,6 +30,7 @@ public class DeleteCommand extends Command {
      * Creates an DeleteIndexCommand to delete the specified {@code Item} by description.
      */
     public DeleteCommand(String description) {
+        assert(description != null);
         this.isByIndex = false;
         this.description = description;
     }
