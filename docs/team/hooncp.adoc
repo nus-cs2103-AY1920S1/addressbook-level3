@@ -17,6 +17,7 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 Here's a sneak peak of our application:
 
+.Sneak peak of SecureIT
 image::UG first page.png[width = "700"]
 
 == Summary of contributions

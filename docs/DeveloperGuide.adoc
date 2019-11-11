@@ -164,11 +164,11 @@ separate classes to follow *Single Responsibility Principle*. The attributes are
 
 `Website`: The website where the password is being used for.
 
-`PasswordModifiedAt`: The local date when the password is last modified.
+`PasswordModifiedAt`: The date when the password is last modified.
 
-`PasswordExpiredAt`: The local date 1 year after the password is last modified.
+`PasswordExpiredAt`: The date 1 year after the password is last modified.
 
-`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close local time is when compared to the expiry date of the password.
+`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close the current date is when compared to the expiry date of the password.
 
 The `Password` objects are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
 add the functionality managing passwords into the application. We have adhered to *YAGNI* design principle by making sure that minimal changes are added.
@@ -236,7 +236,7 @@ The process of copying a password value is as follows:
 
 2) In this case, the index is a valid index and `CopyPasswordValueCommand` is created.
 
-3) The `Password` object is called from the filtered password list using the index and copies the password value via
+3) The `Password` object is retrieved from the filtered password list using the index and the password value is copied via
 `ClipboardUtil#copyToClipboard()` method
 
 ==== Design Considerations:
