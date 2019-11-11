@@ -206,11 +206,13 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::scheduler[]
 === Schedule Generator
 
 The Schedule Generator feature allows users to generate a combined schedule of any number of people. It combines these
-schedules together, generates the common free time slots among the input people's schedules and packages it
-into a visual representation for the user.
+schedules together, generates the common free time slots and packages it into a visual representation for the user.
+
+This allows the user to quickly identify the common free time slots among the user and the members of the group.
 
 ==== Implementation
 
@@ -267,6 +269,8 @@ The type of `ScheduleDisplay` that is generated is based on the `ScheduleState`.
 ** A `ScheduleDisplay` object that shows the Schedule of a group of `Persons` including the `User`
 ** It contains a `FreeSchedule` object that tells the user the common `FreeTimeslots` among the `Persons` in the group
 
+==== Usage Scenario
+
 Given below is an example usage scenario of how the ScheduleManager behaves
 when a schedule command is executed.
 
@@ -293,7 +297,7 @@ object to get the `Person` object specified by the `Name` object.
 
 The following sequence diagram shows how the ScheduleCommand is executed:
 
-image::ugalvin/scheduleGeneratorSequenceDiagram1.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram1.png[width=100%]
 
 * `Step 4`: Generate the Schedule
 ** `ModelManager` calls the `ScheduleManager#updateScheduleWithPersons` method with the List of `Persons`
@@ -311,7 +315,7 @@ such as previous location data of each person, start time and end time.
 
 The following sequence diagram shows how the `ScheduleDisplay` is generated:
 
-image::ugalvin/scheduleGeneratorSequenceDiagram2.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram2.png[width=100%]
 
 * `Step 6`: Return feedback to user
 -	The `ScheduleCommand` has finished executing and returns a `CommandResult` with the feedback to user
@@ -323,7 +327,7 @@ Schedules of a `Person` or a `User` as well.
 The following activity diagram summarizes what happens when the `ScheduleManager` is invoked to
 generate a `ScheduleDisplay`:
 
-image::ugalvin/scheduleGeneratorActivityDiagram.png[width=100%]
+image::scheduler/scheduleGeneratorActivityDiagram.png[width=100%]
 
 ==== Design Considerations
 
@@ -338,7 +342,7 @@ needs to show a schedule to the user.
 ** Pros: Better runtime performance as the `ScheduleDisplay` is already generated.
 ** Cons: Will have perfomance issues in terms of memory usage. Each Group's and Person's `ScheduleDisplay` will also
 have to be generated and stored in memory.
-
+//end::scheduler[]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
