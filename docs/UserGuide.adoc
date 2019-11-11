@@ -761,7 +761,7 @@ image::DeleteNote2.png[width="600"]
 ==== Finding a note: `find`
 
 Tired of scrolling through all your notes to find the note you are looking for?
-Use our `find` command to look for that note! 
+Use our `find` command to look for that note!
 
 Format: `find TEXT`
 
