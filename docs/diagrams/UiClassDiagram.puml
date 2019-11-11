@@ -14,6 +14,8 @@ Class HelpWindow
 Class ResultDisplay
 Class StatusBarFooter
 Class CommandBox
+Class StatisticListPanel
+Class EntityCard
 }
 
 package Model <<Rectangle>> {
@@ -30,21 +32,20 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
+MainWindow *-down-> StatusBarFooter
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> StatusBarFooter
+
 MainWindow *-down-> EntityListPanel
+MainWindow *-down-> StatisticListPanel
 
 
-ParticipantListPanel -up-|> EntityListPanel
-TeamListPanel-up-|> EntityListPanel
-MentorListPanel-up-|> EntityListPanel
+
 
 EntityListPanel -right[hidden] StatusBarFooter
 
-ParticipantListPanel -down-> EntityCard
-TeamListPanel -down-> EntityCard
-MentorListPanel -down-> EntityCard
+EntityListPanel -down-> EntityCard
+
 EntityCard ..> Model
 MainWindow -left-|> UiPart
 
@@ -56,8 +57,8 @@ HelpWindow -down-|> UiPart
 EntityListPanel --|> UiPart
 EntityCard-|> UiPart
 
-UiManager -right-> Logic
-MainWindow -left-> Logic
+UiManager --> Logic
+MainWindow --> Logic
 
 
 HelpWindow -[hidden]left- CommandBox

@@ -10,19 +10,10 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
-end box
-
-box AlfredParser PARSER_COLOR_T1
-participant ":AlfredParser" as AlfredParser PARSER_COLOR
-end box
-
-box AssignCommandAllocator ALLOCATOR_COLOR_T1
-participant ":AssignCommandAllocator" as AssignCommandAllocator ALLOCATOR_COLOR
-participant ":AssignParticipantCommandParser" as AssignParticipantCommandParser ALLOCATOR_COLOR
-end box
-
-box AssignParticipantCommandCommand COMMAND_COLOR_T1
-participant "command:AssignParticipantCommand" as AssignParticipantCommand COMMAND_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":AssignCommandAllocator" as AssignCommandAllocator LOGIC_COLOR
+participant ":AssignParticipantCommandParser" as AssignParticipantCommandParser LOGIC_COLOR
+participant "command:AssignParticipantCommand" as AssignParticipantCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -30,7 +21,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 
-[-> MainWindow : user enters 'assign participant P-100 T-2'
+[-> MainWindow :'assign participant P-100 T-2'
 activate LogicManager
 
 MainWindow -> CommandBox : handleCommandEntered()
@@ -66,16 +57,16 @@ create AssignParticipantCommand
 AssignParticipantCommandParser -> AssignParticipantCommand
 activate AssignParticipantCommand
 
-AssignParticipantCommand --> AssignParticipantCommandParser : command
+AssignParticipantCommand --> AssignParticipantCommandParser : c
 deactivate AssignParticipantCommand
 
-AssignParticipantCommandParser --> AssignCommandAllocator : command
+AssignParticipantCommandParser --> AssignCommandAllocator : c
 deactivate AssignParticipantCommandParser
 
-AssignCommandAllocator --> AlfredParser : command
+AssignCommandAllocator --> AlfredParser : c
 deactivate AssignCommandAllocator
 
-AlfredParser --> Logic : command
+AlfredParser --> Logic : c
 deactivate AlfredParser
 
 

@@ -10,19 +10,10 @@ end box
 
 box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
-end box
-
-box AlfredParser PARSER_COLOR_T1
-participant ":AlfredParser" as AlfredParser PARSER_COLOR
-end box
-
-box RemoveCommandAllocator ALLOCATOR_COLOR_T1
-participant ":RemoveCommandAllocator" as RemoveCommandAllocator ALLOCATOR_COLOR
-participant ":RemoveParticipantCommandParser" as RemoveParticipantCommandParser ALLOCATOR_COLOR
-end box
-
-box RemoveParticipantCommandCommand COMMAND_COLOR_T1
-participant "command:RemoveParticipantCommand" as RemoveParticipantCommand COMMAND_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":RemoveCommandAllocator" as RemoveCommandAllocator LOGIC_COLOR
+participant ":RemoveParticipantCommandParser" as RemoveParticipantCommandParser LOGIC_COLOR
+participant "c:RemoveParticipantCommand" as RemoveParticipantCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -30,7 +21,7 @@ participant ":Model" as Model MODEL_COLOR
 end box
 
 
-[-> MainWindow : user enters 'remove participant P-100 T-2'
+[-> MainWindow : 'remove participant P-100 T-2'
 activate LogicManager
 
 MainWindow -> CommandBox : handleCommandEntered()
@@ -66,16 +57,16 @@ create RemoveParticipantCommand
 RemoveParticipantCommandParser -> RemoveParticipantCommand
 activate RemoveParticipantCommand
 
-RemoveParticipantCommand --> RemoveParticipantCommandParser : command
+RemoveParticipantCommand --> RemoveParticipantCommandParser : c
 deactivate RemoveParticipantCommand
 
-RemoveParticipantCommandParser --> RemoveCommandAllocator : command
+RemoveParticipantCommandParser --> RemoveCommandAllocator : c
 deactivate RemoveParticipantCommandParser
 
-RemoveCommandAllocator --> AlfredParser : command
+RemoveCommandAllocator --> AlfredParser : c
 deactivate RemoveCommandAllocator
 
-AlfredParser --> Logic : command
+AlfredParser --> Logic : c
 deactivate AlfredParser
 
 
@@ -103,9 +94,6 @@ activate ResultDisplay
 
 ResultDisplay --> MainWindow
 deactivate ResultDisplay
-
-
-
 
 [<--MainWindow
 deactivate MainWindow

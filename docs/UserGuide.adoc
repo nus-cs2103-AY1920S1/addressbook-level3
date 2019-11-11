@@ -403,11 +403,11 @@ Examples:
 
 * `assign mentor M-18 T-2` will assign Mentor with ID M-18 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
 
-image::AssignCommandExample1.png[width="790"]
+image::AssignCommandExample1.png[height="200", width="550"]
 
 * `assign participant P-100 T-2` will assign Participant with ID P-100 to Team with ID T-2. Running the command will show you the following output in the 'Team' section of the GUI:
 
-image::AssignCommandExample2.png[width="790"]
+image::AssignCommandExample2.png[height="200", width="550"]
 //end::assign[]
 
 //tag::remove[]
@@ -425,11 +425,11 @@ Examples:
 
 * `remove mentor M-18 T-8` will remove Mentor with ID M-18 to Team with ID T-8. Running the command will show you the text 'Mentor not assigned' in the respective team. The following will be shown in the 'Team' section of the GUI:
 
-image::RemoveCommandExample1.png[width="790"]
+image::RemoveCommandExample1.png[height="200", width="550"]
 
 * `remove participant P-100 T-2` will remove Participant with ID P-100 from Team with ID T-2.Running the command will show you the following output in the 'Team' section of the GUI
 
-image::RemoveCommandExample2.png[width="790"]
+image::RemoveCommandExample2.png[height="200", width="550"]
 //end::remove[]
 
 // tag::history1[]
@@ -938,11 +938,11 @@ To navigate to home:
     Below is the layout of  the homepage:
 
 .Output of `home` command
-image::HomeCommandExample.png[width="790"]
+image::HomeCommandExample.png[height="200", width="600"]
 
 //end::home[]
 
-//tag:command-suggestion[]
+//tag::suggestions[]
 === Command Suggestion Prompt
 As you type, there will be a popup box predicting the type of commands you are going to type. You can navigate through these suggestions and choose the template that suits you.
 
@@ -955,29 +955,21 @@ As you type: +
 
 1.	Type ‘add’ into the command box, and `add participant`, `add mentor` and `add team`  commands will be suggested to you. The grey text are meant as guides and blue text are meant as usage instructions . These text will not appear if you choose the command.
 
-+
-image::CommandSuggestionStep1.png[width="790"]
-+
+image::CommandSuggestionStep1.png[width="600", height="10"]
 
 2.	Press the `up` or `down` arrow keys to navigate up and down the popup box.
 
-+
-image::CommandSuggestionStep2.png[width="790"]
-+
+image::CommandSuggestionStep2.png[width="600", height="10"]
 
 3.	Press `Enter` to choose the command of your choice. The command will then appear on the user input box.
 
-+
-image::CommandSuggestionStep3.png[width="790"]
-+
+image::CommandSuggestionStep3.png[width="600", height="10"]
 
 4.	Press ‘left’ or ‘right’ keys to navigate the cursor and fill in the respective fields. Press Enter to execute the command.
 
-+
-image::CommandSuggestionStep4.png[width="790"]
-+
+image::CommandSuggestionStep4.png[width="600", height="10"]
 
-//end::command-suggestion[]
+//end::suggestions[]
 
 === Seating: `locate {PARTICIPANT/TEAM}` (Coming in v2.0)
 Find where a particular participant or team is seated.
