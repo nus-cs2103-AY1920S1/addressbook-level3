@@ -63,6 +63,9 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
+User can simply type in the `help` command in the input text area to gain additional information of the usage of our application. +
+Once `help` command is executed, system will pop out a dialog window that includes our development web page and some examples of the commands.
+
 //tag::interactive-parsing[]
 === Interactive Parsing
 
@@ -250,19 +253,18 @@ is not a parameter for the 'Add' command.
 Switches to a different menu in the application window. +
 Format: `tab b/MENU_NAME`
 
-* Typee has 4 major features/menus. They comprise of:
+* Typee has four major features/menus. They comprise of:
 ** Engagements List
 ** Typing Game
 ** Calendar View
 ** Report Generator
+
 Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
-`tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
 `Engagement` window is set to default window upon starting the application.
 
-If the user wants to switch to different windows, simply enter the tab command
-with a reference to the menu name listed on the left end of the application window. +
+If user wants to switch to different windows, simply enter the tab command. Tab names can be seen on the top of the application display in green boxes. +
 
 For example, user enters `tab b/calendar`
 , which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
@@ -270,7 +272,8 @@ For example, user enters `tab b/calendar`
 [NOTE]
 Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
-image::tab_2.png[width="800"]
+image::tab_2.png[width="600"]
+//end::tab-command[]
 
 Users can start building a command in one tab, switch tabs midway and finish building the command in another tab.
 This can be achieved by the following sequence of inputs.
@@ -281,9 +284,6 @@ tab
 b/calendar
 l/COM-1 d/Meeting a/Damith p/High
 ```
-
-
-//end::tab-command[]
 
 === Adding an engagement: `add`
 
@@ -435,7 +435,7 @@ l/Com Basement
 ```
 The non-interactive equivalent of this sequence is `find l/Com Basement`.
 
-[%header, cols=3*]
+[%header, cols="15%, 10%, 75%"]
 |===
 |Search parameter
 |Tag
@@ -719,7 +719,7 @@ Delete function will only available when user has pre-selected the document list
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message and after click
-image::pdf_delete_before_after.png[width="750"]
+image::pdf_delete_before_after.png[align="center", width="750"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
