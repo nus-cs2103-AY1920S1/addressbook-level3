@@ -873,19 +873,48 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `export c>CS2100 p>document.docx`
    Expected: `document.docx` is created in application directory, containing questions and answers from the `CS2100` category.
 
-.  Exporting a non-existent category
+
+. Exporting a non-existent category
+
 
 .. Prerequisites: The `CS2100` category does not exist.
 .. Test case: `export c>CS2100 p>document.docx`
    Expected: Error message is shown, indicating that no FlashCards were found matching the specified category.
 
-.  Exporting to a protected file path
+
+. Exporting to a protected file path
 
 .. Prerequisites: User is on Windows and _KFC_ has not been granted special permissions; `CS2100` category exists.
 .. Test case: `export c>CS2100 p>C:\document.docx`
    Expected: Error message is shown
 
+
+=== Importing FlashCards
+
+. Importing from a valid JSON file, no duplicates
+
+.. Prerequisites: The `cs2100.json` file exists in the application directory, and is valid (not corrupted); the `cs2100` category does not exist; all cards in the JSON file do not exist
+.. Test case: `import p>cs2100.json`
+   Expected: Success message is shown, indicating number of FlashCards imported; new category is created
+
+. Importing from an invalid JSON file
+
+.. Prerequisites: The `cs2100.json` file exists in the application directory but is corrupted.
+.. Test case: `import p>cs2100.json`
+   Expected: Error message is shown
+
+. Importing from a valid JSON file, all duplicates
+
+.. Prerequisites: The `cs2100.json` file exists in the application directory, and is valid; all FlashCards in the JSON file already exist
+.. Test case: `import p>cs2100.json`
+   Expected: Success message is shown, but no new FlashCards are imported - success message indicates that there were no new FlashCards to import
+
 === Adding deadline
+
+. Adding with date in wrong format
+
+.. Test case: `deadline t>task d>01-JAN-2020`
+.. Expected: Error message is shown
 
 . Adding with invalid date
 
@@ -919,12 +948,35 @@ These instructions only provide a starting point for testers to work on; testers
 .. Expected: Test begins successfully
 
 
+. Getting answer during test
+
+.. Prerequisite: Test has started; question has been shown; answer has not been requested.
+.. Test case: `ans`
+.. Expected: Answer is shown
+
+
 === Viewing stats
 
 . Opening stats window
 
 .. Test case: `stats`
 .. Expected: Stats window appears; three graphs are visible in the window
+
+
+=== Changing theme
+
+. Changing to dark theme from another theme
+
+.. Prerequisites: Not currently in dark theme
+.. Test case: `theme dark`
+.. Expected: Theme changes to dark; success message shown
+
+. Changing to dark theme when already in dark theme
+
+.. Prerequisites: Already in dark theme
+.. Test case: `theme dark`
+.. Expected: _KFC_ informs user that they are already in dark theme
+
 
 === Saving data
 
