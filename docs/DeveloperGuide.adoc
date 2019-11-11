@@ -779,8 +779,8 @@ end user to type more words, but also introduce redundancy (eg. `clrfontcolour` 
 ===== Modification of Application Style Dynamically
 * An alternative idea to achieving `fontcolour` and `background` throughout the entire app was to visit each `JavaFX` child `Node`
 recursively and set the colours and backgrounds if the nodes are of specific instances with these attributes (eg.
-`Label` which has `textfill` attribute). However this idea was quickly aborted as the `TableView` implemented only renders
-headers after the scene has been set and to include such a case in thet recursive solution adds significant complexity
+`Label` which has `textfill` attribute). However, this idea was quickly aborted as the `TableView` implemented only renders
+headers after the scene has been set and to include such a case in the recursive solution adds significant complexity
 to the program on top of the possibility of severely breaking abstraction.
 //end::personalisedUserExperienceDgDesignConsiderationsPppPart2[]
 
