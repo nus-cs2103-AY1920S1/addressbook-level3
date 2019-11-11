@@ -1,138 +1,259 @@
-== Appointments [Parameters not updated]
+// tag::appointment[]
+[[Appointment]]
+== Appointments
 ====
 *Appointments*
 
-As a community nurse, you will often make home visits to your patients. and keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
+As a community nurse, you will often schedule appointments with your patients before visiting them, as well as keep track of these appointments you make with your patients. You can use the application to manage and keep track of these appointments. This section describes the features that will allow you to manage your appointments.
 ====
 
-=== Listing All Appointments: `appt list` [coming in V1.4]
-You can see a list of all appointments in the app by typing `appt list`.
+=== Listing All Appointments: `appt-list`
+You can see a list of all appointments in the app by typing `appt-list`.
 
-In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt find`.
+In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt-delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt-find`.
 
-Format: `appt list`
+The appointment list is sorted in increasing order of start date time of the appointments, i.e it shows the earlier scheduled appointments followed by the later ones.
 
-=== Finding Appointment(s): `appt find`
+Format: `appt-list`
 
-You can find appointments that fit the parameters given using `appt find`.
+=== Finding Appointment(s): `appt-find`
 
-In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt list` or if different parameters are used.
+You can find appointments by patient name by typing any keyword of your choice following `appt-find`.
 
+In the list displayed, each appointment will have an *index* number which can then be used for other features that require you to select an appointment by *index* e.g. `appt-delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt-list` or if different parameters are used.
 
-Format: `appt find [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]`
+Format: `appt-find [PATIENT_NAME]`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* If the parameter is text (e.g. `n/NAME`), partial words will be matched (e.g. `n/John` will return `John Smith` and `John Kim`.
+* Only the patient name is searched for in the list of appointments.
+* Partial words will be matched (e.g. `John` will return `John Smith` and `John Kim` if both have appointments in the appointment list).
 ****
 
 Examples:
 
-* `appt find n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
-Lists all appointments of that particular patient
+* `appt-find James` +
+Lists all appointments of that particular patient James
 
-=== Viewing an Appointment: `appt view` [coming in V1.4]
+=== Adding an Appointment: `appt-add`
 
-You can see an appointment's full details using `appt view`. The appointment is selected by their *index*.
+You can add an appointment to the list of all appointments by using `appt-add`.
 
-Format: `appt view INDEX`
+Format: `appt-add p/PATIENT_INDEX sdt/START_DATE_TIME edt/END_DATE_TIME [desc/DESCRIPTION] [ryr/RECUR_YEARS] [rmon/RECUR_MONTHS] [rweek/RECUR_WEEKS] [rday/RECUR_DAYS] [rhr/RECUR_HOURS] [rmin/RECUR_MINUTES]`
 
 ****
-* View the appointment at the specified `INDEX`.
-* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `START_DATE_TIME` and `END_DATE_TIME` expect inputs in the format `dd-MM-yyyy HHmm` with `dd`, `MM`, `yyyy`, `HH`, and `mm` all as numerical numbers (HHmm being in 24-hour time), and the end date time should be equal to or after the start date time. Also, both start and end date times must be past the system's local date time.
+* `RECUR_YEARS`, `RECUR_MONTHS`, `RECUR_WEEKS`, `RECUR_DAYS`, `RECUR_HOURS`, `RECUR_MINUTES` each *must be a positive integer* 1, 2, 3, ...
+* An appointment can recur by any amount of each of the frequencies: years, months, weeks, days, hours, and minutes. If you wish for an appointment to only recur by years and months, just typing `ryr/[RECUR_YEARS]` and `rmon/[RECUR_MONTHS] in any order is sufficient.
+* The appointment added cannot have the same **identity** as an existing appointment. Its **identity** is defined by `START_DATE_TIME`, `END_DATE_TIME`, patient it is associated with through the `PATIENT_INDEX`, and the frequency as defined by `RECUR_YEARS`, `RECUR_MONTHS`, etc.
+* The appointment added cannot clash in timing with any other existing appointment, i.e. their start and end date times must not overlap in any way.
 ****
 
 Examples:
 
-* `appt list` +
-`appt view 1`
-View the item with index number 1. This index can be found from the full list of appointments.
+* `appt-add p/1 sdt/24-12-2019 1200 edt/24-12-2019 1400 desc/Medical checkup
 
-* `appt view 2`
-View the item with the index number 2.
+* `appt-add p/2 sdt/09-12-2019 1300 edt/09-12-2019 1330 ryr/1 rmon/3`
 
-=== Listing the next earliest Appointments: `appt next` [coming in V1.4]
+=== Editing an Appointment: `appt-edit`
 
-You can list the next earliest appointments using `appt next`.
+You can edit an existing appointment in the app using `appt-edit`.
 
-Format: `appt next NUMBER`
-
-Examples:
-
-`appt next 3` +
-Displays the next 3 earliest appointments sorted by time.
-
-=== Editing an Appointment: `appt edit` [coming in V1.4]
-
-You can edit an existing appointment in the app using `appt edit`.
-
-Format: `appt edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `appt-edit INDEX [sdt/START_DATE_TIME] [edt/END_DATE_TIME] [p/PATIENT_INDEX] [desc/DESCRIPTION] [ryr/RECUR_YEARS] [rmon/RECUR_MONTHS] [rweek/RECUR_WEEKS] [rday/RECUR_DAYS] [rhr/RECUR_HOURS] [rmin/RECUR_MINUTES]`
 
 ****
-* Edits the person at the specified `INDEX`.
-* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* Edits the appointment at the specified `INDEX`.
+* The index refers to the index number shown in the list of appointments displayed by `appt-list` or `appt-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing recurring frequencies (years, months, etc.), the existing frequencies of the appointment will be kept unless overwritten by  i.e adding of frequencies is cumulative.
+* You can make the appointment not recurring by setting all the necessary recurring frequencies to 0. For example, if an appointment recurs every year, then specify a 0 frequency as `ryr/0` to make the appointment non-recurring.
+* You cannot change individual fields of the patient (i.e. patient name, phone number, etc.) using the `appt-edit` command. Refer to `pat-edit` under <<Patient>> for more on this.
 ****
 
 Examples:
 
-* `appt list` +
- `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person in the entire appointment's list to be `91234567` and `johndoe@example.com` respectively.
+* `appt-list` +
+ `appt-edit 1 sdt/05-12-2019 1900 edt/05-12-2019 2000` +
+Edits the start date time and end date time of the 1st person in the entire appointment's list to be `05-12-2019 1900` and `05-12-2019 2000` respectively.
 
-
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person with the index 1.`Betsy Crower` and clears all existing tags.
-
+* `appt-edit 2 p/3 ryr/1` +
+Edits the second appointment to be associated with the third patient in the patient list. Also edits the appointment to recur by 1 year.
 
 // tag::delete[]
-=== Deleting an Appointment: `appt delete`
+=== Deleting an Appointment: `appt-delete`
 
-You can delete an appointment by *index* using `appt delete`.
+You can delete an appointment by *index* using `appt-delete`.
 
-Format: `appt delete INDEX`
+Format: `appt-delete INDEX`
 
 ****
 * Deletes the appointment at the specified `INDEX`.
-* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* The index refers to the index number shown in the list of appointments displayed by `appt-list` or `appt-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
+* If the appointment referred to by the `INDEX` is a recurring appointment, deleting this appointment will automatically recur the appointment (i.e. get the next start and end date time) and add it to the appointment list. If you wish to remove a recurring appointment permanently from the appointment list, refer to <<Deleting an Appointment Permanently>>.
 ****
 
 Examples:
 
-* `appt list` +
-`appt delete 2` +
-Deletes the 2nd appointment in the appointment list.
+Assuming the first appointment in the list is a recurring appointment, and the second is a non-recurring one.
 
-* `appt delete 1` +
-Deletes the appointment which had been assigned the index 1.
+* `appt-delete 2` +
+Deletes the 2nd appointment in the displayed appointment list.
+
+* `appt-delete 1` +
+Deletes the 1st appointment in the displayed appointment list.
+Recurs the appointment and adds the new appointment with the next start and end date time to the appointment list.
 
 // end::delete[]
 
-=== Deleting multiple Appointments: `appt delete` `[coming in V2.0]`
+// tag::delete-permanent[]
+=== Deleting an Appointment permanently: `appt-delete-permanent`
 
-You can delete an appointment by *indexes* using `appt delete`.
+You can delete an appointment permanently by *index* using `appt-delete-permanent`.
 
-Format: `appt delete INDEX_1 [INDEX_2] [INDEX_3]...`
+You can use this command on both recurring and non-recurring appointments, but its use is more suited for recurring appointments since `appt-delete` and `appt-delete-permanent` work in the same way for non-recurring appointments.
+
+Format: `appt-delete-permanent INDEX`
 
 ****
-* Deletes the appointment at the specified `INDEX` es. You can put in as many indexes to delete as many appointments as you wish.
-* The index refers to the index number shown in the list of appointments displayed by `appt list` or `appt find`.
+* Deletes the appointment permanently at the specified `INDEX`.
+* The index refers to the index number shown in the list of appointments displayed by `appt-list` or `appt-find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* For recurring appointments, unlike in the case of `appt-delete`, now the recurring appointment referred to by the `INDEX` is removed from the appointment list permanently and not recurred.
+****
+
+Examples:
+
+Assuming the first appointment in the list is a recurring appointment, and the second is a non-recurring one.
+
+* `appt-list` +
+`appt-delete-permanent 2` +
+Deletes the 2nd appointment in the displayed appointment list permanently.
+
+* `appt-delete-permanent 1` +
+Deletes the 1st appointment in the displayed appointment list permanently.
+
+// end::delete-permanent[]
+
+=== Deleting Multiple Appointments: `appt-delete` `[coming in V2.0]`
+
+You can delete multiple appointments by *indexes* using `appt-delete`.
+
+Format: `appt-delete INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes appointments at the specified `INDEX` es. You can put in as many indices to delete as many appointments as you wish.
+* The index refers to the index number shown in the list of appointments displayed by `appt-list` or `appt-find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* If any of the appointments referred to by the `INDEX` es is a recurring appointment, deleting this appointment will automatically recur the appointment (i.e. get the next start and end date time) and add it to the appointment list. If you wish to remove one or more recurring appointments permanently from the appointment list, refer to <<Deleting Multiple Appointments Permanently>>.
+****
+
+Assuming the first appointment in the list is a recurring appointment, and the second is a non-recurring one.
+
+Examples:
+
+* `appt-delete 2` +
+Deletes the 2nd appointment in the appointment list.
+
+* `appt-delete 1 2` +
+Deletes the 1st and 2nd appointment in the appointment list.
+Recurs the 1st appointment and adds the new appointment with the next start and end date time to the appointment list.
+
+=== Deleting Multiple Appointments Permanently: `appt-delete-permanent` `[coming in V2.0]`
+
+You can delete an appointment by *indexes* using `appt-delete-permanent`.
+
+You can use this command on both recurring and non-recurring appointments, but its use is more suited for recurring appointments since `appt-delete` and `appt-delete-permanent` work in the same way for non-recurring appointments.
+
+Format: `appt-delete-permanent INDEX_1 [INDEX_2] [INDEX_3]...`
+
+****
+* Deletes the appointments permanently at the specified `INDEX` es. You can put in as many indices to delete as many appointments as you wish.
+* The index refers to the index number shown in the list of appointments displayed by `appt-list` or `appt-find`.
+* The index *must be a positive integer* 1, 2, 3, ...
+* For recurring appointments, unlike in the case of `appt-delete`, now any recurring appointment specified by any of the `INDEX` es is removed from the appointment list permanently and not recurred.
+****
+
+Examples:
+
+Assuming the first appointment in the list is a recurring appointment, and the second is a non-recurring one.
+
+* `appt-list` +
+`appt-delete-permanent 2` +
+Deletes the 2nd appointment in the appointment list permanently.
+
+* `appt-delete-permanent 1 2` +
+Deletes the 1st and 2nd appointments in the appointment list permanently.
+
+=== Displaying Finished Appointments `[coming in V2.0]`
+
+This is an intended additional `UI` and `Storage` feature.
+
+Along with all the appointments that currently are in the appointment list, appointments that finished (were in the appointment list the previous time the app was run but are now before the system date and time and so removed from the appointment list) are displayed in a separate tab and also saved to another `json` file time the app is closed.
+
+=== Listing All Finished Appointments `appt-finished-list` `[coming in V2.0]`
+
+You can see a list of all finished appointments in the app by typing `appt-finished-list`.
+
+In the list displayed, each finished appointment will have an *index* number which can then be used for other features that require you to select a finished appointment by *index* e.g. `appt-finished-delete`. Take note that a finished appointment will be given the same *index* regardless of other display commands such as `appt-finished-find`.
+
+The finished appointment list is sorted in increasing order of start date time of the appointments, i.e it shows the earlier appointments followed by the later ones.
+
+Format: `appt-finished-list`
+
+=== Finding Finished Appointment(s): `appt-finished-find`
+
+You can find finished appointments by patient name by typing any keyword of your choice following `appt-finished-find`.
+
+In the list displayed, each finished appointment will have an *index* number which can then be used for other features that require you to select a finished appointment by *index* e.g. `appt-finished-delete`. Take note that an appointment will be given the same *index* regardless of other display commands such as `appt-finished-list` or if different parameters are used.
+
+Format: `appt-finished-find [PATIENT_NAME]`
+
+=== Finishing Appointment `appt-finish` `[coming in V2.0]`
+
+Instead of deleting an appointment using `appt-delete` or `appt-delete-permanent`, you can use this command to simply mark an appointment as finished.
+
+The appointment is removed from the appointment list and added to the list of finished appointments.
+
+=== Deleting Finished Appointment `appt-finished-delete` `[coming in V2.0]`
+
+You can delete (permanently) a finished appointment by *index* using `appt-finished-delete`.
+
+There is no distinction in behaviour of this command between recurring and non-recurring appointments as deletion is from the finished appointment list.
+
+Format: `appt-finished-delete INDEX`
+
+****
+* Deletes the finished appointment at the specified `INDEX`.
+* The index refers to the index number shown in the list of finished appointments displayed by `appt-finished-list` or `appt-finished-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `appt list` +
-`appt delete 2` +
-Deletes the 2nd appointment in the appointment list.
+* `appt-finished-delete 2` +
+Deletes the 2nd appointment in the finished appointment list.
 
-* `appt delete 1 2` +
-Deletes the and 2nd appointments which had been assigned the index 1.
+* `appt-finished-delete 1` +
+Deletes the 1st appointment in the finished appointment list.
+
+[IMPORTANT]
+
+=====
+* As of version 1.4, the appointments feature **does not allow for user's discretion on managing clashing appointments. Instead, it simply prevents a user from adding a clashing appointment.**
+
+* When an appointment is added or edited, while there is a check to ensure the appointment does not clash with any other existing appointment in the list, there is **no check done on whether this new appointment could potentially clash with any future appointments** that could result from an appointment recurring. +
+In such cases, if an appointment that is a added or edited clashes with a future date time of a recurring appointment, the app allows adding such an appointment. +
+But when the recurring appointment that our new appointment clashes with is recurred (due to `appt-delete` of the recurring appointment or the recurring appointment passing the system date time), then the **recurring appointment is recurred (keep getting the next start and end date time) until it doesn't clash with any of the existing appointments in the appointment list.** +
+Allowing user discretion for clashing appointments (i.e. simply flagging the clashing appointments) is a feature coming in `V2.0`.
+
+* If changes are made to the `appointmentBook.json` file directly (i.e. not through the app) such that there are clashing appointments, the app won't detect these clashes and will **load the appointment book as it is with these clashing appointments. This can result in unexpected behaviour of the app as it is not thoroughly designed to work with clashing appointments in the appointment list.** +
+So, please refrain from making direct edits such that there result clashing appointments in the `appointmentBook.json` file. +
+Detecting these clashes from storage and if detected, loading an empty appointment list instead is a feature coming in `V2.0`.
+
+* While the system doesn't allow appointments with end date and times before the system's date and time, and recurs appointments (that are recurring) until they are past the system date and time, this happens only when the app is opened. +
+**While the app is running, there is no constant checking of whether the appointments in the list have already finished (i.e. if their end date time is before the system date time).**
+=====

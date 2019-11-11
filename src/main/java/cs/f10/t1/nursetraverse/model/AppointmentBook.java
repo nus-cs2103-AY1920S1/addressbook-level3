@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -21,8 +22,8 @@ import cs.f10.t1.nursetraverse.storage.JsonSerializableAppointmentBook;
 import javafx.collections.ObservableList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePatient comparison)
+ * Wraps all data at the appointment-book level
+ * Duplicates are not allowed (by .isSameAppointment comparison)
  */
 public class AppointmentBook implements ReadOnlyAppointmentBook {
 
@@ -44,7 +45,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     public AppointmentBook() {}
 
     /**
-     * Creates an PatientBook using the Patients in the {@code toBeCopied}
+     * Creates an AppointmentBook using the Appointments in the {@code toBeCopied}
      */
     public AppointmentBook(ReadOnlyAppointmentBook toBeCopied) {
         this();
@@ -79,20 +80,47 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
      */
     public void resetData(ReadOnlyAppointmentBook newData) {
         requireNonNull(newData);
-
         List<Appointment> newAppointmentList = newData.getAppointmentList();
 
-        Predicate<Appointment> toKeep = appt -> StartDateTime.isAfterSystemDateTime(appt.getStartDateTime().toString());
-        Predicate<Appointment> finished = appt -> !StartDateTime.isAfterSystemDateTime(appt.getStartDateTime()
-                                                                                            .toString());
+        // Predicates and Functions to map
+        Predicate<Appointment> toKeep = appt -> EndDateTime.isAfterSystemDateTime(appt.getEndDateTime().toString())
+                                                || appt.getFrequency().isRecurringFrequency();
+        Predicate<Appointment> finished = appt -> !EndDateTime.isAfterSystemDateTime(appt.getEndDateTime().toString());
+        Function<Appointment, Appointment> toRecur = appt -> {
+            Appointment next = appt;
+            while (!EndDateTime.isAfterSystemDateTime(next.getEndDateTime().toString())) {
+                if (appt.getFrequency().isRecurringFrequency()) {
+                    next = getRecurredAppointment(next);
+                }
+            }
+            return next;
+        };
 
-        List<Appointment> toSetAppointmentList = newAppointmentList.stream().filter(toKeep)
+        // Appointment lists created from predicates and functions to map
+        List<Appointment> toSetTempAppointmentList = newAppointmentList.stream().filter(toKeep).map(toRecur)
                                                  .collect(Collectors.toList());
-        setAppointments(toSetAppointmentList);
-
         List<Appointment> toSetFinishedAppointmentList = newAppointmentList.stream().filter(finished)
                                                          .collect(Collectors.toList());
+
+        // Set appointments to the appointment lists gotten
+        setAppointments(toSetTempAppointmentList);
         setFinishedAppointments(toSetFinishedAppointmentList);
+
+        // Check clashes with recurred appointments and other appointments
+        Function<Appointment, Appointment> fixClashRecurring = appt -> {
+            Appointment next = appt;
+            if (appt.getFrequency().isRecurringFrequency()) {
+                removeRecurringAppointment(appt);
+                while (hasClashingAppointment(next)) {
+                    next = getRecurredAppointment(next);
+                }
+                addAppointment(next);
+            }
+            return next;
+        };
+        List<Appointment> toSetPermAppointmentList = toSetTempAppointmentList.stream().map(fixClashRecurring)
+                                                    .collect(Collectors.toList());
+        setAppointments(toSetPermAppointmentList);
     }
 
     //// appointment-level operations
@@ -114,25 +142,17 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     }
 
     /**
-     * Returns index of appointment.
-     */
-    public int indexOfAppointment(Appointment appointment) {
-        requireNonNull(appointment);
-        return appointments.indexOf(appointment);
-    }
-
-    /**
      * Adds an appointment to the appointment book.
-     * The patient must not already exist in the appointment book.
+     * The appointment must not already exist in the appointment book.
      */
     public void addAppointment(Appointment a) {
         appointments.add(a);
     }
 
     /**
-     * Replaces the given patient {@code target} in the list with {@code editedAppointment}.
+     * Replaces the given appointment {@code target} in the list with {@code editedAppointment}.
      * {@code target} must exist in the appointment book.
-     * The patient identity of {@code editedAppointment} must not be the same as another existing patient in the
+     * The appointment identity of {@code editedAppointment} must not be the same as another existing appointment in the
      * appointment book.
      */
     public void setAppointment(Appointment target, Appointment editedAppointment) {
@@ -200,23 +220,31 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         setAppointments(keepAppointments);
     }
 
-    /**
-     * Adds same appointment with the next date time if previous one was deleted and was recurring.
-     * @param key
-     */
-    public void addRecurringAppointment(Appointment key) {
+    private Appointment getRecurredAppointment(Appointment key) {
         RecurringDateTime frequency = key.getFrequency();
         StartDateTime nextStartDateTime = new StartDateTime(frequency
-                                                            .getNextAppointmentDateTime(key.getStartDateTime()));
+                .getNextAppointmentDateTime(key.getStartDateTime()));
         EndDateTime nextEndDateTime = new EndDateTime(frequency
-                                                      .getNextAppointmentDateTime(key.getEndDateTime()));
+                .getNextAppointmentDateTime(key.getEndDateTime()));
         Index patientIndex = key.getPatientIndex();
         Patient patient = key.getPatient();
         String description = key.getDescription();
 
         Appointment nextAppointment = new Appointment(nextStartDateTime, nextEndDateTime, frequency, patientIndex,
-                                                      description);
+                description);
         nextAppointment.setPatient(patient);
+        return nextAppointment;
+    }
+
+    /**
+     * Adds same appointment with the next date time if previous one was deleted and was recurring.
+     * @param key
+     */
+    public void addRecurringAppointment(Appointment key) {
+        Appointment nextAppointment = getRecurredAppointment(key);
+        while (hasClashingAppointment(nextAppointment)) {
+            nextAppointment = getRecurredAppointment(nextAppointment);
+        }
         addAppointment(nextAppointment);
     }
 

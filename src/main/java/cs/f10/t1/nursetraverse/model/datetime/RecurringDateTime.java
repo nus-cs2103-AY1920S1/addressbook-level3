@@ -12,7 +12,8 @@ import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
  */
 public class RecurringDateTime {
 
-    public static final String MESSAGE_CONSTRAINTS = "Recurring " + DateTime.MESSAGE_CONSTRAINTS_BODY;
+    public static final String MESSAGE_CONSTRAINTS = "Recurring date time's frequency should be an integer "
+                                                    + "greater than 0.";
     public static final int EXPECTED_FREQUENCY_ARRAY_LENGTH = 6;
 
     private final long years;
@@ -161,11 +162,15 @@ public class RecurringDateTime {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years"))
-                .append(months == 0 ? "" : ", " + months + (months == 1 ? " month" : ", months"))
-                .append(days == 0 ? "" : ", " + days + (days == 1 ? ", day" : ", days"))
-                .append(hours == 0 ? "" : ", " + hours + (hours == 1 ? ", hour" : ", hours"))
-                .append(minutes == 0 ? "" : ", " + minutes + (minutes == 1 ? " minute" : " minutes"));
+        builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years")
+                                               + (months + weeks + days + hours + minutes != 0 ? ", " : ""))
+                .append(months == 0 ? "" : months + (months == 1 ? " month" : " months")
+                                                  + (weeks + days + hours + minutes != 0 ? ", " : ""))
+                .append(weeks == 0 ? "" : weeks + (weeks == 1 ? " week" : " weeks")
+                                                + (days + hours + minutes != 0 ? ", " : ""))
+                .append(days == 0 ? "" : days + (days == 1 ? " day" : " days") + (hours + minutes != 0 ? ", " : ""))
+                .append(hours == 0 ? "" : hours + (hours == 1 ? " hour" : " hours") + (minutes != 0 ? ", " : ""))
+                .append(minutes == 0 ? "" : minutes + (minutes == 1 ? " minute" : " minutes"));
         return builder.toString();
     }
 }
