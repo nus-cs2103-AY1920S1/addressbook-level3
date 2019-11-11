@@ -16,11 +16,11 @@ This project portfolio briefly introduces the project, ClerkPro and outlines my 
 
 === About the Team
 
-My team consists of 4 year 2 Computer Science Undergraduate students, including myself.
+My team consists of 4 Computer Science Undergraduate students, including myself.
 
 === About the Project: ClerkPro
 
-ClerkPro is a desktop application used for appointments scheduling and queue management system targeted at clerks working in small clinics.
+ClerkPro is a desktop application used for appointments scheduling and queue management system targeted clerical staff working in small clinics.
 Our application is optimised for individuals who *prefer to work with a Command Line Interface (CLI)*
 while still having the benefits of a Graphical User Interface (GUI).
 
@@ -59,13 +59,12 @@ image::Ui.png[width="300"]
 == Summary of contributions
 
 My responsibilities includes management of patient particulars and morphing the backend of the application
-to support the its appointment management features. This section will describe my contributions in greater detail.
+to support the its appointment management features. This section will describe my contributions in to this project in greater details.
 
 * *Major enhancement*: Implementation of *Reactive Search (Multi-Threading and Logic)*
 ** What it does: As the user types, an instant preview of search results is provided.
 This feature is used to search for registered patients, appointments, doctors and duty shifts.
-** Justification: Enhances user experience (UX) significantly as the system is able to narrow down search
-search results as the user is giving new inputs.
+** Justification: Enhances user experience (UX) significantly as the system is able to narrow down search results as the user is giving new inputs.
 ** Highlights: Requires understanding the process of JavaFX main application thread and plan to defer updates in a way that is not disruptive to UX of other components.
 ** Credits: Daniel Tan Jun Xian (team member for the proposal of the UX concept)
 

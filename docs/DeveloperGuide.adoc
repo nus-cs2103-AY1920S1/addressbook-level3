@@ -224,13 +224,15 @@ The undo/redo feature allows users to revert the action of a command or redo a c
 
 ==== Current Implementation
 
-We use a pairing of two commands to describe any action that can be undone.
-This pairing is encapsulated as a `ReversibleActionPairCommand`, which consists of
-two `ReversibleCommand` classes: the command to be executed and its inverse.
-
 A Command can be classified as one of two types, a `ReversibleCommand` or `NonActionableCommand`.
 A `ReversibleCommand` refers to any command which modifies the data stored by the system.
 Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
+
+By pairing of two `ReversibleCommand` commands together, we can describe an action that has the undone.
+
+
+This pairing is encapsulated as a `ReversibleActionPairCommand`, which consists of
+two `ReversibleCommand` classes: the command to be executed and its inverse.
 
 Consider that our appointment management system provides the user the ability to
 add, cancelling and reschedule an appointment using the commands named
@@ -238,6 +240,11 @@ add, cancelling and reschedule an appointment using the commands named
 
 By executing the `CancelApptCommand`, we can mimic the undo functionality of the `AddApptCommand`,
 which is simply cancelling the same appointment the `AddApptCommand` had scheduled.
+
+The following activity diagram describes the sequence of events when a user executes a new command:
+
+.Commit Activity Diagram
+image::CommitActivityDiagram.png[width="400"]
 
 The undo/redo mechanism is facilitated by the `CommandHistoryManager` class, which is found in the `logic` component.
 The history stores actions that can be undone as a `ReversibleActionPairCommand` and implements the following operations:
@@ -249,123 +256,57 @@ The history stores actions that can be undone as a `ReversibleActionPairCommand`
 * `CommandHistoryManager#canRedo()` -- Checks if the a previously undone state can be restored
 
 These operations are all contained within the `Logic` component and do not depend on any other components.
-Given below is an example usage scenario and how the undo/redo mechanism behaves.
 
 On initialisation of the application, the undo and redo stack of the `CommandHistoryManager` would be empty.
+As the user executes commands that modifies the data stored by the system, the commands invokes `CommandHistoryManager#addToCommandHistory()`
+and are pushed in the undo stack of the `CommandHistoryManager`.
 
-. Suppose that the user already executed several commands earlier, with the latest command being `newpatient ... -name John Doe`,
+Given below is an example usage scenario and how the undo/redo mechanism behaves.
+
+Step 1. Suppose that the user has already executed several commands earlier, with the latest command being [blue]`newpatient ... -name John Doe`,
 which registers a patient named 'John Doe'.
-This action invokes `CommandHistoryManager#addToCommandHistory()` pushing the new action pair command into the undo stack.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[width="500"]
 
-. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the `undo` command.
-The `undo` command will call `CommandHistoryManager#performUndo()`.
-This invokes the `UnregisterPatientCommand` which reverts the system to its previous state,
-and moves the action from the top undo stack to the top of the redo history stack.
+Step 2. The user now decides that adding the patient was a mistake, and decides to undo that action by executing the [Blue]`undo` command.
+The undo command will call `CommandHistoryManager#performUndo()`, which in turn
+invokes the `UnregisterPatientCommand` which reverts the system to its previous state.
 
-image::UndoRedoState3.png[]
-
-[NOTE]
-An empty undo stack implies that there are no previous states to be restored.
-The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-.Undo Sequence Diagram
+.The sequence diagram shows how the undo operation works:
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `CommandHistoryManager#performRedo()` which restores the address book to that state by invoking the original command again.
 
-[NOTE]
-If the `commandRedoHistory` is empty, then there are no undone states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+An empty undo stack implies that there are no previous states to be restored.
+The [blue]`undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
-. The user then decides to execute the command `patient S9482963D`.
-A command that searches for a patient whose id matches `S9482963D`,
+After the successful execution of the `UnregisterPatientCommand` command,
+the action from the top undo stack is transferred to the top of the redo history stack.
+
+image::UndoRedoState3.png[width="500"]
+
+Conversely, the [blue]`redo` command does the opposite -- it calls `CommandHistoryManager#performRedo()` which restores the address book to that state by invoking the original command again.
+Similarly, if the `commandRedoHistory` is empty, then there are no undone states to restore. The redo command uses `Model#canRedoAddressBook()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 3. The user then decides to execute the command [blue]`patient S9482963D`.
+A command that searches for a patient whose id matches [blue]`S9482963D`,
 only reads and does not modify any data from the model.
-Such commands will not call `CommandHistoryManager#addToCommandHistory()`,
+Such commands will not invoke `CommandHistoryManager#addToCommandHistory()`,
 `CommandHistoryManager#performUndo()`, `CommandHistoryManager#performRedo()`.
 
 Thus, the undo and redo stacks remain unchanged.
 
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `newappt ...` to schedule a new appointment for a patient.
+Step 4. The user executes [blue]`newappt ...` to schedule a new appointment for a patient.
 This action invokes `CommandHistoryManager#addToCommandHistory()`, pushing the new action pair command in the undo stack.
-However, the commands in the `commandRedoHistory` stack will be purged.
+However, the commands in the redo stack will be purged.
 
-We designed it this way because it no longer makes sense to redo the `newpatient ... -name John Doe`​ command. This is the behavior that most modern desktop applications follow.
+We designed it this way because it no longer makes sense to redo the [blue]`newpatient ... -name John Doe`​ command.
+This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[width="500"]
 
-The following activity diagram summarises what happens when a user executes a new command:
-
-.Commit Activity Diagram
-image::CommitActivityDiagram.png[]
-
-
-
-
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* *Alternative 1 (current choice):* Pair Individual commands with their inverse action.
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. Use less memory (e.g. for `delete`, just save the person being deleted).
-|*Cons*|
-1. Must ensure that the implementation of each individual command are correct.
-2. Must ensure that commands are paired
-|===
-
-* *Alternative 3:* Individual command knows how to undo/redo by itself.
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. Use less memory (e.g. for `delete`, just save the person being deleted).
-|*Cons*|
-1. Must ensure that the implementation of each individual command are correct.
-|===
-
-
-* *Alternative 2:* Save the entire address book.
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. Implementation is easy.
-|*Cons*|
-1. May have performance issues in terms of memory usage.
-|===
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* *Alternative 1 (current choice):* Use a list to store the history of address book states.
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-|*Cons*|
-1. Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-|===
-
-* *Alternative 2:* Use `HistoryManager` for undo/redo
-+
-[cols="1,10"]
-|===
-|*Pros*|
-1. We do not need to maintain a separate list, and just reuse what is already in the codebase.
-|*Cons*|
-1. Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-|===
 
 // end::undoredo[]
 
