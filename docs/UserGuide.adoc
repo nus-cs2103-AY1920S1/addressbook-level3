@@ -99,7 +99,6 @@ image::tip.png[width = "20",float = "left"]
 
 You can access the password directory using this command : `goto password`
 
-// tag::add[]
 ==== Adding a password : `add`
 
 Too many passwords to remember?
@@ -109,11 +108,9 @@ Format: `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...`
 
 Example: `add d/Gmail u/user1 p/password1 w/www.gmail.com/signin t/work`
 
-.Example of how an add command can be used.
-image::Add 2 in 1.png[]
+image::AddPW1.png[width="790"]
+image::AddPW2.png[width="790"]
 
-// end::add[]
-// tag::read[]
 ==== Accessing a password : `read`
 
 You can open and view the password for the specified index.
@@ -122,8 +119,8 @@ Format: `read INDEX`
 
 Example: `read 1`
 
-.Example of how an read command can be used.
-image::Read 2 in 1.png[]
+image::Read 1.png[width="790"]
+image::Read 2.png[width="790"]
 
 ====
 --
@@ -140,14 +137,12 @@ Be wary of surveillance by secret agents or people standing behind you
 
 You will see this reminder 30 days before your password expires.
 
-.Example of when your password is about to expire
-image::PasswordExpiring.png[width="220"]
+image::PasswordExpiring.png[width="300"]
 
 You will see this reminder if you have *not* changed your password for over a year.
 
-.Example of when your password is expired
-image::PasswordExpired.png[width="220"]
-// end::read[]
+image::PasswordExpired.png[width="300"]
+
 ==== Copying a field in a password : `copy`
 
 You can copy the password value, website or username for the specific index.
@@ -205,9 +200,6 @@ image::tip.png[width = "20",float = "left"]
 Example: `edit 1 u/NewUsername`
 
 Example: `edit 1 p/password123 t/`
-
-.Example of how an edit command can be used.
-image::Edit 2 in 1.png[]
 
 ==== Deleting a password: `delete`
 
@@ -720,8 +712,8 @@ image::warning.png[width = "20",float = "left"]
 // tag::openNote[]
 ==== Accessing a note : `open`
 
-Too much hassle to type out everything in the `edit` command to make a small change to your note?
-Want to read your note and edit your note easily?
+Too much hassle to type out everything in the `edit` command to make edits to your note?
+Want to be able to read and edit your note easily?
 The `open` command is designed for this!
 
 The `open` command opens your note in a panel on the right for you to read and edit its contents easily.
@@ -729,10 +721,10 @@ The `open` command opens your note in a panel on the right for you to read and e
 Format: `open INDEX`
 ====
 --
-image::tip.png[width = "20",float = "left"]
+image::tip.png[width = "20"]
 --
 
-* Opening a note updates the number of times the notes is accessed.
+*  Opening a note updates the number of times the notes is accessed.
 * `open` command is undoable.
 ====
 
@@ -745,12 +737,12 @@ image::OpenNote2.png[width="500"]
 
 You can click on the Save Note button after editing to save your changes made to the note.
 
-.Edits can be made to text and the Save Note button can be clicked.
+.Edits can be made to the text and the Save Note button can be clicked.
 image::OpenNote3.png[width="500"]
 
-After clicking on the Save Note button, your edits made to the opened note will be saved!
+After clicking on the Save Note button, your edits made to the note will be saved!
 
-.Note at index 1 is updated via the corresponding `Edit` command after clicking on the Save Note button.
+.Note at index 1 is updated via the corresponding `edit` command after clicking on the Save Note button.
 image::OpenNote4.png[width="500"]
 
 // end::openNote[]
@@ -758,7 +750,7 @@ image::OpenNote4.png[width="500"]
 ==== Deleting a note: `delete`
 
 The note is no longer relevant?
-You can `Delete` it!
+You can `delete` it!
 
 Format: `delete INDEX`
 
@@ -768,7 +760,8 @@ image::DeleteNote2.png[width="600"]
 
 ==== Finding a note: `find`
 
-Finds a note as specified by the user.
+Tired of scrolling through all your notes to find the note you are looking for?
+Use our `find` command to look for that note!
 
 Format: `find TEXT`
 
@@ -852,7 +845,7 @@ image::Clear1.png[width="600"]
 ==== Undo notes action: `undo`
 
 Made a mistake in the notes feature?
-Worry not because you can `undo` your mistake!
+Do not worry because you can `undo` your mistake!
 
 Using our `undo` command will not only undo your last undoable command, it will also inform you of exactly what action is being undone.
 
@@ -867,21 +860,21 @@ image::Undo2.png[width="500"]
 
 =====
 --
-image::tip.png[width = "20",float = "left"]
+image::tip.png[width = "20"]
 --
 
 * You can only perform undo on undoable commands.
 Undoable commands are: `add`, `edit`, `delete`, `clear` and `open`.
-* You can undo as many commands as you wish until there are no more commands that can be undone.
+* You can undo as many times as you wish until there are no more commands that can be undone.
 * `open` command is undoable because it changes the number of times the notes is accessed.
 =====
 
 ==== Redo notes action: `redo`
 
 Regret making that undo action?
-Once again, worry not because you can `redo` your action!
+Once again, do not worry because you can `redo` your action!
 
-Using our `redo` feature will not only redo your command, it will also inform you of exactly what action is being redone.
+Using the `redo` feature will not only redo your last undone action, it will also inform you of exactly what action is being redone.
 
 Format: `redo`
 
@@ -894,14 +887,14 @@ image::Redo1.png[width="500"]
 
 
 ====
-image::tip.png[width = "20", float="left"]
+image::tip.png[width = "20"]
 
-* You can only redo an undone command.
-* You can redo as many commands as you wish until there are no more commands that can be redone.
+* You can only perform redo on a command that has been undone.
+* You can redo as many times as you wish until there are no more commands that can be redone.
 ====
 ====
 --
-image::warning.png[width = "20", float="left"]
+image::warning.png[width = "20"]
 --
 * If you perform a new undoable command, all existing redoable commands will be cleared.
 ====
