@@ -225,6 +225,7 @@ public class SystemCommandParser {
 
         case RegisterPatientCommand.COMMAND_WORD:
         case EditPatientDetailsCommand.COMMAND_WORD:
+        case EnqueueCommand.COMMAND_WORD:
             return new SetFocusOnTabCommand(OmniPanelTab.PATIENTS_TAB);
 
         case RegisterStaffCommand.COMMAND_WORD:
