@@ -11,7 +11,6 @@ Craving for a nice bowl of Mala but can’t seem to save up enough for it? guilt
 *aspiring to be able to afford their Mala*, finally!
 
 ==== Summary of contributions
-Data Presentation:
 
 * *Major enhancement*: added *Statistics Breakdown along with Categories*
 ** What it does: allows the user to view the statistics of his spending, whether it be by daily through a bar chart or by category
@@ -26,7 +25,7 @@ to include allowing it to find for all fields of the entry.
 ** Justification: This feature improves the product as there is more Data Organization and the user can choose what data to see through find.
 ** Highlights: This feature involves sorting the exiting list of entries and filtering them, and hence requires an understanding of how the entries are saved to carry out calculation operations on them.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dandford&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dandford&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
 
 * *Other contributions*:
 
@@ -37,16 +36,9 @@ to include allowing it to find for all fields of the entry.
 ** Enhancements to existing features:
 *** Wrote additional tests for basic features and Statistics to increase coverage from 8% to 25%: https://github.com/AY1920S1-CS2103-T16-4/main/pull/268[#268], https://github.com/AY1920S1-CS2103-T16-4/main/pull/272[#272], https://github.com/AY1920S1-CS2103-T16-4/main/pull/277[#277]
 ** Documentation:
-*** Standardized the User Guide and Developer's Guide
-*** Designed the layout for User Guide(Pictures)
+*** Standardized the User Guide and Developer's Guide.
 ** Community:
 *** Set up the basic structure for the project. (Creation of expenses classes): https://github.com/AY1920S1-CS2103-T16-4/main/pull/67[#67]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
 
 === Contributions to the User Guide
 
@@ -144,14 +136,9 @@ Finding allows the user to organize GuiltTrip to filter out what he wants to see
 === Data Presentation: Categories
 As the section for Categories is too huge, I included a small section on editingCategories command function.
 
-There are 3 main checks to be carried out when interacting with `Category`.
-
-* When adding a Category, there is a need to check that the new Category added does not
-exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)`.
 * When editing a `Category`, there is a need to check that the new Category added does not
 exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)` as well as a need to check
 if there are existing entries of the original `Category` to carry out modifications on them.
-* When deleting a `Category`, there is a need to check if there are any entries that have the `Category` as a field.
 
 Given below is an example of an activity diagram for editing a category to illustrate the point above.
 
