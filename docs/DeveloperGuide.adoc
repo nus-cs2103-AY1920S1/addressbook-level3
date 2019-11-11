@@ -128,6 +128,7 @@ The `Model`,
 
 
 [[Design-Storage]]
+// tag::storage-component[]
 === Storage component
 
 .Structure of the Storage Component
@@ -142,7 +143,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * uses `CentralManager` to consolidate all the data that needs to be saved. (e.g. Task Manager's data)
 * can save the `CentralManager` data in json format and read it back.
-
+// end::storage-component[]
 [[Design-Commons]]
 === Common classes
 
@@ -244,7 +245,7 @@ such as edit task command (`editT`) and delete task command (`del`).
 
 
 
-// tag:generate-pdf[]
+// tag::generate-pdf[]
 === Generate Task Summary and Delivery Orders in PDF Feature
 ==== Implementation
 Generation of PDF documents is handled by `PdfManager`.
