@@ -1,0 +1,18 @@
+@startuml
+title CloseCommand
+
+start
+
+:User executes ""Close 1"" command;
+
+if () then (Eatery 1 is already closed)
+    :Shows error message to the user;
+else (Eatery 1 is not closed)
+    :EatMe closes the Eatery specified;
+
+    :Show success message to the user;
+endif
+
+stop
+
+@enduml

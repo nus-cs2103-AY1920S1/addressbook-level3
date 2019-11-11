@@ -1,0 +1,20 @@
+@startuml
+title LoadCommand
+
+start
+
+:User executes ""Load"" command;
+
+if () then (No trailing arguments)
+    :EatMe loads owner's UserPrefs;
+
+    :Show success message to the user;
+else (Trailing ""\u name"")
+    :EatMe loads the UserPrefs specified;
+
+    :Shows success message to the user;
+endif
+
+stop
+
+@enduml

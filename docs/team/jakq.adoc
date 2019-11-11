@@ -1,0 +1,85 @@
+= Ang Kai Qi - Project Portfolio for EatMe
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: EatMe
+
+---
+
+== About the Project
+My team of 5 software engineering students and I were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering Project.
+We chose to morph it into an eatery records management called EatMe. This enhanced application enables users to file and recall eatery information; manage places visited and to be visited; and reading up on places visited by my favourite food bloggers.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+image:Ui.png[width=600]
+
+== Summary of contributions
+* *Code Contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=jakq[Code Contributed]
+
+* *Major enhancement*: added *the ability to Load your friends' Eatery List*
+** What it does: Allows the user to view and share their friends' Eatery List.
+** Justification: This feature improves the product because it creates social interaction among friends and users to share their favourite places easily. This is especially important in deciding where to
+eat with friends on common places they like to eat. Unfortunately this extra feature will only be available in future releases.
+** Highlights:
+*** This feature was challenging to build as tracing the UserPrefs was a tricky process. It was discovered that the UserPref was saved after exiting the application
+although the user is never allowed to edit the UserPrefs initially. Thus overriding any changes done to the `preferences.json` file.
+*** This implementation of this feature's test is challenging as the load command results in the file being named according to the `System.getProperty("user.name)"` in the data path folder created only when the application is ran for the first time,
+and thus during the test, we had to be conscious of overriding the load command's file Path and create separate data folders for the test.
+*** This feature affects other commands as after loading the desired file, the user will be prompted to relaunch the application to switch files. However, failure to do so and on the user's insistence on
+executing other commands would affect the current file being displayed on the GUI.
+
+** Credits: _{Our team's techlead Daryl, helped in identifying the test case constraints and fixing the errors found.}_
+
+** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/166[#166]
+
+* *Major enhancement*: Added a `close` and `reopen` command that allows the user to close or reopen eateries.
+** What it does: Allows the user to close or reopen an eatery that has either closed or reopened for business.
+** Justification: This feature improves the product as it allows the user to record if the eatery is still in business, thereby reducing the possibility of the user suggesting an eatery to his friends that is closed.
+** Highlights:
+*** This feature was tedious to implement as now a new boolean field is added to the Eatery class. Hence, all the existing commands and methods that create a new eatery have to take into consideration this new field
+that needs to be set.
+*** This feature allowed us to implement a visual effect on the eatery list panel on the right so that users can tell off hand if the eatery is closed without the `show` command.
+
+** Credits: _{Our team's techlead Daryl, helped in implementing the visual changes.}_
+** Relevant PRs: https://github.com/AY1920S1-CS2103T-W11-3/main/pull/76[#76],  https://github.com/AY1920S1-CS2103T-W11-3/main/pull/79[#79],  https://github.com/AY1920S1-CS2103T-W11-3/main/pull/96[#96]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed deadlines for documentations
+** Documentation:
+*** Updated the Developer Guide with new information (PRs https://github.com/AY1920S1-CS2103T-W11-3/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/82[#82], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/187[#187])
+*** Standardized the Developer Guide for draft 1 (https://github.com/AY1920S1-CS2103T-W11-3/main/pull/92[#92])
+*** Enforced User Guide standard for draft 1 (https://github.com/AY1920S1-CS2103T-W11-3/main/pull/91[#91])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W11-3/main/pull/74[#74], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/84[#84],
+https://github.com/AY1920S1-CS2103T-W11-3/main/pull/93[#93], https://github.com/AY1920S1-CS2103T-W11-3/main/pull/177[#177]
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+** Others:
+*** Refactored AddressBook to Eatery List (https://github.com/AY1920S1-CS2103T-W11-3/main/pull/61[#61])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=load]
+
+include::../UserGuide.adoc[tag=close]
+
+include::../UserGuide.adoc[tag=reopen]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=close]
+
+include::../DeveloperGuide.adoc[tag=reopen]
+
+include::../DeveloperGuide.adoc[tag=load]
+

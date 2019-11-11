@@ -534,10 +534,12 @@ Step 4. The user then decides that he wants to close another Eatery.
 If the index given points to an Eatery already closed (ie, 1 in this situation), CloseCommand will throw a CommandException to the user rather than attempting to close the Eatery.
 
 The following sequence diagram shows how the `close` command works:
-image::CloseSequenceDiagram.png[]
+
+image:CloseSequenceDiagram.png[width=600]
 
 The following activity diagram summarizes what happens when a user executes a new `close` command:
-image::CloseCommitActivityDiagram.png[]
+
+image:CloseCommitActivityDiagram.png[width=400]
 
 ==== Design Considerations
 ===== Aspect: How Close executes
@@ -561,6 +563,7 @@ image::CloseCommitActivityDiagram.png[]
 ** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
 // end::close[]
 
+//tag::reopen[]
 === Reopen Eatery feature
 ==== Implementation
 
@@ -583,10 +586,12 @@ Step 4. The user then decides that he wants to reopen another Eatery.
 If the index given points to an Eatery already reopened (ie, 1 in this situation), ReopenCommand will throw a CommandException to the user rather than attempting to reopen the Eatery.
 
 The following sequence diagram shows how the `reopen` command works:
-image::ReopenSequenceDiagram.png[]
+
+image:ReopenSequenceDiagram.png[width=600]
 
 The following activity diagram summarizes what happens when a user executes a new `reopen` command:
-image::ReopenCommitActivityDiagram.png[]
+
+image:ReopenCommitActivityDiagram.png[width=400]
 
 ==== Design Considerations
 ===== Aspect: How Reopen executes
@@ -608,6 +613,7 @@ image::ReopenCommitActivityDiagram.png[]
 * **Alternative 2:** Maintain two separate lists of Eateries for Reopened and Closed.
 ** Pros: Reopened Eateries stored apart from Closed Eateries. Commands executed will only affect Eateries stored in a particular list.
 ** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
+//end::reopen[]
 
 // tag::modeCommand[]
 === Changing Mode of EatMe feature
@@ -748,8 +754,9 @@ This situation will result in the user requiring to type the whole `add` command
 
 ===== Aspect: Data structure to support SaveTodo Command
 * **Alternative 1 (current choice):** No additional data structure is required for `SaveTodo` command
-
 //end::saveTodoCommand[]
+
+//tag::load[]
 === Load friend's EateryList feature
 ==== Implementation
 
@@ -778,10 +785,12 @@ If the user attempts to load a file that does not exist in the default filepath,
 Step 5. The user then decides that he wants to change his `UserPrefs` back to his own instead. Before exiting the application, the user can still enter `load` command to reset the `UserPrefs` of the `ModelManage` back to his own Eatery List.
 
 The following sequence diagram shows how the `load` command works:
-image::LoadSequenceDiagram.png[]
+
+image:LoadSequenceDiagram.png[width=600]
 
 The following activity diagram summarizes what happens when a user executes a new `load` command:
-image::LoadCommitActivityDiagram.png[]
+
+image:LoadCommitActivityDiagram.png[width=400]
 
 ==== Design Considerations
 ===== Aspect: How Load executes
@@ -803,6 +812,7 @@ image::LoadCommitActivityDiagram.png[]
 ** Cons:
 *** Harder to implement.
 *** Might confuse the user if the UserPaths has been changed. Especially if the friend's EateryList is similar to the user (i.e. same school).
+//end::load[]
 
 === Logging
 
@@ -836,6 +846,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+//tag::appendix[]
 [appendix]
 == Product Scope
 
@@ -1004,6 +1015,7 @@ Cons:
 
 * Unable to delete lists
 * Unable to search
+//end::appendix[]
 
 [appendix]
 == Instructions for Manual Testing
