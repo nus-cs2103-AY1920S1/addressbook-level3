@@ -721,6 +721,9 @@ Keyword: `sort status`
 
 Format: `sort status`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `sort status` only applies to the claims list
 
@@ -759,6 +762,9 @@ Keyword: `reverse date`
 
 Format: `reverse date`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse date` doesn't apply to contacts list
 
@@ -775,6 +781,9 @@ Format: `reverse status`
 
 // end::reversefeature[]
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse status` only applies to the claims list
 
@@ -844,7 +853,7 @@ above to pop up.
 
 ====
 
-//@@{lawncegoh}
+//@@author{lawncegoh}
 // tag::clearfeature[]
 === Clearing all data : `clear`
 
@@ -891,7 +900,6 @@ Example:
 * Creates an alternative keyword for the command `add_contact`
 * Now `AC` can be used as a replacement to add a contact
 ****
-
 
 === Exiting the program : `exit`
 
@@ -1031,6 +1039,18 @@ e.g.
 
 * *Deleting Contacts* `delete_contact INDEX` +
 e.g. `delete_contact 3`
+
+* *Sorting Lists* `sort` +
+e.g.
+** `sort name`
+** `sort date`
+** `sort status` (only in Claims List)
+
+* *Sorting Lists in reverse order* `reverse` +
+e.g.
+** `reverse name`
+** `reverse date`
+** `reverse status` (only in Claims List)
 
 * *Viewing Budget* `budget`
 
