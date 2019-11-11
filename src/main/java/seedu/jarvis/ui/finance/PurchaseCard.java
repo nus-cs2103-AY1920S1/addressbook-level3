@@ -1,5 +1,7 @@
 package seedu.jarvis.ui.finance;
 
+import java.text.NumberFormat;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -13,6 +15,8 @@ import seedu.jarvis.ui.UiPart;
 public class PurchaseCard extends UiPart<Region> {
 
     private static final String FXML = "PurchaseListCard.fxml";
+
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance();
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -40,7 +44,7 @@ public class PurchaseCard extends UiPart<Region> {
         this.purchase = purchase;
         id.setText(displayedIndex + ".");
         description.setText(purchase.getDescription().getPurchaseDescription());
-        moneySpent.setText("I paid $" + purchase.getMoneySpent().toString());
+        moneySpent.setText("I paid " + currencyFormatter.format(purchase.getMoneySpent().getPurchaseAmount()));
         dateOfPurchase.setText("on " + purchase.getDateOfPurchase().toString());
     }
 

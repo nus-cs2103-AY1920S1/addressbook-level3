@@ -207,7 +207,7 @@ The default display ia a column on the left for all the tasks in the planner, an
 schedule. The schedule consists two lists stacked on top of each other - the top one showing tasks happening on that
 day and the bottom showing tasks happening that week.
 
-==== Adding a task: `add-task`
+==== Add a task: `add-task`
 The most fundamental command for the Planner - `add-task` adds a task to the Planner.
 
 [[link-attributes]]
@@ -250,7 +250,7 @@ add-task t/deadline des/cs2101 assignment d/20/9/2019 p/high
 And as simple as that, `Jarvis` can begin to keep track of
 your tasks for you!
 
-==== Deleting a task: `delete-task`
+==== Delete a task: `delete-task`
 If you want to keep your list of tasks updated and current, you can easily delete tasks from the planner.
 
 Format: `delete-task INDEX`
@@ -262,7 +262,7 @@ where `INDEX` is the **one-based** index of the task list.
 delete-task 3
 ----
 
-==== Finding a task: `find-task`
+==== Find a task: `find-task`
 Too many tasks to comb through? Ask `Jarvis` to find a task for you based on one or more keywords that match the
 descriptions of your tasks.
 
@@ -281,7 +281,7 @@ find-task assignment
 find-task homework cs ma1101r
 ----
 
-==== Updating a task's status: `done-task`
+==== Update a task's status: `done-task`
 Once you have completed a task (hooray!), you can let `Jarvis` know. By default on
 `add-task`, all tasks are marked as undone, represented by a `[✗]`. Upon marking the task as done, the task will be
 represented with a `[✓]`, as seen in Figure 5 below.
@@ -295,7 +295,7 @@ Format: `done-task INDEX`
 
 where `INDEX` is the **one-based** index of the task list.
 
-==== Sorting tasks by attribute: `pull-task`
+==== Sort tasks by attribute: `pull-task`
 To get a quick glimpse of all the tasks you have in your Planner that match a certain <<link-attributes, attribute>>,
 simply pull all tasks relating to that attribute.
 
@@ -316,13 +316,13 @@ NOTE: `pull-task` is different from `find-task` so as to make a clear distinctio
 by task description only (`find-task`), and looking for tasks based on specific attributes (`pull-task`).
 
 
-==== Listing all tasks: `list-task`
+==== List all tasks: `list-task`
 Lists all the tasks in the Planner. Using `list-task` while on another page of Jarvis will
 pull up the Planner tab.
 
 Format: `list-task`
 
-==== Editing a task: `edit-task` [v2.0]
+==== Edit a task: `edit-task` [v2.0]
 As you approach the deadlines for certain tasks, you might want to increase their priority levels. Soon, you will be able
 to edit existing tasks instead of deleting and adding them back in again.
 
@@ -342,7 +342,7 @@ edit-task 2//des/project part 2 d/18/09/2019
 edit-task 3//f/weekly
 ----
 
-==== Clearing entries: `clear-task` [v2.0]
+==== Clear entries: `clear-task` [v2.0]
 Soon you will also be able to delete multiple entries at one go. Tasks can be cleared by `#TAG` or `d/DATE` - where
 tasks with the specified tag or date will be cleared.
 The command `clear-task` with no parameters succeeding it will result in all tasks
@@ -409,8 +409,8 @@ Format: `delete-paid INDEX`
 NOTE: `INDEX` corresponds to *one based* index shown on the list __What I bought this month...__ under the Finance tab.
 This also means that the index must exist within this list!
 
-==== Searching for a purchase: `find-paid`
-To have a quick view of the number of cups of Gongcha you have bought over the last month, you can used `find-paid`
+==== Find a purchase: `find-paid`
+To have a quick view to see what you have been eating for dinner over the last month, you can use `find-paid`
 to pull up purchases with descriptions matching `KEYWORD` provided.
 
 .Display for find-paid
@@ -462,7 +462,7 @@ edit-install 2 d/Spotify student plan
 edit-install 2 d/Spotify student plan a/7.50
 ----
 
-==== Setting a monthly spending limit: `set-limit`
+==== Set a monthly spending limit: `set-limit`
 Taking control of your spending might mean asking `Jarvis` to set a cap on your monthly budget.
 //todo what happens when you exceed your budget
 
@@ -474,14 +474,14 @@ set-limit a/300
 set-limit a/500.90
 ----
 
-==== Listing finances: `list-finances`
+==== List finances: `list-finances`
 Lists all the purchases in the Finance Tracker. Using `list-task` while on another page of `Jarvis` will
 pull up the Finance tab. If you have previously searched through your purchases for something, `list-finances`
 will return the original list of purchases.
 
 Format: `list-finances`
 
-==== Exporting to File: `export` [v2.0]
+==== Export to File: `export` [v2.0]
 Conveniently export your expenditures to either a txt, csv, or xlsx file..
 
 Format: `export {csv | txt | xlsx} f/FILENAME`
@@ -523,7 +523,7 @@ Within the Progress Tracker:
 3. The area below Box 2 displays the current milestone you are at, the next milestone succeeding the current
 one, and the fraction of milestones that have been completed.
 
-==== Adding a CCA: `add-cca`
+==== Add a CCA: `add-cca`
 To start, we can add some CCAs to the CCA Tracker. You will need to specify
 the name of the cca and the type of the CCA.
 
@@ -543,7 +543,7 @@ add-cca n/Piano t/performingArt e/piano e/musical score e/metronome
 add-cca n/Red cross t/uniformedGroup e/uniform e/first aid kit e/stretcher e/beret
 ----
 
-==== Deleting a CCA: `delete-cca`
+==== Delete a CCA: `delete-cca`
 New semester, new CCAs - deleting outdated ones is a breeze.
 
 Format: `delete-cca INDEX`
@@ -558,7 +558,7 @@ delete-cca 1
 index must exist within this list!
 
 
-==== Editing a CCA: `edit-cca`
+==== Edit a CCA: `edit-cca`
 If you have bought the latest tuner for your piano or some new running shoes, let `Jarvis`
 know so that the changes to your CCAs can be updated!
 
@@ -574,14 +574,14 @@ edit-cca 2 p/beginner p/intermediate p/advanced p/half-marathon p/full marathon 
 [NOTE]
 Note that you will have to re-type each `EQUIPMENT` if you wish to add additional `EQUIPMENT` to the selected cca!
 
-==== Listing a CCA: `list-cca`
+==== List a CCA: `list-cca`
 Lists all your CCAs in the CCA Tracker. Using `list-cca` while on another page of Jarvis will
 pull up the CCA Tracker tab.
 
 Format: `list-cca`
 
 
-==== Finding a CCA: `find-cca`
+==== Find a CCA: `find-cca`
 For a quick view of CCAs matching one or more keywords, `find-cca` will come in useful.
 
 .Display for find-cca
@@ -597,7 +597,7 @@ find-cca swimming
 find-cca canoeing guitar
 ----
 
-==== Adding progress levels for a CCA: `add-progress`
+==== Add progress levels for a CCA: `add-progress`
 Often, we strive to reach certain milestones in our CCAs. For example, in learning the piano, you might be aiming to
 progress through the various grade levels available. With `add-progress`,
 `Jarvis` can help you set and keep track of your progress towards each milestone in each of your CCAs.
@@ -610,7 +610,7 @@ add-progress 1 p/Grade 1 p/Grade 2 p/Grade 3 p/Grade 4 p/Grade 5 p/Grade 6 p/Gra
 add-progress 2 p/LCP p/Corporal p/Sergeant p/Staff Sergeant p/Warrant Officer p/Senior Warrant Officer
 ----
 
-==== Incrementing progress level: `increment-progress`
+==== Increment progress level: `increment-progress`
 Each time you have made progress towards any of your milestones, let `Jarvis` know! The progress bar for each CCA
 provides a clear view of how much closer you are to their respective milestones.
 
@@ -677,7 +677,7 @@ different pieces of information depending on the commands entered.
 
 Let's see what the Course Planner can do:
 
-==== Adding a course: `add-course`
+==== Add a course: `add-course`
 To get started, you can add specific course(s) to your list. Jarvis is able to
 add multiple courses at one go.
 
@@ -692,7 +692,7 @@ add-course c/CS1010
 add-course c/CS1010 c/CS2030 c/CS2040
 ----
 
-==== Adding a course with grades: `add-course` [v2.0]
+==== Add a course with grades: `add-course` [v2.0]
 If you wish, you may add a course that has a grade attached to it. This is to
 facilitate Jarvis' understanding of the courses you have already taken. Jarvis
 will use such information in the calculation of your CAP (Cumulative Average
@@ -713,7 +713,7 @@ add-course c/CS2040 g/A+ c/CS2100 g/B- c/MA1521 g/B+
 Every `GRADE` is tethered to the preceding `COURSECODE`, so the parameters to
 this command must be entered in the specified order!
 
-==== Deleting a course: `delete-course`
+==== Delete a course: `delete-course`
 You can easily delete a course from your list - either by the index of the
 course in the list, or by its course code.
 
@@ -725,7 +725,7 @@ delete-course c/CS1010
 delete-course 2
 ----
 
-==== Looking up a course's information: `lookup`
+==== Look up a course's information: `lookup`
 You can also retrieve information about a specific course - such as course
 title, course code, number of credits and what the course is about. The
 information will be displayed in the result box on the right of the Course
@@ -746,7 +746,7 @@ Format: `lookup c/COURSECODE`
 lookup c/CS1010
 ----
 
-==== Checking a course: `check`
+==== Check a course: `check`
 If you are not sure if you can take a certain course next semester, this
 feature will come in handy. Simply `check` the course in question. The result
 is dependent on the courses you have added to your list, and `Jarvis` will
@@ -768,7 +768,7 @@ Format: `check c/COURSECODE`
 check c/CS1010
 ----
 
-==== Checking your CAP: `cap` [v2.0]
+==== Check your CAP: `cap` [v2.0]
 If you wish to check your current CAP (Cumulative Average Point), you can do
 so with the command `cap`. Jarvis assumes that any course that does not have
 a grade attached to it in your list have not, or are currently being taken
@@ -846,7 +846,7 @@ will let you know if `[NUMBER]` is out of range).
 If `[NUMBER]` parameter is not
 supplied, then `[NUMBER]` is taken to be the value *1*.
 
-==== undo command(s): `undo`
+==== Undo command(s): `undo`
 Format: `undo [NUMBER]`
 
 where `[NUMBER]` is an optional argument indicating the number of commands that you
@@ -868,7 +868,7 @@ It is equivalent to the command `undo 1`
 * `undo 5` -- This command will undo the 5 latest commands entered by the user,
 starting from the latest command.
 
-==== redo command(s): `redo`
+==== Redo command(s): `redo`
 Format: `redo [NUMBER]`
 
 where `[NUMBER]` is an optional argument indicating the number of commands that you
@@ -895,7 +895,7 @@ starting from the latest command that was undone.
 If you have entered new commands after undoing previous commands, you will not be able to redo the old
 commands.
 
-==== list the number of commands you can undo or redo: `list-history`
+==== List the number of commands you can undo or redo: `list-history`
 `Jarvis` can provide you with the maximum number of commands you can `undo` and `redo` - which will be shown
 in the Command Result Box.
 
