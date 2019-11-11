@@ -487,6 +487,8 @@ Adds a Favorite tag to the second bookmark in the bookmark manager.
 
 '''
 
+//tag::FolderCommandsPreface[]
+
 === Folders
 
 The following commands carry out operations on folders in Mark.
@@ -498,6 +500,8 @@ For example, if you have have just performed a `find` command and the bookmark l
 shrink from showing 100 bookmarks to 10.
 
 TIP: You can use the `list` command to see all your bookmarks in the folder hierarchy.
+
+//end::FolderCommandsPreface[]
 
 ==== Expanding the folder hierarchy: *`expand`*
 
@@ -555,7 +559,7 @@ Other xamples:
 Collapses the folder hierarchy by 9999 levels, most likely collapsing them all the way.
 
 [[folder]]
-//tag::AddFolderCommand[]
+//tag::FolderCommands[]
 ==== Adding a folder: *`folder`*
 
 // Context
@@ -586,7 +590,6 @@ Other examples:
 
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
-//end::AddFolderCommand[]
 
 ==== Editing a folder: *`folder-edit`*
 
@@ -612,6 +615,8 @@ image::EditFolderCommandUi2.png[]
 * `FROM_FOLDER_NAME` must exist be an existing folder. (Note that you cannot edit the `ROOT` folder.)
 * `TO_FOLDER_NAME` must NOT be an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
 ****
+
+//end::FolderCommands[]
 
 ==== Deleting a folder: *`folder-delete`*
 

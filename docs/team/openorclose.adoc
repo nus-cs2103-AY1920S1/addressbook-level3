@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:sectnums:
 
 == Project: Mark (adapted from AddressBook - Level 3)
 
@@ -11,7 +12,7 @@
 
 This project portfolio aims to document my contributions to Mark, a project by my team of 5 Computer Science students from NUS.
 
-Adapted from AddressBook - Level 3, Mark is a user-friendly bookmark manager application targeted at *NUS Computing students*, mainly for use on a computer and for students who prefer getting things done by typing out commands.
+Adapted from AddressBook - Level 3, Mark is a user-friendly bookmark manager desktop application targeted at *NUS Computing students*, mainly for use on a computer and for students who prefer getting things done by typing out commands via the command line interface (CLI).
 
 Here are some key features of Mark:
 
@@ -58,8 +59,9 @@ one long list and having to search for them.
 |===
 
 _(start of extract from User Guide)_
+include::../UserGuide.adoc[tag=FolderCommandsPreface]
 
-include::../UserGuide.adoc[tag=AddFolderCommand]
+include::../UserGuide.adoc[tag=FolderCommands]
 
 _(end of extract from User Guide)_
 
@@ -69,4 +71,7 @@ _(end of extract from User Guide)_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+_(start of extract from Developer Guide)_
+
 include::../DeveloperGuide.adoc[tag=folders]
+_(end of extract from Developer Guide)_
