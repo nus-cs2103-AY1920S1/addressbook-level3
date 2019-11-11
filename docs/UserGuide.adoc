@@ -833,6 +833,12 @@ image::cashierUG/AddCommand3.png[width="600"]
 
 Leo will respond to the successful addition with a response message. The newly added item will be shown on the table.
 
+[NOTE]
+After you have executed this command, `Cashier Mode` will be immediately turned on. As long as `Cashier Mode` is turned on,
+the system will prohibit you from modifying any *existing items* in the Inventory tab except adding of items with new description.
+This is to ensure no one can tamper with the data in the inventory while a purchase is being made. If you wish to alter any
+existing items in inventory, please enter the "clear" command on Cashier tab.
+
 ==== Delete a Sales Item from the Table
 This command allows you to delete a sales item from the table.
 

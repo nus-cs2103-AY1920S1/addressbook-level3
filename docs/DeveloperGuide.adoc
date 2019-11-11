@@ -799,9 +799,6 @@ There will also be checks to ensure that the item specified is available for sal
 
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
 
-[NOTE]
-If the user added an item such that the total amount exceed $999999.99, the system will prohibit the addition of that item.
-
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works:
 
 .Sequence Diagram of Add Command in Cashier Tab (cashier package)
