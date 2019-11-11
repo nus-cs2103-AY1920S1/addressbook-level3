@@ -282,11 +282,11 @@ Shows a single entity with given ID.
 
 Examples:
 
-* `list mentors M-1` will show the mentor with ID M-1 stored within Alfred.
+* `view mentor M-1` will show the mentor with ID M-1 stored within Alfred.
 
-* `list participants P-1` will show the hackathon participant with ID P-1 stored within Alfred.
+* `view participant P-1` will show the hackathon participant with ID P-1 stored within Alfred.
 
-* `list teams T-1` will show the hackathon team with ID T-1 stored within Alfred.
+* `view team T-1` will show the hackathon team with ID T-1 stored within Alfred.
 
 === Deleting an Entity: `delete {mentor/participant/team} ID`
 Deletes an Entity, so that Alfred will no longer keep track of that Entity.

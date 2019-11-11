@@ -451,7 +451,7 @@ image::ImportCommandSequenceDiagram.png[pdfwidth=80%, align="center"]
 
 As the above figure shows, the file path from the user input is extracted and passed as a field for `ImportCommand`. Then, Alfred proceeds to convert file content into relevant entities.
 
-When `ImportCommand` parses and adds entities to `Model`, it is crucial that teams are the last entities to be added. In the above sequence diagram, this process of buffering teams was also omitted for simplicity. Basically, in the `parseLineToEntity()` method, if a line in CSV file corresponds to a team, the line will be buffered to be parsed after all the other lines have been parsed. The reason for this is because teams may have dependencies on other participants and mentors. It is required that all of the participants and mentors associated with a team, say Team A, exist inside the `Model` before Team A can be added.
+When `ImportCommand` parses and adds entities to `Model`, it is crucial that teams are the last entities to be added. In the above sequence diagram, this process of buffering teams was also omitted for simplicity. Basically, in the `#parseLineToEntity()` method, if a line in CSV file corresponds to a team, the line will be buffered to be parsed after all the other lines have been parsed. The reason for this is because teams may have dependencies on other participants and mentors. It is required that all of the participants and mentors associated with a team, say Team A, exist inside the `Model` before Team A can be added.
 
 So as `ImportCommand` accesses the CSV file line by line, the line representing a team will be stored in a `Queue<String>` for later use. When the end of file is reached and all other participants and mentors are parsed and added to `Model`, the `ImportCommand` will poll from the `Queue`, parse into a relevant team, and add it to the `Model` until the `Queue` is empty.
 
@@ -468,14 +468,14 @@ First, the following is a sequence diagram for parsing a CSV line into a partici
 .`CsvUtil`: Parsing to Participant Sequence Diagram
 image::CsvUtilParseParticipantSequenceDiagram.png[]
 
-Given CSV line is first split by commas (also allows commas surrounded by arbitrary number of spaces). Then, each `String` in the array is (attempted to be) converted into corresponding fields of a Participant. As the diagram shows, each field class has its own method for checking if the given `String` argument is valid - in the form of `isValidField()` method, where `Field` is replaced by its respective class name. Once each field is successfully converted, a Participant is created with the parsed fields. The process of parsing into a Mentor is practically equivalent of that of a Participant. The only change is in the fields being parsed.
+Given CSV line is first split by commas (also allows commas surrounded by arbitrary number of spaces). Then, each `String` in the array is (attempted to be) converted into corresponding fields of a Participant. As the diagram shows, each field class has its own method for checking if the given `String` argument is valid - in the form of `#isValidField()` method, where `Field` is replaced by its respective class name. Once each field is successfully converted, a Participant is created with the parsed fields. The process of parsing into a Mentor is practically equivalent of that of a Participant. The only change is in the fields being parsed.
 
 Next is a sequence diagram for parsing a CSV line into a team. The line to be parsed is `"T,,Justice League,[P-1|P-2],M-1,Social,100,Save the Earth,1"`.
 
 .`CsvUtil`: Parsing to Team Sequence Diagram
 image::CsvUtilParseTeamSequenceDiagram.png[]
 
-Also for teams, each corresponding `String` is converted to its field counterpart just like participants and mentors. Hence, `isValidField()` method was omitted from the diagram. The difference lies in the fact that for teams, Alfred must check if any participants or mentors it makes a reference to actually exists in `Model`. Thus, `CsvUtil` calls `getParticipant()` and `getMentor()` methods exposed by the `Model` class. If there are any exceptions raised while retrieving the participants and mentors, that line in CSV will not be loaded onto Alfred.
+Also for teams, each corresponding `String` is converted to its field counterpart just like participants and mentors. Hence, `#isValidField()` method was omitted from the diagram. The difference lies in the fact that for teams, Alfred must check if any participants or mentors it makes a reference to actually exists in `Model`. Thus, `CsvUtil` calls `Model#getParticipant()` and `Model#getMentor()` methods exposed by the `Model` class. If there are any exceptions raised while retrieving the participants and mentors, that line in CSV will not be loaded onto Alfred.
 
 ==== Implementation: Outputting Error File
 
@@ -516,7 +516,7 @@ Alternative 2 was chosen because of the additional benefits `Path` class provide
 * *Alternative 2 (Current Choice):* Create an `Error` wrapper class
 
 ** Pros: Able to store line number, content of line, and cause of error in one object.
-** Pros: Makes sorting of multiple `Error` objects easier through a `compareTo()` method. This proves useful when a buffered line (representing a team) contains error.
+** Pros: Makes sorting of multiple `Error` objects easier through a `#compareTo()` method. This proves useful when a buffered line (representing a team) contains error.
 ** Pros: Able to display multiple information to user in a neat fashion.
 
 We chose Alternative 2 because `Error` class will be able to provide a more detailed explanation more simply than using a `String`. By displaying to the user the line number and the reason why the line was not able to be imported into Alfred would save user tons of time trying to locate where the line is in the CSV file and why it caused a problem. However, we figured that knowing the line number would not help much in locating the line in the CSV file if the file is huge, hence the next aspect.
@@ -535,7 +535,7 @@ We chose Alternative 2 because `Error` class will be able to provide a more deta
 ** Cons: The user will not know the reason why certain line caused an error.
 ** Cons: May be a bit overkill, especially if only one or two lines were invalid.
 
-This aspect has no **(Current Choice)** attached to any alternative because Alfred utilizes both. As mentioned before, Alternative 2 will be carried out if the user specifies an error file path. Then, whether or not the user has provided the error file path, Alfred will still include an error message in the `CommandResult` box if there are any.
+This aspect has no *(Current Choice)* attached to any alternative because Alfred utilizes both. As mentioned before, Alternative 2 will be carried out if the user specifies an error file path. Then, whether or not the user has provided the error file path, Alfred will still include an error message in the `CommandResult` box if there are any.
 
 ===== Aspect: Assigning of Participants and/or Mentor to Teams through `ImportCommand`
 
@@ -588,7 +588,7 @@ You can see that `CsvUtil` receives the `EntityList` of each entity type from `M
 
 Exporting all the data from Alfred to a CSV file is nice, but sometimes, the user may only want the data of a specific entity. This would be handled by the subclasses of `ExportCommand`, which consists of `ExportMentorCommand`, `ExportParticipantCommand`, and `ExportTeamCommand`. Similar to their superclass, the subclasses also depend on `FileUtil` and `CsvUtil` classes to create and write data to CSV files.
 
-The overall flow is the same so you can refer to the aforementioned <<ExportCommandActivityDiagram, activity diagram>> and <<ExportCommandSequenceDiagram, sequence diagram>> for more information. The only difference is when the subclasses call `CsvUtil`. If you recall, `ExportCommand` passes `Model` to `CsvUtil`. For each subclass, they will retrieve the respective `ReadOnlyEntityList` and pass to `CsvUtil`. The above activity diagram shows that in `CsvUtil`, it makes three method calls to itself: `writeToCsv(File, MentorList)`, `writeToCsv(File, ParticipantList)`, and `writeToCsv(File, TeamList)`. These three methods are the methods that each subclass will call.
+The overall flow is the same so you can refer to the aforementioned <<ExportCommandActivityDiagram, activity diagram>> and <<ExportCommandSequenceDiagram, sequence diagram>> for more information. The only difference is when the subclasses call `CsvUtil`. If you recall, `ExportCommand` passes `Model` to `CsvUtil`. For each subclass, they will retrieve the respective `ReadOnlyEntityList` and pass to `CsvUtil`. The above activity diagram shows that in `CsvUtil`, it makes three method calls to itself: `#writeToCsv(File, MentorList)`, `#writeToCsv(File, ParticipantList)`, and `#writeToCsv(File, TeamList)`. These three methods are the methods that each subclass will call.
 
 ==== Design Consideration
 
