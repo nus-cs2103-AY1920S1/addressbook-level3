@@ -80,10 +80,16 @@ Types include: +
 `guide` (opens a web browser and bring you to our user guide) +
 `api` (for advanced users who want to know the inner workings of the command)
 
-Friendly tip 1 :bulb: +
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
 Cant remember all of FinSec's commands or the command format for `help`? No worries! Even if you mistakenly
 type `help` without the other parameters or get the parameters confused, a default help window such as the one below
 will appear and display a command list with similar instructions to this page!
+
+====
 
 [[UG-HelpWindow]]
 [reftext="Figure 3.1.1"]
@@ -92,10 +98,16 @@ will appear and display a command list with similar instructions to this page!
 image::UG-HelpWindow.png[width="500"]
 
 
-
-Friendly tip 2 :bulb: +
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
 Instead of typing in `help`, you can also access help by clicking on the `help` button on the top left of the FinSec
 application GUI or just press kbd:[F1] on your keyboard as shown below!
+
+====
+
+
 
 [[UG-HelpLocation]]
 [reftext="Figure 3.1.2"]
@@ -108,15 +120,15 @@ Example commands: +
 ....
 help cmd/add_contact type/brief
 ....
-This shows you a brief description of what the `add_contact` command does and how to use it +
+This shows you a brief description of what the `add_contact` command does and how to use it
 ....
 help cmd/goto type/api
 ....
-This generates an 'API.html' file containing our API for the `goto` command, and opens it up+
+This generates an 'API.html' file containing our API for the `goto` command, and opens it up
 ....
 help cmd/help type/guide
 ....
-This opens up a page in your browser and brings you right here! :smiley:
+This opens up a page in your browser and brings you right here to this section!
 
 <<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
 [[UG-HelpExample]]
@@ -803,9 +815,14 @@ claims have been subtracted from your income stream. +
 .FinSec calculating your total projected budget value
 image::UG-BudgetExample1.PNG[width="600"]
 
-Friendly tip 1 :bulb: +
-FinSec will actually warn you if you are over budget, which would result in a negative balance.
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+You will never have to worry about going over budget, as FinSec will warn you when that happens.
+It would also result in a negative balance.
 
+====
 
 
 Next up, <<UG-BudgetExample2>> below shows the graph portion of the `budget` command, which shows your
@@ -816,8 +833,14 @@ projected income, claim and budget values for the current month.
 .FinSec displaying your projected budget over the course of the current month in a graph
 image::UG-BudgetExample2.PNG[width="600"]
 
-Friendly tip 2 :bulb: +
-Clicking on one of the data-points will cause a tooltip similar to the one shown in the picture above to pop up.
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Clicking on one of the data-points of any line will cause a tooltip similar to the one shown in the picture above to pop
+up.
+
+====
 
 //@@{lawncegoh}
 // tag::clearfeature[]
