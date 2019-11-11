@@ -19,11 +19,11 @@ import organice.commons.core.LogsCenter;
 
 import organice.logic.commands.MatchCommand;
 import organice.logic.commands.exceptions.CommandException;
+import organice.model.comparator.CompatibilityRateComparator;
 import organice.model.comparator.ExpiryDateComparator;
 import organice.model.comparator.NameComparator;
 import organice.model.comparator.NumOfMatchesComparator;
 import organice.model.comparator.PriorityComparator;
-import organice.model.comparator.SuccessRateComparator;
 import organice.model.person.Doctor;
 import organice.model.person.DoctorInCharge;
 import organice.model.person.Donor;
@@ -403,7 +403,9 @@ public class ModelManager implements Model {
     //=========== Sorted Person List Accessors =============================================================
 
     /**
-     * Sorts list by priority level.
+     * Sorts list of patients by priority level from highest to lowest.
+     * Patients of same priority will be sorted by number of matched donors they have (higher to lower number).
+     * If these two variables are the same, they will additionally be sorted by name in alphabetical order.
      */
     @Override
     public void sortByPriority() throws CommandException {
@@ -415,28 +417,28 @@ public class ModelManager implements Model {
             sortedMatchedPatients.setComparator(new PriorityComparator());
             setDisplayedPersonList(Arrays.asList(sortedMatchedPatients.toArray(Person[]::new)));
         } catch (ClassCastException | IllegalArgumentException ex) {
-            throw new CommandException("Sorting by Priority only works after 'match ic/all'.");
+            throw new CommandException("Sorting by priority only works after 'match ic/all'.");
         }
     }
 
     /**
-     * Sorts list by rate of success.
+     * Sorts list of donors of a patient by rate of compatibility from highest to lowest.
      */
     @Override
-    public void sortBySuccessRate() throws CommandException {
+    public void sortByCompatibilityRate() throws CommandException {
         try {
             sortedMatchedDonors = new SortedList<>((ObservableList<? extends MatchedDonor>) (ObservableList<?>)
                     listOfMatches);
-            sortedMatchedDonors.setComparator(new SuccessRateComparator());
+            sortedMatchedDonors.setComparator(new CompatibilityRateComparator());
             setDisplayedPersonList(Arrays.asList(sortedMatchedDonors.toArray(Person[]::new)));
         } catch (ClassCastException | IllegalArgumentException ex) {
-            throw new CommandException("Sorting by success rate "
+            throw new CommandException("Sorting by compatibility rate "
                     + "only works after executing 'match ic/[patient NRIC]'.");
         }
     }
 
     /**
-     * Sorts list by organ expiry date.
+     * Sorts list of donors of a patient by organ expiry date from the earliest to the latest date.
      */
     @Override
     public void sortByOrganExpiryDate() throws CommandException {

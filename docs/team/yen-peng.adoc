@@ -1,0 +1,117 @@
+= Yen Peng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+
+== Project Portfolio for ORGANice
+
+The purpose of this project portfolio is to present my main contributions to ORGANice.
+
+:sectnums:
+== Introduction
+
+This section covers the project scope and description, followed an explanation of the formats used.
+
+=== Project scope
+
+ORGANice is the product of a software engineering project done by a team of 5 students, including myself, who are second-year Computer Science students from the National University of Singapore (NUS).
+Under a two-month-long time frame, we conceptualised ORGANice and molded it from an existing application, known as "Address Book", that stores and manages people's contact information.
+My role in this project is to design and write the code for the `list` and `sort` features for ORGANice, and to offer advice for the design aspect of the application.
+For the languages used, ORGANice is written in Java while its Graphical User Interface (GUI) is written in JavaFX.
+
+=== Project description
+
+ORGANice is a Command Line Interface (CLI) desktop application, meaning that user interaction is mainly through typing in commands.
+This application is targeted at hospital administrators and its main features include storing hospital information,
+finding compatible donors for patients awaiting organ transplants, and following up on administrative matters related to the organ matching process.
+
+**ORGANice has the following features:**
+
+* Maintain the information of doctors, donors, and patients using `add` and `edit`
+* Find information quickly using `find` and `list`
+* Match compatible organ donors with patients and sort the matches using `match` and `sort`
+* Keep track of patient-donor pairs slated for further compatibility tests using `processing` and subsequent administrative tasks using `processingmarkdone`
+* Mark patient-donor pair as `done` to remove from future matching results
+
+=== Meaning of the formats used
+
+The following is a list of various formats used and what they mean:
+
+* `sort`  --  Purple texts are technical terms used in this project.
+* https://github.com/AY1920S1-CS2103T-T13-1/main/pull/153[#153]  --  Blue underlined texts consist of a link that opens up a relevant webpage.
+
+<<<
+
+== Summary of Contributions
+
+This section elaborates on the enhancements I did to ORGANice with the relevant links (in blue).
+
+* *Major enhancement*: Added the ability to sort matches according to different criteria. (Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/145[#145])
+** What it does: Allows the user to sort patient-donor pairs according to compatibility rate, the priority of the patients, or donors' organ expiry date.
+** Justification: Helps the hospital to make more informed decisions after knowing which pairs are the most compatible, which patient to prioritize, and which organs are expiring soon respectively.
+** Highlights: Able to add in more sorting options in future enhancements. The implementation is challenging as it required an in-depth analysis of how the match feature is implemented.
+
+* *Minor enhancement*: Added a list feature that allows the user to list down all persons or persons of a specified type in ORGANice. (Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/113[#113])
+
+* *Minor enhancement*: Added an organ class to ORGANice. (Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/86[#86])
+
+* *Minor enhancement*: Designed the logo of ORGANice, and updated the application window to display title and logo. (Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/136[#136])
+
+* *Code contributed*: You may click on the following link to see a sample of my code.
+(https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Yen-Peng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Yen-Peng&tabRepo=AY1920S1-CS2103T-T13-1%2Fmain%5Bmaster%5D[Functional and Test code])
+
+* *Other contributions*:
+** Project Management
+*** Created issues on the project board to keep track of tasks to be done.
+** Enhancements to existing features
+*** Fixed bug related to the list feature. (Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/236[#236])
+** Documentation
+*** Updated information about our team in the "About Us" section of ORGANice. (Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/11[#11])
+*** Authored the sections that guide users through the features 'Edit', 'List', 'Sort' and 'Help' in the User Guide. (Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/133[#133])
+*** Authored the implementations and use cases of the 'List' and 'Sort' features in the Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T13-1/main/pull/131[#131],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/153[#153])
+** Community
+*** Reviewed pull requests with non-trivial review comments. (Pull requests https://github.com/AY1920S1-CS2103T-T13-1/main/pull/148[#148], https://github.com/AY1920S1-CS2103T-T13-1/main/pull/150[#150])
+*** Reported bugs and offered suggestions for other teams in the class together with my teammates, Sim Nee and Iskandar.
+(Examples: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/54[1],
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/110[2])
+
+<<<
+
+== Contributions to the User Guide
+
+This section showcases my ability to write documentation targeting end-users through an excerpt of what I have written for the User Guide,
+and this includes the `sort`, `list`, `help` and `edit` features.
+
+[teal]#{Start of the excerpt from User Guide}#
+
+include::../UserGuide.adoc[tag=sort]
+
+include::../UserGuide.adoc[tag=list]
+
+include::../UserGuide.adoc[tag=help]
+
+include::../UserGuide.adoc[tag=edit]
+
+[teal]#{End of the excerpt from User Guide}#
+
+== Contributions to the Developer Guide
+
+This section showcases my ability to write technical documentation and to visually represent a system using
+Unified Modelling Language (UML) diagrams in the Developer Guide. The sequence shown in the excerpt below will be use cases for
+`list` and `sort` features, followed by their implementations, and lastly, the `Model` class diagram that I have updated.
+
+[teal]#{Start of the excerpt from Developer Guide}#
+
+include::../DeveloperGuide.adoc[tag=usecaselist]
+
+include::../DeveloperGuide.adoc[tag=usecasesort]
+
+include::../DeveloperGuide.adoc[tag=list]
+
+include::../DeveloperGuide.adoc[tag=sort]
+
+include::../DeveloperGuide.adoc[tag=modeldiagram]
+
+[teal]#{End of the excerpt from Developer Guide}#

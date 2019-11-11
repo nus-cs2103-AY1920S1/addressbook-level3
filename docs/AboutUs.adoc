@@ -48,7 +48,7 @@ Responsibilities: Ensure proper coding standards are followed.
 
 === Yip Yen Peng
 image::yen-peng.png[width="150", align="left"]
-{empty}[http://github.com/Yen-Peng[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Yen-Peng[github]] [<<yen-peng#, portfolio>>]
 
 Role: UI designer +
 Responsibilities: In charge of the UI design of the application.

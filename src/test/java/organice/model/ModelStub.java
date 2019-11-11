@@ -20,6 +20,7 @@ import organice.model.person.exceptions.PersonNotFoundException;
  * because more than one type of CommandTest class is using it.
  */
 public class ModelStub implements Model {
+
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -84,7 +85,6 @@ public class ModelStub implements Model {
     public boolean hasDoctorInCharge(DoctorInCharge doctorIc) {
         throw new AssertionError("This method should not be called.");
     }
-
 
     @Override
     public Patient getPatient(Nric patientNric) {
@@ -179,7 +179,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void sortBySuccessRate() {
+    public void sortByCompatibilityRate() {
         throw new AssertionError("This method should not be called");
     }
 
@@ -187,4 +187,5 @@ public class ModelStub implements Model {
     public void sortByPriority() {
         throw new AssertionError("This method should not be called");
     }
+
 }

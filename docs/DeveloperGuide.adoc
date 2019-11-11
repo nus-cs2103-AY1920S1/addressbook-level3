@@ -131,11 +131,13 @@ image::EditSequenceDiagram.png[]
 
 NOTE: The lifeline for `EditCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::modeldiagram[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width=630]
+// end::modeldiagram[]
 
 The `Model`,
 
@@ -163,6 +165,7 @@ Classes used by multiple components are in the `organice.commons` package.
 == Implementation
 This section describes some noteworthy details on how features in ORGANice are implemented.
 
+// tag::list[]
 === List feature
 This section describes how the list feature is implemented.
 
@@ -170,11 +173,12 @@ The list feature is implemented using the `ListCommand(Type type)`. When the lis
 the method `ModelManager#updateFilteredPersonList(Predicate<Person> predicate)` takes in a predicate
 to decide what type of `Person` to show on the `filteredPersons` list.
 
-Therefore, in addition to the existing `PREDICATE_SHOW_ALL_PERSONS` predicate, three others predicates are introduced
+Therefore, in addition to the existing `PREDICATE_SHOW_ALL_PERSONS` predicate, three other predicates are introduced
 in the `Model` interface to update the list.
+
 The code snippet below shows what these predicates are:
 
-```
+``` java
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
@@ -193,12 +197,14 @@ The code snippet below shows what these predicates are:
 The activity diagram below illustrates what happens when a user uses the list command.
 
 .Activity Diagram of a List Command
-image::ListActivityDiagram.png[]
+image::ListActivityDiagram.png[width=450]
 
 When the user enters a list command, the result differs depending on the parameter of the command.
-If there is no parameter, ORGANice will simply list all existing doctors, patients and donors on the list.
-If there is a parameter, ORGANice will check the `TYPE` input and display the respective list of doctors, patients
-or donors that corresponds to the input.
+If there is no parameter after 'list', ORGANice will simply list all existing doctors, patients, and donors on the list.
+If there is a parameter, ORGANice will check if it is a valid `TYPE` parameter and display the correct list of persons
+that corresponds to this type.
+If the parameter is not valid, an error message will be displayed to indicate that the command is invalid.
+// end::list[]
 
 === Matching feature
 This section describes how the matching feature is implemented.
@@ -337,8 +343,7 @@ This section will explain the reason for having some aspects.
 
 // end::formmode[]
 
-// tag::dataencryption[]
-
+// tag::sort[]
 === Sort feature
 This section describes how the sort feature is implemented.
 
@@ -346,7 +351,6 @@ Sorting is done by using `Comparators` in the `Logic` component and makes use of
 This command only works after a `MatchCommand` is called by the user, because it takes in `listOfMatches` returned
 from calling a `MatchCommand`. Importantly, this `listOfMatches` is an `ObservableList`, which cannot be modified.
 Therefore, it makes use of `SortedList` to wrap around the `ObservableList` so that the list can be modified by sorting.
-The `boolean` in `CommandResult#setSort(boolean isSort)` will be set to `true` for a list that has been sorted.
 Thus far, the sort command can only take in one `String` parameter, but more methods can be added in the future for more sorting options.
 
 Three methods of sorting are implemented to sort based on the following categories:
@@ -355,31 +359,31 @@ Three methods of sorting are implemented to sort based on the following categori
 +
 * Sorting based on priority with `sort priority`
 +
-* Sorting based on success rate of match with `sort rate`
+* Sorting based on compatibility rate of the match with `sort rate`
 
 These three methods' implementation will be further elaborated upon below.
 
 ==== Sort by Expiry
-Sorting by Expiry sorts a list of `MatchedDonor` using the `ModelManager#sortByOrganExpiryDate()` method.
+Sorting by Expiry sorts a list of `MatchedDonor` with the `ModelManager#sortByOrganExpiryDate()` method.
 
-In this method, the `ExpiryComparator` is used to compare two matched donors' organ expiry date, and this requires
-the `OrganExpiryDate` of the donors to be parsed into a date format that can be compared.
+In this method, the `ExpiryComparator` is used to compare two matched donors' organ expiry dates, and this requires
+the `OrganExpiryDate` of the donors to be parsed into a data format that can be compared.
 
-==== Sort by Success Rate
-Sorting by Success Rate sorts a list of `MatchedPatient` using the `ModelManager#sortBySuccessRate()` method.
+==== Sort by Compatibility Rate
+Sorting by Compatibility Rate sorts a list of `MatchedPatient` using the `ModelManager#sortBySuccessRate()` method.
 
-The `SuccessRateComparator` is created to compare two matched patients' rate of success for the match.
+The `CompatibilityRateComparator` is created to compare two matched patients' rate of compatibility for the match.
 
-Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort rate)`,
-assuming the user has entered a `match ic/**NRIC**` command before this.
+Given below is a Sequence Diagram to show the interactions with the `Logic` component when executing the `execute(sort rate)` method,
+assuming the user has entered a valid `match ic/**NRIC**` command before this.
 
-.Structure of the Logic Component when executing `sort rate` command
-image::SortSequenceDiagram.png[width=790]
+.Sequential Diagram of the `sort rate` command
+image::SortSequenceDiagram.png[width=600]
 
 After the command is given by the user, it would be parsed by the `AddressBookParser`.
 The `SortCommandParser` then parses the parameter `rate` and a `SortCommand` is created.
-The `LogicManager` will then execute the command and call the `sortBySuccessRate()` method from the `ModelManager`.
-The list of `MatchedPatient` will then be sorted based on their match's success rate.
+The `LogicManager` will then execute the command and call the `sortByCompatibilityRate()` method from the `ModelManager`.
+The list of `MatchedPatient` will then be sorted based on their match's compatibility rate.
 
 ==== Sort by Priority
 Sorting by Expiry sorts a list of `MatchedPatient` using the `ModelManager#sortByPriority()` method.
@@ -399,7 +403,7 @@ and numeric order for Sorting integers.
 In particular, the `PriorityComparator` makes use of the `compareTo` method implemented in the `Priority` class.
 A code snippet of this method is shown below.
 
-```
+``` java
 @Override
 public int compareTo(Priority priority) {
 Integer thisPriorityNumber = 0;
@@ -423,38 +427,39 @@ Integer otherPriorityNumber = 0;
     }
 ```
 
-This implementation was the result of using `String` to represent the different priorities in the `Priority` class.
+This implementation is the result of using `String` to represent the different priorities in the `Priority` class.
 Therefore, they are converted into `Integer` for easier comparison. An alternative solution would be to make use of
 `Enum` class to define each priority so that this `compareTo` method implementation can be simplified.
 
 ==== Design considerations
 This section will explain two aspects considered in designing the sort feature.
 
-===== Aspect: Method of storing sorted result
+===== Aspect: Method of storing the sorted result
 * **Alternative 1 (current choice):** Use `SortedList`.
 ** Pros: Fast iteration time of O(n * log n), which is important for ORGANice to load and display the sorted result, and more harmonious
 with current implementations (able to wrap `ObservableList` and sort the content).
-** Cons: It is not the most efficient algorithm for insertions or deletions, but ORGANice does not require them.
+** Cons: Not the most efficient algorithm for insertions or deletions, but ORGANice does not require them.
 * **Alternative 2:** Use `ArrayList`.
 ** Pros: Fast index-based access and works on any `Collection` class.
-** Cons: Iterating through the list to display the result takes O(n) time, which is slower than using `SortedList`.
+** Cons: Slower than `SortedList` as it takes O(n) time to iterate and display the results.
 
 ===== Aspect: Method of sorting
 * **Alternative 1 (current choice):** Use `Comparator` and `Comparable`.
 ** Pros: Simpler implementation as able to make use of existing methods in ORGANice such as `setComparator`.
 ** Cons: More coding involved.
 * **Alternative 2:** Use `Collections.sort()`.
-** Pros: Time complexity is O(n*log(n)) which is relatively fast.
+** Pros: Has a time complexity of O(n*log(n)) which is relatively fast.
 ** Cons: Cannot make use of existing methods in ORGANice that work for Comparator.
+// end::sort[]
 
 === Processing feature
 This section describes how the processing feature is implemented.
 
 Processing is done by accessing `Patient` and `Donor` in `ModelManager`, then creating an ArrayList named, `ProcessingList` to store the tasks needed to do.
 
-If the donor and patient pair had never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
+If the donor and patient pair has never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
 
-If the user made any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
+If the user makes any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
 
 //Todo: additional feature such as add tasks, delete tasks etc
 
@@ -589,11 +594,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |mark a match as done|know that a particular match has undergone a surgery
 
-|`* * *` |user |sort the potential donors by success rate/priority|match a patient with the best possible donor
+|`* * *` |user |sort the potential donors of a patient by compatibility rate |match a patient with the most compatible donor
 
-|`* * ` |user |add multiple data using external file|reduce the time to add in a data into the system
+|`* * *` |user |sort the potential donors of a patient by organ expiry date |ensure that organs are used before they expire
 
-|`* * ` |user |find a patient/donor/doctor with incomplete keywords|reduce the time to type in the whole keyword
+|`* * *` |user |sort the patients by priority |find out which patients I should prioritize
+
+|`* * ` |user |add multiple data using external file |reduce the time to add in a data into the system
+
+|`* * ` |user |find a patient/donor/doctor with incomplete keywords |reduce the time to type in the whole keyword
 |=======================================================================
 
 _{More to be added}_
@@ -653,6 +662,7 @@ Use case ends.
 +
 Use case ends.
 
+// tag::usecasesort[]
 === Use case: Sort list according to priority/rate/expiry
 
 *MSS*
@@ -675,7 +685,9 @@ Use case ends.
 Steps 1a1-1a2 are repeated until the data entered are correct.
 +
 Use case resumes at step 2.
+// end::usecasesort[]
 
+// tag::usecaselist[]
 === Use case: List all patients/donors/doctors
 
 *MSS*
@@ -691,15 +703,11 @@ Use case ends.
 * 1a. ORGANice detects an invalid parameter.
 +
 [none]
-** 1a1. ORGANice requests for correct parameter.
+** 1a1. ORGANice returns error message.
 +
-** 1a2. User enters correct parameter.
-+
-Steps 1a1-1a2 are repeated until the data entered are correct.
-+
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+// end::usecaselist[]
 
 [appendix]
 == Non Functional Requirements

@@ -154,17 +154,14 @@ is also acceptable.
 ====
 
 // tag::help[]
-=== Viewing help : `help`
-There may be times where you do not understand how ORGANice works, or you need a simple reminder on how to use
-ORGANice. To access the user guide of ORGANice, you can do the following:
+=== Viewing help: `help`
+There may be times where you need more information on how ORGANice works.
+To access the user guide of ORGANice, you can do the following:
 
-. Type `help` in the Command Box and press kbd:[Enter].
-. A new window is launched, as shown in Figure 3. Open the link in a browser to read this document.
-. Click the x button to close the window and return to the default display.
+Simply type `help` in the Command Box and press kbd:[Enter]. You will see a link given in a pop-up "Help" window.
+You may click on the kbd:[Copy URL] button and paste it in a browser to see our user guide for more information on how to use ORGANice.
 
-.**Help Window**
-
-image::HelpWindow.png[width="790"]
+To exit the window, click the kbd:[x] button found near the top of the window to close it and return to the default display.
 // end::help[]
 
 // tag::add[]
@@ -295,13 +292,11 @@ image::undoCommand.png[width="790"]
 // end::add[]
 
 // tag::list[]
-=== Listing persons : `list`
+=== Listing persons: `list`
 This list command can show you the list of persons in ORGANice.
 
 ==== Listing all persons
-Simply type `list` in the Command Box and ORGANice will show you all patients, doctors and donors present in the system.
-
-Format: `list`
+Simply type `list` in the Command Box and press kbd:[Enter]. ORGANice will show you all patients, doctors, and donors present in the system.
 
 ==== Listing persons of a specified type
 If you wish to see a certain type of person only, you can provide the type parameter in the list command.
@@ -313,7 +308,7 @@ For instance, if you only want to see all doctors, you can enter the following:
 // end::list[]
 
 // tag::edit[]
-=== Editing a person's attribute : `edit`
+=== Editing a person's attribute: `edit`
 If you want to make any changes to a person's attribute, you can edit the information using an edit command.
 If there are multiple attributes to change, you can do so in the same edit command.
 
@@ -327,16 +322,13 @@ as follows: `edit S8732457G p/91234567`.
 **You can only make changes to attributes that the person has.**
 For example, you cannot change a doctor's age because a doctor does not have that attribute in ORGANice.
 
-**In addition, there are some attributes that cannot be edited.** These include:
+**Besides that, some attributes cannot be edited.** These include:
 
 * NRIC
 +
 * Type
-+
-* Organ expiry date
 
-
-You might want to refer to <<List of Attributes>> to see what attributes are applicable to each type of person in ORGANice.
+You may want to refer to <<List of Attributes>> to see what attributes apply to each type of person in ORGANice.
 // end::edit[]
 
 === Finding persons by attributes: `find`
@@ -437,9 +429,10 @@ Following this, you can sort the matches based on different criteria to
 determine which patient to prioritize. Head over to the next section to find out
 how to sort matches.
 // end::match[]
+
 // tag::sort[]
 === Sorting matches: `sort`
-After using the match command, you can sort the list of matches to determine which patient to prioritize for organ transplant.
+After using the match command, you can sort the list of matches to determine which patients to prioritize for an organ transplant.
 
 **The sort command can only be used after a match command** to sort the resulting list of patient-donor pairs generated.
 There are three criteria in which you can sort the matches, namely:
@@ -448,11 +441,11 @@ There are three criteria in which you can sort the matches, namely:
 +
 * Sorting based on priority
 +
-* Sorting based on compatibility rate of match
+* Sorting based on the compatibility rate of match
 
 These criteria will be further explained below.
 
-Note that **only one criteria can be used in one sort command**.
+Note that **only one criterion can be used in a single sort command**.
 
 ==== Sorting based on donor's organ expiry date
 To find out which organs are expiring soon, you can sort the list of matched donors based on the donor's organ expiry date (from the earliest to the latest expiry date).
@@ -463,7 +456,7 @@ For example, after running a match command on a specific patient with `match ic/
 You can then run `sort expiry` to obtain the list of donors with earlier organ expiry dates near the top of the list.
 
 ==== Sorting based on priority
-To determine which patient to prioritize for organ transplant, you can sort the list of matched patients based on their priority (from highest to lowest).
+To determine which patient to prioritize for an organ transplant, you can sort the list of matched patients based on their priority (from highest to lowest).
 You may refer to <<Glossary>> to understand what priority means.
 
 Format: `sort priority`
@@ -474,10 +467,10 @@ You can then run `sort priority` to obtain the list with higher priority patient
 Note that in the case where patients have the **same priority**, those with more matched donors will be displayed first.
 If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
 
-==== Sorting based on compatibility rate of match
+==== Sorting based on the compatibility rate of match
 To determine which patient-donor pair is the most compatible, you can
 sort the list of compatible donors of that patient based on the compatibility rate of the match (from highest to lowest).
-You can refer to <<Glossary>> for more information on the compatibility rate.
+You may refer to <<Glossary>> for more information on the compatibility rate.
 
 Format: `sort rate`
 
@@ -557,7 +550,7 @@ Example:
 
 // tag::mark[]
 
-=== Checking the task list : `processingMarkDone`
+=== Checking the task list: `processingMarkDone`
 
 As introduced above, this command serves to help you mark a task on the task list as done.
 This will allow you to be able to know what other administrative things you need to do
@@ -580,7 +573,7 @@ Example:
 
 // tag::mark[]
 
-=== Mark as done : `done`
+=== Mark as done: `done`
 
 After the hospital has the results of the cross matching test, they can
 update the results in ORGANice.
@@ -621,6 +614,7 @@ Example:
 // end::mark[]
 
 // tag::delete[]
+
 === Deleting a person : `delete`
 
 If you want to delete a person in ORGANice, you can type in a command of the following format: `delete **NRIC**`  +
@@ -633,6 +627,7 @@ ORGANice will prevent you from deleting a person if he/she is any of the followi
 Here is an example. If you want to delete a patient with the NRIC S4612296H and is not under processing, type the following command: `delete S4612296H`.
 
 // end::delete[]
+
 === Clearing all entries : `clear`
 
 You can clear all data in ORGANice by typing `clear`. You could use this command to remove all dummy data after you have familiarized yourself with how ORGANice works.

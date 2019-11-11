@@ -1,6 +1,6 @@
 package organice.logic.parser;
 
-import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import organice.logic.commands.ListCommand;
@@ -20,7 +20,7 @@ public class ListCommandParser implements Parser<ListCommand> {
     private static Type parseType(ArgumentMultimap argumentMultimap) throws ParseException {
         if (argumentMultimap.getAllValues(PREFIX_TYPE).size() > 1) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND, ListCommand.MESSAGE_USAGE));
         }
         return ParserUtil.parseType(argumentMultimap.getValue(PREFIX_TYPE).get());
     }
@@ -37,7 +37,7 @@ public class ListCommandParser implements Parser<ListCommand> {
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND, ListCommand.MESSAGE_USAGE));
         } else if (isTypePresent(argMultimap)) {
             type = parseType(argMultimap);
             return new ListCommand(type);

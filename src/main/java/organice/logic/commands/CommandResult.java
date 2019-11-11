@@ -39,7 +39,6 @@ public class CommandResult {
         this.form = form;
         this.formType = formType;
         this.isMatch = false;
-        this.isSort = false;
     }
 
     /**
@@ -90,14 +89,6 @@ public class CommandResult {
 
     public boolean isMatch() {
         return isMatch;
-    }
-
-    public void setSort(boolean isSort) {
-        this.isSort = isSort;
-    }
-
-    public boolean isSort() {
-        return isSort;
     }
 
     @Override

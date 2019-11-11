@@ -10,7 +10,7 @@ public class SortCommandParser implements Parser<SortCommand> {
 
     public static final String ORGAN_EXPIRY_DATE = "expiry";
     public static final String PRIORITY = "priority";
-    public static final String SUCCESS_RATE = "rate";
+    public static final String COMPATIBILITY_RATE = "rate";
     public static final String MESSAGE_INVALID_INPUTS =
             "Sort command can only take in one parameter after a match command.\n"
             + "Parameters 'expiry', 'rate' works after 'match ic/NRIC' "
@@ -24,7 +24,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     public SortCommand parse(String userInput) throws ParseException {
         userInput = userInput.trim();
         if (!(userInput.equalsIgnoreCase(ORGAN_EXPIRY_DATE)
-                || userInput.equalsIgnoreCase(PRIORITY) || userInput.equalsIgnoreCase(SUCCESS_RATE))) {
+                || userInput.equalsIgnoreCase(PRIORITY) || userInput.equalsIgnoreCase(COMPATIBILITY_RATE))) {
             throw new ParseException(MESSAGE_INVALID_INPUTS);
         }
         return new SortCommand(userInput);
