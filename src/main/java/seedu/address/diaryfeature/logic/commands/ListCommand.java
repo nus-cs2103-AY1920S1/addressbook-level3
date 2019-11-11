@@ -15,6 +15,7 @@ public class ListCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command by showing unfiltered diary list
+     *
      * @param diaryModel on which the command is executes
      * @return {@code CommandResult} a readable form of the entries
      */

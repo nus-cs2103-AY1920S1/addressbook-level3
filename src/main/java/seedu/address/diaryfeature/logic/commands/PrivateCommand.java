@@ -18,11 +18,12 @@ public class PrivateCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "private";
     private static final String OVERFLOW = "For the Private command, your index has to be less than the size" +
             " of the list! Make your number smaller.";
-    private static final String MESSAGE_PRIVATE_ENTRY_SUCCESS = "Entry %1$d has become private. No one can see it";
+    private static final String MESSAGE_PRIVATE_ENTRY_SUCCESS = "Your Entry has become private. No one can see it";
     private final Index targetIndex;
 
     /**
      * Generates a private command which hides the memory of the specified entry
+     *
      * @param targetIndex Entry to set Private
      */
     public PrivateCommand(Index targetIndex) {
@@ -31,6 +32,7 @@ public class PrivateCommand extends Command<DiaryModel> {
 
     /**
      * Executes the command by setting the entry to private and
+     *
      * @param model on which the command is executes
      * @return {@code CommandResult} a readable form of the entries
      */
@@ -41,8 +43,9 @@ public class PrivateCommand extends Command<DiaryModel> {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(OVERFLOW);
         }
-        model.setDiaryEntryPrivate(targetIndex.getOneBased());
-        return new CommandResult(String.format(MESSAGE_PRIVATE_ENTRY_SUCCESS,targetIndex.getOneBased()));
+        DiaryEntry privateEntry = lastShownList.get(targetIndex.getZeroBased());
+        model.setDiaryEntryPrivate(privateEntry);
+        return new CommandResult((MESSAGE_PRIVATE_ENTRY_SUCCESS));
     }
 }
 

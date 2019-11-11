@@ -12,6 +12,7 @@ public class ErrorCommand extends Command<DiaryModel> {
 
     /**
      * Creates and error command with the specified {@code error}
+     *
      * @param error
      */
     public ErrorCommand(Exception error) {
@@ -20,6 +21,7 @@ public class ErrorCommand extends Command<DiaryModel> {
 
     /**
      * Executes the error comand by returning a readable error
+     *
      * @param model {@code model} which the command should operate on.
      * @return {@code CommandResult}
      */

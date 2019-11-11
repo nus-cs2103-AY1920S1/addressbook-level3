@@ -30,6 +30,7 @@ public class FindSpecificCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the FindSpecificCommand
      * and returns an FindSpecificCommand object for execution.
+     *
      * @throws EmptyArgumentException if the user input does not conform the expected format
      */
     public Command parse(String args) throws EmptyArgumentException {
@@ -43,6 +44,7 @@ public class FindSpecificCommandParser {
 
     /**
      * Get the value (from the prefixes) which is present
+     *
      * @return a String[] of the component and the corresponding value
      */
     private String[] getPresentValue(ArgumentMultimap multimap) throws EmptyArgumentException {
@@ -71,11 +73,12 @@ public class FindSpecificCommandParser {
 
     /**
      * Set the corresponding value of the component
-     * @param input String[] to add values
+     *
+     * @param input   String[] to add values
      * @param myValue Optional value to check
      */
     private void setValues(String[] input, Optional<String> myValue) throws EmptyArgumentException {
-        input[1] = ParserUtil.parseStringArgs(myValue.get(),FindSpecificCommand.COMMAND_WORD);
+        input[1] = ParserUtil.parseStringArgs(myValue.get(), FindSpecificCommand.COMMAND_WORD);
 
     }
 }

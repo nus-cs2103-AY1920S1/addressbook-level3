@@ -16,6 +16,4 @@ public class CliSyntax {
     public static final Prefix PREFIX_PASSWORD = new Prefix("password/");
 
 
-
-
 }

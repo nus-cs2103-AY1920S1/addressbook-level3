@@ -12,6 +12,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 @JsonRootName(value = "diaryBook")
 public class JsonSerializableDiaryBook {
@@ -25,7 +26,7 @@ public class JsonSerializableDiaryBook {
      */
     @JsonCreator
     public JsonSerializableDiaryBook(@JsonProperty("entries") List<JsonAdaptedDiaryEntry> entries,
-    @JsonProperty("details") JsonAdaptedDetails detail) {
+                                     @JsonProperty("details") JsonAdaptedDetails detail) {
         this.entries.addAll(entries);
         this.detail = detail;
 
@@ -46,7 +47,7 @@ public class JsonSerializableDiaryBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public DiaryBook toModelType() throws DiaryEntryParseException {
+    public DiaryBook toModelType() throws DiaryEntryParseException, ParseException {
         DiaryBook diaryBook = new DiaryBook();
         for (JsonAdaptedDiaryEntry jsonAdaptedDiaryEntry : entries) {
             DiaryEntry diaryEntry = jsonAdaptedDiaryEntry.toModelType();

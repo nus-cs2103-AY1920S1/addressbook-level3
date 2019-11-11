@@ -2,68 +2,78 @@
 !include ../style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
-participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":Logic" as Logic LOGIC_COLOR
+participant "diaryParser:DiaryBookParser" as DiaryBookParser LOGIC_COLOR
+participant "findParser:FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "findPredicate:FindCommandPredicate" as FindCommandPredicate LOGIC_COLOR
+participant "findCommand:FindCommand" as FindCommand LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+box DiaryModel MODEL_COLOR_T1
+participant ":DiaryModel" as DiaryModel MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
-activate LogicManager
+[-> Logic : execute("find temp")
+activate Logic
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+Logic -> DiaryBookParser : parseCommand("find temp")
+activate DiaryBookParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create FindCommandParser
+DiaryBookParser -> FindCommandParser
+activate FindCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+FindCommandParser --> DiaryBookParser : findParser
+deactivate FindCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+DiaryBookParser -> FindCommandParser : parse("temp")
+activate FindCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create FindCommandPredicate
+FindCommandParser -> FindCommandPredicate : new FindPredicate("temp")
+activate FindCommandPredicate
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+FindCommandPredicate --> FindCommandParser : findPredicate
+deactivate FindCommandPredicate
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+create FindCommand
+FindCommandParser -> FindCommand : new FindCommand(findPredicate)
+activate FindCommand
+
+FindCommand --> FindCommandParser : findCommand
+deactivate FindCommand
+
+
+
+FindCommandParser --> DiaryBookParser : findCommand
+deactivate FindCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+FindCommandParser -[hidden]-> DiaryBookParser
+destroy FindCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+DiaryBookParser --> Logic : findCommand
+deactivate DiaryBookParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+Logic -> FindCommand : execute()
+activate FindCommand
 
-DeleteCommand -> Model : deletePerson(1)
-activate Model
+FindCommand -> DiaryModel : find(temp)
+activate DiaryModel
 
-Model --> DeleteCommand
-deactivate Model
+DiaryModel --> FindCommand
+deactivate DiaryModel
 
 create CommandResult
-DeleteCommand -> CommandResult
+FindCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> FindCommand :result
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+FindCommand --> Logic : result
+deactivate FindCommand
 
-[<--LogicManager
-deactivate LogicManager
+[<--Logic : result
+deactivate Logic
 @enduml
