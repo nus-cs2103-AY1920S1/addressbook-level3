@@ -94,7 +94,6 @@ public class AddRecurrenceCommand extends RecurrenceCommand {
                     amount.getClone(),
                     date.plus(interval, i), tags);
             expenses.add(expense);
-            model.incrementCount(tags);
         }
 
         Recurrence recurrence = new Recurrence(expenses, interval);
@@ -108,6 +107,7 @@ public class AddRecurrenceCommand extends RecurrenceCommand {
                 continue;
             }
             model.addExpense(e);
+            model.incrementCount(tags);
         }
         model.addRecurrence(recurrence);
 
