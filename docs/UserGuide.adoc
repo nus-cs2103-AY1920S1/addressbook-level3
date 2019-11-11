@@ -308,7 +308,7 @@ To mark an unwatched show in the watchlist as watched, use the command format li
 Format: `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 
 [TIP]
-When marking TV show's seasons and episodes, you may want to use the <<Synchronise user's show data: `sync`, `sync`>>
+Before marking TV show's seasons and episodes, you may want to use the <<Synchronise user's show data: `sync`, `sync`>>
 command to ensure that the TV show's season and episode details are up to date.
 
 *Example Usage:*
