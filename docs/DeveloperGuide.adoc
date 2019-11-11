@@ -170,6 +170,30 @@ image::StatsSequenceDiagram.png[]
 
 // end::quizdiagram[]
 
+// tag::quiztagfeature[]
+=== Quiz Tag feature
+Alternatively, users can choose to quiz a series of tags instead of a single card.
+A list of flashcards will then be added to the list of quizable cards,
+which also triggers quiz mode, allowing users to use the flip command to answer flashcards consecutively.
+The following sequence diagram shows how the quiztag command works:
+
+.Component interactions for any quiztag command
+image::QuizTagSequenceDiagram.png[]
+
+Calling a quiztag command triggers the quiz mode, which is stored as a boolean in the FlashcardListParser.
+This is done with the consideration that there are different functions that can start the quiz mode (i.e quiz, quiztag),
+and others that can end the quiz mode (i.e flip, end, exit).
+
+During quiz mode, the flip command can be called consecutively for as long as there are flashcards left in the quiz, as shown below:
+
+.Flip command running and interact with the parser to toggle quiz mode
+image::FlipSequenceDiagram.png[]
+
+The flip command interacts with the model to check if there are any quizable flashcards.
+If there are none, the flip command toggles the quiz mode in FlashcardListParser off. 
+
+// end::quiztagfeature[]
+
 // tag::undoredo[]
 
 ===  Undo/Redo feature
