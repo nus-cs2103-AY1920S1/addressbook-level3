@@ -29,7 +29,7 @@ public class AssignOrderCommandParser implements Parser<AssignOrderCommand> {
 
         try {
             if (argMultimap.getValue(PREFIX_NAME).isPresent()
-                    || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME)) {
+                    && !ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME)) {
                 Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
                 return new AssignOrderCommand(name);
             } else {

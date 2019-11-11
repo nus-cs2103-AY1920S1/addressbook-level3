@@ -29,7 +29,7 @@ public class DeleteOrderCommandParser implements Parser<DeleteOrderCommand> {
 
         try {
             if (argMultimap.getValue(PREFIX_NAME).isPresent()
-                    || ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME)) {
+                    && !ParserUtil.hasRepeatedPrefix(args, PREFIX_NAME)) {
                 Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
                 return new DeleteOrderCommand(name);
             } else {
