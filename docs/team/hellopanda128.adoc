@@ -36,20 +36,6 @@ The Incident Management System is a desktop application used for managing incide
 
 _{you can add/remove categories in the list above}_
 
-== Contributions to the User Guide
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=edit-i]
-
-include::../UserGuide.adoc[tag=edit-v]
-
-include::../UserGuide.adoc[tag==add-v]
-
-include::../UserGuide.adoc[tag==delete-v]
-
 == Contributions to the Developer Guide
 
 |===
@@ -59,4 +45,18 @@ include::../UserGuide.adoc[tag==delete-v]
 include::../DeveloperGuide.adoc[tag=incidentedit]
 
 include::../DeveloperGuide.adoc[tag=vehicleManagement]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=edit-i]
+
+include::../UserGuide.adoc[tag=add-v]
+
+include::../UserGuide.adoc[tag=delete-v]
+
+
 

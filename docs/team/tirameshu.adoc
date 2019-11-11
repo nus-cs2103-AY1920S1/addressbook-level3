@@ -35,17 +35,6 @@ The Incident Management System is a desktop application used for managing incide
 ** Documentation:
 *** Peer-reviewed and standardised formatting for Developer Guide and User Guide (Pull requests https://github.com/AY1920S1-CS2103-T11-1/main/pull/280[#280], https://github.com/AY1920S1-CS2103-T11-1/main/pull/281[#281])
 
-== Contributions to the User Guide
-
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
-include::../UserGuide.adoc[tag=new]
-
-include::../UserGuide.adoc[tag=find-v]
-
 == Contributions to the Developer Guide
 
 |===
@@ -55,3 +44,14 @@ include::../UserGuide.adoc[tag=find-v]
 include::../DeveloperGuide.adoc[tag=incidentdraftcreation]
 
 include::../DeveloperGuide.adoc[tag=vehiclesearch]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=new]
+
+include::../UserGuide.adoc[tag=find-v]
+

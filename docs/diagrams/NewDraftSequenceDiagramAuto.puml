@@ -2,55 +2,33 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":IncidentManagerParser" as IncidentManagerParser LOGIC_COLOR
 participant "n:NewCommand" as NewCommand LOGIC_COLOR
-end box
-
-box Incident MODEL_COLOR_T1
-participant "draft:Incident" as Incident MODEL_COLOR
-end box
-
-box VehicleAssignmentCommand LOGIC_COLOR_T1
 participant "f:VehicleAssignmentCommand" as VehicleAssignmentCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":Session" as Session MODEL_COLOR
-participant "filteredVehicles:FilteredList<Vehicle>" as FilteredList MODEL_COLOR
+participant "draft:Incident" as Incident MODEL_COLOR
 end box
-[-> LogicManager : execute("new dist/1 auto/y")
-activate LogicManager
-
-'# parsing'
-LogicManager -> IncidentManagerParser : parseCommand("new dist/1 auto/y")
+[-> IncidentManagerParser : parseCommand("new dist/1 auto/y")
 activate IncidentManagerParser
 
 create NewCommand
 IncidentManagerParser -> NewCommand
 activate NewCommand
 
-NewCommand --> IncidentManagerParser
+NewCommand --> IncidentManagerParser : n
 deactivate NewCommand
 
-IncidentManagerParser --> LogicManager : n
-deactivate IncidentManagerParser
-
-'# get operator'
-LogicManager -> NewCommand : execute()
+'# execute'
+IncidentManagerParser --> NewCommand : execute()
 activate NewCommand
 
 NewCommand -> Model : getLoggedInPerson()
 activate Model
 
-Model -> Session : getLoggedInPerson()
-activate Session
-
-Session --> Model : loggedInPerson
-deactivate Session
-
-Model --> NewCommand
+Model --> NewCommand : loggedInPerson
 deactivate Model
 
 '# creating draft'
@@ -73,33 +51,14 @@ NewCommand -> VehicleAssignmentCommand : execute()
 activate VehicleAssignmentCommand
 
 '# filtering'
-VehicleAssignmentCommand -> Model : updatedFilteredIncidentList(PREDICATE_DISTRICT)
+VehicleAssignmentCommand -> Model : getUpdatedFilteredIncidentList(PREDICATE_DISTRICT)
 activate Model
-
-Model -> FilteredList : setPredicate(PREDICATE_DISTRICT)
-activate FilteredList
-
-FilteredList --> Model :
-deactivate FilteredList
-
-Model --> VehicleAssignmentCommand
-deactivate Model
-
-'# fetching filtered v'
-VehicleAssignmentCommand -> Model : getFilteredIncidentList()
-activate Model
-
-Model -> FilteredList : getFilteredIncidentList()
-activate FilteredList
-
-FilteredList --> Model : nearbyVehicles
-deactivate FilteredList
 
 Model --> VehicleAssignmentCommand : nearbyVehicles
 deactivate Model
 
 '# dispatching'
-VehicleAssignmentCommand -> VehicleAssignmentCommand : autoAssign(nearbyVehicles)
+VehicleAssignmentCommand --> VehicleAssignmentCommand :autoAssign()
 
 VehicleAssignmentCommand --> Incident : draft.addVehicle(nearbyVehicles.get(0))
 activate Incident
@@ -110,11 +69,6 @@ deactivate Incident
 VehicleAssignmentCommand --> NewCommand
 deactivate VehicleAssignmentCommand
 
-NewCommand --> LogicManager : result
+[<-- NewCommand : result
 deactivate NewCommand
-NewCommand -[hidden]-> LogicManager : commandResult
-destroy NewCommand
-
-[<--LogicManager
-deactivate LogicManager
 @enduml

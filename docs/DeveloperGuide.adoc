@@ -32,10 +32,10 @@ image::ArchitectureDiagram.png[]
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
+The `.puml` files used to create diagrams in this document can be found in the diagrams folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called `Main` and `MainApp`. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -78,11 +78,9 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
-
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the `MainWindow` is specified in `MainWindow.fxml`.
 
 The `UI` component,
 
@@ -95,9 +93,6 @@ The `UI` component,
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
-
-*API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `IncidentManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -118,8 +113,6 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
-
 The `Model`:
 
 * Stores a `UserPref` object that represents the user's preferences.
@@ -135,8 +128,6 @@ image:BetterModelClassDiagram.png[]
 [[Design-Person]]
 ==== Person Model component
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Person.java[`Person.java`]
-
 The `Person`:
 
 * Represents a user account on the incident manager.
@@ -145,8 +136,6 @@ The `Person`:
 // tag::incident[]
 [[Design-Incident]]
 ==== Incident component
-
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Incident.java[`Incident.java`]
 
 The `Incident`:
 
@@ -161,14 +150,12 @@ image::IncidentClassDiagram.png[]
 [[Design-Vehicle]]
 ==== Vehicle component
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Vehicle.java[`Vehicle.java`]
-
 The `Vehicle`:
 
 image::VehicleClassDiagram.png[]
 
 * Represents a vehicle that can be dispatched to incident sites.
-* Contains the attributes `VehicleNumber`, `VehicleType`, `district` and `availability`.
+* Contains the attributes `VehicleNumber`, `VehicleType`, `District` and `Availability`.
 * Is assigned to an incident in the same district.
 
 [[Design-Storage]]
@@ -176,8 +163,6 @@ image::VehicleClassDiagram.png[]
 
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
-
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component:
 
@@ -316,7 +301,7 @@ In the code base, Persons represent user accounts. See person model for more inf
 ** Cons: Hard to implement.
 * **Alternative:** Having account information display alongside incidents and vehicles in a separate pane.
 ** Pros: Easy to implement.
-** Cons: User might be overloaded with information in one screen, and text might get truncate in lower resolutions, decreases user experience.
+** Cons: User might be overloaded with information in one screen, and text might get truncated in lower resolutions, decreases user experience.
 
 ===== Aspect: How Update executes
 
@@ -342,7 +327,8 @@ In the code base, Persons represent user accounts. See person model for more inf
 === Incident Draft Creation feature
 ==== Implementation
 
-The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment.
+The incident draft creation mechanism is facilitated by the New Command. It creates a new draft incident report based on district of incident, optional automatic vehicle dispatchment. As of now, when there is no vehicle available in the district of incident, a new report cannot be generated.
+
 If created successfully, the draft incident only has three fields filled: operator, district and vehicle dispatched.
 
 There are two ways to use the New Command:
@@ -355,29 +341,42 @@ Vehicle will be automatically assigned to the incident draft if any is available
 
 Below is a sequence diagram of a successful case:
 
-image::NewDraftSequenceDiagramAuto.png[]
+image::NewDraftSequenceDiagramAuto.png[width="600"]
 
 ==== Manual Vehicle Dispatchment:
 
-User needs to key in the index of vehicle based on the list of available vehicle in given district to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
+User first obtains list of vehicles available in specified district with `new dist/DISTRICT auto/n`, which prompts user for index of vehicle to dispatch. Note that this list can only be obtained with the input `new dist/DISTRICT auto/N`, and not based on the list of vehicles currently displayed.
 
-Below is a sequence diagram of a successful case:
+User then inputs the index of vehicle based on the list of available vehicle in given district to dispatch. If no index is provided, or the index is not valid, an exception will be thrown and user will be prompted to provide a valid index.
 
-image::NewDraftSequenceDiagramManual.png[]
+Below is an activity diagram illustrating the above:
+
+image::DraftingActivityDiagram.png[width="400"]
 
 
 ==== Design Considerations
 
 ===== Aspect: How incident draft creation executes
 
-* **Current Choice:** Auto assignment of vehicles
+For auto vehicle assignment:
+
+* **Current Choice:** Taking first vehicle on list of available vehicles in district.
+** Pros: Easy to implement
+** Cons: May not be the vehicle nearest to the incident site in real life, thus may not be optimal.
+* **Alternative:** Add details to location of vehicles to actually allocate the vehicle closest to the incident site.
+** Pros: Optimal efficiency in dispatching vehicles.
+** Cons: Difficult to implement; we do not have enough time.
+
+Fro manual vehicle assignment:
+
+* **Current Choice:** Throw exception to prompt user to enter index of vehicle to dispatch.
 ** Pros:
-*** Reduces number of steps of execution.
-*** User need not waste time on decision making; an available vehicle will be dispatched directly, and if no vehicles are available, user will be notified as well.
-** Cons: User does not get to choose vehicle to dispatch, especially if vehicle of a specific type is wanted.
-* **Alternative:** Manual assignment of vehicles
-** Pros: User is able to choose vehicle to dispatch, especially if a specific vehicle type is wanted.
-** Cons: More number of steps, potentially a waste of time.
+*** User need not key in the entire new command again, only need to add the relevant prefix and index.
+*** Easy to implement.
+** Cons: May not seem logical to throw an exception for this.
+* **Alternative:** Show prompt message as a command result instead of exception message.
+** Pros: Logically seems to make more sense.
+** Cons: User has to retype the entire command, potentially a waste of time.
 // end::incidentdraftcreation[]
 
 // tag::incidentfillandsubmit[]
@@ -564,7 +563,7 @@ An exception will be thrown under these 2 conditions:
 
 Below is an activity diagram to illustrate the process that the user may go through
 
-image::EditCommandActivity.png[]
+image::EditCommandActivity.png[width=300]
 
 EditIncidentCommand` class makes use of `EditIncident` object to create a new
 `Incident` object with the fields identified by user as well as the untouched
@@ -573,7 +572,7 @@ fields from the original incident. This new `Incident` will replace the original
 
 Below is a sequence diagram to illustrate how the command executes:
 
-image::EditIncidentCommand.png[]
+image::EditIncidentCommand.png[width=300]
 
 [Note]
 The command can only be used by admin accounts or accounts that created/filled/submitted
@@ -607,13 +606,18 @@ These are the commands available to the user related to vehicle management:
 [NOTE]
 Only vehicles with the status `Avaliable` are valid for editing or deleting. This is to prevent removing or changing the details of a vehicle that is currently being dispatched.
 
+***
+* Only accounts with admin access are eligible to delete vehicles
+
+***
+
 //tag::vehicleedit[]
 
 ==== Editing Vehicles: `edit-v`
 Implementation of `edit-v` is similar to `edit-i` where `EditVehicleCommand` makes use of `EditVehicle` class to create a new `Vehicle` object with the modified fields and replaces the original object. Design considerations are also similar to that of `edit-i`.
 Below is a sequence diagram to illustrate the process and classes involved in the `edit-v` command:
 
-image::editVehicleCommand.png[]
+image::editVehicleCommand.png[width=300]
 
 //end::vehicleedit[]
 
@@ -629,7 +633,7 @@ image::editVehicleCommand.png[]
 
 Below is a sequence diagram to illustrate add-v:
 
-image::addVehicleCommand.png[]
+image::addVehicleCommand.png[width=300]
 
 //end::vehicleadd[]
 
@@ -645,7 +649,7 @@ image::addVehicleCommand.png[]
 
 Below is a sequence diagram to illustrate delete-v:
 
-image::deleteVehicleCommand.png[]
+image::deleteVehicleCommand.png[width=300]
 //end::vehicledelete[]
 
 //end::vehicleManagement[]
@@ -654,20 +658,22 @@ image::deleteVehicleCommand.png[]
 === Vehicle Search feature
 ==== Implementation
 
-The vehicle search mechanism features a set of different types of searches that a user could utilise. Further documentation on the commands available in this set can be found within the link:{websiteURL}/main/UserGuide.html. The types of searches are as listed:
+The vehicle search mechanism features a set of different types of searches that a user could utilise.The types of searches are as listed:
 
-* Unfiltered - Displays all vehicles in `Model`.
-* District - Displays all vehicles with `District district` in list of specified districts.
-* Vehicle Number - Displays all vehicles with `VehicleNumber vehicleNumberKeyword` in `Vehicle vehicle`. Need not be exact matches.
-* Vehicle Type - Displays all vehicles with exact matches in `VehicleType vehicleType` in `Vehicle vehicle`.
+* Unfiltered - Displays all vehicles in `Model`. +
+e.g. `list-v`
+* District - Displays all vehicles with `District district` in list of specified districts. +
+e.g. `find-v dist/1 2 3`
+* Vehicle Number - Displays all vehicles with `VehicleNumber vehicleNumberKeyword` in `Vehicle vehicle`. Need not be exact matches. +
+e.g. `find-v vnum/2`
+* Vehicle Type - Displays all vehicles with exact matches in `VehicleType vehicleType` in `Vehicle vehicle`. +
+e.g. `find-v vtype/patrol car`
 
-The vehicle search mechanism is facilitated by `ModelManager`, which implements abstract class `Model`. It contains a `FilteredList<Vehicle> filteredVehicles`, which internally stores the list of displayed vehicles in the GUI. Additionally, it implements the following key method:
-
-* `updateFilteredVehiclesList(Predicate<Vehicle> predicate)` - Updates the stored filtered vehicle list with the new predicate
+Further documentation on the commands available in this set can be found in the link:https://ay1920s1-cs2103-t11-1.github.io/main/UserGuide.html#finding-a-vehicle-code-find-v-code[User Guide].
 
 ==== Design Considerations
 
-===== Aspect: How vehicle search keyword is inputted
+===== Aspect: How vehicle search with keyword is inputted
 
 * **Current choice:** Parse user input after flag (eg. `dist/` or `vnum/`)
 ** Pros:
@@ -696,8 +702,6 @@ The vehicle search mechanism is facilitated by `ModelManager`, which implements 
 ** Pros: Intuitive for some.
 ** Cons: Appears separate from other list commands even though they are of the same nature and implemented similarly.
 //end::vehiclesearch[]
-
-// end::vehiclesearch[]
 
 //tag::vehicleedit[]
 
@@ -1085,6 +1089,44 @@ Message: "Listed all incident reports ready for submission".
 .. Test case: `submit 0`
    Expected: Message "Invalid command format!" is displayed along with command usage message.
 
+=== Editing Submitted Incidents
+. Attempting to execute `edit-i` without logging in
+.. Prerequisites: User not logged in.
+.. Test case: `edit-i` +
+Expected: Message "Only Register, Login, Exit and Help commands are availble. Please login to access other commands. See help page for more information."
+
+. Executing `edit-i` without any keywords
+.. Test case: `edit-i` +
+Expected: Message "Listed all submitted incident reports that can be edited."
+
+. Executing `edit-i` with some keywords when logged into admin account
+.. Test case: `edit-i 1 dist/21` +
+Expected: Message "Edited Incident: Incident #[ID]"
+
+. Executing `edit-i` with all keywords when logged into admin account
+.. Test case: `edit-i 1 dist/22 p/91234567 desc/This is an incident description.` +
+Expected: Message "Edited Incident: Incident #[ID]"
+
+. Executing `edit-i` on incident not created by logged in non admin account.
+..Test case `edit-i 1` +
+Expected: Message "Only the admin and the operator who filled in this report can edit the report."
+
+=== Adding vehicles
+
+. Attempting to execute `add-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `add-v` +
+Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing 'add-v' with all valid inputs
+.. Test case : `add-v dist/2 vnum/SFD1356S vtype/Ambulance a/available` +
+Expected: Message "New vehicle added: Ambulance Vehicle Number: SFD1356S District: 2 Availability: AVAILABLE"
+
+. Executing `add-v` with invalid vnum
+.. Test case: `add-v dist/2 vnum/1234 vtype/Patrol Car a/available` +
+Expected: Message "Invalid vehicle number! All vehicle numbers must follow the format: ABC1234D"
+
 === Finding vehicles
 
 . Attempting to execute `find-v` without logging in.
@@ -1127,3 +1169,23 @@ Message: "Listed all incident reports ready for submission".
 .. Prerequisites: User must be logged in.
 .. Test case: `list-v` +
     Expected: Message "Listed all vehicles", and all vehicles in database will be listed in the vehicle pane.
+
+=== Deleting vehicles
+. Attempting to execute `delete-v` without logging in
+..  Prerequisites: User not logged in.
+.. Test case: `delete-v` +
+Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `delete-v` with an admin account and dispatched vehicle
+.. Test case: `delete-v 1` +
+Expected: Message "You cannot delete a vehicle that is currently dispatched."
+
+. Executing `delete-v` with an admin account and non dispatched vehicle
+.. Test case:
+1. `edit-v 1 available`
+2. `delete-v 1` +
+Expected: Message "Deleted Vehicle Patrol Car Vehicle Number: SFD3204V District: 1 Availability: AVAILABLE"
+
+. Executing `delete-v` with a non admin account
+.. Test case: `delete-v 1` +
+Expected: Message "You must be an admin to perform this operation. Please see help page for more info."
