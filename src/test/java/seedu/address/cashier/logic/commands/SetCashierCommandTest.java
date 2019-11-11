@@ -20,6 +20,7 @@ import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.util.CommandResult;
 
 public class SetCashierCommandTest {
 

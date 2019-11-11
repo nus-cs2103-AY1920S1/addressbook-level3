@@ -11,14 +11,12 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.inventory.logic.commands.AddCommand;
 import seedu.address.inventory.logic.commands.Command;
-import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.logic.commands.DeleteCommand;
 import seedu.address.inventory.logic.commands.EditCommand;
 import seedu.address.inventory.logic.commands.SortCategoryCommand;
 import seedu.address.inventory.logic.commands.SortDescriptionCommand;
 import seedu.address.inventory.logic.commands.SortQuantityCommand;
 import seedu.address.inventory.logic.commands.SortResetCommand;
-
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
@@ -33,6 +31,7 @@ import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.testutil.EditItemDescriptorBuilder;
 import seedu.address.testutil.TypicalItem;
+import seedu.address.util.CommandResult;
 
 public class CommandTest {
 

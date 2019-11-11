@@ -12,6 +12,7 @@ import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.NoSuchItemException;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.util.CommandResult;
 
 /**
  * Adds an item to the sales list.

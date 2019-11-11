@@ -23,6 +23,7 @@ import seedu.address.stubs.CashierModelStubAcceptingItemAdded;
 import seedu.address.stubs.InventoryModelStubAcceptingItemAdded;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
+import seedu.address.util.CommandResult;
 
 public class AddCommandTest {
 

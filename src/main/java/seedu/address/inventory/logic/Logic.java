@@ -3,7 +3,6 @@ package seedu.address.inventory.logic;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.logic.commands.exception.CommandException;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
@@ -14,6 +13,7 @@ import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.util.CommandResult;
 
 /**
  * API of the Logic component

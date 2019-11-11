@@ -19,6 +19,7 @@ import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
+import seedu.address.util.CommandResult;
 
 /**
  * Contains helper methods for testing commands.
@@ -56,7 +57,7 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the returned {@link seedu.address.util.CommandResult} matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model transactionModel,

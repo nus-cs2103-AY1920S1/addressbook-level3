@@ -15,9 +15,10 @@ endif::[]
 
 This is a desktop application called *treasurerPro* (tP). +
 It has a Graphical User Interface (GUI) but this application has been tailored to enable user interaction mostly via the Command
-Line Interface (CLI). This application is intended to aid treasurers of Co-curricular Activities and Societies with
+Line Interface (CLI). +
+This application is intended to aid treasurers of Co-curricular Activities and Societies with
 better management of finances and reimbursements for its members. By packaging all functions in an application, it makes
-planning and budgeting events much more easier.
+planning and budgeting much easier.
 
 == Site Map
 

@@ -20,7 +20,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.logic.commands.AddCommand;
-import seedu.address.person.logic.commands.CommandResult;
 import seedu.address.person.logic.commands.ListCommand;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.logic.parser.exceptions.ParseException;
@@ -37,6 +36,8 @@ import seedu.address.reimbursement.model.ReimbursementList;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.TransactionList;
+import seedu.address.util.CommandResult;
+
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";

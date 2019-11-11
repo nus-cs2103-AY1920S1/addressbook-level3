@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.overview.logic.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.model.ModelManager;
 import seedu.address.overview.storage.Storage;
@@ -26,6 +25,7 @@ import seedu.address.stubs.OverviewStorageStub;
 import seedu.address.stubs.TransactionLogicStubForOverview;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
+import seedu.address.util.CommandResult;
 
 public class LogicManagerTest {
 

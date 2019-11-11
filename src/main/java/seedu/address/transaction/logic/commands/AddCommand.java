@@ -7,6 +7,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_ADD_POSIT
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.util.CommandResult;
 
 /**
  * Adds a transaction to the transaction list.

@@ -10,6 +10,7 @@ import seedu.address.cashier.model.exception.NoSuchIndexException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.util.CommandResult;
 
 /**
  * Edits the details of an existing item in the sales list.

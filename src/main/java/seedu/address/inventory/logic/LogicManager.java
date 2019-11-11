@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.inventory.logic.commands.Command;
-import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.logic.commands.exception.CommandException;
 import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
 import seedu.address.inventory.logic.commands.exception.NotANumberException;
@@ -17,6 +16,7 @@ import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.util.CommandResult;
 
 /**
  * Manages the logic behind the inventory tab.

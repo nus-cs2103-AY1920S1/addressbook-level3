@@ -6,6 +6,7 @@ import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
+import seedu.address.util.CommandResult;
 
 /**
  * Deletes a transaction to the transaction list.

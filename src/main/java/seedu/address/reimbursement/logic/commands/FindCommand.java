@@ -10,6 +10,8 @@ import seedu.address.reimbursement.model.Model;
 import seedu.address.reimbursement.model.Reimbursement;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
+import seedu.address.util.CommandResult;
+
 
 /**
  * Represents a command to find a reimbursement.

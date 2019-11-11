@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import seedu.address.cashier.logic.commands.CheckoutCommand;
 import seedu.address.cashier.logic.commands.Command;
-import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.logic.parser.CashierTabParser;
 import seedu.address.cashier.model.Model;
@@ -18,6 +17,7 @@ import seedu.address.inventory.model.Item;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.util.CommandResult;
 
 /**
  * The main LogicManager of the cashier tab.

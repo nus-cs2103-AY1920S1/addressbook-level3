@@ -6,6 +6,7 @@ import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchIndexException;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.util.CommandResult;
 
 /**
  * Deletes a transaction to the transaction list.

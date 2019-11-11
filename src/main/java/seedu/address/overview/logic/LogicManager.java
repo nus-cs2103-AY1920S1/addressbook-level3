@@ -15,12 +15,11 @@ import java.util.stream.Stream;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
 import seedu.address.overview.logic.commands.Command;
-import seedu.address.overview.logic.commands.CommandResult;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.storage.Storage;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
-import seedu.address.util.OverallCommandResult;
+import seedu.address.util.CommandResult;
 
 /**
  * Manages the logic behind the transaction tab.
@@ -154,8 +153,8 @@ public class LogicManager implements Logic {
      * Checks if the user needs to be notified of his targets.
      * @return A list of CommandResults with the notifications.
      */
-    public List<OverallCommandResult> checkNotifications() {
-        ArrayList<OverallCommandResult> list = new ArrayList<>();
+    public List<CommandResult> checkNotifications() {
+        ArrayList<CommandResult> list = new ArrayList<>();
 
         if (model.checkBudgetNotif()) {
             checkThreshold(getTotalExpenses(), model.getBudgetTarget(), model.getBudgetThreshold(),

@@ -8,8 +8,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
 import seedu.address.person.commons.core.LogsCenter;
-import seedu.address.ui.commands.CommandResult;
 import seedu.address.ui.logic.exception.ParseException;
+import seedu.address.util.CommandResult;
 
 /**
  * Manages the logic behind the transaction tab.

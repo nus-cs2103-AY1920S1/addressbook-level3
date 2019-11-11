@@ -1,6 +1,6 @@
 package seedu.address.ui.logic;
 
-import seedu.address.ui.commands.CommandResult;
+import seedu.address.util.CommandResult;
 
 /**
  * API of the Logic component

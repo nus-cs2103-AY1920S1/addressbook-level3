@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.util.InventoryList;
 import seedu.address.inventory.model.Item;
+import seedu.address.util.CommandResult;
 
 /**
  * Contains helper methods for testing commands.
@@ -76,7 +77,7 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link seedu.address.cashier.logic.commands.CommandResult}
+     * - the returned {@link seedu.address.util.CommandResult}
      * matches {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
@@ -96,7 +97,9 @@ public class CommandTestUtil {
 
     /**
      * Convenience wrapper to
-     * {@link #assertCommandSuccess(Command, Model, CommandResult, Model,
+     * {@link #assertCommandSuccess(Command, seedu.address.cashier.model.Model,
+     * seedu.address.util.CommandResult,
+     * seedu.address.cashier.model.Model,
      * seedu.address.person.model.CheckAndGetPersonByNameModel)}
      * that takes a string {@code expectedMessage}.
      */

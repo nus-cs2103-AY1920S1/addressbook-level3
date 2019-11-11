@@ -15,6 +15,7 @@ import seedu.address.overview.logic.commands.exception.InvalidValueException;
 import seedu.address.overview.model.Model;
 import seedu.address.overview.model.ModelManager;
 import seedu.address.testutil.TypicalOverview;
+import seedu.address.util.CommandResult;
 
 public class SetBudgetCommandTest {
 

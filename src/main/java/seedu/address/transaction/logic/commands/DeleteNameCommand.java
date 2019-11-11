@@ -8,6 +8,7 @@ import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.util.CommandResult;
 
 /**
  * Deletes a transaction to the transaction list according to the person.

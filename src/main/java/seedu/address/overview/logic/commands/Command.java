@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
 import seedu.address.overview.model.Model;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.util.CommandResult;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

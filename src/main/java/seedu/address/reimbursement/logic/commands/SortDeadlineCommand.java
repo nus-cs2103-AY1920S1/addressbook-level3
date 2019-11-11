@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.reimbursement.model.Model;
+import seedu.address.util.CommandResult;
 
 /**
  * Represents a command to sort by deadline.

@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Represents the result of a command execution.
  */
-public class OverallCommandResult {
+public class CommandResult {
     private String feedbackToUser;
     /** The application should exit. */
     private boolean exit;
@@ -13,12 +13,12 @@ public class OverallCommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public OverallCommandResult(String feedbackToUser) {
+    public CommandResult(String feedbackToUser) {
         this.feedbackToUser = feedbackToUser;
         this.exit = false;
     }
 
-    public OverallCommandResult(String feedbackToUser, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean exit) {
         this.feedbackToUser = feedbackToUser;
         this.exit = exit;
     }
@@ -43,11 +43,11 @@ public class OverallCommandResult {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof OverallCommandResult)) {
+        if (!(other instanceof CommandResult)) {
             return false;
         }
 
-        OverallCommandResult otherCommandResult = (OverallCommandResult) other;
+        CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.getFeedbackToUser())
                 //&& showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit;

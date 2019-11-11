@@ -11,6 +11,7 @@ import seedu.address.cashier.model.exception.NoItemToCheckoutException;
 import seedu.address.cashier.ui.CashierMessages;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.person.Person;
+import seedu.address.util.CommandResult;
 
 /**®
  * Checkout a list of item to be sold.

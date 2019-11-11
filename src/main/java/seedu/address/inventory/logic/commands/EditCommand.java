@@ -12,6 +12,7 @@ import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.util.CollectionUtil;
+import seedu.address.util.CommandResult;
 
 /**
  * Edits an item to the inventory list.

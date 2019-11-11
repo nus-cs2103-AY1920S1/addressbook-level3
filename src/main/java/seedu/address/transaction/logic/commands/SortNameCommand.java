@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.ui.TransactionMessages;
+import seedu.address.util.CommandResult;
 
 /**
  * Sorts transactions in the transaction list by their name.

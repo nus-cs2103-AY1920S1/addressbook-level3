@@ -2,6 +2,7 @@ package seedu.address.inventory.logic.commands;
 
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.ui.InventoryMessages;
+import seedu.address.util.CommandResult;
 
 /**
  * Command that sorts the Items by the order they were in when the app was opened.

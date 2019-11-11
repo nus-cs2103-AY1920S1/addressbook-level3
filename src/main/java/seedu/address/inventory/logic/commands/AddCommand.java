@@ -9,6 +9,7 @@ import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.util.CommandResult;
 
 /**
  * Adds a transaction to the transaction list.

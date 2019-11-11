@@ -1,5 +1,7 @@
 package seedu.address.cashier.logic.commands;
 
+import seedu.address.util.CommandResult;
+
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
