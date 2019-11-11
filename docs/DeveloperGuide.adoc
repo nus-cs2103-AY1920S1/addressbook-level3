@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -38,6 +39,11 @@ In particular, the intended audience of this document will be the students takin
 
 _PalPay_ is a CLI application targeted for users who have poor financial management skills. The users should also prefer typing over mouse inputs.
 It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration to achieve long-term financial success. Additionally, users can keep a ledger of lending and borrowing of money with others so that the users can keep track of the flow of their money.
+
+Below is the Graphical User Interface (GUI) of PalPay:
+
+.PalPay's GUI
+image::dg_gui_example.png[]
 
 == Setting up
 
@@ -1032,7 +1038,7 @@ Cons:
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1054,23 +1060,145 @@ Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an In Transaction
 
-=== Deleting a Person
+. Adding an in transaction with the command: `in`
 
-. Deleting a person while all persons are listed
+.. Prerequisites:
 
-.. Prerequisites: List all persons using the `list` command.
-Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
-Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted.
-Error details shown in the status message.
-Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test case: `in $/1000 n/Allowance d/11112019` +
+Expected: An in transaction will be added into the list of transactions in the Transaction tab.
+
+.. Test case: `in $/0 n/Allowance d/11112019` +
+Expected: No transaction is added. Error details will be shown in the status message.
+
+.. Other incorrect `in` commands to try: `in $/10.001 n/Allowance d/11112019`, `in $/1000 n/Allow@nce d/11112019`
+(Contains non-alphanumeric characters). +
+Expected: Similar to previous.
+
+=== Adding an Out Transaction
+
+. Adding an out transaction with the command: `out`
+
+.. Prerequisites:
+
+.. Test case: `out $/10 n/KFC d/11112019` +
+Expected: An out transaction will be added into the list of transactions in the Transaction tab.
+
+.. Test case: `out $/0 n/KFC d/11112019` +
+Expected: No transaction is added. Error details will be shown in the status message.
+
+.. Other incorrect `out` commands to try: `out $/10.001 n/KFC d/11112019`, `out $/10 n/KFC d/32112019`
+(Date is invalid). +
+Expected: Similar to previous.
+
+=== Adding a Budget
+
+. Adding a budget with the command: `set`
+
+.. Prerequisites:
+
+.. Test case: `set $/1000 c/Shopping d/31122019` +
+Expected: A budget will be added into the list of budgets in the Budget tab.
+
+.. Test case: `set $/1000 c/Shopping d/01012019` +
+Expected: No budget is added. Error details will be shown in the status message.
+
+.. Other incorrect `set` command to try: `set $/-10 c/Shopping d/31122019` (Amount is negative). +
+Expected: Similar to previous.
+
+=== Adding a Split Ledger
+
+. Adding a split ledger with the command: `split`
+
+.. Prerequisites:
+
+.. Test case: `split $/1000 n/Amy n/Betty a/HaiDiLao` +
+Expected: An overall ledger with 4 individual ledgers will be added into the list of ledgers in the Ledger tab.
+
+.. Test case: `split $/1000 n/Amy n/Betty` +
+Expected: No ledger is added. Error details will be shown in the status message.
+
+.. Other incorrect `split` command to try: `split $/1000 n/Amy n/Betty a/HaiDiLao s/1 s/2 s/3 s/4`
+(Greater number of shares than number of people). +
+Expected: Similar to previous.
+
+=== Adding a Receive Ledger
+
+. Adding a receive ledger with the command: `receive`
+
+.. Prerequisites:
+
+.. Test case: `receive $/20 n/Albert` +
+Expected: An overall ledger with an individual ledger will be added into the list of ledgers in the ledger tab.
+
+.. Test case: `receive $/20 n/A|bert` +
+Expected: No ledger is added. Error details will be shown in the status message.
+
+.. Other incorrect `receive` command to try: `receive $/20.001 n/Albert` (Amount cannot have more than
+two decimal places). +
+Expected: Similar to previous.
+
+=== Switching Tabs
+
+. Switching tabs with the command: `view`
+
+.. Prerequisites:
+
+.. Test case: `view budget` +
+Expected: Switches to budget tab if user is in another tab. Else, user remains in budget tab.
+
+.. Test case: `view budg3t` +
+Expected: Remains in current tab. Error details will be shown in the status message.
+
+.. Other incorrect `view` command to try: `view loans` (Loans tab does not exist). +
+Expected: Similar to previous.
+
+=== Deleting an Entry
+
+. Deleting an entry with the command: `delete`
+
+.. Prerequisites:
+
+.. Test case: `delete t1` +
+Expected: First transaction is deleted from the list. Balance in the footer will be updated.
+
+.. Test case: `delete t0` +
+Expected: No transaction is deleted. Error details shown in the status message. Balance remains the same.
+
+.. Other incorrect `delete` commands to try: `delete`, `delete t1000` (When size of the list of transaction
+is smaller than 1000). +
+Expected: Similar to previous.
+
+=== Updating an Entry
+
+. Updating an entry with the command: `update`
+
+.. Prerequisites:
+
+.. Test case: `update t1 $/1000` +
+Expected: First transaction in the list is updated. Balance will be updated as well.
+
+.. Test case: `update t0 $/1000` +
+Expected: No transaction is updated. Error details shown in the status message. Balance remains the same.
+
+.. Other incorrect `update` commands to try: `update`, `update i/Invalid` (Invalid prefix). +
+Expected: Similar to previous.
+
+=== Sorting the Transactions
+
+. Sorting the transactions with the command: `sort`
+
+Prerequisites:
+
+.. Test case: `sort amount/a` +
+Expected: Transaction list will be sorted from smallest amount to greatest amount. Balance remains the same.
+
+.. Test case: `sort amount` +
+Expected: Transaction list remains unchanged. Error details shown in the status message.
+
+.. Other incorrect `sort` commands to try: `sort`, `sort date` (Order not stated). +
+Expected: Similar to previous.
 
 
 === Viewing Help Window

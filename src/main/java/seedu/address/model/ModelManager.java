@@ -392,6 +392,49 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateProjectionsAfterUpdate(Budget toUpdate, Budget updated) {
+        List<Projection> copy = new ArrayList<>(this.getFilteredProjectionsList());
+        copy.forEach(x -> {
+            if (x.isGeneral() && toUpdate.isGeneral()) {
+                this.delete(x);
+                UniqueBudgetList newBudgets = new UniqueBudgetList();
+                newBudgets.setBudgets(x.getBudgets());
+                newBudgets.setBudget(toUpdate, updated);
+                this.add(new Projection(x.getTransactionHistory(), x.getDate(), newBudgets.asUnmodifiableObservableList()));
+            } else {
+                boolean sameCategoryAsToUpdate = toUpdate.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                boolean sameCategoryAsUpdated = updated.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategoryAsToUpdate) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    newBudgets.remove(toUpdate);
+                    this.add(new Projection(x.getTransactionHistory(),
+                            x.getDate(), newBudgets.asUnmodifiableObservableList()));
+                }
+                if (sameCategoryAsUpdated) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    newBudgets.add(toUpdate);
+                    this.add(new Projection(x.getTransactionHistory(),
+                            x.getDate(), newBudgets.asUnmodifiableObservableList()));
+                }
+            }
+        });
+    }
+
+    @Override
     public void updateProjectionsAfterDelete(BankAccountOperation deleted) {
         List<Projection> copy = new ArrayList<>(this.getFilteredProjectionsList());
         copy.forEach(x -> {

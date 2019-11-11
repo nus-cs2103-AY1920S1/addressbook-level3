@@ -167,7 +167,17 @@ public class ProjectionGraph extends StackPane {
         xAxis.setLabel("Days From Now");
         xAxis.setAutoRanging(false);
         this.xMin = Math.min(gradientDescent.getVariable(), gradientDescent.getMinData());
+        if (!this.budgets.isEmpty()) {
+            this.xMin = Math.min(xMin, IntStream.range(0, this.budgets.size())
+                    .mapToDouble(idx -> Date.daysBetween(Date.now(), this.projection.getBudgetStart(idx))).min()
+                    .orElseThrow(AssertionError::new));
+        }
         this.xMax = Math.max(gradientDescent.getVariable(), gradientDescent.getMaxData());
+        if (!this.budgets.isEmpty()) {
+            this.xMax = Math.max(xMax, IntStream.range(0, this.budgets.size())
+                    .mapToDouble(idx -> Date.daysBetween(Date.now(), this.projection.getBudgetDeadline(idx))).max()
+                    .orElseThrow(AssertionError::new));
+        }
         this.xRange = xMax - xMin;
         this.xUnit = Math.round(xRange / 10);
         xAxis.setTickUnit(xUnit);
@@ -187,7 +197,7 @@ public class ProjectionGraph extends StackPane {
         this.yMin = Math.min(gradientDescent.getResult(), gradientDescent.getMinOutput());
         if (!this.budgets.isEmpty()) {
             this.yMin = Math.min(yMin, IntStream.range(0, this.budgets.size())
-                    .mapToDouble(idx -> this.projection.getBudgetThreshold(idx)
+                    .mapToDouble(idx -> this.projection.getBudgetStartValue(idx)
                             .getActualValue()).min()
                     .orElseThrow());
         }

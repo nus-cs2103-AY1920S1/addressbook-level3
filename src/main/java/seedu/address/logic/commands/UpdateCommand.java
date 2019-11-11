@@ -103,8 +103,7 @@ public class UpdateCommand extends Command {
                 throw new CommandException("Updated budget already exists!");
             }
             model.set(budgetToReplace, updatedBudget);
-            model.updateProjectionsAfterDelete(budgetToReplace);
-            model.updateProjectionsAfterAdd(updatedBudget);
+            model.updateProjectionsAfterUpdate(budgetToReplace, updatedBudget);
             model.commitUserState();
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedBudget),
                     false, false, Tab.BUDGET);
