@@ -50,7 +50,6 @@ This is useful as it provides users with an option to add to existing items in c
 [https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
-
 ** Enhancements to existing features:
 *** Add functionality to input items into the tracking list (Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/13[#13]])
 *** Add quantity field for items (Pull request [https://github.com/AY1920S1-CS2103T-F11-2/main/pull/56[#56]])

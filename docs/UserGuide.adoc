@@ -29,7 +29,7 @@ By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*.
+Xpire is for those who *prefer to use a desktop apNp for tracking expiry dates of items*.
 More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface*
 (CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble
 tracking your items' expiry dates, Xpire can help you manage and notify you of items that are
@@ -305,12 +305,11 @@ To do so, you can simply use the `shift` command again.
 Format: `shift|<index>|<expiry date>[|quantity]`
 
 For example, you have just replenished the ice cream and you wish to keep track of its expiry date again.
-To transfer the ice cream back to the tracking list, simply key in `shift|3|<expiry date>|<quantity>`.
+To transfer the ice cream back to the tracking list, simply key in `shift|3|<expiry date>[|<quantity>]`.
+Now, the ice cream that you just bought is added back to the tracking list.
 
-.List view of items in the replenish list.
-image::shift_to_main_command_example.png[width="790"]
-
-Now, the ice cream that you just bought is on the tracking list as seen from the diagram below.
+//.List view of items in the replenish list.
+//image::shift_to_main_command_example.png[width="790"]
 
 .List view of items in the main list after shift.
 image::shift_to_main_success.png[width="790"]
