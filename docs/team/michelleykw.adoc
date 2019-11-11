@@ -26,12 +26,12 @@ EzWatchList is a desktop application, designed for those who types fast and pref
 Interface (CLI) for managing movies and television series watchlist. It helps users keep track of the shows they had
 watched or wish to watch, reducing the hassle of having to search for shows frequently.
 
+._Graphical User Interface_ of EzWatchlist
 image::Ui.png[]
-_Figure 1: The graphical interface for EzWatchlist_
 
 [width="100%",cols="5,^15"]
 |===
-| [Note] |  This symbol indicates information and tips to take note of.
+| [NOTE] |  This symbol indicates information and tips to take note of.
 | `Search` | A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command
 line and executed by the application.
 | (different front/colour text) | This indicates that it is a class, method or field in the code.

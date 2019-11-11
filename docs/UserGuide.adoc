@@ -415,11 +415,9 @@ Special commands to take note of: +
 ====
 ====
 [NOTE]
-Do take note of the following expected command outputs: +
 When searching based on genre online, only movies will be searched. +
 {sp} +
-For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. +
-e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
+For `[o/FROM_ONLINE] [t/SHOW_TYPE] [w/HAS_WATCHED]`, if multiple entries are entered, only the last would be considered. e.g. "search n/Avengers t/movie t/tv" will be interpreted as "search n/Avengers t/tv". +
 {sp} +
 Space between prefix and slash is not acceptable. e.g. "n /Avengers" will throw an error. +
 Space after prefix is acceptable. e.g. "n/   Avengers" will be interpreted as "n/Avengers".
@@ -502,10 +500,12 @@ Examples:
 ** `search n/Joker o/no` +
 Returns shows with the name "Joker" within the watchlist
 ** `search n/Avengers g/Science Fiction t/movie n/Spiderman` +
-Returns movies from the online database with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction"
+(If online) Returns movies from the online database with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction" +
+(If offline) Returns movies from the internal database, watchlist and watched-list with the name "Avenger" or "Spiderman" and movies with the genre "Science Fiction"
 * By genre:
 ** `search g/Action t/movie` +
-Returns movies from the online database with the genre "Action"
+(If online) Returns movies from the online database with the genre "Action" +
+(If offline) Returns movies from the internal database, watchlist and watched-list with the genre "Action"
 * By actor: (from watchlist only)
 ** `search a/Tom o/no w/no` +
 Returns shows within the watchlist with actor named "Tom"
