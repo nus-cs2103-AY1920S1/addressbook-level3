@@ -443,6 +443,9 @@ public class ParserUtil {
      */
     public static DifficultyIsInRangePredicate parseDifficultyPredicate(String arg, String messageUsage)
         throws ParseException {
+        // Because of how `.split()` works, all trailing consecutive "-" will be ignored:
+        // e.g. -1.0-2.0 is invalid because the array is of length 3
+        // however 1.0-2.0------ is valid because the trailing consecutive "-" is ignored
         String[] difficultyBounds = arg.split("-");
         if (!isArrayOfLength(difficultyBounds, 2)) {
             throw new ParseException(

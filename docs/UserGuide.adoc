@@ -222,7 +222,7 @@ If you want to match problems with exact difficulty `1.5`, please use `diff/1.5-
 If you want to match problems with with difficulty no lower than `1.5`, please use `diff/1.5-5.0` because `5.0` is the upper limit of difficulty.
 
 [NOTE]
-Ensure that `-` only appears once as the connective between two bounds (i.e. negative difficulty is not allowed, as mentioned before). Otherwise the command is considered invalid.
+Note that negative difficulty is not allowed, as mentioned before. Otherwise the command may be considered invalid.
 
 Examples:
 
@@ -682,7 +682,7 @@ Examples:
 // tag::help[]
 ==== Viewing help : `help`
 
-List all possible commands or find command usage using the command word. +
+Lists all possible commands or shows the command usage of a command word. +
 Format: `help [COMMAND_WORD]`
 
 * `help`
