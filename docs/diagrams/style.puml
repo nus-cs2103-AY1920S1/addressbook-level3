@@ -61,11 +61,11 @@ skinparam Sequence {
 
 skinparam Participant {
     FontColor #FFFFFFF
-    Padding 20
+    Padding 10
 }
 
 skinparam MinClassWidth 50
-skinparam ParticipantPadding 10
+skinparam ParticipantPadding 5
 skinparam Shadowing false
 skinparam DefaultTextAlignment center
 skinparam packageStyle Rectangle

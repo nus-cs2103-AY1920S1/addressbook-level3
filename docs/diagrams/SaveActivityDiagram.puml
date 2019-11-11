@@ -7,9 +7,16 @@ start
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([valid Savings from Wallet])
-    :Add Savings into the Savings Account;
+if () then ([sufficient funds in wallet])
+    if () then ([adding savings into savings account
+    does not result in memory errors])
+        :Deduct Savings from Wallet;
+        :Add Savings into the Savings Account;
+        :Add Savings into the Savings History;
     else([else])
+    endif
+else ([else])
 endif
 stop
+
 @enduml
