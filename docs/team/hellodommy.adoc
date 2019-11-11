@@ -34,19 +34,115 @@ team's attendance and performance. *Athletick* also features a calendar for coac
 ahead, and supports the sorting, filtering, and finding of athletes their database.
 
 Like Address Book, Athletick uses the command-line as its main method of input and a JavaFX Graphical User
-Interface for display.
-
-Some constraints of the project given by the module coordinator are listed below. The full list of
-constraints can be found https://nus-cs2103-ay1920s1.github.io/website/admin/project-constraints.html[here].
-
-* Product should have a command-line input
-* Product should be for a single user
-* Software should follow an Object-oriented paradigm
+Interface for display. Some constraints of the project were that it should have a command-line input, and
+it should be used by a single user only. The full list of constraints can be found
+https://nus-cs2103-ay1920s1.github.io/website/admin/project-constraints.html[here].
 
 My role was to build the _Performance_ feature, which encompasses the adding, deleting and viewing of
 events and records. Additionally, I acted as the Team Lead, where I managed milestone requirements and
 delegated roles for the team.
 
+Note the following symbols and formatting used in this document.
+[horizontal]
+
+`undo`:: Black test with a grey highlight (called a mark-up) indicates that this is a command and can be
+inputted into the command-line and executed by the application.
+
+`[green]#Performance#`:: Green text with a grey highlight indicates a component, class, or object in the
+architecture of the application.
+
+== Summary of Contributions
+
+This section shows a summary of my coding, documentation, and other helpful contributions to *Athletick*.
+
+*Enhancement addded (major):*  I added the ability to _add_, _delete_, and _view_ events and records.
+
+* What it does: It allows coaches and captains to log records that an athlete completed for a certain
+event, on a certain day, into Athletick. An event can store multiple records over time for the same athlete in
+order to track their progress, which can be visualised with a line chart provided.
+
+* Justification: It is crucial for coaches and captains to track the progress of their team over time,
+hence the ability to add records. There are also different types of recordings to take in a sports team --
+2.4km run, static jump, etc. --  hence the ability to add records _under different events_.
++
+The ability to delete records and events was also necessary, as teams may no longer participate in certain
+events, or records can be entered incorrectly.
++
+Viewing
+
+* Highlights: This enhancement works well with future extensions to further analyse and present the records
+data as the required framework has been built.
++
+An in-depth analysis of design alternatives was necessary due to complex structure of the records data
+which required efficient storage and retrieval. There was up to 4 levels of nesting  - a list of events,
+each event with a list of athletes paired with their own list of records, each record having a date and
+timing. This also made the implementation exceptionally challenging.
+
+*Enhancement added (minor):* I added the ability to _filter_ athletes by their tags.
+
+* What it does: It allows captains and coaches to find athletes through their tags. Filtering by multiple
+tags is supported.
+
+* Justification: When there are many athletes in a team, tags are a useful way of remembering certain
+details about a particular athlete. This function enhances the existing tag feature by allowing users with
+certin tags to be filtered out of the general athlete list.
+
+* Highlights: This enhancement provides the necessary framework for further types of filtering, such as by
+gender or location.
+
+*Code contributed:* Please click these links to see a sample of my code:
+https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/src/main/java/seedu/address/model/performance/Event.java[[Functional code]]
+https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/src/test/java/seedu/address/logic/commands/EventCommandTest.java[[Test Code]]
+
+A compilation of all the code I contributed can be found
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hellodommy&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[here].
+
+*Other contributions*
+
+* Project management
+** Managed the deliverables for all 4 milestones -
+https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/1[v1.1],
+https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/2[v1.2],
+https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/3[v1.3],
+https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/4[v1.4]
+** Released https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3.3[v1.3.3]
+of the product
+* Enhancement to existing feature
+** Extended the existing _find by name_ feature to allow users to _find by tags_ (Pull requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/84[#84])
+* Documentation
+** Modified the colour scheme of the documentation for consistency with *Athletick*'s dark blue (Pull
+request
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/79/files[#79])
+** Added Developer Guide documentation for `filter`, `[green]#Performance#` and `[green]#Storage#` (Pull requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/83[#83],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/226[#226],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/232[#232],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/238[#238])
+** Added User Guide documentation for `filter`, `find`, `delete` and `[green]#Performance#`-related
+commands (Pull
+requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/79[#79],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/117[#117],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/206[#206],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/239[#239],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/241[#241])
+* Community
+** Created helper methods for team members to integrate `[green]#Performance#` into their respective
+features (Pull requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/98[#98],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/128[#128])
+** Reviewed Pull Requests with non-trivial review comments (Pull requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/65[#65],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/91[#91],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188])
+** Reported bugs and offered suggestions to other teams in the class (Issues
+https://github.com/AY1920S1-CS2103T-F11-4/main/issues/129[#129],
+https://github.com/AY1920S1-CS2103T-F11-4/main/issues/131[#131])
+
+* Tools
+** Integrated a new GitHub plugin (Coveralls) to the team repo
 
 
 
