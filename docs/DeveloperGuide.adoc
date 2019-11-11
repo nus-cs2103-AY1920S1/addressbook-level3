@@ -431,7 +431,7 @@ image::AutoCompleteSequenceDiagram.png[]
 [cols="1,10"]
 |===
 |*Pros*|
-1. Time Complexity Efficient: O(m), where m is length of searched word. +
+1. Search Time Complexity Efficient: O(m), where m is length of searched word. +
 2. One of the most natural data structure for text prediction.
 |*Cons*|
 1. Requires initialisation. +
@@ -445,7 +445,7 @@ image::AutoCompleteSequenceDiagram.png[]
 |*Pros*|
 1. Extremely simple to implement.
 |*Cons*|
-1. Time Complexity Inefficient: O(nm), where n is number of words and m is length of searched word.
+1. Search Time Complexity Inefficient: O(nm), where n is number of words and m is length of searched word.
 |===
 
 // end::autocomplete[]

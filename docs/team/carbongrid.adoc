@@ -51,7 +51,6 @@ ClerkPro is a desktop application designed for ease of managing clinic's appoint
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=quickStart]
 ====
 include::../UserGuide.adoc[tag=autoCompleteAndHistoryUG]
 include::../UserGuide.adoc[tag=reactiveSearchUG]
