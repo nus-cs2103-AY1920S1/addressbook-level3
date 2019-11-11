@@ -59,6 +59,7 @@ public class CalendarPanel extends UiPart<Region> {
     /**
      * To populate the agenda with the schedules in the observable list
      */
+
     public void populateAgenda() {
         logger.info("Populating Calendar with schedules.");
         agenda.appointments().clear();
@@ -103,7 +104,7 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Switch the agenda view according to the date input by the user
+     * Switch the agenda view to the week containing the specified date.
      */
     private void setAgendaView(Calendar calendar) {
         logger.info("Date view on Calendar changed.");

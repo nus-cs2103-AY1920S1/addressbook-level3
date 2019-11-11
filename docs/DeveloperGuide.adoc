@@ -115,6 +115,8 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
+// tag::logicsequencediagram[]
+
 .  `Logic` uses the `SellerManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a customer/phone/order/schedule).
@@ -127,6 +129,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCustomerCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+// end::logicsequencediagram[]
 
 [[Design-Model]]
 === Model component
@@ -171,7 +175,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.address.commons` package.
 
 == Implementation
 
@@ -200,7 +204,7 @@ and generates the `profit`, `cost` or `revenue`  each `month` between this 2 dat
 
 Here is the sequence of steps taken by SMLJ when it receives a `StatCommand`:
 
-image::StatisticsCalculationAcitvityDiagram.png[width="300", align="center"]
+image::StatisticsCalculationAcitvityDiagram.png[]
 
 [[Design-Statistics]]
 ===== Statistic Module
@@ -322,11 +326,7 @@ Step 4: `Statistic Manager` calculates the date
 Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
 a `String` or a `XYChart.Series<String, Number>`.
 
-Note that in date input mode, the methods that return the `String` and
-`XYChart.Series<String, Number>` is called as both are displayed in the popup window
-
-Step 5: with this output from logic, `Statistic Window` or `DefaultStatisticWindow` will
-then handle the displaying of the statistic, be it in chart
+Step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
 form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
 
 image::StatisticsCalculationUI.png[width="400", align="center"]
@@ -394,64 +394,72 @@ and a `Map<String, Node>` to represent outgoing edges. The keys of this map repr
 * Infinite structure: By having a `TagNode` store a reference to itself, it is possible to endlessly display `t/` as a possible argument at the end of the input text,
 which is consistent with the unlimited number of `Tag` a `Customer` can hold.
 
+
+// tag::schedule[]
+
 === Calendar / Schedule feature
 ==== Implementation
 
-We decided to incorporate a third party library, `JFXtras's Agenda`, to represent our schedules on a calendar for easy viewing by our users.
+We decided to incorporate a third party library, _JFXtras's Agenda_, to represent our schedules on a calendar for easy viewing by our users.
 
-`CalendarPanel` keeps `UniqueList<Schedule>` and `UniqueList<Order>` objects as class variables. On instantiation, all the schedules in `UniqueList<Schedule>` will be converted to `Appointments` and then added to `Agenda`.
-To set the display information of the `Schedule` object, we will find its `Order` in the `UniqueList<Order>` and retrieve its index.
-`CalendarPanel` also keeps `CalendarDate` as a variable to set the date shown by `Agenda`.
+Here is the class diagram for `CalendarPanel`:
 
-Schedule supports a few basic commands:
+image::CalendarPanelClassDiagram.png[]
+
+On instantiation of `CalendarPanel`, all the schedules in scheduleList will be converted to `Appointments` and then added to `Agenda` via `populateAgenda()`.
+To set the display information of the `Schedule` object, we will find its `Order` in the orderList and retrieve its index.
+
+Schedule supports a few main commands:
 
 * Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS] [-allow]`
 * Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS] [-allow]`
-* Delete -- delete an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
-* Schedule -- switches the week on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
+* Delete -- deletes an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
+* Schedule -- switches the view on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
 
-The schedules and date the calendar panel shows is automatically updated depending on the commands executed by the users.
+The schedules and date in the calendar panel shows is automatically updated depending on the commands executed by the users.
 For example:
 
 * If the user adds/edits/deletes a schedule -- calendar panel will display the week with the date of the schedule.
 * If the user uses the switch-s command -- calendar panel will display the week with today's date.
-* If the user uses the schedule command -- calendar will display the week with the date resquested by the user.
+* If the user uses the schedule command -- calendar panel will display the week with the date requested by the user.
 
-Changes to the schedules are made in the model by editing the `UniqueList<Schedule>` object.
-`CalendarPanel` adds a listener to its `UniqueList<Schedule>` variable.
-`CalendarPanel` listen to the changes and generates the updated list of `Schedules` into `Appointments` to add to `Agenda`.
+Changes to the schedules are made in the model by editing its own scheduleList.
+`CalendarPanel` adds a listener to its `scheduleList` variable and listens to the changes and calls `populateAgenda()` to generate the updated list of `Schedules` into `Appointments` to add to `Agenda`.
 
 The current date shown on the calendar panel is encapsulated in a `CalendarDate` object.
 The `CalendarDate` class uses `SimpleObjectProperty` to keep track of the Calendar (date).
-When any of the schedule commands are executed, the model will edit the `CalendarDate` object with the updated Calendar (date).
-`CalendarPanel` adds a listener to its `CalendarDate` variable.
-`CalendarPanel` listen to the changes and sets the agenda view to the new `Calendar` in `CalendarDate`.
 
-Here is a sample of what happens when a schedule command is entered by the user:
+When any of the schedule commands are executed, model will edit the `CalendarDate` object with the updated Calendar (date).
+`CalendarPanel` adds a listener to its `CalendarDate` variable and listens to the changes and calls `setAgendaView()` to set the new `Calendar` in `CalendarDate` accordingly.
+
+Here is a sample of what happens when a user adds a schedule (AddScheduleCommand):
 
 image::ScheduleCommandSequenceDiagram.png[]
 
-Basically, after the setCalendarDate(calendar) method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its setAgendaView(calendar) method.
+Basically, after the `setCalendarDate()` method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its `setAgendaView()` method.
 
 ===== Design Considerations / Alternative designs considered
 
-We do not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our system uses `Schedule`.
-Instead, we have decided to only convert `Schedule` into `Appointment` when needed - during the instantiation of `CalendarPanel` or when there are changes made to the `UniqueList<Schedule>`.
+* Whether schedules should be kept as `Appointment` objects instead of `Schedule` objects.
+** We felt that the existence of our own `Schedule` object ensures that we can design it the way we want.
+** We decided to not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our code uses `Schedule`.
+** Instead, we have decided to only convert `Schedule` into `Appointment` when needed - during the creation of `CalendarPanel` or when there are changes made to the `UniqueList<Schedule>` variable.
 Not keeping a list of `Appointment` ensures that we do not keep duplicate information.
 
-The changes to `CalendarDate` was initially done in the `CalendarPanel` itself.
+* Where to store and change the date shown on Calendar Panel.
+** The changes to `CalendarDate` was initially done in the `CalendarPanel` itself.
 So, `CommandResult` was made to have one more variable `Optional<Calendar>`.
 In that case, every time a schedule command was executed, a specific `Calendar` (if any) will be placed inside the constructor while creating the `CommandResult` object.
 Else, Optional.Empty() will be placed inside.
-
-When the `MainWindow` executes the method performUiChanges(CommandResult), it will call the handleSchedule method with Calendar (from CommandResult) as an argument.
+** When the `MainWindow` executes the method performUiChanges(CommandResult), it will call the handleSchedule method with `Calendar` (from CommandResult) as an argument.
 If `Optional<Calendar>` in `CommandResult` is empty, today's date and time will be used instead.
-Then, `CalendarPanel` will be called in the handleSchedule method to set the agenda view.
-
-This implementation was however changed because we thought that the date shown on the panel should be changed automatically.
+Then, `CalendarPanel` will be called in handleSchedule() to set the agenda view.
+** This implementation was however changed because we thought that the date shown on the panel should be updated automatically.
 Hence, we decided to use a listener instead.
-`CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
+`CalendarDate` is then placed in `Model` so that it can be edited immediately when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
+
+// end::schedule[]
 
 // tag::find[]
 
@@ -549,7 +557,7 @@ The undo/redo mechanism is facilitated by `UndoRedoStack`.
 `UndoableCommand` extends Command and has the following attributes and methods.
 
 
-image::dg-diagram/UndoableCommandClassDiagram.png[]
+image::dg-diagram/UndoableCommandClassDiagram.png[width="300"]
 
 When an UndoableCommand is being executed, the methods `saveCustomerBookSnapshot(Model model)`, `savePhoneBookSnapshot(Model model)`, `saveOrderBookSnapshot(Model model)`, `saveScheduleBookSnapshot(Model model)`
 and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures that the states of all 5 books are being stored.
@@ -557,7 +565,7 @@ and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures th
 After a command is executed, `LogicManager` will add it into the `UndoRedoStack`.
 This will be explained in the activity diagram below.
 
-image::dg-diagram/UndoRedoStackPushActivityDiagram.png[]
+image::dg-diagram/UndoRedoStackPushActivityDiagram.png[width="600"]
 
 Next, when `UndoCommand` is being performed, `UndoStack` will remove the first command in its stack and add it to `RedoStack`.
 It will then call `UndoableCommand#undo()` of the command that is removed.
@@ -573,42 +581,43 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 
 
 
-
 Step 1. The user launches the application for the first time. The `UndoRedoStack` will be initialized.
 
-image::dg-diagram/UndoRedoStackObjectDiagram0.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram0.png[[width="450"]
 
 Step 2. The user executes `delete-c 5` command to delete the 5th customer. The `delete-c 5` command will be pushed into the `UndoRedoStack`.
 
-image::dg-diagram/UndoRedoStackObjectDiagram1.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram1.png[[width="450"]
 
-Step 3. The user executes `add-c n/David ...` to add a new person. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
+Step 3. The user executes `add-c n/David ...` to add a new customer. The `add-c` command will save all states of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
 
-image::dg-diagram/UndoRedoStackObjectDiagram2.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram2.png[[width="450"]
 
 Step 4. The user now decides that adding the customer was a mistake, and decides to undo that action by executing the `undo` command.
 
 
-image::dg-diagram/UndoRedoStackObjectDiagram3.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram3.png[[width="450"]
 
 [NOTE]
 UndoCommand will check whether if there is any command to be undone by calling the `UndoRedoStack#canUndo()` method.
 
 The following sequence diagram shows how the undo operation works:
 
-image::dg-diagram/UndoSequenceDiagram.png[]
+image::dg-diagram/UndoSequenceDiagram.png[[width="450"]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+NOTE: XYZ here refers to Customer, Phone, Order, Schedule and ArchivedOrder.
 
 The `redo` command does the opposite -- it calls `UndoableCommand#redo()`.
 
 Step 5. The user then decides to execute the command `list-c`. Commands that do not modify the 5 books (Customer, Phone, Order, Schedule and Archived Order), such as `list-c`, do not extend UndoableCommand.
 
-image::dg-diagram/UndoRedoStackObjectDiagram4.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram4.png[[width="450"]
 
 Step 6. The user executes `clear-c`.
 
-image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
+image::dg-diagram/UndoRedoStackObjectDiagram5.png[[width="450"]
 
 ==== Design Considerations
 
@@ -620,6 +629,7 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete-c`, just save the customer being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+// end::undoredo[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -629,7 +639,7 @@ image::dg-diagram/UndoRedoStackObjectDiagram5.png[]
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -683,7 +693,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Keep track of your phone, orders and customers faster than a typical mouse/GUI driven app
+*Value proposition*: Keep track of your phone, orders, schedules and customers faster than a typical mouse/GUI driven application.
 
 [appendix]
 == User Stories
@@ -694,8 +704,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
 
 |`* * *` |handphone seller |schedule my orders| deconflict and view the schedule of my sales meetings.
 
@@ -792,9 +800,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. Actor input phone name and quantity.
-2. System adds phone to the list of phones.
-3. System shows the new list of phones.
+1. Actor input phone name and other phone attributes.
+2. SML adds phone to the list of phones.
+3. SML shows the new list of phones.
 
 *Extensions*
 
@@ -808,103 +816,72 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Check quantity of phone (UC03)
+=== Use case: Confirm order (UC03)
 
 *MSS*
 
-1. Actor requests to check stock of a phone.
-2. System displays the stock status for a phone.
+1. Actor add order to the system. SML displays the new order list.
+2. Actor schedule order. (UC04)
+3. Actor mark order as completed. SML displays completed order message.
 
 *Extensions*
 
 [none]
-* 1a. System is unable to find the phone as it does not exist.
+* 2a. SML is unable to add as command is missing fields.
 +
 Use case ends.
 [none]
-** 1a1. System shows error message that phone does not exist.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case: Confirm order (UC04)
-
-*MSS*
-
-1. Actor requests to check stock of a phone (UC03).
-2. Actor add order to the system. System displays the new order list.
-3. Actor schedule order. (UC05)
-4. Actor mark order as completed. System displays completed order message.
-
-
-*Extensions*
-
-[none]
-* 2a. System is unable to add as command is missing fields.
-+
-Use case ends.
-[none]
-** 2a1. System shows error message that command is missing fields.
+** 2a1. SML shows error message that command is missing fields.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Actor schedule order (UC05)
+=== Use case: Actor schedule order (UC04)
 
 *MSS*
 
-1. Actor adds order to schedule by some identifier.
-2. System check for conflict in timings.
-3. System displays the scheduled order.
+1. Actor adds a schedule to an order.
+2. SML check for conflict in timings.
+3. SML displays the scheduled order.
 
 *Extensions*
 
 [none]
-* 2a. System finds out that there is a conflict in timing for 2 or more orders.
+* 2a. SML finds out that there is a conflict in timing for 2 or more orders.
 
 +
 Use case ends.
 [none]
-** 2a1. System displays the 2 or more orders that have the same schedule timing.
+** 2a1. SML displays the 2 or more orders that have the same schedule timing.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Actor input data via .csv file (UC06)
+=== Use case: Actor export data to csv file (UC05)
 
 *MSS*
 
-1. Actor requests to import .csv file.
-2. System loads file into memory.
-3. System reads the file and saves it.
-4. System displays the updated data.
+1. Actor requests to export data to csv file.
+2. SML loads system data into the file.
 
 *Extensions*
 
 [none]
-* 1a. System finds that no file is found.
-* 1b. System finds that there is an error with the formatting.
+* 1a. Input file name does not follow constraints.
 
 +
 Use case ends.
 [none]
-** 1a1. System displays error message and does not add new data from the file.
-+
-Use case resumes at step 1.
-[none]
-** 1b1. System displays error message and does not add the new data from the file.
+** 1a1. SML displays error message and does not create the file.
 +
 Use case resumes at step 1.
 
-
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 customers/phones/orders without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Single User for each session
 .  No internet required
@@ -918,17 +895,75 @@ _ {More to be added}_
 [appendix]
 == Glossary
 
-[[mainstream-os]] Mainstream OS::
+
+ [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+. *SML* +
+Initialism for our application, Seller Manager Lite.
 
-[[order]] Order::
-A order consisting of customer and phone
+. *Customer* +
+A person who buys from the seller.
 
-[[Phone]] Phone::
-Any mobile device being sold by seller
+. *Phone* +
+Multi-purpose mobile computing device. Also known as smartphones.
+
+. *Order* +
+A request for goods.
+
+. *Schedule* +
+A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+
+=== SML-specific Terms
+
+. *Command* +
+An instruction that will produce an output once entered in SML.
+
+. *CustomerBook* +
+A CustomerBook is a list that stores Customer(s) that has been added into SML.
+Each customer entry comprises of CustomerName, ContactNumber and Email fields and others.
+
+. *PhoneBook* +
+A PhoneBook is a list that stores Phone(s) that has been added in SML.
+Each phone entry comprises of IdentityNumber, SerialNumber, Brand, PhoneName, Colour, Cost and Capacity.
+
+. *OrderBook* +
+A OrderBook is a list that stores Order(s) that has been added in SML.
+Each order entry comprises of a customer, a phone, OrderID, Price and OrderStatus.
+
+. *ScheduleBook* +
+A ScheduleBook is a list that stores Schedules(s) that has been added in SML.
+Each schedule entry comprises a Venue and Calendar with date and time.
+
+. *Archived* +
+Archived is a list that stores Completed or Cancelled orders ONLY.
+
+. *TabPanel* +
+A view that is similar to web browser Tabs.
+
+. *Add* +
+The action of putting an entry into CustomerBook, PhoneBook, OrderBook or ScheduleBook.
+
+. *Edit* +
+If you want to make changes to any entry, you can do so with this command.
+
+. *Delete* +
+Remove an entry from CustomerBook, PhoneBook or ScheduleBook.
+
+. *Find* +
+The action of searching for customers, phones or orders that contains the keywords that you specify.
+
+. *Switch* +
+Change the Tab Panel to Customer, Phone, Order, Schedule or Archived.
+
+. *Undo* +
+If you've made a mistake, you can simply revert to the previous command.
+
+. *Redo* +
+Inverse of undo.
+
+. *Copy* +
+Action of copying an entry into clipboard.
 
 [appendix]
 == Product Survey
@@ -960,38 +995,57 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Open your command line prompt / terminal, navigate and input `java -jar [filename]` to run the file +
+   Expected: Shows the GUI with a set of sample data. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app the same way you launched the application previously. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a phone
+
+. Adding a phone while all phones are listed
+
+.. Test case: `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple $/$900 t/NEW t/Cool` +
+   Expected: Phone with the above details is added the list. Details of the phone shown in the status message.
+.. Test case: `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple t/NEW t/Cool` +
+   Expected: No phone is added. Error details shown in the status message. Missing fields.
+.. Other incorrect add commands to try: `add-c n/Steve Jobs c/12345678`, where the email field is missing. +
+   Expected: Similar to previous.
 
 === Deleting a customer
 
-. Deleting a customer while all persons are listed
+. Deleting a customer while all customers are listed
 
-.. Prerequisites: List all customers using the `list` command. Multiple customers in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Prerequisites: List all customers using the `list-c` command. Multiple customers in the list.
+.. Test case: `delete-c 1` +
+   Expected: First customer is deleted from the list. Details of the deleted customer shown in the status message.
+.. Test case: `delete-c 0` +
    Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete-p`, `delete-p x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Editing an order
+
+. Edit an order while all orders are listed.
+
+.. Prerequisites: List all customers using the `list-o` command. There must be at least 1 order in the list.
+.. Test case: `edit-o 1 $/$1000` +
+   Expected: Price of the first order is edited. Details of the edited order is shown in the status message.
+.. Test case: `edit-o 1` +
+   Expected: Nothing is edited. Error details shown in the status message. No fields to be edited.
+.. Other incorrect edit commands to try: `edit-c 1 c/abc`, c/ is the prefix for contact number but alphabets are entered instead +
+   Expected: Error message shown due to erroneous input.
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Data is automatically saved after every command.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. When the application is relaunched, it will check for the validity of the data.
+Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
 
-_{ more test cases ... }_
 
 
 === Testing Statistics

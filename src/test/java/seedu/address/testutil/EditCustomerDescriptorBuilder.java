@@ -62,7 +62,7 @@ public class EditCustomerDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditCustomerDescriptor}
      * that we are building.
      */
     public EditCustomerDescriptorBuilder withTags(String... tags) {
