@@ -161,18 +161,18 @@ The standard implementation of the CommandLogic is the `CommandLogicManager` cla
 .Associations of the CommandLogicManager
 image::CommandLogicManager.png[]
 
-- This implementation works by requiring its users to register a `CommandSupplier` functional interface with a specific key.
-The command can also be registered with a `CommandFactory` which encapsulates the Key-CommandSupplier relation.
+- Works by requiring its users to register a `CommandSupplier` functional interface with a specific key.
+- `Command` can also be registered with a `CommandFactory` which encapsulates the Key-CommandSupplier relation.
 
-- Subsequent calls to the `executeCommand()` method will attempt to match the command String to all the registered keys to
-retrieve the correct `CommandSupplier`.
+- Subsequent calls to `executeCommand()` will attempt to match the command String to all the registered keys
+- Matching key is used to retrieve the correct `CommandSupplier`.
 
 - Storage of these keys and the parsing of the `commandText` argument is performed by `CommandParser`.
 
 ====
-* The `CommandSupplier` only accepts the arguments of the command.
+* `CommandSupplier` only accepts the arguments of the command.
 * `InvalidCommandArgumentException` is thrown if the arguments do not match the specification of the command.
-* The `CommandParser` splits the command String into the registered key and arguments in order to retrieve the corresponding command.
+* `CommandParser` splits the command String into the registered key and arguments to retrieve the corresponding command.
 ====
 
 ====
@@ -184,15 +184,15 @@ image::CommandLogicSequence.png[]
 
 . `Command` is registered upon startup by the application driver
 
-. The command and its matching key is stored in the `CommandParser` by the `CommandLogicManager`
+. `Command` and matching key is stored in `CommandParser` by `CommandLogicManager`
 
 . User enters command text
 
-. Application driver passes the command text as a String to the `CommandLogicManager`
+. Application driver passes the command text as a String to `CommandLogicManager`
 
-. `CommandLogicManager` passes on the command text to the `CommandParser` for parsing and `Command` retrieval
+. `CommandLogicManager` passes on command text to `CommandParser` for parsing and `Command` retrieval
 
-. `CommandLogicManager` executes the retrieved `Command`
+. `CommandLogicManager` executes retrieved `Command`
 ====
 
 ==== QuestionsLogic implementation
@@ -206,11 +206,11 @@ _(View <<Design-Storage>> for more details.)_
 .Associations of the QuestionLogicManager
 image::QuestionsLogicManager.png[]
 
-- The `QuestionsLogicManager` allows other components of the application to make changes to the current state of questions using its methods.
+- `QuestionsLogicManager` allows other components of the application to make changes to the current state of questions using its methods.
 
-- Other components of the application can also observe the current state of questions by getting an `ObservableList` of all the questions in the application through the `getAllQuestionsList()` and `getFilteredQuestionsList()` method.
+- Other components of the application can observe the current state of questions by getting an `ObservableList` of all the questions in the application through `getAllQuestionsList()` and `getFilteredQuestionsList()`.
 
-- The `ObservableList` from the `getFilteredQuestionsList()` method is a filtered list of the questions in the application. This filter can be changed by the `setFilter(predicate)` method.
+- `ObservableList` from `getFilteredQuestionsList()` is a filtered list of the questions in the application. This filter can be changed by `setFilter(predicate)`.
 
 
 ====
@@ -231,16 +231,16 @@ _(View <<Implementation-ProgramEvaluation>> for more details.)_
 .Associations of the ProgramSubmissionLogicManager
 image::ProgramSubmissionLogicManager.png[]
 
-- The `ProgramSubmissionLogicManager` works by keeping track of a `Question` that is "currently attempted" by the user. Subsequent calls to `submitUserProgram(userProgram)` or `submitUserProgramFromSubmissionChannel()`
+- ProgramSubmissionLogicManager` works by keeping track of a `Question` that is "currently attempted" by the user. Subsequent calls to `submitUserProgram(userProgram)` or `submitUserProgramFromSubmissionChannel()`
    run the user's program against test cases found in this `Question`.
-- Other components can set the "currently attempted" `Question` through the `setCurrentQuestion(question)` method.
-- Other components can observe the latest `TestResult` through an observable provided by the `getTestResultObservable()` method without having the `ProgramSubmissionLogicManager` depending on them.
-- Other components can serve as the source of the user program to be evaluated by the `ProgramSubmissionLogicManager`  by providing a functional interface `UserProgramChannel` without the `ProgramSubmissionLogicManager` having to depend on them.
+- Other components can set the "currently attempted" `Question` through the `setCurrentQuestion(question)`.
+- Other components can observe the latest `TestResult` through an observable provided by `getTestResultObservable()` without having `ProgramSubmissionLogicManager` depending on them.
+- Other components can serve as the source of the user program to be evaluated by `ProgramSubmissionLogicManager`  by providing a functional interface `UserProgramChannel` without the `ProgramSubmissionLogicManager` having to depend on them.
 
 ====
-* The `ProgramSubmissionLogicManager` instantiates the `TestExecutor` using the `StandardCompilerEnvironment`, `StandardCompiler` and `StandardProgramExecutor`.
+* `ProgramSubmissionLogicManager` instantiates the `TestExecutor` using the `StandardCompilerEnvironment`, `StandardCompiler` and `StandardProgramExecutor`.
 
-* It holds a reference to the `StandardCompilerEnvironment` so that it can close the environment and delete any temporary files that were created in the `closeSubmissionLogicManager()` method.
+* `ProgramSubmissionLogicManager` holds a reference to `StandardCompilerEnvironment` so that it can close the environment and delete any temporary files that were created in the `closeSubmissionLogicManager()` method.
 
 * It is *important* that the main app driver closes the `StandardCompilerEnvironment` through the `closeSubmissionLogicManager()` method before the app is exited to remove any temporary files that were created.
 ====
@@ -252,10 +252,10 @@ image::ProgramSubmissionSequence.png[]
 
 *The basic sequence of submitting a user's program for evaluation from a `UI`  component is as follows:*
 
-. Register the `UI` component as the new  `UserProgramChannel` of the `ProgramSubmissionLogicManager` through the `setProgramSubmissionChannel(channel)` method.
+. Register the `UI` component as the new  `UserProgramChannel` of `ProgramSubmissionLogicManager` through `setProgramSubmissionChannel(channel)`.
 . Set the _currently attempting_ question using the `setCurrentQuestion(question)` method.
-. Invoke the `submitUserProgramFromSubmissionChannel` method.
-. The user program is retrieved from the `UI` component and evaluated against the test cases of the _currently attempting_ question.
+. Invoke the `submitUserProgramFromSubmissionChannel()`.
+. User program is retrieved from the `UI` component and evaluated against the test cases of the _currently attempting_ question.
 ====
 
 
@@ -269,8 +269,8 @@ _(View <<Design-Storage>> for more details.)_
 [[fig-NotesLogicManagerAssociations]]
 .Associations of the NotesLogicManager
 image::NotesLogicManager.png[]
-- The `NotesLogicManager` allows other components of the application to make changes to the current state of notes using its methods.
-- Other components of the application can also observe the current state of notes by getting an `ObservableList` of all the questions in the application through the `getAllNotesList()` method.
+- `NotesLogicManager` allows other components of the application to make changes to the current state of notes using its methods.
+- Other components of the application can also observe the current state of notes by getting an `ObservableList` of all the questions in the application through `getAllNotesList()`
 - Other components can also serve as sources for Notes by providing a `NoteSubmissionChannel` interface without having to introduce them as dependencies.
 
 ====
@@ -300,8 +300,8 @@ image::NoteSavingSequence.png[]
 
 . Register the `UI` component as the `NoteSubmissionChannel`
 . Invoke the `saveNoteFromSubmissionChannel()` method
-. The `Note` and the *sketch* is retrieved from the `NoteSubmissionChannel`
-. The `Note` is saved by the `NoteBankStorage` while the *sketch* is saved by the `SketchManager`
+. `Note` and *sketch* is retrieved from the `NoteSubmissionChannel`
+. `Note` is saved by the `NoteBankStorage` while the *sketch* is saved by the `SketchManager`
 ====
 
 [[Design-Model]]
@@ -391,7 +391,7 @@ classes -- `TestCaseResult`, `CompileError`.
 
 [[fig-TestResultClassDiagram]]
 .Class diagram for TestResult
-image::TestResultDiagram.png[align=center]
+image::TestResultDiagram.png[]
 
 ====
 
@@ -421,19 +421,19 @@ This temporary folder is deleted after `closed()`. Utilizes the model class `Jav
 
 [[fig-CompilerEnvironmentAssociations]]
 .Associations of CompilerEnvironment
-image::CompilerEnvironment.png[align=center]
+image::CompilerEnvironment.png[]
 
 *Compiler* - in charge of compiling the Java files into Class files at a given file path. Utilizes the model class `ClassFile`.
 
 [[fig-CompilerAssociations]]
-.Associations of Compile
-image::Compiler.png[align=center]
+.Associations of Compiler
+image::Compiler.png[]
 
 *ProgramExecutor* - in charge of executing the compiled Class files. Utilizes the model class `ProgramOutput`.
 
 [[fig-ProgramExecutorAssociations]]
 .Associations of ProgramExecutor
-image::ProgramExecutor.png[align=center]
+image::ProgramExecutor.png[]
 
 *Models:*
 
