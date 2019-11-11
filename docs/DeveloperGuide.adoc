@@ -1315,95 +1315,222 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample transactions, repeaters, budgets and loans. Transactions created by
-repeaters are present as well. Window size is fixed at 960x720px.
+   Expected: GUI shows set of sample transactions.
+   Filter title set to current month and year of system time.
+   Window size is fixed at 960x720px.
+.. Click on repeater tab
+   Expected: Shows the GUI
 
 . Launch with corrupted config.json and/or preferences.json
 
 .. Manually edit config.json and/or preferences.json by adding "aaa" to start of file.
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample transactions, repeaters, budgets and loans. Transactions created by
-repeaters are present as well. Window size is fixed at 960x720px.
+.. Perform same steps as above test case.
 
 === Tab switching
 
 . Tab switching by shortcut key
 
-.. Press `Ctrl+2`.
+.. Press `Ctrl+2`. +
    Expected: GUI shows repeaters tab.
-.. Press `Ctrl+3`.
+.. Press `Ctrl+3`. +
    Expected: GUI shows budgets tab.
-.. Press `Ctrl+4`.
+.. Press `Ctrl+4`. +
    Expected: GUI shows loan tab.
-.. Press `Ctrl+5`.
+.. Press `Ctrl+5`. +
    Expected: GUI shows analytics tab.
-.. Press `Ctrl+1`.
+.. Press `Ctrl+1`. +
    Expected: GUI shows transaction tab.
 
 . Tab switching by command
 
-.. Enter command `rep`.
+.. Enter command `rep`. +
    Expected: GUI shows repeaters tab.
-.. Enter command `budget`.
+.. Enter command `budget`. +
    Expected: GUI shows budgets tab.
-.. Enter command `loan`.
+.. Enter command `loan`. +
    Expected: GUI shows loan tab.
-.. Enter command `analytics`.
+.. Enter command `analytics`. +
    Expected: GUI shows analytics tab.
-.. Enter command `tx`.
+.. Enter command `tx`. +
    Expected: GUI shows transaction tab.
 
 . Tab switching by mouse click
 
-.. Click on repeater tab.
+.. Click on repeater tab. +
    Expected: GUI shows repeaters tab.
-.. Click on budget tab.
+.. Click on budget tab. +
    Expected: GUI shows budgets tab.
-.. Click on loan tab.
+.. Click on loan tab. +
    Expected: GUI shows loan tab.
-.. Click on analytics tab.
+.. Click on analytics tab. +
    Expected: GUI shows analytics tab.
-.. Click on transaction tab.
+.. Click on transaction tab. +
    Expected: GUI shows transaction tab.
 
 . Separate parsing for different tabs
 
-.. Enter `add` in transaction tab.
+.. Enter `add` in transaction tab. +
    Expected: Console shows error message for `AddTransactionCommand`.
-.. Go to repeaters tab.
-.. Enter `add`.
+.. Go to repeaters tab and enter `add`. +
    Expected: Console shows error message for `AddRepeaterCommand`.
-.. Go to budgets tab.
-.. Enter `add`.
+.. Go to budgets tab and enter `add`. +
    Expected: Console shows error message for `AddBudgetCommand`.
-.. Go to loan tab.
-.. Enter `add`.
+.. Go to loan tab and enter `add`. +
    Expected: Console shows error message for `AddLoanCommand`.
-.. Go to analytics tab.
-.. Enter `add`.
+.. Go to analytics tab and enter `add`. +
    Expected: Console shows error message for unrecognised command.
 
-=== Adding a transaction
-
 === Filtering transactions
+. Filter title changes correctly
+.. Enter a `filter` command with all arguments (e.g. `filter m/1 y/2008 c/food ty/exp`) +
+   Expected: Filter title contains information of all arguments (e.g. January 2008 Expenditure - Food)
+.. Enter a `filter` command with only month and year arguments (e.g. `filter m/2 y/2009`) +
+   Expected: Filter title retains information on category and transaction type, and updates to show correct month and year.
+.. Enter `filter c/!all ty/!all` +
+   Expected: Filter title now only contains information about month and year.
+
+. Filters transactions correctly
+.. Prerequisites: No transactions from January 2001 and 2002
+.. Enter `add de/a a/1 c/a d/1 m/1 y/2001 ty/exp`
+.. Enter `add de/b a/1 c/b d/1 m/1 y/2001 ty/exp`
+.. Enter `add de/c a/1 c/a d/1 m/1 y/2001 ty/in`
+.. Enter `filter m/1 y/2002` +
+   Expected: No transactions shown
+.. Enter `filter y/2001` +
+   Expected: All 3 transactions added shown
+.. Enter `filter ty/exp` +
+   Expected: Transactions with descriptions "a", "b" shown
+.. Enter `filter c/a` +
+   Expected: Transaction with description "a" shown
+.. Enter `filter ty/!all` +
+   Expected: Transactions with descriptions "a", "c" shown
+
+. Invalid `Month`
+.. Enter `filter m/13` +
+   Expected: Console shows error message.
+.. Enter `filter m/aaa` +
+   Expected: Console shows error message.
+
+. Invalid `Year`
+.. Enter `filter y/1999` +
+   Expected: Console shows error message.
+.. Enter `filter y/10000` +
+   Expected: Console shows error message.
+
+. Invalid `TransactionType`
+.. Enter `filter ty/xxx` +
+   Expected: Console shows error message.
+
+. Invalid `Category`
+.. Enter `filter c/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz` +
+   Expected: Console shows error message.
+.. Enter `filter c/!!!` +
+   Expected: Console shows error message.
+
+=== Adding a transaction
+. Transaction correctly created
+.. Add any valid transaction using `add` with all fields specified +
+   Expected: GUI changes context if necessary, and transaction added is shown with correct fields
+
+. Optional arguments correctly filled
+.. Enter `filter m/3 y/2005 c/food ty/in`
+.. Enter `add a/1 de/z` +
+   Expected: New transaction("z") appears in the same list, marked as income item with category as "FOOD".
+   Date of transaction is X March 2005, where X is the current day of the month.
+.. Enter `filter ty/!all`
+.. Enter `add a/1 de/y` +
+   Expected: New transaction("y") appears in the same list. Similar to "z", but marked as expenditure.
+.. Enter `filter c/!all`
+.. Enter `add a/1 de/x` +
+   Expected: New transaction("x") appears in the same list. Similar to "y", but under category "UNCATEGORISED".
+
+. Automatic sorting of transaction
+.. Prerequisite: Current list of transactions show no transactions.
+.. Enter `add de/a a/1 d/3`
+.. Enter `add de/b a/1 d/2` +
+   Expected: New transaction("b") appears at the bottom of the transaction list.
+.. Enter `add de/c a/1 d/4` +
+   Expected: New transaction("c") appears at the top of the transaction list.
+.. Enter `add de/d a/1 d/4 c/z` +
+   Expected: New transaction("d") appears at the second index.
+.. Enter `add de/e a/1 d/4 c/a` +
+   Expected: New transaction("e") appears at the top of the transaction list.
+   Resulting list: "e", "c", "d", "a", "b".
+
+. Filter switch when adding transaction
+.. Prerequisites: Current filter is "November 2019 Expenditure - Food"
+.. Enter `add de/a a/1 y/2018` +
+   Expected: Filter changes to "November 2018 Expenditure - Food"
+.. Enter `add de/a a/1 m/10` +
+   Expected: Filter changes to "October 2018 Expenditure - Food"
+.. Enter `add de/a a/1 c/a` +
+   Expected: Filter changes to "October 2018 Expenditure"
+.. Enter `add de/a a/1 ty/in` +
+   Expected: Filter changes to "October 2018"
+
+. Invalid `Description`
+.. Enter `add a/1 de/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/!!!` +
+   Expected: Console shows error message.
+
+. Invalid `Amount`
+.. Enter `de/a a/a` +
+   Expected: Console shows error message.
+.. Enter `de/a a/999999` +
+   Expected: Console shows error message.
+.. Enter `de/a a/-1` +
+   Expected: Console shows error message.
+
+. Invalid `Day` or `Date`
+.. Enter `add a/1 de/a d/32` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/31 m/11` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/30 m/2` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/29 m/2 y/2003` +
+   Expected: Console shows error message.
 
 === Editing a transaction
 
+. Transaction correctly edited
+.. Add any valid transaction using `edit` with any fields specified +
+   Expected: GUI changes context if necessary, and transaction edited is shown with correct fields
+
+. Filter switch when editing transaction
+.. Prerequisites: Current filter is "November 2019 Expenditure - Food". There is at least 1 transaction shown.
+.. Enter `edit 1 y/2018` +
+   Expected: Filter changes to "November 2018 Expenditure - Food"
+.. Enter `edit 1 m/10` +
+   Expected: Filter changes to "October 2018 Expenditure - Food"
+.. Enter `edit 1 c/a` +
+   Expected: Filter changes to "October 2018 Expenditure"
+.. Enter `edit 1 ty/in` +
+   Expected: Filter changes to "October 2018"
+
+. Invalid `Index`
+.. Enter `edit 0 de/a` +
+   Expected: Console shows error message.
+.. Prerequisite: less than 20 items shown in list of transactions.
+.. Enter `edit 20 de/a` +
+   Expected: Console shows error message.
+
 === Deleting a transaction
 
-=== Deleting a person
+. Valid deletion of transaction
+.. Prerequisite: at least 2 people shown in list of transactions
+.. Enter `delete 2` +
+   Expected: Second transaction in list of items deleted.
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
+. Invalid `Index`
+.. Enter `delete 0` +
+   Expected: Console shows error message.
+.. Enter `delete x` +
+   Expected: Console shows error message.
+.. Prerequisite: less than 20 items shown in list of transactions.
+.. Enter `delete 20` +
+   Expected: Console shows error message.
 
 === Adding a repeater
 
