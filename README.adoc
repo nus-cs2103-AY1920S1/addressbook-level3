@@ -18,7 +18,7 @@ image::docs/images/Ui_Achievements.png[width="600"]
 SugarMummy aims to help type II diabetes patients to live more healthily, conveniently, and happily.
 It is a free software with useful functions:
 
-* Data tracker for various data types (blood sugar levels and bmi)
+* Data tracker for various data types (blood sugar levels and BMI)
 * Easy-to-use reminder and calendar
 * Personalized user experience (achievements, biography, and motivational quotes)
 * Daily, Weekly and Monthly graph summary for your activities and health level

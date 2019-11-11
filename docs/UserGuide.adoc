@@ -29,7 +29,7 @@ Moreover, being a computer app with Command Line Interface, SugarMummy is optimi
 
 Hope following features will benefit you and enjoy!
 
-* Data tracker for various data types (blood sugar levels and bmi)
+* Data tracker for various data types (blood sugar levels and BMI)
 * Easy-to-use reminder and calendar
 * Personalized user experience (achievements, biography, and motivational quotes)
 * Daily, Weekly and Monthly graph summary for your activities and health level
@@ -282,29 +282,29 @@ Suppose a user has no records and adds the following records.
 * `add rt/BLOODSUGAR dt/2019-02-08 12:12 con/4.5`
 * `add rt/BLOODSUGAR dt/2019-02-09 12:12 con/4.5`
 
-Average daily bloodusgar levels are clearly within the required range of 4.0 and 7.8 mmol/L (inclusive).
+Average daily `BLOODSUGAR` levels are clearly within the required range of 4.0 and 7.8 mmol/L (inclusive).
 After keying in the third record, the user not only sees that message indicating successful addition of the record, but
 also an additional message indicating that (a) new achievement(s) have been attained, and suggesting to check achievements.
-The achievements pane of the user will now indicate attainment of a bronze achievement for bloodsugar
-(Now a coloured image from what was previously a silhouette image and current state of ACHIEVED).
+The achievements pane of the user will now indicate attainment of a bronze achievement for `BLOODSUGAR`
+(Now a coloured image from what was previously a silhouette image and current state of `ACHIEVED`).
 
-* If the user at this point decides to delete the third bloodsugar record, a notification will indicate that achievements are lost,
-and on the achievements pane the user will lose the achievement (back to silhouette image and YET TO ACHIEVE state)
-* If the user has a new average bloodsugar record the next day and it still fufills the requirement, the user adds to the
-streak and is on the way towards the next level of attainment for bloodsugar.
-* If the user's new average record for the next day no longer meets the requirements for bloodsugar levels, the
-achievement that was originally attained will now have a state of PREVIOUSLY ACHIEVED instead and will be in grayscale
+* If the user at this point decides to delete the third `BLOODSUGAR` record, a notification will indicate that achievements are lost,
+and on the achievements pane the user will lose the achievement (back to silhouette image and `YET TO ACHIEVE` state)
+* If the user has a new average `BLOODSUGAR` record the next day and it still fufills the requirement, the user adds to the
+streak and is on the way towards the next level of attainment for `BLOODSUGAR`.
+* If the user's new average record for the next day no longer meets the requirements for `BLOODSUGAR` levels, the
+achievement that was originally attained will now have a state of `PREVIOUSLY ACHIEVED` instead and will be in grayscale
 colour. A notification is indicated to the user upon the user entering a new record that results in this change.
 * If the user's subsequent record is not within the next day, the user also loses his / or her streak, and
 needs to restart his / her count towards the bronze achievement. However, as there is evidence of a three-day streak of
-meeting the requirements for bloodsugar, the user still attains a PREVIOUSLY ACHIEVED state for the bronze achievement.
+meeting the requirements for `BLOODSUGAR`, the user still attains a `PREVIOUSLY ACHIEVED` state for the bronze achievement.
 The user may fill in the missing day of record in order to maintain the streak or restart the count from the new day
 onwards. (The reason for this is the program cannot award achievements without data that justifies it)
 
 The streak encourages users to keep up good health performances and healthy habits that lead to the results observed.
 Using the average records as a gauge or disregarding missing days of records would have allowed users to 'cheat' in
 between, but at the same time, users may just so happen to miss out filling in one day of record
-(hence implementation of the PREVIOUSLY ACHIEVED feature). Maintaining their records at least once a day encourages
+(hence implementation of the `PREVIOUSLY ACHIEVED` feature). Maintaining their records at least once a day encourages
 users to self-monitor and keep their blood sugar levels and BMI in check, with achievements to keep them going.
 
 To enhance performance, the application internally caches the list of achievements. So long as there is no modification
