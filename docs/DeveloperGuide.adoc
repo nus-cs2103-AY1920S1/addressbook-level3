@@ -1513,23 +1513,23 @@ of prerequisite modules.
 === Executing GUI-related commands
 
 . Expanding a semester
-.. Test case: `expand y1s1`
+.. Test case: `expand y1s1` +
 Expected: If Y1S1 was previously collapsed, it should be expanded now.
 If it was already expanded, no change will occur.
 
 . Expanding all semesters
-.. Test case: `expandall`
+.. Test case: `expandall` +
 Expected: All semesters should be expanded.
 
 . Collapsing a semester
-.. Test case: `collapse y1s1`
+.. Test case: `collapse y1s1` +
 Expected: If Y1S1 was previously expanded, it should be collapsed now.
 If it was already collapsed, no change will occur.
 
 . Collapsing all semesters
-.. Test case: `collapseall`
+.. Test case: `collapseall` +
 Expected: All semesters should be collapsed.
 
 . Changing the theme
-.. Test case: `theme dark`
+.. Test case: `theme dark` +
 Expected: The theme will become dark.
