@@ -34,11 +34,7 @@ public class Budget implements Comparable<Budget> {
      */
     public Budget(Amount initialAmount, Amount amount, Date date, Set<Category> categories) {
         this.initialAmount = initialAmount;
-        if (initialAmount.subtractAmount(amount).isNegative()) {
-            this.amount = initialAmount;
-        } else {
-            this.amount = amount;
-        }
+        this.amount = amount;
         this.deadline = date;
         this.categories.addAll(categories);
         this.valid = true;
@@ -223,8 +219,7 @@ public class Budget implements Comparable<Budget> {
      * @return String representing the float percentage of remaining budget
      */
     public String displayPercentage() {
-        Amount remainingAmount = this.initialAmount.subtractAmount(this.amount);
-        double percentage = remainingAmount.divideAmount(this.initialAmount) * 100;
+        double percentage = this.amount.divideAmount(this.initialAmount) * 100;
         if (percentage < 0.00) {
             percentage = 0.0; // should not display a negative percentage
         } else if (percentage > 100.00) {
@@ -250,7 +245,7 @@ public class Budget implements Comparable<Budget> {
 
     @Override
     public String toString() {
-        return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
+        return String.format("$%s by %s", this.initialAmount.toString(), this.deadline.toString());
     }
 
     public String toLabelText() {
