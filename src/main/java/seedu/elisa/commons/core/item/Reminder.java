@@ -100,13 +100,14 @@ public class Reminder {
         }
 
         Reminder otherReminder = (Reminder) other;
-        return otherReminder.getDefaultDateTime().equals(getDefaultDateTime());
+        return otherReminder.getOccurrenceDateTime().equals(getOccurrenceDateTime())
+                && otherReminder.getDefaultDateTime().equals(getDefaultDateTime());
     }
 
     //Possibility of high number of hash collisions and as a result slower performance
     @Override
     public int hashCode() {
-        return Objects.hash(defaultDateTime);
+        return Objects.hash(defaultDateTime, occurrenceDateTime);
     }
 
     /**

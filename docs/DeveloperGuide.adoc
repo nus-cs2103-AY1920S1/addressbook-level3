@@ -123,13 +123,13 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[500,500]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/elisa/model/ItemModel.java[`ItemModel.java`]
 
-The `Model`,
+The `ItemModel`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Item Storage data
-* exposes four observable lists that can be viewed by the Ui and will cause an update in the Ui when it is updated
+* contains the `ItemStorage` that stores all the data for ELISA.
+* exposes four observable lists that can be viewed by the `Ui` and will cause an update in the `Ui` when it is updated.
 
 ==== Design Consideration
 The original implementation was to have one single observable list and modifying it whenever the view changes. We decided against it as we believe that this will result in O(n) time complexity for switching the different views as we need to iterate through all the items to find the relevant items.
@@ -224,18 +224,18 @@ The command execution history is stored in a stack, which is maintained in `Elis
 
 The activity diagram below shows the flow of the undo command.
 
-image::UndoActivity.png[]
+image::UndoActivity.png[][,250]
 
 Below is a possible usage scenario and the app behaviour.
 
 Step 1. The user executes `task eat`. A task with description "eat" is added and then the command is pushed into the commands stack.
 
-image::UndoStackStep1.png[]
+image::UndoStackStep1.png[][,250]
 
 Step 2. The user realises that adding the task was a mistake, and decides to undo by entering `undo` into ELISA. The `undo` command
 will pop the `AddTaskCommand` from the stack and reverse the effects of that command, in this case by deleting the task "eat" from the `TaskList`.
 
-image::UndoStackStep2.png[]
+image::UndoStackStep2.png[][,450]
 
 Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
 
@@ -245,90 +245,62 @@ That is, the redo stack is only non empty when the latest executed `Command`(s) 
 
 The activity diagram below shows the flow of the redo command.
 
-image::RedoActivity.png[]
+image::RedoActivity.png[][,250]
 
 // end::undobyreverse[]
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== [Previous] Undo/Redo feature
+==== Previous Implementation [Has since been refactored]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `ElisaStateHistory`.
+It stores a stack of type `ElisaState`, which keeps track of the app data with a deep copy of the `ItemStorage` and the current displayed list with a deep copy of `VisualizeList`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `ElisaStateHistory#push()` -- Saves the current ELISA state in its history.
+* `ElisaStateHistory#pop()` -- Removes and returns the latest state as long as there is more than 1 item in the stack. This 1 item is the original application state that is saved on startup.
+* `ElisaStateHistory#size()` -- Returns the number of states in the stack.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Step 1. The user launches the application for the first time. The `ElisaStateHistory` will be initialized with the initial ELISA state
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+image::UndoState0.png[][, 500]
 
-image::UndoRedoState0.png[]
+Step 2. The user executes `task eat` command to add a task with a description "eat". Upon execution of any command except `undo` and `show`, the `Logic` calls `ItemModel#updateState()` to save the latest state to `ElisaStateHistory`.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+image::UndoState1.png[][, 500]
 
-image::UndoRedoState1.png[]
+Step 3. The user executes `task jogging` to add another task with description "jogging". This command also calls `ItemModel#updateState()`, causing another modified ELISA state to be saved into the `ElisaStateHistory`.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+image::UndoState2.png[][, 500]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `ItemModel#updateState()`, so the ELISA state will not be saved.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the task "jogging" was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `ElisaStateHistory#popCommand()`, which will delete the last added state, and `Logic` will update the application state to the one at the top of the stack after command execution.
 
-image::UndoRedoState3.png[]
+image::UndoState3.png[][, 500]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the size of `ElisaStateHistory` is 1, that is, only containing the initial state, then there are no previous Elisa states to restore. The `undo` command checks for this case within its `execute()` method. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::UndoStateSequence.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (initial choice):** Saves the entire Elisa state.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: May have performance issues in terms of memory usage, especially when a large number of items are added.
+** Another Con found after implementation: Reminders fire multiple times due to storing multiple references to items
+* **Alternative 2 (current choice):** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the item being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 // tag::priority[]
@@ -375,9 +347,9 @@ The figure below shows the sequence diagram on what happens from a simple execut
 .Sequence diagram for priority mode
 image::PriorityMode.png[]
 
-. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```AddressBookParser```
+. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```ELISAParser```
 
-. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case,  a new ```ScheduledPriorityCommand``` is created and is passed back to the ```LogicManager```.
+. The ```ELISAParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case,  a new ```ScheduledPriorityCommand``` is created and is passed back to the ```LogicManager```.
 
 [NOTE]
 The following steps (except step 4) are also applicable to ```PriorityCommand```.
@@ -479,8 +451,8 @@ However, in this section, we will only show how Task and Event is added. Adding 
 Given below is an example usage scenario of how add behaves at each step: +
 
 Step 1. The user enters the command `"task shower -d 1.hour.later"`. +
-Step 2. The LogicManager creates an AddressBookParser to parse the user input. +
-Step 3. AddressBookParser creates a AddTaskCommandParser which parses the input and returns an AddCommand. +
+Step 2. The LogicManager creates an ELISAParser to parse the user input. +
+Step 3. ELISAParser creates a AddTaskCommandParser which parses the input and returns an AddCommand. +
 Step 4. LogicManager will execute the AddCommand. AddCommand will then invoke `ItemModel#add(Item)`, which adds Task to its TaskList and Event to its EventList. +
 Step 5. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)`
 Step 6. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view.
@@ -919,6 +891,9 @@ Expected: ELISA will automatically switch to the task list panel and a new task 
 Expected: Elisa will prompt you that the task already exist in the list and cannot be added.
 .. As an additional test case, you can mark a current task as done and then try adding that task into ELISA again. ELISA will still flag it as a repeated object despite the different state of completeness.
 
+[NOTE]
+Even though this is for task, the same tests can be used for testing events and reminders.
+
 === Deleting a task
 
 . Deleting a task while all tasks are listed
@@ -930,6 +905,90 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
    Expected: No person is deleted. Error details shown in the result display.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
+
+[NOTE]
+Even though this is for task, the same tests can be used for testing events and reminders.
+
+=== Editing a task
+
+. Editing a task while all tasks are listed
+
+.. Prerequisite: Switch to the task list panel using the `show T` command. There should be at least one task in the list
+.. Test case: `edit 1 -p high` +
+Expected: The priority of the first task is changed to high (if the original priority of the task is already high, try other priority).
+.. Test case: `edit 1 -desc testcase` +
+Expected: The description of the first task should change to "testcase".
+.. Test case: `edit 1 -d 1.min.later` +
+Expected: A new event should be created for the task. You can verify by switching to the event panel or opening the task using the `open 1` command.
+.. Test case: `edit 1 -p high -d 2.min.later` +
+Expected: A new event should be created for the task (if it does not already exist) or the time of the event will be updated. The priority of the task will also change.
+.. Test case: Try different variation of the edit command to ensure that it works.
+
+. Editing a task to another task that is in the list
+.. Prerequisite: Switch to the task list panel using the `show T` command. There should be at least two task in the list.
+.. Test case: Attempt to edit the first task such that it is the same as the second task. For example, if the second task has a description "testcase" and a priority of high, run `edit 1 -desc testcase -p high`. +
+Expected: ELISA will feedback that the task already exists and will prevent you from editing.
+
+. Editing a task to remove the task
+.. Prerequisite: Switch to the task list panel using the `show T` command. There should be at least one task in the list.
+.. Test case: `edit 1 --tk` when the task has an event and/or reminder. +
+Expected: ELISA will remove the task from the task list but the event and/or reminder will still be viewable in the event/reminder panel.
+.. Test case: `edit 1 --tk` when the task has no event and no reminder.
+Expected: ELISA will prompt that you cannot edit an item such that it has no task, event or reminder and the task will not be removed from the task list.
+
+[NOTE]
+Even though this is for task, the same tests can be used for testing events and reminders.
+
+=== Undoing/Redoing previous commands
+
+. Undoing when no `UndoableCommand`(s) have been executed
+
+.. Prerequisites: Open the application and do not execute any add, edit, delete, priority or show commands
+.. Test case: `undo` +
+   Expected: No changes to be undone. Error message shown in chat box.
+.. Test case: `redo` +
+   Expected: No undo commands to be redone. Error message shown in chat box.
+
+. Undoing when `UndoableCommand`(s) _have_ been executed
+
+.. Prerequisites: Open the application and execute some commands like adding/removing items, changing done/not done of tasks, modifying dates/descriptions
+.. Test case: `undo` +
+   Expected: Last executed change should be reverted.
+.. Test case: `redo` +
+   Expected: Last undone change should be re-applied
+.. Other test cases: You can `undo` and `redo` multiple times in either direction to remove and apply changes.
+
+. Redoing when previous `UndoCommand`(s) exist but are not the last executed
+
+.. Prerequisites: Execute at least one `UndoableCommand`, followed by one or more `UndoCommand`(s), and then another `UndoableCommand`
+.. Test case: `redo` +
+    Expected: Should not be able to redo as the undo/redo command history has changed. Error message shown in chat box.
+=== Game mode testing
+
+.Entering game mode (easy)
+image::SnakeGame.PNG[500,600]
+
+.. Test case: `game` +
+Expected: Enters easy mode of game (Refer to figure above)
+.. Test case: `game e` +
+Expected: Same as above.
+.. Test case: `game EASY`
+Expected: Same as above.
+
+.Entering game mode (hard)
+image::snakegamehard.PNG[500,600]
+
+.. Test case: `game H` +
+Expected: Enters hard mode of game (Refer to figure above)
+.. Test case: `game hard` +
+Expected: Same as above.
+
+=== Change theme testing
+
+. Changing theme of ELISA
+.. Prerequisites: You must be in a different theme from the theme you are switching to before you can see the change.
+.. Test case: `theme white`
+Expected: Change ELISA's theme to white.
 
 === Priority mode testing
 . Toggling on priority mode
@@ -956,18 +1015,23 @@ Expected: Same as above.
 Expected: ELISA will mark the task as done and generate the next task. If there is no next task, ELISA will automatically take you out of priority mode.
 .. Test case: `delete 1` +
 Expected: ELISA will delete the task and generate the next task. If there is no next task, ELISA will automatically take you out of priority mode.
-.. Test case: `edit 1 -p low` (most effective for a task list with more than 1 task and the current task priority is high) +
+.. Test case: `edit 1 -p low` (most effective for a task list with more than 1 task and the current task priority is high/medium) +
 Expected: ELISA will edit the priority of the current task to low (any other priority can be used). A new task with a higher priority will be generated.
 .. Test case: `undo` (used after one of the above has taken place) +
 Expected: ELISA will reverse the previous process and the old task will be generated again.
 .. Test case: `redo` (used after an undo command) +
 Expected: ELISA will reverse the undo command and a new task is generated.
-.. Other test cases: You can try doing all of these commands in focus mode to ensure that they work.
+.. Other test cases: You can try doing all of these commands in focus mode `priority -f` to ensure that they work. When in focus mode, you can try some of the banned command like `show`, `game` etc to make sure that it does not work.
 
 === Saving data
+. Checking that ELISA saves the data properly
+
+.. Copy `ELISA.jar` to a new directory and open it. This is to ensure that there is no old data file. An empty ELISA will be displayed. Type some sample data into ELISA and you will notice that a data file has been created at the path `data/itemstorage.json`. You can open the file to see that the data has been added.
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. To simulate a missing data file, start up ELISA. ELISA will create a data file for you as `data/itemstorage.json` (this is the default name of the storage file). Close ELISA and delete the itemstorage.json file. Re-open ELISA and ELISA will start with a new and empty data file. Verify it at `data/itemstorage.json`.
+
+.. To simulated a corrupted data file, start up ELISA. Type some test input into ELISA. Close ELISA. Open the `data/itemstorage.json` file and edit some of the fields there. Open ELISA again. ELISA will realize that the data is corrupted and will generate a new data file for you.
 
 _{ more test cases ... }_
