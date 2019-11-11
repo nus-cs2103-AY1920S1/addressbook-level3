@@ -58,6 +58,14 @@ public class Task {
         this.taskStatus = taskStatus;
         this.tags.addAll(tags);
         this.deadline = dateTime;
+
+        if (taskStatus.equals(TaskStatus.DOING)) {
+            this.timeStart = timeStart;
+        }
+
+        if (taskStatus.equals(TaskStatus.DONE)) {
+            this.timeEnd = timeStart;
+        }
     }
 
     /* Used by {@code EditTaskCommand}, and various tests */

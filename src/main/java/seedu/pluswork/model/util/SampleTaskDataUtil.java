@@ -1,7 +1,6 @@
 package seedu.pluswork.model.util;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -37,16 +36,15 @@ public class SampleTaskDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[]{
             new Task(new Name("Review Budget"), TaskStatus.UNBEGUN, getTagSet("Finance"),
-                    LocalDateTime.now().plusWeeks(1), Instant.now()),
+                    LocalDateTime.now().plusWeeks(1)),
             new Task(new Name("Increase Funding"), TaskStatus.DOING,
-                    getTagSet("Finance", "Urgent"), LocalDateTime.now().plusWeeks(1), Instant.now()),
-            new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance"), Instant.now()),
+                    getTagSet("Finance", "Urgent"), LocalDateTime.now().plusWeeks(1)),
+            new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance")),
             new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding"),
-                    LocalDateTime.now().plusWeeks(1), Instant.now()),
-            new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics"),
-                    Instant.now()),
+                    LocalDateTime.now().plusWeeks(1)),
+            new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics")),
             new Task(new Name("Design Poster"), TaskStatus.UNBEGUN,
-                    getTagSet("Branding"), LocalDateTime.now().plusWeeks(7), Instant.now())
+                    getTagSet("Branding"), LocalDateTime.now().plusWeeks(7))
         };
     }
 

@@ -1291,8 +1291,8 @@ Expected: +Work cannot assign the member since the task does not exist.
 .. Other test case to try: "assign ti/1 mi/x" where x is an invalid member ID +
 
 . Fire a member from a task:
-.. In the command prompt, enter "fire ti/1 mi/INITIALS" +
-Expected: Shows that the task with index 1 has been removed from member with member id 'INITIALS' (under his 'list of tasks assigned'). Entering "list-tasks" in command prompt displays the list of tasks in +Work, with the involved member removed from
+.. In the command prompt, enter "fire ti/1 mi/T1" +
+Expected: Shows that the task with index 1 has been removed from member with member id 'T1' (under his 'list of tasks assigned'). Entering "list-tasks" in command prompt displays the list of tasks in +Work, with the involved member removed from
 the task at index 1.
 
 === Statistics Feature
@@ -1302,16 +1302,16 @@ Expected: Shows the GUI with two pie charts, relating to the amount of tasks and
 .. Test case: "testing member-stats" +
 Expected: +Work is unable to recognise this as a valid command.
 .. Test case: "member-stats testinggg" +
-Expected: +Work recognises this command as member-stats.
+Expected: +Work recognises this command as member-stats, and displays the GUI.
 .. Test case: Assign / remove (fire) more tasks to/from any member, and enter the command "member-stats" once more. +
 Expected: Pie charts displayed changes accordingly.
 
 . Obtaining task-related statistics:
 .. In the command prompt, enter "task-stats" +
 Expected: Shows the GUI with a list of tasks and the time taken to complete them on the left, and a pie chart relating to the number of tasks of each status (unbegun, doing, done) on the right.
-.. Test case: "testing member-stats" +
+.. Test case: "testing task-stats" +
 Expected: +Work is unable to recognise this as a valid command.
-.. Test case: Use command "add-task tn/name of task ts/unbegun" to add a task to +Work. Then, use commands "doing-task" and "done-task" to the task at a few minutes interval, before calling "task-stats" again.+
+.. Test case: Use command "add-task tn/name of task ts/unbegun" to add a task to +Work. Then, use commands "doing-task ti/" and "done-task ti/" on the task at a few minutes interval, before calling "task-stats" again. +
 Expected: The time taken for the newly added task has been updated accordingly.
 .. Continue to add tasks, and change task status from unbegun to doing to done, to watch task-stats get updated.
 
