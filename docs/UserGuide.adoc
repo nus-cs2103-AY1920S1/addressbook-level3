@@ -58,6 +58,14 @@ See <<Glossary>> for more information on terms such as `Tracked` Module and `Arc
 //* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+Please also note the follow icons, that may serve as points of interests
+
+NOTE: A piece of information you may wish to note.
+
+TIP: A tip or suggestion
+
+WARNING: A cautionary word of advice
+
 === Viewing help: `help`
 
 Format: `help`
@@ -276,49 +284,90 @@ Example: `deadline 1 a/deleteAll`
 
 // end::deadline[]
 
+// tag::link[]
+
 === Manage links in modules: `link`
 
 Link commands are only available when viewing a module and only valid on currently displayed tracked modules.
 
-==== `add`
+NOTE: Before you use any `link` command, make sure you are viewing your desired course module first.
 
-Format: `link add n/LINK_NAME l/LINK_URL`
+TIP: If you happen to forget any of the url paired with the names you have entered, simply hover over the button and the information will be displayed.
 
-Adds link provided to the respective module.
+==== Adding link to module: `link add n/LINK_NAME l/LINK_URL`
 
-Example: `link add n/course website l/https://www.comp.nus.edu.sg/~cs1231/`
+You can use this command to add a link with the given name to a selected TrackedModule. This is useful if you manage to come across an important website related to a certain module you are currently taking and wish to note it down. A button will be created in ModuleBook with name you specified.
 
-==== `edit`
+Suppose you are taking CS2103T, and you will frequently visit the course website to check for new updates or tasks to complete by the next milestone. You wish to put the link somewhere so you can access it easily and also manage them effectively.
 
-Format: `link edit n/LINK_NAME [nn/EDITED_NAME nl/EDITED_LINK]`
+. Enter the command
 
-Edits the link identified by its current title for the respective module.
+image::userguide/AddLinkStep1.png[]
 
-Example: `link edit n/course website nn/module website`
+[start=2]
+. Press Enter. You should see a new button created in the Links section and a success message.
 
-==== `go`
+image::userguide/AddLinkStep2.png[]
 
-Format: `link go n/LINK_NAME`
+==== Editing existing link: `link edit n/LINK_NAME [nn/NEW_NAME nl/NEW_URL]`
 
-Launches the link in the user system's default browser.
+You can use this command to edit the name and/or url of an existing link.
 
-Example: `link go n/module website`
+Suppose the name "Nusmods Timetable" is too long and you want to change it to just "Nusmods".
 
-==== `delete`
+. Enter the corresponding command
 
-Format: `link delete n/LINK_NAME`
+image::userguide/EditLinkStep1.png[]
 
-Deletes the link with the given link title in the respective module.
+[start=2]
+. Press Enter. The link should be updated with the new name and a success message should appear.
 
-Example: `link delete n/module website`
+image::userguide/EditLinkStep2.png[]
 
-==== `mark`/`unmark`
+==== Launching the link: `link go n/LINK_NAME`
 
-Format: `link mark n/LINK_NAME`
+You can use this command to access a link in the default browser of your system.
 
-Marks/unmarks the link with the given link title in the respective module
+NOTE: If you are using any lesser known operating system, the app may not be able to detect it and this feature may not work as intended.
 
-Example: `link mark n/module website`
+Now suppose you wish to access a link you provided previously (from the `add` command). Doing that is very simple:
+
+. Enter the command `link go n/Course Website`
+
+. The website should open in the default browser of your system and a success message should display.
+
+TIP: Alternatively, you can access the link by clicking on it through the GUI as well.
+
+==== Deleting a link: `link delete n/LINK_NAME`
+
+You can use this command to delete a link with a matching name in the given module.
+
+Suppose you have no use for a link to Nusmods in the module and you want to remove it to de-clutter.
+
+. Enter the delete command
+
+image::userguide/DeleteLinkStep1.png[]
+
+[start=2]
+. Press Enter. You should see a success message and the link should be gone.
+
+image::userguide/DeleteLinkStep2.png[]
+
+==== Marking/unmarking a link: `link mark/unmark n/LINK_NAME`
+
+Some links may be more important than others, and you may access them more frequently. To keep track of that, you can mark them using the `mark` feature.
+
+Suppose you go to the course website of CS2103 very often and want to make sure you can identify the link immediately, mark it so it stays at the front all available links.
+
+. Enter the command `link mark n/Course Website`
+
+image::userguide/MarkLinkStep1.png[]
+[start=2]
+. Press Enter. The specified link will now be marked with a symbol and brought to the front of the list.
+
+image::userguide/MarkLinkStep2.png[]
+
+// end::link[]
 
 === Saving the data
 

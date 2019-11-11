@@ -427,35 +427,63 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
+
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+//tag::link[]
 
 === Link Management Feature
 
 The link management feature allows users to add and manage a set of website links that will be associated with a given module.
 
-==== Implementation
+==== Overview of link feature
 
-The link management feature is facilitated by the `link` class.
+===== Implementation
+
+Our application currently supports adding and managing of links specific to certain modules.
+
+The link management feature is primarily facilitated by the following classes:
+
+- `Link` - represents a link object
+
+- `TrackedModule` - represents a module that was tracked. Stores the `Link` objects related to it.
+
+- `LinkCommand` - embodies the `link` command input given by the user and contains the necessary changes that will be made to the `TrackedModule` object.
+
+- `LinkCommandParser` - parses user input related to `link` commands and returns the corresponding `LinkCommand` to be executed.
 
 Each `link` object is stored in an `ArrayList<Link>`, which in turn is stored in its corresponding `TrackedModule`.
 
-The link feature currently supports add, delete, edit and launch commands.
+In summary, the class diagram of how `Link` is implemented is shown as:
+
+.Class diagram for Link objects
+image::LinkClassDiagram.png[]
+
+The link feature currently recognizes and supports add, delete, edit and launch commands.
+
+Link commands are parsed through the `LinkCommandParser` class, which in turn calls the respective `XYZLinkCommandParser` class (i.e. `AddLinkCommandParser`, `EditLinkCommandParser`).
+The `XYZLinkCommandParser` class parses and returns a corresponding `XYZLinkCommand` class, which calls `execute()` and the `TrackedModule` will be updated accordingly if the execution was successful.
+
+The following activity diagram summarizes what happens when the link command is entered and executed:
+
+.Activity diagram for a LinkCommand execution
+image::LinkCommandActivityDiagram.png[]
 
 An example usage scenario of an *add link* operation is given below and the behavior of the link management feature is shown.
 
 1. The user launches the application with an existing save file. `ModuleBook` is initialized with existing `TrackedModule`.
 
-2. The user inputs `link MODULE_INDEX a/add n/LINK_NAME l/LINK_URL` to add a link with name `LINK_NAME`, linked to `LINK_URL` to the `TrackedModule` with the corresponding `MODULE_INDEX`.
+2. The user inputs `link add n/LINK_NAME l/LINK_URL` to add a link with name `LINK_NAME`, linked to `LINK_URL` to the `TrackedModule` with the corresponding `MODULE_INDEX`.
 
 3. `LogicManager` receives user input and parses it using `ModuleBookParser#parseCommand()`.  `ModuleBookParser` reads the `COMMAND_WORD` and identifies the input as a `Link` related command and passes the input to `LinkCommandParser`.
 
-4. `LinkCommandParser` determines the `add` action required through the `a/` prefix argument. It then proceeds to pass the relevant input to  `AddLinkCommandParser`.
+4. `LinkCommandParser` determines the `add` action required. It then proceeds to pass the relevant input to  `AddLinkCommandParser`.
 
 5. `AddLinkCommandParser` checks for the validity of `LINK_URL` given by the user and creates the relevant `Link` and `AddLinkCommand` objects.
 
-6. `AddLinkCommand` calls `Model#get(MODULE_INDEX)` to find the required module. If it does not exist or is not currently tracked, `AddLinkCommand` throws a `CommandException`. Otherwise, it then proceeds to call `TrackedModule#hasLinkTitle(LINK_NAME)` to check for an existing `Link` object with the same `LINK_NAME`.
+6. `AddLinkCommand` calls `Model#getDisplayedModule()` to find the required module. If it does not exist or is not currently tracked, `AddLinkCommand` throws a `CommandException`. Otherwise, it then proceeds to call `TrackedModule#hasLinkTitle(LINK_NAME)` to check for an existing `Link` object with the same `LINK_NAME`.
 
 7. If such a `Link` object exists, `AddLinkCommand` aborts and throws a `CommandException`. Otherwise, the created `Link` will be added to the specified `TrackedModule`.
 
@@ -470,7 +498,7 @@ image::AddLinkCommandSequenceDiagramExtension.png[]
 
 Aspect: Data structure used for link management
 
-* Alternative 1 (current choice): All `TrackedModule` maintain a `ArrayList<Link>`. Adding `Link` objects will add to this `ArrayList`.
+* Alternative 1: All `TrackedModule` maintain a `ArrayList<Link>`. Adding `Link` objects will add to this `ArrayList`.
 
 ** Pros: Easy to implement and edit for beginner programmers.
 
@@ -481,6 +509,11 @@ Aspect: Data structure used for link management
 ** Pros: Reduces access time, since `Link` objects can be obtained by giving `LINK_TITLE`, rather than searching the list linearly for a matching object.
 
 ** Cons: Difficult to add features. Future implmentations may add a `Priority` feature to `Link` objects. `HashSet` does not support any form of sorting and thus may pose a problem.
+
+* Solution (current implementation): Adopt alternative 1. Since from a user standpoint, the number of links added to any module should not be too large to affect performance of application.
+
+//end::link[]
+
 
 == Documentation
 

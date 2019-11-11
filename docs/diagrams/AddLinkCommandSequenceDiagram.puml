@@ -1,6 +1,11 @@
 @startuml
 !include style.puml
 
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+
+end box
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ModuleBookParser" as ModuleBookParser LOGIC_COLOR
@@ -15,7 +20,10 @@ participant ":Model" as Model MODEL_COLOR
 participant "link:Link" as Link MODEL_COLOR
 end box
 
-[-> LogicManager : execute(USER_INPUT)
+[-> MainWindow : execute(USER_INPUT)
+activate MainWindow
+
+MainWindow --> LogicManager : execute(USER_INPUT)
 activate LogicManager
 
 LogicManager -> ModuleBookParser : parseCommand("link ...")
@@ -28,7 +36,7 @@ activate LinkCommandParser
 LinkCommandParser --> ModuleBookParser
 deactivate LinkCommandParser
 
-ModuleBookParser -> LinkCommandParser : parse("MODULE_INDEX ... ")
+ModuleBookParser -> LinkCommandParser : parse("add ... ")
 activate LinkCommandParser
 
 create AddLinkCommandParser
@@ -38,7 +46,12 @@ activate AddLinkCommandParser
 AddLinkCommand --> LinkCommandParser
 deactivate AddLinkCommand
 
-LinkCommandParser -> AddLinkCommandParser : parse("MODULE_INDEX n/LINK_NAME ...")
+LinkCommandParser -> AddLinkCommandParser : parse("add n/LINK_NAME ...")
+
+AddLinkCommandParser --> AddLinkCommandParser : isValidUrl("LINK_URL")
+activate AddLinkCommandParser
+AddLinkCommandParser -> AddLinkCommandParser
+deactivate AddLinkCommandParser
 
 create Link
 AddLinkCommandParser -> Link : Link(LINK_NAME, LINK_URL)
@@ -80,9 +93,32 @@ activate CommandResult
 CommandResult --> AddLinkCommand
 deactivate CommandResult
 
-AddLinkCommand --> LogicManager : result
+AddLinkCommand --> LogicManager : CommandResult
 deactivate AddLinkCommand
 
-[<--LogicManager
+LogicManager -> MainWindow: CommandResult
 deactivate LogicManager
+
+MainWindow --> MainWindow: handleShowModule()
+activate MainWindow
+
+MainWindow --> LogicManager: getDisplayedModule()
+activate LogicManager
+
+LogicManager --> Model: getDisplayedModule()
+activate Model
+
+Model -> LogicManager: Module
+deactivate Model
+
+LogicManager -> MainWindow: Module
+deactivate LogicManager
+
+MainWindow -> MainWindow
+deactivate MainWindow
+
+[<- MainWindow: Updated ui
+deactivate MainWindow
+
+
 @enduml

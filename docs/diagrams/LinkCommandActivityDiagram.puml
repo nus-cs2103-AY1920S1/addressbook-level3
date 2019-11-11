@@ -1,0 +1,34 @@
+@startuml
+start
+
+:User inputs link command;
+
+if () then ([link command recognized])
+	:Parses user input in LinkCommandParser;
+else ([else])
+	:Throws ParseException;
+	:Update UI with error message;
+endif
+
+:User input passed to corresponding LinkCommandParser;
+if () then ([valid user input])
+    	:Returns corresponding LinkCommand;
+
+else ([else])
+    :Throws ParseException;
+    :Update UI with error message;
+
+endif
+:LinkCommand executes ;
+if () then ([valid command])
+:updates ArrayList
+of links in TrackedModule
+and updates UI;
+else([invalid command])
+:Throws CommandException;
+:Update UI with error message;
+
+endif
+
+stop
+@enduml

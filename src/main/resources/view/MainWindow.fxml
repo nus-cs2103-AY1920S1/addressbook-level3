@@ -15,7 +15,7 @@
 
 <fx:root minHeight="600" minWidth="900.0" onCloseRequest="#handleExit" title="Module App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
-        <Image url="@/images/address_book_32.png" />
+        <Image url="@/images/modulebookicon.png" />
     </icons>
     <scene>
         <Scene>

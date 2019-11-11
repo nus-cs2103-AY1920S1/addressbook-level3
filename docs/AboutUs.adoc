@@ -39,7 +39,7 @@ Responsibilities: Deadline Manager
 
 === Alex Wu
 image::alexwxh.png[width="150", align="left"]
-{empty}[https://github.com/alexwxh[github]]
+{empty}[https://github.com/alexwxh[github]] [<<alexwxh#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Link Manager
