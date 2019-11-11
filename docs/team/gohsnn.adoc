@@ -96,7 +96,8 @@ and https://drive.google.com/open?id=1JwHdtob_-5TGDpFWXw8Fq2--81RLfbQc[test code
 
 All sections related to the Finance Tracker in the user guide and developer
 guide were done by me. They will be elaborated in the later sections, namely
-Contributions to User Guide and Contributions to Developer Guide.
+<<link-contributions-to-user-guide, Contributions to User Guide>> and
+<<link-contributions-to-developer-guide, Contributions to Developer Guide>>.
 
 === Other Contributions
 
@@ -136,7 +137,7 @@ following examples in this https://github.com/gohsnn/ped/issues[link].
 
 This section will summarise my contribution to the overall set of documentation
 for the team project, excluding the Finance Tracker feature, which would be
-elaborated from Contributions to User Guide.
+elaborated from <<link-contributions-to-user-guide, here>>.
 
 ===== User Guide
 
@@ -163,7 +164,7 @@ guide, these diagrams needed to be changed as:
 2. They did not reflect the updated implementation of some features made by the
 team in the subsequent few weeks.
 
-In addition, I also repackaged all diagrams into more accurate folders for
+In addition, I repackaged all diagrams into more accurate folders for
 easier perusal by my team mates for their documentation. The above-mentioned
 can be viewed from the pull requests
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/368[#368],
@@ -171,7 +172,7 @@ https://github.com/AY1920S1-CS2103T-T10-1/main/pull/371[#371], and
 https://github.com/AY1920S1-CS2103T-T10-1/main/pull/373[#373].
 
 The following are examples of diagrams that I created for my fellow team mates
-plantUML.
+using plantUML.
 
 .AndOrNodeInheritanceClassDiagram for the Course Planner feature
 image::course-planner/AndOrNodeInheritanceClassDiagram.png[height="300", align="center"]
@@ -179,6 +180,7 @@ image::course-planner/AndOrNodeInheritanceClassDiagram.png[height="300", align="
 .IncreaseCcaProgressActivityDiagram for the Cca Tracker feature
 image::cca-tracker/IncreaseCcaProgressActivityDiagram.png[height="400", align="center"]
 
+[[link-contributions-to-user-guide]]
 == Contributions to User Guide
 
 As we morphed the existing address-book application, we had to update the
@@ -221,6 +223,7 @@ view our
 https://github.com/AY1920S1-CS2103T-T10-1/main/blob/master/docs/UserGuide.adoc#finance-tracker[user guide].
 
 
+[[link-contributions-to-developer-guide]]
 == Contributions to Developer Guide
 
 Similar to the user guide, my team also decided that each member should be
@@ -257,14 +260,15 @@ user for this month
 * `Model#calculateRemainingAmount()` - Calculates the remaining spending amount
 available to user
 
-=== Components
+=== Components of the Finance Tracker
 
 The Finance Tracker feature closely follows the extendable OOP solution already
 implemented within AB3. In the Finance Tracker, the `Installment` objects and
-the `Purchase` objects manage most aspects related to this feature. These
-objects are stored in their respective `ObservableList` - `InstallmentList`
-and `PurchaseList`, which provide an abstraction with `add`, `delete`, and
-`set` operations that are called by `FinanceTracker` and its model.
+the `Purchase` objects manage most aspects related to this feature, along with
+a single `MonthlyLimit` object. `Installment` and `Purchase` objects are stored
+in their respective `ObservableList` - `InstallmentList` and `PurchaseList`,
+which provide an abstraction with `add`, `delete`, and `set` operations that
+are called by `FinanceTracker` and its model.
 
 Shown below is the class diagram for the Finance Tracker.
 
