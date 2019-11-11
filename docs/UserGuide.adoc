@@ -580,7 +580,7 @@ produce sensible results. It is generally not advisable to do so.
 //end::project[]
 
 [[Display]]
-// tag::display[]
+// tag::display1[]
 === Display a Projection Graph: `display`
 
 Display a graphical representation of a `projection` in a new window.
@@ -589,9 +589,11 @@ Format: `display PROJECTION_ID`
 
 ==== Example Usage
 
-. Type *display PROJECTION_ID* into the command box and press kbd:[Enter].
+. Type *display PROJECTION_ID* into the command box and press kbd:[Enter]. For instance:
 +
-image::display1.png[]
+****
+display p1
+****
 +
 . A new window containing a graphical representation of the specified projection will pop up.
 +
@@ -603,27 +605,31 @@ representation of the budget will be additionally displayed.
 image::display3.png[]
 
 ==== Interpreting the Projection graph
+// end::display1[]
+
 Here is a typical projection graph.
 
 .A typical projection graph
 image::project7.png[]
 
-* The X-Axis +
+// tag::display2[]
+
+* *The X-Axis* +
 The X-Axis denotes your balance in dollars ($).
 
-* The Y-Axis +
+* *The Y-Axis* +
 The Y-Axis denotes the number of days from now, with today being Y = 0.
 
-* Red Points +
+* *Red Points* +
 The red points on the graph each represent your account balance (denoted by the X-value)
 at a particular point of time (denoted by the Y-value).
 
-* Blue Line Graph +
+* *Blue Line Graph* +
 The blue line graph represents the projection line, with each point along it representing
 a prediction of your account balance (denoted by the X-value)
 at a certain point of time (denoted by the Y-value).
 
-* All Other Coloured Line Graphs +
+* *All Other Coloured Line Graphs* +
 All other coloured line graphs represent various budgets which fall within the `CATEGORY` and `DATE` range
 of the `PROJECTION`. Each of these line graphs have three parts:
 ****
@@ -631,10 +637,9 @@ of the `PROJECTION`. Each of these line graphs have three parts:
 image::project8.png[]
 . The line in the green box denotes the budget amount in dollars ($).
 
-. The line in the blue box denotes the budget duration (i.e. the number of days from its inception to
-its deadline)
+. The line in the blue box denotes the budget's duration lifetime in days.
 
-. The line in the yellow box denotes the projection deficit or surplus, at the point of its deadline.
+. The line in the yellow box denotes the budget's projected deficit or surplus.
 ****
 
 ==== Usage Constraints
@@ -653,7 +658,7 @@ graph is open, lest the behaviour of PalPay become unpredictable. +
 Consequently, a `display` command should *ALWAYS* be followed by closing the projection graph window, before
 any other actions are performed within _PalPay_.
 
-// end::display[]
+// end::display2[]
 
 [[View]]
 // tag::view[]
