@@ -105,7 +105,7 @@ https://https://github.com/khairulazman1997/ped/issues/11[11])
 
 |===
 
-== Getting Started with DukeCooks
+== User Guide Contributions
 
 |===
 |The following information are my *contributions* to the +
@@ -117,9 +117,6 @@ https://https://github.com/khairulazman1997/ped/issues/11[11])
 
 So you've decided to put your gym membership to use and want to plan your next workout regime. Head down to the
 workout planner tab to create your custom workouts and track your progress!
-
-But wait! I have no idea how to begin with this, you may be thinking. Fret not, read further to see a breakdown of the
-workout planner screen and what you can do with it!
 
 ==== Workout Planner Screen
 
@@ -135,10 +132,6 @@ Workout Planner begins with prebuilt Exercises and Workouts installed to get you
 Over on the left, is the list of Exercise Cards. Each card informs you of the name, primary muscle as well as the
 intensity of the exercise. To get more information of the exercise, you can use the view command which will be covered
 in section 3.7.3 of the User Guide.
-
-Similarly on the right we have the list of Workout Cards. The Workout Cards shows the Workout name, the number of
-Exercises in the workout as well as the last time the workout was ran. You can also tell the intensity of the
-workout from the image of the card.
 
 .Low Intensity Card
 image::workoutLowIntensity.png[]
@@ -159,16 +152,7 @@ section of this User Guide.
 Well I'm glad you asked kind person! To start off, we have the add exercise command which creates new
 exercises for your workouts. To add an exercise, you must first specify its name, primary muscle trained as well
 as its intensity. You can also add optional fields such as secondary muscles and exercise details like sets and reps.
-The following shows all the possible fields that can be added: +
-* Name +
-* Primary Muscle +
-* Intensity +
-* Secondary Muscles (optional) +
-* Number of sets (optional) +
-* Number of repetitions (optional) +
-* Timing (optional)  +
-* Distance (optional) +
-* Exercise Weight (optional) +
+
 To add the exercise, simply input the fields in the Command Box in the following format: +
 Format: `add exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
 s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
@@ -188,10 +172,7 @@ image::addExerciseOutput.png[]
 
 Ok, now that you've added your exercise, you probably want to know all of its details. Simply
 input the command `view exercise` followed by the index of the exercise you want
-to view as shown below.
-
-.Example Input
-image::viewExerciseInput.png[]
+to view.
 
 The screen should now show the full details of the exercise in question. Let's get you up to
 speed with what's what.
@@ -220,11 +201,8 @@ Now that you have a sizable amount of Exercises, you realise that you cannot eas
 amongst the sea of cards. To tackle this problem of seamless navigation, we implemented the
 find command.
 
-Find Exercise works in 3 ways:
-
-* By Name
-* By Muscles Trained (inclusive of both primary and secondary muscles)
-* By Intensity
+Find Exercise works in 3 ways: By name, muscles trained (inclusive of both primary and secondary muscles)
+ and intensity
 
 To use the following command, simply type `find` in the command box followed by the variant
 you wish to utilise and the predicate.
@@ -236,16 +214,7 @@ you wish to utilise and the predicate.
 .Find by Exercise Name
 image::findExercise.png[]
 
-.Find by Muscles Trained
-image::findExerciseMuscle.png[]
-
-.Find by Intensity
-image::findExerciseIntensity.png[]
-
-The filtered lists will then be shown as follows:
-
-.Find Output
-image::findExerciseOutput.png[]
+The filtered lists will then be shown.
 
 To show every exercise again, simply invoke the `list exercise` command.
 
@@ -257,9 +226,6 @@ of your workout. This will initialise your Workout with no exercises in it.
 
 .Add Workout Input
 image::addWorkoutInput.png[]
-
-.Add Workout Output
-image::addWorkoutOutput23.png[]
 
 ==== Push Exercise `push exercise`
 
@@ -286,10 +252,7 @@ the `view workout` feature, you can check all the details of your workout as wel
 history!
 
 Similar to `view exercise`, type in `view workout` followed by the index of the workout you're
-interested in. So if you want to view 'Chest Day' you can follow the image below.
-
-.Viewing Chest Day Workout
-image::viewWorkoutInput.png[]
+interested in.
 
 The following screen will now appear. To orientate you, here are the components of the screen:
 
@@ -323,15 +286,10 @@ The window above will pop up upon inputting the command. The window can be broke
 major segments which are :
 
 . Workout Name +
-Name of the workout you are running.
 . Progress Bar +
-Shows your workout progress/ how far you are from completing the workout.
 . Exercise Name +
-The name of the current exercise you're doing
 . Set Details +
-The details of a set of the exercise you're currently doing.
 . Command Box +
-Where you input your commands
 
 When you have completed a set, you can input `done` into the command box and it will indicate
 the set as completed as shown below.
@@ -342,9 +300,6 @@ image::runWorkoutWindow2.png[]
 After completing all the sets in all exercises, you will be brought back to the main page
 where a congratulatory message will greet you!
 
-.Congratulations!
-image::runworkoutWindow3.png[]
-
 ==== Other Commands
 
 With that, you have sufficient knowledge to create and run your workout...
@@ -354,10 +309,6 @@ included some commands to manage your exercises and workout in case you made err
 . List Exercise: `list exercise` +
 List exercises which matches optional parameters specified eg. muscle type/intensity. +
 Format: `list exercise m/MUSCLEGROUP
-
-. Clear Exercise `clear exercise` +
-Removes all exercises in the list. +
-Format: 'clear exercise'
 
 . Delete exercise: `delete exercise` +
 Deletes exercise of specified index. +
@@ -385,7 +336,7 @@ Create a workout to be added in to your schedule that will show up in your dashb
 Now you know all there is to the workout planner! What are you waiting for? Go out there and put your
 gym membership to use!
 
-== Making DukeCooks
+== DukeCooks Developer Guide
 
 |===
 |The following information provides my *contributions* to the *Developer Guide*. An explanation of how the feature (Dashboard), that I am in-charged of, is made.
@@ -453,7 +404,6 @@ image::ExerciseClassDiagram.png[]
 The `Exercise` class is managed by the following commands :
 
 * `AddExerciseCommand` - Adds a new `Exercise` into `WorkoutPlanner`
-* `ClearExerciseCommand` - Clears all the `Exercise` objects in `WorkoutPlanner`
 * `DeleteExerciseCommand` - Deletes an `Exercise` specified by an `Index` from `WorkoutPlanner`
 * `EditExerciseCommand` - Edits the specified `Exercise` with newly specified information
 * `FindExerciseByIntensityCommand` - Lists all `Exercise` objects with the `Intensity` specified
