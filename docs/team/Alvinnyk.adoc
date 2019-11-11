@@ -1,0 +1,94 @@
+= Alvin Ng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TimeBook
+
+---
+
+== Overview
+
+
+My team was tasked with enhancing a basic command line interface desktop addressbook book application for our Software Engineering project.
+We chose to morph it into scheduler application called *TimeBook*. Our application aims to help NUS (National University of Singapore) students
+keep track of their schedules and that of their peers. It has unique features such as NUSmods integration, GoogleMaps enabled location suggestion service,
+as well as the ability to generate common free time slots among the a group of individual schedules.
+
+*TimeBook*
+
+image::scheduler/homepage.png[]
+
+My main role was to design a model for users to input their schedules, as well as the schedules of their peers.
+I also implemented an algorithm that generates a combined schedule of a group of schedules that shows the overview
+of the group's schedule, as well as the common free time slots in the group.
+
+The following sections illustrate these enhancements in more detail as well as the relevant documentation I
+have added to the user and developer guides in relation to these enhancements.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+
+* *Major enhancement*: Schedule Generator
+** *What it does*:
+*** Allows the user to generate a combined schedule of any number of people. It also deconflicts the combined schedule
+and generates the common free time slots among the members. The user is also able to see the event, timings and venues
+of each member's schedule in the combined schedule.
+** *Justification*:
+*** The schedule of a typical NUS student is usually very busy. Finding the best time to meet up among a group can be a
+hassle as not everyone is free at certain times. Typically, NUS students have to painstakingly deconflict everyone's schedules
+in order to find a common free time to meet up. This feature removes this hassle by combining the schedules of a group of
+people, deconflicting the schedules and shows which are the time slots where everyone is free.
+** *Highlights*:
+*** This feature works closely with external data sources such as NUSMods API(Application Programming Interface) to
+easily import their NUSmod timetables, as well as GoogleMaps API to show to the user the location of each of the time slots.
+
+*A combined schedule:*
+
+image::scheduler/schedulerdemo.png[]
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Alvinnyk&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
+
+
+* *Minor enhancements*:
+
+** *Select Command*:
+*** Allows the user to select any time slot on the schedule. It will generate a pop up window that shows the user
+details of the time slot such as the event name, timings and the location on Google Maps. (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/259[#259])
+
+** *Implemented Websocket*:
+*** Allows the application to access external data sources such as NUSmods and GoogleMaps API. (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/42[#42], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/43[#43], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/44[#44])
+
+
+* *Other contributions*:
+
+** Morphing and enhancement of existing features:
+*** Morphed existing model for use in TimeBook (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/56[#56], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/149[#149], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/265[#265])
+*** Implemented new commands to interact with model (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/56[#56], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/162[#162])
+*** Implemented storage component to save model data(Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/70[#70])
+*** Wrote tests for model and logic component and increased coverage by a total of 11% (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/257[#257], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/262[#262], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/266[#266])
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+___
+
+include::../UserGuide.adoc[tag=schedule-command]
+
+___
+
+include::../UserGuide.adoc[tag=select-command]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=scheduler]
+
+___

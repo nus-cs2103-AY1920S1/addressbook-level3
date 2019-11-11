@@ -131,7 +131,7 @@ someone's schedule in the group. For example, the image below highlights all of 
 image::charlieBusyTimeslot.png[]
 
 Take note of the numbered green boxes you see below!
-
+[[FreeTimeSlot-Scheule]]
 image::freeTimeslot.png[]
 
 These are the common free time slot that you and your *entire* group members share! You can use
@@ -300,7 +300,7 @@ Example:
 
 * `edituser n/Alice p/91239123 a/Kent Ridge Drive em/alice@gmail.com r/Student`
 
-image::ugalvin/edituser.png[width=100%]
+image::scheduler/edituser.png[width=100%]
 
 After editing our profile, this is what we should see!
 
@@ -332,7 +332,7 @@ Example:
 
 * `addperson n/Fred p/91234567 em/fred@example.com a/kent ridge drive r/friend tag/Friends tag/Colleague`
 
-image::ugalvin/addperson.png[width=100%]
+image::scheduler/addperson.png[width=100%]
 
 After adding `Fred` into the TimeBook, his name will appear on the list of people on tabs in the side panel!
 
@@ -367,7 +367,7 @@ Example:
 
 * `editperson ed/Fred n/Freddie p/85868784 r/best friend tag/bestfriend`
 
-image::ugalvin/editperson.png[width=100%]
+image::scheduler/editperson.png[width=100%]
 
 After editing a person, this is what you will see! Freddie's details has been updated accordingly!
 
@@ -394,10 +394,11 @@ Examples:
 
 * `deleteperson n/Freddie`
 
-image::ugalvin/deleteperson.png[width=100%]
+image::scheduler/deleteperson.png[width=100%]
 
 As you can see, after deleting Freddie, he is removed from our persons tab!
 
+// tag::showperson[]
 ==== Show person: `show`
 
 Want to arrange a private meeting with someone in TimeBook?
@@ -412,22 +413,26 @@ Example:
 
 . Type `show n/Bobby` in the command line as shown below: +
 +
+.Command box
 image::showpersoncommand.png[]
 . Hit the kbd:[Enter] key and you should see details of the person!
 You should see a window similar to the one below.
 +
+.Result after executing the `show` command for Bobby
 image::showpersonresult.png[]
 
+// tag::navigationforshow[]
 *****
 image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `togglenext` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
-After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
+image:./icons/lightbulb.png[] You can use the command `togglenext` see the schedule for next week! You may see this schedule up to 4 weeks in advance.
+After you've reached the fourth week's schedule, the next `togglenext` command will start back on the first week's schedule.
 
 image:./icons/important.png[] Unfortunately, TimeBook does not let you see a schedule that has already passed.
-
 *****
-___
+// end::navigationforshow[]
+
+// end::showperson[]
 
 === Schedule Management
 
@@ -532,7 +537,7 @@ Example:
 
 * `addevent n/Bobby e/Project Meeting t/10112019-1200-1400-COM1 t/13112019-1000-1200-AS6`
 
-image::ugalvin/addevent.png[width=100%]
+image::scheduler/addevent.png[width=100%]
 
 After adding the event into our TimeBook, Bobby's schedule is automatically updated!
 
@@ -563,9 +568,11 @@ Example:
 
 * `deleteevent n/Bobby e/CS2105`
 
-image::ugalvin/deleteevent.png[width=100%]
+image::scheduler/deleteevent.png[width=100%]
 
 After deleting that event from TimeBook, Bobby's schedule is automatically updated!
+
+//tag::schedule-command[]
 
 ==== Generate a Schedule: `schedule`
 ____
@@ -590,9 +597,11 @@ Example:
 
 * `schedule n/Bobby n/Charlie`
 
-image::ugalvin/schedule.png[width=100%]
+image::scheduler/schedule.png[width=100%]
 
 When executing the command, TimeBook will calculate the free time slots among the schedule members!
+
+//end::schedule-command[]
 
 === Group Management
 
@@ -628,7 +637,7 @@ Example:
 
 * `addgroup g/CS2103 d/A CS2103 project group role/Leader`
 
-image::ugalvin/addgroup.png[width=100%]
+image::scheduler/addgroup.png[width=100%]
 
 When a new group is added, it is automatically added into the list of groups!
 
@@ -654,7 +663,7 @@ Example:
 
 * `editgroup ed/CS2103 g/CS3203 d/A CS3203 project group role/Member`
 
-image::ugalvin/editgroup.png[width=100%]
+image::scheduler/editgroup.png[width=100%]
 
 When a group is edited, it is automatically updated as shown above!
 
@@ -681,7 +690,7 @@ Example:
 
 * `addtogroup n/Denise g/CS3203 role/Manager`
 
-image::ugalvin/addtogroup.png[width=100%]
+image::scheduler/addtogroup.png[width=100%]
 
 When a new person is added into the group, it automatically updates the group's schedule as well!
 
@@ -711,7 +720,7 @@ Example:
 
 * `deletefromgroup n/Charlie g/CS3203`
 
-image::ugalvin/deletefromgroup.png[width=100%]
+image::scheduler/deletefromgroup.png[width=100%]
 
 When a person is removed from the group, the group's schedule will automatically be updated as well!
 
@@ -739,68 +748,73 @@ Example:
 
 * `deletegroup g/CS3203`
 
-image::ugalvin/deletegroup.png[width=100%]
+image::scheduler/deletegroup.png[width=100%]
 
 Deleteing a group will automatically update your groups tab!
 
+// tag::showgroup1[]
+
 ==== Show group: `show`
 
-Want to schedule your next group meeting?
-You can view a group's schedule up to 4 weeks in advance. +
+Want to see your group's schedules to plan for your next group meeting? The `show` command is what you need to see
+the schedules of your group members! You can view a group's schedule up to 4 weeks in advance. +
 Format: `show g/GROUP_NAME`
 
 ****
 * Shows the description, members and aggregated schedules for this group.
 ****
+// end::showgroup1[]
 
 [IMPORTANT]
 ====
 include::UserGuide.adoc[tag=alice-full]
 ====
 
+// tag::showgroup2[]
 Examples:
 
-. Type `show g/CS2103` in the command line as shown below +
+. Let's say you want to organise a group meeting for a group named CS2103. Simply enter `show g/CS2103` in the command line as shown below +
 +
+.Command box
 image::showgroupcommand.png[]
 
 . Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
+
 +
-image::showgroupresult.png[]
+[[showgroupresult]]
 
-*****
-image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
+.Result after executing `show g/CS2103`
+image::showgroupresult.png[sgr,900,600]
 
-image:./icons/lightbulb.png[] You can use the command `togglenext` to help you show next week's schedule!
-After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
+include::UserGuide.adoc[tag=navigationforshow]
 
-*****
 
 ==== Look at some members: `lookat`
 Suppose that all of your group members are extremely busy and the common free time is too short to do any productive work,
-you may use the `lookat` command to see if you can meet with some of your group members. You must be viewing a group's
+you may use the `lookat` command to see if you can meet with some of your group members. You *must* be viewing a group's
 schedule in order for this command to work.
 
 Format:
 
 * `lookat [n/Name]...`
 
-The `lookat` command takes in any number of `n/Name` and highlights the group members according to name.
+The `lookat` command takes in any number of `n/Name` arguments and highlights the group members according to name.
 
 Example:
 
-Suppose your group schedule looks like the one below.
-//Image1
+Let's use the same schedule exactly like the one shown <<#showgroupresult, above>>.
 
-* Simply type `lookat n/Bobby n/Denise` if you are interested in inspecting both of their schedules!
-You should see that Bobby's and Denise's schedule become highlighted.
-//Image2
+* Type `lookat n/Bobby n/Denise` if you are interested to inspect both Bobby's and Denise's schedules!
+You should see that both of these schedules become highlighted.
+
+.Zoom in of Bobby and Denise's schedule
+image::lookatgroupresult.png[lagr,800,500]
 
 *****
-image:./icons/important.png[] Empty blocks represent the free time slots for the group members that you are looking at.
-The green blocks still represent the common free time slots for the entire group.
+image:./icons/important.png[] *Empty blocks* represent the free time slots for the group members that you are looking at.
+The green blocks still represent the common free time slots for the entire group!
 *****
-
+// end::showgroup2[]
 
 === Advanced Features
 
@@ -823,7 +837,7 @@ Opens up https://nusmods.com/modules/CS2103T on your default browser.
 Opens up https://nusmods.com/modules/CS2101 on your default browser.
 // end::showmod[]
 
-==== Export VR (Visual Representation): `export`
+==== Export: `export`
 
 Want to share a schedule with your friends?
 This command exports a visualisation representation of the schedule (timetable) of a group or person to a PNG file! +
@@ -836,10 +850,11 @@ image:./icons/warning.png[] Take note that if you are exporting a group's schedu
 
 Format:
 
-* `export` +
+* Simply enter the `export` command to export the currently shown schedule in TimeBook! +
+
+//tag::select-command[]
 
 ==== Select Time Slot: `select`
-
 ____
 Want to get more information about a particular time slot? Want to know where the venue of that time slot is?
 No worries! Simply select the time slot and TimeBook will tell you all about it!
@@ -847,7 +862,7 @@ ____
 
 When viewing a schedule on TimeBook, you can select a time slot to get more information out of it!
 
-The `select` command works when view a group's schedule, person's schedule or home page! The format for this command's
+The `select` command works when you are viewing a group's schedule, person's schedule or home page! The format for this command's
 use are detailed below!
 
 Format (group schedule): `select n/NAME [week/WEEK_NUMBER] i/ID`
@@ -882,7 +897,7 @@ We have also integrated this service with GoogleMaps and shows you the location 
 
 The figure below shows how a pop up window will look like!
 
-image::ugalvin/selectpopup.png[width=100%]
+image::scheduler/selectpopup.png[width=100%]
 
 After you have viewed the time slot details, simply press the `ESC` key on your keyboard, and it will close the pop up!
 You will never have to touch your mouse!
@@ -890,7 +905,9 @@ You will never have to touch your mouse!
 | image:./icons/important.png[] | When the location of the time slot is not a valid location in NUS, the location
 will not be shown on the map!
 
-image::ugalvin/select1.png[width=100%]
+The following shows some example usage!
+
+image::scheduler/select1.png[width=100%]
 
 When a group's schedule is shown, each members time slots are colour coded as shown above.
 Each time slot is also labeled with an ID for easy reference!
@@ -904,7 +921,7 @@ Example:
 After executing that command, a pop up will be shown just like the one above!
 
 
-image::ugalvin/select2.png[width=100%]
+image::scheduler/select2.png[width=100%]
 
 When a person's schedule is shown, each events are colour coded as shown above.
 Each time slot is also labeled with an ID for easy reference! The name of the event is also shown!
@@ -917,7 +934,7 @@ Example:
 
 After executing that command, a pop up will be shown just like the one above!
 
-image::ugalvin/select3.png[width=100%]
+image::scheduler/select3.png[width=100%]
 
 When the home page is shown, you can select each time slot on the list! Do note that the first time slot on the list
 will have `ID:1` and the following time slots will follow with the next number. We chose to omit the number so you have
@@ -931,73 +948,84 @@ Example:
 
 After executing that command, a pop up will be shown similar to the one above!
 
+//end::select-command[]
 
-
+//tag::Closest-Common-Location[]
+[[Closest-Common-Location]]
 === Closest Common Location
 
-TimeBook will also help you to decide where to meet for your project meetings by suggesting to you which
-location is the center for everyone. The center location is the closest location for everyone to meet in NUS based
-on their schedule. In time book we define the center location for everyone as the _closest common location_.
+TimeBook will also help you to decide where to meet for your project meetings by suggesting to you an optimal
+location for everyone. The optimal location is the closest location for everyone to meet in NUS based
+on their schedule. In time book we define the optimal location for everyone as the _closest common location_.
 
 *Steps*
 
-. Setup your group by:
+. Set up your group by:
 .. Adding your group members to your TimeBook with `addperson` command
 .. Adding your group to TimeBook with `addgroup` command
 .. Add your group members to your group with `addtogroup` command
-. Find the free common time when you want to meet with `show` command
-. With the free time slot `id` get the details for the closest common location with `popup` command
+. Get the relevant information for your group schedule with `show g/[GROUP_NAME]`
+.. Identify the `ID` and `Week` of the time slot you want to get the closest common location for.
+. With the free time slot `id` and `week` get the details for the closest common location with `selectfreetime` command
 . Press `esc` button to close the popup
 
 *Constraints*
 
 Due to the lack of internet connectivity, TimeBook will only support locations that are in NUSMods and identifiable by Google Maps.
-The full list of the supported locations is below.
+The full list of supported locations is <<UserGuide#Supported-Locations, below>>.
 
 *Definitions*
 
-. We define closest common location as the location that requires the least average distance to travel to from different sources by car.
+. We define closest common location as the location that requires the least average distance to travel to and from different sources by car.
 . Locations that are not supported are voided and are not used for the calculations of the closest common location and average travelling distance.
-. Refer to the `Developer Guide` on how we compute the closest common location.
+. Refer to the `Developer Guide` on how we computed the closest common location.
 
-==== Closest Common Location Popup `popup`
+==== Select Free Time `selectfreetime`
 
-command: `popup g/ GROUP_NAME i/ID`
+Select a free time slot to launch a popup window with all the relevant information to help you make decide on the venue
+to conduct your project meetings at. The image below is an example of the popup.
+
+Below is an example of a popup.
+[#img-SuccessfulPopup]
+.An example of a popup when `selectfreetime` is executed
+image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
+
+command: `selectfreetime [week/WEEK_NUMBER] i/FREETIMESLOTID`
 
 Examples:
 
-* `popup g/CS2103T i/2`
-
-image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
-
-[#img-SuccessfulPopup]
-.An example of a popup when `popup` is executed
+* `selectfreetime i/3`
+* `selectfreetime week/2 i/3`
 
 _Description_
 
-When the command is executed a popup will appear that shows the all the information of the closest common location
+When the command is executed, a popup will appear that shows all the information of the closest common location
 for a particular free time slot in a group.
+
+_Prerequisite_
+
+. You must be have group on TimeBook with members in it.
+. You must execute `show g/[GROUP NAME]` before executing `selectfreetime` command.
 
 _Parameters_
 
-. `GROUP_NAME`
-- Description: This is the name of the Group you want to find the free time for.
-The `groupname` can be found on the
-`groups` tab in the user interface.(Use `switch-tab` if your tab is on persons)
-- Type: `String`
-. `ID`
-- Description: This is the `id` of the free time slot of a group.
-You can get this `id` from the user interface when you use `show g/[groupname]` command.
+. `[WEEK_NUMBER]`
+- Description: The week(1-4) of the group schedule you want to select the free time slot from. If parameter is not
+stated, it will default to the first week(the default schedule when you execute `show g/GROUP_NAME`).
+- Type: `Integer`
+- Enum: `1`, `2`, `3`, `4`
+. `FREETIMESLOTID`
+- Description: ID of the free time slot in the <<UserGuide#Supported-Locations, schedule>>. You can get this from the number in the free time slot box.
 You can only enter the `id` that is shown on the screen.
-- Type: `String`
+- Type: `Integer`
 
 _Success Response_
 
 If you follow the steps above, a popup will appear as seen in the Figure above.
 
-There are two main information that you will see in the popup when you execute ththe command.
+There are two main information that you will see in the popup when you execute the command.
 
-. The summary of the results will be displayed on the top of the popup.
+. The summary of the results that will be `displayed` on the top of the popup.
 .. *Your best location to meet up is:* The first choice location to meet(closest for everyone).
 .. *Everyone's locations:* List of locations that the group members will be at before the free time slot.
 .. *Out of all these locations, the valid locations are:* List of TimeBook supported locations that the group members
@@ -1007,9 +1035,9 @@ will be at before the free time slot that.
 slot but not supported by TimeBook.
 ... Subset of the *Everyone's locations:* list
 ... If all the locations are valid, this attribute will be empty as seen in the Figure above
-. The full details of the first, second and third closest common location will be shown on the bottom of the popup.
+. The full details of the first, second and third closest common location will be shown at the bottom of the popup.
 .. First choice represents the first closest and so on and so forth.
-.. The average distance(m) to reach the various location will be displayed below the respective choices.
+.. The average distance(m) to reach the various locations will be displayed below the respective choices.
 .. The picture of the location of the venue on Google Maps will be displayed below each choice.
 ... For locations that are not supported on Google Maps, a picture of the center of NUS will be displayed.
 
@@ -1051,6 +1079,7 @@ After you are done with viewing the information on the popup press `esc` button 
 and return to the main screen.
 
 Format: kbd:[esc] button on keyboard.
+// end::Closest-Common-Location[]
 
 === Upcoming schedule list.
 
@@ -1069,11 +1098,11 @@ There is no need to save manually.
 Who is Alice? / How do I store my details and schedule?::
 // tag::alice-full[]
 // tag::alice-brief[]
-When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create.
+When you first start using TimeBook, it will create a hidden person called `Alice` to store your details and schedule. This profile will be a member of every group you create. Note that you, as a user, are not present in TimeBook's contacts list!
 // end::alice-brief[]
  +
 {nbsp} +
-To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command,`edituser` command>>.
+To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command, `edituser`>> command.
 // end::alice-full[]
 +
 {nbsp} +
@@ -1104,7 +1133,6 @@ We understand that you may encounter a weird error message and are unsure of wha
 | Internal Error. Please try again later  | You'll see this error when our remote database cannot handle your requests.
 |===
 
-+
 {nbsp} +
 
 == Command Summary
@@ -1144,12 +1172,13 @@ e.g. `show g/CS2030 T2`
 e.g. `export-vr g/TimeBook o/timetable.jpg`
 * *Closest Location* : `closestlocation l/LOCATIONA LOCATIONB ...` +
 e.g. `closestlocation l/LT16 LT15 AS5`
-* *Show Free Time Slot* : `popup g/GROUP_NAME i/SLOT_NUMBER` +
-e.g. `popup g/CS2103T i/2`
+* *Select Free Time Slot* : `selectfreetime [week/WEEK_NUMBER] i/FREETIMESLOTID` +
+e.g. `selectfreetime i/1`
 * *Help* : `help`
 * *Clear* : `clear`
 * *Exit* : `exit`
 
+[[Supported-Locations]]
 == Supported Locations
 
 !===

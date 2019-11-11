@@ -5,7 +5,7 @@ import java.io.IOException;
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.ui.schedule.GroupInformation;
+import seedu.address.ui.schedule.GroupInformationDisplay;
 import seedu.address.ui.schedule.ScheduleView;
 
 /**
@@ -14,16 +14,16 @@ import seedu.address.ui.schedule.ScheduleView;
  */
 public class GroupScheduleExporter implements Exporter {
     private ScheduleView scheduleView;
-    private GroupInformation groupInformation;
+    private GroupInformationDisplay groupInformationDisplay;
     private String fileFormat;
     private String filepath;
 
-    public GroupScheduleExporter(ScheduleView scheduleView, GroupInformation groupInformation,
+    public GroupScheduleExporter(ScheduleView scheduleView, GroupInformationDisplay groupInformationDisplay,
                                  String fileFormat, String filepath) {
         this.scheduleView = scheduleView;
         this.fileFormat = fileFormat;
         this.filepath = filepath;
-        this.groupInformation = groupInformation;
+        this.groupInformationDisplay = groupInformationDisplay;
     }
 
     /**
@@ -34,7 +34,7 @@ public class GroupScheduleExporter implements Exporter {
         HBox exportContainer = new HBox();
         Region scheduleTable = scheduleView.getRoot();
         scheduleTable.setMaxWidth(1000);
-        exportContainer.getChildren().addAll(groupInformation.getRoot(), scheduleTable);
+        exportContainer.getChildren().addAll(groupInformationDisplay.getRoot(), scheduleTable);
         exportContainer.setId("exportContainer");
         Scene scene = new Scene(exportContainer);
         scene.getStylesheets().add("/view/DarkTheme.css");

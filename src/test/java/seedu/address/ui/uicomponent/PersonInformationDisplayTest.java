@@ -24,13 +24,13 @@ import javafx.stage.Stage;
 import seedu.address.model.display.sidepanel.PersonDisplay;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.schedule.PersonDetailCard;
+import seedu.address.ui.schedule.PersonInformationDisplay;
 
 @ExtendWith(ApplicationExtension.class)
-public class PersonDetailCardTest extends ApplicationTest {
+public class PersonInformationDisplayTest extends ApplicationTest {
     private static final Person ALICE = TypicalPersons.ALICE;
     private static final Person BENSON = TypicalPersons.BENSON;
-    private static final String cardId = "#personDetailContainer";
+    private static final String cardId = "#personInformationContainer";
     @AfterEach
     public void pause(FxRobot robot) {
         robot.sleep(500);
@@ -47,7 +47,7 @@ public class PersonDetailCardTest extends ApplicationTest {
      */
     @Start
     public void start(Stage stage) {
-        Parent sceneRoot = new PersonDetailCard(new PersonDisplay(ALICE)).getRoot();
+        Parent sceneRoot = new PersonInformationDisplay(new PersonDisplay(ALICE)).getRoot();
         Scene scene = new Scene(sceneRoot);
         scene.getStylesheets().add("/view/DarkTheme.css");
         stage.setScene(scene);
@@ -72,9 +72,9 @@ public class PersonDetailCardTest extends ApplicationTest {
     @Test
     public void equalTest() {
         //Same object.
-        PersonDetailCard aliceCard = new PersonDetailCard(new PersonDisplay(ALICE));
-        PersonDetailCard aliceCardDuplicate = new PersonDetailCard(new PersonDisplay(ALICE));
-        PersonDetailCard bensonCard = new PersonDetailCard(new PersonDisplay(BENSON));
+        PersonInformationDisplay aliceCard = new PersonInformationDisplay(new PersonDisplay(ALICE));
+        PersonInformationDisplay aliceCardDuplicate = new PersonInformationDisplay(new PersonDisplay(ALICE));
+        PersonInformationDisplay bensonCard = new PersonInformationDisplay(new PersonDisplay(BENSON));
         assertEquals(aliceCard, aliceCard);
         //Different object but same field.
         assertEquals(aliceCard, aliceCardDuplicate);
