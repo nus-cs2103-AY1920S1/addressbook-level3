@@ -1930,11 +1930,11 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Schedule class time (UC10)
+=== Use case: Schedule events (UC10)
 
 *MSS*
 
-1.  Teacher requests to add an item to the timetable
+1.  Teacher requests to add an item to the calendar
 2.  Teacher enter details of the item
 3.  NJoy save the item
 +
@@ -1954,12 +1954,12 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: View timetable (UC11)
+=== Use case: View events (UC11)
 
 *MSS*
 
-1.  Teacher requests for the timetable
-2.  NJoy returns list of items in the timetable
+1.  Teacher requests for the events in
+2.  NJoy returns list of events in the calendar
 +
 Use case ends.
 
@@ -1971,19 +1971,19 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Delete item on timetable (UC12)
+=== Use case: Delete events on calendar (UC12)
 
 *Preconditions*
 
-1.  Item exist in timetable
+1.  Item exist in calendar
 
 *MSS*
 
-1.  Teacher list items in timetable (UC11)
-2.  Teacher request to delete item in timetable
+1.  Teacher list events in calendar (UC11)
+2.  Teacher request to delete item in calendar
 3.  NJoy request for confirmation
 4.  Teacher confirms the deletion
-5.  NJoy remove the item from the timetable
+5.  NJoy remove the item from the calendar
 +
 Use case ends.
 
