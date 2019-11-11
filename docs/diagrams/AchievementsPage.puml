@@ -8,10 +8,21 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":StatisticsModelManager" as StatisticsModelManager MODEL_COLOR
+end box
+
+box Ui UI_COLOR_T1
+participant ":AddressBookCard" as AddressBookCard UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":AddressBookLogicManager" as AddressBookLogicManager LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
 participant ":AddressBookModelManager" as AddressBookModelManager MODEL_COLOR
 end box
 
-[-> AchievementsLogicManager : getTotalPersons()
+[-> AchievementsLogicManager : getStatisticsView()
 activate AchievementsLogicManager
 
 AchievementsLogicManager -> Supplier : get()
@@ -20,22 +31,36 @@ create StatisticsModelManager
 
 Supplier -> StatisticsModelManager
 activate StatisticsModelManager
-create AddressBookModelManager
+return
 
-StatisticsModelManager -> AddressBookModelManager
-activate AddressBookModelManager
+Supplier -> AchievementsLogicManager : StatisticsModel
+deactivate Supplier
 
-AddressBookModelManager -> AddressBookModelManager : getFiltered()
-activate AddressBookModelManager
-return FilteredPersonList
-return FilteredPersonList
-
-StatisticsModelManager -> StatisticsModelManager : getTotalPersons()
+AchievementsLogicManager -> StatisticsModelManager : getStatisticsView()
 activate StatisticsModelManager
-return totalPersons
-return totalPersons
-return totalPersons
 
-[<- AchievementsLogicManager
+StatisticsModelManager -> AddressBookCard : AddressBookCard.make()
+activate AddressBookCard
+
+AddressBookCard -> AddressBookLogicManager : getTotalPersons()
+activate AddressBookLogicManager
+
+AddressBookLogicManager -> AddressBookModelManager : getTotalPersons()
+activate AddressBookModelManager
+
+AddressBookModelManager -> AddressBookLogicManager : totalPersons
+deactivate AddressBookModelManager
+
+AddressBookLogicManager -> AddressBookCard : totalPersons
+deactivate AddressBookLogicManager
+
+AddressBookCard -> StatisticsModelManager : addressBookCard
+deactivate AddressBookCard
+
+StatisticsModelManager -> AchievementsLogicManager : addressBookCard
+deactivate StatisticsModelManager
+
+[<- AchievementsLogicManager : statisticsView
 deactivate AchievementsLogicManager
+
 @enduml
