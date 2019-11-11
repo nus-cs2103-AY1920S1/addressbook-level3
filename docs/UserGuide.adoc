@@ -354,7 +354,7 @@ Format: `export`
 image::export.png[width="790"]
 
 .List of items received when scanning the QR code through a mobile phone
-image::export-phone.png[width="250"]
+image::export-phone.PNG[width="250"]
 
 [NOTE]
 ====
@@ -369,13 +369,13 @@ page after scanning the QR code. Follow the steps below to rectify this issue if
 received on the web (see Figure 14).
 
 .Pop-up prompt to suggest to search the content on the web
-image::export-prompt.png[width="250"]
+image::export-prompt.PNG[width="250"]
 
 * Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
 options available (see Figure 15). Choose "Copy" or any other similar options.
 
 .Additional options to handle the content
-image::export-other-options.png[width="250"]
+image::export-other-options.PNG[width="250"]
 
 * Once the content has been copied, you can simply paste and save the content on Notes or any other
 notepad application on your mobile phone (see Figure 16).
