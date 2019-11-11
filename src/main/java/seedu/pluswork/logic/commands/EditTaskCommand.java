@@ -79,6 +79,10 @@ public class EditTaskCommand extends Command {
 
         Task taskToEdit = lastShownList.get(index.getZeroBased());
 
+        if (!taskToEdit.hasDeadline() && editTaskDescriptor.hasDeadline()) {
+            throw new CommandException(MESSAGE_NOT_EDITED_DEADLINE);
+        }
+
         Task editedTask = createEditedTask(taskToEdit, editTaskDescriptor);
 
         if (!taskToEdit.isSameTask(editedTask) && model.hasTask(editedTask)) {
@@ -199,6 +203,10 @@ public class EditTaskCommand extends Command {
 
         public void setDeadline(LocalDateTime dateTime) {
             this.deadline = dateTime;
+        }
+
+        public boolean hasDeadline() {
+            return deadline != null;
         }
 
         public Optional<LocalDateTime> getDeadline() {
