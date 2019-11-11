@@ -34,7 +34,7 @@ one long list and having to search for them.
 
 * *Minor enhancement*: added a caching command that allows the user to "download" an copy of a website, for access when there is limited internet access.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: Click [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=openorclose&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=openorclose&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[here]] to see all of my code and documentation contributions to Mark.
 
 * *Other contributions*:
 
