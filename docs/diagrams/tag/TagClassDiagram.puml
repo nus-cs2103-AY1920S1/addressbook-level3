@@ -43,6 +43,6 @@ Tag -->"1" Id
 Tag -->"1" String: TagName
 Tag -->"1" String: TagColor
 
-UniqueTagList *--"*" Tag
+UniqueTagList *-->"*" Tag
 
 @enduml

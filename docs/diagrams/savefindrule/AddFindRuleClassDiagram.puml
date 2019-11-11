@@ -18,10 +18,10 @@ class AddFindRuleCommandParser
 
 Command <|.. AddFindRuleCommand
 Parser <|-- AddFindRuleCommandParser
-FindProblemDescriptor *-- "6" XXXPredicate
-ProblemSearchRule *-- "1" Name
+FindProblemDescriptor *--> "6" XXXPredicate
+ProblemSearchRule *--> "1" Name
 
-AddFindRuleCommand *-- "1" ProblemSearchRule
+AddFindRuleCommand *--> "1" ProblemSearchRule
 
 note bottom of XXXPredicate
 This includes
