@@ -36,6 +36,10 @@ public class DoneTaskCommand extends DoneCommand {
         requireNonNull(model);
         List<Dashboard> lastShownList = model.getFilteredDashboardList();
 
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
+
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -46,10 +50,6 @@ public class DoneTaskCommand extends DoneCommand {
 
             throw new CommandException(Messages.MESSAGE_TASK_IS_ALREADY_MARKED_AS_COMPLETE);
         }
-
-        // Navigate to dashboard tab
-        Event event = Event.getInstance();
-        event.set("dashboard", "all");
 
         Dashboard createDoneTask = createDoneTask(taskToMark);
         model.doneDashboard(createDoneTask);

@@ -27,12 +27,15 @@ public class EditTaskCommand extends EditCommand {
 
     public static final String VARIANT_WORD = "task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "task : Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TASKNAME + "TASKNAME] "
-            + "[" + PREFIX_TASKDATE + "TASKDATE] ";
+            + "[" + PREFIX_TASKDATE + "TASKDATE] "
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1 "
+            + PREFIX_TASKNAME + " newTaskName "
+            + PREFIX_TASKDATE + " newTaskDate";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -58,6 +61,10 @@ public class EditTaskCommand extends EditCommand {
         requireNonNull(model);
         List<Dashboard> lastShownList = model.getFilteredDashboardList();
 
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
+
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -68,10 +75,6 @@ public class EditTaskCommand extends EditCommand {
         if (!taskToEdit.isSameDashboard(editedTask) && model.hasDashboard(editedTask)) {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
-
-        // Navigate to dashboard tab
-        Event event = Event.getInstance();
-        event.set("dashboard", "all");
 
         model.setDashboard(taskToEdit, editedTask);
         model.updateFilteredDashboardList(PREDICATE_SHOW_ALL_DASHBOARD);
