@@ -222,7 +222,6 @@ Format: `dequeue <QUEUE_INDEX>`
 * e.g. `dequeue E0000001A`
 
 ==== Assigns next patient to an available doctor : `next` ====
-//todo add doctor first
 
 Assigns the next patient in the queue to a doctor. +
 
@@ -250,6 +249,9 @@ Format: `resume <ENTRY_ID>`
 // tag::appointment[]
 
 === Appointment Management
+
+NOTE: Before you process any commands in appointment management, please ensure you have a patient with referenceid of E0000001A by using `patient E0000001A`. +
+You can refer to `newpatient` command to register this patient if the patient is not registered.
 
 ==== Displays appointments: `appointments` ====
 

@@ -1,4 +1,4 @@
-= <NAME> - Project Portfolio
+= <WEN SHUFA> - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -15,7 +15,7 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 This section’s purpose is to summarise my contributions for the duration of this project. For more details about the contributions, click the link to the corresponding pull request.
 
-* *Major enhancement 1*: added *Appointments management* feature
+* *Major enhancement 1*: added *Appointment Management* feature
 
 ** What it does: The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
 
@@ -25,22 +25,22 @@ day-to-day basis, i.e. Add appointments.
 ** Highlights: Appointments, in reality, rely heavily on different components such as patients and onduty doctors to be booked.
 The challenge in implementing this feature was checking appointments time with doctors' duty shifts. It requires an in-depth understanding of clerkPro’s architecture.
 
-* *Major enhancement 2*: added *Duty shift schedule* feature
+* *Major enhancement 2*: added *Duty Shift Schedule* feature
 
-** What it does: The duty shift scheduling provides users the ability to schedule duty shifts for doctors. It can help doctors to check, add, edit duty shifts efficiently.
+** What it does: The duty shift scheduling provides users the ability to schedule duty shifts for doctors. It can help doctors to check, add, cancel and edit duty shifts efficiently.
 
 ** Justification: This feature is important as the user would need to schedule duty shift for doctor. i.e. change duty shift.
 
 * *Code contributed*
 *** The following link contains all the code contributed throughout the entire project:
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false&until=2019-11-10[Functional code]
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false&until=2019-11-10[Test code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-10&tabType=authorship&tabAuthor=woon17&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-10&tabType=authorship&tabAuthor=woon17&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]
 
 * *Other contributions*:
 
 ** Community:
 *** Contributed to forum discussions (example: https://github.com/nus-cs2103-AY1920S1/forum/issues/144[1]]
-*** Reported bugs and suggestions. i.e. I suggest to mention that user should not edit or delete data file in UG.
+*** Reported bugs and suggestions. i.e. I mentioned that user should not edit or delete data file in UG.
 
 ** Documentation:
 *** Added command information regarding the appointment feature into the User Guide:(examples: https://github.com/AY1920S1-CS2103T-T09-3/main/pull/221[1], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/143[2])

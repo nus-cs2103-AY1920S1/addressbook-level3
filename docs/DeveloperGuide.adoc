@@ -215,11 +215,6 @@ This unique reference identifier consist of two parts:
     . a unique case-insensitive string, which consist of 9 alphanumeric characters, referring to its unique ID
     . a boolean referring to whether the reference identifier belonged to a person who is registered as a patient or a staff doctor.
 
-
-//TODO [Implementation]
-
-
-
 // tag::undoredo[]
 === Undo/Redo feature
 
@@ -236,7 +231,6 @@ A `ReversibleCommand` refers to any command which modifies the data in the syste
 Commands that only reads data from the model without modifying it, will not be added to the undo history stack.
 Conversely, a `NonActionableCommand` only reads data from the system's model without modifying it.
 
-//TODO: insert class diagram
 
 Consider that the undo functionality of an 'add event' command is similar to the action of the 'delete event' command.
 The execution of the 'delete event' command could be done in place of the undo functionality of the 'add event' command.
