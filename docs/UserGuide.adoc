@@ -653,27 +653,38 @@ Feature by
 {sp} +
 
 === Course Planner
-NUSMods serves as a complete knowledge bank of all modules in NUS. We often use it to plan our timetables,
-map out academic routes and learn more about the variety of courses NUS has to offer.
-As the Course Planner is thoroughly integrated with NUSMods, you will be able to consolidate all
-the courses you have taken in NUS to date, as well as figure out what courses you could possibly take in the future.
+
+Unable to keep track of what modules you have been taking? Need to quickly
+know what your CAP is? Want to know how far you are in determining your
+focus areas? Jarvis has a feature just for you! The Course Planner serves to
+solve these problems.
+
+Thoroughly integrated with https://nusmods.com/[**NUSMods**] (that we as NUS
+students often use to plan our timetables) you will be able to consolidate all
+the courses you have taken in NUS to date, as well as figure out what courses
+you could possible take in the future.
+
+Let's see how the Course Planner looks like:
 
 .GUI for the Course Planner
 image::ug/CoursePlannerUI.png[]
 
 {sp} +
 
-The default display for the Course Planner is a list of courses on the left and an empty Result Box on the right -
-as shown in Figure 12. This box will display different pieces of information depending on the commands
-entered.
+The default display for the Course Planner is a list of courses on the left and
+an empty Result Box on the right - as shown in Figure 12. This box will display
+different pieces of information depending on the commands entered.
+
+Let's see what the Course Planner can do:
 
 ==== Adding a course: `add-course`
-To get started, you can add specific course(s) to your list. You may add one or more courses at one go.
+To get started, you can add specific course(s) to your list. Jarvis is able to
+add multiple courses at one go.
 
-Format: `add-course c/COURSE-CODE...`
+Format: `add-course c/COURSECODE...`
 
-where `COURSE-CODE` is the course code of the {nusmods-modules}[NUS course] you
-want to add.
+where `COURSECODE` is the course code of the {nusmods-modules}[NUS course] you
+wish to add.
 
 ===== Example
 ----
@@ -681,9 +692,30 @@ add-course c/CS1010
 add-course c/CS1010 c/CS2030 c/CS2040
 ----
 
+==== Adding a course with grades: `add-course` [v2.0]
+If you wish, you may add a course that has a grade attached to it. This is to
+facilitate Jarvis' understanding of the courses you have already taken. Jarvis
+will use such information in the calculation of your CAP (Cumulative Average
+Point).
+
+Format: `add-course c/COURSECODE g/GRADE [c/COURSECODE g/GRADE]...`
+
+where `GRADE` is any
+http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[valid NUS grade].
+
+===== Example
+----
+add-course c/CS1010 g/B+
+add-course c/CS2040 g/A+ c/CS2100 g/B- c/MA1521 g/B+
+----
+
+[NOTE]
+Every `GRADE` is tethered to the preceding `COURSECODE`, so the parameters to
+this command must be entered in the specified order!
+
 ==== Deleting a course: `delete-course`
-You can easily delete a course from your list - either by the index of the course in the list,
-or by its course code.
+You can easily delete a course from your list - either by the index of the
+course in the list, or by its course code.
 
 Format: `delete-course {c/COURSECODE | INDEX}`
 
@@ -694,12 +726,16 @@ delete-course 2
 ----
 
 ==== Looking up a course's information: `lookup`
-You can also retrieve information about a specific course - such as course title, course code,
-number of credits and its prerequisites. The information will be displayed in the Result Box on the right of
-the Course Planner, as seen below in Figure 13.
+You can also retrieve information about a specific course - such as course
+title, course code, number of credits and what the course is about. The
+information will be displayed in the result box on the right of the Course
+Planner, as shown below:
 
 .Display for lookup
 image::ug/lookup.png[]
+
+Any information you will want to know about any course is shown within the
+result box.
 
 {sp} +
 
@@ -711,12 +747,17 @@ lookup c/CS1010
 ----
 
 ==== Checking a course: `check`
-If you are not sure if you can take a certain course next semester, this command would come in handy. Simply `check`
-the course in question.The result is dependent on the courses you have added to your list. `Jarvis` will
-display a very helpful tree to show you what requirements you need for each course.
+If you are not sure if you can take a certain course next semester, this
+feature will come in handy. Simply `check` the course in question. The result
+is dependent on the courses you have added to your list, and `Jarvis` will
+display a very helpful tree similar to NUSMods to show you what requirements
+you need for each course.
 
 .Display for check
 image::ug/check.png[]
+
+In this case, the user is unable to take the course **ST23344** as he
+has not filled any of the requirements.
 
 {sp} +
 
@@ -726,6 +767,17 @@ Format: `check c/COURSECODE`
 ----
 check c/CS1010
 ----
+
+==== Checking your CAP: `cap` [v2.0]
+If you wish to check your current CAP (Cumulative Average Point), you can do
+so with the command `cap`. Jarvis assumes that any course that does not have
+a grade attached to it in your list have not, or are currently being taken
+and will not be counted towards you CAP.
+
+Information on the CAP system can be found
+http://www.nus.edu.sg/registrar/education-at-nus/modular-system.html[here].
+
+Format: `cap`
 
 ////
 Undo/Redo
