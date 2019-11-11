@@ -17,14 +17,39 @@ import javafx.stage.Stage;
 public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL =
-            "https://github.com/AY1920S1-CS2103T-F14-3/main/blob/master/docs/UserGuide.adoc";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+            "https://ay1920s1-cs2103t-f14-3.github.io/main/UserGuide.html";
+    public static final String COMMAND_SUMMARY = "Command Summary:\n"
+            + "Add: add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM]"
+            + " e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY\n"
+            + "Tab: tab b/MENU_NAME\n"
+            + "\tEngagements Window: tab b/engagement\n"
+            + "\tCalendar Window: tab b/calendar\n"
+            + "\tGame Window: tab b/game\n"
+            + "\tReport Window: tab b/report\n"
+            + "Calendar Window: calendar c/CALENDAR_COMMAND\n"
+            + "\tOpen Display: calendar c/opendisplay d/DATE\n"
+            + "\tClose Display: calendar c/closedisplay d/DATE\n"
+            + "\tNext Month: calendar c/nextmonth\n"
+            + "\tPrevious Month: calendar c/previousmonth\n"
+            + "Clear: clear\n"
+            + "Delete: delete i/INDEX\n"
+            + "PDF: pdf i/INDEX t/RECEIVER f/SENDER\n"
+            + "Redo: redo\n"
+            + "Sort: sort p/PROPERTY o/ORDER\n"
+            + "Undo: undo\n"
+            + "Help: help\n"
+            + "List: list\n";
+
+    public static final String HELP_MESSAGE = "Refer to our user guide for more information: " + USERGUIDE_URL;
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
     private Button copyButton;
+
+    @FXML
+    private Label commandSummary;
 
     @FXML
     private Label helpMessage;
@@ -36,6 +61,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+        commandSummary.setText(COMMAND_SUMMARY);
         helpMessage.setText(HELP_MESSAGE);
     }
 
