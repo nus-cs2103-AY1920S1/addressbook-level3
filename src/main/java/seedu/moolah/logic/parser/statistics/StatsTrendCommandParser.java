@@ -8,6 +8,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.moolah.commons.core.Messages;
 import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
@@ -54,28 +55,29 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
         Timestamp startDate = null;
         Timestamp endDate = null;
 
-        //made modifications to make code nicer like StatsCommandParser
 
-        boolean isStartPresent = argMultimap.getValue(PREFIX_START_DATE).isPresent();
-        boolean isEndPresent = argMultimap.getValue(PREFIX_END_DATE).isPresent();
+        Optional<String> startDateString = argMultimap.getValue(PREFIX_START_DATE);
+        Optional<String> endDateString = argMultimap.getValue(PREFIX_END_DATE);
+
+        boolean isStartPresent = startDateString.isPresent();
+        boolean isEndPresent = endDateString.isPresent();
         Mode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
 
         if (isStartPresent && isEndPresent) {
-            startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-            endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
+            startDate = ParserUtil.parseTimestamp(startDateString.get());
+            endDate = ParserUtil.parseTimestamp(endDateString.get());
             statsTrendDescriptor.setStartDate(startDate);
             statsTrendDescriptor.setEndDate(endDate);
             if (!statsTrendDescriptor.isStartBeforeEnd()) {
                 throw new ParseException(Messages.MESSAGE_CONSTRAINTS_END_DATE);
             }
         } else if (isStartPresent) {
-            startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
+            startDate = ParserUtil.parseTimestamp(startDateString.get());
             statsTrendDescriptor.setStartDate(startDate);
         } else if (isEndPresent) {
-            endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
+            endDate = ParserUtil.parseTimestamp(endDateString.get());
             statsTrendDescriptor.setEndDate(endDate);
         }
-        //should be changed to enum for better code quality
         statsTrendDescriptor.setMode(mode.isBudgetMode());
         return new StatsTrendCommand(statsTrendDescriptor);
     }

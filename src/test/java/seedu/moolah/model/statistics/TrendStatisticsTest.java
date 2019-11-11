@@ -86,19 +86,6 @@ class TrendStatisticsTest {
                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0));
 
 
-    //dates
-    //2D List
-
-    //dates
-    //budget limit
-    //total expenditure
-
-
-    //switch window testing
-
-    //because put null in run, the logic  is shifted alrdy
-    //last column all gone
-
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -130,11 +117,7 @@ class TrendStatisticsTest {
         assertEquals(statistics.getPeriodicCategoricalExpenses(), DAY_BUDGET_CATEGORY_MODE_RESULT);
 
     }
-    /*
-    @Test
-    void trendStats_dayPeriodWithNoDatesBudgetMode_correctOutput() {
-    }
-     */
+
 
     @Test
     void trendStats_weekPeriodWithOnlyEndDateCategoryMode_correctOutput() {
@@ -151,26 +134,4 @@ class TrendStatisticsTest {
     }
 }
 
-    /*
-    @Test
-    void trendStats_weekPeriodWithOnlyEndDateBudgetMode_correctOutput() {
-    }
-
-    @Test
-    void trendStats_monthPeriodWithBothDateCategoryMode_correctOutput() {
-    }
-
-    @Test
-    void trendStats_monthPeriodWithBothDateBudgetMode_correctOutput() {
-    }
-
-    //shift window into future if possible
-    @Test
-    void trendStats_yearPeriodWithOnlyStartDateCategoryMode_correctOutput() {
-    }
-
-    @Test
-    void trendStats_yearPeriodWithOnlyStartDateBudgetMode_correctOutput() {
-    }
-     */
 

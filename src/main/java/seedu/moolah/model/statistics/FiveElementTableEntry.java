@@ -1,7 +1,7 @@
 package seedu.moolah.model.statistics;
 
 /**
- * Represents a utility class with an entry of 5 elements
+ * Represents a class with an entry of 5 elements
  */
 public class FiveElementTableEntry {
 
