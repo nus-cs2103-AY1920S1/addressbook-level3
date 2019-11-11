@@ -276,9 +276,8 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
 [NOTE]
 Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
-the default method of sorting is then retrieved.
+the default method of sorting is then retrieved. +
 
-<<<
 // end::autosortPartOne[]
 
 // tag::autosortPartTwo[]
