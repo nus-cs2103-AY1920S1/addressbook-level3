@@ -55,6 +55,7 @@ public class StartSessionCommand extends Command {
             throw new InSessionCommandException();
         }
 
+        model.updateFilteredCompetitionList(model.PREDICATE_SHOW_ALL_COMPETITIONS);
         List<Competition> competitionList = model.getFilteredCompetitionList();
         Competition competition = null;
         for (Competition c : competitionList) {

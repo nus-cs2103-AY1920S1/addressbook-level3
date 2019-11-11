@@ -156,6 +156,13 @@ public class Participation extends UniqueElement {
     }
 
     /**
+     * Returns the string representation of a participation object.
+     */
+    public String toString() {
+        return getName() + " in " + competition.toString();
+    }
+
+    /**
      * Returns true if both participations have the same identity and data fields.
      * This defines a stronger notion of equality between two participations.
      */
