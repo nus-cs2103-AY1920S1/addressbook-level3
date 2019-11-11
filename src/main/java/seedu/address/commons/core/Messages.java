@@ -37,5 +37,8 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_NOTIF = "This notif already exists in the address book";
     public static final String MESSSAGE_NOTIF_DOES_NOT_EXIST = "Notif does not exist";
     public static final String MESSAGE_BODY_COULD_NOT_BE_UPDATED = "Error updating the status of the body";
-
+    public static final String MESSAGE_DOA_BEFORE_DOD = "The date of admission cannot be before the date of death!";
+    public static final String MESSAGE_DOA_BEFORE_DOB = "The date of admission cannot be before the date of birth!";
+    public static final String MESSAGE_DOD_BEFORE_DOB = "The date of death cannot be before the date of birth!";
+    public static final String MESSAGE_DATEJOINED_BEFORE_DOB = "The date joined cannot be before the date of birth!";
 }

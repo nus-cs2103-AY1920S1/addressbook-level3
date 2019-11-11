@@ -2,11 +2,16 @@ package seedu.address.logic.parser.utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.utility.UpdateWorkerDescriptor.checkDateSensibility;
 import static seedu.address.testutil.TypicalWorkers.ALICE;
+
+import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.PhoneNumber;
@@ -32,7 +37,7 @@ class UpdateWorkerDescriptorTest {
     }
 
     @Test
-    void apply_fieldsPresent_success() {
+    void apply_fieldsPresent_success() throws CommandException {
         Worker worker = new WorkerBuilder(ALICE).build();
         UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor();
         descriptor.setSex(Sex.MALE);
@@ -42,7 +47,7 @@ class UpdateWorkerDescriptorTest {
     }
 
     @Test
-    void apply_allFieldsNotPresent_success() {
+    void apply_allFieldsNotPresent_success() throws CommandException {
         //  Success because apply does not check whether fields are present or not.
         Worker worker = new WorkerBuilder(ALICE).build();
         UpdateWorkerDescriptor descriptor = new UpdateWorkerDescriptor();
@@ -64,6 +69,21 @@ class UpdateWorkerDescriptorTest {
         assertTrue(descriptor.applyOriginal(worker).equals(worker));
     }
 
+    @Test
+    void checkDateSensibility_correctDates_noException() throws ParseException, CommandException {
+        Date dateJoined = ParserUtil.parseDate("11/11/2019");
+        Date dob = ParserUtil.parseDate("01/11/2019");
+        Date dobIdentical = ParserUtil.parseDate("11/11/2019");
+        assertTrue(checkDateSensibility(dateJoined, dob));
+        assertTrue(checkDateSensibility(dateJoined, dobIdentical));
+    }
+
+    @Test
+    void checkDateSensibility_wrongDates_throwCommandException() throws ParseException {
+        Date dateJoined = ParserUtil.parseDate("11/11/2019");
+        Date dob = ParserUtil.parseDate("12/11/2019");
+        assertThrows(CommandException.class, () -> checkDateSensibility(dateJoined, dob));
+    }
 
     @Test
     void getSetPhone() {

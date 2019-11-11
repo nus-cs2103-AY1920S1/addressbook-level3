@@ -74,10 +74,10 @@ public class CommandTestUtil {
     public static final String VALID_NAME_JANE = "Jane Doe";
     public static final String VALID_SEX_JOHN = "MALE";
     public static final String VALID_SEX_JANE = "FEMALE";
-    public static final String VALID_DATE_OF_ADMISSION_JOHN = "5/6/2019";
+    public static final String VALID_DATE_OF_ADMISSION_JOHN = "5/9/2019";
     public static final String VALID_DATE_OF_ADMISSION_JANE = "7/8/2019";
-    public static final String VALID_DATE_OF_DEATH_JOHN = "9/10/2019";
-    public static final String VALID_DATE_OF_DEATH_JANE = "11/12/2019";
+    public static final String VALID_DATE_OF_DEATH_JOHN = "4/7/2019";
+    public static final String VALID_DATE_OF_DEATH_JANE = "7/8/2019";
 
     public static final String NAME_DESC_ZACH = " " + PREFIX_NAME + " " + VALID_NAME_ZACH;
     public static final String NAME_DESC_XENIA = " " + PREFIX_NAME + " " + VALID_NAME_XENIA;

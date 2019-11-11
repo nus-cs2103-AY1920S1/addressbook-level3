@@ -265,14 +265,14 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
      */
     public void addBodyStatusToBodyMap(Body body) {
         try {
-            if (body.getNextOfKin().isEmpty()) {
+            if (body.getBodyStatus().isEmpty()) {
                 bodyMap.put(PREFIX_STATUS, "");
             } else {
                 bodyMap.put(PREFIX_STATUS, body.getBodyStatus().get().toString());
             }
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println("Exception found in NOK name.");
+            System.out.println("Exception found in body status.");
         }
     }
 
@@ -310,6 +310,10 @@ public class BodyContainsAttributesKeywordsPredicate implements Predicate<Body> 
                             pass = false;
                             break;
                         }
+                    } else if ((entry.getKey().equals(PREFIX_STATUS))) {
+                        String status = entry.getValue().get(0).replaceAll("\\s+", "_");
+                        pass = bodyMap.getValue(entry.getKey()).get().equalsIgnoreCase(status);
+                        break;
                     } else if (!bodyMap.getValue(entry.getKey()).get().equalsIgnoreCase(entry.getValue().get(0))) {
                         pass = false;
                         break;

@@ -50,7 +50,7 @@ public class TypicalBodies {
             .withStatus("ARRIVED")
             .withFridgeId("2")
             .withDateOfBirth("02/09/1982")
-            .withDateOfDeath("01/06/1971")
+            .withDateOfDeath("01/06/2019")
             .withNextOfKin("Ben Chachki")
             .withRelationship("Father")
             .withKinPhoneNumber("87120919")
@@ -68,7 +68,7 @@ public class TypicalBodies {
             .withStatus("ARRIVED")
             .withFridgeId("2")
             .withDateOfBirth("02/09/1982")
-            .withDateOfDeath("01/06/1971")
+            .withDateOfDeath("01/06/2019")
             .withNextOfKin("Ben Chachki")
             .withRelationship("Father")
             .withKinPhoneNumber("87120919")
@@ -101,6 +101,7 @@ public class TypicalBodies {
 
     private TypicalBodies() {
     } // prevents instantiation
+
 
 
     public static List<Body> getTypicalStoredBodies() {
