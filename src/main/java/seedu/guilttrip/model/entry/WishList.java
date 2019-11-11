@@ -11,12 +11,8 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A entry is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the entry being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a entry uses Person#equals(Object) so
- * as to ensure that the entry with exactly the same fields will be removed.
- *
+ * A list of wishes that enforces uniqueness between its elements and does not allow nulls.
+
  * Supports a minimal set of list operations.
  *
  */
@@ -27,7 +23,7 @@ public class WishList implements Iterable<Wish> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent entry as the given argument.
+     * Returns true if the list contains an equivalent wish as the given argument.
      */
     public boolean contains(Wish toCheck) {
         requireNonNull(toCheck);
@@ -35,8 +31,8 @@ public class WishList implements Iterable<Wish> {
     }
 
     /**
-     * Adds a entry to the list.
-     * The entry must not already exist in the list.
+     * Adds a wish to the list.
+     * The wish must not already exist in the list.
      */
     public void add(Wish toAdd) {
         requireNonNull(toAdd);
@@ -45,9 +41,9 @@ public class WishList implements Iterable<Wish> {
     }
 
     /**
-     * Replaces the entry {@code target} in the list with {@code editedPerson}.
+     * Replaces the wish {@code target} in the list with {@code editedWish}.
      * {@code target} must exist in the list.
-     * The entry identity of {@code editedPerson} must not be the same as another existing entry in the list.
+     * The wish identity of {@code editedWish} must not be the same as another existing wish in the list.
      */
     public void setWish(Wish target, Wish editedWish) {
         requireAllNonNull(target, editedWish);
@@ -56,8 +52,8 @@ public class WishList implements Iterable<Wish> {
     }
 
     /**
-     * Removes the equivalent entry from the list.
-     * The entry must exist in the list.
+     * Removes the equivalent wish from the list.
+     * The wish must exist in the list.
      */
     public void remove(Wish toRemove) {
         requireNonNull(toRemove);
@@ -72,13 +68,13 @@ public class WishList implements Iterable<Wish> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code wishes}.
+     * {@code wishes} must not contain duplicate wishes.
      */
-    public void setEntries(List<Wish> entries) {
-        requireAllNonNull(entries);
+    public void setEntries(List<Wish> wishes) {
+        requireAllNonNull(wishes);
 
-        internalList.setAll(entries);
+        internalList.setAll(wishes);
     }
 
     /**

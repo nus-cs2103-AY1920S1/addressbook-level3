@@ -32,7 +32,7 @@ import seedu.guilttrip.model.tag.Tag;
 
 
 /**
- * Edits the details of an existing budget in the finance tracker.
+ * Edits the details of an existing budget in the GuiltTrip.
  */
 public class EditBudgetCommand extends Command {
 

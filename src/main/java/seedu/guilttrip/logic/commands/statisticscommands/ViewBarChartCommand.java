@@ -18,7 +18,7 @@ import seedu.guilttrip.model.entry.Date;
 public class ViewBarChartCommand extends Command {
 
     public static final String COMMAND_WORD = "viewBar";
-    public static final String ONE_LINER_DESC = COMMAND_WORD + ": View Statistics of guilttrip() in bar chart form "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": View Statistics of GuiltTrip in bar chart form "
             + "for the specific month.";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
@@ -27,8 +27,8 @@ public class ViewBarChartCommand extends Command {
             + PREFIX_PERIOD + "9/2019";
 
     public static final String MESSAGE_SUCCESS = "Display all statistics by the specified period";
-    public static final String MESSAGE_FAILURE = "There is an error with your specified range of months. Only two "
-            + "specified dates Start and End are allowed";
+    public static final String MESSAGE_FAILURE = "There is an error with your specified range of months. Only one"
+            + " month is allowed to be specified for ViewBar.";
     private Date monthToCalculate;
 
     public ViewBarChartCommand(Date period) {

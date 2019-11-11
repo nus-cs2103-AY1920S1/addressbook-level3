@@ -90,6 +90,7 @@ public class FindExpenseCommandTest {
                 model.getFilteredExpenses());
     }
 
+
     @Test
     public void execute_multipleKeywordsMultiplePredicates_singleExpensesFound() {
         CommandHistory chs = new CommandHistoryStub();

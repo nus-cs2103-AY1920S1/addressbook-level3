@@ -15,7 +15,7 @@ import seedu.guilttrip.ui.UiPart;
  * Panel containing the list of incomes.
  */
 public class IncomeListPanel extends UiPart<Region> {
-    private static final String FXML = "/income/IncomeListPanel.fxml";
+    private static final String FXML = "income/IncomeListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(IncomeListPanel.class);
 
     @FXML

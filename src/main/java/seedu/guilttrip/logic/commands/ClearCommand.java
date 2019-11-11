@@ -7,7 +7,7 @@ import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;
 
 /**
- * Clears the guilttrip book.
+ * Clears GuiltTrip.
  */
 public class ClearCommand extends Command {
 

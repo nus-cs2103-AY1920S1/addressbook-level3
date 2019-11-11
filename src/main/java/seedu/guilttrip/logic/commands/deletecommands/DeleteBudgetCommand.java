@@ -14,7 +14,7 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Budget;
 
 /**
- * Deletes a Budget identified using its displayed index from the finance tracker.
+ * Deletes a Budget identified using its displayed index from GuiltTrip.
  */
 public class DeleteBudgetCommand extends Command {
 

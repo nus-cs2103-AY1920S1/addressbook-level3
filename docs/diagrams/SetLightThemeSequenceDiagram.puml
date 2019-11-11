@@ -1,0 +1,72 @@
+    @startuml
+!include style.puml
+
+box UI UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+participant "scene:Scene" as Theme UI_COLOR
+end box
+
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":GuiltTripParser" as GuiltTripParser LOGIC_COLOR
+participant "l:SetLightThemeCommand" as SetLightThemeCommand LOGIC_COLOR
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> MainWindow :executeCommand("setLightTheme")
+activate MainWindow
+
+MainWindow -> LogicManager : execute("setLightTheme")
+activate LogicManager
+
+LogicManager -> GuiltTripParser : parseCommand("setLightTheme")
+activate GuiltTripParser
+
+create SetLightThemeCommand
+GuiltTripParser -> SetLightThemeCommand
+activate SetLightThemeCommand
+
+SetLightThemeCommand --> GuiltTripParser
+deactivate SetLightThemeCommand
+
+GuiltTripParser --> LogicManager : l
+deactivate GuiltTripParser
+
+LogicManager -> SetLightThemeCommand : execute()
+activate SetLightThemeCommand
+
+create CommandResult
+SetLightThemeCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SetLightThemeCommand
+deactivate CommandResult
+
+SetLightThemeCommand --> LogicManager : commandResult
+deactivate SetLightThemeCommand
+destroy SetLightThemeCommand
+
+LogicManager --> MainWindow : commandResult
+deactivate LogicManager
+
+alt isChangeTheme
+
+MainWindow -> CommandResult : getNewTheme()
+activate CommandResult
+
+CommandResult --> MainWindow : LIGHT
+deactivate CommandResult
+
+MainWindow -[#SlateBlue]> MainWindow : switchThemeTo(LIGHT)
+activate MainWindow #SlateBlue
+
+MainWindow -[hidden]> MainWindow
+deactivate MainWindow
+
+end
+
+MainWindow ->[ : commandResult
+deactivate MainWindow
+
+@enduml

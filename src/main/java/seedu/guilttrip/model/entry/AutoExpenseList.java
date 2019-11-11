@@ -11,13 +11,12 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not
- * allow nulls. A entry is considered unique by comparing using
- * {@code Person#isSamePerson(Person)}. As such, adding and updating of persons
- * uses Person#isSamePerson(Person) for equality so as to ensure that the entry
+ * A list of AutoExpenses that enforces uniqueness between its elements and does not
+ * allow nulls. An AutoExpense is considered unique by comparing using
+ * {@code AutoExpense#equals(autoExpense)}. As such, adding and updating of AutoExpenses
+ * uses PAutoExpense#equals(autoExpense) for equality so as to ensure that the entry
  * being added or updated is unique in terms of identity in the
- * UniquePersonList. However, the removal of a entry uses Person#equals(Object)
- * so as to ensure that the entry with exactly the same fields will be removed.
+ * AutoExpenseList.
  *
  * Supports a minimal set of list operations.
  *
@@ -37,7 +36,7 @@ public class AutoExpenseList implements Iterable<AutoExpense> {
     }
 
     /**
-     * Adds a entry to the list. The entry must not already exist in the list.
+     * Adds an AutoExpense to the list. The autoexpense must not already exist in the list.
      */
     public void add(AutoExpense toAdd) {
         requireNonNull(toAdd);
@@ -46,9 +45,9 @@ public class AutoExpenseList implements Iterable<AutoExpense> {
     }
 
     /**
-     * Replaces the entry {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the list. The entry identity of
-     * {@code editedPerson} must not be the same as another existing entry in the
+     * Replaces the entry {@code target} in the list with {@code editedAutoExpense}.
+     * {@code target} must exist in the list. The AutoExpense identity of
+     * {@code editedAutoExpense} must not be the same as another existing AutoExpense in the
      * list.
      */
     public void setAutoExpense(AutoExpense target, AutoExpense editedAutoExpense) {
@@ -58,7 +57,7 @@ public class AutoExpenseList implements Iterable<AutoExpense> {
     }
 
     /**
-     * Removes the equivalent entry from the list. The entry must exist in the
+     * Removes the equivalent AutoExpense from the list. The AutoExpense must exist in the
      * list.
      */
     public void remove(AutoExpense toRemove) {
@@ -74,8 +73,8 @@ public class AutoExpenseList implements Iterable<AutoExpense> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}. {@code persons} must
-     * not contain duplicate persons.
+     * Replaces the contents of this list with {@code entries}. {@code entries} must
+     * not contain duplicate entries.
      */
     public void setEntries(List<AutoExpense> entries) {
         requireAllNonNull(entries);

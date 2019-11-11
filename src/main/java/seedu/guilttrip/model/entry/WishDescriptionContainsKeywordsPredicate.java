@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.guilttrip.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Person}'s {@code Name} matches any of the keywords given.
+ * Tests that a {@code Wish}'s {@code Description} matches any of the keywords given.
  */
 public class WishDescriptionContainsKeywordsPredicate implements Predicate<Wish> {
     private final List<String> keywords;

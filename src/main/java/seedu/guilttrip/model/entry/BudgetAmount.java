@@ -4,8 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Represents a BudgetAmount that is only used for Budget.
+ * Guarantees: immutable; is valid as declared in {@link #isValidBudgetAmount(String)}
  */
 public class BudgetAmount {
 
@@ -18,8 +18,6 @@ public class BudgetAmount {
 
     /**
      * Constructs an {@code BudgetAmount}.
-     *
-     * @param amount A valid phone number.
      */
     public BudgetAmount(String amount) {
         requireNonNull(amount);
@@ -35,7 +33,7 @@ public class BudgetAmount {
     }
 
     /**
-     * Returns true if a given string is a valid phone number.
+     * Returns true if a given string is a valid budget amount.
      */
     public static boolean isValidBudgetAmount(String test) {
         return test.matches(VALIDATION_REGEX);

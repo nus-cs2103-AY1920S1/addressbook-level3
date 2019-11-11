@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tag in the guilttrip book.
+ * Represents a Tag in GuiltTrip.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag implements Comparable<Tag> {

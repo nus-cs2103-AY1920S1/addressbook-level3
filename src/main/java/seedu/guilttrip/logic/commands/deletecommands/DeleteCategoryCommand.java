@@ -14,14 +14,14 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Category;
 
 /**
- * Deletes a category from guiltTrip;
+ * Deletes a category from guiltTrip.
  */
 public class DeleteCategoryCommand extends Command {
 
     public static final String COMMAND_WORD = "deleteCategory";
 
     public static final String ONE_LINER_DESC = COMMAND_WORD
-            + ": Deletes the category from guilttrip";
+            + ": Deletes the category from GuiltTrip";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_CATEGORY + "CATEGORY TYPE "

@@ -12,11 +12,12 @@ import seedu.guilttrip.model.reminders.conditions.EntrySpecificCondition;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Represents an Entry in the finance app.
+ * Represents an Entry in GuiltTrip.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Entry {
-
+    private boolean hasReminder;
+    private String uniqueId;
     // Identity fields
     private final Category category;
     private final Description desc;
@@ -39,7 +40,23 @@ public class Entry {
         this.date = date;
         this.tags.addAll(tags);
     }
+    // For reminders to recognise the entry they are keeping track of.
 
+    public boolean hasReminder() {
+        return this.hasReminder;
+    }
+
+    public void setHasReminder(final boolean hasReminder) {
+        this.hasReminder = hasReminder;
+    }
+
+    public String getUniqueId() {
+        return this.uniqueId;
+    }
+
+    public void setUniqueId(final String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
     public Category getCategory() {
         return category;
     }
@@ -80,10 +97,8 @@ public class Entry {
         }
     }
 
-    // todo: javadocs for this method FOR MINGCHUNG
     /**
-     * Returns true if both entries of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two entries.
+     * Returns a new Entry if and only if it's category is edited.
      */
     public Entry modifiedCategory(String newName) {
         Category newCategory = new Category(newName, category.getCategoryType());
@@ -107,7 +122,6 @@ public class Entry {
                 && otherEntry.getDate().equals(getDate());
     }
 
-    // todo: this method should be the weaker notion of equality
     /**
      * Returns true if both entries have the same identity and data fields.
      */

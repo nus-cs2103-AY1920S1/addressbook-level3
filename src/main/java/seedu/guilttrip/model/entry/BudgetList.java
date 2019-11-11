@@ -11,12 +11,7 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A entry is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the entry being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a entry uses Person#equals(Object) so
- * as to ensure that the entry with exactly the same fields will be removed.
- *
+ * A list of budgets that enforces uniqueness between its elements and does not allow nulls.
  * Supports a minimal set of list operations.
  */
 public class BudgetList implements Iterable<Budget> {

@@ -7,10 +7,10 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "add t/Expense d/mala..."
+user -[USER_COLOR]> ui : "addExpense n/mala..."
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute("add ...")
+ui -[UI_COLOR]> logic : execute("addExpense ...")
 activate logic LOGIC_COLOR
 
 logic -[LOGIC_COLOR]> model : addExpense(toAdd)
@@ -19,7 +19,7 @@ activate model MODEL_COLOR
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveTracker(Tracker)
+logic -[LOGIC_COLOR]> storage : saveGuiltTrip(GuiltTrip)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file
