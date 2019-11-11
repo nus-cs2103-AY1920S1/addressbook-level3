@@ -163,9 +163,11 @@ public class RecurringDateTime {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(years == 0 ? "" : years + (years == 1 ? " year" : " years")
-                                               + (months + days + hours + minutes != 0 ? ", " : ""))
+                                               + (months + weeks + days + hours + minutes != 0 ? ", " : ""))
                 .append(months == 0 ? "" : months + (months == 1 ? " month" : " months")
-                                                  + (days + hours + minutes != 0 ? ", " : ""))
+                                                  + (weeks + days + hours + minutes != 0 ? ", " : ""))
+                .append(weeks == 0 ? "" : weeks + (weeks == 1 ? " week" : " weeks")
+                                                + (days + hours + minutes != 0 ? ", " : ""))
                 .append(days == 0 ? "" : days + (days == 1 ? " day" : " days") + (hours + minutes != 0 ? ", " : ""))
                 .append(hours == 0 ? "" : hours + (hours == 1 ? " hour" : " hours") + (minutes != 0 ? ", " : ""))
                 .append(minutes == 0 ? "" : minutes + (minutes == 1 ? " minute" : " minutes"));
