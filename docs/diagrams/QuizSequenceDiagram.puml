@@ -10,7 +10,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant "cardToView:Flashcard" as Flashcard MODEL_COLOR
+participant "quizCard:Flashcard" as Flashcard MODEL_COLOR
 end box
 
 [-> QuizCommand: execute()
@@ -22,7 +22,7 @@ activate Model
 Model --> QuizCommand: lastShownList: List<Flashcard>
 deactivate Model
 
-QuizCommand -> Model : updateLastViewedFlashcard(cardToView)
+QuizCommand -> Model : updateLastViewedFlashcard(quizCard)
 activate Model
 
 Model --> QuizCommand

@@ -72,7 +72,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     /**
-     * Parses {@code Collection<String> choices} into a {@code Set<Tag>} if {@code choices} is non-empty.
+     * Parses {@code Collection<String> choices} into a {@code Set<Choice>} if {@code choices} is non-empty.
      * If {@code choices} contain only one element which is an empty string, it will be parsed into a
      * {@code Set<Tag>} containing zero choices.
      */
