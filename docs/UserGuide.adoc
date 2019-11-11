@@ -226,7 +226,7 @@ Format: `out $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 * Note that `out` _Transactions_ differ from `in` _Transactions_ in the display amount. The `in` entries are characterized by the *positive* value within their display box whilst the `out` entries are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
 * An `out` command will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to <<UG_OUT_EXAMPLE3>>).
 
-==== Example Usage
+==== Example Usages
 
 ===== Example 1
 
@@ -321,10 +321,12 @@ You can set a budget for a particular category until a certain date, given it is
 A duplicate budget is a budget with the same `AMOUNT` and `DATE` and `CATEGORY`. +
 If you attempt to do so, you will receive an error message: `This budget already exists`. +
 
+==== Command Syntax
+
 Format: `set $/AMOUNT d/DATE [c/CATEGORY]...`
 
 ****
-Paramters follow the same restrictions as highlighted in <<Parameter-constraints, parameter constraints>>. +
+Parameters follow the same restrictions as highlighted in <<Parameter-constraints, parameter constraints>>. +
 
 * `AMOUNT` input accepts the budget amount to be set.
 * `DATE` input accepts the deadline to be set. It cannot be a date in the past.
@@ -332,6 +334,7 @@ Paramters follow the same restrictions as highlighted in <<Parameter-constraints
 A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
+==== Important
 Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
 until the deadline (inclusive). You will be more self-conscious of your spending and minimise your spending by setting a budget. +
@@ -342,7 +345,7 @@ To set a new budget: +
 3. If the budget already exists in the budget list, the result box will display the message `This budget already exists`. +
 4. Now you can see the newly set budget in the budget list.
 
-As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
+As you log an expenditure of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
 to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted. +
 
 For example, you went out with your friends and bought a cup of Gong Cha.
@@ -417,7 +420,7 @@ at the bottom right corner.
 
 NOTE: `split` *does not* include how much you spent into the _Ledger_ balance.
 
-==== Example Usage:
+==== Example Usage
 
 * `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/haidilao`
 
@@ -425,7 +428,7 @@ NOTE: `split` *does not* include how much you spent into the _Ledger_ balance.
 
 . Enter appropriate command into the command line.
 +
-.Input for Splitting evenly
+.Input for Splitting Evenly
 image::SplitEven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
@@ -448,7 +451,7 @@ image::SplitUneven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
-.Uneven split results
+.Display of Correctly Assigned Amounts
 image::SplitUneven2.png[pdfwidth=70%]
 +
 Since the number of shares is equal to the number of people listed, you are not included in the splitting of the bill.
@@ -461,7 +464,7 @@ Since the number of shares is equal to the number of people listed, you are not 
 Receives money from a friend +
 Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 
-==== Example usage:
+==== Example Usage
 
 * `receive $/20 n/Albert`
 
@@ -469,12 +472,12 @@ Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 
 . Enter appropriate command into the command line.
 +
-.Receive payment
+.Input for Receiving $20 from Albert
 image::Receive1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly.
 +
-.Receive payment result
+.Result of Payment from Albert
 image::Receive2.png[pdfwidth=70%]
 +
 Albert is removed from the _Ledger_ since he no longer owes any money. _Ledger_ balance is also updated accordingly.
@@ -492,7 +495,7 @@ Format: `project d/DATE [c/CATEGORY]`
 If a `CATEGORY` is not specified, it will be set as `GENERAL` by default. `GENERAL` projections project
 upon *ALL* transactions, regardless of their categories.
 
-==== Example Usage:
+==== Example Usage
 
 . `project d/22072020`
 
@@ -560,22 +563,22 @@ image::project4.png[]
 A projection will only project upon budgets with deadlines set before or equal to the projection `DATE`. An example
 is depicted below:
 
-. Suppose there is currently a general `BUDGET` with a deadline set for 28th November 2019
+. Suppose there is currently a general _Budget_ with a deadline set for 28th November 2019
 +
-.Two budgets with dates 20112019 and 28112019 in the "GENERAL" category
+.Two _Budgets_ with dates 20112019 and 28112019 in the "GENERAL" category
 image::project5.png[]
 +
 
-. If a general `PROJECTION` is cast to 20th November 2019, it will contain
-the budget with deadline 20112019 but not 28112019,
+. If a general _Projection_ is cast to 20th November 2019, it will contain
+the _Budget_ with deadline 20112019 but not 28112019,
 since the projection's `DATE` is earlier than 28112019.
 
 +
-.The projection only contains the budget with deadline 20112019
+.The _Projection_ only contains the _Budget_ with deadline 20112019
 image::project6.png[]
 
 ===== Backward Projections
-While it is possible in _PalPay_, projecting your balance amount backwards in time is not guaranteed to
+While it is possible in PalPay, projecting your balance amount backwards in time is not guaranteed to
 produce sensible results. It is generally not advisable to do so.
 //end::project[]
 
@@ -583,7 +586,7 @@ produce sensible results. It is generally not advisable to do so.
 // tag::display[]
 === Display a Projection Graph: `display`
 
-Display a graphical representation of a `projection` in a new window.
+Display a graphical representation of a _Projection_ in a new window.
 
 Format: `display PROJECTION_ID`
 
@@ -669,20 +672,23 @@ Format: `view TAB`
 * `TAB` input only accepts `transaction`, `budget`, `ledger` and `projection` in v1.4. It is case-insensitive.
 ****
 
-==== Example Usage:
+==== Example Usage
 
 You do not have to use your mouse in PalPay to switch tabs anymore.
 
 . By default, you are in the `transaction` tab.
 +
+.Transaction Tab
 image::view1.png[]
 +
 . Simply type *view budget* in the command box and press kbd:[Enter].
 +
+.User Input
 image::view2.png[]
 +
 . You can now view your budgets. Easy!
 +
+.Budget Tab
 image::view3.png[]
 
 // end::view[]
@@ -709,7 +715,7 @@ Format: `delete TYPE+INDEX`
 * PalPay deletes an item based on the entry index of the target item. You can delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
 * You can only delete an existing _Transaction_ or _Budget_. Nothing will be deleted if the _Transaction_ or _Budget_ index does not exists.
 
-==== Example Usage:
+==== Example Usage
 
  Deleting the 5th entry of the transactions list
 
@@ -871,7 +877,7 @@ Format: `sort PREDICATE/ORDER`
 * `ORDER` accepts only `a` or `d` which represents ascending and descending, respectively.
 ****
 
-==== Example Usage:
+==== Example Usage
 
 Do you want to know what is the latest transaction you made? No need to scroll all the way down anymore. PalPay
 has made it simple for you.
@@ -879,14 +885,17 @@ has made it simple for you.
 . By default, your transactions are sorted from the earliest
 transaction you entered to the latest transaction you entered.
 +
+.Unsorted Transaction List
 image::sort1.png[]
 +
 . Simply type *sort date/d* in the command box and press kbd:[Enter].
 +
+.User Input for Sort Command
 image::sort2.png[]
 +
 . Great! You can now see the latest transactions you made.
 +
+.Sorted Transaction List
 image::sort3.png[]
 
 // end::sort[]
@@ -912,20 +921,23 @@ Format: `filter [n/DESCRIPTION] [y/YEAR] [m/MONTH] [c/CATEGORY]...`
 `transport` and `allowance` that occurred in 2019.
 ****
 
-==== Example Usage:
+==== Example Usage
 
 Imagine that you wanted to find out what you spent on shopping in October 2019.
 
 . By default, PalPay shows your all your transactions you have made.
 +
+.Unfiltered Transaction List
 image::filter1.png[]
 +
 . Simply type *filter c/Shopping m/10 y/2019* in the command box and press kbd:[Enter].
 +
+.User Input for Filter Command
 image::filter2.png[]
 +
 . You will now see the list of transactions you have made while shopping in October 2019. Hurray!
 +
+.Filtered Transaction List
 image::filter3.png[]
 
 // end::filter[]
@@ -948,7 +960,7 @@ Format: `undo`
 `sort` / `filter` / `update` / `delete` / `clear` / `list`
 ****
 
-==== Example Usage:
+==== Example Usage
 
 Suppose you want to update your allowance you received in October 2019 to $800 but you accidentally update the GrabTaxi
 ride instead. Without going through the trouble of updating the same transaction again, you can simply perform the
@@ -956,14 +968,17 @@ ride instead. Without going through the trouble of updating the same transaction
 
 . Here, you can see the wrong update you just made.
 +
+.Transaction List Containing Erroneous Transaction
 image::undo1.png[]
 +
 . Simply type *undo* in the command box and press kbd:[Enter].
 +
+.User Input for Undo Command
 image::undo2.png[]
 +
 . As you wish, your command has been undone.
 +
+.Erroneous Transaction Has Been Undone
 image::undo3.png[]
 // end::undo[]
 
@@ -982,21 +997,24 @@ Format: `redo`
 * Once you exit PalPay, you cannot redo the previous undo(s).
 ****
 
-==== Example Usage:
+==== Example Usage
 
 Suppose you want to undo your last update but you accidentally undo twice instead.
 You can simply perform the `redo` command to revert the changes. Just follow these three simple steps.
 
 . Here, you can see the extra undo you just made and the GrabTaxi ride is back at $800.
 +
+.Transaction List Containing Erroneous Transaction
 image::redo1.png[]
 +
 . Simply type *redo* in the command box and press kbd:[Enter].
 +
+.User Input for Redo Command
 image::redo2.png[]
 +
 . Great! Your transaction is back to normal.
 +
+.Success Message for Redo Command
 image::redo3.png[]
 
 // end::redo[]
