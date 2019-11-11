@@ -5,11 +5,13 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.model.ReadOnlyUserPrefs;
@@ -102,6 +104,12 @@ public class GroupManager implements GroupModel {
     public boolean hasGroup(Group group) {
         requireNonNull(group);
         return groupBook.hasGroup(group);
+    }
+
+    @Override
+    public List<Group> findGroupsWithMember(MemberId memberId) {
+        requireNonNull(memberId);
+        return groupBook.findGroupsWithMember(memberId);
     }
 
     @Override

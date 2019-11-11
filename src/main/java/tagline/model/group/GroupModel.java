@@ -2,9 +2,11 @@
 package tagline.model.group;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+
 import tagline.commons.core.GuiSettings;
 import tagline.model.ReadOnlyUserPrefs;
 
@@ -57,6 +59,11 @@ public interface GroupModel {
      * Returns true if a group with the same identity as {@code group} exists in the address book.
      */
     boolean hasGroup(Group group);
+
+    /**
+     * Returns a list of groups that contain the given contact id as one of their members.
+     */
+    public List<Group> findGroupsWithMember(MemberId memberId);
 
     /**
      * Returns true if a group with the same name as {@code groupName} exists in the address book.

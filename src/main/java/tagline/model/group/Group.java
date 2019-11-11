@@ -1,6 +1,7 @@
 //@@author e0031374
 package tagline.model.group;
 
+import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -59,6 +60,14 @@ public class Group {
 
         return otherGroup != null
             && otherGroup.getGroupName().equals(getGroupName());
+    }
+
+    /**
+     * Returns true if a group contains the given member id as one of their members.
+     */
+    public boolean hasMemberWithId(MemberId memberId) {
+        requireNonNull(memberId);
+        return memberIds.contains(memberId);
     }
 
     /**

@@ -4,6 +4,8 @@ package tagline.model.group;
 import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.AppUtil.checkArgument;
 
+import tagline.model.contact.ContactId;
+
 /**
  * Represents a MemberId in the address book.
  * Guarantees: immutable; name is valid as declared in {@link #isValidMemberId(String)}
@@ -24,6 +26,17 @@ public class MemberId {
         requireNonNull(value);
         checkArgument(isValidMemberId(value), MESSAGE_CONSTRAINTS);
         this.value = String.valueOf(Long.valueOf(value));
+    }
+
+    /**
+     * Constructs a {@code MemberId}.
+     *
+     * @param contactId A valid contact id.
+     */
+    public MemberId(ContactId contactId) {
+        requireNonNull(contactId);
+        checkArgument(isValidMemberId(contactId.value.toString()), MESSAGE_CONSTRAINTS);
+        this.value = String.valueOf(contactId.value);
     }
 
     /**
