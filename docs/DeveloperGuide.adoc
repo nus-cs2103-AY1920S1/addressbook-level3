@@ -297,6 +297,7 @@ move on to the next question.
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 //end::wilfred-quiz[]
 
+//tag::sihao-saq[]
 === Saq feature
 ==== Handling user input
 The Saq input mechanism is facilitated by `SaqInputCommand`. It extends `Command` and execute the `CommandResult`. The input
@@ -311,9 +312,16 @@ If the input is valid, `SaqInputCommand` object of type `Command` will be create
 The `execute` method will return the `CommandResult`, correct or wrong. The currentAnswerable of type `Saq` will call its
 `isCorrect` method and return a boolean value, true for correct answer and false for wrong answer.
 
-
+.Class Diagram of SAQ Answer Checker
 image::SaqAnswerCheckerClassDiagram.png[width=790]
+
+.Sequence Diagram of SAQ isCorrect Method
 image::SaqIsCorrectSequenceDiagram.png[width=790]
+
+.Activity Diagram of checking answer for SAQ
+image::SaqAnswerCheckerActivityDiagram.png[width=700]
+
+//end::sihao-saq[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -367,6 +375,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: helps student to ace CS2103/T
 
+//tag::sihao-userstories[]
 [appendix]
 == User Stories
 
@@ -433,6 +442,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |CS2103 student who keeps having stomach ache |the application to tell me where the nearest toilet is |go and shit
 |=======================================================================
+//end::sihao-userstories[]
 
 [appendix]
 == Use Cases
