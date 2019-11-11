@@ -101,6 +101,10 @@ include::../UserGuide.adoc[tag=annCmd]
 _End of extract from Mark User Guide_
 
 == Contributions to the Developer Guide
+_This section will refer to this class diagram drawn by Dorcas:_
+
+include::../DeveloperGuide.adoc[tag=annPkg]
+
 |===
 |_Given below are sections I contributed to our Developer Guide for Mark. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
@@ -109,13 +113,9 @@ _Start of extract from Mark Developer Guide_
 
 include::../DeveloperGuide.adoc[tag=addAnn]
 
-//include::../DeveloperGuide.adoc[tag=dataencryption]
 
 _End of extract from Mark Developer Guide_
 
-_Here is the referenced diagram drawn by Dorcas:_
-
-include::../DeveloperGuide.adoc[tag=annPkg]
 
 ---
 
