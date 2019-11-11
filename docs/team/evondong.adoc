@@ -278,14 +278,17 @@ The following section showcases my contribution to the developer guide for featu
 
 {Start of First Extract from Developer Guide}
 
-=== Cashier Tab
-This tab will act as a shopping cart to add and record sales items that are to be sold from the inventory.
-
-This is the overall Class Diagram of this tab:
+==== Details on `Logic` Implementation for the Inventory and Cashier Tab
+This section will show further details of the `Logic` Component of the Inventory tab and Cashier tab.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component:
 
 [caption = "Figure 38. "]
-.Class Diagram of Cashier Tab (cashier package)
-image::UMLCashierTab.png[width="650"]
+.Structure of `Parser` for the Inventory and Cashier tabs
+image::ParserForInventoryCashier.png[]
+
+{Start of First Extract from Developer Guide}
+
+{Start of Second Extract from Developer Guide}
 
 :sectnums!:
 === 3.5.1 Add Sales Item Feature
@@ -352,10 +355,10 @@ The following activity diagram shows the steps proceeding after the user input a
 .Activity Diagram of Add Command (cashier package)
 image::AddCommandCashierActivity.png[width="600"]
 
-{End of First Extract from Developer Guide}
+{End of Second Extract from Developer Guide}
 
 
-{Start of Second Extract from Developer Guide}
+{Start of Third Extract from Developer Guide}
 
 :sectnums!:
 === 3.5.3 Checkout Feature
@@ -403,9 +406,9 @@ image::CheckoutCommandCashierSeq2.png[width="600"]
 //
 //image::CheckoutCommandCashierActivityDiag.png[width="490"]
 
-{End of Second Extract from Developer Guide}
+{End of Third Extract from Developer Guide}
 
-{Start of Third Extract from Developer Guide}
+{Start of Fourth Extract from Developer Guide}
 
 :sectnums!:
 === 3.1.5 Overall Design Considerations
@@ -465,7 +468,7 @@ methods from different sources and eliminates any chances of uncoordinated data 
 
 |===
 
-{End of Third Extract from Developer Guide}
+{End of Fourth Extract from Developer Guide}
 
 
 
