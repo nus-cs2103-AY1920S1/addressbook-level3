@@ -292,7 +292,7 @@ Given below is an example usage scenario and how the commit mechanism behaves at
 Step 1. The user launches the application for the first time. The `VersionTrackingManager` will be initialized with the
 initial module planner state, and its `StudyPlanCommitManagerList` will only contain a manager for the default study plan.
 
-image::VersionTrackingClassDiagram.png[height=""500"]
+image::VersionTrackingClassDiagram.png[height=""800"]
 
 Step 2. After changing the state of the current active study plan (e.g. by calling `addmod cs1101s y1s1`),
 the user executes `commit first draft` command to save the current state of this study plan with the commit message
@@ -301,7 +301,7 @@ causing the modified state of the current active study plan after the execution 
 in the `StudyPlanCommitManager` corresponding to this study plan, inside the `VersionTrackingManager` under
 `ModulePlanner`.
 
-image::CommitStudyPlan.png[height=""290"]
+image::CommitStudyPlan.png[height=""400"]
 
 Step 3. The user executes `revert 1.0` to revert to the commit indexed by `0` in the active study plan which
 has an ID of `1`. The `revert` command also calls `Model#revertCommit(int studyPlanIndex, int commitNumber)`,
@@ -326,7 +326,7 @@ no deletion will take place. Instead the user will be prompted by an error messa
 
 The following activity diagram shows how the `removecommit` operation works:
 
-image::DeleteCommitActivityDiagram.png[height=""400"]
+image::DeleteCommitActivityDiagram.png[height=""600"]
 
 ==== Design Considerations
 
@@ -458,7 +458,7 @@ image::TagModuleCommandSequenceDiagram1.png[]
 image::TagModuleCommandSequenceDiagram2.png[]
 
 .Activity diagram for module tagging
-image::TagModuleCommandActivityDiagram.png[width="350"]
+image::TagModuleCommandActivityDiagram.png[width="400"]
 
 [NOTE]
 The command exceptions in the above activity diagram should actually point to a single _stop_ at the end.
@@ -1215,7 +1215,32 @@ Expected:
 Expected: 
 If there exists an active study plan, the study plan has the given semester and the semester contains `CS2102`, then `CS2102` will be removed to `Y2S1`. Else, an error message will show according to which criteria it failed.
 
+. Finding a module
+.. Prerequisite
+... The module must exist in the study plan.
+.. Test case: `findmod CS1101S` +
+Expected:
+The semester in which CS1101S is located will appear in the left panel.
+
 === Executing semester-related commands
+
+. Adding a semester
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+.. Test case: `addsem y1st1` note that the semester must be a special term or a Year 5 semester +
+Expected:
+The semester `Y1ST1` will appear on the right panel of GUI. You can add modules etc to this semester from now on.
+
+. Removing a semester
+.. Prerequisite
+... There is at least one study plan. (i.e. There is a current active study plan)
+.. Test case 1: `removesem y1st1` note that the semester is a special term or a Year 5 semester in this case +
+Expected:
+The semester `Y1ST1` will disappear from the right panel.
+.. Test case 2: `removesem y1s1` note that the semester is a regular semester in this case +
+Expected:
+The semester `Y1S1` will have all its modules cleared. But this semester will still remain on the right panel
+since it is one of the default semesters.
 
 . Set current semester
 .. Prerequisites
@@ -1306,34 +1331,6 @@ All tags, default and user-created, will appear in the left panel. Default tags 
 Expected:
 All default tags will appear in the left panel.
 
-. Finding a module
-.. Prerequisite
-... The module must exist in the study plan.
-.. Test case: `findmod CS1101S` +
-Expected:
-The semester in which CS1101S is located will appear in the left panel.
-
-. Setting the priority of a study plan
-.. Prerequisite
-... There must be at least one study plan in the module planner.
-.. Test case: `setpriority high 1` +
-Expected: If there is a study plan with index 1, a red priority tag named "PRIORITY.HIGH" will appear next to the study plan title.
-If the index is invalid, an error message will be shown.
-
-. Removing the priority of a study plan
-.. Prerequisite
-... The target study plan must have a priority tag
-.. Test case: `removepriority 1` +
-Expected: If the study plan has a priority tag, it will be removed. If the index is invalid or the study plan does not have a
-priority tag, an error message will be shown.
-
-. Listing study plans according to their priorities
-.. Prerequisite
-... There are three study plans in the module planner, two set with priorities `low`, `high` and one with no priority.
-.. Test case: `listbypriority` +
-Expected:
-A left panel with a list of study plans sorted in the order such that their priorities are `high`, `low` and no priority.
-
 === Executing study plan-level commands
 
 . Adding a study plan
@@ -1386,6 +1383,27 @@ Expected:
 A new study plan with the title `Recommended Plan` will be created and made active (shown on the right panel).
 A unique ID will be assigned to this plan too.
 
+. Setting the priority of a study plan
+.. Prerequisite
+... There must be at least one study plan in the module planner.
+.. Test case: `setpriority high 1` +
+Expected: If there is a study plan with index 1, a red priority tag named "PRIORITY.HIGH" will appear next to the study plan title.
+If the index is invalid, an error message will be shown.
+
+. Removing the priority of a study plan
+.. Prerequisite
+... The target study plan must have a priority tag
+.. Test case: `removepriority 1` +
+Expected: If the study plan has a priority tag, it will be removed. If the index is invalid or the study plan does not have a
+priority tag, an error message will be shown.
+
+. Listing study plans according to their priorities
+.. Prerequisite
+... There are three study plans in the module planner, two set with priorities `low`, `high` and one with no priority.
+.. Test case: `listbypriority` +
+Expected:
+A left panel with a list of study plans sorted in the order such that their priorities are `high`, `low` and no priority.
+
 === Executing version tracking-related commands
 
 . Committing a study plan
@@ -1430,25 +1448,6 @@ Expected:
 The specified commit will be removed from the commit history permanently. If you enter `history`,
 you will see that the commit has disappeared. Note that the indices are based on the position of the commit in the
 commit list, so all the commit numbers will be shifted forward.
-
-. Adding a semester
-.. Prerequisite
-... There is at least one study plan. (i.e. There is a current active study plan)
-.. Test case: `addsem y1st1` note that the semester must be a special term or a Year 5 semester +
-Expected:
-The semester `Y1ST1` will appear on the right panel of GUI. You can add modules etc to this semester from now on.
-
-. Removing a semester
-.. Prerequisite
-... There is at least one study plan. (i.e. There is a current active study plan)
-.. Test case 1: `removesem y1st1` note that the semester is a special term or a Year 5 semester in this case +
-Expected:
-The semester `Y1ST1` will disappear from the right panel.
-.. Test case 2: `removesem y1s1` note that the semester is a regular semester in this case +
-Expected:
-The semester `Y1S1` will have all its modules cleared. But this semester will still remain on the right panel
-since it is one of the default semesters.
-
 
 === Executing information and verification-related commands
 
