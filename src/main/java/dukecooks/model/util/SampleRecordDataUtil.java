@@ -38,12 +38,6 @@ public class SampleRecordDataUtil {
                 getRemarkSet()
             ),
             new Record(
-                Type.Weight,
-                new Value("55.5"),
-                new Timestamp("09/11/2019 19:10"),
-                getRemarkSet()
-            ),
-            new Record(
                 Type.Height,
                 new Value("168"),
                 new Timestamp("25/10/2019 12:00"),
