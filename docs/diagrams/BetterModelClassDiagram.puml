@@ -16,51 +16,15 @@ Class ReadOnlyUserPrefs
 Class UserPrefs
 }
 
-namespace Achievements {
+namespace XYZ {
 namespace Model {
-Interface StatisticsModel <<Interface>>
-}
-}
-
-namespace Address {
-namespace Model {
-Interface AddressBookModel <<Interface>>
-}
-}
-
-namespace Calendar {
-namespace Model {
-Class Calendar
-}
-}
-
-namespace diaryFeature {
-namespace diaryModel {
-Class DiaryModel
-}
-}
-
-namespace FinancialTracker {
-namespace Model {
-class Model
-}
-}
-
-namespace Itinerary {
-namespace Model {
-class Model
+Class Model
 }
 }
 
 HiddenOutside ..> Model.Model
 
 Interface ObservableList <<Interface>>
-Interface Supplier <<Interface>>
-''''''''''LAYOUT''''''''''
-Model.UserPrefsModelManager .[hidden]down.|> Achievements
-Model.UserPrefsModelManager .[hidden]down.|> Address
-''''''''''''''''''''''''''
-
 
 ''''''''''MODEL''''''''''
 
@@ -90,14 +54,8 @@ Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
 ''''''''''ADDRESS''''''''''
 Address.Model.AddressBookModel .right.> ObservableList
 
-
 ''''''''''LAYOUT''''''''''
 Model.ModelManager -[hidden]down-> Model.UserPrefsModel
-Model.UserPrefsModelManager -[hidden]down->Address
-Model.UserPrefsModelManager -[hidden]down->Achievements
-Model.UserPrefsModelManager -[hidden]down->Calendar
-Model.UserPrefsModelManager -[hidden]down->diaryFeature
-Model.UserPrefsModelManager -[hidden]down->FinancialTracker
-Model.UserPrefsModelManager -[hidden]down->Itinerary
+Model.UserPrefsModelManager -[hidden]down->XYZ
 ''''''''''''''''''''''''''
 @enduml

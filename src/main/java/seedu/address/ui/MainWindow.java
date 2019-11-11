@@ -31,13 +31,8 @@ public class MainWindow extends UiPart<Stage> {
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
-    private Scene mainScene;
     private Logic logic;
 
-    // Independent Ui parts residing in this Ui container
-    private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
-    private CodeWindow codeWindow;
     private FinancialTrackerPage financialTrackerPage;
     private CalendarPage calendarPage;
     private ItineraryPage itineraryPage;
@@ -74,8 +69,6 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        helpWindow = new HelpWindow();
-        codeWindow = new CodeWindow();
         calendarPage = new CalendarPage(logic.getCalendarLogic());
         achievementsPage = new AchievementsPage(logic.getAchievementsLogic());
         addressBookPage = new AddressBookPage(logic.getAddressBookLogic());
