@@ -10,78 +10,77 @@ import java.util.TreeMap;
  * A class for converting a leet password into list of unleet possibilities.
  */
 public class LeetUtil {
-    private static Map<Character, Character[]> defaultLeetTable = new HashMap<>();
+    private static Map<Character, Character[]> leetTable = new HashMap<>();
     static {
-        defaultLeetTable.put('4', new Character[]{'a'});
-        defaultLeetTable.put('@', new Character[]{'a'});
-        defaultLeetTable.put('8', new Character[]{'b'});
-        defaultLeetTable.put('(', new Character[]{'c'});
-        defaultLeetTable.put('{', new Character[]{'c'});
-        defaultLeetTable.put('[', new Character[]{'c'});
-        defaultLeetTable.put('<', new Character[]{'c'});
-        defaultLeetTable.put('3', new Character[]{'e'});
-        defaultLeetTable.put('9', new Character[]{'g'});
-        defaultLeetTable.put('6', new Character[]{'g'});
-        defaultLeetTable.put('&', new Character[]{'g'});
-        defaultLeetTable.put('#', new Character[]{'h'});
-        defaultLeetTable.put('!', new Character[]{'i', 'l'});
-        defaultLeetTable.put('1', new Character[]{'i', 'l'});
-        defaultLeetTable.put('|', new Character[]{'i', 'l'});
-        defaultLeetTable.put('0', new Character[]{'o'});
-        defaultLeetTable.put('$', new Character[]{'s'});
-        defaultLeetTable.put('5', new Character[]{'s'});
-        defaultLeetTable.put('+', new Character[]{'t'});
-        defaultLeetTable.put('7', new Character[]{'t', 'l'});
-        defaultLeetTable.put('%', new Character[]{'x'});
-        defaultLeetTable.put('2', new Character[]{'z'});
+        leetTable.put('4', new Character[]{'a'});
+        leetTable.put('@', new Character[]{'a'});
+        leetTable.put('8', new Character[]{'b'});
+        leetTable.put('(', new Character[]{'c'});
+        leetTable.put('{', new Character[]{'c'});
+        leetTable.put('[', new Character[]{'c'});
+        leetTable.put('<', new Character[]{'c'});
+        leetTable.put('3', new Character[]{'e'});
+        leetTable.put('9', new Character[]{'g'});
+        leetTable.put('6', new Character[]{'g'});
+        leetTable.put('&', new Character[]{'g'});
+        leetTable.put('#', new Character[]{'h'});
+        leetTable.put('!', new Character[]{'i', 'l'});
+        leetTable.put('1', new Character[]{'i', 'l'});
+        leetTable.put('|', new Character[]{'i', 'l'});
+        leetTable.put('0', new Character[]{'o'});
+        leetTable.put('$', new Character[]{'s'});
+        leetTable.put('5', new Character[]{'s'});
+        leetTable.put('+', new Character[]{'t'});
+        leetTable.put('7', new Character[]{'t', 'l'});
+        leetTable.put('%', new Character[]{'x'});
+        leetTable.put('2', new Character[]{'z'});
     }
 
     /**
-     * Generates the possible list of translations given a password.
+     * Generates the possible list of possibilities given a password.
      *
      * @param password the password string to unleet
      * @return the list of possible unleet passwords
      */
-    public static List<String> translateLeet(String password) {
-        ArrayList<String> translations = new ArrayList<>();
-        final TreeMap<Integer, Character[]> replacements = new TreeMap<>();
+    public static List<String> generateUnleetList(String password) {
+        ArrayList<String> possibilities = new ArrayList<>();
+        TreeMap<Integer, Character[]> indexToReplacements = new TreeMap<>();
         for (int i = 0; i < password.length(); i++) {
-            Character[] replacement = defaultLeetTable.get(password.charAt(i));
+            Character[] replacement = leetTable.get(password.charAt(i));
             if (replacement != null) {
-                replacements.put(i, replacement);
-                // for each character, if the special character has mapping to normal, then put inside the tree.
+                indexToReplacements.put(i, replacement);
             }
         }
 
-        // Do not bother continuing if we're going to replace every single character
-        if (replacements.keySet().size() == password.length()) {
-            return translations;
+        // Don't bother for passwords that are all special characters.
+        if (indexToReplacements.keySet().size() == password.length()) {
+            return possibilities;
         }
-        if (replacements.size() > 0) {
-            char[] passwordChar = new char[password.length()];
-            for (int i = 0; i < password.length(); i++) {
-                passwordChar[i] = password.charAt(i);
-            }
-            replaceAtIndex(replacements, replacements.firstKey(), passwordChar, translations);
+        if (indexToReplacements.size() > 0) {
+            char[] passwordCharArray = password.toCharArray();
+            replaceAtIndex(indexToReplacements, indexToReplacements.firstKey(), passwordCharArray, possibilities);
         }
-        return translations;
+        return possibilities;
     }
 
     /**
      * Internal function to recursively build the list of un-leet possibilities.
      */
-    private static void replaceAtIndex(final TreeMap<Integer, Character[]> replacements,
-                                       Integer currentIndex, char[] password, List<String> finalPasswords) {
-        Character[] listOfReplacementsForSpecialCharacter = replacements.get(currentIndex);
+    private static void replaceAtIndex(TreeMap<Integer, Character[]> indexToReplacements,
+                                       Integer currentIndex, char[] password, List<String> possibilities) {
+        Character[] listOfReplacementsForSpecialCharacter = indexToReplacements.get(currentIndex);
         for (char replacement : listOfReplacementsForSpecialCharacter) {
             password[currentIndex] = replacement;
-            if (currentIndex.equals(replacements.lastKey())) {
-                finalPasswords.add(new String(password));
-            } else if (finalPasswords.size() == 100) { //TODO: What is an appropriate length to stop at?
-                // Give up if we've already made 100 replacements
+            if (currentIndex.equals(indexToReplacements.lastKey())) {
+                //add into list of possibilities only after we've replaced till the last index
+                possibilities.add(new String(password));
+            } else if (possibilities.size() == 100) { //TODO: What is an appropriate length to stop at?
+                // Cap at 100 possibilities for efficiency
                 return;
             } else {
-                replaceAtIndex(replacements, replacements.higherKey(currentIndex), password, finalPasswords);
+                int nextIndex = indexToReplacements.higherKey(currentIndex);
+                replaceAtIndex(indexToReplacements, nextIndex,
+                        password, possibilities);
             }
         }
     }

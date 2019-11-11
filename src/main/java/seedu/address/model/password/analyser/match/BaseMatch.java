@@ -31,13 +31,6 @@ public abstract class BaseMatch implements Match {
         this.endIndex = endIndex;
     }
 
-    /**
-     * Returns true if {@code Match} is valid.
-     */
-    protected Boolean isValidMatch(int startIndex, int endIndex, String token) {
-        return startIndex < endIndex && token != "";
-    }
-
     public String getToken() {
         return token;
     }
@@ -48,6 +41,13 @@ public abstract class BaseMatch implements Match {
 
     public int getEndIndex() {
         return endIndex;
+    }
+
+    /**
+     * Returns true if start index greater than end index, and token is not empty string.
+     */
+    protected Boolean isValidMatch(int startIndex, int endIndex, String token) {
+        return startIndex < endIndex && !token.isEmpty();
     }
 
     @Override
@@ -69,7 +69,7 @@ public abstract class BaseMatch implements Match {
         BaseMatch baseMatch = (BaseMatch) o;
         return startIndex == baseMatch.startIndex
                 && endIndex == baseMatch.endIndex
-                && Objects.equals(token, baseMatch.token);
+                && token.equals(baseMatch.token);
     }
 
     @Override

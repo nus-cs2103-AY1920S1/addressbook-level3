@@ -21,7 +21,7 @@ public class CopyPasswordValueCommand extends CopyPasswordCommand {
     public static final String COMMAND_WORD = "password";
     public static final String COMMAND_WORD1 = "p";
 
-    public static final String MESSAGE_SUCCESS = "Copied password";
+    public static final String MESSAGE_SUCCESS = "Copied password to clipboard!";
 
     private final Index targetIndex;
 
