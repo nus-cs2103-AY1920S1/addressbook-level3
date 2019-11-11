@@ -2,16 +2,19 @@ package io.xpire.logic.commands;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_INDEX;
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
+import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_DUPLICATE_ITEM_REPLENISH;
 import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_REPLENISH_SHIFT_SUCCESS;
+import static io.xpire.model.ListType.REPLENISH;
+import static io.xpire.model.ListType.XPIRE;
 
 import java.util.List;
 
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
-import io.xpire.logic.commands.util.CommandUtil;
 import io.xpire.model.Model;
 import io.xpire.model.item.Item;
 import io.xpire.model.item.XpireItem;
+import io.xpire.model.state.ModifiedState;
 import io.xpire.model.state.StateManager;
 
 //@@author liawsy
@@ -45,10 +48,24 @@ public class ShiftToReplenishCommand extends Command {
             throw new CommandException(MESSAGE_INVALID_INDEX);
         }
         XpireItem targetItem = (XpireItem) lastShownList.get(this.targetIndex.getZeroBased());
-        CommandUtil.shiftItemToReplenishList(stateManager, model, targetItem);
+        shiftItemToReplenishList(stateManager, model, targetItem);
         this.result = String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, targetItem.getName());
         setShowInHistory(true);
         return new CommandResult(this.result);
+    }
+
+    /**
+     * Shifts an item to the replenish list.
+     */
+    private void shiftItemToReplenishList(StateManager stateManager, Model model, XpireItem itemToShift)
+            throws CommandException {
+        Item remodelledItem = itemToShift.remodel();
+        if (model.hasItem(REPLENISH, remodelledItem)) {
+            throw new CommandException(MESSAGE_DUPLICATE_ITEM_REPLENISH);
+        }
+        stateManager.saveState(new ModifiedState(model));
+        model.addItem(REPLENISH, remodelledItem);
+        model.deleteItem(XPIRE, itemToShift);
     }
 
     @Override

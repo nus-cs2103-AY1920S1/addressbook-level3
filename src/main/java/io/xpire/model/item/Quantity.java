@@ -65,6 +65,7 @@ public class Quantity {
         return this.quantity < deductAmount.quantity;
     }
 
+
     /**
      * Checks if the sum of this quantity and the input quantity exceeds the maximum limit.
      *

@@ -2,6 +2,7 @@ package io.xpire.logic.commands;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_DUPLICATE_ITEM_REPLENISH;
+import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_INVALID_REDUCE_QUANTITY;
 import static io.xpire.logic.commands.util.CommandUtil.MESSAGE_REPLENISH_SHIFT_SUCCESS;
 import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
@@ -12,7 +13,6 @@ import java.util.TreeSet;
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
 import io.xpire.logic.commands.exceptions.CommandException;
-import io.xpire.logic.commands.util.CommandUtil;
 import io.xpire.logic.parser.exceptions.ParseException;
 import io.xpire.model.ListType;
 import io.xpire.model.Model;
@@ -41,14 +41,14 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE =
             "Three formats available for " + COMMAND_WORD + ":\n"
-            + "1) Deletes the item identified by the index number.\n"
-            + "Format: delete|<index> (index must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + "|1" + "\n"
-            + "2) Deletes all tags in the item identified by the index number.\n"
-            + "Format: delete|<index>|<tag>[<other tags>]...\n"
-            + "Example: " + COMMAND_WORD + "|1" + "|#Fruit #Food"
-            + "3) Reduces the quantity in the item identified by the index number. \n"
-            + "Format: delete|<index>|<quantity> (quantity must be positive and less than item's quantity.\n";
+                    + "1) Deletes the item identified by the index number.\n"
+                    + "Format: delete|<index> (index must be a positive integer)\n"
+                    + "Example: " + COMMAND_WORD + "|1" + "\n"
+                    + "2) Deletes all tags in the item identified by the index number.\n"
+                    + "Format: delete|<index>|<tag>[<other tags>]...\n"
+                    + "Example: " + COMMAND_WORD + "|1" + "|#Fruit #Food"
+                    + "3) Reduces the quantity in the item identified by the index number. \n"
+                    + "Format: delete|<index>|<quantity> (quantity must be positive and less than item's quantity.\n";
 
     public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted item: %s";
     public static final String MESSAGE_DELETE_TAGS_SUCCESS = "Deleted tags from item: %s";
@@ -122,21 +122,34 @@ public class DeleteCommand extends Command {
     private CommandResult executeDeleteQuantity(Model model, Item targetItem, StateManager stateManager)
             throws CommandException {
         assert this.quantity != null;
-        XpireItem updatedItem = CommandUtil.reduceItemQuantity((XpireItem) targetItem, this.quantity);
-        stateManager.saveState(new ModifiedState(model));
-        model.setItem(listType, targetItem, updatedItem);
-        // transfer item to replenish list
-        if (Quantity.quantityIsZero(updatedItem.getQuantity())) {
-            shiftItemToReplenishList(model, updatedItem);
-            this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetItem)
-                    + "\n" + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, updatedItem.getName());
+        XpireItem itemToShift = (XpireItem) targetItem;
+        Quantity itemQuantity = itemToShift.getQuantity();
+        // if item quantity is less than quantity to deduct
+        if (itemQuantity.isLessThan(this.quantity)) {
+            throw new CommandException(MESSAGE_INVALID_REDUCE_QUANTITY);
+        }
+        // if item quantity will be reduced to zero
+        if (itemQuantity.equals(this.quantity)) {
+            Item remodelledItem = itemToShift.remodel();
+            if (model.hasItem(REPLENISH, remodelledItem)) {
+                throw new CommandException(MESSAGE_DUPLICATE_ITEM_REPLENISH);
+            }
+            stateManager.saveState(new ModifiedState(model));
+            model.addItem(REPLENISH, remodelledItem);
+            model.deleteItem(XPIRE, itemToShift);
+            this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), itemToShift)
+                    + "\n" + String.format(MESSAGE_REPLENISH_SHIFT_SUCCESS, itemToShift.getName());
             setShowInHistory(true);
             return new CommandResult(this.result);
         }
+        XpireItem updatedItem = reduceItemQuantity((XpireItem) targetItem, this.quantity);
+        stateManager.saveState(new ModifiedState(model));
+        model.setItem(listType, targetItem, updatedItem);
         this.result = String.format(MESSAGE_DELETE_QUANTITY_SUCCESS, quantity.toString(), targetItem.getName());
         setShowInHistory(true);
         return new CommandResult(this.result);
     }
+
 
     /**
      * Executes the command and returns the result message.
@@ -221,15 +234,18 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Shifts Item to ReplenishList.
+     * Reduces the quantity of an item.
+     *
+     * @param targetXpireItem whose quantity should be reduced.
+     * @param reduceByQuantity quantity to deduct.
+     * @return XpireItem with reduced quantity.
      */
-    private void shiftItemToReplenishList(Model model, XpireItem itemToShift) throws CommandException {
-        Item remodelledItem = itemToShift.remodel();
-        if (model.hasItem(REPLENISH, remodelledItem)) {
-            throw new CommandException(MESSAGE_DUPLICATE_ITEM_REPLENISH);
-        }
-        model.addItem(REPLENISH, remodelledItem);
-        model.deleteItem(XPIRE, itemToShift);
+    private XpireItem reduceItemQuantity(XpireItem targetXpireItem, Quantity reduceByQuantity) {
+        XpireItem targetItemCopy = new XpireItem(targetXpireItem);
+        Quantity originalQuantity = targetItemCopy.getQuantity();
+        Quantity updatedQuantity = originalQuantity.deductQuantity(reduceByQuantity);
+        targetItemCopy.setQuantity(updatedQuantity);
+        return targetItemCopy;
     }
 
     @Override
