@@ -34,6 +34,7 @@ public class SampleEntity {
     public static final LocalDate VALID_DAY_AFTER_TODAY = GlobalClock.getStaticDate().plusDays(1);
 
     public static final int VALID_TASK_ID = 1;
+    public static final int VALID_RATING = 5;
     public static final Description VALID_DESCRIPTION = new Description("20 frozen boxes of Red groupers");
     public static final LocalDate VALID_LOCAL_DATE = GlobalClock.getStaticDate();
     public static final EventTime VALID_EVENT_TIME = EventTime.parse("1000 - 1230");

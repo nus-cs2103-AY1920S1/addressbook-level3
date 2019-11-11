@@ -124,4 +124,14 @@ public class LogicManager implements Logic {
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
     }
+
+    @Override
+    public Driver getDriver(int driverId) {
+        return model.getDriver(driverId);
+    }
+
+    @Override
+    public Customer getCustomer(int customerId) {
+        return model.getCustomer(customerId);
+    }
 }

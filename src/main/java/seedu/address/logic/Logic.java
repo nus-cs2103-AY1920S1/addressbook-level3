@@ -81,4 +81,13 @@ public interface Logic {
      */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /**
+     * Retrieves driver for view Driver window.
+     */
+    Driver getDriver(int driverId);
+
+    /**
+     * Retrieves customer for view Customer window.
+     */
+    Customer getCustomer(int customerId);
 }

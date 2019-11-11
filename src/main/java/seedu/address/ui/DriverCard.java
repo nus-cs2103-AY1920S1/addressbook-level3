@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Driver;
+import seedu.address.model.person.Schedule;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -22,8 +23,6 @@ public class DriverCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
-    @FXML
     private Label driverId;
     @FXML
     private Label availability;
@@ -33,9 +32,12 @@ public class DriverCard extends UiPart<Region> {
         this.driver = driver;
         id.setText(displayedIndex + ". ");
         name.setText(driver.getName().fullName);
-        phone.setText("Phone: " + driver.getPhone().value);
         driverId.setText("Driver ID: #" + driver.getId());
-        availability.setText("Unavailable Time: " + driver.getSchedule());
+        if (driver.getSchedule().toString().equals(Schedule.MESSAGE_EMPTY_SCHEDULE)) {
+            availability.setText("Unavailable Time: Available all times");
+        } else {
+            availability.setText("Unavailable Time: " + driver.getSchedule());
+        }
     }
 
     @Override
