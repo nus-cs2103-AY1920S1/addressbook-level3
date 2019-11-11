@@ -720,13 +720,15 @@ Then, the following method is called to perform the expansion:
 }
 ```
 
-The method recursively expands a folder, and then recursively calls itself on all of that folder's subfolders until the desired level of expansion is achieved.
+The method expands a folder if it is not already expanded, and then recursively calls itself on all of that folder's subfolders until the desired level of expansion is achieved.
 
 ==== Design considerations
 
 The following are a few design considerations made in deciding how to implement the folders feature:
 
 ===== Aspect: How the folder hierarchy is saved into storage
+
+The following were two alternatives considered when implementing the model for the folders feature.
 
 * **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
 ** Pros: Easy to implement. Adding another field to a bookmark is simple, and storing the folder structure
@@ -738,6 +740,23 @@ This leads to tight coupling and potential future maintenance issues.
 the bookmarks in that folder will still be in the same folder, so there is no extra step needed to update the bookmarks. This reduces coupling between the bookmarks and folders too.
 ** Cons: The whole `BookmarkList` abstraction will have to be rewritten. It is also significantly harder (in terms of ease of implementation) to filter, edit, and add bookmarks due to having to use
 more advanced tree traversal algorithms as compared to naive list or array operations.
+
+===== Aspect: What the expand/collapse command does
+
+In designing the expand and collapse command, the below two alternatives were considered.
+Only the expand command shall be elaborated upon, since the collapse command is simply the opposite of the expand command.
+
+* **Alternative 1 (current choice):** Expand *to* a certain level of folders. +
+For example, when `expand 2` is executed, the folder hierarchy will
+*always* display folders until two levels deep, regardless of its state before the command.
+** Pros: State is more easily managed. Mark can keep track of which level to expand until, and the UI can listen to changes to this via an `Observable` instead, leading to better separation of concerns.
+** Cons: Not intuitive for the user to understand. Since the folder hierarchy can be interacted with via the mouse also, the user may decide to expand the folders
+with his mouse and then execute `expand 2`, resulting in the folders expanding to two levels deep. This may result in the user thinking the folders were collapsed instead, if he had expanded his folders all the way before the command.
+This leads to confusion for the user.
+* **Alternative 2:** Go through all folders and check if they have been expanded. If a folder is not expanded, expand it. Repeat for the desired nmber of levels.
+** Pros: Easier for the user to understand. No matter what commands the user types or what he clicks, the expand command will always "expand" to a deeper level than what he originally saw (unless it was already expanded all the way).
+
+** Cons: An extra coupling is needed to tie the UI and the expand command together, since it cannot simply listen to changes from the model. This decreases extensibility and increases maintenance costs.
 
 // end::folders[]
 
