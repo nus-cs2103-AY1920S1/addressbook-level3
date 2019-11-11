@@ -19,21 +19,17 @@ endif::[]
 
 The UI allows the administrator to have a good overview of all the information needed for tasks to be done efficiently.
 
-=== ChefHat
-
-Administrators are able to set recommendations on the restaurant's menu using the ChefHat system.
-
 === Deliverymen tracking
 
 Administrators will be able to track the deliverymen on deliveries at a glance. This allows the administrator to manage them better and efficiently queue the orders to each deliverymen.
 
-=== Customer reward tiers
+=== Food recommendations
 
-Customers have reward tiers depending on how much they order from the food service. Having higher tiers allows the administrator to assign for food to be delivered to them faster than normal.
+Popular food items on each restaurant's menu are tagged with a popular tag depending on how many times that food has been ordered.
 
-=== Customer recommendations
+=== Automated customer tagging
 
-Each food item on each restaurant's menu are tagged with a category. Depending on how many times the customer ordered that item, recommendations will be able to be assigned to the customer
+Customer's favourite cuisine will be tagged automatically depending on the orders the customer has made. The top two cuisine tag will be displayed on the UI of the customer.
 
 === CLI based input
 

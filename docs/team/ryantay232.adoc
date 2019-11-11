@@ -1,4 +1,4 @@
-= Ryan Tay - Project Portfolio for DeliveryMANS
+= Ryan Tay Jia Jian - Project Portfolio for DeliveryMANS
 :site-section: RyanTayProjectPortfolio
 :sectnums:
 :imagesDir: ../images
@@ -13,7 +13,7 @@ endif::[]
 
 == Introduction
 
-*DeliveryMANS* is a delivery management system that allows administrators of delivery centres to manage their deliveries effectively and efficiently. There are 4 parts to DeliveryMANS which are order, customer, deliverymen and restaurant. I am in charge of the customer side of the system and have implemented an automated tagging system to tag the customer's favourite cuisine.
+*DeliveryMANS* is a delivery management system that allows administrators of delivery centres to manage their deliveries effectively and efficiently. There are 4 management contexts to DeliveryMANS which are order, customer, deliverymen and restaurant where each context will manage their individual parts. I am in charge of the customer side of the system and have implemented an automated tagging system to tag the customer's favourite cuisine automatically.
 
 This document will include a summary of my coding contributions and an excerpt of the user guide and developer guides that I have documented.
 
@@ -23,21 +23,21 @@ This section is a summary of the feature implemented, code contributions and doc
 
 === Feature - Automated tagging system
 
-When the user adds an order, the tags are sent to the customer and the system will display the top two appearing tags on the UI. If there are new orders added, the system will evaluate between all the tags and determine which are the top two tags.
+When the user adds an order, the tags are sent to the customer and the system will display the top two appearing tags on the UI. If there are new orders added, the system will evaluate all the tags of that customer and determine which are the top two tags.
 
-This feature allows the user to spend less time to find the trend and spend more time using the trend data.
+This feature allows the user to spend less time to find the trend and spend more time to put the trend data to use.
 
 === Code contributed
 
-* Implementation of basic context switching - https://github.com/AY1920S1-CS2103T-T12-2/main/pull/53[#53]
+* Implementation of basic context switching functions - https://github.com/AY1920S1-CS2103T-T12-2/main/pull/53[#53]
 
-* Improvement to context switching based on feedback from team members - https://github.com/AY1920S1-CS2103T-T12-2/main/pull/117[#117]
+* Improvement to context switching functions based on feedback from team members - https://github.com/AY1920S1-CS2103T-T12-2/main/pull/117[#117]
 
 * Implementation of automated tagging system - https://github.com/AY1920S1-CS2103T-T12-2/main/pull/187[#187]
 
 === Documentation contributed
 
-* Edit Developer Guide to fit DeliveryMANS - https://github.com/AY1920S1-CS2103T-T12-2/main/pull/84[#84]
+* Edit Developer Guide to be suitable for the project DeliveryMANS - https://github.com/AY1920S1-CS2103T-T12-2/main/pull/84[#84]
 
 == Contributions to the User Guide
 
