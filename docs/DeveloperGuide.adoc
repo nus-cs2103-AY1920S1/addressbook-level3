@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= PowerLifting Competition Coordinator - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,15 +12,129 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T11-3`      Since: `Sep 2019`      Licence: `MIT`
+
+== Introduction
+
+=== What is Powerlifting Competition Coordinator?
+
+Powerlifting Competition Coordinator is a free application for powerlifting competition event organizers
+that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
+competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
+of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
+rankings within their respective weight classes allowing the organizer to track the participants'
+standings at all times throughout the duration of the competition.
+
+=== Core team
+
+Powerlifting Competition Coordinator  was developed and is maintained by
+https://github.com/AY1920S1-CS2103-T11-3[Team T11-3].
+Feel free to https://github.com/AY1920S1-CS2103-T11-3/main/issues[contact us] for any enquries.
+
+=== Contributing
+
+Powerlifting Competition Coordinator is an open source project and we would love to involve any contributor
+who has a passion for powerlifting.
+To get involved, start by reading <<SettingUp#, Section 2, “Setting up”>>.
 
 == Setting up
 
-Refer to the guide <<SettingUp#, here>>.
+This section includes the instructions to set up your development environment.
+
+=== Prerequisites
+
+Prior to setting up the project proper, make sure you have the following.
+
+. *JDK `1.8.0_60`* or later
++
+[NOTE]
+Having any Java 11 version is not enough. +
+This app will not work with earlier versions of Java 11. +
+You can get the latest Java 1 JDK at http://www.oracle.com/technetwork/java/javase/downloads[this link].
++
+
+. *IntelliJ* IDE
++
+[NOTE]
+IntelliJ by default has Gradle and JavaFx plugins installed. +
+Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+
+
+=== Setting up the project in your computer
+
+To setup the project in IntelliJ, follow the steps below.
+
+. Fork this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click `Configure` > `Project Defaults` > `Project Structure`.
+.. Click `New...` and find the directory of the JDK.
+. Click `Import Project`.
+. Locate the `build.gradle` file and select it. Click `OK`.
+. Click `Open as Project`.
+. Click `OK` to accept the default settings.
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`).
+It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
+
+=== Verifying the setup
+
+To verify that the setup is completed successfully, you should:
+
+. Run the `seedu.system.MainApp` and try a few commands.
+. <<Testing, Run the tests>> to ensure they all pass.
+
+=== Configurations to do before writing code
+
+This subsection includes configurations that you may find necessary or useful as you work on this project.
+We recommend that you make these configuration changes and additions before you start writing code.
+
+==== Configuring the coding style
+
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. Follow the instructions below to rectify this.
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+. Select `Editor` > `Code Style` > `Java`.
+. Click on the `Imports` tab to set the order.
+
+* For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements.
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`.
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level3` repo.
+If you plan to develop this as a separate product (i.e. instead of contributing to the
+`se-edu/addressbook-level3`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
+[NOTE]
+Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based).
+
+==== Getting started with coding
+
+When you are ready to start coding:
+
+1. Get some sense of the overall design by reading <<Design-Architecture>>.
+2. Take a look at <<GetStartedProgramming>>.
 
 == Design
+
+This section documents the design and interaction of components in Powerlifting Competition Coordinator.
+Please take a moment to understand the different components before making any code changes.
 
 [[Design-Architecture]]
 === Architecture
@@ -28,13 +142,15 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a
+quick overview of each component.
 
 [TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+The files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/system/Main.java[`Main`] and
+link:{repoURL}/src/main/java/seedu/system/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -56,7 +172,8 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface
+and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
@@ -77,11 +194,16 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/system/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+ `CompetitionListPanel`, `ParticipationListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the
+link:{repoURL}/src/main/java/seedu/system/ui/MainWindow.java[`MainWindow`] is specified in
+link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -96,9 +218,9 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/system/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `SystemParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -117,19 +239,24 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+Please note that due to the limitations of PlantUml, the diagram above is unable
+to show the java generics being used here (e.g. Data, UniqueElementList and others).
+We also did not delve into the session classes as we felt the diagram would be overly
+convoluted. For more details, regarding the class interactions for session, please refer
+to the implementation of competition sessions below.
+
+*API* : link:{repoURL}/src/main/java/seedu/system/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the System data.
+* exposes unmodifiable `ObservableList<Person>`, `ObservableList<Competition>` and `ObservableList<Participation>`
+that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the
+data in the list change.
+* exposes a Session class to handle the context switching between in and out of competition sessions.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -137,135 +264,541 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/system/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `Person`, `Competition`, `Participation` data in json format and read it back.
 
-[[Design-Commons]]
-=== Common classes
-
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::insession[]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+=== Context-Switching feature between sessions
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+Our features are mainly split into 2 contexts. An in-competition, and an out-of-competition session mode.
+A session is started when the user wants to start an existing competition to call lifters to perform their attempt,
+record them, and finally to view the ranking leader board for the competition, all within in-session mode.
+On the other hand, an out-session mode, when the user exits the competition session mode,
+is where all create, read, update delete of the Person, Competition, and Participation is done.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The reason for this context-switching feature is to prevent users from using out-session commands that are strictly for
+in-session mode and vice versa.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+.Activity Diagram for average user flow from out to in-session.
+image::ActivityDiagram.png[]
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+The activity diagram above shows the average user flow of how the user can go in-session,
+and also distinctly shows the commands that can be done in each state.
+However, the end of every competition session does not signify the end of a user's activity.
+The user can still go in and out of the competition session (start and end), to perform the different commands
+from the different states.
 
-image::UndoRedoState0.png[]
+==== How it is being implemented
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+This is done using an instance of the Session class, which is exposed from the model manager.
+The session has a competition field to indicate the current competition that is ongoing during the session.
+If there is no competition set in the session, then there is no ongoing session. Using this simple
+but highly effective method, we are able to use very simple logic to achieve the necessary context-switching behaviour
+described in the above diagram.
 
-image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+=== In-Session
+In-Session is the state where the user enters competition mode, where users can command the app to generate
+the next lifter, as well as record any attempt. At the end of the competition, the rank of the participants
+and competition can be viewed too, as long as a competition session has yet to end.
 
-image::UndoRedoState2.png[]
+To handle the state of the competition, we have created a new `Session` class that is packaged into model and
+managed by the ModelManager. The `Session` class is a singleton class, and only has one instance in the ModelManager.
+The reason behind the use of a singleton class to handle sessions, is that we only want one ongoing session at any
+point in time. The singleton class will also only temporarily store its participation list, and participationAttempt
+list in relation to the ongoing session. Once the session ends, all data is reset.
+Any update in any objects such as the attempts or participation details will be handled by the ModelManager,
+which will be explained in more details in the respective features below.
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+.Class Diagram of the Session package in the Model
+image::SessionClassDiagram.png[]
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-image::UndoRedoState3.png[]
+==== Next feature
+One of the main purpose of the in-session function is to generate the next lifter and his attempt details accordingly.
+In the `Session` class, the list of `ParticipationAttempt` is maintained so that athletes can make their attempt
+in order of the type of lift, attempt number, and in increasing weight to be attempted. Upon calling the `next` command,
+the next lifter is called up, and the following lifter should be asked to prepare for his lift, after the next lifter.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+Format: `next`
 
-The following sequence diagram shows how the undo operation works:
+Given below is the example flow of what the model does when the `NextLifterCommand` is executed after being parsed
+through the LogicManager.
 
-image::UndoSequenceDiagram.png[]
+*Step 1:* A new `NextLifterCommand` is constructed when the user inputs `next` in the command box.
+When `NextLifterCommand#execute()` is called, the model will get the following lifter, and store the
+ParticipationAttempt retrieved from `Session#getFollowingLifter()` in a local variable,
+to be returned together with the CommandResult later on.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+*Step 2:* The `ModelManager` will call `Session#NextLifter()` to generate the next lifter and attempt in the form of a
+`ParticipationAttempt` object. If the `Session` is not prepared, which means that the imported `ParticipationAttempts`
+are not sorted, `prepare()` will be called internally. When this method is called, the ParticipationAttempt list in the
+Session will be sorted according to the new `ParticipationAttemptComparator`. When this is done, the session is now
+prepared, and next or following lifters can be generated based on this sorted list.
+(This method is usually called once just after starting the session.)
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+*Step 3:* The `Session#NextLifter()` method will then return the first `ParticipationAttempt` in the list.
+This is equivalent to the next lifter to make his attempt, since he is the top most in the sorted list.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+*Step 4:* A new `CommandResult` will be returned. Details of the next and following ParticipationAttempt will be
+included and displayed in the Dialogue Box to the user.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+.Sequence Diagram for the NextLifterCommand
+image::NextSequenceDiagram.png[]
 
-image::UndoRedoState4.png[]
+// end::insession[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+==== Lift feature
+This command allows the user to update and record the result of the attempt that was just made.
+The participation's dependent attempts as well as scores will be automatically updated according to the lifts made and
+recording using this command.
 
-image::UndoRedoState5.png[]
+Format: `lift Y/N`
 
-The following activity diagram summarizes what happens when a user executes a new command:
+Given below is the example flow of how the model executes the `AttemptLiftedCommand` in the model after it is
+parsed through the `LogicManager`.
 
-image::CommitActivityDiagram.png[]
+*Step 1:* An `AttemptLiftedCommand` is created with a boolean parameter to indicate the success of the lift.
+An input `lift y` by the user will create an `AttemptLiftedCommand`, taking in boolean `true`.
 
-==== Design Considerations
+*Step 2:* The following lifter and attempt is retrieved and stored in a local variable in the execute method of the
+command, so that we can prompt the user of the following lifter, before any changes are made to the existing attempts.
 
-===== Aspect: How undo & redo executes
+*Step 3:* `model#makeAttempt()` is called in the execute method of the command. The `ModelManager` will then call
+`Session#attemptMade()` to indicate the attempt has been made. This method will return a `ParticipationAttempt` object
+that has just been made, and stored in a local variable named `next`. If this particular attempt has already been made,
+an exception will be thrown to inform the user in the form of a `CommandResult`.
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+*Step 4:* The `Participation` of the `next` will be retrieved, so that we can update the participant's attempt by
+calling `Participation#updateAttempt()`. `ModelManager#setParticipation()` will then update the participation's attempt
+in the storage accordingly.
 
-===== Aspect: Data structure to support the undo/redo commands
+*Step 5:* `AttemptLiftedCommand#execute()` will then return a new `CommandResult` containing the associated result,
+together with the following lifter.
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
+.Sequence Diagram for the AttemptLiftedCommand
+image::LiftSequenceDiagram.png[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+//tag::Rank[]
+==== Rank feature
+A RankCommand class is created to facilitate ranking of an athlete for a given competition he or she participates in.
 
-_{Explain here how the data encryption feature will be implemented}_
+===== Implementation
+RankCommand extends the Command Abstract Class, the rationale is explained in `Choice of Design Pattern` sub-section of the Rank feature.
 
-// end::dataencryption[]
+Rank feature has 2 sequential checks:
+1. Checks if a competition session is ongoing, rank command can only be used if a competition session persists.
+2. Checks if an athlete participates in a competition, rank command can only be used if an athlete participates in a competition.
 
-=== Logging
+Finally, the feature returns an athlete's report card for a competition. For example,
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+ Athlete: Alex Yeoh
+ Competition: NUS Powerlifting Open 2019
+ Rank: 1
+ Total Score: 1
+ Max Squat: 1
+ Max Bench Press: 0
+ Max Deadlift: 0
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+When the rank feature is used, RankCommand interacts with other classes to return an athlete's report card. See the
+sequence diagram for a high level depiction of how RankCommand interacts with other classes.
 
-*Logging Levels*
+.Sequence Diagram of the RankCommand
+image::RankCommand.png[]
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+===== Choice of Design Pattern
+Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
+without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves
+a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class.
 
-[[Implementation-Configuration]]
-=== Configuration
+Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
+we decide to apply the Command Design Pattern for the Rank command too.
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+//end::Rank[]
+
+
+==== Ranklist feature
+A RanklistCommand class is created to facilitate ranking of all the participants for a given competition that is
+currently ongoing (i.e. in-session). The ranking can be altered depending on the ranking method chosen by the user.
+This provides the user a variety of ranking methods to suit the user's need during a powerlifting competition.
+Typically, a powerlifting competition usually provides rankings for their participants based either on their overall
+score or the maximum weight lifted for a particular lift.
+
+===== Implementation
+RankCommand extends the Command Abstract Class, the rationale is explained in `Choice of Design Pattern`
+sub-section of the Ranklist feature.
+
+Rank feature has 1 check:
+1. Checks if a competition session is ongoing, Ranklist command can only be used if a competition session
+is currently ongoing.
+
+Finally, the feature returns a listing of the athletes based on the ranking method provided. For example,
+
+ Ranking of athletes by overall score in competition NUS Powerlifting Open 2019:
+1. Alex Yeoh (Score: 100)
+2. Bernice Yu (Score: 97)
+3. Charlotte Oliveiro (Score: 2)
+
+When the Ranklist feature is used, RanklistCommand interacts with other classes to return a participant's score for
+a given ranking method before sorting the list and displaying it on the screen as seen above. Please refer to the
+sequence diagram for a high level depiction of how RanklistCommand interacts with other classes.
+
+===== Choice of Design Pattern
+Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
+without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves
+a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class.
+
+Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
+we decide to apply the Command Design Pattern for the Ranklist command too.
+
+
+// tag::outSession[]
+
+==== End session feature
+This feature ends the session, and shifts the user back to the out-session state.
+All data stored in the session will be reset to default.
+
+Format: `endSession`
+
+When we first implemented the session feature, the session can only be ended when a competition has ended,
+which means there are no more attempts to be made. However, we have now made it such that the user can switch
+between sessions as and when, even in the middle of the competition. This gives users more flexibility to switch between
+session states, without worrying about the state of the competition.
+
+=== Out-Session
+
+==== Start Session feature
+The start session feature is a command to start a new competition session, when a user is not in competition state.
+As mentioned in Section 4.2. above, `Session` allows the user to start any competition session as and when, even when a
+competition has not ended (there are still attempts left to be made). To start a session, the user can enter
+the command with the specified competition.
+
+Format: `startSession c/COMPETITION_NAME`
+
+Given below is the flow of execution in the model after a `StartSessionCommand#execute()` is called.
+
+*Step 1:* `Model#startSession(comp, partList)` is called, where `comp` is the `Competition` object to start the session
+with, and `partList` is the list of `Participation` who will be participating in this competition session.
+The method then calls `Session#start(comp, partList)`.
+
+*Step 2:* An internal call in the `start()` method, `loadAttempts(p, p.getAttempts())`, is made for every
+`Participation` object, `p`, by looping through the `partList`, loading all unattempted attempts into the
+participationAttemptList temporarily stored in the Session instance.
+(`p.getAttempts()` retrieves the list of all 9 `Attempt` instance that the participation has submitted at the start.)
+
+*Step 3:* The `loadAttempts()` method will loop through all the 9 `Attempt` objects taken in as parameter, and checks if
+each has been attempted. If an `Attempt` by that `Participation` has not been attempted, a new `ParticipationAttempt`
+object will be created and added to the list.
+
+Because of the way `Session` handles the initialising of every new session, be it starting a new competition, resuming a
+competition, or even starting a session with a competition that has already ended (all attempts have been made by the
+athletes) is made possible.
+
+.Sequence Diagram for the StartSessionCommand
+image::StartSequenceDiagram.png[]
+
+// end::outSession[]
+
+//tag::Competition[]
+
+==== Competition features
+There are 4 competition/person features: adding, deleting, editing and listing competitions.
+The features are briefly described below. The crux of adding and editing a competition commands is the CustomDate class
+, the CustomDate class is important for validating the starting and ending dates for a competition event. The date
+validation process will be discussed in detail in words and with the aid of class and sequence diagrams.
+
+===== Adding a competition
+To add a competition, a user supplies the name of a competition and its start and end dates. But, the start date must
+be equal or before end date.
+
+===== Deleting a competition
+To delete a competition, a user supplies the index of that competition. The index of a competition will be displayed
+in the user interface of that programme.
+
+===== Editing a competition
+A user has the choice of editing one or more of the following competition fields:the competition name, start and end dates
+of a competition. But, similar to adding a competition, the edited start date must be equal or before the edited end date.
+
+===== Listing a competition
+To list all competitions stored in the programme.
+
+===== Choice of Design Pattern
+Similar to the Rank feature.
+
+===== Implementation
+As mentioned earlier, editing or adding competitions require start date to be equal or before the end date.
+To ensure the dates given for a competition are valid, we created a CustomDate class.
+Please see the following class diagram for more information on the association between CustomDate and Competition
+classes.
+
+.Class Diagram for the CustomDate and Competition classes
+image::CustomDate.png[]
+
+To see the mechanism of the date validation process, please see the following sequence diagram.
+
+.Sequence Diagram of the addCompetition Command
+image::addComp.png[]
+
+Pros of CustomDate:
+
+1. Note that DATE_FORMAT is hard-coded by us (class diagram cannot explicitly show this), this ensures our programme
+maintains a consistent date format for all competitions.
+
+2. By storing a Date object in the CustomDate class, we enable ParserUtil to call the before() method of the Date
+class to check for valid dates. Please the sequence diagram for the addCompetitionCommand, which provides illustration
+on how this is achieved.
+
+Cons of CustomDate:
+
+1. We need to ensure functions/classes which rely on CustomDate can catch and handle errors due to inappropriate
+date properly. This means that any changes to CustomDate in the future requires some work to propagate the changes to
+the rest of the code base.
+
+2. Users may wish to have their own date format.
+
+Alternative:
+
+We have considered using only the Java Date object, but we think it will be neater to have a CustomDate class to
+package a date object and its associated date format string in a CustomDate object. Furthermore, we can recycle the
+functions available in the CustomDate class for person features too (read the next section).
+//end::Competition[]
+
+==== Person Features
+There are 4 person features: adding, deleting, editing and listing persons. Similar to competition features, the
+programme needs to validate date of birth when a user adds a person or edit a existing person's date of birth. In
+particular, the programme needs to ensure a person added or edited will not have a date of birth which occurs in the
+future. In other words, the person added or edited must have a date of birth equal to or before today's date.
+For example, if today is the 11/10/2019, a person's date of birth must be prior to 11/10/2019 or it must be exactly
+11/10/2019.
+
+The features are briefly described below. Similar to the competition features, we will describe the association
+between CustomDate and Person classes. Subsequently, we will describe the validation process for person features.
+
+===== Adding a person
+To add a person, supply a person's name, a date of birth and a gender (male or female only). A person must have
+already been born. Example, if today os 11/09/2019, a user cannot add a person who is borned in 15/09/2019 (in the
+future).
+
+===== Deleting a person
+To delete a person, supply the index of that person.
+
+===== Editing a person
+For person, a user has the choice of editing either the person name, date of birth or a gender.
+But,  person must have already been born.
+
+===== Listing people
+To list all people stored in the programme.
+
+===== Implementation
+Similar to competition, the crux of editing or adding persons rely on the CustomDate class for date validation.
+
+Please see the following class diagram for more information on the association between CustomDate and Person
+classes.
+
+.Class Diagram for the CustomDate and Person classes
+image::CustomDatePerson.png[]
+
+To see the mechanism of the date validation process, please see the following sequence diagram.
+
+.Sequence Diagram of the addPerson Command
+image::addPerson.png[]
+
+Pros:
+
+1. Note that DATE_FORMAT is hard-coded by us (similar to Competition features), this ensures our programme
+maintains a consistent date format for all people.
+
+2. By storing a Date object in the CustomDate class, we enable ParserUtil to call the before() method of the Date
+class to check for valid dates.
+
+Con:
+Similar to the Competition section.
+
+Alternative:
+Alternative consideration is similar to the Competition section.
+
+==== Participation features
+A Participation is an association class we have created for every Person who has participation in a particular
+Competition. A person can take part in many competitions, and for each competition he/she takes part in, there will be a
+corresponding Participation class associated to that Person and Competition instance.
+
+===== Supporting the create, read, update and delete of the instances of the Participation association class
+To support the add, delete, and reading of the participation instances using the commands below,
+the JSON storage system was modified (please refer to the Storage section above) in order to support
+the many-to-many relationship between competition and person. This allows the association class to
+be saved which the original Address Book architecture did not allow.
+
+===== Choice of Design Pattern
+Optimally, such many-to-many relationships should be handled by some form of join table on a database. Due to
+the project restrictions, we mapped a similar structure the the JSON storage system treating each file as a table,
+attempting to parallel the way real databases worked while still using JSON storage.
+
+===== Implementation
+To achieve this we treated each file saved as a table. Hence, there is a save file for each of the participation,
+competition and person models. When reading from the JSON storage, the competition and person data are read first,
+before the participation data is read. This is because the Competition and Person objects need to be created first
+in order to be associated with the Participation class. Since the names of competitions and persons are unique,
+we used that to identify the competition and person instances the participation instance that was originally
+saved was associated with.
+
+Pros:
+
+1. By using a Json Storage, the amount of changes to the Storage system was substantial but minimized, while
+still being able to support the Participation association class which helped decouple the Person and Competition
+classes.
+
+Con:
+
+1. The uploading of the participation class from JSON relies on the property that there is some unique data
+signature of a person and the competitions, which can be determined from the data stored as JSON. Since
+both Person and Competition extend UniqueELementList, they will certainly be have some unique data
+signature (i.e. in this case each person and competition have unique names), which can be used to determine the instances the
+Participation object was originally associated with before it was saved. Hence, the current JSON storage
+system is not designed extensibly for the developer to move away from using the UniqueElement class for its instances
+or store data in a way that is not unique to the instances as instances with the same data signature cannot be
+distinguished from each other using the current JSON storage system.
+
+
+Alternative:
+
+We have considered using XML storage and/or creating foreign keys using the JSON storage. However, due to the
+limitations of time and the complexity of achieving such a feature, we settled with modifying the JSON storage.
+
+Please see the following Structure of the Storage Component diagram and check the repository to understand the utility
+of the Storage system to support the many-to-many relationship.
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/system/storage/Storage.java[`Storage.java`]
+
+// tag::partcommands[]
+
+===== Create a new Participation
+To create a new Participation, the associated Person and Competition must exist. If either doesnt,
+an exception will be thrown to the user through the result box to prompt the user to input an existing one.
+
+Format: `addParticipation n/PERSON_NAME c/COMPETITION_NAME s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
+
+Note: S1 means the 1st attempted weight for the Squat and so on.
+
+===== List Participation
+The list participation feature allows the user to filter the participation list on the PCC app based on a particular
+competition. If no parameters (competition name) are taken in,
+the command will list out all of the participations stored in the system.
+
+Format: `listParticipation` or `listParticipation c/COMPETITION_NAME`
+
+===== Delete Existing Participation
+The user can delete an existing participation, maybe in the case he/she has withdrawn or is disqualified
+from that competition.
+
+Format: `deleteParticipation INDEX`
+
+We have decided to use the index of the participation in the list to delete a participation instead of
+other parameter types, like the name or competition of the participation. The main reason is because,
+there may exist more than one participation with the same name and different competition,
+or different name and same competition.
+
+Pros:
+
+* Takes in less parameters, user can type less.
+
+* Avoid complications between unmatched name and competition.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the participation list on the app to type in the index.
+
+// end::partcommands[]
+
+//tag::overallRank[]
+
+==== Overall Rank feature
+The user can list the persons in the system by the number of times they won a competition.
+
+Format: `overallRank`
+
+Due to time limitations we have not allowed the user to specify any other ranking method but given
+the design of our system which is highly extensible, it would not be hard to do so in future
+versions.
+
+Pros:
+
+* Takes in no parameters so user will make minimal mistakes.
+
+* Avoid complications between unmatched name and person.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the person list if it is very long to find a specific name.
+.Activity Diagram of the overallRank Command
+image::overallRank_activity.png[]
+
+//end::overallRank[]
+
+==== Finding competition feature
+The user can filter the competitions in the system by keywords contained in the fields
+of the competitions.
+
+Format: `findCompetition [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findCompetition NUS Open 2019`
+
+Pros:
+
+* Allows for user the flexibility of specifying multiple keywords allowing them to change
+the search scope easily.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the filtered competition list if the keywords are contained by
+many competitions in the system.
+
+==== Finding participation feature
+The user can filter the participations in the system by keywords contained in the competition
+name or the person name of the participation.
+
+Format: `findParticipation [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findParticipation NUS Axel`
+
+Pros:
+
+* Allows for user the flexibility of specifying multiple keywords allowing them to change
+the search scope easily.
+
+* Easy to implement.
+
+Cons:
+
+* User will have to scroll through the filtered participation list if the keywords are contained by
+many participations in the system.
+
 
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
 
+[[Testing]]
 == Testing
 
 Refer to the guide <<Testing#, here>>.
@@ -279,13 +812,15 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
+* organizes small to medium sized powerlifting competitions
+* has a need to manage a significant number athletes during the competition
+* has a need to see the ranking of the participants of each competition
+* prefer desktop applications over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage powerlifting competitions faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,35 +830,58 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` | new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` | event organizer | create a new competition |
+start and organize a new competition
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` | event organizer | sort athletes according to their attempted weights for different lifting events |
+adjust the weight on stage call for the next athlete to come and attempt their lift
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` | event organizer | find which athletes are currently in the lead (individual lifts and aggregate score) |
+so that I can let the competitors know who is in the lead for their resepective weight classes and  let them calculate
+what they need to do to win the competition
+
+|`* * *` | event organizer | the relative position of an athlete as compared to other athletes in their weight class |
+see which athletes are in the same competition
+
+|`* * *` | event organizer | create participation between a person and a competition |
+so as to know the participants for the respective competitions
+
+|`* * *` | event organizer | update an athlete’s score after a successful lift |
+so that the ranking of the athletes can be updated
+
+|`* * *` | event organizer | edit an athlete's name |
+update the athlete's name in case the athletes have change their names or they were inputted incorrectly previously
+
+|`* * *` | event organizer | record when a lifter fails/succeed in his/her lift |
+update the athlete's score and ranking accordingly and to keep a record for how each athlete's
+score was derived
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` | event organizer |find which club/country an athlete is affiliated with |
+so that I know which countries/clubs can be ranked across the various weight classess
+
+|`*` |user with many persons in the system |sort persons/competitions/participations by some field |locate an entity easily
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Powerlifting Competition Competitor` and the *Actor* is the `user`, unless specified otherwise)
+
+=== Out of competition mode
 
 [discrete]
-=== Use case: Delete person
+===== Use case: UC1 - View my competition list
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list all competitions in the system.
+2.  System shows a list of competitions held based on the files in the folder.
 +
 Use case ends.
 
@@ -334,22 +892,435 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+==== Use case: UC2 - Add a new competition
+
+*MSS*
+
+1. User requests for a new powerlifting competition to be added.
+2. User inputs the initial competition data (e.g. name, start and end dates) to be inputted.
+3. System adds the new competition to the user's competition list.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Competition data is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+* 2b. The competition name has already been used in user's competition list.
++
+[none]
+** 2b1. System tells user that the competition is already in his competition list.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC3 - Delete a competition
+
+*MSS*
+
+1. User obtains a list of competitions by listing (<<Use case: UC1 - View my competition list, *UC1*>>)
+2. User requests for a powerlifting competition to be deleted.
+3. System deletes the competition from the user's competition list.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid index.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+[discrete]
+==== Use case: UC4 - Find competitions
+
+*MSS*
+
+1.  User performs a search with some keywords.
+2.  System lists competitions that have fields containing those keywords.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any competitions containing fields with those keywords.
++
+[none]
+** 2a1. System shows an empty list.
+
+[discrete]
+==== Use case: UC5 - Edit a specific competition
+
+*MSS*
+
+1. User obtains a list of competitions by listing (<<Use case: UC1 - View my competition list, *UC1*>>)
+or by (<<Use case: UC4 - Find competitions, *UC4*>>)
+2. User requests certain data about a competition to be updated.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User gives invalid data.
++
+[none]
+** 2a1. System shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+==== Use case: UC6 - Enter competition mode for a particular competition
+
+*MSS*
+
+1. User requests to enter competition mode for a particular competition by entering the competition name.
+2. System enters competition mode for a particular competition.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid name or the competition name does not exist in the system.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+
+[discrete]
+==== Use case: UC7 - View list of people
+
+*MSS*
+
+1.  User requests to list all people in the system.
+2.  Powerlifting Competition Coordinator shows a list of all people in the system.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC8 - Find people
+
+*MSS*
+
+1.  User performs a search with some keywords.
+2.  System lists people that have fields containing those keywords.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any people containing fields with those keywords.
++
+[none]
+** 2a1. System shows an empty list.
+
+[discrete]
+==== Use case: UC9 - Add a person to the system
+
+*MSS*
+
+1. User requests for a person to be added to the system.
+2. User inputs person data.
+3. System adds the new person to the system's list of people.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Person data is invalid.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+* 2b. The person is already in the system's list of people.
++
+[none]
+** 2b1. System tells user that the person is already in the system's list of people.
++
+Use case ends.
+
+
+[discrete]
+==== Use case: UC10 - Edit a specific person
+
+*MSS*
+
+1. User obtains a list of competitions by listing (<<Use case: UC7 - View list of people, *UC7*>>)
+or by (<<Use case: UC8 - Find people, *UC8*>>)
+2. User requests certain data about the athlete to be updated.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User gives invalid data.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC11 - Delete a specific person
+
+*MSS*
+
+1. User views a list of people (<<Use case: UC7 - View list of people, *UC7*>>) or
+(<<Use case: UC8 - Find people, *UC8*>>)
+2. User requests for a person to be deleted from the list of people.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid index.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+
+[discrete]
+==== Use case: UC12 - View my participation list
+
+*MSS*
+
+1.  User requests to list all participants.
+2.  System shows a list of all participants.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC12 - Find participations
+
+*MSS*
+
+1.  User performs a search with some keywords.
+2.  System lists participations that have with certain fields containing those keywords.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any participations containing fields with those keywords.
++
+[none]
+** 2a1. System shows an empty list.
+
+[discrete]
+==== Use case: UC13 - Edit a specific participation (Available in v2.0)
+
+*MSS*
+
+1. User views a list of participations (<<Use case: UC12 - View my participation list, *UC12*>>) or
+(<<Use case: UC13 - Find participations, *UC13*>>)
+2. User requests certain data about the participation to be updated.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. User gives invalid data.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+==== Use case: UC14 - Add a new participation
+
+*MSS*
+
+1. User requests for a new participation to be added.
+2. User inputs the initial participation data (e.g. person and competition name) to be inputted.
+3. System adds the new participation to the user's participation list.
+4. System shows a success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Participation data is invalid (e.g. Competition or person with inputted name does not exist in system).
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+* 2b. A participation with the same person and competition has already been used in user's participation list.
++
+[none]
+** 2b1. System tells user that the participation is already in his participation list.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC15 - Delete a specific participation
+
+*MSS*
+
+1. User views a list of participation (<<Use case: UC12 - View my participation list, *UC12*>>) or
+(<<Use case: UC13 - Find participations, *UC13*>>)
+2. User requests for a participation to be deleted from the list of participations.
+3. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. User gives an invalid index.
++
+[none]
+** 2a1. System shows an error message.
++
+Use case resume at step 2.
+
+[discrete]
+==== Use case: UC16 - Overall ranking
+
+*MSS*
+
+1. User requests for people to be ranked based on the number of wins (first place finishes)
+they have across the competitions in the system.
+
+2. System shows success message.
++
+Use case ends.
+
+=== In competition mode
+
+
+[discrete]
+==== Use case: UC17 - Get a rank of a participation
+*MSS*
+1.  User requests for the ranking of a participation in the competition that is currently being run in the session.
+2.  System gives ranking of the participation as well as additional performance related details.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. System does not find any participations any person with the inputted name.
+[none]
+** 2a1. System shows an error.
+
+Use case ends.
+
+[discrete]
+==== Use case: UC18 - Get a list of participations based on their score by some ranking method
+
+*MSS*
+
+1. User requests for participations in the current competition in-session to be ranked based on
+their score given by some ranking method.
+2. System shows the participations sorted by the ranking method with their scores.
+3. System shows success message.
++
+Use case ends.
+
+
+[discrete]
+==== Use case: UC19 - Call for next participant in lifting order
+
+*MSS*
+
+1. User requests for next athlete to attempt lift.
+2. System shows athlete that is lifting next.
+3. User updates system after athlete attempts lift.
+4. System shows success message.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. No more participants in lifting order.
++
+Use case ends.
+
+[discrete]
+==== Use case: UC20 - Exit competition
+
+*MSS*
+
+1. User requests to exit competition mode.
+2. System exits competition mode.
++
+Use case ends.
+
+==== Use case: UC21 - Finalize competition
+
+*MSS*
+
+1. User requests to finalize competition data.
+2. System finalizes competition and prevents any further updating of the competition data.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. There are still participants that have not finished their lifts
++
+
+Use case ends.
+
+_{More to be added in v2.0}_
+
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
+.  Should work on both 32-bit and 64-bit environments.
+.  Should come with automated unit tests and open source code.
+.  Should come with a user guide and a developer guide.
+.  Should favor <<dos-style-commands,DOS style commands>> over Unix-style commands.
+.  Should be intuitive such that a new user can learn to search and organize a powerlifting competition within 10 minutes.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
 _{More to be added}_
 
 [appendix]
@@ -358,28 +1329,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
+== Instructions for Manual Testing (To Do)
 
 Given below are instructions to test the app manually.
 
@@ -400,8 +1351,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -413,13 +1362,3 @@ _{ more test cases ... }_
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

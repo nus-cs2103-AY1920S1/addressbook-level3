@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= PowerLifting Competition Coordinator- User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,33 +12,52 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T11-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-T11`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+A powerlifting competition/meet consists of 3 lifts, the Squat, Bench and Deadlift. With 3 attempts, athletes will try to outdo and challenge themselves and lift as heavy as they can.
+
+This software is for organisers who organise powerlifting competitions. To facilitate the ease of data-entry, we have provided a command line interface that is augmented with a Graphical User Interface to help them better administer powerlifting competitions.
+
+== Powerlifting Background: Read this if you are new to powerlifting
+
+=== What is Powerlifting?
+Powerlifting athletes compete in 3 events: The Squat, The Deadlift and The Bench Press.
+For each event, all athletes have 3 tries: they declare a weight which they want to attempt for each try.
+Example: John declares the following 3 weights for the 1st, 2nd and 3rd attempt of the squat respectively: 100kg, 150kg, 200kg.
+The athletes will usually compete in the different events and perform all 3 attempts for an event in the following order:
+The Squat, The Bench Press and finally, The Deadlift.
+
+=== How are scores computed for Powerlifting?
+Suppose that John declares 100kg for the 1st attempt of the squat.
+If he succeeds in clearing the 1st attempt, 100kg will be considered for the overall score for the squat event.
+Consequently, if John declares 200kg for the 2nd attempt of the squat and succeeds in clearing that attempt, 200kg will be considered for the overall score for the squat event.
+For each event, an athlete obtains a score which is the maximum weight of the 3 attempts.
+Example: Suppose John fails the 3rd attempt, the weight he has declared for that attempt will not be considered for the overall score.
+So, the John's final score for the squat attempt is max(200kg, 100kg), which is 200kg.
+
+=== How is the overall score determined for Powerlifting?
+For each athlete, just sum the maximum weight obtained for each event.
+Suppose John has the following results:
+The maximum weight for squat: 200kg
+The maximum weight for bench press: 150kg
+The maximum weight for deadlift: 300kg
+The total score for John: 200kg + 150kg + 300kg = 650kg
+
+=== How are winners determined for Powerlifting?
+Just find which athlete has the highest overall score.
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-+
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+* Download the software from our git repo.
+* Ensure Java 11 is downloaded into your machine.
+* Open application and maximize window if you cannot see the entire screen fully
+as shown in the picture below.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
-.  Refer to <<Features>> for details of each command.
+image::Ui.PNG[width="790"]
 
 [[Features]]
 == Features
@@ -50,128 +69,317 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Note that Powerlifting Coordinator has different commands for different contexts.
+  There are only two contexts: During Competition (In-session) and Outside of Competition (Out-session)
 ====
 
-=== Viewing help : `help`
+//tag::Competition[]
+
+== Context: Outside Of Competition (Out-session)
+
+=== Commands related to competition
+Commands related to managing competitions outside of a competition setting shall be introduced first.
+
+==== Adding a new competition: `addCompetition`
+Format: `addCompetition n/COMPETITION NAME startDate/START DATE OF COMPETITION endDate/END DATE OF COMPETITION`
+
+Example:
+`addCompetition n/IPF World Championships startDate/12/02/1995 endDate/15/02/1995`
+
+==== Deleting an existing competition: `deleteCompetition`
+Deletes the competition identified by the index number, used in Competition list (shown in the GUI)
+
+Format: `deleteCompetition INDEX`
+
+Example:
+`deleteCompetition 1`
+
+//tag::findComp[]
+
+==== Finding an existing competition: findCompetition
+Finds and lists all competitions in the system whose name or dates contains any of the argument keywords.
+Keyword matching is case insensitive.
+
+Format: `findCompetition [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findCompetition NUS Open 2019`
+
+//end::findComp[]
+
+==== Editing information of a competition: `editCompetition`
+Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI).
+Existing values will be overwritten by the input values.
+In addition to INDEX, you must supply a value for at least one of the following fields:
+
+1. COMPETITION NAME
+2. START DATE OF COMPETITION
+3. END DATE OF COMPETITION
+
+Format: `editCompetition INDEX (must be a positive integer) [n/COMPETITION NAME] [startDate/START DATE OF COMPETITION] [endDate/END DATE OF COMPETITION]`
+
+Examples:
+
+1.When all fields are supplied:
+
+* `editCompetition 1 n/IPF World Championships startDate/12/02/1995 endDate/15/02/1995`
+
+2.When only 1 field is supplied:
+
+* `editCompetition 1 n/IPF World Championships`
+
+* `editCompetition 1 endDate/15/02/1995`
+
+//end::Competition[]
+
+==== Listing all records of current and past competitions: listCompetition
+This command has no parameters
+
+Format: `listCompetition`
+
+=== Commands related to person (athlete)
+Commands related to managing persons (athletes) outside of a competition session shall are described below.
+
+==== Adding a new person: `addPerson`
+Format: `addPerson n/NAME dob/BIRTH DATE g/GENDER`
+
+Example:
+
+* `addPerson n/John Doe dob/12/02/1995 g/male`
+
+==== Deleting an existing person: `deletePerson`
+Deletes the person identified by the index number, used in Person list (shown in the GUI).
+
+Format: `deletePerson INDEX`
+
+Examples:
+
+* `deletePerson 1`
+
+==== Editing information of an existing person: `editPerson`
+Edits the details of the person identified by the index number, used in the Person list. Existing
+values will be overwritten by the input values. In addition to INDEX, you must supply a value for
+at least one of the following fields:
+
+1. NAME
+2. DATEOFBIRTH
+3. GENDER
+
+Format: `editPerson INDEX (must be a positive integer) [n/NAME] [dob/DATEOFBIRTH] [g/GENDER]`
+
+Examples:
+
+1. When all fields are supplied:
+
+* `editPerson 1 n/John Doe dob/12/02/1995 g/male`
+
+2. When only 1 field is supplied:
+
+* `editPerson 1 n/John Doe`
+
+* `editPerson 1 dob/12/02/1995`
+
+==== Finding person(s): `findPerson`
+Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a numerically ordered list.
+
+Format: `findPerson [KEYWORD 1] [KEYWORD 2] ... [KEYWORD N]`
+
+Examples:
+
+* Find Alex Yeoh only:
+  `findPerson Alex`
+
+* Find Alex Yeoh only:
+  `findPerson alex`
+
+* Find Alex Yeoh only:
+  `findPerson yeoh`
+
+* Find Alex Yeoh and Bernice Yu:
+  `findPerson yeoh yu`
+
+==== Listing all existing persons: `listPerson`
+Lists all persons recorded in the system and displays them as a numerically ordered list.
+
+Format: `listPerson`
+
+Example: `listPerson`
+
+// tag::participation[]
+
+=== Commands related to participation (linking persons and competitions together)
+Commands related to managing persons participating in competitions will be introduced now.
+
+==== Adding a new participation: `addParticipation`
+Adds an existing person displayed in the Person list on the user interface into an
+existing competition displayed in the Competition list on the user interface.
+User also needs to supply 3 weight attempts for each of the following events:
+
+1. Squat
+2. Bench
+3. Deadlift
+
+Format: `addParticipation n/Athlete Name c/Competition Name s/S1/S2/S3 b/B1/B2/B3 d/D1/D2/D3`
+
+Example:
+
+* `addParticipation n/Ho c/NUS 2022 s/100/101/102 b/300/400/500 d/1000/2000/3000`
+
+Note: S1 means the 1st attempted weight for the Squat and so on.
+
+==== Listing all persons who are participating in all competitions or for one competition: `listParticipation`
+Note that the user can choose to provide a competition name or not.
+
+Format: `listParticipation c/COMPETITION_NAME`
+
+Example:
+To display all persons for all competitions:
+
+* `listParticipation`
+
+To display all persons for NUS 2022 competition only:
+
+* `listParticipation c/NUS 2022`
+
+==== Deleting an existing participation: `deleteParticipation`
+Deletes the participation identified by the index number, used in Participation list (shown in the GUI).
+
+Format: `deleteParticipation INDEX`
+
+Examples:
+
+* `deleteParticipation 2`
+
+// end::participation[]
+
+//tag::findParticipation[]
+
+==== Finding participations: `findParticipation`
+Finds and lists all participations in the participation list,
+whose competition name or person name contain any of the inputted keyword(s).
+
+Format: `findParticipation [KEYWORD 1] ... [KEYWORD N]`
+
+Examples:
+
+* `findParticipation NUS Open 2019 Bob`
+
+* `findParticipation Alex`
+
+//end::findParticipation[]
+
+=== Auxiliary commands
+
+==== Cleaning entire data from the system: `clear`
+Removes all persons, participations and competitions information from the system
+
+Format: `clear`
+
+==== Exiting and closing the GUI: `exit`
+Format: `exit`
+
+==== Showing help instructions: `help`
+Display URL to this User Guide to teach users how to use the appropriate commands for Outside Of Competition.
 
 Format: `help`
 
-=== Adding a person: `add`
+//tag::OverallRank[]
+==== Showing overall ranking: `overallRank`
+Sorts and displays ranking of athletes according to the amount of times they are the overall champions for any
+competition.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `overallRank`
 
-[TIP]
-A person can have any number of tags (including 0)
+//end::OverallRank[]
 
-Examples:
+==== Starting a competition event along with its competing athletes (person): `startSession`
+Enters into a competition session. Switches the context to being in a competition session.
+Only In-session commands can be used after this command is executed until the user
+terminates the competition session with the `endSession` command (See below).
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Format: `startSession c/COMPETITION NAME`
 
-=== Listing all persons : `list`
+Example:
 
-Shows a list of all persons in the address book. +
-Format: `list`
+* `startSession c/NUS 2022`
 
-=== Editing a person : `edit`
+== Context: During Competition (In-session)
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+// tag::sessions[]
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+=== Handling Competition During a Competition event
+This feature handles the entire flow of each session during Meet Day. It allows event
+organisers to submit a person(athlete)’s Squat, Bench, Deadlift attempts, as well as the
+success of their lifts. It will show the relevant information to prepare for the
+athletes lift (displaying name, weight, etc). The flow of events, and the commands to
+facilitate the competition session will be presented in order below:
 
-Examples:
+This feature handles the entire flow of each session during Meet Day. It allows event organisers to submit a person’s
+Squat, Bench, Deadlift attempts, as well as the success of their lifts. It will show the relevant information to prepare
+for the athletes lift (displaying name, weight, etc).
+The flow of events, and the commands to facilitate the competition session will be presented in order below:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+==== Get the next lifter in line: `next`
+Retrieves the next lifter according to weight lifted for that attempt, the weights he/she is going for that particular
+lift and attempt.
+If there are no more attempts to be made by any lifter, this command will trigger the end of the competition.
 
-=== Locating persons by name: `find`
+Format/Example: `next`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+==== Updating success or failure of a lift: `lift`
+Updates whether the person (athlete) succeeds in his/her attempt, or fails it.
+The lift updated will be the one that was just called up.
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+Format: `lift Y/N`
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `lift N`
 
-// tag::delete[]
-=== Deleting a person : `delete`
+* `lift Y`
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+// end::sessions[]
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+//tag::Rank[]
 
-Examples:
+==== Getting the rank of a person (athlete) for a given competition: `rank`
+Retrieves the rank of a person relative other competitors in the competition.
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Format: `rank n/NAME`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+Example:
 
-Clears all entries from the address book. +
-Format: `clear`
+* `rank n/Ho`
 
-=== Exiting the program : `exit`
+//end::Rank[]
 
-Exits the program. +
-Format: `exit`
+==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `ranklist`
+Retrieves a sorted order of all the participants of a the competition in-session based on the ranking method
+stipulated in the command. This ranking methods can be broadly categorized as being either the overall score or
+the maximum weight lifted for a particular exercise.
+Available ranking methods are by:
 
-=== Saving the data
+1. Squat
+2. Deadlift
+3. Bench Press
+4. Overall (overall score)
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Format: `ranklist by/RANKING METHOD`
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Example:
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+* `ranklist by/overall`
 
-== FAQ
+* `ranklist by/squat`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+* `ranklist by/deadlift`
 
-== Command Summary
+* `ranklist by/bench`
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+==== Ending and exiting the session `endSession`
+Ends the session, and shifts the user back to the out-of-session state. The user now has access
+to the out-of-session commands once again.
+
+Format: `endSession`
+
+Example: `endSession`

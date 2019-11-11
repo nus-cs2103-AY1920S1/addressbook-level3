@@ -1,0 +1,64 @@
+= Ho Wei Chin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT:  Powerlifting Competition Coordinator (PCC)
+
+---
+
+== Overview
+PCC is a command line GUI which has a prompt. Users can key in commands into the prompt to manage athletes, Powerlifting
+competitions and athletes' participation in competitions.
+As a brief introduction, Powerlifting comprises 3 movements: The Squat, The Bench Press and The Deadlift.
+Powerlifting athletes aim to achieve the maximum weights attempted for the 3 movements mentioned above to win a
+Powerlifting competition.
+
+== Summary of contributions
+
+* *Major enhancement 1*: added *Add/Edit/Delete Competitions*
+** What it does: Allows the user to add new competitions, edit information for existing competitions and delete
+obsolete competition information.
+** Justification: Allows users to add/edit competitions with valid start and end dates. Delete command ensures the
+programme is not cluttered with unused competition data.
+** Highlights: The key feature here is the date validation for adding and editing competitions with the help of an auxiliary class: CustomDate class.
+Please read my contribution to the DG to understand what I have meant by valid start and end dates. Furthermore, the
+DG explains how CustomDate class aids in validating the dates.
+
+* *Major enhancement 2*: added *Rank athletes for a given competition session*
+** What it does: Allows the user to generate a report card for an athlete for a given competition setting.
+** Justification: Allows the coach or an athlete to know what are the best weights attempted for the bench press,
+deadlift and squat. Also, the coach or an athlete can know the position of an athlete to relative to his or her
+competitors.
+
+* Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=howeichin&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Aided in making a significant backend change for Person class to accomodate what my team needs for PCC
+https://github.com/AY1920S1-CS2103-T11-3/main/pull/35[#35].
+
+** Documentation:
+*** Spearheaded writing a majority of the Commands for PCC UG: https://github.com/AY1920S1-CS2103-T11-3/main/pull/22[#22]
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=Competition]
+
+include::../UserGuide.adoc[tag=Rank]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=Competition]
+
+include::../DeveloperGuide.adoc[tag=Rank]

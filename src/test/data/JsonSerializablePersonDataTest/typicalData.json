@@ -1,0 +1,31 @@
+{
+  "persons" : [ {
+    "name" : "Alice Pauline",
+    "dateOfBirth": "01/01/2019",
+    "gender": "female"
+  }, {
+    "name" : "Benson Meier",
+    "dateOfBirth": "01/02/2018",
+    "gender": "male"
+  }, {
+    "name" : "Carl Kurz",
+    "dateOfBirth": "05/01/1992",
+    "gender": "male"
+  }, {
+    "name" : "Daniel Meier",
+    "dateOfBirth": "17/11/1982",
+    "gender": "male"
+  }, {
+    "name" : "Elle Meyer",
+    "dateOfBirth": "03/05/2010",
+    "gender": "female"
+  }, {
+    "name" : "Fiona Kunz",
+    "dateOfBirth": "01/10/2010",
+    "gender": "female"
+  }, {
+    "name" : "George Best",
+    "dateOfBirth": "19/06/2019",
+    "gender": "male"
+  } ]
+}

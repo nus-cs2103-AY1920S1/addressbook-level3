@@ -1,0 +1,395 @@
+= Ooi Ming Sheng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Powerlifting Competition Coordinator
+
+---
+
+== Overview
+
+Powerlifting Competition Coordinator is a free application for powerlifting competition event organizers
+that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
+competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
+of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
+rankings within their respective weight classes allowing the organizer track the participants'
+standings at all times throughout the duration of the competition. The user interacts with it using a
+CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 18 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement 1*: added *the ability to support the many-to-many relationships between the competitions
+and persons*
+** What it does: allows the user to create participations (i.e. a person takes part in a particular
+competition) that can be store and retrieved from the JSON storage
+
+** Justification: This feature improves the product significantly because a user can have flexibility over
+the number of people participating in a particular competition while persisting their respective
+competition results in the JSON storage for future reference and use. Data of athletes over various
+competitions can be tracked and used to track performance across time and competition.
+
+** Highlights: Given the original architecture of address book, saving association classes was not
+immediately enabled as the storage that was intended was mainly for entities
+with a one-to-one/one-to-many relationship and definitely not a many-to-many relationship.
+It required an in-depth analysis of design alternatives, one of which was to possible store the data in XML form, since using a
+database was not allowed for the project. I did not use the XML storage as it would require too
+much time to implement. The modification of the JSON storage was still challenging as it required a deep
+understanding of the underlying JSON storage infrastructure and how everything was saved in order to
+be able to save the association class properly.
+
+* *Major enhancement 2*: added *the ability to give a ranking of the athletes using different ranking methods
+
+** What it does: allows the user to list the participations in a selected competition in a sorted order
+as determined by the inputted rank method (i.e. overall score or maximum weight lifted for a given exercise like
+bench press or squat)
+
+** Justification: This feature improves the product significantly as competitions are only relevant if we
+can determine a winner and track relative performance. This feature is therefore central to the application
+as it gives the user and therefore, the participants of the competition knowledge of their standings among their fellow
+competitors. This encourages their competitive spirit and adds to the excitement of the competition.
+
+** Highlights: This enhancement gives extreme flexibility and extensibility to future ranking methods
+that need to be added in the future as the developer can just add a new ranking methods and scoring function in
+order to use this new ranking methods to order the participants.
+
+* *Major enhancement 3*: added *the ability to enter and exit a competition session (i.e. context switching)
+
+** What it does: controls user actions/commands depending on the context that the application is in (i.e.
+whether a competition is in ongoing/in-session)
+
+** Justification: This feature improves the product significantly even though we have actually limited
+user actions depending on the context of the application. The control of the user flow actually focuses
+the user to performing the right actions during the competition session and hence, optimizes the user to perform
+the necessary commands on the application to record the results of the competition as efficiently as possible.
+
+** Highlights: This enhancement is important as the context that the application is in
+limits what kind of commands can be done at any one point of time.
+This required an in-depth understanding of how powerlifting competitions function and how the
+user flow could be optimized for efficient recording of competition results, especially since delays in powerlifting
+competitions can be very unprofessional and damaging to the reputation of the user organizing this event.
+
+* *Minor enhancement*: Used java generics to support the various lists of entities and is therefore extensible
+for additional entities to be added should a developer require this
+
+* *Minor enhancement*: Updated the user interface to support 3 different lists
+
+* *Code contributed*: ( [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t11-3&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ooimingsheng&tabRepo=AY1920S1-CS2103-T11-3%2Fmain%5Bmaster%5D[Functional code]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ooimingsheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test code]] )
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+*** Managed the integration of the various features from other group members
+
+** Enhancements to existing features:
+*** Updated the layout to the application (Pull request https://github.com/AY1920S1-CS2103-T11-3/main/pull/59[#59])
+*** Wrote tests for new features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103-T11-3/main/pull/127[#127])
+
+** Documentation:
+*** Updated the User Guide: (Pull request https://github.com/AY1920S1-CS2103-T11-3/main/pull/129[#129])
+*** Updated the Developer Guide: (Pull request https://github.com/AY1920S1-CS2103-T11-3/main/pull/3[#3], https://github.com/AY1920S1-CS2103-T11-3/main/pull/129[#129])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/43[#43],
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/49[#49],
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/113[#113],
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/114[#114]
+*** Reported bugs and suggestions for other teams in the class (example: https://github.com/ooimingsheng/ped/issues)
+
+** Tools:
+*** Integrated Travis and Netlify to the team repo for Continuous integration purposes
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+[[Features]]
+== Features
+
+=== Commands related to person (athlete)
+Commands related to managing persons (athletes) outside of a competition session shall are described below.
+
+==== Adding a new person: `addPerson`
+Format: `addPerson n/NAME dob/BIRTH DATE g/GENDER`
+
+Example:
+
+* `addPerson n/John Doe dob/12/02/1995 g/male`
+
+==== Deleting an existing person: `deletePerson`
+Deletes the person identified by the index number, used in Person list (shown in the GUI).
+
+Format: `deletePerson INDEX`
+
+Examples:
+
+* `deletePerson 1`
+
+==== Editing information of an existing person: `editPerson`
+Edits the details of the person identified by the index number, used in the Person list. Existing
+values will be overwritten by the input values. In addition to INDEX, you must supply a value for
+at least one of the following fields:
+
+1. NAME
+2. DATEOFBIRTH
+3. GENDER
+
+Format: `editPerson INDEX (must be a positive integer) [n/NAME] [dob/DATEOFBIRTH] [g/GENDER]`
+
+Examples:
+
+1. When all fields are supplied:
+
+* `editPerson 1 n/John Doe dob/12/02/1995 g/male`
+
+2. When only 1 field is supplied:
+
+* `editPerson 1 n/John Doe`
+
+* `editPerson 1 dob/12/02/1995`
+
+==== Finding person(s): `findPerson`
+Finds all persons whose names contain any of the specified keywords (case-insensitive) and displays them as a numerically ordered list.
+
+Format: `findPerson [KEYWORD 1] [KEYWORD 2] ... [KEYWORD N]`
+
+Examples:
+
+* Find Alex Yeoh only:
+  `findPerson Alex`
+
+* Find Alex Yeoh only:
+  `findPerson alex`
+
+* Find Alex Yeoh only:
+  `findPerson yeoh`
+
+* Find Alex Yeoh and Bernice Yu:
+  `findPerson yeoh yu`
+
+==== Listing all existing persons: `listPerson`
+Lists all persons recorded in the system and displays them as a numerically ordered list.
+
+Format: `listPerson`
+
+Example: `listPerson`
+
+==== Getting the rank of a person (athlete) for a given competition, using a specific criterion: `ranklist`
+Retrieves a sorted order of all the participants of a the competition in-session based on the ranking method
+stipulated in the command. This ranking methods can be broadly categorized as being either the overall score or
+the maximum weight lifted for a particular exercise.
+Available ranking methods are by:
+
+1. Squat
+2. Deadlift
+3. Bench Press
+4. Overall (overall score)
+
+Format: `ranklist by/RANKING METHOD`
+
+Example:
+
+* `ranklist by/overall`
+
+* `ranklist by/squat`
+
+* `ranklist by/deadlift`
+
+* `ranklist by/bench`
+
+
+include::../UserGuide.adoc[tag=delete]
+
+include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
+|===
+
+
+== Introduction
+
+=== What is Powerlifting Competition Coordinator?
+
+Powerlifting Competition Coordinator is a free application for powerlifting competition event organizers
+that is simple, fast, and easy to use. It is targeted at organizers of small to medium sized powerlifting
+competitions who require a hassle-free way of managing and tracking the lifts of participants in and out
+of the powerlifting competitions. During competition mode, the system has real time maintenance of athlete
+rankings within their respective weight classes allowing the organizer to track the participants'
+standings at all times throughout the duration of the competition.
+
+== Design
+
+[[Design-Ui]]
+=== UI component
+
+.Structure of the UI Component
+image::UiClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/system/ui/Ui.java[`Ui.java`]
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+ `CompetitionListPanel`, `ParticipationListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`,
+inherit from the abstract `UiPart` class.
+
+The `UI` component,
+
+* Executes user commands using the `Logic` component.
+* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
+
+[[Design-Model]]
+=== Model component
+
+.Structure of the Model Component
+image::ModelClassDiagram.png[]
+
+Please note that due to the limitations of PlantUml, the diagram above is unable
+to show the java generics being used here (e.g. Data, UniqueElementList and others).
+We also did not delve into the Session class as we felt the diagram would be overly
+convoluted. For more details, regarding the class interactions for session, please refer
+to the implementation of competition sessions below.
+
+*API* : link:{repoURL}/src/main/java/seedu/system/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `UserPref` object that represents the user's preferences.
+* stores the System data.
+* exposes unmodifiable `ObservableList<Person>`, `ObservableList<Competition>` and `ObservableList<Participation>`
+that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the
+data in the list change.
+* exposes a Session class to handle the context switching between in and out of competition sessions.
+* does not depend on any of the other three components.
+
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/system/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `UserPref` objects in json format and read it back.
+* can save the `Person`, `Competition`, `Participation` data in json format and read it back.
+
+
+
+== Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
+
+==== Participation features
+A Participation is an association class we have created for every Person who has participation in a particular
+Competition. A person can take part in many competitions, and for each competition he/she takes part in, there will be a
+corresponding Participation class associated to that Person and Competition instance.
+
+===== Supporting the create, read, update and delete of the instances of the Participation association class
+To support the add, delete, and reading of the participation instances using the commands below,
+the JSON storage system was modified (please refer to the Storage section above) in order to support
+the many-to-many relationship between competition and person. This allows the association class to
+be saved which the original Address Book architecture did not allow.
+
+===== Choice of Design Pattern
+Optimally, such many-to-many relationships should be handled by some form of join table on a database. Due to
+the project restrictions, we mapped a similar structure the the JSON storage system treating each file as a table,
+attempting to parallel the way real databases worked while still using JSON storage.
+
+===== Implementation
+To achieve this we treated each file saved as a table. Hence, there is a save file for each of the participation,
+competition and person models. When reading from the JSON storage, the competition and person data are read first,
+before the participation data is read. This is because the Competition and Person objects need to be created first
+in order to be associated with the Participation class. Since the names of competitions and persons are unique,
+we used that to identify the competition and person instances the participation instance that was originally
+saved was associated with.
+
+Pros:
+
+1. By using a Json Storage, the amount of changes to the Storage system was substantial but minimized, while
+still being able to support the Participation association class which helped decouple the Person and Competition
+classes.
+
+Con:
+
+1. The uploading of the participation class from JSON relies on the property that there is some unique data
+signature of a person and the competitions, which can be determined from the data stored as JSON. Since
+both Person and Competition extend UniqueELementList, they will certainly be have some unique data
+signature (i.e. in this case each person and competition have unique names), which can be used to determine the instances the
+Participation object was originally associated with before it was saved. Hence, the current JSON storage
+system is not designed extensibly for the developer to move away from using the UniqueElement class for its instances
+or store data in a way that is not unique to the instances as instances with the same data signature cannot be
+distinguished from each other using the current JSON storage system.
+
+Alternative:
+
+We have considered using xml storage and/or creating foreign keys using the JSON storage. However, due to the
+limitations of time and the complexity of achieving such a feature, we settled with modifying the JSON storage.
+
+Please see the following Structure of the Storage Component diagram and check the repository to understand the utility
+of the Storage system to support the many-to-many relationship.
+
+.Structure of the Storage Component
+image::StorageClassDiagram.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/system/storage/Storage.java[`Storage.java`]
+
+
+==== Ranklist feature
+A RanklistCommand class is created to facilitate ranking of all the participants for a given competition that is
+currently ongoing (i.e. in-session). The ranking can be altered depending on the ranking method chosen by the user.
+This provides the user a variety of ranking methods to suit the user's need during a powerlifting competition.
+Typically, a powerlifting competition usually provides rankings for their participants based either on their overall
+score or the maximum weight lifted for a particular lift.
+
+===== Implementation
+RankCommand extends the Command Abstract Class, the rationale is explained in `Choice of Design Pattern`
+sub-section of the Ranklist feature.
+
+Rank feature has 1 check:
+1. Checks if a competition session is ongoing, Ranklist command can only be used if a competition session
+is currently ongoing.
+
+Finally, the feature returns a listing of the athletes based on the ranking method provided. For example,
+
+ Ranking of athletes by overall score in competition NUS Powerlifting Open 2019:
+1. Alex Yeoh (Score: 100)
+2. Bernice Yu (Score: 97)
+3. Charlotte Oliveiro (Score: 2)
+
+When the Ranklist feature is used, RankCommand interacts with other classes to return a participant's score for
+a given ranking method before sorting the list and displaying it on the screen as seen above. Please refer to the
+sequence diagram for a high level depiction of how RanklistCommand interacts with other classes.
+
+===== Choice of Design Pattern
+Original AB3 code base uses a Command Design Pattern, which facilitates execution of different commands,
+without the programme knowing which type of command is being executed. Furthermore, the original AB3 code base achieves
+a Command Design Pattern by requiring different types of command classes to extend from a Command Abstract Class.
+
+Due to time constraint and to achieve consistency with the Command Design Pattern of the original Code Base,
+we decide to apply the Command Design Pattern for the Ranklist command too.
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+== PROJECT: NUSanswers
+
+---
+
+This application was written on a react frontend and an elixir-phoenix backend. This application
+was created with the intention of creating an online platform for NUS exam questions to be posted
+there and allow for a crowd sourcing of answers to NUS exam questions which are not released to
+the student body. Please refer to https://github.com/cs3216/a3-mobile-cloud-group-08 for more information.

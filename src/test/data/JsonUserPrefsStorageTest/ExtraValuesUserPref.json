@@ -9,5 +9,7 @@
       "z" : 99
     }
   },
-  "addressBookFilePath" : "addressbook.json"
+  "personDataFilePath" : "personData.json",
+  "competitionDataFilePath" : "competitionData.json",
+  "participationDataFilePath" : "participationData.json"
 }
