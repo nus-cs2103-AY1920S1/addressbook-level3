@@ -764,44 +764,6 @@ Examples:
 * `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
 * `editWishlist 1 a/20 tag/mala tag/expensive`
 
-==== Sort WishList by Time : `sortWishlistTime`
-Sort by date added from earliest to latest/from latest to earliest
-
-Format: `sortWishlistTime <ascending/ descending>`
-
-Examples:
-
-* `sortWishlistTime ascending`
-* `sortWishlistTime descending`
-
-==== Sort WishList by Price : `sortWishlistPrice`
-Sort by price from lowest to highest/from highest to lowest
-
-Format: `sortWishlistPrice <ascending/ descending>`
-
-Examples:
-
-* `sortWishlistPrice ascending`
-* `sortWishlistPrice descending`
-
-==== Sort WishList by Name : `sortWishlistName`
-Sort by name in alphabetical order/reverse alphabetical order
-
-Format: `sortWishlistName <ascending/descending>`
-
-Examples:
-
-* `sortWishlistName ascending`
-* `sortWishlistName descending`
-
-==== Sort WishList by Priority : `sortWishlistPriority`
-Sort by priority status from lowest to highest priority/ from highest to lowest priority
-Format: `sortWishlistPriority <ascending/descending>`
-Examples:
-
-* `sortWishlistPriority ascending`
-* `sortWishlistPriority descending`
-
 ==== Purchase WishList : `purchase` [coming in v2.0]
 Purchases the item at the stated index from your current wishlist
 
@@ -903,7 +865,8 @@ do so.
 
 . Expenses, Income, Budget, Category:
 .. addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]
-.. editExpense c
+.. editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [tg/<tag>]
+.. deleteExpense <index>
 .. add typ/Income c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]
 .. edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]
 .. delete <index>
@@ -914,19 +877,24 @@ do so.
 .. listBudget
 .. editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]
 .. deleteBudget <index>
-.. addCategory c/<category> n/<category name>
-.. editCategory typ/<category type> c/<old category name> n/<new category name>
-.. listCategory
-.. deleteCategory c/<category type> n/<category name>
+.. addCategory cat/<category> n/<category name>
+.. editCategory typ/<category type> cat/<old category name> n/<new category name>
+.. listCategories
+.. deleteCategory cat/<category type> n/<category name>
 
 . Statistics:
-.. switch
-.. switchStats
-.. viewStatistics [p/<date>]
-.. sort typ/<sort type> s/<sort sequence>
-.. find [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
-.. findWish [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
-.. findBudget [c/<category>] [n/<description>] [a/<expenditure>] [d/<date>] [t/<tag>]
+.. viewTable [p/<RangeOfMonths>]
+.. viewPie [p/<RangeOfMonths>]
+.. viewBar [p/<SpecifiedMonth>]
+.. viewEntry
+.. sortExpense typ/<sort type> s/<sort sequence>
+.. sortIncome typ/<sort type> s/<sort sequence>
+.. sortBudget typ/<sort type> s/<sort sequence>
+.. sortWish typ/<sort type> s/<sort sequence>
+.. findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. findIncome [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. findBudget [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. findWish [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
 
 . Reminders:
 .. addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]

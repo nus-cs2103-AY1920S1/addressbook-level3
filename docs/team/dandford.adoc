@@ -68,8 +68,6 @@ include::../UserGuide.adoc
 
 include::../DeveloperGuide.adoc[tag=Categories]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
 
 == PROJECT: PowerPointLabs
 
