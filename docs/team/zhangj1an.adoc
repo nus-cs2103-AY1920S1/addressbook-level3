@@ -207,7 +207,7 @@ Output::
 === Architecture
 
 .Architecture Diagram
-image::DaArchitectureDiagram.png[]
+image::ArchitectureSequenceDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
