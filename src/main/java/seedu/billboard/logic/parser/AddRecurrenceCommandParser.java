@@ -23,13 +23,13 @@ import seedu.billboard.model.expense.Description;
 import seedu.billboard.model.expense.Name;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddRecurrenceCommand object
  */
 public class AddRecurrenceCommandParser implements Parser<AddRecurrenceCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddRecurrenceCommand
-     * and returns an AddCommand object for execution.
+     * and returns an AddRecurrenceCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

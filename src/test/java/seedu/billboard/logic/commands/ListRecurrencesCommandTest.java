@@ -26,7 +26,7 @@ public class ListRecurrencesCommandTest {
     }
 
     @Test
-    public void execute_listArchiveNames_success() {
+    public void execute_listRecurrences_success() {
         String expectedFeedback = "Here are the existing recurrence(s):\n"
                 + "[Name: bill Description: pay bill Amount: 10.00 Created: 01 Jan 2019, "
                 + "12:00 AM Tags: [] Interval: WEEK Iterations: WEEK]";
@@ -36,12 +36,10 @@ public class ListRecurrencesCommandTest {
     }
 
     @Test
-    public void execute_noArchivesToList_success() {
-        String expectedFeedback = "There are no existing archives";
+    public void execute_noRecurrencesToList_success() {
+        String expectedFeedback = "There are no existing recurrences";
         CommandResult expectedCommandResult = new CommandResult(expectedFeedback);
-        CommandResult result = new ListRecurrenceCommand().execute(noRecurrencesModel);
-        System.out.println(result.getFeedbackToUser());
-        assertCommandSuccess(new ListArchiveNamesCommand(),
+        assertCommandSuccess(new ListRecurrenceCommand(),
                 noRecurrencesModel, expectedCommandResult, noRecurrencesExpectedModel);
     }
 }

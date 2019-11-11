@@ -167,6 +167,6 @@ public class ExpenseList implements Iterable<Expense> {
     }
 
     public Expense get(int i) {
-        return internalList.get(0);
+        return internalList.get(i);
     }
 }

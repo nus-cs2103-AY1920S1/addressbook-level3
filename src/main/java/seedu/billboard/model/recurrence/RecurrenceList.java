@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.recurrence.exceptions.DuplicateRecurrenceException;
 import seedu.billboard.model.recurrence.exceptions.RecurrenceNotFoundException;
 
@@ -165,7 +166,7 @@ public class RecurrenceList implements Iterable<Recurrence> {
     public RecurrenceList getClone() {
         RecurrenceList clonedList = new RecurrenceList();
         for (Recurrence e : this.internalList) {
-            clonedList.add(e);
+            clonedList.add(e.getClone());
         }
         return clonedList;
     }
@@ -186,5 +187,8 @@ public class RecurrenceList implements Iterable<Recurrence> {
         }
 
         return output;
+    }
+
+    public void setExpense(Object o, Expense bills) {
     }
 }

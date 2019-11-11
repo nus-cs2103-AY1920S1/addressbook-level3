@@ -27,7 +27,7 @@ import seedu.billboard.model.recurrence.Recurrence;
 import seedu.billboard.model.tag.Tag;
 
 /**
- * Adds an expense to the address book.
+ * Adds an recurrence and associated expenses to billboard.
  */
 public class AddRecurrenceCommand extends RecurrenceCommand {
 
@@ -64,7 +64,7 @@ public class AddRecurrenceCommand extends RecurrenceCommand {
     private int iterations;
 
     /**
-     * Creates an AddCommand to add the specified {@code Expense}
+     * Creates an AddRecurrenceCommand to add the specified {@code Recurrence} and {@code Expense}.
      */
     public AddRecurrenceCommand(Name name, Description description, Amount amount, CreatedDateTime date,
                                 List<String> tagList, DateInterval interval, int iterations) {

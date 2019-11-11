@@ -99,7 +99,8 @@ public class Expense {
                 description.getClone(),
                 amount.getClone(),
                 created.getClone(),
-                new HashSet<>(tags));
+                new HashSet<>(tags),
+                archiveName);
     }
 
     @Override

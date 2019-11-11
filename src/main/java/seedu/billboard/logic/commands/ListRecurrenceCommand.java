@@ -6,7 +6,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.recurrence.RecurrenceList;
 
 /**
- * Lists all existing archive names to the user.
+ * Lists all existing recurrence to the user.
  */
 public class ListRecurrenceCommand extends RecurrenceCommand {
 

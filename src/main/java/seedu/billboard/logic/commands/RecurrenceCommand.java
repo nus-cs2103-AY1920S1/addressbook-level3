@@ -4,7 +4,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 
 /**
- *  Represents an Archive command with hidden internal logic and the ability to be executed.
+ *  Represents an Recurrence command with hidden internal logic and the ability to be executed.
  */
 public abstract class RecurrenceCommand extends Command {
     public static final String COMMAND_WORD = "recur";

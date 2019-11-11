@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_AMOUNT_TAXES;
 import static seedu.billboard.logic.commands.CommandTestUtil.VALID_TAG_DINNER;
 import static seedu.billboard.testutil.Assert.assertThrows;
-import static seedu.billboard.testutil.TypicalExpenses.BILLS;
-import static seedu.billboard.testutil.TypicalExpenses.TAXES;
+import static seedu.billboard.testutil.TypicalRecurrences.RECUR_BILLS;
+import static seedu.billboard.testutil.TypicalRecurrences.RECUR_TAXES;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,150 +15,149 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.expense.ExpenseList;
-import seedu.billboard.model.expense.exceptions.DuplicateExpenseException;
-import seedu.billboard.model.expense.exceptions.ExpenseNotFoundException;
-import seedu.billboard.testutil.ExpenseBuilder;
+import seedu.billboard.model.recurrence.exceptions.DuplicateRecurrenceException;
+import seedu.billboard.model.recurrence.exceptions.RecurrenceNotFoundException;
+import seedu.billboard.testutil.RecurrenceBuilder;
 
 public class RecurrenceListTest {
 
-    private final ExpenseList expenseList = new ExpenseList();
+    private final RecurrenceList recurrenceList = new RecurrenceList();
 
     @Test
-    public void contains_nullExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.contains(null));
+    public void contains_nullRecurrence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> recurrenceList.contains(null));
     }
 
     @Test
-    public void contains_expenseNotInList_returnsFalse() {
-        assertFalse(expenseList.contains(BILLS));
+    public void contains_recurrenceNotInList_returnsFalse() {
+        assertFalse(recurrenceList.contains(RECUR_BILLS));
     }
 
     @Test
-    public void contains_expenseInList_returnsTrue() {
-        expenseList.add(BILLS);
-        assertTrue(expenseList.contains(BILLS));
+    public void contains_recurrenceInList_returnsTrue() {
+        recurrenceList.add(RECUR_BILLS);
+        assertTrue(recurrenceList.contains(RECUR_BILLS));
     }
 
     @Test
-    public void add_nullExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.add(null));
+    public void add_nullRecurrence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> recurrenceList.add(null));
     }
 
     @Test
-    public void add_duplicateExpense_throwsDuplicateExpenseException() {
-        expenseList.add(BILLS);
-        assertThrows(DuplicateExpenseException.class, () -> expenseList.add(BILLS));
+    public void add_duplicateRecurrence_throwsDuplicateRecurrenceException() {
+        recurrenceList.add(RECUR_BILLS);
+        assertThrows(DuplicateRecurrenceException.class, () -> recurrenceList.add(RECUR_BILLS));
     }
 
     @Test
-    public void setExpense_nullTargetExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setExpense(null, BILLS));
+    public void setRecurrence_nullTargetRecurrence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> recurrenceList.setRecurrence(null, RECUR_BILLS));
     }
 
     @Test
-    public void setExpense_nullEditedExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setExpense(BILLS, null));
+    public void setRecurrence_nullEditedRecurrence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> recurrenceList.setRecurrence(RECUR_BILLS, null));
     }
 
     @Test
-    public void setExpense_targetExpenseNotInList_throwsExpenseNotFoundException() {
-        assertThrows(ExpenseNotFoundException.class, () -> expenseList.setExpense(BILLS, BILLS));
+    public void setRecurrence_targetRecurrenceNotInList_throwsRecurrenceNotFoundException() {
+        assertThrows(RecurrenceNotFoundException.class, () -> recurrenceList.setRecurrence(RECUR_BILLS, RECUR_BILLS));
     }
 
     @Test
-    public void setExpense_editedExpenseIsSameExpense_success() {
-        expenseList.add(BILLS);
-        expenseList.setExpense(BILLS, BILLS);
-        ExpenseList expectedExpenseList = new ExpenseList();
-        expectedExpenseList.add(BILLS);
-        assertEquals(expectedExpenseList, expenseList);
+    public void setRecurrence_editedRecurrenceIsSameRecurrence_success() {
+        recurrenceList.add(RECUR_BILLS);
+        recurrenceList.setRecurrence(RECUR_BILLS, RECUR_BILLS);
+        RecurrenceList expectedRecurrenceList = new RecurrenceList();
+        expectedRecurrenceList.add(RECUR_BILLS);
+        assertEquals(expectedRecurrenceList, recurrenceList);
     }
 
     @Test
-    public void setExpense_editedExpenseHasSameIdentity_success() {
-        expenseList.add(BILLS);
-        Expense editedAlice = new ExpenseBuilder(BILLS).withAmount(VALID_AMOUNT_TAXES).withTags(VALID_TAG_DINNER)
-                .build();
-        expenseList.setExpense(BILLS, editedAlice);
-        ExpenseList expectedExpenseList = new ExpenseList();
-        expectedExpenseList.add(editedAlice);
-        assertEquals(expectedExpenseList, expenseList);
+    public void setRecurrence_editedRecurrenceHasSameIdentity_success() {
+        recurrenceList.add(RECUR_BILLS);
+        Recurrence editedAlice = new RecurrenceBuilder(RECUR_BILLS).withAmount(VALID_AMOUNT_TAXES)
+                .withTag(VALID_TAG_DINNER).build();
+        recurrenceList.setRecurrence(RECUR_BILLS, editedAlice);
+        RecurrenceList expectedRecurrenceList = new RecurrenceList();
+        expectedRecurrenceList.add(editedAlice);
+        assertEquals(expectedRecurrenceList, recurrenceList);
     }
 
     @Test
-    public void setExpense_editedExpenseHasDifferentIdentity_success() {
-        expenseList.add(BILLS);
-        expenseList.setExpense(BILLS, TAXES);
-        ExpenseList expectedExpenseList = new ExpenseList();
-        expectedExpenseList.add(TAXES);
-        assertEquals(expectedExpenseList, expenseList);
+    public void setRecurrence_editedRecurrenceHasDifferentIdentity_success() {
+        recurrenceList.add(RECUR_BILLS);
+        recurrenceList.setRecurrence(RECUR_BILLS, RECUR_TAXES);
+        RecurrenceList expectedRecurrenceList = new RecurrenceList();
+        expectedRecurrenceList.add(RECUR_TAXES);
+        assertEquals(expectedRecurrenceList, recurrenceList);
     }
 
     @Test
-    public void setExpense_editedExpenseHasNonUniqueIdentity_throwsDuplicateExpenseException() {
-        expenseList.add(BILLS);
-        expenseList.add(TAXES);
-        assertThrows(DuplicateExpenseException.class, () -> expenseList.setExpense(BILLS, TAXES));
+    public void setRecurrence_editedRecurrenceHasNonUniqueIdentity_throwsDuplicateRecurrenceException() {
+        recurrenceList.add(RECUR_BILLS);
+        recurrenceList.add(RECUR_TAXES);
+        assertThrows(DuplicateRecurrenceException.class, () -> recurrenceList.setRecurrence(RECUR_BILLS, RECUR_TAXES));
     }
 
     @Test
-    public void remove_nullExpense_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.remove(null));
+    public void remove_nullRecurrence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> recurrenceList.remove(null));
     }
 
     @Test
-    public void remove_expenseDoesNotExist_throwsExpenseNotFoundException() {
-        assertThrows(ExpenseNotFoundException.class, () -> expenseList.remove(BILLS));
+    public void remove_recurrenceDoesNotExist_throwsRecurrenceNotFoundException() {
+        assertThrows(RecurrenceNotFoundException.class, () -> recurrenceList.remove(RECUR_BILLS));
     }
 
     @Test
-    public void remove_existingExpense_removesExpense() {
-        expenseList.add(BILLS);
-        expenseList.remove(BILLS);
-        ExpenseList expectedExpenseList = new ExpenseList();
-        assertEquals(expectedExpenseList, expenseList);
+    public void remove_existingRecurrence_removesRecurrence() {
+        recurrenceList.add(RECUR_BILLS);
+        recurrenceList.remove(RECUR_BILLS);
+        RecurrenceList expectedRecurrenceList = new RecurrenceList();
+        assertEquals(expectedRecurrenceList, recurrenceList);
     }
 
     @Test
-    public void setExpenses_nullUniqueExpenseList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setExpenses((ExpenseList) null));
+    public void setRecurrences_nullUniqueRecurrenceList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> recurrenceList.setRecurrences((RecurrenceList) null));
     }
 
     @Test
-    public void setExpenses_uniqueExpenseList_replacesOwnListWithProvidedUniqueExpenseList() {
-        expenseList.add(BILLS);
-        ExpenseList expectedExpenseList = new ExpenseList();
-        expectedExpenseList.add(TAXES);
-        expenseList.setExpenses(expectedExpenseList);
-        assertEquals(expectedExpenseList, expenseList);
+    public void setRecurrences_uniqueRecurrenceList_replacesOwnListWithProvidedUniqueRecurrenceList() {
+        recurrenceList.add(RECUR_BILLS);
+        RecurrenceList expectedRecurrenceList = new RecurrenceList();
+        expectedRecurrenceList.add(RECUR_TAXES);
+        recurrenceList.setRecurrences(expectedRecurrenceList);
+        assertEquals(expectedRecurrenceList, recurrenceList);
     }
 
     @Test
-    public void setExpenses_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> expenseList.setExpenses((List<Expense>) null));
+    public void setRecurrences_nullList_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> recurrenceList.setRecurrences((List<Recurrence>) null));
     }
 
     @Test
-    public void setExpenses_list_replacesOwnListWithProvidedList() {
-        expenseList.add(BILLS);
-        List<Expense> expenseList = Collections.singletonList(TAXES);
-        this.expenseList.setExpenses(expenseList);
-        ExpenseList expectedExpenseList = new ExpenseList();
-        expectedExpenseList.add(TAXES);
-        assertEquals(expectedExpenseList, this.expenseList);
+    public void setRecurrences_list_replacesOwnListWithProvidedList() {
+        recurrenceList.add(RECUR_BILLS);
+        List<Recurrence> recurrenceList = Collections.singletonList(RECUR_TAXES);
+        this.recurrenceList.setRecurrences(recurrenceList);
+        RecurrenceList expectedRecurrenceList = new RecurrenceList();
+        expectedRecurrenceList.add(RECUR_TAXES);
+        assertEquals(expectedRecurrenceList, this.recurrenceList);
     }
 
     @Test
-    public void setExpenses_listWithDuplicateExpenses_throwsDuplicateExpenseException() {
-        List<Expense> listWithDuplicateExpenses = Arrays.asList(BILLS, BILLS);
-        assertThrows(DuplicateExpenseException.class, () -> expenseList.setExpenses(listWithDuplicateExpenses));
+    public void setRecurrences_listWithDuplicateRecurrences_throwsDuplicateRecurrenceException() {
+        List<Recurrence> listWithDuplicateRecurrences = Arrays.asList(RECUR_BILLS, RECUR_BILLS);
+        assertThrows(DuplicateRecurrenceException.class, () ->
+                recurrenceList.setRecurrences(listWithDuplicateRecurrences));
     }
 
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-            -> expenseList.asUnmodifiableObservableList().remove(0));
+            -> recurrenceList.asUnmodifiableList().remove(0));
     }
 }

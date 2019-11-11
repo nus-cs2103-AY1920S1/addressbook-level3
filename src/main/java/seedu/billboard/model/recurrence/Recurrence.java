@@ -18,7 +18,7 @@ import seedu.billboard.model.expense.Name;
 import seedu.billboard.model.tag.Tag;
 
 /**
- * Represents a recurrence in the address book.
+ * Represents a recurrence in billboard.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Recurrence {
@@ -122,5 +122,9 @@ public class Recurrence {
                 + getInterval()
                 + " Iterations: "
                 + getInterval();
+    }
+
+    public Recurrence getClone() {
+        return new Recurrence(expenses.getClone(), DateInterval.valueOf(interval.getName().toUpperCase()));
     }
 }
