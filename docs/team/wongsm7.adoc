@@ -1,4 +1,4 @@
-= <Wong Shun Min> - Project Portfolio
+= Wong Shun Min - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -38,9 +38,9 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 *** Updated the UI for doctors on duty and queue (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/203[#203], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/119/files[#119])
 ** Documentation:
 *** Did cosmetic tweaks to existing contents of the User Guide.
-*** Created various UML diagrams for for Developer Guide. https://github.com/AY1920S1-CS2103T-T09-3/main/pull/87[#87]
+*** Created various UML diagrams for Developer Guide. https://github.com/AY1920S1-CS2103T-T09-3/main/pull/87[#87]
 ** Community:
-*** Reported bugs and suggestions for other teams in the class
+*** Reported bugs and suggestions for other teams
 
 == Contributions to the User Guide
 
@@ -49,52 +49,9 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Queue Management
+include::../UserGuide.adoc[tag=queue]
 
-==== Adds a patient to the queue: `enqueue` ====
-
-Adds a patient to the queue based based on the patient's Id. The enqueued patient must be a registered. Staff members cannot be enqueued. +
-
-Format: `enqueue <PATIENT_REFERENCE_ID>` +
-
-==== Removes a patient from the queue: `dequeue` ====
-
-Removes a patient from the queue based on their queue position. +
-
-Format: `dequeue <QUEUE_INDEX>`
-
-==== Assigns next patient to an available doctor : `next` ====
-//todo add doctor first
-
-Assigns the next patient in the queue to a doctor. +
-
-Format: `next <ENTRY_ID>`
-
-==== Doctor takes a break: `break`  ====
-
-Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
-
-Format: `break <ENTRY_ID>`
-
-==== Doctor resumes his/her duty: `resume` ====
-
-Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
-
-Format: `resume <ENTRY_ID>`
-
-=== Staff Personal Management
-
-==== Marks the doctor as on-duty: `onduty` ====
-
-Marks the doctor, based on the index given, as on-duty and adds him/her to a list of on-duty doctors. +
-
-Format: `onduty <ON_DUTY_DOCTOR_ENTRY_ID>`
-
-==== Marks the doctor as off-duty: `offduty` ====
-
-Marks the doctor, based on the index given, as off-duty and removes him/her from the list. +
-
-Format: `offduty <ON_DUTY_DOCTOR_ENTRY_ID>`
+include::../UserGuide.adoc[tag=summary]
 
 == Contributions to the Developer Guide
 
@@ -102,43 +59,6 @@ Format: `offduty <ON_DUTY_DOCTOR_ENTRY_ID>`
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-=== Queue feature
-The queue feature allows the user to enqueue and dequeue a patient from the queue.
+include::../DeveloperGuide.adoc[tag=queueuml]
 
-* e.g. `enqueue 003A` - Enqueues the patient with `referenceId` 003A.
-* e.g. `next 1` Serves the next patient in queue and allocates him/her to room 1.
-
-Queue supports a few basic commands:
-
-* Enqueue -- Enqueues a patient into the queue. +
-Format: `enqueue <PATIENT_REFERENCE_ID>`
-* Dequeue -- Dequeues a patient from the queue. +
-Format: `dequeue <QUEUE_INDEX>`
-* Next -- Assigns the next patient in the queue to a doctor. +
-Format: `next <ENTRY_ID>`
-* Break -- Avoids directing patients to a doctor. e.g. Doctor is on a lunch break +
-Format: `break <ENTRY_ID>`
-* Resume -- Allows patients to be directed to a doctor. e.g. Doctor is back from his/her break. +
-Format: `resume <ENTRY_ID>`
-
-==== Current Implementation
-The queue will be displayed in a list.
-
-The following activity diagram summarizes what happens when a user executes an enqueue command:
-
-.Enqueue Activity Diagram
-image::EnqueueActivityDiagram.png[]
-
-The following activity diagram summarizes what happens when a user executes an next command:
-
-.Next Activity Diagram
-image::NextActivityDiagram.png[]
-
-Below is an example usage of the queue feature.
-
-Step 1: User enters the `enqueue E0000001A` command.
-
-Step 2: The command then calls Model#enqueuePatient to enqueue the patient into the queue.
-
-Step 3: Patient will then displayed in the queue.
-
+include::../DeveloperGuide.adoc[tag=queue]

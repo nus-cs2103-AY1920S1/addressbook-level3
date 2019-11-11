@@ -1,6 +1,8 @@
 //@@author wongsm7
 package seedu.address.logic.parser.queue;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
@@ -17,7 +19,7 @@ import seedu.address.model.ReferenceId;
 import seedu.address.model.queue.Room;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new ReversibleActionPairCommand object.
  */
 public class NextCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_INDEX = "The index provided is invalid.";
@@ -35,18 +37,23 @@ public class NextCommandParser implements Parser<ReversibleActionPairCommand> {
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the NextCommand object
+     * and returns a ReversibleActionPairCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
-        index = ParserUtil.parseIndex(args);
+        try {
+            index = ParserUtil.parseIndex(args);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NextCommand.MESSAGE_USAGE));
+        }
+
         filteredRoomList = model.getConsultationRoomList();
-        if (filteredRoomList.size() < index.getOneBased() || index.getOneBased() <= 0) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        } else if (queueList.size() == 0) {
+        if (queueList.size() == 0) {
             throw new ParseException(MESSAGE_NO_PATIENT);
+        } else if (filteredRoomList.size() < index.getOneBased() || index.getOneBased() <= 0) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         ReferenceId patientBeingServed = queueList.get(0);
         Room roomToEdit = filteredRoomList.get(index.getZeroBased());

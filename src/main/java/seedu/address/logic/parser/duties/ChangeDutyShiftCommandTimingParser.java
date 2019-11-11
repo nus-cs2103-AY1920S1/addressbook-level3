@@ -59,34 +59,22 @@ public class ChangeDutyShiftCommandTimingParser implements Parser<ReversibleActi
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeDutyShiftCommand.MESSAGE_USAGE));
         }
 
-        try {
-            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ENTRY).get());
-            int idx = index.getZeroBased();
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ENTRY).get());
+        int idx = index.getZeroBased();
 
-            if (idx >= lastShownList.size()) {
-                throw new ParseException(MESSAGE_INVALID_INDEX);
-            }
-            String startString = argMultimap.getValue(PREFIX_START).get();
-            Timing timing;
-
-            if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
-                timing = ParserUtil.parseTiming(startString, null);
-            } else {
-                String endString = argMultimap.getValue(PREFIX_END).get();
-                timing = ParserUtil.parseTiming(startString, endString);
-            }
-            Event eventToEdit = lastShownList.get(idx);
-
-            Event editedEvent = new Event(eventToEdit.getPersonId(),
-                    eventToEdit.getPersonName(),
-                    timing, new Status());
-
-            return new ReversibleActionPairCommand(
-                    new ChangeDutyShiftCommand(eventToEdit, editedEvent),
-                    new ChangeDutyShiftCommand(editedEvent, eventToEdit));
-
-        } catch (ParseException e) {
-            throw new ParseException(e.getMessage());
+        if (idx >= lastShownList.size()) {
+            throw new ParseException(MESSAGE_INVALID_INDEX);
         }
+        String startString = argMultimap.getValue(PREFIX_START).get();
+        Timing timing = ParserUtil.getTiming(argMultimap, startString);
+        Event eventToEdit = lastShownList.get(idx);
+
+        Event editedEvent = new Event(eventToEdit.getPersonId(),
+                eventToEdit.getPersonName(),
+                timing, new Status());
+
+        return new ReversibleActionPairCommand(
+                new ChangeDutyShiftCommand(eventToEdit, editedEvent),
+                new ChangeDutyShiftCommand(editedEvent, eventToEdit));
     }
 }

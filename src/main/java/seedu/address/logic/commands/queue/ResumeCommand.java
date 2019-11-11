@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Sets a doctor who is on break back to duty.
  */
 public class ResumeCommand extends ReversibleCommand {
 
@@ -19,7 +19,7 @@ public class ResumeCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Doctor is back from his/her break. Allows patients to be directed to the doctor.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a non-zero positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SUCCESS = "Doctor %s resumes his/her duty";

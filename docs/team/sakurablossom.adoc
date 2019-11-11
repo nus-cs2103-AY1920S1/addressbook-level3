@@ -112,8 +112,10 @@ _{you can add/remove categories in the list above}_
 |_Given below are some sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=ux]
-include::../UserGuide.adoc[tag=patient]
+====
+include::../UserGuide.adoc[tag=reactiveSearchUG]
+====
+//include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -127,3 +129,4 @@ include::../DeveloperGuide.adoc[tag=reactivesearchthreading]
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
+include::../DeveloperGuide.adoc[tag=reactivesearch]

@@ -95,7 +95,6 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
     @Override
     public String toString() {
         return events.asUnmodifiableObservableList().size() + " events";
-        // TODO: refine later
     }
 
     @Override

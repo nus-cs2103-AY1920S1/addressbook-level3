@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-T09-3/main/
 
 By: `Team T09-3`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -81,7 +81,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `OmniPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -127,20 +127,19 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
     * The execution of a reactive search differs from the normal command, in the way that it only allows the execution of `NonActionableCommand` types.
         Hence, there is no modification of any data in the system's model when executing a reactive search.
 
-
+// tag::queueuml[]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `enqueue E0000001A` API call.
 
 .Interactions inside the Logic Component for the `enqueue E0000001A` Command.
 image::EnqueueSequenceDiagram.png[]
 
-
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelOverviewClassDiagramV3.png[]
-
+// end::queueuml[]
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 ==== Overall Model component
@@ -216,8 +215,6 @@ This unique reference identifier consist of two parts:
 
     . a unique case-insensitive string, which consist of 9 alphanumeric characters, referring to its unique ID
     . a boolean referring to whether the reference identifier belonged to a person who is registered as a patient or a staff doctor.
-
-
 
 // tag::undoredo[]
 === Undo/Redo feature
@@ -479,7 +476,7 @@ image::AutoCompleteSequenceDiagram.png[]
 [cols="1,10"]
 |===
 |*Pros*|
-1. Time Complexity Efficient +
+1. Search Time Complexity Efficient: O(m), where m is length of searched word. +
 2. One of the most natural data structure for text prediction.
 |*Cons*|
 1. Requires initialisation. +
@@ -493,11 +490,12 @@ image::AutoCompleteSequenceDiagram.png[]
 |*Pros*|
 1. Extremely simple to implement.
 |*Cons*|
-1. Time Complexity Inefficient.
+1. Search Time Complexity Inefficient: O(nm), where n is number of words and m is length of searched word.
 |===
 
 // end::autocomplete[]
 
+// tag::queue[]
 === Queue feature
 The queue feature allows the user to enqueue and dequeue a patient from the queue.
 
@@ -538,6 +536,9 @@ Step 2: The command then calls Model#enqueuePatient to enqueue the patient into 
 
 Step 3: Patient will then displayed in the queue.
 
+// end::queue[]
+
+// tag::appointment[]
 === Appointment feature
 
 The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
@@ -550,6 +551,8 @@ The Appointment feature enables users to manage appointments for patients by pro
 The number of scheduled appointments cannot be more than the number of on-duty staff doctors at any given time.
 
 ==== Current Implementation
+The current appointment feature is implemented using a list which works like a balanced binary search tree. This allows us to search for an appointment within O(logn) instead of O(n) time, where n is the number of appointments in the list.
+
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
 
 `newappt` Command - Creates an new appointment or reoccurring appointments for a patient.
@@ -566,8 +569,9 @@ The Appointment feature contains multiple operations to indirectly manipulate th
 
 `settleappt` Command - Removes a missed appointment.
 
+The appointment class diagram below illustrates the interactions between the Appointment class and associated classes.
 
-.Appointment class diagram illustrating interactions between the Appointment class and associated classes.
+.Appointment class diagram
 image::AppointmentClassDiagram.png[]
 
 he appointment will be rejected by the system, if there are insufficient staff doctors on duty at the time of the appointment. +
@@ -648,7 +652,9 @@ In future implementations, i.e. v2.0, the valid timing slot will be given based 
 * **Alternative 2:** Keeps the onscreen clutter at a minimum and stays in line with the CLI concept.
 ** Pros: Makes it easier to implement.
 ** Cons: Increases difficulty in freely accessing appointments.
+// end::appointment[]
 
+// tag::shift[]
 === Duty Shift Scheduling
 
 The duty shift scheduling provides users the ability to schedule duty shifts for doctors. It can help doctors to check, add, edit duty shifts efficiently.
@@ -701,6 +707,8 @@ image::ChangeShiftActivityDiagram.png[]
 
 `cancelshift` simply takes in the index of the target duty shift to cancel according to the displayed shift list.
 
+// end::shift[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -747,6 +755,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: manage queue and appointments faster than a typical mouse/GUI driven app
 
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -815,7 +824,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|cancel appointments for patients | free up appointment time slots
 |=======================================================================
+// end::userstories[]
 
+// tag::queueusecase[]
 [appendix]
 == Use Cases
 
@@ -943,6 +954,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+// end::queueusecase[]
 [discrete]
 === Use case: Add new a appointment (UC6)
 Pre-condition: Patient exists in the system
@@ -1033,6 +1045,7 @@ Use case ends.
 
 Use case ends
 
+[discrete]
 === Use case: cancel patient's appointment (UC9)
 Pre-condition: Patient’s record exists
 
@@ -1154,6 +1167,9 @@ Cons:
 * ...
 
 [appendix]
+
+// tag::carbongridContribManualTesting[]
+
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1173,28 +1189,58 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+   Expected: The most recent window size and location is retained. If window settings under `preferences.json` is corrupted and becomes reasonably small or large, the default size of 800x600 will be used instead.
 
-_{ more test cases ... }_
+=== Editing a patient
 
-=== Deleting a person
+. Editing a patient while certain patient(s) have been searched.
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
+.. Prerequisites: Search for an interested person via `patient [<SEARCH_KEYWORD>]` then press kbd:[ENTER].
+.. Test case: `editpatient -entry 1 -name test` +
+   Expected: All patients will be listed again with the particular patient of index found after searching has his or her name modified to `test`.
 
 === Saving data
 
 . Dealing with missed/corrupted data files
 
-.. _{explain how to simulate a missed/corrupted file and the expected behavior}_
+.. Prerequisites: Removing or Modifying files in data folder residing in same directory as `ClerkPro.jar`.
+.. Test case: Deleting the entire data folder. +
+   Expected: ClerkPro will attempt to access the folder. If it does not exists, the data folder will be automatically created with default settings. Other jsons beside `preferences.json` will be created upon modification of sample data loaded.
+.. Test case: Corrupting data files by modifying its entries. +
+   Expected: ClerkPro will try its best to parse the data. If it is not valid, it must be corrupted. Therefore the application will load up with default settings and sample data.
 
-_{ more test cases ... }_
+=== Navigating in UI
+
+. Navigating with keyboard only
+
+.. Test case: kbd:[TAB] key should change focus from the upper panels to Command Box and Command Box to Tab Bar. +
+   Expected: When TabBar or Command Box is in focus, there should exist an indication of turquoise/blue border.
+.. Test case: Both kbd:[UP] and kbd:[DOWN] keys should also work even if the selected item is of the first or last index. +
+   Expected: When UP is pressed during a selected item in the list view or Tab Bar is of first index, it should brings the selection to the last index of the list view or Tab Bar. Vice versa for the last index when selected.
+
+=== Command Box
+
+. AutoComplete
+
+.. Test case: *Any partial commands with leading spaces. +
+   Expected: AutoComplete appears in an aligned overlay showing available commands for whatever has been typed.
+.. Test case: `newpatient -id` with any number of leading spaces but at least one ending space(s). +
+   Expected: AutoComplete does not suggest any other flags because its previous word is in a flag format.
+.. Test case: `newpatient -id Mo-name` with any number of leading spaces but at least one ending space(s). +
+   Expected: Since `Mo-name` is not a flag, AutoComplete should suggest all unused flags but not `-id`.
+.. Test case: Lengthy Command in Command Box reaching the right-most end of the Command Box. +
+   Expected: AutoComplete will display all suggestions visibly at the right-most end but will lose the perfect alignment since its impossible to align any further while staying visible to the user.
+.. Test case: kbd:[UP] & kbd:[DOWN] & kbd:[ENTER] while focus is still on the Command Box. +
+   Expected: The selection should change according to kbd:[UP] & kbd:[DOWN]. While kbd:[ENTER] should set the selected tag into the Command Box, instead of executing the unfinished Command.
+
+. History
+
+.. Prerequisites:
+1. Some commands that has been entered regardless if it is invalid or valid.
+2. Command Box is focused.
+3. AutoComplete is not in action.
+.. Test case: Press kbd:[UP] then kbd:[DOWN] +
+   Expected: Upon kbd:[UP], current text in Command Box is replaced with previously entered command. Then after, pressing kbd:[DOWN] displays an empty command box since the last text that was in the Command Box is not entered and thus not part of history.
+
+// end::carbongridContribManualTesting[]
+

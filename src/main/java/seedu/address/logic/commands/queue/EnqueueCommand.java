@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
 
 /**
- * Lists all persons in the address book to the user.
+ * Adds a patient to the queue.
  */
 public class EnqueueCommand extends ReversibleCommand {
 

@@ -40,7 +40,7 @@ public class EditAppCommandParser implements Parser<ReversibleActionPairCommand>
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ReversibleActionPairCommand
+     * Parses the given {@code String} of arguments in the context of the EditAppCommand
      * and returns a ReversibleActionPairCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
@@ -58,31 +58,21 @@ public class EditAppCommandParser implements Parser<ReversibleActionPairCommand>
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppCommand.MESSAGE_USAGE));
         }
 
-        try {
-            Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ENTRY).get());
-            int idx = index.getZeroBased();
+        Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ENTRY).get());
+        int idx = index.getZeroBased();
 
-            if (idx >= lastShownList.size()) {
-                throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
-            }
-            String startString = argMultimap.getValue(PREFIX_START).get();
-            Timing timing;
-
-            if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
-                timing = ParserUtil.parseTiming(startString, null);
-            } else {
-                String endString = argMultimap.getValue(PREFIX_END).get();
-                timing = ParserUtil.parseTiming(startString, endString);
-            }
-            Event eventToEdit = lastShownList.get(idx);
-            Event editedEvent = new Appointment(eventToEdit.getPersonId(),
-                    eventToEdit.getPersonName(), timing, new Status());
-
-            return new ReversibleActionPairCommand(new EditAppCommand(eventToEdit, editedEvent),
-                    new EditAppCommand(editedEvent, eventToEdit));
-
-        } catch (ParseException e) {
-            throw new ParseException(e.getMessage());
+        if (idx >= lastShownList.size()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
         }
+
+        String startString = argMultimap.getValue(PREFIX_START).get();
+        Timing timing = ParserUtil.getTiming(argMultimap, startString);
+        Event eventToEdit = lastShownList.get(idx);
+        Event editedEvent = new Appointment(eventToEdit.getPersonId(),
+                eventToEdit.getPersonName(), timing, new Status());
+
+        return new ReversibleActionPairCommand(new EditAppCommand(eventToEdit, editedEvent),
+                new EditAppCommand(editedEvent, eventToEdit));
+
     }
 }

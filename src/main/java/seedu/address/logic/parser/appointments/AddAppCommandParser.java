@@ -8,10 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REOCCURRING_TIMES;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.appointments.AddAppCommand;
@@ -66,15 +64,7 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
         }
 
         String startString = argMultimap.getValue(PREFIX_START).get();
-        Timing timing;
-        if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
-            timing = ParserUtil.parseTiming(startString, null);
-        } else {
-            String endString = argMultimap.getValue(PREFIX_END).get();
-            timing = ParserUtil.parseTiming(startString, endString);
-        }
-
-
+        Timing timing = ParserUtil.getTiming(argMultimap, startString);
 
         Optional<String> reoccurringStringOptional = argMultimap.getValue(PREFIX_REOCCURRING);
         Optional<String> reoccurringStringTimesOptional = argMultimap.getValue(PREFIX_REOCCURRING_TIMES);
@@ -91,12 +81,11 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
             int times = reoccurringTimes.getZeroBased() + 1;
             Appointment event = new Appointment(referenceId,
                     model.resolvePatient(referenceId).getName(), timing, new Status());
-            List<Event> eventList = getRecEvents(event, reoccurringString, times);
+            List<Event> eventList = ParserUtil.getRecEvents(event, reoccurringString, times);
             return new ReversibleActionPairCommand(new AddAppCommand(eventList),
                     new CancelAppCommand(eventList));
         } else {
-            if (!reoccurringStringOptional.isPresent() && reoccurringStringTimesOptional.isPresent()
-                    || reoccurringStringOptional.isPresent() && !reoccurringStringTimesOptional.isPresent()) {
+            if (ParserUtil.unmatchedReoccurring(reoccurringStringOptional, reoccurringStringTimesOptional)) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         AddAppCommand.MESSAGE_USAGE));
             }
@@ -108,31 +97,9 @@ public class AddAppCommandParser implements Parser<ReversibleActionPairCommand> 
     }
 
 
-    private List<Event> getRecEvents(Appointment event, String reoccurringString, int times) {
-        List<Event> eventList = new ArrayList<>();
-        Timing timing = event.getEventTiming();
-        Function<Timing, Timing> func = null;
 
-        switch (reoccurringString) {
-        case "d":
-            func = Timing::getOneDayLaterTiming;
-            break;
-        case "w":
-            func = Timing::getOneWeekLaterTiming;
-            break;
-        case "m":
-            func = Timing::getOneMonthLaterTiming;
-            break;
-        default:
-            func = Timing::getOneYearLaterTiming;
-            break;
-        }
 
-        for (int i = 0; i < times; i++) {
-            eventList.add(new Appointment(event.getPersonId(), event.getPersonName(), timing, new Status()));
-            timing = func.apply(timing);
-        }
 
-        return eventList;
-    }
+
+
 }

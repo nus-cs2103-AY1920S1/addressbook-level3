@@ -24,7 +24,6 @@ public class MissAppCommandParser implements Parser<MissAppCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, MissAppCommand.MESSAGE_USAGE));
         }
-
         return new MissAppCommand();
     }
 }

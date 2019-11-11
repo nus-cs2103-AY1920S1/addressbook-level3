@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Removes a doctor who is on duty.
  */
 public class RemoveRoomCommand extends ReversibleCommand {
 
@@ -19,7 +19,7 @@ public class RemoveRoomCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the doctor on-duty from the list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a non-zero positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_OFF_DUTY_SUCCESS = "%s is off-duty";

@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
 /**
- * Lists all persons in the address book to the user.
+ * Adds a doctor to the list of doctors on duty.
  */
 public class AddConsultationRoomCommand extends ReversibleCommand {
 
@@ -21,13 +21,13 @@ public class AddConsultationRoomCommand extends ReversibleCommand {
     public static final String MESSAGE_INVALID_DOCTOR_ID = "The reference ID '%1$s' does not belong "
             + "to any registered doctor!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a doctor to the list of doctors on-duty.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a non-zero positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     private final Room roomToAdd;
 
     /**
-     * Creates an EnqueueCommand to add the specified {@code PatientReferenceId}
+     * Creates an AddConsultationRoomCommand to add the specified {@code PatientReferenceId}
      */
     public AddConsultationRoomCommand(Room roomToAdd) {
         requireNonNull(roomToAdd);

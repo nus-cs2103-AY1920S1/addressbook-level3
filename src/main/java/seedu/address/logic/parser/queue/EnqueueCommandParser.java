@@ -13,9 +13,8 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
 
-
 /**
- * Parses input arguments and creates a new EnqueueCommand object
+ * Parses input arguments and creates a new ReversibleActionPairCommand object.
  */
 public class EnqueueCommandParser implements Parser<ReversibleActionPairCommand> {
 
@@ -23,8 +22,8 @@ public class EnqueueCommandParser implements Parser<ReversibleActionPairCommand>
             "Staff doctors cannot be placed in the patient queue.";
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EnqueueCommand object
+     * and returns a ReversibleActionPairCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

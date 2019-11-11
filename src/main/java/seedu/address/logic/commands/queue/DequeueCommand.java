@@ -13,7 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Removes a patient from the queue.
  */
 public class DequeueCommand extends ReversibleCommand {
 
@@ -21,7 +21,7 @@ public class DequeueCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Dequeues the person identified by the index number used in the displayed queue.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a non-zero positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued patient: %s";
