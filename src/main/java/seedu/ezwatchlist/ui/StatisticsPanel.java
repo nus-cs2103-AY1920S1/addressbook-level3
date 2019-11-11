@@ -63,11 +63,11 @@ public class StatisticsPanel extends UiPart<Region> {
         if (movieRecommendations == null && tvRecommendations == null) {
             recommendationPlaceHolder.getChildren().add(new Label("You currently do not have any recommendation!"));
         } else {
-            if (movieRecommendations.size() > 0) {
+            if (movieRecommendations != null && movieRecommendations.size() > 0) {
                 movieRecommendationView.setItems(movieRecommendations);
                 movieRecommendationView.setCellFactory(listView -> new MovieRecommendationViewCell());
             }
-            if (tvRecommendations.size() > 0) {
+            if (tvRecommendations != null && tvRecommendations.size() > 0) {
                 tvRecommendationView.setItems(tvRecommendations);
                 tvRecommendationView.setCellFactory(listView -> new TvRecommendationViewCell());
             }

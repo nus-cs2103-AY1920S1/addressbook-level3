@@ -18,7 +18,7 @@ import seedu.ezwatchlist.model.show.TvShow;
 /**
  * Main class for the API to connect to the server
  */
-public class ApiManager implements ApiInterface {
+public class ApiManager extends ApiUtil implements ApiInterface {
     //API key is to connect with the TMDB server.
     private static final String API_KEY = "44ed1d7975d7c699743229199b1fc26e";
     private static final String CONNECTION_ERROR_MESSAGE = "Looks like you're not connected to the internet";

@@ -8,27 +8,27 @@ Ezwatchlist was developed by a group of students based in the http://www.comp.nu
 
 == Project Team
 
-=== Caleb Goh
+=== Caleb Goh Ee Gen
 image::heze8.png[width="150", align="left"]
-{empty} [https://github.com/heze8[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/heze8[github]] [<<heze8#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Movie API, Recommendations
+Responsibilities: Online database API, Recommendations, Image Retrieval
 
 '''
 
 === Wu Xia
 image::tswuxia.png[width="150", align="left"]
-{empty}[http://github.com/tswuxia[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/tswuxia[github]] [<<tswuxia#, portfolio>>]
 
 Role: Code Quality +
 Responsibilities: UI
 
 '''
 
-=== Jared Chiang
+=== Chiang Jiajun Jared
 image::jcjjjared.png[width="150", align="left"]
-{empty}[http://github.com/jcjjjared[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/jcjjjared[github]] [<<jcjjjared#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Main Logic
@@ -44,9 +44,9 @@ Responsibilities: Component Logic
 
 '''
 
-=== Michelle Yong
+=== Michelle Yong Kai Wen
 image::michelleykw.png[width="150", align="left"]
-{empty}[http://github.com/michelleykw[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/michelleykw[github]] [<<michelleykw#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: Search and Tag Logic

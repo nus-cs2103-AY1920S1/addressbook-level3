@@ -145,7 +145,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'EzWatchlist',
-        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F13-3/main',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F13-4/main',
     ]
 
     options['template_dirs'].each {
