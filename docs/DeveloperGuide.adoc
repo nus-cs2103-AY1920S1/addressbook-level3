@@ -221,19 +221,19 @@ Step 2. The user clicks on the statistic button and sees the content.
 
 This is the sequence diagram of `getFavouriteGenre()`.
 
-image::getFavouriteGenre.png[]
+image::GetFavouriteSequenceDiagram.png[]
 
 This is the sequence diagram of `getForgotten()`.
 
-image::getForgotten.png[]
+image::GetForgottenSequenceDiagram.png[]
 
 This is the sequence diagram of `getRecommendation()`.
 
-image::getRecommendation.png[]
+image::GetRecommendationSequenceDiagram.png[]
 
 The following activity diagram summarizes the workflow of Statistics:
 
-image::activityDiagram.png[]
+image::StatisticsActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -248,12 +248,13 @@ image::activityDiagram.png[]
 
 ===== Aspect: When the results are calculated
 
-* **Alternative 1 (current choice):** Calculate when the application starts and update when there are changes.
+* **Alternative 1 (current choice):** Calculate when the user navigate to Statistics panel and the user has made changes
+to the watchlist.
+** Pros: Statistics results is more up to date.
+** Cons: Appear less responsive as the API needs to retrieve information during calculation.
+* **Alternative 2 :** Calculate when the application starts and update when there are changes.
 ** Pros: It appears more responsive in terms of navigating around the application.
-** Cons: Need to constantly recalculate and update the results.
-* **Alternative 2:** Calculate when the user navigate to Statistics panel.
-** Pros: Less calculation needed.
-** Cons: Appear less responsive.
+** Cons: The statistics information will not be updated realtime if the user has changed the watchlist.
 // end::statistics[]
 
 // tag::undoredo[]

@@ -1,0 +1,13 @@
+@startuml
+start
+:User launches app;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:Statistics calculates
+the 3 results and
+populate the panel;
+
+stop
+@enduml
