@@ -3,9 +3,9 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 import static seedu.address.testutil.TypicalSchedules.SCHEDULE_TEST;
 import static seedu.address.testutil.TypicalSchedules.SCHEDULE_TEST2;
-import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleBook;
 
 import java.io.IOException;
@@ -17,7 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.DataBook;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.schedule.Schedule;
 

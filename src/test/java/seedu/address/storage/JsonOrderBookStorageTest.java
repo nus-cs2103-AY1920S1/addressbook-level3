@@ -3,9 +3,9 @@ package seedu.address.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.address.testutil.Assert.assertThrows;
+import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalOrders.ORDER_JSON_TEST2;
 import static seedu.address.testutil.TypicalOrders.ORDER_JSON_TEST3;
-import static seedu.address.testutil.TypicalOrders.ORDERONE;
 import static seedu.address.testutil.TypicalOrders.getTypicalOrderBook;
 
 import java.io.IOException;
@@ -17,7 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.DataBook;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.order.Order;
 

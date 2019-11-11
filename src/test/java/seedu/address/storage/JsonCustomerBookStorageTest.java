@@ -17,7 +17,6 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.DataBook;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.customer.Customer;
 
