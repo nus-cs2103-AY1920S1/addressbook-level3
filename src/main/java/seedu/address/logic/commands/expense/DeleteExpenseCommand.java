@@ -53,7 +53,6 @@ public class DeleteExpenseCommand extends Command {
         }
 
         model.setPageStatus(model.getPageStatus()
-                .withResetEditEventDescriptor()
                 .withNewPageType(PageType.EXPENSE_MANAGER));
 
         return new CommandResult(MESSAGE_DELETE_EXPENSE_SUCCESS

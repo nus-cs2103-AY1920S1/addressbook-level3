@@ -40,9 +40,6 @@ public class PresetSymbols extends UiPart<VBox> {
     @FXML
     private VBox propertiesContainer;
     private ToggleGroup group;
-    private Expense expense;
-    private Index displayedIndex;
-    private Model model;
     private MainWindow mainWindow;
 
     public PresetSymbols(MainWindow mainWindow) {

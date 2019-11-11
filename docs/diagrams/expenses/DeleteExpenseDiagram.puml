@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes delete command;
+if () then ([index to delete \n<= \nsize of expenselist])
+:execute \nremoveByUser(expenseToDelete);
+    if() then ([expense is \nmiscellaneous])
+    :expense is removed;
+    :refresh current page;
+    else ([else])
+    :expense not removable;
+    endif
+else ([else])
+:index out of bound;
+endif
+stop
+
+@enduml

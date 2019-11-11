@@ -1,0 +1,32 @@
+@startuml
+start
+:User edits an expense;
+if () then ([is planned expense])
+    if() then ([edit amount of expense])
+    :User executes edit expense;
+    :User edits amount of expense;
+    :User executes done
+    editing the expense;
+    else ([edit name or day number])
+    :User goes to the day
+    containing the expense;
+        if() then ([edit name])
+        :User edits the name
+         of the event;
+        else([edit day number])
+        :User removes the event
+        and creates the event
+        in another day;
+        endif
+    endif
+else ([is miscellaneous expense])
+:User executes edit expense;
+:User edits name, amount
+ or day number;
+:User executes done
+ editing the expense;
+endif
+:The expenditure is edited;
+stop
+
+@enduml

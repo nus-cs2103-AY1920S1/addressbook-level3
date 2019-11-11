@@ -45,12 +45,20 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
     }
 
     /**
-     * Get day from daylist by index.
+     * Gets day from daylist by index.
      * @param index the index of Day to be returned
      * @return the day with the specified index
      */
     public Day get(int index) throws IndexOutOfBoundsException {
         return internalList.get(index);
+    }
+
+    /**
+     * Gets the number of days in the day list.
+     * @return the number of days in the day list
+     */
+    public int getNumberOfDays() {
+        return internalList.size();
     }
 
     @Override

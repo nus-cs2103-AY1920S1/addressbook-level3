@@ -41,7 +41,7 @@ public class DoneEditExpenseCommand extends Command {
                 .getEditExpenseDescriptor();
         Expense expenseToEdit = model.getPageStatus().getExpense();
         Expense expenseToAdd;
-        int numOfDays = model.getPageStatus().getTrip().getDayList().internalList.size();
+        int numOfDays = model.getPageStatus().getTrip().getDayList().getNumberOfDays();
         if (editExpenseDescriptor == null) {
             return new CommandResult(MESSAGE_NOT_EDITED);
         }
