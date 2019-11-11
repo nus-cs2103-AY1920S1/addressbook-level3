@@ -583,7 +583,7 @@ It must be a valid number: a non-negative integer smaller the list size.
 * If the VALUE is larger than the money pending to pay, the payment would not be generated.
 * If the employee who has been paid for a past event has been removed from the allocation of a past event,
 the "Pending To Pay" value may become negative. You will not be able to pay an employee whose current pending pay is negative,
-until the 'undo_pay' command is executed to reset the pending payment value to >= 0.
+until the 'undo_pay' command is executed to reset the pending payment value to more than or equal to  0.
 ****
 
 Examples:

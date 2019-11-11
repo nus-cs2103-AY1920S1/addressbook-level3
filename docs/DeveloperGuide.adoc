@@ -975,5 +975,35 @@ Open the data folder which should contain employeebook.json and eventbook.json f
 .. Open one of the json file and corrupt the file.
 .. Open the jar file again, AddMin+ should still run with one of the list data loaded.
 
+=== Pay an employee
+
+. Pay an employee in the showing list
+
+.. Prerequisites: The employee has sufficient amount of 'Pending Pay'.
+.. Test case: `pay 1 s/10` +
+   Expected: Employee of ID '1' is paid $10 from the list.
+Details of the payment shown in the status message.
+.. Test case: `pay 1 s/-10` +
+   Expected: The employee is not paid.
+Error details shown in the status message.
+Status bar remains the same.
+.. Other incorrect delete commands to try: `pay`, `pay x`, `pay x s/10`, (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous
+
+=== Undo payment made to an employee
+
+. Undo payment made to an employee in the showing list
+
+.. Prerequisites: The employee has sufficient amount of 'Salary Paid'.
+.. Test case: `undo_pay 1 s/10` +
+   Expected: The 'Salary Paid' of Employee of ID '1' has been deducted $10.
+Details of the payment shown in the status message.
+.. Test case: `undo_pay 1 s/-10` +
+   Expected: The command is not executed.
+Error details shown in the status message.
+Status bar remains the same.
+.. Other incorrect delete commands to try: `undopay`, `undo_pay x`, `undo_pay x s/10`, (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
 
 
