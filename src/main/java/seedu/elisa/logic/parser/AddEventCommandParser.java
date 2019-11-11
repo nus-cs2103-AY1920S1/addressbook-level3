@@ -7,6 +7,7 @@ import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
 import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -41,7 +42,7 @@ public class AddEventCommandParser implements Parser<AddCommand> {
         // Event must have a deadline.
         if (!arePrefixesPresent(argMultimap, PREFIX_DATETIME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT)); // AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
         }
 
         ItemDescription description = ParserUtil.parseDescription(desc);
@@ -58,6 +59,11 @@ public class AddEventCommandParser implements Parser<AddCommand> {
                     argMultimap.getValue(PREFIX_AUTO_RESCHEDULE).orElse(null));
             if (reschedulePeriod.isPresent()) {
                 event = event.setAutoReschedule(true).setReschedulePeriod(reschedulePeriod.get());
+                if (event.getStartDateTime().isBefore(LocalDateTime.now())) {
+                    LocalDateTime updatedDateTime = ParserUtil.getUpdatedDateTime(event.getStartDateTime(),
+                            reschedulePeriod.get().getPeriod());
+                    event = event.changeStartDateTime(updatedDateTime);
+                }
             }
         } catch (ParseException pe) {
             throw pe;
