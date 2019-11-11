@@ -95,10 +95,6 @@ public class Expense {
         this.budgetName = budget.getDescription();
     }
 
-    public void removeBudget() {
-        this.budgetName = Budget.DEFAULT_BUDGET_DESCRIPTION;
-    }
-
     public boolean uniqueIdIs(String id) {
         return this.uniqueIdentifier.value.equals(id);
     }

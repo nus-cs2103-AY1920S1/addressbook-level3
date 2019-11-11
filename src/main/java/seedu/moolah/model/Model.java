@@ -258,8 +258,6 @@ public interface Model {
      */
     void updateFilteredEventList(Predicate<? super Event> predicate);
 
-    void notifyAboutTranspiredEvents(List<Event> events);
-
     boolean hasEvent(Event event);
 
     void addEvent(Event event);

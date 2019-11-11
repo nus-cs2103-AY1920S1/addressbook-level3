@@ -332,10 +332,6 @@ public class ModelManager implements Model {
     //=========== Event ================================================================================
 
     @Override
-    public void notifyAboutTranspiredEvents(List<Event> events) {
-
-    }
-    @Override
     public boolean hasEvent(Event event) {
         requireNonNull(event);
         return mooLah.hasEvent(event);
@@ -359,18 +355,10 @@ public class ModelManager implements Model {
         mooLah.setEvent(target, editedEvent);
     }
 
-
-    //=========== Statistics ================================================================================
-
-    public Statistics getStatistics() {
-        return statistics;
-    }
-
-    public void setStatistics(Statistics statistics) {
-        requireNonNull(statistics);
-        this.statistics = statistics;
-    }
-
+    /**
+     * Deletes all transpired events right after a model rollback so as to prevent repeated event popups arising
+     * from the undo feature.
+     */
     @Override
     public void handleAlreadyTranspiredEvents() {
         List<Event> toBeDeleted = new ArrayList<>();
@@ -383,6 +371,17 @@ public class ModelManager implements Model {
         for (Event event : toBeDeleted) {
             deleteEvent(event);
         }
+    }
+
+    //=========== Statistics ================================================================================
+
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(Statistics statistics) {
+        requireNonNull(statistics);
+        this.statistics = statistics;
     }
 
 
@@ -415,7 +414,7 @@ public class ModelManager implements Model {
     //=========== Filtered Event List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
      * {@code versionedMooLah}
      */
     @Override
@@ -441,7 +440,7 @@ public class ModelManager implements Model {
     //=========== Filtered Budget List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Budget} backed by the internal list of
      * {@code versionedMooLah}
      */
     @Override

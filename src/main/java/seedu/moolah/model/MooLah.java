@@ -81,8 +81,8 @@ public class MooLah implements ReadOnlyMooLah {
     }
 
     /**
-     * Replaces the contents of the expense list with {@code expenses}.
-     * {@code expenses} must not contain duplicate expenses.
+     * Replaces the contents of the event list with {@code events}.
+     * {@code events} must not contain duplicate events.
      */
     public void setEvents(List<Event> events) {
         this.events.setEvents(events);
@@ -97,27 +97,6 @@ public class MooLah implements ReadOnlyMooLah {
         setExpenses(newData.getExpenseList());
         setBudgets(newData.getBudgetList());
         setEvents(newData.getEventList());
-        //setPrimaryBudget(newData.getPrimaryBudgetName());
-        //budgets.handleDuplicatePrimaryBudgets();
-        //resetBudgetExpenseLists();
-    }
-
-    /**
-     * Update expense list of all budgets as a result of UndoCommand on expenses.
-     */
-    private void resetBudgetExpenseLists() {
-        /*
-        for (Budget b : budgets) {
-            b.clearExpenses();
-        }
-        for (Expense e : expenses) {
-            Budget b = budgets.getBudgetWithName(e.getBudgetName());
-            if (b != null) {
-                b.addExpense(e);
-            }
-        }
-
-         */
     }
 
     //=========== Expense-level operations =============================================================
@@ -311,9 +290,6 @@ public class MooLah implements ReadOnlyMooLah {
         requireNonNull(editedEvent);
 
         events.setEvent(target, editedEvent);
-        //        for (Budget budget : budgets) {
-        //            budget.setEvent(target, editedEvent);
-        //        }
     }
 
     @Override

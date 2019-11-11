@@ -26,8 +26,6 @@ import seedu.moolah.model.budget.BudgetPeriod;
  */
 public class Timestamp implements Comparable<Timestamp> {
 
-    public static final int CURRENT_YEAR = LocalDate.now().getYear();
-
     public static final String MESSAGE_CONSTRAINTS_PERIOD =
             "Input period is not day/week/month/year";
 
@@ -54,12 +52,11 @@ public class Timestamp implements Comparable<Timestamp> {
 
 
     /**
-     * Constructs a Timestamp from a raw date String,
-     * only if the date conforms to the format of dd-MM[-yyyy].
+     * Constructs a Timestamp from a raw date String given by the user.
      *
      * @param rawTimestamp A String inputted by the user in the date field.
      * @return An Optional Timestamp that will contain a Timestamp
-     * if the date given is of the valid format.
+     * if the datetime given is of the valid format.
      */
     public static Optional<Timestamp> createTimestampIfValid(String rawTimestamp) {
         Matcher m = DDMM_PATTERN.matcher(rawTimestamp);
@@ -72,6 +69,7 @@ public class Timestamp implements Comparable<Timestamp> {
 
     /**
      * Returns an Optional timestamp from parsing a string through the Natty parser.
+     *
      * @param rawTimestamp The raw timestamp input.
      * @return An Optional that contains a timestamp if the raw timestamp input was successfully parsed by Natty.
      */
@@ -89,12 +87,11 @@ public class Timestamp implements Comparable<Timestamp> {
     }
 
     /**
-     * Constructs a Timestamp from a raw date String,
-     * only if the date conforms to the format of dd-MM[-yyyy].
+     * Constructs a Timestamp from storage, only if the timestamp is still in the past compared to system time.
      *
      * @param rawTimestamp A String inputted by the user in the date field.
      * @return An Optional Timestamp that will contain a Timestamp
-     * if the date given is of the valid format.
+     * if the datetime is valid and it is in the past.
      */
     public static Optional<Timestamp> createPastTimestampFromStorage(String rawTimestamp) {
         Optional<Timestamp> potentialTimestamp = parseRawTimestamp(rawTimestamp);
@@ -108,12 +105,11 @@ public class Timestamp implements Comparable<Timestamp> {
     }
 
     /**
-     * Constructs a Timestamp from a raw date String,
-     * only if the date conforms to the format of dd-MM[-yyyy].
+     * Constructs a Timestamp from storage.
      *
      * @param rawTimestamp A String inputted by the user in the date field.
      * @return An Optional Timestamp that will contain a Timestamp
-     * if the date given is of the valid format.
+     * if the datetime is valid.
      */
     public static Optional<Timestamp> createGeneralTimestampFromStorage(String rawTimestamp) {
         return parseRawTimestamp(rawTimestamp);
@@ -155,7 +151,6 @@ public class Timestamp implements Comparable<Timestamp> {
         return this.fullTimestamp.toLocalDate().isBefore(other.fullTimestamp.toLocalDate());
     }
 
-
     public Timestamp createBackwardTimestamp(BudgetPeriod period) {
         return new Timestamp(this.fullTimestamp.minus(period.getPeriod()));
     }
@@ -178,12 +173,11 @@ public class Timestamp implements Comparable<Timestamp> {
         return new Timestamp(this.fullTimestamp.plus(period.getPeriod()));
     }
 
-
     /**
-     * Finds a time ahead of the current timestamp by a few iteration of periods
-     * @param period Period of an interval
-     * @param number Number of iterations
-     * @return A new timestamp
+     * Finds a time ahead of the current timestamp by a few iteration of periods.
+     * @param period Period of an interval.
+     * @param number Number of iterations.
+     * @return A new timestamp.
      */
     public Timestamp createForwardTimestamp(BudgetPeriod period, int number) {
         Timestamp result = this;
@@ -254,8 +248,8 @@ public class Timestamp implements Comparable<Timestamp> {
     }
 
     /**
-     * Compare method that compares the Date without including time
-     * @param other Another timestamp
+     * Compare method that compares the Date without including time.
+     * @param other Another timestamp.
      */
     public int compareDateTo(Timestamp other) {
         if (this.dateIsBefore(other)) {
@@ -268,8 +262,8 @@ public class Timestamp implements Comparable<Timestamp> {
     }
 
     /**
-     * Method to format a Timestamp object to show only date dd-MM-YYYY
-     * @return Date in correct format
+     * Method to format a Timestamp object to show only date dd-MM-yyyy.
+     * @return Date in dd-MM-yyyy format.
      */
     public String showDate() {
         LocalDate date = this.getDate();
