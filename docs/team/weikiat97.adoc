@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Classroom - Level 3
+== PROJECT: Teacher's Notebook
 
 ---
 
@@ -28,7 +28,7 @@ The implementation was very challenging as one command had to be suited for vari
 ** Refactored the code from AB3 with persons, to students and added in additional fields (MedicalConditions, ParentPhone).
 ** Added various CRUD commands - FindAssignmentCommand, DeleteClassroomCommand etc and improved on peers codes.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weikiat97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tP code Dashboard]]
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-T14-1/main/commits?author=weikiat97[Functional Code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weikiat97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
 * *Other contributions*:
 
@@ -44,11 +44,11 @@ The implementation was very challenging as one command had to be suited for vari
 *** Proper time parsing for dates and times (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/83[#83])
 *** Wrote additional tests to the current project to increase coverage (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/186[#186] increased coverage by 12.6%).
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide so that they are more coherent: https://github.com/AY1920S1-CS2103-T14-1/main/pull/88/[#88]
-*** Made changes to the current puml diagrams from AB3 to suit our current project: https://github.com/AY1920S1-CS2103-T14-1/main/pull/185[#185]
-*** Changed the undo redo implementation feature from AB3 to suit the current project's undo redo.
+*** Did cosmetic tweaks to existing contents of the User Guide so that they are more coherent: (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/88/[#88])
+*** Made changes to the current puml diagrams from AB3 to suit our current project: (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/185[#185])
+*** Changed the undo redo implementation feature from AB3 to suit the current project's undo redo: (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/67[#67])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/110[#110], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/37[#37]
+*** PRs reviewed (with non-trivial review comments): (Pull request https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/110[#110], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/37[#37])
 *** Reported bugs and suggestions for other teams in the class during PE dry run (examples:  https://github.com/weikiat97/ped/issues/4[1], https://github.com/weikiat97/ped/issues/1[2], https://github.com/weikiat97/ped/issues/10[3])
 
 
@@ -56,10 +56,12 @@ The implementation was very challenging as one command had to be suited for vari
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=students]
+
+include::../UserGuide.adoc[tag=get]
 
 include::../UserGuide.adoc[tag=undoredo]
 
@@ -72,7 +74,7 @@ include::../UserGuide.adoc[tag=statistics]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=model]
@@ -82,8 +84,5 @@ include::../DeveloperGuide.adoc[tag=storage]
 include::../DeveloperGuide.adoc[tag=getgrades]
 
 include::../DeveloperGuide.adoc[tag=getunsubmitted]
-
-include::../DeveloperGuide.adoc[tag=undoUseCase]
-
 
 
