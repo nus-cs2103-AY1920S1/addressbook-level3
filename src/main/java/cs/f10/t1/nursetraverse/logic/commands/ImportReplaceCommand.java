@@ -12,6 +12,7 @@ import cs.f10.t1.nursetraverse.importexport.CsvUtil;
 import cs.f10.t1.nursetraverse.importexport.ImportExportPaths;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
@@ -83,6 +84,8 @@ public class ImportReplaceCommand extends MutatorCommand {
         }
 
         model.replaceStagedPatientBook(importedPatients);
+        // Delete all existing appointments
+        model.setStagedAppointmentBook(new AppointmentBook());
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
