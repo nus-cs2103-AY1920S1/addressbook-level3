@@ -16,6 +16,7 @@ import javafx.scene.layout.FlowPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.commands.itinerary.days.EnterCreateDayCommand;
 import seedu.address.model.Model;
 import seedu.address.model.itinerary.day.Day;
@@ -66,5 +67,10 @@ public class DaysPage extends PageWithSidebar<AnchorPane> {
     @FXML
     private void handleAddDay() {
         mainWindow.executeGuiCommand(EnterCreateDayCommand.COMMAND_WORD);
+    }
+
+    @FXML
+    private void handleHelp() {
+        mainWindow.executeGuiCommand(HelpCommand.COMMAND_WORD);
     }
 }

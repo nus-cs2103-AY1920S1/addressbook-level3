@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.itinerary.events.EnterCreateEventCommand;
 import seedu.address.logic.commands.itinerary.events.ShowEventDetailsCommand;
@@ -33,6 +34,8 @@ import seedu.address.ui.template.UiChangeConsumer;
 public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeConsumer {
 
     private static final String FXML = "itinerary/events/EventsPage.fxml";
+
+    private static final String INVENTORY_LIST_VIEW_STYLESHEET = "/view/inventory/InventoryListViewTheme.css";
 
     @FXML
     private ListView<Event> eventListView;
@@ -89,8 +92,10 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
 
                 if (empty || item == null || item.getName() == null) {
                     setText(null);
+                    getStylesheets().add(INVENTORY_LIST_VIEW_STYLESHEET);
                 } else {
                     setText(item.getName().fullName);
+                    getStylesheets().add(INVENTORY_LIST_VIEW_STYLESHEET);
                 }
             }
         });
@@ -157,4 +162,8 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
         mainWindow.executeGuiCommand(EnterCreateEventCommand.COMMAND_WORD);
     }
 
+    @FXML
+    private void handleHelp() {
+        mainWindow.executeGuiCommand(HelpCommand.COMMAND_WORD);
+    }
 }

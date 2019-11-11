@@ -1,0 +1,18 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class Event
+class InventoryList
+class Inventory
+
+Event *-down-> "*" Inventory
+InventoryList *-down-> "*" Inventory
+
+Inventory *---> "1" Name : name <
+Inventory *---> "1" BooleanProperty : isDone >
+Inventory *---> "1" int : eventInstances >
+
+@enduml

@@ -171,67 +171,116 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::teoha_ppp[]
+[[Edit-Trip]]
 === [Itinerary] Edit trip/day/event feature
-==== Aspect: Model
-Editing of trip/day/event can be accessed from `TripsPage/DaysPage/EventsPage` respectively. The
-The execution of commands in the each page is facilitated by `TripManagerParser/DayViewParser/EventViewParser` and respectively.
-They extends from `PageParser` class which serves as the abstraction for all parsers related to each __Page__.
+
+[[edit_logic]]
+==== Aspect: Logic
+Editing of trip/day/event can be accessed from `TripsPage/DaysPage/EventsPage` respectively.
+The execution of commands in the each page is facilitated by `TripManagerParser/DayViewParser/EventViewParser` which extends from the `PageParser`. This class serves as the abstraction for all parsers related to each __Page__.
 
 The operations are exposed to the `Model` interface through the `Model#getPageStatus()`
-method that returns the `PageStatus` containing the current state of application.
+method that returns the `PageStatus` containing the all information regarding the current state of application. This includes the _descriptors_ (explained in Step 1 below) which stores all information about the edit.
 
-Given below is an example usage scenario and how the program behaves at each step.
+*Given below is an example usage scenario and how the program behaves at each step.*
 
-Step 1. When the user launches the application. The `PageStatus` is initialized under along with other `Model` components. `PageStatus` at launch does not contain any `EditTripDescriptor/EditDayDescriptor/EditEventDescriptor` responsible for storing information for the edit.
+*Step 1.* When the user launches the application. The `PageStatus` is initialized under along with other `Model` components. `PageStatus` at launch does not contain any `EditTripDescriptor/EditDayDescriptor/EditEventDescriptor` responsible for storing information for the edit.
 
-image::ItineraryEdit0.png[]
+image::ItineraryEdit0.png[width=400]
 
-Step 2. The user currently on the `TripsPage/DaysPage/EventsPage` is displayed a list of `Trip/Day/Event` respectively. The user executes the edit command `EDIT1` using the `OneBasedIndex` on the list to edit it.This executes the `EnterEditTripFieldCommand/EnterEditDayFieldCommand/EnterEditEventFieldCommand` that initializes a new descriptor within `PageStatus` before switching over to the `EditTripPage/EditDayPage/EditEventPage` containing to perform the editing.
+*Step 2.* The user currently on the `TripsPage/DaysPage/EventsPage` is displayed a list of `Trip/Day/Event` respectively. The user executes the edit command `EDIT1` using the `OneBasedIndex` on the list to edit it.This executes the `EnterEditTripFieldCommand/EnterEditDayFieldCommand/EnterEditEventFieldCommand` that initializes a new descriptor within `PageStatus` before switching over to the `EditTripPage/EditDayPage/EditEventPage` containing to perform the editing.
 
-image::ItineraryEdit1.png[]
+image::ItineraryEdit1.png[width=400]
 
-Step 3. The user is now on the edit page displaying a list of fields that the user can edit in the `Trip/Day/Event`.
+*Step 3.* The user is now on the edit page displaying a list of fields that the user can edit in the `Trip/Day/Event`. Commands on each page differs based on the fields they contain.
+====
 The following is an example list of commands available in `DaysPage` and the execution of the program when a field is edited in `DaysPage`:
 
 * `edit n/<name> ds/<startDate> de/<endDate> b/<totalBudget> l/<destination> d/<description>` - Edits the relevant fields
 * `done` - Completes the edit and returns to the __Overall View__
 * `cancel` - Discards the edit and returns to the __Overall View__
+====
+When user executes the command `edit n/EditedName` on the `DaysPage`. The command creates a new descriptor from the contents of the original, replacing the fields only if they are edited. The new descriptor is then assigned to `PageStatus` replacing the original `EditDayDescriptor`. The result of the edit is then displayed to the user.
 
-The user executes the command `edit n/EditedName` on the `DaysPage`. The command creates a new descriptor from the contents of the original, replacing the fields only if they are edited. The new descriptor is then assigned to `PageStatus` replacing the original `EditDayDescriptor`. The result of the edit is then displayed to the user.
+image::ItineraryEdit2.png[width=400]
 
-image::ItineraryEdit2.png[]
+*Step 4.* The user has completed editing the `Trip/Day/Event` and executes `done`/`cancel` to confirm/discard the edit. The execution of the two cases are as follows:
 
-Step 4. The user has completed editing the `Trip/Day/Event` and executes `done`/`cancel` to confirm/discard the edit. The execution of the two cases are as follows:
+* The user executes `done` to confirm the edit. This executes the `DoneEditTripCommand/DoneEditDayCommand/DoneEditEventCommand` and a `Trip/Day/Event` is built from the descriptor respective to the type it describes. `DayList#set(target, edited)` proceeds to be executed which accesses the `Day` to edit from the `day` field in `PageStatus` as the target. This method replaces the original day with the newly built day from the descriptor. The descriptor in `PageStatus` is then reset to contain empty fields (See figure below).
 
-* The user executes `done` to confirm the edit. This executes the `DoneEditTripCommand/DoneEditDayCommand/DoneEditEventCommand` and a `Trip/Day/Event` is built from the descriptor respective to the type it describes. `DayList#set(target, edited)` proceeds to be executed which accesses the `Day` to edit from the `day` field in `PageStatus` as the target. The method replaces the original day with the newly built day from the descriptor. The descriptor in `PageStatus` is then reset to contain empty fields.
-
-image::ItineraryEdit3.png[]
+image::ItineraryEdit3.png[width=400]
 
 * The User executes `cancel` to discard the edit. This executes the `CancelEditTripCommand/CancelEditDayCommand/CancelEditEventCommand` which resets the descriptor in `PageStatus` to contain all empty fields.
 
-image::ItineraryEdit4.png[]
+image::ItineraryEdit4.png[width=400]
 
-Upon completion of the edit, the user is returned to the `TripPage/DaysPage/EventsPage` depending on where the user entered the edit page from.
+* Upon completion of the edit, the user is returned to the `TripPage/DaysPage/EventsPage` depending on where the user entered the edit page from.
 
-Below is an sequence diagram illustrating the execution of the command "edit ds/10/10/2019":
+---
 
-image::ItineraryEditSequenceDiagram.png[]
+*Below is a sequence diagram illustrating the execution of the command "edit ds/10/10/2019" on _Days Page_:*
+
+image::ItineraryEditSequenceDiagramSimple.png[title="Sequence diagram for execution of `edit ds/10/10/2019`"]
+* When the command is executed, TravelPal uses a series of parsers to parse entire command
+** `TravelPalParser`: Parses the command. In execution above, it is identified that the first word is the command.
+** `EditDayParser`: Parses the type of command. The string "edit" is parsed and correctly identifies `EditDayParser` should be used to continue parsing further tokens
+** `EditDayFieldParser`: Parses the details of the edit. In this execution, the date is parsed by the `DateParserUtil` class and creates a descriptor as mentioned in the section above
+
+After executing the parsers above, the last parser instantiates and recursively returns the command (e.g. `commandEditDayFieldCommand`) up to the `LogicManager`. `LogicManager` then executes the command as the sequence diagram below:
+
+image::ItineraryEditSequenceDiagramSimpleref.png[title="Reference frame for execution of _command_"]
+
+The execution of the command is explained above (refer to <<edit_logic>>).
 
 ==== Aspect: User Interface
 The UI for to edit fields are associated with the `EditTripPage/EditDayPage/EditEventPage` respectively.
 
 image::EditTripPageClassDiagram.png[title="Class diagram showing EditTripPage's associations"]
 
-The diagram above shows the `EditTripPage` of the 3 pages and how it displays its contents. All the pages extend the `Page` class and contains several `FormItems`. These pages classes can also navigate to the `Model` and `Logic` interfaces through the `ModelManager` and `LogicManager` class respectively.
+The execution of the edit command involves the `Model`, `Logic` and `Ui` components of the application. Listed here are the packages used in the execution of the `edit` commands that are found in the figure above:
 
-The `FormItems` (e.g. `DateFormItem`) are instantiated by the `EditTripPage#initFormWithModel` method called by the constructor of `EditTripPage` . Each `FormItem` contains an `executeChangeHandler` that executes whenever the `onChange` property is modified by the user. These are initialized as execution of the various edit commands (e.g. EditTripFieldCommand/EditDayFieldCommand/EditEventFieldCommand) using the value in the `FormItem`.
+* *ui.itinerary*: This package contains all the Ui classes for the _Itinerary feature_.
+* *ui.components.form*: Contains all the form items
+* *ui.template*: This package contains the `Page` class which all pages extend from
 
-The contents of the fields are updated by the execution to the commands above. When the user edits any of the `FormItems`, the commands are executed which will cause the `EditTripPage/EditDayPage/EditEventPage#fillPage()` to execute again. `fillPage` retrieves the updated fields from `PageStatus` and displays them as the values in the `FormItems`.
+The class at large in the diagram above is the `EditTripPage` of the 3 pages explained. It extends from the `Page` class and is associated with the following:
 
-=== Aspect: Workflow of execution
+* Contains `formItems` from the `ui.components.form` generate a form
+** The `FormItems` (e.g. `DateFormItem`) are instantiated by the `EditTripPage#initFormWithModel` method called by the constructor of `EditTripPage` . Each `FormItem` contains an `executeChangeHandler` that executes whenever the `onChange` property is modified by the user. These are initialized as execution of the various edit commands (e.g. EditTripFieldCommand/EditDayFieldCommand/EditEventFieldCommand) using the value in the `FormItem`.
+* Navigable to the `ModelManager` and `LogicManager` for execution of commands using Ui interactions.
+
+The contents of the fields are updated by the execution of the commands above. When the user edits any of the `FormItems`, the commands are executed which will cause the `EditTripPage/EditDayPage/EditEventPage#fillPage()` to execute again. `fillPage` retrieves the updated fields from `PageStatus` and displays them as the values in the `FormItems`.
+
+==== Aspect: Workflow of execution
 The logic of editing a field and committing it to memory is a simple process of validating each field. If any field fails to meet the specifications, the `Trip/Day/Event` will not be created/edited. Below is an example execution of validating the edit:
 
-image::EditTripPageActivityDiagram.png[title="Execution of the done command on any edit page"]
+image::DoneEditActivityDiagram.png[title="Execution of the done command on any edit page"]
+
+==== Aspect: Design considerations
+When designing this feature, there were several challenges involved while working with the existing code base especially to adhere to strict Object Orientated Programming Principles. Below are two such design challenges that and how they were resolved:
+
+
+|===
+|*Challenge* |*Alternative 1* |*Alternative 2* |*Chosen Option*
+
+|Handling Dynamic UI Changes
+|The first alternative was to consider the updating of ui as a state of the program. The `PageStatus` class includes an `ObservableValue<Command>`, `uiChangeCommand` and design each `Page` to implement `ChangeListener`. When a command is executed, if it involves changing the UI but without switching pages, the `Pages` implementing `ChangeListener` would perform checks on the command executed and execute the correct UI change.
+|The second alternative was to let pages that can change by execution of commands (dynamic pages) to extend the class `DynamicUiPart` extending from the provided `UiPart` class that contains an abstract method `uiChange` that handle the ui changes. The identification of what ui change should execute is then placed in the `CommandResult` with new fields `CommandWord` and `doChangeUi`
+|Alternative 2 was chosen due better Object Orientated Programming (OOP) principles. The second method was good practice of the Interface Segregation Principle where classes do not need to depend on methods it did not need. Static pages in the program does not inherit `DynamicUiPart`.
+
+
+However limitations of Java arose as classes cannot inherit more than one class at once. Instead of using the class `DynamicUiPart`, the interface `UiChangeConsumer` was used instead.
+
+|Storing of the user's edit information
+|The first alternative was the straight forward implementation of using the `Logic` interface and its accessors to edit the information in memory directly. This method was however incoherent with out intended design of having forms for users to edit.
+|The second alternative was using `PageStatus` to store the current state of editing by the user (_edit descriptors_). This method creates a separate place in memory to store the information of the edit. Only after the user confirms/cancels the edit, then the information in the _descriptors_ are validated and committed to memory
+| The second alternative was chose mainly due to the coherence to the design of using forms. The descriptors also serve as minor validations (e.g. Only alphanumeric characters, up to 40 characters etc.). Users can be informed earlier of mistakes in filling forms before submitting.
+|===
+
+// end::teoha_ppp[]
+
+[[Delete-Trip]]
 
 === [Itinerary] Delete Trip/Day/Event
 ==== Implementation
@@ -240,11 +289,11 @@ Upon initial startup of the program `Model` is initialized with `PageStatus` wit
 
 Step 1. When the user launches the application. `PageStatus` is initialized along with other `Model` components with empty references.
 
-image::ItineraryDelete0.png[]
+image::ItineraryDelete0.png[width=400]
 
 Step 2. The user enters the `DaysPage/EventsPage` using the goto command. This instantiates a new `PageStatus` object from the the existing `PageStatus` with a modified `Day/Trip`, providing the context for subsequent actions. Below is an example execution of the command:
 
-image::ItineraryDelete1.png[]
+image::ItineraryDelete1.png[width=400]
 
 Step 3. The user is now on the `TripManager/DaysPage/EventsPage`, the user can execute the `delete` command in accordance to the display ordered index on any of the aforementioned pages.
 
@@ -252,7 +301,162 @@ When the command `delete <index>` is executed, `DeleteTripCommand/DeleteDayComma
 
 The `Day/Trip` reference contains the list of `Events/Days` in memory respectively (`DayList/EventList`). `DayList#remove/EventList#remove` are methods in the respective list classes used to delete the day/event. These are executed, modifying the in memory `TravelPal` and `Trip/Event/Day` is removed.
 
-image::ItineraryDelete2.png[]
+image::ItineraryDelete2.png[width=400]
+
+
+// tag::expense_ppp[]
+=== [Expense] Expense Manager
+The _Expense Manager_ is one of the main features of TravelPal, it maintains a list of `Expense` stored in an `ExpenseList`.
+_Expense Manager_ is also capable of calculating and displaying budget, sorting expenses and toggling display options.
+[[expense_model]]
+==== Aspect : Model
+
+[[expense_class_diagram]]
+image::expense/developerguide/ExpenseModelClassDiagram.png[title=Class diagram showing the expense model]
+
+===== Expense
+
+`Expense` is an abstract class storing expense model.
+
+It has three compulsory fields, the _name of expense_, the _amount of expense_, and a _day number_. These fields are used to store information related to an expense.
+They are implemented as instance of class `Name` `Budget` and `DayNumber` respectively.
+
+`MiscExpense` and `PlannedExpense` are the child classes extending from `Expense` class, they are
+used to represent the two types of expenses: _miscellaneous expense_ and _planned expense_.
+
+===== ExpenseList
+
+`ExpenseList` is an class that stores the `Expense` models.
+It supports wrapper methods around the underlying `ObservableList` to facilitate the use in the logic components.
+
+[[expense_ui]]
+==== Aspect : UI
+
+image::expense/developerguide/ExpenseUIClassDiagram.png[title=Class diagram showing the user interface of expense]
+
+NOTE: The `ExpensesPage` implements an `UiChangeConsumer` interface to facilitate the toggling between the _Days View_ and
+ _List View_ of _Expense Manager_, which is not shown in the diagram above.
+
+The UI of expense manager mainly consists of two `Page`: `ExpensesPage` and `EditExpensePage`.
+
+`ExpensePage` is the component in charge of displaying expense and budget information. It has a list of `ExpenseCard`, a component
+ that contains individual expense details. `ExpensePage` extends `PageWithSidebar` as it contains navigation bar that helps user to
+ navigate between different features.
+
+In `ExpensePage`, user can toggle between _Days View_ and _List View_. In _Days View_, a list of `DailyExpensesPanel` is used to group
+`ExpenseCard` according to date.
+
+`EditExpensePage` is the main page for creating and editing of expense. Both `ExpensesPage` and `EditExpensePage` have access to `Model` and `Logic`
+of the application, for handling of stored data and parsing commands.
+
+From `ExpensePage`, user can navigate to _Currency_ feature of application through CLI or GUI.
+
+==== Aspect : Logic
+
+===== Create an expense
+
+The creation of a new `Expense` is done in two ways:
+
+1. The creation of a `PlannedExpense` is created when a new `Event` with a `Budget` is created. The execution happens in `DoneEditingEventCommand`.
+
+* When the `Name` or `Budget` field of `Event` is modified, a method call replaces the current `Expense` associated with the `Event` with an updated `Expense`.
+
+2. The creation of a `MiscExpense` is done by calling `EnterCreateExpenseCommand`, which brings user to an _Expense Setup Page_.
+
+===== Edit an expense
+
+Editing of expense can be accessed from `ExpensePage`. The execution of command is handled by `ExpenseManagerParser` and
+the command accesses the model through `Model#getPageStatus()` method. The details of execution is similar to _Edit trip/day/event_ feature (see <<Edit-Trip>>)
+
+Only the _amount of expense_ field of a `PlannedExpense` can be edited with an `edit` command. When `done` command is executed
+after the _amount of expense_ is edited, both the expense in `ExpenseList` and the `Event` will be updated.
+
+The following sequence diagram shows the sequence of method call when `DoneEditCommand#execute(model)` is called in `LogicManager`.
+[[expense_sequence_diagram]]
+image::expense/developerguide/DoneEditExpenseCommandSequenceDiagram.png[align="left" title=Sequence diagram showing the execution of DoneEditCommand]
+
+When `DoneEditCommand#execute(model)` is called, `getPageStatus()` is used to fetch information / update information from `model`. The following
+steps shows the sequence of event happened within the method:
+
+1. The current instance of `EditExpenseDescriptor` and `Expense` in `model` are returned and stored as `editExpenseDescriptor` and `expenseToEdit` in `logic`.
+
+2. A new instance of `Expense`, `expenseToAdd` is created by calling `buildExpense()` in `editExpenseDescriptor`.
+
+3. Through `getPageStatus()`, `set(expenseToEdit, expenseToAdd)` is called on `EventList`, which updates the unedited `expenseToEdit` by replacing it with the edited `expenseToAdd`.
+
+4. The `DayNumber` in `expenseToAdd` is returned so that logic can update the associated `Event` by going to the corresponding `Day` in `DayList`.
+
+5. `updateExpense(expenseToAdd)` is called on `EventList` so that the target `Event` will have its `Expenditure` updated.
+
+6. By calling `setPageStatus()`, the current `EditExpenseDescriptor` and `Expense` will be reset, the current page will be set to _Expense Manager Page_.
+
+7. `CommandResult` is returned to give user feedback and update UI.
+
+===== Delete an Expense
+
+Deletion of expense is similar to the _Delete Trip/Day/Event_ feature (see <<Delete-Trip>>).
+
+The `DeleteExpenseCommand` in logic checks for index of deletion and type of expense. Only `MiscExpense` can be deleted through
+this command. Below is an example execution of deleting an expense:
+[[delete_expense_activity_diagram]]
+image::expense/developerguide/DeleteExpenseDiagram.png[title=Activity diagram showing the execution of deleting an expense]
+
+// end::expense_ppp[]
+
+'''
+
+=== [Currency] Currency
+The _Currency_ maintains a list of `CustomisedCurrency` stored in an `CurrencyList`.
+_Currency_ supports creation, deletion and selection of currency.
+
+==== Aspect : Model
+
+image::expense/developerguide/CurrencyModelClassDiagram.png[align="left" title=Class diagram showing the currency model]
+
+===== CustomisedCurrency
+
+`CustomisedCurrency` is the generic abstraction of a user defined currency.
+
+A `CustomisedCurrency` contains exactly one instance `Name` `Symbol` and `Rate` for each of these three classes, which represents
+ the _name of currency_, _currency symbol_, and _exchange rate of the currency (to Singapore Dollars)_ respectively.
+
+===== CurrencyList
+
+`CurrencyList` is an class that stores the `CustomisedCurrency` instances. It supports wrapper methods around the underlying `ObservableList` for the use of logic components.
+
+[[currency_ui]]
+==== Aspect : UI
+
+image::expense/developerguide/CurrencyUIClassDiagram.png[align="left" title=Class diagram showing the user interface of currency]
+
+The main `Page` for displaying and creating currency is `CurrencyPage`. The page contains a list of `CurrencyCard` for displaying
+individual currency details. Two types of `CurrencyCard`: `SelectedCurrencyCard` and `UnelectedCurrencyCard` are used to indicate
+the currency in use. Upon launching of the application, a default `CustomisedCurrency` -- Singapore Dollars is automatically added to
+the `CurrencyList`, which is not deletable. Thus, there will always be at least one `CurrencyCard` in `CurrencyPage`.
+
+`CurrencyPage` also contains text fields for input of new currency information. It has a `PresetSymbols` instance which contains a group of `ToggleButton` which
+updates the symbol in `MainWindow`. `CurrencyPage` have access to `Model` and `Logic`
+of the application, for handling of stored data and parsing commands.
+
+From `ExpensePage`, user can navigate to _Expense Manager_ feature of application through CLI or GUI.
+
+==== Aspect : Logic
+
+The executions of add / delete of `CustomisedCurrency` is similar to those of `Trip` / `Day` / `Event` / `Expense`. More details can be found in the previous sections:
+<<Edit-Trip>>
+
+====== Select a Currency
+
+Selection of `CustomisedCurrency` is achieved by promoting it to the front of `CurrencyList`, while the first `CustomisedCurrency` in the list
+is to be used to display `Budget` with the selected currency symbol and rate conversion.
+
+All the monetary values in the application is displayed through calling the method from UI: `Budget#getValueStringInCurrency(CustomisedCurrency)`
+
+
+
+'''
+
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
@@ -669,7 +873,106 @@ Secondly, `ListViews` render only the visible cells on the screen. Apart from th
 in the JavaFX scene graph, it also allows running the parsing logic on only parts (paragraphs) of the text in the `DiaryEntry` model.
 This results in a considerable performance benefit.
 
+
+
 |========================================================================================
+
+=== [Inventory] The Inventory List
+
+In the application, there can be two types of Inventory Lists:
+
+===== 1. Overall Trip Inventory List
+
+An overall trip inventory list is the inventory list of all the items the user needs for the trip.
+
+Each trip only has *one* overall trip inventory list.
+
+===== 2. An Event inventory list
+
+An event inventory list is the inventory list of all the items the user needs for the event.
+
+Each trip can have *mutiple* event inventory lists.
+
+Therefore, in a trip, all the events inventory lists are subsets of one overall trip inventory list.
+
+==== Aspect : Model
+
+image::inventory/InventoryModelClassDiagram.png[title="Class diagram of a 'InventoryList' and an `Event`, and its contained models"]
+===== Inventory
+The model for an inventory item stored in memory is stored in the `Inventory` class.
+
+It contains three attributes: the `name`, `isDone` and `eventOccurances`. The `name` attribute is implemented using a
+custom built `Name` class which ensures that the `name` is valid. `isDone` was implemented using a BooleanProperty and indicates
+whether the inventory item has been packed. While, `eventInstances` is an integer which represents the total number of
+`Event` models that have the same inventory item.
+
+===== Event
+`Inventory` models are contained within an `Event`, if the corresponding inventory items are part of an event. `Event` stores
+the `Inventory` models in an `ArrayList`. Therefore, each `Event` model contains an Event Inventory List (as defined above).
+
+Since, currently, the application does allow the user to alter the 'isDone' toggle of an `Inventory` model contained in an event,
+the `isDone` attribute is never set once it is is initialised (as `false`).
+
+Furthermore, as the `eventInstances` attribute is only relevant to the Overall Trip Inventory List, the `eventInstances`
+attribute is set as `-1`.
+
+===== InventoryList
+All unique (by name) `Inventory` models in any `Event` model is contained within an `InventoryList`. It stores the inventory items in a
+JavaFX `ObservableList`. Therefore, the `InventoryList` contains the Overall Trip Inventory List (as defined above).
+
+An `ObservableList` was chosen as the user interface requires the changes in the inventory list to be displayed instantly. Furthermore,
+`isDone` was implemented using a `BooleanProperty` instead of a simple `boolean` to instantly detect and display changes in any inventory item's `isDone` value.
+
+
+Additionally, an `InventoryList` can also contain miscellaneous inventory items (not contained in any event).
+
+
+==== Aspect : User Interface of Overall Trip Inventory List (with Model `InventoryList`)
+
+The Overall Trip Inventory List (with Model `InventoryList`) is displayed in the `TableView<Inventory>` of the `InventoryPage`, as seen in the object diagram:
+
+image::inventory/InventoryUiObjectDiagram.png[title= "Object diagram of table view component, as contained by `InventoryPage` (not shown)"]
+
+The TableView has 3 columns. The first column numbers the items. The second column displays the item's name. And the thrid column displays whether the item's `isDone` property is true or false (through a checkbox).
+
+Both the first and the second column's `cellValueFactory` were set to `new PropertyValueFactory(STRING)` with String `STRING`. However, the third column was set to `CheckBoxTableCell.forTableColumn(BOOLEAN)` with Boolean `BOOLEAN`.
+
+==== Aspect : User Interface of Event Inventory List (with Model `Event`)
+
+The Event Inventory List (with Model `Event`) is displayed in the `ListView<Inventory>` of the `EventPage`, as seen in the object diagram:
+
+image::inventory/EventInventoryListUiObjectDiagram.png[title= "Object diagram of list view component, as contained by `EventPage` (not shown)"]
+
+The `ListView` uses the CSS styling of `resources/view/Inventory/InventoryListViewTheme.css' by calling `listView.getStylesheets().add(CSS_FILE_PATH)` with the File Path `CSS_FILE_PATH`)
+
+Furthermore, the reason why `ListView` and `ListCell` are in package `Ui.itinerary` is because `EventPage` is in itinerary `Ui.itinerary`. Similarly, `Event` is in package `Model.itinerary`
+
+==== Aspect : Logic of adding item to Overall Trip Inventory List (with Model `InventoryList`)
+
+image::inventory/AddInventorySequenceDiagram.png[title="Sequence diagram for adding an item to the Overall Trip Inventory List"]
+
+From the sequence diagram, it can be observed that only if `InventoryViewParser` and `AddInventoryParser` returns a Command, will
+the Command be executed. This ensures the AddCommand is only executed when intended.
+
+Moreover, as seen from the sequence diagram, whenever the `AddInventoryCommand` is executed, it will always return the `InventoryView` that
+corresponds to the Trip that the user is correctly on - ensuring that there is only one Overall Trip Inventory List.
+
+Furthermore, the `InventoryList` calls its own internal function of `add` to add an item to its list - which loops through the entire
+list to make sure that the item to be added does not already exist - otherwise it does not add it
+. Therefore, this also allows all the items in InventoryList to be unique.
+
+==== Possible Improvement in Future Release
+
+Currently, both the Event Inventory List and the Overall Trip Inventory List utilise a common `Inventory` class to store
+inventory items.
+
+However, an inventory item in the Event Inventory List does not need to keep count of the `eventInstances` attribute. Although, the
+current solution of setting `eventInstances` to -1 allows both classes to share the `Inventory` class, it might not be scalable and
+there may lead to bugs in the future.
+
+Therefore, in a future update, it would be rational to remove make the `Inventory` class an abstract class with just a `Name` attribute.
+And have 2 different classes extend it for the 2 different use cases.
+
 
 === Logging
 

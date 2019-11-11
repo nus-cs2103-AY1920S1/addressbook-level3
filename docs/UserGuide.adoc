@@ -77,33 +77,107 @@ On the __Trip Manager__ page, the following command are available:
 * `delete <index of trip>` : deletes the trip with the specified index and all data associated with it.
 * `goto <index of trip>`  : enters the main page of a trip with the specified index.
 
-=== Trip setup
+=== Itinerary
+==== Introduction
+__Itinerary__ is a series of features that allows the user to manage and view their __Trips__. The 2 main aspects that __Itinerary__ covers are :
+
+* *Itinerary Management* : How to access information about each trip?
+* *Itinerary Administration* : How to edit information about each trip?
+
+_Itinerary_ provides an intuitive and efficient way to achieve both goals.
+
+==== Basic Structure Overview
+The structure of _Itinerary_ is modelled after that of a regular travel itinerary.
+The following gives the basic understanding of how _TravelPal_ for better understanding of further sections:
+
+* *Trip*: Each _Trip_ is divided into _Days_ which are automatically generated upon creating a _Trip_
+* *Day*: Each _Day_ consists of several _Events_. Events are created and editable by the user.
+* *Event*: _Events_ are the smallest unit of planning in _TravelPal_
+
+NOTE: _Trip/Day/Events_ created by you should not clash with another _Trip/Day/Event_ of the same type
+
+With a basic understanding of how the basic structure of _Itinerary_ is like, you are now ready to use the user interface!
+
+==== Itinerary User Interface Overview
+_Itinerary_ consists of 5 pages:
+
+1. *Itinerary Page*: Displays basic information of your _Trip_
+2. *Days Page*: Displays the _Days_ in your selected _Trip_
+3. *Events Page*: Displays the _Events_ in your selected _Day_
+4. *Edit Day Page*: Displays a form where users can create/edit their _Day_
+5. *Edit Event Page*: Displays a form where users can create/edit their _Event_
+
+image::ItineraryTree.png[title="Pages in an Itinerary. (Black arrow denote common navigation between two different pages)"]
+
+The accessibility between pages is intuitively based on the specific user's focus. For example, in the figure above, each vertical column represents a user's focus. From column 1 - 4, the user's focus switches from each _Trip_ -> _Day_ -> _Event_.
+
+NOTE: The commands related to each page in _Itinerary_ are separated and the same command produces different results on different pages.
+
+[[itinerary_page]]
+===== Itinerary Page
+The _Itinerary_ page is the home page of your _Trip_. From this page, you can access your _Days_ and details for each _Day_. Below is layout of the user interface:
+
+image::ItineraryOverview.png[title="Layout of the _Itinerary_ page"]
+NOTE: You can access other pages from the _Itinerary Page_ using te navigation feature(<<navbar_usage>>).
+
+[[days_page]]
+===== Days Page
+The _Days_ page is a view of the _days_ in your trip. It consists of a grid of _day_ thumbnails arranged based on chronological order (earliest on the top left to the latest on the bottom right). Below is the layout of the the _days page_:
+
+image::DaysPageOverview.png[title="Layout of _Days Page_"]
+Each _day thumbnail_ (refer to Figure 4) contains basic information of your day and an edit button which allows you to edit that specific _day_ (refer to <<day_setup>>). Below is a layout of the contents in a _day_ thumbnail:
+
+image::DayThumbnail.png[title="Layout of the day thumbnail in _Days Page_"]
+
+[[events_page]]
+===== Events Page
+The _Events_ page is a view of the _events_ in your trip. It consists of a list of event cards (see Figure 6.) arranged from earliest to latest in chronological order (earliest on top and latest below). Below is the layout of the _events page_:
+
+image::EventsPageOverview.png[title="Layout of _events page_"]
+
+Each card contains the basic details of each event. You can execute show command to display details of the event (refer to <<show_event_details>>). The layout of the event card is as shown.
+
+image::EventCardLayout.png[title="Layout of _event card_"]
+
+NOTE: The index of the event card is used to access its contents for any command involving events (e.g. <<event_setup>>, <<delete_trip_event>>)
+
+// tag::teoha_ppp[]
+==== Trip setup
 Trip setup is the first step in configuring a new/existing trip! This requires you to be at the __Trip Manager__ page (the landing page).
 
+image::TripManager.png[title="User Interface of  __Trip Manager__", width=500]
 
-Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
+*Step 1*: Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
 
-Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 5 necessary fields:
+Upon commands to create or edit a specified trip from the Trip Manager, you will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 6 fields (optional fields are marked by italics):
 
-- Name
-- Start Date
-- End Date
-- Total Budget
-- Destination
+* *Name*: Name of the trip
+** *Constraints*: Names should only contain up to 40 alphanumeric characters and spaces, and it should not be blank
+* *Start Date*: Starting date of the trip
+** *Constraints*: Start date should be in the DD-MM-YY format
+* *End Date*
+** *Constraints*: End date should be in the DD-MM-YY format
+* *Total Budget*
+** *Constraints*: Budget can take any positive numerical value with no more than 2 decimal places, and it should not be blank
+* *Destination*
+** *Constraints*: Destination can take any values, and it should not be blank
+* *_Photo_*
+** *Constraints*: The image path specified should be valid, and must point to an existing file. Otherwise, a _default image_ will be used.
 
-The last field Photo is an optional field, a default image will be used if the user does not submit any image.
+NOTE: The last field _Photo_ is an optional field, a default image will be used if the user does not submit any image.
 
 
-If the `create` command was executed, you will be displayed an empty form with no details filled in.
+*Step 2*:
 
-image::createTrip.png[]
+* If the `create` command was executed, you will be displayed an empty form with no details filled in. You will see the following page:
 
-If the `edit` command was executed, you will be displayed a from with details previously filled in.
+image::createTrip.png[title=" `create` command generates empty fields, width=500]
 
+* If the `edit` command was executed, you will be displayed a from with details previously filled in instead:
 
-image::editTrip.png[]
+image::editTrip.png[title=" `edit` command generates fields from your previously saved data, width=500]
 
-Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
+*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 8 different prefixes. The 8 prefixes refer to editing each fields as follows:
 
 1. Name :  `n/`
 2. Start Date : `ds/`
@@ -111,96 +185,117 @@ Now that you are on the edit page, to edit a specific field, execute the followi
 4. Total Budget : `b/`
 5. Destination : `l/`
 6. Photo File Path : `fp/`
+7. Add an inventory item to the Event Inventory List: 'inv/' (This prefix can be called more than once in the edit command)
+8. Deletes an inventory item from the Event Inventory List: 'dinv/' (This prefix can be called more than once in the edit command)
 
-NOTE: You can execute fc/ with fp/ to open a file dialog to choose an image rather than type in absoulute path of the image.
-e.g. edit fp/ fc/
 
-Below is an example changing the name of an existing trip to "Small Trip":
+NOTE: You can execute `fc/` with `fp/` to open a file dialog to choose an image rather than type in absoulute path of the image.
+e.g. `edit fp/ fc/`
 
-- You begin at the edit trip screen, the original name of the trip is the same as before.
+Below is an example execution of changing the name of an existing trip to "Small Trip":
+====
 
-image::editTrip.png[]
+- Begin at the edit trip screen, the original name of the trip is the same as before.
+
+image::editTrip.png[title="Edit page with original fields", width=500]
+
 - Enter the command `edit n/Small Trip` into the command box and press enter to execute.
 
-image::editNameCommand.png[]
+image::editNameCommand.png[title="Entering command `edit n/Small Trip`", width=500]
+
 - The name of the trip is now "Small Trip"!
 
-image::editNameCommandResult.png[]
+image::editNameCommandResult.png[title="Successful editing of name field!", width=500]
+====
 
-Having completed editing the the form, you can submit it by executing the `done` command or the `cancel` command which will confirm your edit or discard it respectively.
-
+*Step 4*: Having completed editing the the form, you can submit it by executing the `done` command or the `cancel` command which will confirm your edit or discard it respectively.
 You have successfully created/edited a trip!
 
-=== Event Setup
-Creating/editing an event is similar to creating/editing a trip (directly above). To do so you have to begin on the events page displaying the list of events of a certain day.
+// end::teoha_ppp[]
+[[event_setup]]
+==== Event Setup
+Creating/editing an event is similar to creating/editing a trip (directly above). To do so you have to begin on the events page displaying the list of events of a certain day (Fig. 13).
 
-image::eventsPage.png[title="The Events Page"]
+image::eventsPage.png[title="Events Page layout", width=500]
 
-Now you can enter the `create` or `edit <index>` command to create a new trip for edit an existing one. The `<index>` to enter can be referenced from the list of events being displayed on each card.
+*Step 1:* Now you can enter the `create` or `edit <index>` command to create a new trip for edit an existing one. The `<index>` to enter can be referenced from the list of events being displayed on each card. (Refer to <<events_page>> or Fig.14 below)
 
-image::eventsIndex.png[]
+image::eventsIndex.png[title="Index used to execute commands", width=500]
 
-Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields
+Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields and 2 optional fields (optional fields are marked with italics).
 
-- Name
-- Start Time
-- End Time
-- Destination
+* Name: Name of the event
+** *Constraints*: Names should only contain up to 40 alphanumeric characters and spaces, and it should not be blank
+* Start Time
+** *Constraints*: Time should be in HHmm format
+* End Time
+** *Constraints*: Time should be in HHmm format
+* Destination
+** *Constraints*: Location can take any values, and it should not be blank
+* _Total Budget_
+** *Constraints*: Budget can take any positive numerical value with no more than 2 decimal places, and it should not be blank
+* _Description_
+** *Constraints*: Description can take any values, and can be left blank
 
 NOTE: The **Total Budget** field is optional and can be left blank
 
-If the `create` command was executed, you will be displayed an empty form with details to be filled in by you for the first time.
+*Step 2*:
 
-image::createEvent.png[]
+* If the `create` command was executed, you will be displayed an empty form with details to be filled in by you for the first time. The empty form looks like this:
 
-If the `edit <index>` command was executed, you will be displayed a form filled with details that you have previously entered.
+image::createEvent.png[title="Empty event form", width=500]
 
-image::editEvent.png[]
+* If the `edit <index>` command was executed, you will be displayed a form filled with details that you have previously entered. An example is shown below (Fig. 16):
 
-Now that you are on the edit events page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/value> ...`. There are 5 different prefixes, each to edit one of the 5 fields displayed. The 5 prefixes are as follows:
+image::editEvent.png[title="Form with previously saved information", width=500]
+
+*Step 3*: Now on the _edit events page_, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/value> ...`. There are 5 different prefixes, each to edit one of the 6 fields displayed. The 5 prefixes are as follows:
 
 1. Name : `n/`
 2. Start Time : `ds/`
 3. End Time : `de/`
 4. Total Budget : `b/`
 5. Destination : `l/`
+6. Description : `d/`
 
 Below is an example of changing the destination of an existing event to "Hotel 89":
-
+====
 - You begin at the edit event screen, the text in the name field reflects the original name of the event.
 
-image::editEvent.png[]
+image::editEvent.png[width=600]
 
 - Enter the command `edit l/Hotel 89` into the command box and press enter to execute
 
-image::editLocation.png[]
+image::editLocation.png[width=600]
 
 - You should now see the text in the field **Destination** change to "Hotel 89" to reflect the changes made to the event.
 
-image::editResult.png[]
-
-Now you should have completed all the necessary fields and are ready to finish the edit. You can execute the `done` or `cancel` commands to either confirm the edit or discard it. Both commands will redirect you back to the events page.
+image::editResult.png[width=600]
+====
+*Step 4*: Now you should have completed all the necessary fields and are ready to finish the edit. You can execute the `done` or `cancel` commands to either confirm the edit or discard it. Both commands will redirect you back to the events page.
 
 Congratulations, you have created/edited an event!
 
-=== Deleting an Trip/Event
-Deleting a Trip/Day/Event is executed in exactly the same way as each other. You first have to begin on the Trip Page/Days Page/Events Page respectively. Each of the pages will show a list of trips/days/events each labelled by an index. Below are 3 different list format elements and the indication where you can find the index.
+[[delete_trip_event]]
+==== Deleting an Trip/Event
+Deleting a Trip/Event is executed in exactly the same way as each other. You first have to begin on the Trip Page//Events Page respectively. Each of the pages will show a list of trips/events each labelled by an index. Below are 3 different list format elements and the indication where you can find the index.
 
 image::indexExamples.png[title="Examples of different indexes displayed"]
 
-NOTE: You should have at least 1 trip/day/event in your lists or all delete commands will be invalid
+NOTE: You should have at least 1 trip/event in your lists or all delete commands will be invalid
 
-Enter the command `delete <index>` into the command box  where the index corresponds to the trip/day/event you wish to delete. Press enter to execute the command.
+*Step 1*: Enter the command `delete <index>` into the command box  where the index corresponds to the trip/day/event you wish to delete. Press enter to execute the command.
 
 image::deleteCommand.png[title="Example deletion of trip 1"]
 
-You should now see that trip/day/event that you deleted has disappeared from the list and the indexes have been reassigned in chronological order.
+*Step 2*: You should now see that trip/day/event that you deleted has disappeared from the list and the indexes have been reassigned in chronological order:
 
 image::deleteResult.png[title="Result of executing `delete 1`"]
 
 Congratulations, you have deleted a trip/day/event!
 
-=== Showing Event Details
+[[show_event_details]]
+==== Showing Event Details
 The details of each event are displayed on the right half the **Events Page**. You can access the events page by using the navigation feature (<<How to navigate>>) found on most pages.
 
 Upon accessing the events page, the information panel on the right should be empty except the prompt "Click on an event to show details here!". The left panel holds the list of events in the particular day in chronological order.
@@ -221,7 +316,8 @@ image::showCommand.png[]
 
 image::showCommandResult.png[]
 
-=== How to navigate
+[[navbar_usage]]
+==== How to navigate
 The main form of navigation is by using the navigation bars and the commands that are available on every page they are on. The bars appear like this:
 
 image::icons.png[]
@@ -252,6 +348,7 @@ image::daysCommand.png[]
 image::daysPage.png[]
 
 
+// tag::expense_ppp1[]
 
 === Expense Manager
 
@@ -264,12 +361,14 @@ This section of the user guide explains how to view and manage your expenses usi
 
 ==== User Interface Overview
 
-Shown below is the landing page of the __Expense Manager__.
+Shown below is the landing page of the __Expense Manager__:
 
 image::expense/userguide/ExpenseManager.png[title="Overview of Expense Manager user interface"]
 
-To toggle the display of expenses between list view and day view, use the command `showdays` or `showlist`. Alternatively,
-you may click the toggle button on the page.
+To toggle the display of expenses between list view and days view, use the command `showdays` or `showlist`. Alternatively,
+you may click on the _toggle button_ on the page.
+
+The following screenshot is the days view of the _Expense Manager_:
 
 image::expense/userguide/ExpenseManagerDays.png[title="Expense Manager user interface showing the daily expenses and budget summary"]
 
@@ -287,14 +386,23 @@ On the __Expense Manager__ page, the following command are available:
 * `edit <index of expense>`: edit an expense, this command bring up the expense setup page.
 * `delete <index of expense>`: delete an expense, note that only miscellaneous expenses can be deleted.
 * `showdays`: enter the days view of expense manager, the expenses will be grouped according to the days they belong to.
-* `currency`: enter the currency page of TravelPal, can also be accessed by clicking the `Edit Currency` button
+* `showlist`: enter the list view of expense manager, the expenses will be shown in one list.
+* `goto <index of expense>`: go to the event page containing the event associated with this expense.
+* `sort name`: sort the expenses according to the name lexicographically. Enter the command again to sort in reverse order.
+* `sort amount`: sort the expenses according to the amount of expense in ascending order. Enter the command again to sort in descending order.
+* `currency`: enter the _Currency_ page of TravelPal, can also be accessed by clicking on the _Edit Currency_ button
+
+NOTE: `delete` command can only be used on miscellaneous expense, however, you may delete the event associated with a planned expense, which will
+delete the expense as well. `goto` command is only for planned expense associated with an event.
 
 ==== Expense Setup
 
-Expense setup creates/edits properties of a specified expense.
-To access the __Expense Setup__ page, use `create` or `edit <index of expense>` command on`Expense Manager` page.
+_Expense Setup_ creates/edits properties of a specified expense.
+To access the __Expense Setup__ page, use `create` or `edit <index of expense>` command on _Expense Manager_ page. Shown below is an screenshot of the page:
 
-It is necessary for expense to contains a name and amount. It can also contain an optional day number, indicating which day the expense belong to.
+image::expense/userguide/ExpenseSetup.png[title="Expense Setup page user interface"]
+
+It is necessary for expense to contain a name, an amount and a day number.
 
 The following commands are available on __Expense Setup__ page.
 
@@ -308,7 +416,7 @@ The prefixes refer to editing each fields as follows:
 * `b/` The amount of expense, in Singapore dollars.
 * `dn/` The day number the expense belongs to.
 
-NOTE: For Planned expense linked to an event, the `name` and `day number` fields are not editable. However, you may
+NOTE: For planned expense linked to an event, the `name` and `day number` fields are not editable. However, you may
 edit the name of the corresponding event, this will also update the name of the planned expenses.
 
 ====== Example Usage for `edit` command:
@@ -318,22 +426,30 @@ To add an expense with the name _Miscellaneous Expenses_ of $_10.5_ SGD to day _
 `edit n/Miscellaneous Expenses b/10.5 dn/2`
 ======
 
+// end::expense_ppp1[]
 
-=== Currency Manager
+
+// tag::currency_ppp1[]
+
+=== Currency
 
 ==== Introduction
 
-With _Currency manager_, you can add and select currencies with customised currency name, symbol and exchange rate.
+On _Currency_ page, you can add and select currencies with customised currency name, symbol and exchange rate.
 When a currency is selected, all the monetary valued will be displayed in that currency
 
 ==== User Interface Overview
 
-Shown below is a screenshot of the __Currency Manager__ page.
+Shown below is a screenshot of the __Currency__ page:
 
 image::currency/userguide/CurrencyPage.png[title="Overview of Currency Manager user interface"]
 
-The left half of the __Currency Manager__ page consists of editable text fields for creating a new currency, under the
-`Symbol of Currency` section, the most commonly used currency symbols are indexed. You can also input other currency symbols.
+The left half of the __Currency Manager__ page consists of editable text fields for creating a new currency.
+
+Under the
+`Symbol of Currency` section, you can find _preset currency symbols_, in which the most commonly used currency symbols are indexed. You can select a currency
+by entering the index in place of the actual symbol, or just by clicking on the button.
+You can also manually input other currency symbols.
 
 On the right hand side of the page, the customised currencies are listed. _Singapore Dollar(SGD)_ is pre-defined as the base currency.
 You may select or delete a customised currency.
@@ -366,6 +482,8 @@ To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, an
 `edit n/USD s/1 r/0.74`
 ======
 
+// end::currency_ppp1[]
+
 // tag::booking_ppp[]
 === Booking
 
@@ -381,6 +499,7 @@ Furthermore, for almost every command, there is a GUI alternative using various 
 The following section of the User Guide explains hoe to use the Booking.
 
 ==== Booking User Interface Overview
+>>>>>>> master
 
 === Diary
 
@@ -871,12 +990,43 @@ save the changes you made while the editor was open, and close the editor.
 
 '''
 
-=== Pre-trip Inventory Manager
+=== Trip Inventory Manager
 
-Allows the user to make a list of things (inventory of things) he/she needs for the trip.
+==== Introduction
 
-* add <item> : adds an item to the inventory list
-* delete <index of item> : deletes the item at the specified index from the inventory list
+TravelPal's __Trip Inventory Manager__ is an integrated inventory planning and management system. It displays all the inventory items required for your trip in an intuitive and simple manner. Thus, making packing for your next trip a super easy task!
+
+There are two types of inventory items:
+
+1. Event-specific inventory items (auto-generated from event)
+2. Non-event-specific inventory items
+
+This section of the user guide explains how to view and manage your inventory items using __Trip Inventory Manager__.
+
+==== User Interface Overview
+
+Shown below is the __Trip Inventory Manager__.
+
+image::expense/userguide/InventoryManager.png[title="Overview of Trip Inventory Manager user interface"]
+
+
+The __Trip Inventory Manger__ displays all your event-specific inventory items and non-even-specific inventory items in one table. To provide the best reading experience, __Trip Inventory Manger__ does not display duplicate names.
+
+==== Commands
+
+On the __Trip Inventory Manager__ page, the following command are available:
+
+* `add <name>`: Adds a non-event-specfic inventory item with the name, <name>.
+
+NOTE: <name> must not already exist in the __Trip Inventory Manger__
+
+* `delete <index of inventory item>`: deletes the inventory item
+
+NOTE: The inventory item to delete must exclusively be a non-event-specific inventory item. Otherwise, to delete it, you will have to delete the inventory item from all events it is inside.
+
+* `check <index of inventory item>`: marks the inventory item as packed
+* `uncheck <index of inventory item>`: marks the inventory item as not yet packed
+
 
 
 == General info

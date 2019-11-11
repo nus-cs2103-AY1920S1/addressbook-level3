@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI.currency <<Rectangle>> {
+Class CurrencyPage #FFFFFF
+}
+
+package UI.expense <<Rectangle>> {
+Class ExpenseCard
+Class DailyExpensesPanel {
+    lineTextLabel : Label
+}
+Class EditExpensePage
+Class ExpensesPage
+Class MiscExpenseCard
+Class PlannedExpenseCard
+}
+
+package UI <<Rectangle>> {
+    Class MainWindow
+}
+
+package Ui.template <<Rectangle>> {
+    Class "{abstract}\nPageWithSidebar" as PageWithSidebar
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainWindow
+MainWindow *--> ExpensesPage
+MainWindow *-- EditExpensePage
+
+ExpensesPage <-right-> EditExpensePage
+ExpensesPage <-up-> CurrencyPage
+
+ExpensesPage ---> HiddenModel
+ExpensesPage ----> HiddenLogic
+
+
+EditExpensePage --> HiddenModel
+EditExpensePage --> HiddenLogic
+
+ExpensesPage *-> "   0..* " DailyExpensesPanel
+ExpensesPage *--> "0..*" ExpenseCard
+
+DailyExpensesPanel *--> "1..*  " ExpenseCard
+
+ExpenseCard <|-down- MiscExpenseCard
+ExpenseCard <|-down- PlannedExpenseCard
+
+ExpensesPage ----|> PageWithSidebar
+@enduml
