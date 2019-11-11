@@ -93,7 +93,7 @@ public class AnswerChecker {
      * @param correctAnswer String of correct answer
      * @return true or false
      */
-    public static boolean isMatched(String userInput, String correctAnswer) {
+    private static boolean isMatched(String userInput, String correctAnswer) {
 
         /**
          * Used to determine if user input answer is correct or not
@@ -164,7 +164,7 @@ public class AnswerChecker {
 
         for (Answer answer : correctAnswerList) {
             String correctAnswer = processString(answer.getAnswer());
-            if (hasSameSentiment(userInput, correctAnswer) == true && isMatched(userInput, correctAnswer) == true) {
+            if (hasSameSentiment(userInput, correctAnswer) && isMatched(userInput, correctAnswer)) {
                 return true;
             }
         }

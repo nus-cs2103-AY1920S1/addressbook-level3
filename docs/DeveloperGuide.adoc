@@ -297,6 +297,22 @@ move on to the next question.
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 //end::wilfred-quiz[]
 
+=== Saq feature
+==== Handling user input
+The Saq input mechanism is facilitated by `SaqInputCommand`. It extends `Command` and execute the `CommandResult`. The input
+will be  parse into `SaqInputCommandParser` to check for input validity. If the input String is not valid (i.e the String
+does not start with a letter of number), an invalid command parse exception will be thrown, indicating to user that the
+input String requires a letter or a number at the start of the String.
+
+If the input is valid, `SaqInputCommand` object of type `Command` will be created. The execute command of the
+`SaqInputCommand` object will be executed.
+
+==== Validating the answer
+The `execute` method will return the `CommandResult`, correct or wrong. The currentAnswerable of type `Saq` will call its
+`isCorrect` method and return a boolean value, true for correct answer and false for wrong answer.
+
+
+image::SaqAnswerCheckerClassDiagram.png[width=790]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
