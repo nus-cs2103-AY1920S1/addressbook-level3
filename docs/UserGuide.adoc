@@ -178,19 +178,22 @@ invalid and the user is prompted to enter a start date-time.
 This happens because the parser expects an argument for `s/`, but there is no such argument.
 As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
 
-.Typee's response to `add t/meeting l/Meeting Room 2`
+.Typee's response to `add t/meeting l/Meeting Room 2`.
 image::interactive_parsing_6.png[width='800' height='125']
+
 
 Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
 and `p/` untouched.
 
-.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`
+.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`.
 image::interactive_parsing_7.png[width='800' height='125']
 
+
 [NOTE]
-However, there lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments.
+There lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments.
 Consider the case when the user inputs `add t/meeting e/15/11/2019/1500 s/15/11/2019/1400`. This input is deemed *valid* even
 though `e/` and `s/` are flipped. This is because after 't/', the parser expects to find an `s/`, which is in-turn contained in the input.
+
 
 *Thus, to summarize, the parser continues parsing in the order of the expected arguments, as long as the corresponding prefixes are found in the input.*
 
