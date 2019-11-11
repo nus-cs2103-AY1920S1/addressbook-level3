@@ -573,7 +573,7 @@ through previous inputs in the command box.
 
 
 .Class Diagram depicting classes involved in cycling through the command history.
-image::CycleCommandHistoryClassDiagram.png[width="790", align="center"]
+image::CycleCommandHistoryClassDiagram.png[]
 
 `CommandHistory` provides an unmodifiable view into the command history using an `ObservableList`
 passed to `CommandBox` upon initialization. `CommandBox` uses this list to reinitialize and
@@ -587,7 +587,7 @@ depicted for brevity.
 
 
 .Sequence Diagram depicting a possible execution path for cycling through history entries.
-image::CycleCommandHistorySequenceDiagram.png[width=350, align="center"]
+image::CycleCommandHistorySequenceDiagram.png[]
 
 The diagram above first shows how `CommandBox` re-initializes and updates `ListPointer` after
 a command has been entered. Thereafter (in the period between command inputs),
@@ -646,7 +646,7 @@ The following activity sequence diagram provides a high-level view
 of how the command is executed, along with the behaviour of the history window:
 
 .HistoryCommand Activity Diagram
-image::HistoryCommandActivityDiagram.png[width=400, align="center"]
+image::HistoryCommandActivityDiagram.png[]
 
 One specific execution example of the show-history feature with
 more specific implementation details is as follows:
@@ -672,7 +672,7 @@ This specific execution case is shown in the following sequence diagram. Note th
 methods are omitted for brevity.
 
 .`HistoryCommand` Sequence Diagram for the specific input `history -o -s`
-image::HistoryCommandSequenceDiagram.png[width="790", align="center"]
+image::HistoryCommandSequenceDiagram.png[]
 
 NOTE: The lifeline for `HistoryCommandParser` and `HistoryCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -830,7 +830,7 @@ and contains methods for freely converting itself back to the native `InputOutpu
 Below is a class diagram depicting the relationship between the involved classes in JSON serializing of `CommandHistory`
 
 .Class diagram of the classes involved in saving and loading of `CommandHistory` from disk.
-image::CommandHistoryStorageClassDiagram.png[width=200, align="center"]
+image::CommandHistoryStorageClassDiagram.png[]
 
 **Design Considerations:**
 
