@@ -163,4 +163,3 @@ _{start of extract: notification feature}_
 include::../DeveloperGuide.adoc[tag=notifs]
 
 _{end of extract}_
-
