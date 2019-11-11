@@ -21,7 +21,7 @@ public interface ActivityStorage {
     /**
      * Sets the file path of the data file.
      */
-    void setActivityFilePath(Path activityFilePath) throws IOException;
+    void setActivityFilePath(Path activityFilePath);
 
     /**
      * Returns Activity data as a {@link ReadOnlyActivity}.

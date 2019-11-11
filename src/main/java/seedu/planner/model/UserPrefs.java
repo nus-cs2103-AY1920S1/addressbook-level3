@@ -3,7 +3,6 @@ package seedu.planner.model;
 import static java.util.Objects.requireNonNull;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.planner.commons.core.GuiSettings;
@@ -14,11 +13,11 @@ import seedu.planner.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private String folderName = "Sample";
-    private Path accommodationFilePath = Paths.get("data" , folderName, "accommodation.json");
-    private Path activityFilePath = Paths.get("data" , folderName, "activity.json");
-    private Path contactFilePath = Paths.get("data" , folderName, "contact.json");
-    private Path itineraryFilePath = Paths.get("data" , folderName, "itinerary.json");
+    private Path plannerFilePath = Path.of("data", "Sample");
+    private Path accommodationFilePath = plannerFilePath.resolve("accommodation.json");
+    private Path activityFilePath = plannerFilePath.resolve("activity.json");
+    private Path contactFilePath = plannerFilePath.resolve("contact.json");
+    private Path itineraryFilePath = plannerFilePath.resolve("itinerary.json");
     /**
      * Creates a {@code UserPrefs} with default values.
      */
@@ -80,17 +79,17 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.contactFilePath = contactFilePath;
     }
 
-    public String getFolderName() {
-        return folderName;
+    public Path getPlannerFilePath() {
+        return plannerFilePath;
     }
 
-    public void setFolderName(String folderName) {
-        requireNonNull(folderName);
-        this.folderName = folderName;
-        accommodationFilePath = Paths.get("data" , this.folderName, "accommodation.json");
-        activityFilePath = Paths.get("data" , this.folderName, "activity.json");
-        contactFilePath = Paths.get("data" , this.folderName, "contact.json");
-        itineraryFilePath = Paths.get("data" , this.folderName, "itinerary.json");
+    public void setPlannerFilePath(Path plannerFilePath) {
+        requireNonNull(plannerFilePath);
+        this.plannerFilePath = this.plannerFilePath.resolveSibling(plannerFilePath);
+        accommodationFilePath = this.plannerFilePath.resolve(getAccommodationFilePath().getFileName());
+        activityFilePath = this.plannerFilePath.resolve(getActivityFilePath().getFileName());
+        contactFilePath = this.plannerFilePath.resolve(getContactFilePath().getFileName());
+        itineraryFilePath = this.plannerFilePath.resolve(getItineraryFilePath().getFileName());
     }
 
     public Path getItineraryFilePath() {

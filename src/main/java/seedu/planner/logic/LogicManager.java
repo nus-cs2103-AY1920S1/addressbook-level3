@@ -7,7 +7,11 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
+import seedu.planner.commons.exceptions.DataConversionException;
 import seedu.planner.logic.commands.Command;
+import seedu.planner.logic.commands.LoadCommand;
+import seedu.planner.logic.commands.NewCommand;
+import seedu.planner.logic.commands.SetCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.parser.PlannerParser;
@@ -28,7 +32,9 @@ import seedu.planner.storage.Storage;
  * The main LogicManager of the app.
  */
 public class LogicManager implements Logic {
+    public static final String FILE_FORMAT_ERROR_MESSAGE = "Data file not in correct format: ";
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
+    public static final String FILE_DELETION_ERROR_MESSAGE = "Could not delete file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
@@ -49,18 +55,40 @@ public class LogicManager implements Logic {
         Command command = plannerParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
-        try {
-            storage.setAccommodationFilePath(model.getAccommodationFilePath());
-            storage.setActivityFilePath(model.getActivityFilePath());
-            storage.setContactFilePath(model.getContactFilePath());
-            storage.setItineraryFilePath(model.getItineraryFilePath());
+        if (command instanceof SetCommand) {
+            try {
+                storage.deletePlannerFilePath();
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_DELETION_ERROR_MESSAGE + ioe, ioe);
+            }
+        }
+        if (command instanceof SetCommand || command instanceof NewCommand || command instanceof LoadCommand) {
+            storage.setAccommodationFilePath(getAccommodationFilePath());
+            storage.setActivityFilePath(getActivityFilePath());
+            storage.setContactFilePath(getContactFilePath());
+            storage.setItineraryFilePath(getItineraryFilePath());
+        }
 
-            storage.saveAccommodation(model.getAccommodations());
-            storage.saveActivity(model.getActivities());
-            storage.saveContact(model.getContacts());
-            storage.saveItinerary(model.getItinerary());
+        try {
+            if (command instanceof LoadCommand) {
+                model.setAccommodations(storage.readAccommodation().get());
+                model.setActivities(storage.readActivity().get());
+                model.setContacts(storage.readContact().get());
+                model.setItinerary(storage.readItinerary().get());
+                storage.saveAccommodation(model.getAccommodations());
+                storage.saveActivity(model.getActivities());
+                storage.saveContact(model.getContacts());
+                storage.saveItinerary(model.getItinerary());
+            } else {
+                storage.saveAccommodation(model.getAccommodations());
+                storage.saveActivity(model.getActivities());
+                storage.saveContact(model.getContacts());
+                storage.saveItinerary(model.getItinerary());
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        } catch (DataConversionException dce) {
+            throw new CommandException(FILE_FORMAT_ERROR_MESSAGE + dce, dce);
         }
 
         return commandResult;
@@ -122,8 +150,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public String getFolderName() {
-        return model.getFolderName();
+    public Path getPlannerFilePath() {
+        return model.getPlannerFilePath();
     }
 
     @Override

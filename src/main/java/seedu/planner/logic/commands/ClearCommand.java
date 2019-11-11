@@ -11,6 +11,7 @@ import seedu.planner.model.ActivityManager;
 import seedu.planner.model.ContactManager;
 import seedu.planner.model.Itinerary;
 import seedu.planner.model.Model;
+
 //@@author OneArmyj
 /**
  * Clears the planner.
@@ -50,7 +51,8 @@ public class ClearCommand extends UndoableCommand {
         model.setContacts(new ContactManager());
         model.setAccommodations(new AccommodationManager());
         model.setActivities(new ActivityManager());
-        model.setItinerary(new Itinerary());
+        model.setItinerary(new Itinerary(model.getName()));
+
         return new CommandResult(MESSAGE_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
 }

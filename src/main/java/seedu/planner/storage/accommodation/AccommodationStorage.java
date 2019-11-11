@@ -21,7 +21,7 @@ public interface AccommodationStorage {
     /**
      * Sets the file path of the data file.
      */
-    void setAccommodationFilePath(Path accommodationFilePath) throws IOException;
+    void setAccommodationFilePath(Path accommodationFilePath);
 
     /**
      * Returns Accommodation data as a {@link ReadOnlyAccommodation}.
