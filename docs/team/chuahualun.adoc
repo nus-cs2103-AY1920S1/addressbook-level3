@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: DukeCooks
+== PROJECT: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
 
 == What is in this document?
 
@@ -478,7 +478,7 @@ This choice was chosen as it reduces the chance of errors making it a safer opti
 DukeCooks would not be possible without the wonderful support from these people:
 
 I would like to thank Prof. Damith for his interesting and insightful lectures on
-Good Software Engineering Practice. Next, Ms Anita providing useful tips in communication and
+Good Software Engineering Practice. Next, Ms Anita for providing useful tips in communication and
 presentation skills. Also, Mr Jeffry for his guidance and suggestions for the team.
 Lastly, many thanks to my wonderful teammates and classmates for the support and help when needed.
 
