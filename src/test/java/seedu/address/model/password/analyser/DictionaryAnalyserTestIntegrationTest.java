@@ -1,21 +1,25 @@
 package seedu.address.model.password.analyser;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.password.*;
-import seedu.address.model.password.analyser.match.DictionaryMatch;
-import seedu.address.model.password.analyser.match.Match;
-import seedu.address.model.password.analyser.resources.Dictionary;
-import seedu.address.model.password.analyser.result.DictionaryResult;
-import seedu.address.model.password.analyser.result.Result;
-import seedu.address.model.password.analyser.result.ResultOutcome;
-import seedu.address.model.password.exceptions.DictionaryNotFoundException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
+import seedu.address.model.password.PasswordModifiedAt;
+import seedu.address.model.password.PasswordValue;
+import seedu.address.model.password.Username;
+import seedu.address.model.password.Website;
+import seedu.address.model.password.analyser.match.DictionaryMatch;
+import seedu.address.model.password.analyser.resources.Dictionary;
+import seedu.address.model.password.analyser.result.DictionaryResult;
+import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 
 class DictionaryAnalyserTestIntegrationTest {
 

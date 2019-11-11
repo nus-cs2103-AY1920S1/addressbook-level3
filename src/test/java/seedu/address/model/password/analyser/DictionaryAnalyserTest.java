@@ -24,8 +24,6 @@ import seedu.address.model.password.analyser.resources.DictionaryStub;
 import seedu.address.model.password.analyser.result.DictionaryResult;
 import seedu.address.model.password.analyser.result.Result;
 import seedu.address.model.password.analyser.result.ResultOutcome;
-import seedu.address.model.password.exceptions.DictionaryNotFoundException;
-
 
 class DictionaryAnalyserTest {
     @Test
@@ -90,8 +88,8 @@ class DictionaryAnalyserTest {
         DictionaryAnalyser a = new DictionaryAnalyser(dictionaryStub);
         List<Result> actualResults = a.analyse(passwordArrayList);
         List<Result> expectedResults = new ArrayList<>();
-        expectedResults.add(new DictionaryResult(password1, ResultOutcome.PASS, expectedMatches1));
-        expectedResults.add(new DictionaryResult(password2, ResultOutcome.FAIL, expectedMatches2));
+        expectedResults.add(new DictionaryResult(password1, ResultOutcome.FAIL, expectedMatches1));
+        expectedResults.add(new DictionaryResult(password2, ResultOutcome.PASS, expectedMatches2));
 
         for (int i = 0; i < expectedResults.size(); i++) {
             assertEquals(actualResults.get(i), expectedResults.get(i));

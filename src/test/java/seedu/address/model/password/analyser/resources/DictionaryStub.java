@@ -1,6 +1,5 @@
 package seedu.address.model.password.analyser.resources;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

@@ -58,7 +58,7 @@ public class StrengthAnalyser implements Analyser {
             hasUpper = true;
         }
         //if it contains one special character
-        if (password.matches("(?=.*[^a-z A-Z0-9]).*")) {
+        if (password.matches("(?=.*[^a-zA-Z0-9]).*")) {
             passwordScore += 1;
             hasSpecial = true;
         }

@@ -69,7 +69,8 @@ public class StrengthResult extends Result {
                 && hasLower == that.hasLower
                 && hasUpper == that.hasUpper
                 && hasNum == that.hasNum
-                && hasSpecial == that.hasSpecial;
+                && hasSpecial == that.hasSpecial
+                && this.description.equals(that.description);
     }
 
     @Override

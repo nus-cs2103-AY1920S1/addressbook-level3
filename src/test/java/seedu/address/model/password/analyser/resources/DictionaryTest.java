@@ -18,8 +18,8 @@ class DictionaryTest {
     }
 
     @Test
-    public void constructor_invalidFileName_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> new Dictionary(null, new HashMap<>()));
+    public void constructor_invalidFileName_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new Dictionary(null, new HashMap<>()));
     }
 
     @Test

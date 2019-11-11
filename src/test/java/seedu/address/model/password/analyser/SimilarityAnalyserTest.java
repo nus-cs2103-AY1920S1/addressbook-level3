@@ -1,7 +1,6 @@
 package seedu.address.model.password.analyser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 

@@ -1,8 +1,7 @@
 package seedu.address.model.password.analyser;
 
-import static seedu.address.model.util.SampleDataUtil.getTagSet;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +46,7 @@ class KeyboardAnalyserTest {
         expectedResults.add(new KeyboardResult(passwordWithMatches, ResultOutcome.FAIL, expectedMatches1));
         expectedResults.add(new KeyboardResult(passwordWithoutMatches, ResultOutcome.PASS, expectedMatches2));
 
-        for (int i = 0 ; i < expectedResults.size() ; i++) {
+        for (int i = 0; i < expectedResults.size(); i++) {
             assertEquals(actualResults.get(i), expectedResults.get(i));
         }
 
