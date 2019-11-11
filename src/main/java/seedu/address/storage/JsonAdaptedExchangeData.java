@@ -11,7 +11,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.commons.Currency;
 import seedu.address.model.commons.Date;
 import seedu.address.model.exchangedata.ExchangeData;
-import seedu.address.model.rates.Rates;
+import seedu.address.model.exchangedata.Rates;
 
 
 /**

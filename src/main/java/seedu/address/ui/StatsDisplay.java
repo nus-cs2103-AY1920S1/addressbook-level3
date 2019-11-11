@@ -9,8 +9,8 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
 import javafx.scene.layout.Region;
 import seedu.address.model.budget.Budget;
+import seedu.address.model.commons.Tag;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.tag.Tag;
 
 /**
  * Class to display the statistics.

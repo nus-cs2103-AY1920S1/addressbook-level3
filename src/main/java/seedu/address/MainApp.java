@@ -3,6 +3,7 @@ package seedu.address;
 import static seedu.address.model.commons.Currency.DEFAULT_BASE_CURRENCY;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -81,6 +82,7 @@ public class MainApp extends Application {
         ui = new UiManager(logic);
     }
 
+
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s expense list and {@code userPrefs}. <br>
      * The data from the sample expense list will be used instead if {@code storage}'s expense list is not found,
@@ -95,6 +97,14 @@ public class MainApp extends Application {
         ReadOnlyBudgetList initialBudgets;
 
         try {
+            //Ensure data folder exists
+            if (!Files.exists(Path.of("data"))) {
+                try {
+                    Files.createDirectory(Path.of("data"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             // Download updated data
             try {
                 HttpsClientUtil.getLatestExchangeData(DEFAULT_BASE_CURRENCY);

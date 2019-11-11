@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -24,7 +25,6 @@ public class HttpsClientUtil {
     }
 
     public static boolean getLatestExchangeData(String base) throws ExecutionException, InterruptedException {
-
         // Build request
         HttpRequest request = HttpRequest.newBuilder()
             .uri(URI.create("https://api.exchangeratesapi.io/latest?base=" + base))

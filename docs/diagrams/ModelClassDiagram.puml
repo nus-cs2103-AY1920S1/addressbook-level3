@@ -29,20 +29,23 @@ Class Tag
 
 Package Expense {
 Class Expense
+Class UniqueExpenseList
 }
 
 Package Budget {
 Class Budget
-}
-
-
-
-Package ExchangeDataSingleton {
-Class ExchangeDataSingleton
+Class UniqueBudgetList
 }
 
 Package ExchangeData {
 Class ExchangeData
+Class ExchangeDataSingleton
+Class Rates
+}
+
+Package AutoComplete {
+Class AutoCompleteModel
+Class Word
 }
 
 Budget *-down-> "1" Name
@@ -52,13 +55,15 @@ Budget *-down-> "2" Date
 Budget *-down-> "1" ExpenseList
 
 ExchangeDataSingleton o-left->"1" ExchangeData
+ExchangeData o-down-> "1" Rates
 
+AutoCompleteModel o-right->"*" Word
 
 ExpenseList .left.|> ReadOnlyExpenseList
 ExpenseList *--> "1" UniqueExpenseList
 
 
-BudgetList .up.|> ReadOnlyBudgetList
+BudgetList .left.|> ReadOnlyBudgetList
 BudgetList *-right-> "1" UniqueBudgetList
 
 UniqueBudgetList o-right-> "*" Budget
@@ -67,6 +72,7 @@ ModelManager o-down-> "1" BudgetList
 ModelManager o-down-> "1" ExpenseList
 ModelManager .left.|> Model
 ModelManager o-right-> "1" UserPrefs
+ModelManager o-down-> "1" ExchangeData
 
 
 Model .left.> ObservableList

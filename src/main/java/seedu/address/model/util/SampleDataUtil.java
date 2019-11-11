@@ -12,10 +12,10 @@ import seedu.address.model.commons.Amount;
 import seedu.address.model.commons.Currency;
 import seedu.address.model.commons.Date;
 import seedu.address.model.commons.Name;
+import seedu.address.model.commons.Tag;
 import seedu.address.model.exchangedata.ExchangeData;
+import seedu.address.model.exchangedata.Rates;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.rates.Rates;
-import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods for populating {@code ExpenseList} with sample data.

@@ -8,7 +8,6 @@ import java.util.Objects;
 
 import seedu.address.model.commons.Currency;
 import seedu.address.model.commons.Date;
-import seedu.address.model.rates.Rates;
 
 
 /**

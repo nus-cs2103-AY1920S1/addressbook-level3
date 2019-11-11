@@ -8,27 +8,36 @@ Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface ExpenseListStorage <<Interface>>
 Interface BudgetListStorage <<Interface>>
+Interface ExchangeDataStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
 Class JsonExpenseListStorage
 Class JsonBudgetListStorage
+Class JsonExchangeDataStorage
 
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
 StorageManager o--> ExpenseListStorage
 StorageManager o----> BudgetListStorage
+StorageManager o------> ExchangeDataStorage
 
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
 JsonExpenseListStorage .left.|> ExpenseListStorage
 JsonBudgetListStorage .left.|> BudgetListStorage
+JsonExchangeDataStorage .left.|> ExchangeDataStorage
 
 JsonExpenseListStorage .down.> JsonSerializableExpenseList
 JsonSerializableExpenseList .right.> JsonAdaptedExpense
-JsonAdaptedExpense .right.> JsonAdaptedTag
+JsonAdaptedExpense .right.> JsonAdaptedCurrency
+JsonExchangeDataStorage .right.> JsonAdaptedExchangeData
+JsonAdaptedExchangeData .right.> JsonAdaptedRates
 
 JsonBudgetListStorage .down.> JsonSerializableBudgetList
 JsonSerializableBudgetList .right.> JsonAdaptedBudget
+JsonAdaptedBudget .right.> JsonSerializableExpenseList
+
+
 @enduml
