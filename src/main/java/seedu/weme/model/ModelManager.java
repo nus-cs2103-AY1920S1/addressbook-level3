@@ -140,9 +140,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setDataFilePath(Path dataFilePath) {
-        requireNonNull(dataFilePath);
-        userPrefs.setDataFilePath(dataFilePath);
+    public Path getDataFolderPath() {
+        return userPrefs.getDataFolderPath();
+    }
+    @Override
+    public void setDataFolderPath(Path dataFolderPath) {
+        requireNonNull(dataFolderPath);
+        userPrefs.setDataFolderPath(dataFolderPath);
     }
 
     @Override
@@ -161,20 +165,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void setMemeImagePath(Path memeImagePath) {
-        requireNonNull(memeImagePath);
-        userPrefs.setMemeImagePath(memeImagePath);
-    }
-
-    @Override
     public Path getTemplateImagePath() {
         return userPrefs.getTemplateImagePath();
-    }
-
-    @Override
-    public void setTemplateImagePath(Path templateImagePath) {
-        requireNonNull(templateImagePath);
-        userPrefs.setTemplateImagePath(templateImagePath);
     }
 
     //=========== Weme ================================================================================

@@ -13,27 +13,15 @@ public class UserPrefsTest {
     }
 
     @Test
-    public void setDataFilePath_nullPath_throwsNullPointerException() {
+    public void setDataFolderPath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPrefs.setDataFilePath(null));
-    }
-
-    @Test
-    public void setMemeImagePath_nullPath_throwsNullPointerException() {
-        UserPrefs userPrefs = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPrefs.setMemeImagePath(null));
+        assertThrows(NullPointerException.class, () -> userPrefs.setDataFolderPath(null));
     }
 
     @Test
     public void setExportPath_nullPath_throwsNullPointerException() {
         UserPrefs userPrefs = new UserPrefs();
         assertThrows(NullPointerException.class, () -> userPrefs.setExportPath(null));
-    }
-
-    @Test
-    public void setTemplateImagePath_nullPath_throwsNullPointerException() {
-        UserPrefs userPrefs = new UserPrefs();
-        assertThrows(NullPointerException.class, () -> userPrefs.setTemplateImagePath(null));
     }
 
 }
