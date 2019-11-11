@@ -401,14 +401,14 @@ Other examples:
 * `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
 f/CS2103T r/Contains textbook & important deadlines`
 +
-image::ui-screenshots/AddCommandExample1.png[]
+image::ui-screenshots/AddCommandExample1.png[Add Module Website command result, 300]
 +
 Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
 The new bookmark's remark is `Contains textbook & important deadlines`, as seen above.
 
 * `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
 +
-image::ui-screenshots/AddCommandExample2.png[]
+image::ui-screenshots/AddCommandExample2.png[Add IntelliJ Tips and Tricks command result, 300]
 +
 Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
 `video` and `watchLater`.
