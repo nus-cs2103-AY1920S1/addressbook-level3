@@ -115,8 +115,15 @@ include::../UserGuide.adoc[tag=update2]
 |_Given below are snippets of sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=transaction]
+include::../DeveloperGuide.adoc[tag=transaction1]
 
-include::../DeveloperGuide.adoc[tag=update]
+include::../DeveloperGuide.adoc[tag=transaction2]
+
+include::../DeveloperGuide.adoc[tag=update1]
+
+include::../DeveloperGuide.adoc[tag=update2]
+
+include::../DeveloperGuide.adoc[tag=update3]
+
 
 
