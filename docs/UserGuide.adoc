@@ -789,8 +789,9 @@ _command box_.
 The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
 it to read the input before hitting _Enter_
 
-== Address Book
+//tag::address[]
 
+== Address Book
 You are heading to a different country for a trip this holiday and you want to let your friends in other countries know
 that you are coming over. The trouble of managing contacts from many different countries can be overwhelming with a
 large number of contacts. Looking for a better contacts management application?
@@ -1042,6 +1043,8 @@ image::AddressBookClear2.png[width=600]
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 
 There is no need to save manually.
+
+//end::address[]
 
 == Financial Tracker
 Scare that you're gonna overspend whenever you're on a trip? Afraid no more! _TravEzy's_ _Financial Tracker_ allow you to track your expenses seamlessly!
@@ -1509,7 +1512,7 @@ Step 1: TravEzy will protect you if someone else tries to change your details
 image::DiaryUnLockHackAfter.png[width=600]
 
 
-
+//tag::achievements[]
 == Achievements
 
 
@@ -1596,6 +1599,8 @@ image::AchievementsItinerary.png[width=800]
 [WARNING]
 If the number of entries in the itinerary has past the target goal of 200, the _progress bar_ will show 100% instead
 of the actual percentage.
+
+//end::achievements[]
 
 == FAQ
 
