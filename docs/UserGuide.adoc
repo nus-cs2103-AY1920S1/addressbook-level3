@@ -886,7 +886,7 @@ Shows annotated offline copy of bookmark 1.
 // end::offlinecommand[]
 
 
-// tag::annotatecommand[]
+// tag::annCmd[]
 [[annotate]]
 ==== Making annotations on an offline copy: *`annotate`*
 
@@ -961,6 +961,7 @@ a new note with content "change or add note content" will be added to the paragr
 * `*annotate* 1 p/null n/adding a general note` +
 This adds a note with content "adding a general note" to the _General notes section_ in the
 offline copy of bookmark 1.
+// end::annCmd[]
 
 [[annotate-edit]]
 ==== Modifying annotations on an offline copy: *`annotate-edit`*
@@ -1083,7 +1084,7 @@ This deletes the general note G1 in the offline copy of bookmark 2.
 
 * `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
-// end::annotatecommand[]
+
 
 //tag::ReminderCommand[]
 

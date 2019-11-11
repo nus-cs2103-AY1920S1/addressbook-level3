@@ -2,9 +2,9 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:sectnums:
 
-= PROJECT: Mark
+== PROJECT: Mark
+:sectnums:
 
 ---
 
@@ -120,7 +120,7 @@ We had to update the original AB3 User Guide with instructions for the enhanceme
 
 _Start of extract from Mark User Guide_
 
-include::../UserGuide.adoc[tag=annotatecommand]
+include::../UserGuide.adoc[tag=annCmd]
 
 //include::../UserGuide.adoc[tag=offlinecommand]
 
@@ -142,7 +142,6 @@ include::../DeveloperGuide.adoc[tag=annotation]
 _End of extract from Mark Developer Guide_
 
 ---
-= PROJECT: Mark
 
 ---
 
