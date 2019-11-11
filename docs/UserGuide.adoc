@@ -571,7 +571,6 @@ image::viewrecords_wyss.png[width=450]
 
 // end::performance[]
 
-// tag::calendar1[]
 === Calendar
 
 To allow you to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
@@ -601,11 +600,13 @@ image::calendar3.png[width=450]
 
 With reference to the diagram below, **Header 1** displays today’s day and date. **Header 2** displays the month and year you are currently viewing.
 
-image::calendarview_calendar.png[width=300]
+image::calendarview_calendar.png[width=450]
 
 You may use the left and right arrow icons beside header 2 to navigate to the previous or next month.
 
 Days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators. Today's date (e.g. 31 October 2019) is marked with a blue circle.
+
+// tag::calendar1[]
 
 ==== Navigating the calendar to a specific month : `calendar MMYYYY`
 
@@ -630,7 +631,7 @@ Example: `calendar 102017`
 
 Type `calendar 102017` into the command box, and press kbd:[enter] to execute it.
 
-image::calendar5.png[width=350]
+image::calendar5.png[width=450]
 
 *What you should see*
 
@@ -648,9 +649,10 @@ image::monthview_calendar.png[width=450]
 
 You may use the left and right arrow icons beside header 2 to navigate to the previous or next month.
 
+// tag::calendar2[]
+
 Days with training entries are marked with a green dot indicator, and days with performance entries are marked with a purple dot indicator. Days with both training and performance entries are marked with both indicators.
 
-// tag::calendar2[]
 ==== Viewing training / performance details for a specific date : `calendar DDMMYYYY`
 
 This command displays the training and performance details entered on a specific date.
@@ -665,12 +667,14 @@ Type in the command `calendar` followed by the desired date in the format `DDMMY
 
 Format: `calendar DDMMYYYY`
 // end::calendar2[]
+
 [NOTE]
 ====
 `MM` provided has to be within the range `01` to `12` (`0` must be included in front of single-digit numbers) and `YYYY` provided has to be within the range 0001 to 9999 for the command to execute successfully.
 
 You should have either training or attendance records on the specified date entered into **Athletick**, otherwise no records will be displayed.
 ====
+
 // tag::calendar3[]
 Example: `calendar 31102019`
 
@@ -687,11 +691,11 @@ Additionally, the feature box (yellow box) will display the training and perform
 image::calendar10.png[width=450]
 
 In the event your list of attendance and performance records exceeds the size of the window, you may use the blue vertical scrollbar on the right of the feature box to scroll down.
+// end::calendar3[]
 
 With reference to the diagram below, the **attendance pie chart** indicates the overall team attendance percentage and the number of present and absent team members. The **attendance table** displays your team members and whether they were present or absent. The **performance statistic** indicates the total number of performance records and the **performance table** displays the records for each event.
 
 image::calendar11.png[width=450]
-// end::calendar3[]
 
 === Athlete Management
 // tag::select[]

@@ -528,7 +528,7 @@ details for a particular event)
 
 // end::performance[]
 
-// tag::calendar[]
+// tag::calendar1[]
 === Calendar feature
 
 To allow users to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
@@ -548,6 +548,7 @@ There are 2 commands that users can issue to perform function 1:
 . `view calendar`: Displays calendar for the current month.
 
 . `calendar MMYYYY`: Displays calendar for the month specified by the user.
+// end::calendar1[]
 
 The following sequence diagram shows you how the `calendar MMYYYY` (e.g. `calendar 012019` where `012019` corresponds to January 2019) command works.
 
@@ -558,10 +559,11 @@ Upon completion of the above execution, the calendar for January 2019 will be di
 
 The `view calendar` command is similar except that `[green]#displayCalendar(CommandResult)#` is called instead of `[green]#displayCalendarWithDate(CommandResult)#` and the `[green]#CalendarPanel#` class is instantiated _without_ an `[green]#AthletickDate#` specified by the user. The calendar displayed to the user will reflect the current month and year since date is not specified by the user.
 
+// tag::calendar2[]
 The following activity diagram summarises what happens when a user wants to perform function 1.
 
 .Activity diagram showing what happens when a user wants to  perform function 1
-image::Function1ActivityDiagram.png[width=200]
+image::Function1ActivityDiagram.png[width=300]
 
 Function 1 is facilitated by the `[green]#CalendarPanel#` class. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
 
@@ -588,6 +590,7 @@ image::CellResult.png[width="300"]
 ===== Function 2: Displays training and performance records entered on a specific date
 
 In order to perform function 2, the user issues the `calendar DDMMYYYY` command (e.g. `calendar 01012019` where `01012019` corresponds to 1st January 2019).
+// end::calendar2[]
 
 The following sequence diagram shows you how the `calendar DDMMYYYY` (e.g. `calendar 01012019`) operation works.
 
@@ -596,10 +599,11 @@ image::CalendarCommandSequenceDiagram2.png[width="550"]
 
 Upon completion of the above execution, the attendance and performance records for 1st January 2019 will be displayed to the user.
 
+// tag::calendar3[]
 The following activity diagram summarises what happens when a user issues the `calendar DDMMYYYY` command.
 
 .Activity diagram showing what happens when a user issues the `calendar DDMMYYYY` command
-image::Function2ActivityDiagram.png[width="500"]
+image::Function2ActivityDiagram.png[width="700"]
 
 Function 2 is facilitated by `[green]#CalendarDetailPanel#`. It extends `[green]#UiPart<Region>#` and displays the attendance and performance records for a date specified by the user. Additionally, it implements the following operations:
 
@@ -613,7 +617,7 @@ These operations are performed when an instance of `[green]#CalendarDetailPanel#
 The sequence diagram below shows you what happens when the `[green]#CalendarDetailPanel#` class is instantiated.
 
 .Interactions inside the `[green]#UI#` and `[green]#Model#` components when `[green]#CalendarPanel#` is instantiated
-image::CalendarDetailConstructor.png[]
+image::CalendarDetailConstructor.png[width="500"]
 
 Upon completion of the above execution, training and performance records recorded on the specified date will be displayed to the user.
 
@@ -626,17 +630,16 @@ This section contains some of our design considerations for the calendar feature
 [width="100%", cols="1, 5, 5"]
 |===
 |
-a|**Alternative 1 (Current Choice)**: Use a monthly calendar
-a|**Alternative 2**: Use a monthly list
+|**Alternative 1 (Current Choice)**: Use a monthly calendar
+|**Alternative 2**: Use a monthly list
 
 |**Pros**
-a|* Displays information more clearly especially when users have a large number of training and performance records in a month
- * Allows for future expansion of calendar feature with more date-related functionalities (e.g. planning of training programme in advance)
-a|* Displays information more concisely if users have a small amount of training and performance records in a month
+|Displays information more clearly especially when users have a large number of training and performance records in a month
+|Displays information more concisely if users have a small amount of training and performance records in a month
 
 |**Cons**
-a|* Increases difficulty of implementation
-a|* Displays information in rows and columns which is no better than using Excel
+|Increases difficulty of implementation
+|Displays information in rows and columns which is no better than using Excel
 
 |===
 
@@ -650,17 +653,17 @@ a|* Displays information in rows and columns which is no better than using Excel
 [width="100%", cols="1, 5, 5"]
 |===
 |
-a|**Alternative 1 (Current Choice)**: Display using a fixed 7 by 6 `[green]#GridPane#`, fill up left over days with days from previous and next month
-a|**Alternative 2**: Display using a variable sized `[green]#GridPane#` that is populated with days from selected month only
+|**Alternative 1 (Current Choice)**: Display using a fixed 7 by 6 `[green]#GridPane#`, fill up left over days with days from previous and next month
+|**Alternative 2**: Display using a variable sized `[green]#GridPane#` that is populated with days from selected month only
 
 |**Pros**
-a|* Makes implementation easier
- * Emulates implementation by other calendar applications (e.g. Google Calendar)
-a|* Maximises usage of space in the application window
+|Emulates implementation by other calendar applications and easier to implement (e.g. Google
+Calendar)
+|Maximises usage of space in the application window
 
 |**Cons**
-a|* Displays information of previous and next month which users may not be interested in
-a|* Increases difficulty of implementation
+|Displays information of previous and next month which users may not be interested in
+|Increases difficulty of implementation
 
 |===
 
@@ -668,22 +671,23 @@ a|* Increases difficulty of implementation
 
 * Alternative 1 is easier to implement since the dimensions of the calendar are fixed so we do not have to recalculate it constantly. The ease of implementation is important given the tight deadlines we have to contend with in our software engineering module.
 * Alternative 1 emulates the implementation of other successful calendar applications (e.g. Google Calendar) so we do not have to reinvent the wheel.
-// end::calendar[]
+// end::calendar3[]
+
 ===== Aspect: How the user can display the attendance and performance data on a specific date
 
 [width="100%", cols="1, 5, 5"]
 |===
 |
-a|**Alternative 1 (Current Choice)**: Use one `calendar DDMMYYYY` command to view _both_ attendance and performance records on the specified date
-a|**Alternative 2**: Use two separate commands to view attendance and performance records _separately_ on the specified date
+|**Alternative 1 (Current Choice)**: Use one `calendar DDMMYYYY` command to view _both_ attendance and performance records on the specified date
+|**Alternative 2**: Use two separate commands to view attendance and performance records _separately_ on the specified date
 
 |**Pros**
-a|* Makes access of data more efficient
-a|* Allows users to have more control over what data is displayed
+| Makes access of data more efficient
+|Allows users to have more control over what data is displayed
 
 |**Cons**
-a|* Displays both attendance and performance records on the specified date all the time
-a|* Requires more flags to be added to the command syntax which makes it more complex
+|Displays both attendance and performance records on the specified date all the time
+|Requires more flags to be added to the command syntax which makes it more complex
 
 |===
 
