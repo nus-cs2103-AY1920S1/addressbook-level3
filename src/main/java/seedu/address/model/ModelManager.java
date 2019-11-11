@@ -365,7 +365,7 @@ public class ModelManager implements Model {
         }
 
         boolean isSuccessful = targetTeams.stream()
-                .map(team -> team.updateParticipant(participantToDelete))
+                .map(team -> team.deleteParticipant(participantToDelete))
                 .allMatch(result -> result == true);
 
         if (!isSuccessful) {
