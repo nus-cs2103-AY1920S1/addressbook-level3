@@ -9,7 +9,7 @@
 
 == Overview
 
-iFridge is a desktop grocery management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has a lot of code.
+iFridge is a desktop grocery management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20kLoC.
 
 == Summary of contributions
 
@@ -50,16 +50,14 @@ be visible and easily understandable by the users.
 ** Project management:
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 //** Enhancements to existing features:
-//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-F10-2/main/pull/116[#116])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103-F10-2/main/pull/239[#239])
 ** Documentation:
 *** Updated Acknowledgement in README.adoc and Website Heading (Pull Request https://github.com/AY1920S1-CS2103-F10-2/main/pull/8[#8])
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/evelynejuliet/ped/issues/16[1], https://github.com/evelynejuliet/ped/issues/7[2], https://github.com/evelynejuliet/ped/issues/2[3])
-** Tools:
 
 == Contributions to the User Guide
-
 
 |===
 |_Below are sections I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -93,3 +91,11 @@ include::../DeveloperGuide.adoc[tag=shoppingundoredofeature]
 
 include::../DeveloperGuide.adoc[tag=templateundoredofeature]
 
+//include::../DeveloperGuide.adoc[tag=undoredomanualtesting]
+
+include::../DeveloperGuide.adoc[tag=remindermanualtesting]
+
+=== Not included: Undo Redo Manual Testing.
+Please refer to Developer Guide
+(https://github.com/AY1920S1-CS2103-F10-2/main/blob/master/docs/DeveloperGuide.adoc#undo-redo-manual-testing[DG])
+for more details.
