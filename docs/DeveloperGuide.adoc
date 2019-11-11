@@ -534,7 +534,7 @@ object for viewing that can be sorted such that when [blue]`sort reset` is calle
 |`ModelManager` contains only the shown `TransactionList` that can be sorted and reads from the data file to get
 the `TransactionList` object in original order when [blue]`sort reset` is called.
 |Alternative 1 was implemented. Alternative 1 allowed exporting of the data file in the desired order anytime while treasurerPro was running while
-alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shownin <<lists, Figure 24>>, below the table.
+alternative 2 meant that the data file would be updated only when treasurerPro is exited. The implementation is shown in <<lists, Figure 24>>, below the table.
 
 |The Members tab's `Model` interface is passed as parameters into Home tab's `Logic` to give `Logic` access to all public methods
 of `ModelManager`.
