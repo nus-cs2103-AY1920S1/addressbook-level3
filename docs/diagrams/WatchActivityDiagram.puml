@@ -11,7 +11,7 @@ skinparam activity {
   ControlBackgroundColor white
   FontColor Snow
   FontName Calibri
-  FontSize 15
+  FontSize 16
 }
 
 skinparam activityDiamond {
