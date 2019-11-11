@@ -6,6 +6,9 @@ import seedu.address.calendar.logic.commands.AlternativeCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 
+/**
+ * Manages suggested commands to be executed.
+ */
 public class SuggestionManager {
     private Optional<AlternativeCommand> suggestedCommand = Optional.empty();
 

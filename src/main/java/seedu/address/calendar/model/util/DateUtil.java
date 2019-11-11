@@ -52,6 +52,12 @@ public class DateUtil {
         return startDate.compareTo(endDate) <= 0;
     }
 
+    /**
+     * Converts date to {@code LocalDate}.
+     *
+     * @param date The date to be converted
+     * @return A {@code LocalDate} representation of the specified date
+     */
     private static LocalDate toLocalDate(Date date) {
         int dayOfMonth = date.getDay().getDayOfMonth();
         int month = date.getMonth().getNumericalVal();
@@ -189,7 +195,7 @@ public class DateUtil {
      * @return @code MonthOfYear} equivalent of {@code monthNum}
      */
     public static MonthOfYear convertNumToMonth(int zeroBasedMonth) {
-        return  MonthOfYearUtil.convertZeroBasedNumToMonth(zeroBasedMonth);
+        return MonthOfYearUtil.convertZeroBasedNumToMonth(zeroBasedMonth);
     }
 
     /* The following is used for more specific month-and-day-related purposes. */

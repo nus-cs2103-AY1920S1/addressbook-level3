@@ -10,7 +10,20 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses the date.
+ */
 public class DateParser {
+    /**
+     * Parses the start date.
+     *
+     * @param argMultimap A map containing user input
+     * @param monthPrefix The month prefix
+     * @param yearPrefix The year prefix
+     * @param dayPrefix The day prefix
+     * @return The required date
+     * @throws ParseException if the input cannot be parsed successfully
+     */
     static Date parseStartDate(ArgumentMultimap argMultimap, Prefix monthPrefix, Prefix yearPrefix,
                                Prefix dayPrefix) throws ParseException {
         Optional<MonthOfYear> startMonth = new MonthParser().parse(argMultimap.getValue(monthPrefix));
@@ -21,6 +34,17 @@ public class DateParser {
         return new Date(startDay, startMonth, startYear);
     }
 
+    /**
+     * Parses the end date.
+     *
+     * @param argMultimap A map containing user input
+     * @param startDate The start date of the event
+     * @param monthPrefix The month prefix
+     * @param yearPrefix The year prefix
+     * @param dayPrefix The day prefix
+     * @return  The required date
+     * @throws ParseException if the input cannot be parsed successfully
+     */
     static Date parseEndDate(ArgumentMultimap argMultimap, Date startDate, Prefix monthPrefix, Prefix yearPrefix,
                              Prefix dayPrefix) throws ParseException {
         Day startDateDay = startDate.getDay();

@@ -104,6 +104,11 @@ public class CalendarPage extends UiPart<Region> implements Page {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
+    /**
+     * Updates the calendar page.
+     *
+     * @param updatedViewOnlyMonth The month view to be shown
+     */
     private void updateCalendarPage(ViewOnlyMonth updatedViewOnlyMonth) {
         Year year = updatedViewOnlyMonth.getYear();
         MonthOfYear monthOfYear = updatedViewOnlyMonth.getMonthOfYear();

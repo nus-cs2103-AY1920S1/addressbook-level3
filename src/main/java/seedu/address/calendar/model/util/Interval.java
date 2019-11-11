@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @param <S> Type of interval (e.g. date, number, time, etc.)
  * @param <T> Object which contains the specified type.
  */
-public class Interval<S extends IntervalPart<S>, T> implements Comparable<Interval<S, T>>  {
+public class Interval<S extends IntervalPart<S>, T> implements Comparable<Interval<S, T>> {
     protected S start;
     protected S end;
 
@@ -30,6 +30,11 @@ public class Interval<S extends IntervalPart<S>, T> implements Comparable<Interv
         return start.compareTo(otherIntervalPart) > 0;
     }
 
+    /**
+     * Checks if {@code this} contains another {@code IntervalPart}.
+     * @param otherIntervalPart The other {@code IntervalPart}
+     * @return {@code true} if {@code this} contains another {@code IntervalPart}
+     */
     public boolean contains(S otherIntervalPart) {
         boolean isStartBeforeOrAt = start.compareTo(otherIntervalPart) <= 0;
         boolean isEndsAfterOrAt = end.compareTo(otherIntervalPart) >= 0;
@@ -44,6 +49,12 @@ public class Interval<S extends IntervalPart<S>, T> implements Comparable<Interv
         return end;
     }
 
+    /**
+     * Compares {@code this} with another interval.
+     *
+     * @param other The other interval to compare to
+     * @return An {@code int} which follows the conventions used by Java
+     */
     public int compareTo(Interval<S, T> other) {
         S otherStart = other.getStart();
         int startCompare = start.compareTo(otherStart);
@@ -55,6 +66,12 @@ public class Interval<S extends IntervalPart<S>, T> implements Comparable<Interv
         return end.compareTo(otherEnd);
     }
 
+    /**
+     * Checks if {@code this} interval overlaps with the other interval.
+     *
+     * @param newInterval The other interval to compare to
+     * @return {@cod true} if {@code this} interval overlaps with the other interval
+     */
     public boolean isOverlap(Interval newInterval) {
         Interval firstInterval;
         Interval secondInterval;

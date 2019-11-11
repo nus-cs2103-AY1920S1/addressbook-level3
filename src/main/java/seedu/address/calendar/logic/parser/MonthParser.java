@@ -8,6 +8,9 @@ import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses month.
+ */
 class MonthParser {
     private static final String FORMAT_ERROR_MESSAGE = "Incorrect month format.";
     private static final String MONTH_ERROR_MESSAGE = "No such month can be found.";
@@ -19,6 +22,13 @@ class MonthParser {
     private static final String MONTH_NUM_PATTERN = "(?<" + MONTH_NUM_KEY + ">\\d{1,2}?)";
     private static final Pattern MONTH_FORMAT = Pattern.compile(MONTH_NUM_PATTERN + "|" + MONTH_STR_PATTERN);
 
+    /**
+     * Parses the given month input.
+     *
+     * @param monthInput The given month input
+     * @return The representative month of year
+     * @throws ParseException If the input cannot be parsed successfully
+     */
     Optional<MonthOfYear> parse(Optional<String> monthInput) throws ParseException {
         if (monthInput.isEmpty()) {
             return Optional.empty();
@@ -49,6 +59,13 @@ class MonthParser {
         return Optional.of(month);
     }
 
+    /**
+     * Converts user month input (an {@code int}) into a representative month.
+     *
+     * @param monthNum The user month input
+     * @return The representative month of year
+     * @throws ParseException If the input cannot be parsed successfully
+     */
     private MonthOfYear convertMonthNum(String monthNum) throws ParseException {
         // assumes that user represents Jan with 1, Feb with 2, etc.
         int zeroBasedMonth = Integer.parseInt(monthNum) - 1;
@@ -61,6 +78,13 @@ class MonthParser {
         return month;
     }
 
+    /**
+     * Converts user month input (a string) into a representative month.
+     *
+     * @param monthStr The user month input
+     * @return The representative month of year
+     * @throws ParseException If the input cannot be parsed successfully
+     */
     private MonthOfYear convertMonthStr(String monthStr) throws ParseException {
         if (!DateUtil.isValidMonthStr(monthStr)) {
             throw new ParseException(MONTH_ERROR_MESSAGE);

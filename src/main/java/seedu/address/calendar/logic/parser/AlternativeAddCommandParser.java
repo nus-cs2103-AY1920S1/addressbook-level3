@@ -9,6 +9,9 @@ import seedu.address.calendar.model.event.EventType;
 import seedu.address.calendar.model.event.Name;
 import seedu.address.calendar.model.event.Trip;
 
+/**
+ * A parse that parses user input for an alternative add command.
+ */
 public class AlternativeAddCommandParser extends AddCommandParser {
     @Override
     AddCommand parse(EventType eventType, Name name, Date startDate, Date endDate) {
