@@ -3,6 +3,22 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.help {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    background-color: #383838; /* Used in the default.html file */
+}
+
+.help .label {
+    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #eee;
+    -fx-font-size: 10pt;
+}
+
+.hyperlink {
+    -fx-border-color: transparent;
+    -fx-padding: 4 0 4 0;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
