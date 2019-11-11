@@ -1,11 +1,13 @@
 package dukecooks.storage.recipe;
 
+import static dukecooks.model.util.SampleRecipeDataUtil.getSampleRecipes;
 import static dukecooks.testutil.recipe.TypicalRecipes.KAPPA;
 import static dukecooks.testutil.recipe.TypicalRecipes.MILO;
 import static dukecooks.testutil.recipe.TypicalRecipes.TAMAGO;
 import static dukecooks.testutil.recipe.TypicalRecipes.getTypicalRecipeBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,6 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 import dukecooks.commons.exceptions.DataConversionException;
 import dukecooks.model.recipe.ReadOnlyRecipeBook;
 import dukecooks.model.recipe.RecipeBook;
+import dukecooks.model.recipe.components.Recipe;
 import dukecooks.testutil.Assert;
 
 public class JsonRecipeBookStorageTest {
@@ -108,5 +111,12 @@ public class JsonRecipeBookStorageTest {
     @Test
     public void saveRecipeBook_nullFilePath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> saveRecipeBook(new RecipeBook(), null));
+    }
+
+    @Test
+    public void sampleRecipeDataUtilTest() {
+        Recipe[] expected = getSampleRecipes();
+
+        assertTrue(expected != null);
     }
 }
