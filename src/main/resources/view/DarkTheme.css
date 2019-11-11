@@ -100,24 +100,24 @@
 }
 
 .list-cell:filled:even {
-    -fx-background-color: #3c3e3f;
+    -fx-background-color: rgb(255, 255, 255);
 }
 
 .list-cell:filled:odd {
-    -fx-background-color: #515658;
+    -fx-background-color: rgba(255, 255, 255, 0.87);
 }
 
 .list-cell:filled:selected {
-    -fx-background-color: #424d5f;
+    -fx-background-color: rgba(203, 203, 214, 0.938)
 }
 
 .list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
+    -fx-border-color: #2792af;
     -fx-border-width: 1;
 }
 
 .list-cell .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #424d5f;
 }
 
 .cell_big_label {
@@ -142,6 +142,12 @@
      -fx-border-top-width: 1px;
 }
 
+.pane-with-border-2 {
+    -fx-background-color: derive(#ffffff, 20%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-border-top-width: 1px;
+}
+
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
@@ -154,6 +160,17 @@
 }
 
 .result-display .label {
+    -fx-text-fill: black !important;
+}
+
+.flashcard-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: black;
+}
+
+.flashcard-display .label {
     -fx-text-fill: black !important;
 }
 
@@ -335,6 +352,22 @@
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
+}
+
+#flashcardDisplay .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
+}
+
+#flashcardDisplay {
+    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-insets: 0;
+    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
 }
 
 #tags {

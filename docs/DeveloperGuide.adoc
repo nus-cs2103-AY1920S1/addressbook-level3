@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= FlashMind - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T14-3/main/blob/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team CS2103-T14-3`      Since: `Nov 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -34,7 +34,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/flashcard/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/flashcard/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -77,17 +77,17 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/flashcard/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `FlashcardListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/flashcard/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
-
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -96,11 +96,11 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/flashcard/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `FlashcardListParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a Flashcard).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
@@ -110,6 +110,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
+
+// tag::model[]
 
 [[Design-Model]]
 === Model component
@@ -117,19 +120,16 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/flashcard/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the Flashcard List data.
+* exposes an unmodifiable `ObservableList<Flashcard>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* also exposes a statistics object to the ui to create the statistic charts .
+// end::model[]
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -137,59 +137,105 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/flashcard/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Flashcard data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.flashcard.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+// tag::quizdiagram[]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+=== Quiz and Flip feature
+In the flashcard system, quiz and flip is a special function that can help the user quiz themselves on the flashcards and see
+there own improvements. The flip command, which is answering the quizzed flashcard, can only be used when a current flashcard is being quizzed.
+The following sequence diagram shows how the quiz and flip diagram works.
+
+.Component interactions for quiz command on a single flashcard
+image::QuizSequenceDiagram.png[]
+
+=== Stats feature
+
+After a series of quizzes, each flashcard can automatically record how many correct answers and wrong answers has the user did on this flashcard.
+The stats command helps the user to see their progress while doing the quizzes. Below is a sequence diagram of how this command
+works.
+
+.Component interactions for stats command
+image::StatsSequenceDiagram.png[]
+
+// end::quizdiagram[]
+
+// tag::quiztagfeature[]
+=== Quiz Tag feature
+Alternatively, users can choose to quiz a series of tags instead of a single card.
+A list of flashcards will then be added to the list of quizable cards,
+which also triggers quiz mode, allowing users to use the flip command to answer flashcards consecutively.
+The following sequence diagram shows how the quiztag command works:
+
+.Component interactions for any quiztag command
+image::QuizTagSequenceDiagram.png[]
+
+Calling a quiztag command triggers the quiz mode, which is stored as a boolean in the FlashcardListParser.
+This is done with the consideration that there are different functions that can start the quiz mode (i.e quiz, quiztag),
+and others that can end the quiz mode (i.e flip, end, exit).
+
+During quiz mode, the flip command can be called consecutively for as long as there are flashcards left in the quiz, as shown below:
+
+.Flip command running and interact with the parser to toggle quiz mode
+image::FlipSequenceDiagram.png[]
+
+The flip command interacts with the model to check if there are any quizable flashcards.
+If there are none, the flip command toggles the quiz mode in FlashcardListParser off.
+
+// end::quiztagfeature[]
+
+// tag::undoredo[]
+
+===  Undo/Redo feature
+==== Implementation
+
+The undo/redo mechanism is facilitated by `VersionedFlashcardList`.
+It extends `FlashcardList` with an undo/redo history, stored internally as an `flashcardListStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedFlashcardList#commit()` -- Saves the current flashcard list state in its history.
+* `VersionedFlashcardList#undo()` -- Restores the previous flashcard list state from its history.
+* `VersionedFlashcardList#redo()` -- Restores a previously undone flashcard list state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitFlashcardList()`, `Model#undoFlashcardList()` and `Model#redoFlashcardList()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedFlashcardList` will be initialized with the initial flashcard list state, and the `currentStatePointer` pointing to that single flashcard list state.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th Flashcard in the flashcard list. The `delete` command calls `Model#commitFlashcardList()`, causing the modified state of the flashcard list after the `delete 5` command executes to be saved in the `flashcardListStateList`, and the `currentStatePointer` is shifted to the newly inserted flashcard list state.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add q/What is a machine ...` to add a new Flashcard. The `add` command also calls `Model#commitFlashcardList()`, causing another modified flashcard list state to be saved into the `flashcardListStateList`.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitFlashcardList()`, so the flashcard list state will not be saved into the `flashcardListStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the flashcard was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoFlashcardList()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous flashcard list state, and restores the flashcard list to that state.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial flashcard list state, then there are no previous flashcard list states to restore. The `undo` command uses `Model#canUndoFlashcardList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,18 +243,15 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoFlashcardList()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the flashcard list to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `flashcardListStateList.size() - 1`, pointing to the latest flashcard list state, then there are no undone flashcard list states to restore. The `redo` command uses `Model#canRedoFlashcardList()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the flashcard list, such as `list`, will usually not call `Model#commitFlashcardList()`, `Model#undoFlashcardList()` or `Model#redoFlashcardList()`. Thus, the `flashcardListStateList` remains unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -218,29 +261,33 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire flashcard list.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Pros: Will use less memory (e.g. for `delete`, just save the flashcard being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct. There will be a lot coding involved and a higher chance of regression bugs.
+// end::undoredo[]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 1 (current choice):** Use a list to store the history of flashcard list states.
+** Pros: It has a very clear structure and is therefore easy for future developers to update.
+** Cons: It might be difficult to navigate between different elements in the list. However, that's not really a big issue as we only need to move to neighbouring states each time.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+// tag::quizmodedc[]
+===== Aspect: Quiz Mode
+* **Alternative 1 (current choice):** A static boolean is stored in the FlashcardListParser to indicate whether the application
+is currently in quiz mode. Being in quiz mode allows access to some commands and disables others.
+** Pros: It is easy to toggle Quiz mode on and off from the various commands as it is a static boolean and can be accessed easily.
+** Cons: It violates the Single Responsibility Principle as the parser now stores information vital to the logic of the application, besides parsing arguments.
+* **Alternative 2:** Store the Quiz mode boolean inside Logic Manager.
+** Pros: It adheres better to software engineering principles as variables affect the logic of the programme should be stored in the logic manager.
+** Cons: As Quiz mode heavily affects the parsing of the commands, the boolean has to be passed to and fro several layers, making it harder for commands to toggle quiz mode on and off.
+// end::quizmodedc[]
 
 === Logging
 
@@ -279,13 +326,14 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* needs to memorize a large amount of discrete knowledge like vocabulary
+* want to check his/her progress over a period of time
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage short knowledge like vocabulary faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,60 +345,333 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new flashcard |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a flashcard |remove flashcards that I have already firmly memorized
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |find a flashcard by keywords in its question or answer |locate details of flashcards without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |tag the flashcards |group them based on their fields
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |start a quiz |train myself on the flashcards
+
+|`* * *` |user |see my statistics over time | I know what parts I need to train more, what parts I am weak at
+
+|`* *` |user |edit a flashcard |do adjustment on the cards instead of typing the question and answer all over again
+
+|`* *` |user |import flashcards from other documents |add a lot of questions into the system without typing them one by one
+
+|`* *` |user |set time limit to each flashcard |
+
+|`* *` |user |set up a deadline to train on each set of flashcards |
+
+|`*` |user with many flashcards in the flashcard list |sort flashcards by name |locate a flashcard easily
+
+|`*` |user |automatically judge my answer to my short answer question |I can know how well I am doing
+
+|`*` |user |automatically decide duplicate flashcard |I will add same flashcard into the system multiple times
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `FlashcardList` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - View all the flashcards
+
+Actor: User
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to view all existing flashcards by using correct command line input.
+2.  FlashMind shows a list of all existing flashcards.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The flashcard list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+
+[discrete]
+=== Use case: UC02 - Delete a flashcard
+
+Actor: User
+
+*MSS*
+
+1.  User [.underline]#views all flashcards (UC01)#.
+2.  User locates the correct index of the flashcard he/she wants.
+3.  User request to delete the flashcard with the specific index number.
+4.  FlashMind deletes the flashcard.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. FlashMind shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case: UC03 - Tag a flashcard
+
+Actor: User
+
+*MSS*
+
+1.  User [.underline]#views all existing flashcards (UC01)#.
+2.  User identifies the index of the particular flashcard that he/she wants to tag.
+3.  User tags the flashcard with provided tag names.
+4.  FlashMind creates new tags with the given tag names and put the flashcard under these tags.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The given tag already exist, but the target flashcard is not under this tag yet.
++
+[none]
+** 2a1. FlashMind puts the given flashcard under the existing tag instead of creating a new tag.
++
+Use case ends.
+
+[none]
+* 2b. The target flashcard is already under the given tag.
++
+[none]
+** 2b1. FlashMind shows an error message.
++
+Use case ends.
+
+[none]
+* 2c. The input flashcard index number is invalid.
++
+[none]
+** 2c1. FlashMind shows an error message.
++
+Use case ends.
+
+// tag::usecases[]
+[discrete]
+=== Use case: UC04 - edit a flashcard
+
+Actor: User
+
+*MSS*
+
+1. User [.underline]#views all existing flashcards (UC01)#.
+2. User identifies the index of the particular flashcard that he/she wants to edit.
+3. User request to edit the question, tag or answer of a flashcard.
+4. FlashMind updates the question, tag or answer on the specific flashcard.
+
+*Extensions*
+
+[none]
+* 2a. The requested question or answer is in wrong format
++
+[none]
+** 2a1. FlashMind shows an error message including the constraints of the question and answer.
++
+Use case ends.
+
+[none]
+* 2b. The input flashcard index number is invalid
++
+[none]
+** 2b1. FlashMind shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC05 - find all flashcards with particular tags
+
+Actor: User
+
+*MSS*
+
+1. User request to list all the flashcard sets with the same tags by inputting these tags.
+2. FlashMind shows a list of all current flashcards with the provided tags.
+
+[none]
+* 2a. The tag is empty or does not exist.
++
+[none]
+** 2a1. System displays an error message.
+user case ends.
+// end::usecases[]
+
+[discrete]
+=== Use case: UC06 - delete a tag
+
+Actor: User
+
+*MSS*
+
+1. User requests to delete a particular tag by inputting the name of that tag.
+2. FlashMind deletes the tag from all flashcards with this tag and delete it from the tag list. Also, all flashcards with that tag are not removed.
+
+*Extensions*
+[none]
+* 4a. The tag user wants to delete does not exist.
++
+[none]
+** 4a1. FlashMind shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC07 - Start a quiz on a flashcard
+
+Actor: User
+
+Precondition: The tag exists in the database
+
+*MSS*
+
+1. User [.underline]#views all existing flashcards (UC01)#.
+2. User starts a quiz on a particular flashcard by providing its index.
+3. FlashMind displays the question on that flashcard.
+4. User carries out the quiz by providing an answer to that question.
+5. FlashMind displays result.
+6. User confirms the result.
+7. Quiz ends.
+
+Use case ends
+
+*Extensions*
+[none]
+* 3a. User does not give an answer
+[none]
+** 3a1. FlashMind waits for 15 seconds
+** 3a2. User still has no answer
+** Flashcard will be skipped or marked as wrong.
+
+[none]
+* *a. At any time, User decides to end the quiz
+[none]
+** *a1. FlashMind  requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
+** use case ends
+
+[discrete]
+=== Use case: UC08 - Start a quiz on a set of flashcards with the same tag
+
+Actor: User
+
+Precondition: The tag exists in the database
+
+*MSS*
+
+1. User [.underline]#views all existing flashcards (UC01)#.
+2. User identifies a particular tag that he/she wants to quiz on.
+3. User starts a quiz on that tag by providing the tag name.
+4. FlashMind shows the question of the first flashcard.
+5. User answers the question by providing a response.
+6. FlashMind displays result.
+7. User confirms the result.
+[none]
+* steps 2-5 are repeated until all the flashcard in the tag have been quizzed.
+8. Quiz ends.
+
+Use case ends
+
+*Extensions*
+[none]
+* 3a. User does not give an answer
+[none]
+** 3a1. FlashMind waits for 15 seconds.
+** 3a2. User still has no answer
+** Use case resumes from step 4 (flashcard is skipped or marked as wrong)
+
+[none]
+* *a. At any time, User decides to quit the quiz
+[none]
+** *a1. FlashMind  requests to confirm the cancellation.
+** *a2. User confirms the cancellation.
+** use case ends
+
+[discrete]
+=== Use case: UC09 - Undo/redo a flashcard list change
+
+Actor: User
+
+Precondition: There is an actual change that happened to the flashcard list.
+
+*MSS*
+
+1. User inputs either undo or redo command to get back the previous or previous undone state of flashcard list.
+2. FlashMind displays the undone/redone flashcard card list to the user.
+
+Use case ends
+
+*Extensions*
+[none]
+* 1a. There is no undoable/redoable state available
+[none]
+** 1a1. FlashMind displays error message.
+
+[discrete]
+=== Use case: UC10 - View all the available commands
+
+Actor: User
+
+*MSS*
+
+1.  User enters `help` to ask FlashMind for all the commands.
+2.  System responds by providing all the available commands.
++
+Use case ends.
+
+// tag::statsusecase[]
+
+[discrete]
+=== Use case: UC11 - View the statistics of flashcards
+
+Actor: User
+
+*MSS*
+
+1.  User enters `stats` to ask FlashMind to show stats of all cards
+2.  System displays the statistics of the selected flashcards in a new window
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User enters `stats [t/Tag]` to ask FlashMind to show stats of cards under specified tags.
++
+Use case resumes at step 2.
+
+[none]
+* 2a. The tag is empty or does not exist.
++
+[none]
+** 2a1. System displays an error message.
++
+use case ends.
+// end::statsusecase[]
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 flashcards without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
+.  If the stored flashcard list is very long, all commands should still be executed at a fast speed, with minimal sluggishness.
+.  Should be able to minimize loss of stored flashcard information if the app closes due to unforeseen external circumstances.
+.  Command format should be easily understandable and intuitive to make it easier then using a GUI interface
 
 [appendix]
 == Glossary
@@ -358,25 +679,8 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[flashcard]] Flashcard::
+A digital card that contains a short piece of information like an English word or a geography common knowledge. Normally used by people to facilitate the memorization process.
 
 [appendix]
 == Instructions for Manual Testing
@@ -400,26 +704,20 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a flashcard
 
-=== Deleting a person
+. Deleting a flashcard  while all flashcards (in a tagged set/in the all-flashcard list) are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all flashcards using the `list` command. Multiple flashcards in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First flashcard with ID 1 is deleted from the list.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No flashcard is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size or ID number is negative)
    Expected: Similar to previous.
-
-_{ more test cases ... }_
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. Manually make a Json file with invalid fields and see if FlashMind can identify these issues or not.

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" accessibleRole="LIST_VIEW" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@DarkTheme.css">
+        <VBox alignment="CENTER_LEFT" minHeight="105" stylesheets="@DarkTheme.css" GridPane.columnIndex="0">
+            <padding>
+                <Insets bottom="5" left="15" right="5" top="5" />
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="5" stylesheets="@DarkTheme.css">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="question" styleClass="cell_big_label" text="\$first" wrapText="true" />
+            </HBox>
+            <FlowPane fx:id="tags" stylesheets="@DarkTheme.css" />
+            <Label fx:id="definition" styleClass="cell_small_label" text="\$phone" />
+        </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
+      <columnConstraints>
+         <ColumnConstraints />
+      </columnConstraints>
+    </GridPane>
+</HBox>

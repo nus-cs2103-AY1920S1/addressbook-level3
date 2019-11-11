@@ -1,0 +1,82 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "d1:QuizCommand" as QuizCommand LOGIC_COLOR
+participant "d2:FlipCommand" as FlipCommand LOGIC_COLOR
+participant "cr1:CommandResult" as CommandResult1 LOGIC_COLOR
+participant "cr2:CommandResult" as CommandResult2 LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "quizCard:Flashcard" as Flashcard MODEL_COLOR
+end box
+
+[-> QuizCommand: execute()
+activate QuizCommand
+
+QuizCommand -> Model:getFilteredFlashcardList()
+activate Model
+
+Model --> QuizCommand: lastShownList: List<Flashcard>
+deactivate Model
+
+QuizCommand -> Model : updateLastViewedFlashcard(quizCard)
+activate Model
+
+Model --> QuizCommand
+deactivate Model
+
+create CommandResult1
+QuizCommand -> CommandResult1
+activate CommandResult1
+
+CommandResult1 -> Flashcard : toString()
+activate Flashcard
+
+Flashcard --> CommandResult1 : s:String containing the flashcard
+deactivate Flashcard
+
+CommandResult1 --> QuizCommand : cr1
+deactivate CommandResult1
+
+[<-- QuizCommand : cr1
+deactivate QuizCommand
+
+[--> FlipCommand : execute()
+activate FlipCommand
+
+FlipCommand -> Flashcard : checkAnswer()
+activate Flashcard
+
+alt answer is correct
+
+    Flashcard -> Flashcard : incrementCorrectAnswer()
+    activate Flashcard
+
+    deactivate Flashcard
+
+else answer is wrong
+
+    Flashcard -> Flashcard : incrementWrongAnswer()
+    activate Flashcard
+
+    deactivate Flashcard
+
+end
+
+Flashcard --> FlipCommand : isCorrect:boolean
+deactivate Flashcard
+
+create CommandResult2
+FlipCommand -> CommandResult2
+activate CommandResult2
+
+CommandResult2 --> FlipCommand : cr2
+deactivate CommandResult2
+
+[<-- FlipCommand : cr2
+deactivate FlipCommand
+
+@enduml

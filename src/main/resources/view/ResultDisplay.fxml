@@ -3,7 +3,8 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.control.ScrollPane?>
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
+            xmlns:fx="http://javafx.com/fxml/1" minWidth="300" maxWidth="Infinity" maxHeight="Infinity">
+  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display" wrapText="true" minWidth="300" maxWidth="Infinity" maxHeight="Infinity"/>
 </StackPane>

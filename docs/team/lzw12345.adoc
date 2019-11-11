@@ -1,0 +1,79 @@
+= Ling Zhi Wei - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Flashmind
+
+---
+
+== Overview
+
+Flashmind is a flashcard program to help users memorise content. FlashMind has a GUI with an easy to use commandline interface(CLI) . It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to generate statistics about the flashcards along with an accompanying UI*
+** What it does: Allows the user to generate statistics about cards by tag or overall. Displays information in a helpful graphical information as well as in text
+** Justification: This feature improves the product significantly because the user might want to track the progress of his learning experience.
+** Highlights: This enhancement required some architecture changes to allow statistics information to communicated to the UI . It required an in-depth analysis of  UI design alternatives. The implementation was challenging due to communication between the GUI to detailed information and creating a separate window with graphics.
+
+
+* *Major enhancement*: added *the ability to add choices to flashcard*
+** What it does: Allows the user to add a list of choices to the flashcard.
+** Justification: This feature improves the product significantly because the user can now create multiple choice flashcards which greatly improves versatility and .
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+
+* *Major enhancement*: added *a timer to the quiz mode*
+** What it does: Allows the user to have timed quizzes.
+** Justification: This feature improves the product significantly because the user can simulate test environments with the quiz system adding a new layer of functionality .
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of UI design. The implementation too was challenging as it required changes to existing commands.
+
+
+
+* *Minor enhancement*:
+** Major changes to UI to fix the majority of the bugs and improved usability.
+** Added the ability to skip cards in quiz with a skip command
+
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 61% to 70% in addition to other tests
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide
+
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=stat]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=model]
+include::../DeveloperGuide.adoc[tag=statsusecase]
+
+== Contributions to the README
+|===
+|_Given below are sections I contributed to the README. They showcase my ability to write documentation advertising the project._
+|===
+
+include::../../README.adoc[tag=description]
+
+== PROJECT: Flashmind
+
+---
+

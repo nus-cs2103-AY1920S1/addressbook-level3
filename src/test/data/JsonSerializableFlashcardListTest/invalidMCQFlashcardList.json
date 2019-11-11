@@ -1,0 +1,28 @@
+{
+  "_comment" : "Flashcard 2 here is not a valid flashcard, system should spot this and avoid loading this Json file.",
+  "flashcards" : [ {
+    "question" : "Which of the following is true about compactness?",
+    "choices" : [ "The real number space is a compact space", "The complex plane is a compact space", "A compact subspace of a compact metric space must be closed", "A closed subspace of a compact metric space must be compact" ],
+    "definition" : "For any open covering of a metric space, there is a finite subcover.",
+    "tagged" : [ "metric space", "mathematics" ],
+    "answer" : "A compact subspace of a compact metric space must be closed",
+    "score" : "0 0",
+    "type" : "McqFlashcard"
+  }, {
+    "question" : "Which of the following is true about completeness?",
+    "choices" : [ "The rational number space is a complete space", "Compact spaces are always complete", "A complete subspace of a complete space myst be totally bounded", "Closed subspaces in a complete metric space is also complete" ],
+    "definition" : "Any Cauchy sequence converges in this metric space",
+    "tagged" : [ "metric space", "mathematics" ],
+    "answer" : "Closed subspaces in a complete metric space is not complete",
+    "score" : "0 0",
+    "type" : "McqFlashcard"
+  }, {
+    "question" : "What is the largest known living organism?",
+    "choices" : [ ],
+    "definition" : "It is an aspen grove in Utah.",
+    "tagged" : [ "biology", "trivia" ],
+    "answer" : "Pando",
+    "score" : "0 0",
+    "type" : "ShortAnswerFlashcard"
+  } ]
+}

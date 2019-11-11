@@ -1,0 +1,68 @@
+= Liang Boyuan - Project Portfolio
+:site-section: AboutUs
+:imagesdir: ../images
+:stylesdir: ../stylesheets
+
+== PROJECT: FlashMind
+
+---
+
+=== Overview
+
+FlashMind is a desktop flashcard application which helps users memory short concepts and knowledge. For example,
+user can use to memorize vocabularies and some terms worth memorizing in particular subjects. This project was
+inspired by the software engineering model where there are many not-so-well organized terms and principles students
+needs to memorize. The user interacts with it using a CLI and it has a GUI created with javaFX. It is written in Java.
+
+== Summary of contributions
+
+* *Major contribution*: Build the skeleton of the program with complete storage system, UI, basic structure of a flashcard and some basic commands. Future developments of this project
+are all based on this skeleton.
+
+** Justification: This piece of work can hardly be identified by users, but it is crucial. In the first week, we were working without
+a skeleton so that our works all crashes into each other. Therefore, a fundamental skeleton was built first which gives us the space
+and structure to improve further features and the user interface. The most important thing is that we effectively avoided conflicts
+with each other's work.
+
+** Highlights: I will not say this was a challenging task because the skeleton relied heavily with the AddressBook - Level 3 (AB3)'s structure.
+However, it was a very troublesome and time consuming task. I spent a whole week doing nothing but eating, sleeping and coding to finish this skeleton.
+
+** Credits: The structure heavily relied on AB3 structure, but an obvious modification in the structure of flashcards.
+
+* *Second major contributions*: Maintaining the storage system of FlashMind. There are many cases where the user just somehow love
+to modify the Json files. This can be fatal to MCQ flashcards since the user might encounter the situation where none of the
+choices in an Mcq flashcard which can match the answer. Thus, we applied defensive programming to avoid loading invalid MCQ flashcards.
+
+* *Minor contributions*: Add *ListByTag*, *ListTag*, *DeleteTag* commands. Modified *Add* and *Edit* commands to fit into
+our flashcard system.
+
+** Justification: These newly added commands allows the user to manage their flashcard by certain tags. This will be very useful for
+users who has a huge number of flashcards, especially for those who are memorizing vocabularies.
+
+* Code contributed: Click on the following [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=oscar-b-liang&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[link]] to view code contributions.
+
+* Other contributions:
+
+** Project management: Managed release v1.3 on Github. Took charge of integrating and resolving conflicts between team members' code.
+
+** Documentation: Made a significant contribution in the teams' User Guide and Developer's Guide. Updated most of the UML diagrams in the developer's guide.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=basic]
+include::../UserGuide.adoc[tag=basic2]
+include::../UserGuide.adoc[tag=basic3]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the README. They showcase my ability to write documentation advertising the project._
+|===
+*I clearly clarify here that Quiz, Flip and Stats features are all NOT implemented by
+me, they are implemented by my teammates. I simply drew the sequence diagrams of these features.*
+
+include::../DeveloperGuide.adoc[tag=quizdiagram]

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= FlashMind - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,23 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T14-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103 T14-3`      Since: `Nov 2019`      License: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+FlashMind helps students to use their time breaks to memorize things
+like vocabulary and some general knowledges, especially those who prefer
+command line interface (CLI) over clicks. Everything is organized into
+flashcards, each contain one question. Users can also tag the flashcards
+to group them and see their progress over time through statistics.
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `FlashMind.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your flashback.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,9 +37,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all flashcards
+* *`add q/How long is Mount Blanc Tunnel? a/11611m d/An amazing tunnel on the boarder of France and Italy`*: Add a flashcard about Mount Blanc Tunnel
+* **`delete`**`3` : deletes the flashcard with index 3 on the listed flashcards.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,132 +50,265 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add q/QUESTION`, `QUESTION` is a parameter which can be used as `add q/How long is Mount Blanc Tunnel?`.
+* All commands are case sensitive and should be in its lowercase.
+* Items in square brackets are optional e.g `q/QUESTION [t/TAG]` can be used as `q/How long is Mount Blanc Tunnel? t/geography` or as `q/How long is Mount Blanc Tunnel?`.
+* Items with `…` after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/geography`, `t/geography t/civil engineering` etc.
+* Parameters can be in any order e.g. if the command specifies `q/QUESTION a/ANSWER`, `a/ANSWER q/QUESTION` is also acceptable.
+* To view all the available commands that the user can use. Use help command +
+Format: `help`
 ====
 
-=== Viewing help : `help`
+// tag::basic[]
 
-Format: `help`
+=== Adding new flashcards
 
-=== Adding a person: `add`
+Add a new flashcard and specify its question, definition, tags, choices and answer. +
+Format: `add q/QUESTION d/DEFINITION [t/TAG]... [c/CHOICE]... a/ANSWER`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+****
+* QUESTION, DEFINITION and ANSWER must be provided while creating a flashcard, tags and choices are optional.
+* If there are no choices specified in the flashcard, the system will generate a short answer flashcard. Otherwise,
+  the system will generate an MCQ flashcard.
+* Note that during the quiz mode, to answer a short answer flashcard correctly, you must input an answer exactly match
+  answer you typed while this flashcard is created. Thus, be sure to provide enough information in QUESTION and DEFINITION
+  for you to figure out the exact correct answer.
+* Note that while creating an MCQ flashcard, the answer is the input for your correct choice, not just a number.
+  If the answer you input does not match any of the choices, the system will tell you this flashcard is invalid.
+  Please refer to the following examples for a better understanding.
+****
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add q/What is the tallest mountain in the world? d/This mountain is on the boarder of China and Nepal. a/Mount Everest` :
+  Creates a new short answer flashcard with the given question, definition and answer.
+* `add q/What is the tallest mountain in the world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
+  c/Mount Blanc c/Shkhara c/Bukit Timah a/Mountain Everest` : Creates a new MCQ flashcard with the given question, definition choices and answer.
+* `add q/What is the tallest mountain in the world? d/This mountain is on the boarder of China and Nepal. c/Mountain Everest
+  c/Mount Blanc c/Shkhara c/Bukit Timah a/Alps` : Since the answer you input does not match with any of the choices, the
+  system will generate an error message.
 
-=== Listing all persons : `list`
+=== Listing all flashcards
 
-Shows a list of all persons in the address book. +
+Shows a list of all existing flashcards in the system. +
 Format: `list`
 
-=== Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+=== Listing all flashcard by tags
+
+Shows a list of all flashcard under given tag names. If there are no flashcards under the input tag name, you should see
+an empty flashcard list being displayed. Note you can list multiple tags at the same time. +
+Format: `listbytag t/TAG...`
+****
+* At least on tag needs to be specified after keyword `listbytag`, otherwise the system will show an error message.
+****
+
+Examples:
+
+* `listbytag t/mathematics` : List all flashcards under the tag mathematics.
+* `listbytag t/mathematics t/geography` : List all flashcards under the tag mathematics OR the tag geography.
+
+
+=== Listing all tags
+
+Show the list of tags exists in the system. +
+Format: `listtag`
+
+
+=== Editing a flashcard
+
+Edits an existing flashcard in the address book. +
+
+Format: `edit INDEX [q/QUESTION] [a/ANSWER] [d/DEFINITION] [t/TAG]... [c/CHOICE]...`
+
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* INDEX is the index of this target flashcard in the displayed list.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* Note that while updating choices or tags, they are updated together. This means, assume you have 4 choices for
+  flashcard number 2, then you typed `edit 2 c/Mount Blanc`, then there will be only one choice left for flashcard number 2,
+  which is Mount Blanc. The same applies when editing tags.
+* While editing the answer for an MCQ flashcard, still ensure that the updated answer matches any one of the choices.
+****
+
+
+Examples:
+
+* `edit 5 q/What is the tallest mountain?` +
+Edits the question of the card with index 5 to "What is the tallest mountain?".
+* `edit 5 a/Mount Everest`
+Edits the answer of the card with number 5 to "Mount Everest".
+// end::basic[]
+
+// tag::quiz[]
+
+=== Quiz mode
+Starts a quiz using a particular flashcard index or with a with an optional time limit with units in seconds. +
+Format:
+
+Format: `quiz INDEX [s/TIME_LIMIT]`
+
+****
+* Start a quiz using the flashcard with given index.
+* User can answer the flashcard using the `flip` command (see 3.8).
+* If the quiz is not answered within the time limit, FlashMind will skip the quiz and mark it as wrong.
+* If the quiz time is not specified, the default time limit will be 15 seconds.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `quiz 8`: start a quiz on the flashcard number 8 with a default time limit of 15 seconds.
+* `quiz 8 t/10` : start a quiz on the flashcard number 8, given time limit 10 seconds.
 
-=== Locating persons by name: `find`
+NOTE: Once a quiz starts, users will be unable to use other commands such as add, list or delete.
+To exit quiz mode, either answer the flashcard or use `end`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+=== Quiz Tag mode
+Starts a continuous quiz on a tag or a series of tags and an optional time limit with units in seconds. +
+Format:
+
+Format: `quiztag t/TAG... [s/TIME_LIMIT]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Starts a continuous quiz on all flashcards in the given tags
+* Users can continuously use the `flip` command to answer the series of flashcards (see 3.8).
+* If the quiz time is not specified, the default time limit will be 15 seconds.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `quiztag t/mathematics t/geography` : start a quiz on all the flashcards with tag `mathematics` and `geography`.
+* `quiztag t/mathematics s/30` : start a quiz on all flashcards with tag `mathematics` with each quiz a time limit of 30 seconds.
 
-// tag::delete[]
-=== Deleting a person : `delete`
+=== Flip a flashcard
+NOTE: Only usable in quiz mode (i.e after a quiz or quiztag command)
 
-Deletes the specified person from the address book. +
+Format: `flip ANSWER`
+
+****
+* Short answer flashcards will accept any answer.
+* MCQ flashcards will only accept numbers as an answer. The number must match an index of the choices.
+****
+
+Example 1: MCQ Flashcard
+
+After `quiztag t/geography`, the flashcard below is shown:
+****
+What is the tallest mountain in the world?
+
+Definitions: The answer is Mount Everest.
+
+Tags: [geography]
+
+Choices:
+
+1. Mount Fuji
+2. Mount Everest
+****
+
+The user can type `flip 2` to answer the flashcard correctly.
+
+Example 2: Short Answer Flashcard
+****
+What is the lowest playing register of the clarinet called?
+
+Definitions: Range of E3 to Bb4
+
+Tags: [music]
+****
+
+The user will then type `flip Chalumeau` to answer the flashcard correctly.
+
+After using the `flip` command, users should receive feedback on whether they've answered the flashcard correctly.
+If the answer was wrong, the correct answer will be provided. The scores of the flashcard will then be updated accordingly.
+
+=== End quiz mode
+NOTE: Only usable in quiz mode(i.e after a quiz or quiztag command).
+
+Format: `end`
+
+****
+* Used to end a quiz if the user wants to stop the quiz without answering the flashcard
+****
+// end::quiz[]
+
+// tag::stat[]
+
+=== Skip Flashcards in Quiz
+NOTE: Only usable in quiz mode (i.e after a quiz or quiztag command)
+
+Format: `skip`
+
+****
+*Used to skip a flashcard during a quiz if the user does not know the answer or want to answer
+****
+
+=== Display current progress
+Shows the current progress of a set of flashcards. +
+Format: `stats [t/TAG]...`
+
+****
+* Statistics shown include number of completed cards and accuracy
+* Multiple TAG's can be added to combine statistics of multiple sets
+* If no TAG is provided statistics of all the cards will be shown
+****
+
+Examples:
+
+* `stats t/biology` : Displays the progress of a the flashcards tagged with Biology.
+
+// end::stat[]
+
+// tag::basic2[]
+
+=== Delete a flashcard
+Deletes the specified flashcard from the list of all flashcards. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* Deletes the flashcard with the specified `INDEX`.
 ****
 
-Examples:
+Example:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete 5` : Removes the flashcard with index 5 in the list.
 
-// end::delete[]
-=== Clearing all entries : `clear`
 
-Clears all entries from the address book. +
-Format: `clear`
+=== Finding a flashcard
+Find a flashcard based on the keyword in its question, definition or answer. +
+Format: `find KEYWORD`
 
-=== Exiting the program : `exit`
+****
+* The key word must not be empty.
+****
+
+Example:
+
+* `find Blanc` : Find flashcards whose question or answer contains string "Blanc".
+// end::basic2[]
+
+=== Undo & Redo
+Suppose you delete, add or edit a flashcard with a mistake, you can use undo to bring yourself back to the previous stage.
+If you did an Undo command by mistake, you can also use Redo command to undo an Undo Command. Note that Undo and Redo can only take affect
+for flashcard modifications, it cannot undo your quiz result.
+Format: `Undo`, `Redo`.
+
+// tag::basic3[]
+
+=== Exiting the program
 
 Exits the program. +
-Format: `exit`
+Format: `exit` +
+Special Notation: We strongly recommend you to exit FlashMind using `exit` command instead of directly closing the window.
+The reason is, if you directly close the window, you might lose some of the progress you made in this session. That is, some of the
+quiz scores might not be saved. Through `exit` command, all of your quiz results will be saved properly.
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
-
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
-== FAQ
-
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+Flashcards are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually. +
+After the data is saved, do not modify any of the Json files manually. You might end up screwing up all the information stored in them.
+If unfortunately, you did manually change the Json file and found the FlashMind operating with any problem, the only suggestion we
+can give you is to delete the file flashcardlist.json, so the system will start with default flashcard list again.
+// end::basic3[]

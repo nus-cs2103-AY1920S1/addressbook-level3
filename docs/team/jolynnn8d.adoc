@@ -1,0 +1,73 @@
+= Jolyn Tan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Flashmind
+
+---
+
+== Overview
+
+Flashmind is a CLI-based flashcard app designed to help students memorise and revise important content.
+It is used mainly for questions that can be answered with a short answer or several MCQ choices.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to start a quiz on a series of flashcards*
+** What it does: Allows the user to start a timed quiz on a series of flashcards based on their tags. Users are able to choose one or multiple tags to quiz themselves on.
+** Justification: This feature is a great enhancement for users who are looking to memorise content. Instead of just looking at the flashcard, users are able to test themselves in a timed condition and receive feedback from the system on whether their answer is correct.
+** Highlights: This enhancement required a holistic understanding of how commands are received. The quiz function required an implementation of quiz mode, which locks certains command and allows a new set of commands to be executed.
+** Credits: My teammate, Zhi Wei, helped to implement the timer in the quiz mode.
+
+* *Major enhancement*: added *the ability to add two different types of flashcard: MCQ and ShortAnswer*
+** What it does: Allows the user to choose whether they want their flashcard to have MCQ options or simply be a short answer flashcard.
+** Justification: This feature enhances the user's learning experiences as flashcards are now more versatile, allowing users to have MCQ options for questions that are harder to remember.
+** Highlights: This enhancement required a modification of storage, as well as a refactoring of the code to distinguish between MCQ and Short Answer flashcards.
+
+
+* *Minor enhancement*:
+** Split up the UI to return consecutive flashcards and the result to different displays.
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jolynnn8D&tabRepo=AY1920S1-CS2103-T14-3%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jolynnn8D&tabRepo=AY1920S1-CS2103-T14-3%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage
+** Documentation:
+*** Updated relevant sections of User Guide for all commands in quiz mode: https://github.com/AY1920S1-CS2103-T14-3/main/pull/85[#85]
+** Community:
+*** Reviewed PR for treasurerPro (tP) (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/30[#30]
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=quiz]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=quiztagfeature]
+
+|===
+|_Given below is a design consideration that I've included in the Developer Guide for a feature implemented._
+|===
+
+include::../DeveloperGuide.adoc[tag=quizmodedc]
+
+
+== PROJECT: Flashmind
+
+---
+

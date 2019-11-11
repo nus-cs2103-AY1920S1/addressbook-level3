@@ -1,0 +1,75 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant "d:StatsCommand" as StatsCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Statistics" as Statistics MODEL_COLOR
+end box
+
+[-> StatsCommand : execute(target:Set<Tag>)
+activate StatsCommand
+
+alt target is empty
+
+    StatsCommand -> Model : updateFilteredFlashcardList()
+    activate Model
+
+    Model --> StatsCommand
+    deactivate Model
+
+else target is nonempty
+
+    StatsCommand -> Model : getHasTagPredicate(target)
+    activate Model
+
+    Model --> StatsCommand : predicate:Predicate
+    deactivate Model
+
+    StatsCommand -> Model : updateFilteredFlashcardList(predicate)
+    activate Model
+
+    Model --> StatsCommand
+    deactivate Model
+
+end
+
+StatsCommand -> Model : getFilteredFlashcardList().size()
+activate Model
+
+Model --> StatsCommand : listSize:int
+deactivate Model
+
+alt listSize == 0
+
+    [<-- StatsCommand : CommandResult(MESSAGE_FAILED)
+
+else listSize > 0
+
+    StatsCommand -> Model : generateStatistics()
+    activate Model
+
+    Model -> Statistics : calculate(filteredFlashcards)
+    activate Statistics
+
+    Statistics --> Model
+    deactivate Statistics
+
+    Model -> Statistics : results()
+    activate Statistics
+
+    Statistics --> Model : result:String
+    deactivate Statistics
+
+    Model --> StatsCommand : result
+    deactivate Model
+
+    [<-- StatsCommand : CommandResult(result)
+    deactivate StatsCommand
+
+end
+
+@enduml

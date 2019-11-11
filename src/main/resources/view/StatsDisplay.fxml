@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root type="Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <BorderPane prefHeight="400.0" prefWidth="400.0">
+            <top>
+               <HBox prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                  <children>
+                     <PieChart fx:id="accuracy" animated="false" stylesheets="@PieChart.css" />
+                     <PieChart fx:id="completion" animated="false" stylesheets="@PieChart.css" />
+                  </children>
+               </HBox>
+            </top>
+            <center>
+               <ScrollPane fx:id="scrollPane" pannable="true" prefHeight="200.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                  <content>
+                     <StackedBarChart fx:id="individualCards" animated="false" categoryGap="4.0" legendSide="LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="400.0" prefHeight="400.0" stylesheets="@StackedBarChart.css">
+                       <xAxis>
+                         <CategoryAxis animated="false" side="BOTTOM" fx:id="xAxis" />
+                       </xAxis>
+                       <yAxis>
+                         <NumberAxis fx:id="yAxis" side="LEFT" />
+                       </yAxis>
+                     </StackedBarChart>
+                  </content>
+               </ScrollPane>
+            </center></BorderPane>
+        </Scene>
+    </scene>
+</fx:root>

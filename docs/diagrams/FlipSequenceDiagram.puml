@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":FlashcardListParser" as FlashcardListParser LOGIC_COLOR
+participant "nextFlipCommand:FlipCommand" as FlipCommand LOGIC_COLOR
+participant "cr:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "quizCard:Flashcard" as Flashcard MODEL_COLOR
+end box
+
+
+
+loop FlashcardListParser.quizMode = true
+    [--> FlipCommand : execute()
+    activate FlipCommand
+
+    FlipCommand -> Model : getQuiz().quizCard()
+    activate Model
+
+    Model -> FlipCommand : quizCard
+    deactivate Model
+
+    FlipCommand -> Flashcard : checkAnswer(answer)
+    activate Flashcard
+
+    alt answer is correct
+
+        Flashcard -> Flashcard : incrementCorrectAnswer()
+        activate Flashcard
+
+        deactivate Flashcard
+
+    else answer is wrong
+
+        Flashcard -> Flashcard : incrementWrongAnswer()
+        activate Flashcard
+
+        deactivate Flashcard
+
+    end
+
+    Flashcard --> FlipCommand : isCorrect:boolean
+    deactivate Flashcard
+
+    create CommandResult
+
+    alt quiz is not empty
+
+        FlipCommand -> CommandResult : result, nextCard
+        activate CommandResult
+
+        CommandResult --> FlipCommand : cr
+        deactivate CommandResult
+
+    else quiz is empty
+
+         FlipCommand -> FlashcardListParser : setQuizMode(false)
+         activate FlashcardListParser
+
+         FlashcardListParser --> FlipCommand
+         deactivate FlashcardListParser
+
+         FlipCommand -> CommandResult : result
+         activate CommandResult
+
+         CommandResult --> FlipCommand : cr
+         deactivate CommandResult
+
+    end
+end
+
+[<-- FlipCommand : cr
+deactivate FlipCommand
+
+@enduml
