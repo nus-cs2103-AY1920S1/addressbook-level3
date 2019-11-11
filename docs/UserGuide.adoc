@@ -421,15 +421,15 @@ You do not have to use your mouse in PalPay to switch tabs anymore.
 
 . By default, you are in the `transaction` tab.
 +
-image::view1.png[]
+image::view1.png[pdfwidth=70%, align="center"]
 +
 . Simply type *view budget* in the command box and press kbd:[Enter].
 +
-image::view2.png[]
+image::view2.png[pdfwidth=70%, align="center"]
 +
 . You can now view your budgets. Easy!
 +
-image::view3.png[]
+image::view3.png[pdfwidth=70%, align="center"]
 
 // end::view[]
 
@@ -645,19 +645,9 @@ Format: `undo`
 
 ****
 * Once you exit PalPay, you cannot undo the previous commands.
-* List of Undoable Commands:
-** `in`
-** `out`
-** `set`
-** `split`
-** `receive`
-** `project`
-** `filter`
-** `sort`
-** `update`
-** `delete`
-** `clear`
-** `list`
+* Below are the commands that are undoable:
+** `in` / `out` / `set` / `split` / `receive` / `project` /
+`sort` / `filter` / `update` / `delete` / `clear` / `list`
 ****
 
 ==== Example Usage:
@@ -668,15 +658,15 @@ ride instead. Without going through the trouble of updating the same transaction
 
 . Here, you can see the wrong update you just made.
 +
-image::undo1.png[]
+image::undo1.png[pdfwidth=70%, align="center"]
 +
 . Simply type *undo* in the command box and press kbd:[Enter].
 +
-image::undo2.png[]
+image::undo2.png[pdfwidth=70%, align="center"]
 +
 . As you wish, your command has been undone.
 +
-image::undo3.png[]
+image::undo3.png[pdfwidth=70%, align="center"]
 // end::undo[]
 
 [[Redo]]
