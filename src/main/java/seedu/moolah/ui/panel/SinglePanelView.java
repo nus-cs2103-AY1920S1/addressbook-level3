@@ -35,11 +35,7 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         currentPanelName = null;
     }
 
-    /**
-     * Switches the in-view Panel to the Panel mapped to the specified Panel Name, if there is a Panel
-     * mapped to that name.
-     * @param panelName The Panel Name used to request a change of the in-view Panel.
-     */
+    @Override
     public void viewPanel(PanelName panelName) throws UnmappedPanelException {
         requireNonNull(panelName);
         PanelName toView = panelName.equals(PanelName.CURRENT) ? currentPanelName : panelName;
@@ -62,10 +58,12 @@ public class SinglePanelView extends UiPart<Region> implements PanelManager {
         currentPanel.view();
     }
 
+    @Override
     public Panel getCurrentPanel() {
         return panelNamePanelHashMap.get(currentPanelName);
     }
 
+    @Override
     public PanelName getCurrentPanelName() {
         return currentPanelName;
     }

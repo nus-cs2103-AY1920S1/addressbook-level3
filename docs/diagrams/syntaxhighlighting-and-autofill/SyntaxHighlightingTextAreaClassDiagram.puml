@@ -1,0 +1,33 @@
+@startuml
+
+hide circle
+class TextArea
+class StyleClassedTextArea
+class SyntaxHighlightingTextArea {
+    -autofillAndPlaceholderReplacementFormatter : TextFormatter.Change
+    +addPattern(String, Prefix[] ) : void
+    +enableSyntaxHighlighting() : void
+    +overwrite(styleclass) : void
+    +clear() : void
+    +getText() : String
+    - computeHighlighting(String) : void
+    - computeHighlighting(String, SupportedCommand) : void
+    {static} -mirrorKeyEvent(StyleClassedTextArea, KeyEvent) : void
+}
+
+class SupportedCommand {
+ -commandWord : String
+ -prefixes : List<Prefix>
+}
+
+SyntaxHighlightingTextArea *---> SupportedCommands
+
+SyntaxHighlightingTextArea *---> "actual" TextArea
+SyntaxHighlightingTextArea *---> "visible" StyleClassedTextArea
+SyntaxHighlightingTextArea ...> Prefix
+StyleClassedTextArea ----> "mirrors" TextArea
+
+SupportedCommands o--> "*" SupportedCommand
+
+
+@enduml

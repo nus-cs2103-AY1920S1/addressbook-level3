@@ -115,23 +115,62 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 
 The `UI` component,
 
+* Determines what commands are available to the user.
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+.Class diagram of the SinglePanelView component which implements the Panel Manager interface.
+image::SinglePanelViewClassDiagram.png[width=400,align=center]
 
-The content being shown in the `MainWindow` is managed by the ``SinglePanelView`` which supports the following operations:
-``SinglePanelView#viewPanel(panelName)``
-``SinglePanelView#hasPanel(panelName)``
-``SinglePanelView#getPanel(panelName)``
-``SinglePanelView#setPanel(panelName, panel)``
+The content that is being shown in the `MainWindow` to the user is managed by a ``SinglePanelView`` which implements the
+``PanelManager`` interface  that supports the following operations: +
+``PanelManager#viewPanel(PanelName)`` +
+``PanelManager#hasPanel(PanelName)`` +
+``PanelManager#getPanel(PanelName)`` +
+``PanelManager#setPanel(PanelName, Panel)``
+``PanelManager#getCurrentPanel()`` +
+``PanelManager#getCurrentPanelName()`` +
+``PanelManager#removePanel(PanelName)`` +
 
-image::SinglePanelViewClassDiagram.png[]
 
-Users may change between the visible panels through the CLI by using the `view` command.
-The following sequence diagram shows the events which occur in order to change the the UI component displayed in the main window.
 
+.Structure of the SinglePanelView component used to display the Model components.
+image::PanelManagerStructureDiagram.png[]
+
+The ``PanelManager`` manages the other ``Panels`` which represent their respective ``Model`` component:
+
+* ``AliasMappings`` as ``AliasListPanel``
+* ``UniqueBudgetList`` as ``BudgetListPanel``
+* Primary ``Budget`` as ``BudgetPanel``
+* ``UniqueExpenseList`` as ``ExpenseListPanel``
+* ``UniqueEventList`` as ``EventListPanel``
+* ``Statistics`` as ``StatsPanel``
+
+Each of these `Panels` extend the abstract `Panel` class and implement the abstract methods:
+
+* ``Panel#view()`` which displays the panel to the user
+* ``Panel#hide()`` which hides the panel from the user
+
+When users execute a valid command, via ``Logic``, the ``Model`` is updated. These changes are reflected in the respective ``Panel`` components.
+The ``CommandResult`` returned by the ``Logic`` component also tells the ``UI`` which ``Panel`` needs to be displayed.
+
+The ``UI`` then displays the ``Panel`` to the user.
+
+Users may also manually change between the visible ``Panels`` through the CLI by using the `view` command.
+
+The following sequence diagram shows the events which occur in order to change the the UI `Panel` component displayed in the ``SinglePanelView``
+component of the ``MainWindow`` when the user executes a ``view`` command.
+
+.Sequence Diagram showing the events that occur when a user uses the view command.
 image::ViewPanelSequenceDiagram.png[]
 
+1. The user executes a valid view command
+2. The ``Logic`` parses the input as a ``ViewPanelCommand``
+3. The ``#run(Model)`` method of the ``ViewPanelCommand`` instance returns a ``CommandResult`` containing a ``PanelName``
+4. The ``MainWindow`` uses the `PanelName` to call ``PanelManager#viewPanel(PanelName)``.
+5. The ``SinglePanelView`` object which implements ``PanelManager`` calls the ``#view()`` on the panel which needs to be displayed,
+and calls ``#hide()`` on all other panels.
+6. The user sees the changes to the GUI.
 
 [[Design-Logic]]
 === Logic component
@@ -169,12 +208,10 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the MooLah data.
 * exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Event>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `MooLah`, which `Expense` can reference. This would allow `MooLah` to only require one `Tag` object per unique `Tag`, instead of each `Expense` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -742,7 +779,7 @@ other than being restricted within the same budget
 // category::Alias[]
 === Alias feature
 ==== Implementation
-The Aliases feature allows users to assign inputs they may use very often to a shortcut, and execute the input by entering
+The Alias feature allows users to assign inputs they may use very often to a shortcut, and execute the input by entering
 the shortcut, (a.k.a ``Alias``), in place of the full or partial command.
 
 image::AliasMappingsClassDiagram.png[AliasMappingsClassDiagram]
