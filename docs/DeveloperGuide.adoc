@@ -326,6 +326,7 @@ Each Event contains an `EventDateTimeMap` object that maps an `EventDate` object
 This mapping is added through the `EventAssignDate` command.
 
 It requires the use of the following objects/methods from the `event` package.
+
 * `EventContainsKeyDatePredicate` - Check whether the stated date exists within the range of the Event's Start and End Date.
 * `Event#assignDateTime` - Calls the `EventDateTimeMap` object to insert a Date-Time mapping.
 * `EventDate#datesUntil` - Returns a Stream of `EventDates` from the Start to End Date. Used to auto-set a DateTime mapping for all dates.
@@ -366,12 +367,12 @@ The following activity diagram shows how the Setting of Date&Time to Event work:
 image::SettingEventDateActivityDiagram.png[SettingEvent,295,607]
 
 ==== Design Considerations
-===== Aspect: Storage of DateTimeMap
+Below, we discuss two key aspects - how we store EventDateTimeMap and how commands to edit `Event` affect the `EventDateTimeMap`. 
 
 [width="100%", options="header" cols="3, 4, 4"]
 |========================================================================================
-|Feature      |Alternative 1 | Alternative 2
-|Storage of DateTimeMap
+|Aspect      |Alternative 1 | Alternative 2
+| **Storage of DateTimeMap**
 
 | Stores the DateTimeMap in an string format that is saved in a field of an `Event` in `eventbook.json`. +
 
@@ -379,16 +380,41 @@ image::SettingEventDateActivityDiagram.png[SettingEvent,295,607]
 
 **Cons:** Performance issues as it needs to update the entire event object although only one attribute is updated
 
-**Decision:**
-Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information.
-However, as we are constrained with not utilizing a DBMS, **Alternative 1** is logically simpler, shorter, and more efficent solution from a software engineering standpoint as it limits the amount of repeated code that we would have written to support another sotrage unit.
-
 | Store the DateTimeMap in a separate file e.g. `EventDateTimes.json` that will be referenced by EventBook during initialization.
 
 **Pros:** Faster performance in saving and loading as it is kept separate from `eventbook.json` and hence will not
 
 **Cons:** Requires a new storage unit, along with all its supporting functions which will require alot of repeated code.
 Instantiation of the `Event` object when the app is started will be more complicated as well due to the need to read from two separate files
+
+3+|**Decision: Alternative 1** + 
+
+Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information into separate tables.
+However, as we are constrained with not utilizing a DBMS, **Alternative 1** is a logically simpler, shorter, and more efficent solution from a software engineering standpoint as it limits the amount of repeated code that we would have written to support another storage unit.
+
+| **Impact of Edit Event on `EventDateTimeMap`**  +
+
+The `edit_ev` command does not edit the DateTime mapping of an `Event` itself - this is done through the `set_ev_dt` or the `delete_ev_dt` instead. However, if the event has its start or end date fields edited, it will affect the `EventDateTimeMap` as its mapping may suddenly be out of range of the edited `Event` start and end dates. 
+
+| Prevent the editing of Event Dates if the `Event` date range is reduced and will cause existing Date-Time Mappings to fall out of edited Event's Start-End Date Range.
+
+**Pros:** 
+Greatly reduce the potential for buggy behavior, as `EventDateTimeMap` would contain false mappings that do not correspond to the new Event's Start-End Date Range. User would not have to worry about the inadvertent loss of data.
+
+**Cons:**
+Negative User Experience - Will need to take extra steps to manually delete DateTime mappings.
+
+| Allow editing of Event Dates if the `Event` date range is reduced, but will clear `EventDate` mappings in `EventDateTimeMap` that fall out of edited Event's Start-End Date Range.
+
+**Pros:**
+Better User Experience - Narrowing the Start/End Date would naturally mean that the user no longer require mappings on those dates and hence they can be safely deleted.
+
+**Cons:**
+Increased risk of inadvertent deletion of existing Date-Time mappings from `Event`. 
+
+3+|**Decision: Alternative 2** +
+
+Alternative 2 offers better user experience by reducing the addition steps of hassle, especially since AddMin+ is focussed on automating and reducing the burdensome workload of administrative staff. Even so, we understand the risk of a user executing a typo and inadvertently delete existing Date-Time mappings. Hence, as a mitgating measure, we would be introducing a 'Confirmation' command in a `V2.0` feature that would allow the user to confirm and proceed with the `edit_ev` command if it were to delete existing Date-Time mappings due to a narrowing of the range. 
 
 |========================================================================================
 // end::DeXun[]

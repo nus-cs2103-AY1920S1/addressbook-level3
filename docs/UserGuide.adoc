@@ -261,7 +261,6 @@ Event Format Format: `edit_ev INDEX [n/EVENT_NAME] [at/VENUE] [m/MANPOWER_NEEDED
 * This command will flush the current manpower allocated list and replace it with a new allocation list.
 * The parameters provided will affect the functionality of the `edit_ev` Command. If the START_DATE and/or END_DATE is
 modified, it will flush all the Date-Time mapping of the Event (Refer to <<set_ev_dt>>) that is not within the new range of the event's start-end dates and insert the default timing of 0800-1800 on the start/end dates, if they are not already mapped.
-
 ****
 
 [TIP]
