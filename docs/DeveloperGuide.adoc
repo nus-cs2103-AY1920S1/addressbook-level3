@@ -66,7 +66,7 @@ The features in _Modulo_ are quite distinct and having minimal overlaps, each fe
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1` when in the feature _Module_.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete CS2103` when in the feature _Module_.
 
 .Component interactions for `delete 1` command in _Cap_ feature
 image::ArchitectureSequenceDiagram.png[]
@@ -477,7 +477,7 @@ image::AddNewEntryActivityDiagram.png[width=60%]
 ** Cons: Will use more memory (now storing the list of entries). Difficult when an entry is delete or modified, have to delete and modify entry accordingly in the list of entries stored under the budget.
 // end::budget[]
 
-// tag::grades tracker[]
+//tag::grades tracker[]
 === Grades Tracker
 
 ==== Implementation
@@ -537,7 +537,7 @@ An alternative would be to use a search algorithm that comprises a Hash set and 
 | Credit | As stated by NUS, the range of modular credit ranges from 2 to 23.
 | Grade | Only NUS approved grades are allowed i.e. A+, A, A-, B+, B, B-, C+, C, D+, D and F
 |=======
-// end::grades tracker[]
+//end::GradesTracker[]
 
 == UI
 

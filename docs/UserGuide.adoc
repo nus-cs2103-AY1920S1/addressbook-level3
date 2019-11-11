@@ -161,7 +161,7 @@ Format: `clear`
 
 //end::calendar[]
 
-tag::GradesTracker[]
+//tag::grades1[]
 
 === Grades Tracker
 
@@ -262,7 +262,7 @@ e.g. `clear`
 ==== Categorisation [Coming in V2.0]
 Categorisation of the modules in their respective semesters and predictive text.
 
-end::GradesTracker[]
+//end::grades1[]
 
 // tag::quizsection1[]
 === Quiz
