@@ -25,6 +25,8 @@ public abstract class UndoableCommand extends Command {
     private ReadOnlyDataBook<Schedule> previousScheduleBook;
     private ReadOnlyDataBook<Order> previousArchivedOrderBook;
 
+    private String successMessage;
+
     protected abstract CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
                                                             UndoRedoStack undoRedoStack) throws CommandException;
 
@@ -114,6 +116,18 @@ public abstract class UndoableCommand extends Command {
         saveOrderBookSnapshot(model);
         saveScheduleBookSnapshot(model);
         saveArchivedOrderBookSnapshot(model);
+    }
+
+    /**
+     *
+     * @param feedbackToUser : successMessage to be saved.
+     */
+    public void saveSuccessMessage(String feedbackToUser) {
+        this.successMessage = feedbackToUser;
+    }
+
+    public String getSuccessMessage() {
+        return this.successMessage;
     }
 
     @Override

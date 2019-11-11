@@ -46,10 +46,12 @@ public class RedoCommandTest {
 
 
         Command deleteCommand = new DeleteCustomerCommand(INDEX_FIRST_CUSTOMER);
-        deleteCommand.execute(model, new CommandHistory(), undoRedoStack);
+        CommandResult commandResult = deleteCommand.execute(model, new CommandHistory(), undoRedoStack);
+        ((UndoableCommand) deleteCommand).saveSuccessMessage(commandResult.getFeedbackToUser());
         undoRedoStack.push(deleteCommand);
         undoRedoStack.popUndo();
-        assertCommandSuccess(new RedoCommand(), model, undoRedoStack, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, undoRedoStack,
+                String.format(RedoCommand.MESSAGE_SUCCESS, commandResult.getFeedbackToUser()), expectedModel);
 
     }
 

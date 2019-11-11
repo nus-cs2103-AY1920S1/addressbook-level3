@@ -11,6 +11,7 @@ import seedu.address.logic.autocomplete.AutoCompleteResult;
 import seedu.address.logic.autocomplete.AutoCompleteResultGenerator;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.SellerManagerParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -70,6 +71,10 @@ public class LogicManager implements Logic {
             storage.saveArchivedOrderBook(model.getArchivedOrderBook());
             commandHistory.add(commandText);
             undoRedoStack.push(command);
+
+            if (command instanceof UndoableCommand) {
+                ((UndoableCommand) command).saveSuccessMessage(commandResult.getFeedbackToUser());
+            }
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
