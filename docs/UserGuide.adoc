@@ -138,8 +138,6 @@ Clearing of waste list is done automatically at the start of every month.
 //tag::grocerylistfeatures[]
 === Grocery List Management
 
-The grocery list is the
-
 ==== Adding a food item: `glist add`
 
 Adds a grocery item to the grocery list. +
@@ -229,7 +227,7 @@ Sorting is done on the original grocery list. Hence, for example, when `sort` is
 
 The type of sorting supported is as follows:
 ****
-* `alphabetical`: Sort the grocery list in ascending alphabetical order
+* `alphabetical`: Sort the grocery list based on the item's name in ascending alphabetical order
 * `expiry`: Sort the grocery list in ascending expiry date. i.e. from oldest to newest.
 ****
 
