@@ -80,7 +80,7 @@ public class MainWindow extends UiPart<Stage> {
     //private StackPane statusbarPlaceholder;
 
     @FXML
-    private StackPane scheduleViewPlaceholder;
+    private StackPane scheduleDisplayPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -166,7 +166,7 @@ public class MainWindow extends UiPart<Stage> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
 
         //setting up default detailsview
-        scheduleViewPlaceholder.getChildren().add(new DefaultStartView(logic.getScheduleDisplay()
+        scheduleDisplayPlaceholder.getChildren().add(new DefaultStartView(logic.getScheduleDisplay()
                 .getPersonSchedules().get(0))
                 .getRoot());
     }
@@ -187,9 +187,9 @@ public class MainWindow extends UiPart<Stage> {
      * Sets graphic of the schedule view window.
      * @param graphic details to be set inside detailsViewPlaceHolder in MainWindow.
      */
-    public void setGraphicForScheduleWindow(Node graphic) {
-        scheduleViewPlaceholder.getChildren().clear();
-        scheduleViewPlaceholder.getChildren().add(graphic);
+    public void setGraphicForScheduleDisplay(Node graphic) {
+        scheduleDisplayPlaceholder.getChildren().clear();
+        scheduleDisplayPlaceholder.getChildren().add(graphic);
     }
 
     /**
@@ -320,7 +320,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isToggleNextWeek()) {
                 scheduleViewManager.toggleNext();
-                setGraphicForScheduleWindow(scheduleViewManager.getScheduleView().getRoot());
+                setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
                 return commandResult;
             }
 
@@ -336,7 +336,7 @@ public class MainWindow extends UiPart<Stage> {
                             groupScheduleDisplay.getFilteredNames().get(), groupScheduleDisplay.getGroupDisplay(),
                             ColorGenerator::generateColor).getRoot(), SidePanelDisplayType.GROUP);
                     scheduleViewManager.filterPersonsFromSchedule(groupScheduleDisplay.getFilteredNames().get());
-                    setGraphicForScheduleWindow(scheduleViewManager.getScheduleView().getRoot());
+                    setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
                 }
                 return commandResult;
             }
@@ -370,7 +370,7 @@ public class MainWindow extends UiPart<Stage> {
             case PERSON:
                 PersonScheduleDisplay personScheduleDisplay = (PersonScheduleDisplay) scheduleDisplay;
                 //There is only 1 schedule in the scheduleWindowDisplay
-                setGraphicForScheduleWindow(scheduleViewManager.getScheduleView().getRoot());
+                setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
                 setSidePanelGraphic(
                         new PersonDetailCard(personScheduleDisplay
                                 .getPersonSchedules()
@@ -380,7 +380,7 @@ public class MainWindow extends UiPart<Stage> {
                 break;
             case GROUP:
                 GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
-                setGraphicForScheduleWindow(scheduleViewManager.getScheduleView().getRoot());
+                setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
                 setSidePanelGraphic(new GroupInformation(groupScheduleDisplay.getPersonDisplays(), null,
                                 groupScheduleDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
                         SidePanelDisplayType.GROUP);
@@ -388,7 +388,7 @@ public class MainWindow extends UiPart<Stage> {
             case HOME:
                 HomeScheduleDisplay homeScheduleDisplay = (HomeScheduleDisplay) scheduleDisplay;
 
-                setGraphicForScheduleWindow(new DefaultStartView(homeScheduleDisplay
+                setGraphicForScheduleDisplay(new DefaultStartView(homeScheduleDisplay
                         .getPersonSchedules().get(0))
                         .getRoot());
                 handleChangeToTabsPanel();
