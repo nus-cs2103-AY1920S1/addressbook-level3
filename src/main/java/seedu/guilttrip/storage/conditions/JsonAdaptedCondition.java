@@ -43,7 +43,6 @@ public class JsonAdaptedCondition {
                                 @JsonProperty("isStart") boolean isStart,
                                 @JsonProperty("start") String start,
                                 @JsonProperty("end") String end,
-                                @JsonProperty("keywords") List<String> keywords,
                                 @JsonProperty("isLowerBound") boolean isLowerBound,
                                 @JsonProperty("lowerBound") double lowerBound,
                                 @JsonProperty("upperBound") double upperBound,
@@ -53,7 +52,6 @@ public class JsonAdaptedCondition {
         this.isStart = isStart;
         this.start = start;
         this.end = end;
-        this.keywords.addAll(keywords);
         this.isLowerBound = isLowerBound;
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
@@ -70,9 +68,11 @@ public class JsonAdaptedCondition {
         } else if (condition instanceof DateCondition) {
             this.conditionType = "dateCondition";
             DateCondition dateCondition = (DateCondition) condition;
-            if (isStart) {
+            if (dateCondition.isStart()) {
+                this.isStart = true;
                 this.start = ((DateCondition) condition).getDate().toString();
             } else {
+                this.isStart = false;
                 this.end = ((DateCondition) condition).getDate().toString();
             }
         } else if (condition instanceof KeyWordsCondition) {
@@ -81,9 +81,11 @@ public class JsonAdaptedCondition {
         } else if (condition instanceof QuotaCondition) {
             this.conditionType = "quotaCondition";
             QuotaCondition quotaCondition = (QuotaCondition) condition;
-            if (isLowerBound) {
+            if (quotaCondition.isLowerBound()) {
+                this.isLowerBound = true;
                 this.lowerBound = quotaCondition.getQuota();
             } else {
+                this.isLowerBound = false;
                 upperBound = quotaCondition.getQuota();
             }
         } else if (condition instanceof TagsCondition) {
@@ -101,7 +103,7 @@ public class JsonAdaptedCondition {
      */
     public Condition toModelType() throws IllegalValueException {
         switch (conditionType) {
-        case "classCondition":
+        case "entryCondition":
             return new TypeCondition(entryType);
         case "dateCondition":
             if (isStart) {

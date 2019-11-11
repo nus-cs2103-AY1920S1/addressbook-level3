@@ -197,6 +197,8 @@ public class GeneralReminder implements ListenerSupport, Reminder {
             return this.header.equals(otherGeneralReminder.getHeader())
                     //&& this.priority.equals(otherGeneralReminder.getPriority())
                     && this.conditions.stream()
+                    .allMatch(condition -> otherGeneralReminder.getConditions().contains(condition))
+                    && otherGeneralReminder.conditions.stream()
                     .allMatch(condition -> otherGeneralReminder.getConditions().contains(condition));
         }
     }

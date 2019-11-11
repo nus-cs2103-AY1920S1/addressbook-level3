@@ -27,6 +27,7 @@ import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.GuiltTripCommandSuggester;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
+import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.messages.Message;
 import seedu.guilttrip.ui.autoexpense.AutoExpensesPanel;
 import seedu.guilttrip.ui.budget.BudgetPanel;
@@ -63,6 +64,7 @@ public class MainWindow extends UiPart<Stage> {
     private IncomeListPanel incomeListPanel;
     private ReminderPanel reminderPanel;
     private BudgetPanel budgetPanel;
+    private NotificationPanel notificationPanel;
     private WishListPanel wishListPanel;
     private AutoExpensesPanel autoExpensesPanel;
     private ResultDisplay resultDisplay;
@@ -200,7 +202,8 @@ public class MainWindow extends UiPart<Stage> {
         this.budgetPanel = new BudgetPanel(logic.getFilteredBudgetList());
         budgetsPlaceHolder.getChildren().add(this.budgetPanel.getRoot());
 
-        NotificationPanel notificationPanel = new NotificationPanel(logic.getFilteredNotifications());
+        this.reminderPanel = new ReminderPanel(logic.getFilteredReminders());
+        this.notificationPanel = new NotificationPanel(logic.getFilteredNotifications());
         remindersPlaceHolder.getChildren().add(notificationPanel.getRoot());
 
         this.autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
@@ -305,7 +308,7 @@ public class MainWindow extends UiPart<Stage> {
             break;
 
         case REMINDER:
-            if (mainPanel.getChildren().contains(reminderPanel.getRoot())) {
+            if (mainPanel.getChildren().contains(notificationPanel.getRoot())) {
                 throw new CommandException("The panel you want to toggle is already shown in the main panel!");
             }
             togglePlaceHolder(remindersPlaceHolder);
@@ -337,6 +340,13 @@ public class MainWindow extends UiPart<Stage> {
         remindersPlaceHolder.getChildren().add(new Label("Reminders"));
         NotificationPanel notificationPanel = new NotificationPanel(logic.getFilteredNotifications());
         remindersPlaceHolder.getChildren().add(notificationPanel.getRoot());
+    }
+
+    /**
+     * Replaces the old selected reminder with a new one.
+     */
+    public void updateReminderSelected(Reminder reminder) {
+        reminderPanel.updateReminderSelected(reminder);
     }
 
     /**
@@ -490,7 +500,7 @@ public class MainWindow extends UiPart<Stage> {
             togglePlaceHolder(autoExpensesPlaceHolder);
         }
 
-        if (!remindersPlaceHolder.getChildren().contains(reminderPanel.getRoot())) {
+        if (!remindersPlaceHolder.getChildren().contains(notificationPanel.getRoot())) {
             remindersPlaceHolder.getChildren().add(reminderPanel.getRoot());
             togglePlaceHolder(remindersPlaceHolder);
         }
@@ -628,10 +638,8 @@ public class MainWindow extends UiPart<Stage> {
                     if (remindersPlaceHolder.isVisible() && remindersPlaceHolder.isManaged()) {
                         togglePlaceHolder(remindersPlaceHolder);
                     }
-                    mainPanel.getChildren().removeAll(mainPanel.getChildren());
+                    mainPanel.getChildren().clear();
                     mainPanel.getChildren().add(this.reminderPanel.getRoot());
-
-                    showReminderPopup();
                     break;
                 default:
                     // Do nothing.

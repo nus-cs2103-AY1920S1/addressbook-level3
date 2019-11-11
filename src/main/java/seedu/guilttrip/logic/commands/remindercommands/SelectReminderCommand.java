@@ -18,7 +18,7 @@ import seedu.guilttrip.model.reminders.Reminder;
  */
 public class SelectReminderCommand extends Command {
     public static final String COMMAND_WORD = "selectReminder";
-
+    public static final String ONE_LINER_DESC = COMMAND_WORD;
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Select the reminder identified by the index number used in the "
             + "displayed generalReminder list for editing.\n"
@@ -41,6 +41,7 @@ public class SelectReminderCommand extends Command {
         }
         Reminder reminderToInspect = lastShownList.get(targetIndex.getZeroBased());
         model.selectReminder(reminderToInspect);
-        return new CommandResult(String.format(MESSAGE_REMINDER_SELECTED_SUCCESS, reminderToInspect));
+        return new CommandResult(String.format(MESSAGE_REMINDER_SELECTED_SUCCESS, reminderToInspect),
+                true, "reminder");
     }
 }

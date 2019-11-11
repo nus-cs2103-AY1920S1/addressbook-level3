@@ -29,17 +29,21 @@ import seedu.guilttrip.model.util.Frequency;
  */
 public class SetReminderCommand extends Command {
     public static final String COMMAND_WORD = "setReminder";
+
+    public static final String ONE_LINER_DESC = COMMAND_WORD
+            + ": Adds a reminder for a specific reminder/ income / wish. \n";
+
     public static final String UNSUPPORTED_TYPE = "Unable to create reminder for this entry.";
     public static final String INVALID_PERIOD = "Invalid period. (Cannot set reminder to notify before today!)";
     public static final String INVALID_FREQ = "Frequency must be smaller than period.";
     public static final String MESSAGE_SUCCESS = "New reminder added for: %1$s";
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + " : Adds an expense entry to guiltTrip. "
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
+            + " : Adds an expense entry to guiltTrip. \n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_DESC + "Reminder header "
             + PREFIX_TYPE + "Entry type "
             + PREFIX_PERIOD + "period "
-            + PREFIX_FREQ + "frequency "
+            + PREFIX_FREQ + "frequency \n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_TYPE + "expense "
             + PREFIX_DESC + "Mala "

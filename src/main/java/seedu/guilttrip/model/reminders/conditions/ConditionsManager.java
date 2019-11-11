@@ -70,15 +70,7 @@ public class ConditionsManager implements Iterable<Condition> {
      */
     public void add(Condition toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            int index = generalConditionsList.indexOf(toAdd);
-            Condition existingCondition = generalConditionsList.get(index);
-            for (ListenerSupport listener : toAdd.getSupport().getPropertyChangeListeners()) {
-                existingCondition.addPropertyChangeListener(listener);
-            }
-        } else {
-            generalConditionsList.add(toAdd);
-        }
+        generalConditionsList.add(toAdd);
     }
 
     /**

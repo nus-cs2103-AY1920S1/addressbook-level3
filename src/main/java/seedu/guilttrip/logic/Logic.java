@@ -61,6 +61,8 @@ public interface Logic {
 
     ObservableList<Reminder> getFilteredReminders();
 
+    Reminder getReminder();
+
     ObservableList<Notification> getFilteredNotifications();
 
     ObservableList<Condition> getFilteredConditions();

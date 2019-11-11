@@ -25,6 +25,7 @@ import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
  */
 public class JsonAdaptedReminder {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private String status;
     private String reminderType;
     private String header;
     private String uniqueId;
@@ -36,12 +37,14 @@ public class JsonAdaptedReminder {
 
 
     @JsonCreator
-    public JsonAdaptedReminder(@JsonProperty("reminderType") String reminderType,
+    public JsonAdaptedReminder(@JsonProperty("status") String status,
+                               @JsonProperty("reminderType") String reminderType,
                                @JsonProperty("header") String header,
                                @JsonProperty("uniqueID") String uniqueId,
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
                                @JsonProperty("period") String period,
                                @JsonProperty("freq") String freq) {
+        this.status = status;
         this.reminderType = reminderType;
         this.header = header;
         this.uniqueId = uniqueId;
@@ -54,6 +57,7 @@ public class JsonAdaptedReminder {
      * Converts a given {@code GeneralReminder} into this class for Jackson use.
      */
     public JsonAdaptedReminder(Reminder source) {
+        status = source.getStatus().toString();
         uniqueId = source.getUniqueId();
         header = source.getHeader().toString();
         if (source instanceof GeneralReminder) {

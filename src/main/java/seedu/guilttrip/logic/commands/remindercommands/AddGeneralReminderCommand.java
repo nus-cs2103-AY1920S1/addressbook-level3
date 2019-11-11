@@ -35,14 +35,16 @@ public class AddGeneralReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "addReminder";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a GeneralReminder to reminders list. "
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a general reminder that displays" +
+            "when the specified conditions are met. \n";
+    public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
-            + PREFIX_TYPE + "INCOME OR EXPENSE "
-            + PREFIX_DESC + "REMINDER HEADER "
-            + PREFIX_LOWER_BOUND + "LOWERBOUND FOR AMT "
-            + PREFIX_UPPER_BOUND + "UPPERBOUND FOR AMT "
-            + PREFIX_START_DATE + "START DATE "
-            + PREFIX_END_DATE + "END DATE"
+            + PREFIX_TYPE + "Income or Expense "
+            + PREFIX_DESC + "Reminder Header "
+            + PREFIX_LOWER_BOUND + "Lowerbound for amount "
+            + PREFIX_UPPER_BOUND + "Upperbound for amount "
+            + PREFIX_START_DATE + "starting date "
+            + PREFIX_END_DATE + "ending date \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DESC + "Don't be broke. "
             + PREFIX_LOWER_BOUND + "10 "

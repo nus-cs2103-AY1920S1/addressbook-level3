@@ -51,11 +51,12 @@ import seedu.guilttrip.logic.commands.findcommands.FindBudgetCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindIncomeCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
-import seedu.guilttrip.logic.commands.remindercommands.ListAllRemindersCommand;
-import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.ListRemindersCommand;
+import seedu.guilttrip.logic.commands.remindercommands.SelectReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.SetReminderCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortBudgetCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortExpenseCommand;
@@ -425,11 +426,12 @@ public class ParserUtil {
                 SortAutoExpenseCommand.COMMAND_WORD,
                 SortWishCommand.COMMAND_WORD,
                 HelpCommand.COMMAND_WORD,
-                AddReminderCommand.COMMAND_WORD,
+                AddGeneralReminderCommand.COMMAND_WORD,
+                SetReminderCommand.COMMAND_WORD,
                 EditReminderCommand.COMMAND_WORD,
+                SelectReminderCommand.COMMAND_WORD,
                 DeleteReminderCommand.COMMAND_WORD,
-                RemoveConditionFromReminderCommand.COMMAND_WORD,
-                ListAllRemindersCommand.COMMAND_WORD,
+                ListRemindersCommand.COMMAND_WORD,
                 AddAutoExpenseCommand.COMMAND_WORD,
                 EditAutoExpenseCommand.COMMAND_WORD,
                 DeleteAutoExpenseCommand.COMMAND_WORD,
@@ -483,12 +485,12 @@ public class ParserUtil {
         toReturn.put(SortAutoExpenseCommand.COMMAND_WORD, SortAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(SortWishCommand.COMMAND_WORD, SortWishCommand.ONE_LINER_DESC);
         toReturn.put(HelpCommand.COMMAND_WORD, HelpCommand.ONE_LINER_DESC);
-        toReturn.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.ONE_LINER_DESC);
+        toReturn.put(AddGeneralReminderCommand.COMMAND_WORD, AddGeneralReminderCommand.ONE_LINER_DESC);
+        toReturn.put(SetReminderCommand.COMMAND_WORD, SetReminderCommand.ONE_LINER_DESC);
         toReturn.put(EditReminderCommand.COMMAND_WORD, EditReminderCommand.ONE_LINER_DESC);
         toReturn.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.ONE_LINER_DESC);
-        toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD,
-                RemoveConditionFromReminderCommand.ONE_LINER_DESC);
-        toReturn.put(ListAllRemindersCommand.COMMAND_WORD, ListAllRemindersCommand.ONE_LINER_DESC);
+        toReturn.put(SelectReminderCommand.COMMAND_WORD, SelectReminderCommand.ONE_LINER_DESC);
+        toReturn.put(ListRemindersCommand.COMMAND_WORD, ListRemindersCommand.ONE_LINER_DESC);
         toReturn.put(AddAutoExpenseCommand.COMMAND_WORD, AddAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(EditAutoExpenseCommand.COMMAND_WORD, EditAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(DeleteAutoExpenseCommand.COMMAND_WORD, DeleteAutoExpenseCommand.ONE_LINER_DESC);
@@ -542,11 +544,12 @@ public class ParserUtil {
         toReturn.put(SortAutoExpenseCommand.COMMAND_WORD, SortAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(SortWishCommand.COMMAND_WORD, SortWishCommand.MESSAGE_USAGE);
         toReturn.put(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE);
-        toReturn.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.MESSAGE_USAGE);
+        toReturn.put(AddGeneralReminderCommand.COMMAND_WORD, AddGeneralReminderCommand.MESSAGE_USAGE);
+        toReturn.put(SetReminderCommand.COMMAND_WORD, SetReminderCommand.MESSAGE_USAGE);
         toReturn.put(EditReminderCommand.COMMAND_WORD, EditReminderCommand.MESSAGE_USAGE);
         toReturn.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.MESSAGE_USAGE);
-        toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD, RemoveConditionFromReminderCommand.MESSAGE_USAGE);
-        toReturn.put(ListAllRemindersCommand.COMMAND_WORD, ListAllRemindersCommand.MESSAGE_USAGE);
+        toReturn.put(ListRemindersCommand.COMMAND_WORD, ListRemindersCommand.MESSAGE_USAGE);
+        toReturn.put(SelectReminderCommand.COMMAND_WORD, SelectReminderCommand.MESSAGE_USAGE);
         toReturn.put(AddAutoExpenseCommand.COMMAND_WORD, AddAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(EditAutoExpenseCommand.COMMAND_WORD, EditAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(DeleteAutoExpenseCommand.COMMAND_WORD, DeleteAutoExpenseCommand.MESSAGE_USAGE);

@@ -132,6 +132,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public Reminder getReminder() {
+        return model.getReminderSelected();
+    }
+
+    @Override
     public ObservableList<Notification> getFilteredNotifications() {
         return model.getFilteredNotifications();
     }

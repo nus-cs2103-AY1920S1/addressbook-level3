@@ -10,9 +10,9 @@ import seedu.guilttrip.model.Model;
 /**
  * Lists all reminders in GuiltTrip to the user.
  */
-public class ListAllRemindersCommand extends Command {
+public class ListRemindersCommand extends Command {
 
-    public static final String COMMAND_WORD = "listAllReminders";
+    public static final String COMMAND_WORD = "listReminders";
     public static final String ONE_LINER_DESC = COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Listed all reminders";

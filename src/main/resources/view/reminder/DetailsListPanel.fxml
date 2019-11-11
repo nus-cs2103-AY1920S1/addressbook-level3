@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" styleClass="side-panel-listcard">
   <GridPane HBox.hgrow="ALWAYS">
     <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
@@ -25,9 +25,16 @@
             <Region fx:constant="USE_PREF_SIZE" />
           </minWidth>
         </Label>
-        <Label fx:id="type" styleClass="cell_big_label" text="\$type" />
+        <Label fx:id="desc" styleClass="cell_big_label" text="\$desc" />
+        <Label fx:id="amt" styleClass="cell_big_label" text="\$amt" />
+        <Label fx:id="category" styleClass="cell_small_label" text="\$category" />
 
       </HBox>
-      <FlowPane fx:id="params" styleClass="cell_big_label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <FlowPane fx:id="tags" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+      <Label fx:id="date" styleClass="cell_small_label" text="\$date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
   </GridPane>
 </HBox>

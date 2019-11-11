@@ -187,6 +187,21 @@ public class IewReminder implements Reminder, ListenerSupport {
     public boolean willDisplayPopUp() {
         return displayPopUp;
     };
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        } else if (!(other instanceof IewReminder)) {
+            return false;
+        } else {
+            IewReminder otherReminder = (IewReminder) other;
+            return this.entry == otherReminder.entry
+                    && this.period.equals(otherReminder.period)
+                    && this.frequency.equals(otherReminder.frequency);
+        }
+
+    }
     public void togglePopUpDisplay(boolean willDisplayPopup) {
         displayPopUp = willDisplayPopup;
     };

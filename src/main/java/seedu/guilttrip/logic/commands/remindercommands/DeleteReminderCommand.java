@@ -25,34 +25,15 @@ public class DeleteReminderCommand extends Command {
             + ": Deletes the expense reminder identified by the index number used in the displayed reminder list.\n";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " ";
 
     public static final String MESSAGE_DELETE_ENTRY_SUCCESS = "Deleted GeneralReminder: %1$s";
 
-    private final Index targetIndex;
-
-    public DeleteReminderCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        requireNonNull(model);
-        List<Reminder> lastShownList = model.getFilteredReminders();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
-        }
-        Reminder reminderToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deleteReminder(reminderToDelete);
-        model.commitGuiltTrip();
-        return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, reminderToDelete));
+        Reminder reminder = model.getReminderSelected();
+        model.deleteReminder(reminder);
+        return new CommandResult(String.format(MESSAGE_DELETE_ENTRY_SUCCESS, reminder));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteReminderCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteReminderCommand) other).targetIndex)); // state check
-    }
 }

@@ -12,6 +12,7 @@ import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.IewReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.conditions.QuotaCondition;
 
 /**
  * Responsible for mapping reminders to conditions and to entries.
@@ -27,6 +28,7 @@ public class ReminderMapper {
         logger.info("Mapping reminders");
         for (JsonAdaptedReminder jsonAdaptedReminder : jsonReminders) {
             Reminder reminder = jsonAdaptedReminder.toModelType();
+            logger.info("Successfully converted to model.");
             if (reminder instanceof GeneralReminder) {
                 GeneralReminder generalReminder = (GeneralReminder) reminder;
                 mapCondition(generalReminder);
@@ -45,16 +47,17 @@ public class ReminderMapper {
      */
     private void mapCondition(GeneralReminder generalReminder) {
         for (Condition condition : generalReminder.getConditions()) {
-            if (!conditions.contains(condition)) {
+            if (!(condition instanceof QuotaCondition)) {
                 logger.info("adding condition");
                 conditions.add(condition);
             } else {
-                int index = conditions.indexOf(condition);
-                Condition existingCondition = conditions.get(index);
-                generalReminder.removeCondition(condition);
-                generalReminder.addCondition(condition);
-                logger.info("mapping condition");
+                QuotaCondition quotaCondition = (QuotaCondition) condition;
+                if (quotaCondition.getQuota() != 0) {
+                    logger.info("adding condition");
+                    conditions.add(condition);
+                }
             }
+
         }
     }
 

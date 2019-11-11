@@ -53,6 +53,7 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
 
     public void setReminderSelected(Reminder reminderSelected) {
         this.reminderSelected = reminderSelected;
+        support.firePropertyChange("SelectedReminder", null, reminderSelected);
     }
 
 
@@ -112,6 +113,9 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
         toRemove.removePropertyChangeListener(this);
         if (!internalList.remove(toRemove)) {
             throw new EntryNotFoundException();
+        }
+        if (toRemove == reminderSelected) {
+            support.firePropertyChange("SelectedReminder", null, null);
         }
     }
 
