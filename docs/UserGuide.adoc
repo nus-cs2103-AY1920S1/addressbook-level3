@@ -66,7 +66,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Provides 3 different types of help for all commands in FinSec.
+The `help` feature Provides 3 different types of help for all commands in FinSec. To request for help, use the command syntax given below.
 
 Keyword: `help`
 
@@ -805,6 +805,7 @@ delete_contact 1 (removes first person in the contact list)
 
 Calculates the projected budget based on all income and approved claim values. It
 also displays a graph detailing total income, claim and budget values for every day of the current month. +
+To view your budget, use the command syntax given below.
 
 Format: `budget`
 
