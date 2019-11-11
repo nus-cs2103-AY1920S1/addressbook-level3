@@ -635,16 +635,25 @@ The sequence is as follows:
 2. The BookmarkCommand object calls getUserSelectedQuestion(), activating an instance of QuestionsLogic.
 3. The QuestionsLogic object returns userSelectedQuestion, which is the question the user chose to bookmark.
 4. If userSelectedQuestion is already bookmarked, the BookmarkCommand object calls notifyUserNoActionTaken() as a response to the user. Else, the BookmarkCommand object calls bookmarkUserSelectedQuestion(), and then calls notifyUserBookmarkSuccess() as a response to the user.
+
+//tag::design[]
+==== Design considerations
+===== Aspect : How to bookmark a question
+|===
+|Alternative 1 : Add an instance boolean attribute, isBookmarked, to the Question class | Alternative 2 : Create a global list of bookmarked questions, named bookmarkedQuestions
+
+| Pro : Better Object Oriented Design
+| Pro : Easy to implement
+
+| Con : All unit tests pertaining to Question objects have to be modified
+| Con : Repeated reference to the global list, coupling is higher
+|===
+
+Decision: Alternative 1 +
+Alternative 1 was chosen because good software engineering practices were prioritised over ease of implementation. Firstly, Object Oriented Design from AB3 was maintained. Next, we prevented an increase in coupling, which would reduce the testability of the project.
+//end::design[]
+
 //end::bookmark[]
-
-=== Program Evaluation Panel
-The *Code Result Panel* is located beneath the *Problem Display Panel*. It is responsible for showing the results after
-the user-submitted code is evaluated for its correctness against a pre-defined set of test cases.
-
-It takes in a `List` of `TestCaseResults` which contains useful information on how the user's program fared against
-the various test cases.
-
-These information are then displayed on the Code Result Panel through standard JavaFX controls.
 
 === Editor Panel
 The editor panel is the panel right next to the *Problem Display Panel* and the *Program Evaluation Panel*. The editor panel
