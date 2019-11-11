@@ -37,7 +37,14 @@
 }
 
 .label {
+    -fx-text-fill: white;
     -fx-wrap-text: true;
+}
+
+.label.cell_small_label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13px;
+    -fx-tile-alignment: CENTER;
 }
 
 .stack-pane.history-display {
@@ -55,4 +62,48 @@
 
 #historyWindowText {
     -fx-font-family: "Courier";
+}
+
+.pane-with-border {
+    -fx-background-color: derive(#282A36, 20%);
+    -fx-border-color: derive(#282A36, 10%);
+    -fx-border-top-width: 1px;
+}
+
+.result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Roboto Mono for Powerline", "Courier";
+    -fx-font-size: 10pt;
+    -fx-text-fill: white;
+}
+
+.scroll-bar {
+    -fx-background-color: derive(#282A36, 20%);
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: derive(#282A36, 50%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+#resultDisplay .content {
+    -fx-background-color: transparent, #20212A, transparent, #20212A;
+    -fx-background-radius: 0;
 }
