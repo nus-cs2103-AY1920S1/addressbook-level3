@@ -128,6 +128,7 @@ public class TagManager {
         }
 
         Collections.sort(tagsWithLike);
+        Collections.sort(tagsWithDislike);
     }
 
 }
