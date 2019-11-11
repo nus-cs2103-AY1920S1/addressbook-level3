@@ -15,8 +15,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.group.GroupAddStudentCommand;
 import seedu.address.logic.commands.group.GroupCommand;
 import seedu.address.logic.commands.group.GroupCreateManuallyCommand;
@@ -33,6 +35,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parser to handle commands related to Group.
  */
 public class GroupCommandParser implements Parser<GroupCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(GroupCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the QuizCommand
      * and returns an QuizCommand object for execution.
@@ -70,6 +75,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
     private GroupExportCommand exportGroupCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_GROUP_ID, PREFIX_EXPORT)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("export group command is invalid");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, GroupExportCommand.MESSAGE_USAGE));
@@ -99,6 +105,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
             GroupCreateManuallyCommand groupCreateManuallyCommand = new GroupCreateManuallyCommand(fields);
             //exception is thrown if studentNumbers is left blank
         } catch (Exception e) {
+            logger.info("could not parse group due to missing input fields, command error in GroupCommandParser.");
             throw new ParseException(MESSAGE_MISSING_INPUT_FIELDS);
         }
 
@@ -115,6 +122,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
     private GroupAddStudentCommand addStudentCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_GROUP_ID, PREFIX_GROUP_INDEX_NUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("error parsing the group add student command");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, GroupAddStudentCommand.MESSAGE_USAGE));
@@ -144,6 +152,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
     private GroupRemoveStudentCommand removeStudentCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_GROUP_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("invalid or missing group id for removal");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, GroupRemoveStudentCommand.MESSAGE_USAGE));
@@ -155,6 +164,7 @@ public class GroupCommandParser implements Parser<GroupCommand> {
             groupId = argMultimap.getValue(PREFIX_GROUP_ID).orElse("");
             groupIndexNumber = Integer.parseInt(argMultimap.getValue(PREFIX_GROUP_INDEX_NUMBER).orElse(""));
         } catch (Exception e) {
+            logger.info("missing input fields, command error");
             throw new ParseException(MESSAGE_MISSING_INPUT_FIELDS);
         }
 
