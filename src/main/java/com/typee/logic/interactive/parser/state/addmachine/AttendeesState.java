@@ -19,7 +19,7 @@ public class AttendeesState extends State {
 
     private static final String MESSAGE_CONSTRAINTS = "Who will be present at the engagement? Please enter the list of "
             + "attendees separated by vertical lines and prefixed by " + PREFIX_ATTENDEES.getPrefix() + ". "
-            + "Example - [Prof Damith | Jon Snow]";
+            + "Example - [a/Prof Damith | Jon Snow]";
     private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid list of attendees after "
             + PREFIX_ATTENDEES.getPrefix() + ". Names of the attendees must be non-empty and in English. "
             + "Only alphanumeric characters are supported in names. Vertical lines must be used to separate names.";
