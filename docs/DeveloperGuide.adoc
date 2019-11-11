@@ -423,6 +423,7 @@ and is updated accordingly when data in `[green]#Performance#` changes.
 
 ===== Function 1: Adding and Deleting of Event
 
+// tag::performance_event[]
 The following sequence diagram illustrates what happens in `[green]#Logic#` and `[green]#Model#` when in an
 example scenario when `event freestyle 50m` is given as a user input (ie. when the user adds the `freestyle
 50m` event).
@@ -433,9 +434,11 @@ image::addevent_sequencediagram.png[width="700"]
 Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The input `delete -e freestyle
 50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
 boolean from `[green]#Model#hasEvent()#`.
+// end::performance_event[]
 
 ===== Function 2: Adding and Deleting of Record
 
+// tag::performance_record[]
 Operations for `[green]#Record#` - adding and deleting - work similarly to that of `[green]#Event#` as well,
 except there are more methods involved as there is a greater degree of nesting.
 
@@ -443,6 +446,7 @@ The workflow for adding a record can be illustrated by the Activity Diagram belo
 
 .Activity diagram showing how a Record is added to an Event.
 image::addrecord_activitydiagram.png[width="700"]
+// end::performance_record[]
 
 ===== Function 3: Viewing of Event and Record
 
