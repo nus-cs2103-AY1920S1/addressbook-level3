@@ -1102,21 +1102,28 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
+.. Prerequisites: Populate TimeBook with person `addperson`.
+.. Test case: `deleteperson n/NAME` (Where NAME is the name of the person you added) +
+   Expected: The person name will be removed from the list on the left of GUI and the feedback box will show `Delete person success: NAME deleted`
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+=== Getting closest common location
 
-_{ more test cases ... }_
+. Get closest common location
+.. Prerequisites: Populate TimeBook with your group and group members with `addtogroup` and `addperson`. Subsequently, Show group schedule `show g/GROUP_NAME`.
+Expected: Show a group schedule with common free time.
+.. Test case: `selectfreetime i/x` +
+   Expected: A popup with the closest location will appear.
+.. Other incorrect select free time commands to try: `selectfreetime i/0.1`, `selectfreetime i/x` (where x is the free time slot id on the display)
+
+. Invalid `ID`.
+.. Prerequisites: Show group schedule `show g/GROUP_NAME`
+   Expected: Show a group schedule with common free time.
+.. Test case: `selectfreetime i/0` +
+   Expected: Invalid time slot ID: 0. Please enter a valid id as shown in the GUI.
+.. Other incorrect select free time commands to try: `selectfreetime i/0.1`, `selectfreetime i/x` (where x is larger than the id on the display)
 
 === Graphic for schedules in TimeBook
 
@@ -1125,14 +1132,6 @@ _{ more test cases ... }_
 .. Events that overlap in time slots should not be allowed to be added into TimeBook.
 . Resizing the window should not distort the schedule graphics displayed.
 . Ensure that the first column of the schedule graphic is always today's date.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 === Adding NUSMods timetable to a person's schedule
 
@@ -1156,4 +1155,4 @@ Expected: John's schedule is successfully updated with CS2100 lecture 1, lab 15,
 .. Test case 2: Execute `addmod n/John m/CS2100 cl/TUT:08,LAB:15,LEC:1` twice. +
 Expected: No lessons will be added to John's schedule. Error message shows up due to a clash in timings between events in current schedule and the module you are adding.
 .. Other incorrect addmod commands to try: `addmod`, `addmod n/John m/random_string`, `addmod n/John m/CCS2100 cl/random_string`. +
-Expected: No lessons are added to John's schedule. Error details are shown in the feedback display.
+

@@ -63,7 +63,7 @@ on NUS Mods to locations that are identifiable on Google Maps.
 
 *Other Contributions*
 
-** *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=klementtan&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
+** *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=klementtan&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]
 *** Wrote test cases for `Storage` component https://github.com/AY1920S1-CS2103T-T10-4/main/pull/261[#261]. Increase coverage by 4%.
 *** Worked with Marcus to implement caching of NUSMods and Google Maps API data.
 ** Project management:
