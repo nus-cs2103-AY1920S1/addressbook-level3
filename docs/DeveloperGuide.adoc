@@ -249,7 +249,7 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
-The Undo and Redo features are crucial to give users the flexibility of reverting wrongly executed commands.
+The Undo and Redo feature are crucial to give users the flexibility of reverting wrongly executed commands.
 This section explains the implementation of the undo/redo mechanism as well as some design considerations
 when implementing this feature.
 
