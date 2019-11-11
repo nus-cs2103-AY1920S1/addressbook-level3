@@ -618,7 +618,8 @@ This feature allows the user to add a repeater in IchiFund. Adding a repeater al
 The `add` command is facilitated by the Logic and Model components of the application. The process of executing an `add` command is illustrated in the figure below:
 
 .Sequence Diagram for `repeater` Command under Repeater Tab
-image::AddRepeatergetSequenceDiagram.png[]
+image::AddRepeaterSequenceDiagram.png[]
+
 
 Below is an example usage scenario of how `add` behaves at each step.
 
