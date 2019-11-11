@@ -190,7 +190,7 @@ The access control feature is centered around three core concepts:
 
 ===== Command Restrictions
 
-Prior to login, the user is only granted access to the `Login`, `Register`, `Help`, and `Exit` commands. This is achieved via a guard statement in the `IncidentManagerParser` checking whether the user is logged in or the command created is an approved command that doesn't require login.
+Prior to login, the user is only granted access to the `login`, `register`, `help`, and `exit` commands. This is achieved via a guard statement in the `IncidentManagerParser` checking whether the user is logged in or the command created is an approved command that doesn't require login.
 
 [NOTE]
 The guard statement throws a command exception and informs the user of the available commands prior to login.
