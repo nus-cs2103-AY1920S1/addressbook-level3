@@ -30,8 +30,7 @@ Jump to <<Getting Started>> to get started.
 .. Easily assign students to group.
 .. Tag or mark students who are weak at certain subjects.
 
-. *Create questions* that allows you to start in-class activities and distribute quizzes to your students.
-Simply define a type, a topic and an answer and you are all set.
+. *Create questions* that is easy to manage with a single interface.
 .. Easy input and management of your questions.
 .. Utilise your questions fully by using Slideshow.
 
@@ -1385,6 +1384,7 @@ _-This command does not require any additional options-_
 * *Listing a Quiz* : `quiz list quizID/...`
 * *Showing only Questions of a Quiz* : `quiz showQuestions quizID/...`
 * *Showing only Answers of a Quiz* : `quiz showAnswers quizID/...`
+* *Exporting a quiz*: `quiz export quizID/...`
 * *Adding an Event* : `event eventName/... startDateTime/... endDateTime/... recur/... color/...`
 * *Editing an Event* : `event [INDEX] eventName/... startDateTime/... endDateTime/... recur/... color/...`
 * *Deleting an Event* : `event delete [INDEX]`
