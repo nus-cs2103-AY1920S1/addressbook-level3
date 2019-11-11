@@ -24,15 +24,15 @@ This document describes the architecture and system design of _PalPay_.
 It is a living document that evolves throughout the design and implementation for each release.
 Each release will have an edition of the document, and the current edition of the document is for the first public release of the application.
 
-This document is aimed at covering the high-level system architecture and design.
+This document aims to cover the high-level system architecture and design.
 It is segmented into two major parts: software design, including system architecture, and design implementation.
-The software design documents the main software components that operate and support the main system architecture.
-Essential details such as the user stories and use cases, as well as the Non Functional Requirements are included at the back of the document.
+The software design illustrates the main software components that operate and support the main system architecture.
+Essential details such as the user stories, use cases, and the Non Functional Requirements are included at the back of this document.
 
 === Audience
 
-This document is written for software engineers want to gain an insight of the system architecture and design of the application.
-In particular, the intended audience of this document is the students taking the roles of the developers, designers, and software testers of _PalPay_ from CS2103T - Software Engineering.
+This document is written for software engineers who desires a deeper insight of the system architecture and design of this application - PalPay.
+In particular, the intended audience of this document will be the students taking on the roles of the developers, designers, and software testers of _PalPay_ from CS2103T - Software Engineering.
 
 === Description
 
@@ -240,9 +240,9 @@ that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
 ** This reduces code coupling as there are different models to handle different balance amounts.
 
-* A `Transaction` entry can affect a `Budget` which has similar categories within the same time period.
+* A `Transaction` entry can affect a `Budget` which has similar categories and is within the same time period. The activity diagram bellow will further clarify this flow.
 ** Only `Out` Transactions can affect `Budget`.
-** Activity diagram below shows how and when a `Transaction` object affects `Budget`.
+** The activity diagram below shows how and when a `Transaction` object affects `Budget`.
 
 .Activity diagram for Out Transaction affecting Budget
 image::OutbudgetActivityDiagram.png[]
