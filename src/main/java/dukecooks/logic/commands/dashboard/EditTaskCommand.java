@@ -74,9 +74,6 @@ public class EditTaskCommand extends EditCommand {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        if (editedTask.getDashboardName().fullName.length() > 30) { //prevent names with > 30 characters to be edited
-            throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
-        }
         model.setDashboard(taskToEdit, editedTask);
         model.updateFilteredDashboardList(PREDICATE_SHOW_ALL_DASHBOARD);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));

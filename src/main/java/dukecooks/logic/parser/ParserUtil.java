@@ -132,7 +132,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+            throw new ParseException(DashboardName.MESSAGE_CONSTRAINTS);
         }
         return new DashboardName(trimmedName);
     }

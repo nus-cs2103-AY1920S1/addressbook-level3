@@ -48,10 +48,6 @@ public class AddTaskCommand extends AddCommand {
             throw new CommandException(MESSAGE_DUPLICATE_TASK);
         }
 
-        if (toAdd.getDashboardName().fullName.length() > 30) { //prevent names with > 30 characters to be added
-            throw new CommandException(MESSAGE_NAME_IS_TOO_LONG);
-        }
-
         model.addDashboard(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
