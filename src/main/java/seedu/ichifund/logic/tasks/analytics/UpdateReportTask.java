@@ -17,9 +17,9 @@ public class UpdateReportTask extends Task {
         Optional<Command> command = model.getCommand();
         if (command.isPresent()) {
             try {
-                (command.get()).execute(model);
+                command.get().execute(model);
             } catch (CommandException ignored) {
-
+                // The command will always be valid as it was executed once before.
             }
         }
     }
