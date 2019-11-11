@@ -50,7 +50,7 @@ at a particular date. However, this difficulty was remedied as described in *Maj
 *** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 ** Testing:
 *** Refactored large portions of testing codebase for fellow developers: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/120[#120]
-*** Wrote tests for existing and new features to increase code coverage (Pull requests: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/126[#126], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/126[#234])
+*** Wrote tests for existing and new features to increase code coverage (Pull requests: https://github.com/AY1920S1-CS2103T-T09-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/126[#126], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/234[#234])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/90[#90], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/102[#102]
 
