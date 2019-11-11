@@ -1,0 +1,22 @@
+@startuml
+skinparam activityShape rectangle
+
+start
+:Entered suggest possible command;
+:check for number of predicate tags;
+if() then ([num >= 1])
+    :check if operation type is valid;
+    if() then ([valid operation type])
+         :form predicate;
+         :filter exercise tracker and database;
+         :display list to user;
+    else ([invalid operation type])
+         :inform user input is invalid;
+          endif
+else ([else])
+    :inform user input is invalid;
+
+endif
+-> Program resumes;
+stop
+@enduml

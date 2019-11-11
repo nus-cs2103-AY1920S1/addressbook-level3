@@ -1,0 +1,16 @@
+{
+  "customProperties" : [ {
+    "prefixName" : "r",
+    "fullName" : "Rating",
+    "parameterType" : "Number"
+  }, {
+    "prefixName" : "b",
+    "fullName" : "Remark",
+    "parameterType" : "Text"
+  }, {
+    "prefixName" : "ed",
+    "fullName" : "End Date",
+    "parameterType" : "Date"
+  } ]
+}
+

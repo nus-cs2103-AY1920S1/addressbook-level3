@@ -1,0 +1,61 @@
+= Chai Jie Tung - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ExerHealth
+
+== Overview
+
+My team of 5 computer science students were tasked with enhancing a basic command line interface desktop Addressbook3
+application for software engineering project. Our team decided to morph the application to ExerHealth. ExerHealth is
+a desktop application used for tracking and scheduling the user's exercises. The application has statistical analysis of
+exercises user have completed in the past. Additionally, it also acts as a personal trainer by suggesting different
+exercises which both beginners and advanced users can choose from to incorporate into their exercise regime. The user
+interacts with it using a command line interface, and it has a GUI created with JavaFX.
+
+Figure below is a screenshot of what our application looks like:
+
+image::Ui.png[]
+
+Figure 1. The graphical user interface for ExerHealth
+
+My role was to develop the add and delete regime feature and statistic feature. The following sections illustrates these
+enhancements in more details, as well as the relevant documentation I have added to the user and developer guides in
+relation to those enhancements.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation and other helpful contributions to the team project.
+
+* *Major enhancement*: Added the ability to display statistic and charts which includes pie chart, line chart and bar chart.
+** What it does: The `stats` command will allow users to display chart and statistic of the exercise they have completed.
+** Justification: This feature will enable users to have an overview of number of exercise they have completed and calories they have burnt. This will help users understand their progress and improve planning of exercises in the future.
+** Highlights: This enhancement works well with existing commands and commands to be added in future. It required an in-depth analysis of design alternatives to ensure that future enhancements can be made.
+
+* *Minor enhancement 1*: Added a `Unit` property to exercise.
+* *Minor enhancement 2*: Added add and delete regime command that allows the user to add and delete regime from regime list.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jietung&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Refactored Addressbook3 codebase to ExerHealth (Pull request https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81])
+*** Wrote additional tests for existing and new features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/125[#125], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/127[#127])
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=statistic]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=statistic]

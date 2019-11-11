@@ -1,0 +1,5 @@
+.axis {
+	-fx-stroke: black;
+	-fx-fill: black;
+    -fx-tick-label-fill: black;
+}

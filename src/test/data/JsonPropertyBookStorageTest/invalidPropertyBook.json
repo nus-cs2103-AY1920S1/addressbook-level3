@@ -1,0 +1,9 @@
+{
+  "prefixNames" : [ "n", "m", "u", "d", "c", "r", "q" ],
+  "fullNames" : [ "Rating", "Quantity", "Muscle", "Unit", "Date", "Calories", "Name" ],
+  "customProperties" : [ {
+    "pn" : "r",
+    "fn" : "Rating",
+    "pt" : "Number"
+  } ]
+}

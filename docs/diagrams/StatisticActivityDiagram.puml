@@ -1,0 +1,29 @@
+@startuml
+
+start
+-Entered stats command
+if () then ([Valid Category Type])
+
+    if () then ([Valid Chart type])
+        if() then ([no date provided])
+        -set dates as \n past 7 days
+        -filter exercises for \n the past 7 days
+
+        else ([dates provided])
+        -filter exercises \n within the \n given dates
+        endif
+
+    -generate statistic
+    -generate chart
+    -display chart
+
+    else ([Invalid chart type])
+    -invalid chart \n type message
+    endif
+
+else ([Invalid Category Type])
+-invalid category \n message
+endif
+
+stop
+@enduml

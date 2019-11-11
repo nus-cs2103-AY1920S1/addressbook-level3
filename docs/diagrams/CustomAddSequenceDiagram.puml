@@ -1,0 +1,77 @@
+@startuml
+!include style.puml
+hide footbox
+
+box "Logic" LOGIC_COLOR_T1
+    participant ":LogicManager" as LogicManager LOGIC_COLOR
+    participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
+    participant ":CustomCommandParser" as CustomCommandParser LOGIC_COLOR
+    participant ":CustomAddCommand" as CustomAddCommand LOGIC_COLOR
+    participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box "Model" MODEL_COLOR_T1
+    participant "toAdd:CustomProperty" as CustomProperty MODEL_COLOR_T1
+    participant ":PropertyBook" as PropertyBook MODEL_COLOR_T1
+end box
+
+-> LogicManager: execute("custom s/r f/Rating p/Number")
+activate LogicManager
+
+LogicManager -> ExerciseBookParser: parseCommand("custom s/r f/Rating p/Number")
+activate ExerciseBookParser
+
+create CustomCommandParser
+ExerciseBookParser -> CustomCommandParser
+activate CustomCommandParser
+
+CustomCommandParser --> ExerciseBookParser
+deactivate CustomCommandParser
+
+ExerciseBookParser -> CustomCommandParser: parse(" s/r f/Rating p/Number")
+activate CustomCommandParser
+
+create CustomProperty
+CustomCommandParser -> CustomProperty
+activate CustomProperty
+
+CustomProperty --> CustomCommandParser: toAdd
+deactivate CustomProperty
+
+create CustomAddCommand
+CustomCommandParser -> CustomAddCommand: new CustomAddCommand(toAdd)
+activate CustomAddCommand
+
+CustomAddCommand --> CustomCommandParser: cc
+deactivate CustomAddCommand
+
+CustomCommandParser --> ExerciseBookParser: cc
+deactivate CustomCommandParser
+CustomCommandParser -[hidden]-> ExerciseBookParser
+destroy CustomCommandParser
+
+ExerciseBookParser --> LogicManager: cc
+deactivate ExerciseBookParser
+
+LogicManager -> CustomAddCommand: execute(model)
+activate CustomAddCommand
+
+CustomAddCommand -> PropertyBook: addCustomProperty(toAdd)
+activate PropertyBook
+
+PropertyBook --> CustomAddCommand
+deactivate PropertyBook
+
+create CommandResult
+CustomAddCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> CustomAddCommand: result
+deactivate CommandResult
+
+CustomAddCommand --> LogicManager: result
+deactivate CustomAddCommand
+
+<-- LogicManager :result
+deactivate LogicManager
+@enduml

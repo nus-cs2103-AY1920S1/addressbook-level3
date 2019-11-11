@@ -4,21 +4,38 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
-Interface Storage <<Interface>>
-Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+package Storage {
+    package bookstorage {
+        Interface XYZResourceBookStorage <<Interface>>
+    }
 
-Class StorageManager
-Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+    package resource {
+        class "{abstract}\nXYZJsonAdaptedResource"
+    }
 
-StorageManager .left.|> Storage
-StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+    package serializablebook {
+        class "{abstract}\nXYZSerializableResourceBook"
+    }
 
-JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+    Interface Storage <<Interface>>
+    Interface UserPrefsStorage <<Interface>>
+    Interface PropertyBookStorage <<Interface>>
+
+    Class StorageManager
+    Class JsonUserPrefsStorage
+    class JsonPropertyBookStorage
+    class JsonSerializablePropertyBook
+}
+
+StorageManager .up.|> Storage
+StorageManager o--> "4 " XYZResourceBookStorage
+StorageManager o--> "1" UserPrefsStorage
+StorageManager o-> "1" PropertyBookStorage
+
+"{abstract}\nXYZSerializableResourceBook" o-left-> "0...* " "{abstract}\nXYZJsonAdaptedResource"
+XYZResourceBookStorage --> "{abstract}\nXYZSerializableResourceBook"
+
+JsonUserPrefsStorage ..|> UserPrefsStorage
+JsonPropertyBookStorage ..|> PropertyBookStorage
+JsonPropertyBookStorage -up-> JsonSerializablePropertyBook
 @enduml

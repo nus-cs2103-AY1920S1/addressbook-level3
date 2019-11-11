@@ -1,0 +1,32 @@
+@startuml
+hide Conflict members
+hide Schedule members
+hide ResolveCommand members
+hide Model fields
+hide ModelManager members
+skinparam classAttributeIconSize 0
+
+class Conflict {
+}
+
+class Schedule {
+}
+
+class ResolveCommand {
+}
+
+interface Model {
+    resolveConflict(Conflict)
+}
+
+class ModelManager {
+}
+
+Conflict *-left-> "1" Schedule : conflicting >
+Conflict *--> "1" Schedule : scheduled >
+ResolveCommand -left> Model : calls >
+ResolveCommand --> "1 " Conflict
+ModelManager .up.|> Model
+ModelManager -right-> " 0...1  " Conflict : resolves >
+
+@enduml

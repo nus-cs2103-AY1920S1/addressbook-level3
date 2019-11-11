@@ -1,0 +1,88 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ExerciseBookParser" as ExerciseBookParser LOGIC_COLOR
+participant ":StatsCommandParser" as StatsCommandParser LOGIC_COLOR
+participant "s:StatsCommand" as StatsCommand LOGIC_COLOR
+participant ":StatsFactory" as StatsFactory LOGIC_COLOR
+participant "statistic:Statistic" as Statistic LOGIC_COLOR
+participant "result:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("stats t/calories h/linechart")
+activate LogicManager
+
+LogicManager -> ExerciseBookParser : parseCommand("stats t/calories h/linechart")
+activate ExerciseBookParser
+
+create StatsCommandParser
+ExerciseBookParser -> StatsCommandParser
+activate StatsCommandParser
+
+StatsCommandParser --> ExerciseBookParser
+deactivate StatsCommandParser
+
+ExerciseBookParser -> StatsCommandParser : parse("t/calories h/linechart")
+activate StatsCommandParser
+
+create StatsCommand
+StatsCommandParser -> StatsCommand : (calories, linechart)
+activate StatsCommand
+
+StatsCommand --> StatsCommandParser : s
+deactivate StatsCommand
+
+StatsCommandParser --> ExerciseBookParser : s
+deactivate StatsCommandParser
+
+ExerciseBookParser --> LogicManager : s
+deactivate ExerciseBookParser
+
+LogicManager -> StatsCommand : execute()
+activate StatsCommand
+
+StatsCommand -> Model : getExerciseBookData()
+activate Model
+
+Model --> StatsCommand : exercises
+deactivate Model
+
+create StatsFactory
+StatsCommand -> StatsFactory : (exercises, linechart, calories)
+activate StatsFactory
+
+create Statistic
+StatsFactory -> Statistic : generateStatistic()
+activate Statistic
+
+Statistic --> StatsFactory : statistic
+deactivate Statistic
+
+StatsFactory --> StatsCommand : statistic
+deactivate StatsFactory
+
+StatsCommand -> Model : setStatistic(statistic)
+activate Model
+
+Model --> StatsCommand
+deactivate Model
+
+create CommandResult
+StatsCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> StatsCommand : result
+deactivate CommandResult
+
+StatsCommand --> LogicManager : result
+deactivate StatsCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

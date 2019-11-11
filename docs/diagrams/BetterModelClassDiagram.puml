@@ -4,18 +4,37 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-AddressBook *-right-> "1" UniquePersonList
-AddressBook *-right-> "1" UniqueTagList
-UniqueTagList -[hidden]down- UniquePersonList
-UniqueTagList -[hidden]down- UniquePersonList
+ReadOnlyResourceBook .down.> "{abstract}\nResource"
 
-UniqueTagList *-right-> "*" Tag
-UniquePersonList o-right-> Person
+ReadOnlyResourceBook o-right-> "1" UniqueResourceList
 
-Person o-up-> "*" Tag
+UniqueResourceList o--> "{abstract}\nResource"
 
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
+Exercise -up-|>"{abstract}\nResource"
+Regime -up-|>"{abstract}\nResource"
+Schedule -up-|>"{abstract}\nResource"
+
+Exercise *--> "1" Name
+Exercise *--> "1" Date
+Exercise *--> "1" Calories
+Exercise *--> "1" Quantity
+Exercise *--> "1" Unit
+Exercise *--> "0..*" Muscle
+Exercise *--> "0..*" CustomProperty
+
+CustomProperty *--> "1" Prefix
+CustomProperty *--> "1" "<<enumeration>>\nParameterType"
+
+enum "<<enumeration>>\nParameterType" {
+    TEXT,
+    NUMBER,
+    DATE
+}
+
+Regime *-left-> "1" UniqueResourceList : regimeExercises
+Regime *--> "1" Name
+
+Schedule *-right-> "1" Regime
+Schedule *--> "1 " Date
+
 @enduml

@@ -1,0 +1,73 @@
+= Ho Wei Haw - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ExerHealth
+
+== Overview
+
+ExerHealth is a desktop application that is created by me and another 4 Computer Science students. It
+enables users to track important information about their exercises and also provides other functionality such as
+the ability to create their own fitness regimes and the ability to provide statistical analysis of their activities.
+Users can also define their own properties which they wish to track for their exercises.
+
+Below is a screenshot of our application:
+
+.A screenshot of ExerHealth application
+image::Ui.png[align="center", width="550"]
+
+== Summary of contributions
+
+* *Major enhancement 1*: Provided a feature that *allows user to define their own custom properties* and *remove them*.
+
+** What it does: Users can simply add in or remove their own custom properties should they wish to keep track of extra/lesser properties
+for each exercise.
+
+** Justification: This feature provides greater flexibility among various users if they wish to include more information which they wish to track. This customisation can help users to
+tailor suit the app for their personal use.
+
+** Highlights: This feature complements well with the suggestion feature. By having
+custom properties, users can now produce exercise suggestions based on the custom properties they had created. Furthermore, the implementation of this feature is
+quite challenging as there are a few aspects to take note of: the representation of custom properties in each exercise, the tracking of custom properties that have been created
+and storage of custom properties.
+
+* *Minor enhancement 1*: Added a `viewcustom` command that allows user to view the custom properties that they have defined.
+
+* *Minor enhancement 2*: Designed the centre panel UI for exercises. This design helps to display both the default and custom
+properties of each exercise to the user.
+
+* *Minor enhancement 3*: Added a `select` command that allows user to select a specific exercise/regime/schedule/suggestion
+which they wish to view.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weihaw08&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code Contribution]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Updated the UI  (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/129[#129], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/133[#133])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/140[#140], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/194[#194])
+*** Involved in the morphing of AddressBook to suit ExerHealth (Pull requests https://github.com/AY1920S1-CS2103T-T09-2/main/pull/13[#13])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments):  https://github.com/AY1920S1-CS2103T-T09-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T09-2/main/pull/103[#103]
+*** Reviewed and provided suggestions for individuals in the class: https://github.com/nus-cs2103-AY1920S1/duke/pull/86[#86], https://github.com/nus-cs2103-AY1920S1/duke/pull/229[#229],
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=customfeature]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=customfeature]
+
+
+
