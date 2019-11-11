@@ -303,6 +303,51 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (x.isGeneral()) {
+                this.delete(x);
+                UniqueTransactionList newTransactions = new UniqueTransactionList();
+                newTransactions.setTransactions(x.getTransactionHistory());
+                newTransactions.setTransaction(toUpdate, updated);
+                this.add(new Projection(newTransactions.asUnmodifiableObservableList(), x.getDate(), x.getBudgets()));
+            } else {
+                boolean sameCategoryAsToUpdate = toUpdate.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                boolean sameCategoryAsUpdated = updated.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategoryAsToUpdate) {
+                    delete(x);
+                    UniqueTransactionList newTransactions = new UniqueTransactionList();
+                    newTransactions.setTransactions(x.getTransactionHistory());
+                    newTransactions.remove(toUpdate);
+                    if (newTransactions.asUnmodifiableObservableList().size()
+                            >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
+                        this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                                x.getDate(), x.getBudgets()));
+                    }
+                }
+                if (sameCategoryAsUpdated) {
+                    delete(x);
+                    UniqueTransactionList newTransactions = new UniqueTransactionList();
+                    newTransactions.setTransactions(x.getTransactionHistory());
+                    newTransactions.add(toUpdate);
+                    this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
+                            x.getDate(), x.getBudgets()));
+                }
+            }
+        });
+    }
+
+    @Override
     public void updateProjectionsAfterAdd(Budget added) {
         this.getFilteredProjectionsList().forEach(x -> {
             if (added.isGeneral() && x.isGeneral()) {

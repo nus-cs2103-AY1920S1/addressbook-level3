@@ -59,6 +59,15 @@ the category *food* and the description *pie*.
 === Ledgers
 
 === Projections
+By using the _Projections_ feature, you can project your:
+
+. Account Balance
+
+. Budget Deficits / Surpluses
+
+These projections are cast upon a specified `DATE`, and optionally, a specified `CATEGORY`. Upon casting a
+projection, it is automatically stored and thereafter accessible through the _Projection_ tab.
+
 
 [[Commands]]
 == Commands
@@ -345,19 +354,20 @@ image::Receive2.png[]
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 
 [[Project]]
-=== Projecting Balance : `project`
+=== Projecting Your Future Balance : `project`
 
 Cast a projection on your future balance amount and budget statuses based on your transaction history. +
-Format: `project d/DATE [c/test]`
+Format: `project d/DATE [c/CATEGORY]`
 
 ****
-* `DATE` input only accepts date in format DDMMYYYY.
+* `DATE` input only accepts dates in the following format: DDMMYYYY.
 * `DATE` input must be preceded by its tag `d/`.
 * `DATE` input must be set in the future.
-* `Date` cannot be more than _720_ days from the day of projection.
-* There must be a minimum of _5_ transactions in total, or in the specified category
+* `DATE` cannot be more than *720* days from the day of projection.
+* `CATEGORY` must be preceded by its tag `c/`.
+* There must be a minimum of *5* transactions in total, or in the specified `CATEGORY`
 for a projection to be successfully cast.
-* Should the number of `transactions` in a  `projection` fall below _5_, the `projection`
+* Should the number of `transactions` in a `projection` fall below *5*, the `projection`
 will be automatically deleted.
 ****
 
@@ -372,7 +382,7 @@ will be automatically deleted.
  Projected balance: $188.04
  You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!
 
-=== Display Projection Graph: `display`
+=== Display a Projection Graph: `display`
 
 Display a graphical representation of a `projection` in a new window.
 
@@ -645,19 +655,9 @@ Format: `undo`
 
 ****
 * Once you exit PalPay, you cannot undo the previous commands.
-* List of Undoable Commands:
-** `in`
-** `out`
-** `set`
-** `split`
-** `receive`
-** `project`
-** `filter`
-** `sort`
-** `update`
-** `delete`
-** `clear`
-** `list`
+* Below are the commands that are undoable:
+** `in` / `out` / `set` / `split` / `receive` / `project` /
+`sort` / `filter` / `update` / `delete` / `clear` / `list`
 ****
 
 ==== Example Usage:
