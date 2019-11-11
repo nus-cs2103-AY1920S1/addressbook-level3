@@ -61,13 +61,13 @@ public class EditCommandParserTest {
         // parsing it together with a valid tag results in error
         CommandParserTestUtil.assertParseFailure(parser,
                 "1" + CommandTestUtil.TAG_DESC_EXPENSIVE
-                        + CommandTestUtil.TAG_DESC_SALTY + TAG_EMPTY, Tag.MESSAGE_CONSTRAINTS);
+                        + CommandTestUtil.TAG_DESC_SALTY + TAG_EMPTY, EditCommand.MESSAGE_NO_SIMULTANEOUS_CLEAR_ADD);
         CommandParserTestUtil.assertParseFailure(parser,
                 "1" + CommandTestUtil.TAG_DESC_EXPENSIVE + TAG_EMPTY
-                        + CommandTestUtil.TAG_DESC_SALTY, Tag.MESSAGE_CONSTRAINTS);
+                        + CommandTestUtil.TAG_DESC_SALTY, EditCommand.MESSAGE_NO_SIMULTANEOUS_CLEAR_ADD);
         CommandParserTestUtil.assertParseFailure(parser,
                 "1" + TAG_EMPTY + CommandTestUtil.TAG_DESC_EXPENSIVE
-                        + CommandTestUtil.TAG_DESC_SALTY, Tag.MESSAGE_CONSTRAINTS);
+                        + CommandTestUtil.TAG_DESC_SALTY, EditCommand.MESSAGE_NO_SIMULTANEOUS_CLEAR_ADD);
 
     }
 

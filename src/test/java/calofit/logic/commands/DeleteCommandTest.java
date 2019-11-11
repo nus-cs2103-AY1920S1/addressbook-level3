@@ -43,7 +43,7 @@ public class DeleteCommandTest {
                 listOfMealToDeleteToString);
 
         ModelManager expectedModel = new ModelManager(new MealLog(model.getMealLog()),
-                model.getDishDatabase(), new UserPrefs());
+                model.getDishDatabase(), new UserPrefs(), TypicalDishes.getTypicalBudget());
         expectedModel.removeMeal(mealToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);

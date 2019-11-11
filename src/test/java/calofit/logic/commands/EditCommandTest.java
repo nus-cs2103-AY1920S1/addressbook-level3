@@ -46,7 +46,7 @@ public class EditCommandTest {
                 model.getMealLog().getTodayMeals().get(0), editedMeal);
 
         Model expectedModel = new ModelManager(new MealLog(model.getMealLog()),
-                new DishDatabase(model.getDishDatabase()), new UserPrefs());
+                new DishDatabase(model.getDishDatabase()), new UserPrefs(), TypicalDishes.getTypicalBudget());
 
         expectedModel.getMealLog().setMeal(model.getMealLog().getTodayMeals().get(0), editedMeal);
 
@@ -81,7 +81,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, lastMeal, editedMeal);
 
         Model expectedModel = new ModelManager(new MealLog(model.getMealLog()),
-                new DishDatabase(model.getDishDatabase()), new UserPrefs());
+                new DishDatabase(model.getDishDatabase()), new UserPrefs(), TypicalDishes.getTypicalBudget());
 
         expectedModel.getMealLog().setMeal(lastMeal, editedMeal);
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
@@ -96,7 +96,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, editedMeal, editedMeal);
 
         Model expectedModel = new ModelManager(new MealLog(model.getMealLog()),
-                new DishDatabase(model.getDishDatabase()), new UserPrefs());
+                new DishDatabase(model.getDishDatabase()), new UserPrefs(), TypicalDishes.getTypicalBudget());
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -130,7 +130,7 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_MEAL_SUCCESS, lastMeal, editedMeal);
 
         Model expectedModel = new ModelManager(new MealLog(model.getMealLog()),
-                new DishDatabase(model.getDishDatabase()), new UserPrefs());
+                new DishDatabase(model.getDishDatabase()), new UserPrefs(), TypicalDishes.getTypicalBudget());
 
         CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
@@ -175,7 +175,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_invalidDishIndex_failure() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDishList().size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(model.getMealLog().getTodayMeals().size() + 1);
         EditCommand.EditDishDescriptor descriptor = new EditDishDescriptorBuilder()
                 .withName(CommandTestUtil.VALID_NAME_MACARONI).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);

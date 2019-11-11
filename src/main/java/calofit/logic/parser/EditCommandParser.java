@@ -51,7 +51,6 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editDishDescriptor::setTags);
 
         if (argMultimap.getValue(PREFIX_REMOVE_TAG).isPresent()) {
-
             Set<Tag> tagsToRemove = argMultimap.getAllValues(PREFIX_REMOVE_TAG).stream()
                     .map(Tag::new).collect(Collectors.toSet());
             editDishDescriptor.setTagsToRemove(tagsToRemove);
@@ -75,7 +74,12 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        boolean hasClear = tags.contains("");
+        boolean isSingle = tags.size() == 1;
+        if (hasClear && !isSingle) {
+            throw new ParseException(EditCommand.MESSAGE_NO_SIMULTANEOUS_CLEAR_ADD);
+        }
+        Collection<String> tagSet = hasClear ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 

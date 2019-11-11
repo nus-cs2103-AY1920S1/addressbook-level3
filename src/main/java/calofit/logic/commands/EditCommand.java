@@ -50,6 +50,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database.";
     public static final String MESSAGE_TAGS_DO_NOT_EXIST = "The following tag you want to remove do not "
             + "exist in the meal you want to edit.\n%s";
+    public static final String MESSAGE_NO_SIMULTANEOUS_CLEAR_ADD = "Clearing and adding tags "
+            + "simultaneously is not allowed.";
 
     private final Index index;
     private final EditDishDescriptor editDishDescriptor;
