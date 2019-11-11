@@ -99,7 +99,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 |tt/|Task tag
 
 |===
+====
 
+====
 * *Tags*
 ** Tags are the only non-compulsory parameter mentioned in commands (unless otherwise stated).
 ** When tags are mentioned as a parameter, it is taken for granted that you can input multiple tags
