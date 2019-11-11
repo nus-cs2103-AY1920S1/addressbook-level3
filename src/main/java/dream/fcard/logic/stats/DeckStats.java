@@ -28,7 +28,8 @@ public class DeckStats extends Stats implements JsonInterface {
     private String currentDeck;
 
     /** Constructs a new instance of DeckStats with no stored data. */
-    public DeckStats() {
+    DeckStats() {
+        // package-private; should only be called by StatsHolder
         this.deckHashMap = new HashMap<>();
         this.currentSession = null;
         this.currentDeck = null;
@@ -57,16 +58,14 @@ public class DeckStats extends Stats implements JsonInterface {
 
     @Override
     public void startCurrentSession() {
-        // assert that currentDeck is not null?
         String currentDeck = this.getCurrentDeck();
         if (currentDeck == null) {
             logger.info("Current deck not found!");
             return;
         }
 
-        // replace with assert?
         if (this.currentSession != null) {
-            endCurrentSession(); // should not occur, but should terminate just in case
+            endCurrentSession();
             logger.info("Existing test session detected. Terminating it first...");
         }
 
@@ -77,7 +76,6 @@ public class DeckStats extends Stats implements JsonInterface {
 
     @Override
     public void endCurrentSession() {
-        // assert that currentDeck is not null?
         String currentDeck = this.getCurrentDeck();
         if (currentDeck == null) {
             logger.info("Current deck not found!");

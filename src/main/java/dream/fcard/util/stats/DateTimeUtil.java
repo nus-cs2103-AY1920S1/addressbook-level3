@@ -111,7 +111,6 @@ public class DateTimeUtil {
     //@@author
 
     //@@author nattanyz
-
     /**
      * Computes and returns the average duration of sessions in the given SessionList.
      * @param sessionList The given SessionList.

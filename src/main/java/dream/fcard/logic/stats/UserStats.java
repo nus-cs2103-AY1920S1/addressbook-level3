@@ -10,7 +10,8 @@ public class UserStats extends Stats {
     private SessionList sessionList;
 
     /** Constructs a new instance of UserStats with no stored data. */
-    public UserStats() {
+    UserStats() {
+        // package-private; should only be called by StatsHolder
         this.sessionList = new SessionList();
         this.currentSession = null;
         logger.info("New UserStats object created.");
@@ -28,13 +29,11 @@ public class UserStats extends Stats {
 
     @Override
     public void startCurrentSession() {
-        // replace with assert?
         if (this.currentSession != null) {
             endCurrentSession(); // should not occur, but should terminate just in case
             logger.info("Existing login session detected. Terminating it first...");
         }
 
-        // debug (change to Logger when implemented)
         logger.info("Starting a login session...");
 
         this.currentSession = new Session();
@@ -42,7 +41,6 @@ public class UserStats extends Stats {
 
     @Override
     public void endCurrentSession() {
-        // assert current session is not null?
         if (this.currentSession == null) {
             logger.info("Current login session not found!");
             return;

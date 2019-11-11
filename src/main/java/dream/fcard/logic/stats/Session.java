@@ -131,6 +131,7 @@ public class Session implements JsonInterface {
 
     /** Gets the score of this session, as a String. */
     public String getScore() {
+        // should not be called on Sessions that do not have score, but return empty string
         if (!this.hasScore()) {
             return "";
         }
