@@ -322,6 +322,11 @@ User will be able to get hints for MCQs and SAQs. Typing '/hint' for MCQs will e
 options, leaving user with two options, one of which is correct. Typing '/hint' for SAQs will show the user random
 keywords from the correct answer list.
 
+=== Pictures/Diagrams `[coming in v2.0]`
+
+User will be able to upload pictures and diagrams as part of the questions when adding questions to the test bank.
+
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
