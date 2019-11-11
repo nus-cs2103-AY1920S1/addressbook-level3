@@ -401,10 +401,10 @@ Thus, this feature requires access to the `CheckAndGetPersonByNameOnlyModel#getP
 The following Sequence Diagram shows how the `Transaction` object is created from `AddCommandParser` which is represented in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>
 as a generic parser:
 
-.Sequence Diagram of the Parser for the ddd command
+.Sequence Diagram of the Parser for the Add command
 image::HomeAddCommandParser.png[]
 
-This is the definition of the methods shown above:
+These are the definitions of the methods shown above:
 
 [[getPersonByName]]
 * `AddCommandParser#parse(args, pd)`: It parses the given user input (args) and creates an `AddCommand` object.
@@ -416,7 +416,7 @@ The following Sequence Diagram is the reference from <<GeneralLogicSD, 2.3. Logi
 .Sequence Diagram of the Add command in the Home tab (transaction package)
 image::HomeAddCommandSD.png[]
 
-This is the definition of the methods shown above:
+These are the definitions of the methods shown above:
 
 [[resetPredicate]]
 * `Model#resetPredicate()`: It resets the `Predicate` object in `ModelManager` to evaluate all `Transaction` objects to true.
