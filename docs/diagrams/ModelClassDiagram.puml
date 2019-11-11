@@ -88,8 +88,8 @@ BookmarkTagger --> Tag
 =======
 Mark .right.|> ReadOnlyMark
 VersionedMark -down-|> Mark
-VersionedMark +-left "*" VersionedMark.MarkStateRecord : contains >
-VersionedMark.MarkStateRecord *-down> ReadOnlyMark
+VersionedMark *-left "*" VersionedMark.MarkStateRecord : contains >
+VersionedMark.MarkStateRecord *-down> "1" ReadOnlyMark
 
 Mark *--> Bookmark
 Mark *-right-> "1" FolderStructure

@@ -15,13 +15,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import seedu.mark.model.Mark;
+import seedu.mark.model.autotag.AutotagController;
+import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.CachedCopy;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.folderstructure.FolderStructure;
+import seedu.mark.model.predicates.BookmarkPredicate;
 import seedu.mark.model.reminder.ReminderAssociation;
+import seedu.mark.model.tag.Tag;
 
 /**
  * A utility class containing a list of {@code Bookmark} objects to be used in tests.
@@ -75,6 +81,7 @@ public class TypicalBookmarks {
         }
         mark.setFolderStructure(getTypicalFolderStructure());
         mark.setReminderAssociation(getTypicalReminderAssociation());
+        mark.setAutotagController(getTypicalAutotagController());
         return mark;
     }
 
@@ -95,4 +102,13 @@ public class TypicalBookmarks {
         return association;
     }
 
+    public static AutotagController getTypicalAutotagController() {
+        ObservableList<SelectiveBookmarkTagger> autotagList = FXCollections.observableArrayList(
+                new SelectiveBookmarkTagger(new Tag("NUS"),
+                        new BookmarkPredicate().withNameKeywords(List.of("NUS"))),
+                new SelectiveBookmarkTagger(new Tag("Quiz"),
+                        new BookmarkPredicate().withUrlKeywords(List.of("luminus.nus.edu.sg", "quiz")))
+        );
+        return new AutotagController(autotagList);
+    }
 }

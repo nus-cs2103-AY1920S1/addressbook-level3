@@ -169,18 +169,20 @@ Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssocia
 .Structure of the Bookmark Package
 image::BookmarkPackageClassDiagram.png[Bookmark Package Class Diagram, 600]
 
-More details regarding the implementation of Folders can be found in <<Folder feature>>.
+More details regarding the implementation of Folders can be found in <<Folders feature>>.
 
 // TODO: Mention that Tags and Folders are not very OOP (new object created for each bookmark)
 
+[[annotation-cd]]
 .Structure of the Annotation package
 image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 600]
 
 The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
 An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
 contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagraph`, which contains `AnnotationNote`,
-`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `AnnotationNote` and `Highlight` are optional fields
-whenever they are used, i.e. in `PhantomParagraph` and/or `TrueParagraph`.
+`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `Highlight` is an optional field
+whenever it is used, i.e. in `PhantomParagraph` and/or `TrueParagraph`. However, `PhantomParagraph` must have an `AnnotationNote`.
+You may find that `AnnotationNote` and `Highlight` are collected in `Annotation` and `Paragraph` stores `Annotation` instead.
 
 More details regarding the implementation of Annotations can be found in <<Annotation feature>>.
 
@@ -226,18 +228,27 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
+The Undo and Redo feature are crucial to give users the flexibility of reverting wrongly executed commands.
+This section explains the implementation of the undo/redo mechanism as well as some design considerations
+when implementing this feature.
+
 ==== Implementation
 
 The undo/redo mechanism is facilitated by `VersionedMark`.
 It extends `Mark` with an undo/redo history, stored internally as a list of `markStateRecord` and `currentPointer`.
-Additionally, it implements the following operations:
+The class diagram for `MarkStateRecord` and its relationship with `ReadonlyMark`, `Mark` and `VersionedMark` is shown below:
 
-* `VersionedMark#save()` -- Saves the current Mark state and the corresponding record to its history.
-* `VersionedMark#undo()` -- Restores the previous Mark state from its history and returns the record.
-* `VersionedMark#redo()` -- Restores a previously undone Mark state from its history and returns the record for that
-state.
+image::MarkStateRecordClassDiagram.png[]
 
-These operations are exposed in the `Model` interface as `Model#saveMark()`, `Model#undoMark()` and `Model#redoMark()`
+As shown in the class diagram, `VersionedMark` implements the following operations:
+
+* `VersionedMark#save(String record)` -- Saves the current Mark state and the corresponding record to its history.
+* `VersionedMark#undo(int step)` -- Undoes the given number of actions and returns the record which
+consists of the list of actions being undone.
+* `VersionedMark#redo(int step)` -- Redoes the given number actions and returns the record which
+consists of the list of actions being undone.
+
+These operations are exposed in the `Model` interface as `Model#saveMark(String record)`, `Model#undoMark(int step)` and `Model#redoMark(int step)`
 respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
@@ -248,24 +259,25 @@ Mark state and an empty record, and the `currentPointer` pointing to that single
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th bookmark in the Mark. The `delete` command calls
-`Model#saveMark()`, causing the modified state of the Mark and the record of the command after command execution to be
-saved in the `markStateRecords`, and the `currentPointer` is shifted to the newly inserted state record.
+`Model#saveMark(String record)`, causing the modified state of the Mark and the record of the command after command execution
+to be saved in the `markStateRecords`, and the `currentPointer` is shifted to the newly inserted state record.
 
 image::UndoRedoState1.png[]
 
 Step 3. The user executes `add u/www.google.com ...` to add a new bookmark. The `add` command also calls
-`Model#saveMark()`,
+`Model#saveMark(String record)`,
 causing another modified Mark state and the record to be saved into the `markStateRecords`, and the `currentPointer` is
 again shifted to the newly inserted state record..
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#saveMark()`, so the Mark state will not be saved into the
+If a command fails its execution, it will not call `Model#saveMark(String record)`, so the Mark state will not be saved into the
 `markStateRecords`.
 
 Step 4. The user now decides that adding the bookmark was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoMark()`, which will shift the `currentPointer` once to the left,
+`undo` command. The `undo` command will call `Model#undoMark(1)` since by default the number of steps
+to undo is 1 if not specified. This command shifts the `currentPointer` once to the left,
 pointing it to the previous state record, and restores the Mark to that state.
 
 image::UndoRedoState3.png[]
@@ -273,8 +285,8 @@ image::UndoRedoState3.png[]
 [NOTE]
 If the `currentPointer` is at index 0, pointing to the initial Mark state, then there are no previous Mark states to
 restore.
-The `undo` command uses `Model#canUndoMark()` to check if this is the case. If so, it will return an error to the user
-rather than attempting to perform the undo.
+The `undo` command uses `Model#canUndoMark(1)` to check the if there are enough commands to undo.
+In this case, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -283,21 +295,21 @@ image::UndoSequenceDiagram.png[]
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
 the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoMark()`, which shifts the `currentPointer` once to the right,
-pointing to the previously undone state record, and restores the Mark to that state.
+The `redo` command does the opposite -- it calls `Model#redoMark(int step)`, which shifts the `currentPointer` to the right by the given number of steps,
+and restores the Mark to the state corresponding to the `currentPointer`.
 
 [NOTE]
 If the `currentPointer` is at index `markStateRecords.size() - 1`, pointing to the latest Mark state, then there
-are no undone Mark states to restore. The `redo` command uses `Model#canRedoMark()` to check if this is
-the case. If so, it will return an error to the user rather than attempting to perform the redo.
+are no undone Mark states to restore. The `redo` command uses `Model#canRedoMark(1)` to check the if there are enough commands to redo.
+In this case, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the Mark, such as `find`, will
-usually not call `Model#saveMark()`, `Model#undoMark()` or `Model#redoMark()`. Thus, the `markStateRecords` remains
+usually not call `Model#saveMark(String record)`, `Model#undoMark(int step)` or `Model#redoMark(int step)`. Thus, the `markStateRecords` remains
 unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#saveMark()`. Since the `currentPointer` is not pointing at the end
+Step 6. The user executes `clear`, which calls `Model#saveMark(String record)`. Since the `currentPointer` is not pointing at the end
 of the `markStateRecords`, all state records after the `currentPointer` will be purged.
 We designed it this way because it no longer makes sense to redo the `add u/www.google.com ...` command. This is the
 behavior that most modern desktop applications follow.
@@ -310,6 +322,8 @@ image::SaveMarkActivityDiagram.png[]
 
 ==== Design Considerations
 
+This section explains some of the design considerations we had when implementing this feature.
+
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire Mark state.
@@ -317,7 +331,7 @@ image::SaveMarkActivityDiagram.png[]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the bookmark being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -328,6 +342,16 @@ image::SaveMarkActivityDiagram.png[]
 ** Pros: Clear state records after the current pointer can be achieved in O(1) time by clearing the redo stack.
 ** Cons: Undo/redo multiple commands can take O(n) time as each undo/redo action requires popping a state record from the
 undo stack and pushing it into the redo stack. There is no way to pop multiple state records efficiently at one time.
+
+===== Aspect: Commands to include for undo/redo
+* **Alternative 1 (current choice):** Include only commands that modify the state of Mark data.
+** Pros: Only meaningful app data is stored, less memory is consumed
+** Cons: Unable to retrieve commands that do not alter the state of Mark, such as `find`, `list`
+* **Alternative 2:** Include all commands
+** Pros: All commands can be undone and redone
+** Cons: More data to be stored and these data might not be meaningful to the users. More data related to
+Command class also needs to be stored and VersionedMark might need to depend on Logic which breaks the layered architecture of the existing application
+
 // end::undoredo[]
 
 // tag::autotag[]
@@ -418,46 +442,89 @@ image::AutotagActivityDiagram.png[]
 // tag::annotation[]
 === Annotation feature
 ==== Implementation
-The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
-Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
-we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
-You can view the class structure of the annotation feature in the Figure above.
-//TODO: link to annotation class diagram
+The annotation feature builds upon the structure of an offline document used to represent a _Readability4J-derived cache_.
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is attached to an entire `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
+You can view the class structure of the annotation feature in the <<annotation-cd, figure above>>.
 
+The annotation feature encompasses this functionality:
 
-There are three parts to the annotation feature:
+ * Add an annotation (triggered by `annotate` command and executed by `AddAnnotationCommand#execute()`).
+ * Delete an annotation (triggered by `annotate-delete` command and executed by `DeleteAnnotationCommand#execute()`).
+ * Edit an annotation (triggered by `annotate-edit` command and executed by `EditAnnotationCommand#execute()`).
 
- * Add an annotation (executed by `AddAnnotationCommand#execute()`).
- * Delete an annotation (executed by `DeleteAnnotationCommand#execute()`).
- * Edit an annotation (executed by `EditAnnotationCommand#execute()`).
+Command  words `annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
+When activated, each calls the respective command parser to create the corresponding `AnnotationCommand`.
+Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the annotation is handled according to the command.
+You can study the hierarchy of the _family of annotation commands_ here:
 
-These executions are triggered by `annotation` command inputs entered into the `CommandBox`, which calls the respective command parser to create the command.
-Subsequently, the appropriate `Paragraph`(s) is retrieved and the annotation is handled according to the command.
+.Structure of the _family of annotation commands_.
+image::AnnotationCommandStructure.png[]
 
-The following sequence diagram illustrates how the adding annotation operation works:
+The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
 
-image::AddAnnotationSequenceDiagram.png[]
+[[sd-annotation-general]]
+.Sequence diagram showing how annotation commands generally work. `cmdStr` is the string representing the command input by the user. `arguments` is `cmdStr` without the command word.
+image::AnnotationSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-//TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
-For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
-If the user requests to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
-If the user requests to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
-Otherwise, if the user requests to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
 
-NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
+In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#parse` and `AnnotationCommand#execute` are abstracted out.
+This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
+The sub-sections below will show you some examples illustrating how each command works.
 
-//TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
-//TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
-The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
-The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
-To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
+===== Adding annotations
+Adding an annotation works as described by the <<sd-annotation-general, general sequence diagram>>, with the following
+sequence diagram referred to by the reference frame:
+
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
+image::AddAnnotationSequenceDiagram.png[]
+
+
+The above example adds an annotation to a `:TrueParagraph`. Alternatively, if the user chooses to add a general note instead,
+`OfflineDocument#addPhantom` is called instead, creating an annotated `:PhantomParagraph`.
+
+NOTE: A `:TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. A `:PhantomParagraph` is a temporary holding place for a general note and has no content.
+
+===== Deleting annotations
+Users can delete the highlight and/or note of a paragraph or delete all annotations on the document.
+Deleting an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
+sequence diagram referred to by the reference frame:
+
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
+image::DeleteAnnotationSequenceDiagram.png[]
+
+
+The above example deletes only the highlight from a `:TrueParagraph` which has a note, and then creates a `:PhantomParagraph` to keep a reference to the note.
+
+For other `annotate-delete` functions, instances of other derived classes of `DeleteAnnotationCommand` is used instead of `:DeleteAnnotationHighlightCommand`.
+If the user requests to remove the entire annotation instead, `DeleteAnnotationAllCommand` is used and the `an:Annotation` is simply dereferenced.
+If the user requests to remove only the annotation note, `DeleteAnnotationNoteCommand` is used and the `AnnotationNote` of `Annotation` is dereferenced.
+Alternatively, if the user requests to remove annotations from all paragraphs, `DeleteAnnotationClearAllCommand` is used and the entire `:OfflineDocument` is dereferenced and a new, unannotated copy is created.
+
+===== Editing annotations
+Users can use `annotate-edit` to modify the content of the `AnnotationNote`, colour of `Highlight` or move annotations from one paragraph to another.
+Editing an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
+sequence diagram referred to by the reference frame:
+
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-edit 1 p/g1 to/p1 h/green`. `ARGS` include `origPid`, `targetPid` and `newHighlight` and `newNote`.
+image::EditAnnotationSequenceDiagram.png[]
+
+
+The above example moves general note `G1` to paragraph `P1` and highlights `P1` green. As per the specifications, users are not allowed to move any annotation to `:PhantomParagraph` using `annotate-edit`, so `targetP` must either be `null` or a `:TrueParagraph`.
+However, `origP` can be anything as long as it is an instance of a derived class of `Paragraph`.
+
+The reason why we do not allow users to use this command to make notes general is because there is not much value in doing so given we only support highlights and notes as annotations.
+If you want, you can easily extend the edit function to be able to allow moving annotations to the general section.
+
+===== Summmary
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
 
 image::AnnotationActivityDiagram.png[]
+
+You are welcome to extend the annotation feature by adding more forms of annotation.
 
 ==== Design Considerations
 The following are a few design considerations made in deciding how to implement the annotation feature:
@@ -471,18 +538,76 @@ There are hence a few alternatives in which we can combine these elements and st
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage and overheads from layers of abstraction.
 
-* **Alternative 2**: Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
+* **Alternative 2:** Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
 ** Pros: Will use less memory since the content of the website is not duplicated.
 ** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
 
-//TODO: need do? ===== Aspect: How to save the
+I decided to proceed with Alternative 1 as it is easier to implement and more feasible to implement in light of time constraints. This alternative offers accessibility to
+model components that are highly related in functionality.
 
+===== Aspect: How to handle annotation commands
+The _family of annotation commands_ includes the three main aspects: add, delete and edit. Each aspect can encompass
+more than one kind of use case (e.g. `annotate-delete` can be used to delete the entire annotation from a paragraph; it can also
+be used to delete just the highlight of a paragraph, which also makes the attached note, if any, general).
+However, all of them manipulate annotations.
+This means there are multiple options to choose from to parse an annotation command:
+
+* **Alternative 1:**  Use a single parser to parse all annotation commands.
+** Pros: Will likely be faster due to less layers of abstraction.
+** Cons: Does not abide by the Single Responsibility Principle and Open-close Principle.
+
+* **Alternative 2 (current choice):** Use a different parser for each command word.
+** Pros: Easier to implement. This ensures the individual command words are parsed separately and in
+a similar way as the other commands, improving the overall clarity of the implementations.
+** Cons: Need to write many lines of code due to multiple layers of abstraction.
+
+I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Furthermore,
+responsibility is more segregated which makes it easier to manipulate objects to achieve a functionality.
+
+===== Aspect: How to implement command to delete annotations
+There are multiple choices when it comes to deleting annotations, each specifically deletes a part or whole of an annotation. In particular, deleting
+only the highlight of a paragraph with a note will have a side effect where the note becomes general.
+Considering these variations, there are a few alternatives that we can consider to implement the delete function:
+
+* **Alternative 1:** Use a single `DeleteAnnotationCommand` object to execute the entire delete functionality
+** Pros: Makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not follow the Single Responsibility Principle and Open-close Principle. All checks will have to be performed in the same class, which makes it messy as well.
+
+* **Alternative 2 (current choice):** Use a different subtype of `DeleteAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to implement since delete functionality is rather discrete and each function is mutually exclusive. Less checks will be required for each class implemented. Also easier to extend functionality in future.
+** Cons: Need to write multiple lines of code due to multiple layers of abstraction.
+
+I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Since the individual functions of `annotate-delete` do not overlap,
+this alternative makes it less cumbersome to modify if there needed to be a change in delete functionality.
+
+===== Aspect: How to implement command to edit annotations
+The edit function for manipulating annotations also has multiple functions: editing existing
+annotations and moving annotations from paragraph to paragraph. These functions can be combined together.
+Hence, there are also a few options we can take to implement the edit functionality:
+
+* **Alternative 1 (current choice):** Use a single `EditAnnotationCommand` object to execute the entire edit functionality
+** Pros: Easier to implement and also makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not abide by the Single Responsibility Principle. All checks will have to be performed in the same class.
+
+* **Alternative 2:** Use a different subtype of `EditAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to extend. Also, less checks on conditions can be performed for each class implemented.
+** Cons: Not straightforward to implement. The functions can overlap, which makes it difficult to segregate into separate responsibilities.
+
+I decided to proceed with Alternative 1 as it is easier to implement. The overlaps in use cases of the `annotate-edit` command
+makes it difficult to separate the responsibility. Hence the first alternative is more feasible to implement.
 // end::annotation[]
 
 
 // tag::folders[]
 === Folders feature
+
+This section aims to explore the implementation of Mark's folders and some design considerations.
+
 ==== Implementation
+
+The following two sections will explain in more detail how the backend and frontend of this feature works.
+
+===== Model implementation of folders
 
 A bookmark can be in a folder, and a folder can be nested within other folders for traditional directory organization.
 
@@ -517,18 +642,54 @@ NOTE: The lifeline for `AddFolderCommand` should end at the destroy marker (X) b
 
 Finally, the user sees his folder added successfully in the folder hierarchy.
 
-==== Design Considerations
+===== UI implementation of the expand command
+
+Mark displays the folders and their bookmarks in a JavaFX `TreeView`, and listens for any updates to the bookmarks
+or the folder structure via `Observable` s so that the UI can also be updated accordingly.
+
+As Mark is mainly a CLI-based application, the `expand` command is provided to allow users to "click" on all unexpanded folders.
+
+As the underlying folder structure is not altered, `Oberservable` s cannot help us and so the command must send a signal to the UI that
+an `expand` command needs to be performed.
+
+Then, the following method is called to perform the expansion:
+
+.Code snippet from `seedu.mark.ui.FolderStructureTreeView`
+```java
+ private void expand(TreeItem<String> node, int levels) {
+    if (levels <= 0) {
+        return;
+    }
+    if (node.isExpanded()) {
+        node.getChildren().forEach(child -> expand(child, levels));
+    } else {
+        node.expandedProperty().set(true); // we expand it
+        // make sure all children are not expanded
+        node.getChildren().forEach(child -> child.setExpanded(false));
+        expand(node, levels - 1);
+    }
+}
+```
+
+The method recursively expands a folder, and then recursively calls itself on all of that folder's subfolders until the desired level of expansion is achieved.
+
+==== Design considerations
 
 The following are a few design considerations made in deciding how to implement the folders feature:
 
-===== Aspect: How the folder hierarchy is saved into storage.
+===== Aspect: How the folder hierarchy is saved into storage
 
 * **Alternative 1 (current choice):** Saves bookmark folder as its own field, and the hierarchy as a separate data structure.
-** Pros: Easy to implement
-** Cons: Easy for model to get into invalid state (e.g. bookmark has a folder that is not in the hierarchy)
-* **Alternative 2:** Change the bookmarks from being stored in a list to being stored as a hierarchy
-** Pros: Single source of truth, its folder is simply where it's located
-** Cons: The whole `BookmarkList` abstraction will have to be rewritten
+** Pros: Easy to implement. Adding another field to a bookmark is simple, and storing the folder structure
+on its own makes it more modular and easy to test as well.
+** Cons: Easy for model to get into invalid state. For example, when renaming folders, the bookmarks containing the old folder names needs to be updated separately.
+This leads to tight coupling and potential future maintenance issues.
+* **Alternative 2:** Change the bookmarks from being stored in a list to being stored in a tree structure.
+** Pros: Single source of truth, a bookmark's folder is simply which part of the tree it resides in. When a folder is renamed,
+the bookmarks in that folder will still be in the same folder, so there is no extra step needed to update the bookmarks. This reduces coupling between the bookmarks and folders too.
+** Cons: The whole `BookmarkList` abstraction will have to be rewritten. It is also significantly harder (in terms of ease of implementation) to filter, edit, and add bookmarks due to having to use
+more advanced tree traversal algorithms as compared to naive list or array operations.
+
 // end::folders[]
 
 // tag::reminder[]
@@ -917,11 +1078,10 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
-// tag::use-case-undo-redo[]
 [[UC09]]
 [discrete]
 === Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
-
+// tag::use-case-undo[]
 *MSS*
 
 1. User requests to undo the previous undoable command.
@@ -938,11 +1098,12 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
+// end::use-case-undo[]
 
 [[UC10]]
 [discrete]
 === Use case: UC10 - Redo previously undone commands
-
+// tag::use-case-redo[]
 *MSS*
 
 1. User requests to redo the previously undone command.
@@ -958,7 +1119,7 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
-// end::use-case-undo-redo[]
+// end::use-case-redo[]
 
 [[UC11]]
 [discrete]
@@ -974,9 +1135,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Mark does not have internet access.
+* 1a. Mark does not have internet access or url input is invalid.
 [none]
-** 1a1. Mark tells user that there is no internet access and suggests that user view offline copies instead.
+** 1a1. Mark tells user that to check that there is internet access and the url given is correct.
+
 +
 Use case ends.
 
@@ -1163,8 +1325,8 @@ Windows, Linux, Unix, OS-X
 The collection of offline copies of a specific bookmark
 
 [[undoable-commands]] Undoable commands::
-Commands that modify the bookmark list or reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
-`reminder edit`, and `reminder delete`
+Commands that modify the bookmark list, reminders, folders or annotations, which include `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder-edit`, `reminder-delete`, `folder`, `folder-edit`, `folder-delete`, `autotag`, `autotag-delete`, `annotate`, `annotate-delete`, `annotate-edit`, etc
 
 [appendix]
 == Instructions for Manual Testing
@@ -1174,7 +1336,13 @@ Given below are instructions to test the app manually.
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+//start AB3 test cases
+
+=== Testing of AddressBook 3 features
+
+The following are some tests for the original AddressBook 3.
+
+==== Launch and Shutdown
 
 . Initial launch
 
@@ -1188,21 +1356,164 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
-=== Deleting a bookmark
+==== Deleting a bookmark
 
 . Deleting a bookmark while all bookmarks are listed
 
 .. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
 .. Test case: `delete 1` +
-   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message. Timestamp in the status bar is updated.
+   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message.
 .. Test case: `delete 0` +
    Expected: No bookmark is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
+//end AB3 test cases
+
+=== Opening a bookmark
+
+. Opening a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `goto 1` +
+   Expected: Tab view is switched to the online tab if the current view is not online tab.
+First bookmark is opened in the online tab.
+Details of the opened bookmark shown in the status message.
+.. Test case: `goto 0` +
+   Expected: No bookmark is opened. Error details shown in the status message.
+.. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
+
+=== Adding a bookmark to favorites
+
+. Adding a Favorite tag to a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+The first bookmark does not contain `Favorite` tag.
+.. Test case: `favorite 1` or `fav 1` +
+   Expected: A `Favorite` tag is added to the first bookmark and the bookmark also appears in the list
+of favorite bookmarks in the top right corner of the dashboard tab.
+Details of the bookmark shown in the status message.
+.. Test case: `fav 0` +
+   Expected: No bookmark is tagged `Favorite`. Error details shown in the status message.
+.. Other incorrect `favorite` commands to try: `favorite`, `favorite x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
+
+=== Undoing previous commands
+
+. Undoing the most recent undoable command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+Details of the `delete` action shown in the status message.
+
+. Undoing multiple previous undoable commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and then `undo 2` +
+   Expected: The deleted bookmarks after the first two command re-appear in the bookmark list.
+Details of the two reverted `delete` actions shown in the status message.
+.. Test case: `undo 0` +
+   Expected: No action is undone. Error details shown in the status message.
+.. Other incorrect `undo` commands to try: `undo`, `undo x` (where x is larger than the maximum number of undoable actions)  +
+   Expected: Similar to previous.
+
+=== Redoing previous undo commands
+
+. Redoing the most recent undo command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` and `redo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+After the `redo` command, the deleted bookmark disappears from the bookmark list again.
+Details of the restored `delete` action shown in the status message.
+
+. Redoing multiple previous undo commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and `undo 2`, then `redo 2` +
+   Expected: The two deleted bookmarks after the first two command re-appear in the bookmark list after the `undo 2` command.
+After the `redo 2` commands, the two bookmarks get deleted again.
+Details of the two restored `delete` actions shown in the status message.
+.. Test case: `redo 0` +
+   Expected: No action is redone. Error details shown in the status message.
+.. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
+   Expected: Similar to previous.
+
+=== Testing of folders
+
+TIP: The `ROOT` folder is the top-level folder where all other folders are descendents of. It cannot be added, deleted, edited, or be renamed to. +
+
+Do use `ROOT` as a folder name in folder commands in testing.
+
+==== Expanding the folder hierarchy
+
+. Expanding the folder hierarchy all the way
+
+.. Prerequisites: There is at least one folder not expanded.
+.. Test case: `expand 9999` (assuming you have less than 9999 levels of folders) +
+Expected: The folder hierarchy should show all folders expanded.
+
+. Expanding the folder hierarchy while there is nothing left to expand
+
+.. Prerequisites: Expand the folder hierarchy all the way, using `expand 9999` as in the previous test case.
+.. Test case: `expand` / `expand 10` / `expand 9999` +
+Expected: The folder hierarchy should not change.
+
+
+==== Collapsing the folder hierarchy
+
+. Collapsing the folder hierarchy all the way
+
+.. Prerequisites: There is at least one folder expanded.
+.. Test case: `collapse 9999` (assuming you have less than 9999 levels of folders) +
+Expected: The folder hierarchy should show all folders collapsed.
+
+. Collapsing the folder hierarchy while there is nothing left to collapse
+
+.. Prerequisites: Collapse the folder hierarchy all the way, using `collapse 9999` as in the previous test case.
+.. Test case: `collapse` / `collapse 10` / `collapse 9999` +
+Expected: The folder hierarchy should not change.
+
+==== Adding folders
+
+. Adding an existing folder
+
+.. Prerequisites: At least one folder exists in Mark. Let the name of the folder be `X`.
+.. Test case: `folder X` / `folder X p/ROOT` +
+Expected: An error occurs, saying `X` already exists.
+
+. Adding a folder without specifiying its parent
+.. Prerequisites: A folder named `X` that does not exist in Mark.
+.. Test case: `folder X` +
+Expected: Folder `X` is added successfully to the `ROOT` folder.
+
+==== Editing folders
+
+. Editing a non-existing folder
+
+.. Prerequisites: A folder named `X` that does not exist in Mark.
+.. Test case: `folder-edit X t/anything` +
+Expected: An error occurs, saying `X` does not exist.
+
+. Renaming an existing folder to another existing folder
+.. Prerequisites: Two different folders named `X` and `Y` that exist in Mark.
+.. Test case: `folder-edit X t/Y` / `folder-edit Y t/X` +
+Expected: An error occurs, saying that `X` (or `Y`) already exists.
+
+==== Deleting folders
+
+. Deleting a folder containing other bookmarks and/or folders
+
+.. Prerequisites: A folder named `X` that contains other subfolders.
+.. Test case: `folder-delete X` +
+Expected: An error occurs, saying that there are still bookmarks/folders in `X` and so cannot be deleted.
+
 _{ more test cases ... }_
+
+
+
 
 //tag::test-reminder[]
 ==== Adding a reminder
@@ -1270,3 +1581,70 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Making annotations
+
+. Adding an annotation to a paragraph of web page
+
+.. Prerequisites: Bookmark must have an offline copy available. You can check the bookmark list to see if an offline copy is available.
+The offline copy should also have content to annotate.
+.. Test case: `annotate 1 p/p1 n/added a note h/orange` +
+Expected: Offline copy of the first bookmark is annotated. The first paragraph is highlighted orange and a note "adding a note" is added on the right of the paragraph. Details of the
+annotation added can be found in the status message.
+.. Test case: `annotate 0 p/p1` +
+Expected: No annotation is made. Error details are shown in the status message.
+.. Test case: `annotate 1 p/incorrectIdentifier eg. 1` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Adding a general note to the offline copy of a bookmark
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate 1 p/null n/added a general note` +
+Expected: Offline copy of the first bookmark is annotated. A general note "added a general note" is added to the bottom of the document.
+.. Test case: `annotate 1 p/null` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Deleting all annotations of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate-delete 1 p/all` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+.. Test case: `annotate-delete 1 p/all n/anything` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+
+. Deleting only the highlight of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+If paragraph 1 had a note, it is now found at the bottom of the page.
+
+. Deleting only the note of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must have a note.
+.. Test case: `annotate-delete 1 p/p1 h/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 no longer has a note.
+
+. Deleting the annotation of a paragraph of an offline copy (general)
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true h/true` +
+Expected: No annotation is deleted. Error details are shown in the status message.
+
+. Moving an annotation from paragraph to paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph to move annotation from must be annotated. Target paragraph must also exist and its id must not start with `G`.
+.. Test case: `annotate-edit 1 p/p1 to/p2` +
+Expected: Annotation on the offline copy of the first bookmark is affected. The annotation of paragraph 1 is moved to paragraph 2.
+.. Test case: `annotate-edit 1 p/p1 to p/g1` +
+Expected: No annotation is edited. Error details are shown in the status message.
+
+. Editing the content of an annotation of an offline document
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-edit 1 p/p1 n/modify note h/green` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is now highlighted green and the content of its note is now "modify note".
+
+

@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR
+skinparam classBackgroundColor LOGIC_COLOR
+
+Class "{abstract}\nCommand" as Command
+Class "{abstract}\nAnnotationCommand" as AnnotationCommand
+Class AddAnnotationCommand
+Class "{abstract}\nDeleteAnnotationCommand" as DeleteAnnotationCommand
+Class DeleteAnnotationAllCommand
+Class DeleteAnnotationClearAllCommand
+Class DeleteAnnotationHighlightCommand
+Class DeleteAnnotationNoteCommand
+Class EditAnnotationCommand
+
+AnnotationCommand --up|> Command
+
+AddAnnotationCommand --right|> AnnotationCommand
+EditAnnotationCommand --up|> AnnotationCommand
+DeleteAnnotationCommand --up|> AnnotationCommand
+
+DeleteAnnotationAllCommand --up|> DeleteAnnotationCommand
+DeleteAnnotationClearAllCommand --up|> DeleteAnnotationCommand
+DeleteAnnotationHighlightCommand --up|> DeleteAnnotationCommand
+DeleteAnnotationNoteCommand --up|> DeleteAnnotationCommand
+
+@enduml
