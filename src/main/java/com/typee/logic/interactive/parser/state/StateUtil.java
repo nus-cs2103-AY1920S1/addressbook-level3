@@ -1,4 +1,4 @@
-package com.typee.logic.interactive.parser;
+package com.typee.logic.interactive.parser.state;
 
 import static java.util.Objects.requireNonNull;
 
@@ -27,7 +27,7 @@ import com.typee.model.util.EngagementComparator;
  * Contains utility methods used for parsing strings in the various *Parser classes.
  * The methods should be invoked only after input validation, unless specified otherwise.
  */
-public class InteractiveParserUtil {
+public class StateUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     private static final String FORMAT_DATE_TIME = "dd/MM/uuuu/HHmm";
@@ -180,7 +180,7 @@ public class InteractiveParserUtil {
     public static AttendeeList parseAttendees(String attendees) {
         List<Person> attendeesList = Arrays.stream(attendees.split("\\|"))
                 .map(String::trim)
-                .map(name -> new Person(InteractiveParserUtil.parseNameDeterministic(name)))
+                .map(name -> new Person(StateUtil.parseNameDeterministic(name)))
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         return new AttendeeList(attendeesList);

@@ -14,10 +14,10 @@ import com.typee.logic.commands.Command;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
 import com.typee.logic.interactive.parser.CliSyntax;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.engagement.AttendeeList;
 import com.typee.model.engagement.Engagement;
@@ -41,13 +41,13 @@ public class AddCommandEndState extends EndState {
 
     @Override
     public Command buildCommand() throws CommandException {
-        EngagementType engagementType = InteractiveParserUtil.parseType(soFar.getValue(PREFIX_ENGAGEMENT_TYPE).get());
-        LocalDateTime startTime = InteractiveParserUtil.parseTime(soFar.getValue(PREFIX_START_TIME).get());
-        LocalDateTime endTime = InteractiveParserUtil.parseTime(soFar.getValue(PREFIX_END_TIME).get());
-        AttendeeList attendees = InteractiveParserUtil.parseAttendees(soFar.getValue(PREFIX_ATTENDEES).get());
-        Location location = InteractiveParserUtil.parseLocation(soFar.getValue(PREFIX_LOCATION).get());
-        String description = InteractiveParserUtil.parseDescription(soFar.getValue(PREFIX_DESCRIPTION).get());
-        Priority priority = InteractiveParserUtil.parsePriority(soFar.getValue(CliSyntax.PREFIX_PRIORITY).get());
+        EngagementType engagementType = StateUtil.parseType(soFar.getValue(PREFIX_ENGAGEMENT_TYPE).get());
+        LocalDateTime startTime = StateUtil.parseTime(soFar.getValue(PREFIX_START_TIME).get());
+        LocalDateTime endTime = StateUtil.parseTime(soFar.getValue(PREFIX_END_TIME).get());
+        AttendeeList attendees = StateUtil.parseAttendees(soFar.getValue(PREFIX_ATTENDEES).get());
+        Location location = StateUtil.parseLocation(soFar.getValue(PREFIX_LOCATION).get());
+        String description = StateUtil.parseDescription(soFar.getValue(PREFIX_DESCRIPTION).get());
+        Priority priority = StateUtil.parsePriority(soFar.getValue(CliSyntax.PREFIX_PRIORITY).get());
         TimeSlot timeSlot = new TimeSlot(startTime, endTime);
 
         try {

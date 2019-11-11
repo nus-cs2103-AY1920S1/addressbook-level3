@@ -7,11 +7,11 @@ import com.typee.logic.commands.Command;
 import com.typee.logic.commands.SortCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 import com.typee.model.util.EngagementComparator;
 
@@ -61,7 +61,7 @@ public class SortEndState extends EndState {
         try {
             String sortOrder = combineAndFormat(property, order);
             String normalizedSortOrder = normalize(sortOrder);
-            EngagementComparator comparator = InteractiveParserUtil.parseComparator(normalizedSortOrder);
+            EngagementComparator comparator = StateUtil.parseComparator(normalizedSortOrder);
             return comparator;
         } catch (ParseException pe) {
             logger.severe(String.format(LOG_BUILD_FAILURE, SortCommand.class, MESSAGE_INVALID_INPUT));

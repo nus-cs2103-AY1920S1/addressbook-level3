@@ -6,11 +6,11 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.PenultimateState;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 /**
@@ -56,7 +56,7 @@ public class IndexState extends PenultimateState {
      */
     private void enforceValidity(Optional<String> index) throws StateTransitionException {
         try {
-            InteractiveParserUtil.parseIndex(index.get());
+            StateUtil.parseIndex(index.get());
         } catch (ParseException e) {
             throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }

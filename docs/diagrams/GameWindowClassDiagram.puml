@@ -4,7 +4,7 @@ package ui.game {
     class Tab
     class MainWindow
     abstract class UiPart<Region>
-    class GameWindow
+    class GameWindow <<Singleton>>
     class PlayerInformation
     class GameBody
     class MovingWord

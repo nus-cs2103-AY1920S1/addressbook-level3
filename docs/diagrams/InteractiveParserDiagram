@@ -22,8 +22,15 @@ Class "{abstract}\nState" as State
 Class "{abstract}\nEndState" as EndState
 Class "{abstract}\nPenultimateState" as PenultimateState
 Interface OptionalState <<Interface>>
-Class XYZState
-Class XYZEndState
+
+package PdfMachine {
+Class PdfIndexState
+Class FromState
+Class ToState
+Class PdfEndState
+
+}
+
 }
 
 }
@@ -32,13 +39,11 @@ Class XYZEndState
 }
 
 package Command {
-Class XYZCommand
+Class PdfCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
 
-Interface Logic <<Interface>>
-Class LogicManager
 }
 
 package Model{
@@ -46,13 +51,8 @@ Class HiddenModel #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
-LogicManager --->"1" Parser
-LogicManager ---> Model
-
-XYZCommand -up-|> Command
+PdfCommand -up-|> Command
 Command -up-> CommandResult
 Command ..> Model
 
@@ -67,12 +67,19 @@ Parser ...> OptionalState
 ArgumentTokenizer ..> Prefix
 CliSyntax ..> Prefix
 
-State ..> StateUtil
-XYZState -up-|> State
-XYZState ..> XYZEndState
+State .left.> StateUtil
 EndState -up-|> State
 PenultimateState -|> State
 EndState ..> Command
-XYZEndState ..> XYZCommand
+
+PdfIndexState --|> State
+FromState --|> State
+ToState --|> PenultimateState
+PdfEndState --|> EndState
+
+PdfIndexState .right.> FromState
+FromState .right.> ToState
+ToState .down.> PdfEndState
+PdfEndState .> PdfCommand
 
 @enduml

@@ -1,0 +1,83 @@
+@startuml
+!include style.puml
+
+!define GAME_COLOR #FFE374
+
+actor User
+
+box UI
+participant ":MainWindow" as MainWindow UI_COLOR
+participant ":StartWindow" as StartWindow UI_COLOR
+participant ":GameWindow" as GameWindow UI_COLOR
+participant ":Tab" as Tab UI_COLOR
+end box
+
+box Game GAME_COLOR
+participant ":Player" as Player STORAGE_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+end box
+
+User -> MainWindow : "tab b/game"
+
+activate MainWindow
+
+MainWindow -> Logic: execute("tab b/game")
+activate Logic
+
+create Tab
+Logic -> Tab
+activate Tab
+
+Tab --> Logic
+deactivate Tab
+
+Logic --> MainWindow
+deactivate Logic
+
+MainWindow -> MainWindow: fetchTabInformation(tabName)
+activate MainWindow
+
+create StartWindow
+MainWindow -> StartWindow: new StartWindow(logic.getFilteredEngagementList())
+activate StartWindow
+
+User -> StartWindow : click button
+
+StartWindow -> StartWindow: handleStart()
+
+        alt gameInstance is null and game is not over
+            StartWindow -> GameWindow: getInstance()
+            activate GameWindow
+            GameWindow -> Player
+            activate Player
+            Player --> GameWindow
+            deactivate Player
+            GameWindow -> StartWindow
+            note left:static attribute gameInstance is returned
+            StartWindow --> StartWindow
+            StartWindow --> MainWindow
+        else else
+            StartWindow -> GameWindow: getInstance()
+            GameWindow --> StartWindow
+            StartWindow --> StartWindow
+            StartWindow --> MainWindow
+            deactivate StartWindow
+            GameWindow --> User
+            deactivate GameWindow
+        end
+
+deactivate MainWindow
+
+MainWindow -> Tab: setController(StartWindow)
+activate Tab
+
+Tab --> MainWindow
+deactivate Tab
+
+MainWindow --> User
+deactivate MainWindow
+
+@enduml

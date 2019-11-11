@@ -7,9 +7,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.State;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 /**
@@ -53,8 +53,8 @@ public class EndDateState extends State {
     }
 
     private boolean isValid(String endDate) {
-        return InteractiveParserUtil.isValidDateTime(endDate)
-                && InteractiveParserUtil.isValidTimeSlot(soFar.getValue(PREFIX_START_TIME).get(), endDate);
+        return StateUtil.isValidDateTime(endDate)
+                && StateUtil.isValidTimeSlot(soFar.getValue(PREFIX_START_TIME).get(), endDate);
     }
 
     @Override
