@@ -31,7 +31,8 @@ public class MergeStopCommand extends Command {
      * Creates an MergeStopCommand to stop a merging process
      */
     public MergeStopCommand(MergeCommand previousMergeCommand, String mergeType) {
-        requireNonNull(previousMergeCommand, mergeType);
+        requireNonNull(previousMergeCommand);
+        requireNonNull(mergeType);
         this.previousMergeCommand = previousMergeCommand;
         this.mergeType = mergeType;
     }
@@ -41,10 +42,14 @@ public class MergeStopCommand extends Command {
         requireNonNull(model);
         logger.info("Merge stopping...");
         if (mergeType.equals(AddressBookParser.MERGE_PERSON)) {
+            assert(previousMergeCommand instanceof MergePersonCommand);
             Person currentPerson = ((MergePersonCommand) previousMergeCommand).getOriginalPerson();
+            assert(currentPerson != null);
             return new CommandResult(String.format(MESSAGE_MERGE_STOPPED, currentPerson));
         } else {
+            assert(previousMergeCommand instanceof MergePolicyCommand);
             Policy currentPolicy = ((MergePolicyCommand) previousMergeCommand).getOriginalPolicy();
+            assert(currentPolicy != null);
             return new CommandResult(String.format(MESSAGE_MERGE_STOPPED, currentPolicy));
         }
     }
