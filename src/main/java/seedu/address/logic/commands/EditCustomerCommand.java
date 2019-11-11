@@ -75,6 +75,7 @@ public class EditCustomerCommand extends Command {
         }
 
         model.setCustomer(customerToEdit, editedCustomer);
+        model.refreshAllFilteredList();
 
         return new CommandResult(String.format(MESSAGE_EDIT_CUSTOMER_SUCCESS, editedCustomer));
     }

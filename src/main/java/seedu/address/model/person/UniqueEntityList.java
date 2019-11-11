@@ -65,7 +65,7 @@ public class UniqueEntityList<T extends Person> implements Iterable<T> {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        target.update(editedPerson);
     }
 
     /**
