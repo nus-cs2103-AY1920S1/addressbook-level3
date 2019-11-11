@@ -65,10 +65,6 @@ public class DiaryModel {
         diaryBook.setDetails(attempt);
     }
 
-    public String getEntriesAsString() {
-        return diaryBook.getEntriesAsString();
-    }
-
     /**
      * @param diaryEntry
      * @return

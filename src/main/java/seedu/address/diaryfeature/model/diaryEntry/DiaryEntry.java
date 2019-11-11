@@ -25,7 +25,7 @@ public class DiaryEntry {
      */
 
     public DiaryEntry(Title title, Date date, Place place, Memory memory) {
-        requireAllNonNull(title, date);
+        requireAllNonNull(title, date, place, memory);
         this.title = title;
         this.date = date;
         this.place = place;

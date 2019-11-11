@@ -30,7 +30,7 @@ public class DiaryBook {
      * @return DiaryBook
      */
     public DiaryBook loadData(DiaryEntry[] myEntries) {
-        Arrays.stream(myEntries).forEach(x -> entries.addDiaryEntry(x));
+        entries.loadData(myEntries);
         return this;
     }
 

@@ -1,8 +1,9 @@
 package seedu.address.diaryfeature.model.diaryEntry;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,18 +22,10 @@ public class PlaceTest {
     }
 
     @Test
-    public void isValidPlace() {
-        // invalid place
-        assertFalse(Validators.isNotNull(null)); // null
-        assertFalse(Validators.isValidPlace("")); // empty string
-        assertFalse(Validators.isValidPlace("hhhhhhhhhhhhhhhhghghhghghghghghghghghghghghghghghghhghg" +
-                "ghhghghghghghghghghghghghghghghghghhghghhghghghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")); // >100 chars only
-
-        // valid place
-        assertTrue(Validators.isValidPlace("Singing in the rain")); // alphabets only
-        assertTrue(Validators.isValidPlace("10203")); // numbers only
-        assertTrue(Validators.isValidPlace(" oompa lommpa 10203")); // alphanum
-        assertTrue(Validators.isValidPlace("HELLO hi")); // Caps
-        assertTrue(Validators.isValidPlace("HELLO hi hello hi 12345678910")); // <100 chars
+    public void to_string_test() {
+        Place test = new Place("Hello");
+        assertEquals("Hello", test.toString());
+        assertNotEquals("", test.toString());
     }
+
 }

@@ -1,6 +1,8 @@
 package seedu.address.diaryfeature.model;
 
 
+import java.util.Arrays;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
@@ -103,10 +105,8 @@ public class DiaryEntryList {
      * In case of a corrupted/empty file, load sample data into DiaryBook
      */
 
-    public void loadSampleData() {
-        for (DiaryEntry curr : SampleDataUtil.getSampleDiaryEntry()) {
-            entries.add(curr);
-        }
+    public void loadData(DiaryEntry[] myEntries) {
+        Arrays.stream(myEntries).forEach(x -> addDiaryEntry(x));
     }
 
     /**

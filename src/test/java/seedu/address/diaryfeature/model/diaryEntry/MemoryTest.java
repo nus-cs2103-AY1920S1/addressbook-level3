@@ -21,21 +21,6 @@ public class MemoryTest {
         assertFalse(test == test.copy());
     }
 
-    @Test
-    public void isValidMemory() {
-        // invalid Memory
-        assertFalse(Validators.isNotNull(null)); // null
-        assertFalse(Validators.isValidMemory("")); // empty string
-        assertFalse(Validators.isValidMemory("hhhhhhhhhhhhhhhhghghhghghghghghghghghghghghghghghghhghg" +
-                "ghhghghghghghghghghghghghghghghghghhghghhghghghhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")); // >100 chars only
-
-        // valid Memory
-        assertTrue(Validators.isValidMemory("Singing in the rain")); // alphabets only
-        assertTrue(Validators.isValidMemory("10203")); // numbers only
-        assertTrue(Validators.isValidMemory(" oompa lommpa 10203")); // alphanum
-        assertTrue(Validators.isValidMemory("HELLO hi")); // Caps
-        assertTrue(Validators.isValidMemory("HELLO hi hello hi 12345678910")); // <100 chars
-    }
 
     @Test
     public void check_privacy() {
