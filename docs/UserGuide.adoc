@@ -114,25 +114,6 @@ should already exist on the current week's calendar.
 Format: `delete INDEX` +
 e.g.   `delete 1`
 
-==== Find tasks using keyword: `find`
-Finds tasks which titles contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `cs2100` will match `CS2100`
-* The order of the keywords does not matter. e.g. `CS2100 Lab` will match `Lab CS2100`
-* Only the title is searched.
-* Only full words will be matched e.g. `CS210` will not match `CS2100`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `CS2100 Lab` will return `CS2100 Tutorial`, `CS2105 Lab`
-* If the user switch to another feature or enter another command, the calendar would be reset to list all tasks.
-****
-
-Examples:
-* `find CS2100` +
-Returns `cs2100` and `CS2100 Lab`
-* `find lab ger tutorial` +
-Returns any tasks having titles `ger`, `lab`, or `tutorial`
-
 ==== Listing all tasks : `list`
 
 Shows a list of all task in the calendar. +
