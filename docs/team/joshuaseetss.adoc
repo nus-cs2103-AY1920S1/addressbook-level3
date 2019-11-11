@@ -75,7 +75,7 @@ I was also in charge of Testing and UI, ensuring that the coverall percentage do
 *** I conducted reviews on other team's PR to give suggestions and constructive comments: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/31[#31]
 *** I also reported bugs and potential flaws in other teams' project to help prepare them for the demo: https://github.com/joshuaseetss/ped/issues/1[#1], https://github.com/joshuaseetss/ped/issues/10[#10], https://github.com/joshuaseetss/ped/issues/8[#8]
 ** Tools
-** Created Google Docs for team planning
+*** Created Google Docs for team planning
 
 == Contributions to the User Guide
 
