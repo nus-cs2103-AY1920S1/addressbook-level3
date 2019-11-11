@@ -89,7 +89,7 @@ public class ParserUtil {
         requireNonNull(rankMethod);
         String trimmedRankMethod = rankMethod.trim();
         if (!RankMethod.isValidRankMethod(trimmedRankMethod)) {
-            throw new ParseException(Gender.MESSAGE_CONSTRAINTS);
+            throw new ParseException(RankMethod.MESSAGE_CONSTRAINTS);
         }
         return RankMethod.getRankMethodCorrespondingToName(rankMethod.toLowerCase());
     }
