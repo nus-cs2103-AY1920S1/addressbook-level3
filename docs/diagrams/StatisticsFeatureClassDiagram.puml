@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Class DeliverymenDatabase
+Class ModelManager
+Class DeliverymenDatabase
+
+Package Status {
+Class StatusManager
+}
+
+Package Statistics {
+Class StatisticsManager
+Class RecordCard
+Class Analyzer
+
+}
+
+ModelManager o--> DeliverymenDatabase
+DeliverymenDatabase o--> StatisticsManager
+DeliverymenDatabase o--> StatusManager
+
+StatisticsManager o--> Analyzer
+StatisticsManager o--> RecordCard
+@enduml
