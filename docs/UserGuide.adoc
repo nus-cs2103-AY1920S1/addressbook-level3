@@ -405,6 +405,29 @@ image::clear-after.png[width="790"]
 
 // end::clear[]
 
+// tag::undoredo[]
+==== Undo previous command : `undo`
+Undo the previous command that you have entered in. +
+Format: `undo`
+
+[TIP]
+`undo` only works on commands that alter your items or the current view! +
+Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view. +
+Also, `undo` only works for the last 10 commands. Therefore, make sure you are certain before you type in a command!
+
+The `undo` command also tells you the exact user input you have keyed in as well as what command was entered so that you know what you have undone.
+
+==== Redo an earlier command : `redo`
+Redo an earlier command that you have entered in. +
+Format: `redo`
+
+This command works in the opposite way as `undo`, it will redo any command that you have undone in the past. +
+
+[NOTE]
+Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
+
+// end::undoredo[]
+
 // tag::export[]
 ==== Exporting data (multi-platform) : `export`
 
@@ -645,28 +668,7 @@ Items with the same name will be sorted by their expiry dates.
 //_{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-// tag::undoredo[]
-==== Undo previous command : `undo`
-Undo the previous command that you have entered in. +
-Format: `undo`
 
-[TIP]
-`undo` only works on commands that alter your items or the current view! +
-Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view. +
-Also, `undo` only works for the last 10 commands. Therefore, make sure you are certain before you type in a command!
-
-The `undo` command also tells you the exact user input you have keyed in as well as what command was entered so that you know what you have undone.
-
-==== Redo an earlier command : `redo`
-Redo an earlier command that you have entered in. +
-Format: `redo`
-
-This command works in the opposite way as `undo`, it will redo any command that you have undone in the past. +
-
-[NOTE]
-Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
-
-// end::undoredo[]
 
 == FAQ
 
@@ -686,12 +688,6 @@ The table below summarises the common commands available for use in both lists.
 
 |*Help*
 |`help`|
-
-|*Undo*
-|`undo`|
-
-|*Redo*
-|`redo`|
 
 1.2+|*View*
 1.2+|`view\|<list name>`
@@ -728,6 +724,12 @@ The table below summarises the common commands available for use in both lists.
 
 |*Clear*
 |`clear`|
+
+|*Undo*
+|`undo`|
+
+|*Redo*
+|`redo`|
 
 |*Export*
 |`export`|
