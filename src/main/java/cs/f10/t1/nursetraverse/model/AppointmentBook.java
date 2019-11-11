@@ -87,7 +87,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
                                                 || appt.getFrequency().isRecurringFrequency();
         Predicate<Appointment> finished = appt -> !EndDateTime.isAfterSystemDateTime(appt.getEndDateTime().toString());
         Function<Appointment, Appointment> toRecur = appt -> {
-            Appointment next =  appt;
+            Appointment next = appt;
             while (!EndDateTime.isAfterSystemDateTime(next.getEndDateTime().toString())) {
                 if (appt.getFrequency().isRecurringFrequency()) {
                     next = getRecurredAppointment(next);
