@@ -71,30 +71,67 @@ public class AddDutyShiftCommandParser implements Parser<ReversibleActionPairCom
         Optional<String> reoccurringStringTimesOptional = argMultimap.getValue(PREFIX_REOCCURRING_TIMES);
 
         if (reoccurringStringOptional.isPresent() && reoccurringStringTimesOptional.isPresent()) {
-            String reoccurring = reoccurringStringOptional.get();
-
-            if (!reoccurring.equals("w") && !reoccurring.equals("m") && !reoccurring.equals("y")) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddDutyShiftCommand.MESSAGE_USAGE));
-            }
-
-            Index reoccurringTimes = ParserUtil.parseTimes(reoccurringStringTimesOptional.get());
-            int times = reoccurringTimes.getZeroBased() + 1;
-
-            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
-            List<Event> eventList = ParserUtil.getRecEvents(event, reoccurring, times);
-            return new ReversibleActionPairCommand(new AddDutyShiftCommand(eventList),
-                    new CancelDutyShiftCommand(eventList));
+            return getCommandWithReoccurring(referenceId, timing, reoccurringStringOptional,
+                    reoccurringStringTimesOptional);
         } else {
-            if (ParserUtil.unmatchedReoccurring(reoccurringStringOptional, reoccurringStringTimesOptional)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddDutyShiftCommand.MESSAGE_USAGE));
-            }
-
-            Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
-            return new ReversibleActionPairCommand(
-                    new AddDutyShiftCommand(event),
-                    new CancelDutyShiftCommand(event));
+            return getCommand(referenceId, timing, reoccurringStringOptional, reoccurringStringTimesOptional);
         }
+    }
+
+    /**
+     * get the reversibleActionPairCommand for on duty shift.
+     *
+     * @param referenceId                    ReferenceId of the doctor
+     * @param timing                         Timing of the duty
+     * @param reoccurringStringOptional      Reoccurring intervals
+     * @param reoccurringStringTimesOptional Reoccurring times
+     * @return reversibleActionPairCommand for add one duty shift
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private ReversibleActionPairCommand getCommand(
+            ReferenceId referenceId, Timing timing,
+            Optional<String> reoccurringStringOptional,
+            Optional<String> reoccurringStringTimesOptional) throws ParseException {
+
+        if (ParserUtil.unmatchedReoccurring(reoccurringStringOptional, reoccurringStringTimesOptional)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddDutyShiftCommand.MESSAGE_USAGE));
+        }
+
+        Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
+        return new ReversibleActionPairCommand(
+                new AddDutyShiftCommand(event),
+                new CancelDutyShiftCommand(event));
+    }
+
+    /**
+     * get the reversibleActionPairCommand for reoccurring duty shifts.
+     *
+     * @param referenceId                    ReferenceId of the doctor
+     * @param timing                         Timing of the duty
+     * @param reoccurringStringOptional      Reoccurring intervals
+     * @param reoccurringStringTimesOptional Reoccurring times
+     * @return reversibleActionPairCommand for add reoccurring duty shifts
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    private ReversibleActionPairCommand getCommandWithReoccurring(
+            ReferenceId referenceId, Timing timing,
+            Optional<String> reoccurringStringOptional,
+            Optional<String> reoccurringStringTimesOptional) throws ParseException {
+
+        String reoccurring = reoccurringStringOptional.get();
+
+        if (!reoccurring.equals("w") && !reoccurring.equals("m") && !reoccurring.equals("y")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddDutyShiftCommand.MESSAGE_USAGE));
+        }
+
+        Index reoccurringTimes = ParserUtil.parseTimes(reoccurringStringTimesOptional.get());
+        int times = reoccurringTimes.getZeroBased() + 1;
+
+        Event event = new Event(referenceId, model.resolveStaff(referenceId).getName(), timing, new Status());
+        List<Event> eventList = ParserUtil.getRecEvents(event, reoccurring, times);
+        return new ReversibleActionPairCommand(new AddDutyShiftCommand(eventList),
+                new CancelDutyShiftCommand(eventList));
     }
 }
