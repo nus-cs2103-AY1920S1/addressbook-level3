@@ -439,8 +439,6 @@ When an Undo/Redo command is parsed by Responder and Responses, it calls the app
 `State.undoDeckChanges()`, for redo: `State.redoDeckChanges()`). This then sets `State.deck` to the topmost ArrayList
 of Decks from the appropriate Stack (for undo: `State.deckHistory`, for redo: `State.undoHistory`). +
 
-====
-
 // tag::configure_difficulty[]
 === [Proposed] Configure difficulty of test set in `test` mode
 
