@@ -364,7 +364,7 @@ The model for a photo stored in memory is stored in the `DiaryPhoto` class.
 It contains three key fields, that is, the `imagePath`, `description`, and `dateTaken` fields which are used to display key information of the image to the user.
 The `imagePath` and `dateTaken` were implemented respectively with the robust java apis of `Path` and `LocalDateTime`, while `description` is simply a `String`.
 
-In addition, a JavaFX `Image` is also stored inside the `DiaryPhoto` (not shown in <<diary_photo_model_class_diagram, Figure 11, “Class diagram of a PhotoList as contained by a diary entry, and its contained models>> for brevity),
+In addition, a JavaFX `Image` is also stored inside the `DiaryPhoto` (not shown in <<diary_photo_model_class_diagram>> for brevity),
 which holds the `Image` to use for displaying in an `ImageView` inside the user interface. The `Image` is cached this way,
 as on-demand `Image` construction in the user interface involves costly I/O operations.
 
@@ -381,7 +381,7 @@ Restrictions on fields during `DiaryPhoto` instance construction:
 
 ===== PhotoList
 On the other hand, the `DiaryPhoto` models are contained within a `PhotoList`. It stores the photos in a JavaFX `ObservableList`,
-so that changes are registered with the user interface. (see <<photo_manager_ui, Section 3.6.2, “Aspect: User interface of photo manager>>)
+so that changes are registered with the user interface. (see <<photo_manager_ui>>)
 
 It also supports several convenience wrapper methods around the underlying `ObservableList`, tailored for use for the logic components.
 
@@ -393,7 +393,7 @@ It also supports several convenience wrapper methods around the underlying `Obse
 ==== Aspect: User interface of photo manager
 
 The main `UiPart` component that displays photos is the `DiaryGallery`.
-It abides by the `Page` implementation (see <<page_api, Section 2.2.1, “Page API”>>), and is thus contained within,
+It abides by the `Page` implementation (see <<page_api>>), and is thus contained within,
 in one of `DiaryPage's` placeholders.
 
 image::diary/DiaryPhotoUiObjectDiagram.png[title="Object diagram of the diary gallery component, as contained by `DiaryPage` (not shown)" align="center"]
@@ -422,7 +422,7 @@ in turn returns instances of `AddPhotoCommand` and `DeletePhotoCommand` respecti
 ===== Logic aspect 1: Adding photos (through command line file path or os file chooser)
 
 Following `DiaryParser` returning an instance of `AddPhotoParser` that calls `parse()` on the user specified arguments,
-a number of operations happen, as per the UML sequence diagram below (<<addphotoparser_parse_sequence_diagram, Figure 13, AddPhotoParser parse sequence diagram>>). The specifics of `getFilePath`,
+a number of operations happen, as per the UML sequence diagram below (<<addphotoparser_parse_sequence_diagram>>). The specifics of `getFilePath`,
 `parseDescription`, `parseDateTime` are detailed further down below.
 
 [addphotoparser_parse_sequence_diagram]
@@ -434,7 +434,7 @@ image::diary/DiaryAddPhotoParser.png[title="Sequence diagram of the parse method
 
 * Using `ArgumentMultimap`, the file chooser prefix, `fc/`, is checked for.
 If present, the OS file choosing gui is opened using `ImageChooser` (a simple extension of JavaFX's `FileChooser` enforcing image file extensions), and the data file path prefix is ignored.
-* The `getFilePath` subroutine is then called, detailed in <<diary_getfilepath_activity_diagram, Figure 14, “Activity diagram of getFilePath subroutine>>, which checks for the
+* The `getFilePath` subroutine is then called, detailed in <<diary_getfilepath_activity_diagram>>, which checks for the
 existence and validity of the image as supplied by the `ImageChooser` or the file path in the `fp/` argument.
 * If the `fc/` was unspecified and the parsing process fails any of the checks, `getFilePath` throws a `ParseException`.
 
@@ -445,8 +445,8 @@ image::diary/AddPhotoParserGetFilePathActivityDiagram.png[title="Activity diagra
 
 ====== Parsing the description of the photo
 * If the description prefix is present, `AddPhotoParser` tries to construct the `DiaryPhoto` instance with the specified input.
-If validation of the description, as described in <<photo_model, Section 3.6.1, “Aspect: Models”>> fails, then a `ParseException` is thrown during the instance construction.
-* Otherwise, the file name of the validated file from <<adding_photo_diary_step_1, Section 3.6.3.1.1, “Parsing the image file path>> (truncated to match `DiaryPhoto's` description constraints) is used.
+If validation of the description, as described in <<photo_model>> fails, then a `ParseException` is thrown during the instance construction.
+* Otherwise, the file name of the validated file from <<adding_photo_diary_step_1>> (truncated to match `DiaryPhoto's` description constraints) is used.
 
 image::diary/AddPhotoParserParseDescriptionActivityDiagram.png[title="Activity diagram of parseDescription subroutine" align="center" width="95%"]
 
@@ -455,7 +455,7 @@ image::diary/AddPhotoParserParseDescriptionActivityDiagram.png[title="Activity d
 ====== Parsing the date of the photo
 * If the date time prefix is present, `ParserDateUtil` is used to parse the input as per the app level date formats.
 A `ParseException` is thrown in the case of date parsing failure, by `ParserDateUtil`.
-* Otherwise, the last modified date of the validated file from <<adding_photo_diary_step_1, Section 3.6.3.1.1, “Parsing the image file path>> is used.
+* Otherwise, the last modified date of the validated file from <<adding_photo_diary_step_1>> is used.
 
 
 

@@ -576,7 +576,7 @@ image::diary/userguide/diary_flip_command_command_after.png[title="Example resul
 [[diary_addphoto_command]]
 ===== Adding a photo
 If you have just created a fresh diary entry, and you're wondering where to go next, then you
-may want to start by adding your photos to display in the gallery (<<diary_gallery_display, Section 3.9.2.2, “Gallery Display”>>).
+may want to start by adding your photos to display in the gallery (<<diary_gallery_display>>).
 
 There are *3* ways for you to add a photo, the last option being the least flexible but also the fastest!
 
@@ -589,7 +589,7 @@ NOTE: In all options, the image file chosen should be of the file types `.jpg`, 
 arguments described below, will add the image located at the `file
 path` on your computer to the gallery.
 * Arguments:
-** `<file path>` - Relative file path from the location of the _TravelPal's_ jar file, or an absolute file path. (see <<glossary, Section 5, “Glossary”>> for details of relative and absolute file paths)
+** `<file path>` - Relative file path from the location of the _TravelPal's_ jar file, or an absolute file path. (see <<glossary>> for details of relative and absolute file paths)
 ** `<description>` (optional) - The description of the photo to be shown in the gallery, of maximum length 20.
 If unspecified, the file name is used instead, shortened to the maximum length.
 ** `<date taken>` (optional) - The date taken of the photo, of the format `d/M/yyyy HHmm`.
@@ -617,7 +617,7 @@ image::diary/userguide/diary_addphoto_command_filepath.png[title="Example usage 
 
 . That's it! The photo, with the specified description and last modified date will be added. You should see a brief confirmation message in
 the command result box.
-.. Additionally, there will be a auto-generated photo numbering, for use as described in <<diary_text_displaying_images, Section 3.9.4.2, “Displaying images”>>.
+.. Additionally, there will be a auto-generated photo numbering, for use as described in <<diary_text_displaying_images>>.
 
 image::diary/userguide/diary_addphoto_command_filepath_result.png[title="Example result of after executing the `addphoto` command with the `fp/` option"]
 
@@ -635,7 +635,7 @@ If unspecified, the last modified date of the file is used instead.
 NOTE: Using both the `fc/` and `fp/` prefix will cause _TravelPal_ to ignore the `fp/` prefix!
 
 ====== Option 3: Using the `Add` button under the gallery display
-* Usage: Clicking the `Add` button located under the gallery display area ( <<diary_gallery_button_bar, Section 3.9.2.5, “Gallery Button Bar”>>) will open your
+* Usage: Clicking the `Add` button located under the gallery display area ( <<diary_gallery_button_bar>>) will open your
 system's dialog to choose an image file.
 * If this option is used, then the `<description>` & `<date taken>` are not specifiable and will be auto generated as described above.
 
