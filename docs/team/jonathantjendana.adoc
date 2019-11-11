@@ -18,7 +18,7 @@ endif::[]
 
 MoneyGoWhere is a personal finance application targeted at students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project.
 
-Designed primarily with a Command Line Interface (CLI), it allows students to keep track of all their spending with related information such as date, cost and tags. Users can also set budget goals, view statistics, view exchange rates, set their existing  set reminders for bills, import and export their data from and to a .csv file.
+Designed primarily with a Command Line Interface (CLI), it allows students to keep track of all their spending with related information such as date, cost and tags. Users can also set budget goals, view statistics, view exchange rates, set their existing  set reminders for bills, import and export their data from and to a Csv file.
 
 === My Role
 
