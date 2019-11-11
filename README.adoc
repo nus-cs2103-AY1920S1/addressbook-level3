@@ -1,4 +1,4 @@
-= Sugar Mummy
+= SugarMummy
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.com/AY1920S1-CS2103-T16-1/main[image:https://travis-ci.com/AY1920S1-CS2103-T16-1/main.svg?branch=master[Build Status]]
