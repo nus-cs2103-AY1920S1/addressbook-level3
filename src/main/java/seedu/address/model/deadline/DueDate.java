@@ -5,7 +5,6 @@ package seedu.address.model.deadline;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -17,7 +16,8 @@ import java.time.format.DateTimeParseException;
  */
 public class DueDate {
 
-    public static final String MESSAGE_CONSTRAINTS = "Deadlines are of dd/MM/yyyy Format.\n"
+    public static final String MESSAGE_CONSTRAINTS = "Invalid Deadline is entered!\n"
+            + "Deadlines are to be in dd/MM/yyyy format and be a valid date.\n"
             + "E.g.: 12/01/2019.";
     public static final String EARLY_DATE = "Date provided is before today.\n"
             + "Please provided a due date in a later date.";
@@ -30,8 +30,8 @@ public class DueDate {
      * Constructs a {@code Question}.
      *
      * @param deadline A valid DueDate.
-     * Check if its a valid formatted date
-     * Also, ensure date is not earlier then present day
+     *                 Check if its a valid formatted date
+     *                 Also, ensure date is not earlier then present day
      */
     public DueDate(String deadline) {
         requireNonNull(deadline);
@@ -48,7 +48,23 @@ public class DueDate {
      */
     public static boolean isValidDate(String test) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String[] split = test.split("/");
+        int day = Integer.parseInt(split[0]);
+        int month = Integer.parseInt(split[1]);
+        int year = Integer.parseInt(split[2]);
 
+        if (month == 4 || month == 6 || month == 9 || month == 11) {
+            if (day > 30) {
+                return false;
+            }
+        }
+        if (year % 4 == 0) {
+            if (month == 2) {
+                if (day > 29) {
+                    return false;
+                }
+            }
+        }
         try {
             LocalDate date = LocalDate.parse(test, dateFormat);
         } catch (DateTimeParseException e) {
@@ -56,7 +72,7 @@ public class DueDate {
         }
         return true;
     }
-
+    
     /**
      * Returns LocalDate format of DueDate
      */
