@@ -19,7 +19,7 @@ _Billboard_ is a Command Line Interface(CLI) desktop application, meaning that i
 For more user friendliness, _Billboard_ has a Graphical User Interface(GUI). +
 
 This is what _Billboard_ looks like: +
-image:tagging/billboardppp.png[] +
+image:tagging/Billboardppp.png[] +
 
 My role was to design and implement features related to tagging. The following sections illustrate these enhancements in more detail, as well as the relevant documentation i have added to the user and developer guides in relation to them. +
 
