@@ -13,6 +13,7 @@ import seedu.scheduler.testutil.SampleInterviewSlotVertex;
 import seedu.scheduler.testutil.TestUtil;
 
 public class BfsHopcroftKarpTest {
+    // ====================================== Integration Testing ===================================================
     @Test
     public void bfs_sampleGraphOneAfterOneIteration_success() {
         BipartiteGraph subjectGraph = SampleGraph.getSampleGraphOne();

@@ -690,12 +690,20 @@ User will also be able to filter by tags.
 
 Format: `filter tag TAG_NAME`
 
+// tag::schedule[]
+
 === Scheduling `schedule`
 ==== Schedule the interviews
 Schedule and allocate interviewees to the available interview slots based on the availability of interviewees and
 their choice of department.
 
 Format: `schedule`
+
+[NOTE]
+To ensure that the displayed scheduling result is always updated with the latest database of interviewers and interviewees,
+add/delete/edit of interviewee or interviewer will remove the scheduling result, hence you will need to type `schedule` again.
+
+// end::schedule[]
 
 === Exporting of interview schedule `export`
 Exports the allocated interview schedule timetable to the specified comma separated values (CSV) file.
@@ -727,6 +735,7 @@ Constraints:
 WARNING: The exported data will erase and replace all pre-existing data in the specified file.
 
 // tag::email[]
+
 === Sending of email `email`
 ==== Sending of interview time slot to interviewee
 Opens an email dialog containing the interviewee’s allocated interview time slot to a particular interviewee specified, including other details such as the interviewer and location.

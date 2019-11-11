@@ -5,55 +5,80 @@
 
 == PROJECT: Scheduler
 
----
-
 == Overview
 
-Scheduler is a desktop application which is used to automate the process of scheduling interviews.
-Its main feature is matching interviewees with interview time slots to generate an interview timetable.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+In many co-curricular activities (CCAs), interviews are usually conducted to recruit new members during the beginning of
+the semester. However, the scheduling of interviews can be a very tedious process, especially when there are a lot of applicants.
+In light of this, we created Scheduler, a desktop application which aims to automate and streamline the process of
+scheduling interviews to reduce the workload of the administrators.
+
+The main feature of Scheduler is to match interviewees with available interview time slots to generate an optimal interview schedule.
+Other features introduced to streamline the process of scheduling interviews include emailing the allocated slot to the respective
+interviewee. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and
+has around 20 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added the **ability to schedule interview**
-** What it does: allows the user to schedule interviews for the interviewees using the imported interviewer
-availability and interviewee details.
+* *Major enhancement*: added the **ability to schedule interviews automatically** using a graph algorithm
+** What it does: allows the user to schedule interviews automatically for the interviewees using the imported interviewers
+availability and interviewees details.
 ** Justification: This feature is the central feature behind the idea of the entire Scheduler application which is to schedule interviews
-automatically so that the user do not have to manually schedule interviews and thus reduce their workload significantly.
-** Highlights: The scheduling feature uses an algorithm which tries to maximise the number of interviewees who are allocated
+automatically so that the user does not have to manually schedule interviews and thus reduce their workload significantly.
+** Highlights: The scheduling feature uses an algorithm known as **Hopcroft Karp algorithm** which tries to maximise the number of interviewees who are allocated
 with an interview slot. Please refer to the developer guide for more information regarding the algorithm.
 ** Credits:
+*** John Hopcroft, Richard Karp, Alexander Karzanov, the creators of Hopcroft-Karp algorithm which enables our application to maximise
+the number of interviewees which are allocated an interview slot.
+*** Authors of https://www-m9.ma.tum.de/graph-algorithms/matchings-hopcroft-karp/index_en.html, for the clear explanation of
+the logic behind Hopcroft Karp algorithm.
 
-* *Minor enhancement*: Created a data structure which model a schedule timetable as can be seen in the application. The data structure
+* *Minor enhancement*: Updated the link in the help window.
+
+* *Other contributions to features*
+** Created a data structure `Schedule` which models a schedule timetable as can be seen in the application. The data structure
 is used to link multiple features together, such as adding an interviewer and displaying it on the ui.
+** Modified and implemented the logic which links the displayed schedules in the UI to the underlying `Schedule` data structures
+such that changes to the schedules data can be updated in the UI by using the **Observer pattern**.
+** Created an `AppStatus` class using the *Singleton design principle* to help to manage the status of the application
+across different functionalities.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ChrisKheng&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]]
+ [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=ChrisKheng&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Managed releases v1.0-v1.4 (4 releases) on GitHub.
-** Enhancements to existing features:
+*** Managed milestones v1.0-v1.4 on Github.
+*** Drafted project plan for the development of the application.
+
 ** Documentation:
+*** Improve the appearance of the Developer Guide (https://github.com/AY1920S1-CS2103-F09-1/main/pull/177[#177])
+*** Updated the Model and Ui class diagram to match the updated architecture of the application (PR here)
+
 ** Community:
+*** PRs reviewed (with non-trivial review comments) (https://github.com/AY1920S1-CS2103-F09-1/main/pull/151[#151],
+https://github.com/AY1920S1-CS2103-F09-1/main/pull/182[#182])
+*** Reported bugs and suggestions for other teams in the class (https://github.com/ChrisKheng/ped/issues/2[#2],
+https://github.com/ChrisKheng/ped/issues/3[#3])
+
 ** Tools:
+*** Set up Coveralls and AppVeyor for the team repository (https://github.com/mrchensheng21/main/pull/1[#1])
 
 == Contributions to the User Guide
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=schedule]
 
 == Contributions to the Developer Guide
-
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::
+=== _Explanation of Implementation_
+include::../DeveloperGuide.adoc[tag=schedule]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+=== _Instructions of Manual Testing_
+include::../DeveloperGuide.adoc[tag=scheduleTest]

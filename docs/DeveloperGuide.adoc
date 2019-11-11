@@ -222,13 +222,17 @@ image::ModelClassDiagram.png[]
 
 The `Model`,
 
+* stores an `AppStatus` singleton object which encapsulates the state of the application.
 * stores a `UserPref` object that represents the user's preferences.
 * stores a list of `Schedule`. Each `Schedule` represents a schedule timetable.
+* stores a `RefreshListener` to refresh the displayed schedules in the UI indirectly when the data of interviewers, interviewees,
+or the schedules changes.
+* stores a `TabListener` to refresh the tabs in the UI when data changes.
 * exposes a list of `ObservableList<ObservableList<String>>` that can be 'observed' by the UI. Each of the
   `ObservableList<ObservableList<String>>` represents the data of a `Schedule` object.
   The `ObservableList<ObservableList<String>>` objects are bound to the UI so that the UI automatically updates  when the data of the `Schedule` objects changes.
 * exposes a list of `ObservableList<Interviewee>` that can be 'observed' by the UI.
-* does not depend on any of the other three components.
+* does not depend on any of the three components.
 
 ==== Schedule
 The `Schedule` objects are filled up and created by the imported interviewer's availability. The inner data of a `Schedule` object is the same as the corresponding availability
@@ -369,6 +373,8 @@ image::DeleteActivityDiagram.png[300, 400]
 
 // end::delete[]
 
+// tag::schedule[]
+
 === Scheduling Feature
 ==== Algorithm
 The scheduling of interviews is essentially a https://www.geeksforgeeks.org/maximum-bipartite-matching/[maximum bipartite matching problem].
@@ -489,6 +495,7 @@ image::InterviewSlotVertex.png[300, 550]
 .Executing Schedule Command Sequence Diagram
 image::ScheduleSequenceDiagram.png[]
 
+// end::schedule[]
 
 === Import
 ==== Implementation
@@ -1102,6 +1109,9 @@ image::scheduleListFormat.png[]
 
 // end::ManualDisplay[]
 
+
+// tag::scheduleTest[]
+
 === Scheduling Interviews
 . Import .csv files of interviewers' availability and interviewees' details using the `import` command.
 .. Please refer to the QuickStart section in the <<UserGuide#, user guide>> to download the templates of the interviewers' availability and interviewees details.
@@ -1129,24 +1139,4 @@ image::scheduleListFormat.png[]
 .. You can also test the opposite way, i.e. design test data which contains interviewees that cannot be allocated a slot and check
    if the name of the interviewee does not exist in the schedule.
 
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+// end::scheduleTest[]

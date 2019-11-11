@@ -20,45 +20,45 @@ Role: Project Advisor
 
 === Kheng Yau Dong
 image::chriskheng.png[width="150", align="left"]
-{empty}[https://github.com/ChrisKheng[github]] [<<Kheng-Yau-Dong#, portfolio>>]
+{empty}[https://github.com/ChrisKheng[github]] [<<chriskheng.adoc#, portfolio>>]
 
 Role: Team lead, developer +
-Responsibilities: Scheduling component
+Responsibilities: Model; Scheduling feature
 
 '''
 
 === Hsu Zhong Jun
 image::dcshzj.png[width="150", align="left"]
-{empty}[https://github.com/dcshzj[github]] [<<Hsu-Zhong-Jun#, portfolio>>]
+{empty}[https://github.com/dcshzj[github]] [<<dcshzj.adoc#, portfolio>>]
 
 Role: Developer, testing +
-Responsibilities: Emailing component
+Responsibilities: Storage; Emailing feature
 
 '''
 
 === Ang Wei Heng Kendrick
 image::kendrickang.png[width="150", align="left"]
-{empty}[https://github.com/KendrickAng[github]] [<<Ang-Wei-Heng-Kendrick#, portfolio>>]
+{empty}[https://github.com/KendrickAng[github]] [<<KendrickAng.adoc#, portfolio>>]
 
 Role: Developer, integration +
-Responsibilities: Model
+Responsibilities: Logic, Model; Add, Delete, Edit Interviewer and Inteviewee
 
 '''
 
 === Kwan Chen Sheng
 image::mrchensheng21.png[width="150", align="left"]
-{empty}[https://github.com/mrchensheng21[github]] [<<Kwan-Chen-Sheng#, portfolio>>]
+{empty}[https://github.com/mrchensheng21[github]] [<<mrchensheng21.adoc#, portfolio>>]
 
 Role: Developer, documentation +
-Responsibilities: UI
+Responsibilities: UI; Interviewers List, Interviewees List, Schedules List feature
 
 '''
 
 === Goh Rui Zhi
 image::mirozo.png[width="150", align="left"]
-{empty}[https://github.com/mirozo[github]] [<<Goh-Rui-Zhi#, portfolio>>]
+{empty}[https://github.com/mirozo[github]] [<<mirozo.adoc#, portfolio>>]
 
 Role: Developer, documentation +
-Responsibilities: Storage
+Responsibilities: Model; Import, Export feature
 
 '''

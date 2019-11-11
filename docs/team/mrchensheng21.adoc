@@ -22,6 +22,7 @@ css file to enhance the GUI of the Scheduler.
 ** Highlights: This enhancement required a deeper understanding of implementing javafx, such as having to form columns dynamically in creating a schedule
 table. It is also challenging to involve integrating the multiple tables into one panel. Involves many research on what data structure can fit into the panel
 and in the end decided on converting the table into a list cell view.
+
 ** Credits: Jenkov tutorials for TableView class display.
 
 * *Minor enhancement*: Created a display command feature which allows the user to switch display using CLI command.
@@ -34,6 +35,7 @@ and in the end decided on converting the table into a list cell view.
 ** Project management:
 *** Help in making sure that the code is following the checkstyle.
 ** Enhancements to existing features:
+
 *** Update GUI style https://github.com/AY1920S1-CS2103-F09-1/main/pull/175[#175]
 *** Creating tabs for the UI to display the different views. https://github.com/AY1920S1-CS2103-F09-1/main/pull/160[#160]
 ** Tools:
