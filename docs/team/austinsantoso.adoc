@@ -45,8 +45,8 @@ This section shows my contributions to the team project.
 *** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/110[#110], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/112[#112]
 
 ** Community:
-*** Performed manual testing, Reported bugs and suggestions for teammates.
-*** Performed manual testing, Reported bugs and suggestions for other teams in the class
+*** Performed manual testing, reported bugs and suggestions for teammates.
+*** Performed manual testing, reported bugs and suggestions for other teams in the class
 
 == Contributions to the User Guide
 
@@ -59,7 +59,7 @@ include::../UserGuide.adoc[tag=budget]
 
 include::../UserGuide.adoc[tag=showbudget]
 
-include::../UserGuide.adoc[tag=updown]
+include::../UserGuide.adoc[tag=commandHistory]
 
 == Contributions to the Developer Guide
 
@@ -69,5 +69,5 @@ include::../UserGuide.adoc[tag=updown]
 
 include::../DeveloperGuide.adoc[tag=budget]
 
-include::../DeveloperGuide.adoc[tag=updown]
+include::../DeveloperGuide.adoc[tag=commandHistory]
 

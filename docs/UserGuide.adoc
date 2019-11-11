@@ -154,7 +154,7 @@ MoneyGoWhere will also automatically check whether a given date is valid.
 Should you accidentally provide an invalid date such as 31/02/2019, it will be rejected as there are only 28 days in February 2019. MoneyGoWhere may automatically try to correct dates *best possible date*.
 // end::flexibledateformats[]
 
-// tag::updown[]
+// tag::commandHistory[]
 === Going through your command history:
 Similar to a typical command line interface (CLI), the user may press the up and down key
 to go through the previous user input history, and display it in the command box. Pressing the up key would go back to the earlier user input command.
@@ -163,7 +163,7 @@ Whereas pressing the down key would move towards the most recent user input key.
 [NOTE]
 If the user is at the most recent, or the earliest user inputted command, then press the up and down key respectively,
 no text will be displayed.
-// end::updown[]
+// end::commandHistory[]
 
 === Adding a spending : `add`
 

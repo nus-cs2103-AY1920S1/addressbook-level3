@@ -288,16 +288,16 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-// tag::updown[]
-[[Implementation-UpDown]]
-=== Up/Down key
+// tag::commandHistory[]
+[[Implementation-commandHistory]]
+=== Command History Feature
 
-Similar to a typical Command Line Interface(CLI), the up and down key allows the users to cycle through their previous commands.
+Similar to a typical CLI, the up and down key allows the users to cycle through their previous commands.
 
 ==== Implementation
 
-The up and down key mechanism is facilitated by the `logic` component of `MoneyGoWhere`.
-Whenever a user inputted command is entered, it is stored internally in a list in `commandHistory` component of `Storage`.
+The up and down key mechanism is facilitated by the `logic` component of MoneyGoWhere.
+Whenever a user inputs a command, it is stored internally in a list in `CommandHistory` component of `Storage`.
 `CommandHistory` has an internal index to keep track of its current position in the list.
 
 Additionally, it implements the following operations:
@@ -305,19 +305,19 @@ Additionally, it implements the following operations:
 * `Logic#getNextCommand()` -- Retrieves the next user input command with respect to the current index.
 * `Logic#getPrevCommand()` -- Retrieves the previous user input command with respect to the current index.
 
-The index is initially set to -1, to indicate that that no user input has been inputted.
+The index is initially set to -1, to indicate that there has been no user input.
 Whenever a user inputs a command, the command is stored at the end of the list and
 the index is set to the size of the list, to indicate that there are no commands beyond after this point.
 
 Calling `getPrevCommand()` will cause the index to decrement by 1 and show the user input command stored at that index.
-When the index is currently 0, or the first user command inputted, pressing the up key will cause the index to result in -1.
+When the index is currently 0, or the first user input, pressing the up key will cause the index to result in -1.
 This returns the empty string, since there are no commands before this point. Any further up key press will have the same
-outcome, but the index will stay at -1.
+outcome, but the index will stay at negative one.
 
-Calling `getNextCommand()` will cause the index to increment by 1 and the user inputted command at that index will be returned.
-If the index is currently the last possible value, the last user inputted command, pressing the down key will cause the
+Calling `getNextCommand()` will cause the index to increment by 1 and the user input at that index will be returned.
+If the index is currently the last possible value, the last user input, pressing the down key will cause the
 index to increment by 1, which is outside the list, the empty string will be returned. Any further down key press
-will have the same outcome but the index will stay the list size or last possible index + 1.
+will have the same outcome but the index will stay at the list size or one after the last possible index.
 
 The following sequence diagram shows how the up/down key mechanism works:
 
@@ -330,10 +330,10 @@ The only difference is which commands get returned.
 
 The following steps explain the sequence diagram:
 
-1. The user presses the down key.
+1. The user presses the `down` key.
 2. `LogicManager` calls  `StorageManager#getNextCommand()`.
 3. `StorageManager#getNextCommand()` calls `CommandHistory#getNextCommand()`
-4. `CommandHistory` returns the next user inputted command.
+4. `CommandHistory` returns the next user input.
 5. The returned command is then showed to the user in the `CommandBox`.
 
 To summarize what determines the output when the user presses the down key:
@@ -343,14 +343,14 @@ image::GetNextCommandActivityDiagram.png[]
 
 The following steps explain the activity diagram:
 
-1. The user presses the down key.
+1. The user presses the `down` key.
 2. `CommandHistory` will increment its index.
-3. If the index is not out of bounds, the user inputted command at the index will be returned
+3. If the index is not out of bounds, the user input at the index will be returned
 4. Else, the index is set to the size of the list, and an empty string is returned.
 
 The sequence diagram and activity diagram for `getPrevCommand()` are similar to the sequence and activity diagram of `getNextCommand()` as shown above.
 The only difference is whether it returns the next command or the previous command.
-// end::updown[]
+// end::commandHistory[]
 
 // tag::find[]
 [[Implementation-Find]]
@@ -830,7 +830,7 @@ Difficult to modify one feature without needing to modify the other as well.
 // end::graph[]
 
 // tag::budget[]
-=== Budget Feature
+=== Budget feature
 The `Budget` component has two core features:
 
 1. Allowing the user to set the monthly budget
@@ -1825,3 +1825,23 @@ If there are no spending to be displayed, an empty graph is shown.
 .. Test case: `graph d/last week d/today` +
    Expected: Tab switches to Graph tab if not already showing. MoneyGoWhere will display graph for spending that fall between last week and today.
 If there are no spending in the date range to be displayed, an empty graph is shown.
+
+=== Setting a new Budget
+
+. Setting a new budget for the current month
+.. Test case: `budget 1000` +
+    Expected: The budget will be set to 1000, which can be seen in the Graphical User Interface
+
+=== Viewing previous commands
+
+. Traversing previous commands using the up key
+.. Prerequisites: There should be at least one existing command previously executed.
+.. Test case:  Press `up` key +
+    Expected: The previous command will be shown in the command box.
+
+=== Viewing next commands
+
+. Traversing next commands using the down key
+.. Prerequisites: There should be at least two existing command previously executed and user has pressed the up key twice.
+.. Test case: Press `down` key +
+    Expected: The most recent command will be shown in the command box.
