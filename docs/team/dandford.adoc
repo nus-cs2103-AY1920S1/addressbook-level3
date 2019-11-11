@@ -2,7 +2,6 @@
 :site-section: AboutUs
 :imagesDir:  ../images
 :stylesDir: ../stylesheets
-<<<<<<< HEAD
 
 == PROJECT: guiltTrip()
 
@@ -28,7 +27,6 @@ to include allowing it to find for all fields of the entry.
 ** Justification: This feature improves the product as there is more Data Organization and the user can choose what data to see through find.
 ** Highlights: This feature involves sorting the exiting list of entries and filtering them, and hence requires an understanding of how the entries are saved to carry out calculation operations on them.
 
-<<<<<<< HEAD
 * *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dandford&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
 
 * *Other contributions*:
