@@ -19,11 +19,11 @@ public class SampleDataCardUtil {
     public static Card[] getSampleCards() {
         return new Card[] {
             new Card(new Description("POSB Debit"), new CardNumber("5248293058291847"), new Cvc("023"),
-                    new ExpiryDate("10/25"), getTagSet("groceries")),
+                    new ExpiryDate("12/19"), getTagSet("groceries")),
             new Card(new Description("POSB Credit"), new CardNumber("4238710593829573"), new Cvc("521"),
-                    new ExpiryDate("08/25"), getTagSet("petrol")),
+                    new ExpiryDate("02/20"), getTagSet("petrol")),
             new Card(new Description("OCBC Debit"), new CardNumber("5140284759384729"), new Cvc("633"),
-                    new ExpiryDate("03/23"), getTagSet("waterbills")),
+                    new ExpiryDate("01/20"), getTagSet("waterbills")),
             new Card(new Description("Maybank Credit"), new CardNumber("5348375928375918"), new Cvc("192"),
                     new ExpiryDate("11/18"), getTagSet("electricitybills")),
             new Card(new Description("HSBC Debit"), new CardNumber("5358285730295837"), new Cvc("923"),

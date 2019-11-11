@@ -44,7 +44,7 @@ public class DeleteNoteCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_NOTE_DISPLAYED_INDEX);
         }
-        model.commitNote(command);
+        model.commitNoteBook(command);
         Note noteToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteNote(noteToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_NOTE_SUCCESS, noteToDelete.getTitle()));

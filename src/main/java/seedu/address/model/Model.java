@@ -281,7 +281,7 @@ public interface Model {
 
     String redoNote();
 
-    void commitNote(String command);
+    void commitNoteBook(String command);
 
     Index getNoteIndex(Note note);
 

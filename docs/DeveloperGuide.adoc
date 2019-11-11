@@ -144,12 +144,13 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-
+// tag::passwordManagement[]
 === Password Management
 ==== Model
-The `Password` model is created to support the password management feature of our application.
+We created the `Password` model to support the password management feature of our application.
 It stores the information of all the passwords created by the user. The class diagram of the `Password` model is as follows:
 
+.Class diagram of Password Model.
 image::PasswordClassDiagram.png[]
 
 The `Password` model consists of a `Password` class which has its attributes implemented as
@@ -163,36 +164,40 @@ separate classes to follow *Single Responsibility Principle*. The attributes are
 
 `Website`: The website where the password is being used for.
 
-`PasswordModifiedAt`: The local date when the password is last modified.
+`PasswordModifiedAt`: The date when the password is last modified.
 
-`PasswordExpiredAt`: The local date 1 year after the password is last modified.
+`PasswordExpiredAt`: The date 1 year after the password is last modified.
 
-`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close local time is when compared to the expiry date of the password.
+`ExpiryMode`: It has 3 modes: `HEALTHY`, `EXPIRING`, `EXPIRED`, depending on how close the current date is when compared to the expiry date of the password.
 
-The `Password` are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
-add the functionality managing passwords into the application. Minimal functionality are added to adhere to the *YAGNI* principle.
+The `Password` objects are stored in a `UniquePasswordList` in the `PasswordBook` and the existing model manager is extended to
+add the functionality managing passwords into the application. We have adhered to *YAGNI* design principle by making sure that minimal changes are added.
 
 ==== Design Considerations:
 ===== Aspect: Model Manager for Password.
-This would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
+The design considerations would be similar for all other models including `File` model, `Card` model, `Note` model and `Password` model.
 
 * **Alternative 1 (current choice):** The current model manager is extended to handle the filtered lists of all the models.
-** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating.
-** Cons: It might increase coupling in the model manager.
+** Pros: Adheres to *DRY* design principle as it extends the functionality of the model manager without repeating code.
+** Cons: It might increase dependencies in the model manager.
 
 * **Alternative 2:** Create another `Model` interface and another `Model Manager` class.
 ** Pros: Easy to implement.
 ** Cons: Does not adhere to *DRY* design principle, where additional `Model Manager` class are created.
 
-==== Logic
-In this feature, you are able to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `Parser` and `Command`
-classes are included to enhance the functionality. The class diagram for all `Command` classes available for `Password` model is as follows:
+We chose alternative 1 as there is already a model manager available and it would be logical to use it instead of creating another class and possibly write repeated code.
 
+==== Logic
+
+User is allowed to `add`, `read`, `edit`, `find`, `list`, `delete` and `copy`. Additional `PasswordBookParser`, `Parser` and `Command`
+classes are included to support the functionality stated above. The class diagram for all `Command` classes available for `Password` model is as follows:
+
+.Class diagram of all Command classes used in password management
 image::CopyCommand.png[]
 
 
 ===== Aspect: Logic Manager for Password model.
-This would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
+The design considerations would be similar for all other models such as the `File` model, `Card` model, `Note` model and `Password` model.
 
 * **Alternative 1 (current choice):** The current logic manager is extended to handle the model parsers. The logic manager
 checks for the current mode of the system and decides which model parser class to use.
@@ -202,31 +207,53 @@ However, all the fields in the command classes are different and separating them
 * **Alternative 2:** Extending one parser class to handle all the different commands. Different command will have different `add` command words.
 
 ** Pros: Easy to implement.
-** Cons: User will have to remember different command words for the same `add` command for different modes. This will decrease the usability of the application.
+** Cons: User will have to remember different command words for the same `add` command for different modes, such as `addp`, `addn`, `addc`.
+This will impact the user experience and increase coupling as the same `add` command is required to perform different tasks.
+
+We chose alternative 1 because of its pros. We place emphasis on the user
+experience of our application. In this implementation users will not have to remember different command words to
+add the same objects into our application.
 
 ==== Copy Command:
 ===== Current Implementation:
-`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class.
+`CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extends `CopyPasswordCommand` class as shown in the earlier figure.
 
 These three classes are implemented together with `CopyCommandParser` class to create the functionality of copying the required details onto clipboard using CLI.
 Since this is a command that would be used frequently, command alias are added to increase the efficiency for the user.
 The activity diagram below describes the flow of the `CopyPasswordCommand`:
 
-image::CopyPasswordSequenceDiagram.png[]
+.Activity Diagram for CopyPasswordCommand
+image::Step1.png[]
 
 The following sequence diagram describes the detailed interactions between any `CopyPasswordCommand` and the architecture:
+
+.Sequence Diagram for CopyPasswordValueCommand
+image::CopyPasswordSequenceDiagram.png[]
+
+The process of copying a password value is as follows:
+
+1) PasswordBookParser creates CopyPasswordCommandParser and depending on the command word after `copy`, different copy commands will be created.
+
+2) In this case, the index is a valid index and `CopyPasswordValueCommand` is created.
+
+3) The `Password` object is retrieved from the filtered password list using the index and the password value is copied via
+`ClipboardUtil#copyToClipboard()` method
 
 ==== Design Considerations:
 ===== Aspect: Implementation of `CopyPasswordCommand`
 * **Alternative 1 (current choice):** The `CopyPasswordCommand` class extends `Command` class. `CopyPasswordValueCommand` class, `CopyWebsiteCommand` class and `CopyUsernameCommand` class extend `CopyPasswordCommand`.
 ** Pros: This follows closely to *Polymorphism* and *Inheritance* concepts as all three commands share the similar functionality.
 The common functionality is abstracted out and placed inside the `CopyPasswordCommand`.
-** Cons: Any further enhancement of the child commands will have to follow `Liskov Substitution Principle` and it needs to be more restrictive than the parent command.
+** Cons: Any further enhancement of the child commands will have to follow *Liskov Substitution Principle* and it needs to be more restrictive than the parent command.
 
 * **Alternative 2:** `CopyPasswordValueCommand`, `CopyWebsiteCommand` , `CopyUsernameCommand` will extend `Command` class.
 ** Pros: Easy to implement. `PasswordBookParser` can directly check for the command word instead of splitting into 2 command words.
-** Cons: Violates *DRY* design principle.
+** Cons: Does not adhere to *DRY* design principle.
 
+We chose alternative 1 because it is more logical and follows the *DRY* design principle. The cons caused by the further enhancements of child
+commands will not be considered because of *YAGNI* design principle.
+
+// end::passwordManagement[]
 // tag::generate[]
 
 === Generate Password
@@ -469,7 +496,41 @@ Step 4. The `*doFinal*` method conducts the actual encryption on the input array
 The decryption process is similar to the encryption process, except that the `*ENCRYPT_MODE*` is changed to `*DECRYPT_MODE*`. The same password is necessary to decrypt an encrypted byte array to its original content.
 
 // end::dataencryption[]
+// tag::carddg[]
+=== Cards Feature
+==== Expiry Validations
+When a user tries to add a card, there are various checks to ensure that the expiry entered is valid.  As the name suggests, expiry validations are implemented within `Expiry`. Additionally, it implements the following operations:
 
+
+* `ExpiryDate#isValidDate(String test)` -- Checks the string against the provided regex to make sure it is a match.
+* `ExpiryDate#isValidExpiryDate(String test)` -- Checks to ensure that it has not past the given expiry date.
+* `ExpiryUtil#getMonthToExp(String expiry)` -- Returns the number of months left until the given expiry.
+
+`ExpiryDate#isValidExpiryDate(String test)` is implemented using `ExpiryUtil#getMonthToExp(String expiry)` to ensure that the number of months left is positive.
+
+The other operations are used in `ParserUtil#parseExpiryDate(String expiryDate)` to ensure that user input passes these validations, before allowing the card to be added to the list. Upon startup of the app, the repopulation of data also checks against these validations to ensure that there are no illegal values stored in the list.
+
+Given below is an example usage scenario and how the validations behave at each step. The following sequence diagram shows how the expiry validations work.
+
+image::CardExpiryValidation.png[Diagram, 700]
+
+Step 1. The user executes `add d/VisaPOSB v/4291728395018293 c/256 e/12/15` command to add a new card named 'VisaPOSB' in the card book. The `CardBookParser#parseCommand(String userInput)` calls `AddCardCommandParser#parse(String args)` and the command parser tries to breakdown the string in to various parameters.
+
+Step 2. The `AddCardCommandParser` calls `ParserUtil#parseExpiryDate(String expiryDate)`, which first calls `ExpiryDate#isValidDate(String test)` to check its validity, which returns true.
+
+Step 3. The `ParserUtil#parseExpiryDate(String expiry)` then calls `ExpiryDate#isValidExpiryDate(String test)`, which calls `ExpiryUtil#getMonthToExp(String expiry)`. However, `-47` is returned and the condition in `ExpiryDate#isValidExpiryDate` returns `false`.
+
+Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the result box.
+
+==== Expiry Notification
+The expiry notification is facilitated by `ExpiryDisplay`. It exists as an attribute within `MainWindow` and obtains the required expiring cards list from `LogicManager`. This is internally stored as `expiringCards`. Additionally, it implements the following operations:
+
+* `LogicManager#getExpiringCardList()` -- Returns the list of expiring cards.
+* `ExpiringCard#of(Card card)` -- Creates an ExpiringCard given card details.
+* `ExpiryDisplay#hasCards()` -- Returns true if there are expiring cards.
+* `MainWindow#handleExpiry()` -- Pops up a notification if there are expiring cards upon startup of the app.
+
+// end::carddg[]
 // tag::fileencryption[]
 === File Management
 SecureIT does not store users' encrypted files directly. Instead, it reads the files' data, carries out the encryption, and replaces the original files with encrypted ones in users' file system. Meanwhile, it also maintains records of files that it encrypts, represented by `*EncryptedFile*` class, in an internal data structure, `*FileBook*`.
@@ -528,97 +589,123 @@ We choose alternative 2 because it is better to keep all access to file system i
 
 // end::fileencryption[]
 
+// tag::notesFeature[]
 === Notes Feature
 ==== Open Note
 
-The user is able to open a note in the note book in a separate panel to easily read and edit its contents.
+The user is able to open a note in a separate panel to easily read and edit its contents.
 
 The following sequence diagram illustrates how the note is retrieved and edited through the UI via the `open` command.
 
-image::OpenNoteSequenceDiagram.png[]
+.Diagram illustrates how note is retrievable and editable through the UI.
+image::OpenNoteSequenceDiagram.png[width="300"]
 
 Below is the sub-diagram for retrieving the note through the `open` command.
 
-image::OpenNoteSequenceDiagramRef.png[]
-
-****
-* Note that the sequence diagram for the `edit` command is similar to the `open` command shown above, hence is omitted.
-****
+.Sub-diagram to illustrate how a note is retrieved through the `open` command.
+image::OpenNoteSequenceDiagramRef.png[width="400"]
 
 Given below is an example usage of scenario of the `open` command in notes, where a user intends to open a note to read
 or edit its contents.
 
-*Step 1.* Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
+. Through the `goto note` command, the user arrives at the notes component of the app. The user then executes the command
 `open 1`.
 
-*Step 2.* The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
+. The app recognises that it is an `open` command and proceeds to check if the index `1` given is a valid index using
 the `ParserUtil#parseIndex()` method.
 
-*Step 3.* If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
+. If the index given by the user is valid, the corresponding note will be retrieved. This note is shown to the user in a panel on the right
 within the app.
 
-*Step 4.* The user proceeds to edit the `Title`, `Description` and `Content` field of the note through this panel and saves his
+. The user proceeds to edit the Title, Description and Content field of the note through this panel and saves his
 edits using the save button. This executes the `Logic#EditNoteCommand()` which edits the note in the note book.
 
-*Step 5.* The note book is now updated with the note edited by the user.
+. The note book is now updated with the note edited by the user.
 
 
 ==== Undo/Redo
 ===== Implementation
-The undo/redo mechanism is facilitated by the VersionedNoteBook, which extends NoteBook with a undo/redo history.
-This history is stored in two stacks - the undo stack and the redo stack. The undo stack stores the states of NoteBooks
-before the current state and the redo stack which stores the states of NoteBooks after the current state.
-The key operations that support this mechanisms are:
+The undo/redo mechanism is facilitated by the `*VersionedNoteBook*`, which extends `*NoteBook*` with a undo/redo history.
+This history is stored in two stacks - the `*UndoStack*` and the `*RedoStack*`. The `*UndoStack*` stores the states of note books
+before the current state while the `*RedoStack*` stores the states of note books after the current state.
+The key operations that support these mechanisms are:
 
-`VersionedNoteBook#commit()` — Saves the current NoteBook state and its corresponding command in the undo stack.
+`VersionedNoteBook#commit()` — Saves the current note book state and its corresponding command in the `*UndoStack*`.
 
-`VersionedNoteBook#undo()` — Restores the previous note book state from the undo stack and returns its corresponding command
-to inform the user what command is undone. It also stores the current state of the note book into the redo stack.
+`VersionedNoteBook#undo()` — Restores the previous note book state from the `*UndoStack*` and returns its corresponding command
+to inform the user what command is undone. It also stores the current state of the note book into the `*RedoStack*`.
 
-`VersionedNoteBook#redo()` — Restores a previously undone note book state from the redo stack and returns its corresponding
-command to inform the user what command is redone. It also stores the current state of the note book into the undo stack.
+`VersionedNoteBook#redo()` — Restores a previously undone note book state from the `*RedoStack*` and returns its corresponding
+command to inform the user what command is redone. It also stores the current state of the note book into the `*UndoStack*`.
+
+Below is a class diagram to illustrate how the classes mentioned above interact with one another.
+
+.Class diagram of `*VersionedNoteBook*`, `*NoteBook*` and `*NoteBookWithCommand*`.
+image::VersionedNoteBookClassDiagram.png[width="350"]
 
 Below is a comprehensive activity diagram to illustrate how the undo & redo mechanism works.
 
+.Activity diagram to illustrate how undo & redo executes.
 image::UndoRedoActivityDiagram.png[]
 
-Not all commands are undo-able. Undo-able commands are those that modifies the note book which includes: `add`, `delete`,
+====
+--
+image::warning.png[width = "20",float = "left"]
+--
+*Warning*
+
+Not all commands are undoable. Undo-able commands are commands that modifies the note book. They include: `add`, `delete`,
 `clear`, `edit` and `open`.
-
-====
-* The `open` command is considered undo-able because it updates the number of access
-to the note that is opened.
 ====
 
-Below is an example run through of how the undo command is executed:
+Below is an example run through to illustrate how the undo command is executed:
 
-. User executes `undo` command which calls the `VersionedNoteBook#undo()`.
-. This method call first checks if the undo stack is empty.
-.. The undo stack will be empty if no undo-able command were called prior
+. The user launches the application for the first time. The `*VersionedNoteBook*` will be initialized with the initial
+note book state, with empty `*UndoStack*` and `*RedoStack*`.
+. The user executes `delete 5` command to delete the 5th note in the note book. The delete command calls Model#commitNoteBook(),
+causing the state of the note book before the `delete 5` command executes to be saved in the `*UndoStack*`. The current state
+of the note book becomes the state of the note book after `delete 5` command executes.
+. The user now decides that deleting the note was a mistake, and decides to undo that action by executing the `undo` command.
+. This will call the `Model#undo()`, which will first check if the `*UndoStack*` is empty.
+====
+Note:
+
+. The `*UndoStack*` will be empty if no undoable command were called prior
 to calling the `undo` command.
-.. The undo mechanism will only proceed only if the undo stack is not empty,
-else an `InvalidUndoException` will be thrown.
+. The undo mechanism will proceed only if the `*UndoStack*` is not empty,
+else an error will be returned to the user rather than attempting to perform the undo.
+====
 . The current state of the note book is then checked against the previous state of the note book.
 .. In the event that they are the same, the
-previous note book state is popped from the undo stack and the `undo` command is called recursively (starting from step 2).
-This recursive call is performed until either the current and previous note book state are different or until the undo stack is empty.
+previous note book state is popped from the `*UndoStack*` and the `undo` command is called recursively (starting from step 2).
+This recursive call is performed until either the current and previous note book state are different or until the `*UndoStack*` is empty.
 .. In the event that they are different, proceed on to step 4.
 
-. The current state of the note book is first stored in the redo stack.
+. The current state of the note book is first stored in the `*RedoStack*`.
 . The note book is then reverted to the previous note book state. This same previous note book state is removed from
-the undo stack.
+the `*UndoStack*`.
 . Undo command is complete.
 
 ====
+Note:
+
 * Step 3 is to prevent users from being able to perform `undo` actions when there is no change to be undone.
 ====
+
+For the redo command, a key point to note is that it is not logical to redo a command from the `*RedoStack*` when an undoable
+command is executed. Therefore, anytime an undoable command is executed, the `*RedoStack*` is purged. This behavior is follows
+that of most modern desktop applications as well.
+
+As the rest of the mechanisms of the `redo` command is similar to that of the `undo` command but opposite,
+its details are omitted.
+
 
 
 ===== Design Considerations
 
-====== Aspect: How undo & redo executes
+===== Aspect: How undo & redo executes
 * Alternative 1 (current choice): Saves the entire note book.
-** Pros: Less complex and easy to implement.
+** Pros: Less complex and easier to implement.
 ** Cons: May have performance issues in terms of memory usage.
 
 * Alternative 2: Individual command knows how to undo/redo by itself.
@@ -626,11 +713,11 @@ the undo stack.
 ** Cons: More complex to implement and more prone to bugs as each individual command must be correct to work correctly.
 
 *The reason why we chose alternative 1:*
-By adopting a simpler implementation, we aim to introduce less bugs into system. Furthermore, this implementation better
+By adopting a simpler implementation, we are able to introduce less bugs into system. Furthermore, this implementation better
 supports future extensions as undoable commands can be added much easier.
 
 ===== Aspect: Data structure to support the undo/redo commands
-* Alternative 1 (current choice): Use two stacks to store the history of note book states - one for undo, one for redo.
+* Alternative 1 (current choice): Use two stacks to store the history of note book states - one for undo, and the other for redo.
 ** Pros: Very easy to implement.
 ** Cons: Using two data structures may incur additional overhead in terms of memory.
 
@@ -640,25 +727,51 @@ supports future extensions as undoable commands can be added much easier.
 
 *The reason why we chose alternative 1:*
 It is less complex to implement and the code is much cleaner for better readability which also helps in future extensions.
+//end::notesFeature[]
 
+// tag::carddesign[]
+
+===== Aspect: Implementation of expiry tagging system
+* Alternative 1 (current choice): Check for expiring and expired cards and add respective tags upon startup.
+** Pros: Adds the tag in real time on startup, removing the concern of updating tags.
+** Cons: Startup time may take longer due to extra processing of information.
+
+* Alternative 2: Add respective expiring and expired tags upon detection of nearing expiry.
+** Pros: Users can visibly see the addition of expiry tags when cards are expiring.
+** Cons: There will be a need to update expiring tags to expired tags, after the card has expired. This may lead to potential bugs.
+
+*The reason why we chose alternative 1:*
+It is much easier to code, and it is less susceptible to unforeseen circumstances such as a card having both expiring and expired tags.
+
+===== Aspect: Deciding when the expiry notification should appear
+* Alternative 1 (current choice): Notification should appear upon startup.
+** Pros: User is immediately warned of their expiring cards and is able to take the necessary actions required.
+** Cons: Potentially disruptive as notification would appear every time the user starts up the app, as long as expiring cards exists.
+
+* Alternative 2: Notification should appear upon navigating to card book.
+** Pros: User can immediately tell which cards are in need of attention.
+** Cons: Expiring cards may be left unnoticed if user does not explicitly navigate to the card book.
+
+*The reason why we chose alternative 1:*
+The main purpose of notifications is to remind users to take action and users can subsequently delete the card so that the notification stops appearing.
+
+// end::carddesign[]
 ==== Sort Note feature
 
 Sorting of notes is handled by the MultipleSortByCond class, which allows the notes in the NoteBook to be sorted in
-three different ways - by date modified, date added or number of access.
+three different ways - by date modified, date added or number of of times the note is accessed.
 
-Below is a
-class diagram to illustrate how the NoteBook class and MultipleSortByCond class interact with one another.
+Below is a class diagram to illustrate how the `*NoteBook*` class and `MultipleSortByCond` class interact with one another.
 
+.Class diagram to illustrate how the `MultipleSortByCond` class interacts the other classes.
 image::SortNoteClassDiagram.png[]
+
+link:UserGuide.adoc[]
 
 Sorting the note book rearranges the notes according to the sort conditions provided.
 
 More than one of the conditions can be used to sort the notes in the note book at one time, with the first condition
 having the greatest precedence.
-
-Example: `sort by/NumOfAccess DateAdded`
-
-* NumOfAccess and DateAdded are the sort conditions, with NumOfAccess having greater precedence over DateAdded.
 
 This is handled by the `MultipleSortByCond#buildComparator()`, which takes in the sort conditions specified by the user and returns a `MultipleCondNoteComparator` object that is used to sort the list of notes
 in NoteBook.
