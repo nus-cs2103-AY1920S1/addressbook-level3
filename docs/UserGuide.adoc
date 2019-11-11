@@ -166,7 +166,7 @@ This command adds your input tag(s) to the expense at the index you have specifi
 {nbsp} +
 Usage:
 
- tag add [INDEX] t/[TAG] t/[TAG…]
+ tag add [INDEX] t/[TAG] t/<TAG>...
 
 Example: +
 Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense "_USS_" at index 2. +
@@ -195,7 +195,7 @@ This command removes your input tag(s) from the expense at the index you have sp
 {nbsp} +
 Usage:
 
- tag rm [INDEX] t/[TAG] t/[TAG…]
+ tag rm [INDEX] t/[TAG] t/<TAG>...
 
 Example: +
 Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense "_USS_" at index 2. +
@@ -224,7 +224,7 @@ This command filters expenses by your input tag(s). +
 {nbsp} +
 Usage:
 
- tag filter t/[TAG] t/[TAG…]
+ tag filter t/[TAG] t/<TAG>...
 
 
 Example: +
