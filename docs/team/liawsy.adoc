@@ -36,7 +36,6 @@ Additionally, the implementation familiarised me with JSON serialization in FXML
 manually when it runs out, this enhancement collapses this two-step process into a one-step process.
 ** Highlights: The implementation required an in-depth analysis of user needs and comprehensive testing to ensure
 that edge cases will also be factored in.
-
 * *Minor enhancement*: Added the ability to input item quantity.
 The parsing of the quantity field familiarised me with Regex.
 This makes tracking multiple items of the same type easier as users only need to key the item's details once.
