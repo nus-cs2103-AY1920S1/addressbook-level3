@@ -81,7 +81,7 @@ You may click on the following features below to find out more about the feature
 * Dashboard: +
 Start making a task list for the things you plan to do and never have to forget to do something ever again!
 * Recipe Book - (Fill in a simple line for your feature?)
-* Exercise - (Fill in a simple line for your feature?)
+* Workout Planner - Create custom workouts and track your progress!
 * Health - (Fill in a simple line for your feature?)
 * Diary - Create diary posts to share with your friends and family!
 
@@ -676,13 +676,51 @@ Generates a PDF copy of all the blood sugar and blood pressure records respectiv
 
 === Workout Tracker
 
-Planning your next workout? You can refer to the commands in this section to help you get started with your
-exercise regime in DukeCooks.
+So you've decided to put your gym membership to use and want to plan your next workout regime. Head down to the
+workout planner tab to create your custom workouts and track your progress!
+
+But wait! I have no idea how to begin with this, you may be thinking. Fret not, read further to see a breakdown of the
+workout planner screen and what you can do with it!
+
+==== Workout Planner Screen
+
+Alright, I'm now at the workout screen! What's next?
+
+.Workout Screen
+image::workoutScreen1.png[]
+
+As seen in the screenshot above, the Workout Planner screen is similar to the other screens, with the main
+difference being the list of Exercise cards and Workout Cards. Not too sure about what to work on or need suggestions?
+Workout Planner begins with prebuilt Exercises and Workouts installed to get you started.
+
+Over on the left, is the list of Exercise Cards. Each card informs you of the name, primary muscle as well as the
+intensity of the exercise. To get more information of the exercise, you can use the view command which will be covered
+in section 3.7.3 of the User Guide.
+
+Similarly on the right we have the list of Workout Cards. The Workout Cards shows the Workout name, the number of
+Exercises in the workout as well as the last time the workout was ran. You can also tell the intensity of the
+workout from the image of the card.
+
+.Low Intensity Card
+image::workoutLowIntensity.png[]
+
+.Medium Intensity Card
+image::workoutMediumIntensity.png[]
+
+.High Intensity Card
+image::workoutHighIntensity.png[]
+
+Similarly, to find more information on the workout, you can use the view command which is covered in a later
+section of this User Guide.
+
 
 ==== Adding an exercise: `add exercise`
-Adds an exercise to exercise list. You will be required to specify the primary muscle of the exercise, its intensity
-as well as its name. Optional fields like secondary muscles and exercise details such as reps, sets can also be added.
-The following shows the fields and which are optional: +
+"I now know the components of the Workout Planner! So what can I do with it?"
+
+Well I'm glad you asked kind person! To start off, we have the add exercise command which creates new
+exercises for your workouts. To add an exercise, you must first specify its name, primary muscle trained as well
+as its intensity. You can also add optional fields such as secondary muscles and exercise details like sets and reps.
+The following shows all the possible fields that can be added: +
 * Name +
 * Primary Muscle +
 * Intensity +
@@ -692,63 +730,221 @@ The following shows the fields and which are optional: +
 * Timing (optional)  +
 * Distance (optional) +
 * Exercise Weight (optional) +
-The format is as follow: +
+To add the exercise, simply input the fields in the Command Box in the following format: +
 Format: `add exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
 s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
 
 Examples:
 
-* `add exercise n/Bench Press p/Chest i/medium sm/Triceps s/5 r/5 w/80 kg` +
-Output: _New Exercise added: Bench Press_
+The following images show an example of the command being inputted and its corresponding
+outputs.
 
+.Example input
+image::addExerciseInputExample.png[]
 
-==== List Exercise: `list exercise`
+.Example output
+image::addExerciseOutput.png[]
+
+==== View Exercise: `view exercise`
+
+Ok, now that you've added your exercise, you probably want to know what all of its details. Simply
+input the command `view exercise` followed by the index of the exercise you want
+to view as shown below.
+
+.Example Input
+image::viewExerciseInput.png[]
+
+The screen should now show the full details of the exercise in question. Let's get you up to
+speed with what's what.
+
+.Exercise Details Screen
+image::viewExerciseOutput.png[]
+
+1. Basic Details +
+The first segment comprises of the basic details of the exercise. This includes the Exercise
+Name, Intensity, Primary and Secondary Muscles, Number of times the exercise has been executed,
+Average Run Time of the Exercise as well as some of its details.
+
+2. Previous Attempts +
+Next up we have a history of all the previous attempts of the exercise. This includes the workout
+that the exercise is done in, the time it was done as well as the time it took. It also specifies
+the number of sets attempted and completed.
+
+The details on this page is automatically updated with each workout run. To return back to
+the exercise page, simply invoke the `goto exercise` command.
+
+More statistics as well as graph view will be implemented in version 2.0.
+
+==== Find Exercise:
+
+Now that you have a sizable amount of Exercises, you realise that you cannot easily find them
+amongst the sea of cards. To tackle this problem of seamless navigation, we implemented the
+find command.
+
+Find Exercise works in 3 ways:
+
+* By Name
+* By Muscles Trained (inclusive of both primary and secondary muscles)
+* By Intensity
+
+To use the following command, simply type `find` in the command box followed by the variant
+you wish to utilise and the predicate.
+
+* To find by name, the variant word is `exercise`
+* To find by muscles trained, the variant word is `exerciseMuscle`
+* To find by intensity, the variant word is `exerciseIntensity`
+
+.Find by Exercise Name
+image::findExercise.png[]
+
+.Find by Muscles Trained
+image::findExerciseMuscle.png[]
+
+.Find by Intensity
+image::findExerciseIntensity.png[]
+
+The filtered lists will then be shown as follows:
+
+.Find Output
+image::findExerciseOutput.png[]
+
+To show every exercise again, simply invoke the `list exercise` command.
+
+==== Add Workout: `add workout`
+
+Now that you've created all your exercise, you're ready to create a workout plan! To create
+a workout, input `add workout n/NAME` into the command box, replacing `NAME` with the name
+of your workout. This will initialise your Workout with no exercises in it.
+
+.Add Workout Input
+image::addWorkoutInput.png[]
+
+.Add Workout Output
+image::addWorkoutOutput.png[]
+
+==== Push Exercise `push exercise`
+
+Once you have initialised your workout, you are now ready to add your exercise into your
+workouts! To do so simply locate the index of the exercise you want to push and the workout
+you want to push your exercise into. Then input the command in the following format `push
+ exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX`.
+
+.Pushing Bench Press into Chest Day
+image::pushExerciseInput.png[]
+
+For example, if you want to add Bench Press exercise into Chest Day workout, type in
+`push exercise wi/4 ei/8` in the command box as seen above. You will get the following input.
+
+.Push Exercise Results
+image::pushExerciseOutput.png[]
+
+Now that you know you know how to push exercises, you can go ahead and add in all the exercises
+needed for your ULITMATE workout regime!
+
+==== View Workout: `view workout`
+You've created your workout regime, but you're unsure of the details and your progress. With
+the `view workout` feature, you can check all the details of your workout as well as its
+history!
+
+Similar to `view exercise`, type in `view workout` followed by the index of the workout you're
+interested in. So if you want to view 'Chest Day' you can follow the image below.
+
+.Viewing Chest Day Workout
+image::viewWorkoutInput.png[]
+
+The following screen will now appear. To orientate you, here are the components of the screen:
+
+. Basic Details +
+This component shows the Name, Intensity, Number of times completed, Average Run Time and
+Muscles Trained by the workout.
+
+. Exercises +
+The exercises segment show a list of all exercises contained in the workout as well as its
+exercise details
+
+. Workout History +
+The workout history compiles a list of all the times you have ran and completed this workout
+
+.Chest Day Screen
+image::viewWorkoutOutput.png[]
+
+Similarly to `view Exercise` command, this page will be automatically updated after each run
+of the workout. You can also return to the workout planner page with `goto exercise`.
+
+==== Run Workout: `run workout`
+
+You've created all your exercises and added it into your ultimate workout. Now you're ready
+to run it! To run the workout, invoke the `run workout` command with the index of your
+ultimate workout.
+
+.Run Workout Window
+image::runWorkoutWindow1.png[]
+
+The window above will pop up upon inputting the command. The window can be broken down into 5
+major segments which are :
+
+. Workout Name +
+Name of the workout you are running.
+. Progress Bar +
+Shows your workout progress/ how far you are from completing the workout.
+. Exercise Name +
+The name of the current exercise you're doing
+. Set Details +
+The details of a set of the exercise you're currently doing.
+. Command Box +
+Where you input your commands
+
+When you have completed a set, you can input `done` into the command box and it will indicate
+the set as completed as shown below.
+
+.Marking a set as Done
+image::runWorkoutWindow2.png[]
+
+After completing all the sets in all exercises, you will be brought back to the main page
+where a congratulatory message will greet you!
+
+.Congratulations!
+image::runworkoutWindow3.png[]
+
+==== Other Commands
+
+With that, you have sufficient knowledge to create and run your workout...
+if you're perfect that is. To make your life easier, we've also
+included some commands to manage your exercises and workout in case you made errors!
+
+. List Exercise: `list exercise` +
 List exercises which matches optional parameters specified eg. muscle type/intensity. +
 Format: `list exercise m/MUSCLEGROUP
 
-==== Delete exercise: `delete exercise`
+. Clear Exercise `clear exercise` +
+Removes all exercises in the list. +
+Format: 'clear exercise'
+
+. Delete exercise: `delete exercise` +
 Deletes exercise of specified index. +
 Format: `delete exercise <index>`
 
-==== View exercise: `view exercise`
-View all the details of an exercise of the specified index. +
-Format: `view exercise<index>`
+. Edit exercise: `edit exercise` +
+Edits exercise with new details +
+Format: `edit exercise n/EXERCISE_NAME p/PRIMARY_MUSCLE sm/SECONDARY_MUSCLE i/INTENSITY
+s/SETS r/REPETITIONS d/ DISTANCE w/WEIGHT t/TIMING`
 
-==== Add calorie: `[coming in v2.0]`
+. Add calorie: `[coming in v2.0] +`
 Tracks calorie burned per rep/set of the exercise in kcal. +
 Format: `calorie <index> <calories>`
 
-==== Check History: `[coming in v1.4]`
-Checks the history of all the pass workouts as well as their statistics eg. exerciseWeight used, number of times exercise is carried out, workouts that use this exercise.
-
-==== Preset Exercises:
-If the list of exercises is empty, a list of preset exercises are generated.
-
-==== Create Workout: `add workout`
-Adds a workout to workout list. The app will then prompt you to add exercises to the workout. +
-Format: `add workout n/WORKOUTNAME`
-
-==== Push Workout: `push exercise`
-Adds an exercise of the index shown, to a workout in the index shown. You can specify whether to use your own
-new set of exercise details (reps, sets etc) or use the default one already in the Exercise object. +
-Format: `push exercise wi/WORKOUT_INDEX ei/EXERCISE_INDEX s/SETS r/REPS d/DISTANCE t/TIMING w/WEIGHT`
-
-==== List Workout: `list workout` [coming in v1.4]
-List workouts which matches optional parameters specified eg. muscle type/intensity/total time. +
-Format: `list workout m/MUSCLEGROUP i/INTENSITY t/TOTALTIME`
-
-==== Delete workout: `delete workout` [coming in v1.4]
+. Delete workout: `delete workout` [coming in v1.4] +
 Deletes workout of specified index. +
 Format: `delete workout <index>`
 
-==== Run Workout: `run` [coming in v1.4]
-Runs a workout with a timer. Shows the details of the exercise: instructions, reps, sets, exerciseWeight as well images if provided. After workout, stats will be automatically be updated and weights of workout will be increased accordingly. +
-Format: `run <index>`
+. Show graph: `[coming in v2.0]`
+Creates a graph showing all your past workouts and exercises.
 
-==== Schedule Workout: `[coming in v1.4]`
+. Schedule Workout: `[coming in v2.0]`
+Create a workout to be added in to your schedule that will show up in your dashboard.
 
-==== Track Body Fitness: `[coming in v1.4]`
-
+Now you know all there is to the workout planner! What are you waiting for? Go out there and put your
+gym membership to use!
 
 === Diary
 
