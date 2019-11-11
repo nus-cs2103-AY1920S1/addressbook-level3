@@ -19,7 +19,7 @@ public class SortStudyPlansByPriorityTagCommand extends Command {
 
     public static final String COMMAND_WORD = "listbypriority";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Lists study plans according to priority tags";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " :Lists all study plans according to their priorities "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all study plans according to their priorities "
             + "Example: "
             + "listbypriority";
 

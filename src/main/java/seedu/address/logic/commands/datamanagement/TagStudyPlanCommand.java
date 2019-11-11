@@ -19,7 +19,7 @@ public class TagStudyPlanCommand extends Command {
     public static final String COMMAND_WORD = "setpriority";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Adding a priority tag to a study plan";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Adds a tag of the specified priority "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag of the specified priority "
             + "(high, medium, low) "
             + "to the study plan of the specified index. "
             + "Parameters: "

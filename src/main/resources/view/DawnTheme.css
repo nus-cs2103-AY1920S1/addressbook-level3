@@ -234,7 +234,6 @@
 .button:focused {
     -fx-border-color: white, white;
     -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
     -fx-border-radius: 0, 0;
     -fx-border-insets: 1 1 1 1, 0;
 }
@@ -265,17 +264,6 @@
 .dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-.dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#c4c4c4, 25%);
-}
-
-.dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
-    -fx-font-style: italic;
-    -fx-fill: white;
     -fx-text-fill: white;
 }
 

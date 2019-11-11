@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.VBox?>
-<VBox styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
+<VBox styleClass="result-display" xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
     <TextArea fx:id="noActiveStudyPlanString" editable="false" styleClass="result-display"/>
 </VBox>

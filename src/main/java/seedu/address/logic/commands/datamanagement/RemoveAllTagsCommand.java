@@ -23,7 +23,7 @@ public class RemoveAllTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "removealltags";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes all user-created tags from all modules "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes all user-created tags from all modules "
             + "Example: "
             + "removealltags";
 

@@ -36,12 +36,12 @@ If there is more than one possible completion, a menu of possible autocompletion
 ** Justification: This feature improves the product significantly because it makes the entire basis of the command-line interface, typing commands, significantly smoother and easier.
 ** Highlights: This enhancement affects every part of the user experience in this CLI app.
 It is interlinked with existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required some use of data structures, as well as integration with existing commands, module codes, and tags.
-* *Minor enhancements*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancements*:
 ** Added expanding and collapsing of semesters, allows familiar semesters to take up less important visual space in the GUI.
 ** Added various GUI themes, such as light or dark mode, so that the user can customise the look of the GUI to their wants.
 ** Added a complex help function that can give general help and also specific help per command, which makes using the app much simpler.
 ** Added block command handling for adding modules, so multiple modules can be added to a semester at once.
-** Handled most of the overall GUI design, apart from the Result Display on the left side.
+** Handled most of the overall GUI design.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yaaanch&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yaaanch&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yaaanch&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yaaanch&tabRepo=AY1920S1-CS2103-F09-3%2Fmain%5Bmaster%5D[Test code]]
 
@@ -52,7 +52,10 @@ It is interlinked with existing commands and commands to be added in future. It 
 ** Enhancements to existing features:
 *** Designed the UX flow and UI mockups with Balsamiq and Figma.
 *** Designed a logo, created banner and replaced the logo and title of the app.
-*** Spearheaded the conversion of GUI from AddressBook (Pull requests #120, #130, #146, #150, #153, #169)
+*** Spearheaded the conversion of GUI from AddressBook (Pull requests https://github.com/AY1920S1-CS2103-F09-3/main/pull/120[#120],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/130[#130], https://github.com/AY1920S1-CS2103-F09-3/main/pull/146[#146],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/150[#150], https://github.com/AY1920S1-CS2103-F09-3/main/pull/153[#153],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/169[#169])
 *** Wrote tests.
 ** Documentation:
 *** Edited UI section in Developer Guide.

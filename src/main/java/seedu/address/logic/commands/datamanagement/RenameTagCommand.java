@@ -22,7 +22,7 @@ public class RenameTagCommand extends Command {
 
     public static final String COMMAND_WORD = "renametag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Renaming an existing tag";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Renames the tag with the specified original name "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Renames the tag with the specified original name "
             + "with the specified new name. "
             + "Parameters: "
             + "ORIGINAL_TAG_NAME "

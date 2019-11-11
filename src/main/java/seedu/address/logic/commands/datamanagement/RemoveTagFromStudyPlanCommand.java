@@ -17,7 +17,7 @@ public class RemoveTagFromStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "removepriority";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Removing the priority tag from a study plan";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Removes the priority tag "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes the priority tag "
             + "from the study plan of the specified index. "
             + "Parameters: "
             + "STUDY_PLAN_INDEX \n"

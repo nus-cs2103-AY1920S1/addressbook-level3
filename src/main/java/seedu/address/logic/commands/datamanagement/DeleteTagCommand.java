@@ -20,7 +20,7 @@ public class DeleteTagCommand extends Command {
 
     public static final String COMMAND_WORD = "deletetag";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Deleting a module tag";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Deletes the module tag with the specified tag name "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the module tag with the specified tag name "
             + "Parameters: "
             + "TAG_NAME \n"
             + "Example: "

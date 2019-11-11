@@ -17,7 +17,7 @@ public class ViewModuleTagsCommand extends Command {
 
     public static final String COMMAND_WORD = "viewtags";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Viewing tags for a specified module";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " : Shows all tags attached to a specific module. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all tags attached to a specific module. "
             + "Parameters: "
             + "MODULE CODE \n"
             + "Example: "

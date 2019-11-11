@@ -24,7 +24,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
-    private static final String NO_ACTIVE_STUDY_PLAN = "You have no remaining study plans.";
+    private static final String NO_ACTIVE_STUDY_PLAN = "No remaining study plans.";
     private static final String STUDY_PLAN_ID = "(ID: %d)";
 
     private final Logger logger = LogsCenter.getLogger(getClass());

@@ -38,10 +38,16 @@ public class ChangeThemeCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         GuiSettings oldSettings = model.getGuiSettings();
-        GuiSettings newSettings = new GuiSettings(oldSettings.getWindowWidth(), oldSettings.getWindowHeight(),
-                (int) oldSettings.getWindowCoordinates().getX(),
-                (int) oldSettings.getWindowCoordinates().getY(), guiTheme);
-        model.setGuiSettings(newSettings);
+        if (oldSettings == null) {
+            GuiSettings newSettings = new GuiSettings(600, 900,
+                0, 0, guiTheme);
+            model.setGuiSettings(newSettings);
+        } else {
+            GuiSettings newSettings = new GuiSettings(oldSettings.getWindowWidth(), oldSettings.getWindowHeight(),
+                    (int) oldSettings.getWindowCoordinates().getX(),
+                    (int) oldSettings.getWindowCoordinates().getY(), guiTheme);
+            model.setGuiSettings(newSettings);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, guiTheme.getModeName()), true, false);
     }
 
