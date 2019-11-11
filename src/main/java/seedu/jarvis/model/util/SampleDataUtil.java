@@ -122,7 +122,7 @@ public class SampleDataUtil {
                     Set.of(new Tag("rover"), new Tag("finance"))),
             new Deadline("CS2106 Lab 5", Priority.MED, null, Status.DONE,
                     Set.of(new Tag("cs2106"), new Tag("school")),
-                    LocalDate.parse("17/11/2019", Task.getDateFormat())),
+                    LocalDate.parse("14/11/2019", Task.getDateFormat())),
             new Todo("Get present for Sara", null, null, Status.NOT_DONE,
                     Set.of(new Tag("finance"))),
             new Todo("Water plant", null, Frequency.WEEKLY, Status.NOT_DONE,
