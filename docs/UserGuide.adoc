@@ -627,7 +627,7 @@ If the top up was successful, you should be able to see the update to your walle
 Unlike your wallet which has a limit to the amount you can have, i.e. $1,000,000, your savings account has a limit that is imposed by the limitations of the user's computer's memory. +
 The savings account and the savings history is presented to the user in the display as shown in figure below.
 
-image::SavingsDisplay.png[width=400]
+image::SavingsDisplay.png[width=400, align="center"]
 
 //tag::savings[]
 ==== Transfer money from user's wallet into savings account: `save`
@@ -652,10 +652,10 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and the
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have saved in your savings account. You will be able to view your savings in the savings history tab. The savings will appear GREEN.]
 
 .Example savings display when "Savings" is clicked as shown after savings are made.
-image::SavingsAdded.png[width=300]
+image::SavingsAdded.png[width=300, align="center"]
 
 .Example success message that appears after keying a successful saving.
-image::SavingsSuccessMessage.png[width=300]
+image::SavingsSuccessMessage.png[width=300, align="center"]
 
 {empty}
 |===
@@ -684,12 +684,12 @@ ifdef::env-github[| :white_check_mark: a| You will see a success message and the
 ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message and the amount of money you have withdrawn from your savings account. You will be able to view your withdrawals in the savings history tab. The withdrawals will appear RED. ]
 
 .Example withdrawal display when "Savings" is clicked as shown after withdrawals are made.
-image::SavingsWithdraw.png[width=300]
+image::SavingsWithdraw.png[width=300, align="center"]
 
 {empty}
 
 .Example success message that appears after keying a successful withdrawal. This appears below where the user typed.
-image::WithdrawalSuccessMessage.png[width=300]
+image::WithdrawalSuccessMessage.png[width=300, align="center"]
 
 {empty}
 |===
