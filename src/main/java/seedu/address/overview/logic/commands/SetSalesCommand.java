@@ -5,6 +5,7 @@ import static seedu.address.overview.ui.OverviewMessages.MESSAGE_SET_SALES_SUCCE
 
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
 import seedu.address.overview.model.Model;
+import seedu.address.util.CommandResult;
 
 /**
  * Command representing setting of sales target.

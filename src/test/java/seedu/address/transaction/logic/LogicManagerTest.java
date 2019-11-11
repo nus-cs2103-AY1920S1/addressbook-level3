@@ -17,10 +17,10 @@ import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.UserPrefs;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.logic.commands.BackCommand;
-import seedu.address.transaction.logic.commands.CommandResult;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.storage.Storage;
 import seedu.address.transaction.storage.StorageManager;
+import seedu.address.util.CommandResult;
 
 class LogicManagerTest {
     private File file;

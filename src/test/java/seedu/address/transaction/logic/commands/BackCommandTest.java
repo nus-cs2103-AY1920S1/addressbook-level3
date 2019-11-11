@@ -11,6 +11,7 @@ import seedu.address.stubs.TransactionModelStubWithTransaction;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TransactionBuilder;
 import seedu.address.transaction.model.transaction.Transaction;
+import seedu.address.util.CommandResult;
 
 class BackCommandTest {
 
