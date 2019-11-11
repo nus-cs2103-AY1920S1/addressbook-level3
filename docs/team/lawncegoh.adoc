@@ -27,7 +27,7 @@ image::PPP-ui.png[]
 This section is a summary of my contributions to the project. I have 3 major enhancements and 1 minor enhancement in total. They are as follows:
 
 * *Major enhancement 1*: I added *ability to `goto` a different view, through the different lists*
-** *What it does*: this `goto` feature allows the user to get to the different lists, namely: contacts,
+** *What it does*: This `goto` feature allows the user to get to the different lists, namely: contacts,
 claims and incomes, changing the state at which the
 user is currently at
 ** *Justification*: This feature is the backbone of my next 2 features because the changing of state is the underlying flag or checker
@@ -42,7 +42,7 @@ changes when a certain view is input as parameter into this `goto` feature.
 
 * *Major enhancement 2*: I added *ability to `sort` and `reverse` the 3 various lists*
 
-** *What it does*:The user is able to sort the lists according to name, date and status.
+** *What it does*: The user is able to sort the lists according to name, date and status.
 `reverse` on the other hand sorts the lists in the reverse order. This is where the states of the various lists will allow this sort feature to work
 differently. An example will be in the state of claims. Only the `sort status` and `reverse status` will work as status belongs only to claim.
 ** *Justification*: The user can now sort the claims based on the most critical ones which are the pending claims. The `reverse`
@@ -57,7 +57,7 @@ what was most important for the user. An example is that I chose to sort the cla
 `sort name`. A Financial Secretary would be more likely to need the description of the claims when he wants to check through his claims.
 
 * *Major enhancement 3*: I added *the ability to `check` each individual claim or contact*
-** *What it does*: in contacts page, the `check` feature allows the user to see the claims and details that are linked to the this current contact. In the
+** *What it does*: The `check` feature allows the user to see the claims and details that are linked to the this current contact in the contacts page. In the
 claims page, the check feature allows the user to view a single claim with the most important details on this
 card. Both are shown through a pop-up to show the individual contact or claim. This feature once again makes use of the change of state in the goto
 feature to ensure that the check works differently in both contacts or claims list.
