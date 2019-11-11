@@ -68,8 +68,7 @@ for each project milestone submission.
 * Enhancements to existing features
 ** Implemented sorting of team list. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/62[#62])
 
-** Updated the GUI layout and color scheme. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/87[#87], 
-https://github.com/AY1920S1-CS2103T-T12-3/main/pull/201[#201])
+** Updated the GUI layout and color scheme. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/87[#87], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/201[#201])
 * Documentation
 ** Added documentation for the `calendar`, `sort` and `view` commands in the User Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/124[#123], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/214[#214])
 ** Added documentation for the `calendar`, `sort` and `view` commands in the Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/220[#220])
