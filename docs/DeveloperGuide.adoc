@@ -471,19 +471,29 @@ The alternative would be to add fixed constraints to the size of each cell but t
 // tag::typinggame[]
 === Game Feature
 ==== Implementation
-The Game Window has three main components `PlayerInformation`, `GameBody` and `Words`. +
-`GameBody` makes use of `javafx.animation.AnimationTimer` API to continuously loop `MovingWords` objects moving from top
-to bottom of the window using `GameBody#loopWords()`. `MovingWords` are created using
-`HighlighterUtil#convertToTextFlowUsing(String word)`
-, which appears as a `TextFlow` object of `javafx.scene.text` API. Based on player input, `MovingWords` are updated using
-`HighlighterUtil#convertToTextFlowUsing(String playerInput, String word)`
-, which appears as a highlighted `TextFlow` object. The API `javafx.animation.AnimationTimer` allows `MovingWords` to be
-continuously updated by calling `Moving#continuouslyUpdate()`.
+The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
+by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
+of the game being over. `GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
 
 .Structure of the Game Window
 image::GameWindowClassDiagram.png[]
 
-The table below summarises the various purposes of the 3 Game Window UI components.
+The component `GameBody` makes use of `javafx.animation.AnimationTimer` API to continuously loop `MovingWords` objects moving from top
+to bottom of the window using `GameBody#loopWords()`. `MovingWords` are created using
+`HighlighterUtil#convertToTextFlowUsing(String word)`
+, which appears as a `TextFlow` object of `javafx.scene.text` API.
+
+Player input is represented as  a `javafx.beans.property.StringProperty` in `Player`.
+Based on player input, `MovingWords` are updated using
+`HighlighterUtil#convertToTextFlowUsing(String playerInput, String word)`
+, which appears as a highlighted `TextFlow` object. In order to update the `MovingWords` object, the API
+`javafx.animation.AnimationTimer` is used by calling `MovingWords#continuouslyUpdate()`.
+
+The component `PlayerInformation` is bound to `Player` using `javafx.beans.property` API and is also updated when
+`MovingWords#continuouslyUpdate()` is called.
+
+
+The table below summarises the various purposes of the 3 main Game Window UI components.
 
 .Game Window UI Components
 [%header, cols=4*]
@@ -508,9 +518,6 @@ The table below summarises the various purposes of the 3 Game Window UI componen
 | Displays the individual word.
 | To allow user to know the next word to type.
 |===
-
-The game feature is implemented using the singleton pattern using the singleton class `GameWindow`. This means that there
-can only be one `gameInstance` at any given time with the exception of the game being over.
 
 ==== Design Considerations
 
