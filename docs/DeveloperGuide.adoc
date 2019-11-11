@@ -1066,7 +1066,19 @@ Expected: No budget is added. Error details will be shown in the status message.
 .. Other incorrect `set` command to try: `set $/-10 c/Shopping d/31122019` (Amount is negative). +
 Expected: Similar to previous.
 
-.
+. Adding a split ledger with the command: `split`
+
+.. Prerequisites:
+
+.. Test case: `split $/1000 n/Amy n/Betty a/HaiDiLao` +
+Expected: An overall ledger with 4 individual ledgers will be added into the list of ledgers in the Ledger tab.
+
+.. Test case: `split $/1000 n/Amy n/Betty` +
+Expected: No ledgers is added. Error details will be shown in the status message.
+
+.. Other incorrect `split` command to try: `split $/1000 n/Amy n/Betty a/HaiDiLao s/1 s/2 s/3 s/4`
+(Greater number of shares than number of people). +
+Expected: Similar to previous.
 
 === Deleting a Person
 

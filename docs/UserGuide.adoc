@@ -922,8 +922,8 @@ Example: `in $/100 n/allowance d/11112019 c/income`
 Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
 * <<Set, *Set*>> : `set $/AMOUNT d/DATE [c/CATEGORY]...` +
 Example: `set $/100 d/10102019 c/food`
-* <<Split, *Split*>> : `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
-Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+* <<Split, *Split*>> : `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...` +
+Example: `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/HaiDiLao`
 * <<Receive, *Receive*>> : `receive $/AMOUNT n/NAME` +
 Example:  `receive $/20 n/Albert`
 * <<Project, *Project*>> : `project DURATION` +
