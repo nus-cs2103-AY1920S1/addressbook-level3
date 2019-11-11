@@ -1,4 +1,4 @@
-= Modulo image:modulo.png[align="center", width="50"]
+= Modulo
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/AY1920S1-CS2103-T16-2/main[image:https://travis-ci.org/AY1920S1-CS2103-T16-2/main.svg?branch=master[Build Status]]

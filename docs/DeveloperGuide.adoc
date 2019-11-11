@@ -68,7 +68,7 @@ The features in _Modulo_ are quite distinct and having minimal overlaps, each fe
 
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete CS2103` when in the feature _Module_.
 
-.Component interactions for `delete 1` command in _Cap_ feature
+.Component interactions for ``delete CS2103`` command in _Cap_ feature
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
