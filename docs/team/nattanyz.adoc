@@ -44,6 +44,7 @@ The Deck Statistics window shows the user's statistics pertaining to the deck, a
 *** Cosmetic changes help make our app *more appealing* to the user and appear *more polished* overall.
 ** Planned future enhancements:
 *** For scrollable content, set the default scrollbar position to the top, rather than the bottom, when dealing with scrollable content. This was something that troubled me for a while, but I did not manage to fix in the end.
+*** Wrap the cards in a deck within a scrollable pane, so that the whole layout will fit in view.
 ** Highlights:
 *** From my first baby steps in working with GUIs during the individual project, I can safely say that I have learnt a great deal since. In particular, I am now more familiar with the JavaFX library.
 *** I can now build a JavaFX GUI (albeit a simpler one) programmatically, without using SceneBuilder, as I have done in the earlier stages of the project.
@@ -56,9 +57,28 @@ My old design for the statistics window, which has since been substantially impr
 image::initial design.png[]
 My initial design work on Figma.
 
-The following table provides a summary of my GUI enhancements:
+The following table provides a summary of some of my GUI enhancements:
+[%header, cols=3]
+|===
+|Description
+|Old screenshot
+|Updated screenshot
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+|Improve appearance of code editor windows
+|image:old flashcoder java.png[]
+|image:new flashcoder java.png[]
+
+|Allow MCQ options to expand, instead of using a scroll pane
+|image:old mcq.png[]
+|image:new mcq.png[]
+
+|Set a constrained minimum size for the application window, to maintain visibility when the window is resized by the user.
+|image:old resize.png[] The window can be resized beyond reasonable limits.
+|image:new empty deck.png[] The window maintains its minimum size.
+
+|===
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nattanyz&tabRepo=AY1920S1-CS2103-F09-2%2Fmain%5Bmaster%5D[Functional code]] [https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/util/stats[Test code for utilities]] [https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/logic/stats[Test code for other statistics classes]]
 
 * *Other contributions*:
 ** Team tasks:
