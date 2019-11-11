@@ -1,11 +1,25 @@
 @startuml
 package util {
     class PdfUtil {
-        ~ generateReport(engagement: Engagement): void
-        ~ initDocument(): Document
-        ~ addHeader(document: Document): Document
-        ~ addContent(document: Document, engagement:Engagement): Document
-        ~ addParagraph(document: Document, engagement:Engagement): Document
+        + {static} generateReport(engagement: Engagement): void
+
+        + {static} checkIfDocumentExists(path: Path, to: String, from: String, start: LocalDateTime, desc: String): boolean
+
+        + {static} openDocument(dirPath: Path, to:String, from:String, start: LocalDateTime, desc:String): void
+
+        + {static} deleteDocument(dirPath: Path, to:String, from:String, start: LocalDateTime, desc:String): boolean
+
+        - {static} initDoc(filName: Path, engagement: Engagement, to: Person): Document
+
+        - {static} addCompanyLogo(document: Document): void
+
+        - {static} addIntroduction(document: Document, engagement:Engagement): Document
+
+        - {static} addConclusion(document: Document, engagement:Engagement): void
+
+        - {static} createAttendeesTable(desc: String, venue:Location, attendeeList:AttendeeList, startTime:LocalDateTime, endTime:LocalDateTime): Paragraph
+
+        - {static} generateFileName(to: String, from: String, start: LocalDateTime, desc: String): String
     }
 }
 @enduml

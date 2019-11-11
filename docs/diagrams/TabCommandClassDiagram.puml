@@ -1,17 +1,19 @@
 @startuml
 package ui {
-    class TabPanel
     class MainWindow {
         fetchTabInformation(tabName:String): Tab
     }
-    class Tab
     abstract class UiPart<Region>
 }
 
-package logic.parser {
-    class TabCommandParser
-    interface Parser
-    class TypeeParser
+package model {
+    class Tab
+}
+
+package logic.interactive.parser {
+    interface InteractiveParser
+    class Parser
+    class State
 }
 
 package logic.commands {
@@ -20,17 +22,13 @@ package logic.commands {
     class CommandResult
 }
 
-UiPart <|-- Tab
-UiPart <|-- TabPanel
 UiPart <|-- MainWindow
 MainWindow *--> Tab
-MainWindow *--> TabPanel
-Parser <|.. TabCommandParser
-Parser <|.. TypeeParser
-TypeeParser ..> TabCommandParser
 Command <|-- TabCommand
-TabCommandParser ..> TabCommand
 TabCommand ..> CommandResult
-MainWindow ..> TypeeParser
-CommandResult .. MainWindow
+MainWindow ..> Parser
+Parser ..> TabCommand
+Parser *-> State
+Parser ..|> InteractiveParser
+MainWindow ..> CommandResult
 @enduml

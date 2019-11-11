@@ -4,8 +4,8 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :bl: pass:[ +]
+:experimental:
 
-[PROFILE]
 ====
 --
 image::jun-ha0.png[width="130", align="left"]
@@ -45,15 +45,13 @@ The sections below will cover the following:
 
 1. Summary of contributions
 
-2. Major and minor enhancements
-
-3. Contributions to User Guide and Developer Guide
+2. Contributions to User Guide and Developer Guide
 
 == Summary of Contributions
 |===
 |[blue]#This section will give you a brief overview of my contributions to the project.# +
 
-This section will be split into *Major Enhancement*, *Other Contributions* and *Code contributed* sub-sections.
+This section will be split into *Major Enhancement*, *Major Enhancement*, *Other Contributions* and *Code contributed* sub-sections.
 |===
 
 [TIP]
@@ -63,30 +61,35 @@ link:https://github.com/AY1920S1-CS2103T-F14-3/main/blob/master/docs/DeveloperGu
 and link:https://github.com/AY1920S1-CS2103T-F14-3/main/blob/master/docs/UserGuide.adoc[User Guide]
 to understand more about *_Typee_* and its list of features in order to have a better idea of my contributions to the project.
 
-* To try out *_Typee_* , go to the User Guide and find the [navy]#*Quick Start*# section for more information.
+* To try out *_Typee_*, go to the User Guide and find the [navy]#*Quick Start*# section for more information.
 ====
 
-=== Features Contributed to Project
+=== Major enhancement: added Game feature
+** [red]#*_What it does:_* -# The game feature is a simple typing game where users score points whenever a word, such as
+ `grass`, is correctly typed.
 
-==== Major enhancement: added `tab game`
-** [red]#*_What_* -# The game feature is a simple typing game where users score points whenever a word, such as
- `fire`, `something`, is correctly typed.
-
-** [red]#*_Why_* -# The game feature is a utility feature that allows the user to practice and exercise their typing skill,
+** [red]#*_Justification:_* -# The game feature is a utility feature that allows the user to improve their typing skill,
 which is an essential skill for secretaries and receptionists. The game-like environment uses a points system and has the
-advantage of keeping users incentivized, entertained and motivated to improve their skills.
+advantage of keeping users incentivized and motivated to improve their skills.
+
+** [red]#*_Highlights:_* -#
+*** In-depth analysis of design alternatives was necessary to prevent users from creating multiple game instances.
+The implementation was also challenging because there were various JavaFX API like `javafx.animation` and `javafx.beans`.
+
+=== Minor enhancement: added `find` command
+** [red]#*_What it does:_* -# Case-insensitive search for engagements based on the given keyword.
+
+** [red]#*_Justification:_* -# Secretaries and receptionists may want to filter or search their list of engagements depending
+on certain criteria. This allows them to better manage and schedule their appointments.
 
 ** [red]#*_Highlights_* -#
-*** This enhancement can be triggered using the `Start` button following `tab game` command.
-This enhancement works with existing as well as future commands.
-In-depth analysis of design alternatives was necessary to...
-The implementation was also challenging because…
+*** This enhancement complements existing as well as future commands.
 
 === Other Contributions
 
 ** [teal]#*Project Management*#
 *** [red]#*Managing Issue Tracker*#
-**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Ajun-ha0+is%3Aclosed+[issues link]
+**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/issues?utf8=%E2%9C%93&q=is%3Aissue+assignee%3Ajun-ha0+is%3Aclosed+[issues link]
 displays the issue trackers I managed.
 
 *** [red]#*Managing milestones*#
@@ -94,13 +97,29 @@ displays the issue trackers I managed.
 
 ==== Community
 *** [teal]#*PR Reviews:*#
-**** The following https://github.com/AY1920S1-CS2103T-F14-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Ajun-ha0+is%3Aclosed+[PR link]
-displays the Pull Requests I reviewed.
+**** The following links https://github.com/AY1920S1-CS2103T-F14-3/main/pulls?utf8=%E2%9C%93&q=is%3Apr+reviewed-by%3Ajun-ha0+is%3Aclosed+[Typee PR]
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11[MoneyGoWhere PR]
+display the Pull Requests I reviewed.
 
 === Code contributed
 
 **** The following https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jun-ha0&tabRepo=AY1920S1-CS2103T-F14-3%2Fmain%5Bmaster%5D[reposense link]
 displays my code contribution.
 
+== Contributions to the User Guide
 
-{ to be continued }
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=game]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=typinggame]
+
+include::../DeveloperGuide.adoc[tag=use-case-game]

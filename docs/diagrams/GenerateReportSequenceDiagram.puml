@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+box Logic LOGIC_COLOR_T1
+participant ":PdfCommand" as PdfCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Report" as Report MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":Engagement" as Engagement MODEL_COLOR
+end box
+
+box Util
+participant PdfUtil as PdfUtil #green
+end box
+
+activate PdfCommand
+activate Model
+PdfCommand -> Report:Report(engagement, to, from)
+activate Report
+Report -> PdfCommand:report
+deactivate Report
+PdfCommand -> Model:saveReport(fileDir, report)
+Model -> Report:getEngagement()
+activate Report
+Report -> Model:engagement
+deactivate Report
+Model -> Engagement:getStartDate()
+destroy Report
+activate Engagement
+Engagement -> Model:start
+Model -> Engagement:getDesc()
+Engagement -> Model:desc
+deactivate Engagement
+
+deactivate Engagement
+Model -> PdfUtil:checkIfDocumentExists(to, from, start, desc)
+destroy Engagement
+activate PdfUtil
+
+PdfUtil -> Model:true
+Model -> PdfUtil:generateReport(fileDir, report)
+PdfUtil -> Model:docPath
+deactivate PdfUtil
+Model -> PdfCommand:docPath
+deactivate Model
+deactivate PdfCommand
+destroy PdfUtil
+@enduml
