@@ -101,7 +101,7 @@ The section extracted from the Developer Guide below showcase my ability to writ
 ==== _------------- This is the start of extraction -------------_
 include::../DeveloperGuide.adoc[tag=reminder]
 
-include::../DeveloperGuide.adoc[tag=use-case-reminder]
+//include::../DeveloperGuide.adoc[tag=use-case-reminder]
 //include::../DeveloperGuide.adoc[tag=test-reminder]
 
 ==== _------------- This is the end of extraction -------------_

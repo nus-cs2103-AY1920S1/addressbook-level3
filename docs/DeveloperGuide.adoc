@@ -734,7 +734,7 @@ It works the same as `goto` command of the bookmark.
 
 The following activity diagram summarizes what happens when a user attempts to use a reminder command:
 
-image::ReminderActivityDiagram.png[600, 400]
+image::ReminderActivityDiagram.png[600, 500]
 
 ==== Design Considerations
 ===== Aspect: How to represent the relationship between reminder and bookmark
