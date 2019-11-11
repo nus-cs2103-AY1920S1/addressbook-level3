@@ -3,7 +3,6 @@ package seedu.address.logic;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_ALICE;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_NUMBER_ALICE;
@@ -13,26 +12,22 @@ import static seedu.address.model.util.SampleDataUtil.getSampleArchivedOrderBook
 import static seedu.address.model.util.SampleDataUtil.getSampleCustomerBook;
 import static seedu.address.model.util.SampleDataUtil.getSampleOrderBook;
 import static seedu.address.model.util.SampleDataUtil.getSamplePhoneBook;
-import static seedu.address.model.util.SampleDataUtil.getSamplePhones;
 import static seedu.address.model.util.SampleDataUtil.getSampleScheduleBook;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
-import org.apache.commons.math3.analysis.function.Add;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.listcommand.ListCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyDataBook;
