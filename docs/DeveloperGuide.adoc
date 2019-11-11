@@ -20,9 +20,9 @@ By: `Team THRIFT`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 <<thrift, THRIFT>> is an application for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money.
-It maintain records of your daily incoming and outgoing transactions and constantly keep track of the user's spending and income.
-THRIFT is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI).
-It is a simple, no-frills finance tracker made for the target user group.
+It maintains records of your daily incoming and outgoing transactions and constantly keeps track of the user's spending and income.
+THRIFT is optimised for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI).
+It is a simple, no-frills finance tracker made for our target user group.
 
 === Purpose
 
@@ -68,19 +68,19 @@ Do not disable them. If you have disabled them, go to *File* > *Settings* > *Plu
 
 === Setting up the project in your computer
 
-. Fork this repo, and clone the fork to your computer
-. Open IntelliJ (if you are not in the welcome screen, click *File* > *Close Project* to close the existing project dialog first)
-. Set up the correct JDK version for Gradle
-.. Click *Configure* > *Project Defaults* > *Project Structure*
-.. Click *New...* and find the directory of the JDK
-. Click *Import Project*
-. Locate the `__build.gradle__` file and select it. Click *OK*
-. Click *Open as Project*
+. Fork this repo, and clone the fork to your computer.
+. Open IntelliJ (if you are not in the welcome screen, click *File* > *Close Project* to close the existing project dialog first).
+. Set up the correct JDK version for Gradle.
+.. Click *Configure* > *Project Defaults* > *Project Structure*.
+.. Click *New...* and find the directory of the JDK.
+. Click *Import Project*.
+. Locate the `__build.gradle__` file and select it. Click *OK*.
+. Click *Open as Project*.
 . Click *OK* to accept the default settings.
 
 === Verifying the setup
 
-. Run the `*thrift.Main*` and try a few commands
+. Run the `*thrift.Main*` and try a few commands.
 . <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
@@ -89,9 +89,9 @@ Do not disable them. If you have disabled them, go to *File* > *Settings* > *Plu
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
-. Go to *File* > *Settings...* (Windows/Linux), or *IntelliJ IDEA* > *Preferences...* (macOS)
-. Select *Editor* > *Code Style* > *Java*
-. Click on the *Imports* tab to set the order
+. Go to *File* > *Settings...* (Windows/Linux), or *IntelliJ IDEA* > *Preferences...* (macOS).
+. Select *Editor* > *Code Style* > *Java*.
+. Click on the *Imports* tab to set the order.
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to *999* to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is *import static all other imports*, *import java.\**, *import javax.**, *import org.\**, *import com.**, *import all other imports*. Add a *<blank line>* between each *import*
@@ -208,7 +208,7 @@ image::LogicClassDiagram.png[]
 
 API : link:{repoURL}/src/main/java/thrift/logic/Logic.java[`_Logic.java_`]
 
-`**Logic**` is an interface where `**LogicManager**` implements, allowing access to the API. The following items are examples on how the `**LogicManager**`
+`**Logic**` is an interface which `**LogicManager**` implements, allowing access to the API. The following items are examples on how the `**LogicManager**`
 class can be interacted with:
 
 .  `**LogicManager**` uses the `**ThriftParser**` class to parse the user command.
@@ -232,7 +232,7 @@ image::ModelClassDiagram.png[628, 600]
 
 *API* : link:{repoURL}/src/main/java/thrift/model/Model.java[`_Model.java_`]
 
-The `**Model**`,
+The `**Model**`:
 
 * stores a `**UserPref**` object that represents the user's preferences.
 * stores `**THRIFT**` data.
@@ -254,27 +254,28 @@ image::StorageClassDiagram.png[]
 
 API : link:{repoURL}/src/main/java/thrift/storage/Storage.java[`_Storage.java_`]
 
-The `**Storage**` component,
+The `**Storage**` component:
 
 * can save `**UserPref**` objects in json format and read it back.
 * can save the `**THRIFT**` data in json format and read it back:
 ** `**JsonAdaptedTransaction**` stores `**Transaction**` objects in `JSON` format.
 ** `**JsonAdaptedTag**` stores `**Tag**` objects in `JSON` format, nested under `**JsonAdaptedTransaction**`.
 ** `**JsonAdaptedBudget**` stores `**Budget**` objects in `JSON` format.
+** `**JsonCurrencyMappings**` stores `**CurrencyMappings**` HashMaps in `JSON` format.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `**thrift.commons**` package.
+Classes used by multiple components are found in the `**thrift.commons**` package.
 
 == Implementation
 
-This section describes some noteworthy details on how we implemented certain features and various considerations
+This section describes some noteworthy details on how we implemented certain features and the various considerations
 that we had.
 
 //tag::addtransaction[]
 === Adding transactions
-We allow users to add `**Expense**`/`**Income**` transactions into `**THRIFT**` which enables record-keeping. This section will show how we handle such
+We allow users to add `**Expense**`/`**Income**` transactions into `**THRIFT**` which enables record-keeping. This section show how we handle such
 requests from the user at the back-end.
 
 ==== Implementation
@@ -457,7 +458,7 @@ since `**Budget**` is not really related to `**Transaction**` in the real world.
 === Tag/Untag feature
 
 We allow the user to add and remove custom `**Tag**` objects in `**Transaction**` entries so that they can categorise the entries to their own liking.
-The following sections describe how this feature is implemented and the design considerations that led up to the solution.
+The following sections describe how this feature is implemented and the design considerations that led to the solution.
 
 ==== Implementation
 
@@ -561,7 +562,7 @@ The **update **functionality modifies details of a specified `**Transaction**` i
 modifications to the external storage file.
 
 ==== Implementation
-**Update** mechanism utilizes <<Design-Logic, *Logic*>> operations with the `**UpdateCommand**` class in place of
+**Update** mechanism utilizes `**Logic**` operations with the `**UpdateCommand**` class in place of
 `**Command**`, and a unique `**UpdateCommandParser**` class. The following methods are concrete implementations for
 **update** operations:
 
@@ -685,7 +686,7 @@ Here is a Class Diagram for the implementation of `**Occurrence**`:
 .Implementation of `**Occurrence**` class
 image::clone/cloneDG/OccurrenceClassDiagram.png[]
 
-The *clone* functionality is facilitated by common <<Design-Logic, *Logic*>> operations and classes for commands, with
+The *clone* functionality is facilitated by common `**Logic**` operations and classes for commands, with
 feature-specific classes `**CloneCommand**` in place of `**Command**`, and `**CloneCommandParser**`.
 The following methods are concrete implementations unique to **clone**:
 
@@ -1004,7 +1005,7 @@ This way, we can enhance the user experience and make our application more effec
 
 The following sections will describe how we plan to implement this feature and the possible design considerations.
 
-==== Proposed Implementation
+==== Proposed implementation
 Adhering to the Open-Closed principle, we will not modify the existing architecture but extend it.
 The following class diagram illustrates how we propose to do it, by adding 2 new classes to the existing architecture:
 
@@ -1071,8 +1072,8 @@ The current formats we have in mind for report documents and the relevant Java A
 
 We are using `**java.util.logging**` package for logging. The `**LogsCenter**` class is used to manage the logging levels and logging destinations:
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `**Logger**` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>).
+* The `**Logger**` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
 * The log messages are output through: `Console` and to a `.log` file.
 
 *Logging Levels*
@@ -1089,10 +1090,10 @@ instead of just its size
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: _config.json_).
 
 == Documentation
-We use asciidoc for writing documentation.
+We use AsciiDoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex than Markdown, provides more flexibility in formatting.
 
 === Editing documentation
 
@@ -1124,7 +1125,7 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide documentation settings
 
-The link:{repoURL}/build.gradle[`_build.gradle_`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`_build.gradle_`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[AsciiDoc attributes] which affects how all documentation files within this project are rendered.
 
 [TIP]
 Attributes left unset in the `_build.gradle_` file will use their default value, if any.
@@ -1148,7 +1149,7 @@ Setting this will add a "View on GitHub" link in the navigation bar.
 [[Docs-PerFileDocSettings]]
 === Per-file documentation settings
 
-Each .adoc file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+Each .adoc file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[AsciiDoc attributes] which affects how the file is rendered.
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
@@ -1247,7 +1248,7 @@ We use https://coveralls.io/[Coveralls] to track the code coverage of our projec
 
 === Documentation previews
 
-When a pull request has changes to asciidoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+When a pull request has changes to AsciiDoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those AsciiDoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
 
 === Making a release
 
@@ -1260,7 +1261,7 @@ Here are the steps to create a new release.
 
 === Managing dependencies
 
-A project often depends on third-party libraries. For example, THRIFT depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives:
+A project often depends on third-party libraries. For example, THRIFT depends on the https://github.com/FasterXML/jackson[Jackson library] for JSON parsing. Managing these _dependencies_ can be automated using Gradle. Gradle can download the dependencies automatically, which is better than these alternatives:
 
 [loweralpha]
 . Include those libraries in the repo (this bloats the repo size)
@@ -1271,17 +1272,17 @@ A project often depends on third-party libraries. For example, THRIFT depends on
 
 *Target user profile*:
 
-* money-conscious NUS students
-* number of transactions are significant and needs to be managed
-* apps are preferred on desktop over other platforms
-* typists that type quickly and prefers typing over mouse input
-* CLI usage does not pose any discomfort
+* targets money-conscious NUS students
+* requires management of a significant number of transactions
+* prefers apps on desktop over other platforms
+* types quickly and prefers it over mouse input
+* experiences no discomfort with CLI navigation
 
 *Value proposition*:
 
-* provides a more effective financial management compared to typical mouse/GUI driven app
-* plans for future spending are made easier
-* congregates all info regarding fees and costs in a single location
+* provides effective financial management compared to typical mouse/GUI driven applications
+* makes planning for future spending easier
+* congregates all information regarding incomes and expenses in a single location
 
 [appendix]
 == User stories
@@ -1333,8 +1334,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`
 |NUS student who loans money to a lot of friends
-|use the debt tracker to track and collect my interest
-|
+|use the debt tracker
+|track and collect my interest
 
 |`* * *`
 |student accepting financial aid
@@ -1343,8 +1344,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`
 |student who borrows money frequently from other people
-|use the debt tracker to remember who I owe money to
-|
+|use the debt tracker
+|remember who I owe money to
 
 |`* * *`
 |NUS international student
@@ -1353,8 +1354,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`
 |phone junkie
-|set aside enough money for purchasing the latest phones and accessories
-|
+|set aside enough money
+|purchase the latest phones and accessories
 
 |`* * *`
 |student who is conscious about money
@@ -1378,8 +1379,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`
 |student that frequently takes on part-time jobs
-|use finance planner to track my income
-|
+|use finance planner
+|track my income
 
 |`* * *`
 |frugal NUS student
@@ -1419,12 +1420,12 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *`
 |student who loves to keep track of finance
 |view all the possible commands
-|fully utilize the functionalities offered by the application
+|fully utilise the functionality offered by the application
 
 |`* *`
 |student that wants to allocate less money to material goods and more to food
-|analyse the spending by category and adjust accordingly
-|
+|analyse the spending by category
+|adjust accordingly
 
 |`* *`
 |on-campus resident who likes to cook my own food
@@ -1890,13 +1891,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Prerequisites: List all transactions using the **list** command. The first transaction is "1. [-] Laksa ($10.50) [Lunch][Food]".
 .. Test case: **tag i/1 t/EXPENSIVE** +
-   Expected: Details of the tagged transaction shown in Result Box. Listing the transaction reflects changes.
+   Expected: Details of the tagged transaction and original transaction is shown in the Result Box. Listing the transaction reflects changes.
 .. Test case: **tag i/INVALID_INDEX t/VALID_TAG** where **INVALID_INDEX** is a number less than 1 or more than list size and **VALID_TAG** is a valid tag. +
-   Expected: No changes. Error details shown in Result Box.
+   Expected: No changes to any transaction entry. Details of the error is shown in the Result Box.
+.. Test case: **tag i/VALID_INDEX t/ALREADY_INSIDE_TAG** where **VALID_INDEX** is a valid transaction index and **ALREADY_INSIDE_TAG** is already inside the transaction specified. +
+   Expected: No changes to the transaction entry. Details of the error is shown in the Result Box.
 .. Test case: **tag firstTransaction** +
-   Expected: No changes. Error details shown in Result Box.
+   Expected: No changes to any transaction entry. Details of the error is shown in the Result Box.
 .. Test case: **tag** +
-   Expected: No changes. Error details shown in Result Box.
+   Expected: No changes to any transaction entry. Details of the error is shown in the Result Box.
 
 === Untagging a transaction
 
@@ -1906,24 +1909,24 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: **untag i/1 t/FOOD** +
    Expected: Details of the untagged transaction shown in Result Box. Listing the transaction reflects changes.
 .. Test case: **untag i/INVALID_INDEX t/VALID_TAG** where **INVALID_INDEX** is a number less than 1 or more than list size and **VALID_TAG** is a valid tag. +
-   Expected: No changes. Error details shown in Result Box.
+   Expected: No changes to any transaction entry. Details of the error is shown in the Result Box.
 .. Test case: **untag i/VALID_INDEX t/NOT_INSIDE_TAG** where **VALID_INDEX** is a valid transaction index and **NOT_INSIDE_TAG** is not inside the transaction specified. +
-   Expected: No changes. Error details shown in Result Box.
+   Expected: No changes to the transaction entry. Details of the error is shown in the Result Box.
 .. Test case: **untag secondTransaction** +
-   Expected: No changes. Error details shown in Result Box.
+   Expected: No changes to any transaction entry. Details of the error is shown in the Result Box.
 .. Test case: **untag** +
-   Expected: No changes. Error details shown in Result Box.
+   Expected: No changes to any transaction entry. Details of the error is shown in the Result Box.
 
 === Converting a value
 
 . Converting a values's currency and displaying it
 
 .. Test case: **convert v/VALUE c/SGD c/USD** +
-   Expected: Original value and converted value displayed to the user.
+   Expected: Original value and converted value displayed to the user in the Result Box.
 .. Test case: **convert v/VALUE c/SGD c/INVALID_CURRENCY** where **INVALID_CURRENCY** is not a supported currency. +
-   Expected: Error details shown in Result Box.
+   Expected: Details of the error is shown in the Result Box.
 .. Test case: **convert v/VALUE c/INVALID_CURRENCY c/USD** where **INVALID_CURRENCY** is not a supported currency. +
-   Expected: Error details shown in Result Box.
+   Expected: Details of the error is shown in the Result Box.
 
 === Finding a transaction
 
@@ -2027,7 +2030,7 @@ Expected: No changes. A message is shown in the Result Box, indicating that it i
 
 === Redoing the undone command
 
-. Redoing undone command and reflecting changes in the list
+. Redoing the undone command and reflecting changes in the list
 
 .. Prerequisites: List all transactions using the *list* command
 .. Test case:
@@ -2151,4 +2154,5 @@ Expected: No changes. A message is shown in the Result Box, indicating that it i
 
 . Dealing with missing/corrupted data files
 
-.. Delete the data file at `.\data\thrift.json`.
+.. Delete the data files at `.\data\thrift.json` and `.\data\currency.json`
+(depending on your Operating System, you might need to use the forward slash '/' for the path).

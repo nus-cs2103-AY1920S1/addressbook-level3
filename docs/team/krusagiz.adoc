@@ -20,11 +20,11 @@ THRIFT is an application for money-conscious NUS students who wish to track thei
 .Main window of THRIFT which displays a list of user's transactions along with some useful information
 image::../images/UGUI.png[,700]
 
-THRIFT is a fork from the original https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3] application which allows users to create a personalised list of contacts.
+THRIFT is a fork of the original https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook-Level3] application which allows users to create a personalised list of contacts.
 My team and I have since transformed the application to suit our use cases.
 
 === About the THRIFT Team
-The THRIFT team consists of five passionate developers and I was the Software Architect, who is in charge of documentation.
+The THRIFT Team consists of five passionate developers and I was the Software Architect, who is in charge of documentation.
 The other team members and their respective roles were:
 
 * Poh Jia Hao (Team Lead)
@@ -101,7 +101,8 @@ https://github.com/AY1920S1-CS2103T-W12-2/main/pull/77[#77],
 https://github.com/AY1920S1-CS2103T-W12-2/main/pull/179[#179],
 https://github.com/AY1920S1-CS2103T-W12-2/main/pull/200[#200],
 https://github.com/AY1920S1-CS2103T-W12-2/main/pull/223[#223],
-https://github.com/AY1920S1-CS2103T-W12-2/main/pull/275[#275])
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/275[#275],
+https://github.com/AY1920S1-CS2103T-W12-2/main/pull/283[#283])
 
 
 * Community:
@@ -164,4 +165,4 @@ _{Start of extract from the section on the proposed AI extension}_
 include::../DeveloperGuide.adoc[tag=ai]
 
 
-_{End of extract from the section on proposed AI extension}_
+_{End of extract from the section on the proposed AI extension}_

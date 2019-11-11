@@ -20,7 +20,7 @@ image::logo/logo.png[align="center"]
 By: `Team THRIFT`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
-THRIFT is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. Maintain records of your daily incoming and outgoing transactions and constantly keep track of your spending and income! THRIFT is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills finance tracker, look no further than THRIFT!
+THRIFT is for money-conscious NUS students who wish to track their spending, in order to make better informed decisions when it comes to saving money. Maintain records of your daily incoming and outgoing transactions to constantly keep track of your finances! THRIFT is optimized for those who prefer to work with a Command Line Interface (CLI) while still enjoying the benefits of having a Graphical User Interface (GUI). If you want a simple, no-frills finance tracker, look no further than THRIFT!
 
 This is how THRIFT looks like:
 
@@ -55,7 +55,6 @@ NOTE: Parameters can be in any order e.g. if the command specifies `n/EXPENSE_NA
 **add_expense n/Lunch v/5**:: Words in bold indicates the input that would be entered by you.
 _Debt_:: Words in italics indicate the literals used in the example commands.
 [ ] :: Words in square brackets `[ ]` are optional e.g. `n/EXPENSE_NAME [t/TAG]` can be used as `n/Laksa`.
-( | ) :: Words in round brackets `( )` with `|` are mandatory parameters where a selection is required e.g. `tag (add | delete)` means you need to input either `tag add` or `tag delete`.
 ... ::   Parameters with `...` after them can be used as often as zero to multiple times. e.g. `[t/TAG] …` can be used as ` ` (i.e. 0 times), `t/Food t/Dinner` etc.
 
 [[BudgetTag]]
@@ -638,7 +637,7 @@ image::Help-exit/specifichelpcommand.PNG[]
 
 [[ExitTag]]
 === Exiting THRIFT: `exit`
-Think about exiting THRIFT after you have added the transaction? You can enter *exit* in the
+Thinking about exiting THRIFT after you have added the transaction? You can enter *exit* in the
 Command Box or click on the close button at the top-right corner of the application (if you are on Windows).
 
 image::exit/Exit.png[,550]
