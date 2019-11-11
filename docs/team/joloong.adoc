@@ -68,6 +68,7 @@ https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
 *** Wrote the details for the following commands in the User Guide.
 **** View / Sort / Filter / Undo / Redo / Clear / List / Help / Exit
 *** Wrote user stories in the Developer Guide.
+*** Wrote the instructions for manual testing in the Developer Guide.
 *** Created UML diagrams to help in the explanation of view, sort and filter commands in the Developer Guide.
 
 ** Community:
