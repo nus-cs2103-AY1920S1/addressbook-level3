@@ -1,13 +1,13 @@
 @startuml
 !include style.puml
 skinparam arrowThickness 1.1
-skinparam arrowColor UI_COLOR_T4
-skinparam classBackgroundColor UI_COLOR
+skinparam arrowColor CALENDAR_COLOR
+skinparam classBackgroundColor CALENDAR_COLOR
 
 package CalendarWindow <<Rectangle>>{
-Class Tab UI_COLOR
-Class "{abstract}\nUiPart" as UiPart UI_COLOR
-Class CalendarWindow UI_COLOR_T1
+Class Tab
+Class "{abstract}\nUiPart" as UiPart
+Class CalendarWindow
 Class YearMonth
 Class CalendarDateCell
 Class DateDisplayGrid

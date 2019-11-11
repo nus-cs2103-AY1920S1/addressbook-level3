@@ -59,9 +59,6 @@ Refer to <<Features>> for details of each command.
 [[Features]]
 == Features
 
-=== Viewing help : `help`
-
-Format: `help`
 
 //tag::interactive-parsing[]
 === Interactive Parsing
@@ -250,19 +247,18 @@ is not a parameter for the 'Add' command.
 Switches to a different menu in the application window. +
 Format: `tab b/MENU_NAME`
 
-* Typee has 4 major features/menus. They comprise of:
+* Typee has four major features/menus. They comprise of:
 ** Engagements List
 ** Typing Game
 ** Calendar View
 ** Report Generator
+
 Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
-`tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
 `Engagement` window is set to default window upon starting the application.
 
-If the user wants to switch to different windows, simply enter the tab command
-with a reference to the menu name listed on the left end of the application window. +
+If user wants to switch to different windows, simply enter the tab command. Tab names can be seen on the top of the application display in green boxes. +
 
 For example, user enters `tab b/calendar`
 , which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
@@ -270,7 +266,8 @@ For example, user enters `tab b/calendar`
 [NOTE]
 Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
-image::tab_2.png[width="800"]
+image::tab_2.png[width="600"]
+//end::tab-command[]
 
 Users can start building a command in one tab, switch tabs midway and finish building the command in another tab.
 This can be achieved by the following sequence of inputs.
@@ -281,9 +278,6 @@ tab
 b/calendar
 l/COM-1 d/Meeting a/Damith p/High
 ```
-
-
-//end::tab-command[]
 
 === Adding an engagement: `add`
 
@@ -435,7 +429,7 @@ l/Com Basement
 ```
 The non-interactive equivalent of this sequence is `find l/Com Basement`.
 
-[%header, cols=3*]
+[%header, cols="15%, 10%, 75%"]
 |===
 |Search parameter
 |Tag
@@ -613,7 +607,7 @@ Format: `calendar c/nextmonth`
 .Calendar view for November 2019
 image::calendar-view.png[width="450", float="left"]
 [.left]
-.Calendar view (December 2019) after executing the `nextmonth` command
+.Calendar view after `nextmonth` command
 image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
@@ -630,7 +624,7 @@ Format: `calendar c/previousmonth`
 .Calendar view for November 2019
 image::calendar-view.png[width="450", float="left"]
 [.left]
-.Calendar view (October 2019) after executing the `previousmonth` command
+.Calendar view after `previousmonth` command
 image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
@@ -643,17 +637,17 @@ This command closes any open engagement windows from the current month before up
 Changes the current window to the TypingGame window which has a kbd:[Start] button.
 
 .Starting window of the TypingGame Window
-image::StartWindow.png[width="600"]
+image::StartWindow.png[width="400"]
 Click the kbd:[Start] button to open the game in a new window.
 
 There are moving words that you can type in order to score points. Once you correctly type the specified word,
 the word disappears and the increase in points is reflected in the player information panel in the game window.
 
 .Sample game play
-image::GameWindow.png[width="200" float="left"]
+image::GameWindow.png[width="300" float="left"]
 
 .Sample game play when game is over
-image::GameOver.png[width="200" float="left]
+image::GameOver.png[width="300" float="left]
 
 [TIP]
 Press kbd:[SPACEBAR] or kbd:[Enter] to clear the text area which is located at the bottom of the screen.
@@ -719,7 +713,7 @@ Delete function will only available when user has pre-selected the document list
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message and after click
-image::pdf_delete_before_after.png[width="750"]
+image::pdf_delete_before_after.png[align="center", width="750"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
@@ -740,6 +734,16 @@ image::pdf_error_2.png[width="600"]
 image::pdf_error_1.png[width="600"]
 
 // end::pdf-command[]
+
+=== Help window : `help`
+
+.The help window
+image::help-window.png[width="600"]
+
+Format: `help`
+
+The user can type `help` in the input text area to open up a help window. It displays a basic command summary and a link to
+the user guide, which has more detailed information about using Typee.
 
 === Exiting the program : `exit`
 

@@ -26,7 +26,7 @@ class AttendeesStateTest {
 
     private static final String EXPECTED_CONSTRAINTS = "Who will be present at the engagement? Please enter the list of"
             + " attendees separated by vertical lines and prefixed by " + PREFIX_ATTENDEES.getPrefix() + ". "
-            + "Example - [Prof Damith | Jon Snow]";
+            + "Example - [a/Prof Damith | Jon Snow]";
 
     @Test
     void transition_validArgumentMultimapOneInput_returnsPostTransitionState() {

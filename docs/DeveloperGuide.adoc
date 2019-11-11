@@ -251,12 +251,12 @@ Tab switch function is implemented in using both CLI and GUI approach; user can 
 image::tabcmd_and_tabFetch_activity.png[width="750", float="left"]
 ---
 
-1. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
-* Upon first startup of the system, by system default, system will display the `EngagementList` window.
+1. User is required to use a `Command`; `TabCommand` in order to switch the window to another window.
+* Upon first startup of the system, system will display the `EngagementList` window by default.
 2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
 
 MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
-Next, system checks whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return withn an empty tab with only name attached.
+System will then check whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return with an empty tab with only name attached.
 
 //end::tab-switch[]
 
@@ -310,24 +310,22 @@ Table below explains the components that are included in the `ReportWindow` with
 | `Refresh Button`
 | Button
 | Refreshes the tree-view file directory.
-| To help user to refresh the directory when there is a system glitch or manually adds document (.pdf) in the `reports/` directory.
+| To help user refresh the directory when there is a system glitch or when document (.pdf) is manually added in the `reports/` directory.
 
 | `Delete Button`
 | Button
 | Deletes the selected document item in the tree-view file directory.
-| To assist users who prefer using mouse (GUI over CLI) deletes document easily.
+| To assist users who prefer using mouse instead of typing command in keyboard can delete documents easily.
 
 | `File_Explorer`
 | Scrollable Tree View
 |
 1. Displays the list of document generated previously and stored under the directory `reports/`.
 
-2. Each list item is clickable with a MouseClick action of opening the document.
+2. Each list item is clickable with a mouse click action of opening the document.
 | To allow user to manage documents more time efficiently.
 |===
 //end::report[]
-
-// tag::calendar[]
 
 === Calendar Window
 
@@ -337,7 +335,7 @@ show more detailed descriptions of the stored engagements for a particular day.
 
 ==== Implementation Structure
 .Structure of the Calendar Window
-image::CalendarWindowClassDiagram.png[align="center"]
+image::CalendarWindowClassDiagram.png[]
 {empty} +
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
@@ -346,7 +344,7 @@ The following sequence diagram shows the creation of a `CalendarWindow` instance
 calendar window tab.
 
 .CalendarWindow Initialization Sequence Diagram
-image::CalendarWindowSequenceDiagram.png[align="center"]
+image::CalendarWindowSequenceDiagram.png[]
 {empty} +
 
 ==== UI Design
@@ -408,25 +406,25 @@ which are used to model their workflows:
 * `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
 
 .Open Display Activity Diagram
-image::CalendarOpenDisplayActivityDiagram.png[align="center"]
+image::CalendarOpenDisplayActivityDiagram.png[]
 {empty} +
 
 * `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
 
 .Close Display Activity Diagram
-image::CalendarCloseDisplayActivityDiagram.png[align="center"]
+image::CalendarCloseDisplayActivityDiagram.png[]
 {empty} +
 
 * `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
 
 .Next Month Activity Diagram
-image::CalendarNextMonthActivityDiagram.png[align="center"]
+image::CalendarNextMonthActivityDiagram.png[]
 {empty} +
 
 * `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
 
 .Previous Month Activity Diagram
-image::CalendarPreviousMonthActivityDiagram.png[align="center"]
+image::CalendarPreviousMonthActivityDiagram.png[]
 {empty} +
 
 ==== Design Considerations
@@ -451,12 +449,8 @@ by opening the engagements list window for that particular date.
 ** Pros: Shows more detailed information in the calendar window.
 ** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
-// end::calendar[]
-
-
 
 // tag::typinggame[]
-
 === Game Feature
 ==== Implementation
 The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
@@ -464,7 +458,8 @@ by button-click in `StartWindow`. This means that there can only be one `gameIns
 of the game being over.
 
 //image::GameActivityDiagram.png[float="left"]
-image::GameActivityDiagram.png[]
+image::GameActivityDiagram.png[width="60%"]
+.Activity Diagram of the Game Window
 
 `GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
 
@@ -537,7 +532,7 @@ The sort mechanism is facilitated by `EngagementComparator`.
 The `EngagementComparator` is an enum class that implements Java Comparator<Engagement> and specifies the comparing logic of 8 different orders, namely `START_TIME`, `START_TIME_REVERSE`, `END_TIME`, `END_TIME_REVERSE`, `ALPHABETICAL`, `ALPHABETICAL_REVERSE`, `PRIORITY`, and `PRIORITY_REVERSE`.
 Each positive sequence comparator compares two `Engagements` with the field specified within its name in ascending order, and `_REVERSE` comparators compare in descending order.
 
-Additionaly, the `Model` interface is modified to support the following methods:
+Additionally, the `Model` interface is modified to support the following methods:
 
 * `Model#setComparator(Comparator<Engagement>)` -- Sets the designated comparator in model.
 * `Model#updateSortedEngagementList()` -- Executes the sorting method with the `currentComparator` in model to sort the internal list.
@@ -1034,8 +1029,8 @@ and carry out administrative tasks.
 [[manager]] Manager::
 The person that the secretary is assigned to work for.
 
-[[appointment]] Appointment::
-An arrangement, managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
+[[engagement]] Engagement::
+An arrangement, meeting or interview managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
 //end::glossary[]
 
 
@@ -1078,6 +1073,83 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+
+=== Adding an engagement
+
+(i) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(ii) Test case: `add t/ s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid engagement type due to invalid engagement type.
+
+(iii) Test case: `add t/meeting s/ e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid start time due to invalid start time.
+
+(iv) Test case: `add t/meeting s/16/11/2019/1500 e/ l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid end time due to invalid end time.
+
+(v) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/ d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid location due to invalid location.
+
+(vi) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/ a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for due to invalid description.
+
+(vii) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/ p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid attendees due to invalid attendees.
+
+(vii) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/高`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
+
+(viii) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/High
+```
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(ix) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/appointment
+s/01/01/2019/0900
+e/01/01/2019/1000
+l/Meeting Room 3
+d/Team Discussion
+a/John Smith
+p/None
+```
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(x) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/😄
+```
+Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
+
 === Sorting the engagement list
 . Instantiating the sort command mode
 .. Type `sort` in the command line and click `send`.
@@ -1102,5 +1174,3 @@ These instructions only provide a starting point for testers to work on; testers
 . Executing redo command
 .. Type in `redo` and press `enter`.
 .. The recovered engagement should disappear in the list.
-
-
