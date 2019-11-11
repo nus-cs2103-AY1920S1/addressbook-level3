@@ -1061,37 +1061,33 @@ stored within the class.
 
 The classes added where each class represents an info card:
 
-1. `AddInfo`
-2. `AliasInfo`
-3. `AutoSortInfo`
-4. `BudgetInfo`
-5. `BuyInfo`
-6. `ClearInfo`
-7. `CustomSortInfo`
-8. `DefaultInfo`
-9. `DeleteInfo`
-10. `DislikeInfo`
-11. `EditInfo`
-12. `ExitInfo`
-13. `FilterInfo`
-14. `HelpInfo`
-15. `HistoryInfo`
-16. `InfoInfo`
-17. `LikeInfo`
-18. `MakeSortInfo`
-19. `RecommendInfo`
-20. `RemoveDislikeInfo`
-21. `RemoveLikeInfo`
-22. `SaveInfo`
-23. `ShowInfo`
-24. `ThemeInfo`
-25. `TopUpInfo`
-26. `ViewSortInfo`
-27. `WithdrawInfo`
-
-[NOTE]
-Note that not all the classes that inherit `Command` are included as this info card only concerns the commands
-that the users can use.
+===== `AddInfo`
+===== `AliasInfo`
+===== `AutoSortInfo`
+===== `BudgetInfo`
+===== `BuyInfo`
+===== `ClearInfo`
+===== `CustomSortInfo`
+===== `DefaultInfo`
+===== `DeleteInfo`
+===== `DislikeInfo`
+===== `EditInfo`
+===== `ExitInfo`
+===== `FilterInfo`
+===== `HelpInfo`
+===== `HistoryInfo`
+===== `InfoInfo`
+===== `LikeInfo`
+===== `MakeSortInfo`
+===== `RecommendInfo`
+===== `RemoveDislikeInfo`
+===== `RemoveLikeInfo`
+===== `SaveInfo`
+===== `ShowInfo`
+===== `ThemeInfo`
+===== `TopUpInfo`
+===== `ViewSortInfo`
+===== `WithdrawInfo`
 
 Each of these classes contains these fields:
 
