@@ -700,56 +700,173 @@ of classes.
 ** Cons: `*Model*` and `*Logic*` will have unnecessary coupling which reduces testability and makes maintenance and integration harder.
 // end::ruleExec[]
 
-// tag::importexport[]
-=== Import and export
-==== Implementation
-
-The import functionality takes in a file and parses it into ``Transaction``s.
-
-All of the supported formats are comma-separated value (CSV) files. The bulk of
-the work is parsing the different ways the different banks represent the same data,
-and mapping each column from bank transaction export into the fields contained by
-Budget Buddy ``Transaction``s.
-
-The following class diagram illustrates the design of the import and export function.
-
-_TODO: Class diagram_
-
-==== Design considerations
-
-_TODO_
-// end::importexport[]
-
 // tag::scripts[]
 === Scripting
+
+The scripting feature allows users to write scripts to automate tasks and extend the
+functionality of Budget Buddy.
+
 ==== Implementation
 
-The scripting engine works independently of the rest of the application.
-At its core, it uses the Nashorn ECMAScript 5.1 engine bundled with Java 11 to
-evaluate scripts.
+The script engine works independently of the rest of the application.
+At its core, it uses the
+https://docs.oracle.com/en/java/javase/11/nashorn/nashorn-java-api.html[Nashorn ECMAScript 5.1]
+engine bundled with Java 11 to evaluate scripts.
 
 A set of convenience functions are provided to make basic tasks, such as manipulating
-transactions and accounts, easier. The full model and UI are nevertheless exposed to
+transactions and accounts, easier. The full model is nevertheless exposed to
 scripts, and scripts are able to access any classes provided in the Java 11 standard
 library, as well as any dependencies included in the application.
 
 There is a simple mechanism to store scripts to be run in future. This works together
 with rules to give the ability to have complex predicates and actions outside of
-those supported inherently by the program. This also works with aliases to allow,
-in effect, custom commands to be created.
+those supported inherently by the program.
 
-The following class diagram illustrates the design of the scripting engine and model.
+When the <<aliases,proposed alias feature>> is implemented, scripts and aliases can be
+used together to, in effect, allow users to create custom commands.
 
-_TODO: Class diagram_
+The following class diagram illustrates the design of the script engine and model. For clarity, parts of the model and logic components that do not interact directly with the script engine are omitted.
+
+.Structure of scripts in the model and logic components
+image::ScriptsClassDiagram.png[]
+
+===== Script engine
+
+The logic component of the scripts feature contains the
+{repoURL}/blob/master/src/main/java/budgetbuddy/logic/script/ScriptEngine.java[`ScriptEngine`]
+class which underpins the entire scripting component. At its heart, the `ScriptEngine` class is
+simply a thin layer to abstract away the underlying script engine (in our case, Nashorn). It contains a method
+`evaluateScript` that accepts a string of script code, and arguments for the script, and
+then evaluates the script. There is an overload of `evaluateScript` that accepts a `Script`
+from the script model, which is simply a convenience method. There is no other relationship
+between the logic and model components.
+
+The logic component also contains methods `setVariable`, `addToEnvironment` and `resetEnvironment`
+that allow functions and variables to be set in the script environment, to provide helper functions
+to the scripts, like those in the <<UserGuide.adoc#scripting-api,Scripting API>>.
+
+To allow other components to add helper functions to the script environment,
+without the script engine having to be aware of those components,
+the `ScriptEngine` accepts ``ScriptEnvironmentInitialiser``s. A `ScriptEnvironmentInitialiser`
+is a `FunctionalInterface` that simply accepts a `ScriptEngine` and does some setup
+on it e.g. setting variables and functions using `ScriptEngine#setVariable`. `ScriptEngine`
+maintains a list of ``ScriptEnvironmentInitialiser``s and re-applies them each time
+`ScriptEngine#resetEnvironment` is called.
+
+===== Library and storage
+
+The model component of the scripts feature is a simple script library that allows
+users to store scripts with a name and a description for repeated use. See the interface
+{repoURL}/blob/master/src/main/java/budgetbuddy/model/ScriptLibrary.java[`ScriptLibrary`]
+and its implementation
+{repoURL}/blob/master/src/main/java/budgetbuddy/model/ScriptLibraryManager.java[`ScriptLibraryManager`].
+
+Scripts are persisted as individual files under the `scripts/` directory in
+Budget Buddy's data directory. Script names are not stored separately, but simply
+used as the file name of the scripts with a `.js` extension. See
+{repoURL}/blob/master/src/main/java/budgetbuddy/storage/scripts/FlatfileScriptsStorage.java[`FlatfileScriptsStorage`].
+
+The script descriptions are stored in a separate `descriptions.json` file.
+
+===== User interface
+
+The last component of the scripts feature is the user interface.
+
+The script engine is presented to the user as a set of simple commands.
+<<UserGuide.adoc#script-eval,`script eval`>> and <<UserGuide.adoc#script-run,`script run`>>
+run scripts, while <<UserGuide.adoc#script-reset,`script reset`>> resets the script environment.
+<<UserGuide.adoc#script-add,`script add`>>, <<UserGuide.adoc#script-list,`script list`>>
+and <<UserGuide.adoc#script-delete,`script delete`>> manage the script library.
+
+The following sequence diagram shows the interaction between the different components
+when the user runs a script from the script library using `script run my-script`.
+
+.Interaction between the components during the execution of `script run my-script`
+image::ScriptsSequenceDiagram.png[]
+
+The command is parsed into `ScriptRunCommand` by the command line parser.
+`ScriptRunCommand` then retrieves the `Script` from the `ScriptLibraryManager`
+and then hands the `Script` to `ScriptEngine` for evaluation.
+
+===== Script bindings
+
+Script bindings are added via
+{repoURL}/blob/master/src/main/java/budgetbuddy/logic/script/ScriptEnvironmentInitialiser.java[``ScriptEnvironmentInitialiser``s], which are registed with the `ScriptEngine` through `Logic#addToScriptEnvironment`.
+
+Most of the functions exposed in the <<UserGuide.adoc#scripting-api,Scripting API>>
+come from the script-model bindings, in
+{repoURL}/blob/master/src/main/java/budgetbuddy/logic/script/ScriptModelBinding.java[`ScriptModelBinding`].
+JavaFX-specific bindings are added in
+{repoURL}/blob/master/src/main/java/budgetbuddy/ui/ScriptUiBinding.java[`ScriptUiBinding`],
+and bindings that require access to `MainWindow` internals are added in a private inner class of `MainWindow`.
+
+Methods in the binding classes are added into the script environment by casting
+their method references to appropriate ``FunctionalInterface``s. Nashorn allows
+objects which implement a `FunctionalInterface` to be called as if they were
+functions, providing an ergonomic scripting experience for the user. Nashorn also
+helps to do some type conversion from JavaScript types to Java types, saving on
+the amount of boilerplate required in our implementation.
+
+We declare an
+entire suite of functional interfaces in
+{repoURL}/blob/master/src/main/java/budgetbuddy/logic/script/ScriptBindingInterfaces.java[`ScriptBindingInterfaces`].
+
+We do not use the functional interfaces provided in the Java package `java.util.function`
+because of these reasons:
+
+* These interfaces cannot be used if the methods throw any checked exceptions.
+Many script methods involve parsing strings into appropriate model types, which
+means that parsing exceptions need to be thrown, but they are checked exceptions.
+* These interfaces have generic type parameters. However, because Java implements
+generics using type erasure, it is not possible for Nashorn to determine the actual
+types of parameters, in order to do automatic conversion between JavaScript and Java
+types, if functional interfaces with generic type parameters were used.
+(They would all appear as `Object` at runtime.) This is also the reason that we do
+not use generics in the functional interfaces in `ScriptBindingInterfaces`.
 
 ==== Design considerations
 
-_TODO_
+===== Aspect: JavaScript engine
+
+Two JavaScript engines were considered.
+
+* *Alternative 1 (current choice)*: Use the Nashorn JavaScript engine.
+** Pros: It is bundled with Java 11.
+** Cons: It is deprecated and marked for removal in a future Java version, and
+it also interprets scripts, so it is slower than GraalVM.
+* *Alternative 2*: Use the GraalVM engine.
+** Pros: It is well-maintained, and it also just-in-time (JIT) compiles scripts,
+so it will be faster than Nashorn.
+** Cons: It is not bundled with Java 11, so it is an additional dependency.
+
+We chose Nashorn because:
+
+* While it is slower, it is not too slow for the kinds of lightweight scripting tasks
+in Budget Buddy.
+* While it is deprecated, we are targetting specifically Java 11, so its future removal
+is not a concern at this moment.
+* It is bundled with Java 11, so we do not need to manage and ship an additional
+dependency.
+
+===== Aspect: Script bindings
+
+* *Alternative 1 (current choice)*: Use functional interfaces.
+** Pros: It requires less marshalling code in Budget Buddy, because Nashorn helps
+to perform most of the type conversion.
+** Cons: Many functional interfaces need to be declared for every unique method
+signature exposed to the script environment.
+* *Alternative 2*: Extend Nashorn's
+https://docs.oracle.com/javase/8/docs/jdk/api/nashorn/jdk/nashorn/api/scripting/AbstractJSObject.html[`AbstractJSObject`],
+overriding the `call` method.
+** Pros: No extra declarations (e.g. functional interfaces) need to be made if a
+new method signature is to be exposed to the script environment.
+** Cons: Nashorn's built-in type conversion and marshalling are not applicable; it
+has to be done manually in our `AbstractJSObject` subclass.
 // end::scripts[]
 
 // tag::aliases[]
-=== Aliases
-==== Implementation
+[#aliases]
+=== [Proposed] Aliases
 
 The alias is a simple hook into the command parsing engine. If there is no
 built-in command corresponding to a command line, then the alias map is checked.
@@ -760,9 +877,10 @@ To prevent alias loops where the user creates an alias `x` mapping to `y`, and a
 alias `y` mapping to `x`, we track the aliases that have been applied, and
 stop evaluation if we see that the same alias has been applied more than once.
 
-==== Design considerations
+The following activity diagram illustrates the above algorithm.
 
-_TODO_
+.Alias resolution algorithm
+image::AliasActivityDiagram.png[]
 // end::aliases[]
 
 === Logging
@@ -1252,3 +1370,45 @@ These instructions only provide a starting point for testers to work on.
    Expected: Similar to previous. Transaction also has a category "Large Savings"
 .. Test case: `txn dn/out x/100 d/Buffet`
    Expected: Transaction is added. Rules do not apply to transaction. No change to description or categories.
+
+=== Scripts
+
+==== Evaluating an expression
+
+. Evaluating an expression
+.. Prerequisites: None
+.. Test case: `script eval 123 + 456` Expected: "579" is shown in the command result box.
+.. Test case: `script eval showAlert("Hello", "World")` Expected: An alert box with "Hello" as the title and "World" as the message is shown. "Script succeeded with no result." is shown in the command result box.
+
+==== Listing scripts
+
+. Listing scripts
+.. Prerequisites: A tab other than the script tab is active.
+.. Test case: `script list` Expected: The script tab is activated.
+
+==== Adding a script
+
+. Adding a script from the command line
+.. Prerequisites: No script named `hello-world` exists.
+.. Test case: `script add hello-world s/"Hello world"` Expected: The script tab is shown. "New script hello-world added." is shown in the command result box. A script `hello-world` with description "No description provided" is shown in the list of scripts.
+. Adding a script from file
+.. Prerequisites: No script named `hello-world` exists.
+.. Test case: `script add hello-world` Expected: The script tab is shown. A file picker dialog appears. Once any file is selected, "New script hello-world added." is shown in the command result box. A script `hello-world` with description "No description provided" is shown in the list of scripts.
+
+==== Running a script
+
+. Running a script
+.. Prerequisites: `script add hello-world s/"Hello world"`
+.. Test case: `script run hello-world` Expected: "Hello world" is shown in the command result box.
+
+==== Deleting a script
+
+. Deleting a script
+.. Prerequisites: `script add hello-world s/"Hello world"`
+.. Test case: `script delete hello-world` Expected: The script tab is shown. "Script hello-world deleted." is shown in the command result box. No script with the name `hello-world` is listed in the list of scripts.
+
+==== Resetting the scripting environment
+
+. Resetting the scripting environment
+.. Prerequisites: `script eval var a = 1`
+.. Test case: `script reset`, then `script eval a` Expected: "Exception while evaluating script: javax.script.ScriptException: ReferenceError: "a" is not defined in <eval> at line number 1" is shown in the command result box.
