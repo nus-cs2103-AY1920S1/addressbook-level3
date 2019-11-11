@@ -38,7 +38,7 @@ public interface InteractiveParser {
     /**
      * Builds and returns the {@code Command} that is available after parsing.
      * This method is designed by a contract (DbC) and can be invoked
-     * only if {@code hasParsedCommand()} returns true. 
+     * only if {@code hasParsedCommand()} returns true.
      *
      * @return {@code Command} entered by the user.
      * @throws ParseException If the {@code Command} has invalid arguments.

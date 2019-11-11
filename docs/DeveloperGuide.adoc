@@ -601,7 +601,22 @@ add an interview can simply type `add t/interview` to receive prompts on what to
 
 This feature was conceived to make the application easy to use for amateur users.
 
-==== Implementation
+==== Design & Implementation
+
+Important Classes:
+
+* InteractiveParser - The interface exposed to `LogicManager`. The parser implements this interface.
+* Parser - A concrete implementation of `InteractiveParser` that enables interactive parsing.
+* State - An abstract class that represents the individual states the application can be in while parsing and building a `Command`.
+* EndState - An abstract class that extends from `State`. Represents the final `State` of a parsed command, from which a `Command` object can be built.
+
+The interface `InteractiveParser` is the connecting interface between the `LogicManager` and the main `Parser`. This interface is
+designed by contract (DbC - proposed by Bertrand Meyer). The interface exposes four methods to the `LogicManager`, namely:
+
+* `parseInput()` - Parses the entered input.
+* `fetchResult()` - Returns the response to be showed to the user in a `CommandResult` object.
+* `hasParsedCommand()` - Returns true if the `Parser` has finished parsing a `Command` fully.
+* `makeCommand()` - Makes and returns the `Command` the user intends to execute.
 
 To achieve interaction, the `Parser` keeps track of the `State` of the current `Command` being built. `State` is an abstract class that represents
 the individual states the application can be at in the midst of building a `Command`. `EndState` is an abstract class that extends from `State`,
@@ -618,7 +633,25 @@ which is executed by the `LogicManager`.
 Parsing of user entered inputs can be viewed as parsing a small, finite context-free language. The command built by a sequence of inputs
 is uniquely determined by the sequence of inputs entered by the user and happens to be deterministic. +
 
-This observation allows the usage of a
+This observation allows the `Parser` to be modeled by a *finite state machine*. A finite state machine is an
+abstract computational model which consists of a machine comprising several states. At a particular point in time, only one state
+of the state machine is active. The machine transitions from one state to another state if certain conditions are met.
+
+In the context of Typee's `Parser`, the parser of each individual `Command` is a distinct finite state machine. The condition to be
+satisfied to transition to another state is the validation of user-entered inputs.
+
+The incorporation of state machines into the `Parser` is done by implementing a slightly modified version of the *state pattern*
+documented by the *Gang of Four* (GoF).
+
+Upon initiating the parsing (building) of a `Command`, the state machine that corresponds to the required `Command` is instantiated and set
+to its initial state. This state becomes the `State` tracked by the `Parser` Subsequent inputs are tokenized by the `ArgumentTokenizer` class,
+processed by the `InputProcessor` class and forwarded to the current `State`. If the input is deemed valid, the `Parser` invokes the `transition()`
+method of the current `State` to proceed to the next `State`. This process is repeated until an `EndState` is reached. Throughout this process, the
+user receives feedback from the `Parser` in the form of an encapsulated `CommandResult` object.
+
+==== Design Considerations
+
+
 
 //end::interactive-parsing[]
 
