@@ -1,0 +1,96 @@
+= Lim Daekoon - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Splitwiser
+
+== Overview
+
+For our Software Engineering project, my team, comprising of 5 students (including myself), was given the codebase for a command line desktop application called 'Address Book', where we were required to morph this given codebase into an application of our choice. We chose to morph this application into a group expense management app called 'SplitWiser'. This enhanced application enables people to simplify expense and debt tracking in group activities, so that people will know exactly how to split the bill at the end of the activity.
+
+Our product has the following main features:
+
+- Create, update and delete Contacts and Activities
+- Add expenses to activities
+- Add/remove participants from activities
+- Automatic splitting of bills between participants
+- Settle debts within an activity
+- Auto-saving of all data
+
+// Add list of main features
+
+This is what our project looks like:
+
+.Sample screenshot of SplitWiser
+image::../images/Ui.png[]
+
+I was responsible for creating the activity class, and the entire infrastructure required to support it. It is the foundational feature of our product, as it stores all information necessary to handle bill splitting. This makes my role particularly crucial as all features related to bill splitting interacts with this class. Furthermore, I created the functionality to create activities, and updated the find functionality to search based on context. The following sections describe my contributions in greater depth, in addition to the documentation that I added pertaining to the aforementioned features.
+
+// Explain what the symbols mean
+== Summary of contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the
+team project.
+
+=== Major Enhancements
+* *Activity Class*: I created the `Activity` class and all its dependencies.
+** What it is: Activity class stores all information for an activity, such as `Title`, `Participants`, and `Expenses`.
+** Justification: This feature is the foundation of our product. Activities contain all necessary information necessary to handle bill splitting.
+** Highlights: Activities stores the following information:
+*** Title: Title of the activity. Compulsory field.
+*** Participants: Contacts that took part in this activity.
+*** Expenses: Expenses incurred by this activity.
+
+* *Storage of Activity*: I created the infrastructure that allows local storage of Activities.
+** What it is: Activities can now be locally stored as a `ActivityBook.json` file. Activities can also be loaded from this file.
+** Justification: Similar to how Contacts are stored locally, Activities should also be saved, so that it would not disappear when the application is closed. Without it, the program is unusable.
+** Highlights: Activities are stored locally, and can be loaded anytime. Validations are executed on every load, preventing corrupted or invalid save files from being loaded.
+
+* *Create Activity*: I added the ability to create Activities.
+** What it does: The `Activity` command allows the user to create new activity.
+** Justification: This is the foundational feature of our product. Activities contain all necessary information needed to handle the splitting of bills, and we need to provide users the ability to create activities to make use of our product.
+** Highlights: Activity command that allows users to create new activities. Users can specify the title of the activity, and can invite contacts into the activity as participants. In order to improve usability, contacts are first searched using exact-matching, and then keyword-based matching if no valid exact match is found.
+
+* *Search functionality with context*: I added the ability to search using context.
+** What it does: The `find` command allows the user to search based on current context.
+** Justification: This feature significantly increase the usability of our product. As time progresses, the application will have many contacts and activities, often similar in nature, therefore having the ability to find the activity you want among many different similar matches is invaluable.
+** Highlights: Find command that searches based on the current context. When viewing a list of activities, find command searches for activity. When viewing a list of contacts, it searches for contacts instead. Uses keyword-based matching.
+
+=== Other contributions
+
+* Project management:
+** Improved gradle configuration to show test results (Pull Request https://github.com/AY1920S1-CS2103T-W11-2/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/191[#191])
+
+* Documentations:
+** Added User guide for Activity Command
+** Added section on Activity feature for Developer Guide
+
+* Community:
+** Reviewed Pull-Requests with non-trivial review comments: (Pull Request https://github.com/AY1920S1-CS2103T-W11-2/main/pull/122[#122], https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80[#80] )
+
+=== Code contributed
+
+** https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=daekoon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=daekoon&tabRepo=AY1920S1-CS2103T-W11-2%2Fmain%5Bmaster%5D[Contribution info].
+
+== Contributions to the User Guide
+
+// If too much contribution, selectively choose the good parts
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=create_activity]
+
+include::../UserGuide.adoc[tag=find]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=activityclass]
+
+include::../DeveloperGuide.adoc[tag=createactivity]
+
+include::../DeveloperGuide.adoc[tag=findfeature]

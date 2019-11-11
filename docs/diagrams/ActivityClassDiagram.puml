@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam FontColor #FFFFFFF
+
+show members
+hide empty members
+
+Class Activity {
+    {static} -primaryKeyCounter
+    -primaryKey
+    -participantIds
+    -participantBalances
+    -isSettlement
+}
+ActivityBook *--> "     *" Activity
+Activity *--> "1" Title
+Activity *--> "     *" Expense
+@enduml

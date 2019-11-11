@@ -51,7 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 SplitWiser data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually - you don't have to worry about forgetting to save!
 
-=== Persistent app state
+=== Persistent app state (v2.0 only)
 
 SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
 
@@ -119,16 +119,17 @@ Examples:
 * `contact n/John Doe p/98765432` +
 Creates a new contact with name John Doe and mobile number 98765432.
 
+// tag::create_activity[]
 === Create new activity: `activity`
 
 Creates a new activity with a title, contacts (optional) and no expenses.
 ****
-* Additional contacts to add to the activity can be specified by using `p/` prefix.
+* Additional contacts can be added to the activity by using `p/` prefix.
 ** Initially, the application will search for contact with exact matching name.
 ** If no exact match is found, keyword matching is used instead. Refer to <<Finding contacts or activities: `find`>> for more details.
 ** For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.
 * Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
-* Each activity will be assigned an activity ID automatically. +
+* Each activity will be automatically assigned an activity ID. +
 ****
 
 Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
@@ -140,36 +141,75 @@ Creates a new activity with title 'Chalet' John Doe as participants.
 
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
 Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
+// end::create_activity[]
 
-=== Add contacts to an activity: `invite`
-
-Adds a contact in the contact list to the currently viewed activity. Multiple contacts can also be added at once.
-If there is no current viewed activity, then the contact cannot be added and there will be an error.
-If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message indicating non-unique search result will be shown instead.
+// tag::invite[]
+=== Inviting contacts to an activity: `invite`
+This command invites the contacts specified to the current viewed activity.
 
 Format: `invite p/PERSON ...`
 
-Examples:
+Example: +
+Suppose you have already created an activity with Alice, Bob and Carl in it. +
+`activity t/Holiday Trip p/Alice p/Bob p/Carl`
 
-* `invite p/John Doe p/Mary` +
-Adds both John Doe and Mary to the current viewed activity.
+And you have friends that wants to join an activity midway.
 
-* `invite p/Mary p/David p/Alex` +
-Adds David and Alex to the current viewed activity if they are found in the contact list. Mary will not be added into the activity again since she in already in the activity, a message indicating her existence in the activity will be shown instead.
+To invite:
 
-=== Remove contacts from an activity: `disinvite`
+Step 1: Type `invite` into the command box and specify the contacts you want to invite from the contact list with the `p/` prefix e.g. `invite p/Mary p/John p/Carl` and press `Enter` to execute it.
 
-Removes a contact from the currently viewed activity. Multiple contacts can also be removed at once.
-If there is no current viewed activity, then the contact cannot be removed and there will be an error.
-If the specified contact does not exist in the current activity, a warning message indicating that the contact does not exist in the current activity will be shown instead.
-If the specified contact is involved in an expense, he cannot be removed since he does not owe money to anyone and no one else owes him money and a warning message indicating that he is involved in an expense will be shown instead.
+image::../images/InviteCommand.png[]
+
+Step 2: Observe the output in result box and the activity details box.
+
+image::InviteOutput.png[]
+
+NOTE: *The `invite` command only invites to current viewed activity.* +
+if there is no current viewed activity, there will be an error. +
+ +
+*The `invite` command only invites contact that exist in the contact list.* +
+If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message will be shown. +
+ +
+*Multiple contacts can be invited at once.* +
+ +
+*Contacts that already exist in activity cannot be invited again.*
+// end::invite[]
+
+// tag::disinvite[]
+=== Disinviting contacts from an activity: `disinvite`
+This command disinvites the contacts specified from the current viewed activity.
 
 Format: `disinvite p/PERSON ...`
 
-Examples:
+Example: +
+Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John
 
-* `disinvite p/John Doe p/Mary` +
-Removes John Doe and Mary from the current activity. If any one of them are involved in expenses, none of them will be removed.
+image::DisinviteExample.png[]
+
+And you feel that the activity has too many participants that do not participate in any event, thus having no shared expense and you decided to remove them.
+
+To disinvite:
+
+Step 1: Type `disinvite` into the command box and specify the contacts you want to disinvite from the activity with the `p/` prefix e.g. `disinvite p/Mary p/John p/Carl` and press `Enter` to execute it.
+
+image::DisinviteCommand.png[]
+
+Step 2: Observe the output in result box and the activity details box.
+
+image::DisinviteOutput.png[]
+
+NOTE: *The `disinvite` command only disinvites from current viewed activity.* +
+if there is no current viewed activity, there will be an error. +
+ +
+*The `disinvite` command only disinvites contact that exist in the activity.* +
+If the specified contact does not exist in the activity, then a warning message will be shown. +
+ +
+*Multiple contacts can be disinvited at once.* +
+ +
+*Contacts that involve in expenses cannot be disinvited.* +
+If a contact is involved in any expense, he cannot be disinvited.
+// end::disinvite[]
 
 // tag::expense[]
 === Add expenses to an activity : `expense`
@@ -263,6 +303,8 @@ Edits the phone number of the current contact in view to `999`. No changes are m
 Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
 // end::edit[]
 
+
+// tag::find[]
 === Finding contacts or activities: `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
@@ -284,27 +326,22 @@ Examples:
 * `find John` +
 If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
 If currently viewing list of activities, returns activities (e.g `lunch with john`).
+// end::find[]
 
+// tag::delete[]
 === Deleting a contact, activity or expense: `delete`
 
 Deletes the contact/activity/expense at the specified index from the current display. +
 
-If current display is listing contacts `list c/`, the contact at that specified index will be deleted if he/she is not involved in any activities.
-
-If current display is listing activities `list a/`, the activity at that specified index will be deleted.
-
-If viewing an activity instead `view a/1`, it will soft-delete an expense* by index.
-
-If the current display is not any of the above displays mentioned, error will be thrown.
-
 Format: `delete INDEX`
 
-****
-* Deletes the entry at the specified `INDEX`.
-* The index refers to the index number shown in the displayed list of contacts/activities.
-* The index *must be a positive integer* 1, 2, 3, ...
-* *Expenses cannot be completely deleted. It will instead be struck off (but still visible) in the activity view, and moved to the bottom of the list.
-****
+If current display is listing contacts e.g. `list c/`, the contact at that specified `INDEX` will be deleted if he/she is not involved in any activities.
+
+If current display is listing activities e.g. `list a/`, the activity at that specified `INDEX` will be deleted.
+
+If viewing an activity instead e.g. `view a/1`, it will soft-delete the expense* at that `INDEX`.
+
+If the current display is not any of the above displays mentioned, error will be thrown.
 
 Examples:
 
@@ -315,7 +352,17 @@ If viewing the list of contacts, deletes the 2nd person by index if he/she is no
 If viewing the list of activities, deletes the 1st activity by index. +
 
 * `delete 1` +
-If viewing a particular activity, strikes off (soft-deletes) the 1st expense by index.
+If viewing a particular activity, fades (soft-deletes) the 1st expense by index.
+
+NOTE: *Deletes the entry at the specified `INDEX`.* +
+ +
+*The `INDEX` refers to the index number shown in the displayed list of contacts/activities/expenses.* +
+ +
+*The `INDEX` must be a positive integer 1, 2, 3, ...* +
+ +
+*Expenses cannot be completely deleted. It will instead be faded (but still visible) in the activity view.*
+
+// end::delete[]
 
 //tag::varexpense[]
 === Add variable split expenses to an activity: `varexpense` (*v2.0 only*)

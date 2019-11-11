@@ -1,9 +1,9 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -11,8 +11,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import seedu.address.commons.util.Triplet;
 import seedu.address.model.activity.Activity;
+import seedu.address.model.activity.Expense;
 import seedu.address.model.person.Person;
+import seedu.address.ui.util.UiUtil;
 
 /**
  * Panel displaying details of a contact.
@@ -20,7 +23,7 @@ import seedu.address.model.person.Person;
 public class ActivityDetailsPanel extends UiPart<Region> {
     private static final String FXML = "ActivityDetailsPanel.fxml";
 
-    public final Activity activity;
+    private final Activity activity;
 
     @FXML
     private ScrollPane detailsPane;
@@ -47,42 +50,33 @@ public class ActivityDetailsPanel extends UiPart<Region> {
                 .map((participant) -> participant.getName().toString())
                 .forEach(name -> participantTags.getChildren().add(new Label(name)));
 
-        int numParticipants = activity.getParticipantIds().size();
-        participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));
+        int numParticipants = activity.getParticipantCount();
+        participantCount.setText(UiUtil.formatParticipantCount(numParticipants));
 
-        double totalSpending = activity.getExpenses().stream()
-                .map((expense) -> expense.getAmount().value)
-                .reduce(0.00, (acc, amt) -> acc + amt);
+        double totalSpending = activity.getTotalSpending();
         spending.setText(String.format("$%.2f", totalSpending));
 
-        activity.getExpenses().stream()
-                .forEach(expense -> {
-                    expenseHistory.getChildren().add(new ExpenseCard(expense, participants).getRoot());
+        List<Expense> expenses = activity.getExpenses();
+        IntStream.range(0, expenses.size())
+                .forEach(index -> {
+                    ExpenseCard newNode = new ExpenseCard(expenses.get(index), participants, index + 1);
+                    expenseHistory.getChildren().add(newNode.getRoot());
                 });
 
-        List<Integer> participantIds = activity.getParticipantIds();
         Map<Integer, Person> idMapping = participants.stream()
                 .collect(Collectors.toMap(p -> p.getPrimaryKey(), p -> p));
 
-        ArrayList<ArrayList<Double>> transfersMatrix = activity.getTransferMatrix();
-        for (int i = 0; i < numParticipants; i++) {
-            ArrayList<Double> row = transfersMatrix.get(i);
-            for (int j = i; j < numParticipants; j++) {
-                // i and j do not owe each other any amount
-                if (row.get(j) == 0.0) {
-                    continue;
-                }
+        // Retrieve required transfers to settle all debts within this activity
+        List<Triplet<Integer, Integer, Double>> listTransfers = activity.getSolution();
 
-                Person personI = idMapping.get(participantIds.get(i));
-                Person personJ = idMapping.get(participantIds.get(j));
-                if (row.get(j) < 0) {
-                    // i owes j some amount (i --> j)
-                    transferList.getChildren().add(new TransferCard(personI, personJ, -row.get(j)).getRoot());
-                } else {
-                    // j owes i some amount (j --> i)
-                    transferList.getChildren().add(new TransferCard(personJ, personI, row.get(j)).getRoot());
-                }
-            }
-        }
+        listTransfers.stream()
+                .forEach(transfer -> {
+                    Person sender = idMapping.get(transfer.getFirst());
+                    Person recipient = idMapping.get(transfer.getSecond());
+                    double transferAmt = transfer.getThird();
+
+                    TransferCard newNode = new TransferCard(sender, recipient, transferAmt);
+                    transferList.getChildren().add(newNode.getRoot());
+                });
     }
 }

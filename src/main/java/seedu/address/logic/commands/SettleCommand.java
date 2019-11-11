@@ -29,14 +29,14 @@ public class SettleCommand extends ExpenseCommand {
             + "Parameters: "
             + PREFIX_PARTICIPANT + "NAME "
             + PREFIX_PARTICIPANT + "NAME "
-            + "[" + PREFIX_EXPENSE + "AMOUNT ]"
+            + "[" + PREFIX_EXPENSE + "AMOUNT]"
             + "\n\nExample: " + COMMAND_WORD + " "
             + PREFIX_PARTICIPANT + "John Doe "
             + PREFIX_PARTICIPANT + "Bob Lee "
             + PREFIX_EXPENSE + "10.0 ";
 
     public static final String MESSAGE_SUCCESS =
-            "%s paid %s %n successfully!";
+            "%s paid %s $%.2f successfully!";
     public static final String MESSAGE_NOT_TWO_PEOPLE =
             "You must specify only two people!";
     public static final String MESSAGE_OVERLY_COMPENSATING =
@@ -53,7 +53,6 @@ public class SettleCommand extends ExpenseCommand {
             "Unsure which activity to target, use the view command to go to one first!";
     public static final String EXPENSE_DESCRIPTION =
             "%s paid %s";
-    public static final int MAX_DESC_NAME_LEN = 5;
 
     private Amount amount;
 

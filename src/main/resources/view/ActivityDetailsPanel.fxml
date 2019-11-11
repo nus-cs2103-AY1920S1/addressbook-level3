@@ -43,7 +43,7 @@
       </VBox>
     </GridPane>
     <VBox alignment="TOP_CENTER" spacing="4" styleClass="history-container" VBox.Vgrow="SOMETIMES">
-      <Label alignment="CENTER" styleClass="expense-history-header" text="Expenses"
+      <Label alignment="CENTER" styleClass="expense-history-header" text="Expenses and Settlements"
           wrapText="true" minWidth="450" maxWidth="450" />
       <VBox alignment="TOP_CENTER" spacing="4" fx:id="expenseHistory" VBox.vgrow="SOMETIMES"
           minWidth="450" maxWidth="450" styleClass="expense-history" />

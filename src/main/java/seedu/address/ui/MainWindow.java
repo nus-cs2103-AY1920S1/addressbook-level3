@@ -169,6 +169,7 @@ public class MainWindow extends UiPart<Stage> {
             statusBarFooter.setMessage("Context: viewing a contact");
             Person viewedContact = newContext.getContact().get();
             List<Activity> associatedActivities = logic.getAssociatedActivities(viewedContact);
+
             personDetailsPanel = new PersonDetailsPanel(viewedContact, associatedActivities);
             contentContainer.getChildren().add(personDetailsPanel.getRoot());
             break;
@@ -176,6 +177,7 @@ public class MainWindow extends UiPart<Stage> {
             statusBarFooter.setMessage("Context: viewing an activity");
             Activity viewedActivity = newContext.getActivity().get();
             List<Person> associatedPersons = logic.getAssociatedPersons(viewedActivity);
+
             activityDetailsPanel = new ActivityDetailsPanel(viewedActivity, associatedPersons);
             contentContainer.getChildren().add(activityDetailsPanel.getRoot());
             break;
