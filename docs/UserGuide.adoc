@@ -413,6 +413,7 @@ image::RemoveCommandExample1.png[width="790"]
 image::RemoveCommandExample2.png[width="790"]
 //end::remove[]
 
+// tag::history[]
 === Show Command History: `history`
 Shows you up to the last 50 commands that you executed.
 
@@ -460,9 +461,10 @@ The bottommost panel shows you the "undo" delimiter. +
 In this example, the output of the `history` command shows you can invoke the `undo` command four times.
 Notice that the `list participants` command is not shown in the "History" section as it does not change data. +
 Also note that the undo-able commands are numbered, with the 1st undo-able command being the most recently executed command (the EditParticipantCommand),
-and the 4th undo-able command being the oldest executed command. You are unable to undo beyond the 4th undo-able command. Doing so will result in an error (see <<Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`>>) +
-Also note that in this case, no commands are redo-able, that's why there are no panels between the "redo" and "current" delimiters. Hence, executing `redo` command will result in an error (see <<Redo Previous Commands: `redo [NUM_COMMANDS_TO_REDO]`>>) +
+and the 4th undo-able command being the oldest executed command. In this case, the maximum number of commands you can undo at once is 4.
+Also note that in this case, no commands are redo-able, that's why there are no panels between the "redo" and "current" delimiters. Hence, executing `redo` command will result in an error.
 
+//end::history[]
 
 === Undo Previous Commands: `undo [NUM_COMMANDS_TO_UNDO]`
 Undoes previously executed commands.
@@ -510,6 +512,8 @@ that the redo command cannot be executed.
 
 Format: `redo [NUM_COMMANDS_TO_REDO]`
 
+// tag::commandhistorynavigation[]
+
 === Command History Navigation
 Navigate to previous commands by pressing the alt key kbd:[Alt], together with the up kbd:[&uparrow;] or down kbd:[&downarrow;] arrow keys.
 For Mac users, press the option key kbd:[Opt] in place of the alt key kbd:[Alt] instead. Should you have re-mapped/re-purposed the
@@ -525,6 +529,9 @@ This is because the `import` command will do its best to import as many Entities
 * Note that Alfred's command input box must be in focus (the cursor is active in the command input box) for the keyboard shortcuts for this feature to work
 * This feature only allows you to navigate up to the previous 50 successfully executed commands.
 ****
+
+// end::commandhistorynavigation[]
+
 
 === Scoring: `score`
 

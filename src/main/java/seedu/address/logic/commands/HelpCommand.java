@@ -22,6 +22,8 @@ public class HelpCommand extends Command {
             System.out.println(tuple.getOne());
         });
 
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false);
     }
 }

@@ -216,6 +216,7 @@ The Food- and Swag-related features scheduled for release in v2.0, will require 
 To be more specific, Storage would need to be updated to support the storage of these other essential data, above and beyond the
 current support for the storage of the EntityLists.
 
+//tag::storageDG[]
 ==== Purpose and Usage of Storage Component
 .Structure of the Storage Component
 image::AlfredStorageClassDiagram.png[]
@@ -303,6 +304,8 @@ required by Model.
 * Alfred's Model is dependent on the interface AlfredStorage, and the implementation is provided through AlfredStorageManager.
 Hence, all functionality provided are first stipulated in the AlfredStorage interface.
 
+//end::storageDG[]
+
 
 [[Design-Commons]]
 === Common classes
@@ -381,6 +384,7 @@ Also for teams, each corresponding `String` is converted to its field counterpar
 
 The export feature will be used to unload the data in Alfred to an external CSV file. This functionality will prove useful when you or the user wishes to share the aggregate data of a particular hackathon event with other people or organization or wishes to keep a record of past hackathons for future references.
 
+// tag::undoredo[]
 === Undo/Redo feature
 
 The Undo/Redo feature, as the name suggests, allows you to undo and redo commands. Only commands that alter the state of the data
@@ -540,6 +544,8 @@ potentially crash once a substantial number of commands have been executed.
 In order to accommodate this design for the Undo/Redo feature, we decided to limit the number of `ModelHistoryRecord` stored in
 `ModelHistoryManager` to 50. It is unlikely that a user would want to undo more than 50 commands at a go, as that would indicate
 a very significant error in the workflow, and recovering from that should not have a reliance on the Undo/Redo feature.
+
+// end:undoredo[]
 
 === History feature
 
@@ -786,8 +792,6 @@ While traditionally a subtract command would be implemented using an add command
 
 Upon close inspection it was observed that the removal of duplicate code would far outweigh the convenience and orderliness of having a separate class for the command, especially considering that a `ResetScoreCommand` would have far more duplicate code than unique code as compared to the `SetScoreCommand`. Bearing this in mind, we ultimately decided to choose "Alternative 2" as it would allow for better reuse of existing code and follow better software engineering practices.
 
-
-// tag::dataencryption[]
 
 === Leaderboard and Get Top Teams
 

@@ -17,6 +17,8 @@ public class HomeCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) {
+        model.updateHistory(this);
+        model.recordCommandExecution(this.getCommandInputString());
         return new CommandResult(SHOWING_HOME_MESSAGE, false, false, CommandType.HM);
     }
 }

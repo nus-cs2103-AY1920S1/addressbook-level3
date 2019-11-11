@@ -151,7 +151,9 @@ public class AlfredParser {
             break;
 
         case HomeCommand.COMMAND_WORD:
-            return new HomeCommand();
+            c = new HomeCommand();
+            break;
+
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
