@@ -11,16 +11,17 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
 
+import organice.commons.core.LogsCenter;
 import organice.logic.parser.ArgumentMultimap;
 import organice.model.Model;
 import organice.model.person.Name;
 import organice.model.person.Person;
 import organice.model.person.PersonContainsPrefixesPredicate;
-
 
 /**
  * Finds and lists all persons in address book whose prefixes match any of the argument prefix-keyword pairs.
@@ -39,8 +40,10 @@ public class FindCommand extends Command {
 
     // Maximum Levenshtein Distance tolerated for a fuzzy match
     private static final int FUZZY_THRESHOLD = 5;
+    private static final Logger logger = LogsCenter.getLogger(FindCommand.class);
 
     private final ArgumentMultimap argMultimap;
+
 
     public FindCommand(ArgumentMultimap argMultimap) {
         this.argMultimap = argMultimap;
@@ -129,7 +132,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-
+        logger.info("Executing FindCommand");
         List<Person> allPersons = Arrays.asList(model.getFullPersonList().toArray(Person[]::new));
 
         FilteredList<Person> exactMatches = new FilteredList<>(FXCollections.observableList(allPersons));
