@@ -15,6 +15,11 @@ It is written in Java, and has about 20 kLoC.
 .Layout of AlgoBase
 
 image::gui/AlgoBaseLayout.png[]
+
+== About this portfolio
+
+This project portfolio details my individual contributions to the *AlgoBase* project. It includes a summary of the enhancements and other contributions I made throughout the duration  of the project. Additionally, portions of my contribution to the User Guide and Developer Guide have also been included.
+
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to tag problems*
