@@ -19,11 +19,16 @@ By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-This CS2103/T Revision Tool (RT) is for those who *prefer to use a desktop app for storing question banks*.
-More importantly, RT is *optimized for those who prefer to work with a Command Line
+This CS2103/T Revision Tool (RT) is for those who *prefer to use a desktop app for storing their personally
+customised question banks*. More importantly, RT is *optimized for those who prefer to work with a Command Line
 Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
-If you can type fast, RT can get your contact management tasks done faster than traditional
+If you can type fast, RT can get your revision done faster than traditional quiz
 GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+[NOTE]
+RT is initially designed with the intention to help CS2103/T students who do not like to use Luminus quizzes
+for their revision. However, it can also be used for other modules or other revision purposes, for students who
+generally prefer a CLI and GUI that is different from what Luminus or other existing quiz apps have to offer.
 
 == Quick Start
 
@@ -89,28 +94,29 @@ Examples:
 * `start mode/custom cat/uml /diff/1 timer/20`
 //end::wilfred-start[]
 
-=== Check your progress: `status` [Coming in v1.4]
+//tag::khiangleon[]
+//tag::khiangleon-stats[]
+=== Check your progress: `stats`
 
-Displays the number of questions answered correctly by category and difficulty.
++
+image::stats.png[width="790"]
++
 
-Format: `status`
+Displays the percentage of questions answered correctly by difficulty, for all
+quiz attempts. Indicates to user which difficulty level is he or she weakest in.
+
+Format: `stats`
 
 Example:
 
-`status`
+*Total*: 68.42%
 
-*Total*: 290/300 questions answered correctly
+* Difficulty 1: 100.00%
+* Difficulty 2: 100.00%
+* Difficulty 3: 14.29%
+* Please prioritise this type of questions: Difficulty 3
 
-Difficulty::
-* Level 1: 100/100
-* Level 2: 100/100
-* Level 3: 90/100
-
-Category::
-* Requirements: 100/100
-* Design: 50/100
-* Implementation: 50/100
-* Project Management: 90/100
+//end::khiangleon-stats[]
 
 //tag::shaun[]
 //tag::shaun-autocomplete[]
@@ -256,6 +262,27 @@ There is no need to save manually.
 Exits the application. +
 Format: `exit`
 
+//tag::khiangleon[]
+//tag::khiangleon-history[]
+=== More data analytics `[coming in v2.0]`
+
+==== More statistics `stats`
+Users will be able to view average scores across all attempts of quizzes.
+They will also be able to view statistics not just for difficulty levels, but also for individual categories.
+This will help them to prioritise and know exactly which type of questions they are weaker at.
+This feature will also indicate to users further that overall across all quiz attempts which type of questions
+needs to be prioritised. In addition, with all these in mind, users can then make use of the custom quiz mode in
+`section 4.3` to get more practise on specific types of questions.
+
+==== Graphs `history`
+Currently, as of `v1.4`, this command only shows a raw full history of scores and their breakdown
+by difficulty levels for all past quiz attempts. The number of quizzes attempted by the user in total is also shown
+in the results display. By `v2.0`, users will be able to view line graphs of their history of quiz attempts' results
+by categories and difficulty levels. This will show them how much they are progressing in their quiz results for
+each different type of questions.
+
+//end::khiangleon-history[]
+
 // tag::import/export[]
 === Importing / Exporting question banks `[coming in v2.0]`
 
@@ -325,7 +352,7 @@ e.g. `start mode/normal`
 
 * *Exit* `exit`
 
-* *Status* : `status`
+* *Stats* : `stats`
 
 * *Add* `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER...` +
 e.g. `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
@@ -346,6 +373,8 @@ e.g. `find user story`
 * *Clear* : `clear`
 
 * *Restore* : `restore`
+
+* *History* : `history`
 //end::wilfred-summary[]
 //end::wilfred[]
 
@@ -356,3 +385,11 @@ arrow keys and hit kbd:[Enter] to complete the command.
 
 //end::shaun-AcTip[]
 //end::shaun[]
+
+//tag::khiangleon-StatsTip[]
+[TIP]
+*Stats/History*: Hitting kbd:[Enter] again after executing a `stats` or `history` command will return you
+back to the main window displaying the question bank.
+
+//end::khiangleon-StatsTip[]
+//end::khiangleon[]

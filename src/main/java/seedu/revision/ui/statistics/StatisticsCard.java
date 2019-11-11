@@ -41,11 +41,11 @@ public class StatisticsCard extends UiPart<Region> {
         super(FXML);
         this.statistics = statistics;
         id.setText(displayedIndex + ". ");
-        total.setText("total: " + String.format("%.2f", statistics.getResult()) + "%");
-        difficulty1.setText("difficulty 1: " + String.format("%.2f", statistics.getResult1()) + "%");
-        difficulty2.setText("difficulty 2: " + String.format("%.2f", statistics.getResult2()) + "%");
-        difficulty3.setText("difficulty 3: " + String.format("%.2f", statistics.getResult3()) + "%");
-        priority.setText("Please prioritise these types of questions: " + statistics.getPriority());
+        total.setText("Total: " + String.format("%.2f", statistics.getResult()) + "%");
+        difficulty1.setText("Difficulty 1: " + String.format("%.2f", statistics.getResult1()) + "%");
+        difficulty2.setText("Difficulty 2: " + String.format("%.2f", statistics.getResult2()) + "%");
+        difficulty3.setText("Difficulty 3: " + String.format("%.2f", statistics.getResult3()) + "%");
+        priority.setText("Please prioritise this type of questions: " + statistics.getPriority());
         priority.setStyle("-fx-background-color: red; -fx-text-fill: white;");
     }
 
