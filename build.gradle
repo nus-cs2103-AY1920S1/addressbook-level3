@@ -73,7 +73,7 @@ dependencies {
 
 shadowJar {
     archiveBaseName = 'Mortago'
-    archiveVersion = "v1.3.0"
+    archiveVersion = "v1.4.0"
     archiveClassifier = null
     archiveAppendix = null
 }

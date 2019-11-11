@@ -50,7 +50,7 @@ public class TypicalBodies {
             .withStatus("ARRIVED")
             .withFridgeId("2")
             .withDateOfBirth("02/09/1982")
-            .withDateOfDeath("01/06/1971")
+            .withDateOfDeath("03/09/1982")
             .withNextOfKin("Ben Chachki")
             .withRelationship("Father")
             .withKinPhoneNumber("87120919")

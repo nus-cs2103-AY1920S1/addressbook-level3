@@ -14,7 +14,7 @@ import seedu.address.model.entity.fridge.FridgeStatus;
 import seedu.address.testutil.BodyBuilder;
 import seedu.address.testutil.FridgeBuilder;
 
-//@@author ambervoong
+//@@author ambervoong-unused
 class UpdateFridgeDescriptorTest {
 
     @Test
@@ -101,3 +101,5 @@ class UpdateFridgeDescriptorTest {
         assertEquals(descriptor.hashCode(), copyDescriptor.hashCode());
     }
 }
+//@@author
+

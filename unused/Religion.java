@@ -1,9 +1,8 @@
 package seedu.address.model.entity.body;
 
-//@@author ambervoong
-
 import seedu.address.logic.parser.exceptions.ParseException;
 
+//@@author ambervoong-unused
 /**
  * Enumerates all of the major religions.
  */
@@ -49,3 +48,4 @@ public enum Religion {
         }
     }
 }
+//@@author
