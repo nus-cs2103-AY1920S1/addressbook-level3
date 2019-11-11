@@ -156,6 +156,8 @@ include::../DeveloperGuide.adoc[tag=add]
 include::../DeveloperGuide.adoc[tag=autoreschedule]
 
 == Conclusion
+This marks the end of my contributions to ELISA. This journey has been a meaningful one, as it is the first time I've worked with teammates on a software engineering project.
+Although I've reached the end of this module, I hope to continue developing ELISA even after, as I truly believe that she has the potential to be a great companion and have a positive impact on many students.
 
 
 
