@@ -218,7 +218,7 @@ the `Deadline` that will be added.
 * `RemoveCommandParser` -- Parses user input and uses it to construct a `RemoveCommand` instance.
 
 In addition, various Exception classes are added to handle possible runtime errors while adding or removing `Deadline`.
-This is done to ensure that the user specified Deadline is valid for storage and processing.
+This is done to ensure that the user specified `Deadline` is valid for storage and processing.
 
 * `DuplicateDeadlineException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
 is added into the existing `UniqueDeadlineList`.
@@ -229,15 +229,15 @@ For the add `Deadline` feature - `deadline`, the following are the prefixes for 
 - t> : `TASK` +
 - d> : `DUE DATE`
 - For `DUE DATE` : Date format must be in dd/MM/yyyy
-i.e. 01/01/2019
+i.e. 01/01/2020
 
 NOTE: The upper cased `Deadline` represents the object class that contains `Task` and `DueDate`, while the lower-cased
 `deadline` represents the command used to add `Deadline` objects into our storage.
 
 Given below is an example usage scenario of `deadline` command:
 
-The user executes `deadline t>Complete Homework d>04/10/2019` to add new deadline to the task
-of completing homework by the 4th October 2019.
+The user executes `deadline t>Complete Homework d>04/10/2020` to add new deadline to the task
+of completing homework by the 4th October 2020.
 
 NOTE: The deadline feature does not allow adding of duplicate/identical deadlines. Also, new deadlines must
 be later than the current date.
@@ -250,7 +250,7 @@ The following activity diagram summarizes what happens when a user executes a de
 
 image::DeadlineActivityDiagram.png[width=320,height=480]
 
-The Remove Deadline command `Remove` works in a similar way, and hence the Sequence and Activity diagrams
+The Remove Deadline command `remove` works in a similar way, and hence the Sequence and Activity diagrams
 will be omitted for redundancy.
 
 ==== Design Considerations
@@ -265,11 +265,7 @@ prefixes like `t>` and `d>`
 ** Pros: More user friendly
 ** Cons: Difficult to implement. Might be slower for the user to key in deadlines as compared to using a one liner with prefixes
 
-
-==== Proposed Enhancement for v2.0
-
 // end::deadline[]
-
 
 //@@author dalsontws
 // tag::badflashcard[]
@@ -314,22 +310,8 @@ Given below is an example usage scenario of `bad INDEX` :
 
 The user executes `bad 2` to rate the second `FlashCard` as a "Bad".
 
-The following activity diagram summarizes what happens when a user executes a `bad` command:
-
-image::DeadlineActivityDiagram.png[width=320,height=480]
-
 ==== Design Considerations
-===== Aspect: How to implement Bad FlashCard feature
-
-* **Alternative 1(current choice):** Use command `bad` together with an `Index` value at the end
-** Pros: Easier to implement
-** Cons: User might be unclear which `FlashCard` was chosen without a clear indication
-* **Alternative 2:** Make use of the GUI. After user execute `bad` command,
-a **bad FlashCard window** would pop up for the user to select specific `FlashCard`
-** Pros: More user friendly
-** Cons: Difficult to implement. Might be slower for the user to key in deadlines as compared to using a one liner with prefixes.
-
-===== Aspect: How to store "Bad" `FlashCard` in storage
+===== Aspect: How to store "Bad" FlashCard in storage
 
 * **Alternative 1(current choice):** Use a `HashMap` with the specified date as the key. Store `FlashCard` as an
 `ArrayList`. Use of the Google Gson library to save and fetch `HashMap` from and to Json format.
@@ -341,14 +323,7 @@ use a `ObservableList` that can be displayed in GUI.
 ** Pros: Easier to implement, clearer for user to see
 ** Cons: Difficult to manipulate in the future, especially when we want to implement
 
-
-==== Proposed Enhancement for v2.0
-===== Improvement on Spaced Repetition
-
-* **Fibonacci**
-
 // end::badflashcard[]
-
 
 //@@author LeowWB
 
