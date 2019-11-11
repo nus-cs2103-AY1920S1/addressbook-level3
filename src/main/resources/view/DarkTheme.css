@@ -3,6 +3,31 @@
     background-color: #383838; /* Used in the default.html file */
 }
 
+.scroll-pane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.chart > .chart-title {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.chart-pie-label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-fill: white;
+    -fx-opacity: 1;
+}
+
+.axis-label {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -17,6 +42,14 @@
     -fx-opacity: 1;
 }
 
+.label-bright-solid {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+    -fx-background-color: derive(#1d1d1d, 30%);
+}
+
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
@@ -29,14 +62,41 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
-.tab-pane {
-    -fx-padding: 0 0 0 1;
+.tab-label {
+    -fx-text-fill: white;
 }
 
-.tab-pane .tab-header-area {
+
+.tab:top {
+    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-border-color: derive(#1d1d1d, 50%);
+    -fx-font-family: "Segoe UI Light";
+}
+
+.tab:selected:top {
+    -fx-background-color: derive(#1d1d1d, 10%);
+    -fx-border-color: derive(#1d1d1d, 10%);
+    -fx-font-family: "Segoe UI Light";
+}
+
+/*Solution adapted from
+https://stackoverflow.com/questions/36779642/javafx-css-styling-change-highlight-color-of-selected-tabs*/
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-color: derive(#1d1d1d, 10%)
+}
+
+
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 30%);
+}
+
+.tab-pane .tab-header-area .tab-header-background {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
+    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .table-view {
@@ -53,7 +113,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    /*-fx-size: 35;*/
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -65,7 +125,7 @@
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    /*-fx-font-size: 20pt;*/
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -176,8 +236,11 @@
 
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
+    /*-fx-border-color: derive(#1d1d1d, 30%);*/
+    /*-fx-border-width: 1px;*/
+    -fx-text-fill: white;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 12pt;
 }
 
 .grid-pane .stack-pane {

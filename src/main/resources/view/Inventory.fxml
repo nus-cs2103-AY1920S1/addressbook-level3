@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="inventory" prefHeight="590.0" prefWidth="775.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+       <TableView fx:id="tableView" prefHeight="532.0" prefWidth="690.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+           <columns>
+               <TableColumn fx:id="idCol" prefWidth="36.0" text="ID" />
+               <TableColumn fx:id="descriptionCol" prefWidth="140.0" text="Description" />
+               <TableColumn fx:id="categoryCol" prefWidth="100.0" text="Category" />
+               <TableColumn fx:id="quantityCol" prefWidth="60.0" text="Qty" />
+               <TableColumn fx:id="costCol" prefWidth="90.0" text="Cost/Unit" />
+               <TableColumn fx:id="totalCostCol" prefWidth="110.0" text="Total&#10;Cost" />
+               <TableColumn fx:id="priceCol" minWidth="0.0" prefWidth="110.0" text="Price" />
+               <TableColumn fx:id="expectedRevenueCol" prefWidth="110.0" text="Expected &#10;Revenue" />
+           </columns>
+       </TableView>
+   </children>
+</AnchorPane>

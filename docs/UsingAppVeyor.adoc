@@ -12,9 +12,11 @@ This document was originally written for _AddressBook Level 4_ and hence its scr
 For use with _AddressBook Level 3_, wherever `addressbook-level4` is used in the screenshots, you should use *`addressbook-level3`*.
 ====
 
-https://www.appveyor.com/[AppVeyor] is a _Continuous Integration_ platform for GitHub projects. It runs its builds on Windows virtual machines.
+https://www.appveyor.com/[AppVeyor] is a _Continuous Integration_ platform for GitHub projects.
+It runs its builds on Windows virtual machines.
 
-AppVeyor can run the project's tests automatically whenever new code is pushed to the repo. This ensures that existing functionality and features have not been broken on Windows by the changes.
+AppVeyor can run the project's tests automatically whenever new code is pushed to the repo.
+This ensures that existing functionality and features have not been broken on Windows by the changes.
 
 The current AppVeyor setup runs `gradlew.bat test` whenever someone pushes code to the repo.
 
@@ -22,24 +24,27 @@ If you would like to customize your AppVeyor build further, you can learn more a
 
 == Setting up AppVeyor
 
-.  Fork the repo to your own organization.
-.  Go to https://ci.appveyor.com/, and under `Login`, click on `GitHub` to login with your GitHub account. Enter your GitHub account details if needed.
+. Fork the repo to your own organization.
+. Go to https://ci.appveyor.com/, and under `Login`, click on `GitHub` to login with your GitHub account.
+Enter your GitHub account details if needed.
 +
 image:appveyor/login.png[Click on GitHub in the login page]
 +
-.  After logging in, you will be brought to your projects dashboard. Click on `NEW PROJECT`.
+. After logging in, you will be brought to your projects dashboard.
+Click on `NEW PROJECT`.
 +
 image:appveyor/add-project-1.png[Click on "NEW PROJECT" in the projects dashboard]
 +
-.  You will be brought to the `Select repository` page. Select `GitHub`.
-* On your first usage of AppVeyor, you will need to give AppVeyor authorization to your GitHub account. Click on `Authorize GitHub`.
+. You will be brought to the `Select repository` page.
+Select `GitHub`.
+* On your first usage of AppVeyor, you will need to give AppVeyor authorization to your GitHub account.
+Click on `Authorize GitHub`.
 +
 image:appveyor/add-project-2.png[Click on Authorize GitHub]
 +
 * This will bring you to a GitHub page that manages the access of third-party applications to your repositories.
 +
-Depending on whether you are the owner of the repository, you can either
-grant access:
+Depending on whether you are the owner of the repository, you can either grant access:
 +
 image:grant_access.png[Grant Access]
 +
@@ -47,12 +52,15 @@ Or request access:
 +
 image:request_access.png[Request Access]
 +
-.  AppVeyor will then list the repositories you have access to in your GitHub account. Find the repository you want to set AppVeyor up on, and then click `ADD`.
+. AppVeyor will then list the repositories you have access to in your GitHub account.
+Find the repository you want to set AppVeyor up on, and then click `ADD`.
 +
 image:appveyor/add-project-3.png[Click "Add" on the repository you want to set AppVeyor up on]
 +
-.  AppVeyor will then be activated on that repository. To see the CI in action, push a commit to any branch!
-* Go to the repository and see the pushed commit. There should be an icon which will link you to the AppVeyor build:
+. AppVeyor will then be activated on that repository.
+To see the CI in action, push a commit to any branch!
+* Go to the repository and see the pushed commit.
+There should be an icon which will link you to the AppVeyor build:
 +
 image:appveyor/ci-pending.png[Commit build]
 +
@@ -60,7 +68,7 @@ image:appveyor/ci-pending.png[Commit build]
 +
 image:appveyor/ci-log.png[AppVeyor build]
 +
-.  Update the link to the "build status" badge at the top of `README.adoc` to point to the AppVeyor build status of your own repo.
+. Update the link to the "build status" badge at the top of `README.adoc` to point to the AppVeyor build status of your own repo.
 * To find your build status badge URL, first go to your project settings by clicking on the "Settings" icon:
 +
 image:appveyor/project-settings-1.png[Click on project settings]
@@ -69,7 +77,8 @@ image:appveyor/project-settings-1.png[Click on project settings]
 +
 image:appveyor/project-settings-2.png[Click on "Badges"]
 +
-* As AppVeyor does not provide asciidoc code for the badge, we will have to create our own. Start by copying the markdown code provided:
+* As AppVeyor does not provide asciidoc code for the badge, we will have to create our own.
+Start by copying the markdown code provided:
 +
 image:appveyor/project-settings-3.png[Copy the markdown code]
 +

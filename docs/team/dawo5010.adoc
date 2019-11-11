@@ -1,0 +1,496 @@
+= Daniel Wong – Project Portfolio for treasurerPro (tP)
+:site-section: ProjectPortfolio
+//:toc:
+:toc-title:
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:icons: font
+ifdef::env-github[]
+:note-caption: :information_source:
+endif::[]
+
+== Introduction
+
+This document serves as a project portfolio for treasurerPro, and outlines my contributions to the project,
+including the features that I have implemented.
+
+=== About the team
+
+My team of five consists of four Year 2 Computer Science students, including me, and a Year 4 Computer Engineering
+student, all taking the module CS2103T Software Engineering.
+
+=== About the project
+
+This project was developed as part of the module CS2103T Software Engineering. We were tasked to develop a desktop
+application (Windows/macOS/Linux) with a Command Line Interface (that is, the program operates via text input from the
+user, called commands). Additionally, we were required to use an existing application, called AddressBook Level 3, as
+the starting point for building our application.
+
+My team decided to create an application that would help treasurers of Co-Curriculur Activities (CCAs) and student
+clubs track their expenses, reimbursements, sales and inventory. To do so, we incorporated the existing people
+management features of AddressBook and used it as a starting point to build treasurerPro. We also built a new User
+Interface (UI) to accommodate the new features that we had added.
+
+In total, treasurerPro took a total of 10 weeks to complete.
+
+===  Key to the icons and formatting used in the document
+
+[NOTE]
+This symbol indicates extra information or definition.
+
+[WARNING]
+This symbol indicates important information to take note of.
+
+`Model` :
+Text with grey highlight indicates a component, class or object in the architecture of
+the application.
+
+[blue]`*command*` :
+Text with blue font and grey highlight indicates a command that can be input by the user.
+
+=== Introduction to treasurerPro
+
+The User Interface of treasurerPro is primarily divided into 6 tabs - Home, Members, Reimbursements, Inventory, Cashier
+and Overview. Each tab serves a particular function:
+
+. The Home tab lists all transactions
+. The Members tab holds information of all the club's members
+. The Reimbursements tab keeps track of outstanding reimbursements
+. The Inventory tab keeps track of items owned by the club
+. The Cashier tab allows for easy sales management
+. The Overview tab shows summary statistics of the club's finances
+
+Additionally, there are two common elements across all tabs. The command box, for users to input their
+commands, and Leo, the mascot of treasurerPro, who acts as a personal assistant and guides the user.
+
+The following screenshot shows the User Interface of the application on first launch:
+image:annotatedUi2.png[width="600"]
+
+== Summary of contributions
+I served as Team Lead for the project, and my responsibilities included designing the new User Interface, as well
+as the features within the Overview tab.
+
+In the following sections, I will illustrate the above-mentioned enhancements in greater detail, along with the
+corresponding documentation that I have written for them within the user and developer guides.
+
+=== Enhancements and new features added
+The following describes the enhancements and new features that I added to the project.
+
+. New User Interface (UI)
+** What it does: The new UI allows for each tab to effectively display its relevant data and interact with the user.
+** Justification: The current AddressBook Level 3 (AB3) UI was unsuitable due to the multitude of new features within
+each tab that have been implemented. As such, we decided to design a brand new UI that could fully represent the
+features of treasurerPro.
+** Highlights: The UI was made with SceneBuilder, an application built specifically for designing UIs. It retains AB3's
+command box, but replaces the bulk of the application with a `TabPane` that houses the content for each tab. +
+Additionally, a `GridPane` was used to create space for Leo, our mascot and personal assistant, to interact with the
+user.
+
+. Set and Notify Commands in Overview tab
+** What it does: The set and notify command allow the user to set goals for their expenditure, budget and sales revenue,
+and be notified when a percentage threshold of the goal has been met.
+** Justification: These commands work together in tandem to form the basis of treasurerPro's financial planning feature.
+They allow the treasurer to stay updated and continually keep track of the club's current financial health.
+** Highlights: Each notification displays only once per app run, unless the goals or percentage thresholds are modified.
+This prevents the user from being overwhelmed by excessive messages from treasurerPro.
+
+. Summary statistics view in Overview tab
+** What it does: The summary statistics view in the Overview tab allows the treasurer to monitor and take note of his
+club's financial health with just a quick glance.
+** Justification: It is tedious to flip through tab by tab, and read each table record by record just to gather summary
+data about the current financial status of the club.
+** Highlights: The calculations in this feature were implemented using Java Streams. This allows for future, similar
+statistics to easily be added, simply by changing the criteria used when processing of the stream.
+
+=== Code contributed
+Click on the following links to view the code that I have contributed:
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dawo5010&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dawo5010&tabRepo=AY1920S1-CS2103T-T13-3%2Fmain%5Bmaster%5D[RepoSense]
+
+* https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/overview/[Functional Code]
+
+* https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/overview/[Test Code]
+
+[NOTE]
+The links above will bring you to our team's GitHub repository
+
+=== Other contributions
+The following describes the various other contributions that I have made to the project.
+
+. Project management:
+** I managed all major releases, from version 1.1 to 1.4. In total, 8 releases were made by me (including interim
+releases).
+** I took charge of 4 team meetings out of a total of 11 meetings that we held.
+
+. Enhancement to existing features:
+** Updated JavaFX CSS Stylesheet to include new UI elements.
+
+. Documentation:
+** Updated diagrams and write-ups in the Developer Guide for the design of the Architecture, UI and Logic components.
+** Proofread User Guide for spelling and grammatical errors.
+** Reformatted User Guide to ensure consistency between sections.
+
+. Community:
+** Mediated disagreements on workflow process between teammates as Team Lead.
+** Cleaned up code style errors in teammates' packages (PRs:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/95[#95]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/124[#124])
+
+** Reviewed Pull Requests (with non-trivial review comments) (PRs:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/49[#49]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/98[#98]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/133[#133]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/134[#134]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/149[#149]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/202[#202]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/221[#221])
+
+** Contributed to forum discussions (links:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/11[1]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/18[2]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/27[3]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/28[4]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/45[5]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/56[6]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/57[7]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/58[8]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/60[9]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/62[10]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/134[11]
+https://github.com/nus-cs2103-AY1920S1/forum/issues/138[12])
+
+. Tools:
+** Added Coveralls' code coverage service to the team repository
+** Added Codacy's code quality service to the team repository
+
+== Contributions to the User Guide
+{Start of extract from User Guide}
+
+:sectnums!:
+=== 5.6 Overview Tab
+
+====
+*Summary of features in the Overview Tab*
+
+* The overview tab displays a variety of statistics for the user.
+* These include:
+** Total expenses made thus far
+** Total inventory value
+** Total sales revenue
+** Remaining budget
+* The user may also set financial goals and set up percentage thresholds to receive notifications.
+* Leo will notify the user any time their financial goals have been reached.
+====
+
+==== 5.6.1 Statistics Information
+The following describes how the various statistics are calculated:
+
+* Expense Summary: Total spent represents the sum of all negative transactions (cash outflows) made by the club.
+* Inventory Summary: Inventory value represents the total cost of all goods currently in the inventory.
+* Sales Summary: Total sales represents the sum of all positive transactions (cash inflow) from the Sales category.
+* Budget Overview: Amount remaining represents the budget goal + total sales - expenses.
+
+[NOTE]
+It is possible for your remaining budget to exceed your budget goal if your sales revenue is larger than your expenses.
+
+==== 5.6.2 Set a Financial Goal
+This command enables you to set a financial goal.
+
+* Command:
+** To set budget goal: `set b/AMOUNT`
+** To set expense goal: `set e/AMOUNT`
+** To set sales goal: `set s/AMOUNT`
+
+* Examples:
+** To set budget goal: [blue]`set b/500`
+** To set expense goal: [blue]`set e/500`
+** To set sales goal: [blue]`set s/500`
+
+[NOTE]
+The amount should be non-negative, and the maximum amount you may set is 10,000,000
+(10 million). If more than 2 decimal places are specified, the amount will be rounded to 2 decimal places. +
+To reset the goal, simply set it to 0.
+
+* Steps:
+. Type the command with the corresponding target and amount.
+
+image::overviewUG/SetCommandExample.png[width="600"]
+
+[start = 2]
+. Hit `Enter`
+
+image::overviewUG/SetCommandResult.png[width="600"]
+
+Leo displays a confirmation showing that the goal was successfully set. +
+The user interface reflects this under the respective section.
+
+==== 5.6.3 Set a Notification Threshold
+This command allows you to set a percentage threshold for notifications. +
+For example, an 80 percent threshold will mean that you will receive a notification once you have reached 80% of the
+goal set for that particular financial goal.
+
+* Command:
+** To set budget goal notification: `notify b/PERCENTAGE`
+** To set expense goal notification: `notify e/PERCENTAGE`
+** To set sales goal notification: `notify s/PERCENTAGE`
+
+* Examples:
+** To set budget goal notification: [blue]`notify b/80`
+** To set expense goal notification: [blue]`notify e/80`
+** To set sales goal notification: [blue]`notify s/80`
+
+[NOTE]
+The percentage value should be a whole number from 0 - 100. +
+This feature will not work if no goals have previously been set with the `set` command, or if the goal is currently
+set to 0. +
+To disable notifications for a particular financial goal, simply set its notifications threshold to 0.
+
+* Steps:
+. Type the command with the corresponding target and amount.
+
+image::overviewUG/NotifyCommandExample.png[width="600"]
+
+[start = 2]
+. Hit `Enter`
+
+image::overviewUG/NotifyCommandResult.png[width="600"]
+
+Leo displays a confirmation showing that the notification was successfully set. +
+Additionally, if the goal is already reached, it will display the notification immediately.
+
+==== 5.6.4 Viewing Notifications
+
+Notifications in treasurerPro are automatically displayed upon app launch by Leo as long as the threshold is met. +
+Notifications show only once per app run, or whenever a target or threshold is modified.
+
+The following screenshot shows an example of the notifications:
+
+image::overviewUG/NotificationExample.png[width="600"]
+
+{End of extract from User Guide}
+
+:sectnums:
+==  Contributions to the Developer Guide
+The following section shows my additions to the treasurerPro Developer Guide.
+
+:sectnums!:
+
+{Start of first extract from Developer Guide}
+
+==== 2.3.5 Details on `Logic` Implementation for the Overview Tab
+[[OverviewLogic]]
+This section will show further details of the `Logic` Component of the Overview tab.
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` Component:
+
+[caption = "Figure 10. "]
+.Structure of `Parser` for Overview Tab.
+image::OverviewLogicDiagram.png[]
+
+The parsers represented by the `ABCParser` are:
+
+* `SetCommandParser`
+* `NotifyCommandParser`
+
+{End of first extract from Developer Guide}
+
+{Start of second extract from Developer Guide}
+
+=== 3.6 Overview Tab
+
+This tab displays various summary statistics for the data within treasurerPro.
+There are four main statistics shown:
+
+. Expense Summary: Pie chart of expenditure by category.
+. Inventory Summary: Pie chart of inventory by category.
+. Sales Summary: Bar chart of sales by months.
+. Budget Overview: Line chart of budget remaining by months.
+
+The above summaries are automatically updated whenever new data is entered from any of the other tabs.
+
+There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user
+to set percentage thresholds for notifications.
+
+==== 3.6.1 Set Command Feature
+This feature allows the user to set a goal for their budget, expense or sales targets.
+
+The following Sequence Diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
+found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+
+[caption = "Figure 52. "]
+.Sequence Diagram of Set Command in the Overview package.
+image::OverviewSetCommandSD.png[]
+
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file.
+
+==== 3.6.2 Notify Command Feature
+This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
+particular financial goal, the user will automatically be notified of it with a message from Leo.
+
+The following Sequence Diagram depicts how the Notify Command operates, and is an extension of the general sequence
+diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
+
+[caption = "Figure 53. "]
+.Sequence Diagram of Notify Command in the Overview Package
+image::OverviewNotifyCommandSD.png[]
+
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file. The full execution of the command is shown in the activity diagram below:
+
+[caption = "Figure 54. "]
+.Activity Diagram of Notify Command in the Overview Package
+image::OverviewNotifyActivityDiagram.png[]
+
+==== 3.6.3 Design Considerations
+In order to display the summary statistics shown to the user within the Overview tab, they must first be calculated.
+Several design considerations were made as to how these calculations would be made, as shown in the table below:
+
+|===
+|Alternative 1 |Alternative 2 (Current Choice)|Conclusion and Explanation
+
+|The summary statistics are calculated by retrieving the transaction and item lists. Each transaction or item is then
+read individually and their totals added up.
+
+*Pros*: This is a much simpler, straightforward implementation.
+
+*Cons*: It is difficult to filter the list by a given criteria, which is required for certain summary statistics.
+
+|The Java Streams library is used to calculate the summary statistics, by retrieving the transaction list and item list
+as streams instead.
+
+*Pros*: It is much easier to filter the list from a given criteria with the built in `.filter()` method, and additional
+criteria can easily be added simply by adding additional `.filter()` methods.
+
+*Cons*: Java Streams run slower than their iterative counterparts when the list is small, and are more complex to
+implement.
+
+|Alternative 2 is selected as the performance difference is negligible for smaller lists, and will benefit the user in
+the long run as their lists of transactions and items become larger and larger.
+
+Additionally, it allows for future extensibility of summary statistics, as new statistics can be created simply by
+modifying or adding on new criteria.
+
+|===
+
+The following is a code snippet of the chosen implementation above:
+
+    public double getTotalExpenses() {
+        Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
+        return transactionStream
+            .filter(transaction -> !transaction.getCategory().equals("Sales"))
+            .filter(transaction -> transaction.isNegative())
+            .flatMapToDouble(transaction -> DoubleStream.of(transaction.getAmount()))
+            .sum() * -1;
+    }
+
+A design consideration was also made for the implementation of the notifications that are to be displayed
+to the user upon hitting the notification threshold. These are shown in the table below:
+
+|===
+|Alternative 1 |Alternative 2 (Current Choice)|Conclusion and Explanation
+
+|A new class is created to act as a notifier, and is called after the execution of every command to check if any
+notifications need to be displayed to the user.
+
+*Pros*: All tabs can utilize this notifications feature and display messages to the user when needed.
+
+*Cons*: Extra program resources are needed to create such a class.
+
+|A method within the Overview tab's `Logic` is called to check if any of the notifications thresholds have been met.
+
+*Pros*: Easy to implement with minimal new resources required.
+
+*Cons*: It will be difficult to extend this functionality to other tabs if needed.
+
+|Alternative 2 was implemented after a discussion held with the team revealed that this functionality was and would not
+be needed for any of the other tabs.
+
+Thus, it made more sense to stick with the simpler, less resource intensive
+implementation of this function,
+
+|===
+
+The following is a code snippet of the chosen implementation above:
+
+    private void checkIfNotify() {
+        List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
+        for (OverallCommandResult notif: notifications) {
+            lion.setResponse(notif.getFeedbackToUser());
+        }
+    }
+
+=== 3.7 [Proposed] Undo/Redo feature
+
+==== 3.7.1 Proposed Implementation
+
+The undo/redo mechanism is facilitated by `VersionedtreasurerPro`.
+It extends each tab's `Model` with an undo/redo history, stored internally as a `tabStateList` and `tabStatePointer`.
+Additionally, it implements the following operations in each tab's `ModelManager`:
+
+* `ModelManager#commit()` -- Saves the current tab's state in its history.
+* `ModelManager#undo()` -- Restores the previous tab's state from its history.
+* `ModelManager#redo()` -- Restores a previously undone tab's state from its history.
+
+These operations are exposed in the `Model` interface of the tab as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+Each package's model will be initialized with their initial default state, and the
+`tabStatePointer` of each package pointing to that state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes a command that modifies the application state.
+The command calls `Model#commit()`. The state after executing the command is saved in the `tabStateList`, and the
+`tabStatePointer` is shifted to that new state.
+
+image::UndoRedoState1.png[]
+
+[NOTE]
+Commands that do not modify the application state will not call `Model#commit()`, and thus no new state
+will be created in `tabStateList`. The `tabStatePointer` will continue to point at the same state.
+
+Step 3. The user executes `undo` to undo the last command.
+The `undo` command calls `Model#undo`, which shifts the currentStatePointer to the previous state,
+restoring it to that state.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If the `tabStatePointer` is already pointing to the first item in the list, an error will be returned to the
+user and nothing will be done.
+
+Step 4. The user executes `redo` to redo the last `undo` command.
+The `redo` command calls `Model#redo`, which shifts the currentStatePointer to the next state,
+restoring it to that state. In this case, it is identical to after Step 2.
+
+image::UndoRedoState1.png[]
+
+==== 3.7.2 Design Considerations
+In order to implement the undo/redo command, several alternatives in design were considered before
+settling on the current implementation:
+
+|===
+|Alternative 1 (Current Choice)|Alternative 2|Conclusion and Explanation
+
+|The state of the tab is saved after every command.
+
+*Pros*: This is much easier to implement.
+
+*Cons*: Extra memory is used to store each state after every command.
+
+|Each command is capable of undoing/redoing itself.
+
+*Pros*: Less memory is required.
+
+*Cons*: The implementation of each command becomes more complex, as it must be able to correctly undo/redo itself.
+
+|Alternative 2 is selected due to its ease of implementation. Most modern computers also have sufficient
+memory space to store extra states.
+|===
+
+{End of second extract from Developer Guide}
+

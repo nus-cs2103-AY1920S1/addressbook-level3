@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableView;
+
 import seedu.address.MainApp;
 
 /**
@@ -18,13 +20,14 @@ public abstract class UiPart<T> {
     public static final String FXML_FILE_FOLDER = "/view/";
 
     private final FXMLLoader fxmlLoader = new FXMLLoader();
-
+    private final Lion lion;
     /**
      * Constructs a UiPart with the specified FXML file URL.
      * The FXML file must not specify the {@code fx:controller} attribute.
      */
     public UiPart(URL fxmlFileUrl) {
         loadFxmlFile(fxmlFileUrl, null);
+        this.lion = null;
     }
 
     /**
@@ -41,14 +44,24 @@ public abstract class UiPart<T> {
      */
     public UiPart(URL fxmlFileUrl, T root) {
         loadFxmlFile(fxmlFileUrl, root);
+        this.lion = null;
     }
 
+
+    public UiPart(URL fxmlFileUrl, Lion lion) {
+        loadFxmlFile(fxmlFileUrl, null);
+        this.lion = lion;
+    }
     /**
      * Constructs a UiPart with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
      * @see #UiPart(URL, T)
      */
     public UiPart(String fxmlFileName, T root) {
         this(getFxmlFileUrl(fxmlFileName), root);
+    }
+
+    public UiPart(String fxmlFileName, Lion lion) {
+        this(getFxmlFileUrl(fxmlFileName), lion);
     }
 
     /**
@@ -83,6 +96,15 @@ public abstract class UiPart<T> {
         String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
         URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
         return requireNonNull(fxmlFileUrl);
+    }
+
+    /**
+     * Returns a lion response with the string representation of the object.
+     * @param tableView
+     */
+    public void onClickedRow(TableView tableView) {
+        Object object = tableView.getSelectionModel().getSelectedItem();
+        this.lion.setResponse(object.toString());
     }
 
 }

@@ -67,7 +67,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'treasurerPro.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +133,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'treasurerPro',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T13-3/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
@@ -153,3 +153,9 @@ task copyStylesheets(type: Copy) {
 asciidoctor.dependsOn copyStylesheets
 
 defaultTasks 'clean', 'test', 'coverage', 'asciidoctor'
+
+run {
+
+	standardInput = System.in
+
+}

@@ -8,7 +8,8 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 
-https://gradle.org/[Gradle] is a build automation tool. It can automate build-related tasks such as
+https://gradle.org/[Gradle] is a build automation tool.
+It can automate build-related tasks such as
 
 * Running tests
 * Managing library dependencies
@@ -21,7 +22,8 @@ To learn more about gradle build scripts, refer https://docs.gradle.org/current/
 
 == Running Gradle Commands
 
-To run a Gradle command, open a command window on the project folder and enter the Gradle command. Gradle commands look like this:
+To run a Gradle command, open a command window on the project folder and enter the Gradle command.
+Gradle commands look like this:
 
 * On Windows: `gradlew <task1> <task2> ...` e.g. `gradlew clean test`
 * On Mac/Linux: `./gradlew <task1> <task2>...` e.g.
@@ -37,7 +39,11 @@ Deletes the files created during the previous build tasks (e.g. files in the `bu
 
 [TIP]
 *`clean` to force Gradle to execute a task*: +
-When running a Gradle task, Gradle will try to figure out if the task needs running at all. If Gradle determines that the output of the task will be same as the previous time, it will not run the task. For example, it will not build the JAR file again if the relevant source files have not changed since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine that task with `clean`. Once the build files have been `clean` ed, Gradle has no way to determine if the output will be same as before, so it will be forced to execute the task.
+When running a Gradle task, Gradle will try to figure out if the task needs running at all.
+If Gradle determines that the output of the task will be same as the previous time, it will not run the task.
+For example, it will not build the JAR file again if the relevant source files have not changed since the last time the JAR file was built.
+If we want to force Gradle to run a task, we can combine that task with `clean`.
+Once the build files have been `clean` ed, Gradle has no way to determine if the output will be same as before, so it will be forced to execute the task.
 
 == Creating the JAR file
 
@@ -51,14 +57,18 @@ e.g. `./gradlew clean shadowJar`
 ****
 
 [NOTE]
-*Why do we create a fat JAR?* If we package only our own class files into the JAR file, it will not work properly unless the user has all the other JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file. To create a fat JAR file, we use the Gradle plugin https://github.com/johnrengelman/shadow[shadow jar].
+*Why do we create a fat JAR?* If we package only our own class files into the JAR file, it will not work properly unless the user has all the other JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient.
+Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file.
+To create a fat JAR file, we use the Gradle plugin https://github.com/johnrengelman/shadow[shadow jar].
 
 == Rendering AsciiDoc files
 
 * **`asciidoctor`** +
-Converts AsciiDoc files in `docs` to HTML format. Generated HTML files can be found in `build/docs`.
+Converts AsciiDoc files in `docs` to HTML format.
+Generated HTML files can be found in `build/docs`.
 * **`deployOfflineDocs`** +
-Updates the offline user guide, and its associated files, used by the Help window in the application. Deployed HTML files and images can be found in `src/main/resources/docs`.
+Updates the offline user guide, and its associated files, used by the Help window in the application.
+Deployed HTML files and images can be found in `src/main/resources/docs`.
 
 == Running the application
 
@@ -74,7 +84,8 @@ Runs the code style check for the main code base
 * **`checkstyleTest`** +
 Runs the code style check for the test code base
 
-The set of code style rules implemented can be found in `config/checkstyle/checkstyle.xml`. To enable _exceptions_ to code styles, add in the comment `//CODESTYLE.OFF: RuleName` at the start of the section and `//CODESTYLE.ON: RuleName` at the end of the section.
+The set of code style rules implemented can be found in `config/checkstyle/checkstyle.xml`.
+To enable _exceptions_ to code styles, add in the comment `//CODESTYLE.OFF: RuleName` at the start of the section and `//CODESTYLE.ON: RuleName` at the end of the section.
 
 == Running Tests
 

@@ -7,8 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+
+import seedu.address.person.commons.core.LogsCenter;
+import seedu.address.person.model.person.Person;
 
 /**
  * Panel containing the list of persons.
@@ -23,6 +24,7 @@ public class PersonListPanel extends UiPart<Region> {
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
         personListView.setItems(personList);
+        logger.info("Set items.");
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }
 

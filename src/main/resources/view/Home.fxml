@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="home" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="590.0" prefWidth="775.0" stylesheets="@Extensions.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+          <TableView fx:id="tableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <columns>
+                  <TableColumn fx:id="idCol" prefWidth="44.0" text="ID" />
+                  <TableColumn fx:id="dateCol" prefWidth="104.00000381469727" text="Date/Time" />
+                  <TableColumn fx:id="descriptionCol" prefWidth="220.0" text="Description" />
+                  <TableColumn fx:id="categoryCol" prefWidth="125.0" text="Category" />
+                  <TableColumn fx:id="amountCol" prefWidth="140.0" text="Amount" />
+                  <TableColumn fx:id="personCol" minWidth="0.0" prefWidth="120.0" text="Person" />
+              </columns>
+          </TableView>
+    </children>
+</AnchorPane>
