@@ -2,6 +2,7 @@ package dream.fcard.gui.controllers.displays.createandeditdeck;
 
 import java.io.IOException;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.gui.controllers.windows.CardCreatingWindow;
@@ -14,7 +15,6 @@ import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
