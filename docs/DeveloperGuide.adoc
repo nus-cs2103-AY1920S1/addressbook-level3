@@ -331,6 +331,20 @@ Step 8. When the user is done reviewing, he can type `exit` or click `Exit Sessi
 *** Allows the project to be open for extension. Developers may potentially develop other kinds of Exam modes (eg. speed round whereby there's a limited time *per card*)
 ** Cons:
 *** Relatively redundant at the current version (`v1.4`)
+
+==== Future Extensions
+===== Relationship between GUI and CLI
+* Currently GUI and CLI are not implemented ideally because CLI is dependent on the `Responses` class while GUI relies on button handlers.
+
+* Ideally, GUI and CLI should both rely on the `Responses` class which will streamline the back-end logic.
+
+* However, due to time constraints and the late discovery of the bug, `v1.4` was made with the GUI and CLI not streamlined.
+
+===== Exam Interface
+* The Exam interface exists such that the project remains open for extension with various different test modes.
+
+* One example would be a speed round (whereby specific time limits are set for *each card*).
+
 // end::test[]
 
 
