@@ -24,8 +24,8 @@ My role in this project was to design and implement the Notification system of t
 
 Note the following symbols and formatting used throughout this document:
 |=======
-| `notif_on` | A grey highlight in the User Guide indicates that a term is a command that can be executed by the program if input through the command line.
-| `NotificationManager`| A grey highlight in the Developer Guide indicates that a term is a class or an object used in the source code of the application.
+| `notif_on` | Red text in the User Guide indicates that a term is a command that can be executed by the program if input through the command line.
+| `NotificationManager`| Red text in the Developer Guide indicates that a term is a class or an object used in the source code of the application.
 |=======
 
 == Summary of Contributions
@@ -52,7 +52,7 @@ link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chenggeng&sort=g
 | Notification System         | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/NotificationManager.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationCheckingThread.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/notification/NotificationChecker.java[3] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/SystemTrayCommunicator.java[4] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupNotification.java[5] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/PopupListener.java[6] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/ui/systemtray/NotificationClickActionListener.java[7]
 | Notification Tests          | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/notification/NotificationCheckerTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/notification/NotificationCheckingThreadTest.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/ui/systemtray/PopupNotificationTest.java[3]
 | Task Tests                  | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/tasks/TaskSourceBuilderTest.java[2]
-| Task-Related Command Tests  | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/DeleteTaskCommandTest.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java[1]
+| Task-Related Command Tests  | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/AddTaskCommandTest.java[1] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/DeleteTaskCommandTest.java[2] link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/commands/EditTaskCommandTest.java[3]
 |=======
 
 
