@@ -18,7 +18,7 @@ version provides a unique, clean and simple way of organizing and keeping track 
 
 === 1.1 Overview
 
-image::Ui.png[]
+image::Ui.png[width="500"]
 Figure 1. The graphical interface for Ezwatchlist.
 
 `EzWatchList` helps users to keep track and organise movie or TV show in a watch list. User can simply
@@ -155,7 +155,6 @@ My contributions to EzWatchList can be found in the following link: [https://nus
 features. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=addfirst]
 include::../UserGuide.adoc[tag=addsecond]
 include::../UserGuide.adoc[tag=sync]
 

@@ -96,7 +96,8 @@ public class DataBaseUtil {
     private static final Show SHOW_FANTASTIC_BEASTS_THE_CRIMES_OF_GRINDELWALD = new Movie(
             new Name("Fantastic Beasts: The Crimes of Grindelwald"),
             new Description("Gellert Grindelwald has escaped imprisonment and has begun gathering followers to his "
-                    + "cause—elevating wizards above all non-magical beings. The only one capable of putting a stop to "
+                    + "cause—elevating wizards above all non-magical beings. The only one capable of putting a stop "
+                    + "to "
                     + "him is the wizard he once called his closest friend, Albus Dumbledore. However, Dumbledore will "
                     + "need to seek help from the wizard who had thwarted Grindelwald once before, his former student "
                     + "Newt Scamander, who agrees to help, unaware of the dangers that lie ahead. Lines are drawn as "

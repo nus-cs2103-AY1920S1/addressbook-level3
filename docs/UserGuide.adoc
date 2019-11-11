@@ -285,16 +285,14 @@ Example Usage:
 
 Pre-condition: User has already searched for a show using search online command.
 
-image::add1.png[width="790"]
-
 Step 1. User click (or use keyboard `3` key) on search page. User then input `add 1` on command box.
 
-image::add2.png[width="790"]
+image::add2.png[width="500"]
 
 Step 2. User click (or press keyboard `1` key) on watch list page. User will see `Joker`
 movie added to watch list.
 
-image::add3.png[width="790"]
+image::add3.png[width="500"]
 
 // end::addsecond[]
 
@@ -515,7 +513,11 @@ Synchronise, `sync`, command will transfer all the information about a certain s
 search result page with a show (for example: show A') that has the same name as Show A found in watch list.
 
 ====
-Note: `Sync` will *WRITE OVER* all the information of show with same name found in watchlist.
+Note:
+
+1. The show in the watch list must have at least a name and type.
+2. Names are not-case sensitive.
+3. `Sync` will *WRITE OVER* all the information of show with same name found in watchlist.
 ====
 
 Format: `sync INDEX`
@@ -526,54 +528,35 @@ INDEX is a positive integer and is limited to the number of shows found in searc
 
 Scenario 1: User has already input 'Titanic' show into watchlist manually.
 
-image::Sync1.png[width="790"]
+image::Sync1.png[width="300"]
 
 Step 1. User searches for `Titanic` show in search page.
-
-image::Sync2.png[width="790"]
 
 Step 2. `Titanic` result page will be displayed. User input `sync 2` to synchronise movie at index 2 of the list with a movie
 of same name found in watchlist.
 
-image::Sync4.png[width="790"]
-
-image::Sync5.png[width="790"]
-
+image::Sync5.png[width="500"]
 
 Step 3. Go to watchlist. New information of `Titanic` in watchlist will be displayed.
 
-image::Sync6.png[width="790"]
+image::Sync6.png[width="500"]
 
 Scenario 2. User has not input Titanic show into watchlist manually.
 
-image::Sync21.png[width="790"]
+image::Sync21.png[width="500"]
 
 Step 1. Similar to scenario 1, user searches for `Titanic` show in search page.
 
-image::Sync4.png[width="790"]
+image::Sync4.png[width="500"]
 
 Step 2. `Titanic` result page will be displayed. If user were to sync any index, error message will be displayed
 because there is no show of similar name found in watch list.
 
-image::Sync22.png[width="790"]
+image::Sync22.png[width="500"]
 
 Step 3. User can choose to use `add 1` command to add show of index 1 found in search result page.
 
-image::Sync23.png[width="790"]
-
-
-****
-*Note*
-
-* User have added their show with their own information. However, user might not know some of the parameters such as actors.
-* Thus, user can use the search online command `search n/` to look up information regarding that show.
-* Then, Synchronise command `sync` can be used to update information/modify on that show.
-* Synchronise command will WRITE OVER all the information/parameters of show with same name found in the watchlist.
-* The show in watchlist which is to be synchronised must have the same name as the show found in searched result page.
-* Names of the show are not case-sensitive.
-* User must have at least input the name of the show to use sync command. (Both are same name, case-insensitive)
-* User can use `add INDEX` command if a selected show in result page is not found in watchlist.
-****
+image::Sync23.png[width="500"]
 
 // end::sync[]
 
