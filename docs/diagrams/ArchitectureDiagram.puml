@@ -12,6 +12,7 @@ Package " "<<Rectangle>>{
     Class Main MODEL_COLOR_T1
     Class Commons LOGIC_COLOR_T2
     Class "Log Center" as Logs UI_COLOR_T2
+    Class Statistics STATS_COLOR
     Class Hidden #FFFFFF
     Class HiddenUI #FFFFFF
     Class HiddenModel #FFFFFF
@@ -30,6 +31,7 @@ UI -> Logic
 UI -right-> Model
 Logic -> Storage
 Logic -down-> Model
+Model -right-> Statistics
 
 Logs -right- Commons
 Hidden .down.> Commons

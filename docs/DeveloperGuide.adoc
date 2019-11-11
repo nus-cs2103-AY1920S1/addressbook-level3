@@ -50,6 +50,7 @@ The rest of the App consists of four components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Storage,*`Statistics`*>>: Holds the statistics calculations of App.
 
 Each of the four components
 
