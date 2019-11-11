@@ -400,7 +400,7 @@ This command, `auto`, allows the user to add all the earnings that has been prev
  has been used on the particular earnings. You can refer to the activity diagram below to have a clearer understanding.
 
 .Auto Command Activity Diagram
-image::AutoActivityDiagram.png[width="700"]
+image::AutoActivityDiagram.png[width="600"]
 
 *Overview*
 The auto command is facilitated by `AutoCommand`.
