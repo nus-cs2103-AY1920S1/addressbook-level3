@@ -56,9 +56,8 @@ link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/se
 link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/commands/UndoCommandBuilder.java[5]
 link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/commands/RedoCommand.java[6]
 link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/main/java/seedu/address/logic/commands/RedoCommandBuilder.java[7]
-| Test Code       | link:blank[1]
-link:blank[2]
-link:blank[3]
+| Test Code       | link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/logic/UndoRedoManagerTest.java[1]
+link:https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/address/model/ModelDataTest.java[2]
 |=======
 
 === Other Contributions
