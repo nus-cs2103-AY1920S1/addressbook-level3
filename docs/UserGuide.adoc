@@ -592,7 +592,7 @@ as well as the tabs that are below this panel.
 [reftext="Figure 3.2.1"]
 [caption="Figure 3.2.1: "]
 .FinSec giving a brief description of the `goto` command
-image::UG-GotoExample.png[width="800"]
+image::UG-GotoExample.png[width="400"]
 
 Keyword: `goto` +
 
@@ -633,17 +633,17 @@ Examples:
 *Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
 
 [[UG-CheckExample1]]
-image::UG-CheckExample1.png[width="800"]
+image::UG-CheckExample1.png[width="400"]
 
 *Step 2:* The result box will display "Contact Shown"
 
 [[UG-CheckExample2]]
-image::UG-CheckExample2.png[width="800"]
+image::UG-CheckExample2.png[width="400"]
 
 *Step 3:* This is the pop-up window that comes up after the command is entered. You are now
 able to see the claims that belong to this contact
 [[UG-CheckExample3]]
-image::UG-CheckExample3.png[width="800"]
+image::UG-CheckExample3.png[width="400"]
 
 
 *Checking of a claim in the claims page:* +
@@ -651,17 +651,17 @@ image::UG-CheckExample3.png[width="800"]
 of each individual claim card.
 
 [[UG-CheckExample1]]
-image::UG-CheckExample4.png[width="800"]
+image::UG-CheckExample4.png[width="400"]
 
 *Step 2:* The result box will display "Claim Shown"
 
 [[UG-CheckExample2]]
-image::UG-CheckExample5.png[width="800"]
+image::UG-CheckExample5.png[width="400"]
 
 *Step 3:* This is the pop-up window that comes up after the command is entered. You are now able to see the important
 details that belong to this claim.
 [[UG-CheckExample3]]
-image::UG-CheckExample6.png[width="600"]
+image::UG-CheckExample6.png[width="200"]
 
 
 //end::checkfeature[]
@@ -718,7 +718,7 @@ Format: `sort status`
 [reftext="Figure 3.15.1"]
 [caption="Figure 3.15.1: "]
 .FinSec Status of the claim is shown and the right and sorted as stated above. Pending, Approved then Rejected.
-image::UG-ClaimsListSort.png[width="800"]
+image::UG-ClaimsListSort.png[width="400"]
 
 Examples:
 * `sort date`

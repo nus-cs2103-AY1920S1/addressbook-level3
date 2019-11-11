@@ -857,7 +857,7 @@ command is entered.
 [reftext="Figure 2.5.2.1"]
 [caption="Figure 2.5.2.1: "]
 .Execution sequence of the `check 1` command
-image::CheckSequenceDiagram.png[width="800"]
+image::CheckSequenceDiagram.png[width="400"]
 
 1) The only parameter after the `check` command in the user input is passed into the LogicManager::execute method of the LogicManager instance. +
 
@@ -892,7 +892,7 @@ Figure 2.5.2.2 is the activity diagram of the check command
 [reftext="Figure 2.5.2.2"]
 [caption="Figure 2.5.2.2: "]
 .ActivityDiagram
-image::CheckActivityDiagram.png[width="800"]
+image::CheckActivityDiagram.png[width="400"]
 
 * The model parameter in the `CheckCommand::execute` method is checked to be not null is made before the rest of the method continues.
 
@@ -987,7 +987,7 @@ with a date.
 [reftext="Figure 2.7.2.1"]
 [caption="Figure 2.7.2.1: "]
 .SortActivityDiagram
-image::SortActivityDiagram.png[width="800"]
+image::SortActivityDiagram.png[width="400"]
 
 4) To elaborate, once the sort command is called, `UiManager::getState` method is called to determine the current view
 the application is on then implements the correct type of sort on the list.
