@@ -16,6 +16,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.category.Category;
 import seedu.address.model.person.UniquePersonList;
@@ -71,6 +72,7 @@ public class UpdateCommand extends Command {
         requireNonNull(model);
 
         if (this.type.equals(Model.TRANSACTION_TYPE)) {
+            //update transaction type
             ObservableList<BankAccountOperation> lastShownList = model.getFilteredTransactionList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -88,6 +90,7 @@ public class UpdateCommand extends Command {
             return new CommandResult(String.format(MESSAGE_UPDATE_ENTRY_SUCCESS, updatedTransaction),
                 false, false, Tab.TRANSACTION);
         } else if (this.type.equals(Model.BUDGET_TYPE)) {
+            //update budget type
             ObservableList<Budget> lastShownList = model.getFilteredBudgetList();
 
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -97,6 +100,9 @@ public class UpdateCommand extends Command {
             Budget budgetToReplace = lastShownList.get(targetIndex.getZeroBased());
             Budget updatedBudget = createUpdatedOperation(budgetToReplace,
                     updateTransactionDescriptor);
+            if (model.has(updatedBudget)) {
+                throw new CommandException("Updated budget already exists!");
+            }
             model.set(budgetToReplace, updatedBudget);
             model.updateProjectionsAfterDelete(budgetToReplace);
             model.updateProjectionsAfterAdd(updatedBudget);
