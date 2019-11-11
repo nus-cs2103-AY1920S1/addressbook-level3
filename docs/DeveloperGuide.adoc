@@ -504,7 +504,7 @@ in both the `filteredRestaurantList` and `editingRestaurantList` via the functio
 
 The `Logic` for EditMode is facilitated by `Context` enum type, which contains the following constants:
 `GLOBAL`, `CUSTOMER`, `RESTAURANT`, `DELIVERYMEN` and `EDITING`. It determines the `Context` the application is in,
-as well as the commands the user can access. It is contained inside `LogicManager` as an attribute. `EditModeCommand` is only 
+as well as the commands the user can access. It is contained inside `LogicManager` as an attribute. `EditModeCommand` is only
 accessible in `Context.RESTAURANT`, and entering a valid `EditModeCommand` will change the `Context` to `Context.EDITING`.
 
 The following class diagram shows the relevant structure of `Logic` and `Parser`:
