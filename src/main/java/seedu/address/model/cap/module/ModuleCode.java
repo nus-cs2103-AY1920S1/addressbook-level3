@@ -68,7 +68,7 @@ public class ModuleCode {
     public static boolean isValidModuleCode(String test) {
         boolean isValid = false;
         try {
-            for(int i = 2, n = test.length(); i < n ; i++) {
+            for (int i = 2, n = test.length(); i < n; i++) {
                 String toCheck = test.substring(i, i + 4);
                 //check if there are more than 1 char after the 4 set of integers
                 if (isStringInt(toCheck) && (test.length() - (i + 4)) > 1) {
@@ -91,9 +91,13 @@ public class ModuleCode {
         return isValid;
     }
 
+    /**
+     * Checks whether a String is an integer or can be parsed into an integer.
+     * @param s valid input string
+     * @return boolean value that states the result
+     */
     private static boolean isStringInt(String s) {
-        try
-        {
+        try {
             Integer.parseInt(s);
             return true;
         } catch (NumberFormatException ex) {
