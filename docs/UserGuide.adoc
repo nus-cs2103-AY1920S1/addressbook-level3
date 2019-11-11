@@ -1446,7 +1446,7 @@ General notes are found at the bottom of the rightmost column on the offline cop
 |*Category* |*Commands*
 .8+|General
 | Help: `*help*`
-| Tab: `*tab* INDEX`
+| Tab: `*tab* INDEX` or `*tab* KEYWORD`
 | Undo: `*undo* [STEP=1]`
 | Redo: `*redo* [STEP=1]`
 | Export: `*export* FILENAME`
