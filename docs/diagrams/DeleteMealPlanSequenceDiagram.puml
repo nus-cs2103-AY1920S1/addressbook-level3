@@ -1,0 +1,87 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":DukeCooksParser" as DukeCooksParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant ":DeleteMealPlanCommandParser" as DeleteMealPlanCommandParser LOGIC_COLOR
+participant "d:DeleteMealPlanCommand" as DeleteMealPlanCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete mealplan 1")
+activate LogicManager
+
+LogicManager -> DukeCooksParser : parseCommand("delete mealplan 1")
+activate DukeCooksParser
+
+create DeleteCommandParser
+DukeCooksParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> DukeCooksParser
+deactivate DeleteCommandParser
+
+DukeCooksParser -> DeleteCommandParser : parse("mealplan 1")
+activate DeleteCommandParser
+
+create DeleteMealPlanCommandParser
+DeleteCommandParser -> DeleteMealPlanCommandParser
+activate DeleteMealPlanCommandParser
+
+DeleteMealPlanCommandParser -> DeleteCommandParser
+deactivate DeleteMealPlanCommandParser
+
+DeleteCommandParser -> DeleteMealPlanCommandParser : parse("1")
+activate DeleteMealPlanCommandParser
+
+create DeleteMealPlanCommand
+DeleteMealPlanCommandParser -> DeleteMealPlanCommand
+activate DeleteMealPlanCommand
+
+DeleteMealPlanCommand --> DeleteMealPlanCommandParser : d
+deactivate DeleteMealPlanCommand
+
+DeleteMealPlanCommandParser --> DeleteCommandParser : d
+deactivate DeleteMealPlanCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteMealPlanCommandParser
+
+DeleteCommandParser --> DukeCooksParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteCommandParser
+
+DukeCooksParser --> LogicManager : d
+deactivate DukeCooksParser
+
+LogicManager -> DeleteMealPlanCommand : execute()
+activate DeleteMealPlanCommand
+
+DeleteMealPlanCommand -> Model : deleteMealPlan(1)
+activate Model
+
+Model --> DeleteMealPlanCommand
+deactivate Model
+
+create CommandResult
+DeleteMealPlanCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteMealPlanCommand
+deactivate CommandResult
+
+DeleteMealPlanCommand --> LogicManager : result
+deactivate DeleteMealPlanCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

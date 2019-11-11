@@ -52,7 +52,9 @@ import dukecooks.logic.commands.diary.ListDiaryCommand;
 import dukecooks.logic.commands.diary.ViewDiaryCommand;
 import dukecooks.logic.commands.exercise.AddExerciseCommand;
 import dukecooks.logic.commands.exercise.ClearExerciseCommand;
+import dukecooks.logic.commands.exercise.GotoExerciseCommand;
 import dukecooks.logic.commands.exercise.ListExerciseCommand;
+import dukecooks.logic.commands.health.GotoHealthCommand;
 import dukecooks.logic.commands.health.ListHealthCommand;
 import dukecooks.logic.commands.mealplan.AddMealPlanCommand;
 import dukecooks.logic.commands.mealplan.ClearMealPlanCommand;
@@ -60,6 +62,7 @@ import dukecooks.logic.commands.mealplan.DeleteMealPlanCommand;
 import dukecooks.logic.commands.mealplan.EditMealPlanCommand;
 import dukecooks.logic.commands.mealplan.EditMealPlanCommand.EditMealPlanDescriptor;
 import dukecooks.logic.commands.mealplan.FindMealPlanCommand;
+import dukecooks.logic.commands.mealplan.GotoMealPlanCommand;
 import dukecooks.logic.commands.mealplan.ListMealPlanCommand;
 import dukecooks.logic.commands.mealplan.ViewMealPlanCommand;
 import dukecooks.logic.commands.profile.EditProfileCommand;
@@ -69,6 +72,7 @@ import dukecooks.logic.commands.recipe.DeleteRecipeCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand;
 import dukecooks.logic.commands.recipe.EditRecipeCommand.EditRecipeDescriptor;
 import dukecooks.logic.commands.recipe.FindRecipeCommand;
+import dukecooks.logic.commands.recipe.GotoRecipeCommand;
 import dukecooks.logic.commands.recipe.ListRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
 import dukecooks.model.dashboard.components.Dashboard;
@@ -222,6 +226,12 @@ public class DukeCooksParserTest {
                 + " 3") instanceof ClearRecipeCommand);
     }
 
+    @Test
+    public void parseCommand_gotoRecipe() throws Exception {
+        assertTrue(parser.parseCommand(GotoRecipeCommand.COMMAND_WORD
+                + " " + GotoRecipeCommand.VARIANT_WORD) instanceof GotoRecipeCommand);
+    }
+
     /**  ------------------------------------  MEAL PLAN ---------------------------------------- */
 
     @Test
@@ -282,6 +292,12 @@ public class DukeCooksParserTest {
                 + " 3") instanceof ClearMealPlanCommand);
     }
 
+    @Test
+    public void parseCommand_gotoMealPlan() throws Exception {
+        assertTrue(parser.parseCommand(GotoMealPlanCommand.COMMAND_WORD
+                + " " + GotoMealPlanCommand.VARIANT_WORD) instanceof GotoMealPlanCommand);
+    }
+
     /**  ------------------------------------  PROFILE ----------------------------------------- */
 
     @Test
@@ -323,6 +339,12 @@ public class DukeCooksParserTest {
         AddExerciseCommand command = (AddExerciseCommand) parser.parseCommand(ExerciseUtil
                 .getAddExerciseCommand(exercise));
         assertEquals(new AddExerciseCommand(exercise), command);
+    }
+
+    @Test
+    public void parseCommand_gotoExercise() throws Exception {
+        assertTrue(parser.parseCommand(GotoExerciseCommand.COMMAND_WORD
+                + " " + GotoExerciseCommand.VARIANT_WORD) instanceof GotoExerciseCommand);
     }
 
     /**  ------------------------------------  DIARY ---------------------------------------- */
@@ -422,6 +444,12 @@ public class DukeCooksParserTest {
     public void parseCommand_listHealth() throws Exception {
         assertTrue(parser.parseCommand(ListHealthCommand.COMMAND_WORD
                 + " " + ListHealthCommand.VARIANT_WORD) instanceof ListHealthCommand);
+    }
+
+    @Test
+    public void parseCommand_gotoHealth() throws Exception {
+        assertTrue(parser.parseCommand(GotoHealthCommand.COMMAND_WORD
+                + " " + GotoHealthCommand.VARIANT_WORD) instanceof GotoHealthCommand);
     }
 
     /**  ------------------------------------  COMMON ---------------------------------------- */
