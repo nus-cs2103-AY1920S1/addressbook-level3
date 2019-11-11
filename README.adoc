@@ -8,7 +8,7 @@ image:https://api.codacy.com/project/badge/Grade/78777849c5a44d42bef0726f03d6fc1
 https://gitter.im/AY1920S1-CS2103T-T10-1-JARVIS/Lobby[image:https://badges.gitter.im/AY1920S1-CS2103T-T10-1-JARVIS/Lobby.svg[Gitter Chat]]
 
 ifndef::env-github[]
-image::/docs/images/startup-gui-dg.png[]
+image::./docs/images/startup-gui-dg.png[]
 endif::[]
 
 == What is JARVIS
