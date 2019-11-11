@@ -320,7 +320,7 @@ difficulty.
 
 === Exiting the quiz
 
-User can end the quiz and go back into Configuration Mode (see <<ConfigurationMode>>) to perform commands such as `add`, `list`, and `status`
+User can end the quiz and go back into Configuration Mode (see <<ConfigurationMode>>) to perform commands such as `add`, `list`, and `stats`
 .
 
 Format: `exit`
@@ -389,7 +389,7 @@ arrow keys and hit kbd:[Enter] to complete the command.
 //tag::khiangleon-StatsTip[]
 [TIP]
 *Stats/History*: Hitting kbd:[Enter] again after executing a `stats` or `history` command will return you
-back to the main window displaying the question bank.
+back to configuration mode displaying the question bank.
 
 //end::khiangleon-StatsTip[]
 //end::khiangleon[]

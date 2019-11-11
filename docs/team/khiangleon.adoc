@@ -1,0 +1,115 @@
+= Sim Khiang Leon - Project Portfolio for CS2103/T Revision Tool (RT)
+:site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:contributedCodeUrl: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=khiangleon
+:ab3Url: https://github.com/nus-cs2103-AY1920S1/addressbook-level3
+:pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
+:mainPullUrl: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull
+:issuesUrl: https://github.com/nus-cs2103-AY1920S1/forum/issues
+
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+This portfolio provides an overview of the CS2103/T Revision Tool and highlights my contribution
+in the project including a brief description of the key features that I implemented.
+
+=== The Team
+Our team of 5 consists of 2 Year 4 Engineering Science students, a Year 2 Computer Science / Business student, a Year
+3 Communications and New Media student and myself, a Year 4 Industrial & Systems Engineering student.
+
+=== About the Project
+
+This 7-week project was started as part of NUS' Software Engineering (CS2103/T) module. The team was required to
+to either morph or enhance an existing application (link:{ab3Url}/[Address Book - Level 3]). Our team decided to morph the project
+into the CS2103/T Revision Tool (RT), a desktop quiz application which allows users to create their very own
+personally customised question banks and attempt these questions in the format of timed quizzes
+in an interactive manner later on. The user interacts with it using a Command Line Interface (CLI), and it has
+a Graphical User Interface (GUI) created using JavaFX.
+It is written in Java, and has about 14 kLoC.
+
+.UI of the Configuration Mode
+image:Ui.png[width="790"]
+
+.UI of the Quiz Mode
+image:Ui2.png[width="790"]
+
+== Summary of contributions
+
+As a member of the project, I have volunteered to set up the project on GitHub and invited all of the group members
+into our team Repo. I have helped out in milestones and project management. I have been actively monitoring the build
+status of our project on GitHub. Furthermore, I developed the data analytics part of the application.
+
+* *Major enhancement*: added *data analytics for the quiz*
+
+** *What it does*: `stats` command generates and displays a list of past results of quiz attempts and their
+respective breakdown into scores for each difficulty levels. For each quiz attempt, the application also indicates to
+the user which type of questions the user did the worst in.
+`history` command shows the raw history of all quiz results and its breakdowns by difficulty levels to the user.
+This feature also indicates the number of quizzes attempted by the user so far.
+** *Justification*: This essential feature aids in keeping a record of all quiz results. The feature carries out
+some data processing and analytics before reporting these extra information back to the user in a proper format.
+This feature significantly improves the product by providing additional helpful information to the user
+so as to aid in improving his or her quiz scores and ultimately her revision outcome.
+** *Highlights*: This enhancement required the deep understanding of the entire project structure including the
+new quiz driver feature that forms the backbone of the project. It involves passing and retrieving of information from
+UI to Storage. Some tests were written for this feature. The `History` Class is created for subsequent storage
+of any statistical information of past quizzes.
+** Credits: Code for the GUI display and storage of information of this feature was adapted from Address Book – Level 3.
+
+* *Minor enhancements*: added *the delete multiple questions feature for the app*
+** Enabled `delete` to remove multiple questions at once based on listed index in configuration mode.
+
+
+* *Code contributed*: You can view the code I contributed to this project link:{contributedCodeUrl}/[here, window=blank]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases v1.1 - v1.2 (2 releases) on GitHub
+*** Managed and resolved issues actively throughout project duration.
+
+** Enhancements to existing features:
+*** Wrote additional GUI tests to increase coverage from 50% to 75% (PR link:{pullUrl}/158[#158], link:{pullUrl}/161[#161], link:{pullUrl}/163[#163])
+
+** Documentation:
+
+
+** Community:
+
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=khiangleon-stats]
+
+include::../UserGuide.adoc[tag=khiangleon-history]
+
+include::../UserGuide.adoc[tag=khiangleon-StatsTip]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=wilfred-logic]
+
+include::../DeveloperGuide.adoc[tag=wilfred-answerable]
+
+include::../DeveloperGuide.adoc[tag=wilfred-quiz]
