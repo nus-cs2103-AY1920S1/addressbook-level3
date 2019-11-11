@@ -45,8 +45,19 @@ public class SampleRecordDataUtil {
             ),
             new Record(
                 Type.Weight,
+<<<<<<< HEAD
                 new Value("65"),
                 new Timestamp("23/10/2019 12:00"),
+=======
+                new Value("55"),
+                new Timestamp("09/11/2019 19:05"),
+                getRemarkSet()
+            ),
+            new Record(
+                Type.Weight,
+                new Value("55.5"),
+                new Timestamp("09/11/2019 19:10"),
+>>>>>>> 3ee0f8d7e0edc3ca16a6df9b71ed977af5c1eb8d
                 getRemarkSet()
             ),
             new Record(
@@ -63,6 +74,7 @@ public class SampleRecordDataUtil {
             ),
             new Record(
                 Type.Calories,
+<<<<<<< HEAD
                 new Value("500"),
                 new Timestamp("25/10/2019 22:00"),
                 getRemarkSet("on a diet", "dinner")
@@ -72,6 +84,41 @@ public class SampleRecordDataUtil {
                 new Value("300"),
                 new Timestamp("24/10/2019 11:00"),
                 getRemarkSet("on a diet", "breakfast", "no carbs")
+=======
+                new Value("750"),
+                new Timestamp("24/10/2019 12:05"),
+                getRemarkSet("lunch")
+            ),
+            new Record(
+                Type.Calories,
+                new Value("550"),
+                new Timestamp("24/10/2019 20:05"),
+                getRemarkSet("dinner")
+            ),
+            new Record(
+                Type.Calories,
+                new Value("1050"),
+                new Timestamp("23/10/2019 20:05"),
+                getRemarkSet("dinner")
+            ),
+            new Record(
+                Type.Carbs,
+                new Value("8"),
+                new Timestamp("24/10/2019 12:00"),
+                getRemarkSet()
+            ),
+            new Record(
+                Type.Fats,
+                new Value("20"),
+                new Timestamp("24/10/2019 12:00"),
+                getRemarkSet("lunch")
+            ),
+            new Record(
+                Type.Protein,
+                new Value("22"),
+                new Timestamp("24/10/2019 12:00"),
+                getRemarkSet()
+>>>>>>> 3ee0f8d7e0edc3ca16a6df9b71ed977af5c1eb8d
             )
         };
     }
