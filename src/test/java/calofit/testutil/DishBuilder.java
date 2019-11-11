@@ -60,6 +60,22 @@ public class DishBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code setOfTags} into a {@code Set<Tag>} and set it to the {@code Dish} that we are building.
+     */
+    public DishBuilder withTagsSet(Set<Tag> setOfTags) {
+        this.tags = setOfTags;
+        return this;
+    }
+
+    /**
+     * Removes tags in {@code setOfTagsToRemove} from the original set of tags
+     */
+    public DishBuilder withTagsToRemove(Set<Tag> setOfTagsToRemove) {
+        this.tags.removeAll(setOfTagsToRemove);
+        return this;
+    }
+
     public Dish build() {
         return new Dish(name, calories, tags);
     }

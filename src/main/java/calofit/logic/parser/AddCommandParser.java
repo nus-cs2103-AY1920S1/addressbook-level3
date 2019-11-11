@@ -33,7 +33,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             String[] argsArr = argMultimap.getPreamble().split(" ");
             ArrayList<Integer> dishIntList = new ArrayList<>();
             if (argsArr.length == 0) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddCommand.MESSAGE_USAGE_FORMAT1));
             }
 
             try {

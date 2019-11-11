@@ -1,23 +1,23 @@
 package calofit.logic.commands;
 
-//import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
-//import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
-//import static calofit.logic.commands.CommandTestUtil.showDishAtIndex;
+import static calofit.logic.commands.CommandTestUtil.assertCommandFailure;
+import static calofit.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-//import calofit.commons.core.Messages;
-//import calofit.commons.core.index.Index;
+import calofit.commons.core.Messages;
+import calofit.commons.core.index.Index;
 import calofit.model.Model;
 import calofit.model.ModelManager;
 import calofit.model.UserPrefs;
-//import calofit.model.meal.Meal;
-//import calofit.model.meal.MealLog;
+import calofit.model.meal.Meal;
+import calofit.model.meal.MealLog;
 import calofit.testutil.TypicalDishes;
 import calofit.testutil.TypicalIndexes;
 
@@ -30,61 +30,37 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(TypicalDishes.getTypicalMealLog(),
             TypicalDishes.getTypicalDishDatabase(), new UserPrefs(), TypicalDishes.getTypicalBudget());
 
-    //@Test
-    //public void execute_validIndexUnfilteredList_success() {
-    //    Meal mealToDelete = model.getMealLog().getTodayMeals().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
-    //    DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_MEAL);
-    //
-    //    String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS,
-    //            mealToDelete.getDish().getName());
-    //
-    //    ModelManager expectedModel = new ModelManager(new MealLog(model.getMealLog()),
-    //            model.getDishDatabase(), new UserPrefs());
-    //    expectedModel.removeMeal(mealToDelete);
-    //
-    //    assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    //}
+    @Test
+    public void execute_validIndex_success() {
+        Meal mealToDelete = model.getMealLog().getTodayMeals().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
+        List<Integer> indexToDelete = new ArrayList<>();
+        indexToDelete.add(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(indexToDelete);
 
-    //@Test
-    //public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-    //    Index outOfBoundIndex = Index.fromOneBased(model.getFilteredDishList().size() + 1);
-    //    DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-    //
-    //    assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_MEAL_DISPLAYED_INDEX);
-    //}
+        String listOfMealToDeleteToString = "\n" + "1. " + mealToDelete.getDish();
 
-    //@Test
-    //public void execute_validIndexFilteredList_success() {
-    //    showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
-    //
-    //    Meal mealToDelete = model.getMealLog().getTodayMeals().get(TypicalIndexes.INDEX_FIRST_MEAL.getZeroBased());
-    //
-    //    DeleteCommand deleteCommand = new DeleteCommand(TypicalIndexes.INDEX_FIRST_MEAL);
-    //
-    //    String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS,
-    //            mealToDelete.getDish().getName());
-    //
-    //    Model expectedModel = new ModelManager(new MealLog(model.getMealLog()),
-    //            model.getDishDatabase(), new UserPrefs());
-    //    expectedModel.removeMeal(mealToDelete);
-    //    showNoDish(expectedModel);
-    //
-    //    assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    //}
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_MEAL_SUCCESS,
+                listOfMealToDeleteToString);
 
-    //@Test
-    //public void execute_invalidIndexFilteredList_throwsCommandException() {
-    //    showDishAtIndex(model, TypicalIndexes.INDEX_FIRST_MEAL);
-    //
-    //    Index outOfBoundIndex = TypicalIndexes.INDEX_SECOND_MEAL;
-    //    // ensures that outOfBoundIndex is still in bounds of dish database list
-    //    assertTrue(outOfBoundIndex.getZeroBased() < model.getDishDatabase().getDishList().size());
-    //
-    //    DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
-    //
-    //    assertCommandFailure(deleteCommand, model,
-    //            String.format(Messages.MESSAGE_INVALID_MEAL_INDEX, outOfBoundIndex.getOneBased()));
-    //}
+        ModelManager expectedModel = new ModelManager(new MealLog(model.getMealLog()),
+                model.getDishDatabase(), new UserPrefs(), TypicalDishes.getTypicalBudget());
+        expectedModel.removeMeal(mealToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndex_throwsCommandException() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getMealLog().getTodayMeals().size() + 1);
+        List<Integer> listOutOfBoundIndex = new ArrayList<>();
+        listOutOfBoundIndex.add(outOfBoundIndex.getZeroBased());
+        DeleteCommand deleteCommand = new DeleteCommand(listOutOfBoundIndex);
+
+        assertCommandFailure(deleteCommand, model, String.format(Messages.MESSAGE_INVALID_MEAL_INDEX,
+                outOfBoundIndex.getZeroBased() + 1));
+    }
+
+
 
     @Test
     public void equals() {

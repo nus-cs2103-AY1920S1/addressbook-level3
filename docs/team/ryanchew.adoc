@@ -60,11 +60,15 @@ The [https://github.com/controlsfx/controlsfx[ControlsFX library]] was used to p
 
 * *Other contributions*:
 
-
 ** Project management:
 *** In charge of overall software architecture
-**** Refactored original AddressBook model structure, into something closer to our problem domain.
-**** Provided many low-level code infrastructure to support teammates' high-level features.
+*** Was responsible for refactoring the whole model from the original AddressBook 3 model,
+    into a model suitable for CaloFit.
+**** This involved many bulk and manual rename operations upon the classes, and continuous re-testing to ensure integrity.
+**** I also added many more reactive properties leveraging JavaBean's/JavaFx's Observable mechanism.
+***** This allows the UI to be able to track model updates, without incurring a direct dependency from the Model to the UI component.
+**** I also wrote utility code in the form of *_ObservableListUtils_* and *_ObservableUtils_* in order to ease implementation
+    of chained reactive properties, especially with those involving manipulations of *_ObservableList_* s.
 
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (https://github.com/iltep64/ped/issues[List of bugs reported])
@@ -94,6 +98,11 @@ include::../UserGuide.adoc[tag=setcmd]
 include::../UserGuide.adoc[tag=syntax]
 
 == Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide for the budget bar feature._
+|===
+include::../DeveloperGuide.adoc[tag=model]
 
 |===
 |_Given below are sections I contributed to the Developer Guide for the budget bar feature._
