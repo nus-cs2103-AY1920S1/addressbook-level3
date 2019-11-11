@@ -868,7 +868,7 @@ before `delete -p 3` command was executed.
 image::initialStack.png[width=350]
 
 Step 4. After retrieving the `[green]#Athletick#` state before `delete -p 3` command
-was executed, we then resets the `[green]#Athletick#` state to this retrieved
+was executed, we then reset the `[green]#Athletick#` state to this retrieved
 `[green]#Athletick#` state. As such, the previous command will then be undone.
 
 The following sequence diagram shows how the undo operation works:
@@ -1139,8 +1139,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |Coach who wants fit players |Filter players by overweight BMIs |Single them out and get them to lose weight
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -1365,25 +1363,25 @@ Windows, Linux, Unix, OS-X
 [[cli]] CLI::
 Command line interface (CLI) is a text-based interface that is used to operate software and operating systems while allowing the user to respond to visual prompts by typing single commands into the interface and receiving a reply in the same way.
 
-[[time-base-sports]] Time-base Sports::
+[[time-based-sports]] Time-based Sports::
 Examples of time-based sports are swimming and track & field, where performance can be measured in terms of time or distance.
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*https://teamstuff.com/[Teamstuff]*
 
-Author: ...
+Author: Dominique Ng Wenyi
 
 Pros:
 
-* ...
-* ...
+* Availability of team members for future trainings can be shown
+* Alerts given to user for upcoming trainings or a change in attendance
 
 Cons:
 
-* ...
-* ...
+* Lacks analysis of data with visual aids like charts
+* Lacks an in-built calendar for an overview of schedule
 
 [appendix]
 == Instructions for Manual Testing
@@ -1407,18 +1405,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
 === Deleting a person
 
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Test case: `delete -p 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete -p 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size). +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
@@ -1554,3 +1550,51 @@ Expected: Error details shown in result box.
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Adding an event
+
+. Adding an event while all events are listed
+
+.. Prerequisites: List all events using the `view performance` command. Multiple events in the list
+(`freestyle 50m` is inside, `backstroke 100m` is not).
+.. Test case: `event backstroke 100m` +
+   Expected: `backstroke 100m` event is added to the list. Details of the added event shown in the status message.
+.. Test case: `event freestyle 50m` +
+   Expected: No event is added. Error details shown in the status message.
+.. Other incorrect add commands to try: `add event`, `new event`. +
+   Expected: The former will result in an error message for adding a person. The latter will result in a
+general unknown command error message.
+
+=== Deleting an event
+
+. Deleting an event while all events are listed
+
+.. Prerequisites: List all events using the `view performance` command. Multiple events in the list
+(`freestyle 50m` is inside, `backstroke 100m` is not).
+.. Test case: `delete -e freestyle 50m` +
+   Expected: `freestyle 50m` event is deleted from the list. Details of the deleted event shown in the status message.
+.. Test case: `delete -e backstroke 100m` +
+   Expected: No event is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `delete e`, `delete event`. +
+Expected: Similar to previous.
+
+=== Undoing a previous command
+. Undoing a previous command after user executes `list` command
+
+.. Prerequisites: Previous command is `list`.
+.. Test case: `undo` +
+    Expected: Error details shown in the status message. Status bar remains
+the same. List of people remains the same.
+.. Other incorrect undo commands to try: `undo x` (where x is any word) +
+Expected: Similar to previous.
+
+=== Redoing a previous command
+. Redoing a previous command after user executes `undo` command
+
+.. Prerequisites: Previous command is `undo`.
+.. Test case: `redo` +
+    Expected: `undo` command reversed. Details of the redone command shown
+in the status message.
+.. Test case: `redo undo` +
+Expected: Error details shown in status message. Status bar remains the same.
+List of people remains the same.
