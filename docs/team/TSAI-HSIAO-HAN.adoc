@@ -99,6 +99,7 @@ This part is about the sections I contributed to the Developer Guide.
 The section extracted from the Developer Guide below showcase my ability to write a technical documentation to a developer and show technique depth of my contribution.
 
 _------------- This is the start of the excerpt -------------_
+
 include::../DeveloperGuide.adoc[tag=reminder]
 
 //include::../DeveloperGuide.adoc[tag=use-case-reminder]
