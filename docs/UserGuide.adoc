@@ -250,7 +250,7 @@ Enters settings page, so that the user can customise the game play.
 
 <<<
 
-=== _Card_ Commands image:card_commands_icon.png[width="29.5"]
+=== Card Commands image:card_commands_icon.png[width="29.5"]
 (Available in Open mode)
 
 ==== Add a _card_: `add`
@@ -327,7 +327,7 @@ Format: `clear`
 
 <<<
 
-=== _WordBank_ Commands image:load_mode_icon.png[load, 22]
+=== WordBank Commands image:load_mode_icon.png[load, 22]
 (Available in Home mode)
 
 ==== Select a _WordBank_: `select`

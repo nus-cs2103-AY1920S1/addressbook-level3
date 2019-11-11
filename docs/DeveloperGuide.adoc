@@ -544,6 +544,8 @@ synchronization issues, all
 _callbacks_ to change `UI` components are forced to run on the *JavaFX Application Thread* using
 `Platform.runLater()`.
 
+<<<
+
 .Class diagram reflecting how the callback-functions are organized in the Timer component.
 image::TimerClassDiagramCallbacks.png[]
 
@@ -694,6 +696,8 @@ elements can potentially affect all other components, it was safer to modify mor
 
 // tag::chenhui-feature[]
 
+<<<
+
 === [underline]#_WordBank_ Management Feature#
 This section discusses the implementation of _WordBank_ Management in various levels of detail. +
 This can be split into four complimentary distinct sections.
@@ -761,6 +765,8 @@ A `_Card_` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`
 
 ---
 
+<<<
+
 ===== Next, the second level - `_WordBank_`.
 
 .Class diagram of `_WordBank_`.
@@ -780,6 +786,8 @@ change.
 
 ---
 
+<<<
+
 ===== Now the third level - `WordBankList`
 
 .Class diagram of `WordBankList`.
@@ -798,6 +806,9 @@ In Dukemon, there is should only be one `WordBankList`, which is created upon `S
 `Model` holds a reference to that specific `WordBankList`.
 
 ---
+
+<<<
+
 ===== Architecture overview - `WordBankList`
 
 // tag::chenhui-overviewOfWbl[]
@@ -808,6 +819,8 @@ image::OverviewOfWordBankList.png[]
 ---
 
 // tag::chenhui-wblStorageModel[]
+
+<<<
 
 ===== _WordBank_'s storage system integration.
 
@@ -868,6 +881,9 @@ To segregate `Cards` according to their function, we distinguished the following
 //For instance, `CreateCommand`: +
 
 ---
+
+<<<
+
 ===== Walkthrough - `ImportCommand`. +
 
 // tag::chenhui-importCommandSequenceDiagram[]
@@ -881,6 +897,8 @@ The emphasis here is to show how these commands utilise _WordBank_'s data struct
 
 We will see the case where an `ImportCommand` is valid. +
 A valid input could be: "import w/bank1, f/~/downloads"
+
+<<<
 
 1. Depending on the input, a specific `Command` type is returned by `ParserManager`. i.e. `ImportCommand`.
 
@@ -917,6 +935,8 @@ then to the `UI` to notify the user.
 
 // end::chenhui-section2[]
 // tag::chenhui-section3[]
+
+<<<
 
 ==== Drag and drop
 Allows user to export their _WordBank_ out of their computer simply by dragging it out of Dukemon. +
@@ -956,6 +976,8 @@ your desktop, or chat applications. +
 
 ---
 
+<<<
+
 // tag::chenhui-dragInWalkThrough[]
 ===== Walkthrough - Drag in.
 // tag::chenhui-dragAndDropSequenceDiagram[]
@@ -989,6 +1011,8 @@ This is possible with careful exceptions handling within the `ImportCommand` its
 // end::chenhui-section3[]
 // tag::chenhui-section4[]
 
+<<<
+
 ==== Revision _WordBank_
 Allows user to visit a centralised _WordBank_ that automatically collects _cards_ for revision. +
 _Cards_ that were answered wrongly are automatically added to this revision bank. +
@@ -1006,6 +1030,8 @@ image::RevisionBankActivityDiagram.png[]
 
 Revision _WordBank_ was one of the essential and dominant features we wanted to implement since early development, however
 it had to be implemented last because it required multiple components working together. +
+
+<<<
 
 These components include:
 
@@ -1028,6 +1054,8 @@ The activity diagram above is able to detail the thought process and implementat
 {nbsp}
 
 ---
+
+<<<
 
 ==== Design Considerations
 // Why one WBL is referenced both in model and in storage.
@@ -1064,6 +1092,8 @@ Commands that depend on it becomes much easier to implement. (This can be seen i
 
 |===
 
+<<<
+
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 2**: +
@@ -1091,6 +1121,7 @@ As our app is designed to streamline learning, we figured that easy sharing of _
 aspect in our app, and cannot be compromised.
 |===
 
+<<<
 
 |===
 ||**Alternative 1**|**Alternative 2**
@@ -1124,6 +1155,8 @@ drop feature is now a few function calls away, as all data structure and functio
 
 |===
 
+<<<
+
 |===
 
 ||**Alternative 1**|**Alternative 2**
@@ -1155,6 +1188,8 @@ feedback messages.
 
 
 |===
+
+<<<
 
 // end::chenhui-feature[]
 // tag::jason-feature[]
@@ -1197,6 +1232,8 @@ a|
 
 We will discuss each step with its implementation details primarily on the statistics work.
 
+<<<
+
 ===== 1. [underline]#User opens the app# +
 
 When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsList` are loaded into `Model` by
@@ -1217,6 +1254,8 @@ It is necessary to set the active `WordBankStatistics` in the `Model` such that 
 ===== 3. [underline]#User opens the selected word bank# +
 In open mode, the user is shown the `WordBankStatistics` of the opened word bank, which is set in `Model` at step 2.
 
+<<<
+
 ===== 4. [underline]#User plays the game# +
 A `GameStatisticsBuilder` is used to record user actions during the game.
 
@@ -1226,6 +1265,8 @@ It receives the timestamp from the `GameTimer` which also resides in `AppManager
 
 .Sequence diagram when user makes a guess.
 image::UpdateStatisticsSequenceDiagram.png[]
+
+<<<
 
 ===== [underline]#5. User finishes the game# +
 When the user finishes the game, a `GameStatistics` is created from the `GameStatisticsBuilder`. The `GameStatistics`
@@ -1243,6 +1284,8 @@ the same method `updateGameStatisticsBuilder(CommandResult)`.
 
 .Activity diagram when `AppManager` receives a `CommandResult` (Details unrelated to statistics are omitted).
 image::GameStatisticsBuilderActivityDiagram.png[width=500]
+
+<<<
 
 ==== Design Considerations
 
@@ -1292,6 +1335,8 @@ for the word bank statistics freely.
 //_The user profiles could allow multiple users to use the same app and have different statistics tracked. This feature is a work in progress and will be delayed to v2.0._
 // end::userprofiles[]
 
+<<<
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -1312,6 +1357,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+<<<
 
 [appendix]
 == Product Scope
@@ -1325,6 +1371,8 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 * Users who are famiiar and used to CLI-based apps.
 
 *Value proposition*: Making Learning and Memorization Game-like, Fun and Engaging.
+
+<<<
 
 // tag::chenhui-userstories[]
 
@@ -1390,6 +1438,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
+<<<
 
 [appendix]
 == Use Cases
@@ -1437,6 +1486,7 @@ Use case ends.
 
 Use case resumes from step 3.
 
+<<<
 
 [appendix]
 == Non Functional Requirements
@@ -1446,7 +1496,7 @@ Use case resumes from step 3.
 .  Users can export and import their <<wordbank,wordbanks>> or _Statistics_.
 .  Feedback shown to user must be fast (< 0.2s) especially during a _Game_.
 
-_{More to be added}_
+<<<
 
 [appendix]
 == Glossary
@@ -1476,6 +1526,8 @@ code that is expected to _callback_ (execute) the argument at a given time.
 
 [[gui]] GUI::
 _Graphical User Interface_, the primary interface of which _Dukemon_'s feedback to the user can be seen.
+
+<<<
 
 [appendix]
 == Instructions for Manual Testing.
@@ -1507,6 +1559,8 @@ The below instruction are only intended as starting points for testers to work o
 .. Enter `exit` and relaunch _Dukemon_. Enter `select triva` and then `open` upon restarting  +
    [underline]#Expected#: The new _Card_ ("Damith") added previously is correctly stored in the _Triva_ _WordBank_.
 
+<<<
+
 === Starting and Terminating a _Game_ session without _Hints_.
 
 . Starting a _Game_ after a target _WordBank_ has been selected.
@@ -1530,6 +1584,8 @@ The below instruction are only intended as starting points for testers to work o
 [NOTE]
 Other possible Difficulties to start with are `start medium` and `start hard`, allowing 10s and 5s
 respectively for each _Card_. Other invalid commands will yield similar results after stopping the _Game_.
+
+<<<
 
 === Importing and Exporting a _WordBank_ using Drag-and-Drop.
 
