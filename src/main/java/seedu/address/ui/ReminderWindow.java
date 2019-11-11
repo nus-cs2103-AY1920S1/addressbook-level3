@@ -34,7 +34,7 @@ import seedu.address.model.reminder.Reminder;
  */
 public class ReminderWindow extends UiPart<Stage> {
 
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
+    public static final String USERGUIDE_URL = "https://ay1920s1-cs2103t-f14-2.github.io/main/UserGuide.html";
     public static final String HELP_MESSAGE = "Reminders! Reminders will be placed inside this box ";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
