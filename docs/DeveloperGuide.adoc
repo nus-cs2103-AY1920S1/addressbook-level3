@@ -162,7 +162,7 @@ is defined by the Enum `CategoryType.EXPENSE` or `CategoryType.INCOME`.
 When the user launches the application for the first time or if there are errors with `data/guiltTrip.json`,
 the application will load the default set of `Category` by `SampleDataUtil#getSampleCategories()`.
 
-There are 2 main checks to be carried out when interacting with `Category`.
+There are 3 main checks to be carried out when interacting with `Category`.
 
 * When adding a Category, there is a need to check that the new Category added does not
 exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)`.

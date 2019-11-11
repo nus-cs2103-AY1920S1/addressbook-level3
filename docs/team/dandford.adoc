@@ -1,8 +1,8 @@
 = Dandford(Ong Ming Chung) - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
+:imagesDir:  ../images/user-guide-pictures
 :stylesDir: ../stylesheets
-
 == PROJECT: GuiltTrip
 
 ---
@@ -50,8 +50,152 @@ to include allowing it to find for all fields of the entry.
 
 
 == Contributions to the User Guide
-https://github.com/AY1920S1-CS2103-T16-4/main
 
+=== Categories
+Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income.
+GuiltTrip comes with a default set of Categories as listed below. All entries must have a category.
+
+* Income: `Business,Salary,Gifts,Loans`
+* Expense: `Food,Travel,Family,Bills,Entertainment,Transport,Shopping,HealthCare,Groceries,Rent`
+
+Categories for Expense, Budget and Wish all belong under the Expense Category. Categories for Income belong under the Income Category.
+An example would be when creating a new Budget, the category that the budget was created must belong to one of the existing categories in Expense.
+
+==== Adding Category : `addCategory`
+If the default set of categories does not cover your needs, you can add more by calling addCategory.
+
+Adds a new Category for either Income or Expense. The category added must not currently exist in the application.
+Category names are case-insensitive.
+
+Format: `addCategory cat/<category type> n/<category name>`
+
+* `<category type>`: The type of Category that the new addition is under.
+* `<category name>`: The name of the new Category.
+
+Example Usage:
+[start = 1]
+. If you want to add a new category *CodingServices* under Income, enter the command `addCategory cat/Income n/CodingServices`
++
+image::addingCategory-1.png[]
+
+. The new category will thus be added to guiltTrip. You can verify it using `listCategories`.
++
+image::addingCategory-2.png[]
+
+Other Examples:
+
+* `addCategory cat/Expense n/Transport`
+* `addCategory cat/Income n/Lottery`
+
+===== Editing Category : `editCategory`
+Edits a current category's description. The category to be edited must exist in the current list of Categories
+whether it be in the Expense CategoryList or the Income CategoryList. The new name for the category must not be a
+duplicate of existing categories.
+
+Format: `editCategory cat/<category type> o/<old category name> n/<new category name>`
+
+* `<category type>`: The type of Category that the edited Category is under.
+* `<old category name>`: The original name of this Category.
+* `<new category name>`: The new name of this Category.
+
+Example Usage:
+[start = 1]
+. If you would like to edit an existing Category *Business* to *Bursary* under Income, enter the command `editCategory cat/Income o/Business n/Bursary`.
++
+image::editingCategory-1.png[]
+
+. The old category will thus be edited in guiltTrip. All existing entries will also be renamed as shown below.
++
+image::editingCategory-2.png[]
+
+Other Examples:
+
+* `editCategory cat/Income o/Business n/HotelManagement`
+* `editCategory cat/Expense o/Family n/Pets`
+
+==== Listing Categories : `listCategories`
+
+Lists all the current categories the user has.
+
+Format: `listCategories`
+
+Example: `listCategories`
+
+==== Deleting Category : `deleteCategory`
+Deletes a category from guiltTrip. The category that is deleted should not have any entries under it. It must also already exist in guiltTrip.
+
+Format: `deleteCategory cat/<category type> n/<category name>`
+
+* `<category type>`: The type of Category that the deleted Category is under.
+* `<category name>`: The name of the deleted Category.
+
+Example Usage:
+[start = 1]
+. If you would like to remove an existing Category *Rent* under Expense, type `deleteCategory cat/Expense n/Rent`
++
+image::deletingCategory-1.png[]
+
+. The old category will thus be deleted from guiltTrip. You can verify that it is removed using `listCategories`.
++
+image::deletingCategory-2.png[]
+
+Other Examples:
+
+* `deleteCategory cat/Income n/Business`
+* `deleteCategory cat/Expense n/Food`
+
+=== Expenses
+Want to feel guiltTripped by your one Mala and Bubble Tea per day? GulitTrip's main function is thus used to record your sinful expenses and income.
+
+==== Adding Expense: `addExpense`
+Adds a new expenditure to your total spending.
+Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
+in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
+
+Format: `addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the expense belongs to.
+* `<description>`: The name of this expense.
+* `<expenditure>`: The amount spent for this expense. It can contain at most 2 decimal points.
+* `<date>`: The date of this expense.
+* `<tag>`: Optional tags for this expense. The tag must not have spaces and most only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food typ/Expense n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
++
+image::addingExpense-1.png[]
+
+. You should see the new expense being added into in the list of entries as displayed below.
++
+image::addingExpense-2.png[]
+
+Other examples:
+
+* `addExpense c/Gifts typ/Expense n/Rubber Duck for Yee Jian a/55 d/2019 11 09 tg/sanity check`
+* `addExpense c/Travel typ/Expense n/Travel To Alaska a/550000 d/2019 09 09`
+
+==== Adding Income : `addIncome`
+Adds a new Income to your total income.
+Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
+
+Format: `addIncome/<category name> n/<description> a/<expenditure> d/<date> [t/<tag>]`
+
+* `<category name>`: The `category` that the entry belongs to.
+* `<description>`: The name of this entry.
+* `<expenditure>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Optional tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a recent Income from a bursary, key in the command  `add cat/Gifts typ/Income n/Bursary amt/5000 d/2019 11 09 tg/reward for studying` .
+. You should see the new income being added into in the list of entries as displayed below.
+
+Other examples:
+
+* `add c/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 tg/food`
+* `add c/Business typ/Income n/business Trip To Mars a/20000.00 d/2019 09 09`
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
