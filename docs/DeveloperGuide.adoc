@@ -380,6 +380,7 @@ class.
 image::AutoCompleteClassDiagram.png[]
 image::GraphsClassDiagram.png[]
 image::NodesClassDiagram.png[]
+image::AutoCompleteSequenceDiagram.png[]
 
 ==== Current Implementation
 

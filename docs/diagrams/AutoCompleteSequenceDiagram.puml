@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":AutoCompleteResultGenerator" as AutoCompleteResultGenerator LOGIC_COLOR
+Participant "AddCustomerGraph:AutoCompleteResultProvider" as AutoCompleteResultProvider LOGIC_COLOR
+Participant "CustomerNameNode:AutoCompleteValueProvider" as AutoCompleteValueProvider LOGIC_COLOR
+Participant ":AutoCompleteResult" as AutoCompleteResult LOGIC_COLOR
+
+[-> LogicManager : getAutoCompleteResult("add-c n/")
+activate LogicManager
+
+LogicManager -> AutoCompleteResultGenerator : process("add-c n/")
+activate AutoCompleteResultGenerator
+
+AutoCompleteResultGenerator -> AutoCompleteResultProvider : process(" n/")
+activate AutoCompleteResultProvider
+
+AutoCompleteResultProvider -> AutoCompleteValueProvider : getValues()
+activate AutoCompleteValueProvider
+
+AutoCompleteValueProvider --> AutoCompleteResultProvider : values
+deactivate AutoCompleteValueProvider
+
+create AutoCompleteResult
+AutoCompleteResultProvider -> AutoCompleteResult : new AutoCompleteResult(values, "")
+activate AutoCompleteResult
+
+AutoCompleteResult --> AutoCompleteResultProvider
+deactivate AutoCompleteResult
+
+AutoCompleteResultProvider --> AutoCompleteResultGenerator
+deactivate AutoCompleteResultProvider
+
+AutoCompleteResultGenerator --> LogicManager
+deactivate AutoCompleteResultGenerator
+
+LogicManager -->[
+deactivate LogicManager
+
+@enduml

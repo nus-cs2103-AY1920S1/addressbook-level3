@@ -133,8 +133,4 @@ public class AutoCompleteResultGenerator {
         }
     }
 
-    private static boolean hasCommandWord(String input) {
-        return input.stripLeading().contains(" ");
-    }
-
 }
