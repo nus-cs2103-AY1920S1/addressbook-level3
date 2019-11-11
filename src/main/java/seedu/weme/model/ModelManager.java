@@ -10,12 +10,12 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -487,18 +487,14 @@ public class ModelManager implements Model {
     public void cleanMemeStorage() {
         logger.info("Attempting to delete unreferenced meme images");
         try {
-            Set<File> filesToKeep = new HashSet<>();
-            for (Meme meme : versionedWeme.getMemeList()) {
-                File file = meme.getImagePath().getFilePath().toFile();
-                filesToKeep.add(file);
-            }
+            Set<File> filesToKeep = versionedWeme.getMemeList().stream()
+                    .map(meme -> meme.getImagePath().getFilePath().toFile()) // convert meme objects to their images
+                    .collect(Collectors.toSet());
 
-            Files.list(getMemeImagePath())
-                    .map(Path::toFile)
-                    .filter(file -> !filesToKeep.contains(file))
-                    .forEach(File::delete);
+            deleteFiles(filesToKeep, getMemeImagePath());
             logger.info("Successfully deleted unreferenced meme images");
         } catch (IOException e) {
+            logger.warning("Failed to delete unreferenced meme images");
             throw new UncheckedIOException(e);
         }
     }
@@ -507,20 +503,26 @@ public class ModelManager implements Model {
     public void cleanTemplateStorage() {
         logger.info("Attempting to delete unreferenced templates images");
         try {
-            Set<File> filesToKeep = new HashSet<>();
-            for (Template template : versionedWeme.getTemplateList()) {
-                File file = template.getImagePath().getFilePath().toFile();
-                filesToKeep.add(file);
-            }
+            Set<File> filesToKeep = versionedWeme.getTemplateList().stream()
+                    .map(template -> template.getImagePath().getFilePath().toFile())
+                    .collect(Collectors.toSet());
 
-            Files.list(getTemplateImagePath())
-                    .map(Path::toFile)
-                    .filter(file -> !filesToKeep.contains(file))
-                    .forEach(File::delete);
+            deleteFiles(filesToKeep, getTemplateImagePath());
             logger.info("Successfully deleted unreferenced template images");
         } catch (IOException e) {
+            logger.warning("Failed to delete unreferenced template images");
             throw new UncheckedIOException(e);
         }
+    }
+
+    /**
+     * Deletes files in directory of {@code pathOfFilesToDelete} if they are not referenced in {@code filesToKeep}
+     */
+    private void deleteFiles (Set<File> filesToKeep, Path pathOfFilesToDelete) throws IOException {
+        Files.list(pathOfFilesToDelete)
+                .map(Path::toFile)
+                .filter(file -> !filesToKeep.contains(file))
+                .forEach(File::delete);
     }
 
     @Override
