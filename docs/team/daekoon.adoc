@@ -25,7 +25,7 @@ This is what our project looks like:
 .Sample screenshot of SplitWiser
 image::../images/Ui.png[]
 
-I was responsible for creating the activity class, and the entire infrastructure required to support it. It is the foundational feature of our product, as it stores all information necessary to handle bill splitting. This makes my role particularly crucial as all features related to bill splitting interacts with this class. Furthermore, I created the functionality to create activities, and updated the find functionality to search based on context. The following sections describe my contributions in greater depth, in addition to the documentation that I added pertaining to the expense feature.
+I was responsible for creating the activity class, and the entire infrastructure required to support it. It is the foundational feature of our product, as it stores all information necessary to handle bill splitting. This makes my role particularly crucial as all features related to bill splitting interacts with this class. Furthermore, I created the functionality to create activities, and updated the find functionality to search based on context. The following sections describe my contributions in greater depth, in addition to the documentation that I added pertaining to the aforementioned features.
 
 // Explain what the symbols mean
 == Summary of contributions

@@ -9,10 +9,10 @@ Splitwiser is developed by https://github.com/orgs/AY1920S1-CS2103T-W11-2/teams/
 == Project Team
 
 === Lim Daekoon
-image::daekoon.png[width="150", align="left"]
+image::daekoon.jpg[width="150", align="left"]
 {empty}[https://github.com/daekoon[github]]
 
-Role: Project Advisor
+Role: Project Advisor, Agile Coach
 
 '''
 
