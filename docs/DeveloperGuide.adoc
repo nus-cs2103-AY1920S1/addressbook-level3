@@ -511,16 +511,9 @@ depend on the model of Transactions, and care must be taken to ensure that these
 The edit transaction feature allows the user to edit a transaction into IchiFund. It further ensures that the current
 filter of the list of transactions is changed to allow the user to view the transaction.
 As described in <<Design-Logic>>, this feature is facilitated by `TransactionFeatureParser`, `EditTransactionCommandParser`, and `EditTransactionCommand`.
-The arguments supported by this feature includes:
-
-- `Index`
-- `Description` (optional)
-- `Amount` (optional)
-- `Category` (optional)
-- `Day` (optional)
-- `Month` (optional)
-- `Year` (optional)
-- `TransactionType` (optional)
+The arguments supported by this feature are `Index`, `Description`, `Amount`, `Category`, `Day`, `Month`,
+`Year` and `TransactionType`. Of these arguments, only `Index` is mandatory, but at least one of the optional arguments
+(which are fields to be edited) need to be present.
 
 ===== Implementation
 
