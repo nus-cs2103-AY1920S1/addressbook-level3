@@ -9,7 +9,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Placeholder javadoc.
+ * Parser for {@link EnterEditDayCommand}.
  */
 public class EnterEditDayParser implements Parser<EnterEditDayCommand> {
     @Override

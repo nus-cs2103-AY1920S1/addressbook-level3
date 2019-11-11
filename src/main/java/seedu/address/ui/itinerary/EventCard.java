@@ -14,7 +14,7 @@ import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 
 /**
- * TODO: Implement display for inventory and booking labels.
+ * Displays the information of each event on the {@link EventsPage}
  */
 public class EventCard extends UiPart<HBox> {
     private static final String FXML = "itinerary/events/EventCard.fxml";

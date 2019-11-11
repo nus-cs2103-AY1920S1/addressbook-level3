@@ -15,7 +15,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.day.Day;
 
 /**
- * Placeholder.
+ * Command to enter {@link seedu.address.ui.itinerary.EditDayPage} for editing days.
  */
 public class EnterEditDayCommand extends Command {
     public static final String COMMAND_WORD = "edit";

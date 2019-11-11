@@ -102,7 +102,7 @@ activate CommandResult
 return
 
 EditDayFieldCommand -> LogicManager : result
-
+deactivate EditDayFieldCommand
 
 [<--LogicManager
 deactivate LogicManager

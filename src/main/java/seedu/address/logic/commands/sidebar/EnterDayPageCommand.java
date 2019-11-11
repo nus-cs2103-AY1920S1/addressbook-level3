@@ -7,7 +7,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 
 /**
- * Placeholder.
+ * Enters the {@link seedu.address.ui.itinerary.DaysPage}.
  */
 public class EnterDayPageCommand extends Command {
     public static final String COMMAND_WORD = "days";

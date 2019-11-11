@@ -70,7 +70,7 @@
          <children>
             <Label fx:id="tripStartDateLabel" text="Label" wrapText="true">
                <font>
-                  <Font name="Book Antiqua" size="16.0" />
+                  <Font name="Book Antiqua" size="15.0" />
                </font>
                <padding>
                   <Insets bottom="5.0" right="5.0" />
@@ -81,7 +81,7 @@
             </Label>
             <Label fx:id="tripEndDateLabel" text="Label" wrapText="true" GridPane.columnIndex="1">
                <font>
-                  <Font name="Book Antiqua" size="16.0" />
+                  <Font name="Book Antiqua" size="15.0" />
                </font>
                <padding>
                   <Insets bottom="5.0" />

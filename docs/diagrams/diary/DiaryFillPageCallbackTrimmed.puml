@@ -35,6 +35,7 @@ DiaryEntry --> DiaryPage : diaryText
 deactivate DiaryEntry
 
 DiaryPage -> DiaryEntryDisplay : setPhotoList(photoList)
+DiaryPage -> DiaryGallery : setPhotoList(photoList)
 DiaryPage -> DiaryEntryEditBox : setText(diaryText)
 
 DiaryPage -> DiaryPage : swapRightToGallery()

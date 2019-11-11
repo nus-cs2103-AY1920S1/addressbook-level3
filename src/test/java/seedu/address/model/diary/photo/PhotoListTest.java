@@ -16,12 +16,12 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.index.Index;
 
 /**
- * Unit test of {@link PhotoList} using {@link PhotoStub}.
+ * Unit test of {@link PhotoList} using {@link DiaryPhotoStub}.
  */
 public class PhotoListTest {
     @Test
     void addPhoto_photoStub_photoAdded() {
-        PhotoStub photoStub = PhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub = DiaryPhotoStub.getPhotoStub();
         PhotoList photoList = new PhotoList();
         photoList.addPhoto(photoStub);
 
@@ -30,7 +30,7 @@ public class PhotoListTest {
 
     @Test
     void deletePhoto_photoStub_photoAddedThenDeleted() {
-        PhotoStub photoStub = PhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub = DiaryPhotoStub.getPhotoStub();
         PhotoList photoList = new PhotoList();
         photoList.addPhoto(photoStub);
 
@@ -43,10 +43,10 @@ public class PhotoListTest {
     @Test
     void getPhoto_matchingTerm_photoReturned() {
         String searchTerm = "asdfasdf";
-        PhotoStub photoStub = PhotoStub.getPhotoStubWithDescription(searchTerm);
+        DiaryPhotoStub photoStub = DiaryPhotoStub.getPhotoStubWithDescription(searchTerm);
         PhotoList photoList = new PhotoList();
         photoList.addPhoto(photoStub);
-        Optional<Photo> p = photoList.getPhoto(searchTerm);
+        Optional<DiaryPhoto> p = photoList.getPhoto(searchTerm);
 
         if (p.isEmpty()) {
             fail();
@@ -57,10 +57,10 @@ public class PhotoListTest {
     @Test
     void getPhoto_noMatchingTerm_emptyOptionalReturned() {
         String searchTerm = "abcabcabc";
-        PhotoStub photoStub = PhotoStub.getPhotoStubWithDescription("asdfasdf");
+        DiaryPhotoStub photoStub = DiaryPhotoStub.getPhotoStubWithDescription("asdfasdf");
         PhotoList photoList = new PhotoList();
         photoList.addPhoto(photoStub);
-        Optional<Photo> p = photoList.getPhoto(searchTerm);
+        Optional<DiaryPhoto> p = photoList.getPhoto(searchTerm);
 
         if (p.isPresent()) {
             fail();
@@ -70,9 +70,9 @@ public class PhotoListTest {
     @Test
     void removeAllPhotos_matchingTerm_photosRemoved() {
         String searchTerm = "asdfasdf";
-        PhotoStub photoStub1 = PhotoStub.getPhotoStubWithDescription(searchTerm);
-        PhotoStub photoStub2 = PhotoStub.getPhotoStubWithDescription(searchTerm);
-        PhotoStub photoStub3 = PhotoStub.getPhotoStubWithDescription(searchTerm);
+        DiaryPhotoStub photoStub1 = DiaryPhotoStub.getPhotoStubWithDescription(searchTerm);
+        DiaryPhotoStub photoStub2 = DiaryPhotoStub.getPhotoStubWithDescription(searchTerm);
+        DiaryPhotoStub photoStub3 = DiaryPhotoStub.getPhotoStubWithDescription(searchTerm);
 
         PhotoList photoList = new PhotoList(Arrays.asList(
                 photoStub1, photoStub2, photoStub3));
@@ -85,17 +85,17 @@ public class PhotoListTest {
 
     @Test
     void toString_validPhotoStubs_equals() {
-        PhotoStub photoStub1 = PhotoStub.getPhotoStub();
-        PhotoStub photoStub2 = PhotoStub.getPhotoStub();
-        PhotoStub photoStub3 = PhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub1 = DiaryPhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub2 = DiaryPhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub3 = DiaryPhotoStub.getPhotoStub();
 
         PhotoList photoList = new PhotoList(Arrays.asList(
                 photoStub1, photoStub2, photoStub3));
 
         assertEquals(
-                PhotoStub.STUB_TO_STRING + "\n"
-                + PhotoStub.STUB_TO_STRING + "\n"
-                + PhotoStub.STUB_TO_STRING + "\n",
+                DiaryPhotoStub.STUB_TO_STRING + "\n"
+                + DiaryPhotoStub.STUB_TO_STRING + "\n"
+                + DiaryPhotoStub.STUB_TO_STRING + "\n",
                 photoList.toString());
     }
 
@@ -121,9 +121,9 @@ public class PhotoListTest {
 
     @Test
     void equals_equalFieldsSomeAdditions_returnsTrue() {
-        PhotoStub photoStub1 = PhotoStub.getPhotoStub();
-        PhotoStub photoStub2 = PhotoStub.getPhotoStub();
-        Collection<Photo> photoStubs = Arrays.asList(photoStub1, photoStub2);
+        DiaryPhotoStub photoStub1 = DiaryPhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub2 = DiaryPhotoStub.getPhotoStub();
+        Collection<DiaryPhoto> photoStubs = Arrays.asList(photoStub1, photoStub2);
 
         PhotoList photoList1 = new PhotoList(photoStubs);
         PhotoList photoList2 = new PhotoList(photoStubs);
@@ -133,8 +133,8 @@ public class PhotoListTest {
 
     @Test
     void equals_differentFieldsSomeAdditions_returnsFalse() {
-        PhotoStub photoStub1 = PhotoStub.getPhotoStub();
-        PhotoStub photoStub2 = PhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub1 = DiaryPhotoStub.getPhotoStub();
+        DiaryPhotoStub photoStub2 = DiaryPhotoStub.getPhotoStub();
 
         PhotoList photoList1 = new PhotoList();
         PhotoList photoList2 = new PhotoList();

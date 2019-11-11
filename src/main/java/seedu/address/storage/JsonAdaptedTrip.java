@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.booking.Booking;
+import seedu.address.model.booking.BookingList;
+import seedu.address.model.common.Photo;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.ExpenseList;
@@ -20,7 +23,6 @@ import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.Day;
 import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 import seedu.address.storage.diary.JsonAdaptedDiary;
 
@@ -38,7 +40,8 @@ class JsonAdaptedTrip {
     private final JsonAdaptedDiary diary;
     private final List<JsonAdaptedDay> dayList = new ArrayList<>();
     private final List<JsonAdaptedExpense> expenseList = new ArrayList<>();
-    private final Optional<JsonAdaptedTripPhoto> photo;
+    private final List<JsonAdaptedBooking> bookingList = new ArrayList<>();
+    private final Optional<JsonAdaptedPhoto> photo;
 
     //Added by Karan Dev Sapra
     private final List<JsonAdaptedInventory> inventoryList = new ArrayList<>();
@@ -56,8 +59,9 @@ class JsonAdaptedTrip {
             @JsonProperty("dayList")List<JsonAdaptedDay> dayList,
             @JsonProperty("expenseList")List<JsonAdaptedExpense> expenseList,
             @JsonProperty("diary") JsonAdaptedDiary diary,
-            @JsonProperty("photo") Optional<JsonAdaptedTripPhoto> photo,
-            @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) {
+            @JsonProperty("bookingList") List<JsonAdaptedBooking> bookingList,
+            @JsonProperty("photo") Optional<JsonAdaptedPhoto> photo,
+            @JsonProperty("inventoryList") List<JsonAdaptedInventory> inventoryList) throws IllegalValueException {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -70,6 +74,9 @@ class JsonAdaptedTrip {
             this.expenseList.addAll(expenseList);
         }
         this.diary = diary;
+        if (bookingList != null) {
+            this.bookingList.addAll(bookingList);
+        }
         this.photo = photo;
         if (inventoryList != null) {
             this.inventoryList.addAll(inventoryList);
@@ -96,8 +103,12 @@ class JsonAdaptedTrip {
                 .collect(Collectors.toList())
         );
         this.diary = new JsonAdaptedDiary(source.getDiary());
+        this.bookingList.addAll(source.getBookingList()
+                .asUnmodifiableObservableList()
+            .stream().map(JsonAdaptedBooking::new)
+            .collect(Collectors.toList()));
         if (source.getPhoto().isPresent()) {
-            this.photo = Optional.of(new JsonAdaptedTripPhoto(source.getPhoto().get()));
+            this.photo = Optional.of(new JsonAdaptedPhoto(source.getPhoto().get()));
         } else {
             this.photo = Optional.empty();
         }
@@ -117,6 +128,7 @@ class JsonAdaptedTrip {
     public Trip toModelType() throws IllegalValueException {
         final List<Day> days = new ArrayList<>();
         final List<Expense> expenses = new ArrayList<>();
+        final List<Booking> bookings = new ArrayList<>();
         final List<Inventory> inventories = new ArrayList<>();
 
         for (JsonAdaptedDay day : dayList) {
@@ -125,6 +137,10 @@ class JsonAdaptedTrip {
 
         for (JsonAdaptedExpense expense : expenseList) {
             expenses.add(expense.toModelType());
+        }
+
+        for (JsonAdaptedBooking booking : bookingList) {
+            bookings.add(booking.toModelType());
         }
 
         for (JsonAdaptedInventory inventory : inventoryList) {
@@ -183,11 +199,14 @@ class JsonAdaptedTrip {
         ExpenseList modelExpenseList = new ExpenseList();
         modelExpenseList.set(expenses);
 
+        BookingList modelBookingList = new BookingList();
+        modelBookingList.set(bookings);
+
         InventoryList modelInventoryList = new InventoryList();
         modelInventoryList.set(inventories);
 
         return new Trip(modelName, modelStartDate, modelEndDate,
-                modelDestination, modelTotalBudget, modelDayList, modelExpenseList,
-                        diary, modelInventoryList, modelPhoto);
+                modelDestination, modelTotalBudget, modelDayList, modelExpenseList, diary,
+                modelBookingList, modelInventoryList, modelPhoto);
     }
 }

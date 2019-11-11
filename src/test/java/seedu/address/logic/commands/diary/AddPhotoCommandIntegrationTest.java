@@ -15,8 +15,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.appstatus.PageStatus;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.photo.Photo;
-import seedu.address.model.diary.photo.PhotoTest;
+import seedu.address.model.diary.photo.DiaryPhoto;
+import seedu.address.model.diary.photo.DiaryPhotoTest;
 
 public class AddPhotoCommandIntegrationTest {
     @Test
@@ -26,18 +26,19 @@ public class AddPhotoCommandIntegrationTest {
         PageStatus pageStatus = new PageStatus(null, null, null, null, diaryEntry,
                 null, null, null, null,
                 null, null, null, null,
-                null);
+                null, null, null);
         model.setPageStatus(pageStatus);
 
         Model expectedModel = new ModelManager();
         DiaryEntry diaryEntry2 = new DiaryEntry(Index.fromOneBased(1));
-        PageStatus pageStatus2 = new PageStatus(null, null, null, null, diaryEntry2, null,
+        PageStatus pageStatus2 = new PageStatus(null, null, null, null, diaryEntry2,
                 null, null, null, null, null,
+                null, null, null,
                 null, null, null);
         expectedModel.setPageStatus(pageStatus2);
 
         assertDoesNotThrow(() -> {
-            Photo testPhoto = PhotoTest.getValidTestPhoto();
+            DiaryPhoto testPhoto = DiaryPhotoTest.getValidTestPhoto();
             diaryEntry2.getPhotoList().addPhoto(testPhoto);
 
             AddPhotoCommand addPhotoCommand = new AddPhotoCommand(testPhoto);
@@ -50,14 +51,15 @@ public class AddPhotoCommandIntegrationTest {
     @Test
     void execute_modelHasNoDiaryEntry_throwsCommandException() {
         Model model = new ModelManager();
-        PageStatus pageStatus = new PageStatus(null, null, null, null, null, null,
+        PageStatus pageStatus = new PageStatus(null, null, null, null, null,
                 null, null, null, null, null,
+                null, null, null,
                 null, null, null);
         model.setPageStatus(pageStatus);
 
 
         assertDoesNotThrow(() -> {
-            Photo testPhoto = PhotoTest.getValidTestPhoto();
+            DiaryPhoto testPhoto = DiaryPhotoTest.getValidTestPhoto();
             AddPhotoCommand addPhotoCommand = new AddPhotoCommand(testPhoto);
 
             assertCommandFailure(addPhotoCommand, model, MESSAGE_NO_DIARY_ENTRY);

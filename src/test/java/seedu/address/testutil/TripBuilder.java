@@ -4,6 +4,8 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 
+import seedu.address.model.booking.BookingList;
+import seedu.address.model.common.Photo;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
@@ -11,7 +13,6 @@ import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 
 /**
@@ -27,6 +28,7 @@ public class TripBuilder {
     private DayList dayList;
     private ExpenseList expenseList;
     private Diary diary;
+    private BookingList bookingList;
     private Photo photo;
     private InventoryList inventoryList;
 
@@ -56,7 +58,8 @@ public class TripBuilder {
                 .setDiary(trip.getDiary())
                 .setInventoryList(trip.getInventoryList())
                 .setExpenseList(trip.getExpenseList())
-                .setDiary(trip.getDiary());
+                .setDiary(trip.getDiary())
+                .setBookingList(trip.getBookingList());
         //.setDayList(trip.getDayList());
     }
 
@@ -114,9 +117,13 @@ public class TripBuilder {
      */
     public Trip build() {
         requireAllNonNull(name, startDate, endDate, destination, totalBudget, dayList,
-                expenseList, diary, inventoryList);
+                expenseList, diary, bookingList, inventoryList);
         return new Trip(name, startDate, endDate, destination, totalBudget,
-                dayList, expenseList, diary, inventoryList, photo);
+                dayList, expenseList, diary, bookingList, inventoryList, photo);
     }
 
+    public TripBuilder setBookingList(BookingList bookingList) {
+        this.bookingList = bookingList;
+        return this;
+    }
 }
