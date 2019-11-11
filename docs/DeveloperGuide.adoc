@@ -866,7 +866,7 @@ Step 6. The user executes `deleteplan 1`, which calls `Model#getFilteredPlanList
 ** Cons: Adds coupling due to access to `filteredProblemList` in the model.
 * **Alternative 3:** By exactly-matching tags of the original problem.
 ** Pros: User-friendly.
-** Cons: MAdds coupling due to access to `filteredProblemList` in the model as the wrapped-up task does not have a tag list field.
+** Cons: Adds coupling due to access to `filteredProblemList` in the model as the wrapped-up task does not have a tag list field.
 // end::plan[]
 //@@author
 
