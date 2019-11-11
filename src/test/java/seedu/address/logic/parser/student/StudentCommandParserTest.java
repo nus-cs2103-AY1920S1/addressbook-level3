@@ -2,6 +2,7 @@ package seedu.address.logic.parser.student;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -65,7 +66,7 @@ public class StudentCommandParserTest {
     @Test
     public void parseCommand_deleteInvalidCommand_failure() throws Exception {
         assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, StudentDeleteCommand.MESSAGE_USAGE), () ->
+                String.format(MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX, StudentDeleteCommand.MESSAGE_USAGE), () ->
                         parser.parse(" delete"));
     }
 

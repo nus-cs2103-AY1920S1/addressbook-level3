@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.student.StudentAddCommand;
 import seedu.address.logic.commands.student.StudentCommand;
@@ -98,16 +99,12 @@ public class StudentCommandParser implements Parser<StudentCommand> {
 
             if (indexToDelete <= 0) {
                 logger.info("student delete index must be a positive integer.");
-                throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                StudentDeleteCommand.MESSAGE_USAGE));
+                throw new ParseException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
             }
             index = index.fromOneBased(indexToDelete);
         } catch (NumberFormatException e) {
             logger.info("error in the student delete index number format");
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            StudentDeleteCommand.MESSAGE_USAGE));
+            throw new ParseException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
         }
 
         return new StudentDeleteCommand(index);
