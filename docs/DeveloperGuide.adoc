@@ -28,9 +28,12 @@ considerations for the implementation of Athletick's features.
 
 The intended audience of this document includes the developers and software testers of Athletick.
 
-Note the following symbols and formatting used in this document
 
-NOTE:  This symbol indicates important information
+// tag::symbol[]
+
+Note the following symbols and formatting used in this document:
+
+NOTE:  This symbol indicates important information.
 
 [horizontal]
 
@@ -38,6 +41,10 @@ NOTE:  This symbol indicates important information
 line and executed by the application.
 
 `[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
+
+// end::symbol[]
+
+//====
 
 === Design goals
 
@@ -200,14 +207,20 @@ image:BetterModelClassDiagram.png[]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::storage_classdiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`[green]#Storage.java#`]
 
-The `[green]#Storage#` component,
+The `[green]#Storage#` component saves the following data in json format and reads it back as objects when
+a new session of Athletick is started.
 
-* can save `[green]#UserPref#` objects in json format and read it back.
-* can save the Athletick data in json format and read it back.
+* `[green]#UserPref#` data
+* `[green]#Athletick#` data (athlete list)
+* `[green]#Performance#` data (`[green]#Event#` and `[green]#Record#`)
+* `[green]#TrainingManager#` data (`[green]#Training#`)
+
+`[green]#Performance#` and `[green]#TrainingManager#` rely on `[green]#JsonAdaptedPerson#` as well, since a
+performance and training record also stores the athlete it is referring to.
 
 [[Design-Commons]]
 === Common classes
@@ -218,7 +231,7 @@ Classes used by multiple components are in the `[green]#seedu.addressbook.common
 
 This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.
 
-// tag::training[]
+// tag::training_structure[]
 === Training feature
 
 *Athletick* allows users to record training information like the date of training and an athlete's attendance. This
@@ -236,10 +249,10 @@ image::training_class_diagram.png[]
 A training session is represented by a `[green]#Training#` class and it contains information like the date of
 training and training attendance. The `[green]#AthletickDate#` class represents the date of a training session in
 `[green]#Training#`. This class is shared across both the frontend and backend of the application, allowing training
-information to be used in other features, such as the `view calendar` command. A `[green]#HashMap<Person, Boolean>#`
-represents attendance in `[green]#Training#` and indicates whether a `[green]#Person#` has attended that training
-session. If a `[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#`
-will be true, and false if he did not attend.
+information to be used in other features that use `[green]#AthletickDate#`. A `[green]#HashMap<Person, Boolean>#` represents attendance in
+`[green]#Training#` and indicates whether a `[green]#Person#` has attended that training session. If a
+`[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#` will be true,
+and false if he did not attend.
 
 The `[green]#TrainingCommand#` is an abstract class that extends the `[green]#Command#` class and allows users to
 record training sessions. Users have the ability to add training sessions by indicating members present or members
@@ -255,11 +268,12 @@ stored after a user executes the `training` command.
 .Activity diagram showing execution of `training` command
 image::training_command_activity_diagram.png[]
 
-`[green]#TrainingManager#` also provides the functionality for users to calculate the attendance rate of one
-individual, or the entire team. The following operations provides this feature:
+`[green]#TrainingManager#` also provides functions for users to calculate the attendance rate of one individual, or
+the entire team. The following operations are used for this feature:
 
-* `TrainingManager#getPersonAttendanceRateString` -- Returns the person's overall attendance rate in String format.
-* `TrainingManager#getAttendanceRateOfAll` - Returns a list of everyone's attendance rate.
+* `[green]#TrainingManager#getPersonAttendanceRateString#` -- Returns the person's overall attendance rate in String
+format.
+* `[green]#TrainingManager#getAttendanceRateOfAll#` - Returns a list of everyone's attendance rate.
 
 
 These operations are used by the `select`, `attendance` and `view attendance` commands. The following sequence diagram
@@ -268,10 +282,12 @@ shows how the `TrainingManager` provides other components with attendance rates.
 .Sequence diagram showing how `view attendance` command gets attendance rate
 image::view_attendance_sequence_diagram.png[]
 
+// end::training_structure[]
+
 `[green]#TrainingManager#` also allows users to get the attendance of one particular training using the following
 operation:
 
-* `TrainingManager#getTrainingAttendanceListOnDate` -- Returns training attendance on the specified date.
+* `[green]#TrainingManager#getTrainingAttendanceListOnDate#` -- Returns training attendance on the specified date.
 
 The sequence diagram below shows a use case of how training attendance is obtained from `[green]#TrainingManager#`
 when a `calendar` command is executed.
@@ -279,9 +295,12 @@ when a `calendar` command is executed.
 .Sequence diagram showing how `calendar` command gets training attendance
 image::calendar_sequence_diagram.png[]
 
-==== Design Considerations
+// tag::training_design[]
 
-Aspect: How to store attendance information of an individual.
+==== Design Considerations
+This section contains some of our considerations for the training feature.
+
+===== Aspect: How to store attendance information of an individual.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -300,11 +319,11 @@ detailed information (attendance on specific date) about a training session.
 |More time needed to design system architecture.
 |===
 
-Reason of choice: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone classes to
-contain training information. We intend to introduce new features (e.g. training category) in the future and this
+Reason for choosing alternative 2: `[green]#Training#` and `[green]#TrainingManager#` are created as standalone
+classes to contain training information. We intend to introduce new features (e.g. training category) in the future and this
 implementation allows us to easily do so.
 
-Aspect: Which data structure to store training attendance.
+===== Aspect: Which data structure to store training attendance.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -316,14 +335,14 @@ Aspect: Which data structure to store training attendance.
 |Makes obtaining information much quicker.
 
 |*Cons*
-|Accessing accessing attendance and attendance rate of one person takes more time.
-|Requires more effort to maintain and coding of new functions to edit data.
+|Accessing attendance and attendance rate of one person takes more time.
+|Requires more effort to maintain and requires coding of new functions to edit data.
 |===
 
-Reason of choice: A hash table is used as the `select` and `attendance` commands require the attendance rate of only
-one person. A hash table provides us with the fastest access time to access attendance information of one person.
+Reason for choosing alternative 2: The `select` and `attendance` commands require the attendance rate of only one
+person and a hash table provides us with the fastest access time to access attendance information of one person.
 
-Aspect: How to edit training information.
+===== Aspect: How to edit training information.
 
 [width="100%", cols="1, 5, 5"]
 |===
@@ -331,18 +350,19 @@ Aspect: How to edit training information.
 |*Alternative 2:* Create a command to support editing of training.
 
 |*Pros*
-|Users no need to type lengthy edit commands.
+|Users will not need to type lengthy edit commands.
 |More intuitive to a user who wants to edit.
 
 |*Cons*
 |Unable to support multiple trainings on same date.
-|Lengthy commands. Users have the option to edit date, attendance and even add a person.
+|Users have the option to edit date, attendance and even add a person which will require lengthy commands.
 |===
 
-Reason of choice: Editing training information would require long commands which defeats the purpose of having a command
-line interface. Editing training by replacing an old one with the `training` command makes it quicker.
+Reason for choosing alternative 1: Editing training information would require typing long commands which will be very
+time-consuming and this defeats the purpose of having a command line interface. Editing training by replacing an old
+one with the `training` command makes it editing much quicker.
 
-// end::training[]
+// end::training_design[]
 === Performance feature
 
 Athletick allows users to record athlete's performance details from timed trials.
@@ -351,7 +371,16 @@ progress in specific events.
 
 ==== Implementation
 
-To facilitate this, `[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
+This section explains how `[green]#Performance#` is implemented in Athletick. It is split into 4 sections.
+
+. Overview
+. Adding and deleting of  `[green]#Event#`
+. Adding and deleting of  `[green]#Record#`
+. Viewing of  `[green]#Event#` and  `[green]#Record#`
+
+===== Overview
+
+`[green]#ModelManager#` has a `[green]#Performance#`, which has a `[green]#UniqueEventList#`.
 Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`.
 The class diagram below shows how the different components mentioned interact with one another.
 
@@ -378,10 +407,6 @@ their progress over time can be analysed using the `[green]#AthletickDate#` and 
 attributes in `[green]#Record#`. Additionally, athlete's records can be easily retrieved by calling the
 `[green]#HashMap#get()#` method.
 
-A `[green]#Person#` will only be in the HashMap if they have a `[green]#Record#` under the `[green]#Event#`.
-If their only `[green]#Record#` is removed from Athletick (using ``[green]#DeleteRecordCommand#`), they will
-be removed from the HashMap as well.
-
 `[green]#Event#` s are added using the `[green]#EventCommand#`, and `[green]#Record#` s are added using the
  `[green]#PerformanceCommand#`. In these commands, changes to `[green]#UniqueEventList#` are called through
   `[green]#Model#` in `[green]#EventCommand#execute()#` and `[green]#PerformanceCommand#execute()#` since
@@ -390,10 +415,13 @@ be removed from the HashMap as well.
 The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data through the `[green]#UI#`.
 `[green]#Model#` exposes an unmodifiable `[green]#ObservableList<Event>#` through
 `[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
-and is updated accordingly when data in`[green]#Performance#` changes.
+and is updated accordingly when data in `[green]#Performance#` changes.
+
+===== Function 1: Adding and Deleting of Event
 
 The following sequence diagram illustrates what happens in `[green]#Logic#` and `[green]#Model#` when in an
-example scenario when `event freestyle 50m` is given as a user input.
+example scenario when `event freestyle 50m` is given as a user input (ie. when the user adds the `freestyle
+50m` event).
 
 .Sequence diagram showing the operations in Logic and Model when an event is added.
 image::addevent_sequencediagram.png[width="700"]
@@ -402,23 +430,99 @@ Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The in
 50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
 boolean from `[green]#Model#hasEvent()#`.
 
-Operations for `[green]#Record#` - adding and deleting - work similarly as well, though there are more
-methods involved as there is a greater degree of nesting.
+===== Function 2: Adding and Deleting of Record
 
-The workflow for adding a record can be illustrated by the Activity Diagram below, with an example input
-`performance 1 e/freestyle 50m d/31102019 t/31.20` (ie. adding a performance record for the player at index
-1, for the freestyle 50m event in 31.20 seconds on 31st October 2019).
+Operations for `[green]#Record#` - adding and deleting - work similarly to that of `[green]#Event#` as well,
+except there are more methods involved as there is a greater degree of nesting.
+
+The workflow for adding a record can be illustrated by the Activity Diagram below.
 
 .Activity diagram showing how a Record is added to an Event.
 image::addrecord_activitydiagram.png[width="700"]
 
-Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
-The sequence diagram below illustrates how the Ui is involved when `[green]#Record#` viewing is executed.
+===== Function 3: Viewing of Event and Record
 
-.Sequence diagram showing how Records are viewed.
+Users can also view all `[green]#Record#` s under an `[green]#Event#` using `view records e/EVENT_NAME`.
+The following sequence diagrams illustrate how the `[green]#Logic#`, `[green]#Ui#` and
+`[green]#Model#` work together when `[green]#Record#` viewing is executed.
+
+.Sequence diagram showing how Records are viewed. Interactions in the RecordsPanel are omitted and shown in a separate sequence diagram below.
 image::viewrecords_sequencediagram.png[width="700"]
 
+.Reference frame for interactions in the RecordsPanel in the previous sequence diagram.
+image::recordspanel_sequencediagram.png[width="700"]
 ==== Design Considerations
+
+This section explains the factors that we took into consideration when making decision on how different
+aspects in `[green]#Performance#` should be implemented.
+
+===== Aspect: Method of storing performance records for athletes.
+
+Performance records are currently stored in a list for each athlete. Each list is saved as a value for the
+athlete key in a Performance HashMap.
+
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Use a HashMap of Persons as keys and a list of Records as values.*
+| *Alternative 2: Create a class that has Persons and list of Records as attributes and store instances of
+this class in a list.*
+
+|**Pros**
+a|* Retrieving athlete's individual records is fast - it can be done in O(1) time
+a|* Checking of records can be done with a simple for-loop
+
+|**Cons**
+a|* Checking requires using an iterator or a lambda operation (requires variables to be declared as final,
+making retrieval of data troublesome)
+* Retrieving by values (eg. date of record) is difficult as it requires traversing through the HashMap and
+checking the individual records' dates
+a|* Adding of records is susceptible to errors as duplicate persons can be added
+* Creating our own data structure results in overheads in testing and creating our own helper methods
+* Retrieving an athlete's individual records in O(1) time requires the athlete's index in the list, which
+is not always known
+
+|===
+
+**Reason for choice of Alternative 1:**
+
+* Retrieving from a HashMap is fast, which fulfils one of our non-functional requirements of being able to support a database of 1000 athletes
+* Using a athlete-records relationship is similar to the key-value relationship in HashMap so the existing
+methods that are in the HashMap API are relevant
+
+===== Aspect: Method of displaying events and records to users.
+
+Viewing events and records are separate commands in Athletick.
+
+To view events, the command is `view performance`. Users will be shown a list of all the events they have
+in Athletick.
+
+To view records under a certain event, the command is `view records EVENT_NAME`. Users will be shown a
+graph on each athlete's records under this event.
+
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Display events and records separately.*
+| *Alternative 2: Display all records under all events.*
+
+|**Pros**
+a|* Viewing events, followed by "zooming" in to a particular event's records gives users a more immersive
+experience
+a|* Navigating is simple as viewing events and its records requires only one command
+
+|**Cons**
+a|* Getting an overview of all events and its respective records is not possible
+* Supporting 2 commands results in overhead in parsing the command and creating the relevant Ui in the
+feature box
+a|* Displaying of information will require a lot of scrolling (since the feature box is limited in size) and
+can be difficult when the event of interest is located at the end
+|===
+
+**Reason for choice of Alternative 1:**
+
+* Allowing users to look at the records under their event of interest gives them more control over what they want to see
+* Navigating from event overview to a particular event mimics how people navigate in apps - tapping on a
+chat title (in this case, viewing records for a particular event), to see the whole conversation (record
+details for a particular event)
 
 === Calendar feature
 
@@ -727,7 +831,7 @@ was executed, we then resets the `[green]#Athletick#` state to this retrieved
 The following sequence diagram shows how the undo operation works:
 
 .Sequence diagram for undo implementation
-image::undoSQ.png[width=450]
+image::undoSQ.png[width="450"]
 
 
 ==== Redo Implementation
@@ -750,7 +854,7 @@ Implementation.]
 The activity diagram for `redo` command is as follows:
 
 .Activity diagram for `redo` command
-image::redoactivity.png[width=450]
+image::redoactivity.png[width="450"]
 
 ==== Design Considerations
 This section describes the pros and cons of the current and other alternative implementations of the undo and redo features.
@@ -812,46 +916,49 @@ have if special characters were included.
 
 === Filter feature
 
-The filter command enables filtering of athletes based on their tags.
-Currently, only filtering by one tag is supported.
-Filtering by multiple tags will be available by `v1.2`.
+The filter command enables filtering of athletes based on their tags. Users are able to filter by multiple
+tags, and any athlete that has any of the given tags will be in the results.
 
 ==== Implementation
 
 Filter makes use of a `[green]#TagMatchesPredicate#` class to determine if the athlete has tags matching the user input.
-Given below is the Sequence Diagram to show how filter works, with an example input of filter captain.
+Given below is the Sequence Diagram to show how `[green]#Logic#` and `[green]#Model#` are involved when an
+example input of `filter captain freestyle` is called.
 
-image::filter_sequence_diagram.png[]
-
-Once filtering by multiple tags is implemented, the parsing of tag from `[green]#AddressBookParser#` to
-`[green]#FilterCommandParser#`
-will involve splitting them by spaces and storing the tag queries in a list.
-Thereafter, each tag query will be compared against every athlete’s tags to determine if the athlete should be filtered.
-
-However, since currently only filtering by one tag is supported,
-the parsing of tag simply involves trimming the tag of white spaces.
-
-Finally, the list shown to the user is updated through `[green]#Model#updateFilteredPersonsList()#`.
+.Sequence diagram for execution of FilterCommand.
+image::filter_sequencediagram.png[width="700"]
 
 ==== Design considerations
 
-===== Aspect: How a tag match is determined
+This section explains the factors that we took into consideration when making decision on how
+`[green]#FilterCommand#` should be implemented.
 
-* **Alternative 1 (current choice):** Case-insensitive.
-** Pros: More user-friendly.
-** Cons: Requires converting tags to lower-case on the back-end.
-* **Alternative 2:** Case-sensitive.
-** Pros: Allows for more accurate filtering.
-** Cons: Difficult for users to search, as generally filtering and searching are case-insensitive.
+===== Aspect: Method of determining an athlete match when multiple tags are given.
 
-===== Aspect: How matches for multiple tags are determined
+Given an example search of `filter captain freestyle`, athletes will be shown in the results if they
+contain either the `captain` or `freestyle` tag. They need not have both `captain` and `freestyle`.
 
-* **Alternative 1:** Exclusive matching.
-** Pros: Allows for more accurate filtering.
-** Cons: Users get fewer filter results.
-* **Alternative 2:** Optional matching.
-** Pros: Allows for more flexible searching.
-** Cons: Users may get results that they are not interested in.
+[width="100%", cols="1, 5, 5"]
+|===
+|| *Alternative 1 (Current Choice): Match athletes who contain either tag.*
+| *Alternative 2: Match athletes who contain every tag.*
+
+|**Pros**
+a|* Searching for athletes is flexible
+a|* Retrieving a specific type of athlete is possible
+
+|**Cons**
+a|* Filtering can yield results that the user is not interested in
+a|* Filtering will yield limited results and a separate filter operation is required if users want a more
+lenient filtering
+|===
+
+**Reason for choice of Alternative 1:**
+
+Our choice of "lenient" filtering may give users results that they may not be interested in
+especially if they are looking for very specific athletes. However, we find that it is a good compromise
+for users who want this "lenient" filtering as the athlete's tags will be listed in the search as well, so
+specific athletes can be found from this filtered list.
 
 === Sort Command
 

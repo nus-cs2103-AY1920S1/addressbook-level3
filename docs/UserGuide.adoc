@@ -18,6 +18,7 @@ By: `CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
+
 Athletick is a team management desktop application for captains and coaches of timing-based sports teams. Athletick helps you to handle your administrative tasks so that you can focus on what you love doing: leading and motivating your team.
 
 Athletick supports *storing of your team members' personal details, attendance tracking and performance recording*. If you are a fast typist, you'll love Athletick's *Command Line Interface* (CLI) which will get your team management tasks done faster than ever before!
@@ -31,9 +32,9 @@ This document serves to assist you in the navigation and utilisation of Athletic
 Note the following symbols and formatting used in this document
 
 [horizontal]
+NOTE: This symbol indicates important information
 
-NOTE:: This symbol indicates important information
-
+[horizontal]
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
 command line and executed by the application.
 
@@ -193,15 +194,18 @@ If successfully edited, the edited information of Roy (now Shawn) will be displa
 
 The team list should also reflect Roy's new details.
 
-// tag::training[]
+// tag::training_intro[]
 === Training
 *Athletick* allows you to record your team's training sessions, so that you can store important information like
 date of training and training attendance. After adding a training session, you can look at past trainings to check
 attendance on that particular date. You can also edit training attendance or delete a training from *Athletick*.
+// end::training_intro[]
 
 NOTE: *Athletick* does not support recording of multiple trainings on the same date. Recording a training on the same
 date will replace the previous training. (see <<Edit attendance of an existing training session: `training` or `training -a`>>)
 
+
+// tag::training_present[]
 ==== Record training session by indicating athletes present : `training`
 
 This command saves a training session to *Athletick*, and marks the athletes indicated as present. You will need
@@ -212,23 +216,25 @@ were present.
 
 *What you should do*
 
-Type in the `training` command, date and the indexes of athletes who were present in the following format and press
-`Enter` to execute it.
+Type in the `training` command, date of training and the indexes of athletes who were present in the following format
+and press `Enter` to execute it.
 
 Format : `training [d/DDMMYYYY] #/INDEX [INDEX] [INDEX ] …`
 
-NOTE: If no date is entered, the training will be recorded under today's date.
-
 Examples : `training d/28112019 #/2 4` or `training #/1 3 4 7`
+
+NOTE: If no date is entered, the training will be recorded under today's date.
 
 image::training_without_flag_before.png[width=450]
 *What you should see*
 
-If successfully added, the result box will display the following result in the diagram below. A green dot will
+If successfully added, the result box will display the following result as shown in the diagram below. A green dot will
 also appear at the date on the calendar, indicating that the training has been recorded.
 
 image::training_without_flag_after.png[width=350]
+// end::training_present[]
 
+// tag::training_absent[]
 ==== Record training session by indicating athletes absent : `training -a`
 
 This command saves a training session to *Athletick*, and marks the athletes indicated as absent. You will need
@@ -238,7 +244,8 @@ Let's say you want to record a training session that took place today and everyo
 
 *What you should do*
 
-Type in the `training` command, the absent flag `-a`, date and the indexes of athletes who were absent in the following
+Type in the `training` command, the absent flag `-a`, date of training and the indexes of athletes who were absent in
+the following
 format and
 press `Enter` to execute it.
 
@@ -256,6 +263,9 @@ If successfully added, the result box will display the following result as shown
 will appear also at the date on the calendar, indicating that the training has been recorded.
 
 image::training_with_flag_after.png[width=350]
+// end::training_absent[]
+
+// tag::training_edit[]
 
 ==== Edit attendance of an existing training session: `training` or `training -a`
 This command allows you to edit the attendance of a training session. You will need the date of training and indexes
@@ -284,6 +294,10 @@ If successfully edited, the result box will display the following result as show
 
 image::edit_training_after.png[width=350]
 
+// end::training_edit[]
+
+// tag::training_delete[]
+
 ==== Delete a training session: `delete -t`
 This command allows you to delete a training session. You will need the date of the training session you wish to delete.
 
@@ -308,18 +322,27 @@ at the date will also disappear, indicating that it has been removed.
 
 image::delete_training_after.png[width=350]
 
+// end::training_delete[]
+
+// tag::attendance_intro[]
+
 === Attendance
-To save you the trouble of manually checking your team member's attendance, Athletick has an attendance tracker that
-checks your team's overall attendance rate as you record trainings.
+To save you the trouble of manually calculating your team's attendance, Athletick has an attendance tracker that
+checks your team's overall attendance for you as you record trainings.
+
+// end::attendance_intro[]
 
 After recording a training, you can check the attendance of an athlete
-(see <<Check attendance of an athlete : `attendance`>>) or check overall team attendance (see: <<Check overall attendance of your team : `view attendance`>>)
+(see <<Check attendance of an athlete : `attendance`>>) or check your team's attendance (see: <<Check overall attendance of your team : `view attendance`>>)
+
+
+// tag::attendance_command[]
 
 ==== Check attendance of an athlete : `attendance`
 This command allows you to check the attendance of an athlete.
 
 Let's say you notice that Michael hasn't been attending recent trainings and would like to check on his overall
-attendance rate.
+attendance.
 
 *What you should do*
 
@@ -333,15 +356,19 @@ image::attendance_command_before.png[width=350]
 
 *What you should see*
 
-If the command is successful, the athlete's name and attendance rate will be displayed in the result box as shown in
+If the command is successful, the athlete's name and attendance will be displayed in the result box as shown in
 the diagram below.
 
 image::attendance_command_after.png[width=350]
 
+// end::attendance_command[]
+
+// tag::view_attendance_command[]
+
 ==== Check overall attendance of your team : `view attendance`
 This command allows you to check the overall attendance of your team.
 
-Let's say you would like to track your team's overall attendance rate but don't want to manually type the attendance
+Let's say you would like to track your team's overall attendance but don't want to manually type the attendance
 command multiple times.
 
 *What you should do*
@@ -353,12 +380,11 @@ image::view_attendance_before.png[width=350]
 *What you should see*
 
 If the command is successful, the result box will display the following result as shown in the diagram below. The
-feature box will show you your team's overall attendance rate.
+feature box will show you your team's overall attendance.
 
 image::view_attendance_after.png[width=350]
 
-// end::training[]
-
+// end::view_attendance_command[]
 
 === Performance
 To help you keep track of your team's performance,
@@ -390,7 +416,8 @@ image::addevent_wysd.png[width="450"]
 
 *What you should see*
 
-If successfully added, the result box (red box) will display the added event name as shown below.
+If successfully added, the result box will display message "_Event created:_" followed by the name
+of the event you just added, as shown in the red box in the diagram below.
 
 Additionally, the feature box (orange box) will display the list of all your events. The event you just
 added should be included in the list. In the example below, `freestyle 50m` appears at the bottom of the list.
@@ -405,7 +432,7 @@ Records stored under this event will be deleted as well.
 *What you should do*
 
 Let's say that your team is no longer participating in the `backstroke 100m` event, and you want to remove it
-from *Athletick*.
+from Athletick.
 
 Type in the command in the following format and press `Enter` to execute it.
 
@@ -413,66 +440,133 @@ Format : `delete -e NAME_OF_EVENT`
 
 Example: `delete -e backstroke 100m`
 
-image::deleteevent_wysd.png[width="250"]
+image::deleteevent_wysd.png[width="450"]
 
 *What you should see*
 
-If successfully deleted, the result box will display the deleted event name as shown below.
-The event should no longer be in *Athletick*.
+If successfully deleted, the result box will display the message "_Deleted event:_" followed by
+the name of the event you just deleted, as shown in the red box in the diagram below.
 
-.Notice that the backstroke 100m event is no longer listed.
-image::deleteevent_wyss.png[width="150"]
+Additionally, the feature box (orange box) will show the current list of events you have in Athletick. The
+deleted event should not appear in the list.
+
+.Notice that the backstroke 100m event is not listed.
+image::deleteevent_wyss.png[width="450"]
 
 ==== Adding an athlete's record : `performance`
 
-This command records your athlete’s performance for a certain event, on a certain day, to *Athletick*.
+This command records your athlete’s performance for a certain event, on a certain day, to Athletick.
 
-You will need the event name, athlete’s index, date of performance and timing of performance.
+You will need the following details to add a record.
+
+* Athlete's index
+* Event name
+* Date of record
+* Timing of record
 
 NOTE: The event has to be created first. Otherwise, Athletick will prompt you to create that event.
 
-Let's say you took a timed trial for Irfan on 22nd October 2019 under the freestyle 50m event,
-and he took 23.47 seconds to complete it. Now you want to store this record in *Athletick*.
+Let's say that you took a timed trial for Tao Li on 2nd November 2019 under the freestyle 50m event,
+and she took 24.01 seconds to complete it. Now you want to store this record in Athletick.
 
 *What you should do*
 
-As seen in the yellow box in the diagram below, Irfan is located at index 5 in the active list.
-
-Type in the command below, like so in the red box in the same diagram, and press `Enter`.
+Type in the command in the following format and press `Enter` to execute it.
 
 Format : `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 
-Example : `performance 5 e/freestyle 50m d/02102019 t/23.47`
+Example : `performance 3 e/freestyle 50m d/02112019 t/24.01`
 
-image::addperformance_wysd.png[width=450]
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
+image::addrecord_wysd.png[width=450]
 
 *What you should see*
 
-If successfully added, the performance details will be displayed in the result box (red mark-up).
+If successfully added, the result box will display the details of the record you just added, as shown in
+the diagram below.
 
-image::addperformance_wyss.png[width=350]
+.Details of Tao Li's new record - event, date and timing - are displayed in the result box.
+image::addrecord_wyss.png[width=450]
 
-==== Viewings events : `view performance`
+==== Deleting an athlete's record : `delete -r`
 
-This command gives you an overview of what events you have stored in *Athletick*.
+This command removes an athlete's record for a certain event, on a certain day, from Athletick.
 
-Let's say you want to know what events you have added to *Athletick*.
+You will need the following details to delete a record.
+
+* Athlete's index
+* Event name
+* Date of record
+
+Let's say that you want to delete Tao Li's record for the freestyle 50m event on 2nd November 2019.
 
 *What you should do*
 
-Type `view performance` in the command box, and press `Enter` to execute it.
+Type in the command in the following format and press `Enter` to execute it.
 
-Format: `view performance`
+Format : `delete -r INDEX e/EVENT_NAME d/DDMMYYYY`
 
-image::viewperformance_wysd.png[width=350]
+Example : `delete -r 3 e/freestyle 50m d/02112019`
+
+.As seen in the orange box, Tao Li has index 3 in the active list. Hence, 3 is used at the INDEX.
+image::deleterecord_wysd.png[width=450]
 
 *What you should see*
 
-If successfully executed, the success message will be displayed in the result box (red box).
+If successfully deleted, the result box will display the details of the record you just deleted, as shown
+in the diagram below.
 
-The feature box (green box) will display all your events saved in *Athletick*.
+.Details of Tao Li's deleted record - event and date - are displayed in the result box.
+image::deleterecord_wyss.png[width=450]
 
-image::viewperformance_wyss.png[width=450]
+==== Viewings events : `view performance`
+
+This command shows you what events you have stored in *Athletick*.
+
+Let's say that you want to know what events you have added to *Athletick*.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `view performance`
+
+image::viewevents_wysd.png[width=450]
+
+*What you should see*
+
+If successfully executed, the result box (red box) will display the message "_Here are your events stored
+in Athletick_" followed, as shown in the diagram below.
+
+Additionally, the feature box (orange box) will show the list of events you have in Athletick.
+
+image::viewevents_wyss.png[width=450]
+
+==== Viewing records : `view records`
+
+This command shows you the records stored under a particular event in Athletick.
+
+Let's say that you want to see the records under the freestyle 50m event.
+
+*What you should do*
+
+Type in the command in the following format and press `Enter` to execute it.
+
+Format : `view records EVENT_NAME`
+
+Example : `view records freestyle 50m`
+
+image::viewrecords_wysd.png[width=450]
+
+*What you should see*
+
+If successfully executed, the result box will display the message "_Here are the records for_"
+followed by the event name you requested, as shown in the red box in the diagram below.
+
+Additionally, the feature box (orange box) will show the athletes who have records under this event,
+followed by a graph of their progress over time.
+
+image::viewrecords_wyss.png[width=450]
 
 === Calendar
 
@@ -606,7 +700,7 @@ Type in the command in the following format.
 
 Format : `select INDEX`
 
-Example : `select 4`
+Example : `select 2`
 
 image::beforeSelect.png[width=450]
 
@@ -674,7 +768,7 @@ Let's say you want to see which athletes are butterfly swimmers
 
 *What you should do*
 
-Type in the following command and press `Enter`.
+Type in the command in the following format and press `Enter` to execute it.
 
 Format : `filter TAG [TAG]...`
 
@@ -684,34 +778,30 @@ image::filter_wysd.png[width=450]
 
 *What you should see*
 
-If successfully executed,
-the message "x persons listed!" will be displayed in the result box (red box), where x is the number of
-athletes that match the tag you filtered by.
+If successfully filtered, the result box will display the message "_x persons listed!_", where _x_ is the
+number of athletes that have the tag you filtered by, as shown in the red box in the diagram below.
 
-Additionally, the athlete list (orange box) will contain only the athletes that have the tag you filtered
-by.
+Additionally, the athlete list (orange box) will show only the athletes that have the tag you filtered by.
 
-In the example given below, 3 athletes have the `butterfly` tag.
-
-.Note that the index numbers of the athletes in the filtered list may differ from that of the unfiltered list (refer to the diagram below for an explanation).
+.Note that the index numbers of the athletes in the filtered list may differ from that of the unfiltered list. Refer to the diagram below for an explanation.
 image::filter_wyss.png[width=450]
 
 The diagram below shows the change in the active list (from unfiltered to filtered) when the filter is
 applied.
-Notice that the index of some athletes have changed (eg. Joseph Schooling has changed from 3 to 2).
 
-image::filter_change.png[width="395"]
+.Notice that the index of some athletes have changed (eg. Joseph Schooling has changed from 3 to 2).
+image::filter_change.png[width="650"]
 
 ==== Finding athletes by their name : `find`
 
-This command find athletes whose name contains any of the given keywords.
+This command find athletes whose name contains any of the keywords you provide.
 
 [NOTE]
 ====
 
-The `find` command is case-insensitive.
+This command will change your athletes’ `INDEX`.
 
-This command will change your athletes’ index numbers.
+This command is case-insensitive, so finding by `Joseph` and `joseph` will give the same result.
 
 Only full keyword matches are accepted (eg. to find `Joseph Schooling`, you need to search
 for `Joseph` or `Schooling`, but *not `Jo`*.
@@ -722,23 +812,31 @@ Let's say that you want to find Joseph Schooling from your long list of athletes
 
 *What you should do*
 
-Type in the find command, followed by the keywords you want to find.
+Type in the command in the following format and press `Enter` to execute it.
 
 Format : `find KEYWORD [MORE_KEYWORDS]`
 
 Example : `find joseph`
 
-image::find_wysd.png[width="400"]
+image::find_wysd.png[width="450"]
 
 *What you should see*
 
-If successfully executed, he athlete list in the left sidebar should only display athletes whose name
-contains the given keywords.
+If successfully found, the result box will display the message "_x persons listed!_", where _x_ is the
+number of athletes whose names have the keyword(s) you provided, as shown in the red box in the diagram
+below.
 
-The result box should should also show the number of athletes in the results.
+Additionally, the athlete list (orange box) will show only the athletes whose names have the keyword(s) you
+provided.
 
-.Notice that Joseph Tan is also in the result as his name has 'Joseph'.
-image::find_wyss.png[width="400"]
+.Note that the index numbers of the athletes in the searched list may differ from that of the unsearched list. Refer to the diagram below for an explanation.
+image::find_wyss.png[width="450"]
+
+The diagram below shows the change in the active list (from unsearched to searched) when the search term is
+applied.
+
+.Notice that the index of some athletes have changed (eg. Joseph Schooling has changed from 4 to 1).
+image::find_change.png[width="650"]
 
 === Miscellaneous
 
@@ -931,10 +1029,13 @@ Record performance:: `performance INDEX e/EVENT_NAME d/DDMMYYYY t/TIMING`
 Redo an undone command:: `redo`
 View athlete details:: `select INDEX`
 Sort athletes:: `sort`
-Take attendance (by present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
-Take attendance (by absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
-Undo a command:: `undo`
+Record a training (by athletes present):: `training d/DDMMYYYY #/INDEX [INDEX]...`
+Record a training (by athletes absent):: `training -a d/DDMMYYYY #/INDEX [INDEX]...`
+Edit attendance of a training:: `training` or `training -a`
+Delete a training session:: `delete -t d/DDMMYYYY`
+View attendance of an athlete:: `attendance INDEX`
 View team's attendance:: `view attendance`
+Undo a command:: `undo`
 View calendar:: `view calendar`
 View all created events:: `view performance`
 
