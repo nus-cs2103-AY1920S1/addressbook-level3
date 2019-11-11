@@ -15,16 +15,7 @@ image::geshuming.png[width="150", align="left"]
 {empty}[https://github.com/geshuming[github]][<<geshuming#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Storage design
-
-'''
-
-=== Wang Rong Shirley
-image::bitterg0d.png[width="150", align="left"]
-{empty}[https://github.com/bitterg0d[github]]
-
-Role: Developer +
-Responsibilities: GUI
+Responsibilities: Storage design, Module view feature
 
 '''
 
