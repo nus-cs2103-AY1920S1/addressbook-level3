@@ -35,10 +35,6 @@ public class LogicManagerTest {
 
     private Model model;
     private Storage storage;
-    //private seedu.address.person.model.Model personModel;
-    //private seedu.address.transaction.storage.Storage transactionStorage;
-    //private seedu.address.transaction.model.Model transactionModel;
-    //private seedu.address.inventory.model.Model inventoryModel;
     private seedu.address.inventory.storage.Storage inventoryStorage;
     private Logic logic;
 
@@ -47,18 +43,11 @@ public class LogicManagerTest {
         File tFile;
         File rFile;
         seedu.address.person.model.Model personModel;
-        //Storage storage;
-        //seedu.address.person.model.CheckAndGetPersonByNameModel personModel;
-        //seedu.address.person.model.Model personModel;
         seedu.address.transaction.model.Model transactionModel = null;
         seedu.address.inventory.model.Model inventoryModel;
         seedu.address.transaction.logic.Logic transactionLogic;
         seedu.address.inventory.logic.Logic inventoryLogic;
         seedu.address.transaction.storage.Storage transactionStorage;
-        //seedu.address.inventory.storage.Storage inventoryStorage;
-        //seedu.address.reimbursement.logic.Logic reimbursementLogic = null;
-        //seedu.address.reimbursement.storage.Storage reimbursementStorage = null;
-        //Logic logic;
 
         try {
             model = new seedu.address.cashier.model.ModelManager(TypicalItem.getTypicalInventoryList(),
@@ -92,9 +81,7 @@ public class LogicManagerTest {
             inventoryStorage =
                     new seedu.address.inventory.storage.StorageManager(iFile);
 
-            inventoryLogic = new seedu.address.inventory.logic.LogicManager(
-                    (seedu.address.inventory.model.ModelManager) inventoryModel,
-                    (seedu.address.inventory.storage.StorageManager) inventoryStorage);
+            inventoryLogic = new seedu.address.inventory.logic.LogicManager(inventoryModel, inventoryStorage);
             storage = new StorageManager(inventoryLogic, transactionLogic);
 
             logic =
