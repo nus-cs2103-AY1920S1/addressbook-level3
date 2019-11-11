@@ -12,6 +12,7 @@
 Duke Academy is an all-in-one programming practice app targeted for students taking introductory and intermediate programming classes. While most of the user interaction happens through a CLI, the app also comes with a GUI built with JavaFX. Duke Academy was developed by a team of 4 software engineering students, and has a codebase of about 15k LOC, mostly written in Java. +
 
 Here is a preview of Duke Academy:
+
 image::Ui.png[width="1000"]
 
 == Summary of contributions
