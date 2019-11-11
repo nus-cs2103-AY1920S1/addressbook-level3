@@ -231,6 +231,8 @@ public interface Model {
 
     void updateProjectionsAfterDelete(BankAccountOperation deleted);
 
+    void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated);
+
     /**
      * Returns an unmodifiable view of the filtered budget list
      */

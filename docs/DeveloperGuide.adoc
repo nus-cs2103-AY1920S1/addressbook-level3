@@ -267,7 +267,13 @@ Upon setting a new budget, a `BudgetCard` is created and displayed in a list in 
 
 A `Budget` stores an *initial amount*, *amount* (the current amount), *deadline*, *categories*.
 There is a need for a `Budget` to store both *initial amount* and *amount* as it allows for percentage of budget remaining to be calculated. +
-Displaying the percentage improves the user experience greatly as our target user is a
+Shown below is the class diagram of `Budget` class:
+
+.Class diagram of Budget class
+image::BudgetClassDiagram.png[]
+
+
+Displaying the percentage remaining improves the user experience greatly as our target user is a
 `visual person who wants to see how much budget he has left in each category so as to cut down on spending as necessary`
 as specified in <<User-Stories, user stories>>. Hence, taking a quick glance at the `Budget card` allows the user to
 determine how much of budget he has left, as well as be alarmed by the red font colour to spend less if he has overspent beyond the budget set. +
@@ -284,17 +290,25 @@ public String displayPercentage() {
 }
 ```
 
-Shown below is an example of an overspent budget. Budget is displayed in red to alert the user that
-he has overspent beyond the set budget:
+Moreover, as our user is a visual person, PalPay makes use of colour to display different messages.
+For instance, budget is displayed in red to alert the user that he has overspent beyond the set budget. +
+
+Shown below is an example of an overspent budget:
 
 .Example of an overspent budget
 image::overspentBudget.png[]
 
+
 When setting a new `Budget`, existence of a duplicate budget is checked through a sequence of checks.
-The activity diagram below shows a simple successful case of setting a new budget:
+The activity diagram below shows the activity diagram of setting a new budget:
 
 .Activity Diagram of successfully setting a new Budget
 image::SetBudgetSimpleActivityDiagram.png[]
+
+As shown, a new budget cannot have the same *initalAmount*, *deadline* and *categories* as any other existing budget in
+budget list. Allowing existence of duplicate budgets will crowd the interface of `Budget` tab,
+which prevents the user from getting a quick overview of his budget status. Hence, a duplicate check is essential
+in providing a pleasing user experience. +
 
 ==== Design Considerations
 
@@ -724,20 +738,20 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 The `VersionedUserState` will be initialized with the initial user state, and the `currentStatePointer`
 pointing to that single user state.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[pdfwidth=50%, align="center"]
 
 **Step 2**. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
 The `delete` command calls `Model#commitUserState()`, causing the modified state of the user state after the
 `delete t5` command executes to be saved in the `userStateList`, and the `currentStatePointer` is shifted
 to the newly inserted user state.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[pdfwidth=50%, align="center"]
 
 **Step 3**. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
 The `in` command also calls `Model#commitUserState()`, causing another modified user state to be saved
 into the `userStateList`.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[pdfwidth=50%, align="center"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitUserState()`, so the user state will
@@ -748,7 +762,7 @@ executing the `undo` command. The `undo` command will call `Model#undoUserState(
 `currentStatePointer` once to the left, pointing it to the previous user state, and restores the user state
 to that state.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[pdfwidth=50%, align="center"]
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial user state, then there are no previous
@@ -759,14 +773,14 @@ If so, it will return an error to the user rather than attempting to perform the
 Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
 `Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[pdfwidth=50%, align="center"]
 
 **Step 6**. The user executes `clear`, which calls `Model#commitUserState()`.
 Since the `currentStatePointer` is not pointing at the end of the `userStateList`, all user states after
 the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the
 `in $/10 n/Allowance d/07112019` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[pdfwidth=50%, align="center"]
 
 The following sequence diagram shows how the undo operation works:
 
