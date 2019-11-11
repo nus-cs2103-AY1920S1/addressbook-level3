@@ -366,7 +366,7 @@ a|The calendar stores the events in an interval search tree.
 * I chose this option because performance efficiency is essential if TravEzy is to scale. Furthermore, I can use the interval search tree to implement enhancements for ``add`` and ``delete`` commands more easily. 
 
 | Required date format for user input
-a|The usual date format like dd/mm/yy (for example, 12/05/2019 to specify 12 May 2019)
+a|The usual date format like dd/mm/yyyy (for example, 12/05/2019 to specify 12 May 2019).
 
 * Pros: Easy to implement. It can be intuitive for users since this date format is common.
 * Cons: Very restrictive and not everyone uses the above format (for instance, in some countries, people specify date using the mm/dd/yyyy format).
