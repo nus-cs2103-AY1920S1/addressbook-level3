@@ -1,0 +1,77 @@
+= Gabriel Ong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :exclamation:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-2/main
+
+== PROJECT: VISIT
+
+== Introduction
+
+*VISIT* is a *Java-based Desktop application*, made for doctors as an open-source, paper-free alternative to traditional patient management systems. The workflow of the application is centralized around users who can type fast and are comfortable with Command-Line Interfaces (CLIs).
+
+*VISIT* mainly allows you to add and manage patient information, visitation and appointment details among other features, maintaining the key features doctors need in a patient management system.
+
+[.text-center]
+.VISIT User Interface (UI)
+image::Ui.png[width="900"]
+
+Originally a fork from the AddressBook3 from Team SEE-DU, my team UnrealUnity and I have developed VISIT over a period of 2 months, with the codebase currently standing around ~16k LoC in size. The following .asciidoc serves to document my various contributions to the project throughout the development of VISIT.
+
+== Summary of contributions
+This section categorizes my various contributions into its relevant sections towards the development of VISIT.
+
+[.text-center]
+.VISIT's Profile Feature. Profile Panel (left) and an exported Profile .txt file (right)
+image::PppProfile0.png[width="450"]
+
+=== Major Enhancement
+Added the *Profile* feature to VISIT.
+
+- *Purpose*: Allows the user to *visualize all attributes of a patient* (Name, Address, etc.) as well as all relevant visitation reports in an *easy to access Profile Panel*. Profiles can also be *exported into .txt files*.
+- *Justification*: This feature greatly enhances the way Doctors visualize patient data in VISIT as detailed information is available at a single glance. This is often needed when archiving or referencing a patient's previous details during consultation.
+- *Highlights*: This feature requires interacts with existing and concurrently implemented data structures of VISIT. This required deep knowledge of the existing codebase and close collaboration with other members of my team in order to ensure that the feature works seamlessly with the rest of the features in VISIT.
+
+=== Minor Enhancements
+* Enhanced the intuitive use of the `find` command to filter Patients by their names, even if the query was a partial match.
+* Added a pleasant and modern landing page for GitHub repository (See https://github.com/AY1920S1-CS2103T-F12-2/main/blob/master/README.adoc[README.adoc]).
+
+=== Code contributed
+See VISIT's https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=F12-2&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Q-gabe&tabRepo=AY1920S1-CS2103T-F12-2%2Fmain%5Bmaster%5D[RepoSense].
+
+=== Other contributions:
+
+** *Project management*:
+*** Managed the releases of versions `v1.1` - `v1.4` (4 releases) of VISIT on GitHub.
+*** Organized and facilitated team meeting, ensuring high levels of engagement from all members.
+*** Ensured production goals were met weekly by communicating constantly with individual members.
+** *Tests*:
+*** Wrote additional tests to increase coverage from 62% to 66% (Pull request: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/208[#208])
+** *Documentation*:
+*** Laid groundwork for the Website, User Guide and Developer Guide of the project, example: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/23[#23]
+*** Ensured Pull Requests (PRs) descriptions were of high quality: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/53[#53], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/72[#72], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/102[#102]
+** *Community*:
+*** 29 PRs reviewed, example with non-trivial review comments: https://github.com/AY1920S1-CS2103T-F12-2/main/pull/55[#55], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/66[#66], https://github.com/AY1920S1-CS2103T-F12-2/main/pull/210[#210]
+*** Reported bugs and suggestions for another project using AddressBook3 as a base: https://github.com/Q-gabe/ped/issues[EzWatchList Bug Reports]
+
+== Contributions to the User Guide
+|===
+|_The section below is an excerpt from VISIT's User Guide, detailing the additions that I made to document the Profile enhancement, showcasing my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=profile]
+
+== Contributions to the Developer Guide
+
+|===
+|_The section below is an excerpt from VISIT's Developer Guide, describing the implementation of the Profile enhancement in VISIT. This demonstrates my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=profile]

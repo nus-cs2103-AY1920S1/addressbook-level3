@@ -174,7 +174,7 @@ Format: `clear`
 Be careful when entering this, as this will erase all patient data from VISIT!
 
 // tag::profile[]
-=== *Viewing and Generating a Patient's Profile* : `profile`
+=== *Viewing and Generating a Patient's Profile*
 
 VISIT allows you to visualize a specified patient’s full details on an easy to access panel. The command can be initiated as follows:  +
 Format: `profile INDEX`
@@ -185,24 +185,29 @@ Format: `profile INDEX`
 * The index must be a positive integer 1, 2, 3, …
 ****
 
-*Example:*
+==== *Opening a Profile Window:* : `profile`
+*Step 1*: Enter in `profile 1` into the command bar and press kbd:[Enter].
 [.text-center]
-image::UGProfile0.png[width="790"]
+image::UGProfile0.png[width="450"]
 
-Entering this command generates a pop out panel (seen below) detailing the various attributes of the specified Patient. This includes all attributes and visitation records.
+*Step 2*: A pop out panel will appear, detailing the various attributes of the specified Patient.
 
 [.text-center]
-image::UGProfile1.png[width="790"]
+image::UGProfile1.png[width="450"]
+
+This window includes all Patient attributes and visitation records.
 
 [WARNING]
 You must close this window before doing anything else with VISIT (Adding Visits, Deleting Patients, etc.).
 
-*Generating and Exporting a Profile as a .txt file*
+*Closing the panel* +
+Clicking on the cross on the top-right of the panel or pressing kbd:[esc] button on your keyboard will close the panel.
+
+==== *Generating and Exporting a Profile as a .txt file*
 
 You can generate a text file containing the contents of the Patient's Profile, for your own archiving purposes and exporting.
-****
-To export a Profile in a text file: *press kbd:[p]  on your keyboard or click the kbd:[Generate Profile File] button.*
-****
+
+*Step 1*: Press kbd:[p] on your keyboard or click the kbd:[Generate Profile File] button.
 
 [.text-center]
 image::UGProfile2.png[width="500"]
@@ -210,30 +215,26 @@ image::UGProfile2.png[width="500"]
 [NOTE]
 You will see a message saying "_Profile .txt created in /generated_profiles/_." once the Profile has been successfully generated.
 
-Generated text version of Profiles are saved under the `generated_profiles` folder located in the parent folder of _VISITapp.jar_. +
+*Step 2*: Navigate to the _generated_profiles_ folder located in the parent folder of _VISITapp.jar_
 
 [.text-center]
-image::UGProfile3.png[width="790"]
+image::UGProfile3.png[width="500"]
+
+*Step 3*: Access the generated profile stored in the folder.
 
 [.text-center]
-image::UGProfile4.png[width="790"]
+image::UGProfile4.png[width="400"]
 
 [NOTE]
-The generated text file will be the following format: +
-`NAME_PHONE_dd-MM-yyyy hh-mm-ss.txt` +
-e.g. `Alex Yeoh_87438807_02-11-2019 20-33-58.txt`
+The generated text file will be the following format: _Name_Contact Number_Date Time.txt_ e.g. _Alex Yeoh_87438807_02-11-2019 20-33-58.txt_
 
 
 Below is an example of a generated profile .txt file:
 [.text-center]
-image::UGProfile5.png[width="500"]
+image::UGProfile5.png[width="400"]
 
 [WARNING]
 While files are write-protected, you can still create duplicate copies for editing. Data encryption and safer data handling is planned for VISIT v2.0 (See <<Upcoming-Features>>).
-
-*Closing the panel* +
-Clicking on the cross on the top-right of the panel or pressing kbd:[esc] button on your keyboard will close the panel.
-
 
 // end::profile[]
 

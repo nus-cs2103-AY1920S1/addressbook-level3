@@ -256,21 +256,43 @@ image::DGApptFollowUpActivityDiagram.png[]
 [[profileImplementation]]
 // tag::profile[]
 === Profile feature
+
+[.text-center]
+.VISIT's Profile Feature. Profile Panel (left) and an exported Profile .txt file (right)
+image::PppProfile0.png[width="600"]
+
 ==== Implementation
 
-The profile feature allows the user to be able to see the full details of the patient as well as all relevant visit information (See <<visitImplementation, Visit Implementation>>) from a single panel. Attributes of the patient is extracted from the `Person` instance, including the `Name`, `Address`, `Phone`, `Email`, `Tags` and `VisitList`, which can be easily extended following the implementation detailed below. The patient profile feature is facilitated by `ProfileWindow`, which is instanced and instantly hidden (`hide()`) upon the instancing of `MainWindow` on VISIT's start up. +
- +
-Given below is a simple example usage scenario demonstrate how Profile feature behaves and interacts with the other components.
+The *Profile feature* allows the user to be able to *see the full details of the patient* as well as all relevant visit information (See <<visitImplementation, Visit Implementation>>) from a single panel. Attributes of the patient is extracted from the `Person` instance, including the `Name`, `Address`, `Phone`, `Email`, `Tags` and `VisitList`. The Profile feature also enables users to *export the Profile as a read-only text file* for archiving.
 
-Step 1. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. It extracts the `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute. `MainWindow#executeCommand()` is called and the check for `CommandResult#isShowProfile()` passes, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window.
+===== *Profile Panel Implementation:*
+_The displaying of the patient profile panel is mainly facilitated by the following components:_
+****
+- `ProfileWindow` - Displays the relevant information of the Patient on the Profile Panel.
+* `#setup` - On invocation, populates the Panel with the given `Person` instance.
+- `ProfileCommand` - Instantiated when the command is parsed by `ProfileCommandParser`.
+* `#execute` - Extracts the Person from the current model.
+- `ProfileUtil` - Utilized during `ProfileWindow#setup` to translate the various `Person` attributes to `Strings` (stringify).
+****
+Given below is a simple example usage scenario demonstrate how Profile feature behaves and interacts with the other components:
+
+*1*. The user executes `profile 3` command view the profile of the 3rd person shown in VISIT's current list. This is parsed as a `ProfileCommand`, which is then executed.
+
+*2*. The `Person` instance from the filtered Person list from the current `model` and returns a `CommandResult` with the `Person` instance as an attribute.
+
+*3*. `MainWindow#executeCommand()` is then executed, calling `ProfileWindow#setup()` which populates the hidden Profile Window with the attributes of the `Person` instance before `MainWindow#handleProfilePanel()` is called to show the Profile Window to the user.
 
 [.text-center]
-image::Profile0.png[]
+.Activity Diagram for Steps 1 - 3
+image::Profile0.png[width="350"]
 
-Step 2. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
+*[4]*. In this optional step, users can choose to export the Patient's Profile as a .txt file by pressing the `p` key or clicking on the _Generate Profile File_ button on the UI. The implementation of this is detailed in the next section.
+
+*5*. After viewing the relevant information, the user presses the 'esc' key which closes the form. This causes an event handler in `ProfileWindow` which listens for a `KeyEvent.KEY_RELEASED` event where the event code equates to `KeyCode.ESCAPE` ('esc' key) to trigger, which hides the profile window.
 
 [.text-center]
-image::Profile1.png[]
+.Activity Diagram for Step 4-5
+image::Profile1.png[width="350"]
 
 [NOTE]
 The user is able to close the `ProfileWindow` form by clicking the 'x' on the top right of the form as well.
@@ -280,118 +302,46 @@ This sequence diagram fully shows what happens when a user executes the Profile 
 [.text-center]
 image::ProfileSequenceDiagram1.png[]
 
+===== *Profile Generation Implementation:*
+_The patient profile generation functionality is mainly facilitated by the following components:_
+****
+- `ProfileWindow` - Serves as origin for invoking the `GenerateProfileCommand` using `#generateProfilePressed`.
+- `GenerateProfileCommand` - Instantiated by `ProfileWindow` with the relevant `Person` attributes.
+* `#execute` - Uses `FileUtil` and `ProfileUtil` to build the contents of the Profile .txt file and create it in the relevant directory.
+****
+
+The following is a scenario to illustrate the behaviour of how this functionality works:
+
+*1*. The user presses the `p` key or the _Generate Profile File_ button on the Profile Panel. This invokes the `generateProfilePressed()` in `ProfileWindow`.
+
+*2*. This generates a new `GenerateProfileCommand` instance relating to the `Person` that `ProfileWindow` is currently on. This command is then executed using the same `LogicManager` as `ProfileWindow`.
+
+*3*. The executed command uses `FileUtil` to generate the parent file (_generated_profiles_) if it has not been created.
+
+*4*. `ProfileUtil` is invoked to assemble a `String` containing the entire content of the `ProfileWindow` in a presentable manner.
+
+*5*. `FileUtil` is then called again to generate a read-only .txt file containing the file content. A `CommandResult` indicating success is the propagated back to `ProfileWindow`.
+
+*6*. Upon success, a small message is generated next to the _Generate Profile File_ button on the Profile Panel.
+
+This simplified sequence diagram summarizes the critical interactions between ProfileWindow, GenerateProfileCommand, FileUtil and ProfileUtil:
+
+[.text-center]
+image::ProfileSequenceDiagram2.png[]
+
 ==== Design Considerations
 
-===== Aspect: How Profile shows the information from the patient
+===== Aspect: How Profile shows the information from the patient in ProfileWindow
+`ProfileWindow` currently uses the `Person` class as its data structure to access all the relevant information on the Profile Panel. This presents some design considerations as listed here:
 
-* **Alternative 1 (current choice):** Does not create an explicit `Profile` instance.
-** Pros: Easy to implement, more straight forward (Just show data without the need to store what is essentially a clone of a `Person` instance).
-** Cons: May cause dependency issues as this increases coupling, with relation to the Profile and Patient class. Foreseeably, this may cause issues especially when patient attributes are to be added or removed.
-* **Alternative 2:** Create an explicit `Profile` instance every call.
+* **Alternative 1 (current choice):** Does not create an explicit `Profile` class to store the Profile data.
+** Pros: Easy to implement, more straight forward implementation. Defensive copies of Person can be used instead of a explicit `Profile` class which contains the exact same field variables as a Person.
+** Cons: May cause dependency issues as this increases coupling, with relation to the Profile and Patient class.
+* **Alternative 2:** Create an explicit `Profile` class, which is instanced every command call.
 ** Pros: Decreases coupling by cutting down on the direct calls to the `Person` instance.
-** Cons: We must ensure that the `Profile` instance generated is correct every time.
+** Cons: Adds to bloat in code structure, as it is very similar to `Person` class. We must ensure that the `Profile` instance generated is correct every time.
 
 // end::profile[]
-
-////
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-[.text-center]
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-[.text-center]
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-[.text-center]
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-[.text-center]
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-[.text-center]
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-[.text-center]
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-[.text-center]
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-[.text-center]
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-////
-
 [[visitImplementation]]
 // tag::visitationreport[]
 === Visitation Report feature

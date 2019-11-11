@@ -8,17 +8,17 @@
  (See https://forum.plantuml.net/6374/escape-square-brackets-in-a-label)'/
 
 (*top) --> "MS(ProfileWindow) instance is open"
---> "Check if user pressed 'esc'"
+--> "Check if user pressed 'MS(p)' or \npressed 'MS(Generate Profile File)' button"
 if "" then
---> [['MS(esc)' pressed&#93;] "MS(ProfileWindow) is hidden"
---> (*)
+    --> [[Pressed&#93;] "MS(GenerateProfileCommand) invoked"
+    --> "Check if user pressed 'MS(esc)' or \nmanually closed MS(ProfileWindow)"
 else
-    --> [['MS(esc)' not pressed&#93;] "Check if user manually
-    closed ProfileWindow"
+    --> [[Not pressed&#93;] "Check if user pressed 'MS(esc)' or \nmanually closed MS(ProfileWindow)"
     if "" then
-    --> [[Manually closed&#93;] "MS(ProfileWindow) is hidden"
+        --> [[Closed&#93;] "MS(ProfileWindow) is hidden"
+        --> (*)
     else
-    --> [[Not closed&#93;] "MS(ProfileWindow) instance is open"
+        --> [[Not closed&#93;] "MS(ProfileWindow) instance is open"
     endif
 endif
 

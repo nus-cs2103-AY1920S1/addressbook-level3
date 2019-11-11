@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+box UI UI_COLOR_T1
+participant ":ProfileWindow" as ProfileWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "g:GenerateProfileCommand" as GenerateProfileCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Util MODEL_COLOR_T1
+participant ":FileUtil" as FileUtil MODEL_COLOR
+participant ":ProfileUtil" as ProfileUtil MODEL_COLOR
+end box
+
+[-> ProfileWindow : generateProfilePressed()
+activate ProfileWindow
+
+ProfileWindow -> GenerateProfileCommand : GenerateProfileCommand(person)
+activate GenerateProfileCommand
+
+GenerateProfileCommand --> ProfileWindow : g
+deactivate GenerateProfileCommand
+
+ProfileWindow -> LogicManager : execute(g)
+activate LogicManager
+
+LogicManager -> GenerateProfileCommand : execute()
+activate GenerateProfileCommand
+
+GenerateProfileCommand -> FileUtil : createFileIfMissing(path)
+
+GenerateProfileCommand -> ProfileUtil : buildProfileReport(...)
+activate ProfileUtil
+
+ProfileUtil --> GenerateProfileCommand : fileContent
+deactivate ProfileUtil
+
+GenerateProfileCommand -> FileUtil : writeToProtectedFile(path, fileContent)
+
+GenerateProfileCommand -> CommandResult : CommandResult(result)
+deactivate GenerateProfileCommand
+activate CommandResult
+
+CommandResult --> LogicManager : r
+deactivate CommandResult
+
+LogicManager --> ProfileWindow : r
+deactivate LogicManager
+
+@enduml
