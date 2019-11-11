@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.jarvis.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_DES;
+import static seedu.jarvis.logic.parser.CliSyntax.PlannerSyntax.PREFIX_TASK_TYPE;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
@@ -21,6 +23,13 @@ import seedu.jarvis.logic.commands.course.ShowCourseHelpCommand;
 import seedu.jarvis.logic.commands.history.ListHistoryCommand;
 import seedu.jarvis.logic.commands.history.RedoCommand;
 import seedu.jarvis.logic.commands.history.UndoCommand;
+import seedu.jarvis.logic.commands.planner.AddTaskCommand;
+import seedu.jarvis.logic.commands.planner.DeleteTaskCommand;
+import seedu.jarvis.logic.commands.planner.DoneTaskCommand;
+import seedu.jarvis.logic.commands.planner.FindTaskCommand;
+import seedu.jarvis.logic.commands.planner.ListScheduleCommand;
+import seedu.jarvis.logic.commands.planner.ListTaskCommand;
+import seedu.jarvis.logic.commands.planner.PullTaskCommand;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 
 public class JarvisParserTest {
@@ -38,6 +47,20 @@ public class JarvisParserTest {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }
+
+    @Test
+    public void parseCommand_unknownCommand_throwsParseException() {
+        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    }
+
+    @Test
+    public void parseCommand_unrecognisedInput_throwsParseException() {
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                                HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
+    }
+
+
+    //======================= history manager ==========================================================
 
     @Test
     public void parseCommand_listHistory() throws Exception {
@@ -65,6 +88,8 @@ public class JarvisParserTest {
         assertTrue(parser.parseCommand(RedoCommand.COMMAND_WORD + " " + "5")
                 instanceof RedoCommand);
     }
+
+    //========================== course planner ===============================================
 
     @Test
     public void parseCommand_lookUp() throws Exception {
@@ -120,14 +145,47 @@ public class JarvisParserTest {
         assertTrue(parser.parseCommand(ShowCourseHelpCommand.COMMAND_WORD + " 3") instanceof ShowCourseHelpCommand);
     }
 
+    //============================= task planner ==============================================
+
     @Test
-    public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
+    public void parseCommand_addTask() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(AddTaskCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(AddTaskCommand.COMMAND_WORD + " " + PREFIX_TASK_TYPE + "todo "
+                                        + PREFIX_TASK_DES + "borrow book") instanceof AddTaskCommand);
     }
 
     @Test
-    public void parseCommand_unrecognisedInput_throwsParseException() {
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+    public void parseCommand_deleteTask() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(DeleteTaskCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(DeleteTaskCommand.COMMAND_WORD + " 2") instanceof DeleteTaskCommand);
+    }
+
+    @Test
+    public void parseCommand_findTask() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(FindTaskCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(FindTaskCommand.COMMAND_WORD + " book") instanceof FindTaskCommand);
+    }
+
+    @Test
+    public void parseCommand_doneTask() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(DoneTaskCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(DoneTaskCommand.COMMAND_WORD + " 1") instanceof DoneTaskCommand);
+    }
+
+    @Test
+    public void parseCommand_listTask() throws Exception {
+        assertTrue(parser.parseCommand(ListTaskCommand.COMMAND_WORD) instanceof ListTaskCommand);
+    }
+
+    @Test
+    public void parseCommand_listSchedule() throws Exception {
+        assertTrue(parser.parseCommand(ListScheduleCommand.COMMAND_WORD) instanceof ListScheduleCommand);
+    }
+
+    @Test
+    public void parseCommand_pullTask() throws Exception {
+        assertThrows(ParseException.class, () -> parser.parseCommand(PullTaskCommand.COMMAND_WORD));
+        assertTrue(parser.parseCommand(PullTaskCommand.COMMAND_WORD + " " + PREFIX_TASK_TYPE + "todo")
+                    instanceof PullTaskCommand);
     }
 }
