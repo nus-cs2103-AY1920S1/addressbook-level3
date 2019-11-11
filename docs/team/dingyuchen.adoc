@@ -62,6 +62,8 @@ https://github.com/AY1920S1-CS2103T-W12-3/main/issues/185[#185]
 to achieve polymorphism. (Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/95[#95])
 *** Refactor `VersionedBankAccount` into `VersionedUserState` that allows for the integration of the `Ledger`
 class, without associating the balances of `BankAccount` and `Ledger`.
+(Pull request:
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/133[#133])
 *** Wrote comprehensive unit test cases for the `Split` and `Receive` commmands and parsers.
 (Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/70[#70],
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/114[#114],
