@@ -23,7 +23,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
     public Xpire() {}
 
     /**
-     * Creates a Xpire object using the xpireItems in the {@code toBeCopied}
+     * Creates a Xpire object using the xpireItems in the {@code toBeCopied}.
      */
     public Xpire(ReadOnlyListView toBeCopied) {
         this();
@@ -49,7 +49,7 @@ public class Xpire implements ReadOnlyListView<XpireItem> {
         try {
             this.setItems((ObservableList<XpireItem>) newData.getItemList());
         } catch (ClassCastException e) {
-            this.logger.warning("Wrong item type for Replenish List");
+            this.logger.warning("Wrong item type for Xpire List");
         }
     }
 

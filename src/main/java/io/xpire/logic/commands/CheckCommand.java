@@ -5,6 +5,7 @@ import static io.xpire.model.ListType.XPIRE;
 
 import java.util.function.Predicate;
 
+import io.xpire.logic.commands.exceptions.CommandException;
 import io.xpire.model.Model;
 import io.xpire.model.item.ExpiringSoonPredicate;
 import io.xpire.model.item.ReminderThresholdExceededPredicate;
@@ -45,8 +46,9 @@ public class CheckCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model, StateManager stateManager) {
+    public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
         requireAllNonNull(model, stateManager);
+        this.requireNonEmptyCurrentList(model);
         stateManager.saveState(new FilteredState(model));
 
         model.filterCurrentList(XPIRE, this.predicate);

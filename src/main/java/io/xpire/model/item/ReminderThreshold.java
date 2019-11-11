@@ -12,10 +12,10 @@ import io.xpire.commons.util.StringUtil;
  */
 public class ReminderThreshold {
 
-    public static final String MESSAGE_CONSTRAINTS = "Reminder threshold should be a non-negative integer"
-            + "no greater than 36500. \n"
-            + "Also, reminder threshold cannot be greater than the number of days left before the item expires";
-    public static final String MESSAGE_CONSTRAINTS_LOWER = "Reminder is too old!";
+    public static final String MESSAGE_CONSTRAINTS = "Invalid value! Reminder threshold should be a non-negative"
+            + " integer no greater than 36500. \n";
+    public static final String MESSAGE_CONSTRAINTS_LOWER = "Reminder before 1/10/2019 are not accepted in Json file"
+            + " to prevent outdated reminder.";
     public static final String DEFAULT_THRESHOLD = "0";
 
     public static final int MAX_VALUE = 36500;
@@ -47,14 +47,7 @@ public class ReminderThreshold {
     public static boolean isValidReminderThreshold(String test, String days) {
         int threshold = Integer.parseInt(test);
         long remainingDays = Long.parseLong(days);
-        return isValidReminderThreshold(test) && threshold < remainingDays;
-    }
-
-    /**
-     * Returns true if a given input string is numeric but exceeds given range.
-     */
-    public static boolean isNumericButExceedQuantity(String test) {
-        return StringUtil.isNumeric(test) && test.length() > 5;
+        return isValidReminderThreshold(test) && threshold <= remainingDays;
     }
 
     public int getValue() {

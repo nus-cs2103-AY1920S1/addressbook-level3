@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import io.xpire.commons.util.AppUtil;
 
 /**
- * Represents a Tag in the expiry date tracker. Tags are in Sentence-Case when parsed in.
+ * Represents a Tag in the expiry date tracker or replenish list. Tags are in Sentence-Case when parsed in.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {
@@ -67,7 +67,7 @@ public class Tag {
      * Format state as text for viewing.
      */
     public String toString() {
-        return "[" + this.tagName + "]";
+        return "#" + this.tagName;
     }
 
 }

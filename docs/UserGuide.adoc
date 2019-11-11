@@ -29,14 +29,20 @@ By: `TeamXpire`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*. More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble tracking your items' expiry dates, Xpire can help you manage and notify you of items that are soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
+Xpire is for those who *prefer to use a desktop app for tracking expiry dates of items*.
+More importantly, Xpire is *optimised for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). If you have trouble
+tracking your items' expiry dates, Xpire can help you manage and notify you of items that are
+soon-expiring. Interested? Jump to the <<Quick Start>> to get started!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `xpire.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for Xpire.
-.  Launch the jar file using the `java -jar` command to start the app. The GUI should appear in a few seconds.
+.  In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. The GUI should appear in
+a few seconds.
 +
 image::Ui.png[width="790"]
 +
@@ -50,7 +56,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * `*delete*|3` : deletes the 3rd item shown in the current list
 * `*exit*` : exits the app
 
-.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list). You can move your items from the
+.  Xpire not only has a list to track you perishable items, but also a *to-buy* list (replenish list).
+The *to-buy* list is to help you keep track of the things you want to replenish. You can move your items from the
 tracking list to the replenish list once they are consumed or expired.
 * `*shift*|1` : moves the 1st item from the tracking list (main list) to the replenish list
 
@@ -58,12 +65,19 @@ tracking list to the replenish list once they are consumed or expired.
 
 == Graphic User Interface
 
+=== GUI components
+
 image::GUI.png[width="790"]
 
-There are two lists shown on the Graphic User Interface(GUI), `View` and `All Items`. On the left is the `View` list.
-This is an active list that shows you the current view of items. As you manipulate the items using
-`search`, or `check`, `View` list will change accordingly to show you only the items you want to see.
+The above image shows you the Graphic User Interface(GUI) of Xpire with its major components annotated. +
+You can refer to the following sections for details on what each component does.
 
+==== View List
+There are two lists shown on the GUI, `View` and `All Items`. On the left is the `View` list.
+This is an active list that shows you the current view of items. As you manipulate the items using
+`search`, `view` or `check`, `View` list will change accordingly to show you only the items you want to see.
+
+==== Item Card
 image::ItemCard.png[width="710"]
 
 This is how your item will look like in the `View` list. The number on the right is the number of days left before the item expires.
@@ -84,11 +98,7 @@ image::ReminderCard.png[width="500]
 
 image::ItemCard.png[width="710"]
 
-If the name or other details of the item is shortened with `...`, you can click on the card to expand it.
-
-image::ShortenedCard.png[width="500"]
-image::ExpandCard.png[width="500"]
-
+==== All Items List
 
 You can find all your items on the right, in the `All Items` list.
 
@@ -98,19 +108,45 @@ The `All Items` list provides you with a static view of all your items in the ap
 name to view items in the list, or click again to collapse the list. Clicking on the item name will show you the
 expiry date of the item if it has one.
 
+==== FeedbackBox
+
 Below the `View` list panel, you can find a rectangle box which acts like a "feedback window".
 
 image::FeedbackBox.png[width="500"]
 
-Any feedback on
+Feedback on
 the successful execution of the command will be displayed in this box. If an illegal command is entered, you will
 also be able to see a failure message and relevant suggestions in the box.
+
+==== CommandBox
 
 Finally, at the very bottom, you can find a small rounded rectangle box that says "Enter command here...".
 
 image::CommandBox.png[width="500"]
 
-This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your `View` list!
+This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your lists!
+
+=== Tips
+==== Expand cards
+
+When you reduce the window size, the name or other details of the item in the item card could be shortened with `...`.
+You can click on the card to expand it and view more information.
+
+image::ShortenedCard.png[width="500"]
+image::ExpandCard.png[width="500"]
+
+==== Resize Feedback Box
+
+When the feedback message is too long, you can either scroll or adjust the height of the feedback box to display more information.
+To resize, simply drag the horizontal bar above the feedback box to your desired position as shown below.
+
+image::ShortenedFeedbackBox.png[width = "500]
+image::ExpandedFeedbackBox.png[width = "500]
+
+==== Retrieve Previous Entry
+
+Just like any other Command Line App, you can easily retrieve your previous commands or go back to later commands using the
+kbd:[↑] and kbd:[↓] keys on your keyboard. You can call back up to 20 commands you entered.
 
 [[Features]]
 == Features
@@ -118,9 +154,10 @@ This is where you can type your command. The maximum you can type is 60 characte
 ====
 *Command Format*
 
-* Words that are enclosed with `<` and `>` are the parameters to be supplied by the user e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
+* Words that are enclosed with `<` and `>` are the parameters to be supplied by you e.g. in `set reminder|<index>|<reminder threshold>`, `<index>` and `<reminder threshold>` are parameters which can be used as `set reminder|1|7`.
+* Tags are recognised with the prefix `#` on the CLI. e.g. Xpire recognises `Fruit` as a name while `#Fruit` as a tag.
 * Parameters in square brackets are optional e.g `check[|<days>]` can be used as `check|7` or `check`.
-* Optional parameters with `…`​ after them can be used multiple times including zero times. For example, for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
+* Optional parameters with `…`​ after them can be used multiple times including zero times. e.g. for [<other tags>]..., the following format for Tag Command: `tag|<index>|<tag>[<other tags>]...` can be used as `tag|1|#Fruit #Frozen #Cold` or `tag|1|#Fruit`.
 * Trailing `|` (s) are allowed. e.g. `add|banana|2/2/2020|||` or `sort|name|`.
 ====
 
@@ -129,50 +166,59 @@ This is where you can type your command. The maximum you can type is 60 characte
 // tag::help[]
 ==== Opening the help window: `help`
 
+Use the command `help` to access the help window.
+
+Example:
+
+Let's say that you wanted to view all your items that are expiring soon, but have forgotten the command word for this purpose.
+Instead of trying all possible inputs, you can simply type `help` into the command box, to find the command word `check` that you have looking for.
+
 .Help window
 image::help.png[width="790"]
-
-Displays the help window. +
-Format: `help`
 // end::help[]
 
 // tag::view[]
 ==== Viewing all items : `view`
 
-===== Viewing all items in the current list
-
-.Items in current list viewed
-image::view-current.png[width="790"]
-Shows all items in the current list, which is the main list by default, or the replenish list if otherwise specified. +
-All items are sorted by both name (lexicographical order) and date (chronological order). +
-Format: `view`
-
 ===== Viewing all items in another list
 
-.Items in main tracking list viewed
-image::view-main.png[width="790"]
+To toggle between the main list and the list of items to be replenished, you
+can use the command `view|<list name>`. This shows you all the items in the list sorted by name
+(lexicographical order) then date (chronological order). +
+
+Examples:
+
+Let's say that you have completely depleted some items, namely `Cherry` and `Coco Crunch` in the main tracking list, and you wish to view these items
+that have been automatically shifted to the replenish list. You can do so by typing `view|replenish` in the command box
+to change your current list view to that shown in the figure below.
 
 .Items in replenish list viewed
 image::view-replenish.png[width="790"]
 
-Changes the list to be displayed. +
-You can toggle between the main list and the list of items to be replenished with this command. +
-Format: `view|<list to view>`
+Perhaps after viewing all your items in the replenish list, you wish to return to the main tracking list to add some items
+that you have recently purchased. You can easily return to the main list, by typing `view|main` in the command box.
+This is depicted in the figure below.
 
-Examples:
+.Items in main tracking list viewed
+image::view-main.png[width="790"]
 
-* `view|main` +
-Displays all items in the main list.
+===== Viewing all items in the current list
 
-* `view|replenish` +
-Displays all items in the replenish list.
+To view all the items in the current list, you can simply enter the command `view`.
+[NOTE]
+If you have not previously toggled the list view, this command will display the main tracking list by default.
+
+Example:
+
+Let's say that you have been searching for an item in the main tracking list, and you are shown the item found.
+To return back to the main list that displays all the items tracked, you can simply enter the command `view`.
+
+.Items in current list viewed
+image::view-current.png[width="790"]
 // end::view[]
 
 // tag::search[]
 ==== Searching for item(s) by name and/or tag: `search`
-
-.Items matching #fruit or chicken shown
-image::search.png[width="790"]
 
 Having a hard time looking for an item in Xpire? Not to worry, Xpire provides a search functionality to aid you in finding your items with ease.
 
@@ -181,12 +227,26 @@ With `search`, you can simply input any words or phrases and Xpire will display 
 
 Format: `search|<keyword>[|<other keywords>]...`
 
+.Items matching #fruit or chicken shown
+image::search.png[width="790"]
+
 [NOTE]
-`search` is designed to work only on the current view list. In other words, `search` will only display matching items which exists in the current view list.
+`search` is designed to work only on the current view list. In other words, `search` will only
+display matching items which exists in the current view list.
 
 [TIP]
-You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name, by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g. `red fuji apple`, `red strawberry` and `green apple`, the above commands will display only `red fuji apple`.
+You can do an AND search, e.g. search for items that contains BOTH `red` and `apple` in its name,
+by keying `search|red` and then `search|apple`. Suppose there are only 3 items in your list, e.g.
+ `red fuji apple`, `red strawberry` and `green apple` (see Figure 6), the above commands will display only `red
+ fuji apple` (see Figure 7).
 
+.Item list before searching
+image::search-initial.png[width="790"]
+
+.Item list after keying `search|red` and then `search|apple`
+image::search-after.png[width="790"]
+
+****
 * The search is case insensitive. e.g `ham` will match `Ham` and `#fruit` will match `#Fruit`.
 * The order of the keywords does not matter. e.g. `Turkey Ham|Apple` will match `Apple|Turkey Ham`.
 * Only the name and tag fields, if any, are searched.
@@ -198,12 +258,17 @@ You can do an AND search, e.g. search for items that contains BOTH `red` and `ap
 
 Examples:
 
-* `search|kebab` +
-Returns `Chicken Kebab` and `kebab`
-* `search|Chicken Ham` +
-Returns `Chicken Ham`
-* `search|milk|tea|#Drink` +
-Returns any items with names containing `milk` or `tea`, or with the tag `#Drink`.
+* `search|kebab` will display `Chicken Kebab` and `kebab` (see Figure 8).
+
+.Item list after keying `search|kebab`
+image::search-kebab.png[width="790"]
+
+* `search|Chicken Ham` will display `Chicken Ham` (see Figure 9).
+
+.Item list after keying `search|Chicken Ham`
+image::search-chicken-ham.png[width="790"]
+
+* `search|milk|tea|#Drink` will display any items with names containing `milk` or `tea`, or with the tag `#Drink`.
 // end::search[]
 
 // tag::shift[]
@@ -247,23 +312,76 @@ For items with single quantity, you can save time by keying in only the item nam
 
 // end::shift[]
 
-
 // tag::clear[]
 ==== Clearing all entries : `clear`
 
-Clears all entries from the current list that is displayed. +
+Want a quick way of deleting all the items in the current view list?
+You can simply type `clear` and all items in the current view list will be deleted immediately.
+
 Format: `clear`
+
+[NOTE]
+`clear` is designed to work only on the current view list. In other words, `clear` will only
+delete all items which exists in the current view list.
+
+Example:
+
+* While on the current view list (see Figure 10), input `clear` to remove all items in the list (see Figure 11)
+
+.Items in the current view list
+image::clear-before.png[width="790"]
+
+.All items in the list have been deleted.
+image::clear-after.png[width="790"]
+
 // end::clear[]
 
 // tag::export[]
 ==== Exporting data (multi-platform) : `export`
 
-.Items in current list exported to QR code
+Thinking of viewing the list of currently tracked items on your mobile phone? Want to have a
+copy of the to-buy items on your mobile phone so that you can refer to it while shopping?
+With Xpire's `export` feature, you can easily transfer the list of items to any platform
+by simply scanning the generated QR code.
+
+Xpire can not only help you track your items' expiry dates, it can also export the current
+list of items through a QR code (see Figure 12). Any device with a QR code reader will be
+able to download the list of items (see Figure 13).
+
+Format: `export`
+
+.QR code containing the data of the items in the current view list
 image::export.png[width="790"]
 
-Exports the current list of items through a QR code. +
-Any device with a QR code reader will be able to download the list of items. +
-Format: `export`
+.List of items received when scanning the QR code through a mobile phone
+image::export-phone.png[width="250"]
+
+[NOTE]
+====
+`export` is designed to work only on the current view list. In other words, `export` will only
+export all items which exists in the current view list.
+
+Depending on the operating system of your mobile phone, you may be directed to a google search
+page after scanning the QR code. Follow the steps below to rectify this issue if necessary.
+====
+
+* Upon scanning the QR code, you may see a pop-up prompt suggesting to you to search the content
+received on the web (see Figure 14).
+
+.Pop-up prompt to suggest to search the content on the web
+image::export-prompt.png[width="250"]
+
+* Instead of immediately accepting the suggestion, press and hold on the prompt to reveal the other
+options available (see Figure 15). Choose "Copy" or any other similar options.
+
+.Additional options to handle the content
+image::export-other-options.png[width="250"]
+
+* Once the content has been copied, you can simply paste and save the content on Notes or any other
+notepad application on your mobile phone (see Figure 16).
+
+.Pasting and saving exported content onto the mobile phone's built-in notepad application
+image::export-save-in-notes.png[width="250"]
 
 // end:export[]
 
@@ -366,8 +484,14 @@ Reduces the quantity of the 4th item by 1.
 ==== Tagging an item : `tag`
 
 ===== Display all tags created
-Shows all the tags you have created.
+Shows all the tags in the current list view.
+
 Format: `tag`
+
+[NOTE]
+Like `help` and `export`, this command is not undoable. +
+This command does not show tags of items that are not on the list you are viewing. +
+If you want to view all the tags in the main list or replenish list, simply key in `view`, followed by `tag`.
 
 ===== Add new tag(s) to an item
 
@@ -375,7 +499,7 @@ Format: `tag`
 image::tag.png[width="790"]
 
 [TIP]
-An item can have any number of tags (including 0)
+An item can have up to 5 tags.
 
 Tags an item from the list according to user input +
 Format: `tag|<index>|<tag>[<other tags>]...`
@@ -401,26 +525,22 @@ Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 [[Reminder]]
 ==== Setting reminder for an item: `set reminder`
 
-===== Setting the number of days before an item's expiry date to start reminding you
+===== Adding a reminder some days before an item's expiry date
 .Reminder set for item at index 4
 image::set-reminder.png[width="790"]
 
 Sets a reminder for your item. +
 Format: `set reminder|<index>|<reminder threshold>`
 
-Reminder threshold refers to *the number of days before the item's expiry date*. By setting the reminder threshold
-of an item to n days, the app will start reminding you of this items n days before its expiry date.
+Set reminder is designed for you to customise when you want to be alerted of an item's condition.
+In the above example, reminder threshold refers to *the number of days before the item's expiry date*.
+The reminder for an item will be activated when the number of days left before an item's expiry date is less than or equal to
+the reminder threshold. In other words, by setting the reminder threshold
+of an item to n days, you start to be reminded of this items n days before its expiry date.
 
-This allows the check command to quickly find the item once the reminder threshold is exceeded, and also
-allows the item to be marked as yellow in `View`.
-
-****
-* All items have their default reminder threshold set to 0.
-* To reset a reminder threshold, simply write over the old one.
-* A reminder cannot be set to be before the current date. For example, if the current date is 20/9/2019
-, it is not possible to set the reminder on 19/9/2019. In other words, if an item is expiring in 4 days, we cannot start the reminder 5 days before its expiry date. Instead, the app understands that you want the reminder to
-be activated immediately, and will start the reminder on the current date.
-****
+To reduce disturbance, the app does not pop up notifications. Instead, you will be reminded through the alerting yellow colour
+of the item whose reminder has been activated in the `View` list. You can also view all items with active reminder through the `check` command.
+(Refer to the following section.)
 
 Examples:
 
@@ -428,36 +548,48 @@ Examples:
 Sets a reminder for the second item in the list 4 days before its expiry date.
 
 ===== Removing the reminder for an item
-Removes the reminder set for your item.
+You can remove the reminder for your item by resetting it to the default value 0.
 Format: `set reminder|<index>|0`
 
 Examples:
 
 * `set reminder|1|0` +
 Removes the reminder for the first item in the list.
+
+****
+* All items have their default reminder threshold set to 0.
+* Reminder cannot be set on already expired items.
+* A reminder cannot be set to be before the current date. For example, if the current date is 20/9/2019
+, it is not possible to set the reminder on 19/9/2019 by entering a reminder threshold greater than the item's number of days left.
+However, the app understands that you want the reminder to be activated immediately, and will activate the reminder right away.
+* The maximum reminder threshold is 36500 days.
+****
 // end::set reminder[]
 
 // tag::check[]
 ==== Listing expiring items: `check`
 
-===== Listing all expiring items with activated reminders
+===== Listing all expiring items with activated reminders and expired items
 .Items expiring soon listed
 image::check.png[width="790"]
 
-Lists items whose reminder has been activated. +
+You can easily view all items whose reminder has been activated and who has already expired with the command `check`.
+In other words, this command will show you all items that are in red and yellow +
 Format: `check`
 
 ===== Listing items that will expire within a certain number of days
 
-Lists items that will expire within the specified number of days in your tracker. +
+Sometimes you forget to set a reminder for an item whose expiry date is drawing close. Don't worry, you can
+easily make a query for items that will expire within a specified number of days. +
 Format: `check|<days>`
 
 ****
 * Number of days *must be a non-negative integer* 0,1,2,3,..
+* Maximum number of days that can be checked is 36500 days.
 ****
 
 [TIP]
-`check|0` lists items that have already expired or expire on the day of checking.
+`check|0` lists items that have already expired.
 
 Examples:
 
@@ -467,21 +599,42 @@ Lists items expiring in the next 20 days.
 
 // tag::sort[]
 ==== Sorting all items : `sort`
-Sorts all items in your list by their name or date. +
-Format: `sort|<key>`
+[NOTE]
+Your items in both lists are sorted by their names by default.
 
-****
-* Items can be sorted by either name or date.
-* For example, Apple will sort ahead of Banana, while an item that expires on 1/1/2020 will sort ahead of another that expires on 1/1/2022.
-****
-===== Sorting all items by their name
-Format: `sort|name`
+To change the way your items are sorted, you can simply use the command `sort|<key>`,
+where <key> can be specified as either date or name.
 
 ===== Sorting all items by their date
+Example:
+
+Let's say that you are currently on the main tracking list, and you wish to identify all your items expiring next year.
+To expedite your search for these items, simply enter the command `sort|date`, and all your items will be sorted by their expiry dates
+in chronological order.
+
+As shown in the figure below, Banana that expires on 2nd November 2019 sorts ahead of Strawberry which expires a day later.
+
 .Items sorted by their date
 image::sort-date.png[width="790"]
 
-Format: `sort|date`
+[NOTE]
+Items that expire on the same day will be sorted by their names.
+****
+* For example, Apple will sort ahead of Banana, if both have the same expiry date.
+****
+
+===== Sorting all items by their name
+
+Example:
+
+Let's say that you have previously sorted your items by their expiry dates to find some items expiring in a certain year.
+You can use the command `sort|name` to return your list to its default method of sorting that sorts your items by their names.
+
+[NOTE]
+Items with the same name will be sorted by their expiry dates.
+****
+* For example, Milk that expires today will sort ahead of Milk that expires tomorrow.
+****
 // end::sort[]
 
 // tag::dataencryption[]
@@ -497,13 +650,13 @@ Format: `undo`
 [TIP]
 `undo` only works on commands that alter your items or the current view list. +
 Thus, commands such as `help` and `export` are not undoable as they do not alter items or the current view list. +
-Also, `undo` only works for the last 10 commands. Therefore, use the application wisely!
+Also, `undo` only works for the last 10 commands. Therefore, think before you type!
 
 ==== Redo an earlier command : `redo`
 Redo an earlier command that you have entered in. +
 Format: `redo`
 
-This command works in the opposite direction as `undo`, it will redo any command that you have undid so that you are able to see the changes.
+This command works in the opposite direction as `undo`, it will redo any command that you have undid in the past.
 
 == FAQ
 
@@ -531,7 +684,7 @@ The table below summarises the common commands available for use in both lists.
 |`redo`|
 
 1.2+|*View*
-1.2+|`view\|<list>`
+1.2+|`view\|<list name>`
 
 |`view\|main`
 |`view\|replenish`
@@ -576,7 +729,7 @@ The table below summarises the commands only available for use in the main list.
 |`delete\|<index>`
 |`delete\|3`
 
-|`delete\|<index>\|<tag>`
+|`delete\|<index>\|<tag>[<other tags>]...`
 |`delete\|3\|#fruit`
 
 |`delete\|<index>\|<quantity>`
@@ -586,7 +739,7 @@ The table below summarises the commands only available for use in the main list.
 |`tag`
 |
 
-|`tag\|<index>\|[<tag>]...`
+|`tag\|<index>\|<tag>[<other tags>]...`
 |`tag\|2\|#drink #healthy`
 
 |*Set reminder*
@@ -611,7 +764,9 @@ The table below summarises the commands only available for use in the main list.
 
 == Command Shorthands
 
-Commands also come with command shorthands which can be used in place of the full command word. For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
+If you are looking for a quick way to type and execute the commands, then this section is just
+for you. Commands also come with command shorthands which can be used in place of the full command word.
+For instance, `a|Strawberry|31/12/2019` is the same as `add|Strawberry|31/12/2019`.
 
 Below is a list of commands and their corresponding command shorthands:
 

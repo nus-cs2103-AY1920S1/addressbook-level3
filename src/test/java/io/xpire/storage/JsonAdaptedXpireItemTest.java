@@ -7,13 +7,16 @@ import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE_LOWER;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_EXPIRY_DATE_UPPER;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_NAME;
-import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY;
+import static io.xpire.testutil.TypicalItemsFields.INVALID_QUANTITY_INTEGER;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_REMINDER_THRESHOLD;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_REMINDER_THRESHOLD_RANGE;
 import static io.xpire.testutil.TypicalItemsFields.INVALID_TAG;
+import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_EXPIRY_DATE_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_NAME_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_QUANTITY_FISH;
+import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_APPLE;
 import static io.xpire.testutil.TypicalItemsFields.VALID_REMINDER_THRESHOLD_FISH;
 import static io.xpire.testutil.TypicalItemsFields.VALID_TAG_FRIDGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -105,8 +108,8 @@ public class JsonAdaptedXpireItemTest {
     @Test
     public void toModelType_invalidQuantity_throwsIllegalValueException() {
         JsonAdaptedXpireItem item =
-                new JsonAdaptedXpireItem(VALID_NAME_FISH, VALID_EXPIRY_DATE_FISH, INVALID_QUANTITY,
-                        VALID_REMINDER_THRESHOLD_FISH, VALID_TAGS);
+                new JsonAdaptedXpireItem(VALID_NAME_APPLE, VALID_EXPIRY_DATE_APPLE, INVALID_QUANTITY_INTEGER,
+                        VALID_REMINDER_THRESHOLD_APPLE, VALID_TAGS);
         String expectedMessage = Quantity.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, item::toModelType);
     }

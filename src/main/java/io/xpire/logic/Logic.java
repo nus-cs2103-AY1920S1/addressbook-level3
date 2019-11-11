@@ -44,7 +44,7 @@ public interface Logic {
     ObservableList<Item> getReplenishItemList();
 
     /**
-     * Returns the user prefs' xpire file path.
+     * Returns the user prefs' file path.
      */
     Path getListFilePath();
 

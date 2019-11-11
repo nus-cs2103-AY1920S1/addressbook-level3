@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+//@@author JermyTan
 public class CommandResultTest {
     @Test
     public void equals() {
@@ -15,6 +16,7 @@ public class CommandResultTest {
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
         assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
+        assertTrue(commandResult.equals(new CommandResult("feedback", false, new byte[0])));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -33,6 +35,12 @@ public class CommandResultTest {
 
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+
+        // different showQr value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", true, new byte[0])));
+
+        // different pngData value -> returns false
+        assertFalse(commandResult.equals(new CommandResult("feedback", false, "1".getBytes())));
     }
 
     @Test
@@ -41,6 +49,8 @@ public class CommandResultTest {
 
         // same values -> returns same hashcode
         assertEquals(commandResult.hashCode(), new CommandResult("feedback").hashCode());
+        assertEquals(commandResult.hashCode(), new CommandResult("feedback", false, false).hashCode());
+        assertEquals(commandResult.hashCode(), new CommandResult("feedback", false, new byte[0]).hashCode());
 
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
@@ -50,5 +60,11 @@ public class CommandResultTest {
 
         // different exit value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+
+        // different showQr value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, new byte[0]).hashCode());
+
+        // different pngData value -> returns different hashcode
+        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, "1".getBytes()).hashCode());
     }
 }

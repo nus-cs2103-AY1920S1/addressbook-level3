@@ -71,11 +71,11 @@ public class XpireTest {
     @Test
     public void hasItem_itemWithSameIdentityFieldsInExpiryDateTracker_returnsTrue() {
         xpire.addItem(APPLE);
-        XpireItem editedAlice = new XpireItemBuilder(APPLE)
+        XpireItem editedApple = new XpireItemBuilder(APPLE)
                 .withExpiryDate(VALID_EXPIRY_DATE_APPLE)
                 .withTags(VALID_TAG_FRUIT)
                 .build();
-        assertTrue(xpire.hasItem(editedAlice));
+        assertTrue(xpire.hasItem(editedApple));
     }
 
     @Test

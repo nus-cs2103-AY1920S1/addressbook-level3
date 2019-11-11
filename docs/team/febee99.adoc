@@ -4,9 +4,7 @@
 :stylesDir: ../stylesheets
 
 image::febee99.png[width="150", align="left"]
-{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]] +
-{empty}[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=febee99&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
-
+{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]]
 Role: Developer +
 Responsibilities: Code Quality + Scheduling and Tracking
 
@@ -16,22 +14,27 @@ Responsibilities: Code Quality + Scheduling and Tracking
 
 == Overview
 
-Xpire is a desktop application used for tracking expiry dates of items.  The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Given the task to augment an address book desktop application for our software engineering project, my team and I
+decided to transform it into Xpire, an expiry date tracker. Xpire targets students living on campus, allowing them to track,
+identify and replenish any items, including but not limited to, perishable items like food, makeup and medicine, that have either already expired, are
+fully depleted, or are expiring soon.
 
 == Summary of contributions
 
-//** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+|===
+|_This section shows a summary of my coding, documentation and other helpful contributions to the team project._
+|===
 
-* *Major enhancement*: added *the ability to view different lists and execute only commands permissible for the list specified*
+* *Major enhancement: the ability to view different lists and execute only commands permissible for the list specified*
 ** What it does: allows the user to view the list of items to be replenished from the main tracking list of items and vice versa. In the replenish list, certain commands are intentionally prohibited.
-** Justification: This feature improves the product significantly because a user can view and search for his or her items that have run out and replenish them as soon as possible. Items in the replenish list
+** Justification: This feature improves the product significantly as a user can view and search for his or her items that have run out and replenish them as soon as possible. Items in the replenish list
 are also differentiated from the items in the main tracking list, by limiting the commands available. This is founded on the basis that certain commands such as sorting by date would be rendered irrelevant as
 items to be replenished do not have an expiry date or quantity unlike those in the main list.
 ** Highlights: This enhancement works with existing as well as future commands. An in-depth analysis of design alternatives was necessary to avoid making major changes to existing commands and littering of duplicate code
 chunks. The implementation was also challenging because it requires a good command of generics to ensure that existing commands would work well with both items in the main tracking list and items to be
 replenished, without making drastic changes to the code base.
 
-* *Major enhancement*: added *the ability to recommend similar words for correction if any when a user makes mistakes in his or her input*
+* *Major enhancement: the ability to recommend similar words for correction if any when a user makes mistakes in his or her input*
 ** What it does: recommends closely-related words detected in comparison to the user input
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them. With spelling corrections, they can now easily identify
 their input mistakes and correct them with ease.
@@ -39,59 +42,49 @@ their input mistakes and correct them with ease.
 of existing commands.
 ** Credits: [https://github.com/crwohlfeil/damerau-levenshtein/blob/master/src/main/java/com/codeweasel/DamerauLevenshtein.java[Damerau-Levenshten algorithm]]
 
-* *Minor enhancement*: added the ability to store both the main list and replenish list in one single json object. This allows the user to retrieve previous entries created and edit them.
-A user can also now read and write to the json file from the command-line interface for both lists.
+* *Minor enhancement*: added the ability to store both the main list and replenish list in one single json object. This allows the user to read and write to the json file from the command-line interface for both lists.
 
-* *Minor enhancement*: made certain commands such as sort and search stackable. This would have greater utility in cases where there are hundreds of items, and 1 search is deemed insufficient to sieve out an item.
+* *Minor enhancement*: made certain commands such as sort and search stackable. This has great utility when there are lots of items and 1 search is insufficient to sieve out an item.
 This allows users to narrow down to items with greater ease, by sorting or searching the results of previous searches.
 
-* *Minor enhancement*: added the ability to auto-sort items in both lists by their name (lexicographical order) and date (chronological order),
+* *Minor enhancement*: added the ability to auto-sort as well as manually sort items in both lists by their name and date,
 allowing the user to add items and have them arranged in an organised fashion.
-
-* *Minor enhancement*: added a sort command that allows the user to sort items by their name or date.
 
 * *Minor enhancement*: added expiry date and quantity fields to item, and disallowed expiry dates before today.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=febee99&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[Reposense]]
-[https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+[https://github.com[Functional code]] [https://github.com[Test code]]
 
 * *Other contributions*:
 
 ** Team tasks:
-*** Refactor Person to Item (Pull request https://github.com[#3])
+*** Refactor Person to Item (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/3[#3])
+** Project management:
 *** Set up and maintaining the issue tracker, assign issues to team members for each milestone
 
-** Project management:
-
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
+** *Enhancements to existing features:*
 
-*** Add functionality to view different lists, edit fxml files (Pull request https://github.com[#122])
-*** Restrict commands for replenish list with new parser created (Pull request https://github.com[#122])
-*** Allow storage of both lists in a single json object (Pull request https://github.com[#122])
-*** Suggest closely related words when command executed displays no results (Pull requests https://github.com[#92], https://github.com[#121])
-*** Add Sort Command (Pull requests https://github.com[#7], https://github.com[#16])
-*** Wrote tests for sort command and its dependencies (Pull request https://github.com[#82])
-*** Render commands stackable (Pull requests https://github.com[#71])
-*** Auto-sort items added (Pull requests https://github.com[#51], https://github.com[#79])
-*** Disallow expiry dates before today (Pull request https://github.com[#53])
+*** Add functionality to view different lists, edit fxml files (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
+*** Add and restrict certain commands for replenish list with new parser created (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/198[#198])
+*** Allow storage of both lists in a single json object (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
+*** Suggest closely related words when command executed displays no results (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/92[#92], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/121[#121])
+*** Add Sort Command (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/7[#7], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/16[#16])
+*** Wrote tests for sort command and its dependencies (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/82[#82])
+*** Render commands stackable (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/71[#71])
+*** Auto-sort items added (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/51[#51], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/79[#79])
+*** Disallow expiry dates before today (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/53[#53])
 
 //*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Add sub-headings for commands with usage variations and a command summary table, re-ordered content: https://github.com[#126]
-
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-
-** Tools:
+** *Documentation:*
+*** Add sub-headings for commands with usage variations and a command summary table, re-ordered content: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/126[#126])
+*** Add screenshots of app to User Guide for all commands: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/145[#145])
+** *Tools:*
 *** Integrated the team repo with Github's project board
-
-_{you can add/remove categories in the list above}_
+//_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -99,9 +92,9 @@ _{you can add/remove categories in the list above}_
 
 include::../UserGuide.adoc[tag=view]
 
-include::../UserGuide.adoc[tag=sort]
+//include::../UserGuide.adoc[tag=sort]
 
-include::../UserGuide.adoc[tag=tablesummary]
+//include::../UserGuide.adoc[tag=tablesummary]
 
 == Contributions to the Developer Guide
 
@@ -109,10 +102,17 @@ include::../UserGuide.adoc[tag=tablesummary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=autosort]
+include::../DeveloperGuide.adoc[tag=replenishListCommands]
 
-include::../DeveloperGuide.adoc[tag=recommendations]
+include::../DeveloperGuide.adoc[tag=autosortPartOne]
+//include::../DeveloperGuide.adoc[tag=autosortPartTwo]
+include::../DeveloperGuide.adoc[tag=autosortPartThree]
 
+include::../DeveloperGuide.adoc[tag=recommendationsIntro]
+
+include::../DeveloperGuide.adoc[tag=recommendationsPartOne]
+//include::../DeveloperGuide.adoc[tag=recommendationsPartTwo]
+include::../DeveloperGuide.adoc[tag=recommendationsPartThree]
 
 //== PROJECT: PowerPointLabs
 

@@ -18,6 +18,10 @@ public class TypicalItemsFields {
     public static final String VALID_NAME_COOKIE = "Cookie";
     public static final String VALID_NAME_CORN = "Corn";
     public static final String VALID_NAME_DUCK = "Duck";
+    public static final String VALID_NAME_JELLY = "Jelly";
+    public static final String VALID_NAME_PAPAYA = "Papaya";
+    public static final String VALID_NAME_TUNA = "Tuna";
+    public static final String VALID_NAME_WATERMELON = "Watermelon";
     public static final String VALID_NAME_EGG = "Egg";
     public static final String VALID_NAME_FISH = "Fish";
     public static final String VALID_NAME_GRAPE = "Grape";
@@ -34,24 +38,29 @@ public class TypicalItemsFields {
     public static final String VALID_EXPIRY_DATE_CORIANDER = "31/12/2099";
     public static final String VALID_EXPIRY_DATE_CORN = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_DUCK = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_KIWI = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_JELLY = IN_A_MONTH;
+    public static final String VALID_EXPIRY_DATE_PAPAYA = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_EGG = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_FISH = IN_A_MONTH;
     public static final String VALID_EXPIRY_DATE_GRAPE = IN_A_WEEK;
     public static final String VALID_EXPIRY_DATE_HONEY = TODAY;
     public static final String VALID_EXPIRY_DATE_ICE_CREAM = PASSED_A_WEEK;
 
-
     public static final String VALID_QUANTITY_APPLE = "1";
     public static final String VALID_QUANTITY_BANANA = "1";
     public static final String VALID_QUANTITY_CORIANDER = "999";
     public static final String VALID_QUANTITY_CORN = "1";
     public static final String VALID_QUANTITY_DUCK = "1";
+    public static final String VALID_QUANTITY_JELLY = "4";
+    public static final String VALID_QUANTITY_PAPAYA = "1";
     public static final String VALID_QUANTITY_EGG = "10";
     public static final String VALID_QUANTITY_FISH = "4";
     public static final String VALID_QUANTITY_GRAPE = "1";
     public static final String VALID_QUANTITY_HONEY = "1";
     public static final String VALID_QUANTITY_ICE_CREAM = "2";
 
+    public static final String VALID_TAG_BREAKFAST = "Breakfast";
     public static final String VALID_TAG_CADBURY = "Cadbury";
     public static final String VALID_TAG_COCOA = "Cocoa";
     public static final String VALID_TAG_DRINK = "Drink";
@@ -66,6 +75,7 @@ public class TypicalItemsFields {
     public static final String VALID_REMINDER_THRESHOLD_CORIANDER = "2";
     public static final String VALID_REMINDER_THRESHOLD_CORN = "15";
     public static final String VALID_REMINDER_THRESHOLD_DUCK = "0";
+    public static final String VALID_REMINDER_THRESHOLD_PAPAYA = "0";
     public static final String VALID_REMINDER_THRESHOLD_EGG = "0";
     public static final String VALID_REMINDER_THRESHOLD_FISH = "10";
     public static final String VALID_REMINDER_THRESHOLD_GRAPE = "20";
@@ -78,7 +88,7 @@ public class TypicalItemsFields {
     public static final String INVALID_EXPIRY_DATE_UPPER = "1/1/9999";
     public static final String INVALID_EXPIRY_DATE_LOWER = "1/1/1000";
     public static final String INVALID_TAG = "$cold";
-    public static final String INVALID_QUANTITY = "-2";
+    public static final String INVALID_QUANTITY_INTEGER = "-2";
     public static final String INVALID_REMINDER_THRESHOLD = "-5";
     public static final String INVALID_REMINDER_THRESHOLD_RANGE = "30000";
 

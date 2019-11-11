@@ -2,7 +2,6 @@ package io.xpire.logic.commands;
 
 import static io.xpire.commons.util.CollectionUtil.requireAllNonNull;
 import static io.xpire.model.ListType.XPIRE;
-import static java.util.Objects.requireNonNull;
 
 import io.xpire.commons.core.Messages;
 import io.xpire.commons.core.index.Index;
@@ -54,12 +53,12 @@ public class SetReminderCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, StateManager stateManager) throws CommandException {
-        requireNonNull(model);
-        stateManager.saveState(new ModifiedState(model));
+        requireAllNonNull(model, stateManager);
+        this.requireNonEmptyCurrentList(model);
         ObservableList<? extends Item> currentList = model.getCurrentList();
 
         if (this.index.getZeroBased() >= currentList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_INDEX);
         }
 
         XpireItem targetItem = (XpireItem) currentList.get(this.index.getZeroBased());
@@ -76,11 +75,13 @@ public class SetReminderCommand extends Command {
             ReminderThreshold newThreshold = new ReminderThreshold(daysLeft);
             xpireItemToSetReminder.setReminderThreshold(newThreshold);
             this.item = xpireItemToSetReminder;
+            stateManager.saveState(new ModifiedState(model));
             model.setItem(XPIRE, targetItem, xpireItemToSetReminder);
             return new CommandResult(String.format(MESSAGE_REMINDER_THRESHOLD_EXCEEDED, daysLeft));
         } else {
             xpireItemToSetReminder.setReminderThreshold(this.threshold);
             this.item = xpireItemToSetReminder;
+            stateManager.saveState(new ModifiedState(model));
             model.setItem(XPIRE, targetItem, xpireItemToSetReminder);
             return new CommandResult(this.threshold.getValue() > 0
                     ? String.format(MESSAGE_SUCCESS_SET, this.item.getName(), this.threshold)

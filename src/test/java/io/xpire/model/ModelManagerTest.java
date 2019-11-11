@@ -1,5 +1,6 @@
 package io.xpire.model;
 
+import static io.xpire.model.ListType.REPLENISH;
 import static io.xpire.model.ListType.XPIRE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -20,6 +21,7 @@ import io.xpire.testutil.ExpiryDateTrackerBuilder;
 import io.xpire.testutil.ReplenishListBuilder;
 import io.xpire.testutil.TypicalItems;
 
+//@@author JermyTan
 public class ModelManagerTest {
 
     private ModelManager modelManager = new ModelManager();
@@ -64,12 +66,12 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setExpiryDateTrackerFilePath_nullPath_throwsNullPointerException() {
+    public void setXpireFilePath_nullPath_throwsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> this.modelManager.setListFilePath(null));
     }
 
     @Test
-    public void setExpiryDateTrackerFilePath_validPath_setsXpireFilePath() {
+    public void setXpireFilePath_validPath_setsXpireFilePath() {
         Path path = Paths.get("xpire/io/file/path");
         this.modelManager.setListFilePath(path);
         assertEquals(path, this.modelManager.getListFilePath());
@@ -92,7 +94,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getFilteredItemList_modifyList_throwsUnsupportedOperationException() {
+    public void getCurrentList_modifyList_throwsUnsupportedOperationException() {
         Assert.assertThrows(UnsupportedOperationException.class, () -> this.modelManager
                 .getCurrentList().remove(0));
     }
@@ -132,13 +134,20 @@ public class ModelManagerTest {
         // different xpire -> returns false
         assertNotEquals(this.modelManager, new ModelManager(differentLists, userPrefs));
 
+        // different view -> returns false
+        this.modelManager.setCurrentList(REPLENISH);
+        assertNotEquals(this.modelManager, new ModelManager(lists, userPrefs));
+
+        // sets modelManager back to viewing Xpire list.
+        this.modelManager.setCurrentList(XPIRE);
+
         // different filteredList -> returns false
         String[] keywords = TypicalItems.APPLE.getName().toString().split("\\s+");
         this.modelManager.filterCurrentList(XPIRE, new ContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertNotEquals(this.modelManager, new ModelManager(lists, userPrefs));
 
         // resets modelManager to initial state for upcoming tests
-        this.modelManager.setCurrentList(XPIRE);
+        this.modelManager = new ModelManager();
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

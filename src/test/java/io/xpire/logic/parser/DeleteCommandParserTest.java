@@ -1,6 +1,7 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static io.xpire.commons.core.Messages.MESSAGE_INVALID_INDEX;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
@@ -22,7 +23,6 @@ import io.xpire.model.tag.TagComparator;
  * same path through the DeleteCommand, and therefore we test only one of them.
  * The path variation for those two cases occur inside the ParserUtil, and
  * therefore should be covered by the ParserUtilTest.
- * TODO: Quantity Deletion
  */
 public class DeleteCommandParserTest {
 
@@ -40,17 +40,17 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidArgs_throwsParseException() {
 
-        assertParseFailure(xpireParser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteCommand.MESSAGE_USAGE));
+        // invalid arguments in XpireParser
+        assertParseFailure(xpireParser, "a", MESSAGE_INVALID_INDEX);
 
-        //invalid trailing arguments
+        //invalid trailing arguments in XpireParser
         assertParseFailure(xpireParser, "1||||||1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
 
-        assertParseFailure(replenishParser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                DeleteCommand.MESSAGE_USAGE));
+        // invalid arguments in ReplenishParser
+        assertParseFailure(replenishParser, "a", MESSAGE_INVALID_INDEX);
 
-        //invalid trailing arguments
+        //invalid trailing arguments in ReplenishParser
         assertParseFailure(replenishParser, "1||||||1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 DeleteCommand.MESSAGE_USAGE));
     }
@@ -99,7 +99,6 @@ public class DeleteCommandParserTest {
     //deleting of Quantity not allowed in replenish list as replenish items have no quantity
     @Test
     public void parse_deleteQuantityInReplenishList_throwsParseException() {
-        Quantity invalidQuantity = new Quantity("1");
         assertParseFailure(replenishParser, "1|1", DeleteCommandParser.MESSAGE_DELETE_QUANTITY_INVALID_USAGE);
     }
 }

@@ -1,9 +1,9 @@
 package io.xpire.logic.parser;
 
 import static io.xpire.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static io.xpire.commons.core.Messages.MESSAGE_INVALID_INDEX;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertEqualsParseSuccess;
 import static io.xpire.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static io.xpire.logic.parser.SetReminderCommandParser.MESSAGE_INVALID_REMINDER_THRESHOLD;
 import static io.xpire.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 
 import org.junit.jupiter.api.Test;
@@ -31,13 +31,11 @@ public class SetReminderCommandParserTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetReminderCommand.MESSAGE_USAGE));
 
         // invalid index
-        assertParseFailure(parser, "0|3",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetReminderCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "0|3", MESSAGE_INVALID_INDEX);
     }
 
     @Test
     public void parse_invalidReminderThreshold_throwsParseException() {
-        assertParseFailure(parser, "1|abc",
-                String.format(MESSAGE_INVALID_REMINDER_THRESHOLD, SetReminderCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1|abc", ReminderThreshold.MESSAGE_CONSTRAINTS);
     }
 }

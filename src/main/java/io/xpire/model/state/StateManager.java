@@ -2,6 +2,7 @@ package io.xpire.model.state;
 
 /**
  * An interface that provides methods for altering States.
+ * @@author Kalsyc
  */
 public interface StateManager {
 
