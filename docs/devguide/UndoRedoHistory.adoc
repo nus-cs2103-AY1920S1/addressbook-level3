@@ -85,7 +85,7 @@ The following example usage scenario and the state of `historyManager` at each s
 
 `HistoryManager` is initialized with empty `history` and `redoStack` objects.
 
-image::UndoRedoState0.png[height="250"]
+image::UndoRedoState0.png[height=300]
 
 **Step 2**: The user executes the command `pat-delete 3`. +
 
@@ -97,7 +97,7 @@ and `stagedAppointmentBook` into `historyManager` through
 `historyManager` uses those objects to create a new `HistoryRecord` object which contains the model state **before** the
 command was executed (here labelled `hr0`) and pushes it into the `history`.
 
-image::UndoRedoState1.png[height="250"]
+image::UndoRedoState1.png[height=300]
 
 **Step 3**: The user executes the command `visit-start`. +
 
@@ -105,7 +105,7 @@ The interaction between `logicManager`, `modelManager` and `historyManager` is t
 
 `historyManager` creates a new `HistoryRecord` object (here labelled `hr1`) and pushes it into the `history`.
 
-image::UndoRedoState2.png[height="250"]
+image::UndoRedoState2.png[height=300]
 
 **Step 4**: The user wants to revert to the first item in the history, so he executes the command `app-undo 1`. +
 
@@ -116,14 +116,14 @@ and including the target record from the history (`hr1` and `hr0` in the previou
 these popped records to create new records of the model state **after** the commands were executed, and places these
 new records (`hr2` and `hr3`) into the `redoStack`.
 
-image::UndoRedoState3.png[height="250"]
+image::UndoRedoState3.png[height=300]
 
 Finally, `modelManager` calls `ModelManager#changeBaseTo(PatientBook, AppointmentBook)` using the state objects in the
 target record. This performs the actual reversion of the state. +
 
 The action of the `UndoCommand` is summarised in the sequence diagram below:
 
-image::UndoSequenceDiagram.png[height="250"]
+image::UndoSequenceDiagram.png[height=300]
 
 **Step 5**: The user wants to redo `pat-delete 3`, so he executes the command `app-redo`. +
 
@@ -134,7 +134,7 @@ passing it the current `stagedPatientBook` and `stagedAppointmentBook`. +
 `PatientBook` and `AppointmentBook` just passed in by the `modelManager`, to create a new `HistoryRecord` (`hr4`)
 describing the model state **before** that command was executed. It then pushes `hr4` into the history.
 
-image::UndoRedoState4.png[height="250"]
+image::UndoRedoState4.png[height=300]
 
 `historyManager#popRedo()` returns the `HistoryRecord` (`hr3`) containing the state after the redo. `modelManager`
 can now call `ModelManager#changeBaseTo()` to change the state to it.
@@ -146,7 +146,7 @@ The action of the `logicManager` and `modelManager` is similar what is described
 `historyManager` sees that the committing command is not an `UndoCommand` or a `RedoCommand` and clears the
 `redoStack` to avoid branching.
 
-image::UndoRedoState5.png[height="250"]
+image::UndoRedoState5.png[height=300]
 
 ==== Model and Logic Design Considerations
 
