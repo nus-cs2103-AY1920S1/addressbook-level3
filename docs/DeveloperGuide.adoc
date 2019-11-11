@@ -296,7 +296,7 @@ This section discusses some design details of the calendar model.
 
 The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the ``Event`` package which can be found https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[here].
 
-. Calendar model class diagram
+.Calendar model class diagram
 image::CalendarClassDiagram.png[Calendar model class diagram]
 
 As shown above, the ``Calendar`` instance interacts with the ``EventManager`` by querying it. With the help of ``EventManger``, the ``Calendar`` instance does not need to deal with "lower-level" concerns (for instance, how ``Event``s are managed internally). 
@@ -324,7 +324,7 @@ More information about this package is provided below.
 
 To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It descibes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
 
-. Calendar model sequence diagram
+.Calendar model sequence diagram
 image::CalendarSequenceDiagram.png[Calendar model sequence diagram]
 
 
@@ -336,7 +336,7 @@ This section provides some details about how the _add an event_ feature is imple
 
 The following diagram illustrates the course of action(s) that is(are) possibly taken when a user tries to add a new trip to his/her calendar.
 
-. Calendar activity diagram
+.Calendar activity diagram
 image::CalendarActivityDiagram.png[Calendar activity diagram]
 
 From the diagram, it can be seen that there are three major reasons that can interrupt the user request:
