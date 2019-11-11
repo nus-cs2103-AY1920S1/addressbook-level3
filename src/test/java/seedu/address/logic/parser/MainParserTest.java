@@ -39,7 +39,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.category.Category;
 import seedu.address.model.transaction.TransactionPredicate;
 
-// TODO: ADD ALL THE COMMANDS
 public class MainParserTest {
 
     private final MainParser parser = new MainParser();

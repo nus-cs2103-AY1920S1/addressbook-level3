@@ -61,7 +61,6 @@ public class BudgetBuilder {
         return this;
     }
 
-    // TODO: Change constructor
     public Budget build() {
         return new Budget(amount, date, categories);
     }

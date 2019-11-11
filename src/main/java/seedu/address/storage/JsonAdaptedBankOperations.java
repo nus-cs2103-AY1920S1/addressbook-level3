@@ -33,7 +33,6 @@ class JsonAdaptedBankOperations {
 
     /**
      * Constructs a {@code JsonAdaptedBankOperations} with the given transaction details.
-     * TODO: LEft off here -> update Projection (getTxHist + noProjectVersion)
      */
     @JsonCreator
     public JsonAdaptedBankOperations(@JsonProperty("description") String description,
