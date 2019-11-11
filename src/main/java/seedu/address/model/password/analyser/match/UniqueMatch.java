@@ -5,7 +5,7 @@ import java.util.Objects;
 import seedu.address.model.password.Password;
 
 /**
- * Represents a {@code match} which was found  by {@code UniqueAnalyser}.
+ * Represents a {@code Match} which was found  by {@code UniqueAnalyser}.
  */
 public class UniqueMatch extends BaseMatch {
     private Password password;
