@@ -497,54 +497,57 @@ image::statisticsIntro.png[]
 {nbsp} +
 
 Billboard has a powerful statistics display system! While trying out other features, you may have realized that the highlighted chart changes from time to time.
-That's right, Billboard has a fully responsive statistics display with charts that dynamically update themselves. You can simply enter any command that changes the displayed
+That is because Billboard has a _fully responsive_ statistics display with charts that dynamically update themselves. You can simply enter any command that changes the displayed
 list of expenses, such as `add n/automatic stats displays are cool a/50.00`, and watch as the chart updates automatically.
 
 .Live statistics display in action upon adding an expense.
 image::live-statistics-demo.gif[]
 
 
-Should you want to view different types of statistics and customize what you are seeing, Billboard also supports various different types of
-charts, with a myriad of different customization options. Read the individual commands below to find out more.
+Should you want to view different types of statistics and customize the information you get, Billboard also supports various different types of
+charts, with a plethora of different customization options. Read the documentation on individual commands below to find out more.
 
 [NOTE]
 The options available are tailored to each specific chart type and thus, not all charts may support the same options. The individual sections
 for each command goes into further detail about the supported options for that command.
 
 
-With this, it becomes extremely easy for you to perform advanced queries on specific types of statistics! For example,
+With this, it becomes effortless for you to perform advanced queries on specific types of statistics! For example,
 if you want to track the weekly total spending of all your expenses that contain the word "food" over a specific month, simply type `display-stats timeline interval/week`
-followed by `find d/food sd/01/01/2019 ed/01/02/2019`. (Unsure about this command? Refer to <<Find>> for more information) +
+followed by `find d/food sd/01/01/2019 ed/01/02/2019`. (Unsure about this command? Refer to <<Find>> for more information). +
 {nbsp} +
 
 
-. _Display timeline overview of expenses: display-stats timeline_ +
+==== _Display timeline overview of expenses: display-stats timeline_ +
 
 .Timeline of expenses grouped by tag
-image::display-timeline-example.png[]
+image::display-timeline-example-normal.png[]
 
-You can view a timeline overview of your currently displayed expenses. The expenses over a specified time period are aggregated and added as data points on
-the timeline, allowing you to easily keep track of your relative spending. You can customize the date interval used as well as how the expenses are split into individual timelines. +
+You can view one or more timelines that are based on your currently displayed expenses. Upon entering the command, the statistic chart will automatically update to display a timeline configured with the options you have provided. The expenses over a specified time period are aggregated and added as data points on the timeline, allowing you to easily keep track of your relative spending. You can customize the date interval used, as well as the groupings used to split your expenses into each individual timeline. +
 {nbsp} +
 Usage:
 
- display-stats timeline [OPTIONS]
-+
-Options:
+ display-stats timeline interval/<DATE INTERVAL = MONTH> groupby/<GROUPING = NONE>
 
-* `interval/`: Specifies the date interval to be used to split the expenses into groups by.
-Supported date intervals include 'day', 'week', 'month' and 'year'.
-* `groupby/`: Specifies the grouping to use to group the expenses into each separate timeline. Supported groupings include
-"none" (default), "tag", "month" and "day-of-week". +
+
+INFO:
+
+* `DATE_INTERVAL`: Specifies the date interval to be used to aggregate the expenses by. For example, Supported date intervals include 'day', 'week', 'month' and 'year'.
+* `GROUPING`: Specifies the grouping to use to group the expenses into each separate timeline. Supported groupings include "none", "tag", "month" and "day-of-week".
+
 {nbsp} +
 
-+
 Example: +
-`display-stats timeline interval/week groupby/tag` +
-Displays a timeline overview of the displayed expenses with the expenses being grouped into weeks. +
+`display-stats timeline interval/month groupby/tag` +
+Displays timelines based on the displayed expenses, with the total amount spent each week, starting from Monday and ending on Sunday, being totalled
+to form each data point. The expenses are also divided based on tag, forming on timeline for every tag. The chart may look something like this: +
+
+image::display-timeline-example-tag.png[]
 {nbsp} +
 
-. _Display breakdown of expenses: display-stats breakdown_ +
+
+
+==== _Display breakdown of expenses: display-stats breakdown_ +
 You can view a breakdown of expenses by tag for the currently displayed expenses. The total
 expenses per tag are totalled and displayed in a pie chart. +
 {nbsp} +
