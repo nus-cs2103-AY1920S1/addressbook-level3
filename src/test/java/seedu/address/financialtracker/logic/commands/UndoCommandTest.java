@@ -18,8 +18,7 @@ class UndoCommandTest {
 
     @Test
     void execute_withoutModel() {
-        assertThrows(NullPointerException.class,
-                () -> new UndoCommand().execute(null));
+        assertThrows(NullPointerException.class, () -> new UndoCommand().execute(null));
     }
 
     @Test

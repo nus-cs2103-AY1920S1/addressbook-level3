@@ -66,6 +66,7 @@ class SwitchCommandTest {
             this.country = null;
         }
 
+        @Override
         public void updateDropDownMenu(String args) throws CommandException {
             requireNonNull(args);
             if (!CountriesDropdown.isValidDropdownCountry(args)) {
