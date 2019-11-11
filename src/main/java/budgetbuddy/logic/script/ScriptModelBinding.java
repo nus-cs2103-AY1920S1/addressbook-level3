@@ -179,7 +179,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
      */
     private Account scriptMorphAccount(Account acc, Object... optional) throws Exception {
         requireAllNonNull(acc, optional);
-        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+        ScriptObjectWrapper opt = ScriptObjectWrapper.fromOptionalVarargs(optional);
 
         Name name = acc.getName();
         Description desc = acc.getDescription();
@@ -261,7 +261,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
      */
     private Transaction scriptAddTxn(long inAmount, String direction, String description,
                                      Object... optional) throws Exception {
-        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+        ScriptObjectWrapper opt = ScriptObjectWrapper.fromOptionalVarargs(optional);
         requireAllNonNull(direction, description, opt);
 
         Account target = opt.get("account", Account.class)
@@ -287,7 +287,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
      */
     private Transaction scriptMorphTxn(Transaction txn, Object... optional) throws Exception {
         requireAllNonNull(txn);
-        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+        ScriptObjectWrapper opt = ScriptObjectWrapper.fromOptionalVarargs(optional);
 
         Amount amt = txn.getAmount();
         Direction dir = txn.getDirection();
@@ -420,12 +420,12 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
     }
 
     /**
-     * Provides <code>addTxn(amount, direction, person, { description, date, paid })
+     * Provides <code>addLoan(amount, direction, person, { description, date, paid })
      * -> Loan</code>.
      */
     private Loan scriptAddLoan(long inAmount, String direction, String person, Object... optional) throws
             Exception {
-        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+        ScriptObjectWrapper opt = ScriptObjectWrapper.fromOptionalVarargs(optional);
         requireAllNonNull(direction, person, opt);
 
         Description description =
@@ -448,7 +448,7 @@ public class ScriptModelBinding implements ScriptEnvironmentInitialiser {
      */
     private Loan scriptMorphLoan(Loan loan, Object... optional) throws Exception {
         requireAllNonNull(loan);
-        ScriptObjectWrapper opt = new ScriptObjectWrapper(optional);
+        ScriptObjectWrapper opt = ScriptObjectWrapper.fromOptionalVarargs(optional);
 
         Amount amt = loan.getAmount();
         Direction dir = loan.getDirection();
