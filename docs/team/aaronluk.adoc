@@ -86,5 +86,3 @@ include::../DeveloperGuide.adoc[tag=resolve]
 == PROJECT: PowerPointLabs
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_
