@@ -15,6 +15,8 @@ public class ConsumerSchema {
     public static final String SEE_SPECIFIC_DECK = "view";
     public static final String ADD_NEW_ROW_MCQ = "add option";
     public static final String QUIT_PROGRAM = "quit";
+    public static final String ENTER_MULTILINE = "enter_multi";
+    public static final String LEAVE_MULTILINE = "leave_multi";
 
     // For CREATE mode
     public static final String EXIT_CREATE = "exit";

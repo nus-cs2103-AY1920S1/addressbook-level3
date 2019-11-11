@@ -16,6 +16,7 @@ public enum ResponseGroup {
     TEST_MCQ_BACK(i-> StateHolder.getState().getCurrState() == StateEnum.TEST_MCQ_BACK),
     TEST_JSJAVA(i -> StateHolder.getState().getCurrState() == StateEnum.TEST_JSJAVA),
     DEFAULT(i -> StateHolder.getState().getCurrState() == StateEnum.DEFAULT),
+    MAKE_JS(i -> StateHolder.getState().getCurrState() == StateEnum.MAKE_JS),
     MATCH_ALL(i -> true);
 
     private ResponseFunc func;

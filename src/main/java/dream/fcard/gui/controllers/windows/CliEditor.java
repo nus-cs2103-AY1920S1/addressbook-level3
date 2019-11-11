@@ -3,7 +3,10 @@ package dream.fcard.gui.controllers.windows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
+import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.logic.respond.Responder;
 import dream.fcard.model.StateHolder;
 
@@ -114,6 +117,9 @@ public class CliEditor {
         textArea.setWrapText(true);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+        Consumer<String> initiateMultiLine = this::printMultiEdit;
+        Consumers.addConsumer(ConsumerSchema.ENTER_MULTILINE, initiateMultiLine);
+
     }
 
     /**
@@ -164,7 +170,7 @@ public class CliEditor {
         backSpace();
     }
 
-    // TODO assign printNewLine methods to consumer
+
 
     /**
      * KeyEvent handler for textArea.
@@ -203,6 +209,7 @@ public class CliEditor {
     private void sendInput() {
         justDisplayed = false;
         String str = getInput();
+        System.out.println(str);
         if (!multiline) {
             history.add(str);
         }
