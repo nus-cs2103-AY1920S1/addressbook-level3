@@ -1789,7 +1789,17 @@ Use case resumes at step 2.
 1. User adds a project meeting into planner
 2. Jarvis adds meeting into planner
 3. User requests to undo project meeting
-4. Jarvis rolls backs back the command
+4. `Jarvis` checks if roll back can be successfully done
+5. `Jarvis` finalizes the roll back changes.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The roll back cannot be successfully completed
++
+[none]
+** 4a1. Jarvis shows an error message.
 +
 Use case ends.
 
