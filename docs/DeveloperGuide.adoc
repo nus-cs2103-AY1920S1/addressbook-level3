@@ -1826,7 +1826,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-=== Saving data
+=== Saving Data
 
 . Dealing with missing/corrupted data files
 
@@ -1842,7 +1842,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `find d/yesterday d/today` +
    Expected: Spending entries dated yesterday and today are listed.
 
-=== Sorting displayed spending
+=== Sorting Displayed Spending
 
 . Sorting displayed spending in the list
 
@@ -1852,7 +1852,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `sort d/DESC n/ASC` +
    Expected: Spending entries are sorted in Date
 
-=== Changing the displayed currency
+=== Changing the Displayed Currency
 
 . Changing the displayed currency in the application
 
@@ -1862,7 +1862,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `currency SGD` +
    Expected: If the application was in SGD, an error message is shown saying that SGD is the currency in use.
 
-=== Viewing exchange rate or conversion rate
+=== Viewing Exchange Rate or Conversion Rate
 
 . Views the exchange rate of all currencies, or converts a particular currency to SGD
 
