@@ -33,11 +33,6 @@ class PieChartStatistics {
 
 
 
-class TabularStatistics {
-
-}
-
-
 
 class TrendStatistics {
 -Timestamp: startDate
@@ -58,7 +53,7 @@ class TrendStatistics {
 -getTotalExpenditure(List<List<Expense>> data): double
 -getCategoricalExpenditure(List<List<Expense>> data): List<Double>
 +List<List<Double>> getPeriodicCategoricalExpenses()
--{static} hasInterval (Timestamp validDate, Timestamp endDate, BudgetPeriod period): boolean
+-{{static}} hasInterval (Timestamp validDate, Timestamp endDate, BudgetPeriod period): boolean
 +getDates(): List<Timestamp>
 -getPeriodicTotalExpenditure(): List<Double>
 + isBudgetLimitMode(): boolean
@@ -67,8 +62,25 @@ class TrendStatistics {
 +toString(): String
 }
 
-
-
+class TabularStatistics {
+-Timestamp firstStartDate;
+-Timestamp firstEndDate;
+-Timestamp secondStartDate;
+-Timestamp secondEndDate;
+-int categorySize;
+-ObservableList<Expense> expenses;
+-List<FiveElementTableEntry> unionDifferenceTable;
+-String title
+-generateTableData()
+-createEmptyTableWithoutPercentage(): List<ThreeElementTableEntry>
+-secondMinusFirst(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<ThreeElementTableEntry>
+-extractRelevantExpenses(Timestamp startDate, Timestamp endDate): List<List<Expense>>
+-convertDataToFigures(List<List<Expense>>,List<ThreeElementTableEntry>)
+-{static} combine(List<ThreeElementTableEntry>, List<ThreeElementTableEntry>): List<FiveElementTableEntry>
++toString(): String
++{static} createEmptyTableWithTotal(): List<FiveElementTableEntry>
+-{static} replaceWith(List<FiveElementTableEntry>, List<FiveElementTableEntry>): List<FiveElementTableEntry>
+}
 
 
 
@@ -84,3 +96,5 @@ Statistics <|-- TrendStatistics
 
 
 @enduml
+
+
