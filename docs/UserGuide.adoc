@@ -830,6 +830,8 @@ Format:
 
 * `export` +
 
+[tag=Select-Command]
+
 ==== Select Time Slot: `select`
 
 ____
