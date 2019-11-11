@@ -58,7 +58,7 @@ public class LoginCommand extends Command {
         AccountStorage accountStorage = new JsonAccountStorage();
 
         if (Earnings.getTotalEarnings().equals("0.00")) {
-            for (Earnings e : Earnings.getEarningsList()) {
+            for (Earnings e : lastShownList) {
                 Earnings.addToTotalEarnings(e.getAmount());
             }
         }

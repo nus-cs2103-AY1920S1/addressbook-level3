@@ -13,16 +13,15 @@ Hi! My name is Caesar Pang. I'm currently a Year 2 student studying Computer Sci
 This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a
 project that my team and I completed for the module CS2103T. This project has definitely taught me many skills that
 are extremely relevant in the real world and in the future. It has allowed me
-to be a more competent and knowledgable software engineer.
+to be a more competent and knowledgeable software engineer.
 
 == PROJECT: TutorAid
 
 == Overview
 
-TutorAid is an easy-to-use Command Line Interface (CLI) based application that helps to makes the lives of tutors easier
-by organizing their workflow and all their related tasks into one location. It is extremely beneficial to Computing
-tutors as they are already highly adept at typing on CLI interface and TutorAid also provides a Graphical User Interface (GUI) interface for users to easily view and interact
-with TutorAid.
+TutorAid is an easy-to-use Command Line Interface (CLI) based application with a Graphical User Interface (GUI) that helps to makes the lives of tutors easier
+by organizing their workflow and make tutors more efficient. With a myriad of features such as student profile tracking,
+earnings, reminders, notes and tasks all in application, tutors no longer have to search through their notes one-by-one excruciatingly.
 
 The features of TutorAid has been well-thought out, keeping in mind the necessities and wants of tutors alike. To meet the
 exact needs of our target audience, we have conducted several surveys to ask current tutors what they would like in an
@@ -99,5 +98,5 @@ include::../UserGuide.adoc[tag=startEarningsTag]
 |===
 
 include::../DeveloperGuide.adoc[tag=earnings]
+
 include::../DeveloperGuide.adoc[tag=otherEarnings]
-include::../DeveloperGuide.adoc[tag=accountStorage]

@@ -18,7 +18,7 @@ public class ClassType {
     /**
      * Constructs a {@code Type}.
      *
-     * @param type A valid amount.
+     * @param type A valid class type.
      */
     public ClassType(String type) {
         requireNonNull(type);
@@ -27,7 +27,7 @@ public class ClassType {
     }
 
     /**
-     * Returns true if a given string is a valid amount.
+     * Returns true if a given string is a valid class type.
      */
     public static boolean isValidClassType(String test) {
         return test.matches(VALIDATION_REGEX);

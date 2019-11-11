@@ -8,15 +8,15 @@
 image::ngswbryan.png[width="200", align="left"]
 {empty}[https://github.com/ngswbryan[github]] [https://www.linkedin.com/in/bryan-ng-80777b167/[linkedin]]
 
-Hi! My name is Bryan. I'm currently a second year SoC (School of Computing) student in NUS majoring in Computer Science.
+Hello! My name is Bryan. I'm currently a second year SoC (School of Computing) student in NUS majoring in Computer Science.
 
-This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a project that my team of 4 other Computer Science students and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own learning and self-development in becoming a more competent software engineer.
+The purpose of this portfolio page is to document the contributions I have made in the development of TutorAid, which is a project that my team of 4 other Computer Science students and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own learning and self-development in becoming a more competent software engineer.
 
 == Overview - TutorAid
 
-TutorAid is a Teaching Assistant (TA) management system that helps TAs improve their workflow and save time by better organizing all the information they need. TutorAid accomplishes this by enabling TAs to track student information, tasks, earnings, notes and reminders all in one central location.
+TutorAid is a desktop application that was made for teaching assistants in NUS School of Computing. It is a Teaching Assistant (TA) management system that helps TAs improve their workflow and save time by better organizing all the information they need in one central location. TutorAid accomplishes this with its main features - tracking earnings, notes, tasks, reminders and students.
 
-It is a desktop application that was created for teaching assistants in NUS School of Computing and is a Command Line Interface (CLI) based tool (i.e. you type in text input to execute commands) to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface (i.e. graphical elements such as buttons are included) for users to easily view and interact with TutorAid.
+TutorAid is a Command Line Interface (CLI) based tool (i.e. you type in text input to execute commands) to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface (i.e. graphical elements such as buttons are included) for users to easily view and interact with TutorAid.
 
 .A view of TutorAid
 image::../images/Ui.png[width="500"]
@@ -29,13 +29,18 @@ The custom commands feature required handling command words that are not recogni
 == Summary of contributions
 
 |===
-|_Given below is a brief write-up of my biggest implemented feature and other helpful contributions to the project._
+|_Given below is a brief write-up of my implemented features and other helpful contributions to the project._
 |===
 
 * *Major enhancement*: Added *the learning of wrong commands into custom commands feature*
 ** What it does: It gives the user the ability to learn commands which they have typed wrongly into TutorAid as a basic command. These custom commands will be saved and pop up as suggestions in the future.
-** Justification: This feature improves the product significantly because TutorAid has many features with 43 different commands currently and is still growing. It is extremely difficult for the user to remember all these command words without constantly referring to the user guide. They are highly likely to end up keying in command words wrongly based on their own typing habits. Learning these typing habits will help to improve their efficiency in using TutorAid.
+** Justification: This feature improves the product significantly because TutorAid has many features with 43 different commands currently and is still growing. It is extremely difficult for the user to remember all these command words without constantly referring to the user guide. They are highly likely to forget commands or key in invalid commands based on their own typing habits. Learning these typing habits and having them show up as suggested commands will help users improve their efficiency in using TutorAid as the issue of forgetting command words is minimized.
 ** Implementation: This enhancement alters the flow of command execution in TutorAid. Executing an unknown command that TutorAid does not recognize changes the command execution pathway and sets TutorAid into "learner mode". Command parsing is now facilitated by the use of a TreeMap which stores a list of all available commands and their actions as key-value pairs. During execution, TutorAid will check against this TreeMap to see if the input command word exists. If it does not, this input command word is saved onto a Stack in the Model component to be retrieved in the next command. If the next command is still unknown, it is also added to the Stack. When a valid command that exists is entered, the last unknown command is retrieved from the top on the Stack and is mapped to the action of the aforementioned valid command. This key-value pair is then added to the TreeMap and saved into our .json file. TutorAid is then set back into normal mode. The TreeMap is also used to generate command suggestions based on the user's input.
+
+* *Minor enhancement*: Added *the Student Profile feature*
+** What it does: It allows the user to add students and their vital information to a list for easy viewing and management.
+** Justification: TAs have too many things to remember about individual students like their participation, attendance and results. Having an organized bird's eye view of everything in one place helps to reduce the time wasted in retrieving information from many different places.
+** Implementation: This feature was implemented by refactoring and enhancing the existing Person class with additional functionality such as setting a picture to a student profile.
 
 * *Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=ngswbryan[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ngswbryan[Project Code Dashboard]]
 
