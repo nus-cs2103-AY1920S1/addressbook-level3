@@ -172,6 +172,7 @@ As a more OOP model, we can store a `Tag` list in `Project Dashboard`, which `Me
 image:BetterModelClassDiagramNew.png[]
 // end::ModelDevGuide[]
 
+// tag::Storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -186,7 +187,7 @@ The Storage component serves the following purposes.
 image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/pluswork/storage/Storage.java[`Storage.java`]
-
+// end::Storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -568,6 +569,7 @@ being final and unchangeable.
 *Alternative 2* was chosen because it is more in line with +Work's objective of drawing easy comparison between project members and tasks.
 // end::member[]
 
+// tag::Inventory[]
 === Inventory feature
 ==== Proposed Implementation
 
@@ -648,6 +650,8 @@ represented as enumerations.
 ** Pros: The inventories list is more user-friendly and more provides more details.
 
 ** Cons: Implementation is harder, and we have to ensure minimal errors or bugs.
+
+// end::Inventory[]
 
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
