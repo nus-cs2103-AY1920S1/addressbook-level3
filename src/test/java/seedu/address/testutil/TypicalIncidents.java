@@ -43,44 +43,44 @@ public class TypicalIncidents {
     // typical incidents
 
     // two identical incidents (by id)
-    private static final Incident firstIncident = new Incident(typicalOperators.get(0), new District(20),
+    public static final Incident FIRST_INCIDENT = new Incident(typicalOperators.get(0), new District(20),
             typicalIncidentDateTimes.get(0), typicalIncidentIds.get(0), typicalCallerNumbers.get(0),
             typicalDescriptions.get(0), Incident.Status.SUBMITTED_REPORT,
             typicalVehicles.get(2));
 
-    private static final Incident firstIncidentCopy = new Incident(typicalOperators.get(0), new District(20),
+    public static final Incident FIRST_INCIDENT_COPY = new Incident(typicalOperators.get(0), new District(20),
             typicalIncidentDateTimes.get(0), typicalIncidentIds.get(0), typicalCallerNumbers.get(0),
             typicalDescriptions.get(0), Incident.Status.SUBMITTED_REPORT,
             typicalVehicles.get(2));
 
     // two complete drafts filled by different operators
 
-    private static final Incident secondIncident = new Incident(typicalOperators.get(0), new District(1),
+    public static final Incident SECOND_INCIDENT = new Incident(typicalOperators.get(0), new District(1),
             typicalIncidentDateTimes.get(1), typicalIncidentIds.get(1), typicalCallerNumbers.get(1),
             typicalDescriptions.get(1), Incident.Status.COMPLETE_DRAFT,
             typicalVehicles.get(0));
 
-    private static final Incident thirdIncident = new Incident(typicalOperators.get(1), new District(1),
+    public static final Incident THIRD_INCIDENT = new Incident(typicalOperators.get(1), new District(1),
             typicalIncidentDateTimes.get(2), typicalIncidentIds.get(2), typicalCallerNumbers.get(2),
             typicalDescriptions.get(2), Incident.Status.COMPLETE_DRAFT,
             typicalVehicles.get(0));
 
     // two incomplete drafts filled by different operators
 
-    private static final Incident fourthIncident = new Incident(typicalOperators.get(0), new District(5));
+    public static final Incident FOURTH_INCIDENT = new Incident(typicalOperators.get(0), new District(5));
 
-    private static final Incident fifthIncident = new Incident(typicalOperators.get(2), new District(5));
+    public static final Incident FIFTH_INCIDENT = new Incident(typicalOperators.get(2), new District(5));
 
     // two submitted reports filled by different operators
 
-    private static final Incident sixthIncident = new Incident(typicalOperators.get(0), new District(1),
+    public static final Incident SIXTH_INCIDENT = new Incident(typicalOperators.get(0), new District(1),
             typicalIncidentDateTimes.get(3), typicalIncidentIds.get(3), typicalCallerNumbers.get(3),
             typicalDescriptions.get(3), Incident.Status.SUBMITTED_REPORT,
             typicalVehicles.get(0));
 
-    private static final Incident seventhIncident = new Incident(typicalOperators.get(1), new District(1),
+    public static final Incident SEVENTH_INCIDENT = new Incident(typicalOperators.get(1), new District(1),
             typicalIncidentDateTimes.get(4), typicalIncidentIds.get(4), typicalCallerNumbers.get(3),
-            typicalDescriptions.get(3), Incident.Status.SUBMITTED_REPORT,
+            typicalDescriptions.get(4), Incident.Status.SUBMITTED_REPORT,
             typicalVehicles.get(0));
 
     private TypicalIncidents() {} // prevents instantiation
@@ -90,12 +90,13 @@ public class TypicalIncidents {
      */
     public static IncidentManager getTypicalIncidentManager() {
         IncidentManager ab = new IncidentManager();
-        ab.addIncident(secondIncident);
-        ab.addIncident(thirdIncident);
-        ab.addIncident(fourthIncident);
-        ab.addIncident(fifthIncident);
-        ab.addIncident(sixthIncident);
-        ab.addIncident(seventhIncident);
+        ab.addIncident(FIRST_INCIDENT);
+        ab.addIncident(SECOND_INCIDENT);
+        ab.addIncident(THIRD_INCIDENT);
+        ab.addIncident(FOURTH_INCIDENT);
+        ab.addIncident(FIFTH_INCIDENT);
+        ab.addIncident(SIXTH_INCIDENT);
+        ab.addIncident(SEVENTH_INCIDENT);
         return ab;
     }
 
@@ -104,8 +105,8 @@ public class TypicalIncidents {
      */
     public static IncidentManager getDuplicateIncidentIncidentManager() {
         IncidentManager ab = new IncidentManager();
-        ab.addIncident(firstIncident);
-        ab.addIncident(firstIncidentCopy);
+        ab.addIncident(FIRST_INCIDENT);
+        ab.addIncident(FIRST_INCIDENT_COPY);
         return ab;
     }
 
@@ -114,8 +115,8 @@ public class TypicalIncidents {
      */
     public static IncidentManager getIncompleteDraftIncidentManager() {
         IncidentManager ab = new IncidentManager();
-        ab.addIncident(fourthIncident);
-        ab.addIncident(fifthIncident);
+        ab.addIncident(FOURTH_INCIDENT);
+        ab.addIncident(FIFTH_INCIDENT);
         return ab;
     }
 
@@ -124,8 +125,8 @@ public class TypicalIncidents {
      */
     public static IncidentManager getCompleteDraftIncidentManager() {
         IncidentManager ab = new IncidentManager();
-        ab.addIncident(secondIncident);
-        ab.addIncident(thirdIncident);
+        ab.addIncident(SECOND_INCIDENT);
+        ab.addIncident(THIRD_INCIDENT);
         return ab;
     }
 
@@ -134,10 +135,10 @@ public class TypicalIncidents {
      */
     public static IncidentManager getDraftIncidentManager() {
         IncidentManager ab = new IncidentManager();
-        ab.addIncident(secondIncident);
-        ab.addIncident(thirdIncident);
-        ab.addIncident(fourthIncident);
-        ab.addIncident(fifthIncident);
+        ab.addIncident(SECOND_INCIDENT);
+        ab.addIncident(THIRD_INCIDENT);
+        ab.addIncident(FOURTH_INCIDENT);
+        ab.addIncident(FIFTH_INCIDENT);
         return ab;
     }
 
@@ -146,9 +147,9 @@ public class TypicalIncidents {
      */
     public static IncidentManager getSubmittedReportIncidentManager() {
         IncidentManager ab = new IncidentManager();
-        ab.addIncident(firstIncident);
-        ab.addIncident(sixthIncident);
-        ab.addIncident(seventhIncident);
+        ab.addIncident(FIRST_INCIDENT);
+        ab.addIncident(SIXTH_INCIDENT);
+        ab.addIncident(SEVENTH_INCIDENT);
         return ab;
     }
 
@@ -161,8 +162,8 @@ public class TypicalIncidents {
     }
 
     private static List<Incident> getTypicalIncidents() {
-        return new ArrayList<>(Arrays.asList(firstIncident, firstIncidentCopy, secondIncident, thirdIncident,
-                fourthIncident, fifthIncident, sixthIncident, seventhIncident));
+        return new ArrayList<>(Arrays.asList(FIRST_INCIDENT, FIRST_INCIDENT_COPY, SECOND_INCIDENT, THIRD_INCIDENT,
+                FOURTH_INCIDENT, FIFTH_INCIDENT, SIXTH_INCIDENT, SEVENTH_INCIDENT));
     }
 
     private static List<IncidentDateTime> getTypicalIncidentDateTimes() {
@@ -189,7 +190,8 @@ public class TypicalIncidents {
         return new ArrayList<> (Arrays.asList(new Description("Pickpocket reported along the walkway in District 20"),
                 new Description("Fight reported at District intersection"),
                 new Description("PMD accident in District park"),
-                new Description("Tiger spotted in District courthouse.")));
+                new Description("Tiger spotted in District courthouse."),
+                new Description("Chicken caught at District walkway.")));
     }
 
     public static List<CallerNumber> getTypicalCallerNumbers() {
