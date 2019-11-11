@@ -890,7 +890,7 @@ image::sort1.png[]
 +
 . Simply type *sort date/d* in the command box and press kbd:[Enter].
 +
-.User Input
+.User Input for Sort Command
 image::sort2.png[]
 +
 . Great! You can now see the latest transactions you made.
@@ -932,7 +932,7 @@ image::filter1.png[]
 +
 . Simply type *filter c/Shopping m/10 y/2019* in the command box and press kbd:[Enter].
 +
-.User Input
+.User Input for Filter Command
 image::filter2.png[]
 +
 . You will now see the list of transactions you have made while shopping in October 2019. Hurray!
