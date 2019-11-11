@@ -21,35 +21,35 @@ import seedu.address.model.flashcard.Rating;
 public class SampleDataUtil {
     public static FlashCard[] getSampleFlashcards() {
         return new FlashCard[] {
-            new FlashCard(new Question("What is pointer in C"),
+            new FlashCard(new Question("What is a pointer in C?"),
                     new Answer("A pointer variable stores the address of a memory location"),
                 new Rating("easy"),
                 getCategorySet("CS2100", "C", "POINTER")),
-            new FlashCard(new Question("How to declare a pointer in C"),
+            new FlashCard(new Question("How to declare a pointer in C?"),
                     new Answer("& + variable name"),
                     new Rating("easy"),
                 getCategorySet("CS2100")),
-            new FlashCard(new Question("What is internet "),
+            new FlashCard(new Question("What is the Internet?"),
                     new Answer("The Internet is a network of connected computing devices"),
                     new Rating("easy"),
                 getCategorySet("CS2105")),
-            new FlashCard(new Question("How is data transmitted through net"),
+            new FlashCard(new Question("How is data transmitted through the network layer?"),
                     new Answer("Circuit switching / Packet switching"),
                 new Rating("good"),
-                getCategorySet()),
-            new FlashCard(new Question("What is link transmission rate"),
+                getCategorySet("CS2105")),
+            new FlashCard(new Question("What is the definition of link transmission rate?"),
                     new Answer("It is aka link capacity or link bandwidth"),
                 new Rating("easy"),
-                getCategorySet())
+                getCategorySet("CS2105"))
         };
     }
 
     public static Deadline[] getSampleDeadline() {
         return new Deadline[]{
-            new Deadline(new Task("CS2103 Final Project Submission"),
-                        new DueDate("10/11/2019")),
-            new Deadline(new Task("CS2101 User Guide Submission"),
-                        new DueDate("12/11/2019"))
+            new Deadline(new Task("CS2103T examination"),
+                        new DueDate("29/11/2019")),
+            new Deadline(new Task("CS2105 examination"),
+                        new DueDate("02/12/2019"))
         };
     }
 
