@@ -44,8 +44,8 @@ The `bookmark` command allows the user to add a question to the list of bookmark
 *** Updated README Page to be aligned with the app's full release (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/95[#95], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/125[#125])
 *** Wrote About Us Page (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/19[#19], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/116[#116])
 *** Wrote Contact Us Page (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/15[#15], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/20[#20], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/98[#98])
-*** Contributed to the User Guide for Dashboard, Bookmark, DeleteBookmark, Help (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/174[#174])
-*** Contributed to the Developer Guide for Ui component, Dashboard, BookmarkCommand (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/79[#79])
+*** Contributed to the User Guide for Dashboard, Bookmark, DeleteBookmark, Help (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/174[#174], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/197[#197])
+*** Contributed to the Developer Guide for Ui component, Dashboard, Bookmark (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/79[#79], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/193[#193], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/197[#197])
 ** Tools:
 *** Provided assistance with GUI development through expertise with Gluon Scene Builder
 
@@ -71,3 +71,5 @@ include::../UserGuide.adoc[tag=help]
 include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=bookmark]
 include::../DeveloperGuide.adoc[tag=manualtesting]
+include::../DeveloperGuide.adoc[tag=design]
+
