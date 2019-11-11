@@ -1423,6 +1423,28 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Undoing a previous command
+. Undoing a previous command after user executes `list` command
+
+.. Prerequisites: Previous command is `list`.
+.. Test case: `undo` +
+    Expected: Error details shown in the status message. Status bar remains
+the same. List of people remains the same.
+.. Other incorrect undo commands to try: `undo x` (where x is any word) +
+Expected: Similar to previous.
+
+=== Redoing a previous command
+. Redoing a previous command after user executes `undo` command
+
+.. Prerequisites: Previous command is `undo`.
+.. Test case: `redo` +
+    Expected: `undo` command reversed. Details of the redone command shown
+in the status message.
+.. Test case: `redo undo` +
+Expected: Error details shown in status message. Status bar remains the same.
+List of people remains the same.
+
+
 === Saving data
 
 . Dealing with missing/corrupted data files

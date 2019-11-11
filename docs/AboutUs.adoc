@@ -33,6 +33,7 @@ Responsibilities: *Commons Component*
 === Lim Jun Hup
 image::junhuplim.png[width="150", align="left"]
 {empty}[https://github.com/junhuplim[github]]
+{empty} [https://ay1920s1-cs2103t-t12-3.github.io/main/team/junhuplim.html[portfolio]]
 
 Role: Back-end Developer +
 Responsibilities: *Logic Component*
