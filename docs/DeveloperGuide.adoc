@@ -1501,7 +1501,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [discrete]
 === Use case: Setting monthly budget
 
-*MSS*
+*<<MSS, MSS>>*
 
 1. User requests to set their monthly budget to a certain amount.
 2. THRIFT processes the request and sets the amount as the monthly budget.
@@ -1771,7 +1771,8 @@ It excludes syntax related to programming and <<system-administration, system ad
 Stands for the field of work in which someone manages one or more systems, be they software, hardware, servers or workstations
 with the goal of ensuring the systems are running efficiently and effectively.
 
-
+[[MSS]] MSS::
+Stands for Main Success Scenario that describes the interaction for a given use case, which assumes that nothing goes wrong.
 
 [appendix]
 == Instructions for manual testing

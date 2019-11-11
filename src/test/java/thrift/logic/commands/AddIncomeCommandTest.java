@@ -51,6 +51,18 @@ public class AddIncomeCommandTest {
     }
 
     @Test
+    public void undo_modelIsNull_throwsException() {
+        assertThrows(NullPointerException.class, () -> new AddIncomeCommand(new IncomeBuilder().build())
+                .undo(null));
+    }
+
+    @Test
+    public void redo_modelIsNull_throwsException() {
+        assertThrows(NullPointerException.class, () -> new AddIncomeCommand(new IncomeBuilder().build())
+                .redo(null));
+    }
+
+    @Test
     public void undoAndRedo_success() {
         ModelStubUndoRedoAddIncome modelStub = new ModelStubUndoRedoAddIncome();
 

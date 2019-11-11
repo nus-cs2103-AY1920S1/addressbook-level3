@@ -1,7 +1,11 @@
 package thrift.model;
 
-import java.util.Stack;
+import static java.util.Objects.requireNonNull;
 
+import java.util.Stack;
+import java.util.logging.Logger;
+
+import thrift.commons.core.LogsCenter;
 import thrift.logic.commands.RedoCommand;
 import thrift.logic.commands.UndoCommand;
 import thrift.logic.commands.Undoable;
@@ -14,6 +18,7 @@ public class PastUndoableCommands {
 
     private final Stack<Undoable> undoStack;
     private final Stack<Undoable> redoStack;
+    private final Logger logger = LogsCenter.getLogger(PastUndoableCommands.class);
 
     public PastUndoableCommands() {
         this.undoStack = new Stack<>();
@@ -27,10 +32,12 @@ public class PastUndoableCommands {
      * @param command is the undoable command to be tracked
      */
     public void addPastCommand(Undoable command) {
+        requireNonNull(command);
         if (hasRedoCommand()) {
             clearRedoStack();
         }
         undoStack.push(command);
+        logger.fine("A new undoable command is available to perform undo.");
     }
 
     /**
@@ -61,6 +68,7 @@ public class PastUndoableCommands {
      * Removes all undoable commands to be redone.
      */
     private void clearRedoStack() {
+        logger.fine("All commands available for redo have been purged.");
         redoStack.clear();
     }
 
@@ -70,7 +78,9 @@ public class PastUndoableCommands {
      * @param command is the undoable command to be tracked
      */
     private void addUndoneCommand(Undoable command) {
+        requireNonNull(command);
         redoStack.push(command);
+        logger.fine("A new undoable command is available to perform redo.");
     }
 
     /**

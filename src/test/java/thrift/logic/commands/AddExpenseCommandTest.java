@@ -51,6 +51,18 @@ public class AddExpenseCommandTest {
     }
 
     @Test
+    public void undo_modelIsNull_throwsException() {
+        assertThrows(NullPointerException.class, () -> new AddExpenseCommand(new ExpenseBuilder().build())
+                .undo(null));
+    }
+
+    @Test
+    public void redo_modelIsNull_throwsException() {
+        assertThrows(NullPointerException.class, () -> new AddExpenseCommand(new ExpenseBuilder().build())
+                .redo(null));
+    }
+
+    @Test
     public void undoAndRedo_success() {
         ModelStubUndoRedoAddExpenses modelStub = new ModelStubUndoRedoAddExpenses();
 
