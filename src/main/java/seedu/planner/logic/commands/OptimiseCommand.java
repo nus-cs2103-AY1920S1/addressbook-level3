@@ -7,8 +7,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.core.Messages;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.autocomplete.CommandInformation;
@@ -35,11 +37,11 @@ public class OptimiseCommand extends UndoableCommand {
             COMMAND_WORD + " DAY_INDEX (must be a positive integer)",
             COMMAND_WORD + " 1"
     );
-
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
             COMMAND_WORD,
             "<INDEX>"
     );
+    private final Logger logger = LogsCenter.getLogger(OptimiseCommand.class);
 
     private final Index dayIndex;
     private TreeMap<ActivityWithTime, List<ActivityWithTime>> adjList;
@@ -73,6 +75,8 @@ public class OptimiseCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
         }
 
+        logger.info(String.format("----------------[OPTIMISING DAY %s]", dayIndex.getOneBased()));
+
         Day dayToOptimise = listOfDays.get(dayIndex.getZeroBased());
         adjList = makeAdjList(dayToOptimise);
         paths = new ArrayList<>();
@@ -90,6 +94,7 @@ public class OptimiseCommand extends UndoableCommand {
         }
 
         model.setDay(dayToOptimise, new Day (paths.get(0).path));
+        logger.info("----------------[DAY OPTIMISED!]");
         return new CommandResult(MESSAGE_SUCCESS, new UiFocus[]{UiFocus.AGENDA});
     }
 
