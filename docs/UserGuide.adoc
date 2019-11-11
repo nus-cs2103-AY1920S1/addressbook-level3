@@ -204,8 +204,7 @@ To save any changes to your notes, enter `savenote` into the *CommandBox*.
 The help tab is where you can get a quick overview of commands used in Duke Academy, and the URL to the official User Guide.
 
 image::help.png[width="1000"]
-
-//tag::help1[]
+//end::help1[]
 
 [[BeforeStart]]
 == Before you start
@@ -242,7 +241,7 @@ e.g. `browse [category]...` can be used as
 === Access Help Tab: `help`
 
 Navigates to the *Help* Tab. +
-The *Help* tab contains a quick overview of commands used in Duke Academy, and also a URL to the official User Guide.
+The *Help* tab contains a quick overview of commands used in Duke Academy, and also the URL to the official User Guide.
 
 *Format:* `help`
 
