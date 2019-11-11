@@ -1261,7 +1261,7 @@ e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
 
 This is the list of menu items that are supported by MooLah as of v1.4. More menu items are on its way in v2.0!
 
-.List of all menu items supported
+.List of menu items supported
 [width="59%",cols="30%,<25%",options="header",]
 |=======================================================================
 |Menu Item                       |Price
