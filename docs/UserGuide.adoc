@@ -75,14 +75,14 @@ Format: `tab b/MENU_NAME`
 ** Typing Game
 ** Calendar View
 ** Report Generator
+
 Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
 `tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
 `Engagement` window is set to default window upon starting the application.
 
-If the user wants to switch to different windows, simply enter the tab command
-with refer to the menu name listed on the left end of the application window. +
+If user wants to switch to different windows, simply enter the tab command. Tab names can be seen on the top of the application display in green boxes. +
 
 For example, user enters `tab b/calendar`
 , which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
