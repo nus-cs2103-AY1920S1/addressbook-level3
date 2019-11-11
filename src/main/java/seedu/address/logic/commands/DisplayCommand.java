@@ -12,7 +12,6 @@ import seedu.address.model.projection.Projection;
 
 /**
  * Displays a {@code Projection} identified using it's displayed index from the bank account.
- * TODO: extend display to other data types
  */
 public class DisplayCommand extends Command {
 

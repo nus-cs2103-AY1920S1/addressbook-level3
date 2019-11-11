@@ -6,8 +6,6 @@ import java.util.List;
 
 import seedu.address.model.UserState;
 import seedu.address.model.transaction.BankAccountOperation;
-import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.LedgerOperation;
 
 /**
  * A utility class containing a list of {@code Transaction} objects to be used in tests.
@@ -133,15 +131,5 @@ public class TypicalTransactions {
         default:
             return new ArrayList<>();
         }
-    }
-
-    //TODO: implement:
-    public static List<LedgerOperation> getTypicalLedgerOperations() {
-        return null;
-    }
-
-    //TODO: implement:
-    public static List<Budget> getTypicalBudget() {
-        return null;
     }
 }
