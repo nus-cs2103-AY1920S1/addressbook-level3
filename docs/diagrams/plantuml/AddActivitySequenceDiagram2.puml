@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes Add command (Extension)
+                            Add INDEX;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([INDEX IS VALID])
+    : Show of INDEX found in search
+    result page is added to watchlist;
+    stop
+else([INDEX IS INVALID])
+   : Error result message will be displayed
+   to the user;
+stop
+@enduml

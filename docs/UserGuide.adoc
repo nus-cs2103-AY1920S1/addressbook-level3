@@ -548,7 +548,7 @@ image::Sync6.png[width="500"]
 
 Scenario 2. User has not input Titanic show into watchlist manually.
 
-image::Sync21.png[width="500"]
+image::Sync21.png[width="350"]
 
 Step 1. Similar to scenario 1, user searches for `Titanic` show in search page.
 

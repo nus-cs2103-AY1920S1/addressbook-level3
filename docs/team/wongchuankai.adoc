@@ -1,11 +1,11 @@
-= Wong Chuan Kai - Project Portfolio for EzWatchList
+= Wong Chuan Kai - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:icons: font
 
-== PROJECT: `Ezwatchlist`
+== PROJECT: `EzWatchList`
 
----
 
 == 1. Introduction
 
@@ -18,8 +18,8 @@ version provides a unique, clean and simple way of organizing and keeping track 
 
 === 1.1 Overview
 
-image::Ui.png[width="500"]
-Figure 1. The graphical interface for Ezwatchlist.
+image::CK_PPP.png[width="500"]
+_Figure 1. The graphical interface for Ezwatchlist._
 
 `EzWatchList` helps users to keep track and organise movie or TV show in a watch list. User can simply
 interact with the application by inputting commands into the interface.
@@ -31,21 +31,26 @@ Main features of EzWatchList:
 - Allows users to search for show online using `search` online function or search within user's watch list.
 - Gives users statistics about their watching habits and recommend shows to them.
 
-****
-Note the following symbols and formatting used in this document:
-This symbol indicates important information.
-API - Application programming interface. A sort of interaction with applications through software intermediaries.
-undo
-A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
-VersionedAddressBook
-Blue text with grey highlight indicates a component, class or object in the architecture
-****
 The following sections illustrate these enhancements in more detail, as well as the relevant documentation
 I have added to the user and developer guides in relation to these enhancements.
 
+=== Interpreting Symbols
+The table below shows a summary of the symbols used and their respective meanings.
+
+[width="59%",cols="^22%,^50%",options="header",align="centre"]
+|===================================
+|Symbol |Meaning
+
+|`Command` `Component`|Commands and Components of the Project
+
+|icon:lightbulb-o[role="icon-tip", size="2x"]|Tips for the user
+
+|icon:info-circle[role="icon-note", size="2x"] |Additional information
+|===================================
+
 == 2. Summary of contributions
 |===
-|_This section shows a summary of my coding, documentation, and other helpful contributions to the team project._
+|_This section shows a summary of my challenges, coding, documentation, and other helpful contributions to the team project._
 |===
 
 My role was to design and implement the `Add` and `Sync` features. These commands are essential to the application as they are the
@@ -55,16 +60,18 @@ is and study the use-cases properly to plan out and design these features.
 
 === *Major enhancement*:
 
-==== Added ‘add’ and ‘sync’ commands.
+==== Added `add` and synchronise, `sync`, commands.
 
-Add command
+1. Modifying and extension of `add` command
 
 *What it does*:
 
-There are two functions for `Add` command.
-Firstly, it allows the user to add movies or TV shows into the watch list.
+There are two separate functions for `Add` command.
+First, it allows the user to add movies or TV shows into the watch list.
 User has to input several information of the show such as name, description, and
-name of actors. Beside this core function, the add command also allows user to add a movie found in search
+name of actors.
+
+Beside this core function, the add command also allows user to add a movie found in search
 result page after user has used the `search` online feature. Search page displays the search result of the movies the user
 is interested to watch. The `search` feature is implemented by my team mate, Michelle.
 
@@ -77,29 +84,25 @@ and user can choose to ‘add’ a certain movie from the search list into his o
 
 *Highlights*:
 
+The addition of `add` command
 
 
 *Credits*:
 
-Since we are retrieving information on shows online, we decided to use The Movie Database (TMDB) api.
+Since we are retrieving information on shows online, we have decided to use The Movie Database (TMDB) api.
 
-Sync command
+2. Synchronise, Sync, command
 
 *What it does*:
 
-There are two functions for `Add` command.
-Firstly, it allows the user to add movies or TV shows into the watch list.
-User has to input several information of the show such as name, description, and
-name of actors. Beside this core function, the add command also allows user to add a movie found in search
-result page after user has used the `search` online feature. Search page displays the search result of the movies the user
-is interested to watch. The `search` feature is implemented by my team mate.
+User may not have updated information about the show they want to add. They can use the `search` function to check the
+details of the show they are interested to watch. Then, they are able to use the `sync` to synchronise a show found in
+search page to their show which has already been added in watch list.
 
 *Justification*:
 
-The purpose of this application is to allow user to track movie list. Thus, adding shows into watch list is a
-fundamental and core function that runs the application. If the user wants to know more about a certain movie, he can
-simply use the `search` function to search for it. The `search` function is able to gather information about movies online
-and user can choose to ‘add’ a certain movie from the search list into his own watch list.
+User will definitely not know most of the information about a show. Hence, by implementing this `sync` function, users
+will then be able to get updated information about the show.
 
 *Highlights*:
 
@@ -126,6 +129,9 @@ usage of the mouse.
 
 *Highlights*:
 
+This addition make it a lot easier for user to navigate through the different pages.
+
+//==== Added multi threading when `search` function is used.
 
 *Code contributed*:
 
@@ -136,11 +142,30 @@ My contributions to EzWatchList can be found in the following link: [https://nus
 
 *Project management*:
 
+*** I am in charged of testing, so my responsibility is to plan, understand and write test codes for this project.
+
+*** My job is to understand the component logic as well so I am analyse the problems faced better.
+
 *Enhancements to existing features* :
+
+*** I have added multi-threading when the user uses `search` command. Since, it might take some time to load the data,
+multi-threading allows the application to process these data in the background. Users will then be able to do other task
+in the application like using `add` command as well.
+
+*** I have added shortcut keys so users are able to navigate the pages easily.
+
+*** Since I am in charged of the unit testing, I have added test cases to improve test coverage.
 
 *Documentation*:
 
+* Improved the structure of the user guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/15[#15], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/214[#214]
+* Updated the developer guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/241[#241]
+
+
 *Community*:
+
+* Reviewed team pull requests link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/77[#74], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/84[#84]
+* Reported bugs and suggestions for other teams in the class (examples: link:https://github.com/jcjjjared/ped/issues/1[1], link:https://github.com/jcjjjared/ped/issues/2[2], link:https://github.com/jcjjjared/ped/issues/4[3])
 
 *Tools*:
 
@@ -155,7 +180,6 @@ My contributions to EzWatchList can be found in the following link: [https://nus
 features. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=addsecond]
 include::../UserGuide.adoc[tag=sync]
 
 
@@ -166,7 +190,7 @@ include::../UserGuide.adoc[tag=sync]
 and the technical depth of my software engineering skills to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=add]
+include::../DeveloperGuide.adoc[tag=add2]
 include::../DeveloperGuide.adoc[tag=sync]
 
 

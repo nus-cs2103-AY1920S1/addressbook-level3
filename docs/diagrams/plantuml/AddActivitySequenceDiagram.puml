@@ -1,0 +1,17 @@
+@startuml
+start
+:User executes Add command
+         "add n/Joker t/movie";
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([No existing show found in watchlist])
+    : 'Joker' show of type 'movie' is
+    added to watch list;
+    stop
+else([Existing show found in watchlist])
+   : Error result message will be
+   displayed to the user;
+stop
+@enduml
