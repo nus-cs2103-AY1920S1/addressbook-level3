@@ -1,6 +1,6 @@
 package seedu.address.calendar.logic;
 
-import seedu.address.calendar.commands.AlternativeCommand;
+import seedu.address.calendar.logic.commands.AlternativeCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 
