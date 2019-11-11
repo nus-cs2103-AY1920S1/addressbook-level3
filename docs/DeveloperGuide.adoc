@@ -396,16 +396,16 @@ After the creation of `ScheduleCommand`, `LogicManager` will proceed to call the
 
 Below are the steps taken during the execution of `ScheduleCommand`:
 
-    1. `Model` will retrieve the list of days from the `Itinerary` and the list of activities from  `UniqueActivityList`.
+1. `Model` will retrieve the list of days from the `Itinerary` and the list of activities from  `UniqueActivityList`.
 
-    2. The `activityIndex` and `dayIndex` will then be used to obtain the targeted `Activity` from activity list
+2. The `activityIndex` and `dayIndex` will then be used to obtain the targeted `Activity` from activity list
 and targeted `Day` from list of days.
 
-    3. `Activity` will be converted to `ActivityWithTime` using the startDateTime and duration of activity.
+3. `Activity` will be converted to `ActivityWithTime` using the `startDateTime` and `duration` of activity.
 
-    4. This `ActivityWithTime` is then added to the list of `ActivityWithTime` in the target `Day`.
+4. This `ActivityWithTime` is then added to the list of `ActivityWithTime` in the target `Day`.
 
-    5. The list of `ActivityWithTime` is sorted according ActivityWithTime startDateTime.
+5. The list of `ActivityWithTime` is sorted according ActivityWithTime startDateTime.
 
 
 Given below is a sequence diagram showing the execution of `ScheduleCommand`:
@@ -432,13 +432,13 @@ image::ScheduleCommandExecution.png[]
 There are times when users are planning for an overseas trip, there are so many activities in their activity list that they want to do but the problems faced are that they are unable to finish all the activities in the list or they are unable to find an optimal schedule plan.
 
 ==== Overview
-The `autoschedule` command requires user to specify either the tag name or the activity name itself in order of the type of activity that they want.
+The `autoschedule` command requires user to specify either the `tag name` or the `activity name` itself in order of the type of activity that they want.
 For example, `t/shopping t/sightseeing t/dining` would means an activity of `shopping` type would be scheduled first followed by `sightseeing` and then `dining`.
-Before using the autoschedule command, users are to fill up their activity list first and ensure that they have input the duration for each activity and are recommended to input their priority for those activities.
+Before using the autoschedule command, users are to fill up their activity list first and ensure that they have input the `duration` for each activity and are recommended to input their `priority` for those activities.
 Afterwards, `autoschedule` would serve to ensure that the activities scheduled do not overlap, are according to what the users prioritised first and that all activities have a chance to be scheduled.
 
 === Implementation
-The keywords from the command given by the user is parsed using `AutoScheduleCommandParser` which converts all the `tag` or `name` prefix's argument with their respective `start time` if given, in `NameOrTagWithTime` class and stores them in a list to maintain the same ordering as given by the user.
+The keywords from the command given by the user is parsed using `AutoScheduleCommandParser` which converts all the `tag` or `name` prefix's argument with their respective `start time` ,if given, in `NameOrTagWithTime` class and stores them in a list to maintain the same ordering as given by the user.
 If `address` is specified, it is wrapped in an `Address` class and if the `day index(es)` to schedule are specified, they stored in a list with each index wrapped in an `Index` class.
 The `list of NameOrTagWithTime`, `address` and `list of day indexes` are then passed to the `AutoScheduleCommand` for execution later on.
 
@@ -455,14 +455,14 @@ Below are the steps taken when executing of the `AutoScheduleCommand`:
 
 *Step 3.* If no `day indexes` to schedule are being specified, `AutoScheduleCommand` will generate a schedule for all `days`.
 
-Below shows the checks taken by `AutoScheduleCommand` before it proceeds to schedule:
+Below shows the checks taken by `AutoScheduleCommand`:
 
 .Activity diagram showing how `AutoScheduleCommand` checks the requirement given by user:
 image::AutoScheduleActivityDiagram1.png[]
 
 After filtering the activity list, `AutoScheduleCommand` will proceed to begin preparation for the scheduling of the first activity of those specified day(s).
 
-*Step 4.* It will filter the list that has been filtered by address to get all the activities with the same tag or activity name as the first activity to schedule.
+*Step 4.* It will filter the activity list that has been filtered by address to get all the activities with the same tag or activity name as the first activity to schedule.
 
 *Step 5.* After which it will sort the list such that the activity that has not been scheduled will be scheduled first.It will ensure that for cases where both activities has not been scheduled before, the one with the higher priority will be scheduled first.
 
@@ -472,27 +472,27 @@ image::AutoscheduleActivityDiagram2.png[]
 *Step 6.* Next, `AutoScheduleCommand` will check if the chosen activity to be scheduled does not overlap with the start time of the next activity if user specify.
 
 *Step 7.* If the chosen activity overlaps, it will traverse the filtered list, picking the next activity with the **next lowest count** in the itinerary and check if it overlaps.
-The process will continue until it finds a suitable activity or it has finished traversing the whole filtered list. If the activity to be scheduled is the last activity, it will instead check to ensure that it does not overlap til the next day.
+The process will continue until it finds a suitable activity or it has finished traversing the whole filtered list. If it is planning for the last activity of the day, it will instead check whether the activity chosen overlap til the next day.
 
 .Activity diagram showing how `AutoScheduleCommand` finds an activity to schedule:
 image::AutoScheduleActivityDiagram3.png[]
 
-Step 4 to Step 7 will repeat for the next activity to schedule for that day until it reaches the last activity to schedule for that day or it could not find a suitable activity to schedule.
+Step 4 to Step 7 will repeat for the next activity to schedule for that day until it finished scheduling for that day or it could not find a suitable activity to schedule.
 If there other days to schedule, the steps taken will also be the same as Step 4 to Step 7.
 
 ==== Design Considerations
 
-===== Aspect: Counting the number of times each activity of the same name or tag appears in the list
+===== Aspect: Counting the number of times similar activity of the same name or tag appears in the list
 * **Current Choice:** Count the number of times all the similar activities appear in the itinerary every time we are planning to schedule an activity.
 ** Pros: It will ensure that the count number for the similar activities will always be right before they are chosen to be scheduled
-** Cons: Slow down the program as we have to traverse through all the activities for each day.
+** Cons: Slow down the program as we have to traverse through all the activities for each day everytime we are planning to schedule for an activity.
 * **Alternative:** Have a counter inside the activity itself to keep track
 ** Pros: Significantly improve the runtime speed and less complicated to implement
 ** Cons: Over time, the count might be inaccurate due to multiple scheduling and unscheduling which alter the count number and we might not have keep track of it at certain point of time.
 
 ===== Aspect: Account for travelling time
 * **Current Choice:** Allows user to input the start time of activity
-** Pros: Gives user the flexibility and they better able to gauge their own travelling time of each activity
+** Pros: Gives user the flexibility and they are better able to gauge the travelling time of each activity
 ** Cons: It restrict the number of possible activities that could be scheduled as we have to consider activity not overlapping with the start time of the next activty.
 * **Alternative:** Fix a break of 30min between every activity to acount for travel time
 ** Pros: Activities that user prioritised are more likely to be scheduled as we do not have to consider overlap of the start time of next activity.

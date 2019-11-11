@@ -1,8 +1,8 @@
 @startuml
 start
-:Get first  activity with **lowest number of time being scheduled**;
+:Get activity with **lowest number of time being scheduled**;
 
-:is it the last activity to schedule?;
+:check if it is the last activity to plan for;
     if() then (no)
        :check if activity end time \noverlap the next activity start time;
               if() then ([overlap])

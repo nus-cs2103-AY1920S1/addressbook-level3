@@ -21,7 +21,7 @@ public class ArgumentMultimap {
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
-     * Prefixes mapped to thier respective arguments in the same insertion order
+     * Prefixes mapped to their respective arguments in the same insertion order
      **/
     private final List<PrefixArgument> orderedArgMultiMap = new ArrayList<>();
 
