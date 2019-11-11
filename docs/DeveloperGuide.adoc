@@ -666,6 +666,7 @@ image::CommandPromptActivityDiagram.png[]
 * **Alternative 2:** Store arguments of a resource (e.g. `Meme`) as a field of the resource.
 ** Pros: Easier to implement and cleaner.
 ** Cons: Irrelevant information needs to be stored as a field (e.g. original file path of a resource).
+
 // end::command-suggestion[]
 
 // tag::tabs[]
@@ -1327,6 +1328,102 @@ to be loaded from.
    Expected: No meme is viewed. Error details shown in the status message.
 .. Other incorrect delete commands to try: `view`, `view x` (where x is larger than the list size) +
    Expected: Similar to previous.
+// tag::command-suggestion[]
+
+=== Suggest / Auto-complete commands
+. Suggest and auto-complete command words
+.. Prerequisites: Weme is in any tab, for illustration purpose we choose meme tab.
+Since this is for command suggestions, please do not press kbd:[enter] to execute the command while typing the input.
+..  Test case: `a` +
+    Expected: +
+    `add: adds a meme to Weme. +
+    archive: archive a meme by index. +
+    archives: list all archived memes.`
+..  Test case: `a` + kbd:[tab] +
+    Expected text inside command box: `add{nbsp}` +
+    Expected text inside result box: +
+    `add: adds a meme to Weme. Parameters: p/PATH [d/DESCRIPTION] [t/TAG]... +
+Example: add p/C:\Users\username\Downloads\funny_meme.jpg d/Popular Meme among SoC Students  t/funny`
+..  Test case: `arkive` +
+    Expected: +
+    `archive: archive a meme by index. +
+    archives: list all archived memes. +
+    like: like a meme by index.`
+..  Test case: `arkive` + kbd:[tab] +
+    Expected text inside command box: `archive{nbsp}` +
+    Expected text inside result box:  +
+    `archive: archive a meme by index. Parameters: INDEX (must be a positive integer) Example: archive 1{nbsp}`
+..  Test case: `undo` +
+    Expected: +
+    `undo: undo the previous command.`
+..  Test case: `unlike 1` +
+    Expected: +
+    `Unknown command` +
+    (The text in the command box will turn red to indicate invalid input)
+
+. Suggest command arguments
+.. Prerequisites: Restore the application to initial state by deleting the data folder if it exists.
+The suggestions may change when new data is added since the recommendation is based on past records.
+Weme is in any tab, for illustration purpose we choose meme tab.
+Since this is for command suggestions, please do not press kbd:[enter] to execute the command while typing the input.
+..  Test case: `add p/path/to/meme d/` +
+    Expected: +
+    `A meme about a test. +
+    A meme about Char and charmander. +
+    A meme about doge.`
+..  Test case: `add p/path/to/meme d/` + kbd:[tab] +
+    Expected text inside command box: `add p/path/to/meme d/A meme about a test.` +
+    Expected text inside command box: +
+    `A meme about a test. +
+    A meme about doge. +
+    A meme about joker.`
+..  Test case: `edit 1 t/cuuute` +
+    Expected: +
+    `cute +
+    CUTECATS +
+    test`
+..  Test case: `edit 1 t/cuuute` + kbd:[tab] +
+    Expected text inside command box: `edit 1 t/cute` +
+    Expected text inside result box: +
+    `cute +
+    CUTECATS +
+    cuteAnimals`
+..  Test case `find c` +
+    Expected: +
+    `CS +
+    cute +
+    CS2103`
+..  Test case `find c` + kbd:[tab] +
+    Expected text inside command box: `find CS` +
+    Expected text inside result box: +
+    `CS +
+    CS2103 +
+    CSLectures`
+..  Test case `find cute dog` +
+    Expected: +
+    `doge +
+    GoT +
+    wow`
+..  Test case `find cute dog` + kbd:[tab] +
+    Expected text inside command box: `find cute doge` +
+    Expected text inside result box: +
+    `doge +
+    cute +
+    GoT`
+..  Test case `add g/` +
+    Expected: +
+    `Invalid command format! +
+    add: adds a meme to Weme. Parameters: p/PATH [d/DESCRIPTION] [t/TAG]... +
+    Example: add p/C:\Users\username\Downloads\funny_meme.jpg d/Popular Meme among SoC Students  t/funny` +
+    (The text in the command box will turn red to indicate invalid input)
+..  Test case `edit t/` +
+    Expected: +
+    `Invalid command format! +
+    edit: edits the details of the meme identified by the index number used in the displayed meme list. Existing values will be overwritten by the input values. +
+    Parameters: INDEX (must be a positive integer) [d/DESCRIPTION] [t/TAG]... +
+    Example: edit 1 d/A funny meme t/funny` +
+    (The text in the command box will turn red to indicate invalid input)
+// end::command-suggestion[]
 
 === Saving data
 

@@ -12,7 +12,10 @@ import static seedu.weme.logic.prompter.util.PrompterUtil.promptSimilarTemplateA
 import java.util.regex.Matcher;
 
 import seedu.weme.logic.commands.templatecommand.TemplateEditCommand;
+import seedu.weme.logic.parser.exceptions.ParseException;
+import seedu.weme.logic.parser.util.ArgumentMultimap;
 import seedu.weme.logic.parser.util.ArgumentTokenizer;
+import seedu.weme.logic.parser.util.ParserUtil;
 import seedu.weme.logic.prompter.Prompter;
 import seedu.weme.logic.prompter.exceptions.PromptException;
 import seedu.weme.logic.prompter.prompt.CommandPrompt;
@@ -34,7 +37,7 @@ public class TemplateEditCommandPrompter implements Prompter {
             return new CommandPrompt(MESSAGE_USAGE, userInput);
         }
 
-        ArgumentTokenizer.tokenize(arguments, PREFIX_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(arguments, PREFIX_NAME);
         LastArgument lastArgument = getLastArgument(arguments, PREFIX_NAME);
         if (lastArgument == null) {
             try {
@@ -48,6 +51,12 @@ public class TemplateEditCommandPrompter implements Prompter {
                 }
                 return new CommandPrompt(TemplateEditCommand.MESSAGE_USAGE, userInput);
             } catch (NumberFormatException e) {
+                throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            }
+        } else {
+            try {
+                ParserUtil.parseIndex(argMultimap.getPreamble());
+            } catch (ParseException e) {
                 throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
             }
         }
