@@ -26,8 +26,8 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
         // if index is not provided
         if (args.equals("")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE)
-                    + " I need an index!");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, " I need an index! \n"
+                    + DeleteCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(args);

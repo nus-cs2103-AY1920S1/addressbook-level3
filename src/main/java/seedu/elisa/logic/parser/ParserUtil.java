@@ -2,6 +2,7 @@ package seedu.elisa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -294,5 +295,16 @@ public class ParserUtil {
         }
 
         return processedDateTime;
+    }
+
+    public static LocalDateTime getUpdatedDateTime(LocalDateTime startDateTime, Long period) {
+        // Use modulo to get the remaining time till the next reschedule time. Add that remaining time to the time now.
+        long millisDifference = Duration.between(startDateTime, LocalDateTime.now()).toMillis(); // positive difference;
+
+        long millisRemainder = millisDifference % period; //millisDifferenceBi.mod(periodBi).longValue();
+        long tillNextStart = period - millisRemainder;
+        LocalDateTime updatedDateTime = LocalDateTime.now().plusNanos(Duration.ofMillis(tillNextStart).toNanos());
+
+        return updatedDateTime;
     }
 }

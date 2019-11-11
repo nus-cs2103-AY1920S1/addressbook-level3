@@ -1,0 +1,17 @@
+@startuml
+start
+:User enters undo command;
+
+if () then ([undoable commands have
+previously been executed])
+    :Pop the last
+    executed command;
+    :Call the reverse
+    of that Command;
+else ([else])
+    :Show error that no
+    commands to be undone;
+endif
+    :Return CommandResult to UI;
+stop
+@enduml
