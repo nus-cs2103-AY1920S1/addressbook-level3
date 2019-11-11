@@ -15,7 +15,7 @@ public class Messages {
             "The reference ID '%1$s' does not belong to any registered person!";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d person(s) listed!\n%2$s";
     public static final String MESSAGE_ALL_EVENTS_LISTED_OVERVIEW = "%1$d event(s) listed!\n%2$s";
-    public static final String MESSAGE_INVALID_INDEX = "The appointment index provided is not correct";
+    public static final String MESSAGE_INVALID_INDEX = "The index provided is invalid.";
     public static final String MESSAGE_NOT_PATIENTLIST =
             "Safety check: Appointments displayed must belong to the same patient.\n"
                     + "Please first display the patient's appointment listing by using <appointmetnts> <REFERENCE_ID>";

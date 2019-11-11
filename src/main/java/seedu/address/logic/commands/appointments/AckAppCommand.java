@@ -16,8 +16,6 @@ import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
  */
 public class AckAppCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "ackappt";
-
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Ack a appointment to the address book. "
             + "The specified keywords (case-insensitive).\n"
             + "Parameters: KEYWORD \n"
@@ -31,7 +29,6 @@ public class AckAppCommand extends ReversibleCommand {
 
     private final Event eventToEdit;
     private final Event editedEvent;
-
 
     /**
      * Creates an AckAppCommand to add the specified {@code Event}
@@ -78,7 +75,6 @@ public class AckAppCommand extends ReversibleCommand {
                     editedEvent.getPersonName(),
                     editedEvent));
         }
-
     }
 
     @Override
