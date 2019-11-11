@@ -599,7 +599,7 @@ The current implementation to merge bought items is as follows:
 **** If there is no existing groceryItem with same Name and ExpiryDate, the boughtItem will be added to the GroceryList.
 *** For each shoppingItem in ShoppingList find the bought shoppingItem with same name as the boughtItem:
 **** If the boughtItem has greater Amount than its corresponding shoppingItem, the shoppingItem is deleted from the ShoppingList.
-**** If the boughtItem has lesser Amount than its corresponding shoppingItem, the shoppingItem's quantity is just reduced.
+**** If the boughtItem has lesser Amount than its corresponding shoppingItem, the shoppingItem's quantity is just reduced. The shopping item loses its bought tag since there are no bought items that have not been moved to the grocery list.
 
 The Merge Bought mechanism is facilitated by `ShoppingList`, `GroceryList`, and `ShoppingComparator`.
 The `ShoppingList` is an observable list of `ShoppingItem` and `GroceryList` is an observable list of `GroceryItem`.

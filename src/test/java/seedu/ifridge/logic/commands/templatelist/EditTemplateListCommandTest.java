@@ -1,7 +1,8 @@
 package seedu.ifridge.logic.commands.templatelist;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
+ * unit tests for EditTemplateCommand.
  */
 public class EditTemplateListCommandTest {
     /**

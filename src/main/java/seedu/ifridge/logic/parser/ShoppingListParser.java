@@ -69,12 +69,6 @@ public class ShoppingListParser {
         case BoughtShoppingCommand.COMMAND_WORD:
             return new BoughtShoppingCommandParser().parse(arguments);
 
-            //case ClearCommand.COMMAND_WORD:
-            //    return new ClearCommand();
-
-            //case FindCommand.COMMAND_WORD:
-            //    return new FindCommandParser().parse(arguments);
-
         case ListShoppingCommand.COMMAND_WORD:
             return new ListShoppingCommand();
 
