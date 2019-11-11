@@ -173,14 +173,16 @@ More details regarding the implementation of Folders can be found in <<Folder fe
 
 // TODO: Mention that Tags and Folders are not very OOP (new object created for each bookmark)
 
+[[annotation-cd]]
 .Structure of the Annotation package
 image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 600]
 
 The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
 An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
 contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagraph`, which contains `AnnotationNote`,
-`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `AnnotationNote` and `Highlight` are optional fields
-whenever they are used, i.e. in `PhantomParagraph` and/or `TrueParagraph`.
+`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `Highlight` is an optional field
+whenever it is used, i.e. in `PhantomParagraph` and/or `TrueParagraph`. However, `PhantomParagraph` must have an `AnnotationNote`.
+You may find that `AnnotationNote` and `Highlight` are collected in `Annotation` and `Paragraph` stores `Annotation` instead.
 
 More details regarding the implementation of Annotations can be found in <<Annotation feature>>.
 
@@ -440,46 +442,89 @@ image::AutotagActivityDiagram.png[]
 // tag::annotation[]
 === Annotation feature
 ==== Implementation
-The annotation feature builds upon the structure of an offline document used to represent a _Readability-derived cache_.
-Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. As each annotation is targeted to an entire paragraph,
-we can simply add an annotation to a `Paragraph`. The annotation will be internally stored as an `annotation`.
-You can view the class structure of the annotation feature in the Figure above.
-//TODO: link to annotation class diagram
+The annotation feature builds upon the structure of an offline document used to represent a _Readability4J-derived cache_.
+Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is attached to an entire `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
+You can view the class structure of the annotation feature in the <<annotation-cd, figure above>>.
 
+The annotation feature encompasses this functionality:
 
-There are three parts to the annotation feature:
+ * Add an annotation (triggered by `annotate` command and executed by `AddAnnotationCommand#execute()`).
+ * Delete an annotation (triggered by `annotate-delete` command and executed by `DeleteAnnotationCommand#execute()`).
+ * Edit an annotation (triggered by `annotate-edit` command and executed by `EditAnnotationCommand#execute()`).
 
- * Add an annotation (executed by `AddAnnotationCommand#execute()`).
- * Delete an annotation (executed by `DeleteAnnotationCommand#execute()`).
- * Edit an annotation (executed by `EditAnnotationCommand#execute()`).
+Command  words `annotate`, `annotate-delete` and `annotate-edit` make up the _family of annotation commands_.
+When activated, each calls the respective command parser to create the corresponding `AnnotationCommand`.
+Subsequently, when necessary the appropriate `Paragraph` is retrieved, and the annotation is handled according to the command.
+You can study the hierarchy of the _family of annotation commands_ here:
 
-These executions are triggered by `annotation` command inputs entered into the `CommandBox`, which calls the respective command parser to create the command.
-Subsequently, the appropriate `Paragraph`(s) is retrieved and the annotation is handled according to the command.
+.Structure of the _family of annotation commands_.
+image::AnnotationCommandStructure.png[]
 
-The following sequence diagram illustrates how the adding annotation operation works:
+The following sequence diagram illustrates how a command of the _family of annotation commands_ operates:
 
-image::AddAnnotationSequenceDiagram.png[]
+[[sd-annotation-general]]
+.Sequence diagram showing how annotation commands generally work. `cmdStr` is the string representing the command input by the user. `arguments` is `cmdStr` without the command word.
+image::AnnotationSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-//TODO: after adding delete cmd, (highlight, note, both --> stray paragrph)
-For the delete operation, instead of creating and adding an `Annotation` to the retrieved `Paragraph`, the part or the entire pre-existing `Annotation` of the `Paragraph` will be dereferenced from the `Paragraph`.
-If the user requests to remove the entire annotation of the `Paragraph`, the `Annotation` is simply dereferenced and an `OfflineCommandResult` is returned.
-If the user requests to remove only the annotation note, the `AnnotationNote` of `Annotation` is dereferenced.
-Otherwise, if the user requests to remove only the highlight, the entire annotation is dereferenced from the `Paragraph` and added to a newly created `PhantomParagraph`.
 
-NOTE: A `TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. `PhantomParagraph` is a temporary holding place for a `stray note` and does not contain content from the `cache`.
+In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#parse` and `AnnotationCommand#execute` are abstracted out.
+This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
+The sub-sections below will show you some examples illustrating how each command works.
 
-//TODO: edit -- add the other parts of the command (eg shift from one p to another); atm only edit note and highlight
-//TODO: <may not do> object diagram showing only paragraph and annotation for all three above?
-The edit operation can modify the content of the `AnnotationNote`, colour of `Highlight` and re-link a `stray note` to a `TrueParagraph`.
-The former two is simply done by changing the fields in `Annotation` of the `Paragraph` in query.
-To re-link a `stray note` from a `PhantomParagraph` to a `TrueParagraph`, the `Annotation` replaces any `Annotation` present in the `TrueParagraph` and the `PhantomParagraph` is destroyed.
+===== Adding annotations
+Adding an annotation works as described by the <<sd-annotation-general, general sequence diagram>>, with the following
+sequence diagram referred to by the reference frame:
+
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
+image::AddAnnotationSequenceDiagram.png[]
+
+
+The above example adds an annotation to a `:TrueParagraph`. Alternatively, if the user chooses to add a general note instead,
+`OfflineDocument#addPhantom` is called instead, creating an annotated `:PhantomParagraph`.
+
+NOTE: A `:TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. A `:PhantomParagraph` is a temporary holding place for a general note and has no content.
+
+===== Deleting annotations
+Users can delete the highlight and/or note of a paragraph or delete all annotations on the document.
+Deleting an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
+sequence diagram referred to by the reference frame:
+
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
+image::DeleteAnnotationSequenceDiagram.png[]
+
+
+The above example deletes only the highlight from a `:TrueParagraph` which has a note, and then creates a `:PhantomParagraph` to keep a reference to the note.
+
+For other `annotate-delete` functions, instances of other derived classes of `DeleteAnnotationCommand` is used instead of `:DeleteAnnotationHighlightCommand`.
+If the user requests to remove the entire annotation instead, `DeleteAnnotationAllCommand` is used and the `an:Annotation` is simply dereferenced.
+If the user requests to remove only the annotation note, `DeleteAnnotationNoteCommand` is used and the `AnnotationNote` of `Annotation` is dereferenced.
+Alternatively, if the user requests to remove annotations from all paragraphs, `DeleteAnnotationClearAllCommand` is used and the entire `:OfflineDocument` is dereferenced and a new, unannotated copy is created.
+
+===== Editing annotations
+Users can use `annotate-edit` to modify the content of the `AnnotationNote`, colour of `Highlight` or move annotations from one paragraph to another.
+Editing an annotation also works as described by the <<sd-annotation-general, general sequence diagram>>, but with the following
+sequence diagram referred to by the reference frame:
+
+.Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-edit 1 p/g1 to/p1 h/green`. `ARGS` include `origPid`, `targetPid` and `newHighlight` and `newNote`.
+image::EditAnnotationSequenceDiagram.png[]
+
+
+The above example moves general note `G1` to paragraph `P1` and highlights `P1` green. As per the specifications, users are not allowed to move any annotation to `:PhantomParagraph` using `annotate-edit`, so `targetP` must either be `null` or a `:TrueParagraph`.
+However, `origP` can be anything as long as it is an instance of a derived class of `Paragraph`.
+
+The reason why we do not allow users to use this command to make notes general is because there is not much value in doing so given we only support highlights and notes as annotations.
+If you want, you can easily extend the edit function to be able to allow moving annotations to the general section.
+
+===== Summmary
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 //TODO: activity diagram (and also for prev parts rmb to handle edge cases?)
 
 image::AnnotationActivityDiagram.png[]
+
+You are welcome to extend the annotation feature by adding more forms of annotation.
 
 ==== Design Considerations
 The following are a few design considerations made in deciding how to implement the annotation feature:
@@ -493,12 +538,63 @@ There are hence a few alternatives in which we can combine these elements and st
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage and overheads from layers of abstraction.
 
-* **Alternative 2**: Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
+* **Alternative 2:** Let each cache keep only the original cache of the website. Use another class to store the annotations with the respective paragraph identifiers.
 ** Pros: Will use less memory since the content of the website is not duplicated.
 ** Cons: Not straightforward to implement. Stray notes will need a different implementation to order and store them. Objects not well abstracted.
 
-//TODO: need do? ===== Aspect: How to save the
+I decided to proceed with Alternative 1 as it is easier to implement and more feasible to implement in light of time constraints. This alternative offers accessibility to
+model components that are highly related in functionality.
 
+===== Aspect: How to handle annotation commands
+The _family of annotation commands_ includes the three main aspects: add, delete and edit. Each aspect can encompass
+more than one kind of use case (e.g. `annotate-delete` can be used to delete the entire annotation from a paragraph; it can also
+be used to delete just the highlight of a paragraph, which also makes the attached note, if any, general).
+However, all of them manipulate annotations.
+This means there are multiple options to choose from to parse an annotation command:
+
+* **Alternative 1:**  Use a single parser to parse all annotation commands.
+** Pros: Will likely be faster due to less layers of abstraction.
+** Cons: Does not abide by the Single Responsibility Principle and Open-close Principle.
+
+* **Alternative 2 (current choice):** Use a different parser for each command word.
+** Pros: Easier to implement. This ensures the individual command words are parsed separately and in
+a similar way as the other commands, improving the overall clarity of the implementations.
+** Cons: Need to write many lines of code due to multiple layers of abstraction.
+
+I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Furthermore,
+responsibility is more segregated which makes it easier to manipulate objects to achieve a functionality.
+
+===== Aspect: How to implement command to delete annotations
+There are multiple choices when it comes to deleting annotations, each specifically deletes a part or whole of an annotation. In particular, deleting
+only the highlight of a paragraph with a note will have a side effect where the note becomes general.
+Considering these variations, there are a few alternatives that we can consider to implement the delete function:
+
+* **Alternative 1:** Use a single `DeleteAnnotationCommand` object to execute the entire delete functionality
+** Pros: Makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not follow the Single Responsibility Principle and Open-close Principle. All checks will have to be performed in the same class, which makes it messy as well.
+
+* **Alternative 2 (current choice):** Use a different subtype of `DeleteAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to implement since delete functionality is rather discrete and each function is mutually exclusive. Less checks will be required for each class implemented. Also easier to extend functionality in future.
+** Cons: Need to write multiple lines of code due to multiple layers of abstraction.
+
+I decided to proceed with Alternative 2 as it is easy and feasible to implement in light of time constraints. Since the individual functions of `annotate-delete` do not overlap,
+this alternative makes it less cumbersome to modify if there needed to be a change in delete functionality.
+
+===== Aspect: How to implement command to edit annotations
+The edit function for manipulating annotations also has multiple functions: editing existing
+annotations and moving annotations from paragraph to paragraph. These functions can be combined together.
+Hence, there are also a few options we can take to implement the edit functionality:
+
+* **Alternative 1 (current choice):** Use a single `EditAnnotationCommand` object to execute the entire edit functionality
+** Pros: Easier to implement and also makes it clear as all related functionality are packaged in the same class.
+** Cons: Does not abide by the Single Responsibility Principle. All checks will have to be performed in the same class.
+
+* **Alternative 2:** Use a different subtype of `EditAnnotationCommand` to represent and execute each use case.
+** Pros: Easier to extend. Also, less checks on conditions can be performed for each class implemented.
+** Cons: Not straightforward to implement. The functions can overlap, which makes it difficult to segregate into separate responsibilities.
+
+I decided to proceed with Alternative 1 as it is easier to implement. The overlaps in use cases of the `annotate-edit` command
+makes it difficult to separate the responsibility. Hence the first alternative is more feasible to implement.
 // end::annotation[]
 
 
@@ -968,9 +1064,10 @@ Use case ends.
 
 *Extensions*
 [none]
-* 1a. Mark does not have internet access.
+* 1a. Mark does not have internet access or url input is invalid.
 [none]
-** 1a1. Mark tells user that there is no internet access and suggests that user view offline copies instead.
+** 1a1. Mark tells user that to check that there is internet access and the url given is correct.
+
 +
 Use case ends.
 
@@ -1277,3 +1374,70 @@ Details of the two restored `delete` actions shown in the status message.
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+=== Making annotations
+
+. Adding an annotation to a paragraph of web page
+
+.. Prerequisites: Bookmark must have an offline copy available. You can check the bookmark list to see if an offline copy is available.
+The offline copy should also have content to annotate.
+.. Test case: `annotate 1 p/p1 n/added a note h/orange` +
+Expected: Offline copy of the first bookmark is annotated. The first paragraph is highlighted orange and a note "adding a note" is added on the right of the paragraph. Details of the
+annotation added can be found in the status message.
+.. Test case: `annotate 0 p/p1` +
+Expected: No annotation is made. Error details are shown in the status message.
+.. Test case: `annotate 1 p/incorrectIdentifier eg. 1` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Adding a general note to the offline copy of a bookmark
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate 1 p/null n/added a general note` +
+Expected: Offline copy of the first bookmark is annotated. A general note "added a general note" is added to the bottom of the document.
+.. Test case: `annotate 1 p/null` +
+Expected: No annotation is made. Error details are shown in the status message.
+
+. Deleting all annotations of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available.
+.. Test case: `annotate-delete 1 p/all` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+.. Test case: `annotate-delete 1 p/all n/anything` +
+Expected: Offline copy of the first bookmark is clear of any annotations.
+
+. Deleting only the highlight of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+If paragraph 1 had a note, it is now found at the bottom of the page.
+
+. Deleting only the note of a paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must have a note.
+.. Test case: `annotate-delete 1 p/p1 h/true` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 no longer has a note.
+
+. Deleting the annotation of a paragraph of an offline copy (general)
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-delete 1 p/p1` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is no longer annotated.
+.. Test case: `annotate-delete 1 p/p1 n/true h/true` +
+Expected: No annotation is deleted. Error details are shown in the status message.
+
+. Moving an annotation from paragraph to paragraph of an offline copy
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph to move annotation from must be annotated. Target paragraph must also exist and its id must not start with `G`.
+.. Test case: `annotate-edit 1 p/p1 to/p2` +
+Expected: Annotation on the offline copy of the first bookmark is affected. The annotation of paragraph 1 is moved to paragraph 2.
+.. Test case: `annotate-edit 1 p/p1 to p/g1` +
+Expected: No annotation is edited. Error details are shown in the status message.
+
+. Editing the content of an annotation of an offline document
+
+.. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
+.. Test case: `annotate-edit 1 p/p1 n/modify note h/green` +
+Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 is now highlighted green and the content of its note is now "modify note".
+
+

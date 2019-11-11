@@ -5,7 +5,7 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Annotation {
-Interface Paragraph <<Interface>>
+Class "{abstract}\nParagraph" as Paragraph
 Class AnnotationNote
 Class Highlight
 Class OfflineDocument
@@ -20,11 +20,11 @@ Class CachedCopy
 CachedCopy -down-> "1" OfflineDocument
 
 OfflineDocument *--> "*" Paragraph
-TrueParagraph .up.|> Paragraph
-PhantomParagraph .up.|> Paragraph
+TrueParagraph -up-|> Paragraph
+PhantomParagraph -up-|> Paragraph
 
 PhantomParagraph *--> "1" ParagraphIdentifier
-PhantomParagraph *--> "0..1" AnnotationNote
+PhantomParagraph *--> "1" AnnotationNote
 
 TrueParagraph *--> "1" ParagraphIdentifier
 TrueParagraph *--> "1" ParagraphContent

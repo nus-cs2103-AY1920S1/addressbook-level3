@@ -54,6 +54,10 @@ public abstract class AnnotationCommand extends Command {
         return c.getAnnotations();
     }
 
+    public OfflineDocument getRequiredDocCopy(Bookmark bkmark) throws CommandException {
+        return getRequiredDoc(bkmark).copy();
+    }
+
     private CachedCopy getRequiredCache(Bookmark bkmark) throws CommandException {
         requireNonNull(bkmark);
 
