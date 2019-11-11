@@ -13,7 +13,7 @@ image::heze8.png[width="150", align="left"]
 {empty} [https://github.com/heze8[github]] [<<heze8#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Movie API, Recommendations
+Responsibilities: Online database API, Recommendations, Image Retrieval
 
 '''
 
