@@ -42,8 +42,8 @@ public class EditPatientDetailsCommand extends ReversibleCommand {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Patient: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient has already been registered.";
-    public static final String MESSAGE_PATIENT_IN_QUEUE = "You cannot edit while patient is in queue.";
-    public static final String MESSAGE_PATIENT_BEING_SERVED = "You cannot edit while patient is being served.";
+    public static final String MESSAGE_PATIENT_IN_QUEUE = "Cannot edit while patient is in queue.";
+    public static final String MESSAGE_PATIENT_BEING_SERVED = "Cannot edit while patient is being served.";
 
     private final Person personToEdit;
     private final Person editedPerson;
