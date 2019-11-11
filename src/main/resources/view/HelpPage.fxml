@@ -42,160 +42,234 @@
                      <Font size="22.0" />
                   </font>
                </Label>
-               <TextFlow layoutX="22.0" layoutY="63.0" AnchorPane.leftAnchor="22.0">
+               <VBox layoutX="22.0" layoutY="38.0" spacing="10.0">
                   <children>
-                     <Label text="dashboard">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Dashboard tab">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
+                     <TextFlow>
+                        <children>
+                           <Label text="help">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Help tab (the current tab)">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="tab">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Toggles to the next tab">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="dashboard">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Dashboard tab">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="showall">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab and displays all available questions">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="bookmark [id]">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Bookmarks a specific question">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="deletebookmark [id]">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Removes the bookmark from a specific question">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="find [keyword]...">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Searches for a question by title">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="browse [keyword]...">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Searches for question by title, topic, description, status or difficulty">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="view [id]">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Displays the problem statement of a specific question">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="attempt [id]">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab where you can code your solution for a specific question">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="submit">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Submits your solution, which will be compiled and run against test cases">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="newnote">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Notes tab and creates a new note with the given title">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="savenote">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Notes tab and saves any changes made to the current note">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="opennote [id]">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Notes tab and opens the note corresponding to the given id">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="deletenote [id]">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Notes tab and deletes the note corresponding to the given id">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
+                     <TextFlow>
+                        <children>
+                           <Label text="loadquestions [filename]">
+                              <font>
+                                 <Font name="System Bold" size="14.0" />
+                              </font>
+                           </Label>
+                           <Label layoutX="10.0" layoutY="10.0" text=" - Imports new questions into DukeAcademy through a text file">
+                              <font>
+                                 <Font size="13.0" />
+                              </font>
+                           </Label>
+                        </children>
+                     </TextFlow>
                   </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="214.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="browse [keyword]...">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Searches for question by title, topic, description, status or difficulty">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="273.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="attempt [id]">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab where you can code your solution for a specific question">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="183.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="find [keyword]...">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Searches for a question by title">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="91.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="showall">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Questions tab and displays all available questions">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="121.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="bookmark [id]">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Bookmarks a specific question">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="152.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="deletebookmark [id]">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Removes the bookmark from a specific question">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="243.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="view [id]">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Displays the problem statement of a specific question">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="302.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="submit">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Submits your solution, which will be compiled and run against test cases">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="35.0">
-                  <children>
-                     <Label text="help">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Navigates to the Help tab (the current tab)">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
-               <TextFlow layoutX="22.0" layoutY="331.0" AnchorPane.leftAnchor="22.0">
-                  <children>
-                     <Label text="tab">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <Label layoutX="10.0" layoutY="10.0" text=" - Toggles to the next tab">
-                        <font>
-                           <Font size="13.0" />
-                        </font>
-                     </Label>
-                  </children>
-               </TextFlow>
+               </VBox>
             </children>
          </AnchorPane>
 
