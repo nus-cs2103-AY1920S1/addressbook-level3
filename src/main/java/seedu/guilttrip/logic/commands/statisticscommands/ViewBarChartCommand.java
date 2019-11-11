@@ -27,8 +27,8 @@ public class ViewBarChartCommand extends Command {
             + PREFIX_PERIOD + "9/2019";
 
     public static final String MESSAGE_SUCCESS = "Display all statistics by the specified period";
-    public static final String MESSAGE_FAILURE = "There is an error with your specified range of months. Only two "
-            + "specified dates Start and End are allowed";
+    public static final String MESSAGE_FAILURE = "There is an error with your specified range of months. Only one"
+            + " month is allowed to be specified for ViewBar.";
     private Date monthToCalculate;
 
     public ViewBarChartCommand(Date period) {

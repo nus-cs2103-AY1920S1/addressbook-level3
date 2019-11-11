@@ -5,7 +5,6 @@
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
-:imagesDir: images/user-guide-pictures
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -449,7 +448,8 @@ image::viewTable-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
 +
-image::viewTable-2.png[]
+
+image::viewTable-2.PNG[]
 
 Other Examples:
 
@@ -475,7 +475,8 @@ image::ViewPie-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in pie chart form as shown below.
 +
-image::viewPie-2.png[]
+
+image::ViewPie-2.PNG[]
 
 [NOTE]
 If the data category percentage is too small, it could be rounded off to 0.0% and
@@ -509,7 +510,8 @@ image::viewBar-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
 +
-image::viewBar-2.png[]
+
+image::viewBar-2.PNG[]
 
 Other Examples:
 
@@ -525,9 +527,11 @@ Example Usage:
 
 * `viewEntry`
 
-=== Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`
+=== Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`, `sortAutoExp`
 Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
 `tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
+
+[NOTE] Sorting of Budget by Amount refers to the original Budget Total Amount.
 
 Format: `sortExpense typ/<sort type> s/<sort sequence>`
 
@@ -551,12 +555,12 @@ Other Examples:
 * `sortExpense typ/category s/descending`
 * `sortIncome typ/category s/ascending`
 
-=== Find : `findExpense`, `findIncome`, `findWish`, `findBudget`
+=== Find : `findExpense`, `findIncome`, `findWish`, `findBudget`, `findAutoExp`
 
 Find income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
 
 [NOTE]
-Finding by `Amount` will show the entries that are above a certain amount.
+Finding by `Amount` will show the entries that are above a certain amount. Budget's Amount refers to the total amount allocated for the Budget.
 
 [NOTE]
 Finding by `Description` will show all entries which have some parts of the description keyword in them. For example,
@@ -837,37 +841,37 @@ do so.
 == Command Summary
 
 . Expenses, Income, Budget, Category:
-.. `addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]`
-.. `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [tg/<tag>]`
-.. `deleteExpense <index>`
-.. `add typ/Income c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]`
-.. `edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]`
-.. `delete <index>`
-.. `addAutoExp f/<frequency> n/<description> a/<expenditure> c/<category> [t/<tag1> t/<tag2> d/<starting date>]`
-.. `editAutoExp <index> [f/<frequency> n/<description> a/<expenditure> c/<category> t/<tag1> t/<tag2> d/<starting date>]`
-.. `deleteAutoExp <index>`
-.. `addBudget c/<category> n/<description> a/<budget amount> d/<start date> p/<period> [t/<tag>]`
-.. `listBudget`
-.. `editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]`
-.. `deleteBudget <index>`
-.. `addCategory cat/<category> n/<category name>`
-.. `editCategory typ/<category type> cat/<old category name> n/<new category name>`
-.. `listCategories`
-.. `deleteCategory cat/<category type> n/<category name>`
+.. addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]
+.. editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [tg/<tag>]
+.. deleteExpense <index>
+.. add typ/Income c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]
+.. edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]
+.. delete <index>
+.. addAutoExp f/<frequency> n/<description> a/<expenditure> c/<category> [t/<tag1> t/<tag2> d/<starting date>]
+.. editAutoExp <index> [f/<frequency> n/<description> a/<expenditure> c/<category> t/<tag1> t/<tag2> d/<starting date>]
+.. deleteAutoExp <index>
+.. addBudget c/<category> n/<description> a/<budget amount> d/<start date> p/<period> [t/<tag>]
+.. listBudget
+.. editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]
+.. deleteBudget <index>
+.. addCategory cat/<category> n/<category name>
+.. editCategory typ/<category type> cat/<old category name> n/<new category name>
+.. listCategories
+.. deleteCategory cat/<category type> n/<category name>
 
 . Statistics:
-.. `viewTable [p/<RangeOfMonths>]`
-.. `viewPie [p/<RangeOfMonths>]`
-.. `viewBar [p/<SpecifiedMonth>]`
-.. `viewEntry`
-.. `sortExpense typ/<sort type> s/<sort sequence>`
-.. `sortIncome typ/<sort type> s/<sort sequence>`
-.. `sortBudget typ/<sort type> s/<sort sequence>`
-.. `sortWish typ/<sort type> s/<sort sequence>`
-.. `findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
-.. `findIncome [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
-.. `findBudget [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
-.. `findWish [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
+.. viewTable [p/<RangeOfMonths>]
+.. viewPie [p/<RangeOfMonths>]
+.. viewBar [p/<SpecifiedMonth>]
+.. viewEntry
+.. sortExpense typ/<sort type> s/<sort sequence>
+.. sortIncome typ/<sort type> s/<sort sequence>
+.. sortBudget typ/<sort type> s/<sort sequence>
+.. sortWish typ/<sort type> s/<sort sequence>
+.. findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. findIncome [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. findBudget [cat/<category>] [n/<description>] [d/<date>] [t/<tag>]
+.. findWish [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
 
 . Reminders:
 .. `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]`

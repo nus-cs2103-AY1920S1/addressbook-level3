@@ -24,8 +24,7 @@ public class Date {
 
     public static final String MESSAGE_CONSTRAINTS_FOR_STATS = "Date is not in a valid format. Below are some of the "
             + "possible formats. \n [yyyy-MM] , [yyyy MM]. \n Date also cannot exceed the maximum allowed "
-            + "months allowed for the year and must only contain in the format [yyyy-MM] without days. \n If you "
-            + "wish to search for a period dates seperate the start and end with a comma.";
+            + "months allowed for the year and must only contain in the format [yyyy-MM] without days.";
 
     public static final String MESSAGE_CONSTRAINTS_FOR_DATES = "Oops! We only allow dates between 2000-01-01 "
             + "and 2100-12-31.";
@@ -100,7 +99,6 @@ public class Date {
         requireNonNull(date);
         checkArgument(parseIfValidMonth(date), MESSAGE_CONSTRAINTS_FOR_STATS);
         LocalDate ldt = LocalDate.parse(date, INPUTMONTHFORMATTER);
-        System.out.println(ldt);
         checkArgument(checkIfWithinTime(ldt), MESSAGE_CONSTRAINTS_FOR_DATES);
         this.date = ldt;
     }

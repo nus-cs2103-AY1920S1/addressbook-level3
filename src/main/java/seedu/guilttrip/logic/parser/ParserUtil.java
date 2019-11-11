@@ -341,7 +341,7 @@ public class ParserUtil {
     public static List<Tag> parseTags(String tags) throws ParseException {
         requireNonNull(tags);
         final String[] tagNames = tags.trim().split(",");
-        final List<Tag> tagList = new ArrayList();
+        final List<Tag> tagList = new ArrayList<Tag>();
         for (String tagName : tagNames) {
             tagList.add(parseTag(tagName));
         }
