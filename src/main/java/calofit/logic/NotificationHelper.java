@@ -1,5 +1,8 @@
 package calofit.logic;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 
 import calofit.model.Model;
@@ -21,13 +24,21 @@ public class NotificationHelper {
     public static final String MESSAGE_DINNER = "Looks like you have missed your dinner,"
         + " please take some time out to eat your dinner!";
 
+    private final Clock clock;
+
+    public NotificationHelper(Clock clock) {
+        this.clock = clock;
+    }
+
     /**
      * Check the meals for period of the day
      * @param model Model
      * @return Optional String
      */
-    public static Optional<String> execute(Model model) {
-        Notification notification = new Notification();
+    public Optional<String> execute(Model model) {
+        LocalDateTime now = LocalDateTime.from(ZonedDateTime.ofInstant(clock.instant(),
+            clock.getZone()));
+        Notification notification = new Notification(now);
 
         if (model.getMealLog().getTodayMeals().isEmpty()) {
             if (!notification.eatenBreakfast()) {
