@@ -220,9 +220,13 @@ public class ImportCommand extends Command {
         }
 
         /**
-         * Imports new bookmarks to the {@code model}.
+         * Imports new bookmarks to the {@code model}. A folder for imported
+         * bookmarks is created if it does not already exist.
          */
         public void importBookmarks() {
+            if (!model.hasFolder(Folder.IMPORT_FOLDER)) {
+                model.addFolder(Folder.IMPORT_FOLDER, Folder.ROOT_FOLDER);
+            }
             model.addBookmarks(bookmarksToImport);
         }
 

@@ -1,9 +1,13 @@
 = Dorcas Tan - Project Portfolio
 :site-section: AboutUs
+:toc:
+:toclevels: 2
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Mark – Bookmark Manager
+== PROJECT: Mark
+
+:sectnums:
 
 == Overview
 
