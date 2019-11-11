@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.processor.EmployeeEventProcessor;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
+import seedu.address.ui.MainWindow;
 
 /**
  * Command to pay Salary to the Employee and record it
@@ -51,6 +52,9 @@ public class PayCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (MainWindow.isScheduleTab() || MainWindow.isStatsTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST);
+        }
 
         List<Employee> lastShownList = model.getFilteredEmployeeList();
         Employee e = lastShownList.get(index.getZeroBased());
