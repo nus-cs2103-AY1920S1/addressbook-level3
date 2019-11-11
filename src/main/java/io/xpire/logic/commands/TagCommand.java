@@ -56,7 +56,6 @@ public class TagCommand extends Command {
     private final Index index;
     private final TagItemDescriptor tagItemDescriptor;
     private final TagMode mode;
-    private boolean containsLongTags = false;
     private Item item = null;
     private String result = "";
 
