@@ -574,7 +574,7 @@ The undo/redo mechanism is facilitated by `UndoRedoStack`.
 `UndoableCommand` extends Command and has the following attributes and methods.
 
 
-image::dg-diagram/UndoableCommandClassDiagram.png[width="450"]
+image::dg-diagram/UndoableCommandClassDiagram.png[width="300"]
 
 When an UndoableCommand is being executed, the methods `saveCustomerBookSnapshot(Model model)`, `savePhoneBookSnapshot(Model model)`, `saveOrderBookSnapshot(Model model)`, `saveScheduleBookSnapshot(Model model)`
 and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures that the states of all 5 books are being stored.
@@ -582,7 +582,7 @@ and `saveArchivedOrderBookSnapshot(Model model)` will be called. This ensures th
 After a command is executed, `LogicManager` will add it into the `UndoRedoStack`.
 This will be explained in the activity diagram below.
 
-image::dg-diagram/UndoRedoStackPushActivityDiagram.png[width="450"]
+image::dg-diagram/UndoRedoStackPushActivityDiagram.png[width="600"]
 
 Next, when `UndoCommand` is being performed, `UndoStack` will remove the first command in its stack and add it to `RedoStack`.
 It will then call `UndoableCommand#undo()` of the command that is removed.
