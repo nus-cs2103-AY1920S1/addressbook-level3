@@ -1355,38 +1355,43 @@ image::DeletePurchaseSequenceDiagram.png[]
 There were several design choices that we had to consider for the
 implementation of the Finance Tracker feature.
 
-===== Aspect: Encapsulation of fields for `Installment` and `Purchase` objects.
+===== Encapsulation of fields for `Installment` and `Purchase` objects.
 
-====== Current choice
+Given that the `Installment` objects and the `Purchase` objects manage most
+aspects related to the Finance Tracker feature, we had to consider how to
+properly build the objects and the fields within them. This was a decision
+that was made after much thinking as we had already begun implementing the
+skeleton of the feature.
 
-Our current choice was to encapsulate the constituent objects in `Installment`
-and `Purchase` objects in their own wrapper classes. As mentioned above,
-`Installment` would contain `InstallmentDescription` and `InstallmentMoneyPaid`
+Below are our considerations in refactoring the implementation at that point
+in time:
+
+* **Option 1: Encapsulate constituent objects in their own wrapper classes**
++
+As mentioned above, `Installment` would contain `InstallmentDescription` and `InstallmentMoneyPaid`
 objects while `Purchase` would contain `PurchaseDescription` and
 `PurchaseMoneySpent` objects.
-
++
 This would increase OOP, which would provide a clearer modular structure to
 hide implementation details. Furthermore, this would also allow the objects to
 be re-used as they are more extensible, which is something we had to consider
 for subsequent features.
-
++
 In further development of our application, increasing OOP would also allow
 developers to maintain the application more easily and hopefully aid in
 quicker development since the code is easier to read and maintain.
-
++
 However, as we had already begun implementing some basic methods, making
 this decision resulted in a steep increase in code as everything had to
-abstracted into separate classes. Regardless, we still believed that the
-right decision was made as it made subsequent implementation easier.
+abstracted into separate classes.
 
-====== Alternative
-
-The alternative would have been to leave the corresponding fields as
-primitive data types. This would have been the easier alternative at the time
-as it was the original implementation. Furthermore, our team thought that
-since the `Installment` and `Purchase` objects were not extremely complex,
-we could go without further encapsulation.
-
+* **Option 2: Using primitive data types**
++
+On one hand, our team thought that since the `Installment` and `Purchase`
+objects were not extremely complex, we could go without further encapsulation.
+Furthermore, this would have been the easier alternative at the time
+as it was the original implementation.
++
 However, we decided that in the long-term vision of the application to
 continue to be developed, we should increase OOP as much as possible.
 
@@ -1395,7 +1400,7 @@ continue to be developed, we should increase OOP as much as possible.
 In general, our decision was based primarily on following good software
 engineering principles and providing the ability to allow for better
 understanding and maintenance of our code base in the future. Thus,
-we went with the first choice.
+we went with the first option.
 
 === Planner Feature
 
