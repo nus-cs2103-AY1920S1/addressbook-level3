@@ -1,0 +1,46 @@
+@startuml
+!include ../style.puml
+
+title Execute command
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "command:EditDayFieldCommand" as EditDayFieldCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":PageStatus" as PageStatus MODEL_COLOR
+end box
+
+activate LogicManager
+
+LogicManager -> EditDayFieldCommand : execute()
+activate EditDayFieldCommand
+
+EditDayFieldCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : getEditDayDescriptor()
+activate PageStatus
+return currentDescriptor
+return currentDescriptor
+
+
+EditDayFieldCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : withNewEditDayDescriptor(editDayDescriptor)
+activate PageStatus
+PageStatus -> PageStatus : new(..., EditDayDescriptor, ...)
+activate PageStatus
+return
+return
+return newEditDayDescriptor
+
+destroy PageStatus
+
+create CommandResult
+EditDayFieldCommand -> CommandResult
+activate CommandResult
+return
+
+return result
+@enduml

@@ -112,39 +112,71 @@ The accessibility between pages is intuitively based on the specific user's focu
 
 NOTE: The commands related to each page in _Itinerary_ are separated and the same command produces different results on different pages.
 
+[[itinerary_page]]
 ===== Itinerary Page
-The _Itinerary_ page is the home page of your _Trip_. From this page, you can access your _Days_ and details for each _Day_. Below is an explanation of the user interface:
+The _Itinerary_ page is the home page of your _Trip_. From this page, you can access your _Days_ and details for each _Day_. Below is layout of the user interface:
 
-image::itineraryPage.png[]
+image::ItineraryOverview.png[title="Layout of the _Itinerary_ page"]
+NOTE: You can access other pages from the _Itinerary Page_ using te navigation feature(<<navbar_usage>>).
 
+[[days_page]]
+===== Days Page
+The _Days_ page is a view of the _days_ in your trip. It consists of a grid of _day_ thumbnails arranged based on chronological order (earliest on the top left to the latest on the bottom right). Below is the layout of the the _days page_:
+
+image::DaysPageOverview.png[title="Layout of _Days Page_"]
+Each _day thumbnail_ (refer to Figure 4) contains basic information of your day and an edit button which allows you to edit that specific _day_ (refer to <<day_setup>>). Below is a layout of the contents in a _day_ thumbnail:
+
+image::DayThumbnail.png[title="Layout of the day thumbnail in _Days Page_"]
+
+[[events_page]]
+===== Events Page
+The _Events_ page is a view of the _events_ in your trip. It consists of a list of event cards (see Figure 6.) arranged from earliest to latest in chronological order (earliest on top and latest below). Below is the layout of the _events page_:
+
+image::EventsPageOverview.png[title="Layout of _events page_"]
+
+Each card contains the basic details of each event. You can execute show command to display details of the event (refer to <<show_event_details>>). The layout of the event card is as shown.
+
+image::EventCardLayout.png[title="Layout of _event card_"]
+
+NOTE: The index of the event card is used to access its contents for any command involving events (e.g. <<event_setup>>, <<delete_trip_event>>)
+
+// tag::teoha_ppp[]
 ==== Trip setup
 Trip setup is the first step in configuring a new/existing trip! This requires you to be at the __Trip Manager__ page (the landing page).
 
-image::TripManager.png[title="User Interface of  __Trip Manager__"]
+image::TripManager.png[title="User Interface of  __Trip Manager__", width=500]
 
-Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
+*Step 1*: Now you can enter the command `create` or `edit <index>` to create a new trip or edit an existing trip.
 
-Upon commands to create or edit a specified trip from the Trip Manager, the user will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 5 necessary fields:
+Upon commands to create or edit a specified trip from the Trip Manager, you will be directed to a page where they can edit the necessary details to create a new trip. This page will contain a form with 6 fields (optional fields are marked by italics):
 
-- Name
-- Start Date
-- End Date
-- Total Budget
-- Destination
+* *Name*: Name of the trip
+** *Constraints*: Names should only contain up to 40 alphanumeric characters and spaces, and it should not be blank
+* *Start Date*: Starting date of the trip
+** *Constraints*: Start date should be in the DD-MM-YY format
+* *End Date*
+** *Constraints*: End date should be in the DD-MM-YY format
+* *Total Budget*
+** *Constraints*: Budget can take any positive numerical value with no more than 2 decimal places, and it should not be blank
+* *Destination*
+** *Constraints*: Destination can take any values, and it should not be blank
+* *_Photo_*
+** *Constraints*: The image path specified should be valid, and must point to an existing file. Otherwise, a _default image_ will be used.
 
-The last field Photo is an optional field, a default image will be used if the user does not submit any image.
+NOTE: The last field _Photo_ is an optional field, a default image will be used if the user does not submit any image.
 
 
-If the `create` command was executed, you will be displayed an empty form with no details filled in.
+*Step 2*:
 
-image::createTrip.png[]
+* If the `create` command was executed, you will be displayed an empty form with no details filled in. You will see the following page:
 
-If the `edit` command was executed, you will be displayed a from with details previously filled in.
+image::createTrip.png[title=" `create` command generates empty fields, width=500]
 
+* If the `edit` command was executed, you will be displayed a from with details previously filled in instead:
 
-image::editTrip.png[]
+image::editTrip.png[title=" `edit` command generates fields from your previously saved data, width=500]
 
-Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
+*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
 
 1. Name :  `n/`
 2. Start Date : `ds/`
@@ -153,94 +185,112 @@ Now that you are on the edit page, to edit a specific field, execute the followi
 5. Destination : `l/`
 6. Photo File Path : `fp/`
 
-NOTE: You can execute fc/ with fp/ to open a file dialog to choose an image rather than type in absoulute path of the image.
-e.g. edit fp/ fc/
+NOTE: You can execute `fc/` with `fp/` to open a file dialog to choose an image rather than type in absoulute path of the image.
+e.g. `edit fp/ fc/`
 
-Below is an example changing the name of an existing trip to "Small Trip":
+Below is an example execution of changing the name of an existing trip to "Small Trip":
+====
 
-- You begin at the edit trip screen, the original name of the trip is the same as before.
+- Begin at the edit trip screen, the original name of the trip is the same as before.
 
-image::editTrip.png[]
+image::editTrip.png[title="Edit page with original fields", width=500]
+
 - Enter the command `edit n/Small Trip` into the command box and press enter to execute.
 
-image::editNameCommand.png[]
+image::editNameCommand.png[title="Entering command `edit n/Small Trip`", width=500]
+
 - The name of the trip is now "Small Trip"!
 
-image::editNameCommandResult.png[]
+image::editNameCommandResult.png[title="Successful editing of name field!", width=500]
+====
 
-Having completed editing the the form, you can submit it by executing the `done` command or the `cancel` command which will confirm your edit or discard it respectively.
-
+*Step 4*: Having completed editing the the form, you can submit it by executing the `done` command or the `cancel` command which will confirm your edit or discard it respectively.
 You have successfully created/edited a trip!
 
+// end::teoha_ppp[]
+[[event_setup]]
 ==== Event Setup
-Creating/editing an event is similar to creating/editing a trip (directly above). To do so you have to begin on the events page displaying the list of events of a certain day.
+Creating/editing an event is similar to creating/editing a trip (directly above). To do so you have to begin on the events page displaying the list of events of a certain day (Fig. 13).
 
-image::eventsPage.png[title="The Events Page"]
+image::eventsPage.png[title="Events Page layout", width=500]
 
-Now you can enter the `create` or `edit <index>` command to create a new trip for edit an existing one. The `<index>` to enter can be referenced from the list of events being displayed on each card.
+*Step 1:* Now you can enter the `create` or `edit <index>` command to create a new trip for edit an existing one. The `<index>` to enter can be referenced from the list of events being displayed on each card. (Refer to <<events_page>> or Fig.14 below)
 
-image::eventsIndex.png[]
+image::eventsIndex.png[title="Index used to execute commands", width=500]
 
-Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields
+Upon execution of either command on the events page, you will be directed to a page where editing the necessary details to create a new event is possible. This page contains a form with 4 necessary fields and 2 optional fields (optional fields are marked with italics).
 
-- Name
-- Start Time
-- End Time
-- Destination
+* Name: Name of the event
+** *Constraints*: Names should only contain up to 40 alphanumeric characters and spaces, and it should not be blank
+* Start Time
+** *Constraints*: Time should be in HHmm format
+* End Time
+** *Constraints*: Time should be in HHmm format
+* Destination
+** *Constraints*: Location can take any values, and it should not be blank
+* _Total Budget_
+** *Constraints*: Budget can take any positive numerical value with no more than 2 decimal places, and it should not be blank
+* _Description_
+** *Constraints*: Description can take any values, and can be left blank
 
 NOTE: The **Total Budget** field is optional and can be left blank
 
-If the `create` command was executed, you will be displayed an empty form with details to be filled in by you for the first time.
+*Step 2*:
 
-image::createEvent.png[]
+* If the `create` command was executed, you will be displayed an empty form with details to be filled in by you for the first time. The empty form looks like this:
 
-If the `edit <index>` command was executed, you will be displayed a form filled with details that you have previously entered.
+image::createEvent.png[title="Empty event form", width=500]
 
-image::editEvent.png[]
+* If the `edit <index>` command was executed, you will be displayed a form filled with details that you have previously entered. An example is shown below (Fig. 16):
 
-Now that you are on the edit events page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/value> ...`. There are 5 different prefixes, each to edit one of the 5 fields displayed. The 5 prefixes are as follows:
+image::editEvent.png[title="Form with previously saved information", width=500]
+
+*Step 3*: Now on the _edit events page_, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/value> ...`. There are 5 different prefixes, each to edit one of the 6 fields displayed. The 5 prefixes are as follows:
 
 1. Name : `n/`
 2. Start Time : `ds/`
 3. End Time : `de/`
 4. Total Budget : `b/`
 5. Destination : `l/`
+6. Description : `d/`
 
 Below is an example of changing the destination of an existing event to "Hotel 89":
-
+====
 - You begin at the edit event screen, the text in the name field reflects the original name of the event.
 
-image::editEvent.png[]
+image::editEvent.png[width=600]
 
 - Enter the command `edit l/Hotel 89` into the command box and press enter to execute
 
-image::editLocation.png[]
+image::editLocation.png[width=600]
 
 - You should now see the text in the field **Destination** change to "Hotel 89" to reflect the changes made to the event.
 
-image::editResult.png[]
-
-Now you should have completed all the necessary fields and are ready to finish the edit. You can execute the `done` or `cancel` commands to either confirm the edit or discard it. Both commands will redirect you back to the events page.
+image::editResult.png[width=600]
+====
+*Step 4*: Now you should have completed all the necessary fields and are ready to finish the edit. You can execute the `done` or `cancel` commands to either confirm the edit or discard it. Both commands will redirect you back to the events page.
 
 Congratulations, you have created/edited an event!
 
+[[delete_trip_event]]
 ==== Deleting an Trip/Event
-Deleting a Trip/Day/Event is executed in exactly the same way as each other. You first have to begin on the Trip Page/Days Page/Events Page respectively. Each of the pages will show a list of trips/days/events each labelled by an index. Below are 3 different list format elements and the indication where you can find the index.
+Deleting a Trip/Event is executed in exactly the same way as each other. You first have to begin on the Trip Page//Events Page respectively. Each of the pages will show a list of trips/events each labelled by an index. Below are 3 different list format elements and the indication where you can find the index.
 
 image::indexExamples.png[title="Examples of different indexes displayed"]
 
-NOTE: You should have at least 1 trip/day/event in your lists or all delete commands will be invalid
+NOTE: You should have at least 1 trip/event in your lists or all delete commands will be invalid
 
-Enter the command `delete <index>` into the command box  where the index corresponds to the trip/day/event you wish to delete. Press enter to execute the command.
+*Step 1*: Enter the command `delete <index>` into the command box  where the index corresponds to the trip/day/event you wish to delete. Press enter to execute the command.
 
 image::deleteCommand.png[title="Example deletion of trip 1"]
 
-You should now see that trip/day/event that you deleted has disappeared from the list and the indexes have been reassigned in chronological order.
+*Step 2*: You should now see that trip/day/event that you deleted has disappeared from the list and the indexes have been reassigned in chronological order:
 
 image::deleteResult.png[title="Result of executing `delete 1`"]
 
 Congratulations, you have deleted a trip/day/event!
 
+[[show_event_details]]
 ==== Showing Event Details
 The details of each event are displayed on the right half the **Events Page**. You can access the events page by using the navigation feature (<<How to navigate>>) found on most pages.
 
@@ -262,6 +312,7 @@ image::showCommand.png[]
 
 image::showCommandResult.png[]
 
+[[navbar_usage]]
 ==== How to navigate
 The main form of navigation is by using the navigation bars and the commands that are available on every page they are on. The bars appear like this:
 

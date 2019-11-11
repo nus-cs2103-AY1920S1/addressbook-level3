@@ -49,9 +49,12 @@ This section shows a summary of my coding, documentation, and other helpful cont
 *** Contributed all __Appendixes__ in the _Developer's Guide__ [https://github.com/AY1920S1-CS2103T-T11-4/main/blob/master/docs/DeveloperGuide.adoc#product-scope[Appendixes]]
 *** Contributed the __Trip Manager__ user guide [https://github.com/AY1920S1-CS2103T-T11-4/main/blob/master/docs/UserGuide.adoc#trip-manager[Trip Manager Guide]]
 
-## Contributions ot the User Guide
+## Contributions to the User Guide
+Below is an excerpt from our _TravelPal_ user guide authored by me. This section is about creating _Trips_ in _TravelPal_ and showcases my ability to write user friendly and thorough documentation for end users.
 
-## Contributions to the Developer Guide
+include::../UserGuide.adoc[tag=teoha_ppp]
 
-### [Itinerary] Edit trip/day/event feature
-#### Implementation
+## Contrbutions to the Developer Guide
+Below is an excerpt from our _TravelPal_ developer guide authored by me. This section explains the execution of editing a _Trip_ in _TravelPal_. It showcases my ability to write comprehensive technical documentation.
+
+include::../DeveloperGuide.adoc[tag=teoha_ppp]

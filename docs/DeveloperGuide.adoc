@@ -174,68 +174,113 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::teoha_ppp[]
 === [Itinerary] Edit trip/day/event feature
-==== Aspect: Model
-Editing of trip/day/event can be accessed from `TripsPage/DaysPage/EventsPage` respectively. The
-The execution of commands in the each page is facilitated by `TripManagerParser/DayViewParser/EventViewParser` and respectively.
-They extends from `PageParser` class which serves as the abstraction for all parsers related to each __Page__.
+
+[[edit_logic]]
+==== Aspect: Logic
+Editing of trip/day/event can be accessed from `TripsPage/DaysPage/EventsPage` respectively.
+The execution of commands in the each page is facilitated by `TripManagerParser/DayViewParser/EventViewParser` which extends from the `PageParser`. This class serves as the abstraction for all parsers related to each __Page__.
 
 The operations are exposed to the `Model` interface through the `Model#getPageStatus()`
-method that returns the `PageStatus` containing the current state of application.
+method that returns the `PageStatus` containing the all information regarding the current state of application. This includes the _descriptors_ (explained in Step 1 below) which stores all information about the edit.
 
-Given below is an example usage scenario and how the program behaves at each step.
+*Given below is an example usage scenario and how the program behaves at each step.*
 
-Step 1. When the user launches the application. The `PageStatus` is initialized under along with other `Model` components. `PageStatus` at launch does not contain any `EditTripDescriptor/EditDayDescriptor/EditEventDescriptor` responsible for storing information for the edit.
+*Step 1.* When the user launches the application. The `PageStatus` is initialized under along with other `Model` components. `PageStatus` at launch does not contain any `EditTripDescriptor/EditDayDescriptor/EditEventDescriptor` responsible for storing information for the edit.
 
-image::ItineraryEdit0.png[]
+image::ItineraryEdit0.png[width=400]
 
-Step 2. The user currently on the `TripsPage/DaysPage/EventsPage` is displayed a list of `Trip/Day/Event` respectively. The user executes the edit command `EDIT1` using the `OneBasedIndex` on the list to edit it.This executes the `EnterEditTripFieldCommand/EnterEditDayFieldCommand/EnterEditEventFieldCommand` that initializes a new descriptor within `PageStatus` before switching over to the `EditTripPage/EditDayPage/EditEventPage` containing to perform the editing.
+*Step 2.* The user currently on the `TripsPage/DaysPage/EventsPage` is displayed a list of `Trip/Day/Event` respectively. The user executes the edit command `EDIT1` using the `OneBasedIndex` on the list to edit it.This executes the `EnterEditTripFieldCommand/EnterEditDayFieldCommand/EnterEditEventFieldCommand` that initializes a new descriptor within `PageStatus` before switching over to the `EditTripPage/EditDayPage/EditEventPage` containing to perform the editing.
 
-image::ItineraryEdit1.png[]
+image::ItineraryEdit1.png[width=400]
 
-Step 3. The user is now on the edit page displaying a list of fields that the user can edit in the `Trip/Day/Event`.
+*Step 3.* The user is now on the edit page displaying a list of fields that the user can edit in the `Trip/Day/Event`. Commands on each page differs based on the fields they contain.
+====
 The following is an example list of commands available in `DaysPage` and the execution of the program when a field is edited in `DaysPage`:
 
 * `edit n/<name> ds/<startDate> de/<endDate> b/<totalBudget> l/<destination> d/<description>` - Edits the relevant fields
 * `done` - Completes the edit and returns to the __Overall View__
 * `cancel` - Discards the edit and returns to the __Overall View__
+====
+When user executes the command `edit n/EditedName` on the `DaysPage`. The command creates a new descriptor from the contents of the original, replacing the fields only if they are edited. The new descriptor is then assigned to `PageStatus` replacing the original `EditDayDescriptor`. The result of the edit is then displayed to the user.
 
-The user executes the command `edit n/EditedName` on the `DaysPage`. The command creates a new descriptor from the contents of the original, replacing the fields only if they are edited. The new descriptor is then assigned to `PageStatus` replacing the original `EditDayDescriptor`. The result of the edit is then displayed to the user.
+image::ItineraryEdit2.png[width=400]
 
-image::ItineraryEdit2.png[]
+*Step 4.* The user has completed editing the `Trip/Day/Event` and executes `done`/`cancel` to confirm/discard the edit. The execution of the two cases are as follows:
 
-Step 4. The user has completed editing the `Trip/Day/Event` and executes `done`/`cancel` to confirm/discard the edit. The execution of the two cases are as follows:
+* The user executes `done` to confirm the edit. This executes the `DoneEditTripCommand/DoneEditDayCommand/DoneEditEventCommand` and a `Trip/Day/Event` is built from the descriptor respective to the type it describes. `DayList#set(target, edited)` proceeds to be executed which accesses the `Day` to edit from the `day` field in `PageStatus` as the target. This method replaces the original day with the newly built day from the descriptor. The descriptor in `PageStatus` is then reset to contain empty fields (See figure below).
 
-* The user executes `done` to confirm the edit. This executes the `DoneEditTripCommand/DoneEditDayCommand/DoneEditEventCommand` and a `Trip/Day/Event` is built from the descriptor respective to the type it describes. `DayList#set(target, edited)` proceeds to be executed which accesses the `Day` to edit from the `day` field in `PageStatus` as the target. The method replaces the original day with the newly built day from the descriptor. The descriptor in `PageStatus` is then reset to contain empty fields.
-
-image::ItineraryEdit3.png[]
+image::ItineraryEdit3.png[width=400]
 
 * The User executes `cancel` to discard the edit. This executes the `CancelEditTripCommand/CancelEditDayCommand/CancelEditEventCommand` which resets the descriptor in `PageStatus` to contain all empty fields.
 
-image::ItineraryEdit4.png[]
+image::ItineraryEdit4.png[width=400]
 
-Upon completion of the edit, the user is returned to the `TripPage/DaysPage/EventsPage` depending on where the user entered the edit page from.
+* Upon completion of the edit, the user is returned to the `TripPage/DaysPage/EventsPage` depending on where the user entered the edit page from.
 
-Below is an sequence diagram illustrating the execution of the command "edit ds/10/10/2019":
+---
 
-image::ItineraryEditSequenceDiagram.png[]
+*Below is a sequence diagram illustrating the execution of the command "edit ds/10/10/2019" on _Days Page_:*
+
+image::ItineraryEditSequenceDiagramSimple.png[title="Sequence diagram for execution of `edit ds/10/10/2019`"]
+* When the command is executed, TravelPal uses a series of parsers to parse entire command
+** `TravelPalParser`: Parses the command. In execution above, it is identified that the first word is the command.
+** `EditDayParser`: Parses the type of command. The string "edit" is parsed and correctly identifies `EditDayParser` should be used to continue parsing further tokens
+** `EditDayFieldParser`: Parses the details of the edit. In this execution, the date is parsed by the `DateParserUtil` class and creates a descriptor as mentioned in the section above
+
+After executing the parsers above, the last parser instantiates and recursively returns the command (e.g. `commandEditDayFieldCommand`) up to the `LogicManager`. `LogicManager` then executes the command as the sequence diagram below:
+
+image::ItineraryEditSequenceDiagramSimpleref.png[title="Reference frame for execution of _command_"]
+
+The execution of the command is explained above (refer to <<edit_logic>>).
 
 ==== Aspect: User Interface
 The UI for to edit fields are associated with the `EditTripPage/EditDayPage/EditEventPage` respectively.
 
 image::EditTripPageClassDiagram.png[title="Class diagram showing EditTripPage's associations"]
 
-The diagram above shows the `EditTripPage` of the 3 pages and how it displays its contents. All the pages extend the `Page` class and contains several `FormItems`. These pages classes can also navigate to the `Model` and `Logic` interfaces through the `ModelManager` and `LogicManager` class respectively.
+The execution of the edit command involves the `Model`, `Logic` and `Ui` components of the application. Listed here are the packages used in the execution of the `edit` commands that are found in the figure above:
 
-The `FormItems` (e.g. `DateFormItem`) are instantiated by the `EditTripPage#initFormWithModel` method called by the constructor of `EditTripPage` . Each `FormItem` contains an `executeChangeHandler` that executes whenever the `onChange` property is modified by the user. These are initialized as execution of the various edit commands (e.g. EditTripFieldCommand/EditDayFieldCommand/EditEventFieldCommand) using the value in the `FormItem`.
+* *ui.itinerary*: This package contains all the Ui classes for the _Itinerary feature_.
+* *ui.components.form*: Contains all the form items
+* *ui.template*: This package contains the `Page` class which all pages extend from
 
-The contents of the fields are updated by the execution to the commands above. When the user edits any of the `FormItems`, the commands are executed which will cause the `EditTripPage/EditDayPage/EditEventPage#fillPage()` to execute again. `fillPage` retrieves the updated fields from `PageStatus` and displays them as the values in the `FormItems`.
+The class at large in the diagram above is the `EditTripPage` of the 3 pages explained. It extends from the `Page` class and is associated with the following:
 
-=== Aspect: Workflow of execution
+* Contains `formItems` from the `ui.components.form` generate a form
+** The `FormItems` (e.g. `DateFormItem`) are instantiated by the `EditTripPage#initFormWithModel` method called by the constructor of `EditTripPage` . Each `FormItem` contains an `executeChangeHandler` that executes whenever the `onChange` property is modified by the user. These are initialized as execution of the various edit commands (e.g. EditTripFieldCommand/EditDayFieldCommand/EditEventFieldCommand) using the value in the `FormItem`.
+* Navigable to the `ModelManager` and `LogicManager` for execution of commands using Ui interactions.
+
+The contents of the fields are updated by the execution of the commands above. When the user edits any of the `FormItems`, the commands are executed which will cause the `EditTripPage/EditDayPage/EditEventPage#fillPage()` to execute again. `fillPage` retrieves the updated fields from `PageStatus` and displays them as the values in the `FormItems`.
+
+==== Aspect: Workflow of execution
 The logic of editing a field and committing it to memory is a simple process of validating each field. If any field fails to meet the specifications, the `Trip/Day/Event` will not be created/edited. Below is an example execution of validating the edit:
 
-image::EditTripPageActivityDiagram.png[title="Execution of the done command on any edit page"]
+image::DoneEditActivityDiagram.png[title="Execution of the done command on any edit page"]
 
+==== Aspect: Design considerations
+When designing this feature, there were several challenges involved while working with the existing code base especially to adhere to strict Object Orientated Programming Principles. Below are two such design challenges that and how they were resolved:
+
+
+|===
+|*Challenge* |*Alternative 1* |*Alternative 2* |*Chosen Option*
+
+|Handling Dynamic UI Changes
+|The first alternative was to consider the updating of ui as a state of the program. The `PageStatus` class includes an `ObservableValue<Command>`, `uiChangeCommand` and design each `Page` to implement `ChangeListener`. When a command is executed, if it involves changing the UI but without switching pages, the `Pages` implementing `ChangeListener` would perform checks on the command executed and execute the correct UI change.
+|The second alternative was to let pages that can change by execution of commands (dynamic pages) to extend the class `DynamicUiPart` extending from the provided `UiPart` class that contains an abstract method `uiChange` that handle the ui changes. The identification of what ui change should execute is then placed in the `CommandResult` with new fields `CommandWord` and `doChangeUi`
+|Alternative 2 was chosen due better Object Orientated Programming (OOP) principles. The second method was good practice of the Interface Segregation Principle where classes do not need to depend on methods it did not need. Static pages in the program does not inherit `DynamicUiPart`.
+
+
+However limitations of Java arose as classes cannot inherit more than one class at once. Instead of using the class `DynamicUiPart`, the interface `UiChangeConsumer` was used instead.
+
+|Storing of the user's edit information
+|The first alternative was the straight forward implementation of using the `Logic` interface and its accessors to edit the information in memory directly. This method was however incoherent with out intended design of having forms for users to edit.
+|The second alternative was using `PageStatus` to store the current state of editing by the user (_edit descriptors_). This method creates a separate place in memory to store the information of the edit. Only after the user confirms/cancels the edit, then the information in the _descriptors_ are validated and committed to memory
+| The second alternative was chose mainly due to the coherence to the design of using forms. The descriptors also serve as minor validations (e.g. Only alphanumeric characters, up to 40 characters etc.). Users can be informed earlier of mistakes in filling forms before submitting.
+|===
+
+// end::teoha_ppp[]
 === [Itinerary] Delete Trip/Day/Event
 ==== Implementation
 Deletion of `Trip/Day/Event` is facilitated by `PageStatus`. `PageStatus` stores the current state of execution of the user program.
@@ -243,11 +288,11 @@ Upon initial startup of the program `Model` is initialized with `PageStatus` wit
 
 Step 1. When the user launches the application. `PageStatus` is initialized along with other `Model` components with empty references.
 
-image::ItineraryDelete0.png[]
+image::ItineraryDelete0.png[width=400]
 
 Step 2. The user enters the `DaysPage/EventsPage` using the goto command. This instantiates a new `PageStatus` object from the the existing `PageStatus` with a modified `Day/Trip`, providing the context for subsequent actions. Below is an example execution of the command:
 
-image::ItineraryDelete1.png[]
+image::ItineraryDelete1.png[width=400]
 
 Step 3. The user is now on the `TripManager/DaysPage/EventsPage`, the user can execute the `delete` command in accordance to the display ordered index on any of the aforementioned pages.
 
@@ -255,7 +300,7 @@ When the command `delete <index>` is executed, `DeleteTripCommand/DeleteDayComma
 
 The `Day/Trip` reference contains the list of `Events/Days` in memory respectively (`DayList/EventList`). `DayList#remove/EventList#remove` are methods in the respective list classes used to delete the day/event. These are executed, modifying the in memory `TravelPal` and `Trip/Event/Day` is removed.
 
-image::ItineraryDelete2.png[]
+image::ItineraryDelete2.png[width=400]
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
