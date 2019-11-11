@@ -1,4 +1,4 @@
-= CSmodbuddy - Developer Guide
+= CS ModBuddy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -107,7 +107,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/address/logic/Logic.java[`Logic.j
 
 .  `Logic` uses the `modulePlannerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a person).
+.  The command execution can affect the `Model` (e.g. adding a module).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying information to the user or refreshing the Ui.
 
@@ -227,7 +227,7 @@ image::CommitActivityDiagram.png[]
 ** Pros: Easier to implement.
 ** Cons: May have performance issues in terms of memory usage. Need to take note of the implications of cloning all the objects.
 * **Alternative 2:** Implement redo/undo for every single command.
-** Pros: Will use less memory (e.g. for `removemod`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `removemod`, just save the module being deleted).
 ** Cons: Tedious because there are a lot of commands and we must ensure that the implementation of each individual command are correct.
 
 // end::undoredo[]

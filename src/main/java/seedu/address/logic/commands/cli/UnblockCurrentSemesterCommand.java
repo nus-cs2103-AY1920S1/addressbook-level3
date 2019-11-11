@@ -14,7 +14,7 @@ import seedu.address.model.semester.SemesterName;
  */
 public class UnblockCurrentSemesterCommand extends Command {
     public static final String COMMAND_WORD = "unblock";
-    public static final String HELP_MESSAGE = COMMAND_WORD + ": Unblocks the given semester.";
+    public static final String HELP_MESSAGE = COMMAND_WORD + ": Unblocks the given semester";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Unblocks the given semester. \n. "
             + "Parameters: "
