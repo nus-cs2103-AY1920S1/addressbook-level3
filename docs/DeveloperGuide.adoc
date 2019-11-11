@@ -468,13 +468,13 @@ NOTE: The lifeline for `GenerateScheduleCommand` ends at the destroy marker (X).
 |Data Structure to support Generate Schedule Command
 |Generates and Processes the DistinctDate Object upon `generate_schedule` command. (Current choice)
 
-*Pros*: Easy to implement and requires less Storage Capacity and storage infrastructure to support the entire feature.
+*Pros*: Easy to implement and requires less storage capacity and storage infrastructure to support the entire feature.
 
-*Cons*: May have performance issues in terms of speed and time Complexity if the user's database gets extremely big. The program will have to iterate through the entire list of events and create
+*Cons*: May have performance issues in terms of speed and time complexity if the user's database gets extremely big. The program will have to iterate through the entire list of events and create
 the corresponding `DistinctDate` objects, whenever `generate_schedule` command is called.
 
 **Decision: Alternative 1
-** Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
+** makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
 Processing is only done when it is needed. Looking at the use case of the `generate_schedule` command, it is likely to be used when the users have finalised all the events and details before generating
 the schedule.
 
@@ -502,7 +502,7 @@ displayed is always updated as of when the user needs it, since the window is on
 *Cons*: Harder to implement, requires additional JavaFx windows and implementations. Will require additional windows being opened.
 
 **Decision: Alternative 2
-** Alternative 2 is a cleaner and more user-friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many lists and information.
+** is a cleaner and more user-friendly approach compared to Alternative 1. Alternative 2 helps to prevent the Schedule Tab from being filled with too many lists and information.
 Alternative 2 also helps prevent user confusion, as the list that is displayed is always updated as of when it is called upon.
 |========================================================================================
 

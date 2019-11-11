@@ -108,7 +108,7 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/a
 https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/FindEventByTagCommandParser.java[`FindEventByTagCommandParser`],
 https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/employee/FindByTagCommandParser.java[`FindByTagCommandParser`]]
 
-** *Processor*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/processor/DistinctDatesProcessor.java[*DistinctDatesProcessor*]]
+** *Processor*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/processor/DistinctDatesProcessor.java[`DistinctDatesProcessor`]]
 
 ** *Ui*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/DateCard.java[`DateCard`],
 https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/DateWindow.java[`DateWindow`],
@@ -169,8 +169,8 @@ fixed test cases and checkstyle errors.
 *** Assisted in setting up the test structure for Events to facilitate easier Events related
 test cases
 (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/233[#233])
-*** Assisted in implementing AddMin+ tab recognition, to reduce any unusual app behavior, optimise user experience by allowing
-users to edit list on different tabs, as well as disallow certain commands depending on which tab the user is on.
+*** Assisted in implementing AddMin+ tab recognition, to reduce any unusual app behavior, optimising user experience by allowing
+users to edit specific list on different tabs, as well as disallow certain commands depending on which tab the user is on.
 (Pull requests https://github.com/AY1920S1-CS2103T-T11-3/main/pull/155[#155],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/160[#160],
 https://github.com/AY1920S1-CS2103T-T11-3/main/pull/265[#265])
