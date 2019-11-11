@@ -263,7 +263,7 @@ It is a Affero General Public License (AGPL) library. +
 Information updated as of 6 November 2019.
 For more information, please visit the https://itextpdf.com/en[iText official website].
 
-To how how the PDF document is generated, generating *PDF Task Summary* will be used as an example for showcase.
+To show how the PDF document is generated, *generating PDF Task Summary will be used as an example* for this showcase.
 The following sequence diagram shows how the user command `savepdf` is being executed and handled.
 
 .Sequence Diagram of how PDF task summary is saved.

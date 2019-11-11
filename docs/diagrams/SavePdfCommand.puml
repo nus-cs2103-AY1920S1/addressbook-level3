@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
 participant ":SavePdfCommandParser" as SavePdfCommandParser LOGIC_COLOR
 participant "p:SavePdfCommand" as SavePdfCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -16,18 +16,18 @@ end box
 [-> LogicManager : execute(savepdf)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(savepdf)
-activate AddressBookParser
+LogicManager -> CommandParser : parseCommand(savepdf)
+activate CommandParser
 note right: savepdf's FULL COMMAND: "savepdf pdf/summary dt/5/11/2019"
 
 create SavePdfCommandParser
-AddressBookParser -> SavePdfCommandParser : SavePdfCommandParser()
+CommandParser -> SavePdfCommandParser : SavePdfCommandParser()
 activate SavePdfCommandParser
 
-SavePdfCommandParser --> AddressBookParser
+SavePdfCommandParser --> CommandParser
 deactivate SavePdfCommandParser
 
-AddressBookParser -> SavePdfCommandParser : parse(savepdf)
+CommandParser -> SavePdfCommandParser : parse(savepdf)
 activate SavePdfCommandParser
 
 create SavePdfCommand
@@ -37,15 +37,15 @@ activate SavePdfCommand
 SavePdfCommand --> SavePdfCommandParser : p
 deactivate SavePdfCommand
 
-SavePdfCommandParser --> AddressBookParser : p
+SavePdfCommandParser --> CommandParser : p
 deactivate SavePdfCommandParser
 
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-SavePdfCommandParser -[hidden]-> AddressBookParser
+SavePdfCommandParser -[hidden]-> CommandParser
 destroy SavePdfCommandParser
 
-AddressBookParser --> LogicManager : p
-deactivate AddressBookParser
+CommandParser --> LogicManager : p
+deactivate CommandParser
 
 LogicManager -> SavePdfCommand : execute()
 activate SavePdfCommand

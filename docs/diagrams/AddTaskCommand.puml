@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
 participant ":AddTaskCommandParser" as AddTaskCommandParser LOGIC_COLOR
 participant "atc:AddTaskCommand" as AddTaskCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -17,18 +17,18 @@ end box
 [-> LogicManager : execute \n user command*
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand \n user command*
-activate AddressBookParser
+LogicManager -> CommandParser : parseCommand \n user command*
+activate CommandParser
 note right : User command*: \n"addT g/cupboard c/3 dt/10/12/2019"
 
 create AddTaskCommandParser
-AddressBookParser -> AddTaskCommandParser : AddTaskCommandParser()
+CommandParser -> AddTaskCommandParser : AddTaskCommandParser()
 activate AddTaskCommandParser
 
-AddTaskCommandParser --> AddressBookParser
+AddTaskCommandParser --> CommandParser
 deactivate AddTaskCommandParser
 
-AddressBookParser -> AddTaskCommandParser : parse user command*
+CommandParser -> AddTaskCommandParser : parse user command*
 activate AddTaskCommandParser
 
 create Task
@@ -45,14 +45,14 @@ activate AddTaskCommand
 AddTaskCommand --> AddTaskCommandParser : atc
 deactivate AddTaskCommand
 
-AddTaskCommandParser --> AddressBookParser : atc
+AddTaskCommandParser --> CommandParser : atc
 deactivate AddTaskCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddTaskCommandParser -[hidden]-> AddressBookParser
+AddTaskCommandParser -[hidden]-> CommandParser
 destroy AddTaskCommandParser
 
-AddressBookParser --> LogicManager : atc
-deactivate AddressBookParser
+CommandParser --> LogicManager : atc
+deactivate CommandParser
 
 LogicManager -> AddTaskCommand : execute()
 activate AddTaskCommand
