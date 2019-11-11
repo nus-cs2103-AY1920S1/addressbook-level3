@@ -222,7 +222,7 @@ Format: `out $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 * `out` updates the user's overall balance with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** overall balance by $2)
 ****
 
-==== Important Details:
+==== Important Details
 
 * Note that `out` _Transactions_ differ from `in` _Transactions_ in the display amount. The `in` entries are characterized by the *positive* value within their display box whilst the `out` entries are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
 * An `out` command will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to <<UG_OUT_EXAMPLE3>>).
@@ -341,7 +341,7 @@ Parameters follow the same restrictions as highlighted in <<Parameter-constraint
 A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
-==== Important
+==== Important Details
 Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
 until the deadline (inclusive). You will be more self-conscious of your spending and minimise your spending by setting a budget. +
@@ -717,7 +717,7 @@ Format: `delete TYPE+INDEX`
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
-==== Important Details:
+==== Important Details
 
 * PalPay deletes an item based on the entry index of the target item. You can delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
 * You can only delete an existing _Transaction_ or _Budget_. Nothing will be deleted if the _Transaction_ or _Budget_ index does not exists.
@@ -778,7 +778,7 @@ Format (Projections): Cannot be updated
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's `AMOUNT` to "$1000" and `DATE` to "10/10/2019".
 ****
 
-==== Important Details:
+==== Important Details
 
 * `update` requires at least one field to be updated. (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
 * You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of "index" `INDEX` does not exists.
