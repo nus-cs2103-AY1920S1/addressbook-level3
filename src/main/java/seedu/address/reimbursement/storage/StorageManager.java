@@ -65,7 +65,6 @@ public class StorageManager implements Storage {
             }
             return map;
         } catch (IOException e) {
-            //return new HashMap<>();
             throw new FileReadException(ERROR_READING_FILE);
         }
     }
@@ -75,7 +74,6 @@ public class StorageManager implements Storage {
      *
      * @param newList the reimbursement list upon which matching will be performed.
      * @param map     a mapping of people and deadlines.
-     * @throws Exception if an error occurs during matching.
      */
     private void matchDeadline(ReimbursementList newList, HashMap<String, LocalDate> map) {
         for (int i = 0; i < newList.size(); i++) {

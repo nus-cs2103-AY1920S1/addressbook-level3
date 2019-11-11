@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.reimbursement.logic.commands.FindCommand;
 import seedu.address.reimbursement.logic.parser.exception.ParseException;
 import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
@@ -31,7 +32,7 @@ public class FindCommandParser implements CommandParserWithPersonModel<FindComma
      * @throws Exception if the command syntax is invalid.
      */
     public FindCommand parse(String args, Model personModel)
-            throws Exception {
+            throws ParseException, NoSuchPersonReimbursementException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PERSON);
 
@@ -39,12 +40,11 @@ public class FindCommandParser implements CommandParserWithPersonModel<FindComma
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(ReimbursementMessages.MESSAGE_INVALID_FINDCOMMAND_FORMAT);
         }
-
         try {
             Person person = personModel.getPersonByName(argMultimap.getValue(PREFIX_PERSON).get());
             FindCommand deadlineCommand = new FindCommand(person);
             return deadlineCommand;
-        } catch (Exception e) {
+        } catch (PersonNotFoundException e) {
             throw new NoSuchPersonReimbursementException();
         }
     }

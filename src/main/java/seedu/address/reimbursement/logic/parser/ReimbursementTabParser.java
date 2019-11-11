@@ -12,6 +12,7 @@ import seedu.address.reimbursement.logic.commands.ExitCommand;
 import seedu.address.reimbursement.logic.commands.FindCommand;
 import seedu.address.reimbursement.logic.commands.SortCommand;
 import seedu.address.reimbursement.logic.parser.exception.ParseException;
+import seedu.address.reimbursement.model.exception.NoSuchPersonReimbursementException;
 import seedu.address.reimbursement.ui.ReimbursementMessages;
 
 
@@ -23,12 +24,14 @@ public class ReimbursementTabParser {
 
     /**
      * Routes the command to the appropriate parser.
-     * @param userInput the command input by the user.
+     *
+     * @param userInput   the command input by the user.
      * @param personModel the person involved in the command.
      * @return a command representing the user's desired action.
      * @throws Exception if the command syntax is incorrect.
      */
-    public Command parseCommand(String userInput, Model personModel) throws Exception {
+    public Command parseCommand(String userInput, Model personModel)
+            throws ParseException, NoSuchPersonReimbursementException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(ReimbursementMessages.MESSAGE_NO_COMMAND);
@@ -37,7 +40,6 @@ public class ReimbursementTabParser {
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
-
         case DeadlineCommand.COMMAND_WORD:
             return new DeadlineCommandParser().parse(arguments, personModel);
         case FindCommand.COMMAND_WORD:
