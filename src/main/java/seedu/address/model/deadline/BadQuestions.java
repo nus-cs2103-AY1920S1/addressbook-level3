@@ -99,8 +99,6 @@ public class BadQuestions {
         internalMap.put(d.toString(), list);
     }
 
-    //TODO: remove bad question
-
     /**
      * Remove bad rated flashcards from the set.
      * For each due date, there will be a set of bad flashcards
