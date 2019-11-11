@@ -52,6 +52,8 @@ class WordDescriptionHelper {
     public static final String CLEAR_DESCRIPTION =
             "Select this command to empty all patient data";
 
+    public static final String LIST_APPT_DESCRIPTION =
+            "Select this command to list all appointments that you have";
     public static final String FIND_APPT_DESCRIPTION =
             "Select this command to find a specific patient appointment by entering keywords";
     public static final String ADD_APPT_DESCRIPTION =
@@ -60,6 +62,8 @@ class WordDescriptionHelper {
             "Select this command to edit a specified appointment";
     public static final String DELETE_APPT_DESCRIPTION =
             "Select this command to delete an appointment";
+    public static final String DELETE_PERM_APPT_DESCRIPTION =
+            "Select this command to delete an appointment permanently";
 
 
     // IndexWord description
