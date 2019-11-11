@@ -1,5 +1,8 @@
 package dukecooks.model.workout;
 
+import static dukecooks.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -35,6 +38,7 @@ public class Workout {
     private final WorkoutHistory history;
 
     public Workout(WorkoutName name) {
+        requireNonNull(name);
         this.name = name;
         exercises = new ArrayList<>();
         exercisesDetails = new ArrayList<>();
@@ -45,6 +49,7 @@ public class Workout {
 
     public Workout(WorkoutName name, ArrayList<ExerciseName> exercises, ArrayList<Set<ExerciseDetail>> exercisesDetails,
                    Set<MuscleType> musclesTrained, Intensity averageIntensity, WorkoutHistory history) {
+        requireAllNonNull(name, exercises, exercisesDetails, musclesTrained, averageIntensity, history);
         this.name = name;
         this.exercises = exercises;
         this.exercisesDetails = exercisesDetails;

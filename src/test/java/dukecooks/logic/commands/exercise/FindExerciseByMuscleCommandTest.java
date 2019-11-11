@@ -1,8 +1,8 @@
 package dukecooks.logic.commands.exercise;
 
-import static dukecooks.testutil.exercise.TypicalExercises.CURTSY_LUNGE;
+import static dukecooks.testutil.exercise.TypicalExercises.ABS_ROLLOUT;
+import static dukecooks.testutil.exercise.TypicalExercises.BURPEES;
 import static dukecooks.testutil.exercise.TypicalExercises.EXPLOSIVE_PUSHUP;
-import static dukecooks.testutil.exercise.TypicalExercises.FLYE;
 import static dukecooks.testutil.exercise.TypicalExercises.getTypicalWorkoutPlanner;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -18,30 +18,30 @@ import dukecooks.logic.commands.CommandTestUtil;
 import dukecooks.model.Model;
 import dukecooks.model.ModelManager;
 import dukecooks.model.UserPrefs;
-import dukecooks.model.workout.exercise.components.ExerciseNameContainsKeywordsPredicate;
+import dukecooks.model.workout.exercise.components.MusclesTrainedContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class FindExerciseCommandTest {
+public class FindExerciseByMuscleCommandTest {
     private Model model = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalWorkoutPlanner(), new UserPrefs());
 
     @Test
     public void equals() {
-        ExerciseNameContainsKeywordsPredicate firstPredicate =
-                new ExerciseNameContainsKeywordsPredicate(Collections.singletonList("first"));
-        ExerciseNameContainsKeywordsPredicate secondPredicate =
-                new ExerciseNameContainsKeywordsPredicate(Collections.singletonList("second"));
+        MusclesTrainedContainsKeywordsPredicate firstPredicate =
+                new MusclesTrainedContainsKeywordsPredicate(Collections.singletonList("first"));
+        MusclesTrainedContainsKeywordsPredicate secondPredicate =
+                new MusclesTrainedContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindExerciseCommand findFirstCommand = new FindExerciseCommand(firstPredicate);
-        FindExerciseCommand findSecondCommand = new FindExerciseCommand(secondPredicate);
+        FindExerciseByMuscleCommand findFirstCommand = new FindExerciseByMuscleCommand(firstPredicate);
+        FindExerciseByMuscleCommand findSecondCommand = new FindExerciseByMuscleCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindExerciseCommand findFirstCommandCopy = new FindExerciseCommand(firstPredicate);
+        FindExerciseByMuscleCommand findFirstCommandCopy = new FindExerciseByMuscleCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -57,8 +57,8 @@ public class FindExerciseCommandTest {
     @Test
     public void execute_zeroKeywords_noExerciseFound() {
         String expectedMessage = String.format(Messages.MESSAGE_EXERCISES_LISTED_OVERVIEW, 0);
-        ExerciseNameContainsKeywordsPredicate predicate = preparePredicate(" ");
-        FindExerciseCommand command = new FindExerciseCommand(predicate);
+        MusclesTrainedContainsKeywordsPredicate predicate = preparePredicate(" ");
+        FindExerciseByMuscleCommand command = new FindExerciseByMuscleCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
         CommandTestUtil.assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredExerciseList());
@@ -67,17 +67,17 @@ public class FindExerciseCommandTest {
     @Test
     public void execute_multipleKeywords_multipleExercisesFound() {
         String expectedMessage = String.format(Messages.MESSAGE_EXERCISES_LISTED_OVERVIEW, 3);
-        ExerciseNameContainsKeywordsPredicate predicate = preparePredicate("Curtsy Pushup Flye");
-        FindExerciseCommand command = new FindExerciseCommand(predicate);
+        MusclesTrainedContainsKeywordsPredicate predicate = preparePredicate("Abs Cardiovascular");
+        FindExerciseByMuscleCommand command = new FindExerciseByMuscleCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
         CommandTestUtil.assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CURTSY_LUNGE, EXPLOSIVE_PUSHUP, FLYE), model.getFilteredExerciseList());
+        assertEquals(Arrays.asList(ABS_ROLLOUT, BURPEES, EXPLOSIVE_PUSHUP), model.getFilteredExerciseList());
     }
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.
      */
-    private ExerciseNameContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new ExerciseNameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private MusclesTrainedContainsKeywordsPredicate preparePredicate(String userInput) {
+        return new MusclesTrainedContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

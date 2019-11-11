@@ -97,7 +97,12 @@ public class SampleDataUtil {
 
     public static Workout[] getSampleWorkout() {
         return new Workout[]{
-            new Workout(new WorkoutName("Hardcore Parkour"))
+            new Workout(new WorkoutName("Hardcore Parkour")),
+            new Workout(new WorkoutName("Tabata"))
+                    .pushExercise(new Exercise(new ExerciseName("Pushups"),
+                    getMuscleTrained("Chest", "Biceps", "Back", "Shoulders"),
+                    Intensity.HIGH,
+                    getDetails(null, null, null, null, 30, 3)))
         };
     }
 
