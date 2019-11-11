@@ -161,6 +161,9 @@ Examples:
 * `quiz 8`: start a quiz on the flashcard number 8 with a default time limit of 15 seconds.
 * `quiz 8 t/10` : start a quiz on the flashcard number 8, given time limit 10 seconds.
 
+NOTE: Once a quiz starts, users will be unable to use other commands such as add, list or delete.
+To exit quiz mode, either answer the flashcard or use `end`
+
 === Quiz Tag mode
 Starts a continuous quiz on a tag or a series of tags and an optional time limit with units in seconds. +
 Format:
@@ -188,7 +191,7 @@ Format: `flip ANSWER`
 * MCQ flashcards will only accept numbers as an answer. The number must match an index of the choices.
 ****
 
-Examples:
+Example 1: MCQ Flashcard
 
 After `quiztag t/geography`, the flashcard below is shown:
 ****
@@ -205,6 +208,20 @@ Choices:
 ****
 
 The user can type `flip 2` to answer the flashcard correctly.
+
+Example 2: Short Answer Flashcard
+****
+What is the lowest playing register of the clarinet called?
+
+Definitions: Range of E3 to Bb4
+
+Tags: [music]
+****
+
+The user will then type `flip Chalumeau` to answer the flashcard correctly.
+
+After using the `flip` command, users should receive feedback on whether they've answered the flashcard correctly.
+If the answer was wrong, the correct answer will be provided. The scores of the flashcard will then be updated accordingly.
 
 === End quiz mode
 NOTE: Only usable in quiz mode(i.e after a quiz or quiztag command).

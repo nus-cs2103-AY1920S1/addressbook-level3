@@ -60,16 +60,14 @@ include::../DeveloperGuide.adoc[tag=logic]
 
 include::../DeveloperGuide.adoc[tag=quiztagfeature]
 
-
-== Contributions to the README
 |===
-|_Given below are sections I contributed to the README. They showcase my ability to write documentation advertising the project._
+|_Given below is a design consideration that I've included in the Developer Guide for a feature implemented._
 |===
 
-//include::../../README.adoc[tag=description]
+include::../DeveloperGuide.adoc[tag=quizmodedc]
+
 
 == PROJECT: Flashmind
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
