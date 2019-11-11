@@ -1,6 +1,8 @@
 @startuml
 !include style.puml
 
+skinparam maxMessageSize 120
+
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":IFridgeParser" as IFridgeParser LOGIC_COLOR
@@ -24,7 +26,7 @@ IFridgeParser -> GroceryListParser : parseCommand("use 1 a/100g")
 activate GroceryListParser
 
 create UseGroceryCommandParser
-IFridgeParser -> UseGroceryCommandParser
+GroceryListParser -> UseGroceryCommandParser
 activate UseGroceryCommandParser
 
 UseGroceryCommandParser --> GroceryListParser
@@ -56,7 +58,9 @@ deactivate IFridgeParser
 LogicManager -> UseGroceryCommand: execute()
 activate UseGroceryCommand
 
-UseGroceryCommand -> Model: setGroceryItem(toBeUsed, used)
+ref over UseGroceryCommand: create deducted grocery item
+
+UseGroceryCommand -> Model: setGroceryItem(toUse, used)
 activate Model
 
 Model --> UseGroceryCommand

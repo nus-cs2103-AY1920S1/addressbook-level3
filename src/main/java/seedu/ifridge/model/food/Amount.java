@@ -34,10 +34,8 @@ public class Amount {
     public static final String UNIT_MILLILITRE = "ml";
     public static final String UNIT_QUANTITY = "units";
 
-    //public static final String VALUE_BEFORE_DECIMAL = "(\\d*)";
-    //public static final String VALUE_AFTER_DECIMAL = "(\\d+)";
     public static final String VALUE_REGEX = "([0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?)";
-    public static final String UNIT_REGEX = "(lbs|g|kg|oz|L|ml|units)+";
+    public static final String UNIT_REGEX = "(lbs|g|kg|oz|L|ml|units)";
     public static final String VALIDATION_REGEX = VALUE_REGEX + "\\s*" + UNIT_REGEX; // TODO exclude 0 as valid input
 
     public static final float GRAM_TO_KG = 0.001f;
@@ -72,7 +70,7 @@ public class Amount {
     public final String fullAmt;
 
     /**
-     * Constructs a {@code Name}.
+     * Constructs a {@code Amount}.
      *
      * @param amount A valid amount.
      */

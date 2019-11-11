@@ -8,40 +8,47 @@
 ---
 
 == Overview
-iFridge is a desktop grocery management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has a lot of code.
+
+iFridge is a desktop grocery management application to encourage home cooks to manage their food waste. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20kLoC.
 
 == Summary of contributions
 
 * *Major enhancement*: added *the ability for user to manage his/her grocery items systematically*.
-** What it does: allows the user to manage grocery items using the commands provided in the user guide.
-** Justification: The grocery list management is the backbone of the app as grocery items management is needed to support management of other lists (waste list, template list and shopping list). In addition, the grocery list is likely to be the most frequented list by the user.
-** Highlights: This enhancement can be extended further if the next developer decides to add other commands for the grocery list.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** What it does: The grocery list management allows the user to keep track of their grocery items with ease.
+** Justification: Fridge management is a difficult process as it is hard to keep track of all the food items in the fridge and consume them before they expire.
+iFridge's grocery list solves the problem by allowing the user to key in the data of the food items. +
++
+The list supports basic features such as `glist add` and `glist delete` as well as other complementing features such as `glist sort` and `glist find`.
+The grocery list management is the backbone of the app as grocery items management is needed to support management of other lists (waste list, template list and shopping list).
+In addition, the grocery list is likely to be the most frequented list by the user.
+** Highlights: While implementing this feature, I had to implement new commands such as `glist use` and `glist sort`. `glist use` is differentiated from `glist edit` as the underlying implementation of `glist use` appears to be different from `glist edit`. +
++
+On the other hand, `glist sort` is implemented to further improve the convenience level for the user. As of now, the sorting type supported is in ascending alphabetical order and ascending expiry date.
 
-
-* *Minor enhancement*: Cross conversion between units supported.
+* *Minor enhancement*: Cross-conversion between units in `Amount` class
 ** What it does: Allows for cross-conversion between different units supported by the app.
 ** Justification: Users would prefer to input the amount field based on their own preferences of units.
 They would not want to be restricted by the units already specified as they would have to do their own conversions manually.
 Thus, we decided to implement the unit conversions to allow for greater convenience for the user.
-** Highlights: This enhancement can be extended further if the next developer decides to add other units to the app.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Highlights: While implementing this feature, the choices of units are narrowed down to those that are most frequently used. Both the units and values can be easily retrieved by methods from the `Amount` class.
+As of now, the conversion methods are hard-coded as I was not able to find a library that is fully appropriate for the feature. The conversion methods in `Amount` class were heavily abstracted to provide next developers the ease of understanding and adding support for other units as they wish.
 
 * *Code contributed*: The samples of my functional and test code can be viewed https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=kelvinnharris[here].
 
 * *Other contributions*:
 
 ** Project management:
-//*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-//** Enhancements to existing features:
-//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
+*** Added user stories as issues on GitHub
+*** Reviewed pull requests by team members
+*** Opened issues when bugs were found (Issue https://github.com/AY1920S1-CS2103-F10-2/main/issues/219[#219])
+*** Fixed bugs after they were found (PR https://github.com/AY1920S1-CS2103-F10-2/main/pull/218[#218])
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (https://github.com/kelvinnharris/ped/issues/5[#5], https://github.com/kelvinnharris/ped/issues/2[#2], https://github.com/kelvinnharris/ped/issues/1[#1])
+*** Reported bugs and suggestions for other teams in the class (Issue https://github.com/kelvinnharris/ped/issues/5[#5], https://github.com/kelvinnharris/ped/issues/2[#2], https://github.com/kelvinnharris/ped/issues/1[#1])
 ** Tools:
-*** Setup for TravisCI for team repo (https://github.com/AY1920S1-CS2103-F10-2/main/pull/7[#7])
-*** Setup for Netlify for team repo
+*** Setup the Github repo, Travis and Coveralls.
+*** Integrated TravisCI to the team repo (PR https://github.com/AY1920S1-CS2103-F10-2/main/pull/7[#7])
+*** Integrated Coveralls to the team repo (PR https://github.com/AY1920S1-CS2103-F10-2/main/pull/237[#237])
 
 == Contributions to the User Guide
 
@@ -58,6 +65,8 @@ include::../UserGuide.adoc[tag=grocerylistfeatures]
 |===
 
 include::../DeveloperGuide.adoc[tag=usegroceryfeature]
+
+include::../DeveloperGuide.adoc[tag=grocerylistmanualtesting]
 
 == PROJECT: PowerPointLabs
 
