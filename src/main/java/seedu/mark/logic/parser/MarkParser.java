@@ -23,6 +23,7 @@ import seedu.mark.logic.commands.DeleteCommand;
 import seedu.mark.logic.commands.DeleteFolderCommand;
 import seedu.mark.logic.commands.DeleteReminderCommand;
 import seedu.mark.logic.commands.EditAnnotationCommand;
+import seedu.mark.logic.commands.EditAutotagCommand;
 import seedu.mark.logic.commands.EditCommand;
 import seedu.mark.logic.commands.EditFolderCommand;
 import seedu.mark.logic.commands.EditReminderCommand;
@@ -145,6 +146,9 @@ public class MarkParser {
 
         case AddAnnotationCommand.COMMAND_WORD:
             return new AddAnnotationCommandParser().parse(arguments);
+
+        case EditAutotagCommand.COMMAND_WORD:
+            return new EditAutotagCommandParser().parse(arguments);
 
         case AutotagDeleteCommand.COMMAND_WORD:
             return new AutotagDeleteCommandParser().parse(arguments);

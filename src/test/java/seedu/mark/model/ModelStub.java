@@ -2,13 +2,13 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-
 import seedu.mark.commons.core.GuiSettings;
 import seedu.mark.model.annotation.OfflineDocument;
 import seedu.mark.model.annotation.Paragraph;
@@ -143,7 +143,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public boolean removeTagger(String taggerName) {
+    public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
         throw new AssertionError("This method should not be called.");
     }
 

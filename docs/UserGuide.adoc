@@ -18,7 +18,7 @@ By: `Team CS2103T-T13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 == Introduction
 
-Mark is for those who *prefer to use a desktop app for managing
+Mark is for those who *prefer to use a desktop application for managing
 bookmarks*. More importantly, it is *optimized for those who prefer to
 work with a Command Line Interface* (CLI) while still having the
 benefits of a Graphical User Interface (GUI). If you can type fast, Mark
@@ -34,8 +34,10 @@ Here are a few steps to get you started on Mark: +
 .  Ensure you have Java `11` or above installed in your Computer.
 .  Download the latest `mark.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Mark.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Double-click the file to start the application. The GUI should appear in a few seconds.
+//TODO: update UI screenshot
 +
+.GUI for Mark
 image::Ui.png[width="790"]
 +
 // TODO: move this part to <<Using Mark>>
@@ -45,11 +47,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Here are some example commands that you can try:
 
 * *`list`* : lists all bookmarks
-* *`folder Tutorials`* : create a folder named `Tutorials`
+* *`folder Tutorials`* : creates a folder named `Tutorials`
 * *`add u/https://git-scm.com/book/en/v2 n/Pro Git f/Tutorials`* : adds a bookmark
-named `Pro Git` to Mark.
+named `Pro Git` to Mark
 * *`delete 3`* : deletes the 3rd bookmark shown in the current bookmark list
-* *`exit`* : exits the app
+* *`exit`* : exits the application
 
 .  Refer to <<Features>> for details of each command.
 
@@ -59,13 +61,13 @@ This section offers an overview of Mark's layout so that you can locate informat
 
 There are three main areas in Mark:
 
-. A __command box__ at the top of the screen
+. A __command box__ and __result display box__ at the top of the screen
 . A __bookmark list__ on the left of the screen
 . A __main viewing area__ that occupies most of the right side of the screen
 
 // TODO: describe properly (this is very 'functional' but may not be user-friendly)
 The *_command box_* is the area for you to enter commands. The result of each command will be shown
-in the result display box, immediately below the command box.
+in the *_result display box_*, immediately below the command box.
 
 .The command box and result display box
 image::ui-screenshots/CommandBox.png[]
@@ -92,7 +94,7 @@ and view web pages.
 .Mark's Online tab
 image::ui-screenshots/Ui_OnlineTab.png[@Online Tab View, 600, 400]
 
-* The **Offline** tab displays offline copies of bookmarked web pages,
+* The **Offline** tab displays the most recently opened offline copy of bookmarked web pages,
 which you can browse and annotate directly.
 +
 [#imgId-offline]
@@ -133,8 +135,9 @@ it is not provided.
 * Items with `...`​ after them can be used multiple times, including zero times. +
 E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/module`,
 `t/module t/read-later` etc.
-* Parameters can be used in any order. +
+* Parameters can be used in any order unless otherwise specified. +
 E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
+
 ====
 
 '''
@@ -173,43 +176,59 @@ Goes to the Online tab which is a web view.
 * `*tab* 3` +
 Goes to the Offline tab which shows the offline copy of bookmarks.
 
-// tag::undo-redo-command[]
 ==== Undoing previous commands: *`undo`*
-
-Restores the list to the state before the given number of previous undoable commands were
+// tag::undo-command[]
+If you mistakenly enter a command that permanently changes Mark, do not worry, you can always use `undo` to
+rectify the mistake! This command restores Mark to the state before the given number of previous undoable commands were
 executed.
 
 Format: `*undo* [STEP=1]`
 
+For example:
+
+* When you accidentally delete a wrong bookmark and you want to bring it back. There is no
+need for you to manually add that bookmark back as `undo` will do the magic for you. Just input `undo`
+in the command box, the deleted bookmark will reappear in your bookmark list.
+
+* Suppose you have entered two `delete` commands, `*delete* 1` and `*delete* 2`, and now you
+want to get back both bookmarks, a possible way is enter `undo` twice. Besides, Mark also
+offers an alternative where you can just type `undo 2` to undo these two commands.
+// end::undo-command[]
+
+Parameter constraints:
 //TODO:Check whether reminder supports undo/redo, include other
 //undoable commands as well
 ****
-* Undoable commands include commands that modify the bookmark list or
-reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
-`reminder edit`, `reminder delete`, etc).
-* The step must be a positive integer `1`, `2`, `3`, …​
+* `STEP` must be a positive integer `1`, `2`, `3`, ...
+* Undoable commands include commands that modify the bookmark list, folders,
+reminders or annotations, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
+`folder`, `annotate`, etc).
 ****
-
-Examples:
-
-* `*undo*` +
-Restores the list to the state before the previous undoable command was executed.
 
 ==== Redoing previously undone commands: *`redo`*
-
-Reverses the given number of `*undo*` commands.
+// tag::redo-command[]
+This command reverses the given number of undone actions.
 
 Format: `*redo* [STEP=1]`
-
-****
-* The step must be a positive integer `1`, `2`, `3`, …​
-****
 
 Examples:
 
 * `*redo*` +
 Reverses the most recent `*undo*` command.
-// end::undo-redo-command[]
+
+* `*delete* 1` +
+`*delete* 2` +
+`*undo* 2` +
+`*redo* 2` +
+Restores the bookmark list to the state before the `*undo* 2` command was executed. The
+two bookmarks get deleted again.
+
+Parameter constraints:
+****
+* `STEP` must be a positive integer `1`, `2`, `3`, ...
+****
+
+// end::redo-command[]
 
 // tag::exportcommand[]
 [[exporting-bookmarks]]
@@ -300,13 +319,14 @@ Format: `*list*`
 ==== Locating bookmarks by name, URL, tag or folder: *`find`*
 
 Finds bookmarks that contain any of the given keywords in their name or
-URL, or that are tagged with the given tag(s).
+URL, or that are tagged with the given tag(s) or stored under the given folder(s).
 
 Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 
 ****
 * At least one keyword, tag or folder must be provided.
-* Keyword search is case insensitive. e.g video will match Video.
+* The list of keywords to be searched must be before tags and folders.
+* Search for keywords, tags and folders is case insensitive. e.g video will match Video.
 * The order of the keywords does not matter. e.g. `Website Video` will match `Video Website`.
 * Keywords are only searched in the URL and name.
 * For keywords, words will be partially matched e.g. `Video` will match `Videos`.
@@ -325,24 +345,25 @@ Returns any bookmark with CS2103T, CS2101, or CS2105 in its name or in its URL.
 * `*find* GitHub t/School f/CS2103T` +
 Returns any bookmark with the tag School or folder CS2103T or that contains github in either name or URL.
 
-// tag::goto-command[]
 ==== Opening a bookmark: *`goto`*
-
-Opens the specified the bookmark from the bookmark manager.
+// tag::goto-command[]
+This command opens the specified the bookmark from the bookmark manager.
 
 Format: `*goto* INDEX`
 
+For example:
+
+* `*list*` +
+`*goto* 1` +
+Opens the first bookmark in the bookmark manager.
+
+Parameter constraints:
 ****
 * Opens the bookmark at the specified INDEX.
 * The index refers to the index number shown in the displayed bookmark list.
 * The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
-Examples:
-
-* `*list*` +
-`*goto* 1` +
-Opens the first bookmark in the bookmark manager.
 // end::goto-command[]
 
 ==== Adding a bookmark: *add*
@@ -441,13 +462,13 @@ Deletes the 2nd bookmark in the bookmark manager.
 `*delete* 1` +
 Deletes the 1st bookmark in the results of the find command.
 
-// tag::favorite-command[]
 ==== Adding a bookmark to Favorites: *`favorite|fav`*
-
-Adds a Favorite tag to the specified bookmark.
+// tag::favorite-command[]
+This command adds a `Favorite` tag to the specified bookmark.
 
 Format: `*favorite|fav* INDEX`
 
+Parameter constraints:
 ****
 * `fav` is an alias for `favorite`
 * Removing the Favorite tag is the same as removing a normal tag from a bookmark (see <<editing-bookmarks>>)
@@ -469,12 +490,31 @@ Adds a Favorite tag to the second bookmark in the bookmark manager.
 === Folders
 
 The following commands carry out operations on folders in Mark.
+The results of these operations can be viewed in the folder hierarchy of dashboard tab.
+
+IMPORTANT: The bookmarks that are displayed in the folder hierarchy correspond to the bookmarks in the bookmarks list on the left. +
+ +
+For example, if you have have just performed a `find` command and the bookmark list shrinks from 100 entries to just 10, the folder hierarchy will also
+shrink from showing 100 bookmarks to 10.
+
+TIP: You can use the `list` command to see all your bookmarks in the folder hierarchy.
 
 ==== Expanding the folder hierarchy: *`expand`*
 
-Expands the folder hierarchy by the specified number of levels.
+If you want to expand all unexpanded folders, use this command.
 
 Format: `*expand* [LEVEL=1]`
+
+For example:
+
+* You want to expand all unexpanded folders by one level with just one command. Type `*expand*` in the command box and hit kbd:[Enter].
++
+image::ExpandCommandUi1.png[]
+// unexpanded folders
+* You see all folders expanded by one level.
++
+image::ExpandCommandUi2.png[]
+
 
 ****
 * `LEVEL` should be a positive integer.
@@ -482,16 +522,26 @@ Format: `*expand* [LEVEL=1]`
 * If `LEVEL` is not specified, expand by 1 level.
 ****
 
-Examples:
+Other examples:
 
 * `*expand* 3` +
 Expands the folder hierarchy by 3 levels.
 
 ==== Collapsing the folder hierarchy: *`collapse`*
 
-Collapses the folder hierarchy by the specified number of levels.
+If you have too many expanded folders and want to collapse them, use this command.
 
 Format: `*collapse* [LEVEL=1]`
+
+For example:
+
+* You want to collapse the deepest expanded folders by one level with just one command. Type `*collapse*` in the command box and hit kbd:[Enter].
++
+image::CollapseCommandUi1.png[]
+// expanded folders
+* You see the deepest expanded folders collapsed by one level.
++
+image::CollapseCommandUi2.png[]
 
 ****
 * `LEVEL` should be a positive integer.
@@ -499,17 +549,30 @@ Format: `*collapse* [LEVEL=1]`
 * If `LEVEL` is not specified, collapse by 1 level.
 ****
 
-Examples:
+Other xamples:
 
-* `*collapse* 1` +
-Collapses the folder hierarchy by 1 level.
+* `*collapse* 9999` +
+Collapses the folder hierarchy by 9999 levels, most likely collapsing them all the way.
 
 [[folder]]
-==== Adding a new folder: *`folder`*
+//tag::AddFolderCommand[]
+==== Adding a folder: *`folder`*
 
-Creates a new folder for organizing bookmarks into.
+// Context
+When your bookmark list is getting too long, you may want to use this command to create new folders to organize bookmarks into.
 
 Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You notice you have 20 bookmarks all related to CS2103T. You decide to create a folder for them, so you enter the command `*folder* CS2103T` and hit kbd:[Enter].
++
+image::AddFolderCommandUi1.png[]
+// dashboard tab, showing many CS2103T related bookmarks not in folder
+* You see a new empty folder `CS2103T` appear in the dashboard.
++
+image::AddFolderCommandUi2.png[]
 
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
@@ -519,10 +582,11 @@ Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 * If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
 
-Examples:
+Other examples:
 
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
+//end::AddFolderCommand[]
 
 ==== Editing a folder: *`folder-edit`*
 
@@ -534,7 +598,7 @@ Format: `*folder-edit* FROM_FOLDER​_NAME t/TO_FOLDER_NAME`
 // How to use the command (what should you see) i.e. before/after
 For example:
 
-* You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit enter.
+* You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit kbd:[Enter].
 +
 image::EditFolderCommandUi1.png[]
 // dashboard tab, showing Dear folder with links of photo albums etc.
@@ -559,7 +623,7 @@ Format: `*folder-delete* FOLDER​_NAME`
 // How to use the command (what should you see) i.e. before/after
 For example:
 
-* You see an unused bookmark `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
+* You see an unused folder `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
 +
 image::DeleteFolderCommandUi1.png[]
 // dashboard tab, showing CS2101 folder with no bookmarks/subfolders
@@ -628,7 +692,8 @@ that contain `NUS`, `School` or `Uni` now have the tag `NUS`.
 // show updated dashboard and bookmark list, with the relevant bookmarks having been tagged
 image::ui-screenshots/AutotagCommandUi2.png[]
 
-Parameter constraints:
+[[autotag-parameter-constraints]]
+There are several restrictions on the usage of command parameters:
 ****
 * At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
 * `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
@@ -682,6 +747,50 @@ Creates an autotag named `Quiz` which tags all bookmarks that are either in
 the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
 // end::autotagcommand[]
+
+==== Editing an automatic tag: *`autotag-edit`*
+
+If you want to modify an autotag, you can use the *`autotag-edit`* command to edit the autotag's
+name and/or conditions.
+
+TIP: This is essentially a shortcut for *`autotag-delete`* followed by *`autotag-add`*.
+
+Format: `*autotag-edit* TAG_NAME [t/NEW_TAG_NAME] [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
+
+For example:
+
+* To modify the autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
++
+image::AutotagEditCommandUi1.png[]
+
+* You can then observe that the autotag `NUS` has been renamed `University`, and its folder conditions now
+include the folder `CS2103T`.
++
+image::AutotagEditCommandUi2.png[]
+
+The parameter constraints are similar to <<autotag-parameter-constraints, those for the `*autotag*` command>>,
+with the following differences:
+****
+* There should only be one `NEW_TAG_NAME`.
+* At least one parameter _in total_ should be specified. In other words, if `t/NEW_TAG_NAME` is present, there is
+no need to specify any conditions.
+****
+
+Other examples:
+
+* `*autotag-edit* Quiz u/luminus.nus.edu.sg u/quiz nu/attempt`
++
+image::AutotagEditCommandExample1.png[]
++
+Modifies the autotag `Quiz` such that it tags bookmarks with URLs that contain either of the keywords
+`luminus.nus.edu.sg` or `quiz`, but do not contain the keyword `attempt`.
+
+* `*autotag-edit* Quiz t/Quizzes`
++
+image::AutotagEditCommandExample2.png[]
++
+Modifies the name of the autotag `Quiz` such that it now tags bookmarks with the tag `Quizzes` instead of `Quiz`.
 
 ==== Deleting an automatic tag: *`autotag-delete`*
 
@@ -971,69 +1080,213 @@ This deletes the general note G1 in the offline copy of bookmark 2.
 * `*annotate-delete* 1 p/all` +
 This removes all annotations of the offline copy of bookmark 1.
 
-'''
 
+//tag::ReminderCommand[]
+
+'''
 === Reminders
 
 The following commands carry out operations on reminders in Mark.
+You can find reminders on the Dashboard tab.
 
-//tag::ReminderCommand[]
 [[Reminder-Command]]
 ==== Adding a reminder: *`reminder`*
 
-Adds a reminder of a specified bookmark. You can set the time for the reminder.
+This command adds a reminder to a specified bookmark.
+The reminder will inform you at the time you indicate.
+
+NOTE: You can have at most one reminder for one bookmark. +
+ +
+The reminder cannot set the reminding time in the past. +
+ +
+Each reminder will reminds you with popup notification twice: +
+ +
+The first notification will show when the reminding time is within five hours,
+the second time is on the reminding spot. +
+ +
+The expired reminder will be auto delete after one hour.
 
 Format: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 
+For example:
+
+You are using Mark, and you want to remind yourself to do the quiz on Luminus bookmark tomorrow night,
+which is 18/11/2019 8p.m.
+Now you can use the `reminder` command to add a reminder to Luminus.
+
+To add a reminder:
+
+* The index of Luminus on reminder list is 1.
+You type the command `*reminder* 1 t/18/11/2019 2000 n/Do the quiz` into the command box and press _Enter_ to execute it.
+
+image::ui-screenshots/AddReminderUi1.png[400, 500]
+
+//The image of dashboard that shows the bookmark Luminus. before command: reminder 1 t/18/11/2019 2000 n/Do the quiz
+
+* The result box will show the message: +
+"New reminder added: Do the quiz Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
+
+image::ui-screenshots/AddReminderUi2.png[400, 400]
+//The image of the result box
+
+* The reminder is added to the reminder list.
+
+image::ui-screenshots/AddReminderUi3.png[400, 500]
+//The image of the reminder list
+
+* The notification will show up to inform you at the time.
+
+image::ui-screenshots/AddReminderUi4.png[200, 300]
+//The notification
+
+There are some parameter constraints:
 ****
 * `INDEX` is the index of the bookmark that you want to add with a reminder.
- * `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format.
+* `TIME_DATE` follows `_dd/MM/uuuu HHmm_` format. It should be a valid time.
 * `NOTE` is the description of the reminder, the default value is Open.
 ****
-Examples:
+
+Other examples:
 
 * `*reminder* 1 t/02/07/2019 2359` +
-Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
+This command line adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
 It reminds you to open the bookmark.
 
 * `*reminder* 1 t/02/07/2019 2359 n/Read announcements` +
-Adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
+This command line adds a reminder for bookmark 1, and sets the time of the reminder as 23:59 of 02/07/2019.
 The reminder reminds you to read announcements.
 
 
 
 ==== Editing a reminder: *`reminder-edit`*
-Edits the reminder at the specified index. You can edit either the time or the note of the reminder.
+This command edits the reminder in the list at the specified index.
+You can edit either the time or the note of the reminder.
 
 Format: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 
+
+For example:
+
+You have another assignment on Luminus that need to be done tomorrow morning,
+which is 10/11/2019 7 a.m. You want to change the note for reminder to remind you do the assignment.
+Now you can use the `reminder-edit` command to edit the reminder for Luminus.
+
+To edit a reminder:
+
+* The index of the reminder in the reminder list is 1.
+You type the command `*reminder-edit* 1 n/Do the quiz and the assignment` into the command box and press _Enter_ to execute it.
+image::ui-screenshots/EditReminderUi1.png[400, 500]
+//The image of dashboard that shows the reminder for Luminus.
+
+* The result box will show the message: +
+"Edited Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
+
+image::ui-screenshots/EditReminderUi2.png[400, 400]
+//The image of the result box
+
+* The reminder is edited in the reminder list.
+
+image::ui-screenshots/EditReminderUi3.png[400, 500]
+//The image of the reminder list
+
+* The edited notification will show up to inform you at the time.
+
+image::ui-screenshots/EditReminderUi4.png[200, 300]
+//The notification
+
+There are some parameter constraints:
 ****
 * `INDEX` is the index of the reminder you want to edit on the dashboard.
-* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format.
+* `TIME_DATE` is the time you want to edit. The time follows `_dd/MM/uuuu HHmm_` format. It should be a valid time.
 * `NOTE` is the description of the reminder that you want to edit.
 ****
-Examples:
+
+Other examples:
 
 * `*reminder-edit* 1 t/02/07/2019 2359` +
-Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+This command edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 
 * `*reminder-edit* 1 t/02/07/2019 2359 n/Check daily news` +
-Edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
+This command edits the reminder of index 1. Reset the time of the reminder to 23:59 of 02/07/2019.
 Reset the note to Check daily news.
 
 ==== Deleting a reminder: *`reminder-delete`*
 
-Deletes the the reminder at the specified index.
+This command deletes the the reminder in the reminder list at the specified index.
 
 Format: `*reminder-delete* INDEX`
 
 ****
 * `INDEX` is the index of the reminder you want to delete on the dashboard.
 ****
-Examples:
+For example:
 
-* `*reminder-delete* 1` +
-Delete the reminder of index 1.
+You finished your task on Luminus early, and you do not need the reminder for Luminus anymore.
+Now you can use the `reminder-delete` command to delete the reminder for Luminus.
+
+To delete a reminder:
+
+* The index of the reminder in the reminder list is 1.
+You type the command `*reminder-delete* 1` into the command box and press _Enter_ to execute it.
+
+image::ui-screenshots/DeleteReminderUi1.png[400, 500]
+//The image of dashboard that shows the reminder for Luminus.
+
+* The result box will show the message: +
+"Deleted Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
+
+image::ui-screenshots/DeleteReminderUi2.png[400, 400]
+//The image of the result box
+
+* The reminder is deleted in the reminder list.
+
+image::ui-screenshots/DeleteReminderUi3.png[400, 500]
+//The image of the reminder list
+
+
+Other examples:
+
+* `*reminder-delete* 2` +
+This command deletes the reminder of index 2.
+
+==== Opening a bookmark from a reminder: *`reminder-goto`*
+
+Opens the related bookmark of the specified reminder from the bookmark manager.
+
+Format: `*reminder-goto* INDEX`
+
+****
+* INDEX is the index of the reminder as viewed on the dashboard.
+* `INDEX` must be a positive integer `1`, `2`, `3`, …​
+****
+For example:
+
+You want to plan your time table for next semester, which is a task on reminder list.
+Now you can use the `reminder-goto` command to open the website.
+
+To open the bookmark of a reminder:
+
+* The index of the reminder in the reminder list is 2.
+You type the command `*reminder-goto* 2` into the command box and press _Enter_ to execute it.
+
+image::ui-screenshots/GotoReminderUi1.png[400, 500]
+//The image of dashboard that shows the reminder for NUSMods
+
+* The result box will show the message: +
+"Opening Reminder: Start planning next year's timetable Time: 07/12/2019 1000 URL:https://nusmods.com/"
+
+image::ui-screenshots/GotoReminderUi2.png[400, 400]
+
+* The tab will switch to Online and show NUSMODs website.
+
+image::ui-screenshots/GotoReminderUi3.png[400, 400]
+
+Other examples:
+
+* `*reminder-goto* 1` +
+If reminder 1 points to bookmark 5, this command is equivalent to
+`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
+
 
 //end::ReminderCommand[]
 
@@ -1066,23 +1319,6 @@ Lists all the bookmarks based on name/alphabetical order.
 * `*sort* default` +
 Sort all the bookmarks based on the order they were added.
 // end::sort[]
-
-==== Opening a bookmark from a reminder: *`goto-reminder`* `[coming in v2.0]`
-
-Opens the related bookmark of the specified reminder from the bookmark manager.
-
-Format: `*goto-reminder* INDEX`
-
-****
-* INDEX is the index of the reminder as viewed on the dashboard.
-* The index must be a positive integer `1`, `2`, `3`, …​
-****
-
-Examples:
-
-* `*goto-reminder* 1` +
-If reminder 1 points to bookmark 5, this command is equivalent to
-`*goto* 5`. (i.e. opens the 5th bookmark in the bookmark manager.)
 
 ==== Automatically completing partially typed commands `[coming in v2.0]`
 
@@ -1121,6 +1357,10 @@ reminders, and a view of the folder hierarchy for bookmarks.
 
 [[folder-hierarchy]] Folder Hierarchy::
 The structure of folders in Mark. This is displayed in the dashboard tab when the application starts.
+
+[[reminder]] Reminder::
+The reminder in Mark reminds you to check a specific bookmark.
+This is displayed in the dashboard tab when the application starts.
 
 [[offline-copy]] Offline copy::
 An copy of a bookmarked website that is used for offline viewing. It is stored as a HTML file on the computer.
@@ -1180,7 +1420,7 @@ General notes are found at the bottom of the rightmost column on the offline cop
 | Add reminder: `*reminder* INDEX t/TIME_DATE [n/NOTE=Open]`
 | Edit reminder: `*reminder-edit* INDEX [t/TIME_DATE] [n/NOTE]`
 | Delete reminder: `*reminder-delete* INDEX`
-| Go to reminder: `*goto-reminder* INDEX`
+| Go to reminder: `*reminder-goto* INDEX`
 |=====
 
 .Summary of common command parameters

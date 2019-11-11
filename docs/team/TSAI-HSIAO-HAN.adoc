@@ -1,0 +1,110 @@
+= TSAI, HSIAO-HAN - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+=== PROJECT: Mark
+
+---
+
+== Overview
+This document will introduce my role and contribution in Mark.
+Mark is a 6 weeks group project for the module CS2103T Software Engineering.
+Our team composed of 5 NUS Computer Science year 2 students.
+From this project, we learn the skill of designing a Java application with basic CRUD structure,
+working on git,
+distributing works on Github,
+negotiating and teamwork.
+
+
+Mark is a __desktop bookmark manager__ used for organising websites.
+This application can help the user organize websites by bookmarks,
+manage the bookmarks into folders,
+take note on the offline copy and set reminders for the task.
+The user interacts with Mark using a _Command Line Interface_ (CLI),
+and it uses a _Graphical User Interface_ (GUI) created with JavaFX.
+Mark is written in _Java_.
+
+This is what our app looks like: +
+
+image::Ui.png[600, 400]
+
+My role is to design and implement the `reminder` feature.
+The following section will illustrate more about this feature.
+More details about it are provided in the part of related User and Developer Guide.
+
+Note the following symbols and formatting used in this document:
+
+NOTE: Represents the things you need to notice.
+
+`reminder`: Represents the command.
+
+****
+* `Tag` : Represents the constraints of the command.
+****
+
+
+== Summary of contributions
+
+* *Major enhancement*: +
+added *the ability to add, edit, delete and goto reminders.*
+** What it does: allows the user to add a reminder to a specific bookmark.
+The reminder will remind users at the time they indicate.
+Users can also edit and delete it, or even using reminder to open the bookmark .
+** Justification: When users want to plan to read or do some task on bookmark,
+this feature can provide them a better way to plan and organize their task,
+and they would not forget to doing it.
+** Highlights: This feature will help the user automatically cleanup expired reminders after one hour,
+so they do not need to bother themselves to delete it. The notification will show up twice,
+the first time will show before five hour to leave users some time before the deadline.
+Even if users do not close the notification, the notification will disappear after one minute.
+** Credits: https://stackoverflow.com/questions/44474391/how-to-get-a-scheduled-event-to-interact-with-javafx-gui[Stackoverflow]
+gives me the idea of how to implement a reminder notification.
+
+* *Code contributed*: +
+Please click these links to see a sample of my code.[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tsai-hsiao-han&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]]
+* *Minor enhancement*: +
+Improved current `edit` command so that when bookmarks changes the reminder will also change it's url.
++
+Improved current `delete` command so that when a bookmark been deleted it's reminder will also deleted.
+
+* *Other contributions*:
+
+** Project management:
+*** Check and merge pull requests on GitHub
+** Enhancements to existing features:
+*** Improve the GUI style and format (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/228[#228], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/123[#123])
+*** Wrote tests for existing features to increase coverage form 77.01% to 77.10% (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/251[#251])
+** Documentation:
+*** Added the reminder part for User Guide and Developer Guide: Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/48[#48], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/53[#53], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/130[#130], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/162[#162]
+*** Edited About Us and Contact Us document: Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/24[#24], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/26[#26]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-4/main/pull/66[#66], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/133[#133], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/139[#139]
+*** Reported bugs and fix issue (Issue  https://github.com/AY1920S1-CS2103T-T13-4/main/issues/229[#229], https://github.com/AY1920S1-CS2103T-T13-4/main/issues/194[#194], https://github.com/AY1920S1-CS2103T-T13-4/main/issues/178[#178])
+** Tools:
+*** Integrated a third party library (ControlsFX) to the project (Pull requests https://github.com/AY1920S1-CS2103T-T13-4/main/pull/42[#42])
+
+== Contributions to the User Guide
+This part is about the sections I contributed to the User Guide.
+The section extracted from the User Guide below showcase my ability to write a formal document to our target users.
+
+==== _------------- This is the start of extraction -------------_
+include::../UserGuide.adoc[tag=ReminderCommand]
+include::../UserGuide.adoc[tag=sort]
+
+==== _------------- This is the end of extraction -------------_
+
+== Contributions to the Developer Guide
+This part is about the sections I contributed to the Developer Guide.
+The section extracted from the Developer Guide below showcase my ability to write a technical documentation to a developer and show technique depth of my contribution.
+
+==== _------------- This is the start of extraction -------------_
+include::../DeveloperGuide.adoc[tag=reminder]
+
+//include::../DeveloperGuide.adoc[tag=use-case-reminder]
+//include::../DeveloperGuide.adoc[tag=test-reminder]
+
+==== _------------- This is the end of extraction -------------_
+
+---
+
