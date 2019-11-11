@@ -411,7 +411,7 @@ lexicographically smaller than Nasi Lemak.
 
 //end::sorting[]
 
-//tag::savings[]
+
 === Savings feature
 The Savings feature encompasses a Savings Account feature and a Savings History feature, both of which work together to allow the user
 to track his/her savings effectively.
@@ -466,6 +466,7 @@ The `SavingsHistory` Class Diagram is shown below to reflect the interactions ab
 
 image::SavingsHistoryClassDiagram.png[align=center,width=400]
 
+//tag::savings[]
 ==== Making a saving in $aveNUS
 
 When a user requests for a saving to be made in the application by calling the `save AMOUNT` command, the following processes
@@ -539,6 +540,8 @@ calling methods from `Savings` and `Money` classes to obtain the savings amount.
 class.
 
 |===
+
+//end::savings[]
 
 ==== Making a withdrawal from user's savings account.
 
@@ -645,7 +648,6 @@ returns an unmodifiable list of savings made by the user thus far.
 Finally, the savings history panel in the `MainWindow` class is updated with this unmodifiable list. The result
 is that the user will see only his savings being displayed within the application's savings history panel.
 
-//end::savings[]
 
 //tag::budgeting[]
 === Budget Tracking feature
