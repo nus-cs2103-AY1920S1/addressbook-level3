@@ -31,7 +31,7 @@ This feature provides a convenient way to locate items which the admin wants to 
 ** Highlights: This enhancement affects other commands since it will be used together with other commands often.
 For example, to filter all appeals requesting to add a particular module and check clashes in one go.
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test/java/mams[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chensu2436&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chensu2436&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[Reposense Link]]
 
 * *Other contributions*:
 
