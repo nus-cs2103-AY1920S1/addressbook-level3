@@ -22,6 +22,8 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+This section then entire design structure of _TravEzy_.
+
 [[Design-Architecture]]
 === TravEzy Architecture
 
@@ -166,70 +168,7 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-== Implementation
 
-This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
 
 ==== Design Considerations
 
@@ -252,14 +191,7 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
-=== Logging
+==== Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
@@ -275,7 +207,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
+==== Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
@@ -285,38 +217,108 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 TravEzy has several features which are listed below.
 Each of these features have their own design and implementation logic.
-
+// tag::calendar[]
 === Calendar
 
-The calendar feature in TravEzy allows users to easily find a free duration of time to travel.
+The calendar feature in _TravEzy_ allows users to easily plan when to travel. In this section, we will discuss how the calendar is designed and how the _add an event_ feature is implemented.
 
-*Calendar Class Diagram:*+
+==== Calendar Model
 
-image::CalendarClassDiagram.png[]
+This section discusses some design details of the calendar model.
 
-The above diagram shows that ``Calendar`` stores information about the state of the user's calendar, including information about the user's current view as indicated by ``currentViewOnlyMonth``.
+The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[``Event`` component].
 
-image::ShowSequenceDiagram.png[]
+.Calendar model class diagram
+image::CalendarClassDiagram.png[Calendar model class diagram]
 
-The above sequence diagram shows the sequence of events that take place when a user calls ``show`` command. Do note that the above sequence of events are very similar to those for the other commands which extend ``Command`` class.
+As shown above, the ``Calendar`` instance interacts with the ``EventManager`` by querying it. With the help of ``EventManger``, the ``Calendar`` instance does not need to deal with "lower-level" concerns (for instance, how ``Event``s are managed internally). 
 
-image::SmartSuggestActivityDiagram.png[]
+Every ``EventManager`` can access ``Event``s that have been added. These ``Event``s can be ``Commitment``, ``Trip``, ``SchoolBreak`` or ``Holiday`` instances. If other instances need a read-only access to ``EventManager``, they can obtain it using the observer ``EventViewer`` which is implemented by ``EventManager``. 
 
-The above activity diagram shows how ``smartSuggest`` command works.
+In addition, every ``EventManager`` depends on ``EventQuery`` to perform queries. 
+
+More information about this package is provided below.
+
+*What is an ``Event``?*
+
+* represents the event specified by the user: it is made up of the relevant ``Name``, ``EventType`` and ``Date`` (which is found in the ``Date`` package) instances
+
+*What is an ``EventQuery``?*
+
+* similar to an ``Event`` but is only made up of ``Date``
+* is used to query the ``IntervalSearchTree`` (from the ``Util`` package) to obtain events that are relevant to the user's request more efficiently.
+
+*How do classes in ``Util`` interact with those from ``Event``?*
+
+* ``Util`` contains important classes and interfaces like ``DateUtil``, ``IntervalSearchTree`` and ``Interval``
+* ``DateUtil`` helps ``EventManager`` to deal with manipulation of ``Date``-related operations
+* ``IntervalSearchTree`` makes certain user-requested operations more efficient computationally. However, to facilitate the use of ``IntervalSearchTree``, ``Event`` and ``EventType`` need to inherit from ``Interval``. 
+
+To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It describes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
+
+.Calendar model sequence diagram
+image::CalendarSequenceDiagram.png[Calendar model sequence diagram]
+
+
+WARNING: To simplify the sequence diagram, the process of validating that ``event`` is in fact a ``Holiday`` instance has been left out.
+
+==== Add An Event Feature
+
+This section provides some details about how the _add an event_ feature is implemented.
+
+The following diagram illustrates the course of action(s) that is(are) possibly taken when a user tries to add a new trip to his/her calendar.
+
+.Calendar activity diagram
+image::CalendarActivityDiagram.png[Calendar activity diagram]
+
+From the diagram, it can be seen that there are three major reasons that can interrupt the user request:
+
+* the user entered an invalid input (for instance, by typing an invalid date)
+* the user tried to add a duplicate event 
+* the user tried to add an event that may result in conflicts in his/her schedule
+
+==== Design Considerations
+
+This section details a few design considerations I made before deciding how I would like to implement the functionalities of this calendar.
+
+.Design considerations for calendar
+[grid="rows", frame="none"]
+|===
+| Aspect | Alternative 1 | Alternative 2
+
+| Data structure to support ``suggest`` and ``check`` commands
+a|The calendar simply stores all events in a list.
+
+* Pros: Easy to implement
+* Cons: Possibly slower performance, especially when users have many events in their calendars
+a|The calendar stores the events in an interval search tree.
+
+* Pros: On average, ``suggest`` and ``check`` commands can be performed more quickly, especially when there are many events in the calendar. In turn, this can improve user experience.
+* Cons: Implementation of interval search tree is tedious.
+* I chose this option because performance efficiency is essential if TravEzy is to scale. Furthermore, I can use the interval search tree to implement enhancements for ``add`` and ``delete`` commands more easily. 
+
+| Required date format for user input
+a|The usual date format like dd/mm/yyyy (for example, 12/05/2019 to specify 12 May 2019).
+
+* Pros: Easy to implement. It can be intuitive for users since this date format is common.
+* Cons: Very restrictive and not everyone uses the above format (for instance, in some countries, people specify date using the mm/dd/yyyy format).
+
+a|Allow users to specify day, month and year in whichever order they want.
+
+* Pros: More flexible and less restrictive for users.
+* Cons: If caution is not taken, bugs can arise quite easily.
+* I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
+
+|===
+// end::calendar[]
 
 === Itinerary
 
-The itinerary feature in TravEzy allows users to organize their events by giving a certain time they planned to
-finish each event.
+The itinerary feature in TravEzy allows users to organize their events and view these events in one convenient _Event List_.
 
 Current, the itinerary feature supports the basic commands of add, delete, edit and marking your events as done.
-It also includes other more advanced commands such as search, sort and wish(TM).
-
-[TIP]
-Not sure what you should do during a certain duration of time?
-Use the wish function in the itinerary and TravEzy will grant you three event suggestions based on your past entries.
-These suggestions are
-personalized for each user!
+In addition, it also includes other more advanced commands such as search and sort to better organize your events.
+With these implementations, _TravEzy_ aims to be at the frontier of convenience.
 
 The itinerary feature implements the aforementioned feature based on the use cases below:
 
@@ -333,11 +335,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the i
 Inputs given by the user are channeled from the text UI and parsed in the logic package before different commands
 are formed which generates the model and updates the itinerary object which contains the event list.
 
-[CAUTION]
-The Calendar and Itinerary window work in tandem with each other. Due to their dependency,
-modification to one of the feature might result in the the other feature breaking.
-
-The `text UI`, `logic` and `storage` all stem from the common package of the main TravEzy application.
+The `text UI`, `logic manager` and `storage manager` all stem from the common package of the main TravEzy application.
 However, in the `parser` package of itinerary, it contains various parser objects for the different command.
 This is to ensure that each command in the itinerary have only one parser validating the command.
 
@@ -362,25 +360,27 @@ the UI automatically updates when the data in the list change.
 throughout TravEzy.
 
 [IMPORTANT]
-A plausible extension to the itinerary model is give users the ability to *tag* each of their events based
-on different priority. This has ever since been implemented in v1.3
+A plausible extension to the itinerary model is to have the location field dictated by a dropdown bar, similar to the
+Priority Dropdown Bar.
 
 Alternative implementation to the proposed extension:
 
-* Use javaFX drop down menu to only users to tag based on priority: +
+* Use javaFX drop down menu to select the location of the event: +
 +
-PROS: Can use tagging as a search condition and easier for storage / maintenance purposes. +
-+
-CONS: Limiting the users to only a certain set of taggings.
+PROS: Can use location as a search condition and easier for storage / maintenance purposes. +
+Standardize the UI layout with _TravEzy_ Financial Tracker which also has a Dropdown bar for location.
 
-* Allow user to type in tagging during the add command template: +
++
+CONS: Limiting the users to only a certain set of locations.
+
+* Allow user to type in location during the add command template: +
 
     add title/[title] date/[date] time/[time] l/[location] d/[description]
 +
-PROS: Allows the user to put in any tag they want to allow for more variety. Search function is still
-applicable for tags but users would need to know the specific tag they used for that particular event. +
+PROS: Allows the user to put in any location they want to allow for more variety. Search function is still
+applicable for location but users would need to know the specific location they used for that particular event. +
 +
-CONS: Harder to maintain the individual tags in the storage since there could be a lot of tags that
+CONS: Harder to maintain the individual locations in the storage since there could be a lot of locations that
 are being defined by the user.
 
 ==== Itinerary search command
@@ -438,67 +438,51 @@ Running through all the events in the event list will ensure that all the events
 This sequential approach in implementing the `SearchCommand` will ensure that all the current events are being looked through
 based on the specific search condition and only the filtered list will be given as a result.
 
-==== Future Extensions
-
-As indicated in the user guide, there are several features which are yet to be implemented during v1.3 and even during
-v1.4. These feature include the undo, redo and wish command which are supposedly included during the v1.3 or v1.4
-of the TravEzy itinerary implementation. However, due to the sheer number of features that are already implemented
-in the Travezy itinerary during v1.3, these features will be postponed to the next version instead. While implementing
-the TravEzy, we have in mind to provide you with quality instead of quantity. Hence, after much consideration, these
-features are left to later versions instead.
-
-That being said, stay tuned for TravEzy v2.0 for these cool features such as undo-ing your previous action calls that
-you have made in TravEzy itinerary, and if you happen to undo the wrong command, fret not since the redo command will
-also be implement in compliment to the undo command so that you as a user can call redo and revert back the undo call
-too! Lastly, there is this awesome feature in the upcoming which is the wish command, what it does is that TravEzy will
-refer back to the user's storage and look through all the past events that the user has inputted in his itinerary list.
-Then based on these information provided, TravEzy will suggest 3 events that are suitable for the user to consider and
-add it into his current itinerary event list. These 3 events that TravEzy itinerary suggest will be something that the
-user will definitely enjoy doing or something that the user has to urgently do. Since it is personalized for each user
-and anaylzed carefully with the previous event entries.
-
-Hope that you are excited as I am in all these cool features that are coming up in v2.0.
-
 // tag::financialtracker[]
 === Financial Tracker
-The _Financial Tracker_ feature in _TravEzy_ allows users to keep track of their financial expenses with appropriate categorized expenditure by different countries.
+The Financial Tracker feature in TravEzy allows users to keep track of their financial expenses with appropriate categorized expenditure and country.
 
 *Architecture:*
 
-The Architecture Diagram given below explains the high-level design of the _Financial Tracker_ feature.
+.Architecture Diagram of the Financial Tracker feature
+image::FinancialTrackerDiagram.png[]
 
-image::FinancialTrackerDiagram.png[width=600]
+The Architecture Diagram given above explains the high-level design of the financial tracker feature.
+Inputs given by the user are channeled from the `textUI` and parsed by `CommandParser` before different commands are formed which generates
+the `Model` and updates the `FinancialTracker` object which contains the expense list.
 
-Inputs given by the user are channeled from the `textUI` and handled by `Logic` before different commands are formed which execute on
-the `Model`. The `Model` will then update the `FinancialTracker` object which contains the expense list.
+The `textUI`, `Log Centre` and `Storage` all stem from the common package of the main TravEzy application.
+This is to ensure that each command in financial tracker have only one parser validating the command.
+The GUI also collaborate with `Model` Class directly, which will be changed to only communicate with `Logic` class in later time.
 
-The `textUI` and `Log Centre` stem from the common package of the main _TravEzy_ application while ``Logic``, ``Model,`` and ``Storage`` all have similar architecture design with the other features (Calendar, Itinerary, etc.).
+*Financial Tracker Class Diagram*
 
-*Financial Tracker Class Diagram:*
+.Class Diagram of the Financial Tracker feature
+image::FinancialTrackerClassDiagram.png[]
+The Model,
+stores the `FinancialTracker` data which includes the `ExpenseList` which keeps track of all the expenses
+that are included by the user and stores it into the storage in a JSON file.
 
-image::FinancialTrackerClassDiagram.png[width=800]
-The `Model` stores the `FinancialTracker` data which includes several `ExpenseList` each associated with a country that keeps track of all the expenses.
-
-``Financial Tracker`` exposes an unmodifiable `ObservableMap<String, ExpenseList>` that can be observed. The UI is bound to the `Model` whereby the `Model` returns an expense list associated with the current ``Country`` of the `Financial Tracker` and updates when the querying `Country` changed.
+It exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 
 [NOTE]
-Each time a new `Country` is selected from the _Countries dropdown box_, the respective expense list will be returned for that specific country, this implementation is to ease categorising and sorting.
+Each time a new `Country` is selected from the javafx drop down menu, an expense list will be generated for that specific country, this
+implementation is to ease categorising and sorting.
 
-*Sequence Diagram example:*
+*Sequence Diagram example*
 
-The sequence diagram below shows the sequence of events that will take place when a user calls `Summary` command.
+.Sequence Diagram of the Financial Tracker feature
+image::FinancialTrackerSummaryCommandDiagram.png[]
 
-image::FinancialTrackerSummaryCommandDiagram.png[width=800]
+The above sequence diagram shows the sequence of events that will take place when a user calls `Summary` command.
+Note that that above sequence of events are very likely to those for the other commands in Financial Tracker feature.
 
-The sequence of events are very likely to those of the other commands in _Financial Tracker_ feature.
+*Activity Diagram example*
 
-*Activity Diagram example:*
+.Activity Diagram of the Financial Tracker feature
+image::FinancialTrackerActivityDiagram.png[]
 
-The activity diagram below shows how `edits` command works.
-
-image::FinancialTrackerActivityDiagram.png[width=800]
-
-
+The above activity shows how `edit` command works.
 
 // end::financialtracker[]
 
@@ -969,8 +953,6 @@ Extensions
         Use case resumes at step 1.
 ----
 
-_{More to be added}_
-
 [discrete]
 === Use case: Calendar
 
@@ -998,67 +980,3 @@ Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
-== Instructions for Manual Testing
-
-Given below are instructions to test the app manually.
-
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
-

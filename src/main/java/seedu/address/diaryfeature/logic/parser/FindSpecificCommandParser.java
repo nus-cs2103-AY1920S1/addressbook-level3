@@ -5,7 +5,6 @@ import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_MEMORY;
 import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_PLACE;
 import static seedu.address.diaryfeature.logic.parser.CliSyntax.PREFIX_TITLE;
 
-
 import java.util.Optional;
 
 import seedu.address.diaryfeature.logic.commands.FindSpecificCommand;
@@ -20,11 +19,12 @@ import seedu.address.logic.parser.ArgumentTokenizer;
  * Parses input arguments and creates a new FindSpecificCommand object
  */
 public class FindSpecificCommandParser {
-    private static final String FIND_SPECIFIC_USAGE = "In particular, input your findSpecific command like this: \n" +
-            "findSpecific PREFIX/TARGET | EG: findSpecific t/birthday. " +
-            "\n Note that the input cant be empty, and has " +
-            "to be at least 1 character \n" +
-            "The parameters that you can use for PREFIX are t for title, d for date, p for place and m for memory";
+    private static final String FIND_SPECIFIC_USAGE = "In particular, input your findSpecific command like this: \n"
+            + "findSpecific PREFIX/TARGET | EG: findSpecific t/birthday. "
+            + "\n Note that the input cant be empty, and has "
+            + "to be at least 1 character \n"
+            + "The parameters that you can use for PREFIX "
+            + "are t for title, d for date, p for place and m for memory";
 
 
     /**
@@ -35,7 +35,8 @@ public class FindSpecificCommandParser {
      */
     public Command parse(String args) throws EmptyArgumentException {
         try {
-            ArgumentMultimap multimap = ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
+            ArgumentMultimap multimap = ArgumentTokenizer.tokenize(
+                    args, PREFIX_TITLE, PREFIX_DATE, PREFIX_PLACE, PREFIX_MEMORY);
             return new FindSpecificCommand(new FindSpecificPredicate(getPresentValue(multimap)));
         } catch (EmptyArgumentException error) {
             throw new EmptyArgumentException(FindSpecificCommand.COMMAND_WORD, FIND_SPECIFIC_USAGE);

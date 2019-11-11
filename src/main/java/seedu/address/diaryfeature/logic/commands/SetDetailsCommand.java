@@ -13,8 +13,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
  */
 public class SetDetailsCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "setDetails";
-    private static final String MESSAGE_SUCCESS = "Details have been set! You are now Password Protected. Dont forget your details!";
-    private static final String MESSAGE_FAILURE = "Wait a second, there is already a password...";
+    private static final String MESSAGE_SUCCESS = "Details have been set! "
+            + "You are now Password Protected. Dont forget your details!";
+    private static final String MESSAGE_FAILURE = "Wait a second,"
+            + " there is already a password...";
     private final Details checker;
 
     /**

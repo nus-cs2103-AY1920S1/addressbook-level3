@@ -1,17 +1,17 @@
 package seedu.address.calendar.logic.commands;
 
+import java.util.Optional;
+
+import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.EventQuery;
-import seedu.address.calendar.logic.parser.CliSyntax;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-
-import java.util.Optional;
 
 public class SuggestCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "suggest";
-    public static final String MESSAGE_SUGGESTION_SUCCESS = "Here is a list of suggestion for you:\n%s";
+    public static final String MESSAGE_SUGGESTION_SUCCESS = "Here is a list of suggestions for you:\n%s";
     public static final String MESSAGE_SUGGESTION_FAILED = "No available block that meets your constraints.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Suggests when you can travel "
             + "during a period of time specified by the start and end date. "

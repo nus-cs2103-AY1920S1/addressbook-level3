@@ -1,16 +1,16 @@
 package seedu.address.calendar.model.date;
 
-import seedu.address.calendar.model.event.Event;
-import seedu.address.calendar.model.event.EventQuery;
-import seedu.address.calendar.model.event.EventType;
-import seedu.address.calendar.model.event.EventViewer;
-import seedu.address.calendar.model.util.DateUtil;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import seedu.address.calendar.model.event.Event;
+import seedu.address.calendar.model.event.EventQuery;
+import seedu.address.calendar.model.event.EventType;
+import seedu.address.calendar.model.event.EventViewer;
+import seedu.address.calendar.model.util.DateUtil;
 
 public class ViewOnlyMonth {
     private MonthOfYear monthOfYear;

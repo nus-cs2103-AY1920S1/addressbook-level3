@@ -11,12 +11,17 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Unprivate command
+ */
 public class UnPrivateCommand extends Command<DiaryModel> {
     public static final String COMMAND_WORD = "unprivate";
-    private static final String OVERFLOW = "For the unprivate command, your index has to be less than the size" +
-            " of the list! Make your number smaller.";
-    private static final String MESSAGE_UNPRIVATE_ENTRY_SUCCESS = "Your Entry has become unprivate. Everyone can see it";
+    private static final String OVERFLOW = "For the unprivate command, your index has to be less than the size"
+            + " of the list! Make your number smaller.";
+    private static final String MESSAGE_UNPRIVATE_ENTRY_SUCCESS = "Your Entry has become unprivate. "
+            + "Everyone can see it";
     private static final String MESSAGE_HAS_DETAILS = "There is password protection!\n"
+
             + "Use the unlock command";
     private final Index targetIndex;
 

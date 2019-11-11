@@ -23,9 +23,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a UnLockCommand object
  */
 public class UnLockCommandParser {
-    public static final String UNLOCK_USAGE = "In particular, input your unlock command like this: \n" +
-            "unlock TARGET user/USERNAME password/PASSWORD \nEG: unlock 1 user/myusername password/mypassword " +
-            "\nNote that the input has to be a number and more than or equal to 1";
+    public static final String UNLOCK_USAGE = "In particular, input your unlock command like this: \n"
+            + "unlock TARGET user/USERNAME password/PASSWORD \nEG: unlock 1 user/myusername password/mypassword "
+            + "\nNote that the input has to be a number and more than or equal to 1";
 
     /**
      * Parses the given {@code String} of arguments in the context of theUnLockCommand

@@ -1,5 +1,7 @@
 package seedu.address.calendar.logic.parser;
 
+import java.util.Optional;
+
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.date.Day;
 import seedu.address.calendar.model.date.MonthOfYear;
@@ -7,8 +9,6 @@ import seedu.address.calendar.model.date.Year;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.Optional;
 
 public class DateParser {
     static Date parseStartDate(ArgumentMultimap argMultimap, Prefix monthPrefix, Prefix yearPrefix,
@@ -33,7 +33,7 @@ public class DateParser {
                 .orElse(startDateYear);
         Day endDay = new DayParser().parse(argMultimap.getValue(dayPrefix), Optional.of(endMonth),
                 Optional.of(endYear))
-                .orElse(startDateDay);
+                .orElse(new DayParser().parse(startDateDay, Optional.of(endMonth), Optional.of(endYear)));
 
         // assumptions: if nothing is specified, it will be the same as those of the start date
         return new Date(endDay, endMonth, endYear);

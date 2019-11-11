@@ -2,10 +2,10 @@ package seedu.address.calendar.model.util;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.calendar.model.date.DayOfWeek;
-
 import java.util.Optional;
 import java.util.stream.Stream;
+
+import seedu.address.calendar.model.date.DayOfWeek;
 
 /**
  * Handles all {@code DayOfWeek} operations and manipulations.
