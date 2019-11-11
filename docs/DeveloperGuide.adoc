@@ -240,9 +240,9 @@ that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** This allows us to achieve polymorphism by overloading methods in `Model` to handle the different operations correctly.
 ** This reduces code coupling as there are different models to handle different balance amounts.
 
-* A `Transaction` entry can affect a `Budget` which has similar categories within the same time period.
+* A `Transaction` entry can affect a `Budget` which has similar categories and is within the same time period. The activity diagram bellow will further clarify this flow.
 ** Only `Out` Transactions can affect `Budget`.
-** Activity diagram below shows how and when a `Transaction` object affects `Budget`.
+** The activity diagram below shows how and when a `Transaction` object affects `Budget`.
 
 .Activity diagram for Out Transaction affecting Budget
 image::OutbudgetActivityDiagram.png[]
