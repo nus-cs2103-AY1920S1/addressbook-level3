@@ -737,6 +737,14 @@ The sequence diagram incorrectly extends the life-line of the three destroyed `S
 
 The high-level working of the `Parser` can be summarized by the activity diagram shown below.
 
+.Activity diagram illustrating the high level functionality.
+image::InteractiveParsingActivityDiagram.png[]
+{empty} +
+
+[NOTE]
+Due to limitations of PlantUML, a while-loop has been illustrated above as a *hexagonal* box with the loop condition written inside.
+This is valid UML notation, but not covered in CS2103T.
+
 ==== Design Considerations
 
 ===== Aspect : Abstract model

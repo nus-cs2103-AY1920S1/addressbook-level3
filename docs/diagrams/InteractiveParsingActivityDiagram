@@ -1,0 +1,22 @@
+@startuml
+
+start
+
+:read user input;
+
+while ()
+  :extract argument;
+  if () then ([valid])
+  :update state;
+  else ([else])
+  endif
+
+
+  :remove processed argument;
+endwhile
+
+:notify user;
+
+stop
+
+@enduml
