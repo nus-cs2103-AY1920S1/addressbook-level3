@@ -9,10 +9,12 @@
 
 == Overview
 
-The Module Appeal Management System (MAMS) is a desktop appeal management app for module appeal administrators.
-The MAMS system provides display commands to view the expanded details of any particular appeal, module, or student object,
-a suite of commands for resolving appeals, checking timetable clashes, overriding MC limits, and leaving special notes on students.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+**The Module Appeal Management System (MAMS)** is a desktop appeal management app for module appeal administrators.
+MAMS aims to fuse a Command Line Interface (CLI) style command input with a triple-pane GUI for easy navigation of appeals, module information, and student
+particulars all in a single display.
+MAMS provides a complete suite of tools for intuitive navigation of the comprehensive data display and
+resolving appeals (_for feature details, please refer to User Guide_).
+MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about 13 kLoC.
 
 == Summary of contributions
 
