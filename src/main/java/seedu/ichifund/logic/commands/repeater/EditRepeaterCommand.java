@@ -140,8 +140,6 @@ public class EditRepeaterCommand extends Command {
         }
 
         model.setRepeater(repeaterToEdit, editedRepeater);
-        model.updateFilteredRepeaterList(PREDICATE_SHOW_ALL_REPEATERS);
-
         model.deleteRepeaterTransactions(editedRepeater.getUniqueId());
         model.createRepeaterTransactions(editedRepeater);
 

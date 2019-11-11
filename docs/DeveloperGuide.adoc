@@ -615,7 +615,12 @@ describes the behaviour of `DeleteTransactionCommand` at each step:
 This feature allows the user to add a repeater in IchiFund. Adding a repeater also creates the transactions associated with the added repeater.
 
 ===== Implementation
-The `add` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `add` behaves at each step.
+The `add` command is facilitated by the Logic and Model components of the application. The process of executing an `add` command is illustrated in the figure below:
+
+.Sequence Diagram for `repeater` Command under Repeater Tab
+image::AddRepeatergetSequenceDiagram.png[]
+
+Below is an example usage scenario of how `add` behaves at each step.
 
 *Step 1*: In the repeaters tab, the user executes `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sd/1 sm/1 sy/2019 ed/31 em/12 ey/2019` to add a repeater for phone bills with an amount of $42.15 on the third and second last day of every month between 1st January 2019 and 31st December 2019.
 
@@ -637,15 +642,13 @@ The `add` command is facilitated by the Logic and Model components of the applic
 
 *Step 8*: `AddRepeaterCommand` fetches the running `RepeaterUniqueId` counter tracked by the `Model`, and sets it as the created ``Repeater``'s unique id.
 
-*Step 9*: `AddRepeaterCommand` adds the newly created `Repeater` to the `Model`.
+*Step 9*: `AddRepeaterCommand` increments the current `RepeaterUniqueId` counter in the `Model`.
 
-*Step 10*: `AddRepeaterCommand` creates the associated ``Transaction``s, setting their repeater unique ids to that of the newly created `Repeater`.
+*Step 10*: `AddRepeaterCommand` adds the newly created `Repeater` to the `Model`.
 
-*Step 11*: `AddRepeaterCommand` adds the newly created ``Transaction``s to the `Model`.
+*Step 11*: `AddRepeaterCommand` creates the associated ``Transaction``s in the `Model`.
 
-*Step 12*: `AddRepeaterCommand` increments the current `RepeaterUniqueId` counter in the `Model`.
-
-*Step 13*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+*Step 12*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeateradd[]
 
 // tag::repeateredit[]
@@ -679,13 +682,11 @@ The `edit` command is facilitated by the Logic and Model components of the appli
 
 *Step 10*: `EditRepeaterCommand` replaces the original `Repeater` in the `Model` with the newly created `Repeater`.
 
-*Step 11*: `EditRepeaterCommand` deletes all associated ``Transaction``s in the `Model` using the edited repeater's unique id.
+*Step 11*: `EditRepeaterCommand` deletes all existing associated ``Transaction``s from the `Model`.
 
-*Step 10*: `EditRepeaterCommand` creates the ``Transaction``s associated with the updated `Repeater`, setting their repeater unique ids to that of the updated `Repeater`.
+*Step 12*: `EditRepeaterCommand` creates the ``Transaction``s associated with the updated `Repeater` in the `Model`.
 
-*Step 11*: `EditRepeaterCommand` adds the newly created ``Transaction``s to the `Model`.
-
-*Step 12*: `EditRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+*Step 13*: `EditRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeatereidt[]
 
 // tag::repeaterdelete[]
@@ -713,7 +714,7 @@ The `delete` command is facilitated by the Logic and Model components of the app
 
 *Step 9*: `DeleteRepeaterCommand` deletes the `Repeater` from the `Model`.
 
-*Step 10*: `DeleteRepeaterCommand` deletes all associated ``Transaction``s in the `Model` using the deleted repeater's unique id.
+*Step 10*: `DeleteRepeaterCommand` deletes all associated ``Transaction``s in the `Model`.
 
 *Step 11*: `DeleteRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
 // end::repeaterdelete[]
