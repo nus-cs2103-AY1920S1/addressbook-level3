@@ -206,7 +206,7 @@ image::AddEarningsSequenceDiagram.png[width="600"]
 The `AddEarningsCommand` implements `Parser` with the following operation:
 
 * `AddEarningsCommandParser#parse()` - This operation will take in a `String` input from the user and create
- individual objects based on the prefixes `d/`, `c/` and `amt/`. The `String` value after the respective prefixes
+ individual objects based on the prefixes `d/`, `c/`, `type/` and `amt/`. The `String` value after the respective prefixes
  will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
 enter the correct format of the respectives objects.
@@ -231,8 +231,7 @@ DD/MM/YYYY.
 
 
 * Step 1: The user enters `add_earnings d/04/08/2019 type/tut c/CS1231 amt/50.00` to add an earning for teaching classes.
-This adds an `Earnings` object that the user has earned by teaching a CS1231 tutorial class on 4th August 2019. The user has
-earned $50.00.
+In this example, it adds an `Earnings` object that the user has earned $50.00 by teaching a CS1231 tutorial class on 4th August 2019.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
@@ -342,7 +341,7 @@ object have been successfully updated.
 
 // tag::otherEarnings[]
 ==== Weekly Earnings
-The `weekly_earnings` command allows users to add earnings into a list that adds earnings weekly automatically by invoking the `auto` command.
+The `weekly_earnings` command allows users to add earnings into a list. This list adds earnings weekly by invoking the `auto` command automatically.
 This helps to lessen the workload on the user as the user does not need to add a new earnings every week.
 
 The format for the `weekly_earnings` command is as follows:
@@ -360,7 +359,7 @@ The `AutoAddEarningsCommand` implements `Parser` with the following operation:
 * `AutoAddEarningsCommandParser#parse()` - This operation will take in an `int` input from the user, followed by a
  `String` input from the user and create individual objects based on the prefix `count/`. The `String` value after the prefix
 will create a `Count` object. A validation check will be done to ensure that the string that is entered
-by the user is entered correctly. If the string entered are invalid, an error will be shown to the user to
+by the user is entered correctly. If the string entered is invalid, an error will be shown to the user to
 enter the correct format of the `Count` object.
 
 ** `index` would use `ParserUtil#parseIndex()` to ensure that the index typed in by the user is in the correct format and is valid.
@@ -369,7 +368,7 @@ enter the correct format of the `Count` object.
 between 0 - 13 (inclusive).
 
 * After validation of the individual objects, the particular `Earnings` object would have a `Count` object and be added to a list
-that is for automatically adding earnings to the list.
+that is ready to be added automatically.
 
 * `AutoAddEarningsCommandParser` would then return a `AutoAddEarningsCommand` object with the parameters, `Index` and `Count` object.
 
@@ -377,7 +376,8 @@ that is for automatically adding earnings to the list.
 
 
 * Step 1: The user enters `weekly_earnings 2 count/3` to add that indexed earnings to a list of earnings to be added on the
-same day of the week, every week. This particular earnings is then added to the list on the specified day for a total of 3 weeks.
+same day of the week, every week. For example, if the referenced earnings has a date of `01/11/2019`, which is a Friday,
+that particular earnings will be added on every Friday for a total of 3 weeks.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
@@ -401,7 +401,7 @@ This command, `auto`, allows the user to add all the earnings that has been prev
  has been used on the particular earnings. You can refer to the activity diagram below to have a clearer understanding.
 
 .Auto Command Activity Diagram
-image::AutoActivityDiagram.png[width="700"]
+image::AutoActivityDiagram.png[width="600"]
 
 *Overview*
 The auto command is facilitated by `AutoCommand`.
@@ -409,6 +409,23 @@ The auto command is facilitated by `AutoCommand`.
 * `AutoCommand#execute` - This operation checks the current day of the week and checks against the `HashMap` of the earnings list.
 If there are `Earnings` object associated with the current day of the week and the `Earnings` object has a `Count` object associated
 with it that is more than 1. The earnings inside the `ArrayList` inside the `HashMap` would be added into the earnings list.
+
+*Example Scenario*
+
+* Step 1: The user enters `auto` to add all his days earnings into the earnings list.
+
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
+the given command is `auto`, thus, `AutoCommand` object would be created with the user's input.
+
+* Step 4: `LogicManager` would execute `AutoCommand#execute`. In this particular method, the `execute` command would check the day of the week.
+It would then check with the `HashMap` to check if there is any `ArrayList` of `Earnings` object to be added in. If there is no `ArrayList` available, no earnings would be added.
+ If there is an `ArrayList` mapped to the day of the week, the method would then check through every `Earnings` object in the `ArrayList`. In each `Earnings` object, there is a `Count` object associated to it.
+If the `Count` object has a more than 1, the `Earnings` object would be added into the current earnings list. If the `Count` object has a value of 0, the `Earnings` object would be removed from the `ArrayList`.
+
+* Step 6: `AutoCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+object have been successfully added to the list.
 // end::otherEarnings[]
 
 // tag::Calendar[]

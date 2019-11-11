@@ -33,13 +33,13 @@ public class DeleteEarningsCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Earnings> lastShownList = model.getFilteredEarningsList();
-
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EARNINGS_DISPLAYED_INDEX);
         }
 
         Earnings earningsToDelete = lastShownList.get(targetIndex.getZeroBased());
         model.deleteEarnings(earningsToDelete);
+        Earnings.deleteEarnings(targetIndex);
         model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_DELETE_EARNINGS_SUCCESS, earningsToDelete),
                 false, false, true, false, false,

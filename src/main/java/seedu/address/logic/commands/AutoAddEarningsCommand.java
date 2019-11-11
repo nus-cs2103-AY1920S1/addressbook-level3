@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COUNT;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
@@ -61,21 +62,20 @@ public class AutoAddEarningsCommand extends Command {
         String key = Count.parseDateToDays(date.dateNum);
         Earnings earnings = lastShownList.get(index.getZeroBased());
         earnings.setCount(this.count);
+        HashMap<String, ArrayList<Earnings>> map = model.getMap();
 
-        if (earnings.getListOfAutoEarnings().containsKey(key)) {
-            ArrayList<Earnings> earningsList = earnings.getArrayListOfAutoEarnings(key);
+        if (map.containsKey(key)) {
+            ArrayList<Earnings> earningsList = map.get(key);
 
             if (earningsList.contains(earnings)) {
                 throw new CommandException(MESSAGE_DUPLICATE_ADDITION);
             } else {
-                earningsList.add(earnings);
-                model.saveListToMap(key, earnings);
+                model.saveEarningsToMap(key, earnings);
             }
 
         } else {
             ArrayList<Earnings> listOfEarnings = new ArrayList<>();
             listOfEarnings.add(earnings);
-            earnings.putIntoList(key, listOfEarnings);
             model.saveToMap(key, listOfEarnings);
         }
 

@@ -209,13 +209,18 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void saveListToMap(String key, Earnings earnings) {
+    public void saveEarningsToMap(String key, Earnings earnings) {
         this.earningsAuto.get(key).add(earnings);
     }
 
     @Override
     public HashMap<String, ArrayList<Earnings>> getMap() {
         return this.earningsAuto;
+    }
+
+    @Override
+    public void removeEarningsFromMap(String currentDay, Earnings earnings) {
+        this.earningsAuto.get(currentDay).remove(earnings);
     }
 
     /**

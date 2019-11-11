@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
 import seedu.address.model.earnings.Claim;
+import seedu.address.model.earnings.Count;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.Type;
@@ -24,23 +25,25 @@ public class JsonAdaptedEarnings {
     private final String amount;
     private final String type;
     private final String claim;
+    private final String count;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedEarnings} with the given earnings details.
      */
     @JsonCreator
     public JsonAdaptedEarnings(@JsonProperty("date") String date, @JsonProperty("classId") String classId,
                              @JsonProperty("amount") String amount, @JsonProperty("type") String type,
-                               @JsonProperty("claim") String claim) {
+                               @JsonProperty("claim") String claim, @JsonProperty("count") String count) {
         this.date = date;
         this.classId = classId;
         this.amount = amount;
         this.type = type;
         this.claim = claim;
+        this.count = count;
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Earnings} into this class for Jackson use.
      */
     public JsonAdaptedEarnings(Earnings source) {
         date = source.getDate().dateNum;
@@ -48,12 +51,13 @@ public class JsonAdaptedEarnings {
         amount = source.getAmount().amount;
         type = source.getType().type;
         claim = source.getClaim().claimStatus;
+        count = source.getCount().count;
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted earnings object into the model's {@code Earnings} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted earnings.
      */
     public Earnings toModelType() throws IllegalValueException {
 
@@ -97,8 +101,17 @@ public class JsonAdaptedEarnings {
         }
         final Claim modelClaim = new Claim(claim);
 
+        if (count == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Count.class.getSimpleName()));
+        }
+        if (!Count.isValidCount(count)) {
+            throw new IllegalValueException(Count.MESSAGE_CONSTRAINTS);
+        }
+        final Count modelCount = new Count(count);
+
         Earnings earnings = new Earnings(modelDate, modelClassId, modelAmount, modelType);
         earnings.setClaim(modelClaim);
+        earnings.setCount(modelCount);
 
         return earnings;
     }

@@ -38,7 +38,6 @@ public class RegisterAccountCommand extends Command {
     public static final String MESSAGE_DUPLICATE_ACCOUNT =
             "This username already exists! Please try again";
     public static final String MESSAGE_ERROR = "Unable to register account";
-    // For date, maybe can use this instead --> %tm/%td/%ty
 
     private final Account toAddAccount;
 
@@ -61,7 +60,6 @@ public class RegisterAccountCommand extends Command {
             String newPassword = authenticator.hashingPassword(toAddAccount.getPassword());
             Account acc = new Account(toAddAccount.getUsername(), newPassword);
             accountStorage.saveAccount(acc);
-            //model.addAccount(toAddAccount);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAddAccount));
         } catch (IOException | DataConversionException e) {
             throw new CommandException(MESSAGE_ERROR);

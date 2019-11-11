@@ -19,7 +19,7 @@ public class Type {
     /**
      * Constructs a {@code Type}.
      *
-     * @param type A valid amount.
+     * @param type A valid type.
      */
     public Type(String type) {
         requireNonNull(type);
@@ -28,7 +28,7 @@ public class Type {
     }
 
     /**
-     * Returns true if a given string is a valid amount.
+     * Returns true if a given string is a valid type.
      */
     public static boolean isValidType(String test) {
         return test.matches(VALIDATION_REGEX);

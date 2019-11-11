@@ -52,8 +52,8 @@ public class UpdateEarningsCommand extends Command {
     private final EditEarningsDescriptor editEarningsDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
-     * @param editEarningsDescriptor details to edit the person with
+     * @param index of the person in the filtered earnings list to edit
+     * @param editEarningsDescriptor details to edit the earnings with
      */
     public UpdateEarningsCommand(Index index, EditEarningsDescriptor editEarningsDescriptor) {
         requireNonNull(index);
@@ -138,7 +138,6 @@ public class UpdateEarningsCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditEarningsDescriptor(EditEarningsDescriptor toCopy) {
             setDate(toCopy.date);
