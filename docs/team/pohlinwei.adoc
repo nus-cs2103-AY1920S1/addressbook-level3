@@ -35,7 +35,22 @@ The main features of our application are the *calendar*, *itinerary*, *address b
 
 This section describes the symbols and formats that are used in this document.
 
-// TO ADD
+.Symbols and fonts
+[grid="rows", frame="none"]
+|===
+| Font and Format | What it indicates
+
+| _italics_
+| Italicised text indicates that the text has a definition that is specific to the application. Its definition will be provided along the way.
+
+| ``command``
+| A grey highlight means that the user can use the given text to perform certain actions (e.g. adding an event to the calendar).
+
+| https://github.com/AY1920S1-CS2103T-T17-2/main/blob/master/docs/DeveloperGuide.adoc[``Class``]
+| A grey highlight with blue text implies that the word refers to a component, class or object in the diagram shown.
+
+|===
+
 
 = Summary of Contributions
 
@@ -82,8 +97,8 @@ To view my code in more detail:
 == Other contributions
 
 .In addition to the above, I also...
--	implemented the common command goto. This enables the user to easily navigate from one feature to another without having to open multiple windows. (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/32[#32], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/37[#37])
--	reviewed pull request and provided suggestions for improvements (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/39[#39])
+-	implemented the common command ``goto``. This enables the user to easily navigate from one feature to another without having to open multiple windows. (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/32[#32], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/37[#37])
+-	reviewed pull request and provided suggestions for improvements (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/180[#180])
 -	managed the release of TravEzy version 1.1 and 1.2 
--	made the user guide more reader-friendly (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/104[#104], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/108[#108])
+-	made the user guide more reader-friendly (Pull requests https://github.com/AY1920S1-CS2103T-T17-2/main/pull/104[#104], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/193[#193])
 
