@@ -549,8 +549,8 @@ which can be checked using the command `loan list` or by pressing the hotkey men
 A way for you to automate certain actions based on a certain predicate.
 Spend less time typing repetitive commands, and spend more time keeping track of your expenses!
 
-[[Figure1]]
-.Rules in the rule list
+[[Figure]]
+.Some rules in the rule engine
 image::RuleUG1.png[width=85%,scaledwidth=85%]
 
 Rules have the following structure: If "predicate" is true, then perform "action". By creating a
@@ -568,7 +568,7 @@ image::RuleUG2.png[width=85%,scaledwidth=85%]
 The picture above shows a transaction added with the command: +
 `txn dn/out x/200 d/Treat friends to buffet food!`
 
-As you can see, 2 of the rules from <<Figure1>> were applied on the transaction, and added categories to it.
+As you can see, two of the rules from _<<Figure>>_ were applied on the transaction, and added categories to it.
 // end::ruleExtract1[]
 
 WARNING: All rules will be executed from the top of the list downwards.
