@@ -3,7 +3,7 @@ package cs.f10.t1.nursetraverse.ui;
 import java.util.LinkedList;
 
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteListHandler;
-import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWordStorage;
 import cs.f10.t1.nursetraverse.autocomplete.MatchedWordUpdater;
 import cs.f10.t1.nursetraverse.autocomplete.UserinputParserUtil;

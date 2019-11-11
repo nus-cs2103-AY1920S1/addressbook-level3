@@ -1,6 +1,6 @@
 package cs.f10.t1.nursetraverse.ui;
 
-import cs.f10.t1.nursetraverse.autocomplete.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;

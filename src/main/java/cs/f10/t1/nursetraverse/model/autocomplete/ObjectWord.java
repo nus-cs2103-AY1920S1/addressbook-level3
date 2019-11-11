@@ -1,4 +1,6 @@
-package cs.f10.t1.nursetraverse.autocomplete;
+package cs.f10.t1.nursetraverse.model.autocomplete;
+
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 
 /**
  * Represents an object word(eg: patient, med, medcon) in application

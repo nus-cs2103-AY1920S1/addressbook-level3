@@ -1,4 +1,4 @@
-package cs.f10.t1.nursetraverse.autocomplete;
+package cs.f10.t1.nursetraverse.model.appointment;
 
 /**
  * Represents an autocomplete word in application

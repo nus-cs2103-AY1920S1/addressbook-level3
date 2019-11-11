@@ -75,6 +75,11 @@ import cs.f10.t1.nursetraverse.logic.commands.visit.UpdateOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.parser.CliSyntax;
 import cs.f10.t1.nursetraverse.model.HistoryRecord;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.IndexWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 import javafx.collections.FXCollections;

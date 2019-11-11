@@ -3,6 +3,11 @@ package cs.f10.t1.nursetraverse.autocomplete;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.AssociableWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.PrefixWord;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -149,7 +154,7 @@ public class AutoCompleteListHandler {
      *
      * @param objectList list for words to add dash to
      */
-    public void addDashToObjectWordList(ObservableList<AutoCompleteWord> objectList) {
+    private void addDashToObjectWordList(ObservableList<AutoCompleteWord> objectList) {
         if (objectList.size() != 0 && objectList.get(0) instanceof ObjectWord) {
             for (int i = 0; i < objectList.size(); i++) {
                 objectList.set(i, new ObjectWord(objectList.get(i).getSuggestedWord() + "-",

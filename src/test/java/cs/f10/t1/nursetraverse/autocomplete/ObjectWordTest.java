@@ -2,6 +2,7 @@ package cs.f10.t1.nursetraverse.autocomplete;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
 import org.junit.jupiter.api.Test;
 
 class ObjectWordTest {

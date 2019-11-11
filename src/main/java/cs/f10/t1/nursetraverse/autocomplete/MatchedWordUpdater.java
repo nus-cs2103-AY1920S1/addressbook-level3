@@ -1,5 +1,9 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.CommandWord;
+import cs.f10.t1.nursetraverse.model.autocomplete.ObjectWord;
+
 import java.util.LinkedList;
 
 /**
