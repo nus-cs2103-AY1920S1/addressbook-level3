@@ -852,22 +852,99 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
    Expected: Shows the GUI with a set of sample activities, accommodations, contacts and days filled with activities. The window size may not be optimum.
 
+=== Adding
+==== Adding activities
+* Add a new activity to the planner
+.. Prerequisites: Arguments are valid and compulsory parameters are provided.
+.. Test case: `add activity n/Swim at the beach a/Glass Beach du/180 p/12345678 pr/1 t/Fun` +
+Expected: Adds an activity named "Swim at the beach", with address "Glass Beach", a duration of 180 minutes, a contact with the phone number 12345678, a priority level of 1 and with the tag "Fun".
+..  Test case: `add activity n/Swim at the beach` +
+Expected: No activity is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add activity a/Glass Beach`, `add activity n/Swimming du/120` +
+Expected: Similar to previous
 
-=== Deleting a contact
+==== Adding accommodations
+* Add a new activity to the planner
+.. Prerequisites: Arguments are valid and compulsory parameters are provided.
+.. Test case: `add accommodation n/Hotel 87 a/Hilton Crescent p/12345678 t/Cozy` +
+Expected: Adds an accommodation named "Hotel 87", with address "Hilton Crescent", a contact with phone number 12345678, and with the tag "Cozy".
+..  Test case: `add accommodation n/Hotel 123` +
+Expected: No accommodation is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add accommodation a/Kappa street`, `add accommodation p/87654321 t/lmao` +
+Expected: Similar to previous
 
-. Deleting a contact while all activities are listed
+==== Adding contacts
+* Add a new contact to the planner
+.. Prerequisites: Arguments are valid and compulsory parameters are provided.
+.. Test case: `add contact n/Allan p/12345678 e/example@example.com t/Budz` +
+Expected: Adds a contact named "Allan", with phone number 12345678, an email of "example@example.com" and with the tag "Budz".
+..  Test case: `add contact n/Big Brother` +
+Expected: No contact is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add contact a/Kappa street`, `add contact p/87654321 t/lmao` +
+Expected: Similar to previous
 
-.. Prerequisites: List all activities using the `list` command. Multiple activities in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+==== Adding days
+* Add days to the itinerary
+.. Prerequisites: Arguments are valid, and NUMBER_OF_DAYS being added and number of days currently in itinerary do not exceed 15.
+.. Test case: `add days 2` +
+Expected: Adds two days to the itinerary. Else, invalid message will be shown.
+..  Test case: `add days 16` +
+Expected: No days is added. Error details shown in the feedback display.
+.. Other incorrect add commands to try: `add days abc`, `add days -1` +
+Expected: Similar to previous
 
-=== Saving data
 
-. Dealing with missing/corrupted data files
+=== Scheduling activities
+==== Schedule
+* Schedule an activity to a day at a certain time
+.. Prerequisites: Arguments are valid, and end date time of the activity must not be after the end of the trip. Also, the provided index for both activity and day must be less than or equal to the size of their respective list(activity list, itinerary).
+.. Test case: `schedule 1 d/1 st/1000` +
+Expected: Schedules activity 1 into day 1 at time 10am.
+..  Test case: `schedule 1 d/16 st/1000` +
+Expected: Nothing is scheduled. Invalid message shown.
+.. Other incorrect add commands to try: `schedule d/1 st/1111`, `schedule 1 d/1` +
+Expected: Similar to previous
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Unschedule activity from day
+* Unschedules an activity from a day
+.. Prerequisites: Arguments are valid. Also, the index for the preamble is the index of the activity within the day(as shown from list day). Day DAY_INDEX must exist in the itinerary.
+.. Test case: `unschedule 1 d/1` +
+Expected: Unschedules the first activity in day 1.
+..  Test case: `unschedule d/16 st/1000` +
+Expected: Nothing is unscheduled. Invalid message shown.
+.. Other incorrect add commands to try: `unschedule 1`, `unschedule 1 d/16` +
+Expected: Similar to previous
+
+=== Set
+* Sets the name or start date of the itinerary
+.. Prerequisites: Arguments are valid. A minimum of either name or start date must be provided.
+.. Test case: `set n/Germany sd/25-12-2019` +
+Expected: Sets the itinerary name to Germany and start date to 25th Dec 2019.
+..  Test case: `set` +
+Expected: Nothing is set. Invalid message shown.
+.. Other incorrect add commands to try: `set sd/12/12/2019` +
+Expected: Similar to previous
+
+=== View
+==== View activity/accommodation/contact
+* Views information about an activity/accommodation/contact
+.. Prerequisites: Argument is valid. The provided index for activity must be less than or equal to the size of the activity list.
+.. Test case: `view activity 1`/`view accommodation 1`/`view contact 1` +
+Expected: Views the information about activity/accommodation/contact 1.
+..  Test case: `view activity abc`/`view accommodation abc`/`view contact abc` +
+Expected: No information about activity/accommodation/contact appear. Invalid message shown.
+
+==== View itinerary/info/help
+* Switch tab to itinerary/info/help
+.. Test case: `view itinerary`/`view info`/`view help` +
+Expected: Switches tab to itinerary/info/help.
+
+==== Redo
+* Redo the last undo command.
+.. Prerequisites: Only to be used if undo had been used.
+.. Test case: `redo` +
+Expected: Redo the last undo command.
+
+
+
 
