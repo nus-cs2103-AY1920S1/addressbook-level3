@@ -25,10 +25,10 @@ public class TransactionEditCommandTest {
     public void initialize() {
         model = new ModelManager();
         testTransaction = new Transaction(
-                Direction.IN,
-                new Amount(5000),
-                new Description("Pocket Money"),
                 LocalDate.now(),
+                new Amount(5000),
+                Direction.IN,
+                new Description("Pocket Money"),
                 new Category("Income"));
     }
 
