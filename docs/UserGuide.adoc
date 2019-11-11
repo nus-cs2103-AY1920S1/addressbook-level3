@@ -1,8 +1,8 @@
 = Athletick - User Guide
 
-++++
-<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
-++++
+//++++
+//<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+//++++
 
 :site-section: UserGuide
 :toc:
@@ -13,7 +13,7 @@
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
-:icons: font
+//:icons: font
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
