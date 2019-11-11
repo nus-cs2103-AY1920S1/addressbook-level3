@@ -13,10 +13,10 @@ We are a student team based in the http://www.comp.nus.edu.sg[School of Computin
 
 === Bryan Lim
 image::blimyj.png[width="150", align="left"]
-{empty}[http://github.com/blimyj[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/blimyj[github]] [<<blimyj#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Commons
+Responsibilities: Commons. Management of issue tracker, team repo and team.
 
 '''
 
