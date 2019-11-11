@@ -94,3 +94,7 @@ include::../DeveloperGuide.adoc[tag=shaun-designmodel]
 include::../DeveloperGuide.adoc[tag=shaun-storage]
 
 include::../DeveloperGuide.adoc[tag=shaun-add]
+
+include::../DeveloperGuide.adoc[tag=shaun-restore]
+
+include::../DeveloperGuide.adoc[tag=shaun-autocomplete]

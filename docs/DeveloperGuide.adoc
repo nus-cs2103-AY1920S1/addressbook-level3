@@ -97,7 +97,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram2.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -235,10 +235,11 @@ The add questions mechanism is facilitated by `AddCommand`.
 It extends `Command` that will read a user command and execute the command result.
 Additionally, it implements the following operations:
 
-* `AddCommand#addMcq()` -- Adds a mcq question to the test bank.
-* `AddCommand#addShortAns()` -- Adds a short answer question to the test bank.
+* `AddCommand#addMcq()` -- Adds a mcq question to the question bank.
+* `AddCommand#addShortAns()` -- Adds a short answer question to the question bank.
+* `AddCommand#addTf()` -- Adds a True False answer question to the question bank.
 
-These operations are exposed in the `Model` interface as `Model#addMcqCommand()` and `Model#addShortAnsCommand()` respectively.
+These operations are exposed in the `Model` interface as `Model#addMcqCommand()`, `Model#addTfCommand()` and `Model#addShortAnsCommand()` respectively.
 
 Given below is an example usage scenario and how the add questions mechanism behaves at each step.
 
@@ -262,18 +263,68 @@ If a command fails its execution, it will not save the question into the `revisi
 
 ===== Aspect: How add executes
 
-* **Alternative 1 (current choice):** Read and parse the command to execute it
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+** User enters the command "add ...".
+** Command is taken in and parsed to validate if it is a valid command.
+** Add command is executed.
+** New question is saved in the question bank.
 
 ===== Aspect: Format of the add command
 
-* **Alternative 1 (current choice):** Use a single line containing all the information of the question.
+** Use a single line containing all the information of the question.
 ** Pros: Faster for user to add a question.
 ** Cons: Hard for user to memorize the long sequence which may cause invalid command input.
-* **Alternative 2:** Use multiple steps to guide user on adding the question.
+* **Other alternative we considered:** Use multiple steps to guide user on adding the question.
 ** Pros: User do not have to memorize the correct format and less chance for an invalid command input.
 ** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
+
+//tag::shaun-restore[]
+=== Restore feature
+==== Implementation
+The restore mechanism is facilitated by `RestoreCommand`.
+It extends `Command` that will read a user command and execute the command result.
+Additionally, it implements the following operations:
+
+* `#handleRestore()` -- Prompts the user with an alert box if he really wishes to execute the restore function.
+* `#setRevisionTool()` -- Clears the current question bank and reset it with our own default questions.
+
+These operations are exposed in the `Model` interface as `Model#setRevisionTool()` and from `MainWindow` as `#handleRestore()` respectively.
+
+==== Design Considerations
+* When implementing the restore feature, we didn't want users to face a problem if they entered the command accidentally hence the alert popup was implemented, to prompt users if they really want to carry out the command before executing it.
+* With this popup, users will now be more cautious when trying to restore and only do so when they really want to reset their revision tool.
+* Furthermore, the questions that we included in the default revision tool question bank are questions taken from the lecture quiz and weekly quiz which are most probably deemed important by the professor himself.
+
+===== Aspect: How Restore executes
+** User enters the command "restore".
+** Command is taken in and a popup is shown to reconfirm if the user would like to carry out the restore command.
+** Upon clicking yes, restore command will be handled.
+** Current questions will be deleted and default questions will reset to the revision tool.
+
+//end::shaun-restore[]
+
+//tag::shaun-autocomplete[]
+=== AutoComplete feature
+==== Implementation
+* A set of commands and auto completed text are saved in a set.
+* When users type a command on the text box, method `#populatePopup` will be called where the user's command will be matched against our SortedSet.
+* If there is a match, a contextMenu showing all possible auto complete text will show up.
+* This method is implemented such that the results in the contextMenu will change and show as the user is typing and this would make it more intuitive for users.
+
+==== Design Considerations
+* The main design consideration here would be to have value added auto complete list to pop up.
+* How we managed that is to show:
+** The basic command
+** Basic command + possible parse commands where they can easily fill in.
+
+image::AutoComplete2.png[]
+
+===== Aspect: How AutoComplete works
+** Users wishes to enter an "Add" command `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1`
+** Upon typing either "a", "ad" or even "add", the auto complete context menu will pop up showing possible auto complete list, mainly:
+*** add
+*** add type/ q/ y/ x/ cat/ diff/
+** Upon seeing that, users will be able to select those options or use those as a guideline to complete his commands more intuitively.
+//end::shaun-autocomplete[]
 
 //tag::wilfred-quiz[]
 === Quiz Mode
