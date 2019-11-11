@@ -4,6 +4,7 @@
 :stylesDir: ../stylesheets
 
 = Tishya Khanna - Project Portfolio
+_
 
 
 == Introduction
@@ -12,7 +13,7 @@ This project portfolio has been written to elaborate on my
 contributions to a *team-based software engineering project* in the NUS Computing
 module CS2103T.
 
-In this module, my team of five was tasked to create an application, with reference to
+In this module, my team of five was tasked to create an application, by morphing
 the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3].
 
 === Constraints
@@ -42,6 +43,8 @@ However, we were allowed to transform the concept of the application by incremen
 
 Keeping the above constraints in mind, we created *TravEzy*, a desktop-based CLI travel application.
 Our application [.underline]#erases# the logistical nightmare that haunts regular travellers.
+
+
 Instead of having to deal with several applications to organise and document
 a single trip, users can now combine critical travel applications such as
 calendars, itinerary planners, diaries and budgeting tools into one convenient
@@ -54,48 +57,50 @@ solution for their travel needs.
 === Overview of my contributions
 
 I took up the responsibility of implementing the _Diary Feature_ , end to end, in TravEzy. While this was my main task, I also
-worked on the common code base and design. In addition, I provided structure and content for critical documentation such as the User and
+worked on the common code base and design.
+
+In addition, I provided structure and content for critical documentation such as the User and
 Developer guides. I shall elaborate more in the following sections.
 
 
 == Summary of contributions
 
-My contributions, summarised below. Given that the largest feature that I implemented was the Diary, I have discussed it in detail below.
+Given that the largest feature that I implemented was the Diary, I have discussed it in detail below.
 
 === Diary Feature
 
-image::DiaryPPP.png[]
+image::DiaryPPP.png[width=400]
 
-What is this:
+*Introduction to the feature:*
 
 * The Diary Feature represents a real-life diary. In this implementation, every user has a _Diary Book_ which contains a list (in the form of a _Diary List_) of all
 his/her _Diary Entries_.
 
-Why is this necessary:
+*Market Validation:*
 
 * As part of our market validation process, we observed that most student travellers enjoy journaling and recording their trips in a text format.
-This feature allows for users to do exactly that, with the some additional features to increase convenience and usability.
+This feature allows for users to do exactly that, with some additional features to increase convenience and usability.
 
 ==== Highlights:
 
 Other than being able to  add, delete and display diary entries, this implementation of the diary feature also allows users to find specific
-entries, sort through entries and encrypt private memories to keep them safe.
+entries and encrypt private memories to keep them safe.
 
 =====  ``find`` and ``findSpecific``
 
 Looking through a large number of diary entries can be challenging, and that's why,
 I implemented a basic ``find`` command which allows users to run through all their entries quickly and find entries
-which match their input. The ``findSpecific`` command takes this functionality to the next level by allowing users to segment their diary entries
+which match their query. The ``findSpecific`` command takes this functionality to the next level by allowing users to segment their diary entries
 based on the different componenets of an entry (Title, Date etc)
 
-=====  ``private`` and ``unlock``
+=====  ``setDetails``
 
 Most diaries are for personal thoughts and opinions, and thus, I implemented the  ``private`` command which allows users to
 protect their memories. In order to further safeguard entries, I implemented the ``setDetails`` command which allows
 users to password protect their memories. Finally, to fully protect the users, I encrypted their data to ensure that no
-unauthorised users can read private information straight from the storage of TravEzy
+unauthorised users can read private information straight from the storage files.
 
-*Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tishyakhanna97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]]
+*Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tishyakhanna97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Code]
 
 
 === Other Contributions
@@ -104,13 +109,15 @@ unauthorised users can read private information straight from the storage of Tra
 *Other contributions*:
 
 * *Delay Function*
-** Added a delay function which allows users to see an exit message when leaving the application
-* Project management:
+** Added a delay function which allows users to see an exit message when leaving the application https://github.com/AY1920S1-CS2103T-T17-2/main/commit/233d4463ff8657f2803ce8f3a92d70654295e633[Delay]
+* *Solve Common Bugs*
+** Solved common bugs such as https://github.com/AY1920S1-CS2103T-T17-2/main/commit/775ab0090de60af65d6f336fb22b6a34790a9461[CodeWindow]
+* *Project management:*
 ** Created and managed milestones (V1.1 - V1.3)
 ** Created and managed https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels]
 ** Enabled Autopublishing of documentation using Travis
-** Procided feedback and inputs to teammates https://github.com/AY1920S1-CS2103T-T17-2/main/pull/157[21], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/156[22]
-* Documentation:
+** Provided feedback and input to teammates https://github.com/AY1920S1-CS2103T-T17-2/main/pull/157[21], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/156[22]
+* *Documentation:*
 ** Personalised the About us, Contact, Product Website
 https://github.com/tishyakhanna97/main/commit/d49c5d2e27baefd2c33f61856c4ee2d6d5899f87[1],
 https://github.com/tishyakhanna97/main/commit/4fd7f51316b6220a2235a7306c2055279b8451d6[2],
@@ -130,8 +137,41 @@ https://github.com/AY1920S1-CS2103T-T17-2/main/commit/00ebf7dda94401bc4c980f850d
 
 
 In this section, I shall be sharing some of the portions from the *TravEzy* Userguide which I wrote.
-I shall be focusing on the ``find``, ``findSpecific`` and ``encrypt`` commands.
+I shall be focusing on the ``find``, ``findSpecific`` and ``setDetails`` commands.
 They showcase my ability to write documentation targeting end-users.
+
+=== Find diary entries ``find``
+
+"Hey, when did I go to Spain?" It can be hard to remember
+all the details of your trips. That's why, this _Diary_ lets you look through all your entries quickly, to give you the entry that *you* want!
+
+*Format:* +
+``find TARGET``
+
+*Example:*
+
+    find rugby
+
+TIP: To search for _Dates_, enter them in the same format as before, when you added the _Diary Entry_ (dd/mm/yyyy HHMM)
+
+*Step by step:*
+
+That was the craziest Rugby World Cup ever! Who lost?
+
+Step 1: Type ``find rugby`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+
+
+image::DiaryFindBefore.png[width=400]
+
+Step 2: TravEzy will tell you if your `find` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
+
+Step 3: You can see the matching _Diary Entries_ in your _Diary List Panel_, similar to number *3* in the picture below.
+
+
+
+image::DiaryFindAfter.png[width=400]
+
+
 
 
 === Find specific diary entries ``findSpecific``
@@ -156,7 +196,7 @@ You know that you had a trip on the 12th of December 2019, but you can't remembe
 
 Step 1: Type ``findSpecific d/12/12/2019`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
-image::DiaryFindSpecificBefore.png[width=600]
+image::DiaryFindSpecificBefore.png[width=400]
 
 Step 2: TravEzy will tell you if your `findSpecific` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
@@ -164,35 +204,46 @@ Step 3: You can see the specific matching _Diary Entries_ in your _Diary List Pa
 
 
 
-image::DiaryFindSpecificAfter.png[width=600]
+image::DiaryFindSpecificAfter.png[width=400]
+
+
+=== Keep your diary protected ``setDetails``
+
+You never know who may use your laptop when you're away. The _Diary_ can help you to protect your memories to stop hackers from looking at your private memories with a _username_ and _password_.
+If you ``setDetails``, you will not be able to use the ``unprivate`` command and will have to use the ``unlock`` command (See below).
+
+*Format:* +
+``setDetails user/USERNAME password/PASSWORD``
+
+*Example:*
+
+
+    setDetails user/youcanthackme password/youreallycanthackme
+
+
+WARNING: You can only set your details once! After that, you will have to delete TravEzy if you forget your password and need to unlock entries. This is done to ensure *NO ONE* misues your personal information
+
+
+TIP: Keep your username and password long to keep those pesky hackers out! Minimally, make sure your username and password are alphanumeric and 8 characters long
+
+
+*Step by step:*
+
+
+Better set a password to protect your memories against prying eyes
+
+Step 1: Type ``setDetails user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
+
+
+image::DiarySetDetailsBefore.png[width=400]
+
+
+Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
 
 
-=== Find a Diary Entry by narrowing down your search `FindSpecific`
+image::DiarySetDetailsAfter.png[width=400]
 
-Let's narrow down your search!
-
-
-*Find entries containing a certain text in a specific field : ``findSpecific``*
-
-Finds all entries which contain your input text, in the highlighted field. There is one parameter, which
-is the text that you want to find, with the relevant _PREFIX_.
-
-The _Command Word_ is ``findSpecific``.
-
-Format: ``list input``
-
-Example: I remember that i titled the trip "Temp", but I cant remember where I went on those trips...
-
-The user enters the command ``find Temp``
-
-image::DiaryFindSpecificCommand.png[]
-
-And gets a list of all _Diary Entries_ which match the command:
-
-image::DiaryFindSpecificCommandResult.png[]
-
-IMPORTANT: The ``find`` and `findSpecific` commands can't be used for empty parameters!
 
 
 == Contributions to the Developer Guide
@@ -205,7 +256,7 @@ They showcase my ability to write technical documentation and the technical dept
 .Sequence Diagram for the Find Command
 
 
-image::DiaryFindCommandSequenceDiagram.png[]
+image::DiaryFindCommandSequenceDiagram.png[width=400]
 
 
 Above, we have the sequence diagram for the ``FindCommand`` in the _Diary_. In this case, we have taken the scenario of finding any `DiaryEntries` which contain the word "temp".
@@ -214,7 +265,7 @@ Process:
 
 . Upon receiving the instruction from ``Logic`` to parse the input `find temp`, the ``DiaryBookParser`` begins parsing the input to match it (based on the _Command Word_) to the appropriate _Parser_
 
-. In this case, given that the the _Command Word_ is ``find`` the appropriate _Parser_ is the ``FindCommandParser``, which is created and then begins to ``parse("temp")``
+. In this case, given that the _Command Word_ is ``find`` the appropriate _Parser_ is the ``FindCommandParser``, which is created and then begins to ``parse("temp")``
 
 . This in turn creates a new ``FindPredicate``, based on the input ``temp``. This ``FindPredicate`` will be used to filter through the ``DiaryModel`` to get the matching ``DiaryEntries``
 
@@ -236,7 +287,7 @@ Given the similar function of the 2 commands, ``unprivate`` and ``unlock``, ther
 
 .Activity Diagram for the Unprivate Command
 
-image::DiaryUnPrivateActivityDiagram.png[]
+image::DiaryUnPrivateActivityDiagram.png[width=400]
 
 
 Above, is the logical flow for the Unprivate Command. In brief, it allows a user to unprivate any private entry *IF* there are no ``Details`` set. As a result, the command can be input like this:
@@ -247,7 +298,7 @@ NOTE: `1` is the index of the Diary Entry which is to be unprivated
 
 .Activity Diagram for the UnLock Command
 
-image::DiaryUnLockActivityDiagram.png[]
+image::DiaryUnLockActivityDiagram.png[width=400]
 
 Above, is the logical flow for the Unlock Command. In brief, it allows a user to unlock any private entry *IF* there are ``Details`` and the ``Details`` input by the user match the original ``Details`` set by the user.As a result, the command can be input like this:
 
@@ -260,10 +311,4 @@ In summary, the ``unlock`` command is only to be used when the user has already 
 
 
 
-
-
-
-== PROJECT: PowerPointLabs
-
----
 
