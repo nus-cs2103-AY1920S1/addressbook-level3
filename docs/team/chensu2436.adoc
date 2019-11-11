@@ -9,44 +9,50 @@
 
 == Overview
 
-The Module Appeal Management System (MAMS) is a desktop app that aims to combine Command Line Interface (CLI) style commands
-with a triple-pane GUI for easy navigation of appeals, module information, and student particulars. This app is particularly
-aimed towards *module appeal administrators who prefer to work through their heavy backload of module appeals without ever having to
-leave the comfort of the keyboard for their mouse*. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
+The Module Appeal Management System (MAMS) is a desktop appeal management app for module appeal administrators. The MAMS system can quickly bring up entire lists of students, appeals, and modules for
 side-by-side comparison, with specific display commands to view the expanded details of any particular object in question. The MAMS system also provides
 a suite of commands for resolving appeals, overriding MC limits, and leaving special notes on students.
-
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
-
-[NOTE]
-This portfolio was adapted from the AddressBook project. All information written herein (28th Septemeber 2019) is not yet revised for the new application.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to clash clashes*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement 1: added the ability to check clashes for various cases*
+** What it does: allows the admin to check timetable clash between 2 modules or in a student's current timetable;
+Provides a shortcut for the admin to retrieve information on timetable clash in appeals requesting to add or drop modules.
+** Justification: Checking timetable clash is one of the most important checks that an admin needs to perform before he/she decides to approve or reject an appeal.
+This feature improves the user experience significantly because it provides a convenient way for the admin who needs to perform such checks constantly.
+** Highlights: There are a few types of checks can be performed. Therefore, the user inputs for this command can take various forms and are highly flexible.
+An in-depth analysis of design alternatives is required to deal with these variations.
 
-* *Minor enhancement*: modified the find command that allows the user to ...
+* *Major enhancement 2: enhanced the find command that allows the user to search in different lists*
+** What it does: allows the admin to search multiple keywords in multiple lists at the same time.
+** Justification: There are a huge number of appeals, modules and students given the size of the university.
+This feature improves the user experience significantly by providing a convenient way to search items that he/she is more interested in.
+** Highlights: This enhancement affects other commands since it will be used together with other commands often.
+For example, to filter all appeals requesting to add a particular module and perform checks in one go.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test/java/mams[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed project schedule tracking
+*** Migrated user stories to GitHub issues
+*** Managed issues on GitHub and assigned issues to corresponding Milestones and team members
+*** Managed releases `v1.3` on GitHub
+** Refactoring of original code base:
+*** Removed original Add/Delete/Clear commands and related tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/60[#60]
+*** Changed prefixes to suit our app and performed related refactoring https://github.com/AY1920S1-CS2103-T11-2/main/pull/85[#85]
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Rectified disagreement in sample data https://github.com/AY1920S1-CS2103-T11-2/main/pull/206[#206]
+*** Edited TestUtils to rectify data disagreement for more meaningful tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/211[#211]
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Converted the first draft of User Guide to ascii doc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
+*** Enhanced the class diagram of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
+*** Reported bugs and suggestions for other teams (examples:  https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
+*** Reviewed User Guide and Developer Guide, and reported suggestions for other teams in class
 
 == Contributions to the User Guide
 
@@ -64,9 +70,10 @@ include::../UserGuide.adoc[tag=find]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=logic]
-
 include::../DeveloperGuide.adoc[tag=clash]
 
 include::../DeveloperGuide.adoc[tag=find]
 
+include::../DeveloperGuide.adoc[tag=uc4]
+
+include::../DeveloperGuide.adoc[tag=test4]
