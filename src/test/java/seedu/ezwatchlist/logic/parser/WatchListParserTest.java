@@ -17,8 +17,6 @@ import seedu.ezwatchlist.logic.commands.EditCommand.EditShowDescriptor;
 import seedu.ezwatchlist.logic.commands.ExitCommand;
 import seedu.ezwatchlist.logic.commands.GoToCommand;
 import seedu.ezwatchlist.logic.commands.HelpCommand;
-import seedu.ezwatchlist.logic.commands.ListCommand;
-
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.commands.SyncCommand;
 import seedu.ezwatchlist.logic.commands.WatchCommand;
@@ -86,13 +84,13 @@ public class WatchListParserTest {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD, currentTab) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3", currentTab) instanceof HelpCommand);
     }
-
+    /*
     @Test
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD, currentTab) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3", currentTab) instanceof ListCommand);
     }
-
+    */
     @Test
     public void parseCommand_watchCommand() throws Exception {
         assertTrue(parser.parseCommand(WatchCommand.COMMAND_WORD + " 3", currentTab) instanceof WatchCommand);
