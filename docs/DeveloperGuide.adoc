@@ -1737,6 +1737,90 @@ command  `timetrial pop`
 when it was viewed during the timetrial and was no longer considered due. Thus, when the user
 tried to exit, only the one overdue flashcard which was still not viewed was flagged.
 
+=== Add Tags Within Notes feature
+
+[TIP]
+Refer to the https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#creating-a-note-add[Note add] section of the User Guide for a reminder of the syntax used.
+
+. Testing of Note `add`
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in _notes_ mode
+
+.. Test command: `add t/Sample Title c/Sample Content /* C/with a note fragment tag. TAG/insidetag */ tag/outsidetag`
+
+.. Expected result: Feedback box outputs message:
+```
+New note added:
+    Title: Sample Title
+    Content: Sample Content /* C/with a note fragment tag. TAG/insidetag */
+    Tags: [outsidetag]
+
+Note fragment tags detected:
+    Title: Sample Title
+    Content: with a note fragment tag.
+    Tags: [insidetag]
+```
+
+* Test case 2
+
+.. Prerequisites
+
+... Currently in _notes_ mode
+
+.. Test command: `add t/Sample Title c/Sample Content without any note fragment tags. tag/outsidetag`
+
+.. Expected result: Feedback box outputs message:
+```
+New note added:
+	Title: Sample Title
+	Content: Sample Content without any note fragment tags.
+	Tags: [outsidetag]
+
+The added Note has no detected note fragment tags!
+```
+
+. Testing of Note `view`
+
+* Test case 1
+
+.. Prerequisites
+
+... Currently in _notes_ mode
+
+... Have a cleared StudyBuddyPro, with a note added as above in Test case 1 of "Testing of Note `add` "
+
+.. Test command: `view 1`
+
+.. Expected result: Feedback box outputs message:
+```
+Viewing note:
+	Title: Sample Title
+	Content: Sample Content WITH A NOTE FRAGMENT TAG.
+	Tags: [outsidetag]
+```
+
+.. Test case 2
+
+.. Prerequisites
+
+... Currently in _notes_ mode
+
+... Have a cleared StudyBuddyPro, with a note added as above in Test case 1 of "Testing of Note `add` "
+
+.. Test command: `viewraw 1`
+
+.. Expected result: Feedback box outputs message:
+```
+Viewing raw note:
+	Title: Sample Title
+	Content: Sample Content /* C/with a note fragment tag. TAG/insidetag */
+	Tags: [outsidetag]
+```
+
 === Auto-generation Feature of Cheatsheet
 
 [TIP]
