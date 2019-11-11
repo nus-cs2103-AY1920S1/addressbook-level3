@@ -30,7 +30,7 @@ import seedu.address.ui.schedule.PersonInformationDisplay;
 public class PersonInformationDisplayTest extends ApplicationTest {
     private static final Person ALICE = TypicalPersons.ALICE;
     private static final Person BENSON = TypicalPersons.BENSON;
-    private static final String cardId = "#personDetailContainer";
+    private static final String cardId = "#personInformationContainer";
     @AfterEach
     public void pause(FxRobot robot) {
         robot.sleep(500);

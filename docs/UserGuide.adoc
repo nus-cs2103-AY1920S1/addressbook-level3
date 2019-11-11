@@ -742,25 +742,28 @@ image::ugalvin/deletegroup.png[width=100%]
 
 Deleteing a group will automatically update your groups tab!
 
-// tag::showgroup[]
+// tag::showgroup1[]
+
 ==== Show group: `show`
 
-Want to schedule your next group meeting?
-You can view a group's schedule up to 4 weeks in advance. +
+Want to see your group's schedules to plan for your next group meeting? The `show` command is what you need to see
+the schedules of your group members! You can view a group's schedule up to 4 weeks in advance. +
 Format: `show g/GROUP_NAME`
 
 ****
 * Shows the description, members and aggregated schedules for this group.
 ****
+// end::showgroup1[]
 
 [IMPORTANT]
 ====
 include::UserGuide.adoc[tag=alice-full]
 ====
 
+// tag::showgroup2[]
 Examples:
 
-. Type `show g/CS2103` in the command line as shown below +
+. Let's say you want to organise a group meeting for a group named CS2103. Simply enter `show g/CS2103` in the command line as shown below +
 +
 .Command box
 image::showgroupcommand.png[]
@@ -771,37 +774,37 @@ image::showgroupcommand.png[]
 [[showgroupresult]]
 
 .Result after executing `show g/CS2103`
-image::showgroupresult.png[]
+image::showgroupresult.png[sgr,900,600]
 
 include::UserGuide.adoc[tag=navigationforshow]
 
 
 ==== Look at some members: `lookat`
 Suppose that all of your group members are extremely busy and the common free time is too short to do any productive work,
-you may use the `lookat` command to see if you can meet with some of your group members. You must be viewing a group's
+you may use the `lookat` command to see if you can meet with some of your group members. You *must* be viewing a group's
 schedule in order for this command to work.
 
 Format:
 
 * `lookat [n/Name]...`
 
-The `lookat` command takes in any number of `n/Name` and highlights the group members according to name.
+The `lookat` command takes in any number of `n/Name` arguments and highlights the group members according to name.
 
 Example:
 
 Let's use the same schedule exactly like the one shown <<#showgroupresult, above>>.
 
-* Simply type `lookat n/Bobby n/Denise` if you are interested to inspect both of their schedules!
-You should see that Bobby's and Denise's schedule become highlighted.
+* Type `lookat n/Bobby n/Denise` if you are interested to inspect both Bobby's and Denise's schedules!
+You should see that both of these schedules become highlighted.
 
 .Zoom in of Bobby and Denise's schedule
-image::lookatgroupresult.png[]
+image::lookatgroupresult.png[lagr,800,500]
 
 *****
 image:./icons/important.png[] *Empty blocks* represent the free time slots for the group members that you are looking at.
 The green blocks still represent the common free time slots for the entire group!
 *****
-// end::showgroup[]
+// end::showgroup2[]
 
 === Advanced Features
 
@@ -822,7 +825,7 @@ Opens up https://nusmods.com/modules/CS2103T on your default browser.
 Opens up https://nusmods.com/modules/CS2101 on your default browser.
 // end::showmod[]
 
-==== Export VR (Visual Representation): `export`
+==== Export: `export`
 
 Want to share a schedule with your friends?
 This command exports a visualisation representation of the schedule (timetable) of a group or person to a PNG file! +
@@ -835,7 +838,7 @@ image:./icons/warning.png[] Take note that if you are exporting a group's schedu
 
 Format:
 
-* `export` +
+* Simply enter the `export` command to export the currently shown schedule in TimeBook! +
 
 ==== Select Time Slot: `select`
 

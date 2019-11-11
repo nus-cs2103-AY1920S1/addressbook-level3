@@ -282,10 +282,12 @@ public class MainWindow extends UiPart<Stage> {
             }
         } else if (type.equals(ScheduleState.GROUP)) {
             GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) logic.getScheduleDisplay();
-            GroupInformationDisplay groupInformationDisplay = new GroupInformationDisplay(groupScheduleDisplay.getPersonDisplays(),
+            GroupInformationDisplay groupInformationDisplay = new GroupInformationDisplay(groupScheduleDisplay
+                    .getPersonDisplays(),
                     null, groupScheduleDisplay.getGroupDisplay(),
                     ColorGenerator::generateColor);
-            Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(), groupInformationDisplay,
+            Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(),
+                    groupInformationDisplay,
                     "png", "./export.png");
             try {
                 exporter.export();
