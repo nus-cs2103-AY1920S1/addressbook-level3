@@ -58,6 +58,7 @@ public class SessionListUtilTest {
         int i = 1;
         for (Session session : testSessionArrayList) {
             session.setScore(3 * i + "/20");
+            i++;
         }
 
         return testSessionList;
@@ -166,14 +167,14 @@ public class SessionListUtilTest {
 
     @Test
     void getAverageScore_allSessionsHaveScores() {
-        //SessionList sessionList = getTestSessionListForTest();
-        //// expected output:
-        //// 3/20 + 6/20 + 9/20 + 12/20 + 15/20 = 45/20
-        //// 45/20 / 5 = 9/20
-        //// 9/20 = 45%
-        //String expectedString = "45.0%";
-        //String obtainedString = SessionListUtil.getAverageScore(sessionList);
-        //
-        //assertEquals(expectedString, obtainedString);
+        SessionList sessionList = getTestSessionListForTest();
+        // expected output:
+        // 3/20 + 6/20 + 9/20 + 12/20 + 15/20 = 45/20
+        // 45/20 / 5 = 9/20
+        // 9/20 = 45%
+        String expectedString = "45.0%";
+        String obtainedString = SessionListUtil.getAverageScore(sessionList);
+
+        assertEquals(expectedString, obtainedString);
     }
 }
