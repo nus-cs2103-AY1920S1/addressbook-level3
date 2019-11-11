@@ -670,7 +670,7 @@ image::ScheduleUiStep3.png[]
 - The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
 It does not take into account of the event's set date and time.
 (To have a more detailed view of the event, simply double click on that event).
-As long as the user's specified input date falls between the event's start and end date, the event will be displayed.
+- As long as the user's specified input date falls between the event's start and end date, the event will be displayed.
 ====
 
 ---
@@ -709,7 +709,7 @@ image::ScheduleUiMonthStep3.png[]
 - The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
 It does not take into account of the event's set date and time.
 (To have a more detailed view of the event, simply double click on that event).
-As long as the user's specified input month, year falls between the event's start and end date, the event will be displayed.
+- As long as the user's specified input month, year falls between the event's start and end date, the event will be displayed.
 ====
 
 ---
@@ -774,7 +774,7 @@ Examples:
 - The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
 It does not take into account of the event's set date and time.
 (To have a more detailed view of the event, simply double click on that event).
-As long as the user's specified start and end date range includes a single date that the event's start and end date spans across
+- As long as the user's specified start and end date range includes a single date that the event's start and end date spans across
 , the event will be displayed.
 ====
 
