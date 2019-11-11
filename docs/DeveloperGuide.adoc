@@ -882,7 +882,7 @@ The `add` command is facilitated by the Logic and Model components of the applic
 *Step 5*: `LogicManager` uses `AddLoanCommand#execute()` to add the `Loan` and the associated ``Loan``s into the `Model` which is handled by `ModelManager`. In doing so, it also fetches the `LoanId` counter tracked by the `Model`, sets it as the created ``Repeater``'s unique id, and increments the counter in the `Model` by 1.
 
 *Step 6*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
-// end::repeateradd[]
+// end::loanadd[]
 
 // tag::payloan[]
 ==== Paying Loan : `pay`
@@ -904,6 +904,7 @@ The `pay` command is facilitated by the Logic and Model components of the applic
 *Step 5*: `LogicManager` uses `PayLoanCommand#execute()` to delete the `Loan` from the `Model` which is handled by `ModelManager`.
 
 *Step 6*: `PayLoanCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+// end::payloan[]
 // end::loans[]
 
 === Logging
