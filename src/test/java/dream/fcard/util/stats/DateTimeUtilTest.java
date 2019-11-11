@@ -120,7 +120,10 @@ public class DateTimeUtilTest {
     }
 
     // the following 2 tests have been commented out because despite passing on my PC, they
-    // somehow fail on Travis. I have no idea why and I have given up.
+    // somehow fail on Travis. I think this might be because of the different date format used
+    // in whichever locale Travis is configured for (i.e. 31/10/19 vs 10/31/19), which is
+    // beyond my control. my implementation is meant to follow the user's local date format,
+    // so in testing, I have used 31/10/19, which corresponds to Singapore's date format.
     /*
     @Test
     void getStringFromDateTime_testOne() {
