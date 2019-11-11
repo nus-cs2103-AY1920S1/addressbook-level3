@@ -1,12 +1,12 @@
 package seedu.address.calendar.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import seedu.address.calendar.logic.commands.AddCommand;
 import seedu.address.calendar.logic.commands.DeleteCommand;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 public class AlternativeCalendarParser extends Parser {
     private static final String VALID_COMMAND_YES = "yes";

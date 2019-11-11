@@ -281,6 +281,11 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return root;
     }
 
+    /**
+     * Balancing factor for the current node
+     * @param root The root of the current tree
+     * @return The factor
+     */
     private int balanceFactor(Node root) {
         Node rightSubtree = root.rightNode;
         Node leftSubtree = root.leftNode;
@@ -291,6 +296,12 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return leftSubtreeHeight - rightSubtreeHeight;
     }
 
+    /**
+     * Rotates the branch to the left.
+     *
+     * @param root The root of the current node
+     * @return The relevant node
+     */
     private Node rotateLeft(Node root) {
         Node rightSubtree = root.rightNode;
         root.rightNode = rightSubtree.leftNode;
@@ -307,6 +318,12 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return rightSubtree;
     }
 
+    /**
+     * Rotates the branch to the right.
+     *
+     * @param root The root of the current node
+     * @return The relevant node
+     */
     private Node rotateRight(Node root) {
         Node leftSubtree = root.leftNode;
         root.leftNode = leftSubtree.rightNode;
@@ -323,6 +340,9 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return leftSubtree;
     }
 
+    /**
+     * Represents a node of the tree.
+     */
     private class Node {
         private S max;
         private int height;

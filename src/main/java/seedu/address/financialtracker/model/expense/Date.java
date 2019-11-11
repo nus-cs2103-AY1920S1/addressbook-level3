@@ -12,7 +12,8 @@ public class Date {
     public static final String MESSAGE_CONSTRAINTS =
             "Date should only contain numerals and be written in the DDMMYYYY format.\n"
                     + "Valid formats: 25102019\n"
-                    + "Invalid formats: 25/10/2019 or 25-10-2019 or others..";
+                    + "Invalid formats: 25/10/2019 or 25-10-2019 or others..\n"
+                    + "Note: Year range is only valid from 1000 to 3999";
 
     /*
      * The first character of the description must not be a whitespace,
@@ -66,8 +67,8 @@ public class Date {
     }
 
     /**
-     * Formats the date in the event to dd/MM/yyyy.
-     * @param date attribute in the given event.
+     * Formats the date in the expense to dd/MM/yyyy.
+     * @param date attribute in the given expense.
      * @return formatted date based on dd/MM/yyyy.
      */
     private String formatDate(String date) {

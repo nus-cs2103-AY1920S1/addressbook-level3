@@ -4,6 +4,9 @@ import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.Command;
 
+/**
+ * Adds an event to the calendar.
+ */
 public abstract class AddCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_ADD_SUCCESS = "Added: %s";

@@ -6,6 +6,9 @@ import javafx.scene.layout.Region;
 import seedu.address.calendar.model.date.Year;
 import seedu.address.ui.UiPart;
 
+/**
+ * Represents a year header.
+ */
 public class YearHeader extends UiPart<Region> {
     private static final String FXML = "CalendarYearHeader.fxml";
 

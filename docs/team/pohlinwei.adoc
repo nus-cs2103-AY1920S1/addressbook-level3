@@ -1,4 +1,4 @@
-= Poh Lin Wei's Project Portfolio 
+= Poh Lin Wei's Project Portfolio
 
 This portfolio highlights my contributions to the development of _TravEzy_, an all-in-one application which helps student 
 travellers to easily plan their trips, manage their expenses and record their favourite moments.

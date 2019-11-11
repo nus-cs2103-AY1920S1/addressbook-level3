@@ -1,7 +1,8 @@
 package seedu.address.calendar.model.date;
 
-import java.util.Arrays;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import java.util.Arrays;
 
 /**
  * Represents year.

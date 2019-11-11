@@ -2,13 +2,6 @@ package seedu.address.calendar.model.event;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.calendar.model.date.Date;
-import seedu.address.calendar.model.event.exceptions.ClashException;
-import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
-import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.util.IntervalSearchTree;
-import seedu.address.calendar.model.util.exceptions.NoVacationException;
-
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
@@ -18,6 +11,13 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
+import seedu.address.calendar.model.date.Date;
+import seedu.address.calendar.model.event.exceptions.ClashException;
+import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.IntervalSearchTree;
+import seedu.address.calendar.model.util.exceptions.NoVacationException;
 
 /**
  * Manages all events.
@@ -209,14 +209,6 @@ public class EventManager implements EventViewer {
         }
     }
 
-    private boolean removeEngagement(Event event) throws NoSuchElementException {
-        return remove(event, engagements, engagedSchedule);
-    }
-
-    private boolean removeVacation(Event event) throws NoSuchElementException {
-        return remove(event, vacations, vacationSchedule);
-    }
-
     /**
      * Helps to remove the event completely.
      *
@@ -250,6 +242,14 @@ public class EventManager implements EventViewer {
             assert false : "This event should exist in schedule";
         }
         return true;
+    }
+
+    private boolean removeEngagement(Event event) throws NoSuchElementException {
+        return remove(event, engagements, engagedSchedule);
+    }
+
+    private boolean removeVacation(Event event) throws NoSuchElementException {
+        return remove(event, vacations, vacationSchedule);
     }
 
     /**
@@ -303,6 +303,12 @@ public class EventManager implements EventViewer {
         return relevantEvents.stream();
     }
 
+    /**
+     * Removes event from the specified list.
+     *
+     * @param eventToRemove The event to be removed
+     * @param requiredList The specified list
+     */
     private void removeFromList(Event eventToRemove, List<Event> requiredList) {
         for (int i = 0; i < requiredList.size(); i++) {
             Event event = requiredList.get(i);
@@ -424,6 +430,12 @@ public class EventManager implements EventViewer {
         return constrainedEventList;
     }
 
+    /**
+     * Find required blocks.
+     *
+     * @param originalSlots The original slots
+     * @return The concatenated blocks
+     */
     private Deque<EventQuery> findBlocks(Stream<EventQuery> originalSlots) {
         LinkedList<EventQuery> availableBlocks = new LinkedList<>();
         originalSlots.sorted()
@@ -465,6 +477,13 @@ public class EventManager implements EventViewer {
         return availableBlocks;
     }
 
+    /**
+     * Find suitable blocks.
+     *
+     * @param availableBlocks The available blocks that have been found
+     * @param engagedBlocks The blocks when the user is engaged
+     * @return The final periods of time when the user is free
+     */
     private List<EventQuery> findSuitableBlocks(Deque<EventQuery> availableBlocks, Deque<EventQuery> engagedBlocks) {
         List<EventQuery> suitableBlocks = new ArrayList<>();
         while (!availableBlocks.isEmpty() || !engagedBlocks.isEmpty()) {
@@ -492,6 +511,13 @@ public class EventManager implements EventViewer {
         return suitableBlocks;
     }
 
+    /**
+     * Removes first block.
+     *
+     * @param availableBlocks The available periods of time
+     * @param engagedBlocks The periods of time when the user is unavailable
+     * @param suitableBlocks The suitable periods of time
+     */
     private void removeFirstBlock(Deque<EventQuery> availableBlocks, Deque<EventQuery> engagedBlocks,
                                   List<EventQuery> suitableBlocks) {
         EventQuery availableBlock = availableBlocks.peek();
@@ -505,6 +531,13 @@ public class EventManager implements EventViewer {
         }
     }
 
+    /**
+     * Segments blocks.
+     *
+     * @param availableBlock The available blocks
+     * @param engagedBlock The periods of time when the user is busy
+     * @param availableBlocks The available blocks of time
+     */
     private void segmentCurrentAvailableBlock(EventQuery availableBlock, EventQuery engagedBlock,
                                               Deque<EventQuery> availableBlocks) {
         availableBlocks.poll();
@@ -589,6 +622,11 @@ public class EventManager implements EventViewer {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Returns events as a list.
+     *
+     * @return A list of events in {@code this}
+     */
     public List<Event> asList() {
         List<Event> eventList = new ArrayList<>();
         engagements.values()
@@ -602,6 +640,12 @@ public class EventManager implements EventViewer {
         return eventList;
     }
 
+    /**
+     * Gets relevant events as a list.
+     *
+     * @param eventQuery The period of time that is of interest
+     * @return The list of relevant events
+     */
     private List<Event> asListRelevant(EventQuery eventQuery) {
         Stream<Event> relevantVacations = vacationSchedule.getCollisions(eventQuery)
                 .stream()

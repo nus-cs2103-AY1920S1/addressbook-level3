@@ -1,12 +1,12 @@
 package seedu.address.calendar.logic.commands;
 
+import java.util.NoSuchElementException;
+
+import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.Commitment;
-import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-
-import java.util.NoSuchElementException;
 
 public class DeleteCommitmentCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "commitment";

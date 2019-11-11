@@ -1,9 +1,7 @@
 package seedu.address.model;
 
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
-import seedu.address.achievements.model.StatisticsModel;
 import seedu.address.address.model.AddressBookModel;
 import seedu.address.commons.core.LogsCenter;
 

@@ -187,28 +187,100 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 TravEzy has several features which are listed below.
 Each of these features have their own design and implementation logic.
-
+// tag::calendar[]
 === Calendar
 
-The calendar feature in TravEzy allows users to easily find a free duration of time to travel.
+The calendar feature in _TravEzy_ allows users to easily plan when to travel. In this section, we will discuss how the calendar is designed and how the _add an event_ feature is implemented.
 
-*Calendar Class Diagram:* +
+==== Calendar Model
 
-image::CalendarClassDiagram.png[]
+This section discusses some design details of the calendar model.
 
-*API* :
-link:{repoURL}/src/main/java/seedu/address/calendar/logic/CalendarLogic.java[`CalendarLogic.java`]
+The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[``Event`` component].
+
+.Calendar model class diagram
+image::CalendarClassDiagram.png[Calendar model class diagram]
+
+As shown above, the ``Calendar`` instance interacts with the ``EventManager`` by querying it. With the help of ``EventManger``, the ``Calendar`` instance does not need to deal with "lower-level" concerns (for instance, how ``Event``s are managed internally). 
+
+Every ``EventManager`` can access ``Event``s that have been added. These ``Event``s can be ``Commitment``, ``Trip``, ``SchoolBreak`` or ``Holiday`` instances. If other instances need a read-only access to ``EventManager``, they can obtain it using the observer ``EventViewer`` which is implemented by ``EventManager``. 
+
+In addition, every ``EventManager`` depends on ``EventQuery`` to perform queries. 
+
+More information about this package is provided below.
+
+*What is an ``Event``?*
+
+* represents the event specified by the user: it is made up of the relevant ``Name``, ``EventType`` and ``Date`` (which is found in the ``Date`` package) instances
+
+*What is an ``EventQuery``?*
+
+* similar to an ``Event`` but is only made up of ``Date``
+* is used to query the ``IntervalSearchTree`` (from the ``Util`` package) to obtain events that are relevant to the user's request more efficiently.
+
+*How do classes in ``Util`` interact with those from ``Event``?*
+
+* ``Util`` contains important classes and interfaces like ``DateUtil``, ``IntervalSearchTree`` and ``Interval``
+* ``DateUtil`` helps ``EventManager`` to deal with manipulation of ``Date``-related operations
+* ``IntervalSearchTree`` makes certain user-requested operations more efficient computationally. However, to facilitate the use of ``IntervalSearchTree``, ``Event`` and ``EventType`` need to inherit from ``Interval``. 
+
+To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It describes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
+
+.Calendar model sequence diagram
+image::CalendarSequenceDiagram.png[Calendar model sequence diagram]
 
 
-The above diagram shows that ``Calendar`` stores information about the state of the user's calendar, including information about the user's current view as indicated by ``currentViewOnlyMonth``.
+WARNING: To simplify the sequence diagram, the process of validating that ``event`` is in fact a ``Holiday`` instance has been left out.
 
-image::ShowSequenceDiagram.png[]
+==== Add An Event Feature
 
-The above sequence diagram shows the sequence of events that take place when a user calls ``show`` command. Do note that the above sequence of events are very similar to those for the other commands which extend ``Command`` class.
+This section provides some details about how the _add an event_ feature is implemented.
 
-image::SmartSuggestActivityDiagram.png[]
+The following diagram illustrates the course of action(s) that is(are) possibly taken when a user tries to add a new trip to his/her calendar.
 
-The above activity diagram shows how ``smartSuggest`` command works.
+.Calendar activity diagram
+image::CalendarActivityDiagram.png[Calendar activity diagram]
+
+From the diagram, it can be seen that there are three major reasons that can interrupt the user request:
+
+* the user entered an invalid input (for instance, by typing an invalid date)
+* the user tried to add a duplicate event 
+* the user tried to add an event that may result in conflicts in his/her schedule
+
+==== Design Considerations
+
+This section details a few design considerations I made before deciding how I would like to implement the functionalities of this calendar.
+
+.Design considerations for calendar
+[grid="rows", frame="none"]
+|===
+| Aspect | Alternative 1 | Alternative 2
+
+| Data structure to support ``suggest`` and ``check`` commands
+a|The calendar simply stores all events in a list.
+
+* Pros: Easy to implement
+* Cons: Possibly slower performance, especially when users have many events in their calendars
+a|The calendar stores the events in an interval search tree.
+
+* Pros: On average, ``suggest`` and ``check`` commands can be performed more quickly, especially when there are many events in the calendar. In turn, this can improve user experience.
+* Cons: Implementation of interval search tree is tedious.
+* I chose this option because performance efficiency is essential if TravEzy is to scale. Furthermore, I can use the interval search tree to implement enhancements for ``add`` and ``delete`` commands more easily. 
+
+| Required date format for user input
+a|The usual date format like dd/mm/yyyy (for example, 12/05/2019 to specify 12 May 2019).
+
+* Pros: Easy to implement. It can be intuitive for users since this date format is common.
+* Cons: Very restrictive and not everyone uses the above format (for instance, in some countries, people specify date using the mm/dd/yyyy format).
+
+a|Allow users to specify day, month and year in whichever order they want.
+
+* Pros: More flexible and less restrictive for users.
+* Cons: If caution is not taken, bugs can arise quite easily.
+* I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
+
+|===
+// end::calendar[]
 
 === Itinerary
 

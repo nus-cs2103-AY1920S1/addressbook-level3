@@ -1,9 +1,9 @@
 package seedu.address.calendar.logic.parser;
 
+import java.util.Optional;
+
 import seedu.address.calendar.model.event.Name;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.Optional;
 
 /**
  * Parses a name.

@@ -18,8 +18,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.ui.CommandBox;
 import seedu.address.ui.CodeWindow;
+import seedu.address.ui.CommandBox;
 import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
@@ -46,17 +46,17 @@ public class CalendarPage extends UiPart<Region> implements Page {
     private HelpWindow helpWindow;
 
     @FXML
-    StackPane commandBoxPlaceholder;
+    private StackPane commandBoxPlaceholder;
     @FXML
-    StackPane monthHeaderPlaceholder;
+    private StackPane monthHeaderPlaceholder;
     @FXML
-    StackPane yearHeaderPlaceholder;
+    private StackPane yearHeaderPlaceholder;
     @FXML
-    StackPane monthViewPlaceholder;
+    private StackPane monthViewPlaceholder;
     @FXML
-    VBox resultDisplayPlaceholder;
+    private VBox resultDisplayPlaceholder;
     @FXML
-    GridPane weekHeader;
+    private GridPane weekHeader;
 
     /**
      * Creates a calendar page.
