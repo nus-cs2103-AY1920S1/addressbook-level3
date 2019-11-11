@@ -788,7 +788,19 @@ Format: `toggle <panel name>`
 Examples:
 
 * `toggle wishlist`
-* `toggle r``
+* `toggle ae``
+
+Example usage:
+
+Step 1. If user does not want to view the wishlist panel all the time, he could choose to execute the `toggle wishlist` command as shown below.
+
+.. He could refer to the panel names in the result display box above when typing in the input panel name.
+
+image::ToggleBefore.png[]
+
+Step 2. After the command is executed, the `wishlist` panel is toggled off and no longer in the side panel.
+
+image::ToggleAfter.png[]
 
 ==== Change Font : `changeFont`
 Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
@@ -798,22 +810,49 @@ Format: `changeFont <font name>`
 
 Examples:
 
-* `changeFont arial`
+* `changeFont rockwell`
 * `changeFont segoe UI`
+
+Example usage:
+
+. User changes the font by executing the `changeFont rockwell` command as shown below.
+
+.. He is also able to refer to the available font names in the result display box above.
+
++
+image::ChangeFontBefore.png[]
+
+. The font is successfully changed to `ROCKWELL` as seen in the result display box and the application.
++
+image:ChangeFontAfter.png[]
 
 ==== Change to dark theme : `setDarkTheme`
 Changes the theme from light to dark. The change in theme will be saved.
 
 Format: `setDarkTheme`
 
-Example: `setDarkTheme`
+Example usage:
+
+. User executes the command `setDarkTheme` as shown below:
++
+image::SetDarkThemeBefore.png[]
+
+. After command is executed, the theme is changed to the dark theme and the result display box notifies user that the command is executed successfully.
++
+image::SetDarkThemeAfter.png[]
 
 ==== Change to light theme : `setLightTheme`
 Changes the theme from dark to light. The change in theme will be saved.
 
 Format: `setLightTheme`
 
-Example: `setLightTheme`
+. User executes the command `setLightTheme` as shown below:
++
+image::SetLightThemeBefore.png[]
+
+. After command is executed, the theme is changed to the light theme and the result display box notifies user that the command is executed successfully.
++
+image::SetLightThemeAfter.png[]
 
 == FAQ
 
