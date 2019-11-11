@@ -627,7 +627,7 @@ input (`budget`) as a parameter. +
 *Step 3 :* FinSecParser then references the various command words and identifies the command to be a `budget` command
 . It then calls the `**BudgetCommand**` class.
 
-*Step 4 :* This newly created `**BudgetCommand**` object is returned to the LogicManager class, which then calls the
+*Step 4 :* This newly created `**BudgetCommand**` object is returned to the `**LogicManager**` class, which then calls the
 `**BudgetCommand::execute**` method.
 
 *Step 5 :* The `**BudgetCommand**` then interacts with the model component of our software architecture to create a
@@ -644,7 +644,7 @@ values and returning a new `**CommandResult**` with the specific message string 
 `**LogicManager::execute**`.
 
 *Step 8 :* `**LogicManager::execute**` method returns a `**CommandResult**` to the calling method which is
-`**MainWindow::executeCommand**`
+`**MainWindow::executeCommand**`.
 
 *Step 9 :* The specific feedback is then retrieved through `**CommandResult::getFeedbackToUser**` and set in the result
 display of the MainWindow. +

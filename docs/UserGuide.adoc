@@ -914,7 +914,7 @@ FinSec can automatically detect duplicate names of contacts, claims or incomes.
 
 Automatically detects command and comes up with suggestions as a pop-up on what syntax comes next.
 
-== Upcoming Features
+== Upcoming Features (To be implemented in v2.0)
 
 === Attaching Pictures to Claims : `attach` (To be implemented in v2.0)
 
@@ -935,7 +935,7 @@ specified index from the user input
 
 //@@author{lawncegoh}
 // tag::checkDatefeature[]
-=== Checking for months or dates
+=== Checking for months or dates (To be implemented in v2.0)
 
 Checks for the claims or incomes that matches the specific month or date that was typed as input.
 
@@ -956,7 +956,7 @@ current check feature. This is an increment to that feature.
 
 //tag::statsfeature[]
 //@@author{lawncegoh}
-=== Display statistics of the application
+=== Display statistics of the application (To be implemented in v2.0)
 
 Displays the important statistics that a Finance Secretary need to know. Examples of statistics are:
 
@@ -998,34 +998,31 @@ in the contacts list
 
 == Command Summary
 
-* *Help* : `help cmd/COMMAND type/TYPE` +
+* *Requesting Help* : `help cmd/COMMAND type/TYPE` +
 e.g. `help cmd/add_income type/brief`
 
 * *Changing of Views* `goto (parameter)`
 e.g. `goto claims`
 
-* *Add contact* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
+* *Adding Contacts* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
 e.g. `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
-* *Edit contact* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
+* *Editing Contacts* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
 e.g. `edit_contact 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports` +
 
-* *Add claim* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME [t/TAG]` +
+* *Adding Claims* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME [t/TAG]` +
 e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen t/Sports`
 
-* *Edit claim* `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
-e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
-
-* *Approves claim* `approve INDEX` +
+* *Approving Claims* `approve INDEX` +
 e.g. `approve 1`
 
-* *Rejects claim* `reject INDEX` +
+* *Rejecting Claims* `reject INDEX` +
 e.g. `reject 1`
 
-* *Adding income* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+* *Adding Incomes* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
 
-* *Editing income* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+* *Editing Incomes* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
 
 * *Checking Person or Claim* `check INDEX` +
@@ -1033,20 +1030,20 @@ e.g.
 ** `check 1` (in contacts page, show details of the person in index 1)
 ** `check 2` (in claims page, show details of the claim in index 2)
 
-* *Deleting a person* `delete INDEX` +
-e.g. `delete 3`
+* *Deleting Contacts* `delete_contact INDEX` +
+e.g. `delete_contact 3`
 
-* *See Budget* `budget`
+* *Viewing Budget* `budget`
 
 * *Resolving Claims* `resolve INDEX s/STATUS` +
 e.g.
 ** `resolve 1 s/approved (in claims page, approve a claim)`
 ** `resolve 2 s/rejected (in claims page, reject a claim)`
 
-* *Attaching Pictures to Claims* `attach INDEX` +
+* *Attaching Pictures to Claims* `attach INDEX` (To be implemented in v2.0) +
 e.g. `attach 1`
 
-* *Grouping Users* `tag INDEX t/TAG` +
+* *Grouping Users* `tag INDEX t/TAG` (To be implemented in v2.0) +
 e.g. `tag 1 t/FOP t/Sports`
 
 * *Closing application* `exit`
