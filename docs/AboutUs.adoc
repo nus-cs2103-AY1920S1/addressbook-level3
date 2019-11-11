@@ -22,7 +22,7 @@ Responsibilities: Code Quality
 
 === Ko Gi Hun
 image::nordic96.png[width="150", align="left"]
-{empty}[http://github.com/nordic96[github]] [<<gihunk#, portfolio>>]
+{empty}[http://github.com/nordic96[github]] [<<nordic96#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of `Storage`, `UI`
@@ -31,7 +31,7 @@ Responsibilities: In charge of `Storage`, `UI`
 
 === Sudharshan Madhavan
 image::uggi121.png[width="150", align="left"]
-{empty}[http://github.com/uggi121[github]] [<<SudharshanMadhavan#, portfolio>>]
+{empty}[http://github.com/uggi121[github]] [<<uggi121#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic
