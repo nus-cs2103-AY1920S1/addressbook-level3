@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.trip.exceptions.ClashingTripException;
@@ -52,13 +53,14 @@ public class TripList extends ConsecutiveOccurrenceList<Trip> {
             throw new DuplicateTripException();
         }
 
-        internalList.remove(index);
-        if (containsClashing(editedTrip)) {
-            internalList.add(index, targetTrip);
+        boolean hasClashingTrip = IntStream.range(0, internalList.size()).filter(i -> i != index)
+                .anyMatch(i -> internalList.get(i).isClashingWith(editedTrip));
+
+        if (hasClashingTrip) {
             throw new ClashingTripException();
         }
 
-        internalList.add(index, editedTrip);
+        internalList.set(index, editedTrip);
     }
 
     @Override

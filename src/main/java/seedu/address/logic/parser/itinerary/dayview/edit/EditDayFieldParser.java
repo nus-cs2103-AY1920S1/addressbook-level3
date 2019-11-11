@@ -23,7 +23,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
 
 /**
- * Placeholder javadoc.
+ * Parser for {@link EditDayFieldCommand}.
  */
 public class EditDayFieldParser implements Parser<EditDayFieldCommand> {
 

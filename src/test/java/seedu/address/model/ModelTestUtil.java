@@ -93,6 +93,10 @@ public class ModelTestUtil {
     public static final String VALID_DESCRIPTION_EVENT_1 = "This is the EVENT of arrival";
     public static final String VALID_DESCRIPTION_EVENT_2 = "This is the second EVENT of my trip";
 
+    //Inventory fields
+    public static final int VALID_INTEGER_1 = 10;
+    public static final int VALID_INTEGER_LARGE = 1000000000;
+
 
     //Valid days
     public static final Day VALID_DAY_1 = DayBuilder.newInstance()

@@ -1,7 +1,10 @@
 package seedu.address.storage;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -9,10 +12,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.expense.Expense;
+import seedu.address.model.inventory.Inventory;
 import seedu.address.model.itinerary.Description;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.event.Event;
+
 
 /**
  * Jackson friendly version of {@code Event}.
@@ -30,6 +35,9 @@ public class JsonAdaptedEvent {
     //private final Optional<Inventory> inventory;
     private final Optional<String> description;
 
+    //Added by Karan Dev Sapra
+    private final Optional<List<JsonAdaptedInventory>> inventoryList;
+
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
      */
@@ -37,24 +45,29 @@ public class JsonAdaptedEvent {
     public JsonAdaptedEvent(@JsonProperty("name") String name,
             @JsonProperty("startTime") LocalDateTime from,
             @JsonProperty("endTime") LocalDateTime to,
-            @JsonProperty("destination") String destination,
-            @JsonProperty("description") Optional<String> description,
-            @JsonProperty("expense") Optional<JsonAdaptedExpense> expense
-    //, @JsonProperty("booking")Optional<Booking> booking,
-    // @JsonProperty("inventory")Optional<Inventory> inventory
-    ) {
+            @JsonProperty("destination") String destination, @JsonProperty("description") Optional<String> description,
+                            @JsonProperty("expense") Optional<JsonAdaptedExpense> expense,
+                            @JsonProperty("inventoryList") Optional<List<JsonAdaptedInventory>> inventoryList) {
+        //, @JsonProperty("booking")Optional<Booking> booking
         this.name = name;
         this.startTime = from;
         this.endTime = to;
         this.destination = destination;
+
+        this.inventoryList = inventoryList;
+
         this.description = description;
         this.expense = expense;
+
     }
 
     /**
      * Converts a given {@code Event} into this class for Jackson use.
      */
     public JsonAdaptedEvent(Event source) {
+
+        System.out.println("PRESENCE OF MIND");
+
         this.name = source.getName().fullName;
         this.startTime = source.getStartDate();
         this.endTime = source.getEndDate();
@@ -68,6 +81,23 @@ public class JsonAdaptedEvent {
             this.description = Optional.of(source.getDescription().get().description);
         } else {
             this.description = Optional.empty();
+        }
+
+        //System.out.println("BEFORE ENTERING THE PRESENCE with inventoryList " + source.getInventoryList());
+
+        if (source.getInventoryList().isPresent()) {
+
+            this.inventoryList = Optional.of(new ArrayList<>());
+
+            this.inventoryList.get().addAll(source.getInventoryList().get()
+                    .stream().map(JsonAdaptedInventory::new)
+                    .collect(Collectors.toList())
+            );
+
+
+            //this.inventoryList = Optional.of(source.getInventoryList().get().getList()));
+        } else {
+            this.inventoryList = Optional.empty();
         }
     }
 
@@ -127,6 +157,24 @@ public class JsonAdaptedEvent {
             modelExpense = Optional.empty();
         }
 
+        Optional<List<Inventory>> modelInventoryList;
+
+        if (inventoryList.isPresent()) {
+
+            final List<Inventory> inventories = new ArrayList<>();
+
+            for (JsonAdaptedInventory inventory : inventoryList.get()) {
+                inventories.add(inventory.toModelType());
+            }
+
+            modelInventoryList = Optional.of(new ArrayList<>());
+            modelInventoryList.get().addAll(inventories);
+
+        } else {
+            modelInventoryList = Optional.empty();
+        }
+
+
         final Optional<Description> modelDescription;
 
         if (description.isPresent()) {
@@ -139,7 +187,9 @@ public class JsonAdaptedEvent {
             modelDescription = Optional.empty();
         }
 
-        return new Event(modelName, modelStartTime, modelEndTime, modelExpense, modelDestination, modelDescription);
+        return new Event(modelName, modelStartTime, modelEndTime, modelExpense, modelDestination,
+                modelDescription, modelInventoryList);
+
     }
 }
 
