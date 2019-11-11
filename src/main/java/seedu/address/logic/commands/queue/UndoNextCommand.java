@@ -14,7 +14,7 @@ import seedu.address.model.ReferenceId;
 import seedu.address.model.queue.Room;
 
 /**
- * Serves the next patient in queue.
+ * Undo the next command.
  */
 public class UndoNextCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "next";

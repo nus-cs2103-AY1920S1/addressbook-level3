@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Sets a doctor on duty to be on break.
  */
 public class BreakCommand extends ReversibleCommand {
 

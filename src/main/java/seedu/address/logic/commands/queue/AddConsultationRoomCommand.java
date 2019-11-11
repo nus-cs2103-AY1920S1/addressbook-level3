@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
 /**
- * Lists all persons in the address book to the user.
+ * Adds a doctor to the list of doctors on duty.
  */
 public class AddConsultationRoomCommand extends ReversibleCommand {
 
@@ -27,7 +27,7 @@ public class AddConsultationRoomCommand extends ReversibleCommand {
     private final Room roomToAdd;
 
     /**
-     * Creates an EnqueueCommand to add the specified {@code PatientReferenceId}
+     * Creates an AddConsultationRoomCommand to add the specified {@code PatientReferenceId}
      */
     public AddConsultationRoomCommand(Room roomToAdd) {
         requireNonNull(roomToAdd);

@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new ReversibleActionPairCommand object.
  */
 public class RemoveRoomCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_INVALID_INDEX = "The index provided is invalid.";
@@ -29,8 +29,8 @@ public class RemoveRoomCommandParser implements Parser<ReversibleActionPairComma
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the DeleteCommand
-     * and returns a DeleteCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the RemoveRoomCommand object
+     * and returns a ReversibleActionPairCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
