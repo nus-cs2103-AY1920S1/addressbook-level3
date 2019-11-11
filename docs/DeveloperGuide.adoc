@@ -1678,6 +1678,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 
 === Adding an income
+
 . Adding an income while all incomes are listed
 
 .. Prerequisites: List all incomes using the `goto_incomes` command. Multiple incomes in the list.
@@ -1730,6 +1731,17 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect add shortcut commands to try: ` ` (empty string) +
    Expected: Similar to previous.
 
+
+=== Delete a shortcut
+. Deleting a shortcut previously created.
+
+.. Prerequisites: Create a shortcut `ai` to any default command and ensure there is no shortcut `test`
+.. Test case: `delete_shortcut ai` +
+   Expected: Shortcut `ai` is deleted. Details of the deleted shortcut shown in the status message.
+.. Test case: `delete_shortcut test` +
+   Expected: No shortcut is deleted. Error details shown in the status message.
+.. Other incorrect delete shortcut commands to try: ` `, `delete_shortcut x` (where x is a shortcut that has not been created) +
+   Expected: Similar to previous.
 
 === Viewing added autocorrect suggestion
 . See autocorrect suggestion list
