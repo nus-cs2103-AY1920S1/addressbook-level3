@@ -1,5 +1,6 @@
 package calofit.ui;
 
+import java.time.Clock;
 import java.time.Duration;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -31,11 +32,13 @@ public class UiManager implements Ui {
     private MainWindow mainWindow;
     private Timer timer;
     private NotificationWindow notificationWindow;
+    private NotificationHelper notificationHelper;
 
     public UiManager(Logic logic, Timer timer) {
         super();
         this.logic = logic;
         this.timer = timer;
+        this.notificationHelper = new NotificationHelper(Clock.systemDefaultZone());
     }
 
     @Override
@@ -55,13 +58,13 @@ public class UiManager implements Ui {
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
 
-        NotificationHelper.execute(logic.getModel()).ifPresent(s -> {
+        notificationHelper.execute(logic.getModel()).ifPresent(s -> {
             notificationWindow = new NotificationWindow(s);
             notificationWindow.show();
         });
 
         timer.registerPeriodic(Duration.ofMinutes(10), () -> {
-            Optional<String> notifMessage = NotificationHelper.execute(logic.getModel());
+            Optional<String> notifMessage = notificationHelper.execute(logic.getModel());
             notifMessage.ifPresent(s -> {
                 if (notificationWindow != null) {
                     notificationWindow.getRoot().hide();

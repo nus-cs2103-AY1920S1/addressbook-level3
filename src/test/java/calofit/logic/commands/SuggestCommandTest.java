@@ -15,13 +15,10 @@ public class SuggestCommandTest {
     public void testSuggestList() throws CommandException {
 
         Model mockModel = Mockito.mock(Model.class);
-
         SuggestCommand suggestCommand = new SuggestCommand();
-
         CommandResult result = suggestCommand.execute(mockModel);
 
         assertEquals(result.getFeedbackToUser(), SuggestCommand.MESSAGE_SUCCESS);
-
         Mockito.verify(mockModel).setDishFilterPredicate(null);
     }
 }
