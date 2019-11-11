@@ -70,6 +70,11 @@ public class Timestamp implements Comparable<Timestamp> {
         return parseRawTimestamp(rawTimestamp);
     }
 
+    /**
+     * Returns an Optional timestamp from parsing a string through the Natty parser.
+     * @param rawTimestamp The raw timestamp input.
+     * @return An Optional that contains a timestamp if the raw timestamp input was successfully parsed by Natty.
+     */
     private static Optional<Timestamp> parseRawTimestamp(String rawTimestamp) {
         try {
             Parser parser = new Parser();

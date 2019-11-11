@@ -1,11 +1,11 @@
 package seedu.moolah.model.statistics;
 
-import seedu.moolah.model.general.Price;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
+
+import seedu.moolah.model.general.Price;
 
 /**
  * Represents a Statistic's mode in the MooLah.

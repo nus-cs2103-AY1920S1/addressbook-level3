@@ -11,6 +11,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.moolah.logic.Timekeeper;
 import seedu.moolah.logic.commands.expense.AddExpenseCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
@@ -18,13 +19,12 @@ import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.logic.Timekeeper;
+import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.expense.util.UniqueIdentifierGenerator;
 import seedu.moolah.model.general.Category;
 import seedu.moolah.model.general.Description;
-import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.Price;
 import seedu.moolah.model.general.Timestamp;
-import seedu.moolah.model.expense.util.UniqueIdentifierGenerator;
 
 /**
  * Parses input arguments and creates a new AddExpenseCommand object

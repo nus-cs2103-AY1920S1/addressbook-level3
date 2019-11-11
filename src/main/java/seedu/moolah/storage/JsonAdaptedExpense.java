@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.moolah.commons.exceptions.IllegalValueException;
+import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.expense.UniqueIdentifier;
 import seedu.moolah.model.general.Category;
 import seedu.moolah.model.general.Description;
-import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.general.Price;
 import seedu.moolah.model.general.Timestamp;
-import seedu.moolah.model.expense.UniqueIdentifier;
 
 
 /**

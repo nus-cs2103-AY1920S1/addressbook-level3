@@ -11,8 +11,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import seedu.moolah.model.general.Category;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.general.Category;
 import seedu.moolah.ui.UiPart;
 
 /**

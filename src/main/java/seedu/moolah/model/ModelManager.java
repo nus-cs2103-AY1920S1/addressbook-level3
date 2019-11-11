@@ -17,9 +17,9 @@ import seedu.moolah.commons.core.LogsCenter;
 import seedu.moolah.model.alias.Alias;
 import seedu.moolah.model.alias.AliasMappings;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.general.Description;
 import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.general.Description;
 import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.statistics.Statistics;
 

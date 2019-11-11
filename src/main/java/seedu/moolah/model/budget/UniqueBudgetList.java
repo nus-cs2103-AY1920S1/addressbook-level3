@@ -12,8 +12,8 @@ import seedu.moolah.model.budget.exceptions.BudgetNotFoundException;
 import seedu.moolah.model.budget.exceptions.DeleteDefaultBudgetException;
 import seedu.moolah.model.budget.exceptions.DuplicateBudgetException;
 import seedu.moolah.model.budget.exceptions.SwitchToFuturePeriodException;
-import seedu.moolah.model.general.Description;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.general.Description;
 import seedu.moolah.model.general.Timestamp;
 
 /**

@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.collections.ObservableList;
-import seedu.moolah.logic.Logic;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.event.Event;
 import seedu.moolah.model.event.Reminder;

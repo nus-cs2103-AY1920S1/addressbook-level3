@@ -6,13 +6,13 @@ import seedu.moolah.model.MooLah;
 import seedu.moolah.model.ReadOnlyMooLah;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.budget.BudgetPeriod;
-import seedu.moolah.model.general.Category;
-import seedu.moolah.model.general.Description;
 import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.expense.util.UniqueIdentifierGenerator;
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Description;
 import seedu.moolah.model.general.Price;
 import seedu.moolah.model.general.Timestamp;
-import seedu.moolah.model.expense.util.UniqueIdentifierGenerator;
 
 
 /**
