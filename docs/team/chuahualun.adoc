@@ -119,6 +119,7 @@ Format: `add task tn/_insert task here_ td/ _insert date here_`
 
 [NOTE]
 ====
+Task name entered should not exceed 30 characters.
 When entering the date for a task, please follow the given format: day/month/year
 ====
 

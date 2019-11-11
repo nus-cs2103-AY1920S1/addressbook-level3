@@ -24,7 +24,7 @@ public class AddTaskCommand extends AddCommand {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task is already exists in DukeCooks";
-    public static final String MESSAGE_NAME_IS_TOO_LONG = "Name entered cannot exceed 50 characters.";
+    public static final String MESSAGE_NAME_IS_TOO_LONG = "Name entered cannot exceed 30 characters.";
 
     public final Dashboard toAdd;
 

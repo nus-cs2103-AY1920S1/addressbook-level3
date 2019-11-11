@@ -291,6 +291,7 @@ public class CommandTestUtil {
 
     /** Dashboard & Tasks */
     public static final String INVALID_DASHBOARDNAME_DESC = " " + PREFIX_TASKNAME + "'''''"; // "'" not allowed
+    public static final String INVALID_NAMETOOLONG_DESC = " " + PREFIX_TASKNAME + "no"; // > 30 not allowed
     public static final String INVALID_TASKDATE_DESC = " " + PREFIX_TASKDATE + "29.01.2019"; // "." not allowed
 
     /** User Profile */
