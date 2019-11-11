@@ -62,6 +62,11 @@ Text with this blue font and grey highlight indicates a command that can be inpu
 My role is to design and write the code for the Inventory tab. This section will describe my contributions in greater
 detail.
 
+Please click these links to view the code I have contributed for Inventory Tab:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=MichaelaTSH&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kangyeelim&tabRepo=AY1920S1-CS2103T-T13-3%2Fmain%5Bmaster%5D[Overall Commit Activity and Code],
+https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/main/java/seedu/address/inventory[Functional Code]
+, https://github.com/AY1920S1-CS2103T-T13-3/main/tree/master/src/test/java/seedu/address/inventory/[Test Code]
+
 === Main Contributions
 * Addition, Deletion and Editing of Items
 ** Function: These features allow you to add, delete and update the items in the inventory tab.
