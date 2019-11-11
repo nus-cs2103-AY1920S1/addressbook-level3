@@ -43,7 +43,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 ****
-We recommend a minimum resolution of 1920x1080 with at maximum 150% scaling for best usage. Weme requires a resolution that provides at least 750 pixels in height and 1000 pixels in width for smooth usage.
+* Weme only supports certain image files with valid extensions (e.g. `.png`, `.jpg`, `.gif`).
+* Any invalid or corrupted files are ignored (e.g. `.txt`, invalid files
+with `.jpg` extension, unsupported image formats).
+* We recommend a minimum resolution of 1920x1080 with at maximum 150% scaling for best usage. Weme requires a resolution that provides at least 750 pixels in height and 1000 pixels in width for smooth usage.
 ****
 
 [[Features]]
@@ -113,7 +116,7 @@ Adds a new meme to Weme. Weme will copy the given image into its data storage fo
 Format: `add p/PATH [d/DESCRIPTION] [t/TAG]...` +
 
 [TIP]
-A meme can have any number of tags (including 0)
+A meme can have any number of tags (including 0). Tags can only contain letters and numbers and cannot exceed a length of 35 characters.
 
 Examples:
 
@@ -133,6 +136,7 @@ This is because the examples in this guide use MacOS absolute file paths, which 
 Therefore, the first `/` is part of the argument prefix, whereas the second `/` is part of the file path.
 If you are using MacOS or *nix systems, both `/` s must be present if your path is an absolute path.
 If you are using Windows, your command might look something like `add p/C:/Users/Me/Downloads/dgirl_off.jpg` instead.
+* The path must lead to one of our supported image formats. (`.jpg`, `.png`, `.gif`)
 ****
 
 ==== Listing all memes: `list`

@@ -485,6 +485,7 @@ public class ModelManager implements Model {
 
     @Override
     public void cleanMemeStorage() {
+        logger.info("Attempting to delete unreferenced meme images");
         try {
             Set<File> filesToKeep = new HashSet<>();
             for (Meme meme : versionedWeme.getMemeList()) {
@@ -496,6 +497,7 @@ public class ModelManager implements Model {
                     .map(Path::toFile)
                     .filter(file -> !filesToKeep.contains(file))
                     .forEach(File::delete);
+            logger.info("Successfully deleted unreferenced meme images");
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
@@ -503,6 +505,7 @@ public class ModelManager implements Model {
 
     @Override
     public void cleanTemplateStorage() {
+        logger.info("Attempting to delete unreferenced templates images");
         try {
             Set<File> filesToKeep = new HashSet<>();
             for (Template template : versionedWeme.getTemplateList()) {
@@ -514,6 +517,7 @@ public class ModelManager implements Model {
                     .map(Path::toFile)
                     .filter(file -> !filesToKeep.contains(file))
                     .forEach(File::delete);
+            logger.info("Successfully deleted unreferenced template images");
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
