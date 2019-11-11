@@ -212,6 +212,7 @@ However, in the Aliases panel: +
                 `delete` deleteevent +
                 `list` listevent +
                 `edit` editevent
+
 |Aliases        |`add` addalias +
                 `list` listalias +
                 `delete` deletealias
@@ -244,7 +245,7 @@ nanoseconds are rounded down to 0.)
 === Expense-related Commands
 ==== Adding an expense: `addexpense`
 
-The bread an butter of any expense tracker, adding an expense!
+The bread and butter of any expense tracker: adding an expense!
 In order to begin tracking your expenses, you are going to need to enter some expenses to track.
 
 This is the format:
@@ -268,7 +269,7 @@ Examples:
 NOTE: The highest amount for Price is `100000`. +
 The accepted <TIMESTAMP> range is `1 Jan 2000 to 31 Dec 2099`.
 
-After typing in the command and entering it.
+After typing in the command and entering it...
 
 .Entering an addexpense command into the command box
 image::addexpense_before.png[width=700,align="center"]
@@ -277,7 +278,7 @@ Your new expense will appear in the list!
 
 .a new Food is added to the list.
 image::addexpense_after.png[width=700,align="center"]
-A new Food expense  is added
+A new Food expense is added.
 
 
 ****
@@ -421,6 +422,9 @@ asking you whether you wish to add these events as corresponding expenses.
 
 image::TranspiredEventsPopup.png[width="790"]
 
+[IMPORTANT]
+Once an event has transpired, it is permanently deleted from MooLah and you cannot get it back! Undoing MooLah to a state where
+that event was still present would not restore the event.
 [NOTE]
 MooLah updates time every 10 seconds, so you may experience a slight delay of 10 seconds maximum when it comes to
 event popups!
@@ -435,6 +439,8 @@ addevent d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> t/<TIMESTAMP>
 ----
 ****
 * Events are potential future expenses, so the `TIMESTAMP` field is compulsory and must contain a future time.
+* The highest price you can input is `100000`.
+* The accepted datetime range is `1 Jan 2000` to `31 Dec 2099`.
 * You should only input one of the following into the `CATEGORY` field:
 `FOOD`, `TRAVEL`, `TRANSPORT`, `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
