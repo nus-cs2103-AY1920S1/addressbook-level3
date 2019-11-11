@@ -70,5 +70,5 @@ include::../UserGuide.adoc[tag=shift]
 |===
 
 include::../DeveloperGuide.adoc[tag=appointment]
-
+include::../DeveloperGuide.adoc[tag=consideration]
 include::../DeveloperGuide.adoc[tag=shift]
