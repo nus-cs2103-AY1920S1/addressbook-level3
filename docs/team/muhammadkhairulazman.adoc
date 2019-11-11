@@ -7,14 +7,14 @@
 
 == What can I expect from this document?
 
-This document presents forth a project portfolio chronicling the my contribution to the Software Engineering
-project DukeCooks. It will contain also contain extracts of my segments in the User and Developer Guides of DukeCooks.
+This document puts forth a project portfolio chronicling my contribution to the Software Engineering
+project DukeCooks. It will also contain extracts of my segments in the User and Developer Guides of DukeCooks.
 
 == What exactly is DukeCooks?
 
 DukeCooks is a one-stop healthy lifestyle application that helps you manage your tasks, plan your meals, run workout regimes, monitor
 your health records and create custom blog pages for sharing. It caters to a high performing, health-conscious individuals
-who wish to save the time spent on managing their health.
+who wish to save time spent on managing their health.
 
 While we concede that there are other applications in the market who can do each of our features better, we take pride in
 being the only application that covers all the grounds when it comes to health in a concise and seamless manner. This would
@@ -29,7 +29,7 @@ this portfolio and give DukeCooks a go! I'll be waiting.
 Now that you're back, I can finally tell you about the wonderful team behind the application. DukeCooks is developed by a
 team of Year 2 Undergraduates from National University College as part of a software engineering module. Having 2 members
 who stayed in campus, it was originally designed to be a recipe book that can schedule your meal plans to ease shopping.
-However we realised the potential that the project could realise since a huge part of health starts in eating healthy.
+However we realised the potential that the project could fulfill since a huge part of health starts in eating healthy.
 
 We thus added various extensions integral to a healthier lifestyle while retaining the core feature and name, DukeCooks, allowing
 it to become what it is today.
@@ -42,12 +42,12 @@ The Workout Planner in Duke Cooks is used to create your own custom workout regi
 are built into the application or can be created by the users. Users can then run the workout routine with run command.
 
 The management of Workouts and Exercises is done through Commands similar to that of the AddressBook3, the application DukeCooks
-was built on. These Commands include the add, clear, find, list, delete and edit Commands/
+was built on. These Commands include the add, clear, find, list, delete and edit Commands.
 
 === Enhancement 1: Added the ability to find exercises using MuscleType and Intensity as parameters
 
-The initial find function can be used to filter the exercise list by name. However, users may be interested in creating a
-workout of only on level of intensity or targeting one muscle group. By entering `find exerciseMuscle <MuscleType>` or
+The initial find function can only be used to filter the exercise list by name. However, users may be interested in creating a
+workout of only a level of intensity or targeting one muscle group. By entering `find exerciseMuscle <MuscleType>` or
 `find exerciseIntensity <Intensity>`, users can view muscle/intensity specific exercises.
 
 === Enhancement 2: Adding push exercise functionality
@@ -77,6 +77,9 @@ to check out my code contributions to DukeCooks.
 
 === Other contributions:
 
+[cols="30%,70%"]
+[width="100%"]
+
 |===
 | |What I did
 
@@ -91,17 +94,17 @@ https://github.com/AY1920S1-CS2103T-T10-2/main/pull/55[#55]
 
 |Reported bugs
 |Reported bugs and suggestions for other teams in the class +
-(https://https://github.com/khairulazman1997/ped/issues/1[1],
-https://https://github.com/khairulazman1997/ped/issues/2[2],
-https://https://github.com/khairulazman1997/ped/issues/3[3],
-https://https://github.com/khairulazman1997/ped/issues/4[4],
-https://https://github.com/khairulazman1997/ped/issues/5[5],
-https://https://github.com/khairulazman1997/ped/issues/6[6],
-https://https://github.com/khairulazman1997/ped/issues/7[7],
-https://https://github.com/khairulazman1997/ped/issues/8[8],
-https://https://github.com/khairulazman1997/ped/issues/9[9],
-https://https://github.com/khairulazman1997/ped/issues/10[10],
-https://https://github.com/khairulazman1997/ped/issues/11[11])
+(https://github.com/khairulazman1997/ped/issues/1[1],
+https://github.com/khairulazman1997/ped/issues/2[2],
+https://github.com/khairulazman1997/ped/issues/3[3],
+https://github.com/khairulazman1997/ped/issues/4[4],
+https://github.com/khairulazman1997/ped/issues/5[5],
+https://github.com/khairulazman1997/ped/issues/6[6],
+https://github.com/khairulazman1997/ped/issues/7[7],
+https://github.com/khairulazman1997/ped/issues/8[8],
+https://github.com/khairulazman1997/ped/issues/9[9],
+https://github.com/khairulazman1997/ped/issues/10[10],
+https://github.com/khairulazman1997/ped/issues/11[11])
 
 |===
 
@@ -123,7 +126,7 @@ workout planner tab to create your custom workouts and track your progress!
 Alright, I'm now at the workout screen! What's next?
 
 .Workout Screen
-image::workoutScreen1.png[]
+image::workoutScreen1.png[align="center", width="450"]
 
 As seen in the screenshot above, the Workout Planner screen is similar to the other screens, with the main
 difference being the list of Exercise cards and Workout Cards. Not too sure about what to work on or need suggestions?
@@ -131,16 +134,16 @@ Workout Planner begins with prebuilt Exercises and Workouts installed to get you
 
 Over on the left, is the list of Exercise Cards. Each card informs you of the name, primary muscle as well as the
 intensity of the exercise. To get more information of the exercise, you can use the view command which will be covered
-in section 3.7.3 of the User Guide.
+in section 3.7.3 of the User Guide. Based on the workout intensity, the image on the card will also change accordingly.
 
 .Low Intensity Card
-image::workoutLowIntensity.png[]
+image::workoutLowIntensity.png[align="center", width= "350" ]
 
 .Medium Intensity Card
-image::workoutMediumIntensity.png[]
+image::workoutMediumIntensity.png[align="center", width= "350" ]
 
 .High Intensity Card
-image::workoutHighIntensity.png[]
+image::workoutHighIntensity.png[align="center", width= "350" ]
 
 Similarly, to find more information on the workout, you can use the view command which is covered in a later
 section of this User Guide.
@@ -175,22 +178,16 @@ to run it! To run the workout, invoke the `run workout` command with the index o
 ultimate workout.
 
 .Run Workout Window
-image::runWorkoutWindow1.png[]
+image::runWorkoutWindow1.png[align="center", width= "250" ]
 
 The window above will pop up upon inputting the command. The window can be broken down into 5
-major segments which are :
-
-. Workout Name +
-. Progress Bar +
-. Exercise Name +
-. Set Details +
-. Command Box +
+major segments which are the Workout Name, Progress Bar, Exercise Name, Set Details and Command Box.
 
 When you have completed a set, you can input `done` into the command box and it will indicate
 the set as completed as shown below.
 
 .Marking a set as Done
-image::runWorkoutWindow2.png[]
+image::runWorkoutWindow2.png[align="center", width= "250"]
 
 After completing all the sets in all exercises, you will be brought back to the main page
 where a congratulatory message will greet you!
@@ -287,7 +284,7 @@ by making records in its history. This is done through the `Run Workout Command`
 what happens when the command is invoked.
 
 .Sequence Diagram of RunWorkoutCommand
-image::RunWorkoutSequenceDiagram.png[]
+image::RunWorkoutSequenceDiagram.png[align="center", width="500"]
 
 As seen in the diagram above, when the command is invoked, the `RunWorkoutParser` is initialised to parse the argument String
 to initialise `RunWorkoutCommand`. The Command object will then run its execute method, which calls upon get method of
@@ -295,13 +292,13 @@ UniqueWorkoutList to obtain the target `Workout`. The target workout and message
 the CommandResult object. The Ui will then boot a new `RunWorkoutWindow` with the targeted workout.
 
 .Activity Diagram of RunWorkoutWindow
-image::RunWorkoutActivityDiagram.png[]
+image::RunWorkoutActivityDiagram.png[align="center", width="150"]
 
 The user will then run each set of each exercise until the workout is complete. The full loop is demonstrated in the
 activity diagram in Figure 17.
 
 .Sequence Diagram of UpdateWorkoutCommand
-image::RunWorkoutSequenceDiagram1.png[]
+image::RunWorkoutSequenceDiagram1.png[align="center", width="500"]
 
 Upon completion of the workout, the Ui will immediately generate a new `UpdateWorkoutCommand` containing the `Workout`
 that has been ran and a newly instantiated `WorkoutRun` with the details of the run. `UpdateWorkoutCommand` will then
@@ -318,7 +315,7 @@ of the workout.
 
 *Design Considerations*
 
-[cols="10%,50%,40%""]
+[cols="15%,45%,30%""]
 [width="100%"]
 |===
 |Aspect |Option 1 (Chosen)|Option 2
@@ -327,51 +324,27 @@ of the workout.
 |Intensity was stored as an Enumeration instead of a class
 
 - Pros: Intensity can be limited only a specific amount of values +
-
 - Cons: Intensity will only be an estimate instead of a specific value given the value limits +
-
-This option was chosen in the end to simplify the classification of exercise so that users can more easily filter by
+This option was chosen in the end to simplify the classification of exercise so that users can easily filter by
 intensity. Furthermore, this allows for more Ui diversification by having different images for each intensity.
 
 |Setting Intensity as a Class
 
-- Pros: Easy to implement.
-
+- Pros: Easy to implement. +
 - Cons: Makes filtering by intensity a more tedious affair for both developers and users.
-
-|Storing MuscleTypes
-
-|Have MuscleType be a class on its own
-
-- Pros: Muscles are referred to by various names and allowing the user to set their own muscle names allow for more
-familiarity
-
-- Cons: MuscleType class will require stricter validation to ensure that users do not mess up the programme with unintended
-inputs.
-
-This option was chosen to allow for greater flexibility of naming for the muscle types but at the same time still limited
-to prevent the users from going wild.
-
-|Store MuscleType as an enumeration
-
-- Pros: There are limited muscles in the body, allowing for a proper limit +
-
-- Cons: Muscles may have multiple names that are not accounted for by the enum.
 
 |Storage of Exercises in Workout
 |Workouts only store a list of ExerciseName and not the full exercise
 
 - Pros: Exercises only have to be edited once upon execution of edit command - more cost effective. It also avoids
 unnecessarily large storage files. +
-
-- Cons: Each time an exercise of workout has to be referenced, the entire storage of exercise has to be scoured
-
+- Cons: Each time an exercise of workout has to be referenced, the entire storage of exercise has to be scoured +
 In the end we decided to choose this option as we foresee that the edit command will be utilised more often than calling
 an exercise from a workout. Furthermore, to improve timing, we kept a sorted storage for exercise to allow for the quicker
 binary search.
 
 | Workouts store whole Exercises
 
-- Pros : Exercises can be extracted quickly
+- Pros : Exercises can be extracted quickly +
 - Cons : Huge storage space is required. Also complicates editing of exercises.
 |===

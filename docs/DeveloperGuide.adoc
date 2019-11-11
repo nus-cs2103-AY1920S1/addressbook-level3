@@ -1590,6 +1590,17 @@ name of the edited diary.
 .. Other incorrect delete commands to try: `delete page`, `delete page 1 n/ <name>` (where <name> does not exists in the diary list) +
 Expected: Similar error messages to previous.
 
+=== Deleting an exercise
+
+. Deleting an exercise from the exercise list
+
+.. Prerequisites: List all exercises using the `list` command. "Pushups" exists in the exercise list.
+.. Test case: `delete exercise 1` +
+   Expected: Exercise "Pushups" is deleted. Details of the deleted exercise is shown in the result display.
+.. Test case: `delete exercise 0` +
+   Expected: No exercise is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete exercise`, `delete exercise <index>` (where <index> does not exists in the list) +
+Expected: Similar error messages to previous.
 
 === Saving data
 
