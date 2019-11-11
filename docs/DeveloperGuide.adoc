@@ -126,7 +126,7 @@ The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Notebook data.
 * saves the state of the Notebook after each change in state for undo redo function.
-* exposes an unmodifiable `ObservableList<Student>`, `ObservableList<Assignment>`, and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Classroom>`, `ObservableList<Student>`, `ObservableList<Assignment>`, and `ObservableList<Lesson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
@@ -629,13 +629,12 @@ Author:
 
 Pros:
 
-* ...
-* ...
+* Useful for teachers to consolidate all the information related to their class.
+* Easy to navigate and understand how the application works.
 
 Cons:
 
-* ...
-* ...
+* Unable to pop out reminder when the application is not opened.
 
 [appendix]
 == Instructions for Manual Testing
@@ -663,7 +662,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting a student while all students are listed
 
-.. Prerequisites: List all students using the `list` command. Multiple students in the list.
+.. Prerequisites: List all students using the `liststudents` command. Multiple students in the list.
 .. Test case: `deletestudent 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `deletestudent 0` +
@@ -671,6 +670,19 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `deletestudent`, `deletestudent x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
+=== Undo / Redo
+
+. Undoing a command that was previously done, and redoing it after.
+
+.. Prerequisites: A command that changes the state of the notebook should be executed (e.g. add / edit / delete).
+.. Test case (assume a student was added in the previous command execution): `undo` +
+   Expected: The previously added student will now be removed. Command result will show the message 'Undo success!". Student panel will show that the student is no longer in the list.
+.. Test case (assume the only previous command was `listassignments`): `undo` +
+   Expected: There will be undo command executed. Reason is because there is no change in the state of the notebook. Command result will show the message 'There is no action to undo!'.
+.. Test case (assume a student was added in the previous command execution): `undo`, followed by `redo` +
+   Expected: When undo is executed, student will be removed from the list just like in test case 1.
+   When redo is executed, the student that was previously removed will now be added back again. Command result will show the message 'Redo success!'. Student panel will show that the student is now back in the list.
+.. Other incorrect undo / redo commands to try: `undo x`, `redo x`, `undoes`, `redoes`
 
 === Saving data
 

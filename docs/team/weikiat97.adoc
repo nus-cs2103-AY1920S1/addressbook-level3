@@ -28,7 +28,7 @@ The implementation was very challenging as one command had to be suited for vari
 ** Refactored the code from AB3 with persons, to students and added in additional fields (MedicalConditions, ParentPhone).
 ** Added various CRUD commands - FindAssignmentCommand, DeleteClassroomCommand etc and improved on peers codes.
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103-T14-1/main/commits?author=weikiat97[Functional Code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weikiat97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
+* *Code contributed*: [https://github.com/AY1920S1-CS2103-T14-1/main/commits?author=weikiat97[Functional Code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weikiat97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense]]
 
 * *Other contributions*:
 
