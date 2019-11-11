@@ -149,7 +149,6 @@ image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-// TODO: check accuracy?
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
