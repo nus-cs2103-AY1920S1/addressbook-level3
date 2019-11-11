@@ -20,13 +20,6 @@ public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
 
-    //    @Test
-    //    public void parseCommand_add() throws Exception {
-    //        Task task = new TaskBuilder().build();
-    //        AddCommand command = (AddCommand) parser.parseCommand(TaskUtil.getAddCommand(task));
-    //        assertEquals(new AddCommand(task), command);
-    //    }
-
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
@@ -39,15 +32,6 @@ public class AddressBookParserTest {
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
-
-    //    @Test
-    //    public void parseCommand_edit() throws Exception {
-    //        Task task = new TaskBuilder().build();
-    //        EditCommand.EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder(task).build();
-    //        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-    //                + INDEX_FIRST_PERSON.getOneBased() + " " + TaskUtil.getEditTaskDescriptorDetails(descriptor));
-    //        assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
-    //    }
 
     @Test
     public void parseCommand_exit() throws Exception {
