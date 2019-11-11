@@ -13,10 +13,6 @@ public class Claim {
             "Claim should only contain the valid input "
                     + "(i.e. processing/approved/rejected/pending submission), and it should not be blank.";
 
-    /**
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
     public static final String VALIDATION_REGEX = "approved|processing|rejected|pending submission";
 
     public final String claimStatus;
@@ -24,7 +20,7 @@ public class Claim {
     /**
      * Constructs a {@code Claim}.
      *
-     * @param status A valid date number.
+     * @param status A valid claim string.
      */
     public Claim(String status) {
         requireNonNull(status);

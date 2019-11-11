@@ -3,8 +3,6 @@ package seedu.address.model.earnings;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
@@ -16,9 +14,7 @@ import seedu.address.model.classid.ClassId;
  */
 public class Earnings {
 
-    private static List<Earnings> earningsList = new ArrayList<>();
     private static ArrayList<Amount> totalEarnings = new ArrayList<>();
-    private static HashMap<String, ArrayList<Earnings>> earningsListToAdd = new HashMap<String, ArrayList<Earnings>>();
 
     // Identity fields
     private Date date;
@@ -66,22 +62,6 @@ public class Earnings {
         return count;
     }
 
-    public HashMap getListOfAutoEarnings() {
-        return earningsListToAdd;
-    }
-
-    public ArrayList<Earnings> getArrayListOfAutoEarnings(String key) {
-        return earningsListToAdd.get(key);
-    }
-
-    public void putIntoList(String key, ArrayList<Earnings> list) {
-        earningsListToAdd.put(key, list);
-    }
-
-    public static void removeEarnings(String currentDay, Earnings earnings) {
-        earningsListToAdd.get(currentDay).remove(earnings);
-    }
-
     /**
      * Reduces the number of times the earnings is auto added in.
      */
@@ -89,18 +69,6 @@ public class Earnings {
         int number = Integer.parseInt(this.count.count);
         number--;
         this.count = new Count(String.valueOf(number));
-    }
-
-    public static void setList(List<Earnings> list) {
-        earningsList = list;
-    }
-
-    public static void setHashMap(HashMap<String, ArrayList<Earnings>> map) {
-        earningsListToAdd = map;
-    }
-
-    public static List<Earnings> getEarningsList() {
-        return earningsList;
     }
 
     public void setClaim(Claim claim) {
@@ -128,8 +96,13 @@ public class Earnings {
         totalEarnings.set(index.getZeroBased(), amt);
     }
 
+    /**
+     * Removes amount from total earnings list.
+     */
     public static void deleteEarnings(Index index) {
-        totalEarnings.remove(index.getZeroBased());
+        if (totalEarnings.size() > 0) {
+            totalEarnings.remove(index.getZeroBased());
+        }
     }
 
     /**

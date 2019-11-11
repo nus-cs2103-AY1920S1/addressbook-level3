@@ -19,7 +19,7 @@ public class JsonAdaptedAccount {
     private final String password;
 
     /**
-     * Constructs a {@code JsonAdaptedAccount} with the given person details.
+     * Constructs a {@code JsonAdaptedAccount} with the given account details.
      */
     @JsonCreator
     public JsonAdaptedAccount(@JsonProperty("username") String username, @JsonProperty("password") String password) {
@@ -28,7 +28,7 @@ public class JsonAdaptedAccount {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Account} into this class for Jackson use.
      */
     public JsonAdaptedAccount(Account source) {
         username = source.getUsername().userId;
@@ -36,9 +36,9 @@ public class JsonAdaptedAccount {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted account object into the model's {@code Account} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted account.
      */
     public Account toModelType() throws IllegalValueException {
 

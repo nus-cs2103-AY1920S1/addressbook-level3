@@ -32,7 +32,7 @@ public class Count {
     }
 
     /**
-     * Returns true if a given string is a valid amount.
+     * Returns true if a given string is a valid count.
      */
     public static boolean isValidCount(String test) {
         return test.matches(VALIDATION_REGEX);

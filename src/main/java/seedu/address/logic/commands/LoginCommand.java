@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.account.Account;
+import seedu.address.model.earnings.Count;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.JsonAccountStorage;
@@ -52,11 +53,8 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Earnings> lastShownList = model.getFilteredEarningsList();
-        Earnings.setList(lastShownList);
-        HashMap<String, ArrayList<Earnings>> list = model.getMap();
-        Earnings.setHashMap(list);
         AccountStorage accountStorage = new JsonAccountStorage();
-
+        setHashMap(model, lastShownList);
         if (Earnings.getTotalEarnings().equals("0.00")) {
             for (Earnings e : lastShownList) {
                 Earnings.addToTotalEarnings(e.getAmount());
@@ -83,5 +81,27 @@ public class LoginCommand extends Command {
         return other == this // short circuit if same object
                 || (other instanceof LoginCommand // instanceof handles nulls
                 && account.equals(((LoginCommand) other).account));
+    }
+
+    private void setHashMap(Model model, List<Earnings> earningsList) {
+
+        for (Earnings e : earningsList) {
+            int count = Integer.parseInt(e.getCount().count);
+            if (count > 0) {
+                String key = Count.parseDateToDays(e.getDate().dateNum);
+
+                HashMap<String, ArrayList<Earnings>> map = model.getMap();
+
+                if (map.containsKey(key)) {
+                    if (!map.get(key).contains(e)) {
+                        model.saveEarningsToMap(key, e);
+                    }
+                } else {
+                    ArrayList<Earnings> list = new ArrayList<>();
+                    list.add(e);
+                    model.saveToMap(key, list);
+                }
+            }
+        }
     }
 }

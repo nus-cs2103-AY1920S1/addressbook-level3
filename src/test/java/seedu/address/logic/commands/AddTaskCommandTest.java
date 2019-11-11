@@ -225,7 +225,12 @@ public class AddTaskCommandTest {
         }
 
         @Override
-        public void saveListToMap(String key, Earnings earnings) {
+        public void saveEarningsToMap(String key, Earnings earnings) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeEarningsFromMap(String currentDay, Earnings earnings) {
             throw new AssertionError("This method should not be called.");
         }
 

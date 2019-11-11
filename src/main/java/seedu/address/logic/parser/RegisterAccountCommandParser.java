@@ -19,8 +19,8 @@ public class RegisterAccountCommandParser implements Parser<RegisterAccountComma
 
     /**
      * Parses the given {@code String} of arguments
-     * in the context of the AddEarningsCommand
-     * and returns an AddEarningsCommand object for execution.
+     * in the context of the RegisterAccountCommand
+     * and returns an RegisterAccountCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public RegisterAccountCommand parse(String args) throws ParseException {

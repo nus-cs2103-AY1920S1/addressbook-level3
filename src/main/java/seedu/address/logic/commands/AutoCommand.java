@@ -5,7 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.earnings.Amount;
+import seedu.address.model.earnings.Count;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Earnings;
 import seedu.address.model.earnings.Type;
@@ -54,32 +55,8 @@ public class AutoCommand extends Command {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("EEEE");
         LocalDateTime now = LocalDateTime.now();
         String currentDay = dtf.format(now);
-        List<Earnings> lastShownList = model.getFilteredEarningsList();
-        Earnings earnings = lastShownList.get(0);
-
-        if (earnings.getListOfAutoEarnings().containsKey(currentDay)) {
-            ArrayList<Earnings> list = earnings.getArrayListOfAutoEarnings(currentDay);
-
-            for (Earnings e : list) {
-
-                if (Integer.parseInt(e.getCount().count) > 0) {
-                    CopyEarningsDescriptor copy = new CopyEarningsDescriptor();
-                    Earnings newEarnings = createNewCopyEarnings(e, copy);
-                    newEarnings.setClaim(e.getClaim());
-                    newEarnings.setCount(e.getCount());
-                    newEarnings.reduceCount();
-                    if (model.hasEarnings(newEarnings)) {
-                        throw new CommandException("Unable to auto add weekly earnings. " + MESSAGE_DUPLICATE_EARNINGS);
-                    }
-                    model.addEarnings(newEarnings);
-                    //Earnings.getEarningsList().add(newEarnings);
-                } else if (Integer.parseInt(e.getCount().count) == 0) {
-                    earnings.removeEarnings(currentDay, e);
-                }
-            }
-        } else {
-            throw new CommandException(MESSAGE_FAILURE);
-        }
+        HashMap<String, ArrayList<Earnings>> map = model.getMap();
+        addEarningsInList(map, model, currentDay);
     }
 
     private static Date getTodayDate() {
@@ -88,6 +65,44 @@ public class AutoCommand extends Command {
         String currentDate = dtf2.format(now);
         Date date = new Date(currentDate);
         return date;
+    }
+
+    /**
+     * Adds earnings with positive count into the HashMap.
+     */
+    private static void addEarningsInList(HashMap<String, ArrayList<Earnings>> map, Model model, String day)
+            throws CommandException {
+
+        if (map.containsKey(day)) {
+            ArrayList<Earnings> list = map.get(day);
+
+            for (Earnings e : list) {
+
+                if (Integer.parseInt(e.getCount().count) > 0) {
+
+                    CopyEarningsDescriptor copy = new CopyEarningsDescriptor();
+                    Earnings newEarnings = createNewCopyEarnings(e, copy);
+                    System.out.println(e.getDate());
+                    newEarnings.setClaim(e.getClaim());
+                    newEarnings.setCount(e.getCount());
+                    newEarnings.reduceCount();
+                    e.setCount(new Count("0"));
+                    try {
+                        if (model.hasEarnings(newEarnings)) {
+                            throw new CommandException("Unable to auto add weekly earnings. "
+                                    + MESSAGE_DUPLICATE_EARNINGS);
+                        }
+                    } catch (CommandException exception) {
+                        continue;
+                    }
+                    model.addEarnings(newEarnings);
+                } else if (Integer.parseInt(e.getCount().count) == 0) {
+                    model.removeEarningsFromMap(day, e);
+                }
+            }
+        } else {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
     }
 
     /**
@@ -121,7 +136,6 @@ public class AutoCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public CopyEarningsDescriptor(CopyEarningsDescriptor toCopy) {
             setDate(toCopy.date);

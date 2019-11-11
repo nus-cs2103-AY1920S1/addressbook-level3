@@ -23,7 +23,7 @@ public class JsonSerializableAccountBook {
     private final List<JsonAdaptedAccount> accounts = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonSerializableTutorAid} with the given persons.
+     * Constructs a {@code JsonSerializableAccountBook} with the given accounts.
      */
     @JsonCreator
     public JsonSerializableAccountBook(@JsonProperty("accounts") List<JsonAdaptedAccount> acct) {
@@ -31,16 +31,16 @@ public class JsonSerializableAccountBook {
     }
 
     /**
-     * Converts a given {@code ReadOnlyTutorAid} into this class for Jackson use.
+     * Converts a given {@code AccountBook} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableTutorAid}.
+     * @param source future changes to this will not affect the created {@code JsonSerializableAccountBook}.
      */
     public JsonSerializableAccountBook(AccountBook source) {
         accounts.addAll(source.getList().stream().map(JsonAdaptedAccount::new).collect(Collectors.toList()));
     }
 
     /**
-     * Converts this address book into the model's {@code TutorAid} object.
+     * Converts this account book into the model's {@code AccountBook} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
