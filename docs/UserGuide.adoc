@@ -73,7 +73,7 @@ image::ug/ErrorMessage.png[]
 
 You can learn more about the each feature's individual GUI and its respective commands in the coming sections.
 
-== Symbols and command format.
+== Symbols and command format
 
 Before delving straight into each feature, lets get familiarised with the conventions used in this user guide.
 
