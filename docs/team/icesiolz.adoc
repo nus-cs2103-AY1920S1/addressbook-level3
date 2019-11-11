@@ -69,6 +69,13 @@ The following features are features that allow the application to be completely 
 `show T/E/R/C` switches the tabs between the lists and calendar views.
 `up/down` scrolls the list up/down.
 
+* *Theme Feature (Minor Feature)*:
+
+The theme feature is to allow users to change the colour scheme of ELISA. This feature is very useful especially when the screen it too bright/dark depending on the location that the user is in and switching the colour scheme will make ELISA more visible.
+
+.Theme Feature
+image::icesiolz/UG1.png[]
+
 * *UI integration (Major Contribution)*: 
 
 For this section, please refer to the annotated diagram above.
@@ -100,12 +107,15 @@ Refactored the UI classes as well as the DarkTheme.css file so that it is able t
 |_Given below are sections I contributed to the User Guide for my main feature. They showcase my ability to write documentation targeting end-users._
 |===
 
-image::icesiolz/UG1.png[]
-
+.Calendar Feature +
 image::icesiolz/UG2.png[]
 
+The calendar feature provides a more user friendly way to look at a list of events. Typing `show C` will bring up the calendar view.
+
+.Game Feature EASY
 image::icesiolz/UG3.png[]
 
+.Game Feature HARD
 image::icesiolz/UG4.png[]
 
 == Contributions to the Developer Guide
