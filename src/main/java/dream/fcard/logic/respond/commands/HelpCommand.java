@@ -18,12 +18,14 @@ public class HelpCommand extends Command {
     public static final String UNDO = "Format: undo";
     public static final String REDO = "Format: redo";
     public static final String QUIT = "Format: quit";
+    public static final String HELP = "Format: help OR help command/COMMAND";
 
     public static final String ALL_COMMANDS_STRING = "Commands: IMPORT, EXPORT, CREATE, ADD, DELETE, EDIT, "
             + "UNDO, REDO, TEST, STATS. Use 'help command/COMMAND_NAME' for more info.";
 
 
-    private static String[] allCommands = {IMPORT, EXPORT, STATS, CREATE, ADD, DELETE, EDIT, TEST, UNDO, REDO, QUIT};
+    private static String[] allCommands = {IMPORT, EXPORT, STATS, CREATE, ADD, DELETE, EDIT,
+            TEST, UNDO, REDO, QUIT, HELP};
 
     public static String[] getAllCommands() {
         return allCommands;
