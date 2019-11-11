@@ -6,18 +6,18 @@
 == PROJECT: ELISA
 
 == Overview
-My team of 5 software engineering students were tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project.
+My team, comprising of 5 software engineering students, was tasked with enhancing a basic command line interface (CLI) desktop address book application for our Software Engineering project.
 
-As we are living in a fast-paced world where things are constantly changing, it can become stressful at times to keep track of the many tasks, events and reminders that we have. We thought that it would be helpful to have an application that is able to aid computer-savvy students in managing these tasks, events and reminders so we chose to morph the address book into a student assistant.
+With modern life comes a fast-paced, hectic lifestyle. It is increasingly easy to be overwhelmed by the insurmountable number of responsibilities and tasks we have to fulfill. Most task-manager applications involve countless clicking and navigation, which defeats their purpose. To rectify this, my team decided to design a simple, no frills CLI student assistant catering to students who prefer CLI.
 
-We decided to call her ELISA, an Exceptionally Loud and Intelligent Student Assistant. Our application enables users to add and track their tasks and events while receiving reminders for them. The assistant is in the form of a chat bot and she was given a sassy and humorous personality to enhance the user experience. There are also other features to aid the productivity of students and to spice up their life.
+We call our application ELISA, an Exceptionally Loud and Intelligent Student Assistant. ELISA enables users to add and track their tasks and events while receiving reminders for them. With a sassy and humorous personality and her user-interface interaction (in the form of a chat bot), she is simpler, yet more engaging to use than other regular task managers. There are also other features to aid the productivity of students and to spice up their life.
 
 == Application introduction
 This is how our application looks like:
 
 .User interface annotated
 image::sianghwee/taskpanel-annotated.PNG[]
-The rest of this report will refer to these components and so their function will be briefly explained.
+ELISA's various components serve the following functions:
 
 [cols="2, 10"]
 |===
@@ -49,11 +49,11 @@ This feature allows the user to enter a priority mode where they are able to pri
 
 _Why make it?_
 
-This features helps to solve the problem of students having too many tasks and being unsure of what task to complete first. It will help to alleviate the stress of the users.
+This features helps the user narrow their focus down to completing one task at a time and prevents them from being overwhelmed by a long list of tasks.
 
 _Why is it special?_
 
-There are multiple modes for the user to choose from to suit their needs. Users can choose from a focus mode, a timed mode, a normal mode or a combination of multiple modes. The different modes will be explained in greater detail in the user guide.
+There are multiple modes to cater to different user needs. Users can choose from a focus mode, a timed mode, a normal mode or a combination of multiple modes. The different modes will be explained in greater detail in the user guide.
 
 At the same time, users are able to update their task list in realtime (add, delete, edit) so that they can always be sure that the task that they are currently doing is the most important one.
 
@@ -70,6 +70,14 @@ The sorting feature allows users to sort their items so that they are able to be
 * *Find (Minor Feature)*:
 
 The find feature allows users to find an item based on the description of the item. This will aid users in getting the item that they need at the fastest possible time. Refer to https://ay1920s1-cs2103t-t10-3.github.io/main/UserGuide.html#finding-a-task-code-find-code[here] for more information on this feature.
+
+* *Other implementations*:
+
+Helped my teammates with the following features and implementation:
+
+. Implementation (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/138[PR #138]) and fixes on the calendar panel so that it is able to display the events and update the events when there are changes to the events (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/148[PR #148], https://github.com/AY1920S1-CS2103T-T10-3/main/pull/181[PR #181] and https://github.com/AY1920S1-CS2103T-T10-3/main/pull/244[PR #244]).
+
+. Helped with the implementation of the undo for marking a task as completed (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/153[PR #153]).
 
 === Other contributions:
 
@@ -93,24 +101,14 @@ Review and made notable suggestions on the following PR:
 
 {empty}
 
-* *Other implementations*:
-
-Helped my teammates with the following features and implementation:
-
-. Implementation(https://github.com/AY1920S1-CS2103T-T10-3/main/pull/138[PR #138]) and fixes on the calendar panel so that it is able to display the events and update the events when there are changes to the event(https://github.com/AY1920S1-CS2103T-T10-3/main/pull/148[PR #148], https://github.com/AY1920S1-CS2103T-T10-3/main/pull/181[PR #181] and https://github.com/AY1920S1-CS2103T-T10-3/main/pull/244[PR #244]).
-
-. Helped with the implementation of the undo for marking a task as completed (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/153[PR #153]).
-
-{empty}
-
 * *Refactoring*:
 
-Refactored the model(https://github.com/AY1920S1-CS2103T-T10-3/main/pull/68[PR #68]) and storage(https://github.com/AY1920S1-CS2103T-T10-3/main/pull/79[PR #79]) class so that it will work with the project.
+Refactored the model (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/68[PR #68]) and storage (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/79[PR #79]) class so that it will work with the project.
 
 
 * *Documentation*:
 
-Updated the developer guide to include the use cases (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/44[PR #44]) and the user stories (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/47[PR #47]).
+Updated the developer guide to include the use cases (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/44[PR #44]),user stories (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/47[PR #47]) and manual testing (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/271[PR #271]).
 
 == Contributions to the User Guide
 
