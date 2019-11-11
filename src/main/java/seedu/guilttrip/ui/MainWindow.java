@@ -206,6 +206,8 @@ public class MainWindow extends UiPart<Stage> {
 
         this.autoExpensesPanel = new AutoExpensesPanel(logic.getFilteredAutoExpenseList());
         autoExpensesPlaceHolder.getChildren().add(this.autoExpensesPanel.getRoot());
+
+        this.historyPanel = new HistoryPanel(logic.getHistory());
     }
 
     /**

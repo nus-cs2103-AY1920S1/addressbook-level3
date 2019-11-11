@@ -9,7 +9,6 @@ import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.ui.UiPart;
 
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -25,24 +24,25 @@ public class HistoryPanel extends UiPart<Region> {
     public HistoryPanel(ObservableList<String> historyList) {
         super(FXML);
         historyListView.setItems(historyList);
-        //historyListView.setCellFactory(listView -> new HistoryListViewCell());
+        historyListView.setCellFactory(listView -> new HistoryListViewCell());
     }
 
-    /*
+    /**
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
-
-    class BudgetListViewCell extends ListCell<Budget> {
+     */
+    class HistoryListViewCell extends ListCell<String> {
         @Override
-        protected void updateItem(Budget entry, boolean empty) {
-            super.updateItem(entry, empty);
+        protected void updateItem(String history, boolean empty) {
+            super.updateItem(history, empty);
 
-            if (empty || entry == null) {
+            if (empty || history == null) {
 
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new BudgetCard(entry, getIndex() + 1).getRoot());
+                setGraphic(new HistoryCard(history, getIndex() + 1).getRoot());
             }
-        } */
+        }
+    }
 
 }
