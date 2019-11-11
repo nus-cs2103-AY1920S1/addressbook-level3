@@ -259,6 +259,7 @@ public class UpdateCommandParser implements Parser<UpdateCommand> {
         Photo photo = ParserUtil.parsePhoto(argMultimap.getValue(PREFIX_PHOTO).orElse(""));
         workerDescriptor.setPhoto(photo);
 
+
         if (!workerDescriptor.isAnyFieldEdited()) {
             throw new ParseException(UpdateCommand.MESSAGE_NOT_EDITED);
         }

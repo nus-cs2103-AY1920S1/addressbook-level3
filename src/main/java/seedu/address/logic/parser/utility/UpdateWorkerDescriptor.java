@@ -1,10 +1,13 @@
 package seedu.address.logic.parser.utility;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DATEJOINED_BEFORE_DOB;
+
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.entity.Entity;
 import seedu.address.model.entity.PhoneNumber;
 import seedu.address.model.entity.Sex;
@@ -57,22 +60,42 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
         this.photo = worker.getPhoto().orElse(null);
     }
 
+    /**
+     * Checks whether two Dates make sense with each other, in the context of UpdateWorkerDescriptor.
+     *
+     * @param dateJoined the date the Worker joined the mortuary
+     * @param dateOfBirth the Worker's date of birth
+     * @return true if the dates make sense
+     * @throws CommandException if the dates don't make sense
+     */
+    public static boolean checkDateSensibility(Date dateJoined, Date dateOfBirth) throws CommandException {
+        if (dateJoined != null && dateOfBirth != null && dateJoined.before(dateOfBirth)) {
+            throw new CommandException(MESSAGE_DATEJOINED_BEFORE_DOB);
+        }
+        return true;
+    }
+
     @Override
     public boolean isAnyFieldEdited() {
         return CollectionUtil.isAnyNonNull(phone, sex, dateJoined, dateOfBirth, designation, employmentStatus, photo);
     }
 
     @Override
-    public Entity apply(Entity entity) {
+    public Entity apply(Entity entity) throws CommandException {
         assert entity != null;
         Worker worker = (Worker) entity;
+        Date dateJoined = this.getDateJoined().orElse(worker.getDateJoined());
+        Date dateOfBirth = this.getDateOfBirth().orElse(worker.getDateOfBirth().orElse(null));
+        checkDateSensibility(dateJoined, dateOfBirth);
+
         worker.setPhone(this.getPhone().orElse(worker.getPhone().orElse(null)));
         worker.setSex(this.getSex().orElse(worker.getSex()));
-        worker.setDateOfBirth(this.getDateOfBirth().orElse(worker.getDateOfBirth().orElse(null)));
-        worker.setDateJoined(this.getDateJoined().orElse(worker.getDateJoined()));
+        worker.setDateOfBirth(dateOfBirth);
+        worker.setDateJoined(dateJoined);
         worker.setDesignation(this.getDesignation().orElse(worker.getDesignation().orElse(null)));
         worker.setEmploymentStatus(this.getEmploymentStatus().orElse(worker.getEmploymentStatus().orElse(null)));
         worker.setPhoto(this.getPhoto().orElse(worker.getPhoto().orElse(null)));
+
         return entity;
     }
 
