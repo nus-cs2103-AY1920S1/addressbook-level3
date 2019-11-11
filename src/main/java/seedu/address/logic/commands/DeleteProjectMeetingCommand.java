@@ -10,6 +10,7 @@ import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.Task;
 import seedu.address.model.timetable.Timetable;
+import seedu.address.model.util.SortingOrder;
 
 import java.util.*;
 
@@ -47,6 +48,7 @@ public class DeleteProjectMeetingCommand extends Command {
         List<Task> tasks = projectToEdit.getTasks();
         Finance finance = projectToEdit.getFinance();
         List<Meeting> meetings = projectToEdit.getListOfMeeting();
+        Collections.sort(meetings, SortingOrder.getCurrentSortingOrderForMeeting());
         ArrayList<Meeting> meetingsToEdit = new ArrayList<>(meetings);
         Timetable timetable = projectToEdit.getGeneratedTimetable();
 
@@ -54,7 +56,6 @@ public class DeleteProjectMeetingCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        meetingsToEdit.sort(Comparator.comparing(m -> m.getTime().getDate()));
         Meeting meetingToDelete = meetingsToEdit.remove(index.getOneBased() - 1);
         model.deleteMeetingInAllPersons(meetingToDelete, projectToEdit);
         List<Meeting> newMeeting = new ArrayList<Meeting>(meetingsToEdit);

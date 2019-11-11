@@ -21,11 +21,10 @@ display all your important information in a simple and intuitive manner. _MyProj
 such as sending emails to members within the app as well as financial tracking capabilities. Currently our main
 target group is for university students, but we intend to develop further to accommodate working adults as well in the future.
 
-
 This is what _MyProject_ looks like after you `checkout` to a chosen project:
 
 .The graphical user interface for _MyProject_.
-image::fadisngppp1.png[]
+image::fadisngppp2.png[]
 
 My role in creating the basic project model was to implement the task feature. Every project has different
 tasks with different deadlines and my goal was to make storing, accessing and displaying these tasks in the
@@ -223,16 +222,16 @@ These are the stages shown in figure 3. Stages are similar for sort spending as 
 . Obtains list of tasks from model and sorts it. List now maintains this sorting order and displays a sorted list even after adding or editing elements.
 . Display the newly sorted task list.
 
-.Activity Diagram for sortTask
-image::SortTaskActivityDiagram.png[]
-
-The diagram above shows sortTask works. There are 2 possible error messages that can occur. Firstly,
+The diagram below shows sortTask works. There are 2 possible error messages that can occur. Firstly,
 if the user inputs an index that is not applicable to the type of items sorted. For example, `sortTask 5`
 is invalid as index 5 is linked to a price sorting mechanism which is not applicable to sorting tasks. Secondly,
 an error will be shown if the user attempts to sort the items in the same order is the current sorting order.
 For example, since the default sorting order for tasks is by increasing order of date, the command `sortTask 2`
 will be invalid if the sorting order has never been changed before. Otherwise if the input is valid,
 the sorting will occur and the newly sorted task list will be displayed.
+
+.Activity Diagram for sortTask
+image::SortTaskActivityDiagram.png[]
 
 
 ==== Design considerations
@@ -248,6 +247,28 @@ the sorting will occur and the newly sorted task list will be displayed.
 no additional sorting needed when adding or editing new elements.
 ** Cons: Have to create and add all the tasks into another PriorityQueue if the sorting order were to be changed. Harder to implement.
 
+== Conclusion/Reflection
+
+=== Takeaways
+
+Shown below is the list of takeaways from this project:
+
+. Being new to large scale software engineering projects, I learnt how to read and understand
+an already established software and further develop it into a product that suits the need
+of a target audience.
+
+. I learnt how to write different types of documentations meant for different readers. For example,
+writing a user guide meant for users which requires step by step processes on how to use our app properly.
+
+. Looking back, my team and I could've had better planning from the start as we began to run into certain
+problems further down the road such as lack of features to implement due to poor planning on what kind
+of product we intend to create.
+
+== Challenges
+
+A major challenge I faced was learning how to use GitHub and several other tools which were used for this project. Having no background in coding and only being exposed to coding in NUS modules such as CS2030 and CS2040, all these external tools to help with large scale programming were foreign to me and it took me a long time to get accustomed to it. However I am definitely thankful for this opportunity to be exposed to these tools which will help me in the future.
+
+Overall this was a positive experience for me despite the slightly heavy workload as many things that I've learnt from this project would be essential in the future for me as a programmer and it has created a foundation for me to work on.
 
 ---
 

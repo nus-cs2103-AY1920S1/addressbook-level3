@@ -53,7 +53,7 @@ public class SortingOrder {
                 return Boolean.compare(task1.isDone(), task2.isDone());
             }
         };
-        setTaskCurrentIndex(5);
+        setTaskCurrentIndex(4);
         logger.info("tasks sorted by progress and then increasing order of time.");
     }
 

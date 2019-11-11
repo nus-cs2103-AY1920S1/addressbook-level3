@@ -21,9 +21,9 @@ Class Description {
 }
 }
 
-ProjectList *--> "1" UniqueProjectList
-UniqueProjectList o--> "*" Project
-Project *--> "*" Task
+ProjectList *-right> "1" UniqueProjectList
+UniqueProjectList o-right> "*" Project
+Project *-down> "*" Task
 Task *--> "1" Time
 Task *--> "1" Description
 @enduml
