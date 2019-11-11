@@ -58,13 +58,13 @@ There are 2 difficulty levels in this game feature: Easy and Hard. In the easy m
 This feature is very special because there is no task tracking app in the current market with a built-in game feature with the sole purpose of providing entertainment. Many people are neglecting the importance of taking breaks and the effects it has on boosting productivity. I hope that this feature will be able to encourage these people to take breaks.
 
 _Difficulties?_ +
-The difficulty of this feature is mainly the need to integrate this feature into ELISA. Originally, I wanted to run the game in a separate tab (Refer to the annotated figure above) from the list and calendar tabs but to do so would mean that the user has to click into the tab when they want to play the game and click the commandbox when they want to type a command. This is very problematic as ELISA is designed for CLI users which meant that they do not want to use the mouse. 
+The difficulty of this feature is mainly the need to integrate this feature into ELISA. Originally, I wanted to run the game in a separate tab (Refer to the annotated figure above) from the list and calendar tabs but to do so would mean that the user has to click into the tab when they want to play the game and click the commandbox when they want to type a command. This is very problematic as ELISA is designed for CLI users which meant that they do not want to use the mouse.
 
 I worked around that problem by implementing the game feature using a separate scene from the ELISA's scene. This means that when the user enter the game mode, he will not be able to see ELISA and his list of tasks. This solves the problem I mentioned earlier as well as met the goal of encouraging the user to take a break from work.
 
 * *Navigation Features (Minor Feature)*:
 
-The following features are features that allow the application to be completely CLI based. Since ELISA is designed for CLI users, I have to provide a way for the users to navigate through ELISA without the use of the mouse. 
+The following features are features that allow the application to be completely CLI based. Since ELISA is designed for CLI users, I have to provide a way for the users to navigate through ELISA without the use of the mouse.
 
 `show T/E/R/C` switches the tabs between the lists and calendar views.
 `up/down` scrolls the list up/down.
@@ -76,11 +76,11 @@ The theme feature is to allow users to change the colour scheme of ELISA. This f
 .Theme Feature
 image::icesiolz/UG1.png[]
 
-* *UI integration (Major Contribution)*: 
+* *UI integration (Major Contribution)*:
 
 For this section, please refer to the annotated diagram above.
 
-I designed the entire UI of ELISA to display the features that ELISA has. While UI may not be considered a feature, it is a huge part of whether an app is user-friendly and therefore I have devoted a significant amount of time into its design. 
+I designed the entire UI of ELISA to display the features that ELISA has. While UI may not be considered a feature, it is a huge part of whether an app is user-friendly and therefore I have devoted a significant amount of time into its design.
 
 Firstly the mascot, ELISA. ELISA is a female student assistant, therefore the overall structure of ELISA is that of a female robot. The colour blue is chosen because blue is the most popular colour in the world. (according to a study by Philip Cohen from the University of Maryland) It is a colour often found in nature and people always describe blue as calm and serene, which is what we want users to feel.
 
