@@ -183,7 +183,7 @@ image::help.png[width="790"]
 ===== Viewing all items in another list
 
 To toggle between the main list and the list of items to be replenished, you
-can use the command `view|<list name>`. This shows you all the items in the list sorted by name
+can use the command `view|<list name>`. This shows you all the items in the list automatically sorted by their name
 (lexicographical order) then date (chronological order). +
 
 Examples:
@@ -197,7 +197,7 @@ image::view-replenish.png[width="790"]
 
 Perhaps after viewing all your items in the replenish list, you wish to return to the main tracking list to add some items
 that you have recently purchased. You can easily return to the main list, by typing `view|main` in the command box.
-This is depicted in the figure below.
+This is also depicted in the figure below.
 
 .Items in main tracking list viewed
 image::view-main.png[width="790"]

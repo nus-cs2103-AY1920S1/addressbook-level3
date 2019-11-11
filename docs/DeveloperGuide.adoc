@@ -198,14 +198,14 @@ the item is automatically tagged as `#Expired`.**
 
 ===== Implementation
 As shown in a snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
-In particular, `ReplenishParser` parses and handles the commands in the replenish list.
+In particular, `ReplenishParser` is the one that parses and handles the commands in the replenish list.
 
 .Snippet of Logic class diagram to highlight the relationship between the parsers
 image::ParserClassDiagram.png[]
 
 [NOTE]
 Certain commands such as sorting by date, or deleting
-of item quantities are not permitted, as items in the replenish list do not have expiry dates or quantities.
+of item quantities are not permitted by `ReplenishParser`, as items in the replenish list do not have expiry dates or quantities.
 
 The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
 replenish list.
@@ -234,9 +234,9 @@ my analysis and decisions.
 // tag::autosortPartOne[]
 === Auto-sorting of items by name then date
 ==== Implementation
-Items in both lists are automatically sorted by their name then date in chronological order.
+As mentioned previously, items in both lists are automatically sorted by their name then date.
 This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
-that both implement `SortedUniqueItemList`, in a relationship summarised in the diagram below.
+that both implement `SortedUniqueItemList`, in a relationship summarised in the class diagram below.
 
 .Snippet of Model class diagram to bring attention to the relationship between internal sorted lists
 image::SortedUniqueItemListClassDiagram.png[]
@@ -276,9 +276,8 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
 [NOTE]
 Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
-the default method of sorting is then retrieved.
+the default method of sorting (by name) is then retrieved. +
 
-<<<
 // end::autosortPartOne[]
 
 // tag::autosortPartTwo[]
@@ -316,17 +315,17 @@ The ability to check for spelling errors of command arguments is explained in a 
 
 // tag::autosortPartThree[]
 ==== Design Considerations
-In the process of actualising this feature, I contemplated on when items should be automatically sorted by name and displayed.
+In the process of actualising this feature, I contemplated on when items should be automatically sorted by their names and displayed.
 I also tried and tested varied options to derive an optimal data structure to store the sorted items. The following is a brief summary of my analysis and decisions.
 
 ===== Aspect: When items auto-sorted by their names are displayed
 
-* **Alternative 1 (current choice):** Display the sorted list of items when items are viewed.
+* **Alternative 1 (current choice):** Maintain the current method of sorting unless a sort command is executed.
 ** Pros: Does not reset the method of sorting back to name by default with the addition of every item.
-** Cons: The user might not be able to find items added solely by their names.
+** Cons: The user might not be able to find items recently added.
 
-* **Alternative 2:** Display the sorted list of items with the addition of every item.
-** Pros: Allows the user to find any added item with ease as items are sorted by their name in chronological order.
+* **Alternative 2:** Re-sort the list of items by their names with the addition of every item.
+** Pros: Allows the user to find any added item with ease as items are sorted by their name in lexicographical order.
 ** Cons: Resets the method of sorting back to name by default every time an item is added.
 
 ===== Aspect: Data structure to store the auto-sorted items
@@ -624,7 +623,7 @@ image::SearchCommandSequenceDiagram.png[]
 Invalid commands are checked for spelling mistakes.
 The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
 This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
-Relevant functions supporting this operation are implemented in `StringUtil`.
+Relevant functions supporting this operation are implemented in link:https://github.com/AY1920S1-CS2103T-F11-2/main/tree/master/src/main/java/io/xpire/commons/util/StringUtil.java[`StringUtil`].
 
 [NOTE]
 Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
@@ -666,30 +665,30 @@ as its closest match and wrapped as a recommendation in a `ParseException` objec
 // tag::recommendationsPartThree[]
 The figure below presents what happens when a user executes a command with invalid arguments.
 
-.Activity diagram showing what happens when an a command is executed with misspelled arguments
+.Activity diagram showing what happens when a command is executed with misspelled arguments
 
 image::RecommendCommandArgumentsActivityDiagram.png[]
 
 [NOTE]
 Only search and sort commands support this operation.
 
-In the example below encapsulated in a sequence diagram, the user has misspelled "date" as "dat" in a sort command.
+In the example below encapsulated in a sequence diagram, the user has misspelled `"date"` as `"dat"` in a sort command.
 
-.Sequence diagram illustrating the recommendations mechanism for command "sort|dat"
+.Sequence diagram illustrating the recommendations mechanism for command `sort|dat`
 
 image::RecommendationsSortSequenceDiagram.png[]
 
 The sequence diagram titled `find similar words` below expands on the process omitted above.
 
-.Sequence diagram showing how "date" is found to be the most similar word to "dat"
+.Sequence diagram showing how `"date"` is found to be the most similar word to `"dat"`
 
 image::FindSimilarSequenceDiagram.png[]
 
-The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `dat`.
-In this process, `dat` is compared with a set of valid inputs, i.e. both `name` and `date`, and the corresponding edit distances are stored.
-`getSuggestions("dat")` then filters the results and finds `date` to be the best match.
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `"dat"`.
+In this process, `"dat"` is compared with a set of valid inputs, i.e. both `"name"` and `"date"`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `"date"` to be the best match.
 
-At last, a `ParseException` which contains the recommendation `date`
+At last, a `ParseException` which contains the recommendation `"date"`
 is then thrown to the user as feedback.
 
 ==== Design Considerations
@@ -698,12 +697,12 @@ I also evaluated multiple options to derive an optimal data structure to store t
 
 ===== Aspect: How recommendations execute
 
-* **Alternative 1 (current choice):** Displays recommendations after user inputs command that fails to produce results.
+* **Alternative 1 (current choice):** Displays recommendations after the user inputs a command that fails to produce results.
 ** Pros: Simpler and straightforward implementation.
 ** Cons: May be less intuitive to the user as opposed to auto-completed commands.
 
 * **Alternative 2:** Auto-completion of commands.
-** Pros: Lowers likelihood of spelling mistakes in user input to begin with.
+** Pros: Lowers likelihood of spelling mistakes in user input.
 ** Cons: We must ensure that the structure of every single command and their variations are taken into consideration.
 
 ===== Aspect: Data structure to store the recommendations
@@ -1037,7 +1036,7 @@ Use case ends.
 * 1a. The given index is invalid.
 +
 [none]
-** 1a1. Expire shows an error message.
+** 1a1. Xpire shows an error message.
 +
 Use case resumes at step 1.
 
@@ -1060,7 +1059,7 @@ _{More to be added}_
 Accessibility
 
 .  The app shall be accessible by people who have downloaded the JAR file.
-.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
+//.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
 
 Availability
 
@@ -1094,6 +1093,7 @@ Product Scope
 .  The product is not required to handle items without expiry dates.
 .  The product is not required to handle items without names.
 .  The product is not required to produce reminders when the app is inactive.
+.  The product is not required to handle intentionally corrupted json files.
 
 Usability
 
@@ -1211,13 +1211,14 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on +
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. +
+   Expected: Shows the GUI with a set of sample items. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by using the `java -jar xpire.jar` command. +
    Expected: The most recent window size and location is retained.
 
 === Command Box
@@ -1265,6 +1266,39 @@ add any reminder threshold. +
 .. Test case: `set reminder|1|1000` +
   Expected: the first item turns yellow.
 
+=== Viewing items
+
+. Viewing items in the replenish list
+
+.. Test case: `view|replenish` +
+   Expected: All items in the replenish list are displayed.
+.. Test case: `view|replenihs` +
+   Expected:  No change in the display of items. The term `replenish` is given as a suggestion in the error message.
+.. Test case: `view|REPLENISH` +
+   Expected: Similar to previous.
+.. Test case: `view|something` +
+   Expected: No change in the display of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: , `view|3000`, `view|xyz` (where xyz is any garbage input)  +
+   Expected: Similar to previous.
+
+. Viewing items in the main tracking list
+
+.. Test case: `view|main` +
+   Expected: All items in the main list are displayed.
+.. Test case: `view|mainn` +
+   Expected:  No change in the display of items. The term `main` is given as a suggestion in the error message.
+.. Test case: `view|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect view commands to try: `view|-1`, view|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Viewing items in the current list
+
+.. Test case: `view` +
+   Expected: All items in the current list are displayed.
+.. Test case: `viwe` +
+   Expected: `view` is given as a recommendation in the error message.
+
 === Adding expired items to the tracking list for testing
 
 Xpire automatically tags items as `Expired` in the tracking list once an item's expiry date has passed, as seen in the diagram below. See <<Replenish List>> for details.
@@ -1295,17 +1329,18 @@ For more information about JSON objects, please refer to https://www.digitalocea
 
 === Deleting an item
 
-. Deleting an item while all items are listed
+. Deleting an item in either list while all items are listed
 
-.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be deleted must exist
+in the list.
 .. Test case: `delete|1` +
    Expected: First item is deleted from the list. Details of the deleted item shown in the status message.
 .. Test case: `delete|0` +
-   Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No item is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-. Deleting an item quantity
+. Deleting an item quantity in the main tracking list while all items are listed
 
 The examples given below acts according to the following list:
 
@@ -1319,9 +1354,34 @@ image::delete_example_list.png[]
    Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
    Details of this shift is reflected in the status message.
 .. Test case `delete|2|0` +
-   Expected: Quantity is not reduced. Error details showed in the status message. Status bar remains the same.
+   Expected: Quantity is not reduced. Error details showed in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
    Expected: Similar to previous.
+
+. Deleting an item quantity in the replenish list while all items are listed
+
+.. Prerequisites: Input quantity to be deleted must be less than or equals to the item quantity.
+.. Test case `delete|2|1` +
+   Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
+Details of the item with reduced quantity is reflected in the status message.
+.. Test case `delete|2|3` +
+   Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
+Details of this shift is reflected in the status message.
+.. Test case `delete|2|0` +
+   Expected: Quantity is not reduced. Error details showed in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
+   Expected: Similar to previous.
+
+=== Tagging an item
+
+. Tagging items in either list while all items are listed
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be tagged must have less than
+5 existing tags.
+.. Test case: `tag|1|#fruit` +
+   Expected: The first item in the list will be tagged with #Fruit.
+.. Other incorrect tagging commands to try: `tag|0`, `tag|x` +
+   Expected: No item is tagged. Error details shown in the status message.
 
 === Setting a reminder for an item
 
@@ -1335,6 +1395,8 @@ image::delete_example_list.png[]
    Expected: Reminder not set. Feedback shows error details.
 .. Test case `set reminder|1|365000` +
    Expected: Reminder not set. Feedback shows error details.
+.. Other incorrect set reminder commands to try: `set reminder|`, `set reminder|0` +
+   Expected: Similar to previous.
 
 . Removing a reminder for an item
 
@@ -1347,20 +1409,55 @@ image::delete_example_list.png[]
 
 . Find items expiring in a specific number of days
 
-.. Prerequisites: Current view is the main list. The list contains at least one expired item.
+.. Prerequisites: Current view is the main list. The list contains at least one expired item. The items you wish to check also must have either already expired or have reminders
+set for them previously.
+.. Test case: `check` +
+   Expected: Items that are expiring soon or have already expired are listed.
 .. Test case `check|0` +
    Expected: Expired items are displayed in the `View` (items in red). +
    Feedback shows listing of items expiring in 0 day.
 .. Test case `check|20` +
    Expected: Items expiring in 20 days are displayed in the `View`. +
    Feedback shows listing of items expiring in 20 days.
+.. Other incorrect set reminder commands to try: `check|2000000` +
+   Expected: No change in the display of items. Error details shown in the status message.
 
 . Find all expired items and items whose reminder date has been reached (items in yellow)
 
 .. Prerequisites: Current view is the main list. The list contains at least one expired item or item with active reminder.
 .. Test case `check` +
-   Expected: Expired items and items with active reminder in the `View` (items in red or yellow).
+   Expected: Expired items and items with active reminder in the `View` (items in red or yellow). +
    Feedback shows listing of expired items and items whose reminder has been activated.
+
+=== Sorting items
+
+. Sorting items by their name
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|name` +
+   Expected: The current item list is sorted with respect to their names in lexicographical order.
+.. Test case: `sort|naem` +
+   Expected:  No change in the order of items. The term `name` is given as a suggestion in the error message.
+.. Test case: `sort|NAME` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|0`, `sort|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Sorting items by their date
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|date` +
+   Expected: The current item list is sorted with respect to their dates in chronological order.
+.. Test case: `sort|datee` +
+   Expected:  No change in the order of items. The term `date` is given as a suggestion in the error message.
+.. Test case: `sort|DATE` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|`, `sort|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
 
 === Saving data
 
