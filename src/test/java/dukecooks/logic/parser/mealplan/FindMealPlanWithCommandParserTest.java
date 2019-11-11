@@ -24,11 +24,11 @@ public class FindMealPlanWithCommandParserTest {
         // no leading and trailing whitespaces
         FindMealPlanWithCommand expectedFindMealPlanWithCommand =
                 new FindMealPlanWithCommand(new MealPlanRecipesContainsKeywordsPredicate(Arrays
-                        .asList("Fish", "Burger")));
-        CommandParserTestUtil.assertParseSuccess(parser, "Fish Burger", expectedFindMealPlanWithCommand);
+                        .asList("Cheese Burger")));
+        CommandParserTestUtil.assertParseSuccess(parser, "Cheese Burger", expectedFindMealPlanWithCommand);
 
         // multiple whitespaces between keywords
-        CommandParserTestUtil.assertParseSuccess(parser, " \n Fish \n \t Burger  \t", expectedFindMealPlanWithCommand);
+        CommandParserTestUtil.assertParseSuccess(parser, " \n Cheese \n \t Burger  \t", expectedFindMealPlanWithCommand);
     }
 
 }

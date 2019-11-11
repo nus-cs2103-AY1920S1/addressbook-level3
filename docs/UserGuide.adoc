@@ -355,9 +355,15 @@ Examples:
 Creates a recipe with name "Chicken Rice", ingredients "Chicken" and "Rice", with nutritional information of
 666kcal, 55g carbs, 44g fats, and 30g protein.
 
-.Adding a recipe
-[caption="Figure 3.3.1: "]
-image::ug_recipe_addRecipe.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_recipe_addRecipe1.png[]
++
+. If the command succeeds, you should see the following message in the result display
+and a new recipe named "Chicken Rice" will be added.
++
+image::ug_recipe_addRecipe2.png[]
 
 ==== Editing a recipe: `edit recipe`
 Edit a recipe according to a specified index. +
@@ -381,9 +387,14 @@ Updates the first listed recipe to have the name "Chicken Noodle" and edit it to
 * `edit recipe 2 i/Noodle i-/Rice` +
 Removes the ingredient "Rice" from the first listed recipe, and adds the ingredient "Noodle".
 
-.Editing a recipe
-[caption="Figure 3.3.2: "]
-image::ug_recipe_editRecipe.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_recipe_editRecipe1.png[]
++
+. If the command succeeds, the following result will be displayed and the recipe will be edited as shown below.
++
+image::ug_recipe_editRecipe2.png[]
 
 ==== Listing your recipes: `list recipe`
 Lists all recipes. +
@@ -394,9 +405,14 @@ Examples:
 * `list recipe` +
 Lists all recipes saved in the recipe book.
 
-.Listing all recipes
-[caption="Figure 3.3.3: "]
-image::ug_recipe_listRecipe.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_recipe_listRecipe1.png[]
++
+. If the command succeeds, all of the recipes within DukeCooks would be listed as shown below.
++
+image::ug_recipe_listRecipe2.png[]
 
 ==== Finding a recipe: `find recipe`
 Finds recipes with names containing a specified keyword. +
@@ -407,9 +423,15 @@ Examples:
 * `find recipe Chicken` +
 Lists all recipes containing "Chicken" in their name.
 
-.Finding a recipe
-[caption="Figure 3.3.4: "]
-image::ug_recipe_findRecipe.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_recipe_listRecipe1.png[]
++
+. If the command succeeds, only the found recipes would be displayed as shown below. In this case,
+all recipes with the keyword "Chicken" in its name would be found.
++
+image::ug_recipe_listRecipe2.png[]
 
 ==== Deleting a recipe: `delete recipe`
 Deletes recipe according to a specified index. +
@@ -466,9 +488,15 @@ Creates an empty meal plan with the name "Empty".
 * `add mealplan n/Keto day1/KFC day2/4 Fingers day3/Texas Chicken day4/Arnolds day5/Popeyes day6/Nene day7/Wing Stop` +
 Creates a meal plan with the name "Keto" and the listed meals under each indicated day.
 
-.Adding a meal plan
-[caption="Figure 3.4.1: "]
-image::ug_mealplan_addMealPlan.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_mealplan_addMealPlan1.png[]
++
+. If the command succeeds, you should see the following message in the result display
+and a new meal plan named "One Recipe" will be added.
++
+image::ug_mealplan_addMealPlan2.png[]
 
 ==== Editing a meal plan: `edit mealplan`
 Edit a meal plan according to a specified index. +
@@ -497,9 +525,14 @@ Examples:
 * `edit mealplan 1 n/Bulking day-1/Salad day4/Mashed Potatoes` +
 Updates the first listed meal plan to remove the recipe "Salad" from Day 1 and add the recipe "Mashed Potatoes" to Day 4.
 
-.Editing a meal plan
-[caption="Figure 3.4.2: "]
-image::ug_mealplan_editMealPlan.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_mealplan_editMealPlan1.png[]
++
+. If the command succeeds, the following result will be displayed and the meal plan will be edited as shown below.
++
+image::ug_mealplan_editMealPlan2.png[]
 
 ==== Listing your meal plans: `list mealplan`
 Lists all meal plans. +
@@ -510,9 +543,14 @@ Examples:
 * `list mealplan` +
 Lists all meal plans saved in the meal plan book.
 
-.Listing all mealplans
-[caption="Figure 3.4.3: "]
-image::ug_mealplan_listMealPlan.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_mealplan_listMealPlan1.png[]
++
+. If the command succeeds, all of the meal plans within DukeCooks would be listed as shown below.
++
+image::ug_mealplan_listMealPlan2.png[]
 
 ==== Finding a meal plan: `find mealplan`
 Finds meal plans with names containing a specified keyword. +
@@ -523,9 +561,15 @@ Examples:
 * `find mealplan Chicken` +
 Lists all meal plans containing "Chicken" in their name.
 
-.Finding a meal plan
-[caption="Figure 3.4.4: "]
-image::ug_mealplan_findMealPlan.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_mealplan_findMealPlan1.png[]
++
+. If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
+all meal plans with the keyword "Week" in its name would be found.
++
+image::ug_mealplan_findMealPlan2.png[]
 
 ==== Finding a meal plan containing a certain recipe: `find mealplanwith`
 Finds meal plans with a specified recipe name. +
@@ -536,9 +580,15 @@ Examples:
 * `find mealplanwith Chicken Rice` +
 Lists all meal plans containing "Chicken Rice" in any of the meal plan days.
 
-.Finding meal plans containing a certain recipe.
-[caption="Figure 3.4.5: "]
-image::ug_mealplan_findWithMealPlan.png[width="790"]
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_mealplan_findWithMealPlan1.png[]
++
+. If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
+all meal plans with the recipe "Chilli Crab" in any of its days would be found.
++
+image::ug_mealplan_findWithMealPlan2.png[]
 
 ==== Delete a meal plan: `delete mealplan`
 Deletes meal plan according to a specified index. +

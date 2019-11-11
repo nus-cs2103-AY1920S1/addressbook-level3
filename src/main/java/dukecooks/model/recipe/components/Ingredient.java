@@ -12,7 +12,7 @@ public class Ingredient {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Ingredients names should only contain alphanumeric characters and spaces, limited to 40 characters";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{1,40}";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]{0,39}";
 
     public final String ingredientName;
 

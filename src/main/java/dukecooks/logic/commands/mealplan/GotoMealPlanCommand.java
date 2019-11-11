@@ -1,4 +1,4 @@
-package dukecooks.logic.commands.recipe;
+package dukecooks.logic.commands.mealplan;
 
 import static java.util.Objects.requireNonNull;
 
@@ -10,20 +10,20 @@ import dukecooks.model.Model;
 /**
  * Directs to Recipe in DukeCooks to the user.
  */
-public class GotoRecipeCommand extends GotoCommand {
+public class GotoMealPlanCommand extends GotoCommand {
 
-    public static final String VARIANT_WORD = "recipe";
+    public static final String VARIANT_WORD = "mealplan";
 
-    public static final String MESSAGE_SUCCESS = "You are now at the recipe book";
+    public static final String MESSAGE_SUCCESS = "You are now at your meal plans";
 
     private static Event event;
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.updateFilteredRecipeList(Model.PREDICATE_SHOW_ALL_RECIPES);
+        model.updateFilteredMealPlanList(Model.PREDICATE_SHOW_ALL_MEALPLANS);
         event = Event.getInstance();
-        event.set("recipe", "all");
+        event.set("mealPlan", "all");
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

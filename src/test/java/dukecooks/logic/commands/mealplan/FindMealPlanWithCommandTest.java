@@ -64,16 +64,6 @@ public class FindMealPlanWithCommandTest {
         assertEquals(Collections.emptyList(), model.getFilteredMealPlanList());
     }
 
-    @Test
-    public void execute_multipleKeywords_multipleMealPlansFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_MEALPLAN_LISTED_OVERVIEW, 3);
-        MealPlanRecipesContainsKeywordsPredicate predicate = preparePredicate("Sandwich Fried Tea");
-        FindMealPlanWithCommand command = new FindMealPlanWithCommand(predicate);
-        expectedModel.updateFilteredMealPlanList(predicate);
-        CommandTestUtil.assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TUNA_MP, CHICKEN_MP, TEA_MP), model.getFilteredMealPlanList());
-    }
-
     /**
      * Parses {@code userInput} into a {@code MealPlanRecipesContainsKeywordsPredicate}.
      */
