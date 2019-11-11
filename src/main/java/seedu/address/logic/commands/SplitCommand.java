@@ -35,7 +35,7 @@ public class SplitCommand extends Command {
         + PREFIX_SHARE + "2 "
         + PREFIX_SHARE + "3\n"
         + "If number of shares is one more than number of names listed, \n"
-        + "first share is taken to be user's share of the expenditure\n";
+        + "first share is taken to be user's share of the expenditure";
     public static final String SHARES_FORMAT = "If number of shares is equal to number of names given,"
         + "user is assumed to be excluded from the expenditure.\n"
         + "Else, first share is taken to be the user's share.";
