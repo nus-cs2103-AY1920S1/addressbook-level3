@@ -160,6 +160,7 @@ In the flashcard system, quiz and flip is a special function that can help the u
 there own improvements. The flip command, which is answering the quizzed flashcard, can only be used when a current flashcard is being quizzed.
 The following sequence diagram shows how the quiz and flip diagram works.
 
+.Component interactions for quiz command on a single flashcard
 image::QuizSequenceDiagram.png[]
 
 === Stats feature
@@ -168,6 +169,7 @@ After a series of quizzes, each flashcard can automatically record how many corr
 The stats command helps the user to see their progress while doing the quizzes. Below is a sequence diagram of how this command
 works.
 
+.Component interaction for stats command
 image::StatsSequenceDiagram.png[]
 
 // end::quizdiagram[]
