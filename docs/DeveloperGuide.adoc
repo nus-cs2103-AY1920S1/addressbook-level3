@@ -344,6 +344,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
+//tag::report[]
 === Calendar Window
 
 The `CalendarWindow` provides a visual representation of stored engagements over a monthly period.
@@ -466,6 +467,7 @@ by opening the engagements list window for that particular date.
 ** Pros: Shows more detailed information in the calendar window.
 ** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
+//end::report[]
 
 === Game Window
 

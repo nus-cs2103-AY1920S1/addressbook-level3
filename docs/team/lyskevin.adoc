@@ -55,5 +55,19 @@ https://github.com/AY1920S1-CS2103T-F14-3/main/pull/49/files[#49]).
 
 == Contributions to the User Guide
 
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=quick-start]
+
+include::../UserGuide.adoc[tag=calendar]
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
 == Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=calendar]
 
