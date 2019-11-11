@@ -56,36 +56,6 @@ ModelManager -down-> Bookmark
 
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-<<<<<<< HEAD
-Mark .up.|> ReadOnlyMark
-VersionedMark -|> Mark
-VersionedMark *-up-> "*" ReadOnlyMark : contains >
-
-Mark *--> "1" UniqueBookmarkList
-Mark *-left-> "1" FolderStructure
-Mark *--> "1" ReminderAssociation
-Mark *-left-> "1" AutotagController
-
-UniqueBookmarkList o--> "*" Bookmark
-Bookmark *--> Name
-Bookmark *--> Url
-Bookmark *--> Remark
-Bookmark *--> Folder
-Bookmark *--> "*" Tag
-
-Name -[hidden]right-> Url
-Url -[hidden]right-> Remark
-Remark -[hidden]right-> Folder
-
-ReminderAssociation o--> "*" Bookmark
-ReminderAssociation o--> "*" Reminder
-Reminder --> Url
-Reminder --> Note
-
-AutotagController o--> "*" SelectiveBookmarkTagger
-SelectiveBookmarkTagger -down-|> BookmarkTagger
-BookmarkTagger --> Tag
-=======
 Mark .right.|> ReadOnlyMark
 VersionedMark -down-|> Mark
 VersionedMark *-left "*" VersionedMark.MarkStateRecord : contains >
@@ -111,6 +81,17 @@ Reminder -right-> Bookmark
 
 Autotag --> Tag
 Autotag ..> Bookmark
->>>>>>> master
 
 @enduml
+© 2019 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
