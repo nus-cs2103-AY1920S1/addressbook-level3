@@ -1,0 +1,80 @@
+= Jia Xiaodong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Splitwiser
+
+---
+
+== Overview
+
+Splitwiser is an application for simplifying payments made between groups of friends.
+It gurantees that each person does not need to make any unnecessary transfers to settle their debts.
+The user interacts with it using a CLI, and is targeted at users who prefer CLI utilities.
+It however has a nice JavaFX GUI to report details graphically and intuitvely.
+It has >10k LOC.
+
+== Summary of contributions
+
+* *Major enhancement*: added the debt simplification algorithm.
+** What it does: It simplifies all debts optimally in each activity.
+** Justification: This is the core feature, and the main point of the entire application.
+** Details: The algorithm scales well to huge amounts of participants and expenses, and can be mathematically proved to always minimize the money everyone has to touch in order to settle all debts in the group. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/101[#101]
+** Credits: https://pure.tue.nl/ws/portalfiles/portal/2062204/623903.pdf[This paper].
+
+* *Major enhancement*: Added a command to settle debts
+** What it does: The `settle` command helps users record settlements of debts after they pay each other in person.
+** Justification: It is a core feature to be able to record special payments between two people specifically to settle debts.
+** Details: The algorithm shows how much is owed. `settle` can either automatically settle all debts between two people, or settle a particular amount between two people. It also checks for valid settlements; so no settlement can make debts worse in accord with our philosophy of always simplifying debts. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/190[#190]
+
+* *Major enhancement*: Added persistent internal state for primary key tracking.
+** What it does: It keeps track of important variables across startups of the application.
+** Justification: We require a unique identifier for every person and activity for the purpose of storing activities, contacts, etc. We need a way to store this across startups so it is unique.
+** Details: This ID record for every object has to persist so that we don't end up assigning repeated IDs to different people/activities. We also need to perform validation on this data. https://github.com/AY1920S1-CS2103T-W11-2/main/pull/80[#80] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/104[#104]
+
+* *Major enhancement*: Update bindings for every command to mesh with the algorithm.
+** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/119[#119] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/120[#120] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/110[#110]
+
+
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** Details: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/53[#53]
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=podocarp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Contribution info].
+
+* *Other contributions*:
+
+** Project management:
+*** Added Travis CI for code quality assurance.
+*** Added Coveralls for code test coverage assurance.
+*** Reviewed and assisted in major PR for `ExpenseCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98[#98]
+*** Reviewed major PR for `ActivityCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/73[#73]
+*** Reviewed major PR for `InviteCommand` https://github.com/AY1920S1-CS2103T-W11-2/main/pull/103[#103]
+*** Reviewed smaller non-trivial PRs: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/46[#46] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/54[#54] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/72[#72] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/81[#81] https://github.com/AY1920S1-CS2103T-W11-2/main/pull/117[#117]
+** Enhancements to existing features:
+*** Added tests on other's pull requests: https://github.com/AY1920S1-CS2103T-W11-2/main/pull/98/commits/dbb83e2fe5c01098d8c9a0ddfabc7f8964e8207e[(dbb83e)]
+
+** Helping others:
+*** Provided extensive testing and supplied major nontrivial bugs on other's repo. Some examples:
+**** Program state not saving during shutdown: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/211[#211]
+**** Save file can enter an error state: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/213[#213]
+**** Data invalidation incomplete: https://github.com/AY1920S1-CS2103T-T11-3/main/issues/214[#214]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=settle]
+include::../UserGuide.adoc[tag=poweruser]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=algorithm]
+
+---
