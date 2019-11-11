@@ -499,7 +499,7 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
                              Followed by: +
                              `appt-add p/1 sdt/10-02-2020 2000 edt/12-02-2020 2100` +
    Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect appointment delete commands to try: `appt-add`, `appt-delete p/x` (where x is larger than the patient list size) +
+.. Other incorrect appointment add commands to try: `appt-add`, `appt-delete p/x` (where x is larger than the patient list size) +
    Expected: Similar to previous.
 
 === Editing an appointment
@@ -513,9 +513,9 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
    Expected: First appointment is edited in the list to fifth patient's details from the list of patients and the input start and end date times as mentioned. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `appt-edit 1 rmon/3` +
    Expected: First appointment is edited in the list to recur by 3 months. If the appointment was previously not recurring, it will be tagged as `recurring`. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
-.. Test case (two commands): `appt-edit 3 p/0` +
-   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect appointment delete commands to try: `appt-edit`, `appt-edit x` (where x is larger than the appointment list size) +
+.. Test case: `appt-edit 3 p/0` +
+   Expected: No appointment is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment edit commands to try: `appt-edit`, `appt-edit x` (where x is larger than the appointment list size) +
    Expected: Similar to previous.
 
 === Deleting a non-recurring appointment
@@ -529,7 +529,7 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
    Expected: xth appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `appt-delete 0` +
    Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+.. Other incorrect non-recurring appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
    Expected: Similar to previous.
 
 === Deleting a recurring appointment
@@ -543,7 +543,7 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
    Expected: xth appointment is deleted from the list and the next appointment from xth appointment being recurred is gotten and added to the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `appt-delete 0` +
    Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+.. Other incorrect recurring appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
    Expected: Similar to previous.
 
 === Deleting an appointment permanently
@@ -555,5 +555,5 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
    Expected: First appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `appt-delete-permanent 0` +
    Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect appointment delete commands to try: `appt-delete-permanent`, `appt-delete-permanent x` (where x is larger than the appointment list size) +
+.. Other incorrect appointment permanent delete commands to try: `appt-delete-permanent`, `appt-delete-permanent x` (where x is larger than the appointment list size) +
    Expected: Similar to previous.

@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import cs.f10.t1.nursetraverse.commons.util.StringUtil;
 
 /**
- * Tests that a {@code Patient}'s {@code Name} matches any of the keywords given.
+ * Tests that an {@code Appointment}'s patient {@code Name} matches any of the keywords given.
  */
 public class AppointmentContainsKeywordsPredicate implements Predicate<Appointment> {
     private final List<String> keywords;
