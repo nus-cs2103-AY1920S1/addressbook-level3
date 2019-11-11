@@ -556,7 +556,12 @@ Set of predicates can but do not need to include `AllContainsKeywordsPredicate`,
 // end::finding[]
 
 === Statistics
-The statistics module is in charge of generating statistics from the currently displayed expenses and rendering it onto the main window.
+Billboard includes a dynamically updating statistics panel containing a chart. It has the following functionality: +
+
+** Every time the displayed list of expenses changes, the chart automatically updates with the new changes
+** Users can submit commands to change the displayed chart as well as change configuration options for the charts
+
+This functionality is made possible through the statistics module. The statistics module is in charge of generating statistics from the currently displayed expenses and rendering it onto the main window.
 There are 2 components that help to do this - the chart component and the statistics generator component.
 [[Design-Ui-Chart]]
 ==== Chart component
@@ -567,21 +572,23 @@ image::ChartClassDiagram.png[]
 
 There is a special `Chart` component that deals with the generation and rendering of specific charts based on user input and the expenses being displayed.
 Every concrete chart type, eg. `ExpenseTimelineChart`, `ExpenseBreakdownChart`, extends from `ExpenseChart`.
-The `ChartBox` is the main orchestrating class. It is updated on the selected `StatisticsFormat` and `StatisticsFormatOptions` by the `MainWindow`
-These are classes that represent user decisions on what to be displayed. Upon being updated, it creates the appropriate
-`ExpenseChart` with the selection options, to display the selected statistic with the currently displayed expenses. The concrete `ExpenseCharts` get the formatted statistics from the
+The `ChartBox` is the main orchestrating class. It is updated with the latest `StatisticsFormat` and `StatisticsFormatOptions` that the user selects, via the `MainWindow`.
+These are classes that represent user configuration on what to be displayed. Upon being updated, it creates the appropriate
+`ExpenseChart` with the selected options, to display the selected statistic with the currently displayed expenses. To transform the data from
+the displayed list of expenses to whatever statistic is required, the `StatisticsGenerator` component is used. The concrete `ExpenseChart` obtains the formatted statistics from the
 `StatisticsGenerator` component.
 
 ==== Statistics Generation Component
 .Structure of the Statistics Generation Component
 image::StatisticsGeneratorClassDiagram.png[]
 
-The `Chart` component gets the data to be displayed from the StatisticsGenerator component. A number of classes,
+The concrete `ExpenseChart` obtains the data to be displayed from the StatisticsGenerator component. A number of classes,
 such as `BreakdownGenerator` and `TimelineGenerator` extend `StatisticsGenerator`, and each is in charge of creating a specific
-statistic type with data processed to fit the chart that displays them.
+statistic type, ie `ExpenseBreakdown` and `ExpenseTimeline`. These concrete statistic types encapsulate all the information relevant
+to the statistic, which the concrete `ExpenseChart` then uses to render the statistic display.
 
 ==== Proposed Implementation
-The chart feature can be roughly described as two separate parts: the displaying of the chart itself and the functionality to
+The chart feature can be roughly split two separate parts: the displaying of the chart itself and the functionality to
 switch between arbitrary charts. They will be discussed separately.
 
 ===== Displaying of charts

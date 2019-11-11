@@ -177,6 +177,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
         case YEAR:
             return DateTimeFormatter.ofPattern("yyyy");
         default:
+            assert false : "Missing enum value in switch" + interval;
             throw new UnsupportedOperationException("Date formatter not defined for given date interval.");
         }
     }
@@ -199,6 +200,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
         case YEAR:
             return adjustment.apply(365.0, 15.0);
         default:
+            assert false : "Missing enum value in switch" + interval;
             throw new UnsupportedOperationException("Tick unit not defined for given date interval.");
         }
     }
