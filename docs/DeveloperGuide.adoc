@@ -1138,7 +1138,7 @@ This section follows directly from the previous section, <<Editing an entity, Ed
 Please refer to the UI Display section in the <<UserGuide#, user guide>> for more detailed information on the `display` command.
 
 . Type `display interviewee` to display a list of interviewee in the scheduler.
-. Expected: A table will be shown with the list of interviewees arranged in this format:
+. Expected: A table will be shown with the list of interviewees arranged in the format shown below.
 . Table will be filled when a list of interviewee is imported into the Scheduler.
 . You can also display the list of interviewers and the scheduled table by the command `display interviewer` and `display schedule` respectively.
 . The format for the displays are shown below.

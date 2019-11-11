@@ -73,6 +73,7 @@ https://github.com/ChrisKheng/ped/issues/3[#3])
 |===
 
 === _Quick Start (Import)_
+
 include::../UserGuide.adoc[tag=quickstart_import]
 
 === _Quick Start (Schedule, Email, Export)_

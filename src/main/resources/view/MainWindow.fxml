@@ -56,7 +56,7 @@
                 <URL value="@TabView.css" />
               </stylesheets>
             <tabs>
-              <Tab fx:id="intervieweeTab" text="Interviewee">
+              <Tab fx:id="intervieweeTab" text="Interviewees">
                 <StackPane fx:id="intervieweeListPlaceholder" xmlns="http://javafx.com/javafx/8"
                            xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
                   <padding>
@@ -64,7 +64,7 @@
                   </padding>
                 </StackPane>
               </Tab>
-              <Tab fx:id="interviewerTab" text="Interviewer">
+              <Tab fx:id="interviewerTab" text="Interviewers">
                 <StackPane fx:id="interviewerListPlaceholder" xmlns="http://javafx.com/javafx/8"
                            xmlns:fx="http://javafx.com/fxml/1" minWidth="340" prefWidth="340" styleClass="pane-with-border">
                   <padding>
