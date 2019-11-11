@@ -90,14 +90,14 @@ public class CommandBox extends UiPart<Region> {
      */
     private void handleUpKey() {
         String previousInput = inputHistoryManager.previous();
+        if (isStyleFailure()) {
+            // need to jump twice since the error message is not wiped from the command box.
+            previousInput = inputHistoryManager.previous();
+        }
         if (previousInput == null) {
             resultDisplay.setFeedbackToUser(MESSAGE_MAXIMUM_INPUT_RETRIEVAL_REACHED);
         } else {
             resultDisplay.setFeedbackToUser("");
-            if (isStyleFailure()) {
-                // need to jump twice since the error message is not wiped from the command box.
-                previousInput = inputHistoryManager.previous();
-            }
             commandTextField.setText(previousInput);
         }
         commandTextField.end();
