@@ -13,7 +13,7 @@ Duke Academy is an all-in-one programming practice app targeted for students tak
 
 Here is a preview of Duke Academy:
 
-image::Ui.png[width="1000"]
+image::UiPreview.png[width="1000"]
 
 == Summary of contributions
 
