@@ -685,21 +685,24 @@ closest common location.
 `ClosestLocation#closestLocationData` executes algorithm above to compute the closest common location. Similar to how
 `JSON` is used to transfer data in `HTTP APIs`, `ClosestCommonLocationData` is used to transfer the relevant data to the
 `UI` to display the popup.
-// end::Closest-Common-Location[]
 
 ==== Design Considerations
 
-===== Aspect: Limited Connectivity Support
-Current choice: we chose alternative 2 as we have limited Google Maps API calls and to reduce the time and space complexity
-of the application.
+===== Aspect: Location
 
-* **Alternative 1:** Get the distance of the location directly from the NUSMods.
-** Pros: Simplify the code base as we can directly call Google Maps API after calling NUSMods API.
-** Cons: Bad time complexity as there would be quadratically more data to process. Prone to error as Google Maps might
+|===
+| Aspect: | Choice | Pros | Cons
+.2+| How to process the location.
+| 1. Get the distance of the location directly from the NUSMods.
+| 1. Simplify the code base as we can directly call Google Maps API after calling NUSMods API.
+| 1. Bad time complexity as there would be quadratically more data to process. Prone to error as Google Maps might
 identify `AS6-0114` but not `AS6-0223`.
-* **Alternative 2:** Sanitize the Locations on NUSMods API according to their buildings(ie `AS6-0114`->`AS6`)
-** Pros: Save time and space complexity as the number of venues will decrease by a factor of 10.
-** Cons: Increase in complexity of the code base as an additional step of processing will be required.
+
+| 2. Sanitize the Locations on NUSMods API according to their buildings(ie AS6-0114->AS6) **(Current choice)**
+| 1. Save time and space complexity as the number of venues will decrease by a factor of 10.
+| 1. Increase in complexity of the code base as an additional step of processing will be required.
+|===
+// end::Closest-Common-Location[]
 
 // tag::nusmods[]
 === Add NUSMods To Schedule
