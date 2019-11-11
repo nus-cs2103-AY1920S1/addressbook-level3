@@ -1,0 +1,53 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":Storage" as storage STORAGE_COLOR
+
+user -[USER_COLOR]> ui : "delete-cca 1"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("delete-cca 1")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : removeCca(cca)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> model : updateModel(command)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> logic : saveModel()
+activate logic LOGIC_COLOR_T1
+
+logic -[LOGIC_COLOR]> storage : saveHistoryManager()
+activate storage STORAGE_COLOR_T1
+storage --[STORAGE_COLOR]> logic
+logic -[LOGIC_COLOR]> storage : saveCcaTracker()
+storage --[STORAGE_COLOR]> logic
+logic -[LOGIC_COLOR]> storage : saveCoursePlanner()
+storage --[STORAGE_COLOR]> logic
+logic -[LOGIC_COLOR]> storage : savePlanner()
+storage --[STORAGE_COLOR]> logic
+logic -[LOGIC_COLOR]> storage : saveFinanceTracker()
+storage --[STORAGE_COLOR]> logic
+deactivate storage
+logic -[LOGIC_COLOR]> logic :
+deactivate logic
+
+deactivate storage
+
+logic --[LOGIC_COLOR]> ui
+deactivate logic
+
+ui--[UI_COLOR]> user
+deactivate ui
+@enduml

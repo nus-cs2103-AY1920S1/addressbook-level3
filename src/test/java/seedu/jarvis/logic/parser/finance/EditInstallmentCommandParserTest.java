@@ -1,11 +1,11 @@
 package seedu.jarvis.logic.parser.finance;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INVALID_INSTAL_MONEY;
 import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_DESC_NETFLIX;
 import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_DESC_SPOTIFY;
 import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_MONEY_NETFLIX;
 import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INSTAL_MONEY_SPOTIFY;
+import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.INVALID_INSTAL_MONEY;
 import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_DESC_NETFLIX;
 import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_DESC_SPOTIFY;
 import static seedu.jarvis.logic.commands.finance.FinanceCommandTestUtil.VALID_MONEY_NETFLIX;

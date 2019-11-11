@@ -35,16 +35,16 @@ activate EditInstallmentCommand
 
 EditInstallmentCommand --> EditInstallmentCommand : createEditedInstallment(Installment,\nEditInstallmentDescriptor)
 
-EditInstallmentCommand --> EditInstallmentCommandParser : d: CommandResult
+EditInstallmentCommand --> EditInstallmentCommandParser : d: EditInstallmentCommand
 deactivate EditInstallmentCommand
 
-EditInstallmentCommandParser --> JarvisParser : d: CommandResult
+EditInstallmentCommandParser --> JarvisParser : d: EditInstallmentCommand
 deactivate EditInstallmentCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
 EditInstallmentCommandParser -[hidden]-> JarvisParser
 destroy EditInstallmentCommandParser
 
-JarvisParser --> LogicManager : d
+JarvisParser --> LogicManager : d : EditInstallmentCommand
 deactivate JarvisParser
 
 LogicManager -> EditInstallmentCommand : execute()

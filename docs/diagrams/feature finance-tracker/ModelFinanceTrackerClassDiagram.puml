@@ -24,12 +24,12 @@ FinanceTracker *--> "1" InstallmentList
 FinanceTracker *--> "0...1" MonthlyLimit
 
 PurchaseList o--> "*" Purchase
-Purchase *--> "1" PurchaseDescription
+Purchase *-left-> "1" PurchaseDescription
 Purchase *--> "1" PurchaseMoneySpent
 Purchase *--> "1" LocalDate
 
 InstallmentList o--> "*" Installment
 Installment *--> "1" InstallmentDescription
-Installment *--> "1" InstallmentMoneyPaid
+Installment *-right-> "1" InstallmentMoneyPaid
 
 @enduml
