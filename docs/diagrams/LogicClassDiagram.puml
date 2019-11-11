@@ -23,6 +23,7 @@ Class "{abstract}\nEndState" as EndState
 Class "{abstract}\nPenultimateState" as PenultimateState
 Interface OptionalState <<Interface>>
 Class XYZState
+Class XYZEndState
 }
 
 }
@@ -68,7 +69,10 @@ CliSyntax ..> Prefix
 
 State ..> StateUtil
 XYZState -up-|> State
+XYZState ..> XYZEndState
 EndState -up-|> State
 PenultimateState -|> State
+EndState ..> Command
+XYZEndState ..> XYZCommand
 
 @enduml
