@@ -168,33 +168,6 @@ The filtered lists will then be shown.
 
 To show every exercise again, simply invoke the `list exercise` command.
 
-==== View Workout: `view workout`
-You've created your workout regime, but you're unsure of the details and your progress. With
-the `view workout` feature, you can check all the details of your workout as well as its
-history!
-
-Similar to `view exercise`, type in `view workout` followed by the index of the workout you're
-interested in.
-
-The following screen will now appear. To orientate you, here are the components of the screen:
-
-. Basic Details +
-This component shows the Name, Intensity, Number of times completed, Average Run Time and
-Muscles Trained by the workout.
-
-. Exercises +
-The exercises segment show a list of all exercises contained in the workout as well as its
-exercise details
-
-. Workout History +
-The workout history compiles a list of all the times you have ran and completed this workout
-
-.Chest Day Screen
-image::viewWorkoutOutput.png[]
-
-Similarly to `view Exercise` command, this page will be automatically updated after each run
-of the workout. You can also return to the workout planner page with `goto exercise`.
-
 ==== Run Workout: `run workout`
 
 You've created all your exercises and added it into your ultimate workout. Now you're ready
