@@ -7,11 +7,11 @@ https://coveralls.io/github/AY1920S1-CS2103T-T13-4/main?branch=master[image:http
 https://www.codacy.com/manual/Na-Nazhou/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103T-T13-4/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/acdf3b37edfe40dbab7320f740928c89[Codacy Badge]]
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::images/Ui.png[]
 endif::[]
 
 ifndef::env-github[]
-image::docs/images/Ui.png[]
+image::images/Ui.png[]
 endif::[]
 
 
