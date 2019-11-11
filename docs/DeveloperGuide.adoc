@@ -504,6 +504,8 @@ The Appointment feature enables users to manage appointments for patients by pro
 The number of scheduled appointments cannot be more than the number of on-duty staff doctors at any given time.
 
 ==== Current Implementation
+The current appointment feature is implemented using a list which works like a balanced binary search tree. This allows us to search for an appointment within O(logn) instead of O(n) time, where n is the number of appointments in the list.
+
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
 
 `newappt` Command - Creates an new appointment or reoccurring appointments for a patient.
