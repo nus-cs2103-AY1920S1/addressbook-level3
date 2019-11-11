@@ -40,14 +40,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * *`list`* : Lists all engagements.
 * **`tab` ** `b/game` : Switches main window to start window of the game.
-* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Ben|Tom d/Meeting on Monday p/HIGH` : +
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS d/Meeting on Monday a/Ben|Tom p/HIGH` : +
 Adds an engagement to the engagements list with the following details: +
 Engagement type: Appointment +
 Start time: 09/11/2019 at 1200 hours +
 End time: 09/11/2019 at 1330 hours +
 Location: NUS +
-Attendees: Ben and Tom +
 Description: Meeting on Monday +
+Attendees: Ben and Tom +
 Priority: High +
 * **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
 * **`delete`** `i/3` : Deletes the 3rd appointment shown in the current list.
@@ -80,6 +80,7 @@ to type the relevant command word to get prompted about subsequent inputs.
 
 .The interactive component of Typee is highlighted above.
 image::interactive_parsing_0.png[width='520']
+{empty} +
 
 With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
 ```
@@ -94,7 +95,8 @@ p/High
 ```
 
 .Typee's prompt in response to the user entering `add`
-image::interactive_parsing_1.png[width="520"]
+image::interactive_parsing_1.png[height='90' width="800"]
+{empty} +
 
 Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
 Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
@@ -109,10 +111,12 @@ a/John | Smith p/High
 ```
 
 .A user about to pass 3 arguments to Typee in one input, following `add`.
-image::interactive_parsing_2.png[width='520']
+image::interactive_parsing_2.png[height='90' width='800']
+{empty} +
 
 .Typee's response to the above input.
-image::interactive_parsing_3.png[width='520']
+image::interactive_parsing_3.png[height='90' width='800']
+{empty} +
 
 Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
 the entire command at once. This is identical to the format introduced in the beginning of this section: -
@@ -125,6 +129,9 @@ the entire command at once. This is identical to the format introduced in the be
 structures and idiosyncrasies are detailed in the sections belonging to the respective commands.
 
 In general, commands are of two types - *static* and *dynamic*.
+
+At any point of time, the user can enter `// current` to view the current input constraints and
+input `// clear` to stop parsing the current command. These are examples of *dynamic* commands.
 
 Static commands are executed one at a time, whereas dynamic commands can be built at any point of time, even while
 parsing an ongoing static command.
@@ -148,7 +155,8 @@ exit
 
 [NOTE]
 Calling another dynamic command in the midst of building a `Tab` command will erase the details of the command preceding
-'Tab'. This happens if the command preceding `Tab` isn't fully built.
+'Tab'. This happens if the command preceding `Tab` isn't fully built. +
+For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the add command.
 
 ==== Valid Input Sequences
 
@@ -175,15 +183,26 @@ invalid and the user is prompted to enter a start date-time.
 This happens because the parser expects an argument for `s/`, but there is no such argument.
 As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
 
+.Typee's response to `add t/meeting l/Meeting Room 2`.
+image::interactive_parsing_6.png[width='800' height='90']
+{empty} +
+
+
 Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
 and `p/` untouched.
 
-However, there lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments.
+.Typee's response to `add t/meeting s/15/01/2019/1500 d/desc p/low`.
+image::interactive_parsing_7.png[width='800' height='90']
+{empty} +
 
+
+[NOTE]
+There lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments. +
 Consider the case when the user inputs `add t/meeting e/15/11/2019/1500 s/15/11/2019/1400`. This input is deemed *valid* even
 though `e/` and `s/` are flipped. This is because after 't/', the parser expects to find an `s/`, which is in-turn contained in the input.
 
-Thus, to summarize, the parser continues parsing in the order of the expected arguments, as long as the corresponding prefixes are found in the input.
+
+*Thus, to summarize, the parser continues parsing in the order of the expected arguments, as long as the corresponding prefixes are found in the input.*
 
 ==== Erroneous Inputs
 
@@ -198,10 +217,13 @@ and prompts the user to enter an acceptable engagement type instead. Since Typee
 the subsequent input must begin with `t/...`
 
 .A user about to enter an invalid input.
-image::interactive_parsing_4.png[width='520']
+image::interactive_parsing_4.png[height='90' width='800']
+{empty} +
 
 .Typee's response to the invalid input.
-image::interactive_parsing_5.png[width='520']
+image::interactive_parsing_5.png[height='90' width='800']
+{empty} +
+
 
 Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
 the user input.
@@ -216,7 +238,7 @@ s/15/11/2019/1500
 t/interview
 ```
 
-Last but not least, Typee will reject cases wherein the user supplied excessive and irrelevant arguments.
+Last but not least, Typee will reject cases wherein the user supplies excessive and irrelevant arguments.
 `add t/meeting s/16/11/2019/1600 e/16/11/2019/1700 l/COM-1 d/Meeting a/Damith p/High o/High` will be rejected because `o/`
 is not a parameter for the 'Add' command.
 
@@ -240,7 +262,7 @@ Users can switch between respective windows in order to make full use of the app
 `Engagement` window is set to default window upon starting the application.
 
 If the user wants to switch to different windows, simply enter the tab command
-with refer to the menu name listed on the left end of the application window. +
+with a reference to the menu name listed on the left end of the application window. +
 
 For example, user enters `tab b/calendar`
 , which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
@@ -250,38 +272,106 @@ Users who prefer using mouse over typing can alternatively click the green tabs 
 
 image::tab_2.png[width="800"]
 
+Users can start building a command in one tab, switch tabs midway and finish building the command in another tab.
+This can be achieved by the following sequence of inputs.
+```
+add
+t/meeting s/15/11/2019/1600 e/15/11/2019/1700
+tab
+b/calendar
+l/COM-1 d/Meeting a/Damith p/High
+```
+
 
 //end::tab-command[]
 
 === Adding an engagement: `add`
 
-Adds an engagement to the system. Engagement can be in different types; `Engagement`, `Meeting` and `Interview` +
-Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY`
+Adds an engagement to the system. There are three types of engagements; `Appointment`, `Meeting` and `Interview` +
+Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES[Separated by '|'] p/PRIORITY`
 
 .Enters Add Engagement Command in Command Input Text field.
-image::add_1.png[width="800"]
+image::add_1.png[width="800" height='90']
+{empty} +
 
 Examples:
 
-* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John, Elijah, Sam d/CS2103T Discussion p/High` +
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T Discussion a/John | Elijah | Sam p/High` +
 Adds an engagement with following information;
 ** Engagement Type: Meeting
 ** Start Time: 18/10/2019/1500
 ** End Time: 18/10/2019/1800
 ** Location: COM-2-B1-03
-** Attendees: John, Elijah, Sam
 ** Engagement Description: CS2103T Discussion
+** Attendees: John, Elijah, Sam
 ** Priority: High
 
-After user enters the above command, system will save the engagement information and displays the brief engagement information as a list item on the List View.
+After user enters the above command, Typee will store the information and append it to the displayed list of engagements.
 
 .Engagement successfully saved in system storage.
 image::add_2.png[width="800"]
+{empty} +
+
+[TIP]
+The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. +
+Example: `add` `t/meeting` `s/11/11/2019/1500` ... `p/High`
+
+The table below summarizes the parameters of the add command.
+
+[%header, cols=3*]
+|===
+|Parameter
+|Prefix
+|Constraints
+
+|Engagement type
+|`t/`
+|Engagements must be one of 'meeting', 'appointment' or 'interview'.
+
+|Start Date-Time
+|`s/`
+|This is when the engagement to be added begins. +
+The start date-time must be entered in the `dd/MM/yyyy/HHmm` format.
+
+|End Date-Time
+|`e/`
+|This is when the engagement to be added ends. +
+The end date-time must be entered in the `dd/MM/yyyy/HHmm` format and occur *after* the start time.
+
+|Location
+|`l/`
+|The location of the engagement. The location must be non-empty.
+
+|Description
+|`d/`
+|A brief description of what the engagement is about. The description must be non-empty.
+
+|Attendees
+|`a/`
+|The list of people who will be present at the engagement. Individuals must be separated by
+a vertical line.
+
+|Priority
+|`p/`
+|Priority level of the engagement. The priority level can be one of 'Low', 'Medium', 'High' or 'None'.
+|===
+
+If the engagement to be added clashes with an existing one, the user will be notified of the add command's rejection. +
+An engagement clashes with another engagement if *all* of the below conditions are satisfied:
+
+* There is an overlap in the time-slot occupied by the engagements.
+* The engagements are held at the same location
+
+[NOTE]
+The list of attendees *does not* represent unique people. This is why attendees aren't considered in engagement conflict resolution.
+
 
 === Listing all engagements : `list`
 
 Lists all engagements. +
 Format: `list`
+
+This command is useful in retrieving the original engagement list after executing commands that modify the viewed list, like `find`.
 
 //tag::sort[]
 === Sorting all engagements : `sort`
@@ -319,7 +409,7 @@ TIP: `sort` command can be done in one shot by giving all attributes at once. e.
 image::after-oneshot-sort.png[width="450"]
 
 [TIP]
-After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
+After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete i/1` will delete the current first engagement displayed.
 //end::sort[]
 
 === Locating engagements by attendee, description, location and priority: `find`
@@ -399,7 +489,7 @@ Returns any engagement having attendee `Betsy`, description `Project Meeting`, l
 === Deleting an engagement : `delete`
 
 Deletes the specified engagement from the engagement list. +
-Format: `delete INDEX`
+Format: `delete i/INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -411,12 +501,12 @@ Examples:
 
 ```
 list
-delete 2
+delete i/2
 ```
 Deletes the 2nd engagement in the engagement manager.
 ```
 find p/Low
-delete 1
+delete i/1
 ```
 Deletes the 1st engagement in the results of the `find` command.
 
@@ -432,7 +522,7 @@ Undoes the previous command, provided that it exists. +
 Format: `undo`
 
 [TIP]
-Undo supports the following commands that modify the engagement list: `add`, `edit`, `delete` and `clear`.
+Undo supports the following commands that modify the engagement list: `add`, `delete` and `clear`.
 
 Examples:
 
@@ -440,14 +530,14 @@ Examples:
 `undo` +
 Undoes the add command, i.e. the engagement with the description `CS2103T Discussion` will no longer be in the appointment manager.
 
-* `delete 1` +
+* `delete i/1` +
 `undo` +
 Undoes the delete command, i.e. restores the first engagement in the original displayed list.
 
 [.float-group]
 [.clearfix]
 --
-.Engagement list before the command `delete 1`
+.Engagement list before the command `delete i/1`
 image::after-list.png[width="450", float="left"]
 [.left]
 .Engagement list after deletion
@@ -463,9 +553,9 @@ Format: `redo`
 
 Examples:
 
-* `delete 1` +
-`undo` (reverts the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
+* `delete i/1` +
+`undo` (reverts the `delete i/1` command) +
+`redo` (reapplies the `delete i/1` command) +
 
 Redoes the previous undo command, i.e. the engagement deleted before `undo` will be removed again from the engagement manager.
 
@@ -590,10 +680,10 @@ Pdf Command allows user to create a document of selected engagement in a given f
 Document template can be customised based on the customers's requirements, however, default document format will be in an email format,
 where the user can set who the user is going to send this document to inform an engagement. +
 
-Format: `pdf i/LIST_INDEX t/RECEIVER f/FROM` +
+Format: `pdf i/LIST_INDEX f/FROM t/RECEIVER` +
 
 For example, if the user wants to create a document of an engagement, which has a list index of 1, which can by observed in `engagement` window.
-User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 t/Harry f/John` to generate the document.
+User sets the sender as `John`, which is the user's name, and sets `receiver` as `Harry`. Hence, user enters `pdf i/1 f/John t/Harry` to generate the document.
 
 [NOTE]
 User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. +
@@ -669,8 +759,8 @@ Relevant data will be loaded from the external file when the application starts.
 
 == Command Summary
 
-* *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY` +
-e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | Elijah | Sam d/CS2103T Discussion p/HIGH`
+* *Add* `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY` +
+e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T Discussion a/John | Elijah | Sam p/HIGH`
 * *Tab*: `tab b/MENU_NAME`
 ** *Add Engagement* : `tab b/engagement`
 ** *Calendar* : `tab b/calendar`
