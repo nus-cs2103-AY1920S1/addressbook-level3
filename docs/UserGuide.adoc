@@ -139,6 +139,8 @@ Let's select the sample _WordBank_ and play a game to get familiar.
 
 Getting comfortable? Ready to master the application commands?
 
+<<<
+
 _Some typical commands  to get familiar with are:_
 
 * *`create <NAME>`*: Creates an empty _WordBank_ with specified name. (in Home Mode)
@@ -155,6 +157,7 @@ specified. (after selecting _WordBank_)
 
 // end::chenhui-quickstart[]
 
+<<<
 
 === Purposes of each mode
 
@@ -185,6 +188,8 @@ image::SettingsMode.png[width="350"]
 
 // tag::chenhui-commandusage[]
 
+<<<
+
 [[Commands]]
 == Commands
 
@@ -204,6 +209,8 @@ E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/CS2040`, `t/CS2040 
 * Parameters can be in any order. +
 E.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
+
+<<<
 
 === Switch Commands image:switch-icon.png[width="27.5"]
 (Available in all modes as long as _WordBank_ is selected and game is not running)
@@ -240,6 +247,8 @@ NOTE: Entering the start command after _WordBank_ is selected will enter game mo
 
 ==== Customise game play: `settings`
 Enters settings page, so that the user can customise the game play.
+
+<<<
 
 === Card Commands image:card_commands_icon.png[width="29.5"]
 (Available in Open mode)
@@ -316,6 +325,8 @@ Clears the _WordBank_ by removing all _cards_.
 
 Format: `clear`
 
+<<<
+
 === WordBank Commands image:load_mode_icon.png[load, 22]
 (Available in Home mode)
 
@@ -345,6 +356,8 @@ Examples:
 
 * `remove Gen 3 pokemon`
 * `remove Vocabulary`
+
+<<<
 
 ==== Import a _WordBank_: `import`
 Imports the _WordBank_ from a specified folder path on your system. +
@@ -390,6 +403,8 @@ You can also drag and drop a _WordBank_ outside of _Dukemon_, and into your comp
 
 // tag::jasonstatscommand[]
 
+<<<
+
 === WordBank Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
@@ -418,6 +433,8 @@ This section covers the actions and feedback that are relevant to the _Game_ mod
 3. _Hints_ (if enabled) will be periodically shown as time passes (region in the blue box) in a Hangman-style. The number of hints given
 differs across each _Difficulty_.
 
+<<<
+
 ==== Game Mode - [underline]#Starting# image:game_mode_icon.png[width="30"]
 
 The relevant command(s) are:
@@ -443,8 +460,8 @@ The relevant command(s) are:
 Format: `guess WORD`
 
 - Makes a guess for the _Word_ described by the currently shown _Meaning_. (*non case-sensitive*)
-
-NOTE: Do take note that the `guess` keyword is automatically enabled for you or every question. There is no need to type `guess` every time you want to guess a word.
+[NOTE]
+The `guess` keyword is automatically enabled for you for every question- there is no need to type `guess` before every _Guess_ of a _Word_.
 
 2. *Skipping over a _Word_:*
 +
@@ -452,6 +469,7 @@ Format: `skip`
 
 - Skips over the current _Word_. (*is counted as a wrong answer*)
 
+<<<
 
 ==== Game Mode - [underline]#Terminating & Statistics# image:game_mode_icon.png[width="30"]
 
@@ -474,6 +492,8 @@ Format: `stop`
 
 
 // tag::paulsettings[]
+
+<<<
 
 === Settings Commands image:settings_mode_icon.png[width="27"]
 (Available in Settings mode)
@@ -500,6 +520,8 @@ Changes the UI theme to light.
 .Light Theme
 image::lighttheme.png[width='350']
 
+<<<
+
 ==== Turning hints on/off: `hints`
 
 Turns hints on or off. +
@@ -518,6 +540,8 @@ Turns hints off.
 
 .Hints off
 image::hintsoff.png[]
+
+<<<
 
 ==== Changing difficulty: `difficulty`
 
@@ -543,6 +567,8 @@ Changes the difficulty to hard. (Timer = 5 seconds)
 
 .Hard difficulty (5 seconds)
 image::difficultyhard.png[]
+
+<<<
 
 ==== Changing Avatar : `avatar`
 
@@ -570,6 +596,8 @@ image::avatar151.png[width='250']
 
 // tag::chenhui-commandusage2[]
 
+<<<
+
 === Misc. Commands image:misc-icon.png[width="25.9"]
 [NOTE]
 `help` is available in _Home_ mode +
@@ -587,6 +615,8 @@ Format: `exit`
 
 // end::chenhui-commandusage2[]
 
+<<<
+
 // tag::statsjason[]
 == Statistics
 This section covers the _Statistics_ shown to the user.
@@ -600,6 +630,8 @@ We use a simple formula to calculate the score: _floor of_ _(Number of correct a
 .Game Result UI.
 image::annotated_game_results_ui.png[width=500]
 
+<<<
+
 === WordBank Statistics
 The _WordBank_ statistics is shown in the _Open_ mode and contains all information regarding the selected _WordBank_.
 
@@ -607,6 +639,8 @@ The _WordBank_ statistics is shown in the _Open_ mode and contains all informati
 image::annotated_wb_statistics_ui.png[width=500]
 
 NOTE: The high score and fastest clear timing of a _WordBank_ will not be reset upon adding/deleting _cards_.
+
+<<<
 
 === Global Statistics
 The global statistics is shown on the main title page and contains all information regarding the user's overall usage
@@ -618,6 +652,8 @@ image::annotated_global_statistics_ui.png[width=420]
 // end::statsjason[]
 
 // tag::chenhui-userDragAndDrop[]
+
+<<<
 
 == _WordBank_ management
 
@@ -665,6 +701,8 @@ NOTE: _Dukemon_ only accepts json files when importing _WordBanks_. Attempting t
 
 // tag::chenhui-userRevisionBank[]
 
+<<<
+
 === Revision _WordBank_
 
 A revision bank is automatically updated for you, every time a game session ends. +
@@ -682,6 +720,8 @@ to revise wrong _cards_. Give it a try!
 // end::chenhui-userRevisionBank[]
 
 // tag::chenhui-commandsummary[]
+
+<<<
 
 == Command Summary
 
@@ -780,6 +820,8 @@ s| `exit` +
 
 // end::chenhui-commandsummary[]
 
+<<<
+
 == Upcoming Features
 
 // tag::dataencryption[]
@@ -803,6 +845,8 @@ Create your own difficulties with customized time durations.
 // end::version-2.0[]
 
 // end::dataencryption[]
+
+<<<
 
 == FAQ
 
