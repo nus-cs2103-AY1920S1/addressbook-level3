@@ -29,35 +29,53 @@ public class BookmarkCommand implements Command {
         this.questionsLogic = questionsLogic;
     }
 
+    public Question getUserSelectedQuestion() {
+        Question userSelection = this.questionsLogic.getQuestion(id);
+        return userSelection;
+    }
+
+    public CommandResult notifyUserNoActionTaken() {
+        // Simply notify user that question is already bookmarked
+        String feedback = "Question " + id + " : " + getUserSelectedQuestion().getTitle()
+                + " - is already bookmarked.";
+        return new CommandResult(feedback, false);
+    }
+
+    public void bookmarkUserSelectedQuestion() {
+        Question bookmarkedVersion = getUserSelectedQuestion().withNewIsBookmarked(true);
+        this.questionsLogic.setQuestion(id, bookmarkedVersion);
+    }
+
+    public CommandResult notifyUserBookmarkSuccess() {
+        String feedback = "Bookmarked question " + id + " : " + getUserSelectedQuestion().getTitle();
+        return new CommandResult(feedback, false);
+    }
+
     /**
      * Executes the bookmark command.
      * Execution of this command is conditional in nature. If question that user chooses to bookmark
      * is already bookmarked, we will simply notify the user of that through the CLI feedback panel.
      * Otherwise if the question that user selects is not already bookmarked, we will update the question
      * with a bookmarked version of the same question and notify user of a successful bookmark action.
-     * @return
+     * @return CommandResult
      * @throws CommandException
      */
     @Override
     public CommandResult execute() throws CommandException {
         try {
-            Question userSelection = this.questionsLogic.getQuestion(id);
-            boolean userSelectionIsBookmarked = userSelection.isBookmarked();
+            Question userSelectedQuestion = getUserSelectedQuestion();
+            boolean userSelectedQuestionIsBookmarked = userSelectedQuestion.isBookmarked();
 
-            if (userSelectionIsBookmarked) {
-                // Simply notify user that question is already bookmarked
-                String feedback = "Question " + id + " : " + userSelection.getTitle()
-                        + " - is already bookmarked.";
-                return new CommandResult(feedback, false);
+            if (userSelectedQuestionIsBookmarked) {
+                // Notify user that question selected is already bookmarked, hence no action is taken
+                return notifyUserNoActionTaken();
             } else {
-                // Update isBookmarked of question
-                Question bookmarkedQuestion = userSelection.withNewIsBookmarked(true);
-                this.questionsLogic.setQuestion(id, bookmarkedQuestion);
-                logger.info("Bookmarked question " + id + " : " + bookmarkedQuestion);
+                bookmarkUserSelectedQuestion();
 
-                // Notify user of successful bookmark action
-                String feedback = "Bookmarked question " + id + " : " + bookmarkedQuestion.getTitle();
-                return new CommandResult(feedback, false);
+                // Logging as part of defensive programming / developer testing
+                logger.info("Bookmarked question " + id);
+
+                return notifyUserBookmarkSuccess();
             }
 
         } catch (QuestionNotFoundRuntimeException e) {

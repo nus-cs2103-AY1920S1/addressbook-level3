@@ -347,7 +347,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Home Page
+//tag::dashboard[]
+=== Dashboard
 
 The home page of Duke Academy is the main page that the user sees upon app initialization. Not only does it provide an
 introduction and greeting to the user, it also functions as a personal dashboard.
@@ -368,8 +369,23 @@ helper methods within the controller class, we can do some processing to the `Ob
 three pieces of data.
 
 These pieces of information will then be displayed on the Home Page through standard JavaFX controls.
+//end::dashboard[]
 
-=== Code Result Panel
+//tag::bookmark[]
+=== Bookmark Command
+.Sequence Diagram for the execution of a BookmarkCommand instance
+image::BookmarkCommandSequenceDiagram.png[]
+
+The sequence is as follows:
+
+1. User calls execute() on a BookmarkCommand object.
+2. The BookmarkCommand object calls getUserSelectedQuestion(), activating an instance of QuestionsLogic.
+3. The QuestionsLogic object returns userSelectedQuestion, which is the question the user chose to bookmark.
+4. If userSelectedQuestion is already bookmarked, the BookmarkCommand object calls notifyUserNoActionTaken() as a response to the user. Else, the BookmarkCommand object calls bookmarkUserSelectedQuestion(), and then calls notifyUserBookmarkSuccess() as a response to the user.
+//end::bookmark[]
+
+//tag::bookmark[]
+=== Program Evaluation Panel
 
 The code result panel is a panel below the editor that shows the evaluation of the user's program against the specified
 test cases in the question.
@@ -380,7 +396,7 @@ the various test cases.
 These information are then displayed on the Code Result Panel through standard JavaFX controls.
 
 //tag::problem_description[]
-== Problem Description Panel
+=== Problem Description Panel
 //end::problem_description[]
 
 == Documentation
