@@ -19,4 +19,5 @@ public abstract class Reject extends ResolveCommand {
             + "To reject multiple:\n"
             + "Parameters: KEYWORDS " + PREFIX_MASS_RESOLVE + "[APPEALID] [APPEALID] ...\n"
             + "Example: " + COMMAND_WORD_REJECT_APPEAL + " " + PREFIX_MASS_RESOLVE + "C000001 C000012 C000007 C000020";
+    public static final String MESSAGE_NO_APPEALS_REJECTED = "No appeals were rejected";
 }
