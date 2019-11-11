@@ -25,7 +25,7 @@ By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
 It allows students to keep track of all their spending and their related information such as date, cost and tags.
-Users can also set budget goals, view statistics, set reminders for bills and export their data to a .csv file.
+Users can also set budget goals, view statistics, set reminders for bills and export their data to a Csv file.
 With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
 
 
