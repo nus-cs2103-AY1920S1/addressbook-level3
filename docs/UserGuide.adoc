@@ -217,10 +217,26 @@ Format: `stage INDEX`
 Likes a meme at the specified index. +
 Format: `like INDEX`
 
+Before `like` command:
+
+image::like_before.png[]
+
+After `like` command:
+
+image::like_after.png[]
+
 [TIP]
 You could use arrow key kbd:[UP] to quickly like a meme at the given index. +
 To do this, key in the full command `like INDEX` then press arrow key kbd:[UP]. +
 You can also use arrow key kbd:[LEFT] and kbd:[RIGHT] to increase / decrease the meme index.
+
+Before pressing kbd:[UP]:
+
+image::like_spam_before.png[]
+
+After pressing kbd:[UP] for 1 second:
+
+image::like_spam_after.png[]
 
 ==== Disliking a meme: `dislike`
 
@@ -558,6 +574,14 @@ Format: `clear`
 === Statistics Tab
 
 View various statistics about the memes such as tags and likes count by tags.
+
+image::stats_panel.png[]
+
+[TIP]
+As the statistics data is updated real time, an undo/redo command affecting the memes and their data will re-render
+the statistics charts. E.g. after executing `like 1` in Memes panel for meme with tag `cute` and undo it in statistics
+panel, the charts will be re-rendered, with like count for tag `cute` incremented. Same goes to `edit` command that
+edits the tags of a meme.
 
 // tag::command-suggestion[]
 === Command Suggestions

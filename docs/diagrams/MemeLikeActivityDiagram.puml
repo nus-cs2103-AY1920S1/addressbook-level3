@@ -2,6 +2,13 @@
 start
 :User likes a meme by index;
 
-:Weme updates the like count of the meme at the index;
+if () then ([User presses ENTER])
+    :Weme updates the \nlike count of the \nmeme at the index \nonce;
+else ([User presses [UP])
+    repeat
+    :Weme updates the \nlike count of the \nmeme at the index;
+    repeat while () is ([User continues pressing [UP])
+endif
+
 stop
 @enduml
