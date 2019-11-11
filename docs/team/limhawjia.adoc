@@ -28,37 +28,39 @@ DukeAcademy can also be used as a teaching tool by educators as they can set the
 
 Duke Academy is written in Java, and has about 15 kLoC.
 
+== My Roles
+
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
 
 * *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
-
-* *Other contributions*:
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+== Other Contributions
+** Project management
+*** Managed and enforced branching workflow on GitHub
+*** Set up auto-publishing of docs (https://github.com/AY1920S1-CS2103T-F14-1/main/commit/ccde6b5fba8b4d5294678804d0e63c03804ce24c[commit])
+*** Managed releases `v1.3` - `v1.4` (2 releases) on GitHub
+** Product design:
+*** Updated the GUI layout and color scheme (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/112[#112])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Cosmetic tweaks to contents of the User Guide (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#13] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/34[#34])
+*** Actively contributed to the writing of the User Guide and Developer Guide (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/77[#77] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/83[#83]  https://github.com/AY1920S1-CS2103T-F14-1/main/pull/185[#185] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/190[#190])
+** Testing:
+*** Wrote tests to validate the code base (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/87[#87] https://github.com/AY1920S1-CS2103T-F14-1/main/pull/88[#88])
+*** Actively wrote tests for most major pull requests
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Reported bugs and suggestions for other teams in the class (https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/25[Liberry])
 
-_{you can add/remove categories in the list above}_
+== Code Contributions
+Click the links below to view my code contributions on RepoSense. On RepoSense, you can select options to view my functional code and test code.
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=F14&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=limhawjia&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=F14&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=limhawjia&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]
+
 
 == Contributions to the User Guide
 
@@ -81,9 +83,3 @@ include::../DeveloperGuide.adoc[tag=logic]
 
 include::../DeveloperGuide.adoc[tag=programevaluation]
 
-
-== PROJECT: PowerPointLabs
-
-'''
-
-_{Optionally, you may include other projects in your portfolio.}_
