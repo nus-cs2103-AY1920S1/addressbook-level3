@@ -114,7 +114,30 @@ public class SampleDataUtil {
                     LocalDate.parse("8/11/2019", Task.getDateFormat())),
             new Event("workshop", null, null, Status.NOT_DONE, Set.of(),
                     LocalDate.parse("10/11/2019", Task.getDateFormat()),
-                    LocalDate.parse("15/11/2019", Task.getDateFormat()))
+                    LocalDate.parse("15/11/2019", Task.getDateFormat())),
+            new Event("Sara's party!", null, null, Status.NOT_DONE, Set.of(new Tag("social")),
+                    LocalDate.parse("16/11/2019", Task.getDateFormat()),
+                    LocalDate.parse("16/11/2019", Task.getDateFormat())),
+            new Todo("Buy dog food", Priority.HIGH, null, Status.NOT_DONE,
+                    Set.of(new Tag("rover"), new Tag("finance"))),
+            new Deadline("CS2106 Lab 5", Priority.MED, null, Status.DONE,
+                    Set.of(new Tag("cs2106"), new Tag("school")),
+                    LocalDate.parse("14/11/2019", Task.getDateFormat())),
+            new Todo("Get present for Sara", null, null, Status.NOT_DONE,
+                    Set.of(new Tag("finance"))),
+            new Todo("Water plant", null, Frequency.WEEKLY, Status.NOT_DONE,
+                    Set.of()),
+            new Deadline("CS2101 Reflection", Priority.HIGH, null, Status.NOT_DONE,
+                    Set.of(new Tag("cs2101"), new Tag("school")),
+                    LocalDate.parse("17/11/2019", Task.getDateFormat())),
+            new Deadline("", Priority.HIGH, null, Status.NOT_DONE,
+                    Set.of(new Tag("cs2101"), new Tag("school")),
+                    LocalDate.parse("17/11/2019", Task.getDateFormat())),
+            new Todo("Collect forms from Track students", null, null, Status.NOT_DONE,
+                    Set.of(new Tag("track"))),
+            new Event("Rock climbing competition", null, null, Status.NOT_DONE, Set.of(),
+                    LocalDate.parse("25/11/2019", Task.getDateFormat()),
+                    LocalDate.parse("26/11/2019", Task.getDateFormat()))
         };
     }
 

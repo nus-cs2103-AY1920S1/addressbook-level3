@@ -151,11 +151,7 @@ public class SetMonthlyLimitCommand extends Command {
     public CommandResult executeInverse(Model model) throws CommandException {
         requireNonNull(model);
 
-        if (originalLimit != null) {
-            model.setMonthlyLimit(originalLimit);
-        } else {
-            model.setMonthlyLimit(null);
-        }
+        model.setMonthlyLimit(originalLimit);
 
         model.setViewStatus(ViewType.LIST_FINANCE);
 
