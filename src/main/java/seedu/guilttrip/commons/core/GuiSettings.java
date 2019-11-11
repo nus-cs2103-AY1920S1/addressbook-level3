@@ -14,7 +14,7 @@ import seedu.guilttrip.ui.util.Theme;
 public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 800;
-    private static final double DEFAULT_WIDTH = 1100;
+    private static final double DEFAULT_WIDTH = 1500;
     private static final FontName DEFAULT_FONT = FontName.SEGOE_UI;
     private static final Theme DEFAULT_THEME = Theme.DARK;
 

@@ -1063,37 +1063,38 @@ do so.
 == Command Summary
 
 . Expenses, Income, Budget, Category:
-.. addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]
-.. editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [tg/<tag>]
-.. deleteExpense <index>
-.. add typ/Income c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]
-.. edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]
-.. delete <index>
-.. addAutoExp f/<frequency> n/<description> a/<expenditure> c/<category> [t/<tag1> t/<tag2> d/<starting date>]
-.. editAutoExp <index> [f/<frequency> n/<description> a/<expenditure> c/<category> t/<tag1> t/<tag2> d/<starting date>]
-.. deleteAutoExp <index>
-.. addBudget c/<category> n/<description> a/<budget amount> d/<start date> p/<period> [t/<tag>]
-.. listBudget
-.. editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]
-.. deleteBudget <index>
-.. addCategory cat/<category> n/<category name>
-.. editCategory typ/<category type> cat/<old category name> n/<new category name>
-.. listCategories
-.. deleteCategory cat/<category type> n/<category name>
+.. `addExpense / addExp cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
+.. `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
+.. `deleteExpense <index>`
+.. `addIncome cat/<category> n/<description> amt/<amount> d/<date> [tg/<tag>]`
+.. `editIncome <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
+.. `deleteIncome <index>`
+.. `list`
+.. `addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category> [tg<tag1> tg/<tag2> d/<starting date>]`
+.. `editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category> tg/<tag1> tg/<tag2> d/<starting date>]`
+.. `deleteAutoExp <index>`
+.. `addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]``
+.. `listBudget`
+.. `editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]`
+.. `deleteBudget <index>`
+.. `addCategory cat/<category> n/<category name>`
+.. `editCategory typ/<category type> cat/<old category name> n/<new category name>`
+.. `listCategories`
+.. `deleteCategory cat/<category type> n/<category name>`
 
 . Statistics:
-.. viewTable [p/<RangeOfMonths>]
-.. viewPie [p/<RangeOfMonths>]
-.. viewBar [p/<SpecifiedMonth>]
-.. viewEntry
-.. sortExpense typ/<sort type> s/<sort sequence>
-.. sortIncome typ/<sort type> s/<sort sequence>
-.. sortBudget typ/<sort type> s/<sort sequence>
-.. sortWish typ/<sort type> s/<sort sequence>
-.. findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
-.. findIncome [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
-.. findBudget [cat/<category>] [n/<description>] [d/<date>] [t/<tag>]
-.. findWish [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. `viewTable [p/<RangeOfMonths>]`
+.. `viewPie [p/<RangeOfMonths>]`
+.. `viewBar [p/<SpecifiedMonth>]`
+.. `viewEntry`
+.. `sortExpense typ/<sort type> s/<sort sequence>`
+.. `sortIncome typ/<sort type> s/<sort sequence>`
+.. `sortBudget typ/<sort type> s/<sort sequence>`
+.. `sortWish typ/<sort type> s/<sort sequence>`
+.. `findExpense [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [t/<tag>]`
+.. `findIncome [cat/<category>] [n/<description>] amt/<amount>] [d/<date>] [t/<tag>]`
+.. `findBudget [cat/<category>] [n/<description>] [d/<date>] [t/<tag>]`
+.. `findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [t/<tag>]`
 
 . Reminders:
 .. `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]`
@@ -1113,14 +1114,14 @@ do so.
 .. `listConditions`
 
 . Wishlist:
-.. `addWish n/<Description> c/<Category> a/<Price> d/<Date>`
+.. `addWish n/<Description> c/<Category> amt/<Price> d/<Date>`
 .. `deleteWish <index>`
-.. `editWishlist <index> [n/<Description>] [c/<Category>] [a/<Price>] [d/<Date>] [t/<Tag>]`
+.. `editWishlist <index> [n/<Description>] [c/<Category>] [amt/<Price>] [d/<Date>] [t/<Tag>]`
 .. `sortWishlistTime <ascending/ descending>`
 .. `sortWishlistPrice <ascending/ descending>`
 .. `sortWishlistName <ascending/descending>`
 .. `sortWishlistPriority <ascending/descending>`
-.. `findWish [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
+.. `findWish [c/<category>] [n/<description>] [amt/<amount>] [d/<date>] [t/<tag>]`
 .. `purchase <index>`
 
 . Undo and Redo:
@@ -1132,7 +1133,6 @@ do so.
 
 . UI features:
 .. `toggle <panel name>`
-.. `listFont`
 .. `changeFont <font name>`
 .. `setLightTheme`
 .. `setDarkTheme`
