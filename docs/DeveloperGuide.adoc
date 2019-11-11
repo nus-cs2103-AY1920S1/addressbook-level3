@@ -811,6 +811,7 @@ Use case ends.
 
 // end::uc01[]
 
+// tag::uc02[]
 === Use case: UC02 - Add module
 
 *MSS*
@@ -831,7 +832,7 @@ Use case ends.
 Steps 1a1-1a2 are repeated until the data entered are correct.
 +
 Use case ends.
-
+// end::uc02[]
 // tag::uc03[]
 === Use case: UC03 - Commit a study plan
 

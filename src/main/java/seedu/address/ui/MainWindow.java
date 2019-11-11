@@ -158,10 +158,14 @@ public class MainWindow extends UiPart<Stage> {
                 logger.info("Study plan has been changed. Refreshing display.");
                 if (sp == null) {
                     NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
-                    semesterListPanelPlaceholder.getChildren().remove(0);
+                    if (semesterListPanelPlaceholder.getChildren().size() != 0) {
+                        semesterListPanelPlaceholder.getChildren().remove(0);
+                    }
                     semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
                     studyPlanId.setText("");
-                    studyPlanTagsPlaceholder.getChildren().remove(0);
+                    if (studyPlanTagsPlaceholder.getChildren().size() != 0) {
+                        studyPlanTagsPlaceholder.getChildren().remove(0);
+                    }
                     title.setText(NO_ACTIVE_STUDY_PLAN);
                 } else {
                     ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();

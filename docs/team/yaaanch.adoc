@@ -1,4 +1,4 @@
-= Ong Yan Chun (yaaanch)- Project Portfolio
+= Ong Yan Chun (yaaanch) Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -60,6 +60,7 @@ https://github.com/AY1920S1-CS2103-F09-3/main/pull/169[#169])
 ** Documentation:
 *** Edited UI section in Developer Guide.
 *** Helped to rearrange sections within User Guide.
+*** Wrote user stories and target user profile.
 ** Community:
 *** Reviewed other team's Developer Guide: [https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11/files/a420128b5b5e72e1fb07a6ba7fdfee5f52b4fcdc?file-filters%5B%5D=.adoc&file-filters%5B%5D=.csv&file-filters%5B%5D=.gradle&file-filters%5B%5D=.java&file-filters%5B%5D=.jpg&file-filters%5B%5D=.json&file-filters%5B%5D=.png&file-filters%5B%5D=.puml&file-filters%5B%5D=.txt&file-filters%5B%5D=dotfile#diff-d23c8091515dc18149f4f2e759e1e288[MoneyGoWhere]]
 *** Contributed to forum: [https://github.com/nus-cs2103-AY1920S1/forum/issues/73[library request]]
@@ -91,3 +92,4 @@ include::../DeveloperGuide.adoc[tag=Ui]
 
 include::../DeveloperGuide.adoc[tag=autocomplete]
 
+include::../DeveloperGuide.adoc[tag=uc02]
