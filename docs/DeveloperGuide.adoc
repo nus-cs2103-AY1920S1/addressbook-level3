@@ -160,7 +160,7 @@ This section describes some noteworthy details on how certain features are imple
 
 In Mortago, you will find that each entity is assigned a unique `IdentificationNumber`.
 
-* The `IdentificationNumber` for each entity is a central aspect of Mortago as most interactions with and identification of entities in the application are made through their `IdentificationNumbers`.
+* The `IdentificationNumber` for each entity is a central aspect of Mortago as most interactions with and references of entities in the application are made through their `IdentificationNumbers`.
 * You can identify different entities solely based on their `IdentificationNumber` due to its uniqueness, without relying on attributes such
 as `name` which may have similar duplications within the system.
 * `IdentificationNumbers` in Mortago consist of two parts: `String typeOfEntity` that tells you whether it is a worker, body or fridge, and `Integer idNum` that refers to its unique ID number.
@@ -206,7 +206,7 @@ This leads us to forumulate the execution sequence of generating a unique `Ident
 The figure below illustrates the sequence diagram of the aforementioned steps.
 
 .Generation of unique `IdentificationNumber` Sequence Diagram
-image::UniqueIdentificationNumberSequenceDiagram.png[]
+image::UniqueIdentificationNumberSequenceDiagram.png[align="center", width=70%]
 
 You will find that the execution sequence will be similar for the generation of unique `IdentificationNumber` for fridges and bodies.
 
@@ -251,7 +251,7 @@ When adding a worker in Mortago, you can assign a photo to the worker so as to i
 This section covers how the `Photo` feature is implemented. To gain a better overview of its implementation, you can refer to the following class diagram that illustrates how `Photo` and `Worker` are associated with the `Ui` component.
 
 .Class Diagram of Photo Feature
-image::PhotoClassDiagram.png[]
+image::PhotoClassDiagram.png[align="center", width=70%]
 
 Here, notice that a `WorkerCard` contains an `ImageView` which serves to display the `Photo`. The `ImageView` displays the `Photo` by first retrieving the file path of the photo through the `Worker` in `WorkerCard`. This is demonstrated in the following code snippet:
 
@@ -262,12 +262,12 @@ displayPhoto.setImage(new Image(worker.getPhoto().get().getPathToDataDirectory()
 This brings us to explain how `Photo` is constructed, as demonstrated in the following diagram and the sequence of steps further below.
 
 .Activity Diagram of Adding a Photo
-image::PhotoActivityDiagram.png[]
+image::PhotoActivityDiagram.png[align="center", width=40%]
 
 . When the user wishes to add a photo, the user can do this through the add or update command.
 . Before constructing a `Photo` object, the validity of the absolute file path of the image is checked first through the `Photo::isValidPhoto(pathToPhoto)` method, as part of a defensive programming measure.
 [TIP]
-This method checks whether the image file exists, using `FileUtil::isFileExists(Path)` as seen in Figure 11, and whether it ends with the common image file extensions: `.jpeg`, `.jpg` and `.png`.
+This method checks whether the image file exists, using `FileUtil::isFileExists(Path)` as seen in the class diagram above, and whether it ends with the common image file extensions: `.jpeg`, `.jpg` and `.png`.
 . If the file is valid, the `Photo` object is constructed.
 . In its construction, the image file is copied into the `data/images/` directory (where all images are stored) and this path is saved as an instance variable, `dataDirectory`. The `Photo` is then assigned to an instance variable in `Worker`.
 [IMPORTANT]

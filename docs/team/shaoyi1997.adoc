@@ -5,7 +5,7 @@
 
 == 1. Introduction
 
-This portfolio serves to document my contributions to my team's project for CS2103T - Mortago.
+This portfolio serves to document my contributions to my team's project - Mortago - for the CS2103T Software Engineering module.
 
 === 1.1 Project Motivation
 
@@ -21,7 +21,7 @@ Mortago is a desktop application dedicated for mortuary managers to track their 
 
 Mortago provides a user-friendly dashboard that allows managers to manage various types of entries in a mortuary. It replaces and improves upon the traditional whiteboard to enhance productivity.
 
-There are many main features that Mortago is capable of. Users can *add* a `Body`, `Worker`, or `Fridge`, as well as *edit*, *delete* and *find* these entities. Users can also *undo* and *redo* when needed, track important *statistics* and *generate reports*. Mortago also generates important *notifications* to alert users.
+There are many main features that Mortago is capable of. Users can *add* a `Body`, `Worker`, or `Fridge`, as well as *edit*, *delete* and *find* these entities. Users can also *undo* and *redo* when needed, track important *statistics* and *generate reports*. Mortago also generates *notifications* to alert users of important events.
 
 My role encompassed the complete design of the GUI and auxiliary features. The following sections illustrate these enhancements in greater detail. Excerpts - relevant to these enhancements - from the User Guide and Developer Guide are included to document my work.
 
@@ -35,7 +35,7 @@ This section gives an overview of my contributions to Mortago. A list of my pull
 I have contributed 2 major enhancements for Mortago, which will be detailed here.
 
 ==== Major Enhancement 1: I did a major redesign of the GUI from AB3.
-* What it does: The GUI allows users to view all the entries in Mortago and serves as a visual representation of the data in the system
+* What it does: The GUI allows users to view all the entries in Mortago and serves as a visual representation of the data in the system.
 * Justification: This feature is important for users as a visually appealing GUI will attract and retain users. Users will find it easy to locate minute details in a large amount of information through the dashboard.
 * Highlights: This feature draws on more complex visual design techniques and guidelines to create visual elevation and impact. The dark theme utilised aims to improve visual ergonomics by reducing eye strain on the user. It was implemented through a meticulous and creative design process as perfecting minute details, such as positioning, counts towards the visual appeal of the interface. This feature posed unique challenges in terms of integrating Testfx GUI tests.
 
@@ -48,9 +48,14 @@ I have contributed 2 major enhancements for Mortago, which will be detailed here
 
 This section details a minor enhancement that I have contributed in this project.
 
-==== Minor Enhancement: I adopted and morphed the `select` command from AB4.
+==== Minor Enhancement 1: I adopted and morphed the `select` command from AB4.
 * What it does: The `select` command allows users to select a body via its unique `IdentificationNumber`, which allows them to view the full details of the body.
 * Highlights: The `select` command is different from that of AB4 as users now identify the body they want to select through its `IdentificationNumber` instead of its list index on the dashboard. This makes it more intuitive for the user as most interactions in Mortago are made through the `IdentificationNumber`.
+
+==== Minor Enhancement 2: I created the mechanism for creating unqiue `IdentificationNumbers` in Mortago.
+* What it does: `IdentificationNumbers` in Mortago consist of two parts: a leading letter that tells users whether it is a worker, body or fridge, and a number at the back that refers to its unique ID number.
+* Justification: In Mortago, each entity is assigned a unique `IdentificationNumber`. The `IdentificationNumber` for each entity is a central aspect of Mortago as most interactions with and references of entities in the application are made through their `IdentificationNumbers`.
+* Highlights: This mechanism is designed such that the `IdentificationNumber` of any deleted entity will be reassigned to the next added entity. This prevents gaps in the numbering of entities in the system, which otherwise will never be filled, leading to an exponential increase in the running ID number.
 
 === 2.3. Code contributed
 
@@ -76,9 +81,9 @@ The following sections document other contributions made towards the project.
 *** Contributed to forum discussions in the following issues: https://github.com/nus-cs2103-AY1920S1/forum/issues/111[#111], https://github.com/nus-cs2103-AY1920S1/forum/issues/133[#133], https://github.com/nus-cs2103-AY1920S1/forum/issues/150[#150]
 *** Reported bugs and offered suggestions for other teams (view at https://github.com/shaoyi1997/ped/issues[this repo])
 ** Tools:
-*** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AYu1920S1-CS2103T-T13-2/main/pull/79[#79]
+*** Integrated a third party library (ControlsFX) to the project in PR https://github.com/AY1920S1-CS2103T-T13-2/main/pull/79[#79]
 *** Integrated TestFx and adapted Graphical User Interface tests from AB4 in https://github.com/AY1920S1-CS2103T-T13-2/main/commit/34dec528d451b84dea466daeacb24d82dd643258#diff-7319d9e22324ed2aaaac3f06ade9f486[this commit]
-*** Integrated a Continuous Integration platform for Github (AppVeyor) to the team repo
+*** Integrated a Continuous Integration platform for Github (AppVeyor) to the team repository (but was eventually taken down due to relaxation of workflow rigour)
 
 == 3. Contributions to the User Guide
 
@@ -86,23 +91,18 @@ The following sections document other contributions made towards the project.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-_{start of extract 1}_: Command Specifications
-include::../UserGuide.adoc[tag=commandspecs]
-
-_{end of extract 1}_
-
-_{start of extract 2}_: Add Command
+_{start of extract 1}_: Add Command
 
 '''
 include::../UserGuide.adoc[tag=add]
 
+_{end of extract 1}_
+
+_{start of extract 2}_: Select Command
+
+include::../UserGuide.adoc[tag=select]
+
 _{end of extract 2}_
-
-_{start of extract 3}_: Copy a file’s absolute path into the clipboard
-
-include::../UserGuide.adoc[tag=appendix]
-
-_{end of extract 3}_
 
 == 4. Contributions to the Developer Guide
 
@@ -124,11 +124,9 @@ include::../DeveloperGuide.adoc[tag=photo]
 
 _{end of extract 2}_
 
-
 _{start of extract 3}_: User Interface
 
 '''
 include::../DeveloperGuide.adoc[tag=ui]
+
 _{end of extract 3}_
-
-
