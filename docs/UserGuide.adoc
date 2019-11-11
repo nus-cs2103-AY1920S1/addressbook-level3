@@ -553,13 +553,11 @@ The options for this command, and for all other `display-stats` commands, are ca
 
 ==== _Display breakdown of expenses: display-stats breakdown_ +
 
-.Breakdown of expenses grouped by many tags.
-image::display-breakdown-example-tag.png[]
-
+.Breakdown of expenses grouped by month.
+image::display-breakdown-example-month.png[]
 
 You can break the displayed expenses down into smaller groups and view that breakdown as a pie chart, allowing you to compare your spending between groups. Upon entering the command, the statistic chart will automatically update to display a breakdown chart configured with the options you have provided. The total
 expenses per category are totalled and displayed as each slice in the pie chart. You can customize the criteria used to split the expenses into groups. +
-
 
 {nbsp} +
 Usage:
@@ -569,7 +567,8 @@ Usage:
 {nbsp} +
 INFO:
 
-* `GROUPING`: Specifies the grouping to use to group the expenses into each separate slice in the pie chart. Supported groupings include "none", "tag", "month" and "day-of-week". Note that the default value for `GROUPING` for this command is not "none", but "tag". (The "none" option has limited use). +
+* `GROUPING`: Specifies the grouping to use to group the expenses into each separate slice in the pie chart.
+Supported groupings include "none", "tag", "month" and "day-of-week". Note that the default value for `GROUPING` for this command is not "none", but "tag". (The "none" option has limited use). +
 {nbsp} +
 
 
@@ -583,18 +582,29 @@ total amount determines the size of its slice of the pie chart.
 
 ==== _Display heatmap of expenses: display-stats heatmap_ +
 
-You can view a heatmap of expenses per day for the currently displayed expenses, limited to the past year. The larger
-the bubble for the particular day, the higher the expense. +
+.Heatmap of all expenses grouped by tags.
+image::display-heatmap-example-normal.png[]
+You can view a heatmap of total expenses per day for the currently displayed expenses, limited to the past year. The y-axis represents the day of the week the expense was made, while
+the x-axis represents the week of the year the expense was made, with each bubble representing the expenses made on that particular day. The larger the bubble for the particular day, the higher the total expenses on that day.
+This allows you to get an overall impression of your spending behaviours over the past year. +
+
 {nbsp} +
 Usage:
 
- display-stats heatmap
+ display-stats heatmap groupby/<GROUPING = NONE>
+
+INFO:
+
+* GROUPING: Specifies the grouping to use to calculate the heatmap. Expenses from different groups that occur on the same day will not be totalled, and will instead form two separate bubbles of different colors.
+Accepted values include: "none", "tag", "month", "day-of-week'.
 
 {nbsp} +
-
 Example: +
-`display-stats heatmap` +
-Shows a bubble chart heatmap of all currently displayed expenses, limited to a year. +
+`display-stats heatmap groupby/none` +
+Shows a heatmap of all currently displayed expenses, limited to a year. Since "none" grouping was specified, the expenses are not grouped and are all categorized under "All Expenses".
+The displayed chart may look something like this: +
+
+image::display-heatmap-example-normal.png[]
 {nbsp} +
 
 // tag::undoredo[]
