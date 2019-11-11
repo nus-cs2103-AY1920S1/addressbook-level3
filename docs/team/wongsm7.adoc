@@ -28,7 +28,7 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 * *Minor enhancement*: added compatibility with the undo/redo commands
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongsm7&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wongsm7&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongsm7&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wongsm7&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongsm7&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wongsm7&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongsm7&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=wongsm7&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
