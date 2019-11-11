@@ -53,6 +53,15 @@ the category *food* and the description *pie*.
 == Features
 
 === Transactions
+The _Transaction_ feature represents the bread and butter logging of incomes and expenditures.
+PalPay will tabulate and display the overall balance to give users a better insight on their spending and saving habits.
+
+The _Transactions_ are split into:
+
+. `in` : income
+. `out` : expenditure
+
+These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
 
 === Budgets
 
@@ -115,14 +124,12 @@ Have an income that you need to log down? PalPay accepts all income inputs throu
 
 ==== Command Syntax
 
-Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
+Format: `in $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 
 ****
-* `AMOUNT` accepts the value of this income. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
-* `ITEM` accepts the description of this income.
-* `DATE` accepts accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this income. An in` Transaction can be created without `CATEGORY` inputs.
-* `in` updates the Bank Account with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** Bank Acount balance by $1000)
+
+* `CATEGORY` accepts the categories for this income. An `in` Transaction can be created without `CATEGORY` inputs.
+* `in` updates the user's overall balance with a net positive amount (e.g. `in n/work $/1000 d/10102019` will **increase** overall balance by $1000).
 ****
 
 ==== Example Usage
@@ -180,21 +187,18 @@ Have you recently made an expenditure that requires logging down? PalPay accepts
 
 ==== Command Syntax
 
-Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
+Format: `out $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 
 ****
-* `AMOUNT` accepts the value of this expenditure. The `AMOUNT` value must be non-negative, non zero and lesser than 1,000,000.
 * Users should not input negative values into `AMOUNT` (i.e. `out $/-100 ...`) as PalPay has already accounted for the difference between incomes and expenditures.
-* `ITEM` accepts the description of this expenditure.
-* `DATE` accepts the date of this transaction
-* `CATEGORY` accepts the CATEGORY for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
-* `out` will update the Bank Account with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** Bank Acount balance by $2)
+* `CATEGORY` accepts the categories for this expenditure. An `out` Transaction can be created without any `CATEGORY`.
+* `out` updates the user's overall balance with a net **negative** amount (e.g. `out n/milk $/2 d/10102019` will **decrease** overall balance by $2)
 ****
 
 ==== Important Details:
 
 * Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
-* `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to example 3).
+* An `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to <<UG_OUT_EXAMPLE3>>).
 
 ==== Example Usage
 
@@ -240,6 +244,7 @@ image::out_ug_3.png[]
 .Sample Expenditure 2 Added
 image::out_ug_4.png[]
 
+[[UG_OUT_EXAMPLE3]]
 ===== Example 3
 
  out $/100 n/pants d/02012020 c/clothes
@@ -286,7 +291,7 @@ You can set a budget for a particular category until a certain date, given it is
 A duplicate budget is a budget with the same `AMOUNT` and `DATE` and `CATEGORY`. +
 If you attempt to do so, you will receive an error message: `This budget already exists`. +
 
-Format: `set $/AMOUNT d/DATE c/CATEGORY`
+Format: `set $/AMOUNT d/DATE [c/CATEGORY]...`
 
 ****
 * `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
@@ -633,16 +638,15 @@ Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
 Format: `delete TYPE+INDEX`
 
 ****
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
 * `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a *Budget* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
-* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
 ==== Important Details:
 
-PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
+* PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
+* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 
 ==== Example Usage:
 
@@ -676,33 +680,30 @@ Did you make a mistake in one of your entries? Perhaps you over counted that exp
 
 The `update` feature has different implementations for different entry types. The conditions for the `update` feature is as follows.
 
-Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
+Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]...` +
 
-Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
+Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]...` +
 
 Format (Ledger): Cannot be updated +
 
 Format (Projections): Cannot be updated
 
 ****
-* `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
-* `ITEM` accepts the description of this entry.
-* `DATE` accepts the date of this entry.
-* `CATEGORY` accepts the CATEGORY for the entry.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction) or `b` (Budget). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
+* `TYPE` only accepts either `t` (Transaction) or `b` (Budget). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
-* You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
 ==== Important Details:
 
 * `update` requires at least one field to be updated. (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
+* You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
-* You can not change an `in` Transaction to an `out` Transaction.
-* Changing an expenditure (`out` Transaction) with the same category fields as a `Budget` entry will reflect changes on that particular `Budget` entry as well.
+* You cannot change an `in` Transaction to an `out` Transaction or vice versa.
+* Changing an expenditure's (`out` Transaction) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in <<UG_UPDATE_EXAMPLE_3>>)
+[NOTE]
+Changing the categories of an `out` Transaction entry with similar categories to that of a `Budget` entry to reflect changes on the budget's remaining amount will be incoming in version 2.0.
 
 ==== Example Usage
 
@@ -731,6 +732,7 @@ Updating a *Budget* entry.
 image::update_ug_4.png[]
 +
 . Put `b` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing both the date and amount of this Budget.
+When you update the amount of a budget, the budget will be re-initialised (reset to 100%).
 +
 image::update_ug_5.png[]
 +
@@ -738,6 +740,7 @@ image::update_ug_5.png[]
 +
 image::update_ug_6.png[]
 
+[[UG_UPDATE_EXAMPLE_3]]
 ===== Example 3:
 
 Updating a *Transaction* entry which has the same category field as a *Budget* entry.
@@ -973,10 +976,10 @@ There is no need to save manually.
 Example: `in $/100 n/allowance d/11112019 c/income`
 * <<Out, *Out*>> : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
 Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
-* <<Set, *Set*>> : `set $/AMOUNT d/DATE c/CATEGORY` +
+* <<Set, *Set*>> : `set $/AMOUNT d/DATE [c/CATEGORY]...` +
 Example: `set $/100 d/10102019 c/food`
-* <<Split, *Split*>> : `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
-Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
+* <<Split, *Split*>> : `split $/AMOUNT n/NAME1 a/DESCRIPTION [d/DATE] [n/NAME2]... [s/SHARE]...` +
+Example: `split $/1000 n/Amy n/Betty n/Catherine n/Dan a/HaiDiLao`
 * <<Receive, *Receive*>> : `receive $/AMOUNT n/NAME` +
 Example:  `receive $/20 n/Albert`
 * <<Project, *Project*>> : `project DURATION` +
