@@ -2,7 +2,8 @@
 :site-section: AboutUs
 :imagesDir:  ../images
 :stylesDir: ../stylesheets
-== PROJECT: GuiltTrip
+
+== PROJECT: guiltTrip()
 ---
 ==== Overview
 
@@ -151,7 +152,9 @@ Finding allows the user to organize GuiltTrip to filter out what he wants to see
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-==== Categories
+==== Data Presentation: Categories
 As the section for Categories is too huge, I included a small section on editingCategories command function.
+
 include::../DeveloperGuide.adoc[tag=EditingCategories]
+
 include::../DeveloperGuide.adoc[tag=Statistics]
