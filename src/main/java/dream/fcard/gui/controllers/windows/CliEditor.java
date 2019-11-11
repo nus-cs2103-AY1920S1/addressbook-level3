@@ -233,6 +233,9 @@ public class CliEditor {
         render();
     }
 
+    /**
+     * Prints clipboard content to cli.
+     */
     private void printClipBoard() {
         String str = Clipboard.getSystemClipboard().getString();
         for (String s : str.split("\n")) {
