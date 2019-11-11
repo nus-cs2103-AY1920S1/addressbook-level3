@@ -1,5 +1,5 @@
 @startuml
-
+left to right direction
 interface Exam
 Exam <|-- StandardExam
 StandardExam *-- "1" Result : calculates

@@ -1,4 +1,5 @@
 @startuml
+left to right direction
 (*) --> load question
 If "Is it the end of the deck?" then
 --> [No] "user attempts question"

@@ -43,7 +43,7 @@ public class SessionList implements JsonInterface {
      * Adds all sessions in the given SessionList to itself.
      * @param sessionList The list of sessions to be added to this session list.
      */
-    public void addSessions(SessionList sessionList) {
+    void addSessions(SessionList sessionList) {
         this.sessionArrayList.addAll(sessionList.getSessionArrayList());
     }
 

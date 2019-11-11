@@ -99,6 +99,7 @@ public class DeckDisplay extends VBox {
             TestDisplay testDisplay = new TestDisplay(exam);
             Consumers.doTask(ConsumerSchema.SWAP_DISPLAYS, testDisplay);
             Consumers.doTask("TOGGLE_LIST_VIEW_OFF", true);
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You have entered test mode");
         }
     }
 
@@ -114,10 +115,6 @@ public class DeckDisplay extends VBox {
             CardTitle cardTitle = new CardTitle(cards.get(i), i + 1, deleteCard, editCard);
             questionList.getChildren().add(cardTitle);
         }
-        if (numCards == 1) { //disable the delete button if user has only 1 card in the deck
-            CardTitle cardTitle = (CardTitle) questionList.getChildren().get(0);
-            cardTitle.disableDelete();
-        }
     }
 
     /**
@@ -125,10 +122,6 @@ public class DeckDisplay extends VBox {
      * @param index the 1-based index of a card.
      */
     private void deleteCard(int index) {
-        if (deck.getCards().size() == 1) {
-            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Your deck needs at least 1 card!");
-            return;
-        }
         try {
             deck.removeCard(index);
             renderQuestions();
@@ -145,6 +138,7 @@ public class DeckDisplay extends VBox {
         State state = StateHolder.getState();
         state.removeDeck(deck.getDeckName());
         StorageManager.deleteDeck(deck);
+        StatsHolder.getDeckStats().deleteDeck(deck.getDeckName());
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
 

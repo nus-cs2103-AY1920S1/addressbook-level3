@@ -5,6 +5,7 @@ import java.io.IOException;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.exam.Exam;
 import dream.fcard.logic.exam.ExamRunner;
+import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +56,8 @@ public class SimpleCardBack extends VBox {
         exam.upIndex();
         Pane nextCardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
+        Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
+        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Correct! :)");
     }
 
     /**
@@ -66,5 +69,7 @@ public class SimpleCardBack extends VBox {
         exam.upIndex();
         Pane nextCardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
+        Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
+        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Wrong :(");
     }
 }

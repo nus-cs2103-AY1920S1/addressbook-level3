@@ -50,7 +50,7 @@ public class DeckStatisticsWindow extends ScrollPane {
 
     /** Creates a new instance of DeckStatisticsWindow. */
     public DeckStatisticsWindow(Deck deck) {
-        logger.info("Opening a statistics window for " + deck.getDeckName());
+        logger.info("Opening a DeckStatisticsWindow for deck: " + deck.getDeckName());
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class
                 .getResource("/view/Windows/DeckStatisticsWindow.fxml"));
