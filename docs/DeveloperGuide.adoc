@@ -477,18 +477,19 @@ check with the rest of the prior `Task` object, to ensure that there is no dupli
 object have been successfully added.
 // end::Calendar[]
 
+//tag::NotesDG[]
 === Notes Features
 ==== Add Notes
 The `addnote` command allows for tutors to add their notes into TutorAid.
 
 The format for the `addnote` command is as follows:
 
- addnote mod/<MODULE_CODE> c/<CONTENT>
+ addnote c/<MODULE_CODE> type/<CLASS_TYPE> note/<NOTE_CONTENT>
 
 *Overview*
 
 The add claim `addnotes` mechanism is facilitated by `AddNotesCommand` and `AddNotesCommandParser`, taking in the
-following input from the user: `Module_Code`, `Content`, which will construct `Notes` objects.
+following input from the user: `Module_Code`, `Class_Type` and `Note_Content`, which will construct `Notes` objects.
 
 .Add Note Command Sequence Diagram
 image::AddNotesSequenceDiagram.png[]
@@ -496,27 +497,30 @@ image::AddNotesSequenceDiagram.png[]
 The `AddNotesCommand` implements `Parser` with the following operation:
 
 * `AddNotesCommandParser#parse()` - This operation will take in a `String` input from the user and create
-individual objects based on the prefixes `mod/` and `c/`. The `String` value after the respective prefixes
+individual objects based on the prefixes `c/`, `type/` and `note/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
-enter the correct format of the respectives objects.
+enter the correct format of the respective objects.
 
-** `code` would use `ParserUtil#parseModuleCode()` to ensure that the module code typed by the user is in the correct format of
+** `c` would use `ParserUtil#parseClassId()` to ensure that the module code entered by the user is in the correct format of
 CSXXXX.
 
-** `content` would use `ParserUtil#parseContent()` to ensure that the content typed in by the user is in not empty.
+** `type` would use `ParserUtil#parseClassType()` to ensure that the class typed input by the user is in the correct format of
+CSXXXX.
 
-* After validation of the individual objects, a `Notes` object would be created with the parameters `code` and `content`.
+** `note` would use `ParserUtil#parseContent()` to ensure that the content typed in by the user is in not empty.
+
+* After validation of the individual objects, a `Notes` object would be created with the parameters `code`, `type` and `content`.
 
 * `AddNotesCommandParser` would then return a `AddNotesCommand` object with the parameter, `Notes` object.
 
 The following activity diagram summarizes what happens when a user executes a new command.
 
-##diagram to be added
+image::AddNotesActivityDiagram.png[width="200"]
 
 *Example Scenerio*
 
-* Step 1: The user enters `addnote mod/CS2103T c/Update Project` to add a note for teaching classes.
+* Step 1: The user enters `addnote c/CS2103T type/tut note/Update Project` to add a note for teaching classes.
 This adds a `Notes` object that the user has added to record what needs to be done for the class.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
@@ -525,7 +529,7 @@ This adds a `Notes` object that the user has added to record what needs to be do
 the given command is `addnote`, thus, `AddNotesCommandParser` object would be created with the user's input.
 
 * Step 4: `AddNotesCommandParser` performs a validation check on each of the respective objects through
-`AddNotesCommandParser#parse()`. In this case, it would use `ParserUtil#parseModuleCode()` and `ParserUtil#parseContent()`.
+`AddNotesCommandParser#parse()`. In this case, it would use `ParserUtil#parseClassId()`, `ParserUtil#parserClassType()` and `ParserUtil#parseContent()`.
 It would then return a `AddNotesCommand` object with an `Notes` object.
 
 * Step 5: `LogicManager` would execute `AddNotesCommand#execute`. In this particular method, the `Notes` object will be
@@ -535,7 +539,7 @@ check with the rest of the prior `Notes` object, to ensure that there is no dupl
 * Step 6: `AddNotesCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Notes` object have been successfully added.
 
-
+//end::NotesDG[]
 === Reminder Features
 ==== Add Reminder
 The `addReminder` command allows for tutors to add their reminders into TutorAid.

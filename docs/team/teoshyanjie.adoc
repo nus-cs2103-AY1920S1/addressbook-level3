@@ -36,6 +36,10 @@ This sections will show my contribution to the team project which consists of my
 
 * Justification: Notes is a very important features in TutorAid as it provides a great flexibility to teaching assistant. With the `add` functions, teaching assistant will be able to add the note based on the module he/she teaches and the type of class that they teach with any content of the note. However, when mistake is made on the note amendment is needed. Hence, `edit` functions is added which allow teaching assistant to edit the note either on module, class type or the content. Therefore, there is no need to worry about getting worry of typing error while taking note. Besides, `delete` function allow teaching assistant to remove the notes that are unwanted. When the notes save getting more, it is very difficult to find the notes that desire. Hence `find` function is implemented to aid this problem. It allows to search for any related keywords such as the module code, class type or the content itself. Last but not least, `list` function. This is significantly important as after the searching of notes, viewing the list of notes allow teaching assistant to check all the notes that are save.
 
+* Credits: The Note features is inspired by AddressBook 3 and 4, however, notes features has a great complexity when come to implementation.
+
+*Minor Enhancement*: Delete button is added to allow user to delete note easily.
+
 *Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=TeoShyanJie[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=TeoShyanJie[Project Code Dashboard]]
 
 *Other contributions*
@@ -64,7 +68,7 @@ This sections will show my contribution to the team project which consists of my
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=includeNotes]
+include::../UserGuide.adoc[tag=NotesUG]
 
 == Contributions to Developer Guide
 |===
