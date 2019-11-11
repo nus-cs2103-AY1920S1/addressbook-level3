@@ -52,7 +52,7 @@ public class EditRecipeCommand extends EditCommand {
             + "[" + PREFIX_CARBS + "CARBS] "
             + "[" + PREFIX_FATS + "FATS] "
             + "[" + PREFIX_PROTEIN + "PROTEIN] \n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1 "
             + PREFIX_PROTEIN + "123";
 
     public static final String MESSAGE_EDIT_RECIPE_SUCCESS = "Edited Recipe: %1$s";

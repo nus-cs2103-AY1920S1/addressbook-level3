@@ -17,7 +17,7 @@ public class Value {
      */
     public static final String VALIDATION_REGEX = "^\\s*(?=.*[1-9])\\d*(?:\\.\\d{1})?";
 
-    public final double value;
+    private final double value;
 
     /**
      * Constructs a {@code Value}.
@@ -28,6 +28,10 @@ public class Value {
         requireNonNull(value);
         AppUtil.checkArgument(isValidNumber(value), MESSAGE_CONSTRAINTS);
         this.value = Double.parseDouble(value);
+    }
+
+    public double getValue() {
+        return value;
     }
 
     /**

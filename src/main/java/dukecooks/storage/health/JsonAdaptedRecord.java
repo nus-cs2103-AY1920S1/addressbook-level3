@@ -51,7 +51,7 @@ class JsonAdaptedRecord {
      */
     public JsonAdaptedRecord(Record source) {
         type = source.getType().toString();
-        value = String.valueOf(source.getValue().value);
+        value = String.valueOf(source.getValue().toString());
         timestamp = source.getTimestamp().toString();
         remarks.addAll(source.getRemarks().stream()
                 .map(JsonAdaptedRemark::new)
