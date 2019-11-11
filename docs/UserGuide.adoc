@@ -752,6 +752,10 @@ Examples:
 * Note that specified start date must be before the specified end date, else an error will be displayed.
 ****
 
+[NOTE]
+The `display_schedule_between` command will display all events that span across the specified date range, to have a more
+detailed view of all the event day and timing, you could either do a fetch event command or simply double click the event.
+
 //tag::Statistics[]
 === Statistics
 ==== Generate Statistics: `generate_stats`
