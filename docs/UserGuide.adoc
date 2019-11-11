@@ -834,14 +834,14 @@ Format: `record rank`
 d/DEPARTMENT... s/SLOT... [t/TAG]...` +
 
 |Add interviewer
-|`add interviewer n/NAME p/PHONE ew/NUS_WORK_EMAIL d/DEPARTMENT  s/SLOT... [t/TAG]...` +
+|`add interviewer n/NAME p/PHONE ew/NUS_WORK_EMAIL d/DEPARTMENT s/SLOT... [t/TAG]...` +
 
 |Edit interviewee
-|`edit NAME r/interviewee [p/PHONE] [f/FACULTY] [y/YEAR_OF_STUDY] [ep/PERSONAL_EMAIL] [ew/NUS_WORK_EMAIL]
+|`edit NAME r/interviewee [n/NAME] [p/PHONE] [f/FACULTY] [y/YEAR_OF_STUDY] [ep/PERSONAL_EMAIL] [ew/NUS_WORK_EMAIL]
 [d/DEPARTMENT]... [s/SLOT]... [t/TAG]...` +
 
 |Edit interviewer
-|`edit NAME r/interviewer [p/PHONE] [t/TAG]... [d/DEPARTMENT] [ew/NUS_WORK_EMAIL] [s/SLOT...]` +
+|`edit NAME r/interviewer [n/NAME] [p/PHONE] [t/TAG]... [d/DEPARTMENT] [ew/NUS_WORK_EMAIL] [s/SLOT...]` +
 
 |Delete interviewee
 |`delete NAME r/interviewee` +
