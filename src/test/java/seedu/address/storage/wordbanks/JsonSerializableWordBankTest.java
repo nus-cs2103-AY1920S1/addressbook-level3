@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.wordbank.WordBank;
 import seedu.address.testutil.TypicalCards;
@@ -34,16 +32,16 @@ class JsonSerializableWordBankTest {
     }
 
     @Test
-    void toModelType_invalidWordBankFile_throwsIllegalValueException() throws Exception {
+    void toModelType_invalidWordBankFile_throwsNullPointerException() throws Exception {
         JsonSerializableWordBank dataFromFile = JsonUtil.readJsonFile(INVALID_WORD_BANK_FILE,
                 JsonSerializableWordBank.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        assertThrows(NullPointerException.class, dataFromFile::toModelType);
     }
 
     @Test
-    void toModelType_duplicateCardsInWordBank_throwsIllegalValueException() throws Exception {
+    void toModelType_duplicateCardsInWordBank_throwsNullPointerException() throws Exception {
         JsonSerializableWordBank dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CARDS_IN_WORD_BANK_FILE,
                 JsonSerializableWordBank.class).get();
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        assertThrows(NullPointerException.class, dataFromFile::toModelType);
     }
 }

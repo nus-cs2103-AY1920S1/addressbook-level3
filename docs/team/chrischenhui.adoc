@@ -31,9 +31,9 @@ Team members: {empty}[http://github.com/chrischenhui[Chen Hui]]
 {empty}[http://github.com/jascxx[Jason]]
 {empty}[http://github.com/dragontho[Paul]]
 
-image:chrischenhui.png[width="90", align="left"]
-image:kohyida1997.png[width="90", align="left"]
-image:sreesubbash.png[width="90", align="left"]
+image:chrischenhui.png[icon, width="90", align="left"]
+image:kohyida1997.png[width="70", height="90" align="left"]
+image:sreesubbash.png[width="89", align="left"]
 image:jascxx.png[width="82", align="left"]
 image:dragontho.png[width="100", align="left"]
 
@@ -71,29 +71,29 @@ Allow me to brief you on some useful terms and to give you a context.
 == Summary of contributions
 
 === Major feature
-*Word Bank Management*
+*_WordBank_ Management*
 
 * *What it does:* +
-** Enables user to have a high level management for his word banks and cards through CLI and GUI. +
+** Enables user to have a high level management for his _WordBanks_ and _Cards_ through CLI and GUI. +
 Is semi-automated by _Dukemon_ to enhance user's learning experience. +
 Consists of four complementary distinct sections.
 
-. *Word bank's data structure and its storage system*: +
+. *_WordBank_'s data structure and its storage system*: +
 Allows developers to use and extend this architecture to streamline their feature implementation. +
-Allows user to save and load their word banks. +
+Allows user to save and load their _WordBanks_. +
 Is implemented with a robust underlying `WordBankList` data structure, with its
 own `WordBankListStorage`,
 along with rich integration of `Model`, `Storage`, `Logic` and `UI` to synchronise its
 data.
 
 . *User Commands*: +
-Allows user to customise cards/word banks through `CardCommands` / `WordBankCommands`.
+Allows user to customise _Cards_ / _WordBanks_ through `CardCommands` / `WordBankCommands`.
 
 . *Drag and drop*: +
-Allows user to export their word bank out of their computer simply by dragging it out of _Dukemon_. +
-Likewise, it allows user to import a word bank file from their computer by dragging it into _Dukemon_.
+Allows user to export their _WordBanks_ out of their computer simply by dragging it out of _Dukemon_. +
+Likewise, it allows user to import a _WordBank_ file from their computer by dragging it into _Dukemon_.
 
-. *Revision word bank*: +
+. *Revision _WordBank_*: +
 Allows user to visit a centralised word bank that automatically collects cards for revision. +
 Cards that were answered wrongly are automatically added to this revision bank. +
 Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
@@ -103,37 +103,37 @@ Likewise, cards that were answered correctly during game play are automatically 
 * *Justification:*
 
 ** Well designed architecture and well implemented data structure streamlines integration and allows extension for
-features that builds on top of it. (statistics, game, settings)
+features that builds on top of it. (_Statistics, Game, Settings_)
 
 ** Management system is essential for a self-typed flashcard app like _Dukemon_.
 
 ** Drag and drop accelerates the sharing of knowledge/notes with friends, thereby enhancing user experience. +
 
-** Revision bank improves the learning process by helping the user collate cards that requires revision.
+** Revision _WordBank_ improves the learning process by helping the user collate cards that requires revision.
 
 //{nbsp}
 
 * *Highlights:*
 
-** There exists multiple ways to design and implement word bank management. Throughout _Dukemon_'s development,
+** There exists multiple ways to design and implement _WordBank_ management. Throughout _Dukemon_'s development,
 it has been restructured and rewritten a few times before finally coming to how it is implemented now. +
-This was primarily because my teammate's features requires heavy and continuous integration with word banks management. We came together twice every week to discuss how our features should be integrated with one another. +
+This was primarily because my teammate's features requires heavy and continuous integration with _WordBank's_ management. We came together twice every week to discuss how our features should be integrated with one another. +
 To best implement it, I spent considerable amount of effort to study different design patterns and architectural styles, such as _MVC (Model View Controller)_,
 _Observer Pattern_, _n-Tier Style_, _Event-Driven Style_, to realise the final design.
 
 ** Continual in-depth discussion with team member, Subbash, to find the best design to integrate user commands
 with his different modes.
 
-** Discussed with team member, Paul, who is in-charge of UI, on _Observer Pattern_ usage to display word banks and cards that automatically
+** Discussed with team member, Paul, who is in-charge of UI, on _Observer Pattern_ usage to display _Cards_ and _WordBanks_ that automatically
 update itself.
 
-** Consulted team member, Jason, on how I can best leverage his statistics feature to streamline my revision word bank implementation.
+** Consulted team member, Jason, on how I can best leverage his _Statistics_ feature to streamline my revision bank implementation.
 
 ** Learned and adapted _Callbacks_ and _Functional Programming_ into my drag and drop section
 to preserve the quality and structural integrity of the existing code base, from team member Yi Da.
 
 ** Individually sourced for proper online tutorials and online code references to implement drag and drop section,
-and design concepts such as _Observer Pattern_ and _MVC_ within cards and word banks.
+and design concepts such as _Observer Pattern_ and _MVC_ within _Cards_ and _WordBanks_.
 
 //{nbsp}
 
@@ -147,30 +147,28 @@ and design concepts such as _Observer Pattern_ and _MVC_ within cards and word b
 ** Teammates
 *** For their continual discussion, presence and support as mentioned in my highlights above.
 ** Tutors
-*** For their unconditional effort in guiding us and providing us with valuable resources and feedback throughout Dukemon's development.
+*** For their unconditional effort in guiding us and providing us with valuable resources and feedback throughout _Dukemon_'s development.
 
 === Minor features
-** Default word banks for new players
+** Default WordBanks for new players
 *** Implemented multiple user friendly word banks for user to try out. (pokemon, arithmetic, trivia, graph, cs2103t)
 *** Created on the first launch of _Dukemon_ (implemented through preferences file), and behaves like normal word bank. (Can be edited and removed)
+*** Implemented the initialisation of required folders for related files automatically if not present.
 
 ** User experience centric messages
 *** Played the game insane amount of times to design constructive feedback to display on the command box from the user perspective.
 *** Developed user friendly command usage feedback that guides the user to using _Dukemon_.
 
-** Automatic creation of folders.
-*** Implemented the initialisation of required folders for related files automatically if not present.
-
 === Other contributions
 * *Code contributed*:
-** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T11-2/main/graphs/contributors?from=2016-08-07&to=2019-11-09&type=a[GitHub]]
+** Overall: [https://github.com/AY1920S1-CS2103T-T11-2/main/commits?author=chrischenhui[All Commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chrischenhui&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chrischenhui&tabRepo=AY1920S1-CS2103T-T11-2%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T11-2/main/graphs/contributors?from=2016-08-07&to=2019-11-12&type=a[GitHub]]
 ** Functional:
 *** WordBank: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbank[WordBank]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/model/wordbanklist[WordBankList]]
 *** Storage: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/storage/wordbanks[WordBank storage]]
 *** Commands: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/commands/cardcommands[Card commands]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/commands/wordbankcommands[WordBank commands]]
 *** Command parsers: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/parser/open[Card command parser]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/main/java/seedu/address/logic/parser/home[WordBank command parser]]
 *** UI: [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/ui/modules/WordBankCard.java[Card display]] [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/ui/modules/LoadBankPanel.java[WordBanks display]]
-*** Data for Dukemon: [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/util/SampleDataUtil.java[Default data]]
+*** Data for _Dukemon_: [https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/src/main/java/seedu/address/model/util/SampleDataUtil.java[Default data]]
 
 ** Tests:
 *** Commands: [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/logic/commands/cardcommands[Card command test]] [https://github.com/AY1920S1-CS2103T-T11-2/main/tree/master/src/test/java/seedu/address/logic/commands/wordbankcommands[WordBank command test]]
@@ -202,7 +200,7 @@ can fully believe in and dedicate effort.
 
 ** *Tools:*
 *** [https://github.com/junit-team/junit5[JUnit 5]] for testing.
-*** [https://openjfx.io/[JavaFX]] [https://gluonhq.com/products/scene-builder/[SceneBuilder]] for Dukemon's UI.
+*** [https://openjfx.io/[JavaFX]] [https://gluonhq.com/products/scene-builder/[SceneBuilder]] for _Dukemon_'s UI.
 *** [http://plantuml.com/[PlantUML]] for UML diagrams.
 *** [https://www.netlify.com/[Netlify]] for workflow improvement.
 
@@ -224,7 +222,7 @@ include::../UserGuide.adoc[tag=chenhui-userRevisionBank]
 Below are the links to my other contributions in User Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution.
 ****
 
-* [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#card-commands-span-class-image-img-src-images-card_commands_icon-png-alt-card-commands-icon-width-29-5-span[Full documentation of Card commands]] [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#em-wordbank-em-commands-span-class-image-img-src-images-load_mode_icon-png-alt-load-width-22-span[Full documentation of WordBank commands]]
+* [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#em-card-em-commands-span-class-image-img-src-images-card_commands_icon-png-alt-card-commands-icon-width-29-5-span[Full documentation of _Card_ commands]] [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#wordbank-commands-span-class-image-img-src-images-load_mode_icon-png-alt-load-width-22-span[Full documentation of _WordBank_ commands]]
 * [https://ay1920s1-cs2103t-t11-2.github.io/main/UserGuide.html#command-summary[Full command summary]]
 
 //include::../UserGuide.adoc[tag=chenhui-quickstart]
@@ -245,11 +243,11 @@ Do visit them for a better understanding of the breadth and depth of my effort a
 
 //include::../DeveloperGuide.adoc[tag=chenhui-overviewOfWbl]
 
-=== Word bank data structure and its storage
+=== _WordBank_'s data structure and its storage
 
 include::../DeveloperGuide.adoc[tag=chenhui-wblStorageModel]
 
-* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#word-bank-s-data-structure-and-its-storage-system[Full documentation of Word bank's data structure and its storage system]]
+* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#em-wordbank-em-s-data-structure-and-its-storage-system[Full documentation of _WordBank_'s data structure and its storage system]]
 
 ---
 
@@ -270,10 +268,11 @@ include::../DeveloperGuide.adoc[tag=chenhui-dragInWalkThrough]
 
 ---
 
-=== Revision bank
+=== Revision _WordBank_
 
 include::../DeveloperGuide.adoc[tag=chenhui-revisionBankActivityDiagram]
-{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-word-bank[Full documentation of Revision word bank]]
+{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#revision-em-wordbank-em[Full documentation of Revision _WordBank_]] +
+{empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#span-class-underline-em-wordbank-em-management-feature-span[Full documentation of entire _WordBank_ Management Feature]]
 
 ****
 * Below are the links to my other contributions in Developer Guide. Do visit them for a better understanding of the breadth and depth of my effort and contribution.
@@ -285,7 +284,6 @@ include::../DeveloperGuide.adoc[tag=chenhui-revisionBankActivityDiagram]
 //* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#Design-Storage[Storage]]
 //* {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#user-commands[Detailed implementation for User Commands]]
 * {empty} [https://ay1920s1-cs2103t-t11-2.github.io/main/DeveloperGuide.html#design-considerations-4[Design considerations]]
-
 
 == image:bag-icon.png[width=35] More about me
 

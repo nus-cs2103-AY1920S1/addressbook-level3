@@ -12,7 +12,6 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -157,15 +156,13 @@ public class MainApp extends Application {
      /**
      * Returns a {@code WordBankListStorage} with the data from {@code UserPrefs}'s storage and {@code userPrefs}. <br>
      *
-     * @param userPrefsStorage
-     * @param userPrefs
+     * @param userPrefsStorage user preferences storage.
+     * @param userPrefs user preferences.
      * @return WordBankListStorage.
-     * @throws DataConversionException if word banks are corrupted.
-     * @throws IllegalValueException if word banks list contain duplicate name or it's bank has duplicate cards.
      * @throws IOException file is not found.
      */
     private WordBankListStorage initWordBankListStorage(UserPrefsStorage userPrefsStorage, UserPrefs userPrefs)
-            throws DataConversionException, IllegalValueException, IOException {
+            throws IOException {
         WordBankListStorage wordBankListStorage = new JsonWordBankListStorage(userPrefs.getDataFilePath(),
                 userPrefs.isSampleInitiated());
 

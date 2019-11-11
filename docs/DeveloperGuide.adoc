@@ -98,7 +98,7 @@ image::ModularDisplayClassDiagram.png[]
 
 As our application also comprises a dynamically changing UI in replacement of the `PersonListPanel`, `ModularDisplay` contains multiple other `Panel` classes in itself in order to render the proper screens during runtime. This rendering is controlled by `UpdateUi` in `MainWindow`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -223,7 +223,7 @@ image::ModelClassDiagram.png[]
 
 // end::chenhui-model[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -262,7 +262,7 @@ image::StorageClassDiagram.png[]
 
 // end::chenhui-storage[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -300,7 +300,7 @@ Classes used by multiple components are in the `seedu.Dukemon.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::autocompleteimplementation[]
-=== AutoComplete and Dynamic Parsers
+=== [underline]#AutoComplete/Parser Feature#
 _This section explains how the design choice of Dynamic Parsers fulfils AutoComplete and Command Execution._
 
 ParserManager dynamically changes parser depending on current mode the game is at. This is modeled using the Strategy Pattern. https://en.wikipedia.org/wiki/Strategy_pattern.
@@ -324,7 +324,7 @@ The above implementation empowers the application with the following features :
    The below activity diagram demonstrates four possible states and a typical user flow.
 
 .Activity diagram of a typical application flow
-image::StateActivityDiagram.PNG[width="400"]
+image::StateActivityDiagram.PNG[width="790"]
 
 *   Definitions of Switch and Mode in table above
 **   SwitchCommands = (commands that change mode)
@@ -395,7 +395,7 @@ As commands are stateful, it would be easy to overlook the edge cases when so ma
 // tag::settings[]
 === [underline]#Settings Feature#
 ==== Implementation
-`AppSettings` was a class that was created to be integrated into the `Model` of the app. It currently contains these functionalities:
+`AppSettings` is a class that was created to be integrated into the `Model` of the app. It currently contains these functionalities:
 
 * `difficulty [EASY/MEDIUM/HARD]` to change the difficulty of the game.
 * `hints [ON/OFF]` to turn hints on or off.
@@ -406,7 +406,7 @@ This feature provides the user an interface to make their own changes to the sta
 The activity diagram below summarizes what happens in the execution of a settings command:
 
 .Activity diagram of the execution of a settings command.
-image::SettingsActivityDiagram.png[]
+image::SettingsActivityDiagram.png[width='200']
 
 [NOTE]
 Take note that "mode" as defined in our project is the state in which the application is able to take commands specific to that mode.
@@ -414,12 +414,12 @@ Take note that "mode" as defined in our project is the state in which the applic
 Given below is a step by step walk-through of what happens when a user executes a difficulty command while in settings mode:
 
 .Before state of application.
-image::StateDiagramBefore.png[]
+image::StateDiagramBefore.png[width='250']
 *Step 1:* +
 Let us assume that the current difficulty of the application is "EASY". The object diagram above shows the current state of `AppSettings`.
 
 .Sequence diagram of Step 2.
-image::DifficultySequenceDiagram1.png[]
+image::DifficultySequenceDiagram1.png[width='400']
 *Step 2:* +
 When the user enters `difficulty hard`, the command gets passed into Ui first, which executes `AppManager#execute()`, which passes straight to `LogicManager#execute()` without any logic conditions to determine its execution path.
 
@@ -439,15 +439,15 @@ image::DifficultySequenceDiagram4.png[]
 Since the main function of the `difficulty` command is accomplished and all that is left is to update the ui, the `CommandResult` that is produced by the execution of the command goes back to `Ui` without much problem.
 
 .Sequence diagram of Step 6.
-image::DifficultySequenceDiagram5.png[]
+image::DifficultySequenceDiagram5.png[width='250']
 *Step 6:* +
 Assuming that there were no errors thrown during the execution of the `difficulty` command, the execution calls `updateModularDisplay` in `UpdateUi`. In here, the `ModeEnum.SETTINGS` is registered and it updates the settings display to properly reflect the change in difficulty.
 
 The state of appSettings is then as follows:
 
 .After state of application
-image::StateDiagramAfter.png[]
-
+image::StateDiagramAfter.png[width='250']
+<<<
 ==== Design Considerations
 
 There were a few considerations for implementing an interface that essentially allows users to touch a lot of parts of the application through settings and some of these methods break software design principles. These are the considerations we came across:
@@ -505,23 +505,21 @@ image::TimerDGScreenshot.png[]
 
 ==== Implementation Overview - Timer
 
-The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch that runs for each `Card` in a `Game`. It also relies on
-using _Functional Interfaces_ as _callbacks_ to periodically notify other components in the system. Using _callbacks_
-allows the `Timer` to enact changes in other components of the system without directly holding a reference to those
+The `Timer` component utilizes the `java.util.Timer` API to simulate a stopwatch that runs for each _Card_ in a `Game`. It relies on
+using _Functional Interfaces_ as _callbacks_ for the TImer to periodically notify other components in the system without directly holding a reference to those
 components.
 
 Internally, the `Timer`
-works by using the method `java.util.Timer.schedule()` that will schedule `java.util.TimerTasks` at a fixed rate (_every 50ms_).
+works by using the method `java.util.Timer.schedule()` that schedules `java.util.TimerTasks` at a fixed rate (_every 50ms_).
 
 An _Observer Pattern_ is loosly followed between the `Timer` and the other components. As opposed to defining an
 _Observable_ interface, the `AppManager` simply passes in _method pointers_ into the `Timer` to _callback_ when an
-event is triggered. The `AppManager` thus works closely with the `Timer` as the main hub to enact changes based on
-signals given by the `Timer`.
+event is triggered by the `Timer`.
 
 [NOTE]
 To avoid
-synchronization issues with the `UI` component, all
-`TimerTasks` (such as requesting to refresh a component of the `UI`) are forced to run on the *JavaFX Application Thread* using
+synchronization issues, all
+_callbacks_ to change `UI` components are forced to run on the *JavaFX Application Thread* using
 `Platform.runLater()`.
 
 .Class diagram reflecting how the callback-functions are organized in the Timer component.
@@ -530,7 +528,7 @@ image::TimerClassDiagramCallbacks.png[]
 The three main events that are currently triggered by the `Timer` component which require a _callback_ are:
 
 1. Time has elapsed, _callback_ to `AppManager` to *update and display the new timestamp* on the `UI`.
-2. Time has run out (_reached zero_), _callback_ to `AppManager` to *skip over* to next `Card`.
+2. Time has run out (_reached zero_), _callback_ to `AppManager` to *skip over* to next _Card_.
 3. Time has reached a point where `Hints` are to be given to the User, _callback_ to `AppManager` to *retrieve a `Hint`
 and display* accordingly on the `UI`.
 
@@ -544,12 +542,13 @@ image::HintsClassDiagram.png[]
 
 In order to display the `Hints` component to the user in a _Hangman-esque_ style, *string formatting* has to be performed.
 
-* Each `Card` contains a `FormattedHintSupplier` that supplies `FormattedHints` ready to be shown to the user.
+* Each _Card_ contains a `FormattedHintSupplier` that supplies `FormattedHints` ready to be shown to the user.
 * Each `FormattedHintSupplier` contains a `FormattedHint` that is periodically updated.
 * Each `FormattedHintSupplier` contains a `java.util.List` of `Hint` to update  the `FormattedHint` with.
+* Each `FormattedHint` maintains a `char[]` array that it's `toString()` method uses to format the output `Hint` string with.
 * Each `Hint` encapsulates a `Character` and an `Index` which the `Character` is to be shown in the `FormattedHint`.
 
-The `Timer` component *triggers a request* to the `AppManager`, who then updates and retrieves the `FormattedHint` from
+The `Timer` component *triggers a request to update `Hints`* to the `AppManager`, who then updates and retrieves the updated `FormattedHint` from
 the current `Game` via the `Logic` component.
 
 ==== Flow of Events - `Hints` Disabled
@@ -563,6 +562,10 @@ image::TimerSequenceDiagram1.png[]
 `GameTimer` interface uses a factory method to create `GameTimerManager` instances. This behavior
 is omitted in the above diagram for simplicity.
 
+A new `GameTimer` instance is created by the `AppManager` for every _Card_ of a `Game`.
+The `AppManager` provides information regarding the duration in which the `GameTimer` should run for, and whether
+`Hints` are enabled.
+
 . `UI` component first registers _callbacks_ with the `AppManager`.
 . When a _Game_ is started, `AppManager` initializes a `GameTimer` instance for the first _Card_.
 . `AppManager` registers _callbacks_ with the `GameTimer` component.
@@ -574,11 +577,6 @@ is omitted in the above diagram for simplicity.
 
 Using this approach of _callbacks_ provides *better abstraction* between the `UI` and `Timer`.
 
-[NOTE]
-A new `GameTimer` instance is created by the `AppManager` for every `Card` of a `Game`.
-The `AppManager` provides information regarding the duration in which the `GameTimer` should run for, and whether
-`Hints` are enabled.
-
 ==== Flow of Events - `Hints` Enabled
 
 .Screenshot of the automatic `Hints` feature in action.
@@ -587,21 +585,22 @@ image::HintDGScreenshot.png[width=790]
 .Activity diagram of the `run()` method of an instance of `GameTimerManager` when `Hints` are enabled.
 image::TimerActivityDiagramWithHints.png[]
 
-The behavior of `Timer` when `Hints` are enabled is *largely still the same.* +
- +
- When `Hints` are enabled,
-`AppManager` initializes a `HintTimingQueue` in the `GameTimer` for each _Card_. `HintTimingQueue` is a class that
-contains a `java.util.Queue` of _timestamps_ (in milliseconds). `GameTimer` polls from the `HintTimingQueue` and checks against
-these polled _timestamps_ to update the `Hints` provided periodically. +
- +
-The described activity is visualized via the activity diagram as *shown above*. The internal `Timer` is started when
+* In the diagram as *shown above*, the internal `Timer` is started when
 `GameTimerManager` calls the `.schedule()` method of its internal `java.util.Timer`, which schedules `TimerTasks` immediately,
 every 50 milliseconds until the `java.util.Timer` is cancelled. The field `timeLeft` is initialized
 to be the amount of time allowed per _Card_ (in milliseconds), and is updated every 50ms.
 
+* The behavior of `Timer` when `Hints` are enabled is *largely still the same.*
+
+* When `Hints` are enabled,
+`AppManager` initializes a `HintTimingQueue` in the `GameTimer` for each _Card_. `HintTimingQueue` is a class that
+contains a `java.util.Queue` of _timestamps_ (in milliseconds). `GameTimer` polls from the `HintTimingQueue` and checks against
+these polled _timestamps_ to update the `Hints` provided periodically.
+
+
 ==== Design Considerations
 
-There were a few considerations for designing the `Timer` this way.
+There were a few reasons for designing the `Timer` and `Hints` this way.
 
 |===
 ||**Alternative 1**|**Alternative 2**
@@ -624,11 +623,35 @@ _Cons:_ +
 Relies on developer to register correct call-back methods with the `Timer`. Different actions need to be
 implemented as different call-backs separately. Possible overhead in performing few levels of call-backs.
 
-3+|**Why did we choose Alternative 2:** +
+3+|**Why we chose Alternative 2:** +
 To ensure better extendability of our code for future expansion, we felt it was important to maintain as much
 abstraction between components. This is also to make life easier when there comes a need to
 debug and resolve problems in the code.
  +
+ ||**Alternative 1**|**Alternative 2**
+ |**Aspect 2**: +
+ Where and how to perform string formatting for `Hints` to be displayed.
+ | **Move retrieval of individual Hint characters and all formatting outside of the Game component completely**: +
+
+ _Pros:_ +
+Maintains immutability of each _Card_ inside `Game` component.  +
+
+ _Cons:_ +
+Breaking abstraction as higher level components should not have to deal with string formatting.
+
+ |**Perform formatting at the lowest level possible, using a `FormattedHint` class.** +
+
+ _Pros:_ +
+Higher level components need not know about string formatting at all, maintains good abstraction.  +
+
+ _Cons:_ +
+Individual `Game` components like each _Card_ become stateful, need to make deep copies to prevent
+state from carrying across `Game` sessions.
+
+ 3+|**Why we chose Alternative 2:** +
+Implementing cloning of _Cards_ affects other areas of code the least, and reduces unnecessary coupling. Since changes to higher level
+elements can potentially affect all other components, it was safer to modify more atomic areas of code.
+  +
 |===
 
 // end::yida-timer[]
@@ -637,16 +660,16 @@ debug and resolve problems in the code.
 
 // tag::chenhui-feature[]
 
-=== [underline]#Word Bank Management#
-This section discusses the implementation of Word Bank Management in various levels of detail. +
+=== [underline]#_WordBank_ Management Feature#
+This section discusses the implementation of _WordBank_ Management in various levels of detail. +
 This can be split into four complimentary distinct sections.
 
 They are: +
 
-** Word bank’s data structure and its storage system
+** _WordBank_’s data structure and its storage system
 ** User Commands
 ** Drag and drop
-** Revision word bank
+** Revision _WordBank_
 
 {nbsp}
 
@@ -654,12 +677,12 @@ They are: +
 
 // tag::chenhui-section1[]
 
-==== Word bank's data structure and its storage system
+==== _WordBank_'s data structure and its storage system
 Allows developers to use and extend this architecture to streamline their feature implementation. +
-Allows user to save and load their word banks. +
+Allows user to save and load their _WordBanks_. +
 
 Observe closely the attributes and methods of the following class diagrams. +
-They describe and explain word bank's data structure and its storage system in detail. +
+They describe and explain _WordBank_'s data structure and its storage system in detail. +
 
 
 //A quick look at `Card` and `WordBank` as it is displayed through the `UI`.
@@ -687,61 +710,61 @@ They describe and explain word bank's data structure and its storage system in d
 //{nbsp} +
 //
 //---
-We start from the lowest level - `Card`. +
+===== We start from the lowest level - `_Card_`. +
 
-.Class diagram of `Card`.
+.Class diagram of `_Card_`.
 image::CardDiagram.png[]
 
-A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. +
+A `_Card_` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. +
 
 `id` : for statistical tracking +
 `word`: answer to the question (meaning) +
 `meaning`: the question that will appear in the game +
-`tags`: optional tags to classify cards
+`tags`: optional tags to classify `_Cards_`
 
 [NOTE]
-Cards with the same meaning are duplicates, and is disallowed.
+`_Cards_` with the same `meaning` are duplicates, and is disallowed.
 
 ---
 
-Next, the second level - `WordBank`
+===== Next, the second level - `_WordBank_`.
 
-.Class diagram of `WordBank`.
+.Class diagram of `_WordBank_`.
 image::WordBankDiagram.png[]
 
-A `WordBank` contains a `UniqueCardList` and a unique `name`. +
+A `_WordBank_` contains a `UniqueCardList` and a unique `name`. +
 
-`UniqueCardList` : prevent duplicate cards +
-`name`: unique name of the word bank +
+`UniqueCardList` : prevent duplicate _Cards_ +
+`name`: unique name of the `_WordBank_` +
 
 [NOTE]
-`WordBank` exposes an unmodifiable `ObservableList<Card>` that can be 'observed'.
-The UI can be bound to this list so that the UI automatically updates when the cards in the list
+`_WordBank_` exposes an unmodifiable `ObservableList<Card>` that can be 'observed'.
+The UI can be bound to this list so that the UI automatically updates when the _Cards_ in the list
 change.
-Word banks with the same name are duplicates, and is disallowed.
+`_WordBanks_` with the same `name` are duplicates, and is disallowed.
 
 
 ---
 
-Now the third level - `WordBankList`
+===== Now the third level - `WordBankList`
 
 .Class diagram of `WordBankList`.
 image::WordBankListDiagram.png[]
 
 A `WordBankList` contains a `UniqueWordBankList`.
 
-`UniqueWordBankList` : prevent duplicate word banks
+`UniqueWordBankList` : prevent duplicate `WordBanks`
 
 [NOTE]
-`WordBank` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
-The UI can be bound to this list so that the UI automatically updates when the cards in the list
+`WordBankList` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
+The UI can be bound to this list so that the UI automatically updates when the `WordBanks` in the list
 change.
 
 In Dukemon, there is should only be one `WordBankList`, which is created upon `Storage` initialisation. +
 `Model` holds a reference to that specific `WordBankList`.
 
 ---
-Architecture overview - `WordBankList`
+===== Architecture overview - `WordBankList`
 
 // tag::chenhui-overviewOfWbl[]
 .Overview of `WordBankList`.
@@ -750,17 +773,18 @@ image::OverviewOfWordBankList.png[]
 
 ---
 
-Word bank's storage system integration.
 // tag::chenhui-wblStorageModel[]
+
+===== _WordBank_'s storage system integration.
 
 .Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
 
-WordBankListStorage consists of robust and self-explanatory methods in which users can use and extend upon easily. +
-Alongside with word bank's data structure, they lay the foundation for my other complementary sections of Word Bank Management.
+`WordBankListStorage` consists of robust and self-explanatory methods in which developers can use and extend upon easily. +
+Alongside with _WordBank_'s data structure, they lay the foundation for the other complementary sections of _WordBank_ Management.
 
 On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
-by my teammates, to build their own feature implementations. (Statistics, Game, Settings)
+by the team, to build individual features. (_Statistics_, _Game_, _Settings_)
 // end::chenhui-wblStorageModel[]
 
 {nbsp}
@@ -774,10 +798,10 @@ by my teammates, to build their own feature implementations. (Statistics, Game, 
 
 // tag::chenhui-wblLogicStorageModel[]
 
-Allows user to customise cards and group them according to topics (word banks). +
-User commands edits and manipulates `Cards` and `WordBanks` heavily.
+Allows user to customise _Cards_ and group them according to topics (_WordBanks_). +
+User commands edits and manipulates _Cards_ and _WordBanks_ heavily.
 
-NOTE: As mentioned previously, user commands will extend and utilise word bank's data structure and storage heavily. +
+NOTE: As mentioned previously, user commands will extend and utilise _WordBank_'s data structure and storage heavily. +
 You can refer to it to enhance your understanding of this implementation.
 
 //A `WordBankList` contains multiple `WordBanks`.
@@ -792,12 +816,12 @@ You can refer to it to enhance your understanding of this implementation.
 
 Let me first introduce you how these commands are implemented and structured in `Logic`. +
 
-.Overview class diagram of `Logic` with emphasis on CardCommands and WordBankCommands.
+.Overview class diagram of `Logic` with emphasis on `CardCommands` and `WordBankCommands`.
 image::WBLogicStorageModel.png[]
 // end::chenhui-wblLogicStorageModel[]
 
-Commands reside in `Logic`. They work on `Model` and `Storage` through `Logic`. +
-To segregate cards according to their function, we distinguished the following:
+`Commands` reside in `Logic`. They work on `Model` and `Storage` through `Logic`. +
+To segregate `Cards` according to their function, we distinguished the following:
 
 //A `Card` contains a word and a unique meaning. (May contain tags) +
 `CardCommands` work on `Cards`. +
@@ -810,7 +834,7 @@ To segregate cards according to their function, we distinguished the following:
 //For instance, `CreateCommand`: +
 
 ---
-Walkthrough - `ImportCommand`. +
+===== Walkthrough - `ImportCommand`. +
 
 // tag::chenhui-importCommandSequenceDiagram[]
 .Sequence diagram detailing a successful `WordBankCommand` through different components.
@@ -818,11 +842,11 @@ image::ImportCommandSeqDiagram.png[]
 // end::chenhui-importCommandSequenceDiagram[]
 
 
-NOTE: Most of these methods utilised can be found in my word bank data structure and storage class diagrams. +
-The emphasis here is to show how these commands utilise word bank's data structure and storage.
+NOTE: Most of these methods utilised can be found in my _WordBank_'s data structure and storage class diagrams. +
+The emphasis here is to show how these commands utilise _WordBank_'s data structure and storage.
 
-We will see the case where an Import command is valid. +
-For example, for the input: "import w/bank1, f/~/downloads"
+We will see the case where an `ImportCommand` is valid. +
+A valid input could be: "import w/bank1, f/~/downloads"
 
 1. Depending on the input, a specific `Command` type is returned by `ParserManager`. i.e. `ImportCommand`.
 
@@ -832,25 +856,25 @@ For example, for the input: "import w/bank1, f/~/downloads"
 3. Relevant information is stored in a specific `CommandResult` and is returned back to `LogicManager`.
 i.e. `ImportCommandResult`.
 
-4. Each type of `CommandResult` updates the storage with slight variance. `ImportCommand` calls the importWordBank method.
+4. Each type of `CommandResult` updates the storage with slight variance. `ImportCommand` calls the `importWordBank` method.
 
-5. `JsonWordBankListStorage` contains the abstracted details of how a commandResult should be handled.
-For importWordBank method, addWordBank and saveWordBank private methods are called.
+5. `JsonWordBankListStorage` contains the abstracted details of how a `commandResult` should be handled.
+For `importWordBank` method, `addWordBank` and `saveWordBank` private methods are called.
 
-6. Within addWordBank method, `WordBank` is added into the underlying UniqueWordBankList. +
+6. Within `addWordBank` method, `WordBank` is added into the underlying `UniqueWordBankList`. +
 Two synchronisation happens here. +
 Firstly, as `Model` contains the same `WordBankList`, the two list contains synchronised data. +
 Secondly, `WordBankList` exposes an unmodifiable `ObservableList<WordBank>` that can be 'observed'.
-`UI` was bounded to this list upon initialisation. Hence, it allows the user sees the updated word bank automatically.
+`UI` was bounded to this list upon initialisation. Hence, it allows the user sees the updated `WordBank` automatically.
 
-7. Within saveWordBank method, an even lower level saveJsonFile function is called to write to the disk.
+7. Within `saveWordBank` method, an even lower level `saveJsonFile` function is called to write to the disk.
 This is performed through the common class: `JsonUtil`.
 
 8. It returns back to `LogicManager`, and a success message is passed back to `AppManager`,
 then to the `UI` to notify the user.
 
 ****
-* Other `CardCommands` and `WordBankCommand` work similarly to `ImportCommand`, with slight variance.
+* Other `CardCommand` and `WordBankCommand` work similarly to `ImportCommand`, with slight variance.
 ****
 
 {nbsp}
@@ -861,53 +885,64 @@ then to the `UI` to notify the user.
 // tag::chenhui-section3[]
 
 ==== Drag and drop
-Allows user to export their word bank out of their computer simply by dragging it out of Dukemon. +
-Likewise, it allows user to import a word bank file from their computer by dragging it into Dukemon.
+Allows user to export their _WordBank_ out of their computer simply by dragging it out of Dukemon. +
+Likewise, it allows user to import a _WordBank_ file from their computer by dragging it into Dukemon.
 
-Improves user experience by making it easy to share word banks with friends.
+Improves user experience by making it easy to share _WordBanks_ with friends.
 
-NOTE: As mentioned previously, drag and drop will extend and utilise word bank's storage heavily. +
+NOTE: As mentioned previously, drag and drop will extend and utilise _WordBank_'s data structure and storage heavily. +
 You can refer to it to enhance your understanding of this implementation.
 
-.Word bank file.
-image::DragAndDrop1.png[150, 150]
+//.Word bank file.
+//image::DragAndDrop1.png[150, 150]
+//
+//.Dragging into Dukemon.
+//image::DragAndDrop2.png[150, 150]
+//
+//.Dukemon registers the bank.
+//image::DragAndDrop3.png[150, 150]
 
-.Dragging into Dukemon.
-image::DragAndDrop2.png[150, 150]
+image:DragAndDrop1.png[width=121, align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop2.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDrop3.png[width="130", align="left"]
 
-.Dukemon registers the bank.
-image::DragAndDrop3.png[150, 150]
+From `HOME` mode, you can view your _WordBanks_. +
+Simply drag and drop a _WordBank_ json file from your computer into the _Dukemon_ GUI. +
 
-From `HOME` mode, you can view your `WordBanks`.
-Simply drag and drop a `WordBank` json file from your computer into Dukemon.
+image:DragAndDropOut1.png[width="130", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut2.png[width="124", align="left"]
+{nbsp} {nbsp} -> {nbsp} {nbsp}
+image:DragAndDropOut3.png[width="119", align="left"]
+
 Likewise, drag and drop a `WordBank` out of the application, into say,
 your desktop, or chat applications. +
 
 ---
 
 // tag::chenhui-dragInWalkThrough[]
-
-Walkthrough - Drag in.
-
+===== Walkthrough - Drag in.
 // tag::chenhui-dragAndDropSequenceDiagram[]
-.Sequence diagram showing how drag and drop utilises the ImportCommand and thus the word bank's storage.
+.Sequence diagram showing how drag and drop utilises the `ImportCommand` and thus the _WordBank_'s storage.
 image::DragAndDropSequenceDiagram.png[]
 // end::chenhui-dragAndDropSequenceDiagram[]
 
 
-`LoadBankPanel` is the corresponding class and the FXML file that displays the word banks for the user. +
+`LoadBankPanel` is the corresponding class and the FXML file that displays the _WordBanks_ for the user. +
 It is deeply nested within `UI` and only has access to an `ObservableList<WordBank>`. +
-This means it has no way to perform commands, update model or update storage.
+This means it has no way to perform `commands`, update `model` or update `storage`.
 
-1. To work around this, a functional callback is registered within LoadBankPanel.
-2. LoadBankPanel registers JavaFX's UI drag detection and drag dropped methods, with the callback. +
-3. After which, the callback essentially performs an `ImportCommand`, to load the word bank.
+1. To work around this, a functional callback is registered within `LoadBankPanel`.
+2. `LoadBankPanel` registers JavaFX's UI drag detection and drag dropped methods, with the _callback_. +
+3. After which, the _callback_ essentially performs an `ImportCommand`, to load the _WordBank_.
 
 It is also noteworthy to mention that, dragging into Dukemon functionality is well guarded against: +
 
 * Not json file format.
 * Json file but data in wrong format.
-* Json file with correct format but contains duplicate cards within.
+* Json file with correct format but contains duplicate _cards_ within.
 
 User receives apt feedback through the command box for different cases.
 This is possible with careful exceptions handling within the `ImportCommand` itself.
@@ -920,14 +955,14 @@ This is possible with careful exceptions handling within the `ImportCommand` its
 // end::chenhui-section3[]
 // tag::chenhui-section4[]
 
-==== Revision word bank
-Allows user to visit a centralised word bank that automatically collects cards for revision. +
-Cards that were answered wrongly are automatically added to this revision bank. +
-Likewise, cards that were answered correctly during game play are automatically removed from this revision bank.
+==== Revision _WordBank_
+Allows user to visit a centralised _WordBank_ that automatically collects _cards_ for revision. +
+_Cards_ that were answered wrongly are automatically added to this revision bank. +
+Likewise, _cards_ that were answered correctly during game play are automatically removed from this revision bank.
 
-Improves user learning experience by helping the user to collate cards that require revision.
+Improves user learning experience by helping the user to collate _cards_ that require revision.
 
-NOTE: As mentioned previously, revision word bank will extend and utilise word bank's data structure and storage heavily. +
+NOTE: As mentioned previously, revision _WordBank_ will extend and utilise _WordBank_'s data structure and storage heavily. +
 You can refer to it to enhance your understanding of this implementation.
 
 // tag::chenhui-revisionBankActivityDiagram[]
@@ -935,7 +970,7 @@ You can refer to it to enhance your understanding of this implementation.
 image::RevisionBankActivityDiagram.png[]
 // end::chenhui-revisionBankActivityDiagram[]
 
-Revision bank was one of the essential and dominant features we wanted to implement since early development, however
+Revision _WordBank_ was one of the essential and dominant features we wanted to implement since early development, however
 it had to be implemented last because it required multiple components working together. +
 
 These components include:
@@ -950,8 +985,8 @@ The activity diagram above is able to detail my thought process and implementati
 
 1. `AppManager` gets first notification that a `Game` session has ended.
 2. `StorageManager` creates revision word bank if necessary.
-3. `GameStatistics` gives the required information: correct and wrong cards.
-4. `LogicManager` manages the processing of these cards, with some slight variance depending on situation, into revision bank.
+3. `GameStatistics` gives the required information: correct and wrong `Cards`.
+4. `LogicManager` manages the processing of these `Cards`, with some slight variance depending on situation, into revision bank.
 5. `StorageManager` saves it back into hard disk.
 
 // end::chenhui-section4[]
@@ -967,13 +1002,13 @@ The activity diagram above is able to detail my thought process and implementati
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 1**: +
-Data structure for WordBankList.
-| **Create classes for both WordBankList and WordBank, even though they are very similar in structure.** +
+Data structure for `WordBankList`.
+| **Create classes for both `WordBankList` and `WordBank`, even though they are very similar in structure.** +
 
 _Pros:_ +
-User's modification to their word banks and cards requires very different methods. These two data structure
+User's modification to their `WordBanks` and `Cards` requires very different methods. These two data structure
 requires different access to the storage as well. +
-With two different classes, implementation of the Commands that work on these data becomes more distinct.
+With two different classes, implementation of the `Commands` that work on these data becomes more distinct.
 This ensures methods within `WordBankList` are written for `WordBankCommands` and methods within `WordBank` are
 written for `CardCommands`, thereby increasing cohesion of individual components and decreasing coupling between the
 two classes.
@@ -981,13 +1016,13 @@ two classes.
 _Cons:_ +
 Implementation requires much more effort.
 
-|**Create a generic data structure class, and let both WordBankList and WordBank extend it.** +
+|**Create a generic data structure class, and let both `WordBankList` and `WordBank` extend it.** +
 
 _Pros:_ +
-Code that are reusable in WordBank can now be reused for WordBankList.
+Code that are reusable in `WordBank` can now be reused for `WordBankList`.
 
 _Cons:_ +
-This couples WordBank with WordBankList. Does not follow the Open-Closed principle.
+This couples `WordBank` with `WordBankList`. Does not follow the Open-Closed principle.
 
 3+|**Why did we choose Alternative 1:** +
 In the spirit of software engineering principles, it is better to have the basic data structure implemented well.
@@ -999,18 +1034,18 @@ Commands that depend on it becomes much easier to implement. (This can be seen i
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 2**: +
 Storage system for word banks.
-| **Store one single large json file with word bank names as keys and its word bank data as values**: +
+| **Store one single large json file with _WordBank_ names as keys and its _WordBank_ data as values**: +
 
 _Pros:_ +
 Always save a snapshot of the data to the same file, regardless of what commands are executed.
 
 _Cons:_ +
-Unable to share word banks with friends, because one file contains all the word banks.
+Unable to share _WordBanks_ with friends, because one file contains all the _WordBanks_.
 
-|**Store each word bank as a json file.** +
+|**Store each _WordBank_ as a json file.** +
 
 _Pros:_ +
-Enables sharing of word bank files to friends.
+Enables sharing of _WordBank_ files to friends.
 
 _Cons:_ +
 Require more consideration to deal with different type of commands which affects the storage dynamically.
@@ -1018,7 +1053,7 @@ Harder to read from multiple files.
 
 3+|**Why did we choose Alternative 2:** +
 This choice was based largely from the user's perspective. +
-As our app is designed to streamline learning, we figured that easy sharing of word banks file with friends is an important
+As our app is designed to streamline learning, we figured that easy sharing of _WordBanks_ file with friends is an important
 aspect in our app, and cannot be compromised.
 |===
 
@@ -1026,8 +1061,8 @@ aspect in our app, and cannot be compromised.
 |===
 ||**Alternative 1**|**Alternative 2**
 |**Aspect 3**: +
-Command implementation. +
-(Same goes for Command Result implementation)
+`Command` implementation. +
+(Same goes for `CommandResult` implementation)
 
 | **All types of commands extends a single abstract class `Command`**: +
 
@@ -1038,7 +1073,7 @@ _Cons:_ +
 Can be further improved, as in Alternative 2.
 
 |**Distinguishing `WordBankCommand` and `CardCommand` specifically - +
-Commands that work on Cards extends the abstract
+Commands that work on `Cards` extends the abstract
 `CardCommand` class and commands that work on `WordBank` extends the abstract `WordBankCommand` class.** +
 
 _Pros:_ +
@@ -1062,7 +1097,7 @@ drop feature is now a few function calls away, as all data structure and functio
 How to implement Drag and Drop. +
 `LoadBankPanel` is a deeply nested class, and is the corresponding class for the
 `UI` to interact with user's drag and drop action.
-| **Updates the storage directly from `LoadBankPanel`**: +
+| **Updates `Storage` directly from `LoadBankPanel`**: +
 
 _Pros:_ +
 It only requires a reference and then saving directly to `Storage`. This can be implemented with ease. +
@@ -1071,7 +1106,7 @@ _Cons:_ +
 Practically, there are a few exceptions being thrown when calling the storage's method directly. `LoadBankPanel` cannot handle them effectively. +
 This also leads to poor abstraction and high potential for cyclic dependencies, resulting in high coupling. +
 
-|**Using _Functional Interfaces_ as Call-backs to call an `ImportCommand` from `LoadBankPanel`.** +
+|**Using _Functional Interfaces_ as _Call-backs_ to call an `ImportCommand` from `LoadBankPanel`.** +
 
 _Pros:_ +
 Calling an already well-implemented `ImportCommand` allows all exceptions caught to be handled properly. +
@@ -1089,7 +1124,7 @@ feedback messages.
 
 // end::chenhui-feature[]
 // tag::jason-feature[]
-=== [underline]#Statistics features#
+=== [underline]#Statistics Feature#
 
 ==== Implementation
 
@@ -1156,7 +1191,7 @@ Additionally, the `GameStatisticsBuilder` is updated with every `GuessCommand` o
 It receives the timestamp from the `GameTimer` which also resides in `AppManager`.
 
 .Sequence diagram when user makes a guess.
-image::UpdateStatisticsSequenceDiagram.png[width=530]
+image::UpdateStatisticsSequenceDiagram.png[]
 
 ===== [underline]#5. User finishes the game# +
 When the user finishes the game, a `GameStatistics` is created from the `GameStatisticsBuilder`. The `GameStatistics`
@@ -1243,30 +1278,19 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-== Documentation
-
-Refer to the guide <<Documentation#, here>>.
-
-== Testing
-
-Refer to the guide <<Testing#, here>>.
-
-== Dev Ops
-
-Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* students
-* wants to learn new English words or definitions
-* can type fast
-* enjoys games
-* is reasonably comfortable using CLI apps
+* Students in formal educational institutions.
+* Students in informal educational contexts.
+* Users who are familiar with the keyboard, able to type fast.
+* Users who enjoy interactive learning.
+* Users who are famiiar and used to CLI-based apps.
 
-*Value proposition*: gamify learning experiences
+*Value proposition*: Making Learning and Memorization Game-like, Fun and Engaging.
 
 // tag::chenhui-userstories[]
 
@@ -1332,7 +1356,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -1340,35 +1363,46 @@ _{More to be added}_
 // end::chenhui-userstories[]
 
 
-(For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a Card
 
 *MSS*
 
-1.  User requests to list persons
-2.  Dukemon shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  Dukemon deletes the person
-+
+1.  User selects and opens a WordBank.
+2.  Dukemon shows a list of Cards.
+3.  User adds Word and Meaning pair.
+4.  Dukemon adds a Card into WordBank.
+
+
 Use case ends.
 
-*Extensions*
+[discrete]
+=== Use case: Play a game
 
-[none]
-* 2a. The list is empty.
+*MSS*
+
+1.  User selects and opens a WordBank.
+2.  Dukemon shows a list of Cards.
+3.  User starts a game.
+4.  Dukemon shows the Meaning of a Card.
+5.  User guesses Word of the corresponding Card.
 +
+Steps 4-5 are repeated till all Cards are played.
+6.  Game ends. Dukemon shows statistics of game.
+
+
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Dukemon shows an error message.
-+
-Use case resumes at step 2.
+*Extentions*
 
-_{More to be added}_
+2a. User opens settings
+
+2a1.  User changes hints to off.
+
+Use case resumes from step 3.
+
 
 [appendix]
 == Non Functional Requirements
@@ -1406,68 +1440,87 @@ A piece of executable code that is passed as an argument to other another
 code that is expected to _callback_ (execute) the argument at a given time.
 (Adapted from https://en.wikipedia.org/wiki/Callback_(computer_programming)[Wikipedia])
 
-
-[[callback]]
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[gui]] GUI::
+_Graphical User Interface_, the primary interface of which _Dukemon_'s feedback to the user can be seen.
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for Manual Testing.
 
-Given below are instructions to test the app manually.
+Given below are instructions for the testing of _Dukemon_ manually.
 
 [NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+The below instruction are only intended as starting points for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Initial Start-up and Editing of a _WordBank_.
 
-. Initial launch
+. Initial clean launch
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Download the `Dukemon.jar` file and copy into an *empty folder*
+.. Double-click the `.jar` file +
+   [underline]#Expected#: GUI appears with some sample _WordBanks_. Default window size may not be optimum.
 
-. Saving window preferences
+. Selecting and viewing a default _WordBank_
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Enter `select trivia` to choose the _Trivia WordBank_. +
+   [underline]#Expected#: GUI shows feedback _"Selected word bank: trivia"_ in the _ResultDisplay_.
+.. Enter `open`. +
+   [underline]#Expected#: GUI switches to _Open_ mode, _Cards_ belonging to _Trivia_ are shown.
 
-_{ more test cases ... }_
+. Adding a new _Card_ to a _WordBank_
 
-=== Deleting a person
+.. Enter `add w/Damith m/Lecturer of CS2103T t/Easy` +
+   [underline]#Expected#: Feedback shown that a new _Card_ with the above details are added. List of _Cards_ on GUI's right panel reflects the addition of a new _Card_.
+.. Enter `exit` and relaunch _Dukemon_. Enter `select triva` and then `open` upon restarting  +
+   [underline]#Expected#: The new _Card_ ("Damith") added previously is correctly stored in the _Triva_ _WordBank_.
 
-. Deleting a person while all persons are listed
+=== Starting and Terminating a _Game_ session without _Hints_.
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+. Starting a _Game_ after a target _WordBank_ has been selected.
 
-_{ more test cases ... }_
+.. [underline]#Prerequisite#: A _WordBank_ with *3 or more _Cards_* has been selected using the `select` command.
+.. Enter `settings` +
+   [underline]#Expected#: GUI switches to _Settings_ mode, and various configurable parameters are listed. (ie. _Theme_, _Hints_ etc)
+.. Enter `hints off` +
+   [underline]#Expected#: GUI feedback indicates that _Hints_ are turned OFF
+.. Enter `start easy` +
+   [underline]#Expected#: GUI switches to _Game_ mode with two panels stacked on top of each other. A 15s-countdown _Timer_ is started at the top right of the GUI.
+   A random `Meaning` of a `Card` belonging to the selected _WordBank_ is shown on the upper panel. The bottom panel indicated that there are no `Hints`. When time
+   is running out, the _Timer_ region changes color.
+.. Enter `stop` (*before all `Cards` are shown*) +
+   [underline]#Expected#: _Game_ stops, feedback informs that "Game has been forcibly stopped". _Timer_ stops running and disappears.
+.. Enter `guess abc` to attempt to make a `Guess` after _Game_ ends. +
+   [underline]#Expected#: No `guess` is processed, feedback indicates that "This command does not work right now"
+.. Enter `skip` to attempt to skip over to another _Card_. +
+   [underline]#Expected#: No skipping over occurs, feedback indicates that "This command does not work right now"
 
-=== Saving data
+[NOTE]
+Other possible Difficulties to start with are `start medium` and `start hard`, allowing 10s and 5s
+respectively for each _Card_. Other invalid commands will yield similar results after stopping the _Game_.
 
-. Dealing with missing/corrupted data files
+=== Importing and Exporting a _WordBank_ using Drag-and-Drop.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Exporting a _WordBank_ using Drag-and-Drop
 
-_{ more test cases ... }_
+.. [underline]#Prerequisite#: There exists *at least one* _WordBank_ in _Dukemon_'s data storage. Let *W* be any _WordBank_ that currently exists in _Dukemon_'s storage.
+..  (Single) Click on Panel on the right half of the GUI that indicates _WordBank_ *W* +
+   [underline]#Expected#: _WordBank_ *W*'s panel on the GUI becomes highlighted.
+.. Use mouse cursor to click-and-drag highlighted panel *outside* of _Dukemon_ into an *empty* folder.  +
+   [underline]#Expected#: A file with name *W.json* appears in the folder where it was dragged into.
+
+. Importing a _WordBank_ using Drag-and-Drop
+
+.. [underline]#Prerequisite#: _WordBank_ to be imported is in *valid .json format*, and all of its `Cards` are *valid within constraints.* Let *V* be the _WordBank_ to be imported.
+..  (Single) Click on *V.json* in your file directory. Start _Dukemon_ and drag *V.json* into the panel on the right side (where the list of _WordBanks_ is shown.)  +
+   [underline]#Expected#: _WordBank_ *V* is successfully added into the list of _WordBanks_, feedback indicates location where file was imported from.
+
+=== Changing and Saving _Dukemon_ Settings
+
+. Changing Color Theme of _Dukemon_
+
+.. [underline]#Prerequisite#: A _WordBank_ has *already been selected* from the _Home_ mode, and no _Game_ session is in progress.
+.. Enter `settings` +
+   [underline]#Expected#: GUI switches to the _Settings_ screen.
+.. Enter `theme light` +
+   [underline]#Expected#: GUI's overall color theme switches to a lighter color.
+.. Enter `exit`, then restart _Dukemon_ (do not change any configuration or data files) +
+   [underline]#Expected#: GUI's color theme remains light after restarting.

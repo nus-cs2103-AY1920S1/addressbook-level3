@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.IOException;
+import java.lang.reflect.InaccessibleObjectException;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -42,8 +43,12 @@ public class JsonAppSettingsStorage implements AppSettingsStorage {
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<AppSettings> readAppSettings(Path filePath) throws DataConversionException {
-        requireNonNull(filePath);
-        return JsonUtil.readJsonFile(filePath, AppSettings.class);
+        try {
+            requireNonNull(filePath);
+            return JsonUtil.readJsonFile(filePath, AppSettings.class);
+        } catch (InaccessibleObjectException ex) {
+            return Optional.empty();
+        }
     }
 
     @Override
