@@ -21,8 +21,8 @@ public class DeleteMeetingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the meeting identified by the index in the meeting list.\n"
-            + "Parameters:" + PREFIX_MEETING_INDEX + "MEETING_INDEX\n"
-            + "Example: " + COMMAND_WORD + PREFIX_MEETING_INDEX + "1";
+            + "Parameters: " + PREFIX_MEETING_INDEX + "MEETING_INDEX\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_MEETING_INDEX + "1";
 
     public static final String MESSAGE_DELETE_MEETING_SUCCESS = "Deleted Meeting: %1$s";
 
@@ -39,7 +39,7 @@ public class DeleteMeetingCommand extends Command {
 
         List<Meeting> meetingList = model.getFilteredMeetingList();
 
-        if (meetingIndex.getZeroBased() <= meetingList.size()) {
+        if (meetingIndex.getZeroBased() >= meetingList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_MEETING_DISPLAYED_INDEX);
         }
         Meeting meetingToDelete = meetingList.get(meetingIndex.getZeroBased());

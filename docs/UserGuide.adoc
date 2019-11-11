@@ -520,7 +520,7 @@ Removing John Doe's calendar from +Work
 
 * `delete-calendar mn/John Doe` +
 
-==== Schedule a team meeting: `find-meeting-time`
+==== Find possible meeting times: `find-meeting-time`
 
 You can schedule your next meeting by specifying the time period between which you wish to hold your meeting as well as the duration of the meeting in hour(s).
 
@@ -528,21 +528,48 @@ You can schedule your next meeting by specifying the time period between which y
 
 Format: `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`
 
-Example
-
-* `find-meeting-time start/__19-10-2019 08:00__ end/__29-10-2019 17:00__ hours/2` +
-Generates a grid showing the number of people who can make it for a particular time slot during the week (mock-up needed)
-
-==== Adding a meeting: `add meeting`
-
-Format: `add-meeting [at/ dd-mm-yyyy hh:mm]  [l/LOCATION]`
-
-to add a new meeting
+[TIP]
++Work recognises date and time in the format 'dd-mm-yyyy hh:mm
 
 Example:
 
-* `add-meeting at/10-10-2018 19:00 l/COM2-0204` +
-User chooses the meeting time from the grid displayed from generate timings commands (3.4.2) . A meeting is added to the internal calendar of the application, which will be displayed on the dashboard.
+* Let's say you want to schedule a __2__ hour meeting in the upcoming week, between __11th Nov 8 a.m__ and __15th Nov 5 p.m__. After entering the details in the corresponding fields, as such
+
+image::find-meeting-time-entry.PNG[]
+
+* Hit kbd:[Enter] and +Work will display a list of suitable timings as well as the team members that are available for that timing
+
+image::find-meeting-time-timings.PNG[]
+
+[NOTE]
+If there are no suitable timings, +Work will notify you as well
+
+==== Schedule a team meeting: `add-meeting`
+After using the command `find-meeting-time`, you can schedule a meeting from the list of possible timings by referring to the `INDEX` of the meeting.
+
+Format: `add-meeting [meeting/INDEX]`
+
+Example:
+
+* Suppose you are looking to schedule a __2__ hour meeting between __11th Nov 8 a.m__ and __15th Nov 5 p.m__.
+
+* After using the `find-meeting-time` command, you are given the following timings
+
+image::possible-meeting-timings.PNG[]
+
+* After looking through the suitable timings, you find meeting **#5** is your preferred timing
+
+image::preferred-meeting-time.PNG[]
+
+* Using the index of the meeting **#5**, enter the command `add-meeting meeting/5` and hit kbd:[Enter]
+
+* +Work saves the meeting and allows you to view them at the `home` page
+
+image::updated-meeting-time.PNG[]
+
+==== Remove a team meeting: `delete-meeting`
+
+If you need to
 
 '''
 
