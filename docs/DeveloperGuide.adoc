@@ -525,7 +525,8 @@ Given below is Figure 3.5.1.1 which is a Class Diagram that shows how the #Repor
 
 image::ReportClassDiagram.png[]
 
-Figure 3.5.1.1: Class Diagram showing interaction of #ReportCommand#.
+.Figure 3.5.1.1: Class Diagram showing interaction of #ReportCommand#.
+{empty} +
 
 Given below is an example usage scenario and how the Report feature behaves at each step.
 
@@ -542,13 +543,15 @@ The following activity diagram in Figure 3.5.1.2 summarises the above usage scen
 
 image::ReportCommandActivityDiagram.png[]
 
-Figure 3.5.1.2: Activity Diagram showing execution of "report" as the user input.
+.Figure 3.5.1.2: Activity Diagram showing execution of "report" as the user input.
+{empty} +
 
 The following sequence diagram in Figure 3.5.1.3 shows how the "report" command works.
 
 image::ReportCommand.png[]
 
-Figure 3.5.1.3: Sequence diagram of "report" command execution.
+.Figure 3.5.1.3: Sequence diagram of "report" command execution.
+{empty} +
 
 [NOTE]
 The parameters of the constructor of #CommandResult# in the above diagram are as follows, from left to right: +
@@ -562,7 +565,8 @@ The following sequence diagram in Figure 3.5.1.4 shows how the #ReportWindow# is
 
 image::ReportWindow.png[]
 
-Figure 3.5.1.4: Sequence Diagram showing the generation of the #ReportWindow#.
+.Figure 3.5.1.4: Sequence Diagram showing the generation of the #ReportWindow#.
+{empty} +
 
 ==== Design Considerations
 
