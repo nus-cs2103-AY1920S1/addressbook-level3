@@ -1,0 +1,31 @@
+@startuml
+(*) --> "user modifies text"
+
+if "are suggestions enabled?" then
+    -->[Yes] if "is the text blank"
+    -->[Yes] "populate with all commands"
+    --> populate
+    if "is there at least one suggestion" then
+    --> [yes] show menu
+    --> (*)
+    else
+    --> [no](*)
+    endif
+
+            else
+         --> [no] if "is there more than one token?"
+            --> [yes] "find prefixes and populate menu"
+            --> populate
+                else
+                --> [no] "populate with command words \nbeginning with this token"
+                --> populate
+                endif
+             endif
+else
+ --> [no](*)
+
+
+
+
+
+@enduml

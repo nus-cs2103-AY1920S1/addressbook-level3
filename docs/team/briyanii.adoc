@@ -5,85 +5,117 @@
 
 == PROJECT: MooLah
 
----
+'''
 
 == Overview
 
-This portfolio aims to document the contributions made to MooLah by Brian Fung.
+This portfolio aims to document my contributions to MooLah
 
 MooLah is a desktop expense tracking application, which was morphed from the code of Software Engineering Education's AddressBook - Level 3 used for teaching Software Engineering principles.
-MooLah is a hassle-free expense tracker aimed at NUS students.
 
-The user interacts with it using a Command-Line Interface (CLI), and it has a GUI created with JavaFX. It is written in Java, and has about 17 kLoC.
+MooLah is written in Java and has around 23 kLoC. It aims to provide a streamlined expense tracking solution to NUS students who are more comfortable with
+Command-Line Interfaces (CLI). With features such as auto-completion, and syntax highlighting, and expense analysis features like budgeting, and statistics.
+MooLah provides users an expense tracking solution which is both useful and easy to use.
+
 
 
 == Summary of contributions
 
-* *Major enhancement*: added *shortcut feature*
-** What it does:
-1. allows the user to assign an alias to an input, allowing them to create shortcuts for command which they
-frequently require. this saves them a lot of time entering all the arguments for a command, as well as reduces the need to
+* *Major enhancement*: added *Easier Command-Line* feature. +
+
+As this project required the use of a Command-Line interface for user interaction, user input can sometimes require a lot
+of typing and users may find it difficult to remember all the different commands available and the syntax required to use
+these commands.
+
+This feature consists of several features which make Command-Line easier to use, and to reduce the need for users
+to refer to the user guide.
+
+*Component 1:* Aliases
+
+** What it does: +
+This feature allows the user to save input to an alias, allowing them to create shortcuts for command which they
+frequently require. This saves them time by reducing the keystrokes required to enter a command, as well as reduces the need to
 remember what exactly needs to be entered.
-2. saves successfully inputted commands to history to allow reentering of commands used within the same session
-3. generic commands
-** Justification: as this is a CLI-Interface application, users would generally have to remember a lot of commands as
-well as command syntax. This feature allows users to reduce the keystrokes needed to complete a task, and
-reduce the need to remember commands.
-** Highlights:
 
+*Component 2:* Syntax highlighting
 
-* *Major enhancement*: added *autocomplete and syntax highlighting
-** What it does:
-1. highlights syntax to show which arguments belong under which prefix in the CLI-interface.
-2. adds placeholders to indicate what argument a prefix is expecting after a user enters the prefix
-3. shows what are the valid commands the user can enter
-4. shows what are the required prefixes and optional prefixes which the command requires.
+** What it does: +
+This feature provides some validation of user input. It highlights valid command words used for commands as well as the
+prefixes delimiting arguments within the command. It also makes the user's input more readable, as commands may require many
+arguments and prefixes, it may be difficult for users to read their input before entering the command.
 
-** What it does: allows the user to see what arguments they may have missed, and help them remember what each the arguments needed
-for each command
 ** Justification: This feature improves the product significantly because a user does not need to remember confusing commands and syntax.
 Especially due to the fact that our application supports a large number of commands. This allows users to see what valid commands there are as well
 as what arguments are required without having to press enter the command and see an error message.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands as well heavy use of javafx elements.
-** Credits: {richtextfx demo... }
 
-* *Major enhancement*: add *GUI elements for Budget List, Budgets, Expense List*
-** What it does ...
+** Highlights: This feature required in-depth analysis of the command syntax of the original code base. The implementation was challenging
+as it required the use of regular expressions to analyse user input so that the right sections of text were properly highlighted. This
+feature also required integration of RichTextFx JavaFx extensions. As RichTextFx only provided a text styling for multi-line
+text areas, this feature required significant usage of JavaFx's event dispatch and in order to ensure that the text area can properly simulate
+a single-line textfield.
 
-* *Minor enhancement*: add *GUI support adding of future panels*
-...
+** Credits: The RichTextFx demo's included some existing logic for syntax highlighting which was modified for use
+in MooLash as the behaviour of syntax highlighting in the demo's code did not require different highlighting behaviour in different context.
 
-* *Minor enhancement*: *initial refactoring of AddressBook into MooLah*
-** refactor Person class to expense
-...
+*Component 3:* Input suggestions
+** What it does: +
+As with the previous components, the main reason this feature was implemented was to reduce the need for users to have to refer
+to user guides or remember a lot of commands and their syntax. This feature suggests completions to the user's current input to
+provide them with possible commands they may enter, as well as provide them information of what arguments are required by the command
+and what the prefixes for the argument stand for.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Highlights: This feature required in-depth analysis of the command syntax of the original code base. It required modification to the existing
+Prefix class for it to provide more information to the user. The implementation was challenging as MooLah supports almost 30
+commands, all of which have different arguments. As such the feature needed to be designed such that it was scalable to
+support new commands as well as modification to existing commands. Similar to the syntax highlighting
+feature, this feature uses a significant use of JavaFx as well.
+
+*Component 4:* Generic commands.
+As mentioned previously, MooLah supports around 30 commands, several of which do similar thing (e.g. There are several commands which
+add information to MooLah use the word 'add'. In order to differentiate these commands, they require a much longer name to be clear as to
+what the command does. This feature allows multiple commands to use the same word and be parsed differently based on the context
+they are used.
+
+
+* *Major enhancement*: Design *GUI elements for Budget List, Budgets, Expense, and Aliases*
+Except for the most recent change to the colour theme of Moolah, most of the code to visualise changes to Aliases, Budgets, Expenses were
+written by me.
+https://github.com/AY1920S1-CS2103T-T11-1/main/pull/106[#106]
+https://github.com/AY1920S1-CS2103T-T11-1/main/pull/231[#231]
+
+
+
+
+* *Minor enhancement*: *initial refactoring of AddressBook into MooLah to allow tracking of expenses* +
+While expenses trackers are similar to an address book such they keep a record of items, the requirements to store expenses are
+much different. The person class needed to be refactored quite heavily. Additionally, as Expense should be able to share a name
+unlike the behaviour of the existing Person class, a new way to differentiate Expenses needed to be implemented.
+https://github.com/AY1920S1-CS2103T-T11-1/main/pull/40[#40]
+https://github.com/AY1920S1-CS2103T-T11-1/main/pull/42[#42]
+
+* *Code contributed*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=briyanii&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=briyanii&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[RepoSense link ]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (---)
-*** Refactored the GUI to support of adding extra Panels
+*** Managed release for https://github.com/AY1920S1-CS2103T-T11-1/main/releases/tag/1.3.2[v1.3.2]
+(the release used for Practical Exam Dry Run) on GitHub
+*** In charge of ensuring code is tested.
+*** Designed mock up for inital GUI design
+https://github.com/AY1920S1-CS2103T-T11-1/main/pull/60[#60]
+
+** Wrote tests to significantly increase coverage:
+*** https://github.com/AY1920S1-CS2103T-T11-1/main/pull/271[#271] https://coveralls.io/builds/26885574[65% to 80%] +
+https://github.com/AY1920S1-CS2103T-T11-1/main/pull/247[#247] https://coveralls.io/builds/26731561[46% to 52%]
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-//*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-//*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-//*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the syntax highlighting/autocomplete feature was ...
-////
- (https://github.com[1], https://github.com[2])
-////
-
+** Documentation: +
+Made changes to UG diagrams to match changes to the code https://github.com/AY1920S1-CS2103T-T11-1/main/pull/285[#285]
 ** Tools:
-*** Integrated a third party library (RichTextFX) to the project (#...)
+*** Integrated a third party library (RichTextFX) to the project https://github.com/AY1920S1-CS2103T-T11-1/main/pull/93[#93]
+*** Integrated TestFx into the project for Testing GUI components. https://github.com/AY1920S1-CS2103T-T11-1/main/pull/271[#271] +
+(* much of the code was sourced from https://github.com/se-edu/addressbook-level4/tree/master/src/test[AddressBook4 GUI-Tests])
 
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -98,11 +130,5 @@ include::../UserGuide.adoc[tag=shortcuts]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
+include::../DeveloperGuide.adoc[tag=alias]
 
-
-//include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-
-
-_{Optionally, you may include other projects in your portfolio.}_
