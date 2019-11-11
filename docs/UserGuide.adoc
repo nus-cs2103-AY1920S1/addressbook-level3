@@ -38,7 +38,7 @@ the use of self-created digital flashcards. *Supercharge your learning with Duke
 3.  Copy the file to the folder you want to use as the home directory of _Dukemon_ (this is where your
 data will be stored).
 4.  Double-click the `Dukemon.jar` to run the app.
-5.  Before getting to the quick start instructions, get familiar with our interface and appication modes.
+5.  Before getting to the quick start instructions, get familiar with our interface and application modes.
 
 === User Interface
 
@@ -118,7 +118,7 @@ image::UserGuideFlowOverview.png[width="790"]
 
 // tag::chenhui-quickstart[]
 
-Lets select the sample _WordBank_ and play a game to get familiar.
+Let's select the sample _WordBank_ and play a game to get familiar.
 
 
 1.  `select sample` kbd:[Enter]
@@ -134,17 +134,17 @@ Getting comfortable? Ready to master the application commands?
 
 _Some typical commands  to get familiar with are:_
 
-* *`create <NAME>`*: Create an empty _WordBank_ with specified name. (in Home Mode)
-* *`select <NAME>`*: Select and switch to _WordBank_ with the specified name. (in Home Mode)
+* *`create <NAME>`*: Creates an empty _WordBank_ with specified name. (in Home Mode)
+* *`select <NAME>`*: Selects and switch to _WordBank_ with the specified name. (in Home Mode)
 * *`add w/<WORD> m/<MEANING>`*: Adds a new _Card_ with specified _Word_ and _Meaning_ into the current _WordBank_. (in Open Mode)
-* *`list`*: List all _Cards_ in the current _WordBank_. (in Open Mode)
+* *`list`*: Lists all _Cards_ in the current _WordBank_. (in Open Mode)
 * **`start <EASY/MEDIUM/HARD>`**: Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
 _Settings_
 will be used if not
 specified. (after selecting _WordBank_)
-* **`guess <YOUR_ANSWER>`**: Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI. (in Game Mode)
+* **`guess <YOUR_ANSWER>`**: Makes a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI. (in Game Mode)
 * **`stop`**: Stops the current _Game_ session. (in Game Mode)
-* *`exit`*: Exit _Dukemon_. (in any mode except Game)
+* *`exit`*: Exits _Dukemon_. (in any mode except Game)
 
 // end::chenhui-quickstart[]
 
@@ -216,7 +216,7 @@ Format: `open`
 ****
 
 ==== Start the game: `start`
-Start the game with the _WordBank_ selected.
+Starts the game with the _WordBank_ selected.
 
 Format: `start [DIFFICULTY]` +
 
@@ -313,7 +313,7 @@ Format: `clear`
 (Available in Home mode)
 
 ==== Select a _WordBank_: `select`
-Let Dukemon know what _WordBank_ you have selected.
+Lets Dukemon know what _WordBank_ you have selected.
 
 Format: `select WORD_BANK` +
 Examples:
@@ -340,7 +340,7 @@ Examples:
 * `remove Vocabulary`
 
 ==== Import a _WordBank_: `import`
-Import the _WordBank_ from a specified folder path on your system. +
+Imports the _WordBank_ from a specified folder path on your system. +
 
 Format: `import w/WORD_BANK f/FOLDER` +
 
@@ -361,7 +361,7 @@ NOTE: We have a drag and drop feature. +
 You can drag and drop a file from your computer into the section which holds the _WordBanks_.
 
 ==== Export a _WordBank_: `export`
-Export the _WordBank_ to a specified file path on your system. +
+Exports the _WordBank_ to a specified file path on your system. +
 
 Format: `export w/WORD_BANK f/FOLDER` +
 
@@ -436,6 +436,8 @@ The relevant command(s) are:
 Format: `guess WORD`
 
 - Makes a guess for the _Word_ described by the currently shown _Meaning_. (*non case-sensitive*)
+
+NOTE: Do take note that the `guess` keyword is automatically enabled for you or every question. There is no need to type `guess` every time you want to guess a word.
 
 2. *Skipping over a _Word_:*
 +
@@ -567,12 +569,12 @@ image::avatar151.png[width='250']
 `exit` is available in any mode *except* _Game_ mode)
 
 ==== Ask for help: `help`
-Show the link to the User Guide (appears as a pop-up).
+Shows the link to the User Guide (appears as a pop-up).
 
 Format: `help`
 
 ==== Take a break: `exit`
-Exit and close _Dukemon_.
+Exits and closes _Dukemon_.
 
 Format: `exit`
 
@@ -589,13 +591,13 @@ _Statistics_ for the selected _WordBank_.
 We use a simple formula to calculate the score: _floor of_ _(Number of correct answers) / (Total questions) * 100_.
 
 .Game Result UI.
-image::annotated_game_results_ui.png[]
+image::annotated_game_results_ui.png[width=500]
 
 === WordBank Statistics
 The _WordBank_ statistics is shown in the _Open_ mode and contains all information regarding the selected _WordBank_.
 
-._Wordbank_ Statistics UI.
-image::annotated_wb_statistics_ui.png[]
+.Wordbank Statistics UI.
+image::annotated_wb_statistics_ui.png[width=500]
 
 NOTE: The high score and fastest clear timing of a _WordBank_ will not be reset upon adding/deleting _cards_.
 
@@ -604,7 +606,7 @@ The global statistics is shown on the main title page and contains all informati
 of the app.
 
 .Global Statistics UI.
-image::annotated_global_statistics_ui.png[]
+image::annotated_global_statistics_ui.png[width=420]
 
 // end::statsjason[]
 
@@ -614,7 +616,7 @@ image::annotated_global_statistics_ui.png[]
 
 === Drag and drop
 
-Streamline the process of sharing of _WordBanks_ with friends.
+Streamlines the process of sharing of _WordBanks_ with friends.
 
 //.Word bank file
 //image:DragAndDrop1.png[130, 130, align="left"]
@@ -668,7 +670,7 @@ It is also smart enough to remove the _cards_ if you have cleared it afterwards.
 .Quick look at revision bank's page.
 image:revisionpage.png[450, 450]
 
-Revision bank is best appreciated when you actually play around with some _WordBanks_, and then visit the revision bank
+The revision bank is best appreciated when you actually play around with some _WordBanks_, and then visit the revision bank
 to revise wrong _cards_. Give it a try!
 // end::chenhui-userRevisionBank[]
 

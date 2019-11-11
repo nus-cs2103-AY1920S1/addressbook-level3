@@ -23,7 +23,7 @@ public class GameStatisticsTest {
         assertThrows(NullPointerException.class, () -> new GameStatisticsBuilder(null));
     }
     @Test
-    public void getScore() {
+    public void getScore_valid_success() {
         GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 101), ABRA);
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("butterfree"), 101),
@@ -44,7 +44,7 @@ public class GameStatisticsTest {
     }
 
     @Test
-    public void getTimeTakenSec() {
+    public void getTimeTakenSec_valid_success() {
         GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 10), ABRA);
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("butterfree"), 10),
@@ -64,7 +64,7 @@ public class GameStatisticsTest {
     }
 
     @Test
-    public void isAllCorrect() {
+    public void isAllCorrect_valid_success() {
         GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 10), ABRA);
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("butterfree"), 10),

@@ -98,7 +98,7 @@ image::ModularDisplayClassDiagram.png[]
 
 As our application also comprises a dynamically changing UI in replacement of the `PersonListPanel`, `ModularDisplay` contains multiple other `Panel` classes in itself in order to render the proper screens during runtime. This rendering is controlled by `UpdateUi` in `MainWindow`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -223,7 +223,7 @@ image::ModelClassDiagram.png[]
 
 // end::chenhui-model[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -262,7 +262,7 @@ image::StorageClassDiagram.png[]
 
 // end::chenhui-storage[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/tree/master/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -1169,7 +1169,7 @@ When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsLis
 `MainApp`.
 
 .Sequence diagram for loading statistics
-image::LoadStatisticsSequenceDiagram.png[]
+image::LoadStatisticsSequenceDiagram.png[width=460]
 
 ===== 2. [underline]#User selects a word bank# +
 When the user selects a word bank, the selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded
@@ -1208,7 +1208,7 @@ The work done in step 4 and 5 is executed in `AppManager` and the checks to deci
 the same method `updateGameStatisticsBuilder(CommandResult)`.
 
 .Activity diagram when `AppManager` receives a `CommandResult` (Details unrelated to statistics are omitted).
-image::GameStatisticsBuilderActivityDiagram.png[]
+image::GameStatisticsBuilderActivityDiagram.png[width=500]
 
 ==== Design Considerations
 
@@ -1366,32 +1366,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `Dukemon` and the *Actor* is the `User`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a Card
 
 *MSS*
 
-1.  User requests to list persons
-2.  Dukemon shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  Dukemon deletes the person
-+
+1.  User selects and opens a WordBank.
+2.  Dukemon shows a list of Cards.
+3.  User adds Word and Meaning pair.
+4.  Dukemon adds a Card into WordBank.
+
+
 Use case ends.
 
-*Extensions*
+[discrete]
+=== Use case: Play a game
 
-[none]
-* 2a. The list is empty.
+*MSS*
+
+1.  User selects and opens a WordBank.
+2.  Dukemon shows a list of Cards.
+3.  User starts a game.
+4.  Dukemon shows the Meaning of a Card.
+5.  User guesses Word of the corresponding Card.
 +
+Steps 4-5 are repeated till all Cards are played.
+6.  Game ends. Dukemon shows statistics of game.
+
+
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. Dukemon shows an error message.
-+
-Use case resumes at step 2.
+*Extentions*
 
-_{More to be added}_
+2a. User opens settings
+
+2a1.  User changes hints to off.
+
+Use case resumes from step 3.
+
 
 [appendix]
 == Non Functional Requirements

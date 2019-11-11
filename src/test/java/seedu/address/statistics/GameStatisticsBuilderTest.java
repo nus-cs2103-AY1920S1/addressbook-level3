@@ -20,7 +20,7 @@ public class GameStatisticsBuilderTest {
     }
 
     @Test
-    public void addDataPoint() {
+    public void addDataPoint_valid_success() {
         GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
         gameStats.addDataPoint(GameDataPoint.createSkipData(100), ABRA);
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 101), ABRA);
@@ -28,12 +28,19 @@ public class GameStatisticsBuilderTest {
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("guess"),
                 100), BUTTERFREE);
         assertEquals(2, gameStats.size()); // 2 different cards
+    }
+
+    @Test
+    public void addDataPoint_millisHasPassed_throwsIllegalArgumentException() {
+        GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
+        gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("guess"),
+                100), BUTTERFREE);
         assertThrows(IllegalArgumentException.class, () -> gameStats.addDataPoint(GameDataPoint.createSkipData(90),
                 BUTTERFREE));
     }
 
     @Test
-    public void build() {
+    public void build_validInput_success() {
         GameStatisticsBuilder gameStats = new GameStatisticsBuilder("pokemon");
         gameStats.addDataPoint(GameDataPoint.createSkipData(100), ABRA);
         gameStats.addDataPoint(GameDataPoint.createGuessData(new Guess("abra"), 101), ABRA);
