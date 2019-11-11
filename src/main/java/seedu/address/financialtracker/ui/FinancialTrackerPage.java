@@ -17,7 +17,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.ui.CodeWindow;
 import seedu.address.ui.CommandBox;
-import seedu.address.ui.HelpWindow;
 import seedu.address.ui.Page;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.PageType;
@@ -136,6 +135,7 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
         }
     }
 
+    @Override
     public void closeResources() {
         // implemented auto close, thus these 2 lines is not needed
         // helpWindow.hide();
