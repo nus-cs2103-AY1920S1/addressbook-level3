@@ -254,7 +254,7 @@ public class AppointmentBook implements ReadOnlyAppointmentBook {
         try {
             return new JsonSerializableAppointmentBook(this).toModelType();
         } catch (IllegalValueException e) {
-            throw new CopyError("Error copying AppointmentBook");
+            throw new CopyError("Error copying AppointmentBook", e);
         }
     }
 
