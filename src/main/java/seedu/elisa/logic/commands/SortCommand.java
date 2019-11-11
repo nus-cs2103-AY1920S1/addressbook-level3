@@ -49,4 +49,18 @@ public class SortCommand extends UndoableCommand {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof SortCommand)) {
+            return false;
+        } else {
+            SortCommand other = (SortCommand) obj;
+            return other.comparator.equals(comparator);
+        }
+    }
 }

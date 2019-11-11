@@ -38,4 +38,15 @@ public class ClearCommand extends UndoableCommand {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        } else if (obj instanceof ClearCommand) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
