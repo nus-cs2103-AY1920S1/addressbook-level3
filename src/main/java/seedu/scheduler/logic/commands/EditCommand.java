@@ -48,7 +48,7 @@ public abstract class EditCommand extends Command {
             + PREFIX_ROLE + "interviewee "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_FACULTY + "School of Computing "
-            + PREFIX_SLOT + "05/11/2019 18:00-19:00\n"
+            + PREFIX_SLOT + "05/11/2019 18:30-19:00\n"
             + "Example (edit interviewer):\n"
             + COMMAND_WORD + " John Doe "
             + PREFIX_ROLE + "interviewer "

@@ -27,7 +27,7 @@ public class DefaultValues {
                 .addNusEmail(DEFAULT_NUS_WORK_EMAIL);
     public static final Faculty DEFAULT_FACULTY = new Faculty("School of Computing");
     public static final Integer DEFAULT_YEAR_OF_STUDY = 1;
-    public static final Slot DEFAULT_SLOT = Slot.fromString("17/10/2019 13:00-14:00");
+    public static final Slot DEFAULT_SLOT = Slot.fromString("17/10/2019 13:30-14:00");
     public static final List<Department> DEFAULT_DEPARTMENTS = new ArrayList<>();
     public static final List<Slot> DEFAULT_TIMESLOTS = new ArrayList<>();
 
