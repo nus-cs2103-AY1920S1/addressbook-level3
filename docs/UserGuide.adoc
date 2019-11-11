@@ -186,11 +186,10 @@ add -w +
 a|
 ====
 add -f
-====
 
 [TIP]
 Default status: `UNOCCUPIED`
-=======
+====
 
 a|
 ====
@@ -226,9 +225,9 @@ Example:
  /sex female
  /dateJoined 18/08/2019
  /designation Autopsy Technician`
-** Adds a worker
+** You will see in the worker panel that a worker with the name "Mary", along with its associated details, will be added.
 * `add -f`
-** Adds a fridge
+** You will see in the fridge panel that an empty fridge will be added.
 * `add -b
 /name John Doe
 /sex male
@@ -244,7 +243,7 @@ Example:
 /cod Car Accident
 /details Heavy bleeding and head injury
 /organsForDonation NIL`
-** Adds a body
+** You will see in the body panel that a body with the name "John Doe", along with its associated details, will be added.
 // end::add[]
 
 // tag::update[]
@@ -465,17 +464,17 @@ The following illustrates how you can use the `select` command.
 
 . Suppose you wish to select a body with ID B00000001.
 
-image::Select1.png[]
+image::Select1.png[align="center", width=80%]
 
 [start=2]
 . Enter in `select 1` in the command box.
 
-image::Select2.png[]
+image::Select2.png[align="center", width=80%]
 
 [start=3]
 . The body with ID B00000001 will be selected and you can view all its details on the side panel.
 
-image::Select3.png[]
+image::Select3.png[align="center", width=80%]
 
 // end::select[]
 
@@ -1020,19 +1019,16 @@ The following steps will guide you on how to copy the absolute path of a file in
 . Navigate to the image file you wish to upload.
 . *While* holding down kbd:[Shift], right-click on the image file.
 . In the menu that appears, as seen in the figure below, click on `Copy as path` to copy the absolute path into your clipboard.
-
 +
-image::Appendix1.png[align="center", width=60%]
-
+image::Appendix1.png[align="center", width=40%]
++
 
 * For *Mac* Users:
 . Navigate to the image file you wish to upload.
 . Right-click on the image file, *then* hold down the kbd:[Option] button.
 . In the menu that appears, click on `Copy <your file name> as Pathname`, as seen in red box in the figure below, to copy the absolute path into your clipboard.
-
 +
-image::Appendix2.png[align="center", width=70%]
-
+image::Appendix2.png[align="center", width=40%]
 +
 
 Alternatively,
@@ -1040,7 +1036,7 @@ Alternatively,
 . Navigate to the image file you wish to upload and click on it.
 . Press `Command` and `i` simultaneously to bring up `Get Info`, as seen in the figure below.
 +
-image::Appendix3.png[align="center", width=60%]
+image::Appendix3.png[align="center", width=40%]
 +
 . Highlight the text next to `Where`, as seen in the red box in the figure above, then press `Command` and `c` simultaneously to copy the full path to the clipboard.
 // end::appendix[]
