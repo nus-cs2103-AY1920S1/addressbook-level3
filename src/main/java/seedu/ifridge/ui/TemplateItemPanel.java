@@ -30,6 +30,7 @@ public class TemplateItemPanel extends UiPart<Region> {
         templateItemView.setItems(templateItemList);
         templateItemView.setCellFactory(listView -> new TemplateItemViewCell());
         name.setText(templateName);
+        name.setWrapText(true);
     }
 
     /**

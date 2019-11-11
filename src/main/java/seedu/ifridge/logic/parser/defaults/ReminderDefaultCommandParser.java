@@ -30,8 +30,19 @@ public class ReminderDefaultCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     ReminderDefaultCommand.MESSAGE_USAGE));
         } else {
-            r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
+            try {
+                r = Integer.parseInt(argMultimap.getValue(PREFIX_REMINDER).get().trim());
+            } catch (NumberFormatException nfe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ReminderDefaultCommand.MESSAGE_USAGE));
+            }
         }
+
+        if (r < 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ReminderDefaultCommand.MESSAGE_USAGE));
+        }
+
         return new ReminderDefaultCommand(String.valueOf(r));
     }
 

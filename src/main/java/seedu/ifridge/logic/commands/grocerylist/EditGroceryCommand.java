@@ -27,7 +27,7 @@ import seedu.ifridge.model.food.exceptions.InvalidUnitException;
 import seedu.ifridge.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing grocery item in the grocery list.
  */
 public class EditGroceryCommand extends Command {
 
@@ -45,7 +45,9 @@ public class EditGroceryCommand extends Command {
             + PREFIX_TAG + "fried";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited grocery item: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field (name, expiry date, or tag) must be provided.";
+    public static final String MESSAGE_NOT_EDITED =
+            "At least one different field (name, expiry date, or tag) must be provided.";
+    public static final String MESSAGE_DUPLICATE_GROCERY_ITEM = "This food item already exists in the grocery list";
 
     private final Index index;
     private final EditGroceryItemDescriptor editGroceryItemDescriptor;
@@ -73,6 +75,16 @@ public class EditGroceryCommand extends Command {
 
         GroceryItem groceryItemToEdit = lastShownList.get(index.getZeroBased());
         GroceryItem editedGroceryItem = createdEditedGroceryItem(groceryItemToEdit, editGroceryItemDescriptor);
+
+        if (groceryItemToEdit.isSameFood(editedGroceryItem)) { // if changes is done on the same index
+            // even tag also not edited
+            if (groceryItemToEdit.equals(editedGroceryItem)) {
+                throw new CommandException(MESSAGE_NOT_EDITED);
+            }
+            // continue if other fields are the same and tag is edited
+        } else if (model.hasGroceryItem(editedGroceryItem)) { // if changes done on different index
+            throw new CommandException(MESSAGE_DUPLICATE_GROCERY_ITEM);
+        }
 
         model.setGroceryItem(groceryItemToEdit, editedGroceryItem);
         model.commitGroceryList();
@@ -169,5 +181,23 @@ public class EditGroceryCommand extends Command {
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
+
+        @Override
+        public boolean equals(Object other) {
+            return other == this // short circuit if same object
+                    || (other instanceof EditGroceryItemDescriptor // instanceof handles nulls
+                    && name.equals(((EditGroceryItemDescriptor) other).name)
+                    && amount.equals(((EditGroceryItemDescriptor) other).amount)
+                    && expiryDate.equals(((EditGroceryItemDescriptor) other).expiryDate)
+                    && tags.equals(((EditGroceryItemDescriptor) other).tags));
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditGroceryCommand // instanceof handles nulls
+                && index.equals(((EditGroceryCommand) other).index)
+                && editGroceryItemDescriptor.equals(((EditGroceryCommand) other).editGroceryItemDescriptor));
     }
 }

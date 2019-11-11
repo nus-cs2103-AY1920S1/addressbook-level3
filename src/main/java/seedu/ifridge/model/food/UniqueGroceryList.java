@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.ifridge.model.food.exceptions.DuplicateFoodException;
 import seedu.ifridge.model.food.exceptions.FoodNotFoundException;
 
 /**
@@ -23,7 +24,7 @@ import seedu.ifridge.model.food.exceptions.FoodNotFoundException;
  */
 public class UniqueGroceryList implements Iterable<GroceryItem> {
 
-    private final ObservableList<GroceryItem> internalList = FXCollections.observableArrayList();
+    final ObservableList<GroceryItem> internalList = FXCollections.observableArrayList();
     private final ObservableList<GroceryItem> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
@@ -82,6 +83,10 @@ public class UniqueGroceryList implements Iterable<GroceryItem> {
      */
     public void setGroceryList(List<GroceryItem> foods) {
         requireAllNonNull(foods);
+        if (!groceryItemsAreUnique(foods)) {
+            throw new DuplicateFoodException();
+        }
+
         internalList.setAll(foods);
     }
 
@@ -112,10 +117,10 @@ public class UniqueGroceryList implements Iterable<GroceryItem> {
     /**
      * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean personsAreUnique(List<GroceryItem> foods) {
-        for (int i = 0; i < foods.size() - 1; i++) {
-            for (int j = i + 1; j < foods.size(); j++) {
-                if (foods.get(i).isSameFood(foods.get(j))) {
+    private boolean groceryItemsAreUnique(List<GroceryItem> groceryList) {
+        for (int i = 0; i < groceryList.size() - 1; i++) {
+            for (int j = i + 1; j < groceryList.size(); j++) {
+                if (groceryList.get(i).isSameFood(groceryList.get(j))) {
                     return false;
                 }
             }

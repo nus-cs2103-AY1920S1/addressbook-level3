@@ -34,7 +34,8 @@ public class GroceryListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Food} using a
+     * {@code ExpiredGroceryCard, IsExpiringGroceryCard, NotExpiringGroceryCard}.
      */
     class PersonListViewCell extends ListCell<GroceryItem> {
         @Override

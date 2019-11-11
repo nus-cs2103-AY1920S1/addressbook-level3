@@ -52,6 +52,14 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+*Item types*
+
+* There are two types of items in this application: grocery item (which is a concrete item that you own) and food item (which is an item you think you would like to own in the future).
+* A grocery item is like a purchased/owned item. Thus, it must have a name, an expiry date, and amount. A grocery item can have one or more tags depending on preferences.
+* A food item must have a name and amount. A food item cannot have any expiry date and tag. Food item is usually used to arrange for shopping or template in this application.
+====
+
+====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT`, `ITEM_NAME`, `EXPIRY_DATE`, and `AMOUNT` are parameters which can be used as `glist add n/apple e/23/10/2019 a/3units`.
@@ -61,6 +69,21 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * If multiple arguments of the same type are provided, the last argument for that field will be taken as the input. Eg: `glist add n/FirstName n/Apple a/5units e/28/11/2019` will create a GroceryItem with the name 'Apple'.
 ====
 
+[[same-name]]
+====
+*About the Name Parameter*
+
+* Name is considered the same if they match exactly while ignoring case sensitivity. For example, `Chicken` is the same as `Chicken` and `chicKEN`.
+====
+
+[[same-tag]]
+====
+*About the Tag Parameter*
+
+* Tag is considered the same if they match exactly considering case sensitivity. For example, `Chicken` is the same as `Chicken` but not `chiCKEN`,
+====
+
+[[amount-parameter]]
 ====
 *About the Amount Parameter*
 
@@ -69,9 +92,21 @@ ml, L, oz, lbs, kg, g, units.
 * Whitespace between magnitude and unit is allowed.
 * Several commands involve computation of amounts. Units are classified under three unit types:
 - *Volume:* ml, L
-- *Quantity:* units
 - *Weight:* g, kg, oz, lbs
+- *Quantity:* units
+* Conversion of units can only be applied on the same classification. The conversion implemented in this app is shown in the table below. +
 * Cross conversion between units of the same categories is supported.
+[width="100%",options="header"]
+|===
+| Amount in the unit specified | Amount in standard form (kg, L, units)
+
+| 1ml | 0.001L
+| 1g  | 0.001kg
+| 1oz | 0.00283495kg
+| 1lbs| 0.453592kg
+|===
+* The amount displayed for each item is rounded off to 4 decimal points to provide a reasonable level of precision.
+* A certain minimum value is imposed on the `Amount` class (0.1ml for Volume, 0.1kg for Weight, and 0.1units for Quantity) to ensure consistency.
 * When adding or editing items, the system will only allow items with similar names (checking is non-case-sensitive) to have similar unit types. However,
 the adding of items with conflicting unit types will not be allowed.
 ====
@@ -119,19 +154,19 @@ Format: `glist add n/ITEM_NAME e/EXPIRY_DATE a/AMOUNT [t/TAG]`
 
 ****
 * `e/EXPIRY_DATE` must follow the format `dd/MM/yyyy`.
-* `a/AMOUNT` must have a magnitude i.e. measurable quantity. Magnitude and unit can be separated by a space.
+* `a/AMOUNT` must have a magnitude i.e. measurable quantity and a unit. Magnitude and unit can be separated by spaces. Refer <<amount-parameter, here>> for more info.
 * There may be more than one tag field.
 * The input fields can be in any order.
-* Item with *either same name or expiry date* as the existing ones can be added.
-* Items with *same name and expiry date* as the existing ones cannot be added.
+* Item with *either <<same-name, same name>> or expiry date* as the existing ones can be added.
+* Item with *same name and expiry date* as the existing ones cannot be added.
 ****
 
 Examples:
 
 * `glist add n/Fuji apples e/30/10/2019 t/healthy a/10units` +
 Add Fuji apples of quantity 10 units, tagged as "healthy" and expiring on 30 October 2019.
-* `glist add n/salad a/3 e/25/09/2019` +
-Add salad of quantity 3, untagged and expiring on 25 September 2019.
+* `glist add n/salad a/3units e/25/09/2019` +
+Add salad of quantity 3 units, untagged and expiring on 25 September 2019.
 * `glist add n/tea a/200 ml e/18/10/2019 t/fresh t/drink` +
 Add tea of quantity 200 ml, tagged as "fresh" and "drink" and expiring on 18 October 2019.
 
@@ -143,7 +178,7 @@ Format: `glist list`
 ==== Deleting a grocery item: `glist delete`
 
 Deletes the specified grocery item from the grocery list when it is done being used.
-If the amount of the food item left > 0, the item will be moved to the waste list. +
+If the grocery item is not completely used up when deleted (i.e. `amount` > 0), the item will be moved to the waste list. +
 Format: `glist delete INDEX`
 
 ==== Use a grocery item: `glist use`
@@ -152,14 +187,8 @@ Reduces the amount left of a grocery item by the specified amount. +
 Format: `glist use INDEX a/AMOUNT`
 
 ****
-* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
-* Only the units in the following unit categories are supported:
-** `Weight`: `kg`, `g`, `oz`, `lbs`
-** `Volume`: `L`, `ml`
-** `Quantity`: `units`
-* Whitespace between magnitude and unit is allowed.
-* Cross conversion between units of the same categories is supported.
-** If the unit of input amount is different from the unit of item, the resultant amount would follow the unit of the original item. e.g. If an item of `1kg` is used by `300g`, it would become `0.7kg` and not `700g`.
+* The amount left of a grocery item must be more than or equal to the specified amount to use.
+* If the unit of input amount is different from the unit of item, the resultant amount would follow the unit of the original item. e.g. If an item of `1kg` is used by `300g`, it would become `0.7kg` and not `700g`.
 ****
 
 Examples:
@@ -176,11 +205,14 @@ Format: `glist edit INDEX [n/ITEM_NAME] [e/EXPIRY_DATE] [t/TAG]`
 
 ****
 * Edits an item at the specified `INDEX`. The index refers to the number shown in the displayed list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional field must be provided.
+* At least one of the optional fields must be provided. At least one of the provided fields must be different from the original item's field.
 * Amount cannot be edited, but can only be modified through `use`.
 * Existing values will be updated to input values.
 * When editing tags, the existing tags of the item will be removed. i.e. adding of tags is not cumulative.
 * You can remove all the item's tags by typing `t/` without specifying any tags after it.
+* *As the grocery list does not allow duplicates (items with <<same-name, same name>> and expiry date), any attempt of edit to achieve duplication is not allowed and would result in an error.*
+* *User is encouraged to practise discretion when editing an item as iFridge is unable to recognise items based on its name and compare between the name and amount of an item.*
+For example, if an item named `Milk` with amount `2L` is edited to have the name `Beef`, iFridge would allow the edit, even though `Beef` with amount `2L` does not sound logical.
 ****
 
 Examples:
@@ -199,8 +231,8 @@ Sorting is done on the original grocery list. Hence, for example, when `sort` is
 
 The type of sorting supported is as follows:
 ****
-* Alphabetical: Sort the grocery list in ascending alphabetical order
-* Expiry date: Sort the grocery list in ascending expiry date. i.e. from oldest to newest.
+* `alphabetical`: Sort the grocery list based on the item's name in ascending alphabetical order
+* `expiry`: Sort the grocery list in ascending expiry date. i.e. from oldest to newest.
 ****
 
 Examples:
@@ -271,7 +303,12 @@ Format: `wlist list [m/MONTH_OF_YEAR]` +
 Otherwise, the food waste of the current month is displayed.
 * The `MONTH_OF_YEAR` is the natural language month and year expression in English.
 To avoid ambiguity, we recommend specifying the month and year in a relaxed date format,
-e.g. `Aug 2019`.
+e.g. `Aug 2019`. We also provide some flexibility by allowing you to specify relative date formats, e.g. `last month`.
+[[month-req]]
+[NOTE]
+To view the exact specification on supported formats, we kindly refer you to http://natty.joestelmach.com/doc.jsp[Natty Library Documentation].
+Note that if you have inadvertently specified a year longer than 4 digits, e.g. `Oct 20198`, we will only take the first 4 digits, which in this case will be `2019`.
+Alternatively, if you have keyed in `Feb Jan 2019`, the first month will be taken as the month, which will be `Feb 2019`.
 
 ****
 
@@ -340,8 +377,6 @@ Generates a waste report from Mar 2019 to Sep 2019
 Generates a waste report from Oct 2018 to Mar 2019 (one year from Mar 2018)
 * `wlist report sm/5 months ago` +
 Generates a waste report from May 2019 to Oct 2019 (current month)
-
-The allowable date formats can be found in the Natty library documentation.
 
 ====
 *Using the waste report*
@@ -552,6 +587,7 @@ Redoing a template item list will display which template is redone.
 
 
 //end::tlistundoredo[]
+//tag::shoppinglistfeatures1[]
 === Shopping List Management
 
 ==== Add new item to shopping list: `slist add`
@@ -569,7 +605,7 @@ Examples:
 * `slist add n/milk a/1L`
 * `slist add n/banana a/3units`
 
-
+//end::shoppinglistfeatures1[]
 //tag::addTempfeature[]
 
 ==== Add items in template into shopping list: `slist addTemp`
@@ -585,6 +621,7 @@ Examples:
 
 //end::addTempfeature[]
 
+//tag::shoppinglistfeatures2[]
 ==== Edit item in shopping list: `slist edit`
 
 Edits the name of a specified item in a shopping list. +
@@ -594,7 +631,7 @@ Format: `slist edit INDEX [n/FOODNAME] [a/AMOUNT]`
 * Edits the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Units in the amount field must match that of the item specified
+* Unit type in the amount field must match that of the item specified and pre-existing items with same name.
 ****
 
 Examples:
@@ -636,7 +673,7 @@ Format: `slist bought INDEX e/EXPIRYDATE a/AMOUNT`
 
 ****
 * Marks the shopping item at the specified `INDEX` as bought. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
-* Both `EXPIRYDATE` and `AMOUNT` of items bought must be specified. `AMOUNT` must match with that of the item in the shopping list.
+* Both `EXPIRYDATE` and `AMOUNT` of items bought must be specified. `AMOUNT` 's unit type must match with that of the item in the shopping list.
 * There is flexibility in the amount of items that are bought. You can indicate more or less quantity of items bought than the number indicated in the shopping list.
 * When an item is completely bought, it is moved to the bottom of the list with a 'Fully Bought' tag.
 * Once an item is completely bought, it loses its 'urgent!' status if it has one.
@@ -651,7 +688,8 @@ Marks the item at index 2 as bought and sets its expiry date as 3rd November, 20
 
 ==== Add bought items: `slist mergebought`
 
-Adds all items marked as ‘bought’ to the grocery list.
+This command represents a user moving all the bought items into the fridge.
+It adds all items marked as ‘bought’ to the grocery list.
 Format: `slist mergebought`
 
 ****
@@ -664,6 +702,7 @@ Format: `slist mergebought`
 ****
 **_Important Note_**: This command cannot be undone/redone.
 
+//end::shoppinglistfeatures2[]
 ==== Mark shopping item as Urgent: `slist urgent`
 
 Marks the specified item in the shopping list as *urgent!*
@@ -718,7 +757,7 @@ Generates a word cloud based on user's most commonly wasted food.
 ==== Moving all expired food items from grocery list to waste list
 
 By default, every time the application is launched, iFridge helps you check which items
-are expired and automatically moves them into the waste list.
+are expired and gives you an option to move them to your waste list.
 
 //end::wastelistfuture[]
 

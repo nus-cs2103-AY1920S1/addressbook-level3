@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
+import static seedu.ifridge.model.food.Amount.hasSameAmountUnitType;
 import static seedu.ifridge.model.food.ShoppingItem.isCompletelyBought;
 
 import java.util.List;
@@ -38,6 +39,8 @@ public class BoughtShoppingCommand extends Command {
     public static final String MESSAGE_BOUGHT_SHOPPING_ITEM_SUCCESS = "Bought shopping item: %1$s";
     public static final String MESSAGE_NOT_PROPER = "At least one of the required fields (amount and expiry date) "
             + "are not provided.";
+    public static final String MESSAGE_WRONG_UNIT_TYPE =
+            "The amount you buy must have the same unit type that the amount of shopping item has.";
 
     private final Index index;
     private final Amount amount;
@@ -74,8 +77,12 @@ public class BoughtShoppingCommand extends Command {
         ShoppingItem boughtShoppingItem = shoppingItemToMarkAsBought.setBought(true);
         GroceryItem boughtItem = shoppingItemToMarkAsBought.getBoughtItem(amount, expiryDate);
 
+        if (!hasSameAmountUnitType(amount, shoppingItemToMarkAsBought.getAmount())) {
+            throw new CommandException(MESSAGE_WRONG_UNIT_TYPE);
+        }
+
         model.addBoughtItem(boughtItem);
-        if (isCompletelyBought(shoppingItemToMarkAsBought, model.getBoughtList().getGroceryList())) {
+        if (isCompletelyBought(boughtShoppingItem, model.getBoughtList().getGroceryList())) {
             boughtShoppingItem = boughtShoppingItem.setUrgent(false);
         }
         model.setShoppingItem(shoppingItemToMarkAsBought, boughtShoppingItem);

@@ -1,0 +1,8 @@
+{
+  "grocerylist": [ {
+    "name": "GroceryItem with invalid name field: Ha!ns Mu@ster",
+    "amount" : "1units",
+    "expiryDate" : "02/03/2020",
+    "tagged" : [ ]
+  } ]
+}

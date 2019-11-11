@@ -2,6 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/AY1920S1-CS2103-F10-2/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103-F10-2/main"]
+https://coveralls.io/github/AY1920S1-CS2103-F10-2/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-F10-2/main/badge.svg?branch=master[Coverage Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -30,6 +31,6 @@ endif::[]
 * Some parts of this application were inspired by https://se-education.org by SE-EDU initiative.
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5]
+* Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], http://natty.joestelmach.com/[Natty], http://www.jfree.org/jfreechart/[JFreeChart]
 
 == Licence : link:LICENSE[MIT]

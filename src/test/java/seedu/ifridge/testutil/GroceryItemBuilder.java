@@ -11,7 +11,7 @@ import seedu.ifridge.model.tag.Tag;
 import seedu.ifridge.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building GroceryItem objects.
  */
 public class GroceryItemBuilder {
     public static final String DEFAULT_NAME = "Milkshake";
@@ -31,7 +31,7 @@ public class GroceryItemBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the GroceryItemBuilder with the data of {@code foodToCopy}.
      */
     public GroceryItemBuilder(GroceryItem foodToCopy) {
         name = foodToCopy.getName();
@@ -41,7 +41,7 @@ public class GroceryItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code GroceryItem} that we are building.
      */
     public GroceryItemBuilder withName(String name) {
         this.name = new Name(name);
@@ -49,7 +49,7 @@ public class GroceryItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code GroceryItem} that we are building.
      */
     public GroceryItemBuilder withAmount(String amount) {
         this.amount = new Amount(amount);
@@ -57,7 +57,7 @@ public class GroceryItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code GroceryItem} that we are building.
      */
     public GroceryItemBuilder withExpiryDate(String expiryDate) {
         this.expiryDate = new ExpiryDate(expiryDate);
@@ -65,7 +65,7 @@ public class GroceryItemBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code GroceryItem} that we are building.
      */
     public GroceryItemBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);

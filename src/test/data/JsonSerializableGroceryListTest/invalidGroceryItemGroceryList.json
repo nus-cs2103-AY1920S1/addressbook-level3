@@ -1,0 +1,8 @@
+{
+  "grocerylist" : [ {
+    "name" : "Brea*d",
+    "amount" : "2units",
+    "expiryDate" : "10/10/2019",
+    "tagged" : [ "carbs" ]
+  } ]
+}

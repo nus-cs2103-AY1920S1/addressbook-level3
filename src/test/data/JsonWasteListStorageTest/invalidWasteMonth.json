@@ -1,0 +1,26 @@
+{
+  "wastearchive" : [ {
+    "wastemonth" : "11/2019",
+    "wastelist" : [ {
+      "name" : "Apples",
+      "amount" : "2units",
+      "expiryDate" : "15/10/2019",
+      "tagged" : [ "fruits", "healthy" ]
+    }, {
+      "name" : "Milk",
+      "amount" : "100ml",
+      "expiryDate" : "18/10/2019",
+      "tagged" : [ ]
+    }, {
+      "name" : "Milo",
+      "amount" : "200ml",
+      "expiryDate" : "08/11/2019",
+      "tagged" : [ "drink" ]
+    }, {
+      "name" : "Chicken Wings",
+      "amount" : "125g",
+      "expiryDate" : "6/11/2019",
+      "tagged" : [ "junkfood" ]
+    } ]
+  } ]
+}

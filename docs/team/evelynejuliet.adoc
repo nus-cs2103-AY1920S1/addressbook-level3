@@ -9,7 +9,7 @@
 
 == Overview
 
-iFridge is a desktop grocery management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has a lot of code.
+iFridge is a desktop grocery management application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20kLoC.
 
 == Summary of contributions
 
@@ -20,6 +20,13 @@ iFridge is a desktop grocery management application. The user interacts with it 
 The implementation too was challenging as it required changes to existing commands
 and undo/redo implementation needs to be adjusted to the different types of list and its properties.
 
+* *Minor enhancement*: added a *reminder command* to conveniently check for grocery item(s) expiring soon.
+** What it does: Display all grocery items expiring within specified number of days.
+** Justification: This feature increase helps users to better able keep track of their grocery items
+based on their expiry dates when there are a lot of grocery items in the grocery list.
+** Highlights: This enhancement adds more convenience and usability to users as they can easily check for only grocery items
+which they are interested in with respect to their expiry dates and remind them on grocery items that are expiring soon.
+
 * *Minor enhancement*: added a *reminder default command* which serves as an iFridge settings.
 ** What it does: Saves the user preference on the default number of days used to determine whether a grocery item is expiring soon or not.
 ** Justification: This is used in color coding grocery list and waste list based on expiry dates,
@@ -29,6 +36,13 @@ for grocery list and waste list which will be saved even when the app is closed 
 It also gives the impression that the app can be personalized based on their preference as changes can be seen directly in the
 user interface.
 
+* *Minor enhancement*: designed and implemented the overall user interface of the application.
+** What it does: It provides the ability to switch between the different types of list and color code the
+food items based on their expiry dates (mentioned earlier).
+** Justification: Linked the logic of different commands to the user interface so any changes to the model will
+be visible and easily understandable by the users.
+** Highlights: This enhancement improves the overall usability of the app.
+
 * *Code contributed*: The samples of my functional and test code can be viewed https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=evelynejuliet[here].
 
 * *Other contributions*:
@@ -36,16 +50,14 @@ user interface.
 ** Project management:
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 //** Enhancements to existing features:
-//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-F10-2/main/pull/116[#116])
+*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103-F10-2/main/pull/239[#239])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103-F10-2/main/pull/30[#30]
+*** Updated Acknowledgement in README.adoc and Website Heading (Pull Request https://github.com/AY1920S1-CS2103-F10-2/main/pull/8[#8])
 ** Community:
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/zhangxuan97/ped/issues/3[1], https://github.com/zhangxuan97/ped/issues/13[2], https://github.com/zhangxuan97/ped/issues/6[3])
-** Tools:
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/evelynejuliet/ped/issues/16[1], https://github.com/evelynejuliet/ped/issues/7[2], https://github.com/evelynejuliet/ped/issues/2[3])
 
 == Contributions to the User Guide
-
 
 |===
 |_Below are sections I have contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -67,6 +79,8 @@ include::../UserGuide.adoc[tag=tlistundoredo]
 |_Below are sections I have contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=uicomponent]
+
 include::../DeveloperGuide.adoc[tag=reminderdefaultfeature]
 
 include::../DeveloperGuide.adoc[tag=generalundoredofeature]
@@ -77,3 +91,11 @@ include::../DeveloperGuide.adoc[tag=shoppingundoredofeature]
 
 include::../DeveloperGuide.adoc[tag=templateundoredofeature]
 
+//include::../DeveloperGuide.adoc[tag=undoredomanualtesting]
+
+include::../DeveloperGuide.adoc[tag=remindermanualtesting]
+
+=== Not included: Undo Redo Manual Testing.
+Please refer to Developer Guide
+(https://github.com/AY1920S1-CS2103-F10-2/main/blob/master/docs/DeveloperGuide.adoc#undo-redo-manual-testing[DG])
+for more details.

@@ -34,7 +34,7 @@ import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.waste.WasteMonth;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) for
  * {@code DeleteTemplateItemCommand}.
  */
 public class DeleteTemplateItemCommandTest {

@@ -87,4 +87,7 @@ deactivate CommandResult
 ReportWasteCommand --> LogicManager: result
 deactivate ReportWasteCommand
 
+[<--LogicManager
+deactivate LogicManager
+
 @enduml

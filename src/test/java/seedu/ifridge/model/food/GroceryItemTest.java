@@ -2,9 +2,9 @@ package seedu.ifridge.model.food;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_AMOUNT_NUTS;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_NUTS;
-import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_TAG_NUTS;
+import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.VALID_AMOUNT_NUTS;
+import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.VALID_NAME_NUTS;
+import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.VALID_TAG_NUTS;
 import static seedu.ifridge.testutil.Assert.assertThrows;
 import static seedu.ifridge.testutil.TypicalGroceryItems.BANANA;
 import static seedu.ifridge.testutil.TypicalGroceryItems.SPAGHETTI;
@@ -42,7 +42,6 @@ public class GroceryItemTest {
         assertTrue(BANANA.isSameFood(editedBanana));
     }
 
-    // TODO: do we need to check for equals? it's not even called anywhere
     @Test
     public void equals() {
         // same object -> returns true
@@ -67,6 +66,6 @@ public class GroceryItemTest {
 
         // different tags -> returns false
         editedBanana = new GroceryItemBuilder(BANANA).withTags(VALID_TAG_NUTS).build();
-        assertTrue(BANANA.equals(editedBanana));
+        assertFalse(BANANA.equals(editedBanana));
     }
 }

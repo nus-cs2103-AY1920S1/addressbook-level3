@@ -15,7 +15,7 @@ import seedu.ifridge.model.food.GroceryItem;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code ShoppingItem}.
  */
 public class ShoppingItemCard extends UiPart<Region> {
 
@@ -50,6 +50,9 @@ public class ShoppingItemCard extends UiPart<Region> {
         id.setText(displayedIndex + ". ");
         name.setText(shoppingItem.getName().fullName);
         amount.setText(shoppingItem.getAmount().fullAmt);
+        name.setWrapText(true);
+        id.setWrapText(true);
+        amount.setWrapText(true);
         Text urgentText = new Text("Urgent!");
         urgentText.setFill(Color.RED);
         if (shoppingItem.isUrgent()) {

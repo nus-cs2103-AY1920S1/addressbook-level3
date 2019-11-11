@@ -14,7 +14,6 @@ import seedu.ifridge.logic.parser.Parser;
 import seedu.ifridge.logic.parser.ParserUtil;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 
-//to add expiry date functionality later
 /**
  * Parses input arguments and creates a new EditShoppingCommand object
  */

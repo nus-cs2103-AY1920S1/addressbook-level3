@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 import org.jfree.data.time.Month;
@@ -69,12 +70,15 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return this.compareTo(otherWasteMonth) < 0;
     }
 
+    /**
+     * Creates a new WasteMonth object for the next month and returns it.
+     */
     public WasteMonth nextWasteMonth() {
         return addWasteMonth(1);
     }
 
     /**
-     * Adds the specified number of months from the current waste month and returns a new waste month object
+     * Adds the specified number of months from the current waste month and returns a new waste month object.
      */
     public WasteMonth addWasteMonth(int numberOfMonths) {
         LocalDate currentWasteMonthDate = LocalDate.of(this.year, this.month, 1);
@@ -86,7 +90,7 @@ public class WasteMonth implements Comparable<WasteMonth> {
     }
 
     /**
-     * Subtracts the specified number of months from the current waste month and returns a new waste month object
+     * Subtracts the specified number of months from the current waste month and returns a new waste month object.
      */
     public WasteMonth minusWasteMonth(int numberOfMonths) {
         LocalDate currentWasteMonthDate = LocalDate.of(this.year, this.month, 1);
@@ -102,18 +106,34 @@ public class WasteMonth implements Comparable<WasteMonth> {
         return month + "-" + year;
     }
 
+    /**
+     * Converts the WasteMonth object into a JFreeMonth object to facilitate the charting process.
+     */
     public Month toJFreeMonth() {
         return new Month(this.month, this.year);
     }
 
+    /**
+     * Returns the current WasteMonth
+     */
     public static WasteMonth getCurrentWasteMonth() {
         return new WasteMonth(LocalDate.now());
     }
 
+    /**
+     * Given two WasteMonth objects, returns the month which is earlier.
+     *
+     * @return the earlier of the two waste months.
+     */
     public static WasteMonth earlier(WasteMonth wm1, WasteMonth wm2) {
         return (wm1.isBefore(wm2)) ? wm1 : wm2;
     }
 
+    /**
+     * Given two WasteMonth objects, returns the month which is later.
+     *
+     * @return the later of the two waste months.
+     */
     public static WasteMonth later(WasteMonth wm1, WasteMonth wm2) {
         return (wm1.isAfter(wm2)) ? wm1 : wm2;
     }
@@ -140,5 +160,10 @@ public class WasteMonth implements Comparable<WasteMonth> {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM yyyy");
         YearMonth yearMonth = YearMonth.of(this.year, this.month);
         return formatter.format(yearMonth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(month, year);
     }
 }

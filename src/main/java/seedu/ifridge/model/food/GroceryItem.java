@@ -51,7 +51,7 @@ public class GroceryItem extends Food {
             return false;
         } else {
             return this.getName().equals(anotherFood.getName())
-                    && this.expiryDate.equals(((GroceryItem) anotherFood).expiryDate);
+                    && this.getExpiryDate().equals(((GroceryItem) anotherFood).getExpiryDate());
         }
     }
 
@@ -79,8 +79,10 @@ public class GroceryItem extends Food {
         } else if (!(o instanceof GroceryItem)) {
             return false;
         } else {
-            return ((GroceryItem) o).isSameName(this)
-                    && ((GroceryItem) o).getExpiryDate().toString().equals(this.getExpiryDate().toString());
+            return ((GroceryItem) o).getName().equals(this.getName())
+                    && ((GroceryItem) o).getExpiryDate().equals(this.getExpiryDate())
+                    && ((GroceryItem) o).getAmount().equals(this.getAmount())
+                    && ((GroceryItem) o).getTags().equals(this.getTags());
         }
     }
 

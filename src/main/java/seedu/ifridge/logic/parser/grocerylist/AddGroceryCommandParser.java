@@ -23,20 +23,21 @@ import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddGroceryCommand object
  */
 public class AddGroceryCommandParser implements Parser<AddGroceryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddGroceryCommand
+     * and returns an AddGroceryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddGroceryCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_EXPIRY_DATE, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_EXPIRY_DATE)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_AMOUNT, PREFIX_EXPIRY_DATE)
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGroceryCommand.MESSAGE_USAGE));
         }
 
