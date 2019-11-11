@@ -74,21 +74,32 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
-
+//tag::junxian-ui[]
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
-
+The abstract class `ParentWindow` consists of individual Ui parts e.g.`CommandBox`, `ResultDisplay`, `AnswerableListPanel`, `StatusBarFooter` etc. All Ui classes inherit from the abstract `UiPart` class.
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+The `MainWindow` inherits from the `ParentWindow` class and handles the display of information in the configuration mode. Key responsibilities of the `MainWindow` include
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Execute user commands through the `CommandBox` using the `Logic` component.
+* Listen for changes to `Model` data so that the UI can be updated to reflect the modified data. This occurs for two types of situations
+** Direct modification to the information inside the Answerables List, such as `AddCommand` or `EditCommand`
+** Filtering of the currently shown list, for commands such as `FindCommand` and `ListCommand`
 
+The `StartQuizWindow` inherits from the `ParentWindow` class and handles the display of information during quiz mode. It has an additional `ScoreProgressAndTimerGridPane` Ui component, which
+is used to contain score progress and timer related Ui. Key responsibilities of the `StartQuizWindow` include
+
+* Execute user answer input, e.g. "A", "B", "C", "D" for `Mcq`
+* Adapt to changes in the current `Answerable` and update the Ui accordingly based on a few typical situations
+** from the four options of `Mcq` to the two options for `TrueFalse`
+** update the progress bar for every question
+** update the timer every second and switch to the next question when countdown reaches 0.
+
+//end::junxian-ui[]
 
 [[Design-Logic]]
 === Logic component
