@@ -306,13 +306,14 @@ This section contains some of our considerations for the training feature.
 
 [width="100%", cols="1, 5, 5"]
 |===
-||*Alternative 1:* Make extensions to `[green]#Athletick#` by storing and tagging each `[green]#Person#` with
+||*Alternative 1:* Make extensions to the `[green]#Athletick#` class by storing and tagging each `[green]#Person#` with
 number of trainings attended and total number of trainings.
 |*Alternative 2 (Current Choice):* Create separate classes to manage training information.
 
 |*Pros*
 |It is easy to implement.
-|Allows storing of specific training information without depending on the `[green]#Athletick#`. This also allows new
+|Allows storing of specific training information without depending on the `[green]#Athletick#` class. This also allows
+new
 features to be easily introduced to training in the future.
 
 |*Cons*
