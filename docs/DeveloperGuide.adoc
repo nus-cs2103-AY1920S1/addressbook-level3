@@ -947,7 +947,6 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
-
 // end::DisplayUseCases[]
 
 === Use Case: (UC-6) Export Schedules
@@ -977,6 +976,7 @@ Use case resumes at step 3.
 ** 3a1. Scheduler displays error message in the UI.
 +
 Use case resumes at step 1.
+
 
 [appendix]
 == Non Functional Requirements
@@ -1140,7 +1140,6 @@ image::interviewerListFormat.png[]
 image::scheduleListFormat.png[]
 
 // end::ManualDisplay[]
-
 
 // tag::scheduleTest[]
 

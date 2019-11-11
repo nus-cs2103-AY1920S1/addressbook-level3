@@ -290,60 +290,8 @@ Clears both interviewee and interviewer data in Scheduler. Will not remove user 
 Format: `clear`
 
 WARNING: Data erased cannot be undone!
-//end::clear
 
-// tag::add[]
-
-=== UI Display
-
-==== Display Schedules
-Display multiple tables that consist information of the schedules generated in a day format. The columns will show the date of the schedule followed by
-the interviewers and their respective departments. The rows consists of the time slots as well as names of the interviewee.
-
-Format: `display schedule`
-
-Notes:
-* You are also able to toggle to display schedule by clicking on the Schedules tab.
-
-====
-
-Constraints:
-
-* The command must be exactly the same as the format.
-
-====
-
-==== Display Interviewee
-Display information of the interviewees in a table format.
-
-Format: `display interviewee`
-
-Notes:
-* You are also able to toggle to display schedule by clicking on the Interviewee tab.
-
-====
-
-Constraints:
-
-* The command must be exactly the same as the format.
-
-====
-
-==== Display interviewer
-Display information of the interviewers in a table format.
-
-Format: `display interviewer`
-
-Notes:
-* You are also able to toggle to display schedule by clicking on the Interviewer tab.
-
-====
-
-Constraints:
-
-* The command must be exactly the same as the format.
-
-====
+//end::clear[]
 
 === Scheduling `schedule`
 ==== Schedule the interviews

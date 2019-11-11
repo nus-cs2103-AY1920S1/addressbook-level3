@@ -203,10 +203,19 @@ public interface Model {
     void addTabListener(TabListener tabListener);
 
     // ================================== Tab Change ============================================
+    /**
+     * Call tabListener when User wants to display interviewee
+     */
     void intervieweeTabChange();
 
+    /**
+     * Call tabListener when User wants to display interviewer
+     */
     void interviewerTabChange();
 
+    /**
+     * Call tabListener when User wants to display schedules
+     */
     void scheduleTabChange();
 
     // ============================================ Schedule ===================================================
