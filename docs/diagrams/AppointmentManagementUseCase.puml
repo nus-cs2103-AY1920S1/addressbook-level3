@@ -1,0 +1,26 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor User
+rectangle NurseTraverse {
+    User -- (List Appointments)
+    User -- (Find Appointments by Patient Name)
+    User -- (Add Appointment)
+    User -- (Edit Appointment)
+    User -- (Delete Appointment)
+    User -- (Delete Appointment Permanently)
+    (Verify Appointment Exists)
+    (Verify Appointment Does Not Clash\nWith Other Appointments)
+    (Check Appointment Is Recurring)
+    (Add Appointment) ..> (Verify Appointment Exists) : <<include>>
+    (Add Appointment) ..> (Verify Appointment Does Not Clash\nWith Other Appointments) : <<include>>
+    (Edit Appointment) ..> (Verify Appointment Exists) : <<include>>
+    (Edit Appointment) ..> (Verify Appointment Does Not Clash\nWith Other Appointments) : <<include>>
+    (Delete Appointment) ..> (Verify Appointment Exists) : <<include>>
+    (Delete Appointment) ..> (Check Appointment Is Recurring) : <<include>>
+    (Delete Appointment Permanently) ..> (Verify Appointment Exists) : <<include>>
+}
+
+note right of (Check Appointment Is Recurring): If recurring, then the system\nadds the next recurred appointment\nto the appointment list and\n deletes the current appointment.
+
+@enduml
