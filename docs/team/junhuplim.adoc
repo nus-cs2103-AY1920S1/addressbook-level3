@@ -123,12 +123,19 @@ https://github.com/junhuplim/ped/issues/9[3])
 This section showcases my contribution to the User Guide. They showcase my ability to write
 documentation targeting end-users.
 
+{Start of extract from User Guide}
+
 include::../UserGuide.adoc[tag=undoredo]
+
+{End of extract from User Guide}
 
 == Contributions to the Developer Guide
 
 This section showcases my contribution to the Developer Guide. They showcase my ability to write technical
 documentation and the technical depth of my contributions to the project.
 
+{Start of extract from Developer Guide}
+
 include::../DeveloperGuide.adoc[tag=undoredo]
 
+{End of extract from Developer Guide}
