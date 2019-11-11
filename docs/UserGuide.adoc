@@ -1907,10 +1907,38 @@ Here are summary lists of commands for the different features.
 
 |``add``
 |Add a diary entry to the diary
-|``add t/title d/date [p/place] [m/memory]``
+|``add t/TITLE d/DATE [p/PLACE] [m/MEMORY]``
 
 |``delete``
 |Delete a certain entry from the diary
-|``delete index``
+|``delete INDEX``
+
+|``list``
+|Show all entries
+|``list``
+
+|``find``
+|Find entries which match your input
+|``find TARGET``
+
+|``findSpecific``
+|Find entries which match your input, according to the prefix
+|``findSpecific [t/TITLE] [d/DATE] [p/PLACE] [m/MEMORY]``
+
+|``private``
+|Private a certain entry
+|``private INDEX``
+
+|``unprivate``
+|UnPrivate a certain entry
+|``unprivate INDEX``
+
+|``setDetails``
+|Set your details to protect your entries
+|``setDetails user/USERNAME password/PASSWORD``
+
+|``unlock``
+|unlock a hidden memory
+|``unlock INDEX user/USERNAME password/PASSWORD``
 
 |===
