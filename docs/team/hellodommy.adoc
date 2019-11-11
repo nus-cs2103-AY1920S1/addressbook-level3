@@ -27,15 +27,15 @@ https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book].
 
 We chose to morph the project into *Athletick*, a tool for coaches and captains to use to keep track of their
 team's _attendance_ and _performance_. *Athletick* also features a calendar for coaches and captains to plan
-their schedules, and supports the _sorting_, _filtering_, and `searching` of athletes in their database.
+their schedules, and supports the sorting, filtering, and searching of athletes in their database.
 
 Like Address Book, *Athletick* uses the command-line as its main method of input and a JavaFX Graphical User
-Interface for display. Some constraints of the project were that it should _have a command-line input_, and
-it should be _used by a single user only_. The full list of constraints can be found
+Interface for display. Some constraints of the project were that it should have a command-line input, and
+it should be used by a single user only. The full list of constraints can be found
 https://nus-cs2103-ay1920s1.github.io/website/admin/project-constraints.html[here].
 
 My role was to build the _Performance_ feature, which encompasses the adding, deleting and viewing of
-_events_ and _records_.
+events and records.
 
 include::../DeveloperGuide.adoc[tag=symbol]
 
@@ -86,7 +86,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sort
 *Other contributions*
 
 * Project management
-** Acted as the Team Lead and assigned GitHub issues to team members
+** Acted as the *Team Lead* and assigned GitHub issues to team members
 ** Managed the deliverables for all 4 milestones:
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/1[v1.1],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/2[v1.2],
