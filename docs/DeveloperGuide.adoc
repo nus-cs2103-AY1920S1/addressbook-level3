@@ -510,6 +510,10 @@ eg. `find-i op/bill`
 * Operator - Displays all incidents with  the name of the `Person operator` in `Incident incident` matching the logged-in user's name exactly, within `Model` +
 eg. `find-i self`
 
+Activity Diagram for illustration:
+
+image::FindIncidentsCommandActivityDiagram.png[]
+
 ****
 * `list-i` does not take any parameters, and returns errors if parameters are added to the command
 * Search by keywords is case-insensitive for convenience and ease of use
@@ -530,6 +534,7 @@ eg. `find-i self`
 
 The following sequence diagram shows how the `list-i` command works when `list-i` is called:
 
+.Sequence Diagram of the List Incidents Command running `list-i`
 image::ListIncidentsSequenceDiagram.png[]
 
 * The `LogicManager` passes the command to `IncidentManagerParser` when running command `execute("list-i")`, which instantiates a `ListIncidentsCommand` with `Predicate<Incident> PREDICATE_SHOW_ALL_INCIDENTS` that returns all incidents regardless of state.
@@ -545,6 +550,7 @@ Next, we will look at an example in which the user calls `find-i` to look for in
 
 The execution of this method is a little more complex. The following sequence diagram shows how the `find-i` command identifies the keyword and flag, and returns related incidents:
 
+.Sequence Diagram of the List Incidents Command running `find-i op/alex desc/pmd`
 image::FindIncidentsSequenceDiagram.png[]
 
 The key steps are as follows:
