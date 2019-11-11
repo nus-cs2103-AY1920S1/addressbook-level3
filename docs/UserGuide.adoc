@@ -1275,14 +1275,14 @@ keep your _Diary Entries_ short and sweet!
 
 *Example:*
 
-<<<<<<< HEAD
 
     add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!
 
 TIP: Note that _Date_ is input in this format:
 dd/mm/yyyy HHMM:
 | d = day | m = month | y = year | H = Hour (24HR) | M = Minute |
-=======
+
+
 *Format:* +
 `add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
 
@@ -1290,9 +1290,6 @@ dd/mm/yyyy HHMM:
 *Example:* Lets take the example of our midnight fishing trip!
 
  add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!
-
-*Step by step:*
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 
@@ -1334,24 +1331,12 @@ TIP: Can't delete what's not there! Try to keep the ``INDEX`` larger than 0 and 
 *Step by step:*
 
 
-<<<<<<< HEAD
 Let's say you lose your wallet while on holiday in Genting, That's definitely a trip that no one would want to remember :(.
 
 
 Step 1: Type ``delete 2`` into the _User Input Box_ and press _Enter_ on the keyboard.You can refer to the picture below, where the number *1* is.
-=======
-*Format:* +
-``delete INDEX``
 
-*Example:* I lost my wallet at the amusement park in Genting, I don't want to remember
-that trip ever again :(
 
- delete 2
-
-*Step by step:*
-
-Step 1: Enter ``delete 2``
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 image::DiaryDeleteBefore.png[width=600]
@@ -1370,18 +1355,11 @@ image::DiaryDeleteAfter.png[width=600]
 
 What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? The _Diary_ can do that as well! It allows you to see everything in one, convenient list!
 
-<<<<<<< HEAD
 *Format:*
 
  ``list``
 
 *Example:*
-=======
-*Format:* +
-``list``
-
-*Step by step:*
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
     list
 
@@ -1408,7 +1386,6 @@ all the details of your trips. That's why, this _Diary_ allows you to look throu
 
 *Format:*
 
-<<<<<<< HEAD
 ``find TARGET``
 
 *Example:*
@@ -1422,18 +1399,7 @@ TIP: To search for _Dates_, enter them in the same format as before, when you ad
 That was the craziest Rugby World Cup ever! Who lost?
 
 Step 1: Type ``find rugby`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-=======
-*Format:* +
-``find TARGET``
 
-*Example:* I want to see what I wrote about the Rugby World Cup
-
- find rugby
-
-*Step by step:*
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
-
-Step 1: Enter ``find rugby``
 
 image::DiaryFindBefore.png[width=600]
 
@@ -1461,7 +1427,6 @@ Let's narrow down your search! The _Diary_ allows you to look through specific s
 
     findSpecific d/12/12/2019
 
-<<<<<<< HEAD
 
 *Step by step:*
 
@@ -1470,18 +1435,6 @@ You know that you had a trip on the 12th of December 2019, but you cant remember
 
 
 Step 1: Type ``findSpecific d/12/12/2019`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-=======
-*Format:* +
-``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
-
-*Example:* I know that I had a trip on the 12th of December 2019, but I cant remember what I did...
-
- findSpecific d/12/12/2019
-
-*Step by step:*
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
-
-Step 1: Enter ``findSpecific d/12/12/2019``
 
 image::DiaryFindSpecificBefore.png[width=600]
 
@@ -1498,7 +1451,6 @@ image::DiaryFindSpecificAfter.png[width=600]
 
 There are some personal memories which are for our eyes only. The _Diary_ can help you to private memories from prying eyes.
 
-<<<<<<< HEAD
 *Format:*
 
 ``private INDEX``
@@ -1519,19 +1471,6 @@ You had your first sip of wine today! Better not let mum find out...
 
 
 Step 1: Type ``private 4`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-=======
-*Format:* +
-``private INDEX``
-
-*Example:* I had my first sip of wine today at the restaurant! I don't want my mum to find out...
-
- private 4
-
-*Step by step:*
-
-Step 1: Enter ``private 4``
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
-
 
 image::DiaryPrivateBefore.png[width=600]
 
@@ -1548,7 +1487,6 @@ image::DiaryPrivateAfter.png[width=600]
 
 Once you know you are alone and away from prying eyes, you can look at your private memories safely. The Diary can help you to unprivate those memories.
 
-<<<<<<< HEAD
 *Format:*
 
 ``unprivate INDEX``
@@ -1567,19 +1505,7 @@ TIP: Can't unprivate what's not there! Try to keep the ``INDEX`` larger than 0 a
 
 
 Step 1: Type ``unprivate 4`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-=======
-*Format:* +
-``unprivate INDEX``
-
-*Example:* Ok!, I'm alone and I want to look at my private memories
-
- unprivate 4
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
-
-*Step by step:*
-
-Step 1: Enter ``unprivate 4``
-
+=
 image::DiaryUnPrivateBefore.png[width=600]
 
 Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
@@ -1605,7 +1531,6 @@ If you ``setDetails``, you will not be able to use the ``unprivate`` command and
     setDetails user/youcanthackme password/youreallycanthackme
 
 
-<<<<<<< HEAD
 WARNING: You can only set your details once! After that, you will have to delete TravEzy if you forget your password and need to unlock entries. This is done to ensure *NO ONE* misues your personal information
 
 
@@ -1618,18 +1543,7 @@ TIP: Keep your username and password long to keep those pesky hackers out! Minim
 Better set a password to protect your memories against prying eyes
 
 Step 1: Type ``setDetails user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-=======
-*Format:* +
-``setDetails user/USERNAME password/PASSWORD``
 
-*Example:* Better set a password to protect my memories against prying eyes
-
- setDetails user/youcanthackme password/youreallycanthackme
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
-
-*Step by step:*
-
-Step 1: Enter ``setDetails user/youcanthackme password/youreallycanthackme``
 
 image::DiarySetDetailsBefore.png[width=600]
 
@@ -1645,11 +1559,7 @@ image::DiarySetDetailsAfter.png[width=600]
 
 image::DiarySetDetailsHack.png[width=600]
 
-<<<<<<< HEAD
 . TravEzy will protect you if someone else tries to change your details
-=======
-Step 2: TravEzy will protect you if someone else tries to change your details
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 image::DiarySetDetailsHackFail.png[width=600]
@@ -1660,7 +1570,6 @@ image::DiarySetDetailsHackFail.png[width=600]
 
 With password protection, we want to ensure no one else can access our memories . The Diary can do this by ensuring only you can see the private memories.
 
-<<<<<<< HEAD
 *Format:*
 
 
@@ -1676,18 +1585,6 @@ With password protection, we want to ensure no one else can access our memories 
 Unlock your hidden memories!
 
 Step 1: Type ``unlock 4 user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-=======
-*Format:* +
-``unlock INDEX user/USERNAME password/PASSWORD``
-
-*Example:* Time to look at all my private memories
-
- unlock 4 user/youcanthackme password/youreallycanthackme
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
-
-*Step by step:*
-
-Step 1: Enter ``unlock 4 user/youcanthackme password/youreallycanthackme``
 
 image::DiaryUnLockBefore.png[width=600]
 
@@ -1703,11 +1600,7 @@ image::DiaryUnLockAfter.png[width=600]
 
 image::DiaryUnLockHackBefore.png[width=600]
 
-<<<<<<< HEAD
 . TravEzy will protect you if someone else tries to change your details
-=======
-Step 2: TravEzy will protect you if someone else tries to change your details
->>>>>>> 9b7f1adcc977d6bd6d54b58930c6387b6fcd0263
 
 
 image::DiaryUnLockHackAfter.png[width=600]
