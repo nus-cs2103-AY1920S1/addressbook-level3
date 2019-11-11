@@ -209,26 +209,26 @@ The explanation of the sorting abbreviations following `s/` are as follows:
 
 ==== Add an account: `account add`
 
-You can create a new account. Each account has a unique ID and name. The user can choose to customise a description to describe the use of the account.
+You can create a new account. Each account has a unique ID and name. You can choose to customise a description to describe the use of the account.
 
 Format: `account add n/<name> [d/<description>]`
 
 Examples:
 
 * `account add n/Japan trip` +
-You have created an account with name of 'Japan trip'.
+You have created an account with the name 'Japan trip'.
 * `account add n/Japan trip d/expense spent in Japan` +
-You have created an account with name of 'Japan trip' and description of 'expense spent in Japan'.
+You have created an account with the name 'Japan trip' and description 'expense spent in Japan'.
 
 ==== List accounts: `account list`
 
-If you want to see the full list of accounts you currently own, you can enter command and a list of all accounts will be displayed.
+If you want to see the full list of accounts you currently own, you can enter this command and a list of all accounts will be displayed.
 
 Format: `account list`
 
 ==== Edit an account: `account edit`
 
-You can edit the account you think that needs modified. You can choose to edit either the name or the description of the account, or both.
+You can edit the account that you think needs modifiying. You can choose to edit either the name or the description of the account, or both.
 
 Format: `account edit <id> [n/<name>] [d/<description>]`
 
@@ -265,8 +265,8 @@ You have deleted the second account in your account list.
 
 ==== Find account: `account find`
 
-If you want to see a specific type of accounts you have, or find a specific account, you can find the account(s) with a specified keyword.
-A list of account(s) contain the keyword in their names will be displayed.
+If you want to see a specific type of account you have, or find a specific account, you can find the account(s) with a specified keyword.
+A list of account(s) containing the keyword in their names will be displayed.
 
 Format: `account find <keyword>`
 
@@ -312,19 +312,22 @@ image::AccountSwitch.png[]
 
 ==== Export the overview of all accounts: `account overview`
 
-If you want to see the overview of all accounts, Budget Buddy allows you to export the overview of all accounts in html file.
+If you want to see the overview of all accounts, Budget Buddy allows you to export the overview of all accounts in a HTML file.
 In the overview, you are able to see the balance, the total expenses, the total income, and the categories involved in each account.
 
 Format: `account overview`
 
 Step 1. Type `account overview` in the command textfield input.
 
-Step 2. Successful message displayed, and you can navigate to the exports folder in the same directory of the source file.
+Step 2. Successful message displayed, and you can navigate to the `exports` folder in the same directory of the source file.
 
-image::AccountOverview_3.png[]
+image::accountOverview_2.png[width=85%,scaledwidth=85%]
 
-image::accountoverview4.png[]
+image::AccountOverview_3.png[width=85%,scaledwidth=85%]
+
 Step 3. Open the html file in the exports folder to see the overview of all accounts.
+
+image::accountOverview4.png[width=85%,scaledwidth=85%]
 
 // end::accounts[]
 
