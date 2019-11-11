@@ -9,8 +9,8 @@ import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -44,7 +44,7 @@ public class EditShoppingCommandTest {
         ShoppingItem editedShoppingItem = new ShoppingItemBuilder().build();
         EditShoppingCommand.EditShoppingItemDescriptor descriptor =
                 new EditShoppingItemDescriptorBuilder(editedShoppingItem).build();
-        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_PERSON, descriptor);
+        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_FOOD, descriptor);
 
         String expectedMessage =
                 String.format(EditShoppingCommand.MESSAGE_EDIT_SHOPPING_ITEM_SUCCESS, editedShoppingItem);
@@ -83,12 +83,12 @@ public class EditShoppingCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
+        showShoppingItemAtIndex(model, INDEX_FIRST_FOOD);
 
-        ShoppingItem foodInFilteredList = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ShoppingItem foodInFilteredList = model.getFilteredShoppingList().get(INDEX_FIRST_FOOD.getZeroBased());
         ShoppingItem editedShoppingItem =
                 new ShoppingItemBuilder(foodInFilteredList).withName(VALID_NAME_ORANGES).build();
-        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_PERSON,
+        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_FOOD,
                 new EditShoppingItemDescriptorBuilder().withName(VALID_NAME_ORANGES).build());
 
         String expectedMessage =
@@ -104,10 +104,10 @@ public class EditShoppingCommandTest {
 
     @Test
     public void execute_duplicateShoppingItemUnfilteredList_failure() {
-        ShoppingItem firstShoppingItem = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ShoppingItem firstShoppingItem = model.getFilteredShoppingList().get(INDEX_FIRST_FOOD.getZeroBased());
         EditShoppingCommand.EditShoppingItemDescriptor descriptor =
                 new EditShoppingItemDescriptorBuilder(firstShoppingItem).build();
-        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_SECOND_PERSON, descriptor);
+        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_SECOND_FOOD, descriptor);
 
         ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model,
                 EditShoppingCommand.MESSAGE_DUPLICATE_SHOPPING_ITEM);
@@ -115,11 +115,11 @@ public class EditShoppingCommandTest {
 
     @Test
     public void execute_duplicateShoppingItemFilteredList_failure() {
-        showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
+        showShoppingItemAtIndex(model, INDEX_FIRST_FOOD);
 
         // edit shoppingItem in filtered list into a duplicate in shopping list
-        ShoppingItem foodInList = model.getShoppingList().getShoppingList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_PERSON,
+        ShoppingItem foodInList = model.getShoppingList().getShoppingList().get(INDEX_SECOND_FOOD.getZeroBased());
+        EditShoppingCommand editShoppingCommand = new EditShoppingCommand(INDEX_FIRST_FOOD,
                 new EditShoppingItemDescriptorBuilder(foodInList).build());
         ShoppingCommandTestUtil.assertCommandFailure(editShoppingCommand, model,
                 EditShoppingCommand.MESSAGE_DUPLICATE_SHOPPING_ITEM);
@@ -142,8 +142,8 @@ public class EditShoppingCommandTest {
      */
     @Test
     public void execute_invalidShoppingItemIndexFilteredList_failure() {
-        showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showShoppingItemAtIndex(model, INDEX_FIRST_FOOD);
+        Index outOfBoundIndex = INDEX_SECOND_FOOD;
         // ensures that outOfBoundIndex is still in bounds of shopping list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getShoppingList().getShoppingList().size());
 
@@ -156,12 +156,12 @@ public class EditShoppingCommandTest {
 
     @Test
     public void equals() {
-        final EditShoppingCommand standardCommand = new EditShoppingCommand(INDEX_FIRST_PERSON, DESC_NUTS);
+        final EditShoppingCommand standardCommand = new EditShoppingCommand(INDEX_FIRST_FOOD, DESC_NUTS);
 
         // same values -> returns true
         EditShoppingCommand.EditShoppingItemDescriptor copyDescriptor =
                 new EditShoppingCommand.EditShoppingItemDescriptor(DESC_NUTS);
-        EditShoppingCommand commandWithSameValues = new EditShoppingCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditShoppingCommand commandWithSameValues = new EditShoppingCommand(INDEX_FIRST_FOOD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -174,10 +174,10 @@ public class EditShoppingCommandTest {
         assertFalse(standardCommand.equals(new MergeShoppingCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditShoppingCommand(INDEX_SECOND_PERSON, DESC_NUTS)));
+        assertFalse(standardCommand.equals(new EditShoppingCommand(INDEX_SECOND_FOOD, DESC_NUTS)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditShoppingCommand(INDEX_FIRST_PERSON, DESC_ORANGES)));
+        assertFalse(standardCommand.equals(new EditShoppingCommand(INDEX_FIRST_FOOD, DESC_ORANGES)));
     }
 
 }

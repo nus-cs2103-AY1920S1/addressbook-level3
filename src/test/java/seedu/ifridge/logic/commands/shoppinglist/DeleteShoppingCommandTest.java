@@ -6,8 +6,8 @@ import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.shoppinglist.ShoppingCommandTestUtil.showShoppingItemAtIndex;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -36,8 +36,8 @@ public class DeleteShoppingCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(INDEX_FIRST_PERSON);
+        ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_FOOD.getZeroBased());
+        DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(INDEX_FIRST_FOOD);
 
         String expectedMessage = String.format(DeleteShoppingCommand.MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS,
                 shoppingItemToDelete);
@@ -61,10 +61,10 @@ public class DeleteShoppingCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
+        showShoppingItemAtIndex(model, INDEX_FIRST_FOOD);
 
-        ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(INDEX_FIRST_PERSON);
+        ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_FOOD.getZeroBased());
+        DeleteShoppingCommand deleteShoppingCommand = new DeleteShoppingCommand(INDEX_FIRST_FOOD);
 
         String expectedMessage = String.format(DeleteShoppingCommand.MESSAGE_DELETE_SHOPPING_ITEM_SUCCESS,
                 shoppingItemToDelete);
@@ -80,9 +80,9 @@ public class DeleteShoppingCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showShoppingItemAtIndex(model, INDEX_FIRST_PERSON);
+        showShoppingItemAtIndex(model, INDEX_FIRST_FOOD);
 
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = INDEX_SECOND_FOOD;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getShoppingList().getShoppingList().size());
 
@@ -94,14 +94,14 @@ public class DeleteShoppingCommandTest {
 
     @Test
     public void equals() {
-        DeleteShoppingCommand deleteFirstCommand = new DeleteShoppingCommand(INDEX_FIRST_PERSON);
-        DeleteShoppingCommand deleteSecondCommand = new DeleteShoppingCommand(INDEX_SECOND_PERSON);
+        DeleteShoppingCommand deleteFirstCommand = new DeleteShoppingCommand(INDEX_FIRST_FOOD);
+        DeleteShoppingCommand deleteSecondCommand = new DeleteShoppingCommand(INDEX_SECOND_FOOD);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteShoppingCommand deleteFirstCommandCopy = new DeleteShoppingCommand(INDEX_FIRST_PERSON);
+        DeleteShoppingCommand deleteFirstCommandCopy = new DeleteShoppingCommand(INDEX_FIRST_FOOD);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false

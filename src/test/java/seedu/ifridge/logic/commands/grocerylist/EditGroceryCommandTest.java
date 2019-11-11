@@ -13,8 +13,8 @@ import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.DE
 import static seedu.ifridge.logic.commands.grocerylist.GroceryCommandTestUtil.showGroceryItemAtIndex;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -48,7 +48,7 @@ public class EditGroceryCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         GroceryItem editedGroceryItem = new GroceryItemBuilder().build();
         EditGroceryItemDescriptor descriptor = new EditGroceryItemDescriptorBuilder(editedGroceryItem).build();
-        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_FIRST_PERSON, descriptor);
+        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_FIRST_FOOD, descriptor);
 
         String expectedMessage = String.format(EditGroceryCommand.MESSAGE_EDIT_GROCERY_ITEM_SUCCESS, editedGroceryItem);
 
@@ -82,20 +82,20 @@ public class EditGroceryCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
-        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_FIRST_PERSON,
+        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_FIRST_FOOD,
                 new EditGroceryItemDescriptor());
         assertCommandFailure(editGroceryCommand, model, EditGroceryCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
     public void execute_filteredList_success() {
-        showGroceryItemAtIndex(model, INDEX_FIRST_PERSON);
+        showGroceryItemAtIndex(model, INDEX_FIRST_FOOD);
 
         GroceryItem groceryItemInFilteredList = model.getFilteredGroceryItemList()
-                .get(INDEX_FIRST_PERSON.getZeroBased());
+                .get(INDEX_FIRST_FOOD.getZeroBased());
         GroceryItem editedGroceryItem = new GroceryItemBuilder(groceryItemInFilteredList).withName(VALID_NAME_NUTS)
                 .withAmount(VALID_AMOUNT_NUTS).withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_NUTS).build();
-        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_FIRST_PERSON,
+        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_FIRST_FOOD,
                 new EditGroceryItemDescriptorBuilder().withName(VALID_NAME_NUTS).withAmount(VALID_AMOUNT_NUTS)
                         .withExpiryDate(VALID_EXPIRY_DATE_NUTS).withTags(VALID_TAG_NUTS).build());
 
@@ -110,20 +110,20 @@ public class EditGroceryCommandTest {
 
     @Test
     public void execute_duplicateGroceryItemUnfilteredList_failure() {
-        GroceryItem groceryItem = model.getFilteredGroceryItemList().get(INDEX_FIRST_PERSON.getZeroBased());
+        GroceryItem groceryItem = model.getFilteredGroceryItemList().get(INDEX_FIRST_FOOD.getZeroBased());
         EditGroceryItemDescriptor descriptor = new EditGroceryItemDescriptorBuilder(groceryItem).build();
-        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_SECOND_PERSON, descriptor);
+        EditGroceryCommand editGroceryCommand = new EditGroceryCommand(INDEX_SECOND_FOOD, descriptor);
 
         assertCommandFailure(editGroceryCommand, model, EditGroceryCommand.MESSAGE_DUPLICATE_GROCERY_ITEM);
     }
 
     @Test
     public void execute_duplicateGroceryItemFilteredList_failure() {
-        showGroceryItemAtIndex(model, INDEX_FIRST_PERSON);
+        showGroceryItemAtIndex(model, INDEX_FIRST_FOOD);
 
         // edit grocery item in filtered list into a duplicate in grocery list
-        GroceryItem groceryItemInList = model.getGroceryList().getGroceryList().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditGroceryCommand editCommand = new EditGroceryCommand(INDEX_FIRST_PERSON,
+        GroceryItem groceryItemInList = model.getGroceryList().getGroceryList().get(INDEX_SECOND_FOOD.getZeroBased());
+        EditGroceryCommand editCommand = new EditGroceryCommand(INDEX_FIRST_FOOD,
                 new EditGroceryItemDescriptorBuilder(groceryItemInList).build());
 
         assertCommandFailure(editCommand, model, EditGroceryCommand.MESSAGE_DUPLICATE_GROCERY_ITEM);
@@ -144,8 +144,8 @@ public class EditGroceryCommandTest {
      */
     @Test
     public void execute_invalidGroceryItemIndexFilteredList_failure() {
-        showGroceryItemAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showGroceryItemAtIndex(model, INDEX_FIRST_FOOD);
+        Index outOfBoundIndex = INDEX_SECOND_FOOD;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getGroceryList().getGroceryList().size());
 
@@ -157,11 +157,11 @@ public class EditGroceryCommandTest {
 
     @Test
     public void equals() {
-        final EditGroceryCommand standardCommand = new EditGroceryCommand(INDEX_FIRST_PERSON, DESC_ORANGES);
+        final EditGroceryCommand standardCommand = new EditGroceryCommand(INDEX_FIRST_FOOD, DESC_ORANGES);
 
         // same values -> returns true
         EditGroceryItemDescriptor copyDescriptor = new EditGroceryItemDescriptor(DESC_ORANGES);
-        EditGroceryCommand commandWithSameValues = new EditGroceryCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditGroceryCommand commandWithSameValues = new EditGroceryCommand(INDEX_FIRST_FOOD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -174,9 +174,9 @@ public class EditGroceryCommandTest {
         assertFalse(standardCommand.equals(new ListGroceryCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditGroceryCommand(INDEX_SECOND_PERSON, DESC_ORANGES)));
+        assertFalse(standardCommand.equals(new EditGroceryCommand(INDEX_SECOND_FOOD, DESC_ORANGES)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditGroceryCommand(INDEX_FIRST_PERSON, DESC_NUTS)));
+        assertFalse(standardCommand.equals(new EditGroceryCommand(INDEX_FIRST_FOOD, DESC_NUTS)));
     }
 }

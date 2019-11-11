@@ -9,8 +9,8 @@ import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.assertCommandFailure;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalUnitDictionary.getTypicalUnitDictionary;
@@ -47,11 +47,11 @@ public class EditTemplateListCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
+        UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(INDEX_FIRST_FOOD.getZeroBased());
         EditTemplateListDescriptor descriptor = new EditTemplateListDescriptorBuilder()
                 .withName(VALID_TEMPLATE_NAME_BULK_UP).withTemplateItems(templateToEdit).build();
 
-        EditTemplateListCommand editCommand = new EditTemplateListCommand(INDEX_FIRST, descriptor);
+        EditTemplateListCommand editCommand = new EditTemplateListCommand(INDEX_FIRST_FOOD, descriptor);
 
         String expectedMessage = String.format(EditTemplateListCommand.MESSAGE_SUCCESS, templateToEdit);
 
@@ -78,11 +78,11 @@ public class EditTemplateListCommandTest {
 
     @Test
     public void equals() {
-        final EditTemplateListCommand standardCommand = new EditTemplateListCommand(INDEX_FIRST, DESC_TEMP_BULK_UP);
+        final EditTemplateListCommand standardCommand = new EditTemplateListCommand(INDEX_FIRST_FOOD, DESC_TEMP_BULK_UP);
 
         // same values -> returns true
         EditTemplateListDescriptor copyDescriptor = new EditTemplateListDescriptor(DESC_TEMP_BULK_UP);
-        EditTemplateListCommand commandWithSameValues = new EditTemplateListCommand(INDEX_FIRST, copyDescriptor);
+        EditTemplateListCommand commandWithSameValues = new EditTemplateListCommand(INDEX_FIRST_FOOD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -95,9 +95,9 @@ public class EditTemplateListCommandTest {
         assertFalse(standardCommand.equals(new ClearTemplateListCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditTemplateListCommand(INDEX_SECOND, DESC_TEMP_BULK_UP)));
+        assertFalse(standardCommand.equals(new EditTemplateListCommand(INDEX_SECOND_FOOD, DESC_TEMP_BULK_UP)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditTemplateListCommand(INDEX_SECOND, DESC_TEMP_SICK)));
+        assertFalse(standardCommand.equals(new EditTemplateListCommand(INDEX_SECOND_FOOD, DESC_TEMP_SICK)));
     }
 }
