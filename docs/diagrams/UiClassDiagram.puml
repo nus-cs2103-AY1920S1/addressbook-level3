@@ -11,64 +11,22 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
-Class StatusBarFooter
 Class CommandBox
 class PageManager
 class PageType <<enumeration>>
 class Page
+Class ListElementPointer
+Class MainPage
 }
 
-namespace Achievements {
+namespace XYZ {
 namespace UI {
-Class AchievementsPage
+Class XYZPage
+}
+namespace Logic {
 }
 }
 
-namespace Address{
-namespace UI {
-Class AddressBookPage
-}
-}
-
-namespace Calendar{
-namespace Model {
-}
-namespace UI {
-Class CalendarPage
-}
-}
-
-namespace diaryFeature{
-namespace diaryModel {
-}
-namespace diaryUI {
-Class DiaryPage
-}
-}
-
-namespace FinancialTracker {
-namespace Model {
-}
-namespace UI {
-Class FinancialTrackerPage
-}
-}
-
-namespace Itinerary {
-namespace Model {
-}
-namespace UI {
-Class ItineraryPage
-}
-}
-
-
-
-package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
-}
 
 package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
@@ -81,57 +39,47 @@ HiddenOutside ..> UI.Ui
 
 UI.UiManager .left.|> UI.Ui
 UI.UiManager -down-> UI.MainWindow
-UI.MainWindow --> UI.HelpWindow
-UI.MainWindow *-down-> UI.CommandBox
-UI.MainWindow *-down-> UI.ResultDisplay
-UI.MainWindow *-down-> UI.PersonListPanel
-UI.MainWindow *-down-> UI.StatusBarFooter
-UI.MainWindow *-down-> UI.PageManager
+UI.MainWindow .down.> UI.PageManager
+UI.MainWindow o-down- "1" XYZ.UI.XYZPage
 
 UI.PageManager .left.> List
 UI.PageManager o-right-> "*" UI.Page
 
 UI.Page .> UI.PageType
 
-Achievements.UI.AchievementsPage .up.|> UI.Page
-Achievements.UI.AchievementsPage -left-> Logic :getLogic >
-Address.UI.AddressBookPage .up.|> UI.Page
-Address.UI.AddressBookPage -left-> Logic :getLogic >
-Calendar.UI.CalendarPage .up.|> UI.Page
-Calendar.UI.CalendarPage .left.|> Calendar.Model
-diaryFeature.diaryUI.DiaryPage .up.|> UI.Page
-diaryFeature.diaryUI.DiaryPage .left.|> diaryFeature.Model
-FinancialTracker.UI.FinancialTrackerPage .up.|> UI.Page
-FinancialTracker.UI.FinancialTrackerPage .left.|> FinancialTracker.Model
-Itinerary.UI.ItineraryPage .up.|> UI.Page
-Itinerary.UI.ItineraryPage .left.|> Itinerary.Model
+XYZ.UI.XYZPage .up.|> UI.Page
+XYZ.UI.XYZPage -up-|> UI.UiPart
+XYZ.UI.XYZPage *-up-> UI.CommandBox
+XYZ.UI.XYZPage *-up-> UI.ResultDisplay
+XYZ.UI.XYZPage *-up-> UI.HelpWindow
+XYZ.UI.XYZPage *-up-> UI.CodeWindow
+XYZ.UI.XYZPage -left-> XYZ.Logic
 
-UI.PersonListPanel -down-> UI.PersonCard
+UI.MainPage .up.|> UI.Page
+UI.MainPage -up-|> UI.UiPart
+UI.MainPage *--> UI.CommandBox
+UI.MainPage *--> UI.ResultDisplay
+UI.MainPage *--> UI.HelpWindow
+UI.MainPage *--> UI.CodeWindow
+UI.MainPage --> Logic
 
 UI.MainWindow -left-|> UI.UiPart
 
 UI.ResultDisplay --|> UI.UiPart
 UI.CommandBox --|> UI.UiPart
-UI.PersonListPanel --|> UI.UiPart
-UI.PersonCard --|> UI.UiPart
-UI.StatusBarFooter --|> UI.UiPart
 UI.HelpWindow -down-|> UI.UiPart
+UI.CodeWindow -down-|> UI.UiPart
 
-UI.PersonCard ..> Model
 UI.UiManager -right-> Logic
 UI.MainWindow -left-> Logic
 
-UI.PersonListPanel -[hidden]left- UI.HelpWindow
 UI.HelpWindow -[hidden]left- UI.CommandBox
 UI.CommandBox -[hidden]left- UI.ResultDisplay
-UI.ResultDisplay -[hidden]left- UI.StatusBarFooter
 
 UI.MainWindow -[hidden]-|> UI.UiPart
 UI.UiPart -[hidden]down-> UI.Page
-Address -[hidden]left-> Achievements
-Address -[hidden]right-> Calendar
-Address -[hidden]right-> diaryFeature
-Address -[hidden]right-> FinancialTracker
-Address -[hidden]right-> Itinerary
 UI.PageManager -[hidden]down-> UI.PageType
+
+UI.CommandBox --> UI.ListElementPointer
+UI.ListElementPointer  ..> List
 @enduml

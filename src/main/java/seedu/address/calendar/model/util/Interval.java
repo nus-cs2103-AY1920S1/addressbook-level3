@@ -2,8 +2,12 @@ package seedu.address.calendar.model.util;
 
 import java.util.Arrays;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * An interface which is used to represent any interval with a start and an end.
+ * Guarantees: Every interval has 2 interval parts for its start and end
+ *
  * @param <S> Type of interval (e.g. date, number, time, etc.)
  * @param <T> Object which contains the specified type.
  */
@@ -12,6 +16,8 @@ public class Interval<S extends IntervalPart<S>, T> implements Comparable<Interv
     protected S end;
 
     public Interval(S start, S end) {
+        requireNonNull(start);
+        requireNonNull(end);
         this.start = start;
         this.end = end;
     }

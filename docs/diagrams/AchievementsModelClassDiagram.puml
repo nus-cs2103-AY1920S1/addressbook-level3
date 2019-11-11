@@ -6,11 +6,15 @@ skinparam classBackgroundColor MODEL_COLOR
 
 class HiddenOutside #FFFFFF
 
-namespace Address {
+namespace XYZ {
 namespace Model {
-namespace Person {
-Class Person
+Class XYZModel
+namespace Util {
+Interface XYZStatistics <<Interface>>
 }
+}
+namespace Logic {
+Class XYZLogic LOGIC_COLOR
 }
 }
 
@@ -19,20 +23,34 @@ namespace Model {
 Interface StatisticsModel <<Interface>>
 Class StatisticsModelManager
 }
+namespace UI {
+class XYZCard UI_COLOR
+}
 }
 
 
 Interface ObservableList <<Interface>>
-Interface Supplier <<Interface>>
-HiddenOutside ..> Achievements.Model.StatisticsModel :supplies>
 
 
 ''''''''''ACHIEVEMENTS''''''''''
 ''''''''''StatisticsModel Interface
 Achievements.Model.StatisticsModelManager .up.|> Achievements.Model.StatisticsModel
+Achievements.Model.StatisticsModelManager o-down-> "1" XYZ.Model.Util.XYZStatistics
+
+XYZ.Logic.XYZLogic .up.|> XYZ.Model.Util.XYZStatistics
+
+
+
 ''''''''''StatisticsModel Manager
-Achievements.Model.StatisticsModelManager o--> ObservableList
-Achievements.Model.StatisticsModelManager --> "*" Address.Model.Person.Person
+Achievements.Model.StatisticsModel ..> ObservableList
+Achievements.Model.StatisticsModel ..> Node
+Achievements.Model.StatisticsModelManager ..> ObservableList
+Achievements.Model.StatisticsModelManager ..> Node
+Achievements.Model.StatisticsModelManager ..> Achievements.UI.XYZCard
+Achievements.UI.XYZCard ..> XYZ.Model.Util.XYZStatistics
+
+XYZ.Logic.XYZLogic o--> XYZ.Model.XYZModel
+'Achievements.Model.StatisticsModelManager -->
 ''''''''''''''''''''''''''''''''
 
 @enduml

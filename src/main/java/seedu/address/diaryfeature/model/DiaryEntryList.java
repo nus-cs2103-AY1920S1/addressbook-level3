@@ -1,5 +1,8 @@
 package seedu.address.diaryfeature.model;
 
+
+import java.util.Arrays;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
@@ -16,43 +19,53 @@ public class DiaryEntryList {
             FXCollections.unmodifiableObservableList(entries);
 
     /**
-     *
+     * Add a new diary entry
      * @param entry
-     * @return
+     * @return DiaryEntry
      */
-
     public DiaryEntry addDiaryEntry(DiaryEntry entry) {
         entries.add(entry);
         return entry;
     }
 
     /**
-     *
-     * @param index
-     * @return
+     * Delete the indicated diary entry
+     * @param input
+     * @return DiaryEntry
      */
-
-    public DiaryEntry deleteDiaryEntry(int index) {
-        DiaryEntry removed = entries.remove(index - 1);
-        return removed;
+    public DiaryEntry deleteDiaryEntry(DiaryEntry input) {
+        if (entries.remove(input)) {
+            return input.copy();
+        }
+        assert input != null;
+        System.out.println("Entry should not be null and should exist in the list");
+        return null;
     }
-
-    public void setDiaryEntryPrivate(int index) {
-        DiaryEntry removed = entries.get(index - 1 );
-        removed.setPrivate();
-        entries.set(index-1,removed);
+    /**
+     * Set the indicated diary as private
+     * @param output
+     */
+    public void setDiaryEntryPrivate(DiaryEntry output) {
+        int change = entries.indexOf(output);
+        DiaryEntry input = entries.get(change);
+        input.setPrivate();
+        entries.set(change, input);
     }
-
-    public void setDiaryEntryUnPrivate(int index) {
-        DiaryEntry removed = entries.get(index - 1);
-        removed.unPrivate();
-        entries.set(index-1,removed);
-    }
-
 
     /**
-     *
-     * @return
+     * Unprivate the indicated diary
+     * @param output
+     */
+    public void setDiaryEntryUnPrivate(DiaryEntry output) {
+        int change = entries.indexOf(output);
+        DiaryEntry input = entries.get(change);
+        input.unPrivate();
+        entries.set(change, input);
+    }
+
+    /**
+     * Get the size of the diary list
+     * @return int
      */
 
     public int getSize() {
@@ -60,8 +73,8 @@ public class DiaryEntryList {
     }
 
     /**
-     *
-     * @return
+     * Check if the Diary List is empty
+     * @return boolean
      */
 
     public boolean isEmpty() {
@@ -72,10 +85,15 @@ public class DiaryEntryList {
         }
     }
 
+    /**
+     * Get all entries as a string
+     * @return String
+     */
+
     public String getEntriesAsString() {
         StringBuilder curr = new StringBuilder();
         int i = 0;
-        for(DiaryEntry temp: entries) {
+        for (DiaryEntry temp : entries) {
             curr.append("Diary Entry: " + i + "\n");
             curr.append(temp.toString());
             curr.append("\n");
@@ -84,13 +102,11 @@ public class DiaryEntryList {
     }
 
     /**
-     *
+     * In case of a corrupted/empty file, load sample data into DiaryBook
      */
 
-    public void loadSampleData() {
-        for (DiaryEntry curr: SampleDataUtil.getSampleDiaryEntry()) {
-            entries.add(curr);
-        }
+    public void loadData(DiaryEntry[] myEntries) {
+        Arrays.stream(myEntries).forEach(x -> addDiaryEntry(x));
     }
 
     /**
@@ -99,12 +115,6 @@ public class DiaryEntryList {
     public ObservableList<DiaryEntry> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
-
-    /**
-     *
-     * @param someEntry
-     * @return
-     */
 
     public boolean contains(DiaryEntry someEntry) {
         return entries.contains(someEntry);

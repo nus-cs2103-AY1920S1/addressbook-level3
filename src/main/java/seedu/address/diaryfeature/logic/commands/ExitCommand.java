@@ -14,6 +14,7 @@ public class ExitCommand extends Command<DiaryModel> {
 
     /**
      * Exits the program while showing the acknowledgement message
+     *
      * @param model {@code model} which the command should operate on.
      * @return {@code CommandResult} which is the readable form of the exit command
      */

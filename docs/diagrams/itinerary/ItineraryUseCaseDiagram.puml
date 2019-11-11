@@ -1,0 +1,37 @@
+@startuml
+'!include ../../plantuml-styles/plantuml-ae.iuml
+
+skinparam Shadowing false
+skinparam ArrowFontStyle normal
+skinparam ArrowFontName Courier
+skinparam ArrowFontSize 10
+
+
+title Use Case diagram for itinerary\n
+
+actor User
+actor :Summary\nSystem: as Summary
+actor :TravEzy\nItinerary: as TI
+
+rectangle "Event List in itinerary" {
+
+  User -right- (Modify Event List\n[Add, Delete, Edit])
+  User -right- (Search and Sort\nEvent List)
+  (Search and Sort\nEvent List) -down- (Modify Event List\n[Add, Delete, Edit])
+  (Calculate stats) -up- (Keep track of\nevent list)
+
+  Summary -right- (Calculate stats)
+  (Itinerary events in event list\nstatistics to user) <. (Calculate stats): include
+
+  TI -left- (Keep track of\nevent list)
+  (Keep track of\nevent list) .left.> (Update event list visually\nreflecting changes made): result in
+  (Modify Event List\n[Add, Delete, Edit]) -down- (Keep track of\nevent list)
+}
+
+Summary -[hidden]up-> User
+Summary -[hidden]up-> TI
+TI -[hidden]up-> User
+
+
+'!include ../../plantuml-styles/ae-copyright-footer.txt
+@enduml

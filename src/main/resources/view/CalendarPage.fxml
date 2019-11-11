@@ -26,12 +26,12 @@
                             </Menu>
                             <Menu mnemonicParsing="false" text="Code">
                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Git code" />
+                                    <MenuItem mnemonicParsing="false" onAction="#handleCode" text="Git code" />
                                 </items>
                             </Menu>
                             <Menu mnemonicParsing="false" text="Help">
                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Help" />
+                                    <MenuItem mnemonicParsing="false" onAction="#handleHelp" text="Help" />
                                 </items>
                             </Menu>
                         </menus>

@@ -10,7 +10,6 @@ public class TitleParseException extends DiaryEntryParseException {
                     "2) Title can't be too long (maximum of 50 characters).";
 
     /**
-     *
      * @return String representation of the Error message
      */
     @Override

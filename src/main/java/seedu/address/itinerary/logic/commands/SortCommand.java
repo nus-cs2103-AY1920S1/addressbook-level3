@@ -14,8 +14,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public class SortCommand extends Command<Model> {
     public static final String COMMAND_WORD = "sort";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
-            + "Sort based on the following format: sort by/[title | location | chronological "
-            + "| completion | priority].\n"
+            + "Sort based on the following format: sort by/[title] [location] [chronological] "
+            + "[completion] [priority].\n"
             + "Example: sort by/title";
     public static final String MESSAGE_FAIL = "You have gave an invalid sorting condition!\n"
             + "Valid sorting condition: title, location, chronological, completion, priority.\n"

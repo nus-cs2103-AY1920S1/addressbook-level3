@@ -7,58 +7,51 @@
 
 Package " "<<Rectangle>>{
     Class GUI UI_COLOR
-    Class TextUI UI_COLOR
     Class "Main Window" as MainWin UI_COLOR_T2
-    Class Calendar UI_COLOR_T2
-    Class Itinerary UI_COLOR_T2
-    Class "Financial Tracker" as Tracker UI_COLOR_T2
-    Class "Travel Diary" as Diary UI_COLOR_T2
-    Class Achievements UI_COLOR_T2
-    Class Logic LOGIC_COLOR
-    Class Storage STORAGE_COLOR
-    Class Model MODEL_COLOR
+    Class "Logic\nManager" as LM LOGIC_COLOR
+    Class "Logic\nXYZ" as LXYZ LOGIC_COLOR_T2
+    Class "Storage\nManager" as SM STORAGE_COLOR
+    Class "Storage\nXYZ" as SXYZ STORAGE_COLOR_T2
+    Class "Page\nManager" as PM MODEL_COLOR_T2
+    Class "Page\nXYZ" as PXYZ MODEL_COLOR_T3
+    Class "Model\nManager" as MM MODEL_COLOR_T2
+    Class "Model\nXYZ" as MXYZ MODEL_COLOR_T3
     Class Main MODEL_COLOR_T1
     Class Commons LOGIC_COLOR_T2
     Class "Log Center" as Logs UI_COLOR_T1
-    Class "Test Driver\nJunit Test" as Test MODEL_COLOR_T4
+    Class "User Pref\nStorage" as UPS STORAGE_COLOR_T3
+    Class "User Pref\nModel" as UPM MODEL_COLOR_T4
 }
 
 Class "<$user>\nUser" as User MODEL_COLOR_T2
-Class "<$administrator>\nDeveloper" as Developer MODEL_COLOR_T2
-Class "<$documents>\nJson Files" as File UI_COLOR_T1
+Class "<$documents>\nJson File\nXYZ" as File UI_COLOR_T1
 
-GUI -> Logic
-GUI -right-> Model
-GUI -up-> Calendar
-GUI -up-> Itinerary
-GUI -up-> Diary
-GUI -up-> Tracker
-GUI -up-> Achievements
-GUI -up-> MainWin
+Main -down-> GUI
+Main -down-> LM
+Main -down-> SM
+Main -down-> MM
 
-Calendar -up-> Main
-Itinerary -up-> Main
-Diary -up-> Main
-Tracker -up-> Main
-Achievements -up-> Main
-MainWin -up-> Main
+User -> GUI
 
-Itinerary -right-> Calendar
+GUI -down-> MainWin
+MainWin -down-> PM
+PM -down-> PXYZ
+PXYZ -up-> LXYZ
 
-Logic -right-> Storage
-Logic -down-> Model
+LM -down-> LXYZ
+LXYZ -down-> MXYZ
+LXYZ -down-> SXYZ
 
-TextUI -up-> GUI
-TextUI .up.> Commons
-Logic .up.> Commons
-Storage .up.> Commons
+SM -down-> UPS
 
-Logs -right- Commons
-Storage .right.>File
-User -right-> GUI
-User <--> TextUI
-Test -up-> TextUI
-Developer -up[hidden]-> User
-Developer <-right-> Test
+MM -down-> UPM
+
+LXYZ .down.> Commons
+Main .down.> Commons
+Logs -up- Commons
+
+
+SXYZ .left.> File
+UPS .right.> File
 
 @enduml

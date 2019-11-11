@@ -21,7 +21,7 @@ public class DoneEventCommand extends Command<Model> {
     public static final String MESSAGE_SUCCESS = "Processing...\nDone!\n"
             + "Your event has been marked done successfully. Yay! :^)";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Mark the event of the specified event as done.\n"
-            + "Format: done [index]";
+            + "Format: done INDEX";
     private final Index index;
 
     /**

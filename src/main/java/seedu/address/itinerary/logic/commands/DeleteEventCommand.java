@@ -18,7 +18,7 @@ public class DeleteEventCommand extends Command<Model> {
     public static final String MESSAGE_SUCCESS = "Processing...\nDone!\n"
             + "Your event has been deleted successfully. Yay! :^)";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes the event based on the specified index.\n"
-            + "Format: delete [index]";
+            + "Format: delete INDEX";
 
     private final Index index;
 

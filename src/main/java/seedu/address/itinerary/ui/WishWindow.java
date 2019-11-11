@@ -7,7 +7,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.ui.UiPart;
 
 /**
- * Wish command will be implemented in v2.0.
+ * Wish command will be implemented in v2.0 instead.
  */
 public class WishWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(WishWindow.class);
