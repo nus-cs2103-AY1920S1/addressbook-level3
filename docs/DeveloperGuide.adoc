@@ -189,6 +189,8 @@ We organize different data classes into packages (e.g. `Problem`), inside which 
 .Structure of the Problem Package
 image::design/model/ProblemPackageDiagram.png[width="75%"]
 
+Note that we don't require plans to be unique, thus unlike problems' collection class is named `UniqueProblemList`, plan's collection is simply named `PlanList`.
+
 .Structure of the Plan Package
 image::design/model/PlanPackageDiagram.png[width="50%"]
 
@@ -198,11 +200,15 @@ image::design/model/TagPackageDiagram.png[width="30%"]
 .Structure of the Task Package
 image::design/model/TaskPackageDiagram.png[width="30%"]
 
+Both `problemsearchrule` and `plansearchrule` are packaged under `searchrule` and they share similar internal structure - note that saving find rule feature only supports saving **problem** search rule, thus there's no subclass for `FindPlanDescriptor`.
+
 .Structure of the ProblemSearchRule Package
 image::design/model/ProblemSearchRulePackageDiagram.png[width="60%"]
 
 .Structure of the PlanSearchRule Package
 image::design/model/PlanSearchRulePackageDiagram.png[width='90%']
+
+As we support preserving the GUI state, we included `GuiState` as a part of **AlgoBase**'s model.
 
 .Structure of the GUI Package
 image::design/model/GuiPackageDiagram.png[width='60%']
