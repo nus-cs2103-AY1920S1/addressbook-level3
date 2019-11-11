@@ -206,14 +206,13 @@ Commands below are come other example commands:
 ==== Editing previous meal entry : `edit`
 
 Edits a meal that the user previously ate today. +
-Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [tr/TAGSTOREMOVE]` +
-The input of at least 1 field (either NAME, CALORIES, TAGS or TAGSTOREMOVE) is required.
-
-Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [t/TAGS]` +
+Format: `edit MEAL-NUMBER [n/<<mealname-syntax, MEAL-NAME>>] [c/<<calories-syntax, CALORIES>>] [t/TAGS] [tr/TAGSTOREMOVE]` +
 The input of at least 1 field (either NAME, <<calories-syntax, CALORIES>> or TAGS) is required.
-A mix of the different fields is possible as well.
-//with the exception of TAGS and TAGSTOREMOVE.
-//This means if you use the TAGS flag (t/), you cannot use the TAGSTOREMOVE flag (tr/).
+A mix of the different fields is possible as well with some restrictions stated below.
+
+[NOTE]
+You cannot add tags and clear all tags at the same time. (i.e. You cannot execute a command that
+contains both "t/" and "t/[TAGS]".)
 
 Example usages: +
 While rushing to type in the meals, you misspelled "Mushroom Soup" as "Mushroom Soop" and
