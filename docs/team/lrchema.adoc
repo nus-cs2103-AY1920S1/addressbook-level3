@@ -9,9 +9,16 @@
 
 == About the Project
 
-My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop address book application for our Software Engineering project.
+My team of 4 software engineering students and I were tasked with either enhancing or morphing a basic command line
+interface desktop address book application for our Software Engineering project. We decided to morph the application,
+keeping a similar underlying architecture but changing the purpose entirely.
 
-We’re living in a fast paced, stressful world where things are constantly changing; and so are our tasks. We thought it would be helpful to have an application to aid us in managing these tasks, so we chose to morph the address book into a student assistant with a personality to liven up our dreary days, and we called her ELISA. This application enables users to add and track various tasks and events, as well as receive reminders for them. The assistant is in the form of a chat bot, and she has been given a sassy and humorous personality in order to enhance the user experience.
+We are living in a fast paced, stressful world where things are constantly changing; and so are our tasks. We thought it
+would be helpful to have an application to aid us in managing these tasks, so we chose to morph the address book into a
+student assistant with a personality to liven up our dreary days, and we called her ELISA (Exceptionally Loud and
+Intelligent Student Assistant). This application enables users to add and track various tasks and events, as well as
+receive reminders for them. The assistant is in the form of a chat bot, and she has been given a sassy and humorous
+personality in order to enhance the user experience.
 
 This is how our user interface looks like:
 
@@ -51,11 +58,11 @@ My role was to implement the undo and redo functionality as well as give ELISA m
 *** Reviewed and gave suggestions on how to improve the ELISA logo my teammate Chengyi created, which were implemented in the final version of the logo.
 The logo before, which looks cute and innocent
 
-image::lrchema/elisaBefore.PNG[]
+image::lrchema/elisaBefore.PNG[][, 200]
 
 and the logo after, which is more confident and sassy
 
-image::lrchema/elisaAfter.PNG[]
+image::lrchema/elisaAfter.PNG[][, 200]
 
 *** Created a chime sound for the reminder function, used in https://github.com/AY1920S1-CS2103T-T10-3/main/pull/157[PR #157]
 
@@ -79,6 +86,8 @@ include::../UserGuide.adoc[tag=joke]
 |===
 
 include::../DeveloperGuide.adoc[tag=undobyreverse]
+
+include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=userstories]
 
