@@ -157,15 +157,11 @@ FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 // tag::view[]
 === Viewing flashcards in library: `view`
 
-View the flashcard decks or the individual flashcards in a specific deck
+View the individual flashcards in a specific deck
 
-Format: `view [deck/DECK_NAME]`
+Format: `view deck/DECK_NAME`
 
-Examples:
-
-* `view` +
-
-Displays all the decks of cards in the library
+Example:
 
 * `view deck/science_deck` +
 

@@ -533,11 +533,21 @@ public enum Responses {
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, d.getMessage());
                         return true;
                     }
-
-
                     return true;
                 } //done
     ),
+    /*
+    SEE_ALL_DECK(
+            "^((?i)view)\\s*",
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    //Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Invalid deck name!");
+                    Consumers.doTask(ConsumerSchema.RENDER_LIST, true);
+                    return true;
+                }
+    ),
+
+     */
     SEE_SPECIFIC_DECK_ERROR(
             "^((?i)view).*",
             new ResponseGroup[]{ResponseGroup.DEFAULT},
