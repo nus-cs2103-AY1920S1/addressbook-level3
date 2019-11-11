@@ -1319,3 +1319,34 @@ Expected: The imported events and tasks should be the same as when they were exp
 .. Test case: `add_task "Test Task" --due "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"`
    Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
 // end::notifmanualtesting[]
+
+// tag::uiManualTest[]
+=== Ui System
+
+. Change between different UI views
+.. Prerequisites: Make sure you are on a different view panel than the one you are going to execute.
+.. Test case: `list` +
+Expected: Changes to the list view panel.
+.. Test case: `log` +
+Expected: Changes to the log view panel.
+.. Test case: `calendar` +
+Expected: Changes to the calendar view panel.
+
+. Change date of the calendar without changing the timeline.
+.. Test case: `calendar --date "10/2019"` +
+Expected: Calendar date will change accordingly
+.. If you are not in the calendar view panel, it should change the current view to the calendar view.
+
+. Change date of the timeline in calendar view
+.. Test case: `week dd/MM/yyyy` +
+Expected: Changes the timeline to the week view containing that day in the given week.
+
+.. Test case: `month MM/yyyy` +
+Expected: Changes the timeline to the month view of the specified month and year.
+
+.. Test case: `day dd/MM/yyyy` +
+Expected: Changes the timeline to the day view of the specified day, month and year.
+
+.. For all the test cases, if you are not in calendar view panel, it should change the current view to the calendar view.
+// end::uiManualTest[]
+
