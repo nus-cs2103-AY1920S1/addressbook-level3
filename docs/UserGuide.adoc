@@ -191,9 +191,13 @@ Format: `deadline MODULE_LIST_NUM a/add d/DESCRIPTION t/TIME p/PRIORITY`
 Adds deadline task consisting of description, time and priority to the respective module.
 Priority inputs are `HIGH`, `MEDIUM` OR `LOW`. Deadline task with `HIGH` priority is displayed in red, `MEDIUM` in yellow
 and `LOW` in green. Deadline list is sorted according to priority and deadline date and time.
-All parameters are compulsory.
+All parameters are compulsory. Date and Time must be in `dd/MM/yyyy HHmm` format.
 
 Example: `deadline 1 a/add d/tutorial 1 t/22/10/2019 2359 p/HIGH`
+
+Here is result of inputting the above command successfully.
+
+image::userguide/AddDeadlineUI.png[width="790"]
 
 ==== `edit`
 
@@ -210,6 +214,7 @@ Example: `deadline 2 a/edit task/2 d/finish increments`
 Format: `deadline MODULE_LIST_NUM a/edit task/TASK_NUMBER_IN_LIST t/NEW_TIME`
 
 Edits time from the deadline task numbered in deadline list for the respective module.
+Date and Time must be in `dd/MM/yyyy HHmm` format.
 
 Example: `deadline 3 a/edit task/2 t/29/10/2018 2359`
 
@@ -221,6 +226,10 @@ Marks the deadline task numbered in deadline list
 as *done* with a tick.
 
 Example: `deadline 1 a/done task/2`
+
+Here is result of inputting the above command successfully.
+
+image::userguide/DoneDeadlineUI.png[width="790"]
 
 ==== `doneAll`
 
@@ -253,7 +262,7 @@ Example: `deadline 1 a/undone task/1`
 
 Format: `deadline MODULE_LIST_NUM a/delete task/TASK_NUMBER_IN_LIST`
 
-Deletes deadline task numbered from the respective module.
+Deletes deadline task numbered in deadline list from the respective module.
 
 Example: `deadline 1 a/delete task/2`
 

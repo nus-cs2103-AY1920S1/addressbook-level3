@@ -4,46 +4,63 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ModuleBookParser" as ModuleBookParser LOGIC_COLOR
+participant ":DeadlineCommandParser" as DeadlineCommandParser LOGIC_COLOR
 participant ":AddDeadlineCommandParser" as AddDeadlineCommandParser LOGIC_COLOR
 participant "a:AddDeadlineCommand" as AddDeadlineCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-skinparam ParticipantFontSize 16
-skinparam defaultFontSize 16
-
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant "deadline:Deadline" as Deadline MODEL_COLOR
 end box
 
-[-> LogicManager : execute("deadline 2 a/add d/ t/ p/")
+[-> LogicManager : execute(USER_INPUT)
 activate LogicManager
 
-LogicManager -> ModuleBookParser : parseCommand("deadline 2 a/add d/ t/ p/")
+LogicManager -> ModuleBookParser : parseCommand("deadline 1 a/add ..")
 activate ModuleBookParser
 
+create DeadlineCommandParser
+ModuleBookParser -> DeadlineCommandParser
+activate DeadlineCommandParser
+
+DeadlineCommandParser --> ModuleBookParser
+deactivate DeadlineCommandParser
+
+ModuleBookParser -> DeadlineCommandParser : parse("MODULE_INDEX a/add... ")
+activate DeadlineCommandParser
+
 create AddDeadlineCommandParser
-ModuleBookParser -> AddDeadlineCommandParser
+DeadlineCommandParser -> AddDeadlineCommandParser
 activate AddDeadlineCommandParser
 
-AddDeadlineCommandParser --> ModuleBookParser
-deactivate AddDeadlineCommandParser
+DeadlineCommandParser -> AddDeadlineCommandParser : parse("MODULE_INDEX a/add ...")
 
-ModuleBookParser -> AddDeadlineCommandParser : parse("deadline 2 a/add d/ t/ p/")
-activate AddDeadlineCommandParser
+create Deadline
+AddDeadlineCommandParser -> Deadline : Deadline(MODULE_INDEX, DESCRIPTION, TIME)
+activate Deadline
+
+Deadline --> AddDeadlineCommandParser : deadline
+deactivate Deadline
 
 create AddDeadlineCommand
-AddDeadlineCommandParser -> AddDeadlineCommand
+AddDeadlineCommandParser -> AddDeadlineCommand : AddDeadlineCommand(MODULE_INDEX, deadline)
 activate AddDeadlineCommand
 
 AddDeadlineCommand --> AddDeadlineCommandParser : a
 deactivate AddDeadlineCommand
 
-AddDeadlineCommandParser --> ModuleBookParser : a
+AddDeadlineCommandParser --> DeadlineCommandParser: a
 deactivate AddDeadlineCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddDeadlineCommandParser -[hidden]-> ModuleBookParser
+AddDeadlineCommandParser -[hidden]-> DeadlineCommandParser
 destroy AddDeadlineCommandParser
+
+DeadlineCommandParser --> ModuleBookParser : a
+deactivate DeadlineCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeadlineCommandParser -[hidden]-> ModuleBookParser
+destroy DeadlineCommandParser
 
 ModuleBookParser --> LogicManager : a
 deactivate ModuleBookParser
@@ -51,10 +68,13 @@ deactivate ModuleBookParser
 LogicManager -> AddDeadlineCommand : execute()
 activate AddDeadlineCommand
 
-AddDeadlineCommand -> Model : updateFilteredModuleList(pred)
+AddDeadlineCommand -> Model : showAllTrackedModules()
 activate Model
 
-Model --> AddDeadlineCommand
+Model -> Model : updateDisplayedList()
+activate Model
+
+Model --> Model
 deactivate Model
 
 AddDeadlineCommand -> Model : addDeadline(Deadline)
