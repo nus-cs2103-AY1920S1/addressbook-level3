@@ -58,6 +58,14 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
+Note:
+
+** GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
+** Some windows are not yet optimised for perfect viewing. [Coming in V2.0]
+
+In such cases, please use scroll bar to view the windows properly.
+
+//@@author huiminlim
 ====
 *Command Format*
 
@@ -66,6 +74,7 @@ image::Ui.png[width="790"]
 * Items with `…` after them can be used multiple times including zero times.
 * Commands are case-sensitive.
 ====
+//@author
 
 // tag::cli[]
 ====
@@ -74,7 +83,7 @@ image::Ui.png[width="790"]
 * After keying in a command, press up and down arrow keys to navigate your command history.
 * If in multiline editing mode, press (Ctrl+d) to submit the multiline text
 ====
-
+//end::cli[]
 
 // tag::help[]
 === Show help page for commands available : `help`
@@ -148,15 +157,11 @@ FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 // tag::view[]
 === Viewing flashcards in library: `view`
 
-View the flashcard decks or the individual flashcards in a specific deck
+View the individual flashcards in a specific deck
 
-Format: `view [deck/DECK_NAME]`
+Format: `view deck/DECK_NAME`
 
-Examples:
-
-* `view` +
-
-Displays all the decks of cards in the library
+Example:
 
 * `view deck/science_deck` +
 
@@ -248,7 +253,82 @@ Creates a new Multiple Choice card in deck `german`, with the answer as the firs
 
 === Add new Javascript card or Java Card
 
-(TBC)
+****
+In our app, you can make a flash card that asks you to write code and test it against test cases that you have supplied during card creation. Two languages are available for use: Java and JavaScript. Currently, you need to use the GUI to make these cards.
+
+To begin creating either card:
+
+- Click on an existing deck.
+- In the deck display window click on `Change name/Add question` to add a new card.
+- In the card creation window, select either `Java` or `JavaScript`.
+
+To make a Java Card
+
+- Enter a question that tells you what code to write. An example question would be:
+
+    Write a program to read in strings and print out each string with all alphabetical characters in uppercase.
+
+- Test cases for Java Cards are as follows:
+** Enter input that you want to be fed into your program into the box that says `Enter input...`. +
+
+Example (for the question above):
+
+     helloWorld
+     12345myName
+     letters&&Numbers
+
+** Then, in the box to the right that says `Enter expected output`, type what your program should print out "to the console". +
+
+Example (for the question above):
+
+      HELLOWORLD
+      12345MYNAME
+      LETTERS&&NUMBERS
+
+
+* Do not put whitespace behind or in front of each line of your input or output if the whitespace is not intended. The Java Card's output comparison checker is sensitive to any differences between your program's output and expected output.
+* You cannot enter empty outputs but an empty input is ok.
+* To enter another test case, click on `Add` and a new row of input and output boxes will appear.
+* To delete a test case row, click `Delete`.
+* Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new Java Card.
+
+To make a JavaScript Card
+
+- Enter a question that tells you what code to write. +
+
+
+  Task: Write a function called addExclam(str) that takes in a string and adds a "!". Input: A string. Output: The string with a "!" at the back.
+
+- Test cases for JavaScript Cards are as follows:
+** JavaScript cards use an `assert` function to check if your function is correct. The first argument to the assert is a call to your function. The second argument to the assert is the output you expect your function to give.
+** Enter your asserts like so: +
+
+    assert(addExclam("Hello"), "Hello!");
+    assert(addExclam("123"), "123!");
+    assert(addExclam("I love you!"), "I love you!!");
+
+What `assert(addExclam("Hello"), "Hello!")` does is to compare the result of `addExclam("Hello")` against your expected output `"Hello!"` to see if they are exactly equal.
+
+* If your assert calls the wrong function like `addexclam` instead of `addExclam`, your asserts will fail.
+* If your asserts have the wrong expected output in the first place such as `assert(addExclam("I love you!"), "I love you!");` where the expected output is missing an additional exclamation mark, your asserts will fail even if you have the correct function.
+* Advanced use case: You can technically write multiple functions in the same JavaScript Card program. Then just put in asserts that call each function: +
+
+    assert(addExclam("Hello"), "Hello!");
+    assert(addFive(123), 128);
+    assert(addExclam("I love you!"), "I love you!!");
+
+and if you write both the correct `addExclam` and `addFive` functions, the card can test both functions for you. +
+
+       Example program:
+
+       const addExclam = str => str + "!";
+       const addFive = i => i + 5;
+
+** The card expects you to write asserts as shown and nothing else. If you write checks like `addOne(1) == 2`, the JavaCard's `assert` function cannot be used to check how many test cases you have, and how many you passed.
+** Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new JavaScript Card.
+
+** Once you have clicked `Add Card`, click on `Done` to finish your card creating session. You are now ready to test yourself.
+****
 
 
 // tag::edit[]
@@ -340,12 +420,15 @@ Example:
 
 // end::redo[]
 
+// tag::test[]
 === Start test with flashcards : `test`
+
+image::StartTestCommand.png[width="650", align="center"]
 
 ****
 Starts a test with a deck of flashcards, with the choice of a timed or un-timed test mode, with the duration specified by the user.
 
-Format: `test deck/DECK_NAME duration/TIME_LIMIT`
+Format: `test deck/DECK_NAME duration/DURATION_IN_SECONDS`
 
 Examples:
 
@@ -360,6 +443,9 @@ Starts a timed test of 100 seconds with the deck of cards, `science_deck`
 Do note that only the results of the *first attempt* of each question will be counted in each test. Repeat attempts are allowed for a better learning experience, but will not contribute towards score.
 ****
 
+[TIP]
+Note that test creates the test deck by taking a subset of questions from the entire deck! So don't expect the entire deck to be inside :)
+
 ==== Get next card: `next`
 
 Gets the next card in the test deck.
@@ -370,46 +456,61 @@ If there are no more cards, will trigger a popup with test results.
 
 Gets the previous card in the test deck.
 
-// tag::stop[]
 ==== Quit test: `exit`
 
-Exits the test process when the user is in test mode.
+image::ExitCommand.png[width="650", align="center"]
 
-Exams will also terminate automatically upon running out of cards in the test deck.
+Exits test mode.
 
 Triggers a popup with the results of the test.
 
-Do note that premature ending of a test will still count towards your Statistics.
+Popup will also automatically be triggered upon reaching the end of the deck.
+
+However, upon reaching the end of the deck, the user will be able to review and reattempt questions (though it will not count towards the user's score)
+
+[TIP]
+Do note that premature ending of a test will still count towards your User Statistics.
 
 ==== Front-Back Cards: `front`, `back`, `correct`, `wrong`
+
+image::FrontBack.png[]
 
 ====
 * Users should look at the question on the front of the card and think of their answer.
 
 * Once they have their answer, they can type `back` to view the answer on the back on the card.
 
-* They will then be able to type `correct` or `wrong` to count their results.
+* Once on the card back, one can type `correct` or `wrong` to count their results, which will automatically take them to the next question.
 
 * They can type `front` when they are on the card back to relook at the question.
 ====
 
 ==== Multiple Choice Cards: `<INDEX_OF_CORRECT_ANSWER>`, `front`
+
+image::MCQCard.png[]
+
 ====
 * Upon loading the card, users will be presented with the question and several choices.
 
 * Users will be able to key in their choice into the command bar, with the top most option as 1 and increasing downwards. Do note only numbers are accepted.
 
-* Keying in the answer will automatically flip the card and evaluate the answer. Users can then use `front` to relook at the question.
+* Keying in the answer will automatically flip the card and evaluate the answer. Users can then use `front` to relook at the question or `next` to go to the next question.
 ====
 
 ==== Java/Javascript Cards: `code`
+image::JsJavaCard.png[]
+
 ====
 * Upon loading the card, users will be presented with a coding question.
 
 * They can then type `code` to launch the appropriate Java/Javascript coding playground to code their programs.
 
 * Upon running their programs, if they pass all test cases, their results will automatically be counted.
+
+* Users can then type `next` to go to the next question.
 ====
+//end::test[]
+
 // tag::stats[]
 === Viewing user statistics : `stats`
 
@@ -468,6 +569,10 @@ Example:
 *Q*: If I use Undo and make changes to an old version of a deck, will redo recover my original deck before the Undo command? +
 *A*: Unfortunately, the original deck before the Undo is unrecoverable. As such, please be mindful of making any changes to a recovered deck as this will erase any version of decks before the Undo!
 
+*Q*: Will I be able to review my mistakes after a test? +
+*A*: Yes! Test mode allows you to review all the questions in the test and even re-attempt them without changing your initial test score.
+
+
 // end::FAQ[]
 
 // tag::summary[]
@@ -491,7 +596,7 @@ e.g. `view deck/science_deck`
 * e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
 * *undo* : `undo`
 * *redo* : `redo`
-* *test* : `test deck/DECK_NAME duration/TIME_LIMIT_ALLOWED` +
+* *test* : `test deck/DECK_NAME duration/DURATION_IN_SECONDS` +
 e.g. `test deck/science_deck duration/0` +
 e.g. `test deck/science_deck duration/100`
 ====

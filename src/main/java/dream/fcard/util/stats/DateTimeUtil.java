@@ -90,6 +90,13 @@ public class DateTimeUtil {
         return new JsonValue(obj);
     }
 
+    /**
+     * Gets the LocalDateTime value of a JsonObject.
+     * @param obj The JsonObject.
+     * @return The resulting LocalDateTime value.
+     * @throws JsonWrongValueException
+     * @throws NullPointerException
+     */
     public static LocalDateTime getDateTimeFromJson(JsonObject obj) throws
             JsonWrongValueException, NullPointerException {
         return LocalDateTime.of(
@@ -104,6 +111,11 @@ public class DateTimeUtil {
     //@@author
 
     //@@author nattanyz
+    /**
+     * Computes and returns the average duration of sessions in the given SessionList.
+     * @param sessionList The given SessionList.
+     * @return The average duration of sessions in the given SessionList.
+     */
     public static Duration getAverageDuration(SessionList sessionList) {
         Duration totalDuration = Duration.ZERO;
         ArrayList<Session> sessionsArrayList = sessionList.getSessionArrayList();
@@ -116,8 +128,12 @@ public class DateTimeUtil {
         Duration averageDuration = totalDuration.dividedBy(numberOfSessions);
         return averageDuration;
     }
-    // todo: generate cut-off date for "past week", "past month" etc to pass to Stats class
 
+    /**
+     * Gets the cut off date for one week before the given date, beginning at midnight.
+     * @param from The given date to use in the calculation.
+     * @return A LocalDateTime object representing a date one week before the given date.
+     */
     public static LocalDateTime getLastWeekCutoffDate(LocalDateTime from) {
         LocalDateTime lastWeek = from.minusWeeks(1).truncatedTo(DAYS);
         return lastWeek;

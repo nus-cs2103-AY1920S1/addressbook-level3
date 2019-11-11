@@ -3,6 +3,7 @@ package dream.fcard.logic.exam;
 import java.util.ArrayList;
 
 import dream.fcard.gui.controllers.displays.test.EndOfTestAlert;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.cards.FlashCard;
 
 /**
@@ -22,7 +23,7 @@ public class ExamRunner {
      * @param duration contains duration of exam in seconds.
      */
     public static void createExam(ArrayList<FlashCard> deck, int duration) {
-        exam = new UntimedExam(deck, duration);
+        exam = new StandardExam(deck, duration);
         examOngoing = true;
     }
 
@@ -37,6 +38,7 @@ public class ExamRunner {
      */
     public static void terminateExam() {
         String result = exam.getResult();
+        StatsHolder.getDeckStats().endCurrentSession(result);
         EndOfTestAlert.display("Results", "Final Score: " + result);
         examOngoing = false;
     }

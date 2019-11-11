@@ -47,8 +47,8 @@ Responsibilities: In charge of Storage, JSON Parsing, cli interface. Heavily con
 '''
 
 === Shawn Chew
-image::shawnpunchew11.jpg[width="150", align="left"]
-{empty}[https://github.com/shawnpunchew11[github]] [<<johndoe#, portfolio>>]
+image::shawnpunchew11.png[width="150", align="left"]
+{empty}[https://github.com/shawnpunchew11[github]] [<<shawnpunchew11#, portfolio>>]
 
 Role: Developer +
 Responsibilities: TBC

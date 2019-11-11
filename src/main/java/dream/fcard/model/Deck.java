@@ -7,15 +7,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.DeepCopy;
 import dream.fcard.util.json.JsonInterface;
-import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -36,9 +35,7 @@ public class Deck implements JsonInterface {
     /** List of FlashCards with Low priority levels. */
     private ArrayList<FlashCard> lowPriorityList;
 
-    /** List of sessions the user has engaged in involving this Deck. */
-    private SessionList testSessionList;
-
+    //@@author huiminlim
     /**
      * Constructor to create a Deck with no name and cards.
      */
@@ -49,7 +46,6 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
         highPriorityList = new ArrayList<>();
         lowPriorityList = new ArrayList<>();
-        testSessionList = new SessionList();
     }
 
     /**
@@ -63,7 +59,6 @@ public class Deck implements JsonInterface {
 
         highPriorityQueue = new ArrayList<>();
         lowPriorityQueue = new ArrayList<>();
-        testSessionList = new SessionList();
     }
 
     /**
@@ -79,11 +74,12 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
 
         addCardsToQueues(initialCards);
-        testSessionList = new SessionList();
     }
 
     /**
-     * @param list
+     * Adds cards to the priority queue.
+     *
+     * @param list ArrayList of cards to add to queue.
      */
     private void addCardsToQueues(ArrayList<FlashCard> list) {
         for (int i = 0; i < list.size(); i++) {
@@ -101,6 +97,7 @@ public class Deck implements JsonInterface {
             }
         }
     }
+    //@author
 
     /**
      * Render all the cards of the deck in a list.
@@ -132,23 +129,13 @@ public class Deck implements JsonInterface {
             cardJson.add(card.toJson());
         }
 
-        JsonArray sessionsJson = new JsonArray();
-        ArrayList<Session> testSessionArrayList = testSessionList.getSessionArrayList();
-        for (Session s : testSessionArrayList) {
-            try {
-                sessionsJson.add(s.toJson().getObject());
-            } catch (JsonWrongValueException e) {
-                System.out.println("SESSION JSON EXPECTED TO BE OBJECT\n" + e.getMessage());
-            }
-        }
-
         JsonObject obj = new JsonObject();
         obj.put(Schema.DECK_NAME, deckName);
         obj.put(Schema.DECK_CARDS, cardJson);
-        obj.put(Schema.DECK_SESSIONS, sessionsJson);
         return new JsonValue(obj);
     }
 
+    //@@author huiminlim
     /**
      * Adds new card to the ArrayList of card objects.
      *
@@ -207,7 +194,9 @@ public class Deck implements JsonInterface {
             }
         }
     }
+    //@author
 
+    //@@author huiminlim
     /**
      * Edit front of card.
      *
@@ -225,12 +214,14 @@ public class Deck implements JsonInterface {
         FlashCard cardToChange = cards.get(indexProvided);
         cardToChange.editFront(newFront);
     }
+    //@author
 
     @Override
     public String toString() {
         return getDeckName();
     }
 
+    //@@author
     /**
      * Edit back of card.
      *
@@ -344,6 +335,7 @@ public class Deck implements JsonInterface {
         return list.get(chosenCardIndex);
     }
 
+
     /**
      * Checks if a user provided index is valid.
      * Uses provide index that is 1-based, i.e. 1, 2, 3, etc.
@@ -356,6 +348,7 @@ public class Deck implements JsonInterface {
     private boolean isIndexProvidedByUserValid(int indexProvided) {
         return indexProvided <= cards.size() && indexProvided > 0;
     }
+    //@author
 
     public Deck duplicateMyself() {
         return new Deck(DeepCopy.duplicateCards(cards), deckName);
@@ -364,12 +357,7 @@ public class Deck implements JsonInterface {
     //@@author nattanyz
     /** Get the SessionList pertaining to this deck. */
     public SessionList getTestSessionList() {
-        return this.testSessionList;
-    }
-
-    /** Set the SessionList pertaining to this deck. */
-    public void setTestSessionList(SessionList testSessionList) {
-        this.testSessionList = testSessionList;
+        return StatsHolder.getDeckStats().getSessionListForDeck(getDeckName());
     }
 
     /** Get number of cards in this deck.*/
@@ -379,24 +367,20 @@ public class Deck implements JsonInterface {
 
     /** Get the number of sessions for this deck. */
     public Integer getNumberOfSessions() {
-        return this.testSessionList.getNumberOfSessions();
+        return this.getTestSessionList().getNumberOfSessions();
     }
 
-    /**
-     *
-     *
-     * @return
-     */
-    public int getSize() {
-        return cards.size();
+    /** Gets the average score of the test sessions for this deck. */
+    public String getAverageScore() {
+        return this.getTestSessionList().getAverageScore();
     }
-
-    /** Get the average score for the sessions has engaged in pertaining to this deck. */
-    //public Double getAverageScore() {
-    //    return this.deckStats.getAverageScore();
-    //}
     //@@author
 
+    /**
+     * Returns a duplicate of the deck.
+     *
+     * @return Deck object of the duplicated deck.
+     */
     public Deck duplicate() {
         ArrayList<FlashCard> duplicated = new ArrayList<>();
 

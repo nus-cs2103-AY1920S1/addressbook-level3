@@ -25,12 +25,6 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
-image::ArchitectureDiagram_FlashCardPro.png[]
-
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
-
-
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
@@ -45,14 +39,7 @@ The rest of the App consists of four components.
 * <<Design-Util,*`Utilities`*>>: Shared resources of the App.
 
 
-
 [discrete]
-==== How the architecture components interact with each other
-
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user <<TBC>>.
-
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram_FlashCardPro.png[]
 
 The sections below give more details of each component.
 
@@ -89,9 +76,7 @@ image::ModelClassDiagram_FlashCardPro.png[]
 
 // tag::cards[]
 
-
-
-.`FlashCard`,
+`FlashCard`:
 
 * There are 3 types of cards used by our App, the `JavascriptCard`, `FrontBackCard` and `MultipleChoiceCard`.
 
@@ -245,30 +230,7 @@ If all parsing types fail, there must be an error with the string input, thus a 
 The JsonParser is designed to be a utility class with a pure function without any mutation of state.
 Thus it should be self contained within a single function call.
 
-== [Proposed] Saving User Statistics feature
-=== Proposed Implementation
-
-==== Design Considerations
-
-===== Aspect: How saving executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-
-
+== Implementation
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -294,35 +256,84 @@ The GUI of the application is started up by the `UiManager` class, when the appl
 The `GUI` class handles operations on the GUI, such as rendering nodes to the application window,
 and passing user command input to the `Responder` class.
 
-=== Timed/Untimed Test
-==== Proposed Implementation
+// tag::test[]
 
-The timed/untimed test is a exam mechanism facilitated by the `ExamRunner` class which extends from the `Exam` interface.
+=== Test
+==== Implementation
 
-Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step.
+The timed/un-timed test is a exam mechanism whereby users can enter a test mode that allows users to test themselves using the various flashcards. Users will then be notified of their results at the end of the test and will also have the chance to review their answers and reattempt questions.
 
-Step 1. User keys in the command `test <duration> <deck name>` (Eg. test 120 German)
+The overall test architecture is depicted in the class diagram below.
 
-Step 2. If `<duration>` is 0, untimed test will be initiated. Else, a timed test will be initiated.
+image::TestClassDiagram.png[]
 
-Step 3. User will be showed the card front, and prompted for a String answer.
+Tests are driven by the main `ExamRunner` class which ensures that only a single `Exam` object exists at any point in time.
 
-Step 4. Answer will be evaluated against the card back, and if it is correct, score will be updated.
+`Exam` objects are where the bulk of the test logic resides. They each will also contain *ONE* `Results` object that keeps track of score.
 
-The following activity diagram displays the action flow of the test mechanism.
+The sequence diagram of the three classes is as follows:
 
-image::ExamRunnerActivityDiagram.png[]
+image::TestSequenceDiagram.png[]
+
+Given below is an example usage scenario and how the timed/untimed mechanism behaves at each step. The activity diagrams for Timed and Untimed Tests are also as follows:
+
+image::UntimedTestActivityDiagram.png[]
+image::TimedTestActivityDiagram.png[]
+
+
+=====
+Step 1. User keys in the command `test deck/DECK_NAME duration/DURATION_IN_SECONDS` (Eg. test deck/german duration/0)
+
+Step 2. If `DURATION_IN_SECONDS` is 0, untimed test will be initiated. Else, a timed test will be initiated.
+
+Step 3. A question will be loaded and user answers the question.
+
+Step 4. Answer will be evaluated and if it is correct, score will be updated.
+
+Step 5. For untimed test, repeat steps 3 and 4 until the end of deck is reached. For timed test, repeat steps 3 and 4 until either end of deck is reached or time runs out.
+
+Step 6. If end of deck is reached, a popup will be triggered with the user's final score.
+
+Step 7. Upon closing that popup, users will be able to review their mistakes and reattempt all questions (but it will not contribute to their score).
+
+Step 8. When the user is done reviewing, he can type `exit` or click `Exit Session` to exit test mode and go back to the main Deck Display screen. Users can also use this command prematurely to exit test mode mid-test.
+=====
+
 
 ==== Design Considerations
-===== Aspect: how the timed/untimed test mechanism works
+===== Aspect: Controlling the number of `Exam` instances.
 
-* **Alternative 1:** Use forEach or while loops to iterate through the deck
-** Pros: Ensures that the entire deck will be iterated through
-** Cons: Limited control wihtin the loop
+* **Alternative 1:** Just create `Exam` whenever a user calls for a new test.
+** Pros: Lesser code to write
+** Cons:
+*** Limited control on number of instances of an exam object
+*** Potentially may lead to bugs if not well managed
+*** Hard to simulate a test truly "ending" if an object can persist
 
-* **Alternative 2: (Current Choice)** Use a nextCard method that the GUI can trigger on click
-** Pros: High amount of control as every individual card can be controlled.
-** Cons: More code for a relatively small function
+* **Alternative 2: (Current Choice)** Use a singleton static class that ensures only one instance of `Exam` exists at each point in time.
+** Pros:
+*** Extensive control over the `Exam` object by ensuring that only one instance exists
+*** Exam can be "terminated" to ensure once a test ends, users are unable to re-access it.
+** Cons:
+*** More complex design architecture that requires higher understanding of MVC pattern as well as Consumer Functional Interface
+
+===== Aspect: Management of StandardExam Object
+
+* **Alternative 1:** StandardExam class exists standalone
+** Pros:
+*** Lesser code to write
+*** Lesser complexity in terms of polymorphism
+** Cons:
+*** Not open for extension.
+
+* **Alternative 2: (Current Choice)** Use an `Exam` interface despite only one class inheriting from it
+** Pros:
+*** Allows the project to be open for extension. Developers may potentially develop other kinds of Exam modes (eg. speed round whereby there's a limited time *per card*)
+** Cons:
+*** Relatively redundant at the current version (`v1.4`)
+// end::test[]
+
+
 
 === Running a code flashcard
 .Activity diagram for creating a code flashcard
@@ -462,7 +473,7 @@ _{More to be added}_
 
 [appendix]
 
-// tag::use_case[]
+
 == Use Cases
 
 (For all use cases below, the *System* is the `FlashCard Pro` and the *Actor* is the `learner`, unless specified otherwise)
@@ -625,6 +636,7 @@ Use case ends.
 +
 Steps 6a1-6a3 repeats until the User enters a valid choice.
 
+// tag::use_case[]
 [discrete]
 === Use case: Timed Test with a deck of Multiple Choice Cards
 *MSS*
@@ -689,7 +701,7 @@ Use case ends.
 
 * 1a. User enters duplicated choices.
 ** 1a1. System detects duplicated choices in choices provided by user.
-** 1a2. System tells User that there are duplicates in chocies provided.
+** 1a2. System tells User that there are duplicates in choices provided.
 ** 1a3. System ends card creation.
 +
 Use case ends.

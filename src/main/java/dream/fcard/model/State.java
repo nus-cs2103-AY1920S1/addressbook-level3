@@ -318,5 +318,23 @@ public class State {
         }
         return isEquals;
     }
+
+    /**
+     * Returns the 1-based index of the deck with given deck name.
+     * Assumes the the deck of the deck name exists.
+     *
+     * @param deckName String of name of deck.
+     * @return Integer value of the index of deck.
+     */
+    public int getIndexOfDeck(String deckName) {
+        int i = 0;
+        for (i = 0; i < decks.size(); i++) {
+            String currentName = decks.get(i).getDeckName();
+            if (currentName.equals(deckName)) {
+                break;
+            }
+        }
+        return i + 1;
+    }
     //@@author
 }

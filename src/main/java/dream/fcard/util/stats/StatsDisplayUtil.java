@@ -7,12 +7,13 @@ import dream.fcard.gui.controllers.windows.DeckStatisticsWindow;
 import dream.fcard.gui.controllers.windows.StatisticsWindow;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.UserStatsHolder;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
 
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -32,6 +33,8 @@ public class StatsDisplayUtil {
         stage.getIcons().add(new Image(StatisticsWindow.class.getResourceAsStream(
             "/images/icon_black_resized.png")));
         stage.setTitle("FlashCard Pro: My overall statistics");
+        stage.setMinHeight(600);
+        stage.setMinWidth(600);
         stage.show();
     }
 
@@ -44,6 +47,8 @@ public class StatsDisplayUtil {
         stage.getIcons().add(new Image(DeckStatisticsWindow.class.getResourceAsStream(
             "/images/icon_black_resized.png")));
         stage.setTitle("My statistics for deck: " + deck.getDeckName());
+        stage.setMinHeight(400);
+        stage.setMinWidth(600);
         stage.show();
     }
 
@@ -52,13 +57,7 @@ public class StatsDisplayUtil {
         ArrayList<Session> sessionsArrayList = sessionList.getSessionArrayList();
         TableView<Session> sessionsTableView = new TableView<>();
 
-        // temporary debug
-        for (Session session : sessionsArrayList) {
-            System.out.println("Start: " + session.getSessionStartString());
-            System.out.println("End: " + session.getSessionEndString());
-            System.out.println("Duration: " + session.getDurationString());
-        }
-
+        sessionsTableView.setPlaceholder(new Label("There are no recorded sessions yet!"));
         sessionsTableView.setItems(FXCollections.observableArrayList(sessionsArrayList));
 
         TableColumn<Session, String> startColumn = new TableColumn<>("Start");
@@ -79,7 +78,7 @@ public class StatsDisplayUtil {
 
     /** Creates the TableView object for the user's login sessions. */
     public static TableView<Session> getUserSessionsTableView() {
-        SessionList userSessionList = UserStatsHolder.getUserStats().getSessionList();
+        SessionList userSessionList = StatsHolder.getUserStats().getSessionList();
         return getSessionsTableView(userSessionList);
     }
 
@@ -101,10 +100,10 @@ public class StatsDisplayUtil {
 
     /** Creates the TableView object representing the list of decks. */
     public static TableView<Deck> getDeckTableView() {
-        // for each deck in list of decks in state, get the DeckStats object
         ArrayList<Deck> decks = StateHolder.getState().getDecks();
-
         TableView<Deck> deckTableView = new TableView<>();
+
+        deckTableView.setPlaceholder(new Label("There are no decks yet!"));
         deckTableView.setItems(FXCollections.observableArrayList(decks));
 
         TableColumn<Deck, String> nameColumn = new TableColumn<>("Deck name");
@@ -116,15 +115,13 @@ public class StatsDisplayUtil {
         TableColumn<Deck, Integer> numSessionsColumn = new TableColumn<>("Number of sessions");
         numSessionsColumn.setCellValueFactory(new PropertyValueFactory<>("numberOfSessions"));
 
-        //TableColumn<Deck, Double> avgScoreColumn = new TableColumn<>("Average score");
-        //avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
-        // todo: figure out how to call getAverageScore() on the sessionList instead of also making
-        //  averageScore an attribute of Deck
+        TableColumn<Deck, String> avgScoreColumn = new TableColumn<>("Average score");
+        avgScoreColumn.setCellValueFactory(new PropertyValueFactory<>("averageScore"));
 
         deckTableView.getColumns().add(nameColumn);
         deckTableView.getColumns().add(numCardsColumn);
         deckTableView.getColumns().add(numSessionsColumn);
-        //deckTableView.getColumns().add(avgScoreColumn);
+        deckTableView.getColumns().add(avgScoreColumn);
 
         return deckTableView;
     }

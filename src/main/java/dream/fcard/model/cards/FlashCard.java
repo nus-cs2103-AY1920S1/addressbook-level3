@@ -82,16 +82,41 @@ public abstract class FlashCard implements JsonInterface, Comparable<FlashCard> 
         return this.priority;
     }
 
+    /**
+     * Duplciates the flash card.
+     *
+     * @return FlashCard object duplicated.
+     */
     public abstract FlashCard duplicate();
 
+    /**
+     * Sets the score if correct answer.
+     *
+     * @param isCorrect Boolean indicating correct answer.
+     */
     public abstract void updateScore(Boolean isCorrect);
 
+    /**
+     * Returns result of the card.
+     *
+     * @return Integer value of the score.
+     */
     public abstract int getCardResult();
 
+    /**
+     * Sets the front text of the card.
+     *
+     * @param front String of new front text.
+     */
     public void setFront(String front) {
         this.front = front;
-    };
+    }
 
+    /**
+     * Sets the back text of the card.
+     *
+     * @param back String of new back text.
+     */
     public void setBack(String back) {
         this.back = back;
     }
