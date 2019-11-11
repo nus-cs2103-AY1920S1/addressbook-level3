@@ -105,7 +105,7 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * Parameters can be in any order e.g. if the command specifies `-name <NAME> -phone <PHONE_NUMBER>`, `-phone <PHONE_NUMBER> -name <NAME>` is also acceptable.
 
-* A Reference Id refers to a 9 case-insensitive alphanumeric characters, that can be used to uniquely identify a person, such as a membership number or NRIC.
+* A Reference Id refers to a 9 case-insensitive alphanumeric characters, that can be used to uniquely identify a person, such as a membership number or NRIC. It is stored as upper case characters.
 
 * A `<PATIENT_REFERENCE_ID>` refers to the reference id which belongs to a patient. Whereas, a `<STAFF_REFERENCE_ID>` refers to the reference id of a staff doctor.
 
