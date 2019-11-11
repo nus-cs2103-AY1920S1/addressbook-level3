@@ -14,7 +14,7 @@ class Problem
 
 Task *--"1" Id
 Task *--"1" Problem
-Task *--"1" boolean:isDone
+Task *--"1" Boolean:isDone
 Task *--"1" LocalDate:dueDate
 
 Plan *--"*" Task
