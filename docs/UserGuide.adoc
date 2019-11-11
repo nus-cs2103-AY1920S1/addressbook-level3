@@ -428,7 +428,7 @@ image::StartTestCommand.png[width="650", align="center"]
 ****
 Starts a test with a deck of flashcards, with the choice of a timed or un-timed test mode, with the duration specified by the user.
 
-Format: `test deck/DECK_NAME duration/TIME_LIMIT`
+Format: `test deck/DECK_NAME duration/DURATION_IN_SECONDS`
 
 Examples:
 
@@ -442,6 +442,9 @@ Starts a timed test of 100 seconds with the deck of cards, `science_deck`
 
 Do note that only the results of the *first attempt* of each question will be counted in each test. Repeat attempts are allowed for a better learning experience, but will not contribute towards score.
 ****
+
+[TIP]
+Note that test creates the test deck by taking a subset of questions from the entire deck! So don't expect the entire deck to be inside :)
 
 ==== Get next card: `next`
 
@@ -593,7 +596,7 @@ e.g. `view deck/science_deck`
 * e.g. `edit deck/science_deck action/edit index/1 front/what is a cell back/a cell is a building block`
 * *undo* : `undo`
 * *redo* : `redo`
-* *test* : `test deck/DECK_NAME duration/TIME_LIMIT_ALLOWED` +
+* *test* : `test deck/DECK_NAME duration/DURATION_IN_SECONDS` +
 e.g. `test deck/science_deck duration/0` +
 e.g. `test deck/science_deck duration/100`
 ====
