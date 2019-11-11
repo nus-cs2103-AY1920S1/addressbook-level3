@@ -22,6 +22,10 @@ while still enjoying all the benefits of having a fully fledged Graphical User I
 If you can type fast, _Billboard_ can help you manage your expenses faster than traditional
 GUI apps!
 
+_Billboard's_ basic functionality involves the adding, editing and delete of expenses, which are saved locally in your computer
+in a simple, human readable format (.JSON). In top of that, _Billboard_ provides a host of additional features designed to
+simplify, enhance, improve, and make convenient your management of expenses. These features will be further detailed below.
+
 == Quick Start
 
 . Ensure you have Java 11 or above installed on your machine.
@@ -54,11 +58,12 @@ provide a value for that parameter, it will default to the default value stated.
 
 === Managing expenses: `expense`
 
-. _Add a new expense: expense add_ +
-You can add an expense to records using this command. +
+. _Add a new expense: add_ +
+You can add an expense to your saved expense list using this command. All expenses that you add in this manner will be saved in
+`data/billboard.json` in your current directory, and will be available again on your next application startup. +
 Usage:
 
- add n/[NAME] d/[DESCRIPTION] a/[AMOUNT] t/[TAG] date/[DATE]
+ add n/[NAME] a/[AMOUNT]  d/<DESCRIPTION>  date/<DATE> t/<TAG>...
 
 +
 Example:  +
@@ -67,7 +72,8 @@ Adds an expense to record where the name is “buy a book”, description is "ma
 {nbsp} +
 
 . _Edit an existing expense: edit_ +
-Edits an existing expense that is being displayed on the GUI. Either description or amount must be supplied. +
+You can edit any existing expense that is being displayed, in the event that you have a need to change a past expense .
+Changes will be automatically saved . +
 {nbsp} +
 Usage:
 
