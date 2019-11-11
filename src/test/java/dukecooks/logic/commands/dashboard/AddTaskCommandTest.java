@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +34,7 @@ public class AddTaskCommandTest {
         CommandResult commandResult = new AddTaskCommand(validDashboard).execute(modelStub);
 
         assertEquals(String.format(AddTaskCommand.MESSAGE_SUCCESS, validDashboard), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validDashboard), modelStub.dashboardsAdded);
+        assertEquals(Collections.singletonList(validDashboard), modelStub.dashboardsAdded);
     }
 
     @Test

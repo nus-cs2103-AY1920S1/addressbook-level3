@@ -10,7 +10,6 @@ import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
 
-
 public class EditTaskCommandParserTest {
 
     private static final String DATE_EMPTY = " " + CliSyntax.PREFIX_TASKDATE;
@@ -61,6 +60,5 @@ public class EditTaskCommandParserTest {
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_DASHBOARDNAME_DESC
                 + CommandTestUtil.INVALID_TASKDATE_DESC, DashboardName.MESSAGE_CONSTRAINTS);
     }
-
 
 }
