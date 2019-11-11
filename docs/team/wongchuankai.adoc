@@ -9,7 +9,7 @@
 
 == 1. Introduction
 
-The purpose of the Project Portfolio is to document and showcase my contributions to the software project, `EzWatchList`.
+The purpose of the Project Portfolio is to document and showcase my contributions to the software project, link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchList]
 
 Our team was initially tasked with enhancing a basic command line interface(CLI) desktop application
 for our Software Engineering project. We are also allowed to morph it to other application that uses command line interface.
@@ -58,11 +58,11 @@ building block of the application. Before I can design these features, I have to
 the application requirement first such as functional and non-function requirements. I also have to know who my target audience
 is and study the use-cases properly to plan out and design these features.
 
-=== *Major enhancement*:
+=== 2.1 Major enhancement:
 
-==== Added `add` and synchronise, `sync`, commands.
+==== *Added `add` and synchronise, `sync`, commands.*
 
-1. Modifying and extension of `add` command
+*1. Modifying and extension of `add` command*
 
 *What it does*:
 
@@ -84,14 +84,15 @@ and user can choose to ‘add’ a certain movie from the search list into his o
 
 *Highlights*:
 
-The addition of `add` command
-
+The addition of `add` command requires some understanding of both the implementation of the application and how to retrieve
+the data from 3rd party API(TMDB).
 
 *Credits*:
 
 Since we are retrieving information on shows online, we have decided to use The Movie Database (TMDB) api.
 
-2. Synchronise, Sync, command
+
+*2. Synchronise, Sync, command*
 
 *What it does*:
 
@@ -106,13 +107,15 @@ will then be able to get updated information about the show.
 
 *Highlights*:
 
+This enhancement requires some understanding of both the implementation of the application and how to retrieve
+the data from 3rd party API(TMDB).
 
 
 *Credits*:
 
 Since we are retrieving information on shows online, we decided to use The Movie Database (TMDB) api.
 
-=== *Minor enhancement*:
+=== *2.2 Minor enhancement:*
 
 ==== Added shortcut keys to move about pages easily.
 
@@ -135,10 +138,10 @@ This addition make it a lot easier for user to navigate through the different pa
 
 *Code contributed*:
 
-My contributions to EzWatchList can be found in the following link: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongchuankai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[My Code Contribution]]
+My contributions to EzWatchList can be found in the following link:[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=wongchuankai&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[My Code Contribution]]
 [https://github.com[Test code]]
 
-=== Other contributions:
+=== *2.3 Other contributions:*
 
 *Project management*:
 
@@ -158,25 +161,22 @@ in the application like using `add` command as well.
 
 *Documentation*:
 
-* Improved the structure of the user guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/258[#258], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/214[#214]
+* Improved the structure of the user guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/258[#258], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/279[#279]
 * Updated the developer guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/11[#11], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/258[#258]
 
 
 *Community*:
 
-* Reviewed team pull requests link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/77[#74], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/84[#84]
-* Reported bugs and suggestions for other teams in the class (examples: link:https://github.com/jcjjjared/ped/issues/1[1], link:https://github.com/jcjjjared/ped/issues/2[2], link:https://github.com/jcjjjared/ped/issues/4[3])
+* Reported bugs and suggestions for other teams in the class (examples: link:https://github.com/wongchuankai/ped/blob/master/files/fceb38f2-23e3-4f5e-a7a7-42afce9258a8.png[1], link:https://github.com/wongchuankai/ped/blob/master/files/f0a21388-54e5-49b2-9cfd-efb47c514667.png[2], link:https://github.com/wongchuankai/ped/blob/master/files/bf312b96-02eb-47e5-a170-7946d1f7f100.png[3])
 
 *Tools*:
 
 *** Integrated a third party library (TMDB) to the project (https://www.themoviedb.org/documentation/api[TMDB Api])
-*** Integrated a new Github plugin (Java wrapper) to the team repo.
-*** Added a successfully merged pull request to the Java Wrapper we are using in our application to fix their issue of not supporting recommendations. (https://github.com/holgerbrandl/themoviedbapi/pull/111[Pull request merged])
 
 
 == 3. Contributions to the User Guide
 |===
-|_This section is an excerpt from our EzWatchList User Guide, showing additions that I have made for the add and sync
+|_This section is an excerpt from our EzWatchList User Guide, showing additions that I have made for the sync
 features. They showcase my ability to write documentation targeting end-users._
 |===
 
@@ -186,7 +186,8 @@ include::../UserGuide.adoc[tag=sync]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation
+|_Given below are sections I contributed to the Developer Guide, showing additions that I have made for the add and sync
+features. They showcase my ability to write technical documentation
 and the technical depth of my software engineering skills to the project._
 |===
 
