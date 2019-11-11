@@ -114,4 +114,8 @@ public class JavaCard extends FlashCard {
     public ArrayList<TestCase> getTestCases() {
         return testCases;
     }
+
+    public void setTestCases(ArrayList<TestCase> testCases) {
+        this.testCases = testCases;
+    }
 }

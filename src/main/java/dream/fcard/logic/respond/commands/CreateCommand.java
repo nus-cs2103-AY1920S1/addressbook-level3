@@ -10,8 +10,10 @@ import dream.fcard.model.Deck;
 import dream.fcard.model.State;
 import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
+import dream.fcard.model.TestCase;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.cards.Priority;
@@ -19,6 +21,7 @@ import dream.fcard.model.exceptions.DeckAlreadyExistsException;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.InvalidInputException;
+import dream.fcard.util.RegexUtil;
 
 /**
  * Represents a command that creates a new deck or card (?).
@@ -184,16 +187,61 @@ public class CreateCommand extends Command {
      * @param asserts the input in multiline.
      */
     public static void createJavascriptCard(String asserts) {
-        asserts = asserts.replace("Enter your asserts below.", "");
-        asserts = asserts.strip();
+        asserts = asserts.replace("Enter your asserts below.", "").strip();
         if (asserts.isBlank()) {
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
             return;
         }
-        JavascriptCard transientFromState = StateHolder.getState().getTransientCard();
+        JavascriptCard transientFromState = StateHolder.getState().getTransientjscard();
         transientFromState.setBack(asserts);
         Deck deck = StateHolder.getState().getAddToThis();
         deck.addNewCard(transientFromState);
+        StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+    }
+
+    /**
+     * Make a Java card.
+     * @param cases the input in multiline.
+     */
+    public static void createJavaCard(String cases) {
+        ArrayList<ArrayList<String>> res;
+
+        try {
+            res = RegexUtil.parseCommandFormat("Enter your inputs/outputs below.",
+                    new String[]{"input/", "output/"}, cases);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            //empty output
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Inputs must be entered before outputs!");
+            return;
+        }
+
+        if (res.get(0).size() != res.get(1).size()) {
+            //inputs not equal to output
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Blank output or diff number of inputs/outputs detected");
+            return;
+        }
+        if (res.get(0).size() == 0 && res.get(1).size() == 0) {
+            //no test case
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
+            return;
+        }
+
+        ArrayList<TestCase> testCases = new ArrayList<>();
+        for (int i = 0; i < res.get(0).size(); i++) {
+            String input = res.get(0).get(i).strip();
+            String output = res.get(1).get(i).strip();
+            TestCase tc = new TestCase(input, output);
+            testCases.add(tc);
+        }
+        JavaCard card = StateHolder.getState().getTransientJavaCard();
+        card.setTestCases(testCases);
+        Deck deck = StateHolder.getState().getAddToThis();
+        deck.addNewCard(card);
         StateHolder.getState().setCurrState(StateEnum.DEFAULT);
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
