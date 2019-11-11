@@ -192,12 +192,15 @@ The viewHistory command extends the Command class. It calls methods from the Sta
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewHistory typ/Expense")` API call.
 
-.Interactions Inside the Logic Component for the `viewHistory typ/Expense` Command
+.Interactions inside the Logic Component for the `viewHistory typ/Expense` Command
 image::viewHistorySequenceDiagram.png[]
 
 === Toggle Panel Command
 
 ==== Implementation
+
+.Partial class diagram showing only the classes in `UI` involved in the Toggle Panel Command.
+image::PartialUiClassDiagramForToggle.png[]
 
 The `toggle` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic`
 if the user wants to toggle a specified panel. If so, it toggles the `isVisible` and `isManaged` properties of the place
@@ -205,6 +208,7 @@ holder for that panel.
 
 The following sequence diagram shows how an example usage scenario `toggle wishlist` would work:
 
+.Interactions inside the Logic and UI components for the `toggle wishlist` command
 image::ToggleSequenceDiagram.png[]
 
 The sequence diagram is as explained below:
@@ -219,6 +223,7 @@ The sequence diagram is as explained below:
 
 The following activity diagram summarizes what happens when a user executes a `toggle` command:
 
+.Activity diagram showing what happens when user executes a `toggle` command
 image::ToggleActivityDiagram.png[width="240"]
 
 ==== Design Considerations
@@ -246,6 +251,7 @@ This change in font is also saved in `UserPrefs`.
 
 The following sequence diagram shows how an example usage scenario `changeFont rockwell` would work:
 
+.Interactions inside Logic and UI components for the `changeFont rockwell` command
 image::ChangeFontSequenceDiagram.png[]
 
 The sequence diagram is as explained below:
@@ -258,6 +264,7 @@ The sequence diagram is as explained below:
 
 The following activity diagram summarizes what happens when a user executes a `changeFont` command:
 
+.Activity diagram showing what happens when user executes a `changeFont` command
 image::ChangeFontActivityDiagram.png[]
 
 ==== Design Considerations
@@ -284,6 +291,7 @@ This change in the application theme is also saved in `UserPrefs`.
 
 The following sequence diagram shows how an example usage scenario `setLightTheme` would work:
 
+.Interactions inside Logic and UI components for `setLightTheme` command
 image::SetLightThemeSequenceDiagram.png[]
 
 The sequence diagram is as explained:
@@ -298,6 +306,7 @@ This is done after removing the stylesheets for the previous theme.
 
 The following activity diagram summarizes what happens when a user executes a `setLightTheme` command:
 
+.Activity diagram showing what happens when user executes a `setLightTheme` command
 image::SetLightThemeActivityDiagram.png[]
 
 ==== Design Considerations

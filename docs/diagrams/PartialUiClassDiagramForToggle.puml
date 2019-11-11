@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI <<Rectangle>>{
+Class "{abstract}\nUiPart" as UiPart
+Class MainWindow
+Class BudgetPanel
+Class ReminderPanel
+Class WishListPanel
+Class AutoExpensesPanel
+Class BudgetCard
+Class ReminderCard
+Class WishListCard
+Class AutoExpensesCard
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside --> MainWindow
+
+MainWindow --> "0..1" BudgetPanel
+MainWindow --> "0..1" WishListPanel
+MainWindow --> "0..1" ReminderPanel
+MainWindow --> "0..1" AutoExpensesPanel
+
+BudgetPanel "1" --> "*" BudgetCard
+WishListPanel "1" --> "*" WishListCard
+ReminderPanel "1" --> "*" ReminderCard
+AutoExpensesPanel "1" --> "*" AutoExpensesCard
+
+MainWindow --|> UiPart
+
+BudgetPanel --|> UiPart
+WishListPanel --|> UiPart
+ReminderPanel --|> UiPart
+AutoExpensesPanel --|> UiPart
+BudgetCard --|> UiPart
+WishListCard --|> UiPart
+ReminderCard --|> UiPart
+AutoExpensesCard --|> UiPart
+
+MainWindow --> Logic
+BudgetCard ..> Model
+ReminderCard ..> Model
+WishListCard ..> Model
+AutoExpensesCard ..> Model
+
+MainWindow -[hidden]-|> UiPart
+
+@enduml
