@@ -34,7 +34,7 @@ public class EditNotesCommand extends Command {
             + "[" + PREFIX_CLASSID + "NAME] "
             + "[" + PREFIX_TYPE + "TYPE] "
             + "[" + PREFIX_CONTENT + "CONTENT] "
-            + "Example: " + COMMAND_WORD + " 1 ";
+            + "Example: " + COMMAND_WORD + " 1 type/lab";
 
     public static final String MESSAGE_EDIT_NOTES_SUCCESS = "Edited Notes: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
