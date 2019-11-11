@@ -4,9 +4,8 @@ package dream.fcard.logic.exam;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
 
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
