@@ -123,6 +123,8 @@ different command: `event view` has to be keyed into the command line.
 *Command Format*
 ====
 All commands start with a command word (e.g `student`, `question`, `quiz`, `event`, `note`) followed by the command action. Certain commands may include additional keywords and will be specified in the description.
+[NOTE]
+Duplication of the specified keywords and options might result in errors or nondeterministic selection of fields. In most cases, the latest field option overwrites the duplicate fields provided.
 ====
 
 === Students - `student`
