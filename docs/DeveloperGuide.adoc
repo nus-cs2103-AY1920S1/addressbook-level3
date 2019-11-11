@@ -464,6 +464,7 @@ NOTE: **Alternative 2** was preferred as it provides users with an experience cl
 
 //@@author keiteo
 // tag::dataencryption[]
+// tag::TestMode[]
 === Test mode
 Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
 'FlashCard'(s) contained in the system will be tested.
@@ -527,6 +528,7 @@ new scene is layered on top of it
 NOTE: **Alternative 1** is preferred as it does not interfere with the `ObservableList` to hide/show
 the list of `FlashCards`, hence reducing the potential for bugs and side-effects.
 
+// end::TestMode[]
 // end::dataencryption[]
 
 //@@author LeonardTay748

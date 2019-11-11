@@ -359,6 +359,7 @@ stored for that date.
 //end::badflashcard[]
 
 //@@author keiteo
+// tag::TestMode[]
 === Test mode: `start`
 
 
@@ -417,6 +418,8 @@ By exiting the test mode, normal commands such as `listall` and `add` are re-ena
 The list of `FlashCards` in the system will be displayed again.
 
 image::EndResults.png[width="600"]
+
+//end::TestMode[]
 
 //@@author LeowWB
 
