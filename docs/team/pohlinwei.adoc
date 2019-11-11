@@ -35,7 +35,7 @@ The main features of our application are the *calendar*, *itinerary*, *address b
 
 This section describes the symbols and formats that are used in this document.
 
-.Symbols and fonts
+.Font and Format
 [grid="rows", frame="none"]
 |===
 | Font and Format | What it indicates
