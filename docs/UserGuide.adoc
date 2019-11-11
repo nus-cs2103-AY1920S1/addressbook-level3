@@ -616,39 +616,41 @@ To exit:
 
 == Command Summary
 
-* Add new flashcard - `add q>QUESTION a>ANSWER [c>CATEGORY]…​` +
+* Add new `FlashCard` - `add q>QUESTION a>ANSWER [c>CATEGORY]…​` +
 e.g. `add q>1+1 a>2`
-* Set a flashcard as bad - `bad INDEX` +
+* Set a `FlashCard` as bad - `bad INDEX` +
 e.g.  `bad 2`
-* Show Calendar of Deadlines - `calendar`
-* Clear all the flashcard - `clear` +
+* Show Calendar of all `Deadline`(s) - `calendar`
+* Clear all the `FlashCard` - `clear` +
 e.g. `clear`
-* Edit an existing flashcard - `edit INDEX {fields wanted to edit}…​` +
-e.g.  `edit 2 c>CS2103`
 * Add a new Deadline - `deadline t>TASK d>DUE DATE` +
-e.g.  `deadline t>Math Test d>01/10/2019`
-* Delete an existing flashcard - `delete INDEX` +
+e.g.  `deadline t>Math Test d>01/10/2020`
+* Delete an existing `FlashCard` - `delete INDEX` +
 e.g.  `delete 10`
+* Edit an existing `FlashCard` - `edit INDEX {fields wanted to edit}…​` +
+e.g.  `edit 2 c>CS2103`
+* End `FlashCard` test - `end`
 * Export all flashcards under a specific category, to a specific filepath - `export c>CATEGORY p>FILE_PATH` +
 e.g.  `export c>CS2105 p>C:\Users\User\Documents\cheat_sheet.docx`
 * Get full list of commands - `help` +
 e.g.  `help`
-* Import flashcards from a JSON file - `import p>FILE_PATH` +
+* Import `FlashCard`(s) from a JSON file - `import p>FILE_PATH` +
 e.g.  `import p>C:\Users\User\Documents\flashcards.json`
-* List all flashcards - list
+* List all `FlashCard`(s) - `list`
 * List all flashcards under a specific category - `list [category]` +
 e.g.  `list Math`
-* List all flashcards - 'listall'
-* Set user preference for reminders - `remind CATEGORY DD/MM HHmm` +
-e.g.  `remind Math 04/10 1230`
-* Remove Deadline from list - `remove INDEX` +
+* List all `FlashCard`(s) - `listall`
+* List all "Bad" `FlashCard`(s) - `listbad`
+* Remove `Deadline` from list - `remove INDEX` +
 e.g.  `remove 2`
-* Search of flashcards - `search`
+* Remove a "Bad" rated `FlashCard` from list - `removebad INDEX` +
+e.g.  `removebad 2`
+* Search for `FlashCard`(s) - `search`
 ** `search` KEYWORD(S)  e.g `search c`
 ** `searchqn` KEYWORD(S)  e.g `searchqn pointer`
 ** `searchans` KEYWORD(S)  e.g `searchans name`
-* Start a certain topic of flashcards - `start KEYWORD` +
+* Start a certain topic of `FlashCard`(s) - `start KEYWORD` +
 e.g.  `start Mathematics`
 * View overall statistics - `stats`
 * Change theme - `theme dark`
-* Stop flashcard test - `end`
+
