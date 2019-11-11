@@ -26,32 +26,36 @@ the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major feature*: implemented *the ability to analyse and compute relevant statistics regarding deliverymen status*
+** What it does: allows the user to have a quick summary of the current state of his deliverymen
+** Justification: This feature allows the user to have a quick overview of the state of his manpower with a simple command so that he can be aware of any potential shortage of deliverymen.
+** Highlights: This enhancement has high development potential in future when the app is further enhanced as the statistics can begin to employ predictive capabilities with regards to demand over the next few weeks.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major feature*: implemented *the management of deliverymen status*
+** What it does: allows the user to easily manipulate the list of deliverymen as well as updating their respective status
+** Justification: This feature allows for efficient management of deliverymen and convenient navigation of the lists of deliverymen through the status buttons as well as unique colors to denote different status.
+** Highlights: This enhancement required an in-depth analysis of design alternatives for the deliverymen interface. The implementation for the color change and buttons was challenging as it required an excellent knowledge in JavaFX.
+
+* *Minor enhancement*: integrated *the updating of deliverymen status into other contexts*
+** What it does: allows all the relevant commands in all contexts to make necessary updates to the deliverymen status
+** Justification: This enhancement ensures the updating of deliverymen status are well-integrated into all the commands from the four contexts.
+** Highlights: This enhancement will always be necessary as long as there are new commands or features that are added in future that are related to deliverymen status.
+
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=charliechoong&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&until=2019-11-10&tabOpen=true&tabType=authorship&tabAuthor=charliechoong&tabRepo=AY1920S1-CS2103T-T12-2%2Fmain%5Bmaster%5D[RepoSense]][https://github.com/AY1920S1-CS2103T-T12-2/main/blob/master/src/test/java/seedu/deliverymans/model/DeliverymanTest.java[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Wrote additional test for existing features (https://github.com/AY1920S1-CS2103T-T12-2/main/pull/260[#260])
+*** Improved the GUI appearance for easier navigation (https://github.com/AY1920S1-CS2103T-T12-2/main/pull/99[#99])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: (https://github.com/AY1920S1-CS2103T-T12-2/main/pull/93[#93], https://github.com/AY1920S1-CS2103T-T12-2/main/pull/108[#108], https://github.com/AY1920S1-CS2103T-T12-2/main/pull/231[#231], https://github.com/AY1920S1-CS2103T-T12-2/main/pull/252[#252])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-2/main/pull/241[#241]
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
 *** Integrated a new Github plugin (TravisCI) to the team repo (https://github.com/AY1920S1-CS2103T-T12-2/main/pull/2[#2])
 
 
