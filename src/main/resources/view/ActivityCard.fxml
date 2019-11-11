@@ -22,11 +22,6 @@
           <Region fx:constant="USE_PREF_SIZE" />
         </minWidth>
       </Label>
-      <Label fx:id="id" styleClass="activity-debug-id">
-        <minWidth>
-          <Region fx:constant="USE_PREF_SIZE" />
-        </minWidth>
-      </Label>
     </VBox>
     <VBox alignment="CENTER_LEFT" minHeight="75" GridPane.columnIndex="1">
       <Label fx:id="title" text="\$blank-title" styleClass="activity-title" wrapText="true" lineSpacing="0.0" />

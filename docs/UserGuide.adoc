@@ -161,7 +161,7 @@ Example: +
 Suppose you have already created an activity with Alice, Bob and Carl in it. +
 `activity t/Holiday Trip p/Alice p/Bob p/Carl`
 
-And you have friends that wants to join an activity midway.
+And you have friends that want to join an activity midway.
 
 To invite:
 
@@ -176,12 +176,12 @@ image::InviteOutput.png[]
 NOTE: *The `invite` command only invites to current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
  +
-*The `invite` command only invites contact that exist in the contact list.* +
+*The `invite` command only invites contact that exists in the contact list.* +
 If the specified contact does not exist in the contact list, then the contact cannot be added and a warning message will be shown. +
  +
 *Multiple contacts can be invited at once.* +
  +
-*Contacts that already exist in activity cannot be invited again.*
+*Contact that already exists in activity cannot be invited again.*
 // end::invite[]
 
 // tag::disinvite[]
@@ -191,7 +191,7 @@ This command disinvites the contacts specified from the current viewed activity.
 Format: `disinvite p/PERSON ...`
 
 Example: +
-Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and John
+Suppose you have an activity with the same participants but with an expense shared by Alice, Bob and Carl
 
 image::DisinviteExample.png[]
 
@@ -210,19 +210,19 @@ image::DisinviteOutput.png[]
 NOTE: *The `disinvite` command only disinvites from current viewed activity.* +
 if there is no current viewed activity, there will be an error. +
  +
-*The `disinvite` command only disinvites contact that exist in the activity.* +
+*The `disinvite` command only disinvites contact that exists in the activity.* +
 If the specified contact does not exist in the activity, then a warning message will be shown. +
  +
 *Multiple contacts can be disinvited at once.* +
  +
-*Contacts that involve in expenses cannot be disinvited.* +
+*Contact that involves in any expense cannot be disinvited.* +
 If a contact is involved in any expense, he cannot be disinvited.
 // end::disinvite[]
 
 // tag::expense[]
 === Add expenses to an activity : `expense`
 
-Creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
+This command creates a new expense with a list of contacts, an amount and an optional description, and adds it to the currently viewed activity. The first contact in the list is taken to be the person who paid for the expense, and the remaining people will be counted as owing the first person money. Any duplicated person will be ignored. +
 
 If only one contact is specified in the list, then SplitWiser will assume that all current participants in the activity are involved in this expense and thus owe this person money. +
 
@@ -237,12 +237,17 @@ Format: `expense p/PERSON e/AMOUNT_PAID [p/PERSON ...] [d/DESCRIPTION]`
 
 Examples:
 
-* `expense p/John Doe e/100` +
-Adds a single expense of $100 by John Doe to the currently viewed activity. If John Doe is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe John a portion of the $100. +
-If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense.
-* `expense p/Mary e/100 p/Joseph p/Silva d/Drinks` +
-Adds an expense of $100 to the currently viewed activity by Mary where Joseph and Silva are involved i.e. Joseph and Silva owe Mary a portion of the $100. This expense will be named `Drinks`. If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
-Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. Mary, Joseph and Silva will then be added to the activity.
+* `expense p/David Lim e/100` +
+Adds a single expense of $100 by David Lim to the currently viewed activity. If David is not in the current activity, an error will occur and no expense will be created. Otherwise, all existing participants of the activity will now owe David a portion of the $100 (left image). +
+If no activity is currently viewed, an error will occur as there is no description provided to use for automatic activity creation to contain this expense (right image):
+
+image::Expense1.png[]
+
+* `expense p/David e/100 p/Bernice p/Irfan d/Drinks` +
+Adds an expense of $100 to the currently viewed activity by David where Bernice and Irfan are involved i.e. Bernice and Irfan owe David a portion of the $100. This expense will be named `Drinks` (left image). If any one of the participants are not in the present activity, then an error will occur and no expense will be created. +
+Alternatively, if no activity is currently viewed, an activity titled `Drinks` will be created to contain this expense. David, Bernice and Irfan will then be added to the activity (right image):
+
+image::Expense2.png[]
 
 NOTE: It is in fact possible to add an expense where no one else is involved in by specifying that the people involved only include the person who is paying, +
 e.g. `expense p/John Doe e/15 p/John Doe d/Cab` +
@@ -267,7 +272,7 @@ Generally it is similar to how you would add an ordinary expense.
 If no match is found for any person provided, or if multiple matches are found, the command will do nothing as it is ambiguous.
 
 An entry will be added within the activity display so you can keep track of past payments.
-These entries will have a generic description tagged to them to make it clear what it is.
+These entries will have a generic description tagged to them to make it clear what it is, and they will also be highlighted in a frame to distinguish them from ordinary expenses.
 
 Format: `expense p/PERSON1 e/AMOUNT_PAID p/PERSON2`
 
@@ -277,22 +282,34 @@ Format: `expense p/PERSON1 e/AMOUNT_PAID p/PERSON2`
 * Naturally this also means that in this case Alice paying Bob is not possible, since that would suggest paying a negative amount of money!
 ****
 
-Examples:
+Example run:
 
-* `settle p/John p/bob e/100` +
-Adds an settlement to the activity stating thet John has paid Bob $100.
-If John owes less than $100 to Bob, the command will be rejected.
-If no activity is currently viewed, an error will occur as it is unclear where to add the entry.
-* `expense p/Mary p/Joseph` +
-Say Mary owes Joseph $10.
-Then the command will add an settlement assuming Mary paid Joseph exactly $10.
-If instead Joseph owes Mary $10, the command will fail, since in this case any way of Mary paying Joseph will only make the debt worse.
+* Go to the activity you wish to modify with the `list a/` and `view` commands.
+You will see something like this:
+
+image:settle-view-activity.png[width="300"]
+
+* `settle p/alex p/david e/10` +
+Adds an settlement to the activity stating that Alex has paid David $10.
+If Alex owes less than $10 to David, the command will be rejected.
+In this case it is accepted since Alex owes about $20 or so to David.
+The two pictures below show what will happen before and after the command.
+Notice the new expense added, which is also conveniently highlighted.
+
+image:settle-enter-command.png[width="300"] image:settle-result.png[width="300"]
+
+* `expense p/charlotte p/li` +
+No amount to pay is provided, so it is assumed that Charlotte wants to pay David (Li) as much as is needed to clean their debt.
+This is what we see:
+
+image:settle-result-2.png[width="300"]
+
 // end::settle[]
 
 // tag::edit[]
 === Edit an existing contact or activity : `edit`
 
-Edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
+This command edits some details of the current contact or activity in view. Note that contact names must be unique, so if a specified name already exists in the address book, the edit will not be processed. +
 
 Format: `edit [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [tag/TAG ...]` for contacts OR `edit [t/ACTIVITY_TITLE]` for activities.
 
@@ -307,8 +324,13 @@ Examples:
 
 * `edit p/999` +
 Edits the phone number of the current contact in view to `999`. No changes are made if a contact is not being viewed.
-* `edit t/BBQ` +
-Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
+
+image::Edit1.png[]
+
+* `edit t/Lunch` +
+Edits the title of the current activity in view to `Lunch`. No changes are made if an activity is not being viewed.
+
+image::Edit2.png[]
 // end::edit[]
 
 
@@ -361,7 +383,7 @@ Deletes the contact/activity/expense at the specified index from the current dis
 
 Format: `delete INDEX`
 
-If current display is listing contacts e.g. `list c/`, the contact at that specified `INDEX` will be deleted if he/she is not involved in any activities.
+If current display is listing contacts e.g. `list c/`, the contact at that specified `INDEX` will be deleted if he/she is not involved in any activity.
 
 If current display is listing activities e.g. `list a/`, the activity at that specified `INDEX` will be deleted.
 
