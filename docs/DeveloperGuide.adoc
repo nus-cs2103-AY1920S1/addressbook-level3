@@ -71,6 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// tag::uicomponent[]
 [[Design-Ui]]
 === UI component
 
@@ -87,6 +88,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -414,6 +416,7 @@ Updating of the balance sheet and matrices by the expense command is performed i
 ** *Cons*: Seems overkill and needlessly over-engineered.
 // end::algorithm[]
 
+// tag::guicommands[]
 === List feature
 
 The List mechanism is facilitated by the combination of three classes `MainWindow`, `Model` and `Context`.
@@ -450,7 +453,7 @@ image::ListSequenceDiagram.png[]
 * **Alternative 2:** Storing the `Context` state in a designated central component, e.g. the `ModelManager`, and exposing relevant methods to other components.
 ** Pros: Trivial to implement.
 ** Cons: Tightly couples all components that require access to the context state to the central component, complicating testing.
-
+// end::guicommands[]
 
 // tag::findfeature[]
 === Find feature
@@ -674,13 +677,6 @@ image::CommitActivityDiagram.png[]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 

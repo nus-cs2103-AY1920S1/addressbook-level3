@@ -36,7 +36,7 @@ The following sections detail my contributions in greater depth, alongside the d
 ** *What it does*: The `view` command allows the user to bring up the details panel for a specified entry (activity or contact) in the currently viewed list.
 ** *Justification*: Due to the limited size of the list entries, the full information of each contact or activity is only displayed in the respective details panel. This reduces visual clutter in the list view and provides additional freedom to customise each details panel separately. It also enables many contextual commands (`expense`, `invite`, `disinvite`, `settle`, `edit` and `delete`), which function based on the currently viewed entry. This eliminates the need to manually input the entry each command operates on, reducing the amount of typing and thus improving the UX.
 ** *Highlights*: The details panel displayed by the `view` command also provides the user with these additional features:
-*** Contact details panel: shows the activity history of the contact and the aggregate amount owed for each 
+*** Contact details panel: shows the activity history of the contact and the aggregate amount owed for each
 *** Activity details panel: shows the total expenditure in an activity
 *** Activity details panel: greys out soft-deleted expenses and settlements
 *** Activity details panel: shows required transfers to clear all debt within the activity
@@ -77,9 +77,9 @@ The following sections detail my contributions in greater depth, alongside the d
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=guicommands]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=futurecommands]
 
 == Contributions to the Developer Guide
 
@@ -87,7 +87,6 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=uicomponent]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
+include::../DeveloperGuide.adoc[tag=guicommands]

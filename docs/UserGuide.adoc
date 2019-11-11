@@ -73,6 +73,7 @@ No need receipt-collecting and number-crunching anymore -- SplitWiser does it al
 * Parameters may be supplied in any order unless specified otherwise, e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
+// tag::guicommands[]
 === Viewing help : `help`
 Brings up the help dialog. +
 
@@ -100,6 +101,7 @@ Examples:
 Views the details of the first activity, if the activity list was last displaying one or more activities
 * `view c/2` +
 Views the details of the second contact, if the contact list was last displaying at least two contacts
+// end::guicommands[]
 
 === Create new contact: `contact`
 
@@ -377,6 +379,7 @@ Format: `varexpense p/PERSON e/AMOUNT [d/DESCRIPTION] [(p/PERSON e/AMOUNT) ...]`
 ****
 //end::varexpense[]
 
+// tag::futurecommands[]
 === Assign an activity as a sub-activity: `assign` (*v2.0 only*)
 
 Assigns an activity as a sub-activity of the currently viewed activity. If no activity is currently being viewed, or an invalid activity ID is provided, no change is made.
@@ -389,6 +392,7 @@ Examples:
 
 * `assign 3 5`
 If viewing an activity with title 'Family trip', assigns the activities with IDs 3 and 5 as sub-activities of 'Family trip'. Otherwise does nothing.
+// end::futurecommands[]
 
 === Exiting the program : `exit`
 
