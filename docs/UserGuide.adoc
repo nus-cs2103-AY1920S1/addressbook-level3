@@ -28,9 +28,9 @@ If you type fast, Budget Buddy can get your expense management tasks done faster
 Furthermore, Budget Buddy allows users with computing know-how to add their own functions through customized JavaScript files,
 as well as set rules to simplify expense tracking through automation.
 
-This user guide provides in-depth documentation of the current as well as upcoming features, including the setup
-process, as well as some commonly asked questions. For the hands-on person, check out the _Quick Start_ section right
-below.
+This user guide provides in-depth documentation of Budget Buddy's current and upcoming features.
+It also includes the setup process and answers some commonly asked questions.
+For the hands-on person, check out the _Quick Start_ section right below.
 
 == Quick Start
 
@@ -78,7 +78,7 @@ and even instantly split a bill between you and your friends!
 
 What's more? Automate processes with rules. Typing the same description for transactions again and again?
 Set the description of a transaction automatically by using a keyword!
-Sort your spendings on food into a _Food_ category automatically! Automate everything!
+Sort your spendings into different categories automatically! Automate everything!
 
 If you know how to code in JavaScript, there's great news for you too.
 Write and evaluate your own scripts within Budget Buddy.
@@ -97,8 +97,7 @@ you should first familiarize yourself with the syntax that will be used througho
 * `...` indicates a variable number (at least 1) of the specified parameter.
 ====
 
-Budget Buddy also comes with various keyboard shortcuts,
-for a better user experience with the Command Line Interface(CLI).
+Budget Buddy also comes with various keyboard shortcuts for a better user experience with the CLI.
 
 |===
 |Shortcut |Purpose
@@ -129,11 +128,11 @@ Format: `help`
 // tag::transactions[]
 === Managing transactions: `txn`
 
-image::txnUG1.png[]
+image::txnUG1.png[width=85%,scaledwidth=85%]
 
-Transactions form the core of BudgetBuddy. They can be used to track any purchases you make,
+Transactions form the core of Budget Buddy. They can be used to track any purchases you make,
 or any money that you receive. Transactions can further be filtered by various criteria,
-if you want to find out how much money you've spent in a certain time period, on in
+if you want to find out how much money you've spent in a certain time period, or in
 a certain category of spending.
 
 ==== Add a transaction: `txn out|in`
