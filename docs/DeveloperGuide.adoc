@@ -329,31 +329,38 @@ image::CommitActivityDiagram.png[]
 
 // tag::Assignment[]
 === Assignment feature
+==== Implementation
 The Assignment class works with high similarity to the Student Class implemented.
 A UniqueList of Assignments exist in the Classroom Class alongside the UniqueList of Students, and serve to keep track of assignments for a particular Classroom.
 The commands that work in similar fashion to Student Class are: +
 `AddAssignment`, `DeleteAssignment`, `EditAssignment`, `ListAssignment`
-==== Implementation
+
+Additionally, it implements the following operations:
+
+* `UniqueAssignmentList#addAssignment()` -- Adds a new Assignment object to the UniqueAssignmentList.
+* `UniqueAssigmentList#remove()` -- Removes a Lesson object from the UniqueAssignmentList.
+* `UniqueAssignmentList#setAssignment()` -- Updates the Assignment with user input.
+
+
 The Assignment class keeps track of the grades of all students in the class for a particular assignment. This feature is
 necessary to users to monitor the progress of every student, and to provide assistance to students who might be
 failing their tests.
 Each Assignment contains the following classes: AssignmentName, AssignmentGrade, and AssignmentDeadline.
+
 * The AssignmentName stores the name of the assignment.
+
 * The AssignmentGrade class contains the grades of every student in the class through a LinkedHashMap<String studentName, String marks>.
+
 * The AssignmentDeadline class contains the time when the assignment is due.
 
 Upon creation of a new Assignment, `Assignment#initialiseGrades()` is called, which populates the LinkedHashMap
 with keys (students' names) and the value "Not Submitted". The user can then update the grades of a student individually or
 all of the students simultaneously through the `UpdateGrades` command, which calls the method `Assignment#setGrades()`.
 
-image::AddAssignmentActivityDiagram.png[]
-
 After every command, `Assignment#checkCompletion()` is called to determine the completion status of the assignment,
 which will be "Completed" if none of the grades are "Not Submitted". Upon addition of a new student into the classroom,
 each Assignment present in the classroom will add another entry into the AssignmentGrade. If the Assignment was Not Completed,
-the value "Not Submitted" will be paired with the key. Should the Assignment have been Completed, the value
-"Late to the party" will be paired instead, indicating that the student does not need to submit said assignment any longer,
-since it has already been graded before he/she joined the classroom.
+the value "Not Submitted" will be paired with the key through the method `Assignment#addNewStudentGrade`. Should the Assignment have been Completed, the value "Late to the party" will be paired instead through the method `Assignment#addOneStudentGrade`, indicating that the student does not need to submit said assignment any longer, since it has already been graded before he/she joined the classroom.
 
 // end::Assignment[]
 
