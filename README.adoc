@@ -14,6 +14,14 @@ ifndef::env-github[]
 image::images/InsurelyticsLogo.png[width="250", align="center"]
 endif::[]
 
+ifdef::env-github[]
+image::docs/images/Ui.png[align="center"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[align="center"]
+endif::[]
+
 Too many clients to keep track of?
 Not sure which insurance policies to recommended to your potential customers?
 Not to worry, Insurelytics can help you with that!
