@@ -742,8 +742,7 @@ image::InteractiveParsingActivityDiagram.png[]
 {empty} +
 
 [NOTE]
-Due to limitations of PlantUML, a while-loop has been illustrated above as a *hexagonal* box with the loop condition written inside.
-This is valid UML notation, but not covered in CS2103T.
+"parameter present" refers to the parameter required by a particular state.
 
 ==== Design Considerations
 
