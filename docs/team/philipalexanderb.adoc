@@ -107,11 +107,8 @@ link:https://github.com/AY1920S1-CS2103T-T17-1/main/commit/f7ac69bdd9b17f2ddcc5d
 
 We had to provide a user guide for users to familiarise themselves with our application.
 The user guide consists of easy navigation to certain parts of the user guide, features implemented
-in our application and a summary of commands available in our application.
-
-|===
-|_Below is the section of user guide that I contributed for my feature._
-|===
+in our application and a summary of commands available in our application. Below is the section of
+user guide that I contributed for my features.
 
 === Project Meeting
 
@@ -166,7 +163,8 @@ Please Turn on the access to less secure app in your account's security setting.
 This command is required to be executed before the remainder of the email commands can be executed. +
 The correctness of the email address used and the password will be checked.
 
-==== Send reminder: `sendReminder` [Checkout]
+==== Send reminder: `sendReminder`
+Prerequisites: Checkout to a project using the checkout command.
 
 Sends a reminder to all members from the current working project of the upcoming Meeting and Task that is due. +
 Format: `sendReminder d/DURATION`
@@ -200,7 +198,8 @@ We will not check the correctness of the members' email addresses
 == Contributions to the Developer Guide
 
 |===
-|_Below is the section of developer guide that I contributed for my features._
+|_Below is the section of developer guide that I contributed for my features. They showcase the complexity of my
+features as well as my thought process while trying to implement the features._
 |===
 
 === Meeting feature
@@ -221,9 +220,6 @@ Here are some meeting related commands that can be executed by the app.
 ==== Details
 As seen in figure 1, each meeting consists of 2 parameters namely description and time to show what is the meeting about
 and the date and time of the meeting respectively.
-A typical meeting will look like this on the app:
-
-image::ProjectMeeting.png[]
 
 
 === Sending Reminder feature
@@ -233,9 +229,8 @@ image::ProjectMeeting.png[]
 Sends reminder for tasks and meetings that are due in the number of days given by the user input.
 
 The basic implementation uses javax.Mail to send email to other email addresses. The Mailer class has static method sendEmail
-which is responsible for sending all kinds of email to a given recipient(s). User's email account information is
-stored in the Model class and subsequent queries regarding mailing will use this information that has been stored to send the email.
-Currently, only gmail server has been made available for use in sending the emails.
+which is responsible for sending all kinds of email to a given recipient(s). User's email account information is obtained
+from the Model class to send the emails. Currently, only gmail server has been made available for use in sending the emails.
 
 [NOTE]
 User Email  Account Information is stored through the signIn command.

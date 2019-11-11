@@ -428,7 +428,8 @@ These are the stages shown in figure 15.
 .Activity Diagram for BroadcastMail
 image::BroadcastMailActivityDiagram.png[]
 
-The diagram above shows how `broadcastMail` works.
+The diagram above shows how `broadcastMail` works. When the command is executed, it will throw a CommandException if the user
+has not checked out or have not signed in. Otherwise, broadcast message will be executed normally.
 
 ==== Design considerations
 
@@ -469,7 +470,10 @@ These are the stages shown in figure 15.
 .Activity Diagram for SignIn
 image::SignInActivityDiagram.png[]
 
-The diagram above shows how `signIn` works.
+The diagram above shows how `signIn` works. The command will result in CommandException to be thrown if user has
+already signed in with a valid email address (gmail) and password. If the user has not signed in, it will result in CommandException if
+either the user's email address or password is incorrect or does not match. Otherwise, the command will be executed and
+the user's Account information will be stored.
 
 ==== Design considerations
 
@@ -1158,7 +1162,42 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-   
+
+=== Sending Reminders
+
+.. Prerequisites: Checkout to a project using the checkout command. Sign in using the Gmail Account using the signIn command.
+.. Command input: sendReminder d/0 +
+Expected output: no reminders are sent as the duration is 0, no meetings or tasks are due in 0 days.
+.. Command input: sendReminder d/-1 +
+Expected output: no reminders are sent as the duration cannot be a negative number.
+
+.. Other incorrect sendReminder commands to try: sendReminder d/hello (where duration is an alphabet), sendReminder d/0.9 (
+duration can only take numeric character whereas 0.9 contains "."), sendReminder d/ (duration cannot be empty)
+
+=== Broadcasting Email
+
+.. Prerequisites: Checkout to a project using the checkout command. Sign in using the Gmail Account using the signIn command.
+.. Command input: broadcastMail su/ me/ +
+Expected output: An email with empty Header and empty Message body will be sent to all members in the project.
+.. Command input: broadcastMail su/0.%$&89 me/lkjhsd +
+Expected output: An email with header "0.%$&89" and message body "lkjhsd" will be sent to all members in the project.
+
+.. There is no incorrect broadcastMail commands as the header and the message body can be anything that the user likes.
+
+=== Signing In
+
+.. Prerequisites: Enable access to less secure app in the Google Account security settings. Disable the two-step verification method in the
+Google Account security settings. Use google account email address.
+.. Command input: signIn ac/hello@yahoo.com pa/12345678 +
+Expected output: failed to sign in as the input would expect a gmail domain to be keyed in.
+.. Command input: signIn ac/hello hello pa/123213 +
+Expected output: failed to sign in as the email address keyed in is not in the correct email format.
+.. Command input signIn ac/ pa/
+Expected output: failed to sign in as an empty email address is not a valid format for an email address.
+.. Other incorrect commands for signIn: signIn ac/cs2103t17@gmail.com pa/ (failed to sign in as the
+password for the email address is wrong) signIn ac/111111 pa/111111 (failed to sign in
+due to invalid format for email address)
+
 === Editing a task
   
   .. Prerequisities: Checkout to a project using the `checkout` command. Multiple tasks in the task list.
@@ -1179,3 +1218,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test: `addTask c/05/05/2019 1200 s/Allocate roles
   Expected: Task will be added to the first index as the list is sorted by alphabetical order and 'Allocate roles' has the highest priority.
 .. Incorrect sortTask commands to try: `sortTask x`(where x is not within the range mentioned which is between integers 1-4)
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
