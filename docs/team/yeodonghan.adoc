@@ -30,6 +30,7 @@ Seller Manager Lite is a desktop application used for managing a business operat
 
 ** Enhancements to existing features:
 *** Added Customer, Phone, Order and schedule storage. (Pull requests https://github.com[#133], https://github.com[#118], https://github.com[#121], https://github.com[#125])
+*** Wrote tests for Storage module (Pull request https://github.com[#291])
 
 ** Documentation:
 *** Tweaked AB3 user guide to fit our application: https://github.com[#176]
@@ -47,6 +48,7 @@ Seller Manager Lite is a desktop application used for managing a business operat
 
 include::../UserGuide.adoc[tag=export]
 include::../UserGuide.adoc[tag=import]
+include::../UserGuide.adoc[tag=exportPDF]
 
 
 == Contributions to the Developer Guide

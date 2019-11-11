@@ -1008,12 +1008,16 @@ All data files will be password-protected with a unique password of at least 8 c
 
 Notification page to show reminders or alerts of upcoming schedules.
 
+// tag:: exportPDF[]
+
 ==== Export data to PDF  `[coming in v2.0]`
 
 
 Export the application data in SML to PDF format.
 
 [underline]#Format#: `export pdf`
+
+// end:: exportPDF[]
 
 ==== Add a new product `[coming in v2.0]`
 
