@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team TimeBook`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -25,10 +25,12 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
+The *_Architecture Diagram_* given below explains the high-level design of the App:
+
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+Given below is a quick overview of each component.
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
@@ -44,14 +46,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of five components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-API,*`Api`*>>: Make queries to external APIs, handles caching of API results to hard disk, and passes API data to other components.
 
-Each of the four components
+Each of the five components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -64,9 +67,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `addmod m/CS3230 cl/LEC:01`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `addmod m/CS3230 cl/LEC:01` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -92,13 +95,16 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
+
+The _Class Diagram_ below shows the structure of the logic component:
+
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `TimeBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -109,27 +115,43 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 .Interactions Inside the Logic Component for the `delete 1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+The following diagram provides a high-level overview of the Model component:
+
+.High-level structure of the Model Component
+image::model/ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores a `TimeBook` object which contains data related to persons, groups and the mappings between them.
+* stores a `ScheduleManager` object which contains data related to stateful UI.
+* stores a `NusModsData` object which gets data related to NUSMods modules from the Api component and transforms them to be used by other components.
+* stores a `GmapsModelManager` object which gets data related to Google Maps from the Api component and transforms them to be used by other components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
+The following diagram provides a more detailed look into the `TimeBook` sub-component:
+
+.Structure of TimeBook sub-component
+image::model/TimeBookClassDiagram.png[]
+
+The following diagram provides a more detailed look into the `ScheduleManager` sub-component:
+
+.Structure of ScheduleManager sub-component
+image::model/ScheduleManagerClassDiagram.png[]
+
+The following diagram provides a more detailed look into the `NusModsData` sub-component:
+
+.Structure of NusModsData sub-component
+image::model/NusModsDataClassDiagram.png[]
+
+The following diagram provides a more detailed look into the `Gmaps` sub-component:
+
+.Structure of Gmaps sub-component
+image::model/GmapsModelManagerClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -143,6 +165,21 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
+
+[[Design-API]]
+=== Api component
+
+The following diagram explains the design of the API component:
+
+.Expected structure of API Component in `v2.0`.
+image::api/ApiComponentClassDiagram.png[]
+[NOTE]
+Currently there is no `Api` interface or `ApiManager` to manage the external interactions with other components. Other components are directly accessing static methods in the `xxxApi` classes and `Cache` class for accessing API data. We intend to refactor the component to make it more OOP as shown in the figure above in `v2.0`.
+
+The `Api`,
+
+* handles queries to external APIs such as Google Maps and NUSMods.
+* handles caching of API results for limited connectivity support.
 
 [[Design-Commons]]
 === Common classes
@@ -602,89 +639,121 @@ image::gmaps/ClosestLocationSequenceDiagram.png[]
 // tag::nusmods[]
 === Add NUSMods To Schedule
 ==== Implementation
-This feature allows users to add their NUSMods timetable (using the `AddNusModsCommand`) to their TimeBook schedules.
+This feature allows users to add their NUSMods timetable (using the `AddNusModsCommand` or `AddNusModCommand`) to their TimeBook schedules.
 
-The `AddNusModsCommand` can be executed by the user through the CLI with the following syntax `addmods n/NAME link/NUSMODS_SHARE_LINK`. The share link contains semester number, module codes and lesson numbers, which are used for creating and adding events to the person's schedule.
+The `AddNusModsCommand` can be executed by the user through the CLI with the following syntax `addmods n/NAME link/NUSMODS_SHARE_LINK`. The share link contains semester number, module codes, class types and class numbers, which are used for creating and adding events to the person's schedule.
 
-//The following class diagrams shows the structure of `Module` and `Event`:
-//TODO: class diagram for Module and Event
+The `AddNusModCommand` can be executed by the user through the CLI with the following syntax `addmod n/NAME m/MODULE_CODE cl/CLASS_TYPE_1:CLASS_NUMBER_1,CLASS_TYPE_2:CLASS_NUMBER_2,...`. This allows the user to add individual modules but requires the user to manually specify the class type and class numbers.
 
-The following sequence diagram shows what happens when `AddNusModsCommand` is executed:
+Since the `AddNusModsCommand` is less complex than `AddNusModsCommand` as it only adds 1 module at a time and does not require URL validation and parsing, we will walk through the implementation of the latter instead. The following sequence diagram shows what happens when `AddNusModsCommand` is executed:
 
+.Sequence diagram of executing the AddNusModsCommand
 image::nusmods/AddNusModsSequenceDiagram.png[]
 
-. User enters `addmods n/NAME link/https//nusmods.com/...`
-. The name string will be parsed into a `Name` object. The argument string for link will be parsed in `AddNusModsCommandParser` into a `NusModsShareLink`, containing the `SemesterNo`, `ModuleCodes` and `LessonNos`. Both the `Name` and `NusModsShareLink` objects will then be passed into the `AddNusModsCommand` constructor.
-. The `AddNusModsCommand#execute` is then called by the `LogicManager`.
-. In the `AddNusModsCommand#execute` method,
-.. `model#findPerson` is called to find the `Person` with the provided name.
-.. Iterate through the `ModuleCodes`,
+. User enters `addmods n/NAME link/https//nusmods.com/...`. The command string will be passed to `LogicManager` which calls `TimeBookParser` for parsing into an `AddNusModsCommand` object.
+. The `TimeBookParser` delegates the parsing to `AddNusModsCommandParser`. The name parameter will be parsed into a `Name` object, while the link parameter will be passed `NusModsShareLink#parseLink`, which validates and parses the link to create an `NusModsShareLink` object containing the `SemesterNo`, each module's `ModuleCode`, and their corresponding lessons' `LessonType` and `LessonNo`. The `AddNusModsCommandParser` then creates an `AddNusModsCommand`, which takes in the `Name` and `NusModsShareLink` objects, and passes the command back to `LogicManager`.
+. The `AddNusModsCommand#execute` is then called by the `LogicManager`. In the `AddNusModsCommand#execute` method,
+.. `AddNusModsCommand#getPerson` is called to get from the model the `Person` whose schedule will be added with the modules.
+.. `AddNusModsCommand#mapModulesToEvents` is then called to map each module to an event. Each `Module`-`LessonType`-`LessonNo` entry in the `NusModsShareLink` is iterated through and the following is executed,
 ... Call `model#findModule` to get the `Module` with the given module code.
-... Pass the module and selected lesson numbers in the link into `ModuleEventMappingUtil#mapModuleToEvent` to generate an `Event` based on the module. The lesson numbers are used to generate the `Timeslots` for the event.
-.. Iterate through all the events to add,
-... Call `person#addEvent` to add the event to the person's schedule.
-. Return command result and display feedback to user.
+... Pass the `Module` and pairs of `LessonType`-`LessonNo` to `ModuleEventMappingUtil#mapModuleToEvent` to generate an `Event` based on the module and lesson type-number pair. One `Module` is mapped to one `Event`, and each `Lesson` in the module is used to generate multiple `Timeslots` for an event.
+.. The created events will then be iterated through and executed with `person#addEvent` to add the events to the person's schedule.
+. The command result is returned to `LogicManager` and feedback is displayed to user.
+
+The following class diagram shows the `Module` class and its associated classes. The structure follows closely to the data retrieved from NUSMods API with some changes to suit the needs of our application.
+
+.Class diagram of `Module` and associated classes
+image::nusmods/ModuleClassDiagram.png[]
+
+The following class diagram shows the `Event` class and its associated classes relevant in the context of this feature.
+
+.Class diagram of `Event` and associated classes
+image::nusmods/EventClassDiagram.png[align="center", width=75%, pdfwidth=50vw]
+
+
 
 ==== Design Considerations
+|===
+| Aspect: | Choice | Pros | Cons
+.3+| Ease of use
 
-===== Aspect: Ease of executing command as user.
-* **Alternative 1 (current choice):** Entering NUSMods share link
-** Pros: User can easily get the NUSMods share link of his/her existing NUSMods timetable and copy/paste the link into the command.
-** Cons: Less flexibility if user wants to add only some modules (has to adjust timetable on NUSMods or modify the link itself)
-* **Alternative 2:** Entering modules individually
-** Pros: More flexibility in specifying modules to add.
-** Cons: Tedious as user has to specify the semester, module codes and lesson numbers in the command.
-* **Alternative 3:** Importing the downloaded iCalendar file from NUSMods
-** Pros: Opens up the possibility of importing generic iCalendar files.
-** Cons: User is unlikely to be able to get the iCalendar files of his/her group members (due to tediousness and privacy reasons).
+| 1. Allow user to add modules individually
+| Easier to implement.
+| Tedious for user, as user has to specify the module code, lesson types and lesson numbers in the command.
+
+| 2. Allow user to add modules via NUSMods share link *(current choice)*
+| User can easily get the NUSMods share link of his/her existing NUSMods timetable and copy/paste the link into the command.
+| Require implementation of complex URL validation and parsing.
+
+| 3. Allow user to import the downloaded iCalendar file from NUSMods
+| Opens up the possibility of importing generic iCalendar files.
+| Harder to implement, need to deal with file IO and .ics file format parsing. Also, user is unlikely to get the iCalendar files of his/her group members (due to tediousness)
+
+4+| We chose to implement choice 2 as it is the most user-friendly one. The bonus is that choice 1 has been implemented as well as it is easy to adapt what we have already implemented for choice 2 to make choice 1 work.
+|===
 
 // end::nusmods[]
 
 
 // tag::websocket[]
+// tag::websocket-marcus-1[]
 === External APIs
 
-The application requires data from the https://api.nusmods.com/v2/[NUSMods API] for the <<Add NUSMods To Schedule, Add NUSMods To Schedule>> feature and data from the https://developers.google.com/maps/documentation[Google Maps API] for the <<Closest Common Location(Micro Service), Closest Common Location>> feature. The following subsections describe the implementation of various aspects with regards to working with external APIs:
+The application requires data from the https://api.nusmods.com/v2/[NUSMods API] for the <<Add NUSMods To Schedule, Add NUSMods To Schedule>> feature and data from the https://developers.google.com/maps/documentation[Google Maps API] for the <<Closest Common Location(Micro Service), Closest Common Location>> feature. The following subsections describe the implementation of the <<Design-API,Api component>>:
 
 ==== APIs
 
-We have implemented a `websocket` component to contain the logic of interfacing with external APIs.
+We have implemented an `Api` component to contain the logic of interfacing with external APIs, the architecture diagram of this component can be seen in <<Design-API, Design -> Api component>>.
 
 The `websocket.NusModsApi` class contains methods for querying different endpoints of the NUSMods API and parsing the query results into `JSONObject` or `JSONArray` objects.
 
 The `websocket.GmapsApi` class contains methods for querying different endpoints of the Google Maps API and parsing the query results into `JSONObject` or `JSONArray` objects.
-//TODO: describe more and provide a class diagram of the internal classes in websocket
+
+The `websocket.Cache` class handles the saving and loading of cached API results in the resources folder.
+
+The `websocket.util` folder contains various utility classes for querying external APIs.
 
 ==== Caching API Results
 
-To support limited connectivity in our application, the results of all API queries are preprocessed and saved into the resources directory. The following activity diagram shows how the caching feature works when external data is required for the execution of a certain command:
+To support limited connectivity in our application, the results of all API queries are preprocessed and saved into the resources directory. This is managed by the `Cache` class. The following activity diagram shows how the caching feature works when external data is required for the execution of a certain command:
 
-image::gmaps/ApiDiagram.png[]
+.Activity diagram showing decision flow for `loadXXX` methods
+image::gmaps/ApiDiagram.png[width=40%, pdfwidth=40vw]
 
 ==== Preprocessing NUSMods API
-The key information that we require for each NUS module is the timetable information. Unfortunately, there is no available endpoint which provides the timetable information of all modules at once - there is only an endpoint which provides the timetable information of one module per query. Thus, we developed a small program in `logic.internal.nusmods.ImportMods`, which can be run prior to the main application itself, to query the timetable info for every module and build a list of modules data containing the timetable information.
+We preprocess the data collected from NUSMods API so that we can cache the data for offline usage and perform some early computation steps (e.g. validation, parsing) to reduce the computation cost during actual use in the application.
 
-//TODO: insert diagram websocket - logic.internal.nusmods class diagram
+Notably, the key information that we require for each NUS module is the timetable information. However, there is no available API endpoint which provides the timetable information of all modules at once. Rather, there is only an endpoint which provides the timetable information of one module per query. Thus, we developed a small program in `logic.internal.nusmods.ImportMods`, which is executed prior to the main application itself, to query the timetable info for every module and save the data in the resources folder.
 
+// end::websocket-marcus-1[]
+
+// tag::websocket-klement[]
 ==== Preprocessing Google Maps API
-//TODO: talk about your internal program to build the DistanceMatrix.json / Places.json
+//TODO: talk about your internal program to build the DistanceMatrix.json / Places.json or just do a reference link to Gmaps section
 
+// end::websocket-klement[]
 
+// tag::websocket-marcus-2[]
 ==== Design Considerations
+|===
+| Aspect: | Choice | Pros | Cons
+.3+| Limited Connectivity Support
 
-===== Aspect: Limited Connectivity Support
-Current choice: we chose a combination of alternatives 1 and 2 to achieve robust limited connectivity support for our external API data.
+| 1. Preprocessing API results and storing it in resources folder.
+| Can achieve complete offline support, also avoids the issue of providing API keys in production *(current choice*).
+| Have to run the preprocessing programs in `logic.internal` from time to time to update data files, e.g. for modules in new academic year or new locations else features will not work.
 
-* **Alternative 1:** Preprocessing API
-** Pros: Can achieve complete offline support, also saves the issue of handling API keys.
-** Cons: Have to run preprocessing programs from time to time to update data files, e.g. for modules in new academic year or new locations else features will not work.
-* **Alternative 2:** Caching Query Results
-** Pros: Achieves limited connectivity support (call once and save result, then use saved result for future calls). Also, needs less work to support future data/API changes.
-** Cons: Not so useful in cases where a large number of queries is required to be preprocessed first, e.g. getting locations data from Google Maps API to generate `LocationGraph`.
-* **Alternative 3:** Direct API queries
-** Pros: Easy to implement, minimal work to support future data/API changes.
-** Cons: No limited connectivity support.
+| 2. Caching Query Results
+| Achieves limited connectivity support (call once and save result, then use saved result for future calls). Also, needs less work to support future data/API changes.
+| Not so useful in cases where a large number of queries is required to be preprocessed first in order to handle a single user command, e.g. finding common location requires building a `LocationGraph` after getting the locations data from Google Maps.
 
+| 3. Direct API queries
+| Easy to implement, minimal work to support future data/API changes.
+| No limited connectivity support.
+
+4+| The choice of implementation was progressive - it was initially choice 3 for prototyping, then enhanced to choice 2, and finally adapted to choice 1. Choice 1 suits our needs the best as it can achieve complete offline support and avoid handling API keys in production. Additionally, the cons of choice 1 is manageable. However, a mix of choice 1 and 2 will be required moving forward if we intend to support non-NUS locations or multiple academic semesters.
+|===
+// end::websocket-marcus-2[]
 // end::websocket[]
 
 == Documentation
@@ -839,6 +908,9 @@ Preconditions: meeting group is created.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
+
+[[api]] API::
+Application Programming Interface
 
 [appendix]
 == Product Survey
