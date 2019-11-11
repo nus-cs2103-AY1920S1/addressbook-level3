@@ -121,7 +121,7 @@ public class DateTimeUtilTest {
 
     @Test
     void getStringFromDateTime_testOne() {
-        LocalDateTime givenDateTime = LocalDateTime.of(2019, 10, 31, 11, 04);
+        LocalDateTime givenDateTime = LocalDateTime.of(2019, 10, 31, 11, 4);
         String returnedString = DateTimeUtil.getStringFromDateTime(givenDateTime);
         String expectedString = "31/10/19, 11:04 AM";
 
