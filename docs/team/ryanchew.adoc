@@ -10,7 +10,7 @@
 
 == Overview
 
-My team of 4 software engineering students and I were tasked with enhancing a basic desktop addressbook application(AddressBook - Level 3) for our Software Engineering project. We chose to morph
+My team of 4 software engineering students including myself, were tasked with enhancing a basic desktop addressbook application(AddressBook - Level 3) for our Software Engineering project. We chose to morph
 it into a calorie tracker cum food database system called CaloFit. This enhanced application allows health-conscious people or those who are aiming for a diet to set their calorie budget for the day; manage the meals that they take; find dishes based on keywords or their remaining calorie budget; and get data about their calorie intake progress through a report.
 
 CaloFit is a desktop application for tracking the calories that the user has taken from his or her meals over the course of using the application. +

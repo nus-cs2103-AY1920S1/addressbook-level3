@@ -13,7 +13,6 @@ import calofit.commons.exceptions.IllegalValueException;
 import calofit.commons.util.FileUtil;
 import calofit.commons.util.JsonUtil;
 import calofit.model.CalorieBudget;
-import calofit.model.meal.ReadOnlyMealLog;
 
 /**
  * A class to access {@link CalorieBudget} data stored as a json file on the hard disk.
@@ -68,7 +67,7 @@ public class JsonCalorieBudgetStorage implements CalorieBudgetStorage {
     }
 
     /**
-     * Similar to {@link #saveCalorieBudget(ReadOnlyMealLog)}.
+     * Similar to {@link #saveCalorieBudget(CalorieBudget)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
