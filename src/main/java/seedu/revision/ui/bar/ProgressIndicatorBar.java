@@ -29,8 +29,9 @@ public class ProgressIndicatorBar extends UiPart<Region> {
                                 final String labelFormatSpecifier) {
         super(FXML);
 
-        assert currentProgress.get() >= 0 && currentProgress.get() <= totalProgress : "invalid total progress provided";
-        assert totalProgress > 0 : "invalid total progress provided";
+        assert currentProgress.get() >= 0 && currentProgress.get() <= totalProgress
+                : "Invalid current progress provided";
+        assert totalProgress > 0 : "Invalid total progress provided";
 
         this.currentProgress = currentProgress;
         this.totalProgress = totalProgress;
@@ -58,8 +59,8 @@ public class ProgressIndicatorBar extends UiPart<Region> {
             bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         } else {
             assert currentProgress.get() >= 0 && currentProgress.get() <= totalProgress
-                    : "invalid total progress provided";
-            assert totalProgress > 0 : "invalid total progress provided";
+                    : "Invalid current progress provided";
+            assert totalProgress > 0 : "Invalid total progress provided";
             text.setText(String.format(labelFormatSpecifier, Math.ceil(currentProgress.get())));
             bar.setProgress(currentProgress.get() / totalProgress);
         }

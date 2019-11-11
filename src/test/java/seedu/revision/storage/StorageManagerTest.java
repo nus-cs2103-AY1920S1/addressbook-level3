@@ -2,7 +2,7 @@ package seedu.revision.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static seedu.revision.testutil.TypicalMcqs.getTypicalRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalMcqs;
 
 import java.nio.file.Path;
 
@@ -55,7 +55,7 @@ public class StorageManagerTest {
          * {@link JsonRevisionToolStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link JsonRevisionToolStorageTest} class.
          */
-        RevisionTool original = getTypicalRevisionTool();
+        RevisionTool original = getTypicalMcqs();
         storageManager.saveRevisionTool(original);
         ReadOnlyRevisionTool retrieved = storageManager.readRevisionTool().get();
         assertEquals(original, new RevisionTool(retrieved));

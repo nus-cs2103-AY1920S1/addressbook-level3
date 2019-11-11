@@ -68,7 +68,7 @@ activate CommandResultBuilder
 create CommandResult
 CommandResultBuilder -> CommandResult : CommandResult(builder)
 activate CommandResult
-CommandResult-> CommandResultBuilder : commandResult
+CommandResult--> CommandResultBuilder : commandResult
 deactivate CommandResult
 
 deactivate CommandResult

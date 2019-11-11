@@ -36,7 +36,7 @@ public class AlertDialog {
      * Initialises an alert that will be shown when the user tries to restore the app.
      * @return AlertDialog with warning to restore the app.
      */
-    public static AlertDialog getRestoreAlert() {
+    static AlertDialog getRestoreAlert() {
         AlertDialog restoreAlert = new AlertDialog();
         restoreAlert.alert.setAlertType(Alert.AlertType.WARNING);
         restoreAlert.alert.setTitle("Warning!");
@@ -49,11 +49,11 @@ public class AlertDialog {
      * Initialises an alert that will be shown when the user completes a level in the quiz.
      * @param nextLevel the next level in the quiz.
      * @param score the user's current score so far.
-     * @param totalScore the total score of the user
-     * @return AlertDialog with the next level details set.
+     * @param totalScore the total score of the user.
+     * @return AlertDialog with options to proceed to next level or end the quiz.
      */
 
-    public static AlertDialog getNextLevelAlert(int nextLevel, int score, int totalScore) {
+    static AlertDialog getNextLevelAlert(int nextLevel, int score, int totalScore) {
         AlertDialog nextLevelAlert = new AlertDialog();
         nextLevelAlert.alert.setTitle(NEXT_LEVEL_TITLE);
         nextLevelAlert.alert.setHeaderText(null);
@@ -69,10 +69,10 @@ public class AlertDialog {
     /**
      * Initialises an alert that will be shown when the user ends the quiz.
      * @param score the user's current score so far.
-     * @param totalScore the total score of the user
-     * @return
+     * @param totalScore the total score of the user.
+     * @return AlertDialog with options to restart or end the quiz.
      */
-    public static AlertDialog getEndAlert(int score, int totalScore, boolean isFailure) {
+    static AlertDialog getEndAlert(int score, int totalScore, boolean isFailure) {
         AlertDialog endAlert = new AlertDialog();
         endAlert.alert.setTitle(END_QUIZ_TITLE);
         endAlert.alert.setHeaderText(null);
@@ -97,10 +97,10 @@ public class AlertDialog {
     }
 
     /**
-     * Shows the alert dialog and waits for user input which will be returned as a result.
+     * Shows the alert dialog and waits for user input which will be returned as an optional result.
      * @return the ButtonType that the user chose if any.
      */
-    public Optional<ButtonType> showAndWait() {
+    Optional<ButtonType> showAndWait() {
         Optional<ButtonType> result = alert.showAndWait();
         return result;
     }
@@ -113,7 +113,4 @@ public class AlertDialog {
         return noButton;
     }
 
-    public Alert getAlert() {
-        return alert;
-    }
 }

@@ -34,15 +34,15 @@ public class Saq extends Answerable {
      */
     public static boolean isValidSaq(Saq saq) {
         requireNonNull(saq);
-        if (saq.getCorrectAnswerList().size() == 0
-                || saq.getWrongAnswerList().size() > 0) {
+        if (saq.getCorrectAnswerList().isEmpty()
+                || !saq.getWrongAnswerList().isEmpty()) {
             return false;
         }
         return true;
     }
 
     @Override
-    public boolean isCorrect(Answer selectedAnswer) {
+    public boolean isAnswerCorrect(Answer selectedAnswer) {
         boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), this);
         return answerIsCorrect;
     }

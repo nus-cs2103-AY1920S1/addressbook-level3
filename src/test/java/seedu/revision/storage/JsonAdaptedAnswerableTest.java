@@ -3,7 +3,7 @@ package seedu.revision.storage;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.revision.storage.JsonAdaptedAnswerable.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcqs.B_ANSWERABLE;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,22 +21,22 @@ public class JsonAdaptedAnswerableTest {
     private static final String INVALID_CATEGORY = "";
 
     private static final String VALID_QUESTION_TYPE = "MCQ";
-    private static final String VALID_QUESTION = B_ANSWERABLE.getQuestion().toString();
-    private static final List<JsonAdaptedAnswer> VALID_CORRECT_ANSWER = B_ANSWERABLE.getCorrectAnswerList().stream()
+    private static final String VALID_QUESTION = MCQ_D.getQuestion().toString();
+    private static final List<JsonAdaptedAnswer> VALID_CORRECT_ANSWER = MCQ_D.getCorrectAnswerList().stream()
             .map(JsonAdaptedAnswer::new)
             .collect(Collectors.toList());
-    private static final List<JsonAdaptedAnswer> VALID_WRONG_ANSWER = B_ANSWERABLE.getWrongAnswerList().stream()
+    private static final List<JsonAdaptedAnswer> VALID_WRONG_ANSWER = MCQ_D.getWrongAnswerList().stream()
             .map(JsonAdaptedAnswer::new)
             .collect(Collectors.toList());
-    private static final String VALID_DIFFICULTY = B_ANSWERABLE.getDifficulty().toString();
-    private static final List<JsonAdaptedCategory> VALID_CATEGORIES = B_ANSWERABLE.getCategories().stream()
+    private static final String VALID_DIFFICULTY = MCQ_D.getDifficulty().toString();
+    private static final List<JsonAdaptedCategory> VALID_CATEGORIES = MCQ_D.getCategories().stream()
             .map(JsonAdaptedCategory::new)
             .collect(Collectors.toList());
 
     @Test
     public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        JsonAdaptedAnswerable answerable = new JsonAdaptedAnswerable(B_ANSWERABLE);
-        assertEquals(B_ANSWERABLE, answerable.toModelType());
+        JsonAdaptedAnswerable answerable = new JsonAdaptedAnswerable(MCQ_D);
+        assertEquals(MCQ_D, answerable.toModelType());
     }
 
     @Test

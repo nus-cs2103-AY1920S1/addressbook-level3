@@ -2,7 +2,7 @@ package seedu.revision.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.revision.testutil.TypicalMcqs.MCQ_STUB;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -77,7 +77,7 @@ public class StartQuizWindowTest {
     public void start(Stage stage) {
         Storage storageStub = new StorageStub();
         RevisionTool testRevisionTool = new RevisionTool();
-        testRevisionTool.addAnswerable(MCQ_STUB);
+        testRevisionTool.addAnswerable(MCQ_C);
         testRevisionTool.addAnswerable(TRUE_FALSE_STUB);
         testRevisionTool.addAnswerable(SAQ_STUB);
         Model model = new ModelManager(testRevisionTool, new UserPrefs(), new HistoryStub());

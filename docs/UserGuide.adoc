@@ -284,10 +284,14 @@ and the next question will be shown with the updated timer.
 Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
 The user is given 30 seconds to answer each question.
 
+image::normal-mode.png[]
+
 === Arcade Mode
 Levels are separated by difficulty. If the user enters a wrong answer before finishing the quiz. The quiz will end and display the results.
 The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
 level 3 giving the user 20 seconds to answer each question.
+
+image::arcade-mode.png[]
 
 //tag::junxian-custom-mode[]
 === Custom Mode
@@ -299,7 +303,7 @@ difficulty. The prefixes are optional, and if no prefixes are provided, custom m
 
 === Answering Questions
 |======
-|MCQ |TFQ |SAQ
+|MCQ |TrueFalse |SAQ
 |Answers can only be A, B, C, or D (Case insensitive) |Answers can only be True (T) / False (F) (Case insensitive)|Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
 |======
 //end::wilfred-quiz[]

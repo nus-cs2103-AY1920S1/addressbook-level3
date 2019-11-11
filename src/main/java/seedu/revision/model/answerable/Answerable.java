@@ -43,19 +43,6 @@ public abstract class Answerable {
         this.categories.addAll(categories);
     }
 
-    public Answerable (ArrayList<Answer> correctAnswerList,
-                       ArrayList<Answer> wrongAnswerList) {
-        this.question = new Question("Question");
-        this.correctAnswerList = correctAnswerList;
-        this.wrongAnswerList = wrongAnswerList;
-        ArrayList<Answer> combinedList = new ArrayList<>();
-        combinedList.addAll(wrongAnswerList);
-        combinedList.addAll(0, correctAnswerList);
-        this.combinedAnswerList = combinedList;
-        //System.out.println(combinedList);
-        this.difficulty = new Difficulty("1");
-        this.categories.add(new Category("cat"));
-    }
 
     public Question getQuestion() {
         return question;
@@ -82,7 +69,7 @@ public abstract class Answerable {
     }
 
     /**
-     * Creates an answerable based on its type using a factory design method.
+     * Creates an answerable based on its type using the factory design pattern.
      * @param questionType the question type.
      * @param question the question description.
      * @param correctAnswerList the list of correct answers.
@@ -112,7 +99,7 @@ public abstract class Answerable {
      * @param selectedAnswer answer that user selected.
      * @return true if correct or false if wrong.
      */
-    public boolean isCorrect(Answer selectedAnswer) {
+    public boolean isAnswerCorrect(Answer selectedAnswer) {
         requireNonNull(selectedAnswer);
         if (correctAnswerList.contains(selectedAnswer)) {
             return true;

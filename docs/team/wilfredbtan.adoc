@@ -56,11 +56,11 @@ of many of the other features.
 
 * *Minor enhancements*:
 ** Created the Normal and Arcade mode for the quiz. In Arcade Mode, each level has increasing difficulty and a shorter time limit, whenever a user gets a question wrong, the quiz ends and the user has to restart.
-** Created the abstract `Answerable` Class for subclasses such as `MCQ`, `TrueFalse` and `SAQ` classes to be built upon.
-** Added a progress bar for each level in the quiz.
+** Created the abstract `Answerable` Class for subclasses such as `MCQ`, `TrueFalse` and `SAQ` classes to be built upon using the factory design pattern.
+** Added an interactive progress bar for each level in the quiz.
 ** Implemented the adaptable UI for each type of question’s answers (i.e. allowing the GUI to change from displaying 4 panels for MCQs to 2 panels for True & False questions).
 
-* *Code contributed*: You can view the code I contributed to this project link:{contributedCodeUtl}/[here, window=blank]
+* *Code contributed*: You can view the code I contributed to this project link:{contributedCodeUrl}[here]
 
 * *Other contributions*:
 
@@ -102,8 +102,8 @@ include::../UserGuide.adoc[tag=wilfred-summary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=wilfred-logic]
-
 include::../DeveloperGuide.adoc[tag=wilfred-answerable]
 
-include::../DeveloperGuide.adoc[tag=wilfred-quiz]
+include::../DeveloperGuide.adoc[tag=wilfred-overview]
+
+include::../DeveloperGuide.adoc[tag=wilfred-implementation]
