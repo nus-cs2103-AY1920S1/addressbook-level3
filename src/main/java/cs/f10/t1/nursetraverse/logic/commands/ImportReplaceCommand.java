@@ -68,7 +68,7 @@ public class ImportReplaceCommand extends MutatorCommand {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE, e);
         } catch (IllegalValueException e) {
-            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS, e);
+            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS + "\n" + e.getMessage());
         }
 
         // Ensure imported list is unique.

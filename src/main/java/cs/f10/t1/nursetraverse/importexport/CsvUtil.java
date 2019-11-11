@@ -38,8 +38,6 @@ public class CsvUtil {
             + "overriding is not allowed";
     private static final String MESSAGE_MISSING_FILE = "File not found.";
 
-    private static final String importFolder = "imports";
-
     //=========== Writing/Export functions =============================================================
 
     /**
@@ -172,5 +170,4 @@ public class CsvUtil {
         }
         return false;
     }
-
 }

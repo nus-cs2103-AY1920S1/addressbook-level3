@@ -62,7 +62,7 @@ public class ImportMergeCommand extends MutatorCommand {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE, e);
         } catch (IllegalValueException e) {
-            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS, e);
+            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS + "\n" + e.getMessage());
         } catch (DuplicatePatientException e) {
             throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS, e);
         }
