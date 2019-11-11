@@ -401,6 +401,8 @@ Alternative 1 was chosen as it causes almost no overhead, guarantees data integr
 
 // end::undoredo[]
 
+// tag::notifs[]
+
 === Notification Feature
 This feature in Mortago reminds a mortuary manager to contact the police when the next-of-kin of a body
 has not been contactable for a given period of time from the point of admission of the `Body`. He / She then needs
@@ -431,7 +433,8 @@ instance of the class is instantiated.
 * `alert`: Refers to a `Runnable` function which checks if the current status of the body is `ARRIVED` and if so,
 changes it to `CONTACT_POLICE`.
 
-* `notifCreationTime`: Refers to a `Date` object which stores the date and time at the point of addition of the body.
+* `notifCreationTime`: Refers to a `Date` object which stores the date and time at the point of addition of the body
+in Mortago.
 
 The constructor of a `NotifCommand` must be provided with the following parameters:
 
@@ -563,6 +566,8 @@ time and `notifCreationTime` exceeds `period`.
 
 Alternative 1 is the current choice because we want the app to be responsive and scalable in the long term. The
 notification bell is placed beside the command box to prevent instances of user forgetting to contact the police.
+
+// end::notifs[]
 
 // tag::genpdf[]
 === Generate PDF Feature
@@ -1072,7 +1077,7 @@ Use case ends.
 1.  Mortuary manager wants to be reminded of the next line of action if next of kin cannot be contacted within 24 hours.
 2.  Mortago maintains a record of all the notifications about bodies until their status is
 changed.
-3.  Mortago shows pop-up notification after 24 hours from the point of arrival of the body in the mortuary.
+3.  Mortago shows pop-up notification after 24 hours from the point of admission of the body in the mortuary.
 +
 Use case ends.
 

@@ -389,7 +389,7 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 
 // tag::delete[]
-
+[[delete]]
 ==== Deleting an entry : `delete` +
 You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command with the
 given format below. +
@@ -402,7 +402,7 @@ you want to delete a `Fridge` with id `F01`, you need to only enter `delete -f 1
 When you delete a `Body`:
 
 * Mortago automatically deletes its associated `Notifs`. You can learn more
-about `Notifs` in <<showNotifs, Section 3.2.1>>.
+about `Notifs` in <<notifs, Section 3.2.1>>.
 * If you had assigned a `Fridge` to this `Body`, Mortago automatically sets the status of the `Fridge` to
 `UNOCCUPIED`.
 
@@ -418,17 +418,17 @@ To delete his record:
 
 1) Type `delete -w 3` and press `ENTER` to execute it.
 
-image::delete-command/DeleteStep1.png[]
+image::DeleteStep1.png[]
 
 2) The result box displays the message as shown below.
 
-image::delete-command/DeleteStep2.png[]
+image::DeleteStep2.png[]
 
 3) And you can check that Jim Kerr is no longer in the list of workers.
 
-image::delete-command/DeleteStep3.png[width="500"]
+image::DeleteStep3.png[width="500"]
 
-// end::delete
+// end::delete[]
 
 // tag::clear[]
 
@@ -491,12 +491,12 @@ View a body with the ID B00000001.
 === General
 
 // tag::notifs[]
-[[showNotifs]]
+[[notifs]]
 ==== View notifs panel: `showNotifs` +
 This command allows you to view all `Notif`(s).
 
 A `Notif` is a notification associated with a `Body`. In Singapore, if the next-of-kin is not contactable for more
-than 24 hours from the time of admission of a `Body`,
+than 24 hours from the time of addition of a `Body` in Mortago,
 police must informed. Mortago removes the hassle of manually keeping track of the status of bodies! For the purpose of
 testing, instead of 24 hours, Mortago currently
 uses 10 seconds.
@@ -524,28 +524,28 @@ Imagine that a new `Body` (John Doe) has just arrived at your mortuary.
 1) Type the `add` command as specified in the example in <<add, Section 3.1.1>>. Currently the status of this `Body`
 is `ARRIVED`
 
-image::notif-command/Notif1.png[]
+image::Notif1.png[]
 
 2) Wait for 10 seconds. Mortago automatically changes the status of the `Body` to `CONTACT_POLICE` and shows
 you a
 pop-up
 notification.
 
-image::notif-command/Notif2.png[]
+image::Notif2.png[]
 
 3) Type `showNotif` and press `ENTER` to execute it.
 
-image::notif-command/Notif3.png[]
+image::Notif3.png[]
 
 4) The notification bell opens up a panel and lists all the bodies for which you need to contact the police. You
 can see John Doe's ID number B00000020 is in the list.
 
-image::notif-command/Notif4.png[]
+image::Notif4.png[]
 
 5) Suppose you have contacted the police, change the status of John Doe using the command `update -b /id 20 /status
 pending police report`. John Doe's ID is no longer listed in the notifs panel.
 
-image::notif-command/Notif5.png[]
+image::Notif5.png[]
 
 // end::notifs[]
 
