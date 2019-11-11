@@ -296,6 +296,8 @@ The sequence diagram below shows how an undo command works to undo a `ClearComma
 .Sequence Diagram Showing a ClearCommand Being Undone
 image::UndoClearSequenceDiagram.png[]
 
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 If a `redo` command was executed afterwards, the `ClearCommand` would simply be executed again.
 
 The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the implementation of `undo()`.
@@ -1164,23 +1166,6 @@ An interface through which a user interacts with electronic devices such as comp
 A computer's current time and date
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1202,10 +1187,16 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Updating a Body
+.. Updating a body while all bodies are listed
+.. Prerequisites: List all bodies using the `list -b` command. There is at least one body in the list.
+.. Test case: `update -b /id 1 /name Polly` +
+    Expected: The name of the body with ID 1 changes to Polly.
+
 === Deleting a Body
 
 . Deleting a body while all bodies are listed
-_
+
 .. Prerequisites: List all bodies using the `list -b` command. Multiple bodies in the list.
 .. Test case: `delete -b 1` +
    Expected: Body with body ID number 1 is deleted from the list. Details of the deleted body shown in the status message. Timestamp in the status bar is updated.
@@ -1228,10 +1219,41 @@ _
 .. Other incorrect generate report commands to try: `genReport`, `genReport x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Undoing/redoing a command
+. Undoing an `AddCommand`
+.. Prerequisites: A body was added to Mortago in the previous executed command.
+.. Test case: `undo` +
+    Expected: The added body is removed from Mortago.
+. Undoing an `UpdateCommand`
+.. Prerequisites: A body or worker in Mortago was updated in the previous executed command.
+.. Test case: `undo` +
+    Expected: The fields of the body or worker that was updated has gone back to its original state.
+. Undoing a `DeleteCommand`
+.. Prerequisites: An entity in Mortago was deleted in the previous executed command.
+.. Test case: `undo` +
+    Expected: The entity deleted reappears in Mortago.
+. Undoing a `ClearCommand`
+.. Prerequisites: A `ClearCommand` was executed in the previous executed command.
+.. Test case: `undo` +
+    Expected: All entities existing in Mortago before the `ClearCommand` was executed reappears on the dashboard.
+. Redoing these commands
+.. Prerequisites: You have just finished executing one of the above `undo` test cases.
+.. Test case: `redo` +
+    Expected: Mortago's state goes back to the `undo` test case's prerequisite.
+
 === Saving Data
+. Saving your changes
+.. Add a body to Mortago using this command: `add -b /name Agavoides Echeveria /sex male /dod 12/12/2018 /doa 22/10/2019`
+.. Notice that the body has appeared on the dashboard.
+.. Close Mortago and reopen it to verify that the change was saved.
 
-. Dealing with missing/corrupted data files
+. Dealing with missing or corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Go to the folder that Mortago is stored in.
+.. Delete every file except Mortago's .jar file.
+.. Run the jar file again to start a new, empty data file.
 
-_{ more test cases ... }_
+. Simulating a corrupted data file
+.. Go to the folder that Mortago is stored in and locate the data folder. addressbook.json will be found in the data folder.
+.. Add an 's' to 'bodies' in line 3 of the file.
+.. Run Mortago again. It will start Mortago with a new, empty data file.

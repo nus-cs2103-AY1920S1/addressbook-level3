@@ -41,8 +41,14 @@ You will encounter the following symbols and formatting in this document:
 ====
 * `undo`:  Dark red text with monospace font indicates that this text is a command that can be entered into the CLI or a code component.
 * Tips: A tip annotation contains information that is likely to be useful to users.
+
 [TIP]
 This is an example of a tip.
+
+* Notes: A note contains explanatory information.
+
+NOTE: This is an example of a note.
+
 ====
 
 == 2. Summary of Contributions
