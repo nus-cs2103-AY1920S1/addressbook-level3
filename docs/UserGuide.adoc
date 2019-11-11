@@ -173,7 +173,6 @@ You may click on the kbd:[Copy URL] button and paste it in a browser to see our 
 To exit the window, click the kbd:[x] button found near the top of the window to close it and return to the default display.
 // end::help[]
 
-// tag::add[]
 === Adding a person: `add`
 
 This command allows you to add a patient, doctor, or donor to ORGA__Nice__ with the attributes given,
@@ -216,6 +215,7 @@ d/S2235456D a/29`
 exp/23-Nov-2020 a/21`
 * `add t/doctor n/Lim Chu Kang p/91054444 ic/S5678908D`
 
+// tag::add[]
 ==== Form mode
 
 In this mode, instead of typing a long command at one go, you can add a person's attribute one by one.
@@ -236,33 +236,33 @@ Note that `/exit`, `/abort`, and `/undo` commands can be used at any point in ti
 These are the important commands for this feature, so now let's take a look at an example on how you can use this feature.
 Let's say you want to add a patient to the application. You should type `add t/patient` in the `Command Box`. Three changes will occur on your screen:
 
-1. A form will appear in the space where the `Person List` used to occupy.
-2. The `Message Display Box` will display a message that prompts you to enter the patient’s name.
-3. There is a `Progress Bar` detailing your progress in filling up the form.
+1. A form will appear in the space where the Person List used to occupy.
+2. The Message Display Box will display a message that prompts you to enter the patient’s name.
+3. There is a Progress Bar detailing your progress in filling up the form.
 
-Refer to the `Figure 4` to see how the resulting screen will look like.
+Refer to the Figure 4 to see how the resulting screen will look like.
 
 .Screenshot of the screen after you have successfully entered the form mode
-image::addForm.png[width="790"]
+image::addForm.png[width="790", height="500"]
 
 If you want to add a patient named "John Doe", type `John Doe` and then press kbd:[Enter].
-After entering the name, the patient's name will be displayed on the form and the progress bar will increase as seen in `Figure 5`.
+After entering the name, the patient's name will be displayed on the form and the progress bar will increase as seen in Figure 5.
 
 .Form layout after you have entered a valid name
-image::nameFilled.png[width="790"]
+image::nameFilled.png[width="790", height="500"]
 
 Each time you type an input, ORGA__Nice__ will check if it is a valid input. If the input is valid, it will be reflected on the form.
 If not, ORGA__Nice__ will display a warning message stating the criteria for a valid input of that attribute.
 
-Say you typed in "G999999999A" and pressed kbd:[Enter] when ORGA__Nice__ prompts you to type in the NRIC of the patient.
-Three changes occur to ORGA__Nice__, which can be seen in the `Figure 6`:
+Say you typed in "G999999999A" and pressed kbd:[Enter] when ORGANice prompts you to type in the NRIC of the patient.
+Three changes occur to ORGA__Nice__, which can be seen in the Figure 6:
 
-1. Your input will remain in the `Command Box`, but the colour of the input text turns to red.
-2. A warning message is displayed in the `Message Display Box`. This warning message details the criteria for a valid NRIC input. This error message is specific to the attribute type. For example if you typed in an invalid NRIC, an error message detailing the criteria for a valid NRIC will be displayed.
+1. Your input will remain in the Command Box, but the colour of the input text turns to red.
+2. A warning message is displayed in the Message Display Box. This warning message details the criteria for a valid NRIC input. This error message is specific to the attribute type. For example if you typed in an invalid NRIC, an error message detailing the criteria for a valid NRIC will be displayed.
 3. Your input will not be reflected in the form.
 
 .Form layout if you entered an invalid value
-image::invalidInput.png[width="790"]
+image::invalidInput.png[width="790", height="500"]
 
 After all of the attributes have been specified, you can type in:
 
@@ -273,31 +273,31 @@ Note that the `Find Match` button will only appear on the `Patient` form. Note t
 The `Figure 7` will show how the form will look like after you have entered all the required attributes.
 
 .Form layout after all the required attributes have been specified
-image::allFieldSpecified.png[width="790"]
+image::allFieldSpecified.png[width="790", height="500"]
 
 When you type in `/done`, the `Person List` will return to its original state of displaying people in ORGA__Nice__.
 The `Message Display Box` will show a success message, indicating that you have successfully added a new person to the Person List as seen in `Figure 8`.
 
 .The UI changed back to it's original state and shows a success message
-image::addSuccess.png[width="790"]
+image::addSuccess.png[width="790", height="500"]
 
-The `Find Match` button will appear when all attributes are filled. After you clicked this button, `ORGA__Nice__` will add the patient to the list and it will execute the `Match` command as described in <<Detecting matches: `match`>>.
-`ORGA__Nice__` will then return back to its original state(exits from the form mode) and shows the list of potential donors for the patient you have just added as seen in `Figure 10`. Note that this button only appeared if you are adding a patient.
+The 'Find Match' button will appear when all attributes are filled. After you clicked this button, `ORGANice` will add the patient to the list and it will execute the 'match' command.
+ORGA__Nice__ will then return back to its original state(exits from the form mode) and shows the list of potential donors for the patient you have just added as seen in Figure 10. Note that this button only appeared if you are adding a patient.
 
 .The UI displayed the potential donors for a patient that you have added
-image::findMatch.png[width="790"]
+image::findMatch.png[width="790", height="500"]
 
 At any point in time, if you decided not to proceed with the addition and typed in `/abort`, you will be directed into the main page and notified that
-you have abandoned the form as seen in `Figure 10`.
+you have abandoned the form as seen in Figure 10.
 
 .The UI changed back to it's original state and shows a message the form has been abandoned
-image::abandonForm.png[width="790"]
+image::abandonForm.png[width="790", height="500"]
 
 Furthermore, if you made any mistake while you are filling up the form, you can type in `/undo` to remove the last entry you entered.
-For example, if you enter the wrong name and want to undo the action, type `/undo` in the `Command Box` and press kbd:[Enter]. Your previous input for the name will be removed from the form as seen in `Figure 11`
+For example, if you enter the wrong name and want to undo the action, type `/undo` in the Command Box and press kbd:[Enter]. Your previous input for the name will be removed from the form as seen in Figure 11
 
 .Form layout showing that the last entry is removed after you typed in '/undo'
-image::undoCommand.png[width="790"]
+image::undoCommand.png[width="790", height="500"]
 // end::add[]
 
 // tag::list[]
@@ -489,6 +489,7 @@ Format: `sort rate`
 Take for instance, after running a match command on a specific patient with `match ic/**NRIC**`, you will get a list of donors that are compatible with said patient.
 You can then run `sort rate` to obtain the list of donors with higher compatibility rates near the top of the list.
 // end::sort[]
+// end::match[]
 
 // tag::process[]
 

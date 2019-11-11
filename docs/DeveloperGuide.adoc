@@ -304,32 +304,61 @@ The `Match` class can contain methods more specific to matching.
 and displayed.
 
 // tag::formmode[]
-=== Add person `Form` mode feature
-This section explains the implementation of the adding person in `Form` mode feature.
+=== Form mode feature
+This section explains the implementation of the form mode feature.
 
 ==== Implementation
 
-The `Form` mode mechanism is facilitated by `FormUiManager`.
-It modifies the `CommandBox` as well as `PersonPanelListPlaceholder` each time a user input a specific attribute.
-Additionally, it implements the following operations:
+The form mode mechanism is facilitated by `FormUiManager`.
+It modifies the `CommandBox` as well as `PersonPanelListPlaceholder` each time you input a specific attribute.
+The following object diagram models the relationship and dependencies between `FormUiManager` and other objects:
 
-* `FormUiManager#getPersonField()` -- Modifies `CommandBox` and prompts the user to input a specific attribute.
+.Object Diagram for the `FormUiManager` object
+image::FormUiManagerObjectDiagram.png[width="300"]
+
+`FormUiManager` will need an object of class `Type` in order to determine what type of form(patient, doctor, or donor) will be displayed to you.
+
+Additionally, `FormUiManager` implements the following operations:
+
+* `FormUiManager#getPersonDetails()` -- Modifies `CommandBox` and prompts the user to input the attributes required.
 * `FormUiManager#setPersonDetails()` -- Sets the value for all required attributes of a specific type of person.
 * `FormUiManager#addDoctorToList()` -- Adds a doctor to the person list.
 * `FormUiManager#addPatientToList()` -- Adds a patient to the person list.
 * `FormUiManager#addDonorToList()` -- Adds a donor to the person list.
 
-These operations are exposed in the `Logic` interface when the specific command is invoked by the user.
+These operations are exposed in the `Logic` interface when the specific command is invoked by you.
 
-Given below is an example usage scenario and how the `Form` mode mechanism behaves at each step:
+Given below is an example usage scenario and how the form mode mechanism behaves at each step so that you can better understand how the different classes interact with each other:
 
-Step 1. The user launches the application for the first time.
+Step 1. A user launches the application for the first time.
 
-Step 2. The user executes `add t/doctor` command to add a doctor in a `Form` mode. The `add` command calls `AddressBookParser#parseCommand()` that will return a new `AddCommand` instance.
+Step 2. The user executes `add t/doctor` command to add a doctor in the form mode. The `add` command calls `AddressBookParser#parseCommand()` that will return a new `AddCommand` instance.
 
-Step 3. The `LogicManager` executes the command and notice that the `Command` is a `Form` type command and thus will create a new `FormUiManager` instance.
+Step 3. The `LogicManager` executes the command and notice that the `CommandResult` having a boolean value `isForm` and thus will create a new `FormUiManager` instance. The code snippet below demonstrates how the `FormUiManager` is created.
 
-Step 4. The `FormUiManager` changes the display of the application based on the type of the person specified in Step 1 by modifying the content of the `PersonListPanelPlaceholder` as well as the `CommandExecutor` in the `CommandBox` object by calling `FormUiManager#getPersonFields()`.
+```
+if (commandResult.isForm()) {
+    resultDisplayPlaceholder.setMinHeight(100);
+    FormAnimation.fadingAnimation(this);
+    Type formType = commandResult.getFormType();
+    FormUiManager formUiManager = new FormUiManager(this, formType, model, logger);
+    personListPanelPlaceholder.getChildren().clear();
+    if (formType.isDoctor()) {
+        form = new DoctorForm();
+        personListPanelPlaceholder.getChildren().add(((DoctorForm) form).getRoot());
+    } else if (formType.isDonor()) {
+        form = new DonorForm();
+        personListPanelPlaceholder.getChildren().add(((DonorForm) form).getRoot());
+    } else if (formType.isPatient()) {
+        form = new PatientForm(this);
+                    personListPanelPlaceholder.getChildren().add(((PatientForm) form).getRoot());
+                }
+                formUiManager.getPersonDetails();
+                return commandResult;
+            }
+```
+
+Step 4. The `FormUiManager` changes the display of the application based on the type of the person specified in Step 1 by modifying the content of the `PersonListPanelPlaceholder` as well as the `CommandExecutor` in the `CommandBox` object by calling `FormUiManager#getPersonDetails()`.
 
 Step 5. The user inputs the attribute that is prompted until all the required attributes are specified.
 
@@ -337,18 +366,27 @@ Step 6. The user confirms the details of the person and `FormUiManager#setPerson
 
 Step 7. `FormUiManager` calls the `AddressBookParser#parseCommand()` to add the person and save it in the `Storage` interface.
 
+Given below is the Sequence Diagram for interactions within the Logic component when a user typed in `add t/doctor`
+
+.Sequential Diagram for the form mode feature
+image::AddFormSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when you execute the `add t/**TYPE**` command:
+
+.Activity Diagram for adding a person using form mode feature
+image::Form.png[width="300", height="300"]
+
 ==== Design Considerations
 This section will explain the reason for having some aspects.
 
-===== Aspect: How undo & redo executes
+===== Aspect: How form mode feature executes
 
 * **Alternative 1 (current choice):** Use the same `add` command to do the `Form` mode.
-** Pros: Easy to implement.
+** Pros: Easy to implement. This is the reason why this alternative is chosen as it does not take too much time to implement.
 ** Cons: May not be the best approach since one command will have two different modes.
 * **Alternative 2:** Use a new command for the `Form` mode.
 ** Pros: Will be less confusing for the user since there is a separate command for `Form` mode
 ** Cons: We must creates a new parser and command classes just to deal with another `add` functionality.
-
 // end::formmode[]
 
 // tag::sort[]

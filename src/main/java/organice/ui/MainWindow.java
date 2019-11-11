@@ -116,6 +116,11 @@ public class MainWindow extends UiPart<Stage> {
         return model;
     }
 
+    public Logger getLogger() {
+        return logger;
+    }
+
+
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
@@ -269,10 +274,11 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isForm()) {
+                logger.info("[FORM MODE activated}");
                 resultDisplayPlaceholder.setMinHeight(100);
                 FormAnimation.fadingAnimation(this);
                 Type formType = commandResult.getFormType();
-                FormUiManager formUiManager = new FormUiManager(this, formType, model, logger);
+                FormUiManager formUiManager = new FormUiManager(this, formType);
                 personListPanelPlaceholder.getChildren().clear();
                 if (formType.isDoctor()) {
                     form = new DoctorForm();
