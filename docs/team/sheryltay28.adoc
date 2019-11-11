@@ -1,0 +1,51 @@
+= Tay Sheryl - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Teacher's Notebook
+
+---
+
+== Overview
+
+Teacher's Notebook is an application for teachers to organise their classes and lessons as well as provide reminders when their lessons are about to start.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added Lessons and Reminders to the app.
+** What it does: Allows user to add, delete, find or edit lessons. A reminder will be scheduled whenever a new Lesson is added.
+** Justification: Since lessons are an important part of a teacher's daily work schedule, being able to add lessons and reminders will be useful for the teacher to keep track of what lessons they have.
+** Highlights: Reminders will be automatically added whenever a new Lesson is added and when the application is being closed and open, it will still be scheduled.
+** Credits: Command for Lessons are inspired by AddressBook3 commands for contacts.
+
+* *Minor enhancement*:
+** Added tabs to GUI to display lessons by the day of the week.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sheryltay28&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tp code dashboard]]
+
+** Project management:
+*** Managed releases `v1.1 - v1.3` (4 releases) on GitHub
+** Gave comments to other people in the group before merging pr.
+** Enhancements to existing features:
+** Fixed exit issues for the app (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/183)
+** Community:
+** Reviewed other pr's and bugs in class with group mates.
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide.
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=lessons]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=model]
+
