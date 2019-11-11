@@ -40,11 +40,11 @@ The sorting feature allows users to sort the list of food based on some criterio
 specific fields given from the command line interface, or the preset comparator which the user has created.
 
 For example, if the user wishes to see the list of food items in order of ascending price, the list will be then sorted.
-As a result, the cheapest food item will be on the top of the food list, followed by the second cheapest food item. And
-finally, the most expensive food item will be on the bottom of the food list.
+As a result, the cheapest food item will be on the top of the food list and
+the most expensive food item will be on the bottom of the food list.
 
 Not only that, the user can turn autosorting on or off. As a result, when the user adds a new food item, the food list
-will be autosorted immediately.
+will be sorted immediately.
 
 ==== Justification
 
@@ -72,7 +72,7 @@ criterion at the top of the food list.
 
 Finally, they should be able to view the fields of the custom comparator using `viewsort`.
 
-=== Minor Enhancement: Alias Feature
+=== Major Enhancement: Alias Feature
 
 I have added a alias feature to $aveNUS which allows users to create shortcuts for commonly used commands.
 
@@ -99,16 +99,12 @@ Storage functionality for the user's alias shortcuts were also implemented. This
 into their hard disk and persist even after the application is closed and restarted.
 
 === Code contributions:
-Here are the https://github.com/AY1920S1-CS2103T-F13-2/main/commits/master?author=seanlowjk[commits],
-https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Aseanlowjk[pull requests] and
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seanlowjk&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[code]
-that I have contributed for this project.
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seanlowjk&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[[Project Code Dashboard]]
+| https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Aseanlowjk[[Pull Requests]]
 
 === Other contributions
 
 * Project Management:
-
-** Added user stories as issues on GitHub
 
 ** Reviewed pull requests by team members [Examples: https://github.com/AY1920S1-CS2103T-F13-2/main/pull/80[#1],
 https://github.com/AY1920S1-CS2103T-F13-2/main/pull/99[#2]]
@@ -140,10 +136,21 @@ https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/64#pullrequestrev
 
 This section shows the contributions that I have made to the sorting feature of the User Guide.
 
+|===
+| _I wrote the commands for `sort`, `makesort`, `customsort`, `autosort` , `viewsort` and `default`.
+The commands are shown below while the full user guide can be found
+https://ay1920s1-cs2103t-f13-2.github.io/main/UserGuide.html[here]._
+|===
+
 include::../UserGuide.adoc[tag=sorting]
 
 == Contributions to the Developer Guide
 
 This section shows the additions that I have made to the sorting feature of the Developer Guide.
+
+|===
+| _I wrote the sorting section of the Developer Guide. The full Developer Guide can be found
+https://ay1920s1-cs2103t-f13-2.github.io/main/DeveloperGuide.html[here]._
+|===
 
 include::../DeveloperGuide.adoc[tag=sorting]
