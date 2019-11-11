@@ -632,7 +632,7 @@ image::remindDiagrams/RemindCommandLogicClassDiagram.png[]
 
 The `remind` command also interacts with the `Model` component, specifically through indirect
 interactions with each `Flashcard` object currently in `StudyBuddyPro`. This was explained
-earlier under section 4.6.2[ADD LINK].
+earlier through Figure 20.
 
 The following example serves to provide an overview of the high-level architecture involved for the `remind` command.
 
