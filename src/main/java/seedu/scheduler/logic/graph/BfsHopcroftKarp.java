@@ -87,7 +87,7 @@ public class BfsHopcroftKarp {
         List<Vertex> unmatchedVertices = new LinkedList<>();
 
         for (InterviewerSlotVertex v : associatedSlotVertices) {
-            if (v.isMatched()) {
+            if (v.isMatchedTo(u)) {
                 continue;
             }
             List<IntervieweeVertex> vPredecessors = interviewSlotPredecessors.get(v.getIndex());

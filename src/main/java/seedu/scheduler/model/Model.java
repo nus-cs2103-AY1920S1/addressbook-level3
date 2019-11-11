@@ -238,9 +238,19 @@ public interface Model {
     List<List<String>> getTitlesLists();
 
     /**
+     * Resets the relevant data before running a schedule command.
+     * 1. Removes the allocated time slot of all interviewees
+     * 2. Removes the allocated time slots of all interviewers
+     * 3. Resets the schedule list such that it only reflects the interviewers' availability and the scheduled result
+     * is cleared.
+     */
+    void resetScheduledResult();
+
+    /**
      * Updates the schedules after schedule command is executed by placing the interviewees into their allocated slot.
      **/
     void updateSchedulesAfterScheduling() throws ScheduleException;
+
     // ============================================ User Prefs ===================================================
 
     /**
@@ -257,11 +267,6 @@ public interface Model {
      * Returns the user prefs' GUI settings.
      */
     GuiSettings getGuiSettings();
-
-    /**
-     * Resets the relevant data before running a schedule command.
-     */
-    void resetDataBeforeScheduling();
 
     /**
      * Sets the user prefs' GUI settings.

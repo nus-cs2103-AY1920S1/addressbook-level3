@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class Interviewer
+Class Interviewee
+Class Schedule
+
+
+Schedule ..> "0..*"Interviewee
+Schedule ..> "1..*"Interviewer
+Interviewer - Interviewee
+
+@enduml

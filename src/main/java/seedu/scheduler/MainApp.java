@@ -131,8 +131,8 @@ public class MainApp extends Application {
                     + "an empty list of Interviewers");
             initialInterviewerList = new InterviewerList();
         }
-
         return new ModelManager(initialIntervieweeList, initialInterviewerList, userPrefs, new LinkedList<>());
+
     }
 
     private void initLogging(Config config) {

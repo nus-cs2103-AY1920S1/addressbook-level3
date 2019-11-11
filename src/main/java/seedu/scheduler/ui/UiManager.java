@@ -15,7 +15,7 @@ import seedu.scheduler.logic.Logic;
 /**
  * The manager of the UI component.
  */
-public class UiManager implements Ui, TabListener, RefreshListener {
+public class UiManager implements Ui {
 
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 

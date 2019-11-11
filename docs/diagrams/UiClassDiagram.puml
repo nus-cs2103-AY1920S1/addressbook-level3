@@ -20,7 +20,6 @@ Class StatusBarFooter
 Class CommandBox
 Class IntervieweeListPanel
 Class InterviewerListPanel
-
 }
 
 package Logic <<Rectangle>> {
@@ -34,9 +33,11 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Ui
 
-Model .left.> RefreshListener
-Model ..> TabListener
+Ui -down-|> RefreshListener
+Ui --|> TabListener
 
+Model o-> RefreshListener
+Model o--> TabListener
 
 UiManager .right.|> Ui
 UiManager -down--> MainWindow
@@ -56,11 +57,6 @@ ScheduleViewPanel --|> UiPart
 ScheduleViewPanel --> ScheduleViewCard
 StatusBarFooter -|> UiPart
 HelpWindow -down-|> UiPart
-ScheduleView -.|> RefreshListener
-IntervieweeListPanel -down--.|> RefreshListener
-InterviewerListPanel -down--.|> RefreshListener
-MainWindow -> TabListener
-
 
 UiManager -right-> Logic
 MainWindow -left-> Logic

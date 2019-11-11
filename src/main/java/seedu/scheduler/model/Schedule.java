@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -134,27 +133,6 @@ public class Schedule implements Comparable<Schedule> {
         }
 
         return slots;
-    }
-
-    /**
-     * Clears all the interviewees in the schedule.
-     */
-    public void clearAllocatedInterviewees() {
-        for (ObservableList<String> row : data) {
-            if (row.size() < 2) {
-                break;
-            }
-
-            int size = row.size();
-            ListIterator<String> iterator = row.listIterator();
-            iterator.next();
-            for (int i = 1; i < size; i++) {
-                String value = iterator.next();
-                if (!value.equals("0") && !value.equals("1")) {
-                    iterator.set("1");
-                }
-            }
-        }
     }
 
     /**
