@@ -259,7 +259,7 @@ data related to their specific features.
 Below is a class diagram for `ModelManager`.
 
 .`ModelManager` class
-image::UpdatedModelClassDiagram.png[]
+image::UpdatedModelClassDiagram.png[500,500]
 
 Each feature has a class managing the data related to that feature as mentioned
 earlier.
@@ -267,22 +267,22 @@ earlier.
 Below are the class diagrams of these classes.
 
 .`UserPrefs`
-image::ModelUserPrefsClassDiagram.png[]
+image::ModelUserPrefsClassDiagram.png[200,200]
 
 .`HistoryManager`
-image::ModelHistoryManagerClassDiagram.png[]
+image::ModelHistoryManagerClassDiagram.png[200,200]
 
 .`CcaTracker`
-image::ModelCcaTrackerClassDiagram.png[]
+image::ModelCcaTrackerClassDiagram.png[500,500]
 
 .`CoursePlanner`
-image::ModelCoursePlannerClassDiagram.png[]
+image::ModelCoursePlannerClassDiagram.png[700,700]
 
 .`FinanceTracker`
-image::ModelFinanceTrackerClassDiagram.png[]
+image::ModelFinanceTrackerClassDiagram.png[500,500]
 
 .`Planner`
-image::ModelPlannerClassDiagram.png[]
+image::ModelPlannerClassDiagram.png[400,400]
 
 [[Design-Storage]]
 === Storage component
@@ -325,19 +325,19 @@ in `JSON` format, by adapting each feature component into
 Below are the class diagrams for these adapted classes.
 
 .`JsonSerializableHistoryManager`
-image::HistoryManagerStorageClassDiagram.png[300,200]
+image::HistoryManagerStorageClassDiagram.png[200,200]
 
 .`JsonSerializableCcaTracker`
-image::CcaTrackerStorageClassDiagram.png[600,400]
+image::CcaTrackerStorageClassDiagram.png[400,400]
 
 .`JsonSerializableCoursePlanner`
-image::CoursePlannerStorageClassDiagram.png[300,200]
+image::CoursePlannerStorageClassDiagram.png[200,200]
 
 .`JsonSerializableFinanceTracker`
-image::FinanceTrackerStorageClassDiagram.png[600,400]
+image::FinanceTrackerStorageClassDiagram.png[400,400]
 
 .`JsonSerializablePlanner`
-image::PlannerStorageClassDiagram.png[600,400]
+image::PlannerStorageClassDiagram.png[400,400]
 
 [[Design-Commons]]
 === Commons Component
