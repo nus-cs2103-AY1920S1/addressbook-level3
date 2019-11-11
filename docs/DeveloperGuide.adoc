@@ -320,7 +320,7 @@ image::UndoableCommandActivityDiagram.png[]
 
 * **Alternative 1:** Saves the model data.
 ** Pros: It is easier to implement.
-** Cons: The approach introduces a new
+** Cons: The approach introduces a component that will take up memory.
 * **Alternative 2:** Individual commands have their own counter-command that negate the effects.
 ** Pros: This approach is quite intuitive (e.g. for `addmenuexpense`, we can do `deleteexpense-primary` to counter it).
 ** Cons: It has to be ensured that the implementation of each individual command is correct.
