@@ -348,15 +348,37 @@ image::autoexpense_delete.png[]
 === Budget
 ==== Adding Budget : `addBudget`
 
-Adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month
+Adds a new budget for expenditure. Inputs can be arranged in a different order. Tag may be omitted from the budget record. Category must already exist in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `addBudget c/<category> n/<description> a/<budget amount> d/<start date> p/<period> [t/<tag>]` +
+Format: `addBudget cat/<category name> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]` +
 Note: format for inputting period is <number><d/m/y> where d/m/y stands for days / months / years respectively
 e.g. for a period input of 10 days, use 10d
 
-Examples:
+<category name>: The category that this budget belongs to.
 
-* `addBudget c/Food n/Nov Budget a/50.00 d/2019 09 09 p/1m t/food`
+<description>: The name of this budget.
+
+<budget amount>: The amount set for this budget. It can contain at most 2 decimal points.
+
+<start date>: The starting date of this budget.
+
+<period>: The time period for which the budget is valid for. It can be in the form of either days, months, or years. Refer to example given in format.
+
+<tag>: Optional tags for this expense. The tag must not have spaces and most only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a budget to keep track of the amount you spent on your nightlife, key in the command `addBudget cat/Entertainment n/Clubbing Fund amt/10 d/2019 12 01 tg/indulgence tg/fun`.
++
+image::addingBudget-1.png[]
+
+. You should see the new budget being added into in the list of budget as displayed below.
++
+image::addingBudget-2.png[]
+
+Other examples:
+
+* `addBudget c/Entertainment n/Nov Budget a/500.00 d/2019 11 01 p/1m t/fun`
 * `addBudget c/Food n/Mala Budget a/100.00 d/2019 09 10 p/50d`
 
 ==== Listing Budget : `listBudget`
@@ -365,25 +387,75 @@ Lists all the current budgets the user has.
 
 Format: `listBudget`
 
-Example: `listBudget`
+Example Usage:
+[start = 1]
+. If you would like to display the list of budgets in the main panel, key in the command `listBudget`.
++
+image::listingBudget-1.png[]
+
+. You should see that the income and expense lists in the main panel are now replaced with the list of budgets, and that the side budget panel has been toggled away.
++
+image::listingBudget-2.png[]
+
+. If you would like to return the panel display to its original state, key in the command `list`.
++
+image::listingBudget-3.png[]
+
+. You should see that the income, expense, and budget panels are now back to their original positions.
++
+image::listingBudget-4.png[]
 
 ==== Editing Budget : `editBudget`
-Edits a current budget's description, amount or tag (if applicable) at the given index.
 
-Format: `editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]`
+Edits a current budget with the given index number. You may edit one or more fields, but the category must already exist in the list of categories in the Expense Category.
 
-Examples:
+Format: `editBudget <index> [cat/<category name>] [n/<description>] [d/<start date>] [amt/<budget amount>] [p/<period>] [tg/<tag>]`
 
-* `editBudget 1 n/fooooood budget`
-* `editBudget 2 n/lunch budget a/150`
-* `editBudget 2 t/fun`
+* `<index>`: The `index` of the budget in the budget panel. Additionally the index must be greater than zero and positive.
+* You can update any of the fields of the budget. But you must at least edit one field.
+
+Example Usage:
+
+[start = 1]
+. If you would like to edit a recent Budget's tags and budget amount, whereby the budget is located at index 3 as shown below,
+key in the command  `editBudget 3 amt/50 tg/noMoneyAlready tg/eatGrass`.
++
+image::editingBudget-1.png[]
+
+. You should see the new budget being edited in the list of budgets as displayed below.
++
+image::editingBudget-2.png[]
+
+Other Examples:
+
+* `editBudget 1 cat/Food n/fooooood budget`
+* `editBudget 2 n/lunch budget amt/150`
+* `editBudget 2 tg/fun`
 
 ==== Deleting Budget : `deleteBudget`
-Deletes a current budget at the given index.
+
+Deletes the budget at the given index number.
 
 Format: `deleteBudget <index>`
 
-Example: `deleteBudget 2`
+* `<index>`: The `index` of the budget in the budget panel. Additionally the index must be greater than zero and positive.
+
+Example Usage:
+
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::deletingBudget-1.png[]
+
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::deletingBudget-2.png[]
+
+Other Examples:
+
+* `deleteBudget 2`
+* `deleteBudget 4`
 
 === Loan [coming in v2.0]
 ==== Adding a Loan : `addLoan` [coming in v2.0]
@@ -824,34 +896,115 @@ Example: `purchase 1`
 
 === Undo/Redo
 ==== Undo previous command : `undo`
-Restores the finance tracker to the state before the previous undoable command was executed.
+Restores the finance tracker to the state before the previous undoable command was executed or
+before the specified number of undoable commands were executed.
 
-Format: `undo`
+Format: `undo` `undo <step>`
 
-Examples:
+* `<step>`: The number of commands to undo. Additionally the step must be greater than zero and positive.
+* `undo <step>` is only executed if the number of undoable commands is more than or equal to `<step>`.
+* [NOTE] `undo 1` has the same function as `undo`.
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command)
+Example Usage:
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::undo-1.png[]
+
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::undo-2.png[]
+
+. If you would like to undo your deletion, key in the command `undo`.
++
+image::undo-3.png[]
+
+. You should see the previously deleted budget back in the list of budgets as displayed below.
++
+image::undo-4.png[]
+
+Other examples:
 
 * `delete 1` +
 `delete 2` +
-`undo` (reverses the `delete 2` command) +
-`undo` (reverses the `delete 1` command)
+`undo 2` (reverses the `delete 2` and `delete 1` commands)
 
 ==== Redo previously undone command : `redo`
-Reverses the most recent undone command.
+Reverses the most recent undone command or the specified number of most recent undone commands.
 
-Format: `redo`
+Format: `redo` `redo <step>`
 
-Examples:
+* `<step>`: The number of undone commands to redo. Additionally the step must be greater than zero and positive.
+* `redo <step>` is only executed if the number of redoable commands is more than or equal to `<step>`.
+* [NOTE] `redo 1` has the same function as `redo`.
 
-* `delete 1` +
-`undo` (reverses the `delete 1` command)
+Example Usage:
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::undo-1.png[]
+
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::undo-2.png[]
+
+. If you would like to undo your deletion, key in the command `undo`.
++
+image::undo-3.png[]
+
+. You should see the previously deleted budget back in the list of budgets as displayed below.
++
+image::undo-4.png[]
+
+. If you would like to redo your undone command, key in the command `redo'.
++
+image::redo-1.png[]
+
+. You should see that the deleted budget that you previously have undone is now deleted again.
++
+image::redo-2.png[]
+
+Other examples:
 
 * `delete 1` +
 `delete 2` +
 `undo` (reverses the `delete 2` command) +
-`undo` (reverses the `delete 1` command)
+`undo` (reverses the `delete 1` command) +
+`redo` (reverses the latest `undo` command) +
+`redo` (reverse the latest `undo` command)
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command) +
+`redo 2` (reverses the 2 latest `undo` commands)
+
+==== View the history of commands entered : `history`
+Displays the list of commands entered, from most recent to earliest.
+
+Format: `history`
+
+* [NOTE] `history` can only be executed if there were commands already entered before trying to use `history`.
+
+Example Usage:
+[start = 1]
+. If you would like to display the list of commands entered, key in the command `history`.
++
+image::history-1.png[]
+
+. You should see that the income and expense lists in the main panel are now replaced with the history panel.
++
+image::history-2.png[]
+
+. If you would like to return the panel display to its original state, key in the command `list`.
++
+image::history-3.png[]
+
+. You should see that the income and expense panels are now back to their original positions.
++
+image::history-4.png[]
 
 === UI features
 
@@ -977,7 +1130,10 @@ do so.
 
 . Undo and Redo:
 .. `undo`
+.. `undo <step>`
 .. `redo`
+.. `redo <step>`
+.. `history`
 
 . UI features:
 .. `toggle <panel name>`
