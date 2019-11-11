@@ -131,22 +131,18 @@ public class ModelStub implements Model {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
     public void matchDonors(Patient patient) {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
     public void matchAllPatients() {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
     public void removeMatches() {
         throw new AssertionError("This method should not be called.");
     }
 
-    @Override
     public ObservableList<Person> getDisplayedPersonList() {
         throw new AssertionError("This method should not be called.");
     }

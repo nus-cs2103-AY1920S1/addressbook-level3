@@ -16,7 +16,7 @@ endif::[]
 :javaURL: https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html
 
 By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
-
+// tag:: intro[]
 == Introduction
 
 This user guide explains how to use ORGANice to manage organ transplants.
@@ -406,8 +406,8 @@ This section will explain how to run kidney matching tests for a specific patien
 the process with an example.
 To get a list of potential donors for a patient, type in `match ic/**PATIENT NRIC**`.
 
-Here is an example. Suppose you want to find potential donors for a patient "John Doe" and his NRIC is "S1234568R".
-Type `match ic/S1234568R` in the Command Box and press kbd:[Enter].
+Here is an example. Suppose you want to find potential donors for a patient "John Doe" and his NRIC is "S9941002G".
+Type `match ic/S9941002G` in the Command Box and press kbd:[Enter].
 
 You will see a list of potential donors for John Doe along with the compatibility
 rate of each donor, similar to Figure 13.
@@ -436,7 +436,7 @@ image::PatientMatchResults.png[width=790]
 Following this, you can sort the matches based on different criteria to
 determine which patient to prioritize. Head over to the next section to find out
 how to sort matches.
-
+// end::match[]
 // tag::sort[]
 === Sorting matches: `sort`
 After using the match command, you can sort the list of matches to determine which patient to prioritize for organ transplant.
@@ -448,7 +448,7 @@ There are three criteria in which you can sort the matches, namely:
 +
 * Sorting based on priority
 +
-* Sorting based on success rate of match
+* Sorting based on compatibility rate of match
 
 These criteria will be further explained below.
 
@@ -474,75 +474,150 @@ You can then run `sort priority` to obtain the list with higher priority patient
 Note that in the case where patients have the **same priority**, those with more matched donors will be displayed first.
 If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
 
-==== Sorting based on success rate of match
+==== Sorting based on compatibility rate of match
 To determine which patient-donor pair is the most compatible, you can
-sort the list of compatible donors of that patient based on the success rate of the match (from highest to lowest).
-You can refer to <<Glossary>> for more information on success rate.
+sort the list of compatible donors of that patient based on the compatibility rate of the match (from highest to lowest).
+You can refer to <<Glossary>> for more information on the compatibility rate.
 
 Format: `sort rate`
 
 Take for instance, after running a match command on a specific patient with `match ic/**NRIC**`, you will get a list of donors that are compatible with said patient.
-You can then run `sort rate` to obtain the list of donors with higher success rates near the top of the list.
+You can then run `sort rate` to obtain the list of donors with higher compatibility rates near the top of the list.
 // end::sort[]
 
 // tag::process[]
+
 === Processing potential matches: `processing`
-//TODO: change to shorter term that captures the meaning
 
-After finding a list of matches, the hospital is free to schedule a cross-matching test between
-a specific donor and patient. +
+After finding a list of matches, the hospital will be able to schedule a cross-matching test between
+a specific donor and patient.
+To schedule a cross-matching test, there will be a lot of other administrative tasks to be done.
+Hence, this command will be able to allow you to have an overview on what kind of tasks you need to do for that
+particular pair of donor and patient before the cross-matching.
 
-After typing this command, the following changes occur:
+==== `Status` of the donor and patient pair
 
-* A list will be generated to show the necessary tasks the hospital need to do for the respective donor and patient.
-* The list will be unique to the specific donor and patient pair
-* The list can be updated using `done** TASK NUMBER**` +
+You can also view the current state of every donor and patient in ORGANice by looking at their `Status`.
 
-The list will be saved after the command `exit` is executed. The page will then stop displaying the list.
+The `Status` of patient and donor can be either `Not Processing`, `Processing` or `Done`.
+
+* `Not Processing` : The current donor or patient is not yet matched with anyone and is not going for any cross-matching test yet.
+
+* `Processing` : The current donor or patient found a match already and is in the midst of preparing for a cross-matching test.
+
+* `Done` : The current donor or patient have completed the cross-matching and the result of the cross-matching shows a positive result.
+Hence, this donor or patient does not need to be in ORGANice anymore.
+
+All the patients and donors should be `Not Processing` initially.
+When the command is used for the first time for the patient and donor pair, the `Status` of the patient and donor will change from `Not Processing` to `Processing`.
+If the patient and donor is being processed, their `Status` will remain `Processing`.
+
+==== Task list for the donor and patient
+
+This command will show you the task list for the `Processing` donor and patient for you to be able to keep track of the necessary standard of procedure easily.
+
+Currently you can:
+
+* Generate a default task list automatically for newly processed patient and donor if they are `Not Processing` initially.
+
+* View the list which belongs to the patient and donor pair who are already `Processing`.
+
+* Mark a task as done in the task list generated from the patient and donor using another command
+`processingMarkDone ic/**PATIENT NRIC** ic/**DONOR NRIC** **TASK NUMBER**`
+which will be explained further later.
+
+==== `Processing` the donor and patient
+
+When you use this command, the following will occur:
+
+* A default task list will be generated to show the necessary tasks the hospital needs to do for the respective donor and patient.
+
+* The task list will be unique to the specific donor and patient.
+
+* The task list can be updated using another command,`processingMarkDone ic/**PATIENT NRIC** ic/**DONOR NRIC** **TASK NUMBER**`
+
+* The task list will be saved automatically.
+
+* A donor can only be in `Processing` state with only one patient and vice versa.
+This means, if a donor and a patient is already in `Processing` state, they will not be able to be processed with another donor or patient.
+
+* A screenshot of the list generated can be shown below:
+
+.Screenshot of the screen after you use the command on a valid donor and patient
+
+image::processing.png[width="790"]
 
 Format: `processing ic/**PATIENT NRIC** ic/**DONOR NRIC**` +
-The order of the NRICs does not matter.
+The order of the NRICs does not matter, as long as the patient and the donor must be valid.
 
 Example:
-`processing ic/S6764235G ic/S1234567D`
+`processing ic/S6764235G ic/S5234567D`
+
 // end::process[]
 
 // tag::mark[]
+
+=== Checking the task list : `processingMarkDone`
+
+As introduced above, this command serves to help you mark a task on the task list as done.
+This will allow you to be able to know what other administrative things you need to do
+for the specific donor and patient before the cross-matching test.
+Beside each task on the task list, there will be either a cross, ✘, or a tick, ✓.
+A tick would mean that the task is completed and a cross will mean that the task has not yet been completed.
+
+.Screenshot of the screen after you use the command on a valid donor and patient and a valid task number
+
+image::processingMarkDone.png[width="790"]
+
+Format: `processingMarkDone ic/**PATIENT NRIC** ic/**DONOR NRIC** **TASK NUMBER**` +
+The order of the NRICs does not matter, as long as the task number, patient and donor must be valid.
+The donor and patient need to be in `Processing` state to be considered valid.
+
+Example:
+`processingMarkDone ic/S6764235G ic/S5234567D 1`
+
+// end::process[]
+
+// tag::mark[]
+
 === Mark as done : `done`
 
 After the hospital has the results of the cross matching test, they can
-update the results in ORGANice. Cross matching tests have two possible results: pass or fail.
+update the results in ORGANice.
+Cross matching tests have two possible results: pass or fail.
 
-Format: `done icP/**NRIC OF PATIENT** icD/**NRIC OF DONOR** res/[pass/fail]`
-
-`icP/**NRIC OF PATIENT**` refers to the NRIC of the patient, while `icD/**NRIC OF DONOR**`
-refers to the NRIC of the donor.
+Format: `done ic/**PATIENT NRIC** ic/**DONOR NRIC** res/[pass/fail]`
+The order of the NRICs does not matter, as long as the patient and the donor must be valid.
 
 The following section outlines what happens based on the two results: +
 
 If the result of the cross matching is a 'pass':
 
-. It is up to the hospital staff to schedule an organ transplant surgery
+. Run the command based on the given format
+. It is up to the you to schedule an organ transplant surgery
 between the patient and donor.
-. Mark the patient and donor as 'done', based on the command format.
-. After running the command, the system removes the patient and donor from the matching pool.
-The patient and donor statuses will be marked to 'done'.
+. Mark the patient and donor as `Done`, based on the command format.
+. The patient and donor statuses will be marked as `Done`.
+. After running the command, the system removes the patient and donor from ORGANice.
 
 
 If the result of the cross matching is a 'fail': +
 
 . Run the command based on the given format
 
-. The patient and donor will be added back to the matching pool for
+. The donor and patient will be added back to the matching pool for
 match detection with other patients and donors.
 
-. The patient-donor pair will not be considered a potential match in future match detection.
+. The patient and donor statuses will be marked as `Not Processing`.
+
+. The donor and patient pair will not be considered a potential match in future match detection.
 
 
 Example:
 
-* `done icP/S7896432A icD/S4578902G res/pass`
-* `done icP/S7896432A icD/S4578902G res/fail`
+* `done ic/S6764235G ic/S5234567D res/pass`
+* `done ic/S6764235G ic/S5234567D res/fail`
+
 // end::mark[]
 
 === Exiting the program : `exit`
@@ -563,18 +638,10 @@ It is further divided into two sub-sections: **Proposed New Features** and **Pro
 
 This section describes features that can be added to ORGANice in version 2.0.
 
-==== Filtering persons: `filter`
+==== Implementing tab completion
 
-Filters a patient/doctor/donor by specific attributes.
-
-Format: `filter [patient/donor/doctor] [options]`
-
-Returns a list of patients/doctors/doctors that has the specified attributes.
-
-Examples:
-
-* `filter t/patient g/M`
-* `filter t/donor g/M n/Chua`
+This feature allows the program to automatically fill in
+partially typed commands upon pressing the kbd:[Tab] key.
 
 === Proposed Extensions
 
@@ -582,14 +649,12 @@ This section describes features that can be improved on and its proposed improve
 
 ==== Mass addition of data
 
-Add more than one patient/doctor/donor from data in a specified text file.
-
-A duplicate is defined as: two persons of the same type having the same ID.
-When a duplicate is detected, it prompts the user to change the data in the text file.
+This extension to the 'add' feature allows users to add more than one
+patient/doctor/donor from data in a specified text file.
 
 ==== Supporting more types of transplants
 
-Currently ORGANice has patient-donor matching for kidneys only. Future versions can include matching for +
+Currently ORGANice has patient-donor matching for kidneys only. Future versions can include matching for
 more types of organs.
 
 ==== Processing a match: `process`
@@ -597,11 +662,6 @@ more types of organs.
 Emails the doctor in charge of a patient when an organ match for the patient is found.
 
 Format: `process **NRIC**`
-
-==== Advanced find
-
-Finding in v2.0 is more advanced with the implementation of fuzzy search and partial matching of keywords.
-
 
 == FAQ
 
@@ -616,8 +676,8 @@ that contains the data of your previous ORGANice folder.
 2. Do a tissue typing test to determine the HLA antigens of the patient and the donor.
 3. Do a cross match, which is a trial transfusion.
 
-*Q*: What is the success rate and how is it computed? +
-*A*: The success rate measures the tissue compatibility between a donor and a patient. It is computed via this formula: (number of common tissue types between donor and patient) / 6 * 100%
+*Q*: What is the compatibility rate and how is it computed? +
+*A*: The compatibility rate measures the tissue compatibility between a donor and a patient. It is computed via this formula: (number of common tissue types between donor and patient) / 6 * 100%
 
 == Command Summary
 

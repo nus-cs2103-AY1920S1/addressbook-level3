@@ -1,11 +1,9 @@
 package organice.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.logic.parser.CliSyntax.PREFIX_NRIC;
 
-import organice.logic.commands.ProcessingCommand;
 import organice.logic.commands.ProcessingMarkDoneCommand;
 import organice.logic.parser.exceptions.ParseException;
 
@@ -31,18 +29,19 @@ public class ProcessingMarkDoneCommandParser implements Parser<ProcessingMarkDon
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
         try {
-            if (nameKeywords[0].startsWith(prefixNricString) && nameKeywords[1].startsWith(prefixNricString)) {
+            if (nameKeywords[0].startsWith(prefixNricString) && nameKeywords[1].startsWith(prefixNricString)
+                && nameKeywords.length == 3) {
                 firstNric = nameKeywords[0].replaceFirst(prefixNricString, "");
                 secondNric = nameKeywords[1].replaceFirst(prefixNricString, "");
                 taskNumber = nameKeywords[2];
             } else {
                 throw new ParseException(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingMarkDoneCommand.MESSAGE_USAGE));
             }
             return new ProcessingMarkDoneCommand(firstNric, secondNric, taskNumber);
         } catch (ArrayIndexOutOfBoundsException | NullPointerException | IllegalArgumentException e) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ProcessingMarkDoneCommand.MESSAGE_USAGE));
         }
     }
 }

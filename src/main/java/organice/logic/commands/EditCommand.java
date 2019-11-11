@@ -77,6 +77,15 @@ public class EditCommand extends Command {
             Person personToEdit = nricToPerson(nric, lastShownList);
             Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
+            if (personToEdit.getType().isPatient()) {
+                DoctorInCharge updatedDoctorInCharge = editPersonDescriptor.getDoctorInCharge().orElse((
+                        (Patient) personToEdit).getDoctorInCharge());
+                if (!model.hasDoctor(new Nric(updatedDoctorInCharge.toString()))) {
+                    throw new CommandException(String.format("Doctor with NRIC %s does not exist in ORGANice!",
+                            updatedDoctorInCharge.toString()));
+                }
+            }
+
             if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
                 throw new CommandException(MESSAGE_DUPLICATE_PERSON);
             }
@@ -106,6 +115,7 @@ public class EditCommand extends Command {
         throw new PersonNotFoundException();
     }
 
+
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
@@ -121,29 +131,98 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
 
         assert Type.isValidType(updatedType.toString());
-        if (updatedType.isPatient()) {
-            Age updatedAge = ((Patient) personToEdit).getAge();
-            BloodType updatedBloodType = ((Patient) personToEdit).getBloodType();
-            TissueType updatedTissueType = ((Patient) personToEdit).getTissueType();
-            Organ updatedOrgan = ((Patient) personToEdit).getOrgan();
-            Priority updatedPriority = ((Patient) personToEdit).getPriority();
-            DoctorInCharge updatedDoctorInCharge = ((Patient) personToEdit).getDoctorInCharge();
-            Status updatedStatus = ((Patient) personToEdit).getStatus();
-            return new Patient(updatedType, updatedNric, updatedName, updatedPhone, updatedAge, updatedPriority,
-                    updatedBloodType, updatedTissueType, updatedOrgan, updatedDoctorInCharge, updatedStatus);
-        } else if (updatedType.isDonor()) {
-            Age updatedAge = ((Donor) personToEdit).getAge();
-            BloodType updatedBloodType = ((Donor) personToEdit).getBloodType();
-            TissueType updatedTissueType = ((Donor) personToEdit).getTissueType();
-            Organ updatedOrgan = ((Donor) personToEdit).getOrgan();
-            OrganExpiryDate updatedOrganExpiryDate = ((Donor) personToEdit).getOrganExpiryDate();
-            Status updatedStatus = ((Donor) personToEdit).getStatus();
-            return new Donor(updatedType, updatedNric, updatedName, updatedPhone, updatedAge,
-                updatedBloodType, updatedTissueType, updatedOrgan, updatedOrganExpiryDate, updatedStatus);
-        } else if (updatedType.isDoctor()) {
+        if (updatedType.isDoctor()) {
+            String errorMessage = getErrorMessage(personToEdit, editPersonDescriptor);
+            if (!errorMessage.isBlank()) {
+                throw new CommandException(errorMessage);
+            }
+
             return new Doctor(updatedType, updatedNric, updatedName, updatedPhone);
+        } else {
+            if (updatedType.isPatient()) {
+                Age updatedAge = editPersonDescriptor.getAge().orElse(((Patient) personToEdit).getAge());
+                BloodType updatedBloodType =
+                    editPersonDescriptor.getBloodType().orElse(((Patient) personToEdit).getBloodType());
+                TissueType updatedTissueType =
+                    editPersonDescriptor.getTissueType().orElse(((Patient) personToEdit).getTissueType());
+                Organ updatedOrgan = editPersonDescriptor.getOrgan().orElse(((Patient) personToEdit).getOrgan());
+                Status updatedStatus = ((Patient) personToEdit).getStatus();
+                Priority updatedPriority =
+                        editPersonDescriptor.getPriority().orElse(((Patient) personToEdit).getPriority());
+                DoctorInCharge updatedDoctorInCharge =
+                        editPersonDescriptor.getDoctorInCharge().orElse(((Patient) personToEdit).getDoctorInCharge());
+
+                String errorMessage = getErrorMessage(personToEdit, editPersonDescriptor);
+                if (!errorMessage.equals("")) {
+                    throw new CommandException(errorMessage);
+                }
+
+                return new Patient(updatedType, updatedNric, updatedName, updatedPhone, updatedAge, updatedPriority,
+                    updatedBloodType, updatedTissueType, updatedOrgan, updatedDoctorInCharge, updatedStatus);
+            } else if (updatedType.isDonor()) {
+                Age updatedAge = editPersonDescriptor.getAge().orElse(((Donor) personToEdit).getAge());
+                BloodType updatedBloodType =
+                    editPersonDescriptor.getBloodType().orElse(((Donor) personToEdit).getBloodType());
+                TissueType updatedTissueType =
+                    editPersonDescriptor.getTissueType().orElse(((Donor) personToEdit).getTissueType());
+                Organ updatedOrgan = editPersonDescriptor.getOrgan().orElse(((Donor) personToEdit).getOrgan());
+                Status updatedStatus = ((Donor) personToEdit).getStatus();
+                OrganExpiryDate updatedOrganExpiryDate =
+                    editPersonDescriptor.getOrganExpiryDate().orElse(((Donor) personToEdit).getOrganExpiryDate());
+
+                String errorMessage = getErrorMessage(personToEdit, editPersonDescriptor);
+                if (!errorMessage.equals("")) {
+                    throw new CommandException(errorMessage);
+                }
+
+                return new Donor(updatedType, updatedNric, updatedName, updatedPhone, updatedAge,
+                    updatedBloodType, updatedTissueType, updatedOrgan, updatedOrganExpiryDate, updatedStatus);
+            }
         }
         throw new CommandException(EditCommand.MESSAGE_USAGE);
+    }
+
+    /**
+     * Returns an error message if user tried to edit a person's attribute that does not exist.
+     */
+    private static String getErrorMessage(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+        Type updatedType = editPersonDescriptor.getType().orElse(personToEdit.getType());
+        String errorMessage = "";
+        if (updatedType.isDoctor()) {
+            if (editPersonDescriptor.getAge().isPresent()) {
+                errorMessage += "There is no age field in doctor\n";
+            }
+            if (editPersonDescriptor.getBloodType().isPresent()) {
+                errorMessage += "There is no blood type field in doctor\n";
+            }
+            if (editPersonDescriptor.getTissueType().isPresent()) {
+                errorMessage += "There is no tissue type field in doctor\n";
+            }
+            if (editPersonDescriptor.getOrganExpiryDate().isPresent()) {
+                errorMessage += "There is no organ's expiry date field in doctor\n";
+            }
+            if (editPersonDescriptor.getOrgan().isPresent()) {
+                errorMessage += "There is no organ field in doctor\n";
+            }
+            if (editPersonDescriptor.getDoctorInCharge().isPresent()) {
+                errorMessage += "There is no doctor in charge field in doctor\n";
+            }
+            if (editPersonDescriptor.getPriority().isPresent()) {
+                errorMessage += "There is no priority field in doctor\n";
+            }
+        } else if (updatedType.isPatient()) {
+            if (editPersonDescriptor.getOrganExpiryDate().isPresent()) {
+                errorMessage += "There is no organ's expiry date field in patient\n";
+            }
+        } else if (updatedType.isDonor()) {
+            if (editPersonDescriptor.getPriority().isPresent()) {
+                errorMessage += "There is no priority field in donor\n";
+            }
+            if (editPersonDescriptor.getDoctorInCharge().isPresent()) {
+                errorMessage += "There is no doctor in charge field in donor\n";
+            }
+        }
+        return errorMessage;
     }
 
     @Override
@@ -173,6 +252,13 @@ public class EditCommand extends Command {
         private Phone phone;
         private Nric nric;
         private Type type;
+        private Age age;
+        private Priority priority;
+        private BloodType bloodType;
+        private DoctorInCharge doctorInCharge;
+        private OrganExpiryDate organExpiryDate;
+        private Organ organ;
+        private TissueType tissueType;
 
         public EditPersonDescriptor() {}
 
@@ -181,29 +267,29 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            setType(toCopy.type);
-            setNric(toCopy.nric);
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
+            this.type = toCopy.type;
+            this.nric = toCopy.nric;
+            this.name = toCopy.name;
+            this.phone = toCopy.phone;
+            this.age = toCopy.age;
+            this.priority = toCopy.priority;
+            this.bloodType = toCopy.bloodType;
+            this.tissueType = toCopy.tissueType;
+            this.organ = toCopy.organ;
+            this.doctorInCharge = toCopy.doctorInCharge;
+            this.organExpiryDate = toCopy.organExpiryDate;
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(type, nric, name, phone);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
+            return CollectionUtil.isAnyNonNull(type, nric, name, phone, age, priority,
+                    bloodType, doctorInCharge, organExpiryDate, organ, tissueType);
         }
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
         }
 
         public Optional<Phone> getPhone() {
@@ -214,16 +300,80 @@ public class EditCommand extends Command {
             return Optional.ofNullable(nric);
         }
 
-        public void setNric(Nric nric) {
-            this.nric = nric;
-        }
-
         public Optional<Type> getType() {
             return Optional.ofNullable(type);
         }
 
+        public Optional<Age> getAge() {
+            return Optional.ofNullable(age);
+        }
+
+        public Optional<Priority> getPriority() {
+            return Optional.ofNullable(priority);
+        }
+
+        public Optional<BloodType> getBloodType() {
+            return Optional.ofNullable(bloodType);
+        }
+
+        public Optional<DoctorInCharge> getDoctorInCharge() {
+            return Optional.ofNullable(doctorInCharge);
+        }
+
+        public Optional<OrganExpiryDate> getOrganExpiryDate() {
+            return Optional.ofNullable(organExpiryDate);
+        }
+
+        public Optional<Organ> getOrgan() {
+            return Optional.ofNullable(organ);
+        }
+
+        public Optional<TissueType> getTissueType() {
+            return Optional.ofNullable(tissueType);
+        }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public void setPhone(Phone phone) {
+            this.phone = phone;
+        }
+
+        public void setNric(Nric nric) {
+            this.nric = nric;
+        }
+
         public void setType(Type type) {
             this.type = type;
+        }
+
+        public void setAge(Age age) {
+            this.age = age;
+        }
+
+        public void setPriority(Priority priority) {
+            this.priority = priority;
+        }
+
+        public void setBloodType(BloodType bloodType) {
+            this.bloodType = bloodType;
+        }
+
+        public void setDoctorInCharge(DoctorInCharge doctorInCharge) {
+            this.doctorInCharge = doctorInCharge;
+        }
+
+        public void setOrganExpiryDate(OrganExpiryDate organExpiryDate) {
+            this.organExpiryDate = organExpiryDate;
+        }
+
+        public void setOrgan(Organ organ) {
+            this.organ = organ;
+        }
+
+        public void setTissueType(TissueType tissueType) {
+            this.tissueType = tissueType;
         }
 
         @Override
@@ -244,7 +394,14 @@ public class EditCommand extends Command {
             return getType().equals(e.getType())
                     && getNric().equals(e.getNric())
                     && getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone());
+                    && getPhone().equals(e.getPhone())
+                    && getAge().equals(e.getAge())
+                    && getPriority().equals(e.getPriority())
+                    && getBloodType().equals(e.getBloodType())
+                    && getTissueType().equals(e.getTissueType())
+                    && getOrgan().equals(e.getOrgan())
+                    && getDoctorInCharge().equals(e.getDoctorInCharge())
+                    && getOrganExpiryDate().equals(e.getOrganExpiryDate());
         }
     }
 }

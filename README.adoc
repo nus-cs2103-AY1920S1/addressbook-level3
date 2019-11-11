@@ -15,7 +15,7 @@ Since time is precious during transplant, we aim to provide an organ matching sy
 
 == Target Users
 
-This application is intended for hospital admin staff such as doctors and nurses.
+This application is intended for hospital administrative staffs such as doctors and nurses.
 
 == Installation
 
@@ -30,11 +30,13 @@ You can refer to the <<UserGuide#, User Guide>> for a more detailed explanation.
     Java SE Development Kit 11.0.4
     Travis
     Gradle
+    Coveralls
+
 
 == Screenshot of User Interface
 
 ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
+image::docs/images/UI.png[width="600"]
 endif::[]
 
 ifndef::env-github[]

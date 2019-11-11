@@ -47,11 +47,11 @@ public class ProcessingCommand extends Command {
      * Method to check if the two Nrics given are valid.
      * It needs to contain one patient and one donor.
      * Both of them must be matched and the patient should be only paired with this donor uniquely.
-     * The method will create the donor and patient with the respective Nrics in ORAGANice
-     * from the parameters.
+     * The method will first convert the Nrics given in String to an actual Nric type,
+     * then it will create the donor and patient with the respective Nric in ORAGANice.
      * boolean canBePaired will determine if the patient have another donor other than the given donor.
-     * @param firstNric the first Nric given by the user.
-     * @param secondNric the second Nric given by the user.
+     * @param firstNric the first Nric given by the user in String.
+     * @param secondNric the second Nric given by the user in String.
      * @param model
      * @return a boolean true false stating whether the inputs are valid.
      */

@@ -110,76 +110,6 @@ public class AddCommandParserTest {
                 + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
                 + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
                         new AddCommand(expectedPatient));
-
-        // multiple names - last name accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_DOCTOR_AMY
-                + NAME_DESC_PATIENT_IRENE + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
-                + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
-                + PHONE_DESC_DOCTOR_AMY + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
-                + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple nrics - last nric accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_DOCTOR_AMY + NRIC_DESC_PATIENT_IRENE
-                + NAME_DESC_PATIENT_IRENE + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
-                + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple types - last type accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_BOB + TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE
-                + NAME_DESC_PATIENT_IRENE + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
-                + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        //multiple priority - last priority accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
-                + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_BOB
-                + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple ages - last age accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
-                + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_BOB + AGE_DESC_PATIENT_IRENE
-                + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple blood type - last blood type accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
-                + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
-                + BLOOD_TYPE_DESC_PATIENT_BOB + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple tissue type - last tissue type accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
-                + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
-                + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_BOB + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple organ - last organ accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
-                + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
-                + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_BOB + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
-
-        // multiple doctor in charge - last doctor in charge accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
-                + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
-                + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
-                + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_BOB + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
-                        new AddCommand(expectedPatient));
     }
 
     @Test
@@ -192,69 +122,6 @@ public class AddCommandParserTest {
                 + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
                 + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
                         new AddCommand(expectedDonor));
-
-        // multiple names - last name accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DOCTOR_AMY
-                + NAME_DESC_DONOR_JOHN + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
-                + PHONE_DESC_DOCTOR_AMY + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple nrics - last nric accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DOCTOR_AMY + NRIC_DESC_DONOR_JOHN
-                + NAME_DESC_DONOR_JOHN + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple types - last type accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_BOB + TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN
-                + NAME_DESC_DONOR_JOHN + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple ages - last age accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
-                + PHONE_DESC_DONOR_JOHN + AGE_DESC_PATIENT_BOB + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple blood type - last blood type accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
-                + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_PATIENT_BOB + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple tissue type - last tissue type accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
-                + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_PATIENT_BOB + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple organ - last organ accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
-                + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_PATIENT_BOB + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
-
-        // multiple organ expiry date - last organ expiry date accepted
-        assertParseSuccess(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
-                + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
-                + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
-                + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHNY + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
-                        new AddCommand(expectedDonor));
     }
 
     @Test
@@ -265,22 +132,171 @@ public class AddCommandParserTest {
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY
                 + NAME_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, new AddCommand(expectedDonor));
+    }
 
-        // multiple names - last name accepted
-        assertParseSuccess(parser, TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY + NAME_DESC_DOCTOR_AMY
-                + NAME_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, new AddCommand(expectedDonor));
+    @Test
+    public void parse_multipleFieldsPresentPatient_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY + NAME_DESC_DOCTOR_AMY
-                + PHONE_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, new AddCommand(expectedDonor));
+        // multiple names
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_DOCTOR_AMY
+                        + NAME_DESC_PATIENT_IRENE + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
+                        + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
 
-        // multiple nrics - last nric accepted
-        assertParseSuccess(parser, TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY
-                + NAME_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, new AddCommand(expectedDonor));
+        // multiple phones
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
+                        + PHONE_DESC_DOCTOR_AMY + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
+                        + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
 
-        // multiple types - last type accepted
-        assertParseSuccess(parser, TYPE_DESC_PATIENT_BOB + TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY
-                + NAME_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, new AddCommand(expectedDonor));
+        // multiple nrics
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_DOCTOR_AMY + NRIC_DESC_PATIENT_IRENE
+                        + NAME_DESC_PATIENT_IRENE + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
+                        + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        // multiple types
+        assertParseFailure(parser, TYPE_DESC_PATIENT_BOB + TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE
+                        + NAME_DESC_PATIENT_IRENE + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE
+                        + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        //multiple priority
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
+                        + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_BOB
+                        + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        // multiple ages
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
+                        + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_BOB + AGE_DESC_PATIENT_IRENE
+                        + PRIORITY_DESC_PATIENT_IRENE + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        // multiple blood type
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
+                        + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
+                        + BLOOD_TYPE_DESC_PATIENT_BOB + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        // multiple tissue type
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
+                        + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
+                        + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_BOB + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        // multiple organ
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
+                        + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
+                        + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE + ORGAN_DESC_DONOR_JOHN
+                        + ORGAN_DESC_PATIENT_BOB + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+
+        // multiple doctor in charge
+        assertParseFailure(parser, TYPE_DESC_PATIENT_IRENE + NRIC_DESC_PATIENT_IRENE + NAME_DESC_PATIENT_IRENE
+                        + PHONE_DESC_PATIENT_IRENE + AGE_DESC_PATIENT_IRENE + PRIORITY_DESC_PATIENT_IRENE
+                        + BLOOD_TYPE_DESC_PATIENT_IRENE + TISSUE_TYPE_DESC_PATIENT_IRENE
+                        + ORGAN_DESC_PATIENT_IRENE + DOCTOR_IN_CHARGE_DESC_PATIENT_BOB
+                        + DOCTOR_IN_CHARGE_DESC_PATIENT_IRENE,
+                expectedMessage);
+    }
+
+    @Test
+    public void parse_multipleFieldsPresentDonor_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+
+        // multiple names
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DOCTOR_AMY
+                        + NAME_DESC_DONOR_JOHN + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple phones
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
+                        + PHONE_DESC_DOCTOR_AMY + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple nrics
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DOCTOR_AMY + NRIC_DESC_DONOR_JOHN
+                        + NAME_DESC_DONOR_JOHN + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple types
+        assertParseFailure(parser, TYPE_DESC_PATIENT_BOB + TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN
+                        + NAME_DESC_DONOR_JOHN + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple ages
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
+                        + PHONE_DESC_DONOR_JOHN + AGE_DESC_PATIENT_BOB + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple blood type
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
+                        + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_PATIENT_BOB + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple tissue type
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
+                        + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_PATIENT_BOB + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple organ
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
+                        + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_PATIENT_BOB + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN,
+                expectedMessage);
+
+        // multiple organ expiry date
+        assertParseFailure(parser, TYPE_DESC_DONOR_JOHN + NRIC_DESC_DONOR_JOHN + NAME_DESC_DONOR_JOHN
+                        + PHONE_DESC_DONOR_JOHN + AGE_DESC_DONOR_JOHN
+                        + BLOOD_TYPE_DESC_DONOR_JOHN + TISSUE_TYPE_DESC_DONOR_JOHN
+                        + ORGAN_DESC_DONOR_JOHN + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHNY
+                        + ORGAN_EXPIRY_DATE_DESC_DONOR_JOHN, expectedMessage);
+    }
+
+    @Test
+    public void parse_multipleFieldsPresentDoctor_failure() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+
+        // multiple names
+        assertParseFailure(parser, TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY + NAME_DESC_DOCTOR_AMY
+                + NAME_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, expectedMessage);
+
+        // multiple phones
+        assertParseFailure(parser, TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY + NAME_DESC_DOCTOR_AMY
+                + PHONE_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, expectedMessage);
+
+        // multiple nrics
+        assertParseFailure(parser, TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY
+                + NAME_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, expectedMessage);
+
+        // multiple types
+        assertParseFailure(parser, TYPE_DESC_PATIENT_BOB + TYPE_DESC_DOCTOR_AMY + NRIC_DESC_DOCTOR_AMY
+                + NAME_DESC_DOCTOR_AMY + PHONE_DESC_DOCTOR_AMY, expectedMessage);
 
     }
 

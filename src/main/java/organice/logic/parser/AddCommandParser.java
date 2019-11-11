@@ -13,7 +13,7 @@ import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
-import java.util.NoSuchElementException;
+import java.util.List;
 import java.util.stream.Stream;
 
 import organice.logic.commands.AddCommand;
@@ -45,11 +45,22 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the type is not specified correctly in the input arguments
      */
     private static Type parseType(ArgumentMultimap argumentMultimap) throws ParseException {
-        try {
-            return ParserUtil.parseType(argumentMultimap.getValue(PREFIX_TYPE).get());
-        } catch (NoSuchElementException ex) {
+        List<String> allTypeInputs = argumentMultimap.getAllValues(PREFIX_TYPE);
+        if (allTypeInputs.size() != 1) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
+
+        return ParserUtil.parseType(argumentMultimap.getValue(PREFIX_TYPE).get());
+    }
+
+    /**
+     * Returns true if the form mode should be launched.
+     * The form mode is launched if the add command only has a type prefix.
+     */
+    private static boolean isLaunchForm(Type type, ArgumentMultimap argumentMultimap) throws ParseException {
+        return (type.isDoctor() && arePrefixesNotPresentDoctor(argumentMultimap))
+                || (type.isDonor() && arePrefixesNotPresentDonor(argumentMultimap))
+                || (type.isPatient() && arePrefixesNotPresentPatient(argumentMultimap));
     }
 
     /**
@@ -65,11 +76,11 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         Type type = parseType(argMultimap);
 
-        if (type.isDoctor()) {
-            if (arePrefixesNotPresentDoctor(argMultimap)) {
-                return new AddCommand(type);
-            }
+        if (isLaunchForm(type, argMultimap)) {
+            return new AddCommand(type);
+        }
 
+        if (type.isDoctor()) {
             arePrefixesPresentDoctor(argMultimap);
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
             Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -78,10 +89,6 @@ public class AddCommandParser implements Parser<AddCommand> {
             Doctor doctor = new Doctor(type, nric, name, phone);
             return new AddCommand(doctor);
         } else if (type.isDonor()) {
-            if (arePrefixesNotPresentDonor(argMultimap)) {
-                return new AddCommand(type);
-            }
-
             arePrefixesPresentDonor(argMultimap);
 
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
@@ -99,10 +106,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                     status);
             return new AddCommand(donor);
         } else if (type.isPatient()) {
-            if (arePrefixesNotPresentPatient(argMultimap)) {
-                return new AddCommand(type);
-            }
-
             arePrefixesPresentPatient(argMultimap);
 
             Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
@@ -120,17 +123,16 @@ public class AddCommandParser implements Parser<AddCommand> {
                     bloodType, tissueType, organ, doctorInCharge, status);
             return new AddCommand(patient);
         } else {
-            //TODO: refine error message later
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Returns true if all specified prefixes are present in the given {@code ArgumentMultimap}.
+     * If there is more than one value for a prefix,
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    private static boolean isAValueForAPrefixPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getAllValues(prefix).size() == 1);
     }
 
     /**
@@ -145,7 +147,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Throws ParseException when one of the required prefixes for {@code Patient} are absent.
      */
     private static void arePrefixesPresentPatient(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE,
+        if (!isAValueForAPrefixPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_PRIORITY, PREFIX_BLOOD_TYPE, PREFIX_TISSUE_TYPE, PREFIX_ORGAN, PREFIX_DOCTOR_IN_CHARGE)
                         || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -156,7 +158,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Throws ParseException when one of the required prefixes for Donor are absent.
      */
     private static void arePrefixesPresentDonor(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE,
+        if (!isAValueForAPrefixPresent(argMultimap, PREFIX_NRIC, PREFIX_AGE, PREFIX_NAME, PREFIX_PHONE,
                 PREFIX_BLOOD_TYPE, PREFIX_TISSUE_TYPE, PREFIX_ORGAN, PREFIX_ORGAN_EXPIRY_DATE)
                         || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -167,7 +169,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Throws ParseException when one of the required prefixes for Doctor are absent.
      */
     private static void arePrefixesPresentDoctor(ArgumentMultimap argMultimap) throws ParseException {
-        if (!arePrefixesPresent(argMultimap, PREFIX_NRIC, PREFIX_NAME, PREFIX_PHONE)
+        if (!isAValueForAPrefixPresent(argMultimap, PREFIX_NRIC, PREFIX_NAME, PREFIX_PHONE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }

@@ -95,5 +95,4 @@ public class Person {
                 .append(getPhone());
         return builder.toString();
     }
-
 }

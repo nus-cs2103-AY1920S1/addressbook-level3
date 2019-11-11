@@ -201,139 +201,93 @@ If there is a parameter, ORGANice will check the `TYPE` input and display the re
 or donors that corresponds to the input.
 
 === Matching feature
-This section describes how the matching feature is implemented. The changes to Logic, UI and Model will be
-explained, followed by an explanation of design considerations.
+This section describes how the matching feature is implemented.
 
-==== Logic of Matching
-This section explains the logic of matching.
+Matching is facilitated by the `MatchCommand` class, which extends the `Command` class.
+It implements the `MatchCommand#match(Person donor, Patient patient)` operation, which checks if the given patient and
+donor have compatible blood and tissue types. For the context of this application, a patient and donor
+pair with compatible blood and tissue types is considered as a potential match.
 
-Matching is done by implementing the `MatchCommand#match(Person donor, Patient patient)` method. It takes in a Donor
-object and a Patient object, which represents a donor and a patient respectively. The method returns true if the patient
-and donor are a match, and false otherwise. The code for the `match` method is shown below:
-```
-public static boolean match(Person donor, Patient patient) {
-    if (!(donor instanceof Donor)) {
-        return false;
-    }
 
-    BloodType donorBloodType = ((Donor) donor).getBloodType();
-    BloodType patientBloodType = patient.getBloodType();
-
-    TissueType donorTissueType = ((Donor) donor).getTissueType();
-    TissueType patientTissueType = patient.getTissueType();
-
-    Double successRate = donorTissueType.getPercentageMatch(patientTissueType);
-
-    if (patientBloodType.isBloodTypeMatch(donorBloodType) && successRate >= SUCCESSFUL_PERCENTAGE) {
-        Donor donorToSet = (Donor) donor;
-        donorToSet.addMatchResult(patient.getNric(), successRate);
-        donorToSet.setSuccessRate(patient.getNric());
-        return true;
-    } else {
-        return false;
-    }
-}
-```
-
-This `match` method is used in `ModelManager` to find matches. The following methods
-in `ModelManager` accesses the `match` method:
+// TODO: find a way to explain that there are two types of matches
+The following operations in `ModelManager` accesses the `match` method:
 
 * `ModelManager#matchDonors(Patient patient)` -- Matches all donors in ORGANice with the specified patient.
-For each donor that matches the patient, a `MatchedDonor` object is created and stored.
+For each donor that potentially matches the patient, a `MatchedDonor` object is created to store
+the compatibility rate of the donor with the patient.
 * `ModelManager#matchPatients()` -- Matches all donors with all patients. For every patient in ORGANice,
-a `MatchedPatient` object is created to store the number of donors that matches that patient.
+a `MatchedPatient` object is created to store the number of donors that are potential matches with that patient.
 
 `MatchedDonor` and `MatchedPatient` objects are stored in an `ObservableList` called
 `listOfMatches`. This `ObservableList` can be accessed by `Logic` and displayed by the `UI`
 component.
 
-==== UI of Matching
-This section explains the UI design of the matching feature.
+Each time a user invokes the match feature, the contents of `listOfMatches` are deleted.
+New `MatchedPatient` and `MatchedDonor` objects are created and stored in the list again.
 
-After the match command is invoked, a `CommandResult` object is returned.
-The `MainWindow` decides which list to display via an if-else block. The code snippet below
-shows the if-else block:
-```
-    if (commandResult.isMatch()) {
-        handleMatch();
-    } else {
-        handleNonMatches();
-    }
-```
+Given below is an example usage scenario and how the match feature works at each step:
 
-`handleMatch()` and `handleNonMatches()` are in the `MainWindow` class. The `handleMatch()` method
-selects the `listOfMatches` list to display, while the `handleNonMatches()` method selects the
-`filteredPersons` list to display.
+Step 1. The user opens up the application with an existing list of patients and donors.
 
-All lists are displayed in a `PersonListPanel`. This is a custom UI component that inherits the `UiPart<Region>` class.
-The constructor of `PersonListPanel` takes in an `ObservableList<Person>` object and creates
- a list of `PersonListViewCell` objects to be displayed.
+image::MatchState0.png[]
 
-The `updateItem(Person person, boolean empty)` method displays the `MatchedDonor` and
-`MatchedPatient` objects available in the `ObservableList<Person>` object. The following is the code snippet for
-`#updateItem()`:
-```
-protected void updateItem(Person person, boolean empty) {
-    super.updateItem(person, empty);
-    if (empty || person == null) {
-        setGraphic(null);
-        setText(null);
-    } else {
-        if (person instanceof Doctor) {
-            setGraphic(new DoctorCard((Doctor) person, getIndex() + 1).getRoot());
-        } else if (person instanceof MatchedDonor) {
-            setGraphic(new MatchCard((Donor) person, getIndex() + 1).getRoot());
-        } else if (person instanceof Donor) {
-            setGraphic(new DonorCard((Donor) person, getIndex() + 1).getRoot());
-        } else if (person instanceof MatchedPatient) {
-            setGraphic(new NumberOfMatches((MatchedPatient) person, getIndex() + 1).getRoot());
-        } else if (person instanceof Patient) {
-            setGraphic(new PatientCard((Patient) person, getIndex() + 1).getRoot());
-        } else {
-            setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
-        }
-    }
-}
-```
+Step 2. The user types in the command `match ic/all`. Each patient will be matched with
+all donors via the `MatchCommand#match` operation. A `MatchedPatient` object is created
+for each patient, which stores the patient's attributes and the number of potential donors the patient has.
 
-==== Model of Matching
-This section will discuss aspects of the match feature that interacts with the `Model` component.
+image::MatchState1.png[]
 
-As explained earlier, `MatchedDonor` and `MatchedPatient` objects store
-match results for a specific donor and patient respectively. Each time
-the match command is invoked, previous `MatchedDonor` and `MatchedPatient` objects
-will be removed from the list.
+Step 3. The user types in the command `match ic/**PATIENT NRIC**`, where **PATIENT NRIC** is the NRIC of a patient in
+ORGANice.
+Existing objects in the `listOfMatches` are removed.
+For each potential donor of the specified patient, a `MatchedDonor`object is created,
+accompanied with the compatibility rate.
 
-`MatchedDonor` and `MatchedPatient` objects only exist in-memory and will not be saved to the hard disk.
-This means that data stored in `MatchedDonor` and `MatchedPatient` objects will not be accessible
-in the next app launch.
+image::MatchState2.png[]
+
+
+The following activity diagram summarises what happens when a user executes the match feature:
+
+.Activity Diagram of the Match Command
+image::MatchActivityDiagram.png[]
+
 
 ==== Design considerations
 This section will explain the reason for having some aspects.
 
-===== Aspect: Bugs introduced
-This section explains why the current implementation is chosen.
-Previously, the matching feature was implemented by storing match results in the
-`Patient` and `Donor` objects.
+===== Aspect: Storage of match results
+This section explores several ways of storing match results of patients and donors.
 
-Each `Patient` and `Donor` has a `isMatch()` method, which checks if the match results should be displayed
-or if the `Patient` and `Donor` attributes should be displayed. The match results will be displayed when `isMatch()`
-evaluates to `true`.
-
-It was discovered that there were many bugs introduced via this approach. The root cause of the bugs could not be
-identified. {Link to bug report}
-
-===== Aspect: Non-persistence of match results
-This section explains why the match results are not stored.
-
-One reason is to ensure that all objects in the `listOfMatches` ObservableList are different after
-executing a match command. This ensures that the `updateItem()` method would be called to
-update the `PersonListPanel` display.
-
-Another reason is to override previous match results with new results from the latest match command.
+* **Choice 1 (current choice)**: Delete `MatchedPatient` and `MatchedDonor` objects
+created in previous `MatchCommand` executions when there is a new `MatchCommand` executed.
+** Pros: No need to write extra code to store match results in the hard disk. Previous match results are overriden with new results
+from the latest match command.
 A scenario in which this would be important is if a user matches a patient, edits the patient information,
 then runs the matching again. The matching would be based on the latest patient data.
-{Include a diagram here}
+** Cons: Redundant matching occurs in a scenario where the user executes a match command with the same parameters twice.
+
+* **Choice 2:** For each patient, keep a list of match results. After every `MatchCommand` is executed, save
+the match results to the hard disk.
+** Pros: A history of match results can be stored. It reduces redundant matching.
+** Cons: More code to write to store match results to the hard disk.
+
+==== Aspect: Display of match results
+This section explains some considerations for displaying match results,
+which are stored in `MatchedPatient` and `MatchedDonor` objects.
+
+* **Choice 1 (current choice):**: Display `MatchedDonor` and `MatchedPatient` objects in `PersonListPanel`
+** Pros: Easy to implement because additional code is added to `PersonListPanel`, which is a UI component already existing in
+AddressBook 3.
+The constructor of `PersonListPanel` takes in an `ObservableList<Person>` object and creates
+a list of `PersonListViewCell` objects to be displayed.
+** Cons: The `MatchedDonor` and `MatchedPatient` classes need to inherit from the `Person` class, even though they represent
+match results, not people.
+* **Choice 2:** Create a new list panel called `MatchListPanel`, which displays objects of the `Match` class.
+`MatchedDonor` and `MatchedPatient` classes extend from the `Match` class.
+** Pros: `MatchedDonor` and `MatchedPatient` classes do not inherit unwanted methods from `Person` class.
+The `Match` class can contain methods more specific to matching.
+** Cons: There would be two types of list panels. Upon executing each command, the correct list panel must be selected
+and displayed.
 
 // tag::formmode[]
 === Add person `Form` mode feature

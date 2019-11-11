@@ -1,5 +1,6 @@
 package organice.commons.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static organice.testutil.Assert.assertThrows;
@@ -123,7 +124,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
-    //---------------- Tests for getDetails --------------------------------------
+    //---------------- Tests for getDetails -----------------------------return---------
 
     /*
      * Equivalence Partitions: null, valid throwable object
@@ -138,6 +139,48 @@ public class StringUtilTest {
     @Test
     public void getDetails_nullGiven_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> StringUtil.getDetails(null));
+    }
+
+    //---------------- Tests for calculateLevenshteinDistance --------------------------------------
+
+    @Test
+    public void calculateLevenshteinDistance_identicalStrings_returnZero() {
+        assertEquals(StringUtil.calculateLevenshteinDistance("String1", "String1"), 0);
+    }
+
+    @Test
+    public void calculateLevenshteinDistance_firstStringEmpty_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> StringUtil.calculateLevenshteinDistance("", "String1"));
+    }
+
+    @Test
+    public void calculateLevenshteinDistance_secondStringEmpty_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> StringUtil.calculateLevenshteinDistance("String1", ""));
+    }
+
+    @Test
+    public void calculateLevenshteinDistance_oneCharDifferenceBehind_returnOne() {
+        assertEquals(StringUtil.calculateLevenshteinDistance("String1", "String2"), 1);
+    }
+
+    @Test
+    public void calculateLevenshteinDistance_oneCharDifferenceFront_returnTwo() {
+        assertEquals(StringUtil.calculateLevenshteinDistance("String1", "2String"), 2);
+    }
+
+    @Test
+    public void calculateLevenshteinDistance_oneCharDifferenceMiddle_returnTwo() {
+        assertEquals(StringUtil.calculateLevenshteinDistance("String1", "Str2ing"), 2);
+    }
+
+    @Test
+    public void calculateLevenshteinDistance_reversedString_returnStringLengthMinusOne() {
+        assertEquals(StringUtil.calculateLevenshteinDistance("String1", "1gnirtS"), "String1".length() - 1);
+    }
+
+    @Test
+    public void calculateLevenshteinDistance_noCommonChars_returnStringTwoLength() {
+        assertEquals(StringUtil.calculateLevenshteinDistance("String1", "mFPqWeV"), "mFPqWeV".length());
     }
 
 }

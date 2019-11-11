@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Match All Patients
+
+package ORGANice {
+    class Patient1 as "__p1:Patient__"
+    class Patient2 as "__p2:Patient__"
+    class Donor1 as "__d1:Donor__"
+    class Donor2 as "__d2:Donor__"
+}
+
+show object fields
+package listOfMatches {
+    object "<u>mp1:MatchedPatient" as MatchedPatient1 {
+        patient : p1
+        numberOfMatches : 2
+    }
+
+    object "<u>mp2:MatchedPatient" as MatchedPatient2 {
+        patient : p2
+        numberOfMatches : 2
+    }
+}
+
+Patient1 -[hidden]right-> Patient2
+Patient2 -[hidden]right-> Donor1
+Donor1 -[hidden]right-> Donor2
+
+ORGANice -[hidden]down-> listOfMatches
+@end
