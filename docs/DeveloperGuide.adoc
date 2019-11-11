@@ -1556,9 +1556,9 @@ following operations:
 
 * `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
 
-The class diagram for CcaTracker is shown below:
+The class diagram for CcaTrackerModel is shown below:
 
-image::model/ModelCcaTrackerClassDiagram.png[]
+image::ModelCcaTrackerClassDiagram.png[]
 
 CcaTracker has 7 specific commands that support the given operations to mutate
 the state of the `Model`. Each command is represented as seperate class:
@@ -1591,7 +1591,8 @@ image::ccatracker/IncreaseCcaProgressActivityDiagram.png[]
 
 The diagram below shows the sequence diagram of the increase-progress mechanism.
 
-//TODO
+image::ccatracker/IncreaseProgressSequenceDiagram.png[]
+
 
 Given below is an example usage scenario of how increase-progress mechanism
 behaves.
