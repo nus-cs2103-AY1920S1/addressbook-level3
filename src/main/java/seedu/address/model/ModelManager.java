@@ -400,7 +400,8 @@ public class ModelManager implements Model {
                 UniqueBudgetList newBudgets = new UniqueBudgetList();
                 newBudgets.setBudgets(x.getBudgets());
                 newBudgets.setBudget(toUpdate, updated);
-                this.add(new Projection(x.getTransactionHistory(), x.getDate(), newBudgets.asUnmodifiableObservableList()));
+                this.add(new Projection(x.getTransactionHistory(), x.getDate(),
+                        newBudgets.asUnmodifiableObservableList()));
             } else {
                 boolean sameCategoryAsToUpdate = toUpdate.getCategories().stream().anyMatch(c -> {
                     if (x.getCategory() != null) {
