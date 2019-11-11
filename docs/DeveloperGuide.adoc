@@ -697,7 +697,7 @@ which is executed by the `LogicManager`.
 The structure of the interactive parser is detailed in the UML diagram below.
 
 .Class diagram of the interactive parser. This figures shows an example of a state machine inside the package `State`.
-image::InteractiveParserDiagram.png
+image::InteractiveParserDiagram.png[width='800']
 {empty} +
 
 [NOTE]
