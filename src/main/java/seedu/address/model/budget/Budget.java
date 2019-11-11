@@ -7,6 +7,7 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.ReadOnlyExpenseList;
+import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -150,6 +151,13 @@ public class Budget {
             this.budgetAmountPositive = true;
         }
     }
+
+    public Amount getConvertedAmount() {
+        double amountAsTarget = amount.getValue() / ExchangeDataSingleton.getInstance()
+            .getRates().getRate(currency.name);
+        return new Amount(String.format("%.2f", amountAsTarget));
+    }
+
 
     /**
      * Returns true if both budgets are equal.

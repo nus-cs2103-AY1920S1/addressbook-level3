@@ -28,16 +28,22 @@ public class StatsDisplay extends UiPart<Region> {
         piechart.setPrefHeight(500);
     }
 
-    public void setDisplayData(ObservableList<Expense> displayData) {
-        ObservableList<PieChart.Data> pieChartData = getPieChartData(displayData);
+    public void setDisplayDataExpenses(ObservableList<Expense> displayData) {
+        ObservableList<PieChart.Data> pieChartData = getPieChartDataFromExpenses(displayData);
         piechart.setData(pieChartData);
-        piechart.setLabelLineLength(10.00);
-        piechart.setLabelsVisible(true);
+        piechart.setLabelLineLength(15.00);
         piechart.setTitle("Expenses");
     }
 
-    public void setDisplayDataBudget(ObservableList<Expense> displayData, Budget budget) {
-        ObservableList<PieChart.Data> pieChartData = getPieChartData(displayData);
+    public void setDisplayDataBudgets(ObservableList<Budget> displayData) {
+        ObservableList<PieChart.Data> pieChartData = getPieChartDataFromBudgets(displayData);
+        piechart.setData(pieChartData);
+        piechart.setLabelLineLength(15.00);
+        piechart.setTitle("Budgets");
+    }
+
+    public void setDisplayDataBudgetWithExpenses(ObservableList<Expense> displayData, Budget budget) {
+        ObservableList<PieChart.Data> pieChartData = getPieChartDataFromExpenses(displayData);
 
         if (budget.isBudgetPositive()) {
             PieChart.Data data1 = new PieChart.Data("Amount Left", budget.getAmountLeft().getValue());
@@ -45,12 +51,12 @@ public class StatsDisplay extends UiPart<Region> {
         }
 
         piechart.setData(pieChartData);
-        piechart.setLabelLineLength(10.00);
+        piechart.setLabelLineLength(15.00);
         piechart.setLabelsVisible(true);
         piechart.setTitle(budget.getName().fullName);
     }
 
-    public ObservableList<PieChart.Data> getPieChartData(ObservableList<Expense> displayData) {
+    public ObservableList<PieChart.Data> getPieChartDataFromExpenses(ObservableList<Expense> displayData) {
         ObservableList<PieChart.Data> pieChartData =
             FXCollections.observableArrayList();
 
@@ -70,12 +76,44 @@ public class StatsDisplay extends UiPart<Region> {
         for (Map.Entry<Tag, Double> entry : taggedExpenses.entrySet()) {
             String tagName = entry.getKey().tagName.equals("") ? "Untagged" : entry.getKey().tagName;
             Double totalAmount = entry.getValue();
-            PieChart.Data data = new PieChart.Data(tagName, totalAmount);
+            String name = tagName + "-" + String.format("%.1f",
+                totalAmount / getOverallAmountFromExpenses(displayData) * 100) + "%";
+            PieChart.Data data = new PieChart.Data(name, totalAmount);
             pieChartData.add(data);
         }
 
         return pieChartData;
     }
+
+    public ObservableList<PieChart.Data> getPieChartDataFromBudgets(ObservableList<Budget> displayData) {
+        ObservableList<PieChart.Data> pieChartData =
+            FXCollections.observableArrayList();
+
+        for (Budget budget : displayData) {
+            String budgetName = budget.getName().fullName;
+            Double totalAmount = budget.getConvertedAmount().getValue();
+            String name = budgetName + "-" + String.format("%.1f",
+                totalAmount / getOverallAmountFromBudgets(displayData) * 100) + "%";
+            PieChart.Data data = new PieChart.Data(name, totalAmount);
+            pieChartData.add(data);
+        }
+
+        return pieChartData;
+    }
+
+    private double getOverallAmountFromExpenses(ObservableList<Expense> expenses) {
+        double total = 0;
+        for (Expense expense : expenses) {
+            total += expense.getAmount().getValue();
+        }
+        return total;
+    }
+
+    private double getOverallAmountFromBudgets(ObservableList<Budget> budgets) {
+        double total = 0;
+        for (Budget budget : budgets) {
+            total += budget.getConvertedAmount().getValue();
+        }
+        return total;
+    }
 }
-
-
