@@ -27,7 +27,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `csModBuddy.jar` link:{repoURL}/releases[here].
+.  Download the latest `csmodbuddy.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your module plan.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -43,8 +43,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add SEMESTER MODULE_CODE`, `SEMESTER`
-is a parameter which can be used as `add y1s1 cs1101s`.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addmod SEMESTER MODULE_CODE`, `SEMESTER`
+is a parameter which can be used as `addmod y1s1 cs1101s`.
 * Items in square brackets are optional e.g `newplan [TITLE]` can be used as `newplan`
 or as `newplan Algo and Graphics`.
 * Items with ... after them can be used multiple times e.g. `TAG_NAME...` can be used as `core`, `core completed`, etc.
@@ -248,10 +248,10 @@ _Core_ modules are *Computer Science Foundation* modules that count towards *Pro
 - `S/U-able` :
 _S/U-able_ modules are modules that permit the *Satisfactory/Unsatisfactory option*.
 
-- `UE` :
+- `UE` [coming in v2.0]:
 _UE_ modules are *Unrestricted Elective* modules.
 
-- `ULR` :
+- `ULR` [coming in v2.0]:
 _ULR_ modules are modules that count towards *University Level Requirements*.
 
 - `FOCUS_AREA_NAME:P` :
@@ -627,8 +627,8 @@ Changes the colour of a specific tag.
 Declares the given focus area as one of the focus areas of the study plan. This means that the requirements of the focus area has to be met to be eligible for graduation. +
 Format: `declarefocusarea FOCUS_AREA`
 
-==== Displays for an invalid study plan
-`[coming in v2.0]` The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
+==== Displays for an invalid study plan `[coming in v2.0]`
+The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
 
 // tag::guifuture[]
 === GUI
