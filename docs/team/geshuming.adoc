@@ -74,8 +74,6 @@ image::Ui.png[]
 
 include::../UserGuide.adoc[tag=moduleview]
 
-include::../UserGuide.adoc[tag=glossary]
-
 <<<
 
 == Contributions to the Developer Guide
