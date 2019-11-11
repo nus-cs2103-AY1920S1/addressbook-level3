@@ -349,6 +349,7 @@ image::Split.png[]
 
 // end::split[]
 
+//tag::receive[]
 === Settle Up Feature: `receive`
 
 This feature allows another person to send money to the user. +
@@ -385,6 +386,7 @@ public abstract class Payment extends Transaction implements LedgerOperations {
     }
 }
 ```
+//end::receive[]
 
 // tag::project[]
 [[Implementation-Projection]]
