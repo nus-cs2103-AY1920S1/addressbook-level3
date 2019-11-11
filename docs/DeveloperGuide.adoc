@@ -778,6 +778,11 @@ This tab will act as a shopping cart to add and record sales items that are to b
 Upon every successful checkout, all the sales items sold will recorded as one transaction, which will subsequently be appended to the list of transactions on the Home tab.
 In addition, the stock remaining in the inventory will be updated accordingly in the Inventory tab.
 
+This is the overall Class Diagram of this tab:
+
+.Class Diagram of Cashier Tab (cashier package)
+image::UMLCashierTab.png[width="650"]
+
 ==== Add Sales Item Feature
 
 This feature allows the adding of sales items to the cart.
@@ -817,6 +822,7 @@ The following is a code snippet from `getCombination(char[] arr, int n)` method:
 
 .Code snippet of `getCombination(char[] arr, int n)` method from Cashier package
 
+{blank} +
 The `getCombination(arr, arr.length)` method in the above snippet consists of 3 nested loops. The first loop decides the
 starting character. The second loop takes each of the characters on the right of the starting character as the ending character.
 The last loop appends all the characters from the starting character to the ending character. After iterating through the nested loops,
