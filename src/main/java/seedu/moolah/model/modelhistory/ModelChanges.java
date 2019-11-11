@@ -10,7 +10,7 @@ import seedu.moolah.model.Model;
 import seedu.moolah.model.ReadOnlyMooLah;
 import seedu.moolah.model.ReadOnlyUserPrefs;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 
 /**
