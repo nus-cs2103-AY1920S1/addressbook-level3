@@ -17,7 +17,12 @@ import dream.fcard.util.stats.StatsDisplayUtil;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -90,8 +95,8 @@ public class MainWindow extends VBox {
     };
 
     private Consumer<Boolean> toggleListViewAccessOff = b -> {
-        deckList.setMouseTransparent( true );
-        deckList.setFocusTraversable( false );
+        deckList.setMouseTransparent(true);
+        deckList.setFocusTraversable(false);
         addNewDeckButton.setDisable(true);
     };
 
