@@ -5,10 +5,9 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":Parser" as Parser LOGIC_COLOR
 participant ":PropertyState" as PropertyState LOGIC_COLOR
-participant ":OrderState" as OrderState LOGIC_COLOR
-participant ":SortEndState" as SortEndState LOGIC_COLOR
-participant "s:SortCommand" as SortCommand LOGIC_COLOR
-participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "o:OrderState" as OrderState LOGIC_COLOR
+participant "s:SortEndState" as SortEndState LOGIC_COLOR
+participant "c:SortCommand" as SortCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -32,7 +31,7 @@ create OrderState
 PropertyState -> OrderState
 activate OrderState
 
-OrderState --> PropertyState : o
+OrderState --> PropertyState
 deactivate OrderState
 PropertyState --> Parser : o
 deactivate PropertyState
@@ -46,7 +45,7 @@ create SortEndState
 OrderState -> SortEndState
 activate SortEndState
 
-SortEndState --> OrderState : s
+SortEndState --> OrderState
 deactivate SortEndState
 OrderState --> Parser : s
 deactivate OrderState
