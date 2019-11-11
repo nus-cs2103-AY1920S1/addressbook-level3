@@ -13,27 +13,31 @@ import seedu.address.model.game.Guess;
 public class GameDataPointTest {
 
     @Test
-    public void createSkipData() {
+    public void createSkipData_negativeMillis_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () -> GameDataPoint.createSkipData(-1)); // invalid millis
     }
 
     @Test
-    public void createGuessData() {
-        assertThrows(NullPointerException.class, ()
-            -> GameDataPoint.createGuessData(null, 1)); // null guess
+    public void createGuessData_negativeMillis_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, ()
             -> GameDataPoint.createGuessData(new Guess("abc"), -1)); // invalid millis
     }
 
     @Test
-    public void getMillisTaken() {
+    public void createGuessData_nullGuess_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, ()
+            -> GameDataPoint.createGuessData(null, 1)); // null guess
+    }
+
+    @Test
+    public void getMillisTaken_validInput_success() {
         assertEquals(GameDataPoint.createSkipData(1).getMillisTaken(), 1);
         assertEquals(GameDataPoint.createGuessData(new Guess("abc"), 1).getMillisTaken(),
                 1);
     }
 
     @Test
-    public void getGuess() {
+    public void getGuess_validInput_success() {
         assertEquals(GameDataPoint.createSkipData(1).getGuess(), Optional.empty()); // skip data does not have a guess.
         Guess g1 = new Guess("abc");
         Guess g2 = new Guess("abc");

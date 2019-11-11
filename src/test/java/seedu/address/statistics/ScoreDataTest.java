@@ -26,7 +26,7 @@ public class ScoreDataTest {
     }
 
     @Test
-    public void max() {
+    public void max_valid_success() {
         ScoreData sd1 = new ScoreData(10);
         ScoreData sd2 = new ScoreData(20);
         assertEquals(ScoreData.max(sd1, sd2), sd2);

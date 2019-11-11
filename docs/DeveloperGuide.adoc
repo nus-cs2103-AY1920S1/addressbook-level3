@@ -1169,7 +1169,7 @@ When the user opens the app, their `GlobalStatistics` and `WordBankStatisticsLis
 `MainApp`.
 
 .Sequence diagram for loading statistics
-image::LoadStatisticsSequenceDiagram.png[]
+image::LoadStatisticsSequenceDiagram.png[width=460]
 
 ===== 2. [underline]#User selects a word bank# +
 When the user selects a word bank, the selected `WordBankStatistics` from the `WordBankStatisticsList` is loaded
@@ -1208,7 +1208,7 @@ The work done in step 4 and 5 is executed in `AppManager` and the checks to deci
 the same method `updateGameStatisticsBuilder(CommandResult)`.
 
 .Activity diagram when `AppManager` receives a `CommandResult` (Details unrelated to statistics are omitted).
-image::GameStatisticsBuilderActivityDiagram.png[]
+image::GameStatisticsBuilderActivityDiagram.png[width=500]
 
 ==== Design Considerations
 
