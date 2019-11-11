@@ -17,15 +17,16 @@ import seedu.planner.logic.parser.exceptions.ParseException;
 import seedu.planner.model.field.Address;
 import seedu.planner.model.field.NameOrTagWithTime;
 
+//@@author oscarsu97
+
 /**
  * Parses input arguments and creates a new AutoScheduleCommand object
- * @@author oscarsu97
  */
 public class AutoScheduleCommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AutoScheduleCommand
-     * and returns an AutoScheduleScheduleCommand object for execution.
+     * and returns an AutoScheduleCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -40,9 +41,9 @@ public class AutoScheduleCommandParser {
         Optional<Address> address = Optional.empty();
         List<Index> days = new ArrayList<>();
         //Contains either a Tag class or a Name class
-        List<NameOrTagWithTime> draftSchedule;
+        List<NameOrTagWithTime> schedulePlan;
 
-        draftSchedule = getDraftSchedule(argMultimap, PREFIX_TAG, PREFIX_NAME);
+        schedulePlan = getSchedulePlan(argMultimap, PREFIX_TAG, PREFIX_NAME);
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             address = Optional.of(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
@@ -50,22 +51,22 @@ public class AutoScheduleCommandParser {
             days = ParserUtil.parseDaysToSchedule(argMultimap.getValue(PREFIX_DAY).get());
         }
 
-        return new AutoScheduleCommand(draftSchedule, address, days, false);
+        return new AutoScheduleCommand(schedulePlan, address, days, false);
     }
 
-    private List<NameOrTagWithTime> getDraftSchedule(ArgumentMultimap argumentMultimap,
+    private List<NameOrTagWithTime> getSchedulePlan(ArgumentMultimap argumentMultimap,
                                                      Prefix... prefixes) throws ParseException {
         List<PrefixArgument> filteredMultiMap = argumentMultimap.getFilteredArgMultiMap(prefixes);
-        List<NameOrTagWithTime> draftSchedule = new ArrayList<>();
+        List<NameOrTagWithTime> schedulePlan = new ArrayList<>();
 
         for (PrefixArgument prefixArgument : filteredMultiMap) {
             Prefix prefix = prefixArgument.getPrefix();
 
             if (prefix.equals(PREFIX_TAG) || prefix.equals(PREFIX_NAME)) {
-                draftSchedule.add(ParserUtil.parseNameOrTagWithTime(prefixArgument.getArgValue(), prefix));
+                schedulePlan.add(ParserUtil.parseNameOrTagWithTime(prefixArgument.getArgValue(), prefix));
             }
         }
-        return draftSchedule;
+        return schedulePlan;
     }
 
     /**

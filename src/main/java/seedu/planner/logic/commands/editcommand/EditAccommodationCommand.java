@@ -43,17 +43,16 @@ public class EditAccommodationCommand extends EditCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            ": Edits the details of the accommodation identified "
-                    + "by the index number used in the displayed accommodation list. "
-                    + "Existing values will be overwritten by the input values.",
+            "Edit the accommodation's details identified "
+                    + "by it's index in accommodation list. ",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-                    + "INDEX(must be a positive integer) "
+                    + "INDEX(a positive integer) "
                     + "[" + PREFIX_NAME + "NAME] "
                     + "[" + PREFIX_ADDRESS + "ADDRESS] "
                     + "[" + PREFIX_PHONE + "PHONE] "
                     + "[" + PREFIX_TAG + "TAG]...",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 1 "
-                    + PREFIX_PHONE + "91234567 "
+                    + PREFIX_NAME + "Tom "
     );
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(

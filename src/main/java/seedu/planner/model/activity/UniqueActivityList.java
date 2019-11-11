@@ -16,13 +16,13 @@ import seedu.planner.model.field.Address;
 import seedu.planner.model.field.Name;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A contacts is considered unique by comparing using {@code Accommodation#isSamePerson(Accommodation)}. As such,
- * adding and updating of persons uses Accommodation#isSamePerson(Accommodation) for equality so as to ensure
- * that the contacts being added or updated is unique in terms of identity in the UniqueAccommodationList.
- * However, the removal of a contacts uses Accommodation#equals(Object) so as to ensure that the contacts with
+ * A list of activities that enforces uniqueness between its elements and does not allow nulls.
+ * An activity is considered unique by comparing using {@code Activity#isSameActivity(Activity)}. As such,
+ * adding and updating of activities uses Activity#isSameActivity(Activity) for equality so as to ensure
+ * that the activities being added or updated is unique in terms of identity in the UniqueActivityList.
+ * However, the removal of a activity uses Activity#equals(Object) so as to ensure that the activity with
  * exactly the same fields will be removed.
- *
+ * <p>
  * Supports a minimal set of list operations.
  *
  * @see Activity#isSameActivity(Activity)
@@ -34,7 +34,7 @@ public class UniqueActivityList implements Iterable<Activity> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent contacts as the given argument.
+     * Returns true if the list contains an equivalent activities as the given argument.
      */
     public boolean contains(Activity toCheck) {
         requireNonNull(toCheck);
@@ -93,8 +93,8 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code activity}.
+     * {@code activity} must not contain duplicate activity.
      */
     public void setActivities(List<Activity> activities) {
         requireAllNonNull(activities);
@@ -106,9 +106,9 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
-     * Replaces the contacts {@code target} in the list with {@code editedAccommodation}.
+     * Replaces the activity {@code target} in the list with {@code editedActivity}.
      * {@code target} must exist in the list.
-     * The contacts identity of {@code editedAccommodation} must not be the same as another existing contacts in the
+     * The activity identity of {@code editedActivity} must not be the same as another existing activity in the
      * list.
      */
     public void setActivity(Activity target, Activity editedActivity) {
@@ -127,8 +127,8 @@ public class UniqueActivityList implements Iterable<Activity> {
     }
 
     /**
-     * Removes the equivalent contacts from the list.
-     * The contacts must exist in the list.
+     * Removes the equivalent activity from the list.
+     * The activity must exist in the list.
      */
     public void remove(Activity toRemove) {
         requireNonNull(toRemove);
@@ -153,7 +153,7 @@ public class UniqueActivityList implements Iterable<Activity> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueActivityList // instanceof handles nulls
-                        && internalList.equals(((UniqueActivityList) other).internalList));
+                && internalList.equals(((UniqueActivityList) other).internalList));
     }
 
     @Override

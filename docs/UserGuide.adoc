@@ -70,6 +70,8 @@ This represents a *warning*. A warning denotes something of great significance, 
 Displays a help page +
 Format: `help`
 
+
+// tag::view[]
 === View specific tab `view`
 
 Displays the tab specified. The available tabs to view are `itinerary`, `info` and `help`. +
@@ -82,7 +84,8 @@ Examples:
 * `view help`
 
 Each command will display the tab specified.
-
+// end::view[]
+// tag::set[]
 === Set name/start date : `set`
 
 Sets the trip's name or start date +
@@ -95,6 +98,7 @@ Examples:
 
 * `set n/India sd/11-11-2019`
 
+// end::set[]
 // tag::addaccommodation[]
 
 === Adding an accommodation: `add accommodation`
@@ -420,7 +424,7 @@ Examples:
 Deletes day 2 from the itinerary.
 
 // end::deleteday[]
-
+// tag::listday[]
 === List activities in a day: `list day`
 
 Lists the activities within the day at DAY_INDEX in the itinerary. +
@@ -432,6 +436,8 @@ Examples:
 
 Lists activities within day 3 in the itinerary.
 
+Lists activities within day 3 of the itinerary.
+// end::listday[]
 // tag::schedule[]
 
 === Scheduling an activity to a day: `schedule`
@@ -488,7 +494,7 @@ activity with the `next highest priority` and `second lowest number of counts in
 
 * The *day* to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 * Timing can be specified if there is an activity that is confirmed to do at that timing.
-* An `activity name` can be specified if there is an activity that has been confirmed to do.
+* An `activity name` can be specified using `n/` instead of `t/` if there is an activity that has been confirmed to do.
 * Location for that `day` can be specified, otherwise it is assumed to be any location.
 * The `Day` to schedule for can be specified, otherwise it is assumed to be scheduled for all days.
 

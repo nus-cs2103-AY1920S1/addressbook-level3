@@ -77,11 +77,11 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiComponent.png[]
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `FeedbackDisplay`, `ContactListPanel`, `ActivityListPanel`, `AccomodationListPanel`, `StatusBarFooter`, `HelpWindow` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `FeedbackDisplay`, `ContactListPanel`, `ActivityListPanel`, `AccomodationListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -118,6 +118,7 @@ NOTE: The lifeline for `AddCommandParser` should end at the destroy marker (X) b
 
 // end::logic[]
 
+// tag::model[]
 [[Design-Model]]
 === Model component
 
@@ -132,11 +133,7 @@ The `Model`,
 * stores a `ActivityManager`, `AccommodationManager`, `ContactManager` and `Itinerary` that represents the managers for activity, accommodation, contact and day respectively.
 * exposes an unmodifiable `ObservableList<Activity>`, `ObservableList<Accommodation>`, `ObservableList<Contact>` and `ObservableList<Day>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-//[NOTE]
-//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
-
-//image:BetterModelClassDiagram.png[]
+// end::model[]
 
 // tag::storageuml[]
 [[Design-Storage]]
@@ -392,12 +389,6 @@ Aspect: De-conflict process
 
 // end::optimise[]
 
-// tag::autocomplete[]
-
-=== Autocomplete
-
-// end::autocomplete[]
-
 // tag::scheduleactivity[]
 === Schedule feature
 
@@ -420,16 +411,16 @@ After the creation of `ScheduleCommand`, `LogicManager` will proceed to call the
 
 Below are the steps taken during the execution of `ScheduleCommand`:
 
-    1. `Model` will retrieve the list of days from the `Itinerary` and the list of activities from  `UniqueActivityList`.
+1. `Model` will retrieve the list of days from the `Itinerary` and the list of activities from  `UniqueActivityList`.
 
-    2. The `activityIndex` and `dayIndex` will then be used to obtain the targeted `Activity` from activity list
+2. The `activityIndex` and `dayIndex` will then be used to obtain the targeted `Activity` from activity list
 and targeted `Day` from list of days.
 
-    3. `Activity` will be converted to `ActivityWithTime` using the startDateTime and duration of activity.
+3. `Activity` will be converted to `ActivityWithTime` using the `startDateTime` and `duration` of activity.
 
-    4. This `ActivityWithTime` is then added to the list of `ActivityWithTime` in the target `Day`.
+4. This `ActivityWithTime` is then added to the list of `ActivityWithTime` in the target `Day`.
 
-    5. The list of `ActivityWithTime` is sorted according ActivityWithTime startDateTime.
+5. The list of `ActivityWithTime` is sorted according ActivityWithTime startDateTime.
 
 
 Given below is a sequence diagram showing the execution of `ScheduleCommand`:
@@ -450,19 +441,21 @@ image::ScheduleCommandExecution.png[]
 
 // end::scheduleactivity[]
 
-// tag:::autoschedule[]
+// tag::autoschedule[]
 === Auto Schedule feature
 ==== Rationale
 There are times when users are planning for an overseas trip, there are so many activities in their activity list that they want to do but the problems faced are that they are unable to finish all the activities in the list or they are unable to find an optimal schedule plan.
 
 ==== Overview
-The `autoschedule` command requires user to specify either the tag name or the activity name itself in order of the type of activity that they want.
+The `autoschedule` command requires user to specify either the `tag name` or the `activity name` itself in order of the type of activity that they want.
 For example, `t/shopping t/sightseeing t/dining` would means an activity of `shopping` type would be scheduled first followed by `sightseeing` and then `dining`.
-Before using the autoschedule command, users are to fill up their activity list first and ensure that they have input the duration for each activity and are recommended to input their priority for those activities.
+Before using the autoschedule command, users are to fill up their activity list first and ensure that they have input the `duration` for each activity and are recommended to input their `priority` for those activities.
 Afterwards, `autoschedule` would serve to ensure that the activities scheduled do not overlap, are according to what the users prioritised first and that all activities have a chance to be scheduled.
 
+
 === Implementation
-The keywords from the command given by the user is parsed using `AutoScheduleCommandParser` which converts all the `tag` or `name` prefix's argument with their respective `start time` if given, in `NameOrTagWithTime` class and stores them in a list to maintain the same ordering as given by the user.
+The keywords from the command given by the user is parsed using `AutoScheduleCommandParser` which converts all the `tag` or `name` prefix's argument with their respective `start time` ,if given, in `NameOrTagWithTime` class and stores them in a list to maintain the same ordering as given by the user.
+
 If `address` is specified, it is wrapped in an `Address` class and if the `day index(es)` to schedule are specified, they stored in a list with each index wrapped in an `Index` class.
 The `list of NameOrTagWithTime`, `address` and `list of day indexes` are then passed to the `AutoScheduleCommand` for execution later on.
 
@@ -479,14 +472,14 @@ Below are the steps taken when executing of the `AutoScheduleCommand`:
 
 *Step 3.* If no `day indexes` to schedule are being specified, `AutoScheduleCommand` will generate a schedule for all `days`.
 
-Below shows the checks taken by `AutoScheduleCommand` before it proceeds to schedule:
+Below shows the checks taken by `AutoScheduleCommand`:
 
 .Activity diagram showing how `AutoScheduleCommand` checks the requirement given by user:
 image::AutoScheduleActivityDiagram1.png[]
 
 After filtering the activity list, `AutoScheduleCommand` will proceed to begin preparation for the scheduling of the first activity of those specified day(s).
 
-*Step 4.* It will filter the list that has been filtered by address to get all the activities with the same tag or activity name as the first activity to schedule.
+*Step 4.* It will filter the activity list that has been filtered by address to get all the activities with the same tag or activity name as the first activity to schedule.
 
 *Step 5.* After which it will sort the list such that the activity that has not been scheduled will be scheduled first.It will ensure that for cases where both activities has not been scheduled before, the one with the higher priority will be scheduled first.
 
@@ -496,53 +489,118 @@ image::AutoScheduleActivityDiagram2.png[]
 *Step 6.* Next, `AutoScheduleCommand` will check if the chosen activity to be scheduled does not overlap with the start time of the next activity if user specify.
 
 *Step 7.* If the chosen activity overlaps, it will traverse the filtered list, picking the next activity with the **next lowest count** in the itinerary and check if it overlaps.
-The process will continue until it finds a suitable activity or it has finished traversing the whole filtered list. If the activity to be scheduled is the last activity, it will instead check to ensure that it does not overlap til the next day.
+The process will continue until it finds a suitable activity or it has finished traversing the whole filtered list. If it is planning for the last activity of the day, it will instead check whether the activity chosen overlap til the next day.
 
 .Activity diagram showing how `AutoScheduleCommand` finds an activity to schedule:
 image::AutoScheduleActivityDiagram3.png[]
 
-Step 4 to Step 7 will repeat for the next activity to schedule for that day until it reaches the last activity to schedule for that day or it could not find a suitable activity to schedule.
+Step 4 to Step 7 will repeat for the next activity to schedule for that day until it finished scheduling for that day or it could not find a suitable activity to schedule.
 If there other days to schedule, the steps taken will also be the same as Step 4 to Step 7.
 
 ==== Design Considerations
 
-===== Aspect: Counting the number of times each activity of the same name or tag appears in the list
+===== Aspect: Counting the number of times similar activity of the same name or tag appears in the list
 * **Current Choice:** Count the number of times all the similar activities appear in the itinerary every time we are planning to schedule an activity.
 ** Pros: It will ensure that the count number for the similar activities will always be right before they are chosen to be scheduled
-** Cons: Slow down the program as we have to traverse through all the activities for each day.
+** Cons: Slow down the program as we have to traverse through all the activities for each day everytime we are planning to schedule for an activity.
 * **Alternative:** Have a counter inside the activity itself to keep track
 ** Pros: Significantly improve the runtime speed and less complicated to implement
 ** Cons: Over time, the count might be inaccurate due to multiple scheduling and unscheduling which alter the count number and we might not have keep track of it at certain point of time.
 
 ===== Aspect: Account for travelling time
 * **Current Choice:** Allows user to input the start time of activity
-** Pros: Gives user the flexibility and they better able to gauge their own travelling time of each activity
+** Pros: Gives user the flexibility and they are better able to gauge the travelling time of each activity
 ** Cons: It restrict the number of possible activities that could be scheduled as we have to consider activity not overlapping with the start time of the next activty.
 * **Alternative:** Fix a break of 30min between every activity to acount for travel time
 ** Pros: Activities that user prioritised are more likely to be scheduled as we do not have to consider overlap of the start time of next activity.
 ** Cons: Certain activity may require more travelling time. If we fix a longer travelling time, it might not be optimising the schedule plan as certain activity might have shorter travelling time.
 // end::autoschedule[]
 
-=== Logging
+// tag::autocomplete[]
+=== Auto Complete feature
+==== Rationale
+There are many commands to learn in our program and some of the commands can be wordy. In order to ease the learning curve and to help the user be productive as quickly as possible, autocomplete was implemented.
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+==== Implementation
+*KEY IDEA:*
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+Every command in the planner can be broadly broken down into a few categories, namely:
 
-*Logging Levels*
+. Command Word
+. Preamble
+. Required Prefix
+.. That are used once
+.. That are used multiple times
+. Optional Prefix
+.. That are used once
+.. That are used multiple times
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+AutoCompleteSuggester makes use of this and checks the input for these categories one by one.
 
-[[Implementation-Configuration]]
-=== Configuration
+* If the input lacks the command word, then the best matching command word will be suggested.
+* If the command word is provided, but the preamble is not (and it is required by the command), then the preamble will be suggested.
+* If the input contains the command word and contains the preamble(when necessary), then the required prefixes and optional prefixes will be suggested. Since there are some prefix that should only be used, the input will be checked to see if these prefixes are present and remove them from the suggestions.
 
-Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+The `AutoCompleteParser` supports the `AutoCompleteSuggester` by parsing the user input into the command word, the preamble and a list of prefixes used in the program.
 
+Given below is a sequence diagram showing the generation of suggestions:
+
+.Sequence diagram showing the generation of suggestions.
+image::AutoCompleteSuggesterSequenceDiagram.png[]
+
+.Sub diagram for getPossibilities
+image::AutoCompleteSuggesterGetPossibilitiesSequenceDiagram.png[]
+
+Below is how the `autocomplete` feature is triggered:
+
+*Step 1.* Modification in the text of `AutoCompleteTextField` is detected.
+
+*Step 2.* If the input is empty, hide the pop-up box which contains the suggestions. If not empty, get entries (suggestions) for the pop-up box.
+
+*Step 3.* If there are entries, populate the pop-up box with it. Else, hide the pop-up box.
+
+*Step 4.* If pop-up box in previous step was populated, then show the pop-up box to the user.
+
+.Activity diagram showing how the pop-up box containing the suggestions appears:
+image::AutoCompleteActivityDiagram1.png[]
+
+Below is how entries for the pop-up box is obtained:
+
+*Step 1.* Check if input contains '<' or '>', as that would indicate that the user has accepted the suggestion of preamble, which has description enclosed with < and > (for e.g. <INDEX>) but has not replaced it with the actual preamble. If it has '<' or '>', then don't give suggestions to user.
+
+*Step 2.* If the input does not contain '<' or '>', parse the command word.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 4.* If there is no space, don't give suggestions to the user as it is assumed that the user is still typing. If there is a space, then parse preamble, parse prefix and make suggestions based on the command word, preamble and prefix present in the input.
+
+.Activity diagram showing how entries for the pop-up box is generated:
+image::AutoCompleteActivityDiagram2.png[]
+
+==== Design Considerations
+
+===== Aspect: Underlying data structure to store the command words
+* **Current Choice:** Use an ArrayList
+** Pros: Simple to implement.
+** Cons: Might be slow in providing suggestion for the command word, as in the worse case, it needs to iterate through every command word entry and check with every entry.
+* **Alternative:** Use a Trie
+** Pros: Faster in providing suggestion for command word as it only has to iterate through the length of the input.
+** Cons: More complicated to implement. The Trie also needs to be built during startup.
+
+* **Reason for choice**: Given that the program does not have many commands and unlikely to have a significant number more commands in the future, search times are not an issue.
+
+===== Aspect: Checking if the user has completed typing the command word/preamble/prefix content
+* **Current Choice:** Assumes the user has finished the command word/preamble/prefix content when there is a whitespace at the end of input
+** Pros: Simple to implement. Works in most cases.
+** Cons: Might be wrong when suggesting new prefix as there are some commands like autoschedule that have prefixes that can have 2 arguments (autoschedule t/argument1 argument2 d/argument1 argument2...)
+* **Alternative:** Waits for a specific duration of time before giving user suggestions
+** Pros: More likely to provide suggestions when the user needs it.
+** Cons: There might be a noticeable delay in the suggestions appearing if the specific duration is too long. More complicated to implement.
+// end::autocomplete[]
+
+// tag::timetable[]
 === Timetable
 
 ==== Current Implementation
@@ -567,6 +625,27 @@ Internally, Timetable is a List of ActivityWithTime. This gives the Timetable fl
 ** Pros: Allows flexible start times and end times. ActivityWithTime can have the same startDateTime, thus allowing conflicting ActivityWithTime.
 
 ** Con: UI for itinerary might be difficult to implement as each the size of each block of ActivityWithTime in the UI is not the same. Slower access time if the size of the List is large.
+// end::timetable[]
+
+=== Logging
+
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
+
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
+* Currently log messages are output through: `Console` and to a `.log` file.
+
+*Logging Levels*
+
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
+
+[[Implementation-Configuration]]
+=== Configuration
+
+Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
 
@@ -758,23 +837,6 @@ _{More to be added}_
 Windows, Linux, Unix, OS-X
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -788,15 +850,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample activities, accommodations, contacts and days filled with activities. The window size may not be optimum.
 
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a contact
 
@@ -810,12 +865,9 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
