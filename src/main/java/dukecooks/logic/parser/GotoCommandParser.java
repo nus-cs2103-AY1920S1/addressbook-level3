@@ -10,6 +10,7 @@ import dukecooks.logic.commands.dashboard.GotoTaskCommand;
 import dukecooks.logic.commands.diary.GotoDiaryCommand;
 import dukecooks.logic.commands.exercise.GotoExerciseCommand;
 import dukecooks.logic.commands.health.GotoHealthCommand;
+import dukecooks.logic.commands.mealplan.GotoMealPlanCommand;
 import dukecooks.logic.commands.recipe.GotoRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
 
@@ -43,6 +44,9 @@ public class GotoCommandParser implements Parser<GotoCommand> {
 
         case GotoRecipeCommand.VARIANT_WORD:
             return new GotoRecipeCommand();
+
+        case GotoMealPlanCommand.VARIANT_WORD:
+            return new GotoMealPlanCommand();
 
         case GotoExerciseCommand.VARIANT_WORD:
             return new GotoExerciseCommand();

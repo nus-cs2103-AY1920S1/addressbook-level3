@@ -19,8 +19,9 @@ By: `Team DukeCooks`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals. DukeCooks
-runs on the Command-Line Interface (CLI), allowing users to execute different commands, all within a single line.
+DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals. Targeting busy
+students that are long-time users of the Command-Line Interface (CLI), DukeCooks offers such users a CLI healthy
+lifestyle application. This means, expert-CLI student users will be able to execute different commands, all within a single line.
 They will be able to manage various aspects of their lifestyle, from their diet, to exercises and health records.
 
 They can use DukeCooks to manage all their lifestyle needs, all within one single app.
@@ -181,11 +182,12 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 
 [NOTE]
 ====
-XYZListPanel refers to the 5 different individual components in our application.
-The 5 different components are:
+XYZListPanel refers to the 6 different individual components in our application.
+The 6 different components are:
 
 * Dashboard
-* RecipeBook
+* Recipe Book
+* Meal Plan
 * Exercise
 * Health
 * Diary
@@ -215,9 +217,9 @@ link:{repoURL}/src/main/java/dukecooks/logic/Logic.java[`_Logic.java_`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete recipe 1")` API call.
+Given below is the Sequence Diagram for simplified interactions within the `Logic` component for the `execute("delete recipe 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete recipe 1` Command
+.Simplified Interactions Inside the Logic Component for the `delete recipe 1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
@@ -247,7 +249,7 @@ XYZ refers to the 5 different individual components in our application.
 The 5 different components are:
 
 * Dashboard
-* RecipeBook
+* Recipe Book
 * Exercise
 * Health
 * Diary
@@ -285,30 +287,41 @@ The diagram below shows a simplified class diagram for Commands and Parser.
 .Structure of Commands and Parser
 image::CommandImplementation.png[]
 
-{nbsp} +
-The current implementation provides the added benefit of easier scalability. Overall, we only need to account for the
-type of command (i.e `AddCommand`, `DeleteCommand` etc). It's corresponding variants (i.e `AddRecipeCommand`,
-`DeleteExerciseCommand`) can simply further extend from it. However, its implementation is rather complex and it increases the amount of code within the repository. For each
-command variant added, a corresponding command variant parser needs to be added as well.
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-*Alternatives*
+|Implementing commands and parser
+|Command variants (i.e `AddRecipeCommand`, `AddExerciseCommand`) extend from `AddCommand`.
 
-Another possible structure would be for all command variants to extend from the abstract `Command` class directly.
-Although this implementation is simpler, it can greatly increase the number of switch cases within `DukeCooksParser`.
-This could potentially increase the difficulty of debugging as it becomes harder to locate the bugs. Furthermore,
-this structure exposes all the different types of commands to `DukeCooksParser`.
+*Pros* +
+Easier scalability as subsequent variants of `AddCommand` can simply extend from it.
 
-*Our Choice*
+*Cons* +
+Complex implementation and increases the amount of code within repository as for each command variant added, a
+corresponding variant parser needs to be added.
 
-We chose to follow the structure provided in the figure above. As our application is comprised of many different
-components with the same variants of commands (i.e Add, Delete, Edit etc), this structure is more suitable as it
-reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
+*Our Choice* +
+This choice was chosen for DukeCooks which comprises of different components with the same variants of commands (i.e Add, Edit, Delete etc.)
+This reduces the amount of switch cases within `DukeCooksParser` and makes testing more manageable.
+
+|Command variants extend from `Command` class
+
+*Pros* +
+Relatively easier to implement.
+
+*Cons* +
+Greatly increase number of switch cases within `DukeCooksParser` and this could increase the difficulty of debugging as it becomes
+harder to locate bugs. Furthermore, this implementation exposes all underlying command variants to `DukeCooksParser`.
+|===
 
 // tag::dashboard[]
-=== What makes up a Dashboard?
+=== Dashboard feature
 
 In DukeCooks, a `Dashboard` object represents an event a user needs to attend to, a task. A `Dashboard` is made up of
-a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram that illustrates how `Dashboard` interacts with other classes.
+a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram (Figure 10) that illustrates how `Dashboard` interacts with other classes.
 
 .Dashboard Class Diagram
 [caption="Figure 10: "]
@@ -378,50 +391,56 @@ The following sequence diagram (Figure 10) shows how the add operation works:
 
 .Done task Sequence Diagram
 [caption="Figure 12: "]
-image::DoneTaskSequenceDiagram.png[width="550"]
+image::DoneTaskSequenceDiagram.png[width="600"]
 
 ==== Making Decisions
 
 [cols="10%,50%,40%""]
 [width="100%"]
 |===
-|Aspect |Option 1 (Chosen)|Option 2
+|*Aspect* |*Option 1 (Chosen)*|*Option 2*
 
 |Storing a task's status
 |A custom class, `TaskStatus`, is created to keep track of the task's status.
 
-- Pros: Additional statuses can be introduced in easily in the future. +
-- Cons: Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
+*Pros*: Additional statuses can be introduced in easily in the future. +
 
+*Cons*: Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
+
+*Our Choice* +
 This choice was chosen as it does not limit us to only having tasks marked as "COMPLETED" or "NOT COMPLETE".
 Since choice 1 was used, additional status, "RECENTLY COMPLETED" could be added with ease.
 
 |Use a boolean to check if a task is complete.
 
-- Pros: Easy to implement.
-- Cons: Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
+*Pros*: Easy to implement.
+
+*Cons*: Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
 
 |Sorting tasks by date
 
 |Every time the `add`, `delete`, `edit` task command is called, a `sort` is executed.
 
-- Pros: Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
+*Pros*: Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
 there is lesser chance for errors.
-- Cons: Because `sort` is executed every time, this might slow down the performance.
 
-This choice was chosen as it reduces the chance of errors and is a safer option.
+*Cons*: Because `sort` is executed every time, this might slow down the performance.
+
+*Our Choice* +
+This choice was chosen as it reduces the chance of errors making it a safer option.
 
 |Keep an instance of the earliest and latest date. If dates fall out of range from the two dates, sorting does not happen.
 
-- Pros: Faster runtime. +
-- Cons: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
+*Pros*: Faster runtime.
+
+*Cons*: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
 |===
 // end::dashboard[]
 
-=== RecipeBook feature
-The current implementation of RecipeBook consists of the following:
+=== Recipe Book feature
+The current implementation of Recipe Book consists of the following:
 
-* Each `Recipe` consists of a unique `Name`
+* Each `Recipe` consists of a unique `RecipeName`
 * Each `Recipe` contains an Set of `Ingredient`
 * Each `Recipe` consists of a unique `Calories`
 * Each `Recipe` consists of a unique `Carbohydrates`
@@ -441,7 +460,7 @@ image::RecipeClassDiagram.png[]
 * `AddRecipeCommand` - Adds a `Recipe` into `DukeCooks`
 * `DeleteRecipeCommand` - Deletes a `Recipe` from `DukeCooks`
 * `EditRecipeCommand` - Edits the specified `Recipe`
-* `FindRecipeCommand` - Finds all `Recipe` whose `name` contains user-specified keywords
+* `FindRecipeCommand` - Finds all `Recipe` whose `RecipeName` contains user-specified keywords
 
 All the above recipe commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
 types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddRecipeCommandParser`,
@@ -452,45 +471,143 @@ The figure below describes the execution of an `DeleteRecipeCommand`.
 The input provided is `delete recipe 1`.
 
 .DeleteRecipeCommand Sequence Diagram
-image::DeleteSequenceDiagram.png[]
+image::DeleteRecipeSequenceDiagram.png[]
 
 After a successful execution, the recipe with the specified index will be deleted from the recipe book.
 
-The current implementation makes use of an Sets to store the `Ingredient` objects.
-This is the easiest way to implement the `Ingredient` component of the recipe as it builds on the existing codebase
-of ab3.
+The DeleteRecipeCommand will also delete the recipe from all meal plans that by filtering through all saved meal plans,
+checking for the existence of the recipe it is about to delete, and replace that meal plan with a new one. This is done
+using MealPlan#removeRecipe.
+
+*Design Considerations*
+
+The current implementation uses the DeleteRecipeCommand to do dynamic deletion of recipes from meal plans whenever
+a recipe is deleted.
 
 *Alternatives*
 
-An alternative would be to use an ArrayList instead of Sets to store `Ingredient` objects. This would make the
-implementation of `Ingredient` specific objects easier as they could be referenced through indexing of the ArrayList,
-which is more straight forward.
+An alternative would be create an update command that would update meal plans upon any changes made to the recipe book,
+be it deletion or editing of recipes. This means that the user must manually call for a command that goes through the meal plans
+to validate that they are up to date with the recipe book commands.
 
 *Our Choice*
 
-We will soon implement ArrayLists instead as the current implementation of `Ingredient` objects using Sets do not allow
-for ease of use for the user whenever the user wishes to edit `Ingredient` objects present within a `Recipe`.
+We chose to have the updating of the recipes within meal plans to be done whenever a relevant recipe operation occures,
+namely recipe deletion and edition. This provides a better user experience as the user will never need to remember that
+they have to run an update every single time they modify their recipes. A similar design consideration and choice was made
+for EditRecipeCommand.
+
+=== Meal Plan feature
+The current implementation of Meal Plan consists of the following:
+
+* Each `Meal Plan` consists of a unique `MealPlanName`
+* Each `Meal Plan` contains 7 Lists of `RecipeName`
+* Each class has their respective getter methods
+
+The class diagram below gives an overview of the `Meal Plan` class.
+
+.Meal Plan Class Diagram
+image::MealPlanClassDiagram.png[]
+
+==== Implementation of meal plan commands
+
+`MealPlan` class supports multiple commands. It includes:
+
+* `AddMealPlanCommand` - Adds a `MealPlan` into `DukeCooks`
+* `DeleteMealPlanCommand` - Deletes a `MealPlan` from `DukeCooks`
+* `EditMealPlanCommand` - Edits the specified `MealPlan`
+* `FindMealPlanCommand` - Finds all `MealPlan` whose `MealPlanName` contains user-specified keywords
+* `FindMealPlanWithCommand` Finds all `MealPlan` whose days contain user-specified `RecipeName`.
+
+All the above meal plan commands behave similarly. The commands will be parsed in `DukeCooksParser` and based on their
+types (i.e Add, Delete, Edit etc), the corresponding variant parsers will be invoked (i.e `AddMealPlanCommandParser`,
+`DeleteMealPlanCommandParser` etc). After which, the corresponding command will be executed (i.e `AddMealPlanCommand`,
+`DeleteMealPlanCommand` etc).
+
+The figure below describes the execution of an `DeleteMealPlanCommand`.
+The input provided is `delete mealplan 1`.
+
+.DeleteRecipeCommand Sequence Diagram
+image::DeleteMealPlanSequenceDiagram.png[]
+
+After a successful execution, the meal plan with the specified index will be deleted from the meal plan book.
+
+*Design Considerations*
+
+The current implementation of `MealPlan` stores recipe data only in the form of `RecipeName`.
+
+*Alternatives*
+
+An alternative would be for meal plans to save all the data the recipe contains within it, namely all of its ingredients,
+nutritional value, and once implemented, the difficulty, preparation time, and image, all saved within the meal plan. This
+would make the viewing of the meal plan easier as all the relevant information is being stored within the meal plan.
+
+*Our Choice*
+
+We decided to only capture `RecipeName` information within the meal plan, as we concluded that the meal plan need not know
+of a recipe's nutritional value, difficulty, preparation time, or image location until the meal plan is viewed by the user.
+This allows for smaller storage of meal plans as each meal plan does not need to hold that much information about the recipes
+that it contains. Only when the meal plan is viewed will it use the `RecipeName` data it has to query for the rest of that
+recipe's information. Additionally, only storing the `RecipeName` makes the implementation of dynamic updating between meal
+plans and recipes much easier.
 
 === Workout Planner feature
+
+The workout feature allows users to create their own custom workouts with `add Workout` command and adding their own
+custom exercises to it with `push exercise`. With these custom workouts, they can then choose to run them through
+`run workout` and monitor their progress and workout history with `view workout`.
+
 ==== Implementation
+
+{nbsp} +
+*Workout Management*
+
+Every workout comprises of the following information:
+
+* `WorkoutName` representing the name of the workout
+* `Average Intensity` representing the average demands of the exercises in the workout
+* A set of `MuscleType` which represents all the muscles trained by the workout
+* An ArrayList of `ExerciseName` of exercises that would be carried out in the workout
+* `WorkoutHistory` containing information on all the previous runs of the workout as well as some statistics
+
+The Workout Class also contains the function `updateHistory(WorkoutRun run)` which adds the `WorkoutRun` into the
+WorkoutHistory and updates all the relevant fields accordingly, returning a new Workout instance with updated `WorkoutHistory`.
+The class also utilises `pushExercise(Exercise exercise, Set<ExerciseDetail> details)` function to add new `Exercise` and
+return a new Workout with update fields. There is also an option to push an exercise without the details with the overloaded
+method which instead opts to use the pre-built Set of `ExerciseDetails` in the `Exercise` itself.
+
+The Workout Class is represented by the class diagram below.
+
+.Workout Class Diagram
+image::WorkoutClassDiagram.png[]
+
+The Workout Class is managed by the following commands:
+
+* `AddWorkoutCommand` - Adds a new empty `Workout` into `WorkoutPlanner`
+* `DeleteWorkoutCommand` - Deletes a `Workout` specified by an `Index` from `WorkoutPlanner`
+* `PushExerciseCommand` - Pushes an `Exercise` specified by an `Index` into an existing `Workout`
+
+
 {nbsp} +
 *Exercise Management*
 
-Every workout comprises of varying number of exercises. Users can use existing exercises or create their own custom
-exercises. Every exercise contains the following information:
+In order to run a `Workout`, users will have to add `Exercises` into the `Workout` as an empty workout cannot be ran.
+Users can use existing exercises or create their own custom exercises. Every exercise contains the following information:
 
 * `ExerciseName` representing the name of the exercise
 * `MusclesTrained` comprising of the primary `MuscleType` as well as an ArrayList of secondary `MuscleType` trained
 * `Intensity` or how demanding the exercise is
 * A set of `ExerciseDetails` which are optional additional information of the exercise such as `ExerciseWeight`,
-`Distance`, `Sets` and `Repetitions`.
+`Distance`, `Sets` and `Repetitions`
+* `ExerciseHistory` containing information on all the previous `ExerciseRun` of the exercise
+
+Like `Workout`, `Exercise` also has the method `updateHistory` which returns an updated Exercise with a new
+`ExerciseRun` accounted for.
 
 The Exercise class is represented by the following class diagram below.
 
 .Exercise Class Diagram
 image::ExerciseClassDiagram.png[]
-
-==== Implementation of Exercise Commands
 
 The `Exercise` class is managed by the following commands :
 
@@ -503,29 +620,108 @@ The `Exercise` class is managed by the following commands :
 * 'FindExerciseCommand' - Lists all `Exercise` objects with `ExerciseName` that contains the string specified
 * 'ListExercise' - Lists all 'Exercise' objects in `WorkoutPlanner`
 
-All the commands listed above are parsed in `DukeCooksParser`, invoking the respective Command Parsers
-(Add, Delete, Edit etc.). The `Exercise` variant of the parser will then be instantiated
-(i.e `AddExerciseCommandParser`,`DeleteExerciseCommandParser` etc) to create the actual command objects
-(i.e AddDiaryCommand, DeleteDiaryCommand etc). These Command Objects will then execute the necessary steps
+All the exercise and workout commands above are parsed in `DukeCooksParser`, invoking the respective Command Parsers
+(Add, Delete, Edit etc.). The `Exercise`/`Workout` variant of the parser will then be instantiated
+(i.e `AddExerciseCommandParser`,`DeleteWorkoutCommandParser` etc) to create the actual command objects
+(i.e AddExerciseCommand, DeleteWorkoutCommand etc). These Command Objects will then execute the necessary steps
 to fulfill their functionality.
+
+{nbsp} +
+*Running of Workouts*
+
+The core functionality of the WorkoutPlanner is to run a `Workout` and have it automatically tracking your progress
+by making records in its history. This is done through the `Run Workout Command`. The following sequence diagrams show
+what happens when the command is invoked.
+
+.Sequence Diagram of RunWorkoutCommand
+image::RunWorkoutSequenceDiagram.png[]
+
+As seen in the diagram above, when the command is invoked, the `RunWorkoutParser` is initialised to parse the argument String
+to initialise `RunWorkoutCommand`. The Command object will then run its execute method, which calls upon get method of
+UniqueWorkoutList to obtain the target `Workout`. The target workout and message will then be passed back to the Ui through
+the CommandResult object. The Ui will then boot a new `RunWorkoutWindow` with the targeted workout.
+
+.Activity Diagram of RunWorkoutWindow
+image::RunWorkoutActivityDiagram.png[]
+
+The user will then run each set of each exercise until the workout is complete. The full loop is demonstrated in the
+activity diagram in Figure 17.
+
+.Sequence Diagram of UpdateWorkoutCommand
+image::RunWorkoutSequenceDiagram1.png[]
+
+Upon completion of the workout, the Ui will immediately generate a new `UpdateWorkoutCommand` containing the `Workout`
+that has been ran and a newly instantiated `WorkoutRun` with the details of the run. `UpdateWorkoutCommand` will then
+be executed and the following will occur:
+
+. New Workout will be generated. +
+Using Workout's `updateHistory` method, a new updated `Workout` will be created.
+. The outdated Workout will be replaced by the new Workout. +
+Using `UniqueWorkoutList` 's `setWorkout` method, the old workout will be removed and the updated one will be placed in
+its stead
+. CommandResult is generated and passed back to Ui. +
+A new CommandResult will be returned containing a congratulatory message to the Ui signalling the successful completion
+of the workout.
 
 *Design Considerations*
 
-When coming up with the Exercise class there were various considerations as to what fields should be added. Initially,
-we had planned for MuscleType to be an enum given the limited number of muscles in the human body. However, we had
-strayed away from this implementation given the complexity of the way the muscles work as well as the numerous names
-that one muscle could be called. We instead allowed the user to define the muscles themselves which is better for their
-own understanding. We instead utilised enums for the Intensity field since it is only limited High, Medium and Low.
+[cols="10%,50%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-*Alternatives*
+|Storing an Exercise/Workout's intensity
+|Intensity was stored as an Enumeration instead of a class
 
-When coming up with the optional details field, `ExerciseDetail` we had morphed the tag feature which was stored in a
-Set in AddressBook 3. The various details such as weight, distance would then be implementing the `ExerciseDetail`
-interface. After careful consideration, we had come to the conclusion that this method of storage is flawed given that
-we only intended for at most one instance of each detail and inability to call upon them at O(1) time complexity.
+- Pros: Intensity can be limited only a specific amount of values +
 
-Instead, we designed the `ExerciseDetails` to be a class with 4 Optional fields containing the various details. This
-allows for the details to be obtained more efficiently as well as limit them to only a single instance.
+- Cons: Intensity will only be an estimate instead of a specific value given the value limits +
+
+This option was chosen in the end to simplify the classification of exercise so that users can more easily filter by
+intensity. Furthermore, this allows for more Ui diversification by having different images for each intensity.
+
+|Setting Intensity as a Class
+
+- Pros: Easy to implement.
+
+- Cons: Makes filtering by intensity a more tedious affair for both developers and users.
+
+|Storing MuscleTypes
+
+|Have MuscleType be a class on its own
+
+- Pros: Muscles are referred to by various names and allowing the user to set their own muscle names allow for more
+familiarity
+
+- Cons: MuscleType class will require stricter validation to ensure that users do not mess up the programme with unintended
+inputs.
+
+This option was chosen to allow for greater flexibility of naming for the muscle types but at the same time still limited
+to prevent the users from going wild.
+
+|Store MuscleType as an enumeration
+
+- Pros: There are limited muscles in the body, allowing for a proper limit +
+
+- Cons: Muscles may have multiple names that are not accounted for by the enum.
+
+|Storage of Exercises in Workout
+|Workouts only store a list of ExerciseName and not the full exercise
+
+- Pros: Exercises only have to be edited once upon execution of edit command - more cost effective. It also avoids
+unnecessarily large storage files. +
+
+- Cons: Each time an exercise of workout has to be referenced, the entire storage of exercise has to be scoured
+
+In the end we decided to choose this option as we foresee that the edit command will be utilised more often than calling
+an exercise from a workout. Furthermore, to improve timing, we kept a sorted storage for exercise to allow for the quicker
+binary search.
+
+| Workouts store whole Exercises
+
+- Pros : Exercises can be extracted quickly
+- Cons : Huge storage space is required. Also complicates editing of exercises.
+|===
 
 // tag::healthRecords[]
 [[HealthRecordsTag]]
@@ -652,6 +848,9 @@ types would mean more validity checks and maintainence needed.
 
 |===
 
+
+// tag::diary[]
+[[DiaryTag]]
 === Diary feature
 ==== Implementation
 The current implementation of Diary consists of the following:
@@ -693,24 +892,6 @@ image::DeleteDiarySequenceDiagram.png[]
 {nbsp} +
 After a successful execution, the specified diary will be removed.
 
-==== Design Considerations
-
-The current implementation of `Diary` makes use of an ArrayList to store the `Page` objects.
-This is the simplest implementation as most novice programmers would be familiar with ArrayLists.
-However, list operations tend to take more time to run compared to other data structures such as Sets.
-
-*Alternatives*
-
-An alternative to using ArrayList would be to use sets to store `Page` objects. This could increase the
-overall performance of the program as set operations tend to be faster than list operations. However, using sets
-does not provide an order to `Page` objects, unlike in lists.
-
-*Our Choice*
-
-We chose to use ArrayLists instead as we require the `Page` objects to be ordered, so that the implementation of
-`DeletePageCommand` is simplified. An index can simply be provided in `DeletePageCommand` and the corresponding `Page`
-object can simply be removed from the ArrayList, using the specified index.
-
 ==== Implementation of Images
 
 All images used in DukeCooks are copied into an internal data folder and all subsequent loading of images is done from
@@ -720,21 +901,57 @@ within this internal folder. The following activity diagram explains how an imag
 image::ImageActivityDiagram.png[]
 
 ==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-This current implementation of images defensively copies the images into the internal data folder, instead of loading images
-from the user's local directory. While it may be slower in terms of performance, it is less prone to unexpected errors when
-loading images.
+|Data structures used to store `Page`
+| `Page` objects are stored using an ArrayList
 
-*Alternatives*
+*Pros* +
+Simplest implementation and most novice programmers are familiar with it.
 
-An alternative to copying images into an internal data folder would be to load images directly from the user's directory
-without saving it internally. This implementation performs better and is much easier to implement.
+*Cons* +
+List operations tend to run slower as compared to other data structures such as sets.
 
-*Our Choice*
+*Our Choice* +
+This choice was chosen as we require the `Page` objects to be ordered, which is a functionality only provided in lists.
+In addition, the ordered `Page` objects greatly simplify the implementation of other commands such as `DeletePageCommand`
+as an page index can simply be provided to execute the command.
 
-We decided to make defensive copies of images in our internal folder as we want to eliminate unexpected errors. By making
-defensive copies internally, we ensure that all images used can be loaded, even if the user decides to delete the original
-image in their local directory.
+
+| `Page` objects are stored using Sets
+
+*Pros* +
+Faster runtime.
+
+*Cons* +
+Sets do not provide an order to the `Page` objects.
+
+| Loading of images
+
+| Defensively copies images into our internal data folder and all subsequent loading of images is done from this folder.
+
+*Pros* +
+Less prone to user errors when loading images (i.e Deleted image in local directory)
+
+*Cons* +
+ Increased memory usage as each image needs to be saved internally
+
+*Our Choice* +
+This choice was chosen as it is less-prone to user errors and is safer.
+
+| Load images directly from user's directory
+
+*Pros* +
+Easy to implement.
+
+*Cons* +
+ May lead to unexpected errors when loading images (i.e when user deletes the image from directory)
+|===
+
+// end::diary[]
 
 === Logging
 
@@ -967,10 +1184,50 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
+The following is a Use Case diagram for the Dashboard.
+
+.Dashboard Use Case Diagram
+[caption="Figure 11: "]
+image::DashboardUseCase.png[width="200"]
+
 (For all use cases below, the *System* is `DukeCooks` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01 - Adding recipes
+=== Use case: UC01 - Mark as complete
+
+A use case for marking a task as complete.
+....
+Software System: DukeCooks
+UseCase: UC01 - Mark as complete
+Actors: User
+MSS:
+1. User completes a task and wants to marked it as complete.
+2. User selects a task according to it's index number to mark as
+complete.
+3. User enters the command `done task` followed by the index
+number in the command box.
+4. DukeCooks finds the inputted index number and corresponding
+task and marks it as complete.
+5. DukeCooks updates the Dashboard to reflect the changes made.
+6. DukeCooks returns a message: Task is marked as complete, for
+the user.
+
+Extensions:
+1a. User is not currently at the Dashboard.
+    1a1. User enters `goto dashboard`.
+    1a2. DukeCooks displays the Dashboard to the user.
+Use case resumes from step 2.
+
+3a. DukeCooks detects an error in the entered data.
+    3a1. DukeCooks displays an error message.
+    3a2. User enters new data.
+
+Steps 3a1. and 3a2. are repeated until the data entered are correct.
+Use case resumes from step 4.
+....
+
+[discrete]
+=== Use case: UC02 - Adding recipes
 
 *MSS*
 
@@ -996,45 +1253,8 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: UC02 - Suggesting Food
-The following is a Use Case diagram for the Dashboard.
 
-.Dashboard Use Case Diagram
-[caption="Figure 11: "]
-image::DashboardUseCase.png[width="200"]
-
-A use case for marking a task as complete.
-....
-Software System: DukeCooks
-UseCase: UC01 - Mark as complete
-Actors: User
-MSS:
-    1. User completes a task and wants to marked it as complete.
-    2. User selects a task according to it's index number to mark as
-complete.
-    3. User enters the command `done task` followed by the index
-number in the command box.
-    4. DukeCooks finds the inputted index number and corresponding
-task and marks it as complete.
-    5. DukeCooks updates the Dashboard to reflect the changes made.
-    6. DukeCooks returns a message: Task is marked as complete, for
-the user.
-
-Extensions:
-1a. User is not currently at the Dashboard.
-    1a1. User enters `goto dashboard`.
-    1a2. DukeCooks displays the Dashboard to the user.
-Use case resumes from step 2.
-
-3a. DukeCooks detects an error in the entered data.
-    3a1. DukeCooks displays an error message.
-    3a2. User enters new data.
-
-Steps 3a1. and 3a2. are repeated until the data entered are correct.
-Use case resumes from step 4.
-....
-
-[discrete]
+=== Use case: UC03 - Adding Calorie Intake
 === Use case: UC03 - Adding Glucose Record
 
 *MSS*

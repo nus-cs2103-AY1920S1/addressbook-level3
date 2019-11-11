@@ -66,7 +66,7 @@ deactivate DukeCooksParser
 LogicManager -> DeleteRecipeCommand : execute()
 activate DeleteRecipeCommand
 
-DeleteRecipeCommand -> Model : deleteRecipe(1)
+DeleteRecipeCommand -> Model : deleteRecipe(recipeToDelete)
 activate Model
 
 Model --> DeleteRecipeCommand

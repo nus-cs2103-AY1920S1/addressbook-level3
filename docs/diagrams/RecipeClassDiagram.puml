@@ -8,7 +8,7 @@ skinparam classAttributeFontColor #FFFFFF
 
 
 Class Recipe {
- - name : Name
+ - name : RecipeName
  - ingredients : Set<Ingredient>
  - calories : Calories
  - carbs : Carbs
@@ -22,9 +22,9 @@ Class Recipe {
  + getProtein()
 }
 
-Class Name {
+Class RecipeName {
  - fullName : String
- + isValidDiaryName()
+ + isValidName()
 }
 
 Class Ingredient {
@@ -52,7 +52,7 @@ Class Protein {
  + isValidProtein()
 }
 
-Recipe *-left-> "1" Name
+Recipe *-left-> "1" RecipeName
 Recipe *-right-> "1..*" Ingredient
 Recipe *-down-> "1" Calories
 Recipe *-down-> "1" Carbs

@@ -1,21 +1,27 @@
 @startuml
 !include style.puml
-skinparam arrowThickness 1.1
-skinparam arrowColor STORAGE_COLOR
-skinparam classBackgroundColor STORAGE_COLOR
+skinparam backgroundColor #EEEBDC
+skinparam arrowThickness 1.5
+skinparam arrowColor MediumSpringGreen
+skinparam classBackgroundColor MediumAquaMarine
 skinparam classAttributeIconSize 0
-skinparam classAttributeFontColor #FFFFFF
+skinparam classAttributeFontColor DarkSlateBlue
 
+skinparam Class {
+    FontColor MidnightBlue
+    BorderThickness 1
+    BorderColor MidnightBlue
+    StereotypeFontColor #FFFFFF
+    FontName Impact
+}
 
 Class Exercise {
  - exerciseName : ExerciseName
  - musclesTrained : MusclesTrained
  - intensity : Intensity
  - exerciseDetails : ExerciseDetails
- + getExerciseName()
- + getMusclesTrained()
- + getIntensity()
- + getExerciseDetails()
+ - history : ExerciseHistory
+ + updateHistory(ExerciseRun run)
 }
 
 Class ExerciseName {
@@ -26,8 +32,6 @@ Class ExerciseName {
 Class MusclesTrained {
  - primaryMuscles : MuscleType
  - secondaryMuscles : ArrayList<MuscleType>
- + getPrimaryMuscle()
- + getSecondaryMuscles()
 }
 
 Class MuscleType {
@@ -36,15 +40,17 @@ Class MuscleType {
 }
 
 Class ExerciseDetails {
- - weight : ExerciseWeight
- - distance : Distance
- - sets : Sets
- - reps : Repetitions
- + getWeight()
- + getDistance()
- + getSets()
- + getReps()
+ - magnitude : T
+ + isValidExerciseDetail()
 }
+
+Class ExerciseHistory {
+ - noTimesRan : Integer
+ - averageRunTime : Duration
+ - previousRuns : ArrayList<ExerciseRun>
+ + addRun(ExerciseRun runToAdd)
+}
+
 
 Enum Intensity {
  HIGH
@@ -52,59 +58,14 @@ Enum Intensity {
  LOW
 }
 
-Class ExerciseWeight{
- - magnitude : Float
- - unit : WeightUnit
- + isValidMagnitude()
-}
 
-Enum WeightUnit{
- GRAMS
- KILOGRAMS
- POUNDS
-}
-
-Class Distance {
- - magnitude : Float
- - unit : DistanceUnit
- + isValidMagnitude()
-}
-
-Enum DistanceUnit{
- METER
- KILOMETER
-}
-
-Class Sets {
- - magnitude : Integer
- + isValidMagnitude()
-}
-
-Class Repetitions {
- - magnitude : Integer
- + isValidMagnitude()
-}
-
-
-
-
-
-
-Exercise *-left-> "1" ExerciseName
+Exercise *-down-> "1" ExerciseName
 Exercise *-right-> "1" MusclesTrained
+Exercise *-left-> "1" ExerciseHistory
 Exercise *-down-> "1" Intensity
-Exercise *-down-> "1" ExerciseDetails
+Exercise *-down-> "0..*" ExerciseDetails
 
 MusclesTrained *-down-> "1..*" MuscleType
-
-ExerciseDetails *-down-> "0..1" ExerciseWeight
-ExerciseDetails *-down-> "0..1" Distance
-ExerciseDetails *-down-> "0..1" Sets
-ExerciseDetails *-down-> "0..1" Repetitions
-
-ExerciseWeight *-down-> "1" WeightUnit
-Distance *-down-> "1" DistanceUnit
-
 
 show members
 @enduml

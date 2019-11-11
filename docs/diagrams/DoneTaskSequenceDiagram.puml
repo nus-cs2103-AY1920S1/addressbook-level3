@@ -17,7 +17,7 @@ skinparam sequence {
 box Logic
 participant ":DoneTaskCommandParser" as A
 participant ":DoneTaskCommand" as B
-participant "CommandResult" as D
+participant ":CommandResult" as D
 end box
 box Model MODEL_COLOR_T1
 participant ":UniqueDashboardList" as C

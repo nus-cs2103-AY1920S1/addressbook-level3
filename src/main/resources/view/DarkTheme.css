@@ -573,12 +573,12 @@
 }
 
 #mealPlanHeader {
-    -fx-font-size: 36;
+    -fx-font-size: 24;
     -fx-font-weight: bold;
 }
 
 #mealPlanViewing {
-    -fx-font-size: 36;
+    -fx-font-size: 24;
     -fx-font-weight: bold;
 }
 

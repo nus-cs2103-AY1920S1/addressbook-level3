@@ -46,7 +46,7 @@ public class MealPlanRecipesContainsKeywordsPredicateTest {
     public void test_nameContainsKeywords_returnsTrue() {
         // One keyword
         MealPlanRecipesContainsKeywordsPredicate predicate = new MealPlanRecipesContainsKeywordsPredicate(
-                Collections.singletonList("Alice"));
+                Collections.singletonList("Alice Bob"));
         assertTrue(predicate.test(new MealPlanBuilder().withDay1("Alice Bob").build()));
         assertTrue(predicate.test(new MealPlanBuilder().withDay2("Alice Bob").build()));
         assertTrue(predicate.test(new MealPlanBuilder().withDay3("Alice Bob").build()));
@@ -54,29 +54,9 @@ public class MealPlanRecipesContainsKeywordsPredicateTest {
         assertTrue(predicate.test(new MealPlanBuilder().withDay5("Alice Bob").build()));
         assertTrue(predicate.test(new MealPlanBuilder().withDay6("Alice Bob").build()));
         assertTrue(predicate.test(new MealPlanBuilder().withDay7("Alice Bob").build()));
-
-        // Multiple keywords
-        predicate = new MealPlanRecipesContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay1("Alice Bob").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay2("Alice Bob").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay3("Alice Bob").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay4("Alice Bob").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay5("Alice Bob").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay6("Alice Bob").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay7("Alice Bob").build()));
-
-        // Only one matching keyword
-        predicate = new MealPlanRecipesContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay1("Alice Carol").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay2("Alice Carol").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay3("Alice Carol").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay4("Alice Carol").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay5("Alice Carol").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay6("Alice Carol").build()));
-        assertTrue(predicate.test(new MealPlanBuilder().withDay7("Alice Carol").build()));
 
         // Mixed-case keywords
-        predicate = new MealPlanRecipesContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
+        predicate = new MealPlanRecipesContainsKeywordsPredicate(Arrays.asList("aLIce bOB"));
         assertTrue(predicate.test(new MealPlanBuilder().withDay1("Alice Bob").build()));
         assertTrue(predicate.test(new MealPlanBuilder().withDay2("Alice Bob").build()));
         assertTrue(predicate.test(new MealPlanBuilder().withDay3("Alice Bob").build()));

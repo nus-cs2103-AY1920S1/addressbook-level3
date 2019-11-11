@@ -49,7 +49,7 @@
          </HBox>
          <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
             <children>
-               <ListView fx:id="recipeIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="150.0" />
+               <ListView fx:id="recipeIndexListView" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefWidth="300.0" />
                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                   <content>
                      <FlowPane fx:id="recipeListView" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: snow;" />

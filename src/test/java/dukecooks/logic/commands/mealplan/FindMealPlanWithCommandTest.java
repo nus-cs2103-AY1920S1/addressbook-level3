@@ -1,8 +1,5 @@
 package dukecooks.logic.commands.mealplan;
 
-import static dukecooks.testutil.mealplan.TypicalMealPlans.CHICKEN_MP;
-import static dukecooks.testutil.mealplan.TypicalMealPlans.TEA_MP;
-import static dukecooks.testutil.mealplan.TypicalMealPlans.TUNA_MP;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -62,16 +59,6 @@ public class FindMealPlanWithCommandTest {
         expectedModel.updateFilteredMealPlanList(predicate);
         CommandTestUtil.assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.emptyList(), model.getFilteredMealPlanList());
-    }
-
-    @Test
-    public void execute_multipleKeywords_multipleMealPlansFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_MEALPLAN_LISTED_OVERVIEW, 3);
-        MealPlanRecipesContainsKeywordsPredicate predicate = preparePredicate("Sandwich Fried Tea");
-        FindMealPlanWithCommand command = new FindMealPlanWithCommand(predicate);
-        expectedModel.updateFilteredMealPlanList(predicate);
-        CommandTestUtil.assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(TUNA_MP, CHICKEN_MP, TEA_MP), model.getFilteredMealPlanList());
     }
 
     /**

@@ -1,0 +1,469 @@
+= Lee Wah - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: DukeCooks
+
+== What is in this document?
+
+This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun . It will present the user and developer guide of the Dashboard function in DukeCooks.
+
+== What exactly is DukeCooks?
+
+DukeCooks is a desktop application designed for health-conscious students.
+As busy student project developers for DukeCooks, we understand that it can be daunting to keep track of various
+tasks and yet, manage a healthy lifestyle at the same time.
+
+DukeCooks aims to simplify this by allowing you to manage various aspects of your lifestyle, all within a single app!
+In DukeCooks, you will be able to manage tasks, store recipes, plan workouts, monitor health and write diaries.
+
+Not only that, DukeCooks runs on the command-line interface (CLI). This means that all the tasks mentioned above can be
+executed all within a single line, saving you even more time!
+
+== Who is behind DukeCooks?
+
+DukeCooks is developed by a group of five Year 2 Computing students from the National University of Singapore.
+
+== My Contributions to DukeCooks
+
+=== Building the Dashboard
+
+The Dashboard in DukeCooks provides an overview of the list of tasks to be done. It is also coupled with a progress bar, mini calendar and pop up messages for encouragement.
+
+Initial works for the Dashboard include referencing the AB3 codebase. The add / delete / edit / list / find functions from AB3 was adapted and available in the Dashboard. As a comparison, the functions listed before was used in AB3 to create and manipulate a person's contact information. In DukeCook’s Dashboard, these functions are used to create and manipulate a task's information.
+
+=== Enhancement 1: Creating the `done` command
+
+The 'done' command was created to complement the Dashboard. The user is able to use the command 'done', to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information.
+
+=== Enhancement 2: Adding more functionality to the `list` command
+
+The 'list' function adapted from AB3, lists all the items in the list. In the case of a dashboard, this might not be adequate. As such, 2 additional functions were added to the `list` command.
+
+By entering `list taskcomplete` or `list taskincomplete` will display the list of task marked as complete or task that are not complete respectively. With this enhancement, a user is able to look at what task should be taken care of.
+
+=== Enhancement 3: Upgrading the Graphic User Interface (GUI)
+
+Using AB3’s GUI as a backbone, the Dashboard was created. In the GUI for the Dashboard, it displays a progress bar which shows the progress of the tasks completed. A date picker is used to allow users to have quick access to the calendar. Lastly, as a way to motivate users to complete their task, a pop up window with an encouraging message is added. In order to view the message, users will have to check 5 new tasks as done.
+
+=== Enhancement 4: Sorting tasks by date
+
+Based off AB3's add command, the task that is last added will be display at the last of the list. Hence, in order to improve user's experience, a sorting system is built. Now, when a task is added, the task will be displayed based off the date entered in.
+
+=== Code contributed:
+Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hua-lun&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hua-lun&tabRepo=AY1920S1-CS2103T-T10-2%2Fmain%5Bmaster%5D[link] to check out my code contributions to DukeCooks.
+
+
+=== Other contributions:
+
+|===
+| |What I did
+
+|Project management
+|Managed releases `v1.2.1` (1 release) on GitHub
+
+|Reviewed PRs
+|PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+
+|Reported bugs
+|Reported bugs and suggestions for other teams in the class +
+(https://github.com/hua-lun/ped/issues/1[1],
+https://github.com/hua-lun/ped/issues/2[2],
+https://github.com/hua-lun/ped/issues/3[3],
+https://github.com/hua-lun/ped/issues/4[4],
+https://github.com/hua-lun/ped/issues/5[5],
+https://github.com/hua-lun/ped/issues/6[6],
+https://github.com/hua-lun/ped/issues/7[7],
+https://github.com/hua-lun/ped/issues/8[8],
+https://github.com/hua-lun/ped/issues/9[9],
+https://github.com/hua-lun/ped/issues/10[10],
+https://github.com/hua-lun/ped/issues/11[11],
+https://github.com/hua-lun/ped/issues/12[12],)
+
+|===
+
+== Getting Started with DukeCooks
+
+|===
+|The following information are my *contributions* to the +
+*User Guide* for the feature, Dashboard.
+|To view the full *User Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link].
+|===
+
+=== Breaking down the Dashboard
+For first time users of the CLI, wokring with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
+
+In the image below (Figure 1), accompanied with text on the right, provides a brief explanation of the key components found in the Dashboard.
+
+.DukeCooks's Dashboard
+[caption="Figure 1: "]
+image::overviewdashboard.png[width="900"]
+
+[NOTE]
+====
+Here in the Dashboard, the prefix: /tn for name and td/ for date, are used to indicate the fields you are entering.
+====
+Alright, now you are ready to use DukeCooks! The following are the instructions on all the commands available in the Dashboard.
+
+=== pass:[<u>Going to the Dashboard</u>]
+
+A quick way to get to the Dashboard and start getting work done!
+
+Command: `goto dashboard`
+
+=== pass:[<u>Adding a task</u>]
+
+Let's start by using the `add` command to add some tasks into DukeCooks!
+
+Command: `add task` +
+Format: `add task tn/_insert task here_ td/ _insert date here_`
+
+[NOTE]
+====
+When entering the date for a task, please follow the given format: day/month/year
+====
+
+Example usage (Figure 2): `add task tn/Bake CupCakes td/11/11/2019`
+
+Step 1. Enter the task you want to add into the command box and hit enter.
+
+.Adding a task
+[caption="Figure 2: "]
+image::addtask1.png[width="500"]
+
+Step 2. If you have correctly inputted the information for adding a task, DukeCooks will
+tell you that the task is successfully added in the message box. +
+Step 3. You can view the newly added task under the Dashboard.
+
+.Adding a task success
+[caption="Figure 3: "]
+image::addtask2.png[width="500"]
+
+[icon tip]
+====
+Did you know? You are able to enter Dashboard commands even if you are on another feature. Talk about
+double the productivity!
+====
+
+=== pass:[<u>Editing a task's details</u>]
+
+Made some typos when adding a task? +
+Fret not! You are able to make changes to them.
+
+Command: `edit task` +
+Format: `edit task _index number_ tn/ _insert new name_ td/ _insert new date_`
+
+[NOTE]
+====
+When editing a task, you can choose to change just 1 field or edit both fields.
+====
+
+Example usage (Figure 3): `edit task 1 tn/Bake cupcakes td/21/10/2019`
+
+Step 1. Look at the index number corresponding to the task you want to edit. +
+Step 2. Enter the task information you want to edit into the command box and hit enter.
+
+.Editing a task
+[caption="Figure 4: "]
+image::edittask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for editing a task, DukeCooks will
+tell you that the task is successfully edited in the message box. +
+Step 4. You can view the newly edited task under the Dashboard.
+
+.Editing a task success
+[caption="Figure 5: "]
+image::edittask2.png[width="500"]
+
+=== pass:[<u>Removing a task</u>]
+
+Decided that this task is not needed? +
+Well you can delete them off from DukeCooks.
+
+Command: `delete task` +
+Format: `delete task _index number_`
+
+[NOTE]
+====
+Tasks that are marked as "RECENTLY COMPLETED" or "COMPLETED", cannot be deleted.
+====
+
+Example usage (Figure 4): `delete task 1`
+
+Step 1. Look at the index number corresponding to the task you want to delete. +
+Step 2. Enter the task index number you want to delete into the command box and hit enter.
+
+.Deleting a task
+[caption="Figure 6: "]
+image::deletetask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for deleting a task, DukeCooks will
+tell you that the task is successfully removed from DukeCooks in the message box. +
+
+.Deleting a task success
+[caption="Figure 6: "]
+image::deletetask2.png[width="500"]
+
+=== pass:[<u>Marking a task as complete</u>]
+
+Finished with a task? +
+Check it off the list!
+
+Command: `done task` +
+Format: `done task _index number_`
+
+Example usage (Figure 5): `done 1`
+
+Step 1. Look at the index number corresponding to the task you want to mark as complete. +
+Step 2. Enter the task index number you want to mark as complete into the command box and hit enter.
+
+.Marking a task complete
+[caption="Figure 6: "]
+image::donetask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for marking a task as complete, DukeCooks will
+tell you that the task is successfully marked in the message box. +
+Step 4. You can view the newly marked task under the Dashboard.
+
+.Marking a task complete success
+[caption="Figure 7: "]
+image::donetask2.png[width="500"]
+
+[NOTE]
+====
+Hard at work? Marking 5 new tasks done will give a surprise! +
+A pop up window with an encouraging message will be displayed for extra motivation.
+====
+=== pass:[<u>Finding tasks</u>]
+
+For those who want to know what are the tasks relevant given a keyword.
+
+Command: `find task` +
+Format: `find task _keyword_`
+
+Example usage (Figure 7): `find task project`
+
+Step 1. Enter the a keyword for that tasks you to find into the command box and hit enter.
+
+.Finding tasks with a keyword
+[caption="Figure 8: "]
+image::findtask1.png[width="500"]
+
+Step 3. If you have correctly inputted the information for finding a task, DukeCooks will
+tell you that the number of tasks relating to the keyword found in the message box. +
+Step 4. You can view the task relating to the keyword under the Dashboard.
+
+.Finding tasks with a keyword success
+[caption="Figure 9: "]
+image::findtask2.png[width="500"]
+
+=== pass:[<u>Viewing completed/incompleted tasks</u>]
+
+Look at all those tasks!
+
+To view completed tasks: +
+Command: `list taskcomplete`
+
+For incompleted tasks: +
+Command: `list taskincomplete`
+
+=== pass:[<u>Postponing a task's date</u>] `Coming in v2.0`
+
+Think you need a little bit more time to complete a task?
+
+Command: `postpone task` +
+Format: `postpone task _index number_ by _number of days_`
+
+Example usage: `postpone task 1 by 5` +
+The above example will postpone the date of task 1 by 5 days.
+
+=== pass:[<u>Viewing your progress</u>] `Coming in v2.0`
+
+Want to know how many tasks you have done over the week? +
+DukeCooks will show you how many tasks you did each day for the past week. +
+Look at your progress and perhaps learn something about yourself!
+
+Command: `progress task`
+
+
+=== pass:[<u>Motivation booster</u>] `Coming in v2.0`
+
+DukeCooks knows you are hard at work. But for the times where you need an extra push, DukeCooks
+is here for you! +
+DukeCooks has a specially curated gif list that is sure to put a smile on your face!
+
+Command: `humour me`
+
+=== pass:[<u>Changing to calendar view</u>] `Coming in v2.0`
+
+A picture paints a thousand words. Same can be said with a calendar. Change to calendar view
+for a clearer view of all tasks due on a certain date!
+
+Command: `calendar`
+
+== Making DukeCooks
+
+|===
+|The following information provides my *contributions* to the *Developer Guide*. An explanation of how the feature (Dashboard), that I am in-charged of, is made.
+|To view the full *Developer Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/DeveloperGuide.html[link].
+|===
+
+=== What makes up a Dashboard?
+
+In DukeCooks, a `Dashboard` object represents an event a user needs to attend to, a task. A `Dashboard` is made up of
+a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram that illustrates how `Dashboard` interacts with other classes.
+
+.Dashboard Class Diagram
+[caption="Figure 10: "]
+image::DashboardClassDiagram.png[width="500"]
+
+=== In what sense is the Dashboard used as?
+
+==== User stories
+
+1. As an unorganised student, I can sort my task list by date so that I can see which task to prioritise.
+
+2. As an unmotivated student, I can receive motivational messages upon completing tasks.
+
+==== User scenarios
+
+The following is a Use Case diagram for the Dashboard.
+
+.Dashboard Use Case Diagram
+[caption="Figure 11: "]
+image::DashboardUseCase.png[width="200"]
+
+A use case for marking a task as complete.
+....
+Software System: DukeCooks
+UseCase: UC01 - Mark as complete
+Actors: User
+MSS:
+    1. User completes a task and wants to marked it as complete.
+    2. User selects a task according to it's index number to mark as
+       complete.
+    3. User enters the command `done task` followed by the index
+       number in the command box.
+    4. DukeCooks finds the inputted index number and corresponding
+       task and marks it as complete.
+    5. DukeCooks updates the Dashboard to reflect the changes made.
+    6. DukeCooks returns a message: Task is marked as complete, for
+       the user.
+
+Extensions:
+    1a. User is not currently at the Dashboard.
+        1a1. User enters `goto dashboard`.
+        1a2. DukeCooks displays the Dashboard to the user.
+        Use case resumes from step 2.
+
+    3a. DukeCooks detects an error in the entered data.
+        3a1. DukeCooks displays an error message.
+        3a2. User enters new data.
+
+        Steps 3a1. and 3a2. are repeated until the data entered are correct.
+        Use case resumes from step 4.
+....
+
+==== Implementation
+The functions add/delete/edit/find/list/done task, are found under the Dashboard. +
+The Dashboard in `DukeCooks` serves as a homepage which displays a list of tasks set out
+by the user. The tasks are sorted accordingly by earliest date; using a custom sorting algorithm.
+Here, a task is represented by a Dashboard object.
+
+The operations are as followed:
+
+* `DukeCooks#add_task()` -- Adds and saves the task into `DukeCooks`.
+* `DukeCooks#delete_task()` -- Removes the specified task from `DukeCooks`.
+* `DukeCooks#edit_task()` -- Edits the specified with a new task name and/or date.
+* `DukeCooks#done()` -- Marks a task as complete.
+* `DukeCooks#find_task()` -- Finds a list of task with a given keyword.
+* `DukeCooks#list_taskincomlete()` -- Lists all the incomplete tasks.
+* `DukeCooks#list_taskcomlete()` -- Lists all the completed tasks.
+* `DukeCooks#dashboard()` -- Directs user to the dashboard window.
+
+These operations are exposed in the Model interface as `Model#addDashboard()`,
+`Model#deleteDashboard()`, `Model#setDashboard()`, `Model#hasDashboard()` , `Model#doneDashboard` and
+`Model#getDashboardRecords()`.
+
+Given below is an example usage scenario and how the add/delete/edit/find/done/dashboard
+mechanism behaves at each step.
+
+Step 1. The user is currently at a another part of DukeCooks and wants to go to the Dashboard. The
+user executes the `dashboard` command. The `dashboard` command calls `Model#getDashboardRecords()`,
+which returns the `ReadOnlyDashboard` that returns the `UniqueDashboardList`, iterating over all the task and displaying it on the
+homepage.
+
+Step 2. The user executes `add task tn/bake a cake td/12/12/2019` command to add a new
+task into DukeCooks. The `add` command calls `Model#addDashboard()`, causing the task to
+be added into `UniqueDashboardList`. In `UniqueDashboardList`, it calls
+`UniqueDashboardList#add()` which will call `UniqueDashboardList#sortDashboard()`. At this
+stage, the list of task is sorted by date. After which, the `add` command also calls
+`Model#saveDashboard()` to be saved the `dashboard` into the `UniqueDashboardList`.
+
+Step 3. The user executes `delete task 3` command to delete the 3rd task in the
+dashboard. The `delete` command calls `Model#deleteDashboard()` causing the specified task
+to be removed from `UniqueDashboardList`. In `UniqueDashboardList`, it calls
+`UniqueDashboardList#remove()` which will call `UniqueDashboardList#sortDashboard()`. At this
+stage, the list of task is sorted by date. Also, it calls `Model#saveDashboard()`,
+after the `delete task 3` command executes
+to be saved in the `UniqueDashboardList`.
+
+Step 4. The user executes `edit task...` command to edit a field in a task. The `edit`
+command calls `Model#setDashboard()` causing the edited task to be updated in
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#setDashboard()`
+which will call `UniqueDashboardList#sortDashboard()`. At this stage, the list of task is
+sorted by date. Also, it calls `Model#saveDashboard()`, after the `edit task...` command executes to be saved into the `UniqueDashboardList`
+
+Step 5. The user executes `find task...` command to find a list of task given a keyword.
+The `find` command calls `Model#hasDashboard()`, which searches through the
+`UniqueDashboardList` for tasks containing the particular keyword.
+
+Step 6. The user executes `done 1` command to mark the first task in the list as complete. The `done`
+command calls `Model#doneDashboard()`, which will cause the task to be marked as complete in the
+`UniqueDashboardList`. In `UniqueDashboardList`, it calls `UniqueDashboardList#done()`, which adds
+the newly created `Dashboard` object and adds it into the list. After which, `UniqueDashboardList#sortDashboard()`
+is called to sort the list by date and reflect the newly made changes.
+
+The following sequence diagram (Figure 10) shows how the add operation works:
+
+.Done task Sequence Diagram
+[caption="Figure 12: "]
+image::DoneTaskSequenceDiagram.png[width="550"]
+
+==== Making Decisions
+
+[cols="10%,50%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
+
+|Storing a task's status
+|A custom class, `TaskStatus`, is created to keep track of the task's status.
+
+- Pros: Additional statuses can be introduced in easily in the future. +
+- Cons: Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
+
+This choice was chosen as it does not limit us to only having tasks marked as "COMPLETED" or "NOT COMPLETE".
+Since choice 1 was used, additional status, "RECENTLY COMPLETED" could be added with ease.
+
+|Use a boolean to check if a task is complete.
+
+- Pros: Easy to implement.
+- Cons: Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
+
+|Sorting tasks by date
+
+|Every time the `add`, `delete`, `edit` task command is called, a `sort` is executed.
+
+- Pros: Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
+there is lesser chance for errors.
+- Cons: Because `sort` is executed every time, this might slow down the performance.
+
+This choice was chosen as it reduces the chance of errors and is a safer option.
+
+|Keep an instance of the earliest and latest date. If dates fall out of range from the two dates, sorting does not happen.
+
+- Pros: Faster runtime. +
+- Cons: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
+|===
