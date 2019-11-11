@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.logging.Logger;
@@ -56,6 +57,10 @@ public class RenameTagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        if (model.getActiveStudyPlan() == null) {
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
+        }
+
         boolean tagExists = model.activeSpContainsModuleTag(originalTagName);
         if (!tagExists) {
             throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, originalTagName));
@@ -71,7 +76,7 @@ public class RenameTagCommand extends Command {
         logger.info("Found " + toRename + " in active study plan");
 
         if (originalTagName.compareToIgnoreCase(newTagName) == 0) {
-            throw new CommandException(MESSAGE_SAME_TAG_NAME);
+            throw new CommandException(String.format(MESSAGE_SAME_TAG_NAME, originalTagName, newTagName));
         }
 
         if (model.activeSpContainsModuleTag(newTagName)) {

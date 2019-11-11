@@ -30,13 +30,6 @@ import seedu.address.model.versiontracking.CommitList;
 
 public class CheckCommandTest {
     // ======================== TESTS ================================
-    @Test
-    public void execute_check_nullActiveStudyPlan() {
-        Model model = new CheckCommandTest.ModelStubNull();
-        CommandResult expectedCommandResult = new CommandResult("You do not have a study plan!", false, false);
-        assertCommandSuccess(new CheckCommand(), model, expectedCommandResult, model);
-    }
-
     /*
      * We define three model stubs: ModelStubNull, ModelStubOne, and ModelStubTwo.
      * All are meant to be called only on the method `getActiveStudyPlan`.

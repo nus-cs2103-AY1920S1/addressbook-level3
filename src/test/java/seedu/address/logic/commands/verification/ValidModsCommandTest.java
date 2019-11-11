@@ -30,6 +30,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UserTag;
 import seedu.address.model.versiontracking.CommitList;
+import seedu.address.testutil.StudyPlanBuilder;
 import seedu.address.testutil.TypicalModule;
 import seedu.address.ui.ResultViewType;
 
@@ -88,7 +89,7 @@ public class ValidModsCommandTest {
 
         @Override
         public StudyPlan getActiveStudyPlan() {
-            throw new AssertionError("This method should not be called.");
+            return (new StudyPlanBuilder()).build();
         }
 
         @Override

@@ -174,9 +174,9 @@ public class RenameTagCommandTest {
         model.activateFirstStudyPlan();
 
         // construct command to rename tag to same name
-        RenameTagCommand renameTagCommand = new RenameTagCommand(validTagOne.getTagName(), validTagOne.getTagName());
+        RenameTagCommand renameTagCommand = new RenameTagCommand(validTagNameOne, validTagNameOne);
         assertThrows(CommandException.class, () -> renameTagCommand.execute(model),
-                RenameTagCommand.MESSAGE_SAME_TAG_NAME);
+                String.format(RenameTagCommand.MESSAGE_SAME_TAG_NAME, validTagNameOne, validTagNameOne));
     }
 
     @Test

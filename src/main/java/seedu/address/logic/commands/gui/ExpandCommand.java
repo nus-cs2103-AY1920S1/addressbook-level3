@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.gui;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -31,6 +32,11 @@ public class ExpandCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getActiveStudyPlan() == null) {
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
+        }
+
         model.getSemester(sem).setExpanded(true);
         model.addToHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, sem), true, false);

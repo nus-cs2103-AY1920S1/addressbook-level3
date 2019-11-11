@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import java.util.function.Predicate;
 
@@ -35,6 +36,10 @@ public class ViewDefaultTagsCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getActiveStudyPlan() == null) {
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
+        }
 
         UniqueTagList uniqueTagList = model.getModuleTagsFromActiveSp();
 

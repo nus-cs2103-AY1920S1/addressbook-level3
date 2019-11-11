@@ -1,5 +1,8 @@
 package seedu.address.logic.commands.verification;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
+
 import java.util.List;
 
 import seedu.address.logic.commands.Command;
@@ -32,6 +35,12 @@ public class ValidModsCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (model.getActiveStudyPlan() == null) {
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
+        }
+
         List<Module> validMods = model.getValidMods(this.semName);
         UniqueModuleList moduleList = new UniqueModuleList();
         for (Module mod : validMods) {

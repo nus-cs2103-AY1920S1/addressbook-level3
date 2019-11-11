@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 
 import java.util.logging.Logger;
 
@@ -46,6 +47,10 @@ public class DeleteTagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getActiveStudyPlan() == null) {
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
+        }
 
         if (!UserTag.isValidTagName(tagName)) {
             throw new CommandException(MESSAGE_INVALID_DEFAULT_TAG_MODIFICATION);

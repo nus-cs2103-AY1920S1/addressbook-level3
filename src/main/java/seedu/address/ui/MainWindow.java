@@ -161,6 +161,7 @@ public class MainWindow extends UiPart<Stage> {
                     semesterListPanelPlaceholder.getChildren().remove(0);
                     semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
                     studyPlanId.setText("");
+                    studyPlanTagsPlaceholder.getChildren().remove(0);
                     title.setText(NO_ACTIVE_STUDY_PLAN);
                 } else {
                     ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();

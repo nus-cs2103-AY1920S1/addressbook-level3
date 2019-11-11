@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.verification;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -29,6 +30,8 @@ public class DescriptionCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
         String result = model.getModuleInformation(this.moduleCode);
         if (result == null) {
             throw new CommandException(MESSAGE_INVALID_MODULE);

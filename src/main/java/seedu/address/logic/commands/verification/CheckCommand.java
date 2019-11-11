@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.verification;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 import static seedu.address.model.studyplan.StudyPlanVerificationHelper.describeAll;
 import static seedu.address.model.studyplan.StudyPlanVerificationHelper.describeCore;
 import static seedu.address.model.studyplan.StudyPlanVerificationHelper.describeCoreFulfilled;
@@ -37,10 +39,12 @@ public class CheckCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
         StudyPlan activeStudyPlan = model.getActiveStudyPlan();
 
         if (activeStudyPlan == null) {
-            return new CommandResult("You do not have a study plan!");
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
         }
 
         String result;

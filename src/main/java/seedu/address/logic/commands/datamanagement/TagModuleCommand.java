@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.datamanagement;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_STUDY_PLAN;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.logging.Logger;
@@ -53,6 +54,10 @@ public class TagModuleCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (model.getActiveStudyPlan() == null) {
+            throw new CommandException(MESSAGE_NO_STUDY_PLAN);
+        }
 
         if (!model.isValidModuleCode(this.moduleCode)) {
             throw new CommandException(MESSAGE_MODULE_DOES_NOT_EXIST);
