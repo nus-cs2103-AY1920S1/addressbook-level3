@@ -72,32 +72,6 @@ criterion at the top of the food list.
 
 Finally, they should be able to view the fields of the custom comparator using `viewsort`.
 
-=== Major Enhancement: Alias Feature
-
-I have added a alias feature to $aveNUS which allows users to create shortcuts for commonly used commands.
-
-==== What it does
-
-The alias feature allows users to create shortcuts for commonly used commands. For example, if the user wishes to
-view the custom comparator made, but does not want to type in `viewsort` all the time, he can add an alias to it. He
-can do use by typing `alias viewsort v` where `v` is now the shortcut for `viewsort`.
-
-When he does not require the alias for `viewsort`, he can clear it anytime using `alias viewsort`.
-
-==== Justification
-
-NUS Students occasionally forget how to execute certain commands which may seem too long such as `viewsort` and
-`customsort`. As a result, it would be good for the user to be able to add shortcuts to save time and typing.
-
-==== Highlights.
-
-I only had to add the `alias` command to implement this new feature. However, I had to make sure that users will not
-accidentally keep in other conflicting shortcuts. For exampke, `alias viewsort sort`. is an invalid command as `sort` is
-already a command word in $aveNUS.
-
-Storage functionality for the user's alias shortcuts were also implemented. This means that the shortcuts are conveniently saved
-into their hard disk and persist even after the application is closed and restarted.
-
 === Code contributions:
 * https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=seanlowjk&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[[Project Code Dashboard]]
 | https://github.com/AY1920S1-CS2103T-F13-2/main/pulls?q=is%3Apr+author%3Aseanlowjk[[Pull Requests]]
