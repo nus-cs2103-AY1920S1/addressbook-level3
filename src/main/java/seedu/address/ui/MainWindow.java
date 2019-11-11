@@ -1,9 +1,13 @@
 package seedu.address.ui;
 
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -14,8 +18,17 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.statistic.StatsPayload;
+import seedu.address.ui.exception.EnumNotPresentException;
+import seedu.address.ui.panels.ArchivedOrderListPanel;
+import seedu.address.ui.panels.CalendarPanel;
+import seedu.address.ui.panels.CustomerListPanel;
+import seedu.address.ui.panels.OrderListPanel;
+import seedu.address.ui.panels.PhoneListPanel;
+
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -31,9 +44,19 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private TabPanel tabPanel;
+    private StatisticsWindow statsWindow;
+    private DefaultStatisticsWindow defaultStatsWindow;
+
+    //real panels
+    private CustomerListPanel customerListPanel;
+    private PhoneListPanel phoneListPanel;
+    private OrderListPanel orderListPanel;
+    private CalendarPanel calendarPanel;
+    private ArchivedOrderListPanel archiveOrderListPanel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,10 +65,10 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane tabPanelPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
@@ -107,16 +130,24 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        customerListPanel = new CustomerListPanel(logic.getFilteredCustomerList());
+        phoneListPanel = new PhoneListPanel(logic.getFilteredPhoneList());
+        orderListPanel = new OrderListPanel(logic.getFilteredOrderList());
+        calendarPanel = new CalendarPanel(logic.getFilteredScheduleList(), logic.getFilteredOrderList(),
+                logic.getCalendarDate());
+        archiveOrderListPanel = new ArchivedOrderListPanel(logic.getFilteredArchivedOrderList());
+        tabPanel = new TabPanel(customerListPanel, phoneListPanel, orderListPanel,
+                calendarPanel, archiveOrderListPanel);
+        tabPanelPlaceholder.getChildren().add(tabPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(Paths.get("data"));
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this::executeCommand, logic);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -157,11 +188,67 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
+
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * handle StatisticsWindow and create a new one based on user input
+     */
+    @FXML
+    private void handleStats(StatsPayload statsPayload) {
+
+        if (statsPayload.isDefaultQuery()) {
+            logger.info("handling default statistics query of type " + statsPayload.getStatisticType());
+            switch (statsPayload.getStatisticType()) {
+            case PROFIT:
+                String totalProfitResult = this.logic.calculateTotalProfit(statsPayload);
+                this.defaultStatsWindow = new DefaultStatisticsWindow(totalProfitResult, "Total Profit");
+                this.defaultStatsWindow.show();
+                break;
+            case REVENUE:
+                String totalRevenueResult = this.logic.calculateTotalRevenue(statsPayload);
+                this.defaultStatsWindow = new DefaultStatisticsWindow(totalRevenueResult, "Total Revenue");
+                this.defaultStatsWindow.show();
+                break;
+            case COST:
+                String totalCostResult = this.logic.calculateTotalCost(statsPayload);
+                this.defaultStatsWindow = new DefaultStatisticsWindow(totalCostResult, "Total Cost");
+                this.defaultStatsWindow.show();
+                break;
+            default:
+                throw new EnumNotPresentException("Enum not present in stat command");
+            }
+        } else {
+            logger.info("handling statistics query of type "
+                    + statsPayload.getStatisticType());
+            //calculate stats with input to logic manager
+            switch (statsPayload.getStatisticType()) {
+            case PROFIT:
+                String profitResultValue = this.logic.calculateTotalProfit(statsPayload);
+                XYChart.Series<String, Number> profitResult = this.logic.calculateTotalProfitGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Profit", profitResult, profitResultValue);
+                logger.info("displaying chart");
+                this.statsWindow.show();
+                break;
+            case REVENUE:
+                String revenueResultValue = this.logic.calculateTotalRevenue(statsPayload);
+                XYChart.Series<String, Number> revenueResult = this.logic.calculateTotalRevenueGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Revenue", revenueResult, revenueResultValue);
+                logger.info("displaying chart");
+                this.statsWindow.show();
+                break;
+            case COST:
+                String costResultValue = this.logic.calculateTotalCost(statsPayload);
+                XYChart.Series<String, Number> costResult = this.logic.calculateTotalCostGraph(statsPayload);
+                this.statsWindow = new StatisticsWindow("Total Cost", costResult, costResultValue);
+                logger.info("displaying chart");
+                this.statsWindow.show();
+                break;
+            default:
+                throw new EnumNotPresentException("Enum not present in stat command");
+            }
+        }
     }
 
     /**
@@ -174,15 +261,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-
-            if (commandResult.isShowHelp()) {
-                handleHelp();
-            }
-
-            if (commandResult.isExit()) {
-                handleExit();
-            }
-
+            //retrieve the type that the command works on here;
+            performUiChanges(commandResult);
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
@@ -190,4 +270,80 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * checks which Uichange the command acts on and switches it
+     */
+    private void performUiChanges(CommandResult input) {
+        List<UiChange> listOfUiChange = input.getUiChange();
+        for (UiChange type : listOfUiChange) {
+            logger.info("executing Ui Change " + input.getUiChange().toString());
+            switch (type) {
+            case ARCHIVED_ORDER:
+                this.showArchivedOrderPanel();
+                break;
+            case CUSTOMER:
+                this.showCustomerPanel();
+                break;
+            case PHONE:
+                this.showPhonePanel();
+                break;
+            case ORDER:
+                this.showOrderPanel();
+                break;
+            case SCHEDULE:
+                this.showSchedulePanel();
+                break;
+            case HELP:
+                this.handleHelp();
+                break;
+            case STATS:
+                this.handleStats(input.getPayloadObject());
+                break;
+            case EXIT:
+                this.handleExit();
+                break;
+            default:
+                //do nothing
+                throw new EnumNotPresentException("Enum not present in command");
+            }
+        }
+    }
+
+    /**
+     * switch selected tab to customer tab
+     */
+    private void showCustomerPanel() {
+        tabPanel.switchTabCustomer();
+    }
+
+    /**
+     * switch selected tab to phone tab
+     */
+    private void showPhonePanel() {
+        tabPanel.switchTabPhone();
+    }
+
+    /**
+     * switch selected tab to order tab
+     */
+    private void showOrderPanel() {
+        tabPanel.switchTabOrder();
+    }
+
+    /**
+     * switch selected tab to order tab
+     */
+    private void showSchedulePanel() {
+        tabPanel.switchTabSchedule();
+    }
+
+    /**
+     * switch selected tab to archived order tab
+     */
+    private void showArchivedOrderPanel() {
+        tabPanel.switchTabArchivedOrder();
+    }
+
+
 }

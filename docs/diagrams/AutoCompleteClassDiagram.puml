@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package AutoComplete {
+
+package Graphs {
+Class "{abstract}\n Graph" as Graph
+Class "{abstract}\nAutoCompleteGraph" as AutoCompleteGraph
+Class "{abstract}\nGraphWithStartNode" as GraphWithStartNode
+Class "{abstract}\nGraphWithStartNodeAndPreamble" as GraphWithStartNodeAndPreamble
+Class Edge
+}
+
+package Nodes {
+Class "{abstract}\nNode" as Node
+Class "{abstract}\nAutoCompleteNode" as AutoCompleteNode
+Class EmptyAutoCompleteNode
+}
+
+package Providers {
+Class "{abstract}\nSimpleProvider" as SimpleProvider
+Class FindCustomerProvider
+Class FindOrderProvider
+Class FindPhoneProvider
+Class EmptyProvider
+}
+
+Class AutoCompleteResult
+Class AutoCompleteResultGenerator
+Interface AutoCompleteResultProvider <<Interface>>
+Interface AutoCompleteValueProvider <<Interface>>
+
+}
+
+AutoCompleteGraph -up-|> Graph
+GraphWithStartNode -up-|> AutoCompleteGraph
+GraphWithStartNodeAndPreamble -up-|> GraphWithStartNode
+
+Graph *-left> "*" Edge
+
+AutoCompleteNode -up-|> Node
+EmptyAutoCompleteNode -|> AutoCompleteNode
+
+SimpleProvider .up.|> AutoCompleteResultProvider
+FindPhoneProvider .up.|> AutoCompleteResultProvider
+FindCustomerProvider .up.|> AutoCompleteResultProvider
+FindOrderProvider .up.|> AutoCompleteResultProvider
+EmptyProvider .up.|> AutoCompleteResultProvider
+
+AutoCompleteResultProvider .> AutoCompleteResult
+
+AutoCompleteResultGenerator *--> "*" AutoCompleteResultProvider
+
+AutoCompleteNode .up...|> AutoCompleteValueProvider
+AutoCompleteGraph ..|> AutoCompleteResultProvider
+AutoCompleteResultGenerator ..> AutoCompleteResult
+
+Edge *---> "2" Node
+Graph ..> Node
+
+@enduml

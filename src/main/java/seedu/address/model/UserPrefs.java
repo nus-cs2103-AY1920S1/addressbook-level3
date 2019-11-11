@@ -14,7 +14,11 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
+    private Path customerBookFilePath = Paths.get("data" , "customerbook.json");
+    private Path phoneBookFilePath = Paths.get("data" , "phonebook.json");
+    private Path scheduleBookFilePath = Paths.get("data" , "schedulebook.json");
+    private Path orderBookFilePath = Paths.get("data" , "orderbook.json");
+    private Path archivedOrderBookFilePath = Paths.get("data", "archivedbook.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -35,7 +39,11 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
+        setCustomerBookFilePath(newUserPrefs.getCustomerBookFilePath());
+        setPhoneBookFilePath(newUserPrefs.getPhoneBookFilePath());
+        setScheduleBookFilePath(newUserPrefs.getScheduleBookFilePath());
+        setOrderBookFilePath(newUserPrefs.getOrderBookFilePath());
+        setArchivedOrderBookFilePath(newUserPrefs.getArchivedOrderBookFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -47,13 +55,49 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getAddressBookFilePath() {
-        return addressBookFilePath;
+    public Path getCustomerBookFilePath() {
+        return customerBookFilePath;
     }
 
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        this.addressBookFilePath = addressBookFilePath;
+    public void setCustomerBookFilePath(Path customerBookFilePath) {
+        requireNonNull(customerBookFilePath);
+        this.customerBookFilePath = customerBookFilePath;
+    }
+
+    public Path getPhoneBookFilePath() {
+        return phoneBookFilePath;
+    }
+
+    public void setPhoneBookFilePath(Path phoneBookFilePath) {
+        requireNonNull(phoneBookFilePath);
+        this.phoneBookFilePath = phoneBookFilePath;
+    }
+
+    public Path getScheduleBookFilePath() {
+        return scheduleBookFilePath;
+    }
+
+    public void setScheduleBookFilePath(Path scheduleBookFilePath) {
+        requireNonNull(scheduleBookFilePath);
+        this.scheduleBookFilePath = scheduleBookFilePath;
+    }
+
+    public Path getOrderBookFilePath() {
+        return orderBookFilePath;
+    }
+
+    public void setOrderBookFilePath(Path orderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        this.orderBookFilePath = orderBookFilePath;
+    }
+
+    public Path getArchivedOrderBookFilePath() {
+        return archivedOrderBookFilePath;
+    }
+
+    public void setArchivedOrderBookFilePath(Path archivedOrderBookFilePath) {
+        requireNonNull(orderBookFilePath);
+        this.archivedOrderBookFilePath = archivedOrderBookFilePath;
     }
 
     @Override
@@ -68,19 +112,26 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && addressBookFilePath.equals(o.addressBookFilePath);
+                && customerBookFilePath.equals(o.customerBookFilePath)
+                && phoneBookFilePath.equals(o.phoneBookFilePath)
+                && scheduleBookFilePath.equals(o.scheduleBookFilePath)
+                && orderBookFilePath.equals(o.orderBookFilePath)
+                && archivedOrderBookFilePath.equals(o.archivedOrderBookFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nCustomer data file location : " + customerBookFilePath);
+        sb.append("\nPhone data file location : " + phoneBookFilePath);
+        sb.append("\nSchedule data file location : " + scheduleBookFilePath);
+        sb.append("\nOrder data file location : " + orderBookFilePath);
         return sb.toString();
     }
 

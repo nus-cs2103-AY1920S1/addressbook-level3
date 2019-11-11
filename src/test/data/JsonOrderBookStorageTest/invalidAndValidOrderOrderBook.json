@@ -1,0 +1,57 @@
+{
+  "orders" : [ {
+    "id" : "71d9e057-79f4-4f4c-8b74-46af761024bd",
+    "customer" : {
+      "customerName" : "Charlotte Oliveiro",
+      "contactNumber" : "93210283",
+      "email" : "charlotte@example.com",
+      "tagged" : [ "neighbours" ]
+    },
+    "phone" : {
+      "identityNumber" : "990003709954321",
+      "serialNumber" : "28xa9q2ns",
+      "phoneName" : "iPhone 11",
+      "brand" : "Apple",
+      "capacity" : "128",
+      "colour" : "Jet Black",
+      "cost" : "$1100",
+      "tagged" : [ "New" ]
+    },
+    "price" : "$1023.89",
+    "status" : "Scheduled",
+    "schedule" : {
+      "id" : "c21c9681-7ae0-4bc5-8a99-04e21251e537",
+      "calendar" : "2019.11.09.12.30",
+      "venue" : "School",
+      "tagged" : [ "Gate" ]
+    },
+    "tagged" : [ "Urgent" ]
+  }, {
+    "id" : "Invalid Customer: 3-2e760073649b",
+    "customer" : {
+      "customerName" : "Alex ?!Yeoh",
+      "contactNumber" : "87438807",
+      "email" : "alexyeoh@example.com",
+      "tagged" : [ "friends" ]
+    },
+    "phone" : {
+      "identityNumber" : "990001940227978",
+      "serialNumber" : "1d27s9az",
+      "phoneName" : "iPhone 8",
+      "brand" : "Apple",
+      "capacity" : "64",
+      "colour" : "White",
+      "cost" : "$400",
+      "tagged" : [ "Used" ]
+    },
+    "price" : "$1300.12",
+    "status" : "Scheduled",
+    "schedule" : {
+      "id" : "bb09cf1a-095d-4517-8c7b-00a56108db8b",
+      "calendar" : "2019.11.11.14.10",
+      "venue" : "KFC",
+      "tagged" : [ "Late" ]
+    },
+    "tagged" : [ "New" ]
+  } ]
+}

@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
+Participant ":AddScheduleCommandParser" as AddScheduleCommandParser LOGIC_COLOR
+Participant "command:AddScheduleCommand" as AddScheduleCommand LOGIC_COLOR
+Participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+Participant "model:Model" as Model MODEL_COLOR
+
+[-> LogicManager : execute(commandText)
+activate LogicManager
+LogicManager -> SellerManagerParser ++: parseCommand(commandText)
+
+create AddScheduleCommandParser
+SellerManagerParser -> AddScheduleCommandParser ++:
+
+AddScheduleCommandParser --> SellerManagerParser
+deactivate AddScheduleCommandParser
+SellerManagerParser -> AddScheduleCommandParser ++: parse(arguments)
+
+create AddScheduleCommand
+AddScheduleCommandParser -> AddScheduleCommand : schedule, index
+activate AddScheduleCommand
+AddScheduleCommand --> AddScheduleCommandParser : command
+deactivate AddScheduleCommand
+
+AddScheduleCommandParser --> SellerManagerParser : command
+deactivate AddScheduleCommandParser
+AddScheduleCommandParser -[hidden]-> SellerManagerParser
+destroy AddScheduleCommandParser
+
+SellerManagerParser --> LogicManager : command
+deactivate SellerManagerParser
+
+LogicManager -> AddScheduleCommand : execute(model)
+activate AddScheduleCommand
+
+AddScheduleCommand -> Model : setOrder(uuid, customer)
+activate Model
+Model --> AddScheduleCommand
+deactivate Model
+AddScheduleCommand -> Model : addSchedule(schedule)
+activate Model
+Model -> Model : setCalendarDate(calendar)
+activate Model
+deactivate Model
+Model --> AddScheduleCommand
+deactivate Model
+
+create CommandResult
+AddScheduleCommand -> CommandResult ++: message, UiChange
+CommandResult --> AddScheduleCommand : commandResult
+deactivate CommandResult
+
+AddScheduleCommand --> LogicManager : commandResult
+deactivate AddScheduleCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

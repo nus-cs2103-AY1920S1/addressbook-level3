@@ -1,0 +1,21 @@
+{
+  "phones" : [ {
+    "identityNumber" : "990003709954321",
+    "serialNumber" : "28xa9q2ns",
+    "phoneName" : "iPhone 11",
+    "brand" : "Apple",
+    "capacity" : "128",
+    "colour" : "Jet Black",
+    "cost" : "$1100",
+    "tagged" : [ "New" ]
+  }, {
+    "identityNumber" : "990001940227978",
+    "serialNumber" : "1d27s9az",
+    "phoneName" : "invalid Phone Cost",
+    "brand" : "Apple",
+    "capacity" : "64",
+    "colour" : "White",
+    "cost" : "$400aa",
+    "tagged" : [ "Used" ]
+  } ]
+}

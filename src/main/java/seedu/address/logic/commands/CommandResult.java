@@ -2,7 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
+import seedu.address.statistic.StatsPayload;
 
 /**
  * Represents the result of a command execution.
@@ -10,40 +15,45 @@ import java.util.Objects;
 public class CommandResult {
 
     private final String feedbackToUser;
-
-    /** Help information should be shown to the user. */
-    private final boolean showHelp;
-
-    /** The application should exit. */
-    private final boolean exit;
+    private final List<UiChange> uiChange;
+    private final Optional<StatsPayload> statsPayload;
 
     /**
-     * Constructs a {@code CommandResult} with the specified fields.
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and specified {@Code type},
+     * and set other fields to their default value.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, UiChange ...type) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
-        this.showHelp = showHelp;
-        this.exit = exit;
+        this.uiChange = Arrays.asList(type);
+        this.statsPayload = Optional.empty();
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser},
-     * and other fields set to their default value.
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}
+     * and {@code statsPayload}
+     * and specified {@Code type},
+     * @param statsPayload user input argument for statistics command
      */
-    public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+    public CommandResult(String feedbackToUser, StatsPayload statsPayload, UiChange ...type) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.uiChange = Arrays.asList(type);
+        this.statsPayload = Optional.of(statsPayload);
+    }
+
+    public List<UiChange> getUiChange() {
+        return uiChange;
+    }
+
+    public boolean hasPayloadObject() {
+        return this.statsPayload.isPresent();
+    }
+
+    public StatsPayload getPayloadObject() {
+        return this.statsPayload.get();
     }
 
     public String getFeedbackToUser() {
         return feedbackToUser;
-    }
-
-    public boolean isShowHelp() {
-        return showHelp;
-    }
-
-    public boolean isExit() {
-        return exit;
     }
 
     @Override
@@ -58,14 +68,12 @@ public class CommandResult {
         }
 
         CommandResult otherCommandResult = (CommandResult) other;
-        return feedbackToUser.equals(otherCommandResult.feedbackToUser)
-                && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+        return feedbackToUser.equals(otherCommandResult.feedbackToUser);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser);
     }
 
 }

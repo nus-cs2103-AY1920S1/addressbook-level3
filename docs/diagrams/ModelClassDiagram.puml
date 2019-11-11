@@ -4,24 +4,51 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Package Model <<Rectangle>> {
+Interface ReadOnlyDataBook <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface Identifiable <<Interface>>
 Class Model
 Class ModelManager
 Class UserPrefs
+Class CalendarDate
 Class ReadOnlyUserPrefs
+Class "DataBook<Phone>"
+Class "UniqueList<Phone>"
+Class "DataBook<Order>"
+Class "UniqueList<Order>"
+Class "DataBook<Customer>"
+Class "UniqueList<Customer>"
+Class "DataBook<Schedule>"
+Class "UniqueList<Schedule>"
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
+Package Phone {
 Class Phone
-Class UniquePersonList
+Class Brand
+Class Capacity
+Class Colour
+Class IdentityNumber
+Class PhoneName
+Class SerialNumber
+}
+
+Package Order {
+Class Order
+Class Price
+Class Status
+}
+
+Package Customer {
+Class Customer
+Class ContactNumber
+Class Email
+Class CustomerName
+}
+
+Package Schedule {
+Class Schedule
+Class Venue
 }
 
 Package Tag {
@@ -30,27 +57,61 @@ Class Tag
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> Model
+HiddenOutside .> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+"DataBook<Phone>" .up.|> ReadOnlyDataBook
+"DataBook<Order>" .up.|> ReadOnlyDataBook
+"DataBook<Customer>" .up.|> ReadOnlyDataBook
+"DataBook<Schedule>" .up|> ReadOnlyDataBook
 
 ModelManager .up.|> Model
-Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
-ModelManager o-left-> "1" UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
+Model .right> ObservableList
+ModelManager o--> "1" "DataBook<Phone>"
+ModelManager o--> "1" "DataBook<Order>"
+ModelManager o--> "1" "DataBook<Customer>"
+ModelManager o--> "1" "DataBook<Schedule>"
+ModelManager o-right-> "1" UserPrefs
+UserPrefs .right|> ReadOnlyUserPrefs
+ModelManager *-up> "1" CalendarDate
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Phone ..|> Identifiable
+Order ..|> Identifiable
+Customer ..|> Identifiable
+Schedule ..|> Identifiable
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+"DataBook<Phone>" *--> "1" "UniqueList<Phone>"
+"UniqueList<Phone>" o--> "*" Phone
+Phone *-> PhoneName
+Phone *-down-> IdentityNumber
+Phone *-down-> SerialNumber
+Phone *-down-> Capacity
+Phone *-down-> Colour
+Phone *-left> Brand
+Phone *---> Tag
 
-ModelManager -->"1" Person : filtered list
+"DataBook<Order>" *--> "1" "UniqueList<Order>"
+"UniqueList<Order>" o--> "*" Order
+Order o---> "1" Phone
+Order o---> "1" Customer
+Order *---> "1" Schedule
+Order *-right> Price
+Order *-left> Status
+Order *---> Tag
+
+"DataBook<Customer>" *--> "1" "UniqueList<Customer>"
+"UniqueList<Customer>" o--> "*" Customer
+Customer *-> ContactNumber
+Customer *--> CustomerName
+Customer *-left-> Email
+Customer *---> Tag
+
+"DataBook<Schedule>" *--> "1" "UniqueList<Schedule>"
+"UniqueList<Schedule>" o--> "*" Schedule
+Schedule *-> Venue
+Schedule *---> Tag
+
+ModelManager ---> "1" Phone : filtered list
+ModelManager ---> "1" Customer : filtered list
+ModelManager ---> "1" Order : filtered list
+ModelManager ---> "1" Schedule : filtered list
 @enduml

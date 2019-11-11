@@ -1,12 +1,18 @@
 package seedu.address.ui;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import seedu.address.logic.Logic;
+import seedu.address.logic.autocomplete.AutoCompleteResult;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.ui.exception.EnumNotPresentException;
+
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -17,15 +23,55 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final CommandExecutor commandExecutor;
+    private final Logic logic;
 
     @FXML
-    private TextField commandTextField;
+    private AutoCompleteTextField commandTextField;
 
-    public CommandBox(CommandExecutor commandExecutor) {
+    public CommandBox(CommandExecutor commandExecutor, Logic logic) {
         super(FXML);
         this.commandExecutor = commandExecutor;
-        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        this.logic = logic;
+
+        addListener();
+    }
+
+    /**
+     * Adds a listener to extract the input text on change for autocomplete.
+     */
+    private void addListener() {
+        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+            commandTextField.setStyleToDefault();
+            String enteredText = commandTextField.getText();
+            // hide suggestions if no input
+            if (enteredText == null || enteredText.isEmpty()) {
+                commandTextField.getEntriesPopup().hide();
+            } else {
+                AutoCompleteResult result = logic.getAutoCompleteResult(enteredText);
+
+                // add possible values
+                commandTextField.getEntries().clear();
+                commandTextField.getEntries().addAll(result.getValues());
+
+                // filter
+                String stringToCompare = result.getStringToCompare();
+                List<String> filteredEntries = commandTextField.getEntries().stream()
+                        .filter(e -> e.contains(stringToCompare))
+                        .sorted((e1, e2) -> commandTextField.compareEntries(e1, e2, stringToCompare))
+                        .collect(Collectors.toList());
+                if (!filteredEntries.isEmpty() && !filteredEntries.contains(stringToCompare)) {
+                    commandTextField.populatePopup(filteredEntries, stringToCompare);
+                    commandTextField.refreshDropdown();
+                } else {
+                    commandTextField.getEntriesPopup().hide();
+                }
+            }
+        });
+
+        commandTextField.focusedProperty().addListener(((observable, oldValue, newValue) -> {
+            commandTextField.getEntriesPopup().hide();
+        }));
     }
 
     /**
@@ -36,16 +82,9 @@ public class CommandBox extends UiPart<Region> {
         try {
             commandExecutor.execute(commandTextField.getText());
             commandTextField.setText("");
-        } catch (CommandException | ParseException e) {
+        } catch (CommandException | ParseException | EnumNotPresentException e) {
             setStyleToIndicateCommandFailure();
         }
-    }
-
-    /**
-     * Sets the command box style to use the default style.
-     */
-    private void setStyleToDefault() {
-        commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
     /**
@@ -71,7 +110,7 @@ public class CommandBox extends UiPart<Region> {
          *
          * @see seedu.address.logic.Logic#execute(String)
          */
-        CommandResult execute(String commandText) throws CommandException, ParseException;
+        CommandResult execute(String commandText) throws CommandException, ParseException, EnumNotPresentException;
     }
 
 }

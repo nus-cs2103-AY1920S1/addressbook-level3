@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.BorderPane?>
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" >
+    <TabPane fx:id="tabPanel" VBox.vgrow="ALWAYS">
+      <tabs>
+         <Tab text="Customers" >
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/peopleIcon.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
+           <content>
+               <VBox fx:id="customerList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="5" right="0" bottom="0" left="0" />
+                   </padding>
+                   <StackPane fx:id="customerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+         <Tab text="Phones">
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/phoneIcon.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
+           <content>
+               <VBox fx:id="phoneList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="5" right="0" bottom="0" left="0" />
+                   </padding>
+                   <StackPane fx:id="phoneListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+         <Tab text="Order">
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/orderIcon.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
+           <content>
+               <VBox fx:id="orderList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="5" right="0" bottom="0" left="0" />
+                   </padding>
+                   <StackPane fx:id="orderListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+         <Tab text="Schedule">
+             <graphic>
+                 <ImageView>
+                     <image>
+                         <Image url="@../images/scheduleIcon.png"/>
+                     </image>
+                 </ImageView>
+             </graphic>
+           <content>
+               <VBox fx:id="scheduleList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                   <padding>
+                       <Insets top="5" right="0" bottom="0" left="0" />
+                   </padding>
+
+                   <StackPane fx:id="calendarPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
+               </VBox>
+           </content>
+         </Tab>
+          <Tab text="Archived">
+          <graphic>
+              <ImageView>
+                  <image>
+                      <Image url="@../images/archiveIcon.png"/>
+                  </image>
+              </ImageView>
+          </graphic>
+              <content>
+                  <VBox fx:id="archivedOrderList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
+                      <padding>
+                          <Insets top="5" right="0" bottom="0" left="0" />
+                      </padding>
+
+                      <StackPane fx:id="archivedOrderListPanelPlaceHolder" VBox.vgrow="ALWAYS"/>
+                  </VBox>
+              </content>
+          </Tab>
+      </tabs></TabPane>
+</VBox>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" minWidth="10" />
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="5" right="5" bottom="5" left="15" />
+            </padding>
+            <HBox spacing="5" alignment="CENTER_LEFT">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <VBox>
+                    <Label text="Customer details" styleClass="cell_big_label" />
+                    <HBox>
+                        <Label text="Name: " styleClass="cell_small_label_header" />
+                        <Label fx:id="customerName" styleClass="cell_small_label" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Email: " styleClass="cell_small_label_header" />
+                        <Label fx:id="customerEmail" styleClass="cell_small_label" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Number: " styleClass="cell_small_label_header" />
+                        <Label fx:id="customerContactNumber" styleClass="cell_small_label"  />
+                    </HBox>
+                    <padding>
+                        <Insets top="5" right="5" bottom="5" left="15" />
+                    </padding>
+                </VBox>
+                <VBox >
+                    <Label text="Phone details" styleClass="cell_big_label" />
+                    <HBox>
+                        <Label text="Name: " styleClass="cell_small_label_header" />
+                        <Label fx:id="phoneName" styleClass="cell_small_label" text="\$phoneName"/>
+                    </HBox>
+                    <HBox>
+                        <Label text="Colour: " styleClass="cell_small_label_header" />
+                        <Label fx:id="phoneColour" styleClass="cell_small_label" text="\$phoneName"/>
+                    </HBox>
+                    <HBox>
+                        <Label text="Capacity: " styleClass="cell_small_label_header" />
+                        <Label fx:id="phoneCapacity" styleClass="cell_small_label" text="\$phoneName"/>
+                    </HBox>
+                    <HBox>
+                        <Label text="Cost: " styleClass="cell_small_label_header" />
+                        <Label fx:id="phoneCost" styleClass="cell_small_label" text="\$phoneCost" />
+                    </HBox>
+                    <HBox>
+                        <Label text="IMEI number: " styleClass="cell_small_label_header" />
+                        <Label fx:id="phoneIdentityNumber" styleClass="cell_small_label" text="\$phoneId" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Serial number: " styleClass="cell_small_label_header" />
+                        <Label fx:id="phoneSerialNumber" styleClass="cell_small_label" text="\$phoneId" />
+                    </HBox>
+                    <padding>
+                        <Insets top="5" right="5" bottom="5" left="15" />
+                    </padding>
+                </VBox>
+                <VBox >
+                    <Label text="Order details" styleClass="cell_big_label" />
+                    <HBox>
+                        <Label text="Id: " styleClass="cell_small_label_header" />
+                        <Label fx:id="orderId" styleClass="cell_small_label" text="\$orderId" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Price: " styleClass="cell_small_label_header" />
+                        <Label fx:id="orderPrice" styleClass="cell_small_label" text="\$orderId" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Status: " styleClass="cell_small_label_header" />
+                        <Label fx:id="orderStatus" styleClass="cell_small_label" text="\$orderId" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Schedule Tags: " styleClass="cell_small_label_header" />
+                        <FlowPane fx:id="scheduleTags" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Order Tags: " styleClass="cell_small_label_header" />
+                        <FlowPane fx:id="tags" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Customer Tags: " styleClass="cell_small_label_header" />
+                        <FlowPane fx:id="customerTags" />
+                    </HBox>
+                    <HBox>
+                        <Label text="Phone Tags: " styleClass="cell_small_label_header" />
+                        <FlowPane fx:id="phoneTags" />
+                    </HBox>
+                    <padding>
+                        <Insets top="5" right="5" bottom="5" left="15" />
+                    </padding>
+                </VBox>
+            </HBox>
+        </VBox>
+    </GridPane>
+</HBox>

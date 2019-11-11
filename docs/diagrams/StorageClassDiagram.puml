@@ -4,21 +4,58 @@ skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
 skinparam classBackgroundColor STORAGE_COLOR
 
+package Storage {
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface AddressBookStorage <<Interface>>
+Interface OrderBookStorage <<Interface>>
+Interface CustomerBookStorage <<Interface>>
+Interface PhoneBookStorage <<Interface>>
+Interface ScheduleBookStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonAddressBookStorage
+Class JsonOrderBookStorage
+Class JsonCustomerBookStorage
+Class JsonPhoneBookStorage
+Class JsonScheduleBookStorage
+
+Class JsonSerializableOrderBook
+Class JsonSerializableCustomerBook
+Class JsonSerializablePhoneBook
+Class JsonSerializableScheduleBook
+
+Class JsonAdaptedOrder
+Class JsonAdaptedCustomer
+Class JsonAdaptedPhone
+Class JsonAdaptedSchedule
+Class JsonAdaptedTag
+}
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> AddressBookStorage
+StorageManager o--> OrderBookStorage
+StorageManager o--> CustomerBookStorage
+StorageManager o--> PhoneBookStorage
+StorageManager o--> ScheduleBookStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonAddressBookStorage .left.|> AddressBookStorage
-JsonAddressBookStorage .down.> JsonSerializableAddressBookStorage
-JsonSerializableAddressBookStorage .right.> JsonSerializablePerson
-JsonSerializablePerson .right.> JsonAdaptedTag
+JsonOrderBookStorage .up.|> OrderBookStorage
+JsonOrderBookStorage .down.> JsonSerializableOrderBook
+JsonSerializableOrderBook .down.> JsonAdaptedOrder
+JsonAdaptedOrder .down.> JsonAdaptedTag
+
+JsonCustomerBookStorage .up.|> CustomerBookStorage
+JsonCustomerBookStorage .down.> JsonSerializableCustomerBook
+JsonSerializableCustomerBook .down.> JsonAdaptedCustomer
+JsonAdaptedCustomer .down.> JsonAdaptedTag
+
+JsonPhoneBookStorage .up.|> PhoneBookStorage
+JsonPhoneBookStorage .down.> JsonSerializablePhoneBook
+JsonSerializablePhoneBook .down.> JsonAdaptedPhone
+JsonAdaptedPhone .down.> JsonAdaptedTag
+
+JsonScheduleBookStorage .up.|> ScheduleBookStorage
+JsonScheduleBookStorage .down.> JsonSerializableScheduleBook
+JsonSerializableScheduleBook .down.> JsonAdaptedSchedule
+JsonAdaptedSchedule .down.> JsonAdaptedTag
 @enduml

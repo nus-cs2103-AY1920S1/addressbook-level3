@@ -8,7 +8,7 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class SellerManagerParser
 Class XYZCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -23,6 +23,11 @@ Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
 
+package AutoComplete {
+Class AutoCompleteResult
+Class AutoCompleteResultGenerator
+}
+
 Interface Logic <<Interface>>
 Class LogicManager
 }
@@ -34,9 +39,9 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager .up..|> Logic
+LogicManager -->"1" SellerManagerParser
+SellerManagerParser .left.> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
@@ -53,10 +58,28 @@ LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note left of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
 
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
+
+package statistics {
+Class StatsPayload
+Interface Statistics <<Statistics>>
+Class StatisticsManager
+
+
+}
+
+StatisticsManager .up.|> Statistics
+CommandResult .left.> StatsPayload : contains >
+XYZCommand .up.>StatsPayload : creates >
+Logic -..> CommandResult
+LogicManager .up.> Statistics
+LogicManager .up.> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
+
+Logic .> AutoCompleteResult
+LogicManager *--.up.> "1" AutoCompleteResultGenerator
+AutoCompleteResultGenerator .> AutoCompleteResult
+
 @enduml
