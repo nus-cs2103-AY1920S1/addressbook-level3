@@ -1,20 +1,23 @@
 @startuml
 !include style.puml
-skinparam ClassFontColor #000000
+skinparam ClassFontColor #AB0000
 skinparam ClassBorderColor #000000
 
-title Initial state
+title ProjectDashboard states
 
 package States {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+    class State1 as "__pd0:ProjectDashboard__"
+    class State2 as "__pd1:ProjectDashboard__"
+    class State3 as "__pd2:ProjectDashboard__"
 }
 State1 -[hidden]right-> State2
 State2 -[hidden]right-> State3
-hide State2
 hide State3
+hide State2
+hide State1
+
+class State4 as "__pd0:ProjectDashboard__"
 
 class Pointer as "Current State" #FFFFF
-Pointer -up-> State1
+Pointer -up-> State4
 @end

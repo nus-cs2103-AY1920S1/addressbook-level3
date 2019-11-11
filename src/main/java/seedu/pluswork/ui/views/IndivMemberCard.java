@@ -59,7 +59,28 @@ public class IndivMemberCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
 
         if (member.getImage() == null) {
-            imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+            String memId = member.getId().getDisplayId().trim();
+
+            switch (memId) {
+            case "GS":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/gabrielseow.png")));
+                break;
+            case "AB":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/ambhinav.png")));
+                break;
+            case "AR":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/arunbecoding.png")));
+                break;
+            case "EK":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/elsakoh.png")));
+                break;
+            case "SL":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/seahlynn.png")));
+                break;
+            default:
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+            }
+
         } else {
             imageView.setImage(member.getImage());
         }
@@ -78,13 +99,43 @@ public class IndivMemberCard extends UiPart<Region> {
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         alert.setHeaderText("Image not found.");
-        Label label = new Label("Image file for member with Member ID: " + member.getId().getDisplayId() +
-                " has been moved. \nPlease move the file back, or set a new image for the member.");
+        Label label = new Label("Image file for member with Member ID: " + member.getId().getDisplayId()
+                + " has been moved. \nPlease move the file back, or set a new image for the member.");
         label.setWrapText(true);
         alert.getDialogPane().setContent(label);
 
         if (member.getImage() == null) {
-            imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+            String memId = member.getId().getDisplayId().trim();
+
+            switch (memId) {
+            case "GS":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/gabrielseow.png")));
+                break;
+            case "AB":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/ambhinav.png")));
+                break;
+            case "AR":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/arunbecoding.png")));
+                break;
+            case "EK":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/elsakoh.png")));
+                break;
+            case "SL":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/seahlynn.png")));
+                break;
+            case "WB":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/wenbin.png")));
+                break;
+            case "KT":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/keithteo.png")));
+                break;
+            case "EE":
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/erwin.png")));
+                break;
+            default:
+                imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
+            }
+
         } else if (member.getImage().errorProperty().getValue()) {
             imageView.setImage(new Image(this.getClass().getResourceAsStream("/images/DaUser.png")));
             alert.showAndWait();
@@ -94,7 +145,6 @@ public class IndivMemberCard extends UiPart<Region> {
 
         imageView.setFitHeight(120);
         imageView.setFitWidth(120);
-
 
         String listOfTasks = "";
 

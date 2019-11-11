@@ -1,15 +1,14 @@
 @startuml
 start
-:User executes command;
+:User inputs command;
 
 'Since the beta syntax does not support placing the condition outside the
 'diamond we place it as the true branch instead.
 
-if () then ([command commits AddressBook])
-    :Purge redunant states;
-    :Save AddressBook to
-    addressBookStateList;
+if (Command modifies ProjectDashboard) then ([Model saves ProjectDashboard])
+    :Save a copy of current state;
 else ([else])
 endif
+:Continue command execution ;
 stop
 @enduml
