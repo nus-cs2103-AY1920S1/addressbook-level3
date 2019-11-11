@@ -6,7 +6,7 @@
 image::febee99.png[width="150", align="left"]
 {empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]] +
 Role: Developer +
-Responsibilities: Code Quality + Scheduling and Tracking + Replenish List Commands + Auto-sorting + Recommendations
+Responsibilities: Code Quality + Scheduling and Tracking + Replenish List Commands + Recommendations
 
 '''
 

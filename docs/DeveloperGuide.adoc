@@ -215,7 +215,7 @@ replenish list.
 image::ParseCommandActivityDiagram2.png[]
 
 // tag::replenishListCommandsTwo[]
-In the event that `ReplenishParser` is selected, it will prevent any invalid or prohibited commands and also check for spelling mistakes in the user input.
+In the event that `ReplenishParser` is selected, it will prevent any invagit lid or prohibited commands and also check for spelling mistakes in the user input.
 This will be further explained to you in a <<Spelling correction with alternative recommendations,later section>>.
 
 ===== Design Considerations
