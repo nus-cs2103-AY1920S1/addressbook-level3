@@ -1,0 +1,70 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":SelectSuggestion\nCommandParser" as SelectSuggestionCommandParser LOGIC_COLOR
+participant ":SelectSuggestion\nCommand" as SelectSuggestionCommand LOGIC_COLOR
+participant ":AddStudent\nCommand" as AddStudentCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":Application" as Application MODEL_COLOR
+end box
+[-> LogicManager : execute(1)
+activate LogicManager
+
+LogicManager -> SelectSuggestionCommandParser : parseCommand(1)
+activate SelectSuggestionCommandParser
+
+create SelectSuggestionCommand
+SelectSuggestionCommandParser -> SelectSuggestionCommand
+activate SelectSuggestionCommand
+
+SelectSuggestionCommand --> SelectSuggestionCommandParser
+deactivate SelectSuggestionCommand
+
+SelectSuggestionCommandParser --> LogicManager :
+deactivate SelectSuggestionCommandParser
+
+LogicManager -> SelectSuggestionCommand : execute()
+activate SelectSuggestionCommand
+
+SelectSuggestionCommand -> Model : getSuggestedCommands()
+activate Model
+
+Model -> Application : getSuggestedCommands()
+activate Application
+
+Application --> Model : suggestedCommands
+deactivate Application
+
+Model --> SelectSuggestionCommand : suggestedCommands
+deactivate Model
+
+SelectSuggestionCommand -> Model : deleteSuggestedCommands()
+
+Model -> Application : deleteSuggestedCommands()
+
+SelectSuggestionCommand -> SelectSuggestionCommand : get index 1 from\n suggestedCommands
+
+SelectSuggestionCommand -> AddStudentCommand : execute(Model)
+activate AddStudentCommand
+
+group ref [execute AddStudentCommand]
+    AddStudentCommand -[hidden]> Application
+end
+
+AddStudentCommand -> SelectSuggestionCommand : result
+deactivate AddStudentCommand
+destroy AddStudentCommand
+
+SelectSuggestionCommand --> LogicManager : result
+deactivate SelectSuggestionCommand
+SelectSuggestionCommand -[hidden]-> LogicManager : result
+destroy SelectSuggestionCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

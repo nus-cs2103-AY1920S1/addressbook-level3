@@ -1,0 +1,19 @@
+{
+  "persons" : [ ],
+  "modules" : [ {
+    "moduleCode" : "CS1010S",
+    "mapOfDifferentTutorials" : { }
+  }, {
+    "moduleCode" : "CS1010E",
+    "mapOfDifferentTutorials" : { }
+  }, {
+    "moduleCode" : "ABC1234D",
+    "mapOfDifferentTutorials" : {
+      "Typical Tutorial" : "{tutorialName=Typical Tutorial, tutorialDayOfWeek=MONDAY, tutorialStartTime=12:00, tutorialWeeks=[1], tutorialDuration=PT10M, tutorialStudentList=[{studentName=Typical Student, studentEmail=e1234567@u.nus.edu.sg, studentMatricNumber=Optional[A1234567B], studentNusnetId=Optional[E1234567], studentModuleCode=ABC1234D, studentTutorialName=Typical Tutorial}], tutorialModuleCode=ABC1234D}"
+    }
+  } ]
+}
+
+
+
+

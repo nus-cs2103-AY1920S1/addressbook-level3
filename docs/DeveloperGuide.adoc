@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+﻿= T.A.rence - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T14-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T14-2`
 
 == Setting up
 
@@ -61,23 +61,25 @@ For example, the `Logic` component (see the class diagram given below) defines i
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
 
+// tag::architecture[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `deleteStudent 1`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `deleteStudent 1` command
 image::ArchitectureSequenceDiagram.png[]
+// end::architecture[]
 
 The sections below give more details of each component.
-
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/tarence/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
@@ -87,50 +89,52 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
-
+// end::ui[]
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
-image::LogicClassDiagram.png[]
+.Structure of the Logic Component (for regular commands only)
+image::LogicRegularCommandClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/blob/master/src/main/java/seedu/tarence/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `ApplicationParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("deleteStudent i/1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `deleteStudent i/1` Command
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+Besides these main commands, `Logic` also handles autocorrect and autocomplete functions in response to user input. These are described in sections 3.1 and 3.2 respectively.
+// end::logic[]
+// tag::model[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/tarence/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* exposes an unmodifiable `ObservableList<Student>` that can be 'observed'
+* exposes an unmodifiable `ObservableList<Tutorial>` that can be 'observed'
+* exposes an unmodifiable `ObservableList<Module>` that can be 'observed'
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
-
+// end::model[]
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -142,54 +146,298 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the `T.A.rence` application data in json format and read it back.
 
+==== Implementation
+When the application is being saved, a list of modules will be serialized into a Json object and written to the file.
+
+==== Design Considerations
+Although the application has 3 core components (modules, tutorials and students), to prevent redundant data being written
+and save on storage space, only the modules will be serialized and saved.
+
+This is as the information encapsulated in modules can be used to instantiate tutorial and student objects.
+
+A key assumption here is that during the operational usage of the application, data stored in the tutorials and students objects
+correspond to the module object. Ie there are no tutorials or student objects which exist without a corresponding
+module object.
+
+Future versions of storage will support saving of Assignment objects.
+// end::storage[]
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.tarence.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::Add Student Feature[]
+=== Add Student feature
+
+The `AddStudent` command lets T.A.rence add a student into the specified module and tutorial.
+
+==== Implementation
+
+The `AddStudent` command must include the name, email, tutorial and module. The tutorial and module can be indicated by the index of the tutorial. Optionally, the user
+can also choose to indicate the student's matric number and nusnetid.
+
+[NOTE]
+If the user uses both the indexing and full input format, the command will throw an error due to ambiguity.
+
+* The `AddStudent` command will also automatically be updated within the application's storage system and the new student will be reflected in the application's GUI.
+
+Below is an activity diagram shows the process of invoking the `AddStudent` command.
+
+image::AddStudentCommandActivityDiagram.png[]
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::AddStudentCommandSequenceDiagram.png[]
+// end::Add Student Feature[]
+// tag::edit[]
+=== Edit feature
+
+The `edit` feature aims to help users update student details in our application.
+When there are changes to be made for a student (e.g. updating their email or adding a matric number),
+users will want to be able to update their student's details easily without going through the hassle of deleting and adding new student information.
+
+==== Implementation
+
+The `edit` command must include one of the following:
+
+* Name
+* Email
+* Matric number
+* NusnetID
+
+[NOTE]
+The user is not allowed to change the tutorial or module that the student is in.
+
+* The `edit` command will also automatically be updated within the application's storage system and the new student's details will be reflected in the application's GUI.
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::EditCommandSequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How edit executes
+
+* **Alternative 1 (current choice):** Deletes old copy of and adds new modified copy
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time complexity.
+* **Alternative 2:** Modify the existing version of the student directly.
+** Pros: Will use less memory
+** Cons: Will have to go through each of the student/tutorial/module lists and update them. Which involves many layers of looping (higher chance of regressions).
+// end::edit[]
+// tag::autocorrect[]
+
+=== Autocorrect feature
+
+Autocorrect lets T.A.rence find similar commands to the user's input, allowing it to catch minor typing mistakes.
+
+.Structure of the Autocorrect portion of the Logic component
+image::LogicAutocorrectClassDiagram.png[]
+
+==== Implementation
+
+Autocorrect is implemented at the `Command` level: when `Command` objects are executed, they attempt to find their data values from the application's storage. If these values are not found, they search for lexically similar alternatives, and construct new `Command`s with these suggested values. The user is then prompted to choose one of these suggestions via a single numerical input.
+
+A new `SelectSuggestionCommand` is used to represent the user's selection. Unlike other commands it has no keyword, and can only be triggered when there are existing suggested commands being temporarily cached. Should the user choose not to pick any of the options, the cached commands are deleted and can no longer be triggered subsequently.
+
+Autocorrect is restricted to input fields that are not strictly numerical, since it makes no sense to correct, for example, index or time inputs.
+
+Below is an activity diagram showing the creation of suggested autocorrect commands when a command is executed.
+
+image::AutocorrectActivityCreate.png[]
+
+The suggested commands are presented to the user, each tagged with an index number. The user is prompted to select one option by entering its corresponding number.
+
+image::AutocorrectActivityExecute.png[]
+
+When a valid option is selected, the `execute()` method in `SelectSuggestionCommand` retrieves the specified command, then calls its `execute()` method. The sequence diagram below illustrates a sample run of the program where `AddStudentCommand`s are being autocorrected.
+
+image::AutocorrectSequence.png[]
+
+NOTE: The lifelines for `SelectSuggestionCommand` and `AddStudentCommand` should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
+// end::autocorrect[]
+// tag::autocomplete[]
+=== Autocomplete feature
+
+Autoomplete provides an autofill feature similar to that found in most common CLIs.
+
+.Structure of the Autocomplete portion of the Logic component
+image::LogicAutocompleteClassDiagram.png[]
+
+==== Implementation
+
+Autocomplete is implemented at the `Parser` level. When the user presses the "TAB" key, `AutoCompleteHandler`  handles the processing of the input, as opposed to `ApplicationParser` when the "ENTER" key is pressed.
+
+`PartialInputParser#parse` is responsible for the actual parsing of the input string. It calls `ArgumentTokenizer#tokenizeLastArgument` to find only the last present prefix and its associated value, then uses the appropriate method in `Finder` to get a list of all values corresponding to the prefix type in the application that begin with the detected partial input. Should this prefix be one not supported by Autocomplete (e.g. `i/` for a purely numerical input), an error message is shown to the user.
+
+`AutocompleteHandler#handle` is responsible for determining the correct autofilled string. If the user presses "TAB" multiple times successively, it cycles through the available autofill options; otherwise, it gets the list of options from `PartialInputParser` and returns the first one. The activity flow is summarised below:
+
+image::AutocompleteActivity.png[]
+// end::autocomplete[]
+// tag::list[]
+=== list feature
+
+The `list` command lets T.A.rence display all students or students from a specific tutorial.
+
+==== Implementation
+
+The `list` command can include no additional input, or the index of the tutorial. When the user executes the `list` command, the following steps are taken by the application:
+
+* The CommandParser determines the format of user input. If not input is provided, all students are displayed.
+* When the `list` class is invoked, it will perform the following actions before displaying the output to the user:
+* Obtains a list of tutorials from the model and filters through the students which belong to the indicated tutorial of choice.
+
+Below is an activity diagram shows the process of invoking the `list` command.
+
+image::ListCommandActivityDiagram.png[]
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::ListCommandSequenceDiagram.png[]
+// end::list[]
+// tag::MarkAttendanceFeature[]
+=== Mark Attendance feature
+
+The `MarkAttendance` command lets T.A.rence mark the attendance of a specified student in a tutorial.
+
+==== Implementation
+
+The `MarkAttendance` command must include the following:
+
+* The week of the tutorial
+* Tutorial name
+* Module code
+
+Alternatively, the index of the tutorial can be used in place of the tutorial name and module code.
+Optionally, the user can also choose to indicate the student's name.
+
+[NOTE]
+If the user uses both the indexing and full input format, the command will throw an error due to ambiguity.
+
+* The `MarkAttendance` command will also automatically be updated within the application's storage system and the updated attendance will be reflected in the application's GUI.
+
+Below is an activity diagram showing the process of invoking the `MarkAttendance` command.
+
+image::MarkAttendanceActivityDiagram.png[]
+
+The MarkAttendanceCommand has two formats, the first with a student's name specified and the other without. Specifying the student name will toggle the attendance of the student in the tutorial, while the other format will mark/toggle the attendance of the entire tutorial sequentially.
+For the second case, the application will prompt the user to mark/toggle the attendance of each student in the tutorial one by one.
+Errors will be thrown if the tutorial/module/student cannot be found, or if the week specified is invalid.
+
+The sequence diagram below shows the interaction between the Logic componenents for marking the attendance of a single student.
+
+image::MarkAttendanceSequenceDiagram.png[]
+
+Entering the input will call the execute() method in LogicManager, which identifies the command as a MarkAttendanceCommand via ApplicationParser.parse(). MarkAttendanceCommand.parse() is then called to parse the input and extract the relevant information (tutorial name, module code, student name) which is used to initialize the MarkAttendanceCommand, which finally modifies the student's attendance when executed.
+// end::MarkAttendanceFeature[]
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+=== Undo feature
+The undo feature allows the user to undo multiple commands at once.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+==== Implementation
+
+The undo mechanism is facilitated by `JsonStateStorage`.
+It extends `TARence` with an undo history, stored externally as a `stateXX.json` file
+where 'XX' represents the sequential state of json files committed.
+
+It relies on the following operations from Storage, exposed via the `Storage` interface.
+
+* `Storage#isValidNumberOfRollbacks(Integer numberOfStatesToUndo)` -- Checks if the specified number of undo commands
+to execute is valid.
+
+* `Storage#getLatestStateIndex()` -- Obtains the largest state stored. Used to obtain the
+state number which is required.
+
+* `Storage#getSpecifiedState()` -- Obtains the required state to reset the model to.
+
+* `Storage#saveApplication()` -- Saves the application state into `application.json`. This method additionally calls
+`JsonStateStorage#saveApplication()`, which is explained below.
+
+It relies on the following operation from Model, exposed via the 'Model' interface.
+
+* `Model#setModel(`ReadOnlyApplication`)` -- Resets the model to the supplied application state.
+
+
+Additionally, it relies on the following operation from  JsonStateStorage, not exposed via the Storage interface:
+
+* `JsonStateStorage#saveApplication()` -- Saves the current application state to file if there is a change in state.
+The files are saved as `stateXX.json`, where the file name is chronologically generated.
+
+* `JsonStateStorage#stateStack` -- A private attribute, which keeps track of the current and
+previous states. Its implementation is similar to the `currentStatePointer` used in AB4.
+
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `JsonStateStorage` will be initialized with the initial json file, `state1.json` and the `stateStack` will contain the value `1`.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `addModule m/CS2103` command to add the module `CS2103`
+in the application.
+
+The `addModule` command calls `Storage#saveApplication()`, which calls
+`JsonStateStorage#saveApplication()`,
+causing the modified application state, after the `addModule m/CS2103` command
+executes, to be saved externally in the `data/states` folder.
+
+The latest state number `(stateStack.peek() + 1)` is pushed onto the stack, which
+corresponds with the json state file saved.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `addTutorial tn/Tutorial 01 ...` to add a new Tutorial. The `addTutorial` command also calls `JsonStateStorage#saveApplication()`.
+
+As `JsonStateStorage#saveApplication()` detects that there has been a state change with the latest saved state (`state0.json`),
+the modified application
+state is saved externally to the `data/states` folder.
+
+The `stateStack` is correspondingly updated (The latest state number `(stateStack.peek() + 1)` is pushed onto the stack, which
+corresponds with the json state file saved.)
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `storage#saveApplication()`, so the
+application state will not be saved.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the tutorial, `Tutorial 01` was a mistake, and decides to undo that action
+by executing the `undo` command.
+
+The `undo` command will first verify that the number of commands is valid by calling
+`storage#isValidNumberOfRollbacks`.
+
+If the number of undo commands is valid, it will call `storage#getLatestStateIndex` to
+get the position of the current state pointer (which is the number on the top
+of stateStack).
+
+The `undo` command will then call `storage#getSpecifiedState()` to retrieve the desired
+state to undo from. In `storage#getSpecifiedState()`, the internal `stateStack` will
+pop the numbers until it gets to the required state number, to ensure that it
+the "pointer" is at the correct state.
+
+With the desired state retrieved, `undo` command will call `model#setModel(application)` to
+reset the application to the retrieved state.
+
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `stateStack.peek()` is at index / integer 0, pointing to the
+initial application state,
+then there are no previous application states to restore.
+The `undo` command uses `storage#isValidNumberOfRollbacks(number of states to undo)`
+to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -197,44 +445,66 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+Step 5. The user then decides to execute the command `listAssignments`. Commands that
+do not modify the address book, such as `listAssignments`, will not result in a saved state.
 
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+`JsonStateStorage#saveApplication()` is still called. However, since there is no change with
+the previous state, `JsonStateStorage#saveApplication()` will not save the current application state.
 
 image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
 image::CommitActivityDiagram.png[]
 
+
 ==== Design Considerations
+
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
+
+* **Alternative 1 (current choice):** Saves the entire application state into Hard Drive.
+** Pros: Won't result in performance issues if there are many states as it won't use up valuable RAM.
+** Cons: May have performance issues when reading the file from Hard Drive if the json file is large.
+** Cons: Suppose that "undo u/50" is executed, from state 70. State 20 will be loaded into memory.
+Subsequent states (ie state 21 onwards) will only overwrite the already present state 21 file.
+
+The redundant states are not deleted from the hard disk. Only references to those states
+,which is in the stateStack, are removed. However this is a minor problem as once the
+application is closed or started, it will automatically clear any state files.
+
+* **Alternative 2:** AB3 suggested implementation: Saves the entire application state into RAM.
+** Pros: Easy to implememnt.
 ** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+
+* **Alternative 3:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `deleteTutorial`, just save the tutorial being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
+
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+
+
+* **Alternative 1 (current choice):** Use a stack to store the history of application states.
+** Pros: Eliminates redundancy as previous states not needed will be overwritten.
+** Cons: Leftover files of undone states are present in the hard drive.
+
+* **Alternative 2 (better choice):** Use a stack as in Alternative 1.
+When `undo` command is executed, in addition to popping the stack, the application will
+delete the corresponding json files. This reduces the likelihood of accidentally reading
+redundant data.
+
+* **Alternative 3 (AB3 choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
+
+* **Alternative 4:** Use `HistoryManager` for undo.
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
+// end::undoredo[]
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -279,13 +549,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of tutorial classes
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage TA-related tasks faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,17 +565,28 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |TA |mark students attendance easily on computer |not have to keep a physical record of it
 
-|`* * *` |user |add a new person |
+|`* * *` |TA |add a new student to my class |easily track students without having to refer to LumiNUS
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |TA |delete a student |stop referring to LumiNUS due to students periodically dropping classes
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |TA |track students' performance |pay special attention to weaker students
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |TA |easily key in marks for assignments and mid-terms|view statistics such as mean and help the outlier students
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |TA with busy schedule |keep track of my available slots | know when to schedule consultations
+
+|`*` |TA|have a contact list of professors | easily contact them
+
+|`* * *` |TA overloading  | compare my personal timetable with the scheduled tutorial slots |plan out any potential clashes
+
+|`* *` |TA  | share my schedules with my other TA friends | assign a substitute TA if needed
+
+|`* *` |TA  |track all guest & students that crash | remember to manually submit their attendance and/or assignments
+
+|`* *` |TA  | keep separate logs of the modules I taught for each semester | retrieve any information from the
+previous semesters taught
 |=======================================================================
 
 _{More to be added}_
@@ -313,44 +594,346 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
-
+(For all use cases below, the *System* is the `T.A.rence application` and the *Actor* is the `TA user`, unless specified otherwise)
+// tag::UseCaseAddModule[]
 [discrete]
-=== Use case: Delete person
+=== Use case: New module entry
+*Pre-conditions*: User selects the command to add a new module.
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to add a new module
+2.  System adds new module.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a. The given module already exists.
+** 1a1. System shows an error message that the given module already exists.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 1b. The given input is in an invalid format
+** 1b1. System shows an error message showing the correct format to add a module.
 +
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+User case ends.
+// end::UseCaseAddModule[]
+// tag::UseCaseAddTutorial[]
+[discrete]
+=== Use case: New tutorial entry
+Precondition: User selects the command to add a new tutorial.
 
-_{More to be added}_
+*MSS*
+
+1. User requests to add a new tutorial to a selected module.
+2. System adds the tutorial to the given module.
+3. System displays the newly added tutorial to the tutorial list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given tutorial already exists.
+** 1a1. System shows an error message showing that the given tutorial already exists.
++
+Use case ends.
+
+* 1b. The given module does not exist.
+** 1b1. System searches for similar modules in the application to the given module.
+*** 1b1a. System finds one or more similar modules.
+**** 1b1a1. System suggests alternative values to user.
+**** 1b1a2. User selects one of the options.
++
+Use case resumes from step 2.
+
+*** 1b1b. System finds no similar modules.
+**** 1b1b1. System shows an error message showing that the given module does not exist.
++
+Use case ends.
+
+* 1c. The given input is in an invalid format
+** 1c1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+// end::UseCaseAddTutorial[]
+// tag::UseCaseDeleteTutorial[]
+[discrete]
+=== Use case: Deleting tutorials
+*Precondition*: User selects the command to delete a tutorial.
+
+*MSS*
+
+1. User requests to a delete a tutorial of a given index.
+2. System deletes the tutorial.
+3. System displays a confirmation message of the deletion.
++
+Use case ends.
+
+*Extensions*
+
+* 1a. The entered index is out of range.
+** 1a1. The system displays an error message and alerts the user that their input is out of range.
++
+Use case ends.
+
+* 1b. The entered value for the index is negative, or not a parsable integer.
+** 1b1. System displays an error message along with a prompt on the correct command usage.
++
+Use case ends.
+
+* 1c. The tutorial to be deleted contains one or more students.
+** 1c1. System displays a message informing the user that the tutorial is not empty, and prompts for confirmation.
+** 1c2. User confirms the delete action.
++
+Use case resumes from step 2.
+// end::UseCaseDeleteTutorial[]
+// tag::UseCaseAddStudent[]
+[discrete]
+=== Use case: New student entry
+*Precondition*: User selects the command to add a new student.
+
+*MSS*
+
+1. User requests to add a new student into the selected tutorial and module.
+2. System adds the new student into the selected tutorial and module.
+3. System displays the student's particulars under the student list.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given student already exists.
+** 1a1. System shows an error message that the given student already exists within the selected
+tutorial and module.
++
+Use case ends.
+
+* 1b. The given module or tutorial does not exist.
+** 1b1. System searches for similar module-tutorial combinations in the application to the given module and tutorial.
+*** 1b1a. System finds one or more similar combinations.
+**** 1b1a1. System suggests alternative values to user.
+**** 1b1a2. User selects one of the options.
++
+Use case resumes from step 2.
+
+*** 1b1b. System finds no similar combinations.
+**** 1b1b1. System shows an error message showing that the given module or tutorial does not exist.
++
+Use case ends.
+
+* 1d. The given input is in an invalid format.
+** 1d1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+// end::UseCaseAddStudent[]
+// tag::UseCaseEditStudent[]
+[discrete]
+=== Use case: Editing a student's particulars
+*Precondition*: User selects the command to edit a student.
+
+*MSS*
+
+1. User requests to edit the particulars of a given student.
+2. System edits student particulars.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given student does not exist.
+** 1a1. System shows an error message that the given student does not exist.
++
+Use case ends.
+
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+// end::UseCaseEditStudent[]
+// tag::UseCaseDeleteStudent[]
+[discrete]
+=== Use case: Deleting a student
+*Preconditions:*
+
+1. Given tutorial and module exists in the system.
+2. User selects the command to delete a student.
+
+*MSS*
+
+1. User request to delete a student from a particular tutorial and module.
+2. System deletes student and shows confirmation.
++
+Use case ends
+
+*Extensions*
+
+[none]
+* 1a. The given student does not exist.
+** 1a1. System shows an error message that the given student does not exist.
++
+Use case ends.
+
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+// end::UseCaseDeleteStudent[]
+// tag::UseCaseListStudents[]
+[discrete]
+=== Use case: Listing students
+*Preconditions:*
+
+1. Given module exists in the system.
+2. User selects the command to list students of a particular tutorial class.
+
+*MSS*
+
+1. User requests to list a given selected tutorial class.
+2. System displays the class list for a given tutorial.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given tutorial does not exist.
+** 1a1. System shows an error message that the given tutorial does not exist.
++
+User case ends
+
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+// end::UseCaseListStudents[]
+// tag::UseCaseMarkAttendance[]
+[discrete]
+=== Use case: Mark class attendance.
+*Preconditions:*
+
+1. User selects the command to mark a tutorial class' attendance.
+2. The given tutorial-module combination exists in the system.
+
+*MSS*
+
+1. User requests to enter attendance for a student in a particular tutorial and module for particular week.
+2. System records attendance for the student.
+3. System displays confirmation message.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. No student name is supplied.
+** 1a1. System displays a student in the tutorial and prompts user to mark attendance for that student.
+** 1a2. User enters attendance for displayed student.
++
+Steps 1a1 and 1a2 are repeated for each student in the tutorial.
++
+Use case ends.
+
+* 1b. The given input is in an invalid format.
+** 1b1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+// end::UseCaseMarkAttendance[]
+// tag::UseCaseAddHours[]
+[discrete]
+=== Use case: Adding in hours clocked.
+*Preconditions:*
+1. User selects the command to add in the hours.
+2. Given module exists in the system.
+
+*MSS*
+
+1. User indicates the tutorial class that has been completed for the week.
+2. System adds the given hours to the tutorial slot
+3. System displays response on the total number of hours clocked for the given tutorial
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The given tutorial does not exist.
+** 1a1. System shows an error message that the given tutorial does not exist.
++
+Use case ends.
+
+* 1b. The hours of the tutorial class for that week has already been clocked.
+** 1b1. Application shows an error message that the class already has its hours clocked
+for that week
++
+Use case ends.
+
+* 1c. The given input is in an invalid format.
+** 1c1. System shows an error message showing the correct format to add a module.
++
+User case ends.
+// end::UseCaseAddHours[]
+// tag::UseCaseAddViewAssignScore[]
+=== Use case: Adding and viewing assignment score to students
+*Preconditions*
+
+1. User selects the command to add assignment and its' scores to the student.
+2. Given module and tutorial exists in the system.
+
+*MSS*
+
+1. User adds assignment to the tutorial class in the module.
+2. User adds the score for each student for the assignment.
+3. User switches to the student performance window.
+4. System displays results across semester for each student.
+
+*Extensions*
+
+[none]
+
+[none]
+* 2a. One of the students does not exist.
+** 2a1. System shows an error message that the given student does not exist.
+** Steps 2-2a2 are repeated for all invalid students.
++
+Use case resumes at step 2
+// end::UseCaseAddViewAssignScore[]
+
+_{More to be added soon. Stay tuned!}_
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+=== Business/Domain Rules:
+. System should be able to handle multiple modules and tutorials
+. Number of module and tutorial slots created should be of reasonable amount (< 10)
+. The application’s functionalities should be easily testable.
 
-_{More to be added}_
+=== Constraints:
+. System should be wholly usable by <<CLI, C.L.I>>. (No <<GUI, G.U.I>> -only functionality)
+. The application should work without requiring an Internet connection.
+
+=== Technical Requirements:
+. Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+
+=== Performance Requirements:
+. System should be able to hold up to 100 students without a noticeable sluggishness in performance for typical usage.
+
+=== Quality Requirements:
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+should be able to accomplish most of the tasks faster using commands than using the mouse.
+. The application should work even if the user enters partial commands/data and data in
+different formats, or omits certain command prefixes.
+. Product should be usable by someone who just became a Teaching Assistant.
+
+=== Notes about Project Scope:
+. System does not need to handle exporting or importing of data from other programs.
+
+_{More to be added. Coming to stores near you!}_
 
 [appendix]
 == Glossary
@@ -358,8 +941,23 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
+[[ta]] TA::
+teaching assistant
+
+[[module]] module::
+A module that comes with an associated code in the form of [XXX1234Y]
+
+[[tutorial]] tutorial::
+A tutorial class conducted by a <<ta, TA>>
+
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
+
+[[CLI]] Command-Line Interface::
+An interface that only requires textual inputs.
+
+[[GUI]] Graphical User Inferface::
+An interface that requires the use of graphics such as the use of the mouse pointer.
 
 [appendix]
 == Product Survey

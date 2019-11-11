@@ -1,0 +1,17 @@
+@startuml
+start
+:User presses "TAB";
+if () then ([Input changed since last "TAB"])
+  :Search for autofill results;
+  if () then ([Results found])
+    :Store results;
+    :Return first result;
+  else ([else])
+    :Return "no results found" message;
+  endif
+else ([else])
+  :Retrieve stored values;
+  :Return next value in list;
+endif
+stop
+@enduml

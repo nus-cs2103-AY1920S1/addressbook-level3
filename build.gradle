@@ -14,8 +14,11 @@ plugins {
     id 'application'
 }
 
-// Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+application {
+    // Specifies the entry point of the application
+    mainClassName = 'seedu.tarence.Main'
+}
+
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -23,6 +26,7 @@ targetCompatibility = JavaVersion.VERSION_11
 repositories {
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    jcenter() // for fuzzywuzzy string matching
 }
 
 checkstyle {
@@ -62,12 +66,16 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
-
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+    implementation 'me.xdrop:fuzzywuzzy:1.2.0'
+    compile "com.opencsv:opencsv:4.0"
+    compile group: 'com.google.code.gson', name: 'gson', version:'2.7'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'TArence.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -133,8 +141,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'T.A.rence',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103-T14-2/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

@@ -3,51 +3,79 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+end box
+
+box Storage LOGIC_COLOR_T1
+participant ":Storage" as Storage MODEL_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
+participant ":Application" as Application MODEL_COLOR_T1
 end box
-[-> LogicManager : execute(undo)
+
+[-> LogicManager : execute("undo u/1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> CommandParser : parseCommand("undo u/1")
+activate CommandParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+CommandParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> CommandParser : u
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+CommandParser --> LogicManager : u
+deactivate CommandParser
 
-LogicManager -> UndoCommand : execute()
+LogicManager --> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand --> Storage : isValidNumberOfRollbacks("1")
+activate Storage
+
+Storage --> UndoCommand : true
+deactivate Storage
+
+UndoCommand --> Storage : getLatestStateIndex()
+activate Storage
+
+Storage --> UndoCommand : Integer latestStateIndex
+deactivate Storage
+
+UndoCommand --> UndoCommand : Integer calculateStateToUndoTo
+
+UndoCommand --> Storage : getSpecifiedState(Integer stateToUndoTo)
+activate Storage
+
+Storage --> Storage : stateStack.pop()
+
+Storage --> UndoCommand : retrievedState
+deactivate Storage
+
+UndoCommand --> Model : setModel(retrievedState)
 activate Model
 
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
+Model --> Application : resetData(retrievedState)
+activate Application
 
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
+Application --> Application : setData(retrievedState)
+
+Application --> Model
+deactivate Application
 
 Model --> UndoCommand
 deactivate Model
 
 UndoCommand --> LogicManager : result
 deactivate UndoCommand
-UndoCommand -[hidden]-> LogicManager : result
-destroy UndoCommand
 
 [<--LogicManager
 deactivate LogicManager
+destroy UndoCommand
+
 @enduml

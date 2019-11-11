@@ -20,6 +20,7 @@
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
+    -fx-fill: #11d30b;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
@@ -31,6 +32,7 @@
 
 .tab-pane {
     -fx-padding: 0 0 0 1;
+    -fx-tab-min-width:50px;
 }
 
 .tab-pane .tab-header-area {
@@ -39,10 +41,42 @@
     -fx-max-height: 0;
 }
 
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab {
+    -fx-background-insets: 0 1 0 1,0,0;
+    -fx-pref-height: 30;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #3c3c3c;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 12pt;
+    -fx-padding: 0 0 0 0;
+    /*-fx-font-weight: bold;*/
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #7FFFD4;
+    -fx-border-color: null;
+}
+
+
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #383838;
+    -fx-control-inner-background: #383838;
+    -fx-background-color: #383838;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -123,13 +157,71 @@
 .cell_big_label {
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-size: 16px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #F5F5F5;
+}
+
+.stats_label_max {
+    -fx-text-fill: #FDD20EFF;
+    -fx-background-color: #606060FF;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
+}
+
+.stats_label_median {
+    -fx-text-fill: #ffa333;
+    -fx-background-color: #606060FF;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
+}
+
+.stats_label_upper {
+    -fx-text-fill: #2BAE66FF;
+    -fx-background-color: #606060FF;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
+}
+
+.stats_label_lower {
+    -fx-text-fill: #E94B3CFF;
+    -fx-background-color: #606060FF;
+    -fx-padding: 1 1 1 1;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 16;
 }
 
 .cell_small_label {
     -fx-font-family: "Segoe UI";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
+}
+
+.max_score_label {
+    -fx-text-fill: white;
+    -fx-background-color: #F05561;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+}
+
+.duration_label {
+    -fx-text-fill: white;
+    -fx-background-color: #08B9A5;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 13px;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
 }
 
 .stack-pane {
@@ -322,10 +414,20 @@
     -fx-background-insets: 0;
     -fx-border-color: #383838 #383838 #ffffff #383838;
     -fx-border-insets: 0;
-    -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
+    -fx-border-width: 0;
+    -fx-font-family: "Roboto Mono Light";
+    -fx-font-size: 12pt;
     -fx-text-fill: white;
+}
+
+#autocompleteTextBox {
+    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-insets: 0;
+    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
+    -fx-font-family: "Roboto Mono Light";
+    -fx-font-size: 12pt;
 }
 
 #filterField, #personListPanel, #personWebpage {
@@ -342,6 +444,11 @@
     -fx-vgap: 3;
 }
 
+#tuts {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
 #tags .label {
     -fx-text-fill: white;
     -fx-background-color: #3e7b91;
@@ -349,4 +456,86 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#tuts .label {
+    -fx-text-fill: white;
+    -fx-background-color: #d63e5f;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+.module_label {
+    -fx-text-fill: white;
+    -fx-background-color: #47996B;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
+/* TODO: add more colours */
+.data0.chart-bar {
+    -fx-bar-fill: #f9d900;
+}
+
+.data1.chart-bar {
+    -fx-bar-fill: #a9e200;
+}
+
+.data2.chart-bar {
+    -fx-bar-fill: #22bad9;
+    -fx-bar-opacity: 0.6;
+}
+
+.data3.chart-bar {
+    -fx-bar-fill: #0181e2;
+}
+
+.data4.chart-bar {
+    -fx-bar-fill: #2f357f;
+}
+
+.data5.chart-bar {
+    -fx-bar-fill: #860061;
+}
+
+.data6.chart-bar {
+    -fx-bar-fill: #c62b00;
+}
+
+.data7.chart-bar {
+    -fx-bar-fill: #ff5700;
+}
+
+.chartBar {
+    -fx-background-color:  transparent;
+    -fx-text-fill: #6E6E6DFF;
+}
+
+.chart-title {
+  -fx-text-fill: #b6f2f6;
+}
+
+.axis-label {
+  -fx-text-fill: #b6f2f6;
+}
+
+.chart-plot-background {
+    -fx-background-color:  transparent;
+}
+
+.chart-vertical-grid-lines {
+    -fx-stroke: #3278fa;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #3278fa;
+}
+
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: #e1f2fe;
+    -fx-font-family: Tahoma;
 }

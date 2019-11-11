@@ -1,0 +1,97 @@
+= Yew Kai Zhe - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103-T14-2/main
+:prURL: {repoURL}/pull
+
+== PROJECT: T.A.rence
+
+I'm Kai Zhe, a student currently pursuing a major in Computer Science at the National University of Singapore(NUS).
+
+== Overview
+
+T.A.rence is a class management system for teaching assistants in NUS. It tracks all classes taught by the TA and all relevant information pertaining to each class,
+ such as upcoming events, student participation, assignment scores and the number of hours taught for each module.
+
+== Summary of contributions
+
+=== *Major Enhancement*: added *Model skeleton*
+
+==== Created models used in T.A.rence
+
+* Summary of the features:
+** Created most of the model classes used in the T.A.rence application (Modules, Tutorials, Students, Assignments, Attendance)
+
+* Justification:
+** The models form the backbone of the Application and defines the operations it can perform.
+
+* Highlights:
+** Many of the models are interdependent on each other, eg. deleting a Tutorial will also delete all the Students contained within it.
+** The interdependence, while useful feature-wise, also leads to high coupling and it was challenging to maintain consistency within
+the different models/data structures.
+
+=== *Major Enhancement*: Added ImportTutorialsCommand, Attendance/Assignment/Event-related logic commands
+
+==== Added the ability for the user to import tutorials via an NUSMods shared url, mark/export attendance of students in a tutorial and CRUD features for Assignments and Events.
+
+* Summary of the features:
+** Enables the user to record and export students' attendance (Refer to the user guide below)
+** Enables the user to track tutorial assignments and students' performance
+** Enables the user to keep track of events(both past and upcoming) such as tutorials, exam dates, submission deadlines as well as hours logged for easier payment claims.
+** ImportTutorialsCommand makes use of NUSMods data to automatically import modules based on the NUSMods url. It does not require an internet connection.
+
+* Justification:
+** Tracking participation, tutorial assignments, upcoming events as well as compatibility with NUSMods
+are essential features that cater to any TA in NUS.
+
+* Highlights:
+** The user need only define the semester start date for the hours logged in a tutorial to be updated automatically.
+The application will determine the dates of completed tutorials from the current date, the semester start date to then calculate the hours logged by the TA.
+** The application relies on precached NUSMods data of all existing tutorials in AY 2019-2020, hence it does not rely on a internet connection.
+Even then, the loading of the all the data into T.A.rence at initialization is not too computationally/memory intensive, without significant lag.
+This is partly because extraneous elements (Lectures, Venues) have been filtered out in the cached data to reduce file size.
+** Retrieval of NUSMods tutorials after the initialization is also efficient since the cached data is loaded into a data structure of nested HashMaps that has keys in the following order:
+Module code, Semester, Lesson Type(Sectionals, Tutorials, Labs) and finally a unique ClassNo.
+** The primary challenge in implementing the importing of tutorials was ensuring the compatibility between the cached data and the Tutorial Class already defined in Application.
+This required delving into NUSMods data to understand the general structure of the JSON, as well as reading existing API documentation.
+
+* Credits:
+** NUS modules and tutorials data was retrieved from NUSMods database [link:https://api.nusmods.com/v2/2019-2020/[NUSMods]]
+
+* *Minor enhancement*:
+** Added ability for the user to enter multiple commands separated by the "+" delimiter in a single input (eg. command1 + command2 + command3)
+
+* *Code contributed*:
+* [link:{repoURL}/commits?author=zihawkeye[Commits]]
+* [link:{repoURL}/pulls?q=is%3Apr+author%3AZiHawkEye+is%3Aclosed[Pull Requests]]
+* [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=zihawkeye&sort=totalCommits%20dsc&sortWithin=totalCommits%20dsc&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ZiHawkEye&tabRepo=AY1920S1-CS2103-T14-2%2Fmain%5Bmaster%5D[RepoSense Code Contribution Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Added issues on Github for milestones, bugs
+
+** Documentation:
+*** Edited User Guide: link:{prURL}/120[#120], link:{prURL}/162[#162]
+*** Edited Developer guide: link:{prURL}/94[#94]
+*** Improved test coverage: link:{prURL}/99[#99], link:{prURL}/51[#51], link:{prURL}/15[#15]
+
+== Contributions to the User Guide
+
+include::../UserGuide.adoc[tag=FeatureImport]
+
+include::../UserGuide.adoc[tag=FeatureMarkAttendance]
+
+include::../UserGuide.adoc[tag=FeatureExportAttendance]
+
+include::../UserGuide.adoc[tag=FeatureAddEvent]
+
+include::../UserGuide.adoc[tag=FeatureSetSemStart]
+
+== Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=model]
+
+include::../DeveloperGuide.adoc[tag=MarkAttendanceFeature]
+

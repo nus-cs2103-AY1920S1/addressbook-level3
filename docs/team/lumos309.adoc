@@ -1,0 +1,103 @@
+= Tan YuGin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+Hello, I'm YuGin, a Computer Science undergraduate at the National University of Singapore (NUS).
+
+== PROJECT: T.A.rence
+
+== Overview
+
+T.A.rence is a module and class management system aimed at teaching assistants (TAs) in universities. It helps TAs manage student- and assignment-related data and tasks, and is optimised for users who are proficient in speed-typing.
+
+== Summary of contributions
+
+=== Major Enhancement: Autocorrect and autocomplete systems
+
+* _What it does_: Autocorrect picks out minor mistakes in fields like student names and module codes, and suggests similar valid commands. Autocomplete provides suggestions to complete partial inputs by the user.
+* _Justification_: As a CLI-focused application, the user will likely do a considerable amount of typing. Especially for longer commands, an autocorrect feature can save the user from having to retype lengthy lines of text. Meanwhile, autocomplete helps the user fill in names, a useful feature if the TA has a large number of students or classes.
+
+*Details*
+
+* Autocorrect generates alternative commands when the user's input does not match data within the application. When there are multiple fields that may have been entered incorrectly (e.g. tutorial names and module codes), T.A.rence attempts to generate different combinations of possible valid values. Fuzzy string matching is used to find data strings that are similar to the user's input. [https://github.com/AY1920S1-CS2103-T14-2/main/pull/60[PR #60]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/62[PR #62]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/67[PR #67]]
+* Autocomplete suggests data values to complete the user's current partial input, based on the last detected prefix. It also provides command keyword prompts when appropriate. [https://github.com/AY1920S1-CS2103-T14-2/main/pull/82[PR #82]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/107[PR #107]]
+
+*Credits*
+
+* Java implementation of FuzzyWuzzy fuzzy string matching: https://github.com/xdrop/fuzzywuzzy
+
+=== Minor Enhancements
+
+*Command History*
+
+* Past commands accessible using the "up" and "down" arrow keys, helping users save time when inputting multiple similar commands [https://github.com/AY1920S1-CS2103-T14-2/main/pull/98[PR #98]]
+
+*Basic CRUD Commands*
+
+* Commands for deleting modules and tutorials [https://github.com/AY1920S1-CS2103-T14-2/main/pull/36[PR #36]]
+* Command for adding students [https://github.com/AY1920S1-CS2103-T14-2/main/pull/22[PR #28]]
+* Multiple input formats for weeks of semester to enhance usability [https://github.com/AY1920S1-CS2103-T14-2/main/pull/52[PR #52]]
+
+*Confirmation Prompts*
+
+* Safeguard against unintentional deletion of data by displaying a confirmation dialogue when attempting to delete non-empty modules or tutorial [https://github.com/AY1920S1-CS2103-T14-2/main/pull/54[PR #54]]
+
+*Scrolling through list display using key inputs*
+
+* Lists of students, tutorials, and modules scrollable using "PageUp" and "PageDown" keys, maintaining CLI-only interaction [https://github.com/AY1920S1-CS2103-T14-2/main/pull/187[PR #187]]
+
+=== Other Contributions
+
+* Tests to sustain codebase integrity, e.g. [https://github.com/AY1920S1-CS2103-T14-2/main/pull/105[PR #105]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/196[PR #196]]
+
+* Milestone management, e.g. [https://github.com/AY1920S1-CS2103-T14-2/main/issues/45[1]], [https://github.com/AY1920S1-CS2103-T14-2/main/issues/45[2]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/67[3]], [https://github.com/AY1920S1-CS2103-T14-2/main/issues/90[4]]
+
+* Bug reporting for other teams: [https://github.com/AY1920S1-CS2103-F09-1/main/issues/138[1]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/140[2]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/142[3]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/143[4]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/144[5]]
+
+_All code contributed:
+[link:https://github.com/AY1920S1-CS2103-T14-2/main/commits/master?author=lumos309[Commits]],
+[link:https://github.com/AY1920S1-CS2103-T14-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Alumos309+[Pull Requests]],
+[link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lumos309&tabRepo=AY1920S1-CS2103-T14-2%2Fmain%5Bmaster%5D[RepoSense Dashboard]]._
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+=== _Enhancements (Autocorrect, Autocomplete, Command History)_
+
+include::../UserGuide.adoc[tag=enhancements]
+
+=== _Features_
+
+include::../UserGuide.adoc[tag=FeatureAddTutorial]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+=== _System Design - Logic Component_
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+=== _Enhancements - Autocomplete & Autocorrect_
+
+include::../DeveloperGuide.adoc[tag=autocomplete]
+
+include::../DeveloperGuide.adoc[tag=autocorrect]
+
+=== _Use Cases_
+
+include::../DeveloperGuide.adoc[tag=UseCaseAddTutorial]
+
+include::../DeveloperGuide.adoc[tag=UseCaseDeleteTutorial]
+
+include::../DeveloperGuide.adoc[tag=UseCaseAddStudent]
+
+include::../DeveloperGuide.adoc[tag=UseCaseMarkAttendance]

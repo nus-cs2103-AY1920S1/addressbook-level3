@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <TableView fx:id="attendancePlaceholder" minWidth="500" prefWidth="500" VBox.vgrow="ALWAYS">
+        <padding>
+            <Insets bottom="10" left="10" right="10" top="10" />
+        </padding>
+    </TableView>
+</VBox>

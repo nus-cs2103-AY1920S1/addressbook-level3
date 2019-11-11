@@ -3,11 +3,11 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "delete 5"
+title After command "addModule m/CS2103"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
+package Saved_Json_States <<rectangle>> {
+    class State1 as "__state1..json__"
+    class State2 as "__state2..json__"
     class State3 as "__ab2:AddressBook__"
 }
 
@@ -16,7 +16,7 @@ State2 -[hidden]right-> State3
 
 hide State3
 
-class Pointer as "Current State" #FFFFF
+class Pointer as "Current Stack Pointer" #FFFFF
 
 Pointer -up-> State2
 @end

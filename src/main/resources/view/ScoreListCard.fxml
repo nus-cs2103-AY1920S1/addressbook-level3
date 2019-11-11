@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+<HBox id="cardPane" fx:id="cardPane" prefHeight="40.0" prefWidth="1840.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="1846.0">
+        <padding>
+            <Insets bottom="5" left="15" right="5" top="5" />
+        </padding>
+        <GridPane minWidth="476" maxWidth="476">
+            <columnConstraints>
+                <ColumnConstraints maxWidth="174.0" minWidth="116.0" prefWidth="116.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.0" minWidth="40.0" prefWidth="40.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="100.0" minWidth="100.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label fx:id="name" styleClass="cell_small_label" text="\$name">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="score" styleClass="cell_small_label" text="\$score" GridPane.columnIndex="2"></Label>
+                <Label fx:id="remark" styleClass="cell_small_label" text="\$remark" GridPane.columnIndex="3"></Label>
+            </children>
+        </GridPane>
+    </VBox>
+</HBox>

@@ -3,10 +3,10 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title Initial state
+title Initial Json State File
 
-package States {
-    class State1 as "__ab0:AddressBook__"
+package Saved_Json_States {
+    class State1 as "__state1..json__"
     class State2 as "__ab1:AddressBook__"
     class State3 as "__ab2:AddressBook__"
 }
@@ -15,6 +15,6 @@ State2 -[hidden]right-> State3
 hide State2
 hide State3
 
-class Pointer as "Current State" #FFFFF
+class Pointer as "Current Stack Pointer" #FFFFF
 Pointer -up-> State1
 @end

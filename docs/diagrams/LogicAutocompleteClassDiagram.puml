@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package Parser {
+
+Class AutocompleteHandler
+Class PartialInputParser
+Class Prefix
+}
+
+Interface Logic <<Interface>>
+Class LogicManager
+Class Finder
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+LogicManager ..|> Logic
+LogicManager -->"1" AutocompleteHandler
+
+AutocompleteHandler ..> PartialInputParser
+AutocompleteHandler .left.> Model
+PartialInputParser ..> Prefix
+PartialInputParser ..> PartialInput : creates >
+PartialInputParser ..> Finder
+
+Finder -->"1" Model
+
+LogicManager --> Model
+
+Model ..>"0..1" PartialInput : stores >
+
+@enduml

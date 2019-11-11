@@ -8,23 +8,28 @@ package Logic {
 
 package Parser {
 Interface Parser <<Interface>>
-Class AddressBookParser
+Class ApplicationParser
+Class AutocompleteHandler
 Class XYZCommandParser
+Class PartialInputParser
 Class CliSyntax
 Class ParserUtil
 Class ArgumentMultimap
 Class ArgumentTokenizer
 Class Prefix
+Class PartialInput
 }
 
 package Command {
 Class XYZCommand
+Class SelectSuggestionCommand
 Class CommandResult
 Class "{abstract}\nCommand" as Command
 }
 
 Interface Logic <<Interface>>
 Class LogicManager
+Class Finder
 }
 
 package Model{
@@ -34,29 +39,46 @@ Class HiddenModel #FFFFFF
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Logic
 
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
+LogicManager ..|> Logic
+LogicManager -->"1" AutocompleteHandler
+LogicManager -->"1" ApplicationParser
+ApplicationParser ..> XYZCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
+ArgumentTokenizer ..> ArgumentMultimap
 XYZCommandParser ..> CliSyntax
 CliSyntax ..> Prefix
 XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
+ParserUtil ..> Prefix
+ArgumentTokenizer ..> Prefix
+XYZCommand --|> Command
+SelectSuggestionCommand --|> Command
+XYZCommand ..> SelectSuggestionCommand : creates >
+SelectSuggestionCommand ..> XYZCommand : calls >
+LogicManager ..> Command : executes >
+
+AutocompleteHandler ..> PartialInputParser
+AutocompleteHandler ..> Model
+PartialInputParser ..> Prefix
+PartialInputParser ..> PartialInput : creates >
+
+PartialInputParser .left.> Finder
+XYZCommand ..> Finder
+
+Finder -->"1" Model
 
 LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+Command ..> Model
+note bottom of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+
+Model .up.>"0..*" Command : stores >
+Model ..>"0..1" PartialInput : stores >
 
 Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
+LogicManager ..> CommandResult
+Command ..> CommandResult
 CommandResult -[hidden]-> Parser
 @enduml
