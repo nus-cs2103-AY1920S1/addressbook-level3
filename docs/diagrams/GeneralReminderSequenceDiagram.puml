@@ -1,0 +1,96 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":GuiltTrip" as GuiltTrip LOGIC_COLOR
+participant ":ExpenseList" as ExpenseList LOGIC_COLOR
+participant ":ObservableList<Expense>" as ObservableList_Expense LOGIC_COLOR
+
+participant ":ConditionsManager" as ConditionsManager LOGIC_COLOR
+participant ":Condition" as Condition LOGIC_COLOR
+participant ":Condition:ObservableSupport" as CON_ObservableSupport LOGIC_COLOR
+participant ":Condition:ListenerSupport" as CON_ListenerSupport LOGIC_COLOR
+participant ":GeneralReminder" as GeneralReminder LOGIC_COLOR
+participant ":GeneralReminder:ObservableSupport" as GR_ObservableSupport LOGIC_COLOR
+participant ":GeneralReminder:ObservableSupport:ListenerSupport" as GR_ListenerSupport LOGIC_COLOR
+participant ":ReminderList" as ReminderList LOGIC_COLOR
+participant ":ReminderList:ObservableSupport" as RL_ObservableSupport LOGIC_COLOR
+participant ":ObservableList<Notification>" as ObservableList_Notification LOGIC_COLOR
+participant ":NotificationPanel" as NotificationPanel LOGIC_COLOR
+end box
+
+[-> GuiltTrip : addExpense(x)
+activate GuiltTrip
+
+GuiltTrip -> ExpenseList : add(x)
+activate ExpenseList
+
+ExpenseList -> ObservableList_Expense : add(x)
+activate ObservableList_Expense
+return
+
+ExpenseList --> GuiltTrip
+deactivate ExpenseList
+
+GuiltTrip -> ConditionsManager : addEntryUpdate(x)
+activate ConditionsManager
+
+ConditionsManager -> Condition : addEntryUpdate(x)
+activate Condition
+
+Condition -> CON_ObservableSupport : firePropertyChange(beingAdded)
+activate CON_ObservableSupport
+
+loop each beingAdded listener
+    CON_ObservableSupport -> CON_ListenerSupport : propertyChange(evt)
+    activate CON_ListenerSupport
+
+    CON_ListenerSupport -> GeneralReminder : propertyChange(evt)
+    activate GeneralReminder
+
+    GeneralReminder -> GR_ObservableSupport : firePropertyChange(statusChange)
+    activate GR_ObservableSupport
+
+    loop each statusChange listener
+        GR_ObservableSupport -> GR_ListenerSupport : propertyChange(evt)
+        activate GR_ListenerSupport
+
+        GR_ListenerSupport -> ReminderList : propertyChange(evt)
+        activate ReminderList
+
+        ReminderList -> RL_ObservableSupport : firePropertyChange(newReminderMessage)
+        activate RL_ObservableSupport
+        note left
+        Skip handlers for clarity
+        end note
+        return
+
+        ReminderList -> ObservableList_Notification : add(notification)
+        activate ObservableList_Notification
+        note left
+        Skip handlers for clarity
+        end note
+
+        ObservableList_Notification -> NotificationPanel : updateItem()
+        activate NotificationPanel
+        note right
+        Updates notifications in UI
+        end note
+        return
+
+        return
+        return
+        return
+        return
+        return
+        return
+        return
+        return
+        return
+        deactivate GuiltTrip
+
+    end
+end
+
+
+@enduml

@@ -7,6 +7,7 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
  */
 public enum PanelName {
 
+
     MAIN, BUDGET, WISH, REMINDER, AUTOEXPENSE;
 
     public static final String MESSAGE_CONSTRAINTS = "Panel names should be one of the following: wishlist,"
@@ -18,6 +19,7 @@ public enum PanelName {
      * @throws ParseException if input string is not a recognised PanelName
      */
     public static PanelName parse(String panelNameString) throws ParseException {
+
 
         switch (panelNameString.toLowerCase().trim()) {
         case "wishlist":
@@ -36,7 +38,7 @@ public enum PanelName {
             return BUDGET;
         case "reminders":
             // Fallthrough
-        case "reminder":
+        case "generalReminder":
             // Fallthrough
         case "r":
             return REMINDER;

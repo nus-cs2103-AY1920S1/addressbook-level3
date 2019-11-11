@@ -641,148 +641,73 @@ Example:
 ////
 
 === Reminders
-Reminders display messages when Conditions are met.
-Alternatively, a reminder may be set to monitor entries satisfying its conditions.
-This behavior is specified by the TrackerType of the reminder.
-Reminders will only monitor entries added after the reminder is created.
-When the total amount/ or total number of these entries exceeds a specified quota, the reminder displays a message.
-Refer to <<Conditions>> to see Condition related commands.
-
 ==== Add Reminder: `addReminder`
 
-Adds new Reminder. Creating Reminder requires Conditions to be created first.
-The Condition Index refers to the index of the condition to add in the condition list.
-
-Format: `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]`
+Adds new GeneralReminder.
+Format: `addReminder n/<Message> [typ/<EntryType>] [l.b/<LowerBound>] [u.b/<UpperBound>] [start/<Start Date>] [end/<End Date>] [tg/<tags>]`
 
 Examples:
 
-* `addReminder n/Watch your spending i/1`
-* `addReminder n/Watch your spending i/1 tkr/amount a/100`
-* `addReminder n/Watch your spending i/1 tkr/num a/10`
+* `addReminder n/Don't be broke. l.b/10 u.b/20 start/2019/01/01 end/2019/12/30'
 
-==== List all active Reminders (reminders currently set to display) : `listActiveReminders`
-Lists all the reminders that are currently being displayed.
+==== Set Reminder: `setReminder`
 
-Format: `listActiveReminders`
+Sets new EntryReminder for selected Entry specified by the type and index in the corresponding list.
+Format: `setReminder <Reminder Index> n/<Message> p/<Period> f/<frequency>
+
+Examples:
+
+* ` setReminder 1 typ/expense n/Mala p/1d f/daily '
+
+
+==== List all active Reminders (reminders currently set to display) : `listReminders`
+Shows reminder pannel.
+
+Format: `listReminders`
+
+==== Select Reminders : `selectReminder`
+select reminder to edit.
+
+Format: `selectReminder <Reminder Index>`
 
 Example:
 
-* `listActiveReminders`
-
-==== List all Reminders : `listAllReminders`
-Lists all the reminders that the user has set.
-
-Format: `listAllReminders`
-
-Example:
-
-* `listAllReminders`
+* `selectReminder 1`
 
 ==== Edit Reminder : `editReminder`
-Edits the description/ activation conditions/ attribute being tracked/ quota of the reminder.
+Edits conditions of a GeneralReminder or period/ frequency of an EntryReminder selected.
 
-Format: `editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [a/<Quota>]`
+User must first select a reminder to modify before he can edit said reminder.
+
+Note that the entry type of the General reminder is not edited as the developers feel
+the user is more likely to create a new reminder instead of completely modifying the nature of the reminder.
+
+Format: `editReminder [n/<Message>] [l.b/<LowerBound>] [u.b/<UpperBound>] [start/<Start Date>] [end/<End Date>] [tg/<tags>]`
+        `editReminder [n/<Message>] [p/<period>] [f/<frequency>]`
 
 Example:
 
-* `editReminder 1 n/Don't be broke.`
-* `editReminder 2 i/1 i/2 i/3`
-* `editReminder 3 tkr/amount a/100`
+* `editReminder n/Don't be broke.`
+* `editReminder l.b/5 u.b/10 `
+* `editReminder f/monthly`
+
+==== Remove Condition from Reminder : 'removeCondition`
+Removes condition from GeneralReminder.
+
+User must first select a reminder to modify before he can edit said reminder.
+Note that the entry type of the General reminder cannot be removed.
+
+Format: `removeCondition <Reminder Index>`
+
+Example:
+
+* `removeCondition 1`
+
 
 ==== Delete Reminder : `deleteReminder`
-Deletes the reminder that was at index in the list.
+Deletes the selected Reminder.
 
-Format: `deleteReminder <index>`
-
-Example: `deleteReminder 3`
-
-==== Add Condition to Reminder : `addToReminder`
-Adds condition to list of conditions that must be fulfilled for reminder to display message.
-
-Format: `addToReminder <Reminder Index>, <Condition Index>`
-
-Example: `addToReminder 1, 3`
-
-==== Remove Condition from Reminder : `removeFromReminder`
-Removes condition from list of conditions that must be fulfilled for reminder to display message.
-
-Format: `removeFromReminder <Reminder Index>, <Condition Index>`
-
-Example: `removeFromReminder 1, 3`
-
-=== Conditions
-
-==== Add ClassCondition: `addClassCondition`
-Adds a ClassCondition. A ClassCondition is met when an entry is of a specified type.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addClassCondition <entryType>`
-
-Example: `addClassCondition expense`
-
-==== Add DateCondition: `addDateCondition`
-Adds a DateCondition. A DateCondition is met when the date of the entry is within the specified period.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addDateCondition <Start Date>, <End Date>`
-
-Example: 'addDateCondition 2019/03/01, 2019/11/01'
-
-==== Add HasKeyWordCondition: `addHasKeyWordCondition`
-Adds a HasKeyWordCondition. A HasKeyWordCondition is met when the description of an entry has any of the keywords specified.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addHasKeyWord <keywords>`
-
-Example: 'addHasKeyWordCondition mala deck food'
-
-==== Add QuotaCondition: `addQuotaCondition`
-Adds a QuotaCondition. A QuotaCondition is met when the individual amount of an entry is above a specified amount.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addQuotaCondition <Quota>`
-
-Example: 'addQuotaCondition 100'
-
-==== Add TagsCondition: `addHasTagsCondition`
-Adds a TagsCondition. A TagsCondition is met when the description of an entry has any of the Tags specified.
-The supported types of entries are Expense, Income, Wishes, Budget and AutoExpense.
-
-Format: `addHasTagsConditions <Tags>`
-
-Example:
-
-* 'addHasTagsCondition mala deck food'
-
-==== Delete Condition: `deleteCondition`
-Removes a Condition specified by the index.
-
-Format: `deleteCondition <Index>`
-
-Example:
-
-* 'deleteCondition 1'
-
-==== Replace Condition: `replaceCondition`
-Replaces one Condition with another. All Reminders with the replaced condition will now have the replacing condition.
-
-Format: `replaceCondtion <Index of Condition being Replaced>, <Index of Replacing Condition>`
-
-Example:
-
-* 'replaceCondition 1, 2'
-
-==== List Condition: `listCondition`
-Shows the list of Conditions. Conditions are listed in the Reminder Pannel.
-(To be changed)
-
-Format: `listConditions`
-
-Example:
-
-* 'listConditions'
-
+Format: `deleteReminder`
 
 === WishList
 

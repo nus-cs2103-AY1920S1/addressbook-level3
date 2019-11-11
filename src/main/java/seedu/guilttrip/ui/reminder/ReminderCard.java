@@ -1,19 +1,18 @@
 package seedu.guilttrip.ui.reminder;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import seedu.guilttrip.model.reminders.EntryReminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Reminder}.
  */
-public class ReminderCard extends UiPart<Region> implements PropertyChangeListener {
+public class ReminderCard extends UiPart<Region> {
     private static final String FXML = "/reminder/ReminderListCard.fxml";
 
     /**
@@ -39,20 +38,10 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
         super(FXML);
         this.reminder = reminder;
         id.setText(displayedIndex + ". ");
-
-        this.status = reminder.getStatus();
-        String descWithStatus = "[" + status.toString() + "] " + reminder.getMessage().fullDesc + "No. of conditions: "
-                + reminder.getConditions().size();
+        String descWithStatus = getReminderType() + "  " + reminder.getHeader().fullDesc;
         desc.setText(descWithStatus);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        this.status = (Reminder.Status) evt.getNewValue();
-        String descWithStatus = "[" + status.toString() + "] " + reminder.getMessage().fullDesc + "No. of conditions: "
-                + reminder.getConditions().size();
-        //desc.setText(descWithStatus);
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -71,4 +60,14 @@ public class ReminderCard extends UiPart<Region> implements PropertyChangeListen
         return id.getText().equals(card.id.getText())
                 && reminder.equals(card.reminder);
     }
+
+    private String getReminderType() {
+        if (reminder instanceof GeneralReminder) {
+            return "General Reminder";
+        } else {
+            EntryReminder entryReminder = (EntryReminder) reminder;
+            return "Entry Reminder";
+        }
+    }
+
 }

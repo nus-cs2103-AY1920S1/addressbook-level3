@@ -24,6 +24,7 @@ import seedu.guilttrip.model.util.CategoryType;
 class JsonAdaptedIncome {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
+    private final String uniqueId;
     private final String category;
     private final String desc;
     private final String time;
@@ -34,9 +35,10 @@ class JsonAdaptedIncome {
      * Constructs a {@code JsonAdaptedPerson} with the given entry details.
      */
     @JsonCreator
-    public JsonAdaptedIncome(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                             @JsonProperty("amt") String amt, @JsonProperty("time") String time,
-                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedIncome(@JsonProperty("uniqueId") String uniqueId, @JsonProperty("category") String category,
+                             @JsonProperty("desc") String desc, @JsonProperty("amt") String amt,
+                             @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.uniqueId = uniqueId;
         this.category = category;
         this.desc = desc;
         this.amt = amt;
@@ -51,6 +53,7 @@ class JsonAdaptedIncome {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedIncome(Income source) {
+        uniqueId = source.getUniqueId();
         category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
@@ -103,7 +106,12 @@ class JsonAdaptedIncome {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Income(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        Income modelIncome = new Income(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        if (uniqueId != null) {
+            modelIncome.setHasReminder(true);
+            modelIncome.setUniqueId(uniqueId);
+        }
+        return modelIncome;
     }
 
 }

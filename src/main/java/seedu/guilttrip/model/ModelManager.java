@@ -4,11 +4,14 @@ import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -16,6 +19,8 @@ import seedu.guilttrip.commons.core.GuiSettings;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.commons.util.AutoExpenseUpdater;
+import seedu.guilttrip.commons.util.ListenerSupport;
+import seedu.guilttrip.commons.util.ObservableSupport;
 import seedu.guilttrip.model.entry.AutoExpense;
 import seedu.guilttrip.model.entry.Budget;
 import seedu.guilttrip.model.entry.Category;
@@ -27,8 +32,10 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
 import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 import seedu.guilttrip.model.statistics.Statistics;
@@ -38,7 +45,7 @@ import seedu.guilttrip.model.util.EntryComparator;
 /**
  * Represents the in-memory model of the guiltTrip data.
  */
-public class ModelManager implements Model {
+public class ModelManager implements Model, ListenerSupport {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
     private Statistics stats;
     private final SortType sortByTime = new SortType("time");
@@ -58,7 +65,9 @@ public class ModelManager implements Model {
     private final SortedList<Wish> sortedWishList;
     private final FilteredList<Reminder> filteredReminders;
     private final FilteredList<Condition> filteredConditions;
+    private final FilteredList<Notification> filteredNotifications;
     private final VersionedGuiltTrip versionedGuiltTrip;
+    private LocalDate currDate;
 
     /**
      * Initializes a ModelManager with the given GuiltTrip and userPrefs. The original ObservableList for all entries
@@ -97,11 +106,16 @@ public class ModelManager implements Model {
         sortedAutoExpenseList.setComparator(new EntryComparator(sortByTime, sortByAsc));
         filteredAutoExpenses = new FilteredList<>(sortedAutoExpenseList);
 
+
+        //Reminders
         filteredReminders = new FilteredList<>(versionedGuiltTrip.getReminderList());
         filteredConditions = new FilteredList<>(versionedGuiltTrip.getConditionList());
+        filteredNotifications = new FilteredList<>(versionedGuiltTrip.getNotificationList());
         createExpensesFromAutoExpenses();
         this.stats = new StatisticsManager(this.filteredExpenses, this.filteredIncomes,
                 versionedGuiltTrip.getCategoryList());
+        /*TimeUtil.addPropertyChangeListener(this);
+        TimeUtil.manualUpdate();*/
     }
 
     public ModelManager() {
@@ -215,8 +229,6 @@ public class ModelManager implements Model {
         versionedGuiltTrip.updateBudgets(filteredExpenses);
         updateFilteredExpenses(PREDICATE_SHOW_ALL_EXPENSES);
         sortFilteredExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -225,14 +237,11 @@ public class ModelManager implements Model {
         versionedGuiltTrip.removeIncome(target);
         updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
         sortFilteredIncome(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
     public void deleteWish(Wish target) {
         versionedGuiltTrip.removeWish(target);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
         filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
         updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
         sortFilteredWishes(sortByTime, sortByAsc);
@@ -243,8 +252,6 @@ public class ModelManager implements Model {
         versionedGuiltTrip.removeBudget(target);
         updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
         sortFilteredBudget(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -253,8 +260,6 @@ public class ModelManager implements Model {
         versionedGuiltTrip.removeAutoExpense(target);
         updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_AUTOEXPENSES);
         sortFilteredAutoExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -285,8 +290,6 @@ public class ModelManager implements Model {
         versionedGuiltTrip.addIncome(income);
         updateFilteredIncomes(PREDICATE_SHOW_ALL_INCOMES);
         sortFilteredIncome(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -294,8 +297,6 @@ public class ModelManager implements Model {
         versionedGuiltTrip.addWish(wish);
         updateFilteredWishes(PREDICATE_SHOW_ALL_WISHES);
         sortFilteredWishes(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -303,8 +304,6 @@ public class ModelManager implements Model {
         versionedGuiltTrip.addAutoExpense(autoExpense);
         updateFilteredAutoExpenses(PREDICATE_SHOW_ALL_AUTOEXPENSES);
         sortFilteredAutoExpense(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -314,8 +313,6 @@ public class ModelManager implements Model {
         versionedGuiltTrip.updateBudgets(filteredExpenses);
         updateFilteredBudgets(PREDICATE_SHOW_ALL_BUDGETS);
         sortFilteredBudget(sortByTime, sortByAsc);
-        filteredReminders.filtered(PREDICATE_SHOW_ACTIVE_REMINDERS);
-        filteredReminders.filtered(PREDICATE_SHOW_ALL_REMINDERS);
     }
 
     @Override
@@ -489,10 +486,35 @@ public class ModelManager implements Model {
         return filteredReminders;
     }
 
-    public ObservableList<Condition> getFilteredConditions() {
-        return filteredConditions;
+    @Override
+
+    public ObservableList<Notification> getFilteredNotifications() {
+        return filteredNotifications;
     }
 
+    @Override
+    public ObservableList<Condition> getFilteredConditions() {
+        Reminder reminder = getReminderSelected();
+        if (reminder instanceof GeneralReminder) {
+            ObservableList<Condition> conditions = FXCollections
+                    .observableArrayList(((GeneralReminder) reminder).getConditions());
+            return conditions;
+        } else {
+            return FXCollections
+                    .observableArrayList(new ArrayList<>());
+        }
+    }
+
+    //===== GeneralReminder Handler =====//
+    @Override
+    public Reminder getReminderSelected() {
+        return versionedGuiltTrip.getReminderSelected();
+    }
+
+    @Override
+    public void selectReminder(Reminder reminder) {
+        versionedGuiltTrip.selectReminder(reminder);
+    }
     // =================== Sorting =============================================================
 
     @Override
@@ -510,7 +532,6 @@ public class ModelManager implements Model {
         sortedBudgetList.setComparator(new EntryComparator(c, sequence));
     }
 
-    @Override
     public void sortFilteredWishes(SortType c, SortSequence sequence) {
         sortedWishList.setComparator(new EntryComparator(c, sequence));
     }
@@ -628,6 +649,16 @@ public class ModelManager implements Model {
     }
 
     // =========== TrackTime =============================================================
+
+    @Override
+    public void propertyChange(ObservableSupport.Evt evt) {
+        if (evt.getPropertyName().equalsIgnoreCase("currDate")) {
+            if ((currDate == null) || !currDate.equals(evt.getNewValue())) {
+                createExpensesFromAutoExpenses();
+            }
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

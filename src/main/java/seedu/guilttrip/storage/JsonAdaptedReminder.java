@@ -2,76 +2,107 @@ package seedu.guilttrip.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.guilttrip.MainApp;
+import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Description;
+import seedu.guilttrip.model.entry.Period;
+import seedu.guilttrip.model.reminders.EntryReminder;
+import seedu.guilttrip.model.reminders.GeneralReminder;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.storage.conditions.JsonAdaptedCondition;
 
 /**
- * Constructs a {@code JsonAdaptedReminder} with the given reminder details.
+ * Constructs a {@code JsonAdaptedReminder} with the given generalReminder details.
  */
 public class JsonAdaptedReminder {
-    private final String message;
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private String status;
+    private String reminderType;
+    private String header;
+    private String uniqueId;
+
     private final List<JsonAdaptedCondition> conditions = new ArrayList<>();
-    private final String trackerType;
-    private final double currSum;
-    private final double quota;
-    private final String status;
+
+    private String period;
+    private String freq;
+
 
     @JsonCreator
-    public JsonAdaptedReminder(@JsonProperty("message") String message,
+    public JsonAdaptedReminder(@JsonProperty("status") String status,
+                               @JsonProperty("reminderType") String reminderType,
+                               @JsonProperty("header") String header,
+                               @JsonProperty("uniqueID") String uniqueId,
                                @JsonProperty("conditions") List<JsonAdaptedCondition> conditions,
-                               @JsonProperty("tkrtyp") String trackerType,
-                               @JsonProperty("currSum") double currSum,
-                               @JsonProperty("tkrQuota") double quota,
-                               @JsonProperty("status") String status) {
-        this.message = message;
-        this.conditions.addAll(conditions);
-        this.trackerType = trackerType;
-        this.currSum = currSum;
-        this.quota = quota;
+                               @JsonProperty("period") String period,
+                               @JsonProperty("freq") String freq) {
         this.status = status;
+        this.reminderType = reminderType;
+        this.header = header;
+        this.uniqueId = uniqueId;
+        this.conditions.addAll(conditions);
+        this.period = period;
+        this.freq = freq;
     }
 
     /**
-     * Converts a given {@code Reminder} into this class for Jackson use.
+     * Converts a given {@code GeneralReminder} into this class for Jackson use.
      */
     public JsonAdaptedReminder(Reminder source) {
-        this.message = source.getMessage().toString();
-        conditions.addAll(source.getConditions().stream()
-                .map(JsonAdaptedCondition::new)
-                .collect(Collectors.toList()));
-        this.trackerType = source.getTrackerType().toString();
-        this.currSum = source.getCurrSum();
-        this.quota = source.getTrackerQuota();
-        this.status = source.getStatus().toString();
+        status = source.getStatus().toString();
+        uniqueId = source.getUniqueId();
+        header = source.getHeader().toString();
+        if (source instanceof GeneralReminder) {
+            GeneralReminder generalReminder = (GeneralReminder) source;
+            reminderType = "GeneralReminder";
+            conditions.addAll(generalReminder.getConditions().stream()
+                    .map(JsonAdaptedCondition::new)
+                    .collect(Collectors.toList()));
+        } else if (source instanceof EntryReminder) {
+            EntryReminder entryReminder = (EntryReminder) source;
+            reminderType = "EntryReminder";
+            period = entryReminder.getPeriod().toString();
+            freq = entryReminder.getFrequency().toString();
+        }
     }
 
     /**
-     * Converts this Jackson-friendly adapted reminder object into the model's {@code Reminder} object.
+     * Converts this Jackson-friendly adapted generalReminder object into the model's {@code GeneralReminder} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted reminder.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted generalReminder.
      */
     public Reminder toModelType() throws IllegalValueException {
-        final List<Condition> conditionList = new ArrayList<>();
-        for (JsonAdaptedCondition condition : conditions) {
-            conditionList.add(condition.toModelType());
+        logger.info("Header: " + header);
+        if (reminderType.equalsIgnoreCase("GeneralReminder")) {
+            final List<Condition> conditionList = new ArrayList<>();
+            for (JsonAdaptedCondition condition : conditions) {
+                conditionList.add(condition.toModelType());
+            }
+            if (!Description.isValidDescription(header)) {
+                throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+            }
+            final Description modelMessage = new Description(header);
+            GeneralReminder modelGeneralReminder = new GeneralReminder(modelMessage, conditionList);
+            return modelGeneralReminder;
+        } else if (reminderType.equalsIgnoreCase("EntryReminder")) {
+            if (!Description.isValidDescription(header)) {
+                throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
+            }
+            final Description modelHeader = new Description(header);
+            final Period modelPeriod = new Period(period);
+            final Frequency modelFreq = Frequency.parse(freq);
+            EntryReminder entryReminder = new EntryReminder(modelHeader, uniqueId, modelPeriod, modelFreq);
+            return entryReminder;
+        } else {
+            throw new IllegalValueException("Unsupported reminder.");
         }
-        if (!Description.isValidDescription(message)) {
-            throw new IllegalValueException(Description.MESSAGE_CONSTRAINTS);
-        }
-        final Description modelMessage = new Description(message);
-        Reminder modelReminder = new Reminder(modelMessage, conditionList);
-        if (!trackerType.toLowerCase().equals("none")) {
-            modelReminder.setTracker(Reminder.TrackerType.parse(trackerType), currSum, quota);
-        }
-        modelReminder.setStatus(this.status);
-        return modelReminder;
     }
 }

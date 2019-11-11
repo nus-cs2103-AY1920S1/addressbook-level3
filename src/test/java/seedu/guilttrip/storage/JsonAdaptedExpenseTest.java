@@ -7,6 +7,7 @@ import static seedu.guilttrip.testutil.TypicalEntries.TRAVEL_EXPENSE;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,7 @@ import seedu.guilttrip.model.entry.Description;
 
 public class JsonAdaptedExpenseTest {
 
+    private static final String INVALID_UNIQUE_ID = "";
     private static final String INVALID_CATEGORY = "";
     private static final String INVALID_AMOUNT_NEGATIVE = "-0.98";
     private static final String INVALID_AMOUNT_3_DP = "1.999";
@@ -26,6 +28,7 @@ public class JsonAdaptedExpenseTest {
     private static final String INVALID_DATE_WRONG_FORMAT = "2019/02-02";
     private static final String INVALID_TAG = "#friend";
 
+    private static final String VALID_UNIQUE_ID = UUID.randomUUID().toString();
     private static final String VALID_DESCRIPTION = TRAVEL_EXPENSE.getDesc().toString();
     private static final String VALID_CATEGORY = TRAVEL_EXPENSE.getCategory().toString();
     private static final String VALID_DATE = TRAVEL_EXPENSE.getDate().toString();
@@ -43,7 +46,7 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_invalidNegativeAmount_throwsIllegalValueException() {
         JsonAdaptedExpense expenseWithInvalidNegativeAmount =
-                new JsonAdaptedExpense(VALID_CATEGORY, VALID_DESCRIPTION, INVALID_AMOUNT_NEGATIVE,
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, VALID_CATEGORY, VALID_DESCRIPTION, INVALID_AMOUNT_NEGATIVE,
                         VALID_DATE, VALID_TAG);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, expenseWithInvalidNegativeAmount::toModelType);
@@ -52,7 +55,8 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_invalidDecimalAmount_throwsIllegalValueException() {
         JsonAdaptedExpense expenseWithInvalidDecimalPlaces =
-                new JsonAdaptedExpense(VALID_CATEGORY, VALID_DESCRIPTION, INVALID_AMOUNT_3_DP, VALID_DATE, VALID_TAG);
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, VALID_CATEGORY, VALID_DESCRIPTION,
+                        INVALID_AMOUNT_3_DP, VALID_DATE, VALID_TAG);
         String expectedMessage = Amount.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, expenseWithInvalidDecimalPlaces::toModelType);
     }
@@ -60,7 +64,7 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_nullDesc_throwsIllegalValueException() {
         JsonAdaptedExpense expenseWithNullName =
-                new JsonAdaptedExpense(VALID_CATEGORY, null, VALID_AMOUNT,
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, VALID_CATEGORY, null, VALID_AMOUNT,
                         VALID_DATE, VALID_TAG);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Description.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expenseWithNullName::toModelType);
@@ -69,7 +73,7 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_invalidDateDaysExceeded_throwsIllegalArgumentException() {
         JsonAdaptedExpense expenseWithInvalidDate =
-                new JsonAdaptedExpense(VALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, VALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
                         INVALID_DATE_DAYS_EXCEEDED, VALID_TAG);
         String expectedMessage = Date.MESSAGE_CONSTRAINTS_FOR_ENTRIES;
         assertThrows(IllegalValueException.class, expectedMessage, expenseWithInvalidDate::toModelType);
@@ -78,7 +82,7 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_invalidDateWrongFormat_throwsIllegalArgumentException() {
         JsonAdaptedExpense expenseWithInvalidDate =
-                new JsonAdaptedExpense(VALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, VALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
                         INVALID_DATE_WRONG_FORMAT, VALID_TAG);
         String expectedMessage = Date.MESSAGE_CONSTRAINTS_FOR_ENTRIES;
         assertThrows(IllegalValueException.class, expectedMessage, expenseWithInvalidDate::toModelType);
@@ -87,7 +91,7 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_nullCategoryName_throwsIllegalValueException() {
         JsonAdaptedExpense expenseWithNullCategoryName =
-                new JsonAdaptedExpense(null, VALID_DESCRIPTION, VALID_AMOUNT,
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, null, VALID_DESCRIPTION, VALID_AMOUNT,
                         VALID_DATE, VALID_TAG);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Category.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, expenseWithNullCategoryName::toModelType);
@@ -96,7 +100,7 @@ public class JsonAdaptedExpenseTest {
     @Test
     public void toModelType_invalidCategoryName_throwsIllegalValueException() {
         JsonAdaptedExpense expenseWithNullCategoryName =
-                new JsonAdaptedExpense(INVALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, INVALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
                         VALID_DATE, VALID_TAG);
         String expectedMessage = Category.MESSAGE_CONSTRAINTS_NAME_NOT_EMPTY;
         assertThrows(IllegalArgumentException.class, expectedMessage, expenseWithNullCategoryName::toModelType);
@@ -107,7 +111,7 @@ public class JsonAdaptedExpenseTest {
         List<JsonAdaptedTag> invalidTags = new ArrayList<>(VALID_TAG);
         invalidTags.add(new JsonAdaptedTag(INVALID_TAG));
         JsonAdaptedExpense expenseWithInvalidTags =
-                new JsonAdaptedExpense(VALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
+                new JsonAdaptedExpense(VALID_UNIQUE_ID, VALID_CATEGORY, VALID_DESCRIPTION, VALID_AMOUNT,
                         VALID_DATE, invalidTags);
         assertThrows(IllegalValueException.class, expenseWithInvalidTags::toModelType);
     }
