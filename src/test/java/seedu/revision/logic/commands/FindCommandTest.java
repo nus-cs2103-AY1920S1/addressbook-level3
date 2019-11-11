@@ -8,7 +8,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.revision.testutil.TypicalMcqs.MCQ_E;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_F;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_G;
-import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalMcqs;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,8 +27,8 @@ import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredic
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getMcqRevisionTool(), new UserPrefs(), new History());
-    private Model expectedModel = new ModelManager(getMcqRevisionTool(), new UserPrefs(), new History());
+    private Model model = new ModelManager(getTypicalMcqs(), new UserPrefs(), new History());
+    private Model expectedModel = new ModelManager(getTypicalMcqs(), new UserPrefs(), new History());
 
     @Test
     public void equals() {

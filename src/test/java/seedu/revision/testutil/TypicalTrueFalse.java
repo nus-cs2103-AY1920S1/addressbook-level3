@@ -51,15 +51,15 @@ public class TypicalTrueFalse {
     /**
      * Returns an {@code RevisionTool} with all the typical answerables.
      */
-    public static RevisionTool getTrueFalseRevisionTool() {
+    public static RevisionTool getTypicalTrueFalseQuestions() {
         RevisionTool trueFalseRevisionTool = new RevisionTool();
-        for (Answerable answerable : getTypicalTrueFalse()) {
+        for (Answerable answerable : getTypicalTrueFalseQuestionsAsList()) {
             trueFalseRevisionTool.addAnswerable(answerable);
         }
         return trueFalseRevisionTool;
     }
 
-    public static List<Answerable> getTypicalTrueFalse() {
+    public static List<Answerable> getTypicalTrueFalseQuestionsAsList() {
         return new ArrayList<>(Arrays.asList(TF_A, TF_B, TF_C,
                 TF_D));
     }

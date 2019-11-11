@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
-import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalMcqs;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,7 +37,7 @@ public class RevisionToolTest {
 
     @Test
     public void resetData_withValidReadOnlyRevisionTool_replacesData() {
-        RevisionTool newData = getMcqRevisionTool();
+        RevisionTool newData = getTypicalMcqs();
         revisionTool.resetData(newData);
         assertEquals(newData, revisionTool);
     }

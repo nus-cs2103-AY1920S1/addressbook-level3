@@ -125,9 +125,7 @@ public class StartQuizWindowTest {
         robot.write(ANSWER_VALID_MCQ);
         robot.type(KeyCode.ENTER);
         int numberOfAlerts = getNumberOfWindowsShown(robot, AlertDialog.NEXT_LEVEL_TITLE);
-        assertEquals(
-
-                1, numberOfAlerts);
+        assertEquals(1, numberOfAlerts);
         robot.type(KeyCode.ENTER);
     }
 

@@ -6,7 +6,7 @@ import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalMcqs.H_ANSWERABLE;
 import static seedu.revision.testutil.TypicalMcqs.I_ANSWERABLE;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
-import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalMcqs;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -63,7 +63,7 @@ public class JsonRevisionToolStorageTest {
     @Test
     public void readAndSaveRevisionTool_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempAddressBook.json");
-        RevisionTool original = getMcqRevisionTool();
+        RevisionTool original = getTypicalMcqs();
         JsonRevisionToolStorage jsonRevisionToolStorage = new JsonRevisionToolStorage(filePath);
 
         // Save in new file and read back

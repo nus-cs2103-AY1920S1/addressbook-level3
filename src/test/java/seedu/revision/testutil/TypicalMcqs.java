@@ -78,15 +78,15 @@ public class TypicalMcqs {
     /**
      * Returns an {@code RevisionTool} with all the typical answerables.
      */
-    public static RevisionTool getMcqRevisionTool() {
+    public static RevisionTool getTypicalMcqs() {
         RevisionTool mcqRevisionTool = new RevisionTool();
-        for (Answerable answerable : getTypicalMcqs()) {
+        for (Answerable answerable : getTypicalMcqsList()) {
             mcqRevisionTool.addAnswerable(answerable);
         }
         return mcqRevisionTool;
     }
 
-    private static List<Answerable> getTypicalMcqs() {
+    private static List<Answerable> getTypicalMcqsList() {
         return new ArrayList<>(Arrays.asList(MCQ_C, MCQ_D, MCQ_E,
                 MCQ_F, MCQ_G));
     }

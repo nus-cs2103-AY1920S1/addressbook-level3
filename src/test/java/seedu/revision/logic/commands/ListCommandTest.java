@@ -1,6 +1,6 @@
 package seedu.revision.logic.commands;
 
-import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalMcqs;
 
 import org.junit.jupiter.api.BeforeEach;
 
@@ -27,7 +27,7 @@ public class ListCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(getMcqRevisionTool(), new UserPrefs(), new History());
+        model = new ModelManager(getTypicalMcqs(), new UserPrefs(), new History());
         expectedModel = new ModelManager(model.getRevisionTool(), new UserPrefs(), new History());
     }
 

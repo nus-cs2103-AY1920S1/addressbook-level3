@@ -49,15 +49,15 @@ public class TypicalSaqs {
     /**
      * Returns an {@code RevisionTool} with all the typical answerables.
      */
-    public static RevisionTool getSaqRevisionTool() {
+    public static RevisionTool getTypicalSaqs() {
         RevisionTool saqRevisionTool = new RevisionTool();
-        for (Answerable answerable : getTypicalSaq()) {
+        for (Answerable answerable : getTypicalSaqsList()) {
             saqRevisionTool.addAnswerable(answerable);
         }
         return saqRevisionTool;
     }
 
-    public static List<Answerable> getTypicalSaq() {
+    public static List<Answerable> getTypicalSaqsList() {
         return new ArrayList<>(Arrays.asList(SAQ_A, SAQ_B));
     }
 }

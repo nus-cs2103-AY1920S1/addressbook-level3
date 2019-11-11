@@ -13,7 +13,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtInde
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_INVALID_CORRECT_ANSWER_LIST;
-import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
+import static seedu.revision.testutil.TypicalMcqs.getTypicalMcqs;
 
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +39,7 @@ import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
  */
 public class EditCommandTest {
 
-    private Model model = new ModelManager(getMcqRevisionTool(), new UserPrefs(), new History());
+    private Model model = new ModelManager(getTypicalMcqs(), new UserPrefs(), new History());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws ParseException {
