@@ -1,22 +1,20 @@
 package budgetbuddy.logic.commands.accountcommands;
 
-import static budgetbuddy.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import budgetbuddy.commons.core.index.Index;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import budgetbuddy.logic.commands.CommandResult;
-import budgetbuddy.model.AccountsManager;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
 import budgetbuddy.model.account.Account;
 import budgetbuddy.model.account.NameHasKeywordsPredicate;
 import budgetbuddy.testutil.accountutil.TypicalAccounts;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AccountFindCommandTest {
     private Model model = new ModelManager();

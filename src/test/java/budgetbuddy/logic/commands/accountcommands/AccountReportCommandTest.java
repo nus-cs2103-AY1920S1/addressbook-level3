@@ -1,19 +1,19 @@
 package budgetbuddy.logic.commands.accountcommands;
 
+import static budgetbuddy.testutil.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import budgetbuddy.commons.core.index.Index;
-import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.logic.commands.exceptions.CommandException;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
 import budgetbuddy.testutil.TypicalIndexes;
 import budgetbuddy.testutil.accountutil.TypicalAccounts;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import static budgetbuddy.testutil.Assert.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class AccountReportCommandTest {
     private Model model = new ModelManager();

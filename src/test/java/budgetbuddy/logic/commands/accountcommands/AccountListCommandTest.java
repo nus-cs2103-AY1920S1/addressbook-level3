@@ -1,10 +1,7 @@
 package budgetbuddy.logic.commands.accountcommands;
 
-
 import static budgetbuddy.logic.commands.CommandTestUtil.assertCommandSuccess;
 
-import budgetbuddy.model.account.Account;
-import budgetbuddy.testutil.accountutil.TypicalAccounts;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +9,8 @@ import budgetbuddy.logic.commands.CommandCategory;
 import budgetbuddy.logic.commands.CommandResult;
 import budgetbuddy.model.Model;
 import budgetbuddy.model.ModelManager;
-
+import budgetbuddy.model.account.Account;
+import budgetbuddy.testutil.accountutil.TypicalAccounts;
 
 public class AccountListCommandTest {
 

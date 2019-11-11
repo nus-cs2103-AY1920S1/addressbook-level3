@@ -1,7 +1,6 @@
 package budgetbuddy.logic.commands.loancommands;
 
 import static budgetbuddy.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static budgetbuddy.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -9,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import budgetbuddy.logic.commands.accountcommands.AccountListCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

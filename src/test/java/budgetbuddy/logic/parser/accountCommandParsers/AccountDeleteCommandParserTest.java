@@ -5,11 +5,11 @@ import static budgetbuddy.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static budgetbuddy.logic.parser.CommandParserUtil.MESSAGE_INVALID_INDEX;
 import static budgetbuddy.testutil.Assert.assertThrows;
 
-import budgetbuddy.logic.commands.accountcommands.AccountDeleteCommand;
-import budgetbuddy.logic.parser.commandparsers.accountcommandparsers.AccountDeleteCommandParser;
 import org.junit.jupiter.api.Test;
 
+import budgetbuddy.logic.commands.accountcommands.AccountDeleteCommand;
 import budgetbuddy.logic.commands.exceptions.CommandException;
+import budgetbuddy.logic.parser.commandparsers.accountcommandparsers.AccountDeleteCommandParser;
 import budgetbuddy.logic.parser.exceptions.ParseException;
 import budgetbuddy.testutil.TypicalIndexes;
 
