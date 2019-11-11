@@ -284,14 +284,14 @@ image::out_ug_4.png[]
 * The income includes "clothes" under the `CATEGORY` field.
 +
 .Expenditure Logging Example 3
-image::out_ug_5.png[]
+image::out_ug_5.png[pdfwidth=70%]
 +
 . Budget with similar categories and time period.
 * Entry 3 of the _Budget_ tab has `clothes` under its `CATEGORY` field.
 * Entry 3 of the _Budget_ tab has a deadline set to "01/01/2021".
 +
 .Budget with 'clothes' category
-image::out_ug_6.png[]
+image::out_ug_6.png[pdfwidth=70%]
 +
 . Expenditure added
 * The expenditure is added to the bottom of the _Transaction_ tab.
@@ -299,13 +299,13 @@ image::out_ug_6.png[]
 * The added expenditure is tagged under the `clothes` category.
 +
 .Sample Expenditure 3 Added
-image::out_ug_7.png[]
+image::out_ug_7.png[pdfwidth=70%]
 +
 . Budget entry updated
 * The remaining amount of entry 3 of the _Budget_ tab has decreased from "$1000" to "$900".
 +
 .Budget entry updated
-image::out_ug_8.png[]
+image::out_ug_8.png[pdfwidth=70%]
 
 
 ===== Example Commands:
@@ -784,12 +784,13 @@ Format (Projections): Cannot be updated
 * You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of "index" `INDEX` does not exists.
 * `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
 * You cannot change an `in` _Transaction_ to an `out` _Transaction_ or vice versa.
-* Changing an expenditure's (`out` Transaction) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in <<UG_UPDATE_EXAMPLE_3>>)
+* Changing an expenditure's (`out` Transaction) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in *Example 3* below).
 [NOTE]
 Changing the categories of an `out` _Transaction_ entry with similar categories to that of a _Budget_ entry to reflect changes on the budget's remaining amount will be incoming in version 2.0.
 
-==== Example Usage
 //end::update1[]
+
+==== Example Usage
 
 ===== Example 1:
 
@@ -830,8 +831,6 @@ image::update_ug_5.png[]
 .Success Message for the Update Example 2
 image::update_ug_6.png[]
 
-//tag::update2[]
-
 [[UG_UPDATE_EXAMPLE_3]]
 ===== Example 3:
 
@@ -840,27 +839,29 @@ Updating a _Transaction_ entry which has the same category field as a _Budget_ e
 . Identify the *index number* of the _Transaction_ entry you want to edit.
 +
 .Transaction Sharing a Category with a Budget
-image::update_ug_7.png[]
+image::update_ug_7.png[pdfwidth=70%]
 +
 . Notice that a _Budget_ entry has the same `CATEGORY` field as the _Transaction_ entry mentioned above. (_Budget_ entry 2).
 +
 .Budget Sharing a Category with the Target Transaction
-image::update_ug_8.png[]
+image::update_ug_8.png[pdfwidth=70%]
 +
 . Put "t" as your `TYPE` input and key in the fields you want to change. In this case, we will be changing only the `AMOUNT` of this _Transaction_.
 +
 .User Input for the Update Example 3
-image::update_ug_9.png[]
+image::update_ug_9.png[pdfwidth=70%]
 +
 . Success message will be displayed upon successful update. Fields of the _Transaction_ entry will now be updated accordingly.
 +
 .Success Message for the Update Example 3
-image::update_ug_10.png[]
+image::update_ug_10.png[pdfwidth=70%]
 +
 . Remaining amount of the _Budget_ entry will also be updated accordingly.
 +
 .Automatic Update of Relevant Budget
-image::update_ug_11.png[]
+image::update_ug_11.png[pdfwidth=70%]
+
+//tag::update2[]
 
 ===== Example Commands:
 
