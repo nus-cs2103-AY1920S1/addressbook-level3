@@ -29,7 +29,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.statistics.StatisticsCommandParserTest;
 import seedu.address.model.question.OpenEndedQuestion;
 import seedu.address.model.question.Question;
-import seedu.address.model.student.Student;
 import seedu.address.testutil.QuestionUtil;
 
 public class NjoyParserTest {
@@ -195,13 +194,13 @@ public class NjoyParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-                        -> parser.parseCommand(""));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        HelpCommand.MESSAGE_USAGE), () -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
-                -> parser.parseCommand("unknownCommand"));
+        assertThrows(ParseException.class,
+                MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
 }
