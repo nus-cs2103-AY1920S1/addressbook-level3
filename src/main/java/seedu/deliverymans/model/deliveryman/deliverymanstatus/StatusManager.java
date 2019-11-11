@@ -13,10 +13,9 @@ import seedu.deliverymans.model.deliveryman.exceptions.InvalidStatusChangeExcept
 import seedu.deliverymans.model.deliveryman.exceptions.NoMoreAvailableDeliverymanException;
 
 /**
- * A list that primarily focuses on the status of the deliverymen.
- * Handles the statuses of the deliverymen.
+ * Manages and handles the statuses of the deliverymen.
  * Issues related to the current statuses of the deliverymen are directed here.
- * Not allowed to edit information regarding personal info of deliverymen.
+ * Not allowed to edit identity and data field of deliverymen other than their statuses.
  */
 public class StatusManager {
 
@@ -29,18 +28,16 @@ public class StatusManager {
      * Can only be called by higher-level classes that uses this class (ie. DeliverymenDatabase)
      */
     public void initStatusLists(UniqueDeliverymanList deliverymenList) {
-        availableMen.clear();
-        unavailableMen.clear();
-        deliveringMen.clear();
+        resetStatusLists();
         for (Deliveryman man : deliverymenList) {
             switch (man.getStatus().getDescription()) {
-            case "AVAILABLE":
+            case AVAILABLE_STATUS:
                 availableMen.add(man);
                 break;
-            case "UNAVAILABLE":
+            case UNAVAILABLE_STATUS:
                 unavailableMen.add(man);
                 break;
-            case "DELIVERING":
+            case DELIVERING_STATUS:
                 deliveringMen.add(man);
                 break;
             default:
@@ -50,7 +47,9 @@ public class StatusManager {
     }
 
     /**
-     * To be added
+     * Changes a status of a deliveryman from AVAILABLE to UNAVAILABLE, or vice versa.
+     *
+     * @throws InvalidStatusChangeException if deliveryman status is DELIVERING.
      */
     public Deliveryman switchDeliverymanStatus(Deliveryman deliveryman) throws InvalidStatusChangeException {
         String status = deliveryman.getStatus().getDescription();
@@ -63,16 +62,11 @@ public class StatusManager {
         }
     }
 
-    public void addAvailableMan(Deliveryman deliveryman) {
-        availableMen.add(deliveryman);
-    }
-
+    /**
+     * Adds an deliveryman to the unavailable list.
+     */
     public void addUnavailableMan(Deliveryman deliveryman) {
         unavailableMen.add(deliveryman);
-    }
-
-    public void addDeliveringMan(Deliveryman deliveryman) {
-        deliveringMen.add(deliveryman);
     }
 
     /**
@@ -81,9 +75,9 @@ public class StatusManager {
      */
     public void removeDeliveryman(Deliveryman target) {
         requireNonNull(target);
-        assert (target.getStatus().getDescription().equals("AVAILABLE")
-                || target.getStatus().getDescription().equals("UNAVAILABLE")
-                || target.getStatus().getDescription().equals("DELIVERING"));
+        assert (target.getStatus().getDescription().equals(AVAILABLE_STATUS)
+                || target.getStatus().getDescription().equals(UNAVAILABLE_STATUS)
+                || target.getStatus().getDescription().equals(DELIVERING_STATUS));
 
         for (Deliveryman man: availableMen) {
             if (target.isSameDeliveryman(man)) {
@@ -136,7 +130,16 @@ public class StatusManager {
         return availableMen.stream().anyMatch(toCheck::isSameDeliveryman);
     }
 
-    // ========== Methods for Order assignment ===================================================================
+    /**
+     * Clears all the status lists.
+     */
+    public void resetStatusLists() {
+        availableMen.clear();
+        unavailableMen.clear();
+        deliveringMen.clear();
+    }
+
+    // ========== Methods related to order ===================================================================
 
     /**
      * Returns an available deliveryman to the DeliverymenDatabase.
@@ -168,7 +171,7 @@ public class StatusManager {
      * Resets the status of the deliveryman after an order has become inactive (ie. deleted or completed).
      */
     public Deliveryman updateDeliverymanStatusAfterChangesToOrder(Deliveryman deliveryman) {
-        return updateStatusOf(deliveryman, "AVAILABLE");
+        return updateStatusOf(deliveryman, AVAILABLE_STATUS);
     }
 
     /**
@@ -184,13 +187,13 @@ public class StatusManager {
      */
     public void removePreviousStatus(Deliveryman deliveryman) {
         switch (deliveryman.getStatus().getDescription()) {
-        case "AVAILABLE":
+        case AVAILABLE_STATUS:
             availableMen.remove(deliveryman);
             break;
-        case "UNAVAILABLE":
+        case UNAVAILABLE_STATUS:
             unavailableMen.remove(deliveryman);
             break;
-        case "DELIVERING":
+        case DELIVERING_STATUS:
             deliveringMen.remove(deliveryman);
             break;
         default:
@@ -200,6 +203,7 @@ public class StatusManager {
 
     /**
      * Assigns new status tag to a deliveryman.
+     * This returns a new deliveryman with same data and identity fields but with the new status.
      */
     public Deliveryman assignStatusTagTo(Deliveryman deliveryman, String strNewStatus) {
         Deliveryman updatedDeliveryman;

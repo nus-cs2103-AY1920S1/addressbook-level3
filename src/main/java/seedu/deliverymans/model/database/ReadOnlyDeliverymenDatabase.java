@@ -9,7 +9,7 @@ import seedu.deliverymans.model.deliveryman.Deliveryman;
 public interface ReadOnlyDeliverymenDatabase {
     /**
      * Returns an unmodifiable view of the deliverymen list.
-     * This list will not contain any duplicate delieverymen.
+     * This list will not contain any duplicate deliverymen.
      */
     ObservableList<Deliveryman> getDeliverymenList();
 }

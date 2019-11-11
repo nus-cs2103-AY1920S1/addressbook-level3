@@ -6,6 +6,7 @@ import java.util.Objects;
  * A list that contains 3 status tags.
  */
 public class UniqueStatusList {
+
     public static final String AVAILABLE_STATUS = "AVAILABLE";
     public static final String UNAVAILABLE_STATUS = "UNAVAILABLE";
     public static final String DELIVERING_STATUS = "DELIVERING";

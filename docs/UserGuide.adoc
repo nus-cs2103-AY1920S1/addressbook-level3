@@ -689,10 +689,10 @@ Example: `add n/John Doe p/91234567`
 ====
 .Note:
 * A newly-added deliveryman will be assigned with the default status *UNAVAILABLE*.
-* Tags cannot be added through this command. Refer to the `edit` command in _Section 3.4.4_ to add tags to a deliveryman.
+* Tags cannot be added through this command. Refer to the `edit` command in <<Editing a deliveryman: `edit`, Section 3.4.2>> to add tags to a deliveryman.
 ====
 
-{nbsp} +
+{nbsp}
 
 ==== Editing a deliveryman: `edit`
 
@@ -749,7 +749,7 @@ Example: `lists`
 ==== Changing status of a deliveryman: `status`
 
 This command allows you to switch the status of a deliveryman between *AVAILABLE* and *UNAVAILABLE*. Using this command
-will prompt the status lists as well (that can also be done through `lists` command explained in _Section 3.4.4_).
+will prompt the status lists as well (that can also be done through `lists` command explained in <<Listing status lists of deliverymen: `lists`, Section 3.4.4>>).
 
 Format: `status INDEX`
 
@@ -773,7 +773,7 @@ through changes to orders assigned to him.
 . Your deliveryman, Donald Trump, was on sick leave and his status is currently *UNAVAILABLE*. However, he just informed you
 that he has recovered and is ready to work again! You want to set his status back to *AVAILABLE*.
 
-. You search for his name and identify his index as '2', as shown in the red border. Then you type in the command `status 2`.
+. You search for his name and identify his index as `2`, as shown in the red border. Then you type in the command `status 2`.
 
 image::userguide\BeforeStatusSwitch.png[width="790"]
 
