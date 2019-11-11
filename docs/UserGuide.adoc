@@ -1299,7 +1299,7 @@ allow you to see some of the common descriptive statistics and their relative di
 
 The screenshot below illustrates a sample data set that fulfills all of the above specifications.
 
-.Excel format
+.Screenshot of Valid Excel format
 image::ExcelFormat.png[]
 
 === Help ​-​ `help`
