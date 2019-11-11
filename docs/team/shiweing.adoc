@@ -1,10 +1,10 @@
-= Ng Shi Wei - Project Portfolio
+== Ng Shi Wei - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master
 
-== PROJECT: Tagline
+== PROJECT: TagLine
 
 '''
 
@@ -14,9 +14,15 @@ My team of 5 software engineering students were tasked with enhancing a basic co
 This is  what our project looks like:
 
 .The graphical user interface for TagLine
-image::Ui.png[width=400]
+image::tagline_screenshot.png[width=330]
 
 My role was to design and write the codes for the note commands, including basic add, delete, edit command as well as a filter feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+Note the following formatting used in this document:
+
+* `note list cs` - A grey highlight mark-up (OR red text in PDF) with spaced text indicates that this is a command that can be input into the command line and executed by the application.
+* `ListNoteParser` - A mark-up (OR red text in PDF) in _PascalCase_ indicates the class used.
+* `ListNoteParser#parse()` - The _camelCase_ text after the '#' indicates the method called in the class.
 
 === Summary of contributions
 ---
@@ -100,42 +106,42 @@ Example:
 . When you would like to see all the notes you have in TagLine, you can enter the command `note list`.
 +
 .Entering `note list` command
-image::ug_notelist1.png[width=400]
+image::ug_notelist1.png[width=330]
 
 . All notes are displayed.
 +
 .All notes displayed
-image::ug_notelist2.png[width=400]
+image::ug_notelist2.png[width=330]
 
 . When you would like to find the notes containing the keyword "cs", you can enter the command `note list cs`.
 +
 .Entering `note list` command with keyword
-image::ug_notelist3.png[width=400]
+image::ug_notelist3.png[width=330]
 
 . Notes with the keyword "cs" found in the title or content are displayed.
 +
 .Notes containing keyword displayed
-image::ug_notelist4.png[width=400]
+image::ug_notelist4.png[width=330]
 
 . When you would like to see the notes tagged with the hashtag "assignment", you can enter the command `note list #assignment`.
 +
 .Entering `note list` command with tag filter
-image::ug_notelist5.png[width=400]
+image::ug_notelist5.png[width=330]
 
 . Notes tagged with "#assignment" are displayed.
 +
 .Filtered tagged notes displayed
-image::ug_notelist6.png[width=400]
+image::ug_notelist6.png[width=330]
 
 . When you would like to filter by multiple tags, you can enter the command `note list @00001 %cs2103t`.
 +
 .Entering `note list` command with multiple tag filter
-image::ug_notelist7.png[width=400]
+image::ug_notelist7.png[width=330]
 
 . Notes tagged with contact of contact id "1" or with group with group name "cs2103t" are displayed.
 +
 .Filtered notes displayed
-image::ug_notelist8.png[width=400]
+image::ug_notelist8.png[width=330]
 
 === Contributions to the Developer Guide
 ---
@@ -183,11 +189,11 @@ image::FilterKeywordSequenceDiagram1.png[width=500]
 **Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `NoteFilter` exists and is of `FilterType.KEYWORD`, `ListNoteCommand#filterAndListByKeyword()` will be called.
 
 .Sequence diagram of executing `ListNoteCommand` to update filtered note list by keyword in `Model`
-image::FilterKeywordSequenceDiagram2.png[width=300]
+image::FilterKeywordSequenceDiagram2.png[width=330]
 
 The method will create a `NoteContainsKeywordsPredicate` and update the list of notes to be displayed via `Model#updateFilteredNoteList()`.
 
-image::FilterKeywordExample.png[width=300]
+image::FilterKeywordExample.png[width=330]
 
 ===== Filter by Tag
 
@@ -204,15 +210,15 @@ Given below is an example scenario where the user enters a command to filter not
 The tag strings are passed into `NoteFilterUtil#generateTagFilter()`. `TagParserUtil#parseTag()` is called to get `Tag` from the tag string. `TagFilter` containing the list of tags and `FilterType.TAG` is returned.
 
 .Sequence diagram of parsing user input tag strings to obtain a `ListNoteCommand`
-image::FilterTagSequenceDiagram1.png[width=400]
+image::FilterTagSequenceDiagram1.png[width=330]
 
 **Step 2:** The `ListNoteCommand` returned will be executed by the `LogicManager`. If a `NoteFilter` exists and is of `FilterType.TAG`, `ListNoteCommand#filterAndListByTag()` will be called.
 
 .Sequence diagram of executing `ListNoteCommand` to update filtered note list by `Tag` in `Model`
-image::FilterTagSequenceDiagram2.png[width=400]
+image::FilterTagSequenceDiagram2.png[width=330]
 
 The method will check if the tags in the `NoteFilter` exists via `Model#findTag()`. If a `Tag` does not exist, an error message will be displayed.
 
 If all tags exist, the tags will be passed into the `NoteContainsTagsPredicate` and update the list of notes to be displayed via `Model#updateFilteredNoteList()`.
 
-image::FilterTagExample.png[width=400]
+image::FilterTagExample.png[width=330]

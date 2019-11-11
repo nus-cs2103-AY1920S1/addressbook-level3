@@ -933,24 +933,6 @@ Windows, Linux, Unix, OS-X
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -958,44 +940,6 @@ Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
-
-=== Launch and Shutdown
-
-. Initial launch
-
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
-
-. Saving window preferences
-
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
 
 === Autocomplete
 
@@ -1040,6 +984,91 @@ The autocomplete menu will only pop up *after* the user types in the command box
    *Continuation*: Press the escape key. +
    *Expected*: A special message will be shown indicating that the command has been aborted.
 
+=== Creating a note
+
+. Creating a new note
+.. *Test case:* `note create --T TagLine Testing` +
+    *Expected:* Message on successful creation of note displayed with details of the note. The note created appears in the list of notes in the list pane on the right.
+.. *Test case:* `note create --c This is a creation of a note` +
+    Expected: Similar to previous.
+.. *Test case:* `note create --T TagLine Testing --c This is a creation of a note` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note create --T TagLine Testing --c This is a creation of a note --t #testing` +
+    *Expected:* Similar to previous. The note created shown in the note list reflects the tag "#testing".
+
+.. *Test case:* `note create` +
+    *Expected:* No note is created. A message asking for the note content is displayed. +
+... *Subsequent action:* Enter `This is a creation of a note`.
+*Expected:* Message on successful creation of note displayed with details of the note. The note created appears in the list of notes in the list pane on the right.
+
+.. *Test case:* `note create` +
+    *Expected:* No note is created. A message asking for the note content is displayed. +
+... *Subsequent action:* Press enter without any text.
+Expected: No note is created. An error message is returned with the error details. Command is highlighted red in the command box.
+
+.. *Test case:* `note create --T This is a title of too many characters, more than 50` +
+    *Expected:* No note is created. An error message is returned with the error details. Command is highlighted red in the command box.
+
+=== Deleting a note
+
+. Deleting a note
+
+.. *Test case:* `note delete 1` +
+    *Expected:* Note with the id of "1" is deleted from the note list. A message indicating successful note deletion is displayed with the details of deleted note. +
+    **_An assigned note id is static, deleted note id are not reassigned._*
+.. *Test case:* `note delete 1` (Ensure note with ID '1' is has been removed) +
+    *Expected:* No note is deleted. An error message is displayed with the error details. Command is highlighted red in the command box.
+.. *Test case:* `note delete a` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note delete X` (Where X is an is a number not used as a note id i.e -1) +
+    *Expected:* Similar to previous.
+
+=== Editing a note
+. Editing the sample note with id 2 upon launch
+.. *Prerequisite:* Ensure the sample notes appear in the application and note #2 is an untitled note.
+
+.. *Test case:* `note edit` +
+    *Expected:* No note is edited. An error message is displayed with the error details. Command is highlighted red in the command box.
+.. *Test case:* `note edit 2` +
+    *Expected:* Similar to previous.
+.. *Test case:* `note edit 2 --c ````` (With a space after '--c' as the prefix is '--c ') +
+    *Expected:* Similar to previous.
+.. *Test case:* `note edit 2 --c Team Meeting - Wed 4pm` +
+    *Expected:* Message on successful edit of note displayed with details of the note. The note edited is reflected in the list of notes in the list pane on the right.
+.. *Test case:* `note edit 2 --T CS2103T Meeting` +
+    *Expected:* Similar to previous.
+
+=== Listing and filtering notes
+
+. Listing all notes
+.. Prerequisite: Change list pane to list other information. E.g. `contact list`
+.. Test case: `note list` +
+    Expected: Message on successful listing is displayed. All notes are listed in the list pane on the right pane.
+
+. Filtering notes by keywords in content
+.. Test case: `note list cs` +
+    Expected: Message on successful listing is displayed. Notes containing keyword are listed in the list pane on the right pane.
+.. Test case: `note list team bug` +
+    Expected:  Message on successful listing is displayed. Notes containing any of the keywords are listed in the list pane on the right pane.
+.. Test case: `note list notfound` +
+    Expected: No notes are listed. Message is displayed stating that no notes matching keyword is found.
+
+. Filtering notes by tag
+.. Prerequisite: Ensure the sample tags are in the application with `tag list`
+
+.. Test case: `note list #songs` +
+    Expected: Message on successful listing is displayed. Notes tagged by specified tag are listed in the list pane on the right pane.
+.. Test case: `note list @1` +
+    Expected: Similar to previous.
+.. Test case: `note list %cs2103t` +
+    Expected: Similar to previous.
+.. Test case: `note list @1 %cs2103t` +
+    Expected: Similar to previous. Notes tagged by any of the tags specified are listed in the list pane on the right pane.
+.. Test case: `note list #notfound` +
+    Expected: No notes are listed. Message is displayed stating that tag cannot be found.
+.. Test case: `note list #songs #notfound` +
+    Expected: Similar to previous.
+
 === Creating a group
 
 . Creating a group with no members with all groups listed
@@ -1071,7 +1100,6 @@ The autocomplete menu will only pop up *after* the user types in the command box
 .. *Test case*: `group add archive of our own --i 1` +
    *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
 
-
 === Removing members from a group
 
 . Removing members from a group with the group currently being displayed
@@ -1085,14 +1113,12 @@ The autocomplete menu will only pop up *after* the user types in the command box
 .. *Test case*: `group remove bangtan sonyeondan --i 1` +
    *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
 
-
 === List all available groups
 
 . List all groups.
 .. *Prerequisites*: Must contain at least one Group
 .. *Test case*: `group list` +
    *Expected*: All groups are listed. Status message indicates "Success! Listing groups found."
-
 
 === Find a specific group
 
