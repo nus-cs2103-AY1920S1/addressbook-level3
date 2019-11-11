@@ -1140,6 +1140,17 @@ Data in treasurerPro is saved automatically after executing any command. There i
 *Q*: Can I modify the data files myself? +
 *A*: No, any external modification to the app's data files *WILL* result in loss of all data. You have been warned.
 
+*Q*: What happens if I accidentally modified the data files? +
+*A*: If the transactionHistory.txt file is changed, the Home and Reimbursements tab will start with an empty table.
+If the inventoryInformation.txt file is changed, the app will not open. To remedy, delete the txt file.
+If the mytasks.txt and tasks.txt files are changed, the Overview tab lose the notification reminders set.
+If the addressbook.json is changed, the Members tab will start with an empty list.
+On the other hand, if the addressbook.json is deleted and not found, a sample list of members will be populated in
+the Members tab.
+If the reimbursementInformation.txt is altered, all deadline data will be lost but the application will still start.
+In the scenario that the application cannot start, the cases above do not apply and you are not sure what file is modified,
+you would have to delete all the data files which *WILL* result in loss of all data.
+
 *Q*: Can I resize the app window? +
 *A*: No, you may not resize the app window.
 

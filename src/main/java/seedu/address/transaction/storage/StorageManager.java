@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.storage.exception.FileReadException;
@@ -35,7 +36,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public TransactionList readTransactionList() throws FileReadException {
+    public TransactionList readTransactionList() throws FileReadException, PersonNotFoundException{
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             file.getAbsoluteFile().getParentFile().mkdirs();
@@ -75,7 +76,8 @@ public class StorageManager implements Storage {
      * @param personModel Address Book model.
      * @return Transaction created.
      */
-    private static Transaction readInFileLine(String line, CheckAndGetPersonByNameModel personModel) {
+    private static Transaction readInFileLine(String line, CheckAndGetPersonByNameModel personModel)
+            throws PersonNotFoundException {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
