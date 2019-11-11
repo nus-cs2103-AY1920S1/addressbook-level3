@@ -721,17 +721,17 @@ attribute field.
 ** Cons: Bad OOP practice and makes it difficult to implement future changes. It may be unclear what the
 integer value represents and makes debugging more difficult.
 
-===== Design Consideration: Should the user be given the option to toogle the `exit` command reminder?
+===== Design Consideration: Should the user be given the option to toggle the `exit` command reminder?
 
-* **Alternative 1 (current choice):** User is not given the toogle option.
+* **Alternative 1 (current choice):** User is not given the toggle option.
 ** Pros: More in-line with target market. Since StudyBuddyPro is a revision tool the target
-market is likely to always want this feature and probably will not need to toogle it off.
+market is likely to always want this feature and probably will not need to toggle it off.
 ** Cons: Some users may face additional inconvenience when trying to exit StudyBuddyPro
 if they use StudyBuddyPro for other than its intended purpose. For example, a user that
 only wants to use the cheatsheet auto-generation feature may not care for the automatic reminder.
-* **Alternative 2:** User is provided with the toogle option.
+* **Alternative 2:** User is provided with the toggle option.
 ** Pros: More flexibility and customizability of StudyBuddyPro to suit each individual user's needs.
-** Cons: Extra work required to implement the toogle feature. A user may toogle the reminder off when first using the
+** Cons: Extra work required to implement the toggle feature. A user may toggle the reminder off when first using the
 application, and forget about the feature since it is now out of sight. Even if the user requires
 such an automatic reminding functionality in the future, they may have forgotten this feature existed.
 
@@ -743,7 +743,7 @@ correctly or incorrectly to create a more dynamic reminding schedule.
 
 ** Introduce desktop notifications for the user.
 *** As a user may not open StudyBuddyPro everyday, StudyBuddyPro can be integrated with the
-desktop system calender to provide notifications when flashcards are due for revision.
+desktop system calendar to provide notifications when flashcards are due for revision.
 
 // end::remind[]
 
