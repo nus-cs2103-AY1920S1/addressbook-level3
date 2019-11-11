@@ -27,17 +27,19 @@ public class EditTaskCommand extends EditCommand {
 
     public static final String VARIANT_WORD = "task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the task identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "task : Edits the details of the task identified "
             + "by the index number used in the displayed task list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TASKNAME + "TASKNAME] "
-            + "[" + PREFIX_TASKDATE + "TASKDATE] ";
+            + "[" + PREFIX_TASKDATE + "TASKDATE] "
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1 "
+            + PREFIX_TASKNAME + " newTaskName "
+            + PREFIX_TASKDATE + " newTaskDate";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the DukeCooks.";
-    public static final String MESSAGE_NAME_IS_TOO_LONG = "Name entered cannot exceed 30 characters.";
 
     private final Index index;
     private final EditTaskDescriptor editTaskDescriptor;

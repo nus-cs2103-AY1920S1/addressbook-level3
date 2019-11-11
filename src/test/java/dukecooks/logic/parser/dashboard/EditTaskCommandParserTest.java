@@ -10,9 +10,6 @@ import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.dashboard.components.DashboardName;
 import dukecooks.model.dashboard.components.TaskDate;
 
-import static dukecooks.model.dashboard.components.DashboardName.MESSAGE_CONSTRAINTS;
-
-
 public class EditTaskCommandParserTest {
 
     private static final String DATE_EMPTY = " " + CliSyntax.PREFIX_TASKDATE;
@@ -55,14 +52,13 @@ public class EditTaskCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_DASHBOARDNAME_DESC,
-                MESSAGE_CONSTRAINTS); // invalid name
+                DashboardName.MESSAGE_CONSTRAINTS); // invalid name
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_TASKDATE_DESC,
                 TaskDate.MESSAGE_CONSTRAINTS); // invalid date
 
         // multiple invalid values, but only the first invalid value is captured
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_DASHBOARDNAME_DESC
-                + CommandTestUtil.INVALID_TASKDATE_DESC, MESSAGE_CONSTRAINTS);
+                + CommandTestUtil.INVALID_TASKDATE_DESC, DashboardName.MESSAGE_CONSTRAINTS);
     }
-
 
 }
