@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.model.Model;
 import seedu.address.model.earnings.Earnings;
 
+import java.util.List;
+
 /**
  * Gets the total earnings of the user.
  */
@@ -27,9 +29,10 @@ public class TotalEarningsCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        List<Earnings> lastShownList = model.getFilteredEarningsList();
 
         if (Earnings.getTotalEarnings().equals("0.00")) {
-            for (Earnings e : Earnings.getEarningsList()) {
+            for (Earnings e : lastShownList) {
                 Earnings.addToTotalEarnings(e.getAmount());
             }
         }
