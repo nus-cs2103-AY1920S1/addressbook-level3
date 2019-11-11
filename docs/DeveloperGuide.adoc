@@ -499,16 +499,16 @@ image::StartSequenceDiagram.png[width = "600"]
 Aspect: Data structure to support `FlashCardTestModel`:
 
 * **Alternative 1 (Current choice):** `LinkedList` implementation:
-** Pros: Very efficient, with O(1) complexity removing the head of the list every time a question is tested.
-** Cons: Less memory efficient than `ArrayList`.
+** Pros: Very efficient, with O(1) complexity removing the head of the list every time a question is tested
+** Cons: Less memory efficient than `ArrayList`
 * **Alternative 2:** ArrayList implementation:
-** Pros: More memory efficient than `LinkedList`.
+** Pros: More memory efficient than `LinkedList`
 ** Cons: To obtain the same performance as `LinkedList`, the last index/size of the `ArrayList` has to be constantly tracked.
 This slightly decreases code readability compared to the `LinkedList` implementation.
 * **Alternative 3:** Queue interface:
 ** Pros: Use of `Queue` interface brings simplicity to code structure and readability while having the same performance
-as a `LinkedList` implementation.
-** Cons: There will be potential coupling by using `Queue` instead of `List` interface.
+as a `LinkedList` implementation
+** Cons: Potential coupling by using `Queue` instead of `List` interface
 
 NOTE: **Alternative 1** is preferred due to better readability while maintaining O(1) efficiency, i.e. `remove(0)`
 instead of `remove(list.size() - 1)` in `ArrayList` to remove either ends of the list.
@@ -516,9 +516,15 @@ instead of `remove(list.size() - 1)` in `ArrayList` to remove either ends of the
 Aspect: Hiding of the list of `FlashCards` during test mode:
 
 * **Alternative 1 (Current choice):** Adding a new scene in test mode:
-** Pros: There is no need to interfere with the `ObservableList` to hide the `FlashCards` as the
-new scene is layered on top of it.
-** Cons
+** Pros: No need to mutate the `ObservableList` to hide the `FlashCards` as the
+new scene is layered on top of it
+** Cons: Use of multiple scenes will be needed, hence the implementation will be slightly complicated
+* **Alternative 2:** Hiding and showing `FlashCards` by changing `ObservableList`:
+** Pros: Simple to implement
+** Cons: Potentially interferes with other functions, such as the updating of statistics
+
+NOTE: **Alternative 1** is preferred as it does not interfere with the `ObservableList` to hide/show
+the list of `FlashCards`, hence reducing the potential for bugs and side-effects.
 
 // end::dataencryption[]
 

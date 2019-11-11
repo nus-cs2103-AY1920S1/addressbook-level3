@@ -410,7 +410,7 @@ You can stop the test any time simply by typing `end`.
 image::EndCommand.png[width="600"]
 
 By exiting the test mode, normal commands such as `listall` and `add` are re-enabled.
-The entire list of `FlashCards` in the system will be displayed again.
+The list of `FlashCards` in the system will be displayed again.
 
 image::EndResults.png[width="600"]
 
