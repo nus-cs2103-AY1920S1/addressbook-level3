@@ -319,6 +319,9 @@ These operations are exposed in the `ModelManager` class as `ModelManager#addOrd
 Order manager implements its own `Model`, `Command` and `Parser` for the `Logic Component`, `JsonOrderDatabaseStorage`, `JsonSerializableOrderDatabase`, `JsonAdaptedOrder` and `JsonAdaptedFoodOrder`, along with methods in the `StorageManager` for the `Storage Component` and lastly, `OrderCard` and `OrderListPanel` for displaying on the `Ui Component`.
 
 ==== Implementation
+Listed are the implementations of each command.
+
+image::OrderSequenceDiagram.png[width="790"]
 
 **Add command:** `-add_order`
 
