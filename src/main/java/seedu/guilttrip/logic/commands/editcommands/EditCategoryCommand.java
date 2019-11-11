@@ -3,7 +3,7 @@ package seedu.guilttrip.logic.commands.editcommands;
 import static java.util.Objects.requireNonNull;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
+import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_OLD_NAME;
 
 import javafx.collections.ObservableList;
 import seedu.guilttrip.logic.CommandHistory;
@@ -12,6 +12,7 @@ import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.logic.commands.exceptions.CommandException;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Category;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Edits a category from guilttrip();
@@ -25,12 +26,12 @@ public class EditCategoryCommand extends Command {
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: "
-            + PREFIX_TYPE + "TYPE OF CATEGORY "
-            + PREFIX_CATEGORY + "CATEGORY NAME "
+            + PREFIX_CATEGORY + "TYPE OF CATEGORY "
+            + PREFIX_OLD_NAME + "CATEGORY OLD NAME "
             + PREFIX_DESC + "NEW NAME FOR CATEGORY "
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_TYPE + "Expense "
-            + PREFIX_CATEGORY + "Food "
+            + PREFIX_CATEGORY + "Expense "
+            + PREFIX_OLD_NAME + "Food "
             + PREFIX_DESC + "Food And Drink ";
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Category: %1$s";
@@ -53,20 +54,29 @@ public class EditCategoryCommand extends Command {
         this.editCategoryDescriptor = new EditCategoryDescriptor(editCategoryDescriptor);
     }
 
+    /**
+     *  Edits Category toEditCategory in the list of existing categories. Model will handle the check if the category is
+     *  present in the list and if the newly edited category is a duplicate of another existing category.
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the category is
+     * present in the list and if the newly edited category is a duplicate of another existing category.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        //ensures that the category old Name specified does not exist in GuiltTrip
         if (!model.hasCategory(toEditCategory)) {
-            throw new CommandException(String.format(MESSAGE_NONEXISTENT_CATEGORY, toEditCategory.categoryType));
+            throw new CommandException(String.format(MESSAGE_NONEXISTENT_CATEGORY, toEditCategory.getCategoryType()));
         }
         ObservableList<Category> typeOfCategoryList = model.getCategoryList()
                 .determineWhichList(editCategoryDescriptor.getCategoryType());
-        //TODO
         int indexOfEdit = typeOfCategoryList.indexOf(toEditCategory);
         Category categoryToEdit = typeOfCategoryList.get(indexOfEdit);
-        //tbh alr checks
         Category editedCategory = createEditedCategory(categoryToEdit, editCategoryDescriptor);
-        //TODO possible if doesn't work properly
+        //ensures that the new category specified does not exist in guilttrip
         if (categoryToEdit.isSameCategory(editedCategory) || model.hasCategory(editedCategory)) {
             throw new CommandException(MESSAGE_DUPLICATE_CATEGORY);
         }
@@ -77,14 +87,14 @@ public class EditCategoryCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Category} with the details of {@code categoryToEdit}
+     * edited with {@code editCategoryDescriptor}.
      */
     private static Category createEditedCategory(Category categoryToEdit,
                                                  EditCategoryDescriptor editCategoryDescriptor) {
         assert categoryToEdit != null;
         String newCategoryName = editCategoryDescriptor.getCategoryName();
-        String newCategoryType = editCategoryDescriptor.getCategoryType();
+        CategoryType newCategoryType = editCategoryDescriptor.getCategoryType();
         return new Category(newCategoryName, newCategoryType);
     }
 
@@ -112,7 +122,7 @@ public class EditCategoryCommand extends Command {
      */
     public static class EditCategoryDescriptor {
         private String categoryName;
-        private String categoryType;
+        private CategoryType categoryType;
 
         public EditCategoryDescriptor() {}
 
@@ -133,7 +143,7 @@ public class EditCategoryCommand extends Command {
             this.categoryName = catName;
         }
 
-        public void setCategoryType(String catType) {
+        public void setCategoryType(CategoryType catType) {
             this.categoryType = catType;
         }
 
@@ -141,7 +151,7 @@ public class EditCategoryCommand extends Command {
             return categoryName;
         }
 
-        public String getCategoryType() {
+        public CategoryType getCategoryType() {
             return categoryType;
         }
 
@@ -159,7 +169,6 @@ public class EditCategoryCommand extends Command {
 
             // state check
             EditCategoryDescriptor e = (EditCategoryDescriptor) other;
-
             return getCategoryName().equals(e.getCategoryName())
                     && getCategoryType().equals(e.getCategoryType());
         }

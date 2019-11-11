@@ -86,7 +86,6 @@ public class VersionedGuiltTrip extends GuiltTrip {
         }
 
         VersionedGuiltTrip otherVersionedAddressBook = (VersionedGuiltTrip) other;
-        System.out.println(addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList));
         // state check
         return super.equals(otherVersionedAddressBook)
                 && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)

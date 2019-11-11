@@ -1,6 +1,5 @@
 package seedu.guilttrip.logic.parser.addcommandparsers;
 
-import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 
@@ -10,6 +9,7 @@ import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
+import seedu.guilttrip.logic.parser.ParserUtil;
 import seedu.guilttrip.logic.parser.Prefix;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Category;
@@ -20,7 +20,7 @@ import seedu.guilttrip.model.entry.Category;
 public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the AddCategoryCommand
      * and returns an AddCategoryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -28,14 +28,11 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CATEGORY, PREFIX_DESC)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCategoryCommand.MESSAGE_USAGE));
-        }
-
-        String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
+        ParserUtil.errorIfCompulsoryPrefixMissing(AddCategoryCommand.MESSAGE_USAGE, argMultimap, false,
+                PREFIX_CATEGORY, PREFIX_DESC);
         String categoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
-        Category categoryToCreate = new Category(categoryName, categoryType);
+        String catType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
+        Category categoryToCreate = ParserUtil.parseCategory(categoryName, catType);
 
         return new AddCategoryCommand(categoryToCreate);
     }

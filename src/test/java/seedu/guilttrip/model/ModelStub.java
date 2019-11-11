@@ -28,6 +28,10 @@ import seedu.guilttrip.model.statistics.DailyStatistics;
  * A default model stub that have all of the methods failing.
  */
 public class ModelStub implements Model {
+    @Override
+    public boolean categoryHasAnyEntries(Category cat) {
+        throw new AssertionError("This method should not be called.");
+    }
 
     @Override
     public DoubleProperty getTotalExpenseForPeriod() {

@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.guilttrip.model.entry.exceptions.DuplicateEntryException;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
@@ -52,16 +51,7 @@ public class WishList implements Iterable<Wish> {
      */
     public void setWish(Wish target, Wish editedWish) {
         requireAllNonNull(target, editedWish);
-
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EntryNotFoundException();
-        }
-
-        if (!target.equals(editedWish) && contains(editedWish)) {
-            throw new DuplicateEntryException();
-        }
-
         internalList.set(index, editedWish);
     }
 

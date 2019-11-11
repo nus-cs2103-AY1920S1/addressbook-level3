@@ -26,9 +26,9 @@ import seedu.guilttrip.logic.commands.HistoryCommand;
 import seedu.guilttrip.logic.commands.ListBudgetCommand;
 import seedu.guilttrip.logic.commands.ListCategoriesCommand;
 import seedu.guilttrip.logic.commands.ListCommand;
+import seedu.guilttrip.logic.commands.ListWishCommand;
 import seedu.guilttrip.logic.commands.RedoCommand;
 import seedu.guilttrip.logic.commands.UndoCommand;
-import seedu.guilttrip.logic.commands.WishListCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
@@ -76,12 +76,12 @@ import seedu.guilttrip.logic.commands.statisticscommands.ViewEntryCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewPieChartCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.guilttrip.logic.commands.uicommands.ChangeFontCommand;
-import seedu.guilttrip.logic.commands.uicommands.ListFontCommand;
 import seedu.guilttrip.logic.commands.uicommands.SetDarkThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.SetLightThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.TogglePanelCommand;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Amount;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
@@ -89,8 +89,8 @@ import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.Frequency;
-import seedu.guilttrip.ui.util.FontManager;
 import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.PanelName;
 
@@ -216,7 +216,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a time in String to ArrayList.
+     * Parses a time in String to ArrayList. Period is sorted so that the smaller period is first.
      *
      * @param period the time as a String.
      * @return the specified time as Date.
@@ -225,6 +225,7 @@ public class ParserUtil {
         String[] dateArr = period.split(",");
         List<Date> startAndEnd = Arrays.stream(dateArr).map(dateString -> new Date(dateString.trim(), true))
                 .collect(Collectors.toList());
+        startAndEnd.sort((start, end) -> start.getDate().compareTo(end.getDate()));
         return startAndEnd;
     }
 
@@ -250,6 +251,28 @@ public class ParserUtil {
     public static Frequency parseFrequency(String stringFreq) {
         requireNonNull(stringFreq);
         return Frequency.parse(stringFreq);
+    }
+
+    /**
+     * Parses a category from String to CategoryType.
+     *
+     * @param catType the type of category as a String.
+     * @return the type of category as CategoryType.
+     */
+    public static Category parseCategory(String catName, String catType) {
+        requireNonNull(catType);
+        return Category.parseCategory(catName, catType);
+    }
+
+    /**
+     * Parses a categoryType from String to CategoryType.
+     *
+     * @param catType the type of category as a String.
+     * @return the type of category as CategoryType.
+     */
+    public static CategoryType parseCategoryType(String catType) {
+        requireNonNull(catType);
+        return CategoryType.parse(catType);
     }
 
     /**
@@ -347,12 +370,7 @@ public class ParserUtil {
      */
     public static PanelName parsePanelName(String panelName) throws ParseException {
         requireNonNull(panelName);
-        String trimmedPanelName = panelName.trim();
-        if (!PanelName.isValidPanelName(trimmedPanelName)) {
-            throw new ParseException(PanelName.MESSAGE_CONSTRAINTS);
-        }
-
-        return PanelName.parse(trimmedPanelName);
+        return PanelName.parse(panelName);
     }
 
     /**
@@ -372,11 +390,7 @@ public class ParserUtil {
      */
     public static FontName parseFontName(String fontName) throws ParseException {
         requireNonNull(fontName);
-        String trimmedFontName = fontName.trim();
-        if (!FontManager.isValidFontName(trimmedFontName)) {
-            throw new ParseException(FontManager.MESSAGE_CONSTRAINTS);
-        }
-        return new FontName(fontName);
+        return FontName.parse(fontName);
     }
 
     /**
@@ -436,8 +450,7 @@ public class ParserUtil {
                 FindBudgetCommand.COMMAND_WORD,
                 ListCommand.COMMAND_WORD,
                 ListCategoriesCommand.COMMAND_WORD,
-                ListFontCommand.COMMAND_WORD,
-                WishListCommand.COMMAND_WORD,
+                ListWishCommand.COMMAND_WORD,
                 ListBudgetCommand.COMMAND_WORD,
                 ExitCommand.COMMAND_WORD,
                 SortExpenseCommand.COMMAND_WORD,
@@ -505,8 +518,7 @@ public class ParserUtil {
         toReturn.put(FindBudgetCommand.COMMAND_WORD, FindBudgetCommand.ONE_LINER_DESC);
         toReturn.put(ListCommand.COMMAND_WORD, ListCommand.ONE_LINER_DESC);
         toReturn.put(ListCategoriesCommand.COMMAND_WORD, ListCategoriesCommand.ONE_LINER_DESC);
-        toReturn.put(ListFontCommand.COMMAND_WORD, ListFontCommand.ONE_LINER_DESC);
-        toReturn.put(WishListCommand.COMMAND_WORD, WishListCommand.ONE_LINER_DESC);
+        toReturn.put(ListWishCommand.COMMAND_WORD, ListWishCommand.ONE_LINER_DESC);
         toReturn.put(ListBudgetCommand.COMMAND_WORD, ListBudgetCommand.ONE_LINER_DESC);
         toReturn.put(ExitCommand.COMMAND_WORD, ExitCommand.ONE_LINER_DESC);
         toReturn.put(SortExpenseCommand.COMMAND_WORD, SortExpenseCommand.ONE_LINER_DESC);
@@ -575,8 +587,7 @@ public class ParserUtil {
         toReturn.put(FindBudgetCommand.COMMAND_WORD, FindBudgetCommand.MESSAGE_USAGE);
         toReturn.put(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_USAGE);
         toReturn.put(ListCategoriesCommand.COMMAND_WORD, ListCategoriesCommand.MESSAGE_USAGE);
-        toReturn.put(ListFontCommand.COMMAND_WORD, ListFontCommand.MESSAGE_USAGE);
-        toReturn.put(WishListCommand.COMMAND_WORD, WishListCommand.MESSAGE_USAGE);
+        toReturn.put(ListWishCommand.COMMAND_WORD, ListWishCommand.MESSAGE_USAGE);
         toReturn.put(ListBudgetCommand.COMMAND_WORD, ListBudgetCommand.MESSAGE_USAGE);
         toReturn.put(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE);
         toReturn.put(SortExpenseCommand.COMMAND_WORD, SortExpenseCommand.MESSAGE_USAGE);

@@ -19,9 +19,9 @@ import seedu.guilttrip.logic.commands.HistoryCommand;
 import seedu.guilttrip.logic.commands.ListBudgetCommand;
 import seedu.guilttrip.logic.commands.ListCategoriesCommand;
 import seedu.guilttrip.logic.commands.ListCommand;
+import seedu.guilttrip.logic.commands.ListWishCommand;
 import seedu.guilttrip.logic.commands.RedoCommand;
 import seedu.guilttrip.logic.commands.UndoCommand;
-import seedu.guilttrip.logic.commands.WishListCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
@@ -70,7 +70,6 @@ import seedu.guilttrip.logic.commands.statisticscommands.ViewEntryCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewPieChartCommand;
 import seedu.guilttrip.logic.commands.statisticscommands.ViewTableCommand;
 import seedu.guilttrip.logic.commands.uicommands.ChangeFontCommand;
-import seedu.guilttrip.logic.commands.uicommands.ListFontCommand;
 import seedu.guilttrip.logic.commands.uicommands.SetDarkThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.SetLightThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.TogglePanelCommand;
@@ -226,11 +225,8 @@ public class GuiltTripParser {
         case ListCategoriesCommand.COMMAND_WORD:
             return new ListCategoriesCommand();
 
-        case ListFontCommand.COMMAND_WORD:
-            return new ListFontCommand();
-
-        case WishListCommand.COMMAND_WORD:
-            return new WishListCommand();
+        case ListWishCommand.COMMAND_WORD:
+            return new ListWishCommand();
 
         case ListBudgetCommand.COMMAND_WORD:
             return new ListBudgetCommand();

@@ -64,14 +64,14 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook) throws IOException {
-        saveGuiltTrip(addressBook, guiltTripStorage.getGuiltTripFilePath());
+    public void saveGuiltTrip(ReadOnlyGuiltTrip guiltTrip) throws IOException {
+        saveGuiltTrip(guiltTrip, guiltTripStorage.getGuiltTripFilePath());
     }
 
     @Override
-    public void saveGuiltTrip(ReadOnlyGuiltTrip addressBook, Path filePath) throws IOException {
+    public void saveGuiltTrip(ReadOnlyGuiltTrip guiltTrip, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        guiltTripStorage.saveGuiltTrip(addressBook, filePath);
+        guiltTripStorage.saveGuiltTrip(guiltTrip, filePath);
     }
 
 }

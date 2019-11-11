@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.addcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
@@ -50,9 +51,15 @@ public class AddWishCommand extends Command {
         toAdd = wish;
     }
 
+    /**
+     * @throws CommandException if the category of the Wish to be added does not exists in the list.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (!model.hasCategory(toAdd.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
         model.addWish(toAdd);
         model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

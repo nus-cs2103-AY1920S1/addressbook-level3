@@ -1,6 +1,7 @@
 package seedu.guilttrip.logic.commands.addcommands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_INVALID_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DATE;
@@ -37,11 +38,11 @@ public class AddBudgetCommand extends Command {
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_CATEGORY + "Food "
             + PREFIX_DESC + "Nov Budget "
-            + PREFIX_AMOUNT + "50.00 "
-            + PREFIX_DATE + "2019 09 09 "
+            + PREFIX_AMOUNT + "200 "
+            + PREFIX_DATE + "2019 11 01 "
             + PREFIX_PERIOD + "1m "
             + PREFIX_TAG + "food "
-            + PREFIX_TAG + "indulgence.\n"
+            + PREFIX_TAG + "indulgence\n"
             + MESSAGE_CATEGORY;
 
     public static final String MESSAGE_SUCCESS = "New budget added: %1$s";
@@ -56,9 +57,19 @@ public class AddBudgetCommand extends Command {
         toAdd = entry;
     }
 
+    /**
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return
+     * @throws CommandException if the category of the income to be added does not exists in the list.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (!model.hasCategory(toAdd.getCategory())) {
+            throw new CommandException(MESSAGE_INVALID_CATEGORY);
+        }
         model.addBudget((Budget) toAdd);
         model.commitGuiltTrip();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

@@ -11,6 +11,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * A utility class to help with building EditIncomeDescriptor objects.
@@ -56,8 +57,8 @@ public class EditIncomeDescriptorBuilder {
      * @param amt amount to be added
      * @return the descriptor with new amount
      */
-    public EditIncomeDescriptorBuilder withAmount(String amt) {
-        descriptor.setAmount(new Amount(amt));
+    public EditIncomeDescriptorBuilder withAmount(double amt) {
+        descriptor.setAmount(new Amount(String.valueOf(amt)));
         return this;
     }
 
@@ -68,7 +69,7 @@ public class EditIncomeDescriptorBuilder {
      * @return the descriptor with new category name
      */
     public EditIncomeDescriptorBuilder withCategory(String catName) {
-        descriptor.setCategory(new Category(catName, "Income"));
+        descriptor.setCategory(new Category(catName, CategoryType.INCOME));
         return this;
     }
 

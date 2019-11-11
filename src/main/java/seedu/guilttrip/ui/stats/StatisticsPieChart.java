@@ -44,9 +44,17 @@ public class StatisticsPieChart extends UiPart<Region> {
             }
         });
         toAdd = FXCollections.observableArrayList();
+
         statsPieChart.setTitle(type);
-        statsPieChart.setLabelLineLength(15);
+        if (type.equals("Income")) {
+            statsPieChart.setStyle("-fx-text-fill: MediumSeaGreen");
+        }
+        if (type.equals("Expense")) {
+            statsPieChart.setStyle("-fx-text-fill: LightSalmon");
+        }
+        statsPieChart.setLabelsVisible(false);
         statsPieChart.setLegendSide(Side.BOTTOM);
+        statsPieChart.setAnimated(true);
         updatePieChart(statsMap);
     }
 
@@ -57,10 +65,17 @@ public class StatisticsPieChart extends UiPart<Region> {
     public void updatePieChart(ObservableList<CategoryStatistics> statsMap) {
         toAdd.clear();
         statsPieChart.getData().clear();
+        //Calculate Total
+        double totalAmount = 0.00;
+        for (int i = 0; i < statsMap.size(); i++) {
+            totalAmount = totalAmount + statsMap.get(i).getAmountCalculated();
+        }
         for (int i = 0; i < statsMap.size(); i++) {
             CategoryStatistics t = statsMap.get(i);
             if (t.getAmountCalculated() != 0) {
-                toAdd.add(new PieChart.Data(t.getCategoryName(), t.getAmountCalculated()));
+                double percentage = (double) Math.round(t.getAmountCalculated() / totalAmount * 100);
+                String dataToShow = t.getCategoryName() + " (" + percentage + "%)";
+                toAdd.add(new PieChart.Data(dataToShow, t.getAmountCalculated()));
             }
         }
         if (toAdd.isEmpty()) {

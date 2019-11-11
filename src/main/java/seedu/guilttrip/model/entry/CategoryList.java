@@ -1,15 +1,17 @@
 package seedu.guilttrip.model.entry;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 import static seedu.guilttrip.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.model.entry.exceptions.CategoryNotFoundException;
 import seedu.guilttrip.model.entry.exceptions.DuplicateCategoryException;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * A list of categories that enforces uniqueness between its elements and does not
@@ -25,6 +27,9 @@ public class CategoryList {
 
     public static final String LIST_IS_EMPTY =
             "Unable to remove category from the category empty list!. ";
+
+    private static final Logger logger = LogsCenter.getLogger(CategoryList.class);
+
     /*
      * The first character of the guilttrip must not be a whitespace, otherwise " " (a
      * blank string) becomes a valid input.
@@ -38,9 +43,9 @@ public class CategoryList {
     /**
      * Determines whether the category belongs to the expense list or the income category list.
      */
-    public ObservableList<Category> determineWhichList(String input) {
+    public ObservableList<Category> determineWhichList(CategoryType input) {
         ObservableList<Category> typeOfCategory;
-        if (input.equalsIgnoreCase("Income")) {
+        if (input.equals(CategoryType.INCOME)) {
             typeOfCategory = internalListForIncome;
         } else {
             typeOfCategory = internalListForOtherEntries;
@@ -49,19 +54,11 @@ public class CategoryList {
     }
 
     /**
-     * Returns true if the new Category to be added and created is not in the CategoryList.
-     */
-    public boolean isValidAndNotInList(Category category) {
-        ObservableList<Category> typeOfCategory = determineWhichList(category.categoryType);
-        return !typeOfCategory.stream().anyMatch(t -> t.toString().equalsIgnoreCase(category.categoryName));
-    }
-
-    /**
      * Returns true if the Category is in the CategoryList.
      */
     public boolean contains(Category toCheck) {
         requireNonNull(toCheck);
-        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.categoryType);
+        ObservableList<Category> typeOfCategory = determineWhichList(toCheck.getCategoryType());
         return typeOfCategory.stream().anyMatch(toCheck::equals);
     }
 
@@ -89,13 +86,15 @@ public class CategoryList {
      */
     public void setCategory(Category target, Category editedCategory) {
         requireAllNonNull(target, editedCategory);
-        ObservableList internalList = determineWhichList(target.categoryType);
+        ObservableList internalList = determineWhichList(target.getCategoryType());
         int index = internalList.indexOf(target);
         if (index == -1) {
+            logger.info("Category isn't contained in GuiltTrip.");
             throw new CategoryNotFoundException();
         }
 
         if (target.equals(editedCategory) && contains(editedCategory)) {
+            logger.info("Category is a duplicate in GuiltTrip.It already exists.");
             throw new DuplicateCategoryException();
         }
 
@@ -108,10 +107,12 @@ public class CategoryList {
      */
     public void add(Category category) {
         requireNonNull(category);
-        checkArgument(isValidAndNotInList(category), String.format(MESSAGE_CONSTRAINTS_IN_LIST,
-                category.getCategoryType()));
         ObservableList<Category> typeOfCategory;
-        if (category.categoryType.equalsIgnoreCase("Income")) {
+        if (contains(category)) {
+            throw new DuplicateCategoryException();
+        }
+
+        if (category.getCategoryType().getCatType().equalsIgnoreCase("Income")) {
             typeOfCategory = internalListForIncome;
         } else {
             typeOfCategory = internalListForOtherEntries;
@@ -126,9 +127,7 @@ public class CategoryList {
     public void remove(Category toRemove) {
         requireNonNull(toRemove);
         //checks if it is in list. Also works for cases where List has 0 categories.
-        checkArgument(!isValidAndNotInList(toRemove), String.format(MESSAGE_CONSTRAINTS_NOT_IN_LIST,
-                toRemove.getCategoryType()));
-        ObservableList internalList = determineWhichList(toRemove.categoryType);
+        ObservableList internalList = determineWhichList(toRemove.getCategoryType());
 
         if (!internalList.remove(toRemove)) {
             throw new CategoryNotFoundException();

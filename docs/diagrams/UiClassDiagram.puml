@@ -26,6 +26,12 @@ Class StatusBarFooter
 Class CommandBox
 Class FontName
 Class FontManager
+Class StatisticsWindow
+Class StatisticsPieChartPanel
+Class StatisticsTable
+Class StatisticsPieChart
+Class StatisticsTablePanel
+Class StatisticsBarChart
 }
 
 package Model <<Rectangle>> {
@@ -45,18 +51,29 @@ MainWindow --> HelpWindow
 MainWindow *--> CommandBox
 MainWindow *--> ResultDisplay
 MainWindow *--> EntryListPanel
-MainWindow --> WishListPanel
-MainWindow --> BudgetPanel
-MainWindow --> ReminderPanel
+MainWindow *--> StatisticsWindow
+MainWindow *--> WishListPanel
+MainWindow *--> BudgetPanel
+MainWindow *--> ReminderPanel
 MainWindow *--> StatusBarFooter
 MainWindow --> FontManager
 MainWindow ..> FontName
+
+StatisticsWindow *-->"1" StatisticsPieChartPanel
+StatisticsPieChartPanel *-->"0..2" StatisticsPieChart
+StatisticsWindow *-->"1" StatisticsTablePanel
+StatisticsTablePanel *-->"0..2" StatisticsTable
 
 EntryListPanel -up-> EntryCard
 
 EntryListPanel -right-> ExpenseCard
 
 EntryListPanel -down-> IncomeCard
+
+EntryListPanel --> StatisticsWindow
+
+EntryListPanel --> StatisticsBarChart
+
 
 WishListPanel --> WishListCard
 
@@ -81,7 +98,13 @@ WishListCard --|> UiPart
 BudgetCard --|> UiPart
 ExpenseReminderCard --|> UiPart
 WishReminderCard --|> UiPart
-
+StatisticsBarChart --|> UiPart
+StatisticsWindow --|> UiPart
+StatisticsBarChart --|> UiPart
+StatisticsTable --|> UiPart
+StatisticsPieChart --|> UiPart
+StatisticsPieChartPanel --|> UiPart
+StatisticsTablePanel --|> UiPart
 StatusBarFooter -down-|> UiPart
 HelpWindow -down-|> UiPart
 

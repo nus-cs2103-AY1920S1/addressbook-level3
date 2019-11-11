@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->
+<!--Icons made by "https://www.flaticon.com/authors/good-ware" Good Ware from "https://www.flaticon.com/" www.flaticon.com-->
+
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -11,12 +13,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.Scene?>
 <?import javafx.stage.Stage?>
-
-<!--Icons made by Freepik "https://www.flaticon.com/authors/freepik" from Flaticon "https://www.flaticon.com/"-->
-<!--Icons made by "https://www.flaticon.com/authors/good-ware" Good Ware from "https://www.flaticon.com/" www.flaticon.com-->
-
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="guiltTrip() - your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="GuiltTrip: your personal finance tracker" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/guiltTrip()_32.png" />
     </icons>
@@ -38,13 +37,14 @@
                         </Menu>
                     </MenuBar>
 
-                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="140" minHeight="140" prefHeight="140" styleClass="pane-with-border" VBox.vgrow="NEVER">
                         <padding>
                             <Insets bottom="5" left="10" right="10" top="5" />
                         </padding>
                     </StackPane>
 
-                    <VBox fx:id="entryList" minWidth="340" prefWidth="340" styleClass="pane-with-border" VBox.vgrow="ALWAYS" spacing="5">
+                    <VBox fx:id="mainPanel" minWidth="340" prefWidth="340" styleClass="pane-with-border"
+                          VBox.vgrow="ALWAYS" spacing="10">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
@@ -61,29 +61,33 @@
                     <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
                 </VBox>
                 <!-- to contain the side panels in vbox -->
-                <VBox fx:id="sidePanelsPlaceHolder" minWidth="400" prefWidth="400" spacing="5" styleClass="side-panel-placeholder">
+                <VBox fx:id="sidePanelsPlaceHolder" minWidth="550" prefWidth="550" spacing="5"
+                      styleClass="side-panel-placeholder">
                     <padding>
-                        <Insets bottom="5" left="5" right="10" top="5"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
-                    <VBox fx:id="wishesPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="wishesPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel"
+                          VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
                         <Label fx:id="wishlistTitle" styleClass="side-panel-title" text="Wishlist" style="-fx-text-fill: MediumPurple"/>
                     </VBox>
-                    <VBox fx:id="budgetsPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="budgetsPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel"
+                          VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
                         <Label fx:id="budgetTitle" styleClass="side-panel-title" text="Budgets" style="-fx-text-fill: SteelBlue"/>
                     </VBox>
-                    <VBox fx:id="remindersPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" >
+                    <VBox fx:id="remindersPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel" VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>
-                        <Label fx:id="remindersTitle" styleClass="side-panel-title" text="Reminders" style="-fx-text-fill: GoldenRod"/>
+                        <Label fx:id="remindersTitle" styleClass="side-panel-title" text="Reminders" style="-fx-text-fill: MediumSeaGreen"/>
                     </VBox>
-                    <VBox fx:id="autoExpensesPlaceHolder" minWidth="400" prefWidth="400" styleClass="side-panel" VBox.vgrow="ALWAYS" >
+                    <VBox fx:id="autoExpensesPlaceHolder" minWidth="550" prefWidth="550" styleClass="side-panel"
+                          VBox.vgrow="ALWAYS">
                         <padding>
                             <Insets bottom="10" left="10" right="10" top="10" />
                         </padding>

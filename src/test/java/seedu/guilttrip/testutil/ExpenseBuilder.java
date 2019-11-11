@@ -9,6 +9,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
@@ -28,7 +29,7 @@ public class ExpenseBuilder {
     private Set<Tag> tags;
 
     public ExpenseBuilder() {
-        cat = new Category(DEFAULT_CATEGORY, "Expense");
+        cat = new Category(DEFAULT_CATEGORY, CategoryType.EXPENSE);
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_TIME);
@@ -58,7 +59,7 @@ public class ExpenseBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public ExpenseBuilder withCategory(String catName) {
-        this.cat = new Category(catName, "Expense");
+        this.cat = new Category(catName, CategoryType.EXPENSE);
         return this;
     }
 

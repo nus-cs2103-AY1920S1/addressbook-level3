@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.guilttrip.model.entry.exceptions.DuplicateEntryException;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
@@ -53,16 +52,7 @@ public class IncomeList implements Iterable<Income> {
      */
     public void setIncome(Income target, Income editedIncome) {
         requireAllNonNull(target, editedIncome);
-
         int index = internalList.indexOf(target);
-        if (index == -1) {
-            throw new EntryNotFoundException();
-        }
-
-        if (!target.equals(editedIncome) && contains(editedIncome)) {
-            throw new DuplicateEntryException();
-        }
-
         internalList.set(index, editedIncome);
     }
 

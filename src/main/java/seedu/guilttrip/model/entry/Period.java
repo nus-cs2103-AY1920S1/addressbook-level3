@@ -45,7 +45,7 @@ public class Period {
      * Returns true if a given string is a valid name.
      */
     public static boolean isValidPeriod(long testDuration, char testInterval) {
-        // return test.matches(VALIDATION_REGEX);
+        // return test.matches(VALIDATION_REGEX); // TODO
         return true;
     }
 

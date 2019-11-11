@@ -25,7 +25,7 @@ public class Wish extends Entry {
      * Returns a new Wish if and only if it's category is edited.
      */
     public Wish modifiedWish(String newName) {
-        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        Category newCategory = new Category(newName, super.getCategory().getCategoryType());
         return new Wish(newCategory, super.getDesc(), super.getDate(), this.getAmount(), super.getTags());
     }
     /**

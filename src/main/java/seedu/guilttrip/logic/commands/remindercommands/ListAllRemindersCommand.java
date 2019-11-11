@@ -8,7 +8,7 @@ import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;
 import seedu.guilttrip.model.Model;
 /**
- * Lists all reminders in the guilttrip book to the user.
+ * Lists all reminders in GuiltTrip to the user.
  */
 public class ListAllRemindersCommand extends Command {
 
@@ -21,6 +21,6 @@ public class ListAllRemindersCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
         model.updateFilteredReminders(PREDICATE_SHOW_ALL_REMINDERS);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true, "reminder");
     }
 }

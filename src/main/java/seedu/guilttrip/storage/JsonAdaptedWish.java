@@ -16,6 +16,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 
 /**
@@ -52,7 +53,7 @@ class JsonAdaptedWish {
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedWish(Wish source) {
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         date = source.getDate().toString();
@@ -90,7 +91,7 @@ class JsonAdaptedWish {
         }*/
         final Date modelDate = new Date(date);
 
-        final Category modelCategory = new Category(category, "Expense");
+        final Category modelCategory = new Category(category, CategoryType.EXPENSE);
         final Amount modelAmt = new Amount(amt);
         final Set<Tag> modelTags = new HashSet<>(entryTags);
         return new Wish(modelCategory, modelDesc, modelDate, modelAmt, modelTags);
