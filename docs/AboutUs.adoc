@@ -21,7 +21,7 @@ Responsibilities: In charge of overall project coordination.
 
 === Chow Jia Ying
 image::c-likethis123.png[width="150", align="left"]
-{empty}[https://github.com/C-likethis123[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/C-likethis123[github]] [<<c-likethis123#, portfolio>>]
 
 Role: Deliverables and Deadlines +
 Responsibilities: Ensure project deliverables are done in right format and submitted on time.
@@ -30,7 +30,7 @@ Responsibilities: Ensure project deliverables are done in right format and submi
 
 === Iskandar Zulkarnaien Bin Suhaini
 image::therealravager.png[width="150", align="left"]
-{empty}[https://github.com/TheRealRavager[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/TheRealRavager[github]] [<<therealravager #, portfolio>>]
 
 Role: Tester +
 Responsibilities: Ensures the testing of the project is done properly and on time.

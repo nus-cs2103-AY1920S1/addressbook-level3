@@ -508,7 +508,7 @@ If the donor and patient have never been processed before, a default `Processing
 
 If the user makes any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
 
-When the user execute the processing feature, the method, `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` will be called
+When the user executes the processing feature, the method, `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` will be called
 to determine if the user give a valid patient and donor input. +
 It will then check if there is a need to generate a new default task list or the donor already have a list tagged to itself. +
 Then, the `Status` of the patient and donor will be set to `processing`.
@@ -592,7 +592,7 @@ Done is executed by accessing `Patient` and `Donor` in `ModelManager`,
 then determine if the patient and donor can match each other or not.
 
 It implements the `DoneCommand#isPass(String result)` boolean operation. +
-This method check whether the result of the cross-matching test. +
+This method checks whether the result of the cross-matching test. +
 
 If the patient and donor did a cross-matching test and the result of the test is a fail,
 then the patient and donor needs to be sent back to find new matches and they

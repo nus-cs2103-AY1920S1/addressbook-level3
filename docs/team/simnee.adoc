@@ -32,7 +32,7 @@ workload when trying to match all their patients with all the donors' organs the
 
 ORGANice is an organ transplant manager.
 Currently, hospital administrative staffs have many patients and organ donors information in their records.
-Whenever they have a new patient who needed an organ, they often have to go through many manual searches and
+Whenever they have a new patient who needs an organ, they often have to go through many manual searches and
 matching to find a compatible donor. We aim to reduce such menial work using ORGANice and speed up this process. +
 ORGANice is able to: +
 
@@ -94,7 +94,7 @@ between a patient and a donor.
 *** Justification:
 Hospital staffs often need to do a lot of paper work and administrative tasks.
 There is now an increasing number of patients admitting to hospitals and if they need an organ,
-there will be a standard operating procedure which needs to be followed
+there will be a standard operating procedure which needs to be followed.
 With ORGANice, staff will not need to manually keep track of which tasks are not done yet for every patients.
 
 *** Highlights:
@@ -111,7 +111,7 @@ This section will explain the command, `processingMarkDone` which I implemented 
 It allows users to mark a task on the list of administrative tasks as done.
 
 *** Justification:
-This command will allow the hospital staffs to have a better overview of what are the existing tasks which need to be done.
+This command will allow the hospital staffs to have a better overview of what are the existing tasks that needs to be done.
 This will reduce the chance of hospital staffs doing a single task for more than one time or miss out a task by accident.
 
 *** Highlights:
@@ -126,7 +126,7 @@ This section will explain the command, `done` which I implemented for ORGANice.
 
 *** What it does:
 It allows users to determine if a patient and a donor is all done. +
-Meaning, the patient and donor have gone through a test and we know know if the patient rejected the organ from the donor or not. +
+Meaning, the patient and donor have gone through a test and we know if the patient rejected the organ from the donor or not. +
 If the patient is not compatible with the donor, then both the patient and donor will be saved back into ORGANice and available for future organ matching detection. +
 However, they will not be able to match each other anymore. +
 If the patient is compatible with the donor, then both of the patient and donor will be removed from ORGANice.
@@ -137,7 +137,7 @@ However, a cross-matching test is needed to determine if the patient will reject
 Hence, there is a chance that the result of the cross-matching test is negative and the patient and donor will need to find another match.
 
 *** Highlights:
-This feature will save a history of all rejected patients a donor have so as to not allow the donor to be matched again with them.
+This feature will save a history of all rejected patients a donor has so as to not allow the donor to be matched again with them.
 This will ensure that the same patient and donor do not go through another round of cross-matching just to return the same negative result.
 
 === Code Contributed
