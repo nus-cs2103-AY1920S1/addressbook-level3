@@ -246,6 +246,7 @@ Saves the assigned delivery tasks in PDF format for 20/10/2019.
 === Customer Management Commands
 
 
+// tag::addc-command[]
 ==== Add a Customer `addC`
 
 Adds customer to the customer manager. +
@@ -258,11 +259,27 @@ Format: `addC [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 Examples:
 
 * `addC n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+// end::addc-command[]
 
+// tag::viewcw-command[]
+==== View full Customer details `viewCW`
+Opens a separate window with all Customer details and a map showing location of Customer Address. +
+Format: `viewCW CUSTOMERID`
 
+[NOTE]
+Working internet connection and valid address is needed for map to work.
+
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewCW 1`
+// end::viewcw-command[]
 === Driver Management Commands
 
-
+// tag::addd-command[]
 ==== Add a Driver `addD`
 
 Adds driver to the driver manager. +
@@ -275,7 +292,20 @@ Format: `addD [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAGS]`
 Examples:
 
 * `addD n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends`
+// end::addd-command[]
+// tag::viewdw-command[]
+==== View full Driver details `viewDW`
+Opens a separate window with all Driver details +
+Format: `viewDW DRIVERID`
 
+****
+* All fields are compulsory.
+****
+
+Examples:
+
+* `viewDW 1`
+// end::viewdw-command[]
 == Saving the data
 
 Deliveria data are saved in the hard disk automatically after any command that changes the data. +

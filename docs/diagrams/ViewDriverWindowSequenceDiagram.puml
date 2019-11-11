@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":DriverWindow" as DriverWindow UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CommandParser" as CommandParser LOGIC_COLOR
+participant ":ViewDriverWindowCommandParser" as ViewDriverWindowCommandParser LOGIC_COLOR
+participant "v:ViewDriverWindowCommand" as ViewDriverWindowCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+activate MainWindow
+MainWindow -> LogicManager : execute("viewDW 1")
+activate LogicManager
+
+LogicManager -> CommandParser : parseCommand("del t/1")
+activate CommandParser
+
+create ViewDriverWindowCommandParser
+CommandParser -> ViewDriverWindowCommandParser
+activate ViewDriverWindowCommandParser
+
+ViewDriverWindowCommandParser --> CommandParser
+deactivate ViewDriverWindowCommandParser
+
+CommandParser -> ViewDriverWindowCommandParser : parse("1")
+activate ViewDriverWindowCommandParser
+
+create ViewDriverWindowCommand
+ViewDriverWindowCommandParser -> ViewDriverWindowCommand : ViewDriverWindowCommand("1")
+activate ViewDriverWindowCommand
+
+ViewDriverWindowCommand --> ViewDriverWindowCommandParser: v
+deactivate ViewDriverWindowCommand
+
+ViewDriverWindowCommandParser --> CommandParser : v
+destroy ViewDriverWindowCommandParser
+
+CommandParser --> LogicManager : v
+deactivate CommandParser
+
+LogicManager -> ViewDriverWindowCommand : execute()
+activate ViewDriverWindowCommand
+
+ViewDriverWindowCommand -> CommandResult : CommandResult(SHOWING_VIEW_WINDOW, true, false, 1)
+activate CommandResult
+
+CommandResult -> ViewDriverWindowCommand
+deactivate CommandResult
+
+ViewDriverWindowCommand --> LogicManager
+destroy ViewDriverWindowCommand
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow -> LogicManager
+activate LogicManager
+
+
+LogicManager -> Model : getDriver(1)
+activate Model
+
+Model --> LogicManager
+deactivate Model
+
+LogicManager --> MainWindow
+deactivate LogicManager
+
+MainWindow -> DriverWindow : show()
+activate DriverWindow
+
+DriverWindow --> MainWindow
+deactivate DriverWindow
+deactivate MainWindow
+
+@enduml

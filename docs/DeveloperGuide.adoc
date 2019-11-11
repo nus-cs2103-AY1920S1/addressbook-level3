@@ -88,6 +88,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+// tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -104,12 +105,13 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("del t/1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+.Interactions Inside the Logic Component for the `del t/1` Command
 image::DeleteSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `DeleteIdCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+// end::logic[]
 
 [[Design-Model]]
 === Model component
@@ -381,13 +383,6 @@ image::CommitActivityDiagram.png[]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -408,12 +403,14 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-=== Customer Feature (E.g. Add Customer)
-==== Implementation
+// tag::customerfeature[]
+=== Customer Feature
+==== Add Customer
+===== Implementation
 The *Add Customer* feature adds a new Customer into a Customer list. +
 It uses the `AddCustomerCommand`, which extends `Command`, to add a `Customer` into the `CustomerManager`.
 `AddCustomerCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
-'AddCustomerCommand' requires the following fields: `Customer`.
+`AddCustomerCommand` requires the following fields: `Customer`.
 The attributes of Task is as follows:
 
 .Class Diagram of Customer class.
@@ -428,12 +425,53 @@ The following sequence diagram shows how the add customer operation works:
 .Sequence Diagram of adding a task.
 image::AddCustomerCommand.png[]
 
-=== Driver Feature (E.g. Add Driver)
-==== Implementation
+===== Design Considerations
+
+====== Aspect: Usage of universal Command word
+
+* **Alternative 1 (current choice):** Have a individual command word for adding customer. (`addC`)
+** Pros: Easy to implement and increases clarity for users.
+** Cons: Increases the number of commands.
+* **Alternative 2:** Combine `AddCustomerCommand` with other `add` commands
+** Pros: Will use only 1 universal `add` command for adding any entities. (Task, Customer and Driver)
+** Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.
+
+==== View Customer Window
+===== Implementation
+The *View Customer Window* retrieves the details of a Customer and displays it in a separate window. +
+It uses the `ViewCustomerWindowCommand`, which extends `Command`, to return a `CommandResult` with a boolean value `viewCustomer` as true.
+`ViewCustomerWindowCommandParser` is also utilised to parse and validate the user inputs before sending it to `ViewCustomerWindowCommand` to execute.
+`ViewCustomerWindowCommand` requires the following fields:`customerId`.
+
+[NOTE]
+A working internet connection and a valid address is needed for the map to show in the window.
+
+The following sequence diagram shows how the user command `viewCW` is being executed and handled.
+
+.Sequence Diagram of opening a View Customer window.
+image::ViewCustomerWindowSequenceDiagram.png[]
+
+===== Design Considerations
+
+===== Aspect:
+
+* **Alternative 1 (current choice):** Show full details of customer in separate window.
+** Pros: Unnecessary details of driver clutters up the UI. This cleans up the UI allowing the card to only show
+all essential details. Allow the space for working map showing the location of the customer's address.
+** Cons: Harder to implement.
+* **Alternative 2:** Show full details of driver in a single card in main window.
+** Pros: Easier to implement.
+** Cons: Cards becomes too big when schedule information gets too long. Ui looks very cluttered. Unable to show the map of customer's address.
+// end::customerfeature[]
+
+// tag::driverfeature[]
+=== Driver Feature
+==== Add Driver
+===== Implementation
 The *Add Driver* feature adds a new Driver into a Driver list. +
 It uses the `AddDriverCommand`, which extends `Command`, to add a `Driver` into the `DriverManager`.
 `AddDriverCommandParser` is also utilised to parse and validate the user inputs before sending it to `AddCustomerCommand` to execute.
-'AddDriverCommand' requires the following fields: `Driver`.
+`AddDriverCommand` requires the following fields: `Driver`.
 The attributes of Driver is as follows:
 
 .Class Diagram of Driver class.
@@ -448,16 +486,41 @@ The following sequence diagram shows how the add driver operation works:
 .Sequence Diagram of adding a task.
 image::AddDriverCommand.png[]
 
-==== Design Considerations
+===== Design Considerations
 
-===== Aspect: Usage of universal Command word
+====== Aspect: Usage of universal Command word
 
-* **Alternative 1 (current choice):** Have a individual command word for add task (`addT`, `addC`, `addD`)
+* **Alternative 1 (current choice):** Have a individual command word for adding driver. (`addD`)
 ** Pros: Easy to implement and increases clarity for users.
 ** Cons: Increases the number of commands.
-* **Alternative 2:** Combine `AddCustomerCommand` with other `add` commands
+* **Alternative 2:** Combine `AddDriverCommand` with other `add` commands
 ** Pros: Will use only 1 universal `add` command for adding any entities. (Task, Customer and Driver)
 ** Cons: Have to handle different type of parameters and some parameters of commands are overlap which requires more validation.
+
+==== View Driver Window
+===== Implementation
+The *View Driver Window* retrieves the details of a Driver and displays it in a separate window. +
+It uses the `ViewDriverWindowCommand`, which extends `Command`, to return a `CommandResult` with a boolean value `viewDriver` as true.
+`ViewDriverWindowCommandParser` is also utilised to parse and validate the user inputs before sending it to `ViewDriverWindowCommand` to execute.
+`ViewDriverWindowCommand` requires the following fields:`driverId`.
+
+The following sequence diagram shows how the user command `viewDW` is being executed and handled.
+
+.Sequence Diagram of opening a View Driver window.
+image::ViewDriverWindowSequenceDiagram.png[]
+
+===== Design Considerations
+
+===== Aspect:
+
+* **Alternative 1 (current choice):** Show full details of driver in separate window.
+** Pros: Unnecessary details of driver clutters up the UI. This cleans up the UI allowing the card to only show
+all essential details.
+** Cons: Harder to implement.
+* **Alternative 2:** Show full details of driver in a single card in main window.
+** Pros: Easier to implement.
+** Cons: Cards becomes too big when schedule information gets too long. Ui looks very cluttered.
+// end::driverfeature[]
 
 == Documentation
 

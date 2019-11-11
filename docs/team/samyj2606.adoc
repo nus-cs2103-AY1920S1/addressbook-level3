@@ -1,4 +1,4 @@
-= Chee you - Project Portfolio
+= Sam Yong Jek - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -15,35 +15,29 @@ Deliveria is *optimized for those who prefer* to work with a _Command Line Inter
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to view Customer and Driver details in separate window*
+** What it does: Allows the user to view the full customer and driver details in a seperate window. The Customer
+Window also has a map feature allowing the user to see the location of the Customer on a map.
+** Justification: This feature improves the product significantly as it allows the UI to display only the essential information of both the Driver and Customer.
+This will result in a cleaner UI. It also allows the user to open multiple window simultaneously so that they are able to crossreference information
+easily.
+** Highlights: This enhancement affects the Driver and Customer Cards in the UI. The implementation was challenging as it required changes to the existing command result and the additional map feature.
+_
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a Driver rating system and a notification window that shows incomplete tasks from previous days.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=samyj2606&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tysng&tabRepo=AY1920S1-CS2103T-F14-4%2Fmain%5Bmaster%5D%5BRepoSense%5D[Link]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.3` - `v1.4` (3 releases) on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added Customer Driver Manager along with the storage component for Customer and Driver (Pull request https://github.com/AY1920S1-CS2103T-F14-4/main/pull/111[#111])
+*** Fix bug where uncompleted tasks from previous days remained inside driver schedule. (Pull requests https://github.com/AY1920S1-CS2103T-F14-4/main/pull/143[#143], https://github.com/AY1920S1-CS2103T-F14-4/main/pull/223[#223])
+*** Add Add command for customer and driver and edited the delete command to include customer and driver. (Pull request https://github.com/AY1920S1-CS2103T-F14-4/main/pull/98[#98])
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PR reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-4/main/pull/95[#95]
 
 == Contributions to the User Guide
 
@@ -52,9 +46,13 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=addc-command]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=viewcw-command]
+
+include::../UserGuide.adoc[tag=addd-command]
+
+include::../UserGuide.adoc[tag=viewdw-command]
 
 == Contributions to the Developer Guide
 
@@ -62,13 +60,8 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=logic]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=customerfeature]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../DeveloperGuide.adoc[tag=driverfeature]
