@@ -53,15 +53,15 @@ To illustrate, let's suppose you are trying to create a new contact. However, yo
 
 . Type `contact` into the command box. A list of suggestions will pop up under the command bar.
 +
-image::ug_autocomplete1.png[width="790"]
+image::ug_autocomplete1.png[width="600"]
 
 . Use the arrow keys to navigate to the correct command (optional if using mouse).
 +
-image::ug_autocomplete2.png[width="790"]
+image::ug_autocomplete2.png[width="600"]
 
 . Press the Enter key or click on the command in the menu. Your command box will now display `contact create`.
 +
-image::ug_autocomplete3.png[width="790"]
+image::ug_autocomplete3.png[width="600"]
 
 ====
 *Note*
@@ -77,11 +77,11 @@ Let's take the same example of creating a new contact.
 
 . Suppose you accidentally pressed Enter too early, and sent the command `contact create` as is.
 +
-image::ug_prompt1.png[width="790"]
+image::ug_prompt1.png[width="600"]
 
 . Maybe you have intended to call this new contact `Bob`. Then type `Bob` into the command box and press Enter (or Send). Then TagLine would appear like this:
 +
-image::ug_prompt2.png[width="790"]
+image::ug_prompt2.png[width="600"]
 
 . As can be seen above, TagLine has successfully created a new contact named `Bob`.
 
@@ -91,7 +91,7 @@ But what if we don't want to proceed with the command? You can abort the command
 
 .. After step 1 of the above example, let's say you no longer want to create a new contact. Press the Escape key.
 +
-image::ug_prompt3.png[width="790"]
+image::ug_prompt3.png[width="600"]
 
 .. The incomplete command will not be executed. Now you can continue to enter other commands into the command box.
 

@@ -80,7 +80,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="500"]
 
 *API* : link:{repoURL}/src/main/java/tagline/ui/Ui.java[`Ui.java`]
 
@@ -89,12 +89,12 @@ The UI consists of a `MainWindow` which is made up of four parts, i.e. `StatusBa
 *  The `ChatPane` manages text interaction with the user. It uses `CommandBox` to read commands and `DialogBox` to display commands and feedback. To handle auto-completion, `CommandBox` uses an `AutoCompleteNode` to provide suggestions. The class diagram for the sub-component is shown below.
 
 .Structure of the Chat Pane sub-component
-image::UiChatPaneClassDiagram.png[]
+image::UiChatPaneClassDiagram.png[width="500"]
 
 *  The `ResultPane` displays a relevant `ResultView` based on the command entered. The following class diagram shows a partial view of the component with only the `NoteListResultView` and `ContactListResultView`.
 
 .Structure of the Result Pane sub-component
-image::UiResultPaneClassDiagram.png[]
+image::UiResultPaneClassDiagram.png[width="500"]
 
 Most of  these classes, including the `MainWindow` itself, inherit from the abstract `UiPart` class.
 
