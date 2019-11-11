@@ -1351,6 +1351,88 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Adding a recipe
+
+. Adding a recipe while all recipes are listed
+
+.. Prerequisites: List all recipes using the `list` command. Multiple recipes should be shown in the list. Ensure no
+recipe in the Recipe Book is named "Chicken Rice".
+.. Test case: `add recipe n/Chicken Rice i/Chicken i/Rice cal/666 carb/55 fats/44 prot/30` +
+   Expected: A new recipe named "Chicken Rice" is added to the Recipe Book. Details of the added recipe are shown in the result display,
+notably the name and the ingredients of the added recipe.
+.. Test case: `add recipe n/Chicken Rice i/Chicken i/Rice cal/666 carb/55 fats/44 prot/30` (A repeat of the previous test case) +
+   Expected: No recipe is added. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect add commands to try: `add recipe`, `add recipe n/<name>` (where <name> is the only specified parameter) +
+Expected: Similar error messages to previous.
+
+=== Deleting a recipe
+
+. Deleting a recipe while all recipes are listed
+
+.. Prerequisites: List all recipes using the `list` command. Multiple recipes should be shown in the list.
+.. Test case: `delete recipe 1` +
+   Expected: First recipe is deleted from the list. Details of the deleted recipe are shown in the result display.
+Any meal plan containing the first recipe should also have the recipe removed from the meal plan.
+.. Test case: `delete recipe 0` +
+   Expected: No recipe is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete recipe`, `delete recipe x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a recipe
+
+. Editing a recipe while all recipes are listed
+
+.. Prerequisites: List all recipes using the `list` command. Multiple recipes should be shown in the list. Ensure no
+recipe in the Recipe Book is named "Chicken Rice".
+.. Test case: `edit recipe 1 n/Chicken Rice` +
+   Expected: First recipe from the list is edited. Details of the edited recipe are shown in the result display, notably the
+name and ingredients of the edited recipe. Any meal plan containing the first recipe should also have the recipe removed
+from the meal plan.
+.. Test case: `edit recipe 0` +
+   Expected: No recipe is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit commands to try: `edit recipe`, `edit recipe x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Adding a meal plan
+
+. Adding a meal plan while all meal plans are listed
+
+.. Prerequisites: List all meal plans using the `list` command. Multiple meal plans should be shown in the list. Ensure no
+meal plan in the Meal Plan Book is named "Vegetarian Plan".
+.. Test case: `add mealplan n/Vegetarian Plan` +
+   Expected: A new meal plan named "Vegetarian Plan" is added to the Meal Plan Book. Details of the added meal plan are shown in the result display,
+notably the name and the recipes of the added meal plan.
+.. Test case: `add mealplan n/Vegetarian Plan` (A repeat of the previous test case) +
+   Expected: No meal plan is added. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect add commands to try: `add mealplan`, `add mealplan n/<name>` (where <name> is non-alphanumeric, or longer than 40 characters) +
+Expected: Similar error messages to previous.
+
+=== Deleting a meal plan
+
+. Deleting a meal plan while all meal plans are listed
+
+.. Prerequisites: List all meal plans using the `list` command. Multiple meal plans should be shown in the list.
+.. Test case: `delete mealplan 1` +
+   Expected: First meal plan is deleted from the list. Details of the deleted meal plan are shown in the result display.
+.. Test case: `delete mealplan 0` +
+   Expected: No meal plan is deleted. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete mealplan`, `delete mealplan x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
+=== Editing a meal plan
+
+. Editing a meal plan while all meal plans are listed
+
+.. Prerequisites: List all meal plans using the `list` command. Multiple meal plans should be shown in the list. Ensure no
+meal plan in the Meal Plan Book is named "Vegetarian Plan".
+.. Test case: `edit mealplan 1 n/Vegetarian Plan` +
+   Expected: First meal plan from the list is edited. Details of the edited meal plan are shown in the result display, notably the
+name and recipes of the edited meal plan.
+.. Test case: `edit mealplan 0` +
+   Expected: No meal plan is edited. Error message is shown in the result display. Status bar remains the same.
+.. Other incorrect edit commands to try: `edit mealplan`, `edit mealplan x` (where x is larger than the list size) +
+   Expected: Similar error messages to previous.
+
 === Adding a diary
 
 . Adding a diary while all diaries are listed
