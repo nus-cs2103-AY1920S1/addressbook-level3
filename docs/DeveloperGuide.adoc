@@ -29,7 +29,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagramMams.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -48,9 +48,11 @@ The rest of the App consists of four components.
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Storage,*`MamsStorage`*>>: Reads data from, and writes data to, the hard disk. Holds data of Students, Modules and Appeals.
+* <<Design-Storage,*`CommandHistoryStorage`*>>: Reads data from, and writes data to, the hard disk. Contains history of user inputs.
 
-Each of the four components
+
+Each of the five components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -60,10 +62,10 @@ For example, the `Logic` component (see the class diagram in <<fig-LogicClassDia
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `addmod s/1 m/1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `addmod s/1 m/1` command
+image::ArchitectureSequenceDiagramMams.png[]
 
 The sections below give more details of each component.
 
@@ -1712,4 +1714,20 @@ Specified lists will be updated to show items containing any of the keywords.
 .. Example: `approve mass/C000000 C000023` `reject mass/C001230  C0sdfsd`
 .. Expected: Appeals that have not yet been resolved will be resolved and will be resolved.  Invalid appeal IDs will not be resolved.  The result message in the message bar will show the following - appeals that were successfully resolved, appeals that were already resolved, invalid appeal IDs, and appeal IDs that do not exist.
 //end::test5[]
+
+//tag::test6[]
+=== Addmod
+. Valid input format for single resolution: `addmod s/INDEX m/INDEX` or `addmod s/MATRIC_ID m/MODULE_CODE`
+.. Example: `addmod s/1 m/7`
+.. Expected: The student will register for the module, and the details are upgraded accordingly as seen in the list.
+The message shown in the message bar will display the changes made to the student.
+//end::test6[]
+
+//tag::test7[]
+=== Removemod
+. Valid input format for single resolution: `removemod s/INDEX m/INDEX` or `removemod s/MATRIC_ID m/MODULE_CODE`
+.. Example: `removemod s/A0180000 m/CS2100`
+.. Expected: The student will be dropped from the module, and the details are upgraded accordingly as seen in the list.
+The message shown in the message bar will display the changes made to the student.
+//end::test7[]
 
