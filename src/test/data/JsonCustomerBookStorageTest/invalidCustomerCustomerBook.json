@@ -1,0 +1,8 @@
+{
+  "customers" : [ {
+    "customerName" : "Customer with invalid name: Alex Yeoh@? ",
+    "contactNumber" : "8743880sds",
+    "email" : "alexyeoh@example.com",
+    "tagged" : [ "friends" ]
+  } ]
+}

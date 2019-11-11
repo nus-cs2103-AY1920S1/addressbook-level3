@@ -77,13 +77,11 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
-// tag::UiUG[]
-
 [[Design-Ui]]
 === UI component
-
+// tag::UiUG[]
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="400"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -187,18 +185,13 @@ This section describes some noteworthy details on how certain features are imple
 
 === Statistics Calculation and Chart generation feature
 
-
 ==== Implementation
 
 This statistic calculation and chart generation feature extends `Seller Manager Lite` which allows seller to quickly
 generate total statistics from their `DataBooks`, through the use of a `statistic`
-module that handles this calculation.
+module that handles this calculation. There is three type of statistic to be calculated and only on `completed orders`:
 
-There is three type of statistic to be calculated and only on `completed orders`:
-
-* `Profit`
-* `Cost`
-* `Revenue`
+* `Profit`  `Cost` `Revenue`
 
 It implements the following mode of operations:
 
@@ -220,13 +213,11 @@ analogous to the output mode, there are 2 types of methods in this module, one t
 `String` and the other and `XYChart.Series<String,Number>`
 
 * Methods that return a `String`:
-
 ** `calculateTotalProfitOnCompleted(...)`
 ** `calculateTotalRevenueOnCompleted(...)`
 ** `calculateTotalCostOnCompleted(...)`
 
 * Methods that return a `XYChart.Series<String,Number>`:
-
 ** `calculateTotalProfitOnCompletedGraph(...)`
 ** `calculateTotalRevenueOnCompletedGraph(...)`
 ** `calculateTotalCostOnCompletedGraph(...)`
@@ -251,7 +242,6 @@ since it meant extending the `Model` class with a statistic model, than having t
 this value.
 *** Pros: Easy to implement on top of AB3
 *** cons: Seller will be unable to obtain an instance of past statistics at each point without storing the history of the statistics somewhere, since any change in the database / models will cause the values to change
-*** cons: Will bloat the UI since there will be extra details to be displayed and there is an extra panel on screen.
 
 * Alternative Design (current design) :
 ** `Statistics` module will exist outside of the current packages and be standalone. `Logic` will handle communication with
@@ -264,10 +254,8 @@ this module from `UI`. Respective Statistics will then be obtained from `Logic` 
 
 Given that consideration, we decided that it will be the `UI` to trigger this call to `Logic` for calculation
 and then display the result of that call. Thus when Statistics need to be shown, the `UI` module will query the
-`Logic` for the respective data
-
-One of the motivation for this approach was to, as much as possible, maintain the architecture that is already in place in AB3.
-
+`Logic` for the respective data One of the motivation for this approach was to,
+as much as possible, maintain the architecture that is already in place in AB3.
 Furthermore, given that this feature requires date input from the user, we will need to find a way to get `UI` to send
 the data to make that query to logic. For the old AB3 implementation, `CommandResult` only contains a feedback to user
 with the actual changes on data done with a call to model during `execute(model)`.
@@ -278,22 +266,21 @@ with the actual changes on data done with a call to model during `execute(model)
 We decided to extend this command pattern by creating a `statsPayload` object. This object will hold the user
 queries for the statistic calculation (if there is any) and be bundled along with the `CommandResult` class to the
 `UI` to use in its query to logic. When the Ui executes the command to logic, the `CommandResult` is returned with
-this object, which the `UI` will then use to communicate to `Logic`.
+this object, which the `UI` will then use to communicate to `Logic`.The resulting change
+is that the `commandResult` type will have a slightly different behaviour.
 
-The resulting change is that the `commandResult` type will have a slightly different behaviour. *All `commands` that
+*All `commands` that
 are not `statsCommand` will call the default constructor of the `commandResult` class, where there is  an
-`Optional.empty()` in place of the `StatsPayload` * .
+`Optional.empty()` in place of the `StatsPayload`* .
 
 All `statsCommand` type will have call the constructor of `commandResult` class and pass the `StatsPayload` object in.
-
 The key motivation behind this idea of a payload was to be able to encapsulate details about the calculation inside a
 single object, passed it to the appropriate place to be "unwrapped" when needed. This unwrapping is done by the
 `mainWindow` class in the application and subsequently the data is passed to the  `statistic` module.
 
-
 A high level view of the packages working together:
 
-image::statsOverallClassDiagram.png[]
+image::statsOverallClassDiagram.png[width="300", align="center"]
 
 ==== Current Implementation
 
@@ -305,56 +292,52 @@ Below is a more in-depth explanation at each step.
 For the default mode with no date, the steps are almost the same, except that
  `DefaultStatisticsWindow` is called in place of `StatisticsWindow`*
 
-
 Step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
 
 The commandBox executes it and the `MainWindow` runs its `executeCommand(commandText)` method.
-
-Referring to the sequence diagram below,this results in `logic.execute(commandText)` being called and
+Referring to the sequence diagram below, this results in `logic.execute(commandText)` being called and
 the `statsCommandParser` parses the input from the user, returning a
 `Command` object
 
 Seen here is the sequence diagram of the first step
 
-image::StatsCommandSequenceDiagram1.png[]
+image::StatsCommandSequenceDiagram1.png[width="400", align="center"]
 
-Step 2: the logic then calls `command.execute(command)` (refer to the second set of arrow coming out of `LogicManager`)
+Step 2: the logic then calls `command.execute(command)`
 
 When this happens, the `StatsCommand` execute triggering a call to create the new `StatsPayload`. Then this is used to
 create a new `CommandResult` object and returns that to `Logic` , completing the execution of the user input command.
-
 Seen here is the sequence diagram of the second step
 
-image::StatsCommandSequenceDiagram2.png[]
+image::StatsCommandSequenceDiagram2.png[width="400", align="center"]
 
 Shown below is a quick summary of step 1-2 (Full complete diagram):
 
-image::StatsCommandSequenceDiagram.png[]
+image::StatsCommandSequenceDiagram.png[width="600", align="center"]
 
 Step 3: After the logic component completes it execution and return a `CommandResult`, the `UI` will call
-`performUiChanges` that handles the specific `UI` change.
-
-This then results in the `statsPayload` class being passed to `Logic` class and subsequently the `statistics` module,
+`performUiChanges` that handles the specific `UI` change.This then results in the `statsPayload` class being
+passed to `Logic` class and subsequently the `statistics` module,
 where the appropriate calculation will take place.
 
 
 Step 4: `Statistic Manager` calculates the date
 
 Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
-a `String` or a `XYChart.Series<String, Number>`
+a `String` or a `XYChart.Series<String, Number>`.
 
 Step 5: with this output from logic, `Statistic Window` will then handle the diplaying of the statistic, be it in chart
 form or string form. With this the feature has finished executing! Attached below is the summary for step 3-5:
 
-image::StatisticsCalculationUI.png[]
+image::StatisticsCalculationUI.png[width="400", align="center"]
+
 
 ==== Current Version `v1.4`:
 
-Here are some screenshots of the current product:
+Here is a screenshot of the current product:
 
-image::StatsExampleGraph.png[width="600"]
+image::StatsExampleGraph.png[width="300" align="center"]]
 
-image::StatsExampleDefault.png[width="600"]
 
 ==== Limitations / note to developers:
 
@@ -1073,3 +1056,13 @@ These instructions only provide a starting point for testers to work on; testers
 .. When the application is relaunched, it will check for the validity of the data.
 Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
 
+
+
+=== Testing Statistics
+
+. Display statistics between 2 dates
+
+.. Prerequisites: Ensure that archive order panel has suitable `Completed` and `scheduled` orders. Only these orders
+will show up in the calculation
+.. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13`
+    Expeected: Chart is displayed in popup window

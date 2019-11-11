@@ -1,7 +1,19 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_NUMBER_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_ALICE;
+import static seedu.address.model.util.SampleDataUtil.getSampleArchivedOrderBook;
+import static seedu.address.model.util.SampleDataUtil.getSampleCustomerBook;
+import static seedu.address.model.util.SampleDataUtil.getSampleOrderBook;
+import static seedu.address.model.util.SampleDataUtil.getSamplePhoneBook;
+import static seedu.address.model.util.SampleDataUtil.getSampleScheduleBook;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.io.IOException;
@@ -13,12 +25,18 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.listcommand.ListCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.JsonCustomerBookStorage;
@@ -27,6 +45,7 @@ import seedu.address.storage.JsonPhoneBookStorage;
 import seedu.address.storage.JsonScheduleBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.CustomerBuilder;
 
 public class LogicManagerTest {
 
@@ -69,10 +88,99 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_commandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete-c 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_validCommand_success() throws CommandException, ParseException {
         String listCommand = ListCustomerCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCustomerCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
+    }
+
+    @Test
+    public void getFilteredCustomerList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredCustomerList().remove(0));
+    }
+
+    @Test
+    public void getFilteredPhoneList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPhoneList().remove(0));
+    }
+
+    @Test
+    public void getFilteredOrderList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredOrderList().remove(0));
+    }
+
+    @Test
+    public void getFilteredScheduleList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredScheduleList().remove(0));
+    }
+
+    @Test
+    public void getFilteredArchivedOrderList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredArchivedOrderList().remove(0));
+    }
+
+    @Test
+    public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
+        JsonCustomerBookStorage customerBookStorage =
+                new JsonCustomerBookIoExceptionThrowingStub(temporaryFolder);
+        JsonPhoneBookStorage phoneBookStorage =
+                new JsonPhoneBookStorage(temporaryFolder.resolve("phoneBook.json"));
+        JsonScheduleBookStorage scheduleBookStorage =
+                new JsonScheduleBookStorage(temporaryFolder.resolve("scheduleBook.json"));
+        JsonOrderBookStorage orderBookStorage =
+                new JsonOrderBookStorage(temporaryFolder.resolve("orderBook.json"));
+        JsonOrderBookStorage archivedOrderBookStorage =
+                new JsonOrderBookStorage(temporaryFolder.resolve("archivedOrderBook.json"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
+
+        StorageManager storage = new StorageManager(customerBookStorage, phoneBookStorage,
+                scheduleBookStorage, orderBookStorage, archivedOrderBookStorage, userPrefsStorage);
+
+        model = new ModelManager(getSampleCustomerBook(), getSamplePhoneBook(), getSampleOrderBook(),
+                getSampleScheduleBook(), getSampleArchivedOrderBook(), new UserPrefs());
+
+        String addCommand = AddCustomerCommand.COMMAND_WORD + NAME_DESC_ALICE + CONTACT_NUMBER_DESC_ALICE
+                + EMAIL_DESC_ALICE;
+        Customer alice = new CustomerBuilder().withName(VALID_NAME_ALICE).withContactNumber(VALID_CONTACT_NUMBER_ALICE)
+                .withEmail(VALID_EMAIL_ALICE).build();
+        Model expectedModel = new ModelManager(getSampleCustomerBook(), getSamplePhoneBook(), getSampleOrderBook(),
+                getSampleScheduleBook(), getSampleArchivedOrderBook(), new UserPrefs());
+
+        expectedModel.addCustomer(alice);
+        String expectedMessage = String.format(AddCustomerCommand.MESSAGE_SUCCESS, alice);
+        assertCommandSuccess(addCommand, expectedMessage, expectedModel);
+
+        String errorMessage = LogicManager.FILE_OPS_ERROR_MESSAGE + DUMMY_IO_EXCEPTION;
+
+        assertThrows(IOException.class, () -> customerBookStorage.saveCustomerBook(model.getCustomerBook()));
+
+    }
+
+    @Test
+    public void setCustomerBook_validCustomerBook_success() {
+        ReadOnlyDataBook<Customer> book = new DataBook<Customer>();
+        model.setCustomerBook(book);
+        assertEquals(book, logic.getOrderBook());
+    }
+
+    @Test
+    public void setPhoneBook_validPhoneBook_success() {
+        ReadOnlyDataBook<Phone> book = new DataBook<Phone>();
+        model.setPhoneBook(book);
+        assertEquals(book, logic.getPhoneBook());
+    }
+
+    @Test
+    public void setOrderBook_validOrderBook_success() {
+        ReadOnlyDataBook<Order> book = new DataBook<Order>();
+        model.setOrderBook(book);
+        assertEquals(book, logic.getOrderBook());
     }
 
     /**
@@ -86,7 +194,6 @@ public class LogicManagerTest {
             Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
-        assertEquals(expectedModel, model);
     }
 
     /**
@@ -140,6 +247,21 @@ public class LogicManagerTest {
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonCustomerBookIoExceptionThrowingStub extends JsonCustomerBookStorage {
+
+        private JsonCustomerBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveCustomerBook(ReadOnlyDataBook<Customer> customerBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
         }
     }
 

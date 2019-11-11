@@ -6,10 +6,14 @@ import static seedu.address.testutil.TypicalCustomers.CARL;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERONE;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERTHREE;
 import static seedu.address.testutil.TypicalCustomers.CUSTOMERTWO;
+import static seedu.address.testutil.TypicalCustomers.HARRY;
+import static seedu.address.testutil.TypicalCustomers.INDY;
 import static seedu.address.testutil.TypicalPhones.ANDROIDONE;
 import static seedu.address.testutil.TypicalPhones.IPHONEONE;
 import static seedu.address.testutil.TypicalPhones.IPHONETWO;
 import static seedu.address.testutil.TypicalPhones.IPHONEXR;
+import static seedu.address.testutil.TypicalPhones.IPHONE_JSON_TEST2;
+import static seedu.address.testutil.TypicalPhones.IPHONE_JSON_TEST3;
 import static seedu.address.testutil.TypicalSchedules.FRIDAY_SCHEDULE;
 import static seedu.address.testutil.TypicalSchedules.MONDAY_SCHEDULE;
 import static seedu.address.testutil.TypicalSchedules.SCHEDULESTATFIVE;
@@ -99,6 +103,14 @@ public class TypicalOrders {
     public static final Order ORDER_JSON_TEST = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(CUSTOMERONE)
             .withPhone(IPHONEONE).withPrice(DEFAULT_PRICE_1).withStatus(Status.SCHEDULED)
             .withSchedule(Optional.of(MONDAY_SCHEDULE)).withTags(DEFAULT_TAG_1).build();
+
+    public static final Order ORDER_JSON_TEST2 = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(HARRY)
+            .withPhone(IPHONE_JSON_TEST2).withPrice(DEFAULT_PRICE_1).withStatus(Status.UNSCHEDULED)
+            .withSchedule(Optional.empty()).withTags(DEFAULT_TAG_1).build();
+
+    public static final Order ORDER_JSON_TEST3 = new OrderBuilder().withId(UUID.randomUUID()).withCustomer(INDY)
+            .withPhone(IPHONE_JSON_TEST3).withPrice(DEFAULT_PRICE_1).withStatus(Status.UNSCHEDULED)
+            .withSchedule(Optional.empty()).withTags(DEFAULT_TAG_1).build();
 
     /**
      * Returns a {@code DataBook} with all the typical orders.

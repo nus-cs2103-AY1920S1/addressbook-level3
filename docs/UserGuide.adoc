@@ -811,13 +811,13 @@ Lacking any of this will cause its non-inclusion into the statistics calculation
 The value calculated is the sum over the total time period within a month, meaning that it will take the date period,
 calculate the statistics for orders within that time period, split it by month and display it.
 
-e.g `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
+e.g Total `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
 (as it falls within a single month) and
 display this value.
 
 * Accepts two types of input:
-** Without date input
-** with date input +
+** Without date input - display total value for that particular statistics
+** with date input - displays chart (Monthly value) and total value for that particular statistics  +
 
 Generates the statistics with no date input. +
 
@@ -831,7 +831,7 @@ The argument must match this three words perfectly.
 Shown below:
 
 
-image::StatsExampleDefault.png[width="600"]
+image::StatsExampleDefault.png[width="300"]
 
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
@@ -841,8 +841,9 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::StatsExampleGraph.png[width="600"]
+image::StatsExampleGraph.png[width="300"]
 
+// end::statisticsCommandUG[]
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
 [TIP]
@@ -880,7 +881,6 @@ when the remaining statistic windows are closed manually.
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
 
-
 ==== Average Statistics `[coming in v2.0]`
 ** More advanced commands like `average profit` etc
 
@@ -889,8 +889,6 @@ we estimate at least a few seconds before the window will be loaded.
 
 ==== Export Chart to PDF `[coming in v2.0]`
 ** User will be able to export their charts to pdf with a click of a button.
-
-// end::statisticsCommandUG[]
 
 === Exiting the program : `exit`
 
