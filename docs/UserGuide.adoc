@@ -341,11 +341,27 @@ Command: `calendar`
 
 Need to organise your large collection of recipes? Look no further! You will be able to perform the various recipe-related commands listed in this section.
 
-==== Adding a recipe:  `add recipe`
+==== Understanding the Recipe Book
+The recipe book allows you to look at all the recipes you have stored within DukeCooks!
+
+Look at the diagram for a better understanding of how the Recipe Book is laid out!
+
+.Overview of the Recipe Book
+image::ug_recipe.png[]
+
+==== Getting to the Recipe Book
+Here's a quick way to pop into the recipe book!
+
+Command: `goto recipe`
+
+==== Adding a recipe
 Adds a recipe into the recipe book. +
+Command: `add recipe` +
 Format: `add recipe n/<name> i/<ingredients>... cal/<calories> carb/<carbs> fats/<fats> prot/<protein>`
 [NOTE]
 ====
+All recipe and ingredient names must be alphanumeric, up to 40 characters
+
 All nutritional value information should be entered according to their amount in grams.
 ====
 
@@ -365,8 +381,9 @@ and a new recipe named "Chicken Rice" will be added.
 +
 image::ug_recipe_addRecipe2.png[]
 
-==== Editing a recipe: `edit recipe`
+==== Editing a recipe
 Edit a recipe according to a specified index. +
+Command: `edit recipe` +
 Format: `edit recipe <index> [parameters]`
 
 The possible parameters are:
@@ -396,8 +413,9 @@ image::ug_recipe_editRecipe1.png[]
 +
 image::ug_recipe_editRecipe2.png[]
 
-==== Listing your recipes: `list recipe`
+==== Listing your recipes
 Lists all recipes. +
+Command: `list recipe` +
 Format: `list recipe`
 
 Examples:
@@ -414,8 +432,9 @@ image::ug_recipe_listRecipe1.png[]
 +
 image::ug_recipe_listRecipe2.png[]
 
-==== Finding a recipe: `find recipe`
+==== Finding a recipe
 Finds recipes with names containing a specified keyword. +
+Command: `find recipe` +
 Format: `find recipe <keyword>`
 
 Examples:
@@ -433,8 +452,9 @@ all recipes with the keyword "Chicken" in its name would be found.
 +
 image::ug_recipe_listRecipe2.png[]
 
-==== Deleting a recipe: `delete recipe`
+==== Deleting a recipe
 Deletes recipe according to a specified index. +
+Command: `delete recipe` +
 Format: `delete recipe <index>`
 
 Examples:
@@ -442,8 +462,9 @@ Examples:
 * `delete recipe 1` +
 Deletes the first recipe listed within the recipe book.
 
-==== Clearing the recipe book: `clear recipe`
+==== Clearing the recipe book
 Clears all recipes stored in the recipe book. +
+Command: `clear recipe` +
 Format: `clear recipe`
 
 [IMPORTANT]
@@ -458,21 +479,66 @@ Deletes all recipes within the recipe book.
 ====  Viewing a recipe: `[coming in v2.0]`
 
 ==== Giving a recipe an image: `[coming in v2.0]`
+Give images to your recipes according to its index +
+Command: `image recipe` +
+Format: `image recipe <index> <filepath>`
+
+[NOTE]
+====
+If the file path is not specified, the image for this recipe, if present, will be removed instead.
+====
 
 ==== Giving a recipe a difficulty level: `[coming in v2.0]`
+Tag your recipes difficulty level. +
+Command: `diff recipe` +
+Format: `diff recipe <index> <difficulty>`
+
+[NOTE]
+====
+The available difficulties are "Easy", "Medium", and "Hard". Only these 3 difficulties may be used within the <difficulty> parameter.
+
+You can filter these recipes using `list recipe`. For example, `list recipe Easy`.
+====
 
 ==== Giving a recipe preparation timing: `[coming in v2.0]`
+Give your recipes a preparation time +
+Command: `prep recipe` +
+Format: `prep recipe <index> <time>`
+
+[NOTE]
+====
+Duration of preparation should be entered in minutes.
+
+You can filter these recipes using `list recipe`. For example, `list recipe shorter 5` shows all recipes with preparation time under 5 minutes.
+`list recipe longer 5` lists those that take longer than 5 minutes.
+====
 
 === Meal Plans
 
 Want a way to plan out your meals for an entire week? Using meal plans is a great way do that. Use the following meal plan commands to plan your weekly consumption!
 
-==== Add a meal plan: `add mealplan`
+==== Getting your way around meal plans
+Using Meal Plans, you will be able to take all the recipes you have in DukeCooks and use them to plan your meal plans for the week.
+
+Look at the diagram for a better understanding of how Meal Plans are laid out!
+
+.Overview of the Meal Plans
+image::ug_mealplan.png[]
+
+==== Getting to your Meal Plans
+Here's a quick way to check out your meal plans!
+
+Command: `goto mealplan`
+
+==== Add a meal plan
 Adds a new meal plan into the meal plan book. +
+Command: `add mealplan`
 Format: `add mealplan n/<name> day1/[name]... day2/[name]... day3/[name]... day4/[name]... day5/[name]... day6/[name]... day7/[name]...`
 
 [NOTE]
 ====
+All meal plan names must be alphanumeric, up to 40 characters
+
 You are only able to add recipes that you have within your recipe book.
 
 Edits to recipes within your recipe book will be reflected in the affected meal plans.
@@ -498,8 +564,9 @@ and a new meal plan named "One Recipe" will be added.
 +
 image::ug_mealplan_addMealPlan2.png[]
 
-==== Editing a meal plan: `edit mealplan`
+==== Editing a meal plan
 Edit a meal plan according to a specified index. +
+Command `edit mealplan` +
 Format: `edit mealplan <index> [parameters]`
 
 The possible parameters are:
@@ -534,8 +601,9 @@ image::ug_mealplan_editMealPlan1.png[]
 +
 image::ug_mealplan_editMealPlan2.png[]
 
-==== Listing your meal plans: `list mealplan`
+==== Listing your meal plans
 Lists all meal plans. +
+Command: `list mealplan` +
 Format: `list mealplan`
 
 Examples:
@@ -552,8 +620,9 @@ image::ug_mealplan_listMealPlan1.png[]
 +
 image::ug_mealplan_listMealPlan2.png[]
 
-==== Finding a meal plan: `find mealplan`
+==== Finding a meal plan
 Finds meal plans with names containing a specified keyword. +
+Command: `find mealplan` +
 Format: `find mealplan <keyword>`
 
 Examples:
@@ -571,8 +640,9 @@ all meal plans with the keyword "Week" in its name would be found.
 +
 image::ug_mealplan_findMealPlan2.png[]
 
-==== Finding a meal plan containing a certain recipe: `find mealplanwith`
+==== Finding a meal plan containing a certain recipe
 Finds meal plans with a specified recipe name. +
+Command: `find mealplanwith` +
 Format: `find mealplanwith <recipe name keyword>`
 
 Examples:
@@ -590,8 +660,30 @@ all meal plans with the recipe "Chilli Crab" in any of its days would be found.
 +
 image::ug_mealplan_findWithMealPlan2.png[]
 
-==== Delete a meal plan: `delete mealplan`
+====  Viewing a meal plan:
+Brings up an in depth view of the meal plan according to a specified index.
+
+Here you will be able to see the meal plan's total nutritional value, as well as the recipe details for each day.+
+Command `view mealplan` +
+Format: `view mealplan <index>`
+
+Examples:
+
+* `view mealplan 1` +
+Views the first meal plan listed within the meal plan book.
+
+.Steps
+. Enter the command in the command box and hit the kbd:[Enter] key.
++
+image::ug_mealplan_viewMealPlan1.png[]
++
+. If the command succeeds, a different display showing all the details of the specified meal plan, in this case, the first indexed meal plan, will be brought up.
++
+image::ug_mealplan_viewMealPlan2.png[]
+
+==== Delete a meal plan
 Deletes meal plan according to a specified index. +
+Command: `delete mealplan` +
 Format: `delete mealplan <index>`
 
 Examples:
@@ -599,8 +691,9 @@ Examples:
 * `delete mealplan 1` +
 Deletes the first meal plan listed within the meal plan book.
 
-==== Clearing the meal plan book: `clear mealplan`
+==== Clearing the meal plan book
 Clears all meal plans stored in the meal plan book. +
+Command: `clear mealplan` +
 Format: `clear mealplan`
 
 [IMPORTANT]
@@ -612,8 +705,6 @@ Examples:
 
 * `clear mealplan` +
 Deletes all meal plans within the meal plan book.
-
-====  Viewing a meal plan: `[coming in v2.0]`
 
 === Health Records
 

@@ -1,8 +1,5 @@
 package dukecooks.logic.commands.mealplan;
 
-import static dukecooks.testutil.mealplan.TypicalMealPlans.CHICKEN_MP;
-import static dukecooks.testutil.mealplan.TypicalMealPlans.TEA_MP;
-import static dukecooks.testutil.mealplan.TypicalMealPlans.TUNA_MP;
 import static dukecooks.testutil.mealplan.TypicalMealPlans.getTypicalMealPlanBook;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

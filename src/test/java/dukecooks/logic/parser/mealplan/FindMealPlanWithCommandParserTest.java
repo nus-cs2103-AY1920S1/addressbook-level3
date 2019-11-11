@@ -28,7 +28,8 @@ public class FindMealPlanWithCommandParserTest {
         CommandParserTestUtil.assertParseSuccess(parser, "Cheese Burger", expectedFindMealPlanWithCommand);
 
         // multiple whitespaces between keywords
-        CommandParserTestUtil.assertParseSuccess(parser, " \n Cheese \n \t Burger  \t", expectedFindMealPlanWithCommand);
+        CommandParserTestUtil.assertParseSuccess(parser, " \n Cheese \n \t Burger  \t",
+                expectedFindMealPlanWithCommand);
     }
 
 }
