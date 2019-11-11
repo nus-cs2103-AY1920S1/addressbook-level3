@@ -360,7 +360,6 @@ public class ModelManager implements Model {
     }
 
 
-
     // ========= Statistics =================================================================================
     @Override
     public Statistics getStatistics() {

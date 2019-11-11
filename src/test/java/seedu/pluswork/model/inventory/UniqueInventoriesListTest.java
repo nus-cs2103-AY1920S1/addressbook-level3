@@ -97,7 +97,7 @@ public class UniqueInventoriesListTest {
         uniqueInventoryList.add(SHIRTS);
         uniqueInventoryList.add(BALLS);
         assertThrows(DuplicateInventoryException.class, ()
-            -> uniqueInventoryList.setInventory(SHIRTS, BALLS));
+                -> uniqueInventoryList.setInventory(SHIRTS, BALLS));
     }
 
     @Test
@@ -157,6 +157,6 @@ public class UniqueInventoriesListTest {
     @Test
     public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, ()
-            -> uniqueInventoryList.asUnmodifiableList().remove(0));
+                -> uniqueInventoryList.asUnmodifiableList().remove(0));
     }
 }

@@ -47,7 +47,7 @@ Responsibilities: Auto-complete Feature + Documentation
 
 === Ravi Arun Kumarr
 image::arunbecoding.png[width="150", align="left"]
-{empty}[http://github.com/ArunBeCoding[github]] [<<arunbecoding#, portfolio>>]
+{empty}[http://github.com/ArunBeCoding[github]] [<<arunkumarr#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Inventory and Multi-Line command feature + Storage

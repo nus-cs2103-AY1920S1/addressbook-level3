@@ -14,14 +14,14 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.AddTaskCommand;
-import seedu.pluswork.logic.commands.ClearCommand;
-import seedu.pluswork.logic.commands.DeleteTaskCommand;
-import seedu.pluswork.logic.commands.ExitCommand;
-import seedu.pluswork.logic.commands.FindTaskCommand;
-import seedu.pluswork.logic.commands.GetStatisticsCommand;
-import seedu.pluswork.logic.commands.HelpCommand;
-import seedu.pluswork.logic.commands.ListTaskCommand;
+import seedu.pluswork.logic.commands.statistics.GetStatisticsCommand;
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
+import seedu.pluswork.logic.commands.task.DeleteTaskCommand;
+import seedu.pluswork.logic.commands.task.FindTaskCommand;
+import seedu.pluswork.logic.commands.task.ListTaskCommand;
+import seedu.pluswork.logic.commands.universal.ClearCommand;
+import seedu.pluswork.logic.commands.universal.ExitCommand;
+import seedu.pluswork.logic.commands.universal.HelpCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.task.NameContainsKeywordsPredicate;
 import seedu.pluswork.model.task.Task;
@@ -100,12 +100,12 @@ public class ProjectDashboardParserTest {
     @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
-            -> parser.parseCommand(""));
+                -> parser.parseCommand(""));
     }
 
     @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, ()
-            -> parser.parseCommand("unknownCommand"));
+                -> parser.parseCommand("unknownCommand"));
     }
 }

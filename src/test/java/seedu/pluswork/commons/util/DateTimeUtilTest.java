@@ -48,7 +48,7 @@ public class DateTimeUtilTest {
     // EP deadline has passed
     @Test
     public void parseDateTime_passedDeadline_throwsParseException() throws ParseException {
-        assert(DateTimeUtil.parseDateTime(INVALID_DATE_TIME_FORMAT_PAST).isBefore(LocalDateTime.now()));
+        assert (DateTimeUtil.parseDateTime(INVALID_DATE_TIME_FORMAT_PAST).isBefore(LocalDateTime.now()));
     }
 
     // EP empty string

@@ -3,12 +3,11 @@ package seedu.pluswork.logic.autocomplete;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import java.util.Set;
 
 import javafx.collections.ObservableList;
-
 import seedu.pluswork.commons.Keywords;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.member.Member;
@@ -19,6 +18,7 @@ public class AutoComplete {
     /**
      * AutoComplete logic to return suggestions based on command/prefix that the user is typing
      * uses the model to get relevant data for existing tasks, members
+     *
      * @param input
      * @param model
      */
@@ -29,25 +29,22 @@ public class AutoComplete {
     public AutoComplete(Model model) {
         this.model = model;
     }
+
     private LinkedList<String> suggestions = new LinkedList<>();
 
     public LinkedList<String> completeText(String input) {
         suggestions.clear();
         int firstSpace = input.indexOf(" ");
         if (firstSpace == -1) { // still entering commandWord
-            SortedSet <String> commandList = new TreeSet<>(Keywords.commandList);
+            SortedSet<String> commandList = new TreeSet<>(Keywords.commandList);
             suggestions.addAll(commandList.subSet(input, input + Character.MAX_VALUE));
-        }
-        // String commandWord = input.substring(0, firstSpace);
-
-        // input is not a valid commandWord/ commandWord has no valid prefix to autocomplete
-        if (input.endsWith("/")) { // entering a new prefix for the valid commandWord
-            suggestions = getPrefixSuggestion(input);
         }
         return suggestions;
     }
+
     /**
      * method to return prefix suggestions - coming in v2.0
+     *
      * @param input
      * @return
      */
@@ -79,10 +76,12 @@ public class AutoComplete {
 
     /**
      * gets memberId suggestion from created {@code Member}
+     * for prefix suggestions in v2.0
+     *
      * @param memberList
      * @return
      */
-    private LinkedList<String> getMemberId (ObservableList<Member> memberList) {
+    private LinkedList<String> getMemberId(ObservableList<Member> memberList) {
         LinkedList<String> memberIdList = new LinkedList<>();
         for (Member member : memberList) {
             memberIdList.add(member.getId().getDisplayId());
@@ -92,6 +91,7 @@ public class AutoComplete {
 
     /**
      * gets all the existing tags created by {@Code Task}
+     * for prefix suggestions in v2.0
      * @param taskList
      * @return
      */

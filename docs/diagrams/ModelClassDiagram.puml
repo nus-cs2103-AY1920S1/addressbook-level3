@@ -6,6 +6,8 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyProjectDashboard <<Interface>>
+Interface ReadOnlyUserPrefs <<Interface>>
+Interface ReadOnlyUserSettings <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class ProjectDashboard
@@ -13,6 +15,7 @@ Class ReadOnlyProjectDashboard
 Class Model
 Class ModelManager
 Class UserPrefs
+Class UserSettings
 Class ReadOnlyUserPrefs
 
 Package Task {
@@ -55,7 +58,9 @@ ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" ProjectDashboard
 ModelManager o-left-> "1" UserPrefs
+ModelManager o-left-> "1" UserSettings
 UserPrefs .up.|> ReadOnlyUserPrefs
+UserSettings .up.|> ReadOnlyUserSettings
 
 ProjectDashboard *--> "1" UniqueTaskList
 UniqueTaskList o--> "*" Task

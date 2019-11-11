@@ -6,8 +6,8 @@ import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import java.util.Set;
 
-import seedu.pluswork.logic.commands.AddTaskCommand;
-import seedu.pluswork.logic.commands.EditTaskCommand;
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
+import seedu.pluswork.logic.commands.task.EditTaskCommand;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Task;
 

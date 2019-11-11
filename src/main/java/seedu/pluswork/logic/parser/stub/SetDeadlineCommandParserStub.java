@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 
 import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.commons.util.DateTimeUtil;
-import seedu.pluswork.logic.commands.SetDeadlineCommand;
+import seedu.pluswork.logic.commands.task.SetDeadlineCommand;
 import seedu.pluswork.logic.parser.Parser;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 

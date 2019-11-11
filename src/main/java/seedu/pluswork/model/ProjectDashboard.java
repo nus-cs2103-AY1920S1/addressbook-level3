@@ -240,7 +240,7 @@ public class ProjectDashboard implements ReadOnlyProjectDashboard {
     public void splitTasksByDeadline() {
         tasksByDeadline.setTasks(tasks.toStream()
                 .filter(Task::hasDeadline)
-                .filter(task -> !(task.getTaskStatus().equals(TaskStatus.UNBEGUN)))
+                .filter(task -> !(task.getTaskStatus().equals(TaskStatus.DONE)))
                 .filter(task -> DateTimeUtil.checkIfDueSoon(task.getDeadline()))
                 .collect(Collectors.toList()));
     }

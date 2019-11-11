@@ -4,20 +4,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.AddDCommand;
-import seedu.pluswork.logic.commands.AssignCommand;
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.SetDeadlineCommand;
-import seedu.pluswork.logic.commands.YesCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.commands.member.AssignCommand;
+import seedu.pluswork.logic.commands.multiline.AddDCommand;
+import seedu.pluswork.logic.commands.multiline.YesCommand;
+import seedu.pluswork.logic.commands.task.SetDeadlineCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.member.MemberId;
 
-class AddTaskMl extends MultiLine{
+class AddTaskMl extends MultiLine {
     CommandResult manageOne(CommandResult commandResult, Command command,
-                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+                            Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-3":

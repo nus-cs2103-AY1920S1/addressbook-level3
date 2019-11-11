@@ -4,13 +4,13 @@ package seedu.pluswork.logic.MultiLine;
 import java.util.ArrayList;
 
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.AddICommand;
-import seedu.pluswork.logic.commands.AddInventoryCommand;
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.DoneTaskCommand;
-import seedu.pluswork.logic.commands.YesCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
+import seedu.pluswork.logic.commands.multiline.AddICommand;
+import seedu.pluswork.logic.commands.multiline.YesCommand;
+import seedu.pluswork.logic.commands.task.DoneTaskCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.inventory.InvName;
@@ -19,10 +19,10 @@ import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 
-class DoneTaskMl extends MultiLine{
+class DoneTaskMl extends MultiLine {
 
     CommandResult manageOne(CommandResult commandResult, Command command,
-                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+                            Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-1":

@@ -36,15 +36,20 @@ public class SampleTaskDataUtil {
     public static Task[] getSampleTasks() {
         return new Task[]{
             new Task(new Name("Review Budget"), TaskStatus.UNBEGUN, getTagSet("Finance"),
-                    LocalDateTime.now().plusWeeks(1)),
+                    LocalDateTime.now().plusWeeks(8)),
             new Task(new Name("Increase Funding"), TaskStatus.DOING,
                     getTagSet("Finance", "Urgent"), LocalDateTime.now().plusWeeks(1)),
             new Task(new Name("Settle Claims"), TaskStatus.DOING, getTagSet("Finance")),
-            new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding"),
-                    LocalDateTime.now().plusWeeks(1)),
+            new Task(new Name("Update Website"), TaskStatus.DONE, getTagSet("Branding")),
             new Task(new Name("Shirts for Freshman Open Day"), TaskStatus.DOING, getTagSet("Logistics")),
             new Task(new Name("Design Poster"), TaskStatus.UNBEGUN,
-                    getTagSet("Branding"), LocalDateTime.now().plusWeeks(7))
+                    getTagSet("Branding"), LocalDateTime.now().plusWeeks(7)),
+            new Task(new Name("Promote product"), TaskStatus.DONE, getTagSet("Branding")),
+            new Task(new Name("Hire students to man booth"), TaskStatus.DONE, getTagSet("Manpower")),
+            new Task(new Name("Order refreshments"), TaskStatus.DOING, getTagSet("Logistics"),
+                    LocalDateTime.now().plusWeeks(2)),
+            new Task(new Name("Book location with NUSSU"), TaskStatus.UNBEGUN, getTagSet("Administration"),
+                    LocalDateTime.now().plusWeeks(1))
         };
     }
 
@@ -73,35 +78,35 @@ public class SampleTaskDataUtil {
 
     public static InvMemMapping[] getSampleInvMemMapping() {
         return new InvMemMapping[]{
-                new InvMemMapping(2, 0),
-                new InvMemMapping(2, 1),
-                new InvMemMapping(0, 2),
-                new InvMemMapping(1, 3),
-                new InvMemMapping(2, 4),
-                new InvMemMapping(0, 5),
+            new InvMemMapping(2, 0),
+            new InvMemMapping(2, 1),
+            new InvMemMapping(0, 2),
+            new InvMemMapping(1, 3),
+            new InvMemMapping(2, 4),
+            new InvMemMapping(0, 5),
         };
     }
 
     public static InvTasMapping[] getSampleInvTasMapping() {
         return new InvTasMapping[]{
-                new InvTasMapping(5, 0),
-                new InvTasMapping(2, 1),
-                new InvTasMapping(5, 2),
-                new InvTasMapping(5, 3),
-                new InvTasMapping(2, 4),
-                new InvTasMapping(4, 5),
+            new InvTasMapping(5, 0),
+            new InvTasMapping(2, 1),
+            new InvTasMapping(5, 2),
+            new InvTasMapping(5, 3),
+            new InvTasMapping(2, 4),
+            new InvTasMapping(4, 5),
         };
     }
 
 
     public static TasMemMapping[] getSampleTasMemMapping() {
         return new TasMemMapping[]{
-                new TasMemMapping(1, 1),
-                new TasMemMapping(1, 2),
-                new TasMemMapping(2, 1),
-                new TasMemMapping(3, 4),
-                new TasMemMapping(4, 3),
-                new TasMemMapping(5, 5),
+            new TasMemMapping(1, 1),
+            new TasMemMapping(1, 2),
+            new TasMemMapping(2, 1),
+            new TasMemMapping(3, 4),
+            new TasMemMapping(4, 3),
+            new TasMemMapping(5, 5),
         };
     }
 
@@ -109,21 +114,17 @@ public class SampleTaskDataUtil {
         try {
             LocalDateTime sampleDateTime1 = DateTimeUtil.parseDateTime("29-11-2019 18:00");
             Duration sampleHours1 = ParserUtil.parseHours("4");
-            List<MemberName> sampleMembers1 = Arrays.asList(new MemberName[]{
-                    new MemberName("Gabriel"),
+            List<MemberName> sampleMembers1 = Arrays.asList(new MemberName("Gabriel"),
                     new MemberName("Abhinav"),
-                    new MemberName("Lynn")
-            });
+                    new MemberName("Lynn"));
             LocalDateTime sampleDateTime2 = DateTimeUtil.parseDateTime("30-11-2019 20:00");
             Duration sampleHours2 = ParserUtil.parseHours("2");
-            List<MemberName> sampleMembers2 = Arrays.asList(new MemberName[]{
-                    new MemberName("Gabriel"),
-                    new MemberName("Abhinav"),
-                    new MemberName("Lynn")
-            });
+            List<MemberName> sampleMembers2 = Arrays.asList(new MemberName("Gabriel"),
+                new MemberName("Abhinav"),
+                new MemberName("Lynn"));
             return new Meeting[]{
-                    new Meeting(sampleDateTime1, sampleHours1, sampleMembers1),
-                    new Meeting(sampleDateTime2, sampleHours2, sampleMembers2)
+                new Meeting(sampleDateTime1, sampleHours1, sampleMembers1),
+                new Meeting(sampleDateTime2, sampleHours2, sampleMembers2)
             };
         } catch (ParseException e) {
             e.printStackTrace();
@@ -137,12 +138,12 @@ public class SampleTaskDataUtil {
             Calendar sampleCalendar2 = ParserUtil.parseCalendar(SampleCalendarDataUtil.SAMPLE_CALENDAR_ABHINAV);
             Calendar sampleCalendar3 = ParserUtil.parseCalendar(SampleCalendarDataUtil.SAMPLE_CALENDAR_LYNN);
             return new CalendarWrapper[]{
-                    new CalendarWrapper(new MemberName("Gabriel"), sampleCalendar1,
-                            SampleCalendarDataUtil.SAMPLE_CALENDAR_GABRIEL),
-                    new CalendarWrapper(new MemberName("Abhinav"), sampleCalendar2,
-                            SampleCalendarDataUtil.SAMPLE_CALENDAR_ABHINAV),
-                    new CalendarWrapper(new MemberName("Lynn"), sampleCalendar3,
-                            SampleCalendarDataUtil.SAMPLE_CALENDAR_LYNN)
+                new CalendarWrapper(new MemberName("Gabriel"), sampleCalendar1,
+                        SampleCalendarDataUtil.SAMPLE_CALENDAR_GABRIEL),
+                new CalendarWrapper(new MemberName("Abhinav"), sampleCalendar2,
+                        SampleCalendarDataUtil.SAMPLE_CALENDAR_ABHINAV),
+                new CalendarWrapper(new MemberName("Lynn"), sampleCalendar3,
+                        SampleCalendarDataUtil.SAMPLE_CALENDAR_LYNN)
             };
         } catch (ParseException e) {
             e.printStackTrace();

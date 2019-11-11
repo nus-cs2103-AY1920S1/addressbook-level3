@@ -122,6 +122,7 @@ public interface Logic {
 
     /**
      * returns a list of suggestions for command
+     *
      * @param input
      * @return
      */
