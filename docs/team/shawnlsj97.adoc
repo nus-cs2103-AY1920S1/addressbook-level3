@@ -28,7 +28,9 @@ timing-based performance sports. **Athletick** provides them with athlete
 information managing, attendance tracking and performance monitoring. This enables them to better manage their team, plan for trainings and prepare for upcoming competitions.
 
 **Athletick** was developed as part of a requirement for our second-year software engineering
-module, https://nusmods.com/modules/CS2103T/software-engineering[CS2103T]. The project was completed over a period of  six weeks. We were tasked to morph an https://se-education.org/addressbook-level3/[application] that manages contacts into an application that manages something else. As part of the project constraints, the input to **Athletick** needs to be primarily Command-Line Interface (CLI), where the user interacts with **Athletick** by issuing lines of commands.
+module, https://nusmods.com/modules/CS2103T/software-engineering[CS2103T]. The project was
+completed over a period of  six weeks. We were tasked to morph an https://se-education.org/addressbook-level3/[address book application] that manages contacts into an application that
+manages something else. As part of the project constraints, the input to **Athletick** needs to be primarily Command-Line Interface (CLI), where the user interacts with **Athletick** by issuing lines of commands.
 
 Note the following symbols and formatting used in this document:
 
@@ -45,7 +47,7 @@ line and executed by the application.
 
 This section contains a summary of my coding, documentation, and other helpful contributions to the team project.
 
-**Enhancement Added**: I added the ability to display training and performance records in the form of a calendar.
+**Enhancement Added**: I added the ability to display training and performance records in a calendar.
 
 * What it does
 ** The `view calendar` and `calendar MMYYYY` commands allow users display a monthly calendar indicating which days contain training and performance records.
@@ -57,7 +59,7 @@ This section contains a summary of my coding, documentation, and other helpful c
 ** This enhancement provides a platform for further development of date-related features, such as
 the planning of training programmes in advance. The implementation was also challenging because it required the `[green]#Training#` and `[green]#Performance#` features to incorporate a date for the calendar to utilise and the construction of a calendar is complex.
 
-*Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shawnlsj97&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T12-3/main[GitHub repository]]
+*Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shawnlsj97&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=shawnlsj97[GitHub repository]]
 
 *Other contributions*
 
@@ -66,13 +68,13 @@ the planning of training programmes in advance. The implementation was also chal
 ** Served as the team's Integration Engineer, ensuring all features are integrated together smoothly
 for each project milestone submission.
 * Enhancements to existing features
-** Implemented sorting of team list. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/62[#62])
+** Implemented sorting of the team list. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/62[#62])
 
 ** Updated the GUI layout and color scheme. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/87[#87], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/201[#201])
 * Documentation
 ** Added documentation for the `calendar`, `sort` and `view` commands in the User Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/124[#123], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/214[#214])
 ** Added documentation for the `calendar`, `sort` and `view` commands in the Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/220[#220])
-** Came up with style guide for diagrams for team to adhere to. (https://docs.google.com/presentation/d/1JprrBR5HnnOQio1M9YEgheEYldplHqL18q4IQCGqyMk/edit#slide=id.p[Link])
+** Created style guide for diagrams for the team to adhere to. (https://docs.google.com/presentation/d/1JprrBR5HnnOQio1M9YEgheEYldplHqL18q4IQCGqyMk/edit#slide=id.p[Link])
 * Community:
 ** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/91[#91]
 ** Reported bugs and suggestions for other teams in the class: https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+label%3Atype.FunctionalityBug[Bug reports], https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+-label%3Atype.FunctionalityBug[Suggestions]
@@ -97,6 +99,10 @@ This section displays my contributions to the developer guide for the calendar f
 
 [blue]#_Start of extract from Developer Guide_#
 
-include::../DeveloperGuide.adoc[tag=calendar]
+include::../DeveloperGuide.adoc[tag=calendar1]
+
+include::../DeveloperGuide.adoc[tag=calendar2]
+
+include::../DeveloperGuide.adoc[tag=calendar3]
 
 [blue]#_End of extract from Developer Guide_#
