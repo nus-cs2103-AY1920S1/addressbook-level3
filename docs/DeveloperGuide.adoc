@@ -92,6 +92,7 @@ The `UI` component,
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
 //tag::logic[]
+
 [[Design-Logic]]
 === Logic components
 
@@ -214,7 +215,7 @@ image::QuestionsLogicManager.png[align="center" width="600"]
 * `QuestionLogicManager` saves the `QuestionBank` after each change.
 ====
 
-
+[[Logic-ProgramSubmissionLogic]]
 ==== ProgramSubmissionLogic implementation
 The standard implementation of the `ProgramSubmissionLogic` is the `ProgramSubmissionLogicManager`. It
 relies on `TestExecutor` to execute users' program submissions
@@ -394,7 +395,7 @@ image::TestResultDiagram.png[align="center"]
 
 ==== Implementation overview
 
-The evaluation of a user's program is done in 4 main steps, each handled by a specialized interface. The 3 steps include:
+The evaluation of a user's program is done in 5 main steps, each handled by a specialized interface. The 5 steps include:
 
 ====
 . Create a Java file inside a temporary directory and write the source code into the file.
@@ -408,7 +409,7 @@ The evaluation of a user's program is done in 4 main steps, each handled by a sp
 . Package the output, errors and results as a `TestResult` instance.
 ====
 
-The 3 specialized interfaces are `CompilerEnvironment`, `Compiler` and `ProgramExecutor`. They provided through dependency injection in the `TestExecutor` constructor.
+The 3 specialized interfaces used are `CompilerEnvironment`, `Compiler` and `ProgramExecutor`. They provided through dependency injection in the `TestExecutor` constructor.
 
 `TestExecutor` acts as an orchestrator for the 3 interfaces.
 
@@ -470,6 +471,19 @@ image::TestExecutorSequenceDiagram.png[align="center" width="650"]
 
 ====
 
+==== User interaction
+In the application, the user's interactions when submitting  a program is as follows:
+
+. User submits program after typing it into the `Editor` UI component.
+. `ProgramSubmissionLogic` retrieves the program from `Editor` and evaluates it against the _currently attempting_ `Question` in `QuestionLogic`.
+. `ProgramEvaluationPanel` observes the latest `TestResult` and reflects new result in the UI.
+
+====
+* `Editor` must have been set as the `UserProgramChannel` in `ProgramSubmissionLogic`.
+* `ProgramEvaluationPanel` must be observing the test result `Observable` provided by `ProgramSubmissionLogic`.
+* View <<Logic-ProgramSubmissionLogic>> for details about the sequence of events
+====
+
 //end::programevaluation[]
 
 ==== Implementation details
@@ -496,6 +510,32 @@ The implementations of `CompilerEnvironment`, `Compiler` and `ProgramExecutor` a
     - Test inputs are fed into the input stream.
     - Results and errors are collected from the output stream.
     - The process is destroyed upon completion.
+
+//tag::programevaluationalternative[]
+
+==== Design considerations
+===== Aspect : How the programs are run
+|===
+|Alternative 1 : Use native Java packages and run the program locally (current choice) | Alternative 2 : Host an online server which receives user programs via HTTP requests
+
+| Pro : No additional installation requirements is needed from the user
+| Pro : Can support multiple languages
+
+| Pro : No internet connection is required
+| Pro : Scale of tests can be increased
+
+
+| Pro : Easy to implement
+| Pro : Reduce strain on user's machine
+
+| Con : Creates files in the user's machine (dependent on memory/permissions)
+| Con : Difficult to implement
+
+| Con : Can only support the execution of Java programs
+| Con : Dependent on internet
+|===
+
+//end::programevaluationalternative[]
 
 === Logging
 
