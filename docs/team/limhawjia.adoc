@@ -141,8 +141,6 @@ Given below are some of the sections that I contributed to the User Guide. They 
 
 include::../UserGuide.adoc[tag=overview]
 
-include::../UserGuide.adoc[tag=beforestart]
-
 include::../UserGuide.adoc[tag=submit]
 
 == Contributions to the Developer Guide
