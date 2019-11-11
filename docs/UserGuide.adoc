@@ -247,6 +247,7 @@ Format: `resume <ENTRY_ID>`
 * e.g. `resume 1`
 
 // end::queue[]
+// tag::appointment[]
 
 === Appointment Management
 
@@ -334,6 +335,9 @@ List all the available empty slots for patients to make appointments +
 
 Format: `slot -start <START_DATE>`
 
+// end::appointment[]
+// tag::shift[]
+
 === Duty-shift Management
 
 ==== Displays duty shifts: `shift` ====
@@ -381,6 +385,8 @@ Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
 * e.g. `editshift -entry 1 -start 12/12/19 1200 -end 12/12/19 2100`
 
+// end::shift[]
+
 === Inventory Commands (v2.0) ===
 
 ==== Views the inventory: `inventory` (v2.0) ====
@@ -394,6 +400,7 @@ Format: `inventory`
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
 
 Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
+
 
 === User Accounts (v2.0) ===
 
