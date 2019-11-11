@@ -21,6 +21,7 @@ import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
 import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.transaction.UniqueTransactionList;
+import seedu.address.ui.tab.Tab;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -29,6 +30,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final UserPrefs userPrefs;
+    private Tab currentTab;
     private final VersionedUserState versionedUserState;
     private final FilteredList<BankAccountOperation> filteredTransactions;
     private final FilteredList<Budget> filteredBudgets;
@@ -50,6 +52,7 @@ public class ModelManager implements Model {
         filteredBudgets = new FilteredList<>(this.versionedUserState.getBankAccount().getBudgetHistory());
         filteredLedgerOperations = new FilteredList<>(this.versionedUserState.getLedger().getLedgerHistory());
         filteredProjections = new FilteredList<>(this.versionedUserState.getBankAccount().getProjectionHistory());
+        currentTab = Tab.TRANSACTION;
     }
 
     public ModelManager() {
@@ -57,6 +60,10 @@ public class ModelManager implements Model {
     }
 
     //=========== UserPrefs ==================================================================================
+    @Override
+    public Tab getCurrentTab() {
+        return currentTab;
+    }
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -224,6 +231,11 @@ public class ModelManager implements Model {
     @Override
     public ObservableList<Person> getPeopleInLedger() {
         return versionedUserState.getLedger().getPeople();
+    }
+
+    @Override
+    public void setTab(Tab tab) {
+        currentTab = tab;
     }
 
     @Override

@@ -23,6 +23,6 @@ public class UndoCommand extends Command {
         }
 
         model.undoUserState();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, model.getCurrentTab());
     }
 }

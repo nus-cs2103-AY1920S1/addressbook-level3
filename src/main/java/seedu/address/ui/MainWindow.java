@@ -222,7 +222,6 @@ public class MainWindow extends UiPart<Stage> {
             break;
         case LEDGER:
             showLedgerTab();
-            showLedgerBalance();
             break;
         case PROJECTION:
             showProjectionTab();
@@ -294,6 +293,7 @@ public class MainWindow extends UiPart<Stage> {
      * Switch to ledger tab.
      */
     private void showLedgerTab() {
+        showLedgerBalance();
         mainTabPanel.switchToLedgerTab();
     }
 
