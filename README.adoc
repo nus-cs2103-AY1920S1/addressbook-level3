@@ -10,10 +10,6 @@ image::docs/images/njoybanner.jpg[width="600"]
 image::docs/images/Ui.png[width="600"]
 endif::[]
 
-ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
-
 *Njoy Teaching Assistant* aims to help teachers increase their productivity by managing their daily teaching activities.
 It is a desktop application where users will interact with a CLI(Command Line Interface). With *Njoy Teaching Assistant*, teachers will be able to create questions, generate quizzes, view statistics and more with just a few taps of their keyboards!
 
@@ -29,7 +25,7 @@ It is a desktop application where users will interact with a CLI(Command Line In
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://commons.apache.org/proper/commons-math/[Apache Commons],
-https://commons.apache.org/proper/commons-text/[Apache Commons Text], https://poi.apache.org/[Apache POI]
+https://commons.apache.org/proper/commons-text/[Apache Commons Text], https://poi.apache.org/[Apache POI], http://jfxtras.org/[Jfxtras iCalendarAgenda]
 * AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
 == Licence : link:LICENSE[MIT]
