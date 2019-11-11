@@ -32,7 +32,7 @@ Note the following symbols and formatting used in this document
 
 [horizontal]
 
-NOTE:: This symbol indicates important information
+NOTE:: This symbol indicates important information.
 
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
 
@@ -124,7 +124,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`[green]#Ui.java#`]
 
@@ -437,16 +437,16 @@ There are 2 commands that users can issue to perform function 1:
 
 . `view calendar`: Displays calendar for the current month.
 
-. `calendar MMYYYY`: Displays calendar for the month specified by the user (e.g. `calendar 012019` where `012019` corresponds to January 2019).
+. `calendar MMYYYY`: Displays calendar for the month specified by the user.
 
-The following sequence diagram shows you how the `calendar MMYYYY` (e.g. `calendar 012019`) operation works.
+The following sequence diagram shows you how the `calendar MMYYYY` (e.g. `calendar 012019` where `012019` corresponds to January 2019) command works.
 
 .Interactions inside the `[green]#UI#` and `[green]#Logic#` components for the `calendar 012019` Command
 image::CalendarCommandSequenceDiagram1.png[width="700"]
 
 Upon completion of the above execution, the calendar for January 2019 will be displayed to the user.
 
-The `view calendar` command is similar except that `[green]#displayCalendar(CommandResult)#` is called instead of `[green]#displayCalendarWithDate(CommandResult)#` and the `[green]#CalendarPanel#` class is constructed _without_ an `[green]#AthletickDate#` specified by the user. The calendar displayed to the user will reflect the current month and year.
+The `view calendar` command is similar except that `[green]#displayCalendar(CommandResult)#` is called instead of `[green]#displayCalendarWithDate(CommandResult)#` and the `[green]#CalendarPanel#` class is instantiated _without_ an `[green]#AthletickDate#` specified by the user. The calendar displayed to the user will reflect the current month and year since date is not specified by the user.
 
 The following activity diagram summarises what happens when a user wants to perform function 1.
 
@@ -456,20 +456,22 @@ image::Function1ActivityDiagram.png[width=300]
 Function 1 is facilitated by the `[green]#CalendarPanel#` class. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
 
 * `[green]#CalendarPanel#retrieveCurrentDate()#` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a specific month to view.
-* `[green]#CalendarPanel#retrieveProvidedDate()#` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
-* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all the 42 cells of the `GridPane` with their respective days based on the selected month by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
+* `[green]#CalendarPanel#retrieveProvidedDate(AthletickDate)#` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
+* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all the 42 cells of the `[green]#GridPane#` with their respective days based on the selected month by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
 
 +
 In addition, days with training or performance records will be marked with a small green or purple dot indicator respectively.
 
-These operations are performed when an instance of `[green]#CalendarPanel#` is created in the `[green]#MainWindow#` class. An instance of `[green]#CalendarPanel#` is created when the `[green]#CommandResult#` obtained in `[green]#MainWindow#` after the execution of the user's command contains a `[green]#Feature#` corresponding to a calendar and an _optional_ `[green]#AthletickDate#`.
+These operations are performed when an instance of the `[green]#CalendarPanel#` class is created in the `[green]#MainWindow#` class. An instance of `[green]#CalendarPanel#` is created when the `[green]#CommandResult#` obtained in `[green]#MainWindow#` after the execution of the user's command contains a `[green]#Feature#` corresponding to a calendar and an _optional_ `[green]#AthletickDate#`.
 
-The sequence diagram below shows you what happens when the CalendarPanel is instantiated.
+The sequence diagram below shows you what happens when the `[green]#CalendarPanel#` class is instantiated.
 
-.Interactions Inside the UI and Model Components when CalendarPanel is Instantiated
+.Interactions inside the `[green]#UI#` and `[green]#Model#` components when `[green]#CalendarPanel#` is instantiated
 image::CalendarConstructorSequenceDiagram.png[width="700"]
 
-Upon completion of the above execution, all 42 cells `[green]#GridPane#` will be filled with a number corresponding to the day of the month. Days with training or performance records will be marked with a small green or purple dot indicator respectively. The following diagram depicts how each individual cell will look like.
+With reference to the above diagram, if `[green]#hasTrainingOn(AthletickDate)#` returns true, a green dot indicator will be added to the cell of the `[green]#GridPane#`. Similarly, if `[green]#hasPerformanceOn(AthletickDate)#` returns true, a purple dot indicator will be added.
+
+Upon completion of the above execution, all 42 cells `[green]#GridPane#` will be filled with a number corresponding to the day of the month. Days with training or performance records will be marked with a green or purple dot indicator respectively. The following diagram depicts how each individual cell will look like.
 
 image::CellResult.png[width="400"]
 
@@ -477,32 +479,32 @@ image::CellResult.png[width="400"]
 
 In order to perform function 2, the user issues the `calendar DDMMYYYY` command (e.g. `calendar 01012019` where `01012019` corresponds to 1st January 2019).
 
-The following sequence diagram shows you how the `calendar DDMMYYYY` (e.g. `calendar 01012019) operation works.
+The following sequence diagram shows you how the `calendar DDMMYYYY` (e.g. `calendar 01012019`) operation works.
 
-.Interactions Inside the UI and Logic Components for the `calendar 01012019` Command
-image::CalendarCommandSequenceDiagram2.png[]
+.Interactions inside the `[green]#UI#` and `[green]#Logic#` components for the `calendar 01012019` command
+image::CalendarCommandSequenceDiagram2.png[width="700"]
 
-Upon completion of the above execution, the attendance and performance records of 1st January 2019 will be displayed to the user.
+Upon completion of the above execution, the attendance and performance records for 1st January 2019 will be displayed to the user.
 
-Function 2 is facilitated by `[green]#CalendarDetailPanel#`. It extends `UiPart<Region>` and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:
+The following activity diagram summarises what happens when a user issues the `calendar DDMMYYYY` command.
 
-* `[green]#CalendarDetailPanel#initialiseAttendanceData#` -- Retrieves and displays the attendance records on the specified date.
-* `[green]#CalendarDetailPanel#initialisePerformanceData#` -- Retrieves and displays the performance records on the specified date.
+.Activity diagram showing what happens when a user issues the `calendar DDMMYYYY` command
+image::Function2ActivityDiagram.png[]
+
+Function 2 is facilitated by `[green]#CalendarDetailPanel#`. It extends `[green]#UiPart<Region>#` and displays the attendance and performance records for a date specified by the user. Additionally, it implements the following operations:
+
+* `[green]#CalendarDetailPanel#displayAttendanceChart()#` -- Calculates and displays a pie chart showing overall team attendance percentage for the specified date.
+* `[green]#CalendarDetailPanel#displayAttendanceTable()#` -- Retrieves and displays a table with the athletes' names in the first column and their attendance (marked with a tick or cross) in the second column.
+* `[green]#CalendarDetailPanel#displayPerformanceStats()#` -- Displays the total number of performance records recorded on the specified date.
+* `[green]#CalendarDetailPanel#displayPerformanceTable()#` -- Retrieves and displays the performance records recorded on the specified date. Records are grouped according to the event they belong to.
 
 These operations are performed when an instance of `[green]#CalendarDetailPanel#` is created in the `[green]#MainWindow#` class. An instance of `CalendarDetailPanel` is created when the `[green]#CommandResult#` obtained after executing the user's command contains a `[green]#Feature#` corresponding to a calendar and an `[green]#AthletickDate#`.
 
-The sequence diagram below shows you what happens when the CalendarDetailPanel is instantiated.
+The sequence diagram below shows you what happens when the `[green]#CalendarDetailPanel#` class is instantiated.
 
-// to be continued
-
-The following sequence diagram shows how the `calendar DDMMYYYY` (e.g. `calendar 01012019`) operation works:
-
-.Interactions Inside the UI, Logic and Model Components for the `calendar DDMMYYYY` Command
+// sequence diagram
 
 
-The following activity diagram summarises what happens when a user executes the `calendar DDMMYYYY` command:
-
-// activity diagram (show what happens when records found vs not found)
 
 ==== Design considerations
 
