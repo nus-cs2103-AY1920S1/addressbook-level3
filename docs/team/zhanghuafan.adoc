@@ -27,7 +27,7 @@ This can further benefit the development of more personalized food recommendatio
 * *Other contributions*:
 
 ** Project management:
-*** Set up the organization and repo
+*** Set up the team organization, repo and website
 *** Transferred user cases to GitHub project
 *** Categorized issue tags
 *** Managed releases `v1.2.1`, `v1.3.2`, `v1.3.3`, `1.3.6` (4 releases) on GitHub
