@@ -369,12 +369,6 @@ in the `Xpire` by `ModelManager`.
 
 Step 4: result of execution will be displayed.
 
-The reminder is now set up and is reflected in the UI like this:
-
-.SetReminderSuccess
-
-image::ItemCard.png[]
-
 The following sequence diagram shows how the operation works:
 
 .SetReminderSequenceDiagram
@@ -395,10 +389,6 @@ You can see how the `Check` operation works in the following sequence diagram.
 image::CheckCommandNoArgUML.png[]
 
 A successful `check` will lists all items marked as yellow and red int he `ViewPanel` of the UI component.
-
-.CheckSuccess
-
-image::CheckSuccessful.png[]
 
 ===== Check with days
 The enhanced check function also uses the `updateFilteredItemList` method provided by model to filter items. The condition
@@ -710,14 +700,18 @@ to an `ItemCard` .
 dose an additional check on the condition of the `XpireItem` and assign it to different colours respectively through `setColour()`.
 . The app then starts.
 
-Let's now see what happens when a command executes.
+Let's now see what happens when a command is executed.
 [NOTE]
 If the command is a `help`, `exit` of `export`, the `ViewPanel` will not be updated and refreshed.
 
 . In `MainWindow`, a call to `executeCommand(String)` is made, where `Logic` will executes the command.
 . Upon a successful execution, a call to `updateViewPanel()` is made. In this method the `ViewPanel` then calls `displayItems(ObservableList)` again to rerender the items.
 . `displayItems` will first have to clear all child Nodes that the `ViewPanel` contains before adding a new Collection of `ItemCard`.
-. `ViewPanelPlaceholder` will then have to remove the `ViewPanel` child and add it back to allow the changes to be reflected in the GUI.
+. `ViewPanelPlaceholder` will then have to remove the `ViewPanel` child and add the new one to allow the changes to be reflected in the GUI.
+
+You can refer to the activity diagram below for reference.
+
+image::UpdateViewPanelActivityDiagram.png[790]
 
 [NOTE]
 If the execution by `Logic` is not successful, an error will be thrown and the `ViewPanel` will not be updated and refreshed.
