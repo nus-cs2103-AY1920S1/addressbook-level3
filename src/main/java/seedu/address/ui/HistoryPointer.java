@@ -5,31 +5,26 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Has a cursor that points to an element in the list, and is able to iterate through the list.
- * This is different from {@code ListIterator}, which has a cursor that points in between elements.
- * The {@code ListIterator}'s behaviour: when making alternating calls of {@code next()} and
- * {@code previous()}, the same element is returned on both calls.
- * In contrast, {@code ListElementPointer}'s behaviour: when making alternating calls of
- * {@code next()} and {@code previous()}, the next and previous elements are returned respectively.
+ * This class is used to point to an element in the history list and iterate through the list.
  */
-public class ListElementPointer {
-    private List<String> list;
+public class HistoryPointer {
+    private List<String> historyLists;
     private int index;
 
     /**
-     * Constructs {@code ListElementPointer} which is backed by a defensive copy of {@code list}.
+     * Constructs {@code HistoryPointer} which is backed by a defensive copy of {@code list}.
      * The cursor points to the last element in {@code list}.
      */
-    public ListElementPointer(List<String> list) {
-        this.list = new ArrayList<>(list);
-        index = this.list.size() - 1;
+    public HistoryPointer(List<String> list) {
+        this.historyLists = new ArrayList<>(list);
+        index = this.historyLists.size() - 1;
     }
 
     /**
      * Appends {@code element} to the end of the list.
      */
-    public void add(String element) {
-        list.add(element);
+    public void add(String history) {
+        historyLists.add(history);
     }
 
     /**
@@ -56,29 +51,29 @@ public class ListElementPointer {
     }
 
     private boolean isWithinBounds(int index) {
-        return index >= 0 && index < list.size();
+        return index >= 0 && index < historyLists.size();
     }
 
     /**
-     * Returns the next element in the list and advances the cursor position.
+     * Points to the next element in the list and advances the cursor position.
      * @throws NoSuchElementException if there is no more next element in the list.
      */
     public String next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        return list.get(++index);
+        return historyLists.get(++index);
     }
 
     /**
-     * Returns the previous element in the list and moves the cursor position backwards.
+     * Points the previous element in the list and moves the cursor position backwards.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
     public String previous() {
         if (!hasPrevious()) {
             throw new NoSuchElementException();
         }
-        return list.get(--index);
+        return historyLists.get(--index);
     }
 
     /**
@@ -89,7 +84,7 @@ public class ListElementPointer {
         if (!hasCurrent()) {
             throw new NoSuchElementException();
         }
-        return list.get(index);
+        return historyLists.get(index);
     }
 
     @Override
@@ -100,12 +95,12 @@ public class ListElementPointer {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ListElementPointer)) {
+        if (!(other instanceof HistoryPointer)) {
             return false;
         }
 
         // state check
-        ListElementPointer iterator = (ListElementPointer) other;
-        return list.equals(iterator.list) && index == iterator.index;
+        HistoryPointer iterator = (HistoryPointer) other;
+        return historyLists.equals(iterator.historyLists) && index == iterator.index;
     }
 }

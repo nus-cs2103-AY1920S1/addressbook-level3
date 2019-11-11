@@ -37,7 +37,7 @@
                 </MenuBar>
 
                 <StackPane fx:id="commandBoxPlaceholder" styleClass="pane-with-border" VBox.vgrow="NEVER"
-                           maxHeight="125" minHeight="125" prefHeight="125">
+                           maxHeight="115" minHeight="115" prefHeight="115">
                     <padding>
                         <Insets bottom="5" left="10" right="10" top="5"/>
                     </padding>
