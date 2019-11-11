@@ -20,6 +20,8 @@ By: `Team CS2103T-F13-4`      Since: `Sept 2019`      Licence: `MIT`
 
 Refer to the guide <<SettingUp#, here>>.
 
+{sp} +
+
 == Design
 
 [[Design-Architecture]]
@@ -72,6 +74,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+
 [[Design-Ui]]
 === UI component
 
@@ -88,6 +91,7 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+
 
 [[Design-Logic]]
 === Logic component
@@ -111,6 +115,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
 
 [[Design-Model]]
 === Model component
@@ -171,12 +176,14 @@ In Figure 9, we see the structure of the API component centered around `ApiManag
 
 Classes used by multiple components are in the `seedu.EzWatchlist.commons` package.
 
+{sp} +
+
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::markaswatched[]
-=== [Feature] Mark/unmark as watched feature
+=== [Feature] Mark/Unmark as Watched Feature
 
 The watch feature allows users to mark or unmark shows as watched. It also allows users to keep track of the latest episode
 of a TV series that they have watched.
@@ -226,7 +233,7 @@ image::WatchSequenceDiagram.png[]
 // end::markaswatched[]
 
 // tag::statistics[]
-=== [Proposed] Statistics feature
+=== [Proposed] Statistics Feature
 ==== Proposed Implementation
 
 The statistics feature is facilitated by `Statistics` object. It extends `EzWatchlist` with a summary of the users' personal
@@ -335,7 +342,7 @@ Step 3. To retrieve an image from the database, an image url is downloaded to th
 
 Step 4. A `poster` class is then created with the image path of the downloaded image. At any point, the `poster` object can be used to load images in the application.
 
-Step 5. With the list of movies returned, the application can then read the internal `Movie` object returned. The `Poster` object in the `Movie` object can be used to load the poster of the movie, and the other fields can be shown to the user as seen in Figure 12.
+Step 5. With the list of movies returned, the application can then read the internal `Movie` object returned. The `Poster` object in the `Movie` object can be used to load the poster of the movie, and the other fields can be shown to the user as seen in the figure below.
 
 .The movie component shown to the user in `EzWatchlist`.
 image::moviecard.png[width=900]
@@ -344,7 +351,7 @@ image::moviecard.png[width=900]
 At any point the application might fail due to the application not being connected to the internet. If that occurs a
 `OnlineConnectionException` is thrown for the application to handle.
 
-The relationship between all the classes, and their methods are shown in the following class diagram in Figure 13:
+The relationship between all the classes, and their methods are shown in the following class diagram in the figure below:
 
 .Detailed Api Class Diagram
 image::ApiClassDiagram.png[width=600]
@@ -384,7 +391,7 @@ Recommendations are generated through the `RecommendationEngine` class in the AP
 recommendations are retrieved through the `ApiInterface` implemented in the API package.
 
 ===== Implementation
-Given below in Figure 14 is a _sequence diagram_ of how the recommendations are generated when called from the `ApiManager`.
+The figure below is a _sequence diagram_ of how the recommendations are generated when called from the `ApiManager`.
 
 .Sequence Diagram of Movie Recommendations retrieval.
 image::movieRecommendationSD.png[width=500]
@@ -417,19 +424,17 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 // tag::search[]
 [[Implementation]]
-=== [Feature] Search feature
+=== [Feature] Search Feature
 The `Search` feature allows users to search for shows from the *online database*, the *internal database*, their *watchlist* or
 *watched-list*.
 It allows users to search for shows based on either "*name*", "*genre*" or "*actors*", or a combination of them. +
 Users can choose to search from the online database or their watchlist and watched-list, and also filter their search
 based on the show type.
 
-The following activity diagram summarises the workflow of the `Search` feature:
+The following _activity diagram_ summarises the workflow of the `Search` feature:
 
 .Activity Diagram for the `Search` Feature
-image::SearchActivityDiagram.png[][width=590"]
-
-Users
+image::SearchActivityDiagram.png[][width=400"]
 
 {sp} +
 
@@ -447,8 +452,7 @@ Step 2. Entering the command calls `LogicManager#execute()`, which in turns call
 Step 3. `WatchListParser#parseCommand()` returns a new `SearchCommandParser` and the `SearchCommandParser#parse()` command is called.
 
 [NOTE]
-If the user enters a wrong command, such as prefix other than that specified in the User Guide and incorrect keywords,
-a new `ParseException` is thrown.
+If the user enters a wrong command, such as incorrect prefixes or keywords, a new `ParseException` is thrown.
 
 Step 4. A new `SearchCommand` is created, with the hash map containing the contents to be searched as a field of
 `SearchCommand`.
@@ -474,7 +478,7 @@ Step 10. A new `CommandResult` is created, referencing the search message to be 
 returned to the `LogicManager`.
 
 {sp} +
-The following sequence diagram summarizes how the search operation works based on the example above:
+The following _sequence diagram_ summarizes how the search operation works based on the example above:
 
 .Sequence Diagram for the `Search` Operation
 image::SearchSequenceDiagram.png[][width="790"]
@@ -485,7 +489,7 @@ image::SearchSequenceDiagram.png[][width="790"]
 
 ===== Aspect: How `SearchCommand` reference the information to be searched for
 * Alternative 1 (current choice): Takes reference to the hash map from `SearchCommandParser`, consisting of all the
-possible ways to search for show
+possible methods to search for shows
 ** Pros:
 *** Easy to implement
 *** Can be easily made use of by retrieving the list of what the user want to search from the hash map
@@ -500,7 +504,7 @@ possible ways to search for show
 ** Cons:
 *** Does not allow the user to have the freedom to choose what they would like to search by
 *** May return irrelevant results back to the user as the user did not specify what they would like to search based on
-*** Higher run time as there would be a need to search based on all 3 ways
+*** Higher run time as there would be a need to search based on all 3 methods
 
 ===== Aspect: How `SearchCommand` is executed
 * Current choice: Search by name, followed by genre then actor, when the user chooses to search with any combinations of the 3 methods
@@ -516,6 +520,7 @@ instead of shows that have both the name "Avengers" and the genre "Comedy"
 
 // end::search[]
 
+{sp} +
 
 // tag::add[]
 === [Feature] Add feature
