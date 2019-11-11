@@ -48,11 +48,16 @@ public class DueDate {
      */
     public static boolean isValidDate(String test) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        try {
+            LocalDate date = LocalDate.parse(test, dateFormat);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
         String[] split = test.split("/");
         int day = Integer.parseInt(split[0]);
         int month = Integer.parseInt(split[1]);
         int year = Integer.parseInt(split[2]);
-
+        
         if (month == 4 || month == 6 || month == 9 || month == 11) {
             if (day > 30) {
                 return false;
@@ -64,11 +69,6 @@ public class DueDate {
                     return false;
                 }
             }
-        }
-        try {
-            LocalDate date = LocalDate.parse(test, dateFormat);
-        } catch (DateTimeParseException e) {
-            return false;
         }
         return true;
     }
