@@ -1,4 +1,4 @@
-package seedu.address.model.rates;
+package seedu.address.model.exchangedata;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 

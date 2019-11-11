@@ -1,13 +1,17 @@
 package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.expense.Currency.DEFAULT_BASE_CURRENCY;
+import static seedu.address.model.commons.Currency.DEFAULT_BASE_CURRENCY;
 
 import java.util.Comparator;
 import java.util.Objects;
 
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
+import seedu.address.model.commons.Tag;
 import seedu.address.model.exchangedata.ExchangeDataSingleton;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents an expense in the expense list.
@@ -40,17 +44,16 @@ public class Expense implements Comparable<Expense> {
         return name;
     }
 
-    public Amount getConvertedAmount() {
-        double convertedAmount = amount.getValue() / currency.getRate();
-        return new Amount(String.format("%.2f", convertedAmount));
+    public double getConvertedAmount() {
+        return amount.getValue() / currency.getRate();
     }
 
-    public Amount getConvertedAmount(Currency targetCurrency) {
+    public double getConvertedAmount(Currency targetCurrency) {
         // Convert back to base
         double amountAsBase = amount.getValue() / currency.getRate();
         double amountAsTarget = amountAsBase * ExchangeDataSingleton.getInstance()
             .getRates().getRate(targetCurrency.name);
-        return new Amount(String.format("%.2f", amountAsTarget));
+        return amountAsTarget;
     }
 
     public Amount getAmount() {
@@ -135,7 +138,7 @@ public class Expense implements Comparable<Expense> {
             .append("Name: " + getName())
             .append("\n");
         if (isForeign()) {
-            builder.append("Amount: " + getConvertedAmount())
+            builder.append("Amount: " + String.format("%.2f", getConvertedAmount()))
                 .append(" " + DEFAULT_BASE_CURRENCY)
                 .append(" (" + String.format("%.2f", getAmount().getValue()))
                 .append(" " + getCurrency().toString())

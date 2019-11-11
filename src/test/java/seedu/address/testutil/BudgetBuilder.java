@@ -4,10 +4,10 @@ import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 
 import seedu.address.model.ExpenseList;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.expense.Amount;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
-import seedu.address.model.expense.Name;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
 
 /**
  * A utility class to help with building Budget objects.

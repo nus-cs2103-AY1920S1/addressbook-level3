@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
-import seedu.address.model.rates.Rates;
+import seedu.address.model.exchangedata.Rates;
 
 /**
  * Jackson-friendly version of {@link Rates}.
