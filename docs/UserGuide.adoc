@@ -288,6 +288,9 @@ Adds an engagement with following information;
 
 After user enters the above command, Typee will store the information and append it to the displayed list of engagements.
 
+.Engagement successfully saved in system storage.
+image::add_2.png[width="800"]
+
 [TIP]
 The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. +
 Example: `add` `t/meeting` `s/11/11/2019/1500` ... `p/High`
@@ -338,8 +341,9 @@ An engagement clashes with another engagement if *all* of the below conditions a
 * There is an overlap in the time-slot occupied by the engagements.
 * The engagements are held at the same location
 
-.Engagement successfully saved in system storage.
-image::add_2.png[width="800"]
+[NOTE]
+The list of attendees *does not* represent unique people. This is why attendees aren't considered in engagement conflict resolution.
+
 
 === Listing all engagements : `list`
 
