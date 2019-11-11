@@ -1,0 +1,54 @@
+= Dominique Ng Wenyi - Project Portfolio for Athletick
+:site-section: dominique
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-3/main/tree/master
+
+== Introduction
+
+This document details my contributions to the team project, Athletick.
+
+=== About the Team
+
+The team consists of five Year 2 Computer Science undergraduates, including myself.
+
+=== About the Project
+
+The project was completed as part of a CS2103T Software Engineering module offered by the National
+University of Singapore's School of Computing.
+
+We were given six weeks to to either _morph_ or _enhance_ an existing Java product,
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)]. We chose to morph the
+product into *Athletick*, a tool for coaches and captains to use to keep track of their
+team's attendance and performance. *Athletick* also features a calendar for coaches and captains to plan
+ahead, and supports the sorting, filtering, and finding of athletes their database.
+
+Like Address Book, Athletick uses the command-line as its main method of input and a JavaFX Graphical User
+Interface for display.
+
+Some constraints of the project given by the module coordinator are listed below. The full list of
+constraints can be found https://nus-cs2103-ay1920s1.github.io/website/admin/project-constraints.html[here].
+
+* Product should have a command-line input
+* Product should be for a single user
+* Software should follow an Object-oriented paradigm
+
+My role was to build the _Performance_ feature, which encompasses the adding, deleting and viewing of
+events and records. Additionally, I acted as the Team Lead, where I managed milestone requirements and
+delegated roles for the team.
+
+
+
+
+
+
