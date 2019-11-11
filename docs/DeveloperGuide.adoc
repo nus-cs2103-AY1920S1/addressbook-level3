@@ -158,6 +158,8 @@ An example of how such `UniqueList<Tag>` and `UniqueList<Customer>` interacts is
  +
 image:BetterModelClassDiagram.png[]
 
+// tag::storage[]
+
 [[Design-Storage]]
 === Storage component
 
@@ -171,6 +173,8 @@ The `Storage` component,
 * can save `UserPref` objects in JSON format and read it back.
 * can save the Customer Book data, Phone Book data, Order Book data and Schedule Book data in JSON format and read them
  back.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -362,38 +366,108 @@ class.
 
 // end::statisticsCommand[]
 
+// tag::autocomplete[]
 === Autocomplete feature
 
-image::AutoCompleteClassDiagram.png[]
+This feature is visible in the UI as a dropdown menu when the user types
+into the command box.
+
+image::AutoCompleteAddExample.png[]
 
 ==== Current Implementation
 
-This feature is visible in the UI as a dropdown menu when the user enters input into the command box.
-
 ===== How the UI works
 
-The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's `TextField`, which adds an additional listener for changes in the input text.
-This listener reads the entire input text on each character change and performs comparisons with a predefined set of strings.
-For all predefined strings that match the input text, they are sorted according to their "closeness", and a maximum of 5 is displayed.
+The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's
+`TextField`. It stores a reference to a `SortedSet` of strings. When the input is
+changed, it automatically compares the input with this set of suggestions. If any
+suggestion matches some region of the input, it will be further compared with other
+suggestions to determine which suggestion is more similar to the input. The degree of
+similarity is determined by the index of the first character of the matching region.
 
-===== The underlying data structures
+image::AutoCompleteCommandExample.png[]
+
+The smaller the index, the more similar the suggestion is.
+
+In order to customize the suggestions to fit different inputs, the `CommandBox`
+attaches a listener to the `AutoCompleteTextField`. When the text is changed, the
+`CommandBox` will extract the entered text and query the `LogicManager` for a set
+of suggestions. This query process will be explained below.
+
+===== Underlying data structures
 
 This feature was designed to display values that are currently in the `Model`.
 
-For example, the input text `add-c n/` would display a list of `CustomerName` that already exists in the `Customer` `DataBook`.
+For example, the input text `add-c n/` would display a list of `CustomerName`
+that already exists in the `Customer` `DataBook`.
 
-To achieve this, the underlying data structure used is a directed `Graph` with every `Node` storing a reference to a set of values,
-and a `Map<String, Node>` to represent outgoing edges. The keys of this map represent the possible prefixes for the next argument of the input text, such as `c/` or `e/`.
+====== Directed Graph
 
-===== Design Considerations
+In order to achieve this, one of the data structures used is a directed `Graph`
+implemented as a list of `Edge`, each storing references to a source and destination
+`Node`. Each `Node` then stores a reference to a `List` in a `DataBook`.
 
-* Dynamically updated: By storing references to a set of values that can be backed by `ObservableList` in the `Model`, whenever the user alters any data, it will be reflected in the displayed values.
+These were the design considerations:
 
-* Supports optional arguments: By storing the possible prefixes as "edge weights", it is possible to represent an optional argument by having an edge to the `Node` containing its values, as well as an edge to the next `Node`.
+* Enforcement of artificial prefix order: By storing prefixes as edge weights,
+it is possible to enforce an artificial order. First, initialise a pointer
+to a starting `Node`. Then for each prefix encountered in the input, attempt to
+traverse an outgoing `Edge` from this `Node` by matching the prefix with the
+edge weight. This way, if the prefix is out of order, later prefixes will be
+inaccessible.
 
-* Infinite structure: By having a `TagNode` store a reference to itself, it is possible to endlessly display `t/` as a possible argument at the end of the input text,
-which is consistent with the unlimited number of `Tag` a `Customer` can hold.
+* Dynamically updated: By storing references to a set of values that can be
+backed by `ObservableList` in the `Model`, whenever the user alters any data,
+it will automatically be reflected in the displayed values.
 
+* Supports optional arguments: By storing the possible prefixes as
+edge weights, it is possible to represent an optional argument by
+having an edge to the `Node` containing its values, as well as an edge to the next `Node`.
+
+* Infinite structure: By having a `TagNode` store a reference to itself, it
+is possible to endlessly display `t/` as a possible prefix at the end
+of the input text, which is consistent with the unlimited number of
+`Tag` a `Customer` can hold.
+
+====== Wrapper for a pointer
+
+The idea here is similar to the above. It can be thought of as a singular
+`Node`. This data structure is used for simple commands which require only
+one argument. As there is no need to enforce any order or support an
+infinite structure, a `Graph` would be overkill.
+
+===== Specifics
+
+This is an example sequence diagram for `add-c n/`.
+
+image::AutoCompleteSequenceDiagram.png[]
+
+When the `UI` queries the `LogicManager` for suggestions, an `AutoCompleteResult`
+is returned, which contains a `SortedSet` of strings and a separate string to match
+with these suggestions.
+
+In order to generate this `AutoCompleteResult`, the `LogicManager` requests
+a `AutoCompleteResultGenerator` to process the input.
+
+`AutoCompleteResultGenerator` contains references to `AutoCompleteResultProvider`
+which have the ability to return `AutoCompleteResult`.
+
+An example of a `AutoCompleteResultProvider` would be `AddCustomerGraph`, which
+does the heavy lifting in terms of processing the input string and collating values
+from `AutoCompleteValueProvider` in the form of `AutoCompleteNode`.
+
+For clarity, here are some class diagrams for the AutoComplete package.
+
+image::AutoCompleteClassDiagram.png[]
+image::GraphsClassDiagram.png[]
+image::NodesClassDiagram.png[]
+
+===== Alternative Designs
+
+An alternative design would be to integrate the system with existing `Parser`
+by making use of `ArgumentTokenizer` and `ArgumentMultimap`.
+
+// end::autocomplete[]
 
 // tag::schedule[]
 
@@ -524,6 +598,8 @@ as one would need to understand the parsing.
 
 // end::find[]
 
+// tag::export[]
+
 === Export feature
 ==== Implementation
 
@@ -552,6 +628,32 @@ At the end, the strings are appended to get the full CSV file containing the var
 * **Alternative 2:** Creating CSV formatted string straight from the Model.
 ** Pros: Easier to implement on the fly the decided layout of created CSV file.
 ** Cons: Harder to maintain. Had to code for the various cases in different data.
+
+==== Current Implementation
+===== Break down of the command.
+Below is a more in-depth explanation at each step.
+
+Step 1: User inputs a the export command e.g `Export FILENAME`
+
+The commandBox executes it and the MainWindow runs its executeCommand(commandText) method. Referring to the sequence diagram below, this results in logic.execute(commandText) being called and the ExportParser parses the input from the user, returning a Command object.
+
+Step 2: The logic then calls command.execute(command)
+
+When this happens the `ExportCommand` execute creates a new CommandResult object and return that to Logic, completing the execution of the user input command.
+
+Step 3: The commandResult executes `getCSVString()` which accesses JsonFiles in the data folder of Storage to parse the data into CSV strings and returns the data.
+
+Step 4: The commandResult creates CSV file in data folder and returns in the end of execution.
+
+Shown below is a quick summary of step 1-4 (Full complete diagram):
+
+image::ExportSequenceDiagram.png[]
+
+==== Notes to developer
+Developers working on adding features to this module should take note of these limitations that we have put in place for `v1.4` of SML:
+
+- File names are limited to the maximum character limit of Mac and Window users of 255 characters.
+- Simplified handling of file name which only allows file names to be alphanumeric.
 
 // end::export[]
 
@@ -972,23 +1074,6 @@ The inverse of undoing.
 The action of copying an entry into the clipboard.
 
 [appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
@@ -1053,12 +1138,21 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `undo` +
    Expected: All the orders that were in the OrderBook will be shown.
 
+// tag::savingData[]
+
 === Saving data
 
 . Data is automatically saved after every command.
 
-.. When the application is relaunched, it will check for the validity of the data.
-Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
+.. If all files are missing, sample data files will be loaded.
+
+.. Dependency flows from schedulebook to orderbook to phonebook and customerbook.
+.. If file "a" has dependency on file "b", and file "a" is missing, both empty file "a" and "b" will be loaded.
+.. If file is corrupted i.e. wrong string input, sample file will be loaded.
+
+_{ more test cases ... }_
+
+// end::savingData[]
 
 === Testing Statistics
 
@@ -1066,6 +1160,16 @@ Any corrupted data in any of the data files (customer, phone, order, schedule, a
 
 .. Prerequisites: Ensure that archived order panel has suitable `Completed` and `scheduled` orders. Only these orders
 will show up in the calculation
+
 .. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13` +
     Expected: Chart is displayed in popup window
+
+=== Autocomplete
+
+. `add-c`
+. `edit-c`
+. `schedule`
+. `delete-c`
+. `find-c`
+. `export`
 
