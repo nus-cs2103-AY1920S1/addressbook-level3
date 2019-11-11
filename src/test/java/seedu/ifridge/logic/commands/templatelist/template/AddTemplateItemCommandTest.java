@@ -6,7 +6,14 @@ import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_TEMPLATE_DISPL
 import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_AMOUNT_CHEESE;
 import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_CHEESE;
 import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.*;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_FOR_QUANTITY;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_FOR_VOLUME;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_FOR_WEIGHT;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.TEMPLATE_ITEM_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.TEMPLATE_ITEM_RICE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_AMOUNT_TOMATO_JUICE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_NAME_TOMATO_JUICE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.assertCommandFailure;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 import static seedu.ifridge.model.food.Amount.UNIT_TYPE_QUANTITY;
 import static seedu.ifridge.model.food.Amount.UNIT_TYPE_VOLUME;
@@ -26,8 +33,6 @@ import java.util.TreeMap;
 import org.junit.jupiter.api.Test;
 
 import seedu.ifridge.commons.core.index.Index;
-import seedu.ifridge.logic.commands.CommandResult;
-import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand.EditTemplateItemDescriptor;
 import seedu.ifridge.model.GroceryList;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
@@ -40,7 +45,6 @@ import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.waste.WasteMonth;
-import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
 import seedu.ifridge.testutil.TemplateItemBuilder;
 import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
 
@@ -107,7 +111,7 @@ public class AddTemplateItemCommandTest {
 
         if (validType.equals(UNIT_TYPE_WEIGHT)) {
             toAdd = new TemplateItemBuilder().withName(firstTemplateItem.getName().toString())
-                    .withAmount(INVALID_AMOUNT_FOR_UNIT).build();
+                    .withAmount(INVALID_AMOUNT_FOR_WEIGHT).build();
         } else if (validType.equals(UNIT_TYPE_VOLUME)) {
             toAdd = new TemplateItemBuilder().withName(firstTemplateItem.getName().toString())
                     .withAmount(INVALID_AMOUNT_FOR_VOLUME).build();

@@ -18,11 +18,11 @@ import seedu.ifridge.model.food.UniqueTemplateItems;
  * A utility class containing a list of {@code TemplateItem} objects to be used in tests.
  */
 public class TypicalTemplateList {
-    public static final UniqueTemplateItems WEEKLY_NECESSITIES = new UniqueTemplateItemsBuilder(
+    public static final UniqueTemplateItems WEEKLY_NECESSITIES = new UniqueTemplateItemsBuilder().withName(
             new Name("Weekly Necessities")).withTemplateItem(MINCEDBEEF).withTemplateItem(MILK).build();
-    public static final UniqueTemplateItems DIET_PLAN = new UniqueTemplateItemsBuilder(
+    public static final UniqueTemplateItems DIET_PLAN = new UniqueTemplateItemsBuilder().withName(
             new Name("Diet Plan")).withTemplateItem(TOMATO).withTemplateItem(MINCEDCHICKEN).build();
-    public static final UniqueTemplateItems BIRTHDAY_PARTY = new UniqueTemplateItemsBuilder(
+    public static final UniqueTemplateItems BIRTHDAY_PARTY = new UniqueTemplateItemsBuilder().withName(
             new Name("Birthday Party")).withTemplateItem(WINE).withTemplateItem(MINCEDBEEF).build();
 
     private TypicalTemplateList() {} // prevents instantiation

@@ -53,7 +53,8 @@ public class AddTemplateListCommandTest {
     @Test
     public void execute_templateAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingTemplateAdded modelStub = new ModelStubAcceptingTemplateAdded();
-        UniqueTemplateItems validTemplate = new UniqueTemplateItemsBuilder(new Name("Weekly Necessities")).build();
+        UniqueTemplateItems validTemplate = new UniqueTemplateItemsBuilder()
+                .withName(new Name("Weekly Necessities")).build();
 
         CommandResult commandResult = new AddTemplateListCommand(validTemplate).execute(modelStub);
 

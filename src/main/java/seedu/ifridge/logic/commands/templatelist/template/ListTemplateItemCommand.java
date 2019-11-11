@@ -53,4 +53,10 @@ public class ListTemplateItemCommand extends Command {
 
         return commandResult;
     }
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ListTemplateItemCommand // instanceof handles nulls
+                && targetTemplateIndex.equals(((ListTemplateItemCommand) other).targetTemplateIndex));
+    }
 }

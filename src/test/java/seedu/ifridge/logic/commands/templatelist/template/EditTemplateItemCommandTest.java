@@ -8,14 +8,23 @@ import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_TEMPLATE_ITEM_
 import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_AMOUNT_CHEESE;
 import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_CHEESE;
 import static seedu.ifridge.logic.commands.CommandTestUtil.VALID_NAME_TOMATO_JUICE;
-import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.DESC_TEMP_MINCED_MEAT;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.DESC_TEMP_TOMATO_JUICE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_FOR_QUANTITY;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_FOR_VOLUME;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_FOR_WEIGHT;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_NAME_FOR_QUANTITY;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_NAME_FOR_VOLUME;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_NAME_FOR_WEIGHT;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_AMOUNT_ORANGES;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_NAME_ORANGES;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.assertCommandFailure;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.showItemAtIndex;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
+import static seedu.ifridge.model.food.Amount.UNIT_TYPE_QUANTITY;
+import static seedu.ifridge.model.food.Amount.UNIT_TYPE_VOLUME;
+import static seedu.ifridge.model.food.Amount.UNIT_TYPE_WEIGHT;
 import static seedu.ifridge.testutil.TemplateItemBuilder.DEFAULT_AMOUNT;
 import static seedu.ifridge.testutil.TemplateItemBuilder.DEFAULT_NAME;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
@@ -41,6 +50,8 @@ import seedu.ifridge.model.TemplateList;
 import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 import seedu.ifridge.model.waste.WasteMonth;
@@ -53,6 +64,7 @@ import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditTemplateItemCommandTest {
+
     private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
             getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
             getTypicalUnitDictionary());
@@ -91,8 +103,7 @@ public class EditTemplateItemCommandTest {
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastTemplate = Index.fromOneBased(model.getFilteredTemplateList().size());
         UniqueTemplateItems lastTemplate = model.getFilteredTemplateList().get(indexLastTemplate.getZeroBased());
-        Index indexLastTemplateItem = Index.fromOneBased(lastTemplate.getSize());
-        TemplateItem lastTemplateItem = lastTemplate.get(indexLastTemplateItem.getZeroBased());
+        TemplateItem lastTemplateItem = lastTemplate.get(INDEX_FIRST.getZeroBased());
 
         TemplateItemBuilder templateItemInList = new TemplateItemBuilder(lastTemplateItem);
         UniqueTemplateItemsBuilder templateItems = new UniqueTemplateItemsBuilder(lastTemplate);
@@ -101,7 +112,7 @@ public class EditTemplateItemCommandTest {
 
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
                 .withName(VALID_NAME_TOMATO_JUICE).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(indexLastTemplate, indexLastTemplateItem,
+        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(indexLastTemplate, INDEX_FIRST,
                 descriptor);
 
         String expectedMessage = String.format(
@@ -175,6 +186,66 @@ public class EditTemplateItemCommandTest {
         EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_SECOND, descriptor);
 
         assertCommandFailure(editCommand, model, EditTemplateItemCommand.MESSAGE_DUPLICATE_ITEM);
+    }
+
+    @Test
+    public void execute_invalidNameSpecifiedForUnitUnfilteredList_failure() {
+        TemplateItem firstTemplateItem = model.getFilteredTemplateList()
+                .get(INDEX_FIRST.getZeroBased()).get(INDEX_FIRST.getZeroBased());
+        Name validName = firstTemplateItem.getName();
+        Amount validAmount = firstTemplateItem.getAmount();
+        String validType = validAmount.getUnitType(validAmount);
+        EditTemplateItemDescriptor descriptor;
+
+        assert(validType.equals(UNIT_TYPE_QUANTITY) || validType.equals(UNIT_TYPE_VOLUME)
+                || validType.equals(UNIT_TYPE_WEIGHT));
+
+        if (validType.equals(UNIT_TYPE_WEIGHT)) {
+            descriptor = new EditTemplateItemDescriptorBuilder().withName(INVALID_NAME_FOR_WEIGHT)
+                    .withAmount(validAmount.toString()).build();
+        } else if (validType.equals(UNIT_TYPE_VOLUME)) {
+            descriptor = new EditTemplateItemDescriptorBuilder().withName(INVALID_NAME_FOR_VOLUME)
+                    .withAmount(validAmount.toString()).build();
+        } else if (validType.equals(UNIT_TYPE_QUANTITY)) {
+            descriptor = new EditTemplateItemDescriptorBuilder().withName(INVALID_NAME_FOR_QUANTITY)
+                    .withAmount(validAmount.toString()).build();
+        } else {
+            descriptor = null;
+        }
+
+        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, descriptor);
+
+        assertCommandFailure(addCommand, model, EditTemplateItemCommand.MESSAGE_INCORRECT_UNIT);
+    }
+
+    @Test
+    public void execute_invalidUnitsSpecifiedUnfilteredList_failure() {
+        TemplateItem firstTemplateItem = model.getFilteredTemplateList()
+                .get(INDEX_FIRST.getZeroBased()).get(INDEX_FIRST.getZeroBased());
+        Name validName = firstTemplateItem.getName();
+        Amount validAmount = firstTemplateItem.getAmount();
+        String validType = validAmount.getUnitType(validAmount);
+        EditTemplateItemDescriptor descriptor;
+
+        assert(validType.equals(UNIT_TYPE_QUANTITY) || validType.equals(UNIT_TYPE_VOLUME)
+                || validType.equals(UNIT_TYPE_WEIGHT));
+
+        if (validType.equals(UNIT_TYPE_WEIGHT)) {
+            descriptor = new EditTemplateItemDescriptorBuilder().withName(validName.toString())
+                    .withAmount(INVALID_AMOUNT_FOR_WEIGHT).build();
+        } else if (validType.equals(UNIT_TYPE_VOLUME)) {
+            descriptor = new EditTemplateItemDescriptorBuilder().withName(validName.toString())
+                    .withAmount(INVALID_AMOUNT_FOR_VOLUME).build();
+        } else if (validType.equals(UNIT_TYPE_QUANTITY)) {
+            descriptor = new EditTemplateItemDescriptorBuilder().withName(validName.toString())
+                    .withAmount(INVALID_AMOUNT_FOR_QUANTITY).build();
+        } else {
+            descriptor = null;
+        }
+
+        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, descriptor);
+
+        assertCommandFailure(addCommand, model, EditTemplateItemCommand.MESSAGE_INCORRECT_UNIT);
     }
 
     @Test

@@ -1,69 +1,77 @@
 package seedu.ifridge.logic.parser.templatelist;
 
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.*;
+import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.ifridge.model.food.Amount.MESSAGE_INVALID_AMOUNT;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ifridge.logic.commands.templatelist.template.AddTemplateItemCommand;
+import seedu.ifridge.logic.parser.templatelist.template.AddTemplateItemCommandParser;
+import seedu.ifridge.model.food.Amount;
+import seedu.ifridge.model.food.Name;
+import seedu.ifridge.model.food.TemplateItem;
+import seedu.ifridge.testutil.TemplateItemBuilder;
 
 public class AddTemplateItemCommandParserTest {
-    private AddTemplateListCommandParser parser = new AddTemplateListCommandParser();
+    private AddTemplateItemCommandParser parser = new AddTemplateItemCommandParser();
 
-    /**
     @Test
     public void parse_allFieldsPresent_success() {
-        TemplateItem expectedTemplateItem = new TemplateItemBuilder(BOB).withAmount(VALID_AMOUNT_BOB).build();
-
-        // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB, new AddTemplateItemCommand(expectedTemplateItem));
+        TemplateItem expectedTemplateItem = new TemplateItemBuilder().build();
 
         // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB, new AddTemplateItemCommand(expectedTemplateItem));
-    }**/
+        assertParseSuccess(parser, "1" + NAME_DESC_CHEESE + NAME_DESC_PORK + AMOUNT_DESC_PORK,
+                new AddTemplateItemCommand(INDEX_FIRST, expectedTemplateItem));
+
+        // multiple amount - last amount accepted
+        assertParseSuccess(parser, "1" + NAME_DESC_PORK + AMOUNT_DESC_CHEESE + AMOUNT_DESC_PORK,
+                new AddTemplateItemCommand(INDEX_FIRST, expectedTemplateItem));
+    }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTemplateItemCommand.MESSAGE_USAGE);
-        /**
+
+        // whitespace only preamble
+        assertParseFailure(parser,  PREAMBLE_WHITESPACE + NAME_DESC_CHEESE + AMOUNT_DESC_CHEESE,
+                expectedMessage);
+
         // name missing
-        assertParseFailure(parser, NAME_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, AMOUNT_DESC_CHEESE, expectedMessage);
 
         // amount missing
-        assertParseFailure(parser, AMOUNT_DESC_BOB, expectedMessage);
+        assertParseFailure(parser, NAME_DESC_CHEESE, expectedMessage);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + AMOUNT_DESC_BOB,
-                expectedMessage);
+        assertParseFailure(parser, VALID_NAME_CHEESE + AMOUNT_DESC_CHEESE, expectedMessage);
 
         // missing amount prefix
-        assertParseFailure(parser, NAME_DESC_BOB + " " + VALID_AMOUNT_BOB,
-                expectedMessage);
+        assertParseFailure(parser, NAME_DESC_CHEESE + " " + VALID_AMOUNT_CHEESE, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + " " + VALID_AMOUNT_BOB,
-                expectedMessage);**/
+        assertParseFailure(parser, VALID_NAME_CHEESE + " " + VALID_AMOUNT_CHEESE, expectedMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        /**
         // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC
-                + AMOUNT_DESC_BOB , Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + AMOUNT_DESC_CHEESE , Name.MESSAGE_CONSTRAINTS);
 
         // invalid amount
-        assertParseFailure(parser, NAME_DESC_BOB
-                + INVALID_AMOUNT_DESC , Amount.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + NAME_DESC_CHEESE + INVALID_AMOUNT_DESC , MESSAGE_INVALID_AMOUNT);
+
+        // invalid unit
+        assertParseFailure(parser, "1" + NAME_DESC_CHEESE + INVALID_UNIT_DESC , MESSAGE_INVALID_AMOUNT);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + INVALID_AMOUNT_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_AMOUNT_DESC, Name.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB
-                + AMOUNT_DESC_BOB,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTemplateItemCommand.MESSAGE_USAGE));**/
+        assertParseFailure(parser, PREAMBLE_NON_EMPTY + "1" + NAME_DESC_CHEESE + AMOUNT_DESC_CHEESE,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTemplateItemCommand.MESSAGE_USAGE));
     }
 }

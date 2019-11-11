@@ -97,6 +97,7 @@ public class AddTemplateItemCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddTemplateItemCommand // instanceof handles nulls
+                && index.equals(((AddTemplateItemCommand) other).index)
                 && toAdd.equals(((AddTemplateItemCommand) other).toAdd));
     }
 }

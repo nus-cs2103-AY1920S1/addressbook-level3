@@ -108,7 +108,8 @@ public class EditTemplateListCommand extends Command {
         private Name name;
         private UniqueTemplateItems templateItems;
 
-        public EditTemplateListDescriptor() {}
+        public EditTemplateListDescriptor() {
+        }
 
         /**
          * Copy constructor.
@@ -148,12 +149,38 @@ public class EditTemplateListCommand extends Command {
 
         public void setTemplateItems(UniqueTemplateItems template) {
             if (template != null) {
-                this.templateItems.setTemplateItems(template);
+                templateItems = new UniqueTemplateItems(name);
+                templateItems.setTemplateItems(template);
             }
+        }
+
+        public void setTemplateItem(TemplateItem templateItem) {
+            this.templateItems.add(templateItem);
         }
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
         }
+
+        public UniqueTemplateItems getTemplate() {
+            return templateItems;
+        }
+
+        /**
+         * Checks if the object is identical
+         */
+        public boolean equals(EditTemplateListDescriptor other) {
+            return other == this
+                    || (other instanceof EditTemplateListDescriptor && this.name.equals(other.name)
+                    && this.templateItems.equals(other.templateItems));
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof EditTemplateListCommand // instanceof handles nulls
+                && this.index.equals(((EditTemplateListCommand) other).index)
+                && editTemplateListDescriptor.equals(((EditTemplateListCommand) other).editTemplateListDescriptor));
     }
 }

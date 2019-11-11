@@ -4,32 +4,24 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
-import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.ifridge.logic.parser.CliSyntax.*;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
-import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_TEMPLATES_ITEMS;
 import static seedu.ifridge.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.function.Predicate;
 
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.Command;
-import seedu.ifridge.logic.commands.CommandResult;
-import seedu.ifridge.logic.commands.CommandTestUtil;
-import seedu.ifridge.logic.commands.EditCommand;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
-import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand;
-import seedu.ifridge.model.GroceryList;
+import seedu.ifridge.logic.commands.templatelist.EditTemplateListCommand.EditTemplateListDescriptor;
+import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand.EditTemplateItemDescriptor;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.TemplateList;
-import seedu.ifridge.model.food.Food;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
-import seedu.ifridge.testutil.EditFoodDescriptorBuilder;
 import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
+import seedu.ifridge.testutil.EditTemplateListDescriptorBuilder;
 import seedu.ifridge.testutil.TemplateItemBuilder;
 
 /**
@@ -42,28 +34,48 @@ public class TemplateCommandTestUtil {
     public static final String VALID_NAME_CHEESE = "Cheddar Cheese";
     public static final String VALID_NAME_TOMATO_JUICE = "Tomato Juice";
     public static final String VALID_NAME_RICE = "Rice";
+    public static final String VALID_NAME_PORK = "Minced Pork";
+    public static final String VALID_NAME_MILK = "FullFat Milk";
     public static final String VALID_AMOUNT_NUTS = "120g";
     public static final String VALID_AMOUNT_ORANGES = "15units";
     public static final String VALID_AMOUNT_CHEESE = "300g";
     public static final String VALID_AMOUNT_TOMATO_JUICE = "300ml";
     public static final String VALID_AMOUNT_RICE = "2kg";
+    public static final String VALID_AMOUNT_PORK = "300g";
+    public static final String VALID_AMOUNT_MILK = "300ml";
     public static final String VALID_EXPIRY_DATE_NUTS = "10/12/2019";
     public static final String INVALID_AMOUNT_FOR_VOLUME = "300g";
     public static final String INVALID_AMOUNT_FOR_QUANTITY = "300ml";
-    public static final String INVALID_AMOUNT_FOR_UNIT = "300g";
+    public static final String INVALID_AMOUNT_FOR_WEIGHT = "3units";
+    public static final String INVALID_NAME_FOR_VOLUME = "Tomato";
+    public static final String INVALID_NAME_FOR_QUANTITY = "FullFat Milk";
+    public static final String INVALID_NAME_FOR_WEIGHT = "FullFat Milk";
+    public static final String VALID_TEMPLATE_NAME_BULK_UP = "Bulk up Menu";
+    public static final String VALID_TEMPLATE_NAME_SICK = "Get well soon Menu";
 
+    public static final String NAME_DESC_PORK = " " + PREFIX_NAME + VALID_NAME_PORK;
     public static final String NAME_DESC_CHEESE = " " + PREFIX_NAME + VALID_NAME_CHEESE;
     public static final String NAME_DESC_TOMATO_JUICE = " " + PREFIX_NAME + VALID_NAME_TOMATO_JUICE;
+    public static final String NAME_DESC_MILK = " " + PREFIX_NAME + VALID_NAME_MILK;
     public static final String AMOUNT_DESC_CHEESE = " " + PREFIX_AMOUNT + VALID_AMOUNT_CHEESE;
     public static final String AMOUNT_DESC_TOMATO_JUICE = " " + PREFIX_AMOUNT + VALID_NAME_TOMATO_JUICE;
+    public static final String AMOUNT_DESC_PORK = " " + PREFIX_AMOUNT + VALID_AMOUNT_PORK;
+    public static final String AMOUNT_DESC_MILK = " " + PREFIX_AMOUNT + VALID_AMOUNT_MILK;
+    public static final String INDEX_DESC = " " + PREFIX_ITEM_INDEX + "1";
+    public static final String TEMPLATE_NAME_DESC = PREFIX_NAME + VALID_TEMPLATE_NAME_BULK_UP;
 
-    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "300D"; // 'D' is not a valid unit
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "-?^511@#";
+    public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "300";
+    public static final String INVALID_UNIT_DESC = " " + PREFIX_AMOUNT + "300D";// 'D' is not a valid unit
+    public static final String INVALID_INDEX_DESC = " " + PREFIX_ITEM_INDEX + "A";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_MINCED_MEAT;
-    public static final EditTemplateItemCommand.EditTemplateItemDescriptor DESC_TEMP_TOMATO_JUICE;
+    public static final EditTemplateItemDescriptor DESC_TEMP_MINCED_MEAT;
+    public static final EditTemplateItemDescriptor DESC_TEMP_TOMATO_JUICE;
+    public static final EditTemplateListDescriptor DESC_TEMP_BULK_UP;
+    public static final EditTemplateListDescriptor DESC_TEMP_SICK;
     public static final TemplateItem TEMPLATE_ITEM_CHEESE;
     public static final TemplateItem TEMPLATE_ITEM_RICE;
 
@@ -75,6 +87,8 @@ public class TemplateCommandTestUtil {
         TEMPLATE_ITEM_CHEESE = new TemplateItemBuilder().withName(VALID_NAME_CHEESE)
                 .withAmount(VALID_AMOUNT_CHEESE).build();
         TEMPLATE_ITEM_RICE = new TemplateItemBuilder().withName(VALID_NAME_RICE).withAmount(VALID_AMOUNT_RICE).build();
+        DESC_TEMP_BULK_UP = new EditTemplateListDescriptorBuilder().withName(VALID_TEMPLATE_NAME_BULK_UP).build();
+        DESC_TEMP_SICK = new EditTemplateListDescriptorBuilder().withName(VALID_TEMPLATE_NAME_SICK).build();
     }
 
     /**
@@ -107,14 +121,8 @@ public class TemplateCommandTestUtil {
         assertTrue(templateIndex.getZeroBased() < model.getFilteredTemplateList().size());
         UniqueTemplateItems template = model.getFilteredTemplateList().get(templateIndex.getZeroBased());
         model.updateFilteredTemplateList(PREDICATE_SHOW_ALL_TEMPLATES);
-        model.updateFilteredTemplateToBeShown(PREDICATE_SHOW_ALL_TEMPLATES_ITEMS);
+        model.updateFilteredTemplateToBeShown();
         assertEquals(3, model.getFilteredTemplateList().size());
         assertEquals(0, model.getFilteredTemplateToBeShown().size());
-
-        //Template to be shown
-        if (itemIndex != null) {
-            assertTrue(itemIndex.getZeroBased() < model.getFilteredTemplateToBeShown().size());
-            TemplateItem templateItem = model.getFilteredTemplateToBeShown().get(itemIndex.getZeroBased());
-        }
     }
 }
