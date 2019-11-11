@@ -10,7 +10,7 @@ end box
 
 box Model MODEL_COLOR_T1
 participant "model:Model" as Model MODEL_COLOR
-participant "event:Event" as Event MODEL_COLOR
+participant "newMap:EventDateTimeMap" as EventDateTimeMap MODEL_COLOR
 end box
 
 [-> LogicManager : execute()
@@ -46,44 +46,48 @@ Model -> AssignDateCommand :
 deactivate Model
 
 AssignDateCommand -> AssignDateCommand: getEventToAssign
-    alt Target EventDate Stated
-    AssignDateCommand -> Event: assignDateTime(targetDate, eventDayTime)
-    activate Event
 
-    Event --> AssignDateCommand:
-    deactivate Event
+AssignDateCommand -> EventDateTimeMap ** : createNewMap(oldMap)
+activate EventDateTimeMap
+
+EventDateTimeMap -> AssignDateCommand
+deactivate EventDateTimeMap
+
+    alt Target EventDate Stated
+    AssignDateCommand -> EventDateTimeMap: mapDateTime(targetDate, eventDayTime)
+    activate EventDateTimeMap
+
+    EventDateTimeMap --> AssignDateCommand:
+    deactivate EventDateTimeMap
 
     else Start and End Date Range Specified
         loop Start Date of Range till End Date of Range
-        AssignDateCommand -> Event: assignDateTime(eventDateInRange, eventDayTime)
-        activate Event
+        AssignDateCommand -> EventDateTimeMap: mapDateTime(eventDateInRange, eventDayTime)
+        activate EventDateTimeMap
 
-        Event --> AssignDateCommand:
+        EventDateTimeMap --> AssignDateCommand:
         deactivate
         end
 
     else No Target EventDate Stated
-        AssignDateCommand -> Event: getStartDate()
-        activate Event
+        loop Event StartDate till Event EndDate
+        AssignDateCommand -> EventDateTimeMap: mapDateTime(eventDay, eventDayTime)
+        activate EventDateTimeMap
 
-        Event --> AssignDateCommand: startDate
-        deactivate
-
-        AssignDateCommand -> Event: getEndDate()
-        activate Event
-
-        Event --> AssignDateCommand: endDate
-        deactivate
-
-        loop Start till End EventDate
-        AssignDateCommand -> Event: assignDateTime(eventDay, eventDayTime)
-        activate Event
-
-        Event --> AssignDateCommand:
+        EventDateTimeMap --> AssignDateCommand:
         deactivate
 
         end
     end
+
+AssignDateCommand -> AssignDateCommand ++ : Create New Event Object
+return newEvent
+
+AssignDateCommand -> Model: setEvent(oldEvent, newEvent)
+activate Model
+
+Model -> AssignDateCommand
+deactivate Model
 
 AssignDateCommand --> LogicManager : result
 deactivate AssignDateCommand

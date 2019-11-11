@@ -56,10 +56,6 @@ Currently, we have the `Main`, `Schedule`, `Finance` and `Statistics` Tab.
 
 . Refer to <<Features>> for details of each command.
 
-=== Understanding the GUI Components
-
-**To be filled**
-
 //tag::DeXun1[]
 === CLI Usage & Command Formatting
 
@@ -952,7 +948,7 @@ The contract will contains details of the event such as the location, budget, an
 
 | *Set DateTime to an Event*| `set_ev_dt EVENT_INDEX [on/EVENT_DATE] [till/EVENT_DATE] time/EVENT_DAYTIME`
 | `set_ev_dt 2 on/18/10/2019 time/1000-2000`
-| *Delete DateTime from an Event*| `delete_ev_dt EVENT_INDEX on/EVENT_DATE`
+| *Delete DateTime from an Event*| `delete_ev_dt EVENT_INDEX on/EVENT_DATE [till/EVENT_DATE]`
 | `delete_ev_dt 2 on/18/10/2019 time/1000-2000`
 | *Clear DateTime from an Event*| `clear_ev_dt EVENT_INDEX`
 | `clear_ev_dt 2`
