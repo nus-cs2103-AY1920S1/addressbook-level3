@@ -1,0 +1,79 @@
+@startuml
+!include style.puml
+box Model MODEL_COLOR_T1
+participant ":CsvReader" as CsvReader MODEL_COLOR
+participant ":InterviewerBuilder" as InterviewerBuilder MODEL_COLOR
+end box
+
+box API
+participant ":BufferedReader" as BufferedReader LOGIC_COLOR
+end box
+
+[-> CsvReader : readInterviewers()
+activate CsvReader
+
+create BufferedReader
+CsvReader -> BufferedReader
+activate BufferedReader
+
+BufferedReader --> CsvReader
+deactivate BufferedReader
+
+CsvReader -> BufferedReader: readLine()
+activate BufferedReader
+
+BufferedReader --> CsvReader: line
+deactivate BufferedReader
+
+CsvReader -> CsvReader: getNumberOfDays(line)
+
+loop until days left = 0
+    loop until 2 consecutive empty lines
+        CsvReader -> BufferedReader: readLine()
+        activate BufferedReader
+
+        BufferedReader --> CsvReader: row
+        deactivate BufferedReader
+
+        alt first row and first table
+            CsvReader -> CsvReader: getInterviewersFromHeader(row)
+            activate CsvReader
+
+            loop number of interviewers
+                create InterviewerBuilder
+                CsvReader -> InterviewerBuilder
+                activate InterviewerBuilder
+
+
+                InterviewerBuilder --> CsvReader
+                deactivate InterviewerBuilder
+
+                CsvReader -[hidden]-> InterviewerBuilder
+                destroy InterviewerBuilder
+            end
+
+            CsvReader --> CsvReader: interviewers
+            deactivate CsvReader
+
+        else else
+            CsvReader -> CsvReader: updateInterviewersSlotsFromData(interviewers, row, date);
+        end
+
+    end
+
+end
+CsvReader -> BufferedReader: close()
+activate BufferedReader
+
+BufferedReader --> CsvReader
+deactivate BufferedReader
+CsvReader -[hidden]-> BufferedReader
+destroy BufferedReader
+
+
+[<-- CsvReader: interviewers
+deactivate CsvReader
+
+[-[hidden]-> CsvReader
+destroy CsvReader
+@enduml

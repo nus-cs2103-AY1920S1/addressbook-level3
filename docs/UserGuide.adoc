@@ -131,8 +131,8 @@ Each time slot that an interviewer or interviewee indicates, must be strictly of
 *Default values:* +
 `duration`: 30
 
-WARNING: When adding interviewees or interviewers manually into Scheduler, the `TIMESLOT` input provided must have a duration (in minutes) that matches `duration`.
-In addition, the `TIMESLOT` indicated must also strictly follow the start and end times of each time slot. Refer to the example below for a clearer idea.
+WARNING: When adding interviewees or interviewers manually into Scheduler, the timeslots provided must have a duration (in minutes) that matches `duration`.
+In addition, the timeslots indicated must also strictly follow the start and end times of each time slot. Refer to the example below for a clearer idea.
 
 Example:
 
@@ -148,10 +148,11 @@ Result:
  10:00-10:30, 10:30-11:00, 11:00-11:30, .... , 20:00-20:30, 20:30-21:00
  //Timeslots are 30min intervals from 10:00 (startTime) to 21:00 (endTime)
 
-As seen in the example above, each timeslot are 30min intervals from the start and end times of the Working Hours (10:00 to 21:00).
-The indicated timeslots for interviewer/interviewee has to be one of these timeslots, e.g. 10:30-11:00, and *cannot be* any other values, e.g. 10:40-11:05.
-*Failure to do so will result in an inaccurate display of schedules.*
+As seen in the example above, timeslots are *unique* 30min intervals from the start to the end time of the Working Hours (10:00 to 21:00).
+There is no overlap between timeslots. If the indicated duration is not divisible by the Working Hours, the last timeslot generated will be before the end time indicated.
 
+IMPORTANT: The indicated timeslots, in adding or importing interviewers/interviewees, has to be one of these unique timeslots and *cannot take* any other values.
+*Failure to do so will result in an inaccurate display of schedules.*
 
 
 [[Features]]
@@ -176,14 +177,17 @@ The indicated timeslots for interviewer/interviewee has to be one of these times
 Shows helpful information on using this software.
 Format: `help`
 
+//tag::import
 === Importing existing availabilities `import`
-The to-be-imported interviewer availability and interviewee details .csv file needs to follow the format as the templates below.
+2 types of data can be imported - interviewers' availabilities and interviewees' details.
+Both of these details needs to be in CSV format and must follow the format given in the templates below.
+These templates were adapted versions of NUSync's interview sign up excel sheets.
 The templates for the import commands can be found here:
 
-* Interviewer availability: http://bit.ly/interviewerTemplate
-* Interviewees details: http://bit.ly/intervieweeDetails
+* Interviewers' availability: http://bit.ly/interviewerTemplate
+* Interviewees' details: http://bit.ly/intervieweeDetails
 
-TIP: If you wish to import a new set of data of the same type, we strongly recommend that you use the <<Clear, Clear>> command to clear pre-existing data before re-importing newer data.
+TIP: If you wish to import a new set of data of the same type, we strongly recommend that you use the <<Clear all data `clear`, Clear>> command to clear pre-existing data before re-importing newer data.
 This is because Scheduler does not allow duplicate persons, for both interviewer and interviewee. Unless you are very certain that the
 the second import does not contain any duplicate data, we would suggest that you run the 'clear' command beforehand.
 
@@ -200,14 +204,16 @@ NOTE: The schedule displayed will only show timeslots within the <<Working Hours
 
 Key formatting information for Interviewer's Data:
 
-* The first column of each day's schedule will consist of the timeslots for that day.
-* Each timeslot should also be in the format `HH:mm - HH:mm`.
-* The very first header at the top left-hand corner should indicate the day of the schedule. The subsequent headers should indicate the interviewers in the format `DEPARTMENT - INTERVIEWER'S_NAME`.
-* A "1" in a timeslot represents that the interviewer in that column is *available* and "0" represents that he/she is *unavailable*.
-* Separation of different days of schedules is made by leaving 2 empty lines after the end of the first table.
+image::InterviewerData.png[]
 
-Format of command: `import interviewer fp/PATH_TO_FILE` +
-    - PATH_TO_FILE is the absolute path to the file. +
+* 1. The first column of each day's schedule will consist of the timeslots for that day.
+* 2. Each timeslot should also be in the format `HH:mm - HH:mm`.
+* 3. The very first header at the top left-hand corner should indicate the day of the schedule. The subsequent headers should indicate the interviewers in the format `DEPARTMENT - INTERVIEWER'S_NAME`.
+* 4. A "1" in a timeslot represents that the interviewer in that column is *available* and "0" represents that he/she is *unavailable* for that particular timeslot.
+* 5. Separation of different days of schedules is made by leaving 2 empty lines after the end of the first table.
+
+Format of command: `import interviewer fp/FILE_PATH` +
+    - FILE_PATH needs to be of .csv extension +
     - E.g. C:\\Users\Bob\file.csv
 
 Example:
@@ -228,12 +234,11 @@ NOTE: There will be no changes in the schedules tab after the import of intervie
 Key formatting information for Interviewee's Data:
 
 * Headers specify the details of the Interviewee to be imported. The order of the headers must be strictly followed as shown in the above template.
-* Emails: Adding more than 1 personal or work email is allowed. Use whitespaces to separate each email.
 * Timeslots: Each timeslot should be in the format `dd/MM/yyy HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
 * There can only be 1 unique value for all other fields. Commas should not be used in these fields.
 
-Format: `import interviewee fp/PATH_TO_FILE` +
-    - PATH_TO_FILE is the absolute path to the file. +
+Format: `import interviewee fp/FILE_PATH` +
+    - FILE_PATH needs to be of .csv extension. +
     - E.g C:\\Users\Bob\file.csv
 
 Example:
@@ -245,6 +250,18 @@ Constraints:
 * Timeslots must obey the allowed values that are specified in the <<User Preferences, User Preferences>>.
 * Duplicate entries of the same interviewee cannot be presented in the CSV file to be imported.
 
+// end::import
+
+// tag::clear
+=== Clear all data `clear`
+Clears both interviewee and interviewer data in Scheduler. Will not remove user preferences.
+
+Format: `clear`
+
+WARNING: Data erased cannot be undone!
+//end::clear
+
+=======
 === UI Display
 
 ==== Display Schedules

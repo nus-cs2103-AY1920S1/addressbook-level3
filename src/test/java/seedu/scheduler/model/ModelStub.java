@@ -44,6 +44,11 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateScheduleList() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public void setInterviewerList(List<Interviewer> interviewers) {
         throw new AssertionError("This method should not be called.");
     }

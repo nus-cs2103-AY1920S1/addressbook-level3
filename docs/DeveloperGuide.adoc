@@ -497,8 +497,9 @@ The import feature uses `CsvReader` in the Model to read the given .csv file and
 
 .Import Interviewer's Schedules Sequence Diagram
 image::ImportSequenceDiagram.png[]
+
 Given above is an example of a sequence diagram for importing interviewer's schedules. It applies to both importing interviewee's and interviewer's data,
-with the only difference being in the string processing methods in the *CsvReader* class
+with the only difference being in the string processing methods in the `CsvReader` class.
 
 //As seen in the above sequence diagram, the execution of the import feature consists of these steps:
 //
@@ -512,8 +513,9 @@ with the only difference being in the string processing methods in the *CsvReade
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
-.Import Activity Diagram
+.Import Activity Diagram +
 image::ImportActivityDiagram.png[]
+
 
 ===== CsvReader
 `CsvReader` class encapsulates the string processing process that happens in an import command. It makes use of `BufferedReader` to
@@ -523,6 +525,10 @@ The following are some of the notable areas of implementation of these 2 methods
 
 `readInterviewers()`: +
 
+.Reading interviewers Sequence Diagram +
+image::ReadInterviewersSequenceDiagram.png[]
+
+
 * This method reads the imported file line-by-line. Number of days (each day is represented by 1 table) and the number of interviewers has to be specified at the beginning of the CSV file.
 * It generates a list of interviewers (with no availabilities yet) from the headers of each table.
 * Then, it will iterate through every line of each table and adds the availabilities to the respective interviewers.
@@ -531,13 +537,61 @@ The following are some of the notable areas of implementation of these 2 methods
 `readInterviewees()`: +
 
 * This method is quite straightforward, reading each attribute from the given table into an interviewee object.
-* There can be more than 1 work email or personal email, which are separated by whitespaces in the imported file.
 * There can also be more than 1 preferred timeslot, which are separated by commas in the imported file.
 * The complexity of this method is O(N), where N is the number of interviewees.
 
 NOTE: The imported data must obey the pre-existing conditions for each property of both interviewees and interviewers.
 E.g. `name` still cannot contain any characters other than alphabetical letters. No duplicate person is allowed as well.
 Exceptions will be thrown and the relevant error messages will be displayed in the UI if such error occurs.
+
+=== Updating Schedules in the Model
+The list of schedules in the <<Model component, model>> should be updated every time a command modifies
+the IntervieweeList or InterviewerList in the model. This is because Schedules are dependent on both Interviewers and Interviews
+as shown in the class diagram below.
+
+.Schedule Class Diagram +
+image::ScheduleClassDiagram.png[]
+
+
+These are the commands that requires the update of the list
+of schedules - `add`, `delete`, `edit`, `import`, `clear` and `schedule`.
+
+==== Before Scheduling of Interviews
+Before the 'schedule' command is ran, the list of schedules is *solely dependent on the InterviewerList*, since
+it is only through the scheduling of interviews that the data in the IntervieweeList is integrated with
+the data of the InterviewerList. Therefore, modification of IntervieweeList will not require changes
+in the list of schedules at this point of time.
+
+To update the list of schedules in the model every time the InterviewerList is modified, the method
+`updateScheduleList()` is called in the model. The notable implementations of this method is discussed below.
+
+* `updateScheduleList()` basically re-generates the list of schedules in the model from the updated InterviewerList.
+* It will get `startTime`, `endTime` and `duration` of a timeslot from `UserPref` and generates the
+allowed timeslots for daily schedules.
+* Then, it will get a list of unique dates from the `availabilities` from each of the interviewers
+in the updated InterviewerList.
+* It will then loop through the each date, generating a table of the Interviewers' availabilities based on
+the allowed timeslots for each day. Each unique date should generate a Schedule object. The result is
+a list of Schedules.
+* Lastly, it will set the `scheduleList` in the model with the newly generated list of schedules.
+
+
+By re-generating the schedule list every time InterviewerList is modified, it does not matter whether
+an Interviewer is added or deleted, or if an attribute of an interviewer is modified, the schedule list
+will be responsive to these changes. The only trade-off is performance, due to the re-generation of
+the schedules every time a command is ran. However, this will not be a big issue if the number of
+interviewers is < 100.
+
+==== After Scheduling of Interviews
+
+After the scheduling algorithm is ran, each interviewer should have a list of allocated interviewee slots.
+With these slots and the current time table (with interviewers only) generated before the scheduling of interviews,
+we are able to update the current schedules by slotting in the allocated interviewee's slots.
+
+To prevent confusion and to ensure that the scheduled result is always updated with the latest database of interviewees
+and interviewers, add/delete/edit of interviewee or interviewer after scheduling will clear the scheduled result and reset
+the displayed schedules such that the schedules only display the availabilities of the interviewers. Thus, the user will need
+to run the schedule command again to re-schedule the interviews.
 
 === Export
 ==== Implementation
@@ -551,7 +605,8 @@ Below shows the sequence diagram of an example export command.
 .Export Sequence Diagram
 image::ExportSequenceDiagram.png[]
 
-The implementation is very similar to the Import feature. The only differences are in the Model where CsvWriter gets
+
+The implementation is similar to the Import feature. The only differences are in the Model where CsvWriter gets
 the scheduled time slots from the Model and proceeds to write it into the specified file using a `BufferedWriter`.
 
 The Activity Diagram below summarises the execution of the export command.
@@ -738,12 +793,13 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: (UC-2) Import interviewee's time slots
+=== Use case: (UC-2) Import interviewee's details
 
 *MSS*
 
-1.  User requests to import interviewee's time slots and specify file location
-2.  Scheduler imports interviewee's time slots from specified file
+1.  User requests to import interviewee's details and specify file location.
+2.  Scheduler adds each imported interviewee into storage.
+3.  Scheduler imports interviewee's details from specified file.
 
 +
 Use case ends.
@@ -751,24 +807,30 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a. Specified file doesn't exist
-** 1a1. Scheduler shows error message
+* 1a. Specified file doesn't exist.
+** 1b1. Scheduler displays file not found error message.
 +
 Use case resumes at step 1.
 
-* 1b. Specified file doesn't follow correct format
-** 1b1. Scheduler shows error message
+* 1b. Specified file doesn't follow correct format.
+** 1b1. Scheduler displays incorrect file format error message.
 +
 Use case resumes at step 1.
 
+* 2a. There is duplicated data being added into storage.
+** 2a1. Scheduler immediately terminates command.
+** 2a2. Scheduler displays duplicated data error message.
++
+Use case resumes at step 1.
 
 [discrete]
-=== Use case: (UC-3) Import interviewer's time slots
+=== Use case: (UC-3) Import interviewer's details
 
 *MSS*
 
-1.  User requests to import interviewer's time slots and specify file location
-2.  Scheduler imports interviewer's time slots from specified file
+1.  User requests to import interviewer's details and specify file location.
+2.  Scheduler adds each imported interviewer into storage.
+3.  Scheduler displays success message, as well as the imported data in the GUI.
 
 +
 Use case ends.
@@ -777,12 +839,18 @@ Use case ends.
 
 [none]
 * 1a. Specified file doesn't exist
-** 1a1. Scheduler shows error message
+** 1b1. Scheduler displays file not found error message.
 +
 Use case resumes at step 1.
 
 * 1b. Specified file doesn't follow correct format
-** 1b1. Scheduler shows error message
+** 1b1. Scheduler displays incorrect file format error message.
++
+Use case resumes at step 1.
+
+* 2a. There is duplicated data being added into storage.
+** 2a1. Scheduler immediately terminates command.
+** 2a2. Scheduler displays duplicated data error message.
 +
 Use case resumes at step 1.
 
@@ -830,6 +898,33 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+=== Use Case: (UC-6) Export Schedules
+
+*MSS*
+
+1. User __schedules interview slots (UC-4)__.
+2. User requests to export scheduled data to external file path.
+3. Scheduler gets scheduled data from storage.
+4. Scheduler exports data to the specified file path.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. File path is not of the correct extension (.csv).
+** 2a1. Scheduler displays error message in UI.
++
+Use case resumes at step 1.
+
+* 2a. External file path does not exist.
+** 2a1. Scheduler creates a new file with the indicated file path.
++
+Use case resumes at step 3.
+
+* 3a. There is no scheduled data in storage.
+** 3a1. Scheduler displays error message in the UI.
++
+Use case resumes at step 1.
 
 [appendix]
 == Non Functional Requirements
@@ -893,6 +988,37 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
+=== Importing data
+
+. Import .csv files of interviewers' availability or interviewees' details using the `import` command.
+. Expected Outcomes:
+.. *Importing interviewers' data:* The Schedules tab of the UI should be populated with the availability tables, similar to the format of the data imported.
+    If none of the imported interviewers are available for any timeslot, ie. no "1"s in imported data, the Schedules tab will be empty.
+    The Interviewer tab should also be accurately populated with the imported interviewers.
+.. *Importing interviewees' data:* The Interviewee tab should be accurately populated with the imported data.
+. You can download the sample test data below to test if the import feature is working properly.
+... http://bit.ly/2Ny64Q8[Typical Interviewer Test Data]
+... http://bit.ly/36KLxj4[Typical Interviewees Test Data]
+... Interviewer data with zero availabilities: https://drive.google.com/file/d/1oeplvSHd0gGuCjFSG2Q6jvl2K5ljoPY8/view?usp=sharing[Interviewer Data]
+. Both types of imported data should not contain any duplicates entries.
+. You can use the sample test data below to test if the duplicates are being detected correctly.
+... https://drive.google.com/file/d/1xOzrBaB1XFSlN1WrEW5JUrntVTrNGhSz/view?usp=sharing[Duplicate Interviewer Data]
+... https://drive.google.com/file/d/1uU2wuMYY5nu1X8AqXbV8Y3NMhpjollnV/view?usp=sharing[Duplicate interviewee Data]
+. Import command can only be of 2 types - 'interviewer' or 'interviewee'. Test this by using any other combinations e.g. `import inTeVieWer`
+. File path specified must be of .csv extension and must exist.
+.. Test this by using any file path without .csv extension. You can also try inputting a file path with .csv extension
+   that does not exist. Both cases should induce error messages.
+. Importing interviewers' data after you have scheduled interviews should replace the existing tables in the Schedule tab
+  with the newly imported data. You can test this by importing a new set of interviewer's data after <<Scheduling Interviews, scheduling the interviews>>.
+
+=== Exporting Schedules
+. Export the schedules generated by using the `export` command.
+. Expected Outcomes: The external file that you input into the command should contain the schedule time tables, with all information represented accurately.
+. The export command should only work after you have ran the `schedule` command.
+. File path specified must be of .csv extension, but does not need to exist. Valid file paths that do not exist will be created after the command.
+.. To test this you can use type in the following after a schedule command has been ran: +
+   `export fp/doesNotExistFile.csv` a file named "doesNotExistFile.csv" should be created in the same directory containing Scheduler.jar file.
 
 // tag::add_appendix[]
 
