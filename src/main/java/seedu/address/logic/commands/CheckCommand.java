@@ -81,6 +81,11 @@ public class CheckCommand extends Command {
         }
     }
 
+    /**
+     * Checks if 2 checkcommands are equal
+     * @param other
+     * @return
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

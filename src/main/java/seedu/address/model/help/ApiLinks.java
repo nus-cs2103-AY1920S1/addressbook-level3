@@ -43,9 +43,6 @@ public class ApiLinks {
         case "edit_income":
             return base + "EditIncomeCommand.html";
 
-        case "find":
-            return base + "FindCommand.html";
-
         case "goto":
             return base + "GotoCommand.html";
 

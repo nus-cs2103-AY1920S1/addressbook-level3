@@ -28,19 +28,19 @@ class IncomeDateComparatorTest {
     private IncomeDateComparator incomeDateComparator = new IncomeDateComparator();
 
     @Test
-    public void lessThan() {
+    public void comparator_lessThan_negativeInteger() {
         int result = incomeDateComparator.compare(INCOME_1, INCOME_2);
         assertEquals(result, 1);
     }
 
     @Test
-    public void equal() {
+    public void comparator_equal_zero() {
         int result = incomeDateComparator.compare(INCOME_1, INCOME_1);
         assertEquals(result, 0);
     }
 
     @Test
-    public void moreThan() {
+    public void comparator_moreThan_positiveInteger() {
         int result = incomeDateComparator.compare(INCOME_2, INCOME_1);
         assertEquals(result, -1);
     }

@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.TypicalObjects.getTypicalFinSec;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +14,7 @@ public class ClearCommandTest {
     private Model model = new ModelManager(new FinSec(), new UserPrefs());
 
     @Test
-    public void execute_clear() {
+    public void execute_clear_success() {
         CommandResult commandResult = new ClearCommand().execute(model);
         assertEquals("clear"
                 + ": Clears FinSec of all data. Warning! It is not reversible!"
@@ -23,13 +22,4 @@ public class ClearCommandTest {
                 + "If yes, enter \"Y\" \n"
                 + "Alternatively, enter \"N\"` to continue. ", commandResult.getFeedbackToUser());
     }
-
-    @Test
-    public void execute_clear2() {
-        Model expectedModel = new ModelManager(getTypicalFinSec(), new UserPrefs());
-        expectedModel.setFinSec(new FinSec());
-
-        assertEquals(model, expectedModel);
-    }
-
 }

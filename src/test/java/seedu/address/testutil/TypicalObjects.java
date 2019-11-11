@@ -163,6 +163,15 @@ public class TypicalObjects {
             fs.addClaim(claim);
         }
 
+
+        for (AutocorrectSuggestion suggestion : getTypicalSuggestions()) {
+            fs.addAutocorrectSuggestion(suggestion);
+        }
+
+        for (CommandItem command : getTypicalCommandItems()) {
+            fs.addCommand(command);
+        }
+
         return fs;
     }
 
@@ -221,6 +230,14 @@ public class TypicalObjects {
 
     public static List<Income> getTypicalIncomes() {
         return new ArrayList<>(Arrays.asList(INCOME_1, INCOME_2));
+    }
+
+    public static List<AutocorrectSuggestion> getTypicalSuggestions() {
+        return new ArrayList<>(Arrays.asList(SUGGESTION_1, SUGGESTION_2));
+    }
+
+    public static List<CommandItem> getTypicalCommandItems() {
+        return new ArrayList<>(Arrays.asList(COMMAND_ITEM_1, COMMAND_ITEM_2));
     }
 
     public static List<Claim> getTypicalNonApprovedClaims() {

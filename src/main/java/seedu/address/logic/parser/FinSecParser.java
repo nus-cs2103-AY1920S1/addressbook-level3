@@ -29,7 +29,7 @@ import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.NoShortCutCommand;
+//import seedu.address.logic.commands.NoShortCutCommand;
 import seedu.address.logic.commands.RejectClaimCommand;
 import seedu.address.logic.commands.ShortCutRequestCommand;
 import seedu.address.logic.commands.SortCommand;
@@ -122,7 +122,7 @@ public class FinSecParser {
         FinSecParser.commandList.put(GotoCommand.COMMAND_WORD, GotoCommand.COMMAND_WORD);
         FinSecParser.commandList.put(RejectClaimCommand.COMMAND_WORD, RejectClaimCommand.COMMAND_WORD);
         FinSecParser.commandList.put(DeleteShortcutCommand.COMMAND_WORD, DeleteShortcutCommand.COMMAND_WORD);
-        FinSecParser.commandList.put(NoShortCutCommand.COMMAND_WORD, NoShortCutCommand.COMMAND_WORD);
+        //FinSecParser.commandList.put(NoShortCutCommand.COMMAND_WORD, NoShortCutCommand.COMMAND_WORD);
     }
 
     /**

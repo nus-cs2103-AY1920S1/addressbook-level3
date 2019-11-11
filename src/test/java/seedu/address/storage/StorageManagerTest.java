@@ -48,7 +48,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void finSecReadSave() throws Exception {
         /*
          * Note: This is an integration test that verifies the StorageManager is properly wired to the
          * {@link JsonFinSecStorage} class.
@@ -61,7 +61,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void getAddressBookFilePath() {
+    public void getFinSecFilePath() {
         assertNotNull(storageManager.getFinSecFilePath());
     }
 

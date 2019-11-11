@@ -101,10 +101,17 @@ public class LogicManager implements Logic {
             commandResult = new NoClearCommand().execute(model);
         } else if (commandText.equals("Y")) {
             model.setFinSec(new FinSec());
+            try {
+                storage.saveFinSec(model.getFinSec());
+            } catch (IOException ioe) {
+                throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+            }
             return new CommandResult(MESSAGE_FINSEC_CLEARED);
         } else {
             throw new CommandException("Input is not valid");
         }
+
+
         return commandResult;
     }
 
@@ -148,7 +155,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
+    public Path getFinSecFilePath() {
         return model.getFinSecFilePath();
     }
 

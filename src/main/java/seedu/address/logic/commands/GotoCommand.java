@@ -34,7 +34,7 @@ public class GotoCommand extends Command {
     private View gotoView;
 
     /**
-     * Constructor that constructs the command based on the view that is placed in the params
+     * Constructs the command based on the view that is placed in the params
      * @param view 3 different types of view possible
      * @throws ParseException if the view is not properly typed by user
      */
@@ -51,7 +51,7 @@ public class GotoCommand extends Command {
     }
 
     /**
-     * Execute method to determine the right view
+     * Executes method to determine the right view
      * @param model {@code Model} which the command should operate on.
      * @return a CommandResult after updating the model
      */
@@ -72,6 +72,11 @@ public class GotoCommand extends Command {
         }
     }
 
+    /**
+     * Checks if 2 gotocommands are equal
+     * @param other
+     * @return
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

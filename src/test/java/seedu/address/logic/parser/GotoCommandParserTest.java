@@ -30,8 +30,6 @@ class GotoCommandParserTest {
                 GotoCommand.MESSAGE_USAGE));
     }
 
-
-
     @Test
     public void parse_validArgs_returnsGotoCommand() {
         // no leading and trailing whitespaces

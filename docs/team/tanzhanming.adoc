@@ -1,0 +1,237 @@
+= Tan Zhan Ming - Project Portfolio for FinSec
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== 1. Overview
+
+
+
+== 3. Contributions to the User Guide
+
+
+
+_{Start of extract for `help` command}_
+
+=== Viewing help : `help`
+
+Provides 3 different types of help for all commands in FinSec.
+
+Keyword: `help`
+
+Format:
+`help cmd/COMMAND type/TYPE`
+
+Refer to <<Command Summary>> for all available commands
+
+Types include: +
+`brief` (gives a brief description) +
+`guide` (opens a web browser and bring you to our user guide) +
+`api` (for advanced users who want to know the inner workings of the command)
+
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Cant remember all of FinSec's commands or the command format for `help`? No worries! Even if you mistakenly
+type `help` without the other parameters or get the parameters confused, a default help window such as the one below
+will appear and display a command list with similar instructions to this page!
+
+====
+
+[[UG-HelpWindow]]
+[reftext="Figure 3.1.1"]
+[caption="Figure 3.1.1: "]
+.The help window that appears when the user asks for the default form of `help`
+image::UG-HelpWindow.png[width="500"]
+
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Instead of typing in `help`, you can also access help by clicking on the `help` button +
+on the top left of the FinSec application GUI or just press kbd:[F1] on your keyboard +
+as shown below!
+
+====
+
+
+
+[[UG-HelpLocation]]
+[reftext="Figure 3.1.2"]
+[caption="Figure 3.1.2: "]
+.The location of the help button on FinSec's GUI
+image::UG-HelpLocation.PNG[width="300"]
+
+
+Example commands: +
+....
+help cmd/add_contact type/brief
+....
+This shows you a brief description of what the `add_contact` command does and how to use it
+....
+help cmd/goto type/api
+....
+This generates an 'API.html' file containing our API for the `goto` command, and opens it up
+....
+help cmd/help type/guide
+....
+This opens up a page in your browser and brings you right here to this section!
+
+<<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
+[[UG-HelpExample]]
+[reftext="Figure 3.1.3"]
+[caption="Figure 3.1.3: "]
+.FinSec giving a brief description of the `add_contact` command
+image::UG-HelpExample.PNG[width="800"]
+
+_{End of extract for `help` command}_
+
+
+
+== 4. Contributions to the Developer Guide
+
+
+
+_{Start of extract for `budget` command}_
+
+=== Budget feature
+
+The `budget` command allows for users to Generate a `**Budget**` object in FinSec. It also creates a `**Budget Graph**`
+object and displays it via the User Interface.
+
+==== Overview
+The `**Budget**` feature relies primarily on the `**Claim**` and `**Income**` features, and serves as an extension to
+calculate their difference.
+The `**Budget**` object calculates the cash amount values of all existing `**Income**` objects and all cash amount
+values of `**Claims**` that have a status of 'approved'.
+It then returns the difference in values as the budget value and creates a graph detailing the statistics for the month.
+
+==== Current Implementation
+<<budgetSeqDiagram>> is a sequence of steps that illustrates the interaction between various classes when the `budget`
+command is entered.
+[[budgetSeqDiagram]]
+[reftext="Figure 2.6.2.1"]
+[caption="Figure 2.6.2.1: "]
+.Execution sequence of the `budget` command
+image::BudgetSequenceDiagram.png[width="800"]
+
+*Step 1 :* The `budget` command is passed on to the `**LogicManager**` as commandText +
+
+*Step 2 :* The `**LogicManager::execute**` method then calls `**FinSecParser::parseCommand**` which receives the user
+input (`budget`) as a parameter. +
+
+*Step 3 :* FinSecParser then references the various command words and identifies the command to be a `budget` command
+. It then calls the `**BudgetCommand**` class.
+
+*Step 4 :* This newly created `**BudgetCommand**` object is returned to the LogicManager class, which then calls the
+`**BudgetCommand::execute**` method.
+
+*Step 5 :* The `**BudgetCommand**` then interacts with the model component of our software architecture to create a
+filteredList of all `**Income**` and `**Claim**` objects using the `**model.getFilteredClaimList()**` and `**model
+.getFilteredIncomeList()**` methods.
+
+*Step 6 :* It instantiates a `**Budget**` object which contains methods such as `**calculateTotalExpenses()**` and
+`**calculateBudget()**` to calculate the amount values of all the `**Claims**`, `**Incomes**` and thus use them to find
+the budget amount. +
+A `**BudgetGraph**` object is also created in parallel (Details expanded upon below)
+
+*Step 7:* The `**BudgetCommand::execute**` finally completes by constructing a message string containing all these
+values and returning a new `**CommandResult**` with the specific message string to its calling method which is
+`**LogicManager::execute**`.
+
+*Step 8 :* `**LogicManager::execute**` method returns a `**CommandResult**` to the calling method which is
+`**MainWindow::executeCommand**`
+
+*Step 9 :* The specific feedback is then retrieved through `**CommandResult::getFeedbackToUser**` and set in the result
+display of the MainWindow. +
+
+While creating the `**Budget**` object, a `**BudgetGraph**` object is also created in parallel. The activity diagram
+below
+shows how it would look like from a user's point of view.
+
+<<budgetActDiagram>> describes the workflow of FinSec when the `budget` command is entered.
+[[budgetActDiagram]]
+[reftext="Figure 2.6.2.2"]
+[caption="Figure 2.6.2.2: "]
+.Activity diagram of the `budget` command
+image::DG-BudgetActivityDiagram.PNG[width="800"]
+
+The series of steps below demonstrates what the `**BudgetGraph**` object does in parallel to Step 6 above.
+
+*Step 6a :* At the same time the `**Budget**` object is created, the `**BudgetGraph**` object is also instantiated,
+which is
+basically an XY-graph.
+
+*Step 6b :* The `**BudgetGraph**` object creates a dataset by taking in the list of `**Claims**` and `**Incomes**` and
+parsing
+them to the `**ClaimPlotter**`, `**IncomePlotter**` and `**BudgetPlotter**` classes.
+
+*Step 6c :* The 3 plotter classes then filter their respective lists to create new lists for the current month and start adding the points to the series.
+
+The code snippet below shows the `**ClaimPlotter::plotClaims**` method +
+
+[source, java]
+
+   XYSeries plotClaims() {
+        Double amountToAdd;
+        findClaimValueAtStartOfMonth();
+        claimSeries.add(1, startingExpenses);
+        double currentExpenses = startingExpenses;
+        List<Claim> approvedClaimsInCurrentMonthList = findApprovedClaimsInCurrentMonth();
+        for (int day = 2; day <= 30; day++) {
+            for (Claim claim : approvedClaimsInCurrentMonthList) {
+                if (claim.getDate().date.getDayOfMonth() == day) {
+                    amountToAdd = Double.parseDouble(claim.getAmount().value);
+                    assert amountToAdd >= 0 : "A negative claim value managed to get into the claim list";
+                    currentExpenses += amountToAdd;
+                    currentExpenses = Math.round(currentExpenses * 100) / 100.0;
+                }
+            }
+            claimSeries.add(day, currentExpenses);
+        }
+        return claimSeries;
+    }
+
+*Step 6d :* Once the 3 series have been returned, the plotter classes then return the completed dataset to the
+`**BudgetGraph**` class which then renders the image.
+
+*Step 6e :* The `**BudgetCommand::execute**` method then calls the `**BudgetGraph::displayBudgetGraph**` method to
+display the graph image.
+
+
+
+==== Why was it implemented this way?
+With so many claims and incomes, all having differing dates, it can be hard to keep track of how much money one should have on hand at any one time.
+
+* We felt that while knowing how much our prospective budget would be is good, knowing it over a range of time
+(such as a month in the case of `**BudgetGraph**`) would help with better planning
+
+* We also wanted to keep track of the history of said `**Claims**` and `**Incomes**` and doing it over a 1 month period
+ensures there will not be too visual data cluttering the screen.
+
+==== Design Considerations
+
+We have considered between two differing graph designs.
+
+.Graph Designs
+[options="header,footer"]
+|=======================
+| Graph Design Considerations 			|	Pros and Cons
+| Single Graph (Current Choice)  		|	*Pros* : Clean and clutter-free display.
+
+                                        	 	*Cons* : It does not display as much data
+
+| Separate Graphs based on Organisation Tags    |	*Pros* : Displays all relevant data that the user can possibly ask for
+
+							*Cons* : Opening a multitude of graphs will visually clutter the screen with data
+							unless more parsing is done to sort out which graphs are required
+|=======================
+We have settled on adopting a single-graph approach as having multiple graphs open can lead to the user being
+overwhelmed by unnecessary data, and the code needed to achieve this result satisfactorily would be too convoluted.
+
+_{End of extract for `budget` command}_
+
+

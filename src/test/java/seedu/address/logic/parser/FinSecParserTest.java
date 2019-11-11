@@ -40,7 +40,7 @@ public class FinSecParserTest {
 
     //=========== Contacts ================================================================================
     @Test
-    public void parseCommand_addContact() throws Exception {
+    public void parseCommand_addContact_parseSuccess() throws Exception {
         Contact contact = new ContactBuilder().build();
         AddContactCommand command = (AddContactCommand) parser.parseCommand(ContactUtil.getAddCommand(contact));
         assertEquals(new AddContactCommand(contact), command);
@@ -48,14 +48,14 @@ public class FinSecParserTest {
 
 
     @Test
-    public void parseCommand_deleteContact() throws Exception {
+    public void parseCommand_deleteContact_parseSuccess() throws Exception {
         DeleteContactCommand command = (DeleteContactCommand) parser.parseCommand(
                 DeleteContactCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteContactCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
-    public void parseCommand_editContact() throws Exception {
+    public void parseCommand_editContact_parseSuccess() throws Exception {
         Contact contact = new ContactBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(contact).build();
         EditContactCommand command = (EditContactCommand) parser.parseCommand(
@@ -66,21 +66,21 @@ public class FinSecParserTest {
 
     //=========== Income ================================================================================
     @Test
-    public void parseCommand_addIncome() throws Exception {
+    public void parseCommand_addIncome_parseSuccess() throws Exception {
         Income income = new IncomeBuilder().build();
         AddIncomeCommand command = (AddIncomeCommand) parser.parseCommand(IncomeUtil.getAddCommand(income));
         assertEquals(new AddIncomeCommand(income), command);
     }
 
     @Test
-    public void parseCommand_deleteIncome() throws Exception {
+    public void parseCommand_deleteIncome_parseSuccess() throws Exception {
         DeleteIncomeCommand command = (DeleteIncomeCommand) parser.parseCommand(
                 DeleteIncomeCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals(new DeleteIncomeCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
-    public void parseCommand_editIncome() throws Exception {
+    public void parseCommand_editIncome_parseSuccess() throws Exception {
         Income income = new IncomeBuilder().build();
         EditIncomeDescriptor descriptor = new EditIncomeDescriptorBuilder(income).build();
         EditIncomeCommand command = (EditIncomeCommand) parser.parseCommand(
@@ -101,7 +101,7 @@ public class FinSecParserTest {
     //@@author{lawncegoh}
     //=========== Goto ==================================================================================
     @Test
-    public void parseCommand_goto() throws ParseException {
+    public void parseCommandgoto_parseSuccess() throws ParseException {
         assertThrows(ParseException.class, () -> parser.parseCommand(GotoCommand.COMMAND_WORD));
         assertTrue(parser.parseCommand(GotoCommand.COMMAND_WORD + " contacts") instanceof GotoCommand);
     }
@@ -109,7 +109,7 @@ public class FinSecParserTest {
     //@@author{lawncegoh}
     //=========== Check ==================================================================================
     @Test
-    public void parseCommand_check() throws ParseException {
+    public void parseCommand_check_parseSuccess() throws ParseException {
         assertThrows(ParseException.class, () -> parser.parseCommand(CheckCommand.COMMAND_WORD));
         assertTrue(parser.parseCommand(CheckCommand.COMMAND_WORD + " 1") instanceof CheckCommand);
     }
@@ -118,7 +118,7 @@ public class FinSecParserTest {
     //=========== Sort ==================================================================================
 
     @Test
-    public void parseCommand_sort() throws ParseException {
+    public void parseCommand_sort_parseSuccess() throws ParseException {
         assertThrows(ParseException.class, () -> parser.parseCommand(SortCommand.COMMAND_WORD));
         assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " name") instanceof SortCommand);
         assertTrue(parser.parseCommand(SortCommand.COMMAND_WORD + " date") instanceof SortCommand);
@@ -129,7 +129,7 @@ public class FinSecParserTest {
     //=========== Reverse ==================================================================================
 
     @Test
-    public void parseCommand_reverse() throws ParseException {
+    public void parseCommand_reverse_parseSuccess() throws ParseException {
         assertThrows(ParseException.class, () -> parser.parseCommand(SortReverseCommand.COMMAND_WORD));
         assertTrue(parser.parseCommand(SortReverseCommand.COMMAND_WORD + " name") instanceof SortReverseCommand);
         assertTrue(parser.parseCommand(SortReverseCommand.COMMAND_WORD + " date") instanceof SortReverseCommand);
@@ -139,18 +139,18 @@ public class FinSecParserTest {
     //@@author{lawncegoh}
     //=========== Clear ==================================================================================
     @Test
-    public void parseCommand_clear() throws Exception {
+    public void parseCommand_clear_parseSuccess() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
     }
 
     @Test
-    public void parseCommand_exit() throws Exception {
+    public void parseCommand_exit_parseSuccess() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
-    public void parseCommand_help() throws Exception {
+    public void parseCommand_help_parseSuccess() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
     }

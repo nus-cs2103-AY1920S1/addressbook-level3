@@ -80,42 +80,56 @@ Types include: +
 `guide` (opens a web browser and bring you to our user guide) +
 `api` (for advanced users who want to know the inner workings of the command)
 
-Friendly tip 1 :bulb: +
-If you type `help` without any other parameters, a help window such as the one below will appear and display a command
-list with similar instructions to this page!
+
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Cant remember all of FinSec's commands or the command format for `help`? No worries! Even if you mistakenly
+type `help` without the other parameters or get the parameters confused, a default help window such as the one below
+will appear and display a command list with similar instructions to this page!
+
+====
 
 [[UG-HelpWindow]]
 [reftext="Figure 3.1.1"]
 [caption="Figure 3.1.1: "]
 .The help window that appears when the user asks for the default form of `help`
-image::UG-HelpWindow.png[width="600"]
+image::UG-HelpWindow.png[width="500"]
 
 
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Instead of typing in `help`, you can also access help by clicking on the `help` button +
+on the top left of the FinSec application GUI or just press kbd:[F1] on your keyboard +
+as shown below!
 
-Friendly tip 2 :bulb: +
-Instead of typing in `help`, you can also access help by clicking on the `help` button on the top left of the FinSec
-application GUI or just press kbd:[F1] on your keyboard as shown below!
+====
+
+
 
 [[UG-HelpLocation]]
 [reftext="Figure 3.1.2"]
 [caption="Figure 3.1.2: "]
 .The location of the help button on FinSec's GUI
-image::UG-HelpLocation.png[width="400"]
+image::UG-HelpLocation.PNG[width="300"]
 
 
 Example commands: +
 ....
 help cmd/add_contact type/brief
 ....
-This shows you a brief description of what the `add_contact` command does and how to use it +
+This shows you a brief description of what the `add_contact` command does and how to use it
 ....
 help cmd/goto type/api
 ....
-This opens up a page in your browser and displays our API for the `goto` command +
+This generates an 'API.html' file containing our API for the `goto` command, and opens it up
 ....
 help cmd/help type/guide
 ....
-This opens up a page in your browser and brings you right here! :smiley:
+This opens up a page in your browser and brings you right here to this section!
 
 <<UG-HelpExample>> shows what you can expect to see when typing in the first example: `help cmd/add_contact type/brief`.
 [[UG-HelpExample]]
@@ -446,7 +460,7 @@ Upon entering an unknown command, FinSec will prompt you as to whether you would
 
 *Choice 2 :* You can enter any `existing commands` to map your previous entry to it!
 
-If you have chosen *Choice 2*, you can use the newly created shortcut as a substitute to the command.
+If you have made a mistake and entered the wrong command,  *Choice 1* would allow you to continue.
 
 ==== Example of *Choice 1* :
 
@@ -467,21 +481,21 @@ No shortcut is created. Continue using FinSec as per normal!
 [reftext="Figure 3.11.1.1"]
 [caption="Figure 3.11.1.1: "]
 .When you enter an accidental typo
-image::UG-NoShortcut1.png[width="800"]
+image::UG-NoShortcut1.png[width="400"]
 
 [[UG-NoShortcutExample2]]
 [reftext="Figure 3.11.1.2"]
 [caption="Figure 3.11.1.2: "]
 .FinSec will ask you if you want to create a shortcut (in blue). If you do not wish to create one, enter the command "n" as shown above.
-image::UG-NoShortcut2.png[width="800"]
+image::UG-NoShortcut2.png[width="400"]
 
 [[UG-NoShortcutResult]]
 [reftext="Figure 3.11.1.3"]
 [caption="Figure 3.11.1.3: "]
 .Entering 'n' will allow you to continue.
-image::UG-NoShortcut3.png[width="800"]
+image::UG-NoShortcut3.png[width="400"]
 
-
+If you have wish to create a shortcut,  *Choice 2* would allow you to create a shortcut to a command.
 
 ==== Example of *Choice 2* :
 
@@ -504,19 +518,19 @@ A new shortcut is created for you! From now on, `ai` can be used as a substitute
 [reftext="Figure 3.10.2.1"]
 [caption="Figure 3.10.2.1: "]
 .Enter the shortcut you wish to create.
-image::UG-createShortcut1.png[width="800"]
+image::UG-createShortcut1.png[width="400"]
 
 [[UG-createShortcutExample2]]
 [reftext="Figure 3.10.2.2"]
 [caption="Figure 3.10.2.2: "]
 .Enter the command you wish to have an alias to.
-image::UG-createShortcut2.png[width="800"]
+image::UG-createShortcut2.png[width="400"]
 
 [[UG-createShortcutResult]]
 [reftext="Figure 3.10.2.3"]
 [caption="Figure 3.10.2.3: "]
 .Congratulations! You have just created a shortcut! Now the shortcut is able for use.
-image::UG-createShortcut3.png[width="800"]
+image::UG-createShortcut3.png[width="400"]
 
 ====
 --
@@ -527,7 +541,7 @@ image::warning.png[width = "20", float = "left"]
 * The shortcut you want to add has to be to a default FinSec command.
 
 ====
-
+// end::shortcutfeature[]
 
 === Deleting a shortcut : `delete_shortcut`
 
@@ -558,12 +572,10 @@ image::warning.png[width = "20", float = "left"]
 * This will not work for default commands.
 
 ====
-// end::shortcutfeature[]
 
 //@@author {lawncegoh}
 // tag::introduction[]
 ---
-[source, java]
 The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively.
 They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once
 you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that
@@ -587,7 +599,7 @@ as well as the tabs that are below this panel.
 [reftext="Figure 3.2.1"]
 [caption="Figure 3.2.1: "]
 .FinSec giving a brief description of the `goto` command
-image::UG-GotoExample.png[width="800"]
+image::UG-GotoExample.png[width="400"]
 
 Keyword: `goto` +
 
@@ -628,17 +640,17 @@ Examples:
 *Step 1:* Type `check 1` into the command box and press kbd:[Enter] to execute it
 
 [[UG-CheckExample1]]
-image::UG-CheckExample1.png[width="800"]
+image::UG-CheckExample1.png[width="400"]
 
 *Step 2:* The result box will display "Contact Shown"
 
 [[UG-CheckExample2]]
-image::UG-CheckExample2.png[width="800"]
+image::UG-CheckExample2.png[width="400"]
 
 *Step 3:* This is the pop-up window that comes up after the command is entered. You are now
 able to see the claims that belong to this contact
 [[UG-CheckExample3]]
-image::UG-CheckExample3.png[width="800"]
+image::UG-CheckExample3.png[width="400"]
 
 
 *Checking of a claim in the claims page:* +
@@ -646,17 +658,17 @@ image::UG-CheckExample3.png[width="800"]
 of each individual claim card.
 
 [[UG-CheckExample1]]
-image::UG-CheckExample4.png[width="800"]
+image::UG-CheckExample4.png[width="400"]
 
 *Step 2:* The result box will display "Claim Shown"
 
 [[UG-CheckExample2]]
-image::UG-CheckExample5.png[width="800"]
+image::UG-CheckExample5.png[width="400"]
 
 *Step 3:* This is the pop-up window that comes up after the command is entered. You are now able to see the important
 details that belong to this claim.
 [[UG-CheckExample3]]
-image::UG-CheckExample6.png[width="600"]
+image::UG-CheckExample6.png[width="200"]
 
 
 //end::checkfeature[]
@@ -713,7 +725,7 @@ Format: `sort status`
 [reftext="Figure 3.15.1"]
 [caption="Figure 3.15.1: "]
 .FinSec Status of the claim is shown and the right and sorted as stated above. Pending, Approved then Rejected.
-image::UG-ClaimsListSort.png[width="800"]
+image::UG-ClaimsListSort.png[width="400"]
 
 Examples:
 * `sort date`
@@ -799,9 +811,15 @@ claims have been subtracted from your income stream. +
 .FinSec calculating your total projected budget value
 image::UG-BudgetExample1.PNG[width="600"]
 
-Friendly tip 1 :bulb: +
-FinSec will actually warn you if you are over budget, which would result in a negative balance.
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+You will never have to worry about going over budget, +
+as FinSec will warn you when that happens. +
+It would also result in a negative balance.
 
+====
 
 
 Next up, <<UG-BudgetExample2>> below shows the graph portion of the `budget` command, which shows your
@@ -810,10 +828,17 @@ projected income, claim and budget values for the current month.
 [reftext="Figure 3.21.2"]
 [caption="Figure 3.21.2: "]
 .FinSec displaying your projected budget over the course of the current month in a graph
-image::UG-BudgetExample2.PNG[width="800"]
+image::UG-BudgetExample2.PNG[width="600"]
 
-Friendly tip 2 :bulb: +
-Clicking on one of the data-points will cause a tooltip similar to the one shown in the picture above to pop up.
+====
+--
+image::tip.png[width = "80", float = "left"]
+--
+Clicking on one of the data-points of any line +
+will cause a tooltip similar to the one shown in the picture +
+above to pop up.
+
+====
 
 //@@{lawncegoh}
 // tag::clearfeature[]
@@ -884,7 +909,7 @@ FinSec can automatically detect duplicate names of contacts, claims or incomes.
 
 Automatically detects command and comes up with suggestions as a pop-up on what syntax comes next.
 
-== Upcoming Features
+== Upcoming Features (To be implemented in v2.0)
 
 === Attaching Pictures to Claims : `attach` (To be implemented in v2.0)
 
@@ -905,7 +930,7 @@ specified index from the user input
 
 //@@author{lawncegoh}
 // tag::checkDatefeature[]
-=== Checking for months or dates
+=== Checking for months or dates (To be implemented in v2.0)
 
 Checks for the claims or incomes that matches the specific month or date that was typed as input.
 
@@ -926,7 +951,7 @@ current check feature. This is an increment to that feature.
 
 //tag::statsfeature[]
 //@@author{lawncegoh}
-=== Display statistics of the application
+=== Display statistics of the application (To be implemented in v2.0)
 
 Displays the important statistics that a Finance Secretary need to know. Examples of statistics are:
 
@@ -968,34 +993,31 @@ in the contacts list
 
 == Command Summary
 
-* *Help* : `help cmd/COMMAND type/TYPE` +
+* *Requesting Help* : `help cmd/COMMAND type/TYPE` +
 e.g. `help cmd/add_income type/brief`
 
 * *Changing of Views* `goto (parameter)`
 e.g. `goto claims`
 
-* *Add contact* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
+* *Adding Contacts* `add_person n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]...` +
 e.g. `add_contact n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 
-* *Edit contact* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
+* *Editing Contacts* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]` +
 e.g. `edit_contact 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports` +
 
-* *Add claim* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME [t/TAG]` +
+* *Adding Claims* `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME [t/TAG]` +
 e.g. `add_claim d/Sports Equipment a/115.2 n/Lee Wei Gen t/Sports`
 
-* *Edit claim* `edit_claim INDEX d/DESCRIPTION_OF_CLAIM a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
-e.g. `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
-
-* *Approves claim* `approve INDEX` +
+* *Approving Claims* `approve INDEX` +
 e.g. `approve 1`
 
-* *Rejects claim* `reject INDEX` +
+* *Rejecting Claims* `reject INDEX` +
 e.g. `reject 1`
 
-* *Adding income* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+* *Adding Incomes* `add_income d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `add_income d/Shirt Sales a/307.5 n/Lee Wei Gen p/96777777 t/Marketing`
 
-* *Editing income* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
+* *Editing Incomes* `edit_income INDEX d/DESCRIPTION_OF_INCOME a/AMOUNT n/PERSON_NAME p/PHONE_NUMBER [t/TAG]` +
 e.g. `edit_income 2 d/Camp Fees a/1150.50 n/Lee Wei Gen p/96777777 t/FOP`
 
 * *Checking Person or Claim* `check INDEX` +
@@ -1003,20 +1025,20 @@ e.g.
 ** `check 1` (in contacts page, show details of the person in index 1)
 ** `check 2` (in claims page, show details of the claim in index 2)
 
-* *Deleting a person* `delete INDEX` +
-e.g. `delete 3`
+* *Deleting Contacts* `delete_contact INDEX` +
+e.g. `delete_contact 3`
 
-* *See Budget* `budget`
+* *Viewing Budget* `budget`
 
 * *Resolving Claims* `resolve INDEX s/STATUS` +
 e.g.
 ** `resolve 1 s/approved (in claims page, approve a claim)`
 ** `resolve 2 s/rejected (in claims page, reject a claim)`
 
-* *Attaching Pictures to Claims* `attach INDEX` +
+* *Attaching Pictures to Claims* `attach INDEX` (To be implemented in v2.0) +
 e.g. `attach 1`
 
-* *Grouping Users* `tag INDEX t/TAG` +
+* *Grouping Users* `tag INDEX t/TAG` (To be implemented in v2.0) +
 e.g. `tag 1 t/FOP t/Sports`
 
 * *Closing application* `exit`

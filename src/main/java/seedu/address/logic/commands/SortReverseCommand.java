@@ -114,6 +114,11 @@ public class SortReverseCommand extends Command {
         }
     }
 
+    /**
+     * Checks if 2 sortreversecommands are equal
+     * @param other
+     * @return
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

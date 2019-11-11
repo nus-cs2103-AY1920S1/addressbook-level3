@@ -291,6 +291,7 @@ public class MainWindow extends UiPart<Stage> {
                     handleExit();
                 }
 
+                //@@author{lawncegoh}
                 if (commandResult.isToClear()) {
                     changeToClear();
                 }

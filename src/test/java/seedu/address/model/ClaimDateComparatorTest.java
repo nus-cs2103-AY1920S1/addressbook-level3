@@ -22,19 +22,19 @@ class ClaimDateComparatorTest {
     private ClaimDateComparator claimDateComparator = new ClaimDateComparator();
 
     @Test
-    public void lessThan() {
+    public void comparator_lessThan_negativeInteger() {
         int result = claimDateComparator.compare(CLAIM_1, CLAIM_2);
         assertEquals(result, -2);
     }
 
     @Test
-    public void equal() {
+    public void comparator_equal_zero() {
         int result = claimDateComparator.compare(CLAIM_1, CLAIM_1);
         assertEquals(result, 0);
     }
 
     @Test
-    public void moreThan() {
+    public void comparator_moreThan_positiveInteger() {
         int result = claimDateComparator.compare(CLAIM_2, CLAIM_1);
         assertEquals(result, 2);
     }

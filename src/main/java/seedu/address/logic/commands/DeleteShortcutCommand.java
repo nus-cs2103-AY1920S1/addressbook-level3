@@ -41,6 +41,7 @@ public class DeleteShortcutCommand extends Command {
                 return new CommandResult(String.format(MESSAGE_DELETE_SHORTCUT_FAIL));
             }
         } catch (Exception e) {
+            System.out.println(e);
             return new CommandResult(String.format(MESSAGE_DELETE_SHORTCUT_FAIL));
         }
 

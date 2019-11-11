@@ -50,6 +50,16 @@ public class SecondaryCommand {
         value = secondaryCommand;
     }
 
+
+    /**
+     * Returns the list of commands.
+     */
+
+    public static ArrayList<String> getCommandList() {
+        return commandList;
+    }
+
+
     /**
      * Returns if a given string is a valid secondary command.
      */
@@ -79,5 +89,7 @@ public class SecondaryCommand {
     public int hashCode() {
         return value.hashCode();
     }
+
+
 
 }

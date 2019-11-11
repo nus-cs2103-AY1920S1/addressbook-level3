@@ -38,8 +38,6 @@ class AddressTest {
 
     @Test
     public void equal() {
-
-
         //diff address gives false
         assertFalse(address1.equals(address2));
 

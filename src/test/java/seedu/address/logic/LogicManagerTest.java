@@ -13,7 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
+import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -54,11 +56,39 @@ public class LogicManagerTest {
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    //    @Test
-    //    public void execute_validCommand_success() throws Exception {
-    //        String gotoCommand = GotoCommand.COMMAND_WORD;
-    //        assertCommandSuccess(gotoCommand + " contacts", GotoCommand.MESSAGE_SUCCESS_CONTACTS, model);
-    //    }
+    @Test
+    public void execute_validCommand_success() throws Exception {
+        String gotoCommand = ExitCommand.COMMAND_WORD;
+        assertCommandSuccess(gotoCommand, ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT, model);
+    }
+
+    @Test
+    public void execute_clearCommand_sucess() throws URISyntaxException, CommandException, ParseException, IOException {
+        CommandResult commandResult = logic.executeClear("Y");
+        assertEquals(commandResult.getFeedbackToUser(), "FinSec is cleared");
+    }
+
+    @Test
+    public void checkGetMethods() {
+        assertEquals(logic.getModel(), model);
+        assertEquals(logic.getFilteredClaimList(), model.getFilteredClaimList());
+        assertEquals(logic.getFilteredIncomeList(), model.getFilteredIncomeList());
+        assertEquals(logic.getFinSec(), null);
+    }
+
+    @Test
+    public void checkFinSecFilePath() {
+        assertEquals(logic.getFinSecFilePath(), model.getFinSecFilePath());
+    }
+
+    @Test
+    public void checkGuiSettings() {
+        GuiSettings guiSettings = logic.getGuiSettings();
+        assertEquals(guiSettings, model.getGuiSettings());
+
+        logic.setGuiSettings(guiSettings);
+        assertEquals(logic.getGuiSettings(), guiSettings);
+    }
 
     //    @Test
     //    public void execute_storageThrowsIoException_throwsCommandException() {

@@ -11,6 +11,11 @@ public class NoClearCommand extends Command {
     public static final String SHOWING_NO_CLEAR = "You have decided not to clear the FinSec"
             + " anymore. You may now continue with your tasks :-)";
 
+    /**
+     * Executes a noclear command
+     * @param model {@code Model} which the command should operate on.
+     * @return
+     */
     @Override
     public CommandResult execute(Model model) {
         return new CommandResult(SHOWING_NO_CLEAR,

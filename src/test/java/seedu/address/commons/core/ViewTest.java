@@ -25,7 +25,7 @@ public class ViewTest {
     }
 
     @Test
-    public void invalidValidView_withUppercase() {
+    public void invalidValidView_withUppercase_parseSuccess() {
         assertFalse(ParserUtil.checkView("Contacts"));
         assertFalse(ParserUtil.checkView("CONTACTS"));
         assertFalse(ParserUtil.checkView("Incomes"));
@@ -35,7 +35,7 @@ public class ViewTest {
     }
 
     @Test
-    public void invalidView_withWhiteSpace() {
+    public void invalidView_withWhiteSpace_parseSuccess() {
         assertFalse(ParserUtil.checkView("contacts        "));
         assertFalse(ParserUtil.checkView("incomes       "));
         assertFalse(ParserUtil.checkView("claims  "));
@@ -45,7 +45,7 @@ public class ViewTest {
     }
 
     @Test
-    public void validViews() {
+    public void validViews_parseSuccess() {
         assertTrue(ParserUtil.checkView("contacts"));
         assertTrue(ParserUtil.checkView("claims"));
         assertTrue(ParserUtil.checkView("incomes"));

@@ -34,6 +34,7 @@ public class IncomePlotter {
      */
 
     XYSeries plotIncomes() {
+        Double amountToAdd;
         findIncomeValueAtStartOfMonth();
         incomeSeries.add(1, startingIncome);
         double currentIncome = startingIncome;
@@ -41,7 +42,9 @@ public class IncomePlotter {
         for (int day = 2; day <= 30; day++) {
             for (Income income : approvedIncomesInCurrentMonthList) {
                 if (income.getDate().date.getDayOfMonth() == day) {
-                    currentIncome += Double.parseDouble(income.getAmount().value);
+                    amountToAdd = Double.parseDouble(income.getAmount().value);
+                    assert amountToAdd >= 0 : "A negative income value managed to get into the income list";
+                    currentIncome += amountToAdd;
                     currentIncome = Math.round(currentIncome * 100) / 100.0;
                 }
             }
@@ -55,10 +58,15 @@ public class IncomePlotter {
      */
 
     private void findIncomeValueAtStartOfMonth() {
+        assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+        assert currentYearNumber > 0 : "There is an error with LocalDate Year";
+        Double amountToAdd;
         LocalDate firstDayOfMonth = LocalDate.of(currentYearNumber, currentMonthNumber, 2);
         for (Income income : incomeList) {
             if (income.getDate().date.isBefore(firstDayOfMonth)) {
-                startingIncome += Double.parseDouble(income.getAmount().value);
+                amountToAdd = Double.parseDouble(income.getAmount().value);
+                assert amountToAdd >= 0 : "A negative income value managed to get into the income list";
+                startingIncome += amountToAdd;
                 startingIncome = Math.round(startingIncome * 100) / 100.0;
             }
         }
@@ -73,6 +81,8 @@ public class IncomePlotter {
         for (Income income : incomeList) {
             if (currentMonthNumber == income.getDate().date.getMonthValue()
                     && currentYearNumber == income.getDate().date.getYear()) {
+                assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
+                assert currentYearNumber > 0 : "There is an error with LocalDate Year";
                 updatedIncomeList.add(income);
             }
         }
