@@ -112,6 +112,8 @@ specifications required for those commands. An extract from the User Guide that 
 
 include::../UserGuide.adoc[tag=rules]
 
+include::../UserGuide.adoc[tag=ruleswap]
+
 == Contributions to the Developer Guide
 
 |===
