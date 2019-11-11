@@ -520,13 +520,13 @@ Step 1. The user launches the application for the first time. The `AddressBook` 
 
 Step 2. The user executes `close 1` command to close the 1st Eatery in the address book.
 [NOTE]
-If the index given is not a valid index (ie, out of bounds or negative), it will return an error to the user rather than attempting to close the Eatery.
+If the index given is not a valid index (ie, out of bounds or negative), CloseCommand will throw a CommandException to the user rather than attempting to close the Eatery.
 
-Step 3. The address book now returns a success message upon successfully closing the Eatery, and the Eatery will be greyed out [proposed].
+Step 3. The address book now returns a success message upon successfully closing the Eatery, and the Eatery will be highlighted in red.
 
 Step 4. The user then decides that he wants to close another Eatery.
 [NOTE]
-If the index given points to an Eatery already closed (ie, 1 in this situation), it will return an error to the user rather than attempting to close the Eatery.
+If the index given points to an Eatery already closed (ie, 1 in this situation), CloseCommand will throw a CommandException to the user rather than attempting to close the Eatery.
 
 The following sequence diagram shows how the `close` command works:
 image::CloseSequenceDiagram.png[]
@@ -555,6 +555,54 @@ image::CloseCommitActivityDiagram.png[]
 ** Pros: Closed Eateries stored apart from Reopened Eateries. Commands executed will only affect Eateries stored in a particular list.
 ** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
 // end::close[]
+
+=== Reopen Eatery feature
+==== Implementation
+
+The reopen mechanism is facilitated by `AddressBook`. It implements the `ReadOnlyAddressBook` interface with the following operation:
+
+* `AddressBook#setEatery()` -- Replaces an Eatery with a modified Eatery specified by the user input.
+
+Given below is an example usage scenario and how the reopen mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `AddressBook` will be initialized with the initial json data stored.
+
+Step 2. The user executes `reopen 1` command to close the 1st Eatery in the address book.
+[NOTE]
+If the index given is not a valid index (ie, out of bounds or negative), ReopenCommand will throw a CommandException to the user rather than attempting to reopen the Eatery.
+
+Step 3. The address book now returns a success message upon successfully reopening the Eatery, and the Eatery will not longer be highlighted in red.
+
+Step 4. The user then decides that he wants to reopen another Eatery.
+[NOTE]
+If the index given points to an Eatery already reopened (ie, 1 in this situation), ReopenCommand will throw a CommandException to the user rather than attempting to reopen the Eatery.
+
+The following sequence diagram shows how the `reopen` command works:
+image::ReopenSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new `reopen` command:
+image::ReopenCommitActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How Reopen executes
+* **Alternative 1 (current choice):** Returns a new Eatery with identical fields except for the isOpen field.
+** Pros:
+*** Follows pre-exisiting EditCommand implementation.
+*** No need for setter methods.
+** Cons: Have to return a new object each time a change is made.
+* **Alternative 2:** Setter method for isOpen field of Eatery.
+** Pros: No need for extra methods in the flow to change the object.
+** Cons:
+*** Breaks pre-existing EditCommand implementation.
+*** Need for setter methods.
+
+===== Aspect: Data structure to support the Reopen command
+* **Alternative 1 (current choice):** Uses a boolean value to keep track if the Eatery is reopened or closed.
+** Pros: Easily implemented.
+** Cons: An additional variable to check when executing other commands. Possibility of incorrect manipulation of an Eatery object
+* **Alternative 2:** Maintain two separate lists of Eateries for Reopened and Closed.
+** Pros: Reopened Eateries stored apart from Closed Eateries. Commands executed will only affect Eateries stored in a particular list.
+** Cons: Requires proper handling of individual data structures to ensure each list is maintained and updated correctly.
 
 // tag::modeCommand[]
 === Changing Mode of EatMe feature
@@ -693,6 +741,60 @@ This situation will result in the user requiring to type the whole `add` command
 * **Alternative 1 (current choice):** No additional data structure is required for `SaveTodo` command
 
 //end::saveTodoCommand[]
+
+=== Load friend's EateryList feature
+==== Implementation
+
+The load mechanism is facilitated by `ModelManager`. It implements the `Model` interface with the following operation:
+
+* `Model#setUserPrefs()` -- Replaces the existing UserPrefs with a modified UserPrefs specified by the user input.
+
+Given below is an example usage scenario and how the load mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `EateryList` will be initialized with the initial json data stored.
+
+Step 2. The user executes `load \u Alice` command to change the `UserPrefs` of the `ModelManger`.
+[NOTE]
+If the command is missing the username (i.e. `load \u`), LoadCommandParser will throw an ParserException to the user with an error message specifying that the command parameters are incorrect, and an example usage of the command.
+[NOTE]
+If the command is missing the username and the prefix (i.e. `load`), this will be interpreted as loading the owner's own Eatery List.
+
+Step 3. The Eatery List now returns a success message upon successfully changing the `UserPrefs`, and prompts the user to relaunch the application.
+
+Step 4. The user then decides that he wants to change his `UserPrefs` to another friend's one. Before exiting the application, the user can still enter `load \u Bob` command to change the `UserPrefs`.
+[NOTE]
+If the user attempts to load a file that has already been set in the `UserPrefs`, the LoadCommand will throw a CommandException to the user with an error message specifying that the `UserPrefs` has already been changed.
+[NOTE]
+If the user attempts to load a file that does not exist in the default filepath, the LoadCommand will throw a CommandException to the user with an error message to prompt him to check that the file exists.
+
+Step 5. The user then decides that he wants to change his `UserPrefs` back to his own instead. Before exiting the application, the user can still enter `load` command to reset the `UserPrefs` of the `ModelManage` back to his own Eatery List.
+
+The following sequence diagram shows how the `load` command works:
+image::LoadSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new `load` command:
+image::LoadCommitActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How Load executes
+* **Alternative 1 (current choice):** Modifies the existing model in the Eatery List.
+** Pros: Easily implemented without needing to relaunch the GUI.
+** Cons: Require the application to be terminated for the storage to save UserPrefs.
+* **Alternative 2:** Creates a new model to replace the current one.
+** Pros: Easier to implement the loading of file without relaunching the application.
+** Cons: Need to relaunch the GUI so that the new file can be seen.
+
+===== Aspect: User Experience to execute Load
+* **Alternative 1 (current choice):** The user has to relaunch the application.
+** Pros:
+*** Easily implemented.
+*** Clear to the user that the UserPaths has been changed.
+** Cons: Additional work from the user
+* **Alternative 2:** Relaunch the GUI
+** Pros: The user does not need to reload the application.
+** Cons:
+*** Harder to implement.
+*** Might confuse the user if the UserPaths has been changed. Especially if the friend's EateryList is similar to the user (i.e. same school).
 
 === Logging
 

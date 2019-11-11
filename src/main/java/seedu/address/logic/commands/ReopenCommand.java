@@ -16,7 +16,6 @@ import seedu.address.model.eatery.Eatery;
 import seedu.address.model.eatery.Name;
 import seedu.address.model.eatery.Tag;
 
-
 /**
  * Sets the isOpen field of an existing eatery in the address book to true.
  */
