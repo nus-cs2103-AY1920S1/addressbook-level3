@@ -600,10 +600,10 @@ This feature was conceived to make the application easy to use for amateur users
 
 Important Classes:
 
-* InteractiveParser - The interface exposed to `LogicManager`. The parser implements this interface.
-* Parser - A concrete implementation of `InteractiveParser` that enables interactive parsing.
-* State - An abstract class that represents the individual states the application can be in while parsing and building a `Command`.
-* EndState - An abstract class that extends from `State`. Represents the final `State` of a parsed command, from which a `Command` object can be built.
+* `InteractiveParser` - The interface exposed to `LogicManager`. The parser implements this interface.
+* `Parser` - A concrete implementation of `InteractiveParser` that enables interactive parsing.
+* `State` - An abstract class that represents the individual states the application can be in while parsing and building a `Command`.
+* `EndState` - An abstract class that extends from `State`. Represents the final `State` of a parsed command, from which a `Command` object can be built.
 
 The interface `InteractiveParser` is the connecting interface between the `LogicManager` and the main `Parser`. This interface is
 designed by contract (DbC - proposed by Bertrand Meyer). The interface exposes four methods to the `LogicManager`, namely:
@@ -625,6 +625,8 @@ Such `State` changes happen sequentially until all the arguments necessary for t
 the `State` being tracked transitions into an `EndState`. Once the tracked `State` transitions into an `EndState`, the `Parser` builds the `Command`
 which is executed by the `LogicManager`.
 
+The structure of the interactive parser is detailed in the UML diagram below.
+
 Parsing of user entered inputs can be viewed as parsing a small, finite context-free language. The command built by a sequence of inputs
 is uniquely determined by the sequence of inputs entered by the user and happens to be deterministic. +
 
@@ -644,9 +646,27 @@ processed by the `InputProcessor` class and forwarded to the current `State`. If
 method of the current `State` to proceed to the next `State`. This process is repeated until an `EndState` is reached. Throughout this process, the
 user receives feedback from the `Parser` in the form of an encapsulated `CommandResult` object.
 
+Below is a sequence diagram illustrating the processes that occur when the user enters `t/meeting s/15/11/2019/1500` following `add`.
+
+The high-level working of the `Parser` can be summarized by the activity diagram shown below.
+
 ==== Design Considerations
 
+===== Aspect : Abstract model
+* **Alternative 1 (current design)** : Finite state machine
+** Pros:
+*** Highly flexible - Entire command, one argument at a time and multiple arguments at a time - all are supported.
+*** Easily extensible - Adding a new command will require almost no changes in any of the existing classes.
+*** Supports optional arguments with the help of the `OptionalState` interface.
+** Cons:
+*** Tedious to implement a state machine for each individual command.
 
+* **Alternative 2** : Use a list based implementation to keep track of arguments entered.
+** Pros:
+*** Easy to implement and keep track of arguments
+** Cons:
+*** Very hard to implement optional states.
+*** Cannot execute commands like `Help` at any point in time without hard-coding it in the `Parser`.
 
 //end::interactive-parsing[]
 
