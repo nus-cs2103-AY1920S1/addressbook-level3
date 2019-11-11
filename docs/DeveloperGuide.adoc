@@ -172,6 +172,7 @@ As a more OOP model, we can store a `Tag` list in `Project Dashboard`, which `Me
 image:BetterModelClassDiagramNew.png[]
 // end::ModelDevGuide[]
 
+// tag::Storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -186,7 +187,7 @@ The Storage component serves the following purposes.
 image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/pluswork/storage/Storage.java[`Storage.java`]
-
+// end::Storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -568,6 +569,7 @@ being final and unchangeable.
 *Alternative 2* was chosen because it is more in line with +Work's objective of drawing easy comparison between project members and tasks.
 // end::member[]
 
+// tag::Inventory[]
 === Inventory feature
 ==== Proposed Implementation
 
@@ -648,6 +650,7 @@ represented as enumerations.
 ** Pros: The inventories list is more user-friendly and more provides more details.
 
 ** Cons: Implementation is harder, and we have to ensure minimal errors or bugs.
+//end::Inventory[]
 
 // tag::autocomplete[]
 === AutoComplete feature
@@ -1281,7 +1284,6 @@ Given below are instructions to test the app manually.
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
-
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
@@ -1296,8 +1298,63 @@ entirely.
    Expected: If the window size is less than the minimum, it will be re-sized automatically. Else, the window
 preferences will be retained.
 
-=== Task commands
+=== Member Feature
+. Add a member:
+.. Test case: "add-member mn/YOUR_NAME mi/T1 mt/testing" +
+    Expected: Shows that a member is successfully added into +Work. Entering "list-members" in command prompt displays a list of members, including the one newly added.
+.. Test case: "add-member mn/YOUR_NAME mi/test!!! mt/testing" +
+Expected: Invalid member ID, since member ID has to be alphanumeric.
+.. Test case: "add-member mn/YOUR_NAME mi/T2 testing" +
+Expected: A member is successfully added to +Work, with member ID "T2 testing"
 
+. Edit a member:
+.. Test case: "edit-member mi/T1 mn/NICKNAME" +
+Expected: Shows that the previously added member is successfully edited, with a name change from YOUR_NAME to NICKNAME.
+.. Test case: "edit-member mi/T1" +
+Expected: Fails to edit the specified member given the lack of fields to edit.
+
+. Set an image:
+.. Test case:
+... In your laptop, find an image that you would like to set as the profile picture of a member. Take note of the image's filepath.
+... In the command prompt, enter "set-image mi/T1 im/FILE_PATH". Note that file path should end with 'IMAGE_NAME.png'. +
+    Expected: The member with member id 'T1' has a new profile picture, depicting the image you chose from your laptop.
+.. Test case: "set-image mi/T1 im/random string" +
+    Expected: No image is set for the specified member, as an image cannot be found.
+
+. Assign a member to a task:
+.. Test case: "assign ti/1 mi/T1" +
+    Expected: Shows that the member with member id 'T1' has one more task added to his list of assigned tasks. Entering "list-tasks" in command prompt displays the list of tasks in +Work, with the involved member listed under
+    the task at index 1, as assigned.
+.. Test case: "assign ti/x mi/t1" where x is larger than the number of tasks +
+Expected: +Work cannot assign the member since the task does not exist.
+.. Other test case to try: "assign ti/1 mi/x" where x is an invalid member ID +
+
+. Fire a member from a task:
+.. In the command prompt, enter "fire ti/1 mi/T1" +
+Expected: Shows that the task with index 1 has been removed from member with member id 'T1' (under his 'list of tasks assigned'). Entering "list-tasks" in command prompt displays the list of tasks in +Work, with the involved member removed from
+the task at index 1.
+
+=== Statistics Feature
+. Obtaining member-related statistics:
+.. Test case: "member-stats" +
+Expected: Shows the GUI with two pie charts, relating to the amount of tasks and inventory items under each member.
+.. Test case: "testing member-stats" +
+Expected: +Work is unable to recognise this as a valid command.
+.. Test case: "member-stats testinggg" +
+Expected: +Work recognises this command as member-stats, and displays the GUI.
+.. Test case: Assign / remove (fire) more tasks to/from any member, and enter the command "member-stats" once more. +
+Expected: Pie charts displayed changes accordingly.
+
+. Obtaining task-related statistics:
+.. In the command prompt, enter "task-stats" +
+Expected: Shows the GUI with a list of tasks and the time taken to complete them on the left, and a pie chart relating to the number of tasks of each status (unbegun, doing, done) on the right.
+.. Test case: "testing task-stats" +
+Expected: +Work is unable to recognise this as a valid command.
+.. Test case: Use command "add-task tn/name of task ts/unbegun" to add a task to +Work. Then, use commands "doing-task ti/" and "done-task ti/" on the task at a few minutes interval, before calling "task-stats" again. +
+Expected: The time taken for the newly added task has been updated accordingly.
+.. Continue to add tasks, and change task status from unbegun to doing to done, to watch task-stats get updated.
+
+=== Task commands
 . Deleting a task
 
 .. Prerequisites: List all tasks using the `list-tasks` command. Multiple tasks in the list.
