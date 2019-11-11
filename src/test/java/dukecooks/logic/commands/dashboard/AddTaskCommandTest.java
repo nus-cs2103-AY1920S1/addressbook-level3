@@ -1,6 +1,5 @@
 package dukecooks.logic.commands.dashboard;
 
-import static dukecooks.testutil.dashboard.TypicalDashboard.getTypicalDashboardRecords;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

@@ -120,7 +120,7 @@ Format: `add task tn/_insert task here_ td/ _insert date here_`
 [NOTE]
 ====
 Task name entered should not exceed 30 characters.
-When entering the date for a task, please follow the given format: day/month/year
+When entering the date for a task, please follow the given format: day/month/year.
 ====
 
 Example usage (Figure 2): `add task tn/Bake CupCakes td/11/11/2019`
