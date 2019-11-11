@@ -96,7 +96,7 @@ This project follows https://github.com/oss-generic/process/blob/master/docs/Cod
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to *999* to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is *import static all other imports*, *import java.\**, *import javax.**, *import org.\**, *import com.**, *import all other imports*. Add a *<blank line>* between each *import*
 
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+Optionally, you can follow the link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingCheckstyle.html[`_UsingCheckstyle.adoc_`] document to configure Intellij to check style-compliance as you write code.
 
 ==== Updating documentation to match your fork
 
@@ -110,14 +110,14 @@ If you plan to develop this fork as a separate product (i.e. instead of contribu
 
 ==== Setting up CI
 
-Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+Set up Travis to perform Continuous Integration (CI) for your fork. See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingTravis.html[`_UsingTravis.adoc_`] to learn how to set it up.
 
-After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingCoveralls.html[`_UsingCoveralls.adoc_`]).
 
 [NOTE]
 Coverage reporting could be useful for a team repository that hosts the final version but it is not that useful for your personal fork.
 
-Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+Optionally, you can set up AppVeyor as a second CI (see link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingAppVeyor.html[`_UsingAppVeyor.adoc_`]).
 
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
@@ -143,7 +143,7 @@ The architecture diagram given above explains the high-level design of the appli
 
 [TIP]
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
+Refer to the link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingPlantUml.html[Using PlantUML guide] to learn how to create and edit diagrams.
 
 `**Main**` has two classes called link:{repoURL}/src/main/java/thrift/Main.java[`**Main**`] and link:{repoURL}/src/main/java/thrift/MainApp.java[`**MainApp**`]. It is responsible for:
 
@@ -1009,7 +1009,7 @@ The following sections will describe how we plan to implement this feature and t
 Adhering to the Open-Closed principle, we will not modify the existing architecture but extend it.
 The following class diagram illustrates how we propose to do it, by adding 2 new classes to the existing architecture:
 
-image::ai/AiClassDiagram.png[]
+image::ai/AIClassDiagram.png[]
 
 The new classes will have the following roles:
 
@@ -1097,16 +1097,16 @@ We chose AsciiDoc over Markdown because AsciiDoc, although a bit more complex th
 
 === Editing documentation
 
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render .adoc files locally to preview the end result of your edits.
+See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingGradle.html#rendering-asciidoc-files[`_UsingGradle.adoc_`] to learn how to render .adoc files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your .adoc files in real-time.
 
 === Editing diagrams
 
-See <<UsingPlantUml#, UsingPlantUml.adoc>> to find out how to create and update the UML diagrams in the developer guide.
+See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingPlantUml.html[`_UsingPlantUml.adoc_`] to find out how to create and update the UML diagrams in the developer guide.
 
 === Publishing documentation
 
-See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingTravis.html#deploying-github-pages[`_UsingTravis.adoc_`] to learn how to deploy GitHub Pages using Travis.
 
 === Converting documentation to PDF format
 
@@ -1114,7 +1114,7 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the _docs/_ directory to HTML format.
+.  Follow the instructions in link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingGradle.html#rendering-asciidoc-files[`_UsingGradle.adoc_`] to convert the AsciiDoc files in the _docs/_ directory to HTML format.
 .  Go to your generated HTML files in the _build/docs_ folder, right click on them and select *Open with* -> *Google Chrome*.
 .  Within Chrome, click on the *Print* option in Chrome's menu.
 .  Set the destination to *Save as PDF*, then click *Save* to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
@@ -1208,7 +1208,7 @@ There are two ways to run tests.
 * Open a console and run the command *gradlew clean test* (Mac/Linux: *./gradlew clean test*)
 
 [NOTE]
-See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingGradle.html[`_UsingGradle.adoc_`] for more info on how to run tests using Gradle.
 
 === Types of tests
 
@@ -1236,26 +1236,26 @@ This section describes the practices and tools used during development.
 
 === Build automation
 
-See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
+See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingGradle.html[`_UsingGradle.adoc_`] to learn how to use Gradle for build automation.
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingTravis.html[`_UsingTravis.adoc_`] and link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingAppVeyor.html[`_UsingAppVeyor.adoc_`] for more details.
 
 === Coverage reporting
 
-We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See <<UsingCoveralls#, UsingCoveralls.adoc>> for more details.
+We use https://coveralls.io/[Coveralls] to track the code coverage of our projects. See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingCoveralls.html[`_UsingCoveralls.adoc_`] for more details.
 
 === Documentation previews
 
-When a pull request has changes to AsciiDoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those AsciiDoc files will look like when the pull request is merged. See <<UsingNetlify#, UsingNetlify.adoc>> for more details.
+When a pull request has changes to AsciiDoc files, you can use https://www.netlify.com/[Netlify] to see a preview of how the HTML version of those AsciiDoc files will look like when the pull request is merged. See link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingNetlify.html[`_UsingNetlify.adoc_`] for more details.
 
 === Making a release
 
 Here are the steps to create a new release.
 
 .  Update the version number in link:{repoURL}/src/main/java/thrift/MainApp.java[`_MainApp.java_`].
-.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
+.  Generate a JAR file link:https://ay1920s1-cs2103t-w12-2.github.io/main/UsingGradle.html#creating-the-jar-file[using Gradle]>>.
 .  Tag the repo with the version number. e.g. v0.1
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
@@ -1645,7 +1645,6 @@ _Use case ends_
 === Use case: Tag a transaction
 
 *MSS*
-= *Extensions*
 
 1. User requests to tag a specific transaction.
 2. `**THRIFT**` processes the request and adds the tag to the specific transaction.
