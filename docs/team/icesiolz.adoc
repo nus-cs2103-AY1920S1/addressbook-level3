@@ -40,6 +40,14 @@ The rest of the report will refer to this components and so their function will 
 
 In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project, please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=icesiolz[here].
 
+Major enhancements: 
+. Added Game Command
+. Refactored and designed ELISA's UI
+
+Minor enhancements:
+. Added Navigation Features (`show`, `up/down`)
+. Added Visual Features (`theme`)
+
 === Functional contributions
 * *Game mode (Major Feature)*:
 
