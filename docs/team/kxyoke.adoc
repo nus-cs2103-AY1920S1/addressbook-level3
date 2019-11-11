@@ -23,7 +23,7 @@ Mark has a visually appealing graphical user interface (GUI) to visually guide t
 //TODO: replace gui pic with well populated data
 
 .Dashboard tab view of Mark.
-image::dashboardMark.png[300,300]
+image::dashboardMark.png[500,500]
 
 
 My role was to design and implement the _annotation_ feature so users can conveniently make notes on
@@ -45,26 +45,21 @@ I added the ability to annotate the offline copy of the web page referred to by 
 but they can also make notes on them directly. They can highlight paragraphs and attach notes to paragraphs or add general notes to the document.
 //** What it does
 
-* Justification: Users may need to make notes as they are reading through their web pages, for instance when studying. This means it is important for them
-to be able to conveniently make notes while they remember what they need to annotate. Rather than having to go through the hassle of opening a new document and storing notes
-separately, they can instead annotate directly on the web page the moment they want to add notes or emphasize a piece of information.
-This feature keeps their notes together with the content of the web page and makes it easy to get information by taking a glance at the annotated document. If they want to make changes to their
-existing annotations, they can also do so easily in just one step.
+* Justification: Users may need to make notes as they are reading through their web pages and easily find the notes again, for instance when studying.
+This makes being able to directly make notes on the web page an importantly convenient feature.
 
 * Highlights: This enhancement works with `undo` and redo` commands, which makes note-taking very assuring. The implementation was rather challenging
 because to support annotations, the offline document has to take into account different kinds of paragraphs, each having a unique set of restrictions.
 The functionality implemented is also massive. Nevertheless,
 the completed annotation feature works well and is aesthetically pleasing on the application.
-* Credits: I used the https://jsoup.org/[JSoup library] to extract the contents of the paragraphs of the web page, which is first parsed using the https://github.com/dankito/Readability4J[Readability4J library]. Colours of the highlight are selected from the javafx css extension.
+* Credits: I used the https://jsoup.org/[JSoup library] to extract the paragraph contents of the web pages. Colours of the highlight are selected from colours the javafx css extension provide.
 
 ==== Added the web browsing feature
 I added the ability to browse web pages on the application. Users can navigate the web using the embedded web view and the address bar.
 
-* Justification: Users no longer need to open a separate web browser window to view their bookmarks. This ensures easy navigation within the application by maintaining focus on the application
-rather than on other platforms, which would otherwise make it more troublesome to do bookmarking, web browsing and note-taking at the same time.
+* Justification: Users no longer need to open a separate web browser window to view their bookmarks, which improves navigability within the application.
 
-* Highlights: This enhancement allows users to browse directly on the application. This is crucial as they can now directly bookmark the web page they are currently viewing without having to copy the url, switch to Mark and add the bookmark manually.
-Implementation wise, embedding the web view was not difficult. However, design of the GUI was tedious especially due to the initial lack of expertise on using JavaFX.
+* Highlights: This enhancement allows users to browse directly on the application. This allows them to directly bookmark the web page they are currently viewing without having to manually input the details.
 
 * Credits: I took inspiration from the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book (Level 4)], which was not navigable as a user would expect of a browser.
 
@@ -81,7 +76,6 @@ I created tabs and added the ability to switch views from tab to tab.
 
 
 === Code contributed
-//TODO: thisssss
 To view the code I wrote, please click on the following links:
 
 https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]
@@ -89,8 +83,7 @@ https://github.com/kxyoke/main/tree/master/src/main/java/seedu/mark[Functional c
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kxyoke&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[Reposense]
 
 
-
-* *Other contributions*:
+=== *Other contributions*:
 
 ** Project management:
 *** Managed release `v1.2` on GitHub
@@ -105,8 +98,8 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitl
 *** Reported bugs and suggestions for other teams in the class (example:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/47[1])
 //, https://github.com[2], https://github.com[3])
 //*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (JSoup) to the project (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122[#122])
+//** Tools:
+//*** Integrated a third party library (JSoup) to the project (https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122[#122])
 //*** Integrated a new Github plugin (CircleCI) to the team repo
 
 //_{you can add/remove categories in the list above}_
@@ -115,7 +108,7 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitl
 We had to update the original AB3 User Guide with instructions for the enhancements that we had added.
 
 |===
-|_Given below is one of the sections I contributed to our User Guide for Mark. They showcase my ability to write documentation targeting end-users._
+|_Given below is one of the sections I contributed to our User Guide for Mark. It showcases my ability to write documentation targeting end-users._
 |===
 
 _Start of extract from Mark User Guide_
