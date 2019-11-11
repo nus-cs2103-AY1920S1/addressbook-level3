@@ -28,7 +28,7 @@ Mark is written in _Java_.
 
 This is what our app looks like: +
 
-image::Ui.png[width="600"]
+image::Ui.png[600, 400]
 
 My role is to design and implement the `reminder` feature.
 The following section will illustrate more about this feature.
@@ -102,6 +102,7 @@ The section extracted from the Developer Guide below showcase my ability to writ
 ==== _------------- This is the start of extraction -------------_
 include::../DeveloperGuide.adoc[tag=reminder]
 include::../DeveloperGuide.adoc[tag=use-case-reminder]
+include::../DeveloperGuide.adoc[tag=test-reminder]
 
 ==== _------------- This is the end of extraction -------------_
 

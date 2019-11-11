@@ -1007,23 +1007,27 @@ Now you can use the `reminder` command to add a reminder to Luminus.
 
 To add a reminder:
 
-. The index of Luminus on reminder list is 1.
+* The index of Luminus on reminder list is 1.
 You type the command `*reminder* 1 t/18/11/2019 2000 n/Do the quiz` into the command box and press _Enter_ to execute it.
 
-image::AddReminderUi1.png[]
+image::ui-screenshots/AddReminderUi1.png[400, 500]
+
 //The image of dashboard that shows the bookmark Luminus. before command: reminder 1 t/18/11/2019 2000 n/Do the quiz
 
-. The result box will show the message: +
+* The result box will show the message: +
 "New reminder added: Do the quiz Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
-image::AddReminderUi2.png[]
+
+image::ui-screenshots/AddReminderUi2.png[400, 400]
 //The image of the result box
 
-. The reminder is added to the reminder list.
-image::AddReminderUi3.png[]
+* The reminder is added to the reminder list.
+
+image::ui-screenshots/AddReminderUi3.png[400, 500]
 //The image of the reminder list
 
-. The notification will show up to inform you at the time.
-image:: AddReminderUi4.png[]
+* The notification will show up to inform you at the time.
+
+image::ui-screenshots/AddReminderUi4.png[200, 300]
 //The notification
 
 There are some parameter constraints:
@@ -1060,23 +1064,25 @@ Now you can use the `reminder-edit` command to edit the reminder for Luminus.
 
 To edit a reminder:
 
-. The index of the reminder in the reminder list is 1.
+* The index of the reminder in the reminder list is 1.
 You type the command `*reminder-edit* 1 n/Do the quiz and the assignment` into the command box and press _Enter_ to execute it.
-
-image::EditReminderUi1.png[]
+image::ui-screenshots/EditReminderUi1.png[400, 500]
 //The image of dashboard that shows the reminder for Luminus.
 
-. The result box will show the message: +
+* The result box will show the message: +
 "Edited Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
-image::EditReminderUi2.png[]
+
+image::ui-screenshots/EditReminderUi2.png[400, 400]
 //The image of the result box
 
-. The reminder is edited in the reminder list.
-image::EditReminderUi3.png[]
+* The reminder is edited in the reminder list.
+
+image::ui-screenshots/EditReminderUi3.png[400, 500]
 //The image of the reminder list
 
-. The edited notification will show up to inform you at the time.
-image:: AddReminderUi4.png[]
+* The edited notification will show up to inform you at the time.
+
+image::ui-screenshots/EditReminderUi4.png[200, 300]
 //The notification
 
 There are some parameter constraints:
@@ -1111,19 +1117,21 @@ Now you can use the `reminder-delete` command to delete the reminder for Luminus
 
 To delete a reminder:
 
-. The index of the reminder in the reminder list is 1.
+* The index of the reminder in the reminder list is 1.
 You type the command `*reminder-delete* 1` into the command box and press _Enter_ to execute it.
 
-image::DeleteReminderUi1.png[]
+image::ui-screenshots/DeleteReminderUi1.png[400, 500]
 //The image of dashboard that shows the reminder for Luminus.
 
-. The result box will show the message: +
+* The result box will show the message: +
 "Deleted Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/"
-image::DeleteReminderUi2.png[]
+
+image::ui-screenshots/DeleteReminderUi2.png[400, 400]
 //The image of the result box
 
-. The reminder is deleted in the reminder list.
-image::DeleteReminderUi3.png[]
+* The reminder is deleted in the reminder list.
+
+image::ui-screenshots/DeleteReminderUi3.png[400, 500]
 //The image of the reminder list
 
 
@@ -1149,18 +1157,20 @@ Now you can use the `reminder-goto` command to open the website.
 
 To open the bookmark of a reminder:
 
-. The index of the reminder in the reminder list is 2.
+* The index of the reminder in the reminder list is 2.
 You type the command `*reminder-goto* 2` into the command box and press _Enter_ to execute it.
 
-image::GotoReminderUi1.png[]
+image::ui-screenshots/GotoReminderUi1.png[400, 500]
 //The image of dashboard that shows the reminder for NUSMods
 
-. The result box will show the message: +
+* The result box will show the message: +
 "Opening Reminder: Start planning next year's timetable Time: 07/12/2019 1000 URL:https://nusmods.com/"
-image::GotoReminderUi2.png[]
 
-. The tab will switch to Online and show NUSMODs website.
-image::GotoReminderUi3.png[]
+image::ui-screenshots/GotoReminderUi2.png[400, 400]
+
+* The tab will switch to Online and show NUSMODs website.
+
+image::ui-screenshots/GotoReminderUi3.png[600, 400]
 
 Other examples:
 

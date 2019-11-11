@@ -1204,7 +1204,7 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
-
+//tag::test-reminder[]
 ==== Adding a reminder
 
 . Adding a reminder while all bookmarks are listed
@@ -1261,6 +1261,7 @@ Expected: No website will show. Error details shown in the status message. Statu
 Expected: No website will show. Error details shown in the status message. Status bar remains the same.
 
 _{ more test cases ... }_
+//end::test-reminder[]
 
 === Saving data
 
