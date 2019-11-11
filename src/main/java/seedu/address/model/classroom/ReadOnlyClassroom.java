@@ -1,11 +1,11 @@
 package seedu.address.model.classroom;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.assignment.Assignment;
-//import seedu.address.model.lesson.Lesson;
 import seedu.address.model.student.Student;
 
-import java.util.List;
 
 /**
  * Unmodifiable view of a classroom.
