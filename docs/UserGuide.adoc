@@ -123,14 +123,17 @@ There are several fields in each lesson as shown below:
 
 ==== Adding: addlesson
 
-Adds a lesson to the lesson list of the notebook, +
-feature to repeat lessons will be implemented in v2.0 +
+Adds a lesson to the lesson list of the notebook. +
+Feature to repeat lessons will be implemented in v2.0 +
 Format: `addlesson l/LESSON st/START_TIME et/ET_TIME:dd/MM/yy HHmm`
 
 Examples:
 
 * `addlesson l/Math 4E7 st/12/01/2020 1200 et/12/01/2020 1300`
 * `addlesson l/English 3E8 st/06/01/2020 1200 et/06/01/2020 1300`
+
+[NOTE]
+Once a lesson is added, a reminder will be automatically scheduled and an alert box will pop up when current time matches the time of the lesson.
 
 ==== Editing: editlesson
 Edits a lesson at the specific index in the day list of reminder panel. +
