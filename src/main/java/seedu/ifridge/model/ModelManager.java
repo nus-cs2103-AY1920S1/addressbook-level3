@@ -663,7 +663,7 @@ public class ModelManager implements Model {
     @Override
     public void addBoughtItem(GroceryItem food) {
         for (GroceryItem boughtItem : boughtList.getGroceryList()) {
-            if (food.isSameFood(boughtItem)) {
+            if (food.isSameName(boughtItem)) {
                 Amount updatedAmount = boughtItem.getAmount().increaseBy(food.getAmount());
                 GroceryItem updatedBoughtItem = new GroceryItem(boughtItem.getName(),
                         updatedAmount,
