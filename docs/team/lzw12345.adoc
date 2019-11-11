@@ -34,7 +34,7 @@ Flashmind is a flashcard program to help users memorise content. FlashMind has a
 
 * *Minor enhancement*:
 ** Major changes to UI to fix the majority of the bugs and improved usability.
-*** Added the ability to skip cards in quiz with a skip command
+** Added the ability to skip cards in quiz with a skip command
 
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
