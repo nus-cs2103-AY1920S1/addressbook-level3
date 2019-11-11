@@ -23,6 +23,14 @@ public class SimpleTopTeamsCommand extends TopTeamsCommand {
     public static final String MESSAGE_SUCCESS = "Showing Current Top %1$s";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Creates a new {@code SimpleTopTeamsCommand} object.
+     *
+     * @param k the number of teams to be fetched.
+     * @param comparators the comparators to be used for tiebreaks.
+     * @param subject the subject name to be used for filtering the top teams by. Allows input to be null
+     *                if the user hasn't specified a subject to filter by.
+     */
     public SimpleTopTeamsCommand(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject) {
         super(k, comparators, subject);
     }

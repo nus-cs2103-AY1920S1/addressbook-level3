@@ -150,13 +150,10 @@ Decision: We have decided to go with alternative  2 because low dependency will 
 
 Decision: We have decided to proceed with alternative 2 because this alternative employs that theory of abstraction in programming, and it there is less redundant code in this implementation.
 
-
-
-
 [[Design-Logic]]
 === Logic component
-[NOTE]
-Logic Architecture image and description to be updated with the later milestones.
+
+The logic component of Alfred handles the various commands within Alfred and the parsing of the user input to convert them into such commands. It's primary purpose is to execute these commands which leads to an update in `Model` (depending on the command) and return an appropriate feedback message to the UI component to display to the user. The logic component's primary structure is unchanged from the AB3 codebase, though it has been heavily modified to accommodate the new commands implemented with regards to Alfred, as can be seen from the class diagram below which highlights the high level structure of the logic component.
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
@@ -1370,7 +1367,7 @@ Though this was a relatively straightforward subset of our `leaderboard` and `ge
 ** Pros: Less prone to misuse which can cause exceptions.
 ** Cons: Leads to unnecessary wrapping and unwrapping of the variable simply to check whether a value is present.
 
-* *Alternative 2:* Use a variable of type `SubjectName` set to null.
+* *Alternative 2 (Current Choice):* Use a variable of type `SubjectName` set to null.
 ** Pros: Easier to implement. No boxing and unboxing required.
 ** Cons: Can lead to unexpected exceptions if not handled carefully.
 
@@ -1378,7 +1375,7 @@ Though this was a relatively straightforward subset of our `leaderboard` and `ge
 ** Pros: Reduces the potential of mishandling null values which can lead to unwanted exceptions arising in the code.
 ** Cons: Introduces extra logic in form of "if-else" statements to determine which constructors must be called. This would make the code slightly less readable and more complicated.
 
-In the end "Alternative 2" was favoured over the other two alternatives. Although the misuse of null can lead to unwanted exceptions, it has been carefully used to ensure that at no point is null value used other than to check once whether the variable's value is null or not. This careful implementation ensures that the variable is used selectively at only once place thereby making sure that no possibility `NullPointerException" occurs at any other part of the code. Although "Alternative 3" is a standard solution to null input parameters, in this case it would not serve its purpose too well as calling the overloaded constructor would require additional logic to check whether or not the subject is mentioned and then depending on this result which command needs to be created and returned. Java's Optional class provides a good alternative, however it was not selected as it leads to needless wrapping and unwrapping of the variable.
+In the end "Alternative 2" was favoured over the other two alternatives. Although the misuse of null can lead to unwanted exceptions, it has been carefully used to ensure that at no point is null value used other than to check once whether the variable's value is null or not. This careful implementation ensures that the variable is used selectively at only one place thereby making sure that no possibility `NullPointerException" occurs at any other part of the code. Moreover, it has been reinforced through thorough documentation of the constructors to guide future contributors. Although "Alternative 3" is a standard solution to null input parameters, in this case it would not serve its purpose too well as calling the overloaded constructor would require additional logic to check whether or not the subject is mentioned and then depending on this result which command needs to be created and returned. Java's Optional class provides a good alternative, however it was not selected as it leads to needless wrapping and unwrapping of the variable, adding another layer of packaging and unpacking.
 
 ===== Aspect: Where to create comparators
 

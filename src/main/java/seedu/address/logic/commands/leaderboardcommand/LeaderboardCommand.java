@@ -38,6 +38,13 @@ public abstract class LeaderboardCommand extends Command {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Creates a new {@code LeaderboardCommand} object.
+     *
+     * @param comparators the comparators to be used for tiebreaks.
+     * @param subjectName the subject name to be used for filtering the leaderboard. Allows input to be null
+     *                    if the user hasn't specified a subject to filter by.
+     */
     public LeaderboardCommand(ArrayList<Comparator<Team>> comparators, SubjectName subjectName) {
         this.comparators = comparators;
         this.subjectName = subjectName;

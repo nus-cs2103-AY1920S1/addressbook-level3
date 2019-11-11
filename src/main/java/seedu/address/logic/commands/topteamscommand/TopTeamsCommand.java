@@ -40,6 +40,14 @@ public abstract class TopTeamsCommand extends Command {
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Creates a new {@code TopTeamsCommand} object.
+     *
+     * @param k the number of teams to be fetched.
+     * @param comparators the comparators to be used for tiebreaks.
+     * @param subject the subject name to be used for filtering the top teams by. Allows input to be null
+     *                if the user hasn't specified a subject to filter by.
+     */
     public TopTeamsCommand(int k, ArrayList<Comparator<Team>> comparators, SubjectName subject) {
         this.numberOfTeams = k;
         this.comparators = comparators;
