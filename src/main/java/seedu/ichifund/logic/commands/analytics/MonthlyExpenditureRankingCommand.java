@@ -78,6 +78,7 @@ public class MonthlyExpenditureRankingCommand extends TrendCommand {
         TrendReport report = createTrendReport(year);
         fillMonthlyExpenditureRankingReport(model, report);
         model.updateDataList(report.getSortedTrendList());
+        model.updateCommand(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, year.toString()));
     }
 }

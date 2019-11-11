@@ -104,6 +104,7 @@ public class CategoryRankingCommand extends Command {
         BreakdownReport report = createBreakdownReport(month, year);
         fillBreakdownReport(model, report);
         model.updateDataList(report.getSortedBreakdownList());
+        model.updateCommand(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, month.wordString(), year.toString()));
     }
 }

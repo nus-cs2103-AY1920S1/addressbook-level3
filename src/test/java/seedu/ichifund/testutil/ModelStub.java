@@ -2,11 +2,13 @@ package seedu.ichifund.testutil;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
+import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.model.Model;
 import seedu.ichifund.model.ReadOnlyFundBook;
 import seedu.ichifund.model.ReadOnlyUserPrefs;
@@ -229,6 +231,17 @@ public class ModelStub implements Model {
     public void updateDataList(List<Data> datas) {
         throw new AssertionError("This method should not be called.");
     }
+
+    @Override
+    public Optional<Command> getCommand() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void updateCommand(Command command) {
+        throw new AssertionError("This method should not be called.");
+    }
+
 
     @Override
     public void setFundBook(ReadOnlyFundBook newData) {
