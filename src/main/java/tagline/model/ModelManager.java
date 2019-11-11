@@ -4,13 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static tagline.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
-
 import tagline.commons.core.GuiSettings;
 import tagline.commons.core.LogsCenter;
 import tagline.model.contact.AddressBook;
@@ -166,6 +166,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteContact(Contact target) {
         contactManager.deleteContact(target);
+        refreshTags();
     }
 
     @Override
@@ -235,6 +236,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteNote(Note target) {
         noteManager.deleteNote(target);
+        refreshTags();
     }
 
     @Override
@@ -266,6 +268,11 @@ public class ModelManager implements Model {
     @Override
     public void updateFilteredNoteList(Predicate<Note> predicate) {
         noteManager.updateFilteredNoteList(predicate);
+    }
+
+    @Override
+    public void refreshFilteredNoteList() {
+        noteManager.refreshFilteredNoteList();
     }
 
     //=========== GroupBook ================================================================================
@@ -311,6 +318,7 @@ public class ModelManager implements Model {
     @Override
     public void deleteGroup(Group target) {
         groupManager.deleteGroup(target);
+        refreshTags();
     }
 
     //=========== Filtered Group List Accessors =============================================================
@@ -397,6 +405,23 @@ public class ModelManager implements Model {
     public Optional<Tag> findTag(Tag tag) {
         return tagManager.findTag(tag);
     }
+
+    /**
+     * Synchronizes the tags in the tag manager with the other models.
+     */
+    private void refreshTags() {
+        //Create a copy of the filtered tag list that does not update as tags are deleted
+        List<Tag> outdatedTags = new ArrayList<>(
+                tagManager.getFilteredTagListWithPredicate(tag -> !tag.isValidInModel(this)));
+
+        for (Tag tag : outdatedTags) {
+            noteManager.removeTag(tag);
+            tagManager.deleteTag(tag);
+        }
+
+        refreshFilteredNoteList();
+    }
+
     //========================================================================================================
 
     @Override

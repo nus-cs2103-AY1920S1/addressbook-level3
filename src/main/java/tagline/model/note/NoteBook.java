@@ -125,6 +125,13 @@ public class NoteBook implements ReadOnlyNoteBook {
         notes.removeNote(key);
     }
 
+    /**
+     * Removes all instances of {@code tag} from this {@code NoteBook}.
+     */
+    public void removeTag(Tag tag) {
+        notes.forEach(note -> note.removeTag(tag));
+    }
+
     //// util methods
 
     @Override

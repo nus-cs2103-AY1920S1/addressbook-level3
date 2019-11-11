@@ -105,6 +105,11 @@ public interface NoteModel {
     void untagNote(NoteId target, Tag tag);
 
     /**
+     * Removes all instances of {@code tag} from all notes.
+     */
+    void removeTag(Tag tag);
+
+    /**
      * Returns an unmodifiable view of the filtered note list
      */
     ObservableList<Note> getFilteredNoteList();
@@ -115,4 +120,9 @@ public interface NoteModel {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredNoteList(Predicate<Note> predicate);
+
+    /**
+     * Refreshes the filtered note list to force listener updates.
+     */
+    void refreshFilteredNoteList();
 }

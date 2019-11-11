@@ -84,7 +84,7 @@ public class Note {
     }
 
     /**
-     * Removes a tag if it exist.
+     * Removes a tag if it exists.
      *
      * @return True if tag is successfully removed.
      */

@@ -300,7 +300,7 @@ Classes used by multiple components are in the `tagline.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::userprompting[]
+// tag::userprompting1[]
 === User Prompting
 
 ==== Description
@@ -337,10 +337,12 @@ Step 3: The `Ui` passes the original command, together with the processed `Promp
 
 image::UserPromptSequenceDiagramStep3.png[width=600]
 
+//end::userprompting1[]
 The full sequence diagram is shown below:
 
 image::UserPromptSequenceDiagramFull.png[width=600]
 
+//tag::userprompting2[]
 The user can also abort the command by pressing the Escape button. In this case, the `Ui` will discard the original command and continue to receive further user commands.
 
 ===== Getting responses from the user
@@ -409,7 +411,7 @@ image::UserPromptActivityDiagram.png[]
 
 For Alternative 1 and 2, implementing confirmation would inadvertently add an alternative command to directly perform the action. To illustrate, suppose we check for confirmation for the `contact clear` command by having the user type `YES`. Then due to the mechanism of the prompting feature, we will inadvertently include a new command like `contact clear <prefix> YES`. Since this is unintuitive, alternative 3 was chosen instead.
 
-// end::userprompting[]
+// end::userprompting2[]
 
 // tag::groupcontacts[]
 [[Group-Contacts-Feature]]

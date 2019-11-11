@@ -174,12 +174,22 @@ class CreateNoteCommandTest {
         }
 
         @Override
+        public void removeTag(Tag tag) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ObservableList<Note> getFilteredNoteList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void refreshFilteredNoteList() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -398,6 +408,11 @@ class CreateNoteCommandTest {
 
         @Override
         public void updateFilteredNoteList(Predicate<Note> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void refreshFilteredNoteList() {
             throw new AssertionError("This method should not be called.");
         }
 

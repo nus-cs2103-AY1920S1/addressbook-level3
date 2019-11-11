@@ -133,10 +133,14 @@ public class NoteManager implements NoteModel {
         noteBook.tagNote(target, tag);
     }
 
-
     @Override
     public void untagNote(NoteId target, Tag tag) {
         noteBook.untagNote(target, tag);
+    }
+
+    @Override
+    public void removeTag(Tag tag) {
+        noteBook.removeTag(tag);
     }
 
     //=========== Filtered Note List Accessors =============================================================
@@ -154,6 +158,13 @@ public class NoteManager implements NoteModel {
     public void updateFilteredNoteList(Predicate<Note> predicate) {
         requireNonNull(predicate);
         filteredNotes.setPredicate(predicate);
+    }
+
+    @Override
+    public void refreshFilteredNoteList() {
+        Predicate<? super Note> savedPredicate = filteredNotes.getPredicate();
+        filteredNotes.setPredicate(PREDICATE_SHOW_NO_NOTES);
+        filteredNotes.setPredicate(savedPredicate);
     }
 
     @Override

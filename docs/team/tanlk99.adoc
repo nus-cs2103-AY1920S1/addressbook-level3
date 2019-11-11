@@ -54,7 +54,7 @@ For future commands, this feature is easily extensible as it only requires the n
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F12-3/main/pull/140[#140], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/68[#68], https://github.com/AY1920S1-CS2103T-F12-3/main/pull/105[#105]
 *** Reported bugs and suggestions for other teams: https://github.com/AY1920S1-CS2103T-W13-1/main/issues/96[#96], https://github.com/AY1920S1-CS2103T-W13-1/main/issues/95[#95]
 ** Tools:
-*** Integrated ControlsFX to the project for the autocomplete feature (https://github.com[#42])
+*** Integrated ControlsFX to the project for the autocomplete feature.
 *** Integrated TestFX to the team repo to write and perform GUI tests.
 *** Integrated Hamcrest to the team repo to write GUI tests.
 
@@ -76,4 +76,8 @@ include::../DeveloperGuide.adoc[tag=designui]
 
 ---
 
-include::../DeveloperGuide.adoc[tag=userprompting]
+include::../DeveloperGuide.adoc[tag=userprompting1]
+
+For the full sequence diagram, see the developer guide.
+
+include::../DeveloperGuide.adoc[tag=userprompting2]

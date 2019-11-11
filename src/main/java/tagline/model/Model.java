@@ -186,6 +186,11 @@ public interface Model {
     void updateFilteredNoteList(Predicate<Note> predicate);
 
     /**
+     * Refreshes the filtered note list to force listener updates.
+     */
+    void refreshFilteredNoteList();
+
+    /**
      * Returns the user prefs' group book file path.
      */
     Path getGroupBookFilePath();

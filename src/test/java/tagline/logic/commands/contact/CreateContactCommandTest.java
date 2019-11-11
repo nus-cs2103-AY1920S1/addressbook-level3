@@ -260,6 +260,11 @@ public class CreateContactCommandTest {
         }
 
         @Override
+        public void refreshFilteredNoteList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasGroup(Group group) {
             throw new AssertionError("This method should not be called.");
         }
