@@ -527,7 +527,8 @@ we only intended for at most one instance of each detail and inability to call u
 Instead, we designed the `ExerciseDetails` to be a class with 4 Optional fields containing the various details. This
 allows for the details to be obtained more efficiently as well as limit them to only a single instance.
 
-
+// tag::healthRecords[]
+[[HealthRecordsTag]]
 === Health Records feature
 The Health Records feature allows user to record their health progress using the commands
 `add health`, as well as making record changes with `edit health`, `delete health` and `clear health`.
@@ -626,6 +627,8 @@ image::LinkProfileActivityDiagram.png[]
 Once profile have been successfully updated, person's weight/ height is expected to be
 in sync with health records.
 
+// end::healthRecords[]
+
 ==== Design Considerations
 
 [cols="10%,50%,40%""]
@@ -634,19 +637,18 @@ in sync with health records.
 |Aspect |Option 1 (Chosen)|Option 2
 
 |Way of implementating Record `Type`
-|A HashMap is used to store Record Type.
+|`Enum` class is used to store record types.
 
-- Pros: More static control over the record types with varying validity checks. +
-- Cons: More error prone compared to enums +
+- **Pros**: More static control over the record types with varying validity checks. +
+- **Cons**: Limited options of health record types as no changes can be made. +
 
 This choice was chosen as it is easier to maintain for our model. Additionally, the extension of having user defined health
 types would mean more validity checks and maintainence needed.
 
+|A `HashMap` is used to store record types.
 
-|A HashMap is used to store Record Type.
-
-- Pros: Increase flexibility and possible extension of having user defined health types. +
-- Cons: More error prone compared to enums +
+- **Pros**: Increase flexibility and possible extension of having user defined health types. +
+- **Cons**: More error prone compared to enums +
 
 |===
 
