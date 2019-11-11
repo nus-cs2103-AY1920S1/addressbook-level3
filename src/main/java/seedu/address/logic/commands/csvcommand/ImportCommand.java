@@ -53,6 +53,7 @@ public class ImportCommand extends Command implements TrackableState {
             "CSV file containing the errors was not created.";
     public static final String CAUSE_INVALID_DATA = "Invalid data format";
     public static final String CAUSE_DUPLICATE_ENTITY = "This entity already exists in Alfred";
+    public static final String CAUSE_CONFLICTING_LOCATION = "Location is already taken";
     public static final String ASSERTION_FAILED_NOT_CSV = "File given is not a CSV file.";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loads data in CSV file into Alfred\n"
@@ -163,6 +164,10 @@ public class ImportCommand extends Command implements TrackableState {
             try {
                 this.addEntity(entityToAdd, model);
             } catch (AlfredException e) {
+                if (e.getMessage().contains("table")) {
+                    this.errors.add(new Error(lineNumber, data[1], CAUSE_CONFLICTING_LOCATION));
+                    continue;
+                }
                 this.errors.add(new Error(lineNumber, data[1], CAUSE_DUPLICATE_ENTITY));
             }
         }
