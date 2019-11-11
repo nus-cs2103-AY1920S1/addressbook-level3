@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 end box
 
-box STORAGE STORAGE_COLOR_T1
+box Storage STORAGE_COLOR_T1
 participant ":StorageManager" as StorageManager STORAGE_COLOR
 participant ":CommandStorage" as CommandStorage STORAGE_COLOR
 end box

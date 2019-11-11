@@ -15,7 +15,7 @@ and is based on morphing given Address book application into personal finance ap
 
 == Overview
 
-MoneyGoWhere is a desktop application mainly targeted to students in National University of Singapore(NUS), who often have troubles managing their finance.
+MoneyGoWhere is a desktop application mainly targeted to students at National University of Singapore(NUS), who often have troubles managing their finance.
 This application help users by allowing them to record their daily expenses, set budget goal as well as reminders for payment and bills.
 With the integrated pie chart and graph display, students are able to have clear view of their total weekly, monthly or yearly spending.
 Moreover, since the user interaction is mainly through command line interface (CLI), this application also brings convenience to users who prefers fast typing.
