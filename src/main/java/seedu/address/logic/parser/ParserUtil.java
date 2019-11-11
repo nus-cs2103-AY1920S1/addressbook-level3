@@ -3,18 +3,25 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING_COMPARE_END;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIMING_COMPARE_NOW;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReferenceId;
+import seedu.address.model.events.Appointment;
+import seedu.address.model.events.Event;
 import seedu.address.model.events.parameters.DateTime;
+import seedu.address.model.events.parameters.Status;
 import seedu.address.model.events.parameters.Timing;
 import seedu.address.model.exceptions.ReferenceIdIncorrectGroupClassificationException;
 import seedu.address.model.person.parameters.Address;
@@ -65,12 +72,13 @@ public class ParserUtil {
     }
 
     //@@author SakuraBlossom
+
     /**
      * Returns an existing {@code PersonReferenceId} if {@code String refId} is registered.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code PersonReferenceId} is invalid, not found or the {@code String refId}
-     * has been grouped under a different classification.
+     *                        has been grouped under a different classification.
      */
     public static ReferenceId lookupStaffReferenceId(String staffRefId, String errorMessageOnClassificationError)
             throws ParseException {
@@ -88,7 +96,7 @@ public class ParserUtil {
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code PersonReferenceId} is invalid, not found or the {@code String refId}
-     * has been grouped under a different classification.
+     *                        has been grouped under a different classification.
      */
     public static ReferenceId lookupPatientReferenceId(String patientRefId, String errorMessageOnClassificationError)
             throws ParseException {
@@ -214,6 +222,8 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //@@author woon17
+
     /**
      * checks the starting and ending time of the appointment is a valid time.
      *
@@ -249,7 +259,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * Parses {@code recTimes} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
@@ -260,5 +270,68 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_TIMES);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedtimes));
+    }
+
+    /**
+     * checks the starting and ending time of the appointment is a valid time.
+     *
+     * @param event             which the first event want to schedule.
+     * @param reoccurringString which the reoccurring interval.
+     * @param times             which the reoccurring times.
+     * @return the list of reoccurring events.
+     * @throws ParseException If an error occurs during command parsering.
+     */
+    public static List<Event> getRecEvents(Event event, String reoccurringString, int times) {
+        List<Event> eventList = new ArrayList<>();
+        Timing timing = event.getEventTiming();
+        Function<Timing, Timing> func = null;
+
+        switch (reoccurringString) {
+        case "d":
+            func = Timing::getOneDayLaterTiming;
+            break;
+        case "w":
+            func = Timing::getOneWeekLaterTiming;
+            break;
+        case "m":
+            func = Timing::getOneMonthLaterTiming;
+            break;
+        default:
+            func = Timing::getOneYearLaterTiming;
+            break;
+        }
+
+        for (int i = 0; i < times; i++) {
+            eventList.add(new Appointment(event.getPersonId(), event.getPersonName(), timing, new Status()));
+            timing = func.apply(timing);
+        }
+
+        return eventList;
+    }
+
+    /**
+     * checks {@code String reoccurringStringOptional and reoccurringStringTimesOptional}.
+     * return false if they are not both a valid string.
+     */
+    public static boolean unmatchedReoccurring(Optional<String> reoccurringStringOptional,
+                                               Optional<String> reoccurringStringTimesOptional) {
+        return !reoccurringStringOptional.isPresent() && reoccurringStringTimesOptional.isPresent()
+                || reoccurringStringOptional.isPresent() && !reoccurringStringTimesOptional.isPresent();
+    }
+
+    /**
+     * Parses a {@code String startString} into a {@code Timing}.
+     *
+     * @throws ParseException if the given {@code startString} is invalid format.
+     */
+    public static Timing getTiming(ArgumentMultimap argMultimap, String startString) throws ParseException {
+        Timing timing;
+        if (!argMultimap.arePrefixesPresent(PREFIX_END)) {
+            timing = ParserUtil.parseTiming(startString, null);
+        } else {
+            String endString = argMultimap.getValue(PREFIX_END).get();
+            timing = ParserUtil.parseTiming(startString, endString);
+        }
+        return timing;
     }
 }
