@@ -10,8 +10,9 @@
 My team of 5 software engineering students was tasked with morphing an existing Command Line Interface (CLI)
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3[desktop application]
 into a useful application for a specific target group. We chose to create a bookmark manager application
-known as Mark, which is intended for computing students. Mark was conceptualised and implemented over a period of
-8 weeks. It is written in Java and has a Graphical User Interface (GUI) that was created using JavaFX.
+named Mark, which aims to help computing students manage their web browsing activities. Mark was conceptualised and
+implemented over a period of 8 weeks. It is written in Java and has a Graphical User Interface (GUI) that was
+created using JavaFX.
 
 This is what Mark looks like:
 
@@ -26,7 +27,7 @@ the User and Developer Guides in relation to the enhancements made.
 
 == Summary of contributions
 
-This section provides a summary of my contributions in terms of code, documentation and other team-related matters.
+This section provides a summary of my contributions regarding code, documentation and other team-related matters.
 
 === Enhancements added
 * *Major enhancement*: added the ability to *tag bookmarks automatically* based on specific conditions
@@ -34,11 +35,9 @@ This section provides a summary of my contributions in terms of code, documentat
 *** The `autotag` mechanism applies autotags to bookmarks based on a set of criteria, known as autotag conditions.
 Mark contains a list of predeclared autotags, and the user can also create custom autotags if desired.
 ** Justification
-*** It is troublesome for users to have to manually add tags every time they add or edit a bookmark, especially when
-multiple bookmarks need to be tagged similarly.
-The autotag feature allows them to tag similar bookmarks in one command, as well as set up tagging system that will
-continue to categorise bookmarks automatically. This makes it easier to find important information at a glance when
-searching for tags.
+*** It is troublesome for users to have to manually tag similar bookmarks individually.
+The autotag feature allows them to do so in a single step. They can also set up an autotagging system to categorise
+bookmarks automatically.
 ** Highlights
 *** Designing this feature required significant planning regarding the design of the automatic tagging mechanism and
 how autotags should be stored.
@@ -46,8 +45,7 @@ how autotags should be stored.
 creating the mechanism in the Model and Logic components, then enabling the saving of autotags in Storage,
 and finally making autotags visible in the UI component.
 ** Credits
-*** One of my team members contributed a more elegant solution to combine autotag conditions, which I adopted
-in my implementation.
+*** One of my team members suggested a more elegant way to combine autotag conditions, which I adapted.
 
 * *Minor enhancement*: added the ability to *export* data from and *import* bookmarks into Mark.
 ** Description
@@ -61,7 +59,6 @@ previously-saved file whenever they are needed.
 *** The `import` command required different elements in Mark to be considered, including folders. While the final
 choice of implementation only imports bookmarks, the handling of other components had to be considered when
 planning this enhancement.
-//** Credits
 
 === Code contributed
 

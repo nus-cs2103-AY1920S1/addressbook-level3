@@ -3,7 +3,7 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title Initial State
+'title Initial State
 
 show object fields
 package Bookmarks <<rectangle>> {
