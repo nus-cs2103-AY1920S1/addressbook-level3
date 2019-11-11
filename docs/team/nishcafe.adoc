@@ -9,7 +9,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Anisha Joseph - Project Portfolio for Jarvis
 
-==== About the Project
+=== About the Project
 `Jarvis` was developed by a group of 5 students (including myself) from NUS School of Computing (Computer Science) as
 part of a module - CS2103T Software Engineering. The module specifications were to morph a basic command line
 interface desktop addressbook application into an application that manages any type of data of our choosing. As such,
@@ -22,19 +22,256 @@ image::startup-gui-dg.png[]
 
 {sp} +
 
-As seen from the image above, the Graphical User Interface (GUI) of `Jarvis` has four tabs, each
-dealing a different tool.
+As seen above in Figure 1, the Graphical User Interface (GUI) of `Jarvis` has four tabs, each
+dealing a different feature. I had built the `Planner` feature of `Jarvis`. The following sections will illustrate my
+various contributions to this project, as well as the relevant documentation I have added to the user and
+developer guides regarding my feature.
 
 
-==== Summary of Contributions
+=== Summary of Contributions
+
+This section includes a brief overview of my coding, documentation and other key
+contributions to the team in building `Jarvis`.
+
+===== Feature added: `Planner`
+
+* *Purpose*: The `Planner` feature enables students to effortlessly manage all their tasks.
+As `Jarvis` is a student life organiser, this feature is central to the whole application.
+
+* *Highlights*:
+  ** There are three types of tasks in the `Planner` - `Todo`, `Deadline` and `Event`. `Todo` tasks have a description
+only, `Deadline` tasks have a due date, and `Event` tasks have a start and end date. This allows for greater
+flexibility when adding different types of tasks to the `Planner`.
+
+  ** Each task *may* be set with a priority and frequency level in order to better reflect the true nature of the tasks
+the user is adding. Tasks *may* also be tagged with customisable tags for easier sorting.
+
+  ** Tasks in the planner can be sorted by tags, priority levels, frequency levels, task type or even date. This
+greatly helps students manage tasks and tackle each one in whatever order they please.
+
+  ** The `Planner` has a `schedule` section which displays the tasks for the day and week, thus helping users view
+the most urgent tasks that might not have been done yet.
+
+===== Code contributed
+
+* *Functional code*: Pull requests
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/114[#114],
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/139[#139], and
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/180[#180]
+provide a small sample of functional code contributed.
+
+* *Test code*: The commits in pull requests
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/214/commits/735b60c48484079073d7fcd2997ae0eb4e998020[#214]
+and
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/378/files[#378]
+contain examples of tests added to our codebase.
+
+* *GUI*: Pull requests
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/209/files[#209]
+and
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/196[#196]
+contain my implementation of the GUI for my `Planner` feature.
+
+For a comprehensive view of all the code I have contributed for this project, please refer to my profile on our team's
+link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=nishcafe&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nishcafe&tabRepo=AY1920S1-CS2103T-T10-1%2Fmain%5Bmaster%5D[Reposense report].
+
+===== Other contributions
+
+* *Documentation*: I was in charge of the user guide for our team. I had made major changes to text and pictures of
+the user guide, as seen in pull requests
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/361[#361]
+and
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/370[#370]
+
+* *Community*:
+ ** Reviewed pull requests:
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/136[#136]
+and
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/pull/113[#113]
 
 
-==== Contributions to the User Guide
+=== Contributions to the User Guide
+Given that `Jarvis` is nothing like the original addressbook that we were given, we had to update it to match our
+current application. We were each responsible for adding the commands for the features that we were in charge of
+building.
 
-The User Guide for `Jarvis`
+The following is an excerpt from our *Jarvis User Guide*, detailing the additions that I have made for the `Planner`.
+
+==== Task Planner
+
+A digital planner to help you stay organized; `Jarvis` can help you cope with your interminable lists of deadlines,
+events, errands and more. Tagging and prioritizing tasks are just two of the many ways `Jarvis` will
+enable you to stay on top of everything you need to do!
+
+.GUI for the Task Planner
+image::ug/PlannerUI.png[]
+
+{sp} +
+
+The Planner feature of `Jarvis` has a very intuitive user interface, with three main sections - as seen in Figure 3.
+
+Each task is represented by a task card (an example of which is boxed in green in Figure 3). Each task card has the task
+description right at the top, followed by the task type, and the optional fields (if present). The icon at the bottom
+of each task card indicates whether a task has been done, or not - a red cross for tasks that have not been completed
+and a green tick for tasks that have.
+
+The default display ia a column on the left for all the tasks in the planner, and a column on the right for your
+schedule. The schedule consists two lists stacked on top of each other - the top one showing tasks happening on that
+day and the bottom showing tasks happening that week.
+
+==== Adding a task: `add-task`
+The most fundamental command for the Planner - `add-task` adds a task to the Planner.
+
+[[link-attributes]]
+A task *must* have a:
+
+* `TASK-TYPE`: `todo`, `event` or `deadline`
+* `TASK-DESCRIPTION`: a short description of the task
+* `DATE` (for `Event` and `Deadline` tasks only)
+
+A task *may* have the following *attributes*:
+
+* `TAG`: any number of tags, such as `#school` or `#cca`
+* `PRIORITY` level: `high`, `medium` or `low`
+* `FREQ` frequency: `daily`, `weekly`, `monthly` or `yearly`
+
+You can refer to the table below for a brief overview of the different command formats for the
+different types of tasks.
+
+|===
+| Task Type | Format
+
+|`Todo`
+|`add-task t/todo des/TASK-DESCRIPTION [#TAG]... [p/PRIORITY f/FREQ]`
+
+|`Event`
+|`add-task t/event des/TASK-DESCRIPTION d/START-DATE//END-DATE [#TAG]... [p/PRIORITY f/FREQ]`
+
+|`Deadline`
+|`add-task t/deadline des/TASK-DESCRIPTION d/DUE-DATE [#TAG]... [p/PRIORITY f/FREQ]`
+|===
+
+NOTE: Duplicate tasks are not allowed in the Planner!
+
+===== Example
+----
+add-task t/event des/workshop f/weekly d/25/12/2019//26/12/2019
+add-task t/deadline des/cs2101 assignment d/20/9/2019 p/high
+----
+
+And as simple as that, `Jarvis` can begin to keep track of
+your tasks for you!
+
+[cols=1*]
+|===
+| Please refer to the
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/blob/master/docs/UserGuide.adoc#task-planner[*Jarvis User Guide*]
+to see my entire section, with all the commands that can be used in the `Planner`.
+|===
+
+=== Contributions to the Developer Guide
+Similarly, we required a major overhaul of the addressbook's developer guide to adapt it for our own use.
+
+This section contains an excerpt from our *Jarvis Developer Guide* for the `Planner feature`.
+
+==== Implementation
+
+The `Planner` contains a `TaskList`, which in turn, contains a number of tasks
+a user has. Each task has a `TaskType` and `Status` and may also have a `Priority` level,
+`Frequency` level and any number of `Tag` objects.
+
+A simple outline of the `Planner` can be seen below, in Figure 26.
+
+.Overview of the entire Planner
+image::plannermodel.png[align=left]
 
 
+The `Model` in `Jarvis` extends `PlannerModel` which facilitates all operations
+necessary to carry out commands by the user.
 
-==== Contributions to the Developer Guide
+* `Model#getPlanner()` -- Returns an instance of a `Planner`.
 
+* `Model#addTask(int zeroBasedIndex, Task task` -- Adds a `Task` to the
+planner at the specified `Index`.
 
+* `Model#addTask(Task t)` -- Adds a `Task` to the `Planner`. Since no `Index`
+is specified, the `Task` is appended to the end of the `TaskList`.
+
+* `Model#deleteTask(Index index)` -- Deletes the `Task` at the specified
+  `Index` from the `Planner`.
+
+* `Model#deleteTask(Task t)` -- Deletes the specified `Task` from the
+  `Planner`.
+
+* `Model#size()` -- Returns the total number of `Task` objects in the
+  `Planner`.
+
+* `Model#hasTask(Task t)` -- Checks if a given `Task` is already in the
+  `Planner`.
+
+* `Model#markTaskAsDone(Index i)` - Changes the `Status` of a `Task` at the given
+`Index` from `DONE` to `NOT_DONE`
+
+* `Model#getTasks()` -- Returns the `TaskList` in the `Planner`.
+
+* `Model#getTask(Index index)` - Retrieves the `Task` at the specified `Index` of
+the `TaskList`
+
+* `Model#updateFilteredTaskList(Predicate<Task> predicate)` - Updates the `FilteredList` in the
+`Planner` according to the given `Predicate`.
+
+* `Model#updateSchedule()` - Updates the `FilteredList` of `Task` objects whose dates coincide with
+the current date.
+
+* `Model#getUnfilteredTaskList()` - Returns an `ObservableList<Task>` of all the `Task` objects
+in the `Planner`.
+
+* `Model#getFilteredTaskList()` - Returns an `ObservableList<Task>` of all the `Task` objects in
+the `FilteredList`.
+
+* `Model#getTasksToday()` - Returns an unmodifiable view of the list of `Task` objects that coincide with
+the current day, backed by the `FilteredList` of `Planner`
+
+* `Model#getTasksThisWeek()` - Returns an unmodifiable view of the list of `Task` objects that coincide with
+the current week, backed by the `FilteredList` of `Planner`.
+
+One example of the interaction between the `Model` and commands for the `Planner` can be seen when the user
+executes a `pull-task` command.
+
+.Sequence Diagram for pull-task command
+image::PullTaskSequenceDiagram.png[align=left]
+
+In the figure above, `pull-task` will result in the filtered lists in the `Planner` to be updated according to
+the appropriate predicates. In this case, the predicate called will be `TaskPredicateMatchesPredicate` as the
+user had specified a `pull-task` according to the `Priority` levels of the `Task` objects.
+
+==== Design Considerations
+
+===== Aspect: Task Descriptions in a Task
+
+* **Option 1 (Current choice):** As a string attribute in `Task`
+
+** Pros: Intuitive, easy to implement, less code required
+
+** Cons: Provides a lower level of abstraction, especially if an `edit-task`
+command is implemented
+
+* **Option 2:** Building a separate `TaskDescription` class
+
+** Pros: Higher level of abstraction
+
+** Cons: More code, will take time to replace current methods that deal with
+String `TaskDes` directly
+
+Ultimately, we decided on Option 1 as there are no limitations on what a description of
+a `Task` should be (other than not _null_). Further more, there is no manipulation of the
+Task Description at the current stage of `Jarvis`, hence there is no real need to provide an
+additional layer of abstraction for it. If we do intend to continue developing `Jarvis` in
+the future, however, Option 2 might be a viable choice.
+
+[cols=1*]
+|===
+| Please refer to the
+link:https://github.com/AY1920S1-CS2103T-T10-1/main/blob/master/docs/DeveloperGuide.adoc#planner-feature[*Jarvis Developer Guide*]
+to see my entire section, with the complete implementation that is used in the `Planner`.
+|===
