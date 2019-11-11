@@ -622,17 +622,17 @@ Here are your overdue flashcards:
 
 == Notes Feature:
 
-//tag::notesAdd[]
 
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _notes_ mode. To be sure
-you are _notes_ mode, please ensure you used the `switch notes` command before this. Your
+you are in the _notes_ mode, please ensure you used the `switch notes` command before this. Your
 screen should now look like the one found in the screenshot below.
 ====
 
 image::NotesSuccess.PNG[width="700"]
 
+//tag::notesAdd[]
 
 === Creating a note: `add`
 
@@ -685,14 +685,14 @@ Expected output:
 
 ```
 New note added:
-	Title: About Notes
-	Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
-	Tags: [about]
+    Title: About Notes
+    Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
+    Tags: [about]
 
 Note fragment tags detected:
-	Title: About Notes
-	Content: highlighted
-	Tags: [important][highlight]
+    Title: About Notes
+    Content: highlighted
+    Tags: [important][highlight]
 ```
 
 This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
@@ -706,11 +706,11 @@ Multiple note fragment tags are allowed. These do not interfere with the other t
 
 IMPORTANT: Overlapping note fragment tags are not allowed.
 
+//end::notesAdd[]
+
 NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
 For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
 commands.
-
-//end::notesAdd[]
 
 === Deleting a note: `delete`
 
@@ -835,8 +835,6 @@ Listing all notes:
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
 visualize specific note fragment tags, use the `filter` command (see Section 6.6).
 
-//tag::notesFilter[]
-
 === Filtering by tags: `filter`
 
 * Filters the note library by the user specified tag(s).
@@ -871,8 +869,6 @@ Filter notes by tag(s) :
 
 NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
 '5-1' means 'the first note fragment tag in the fifth note'.
-
-//end::notesFilter[]
 
 === Editing a note: `edit` (Coming in v2.0)
 
