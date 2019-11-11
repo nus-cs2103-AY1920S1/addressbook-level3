@@ -30,6 +30,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.employee.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.EventBook;
 import seedu.address.model.Model;
 import seedu.address.model.employee.Employee;
 import seedu.address.model.employee.NameContainsKeywordsPredicate;
@@ -206,17 +207,23 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered employee list and selected employee in {@code actualModel} remain unchanged
+     * - the Emplopyeebook & EventBook, filtered employee list, event list
+     * and selected employee and event in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
+        EventBook expectedEventBook = new EventBook(actualModel.getEventBook());
+
         List<Employee> expectedFilteredList = new ArrayList<>(actualModel.getFilteredEmployeeList());
+        List<Event> expectedFilteredEventList = new ArrayList<>(actualModel.getFilteredEventList());
 
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedEventBook, actualModel.getEventBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredEmployeeList());
+        assertEquals(expectedFilteredEventList, actualModel.getFilteredEventList());
     }
 
     /**
