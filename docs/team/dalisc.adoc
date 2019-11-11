@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:bulb: 💡
 
 ---
 
@@ -15,9 +16,8 @@ The interface is responsive to suit different screen sizes. However, due to its 
 
 The image below shows where the users can type the commands and where the details are displayed:
 
-image::Ui.png[width="790", align="center"]
-
-_Figure 1: Mortago's dashboard._
+.Mortago's dashboard.
+image::Ui.png[]
 
 === 1.2. About the Team
 
@@ -27,14 +27,7 @@ This project was undertaken by a team of five Year 2 computer science undergradu
 
 My role was to design the `stats`, `filter`, and `find` features. The following section elaborates on my work in greater detail. Other than engineering these features, I also contributed to the project documentation (user and developer guides). I will be including excerpts of these contributions in the next section.
 
-Before we move there, I would like to highlight the symbols and text formatting that will be used in this document, which are as follows:
-
-|===
-| :bulb: a|
-This symbol indicates important information.
-|`stats`|
-A grey highlight indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
-|===
+Before we move there, I would like to highlight the symbols and text formatting that will be used in this document. A grey highlight like `stats` indicates that this is a command that can be inputted into the command line and executed by the application. Three earlier examples can be seen in this section.
 
 == 2. Summary of Contributions
 
@@ -70,27 +63,28 @@ team project.
 
 == 3. Contributions to the User Guide
 We wrote a User Guide targeted at the users of Mortago. The User Guide containts instructions on how to use the various commands of the application. The following is an excerpt from our Mortago User Guide, showing additions that I have
-made for the `stats`, `filter`, and `find` features.
+made for the `stats` and `filter`features.
 
 _{start of extract 1: stats command}_
 include::../UserGuide.adoc[tag=stats]
 _{end of extract 1}_
 
-
 _{start of extract 2: filter command}_
 include::../UserGuide.adoc[tag=filter]
 _{end of extract 2}_
 
-_{start of extract 3: find command}_
-include::../UserGuide.adoc[tag=find]
-_{end of extract 3}_
-
-
 == 4. Contributions to the Developer Guide
 
-In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project.Given below is my contribution to the Developer Guide:
+In addition to a User Guide, we wrote a Developer Guide targeted at developers who are interested in contributing to the project. The Developer Guide showcases my ability to write technical documentation and the technical depth of my contributions to the project. Given below is my contribution to the Developer Guide:
 
-_{start of extract: implementation of stats command}_
+_{start of extract 1: implementation of stats command}_
 include::../DeveloperGuide.adoc[tag=statistics]
-_{end of extract}_
+_{end of extract 1}_
 
+_{start of extract 2: manual testing of stats command}_
+include::../DeveloperGuide.adoc[tag=statsManualTesting]
+_{end of extract 2}_
+
+_{start of extract 3: manual testing of filter command}_
+include::../DeveloperGuide.adoc[tag=filterManualTesting]
+_{end of extract 3}_
