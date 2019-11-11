@@ -233,7 +233,7 @@ image::ReminderClassDiagram.png[]
 
 ====== The class diagram above shows the relation between the classes that help to implement the reminder feature.
 
-===== There are 2 types of reminders. General and entry reminders. 
+===== There are 2 types of reminders. General and entry reminders.
 
 General reminders are not tied to any specific entry, and sent the user notifications whenever an entry matching the user specified conditions is entered in the app. These specified conditions include entry type, a lower and upper quota for the entry amount, a specified time period in which an entry takes place, or a list of tags which the entry must have.
 
@@ -241,13 +241,13 @@ image::GeneralReminderSequenceDiagram.png[GRS, 1000, 420]
 
 ====== The sequence diagram above illustrates what happens when an entry fulfils all conditions in an entry.
 
-STEP 1)  When an expense is logged in to GuiltTrip.java, in addition to being stored in the Expense List, the expense is also passed into the Condition Manager, which iterates through its list of conditions to see which conditions are met by the entry. 
+STEP 1)  When an expense is logged in to GuiltTrip.java, in addition to being stored in the Expense List, the expense is also passed into the Condition Manager, which iterates through its list of conditions to see which conditions are met by the entry.
 
-STEP 2)  Each condition makes use of a self-implemented ObservableSupport class that enables it to function as an Observable object, with the reminders being its listeners. 
+STEP 2)  Each condition makes use of a self-implemented ObservableSupport class that enables it to function as an Observable object, with the reminders being its listeners.
 
-STEP 3)  When a condition is met, it notifies the reminder it belongs to. The reminders keep track of the number of conditions met, and only when all conditions are met does it make use of ObservableSupport to notify the reminderlist about a change in its status. 
+STEP 3)  When a condition is met, it notifies the reminder it belongs to. The reminders keep track of the number of conditions met, and only when all conditions are met does it make use of ObservableSupport to notify the reminderlist about a change in its status.
 
-STEP 4)  The reminder list generates a notification corresponding to the reminder and adds it to an observable list which is displayed by the Ui. 
+STEP 4)  The reminder list generates a notification corresponding to the reminder and adds it to an observable list which is displayed by the Ui.
 
 STEP 5)  The number of conditions met is reset a the end of the process so the reminders may continue to produce notifications when subsequent entries meeting the requirements are keyed into the system.
 
@@ -257,14 +257,14 @@ image::EntryReminderSequenceDiagram.png[ERS, 1000, 420]
 
 ====== The sequence diagram above illustrates what happens when an it is time for an entry reminder to send a notification.
 
-STEP 1) This is made possible with TimeUtil, which is a singleton class with a single instance checking the local date at periodic intervals and updating its listeners (Using the ObservableSupport) of the current date. 
+STEP 1) This is made possible with TimeUtil, which is a singleton class with a single instance checking the local date at periodic intervals and updating its listeners (Using the ObservableSupport) of the current date.
 
-STEP 2) All entry reminders are listeners of TimeUtil. When the updated current date equals the date to send a notification, it notifies the reminder list which generates a corresponding notification and sets the next date to notify the user. 
+STEP 2) All entry reminders are listeners of TimeUtil. When the updated current date equals the date to send a notification, it notifies the reminder list which generates a corresponding notification and sets the next date to notify the user.
 
 STEP 3) Once the date of the event itself has passed, the reminder is deactivated and not saved the next time GuiltTrip is closed.
 
 === Design Considerations:
-* **Alternative 1** (current method): Users must first select a reminder before they can edit or remove reminders.* 
+* **Alternative 1** (current method): Users must first select a reminder before they can edit or remove reminders.*
 ** Pros: Easier to implement. By automatically toggling the reminder list view on when selecting a reminder, the user also will see what    reminder they have selected before they proceed to make any changes. (As opposed to selecting and modifying the reminder in a single    command).
 ** Cons: Involves one more step. Not as efficient.
 
