@@ -5,15 +5,15 @@ import java.util.Objects;
 import seedu.address.model.password.Password;
 
 /**
- * Represents a result produced from strength analyser.
+ * Represents a {@code Result} produced from an {@code StrengthAnalyser}.
  */
 public class StrengthResult extends Result {
 
     private static final String MESSAGE_RECOMMEND_LENGTH = "[-] Try to have at least 8 character for password.\n";
-    private static final String MESSAGE_RECOMMEND_LOWER_AND_UPPER = "[-] Try to include a mix a "
+    private static final String MESSAGE_RECOMMEND_LOWER_AND_UPPER = "[-] Try to include a mix of "
             + "both upper and lower case letters.\n";
-    private static final String MESSAGE_RECOMMEND_NUM = "[-] Try to include a numerals.\n";
-    private static final String MESSAGE_RECOMMEND_SPECIAL = "[-] Try to include a special characters.\n";
+    private static final String MESSAGE_RECOMMEND_NUM = "[-] Try to include numerals.\n";
+    private static final String MESSAGE_RECOMMEND_SPECIAL = "[-] Try to include special characters.\n";
     private static final String MESSAGE_STRONG_PASSWORD = "Password is strong.\n";
 
     private boolean hasMinimumLength = false;
@@ -22,7 +22,7 @@ public class StrengthResult extends Result {
     private boolean hasNum = false;
     private boolean hasSpecial = false;
 
-    public StrengthResult(Password password, String description, boolean hasMinimumLength,
+    public StrengthResult(Password password, ResultOutcome description, boolean hasMinimumLength,
                           boolean hasLower, boolean hasUpper, boolean hasNum, boolean hasSpecial) {
         super(password, description);
         this.hasMinimumLength = hasMinimumLength;
@@ -69,7 +69,8 @@ public class StrengthResult extends Result {
                 && hasLower == that.hasLower
                 && hasUpper == that.hasUpper
                 && hasNum == that.hasNum
-                && hasSpecial == that.hasSpecial;
+                && hasSpecial == that.hasSpecial
+                && this.description.equals(that.description);
     }
 
     @Override

@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 class LeetUtilTest {
 
     @Test
-    void translateLeet_passwordWithFinitePossibilities() {
-        List<String> possible = LeetUtil.translateLeet("a!!p055!b!3");
+    void generateUnleetList_passwordWithFinitePossibilities() {
+        List<String> possible = LeetUtil.generateUnleetList("a!!p055!b!3");
         String[] expectedArray = new String[] {"aiipossibie", "aiipossible", "aiiposslbie", "aiiposslble",
             "ailpossibie", "ailpossible", "ailposslbie", "ailposslble", "alipossibie", "alipossible",
             "aliposslbie", "aliposslble", "allpossibie", "allpossible", "allposslbie", "allposslble"};
@@ -21,20 +21,20 @@ class LeetUtilTest {
     }
 
     @Test
-    void translateLeet_passwordWithAllDifferentLeet_notInUseScope() {
-        List<String> possible = LeetUtil.translateLeet("!!!!");
+    void generateUnleetList_passwordWithAllDifferentLeet_notInUseScope() {
+        List<String> possible = LeetUtil.generateUnleetList("!!!!");
         assertTrue(possible.isEmpty());
     }
 
     @Test
-    void translateLeet_passwordWithTooManyPossibilities_stopAtHundred() {
-        List<String> possible = LeetUtil.translateLeet("a!!poss!b!!!t!es");
+    void generateUnleetList_passwordWithTooManyPossibilities_stopAtHundred() {
+        List<String> possible = LeetUtil.generateUnleetList("a!!poss!b!!!t!es");
         assertTrue(possible.size() == 100);
     }
 
     @Test
-    void translateLeet_stressTest() {
-        List<String> possible = LeetUtil.translateLeet("!!!!!!!!!!!!!a!!!!!!!!!!!");
+    void generateUnleetList_stressTest() {
+        List<String> possible = LeetUtil.generateUnleetList("!!!!!!!!!!!!!a!!!!!!!!!!!");
         System.out.println(possible.size());
         assertTrue(possible.size() == 100);
     }

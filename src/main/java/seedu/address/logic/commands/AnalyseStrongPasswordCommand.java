@@ -36,13 +36,11 @@ public class AnalyseStrongPasswordCommand extends AnalysePasswordCommand {
             if (index.getZeroBased() >= passwordList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PASSWORD_DISPLAYED_INDEX);
             }
-            StrongAnalysisReport analysisReport = new StrongAnalysisReport();
-            analysisReport.writePassword(passwordList.get(index.getZeroBased()));
-            List<Analyser> analyserList = super.getRequiredAnalysers();
-            for (Analyser analyser : analyserList) {
-                analysisReport.writeHeading(analyser.getHeader());
+            StrongAnalysisReport analysisReport = new StrongAnalysisReport(passwordList.get(index.getZeroBased()));
+            List<Analyser> analysers = super.getRequiredAnalysers();
+            for (Analyser analyser : analysers) {
                 List<Result> results = analyser.analyse(passwordList);
-                analysisReport.write(results.get(index.getZeroBased()));
+                analysisReport.write(analyser, results.get(index.getZeroBased()));
             }
             return CommandResult.builder(MESSAGE_SUCCESS)
                     .read()

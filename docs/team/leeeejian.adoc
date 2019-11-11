@@ -86,8 +86,3 @@ include::../DeveloperGuide.adoc[tag=generate]
 include::../DeveloperGuide.adoc[tag=analyse]
 
 '''
-
-
-
-
-
