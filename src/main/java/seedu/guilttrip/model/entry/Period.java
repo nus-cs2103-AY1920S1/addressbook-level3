@@ -3,19 +3,13 @@ package seedu.guilttrip.model.entry;
 import static seedu.guilttrip.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's name in the guilttrip book. Guarantees: immutable; is
+ * Represents a Budget's Period in GuiltTrip. Guarantees: immutable; is
  * valid as declared in {@link #isValidPeriod(long, char)}
  */
 public class Period {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
-
-    /*
-     * The first character of the guilttrip must not be a whitespace, otherwise " " (a
-     * blank string) becomes a valid input.
-     */
-    // public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
     public final long duration;
     public final char interval; //days (d)/ months (m)/ years (y)
@@ -42,7 +36,7 @@ public class Period {
     }
 
     /**
-     * Returns true if a given string is a valid name.
+     * Returns true if the given {@code testDuration} and {@code testInterval} is a valid period.
      */
     public static boolean isValidPeriod(long testDuration, char testInterval) {
         // return test.matches(VALIDATION_REGEX); // TODO

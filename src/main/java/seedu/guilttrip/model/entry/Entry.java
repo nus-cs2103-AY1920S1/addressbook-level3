@@ -12,7 +12,7 @@ import seedu.guilttrip.model.reminders.conditions.EntrySpecificCondition;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Represents an Entry in the finance app.
+ * Represents an Entry in GuiltTrip.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Entry {
@@ -97,10 +97,8 @@ public class Entry {
         }
     }
 
-    // todo: javadocs for this method FOR MINGCHUNG
     /**
-     * Returns true if both entries of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two entries.
+     * Returns a new Entry if and only if it's category is edited.
      */
     public Entry modifiedCategory(String newName) {
         Category newCategory = new Category(newName, category.getCategoryType());
@@ -124,7 +122,6 @@ public class Entry {
                 && otherEntry.getDate().equals(getDate());
     }
 
-    // todo: this method should be the weaker notion of equality
     /**
      * Returns true if both entries have the same identity and data fields.
      */

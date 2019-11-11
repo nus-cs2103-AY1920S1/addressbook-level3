@@ -6,9 +6,8 @@ import seedu.guilttrip.commons.core.step.Step;
 import seedu.guilttrip.logic.commands.UndoCommand;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 
-
 /**
- * Parses input arguments and creates a new DeleteCommand object
+ * Parses input arguments and creates a new UndoCommand object
  */
 public class UndoCommandParser implements Parser<UndoCommand> {
 

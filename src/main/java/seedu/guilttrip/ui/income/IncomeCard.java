@@ -11,7 +11,7 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Income}.
  */
 public class IncomeCard extends UiPart<Region> {
 

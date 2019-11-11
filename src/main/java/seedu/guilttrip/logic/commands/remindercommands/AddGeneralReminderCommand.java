@@ -29,7 +29,7 @@ import seedu.guilttrip.model.tag.Tag;
 
 
 /**
- * Adds a entry to the guilttrip book.
+ * Adds a entry to the GuiltTrip.
  */
 public class AddGeneralReminderCommand extends Command {
 

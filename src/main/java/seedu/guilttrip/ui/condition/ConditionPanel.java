@@ -11,7 +11,7 @@ import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * Side Pannel for Conditions
+ * Side Panel for Conditions
  */
 public class ConditionPanel extends UiPart<Region> {
     private static final String FXML = "condition/ConditionListPanel.fxml";

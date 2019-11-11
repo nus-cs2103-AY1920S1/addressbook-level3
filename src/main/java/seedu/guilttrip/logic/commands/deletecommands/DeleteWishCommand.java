@@ -14,7 +14,7 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Wish;
 
 /**
- * Deletes a entry identified using it's displayed index from the guilttrip book.
+ * Deletes a wish identified using it's displayed index from GuiltTrip.
  */
 public class DeleteWishCommand extends Command {
 

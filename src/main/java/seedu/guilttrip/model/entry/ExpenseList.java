@@ -13,12 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A entry is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the entry being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a entry uses Person#equals(Object) so
- * as to ensure that the entry with exactly the same fields will be removed.
- *
+ * A list of expenses that enforces uniqueness between its elements and does not allow nulls.
  * Supports a minimal set of list operations.
  *
  */
@@ -30,7 +25,7 @@ public class ExpenseList implements Iterable<Expense> {
             FXCollections.unmodifiableObservableList(internalList);
 
     /**
-     * Returns true if the list contains an equivalent entry as the given argument.
+     * Returns true if the list contains an equivalent expense as the given argument.
      */
     public boolean contains(Expense toCheck) {
         requireNonNull(toCheck);
@@ -38,8 +33,7 @@ public class ExpenseList implements Iterable<Expense> {
     }
 
     /**
-     * Adds a entry to the list.
-     * The entry must not already exist in the list.
+     * Adds a expense to the list.
      */
     public void add(Expense toAdd) {
         requireNonNull(toAdd);
@@ -47,9 +41,9 @@ public class ExpenseList implements Iterable<Expense> {
     }
 
     /**
-     * Replaces the entry {@code target} in the list with {@code editedPerson}.
+     * Replaces the expense {@code target} in the list with {@code editedExpense}.
      * {@code target} must exist in the list.
-     * The entry identity of {@code editedPerson} must not be the same as another existing entry in the list.
+     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the list.
      */
     public void setExpense(Expense target, Expense editedExpense) {
         requireAllNonNull(target, editedExpense);
@@ -60,8 +54,8 @@ public class ExpenseList implements Iterable<Expense> {
     }
 
     /**
-     * Removes the equivalent entry from the list.
-     * The entry must exist in the list.
+     * Removes the equivalent expense from the list.
+     * The expense must exist in the list.
      */
     public void remove(Expense toRemove) {
         requireNonNull(toRemove);
@@ -76,8 +70,8 @@ public class ExpenseList implements Iterable<Expense> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code expenses}.
+     * {@code expenses} must not contain duplicate expenses.
      */
     public void setEntries(List<Expense> entries) {
         requireAllNonNull(entries);

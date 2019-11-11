@@ -181,7 +181,7 @@ public class MainApp extends Application {
     @Override
     public void stop() {
         TimeUtil.endTimer();
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping GuiltTrip ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

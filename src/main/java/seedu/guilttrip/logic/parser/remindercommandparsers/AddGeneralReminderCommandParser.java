@@ -23,7 +23,7 @@ import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddGeneralReminderCommand object
  */
 public class AddGeneralReminderCommandParser implements Parser<AddGeneralReminderCommand> {
     public static final String INCORRECT_AMT_RANGE = "Quota lower bound must be below the upper bound";
@@ -31,8 +31,8 @@ public class AddGeneralReminderCommandParser implements Parser<AddGeneralReminde
 
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddGeneralReminderCommand
+     * and returns an AddGeneralReminderCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddGeneralReminderCommand parse(String args) throws ParseException {

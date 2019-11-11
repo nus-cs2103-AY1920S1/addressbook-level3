@@ -70,13 +70,13 @@ public interface Logic {
     ObservableList<Budget> getFilteredBudgetList();
 
     /**
-         * Returns an unmodifiable view of the list of commands entered by the user.
-         * The list is ordered from the least recent command to the most recent command.
-         */
+     * Returns an unmodifiable view of the list of commands entered by the user.
+     * The list is ordered from the least recent command to the most recent command.
+     */
     ObservableList<String> getHistory();
 
     /**
-     * Returns the user prefs' guilttrip book file path.
+     * Returns the user prefs' GuiltTrip file path.
      */
     Path getGuiltTripFilePath();
 

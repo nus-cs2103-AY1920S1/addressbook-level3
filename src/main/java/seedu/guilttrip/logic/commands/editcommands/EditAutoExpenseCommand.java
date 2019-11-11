@@ -31,14 +31,14 @@ import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.model.util.Frequency;
 
 /**
- * Edits the details of an existing entry in the guilttrip book.
+ * Edits the details of an existing AutoExpense in the GuiltTrip.
  */
 public class EditAutoExpenseCommand extends Command {
 
     public static final String COMMAND_WORD = "editAutoExp";
 
-    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the Expense identified "
-            + "by the index number used in the displayed Expenses list. ";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the details of the AutoExpense identified "
+            + "by the index number used in the displayed AutoExpenses list. ";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -52,7 +52,7 @@ public class EditAutoExpenseCommand extends Command {
 
     public static final String MESSAGE_EDIT_ENTRY_SUCCESS = "Edited Auto Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guiltTripper!";
+    public static final String MESSAGE_DUPLICATE_ENTRY = "This entry already exists in the guiltTrip!";
 
     private final Index index;
     private final EditAutoExpenseDescriptor editAutoExpenseDescriptor;
@@ -69,7 +69,6 @@ public class EditAutoExpenseCommand extends Command {
         this.editAutoExpenseDescriptor = new EditAutoExpenseDescriptor(editAutoExpenseDescriptor);
     }
 
-    //TODO:YJ confirm if still setEntry?
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
