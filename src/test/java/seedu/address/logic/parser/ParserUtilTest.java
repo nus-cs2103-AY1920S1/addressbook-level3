@@ -42,26 +42,26 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_outOfRangeInput_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_INDEX, ()
-                -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
+        assertThrows(ParseException.class,
+                MESSAGE_INVALID_INDEX, () -> ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1)));
     }
 
     @Test
     public void parseEventColor_invalidColorMaxBound_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_COLOR_STRING, ()
-                -> ParserUtil.parseColorNumber("24"));
+        assertThrows(ParseException.class,
+                MESSAGE_INVALID_COLOR_STRING, () -> ParserUtil.parseColorNumber("24"));
     }
 
     @Test
     public void parseEventColor_invalidColorMinBound_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_COLOR_STRING, ()
-                -> ParserUtil.parseColorNumber("-1"));
+        assertThrows(ParseException.class,
+                MESSAGE_INVALID_COLOR_STRING, () -> ParserUtil.parseColorNumber("-1"));
     }
 
     @Test
     public void parseEventDateTime_invalidDate_throwsParseException() {
-        assertThrows(ParseException.class, BAD_DATE_FORMAT, ()
-                -> ParserUtil.parseLocalDateTime(INVALID_DATE_TIME));
+        assertThrows(ParseException.class,
+                BAD_DATE_FORMAT, () -> ParserUtil.parseLocalDateTime(INVALID_DATE_TIME));
     }
 
     @Test
@@ -71,8 +71,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseEventRecurrenceRule_invalidRule_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_RECURRENCE_TYPE, ()
-                -> ParserUtil.parseRecurrenceType(INVALID_RECURRENCE_RULE));
+        assertThrows(ParseException.class,
+                MESSAGE_INVALID_RECURRENCE_TYPE, () -> ParserUtil.parseRecurrenceType(INVALID_RECURRENCE_RULE));
     }
 
     @Test
@@ -82,8 +82,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseDate_invalidDate_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_DATE, ()
-                -> ParserUtil.parseLocalDate(INVALID_DATE_TIME));
+        assertThrows(ParseException.class,
+                MESSAGE_INVALID_DATE, () -> ParserUtil.parseLocalDate(INVALID_DATE_TIME));
     }
 
     @Test
@@ -93,8 +93,9 @@ public class ParserUtilTest {
 
     @Test
     public void parseEventScheduleViewMode_invalidValue_throwsParseException() {
-        assertThrows(ParseException.class, MESSAGE_INVALID_SCHEDULE_VIEW_MODE, ()
-                -> ParserUtil.parseEventScheduleViewMode(INVALID_EVENT_SCHEDULE_VIEW_MODE));
+        assertThrows(ParseException.class,
+                MESSAGE_INVALID_SCHEDULE_VIEW_MODE, () -> ParserUtil
+                        .parseEventScheduleViewMode(INVALID_EVENT_SCHEDULE_VIEW_MODE));
     }
 
     @Test
