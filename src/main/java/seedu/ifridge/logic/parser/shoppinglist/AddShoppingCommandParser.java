@@ -18,13 +18,13 @@ import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.ShoppingItem;
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddShoppingCommand object
  */
 public class AddShoppingCommandParser implements Parser<AddShoppingCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the AddShoppingCommand
+     * and returns an AddShoppingCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddShoppingCommand parse(String args) throws ParseException {

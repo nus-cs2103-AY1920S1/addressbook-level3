@@ -53,7 +53,8 @@ import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
 
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for \
+ * EditTemplateCommand.
  */
 public class AddTemplateItemCommandTest {
     private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),

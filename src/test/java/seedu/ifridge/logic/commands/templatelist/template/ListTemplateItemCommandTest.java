@@ -3,7 +3,7 @@ package seedu.ifridge.logic.commands.templatelist.template;
 import seedu.ifridge.model.Model;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for ListTemplateCommand.
  */
 public class ListTemplateItemCommandTest {
 
