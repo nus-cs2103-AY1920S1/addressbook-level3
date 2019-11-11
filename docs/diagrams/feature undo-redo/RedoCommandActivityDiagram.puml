@@ -4,20 +4,33 @@ start
 :User enters a redo command;
 if () then (redo is possible)
     if () then (else)
-        :Redo the specified number of commands one by one;
+        :Redo the specified
+        number of commands
+        one by one;
         if () then (all redo operations successful)
-            :User receives message that indicates successful redo command;
+            :User receives message that
+            indicates successful
+            redo command;
         else (error occurs at any redo operation)
-            :Undo any successful redo operations prior to redo operation,
-            preventing any changes made by redo operation;
-            :User receives error message that there was an error in the redo process;
+            :Undo any successful redo
+            operations prior to redo
+            operation, preventing any
+            changes made by redo
+            operation;
+            :User receives error
+            message that there was
+            an error in the redo process;
         endif
     else (user tries to redo too many commands)
-        :User receives error message that there are not
-        enough commands available to be redone;
+        :User receives error
+        message that there are
+        not enough commands
+        available to be redone;
     endif
 else (no commands to be redone)
-    :User receives message that nothing can be redone;
+    :User receives message
+    that nothing can be
+    redone;
 endif
 stop
 

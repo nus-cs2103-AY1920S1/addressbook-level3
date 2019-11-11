@@ -227,7 +227,7 @@ link:{repoURL}/blob/master/src/main/java/seedu/jarvis/logic/[[Package\]]
 [[Design-Model]]
 === Model component
 
-The `Model` API is responsible for interacting with the data in `Jarvis` including
+The `Model` API is responsible for interacting with the data in Jarvis including
 the various aspects such as user's preferences, command history,
 finance management, cca information, courses and schedule information.
 
@@ -244,7 +244,7 @@ image::ModelInterfaceClassDiagram.png[]
 
 The `Model` component,
 
-* Stores a `UserPref` object that represents the user's preferences.
+* Stores a `UserPref` object that represents the user's preferences
 * Stores the `HistoryManager` data
 * Stores the `FinanceTracker` data
 * Stores the `CcaTracker` Data
@@ -259,7 +259,7 @@ data related to their specific features.
 Below is a class diagram for `ModelManager`.
 
 .`ModelManager` class
-image::UpdatedModelClassDiagram.png[]
+image::UpdatedModelClassDiagram.png[500,500]
 
 Each feature has a class managing the data related to that feature as mentioned
 earlier.
@@ -267,22 +267,22 @@ earlier.
 Below are the class diagrams of these classes.
 
 .`UserPrefs`
-image::ModelUserPrefsClassDiagram.png[]
+image::ModelUserPrefsClassDiagram.png[200,200]
 
 .`HistoryManager`
-image::ModelHistoryManagerClassDiagram.png[]
+image::ModelHistoryManagerClassDiagram.png[200,200]
 
 .`CcaTracker`
-image::ModelCcaTrackerClassDiagram.png[]
+image::ModelCcaTrackerClassDiagram.png[500,500]
 
 .`CoursePlanner`
-image::ModelCoursePlannerClassDiagram.png[]
+image::ModelCoursePlannerClassDiagram.png[700,700]
 
 .`FinanceTracker`
-image::ModelFinanceTrackerClassDiagram.png[]
+image::ModelFinanceTrackerClassDiagram.png[500,500]
 
 .`Planner`
-image::ModelPlannerClassDiagram.png[]
+image::ModelPlannerClassDiagram.png[400,400]
 
 [[Design-Storage]]
 === Storage component
@@ -318,26 +318,26 @@ Below is a class diagram of `StorageManager`.
 .`StorageManager` class
 image::UpdatedStorageClassDiagram.png[]
 
-Each feature of `Jarvis` is able to save its information to local storage
+Each feature of Jarvis is able to save its information to local storage
 in `JSON` format, by adapting each feature component into
 `JsonSerializable{Component Name}` class.
 
 Below are the class diagrams for these adapted classes.
 
 .`JsonSerializableHistoryManager`
-image::HistoryManagerStorageClassDiagram.png[300,200]
+image::HistoryManagerStorageClassDiagram.png[200,200]
 
 .`JsonSerializableCcaTracker`
-image::CcaTrackerStorageClassDiagram.png[600,400]
+image::CcaTrackerStorageClassDiagram.png[400,400]
 
 .`JsonSerializableCoursePlanner`
-image::CoursePlannerStorageClassDiagram.png[300,200]
+image::CoursePlannerStorageClassDiagram.png[200,200]
 
 .`JsonSerializableFinanceTracker`
-image::FinanceTrackerStorageClassDiagram.png[600,400]
+image::FinanceTrackerStorageClassDiagram.png[400,400]
 
 .`JsonSerializablePlanner`
-image::PlannerStorageClassDiagram.png[600,400]
+image::PlannerStorageClassDiagram.png[400,400]
 
 [[Design-Commons]]
 === Commons Component
@@ -359,7 +359,7 @@ to be displayed to the user throughout the application.
 
 * link:{repourl}/blob/master/src/main/java/seedu/jarvis/commons/core/LogsCenter.java/[`LogsCenter`]
 +
-A class used by many classes for writing and displaying log messages in Jarvis'
+A class used by many classes for writing and displaying log messages in Jarvis
 log file.
 
 Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/commons/[[Package\]]
@@ -371,7 +371,7 @@ implemented.
 
 === Undo / Redo Feature
 
-This section covers in detail the undo/redo feature of `Jarvis`.
+This section covers in detail the undo/redo feature of Jarvis.
 
 We will cover these main points:
 
@@ -699,13 +699,13 @@ Below are two sequence diagrams of how a `UndoCommand` and `RedoCommand`
 executes in the program. The sequence diagrams below show the process of undo
 and redo of a single command for simplicity and clarity.
 
-Below is a Sequence Diagram of how an `UndoCommand` to undo a single command
+Below is a sequence diagram of how an `UndoCommand` to undo a single command
 executes in the program.
 
 .Sequence Diagram for `UndoCommand` (undo a single command)
 image::UndoSequenceDiagramNew.png[]
 
-Below is a Sequence Diagram of how a `RedoCommand` to redo a single command
+Below is a sequence diagram of how a `RedoCommand` to redo a single command
 executes in the program.
 
 .Sequence Diagram for `RedoCommand` (redo a single command)
@@ -1342,11 +1342,6 @@ This in turns calls the`#PurchaseList#deletePurchase(Index)` method.
 Step 5. This `PurchaseList#deletePurchase(Index)` method will then delete
 the corresponding purchase at the given index.
 
-[NOTE]
-TLDR: The calling of the `#deletePurchase` method at the `Model`
-level triggers a cascading series of `#deletePurchase` method which
-culminates in target purchase being deleted from model.
-
 .Sequence Diagram for delete-paid command
 image::DeletePurchaseSequenceDiagram.png[]
 
@@ -1406,7 +1401,7 @@ we went with the first option.
 
 ==== Overview
 
-The planner feature in `Jarvis` enables users to easily organise and manage
+The planner feature in Jarvis enables users to easily organise and manage
 their different tasks in school. Users will be able to keep track of tasks
 they have done, tasks they have yet to do, and sort these tasks by
 different attributes like task type and priority levels.
@@ -1432,7 +1427,7 @@ A simple outline of the `Planner` can be seen below, in Figure 26.
 image::ModelPlannerClassDiagram.png[align=left]
 
 
-The `Model` in `Jarvis` extends `PlannerModel` which facilitates all operations
+The `Model` in Jarvis extends `PlannerModel` which facilitates all operations
 necessary to carry out commands by the user.
 
 * `Model#getPlanner()` -- Returns an instance of a `Planner`.
@@ -1513,8 +1508,8 @@ String `TaskDes` directly
 
 Ultimately, we decided on Option 1 as there are no limitations on what a description of
 a `Task` should be (other than not _null_). Further more, there is no manipulation of the
-Task Description at the current stage of `Jarvis`, hence there is no real need to provide an
-additional layer of abstraction for it. If we do intend to continue developing `Jarvis` in
+Task Description at the current stage of Jarvis, hence there is no real need to provide an
+additional layer of abstraction for it. If we do intend to continue developing Jarvis in
 the future, however, Option 2 might be a viable choice.
 
 // tag:: ccatracker[]
@@ -1747,18 +1742,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the ``Jarvis`` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the Jarvis and the *Actor* is the `user`, unless specified otherwise)
 [discrete]
 === Use case: Set tabs in finance tracker
 
 *MSS*
 
 1. User inputs amount paid and the names of people who he paid for
-2. `Jarvis` calculates equal tab for all names including user
-3. `Jarvis` stores individual tabs for names input
-4. `Jarvis` prompts user that tabs have been added
+2. Jarvis calculates equal tab for all names including user
+3. Jarvis stores individual tabs for names input
+4. Jarvis prompts user that tabs have been added
 5. User requests to see list of debts owed to him
-6. `Jarvis` shows list of debts
+6. Jarvis shows list of debts
 +
 Use case ends.
 
@@ -1768,9 +1763,9 @@ Use case ends.
 *MSS*
 
 1. User requests to list tasks in planner
-2. `Jarvis` shows lists of tasks in planner
+2. Jarvis shows lists of tasks in planner
 3. User requests to mark a certain task as done
-4. `Jarvis` finds task and marks it as done
+4. Jarvis finds task and marks it as done
 +
 Use case ends.
 
@@ -1789,9 +1784,9 @@ Use case resumes at step 2.
 *MSS*
 
 1. User adds a project meeting into planner
-2. `Jarvis` adds meeting into planner
+2. Jarvis adds meeting into planner
 3. User requests to undo project meeting
-4. `Jarvis` rolls backs back the command
+4. Jarvis rolls backs back the command
 +
 Use case ends.
 
