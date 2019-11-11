@@ -165,7 +165,6 @@ For example:
 * You want to go to the dashboard. So you type `*tab* 1` and press kbd:[Enter].
 +
 image::ui-screenshots/TabUI1.png[]
-// dashboard tab, showing many CS2103T related bookmarks not in folder
 * You see the dashboard tab instead of the previously showing online tab.
 +
 image::ui-screenshots/TabUi2.png[]
@@ -300,9 +299,19 @@ file `mark/data/bookmarks/myBookmarks.json`.
 
 ==== Clearing all data: *`clear`*
 
-Clears all data from Mark. All bookmarks, folders, autotags, and reminders will be cleared.
+You can start your life anew with Mark! With this command, all bookmarks, folders, autotags, and reminders will be cleared.
 
 Format: `*clear*`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You decide that Mark is too cluttered, and so out of frustration you type `clear` into the command box and smash kbd:[Enter].
++
+image::ui-screenshots/ClearCommandUi1.png[]
+* Mark is now empty!
++
+image::ui-screenshots/ClearCommandUi2.png[]
 
 ==== Exiting the program: *`exit`*
 
@@ -327,10 +336,21 @@ Format: `*list*`
 [[finding-bookmarks]]
 ==== Locating bookmarks by name, URL, tag or folder: *`find`*
 
-Finds bookmarks that contain any of the given keywords in their name or
+With this command, you can find bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s) or stored under the given folder(s).
 
 Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You decide to search for a bookmark with `Website` or `Video` in its name or url, or with the tag `Fun`.
+You type `*find* Website Video t/Fun` and press kbd:[Enter].
++
+image::ui-screenshots/FindCommandUi1.png[]
+* Opps! You realise you have no life. You only have CS2103T-related bookmarks and no fun bookmarks.
++
+image::ui-screenshots/FindCommandUi2.png[]
 
 ****
 * At least one keyword, tag or folder must be provided.
@@ -343,7 +363,7 @@ Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 * Bookmarks matching at least one search criterion will be returned (i.e. OR search).
 ****
 
-Examples:
+Other examples:
 
 * `*find* Website Video t/Fun` +
 Returns all the bookmarks with CS2103T or Video in its name or URL, and all bookmarks tagged with Fun.
@@ -425,9 +445,20 @@ Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookma
 [[editing-bookmarks]]
 ==== Editing a bookmark: *`edit`*
 
-Edits an existing bookmark in the bookmark manager.
+IVLE changed to LumiNUS? No worries! With the edit command you can easily fix your incorrect bookmarks.
 
 Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* Your school learning management system has changed hands, so you enter the command `*edit* 2 n/LumiNUS u/https://luminus.nus.edu.sg`
+ and press kbd:[Enter].
++
+image::ui-screenshots/EditCommandUi1.png[]
+* Yay! Now all that's left to do is to appreciate the new cutting-edge technology...
++
+image::ui-screenshots/EditCommandUi2.png[]
 
 ****
 * The bookmark at the specified `INDEX` will be edited. The index refers to the index
@@ -441,7 +472,7 @@ adding of tags is not cumulative.
 any tags after it.
 ****
 
-Examples:
+Other examples:
 
 * `*edit* 1 n/CS2103T Website f/AY1920S1` +
 Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920S1 respectively.
@@ -451,9 +482,20 @@ Clears all existing tags from the 2nd bookmark.
 
 ==== Deleting a bookmark: *`delete`*
 
-Deletes the specified bookmark from the bookmark manager.
+Mark values your right to data privacy. Unlike competing software from major industry leaders, you can actually delete bookmarks you don't want anymore.
 
 Format: `*delete* INDEX`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You receive the heartbreaking news that Club Penguin is now closed forever. Painfully, you type `*delete* 1` (of course you only have 1 bookmark, Club Penguin is your life)
+ and press kbd:[Enter].
++
+image::ui-screenshots/DeleteCommandUi1.png[]
+* What else do you have to live for?
++
+image::ui-screenshots/DeleteCommandUi2.png[]
 
 ****
 * Deletes the bookmark at the specified INDEX.
@@ -461,7 +503,7 @@ Format: `*delete* INDEX`
 * The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
-Examples:
+Other examples:
 
 * `*list*` +
 `*delete* 2` +
