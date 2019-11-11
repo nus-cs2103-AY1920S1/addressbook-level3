@@ -7,6 +7,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import seedu.address.model.itinerary.ConsecutiveOccurrenceList;
 import seedu.address.model.itinerary.day.exceptions.ClashingDayException;
@@ -83,12 +84,13 @@ public class DayList extends ConsecutiveOccurrenceList<Day> {
         if (index == -1) {
             throw new DayNotFoundException();
         }
-        Day day = internalList.remove(index);
-        if (containsClashing(editedDay)) {
-            internalList.add(day);
+        boolean hasClashingTrip = IntStream.range(0, internalList.size()).filter(i -> i != index)
+                .anyMatch(i -> internalList.get(i).isClashingWith(editedDay));
+
+        if (hasClashingTrip) {
             throw new ClashingDayException();
         } else {
-            internalList.add(editedDay);
+            internalList.set(index, editedDay);
         }
     }
 

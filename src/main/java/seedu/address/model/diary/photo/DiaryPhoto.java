@@ -1,24 +1,22 @@
 package seedu.address.model.diary.photo;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
-import static seedu.address.commons.util.AppUtil.getAbsoluteImage;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 
 import javafx.scene.image.Image;
 
-import seedu.address.commons.util.AppUtil;
 import seedu.address.logic.parser.ParserDateUtil;
+import seedu.address.model.common.Photo;
 
 /**
- * Abstraction of a photo containing the path to an image.
- * Also contains other information such as the display name of the photo and the date.
+ * Abstraction of a photo containing the path to an image, and a cached JavaFX instance of {@link Image}.
+ * It also contains other information such as the display name of the photo and the date.
  */
-public class Photo {
+public class DiaryPhoto extends Photo {
 
     /** The maximum length of the description the should have. */
     public static final int MAXIMUM_DESCRIPTION_LENGTH = 20;
@@ -28,11 +26,7 @@ public class Photo {
                     + " and must have a maximum length of " + MAXIMUM_DESCRIPTION_LENGTH
                     + ". (Keep your descriptions short and sweet!)";
 
-    public static final String MESSAGE_PATH_CONSTRAINTS =
-            "The image path specified should be valid, and must point to an existing file.";
     public static final String MESSAGE_IMAGE_CONSTRAINTS = "The file should point to a valid png or jpg image file.";
-
-    private static final String INVALID_FILE_PATH = "/images/invalidPhotoPlaceholder.png";
 
     /*
      * The first character of the address must not be a whitespace,
@@ -41,8 +35,6 @@ public class Photo {
      */
     private static final String DESCRIPTION_VALIDATION_REGEX = "[^\\s].{1," + MAXIMUM_DESCRIPTION_LENGTH + "}$";
 
-    private Image image;
-    private String imageFilePath;
     private String description;
     private LocalDateTime dateTaken;
 
@@ -54,27 +46,19 @@ public class Photo {
      * @param dateTaken The date taken to be registered with this photo.
      * @throws IllegalArgumentException If either the {@code imagePath} or {@code description} violates the constraints.
      */
-    public Photo(Path imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
-        requireAllNonNull(imagePath, description, dateTaken);
-        validateImagePath(imagePath);
+    public DiaryPhoto(Path imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
+        super(imagePath);
+        requireAllNonNull(description, dateTaken);
         validateDescription(description);
         this.dateTaken = dateTaken;
     }
 
-    public Photo(String imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
+    public DiaryPhoto(String imagePath, String description, LocalDateTime dateTaken) throws IllegalArgumentException {
         this(Paths.get(imagePath), description, dateTaken);
-    }
-
-    public Image getImage() {
-        return image;
     }
 
     public String getDescription() {
         return description;
-    }
-
-    public String getImageFilePath() {
-        return imageFilePath;
     }
 
     public LocalDateTime getDateTaken() {
@@ -90,19 +74,6 @@ public class Photo {
         boolean doMatch = description.matches(DESCRIPTION_VALIDATION_REGEX);
         checkArgument(doMatch, MESSAGE_DESCRIPTION_CONSTRAINTS);
         this.description = description;
-    }
-
-    /**
-     * Validates the given path, setting the {@code image} property of this instance if valid.
-     * Otherwise, the {@code image} is set to a placeholder image indicated by {@code INVALID_FILE_PATH}.
-     */
-    private void validateImagePath(Path imagePath) {
-        try {
-            this.imageFilePath = imagePath.toAbsolutePath().toString();
-            this.image = getAbsoluteImage(imageFilePath);
-        } catch (IllegalArgumentException | FileNotFoundException ex) {
-            this.image = AppUtil.getImage(INVALID_FILE_PATH);
-        }
     }
 
     @Override
@@ -133,11 +104,11 @@ public class Photo {
             return true;
         }
 
-        if (!(obj instanceof Photo)) {
+        if (!(obj instanceof DiaryPhoto)) {
             return false;
         }
 
-        Photo otherPhoto = (Photo) obj;
+        DiaryPhoto otherPhoto = (DiaryPhoto) obj;
 
         return description.equals(otherPhoto.description)
                 && imageFilePath.equals(otherPhoto.imageFilePath)

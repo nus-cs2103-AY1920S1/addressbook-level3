@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 import seedu.address.ui.UiPart;
 
 /**
@@ -20,7 +20,7 @@ class DiaryEntryPhotoCard extends UiPart<StackPane> {
     private static final double MIN_ROTATION = -8.0;
     private static final double MAX_ROTATION = 8.0;
 
-    private final Photo photo;
+    private final DiaryPhoto photo;
 
     @FXML
     private ImageView photoImageView;
@@ -30,9 +30,9 @@ class DiaryEntryPhotoCard extends UiPart<StackPane> {
      * The random rotation of the image is calculated here, along with the offset for the height
      * required due to the rotation.
      *
-     * @param photo The {@link Photo} instance to use.
+     * @param photo The {@link DiaryPhoto} instance to use.
      */
-    DiaryEntryPhotoCard(Photo photo) {
+    DiaryEntryPhotoCard(DiaryPhoto photo) {
         super(FXML);
         this.photo = photo;
         photoImageView.setImage(photo.getImage());

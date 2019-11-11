@@ -1,11 +1,9 @@
 package seedu.address.logic.parser.itinerary.dayview;
 
 /**
- * Placeholder javadoc.
+ * Available commands on {@link seedu.address.ui.itinerary.DaysPage}.
  */
 public enum DayViewCommand {
-    CREATE,
     GOTO,
     EDIT,
-    DELETE
 }

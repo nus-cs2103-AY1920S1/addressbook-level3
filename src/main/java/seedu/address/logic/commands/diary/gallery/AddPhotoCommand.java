@@ -13,7 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.Model;
 import seedu.address.model.diary.DiaryEntry;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 
 /**
  * {@link Command} that adds a photo to photo list of the currently viewed diary entry.
@@ -24,12 +24,12 @@ public class AddPhotoCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds the photo specified by the path or file chooser dialog to the diary entry's gallery.\n"
             + "Parameters: "
-            + "[" + PREFIX_DATA_FILE_PATH + Photo.MESSAGE_IMAGE_CONSTRAINTS
+            + "[" + PREFIX_DATA_FILE_PATH + DiaryPhoto.MESSAGE_IMAGE_CONSTRAINTS
             + PREFIX_FILE_CHOOSER + " OPENS FILE CHOOSE DIALOG (IGNORES THE FILE PATH IF SPECIFIED) ]\n"
             + "[Optional (Uses the file modification date otherwise): " + PREFIX_DATE_TIME_START
             + "DATE TIME TAKEN (" + ParserDateUtil.DATE_TIME_FORMAT + "]\n"
             + "[Optional (Uses the file name otherwise): " + PREFIX_DESCRIPTION + " "
-            + Photo.MESSAGE_DESCRIPTION_CONSTRAINTS + " ]\n"
+            + DiaryPhoto.MESSAGE_DESCRIPTION_CONSTRAINTS + " ]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_DATA_FILE_PATH + "./image01.png "
             + PREFIX_DATE_TIME_START + "01/08/2019 1245 " + PREFIX_DESCRIPTION + "...";
 
@@ -38,9 +38,9 @@ public class AddPhotoCommand extends Command {
 
     public static final String MESSAGE_ADD_SUCCESS = "Added your photo! %1$s";
 
-    private final Photo photo;
+    private final DiaryPhoto photo;
 
-    public AddPhotoCommand(Photo photo) {
+    public AddPhotoCommand(DiaryPhoto photo) {
         requireNonNull(photo);
         this.photo = photo;
     }

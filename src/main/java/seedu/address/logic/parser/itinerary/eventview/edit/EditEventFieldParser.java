@@ -32,7 +32,7 @@ import seedu.address.model.inventory.InventoryList;
 import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
 
 /**
- * Placeholder javadoc.
+ * Parser for {@link EditEventFieldCommand}.
  */
 public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
 

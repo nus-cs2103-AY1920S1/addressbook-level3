@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.TravelPal;
+import seedu.address.model.booking.BookingList;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
@@ -30,6 +31,7 @@ public class TypicalTrips {
                     LocalDateTime.of(2019, 2, 20, 9, 0)))
             .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setBookingList(new BookingList())
             .setInventoryList(new InventoryList())
             .build();
     public static final Trip TRIP_B = TripBuilder.newInstance().setName(new Name("Bangkok Trip"))
@@ -41,6 +43,7 @@ public class TypicalTrips {
             .setTotalBudget(new Budget(1234))
             .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
+            .setBookingList(new BookingList())
             .setInventoryList(new InventoryList())
             .build();
     public static final Trip TRIP_C = TripBuilder.newInstance().setName(new Name("Canada Trip"))
@@ -52,6 +55,7 @@ public class TypicalTrips {
             .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
             .setInventoryList(new InventoryList())
+            .setBookingList(new BookingList())
             .setTotalBudget(new Budget(12345))
             .build();
     public static final Trip TRIP_D = TripBuilder.newInstance().setName(new Name("Denmark Trip"))
@@ -63,6 +67,7 @@ public class TypicalTrips {
             .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
             .setInventoryList(new InventoryList())
+            .setBookingList(new BookingList())
             .setTotalBudget(new Budget(123456))
             .build();
     public static final Trip TRIP_E = TripBuilder.newInstance().setName(new Name("Ethiopia Trip"))
@@ -74,6 +79,7 @@ public class TypicalTrips {
             .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
             .setInventoryList(new InventoryList())
+            .setBookingList(new BookingList())
             .setTotalBudget(new Budget(1234567))
             .build();
     public static final Trip TRIP_F = TripBuilder.newInstance().setName(new Name("Finland Trip"))
@@ -85,6 +91,7 @@ public class TypicalTrips {
             .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
             .setInventoryList(new InventoryList())
+            .setBookingList(new BookingList())
             .setTotalBudget(new Budget(12345678))
             .build();
     public static final Trip TRIP_G = TripBuilder.newInstance().setName(new Name("Germany Trip"))
@@ -96,6 +103,7 @@ public class TypicalTrips {
             .setExpenseList(new ExpenseList())
             .setDiary(new Diary())
             .setInventoryList(new InventoryList())
+            .setBookingList(new BookingList())
             .setTotalBudget(new Budget(123456789))
             .build();
 

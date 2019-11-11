@@ -10,7 +10,7 @@ import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Placeholder javadoc.
+ * Parser for all commands entered on the {@link seedu.address.ui.itinerary.EditDayPage}.
  */
 public class EditDayParser implements PageParser<Command> {
     private static final String MESSAGE_COMMAND_TYPES = " Available command types: \n"

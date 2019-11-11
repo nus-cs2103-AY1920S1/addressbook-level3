@@ -10,7 +10,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.day.Day;
 
 /**
- * Placeholder.
+ * Command to cancel editing a day on {@link seedu.address.ui.itinerary.EditDayPage}.
  */
 public class CancelEditDayCommand extends Command {
     public static final String COMMAND_WORD = "cancel";

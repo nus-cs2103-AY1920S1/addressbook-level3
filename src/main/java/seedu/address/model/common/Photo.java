@@ -1,4 +1,4 @@
-package seedu.address.model.itinerary;
+package seedu.address.model.common;
 
 import static seedu.address.commons.util.AppUtil.getAbsoluteImage;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -12,26 +12,19 @@ import javafx.scene.image.Image;
 import seedu.address.commons.util.AppUtil;
 
 /**
- * Abstraction of a photo containing the path to an image.
+ * Abstraction of a photo in trip containing the path to an image, and a cached JavaFX instance of
+ * {@link Image}.
  */
 public class Photo {
-    public static final String INVALID_FILE_PATH = "/images/invalidPhotoPlaceholder.png";
 
-    public static final int MAXIMUM_DESCRIPTION_LENGTH = 20;
     public static final String MESSAGE_PATH_CONSTRAINTS =
-            "The image path specified should be valid, and must point to an existing file. "
-                    + "A default image will be used.";
-    public static final String MESSAGE_IMAGE_CONSTRAINTS = "The file should point to a valid png or jpg image file.";
+            "The image path specified should be valid, and must point to an existing file.\n"
+                    + "NOTE: A placeholder image will be used if the file path becomes invalid in the future!";
 
+    private static final String INVALID_FILE_PATH = "/images/invalidPhotoPlaceholder.png";
 
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     * The description also cannot be empty.
-     */
-
+    protected String imageFilePath;
     private Image image;
-    private String imageFilePath;
 
     /**
      * Constructs a {@code Photo} from the given arguments.
@@ -39,12 +32,12 @@ public class Photo {
      * @param imagePath The {@link Path} to point to the image file.
      * @throws IllegalArgumentException If the {@code imagePath} violates the constraints.
      */
-    public Photo(Path imagePath) throws IllegalArgumentException {
+    public Photo(Path imagePath) {
         requireAllNonNull(imagePath);
         validateImagePath(imagePath);
     }
 
-    public Photo(String imagePath) throws IllegalArgumentException {
+    public Photo(String imagePath) {
         this(Paths.get(imagePath));
     }
 
