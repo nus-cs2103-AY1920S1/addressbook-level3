@@ -201,7 +201,7 @@ This section describes some noteworthy details on how certain features are imple
 === [Proposed] Calendar feature
 ==== Proposed Implementation
 
-The commands introduced by this feature include; `generate-timings`, `ics` import and commands.
+The commands introduced by this feature include `generate-timings`, `ics` import and commands.
 The commands are facilitated by `ProjectCalendar`. The various `ics` files of the members are parsed in this component.
 
 * `ProjectCalendar#generateTimings()` -- Generates the free times after on syncing `ics` calendars of members.
