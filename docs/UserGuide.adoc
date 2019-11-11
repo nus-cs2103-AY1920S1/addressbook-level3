@@ -38,7 +38,7 @@ image::Ui.png[width="750"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : Lists all appointments.
+* *`list`* : Lists all engagements.
 * **`tab` ** `b/game` : Switches main window to start window of the game.
 * **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Ben|Tom d/Meeting on Monday p/HIGH` : +
 Adds an engagement to the engagements list with the following details: +
@@ -253,7 +253,7 @@ image::tab_2.png[width="800"]
 
 //end::tab-command[]
 
-=== Adding an appointment: `add`
+=== Adding an engagement: `add`
 
 Adds an engagement to the system. Engagement can be in different types; `Engagement`, `Meeting` and `Interview` +
 Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION a/ATTENDEES d/DESCRIPTION p/PRIORITY`
@@ -278,15 +278,15 @@ After user enters the above command, system will save the engagement information
 .Engagement successfully saved in system storage.
 image::add_2.png[width="800"]
 
-=== Listing all appointments : `list`
+=== Listing all engagements : `list`
 
-Lists all appointments. +
+Lists all engagements. +
 Format: `list`
 
 //tag::sort[]
-=== Sorting all appointments : `sort`
+=== Sorting all engagements : `sort`
 
-Sorts the list of all appointments in the appointment list by the order specified by user. +
+Sorts the list of all engagements in the engagement list by the order specified by user. +
 Format: `sort p/PROPERTY o/ORDER`
 
 [TIP]
@@ -322,13 +322,28 @@ image::after-oneshot-sort.png[width="450"]
 After sorting, commands that require INDEX as an input field (e.g. `delete`) will take in INDEX with regards to the new list  displayed. e.g. `delete 1` will delete the current first engagement displayed.
 //end::sort[]
 
-=== Locating appointments by attendee, description, location and priority: `find`
+=== Locating engagements by attendee, description, location and priority: `find`
 
 Finds engagements whose names contain any of the given keywords. Engagements can be in different types: `Appointment`, `Meeting` and `Interview`.
+Searches can be interactive or non-interactive.
 
 Format: `find TAG/KEYWORD`
 
-Valid tags: `a/`, `d/`, `l/`, `p/`
+Valid tags: `d/`, `l/`, `a/`, `p/` +
+
+With interactive parsing, the `find` command reduces to the following sequence of inputs:
+
+```
+find
+d/Singapore based a/Hans
+```
+The non-interactive equivalent of this sequence is `find d/Singapore based a/Hans`.
+
+```
+find
+l/Com Basement
+```
+The non-interactive equivalent of this sequence is `find l/Com Basement`.
 
 [%header, cols=3*]
 |===
@@ -336,65 +351,78 @@ Valid tags: `a/`, `d/`, `l/`, `p/`
 |Tag
 |Notes
 
+|Description
+|`d/`
+|Engagements containing description keyword will be returned. e.g. `find d/Singapore based` will return
+all engagements containing the description `Singapore based`. +
+e.g. `singapore based internship appointment`, `Singapore based project meeting`
+
+|Location
+|`l/`
+|Only exact full words will be matched e.g. `find l/Com Basement` is not equivalent to `find l/Com Basement Room 6`
+
 |Attendees
 |`a/`
 |Engagements containing attendee keyword will be returned. e.g. `find a/Hans` will return
 all engagements containing the attendee `Hans`. +
 e.g. `Hansen Gruber`, `hans christian`
 
-
-|Description
-|`d/`
-|Descriptions containing description keyword will be returned. e.g. `find d/Singapore based` will return
-all engagements containing the description `Singapore based`. +
-e.g. `singapore based internship appointment`, `Singapore based project meeting`
-
-|Location
-|`l/`
-|Only exact full words will be matched e.g. `find Com Basement` will not match `Com Basement Room 6`
-
 |Priority
 |`p/`
-|`find p/High`, `find p/Medium`, `find p/Low`, `find p/None`
+|Finds engagements according to priority. e.g.`find p/High`, `find p/Medium`, `find p/Low`, `find p/None`
 |===
 
 ****
 * All search are case insensitive. e.g `find a/hans` is equivalent to `find a/Hans`
-* For non-interactive search, the order of the prefixes does not matter. e.g. `find a/Hans Bo p/high` is equivalent to `find p/high a/Hans`
-* For non-interactive search, at least one search parameter should be specified.
-* For interactive search, all search parameters must be specified sequentially according to the prompt.
-****
-
-Examples:
+* At least one search parameter should be specified.
+* The order of the prefixes does not matter. e.g. `find a/Hans Bo p/high` is equivalent to `find p/high a/Hans`
+* Similarly, the two sequences below are similar.
+```
+find
+a/Hans d/Singapore based
+```
+```
+find
+d/Singapore based a/Hans
+```
+More examples:
 
 * `find a/John` +
-Returns `john` and `John Doe`
-* `find a/Betsy d/Project Meeting l/NUS p/None` +
+Returns engagements with `john` or `John Doe`
+```
+find
+a/Betsy d/Project Meeting l/NUS p/None
+```
 Returns any engagement having attendee `Betsy`, description `Project Meeting`, location `NUS`, and priority `None`.
+****
 
-=== Deleting an appointment : `delete`
+=== Deleting an engagement : `delete`
 
-Deletes the specified appointment from the engagement list. +
+Deletes the specified engagement from the engagement list. +
 Format: `delete INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed appointment list.
+* The index refers to the index number shown in the displayed engagement list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd appointment in the appointment manager.
-* `find meeting` +
-`delete 1` +
-Deletes the 1st appointment in the results of the `find` command.
+```
+list
+delete 2
+```
+Deletes the 2nd engagement in the engagement manager.
+```
+find meeting
+delete 1
+```
+Deletes the 1st engagement in the results of the `find` command.
 
 === Clearing all entries : `clear`
 
-Clears all appointments from the appointment manager. +
+Clears all engagements from the engagement manager. +
 Format: `clear`
 
 //tag::undo-redo[]
@@ -439,7 +467,7 @@ Examples:
 `undo` (reverts the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 
-Redoes the previous undo command, i.e. the appointment deleted before `undo` will be removed again from the appointment manager.
+Redoes the previous undo command, i.e. the engagement deleted before `undo` will be removed again from the engagement manager.
 
 [.clearfix]
 --
