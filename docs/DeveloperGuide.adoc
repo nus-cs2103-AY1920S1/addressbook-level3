@@ -467,13 +467,24 @@ NOTE: **Alternative 2** was preferred as it provides users with an experience cl
 Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
 flashcards contained in the system will be tested.
 
+The following activity diagram shows the typical scenario of a `FlashCard` test. Note that special commands such as
+`skip` and `end` are omitted for brevity.
+
+image::TestModeActivityDiagram.png[width="600"]
+
 ==== Implementation
 This feature is supported by the following classes:
 
-* `KeyboardFlashCardsParser` to control the flow of command in the entire program.
-* `StartCommandParser` to parse arguments for StartCommand.
-* `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode.
-* `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags.
+* `KeyboardFlashCardsParser` to control the flow of command in the entire program
+* `StartCommandParser` to parse arguments for StartCommand
+* `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode
+* `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags
+* `StartCommand` to set the application to test mode, starting the `FlashCard` test
+* `ShowAnswerCommand` allows the user to view the answer to the `FlashCard` currently tested
+* `NextQuestionCommand` is an abstract class that allows its subclasses to fetch the next `FlashCard`
+* `RateQuestionCommand` extends `NextQuestionCommand`, and allows the users to rate the `FlashCard`
+* `SkipQuestionCommand` extends `NextQuestionCommand`, and allows the users to skip the question
+* `EndTestCommand` allows the use to end the test mode anytime, enabling normal commands such as `listall`
 
 The following sequence diagram shows the intended case for the `start` command:
 
