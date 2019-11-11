@@ -35,7 +35,7 @@ public class ClearCommand extends Command {
             Budget lastViewedBudget = model.getLastViewedBudget();
             lastViewedBudget.setExpenseListInBudget(new ExpenseList());
 
-            return new CommandResult(model.getExpenseListFromBudget(lastViewedBudget), null, null,
+            return new CommandResult(model.getExpenseListFromBudget(lastViewedBudget), null, lastViewedBudget,
                 String.format(MESSAGE_CLEAR_EXPENSES_IN_BUDGET_SUCCESS, lastViewedBudget.getName()));
         } else if (viewState.equals(ViewState.BUDGETLIST)) {
             model.setBudgetList(new BudgetList());

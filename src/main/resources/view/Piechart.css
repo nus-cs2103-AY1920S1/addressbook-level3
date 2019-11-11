@@ -1,7 +1,7 @@
 
 .chart-pie {
     -fx-border-color: derive(-fx-pie-color, -40%);
-    -fx-border-width: 3px;
+    -fx-border-width: 1px;
 }
 
 .chart-pie-label-line {
@@ -22,4 +22,8 @@
 
 .chart-legend {
     -fx-background-color: #fafad2;
+}
+
+.chart-legend-item {
+    -fx-font-size: 10px;
 }
