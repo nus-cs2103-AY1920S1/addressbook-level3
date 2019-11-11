@@ -193,6 +193,8 @@ public class MainWindow extends UiPart<Stage> {
                 this::executeInputChanged, this::getPastInput, this::focusOnInputField, this::executeScrollPanel);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
         updateCommandBoxWindowWidth(primaryStage.getWidth());
+        // initialise autocomplete suggestions for command words
+        executeAutocomplete("");
     }
 
     /**

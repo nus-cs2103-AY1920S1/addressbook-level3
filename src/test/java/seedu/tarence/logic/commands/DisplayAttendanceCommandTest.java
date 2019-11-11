@@ -1,18 +1,25 @@
 package seedu.tarence.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 import static seedu.tarence.testutil.TypicalStudents.getTypicalApplication;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 
+import seedu.tarence.commons.core.Messages;
+import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
+import seedu.tarence.model.builder.ModuleBuilder;
 import seedu.tarence.model.builder.TutorialBuilder;
 import seedu.tarence.model.module.ModCode;
+import seedu.tarence.model.module.Module;
 import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.model.tutorial.Tutorial;
 
@@ -48,28 +55,27 @@ public class DisplayAttendanceCommandTest {
                 displayAttendanceCommandIndex, model, DisplayAttendanceCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
-    // Todo: Fix test
-    //    @Test
-    //    public void execute_similarTutorialName_showSuggestedCommands() throws CommandException {
-    //        model = new ModelManager(getTypicalApplication(), new UserPrefs());
-    //        TutorialBuilder.DEFAULT_STUDENTS.clear();
-    //        Tutorial similarTutorial =
-    //                new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(SIMILAR_TUTNAME).build();
-    //        Module validModule = new ModuleBuilder().withModCode(VALID_MODCODE).build();
-    //        model.addModule(validModule);
-    //        model.addTutorial(similarTutorial);
-    //        validModule.addTutorial(similarTutorial);
-    //
-    //        DisplayAttendanceCommand displayAttendanceCommand =
-    //                new DisplayAttendanceCommand(new ModCode(VALID_MODCODE), new TutName(VALID_TUTNAME));
-    //
-    //        CommandResult commandResult = displayAttendanceCommand.execute(model);
-    //        String expectedMessage = String.format(Messages.MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial",
-    //                VALID_MODCODE + " " + VALID_TUTNAME)
-    //                + "1. " + VALID_MODCODE + ", " + SIMILAR_TUTNAME + "\n";
-    //
-    //        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
-    //    }
+    @Test
+    public void execute_similarTutorialName_showSuggestedCommands() throws CommandException {
+        model = new ModelManager(getTypicalApplication(), new UserPrefs());
+        TutorialBuilder.DEFAULT_STUDENTS.clear();
+        Tutorial similarTutorial =
+                new TutorialBuilder().withModCode(VALID_MODCODE).withTutName(SIMILAR_TUTNAME).build();
+        Module validModule = new ModuleBuilder().withModCode(VALID_MODCODE).withTutorials(new ArrayList<>()).build();
+        model.addModule(validModule);
+        model.addTutorial(similarTutorial);
+        validModule.addTutorial(similarTutorial);
+
+        DisplayAttendanceCommand displayAttendanceCommand =
+                new DisplayAttendanceCommand(new ModCode(VALID_MODCODE), new TutName(VALID_TUTNAME));
+
+        CommandResult commandResult = displayAttendanceCommand.execute(model);
+        String expectedMessage = String.format(Messages.MESSAGE_SUGGESTED_CORRECTIONS, "Tutorial",
+                VALID_MODCODE + " " + VALID_TUTNAME)
+                + "1. " + VALID_MODCODE + ", " + SIMILAR_TUTNAME + "\n";
+
+        assertEquals(expectedMessage, commandResult.getFeedbackToUser());
+    }
 
     @Test
     public void equals() {

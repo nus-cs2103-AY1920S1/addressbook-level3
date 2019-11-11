@@ -20,8 +20,8 @@ T.A.rence is a module and class management system aimed at teaching assistants (
 
 *Details*
 
-* Autocorrect generates alternative commands when the user's input does not match data within the application. When there are multiple fields that may have been entered incorrectly (e.g. tutorial names and module codes), T.A.rence attempts to generate different combinations of possible valid values. Fuzzy string matching is used to find data strings that are similar to the user's input.
-* Autocomplete suggests data values to complete the user's current partial input, based on the last detected prefix. It also provides command keyword prompts when appropriate.
+* Autocorrect generates alternative commands when the user's input does not match data within the application. When there are multiple fields that may have been entered incorrectly (e.g. tutorial names and module codes), T.A.rence attempts to generate different combinations of possible valid values. Fuzzy string matching is used to find data strings that are similar to the user's input. [https://github.com/AY1920S1-CS2103-T14-2/main/pull/60[PR #60]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/62[PR #62]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/67[PR #67]]
+* Autocomplete suggests data values to complete the user's current partial input, based on the last detected prefix. It also provides command keyword prompts when appropriate. [https://github.com/AY1920S1-CS2103-T14-2/main/pull/82[PR #82]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/107[PR #107]]
 
 *Credits*
 
@@ -51,6 +51,10 @@ T.A.rence is a module and class management system aimed at teaching assistants (
 
 * Tests to sustain codebase integrity, e.g. [https://github.com/AY1920S1-CS2103-T14-2/main/pull/105[PR #105]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/196[PR #196]]
 
+* Milestone management, e.g. [https://github.com/AY1920S1-CS2103-T14-2/main/issues/45[1]], [https://github.com/AY1920S1-CS2103-T14-2/main/issues/45[2]], [https://github.com/AY1920S1-CS2103-T14-2/main/pull/67[3]], [https://github.com/AY1920S1-CS2103-T14-2/main/issues/90[4]]
+
+* Bug reporting for other teams: [https://github.com/AY1920S1-CS2103-F09-1/main/issues/138[1]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/140[2]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/142[3]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/143[4]], [https://github.com/AY1920S1-CS2103-F09-1/main/issues/144[5]]
+
 _All code contributed:
 [link:https://github.com/AY1920S1-CS2103-T14-2/main/commits/master?author=lumos309[Commits]],
 [link:https://github.com/AY1920S1-CS2103-T14-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Alumos309+[Pull Requests]],
@@ -68,7 +72,9 @@ _All code contributed:
 
 include::../UserGuide.adoc[tag=enhancements]
 
-* Parts of the [https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/UserGuide.adoc#3-features[main features]]
+=== _Features_
+
+include::../UserGuide.adoc[tag=FeatureAddTutorial]
 
 == Contributions to the Developer Guide
 
@@ -95,5 +101,3 @@ include::../DeveloperGuide.adoc[tag=UseCaseDeleteTutorial]
 include::../DeveloperGuide.adoc[tag=UseCaseAddStudent]
 
 include::../DeveloperGuide.adoc[tag=UseCaseMarkAttendance]
-
-* Parts of [https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/DeveloperGuide.adoc#appendix-c-use-cases[Appendix C: Use Cases]]

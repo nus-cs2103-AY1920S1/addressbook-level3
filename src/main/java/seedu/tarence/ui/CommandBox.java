@@ -58,8 +58,16 @@ public class CommandBox extends UiPart<Region> {
         this.scrollPanelExecutor = scrollPanelExecutor;
 
         // actions to carry out whenever text field content changes
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> {
+        commandTextField.textProperty().addListener((unused1, oldText, newText) -> {
             setStyleToDefault();
+
+            // fix text alignment issues
+            if (newText.length() > oldText.length()) {
+                commandTextField.setAlignment(BASELINE_RIGHT);
+            } else if (newText.length() < oldText.length()) {
+                commandTextField.setAlignment(BASELINE_LEFT);
+            }
+
             try {
                 handleAutocomplete();
             } catch (ParseException | CommandException e) {
@@ -202,10 +210,6 @@ public class CommandBox extends UiPart<Region> {
             handleNextSuggestion();
         } else if (keyEvent.getCode().equals(KeyCode.PAGE_DOWN) || keyEvent.getCode().equals(KeyCode.PAGE_UP)) {
             handleScrollPanel(keyEvent.getCode());
-        } else if (keyEvent.getCode().equals(KeyCode.BACK_SPACE)) {
-            commandTextField.setAlignment(BASELINE_LEFT);
-        } else {
-            commandTextField.setAlignment(BASELINE_RIGHT);
         }
 
     }

@@ -194,7 +194,7 @@ image::AddStudentCommandActivityDiagram.png[]
 The sequence diagram below shows the interaction with the Logic components as described above.
 
 image::AddStudentCommandSequenceDiagram.png[]
-
+// end::Add Student Feature[]
 // tag::edit[]
 === Edit feature
 
@@ -232,6 +232,7 @@ image::EditCommandSequenceDiagram.png[]
 ** Cons: Will have to go through each of the student/tutorial/module lists and update them. Which involves many layers of looping (higher chance of regressions).
 // end::edit[]
 // tag::autocorrect[]
+
 === Autocorrect feature
 
 Autocorrect lets T.A.rence find similar commands to the user's input, allowing it to catch minor typing mistakes.

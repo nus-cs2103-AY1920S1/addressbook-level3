@@ -61,6 +61,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `help`
 // end::FeatureHelp[]
 // tag::FeatureAddModule[]
+
 === Adding a Module: `addModule`
 
 Adds a module to T.A.rence. +
@@ -317,6 +318,7 @@ Returns `john` and `John Doe`
 Returns any person having names `Betsy`, `Tim`, or `John`
 // end::FeatureFind[]
 // tag::FeatureDisplayScore[]
+
 === Display Tutorial Class' Test Results : `displayAssignmentScore`
 
 Allows user to display overall results for an exam or assignment. This can be in the form of a graph or table,
@@ -340,7 +342,6 @@ Command synonyms: `displayscore`, `displayassignment`, `displayassignment`
 [NOTE]
 ====
 ****
-* Not entering the f/DISPLAY_FORMAT will display the graph format by default.
 * When a new student is added/deleted/modified, the assignment will need to be refreshed.
 * i.e you will need to enter the command again to display the updated scores.
 * When displaying the graph format, a short lag may follow.
