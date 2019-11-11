@@ -420,8 +420,9 @@ image::GenerateScheduleClassDiagram.png[align="center"]
 
 ---
 Below is an example usage scenario and how the `display_schedule` command behaves at each step.
+
 ._Program flow of the Generate Schedule Feature_
-image::GenerateScheduleFlowChart.png[align="center"]
+image::GenerateScheduleFlowChart.png[align="center", width = "300"]
 
 **Step 1**. The user launches the application for the first time.
 
@@ -448,12 +449,16 @@ it is called upon or when the application starts.
 
 **Step 7**. Done.
 
+---
+
 The following sequence diagram shows how the `generate_schedule` operation works:
 
 ._Sequence Diagram for generate_schedule Command_
 image::GenerateScheduleSequenceDiagram.png[]
 
 NOTE: The lifeline for `GenerateScheduleCommand` ends at the destroy marker (X).
+
+---
 
 ==== Design Considerations
 

@@ -29,6 +29,7 @@ import seedu.address.model.event.Event;
  * A ui for the Schedule Tab that is displayed on the secondary Tab of the application.
  */
 public class ScheduleBox extends Tabs<AnchorPane> {
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final String FXML = "Schedule.fxml";
     private String[] monthName = {"January", "February", "March", "April",
                                   "May", "June", "July", "August", "September",
@@ -160,7 +161,7 @@ public class ScheduleBox extends Tabs<AnchorPane> {
 
     public void setLabelText(String text) {
         if (text.length() > 7) {
-            LocalDate currentDate = LocalDate.parse(text);
+            LocalDate currentDate = LocalDate.parse(text, FORMATTER);
             currentMonthYear.setText(monthName[currentDate.getMonth().getValue() - 1] + "," + currentDate.getYear());
             datePicker.setValue(currentDate);
         } else if (text.length() > 1) {

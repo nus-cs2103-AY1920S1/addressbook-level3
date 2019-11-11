@@ -401,6 +401,7 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.getType().equals("Schedule_Update")) {
                 selectionModel.select(1);
+                System.out.println(commandResult.getUiChange());
                 scheduleBox.setLabelText(commandResult.getUiChange());
             }
 

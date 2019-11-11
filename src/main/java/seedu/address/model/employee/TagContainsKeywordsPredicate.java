@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.model.employee;
 
 import java.util.List;
