@@ -391,6 +391,7 @@ image::ModuleClashDetected.png[width="790", align="center"]
 
 // end::clash[]
 
+//tag::addmod[]
 === Add or remove modules `addmod` & `removemod`
 
 ==== Add a module to a student
@@ -464,6 +465,7 @@ Sample output:
 
 image::RemoveModCommandDemoAfter2.png[width="790", align="center"]
 
+//end::addmod[]
 //tag::setcredits[]
 === Update maximum workload for a student: `setcredits`
 Sets an existing student’s maximum modular credit for this semester to a new value.
