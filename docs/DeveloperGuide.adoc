@@ -504,7 +504,7 @@ These operations are exposed in the `Activity` class as `Activity#invite()` and 
 
 Given below is an example usage scenario and how the invite/disinvite mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `SplitWiser` will be initialized with the initial address book and activity book state.
+Step 1. The user launches the application for the first time. `SplitWiser` will be initialized with the initial address book and activity book state.
 
 Step 2. The user executes `activity t/breakfast p/David` command to create an activity named breakfast with `David` as the sole participant which is stored in the `activityList`.
 
@@ -516,7 +516,7 @@ image::InviteSequenceDiagram.png[]
 
 NOTE: The lifeline for `InviteCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Step 4. The user decides that inviting the person was a mistake or the particular person has not been involved in any of the expenses in the activity. Hence the user decides to remove that person by executing the `disinvite` command.
+Step 4. The user decides that inviting some contacts was a mistake or they has not been involved in any of the expenses in the activity. Hence the user decides to remove them from the activity by executing the `disinvite` command.
 
 Step 5. The user executes `disinvite p/Louis p/David ...` to remove participant(s) from the current activity. The `disinvite` command calls `Activity#disinvite()` which then modifies the `activityList` and is stored in the `ActivityBook`.
 
@@ -533,7 +533,7 @@ NOTE: The activity diagram for the disinvite command is omitted as it is similar
 ===== Aspect: How invite & disinvite executes
 
 * **Alternative 1 (current choice):** Contextual based invite/disinvite based on current viewed activity.
-** Pros: More user-friendly. Users do not have to keep specifying which activity to invite the participants to each time an invite command is made.
+** Pros: More user-friendly. User does not have to keep specifying which activity to invite the participants to each time an invite command is made.
 ** Cons: Harder to implement. Have to consider which activity to invite the participants to based on the current viewed activity.
 
 * **Alternative 2:** Invite/disinvite based on user specifying the activity number.
@@ -542,9 +542,9 @@ NOTE: The activity diagram for the disinvite command is omitted as it is similar
 
 ===== Aspect: Data structure to support the invite/disinvite commands
 
-* **Alternative 1 (current choice):** Use a list to store the participants' ID in the activity instead of participants.
+* **Alternative 1 (current choice):** Use a list to store the participant's ID in the activity instead of participant's name.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Have to find particular participant that matches the ID specified.
+** Cons: Have to map participant's ID to participant's name. Hard to search for participant's specific ID when given name.
 
 * **Alternative 2:** Use list to store participants instead of ID
 ** *Pros*: Easy to implement. Reuse what is already in the codebase and we do not need to create additional Unique ID key for each participant to identify them.
@@ -564,7 +564,7 @@ Step 1. The user launches the application for the first time.  `SplitWiser` will
 
 Step 2. The user executes `list c/` command to display list contacts screen.
 
-Step 3. The user executes `delete 1` to delete the contact at the first index if he/she is not involved in any activities.
+Step 3. The user executes `delete 1` to delete the contact at the first index, he/she will be deleted if he/she is not involved in any activity.
 
 Step 4. The user executes `list a/` to display list activities screen.
 
@@ -585,8 +585,8 @@ NOTE: The activity diagram for deletion of expense and contact are omitted as th
 ===== Aspect: How delete executes
 
 * **Alternative 1 (current choice):** Contextual based delete of contact/activity/expense based on current displayed screen.
-** *Pros*: More user-friendly. Users do not have to keep specifying what to delete.
-** *Cons*: Harder to implement.
+** Pros: More user-friendly. User does not have to keep specifying what field to delete.
+** Cons: Harder to implement.
 
 * **Alternative 2:** Delete based on user specifying which field to delete.
 ** *Pros*: Easy to implement.
