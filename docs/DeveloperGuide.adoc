@@ -1778,8 +1778,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `exchangerate` +
    Expected: All exchange rates stored by the application are displayed.
 
-_{ more test cases ... }_
-
 === Importing Spending Data
 
 . Importing valid spending while all spending are listed
