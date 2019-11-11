@@ -102,7 +102,6 @@ image::questionindex.png[width="800" align="center"]
 +
 
 
-//tag::overview[]
 [[Overview]]
 == Overview
 
@@ -141,6 +140,8 @@ image::questionspage.png[width="800" align="center"]
 * To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
   on the right.
 ====
+
+//tag::overview[]
 
 === Workspace Tab
 The workspace is where you will work on the various questions.
