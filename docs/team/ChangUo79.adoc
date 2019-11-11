@@ -65,8 +65,8 @@ of looking at the attendance and performance of all the athletes.
 
 ** This feature works with other features such as `find` or `filter` which reduces the need to
  go through the list when looking for a specific athlete. For this feature, there were many design alternatives to
- consider as there are many ways it could be implemented to display all the information. The current choice of design
- was used because it was in line with the other features my group mates had implemented.
+ consider as there are many ways it could be implemented. The current choice of design was used because it was
+in line with the other features my group mates had implemented.
 
 ** I felt that the implementation was quite challenging because it requires a certain knowledge on how to use tools
 such as JavaFX and SceneBuilder which were used to design the graphical user interface (GUI). With no prior experience, the learning
