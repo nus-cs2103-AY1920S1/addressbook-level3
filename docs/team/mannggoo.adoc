@@ -35,28 +35,6 @@ Here is a brief introduction of ELISA. This is one of the views of ELISA:
 
 .Annotated user interface
 image::mannggoo/ELISA_EVENT_UI.PNG[]
-As the rest of the report will refer to these components, their functions will be briefly explained.
-
-[cols="2, 10"]
-.ELISA Components
-|===
-|Component |Function
-
-|ELISA icon
-| Indicates which mode ELISA is currently in. The blue seen above is her standard mode.
-
-|Result display
-|The "chat history" with ELISA which contains all past user input and ELISA's response.
-
-|Command box
-|The user can type their commands here to interact with ELISA.
-
-|Tab Pane
-|Shows the current tab. The default tab is (T)ask where ELISA shows the Task List.
-
-|View panel
-|Shows the current view of the tab. It can show the task, event, reminder or calendar panel.
-|===
 
 Upon startup, ELISA would show the default (T)ask tab. However, as I was more involved in the Events, I have chosen to show the (E)vent tab instead.
 
@@ -108,23 +86,6 @@ Users can also open and close and item using the commands “open” and “clos
 _Challenges faced:_ +
 However, as the details are shown in a popup, there were issues such as the popup covering over other windows, even when the app is minimised. As such, I had to add a listener to the window in order the popup when required, as well as prevent multiple popups. +
 
-|===
-|*Enhancement added:* More versatile parsing of input.
-|===
-
-_What it does:_ +
-More forms of parsing the date time given by the user +
-
-_Justification:_ +
-It is inconvenient for the user to manually calculate what time they want their reminder. For example, for a reminder 2 hours later, users would have to check the current time, then add the hours. But this can now be achieved with “2.hour.later”. +
-
-_Highlights:_ +
-Minutes, hours and days can all be accepted. For example, “10.min.later” and “2.day.later” works. This format can be used for deadline, reminder and auto rescheduling. Also, the standard “29/10/2019 2359” and “2019-10-20T23:59” are also accepted. +
-
-_Challenges faced:_ +
-Different parsers have different requirements, such as "10.min.later" parser having a maximum of 100 and time of "2400" being disallowed. As such, rendering the specific error message was tricky. +
-
-
 === Other Contributions
 * *Project Management* +
 https://github.com/AY1920S1-CS2103T-T10-3/main/pull/51[PR #51] -- Gave suggestions to use LocalDateTime and improve readability of code, which was eventually adopted. +
@@ -136,7 +97,7 @@ https://github.com/AY1920S1-CS2103T-T10-3/main/pull/252[PR #252] -- Fixed issues
 https://github.com/AY1920S1-CS2103T-T10-3/main/pull/82[PR #82] -- Refactored the Logic component and parsers to accept commands and parameters needed for ELISA. Changed flag from "d/" to "-d" to be more intuitive for CLI users.
 
 * *Enhancements to existing features* +
-https://github.com/AY1920S1-CS2103T-T10-3/main/pull/129[PR #129] -- Accept `--tk`, `--e` and `--r` flags for convenient deletion of a sub-item using `edit`.
+https://github.com/AY1920S1-CS2103T-T10-3/main/pull/129[PR #129] -- Accept `--tk`, `--e` and `--r` flags for convenient deletion of a sub-item using `edit`. Accept `10.min.later` parser format.
 
 * *Documentation* +
 https://github.com/AY1920S1-CS2103T-T10-3/main/pull/40/files[PR #40] -- Updated About-Us and Contact-Us. +
