@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+
+box Mark Question as Starred LOGIC_COLOR_T2
+participant ":StartQuizWindow" as StartQuizWindow LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR_T1
+participant ":ParserManager" as ParserManager LOGIC_COLOR_T1
+participant ":EditCommand" as EditCommand LOGIC_COLOR_T1
+participant ":CommandResult" as CommandResult LOGIC_COLOR_T1
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> StartQuizWindow: updateStarredAnswerable(currentAnswerable)
+activate StartQuizWindow
+
+StartQuizWindow -> StartQuizWindow : produceCommandSyntax(currentAnswerable)
+activate StartQuizWindow
+deactivate StartQuizWindow
+
+activate LogicManager
+StartQuizWindow -> LogicManager : execute(editStarredQuestionSyntax)
+
+activate ParserManager
+LogicManager -> ParserManager : parseCommand(editStarredQuestionSyntax)
+
+ref over LogicManager, ParserManager : parseCommand
+ParserManager --> LogicManager : editCommand
+
+LogicManager -> EditCommand : execute(model)
+activate EditCommand
+
+activate CommandResult
+ref over EditCommand, CommandResult : CommandBuilder builds CommandResult
+CommandResult --> EditCommand : commandResult
+deactivate CommandResult
+
+EditCommand --> ParserManager : commandResult
+deactivate EditCommand
+
+ParserManager --> LogicManager : commandResult
+deactivate ParserManager
+
+LogicManager --> StartQuizWindow : commandResult
+deactivate LogicManager
+
+[<--StartQuizWindow: commandResult
+deactivate StartQuizWindow
+@enduml

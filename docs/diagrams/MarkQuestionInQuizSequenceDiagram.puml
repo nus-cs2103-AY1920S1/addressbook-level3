@@ -1,0 +1,76 @@
+@startuml
+!include style.puml
+
+
+box Mark Question In Quiz LOGIC_COLOR_T2
+participant ":LogicManager" as LogicManager LOGIC_COLOR_T1
+participant ":QuizCommandParser" as QuizCommandParser LOGIC_COLOR_T1
+participant ":StarQuestionCommandParser" as StarQuestionCommandParser LOGIC_COLOR_T1
+participant "starredQuestion:StarQuestionCommand" as StarQuestionCommand LOGIC_COLOR_T1
+participant ":CommandResultBuilder" as CommandResultBuilder LOGIC_COLOR_T1
+participant ":CommandResult" as CommandResult LOGIC_COLOR_T1
+end box
+
+
+box Model MODEL_COLOR_T1
+
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("star", answerable)
+activate LogicManager
+
+LogicManager -> QuizCommandParser : parseCommand("star", answerable)
+activate QuizCommandParser
+
+create StarQuestionCommandParser
+QuizCommandParser -> StarQuestionCommandParser
+activate StarQuestionCommandParser
+
+StarQuestionCommandParser --> QuizCommandParser
+deactivate StarQuestionCommandParser
+
+QuizCommandParser -> StarQuestionCommandParser : parse("star", answerable)
+activate StarQuestionCommandParser
+
+create StarQuestionCommand
+StarQuestionCommandParser -> StarQuestionCommand : StarQuestionCommand("star", answerable)
+activate StarQuestionCommand
+
+StarQuestionCommand --> StarQuestionCommandParser : starredQuestion
+deactivate StarQuestionCommand
+
+StarQuestionCommandParser --> QuizCommandParser : starredQuestion
+deactivate StarQuestionCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+StarQuestionInputCommandParser -[hidden]-> QuizCommandParser
+destroy McqInputCommandParser
+
+QuizCommandParser --> LogicManager : starredQuestion
+deactivate QuizCommandParser
+
+LogicManager -> StarQuestionCommand : execute(model)
+activate StarQuestionCommand
+
+create CommandResultBuilder
+StarQuestionCommand-> CommandResultBuilder : CommandResultBuilder()
+activate CommandResultBuilder
+deactivate CommandResultBuilder
+
+CommandResultBuilder -> CommandResultBuilder : withStarQuestion(true)
+
+CommandResultBuilder -> CommandResultBuilder : build()
+
+activate CommandResult
+CommandResultBuilder -> CommandResult : CommandResult(builder)
+
+deactivate CommandResultBuilder
+
+StarQuestionCommand --> LogicManager : commandResult
+deactivate StarQuestionCommand
+
+ref over LogicManager, Model : mark question as starred
+
+[<--LogicManager: commandResult
+deactivate LogicManager
+@enduml

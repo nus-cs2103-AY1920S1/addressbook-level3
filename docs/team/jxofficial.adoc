@@ -1,0 +1,106 @@
+= Wilfred Bradley Tan - Project Portfolio for CS2103/T Revision Tool (RT)
+:site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:contributedCodeUrl: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jxofficial
+:ab3Url: https://github.com/nus-cs2103-AY1920S1/addressbook-level3
+:pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
+
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
+
+== Introduction
+This portfolio contains a summary of the key contributions I made to the CS2103/T Revision Tool.
+
+=== The Team
+The team members are:
+
+* Sim Khiang Leon, a Year 4 Industrial & Systems Engineering student
+* Wilfred Bradley Tan, a Year 2 Computer Science / Business Student
+* Shaun Ng, a Year 4 Engineering Science Student
+* Neo Si Hao, a Year 4 Engineering Science Student
+* and myself, Keng Jun Xian, a Year 3 Communications and New Media student.
+
+=== About the Project
+The CS2103/T Revision Tool (RT) was conceptualized as a desktop quiz application for CS2103/T students.
+It is a brownfield project that stemmed from the existing Address Book 3 (AB3) application, which can be found at:
+link:{ab3Url}/[Address Book - Level 3]. Some key features of the app include: Adding questions to the test bank,
+being able to start quizzes based on the questions, and being able to set a timer for quizzes.
+
+.UI of the Configuration Mode
+image:Ui.png[width="790"]
+
+.UI of the Quiz Mode
+image:Ui2.png[width="790"]
+
+== Summary of contributions
+
+As the person in charge of the Model component, I worked closely with team lead Wilfred to handle the end to end implementation of
+True/False and Multiple Choice questions based off Wilfred's proposed application structure. I also developed a Timer
+feature which is used throughout all quiz sessions. Building upon the timer, I further contributed to the different quiz modes, namely the Custom Mode Command.
+
+* *Major enhancement*: added *Custom Mode Command*
+
+** *What it does*:  The user is able to filter quiz questions by category and/or difficulty. The user is also able to set a custom timer.
+** *Justification*: Without this feature, the user would only be able to start quizzes based on all questions in the test bank, with a fixed time limit. The ability to customize the quiz settings is highly important and covers many use cases for the target user. For example, the student who wishes to practice under test conditions can set the appropriate time per question, and the advanced student who has mastered all the level 1 and level 2 questions can choose to attempt only level 3 questions.
+** *Highlights*: This feature was built upon two other system-wide features, Timer and List Command. This required a deep understanding of the Model, in particular, how to access the Model through various predicates built upon the fields of the Answerable class.
+
+* *Minor enhancements*:
+** Implemented the List command that is used internally (in Custom Mode) and on the client-side to filter the list of test questions by category and/or difficulty.
+** Created the foundation Mcq, TrueFalse and Saq classes.
+** Implemented a timer that is used across all quiz modes. The timer is also able to skip to the next question when the countdown reaches zero.
+** Implemented the UI code for displaying MCQ options in the quiz window.
+
+* *Code contributed*: You can view the code I contributed to this project link:{contributedCodeUtl}/[here, window=blank]
+
+* *Other contributions*:
+
+** Project management:
+*** Released jar for v1.3 on GitHub.
+
+** Enhancements to existing features:
+*** Wrote Model and QuizWindowParser related tests such as TrueFalseTest and McqInputCommandTest.
+*** Refactored EditCommand class to handle editing of different question types.
+
+** Documentation:
+*** Set up About Us page.
+
+
+
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=wilfred-start]
+
+include::../UserGuide.adoc[tag=wilfred-add]
+
+include::../UserGuide.adoc[tag=wilfred-edit]
+
+include::../UserGuide.adoc[tag=wilfred-quiz]
+
+include::../UserGuide.adoc[tag=wilfred-summary]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=wilfred-logic]
+
+include::../DeveloperGuide.adoc[tag=wilfred-answerable]
+
+include::../DeveloperGuide.adoc[tag=wilfred-quiz]

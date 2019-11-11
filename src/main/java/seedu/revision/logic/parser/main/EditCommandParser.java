@@ -25,6 +25,7 @@ import seedu.revision.model.category.Category;
 
 /**
  * Parses input arguments and creates a new EditCommand object
+ * @author jxofficial
  */
 public class EditCommandParser implements Parser<EditCommand> {
 

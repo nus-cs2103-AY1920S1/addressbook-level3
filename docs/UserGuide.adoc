@@ -39,7 +39,7 @@ image::Ui.png[width="790"]
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 .  Some example commands you can try in configuration mode:
 
-* *`list`* : lists all categories and difficulties for the user to choose.
+* *`list`* : lists questions of all categories and difficulties for the user to view.
 * **`add `**`type/mcq q/According to the textbook, which kind of project is more difficult? x/Greenfield x/Brownfield y/None
 of the above x/Padifield diff/1 cat/Introduction` : adds an mcq question with x/ (as in a cross for "wrong") marking the wrong answers and
 y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduction.
@@ -48,7 +48,7 @@ y/ (as in "yes") marking the correct answers. Difficulty: 1, Category: Introduct
 
 .  Refer to <<ConfigurationMode>> for details of each command.
 
-. To enter Quiz Mode, type `start mode/normal` other modes such as arcade and custom are also available and are elaborated
+. To enter Quiz Mode, type `start mode/normal` other modes such as arcade and custom are also available and are elaborated on
 in <<Quiz Mode>> .
 +
 image::Ui2.png[width="790"]
@@ -80,13 +80,13 @@ User can start by choosing the mode of the quiz. (normal / arcade / custom). See
 Format: `start mode/MODE`
 
 [TIP]
-To start all questions in the test bank, use command +
+To start a test all questions in the test bank, use command +
 start mode/normal
 
 Examples:
 
 * `start mode/normal`
-* `start mode/custom cat/uml /diff/1 timer/20`
+* `start mode/custom cat/uml diff/1 timer/20`
 //end::wilfred-start[]
 
 === Check your progress: `status` [Coming in v1.4]
@@ -147,7 +147,7 @@ Examples:
 * `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
 x/Greenfield x/Brownfield y/None of the others x/Padifield`
 * `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true`
-* `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
+* `add type/saq q/What does UML stand for? cat/cs2103 diff/1 y/unified modeling language`
 //end::wilfred-add[]
 
 //tag::wilfred-edit[]
@@ -164,6 +164,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 * Existing values will be updated to the input values.
 * When editing category and/or difficulty, the existing category and/or difficulty of the question will be removed
 i.e adding of category and/or difficulty is not cumulative.
+* Question type cannot be edited.
 ****
 
 Examples:
@@ -192,10 +193,11 @@ Deletes the 2nd question in the test bank list.
 `delete 1 3 5` +
 Deletes the 1st, 3rd and 5th question in the test bank list.
 
+//tag::junxian-list[]
 === Listing all questions : `list`
 
-Shows a list of all questions in the test back. If appended with a category and/or difficulty, `*Insert name*` will show all questions
-of the chosen category and/or difficulty
+Shows a list of all questions in the test back. If appended with a category and/or difficulty, `list` will show all questions
+matching the chosen category and/or difficulty.
 
 Format: `list [cat/CATEGORY] [diff/DIFFICULTY]`
 
@@ -205,8 +207,11 @@ If no category or difficulty is stated (i.e. `list`), program will list the enti
 Examples:
 
 * `list cat/requirements`
-* `list cat/requiments diff/2`
+* `list cat/requirements diff/2`
 
+//end::junxian-list[]
+
+//tag::junxian-find[]
 === Locating questions: `find`
 
 Finds questions whose descriptions contain any of the given keywords. +
@@ -215,7 +220,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 ****
 * The search is case insensitive. e.g `brownfield` will match `Brownfield`
 * The order of the keywords does not matter. e.g. `green field` will match `field green`
-* Only the name is searched.
+* Only the question name is searched.
 * Only full words will be matched e.g. `Requirement` will not match `Requirements`
 * Descriptions matching at least one keyword will be returned (i.e. `OR` search). e.g. `User story` will return `User Survery`, `User Input`
 ****
@@ -226,6 +231,7 @@ Examples:
 Returns `How do you gather user requirements?` and `What is the recommended user story format?`
 * `find User, Brownfield, Greenfield` +
 Returns any question containing descriptions `User`, `Brownfield`, or `Greenfield`
+//end::junxian-find[]
 
 === Clearing all entries : `clear`
 
@@ -261,6 +267,10 @@ keywords from the correct answer list.
 
 //tag::wilfred-quiz[]
 == Quiz Mode
+//tag::junxian-timer[]
+For all quiz modes, the current question will be skipped when the timer reaches zero. The question will be marked as wrong,
+and the next question will be shown with the updated timer.
+//end::junxian-timer[]
 
 === Normal Mode
 Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
@@ -271,9 +281,13 @@ Levels are separated by difficulty. If user enters a wrong answer before finishi
 The user is given 20 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
 level 3 giving the user 10 seconds to answer each question.
 
+//tag::junxian-custom-mode[]
 === Custom Mode
-Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Levels are also sorted according to
-difficulty.
+Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Decimal values will be truncated, i.e.
+`start mode/custom timer/5.34` will start the quiz with a time limit of 5 seconds for each question.
+Levels are also sorted according to
+difficulty. The prefixes are optional, and if no prefixes are provided, custom mode will begin a quiz with normal mode settings.
+//end::junxian-custom-mode[]
 
 === Answering Questions
 * MCQ
