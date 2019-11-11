@@ -1,0 +1,19 @@
+@startuml
+start
+!include style.puml
+
+:User executes AddReminderCommand;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([valid Reminder format])
+    :Create new Reminder object;
+    :Add Reminder into the reminderList;
+    :Show the added reminder;
+    else([else])
+    :Show error and correct format;
+endif
+stop
+@enduml
+
