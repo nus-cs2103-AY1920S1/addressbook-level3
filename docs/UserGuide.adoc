@@ -141,7 +141,7 @@ _Some typical commands  to get familiar with are:_
 * **`start <EASY/MEDIUM/HARD>`**: Starts a _Game_ session with the specified _Difficulty_. Default difficulty in
 _Settings_
 will be used if not
-specified. (after selecting WordBank)
+specified. (after selecting _WordBank_)
 * **`guess <YOUR_ANSWER>`**: Make a _Guess_ for the current _Word_ whose _Meaning_ is shown on the UI. (in Game Mode)
 * **`stop`**: Stops the current _Game_ session. (in Game Mode)
 * *`exit`*: Exit _Dukemon_. (in any mode except Game)
@@ -166,7 +166,7 @@ image::OpenMode.png[width="350"]
 image::GameMode.png[width="350"]
 
 
-* Guess  _Words_ based on each _Meaning_ that appear as quickly as possible.
+* Guess _Words_ based on each _Meaning_ that appear as quickly as possible.
 * Finish the _Game_ and  view the _Statistics_ for your game session.
 
 image::SettingsMode.png[width="350"]
@@ -199,7 +199,7 @@ E.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acc
 ====
 
 === Switch Commands
-(Available in all modes as long as WordBank is selected and game is not running)
+(Available in all modes as long as _WordBank_ is selected and game is not running)
 
 ==== Switch to home page: `home`
 Welcome home.
@@ -229,15 +229,15 @@ Examples:
 * `start`
 * `start easy`
 
-NOTE: Entering the start command after wordbank is selected will enter game mode. In event that there are fewer than 3 flash cards, the game would not run. You would have to go to `open` mode to add flash cards.
+NOTE: Entering the start command after _WordBank_ is selected will enter game mode. In event that there are fewer than 3 _cards_, the game would not run. You would have to go to `open` mode to add _cards_.
 
 ==== Customise game play: `settings`
 Enters settings page, so that the user can customise the game play.
 
-=== Card Commands image:card_commands_icon.png[width="29.5"]
+=== _Card_ Commands image:card_commands_icon.png[width="29.5"]
 (Available in Open mode)
 
-==== Add a card: `add`
+==== Add a _card_: `add`
 Adds a new word-meaning pair to the _WordBank_.
 
 Format: `add w/WORD m/MEANING`
@@ -248,29 +248,29 @@ Examples:
 * `add w/Newton's third law of motion m/Every action will produce and equal and opposite reaction`
 * `add w/Kopi Luwak m/Coffee produced from the coffee beans found in the faeces of a civet cat`
 
-NOTE: There can be duplicate words, but duplicate meanings will be rejected.
+NOTE: There can be duplicate _Words_, but duplicate _Meanings_ will be rejected.
 
-==== Delete a card: `delete`
+==== Delete a _card_: `delete`
 Deletes the specified index from the _WordBank_. +
 
 Format: `delete INDEX`
 
 ****
-* Deletes the word at the specified `INDEX`.
+* Deletes the _card_ at the specified `INDEX`.
 * The index *must be a positive integer* 1, 2, 3, ...,
 and must be a valid index within the list.
-* The index refers to the index number shown in the displayed card list.
+* The index refers to the index number shown in the displayed _card_ list.
 ****
 
 Examples:
 
 * `delete 2` +
-Deletes the 2nd word.
+Deletes the 2nd _card_.
 * `delete 1` +
-Deletes the 1st word in the results of the `find` command.
+Deletes the 1st _card_ in the results of the `find` command.
 
-==== Edit a card: `edit`
-Edits a card.
+==== Edit a _card_: `edit`
+Edits a _card_.
 
 Format: `edit INDEX [w/WORD] [m/MEANING] [t/TAG]`
 
@@ -279,33 +279,33 @@ Examples:
 * `edit 1 w/new word m/new meaning`
 * `edit 2 m/new meaning with tag t/tagged`
 
-==== Find a card: `find`
+==== Find a _card_: `find`
 
-Finds entry whose word or meaning or tag  contain any of the given keywords. +
+Finds entry whose _Word_ or _Meaning_ or _Tag_ contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]...`
 
 ****
 * The search is case insensitive. e.g `capital` will match `cApiTAl`
 * The order of the keywords does not matter. e.g. `key words` will match `words key`
-* Word, meaning and tag will be searched
+* _Word_, _Meaning_ or _Tag_ will be searched
 * Words contained within will be matched e.g. `formal` will match `Informal`
-* Cards matching at least one keyword will be returned (i.e. `OR` search). e.g. `Peter man` will return `Peter Parker`, `Spiderman`
+* _Cards_ matching at least one keyword will be returned (i.e. `OR` search). e.g. `Peter man` will return `Peter Parker`, `Spiderman`
 ****
 
 Examples:
 
 * `find long` +
-Returns any entries containing `long` in its word or meaning or tag.
+Returns any entries containing `long` in its _Word_, _Meaning_ or _Tag_.
 * `find mammal fish bird` +
-Returns any entries containing `mammal`, `fish` or `bird` in its word or meaning or tag.
+Returns any entries containing `mammal`, `fish` or `bird` in its _Word_, _Meaning_ or _Tag_.
 
-==== View all cards: `list`
+==== View all _cards_: `list`
 Views the content of a _WordBank_.
 
 Format: `list`
 
-==== Clear all cards: `clear`
-Clears the _WordBank_ by removing all cards.
+==== Clear all _cards_: `clear`
+Clears the _WordBank_ by removing all _cards_.
 
 Format: `clear`
 
@@ -345,8 +345,8 @@ Import the _WordBank_ from a specified folder path on your system. +
 Format: `import w/WORD_BANK f/FOLDER` +
 
 ****
-* FOLDER is the folder where the _WordBank_ file reside.
-* WORDBANK is the name of the file without the extension.
+* `FOLDER` is the folder where the _WordBank_ file reside.
+* `WORD_BANK` is the name of the file without the extension.
 * Dukemon can only read json _WordBank_ files.
 ****
 
@@ -366,8 +366,8 @@ Export the _WordBank_ to a specified file path on your system. +
 Format: `export w/WORD_BANK f/FOLDER` +
 
 ****
-* FOLDER is the folder where the _WordBank_ file reside.
-* WORDBANK is the name of the file without the extension.
+* `FOLDER` is the folder where the _WordBank_ file reside.
+* `WORD_BANK` is the name of the file without the extension.
 * Dukemon exports _WordBanks_ into json files.
 ****
 
@@ -383,7 +383,7 @@ You can also drag and drop a _WordBank_ out the app into your computer.
 
 // tag::jasonstatscommand[]
 
-=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
+=== _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
 ==== Resetting the _WordBank_ statistics: `reset`
@@ -404,7 +404,7 @@ image::UserGuideGameSessionDiagram1.png[width="790"]
 
 This section covers the actions and feedback that are relevant to the _Game_ mode.  The general layout of the UI when a _Game_ is in progress is as seen above.
 
-1. The timer will be activated to reflect the time left before the _Game_ skips over to the next card. (region in yellow box)
+1. The timer will be activated to reflect the time left before the _Game_ skips over to the next _card_. (region in yellow box)
 
 2. The _Meaning_ of the current _Card_ is shown in the region contained by the red box. Based on this _Meaning_ you will  make a _Guess_ for the _Word_ it is describing.
 
@@ -594,10 +594,10 @@ image::annotated_game_results_ui.png[]
 === WordBank Statistics
 The _WordBank_ statistics is shown in the _Open_ mode and contains all information regarding the selected _WordBank_.
 
-.Wordbank Statistics UI.
+._Wordbank_ Statistics UI.
 image::annotated_wb_statistics_ui.png[]
 
-NOTE: The high score and fastest clear timing of a _WordBank_ will not be reset upon adding/deleting cards.
+NOTE: The high score and fastest clear timing of a _WordBank_ will not be reset upon adding/deleting _cards_.
 
 === Global Statistics
 The global statistics is shown on the main title page and contains all information regarding the user's overall usage
@@ -610,11 +610,11 @@ image::annotated_global_statistics_ui.png[]
 
 // tag::chenhui-userDragAndDrop[]
 
-== Word bank management
+== _WordBank_ management
 
 === Drag and drop
 
-Streamline the process of sharing of word banks with friends.
+Streamline the process of sharing of _WordBanks_ with friends.
 
 //.Word bank file
 //image:DragAndDrop1.png[130, 130, align="left"]
@@ -636,7 +636,7 @@ image:DragAndDrop3.png[width="130", align="left"]
 //image:DragAndDrop3.png[130, 130]
 
 From `HOME` mode, you can view your _WordBanks_. +
-Simply drag and drop a _WordBank_ .json file from your computer into the _Dukemon_ GUI. +
+Simply drag and drop a _WordBank_ json file from your computer into the _Dukemon_ GUI. +
 
 image:DragAndDropOut1.png[width="130", align="left"]
 {nbsp} {nbsp} -> {nbsp} {nbsp}
@@ -649,7 +649,7 @@ your desktop, or chat applications. +
 
 Try it!
 
-NOTE: _Dukemon_ only accepts .json files when importing _WordBanks_. Attempting to
+NOTE: _Dukemon_ only accepts json files when importing _WordBanks_. Attempting to
  import or export other types files will not be successful.
 
 // end::chenhui-userDragAndDrop[]
@@ -659,17 +659,17 @@ NOTE: _Dukemon_ only accepts .json files when importing _WordBanks_. Attempting 
 === Revision bank
 
 A revision bank is automatically updated for you, every time a game session ends. +
-It collates all your wrong cards, whichever _WordBank_ it may have came from. +
-It is also smart enough to remove the cards if you have cleared it afterwards.
+It collates all your wrong _cards_, whichever _WordBank_ it may have came from. +
+It is also smart enough to remove the _cards_ if you have cleared it afterwards.
 
 //.Revision bank alongside with other word banks.
 //image:revisionbank.png[130, 130]
 //{nbsp} {nbsp} select revision -> {nbsp} {nbsp}
-.Quick look at revision word bank's page.
+.Quick look at revision bank's page.
 image:revisionpage.png[450, 450]
 
-Revision bank is best appreciated when you actually play around with some word banks, and then visit the revision bank
-to revise wrong cards. Give it a try!
+Revision bank is best appreciated when you actually play around with some _WordBanks_, and then visit the revision bank
+to revise wrong _cards_. Give it a try!
 // end::chenhui-userRevisionBank[]
 
 // tag::chenhui-commandsummary[]
@@ -680,7 +680,7 @@ to revise wrong cards. Give it a try!
 | Command Type | Command Keyword | Parameter(s) (if any)
 
 1.4+h| Switch Commands +
-(Available in all modes as long as WordBank is selected and game is not running)
+(Available in all modes as long as _WordBank_ is selected and game is not running)
 s| `home` m|
 
 s| `open` m|
@@ -692,7 +692,7 @@ s| `settings` m|
 3.1+|
 3.1+|
 
-1.6+h| Card Commands +
+1.6+h| _Card_ Commands +
 (Available in Open mode)
 
 s| `add` m| w/WORD m/MEANING [t/TAG]
@@ -710,7 +710,7 @@ s| `clear` m|
 3.1+|
 3.1+|
 
-1.5+h| WordBank Commands +
+1.5+h| _WordBank_ Commands +
 (Available in Home mode)
 
 s| `select` m| WORD_BANK
@@ -726,7 +726,7 @@ s| `export` m| w/WORD_BANK f/FOLDER
 3.1+|
 3.1+|
 
-1.1+h| WordBank Statistics Commands +
+1.1+h| _WordBank_ Statistics Commands +
 (Available in Open mode)
 s| `reset` m|
 
@@ -820,7 +820,7 @@ if you want to switch to certain modes.
 share your files manually. You can make use of the drag and drop feature to accelerate the process.
 
 *Q*: How can I save my data? +
-*A*: _Dukemon's_ data is saved to the hard disk automatically (eg. adding cards/words, statistics etc)
+*A*: _Dukemon's_ data is saved to the hard disk automatically (eg. adding _cards_/words, statistics etc)
 There is no need to manually save data or Game `Statistics`.
 
 *Q*: I edited some files and _Dukemon_ doesn't work properly now. How do I resolve this? +

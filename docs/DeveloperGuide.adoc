@@ -660,7 +660,7 @@ elements can potentially affect all other components, it was safer to modify mor
 
 // tag::chenhui-feature[]
 
-=== [underline]#WordBank-related Feature#
+=== [underline]#`WordBank` Management Feature#
 This section discusses the implementation of _WordBank_ Management in various levels of detail. +
 This can be split into four complimentary distinct sections.
 
@@ -677,7 +677,7 @@ They are: +
 
 // tag::chenhui-section1[]
 
-==== Word bank's data structure and its storage system
+==== `Word bank's data structure and its storage system
 Allows developers to use and extend this architecture to streamline their feature implementation. +
 Allows user to save and load their word banks. +
 
@@ -710,7 +710,7 @@ They describe and explain word bank's data structure and its storage system in d
 //{nbsp} +
 //
 //---
-We start from the lowest level - `Card`. +
+===== We start from the lowest level - `Card`. +
 
 .Class diagram of `Card`.
 image::CardDiagram.png[]
@@ -727,7 +727,7 @@ A `Card` contains a unique `id`, a `word`, a unique `meaning`, a set of `tags`. 
 
 ---
 
-Next, the second level - `WordBank`
+===== Next, the second level - `WordBank`
 
 .Class diagram of `WordBank`.
 image::WordBankDiagram.png[]
@@ -746,7 +746,7 @@ Word banks with the same name are duplicates, and is disallowed.
 
 ---
 
-Now the third level - `WordBankList`
+===== Now the third level - `WordBankList`
 
 .Class diagram of `WordBankList`.
 image::WordBankListDiagram.png[]
@@ -764,7 +764,7 @@ In Dukemon, there is should only be one `WordBankList`, which is created upon `S
 `Model` holds a reference to that specific `WordBankList`.
 
 ---
-Architecture overview - `WordBankList`
+===== Architecture overview - `WordBankList`
 
 // tag::chenhui-overviewOfWbl[]
 .Overview of `WordBankList`.
@@ -773,14 +773,14 @@ image::OverviewOfWordBankList.png[]
 
 ---
 
-Word bank's storage system integration.
+===== Word bank's storage system integration.
 // tag::chenhui-wblStorageModel[]
 
 .Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
 
-WordBankListStorage consists of robust and self-explanatory methods in which users can use and extend upon easily. +
-Alongside with word bank's data structure, they lay the foundation for my other complementary sections of Word Bank Management.
+WordBankListStorage consists of robust and self-explanatory methods in which developers can use and extend upon easily. +
+Alongside with word bank's data structure, they lay the foundation for the other complementary sections of WordBank Management.
 
 On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
 by my teammates, to build their own feature implementations. (Statistics, Game, Settings)
@@ -1430,14 +1430,14 @@ code that is expected to _callback_ (execute) the argument at a given time.
 
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for Manual Testing.
 
 Given below are instructions for the testing of _Dukemon_ manually.
 
 [NOTE]
 The below instruction are only intended as starting points for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Initial Start-up and Editing of a _WordBank_
+=== Initial Start-up and Editing of a _WordBank_.
 
 . Initial clean launch
 
