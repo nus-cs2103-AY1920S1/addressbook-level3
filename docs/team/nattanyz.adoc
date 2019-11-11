@@ -1,6 +1,6 @@
 = Tan Yan Zhen, Natalie - Project Portfolio
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ../images/nattanyz/
 :stylesDir: ../stylesheets
 
 == PROJECT: FlashCard Pro
@@ -12,51 +12,111 @@ FlashCard Pro has a GUI created with JavaFX. It is written in Java, and has abou
 
 == Summary of contributions
 
-* *Major enhancement*: added the *ability for user to view their statistics*.
-** What it does:
-*** Allows the user to see their *past login sessions*, *total duration spent in the app*, and their *test sessions involving each deck*.
-*** More detailed statistics are also provided, allowing the user to drill down into a granular view of their activity, e.g. login sessions by week.
-*** The user can also see their *statistics by deck*, which is useful if they want to gauge how much time they're spending reviewing each subject. The *average score* for test sessions conducted on the deck is also provided, giving the user feedback on their performance.
-** Justification:
-*** This feature improves the product by allowing the user to reflect on their activity in the app, and whether the time spent was productive.
-*** Users can also see their improvement over time and feel encouraged by it.
-** Highlights:
-*** This enhancement required some degree of analysis of how the application handles various commands, in particular the startup and shutdown of the application, in order to time the duration of each login session.
-*** Additions to the  `Storage` component and learning to use Haliq's JSON storage features were required to store and load the `SessionList` objects.
-*** My team's decision to make `State` non-static influenced me to decouple `UserStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
-*** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
+*Major enhancement*: added the *ability for user to view their statistics*.
 
-* *Major enhancement*: contributions to the GUI of the app.
-** What I've done:
-*** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern.
-// todo: attach screenshot here
-*** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before working on integrating the GUI and CLI, then making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have still made a number of improvements since.
+* What it does:
+** Allows the user to see their *past login sessions*, *total duration spent in the app*, and their *test sessions involving each deck*.
+** More detailed statistics are also provided, allowing the user to drill down into a granular view of their activity, e.g. login sessions by week.
+** The user can also see their *statistics by deck*, which is useful if they want to gauge how much time they're spending reviewing each subject. The *average score* for test sessions conducted on the deck is also provided, giving the user feedback on their performance.
+* Justification:
+** This feature improves the product by allowing the user to reflect on their activity in the app, and whether the time spent was productive.
+** Users can also see their improvement over time and feel encouraged by it.
+* Highlights:
+** This enhancement required some degree of analysis of how the application handles various commands, in particular the startup and shutdown of the application, in order to time the duration of each login session.
+** Additions to the  `Storage` component and learning to use Haliq's JSON storage features were required to store and load the `SessionList` objects.
+** My team's decision to make `State` non-static influenced me to decouple `UserStats` and `DeckStats` from `State`. This required some degree of refactoring quite close to the deadline of the project.
+** To get aggregate data from `LocalDateTime` and `Duration` objects, I implemented a number of utilities in the `DateTimeUtil` class (and some others). I also implemented `SessionListUtil` and `StatsDisplayUtil` for handling the calculation of average scores and the display of `TableView` objects. The process of writing and testing these utilities was quite enjoyable and increased my confidence in working with Java APIs.
+
+image::stats window.png[width="650", align="center"]
+The Statistics window contains key statistics like the user's number of login sessions, duration of login sessions, number of decks, number of cards, and average score for test sessions. It also displays the user's login sessions in a table format, which can be sorted by clicking on the column headers. Similarly, the user's decks are summarised in a table. Double-clicking on a table row will open the corresponding deck statistics window.
+
+image::deck stats window.png[width="650", align="center"]
+The Deck Statistics window shows the user's statistics pertaining to the deck, and all of their test sessions involving the deck in a table format.
+
+*Major enhancement*: contributions to the GUI of the app.
+
+* What I've done:
+** I was initially responsible for building and maintaining GUI of the app. The GUI I had envisioned was much simpler and had a custom layout -- conceptualised in Figma, then built from scratch. It did not use the MVC pattern.
+** However, it was for the better that our team eventually decided to move on to an MVC-based GUI. This allowed us to focus on building the happy path of the app, before working on integrating the GUI and CLI, then making various cosmetic improvements. This new version of the GUI was authored by Timothy (hence, it is no longer my main feature), but I have made a number of improvements since.
 ** Justification:
+*** Although the application was and would be functional without many of these enhancements I have made, I believe they help to *increase the usability* of the application. For example, the box containing the MCQ options the user has inputted was previously too small. I have changed it to expand and show all MCQ options by default.
+*** To see some more examples of my work, refer to the table below.
+*** Cosmetic changes help make our app *more appealing* to the user and appear *more polished* overall.
 ** Planned future enhancements:
+*** For scrollable content, set the default scrollbar position to the top, rather than the bottom, when dealing with scrollable content. This was something that troubled me for a while, but I did not manage to fix in the end.
+*** Wrap the cards in a deck within a scrollable pane, so that the whole layout will fit in view.
 ** Highlights:
 *** From my first baby steps in working with GUIs during the individual project, I can safely say that I have learnt a great deal since. In particular, I am now more familiar with the JavaFX library.
 *** I can now build a JavaFX GUI (albeit a simpler one) programmatically, without using SceneBuilder, as I have done in the earlier stages of the project.
 *** I can also author new components via SceneBuilder (such as `StatisticsWindow`) and make significant changes to existing components (such as `MainWindow` and the various displays). By referring to the API, I was able to overcome a number of challenges to achieve my desired behaviour (e.g. components being laid out with appropriate padding, preserving the size and scale of components when the window is resized).
+*** I have also designed a different layout for my statistics windows, consisting of big numbers with labels, which is more creative and visually appealing than my initial design, which displayed the information in a bland way.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+image::old stats window.png[]
+My old design for the statistics window, which has since been substantially improved, as my comfort level with JavaFX has increased. See above for the new statistics window.
+
+image::initial design.png[]
+My initial design work on Figma.
+
+The following table provides a summary of some of my GUI enhancements:
+[%header, cols=3]
+|===
+|Description
+|Old screenshot
+|Updated screenshot
+
+|Improve appearance of code editor windows
+|image:old flashcoder java.png[]
+|image:new flashcoder java.png[]
+
+|Allow MCQ options in the "add card" and "edit card" displays to expand, instead of using a scroll pane.
+|image:old mcq.png[]
+|image:new mcq.png[]
+
+|Same as above, but for Java card test cases. Also added prompt text to help user with inputting test cases.
+|image:old java card.png[]
+|image:new java card.png[]
+
+|Set a constrained minimum size for the application window, to maintain visibility when the window is resized by the user.
+|image:old resize.png[] The window can be resized beyond reasonable limits.
+|image:new empty deck.png[] The window maintains its minimum size.
+
+|Increase the size of the question and answer text areas in the "add card" and "edit card" displays, allowing for user-friendly scrolling and multi-line input.
+|image:old long question add card.png[]
+|image:new long question add card.png[]
+
+|Modify the display of the card in a test, so that long questions and MCQ options display as expected.
+|image:old review long question.png[] image:old review mcq.png[]
+|image:new review long question.png[] image:new review mcq.png[]
+
+|Change the display of cards in a deck to become scrollable, flexible-width, and display long questions correctly.
+|image:old deck display.png[]
+|image:new deck display.png[]
+
+|Improve the appearance of the result popup that appears upon completing a test. Also, add the app icon to all popup windows.
+|image:old score popup.png[]
+|image:new score popup.png[]
+|===
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=nattanyz&tabRepo=AY1920S1-CS2103-F09-2%2Fmain%5Bmaster%5D[Functional code]] [https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/util/stats[Test code for utilities]] [https://github.com/AY1920S1-CS2103-F09-2/main/tree/master/src/test/java/dream/fcard/logic/stats[Test code for other statistics classes]]
 
 * *Other contributions*:
+** Team tasks:
+*** *Updated the app's icon*, including for all popup windows.
+*** Also updated the title of JS and Java editors and playgrounds to include "FlashCard Pro:" as a prefix.
 ** Project management:
 *** Wrote issues upon discovering bugs and assigned them to respective team members.
+*** Went through the issues from PE dry run and assigned them to respective team members.
 ** Documentation:
-*** I authored the Introduction section of the User Guide, as I was quite involved in the initial conceptualisation of the project.
+*** I authored the Introduction section of the User Guide, as I was quite involved in the initial conceptualisation of the project. See <<Contributions to the User Guide>> below.
 *** Subsequently, I made non-trivial improvements to the clarity of the writing throughout the User Guide. In particular, I abstracted out the What is a flashcard? and Interacting with flashcards sections from the Introduction.
-*** I also helped to clean up various sections of the User Guide, especially in the first draft, to make sure they abided by a consistent format.
+*** I also helped to clean up various sections of the User Guide, especially in the first draft, to make sure they adhered to a consistent format.
+*** I documented my own features (Statistics) in the Developer Guide. See <<Contributions to the Developer Guide>> below.
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
+*** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/duke/pull/250/files/5c0d4ea1c8b5a15f278779ee09592dda903febd5[#250]
 
 == Contributions to the User Guide
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I have
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=introduction]
@@ -66,15 +126,8 @@ include::../UserGuide.adoc[tag=stats]
 =======
 
 == Contributions to the Developer Guide
-
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-
-
 == PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

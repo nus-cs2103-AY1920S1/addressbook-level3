@@ -18,7 +18,9 @@ import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
+import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.DuplicateInChoicesException;
 import dream.fcard.model.exceptions.IndexNotFoundException;
@@ -28,7 +30,6 @@ import dream.fcard.model.exceptions.NoUndoHistoryException;
 import dream.fcard.util.FileReadWrite;
 import dream.fcard.util.RegexUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;
-
 import javafx.scene.layout.Pane;
 
 /**
@@ -58,7 +59,7 @@ public enum Responses {
 
                     //@@author PhireHandy
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("help",
-                        new String[]{"command/"}, i);
+                            new String[]{"command/"}, i);
 
                     boolean validCommand = false;
 
@@ -134,7 +135,7 @@ public enum Responses {
                     //@@author huiminlim
                     LogsCenter.getLogger(Responses.class).info("COMMAND: IMPORT_ERROR");
                     //@author
-
+                    Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Wrong command, type \"help command/import\"");
                     return true;
                 }
     ),
@@ -286,6 +287,57 @@ public enum Responses {
                         return true;
                     }
                     return true;
+                    //@@author
+                }
+    ),
+    ADD_CARD_JS(
+            RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "js"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                            new String[]{"deck/", "priority/", "front/", "js"},
+                            i);
+                    //@@author
+                    //@@author huiminlim
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD_JS");
+
+                    // Checks if "deck/", "front/"  and "js" are supplied.
+                    boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                    boolean hasAtMostOnePriority = res.get(1).size() < 2;
+                    boolean hasOnlyOneFront = res.get(2).size() == 1;
+
+
+                    // Perform command validation
+
+                    if (!hasOnlyOneDeck || !hasAtMostOnePriority || !hasOnlyOneFront) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect format for a JS card!");
+                        return true;
+                    }
+                    //@author
+
+                    //@@author
+
+                    StateHolder.getState().addCurrDecksToDeckHistory();
+                    StateHolder.getState().resetUndoHistory();
+                    StateHolder.getState().setCurrState(StateEnum.MAKE_JS); //enter js creation
+                    String front = res.get(2).get(0);
+                    String back = "";
+                    int priority = res.get(1).size() == 0
+                            ? Priority.LOW_PRIORITY
+                            : res.get(1).get(0).compareToIgnoreCase("high") == 0
+                                    ? Priority.HIGH_PRIORITY
+                                    : Priority.LOW_PRIORITY;
+                    JavascriptCard temp = new JavascriptCard(front, back, priority);
+                    StateHolder.getState().setTransientCard(temp);
+                    try {
+                        StateHolder.getState().setAddToThis(StateHolder.getState().getDeck(res.get(0).get(0)));
+                    } catch (DeckNotFoundException e) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "A deck with that name does not exist.");
+                    }
+                    Consumers.doTask(ConsumerSchema.ENTER_MULTILINE, "Enter your asserts below.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                    return true;
+
                     //@@author
                 }
     ),
@@ -676,7 +728,6 @@ public enum Responses {
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     LogsCenter.getLogger(Responses.class).info("COMMAND: UNDO");
-
                     try {
                         StateHolder.getState().undoDeckChanges();
                         StorageManager.writeDecks(StateHolder.getState().getDecks());
@@ -901,7 +952,6 @@ public enum Responses {
                     //@author
                 }
     ),
-
     QUIT(
             "^((?i)quit)\\s*$",
             new ResponseGroup[]{ResponseGroup.MATCH_ALL},
