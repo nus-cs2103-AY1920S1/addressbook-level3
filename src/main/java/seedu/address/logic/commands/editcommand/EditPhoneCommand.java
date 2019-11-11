@@ -27,7 +27,6 @@ import seedu.address.logic.commands.UiChange;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.order.Order;
 import seedu.address.model.order.Status;
 import seedu.address.model.phone.Brand;
 import seedu.address.model.phone.Capacity;
