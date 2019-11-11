@@ -46,23 +46,23 @@ This section serves to summarize my contributions to the project, namely feature
 * Highlight:
 
 === Code contributed
-* Implementation of context switching for user targeted commands https://github.com/AY1920S1-CS2103T-T12-2/main/pull/1[#1] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/9[#9] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/44[#44] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/50[#50]
+* Implementation of context switching for user targeted commands (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/1[#1] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/9[#9] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/44[#44] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/50[#50])
 * Implementation of Order Manager
-* Implementation of autocomplete feature https://github.com/AY1920S1-CS2103T-T12-2/main/pull/98[#98] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/111[#111] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/188[#188] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/200[#200] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/205[#205]
+* Implementation of autocomplete feature (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/98[#98] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/111[#111] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/188[#188] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/200[#200] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/205[#205])
 
 ==== Other contributions
 * Documentation
-** Updated User Guide with texts and images for explaining universal commands https://github.com/AY1920S1-CS2103T-T12-2/main/pull/81[#81] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/83[#83] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/193[#193] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/232[#232]
-** Updated Developer Guide with UML diagrams and texts for explaining implementation of features https://github.com/AY1920S1-CS2103T-T12-2/main/pull/77[#77] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/85[#85] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/87[#87] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/217[#217] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/234[#234]
+** Updated User Guide with texts and images for explaining universal commands (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/81[#81] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/83[#83] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/193[#193] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/232[#232])
+** Updated Developer Guide with UML diagrams and texts for explaining implementation of features (Pull requests https://github.com/AY1920S1-CS2103T-T12-2/main/pull/77[#77] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/85[#85] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/87[#87] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/217[#217] https://github.com/AY1920S1-CS2103T-T12-2/main/pull/234[#234])
 * Community
-** Reported bugs and suggestions for other teams https://github.com/SoilingRogue/ped/issues/9[1], https://github.com/SoilingRogue/ped/issues/10[2], https://github.com/SoilingRogue/ped/issues/6[3]
+** Reported bugs and suggestions for other teams (Examples https://github.com/SoilingRogue/ped/issues/9[1], https://github.com/SoilingRogue/ped/issues/10[2], https://github.com/SoilingRogue/ped/issues/6[3])
 ** Reviewed PRs with non-trivial review comments
 * Project management
 ** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 
 == Contributions to the User Guide
 
-Given below are my contributions to the User Guide.
+Given below are some of my contributions to the User Guide.
 They showcase my ability to write documentation targeting end-users.
 
 *_Start of extract_*
@@ -80,23 +80,21 @@ Example: `-add_order c/AlexYeoh r/KFC f/Chicken Nuggets q/100`
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
 
-image::userguide\AddOrder1.png[width="790"]
+image::userguide\AddOrder1.png[width="480"]
 
 [start=2]
 . If you are successful, the result box displays the message:
 `_"New order added:  Order Name: Order 7 Customer: AlexYeoh Restaurant: KFC Deliveryman: Donald Trump Food: Chicken Nuggets x100  Completed delivery: false"._`
 
-image::userguide\AddOrder2.png[width="790"]
+image::userguide\AddOrder2.png[width="480"]
 
 [start=3]
 . The order list shows the newly added order.
 
-image::userguide\AddOrder3.png[width="790"]
+image::userguide\AddOrder3.png[width="480"]
 
 [NOTE]
 ====
-
-.Requirements
 
 * A valid customer `c/CUSTOMER`, restaurant `r/RESTAURANT` and restaurant menu item `f/FOOD` must be provided and
 exists currently in the database.
@@ -107,86 +105,10 @@ exists currently in the database.
 [TIP]
 ====
 
-.Tip
-
 * Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
 
-image::userguide\AutoComplete1.png[width="790"]
+image::userguide\AutoComplete1.png[width="350"]
 ====
-
-{nbsp} +
-
-==== Assigning an order: `-assign_order`
-This command allows you to automatically assign an available deliveryman to an existing order in the database based on the internal algorithms.
-
-Format: `-assign_order n/ORDERNAME`
-
-Example:  `-assign_order n/Order 1`
-
-[start]
-.Example use case
-
-. Type the command statement from the example above into the program and press *Enter* to execute it.
-
-image::userguide\AssignOrder1.png[width="790"]
-
-[start=2]
-. If you are successful, the result box displays the message:
-`_"Assigned Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: false"._`
-
-image::userguide\AssignOrder2.png[width="790"]
-
-[start=3]
-. The order list shows the newly assigned order.
-
-image::userguide\AssignOrder3.png[width="790"]
-
-[NOTE]
-====
-
-.Requirements
-
-* The order name `n/ORDERNAME` must exist in the order list.
-====
-
-{nbsp} +
-
-==== Completing an order: `-complete_order`
-This command allows you to complete an order in the database by its order name. The next unassigned order, if any, will automatically be assigned to an available deliveryman in the database.
-
-Format: `-complete_order n/ORDERNAME`
-
-Example: `-complete_order n/Order 1`
-
-[start]
-.Example use case
-
-. Type the command statement from the example above into the program and press *Enter* to execute it.
-
-image::userguide\CompleteOrder1.png[width="790"]
-
-[start=2]
-. If you are successful, the result box displays the message:
-`_"Order completed:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
-
-image::userguide\CompleteOrder2.png[width="790"]
-
-[start= 3]
-. The order list shows the delivery status of the order as completed.
-
-image::userguide\CompleteOrder3.png[width="790"]
-
-[NOTE]
-====
-
-.Requirements
-
-* A deliveryman must already be assigned to the order before it can be completed.
-
-* The order name `n/ORDERNAME` must exist in the order list.
-====
-
-{nbsp} +
 
 ==== Editing an order: `-edit_order`
 This command enables you to edit an order. The order to edit will have to be specified by its order name when you are entering the command.
@@ -208,23 +130,21 @@ Example: `-edit_order n/Order 2 c/David`
 
 . Type the command statement from the example above into the program and press *Enter* to execute it.
 
-image::userguide\EditOrder1.png[width="790"]
+image::userguide\EditOrder1.png[width="480"]
 
 [start=2]
 . If you are successful, the result box displays the message:
 `_"Successful edition of order:  Order Name: Order 2 Customer: David Restaurant: Prata House Deliveryman: Donald Trump Food: Curry Waterfall x1 Plain Prata x2 Cheese Prata x4 Prata Bomb x10  Completed delivery: false"._`
 
-image::userguide\EditOrder2.png[width="790"]
+image::userguide\EditOrder2.png[width="480"]
 
 [start=3]
 . The order list shows the updated order.
 
-image::userguide\EditOrder3.png[width="790"]
+image::userguide\EditOrder3.png[width="480"]
 
 [NOTE]
 ====
-
-.Requirements
 
 * The order name `n/ORDERNAME` must exist in the order list.
 
@@ -236,77 +156,14 @@ image::userguide\EditOrder3.png[width="790"]
 [TIP]
 ====
 
-.Tip
-
 * Fill in the restaurant `r/RESTAURANT` before entering the restaurant menu item `f/FOOD` for the autocompletion feature to load the list of that restaurant's menu in a drop down box for you.
 
-image::userguide\AutoComplete2.png[width="790"]
+image::userguide\AutoComplete2.png[width="350"]
 ====
-
-{nbsp} +
-
-==== Deleting an order: `-delete_order`
-This command enables you to delete an unwanted/cancelled order in the database by its order name.
-
-Format: `-delete_order n/ORDERNAME`
-
-Example: `-delete_order n/Order 1`
-
-[start]
-.Example use case
-
-. Type the command statement from the example above into the program and press *Enter* to execute it.
-
-image::userguide\DeleteOrder1.png[width="790"]
-
-[start=2]
-. If you are successful, the result box displays the message:
-`_"Deleted Order:  Order Name: Order 1 Customer: AlexYeoh99 Restaurant: Burger Palace Deliveryman: Jackie Chan Food: Ginger Burger x2 Crispy Duck Burger x4 Pickle Burger x1  Completed delivery: true"._`
-
-image::userguide\DeleteOrder2.png[width="790"]
-
-[start=3]
-. The order list shows that the order has been deleted.
-
-image::userguide\DeleteOrder3.png[width="790"]
-
-[NOTE]
-====
-
-.Requirements
-* The order name `n/ORDERNAME` must exist in the order list.
-====
-
-{nbsp} +
-
-==== Listing all orders: `-list_orders`
-This command enables you to view all orders currently in the database.
-
-Format: `-list_orders`
-
-Example: `-list_orders`
-
-[start]
-.Example use case
-
-. Type the command statement from the example above into the program and press *Enter* to execute it.
-
-image::userguide\ListOrder1.png[width="790"]
-
-[start=2]
-. If you are successful, the result box displays the message:
-`_"Listed all orders"._`
-
-image::userguide\ListOrder2.png[width="790"]
-
-[start=3]
-. The order list shows all orders currently in the database.
-
-image::userguide\ListOrder3.png[width="790"]
-
-{nbsp} +
 
 *_End of extract_*
+
+My other contributions to the https://github.com/AY1920S1-CS2103T-T12-2/main/blob/master/docs/UserGuide.adoc[User Guide] include: switching contexts, assigning, completing, deleting and listing of orders.
 
 == Contributions to the Developer Guide
 
@@ -334,7 +191,7 @@ Given below is an example usage scenario and how the autocomplete mechanism beha
 Step 1: You launch the application. The `[blue]#TrieManager#` initializes the respective `[blue]#Tries#` with their context-specific command words using `[blue]#Trie#insertCommand()#`.
 The `[blue]#Trie#` adds each `[blue]#Character#` of the input `[blue]#String#` and new `[blue]#Tries#` into the `[blue]#HashMap<Character, Trie>#`, as well as the command word into the `[blue]#List<String>#`, recursively as illustrated by the activity diagram below.
 
-image::AutoCompleteActivityDiagram.png[width="790"]
+image::AutoCompleteActivityDiagram.png[height="100"]
 
 Step 2: You want to add an order to the database, however are uncertain how to spell the command and type in `_order_`.
 The `[blue]#KeyListener#` passes the `[blue]#String#` in the `[blue]#CommandBox#` to the `[blue]#Trie#` via the `[blue]#LogicManager#` and `[blue]#TrieManager#`.
@@ -342,12 +199,12 @@ The trie searches for relevant commands and pass them as a list back to the `[bl
 The `[blue]#Ui#` displays the relevant results in a dropdown box below the user input command box.
 
 .Sequence diagram illustrating the handling of user input via autocomplete
-image::AutoCompleteSequenceDiagram.png[width="790"]
+image::AutoCompleteSequenceDiagram.png[width="480"]
 
 
 Step 3: You can now complete the command you want by entering the relevant command shown in the dropdown box.
 
-image::AutoCompleteUi.png[width="790"]
+image::AutoCompleteUi.png[width="480"]
 
 ==== Design Considerations
 
@@ -375,60 +232,6 @@ Alternative 1 was selected, as it is more user friendly, and leaves a better imp
 
 Alternative 1 was selected, as it allows for faster searching and listing of relevant commands compared to alternative 2.
 
-// end::autocompletecommands[]
-// tag::orders[]
-=== Order Manager
-Order Manager is an address book of Orders and has some useful functions specifically catered towards the ease of management of orders.
-
-Firstly, the automated allocation of deliveryman once new orders are added or completed. When a new order is created on the database, or when an existing order is completed, a deliveryman will be assigned to deliver the new/existing pending orders based on whether he/she is present as well as whether he/she is currently preoccupied with delivering another order. This helps to ease the burden on the user as they would not need to manually allocate deliverymen to the orders. However, the feature to manually allocate is still present if the user wishes to do so.
-
-Secondly, the Order Manager allows for sorting of orders, based on date, customer, restaurant, menu or even deliveryman, depending on what information the user wishes to see to allow for better management.
-
-Additionally it implements the following operations:
-
-* `-add_order` - adds an order to the database.
-* `-assign_order` - assigns an available deliveryman to an existing order in the database.
-* `-complete_order` - updates the completion status of an existing order in the database.
-* `-delete_order` - removes an existing order in the database.
-* `-edit_order` - edits an existing order in the database.
-* `-list_orders` - lists all existing orders in the database.
-
-
-These operations are exposed in the `[blue]#ModelManager#` class as `[blue]#ModelManager#addOrder()#`, `[blue]#ModelManager#getOrder(Name targetOrder)#`, `ModelManager#setOrder(Order target, Order editedOrder)`, `ModelManager#deleteOrder(Order order)` and `ModelManager#assignUnassignedOrder()`.
-
-Order manager implements its own `[blue]#Model#`, `[blue]#Command#` and `[blue]#Parser#` for the 'Logic Component', `[blue]#JsonOrderDatabaseStorage#`, `[blue]#JsonSerializableOrderDatabase#`, `[blue]#JsonAdaptedOrder#` and `[blue]#JsonAdaptedFoodOrder#`, along with methods in the `[blue]#StorageManager#` for the `Storage Component` and lastly, `[blue]#OrderCard#` and `[blue]#OrderListPanel#` for displaying on the `Ui Component`.
-
-*insert object diagrams here + brief explanation of object diagrams*
-
-==== Implementation
-
-**Add command:** `-add_order`
-
-The add command adds an order to the `ModelManager` and `UniqueOrderList`. The `UniversalParser` invokes `AddOrderCommandParser#parse()`, which parses the target **customer**, **restaurant**, **food** and **quantity** from a *String* into *Name* and *Integer* objects.
-
-Only valid **customer**, **restaurant**, **food** and **quantity** are allowed. This validation is done through accessing `UniqueCustomerList` and `UniqueRestaurantList` through `ModelManager#getFilteredCustomerList()`, `ModelManager#getFilteredRestaurantList()` and calling their respective `isValidName()` methods. **Food** validity will be checked through retrieving the respective using `Restaurant#getMenu()` and `Menu#isValidName()`.
-
-Duplicated `Order` will be checked for using `ModelManager#hasOrder()` and is then added to the `UniqueOrderList` via `ModelManager#addOrder()`.
-
-**Delete command:** `-delete_order`
-
-The delete command deletes an `Order` from the `ModelManager` and `UniqueOrderList` by a specified index. The `UniversalParser` invokes `DeleteOrderCommandParser#parse()` and user input is used to get the index of the `Order` to be deleted.
-
-==== Design Considerations
-
-Below are a few design considerations of the Order manager class.
-
-===== Aspect: Data structure for modelling, storage and utilization of `Order`.
-
-* **Alternative 1 (current choice):** Make use of existing data structures as references to create new data structures needed for the implementation of an Order Manager.
-** Pros: Straightforward to implement.
-** Cons: Tedious to implement as several regions of the codebase needs to be edited for `Order` to run, display and save successfully.
-* **Alternative 2:** Implement data structures from scratch.
-** Pros: Pride and accomplishment of implementing data structures from scratch.
-** Cons: Tedious and time wasting to code the necessary classes.
-
-Alternative 1 was selected, as it is much faster to implement compared to alternative 2, given the short time spam of 6 weeks to complete the project.
-
 *_End of extract_*
 
-
+My other contributions to the https://github.com/AY1920S1-CS2103T-T12-2/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide] include: Order Manager.
