@@ -45,10 +45,9 @@ Example: Typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
 * `view transaction` : shows list of your transactions.
-* `in $/100 n/mother d/31102019 c/allowance` : adds an income to your personal finance of *100* dollars with
-the category *mother* and the description *allowance*.
-* `out $/3 n/pie d/19112019 c/food` : adds an expenditure to your personal finance of *3* dollars with
-the category *food* and the description *pie*.
+* `in $/100 n/allowance d/31102019 c/mother` : adds an allowance from "mother" with value "$100" to PalPay.
+* `out $/3 n/pie d/19112019 c/food` : adds an expenditure to your personal finance of "3" dollars with
+the category "food" and the description "pie".
 * `exit` : exits the app
 
 . Refer to <<Commands>> for details of each command.
@@ -60,14 +59,18 @@ the category *food* and the description *pie*.
 The _Transaction_ feature represents the bread and butter logging of incomes and expenditures.
 PalPay will tabulate and display the overall balance to give users a better insight on their spending and saving habits.
 
-The _Transactions_ are split into:
+_Transactions_ consists of:
 
-. `in` : income
-. `out` : expenditure
+. `in` : logs an income statement
+. `out` : logs an expenditure statement
 
-These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
+=== Budgets
+The _Budget_ feature represent the budget to be set until a stipulated deadline for a certain category.
+As you make transactions of particular category, the budget with the same category will be adjusted accordingly.
 
-=== Budget
+_Budget_ command consists of:
+
+. `set` : creates a budget for a category
 
 === Ledger
 The _Ledger_ feature allows you to track outstanding balances when you
@@ -75,15 +78,20 @@ split a bill with your friends and when they pay you back.
 
 _Ledger_ commands consist of:
 
-. `split` : split a bill between friends
-. `receive` : log a single payment from 1 friend
+. `split` : splits a bill between friends
+. `receive` : logs a single payment from a friend
 
 === Projection
-By using the _Projections_ feature, you can project your:
+The _Projections_ feature allows you to project your:
 
 . Account Balance
 
 . Budget Deficits / Surpluses
+
+_Projection_ commands consist of:
+
+. `project`: casts and stores a projection of your future balance and budget states
+. `display`: renders a graphical depiction of a specified projection
 
 These projections are cast upon a specified `DATE`, and optionally, a specified `CATEGORY`. Upon casting a
 projection, it is automatically stored and thereafter accessible through the _Projection_ tab via the `view`
@@ -119,12 +127,14 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 | DATE | d/ |- a valid date with the format DDMMYY in the Gregorian calendar
 | DESCRIPTION | n/ | - a valid description with alphanumeric chacracters
 | CATEGORY | c/ | - a valid category with alphanumeric characters without space
+| SHARES | s/ | - a valid positive integer
 | TYPE | | - a valid type containing one character +
 `t` : Transaction +
 `b` : Budget +
 `l` : Ledger +
 `p` : Projection
-| INDEX | | - a valid entry number in the list
+| INDEX | | - a valid entry number in the list +
+
 |=======================================================================
 
 ====
@@ -160,7 +170,7 @@ Format: `in $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 image::in_ug_1.png[]
 +
 . Income added
-* The income is added to the empty *Transactions* tab.
+* The income is added to the `Transaction` tab.
 * The added income is given a `GENERAL` category.
 * Balance has increased from $0 to $120 (red box in Figure 2).
 +
@@ -231,7 +241,7 @@ Format: `out $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 image::out_ug_1.png[]
 +
 . Expenditure added
-* The expenditure is added to the bottom of the *Transactions* tab.
+* The expenditure is added to the bottom of the _Transaction_ tab.
 * The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).
 * The added expenditure is given a `GENERAL` category.
 * Balance has decreased from $620.50 to $615.50 (red box in Figure 6).
@@ -252,7 +262,7 @@ image::out_ug_2.png[]
 image::out_ug_3.png[]
 +
 . Expenditure added
-* The expenditure is added to the bottom of the *Transactions* tab.
+* The expenditure is added to the bottom of the _Transaction_ tab.
 * The added expenditure is tagged under `car` and `transport` category.
 * Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).
 * The negative value of the balance indicates that the total spending amount outweighs the total savings amount.
@@ -280,7 +290,7 @@ image::out_ug_5.png[]
 image::out_ug_6.png[]
 +
 . Expenditure added
-* The expenditure is added to the bottom of the *Transactions* tab.
+* The expenditure is added to the bottom of the _Transaction_ tab.
 * The added expenditure has a date set to `02/01/2020`.
 * The added expenditure is tagged under the `clothes` category.
 +
@@ -305,6 +315,7 @@ image::out_ug_8.png[]
 // tag::set[]
 
 [[Set]]
+
 === Setting a Budget : `set`
 
 You can set a budget for a particular category until a certain date, given it is not already present in the budget list.
