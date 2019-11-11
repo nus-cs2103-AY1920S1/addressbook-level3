@@ -56,7 +56,7 @@ It has a GUI but most of the user interactions happen using a CLI (Command Line 
 
 ** Testing:
 *** Did product testing to ensure that the command parsing were accurate, and various system integration tests.
-*** Debugged certain command related bugs: https://github.com/AY1920S1-CS2103-F09-2/main/pull/294[#294], https://github.com/AY1920S1-CS2103-F09-2/main/pull/333[#333], https://github.com/AY1920S1-CS2103-F09-2/main/pull/318[#318]
+*** Debugged certain command related bugs: https://github.com/AY1920S1-CS2103-F09-2/main/pull/294[#294], https://github.com/AY1920S1-CS2103-F09-2/main/pull/333[#333], https://github.com/AY1920S1-CS2103-F09-2/main/pull/318[#318], https://github.com/AY1920S1-CS2103-F09-2/main/pull/355[#355]
 *** Alerted team about bugs found in issue tracker: https://github.com/AY1920S1-CS2103-F09-2/main/issues/146[#146], https://github.com/AY1920S1-CS2103-F09-2/main/issues/99[#99], https://github.com/AY1920S1-CS2103-F09-2/main/issues/109[#109]
 
 ** Enhancements to existing features:
