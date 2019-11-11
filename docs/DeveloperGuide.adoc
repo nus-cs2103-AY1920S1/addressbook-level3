@@ -1036,31 +1036,35 @@ There are four main statistics shown:
 
 The above summaries are automatically updated whenever new data is entered from any of the other tabs.
 
-There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user to set percentage thresholds for notifications.
+There are two main user features within this tab: a feature allowing the user to set goals, and a feature for the user
+to set percentage thresholds for notifications.
 
 ==== Set Command Feature
 
 This feature allows the user to set a goal for their budget, expense or sales targets.
 
-The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
+The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
+found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Set Command in the Overview package.
 image::OverviewSetCommandSD.png[]
 
-After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to the data file.
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file.
 
 ==== Notify Command Feature
 
-This feature allows the user to set a percentage threshold for notifications.
-Upon hitting that percentage for a particular financial goal, the user will automatically be notified of it with a message from Leo.
+This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
+particular financial goal, the user will automatically be notified of it with a message from Leo.
 
-The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
+The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
+diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
 
 .Sequence Diagram of Notify Command in the Overview Package
 image::OverviewNotifyCommandSD.png[]
 
-After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to the data file.
-The full execution of the command is shown in the activity diagram below:
+After execution of the command, the `LogicManager` also instructs the `StorageManager` to save the new information to
+the data file. The full execution of the command is shown in the activity diagram below:
 
 .Activity Diagram of Notify Command in the Overview Package
 image::OverviewNotifyActivityDiagram.png[]
@@ -1142,8 +1146,6 @@ The following are code snippets of each of the chosen implementations above:
         }
     }
 
-
-// tag::undoredo[]
 === [Proposed] Undo/Redo feature
 
 ==== Proposed Implementation

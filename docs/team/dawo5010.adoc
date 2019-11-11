@@ -295,7 +295,8 @@ The parsers represented by the `ABCParser` are:
 
 === 3.6 Overview Tab
 
-This tab displays various summary statistics for the data within treasurerPro. There are four main statistics shown:
+This tab displays various summary statistics for the data within treasurerPro.
+There are four main statistics shown:
 
 . Expense Summary: Pie chart of expenditure by category.
 . Inventory Summary: Pie chart of inventory by category.
@@ -367,6 +368,14 @@ the long run as their lists of transactions and items become larger and larger.
 Additionally, it allows for future extensibility of summary statistics, as new statistics can be created simply by
 modifying or adding on new criteria.
 
+|===
+
+A design consideration was also made for the implementation of the notifications that are to be displayed
+to the user upon hitting the notification threshold. These are shown in the table below:
+
+|===
+|Alternative 1 |Alternative 2 (Current Choice)|Conclusion and Explanation
+
 |A new class is created to act as a notifier, and is called after the execution of every command to check if any
 notifications need to be displayed to the user.
 
@@ -405,6 +414,77 @@ The following are code snippets of each of the chosen implementations above:
             lion.setResponse(notif.getFeedbackToUser());
         }
     }
+
+=== 3.7 [Proposed] Undo/Redo feature
+
+==== 3.7.1 Proposed Implementation
+
+The undo/redo mechanism is facilitated by `VersionedtreasurerPro`.
+It extends each tab's `Model` with an undo/redo history, stored internally as a `tabStateList` and `tabStatePointer`.
+Additionally, it implements the following operations in each tab's `ModelManager`:
+
+* `ModelManager#commit()` -- Saves the current tab's state in its history.
+* `ModelManager#undo()` -- Restores the previous tab's state from its history.
+* `ModelManager#redo()` -- Restores a previously undone tab's state from its history.
+
+These operations are exposed in the `Model` interface of the tab as `Model#commit()`, `Model#undo()` and `Model#redo()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+Each package's model will be initialized with their initial default state, and the
+`tabStatePointer` of each package pointing to that state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes a command that modifies the application state.
+The command calls `Model#commit()`. The state after executing the command is saved in the `tabStateList`, and the
+`tabStatePointer` is shifted to that new state.
+
+image::UndoRedoState1.png[]
+
+[NOTE]
+Commands that do not modify the application state will not call `Model#commit()`, and thus no new state
+will be created in `tabStateList`. The `tabStatePointer` will continue to point at the same state.
+
+Step 3. The user executes `undo` to undo the last command.
+The `undo` command calls `Model#undo`, which shifts the currentStatePointer to the previous state,
+restoring it to that state.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If the `tabStatePointer` is already pointing to the first item in the list, an error will be returned to the
+user and nothing will be done.
+
+Step 4. The user executes `redo` to redo the last `undo` command.
+The `redo` command calls `Model#redo`, which shifts the currentStatePointer to the next state,
+restoring it to that state. In this case, it is identical to after Step 2.
+
+image::UndoRedoState1.png[]
+
+==== 3.7.2 Design Considerations
+In order to implement the undo/redo command, several alternatives in design were considered before
+settling on the current implementation:
+
+|===
+|Alternative 1 (Current Choice)|Alternative 2|Conclusion and Explanation
+
+|The state of the tab is saved after every command.
+
+*Pros*: This is much easier to implement.
+
+*Cons*: Extra memory is used to store each state after every command.
+
+|Each command is capable of undoing/redoing itself.
+
+*Pros*: Less memory is required.
+
+*Cons*: The implementation of each command becomes more complex, as it must be able to correctly undo/redo itself.
+
+|Alternative 2 is selected due to its ease of implementation. Most modern computers also have sufficient
+memory space to store extra states.
+|===
 
 {End of second extract from Developer Guide}
 
