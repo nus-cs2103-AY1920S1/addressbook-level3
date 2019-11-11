@@ -637,3 +637,64 @@ Use case ends
 * Category - Income, Expense, Wishlist, Budget +
 * Entry - any item in a category +
 * Tag - label(s) attached to an entry
+
+== Instructions for Manual Testing
+
+=== Customising the GUI
+
+==== Change theme
+
+. Changing the theme of the application
+
+.. Prerequisites: Application is in dark theme.
+
+.. Test case: `setLightTheme` +
+Expected: Theme changes to the light theme. Result display shows the message that command is executed successfully.
+
+.. Prerequisites: Application is in light theme.
+
+.. Test case: `setDarkTheme` +
+Expected: Theme changes to the dark theme. Result display shows the message that command is executed successfully.
+
+. Saving theme preferences
+
+.. Change the theme to a different one (see examples above). Close the window.
+
+.. Relaunch the application. +
+Expected: The change in theme is saved and application is in the most recent theme.
+
+==== Change font
+
+. Changing the font of the application
+
+.. Prerequisites: none
+
+... Test case: `changeFont rockwell` +
+Expected: Font changes to _rockwell_.
+
+... Test case: `changeFont segoe UI` +
+Expected: Font changes to _segoe UI_.
+
+. Saving font preferences
+
+... Change the font to a different one (see examples above). Close the window.
+
+... Relaunch the appication. +
+Expected: The change in font is saved and the application is in the most recent font.
+
+==== Toggle panel
+
+. Toggling a specified panel on or off
+
+.. Prerequisites: panel to toggle does not have its contents already shown in main panel
+
+... Test case: `toggle budget` +
+Expected: If panel was not previously shown, Budget panel will be toggled on. Otherwise, it will be toggled off.
+
+... Test case: `toggle ae` +
+Expected: If panel was not previously shown, AutoExpenses panel will be toggled on. Otherwise, it will be toggled off.
+
+.. Prerequisites: panel to toggle already has its contents shown in the main panel, such as by doing `listBudget`
+
+... Test case: `toggle budget` +
+Expected: Budget panel is not toggled on. Error message is shown in the result display.
