@@ -14,11 +14,11 @@ import seedu.revision.logic.parser.main.RestoreCommandParser;
 
 public class RestoreCommandParserTest {
     private RestoreCommandParser parser = new RestoreCommandParser();
-    private final ParserManager Parser = new ParserManager();
+    private final ParserManager parserManager = new ParserManager();
 
     @Test
     public void parse_validArgs_returnsClearCommand() throws ParseException {
-        assertTrue(Parser.parseCommand(RestoreCommand.COMMAND_WORD) instanceof RestoreCommand);
+        assertTrue(parserManager.parseCommand(RestoreCommand.COMMAND_WORD) instanceof RestoreCommand);
     }
 
     @Test

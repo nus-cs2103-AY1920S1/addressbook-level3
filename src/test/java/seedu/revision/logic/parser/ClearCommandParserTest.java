@@ -13,11 +13,11 @@ import seedu.revision.logic.parser.main.ParserManager;
 
 public class ClearCommandParserTest {
     private ClearCommandParser parser = new ClearCommandParser();
-    private final ParserManager Parser = new ParserManager();
+    private final ParserManager parserManager = new ParserManager();
 
     @Test
     public void parse_validArgs_returnsClearCommand() throws ParseException {
-        assertTrue(Parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
+        assertTrue(parserManager.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
     }
 
     @Test
