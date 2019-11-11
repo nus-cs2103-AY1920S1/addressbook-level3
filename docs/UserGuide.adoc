@@ -410,9 +410,7 @@ Format: `exit`
 // end::exit[]
 
 ==== Saving the data
-
-Items are saved in the hard disk automatically after any command that modifies the list. +
-There is no need to save manually.
+As items will be saved in the hard disk automatically, you do not need to worry about saving manually after executing any command that modifies the list.
 
 === Main tracking list features only
 

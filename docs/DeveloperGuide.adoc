@@ -149,10 +149,10 @@ This section describes some noteworthy details on how certain features are imple
 // tag::replenishListItems[]
 
 ====  Items in replenish list and main list
-Items in the replenish list with only `Name` and `Tag` field are represented by the `Item` class.
-On the other hand, items in the main list (tracking list) with additional fields such as `ExpiryDate`,
+Items in the replenish list with only `Name` and `Tag` fields are represented by the `Item` class.
+On the other hand, items in the main list with additional fields such as `ExpiryDate`,
 `Quantity` and `ReminderThreshold` are represented by the `XpireItem` class.
-To utilise the concept of inheritance and reduce duplicate data and methods, the `XpireItem` is written to inherit from `Item`.
+To utilise the concept of inheritance and reduce duplicate data and methods, `XpireItem` is written to inherit from `Item`.
 This relationship can be observed from the diagram below.
 
 .Snippet of Model Component Class Diagram to illustrate inheritance of `XpireItem` from `Item`.
@@ -165,14 +165,19 @@ Any `XpireItem` whose quantity have hit `0` will also be automatically added to 
 ===== Implementation
 When the user executes a `ShiftToReplenishCommand`, the target item in the main list be adapted from a `XpireItem` into an `Item`.
 The adapted item will be subsequently added to the replenish list, while the target item is removed.
-The following sequence diagrams demonstrate how the command makes changes to
-both the main list and replenish list.
+The following sequence diagrams demonstrate how the command makes changes to both the main list and replenish list.
 
 .Sequence diagram for `ShiftToReplenishCommand`.
 image::shift_to_replenish_sequence_diagram.png[]
 
 .Sequence diagram when an item is shifted to the replenish list.
 image::transfer_item_to_replenish_sequence_diagram.png[]
+
+When the user executes a `DeleteCommand` to reduce the `Quantity` of an `XpireItem` to `0`, the item is automatically
+shifted to the replenish list. The item shift is demonstrated in the sequence diagram above.
+
+.Sequence diagram when an item quantity is reduced to 0.
+image::delete_quantity_activity_diagram.png[]
 
 [NOTE]
 The shift would not be successful if an item with the same `Name` already exists on the replenish list.
@@ -185,37 +190,25 @@ The following activity diagram summarises how the command works:
 .Activity diagram for `ShiftToMainCommand`.
 image::shift_to_main_activity_diagram.png[]
 
+When utilising the `ShiftToMainCommand`, the user would have to input the item's `ExpiryDate` and `Quantity` (optional)
+so that the `Item` can be adapted into an `XpireItem`.
+
 [NOTE]
-In this case, the user would have to
-
-On the other hand, when an item has run out, an item is automatically added to the replenish list.
-This occurs when the user uses the `DeleteCommand` to
-The following sequence diagram summarises how this operation works:
-
-.Sequence Diagram when item quantity is reduced to 0 via the Delete Command
-image::AutoShiftSequenceDiagram.png[]
-//Given below is an example usage scenario and how the mechanism behaves at each step.
-
-//The following activity diagram summarizes what happens when a user executes a new command:
+If an item with the same `Name` and `ExpiryDate` already exists on the main list, the `Quantity` of the item would be updated.
+However, only the tags of the item on the main list will be retained.
 
 ===== Design Considerations
-//===== Aspect: Data structure to store the items
-//* **Alternative 1 (current choice): **
-//** Pros:
-//** Cons:
-//
-//* **Alternative 2:**
-//** Pros:
-//** Cons:
-====== Aspect: How expired items are being handled
-* **Alternative 1 (current choice): Once an item expires,
-the item is automatically tagged as `#Expired`.**
-** Pros: Makes good use of existing `SearchCommand`, where user can search for the `#Expired` tag to view list of expired items.
-** Cons: User has to manually type in a short command to add an item to the replenish list.
 
-* **Alternative 2: Once an item expires, item is automatically transferred to the replenish list.**
-** Pros: User need not manually key in item details to transfer it to the replenish list.
-** Cons: User does not have the flexibility to pick which items to transfer to the replenish list.
+====== Aspect: Handling of items that have run out
+* **Alternative 1 (current choice): Automatically shifts item to the replenish list when item quantity reaches 0**
+** Pros: User does not need to input any command to perform the shifting, making the user experience more fuss free.
+** Cons: User has to delete the item from the replenish list if the user does not want to stock up on the item in future.
+
+* **Alternative 2: Delete item from the main list without any shift**
+** Pros: User will not have any unwanted items in the replenish list.
+** Cons: User has to go through the trouble key in the details of an item that has been in the main list once again should the user want the item in the replenish list.
+
+
 // end::replenishListItems[]
 
 // tag::replenishListCommands[]
@@ -1174,6 +1167,7 @@ image::xpire_json_file.png[]
 
 .. By design, our app does not accept items that have expired unless the json file is tampered with.
 .. To add an expired item to the tracking list, open the xpire.json file in an editor. Under `"xpireItems"`, add a new JSON object with values for `name`, `expiryDate`, `quantity`, `reminderThreshold` and `tags`.
+.. Note that this expiry date has to be after 1/10/2019.
 .. The expiry date should be a date that is before the current date of testing. The reminder threshold should be a non-negative integer and quantity should be a positive integer.
 .. The format to follow for adding an item can be seen within the box outline:
 
@@ -1184,7 +1178,7 @@ Example:
 
 .Example of a valid XpireItem manually added to xpire.json file
 image::json_example.png[]
-An item with `name` Jelly and `expiryDate` 24/6/2019 (which has passed) is now added to the json file for your testing.
+An item with `name` Jelly and `expiryDate` 24/10/2019 (which has passed) is now added to the json file for your testing.
 
 [NOTE]
 Remember to enclose these name-value items with `{` and `}`.
