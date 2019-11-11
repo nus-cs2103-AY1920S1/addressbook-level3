@@ -6,9 +6,10 @@ import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.TypicalMooLah;
 
 public class ClearBudgetsCommandTest {
@@ -17,7 +18,9 @@ public class ClearBudgetsCommandTest {
     public void run_emptyBudgetList_success() {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
-        expectedModel.commitModel("");
+        ClearBudgetsCommand command = new ClearBudgetsCommand();
+
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()));
 
         assertCommandSuccess(new ClearBudgetsCommand(), model, ClearBudgetsCommand.MESSAGE_SUCCESS, expectedModel);
     }
@@ -26,10 +29,13 @@ public class ClearBudgetsCommandTest {
     public void run_nonEmptyBudgetList_success() {
         Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
         Model expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
+        ClearBudgetsCommand command = new ClearBudgetsCommand();
+
         expectedModel.clearBudgets();
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
         assertCommandSuccess(new ClearBudgetsCommand(), model, ClearBudgetsCommand.MESSAGE_SUCCESS, expectedModel);
         TypicalMooLah.reset();
     }
+
 }

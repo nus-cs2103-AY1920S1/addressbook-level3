@@ -31,37 +31,26 @@ public class AddMenuExpenseCommand extends UndoableCommand {
             + PREFIX_MENU + "MENU_ITEM "
             + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MENU + "Chicken Rice "
+            + PREFIX_MENU + "Deck Chicken Rice "
             + PREFIX_TIMESTAMP + "10-10";
     public static final String MESSAGE_SUCCESS = "New expense added:\n %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in MooLah!";
 
-    private MenuItem menuItem;
-    private Timestamp timestamp;
     private Expense expense;
 
     public AddMenuExpenseCommand(MenuItem menuItem) {
         requireNonNull(menuItem);
-        this.menuItem = menuItem;
         expense = new Expense(menuItem, UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
     }
 
     public AddMenuExpenseCommand(MenuItem menuItem, Timestamp timestamp) {
         requireAllNonNull(menuItem, timestamp);
-        this.menuItem = menuItem;
-        this.timestamp = timestamp;
         expense = new Expense(menuItem, timestamp, UniqueIdentifierGenerator.generateRandomUniqueIdentifier());
     }
 
-    public AddMenuExpenseCommand(MenuItem menuItem, Timestamp timestamp, Expense expense) {
-        requireAllNonNull(menuItem, timestamp, expense);
-        this.menuItem = menuItem;
-        this.timestamp = timestamp;
+    public AddMenuExpenseCommand(Expense expense) {
+        requireNonNull(expense);
         this.expense = expense;
-    }
-
-    public Expense getExpense() {
-        return expense;
     }
 
     @Override

@@ -8,9 +8,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
+import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.ui.budget.BudgetListPanel;
 
 public class ListBudgetsCommandTest {

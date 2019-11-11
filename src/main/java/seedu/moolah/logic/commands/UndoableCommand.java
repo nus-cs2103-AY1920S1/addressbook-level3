@@ -1,5 +1,7 @@
 package seedu.moolah.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 
@@ -15,9 +17,12 @@ public abstract class UndoableCommand extends Command {
 
     @Override
     public CommandResult run(Model model) throws CommandException {
+        requireNonNull(model);
         validate(model);
-        model.commitModel(getDescription());
-        return execute(model);
+        Model prevCopy = model.copy();
+        CommandResult result = execute(model);
+        model.commit(getDescription(), prevCopy);
+        return result;
     }
 
 }

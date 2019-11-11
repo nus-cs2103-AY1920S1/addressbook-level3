@@ -1,7 +1,7 @@
 package seedu.moolah.logic.commands.statistics;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.moolah.logic.commands.CommandTestUtil.VALID_STATS_DESCRIPTOR;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.general.ClearCommand;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
@@ -27,16 +27,16 @@ class StatsCommandTest {
         // same values -> returns true
         StatsDescriptor copyDescriptor = new StatsDescriptor(VALID_STATS_DESCRIPTOR);
         StatsCommand commandWithSameValues = new StatsCommand(copyDescriptor);
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertEquals(standardCommand, commandWithSameValues);
 
         // same object -> returns true
-        assertTrue(standardCommand.equals(standardCommand));
+        assertEquals(standardCommand, standardCommand);
 
         // null -> returns false
-        assertFalse(standardCommand.equals(null));
+        assertNotEquals(null, standardCommand);
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearCommand()));
+        assertNotEquals(standardCommand, new ClearCommand());
     }
 
 }

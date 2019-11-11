@@ -1,24 +1,26 @@
 package seedu.moolah.logic.commands.expense;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.moolah.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.moolah.logic.commands.CommandTestUtil.showExpenseAtIndex;
-import static seedu.moolah.testutil.TestUtil.makeModelStack;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.moolah.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.moolah.testutil.TypicalMooLah.getTypicalMooLah;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.Messages;
 import seedu.moolah.commons.core.index.Index;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.expense.Expense;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
@@ -26,20 +28,25 @@ import seedu.moolah.model.expense.Expense;
  */
 public class DeleteExpenseCommandTest {
 
-    private Model model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    private Model model;
+    private Model expectedModel;
+
+    @BeforeEach
+    public void setup() {
+        model = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+        expectedModel = new ModelManager(getTypicalMooLah(), new UserPrefs(), new ModelHistory());
+    }
 
     @Test
     public void run_validIndexUnfilteredList_success() {
         Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST.getZeroBased());
-        DeleteExpenseCommand deleteExpenseCommand = new DeleteExpenseCommand(INDEX_FIRST);
+        DeleteExpenseCommand command = new DeleteExpenseCommand(INDEX_FIRST);
+
+        expectedModel.deleteExpense(expenseToDelete);
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
 
         String expectedMessage = String.format(DeleteExpenseCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
-
-        ModelManager expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
-        expectedModel.commitModel("");
-        expectedModel.deleteExpense(expenseToDelete);
-
-        assertCommandSuccess(deleteExpenseCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -55,16 +62,14 @@ public class DeleteExpenseCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST);
 
         Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST.getZeroBased());
-        DeleteExpenseCommand deleteExpenseCommand = new DeleteExpenseCommand(INDEX_FIRST);
+        DeleteExpenseCommand command = new DeleteExpenseCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteExpenseCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
-
-        Model expectedModel = new ModelManager(model.getMooLah(), new UserPrefs(), new ModelHistory());
         expectedModel.deleteExpense(expenseToDelete);
-        expectedModel.setModelHistory(new ModelHistory("", makeModelStack(model), makeModelStack()));
+        expectedModel.addToPastChanges(new ModelChanges(command.getDescription()).setMooLah(model.getMooLah()));
         showNoExpense(expectedModel);
 
-        assertCommandSuccess(deleteExpenseCommand, model, expectedMessage, expectedModel);
+        String expectedMessage = String.format(DeleteExpenseCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 
     @Test
@@ -88,24 +93,24 @@ public class DeleteExpenseCommandTest {
         DeleteExpenseCommand deleteSecondCommand = new DeleteExpenseCommand(INDEX_SECOND);
 
         // same object -> returns true
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
+        assertEquals(deleteFirstCommand, deleteFirstCommand);
 
         // same values -> returns true
         DeleteExpenseCommand deleteFirstCommandCopy = new DeleteExpenseCommand(INDEX_FIRST);
-        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        assertEquals(deleteFirstCommand, deleteFirstCommandCopy);
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(1));
+        assertNotEquals(1, deleteFirstCommand);
 
         // null -> returns false
-        assertFalse(deleteFirstCommand.equals(null));
+        assertNotEquals(null, deleteFirstCommand);
 
         // different expense -> returns false
-        assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
+        assertNotEquals(deleteFirstCommand, deleteSecondCommand);
     }
 
     /**
-     * Updates {@code model}'s filtered list to show no one.
+     * Updates {@code Model}'s filtered list to show nothing.
      */
     private void showNoExpense(Model model) {
         model.updateFilteredExpenseList(p -> false);
