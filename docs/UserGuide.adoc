@@ -551,6 +551,10 @@ which can be checked using the command `loan list` or by pressing the hotkey men
 A way for you to automate certain actions based on a certain predicate.
 Spend less time typing repetitive commands, and spend more time keeping track of your expenses!
 
+[[Figure1]]
+.Rules in the rule list
+image::RuleUG1.png[width=85%,scaledwidth=85%]
+
 Rules have the following structure: If "predicate" is true, then perform "action". By creating a
 predicate which defines the condition you set, you can perform any action you create whenever a
 transaction is added/edited, if the transaction satisfies that condition.
@@ -559,6 +563,14 @@ All rules in the Rule Engine will be executed on a transaction, when:
 
 * It is a new transaction and has been successfully added into an account. *OR*
 * It is an existing transaction and has been successfully edited.
+
+.Transaction after rules were executed on it
+image::RuleUG2.png[width=85%,scaledwidth=85%]
+
+The picture above shows a transaction added with the command: +
+`txn dn/out x/200 d/Treat friends to buffet food!`
+
+As you can see, 2 of the rules from <<Figure1>> were applied on the transaction, and added categories to it.
 
 WARNING: All rules will be executed from the top of the list downwards.
 Typically, this is the order in which the rules were added.
