@@ -843,6 +843,9 @@ _{ more test cases ... }_
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Test case: Missing data file +
+   Expected: Application starts up as per normal. A default data set is loaded.
+.. Test case: Corrupted data file +
+   Expected: Application starts up as per normal. No data is loaded.
 
 _{ more test cases ... }_
