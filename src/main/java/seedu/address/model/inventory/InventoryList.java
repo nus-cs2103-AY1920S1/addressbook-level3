@@ -270,4 +270,16 @@ public class InventoryList {
 
     }
 
+    @Override
+    public String toString() {
+        String s = "";
+
+        for (Inventory inventory : this.getList()) {
+            s += inventory.getName().fullName + ", ";
+        }
+
+        s = s.substring(0, s.length() - 2);
+
+        return s;
+    }
 }

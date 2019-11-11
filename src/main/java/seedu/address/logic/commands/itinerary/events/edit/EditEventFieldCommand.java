@@ -527,9 +527,9 @@ public class EditEventFieldCommand extends Command {
             this.destination.ifPresent(destination -> builder.append(" Destination: ").append(destination));
             this.totalBudget.ifPresent(totalBudget -> builder.append(" Total Budget: ").append(totalBudget));
             this.inventoriesToDelete.ifPresent(inventoriesToDelete -> builder
-                    .append(" Inventory Items Deleted: ").append(inventoriesToDelete.size()));
+                    .append("Number of Inventory Items Deleted: ").append(inventoriesToDelete.size()));
             this.inventoryList.ifPresent(inventoryList -> builder.append(" Inventory Items Added: ")
-                    .append(inventoryList.getSize()));
+                    .append(inventoryList + " ").append("[Note: Duplicates are ignored]"));
 
 
             this.description.ifPresent(description -> builder.append(" Description: ").append(description));
