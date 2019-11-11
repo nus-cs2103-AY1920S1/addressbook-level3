@@ -89,5 +89,12 @@ public class OptionsTokenizerTest {
         Collections.sort(output);
         Collections.sort(unrecognizedArguments);
         assertEquals(output, unrecognizedArguments);
+
+        // no recognized arguments -> returns empty String
+        argsString = "     ";
+        output = OptionsTokenizer.getUnrecognizedArguments(argsString,
+                option1,
+                option2);
+        assertEquals(0, output.size());
     }
 }

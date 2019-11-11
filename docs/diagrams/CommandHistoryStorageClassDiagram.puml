@@ -1,0 +1,19 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface Storage <<Interface>>
+Interface CommandHistoryStorage <<Interface>>
+
+Class StorageManager
+Class JsonCommandHistoryStorage
+
+StorageManager .up.|> Storage
+StorageManager o--> CommandHistoryStorage
+
+JsonCommandHistoryStorage .up.|> CommandHistoryStorage
+JsonCommandHistoryStorage .down.> JsonSerializableCommandHistory
+JsonSerializableCommandHistory .down.> JsonAdaptedInputOuput
+@enduml

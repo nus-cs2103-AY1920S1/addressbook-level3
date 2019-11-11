@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Stores a set of {@code Option}'s. All options stored must be unique.
+ * Stores a set of {@code Option}'s. Only unique options will be stored.
  */
 public class OptionsSet {
     /** Set of options **/
