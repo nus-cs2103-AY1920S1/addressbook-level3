@@ -5,6 +5,7 @@ import static seedu.mark.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
@@ -156,6 +157,25 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void renameFolder(Folder from, Folder to) {
+        requireAllNonNull(from, to);
+        versionedMark.renameFolder(from, to);
+    }
+
+    @Override
+    public void deleteFolder(Folder folder) {
+        requireNonNull(folder);
+        versionedMark.deleteFolder(folder);
+    }
+
+    @Override
+    public boolean canDeleteFolder(Folder folder) {
+        requireNonNull(folder);
+        return getMark().getBookmarkList().stream().noneMatch(bookmark -> bookmark.getFolder().equals(folder))
+                && getMark().getFolderStructure().find(folder).getSubfolders().isEmpty();
+    }
+
+    @Override
     public boolean hasFolder(Folder folder) {
         requireNonNull(folder);
 
@@ -175,7 +195,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public boolean removeTagger(String taggerName) {
+    public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
         requireNonNull(taggerName);
         return versionedMark.removeTagger(taggerName);
     }

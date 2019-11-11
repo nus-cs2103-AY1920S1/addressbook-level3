@@ -2,6 +2,7 @@ package seedu.mark.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.function.Predicate;
 
@@ -120,8 +121,34 @@ public interface Model {
      */
     void updateFilteredBookmarkList(Predicate<Bookmark> predicate);
 
+    /**
+     * Adds a {@code folder} to the subfolders of {@code parentFolder}.
+     * @param folder
+     * @param parentFolder
+     */
     void addFolder(Folder folder, Folder parentFolder);
 
+    void renameFolder(Folder from, Folder to);
+
+    /**
+     * Checks if a folder can be deleted.
+     * No bookmark can have {@code folder} as its folder, and it can't have any subfolders.
+     * @param folder the folder to be deleted
+     * @return true if no bookmark is in the folder and the folder has no subfolders
+     */
+    boolean canDeleteFolder(Folder folder);
+
+    /**
+     * Deletes {@code folder}.
+     * @param folder
+     */
+    void deleteFolder(Folder folder);
+
+    /**
+     * Checks if {@code folder} exists.
+     * @param folder
+     * @return true if the folder exists, and false otherwise
+     */
     boolean hasFolder(Folder folder);
 
     /**
@@ -138,9 +165,11 @@ public interface Model {
      * Removes the tagger with the given {@code taggerName} from Mark.
      *
      * @param taggerName name of the tagger to be removed.
-     * @return false if the tagger is not found.
+     * @return An {@code Optional} containing the {@link SelectiveBookmarkTagger}
+     *         that was removed if the tagger exists, and an empty {@code Optional}
+     *         otherwise.
      */
-    boolean removeTagger(String taggerName);
+    Optional<SelectiveBookmarkTagger> removeTagger(String taggerName);
 
     /**
      * Activates all taggers in Mark to apply tags to Mark's bookmarks based

@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Autotag {
+Class AutotagController
+Class BookmarkTagger
+Class SelectiveBookmarkTagger
+}
+
+Package Tag {
+Class Tag
+}
+
+Package Predicates {
+Class BookmarkPredicate
+Class XYZContainsKeywordsPredicate
+}
+
+Mark *-down-> "1" AutotagController
+
+AutotagController o--> "*" SelectiveBookmarkTagger
+SelectiveBookmarkTagger -up-|> BookmarkTagger
+
+BookmarkTagger -down--> Tag
+SelectiveBookmarkTagger -down-> BookmarkPredicate
+BookmarkPredicate .down> XYZContainsKeywordsPredicate
+note top of XYZContainsKeywordsPredicate : XYZ = Name, Url, Folder
+
+@enduml

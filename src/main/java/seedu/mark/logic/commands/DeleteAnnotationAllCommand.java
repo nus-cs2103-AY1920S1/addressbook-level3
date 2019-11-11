@@ -40,8 +40,8 @@ public class DeleteAnnotationAllCommand extends DeleteAnnotationCommand {
     public CommandResult execute(Model model, Storage storage) throws CommandException {
         Bookmark oldBkmark = getRequiredBookmark(model);
         //TODO: refactor to prevent repetition
-        OfflineDocument docOriginal = getRequiredDoc(oldBkmark);
-        OfflineDocument doc = docOriginal.copy();
+        OfflineDocument doc = getRequiredDocCopy(oldBkmark);
+
         Paragraph p;
 
         try {

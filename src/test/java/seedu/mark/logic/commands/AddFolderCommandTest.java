@@ -1,11 +1,9 @@
 package seedu.mark.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 import static seedu.mark.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -13,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.mark.commons.core.Messages;
 import seedu.mark.logic.commands.exceptions.CommandException;
 import seedu.mark.logic.commands.results.CommandResult;
 import seedu.mark.model.ModelStub;
@@ -63,7 +62,7 @@ public class AddFolderCommandTest {
         AddFolderCommand addFolderCommand = new AddFolderCommand(Folder.ROOT_FOLDER, null);
         ModelStub modelStub = new ModelStubWithFolder(NON_NULL_FOLDER);
 
-        assertThrows(CommandException.class, AddFolderCommand.MESSAGE_READDING_ROOT_FOLDER, () ->
+        assertThrows(CommandException.class, Messages.MESSAGE_READDING_ROOT_FOLDER, () ->
                 addFolderCommand.execute(modelStub, new StorageStub()));
     }
 
