@@ -1,7 +1,6 @@
 package seedu.address.model.display.timeslots;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalTime;
 import java.util.ArrayList;

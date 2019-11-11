@@ -2,7 +2,6 @@ package seedu.address.model.display;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 
