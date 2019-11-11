@@ -1,0 +1,18 @@
+@startuml
+start
+:User executes AddExpense command;
+'diamond
+if () then ([budget does not exist])
+    'diamond
+    if () then ([budget period doesn't clash with existing budgets])
+        : add budget into the budget list;
+        : Update UI;
+        : Save default expense list and budget list;
+    else ([else])
+        : user receives budget clash message;
+    endif
+else ([else])
+    : user receives budget duplicate message;
+endif
+stop
+@enduml
