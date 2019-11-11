@@ -412,7 +412,7 @@ After sorting, commands that require INDEX as an input field (e.g. `delete`) wil
 Finds engagements whose names contain any of the given keywords. Engagements can be in different types: `Appointment`, `Meeting` and `Interview`.
 Searches can be interactive or non-interactive.
 
-Format: `find TAG/KEYWORD`
+Format: `find l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY`
 
 Valid tags: `d/`, `l/`, `a/`, `p/` +
 
@@ -438,7 +438,7 @@ The non-interactive equivalent of this sequence is `find l/Com Basement`.
 
 |Description
 |`d/`
-|Engagements containing description keyword will be returned. e.g. `find d/Singapore based` will return
+|Engagements containing description keyword will be shown. e.g. `find d/Singapore based` will show
 all engagements containing the description `Singapore based`. +
 e.g. `singapore based internship appointment`, `Singapore based project meeting`
 
@@ -448,7 +448,7 @@ e.g. `singapore based internship appointment`, `Singapore based project meeting`
 
 |Attendees
 |`a/`
-|Engagements containing attendee keyword will be returned. e.g. `find a/Hans` will return
+|Engagements containing attendee keyword will be shown. e.g. `find a/Hans` will show
 all engagements containing the attendee `Hans`. +
 e.g. `Hansen Gruber`, `hans christian`
 
@@ -460,7 +460,7 @@ e.g. `Hansen Gruber`, `hans christian`
 ****
 * All search are case insensitive. e.g `find a/hans` is equivalent to `find a/Hans`
 * At least one search parameter should be specified.
-* The order of the prefixes does not matter. e.g. `find a/Hans Bo p/high` is equivalent to `find p/high a/Hans`
+* The order of the prefixes does not matter. e.g. `find a/Hans p/high` is equivalent to `find p/high a/Hans`
 * Similarly, the two sequences below are similar.
 ```
 find
@@ -800,10 +800,11 @@ e.g. `calendar c/closedisplay d/11/11/2019`
 ** *Previous Month* : `calendar c/previousmonth`
 * *Clear* : `clear`
 * *Delete* : `delete i/INDEX` +
-e.g. `delete i/3`
+** `delete i/3`
 * *PDF* : `pdf i/INDEX to/RECEIVER from/SENDER`
 * *Redo* : `redo`
 * *Sort* : `sort p/PROPERTY o/ORDER`
 * *Undo* : `undo`
 * *List* : `list`
+* *Find* `find l/LOCATION d/DESCRIPTION a/ATTENDEES p/PRIORITY`
 * *Help* : `help`

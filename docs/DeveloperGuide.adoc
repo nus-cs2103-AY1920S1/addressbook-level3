@@ -1251,6 +1251,124 @@ p/😄
 ```
 Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
 
+=== Listing an engagement
+
+(i) Test case: `list` +
+
+Expected: Status bar shows the successful listing of engagement. The full engagement list is shown.
+
+(ii) Test case: `123 list` +
+
+Expected: Status bar shows the successful listing of engagement. The full engagement list is shown.
+
+(iii) Test case: `list 123` +
+
+Expected: Status bar shows the successful listing of engagement. The full engagement list is shown.
+
+=== Deleting an engagement
+
+(i) Test case: `delete i/3` +
+
+Expected: If there are 3 or more engagements in the engagement list, the 3rd engagement is deleted.
+Status bar shows the successful deletion of engagement with its details. The engagement list is updated accordingly.
+Otherwise, the engagement is not deleted due to invalid index.
+
+(ii) Test case: +
+The sequence of commands is as follows:
+```
+delete
+i/3
+```
+Expected: If there are 3 or more engagements in the engagement list, the 3rd engagement is deleted.
+Status bar shows the successful deletion of engagement with its details. The engagement list is updated accordingly.
+Otherwise, the engagement is not deleted due to invalid index.
+
+(ii) Test case: `delete i/-1` +
+
+Expected: The engagement is not deleted due to invalid index.
+
+(iii) Test case: +
+The sequence of commands is as follows:
+```
+delete
+i/-1
+```
+Expected: The engagement is not deleted due to invalid index.
+
+=== Finding an engagement
+
+(i) Test case: `find d/Singapore based`
+
+Expected: Engagements containing description keyword will be shown. e.g.  will show
+all engagements containing the description `Singapore based`. +
+e.g. `singapore based internship appointment`, `Singapore based project meeting`
+
+(ii) Test case: +
+The sequence of commands is as follows:
+```
+find
+d/Singapore based
+```
+Expected: Engagements containing description keyword will be shown. e.g.  will show
+all engagements containing the description `Singapore based`. +
+e.g. `singapore based internship appointment`, `Singapore based project meeting`
+
+(iii) Test case: `find l/Com Basement`
+
+Expected: Engagements matching the full exact keyword will be shown. e.g. will show
+all engagements containing the location `Com Basement`. Note that engagement with location `Basement Room 6` will not be shown.
+
+(iv) Test case: +
+The sequence of commands is as follows:
+```
+find
+l/Com Basement
+```
+Expected: Engagements matching the full exact keyword will be shown. e.g. will show
+all engagements containing the location `Com Basement`. Note that engagement with location `Basement Room 6` will not be shown.
+
+(v) Test case: `find a/Hans`
+
+Expected: Engagements containing attendee keyword will be shown. e.g. `find a/Hans` will show
+all engagements containing the attendee `Hans`. +
+e.g. `Hansen Gruber`, `hans christian`
+
+(vi) Test case: `find a/Hans` +
+The sequence of commands is as follows:
+```
+find
+a/Hans
+```
+
+Expected: Engagements containing attendee keyword will be shown. e.g. `find a/Hans` will show
+all engagements containing the attendee `Hans`. +
+e.g. `Hansen Gruber`, `hans christian`
+
+(vii) Test case: `find p/High`
+
+Expected: Engagements containing high priority will be shown.
+
+(viii) Test case: +
+The sequence of commands is as follows:
+```
+find
+p/High
+```
+
+Expected: Engagements containing high priority will be shown.
+
+(ix) Test case: `find a/Hans p/high`
+
+Expected: Engagements containing the attendee `Hans` and with high priority will be shown.
+
+(ix) Test case: +
+The sequence of commands is as follows:
+```
+find
+a/Hans p/high`
+```
+Expected: Engagements containing the attendee `Hans` and with high priority will be shown.
+
 
 //tag::yuchen-test[]
 === Sorting the engagement list
