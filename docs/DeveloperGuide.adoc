@@ -26,6 +26,17 @@ This guide provides information that will not only help you understand how CaloF
 
 We are a team of 4 Computer Science students from the National University of Singapore(NUS), and hope that this guide has been helpful for you. In the case of any queries or bugs, feel free to contact us by following the instructions [https://github.com/AY1920S1-CS2103T-W11-4/main/blob/master/docs/ContactUs.adoc[here]].
 
+Here is a list of symbols and formats we will be using in this guide:
+
+[NOTE]
+Important information will be listed here for you.
+
+`report` Text in a grey highlight represents a command that you can enter into CaloFit.
+
+*_Command_* Text that is bold and italicised represents a Class, Interface or Object.
+
+_Model#getMealLog()_ Text that is italicised only represents a method. The method name is listed after the "#" symbol.
+
 == Setting up
 
 Refer to the guide <<SettingUp#, here>>.
