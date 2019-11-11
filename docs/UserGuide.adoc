@@ -127,9 +127,11 @@ Upon exiting the app, updated lists will be automatically saved.
 ==== Reminder settings: `glist remDefault`
 Change and saves default number of days (n) which grocery item is expiring in,
 to colour code grocery items based on expiry dates. +
--*red* = has expired +
--*orange* = is expiring within n days +
--*green* = not expiring within n days +
+
+* *red*: has expired +
+* *orange*: is expiring within n days +
+* *green*: not expiring within n days +
+
 Format: `glist remDefault r/NUMBER_OF_DAYS`
 
 Examples:
