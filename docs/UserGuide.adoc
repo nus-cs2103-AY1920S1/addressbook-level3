@@ -109,32 +109,26 @@ image::questionindex.png[width="800" align="center"]
 The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
-=== Dashboard
-The *Dashboard* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
+//tag::dashboard1[]
+=== Dashboard Tab
+The *Dashboard* allows you to keep track of your learning journey and progress made in Duke Academy.
 
+image::dashboard.png[width="800" align="center"]
+On the *Dashboard* you can:
 
-image::homepage.png[width="800" align="center"]
+. See the percentage of questions you completed and your current skill tier.
++
+Novice 0 - 29 % {nbsp} +
+Apprentice 30 - 49 % {nbsp} +
+Master 50 - 69 % {nbsp} +
+Grandmaster 70 - 89 % {nbsp} +
+Duke 90 - 100 %
++
+. Keep track of the questions that you are currently attempting.
+. Keep track of the questions that you bookmarked.
+//end::dashboard1[]
 
-
-. *Completion Progress* +
-   Displays the number of questions that you have completed and how close you are to the next skill tier
-. *Currently attempting* +
-  Displays all the questions that you are currently attempting
-. *Bookmarked questions* +
-  Displays all your bookmarked questions
-
-====
-*Duke Academy ranks*:
-
-- *Novice* - 0 - 29 % {nbsp}
-- *Apprentice* - 30 - 49 % {nbsp}
-- *Master* 50 - 69 % {nbsp}
-- *Grandmaster* - 70 - 89 % {nbsp}
-- *Duke* - 90 - 100 %
-
-====
-
-=== Questions
+=== Questions Tab
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
 
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
@@ -148,7 +142,7 @@ image::questionspage.png[width="800" align="center"]
   on the right.
 ====
 
-=== Workspace
+=== Workspace Tab
 The workspace is where you will work on the various questions.
 
 image::workspace.png[width="800" align="center"]
@@ -172,7 +166,7 @@ A built-in editor for you to write your code.
 - To submit your attempt, enter `submit` into the *CommandBox*.
 ====
 
-=== Notes
+=== Notes Tab
 The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
 
 image::notespage.png[width="800" align="center"]
@@ -208,8 +202,12 @@ A canvas for you to draw any ideas you may have pertaining to data structures!
 //end::overview[]
 
 
-=== Help
-The help page is where you can get a quick summary of all of the features and commands in the application.
+//tag::help1[]
+=== Help Tab
+The help tab is where you can get a quick overview of commands used in Duke Academy, and the URL to the official User Guide.
+
+image::help.png[width="1000"]
+//end::help1[]
 
 //tag::beforestart[]
 [[BeforeStart]]
@@ -247,22 +245,26 @@ e.g. `browse [category]...` can be used as
 `browse easy linkedlist hashtable recursion` (i.e. 4 entries), etc.
 ====
 
+//tag::help[]
 === Access Help Tab: `help`
 
-Navigates to the *Help* Tab.
+Navigates to the *Help* Tab. +
+The *Help* tab contains a quick overview of commands used in Duke Academy, and also the URL to the official User Guide.
 
 *Format:* `help`
 
 image::help.png[width="800" align="center"]
 
+//tag::dashboard[]
+=== Access Dashboard: `dashboard`
 
-=== Access Home Tab: `home`
+Navigates to the *Dashboard* Tab. +
+The Dashboard allows the user to keep track of his learning journey and progress made in Duke Academy.
 
-Navigates to the *Home* Tab.
+*Format:* `dashboard`
 
-*Format:* `home`
-
-image::home.png[width="800" align="center"]
+image::dashboard.png[width="1000"]
+//end::dashboard[]
 
 
 === List all questions: `showall`
@@ -273,6 +275,9 @@ Navigates to the *Questions* Tab and displays all available questions.
 
 image::listallquestions.png[width="800" align="center"]
 
+//end::showall[]
+
+//tag::bookmark[]
 === Adding bookmark: `bookmark`
 
 Bookmarks a specific question.
@@ -285,7 +290,9 @@ Bookmarks a specific question.
 ****
 
 image::bookmark.png[width="800" align="center"]
+//end::bookmark[]
 
+//tag::deletebookmark[]
 === Removing bookmark: `deletebookmark`
 
 Removes the bookmark from a specific question.
@@ -296,6 +303,7 @@ Removes the bookmark from a specific question.
 * The id of a question can be found next to its title.
 * The question with the bookmark removed will disappear from the list of bookmarked questions located within your *Personal Dashboard*.
 ****
+//end::deletebookmark[]
 
 === Find question by title : `find`
 
