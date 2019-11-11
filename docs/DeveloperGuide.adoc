@@ -1001,7 +1001,7 @@ Cons:
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1039,6 +1039,8 @@ Expected: No transaction is added. Error details will be shown in the status mes
 (Contains non-alphanumeric characters). +
 Expected: Similar to previous.
 
+=== Adding an Out Transaction
+
 . Adding an out transaction with the command: `out`
 
 .. Prerequisites:
@@ -1053,6 +1055,8 @@ Expected: No transaction is added. Error details will be shown in the status mes
 (Date is invalid). +
 Expected: Similar to previous.
 
+=== Adding a Budget
+
 . Adding a budget with the command: `set`
 
 .. Prerequisites:
@@ -1065,6 +1069,8 @@ Expected: No budget is added. Error details will be shown in the status message.
 
 .. Other incorrect `set` command to try: `set $/-10 c/Shopping d/31122019` (Amount is negative). +
 Expected: Similar to previous.
+
+=== Adding a Split Ledger
 
 . Adding a split ledger with the command: `split`
 
@@ -1080,6 +1086,8 @@ Expected: No ledger is added. Error details will be shown in the status message.
 (Greater number of shares than number of people). +
 Expected: Similar to previous.
 
+=== Adding a Receive Ledger
+
 . Adding a receive ledger with the command: `receive`
 
 .. Prerequisites:
@@ -1094,24 +1102,66 @@ Expected: No ledger is added. Error details will be shown in the status message.
 two decimal places). +
 Expected: Similar to previous.
 
+=== Switching Tabs
 
+. Switching tabs with the command: `view`
 
-=== Deleting a Person
+.. Prerequisites:
 
-. Deleting a person while all persons are listed
+.. Test case: `view budget` +
+Expected: Switches to budget tab if user is in another tab. Else, user remains in budget tab.
 
-.. Prerequisites: List all persons using the `list` command.
-Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
-Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted.
-Error details shown in the status message.
-Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test case: `view budg3t` +
+Expected: Remains in current tab. Error details will be shown in the status message.
+
+.. Other incorrect `view` command to try: `view loans` (Loans tab does not exist). +
+Expected: Similar to previous.
+
+=== Deleting an Entry
+
+. Deleting an entry with the command: `delete`
+
+.. Prerequisites:
+
+.. Test case: `delete t1` +
+Expected: First transaction is deleted from the list. Balance in the footer will be updated.
+
+.. Test case: `delete t0` +
+Expected: No transaction is deleted. Error details shown in the status message. Balance remains the same.
+
+.. Other incorrect `delete` commands to try: `delete`, `delete t1000` (When size of the list of transaction
+is smaller than 1000). +
+Expected: Similar to previous.
+
+=== Updating an Entry
+
+. Updating an entry with the command: `update`
+
+.. Prerequisites:
+
+.. Test case: `update t1 $/1000` +
+Expected: First transaction in the list is updated. Balance will be updated as well.
+
+.. Test case: `update t0 $/1000` +
+Expected: No transaction is updated. Error details shown in the status message. Balance remains the same.
+
+.. Other incorrect `update` commands to try: `update`, `update i/Invalid` (Invalid prefix). +
+Expected: Similar to previous.
+
+=== Sort the Transactions
+
+. Sorting the transactions with the command: `sort`
+
+Prerequisites:
+
+.. Test case: `sort amount/a` +
+Expected: Transaction list will be sorted from smallest amount to greatest amount. Balance remains the same.
+
+.. Test case: `sort amount` +
+Expected: Transaction list remains unchanged. Error details shown in the status message.
+
+.. Other incorrect `sort` commands to try: `sort`, `sort date` (Order not stated). +
+Expected: Similar to previous.
 
 
 === Viewing Help Window
