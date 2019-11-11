@@ -1,8 +1,9 @@
 package seedu.ifridge.logic.commands.shoppinglist;
 
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -24,7 +25,7 @@ public class RedoShoppingCommandTest {
 
     @Test
     public void execute_shoppingListCanRedo_redoSuccessful() {
-        ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ShoppingItem shoppingItemToDelete = model.getFilteredShoppingList().get(INDEX_FIRST_FOOD.getZeroBased());
         RedoShoppingCommand redoShoppingCommand = new RedoShoppingCommand();
 
         String expectedMessage = RedoShoppingCommand.MESSAGE_SUCCESS;
@@ -40,6 +41,6 @@ public class RedoShoppingCommandTest {
         model.undoShoppingList();
         model.undoBoughtList();
 
-        ShoppingCommandTestUtil.assertCommandSuccess(redoShoppingCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(redoShoppingCommand, model, expectedMessage, expectedModel);
     }
 }

@@ -16,7 +16,7 @@ import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.ifridge.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.ifridge.model.food.Amount.MESSAGE_INVALID_AMOUNT;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -76,8 +76,8 @@ public class EditTemplateItemCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetTemplateIndex = INDEX_FIRST;
-        Index targetItemIndex = INDEX_FIRST;
+        Index targetTemplateIndex = INDEX_FIRST_FOOD;
+        Index targetItemIndex = INDEX_FIRST_FOOD;
         String userInput = targetTemplateIndex.getOneBased() + INDEX_DESC + AMOUNT_DESC_CHEESE
                 + NAME_DESC_CHEESE;
 
@@ -92,8 +92,8 @@ public class EditTemplateItemCommandParserTest {
     @Test
     public void parse_oneFieldSpecified_success() {
         // name
-        Index targetIndex = INDEX_FIRST;
-        Index itemIndex = INDEX_FIRST;
+        Index targetIndex = INDEX_FIRST_FOOD;
+        Index itemIndex = INDEX_FIRST_FOOD;
         String userInput = targetIndex.getOneBased() + INDEX_DESC + NAME_DESC_MILK;
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
                 .withName(VALID_NAME_MILK).build();
@@ -109,8 +109,8 @@ public class EditTemplateItemCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() {
-        Index targetIndex = INDEX_FIRST;
-        Index itemIndex = INDEX_FIRST;
+        Index targetIndex = INDEX_FIRST_FOOD;
+        Index itemIndex = INDEX_FIRST_FOOD;
         String userInput = targetIndex.getOneBased() + INDEX_DESC + AMOUNT_DESC_CHEESE + AMOUNT_DESC_MILK;
 
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
@@ -123,8 +123,8 @@ public class EditTemplateItemCommandParserTest {
     @Test
     public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
-        Index targetIndex = INDEX_FIRST;
-        Index itemIndex = INDEX_FIRST;
+        Index targetIndex = INDEX_FIRST_FOOD;
+        Index itemIndex = INDEX_FIRST_FOOD;
         String userInput = targetIndex.getOneBased() + INDEX_DESC + INVALID_NAME_DESC + NAME_DESC_MILK;
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
                 .withName(VALID_NAME_MILK).build();

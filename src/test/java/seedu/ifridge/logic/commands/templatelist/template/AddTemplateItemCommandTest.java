@@ -21,8 +21,8 @@ import static seedu.ifridge.model.food.Amount.UNIT_TYPE_WEIGHT;
 import static seedu.ifridge.testutil.Assert.assertThrows;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalUnitDictionary.getTypicalUnitDictionary;
@@ -67,7 +67,7 @@ public class AddTemplateItemCommandTest {
     public void execute_allFieldsSpecified_addSuccessful() throws Exception {
         TemplateItem validTemplateItem = new TemplateItemBuilder()
                 .withName(VALID_NAME_TOMATO_JUICE).withAmount(VALID_AMOUNT_TOMATO_JUICE).build();
-        AddTemplateItemCommand addCommand = new AddTemplateItemCommand(INDEX_FIRST, validTemplateItem);
+        AddTemplateItemCommand addCommand = new AddTemplateItemCommand(INDEX_FIRST_FOOD, validTemplateItem);
 
         UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(0);
         UniqueTemplateItemsBuilder templateItems = new UniqueTemplateItemsBuilder(templateToEdit);
@@ -92,9 +92,9 @@ public class AddTemplateItemCommandTest {
     @Test
     public void execute_duplicateFoodUnfilteredList_addFailure() {
         TemplateItem firstTemplateItem = model.getFilteredTemplateList()
-                .get(INDEX_FIRST.getZeroBased()).get(INDEX_FIRST.getZeroBased());
+                .get(INDEX_FIRST_FOOD.getZeroBased()).get(INDEX_FIRST_FOOD.getZeroBased());
 
-        AddTemplateItemCommand addCommand = new AddTemplateItemCommand(INDEX_FIRST, firstTemplateItem);
+        AddTemplateItemCommand addCommand = new AddTemplateItemCommand(INDEX_FIRST_FOOD, firstTemplateItem);
 
         assertCommandFailure(addCommand, model, AddTemplateItemCommand.MESSAGE_DUPLICATE_FOOD);
     }
@@ -102,7 +102,7 @@ public class AddTemplateItemCommandTest {
     @Test
     public void execute_invalidUnitsSpecifiedUnfilteredList_failure() {
         TemplateItem firstTemplateItem = model.getFilteredTemplateList()
-                .get(INDEX_SECOND.getZeroBased()).get(INDEX_FIRST.getZeroBased());
+                .get(INDEX_SECOND_FOOD.getZeroBased()).get(INDEX_FIRST_FOOD.getZeroBased());
         Amount validAmount = firstTemplateItem.getAmount();
         String validType = validAmount.getUnitType(validAmount);
         TemplateItem toAdd;
@@ -123,7 +123,7 @@ public class AddTemplateItemCommandTest {
             toAdd = null;
         }
 
-        AddTemplateItemCommand addCommand = new AddTemplateItemCommand(INDEX_FIRST, toAdd);
+        AddTemplateItemCommand addCommand = new AddTemplateItemCommand(INDEX_FIRST_FOOD, toAdd);
 
         assertCommandFailure(addCommand, model, AddTemplateItemCommand.MESSAGE_INCORRECT_UNIT);
     }
@@ -143,11 +143,11 @@ public class AddTemplateItemCommandTest {
     public void equals() {
         // Need to set a new DESC_AMY for CommandTestUtil with a TemplateItemDescriptor
         final TemplateItem standardItem = TEMPLATE_ITEM_CHEESE;
-        final AddTemplateItemCommand standardCommand = new AddTemplateItemCommand(INDEX_FIRST, standardItem);
+        final AddTemplateItemCommand standardCommand = new AddTemplateItemCommand(INDEX_FIRST_FOOD, standardItem);
 
         // same values -> returns true
         AddTemplateItemCommand commandWithSameValues =
-                new AddTemplateItemCommand(INDEX_FIRST, standardItem);
+                new AddTemplateItemCommand(INDEX_FIRST_FOOD, standardItem);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -157,12 +157,12 @@ public class AddTemplateItemCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new DeleteTemplateItemCommand(INDEX_FIRST, INDEX_FIRST)));
+        assertFalse(standardCommand.equals(new DeleteTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD)));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new AddTemplateItemCommand(INDEX_SECOND, standardItem)));
+        assertFalse(standardCommand.equals(new AddTemplateItemCommand(INDEX_SECOND_FOOD, standardItem)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new AddTemplateItemCommand(INDEX_FIRST, TEMPLATE_ITEM_RICE)));
+        assertFalse(standardCommand.equals(new AddTemplateItemCommand(INDEX_FIRST_FOOD, TEMPLATE_ITEM_RICE)));
     }
 }

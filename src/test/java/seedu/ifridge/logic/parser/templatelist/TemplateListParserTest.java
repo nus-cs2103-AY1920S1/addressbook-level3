@@ -6,7 +6,7 @@ import static seedu.ifridge.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.TEMPLATE_NAME_DESC_APPLE_PIE;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_TEMPLATE_NAME_APPLE_PIE;
 import static seedu.ifridge.testutil.Assert.assertThrows;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,9 +41,9 @@ public class TemplateListParserTest {
     @Test
     public void parseCommand_delete() throws Exception {
         String userInput = DeleteTemplateListCommand.COMMAND_WORD
-                + " " + INDEX_FIRST.getOneBased();
+                + " " + INDEX_FIRST_FOOD.getOneBased();
         DeleteTemplateListCommand command = (DeleteTemplateListCommand) parser.parseCommand(userInput);
-        assertEquals(new DeleteTemplateListCommand(INDEX_FIRST), command);
+        assertEquals(new DeleteTemplateListCommand(INDEX_FIRST_FOOD), command);
     }
 
     @Test
@@ -52,9 +52,9 @@ public class TemplateListParserTest {
         EditTemplateListCommand.EditTemplateListDescriptor descriptor =
                 new EditTemplateListDescriptorBuilder().withName(VALID_TEMPLATE_NAME_APPLE_PIE).build();
         EditTemplateListCommand command = (EditTemplateListCommand) parser.parseCommand(
-                EditTemplateListCommand.COMMAND_WORD + " " + INDEX_FIRST.getOneBased() + " "
+                EditTemplateListCommand.COMMAND_WORD + " " + INDEX_FIRST_FOOD.getOneBased() + " "
                 + " " + TEMPLATE_NAME_DESC_APPLE_PIE);
-        assertEquals(new EditTemplateListCommand(INDEX_FIRST, descriptor), command);
+        assertEquals(new EditTemplateListCommand(INDEX_FIRST_FOOD, descriptor), command);
     }
 
     @Test

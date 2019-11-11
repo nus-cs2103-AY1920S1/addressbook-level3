@@ -29,8 +29,8 @@ import static seedu.ifridge.testutil.TemplateItemBuilder.DEFAULT_AMOUNT;
 import static seedu.ifridge.testutil.TemplateItemBuilder.DEFAULT_NAME;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalUnitDictionary.getTypicalUnitDictionary;
@@ -74,7 +74,8 @@ public class EditTemplateItemCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         TemplateItem editedTemplateItem = new TemplateItemBuilder().build();
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder(editedTemplateItem).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, descriptor);
+        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD,
+                descriptor);
 
         UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(0);
         UniqueTemplateItemsBuilder templateItems = new UniqueTemplateItemsBuilder(templateToEdit);
@@ -104,7 +105,7 @@ public class EditTemplateItemCommandTest {
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastTemplate = Index.fromOneBased(model.getFilteredTemplateList().size());
         UniqueTemplateItems lastTemplate = model.getFilteredTemplateList().get(indexLastTemplate.getZeroBased());
-        TemplateItem lastTemplateItem = lastTemplate.get(INDEX_FIRST.getZeroBased());
+        TemplateItem lastTemplateItem = lastTemplate.get(INDEX_FIRST_FOOD.getZeroBased());
 
         TemplateItemBuilder templateItemInList = new TemplateItemBuilder(lastTemplateItem);
         UniqueTemplateItemsBuilder templateItems = new UniqueTemplateItemsBuilder(lastTemplate);
@@ -113,7 +114,7 @@ public class EditTemplateItemCommandTest {
 
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
                 .withName(VALID_NAME_TOMATO_JUICE).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(indexLastTemplate, INDEX_FIRST,
+        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(indexLastTemplate, INDEX_FIRST_FOOD,
                 descriptor);
 
         String expectedMessage = String.format(
@@ -136,10 +137,10 @@ public class EditTemplateItemCommandTest {
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST,
+        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD,
                 new EditTemplateItemDescriptor());
-        UniqueTemplateItems editedTemplate = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
-        TemplateItem editedTemplateItem = editedTemplate.get(INDEX_FIRST.getZeroBased());
+        UniqueTemplateItems editedTemplate = model.getFilteredTemplateList().get(INDEX_FIRST_FOOD.getZeroBased());
+        TemplateItem editedTemplateItem = editedTemplate.get(INDEX_FIRST_FOOD.getZeroBased());
 
         String expectedMessage = String.format(EditTemplateItemCommand.MESSAGE_NOT_EDITED, editedTemplateItem);
 
@@ -148,18 +149,18 @@ public class EditTemplateItemCommandTest {
 
     @Test
     public void execute_filteredList_success() {
-        showItemAtIndex(model, INDEX_FIRST, INDEX_FIRST);
+        showItemAtIndex(model, INDEX_FIRST_FOOD, INDEX_FIRST_FOOD);
 
-        UniqueTemplateItems filteredTemplate = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
+        UniqueTemplateItems filteredTemplate = model.getFilteredTemplateList().get(INDEX_FIRST_FOOD.getZeroBased());
         UniqueTemplateItems editedTemplate = new UniqueTemplateItemsBuilder(filteredTemplate).build();
 
-        TemplateItem itemInTemplate = filteredTemplate.get(INDEX_FIRST.getZeroBased());
+        TemplateItem itemInTemplate = filteredTemplate.get(INDEX_FIRST_FOOD.getZeroBased());
         TemplateItem editedItem = new TemplateItemBuilder(itemInTemplate)
                 .withName(VALID_NAME_ORANGES).withAmount(VALID_AMOUNT_ORANGES).build();
         editedTemplate.setTemplateItem(itemInTemplate, editedItem);
 
         EditTemplateItemCommand editCommand =
-                new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, new EditTemplateItemDescriptorBuilder()
+                new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD, new EditTemplateItemDescriptorBuilder()
                         .withName(VALID_NAME_ORANGES).withAmount(VALID_AMOUNT_ORANGES).build());
 
         String expectedMessage = String.format(EditTemplateItemCommand.MESSAGE_SUCCESS, itemInTemplate, editedItem);
@@ -182,9 +183,10 @@ public class EditTemplateItemCommandTest {
     @Test
     public void execute_duplicateTemplateItemUnfilteredList_failure() {
         TemplateItem firstTemplateItem = model.getFilteredTemplateList()
-                .get(INDEX_FIRST.getZeroBased()).get(INDEX_FIRST.getZeroBased());
+                .get(INDEX_FIRST_FOOD.getZeroBased()).get(INDEX_FIRST_FOOD.getZeroBased());
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder(firstTemplateItem).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_SECOND, descriptor);
+        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_SECOND_FOOD,
+                descriptor);
 
         assertCommandFailure(editCommand, model, EditTemplateItemCommand.MESSAGE_DUPLICATE_ITEM);
     }
@@ -192,7 +194,7 @@ public class EditTemplateItemCommandTest {
     @Test
     public void execute_invalidNameSpecifiedForUnitUnfilteredList_failure() {
         TemplateItem firstTemplateItem = model.getFilteredTemplateList()
-                .get(INDEX_FIRST.getZeroBased()).get(INDEX_FIRST.getZeroBased());
+                .get(INDEX_FIRST_FOOD.getZeroBased()).get(INDEX_FIRST_FOOD.getZeroBased());
         Name validName = firstTemplateItem.getName();
         Amount validAmount = firstTemplateItem.getAmount();
         String validType = validAmount.getUnitType(validAmount);
@@ -214,7 +216,8 @@ public class EditTemplateItemCommandTest {
             descriptor = null;
         }
 
-        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, descriptor);
+        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD,
+                descriptor);
 
         assertCommandFailure(addCommand, model, EditTemplateItemCommand.MESSAGE_INCORRECT_UNIT);
     }
@@ -222,7 +225,7 @@ public class EditTemplateItemCommandTest {
     @Test
     public void execute_invalidUnitsSpecifiedUnfilteredList_failure() {
         TemplateItem firstTemplateItem = model.getFilteredTemplateList()
-                .get(INDEX_FIRST.getZeroBased()).get(INDEX_FIRST.getZeroBased());
+                .get(INDEX_FIRST_FOOD.getZeroBased()).get(INDEX_FIRST_FOOD.getZeroBased());
         Name validName = firstTemplateItem.getName();
         Amount validAmount = firstTemplateItem.getAmount();
         String validType = validAmount.getUnitType(validAmount);
@@ -244,7 +247,8 @@ public class EditTemplateItemCommandTest {
             descriptor = null;
         }
 
-        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, descriptor);
+        EditTemplateItemCommand addCommand = new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD,
+                descriptor);
 
         assertCommandFailure(addCommand, model, EditTemplateItemCommand.MESSAGE_INCORRECT_UNIT);
     }
@@ -269,7 +273,7 @@ public class EditTemplateItemCommandTest {
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_CHEESE)
                 .withAmount(VALID_AMOUNT_CHEESE).build();
         EditTemplateItemCommand editCommand =
-                new EditTemplateItemCommand(outOfBoundTemplateIndex, INDEX_FIRST, descriptor);
+                new EditTemplateItemCommand(outOfBoundTemplateIndex, INDEX_FIRST_FOOD, descriptor);
 
         assertCommandFailure(editCommand, model, MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
@@ -278,12 +282,12 @@ public class EditTemplateItemCommandTest {
     public void equals() {
         // Need to set a new DESC_AMY for CommandTestUtil with a TemplateItemDescriptor
         final EditTemplateItemCommand standardCommand =
-                new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, DESC_TEMP_MINCED_MEAT);
+                new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD, DESC_TEMP_MINCED_MEAT);
 
         // same values -> returns true
         EditTemplateItemDescriptor copyDescriptor = new EditTemplateItemDescriptor(DESC_TEMP_MINCED_MEAT);
         EditTemplateItemCommand commandWithSameValues =
-                new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, copyDescriptor);
+                new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -293,14 +297,14 @@ public class EditTemplateItemCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new DeleteTemplateItemCommand(INDEX_FIRST, INDEX_FIRST)));
+        assertFalse(standardCommand.equals(new DeleteTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD)));
 
         // different index -> returns false
         assertFalse(standardCommand.equals(
-                new EditTemplateItemCommand(INDEX_SECOND, INDEX_FIRST, DESC_TEMP_MINCED_MEAT)));
+                new EditTemplateItemCommand(INDEX_SECOND_FOOD, INDEX_FIRST_FOOD, DESC_TEMP_MINCED_MEAT)));
 
         // different descriptor -> returns false
         assertFalse(standardCommand.equals(
-                new EditTemplateItemCommand(INDEX_FIRST, INDEX_FIRST, DESC_TEMP_TOMATO_JUICE)));
+                new EditTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD, DESC_TEMP_TOMATO_JUICE)));
     }
 }
