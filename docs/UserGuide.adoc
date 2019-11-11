@@ -37,8 +37,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * `list` : lists all expenses and income
-* `addAutoExp f/monthly n/drinks a/11.99 c/Food` : adds a recurring expense that will generate every day.
-* `add c/Food typ/Expense n/Mala a/5.50 d/2019 09 09 t/food t/indulgence` : adds the specified expense to your
+* `addAutoExp f/monthly n/drinks amt/11.99 cat/Food` : adds a recurring expense that will generate every day.
+* `addExpense cat/Food n/Mala amt/5.50 d/2019 09 09 tg/food tg/indulgence` : adds the specified expense to your
 list of expenses
 * `toggle wishlist` : toggles the wishlist panel
 * `exit` : exits the app
@@ -53,7 +53,7 @@ list of expenses
 
 * Words in `<>` are the parameters to be supplied by the user e.g. in `addExpense [n/<description>]`, `<description>` is
 a parameter which can be used as `n/mala at deck`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/mala at deck t/mala` or as `n/mala at deck`.
+* Items in square brackets are optional e.g `n/NAME [tg/TAG]` can be used as `n/mala at deck tg/mala` or as `n/mala at deck`.
 ====
 
 === Categories
@@ -130,7 +130,7 @@ Adds a new expenditure to your total spending.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
 in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `add typ/Expense c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]`
+Format: `add typ/Expense cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 
 * `<category name>`: The `category` that the entry belongs to.
 * `typ/Expense`: The type of the entry, which can be `Expense, Income, Budget, Wish`.
@@ -146,17 +146,16 @@ Example Usage:
 
 Other examples:
 
-* `add c/Gifts typ/Expense n/Rubber Duck for Yee Jian a/55 d/2019 11 09 t/sanity check`
-* `add c/Travel typ/Expense n/Travel To Alaska a/550000 d/2019 09 09`
+* `add cat/Gifts typ/Expense n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
+* `add cat/Travel typ/Expense n/Travel To Alaska amt/550000 d/2019 09 09`
 
-==== Adding Income : `add`
+==== Adding Income : `addIncome`
 Adds a new Income to your total income.
-Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
+Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and less than 10 million.
 
-Format: `add c/<category name> typ/Income n/<description> a/<expenditure> d/<date> [t/<tag>]`
+Format: `addIncome cat/<category name> n/<description> amt/<amount> d/<date> [tg/<tag>]`
 
 * `<category name>`: The `category` that the entry belongs to.
-* `typ/Income`: The type of the entry, which can be `Expense, Income, Budget, Wish`.
 * `<description>`: The name of this entry.
 * `<expenditure>`: The amount spent for this income. It can contain at most 2 decimal points.
 * `<date>`: The date of this income.
@@ -164,20 +163,19 @@ Format: `add c/<category name> typ/Income n/<description> a/<expenditure> d/<dat
 
 Example Usage:
 [start = 1]
-. If you would like to add a recent Income from a bursary, key in the command  `add cat/Gifts typ/Income n/Bursary amt/5000 d/2019 11 09 tg/reward for studying` .
+. If you would like to add a recent Income from a bursary, key in the command  `addIncome cat/Gifts n/Bursary amt/5000 d/2019 11 09 tg/reward for studying` .
 . You should see the new income being added into in the list of entries as displayed below.
 
 Other examples:
 
-* `add c/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 t/food`
-* `add c/Business typ/Income n/business Trip To Mars a/20000.00 d/2019 09 09`
+* `addIncome cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `addIncome cat/Business n/side business amt/20000.00 d/2019 09 09`
 
 ==== Editing a expense/income: `edit`
 
 Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
 
-
-Format: `edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]`
+Format: `edit <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
 
 * `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
 * You can update any of the fields of the entry. But you must at least edit one field.
@@ -191,9 +189,9 @@ key in the command  `edit 2 tg/irreversiblecatastrophicdestructiontomykidneysand
 
 Other Examples:
 
-* `edit 1 c/Food n/deck mala with friends`
-* `edit 3 c/Business n/Selling Coding Services a/0.01`
-* `edit 5 t/helpmykidneys`
+* `edit 1 cat/Food n/deck mala with friends`
+* `edit 3 cat/Business n/Selling Coding Services amt/0.01`
+* `edit 5 tg/helpmykidneys`
 
 ==== Deleting a expense/income: `delete`
 
@@ -222,25 +220,25 @@ Other Examples:
 
 Adds an automatically recurring expense every day/week/month (frequency) with the given description and amount.
 
-Format: `addAutoExp f/<frequency> n/<description> a/<expenditure> c/<category>
- [t/<tag1> t/<tag2> d/<starting date>]`
+Format: `addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category>
+ [tg/<tag1> tg/<tag2> d/<starting date>]`
 
 To list all categories, you can type `listCategories`.
 
 Examples:
 
-* `addAutoExp f/monthly n/spotify a/11.99 c/Entertainment`
+* `addAutoExp f/monthly n/spotify amt/11.99 cat/Entertainment`
 
 ==== Editing AutoExpense : `editAutoExp`
 
 Edits an automatically recurring expense every day/week/month (frequency) with the given description and amount.
 
-Format: `editAutoExp <index> [f/<frequency> n/<description> a/<expenditure> c/<category>
+Format: `editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category>
  t/<tag1> t/<tag2> d/<starting date>]`
 
 Examples:
 
-* `editAutoExp 1 a/5.99 n/spotify student`
+* `editAutoExp 1 amt/5.99 n/spotify student`
 
 By default, only future Expenses generated by this AutoExpense will have the modified properties.
 
@@ -258,14 +256,14 @@ A `--recursive` flag will be shipped in `v2.0`.
 
 Adds a new budget for expenditure with a certain tag, if applicable. Period: day/week/month
 
-Format: `addBudget c/<category> n/<description> a/<budget amount> d/<start date> p/<period> [t/<tag>]` +
+Format: `addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]` +
 Note: format for inputting period is <number><d/m/y> where d/m/y stands for days / months / years respectively
 e.g. for a period input of 10 days, use 10d
 
 Examples:
 
-* `addBudget c/Food n/Nov Budget a/50.00 d/2019 09 09 p/1m t/food`
-* `addBudget c/Food n/Mala Budget a/100.00 d/2019 09 10 p/50d`
+* `addBudget cat/Food n/Nov Budget amt/50.00 d/2019 09 09 p/1m tg/food`
+* `addBudget cat/Food n/Mala Budget amt/100.00 d/2019 09 10 p/50d`
 
 ==== Listing Budget : `listBudget`
 
@@ -278,13 +276,13 @@ Example: `listBudget`
 ==== Editing Budget : `editBudget`
 Edits a current budget's description, amount or tag (if applicable) at the given index.
 
-Format: `editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]`
+Format: `editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]`
 
 Examples:
 
 * `editBudget 1 n/fooooood budget`
-* `editBudget 2 n/lunch budget a/150`
-* `editBudget 2 t/fun`
+* `editBudget 2 n/lunch budget amt/150`
+* `editBudget 2 tg/fun`
 
 ==== Deleting Budget : `deleteBudget`
 Deletes a current budget at the given index.
@@ -297,11 +295,11 @@ Example: `deleteBudget 2`
 ==== Adding a Loan : `addLoan` [coming in v2.0]
 Adds a new loan with the given description, amount and interest (in percentage) and calculates the total outstanding amount based on the interest.
 
-Format: `addLoan  n/<description> a/<loan amount> i/<interest>`
+Format: `addLoan  n/<description> amt/<loan amount> i/<interest>`
 
 Example:
 
-* `addLoan n/student loan a/30000 i/4.5`
+* `addLoan n/student loan amt/30000 i/4.5`
 
 ==== Listing a loan : `listLoan` [coming in v2.0]
 Lists all the loans that the user has.
@@ -313,12 +311,12 @@ Example: `listLoan`
 ==== Editing a loan : `editLoan` [coming in v2.0]
 Edits a current loan's description, loan amount, or both.
 
-Format: `editLoan <index> [n/<description>] [a/<loan amount>] [i/<interest>]`
+Format: `editLoan <index> [n/<description>] [amt/<loan amount>] [i/<interest>]`
 
 Example:
 
 * `editLoan 1 n/nus tuition loan T.T`
-* `editLoan 1 a/25000 i/4.45%`
+* `editLoan 1 amt/25000 i/4.45%`
 
 ==== Deleting a loan : `deleteLoan` [coming in v2.0]
 
@@ -332,9 +330,9 @@ Example: `deleteLoan 1`
 
 Reduces the loan amount for the loan at the given index after user pays for part of the loan.
 
-Format: `payLoan <index> a/<amountPaid>`
+Format: `payLoan <index> amt/<amountPaid>`
 
-Example: `payLoan 1 a/4000`
+Example: `payLoan 1 amt/4000`
 
 === Statistics
 
@@ -433,37 +431,37 @@ Other Examples:
 
 Search income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
 
-Format: `find [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
+Format: `find [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]`
 
 Example:
 
-* `find c/food n/mala`: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.
-* `find c/business d/2019-09-09`: lists each entry in expenditure and income with date of "2019-09-09" and category of business.
-* `find d/2019-09-09 t/a t/b`: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.
+* `find cat/food n/mala`: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.
+* `find cat/business d/2019-09-09`: lists each entry in expenditure and income with date of "2019-09-09" and category of business.
+* `find d/2019-09-09 tg/a tg/b`: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.
 
 ==== Search Wish: `findWish`
 
 Search Wish by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
 
-Format: `findWish [c/<category>] [n/<description>] [a/<a>] [d/<date>] [/<tag>]`
+Format: `findWish [cat/<category>] [n/<description>] [amt/<a>] [d/<date>] [/<tag>]`
 
 Example:
 
-* `findWish c/food n/mala: lists each entry in Wish with title containing keyword “mala” and category of Food.`
-* `findWish c/business d/2019-09-09: lists each entry in Wish with date of "2019-09-09" and category of business.`
-* `findWish d/2019-09-09 t/a t/b: lists each entry in Wish with date of "2019-09-09" and tags of a and b.`
+* `findWish cat/food n/mala: lists each entry in Wish with title containing keyword “mala” and category of Food.`
+* `findWish cat/business d/2019-09-09: lists each entry in Wish with date of "2019-09-09" and category of business.`
+* `findWish d/2019-09-09 tg/a tg/b: lists each entry in Wish with date of "2019-09-09" and tags of a and b.`
 
 ==== Search Budget: `findBudget`
 
 Search Budget by Category,Description,Amount,Date or Tags. There must be at least one find parameter.
 
-Format: `findBudget [c/<category>] [n/<description>] [a/<expenditure>] [d/<date>] [t/<tag>]`
+Format: `findBudget [cat/<category>] [n/<description>] [amt/<expenditure>] [d/<date>] [tg/<tag>]`
 
 Example:
 
-* `findBudget c/food n/mala`: lists each entry in Budget with title containing keyword “mala” and category of Food.
-* `findBudget c/business d/2019-09-09`: lists each entry in Budget with date of "2019-09-09" and category of business.
-* `findBudget d/2019-09-09 t/a t/b`: lists each entry in Budget with date of "2019-09-09" and tags of a and b.
+* `findBudget cat/food n/mala`: lists each entry in Budget with title containing keyword “mala” and category of Food.
+* `findBudget cat/business d/2019-09-09`: lists each entry in Budget with date of "2019-09-09" and category of business.
+* `findBudget d/2019-09-09 tg/a tg/b`: lists each entry in Budget with date of "2019-09-09" and tags of a and b.
 
 // commenting out for mock PE.
 ////
@@ -535,13 +533,13 @@ Refer to <<Conditions>> to see Condition related commands.
 Adds new Reminder. Creating Reminder requires Conditions to be created first.
 The Condition Index refers to the index of the condition to add in the condition list.
 
-Format: `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]`
+Format: `addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]`
 
 Examples:
 
 * `addReminder n/Watch your spending i/1`
-* `addReminder n/Watch your spending i/1 tkr/amount a/100`
-* `addReminder n/Watch your spending i/1 tkr/num a/10`
+* `addReminder n/Watch your spending i/1 tkr/amount amt/100`
+* `addReminder n/Watch your spending i/1 tkr/num amt/10`
 
 ==== List all active Reminders (reminders currently set to display) : `listActiveReminders`
 Lists all the reminders that are currently being displayed.
@@ -564,13 +562,13 @@ Example:
 ==== Edit Reminder : `editReminder`
 Edits the description/ activation conditions/ attribute being tracked/ quota of the reminder.
 
-Format: `editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [a/<Quota>]`
+Format: `editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [amt/<Quota>]`
 
 Example:
 
 * `editReminder 1 n/Don't be broke.`
 * `editReminder 2 i/1 i/2 i/3`
-* `editReminder 3 tkr/amount a/100`
+* `editReminder 3 tkr/amount amt/100`
 
 ==== Delete Reminder : `deleteReminder`
 Deletes the reminder that was at index in the list.
@@ -671,12 +669,12 @@ Example:
 ==== Add WishList : `addWishlist`
 Adds a new item to your current wishlist
 
-Format: `addWish n/<Description> c/<Category> a/<Price> d/<Date>`
+Format: `addWish n/<Description> cat/<Category> amt/<Price> d/<Date>`
 
 Examples:
 
-* `add typ/Wish n/deck mala c/food a/5.60 d/2019 10 28`
-* `add typ/Wish n/deck mala c/food a/5.60 d/01/01/2020`
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/2019 10 28`
+* `add typ/Wish n/deck mala cat/food amt/5.60 d/01/01/2020`
 
 ==== Delete WishList : `deleteWish`
 Deletes the item at the stated index from your current wishlist
@@ -695,7 +693,7 @@ Format: `editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [
 Examples:
 
 * `editWishlist 1 n/1 try the chinatown ri ri hong mala!`
-* `editWishlist 1 a/20 tag/mala tag/expensive`
+* `editWishlist 1 amt/20 tag/mala tag/expensive`
 
 ==== Sort WishList by Time : `sortWishlistTime`
 Sort by date added from earliest to latest/from latest to earliest
@@ -866,36 +864,36 @@ do so.
 == Command Summary
 
 . Expenses, Income, Budget, Category:
-.. add typ/Expense c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]
-.. add typ/Income c/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]
-.. edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]
+.. addExpense/addExp cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]
+.. addIncome cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]
+.. edit <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]
 .. delete <index>
-.. addAutoExp f/<frequency> n/<description> a/<expenditure> c/<category> [t/<tag1> t/<tag2> d/<starting date>]
-.. editAutoExp <index> [f/<frequency> n/<description> a/<expenditure> c/<category> t/<tag1> t/<tag2> d/<starting date>]
+.. addAutoExp f/<frequency> n/<description> amt/<expenditure> cat/<category> [t/<tag1> t/<tag2> d/<starting date>]
+.. editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category> tg/<tag1> tg/<tag2> d/<starting date>]
 .. deleteAutoExp <index>
-.. addBudget c/<category> n/<description> a/<budget amount> d/<start date> p/<period> [t/<tag>]
+.. addBudget cat/<category> n/<description> amt/<budget amount> d/<start date> p/<period> [tg/<tag>]
 .. listBudget
-.. editBudget <index> [n/<description>] [a/<budget>] [t/<tag>]
+.. editBudget <index> [n/<description>] [amt/<budget>] [tg/<tag>]
 .. deleteBudget <index>
-.. addCategory c/<category> n/<category name>
-.. editCategory typ/<category type> c/<old category name> n/<new category name>
+.. addCategory cat/<category> n/<category name>
+.. editCategory typ/<category type> cat/<old category name> n/<new category name>
 .. listCategory
-.. deleteCategory c/<category type> n/<category name>
+.. deleteCategory cat/<category type> n/<category name>
 
 . Statistics:
 .. switch
 .. switchStats
 .. viewStatistics [p/<date>]
 .. sort typ/<sort type> s/<sort sequence>
-.. find [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
-.. findWish [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
-.. findBudget [c/<category>] [n/<description>] [a/<expenditure>] [d/<date>] [t/<tag>]
+.. find [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]
+.. findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]
+.. findBudget [cat/<category>] [n/<description>] [amt/<expenditure>] [d/<date>] [tg/<tag>]
 
 . Reminders:
-.. addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [a/<Quota>]
+.. addReminder n/<Message> i/<Condition Index> [tkr/<Tracker Type>] [amt/<Quota>]
 .. listActiveReminders
 .. listAllReminders
-.. editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [a/<Quota>]
+.. editReminder <Reminder Index> [n/<Message>] [i/<Condition Index>] [tkr/<Tracker Type>] [amt/<Quota>]
 .. deleteReminder <index>
 .. addToReminder <Reminder Index>, <Condition Index>
 .. removeFromReminder <Reminder Index>, <Condition Index>
@@ -909,14 +907,14 @@ do so.
 .. listConditions
 
 . Wishlist:
-.. addWish n/<Description> c/<Category> a/<Price> d/<Date>
+.. addWish n/<Description> cat/<Category> amt/<Price> d/<Date>
 .. deleteWish <index>
-.. editWishlist <index> [n/<Description>] [c/<Category>] [a/<Price>] [d/<Date>] [t/<Tag>]
+.. editWishlist <index> [n/<Description>] [cat/<Category>] [amt/<Price>] [d/<Date>] [tg/<tag>]
 .. sortWishlistTime <ascending/ descending>
 .. sortWishlistPrice <ascending/ descending>
 .. sortWishlistName <ascending/descending>
 .. sortWishlistPriority <ascending/descending>
-.. findWish [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]
+.. findWish [cat/<category>] [n/<description>] [amt/<amount>] [d/<date>] [tg/<tag>]
 .. purchase <index>
 
 . Undo and Redo:
@@ -925,7 +923,6 @@ do so.
 
 . UI features:
 .. toggle <panel name>
-.. listFont
 .. changeFont <font name>
 .. setLightTheme
 .. setDarkTheme
