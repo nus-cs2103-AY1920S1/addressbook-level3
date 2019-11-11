@@ -551,7 +551,7 @@ INDEX is a positive integer and is limited to the number of shows found in searc
 
 Scenario 1: User has already input 'Titanic' show into watchlist manually.
 
-image::Sync1.png[width="790"]
+image::Sync1.png[width="350"]
 
 Step 1. User searches for `Titanic` show in search page.
 
