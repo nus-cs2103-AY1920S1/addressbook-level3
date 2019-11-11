@@ -451,7 +451,7 @@ Upon entering an unknown command, FinSec will prompt you as to whether you would
 
 *Choice 2 :* You can enter any `existing commands` to map your previous entry to it!
 
-If you have chosen *Choice 2*, you can use the newly created shortcut as a substitute to the command.
+If you have made a mistake and entered the wrong command,  *Choice 1* would allow you to continue.
 
 ==== Example of *Choice 1* :
 
@@ -486,7 +486,7 @@ image::UG-NoShortcut2.png[width="800"]
 .Entering 'n' will allow you to continue.
 image::UG-NoShortcut3.png[width="800"]
 
-
+If you have wish to create a shortcut,  *Choice 2* would allow you to create a shortcut to a command.
 
 ==== Example of *Choice 2* :
 
@@ -532,7 +532,7 @@ image::warning.png[width = "20", float = "left"]
 * The shortcut you want to add has to be to a default FinSec command.
 
 ====
-
+// end::shortcutfeature[]
 
 === Deleting a shortcut : `delete_shortcut`
 
@@ -563,7 +563,6 @@ image::warning.png[width = "20", float = "left"]
 * This will not work for default commands.
 
 ====
-// end::shortcutfeature[]
 
 //@@author {lawncegoh}
 // tag::introduction[]
