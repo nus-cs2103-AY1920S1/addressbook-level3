@@ -31,10 +31,10 @@ Responsibilities: In charge of GUI
 
 === Chong Zi Kang
 image::czkay.png[width="150", align="left"]
-{empty}[http://github.com/czkay[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/czkay[github]] [<<czkay#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of Reminder & Prediction
+Responsibilities: In charge of Events and Code Quality
 
 '''
 

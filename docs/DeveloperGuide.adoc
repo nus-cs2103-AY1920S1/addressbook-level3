@@ -535,7 +535,8 @@ storage.
 
 // end::budget[]
 
-// category::events[]
+// tag::events[]
+
 === Events feature
 ==== Implementation
 
@@ -598,7 +599,7 @@ the user inputs in the command.
 Users can set their expenses to recur. Recurring expenses will generate events daily/weekly/monthly (based on
 the user's decision) that can then be added as expenses when their due dates are reached.
 
-//end::events[]
+// end::events[]
 
 // tag::statsdg[]
 === Statistics Feature

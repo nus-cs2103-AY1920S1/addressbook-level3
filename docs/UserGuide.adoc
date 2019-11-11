@@ -68,25 +68,24 @@ quickly.
 ====
 *Command Format*
 
-* Words in between `<` and `>` are the parameters which are to be supplied by you! +
-  e.g. `add p/<PRICE>`, you will need to supply a value to be used as the `PRICE` such as `add p/2.50` .
+* Words in between `<` and `>` are the parameters which are to be supplied by you!
+** `add p/<PRICE>`, you will need to supply a value to be used as the `PRICE` such as `add p/2.50`.
 * You don't have to input the parameters in square brackets if you don't want to. These arguments are optional, and you
 may use them to specify more details.
 ** `addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/<DATE>]` means that both +
 `addexpense d/Chicken Rice p/2.50 c/Food` and +
 `addexpense d/Chicken Rice p/2.50 c/Food t/25-01` +
-are valid inputs
+are valid inputs.
 
 
-* You may also enter parameters which have a prefix in any order.
+* You may also enter parameters with prefixes in any order.
 ** `addexpense p/2.50 d/chicken rice c/food` +
  `addexpense c/food d/chicken rice p/2.50` are both valid.
-* However, for commands which require an argument without a prefix require that the argument be supplied immediately after the command word.
+* However, commands that require indexes will only be successful if the index is supplied immediately after the command word.
 ** `editexpense 1 p/2.30` is valid.
 ** `editexpense d/2.30 1` is not valid.
 
 ====
-
 
 === Viewing help : `help`
 
@@ -162,7 +161,7 @@ These are the panels which you may access through the `view` command: +
 ****
 *Note*
 
-1. Panel names are case-sensitive.
+1. Panel names are case-insensitive.
 
 2. Statistics panel is not viewable until statistics have been generated.
 ----
@@ -171,7 +170,7 @@ view Statistics
 
 ----
 stats
-listexpenses
+listexpense
 view Statistics
 ----
 ****
@@ -190,14 +189,26 @@ will be interpreted as:
 addexpense d/chicken duck p/3 c/food
 ----
 
-=== Natural language DateTime parsing
-DateTime formats accepted are handled mostly by a third-party Natural Language Parser library, Natty, which supports human jargon.
+// tag::natty[]
+
+=== Natural language Datetime parsing
+In MooLah, you can type all dates and times in natural language! You no longer have to remember what date it was a week ago;
+just type '1 week ago' into the appropriate parameter in the command line and MooLah will handle the rest!
+Datetime formats are parsed mostly by a third-party Natural Language Parser library, Natty, which supports human jargon.
 Please refer to http://natty.joestelmach.com/ for documentation and more information.
-[NOTE]
+[IMPORTANT]
 Natty naturally parses all datetime formats in the American format (e.g. MM/dd, MM-dd).
 In MooLah however, we have modified the parser such that all formats are parsed in the international format (e.g. dd/MM).
+So, the tryout page on Natty's official website will parse dates differently in this aspect.
+[NOTE]
+The seconds or even nanoseconds you add to your datetime inputs won't be processed by MooLah! (i.e. all seconds and
+nanoseconds are rounded down to 0.)
 
-=== Basic Expense-related Commands
+// end::natty[]
+
+// tag::expenses[]
+
+=== Expense-related Commands
 ==== Adding an expense: `addexpense`
 
 This is MooLah's fundamental feature: you can add your expenses.
@@ -209,6 +220,7 @@ addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/TIMESTAMP]
 
 ****
 * If you don't specify the time, your expense will be added with its time being the current system time.
+* You cannot input an expense from the future. There's a better way to do that, see <<Adding an event: `addevent`, here>>!
 * You should only input one of the following into the CATEGORY field: `FOOD`, `TRAVEL`, `TRANSPORT`,
 `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
@@ -222,9 +234,9 @@ Examples:
 ==== Adding an expense from NUS canteens' menu : `addmenuexpense`
 
 This is what makes MooLah special for NUS students.
-Shortcut your way on adding expenses for foods and drinks in NUS!
+Shortcut your way to adding expenses for foods and drinks in NUS!
 
-Currently, MooLah only supports just a handful of menu items, though. Head over to <<Menu Items List>> to see the
+Currently, MooLah only supports just a handful of menu items, though. Head over to our <<Menu Items List, menu items list>> to see the
 supported menu items. A more comprehensive menu list is on its way in v2.0!
 
 Format:
@@ -240,11 +252,11 @@ addmenuexpense m/deck chicken rice
 This will add a new expense that corresponds to The Deck's Chicken Rice and MooLah will automatically fill in
 the description, price, and category for you.
 
-==== Listing all expenses : `listexpenses`
+==== Listing all expenses : `listexpense`
 
 You can list every single expense you have added into MooLah.
 
-Format: `listexpenses`
+Format: `listexpense`
 
 ==== Updating an expense: `editexpense`
 
@@ -278,12 +290,16 @@ findexpense <KEYWORD> [<MORE_KEYWORDS>]
 ----
 
 ****
-* The search is case insensitive. e.g `chicken` will match `Chicken`
-* The order of the keywords does not matter. e.g. `Puff Curry` will match `Curry Puff`
+* The search is case-insensitive.
+** `chicken` will match `Chicken`.
+* The order of the keywords does not matter.
+** `Puff Curry` will match `Curry Puff`.
 * Only the description is searched.
-* Only full words will be matched. e.g. `chick` will not match `chicken`
-* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description
-`Chicken rice`, and expense with description `Duck Rice` will both match `rice`
+* Only full words will be matched.
+** `chick` will not match `chicken`.
+* Expenses matching at least one keyword will be returned (i.e. OR search).
+** An expense with description
+`Chicken rice`, and expense with description `Duck Rice` will both match `rice`.
 ****
 
 Examples:
@@ -310,28 +326,36 @@ deleteexpense <INDEX>
 Examples:
 
 ----
-listexpenses
+listexpense
 delete 2
 ----
 Deletes the 2nd expense in the list of expenses, shown after `listexpenses` is executed.
 
 ----
-listexpenses
+listexpense
 findexpense chicken
 deleteexpense 1
 ----
 Deletes the 1st expense in the results of the `findexpense` command.
 
-=== Basic Event-related Commands
+// end::expenses[]
+
+// tag::events[]
+
+=== Event-related Commands
 
 Events are pretty similar to expenses, except that they denote potential expenses that they may happen in the future.
 You should use this feature to keep track of future important events in your life that would require you to spend some money
 (e.g. your friends' birthdays).
 
-At launch, MooLah will remind you of your upcoming events. Any transpired events would also appear as popups,
+At launch, MooLah will remind you of your upcoming events. Any transpired events also appear as popups,
 asking you whether you wish to add these events as corresponding expenses.
 
 image::TranspiredEventsPopup.png[width="790"]
+
+[NOTE]
+MooLah updates time every 10 seconds, so you may experience a slight delay of 10 seconds maximum when it comes to
+event popups!
 
 ==== Adding an event: `addevent`
 
@@ -342,7 +366,7 @@ Format:
 addevent d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> t/<TIMESTAMP>
 ----
 ****
-* Events are potential future expenses, so the `TIMESTAMP` field is compulsory and should contain a future time.
+* Events are potential future expenses, so the `TIMESTAMP` field is compulsory and must contain a future time.
 * You should only input one of the following into the `CATEGORY` field:
 `FOOD`, `TRAVEL`, `TRANSPORT`, `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
@@ -353,13 +377,13 @@ Examples:
 * `addevent d/Family buffet c/Food p/250 t/31-12`
 * `addevent d/Bangkok plane tickets t/tomorrow p/200 c/Travel`
 
-==== Listing all events : `listevents`
+==== Listing all events : `listevent`
 
 You can list every single event you have added into MooLah.
 
 Format:
 ----
-listevents
+listevent
 ----
 ==== Updating an event: `editevent`
 
@@ -372,9 +396,10 @@ editevent <INDEX> [p/<PRICE>] [d/<DESCRIPTION>] [t/<TIMESTAMP>] [c/<CATEGORY>]
 
 Example:
 ----
+listevent
 editevent 2 p/300
 ----
-Updates the price of the 2nd event in the current list to be 300.
+This will update the price of the 2nd event in the current list to be 300.
 
 
 ****
@@ -405,6 +430,8 @@ listevents
 delete 2
 ----
 Deletes the 2nd event in the list of events, shown by `listevents`.
+
+// end::events[]
 
 //tag::budget[]
 === Let's Do Budgeting
@@ -1034,6 +1061,7 @@ the data of your previous MooLah folder.
 * *Exit the app* : `exit`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Clear MooLah* : `clearmoolah`
 
 ---
 
@@ -1042,7 +1070,7 @@ the data of your previous MooLah folder.
 * *Add an expense* (_undoable_) : `addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<TIME>]` +
 e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 
-* *List all expenses* (_undoable_) : `listexpenses`
+* *List all expenses* : `listexpense`
 
 * *Edit an expenses* (_undoable_) : `editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
 e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
@@ -1051,7 +1079,19 @@ e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 
 * *Find an expense* (_undoable_) : `findexpense <KEYWORD> [<MORE_KEYWORD>]`
 
-* *Clear all expenses and budgets* (_undoable_) : `clearall`
+---
+
+*All about events:*
+
+* *Add an event* (_undoable_) : `addevent d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> t/<TIME>` +
+e.g. `addevent d/Family buffet p/50 t/1 week from now c/Food`
+
+* *List all events* : `listevent`
+
+* *Edit an event* (_undoable_) : `editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
+e.g. `editexpense 1 p/2.50 c/Food`
+
+* *Delete an event* (_undoable_) : `deleteevent <INDEX>`
 
 ---
 
