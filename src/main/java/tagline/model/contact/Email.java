@@ -1,3 +1,5 @@
+// @@author yehezkiel01
+
 package tagline.model.contact;
 
 import static java.util.Objects.requireNonNull;

@@ -557,6 +557,8 @@ image::GroupSequenceDiagram.png[]
  the members in `Group`.
 // end::groupcontacts[]
 
+// tag::yehez1[]
+
 === Tagging feature
 ==== Description
 
@@ -601,6 +603,7 @@ not exist inside model.
 **Step 3:** Finally, the note will be tagged with the registered tag using model.
 
 This whole process has successfully executed the `TagNoteCommand`.
+// end::yehez1[]
 
 // tag::note-filter[]
 === Note filtering feature
@@ -1142,6 +1145,7 @@ Expected: No note is created. An error message is returned with the error detail
 .. *Test case*: `group delete archive of our own` +
    *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
 
+// tag::yehez2[]
 === Tagging a note
 
 . *Prerequisites*: Enter `note list` command to view all notes. Ensure that note with id `1` exists. Otherwise,
@@ -1165,10 +1169,13 @@ whereas the second time we enter the next command, we would get an error message
 been tagged to the note. In this case, it is `#topic1`
 .. *Test case*: Enter `note tag 1 --t #0123456789012345678901234567890` +
    *Expected*: We will get an error message saying that the maximum character for hash tag is 30.
+// end::yehez2[]
 
 . Tagging a note with contact tag
 
 . Tagging a note with group tag
+
+// tag::yehez3[]
 
 . Tagging a note with all types of tag
 .. *Prerequisites*: There is a contact with id `1`, otherwise you may choose any other existing contact id. There is a
@@ -1200,11 +1207,13 @@ whereas the second time we enter the next command, we would get an error message
 not tagged to the note. In this case, it is `#topic1`
 .. *Test case*: Enter `note untag 1 --t #0123456789012345678901234567890` +
    *Expected*: We will get an error message saying that the maximum character for hash tag is 30.
+// end::yehez3[]
 
 . Untagging a note with contact tag
 
 . Untagging a note with group tag
 
+// tag::yehez4[]
 . Untagging a note with all types of tag
 .. *Prerequisites*: There is a contact with id `1`, otherwise you may choose any other existing contact id. There is a
 group with name `BTS`, otherwise you may create one. Note
@@ -1212,3 +1221,4 @@ with id `1` is tagged with `#topic`, `@00001` and `%BTS`.
 .. *Test case*: `note untag 1 --t #topic --t @00001 --t %BTS` +
    *Expected*: Note successfully untagged with the three hash tag which should be reflected in the response message
 and in the note view.
+// end::yehez4[]

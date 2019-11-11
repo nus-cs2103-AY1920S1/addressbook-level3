@@ -64,7 +64,7 @@ Roles:
 
 === Yehezkiel Raymundo Theodoroes
 image::yehezkiel01.png[width="150", align="left"]
-{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel#, portfolio>>]
+{empty}[https://github.com/Yehezkiel01[github]] [<<yehezkiel01#, portfolio>>]
 
 Roles:
 

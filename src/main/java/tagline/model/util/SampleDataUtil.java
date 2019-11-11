@@ -209,7 +209,7 @@ public class SampleDataUtil {
         return Stream.of(
                 getHashTagSet("hello", "homework", "game", "songs", "assignment"),
                 getContactTagSet("1", "2", "3", "4", "5"),
-                getGroupTagSet("cs2103t"))
+                getGroupTagSet("cs2103t", "X1", "BTS", "Wanna-One", "iKon"))
                 .flatMap(Stream::of)
                 .toArray(Tag[]::new);
     }

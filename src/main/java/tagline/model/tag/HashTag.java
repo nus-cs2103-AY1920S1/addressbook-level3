@@ -1,3 +1,5 @@
+// @@author yehezkiel01
+
 package tagline.model.tag;
 
 import java.util.Objects;
