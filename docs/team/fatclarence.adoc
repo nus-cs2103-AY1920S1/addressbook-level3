@@ -174,7 +174,7 @@ while my full write-ups can be found https://github.com/AY1920S1-CS2103T-F13-2/m
 include::../UserGuide.adoc[tag=savings]
 
 |===
-| _I also wrote the descriptions for the history command. This is replicated below.
+| _I also wrote the descriptions for the history command. This is replicated below._
 |===
 
 include::../UserGuide.adoc[tag=history]
