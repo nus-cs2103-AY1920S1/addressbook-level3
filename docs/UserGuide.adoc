@@ -968,14 +968,17 @@ ride instead. Without going through the trouble of updating the same transaction
 
 . Here, you can see the wrong update you just made.
 +
+.Transaction List Containing Erroneous Transaction
 image::undo1.png[]
 +
 . Simply type *undo* in the command box and press kbd:[Enter].
 +
+.User Input for Undo Command
 image::undo2.png[]
 +
 . As you wish, your command has been undone.
 +
+.Erroneous Transaction Has Been Undone
 image::undo3.png[]
 // end::undo[]
 
@@ -1001,14 +1004,17 @@ You can simply perform the `redo` command to revert the changes. Just follow the
 
 . Here, you can see the extra undo you just made and the GrabTaxi ride is back at $800.
 +
+.Transaction List Containing Erroneous Transaction
 image::redo1.png[]
 +
 . Simply type *redo* in the command box and press kbd:[Enter].
 +
+.User Input for Redo Command
 image::redo2.png[]
 +
 . Great! Your transaction is back to normal.
 +
+.Success Message for Redo Command
 image::redo3.png[]
 
 // end::redo[]
