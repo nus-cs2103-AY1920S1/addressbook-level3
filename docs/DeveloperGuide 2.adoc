@@ -124,7 +124,7 @@ The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
 * stores Budget Buddy's data.
-* exposes multiple unmodifiable ``ObservableList``s that can be 'observed' e.g. the different ``DisplayPanel``s in UI are bound to these lists so that the UI automatically updates when the data in the lists change.
+* exposes multiple unmodifiable `ObservableLists` that can be 'observed' e.g. the `PanelTab`s in UI are bound to these lists so that the UI automatically updates when the data in the lists change.
 * does not depend on any of the other three components.
 
 [[Design-Storage]]
@@ -153,12 +153,12 @@ Classes used by multiple components are in the `budgetbuddy.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::accounts_1[]
+// tag::accounts[]
 === Accounts Feature
 ==== Implementation
 
 The Accounts Feature allows the users to manage their accounts.
-It is managed by `AccountsManager`, with `Account` objects stored internally in an `accounts` and `filteredAccounts`.
+It is managed by `AccountsManager`, with `Account` objects stored internally in a `Accounts` and `filteredAccounts`.
 
 The class diagram below shows how the `AccountsManager` maanges its list of `Account` objects:
 
@@ -173,7 +173,7 @@ Each `Account` object has the following attributes:
 * `balance:long` -- The balance of the account, calculated by the net sum of expenses and income.
 * `balanceLongProperty:LongProperty` -- The Long property of the balance.
 * `categoryset:Set<Category>` -- The set of categories involved in the account.
-// end::accounts_1[]
+
 To facilitate the manipulation of `Account` objects, `AccountsManager` implements the following operations:
 
 * `AccountsManager#updateFilteredAccountList(Predicate<Account> predicate)` -- Updates the predicate of `filteredAccounts`.
@@ -194,7 +194,7 @@ To facilitate the manipulation of `Account` objects, `AccountsManager` implement
 * `AccountsManager#transactionListSwitchSource(Account account)` -- Switches the account source for the TransactionList.
 * `AccountsManager#transactionListUpdateSource()` -- Updates the transactionList linked to the currentActiveAccount.
 * `AccountsManager#exportReport()` -- Exports the overview report of all accounts.
-// tag::accounts_2[]
+
 When the user inputs a command, several of the above operations are carried out.
 For example, `account edit` will call `AccountsManager#resetFilteredAccountList` to update the `filteredAccounts`,
 so that all accounts present in `accounts` will be present in `filteredAccounts`,
@@ -269,7 +269,7 @@ After each command, `AccountsManager#resetFilteredAccountList` is called to rese
 * **Alternative 2**: `AccountListPanel` is associated with both `filteredAccounts` and `accounts`, and the display of the list switches when necessary.
 ** Pros: Easy to understand and align with the common sense.
 ** Cons: Hard to implement.
-// end::accounts_2[]
+// end::accounts[]
 
 // tag::loans[]
 // tag::kenneth-ppp-loan-class[]
@@ -556,8 +556,8 @@ for expressions and `*PredicateScript*` and `*ActionScript*` for scripts respect
 // end::ruleMgmt[]
 
 For predicate expressions, they are formed using binary comparison operations, which means that each expression contains
-a predefined `*Operator*` which takes in two arguments, a predefined `*Attribute*` to represent an attribute of a `*Transaction*`,
-as well as a `*Value*` to represent a given value to test against the attribute.
+an `*Operator*` which takes in two arguments, an `*Attribute*` to represent an attribute of a `*Transaction*`, as well as
+a `*Value*` to represent a given value to test against the attribute.
 
 ****
 Here is an example of a part of what a user may type as a predicate expression: +
@@ -576,14 +576,14 @@ Again, here is an example of a part of what a user may type as an action express
 This is split into the *Operator:* `set_cat` , as well as the *Value:* `Cheap` .
 ****
 
-Predicates and actions implemented as scripts on the other hand are each defined with a single `*ScriptName*`, which refers to the
+Predicate and actions implemented as scripts on the other hand are defined with a single `*ScriptName*`, which refers to the
 name of the script itself.
 
 ****
-An example of both predicate and action script names a user may type: +
+Predicate and action scripts are defined the same way. An example of both: +
 `p/CheckIsTransport a/SetTransportFare`
 
-In this case, both `CheckIsTransport` and `SetTransportFare` are ``*ScriptName*``s .
+In this case, both `CheckIsTransport` and `SetTransportFare` are `*ScriptNames*` .
 ****
 
 Each and every `*Rule*` is stored within the `*RuleManager*`, which serves as an interface to manipulating the list of rules.
@@ -652,8 +652,8 @@ after the new transaction has already been added. The `*RuleEngine*` takes over,
 `*Model*`.
 
 Thereafter, the list of rules is retrieved from the `*RuleManager*`. The `*RuleEngine*` iterates through the list,
-using the `*RulePredicate*` and `*RuleAction*` of each rule to create the required ``*Testable*``s for testing on the
-transaction, as well as the ``*Performable*``s for performing the action.
+using the `*RulePredicate*` and `*RuleAction*` of each rule to create the required `*Testable*` for testing on the
+transaction, as well as the `*Performable*` for performing the action.
 
 The following activity diagram shows in greater detail the workflow of executing rules.
 
@@ -764,6 +764,88 @@ stop evaluation if we see that the same alias has been applied more than once.
 _TODO_
 // end::aliases[]
 
+// tag::undoredo[]
+=== [Proposed] Undo/Redo feature
+==== Proposed Implementation
+
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -825,8 +907,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* * *` |careful spender |dedicate different accounts to different holidays |control how much I spend while on the holidays
 
 |`* * *` |busy user |keep track of my spending in different account books |segregate completely unrelated spending
-
-|`* * *` |lazy user |simplify repetitive actions by setting rules for every transaction added |automate repetitive and tedious processes
 
 |`* * *` |SoC student experienced in writing programs |write my own scripts to manipulate entries in the app |automate and customize the app to my liking
 
@@ -972,40 +1052,6 @@ Use case ends.
 +
 Use case resumes at step 1.
 
-=== Use case: Add rule
-
-*MSS*
-
-1. User requests to add a new rule.
-2. Budget Buddy creates the new rule.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. No predicate was provided.
-+
-[none]
-** 1a1. Budget Buddy shows an error message.
-+
-Use case resumes at step 1.
-[none]
-* 1b. No action was provided.
-+
-[none]
-** 1b1. Budget Buddy shows an error message.
-+
-Use case resumes at step 1.
-
-[none]
-* 1c. Predicate is an expression but not in the form of <attribute> <operator> <value>.
-+
-[none]
-** 1c1. Budget Buddy shows an error message.
-+
-Use case resumes at step 1.
-
 [appendix]
 == Non Functional Requirements
 
@@ -1039,7 +1085,7 @@ These instructions only provide a starting point for testers to work on.
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI starting in the transaction panel. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -1048,14 +1094,6 @@ These instructions only provide a starting point for testers to work on.
    Expected: The most recent window size and location is retained.
 
 === Accounts
-
-==== Adding an Account
-
-. Adding an account when no duplicate account exists in the list
-
-.. Prerequisites: None
-.. Test case: `account add n/food` +
-   Expected: An account with name "food" is added to the current list of accounts.
 
 ==== Deleting an Account
 
@@ -1068,39 +1106,6 @@ These instructions only provide a starting point for testers to work on.
    Expected: No account is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `account delete`, `account delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
-
-==== Editing an Account
-
-. Editing one or all specified fields of an existing account from the account list
-
-.. Prerequisites: List all accounts using the `account list` command. At least one account in the list.
-.. Test case: `account edit 1 n/food` +
-   Expected: The name field of the first account is changed to "food".
-
-==== Finding Account(s)
-
-. Finding account(s) that contain specified keyword in their names
-
-.. Prerequisites: None.
-.. Test case: `account find trip` +
-   Expected: Account(s) that contain the keyword "trip" in their names will be listed.
-
-==== Viewing the Report of an Account
-
-. Viewing the details of an existing account in the account list
-
-.. Prerequisites: None.
-.. Test case: `account report 2` +
-   Expected: The details of the account will be displayed in the commandBox textfield.
-
-==== Viewing the Report of all Accounts
-
-. Viewing the reports of all accounts to have an overview of the user's financial status.
-
-.. Prerequisite: None.
-.. Test case: `account overview` +
-   Expected: Successful message will be displayed, with an html file generated containing the overview
-   in the exports folder.
 
 === Loans
 
@@ -1174,80 +1179,3 @@ These instructions only provide a starting point for testers to work on.
    and You owe Bruce and Thomas $2.50 and $7.50 respectively.
    Two new loans out to Bruce and Thomas should be added to the normal loan list as well
    (press `Ctrl + D` to switch between the two lists).
-
-=== Rules
-
-==== Listing rules
-
-. Listing rules while another panel is shown
-
-.. Prerequisites: Display another panel using `account list`, `loan list`, `txn list`, or `script list`.
-.. Test case: `rule list` +
-   Expected: Current panel switches over to the rule panel and displays rule list.
-
-. Listing rules while on rule panel.
-
-.. Prerequisites: Display the rule panel with with `rule list`.
-.. Test case: `rule list` +
-   Expected: Current panel remains on the rule panel, displays rule list.
-
-==== Adding a rule
-
-. Adding a rule while on a different panel
-
-.. Prerequisites: Display another panel using `account list`, `loan list`, `txn list`, or `script list`.
-.. Test case: `rule add p/desc = m a/set_desc Monthly Allowance`+
-   Expected: Rule is created, panel switches to rule panel.
-.. Test case: `rule add p/it is monday a/prep_desc [Monday]`
-   Expected: No rule created. Error details shown in the status message.
-.. Other incorrect rule add commands to try: `rule add a/set_in`, `rule add p/outamt > 100` +
-   Expected: Similar to previous.
-
-. Adding a rule while on the same panel
-
-.. Same test cases as above: e.g. `rule add p/desc = m a/set_desc Monthly Allowance`
-   Expected: Similar output as above, app remains on the rule panel.
-
-==== Editing a rule
-
-. Editing a rule on the same panel
-
-.. Prerequisite: At least 1 rule in the list.
-.. Test case: `rule edit 1 p/date < 11/11/2019`
-   Expected: Rule is edited and edited rule is shown on the rule list.
-.. Test case: `rule edit 0 p/date < 11/11/2019`
-   Expected: No rule edited. Error details shown in the status message.
-.. Other incorrect rule edit commands to try: `rule edit 1`, `rule edit 1 p/outamt contains letters`, `rule edit 1 a/`
-   Expected: Similar to previous.
-
-. Editing a rule on a different panel
-
-.. Prerequisites: Display another panel using `account list`, `loan list`, `txn list`, or `script list`. At least 1 rule in the list.
-.. Same test cases as above: e.g. `rule edit 1 p/date < 11/11/2019`
-   Expected: Similar output as above, app switches over to the rule panel if rule is successfully edited.
-
-==== Deleting a rule
-
-. Deleting a rule
-
-.. Prerequisites: More than 1 rule in the list
-.. Test case: `rule delete 1`
-   Expected: Rule is deleted. If not on the rule panel, app switches to rule panel.
-.. Test case: `rule delete 0`
-   Expected: No rule deleted. Error details shown in the status message.
-.. Other incorrect delete commands to try: `rule delete`, `rule delete x` (where x is larger than the list size) +
-   Expected: Similar to previous.
-
-==== Executing rules
-
-. Rules are executed on newly added transaction
-
-.. Prerequisites:
-... Add rule: `rule add p/desc = m a/set_desc Monthly Allowance`
-... Add rule: `rule add p/inamt > 100 a/set_cat Large Savings`
-.. Test case: `txn dn/in x/10 d/m`
-   Expected: Transaction is added. Transaction description seen in the transaction panel is "Monthly Allowance".
-.. Test case: `txn dn/in x/100 d/m`
-   Expected: Similar to previous. Transaction also has a category "Large Savings"
-.. Test case: `txn dn/out x/100 d/Buffet`
-   Expected: Transaction is added. Rules do not apply to transaction. No change to description or categories.
