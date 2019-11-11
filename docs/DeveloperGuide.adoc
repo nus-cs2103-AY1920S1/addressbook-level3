@@ -691,8 +691,9 @@ a|* Requires more flags to be added to the command syntax which makes it more co
 * Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.
 // end::calendar[]
 
-=== Select feature
 //tag::select[]
+=== Select feature
+
 The `select` feature allows user to view the profile of a selected athlete.
 
 ==== Implementation
@@ -740,7 +741,7 @@ to parse the argument.
 After the argument has been parsed, the athlete is stored in the Model component which houses most of the data in the
 app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected athlete.
 
-The following sequence diagram shows the `select` feature works:
+The following sequence diagram shows how the `select` feature works:
 
 .Sequence Diagram of `select` Command
 image::SelectCommandSequenceDiagram.png[]
@@ -753,15 +754,24 @@ would better suit the application. The following consists of the design consider
 There were a few ways how the personal information of the selected athlete could be displayed and the following
 alternatives are some of the considerations I had when implementing.
 
-* *Alternative 1 (current choice)*: Displaying it in a feature box.
-** Pros: Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
-** Cons: Aesthetic is not as good compared to the other alternatives.
-* *Alternative 2*: Displaying it in a tab form.
-** Pros: Looks more organised compared to the other alternatives
-** Cons: Not as intuitive to use as mouse has to be used to switch around tabs.
-* *Alternative 3*: Displaying via a pop-up.
-** Pros: Looks neater and organised.
-** Cons: Increase the use of mouse to close the window and may be distracting to user.
+[width="100%", cols="1, 5, 5, 5"]
+|===
+|
+a| *Alternative 1 (current choice)*: Displaying it in a feature box.
+a| *Alternative 2*: Displaying it in a tab form.
+a| *Alternative 3*: Displaying via a pop-up.
+
+|*Pros*
+a|** Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
+a|** Looks more organised compared to the other alternatives.
+a|** Looks neater and organised.
+
+|*Cons*
+a|** Aesthetic is not as good compared to the other alternatives.
+a|** Not as intuitive to use as mouse has to be used to switch around tabs.
+a|** Increase the use of mouse to close the window and may be distracting to user.
+
+|===
 
 Reason: Alternative 1 was chosen because it utilises more of the command line interface and we wanted to steer away
 from the use of the mouse. Even those the aesthetic might not be as good as alternative 2 and 3, I felt that it was a
@@ -771,13 +781,22 @@ better choice as it was in line with the other features that my group mates were
 There were two ways on how an athlete could be selected and it was between choosing by index or by name which I had
 to consider.
 
-* Alternative 1 (current choice): Choosing by the index number.
-** Pros: Intuitive to use and can be used with other commands such as `[green]#FindCommand#` and
+[width="100%", cols="1, 5, 5"]
+|===
+|
+a| Alternative 1 (current choice): Choosing by the index number.
+a| Alternative 2: Choosing by name.
+
+|*Pros*
+a|** Pros: Intuitive to use and can be used with other commands such as `[green]#FindCommand#` and
 `[green]#FilterCommand#` to narrow down the list of people.
-** Cons: Additional step of filtering the list to make it shorter before selecting an athlete.
-* Alternative 2: Choosing by name.
-** Pros: Can omit the filtering step and select the athlete directly.
-** Cons: There may be 2 people with the same name and thus result in an error.
+a|** Pros: Can omit the filtering step and select the athlete directly.
+
+|*Cons*
+a|** Cons: Additional step of filtering the list to make it shorter before selecting an athlete.
+a|** Cons: There may be 2 people with the same name and thus result in an error.
+
+|===
 
 Reason: In the end, I went with alternative 1 because it was more intuitive to use and was in line with some of the
 other functions such as `[green]#DeleteCommand#` or `[green]#FindCommand#` which also uses index. It also reduces the
@@ -893,27 +912,34 @@ accumulate. As such, we decided to go with the first alternative.
 //end::undoredo[]
 //tag::photo[]
 === Adding/editing photo feature
+The sub feature of `[green]#AddCommand#` and `[green]#EditCommand#` allows the inclusion of photo for an athlete.
+
 ==== Implementation
-The sub feature of `[green]#AddCommand#` and `[green]#EditCommand#` allows the inclusion of photo for an athlete. The
-sub feature is
-facilitated by `[green]#Photo#`.
+The sub feature is facilitated by `[green]#Photo#`. It is similar to the other features such as `[green]#Name#` and
+`[green]#Phone#` which uses a prefix `i/` followed by the file name (e.g. `i/default.png`). Prior to adding the photo
+of an athlete, the image file that is going to be used has to be in the `images` folder which will be generated when the
+jar file is executed. `[green]#Photo#` takes in the file name as a `[green]#String#` and retrieves the photo to be added
+or edited from the `images` folder.
 
-This sub feature is similar to the other features such as `[green]#Name#` and `[green]#Phone#` which uses a prefix `i/`
-followed by the file name (e.g. `i/default.png`). Prior to adding the photo of an athlete, the image file that is going to be used
-has to be in the `images` folder which will be generated when the jar file is executed. `[green]#Photo#` takes in the
-file name as a `[green]#String#` and retrieves the photo to be added or edited from the `images` folder.
-
-NOTE: The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
+[NOTE]
+The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
 This is done to keep the file name simple.
 
 ==== Design Consideration
 The following consists of some of the design consideration when I was designing this sub-feature.
 
 ===== Aspect: Regular expression for the file name
-* **Alternative 1 (current choice):** To use alphanumerics only.
-** Pros: Keeps it simple without the confusion of special characters.
-* **Alternative 2:** Alphanumerics and special characters.
-** Cons: These special characters are reserved used by operation systems such as Windows.
+
+[width="100%", cols="1, 5"]
+
+|===
+|
+a|**Alternative 1 (current choice):** To use alphanumerics only.
+
+|*Pros*
+a| Pros: Keeps it simple without the confusion of special characters.
+
+|===
 
 Reason: Alternative 1 was chosen because it simplifies the parsing of the filename and reduces the error it might
 have if special characters were included.
