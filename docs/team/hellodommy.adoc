@@ -94,6 +94,10 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/3[v1.3],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/4[v1.4]
 ** Released https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3.3[v1.3.3]
 of the product, before the final v1.4 release
+* Enhancement to an existing feature
+** Extended the existing _find by name_ feature to allow users to _find by tags_ (Pull requests
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64],
+https://github.com/AY1920S1-CS2103T-T12-3/main/pull/84[#84])
 * Documentation
 ** Modified the colour scheme of the documentation for consistency with *Athletick*'s signature dark blue
 (Pull request
