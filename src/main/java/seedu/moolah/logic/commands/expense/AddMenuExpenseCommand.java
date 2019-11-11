@@ -31,7 +31,7 @@ public class AddMenuExpenseCommand extends UndoableCommand {
             + PREFIX_MENU + "MENU_ITEM "
             + "[" + PREFIX_TIMESTAMP + "TIMESTAMP]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MENU + "Chicken Rice "
+            + PREFIX_MENU + "Deck Chicken Rice "
             + PREFIX_TIMESTAMP + "10-10";
     public static final String MESSAGE_SUCCESS = "New expense added:\n %1$s";
     public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah";

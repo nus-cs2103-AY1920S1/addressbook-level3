@@ -52,6 +52,11 @@ public class AddMenuExpenseCommandTest {
             .build();
 
     @Test
+    public void constructorWithTimestamp_nullTimestamp_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddMenuExpenseCommand(chickenRice, null));
+    }
+
+    @Test
     public void run_duplicateExpense_throwsCommandException() {
         ModelStub modelStub = new ModelStubWithExpense(chickenRiceExpense);
 
