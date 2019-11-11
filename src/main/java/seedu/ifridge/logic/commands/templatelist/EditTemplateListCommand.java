@@ -18,6 +18,7 @@ import seedu.ifridge.model.Model;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.DuplicateTemplateException;
 
 /**
  * Edits the details of an existing template in the template list.
@@ -68,7 +69,7 @@ public class EditTemplateListCommand extends Command {
         if (!editTemplateListDescriptor.isAnyFieldEdited()) {
             throw new CommandException(MESSAGE_NOT_EDITED);
         }
-        if (lastShownList.contains(editedTemplate) && editTemplateListDescriptor.isNameFieldEdited(templateToEdit)) {
+        if (model.hasTemplate(editedTemplate) && editTemplateListDescriptor.isNameFieldEdited(templateToEdit)) {
             throw new CommandException(MESSAGE_DUPLICATE_TEMPLATE);
         }
 

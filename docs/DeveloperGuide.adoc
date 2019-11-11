@@ -1033,14 +1033,14 @@ _{ more test cases ... }_
 
 === Deleting a template
 .. Prerequisites: Template list must contain at least one template, which contains at least one item.
-.. Test case: `tlist template edit 1 i/1`
+.. Test case: `tlist template delete 1 i/1`
    Expected: Template item deleted from the template.
-.. Test case: `tlist template edit 1 i/0`
+.. Test case: `tlist template delete 1 i/0`
    Expected: Template item not deleted. Error details shown in the status message.
-.. Other incorrect delete template item commands to try: `tlist template x i/1` where x is greater the the template list size, `tlist template 1 i/x` where x is greater than the template size.
+.. Other incorrect delete template item commands to try: `tlist template delete x i/1` where x is greater the the template list size, `tlist template 1 i/x` where x is greater than the template size.
 
 === Adding a template to the shopping list
-.. Prerequisites: Template must contain at least one template with at least item with name 'FullFat Milk' and amount '300ml.
+.. Prerequisites: Template must contain at least one template with one item with name 'FullFat Milk' and amount '300ml.
 Grocerylist should have several entries of FullFat Milk with slight variations in name and amount. For e.g.:
 ... For name: fullfat milk, Fullfat Milk, FULLFAT MILK
 ... For amount: 300ml, 400ml, 1L, 0.3L
