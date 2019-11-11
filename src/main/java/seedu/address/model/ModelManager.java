@@ -19,6 +19,7 @@ import seedu.address.model.module.ModuleCode;
 import seedu.address.model.semester.Semester;
 import seedu.address.model.semester.SemesterName;
 import seedu.address.model.semester.UniqueSemesterList;
+import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
 import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.tag.PriorityTag;
@@ -156,7 +157,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void deleteSemester(SemesterName semesterName) {
+    public void deleteSemester(SemesterName semesterName) throws SemesterNotFoundException {
         requireNonNull(semesterName);
 
         modulePlanner.deleteSemester(semesterName);

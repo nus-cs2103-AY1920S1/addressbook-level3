@@ -18,7 +18,8 @@ public class ListAllStudyPlansCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Listing all the study plans";
-    public static final String MESSAGE_SUCCESS = "Here is a list of all the study plans with their unique IDs:\n";
+    public static final String MESSAGE_SUCCESS =
+            "Here is a list of all the study plans with their unique IDs and titles (optional):\n";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Lists all study plans that have been created.\n";
 

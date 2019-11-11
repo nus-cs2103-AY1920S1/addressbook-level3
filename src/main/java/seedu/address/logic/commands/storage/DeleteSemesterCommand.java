@@ -8,6 +8,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.semester.SemesterName;
+import seedu.address.model.semester.exceptions.SemesterNotFoundException;
 import seedu.address.model.studyplan.StudyPlan;
 
 /**
@@ -27,6 +28,7 @@ public class DeleteSemesterCommand extends Command {
 
     public static final String MESSAGE_DELETE_MAINSTREAM_SEMESTER_SUCCESS = "Cleared all modules in Semester: %1$s";
     public static final String MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS = "Deleted Semester: %1$s";
+    public static final String MESSAGE_SEMESTER_DOES_NOT_EXIST = "The semester %1$s does not exist!";
 
     private final SemesterName semesterName;
 
@@ -50,10 +52,14 @@ public class DeleteSemesterCommand extends Command {
             return new CommandResult(String.format(MESSAGE_DELETE_MAINSTREAM_SEMESTER_SUCCESS,
                     semesterName.toString()));
         } else {
-            model.deleteSemester(semesterName);
-            model.addToHistory();
-            return new CommandResult(String.format(MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS,
-                    semesterName.toString()));
+            try {
+                model.deleteSemester(semesterName);
+                model.addToHistory();
+                return new CommandResult(String.format(MESSAGE_DELETE_SPECIAL_SEMESTER_SUCCESS,
+                        semesterName.toString()));
+            } catch (SemesterNotFoundException e) {
+                throw new CommandException(String.format(MESSAGE_SEMESTER_DOES_NOT_EXIST, semesterName));
+            }
         }
     }
 

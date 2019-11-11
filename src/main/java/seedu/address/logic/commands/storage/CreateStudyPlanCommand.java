@@ -19,11 +19,11 @@ public class CreateStudyPlanCommand extends Command {
 
     public static final String COMMAND_WORD = "newplan";
     public static final String HELP_MESSAGE = COMMAND_WORD + ": Creating a new study plan with a new unique ID";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new study plan with a new unique ID."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new study plan with a new unique ID.\n"
             + "Parameters: "
-            + "PLAN_TITLE \n"
+            + "PLAN_TITLE (optional) \n"
             + "Example: " + COMMAND_WORD + " "
-            + "newplan NOC halfyear";
+            + "NOC halfyear";
 
     public static final String MESSAGE_SUCCESS = "New study plan added: %1$s [unique ID: %2$d]";
     public static final String MESSAGE_DUPLICATE_STUDY_PLAN = "This study plan already exists in the module planner";

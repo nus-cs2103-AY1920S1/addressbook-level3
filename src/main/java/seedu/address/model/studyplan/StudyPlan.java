@@ -497,7 +497,7 @@ public class StudyPlan implements Cloneable {
     /**
      * Deletes a semester completely from a study plan. This is applicable to special terms and Year 5 semesters.
      */
-    public void deleteSemester(SemesterName semesterName) {
+    public void deleteSemester(SemesterName semesterName) throws SemesterNotFoundException {
         Semester toDelete = null;
         for (Semester semester : semesters) {
             if (semester.getSemesterName().equals(semesterName)) {
