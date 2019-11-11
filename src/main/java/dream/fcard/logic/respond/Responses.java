@@ -467,6 +467,7 @@ public enum Responses {
                     if (!hasIndex) {
                         // Delete deck
                         try {
+                            StatsHolder.getDeckStats().deleteDeck(deckName);
                             State s = StateHolder.getState();
                             s.removeDeck(deckName);
                         } catch (DeckNotFoundException dnf) {

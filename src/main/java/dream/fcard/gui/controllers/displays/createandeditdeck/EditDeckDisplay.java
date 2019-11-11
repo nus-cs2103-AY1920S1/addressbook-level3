@@ -7,6 +7,7 @@ import dream.fcard.gui.controllers.windows.CardCreatingWindow;
 import dream.fcard.gui.controllers.windows.MainWindow;
 import dream.fcard.logic.respond.ConsumerSchema;
 import dream.fcard.logic.respond.Consumers;
+import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.Deck;
 import dream.fcard.model.StateHolder;
@@ -63,10 +64,12 @@ public class EditDeckDisplay extends VBox {
             doneEditingButton.setOnAction(e -> {
                 int currentIndex = StateHolder.getState().hasDeckName(deck.getDeckName()); //can put in responses
                 String name = deckNameInput.getText();
+                String oldName = deck.getDeckName();
                 if (!name.isBlank()) {
                     int index = StateHolder.getState().hasDeckName(name);
                     if (index == -1 || index == currentIndex) {
                         deck.setDeckName(name);
+                        StatsHolder.getDeckStats().renameDeck(oldName, name);
                     } else {
                         //@@auth AHaliq
                         Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Deck name edit: invalid name.");
