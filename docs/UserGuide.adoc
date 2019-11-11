@@ -78,7 +78,7 @@ _Ledger_ commands consist of:
 . `split` : split a bill between friends
 . `receive` : log a single payment from 1 friend
 
-=== Projection
+=== Projections
 By using the _Projections_ feature, you can project your:
 
 . Account Balance
