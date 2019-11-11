@@ -10,6 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
 <HBox id="flashcardPane" fx:id="flashcardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
@@ -26,7 +28,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="question" text="\$first" styleClass="cell_big_label" wrapText="true" />
+                  <TextArea fx:id="testquestion" text="\$first" styleClass="test-box" wrapText="true" />
             </HBox>
             <Separator fx:id="separator" >
                 <padding>
@@ -39,7 +41,7 @@
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="answer" styleClass="cell_big_label" wrapText="true" />
+                <TextArea fx:id="testanswer" styleClass="test-box" wrapText="true" />
             </HBox>
         </VBox>
     </GridPane>

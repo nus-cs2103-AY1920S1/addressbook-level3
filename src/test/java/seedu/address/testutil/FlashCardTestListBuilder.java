@@ -15,13 +15,14 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class FlashCardTestListBuilder {
 
-    private List<FlashCard> testList = new LinkedList<>();
+    private List<FlashCard> testList;
     private final String[] tagList = {"cs2100", "cs1101s", "cs2040"};
 
     /**
-     * Returns an ArrayList containing 10000 simple flashcards.
+     * Returns an ArrayList containing 10000 simple FlashCards.
      */
     public List<FlashCard> build() {
+        testList = new LinkedList<>();
         final int constant = 10;
         for (int i = 0; i < 10000; i++) {
             String question = i + " + " + constant;
@@ -30,6 +31,16 @@ public class FlashCardTestListBuilder {
             testList.add(new FlashCard(new Question(question), new Answer(answer), new Rating("good"),
                     SampleDataUtil.getCategorySet(tag)));
         }
+        return testList;
+    }
+
+    /**
+     * Returns an ArrayList containing only 1 FlashCard.
+     */
+    public List<FlashCard> buildOne() {
+        testList = new LinkedList<>();
+        testList.add(new FlashCard(new Question("1+1"), new Answer("2"), new Rating("good"),
+                SampleDataUtil.getCategorySet("test")));
         return testList;
     }
 }

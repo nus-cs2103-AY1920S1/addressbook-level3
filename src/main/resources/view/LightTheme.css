@@ -328,6 +328,19 @@
     -fx-background-radius: 5;
 }
 
+.test-box {
+    -fx-background-color: transparent, #ededed, transparent, #ededed;
+    -fx-border-color: black;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+#testquestion .content, #testanswer .content {
+    -fx-background-color: #ededed;
+}
+
 
 #commandTypeLabel {
     -fx-font-size: 11px;

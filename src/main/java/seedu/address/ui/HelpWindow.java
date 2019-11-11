@@ -24,7 +24,7 @@ public class HelpWindow extends UiPart<Stage> {
     private static final String FXML = "HelpWindow.fxml";
     private static final Stage stage = new Stage();
     private static final InputStream x = Main.class.getResourceAsStream("/images/Commands.png");
-    private final Image image = new Image(x, 637, 886, true, false);
+    private final Image image = new Image(x, 867, 1601, true, false);
 
     @FXML
     private ImageView imageView;
