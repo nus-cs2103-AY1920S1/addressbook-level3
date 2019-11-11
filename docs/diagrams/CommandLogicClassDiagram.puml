@@ -1,7 +1,7 @@
 @startuml
 
 interface CommandLogic {
-    CommandResult : executeCommand(commandText)
+    executeCommand()
 }
 
 @enduml
