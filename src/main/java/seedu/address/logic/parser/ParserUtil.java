@@ -2,11 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EVENT_NAME_BACKSLASH;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COLOR_STRING;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECURRENCE_TYPE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCHEDULE_VIEW_MODE;
 import static seedu.address.commons.util.EventUtil.BAD_DATE_FORMAT;
 import static seedu.address.commons.util.EventUtil.DAILY_RECUR_RULE_STRING;
-import static seedu.address.commons.util.EventUtil.INVALID_RECURRENCE_TYPE;
 import static seedu.address.commons.util.EventUtil.NONE_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.WEEKLY_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.dateToLocalDateTimeFormatter;
@@ -146,7 +147,7 @@ public class ParserUtil {
      */
     public static ArrayList<Categories> parseColorNumber(String colorNumberString) throws ParseException {
         if (!validateColorNumberString(colorNumberString)) {
-            throw new ParseException("invalid color string passed.");
+            throw new ParseException(MESSAGE_INVALID_COLOR_STRING);
         }
         String colorCategoryString = convertNumberToColorNumber(colorNumberString);
         Categories colorCategory = new Categories(colorCategoryString);
@@ -200,7 +201,7 @@ public class ParserUtil {
      */
     public static RecurrenceRule parseRecurrenceType(String recurrenceTypeString) throws ParseException {
         if (!validateRecurTypeString(recurrenceTypeString)) {
-            throw new ParseException(INVALID_RECURRENCE_TYPE);
+            throw new ParseException(MESSAGE_INVALID_RECURRENCE_TYPE);
         }
         RecurrenceRule result;
         try {

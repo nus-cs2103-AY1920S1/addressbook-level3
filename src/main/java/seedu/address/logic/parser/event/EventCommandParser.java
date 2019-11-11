@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_EMPTY_EVENT_NAME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EVENT_DATETIME_RANGE;
 import static seedu.address.commons.util.EventUtil.generateUniqueIdentifier;
@@ -282,6 +283,11 @@ public class EventCommandParser implements Parser<EventCommand> {
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, EventIndexCommand.MESSAGE_USAGE));
+        }
+
+        if (!(argMultimap.getValue(PREFIX_GET_INDEX).isPresent())
+                || (argMultimap.getValue(PREFIX_GET_INDEX).get().isBlank())) {
+            throw new ParseException(MESSAGE_INDEX_EMPTY_EVENT_NAME);
         }
 
         String desiredEventName = argMultimap.getValue(PREFIX_GET_INDEX).orElse("");
