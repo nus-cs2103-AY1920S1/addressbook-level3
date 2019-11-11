@@ -338,7 +338,7 @@ The end date-time must be entered in the `dd/MM/yyyy/HHmm` format and occur *aft
 
 |Description
 |`d/`
-|A brief description of what the engagement is about. The description must be non-empty.
+|A brief description of what the engagement is about. The description must be non-empty and less than 100 characters long.
 
 |Attendees
 |`a/`

@@ -17,9 +17,11 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
 public class DescriptionState extends State {
 
     private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid description after "
-            + PREFIX_DESCRIPTION.getPrefix() + ". The description cannot be blank.";
+            + PREFIX_DESCRIPTION.getPrefix() + ". The description cannot be blank and should be less than"
+            + " 100 characters in length.";
     private static final String MESSAGE_CONSTRAINTS = "What is the engagement about? Please enter a brief description "
             + "prefixed by " + PREFIX_DESCRIPTION.getPrefix() + ". Example - [d/CS2103T Discussion.]";
+    private static final int MAXIMUM_ALLOWED_LENGTH = 100;
 
     protected DescriptionState(ArgumentMultimap soFar) {
         super(soFar);
@@ -44,9 +46,13 @@ public class DescriptionState extends State {
     }
 
     private void enforceValidity(Optional<String> description) throws StateTransitionException {
-        if (description.get().isBlank()) {
+        if (isInvalid(description)) {
             throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
+    }
+
+    private boolean isInvalid(Optional<String> description) {
+        return description.get().isBlank() || description.get().length() >= MAXIMUM_ALLOWED_LENGTH;
     }
 
     @Override
