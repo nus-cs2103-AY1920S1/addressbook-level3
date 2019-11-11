@@ -18,6 +18,7 @@ import dream.fcard.model.StateEnum;
 import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.cards.Priority;
@@ -291,11 +292,11 @@ public enum Responses {
                 }
     ),
     ADD_CARD_JS(
-            RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "js"}),
+            RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "js/"}),
             new ResponseGroup[]{ResponseGroup.DEFAULT},
                 i -> {
                     ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
-                            new String[]{"deck/", "priority/", "front/", "js"},
+                            new String[]{"deck/", "priority/", "front/", "js/"},
                             i);
                     //@@author
                     //@@author huiminlim
@@ -328,7 +329,7 @@ public enum Responses {
                                     ? Priority.HIGH_PRIORITY
                                     : Priority.LOW_PRIORITY;
                     JavascriptCard temp = new JavascriptCard(front, back, priority);
-                    StateHolder.getState().setTransientCard(temp);
+                    StateHolder.getState().setTransientjscard(temp);
                     try {
                         StateHolder.getState().setAddToThis(StateHolder.getState().getDeck(res.get(0).get(0)));
                     } catch (DeckNotFoundException e) {
@@ -339,6 +340,47 @@ public enum Responses {
                     return true;
 
                     //@@author
+                }
+    ),
+    ADD_CARD_JAVA(
+            RegexUtil.commandFormatRegex("add", new String[]{"deck/", "front/", "java/"}),
+            new ResponseGroup[]{ResponseGroup.DEFAULT},
+                i -> {
+                    ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("add",
+                            new String[]{"deck/", "priority/", "front/", "java/"},
+                            i);
+
+                    LogsCenter.getLogger(Responses.class).info("COMMAND: ADD_CARD_JAVA");
+
+                    // Checks if "deck/", "front/" are supplied.
+                    boolean hasOnlyOneDeck = res.get(0).size() == 1;
+                    boolean hasAtMostOnePriority = res.get(1).size() < 2;
+                    boolean hasOnlyOneFront = res.get(2).size() == 1;
+
+
+                    // Perform command validation
+
+                    if (!hasOnlyOneDeck || !hasAtMostOnePriority || !hasOnlyOneFront) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Incorrect format for a Java card!");
+                        return true;
+                    }
+
+                    StateHolder.getState().addCurrDecksToDeckHistory();
+                    StateHolder.getState().resetUndoHistory();
+                    StateHolder.getState().setCurrState(StateEnum.MAKE_JAVA); //enter java creation
+                    String front = res.get(2).get(0);
+                    JavaCard temp = new JavaCard(front, null);
+                    StateHolder.getState().setTransientJavaCard(temp);
+                    try {
+                        StateHolder.getState().setAddToThis(StateHolder.getState().getDeck(res.get(0).get(0)));
+                    } catch (DeckNotFoundException e) {
+                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "A deck with that name does not exist.");
+                        return true;
+                    }
+                    Consumers.doTask(ConsumerSchema.ENTER_MULTILINE, "Enter your inputs/outputs below.");
+                    Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                    return true;
+
                 }
     ),
     //@@author PhireHandy

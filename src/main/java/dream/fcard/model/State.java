@@ -6,6 +6,7 @@ import java.util.Stack;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.storage.StorageManager;
 import dream.fcard.model.cards.FlashCard;
+import dream.fcard.model.cards.JavaCard;
 import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.exceptions.DeckNotFoundException;
 import dream.fcard.model.exceptions.NoDeckHistoryException;
@@ -22,7 +23,8 @@ public class State {
     private Stack<ArrayList<Deck>> undoHistory;
     private StateEnum currState;
     private Deck currentDeck;
-    private JavascriptCard transientCard;
+    private JavascriptCard transientjscard;
+    private JavaCard transientJavaCard;
     private Deck addToThis;
 
     /**
@@ -340,12 +342,20 @@ public class State {
         return i + 1;
     }
 
-    public JavascriptCard getTransientCard() {
-        return transientCard;
+    public JavascriptCard getTransientjscard() {
+        return transientjscard;
     }
 
-    public void setTransientCard(JavascriptCard transientCard) {
-        this.transientCard = transientCard;
+    public void setTransientjscard(JavascriptCard transientjscard) {
+        this.transientjscard = transientjscard;
+    }
+
+    public JavaCard getTransientJavaCard() {
+        return transientJavaCard;
+    }
+
+    public void setTransientJavaCard(JavaCard transientJavaCard) {
+        this.transientJavaCard = transientJavaCard;
     }
 
     public Deck getAddToThis() {

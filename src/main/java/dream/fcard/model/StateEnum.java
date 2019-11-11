@@ -11,5 +11,6 @@ public enum StateEnum {
     TEST_MCQ,
     TEST_MCQ_BACK,
     TEST_JSJAVA,
-    MAKE_JS
+    MAKE_JS,
+    MAKE_JAVA
 }

@@ -254,16 +254,16 @@ Creates a new Multiple Choice card in deck `german`, with the answer as the firs
 === Add new Javascript card or Java Card
 
 ****
-In our app, you can make a flash card that asks you to write code and test it against test cases that you have supplied during card creation. Two languages are available for use: Java and JavaScript. Currently, you need to use the GUI to make Java cards while
-you can use either the GUI or CLI to make a JavaScript Card.
+In our app, you can make a flash card that asks you to write code and test it against test cases that you have supplied during card creation. Two languages are available for use: Java and JavaScript.
 
-To begin creating either card:
+
+To begin creating either card via the GUI:
 
 - Click on an existing deck.
 - In the deck display window click on `Change name/Add question` to add a new card.
 - In the card creation window, select either `Java` or `JavaScript`.
 
-To make a Java card
+To continue making a Java card via the GUI:
 
 - Enter a question that tells you what code to write. An example question would be:
 
@@ -293,7 +293,29 @@ Example (for the question above):
 * To delete a test case row, click `Delete`.
 * Once your test cases are all typed in, click on `Add Card` and your deck will have your brand new Java card.
 
-To make a JavaScript card via the GUI
+To make a Java card via the CLI
+
+* The command is as follows : Suppose I have a deck named `myDeck`, and the question `Read in lines from the console and uppercase them`, type
+
+        add deck/myDeck front/Read in lines from the console and uppercase them java/
+
+* In the above command, the keyword `java/` tells the command line that you want to enter some test cases. The multiline CLI will then tell you:
+
+        Enter your inputs/outputs below.
+
+* Type your test cases as such: input/[your inputs on the next line], then a newline, then output/[your expected output]. Do not modify the message `Enter your inputs/outputs below.`
+* Once you have keyed in your inputs and outputs, type `CTRL+D` to escape multiline mode. You should see your new Java card in your deck.
+* Example:
+
+    Enter your inputs/outputs below.
+    input/
+    hello
+    ALREADYUPPERCASE
+    output/
+    HELLO
+    ALREADYUPPERCASE
+
+To continue making a JavaScript card via the GUI
 
 - Enter a question that tells you what code to write. +
 
@@ -333,9 +355,9 @@ How to create a JavaScript card via the CLI
 
 * The command is as follows : Suppose I have a deck named `myDeck`, and the question `Make a function that adds 5 to a number`, type
 
-        add deck/myDeck front/Make a function that adds 5 to a number js
+        add deck/myDeck front/Make a function that adds 5 to a number js/
 
-* In the above command, the keyword js tells the command line that you want to enter some asserts. The multiline CLI will then tell you:
+* In the above command, the keyword `js/` tells the command line that you want to enter some asserts. The multiline CLI will then tell you:
 
         Enter your asserts below.
 

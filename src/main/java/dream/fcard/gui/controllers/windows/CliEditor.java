@@ -269,6 +269,8 @@ public class CliEditor {
         historyIndex = -1;
         if (StateHolder.getState().getCurrState() == StateEnum.MAKE_JS) {
             CreateCommand.createJavascriptCard(str);
+        } else if (StateHolder.getState().getCurrState() == StateEnum.MAKE_JAVA) {
+            CreateCommand.createJavaCard(str);
         } else {
             Responder.takeInput(str);
         }
