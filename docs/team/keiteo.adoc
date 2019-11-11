@@ -3,8 +3,6 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: KeyboardFlashCards
-
 == Introduction
 
 This project portfolio highlights the contributions I have made for my project, _KeyboardFlashCards_ (KFC).
@@ -31,15 +29,6 @@ that they were not able to answer in previous tests. Lastly, KFC allows users to
 Here is a screenshot of our project:
 
 image::annotatedUi.png[width="600"]
-
-Note the following symbols and formatting used in this document.
-
-[NOTE]
-This section explains certain information that require the user to take note of.
-i.e. prefixes used in our application and what it represents, certain functionality of the command
-
-[CAUTION]
-This section is used clarify certain possible assumptions the user/developer might have when using our application
 
 == Summary of contributions
 
