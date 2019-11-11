@@ -24,8 +24,7 @@ public class HelpCommand extends Command {
             + "UNDO, REDO, TEST, STATS. Use 'help command/COMMAND_NAME' for more info.";
 
 
-    private static String[] allCommands = {IMPORT, EXPORT, STATS, CREATE, ADD, DELETE, EDIT,
-            TEST, UNDO, REDO, QUIT, HELP};
+    private static String[] allCommands = {IMPORT, EXPORT, STATS, CREATE, ADD, DELETE, EDIT, TEST, UNDO, REDO, QUIT, HELP};
 
     public static String[] getAllCommands() {
         return allCommands;
