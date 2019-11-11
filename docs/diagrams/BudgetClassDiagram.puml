@@ -1,0 +1,23 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Class Budget
+Class Amount
+Class Currency
+Class Date
+Class Name
+Class ExpenseList
+
+Budget *--> "1" Name
+Budget *--> "2" Amount
+Budget *--> "2" Date
+Budget *--> "1" Currency
+Budget *--> "1" ExpenseList
+
+Name -[hidden]right-> Amount
+Amount -[hidden]right-> Date
+
+@enduml

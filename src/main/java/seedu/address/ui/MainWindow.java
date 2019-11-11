@@ -225,7 +225,6 @@ public class MainWindow extends UiPart<Stage> {
             expenseListPanel = new ExpenseListPanel(logic.updateExpenses());
             //Update Left panel with all expenses.
             leftListPanelPlaceHolder.getChildren().add(expenseListPanel.getRoot());
-            //            statsDisplayPlaceHolder.getChildren().add(statsDisplay.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

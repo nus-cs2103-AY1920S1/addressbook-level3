@@ -48,8 +48,23 @@ deactivate MymParser
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deleteExpense(1)
+DeleteCommand -> Model : getViewState()
 activate Model
+Model --> DeleteCommand
+deactivate Model
+
+alt BudgetList
+DeleteCommand -> Model : deleteBudget(b)
+activate Model
+Model --> DeleteCommand
+deactivate Model
+
+else ExpenseList
+DeleteCommand -> Model : deleteExpense(e)
+activate Model
+Model --> DeleteCommand
+deactivate Model
+end
 
 Model --> DeleteCommand
 deactivate Model

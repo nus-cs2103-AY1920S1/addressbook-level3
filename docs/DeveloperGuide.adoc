@@ -126,12 +126,6 @@ The `Model`,
 * stores an `ExchangeData` object that represents the foreign exchange rates for conversion of currencies.
 * stores the MYMorise data.
 * exposes an unmodifiable `ObservableList<Expense>` and an unmodifiable `ObservableList<Budget>` that can be 'observed' e.g. the UI can be bound to either list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
