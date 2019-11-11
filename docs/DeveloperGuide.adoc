@@ -294,7 +294,7 @@ The calendar feature in _TravEzy_ allows users to easily plan when to travel. In
 
 This section discusses some design details of the calendar model.
 
-The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the ``Event`` package which can be found https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[here].
+The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[``Event`` component].
 
 .Calendar model class diagram
 image::CalendarClassDiagram.png[Calendar model class diagram]
