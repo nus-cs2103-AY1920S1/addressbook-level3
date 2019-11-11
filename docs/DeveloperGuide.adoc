@@ -248,7 +248,7 @@ image::ParserSequenceDiagram.png[]
 Step 1. The user enters the `addmod MODULE_CODE SEMESTER`. command to add a module with the moduel code _MODULE_CODE_ to the
 semester with the name _SEMESTER_. In this case, the command entered is `addmod CS2102 Y1S1`.
 
-Step 2. The Ui component sends the commadn to the `LogicManager` to parse the command. The `ModulePlannerParser` detects the COMMAND_WORD of the command, `addmod`, and creates an instance of the `AddModuleParser` class. 
+Step 2. The Ui component sends the command to the `LogicManager` to parse the command. The `ModulePlannerParser` detects the COMMAND_WORD of the command, `addmod`, and creates an instance of the `AddModuleParser` class.
 
 Step 3. The `AddModuleParser` instance then calls `ArgumentTokeniser` static method, tokenise, with arguments _ARG_STRING_, _MODULE_PATTERN_ and _SEMESTER_PATTERN_. These patterns are instances of Java `Patterns` class and are pre-defined in the CliSyntax class. They are passed into the tokenise method so that the `ArgumentTokeniser` knows to parse to find these patterns.
 

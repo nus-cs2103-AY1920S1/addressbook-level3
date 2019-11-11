@@ -34,7 +34,7 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* and pressing kbd:[Enter] will display instructions for all commands.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -253,10 +253,10 @@ _Core_ modules are *Computer Science Foundation* modules that count towards *Pro
 - `S/U-able` :
 _S/U-able_ modules are modules that permit the *Satisfactory/Unsatisfactory option*.
 
-- `UE` [coming in v2.0]:
+- `UE [coming in v2.0]`:
 _UE_ modules are *Unrestricted Elective* modules.
 
-- `ULR` [coming in v2.0]:
+- `ULR [coming in v2.0]`:
 _ULR_ modules are modules that count towards *University Level Requirements*.
 
 - `FOCUS_AREA_NAME:P` :
