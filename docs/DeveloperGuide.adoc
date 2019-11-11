@@ -720,7 +720,7 @@ So, alternative 2 is more efficient.
 
 [[facade]]
 .Code snippet of `transactionLogic` facade class in `MainWindow`
-image::Reimbursement/codeSnippetTransactionLogic.png[]
+image::Reimbursement/codeSnippetTransactionLogic.png[width="700"]
 
 
 === Inventory Tab
