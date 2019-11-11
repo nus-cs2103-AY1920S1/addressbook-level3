@@ -592,67 +592,99 @@ You should see the search result in the budget list.
 
 To revert the budget list so that all budgets are listed, simply execute `find` without any argument.
 
-=== Loans [Coming in v2.0]
 
-==== Adding new loan: `add`
+=== Loans
 
-Adds new loan to list. +
-Format: `loannew  i/AMOUNT  n/NAME d/DESCRIPTION`
+In a social setting, finances aren't limited to just one persons own spending, one is bound to have to borrow/lend money.
 
-Examples:
+This borrowing and lending can make it hard to keep track of how much money you actually have.
+With the loans feature you can keep track of the `amount` you owe, the `name` of the person you owe it to and the `date` by which you have to return it.
 
-* `loannew  a/10000 d/12122014 n/Charlie d/For food in Indonesia` +
-Takes input with initialization values and adds them to a list of current unpaid loans.
+Each Loan you create will keep track of:
 
-==== Marking Loan Paid: `paid`
+1. A sum of money `amount`
 
-Marks loan as paid or reduces amount from payment. +
-Format: `loanpaid i/INDEX [i/AMOUNT]`
+2.
 
-Examples:
+==== Adding loan: `add`
 
-* `loanpaid i/4 a/4000` +
-Takes input with initialization values and adds them to a list of current unpaid loans.
 
-==== Finding loan: `find`
+Format: `add a/AMOUNT [c/NAME] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR] [de/DESCRIPTION]`
 
-Shows all loans with certain name or description or date , or all loans +
-Format: `loanshow [s/KEYWORD]`
+You can use the `add` command to create a loan. This also creates the other objects associated with the created repeater.
 
-Examples:
+The optional arguments take the following default values if left unspecified:
 
-* `loanshow s/charlie` +
-Shows all loans when no keyword is given, when keyword is added, all loans with given dat/name or description are shown.
+|==============================
+| Argument | Default values
 
-==== Adding new loan: `total`
+| Description | "No Description"
+| Name | "No Name"
+| Start Day | "-1" (Offset ignored)
+| Start Month | "-1" (Offset ignored)
+| Start Year | "-1" (Offset ignored)
+| End Day | "-1" (Offset ignored)
+| End Month | "-1" (Offset ignored)
+| End Year | "-1" (Offset ignored)
+|==============================
 
-Finds and shows nett amount to pay/owed with keyword +
-Format: `loantotal s/KEYWORD`
+.Usage of 'add'
+image::Loan_1_help.png[]
 
-Examples:
+Constraints:
 
-* `loantotal s/12/12/2000` +
-If no keyword is given, it returns total difference in amount owed to other parties and amount to be paid.
+* Loan end must not occur before it's start.
+* Description, Name and Dates are Alphanumeric.
+
+Example:
+
+* `add a/420.42 n/Felix Kjellberg sd/12 sm/12 sy/2019 ed/23 em/2 ey/2020 de/Borrowed for apple earpods `
+
+This creates a loan of 420.42 for "Buying airpods" taken on 12 December 2019 to 02 February 2020.
+
 
 ==== Editing new loan: `edit`
 
-Changes existing loan +
-Format: `loanset i/INDEX [a/AMOUNT] [d/DATE] [n/NAME] [d/DESCRIPTION]`
+Format: `edit INDEX [a/AMOUNT] [de/DESCRIPTION] [n/NAME] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
+
+You can use the edit command to edit a loan. This can change any attribute(s) of the loan.
+
+[NOTE]
+The loan fields will only be updated where the arguments are specified.
+
+.Usage of 'edit'
+image::Loan_2_help.png[]
+
+
+Constraints:
+
+* Loan end date must not occur before loan start date.
+
+* Index must be specified, no change occurs otherwise.
+
+Example:
+
+* edit 1 de/Current Student Loan a/99999.99 n/DBS SG Bank sd/1 sm/1 sy/2020 ed/30 em/12 ey/2021
+
+This edits the first loanr in the current list to - $99999.99 loan taken on 1st January 2020 and to be paid back by 30th December 2021.
+
+==== Marking Loan Paid: `paid`
+
+Mark loan as paid and remove it from the list. +
+Take any loan, with an outstanding loan amount, and when it is paid off, it can referenced by it's index to be removed.
+
+Format: `pay i/INDEX`
+
+.Usage of 'paid'
+image::Loan_3_help.png[]
 
 Examples:
 
-* `loanset i/3 n/Lee d/For food in NY` +
-Takes input with initialization values for current loan identified by index, change any value.
+* `loanpaid 1` +
+Takes the first loan and removes it form the list.
 
-==== Sorting all loans: `sort`
-
-Finds and shows all loans sorted +
-Format: `loansort s/BY`
-
-Examples:
-
-* `loansort s/DATE` +
-Loans shown sorted by any given constrain, date or value owed.
+.After Executing loanpaid
+image::Loan_4_help.png[]
 
 === Analytics
 
@@ -759,14 +791,11 @@ Displays expenditure ranking chart for July 2019.
 * *Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 * *Repeater Delete* : `delete INDEX`
 * *Repeater Filter* : `find KEYWORD [MORE_KEYWORDS]`
-* *Loan Add new* : `add a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
-* *Loan Payment* : `paid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
-* *Loan Categorical Search* : `find [s/KEYWORD]`  (Coming in v2.0)
-* *Loan Net Amount* : `total [s/KEYWORD]`  (Coming in v2.0)
-* *Loan Value Update* : `edit i/INDEX [a/AMOUNT] [s/DATE] [n/NAME] [d/DESCRIPTION]`  (Coming in v2.0)
-* *Loan Sort By Value* : `sort s/BY`  (Coming in v2.0)
-* *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [m/MONTH y/YEAR]`
-* *Budget Delete* : `delete INDEX`
+* *Loan Add new* : `add a/Amount [d/DATE] [n/NAME] [d/DESCRIPTION] [sd/DAY] [sm/MONTH] [sy/YEAR] [ed/DAY] [em/MONTH] [ey/YEAR]`
+* *Loan Edit* : `add i/Index a/Amount [d/DATE] [n/NAME] [d/DESCRIPTION] [sd/DAY] [sm/MONTH] [sy/YEAR] [ed/DAY] [em/MONTH] [ey/YEAR]`
+* *Loan Pay* : `pay i/Index`
+* *Budget Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [d/day m/MONTH y/YEAR]`
+* *Budget Delete* : `delete i/INDEX a/Amount [n/Name]`
 * *Budget Find* : `find [KEYWORDS]...`
 * *Expenditure Trend* : `expenditure [y/YEAR]`
 * *Income Trend* : `income [y/YEAR]`
