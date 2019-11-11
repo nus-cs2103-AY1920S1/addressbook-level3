@@ -298,28 +298,28 @@ NOTE: Calendar does not show the specific `Deadline`, but an overview of all you
 
 // tag::badflashcard[]
 
-=== Set Flashcard as "Bad", with Deadline to re-test: `bad index`
+=== Rate Flashcard as "Bad", with Deadline to re-test: `bad index`
 
-Sets a specific flashcard as a "Bad" `FlashCard`. It will then be stored as a `Deadline` in the list on the right-side pane.
+Rates a specific 'FlashCard' as "Bad". It will then be stored as a `Deadline` in the list on the right-side pane.
 
 `bad 2`
 
 ****
-* Sets the FlashCard specified at `INDEX` as 'Bad'. The index refers to the index number shown in the displayed deadline
-list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+* Sets the `FlashCard` specified at `INDEX` as 'Bad'. The index refers to the index number shown in the displayed deadline
+list on the right-side pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Key the above mentioned example into the command box
 
 image::BadFlashcard.png[width="550"]
 
-The command will add the 2nd flashcard on the list, "How to declare a pointer in C?" as a 'bad' flashcard.
+The command will add the 2nd `FlashCard` on the list, "How to declare a pointer in C?" as a "Bad" `FlashCard`.
 After which, the result box will show the success message.
 A new `Deadline` will now be shown at the right side-bar, 3 days later from the day it was entered.
 
 image::BadFlashcardAdded.png[width="550"]
 
-NOTE: "Bad" rated `Deadline`(s) will be added to a deadline which is due 3 days later. This is an approximated value that based on
+NOTE: "Bad" rated `D(s) will be added to a deadline which is due 3 days later. This is an approximated value that based on
 the theory of https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition], referring to Ebbinghaus Forgetting Curve
 by Hermann Ebbinghaus who hypothesised this theory in 1985.
 
