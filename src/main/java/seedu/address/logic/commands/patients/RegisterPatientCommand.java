@@ -39,7 +39,7 @@ public class RegisterPatientCommand extends ReversibleCommand {
             + PREFIX_ADDRESS + "12, Kent ridge Ave 3, #01-11 "
             + PREFIX_TAG + "AIDS";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
+    public static final String MESSAGE_SUCCESS = "New patient added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This patient has already been registered.";
 
     private final Person toAdd;

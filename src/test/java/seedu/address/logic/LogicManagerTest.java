@@ -20,9 +20,9 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.patients.ListPatientCommand;
 import seedu.address.logic.commands.patients.RegisterPatientCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
@@ -59,7 +59,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        String listCommand = FindCommand.COMMAND_WORD;
+        String listCommand = ListPatientCommand.COMMAND_WORD;
         String expectedResult = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0, "");
         assertCommandSuccess(listCommand, expectedResult, model);
     }
@@ -105,15 +105,6 @@ public class LogicManagerTest {
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
-    }
-
-    /**
-     * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
-     *
-     * @see #assertCommandFailure(String, Class, String, Model)
-     */
-    private void assertCommandException(String inputCommand, String expectedMessage) {
-        assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
     }
 
     /**
