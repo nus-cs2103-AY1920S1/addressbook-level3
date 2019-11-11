@@ -68,6 +68,9 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
+
+// tag::uicomponent[]
+
 [[Design-Ui]]
 === UI component
 
@@ -77,7 +80,7 @@ image::UiClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/guilttrip/ui/Ui.java[`Ui.java`]
 
-* The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `EntryListPanel`,
+* The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `ExpenseListPanel`,
 `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 * The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
@@ -90,6 +93,8 @@ The `UI` component
 * Executes user commands using the `Logic` component.
 
 * Listens for changes to `Model` data so that the `UI` can be updated with the modified data.
+
+// end::uicomponent[]
 
 [[Design-Logic]]
 === Logic component
@@ -340,37 +345,145 @@ showing the user what category of spending increases across the months. For exam
 category Entertainment increased the most in the past months.
 * Bar Chart can be further improved to show analysis of breakdown of category by day and observe trends for the user.
 For example, it could notice that the user has been spending a lot every Tuesday and alert the user about it.
+
 // end::Statistics[]
+
+// tag::uifeature[]
 
 === Toggle Panel Command
 
 ==== Implementation
 
+.Partial class diagram showing only the classes in `UI` involved in the Toggle Panel Command.
+image::PartialUiClassDiagramForToggle.png[]
+
 The `toggle` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic`
 if the user wants to toggle a specified panel. If so, it toggles the `isVisible` and `isManaged` properties of the place
 holder for that panel.
 
+The following sequence diagram shows how an example usage scenario `toggle wishlist` would work:
 
-The following sequence diagram shows how the toggle panel command work:
-
+.Interactions inside the Logic and UI components for the `toggle wishlist` command
 image::ToggleSequenceDiagram.png[]
 
-The following activity diagram summarizes what happens when a user executes a new command:
+The sequence diagram is as explained below:
 
-image::ToggleActivityDiagram.png[]
+. The user launches the application and executes the `toggle wishlist` command to toggle the `wishlist` panel.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `togglePanel` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `PanelName` `WISH` from `commandResult` and calls on its own method `handleTogglePanel`.
+. This method then calls on another method `togglePanel()` that toggles the panel and takes in the `PanelName` `WISH` as a parameter.
+.. (Not shown in sequence diagram to reduce its complexity) It also checks if the wishlist is already shown in the main panel.
+.. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is already shown in the main panel.
+
+The following activity diagram summarizes what happens when a user executes a `toggle` command:
+
+.Activity diagram showing what happens when user executes a `toggle` command
+image::ToggleActivityDiagram.png[width="400"]
 
 ==== Design Considerations
 
-*Current method:* Toggle the panels from within MainWindow class.
+* *Alternative 1 (current method):* Toggle the panels from within `MainWindow`.
 
-Pros: Easy to implement.
+** Pros: Easy to implement.
 
-Cons: Might not be as OOP as other designs.
+** Cons: Might not be as OOP as other designs.
 
-=== ListFont Command
+* *Alternative 2:* `MainWindow` has a `PanelManager` class that manages all the side panels (toggling them on and off).
 
+** Pros: More OOP, reduces number of methods and lines of code in `MainWindow`.
 
-=== ChangeFontCommand
+** Cons: May introduce cyclic dependency between `PanelManager` and `MainWindow`.
+
+=== Change Font Command
+
+==== Implementation
+
+The `changeFont` command extends from the `Command` class. `MainWindow` checks using the
+`CommandResult` obtained from `Logic` if the user wants to change the application font.
+If so, it immediately changes the font without requiring the user to exit and launch the application again.
+
+[NOTE]
+This change in font is also saved in `UserPrefs`.
+
+The following sequence diagram shows how an example usage scenario `changeFont rockwell` would work:
+
+.Interactions inside Logic and UI components for the `changeFont rockwell` command
+image::ChangeFontSequenceDiagram.png[]
+
+The sequence diagram is as explained below:
+
+. The user launches the application and executes the `changeFont rockwell` command to change the current application font to _rockwell_.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `changeFont` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `FontName` `ROCKWELL` from `commandResult` and calls on its own method `handleChangeFont`.
+. This method then converts the `FontName` `ROCKWELL` to a `String "rockwell"` and sets the `font-family` attribute of `window`, that contains all the child nodes, to `rockwell`.
+
+The following activity diagram summarizes what happens when a user executes a `changeFont` command:
+
+.Activity diagram showing what happens when user executes a `changeFont` command
+image::ChangeFontActivityDiagram.png[]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Change the application font from within `MainWindow`.
+
+** Pros: Easy to implement.
+
+** Cons: May not be as OOP as other methods.
+
+* *Alternative 2:* Use a separate class to control the theme, such as `ThemeManager`.
+
+** Pros: More OOP, reduces amount of code in `MainWindow`.
+
+** Cons: As the implementation is not very complicated, introducing a new class just to change the theme may not be worth the increase in dependency (introduces dependency between `Theme` and `ThemeManager` and between `ThemeManager` and `MainWindow`).
+
+=== Set Light/Dark Theme Command
+
+==== Implementation
+
+The `setLightTheme`/`setDarkTheme` command extends from the `Command` class. `MainWindow` checks using the `CommandResult` obtained from `Logic` if the user wants to change the theme of the application.
+If so, it immediately changes the theme without requiring the user to exit and launch the application again.
+
+[NOTE]
+This change in the application theme is also saved in `UserPrefs`.
+
+The following sequence diagram shows how an example usage scenario `setLightTheme` would work:
+
+.Interactions inside Logic and UI components for `setLightTheme` command
+image::SetLightThemeSequenceDiagram.png[]
+
+The sequence diagram is as explained:
+
+. The user launches the application and executes the `setLightTheme` command to change the current theme to _light_.
+. `commandResult` is obtained in `MainWindow` after the command is parsed and executed.
+. `MainWindow` checks if the `changeTheme` attribute in `commandResult` is true.
+. Since it is true, it retrieves the `newTheme` from `commandResult`, `LIGHT`, and calls on its own method `switchThemeTo(LIGHT)`.
+.. (Following details were trivial and thus omitted from the diagram) This method retrieves the URLs for the light theme and corresponding extensions css files and adds it to the stylesheets for the scene.
+This is done after removing the stylesheets for the previous theme.
+. This implementation is essentially the same for `setDarkTheme` command, with the `newTheme` as `DARK` instead.
+
+The following activity diagram summarizes what happens when a user executes a `setLightTheme` command:
+
+.Activity diagram showing what happens when user executes a `setLightTheme` command
+image::SetLightThemeActivityDiagram.png[]
+
+==== Design Considerations
+
+* *Alternative 1 (current choice):* Change the theme from within `MainWindow`.
+
+** Pros: Easy to implement.
+
+** Cons: May not be as OOP as it could be, increases number of lines of code in `MainWindow`.
+
+* *Alternative 2:* Use a separate class to control the theme, such as `ThemeManager`.
+
+** Pros: Abstracts out the methods regarding changing of theme to be contained in `ThemeManager` and reduces the number of lines of code in `MainWindow`.
+
+** Cons: Harder to implement; may introduce cyclic dependency.
+It may also be redundant or excessive as implementing the `changeFont` command is not very complicated.
+
+// end::uifeature[]
 
 === Reminders
 
@@ -880,3 +993,64 @@ Use case resumes from step 2.
 * Category - Income, Expense, Wishlist, Budget +
 * Entry - any item in a category +
 * Tag - label(s) attached to an entry
+
+== Instructions for Manual Testing
+
+=== Customising the GUI
+
+==== Change theme
+
+. Changing the theme of the application
+
+.. Prerequisites: Application is in dark theme.
+
+.. Test case: `setLightTheme` +
+Expected: Theme changes to the light theme. Result display shows the message that command is executed successfully.
+
+.. Prerequisites: Application is in light theme.
+
+.. Test case: `setDarkTheme` +
+Expected: Theme changes to the dark theme. Result display shows the message that command is executed successfully.
+
+. Saving theme preferences
+
+.. Change the theme to a different one (see examples above). Close the window.
+
+.. Relaunch the application. +
+Expected: The change in theme is saved and application is in the most recent theme.
+
+==== Change font
+
+. Changing the font of the application
+
+.. Prerequisites: none
+
+... Test case: `changeFont rockwell` +
+Expected: Font changes to _rockwell_.
+
+... Test case: `changeFont segoe UI` +
+Expected: Font changes to _segoe UI_.
+
+. Saving font preferences
+
+... Change the font to a different one (see examples above). Close the window.
+
+... Relaunch the appication. +
+Expected: The change in font is saved and the application is in the most recent font.
+
+==== Toggle panel
+
+. Toggling a specified panel on or off
+
+.. Prerequisites: panel to toggle does not have its contents already shown in main panel
+
+... Test case: `toggle budget` +
+Expected: If panel was not previously shown, Budget panel will be toggled on. Otherwise, it will be toggled off.
+
+... Test case: `toggle ae` +
+Expected: If panel was not previously shown, AutoExpenses panel will be toggled on. Otherwise, it will be toggled off.
+
+.. Prerequisites: panel to toggle already has its contents shown in the main panel, such as by doing `listBudget`
+
+... Test case: `toggle budget` +
+Expected: Budget panel is not toggled on. Error message is shown in the result display.
