@@ -153,37 +153,139 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== [Proposed] Finding Free Timeslot feature
-==== Proposed Implementation
+=== Schedule Generator
 
-The finding free timeslot feature is implemented by `ScheduleGenerator`. It generates the current `WeekSchedule` of a group and the common free timeslot among its members and updates the `ScheduleView` to be displayed to the user. Additionally, it implements the following operations:
+The Schedule Generator feature allows users to generate a combined schedule of any number of people. It combines these
+schedules together, generates the common free time slots among the input people's schedules and packages it
+into a visual representation for the user.
 
-* `ScheduleGenerator#getFreeTimeslot()` -- Generates a `personSchedule` of a group and updates the `ScheduleView`.
+==== Implementation
 
-These operations are exposed in the `Model` interface as `Model#getFreeTimeslot()`
+The Schedule Generator feature is facilitated by `ScheduleManager`. It implements the following operations:
 
-Firstly, the `getFreeTimeslot()` method takes in as input an ArrayList of `Person` and updates the ScheduleView of the TimeBook. When the method is executed, it checks the schedule of each `Person` in the TimeBook and generates a new combined `WeekSchedule` of the whole list of `Person`. Also, only `TimeSlots` that are within the week are checked and put into the 'WeekSchedule'. The generated `WeekSchedule` will then contain the individual schedules of each `Person` in the list for the week.
+* `ScheduleManager#updateScheduleWithPerson()`
+** This method takes in the following as inputs:
+*** `Person` person: the schedule of the person to be generated
+*** `LocalDateTime` time: The start date and time of the schedule to be generated from
+*** `ScheduleState` type: The type of schedule to be generated
+** Generates a `ScheduleDisplay` of `type` of the `person`, spanning from `time` to 4 weeks later
+** Updates the ScheduleDisplay with the generated schedule
 
-After the `WeekSchedule` has been generated, the method now generates a new schedule of the free timeslots within the `WeekSchedule`. It checks the `WeekSchedule` and generates a new `FreeTimeSchedule` with contains all the timeslots in which there are no clashes with the `personSchedule`. It also only generates `FreeTimeslots` for the week.
+* `ScheduleManager#updateScheduleWithUser()`
+** This method takes in the following as inputs:
+*** `User` user: The schedule of the user to be generated
+*** `LocalDateTime` time: The start date and time of the schedule to be generated from
+*** `ScheduleState` type: The type of schedule to be generated
+** Generates a `ScheduleDisplay` of `type` of the `user`, spanning from `time` to 4 weeks later
+** Updates the ScheduleDisplay with the generated schedule
 
-Additionally, the generated `FreeTimeSchedule` also contains the information of the last venue the `Person` has been. This information is then used to calculate the closest location for all `Person` to meet.
+* `ScheduleManager#updateScheduleWithGroup()`
+** This method takes in the following as inputs:
+*** `Group` group: The schedule of the group to be generated
+*** `ArrayList<Person>` persons: The list of Person in the group
+*** `ArrayList<PersonToGroupMapping>` mappings: Represents the role of each Person in the group
+*** `LocalDateTime` time: The start date and time of the schedule to be generated from
+*** `ScheduleState` type: The type of schedule to be generated
+** Generates a `ScheduleDisplay` of `type` of the `group`, spanning from `time` to 4 weeks later
+** Generates the `FreeSchedule` of the `group`
+** Updates the ScheduleDisplay with the generated schedule
 
-Finally, after generating the `WeekSchedule` and `FreeTimeSchedule`, it now updates the `ScheduleView` of `TimeBook`. This 'ScheduleView' is then displayed to the user through the UI.
+* `ScheduleManager#updateScheduleWithPersons()`
+** This method takes in the following as inputs:
+*** `ArrayList<Person>` persons: The list of Person to generate the schedule from
+*** `LocalDateTime` time: The start date and time of the schedule to be generated from
+*** `ScheduleState` type: The type of schedule to be generated
+** Generates a `ScheduleDisplay` of `type` of the list of `person`, spanning from `time` to 4 weeks later
+** Generates the `FreeSchedule` of the list of `person`
+** Updates the ScheduleDisplay with the generated schedule
 
-The following sequence diagram shows how the generateFreeTimeslot operation works:
+`ScheduleDisplay` is an object that contains all the schedule information to be shown to the user.
 
-image::FindFreeTimeslotSequenceDiagram.png[]
+There are 3 types of `ScheduleDisplays` that extends from `ScheduleDisplay`.
+The type of `ScheduleDisplay` that is generated is based on the `ScheduleState`.
+
+* `PersonScheduleDisplay`:
+** A `ScheduleDisplay` object that only shows the Schedule of a singular `Person`
+
+* `HomeScheduleDisplay`:
+** A `ScheduleDisplay` object that shows the Schedule of the `User` object
+
+* `GroupScheduleDisplay`:
+** A `ScheduleDisplay` object that shows the Schedule of a group of `Persons` including the `User`
+** It contains a `FreeSchedule` object that tells the user the common `FreeTimeslots` among the `Persons` in the group
+
+Given below is an example usage scenario of how the ScheduleManager behaves
+when a schedule command is executed.
+
+* `Step 1`: User enters command
+** User enters a command: `schedule n/NAME1 n/NAME2`
+
+* `Step 2`: LogicManager parses the command
+** The `TimeBookParser#parseCommand` is called would parse the input and
+create a new `ScheduleCommandParser` object and calls the `ScheduleCommandParser#parse` method
+to parse the command arguments
+** The `ScheduleCommandParser` would parse the arguments into a List of `Name` objects (i.e. NAME1, NAME2)
+and create a new `ScheduleCommand` with the List of `Names`.
+** The `ScheduleCommandParser` then and returns the `ScheduleCommand` to `LogicManager`
+
+* `Step 3`: Execute the command
+** `LogicManager` calls `ScheduleCommand#execute` method
+** `ScheduleCommand` creates a new List of `Persons`
+** `ModelManager#getUser` method is called to get the `User` object and `ScheduleCommand` adds it
+to the List of `Persons`
+** For each `Name` is the List of `Names`, `ModelManager#findPerson` is called by supplying a `Name`
+object to get the `Person` object specified by the `Name` object.
+** `ScheduleCommand` then adds the `Person` into the List of `Persons`
+** `ScheduleCommand` calls the `ModelManager#updateScheduleWithPersons` method with the List of `Persons`
+
+The following sequence diagram shows how the ScheduleCommand is executed:
+
+image::ugalvin/scheduleGeneratorSequenceDiagram1.png[width=100%]
+
+* `Step 4`: Generate the Schedule
+** `ModelManager` calls the `ScheduleManager#updateScheduleWithPersons` method with the List of `Persons`
+** The `ScheduleManager` now generates the combined schedules of the List of `Persons` as well as the
+free time slots and packages it into a `GroupScheduleDisplay`
+*** This is done by first extracting the schedule and details of each person to generate a
+list of `PersonSchedule`
+*** With the list of `PersonSchedule`, the `#generateFreeSchedule` method is called and it will
+generate a `FreeSchedule`. A `FreeSchedule` will contain all the details of each `FreeTimeslot`
+such as previous location data of each person, start time and end time.
+*** The `ScheduleManager` then packages all these information into a `GroupScheduleDisplay`
+
+* `Step 5`: Update the ScheduleDisplay
+** `ScheduleManager` now updates the current `ScheduleDisplay` to be shown to the user
+
+The following sequence diagram shows how the `ScheduleDisplay` is generated:
+
+image::ugalvin/scheduleGeneratorSequenceDiagram2.png[width=100%]
+
+* `Step 6`: Return feedback to user
+-	The `ScheduleCommand` has finished executing and returns a `CommandResult` with the feedback to user
+to `LogicManager`
+
+Apart from generating a `GroupScheduleDisplay`, the `ScheduleManager` is also able to generate
+Schedules of a `Person` or a `User` as well.
+
+The following activity diagram summarizes what happens when the `ScheduleManager` is invoked to
+generate a `ScheduleDisplay`:
+
+image::ugalvin/scheduleGeneratorActivityDiagram.png[width=100%]
 
 ==== Design Considerations
 
-===== Aspect: How the `WeekSchedule` is generated and stored
+===== Aspect: How the `ScheduleDisplay` is generated and stored
 
-* **Alternative 1 (current choice):** Generates the `WeekSchedule` only when the `ShowGroup` command is executed.
-** Pros: Saves memory space, and does not need to compute the `WeekSchedule` of every group upon startup.
-** Cons: May have performance issues in runtime as there is no preprocessing as the `WeekSchedule` is only generated when required.
-* **Alternative 2:** Upon startup, generate each Group's `WeekSchedule` and store them within the `Group` object.
-** Pros: Better runtime performance as the `WeekSchedule` is already generated.
-** Cons: Will have perfomance issues in terms of memory usage. Each Group's `WeekSchedule` will also have to be updated whenever a `Person` is added, edited or deleted.
+* **Alternative 1 (current choice):** Generates the `ScheduleDisplay` in runtime only when the application
+needs to show a schedule to the user.
+** Pros: Saves memory space, and does not need to compute the `ScheduleDisplay` of every group and person upon startup.
+** Cons: May have performance issues in runtime as the `ScheduleDisplay` is only generated when required.
+
+* **Alternative 2:** Upon startup, generate each Group's `ScheduleDisplay` and store them within the `Group` object.
+** Pros: Better runtime performance as the `ScheduleDisplay` is already generated.
+** Cons: Will have perfomance issues in terms of memory usage. Each Group's and Person's `ScheduleDisplay` will also
+have to be generated and stored in memory.
+
 
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
