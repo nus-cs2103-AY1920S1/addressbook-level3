@@ -200,14 +200,13 @@ However, only the tags of the item on the main list will be retained.
 ===== Design Considerations
 
 ====== Aspect: Handling of items that have run out
-* **Alternative 1 (current choice): Automatically shifts item to the replenish list when item quantity reaches 0**
-** Pros: User does not need to input any command to perform the shifting, making the user experience more fuss free.
+* **Alternative 1 (current choice): Automatically shift an item to the replenish list when the item's quantity reaches 0**
+** Pros: User does not need to input any command to perform the shifting, making the user experience more fuss-free.
 ** Cons: User has to delete the item from the replenish list if the user does not want to stock up on the item in future.
 
 * **Alternative 2: Delete item from the main list without any shift**
-** Pros: User will not have any unwanted items in the replenish list.
-** Cons: User has to go through the trouble key in the details of an item that has been in the main list once again should the user want the item in the replenish list.
-
+** Pros: Items that the user may not want to replenish will not be automatically added to the replenish list.
+** Cons: User has to go through the trouble to key in details of an item that was already in the main list.
 
 // end::replenishListItems[]
 
@@ -1245,13 +1244,8 @@ add any reminder threshold. +
   Expected: the first item turns yellow.
 
 === Adding expired items to the tracking list for testing
+By design, our app does not accept items that have expired unless the json file is tampered with.
 
-Xpire automatically tags items as `Expired` in the tracking list once an item's expiry date has passed, as seen in the diagram below. See <<Replenish List>> for details.
-
-.Expiry date should be updated to one that has passed to test for expired items in Xpire.
-image::xpire_json_file.png[]
-
-.. By design, our app does not accept items that have expired unless the json file is tampered with.
 .. To add an expired item to the tracking list, open the xpire.json file in an editor. Under `"xpireItems"`, add a new JSON object with values for `name`, `expiryDate`, `quantity`, `reminderThreshold` and `tags`.
 .. Note that this expiry date has to be after 1/10/2019.
 .. The expiry date should be a date that is before the current date of testing. The reminder threshold should be a non-negative integer and quantity should be a positive integer.
@@ -1265,13 +1259,28 @@ Example:
 
 .Example of a valid XpireItem manually added to xpire.json file
 image::json_example.png[]
-An item with `name` Jelly and `expiryDate` 24/10/2019 (which has passed) is now added to the json file for your testing.
+An item with `name` Raspberry and `expiryDate` 8/10/2019 (which has passed) is now added to the json file for your testing.
 
 [NOTE]
 Remember to enclose these name-value items with `{` and `}`.
 Do note that if you manually tamper with the xpire.json file, the data file might be corrupted.
 See <<Saving data>> on details for corrupted files.
 For more information about JSON objects, please refer to https://www.digitalocean.com/community/tutorials/an-introduction-to-json[this tutorial].
+
+=== Adding an item
+. Adding an item to the main list
+
+The examples given below act according to the following list:
+
+image::add_manual_test_list.png[]
+
+.. Prerequisites: Current view is the main list.
+.. Test case: `add|Chocolate|28/6/2020` +
+   Expected: Chocolate is added to the main list. Details of the added item is shown in feedback.
+.. Test case: `add|Strawberry|30/6/2022|999` +
+   Expected: Strawberry's quantity is increased by 999. Details of the quantity increase is shown in feedback.
+.. Test case: `add|Strawberry|30/6/2022|100000` +
+   Expected: Error message shown in feedback.
 
 === Deleting an item
 
@@ -1287,11 +1296,11 @@ For more information about JSON objects, please refer to https://www.digitalocea
 
 . Deleting an item quantity
 
-The examples given below acts according to the following list:
+The examples given below act according to the following list:
 
 image::delete_example_list.png[]
 
-.. Prerequisites: Input quantity to be deleted must be less than or equals to the item quantity.
+.. Prerequisites: Current view is the main list. Input quantity to be deleted must be less than or equals to the item quantity.
 .. Test case `delete|2|1` +
    Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
    Details of the item with reduced quantity is reflected in the status message.
@@ -1302,6 +1311,24 @@ image::delete_example_list.png[]
    Expected: Quantity is not reduced. Error details showed in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
    Expected: Similar to previous.
+
+=== Shifting an item to the replenish list
+
+. Shifting an item to the replenish list
+.. Prerequisites: Current view is the main list. Current list contains at least one valid item.
+
+.. Test case `shift|1` +
+   Expected: First item in the main list is shifted into the replenish list. Feedback is shown.
+
+=== Shifting an item to the main list
+
+. Shifting an item to the main list
+.. Prerequisites: Current view is the replenish list.
+   Current list contains at least one valid item.
+   Item with the same expiry date specified and name as the item of the given index does not exist on the main list.
+
+.. Test case `shift|1|25/6/2020` +
+   Expected: First item is moved to the main list. Feedback is shown.
 
 === Setting a reminder for an item
 
