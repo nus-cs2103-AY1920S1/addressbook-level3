@@ -1381,7 +1381,7 @@ Pros:
 Cons:
 
 * Lacks analysis of data with visual aids like charts
-* Not catered to performance-based sports
+* Lacks an in-built calendar for an overview of schedule
 
 [appendix]
 == Instructions for Manual Testing
