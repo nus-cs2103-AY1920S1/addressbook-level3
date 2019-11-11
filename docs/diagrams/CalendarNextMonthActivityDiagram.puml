@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes next month command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Max year and month reached (December 9999)])
+    :Exception thrown;
+else ([else])
+    :Switch display to next month;
+endif
+stop
+@enduml

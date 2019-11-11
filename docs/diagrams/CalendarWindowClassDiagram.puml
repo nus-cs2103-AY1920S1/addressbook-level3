@@ -2,20 +2,24 @@
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
 
 package CalendarWindow <<Rectangle>>{
 Class Tab UI_COLOR
 Class "{abstract}\nUiPart" as UiPart UI_COLOR
 Class CalendarWindow UI_COLOR_T1
-Class CalendarTitleBar UI_COLOR_T2
-Class PreviousMonthButton UI_COLOR_T2
-Class CalendarTitle UI_COLOR_T2
-Class NextMonthButton UI_COLOR_T2
-Class WeekdayDisplayPane UI_COLOR_T3
-Class Weekday UI_COLOR_T3
-Class DateDisplayGrid UI_COLOR_T4
-Class IndividualDatePane UI_COLOR_T4
-Class Engagement #9D0012
+Class YearMonth
+Class CalendarDateCell
+Class DateDisplayGrid
+Class CalendarDateStackPane
+Class SingleDayEngagementsDisplayWindow
+Class EngagementListView
+Class EngagementListViewCell
+Class Engagement
+Class LocalDate
+Class PreviousMonthButton
+Class CalendarTitle
+Class NextMonthButton
 }
 
 package Model <<Rectangle>> {
@@ -30,22 +34,29 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Tab
 Tab *-down-> "0...1" CalendarWindow
 
+CalendarWindow *-down-> PreviousMonthButton
+CalendarWindow *-down-> CalendarTitle
+CalendarWindow *-down-> NextMonthButton
 CalendarWindow .up.|> UiPart
 CalendarWindow -right-> Logic
-CalendarWindow *-down-> CalendarTitleBar
-CalendarWindow *-down-> WeekdayDisplayPane
+CalendarWindow *-down-> YearMonth
 CalendarWindow *-down-> DateDisplayGrid
+CalendarWindow *-down-> "35" CalendarDateCell
 
-CalendarTitleBar *-down-> PreviousMonthButton
-CalendarTitleBar *-down-> CalendarTitle
-CalendarTitleBar *-down-> NextMonthButton
+DateDisplayGrid -down-> "35" CalendarDateStackPane
 
-WeekdayDisplayPane *-down-> "7" Weekday
+CalendarDateCell .up.|> UiPart
+CalendarDateCell *-down-> "1" CalendarDateStackPane
+CalendarDateCell *-down-> "*" Engagement
+CalendarDateCell *-right-> SingleDayEngagementsDisplayWindow
+CalendarDateCell -down-> LocalDate
 
-DateDisplayGrid *-down-> "35" IndividualDatePane
+SingleDayEngagementsDisplayWindow .up.|> UiPart
+SingleDayEngagementsDisplayWindow -down-> "1" EngagementListView
 
-IndividualDatePane .up.|> UiPart
-IndividualDatePane *-down-> "*" Engagement
+EngagementListView -down-> "*" EngagementListViewCell
+
+EngagementListViewCell -down-> "1" Engagement
 
 Engagement .right.> Model
 

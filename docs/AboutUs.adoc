@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Kevin Lim
 image::lyskevin.png[width="150", align="left"]
-{empty}[https://github.com/lyskevin[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/lyskevin[github]] [<<lyskevin#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Code Quality

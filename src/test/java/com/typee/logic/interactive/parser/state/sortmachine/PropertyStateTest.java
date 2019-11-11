@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.sortmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_PROPERTY;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,6 +14,10 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public class PropertyStateTest {
+
+    public static final String EXPECTED_CONSTRAINTS = "Which property would you like to sort by? Please enter the "
+            + "property prefixed by " + PREFIX_PROPERTY.getPrefix() + ". Example - [p/start]";
+
     private static final PropertyState TYPICAL_PROPERTY_STATE = new PropertyState(new ArgumentMultimap());
 
     @Test
@@ -49,11 +54,7 @@ public class PropertyStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(TYPICAL_PROPERTY_STATE.getStateConstraints(),
-                "Sort command initiated. Please enter the property you would"
-                + " like to sort by, prefixed by \"p/\". The sortable properties are start date, end date, description"
-                + " and priority, to be specified as \"start\", \"end\", \"description\" and \"priority\" respectively."
-        );
+        assertEquals(EXPECTED_CONSTRAINTS, TYPICAL_PROPERTY_STATE.getStateConstraints());
     }
 
     @Test

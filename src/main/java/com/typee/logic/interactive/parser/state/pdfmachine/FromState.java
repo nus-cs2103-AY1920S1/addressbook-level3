@@ -17,9 +17,10 @@ import com.typee.model.person.Name;
  */
 public class FromState extends State {
 
-    private static final String MESSAGE_CONSTRAINTS = "Index stored. Please enter the name of the sender,"
-            + " i.e. the person who the report is from, prefixed by \"f/\".";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid name after \"f/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Who is the sender of the document? Please enter the name "
+            + "prefixed by " + PREFIX_FROM.getPrefix() + ". Example - [f/Damith]";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid name after "
+            + PREFIX_FROM.getPrefix() + ". Names must be in English and contain only alphanumeric characters.";
 
     protected FromState(ArgumentMultimap soFar) {
         super(soFar);
@@ -39,7 +40,7 @@ public class FromState extends State {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> from)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(from, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(from, MESSAGE_INVALID_INPUT);
         enforceValidity(from);
     }
 
@@ -52,7 +53,7 @@ public class FromState extends State {
     private void enforceValidity(Optional<String> from) throws StateTransitionException {
         String name = from.get();
         if (!Name.isValidName(name)) {
-            throw new StateTransitionException(Name.MESSAGE_CONSTRAINTS);
+            throw new StateTransitionException(MESSAGE_INVALID_INPUT);
         }
     }
 

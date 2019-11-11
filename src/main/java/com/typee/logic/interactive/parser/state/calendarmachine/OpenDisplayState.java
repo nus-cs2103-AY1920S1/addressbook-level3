@@ -19,12 +19,11 @@ import com.typee.logic.interactive.parser.state.exceptions.StateTransitionExcept
  */
 public class OpenDisplayState extends PenultimateState {
 
-    private static final String MESSAGE_CONSTRAINTS = "Please enter a valid date in the dd/mm/yyyy format, prefixed"
-            + " by \"d/\".";
+    private static final String MESSAGE_CONSTRAINTS = "Which day's engagements would you like to view? Please enter a "
+            + "date prefixed by " + PREFIX_DATE.getPrefix() + ". Example - [d/15/11/2019]";
     private static final String DATE_PATTERN = "dd/MM/uuuu";
-    private static final String MESSAGE_MISSING_KEYWORD = "Invalid input! Please enter a valid date after \"d/\" in"
-            + " the dd/mm/yyyy format.";
-    private static final String MESSAGE_INVALID_INPUT = "Invalid input! The date must adhere to the dd/mm/yyyy format.";
+    private static final String MESSAGE_INVALID_INPUT = "Invalid input! Please enter a valid date after "
+            + PREFIX_DATE.getPrefix() + " in the dd/mm/yyyy format.";
 
     protected OpenDisplayState(ArgumentMultimap soFar) {
         super(soFar);
@@ -46,7 +45,7 @@ public class OpenDisplayState extends PenultimateState {
     private void performGuardChecks(ArgumentMultimap newArgs, Optional<String> date)
             throws StateTransitionException {
         disallowDuplicatePrefix(newArgs);
-        requireKeywordPresence(date, MESSAGE_MISSING_KEYWORD);
+        requireKeywordPresence(date, MESSAGE_INVALID_INPUT);
         enforceValidity(date);
     }
 

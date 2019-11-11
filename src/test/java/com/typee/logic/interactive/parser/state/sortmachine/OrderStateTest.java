@@ -1,5 +1,6 @@
 package com.typee.logic.interactive.parser.state.sortmachine;
 
+import static com.typee.logic.interactive.parser.CliSyntax.PREFIX_ORDER;
 import static com.typee.testutil.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -14,6 +15,9 @@ import com.typee.logic.interactive.parser.state.State;
 import com.typee.logic.interactive.parser.state.exceptions.StateTransitionException;
 
 public class OrderStateTest {
+    public static final String EXPECTED_CONSTRAINTS = "Which ordering would you like to sort by? Please enter the"
+            + " ordering prefixed by " + PREFIX_ORDER.getPrefix()
+            + ". Example - [o/ascending]";
     private State postTransitionState;
 
     @BeforeEach
@@ -64,8 +68,7 @@ public class OrderStateTest {
 
     @Test
     public void getStateConstraints() {
-        assertEquals(postTransitionState.getStateConstraints(), "Please enter the ordering to be followed,"
-                + " prefixed by \"o/\". Accepted orderings are \"ascending\" and \"descending\".");
+        assertEquals(EXPECTED_CONSTRAINTS, postTransitionState.getStateConstraints());
     }
 
     @Test

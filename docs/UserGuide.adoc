@@ -38,12 +38,20 @@ image::Ui.png[width="750"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all appointments.
-* **`tab` ** `b/game`: switches main window to start window of the game.
-* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 a/Jason | Harry d/Meeting on Monday a/HIGH` : adds an engagement to the storage with an engagement type of `Appointment` followed by start time and end time 09-11-2019-12:00 ~ 09-11-2019-13:30, attendee as `Jason` and `Harry`, description written as `Meeting on Monday`, priority of `HIGH`.
-* **`pdf` ** `i/1 t/Jason f/Harry`: generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
-* **`delete`** `i/3` : deletes the 3rd appointment shown in the current list.
-* *`exit`* : exits the app.
+* *`list`* : Lists all appointments.
+* **`tab` ** `b/game` : Switches main window to start window of the game.
+* **`add`** `t/appointment s/09/11/2019/1200 e/09/11/2019/1330 l/NUS a/Ben|Tom d/Meeting on Monday p/HIGH` : +
+Adds an engagement to the engagements list with the following details: +
+Engagement type: Appointment +
+Start time: 09/11/2019 at 1200 hours +
+End time: 09/11/2019 at 1330 hours +
+Location: NUS +
+Attendees: Ben and Tom +
+Description: Meeting on Monday +
+Priority: High +
+* **`pdf` ** `i/1 t/Jason f/Harry`: Generates a document of the selected engagement of index 1, by setting the sender as `Harry` and receiver of the document as `Jason`.
+* **`delete`** `i/3` : Deletes the 3rd appointment shown in the current list.
+* *`exit`* : Exits the app.
 
 Refer to <<Features>> for details of each command.
 //end::quick-start[]
@@ -55,6 +63,164 @@ Refer to <<Features>> for details of each command.
 
 Format: `help`
 
+//tag::interactive-parsing[]
+=== Interactive Parsing
+
+==== About
+
+Typically, engagement managing software require users to enter the entire command in one shot.
+
+For example, a user that wishes to add a meeting must type out the following: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+This can prove to be rather tedious and cumbersome as users must remember every detail of a command.
+
+Typee overcomes this by allowing users to interact with its interface and build commands sequentially. Users just need
+to type the relevant command word to get prompted about subsequent inputs.
+
+.The interactive component of Typee is highlighted above.
+image::interactive_parsing_0.png[width='520']
+
+With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/High
+```
+
+.Typee's prompt in response to the user entering `add`
+image::interactive_parsing_1.png[width="520"]
+
+Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
+Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
+set of rules detailed in a later subsection.
+
+The same 'Add' command can be constructed this way by a fairly experienced user: -
+```
+add t/meeting
+s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2
+d/Team Meeting
+a/John | Smith p/High
+```
+
+.A user about to pass 3 arguments to Typee in one input, following `add`.
+image::interactive_parsing_2.png[width='520']
+
+.Typee's response to the above input.
+image::interactive_parsing_3.png[width='520']
+
+Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
+the entire command at once. This is identical to the format introduced in the beginning of this section: -
+`add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+
+==== Supported Commands
+
+*All commands* are parsed and built interactively. Each command, however, adheres to its own structure. Individual commands'
+structures and idiosyncrasies are detailed in the sections belonging to the respective commands.
+
+In general, commands are of two types - *static* and *dynamic*.
+
+Static commands are executed one at a time, whereas dynamic commands can be built at any point of time, even while
+parsing an ongoing static command.
+
+Examples:
+
+'Add' and 'Delete' are static commands. The following input sequence is invalid: -
+```
+add t/meeting
+delete
+```
+
+'Help' and 'Exit' are dynamic commands. Therefore, the following input sequence is *valid*: -
+
+```
+add t/meeting
+help
+s/11/01/2019/1500
+exit
+```
+
+[NOTE]
+Calling another dynamic command in the midst of building a `Tab` command will erase the details of the command preceding
+'Tab'. This happens if the command preceding `Tab` isn't fully built.
+
+==== Valid Input Sequences
+
+Valid input sequences can be one of three types.
+
+* One argument per input - `add` `t/meeting` ... `p/high`
+* Entire command in an input - `add t/meeting s/11/01/2019/1600 ... p/High`
+* More than one argument, but not the entire command in an input - `add t/meeting` `s/11/01/2019/1600 e/11/01/2019/1700` ...
+
+After the last argument is specified, the required command is built and executed, carrying out the operation
+intended by the user.
+
+*The order of arguments entered is important*. Consider the 'Add' command. The ideal ordering is as follows: -
+`add t/ s/ e/ l/ d/ a/ p/`
+
+When users resort to any of the three aforementioned forms of supplying arguments, they are required to conform to the
+specified ordering.
+
+When the arguments aren't in order, then the input is *parsed as far as possible, in the expected order of the arguments*.
+
+For example, `add t/meeting l/Meeting Room 2` is parsed till the argument for `t/`. The parameter location is deemed
+invalid and the user is prompted to enter a start date-time.
+
+This happens because the parser expects an argument for `s/`, but there is no such argument.
+As a consequence, all arguments that are supposed to be entered after `s/` (like `l/`) are not parsed.
+
+Similarly, `add t/meeting s/15/01/2019/1500 d/desc p/low` is parsed till `s/` and a prompt is raised to enter a valid end date-time, leaving `d/`
+and `p/` untouched.
+
+However, there lies a quirk with respect to the ordering of inputs if the parser has sufficient arguments.
+
+Consider the case when the user inputs `add t/meeting e/15/11/2019/1500 s/15/11/2019/1400`. This input is deemed *valid* even
+though `e/` and `s/` are flipped. This is because after 't/', the parser expects to find an `s/`, which is in-turn contained in the input.
+
+Thus, to summarize, the parser continues parsing in the order of the expected arguments, as long as the corresponding prefixes are found in the input.
+
+==== Erroneous Inputs
+
+Erroneous inputs occur in three mutually exclusive categories.
+
+* Inputs with invalid arguments
+* Inputs with multiple arguments for the same parameter.
+* Inputs with valid arguments, but irrelevant additional arguments.
+
+An example of the first case is as follows: `add t/teeming`. "Teeming" is an invalid engagement type. Typee flags this inaccuracy
+and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
+the subsequent input must begin with `t/...`
+
+.A user about to enter an invalid input.
+image::interactive_parsing_4.png[width='520']
+
+.Typee's response to the invalid input.
+image::interactive_parsing_5.png[width='520']
+
+Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
+the user input.
+
+For example, the input `add t/meeting t/interview` will be rejected.
+
+The following sequence will also be rejected since it attempts to overwrite an argument.
+```
+add
+t/meeting
+s/15/11/2019/1500
+t/interview
+```
+
+Last but not least, Typee will reject cases wherein the user supplied excessive and irrelevant arguments.
+`add t/meeting s/16/11/2019/1600 e/16/11/2019/1700 l/COM-1 d/Meeting a/Damith p/High o/High` will be rejected because `o/`
+is not a parameter for the 'Add' command.
+
+//end::interactive-parsing[]
 
 // tag::tab-command[]
 === Switch to different windows: `tab`
@@ -62,33 +228,28 @@ Format: `help`
 Switches to a different menu in the application window. +
 Format: `tab b/MENU_NAME`
 
-* Typee application has mainly 4 major features/menus. User needs to switch to respective windows to perform different commands and features of the system.
-** Engagement
-** TypingGame
-** Calendar
-** Report
+* Typee has 4 major features/menus. They comprise of:
+** Engagements List
+** Typing Game
+** Calendar View
+** Report Generator
+Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
 `tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
-`Engagement` window will be the default window upon start up of the application.
+`Engagement` window is set to default window upon starting the application.
 
-.Engagement (default) window displayed on start-up of the application.
-image::tab_1_default.png[width="520"]
+If the user wants to switch to different windows, simply enter the tab command
+with refer to the menu name listed on the left end of the application window. +
 
-Now, if the user wants to switch to different windows, simply enter the tab command
-with refer to the menu name listed on the left end of the application window. For example, user enters `tab b/calendar`
-switch to calendar view window.
-
-.input section with tab command entered `tab b/calendar`
-image::tab_2.png[width="520"]
+For example, user enters `tab b/calendar`
+, which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
 
 [NOTE]
 Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
-Below is the screenshot after entering the command.
+image::tab_2.png[width="800"]
 
-.tab switch successfully executed from engagement window to calendar window.
-image::tab_3.png[width="520"]
 
 //end::tab-command[]
 
@@ -240,71 +401,72 @@ image::redo-result.png[width="450"]
 --
 //end::undo-redo[]
 
-=== Changing to calendar view : `tab calendar`
-Changes the current view to the calendar view, which displays engagements inside a calendar. The calendar displays the number of
-engagements per day. More commands are provided for interaction with the calendar window.
+// tag::calendar[]
 
-Format: `tab calendar`
-
-.Calendar view for October 2019
-image::calendar-view.png[width="450"]
-
-=== Displaying the list of engagements for a specified date (calendar view only): `calendar opendisplay`
+=== Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
 Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
-This means that nothing will happen if this command is used with a date which already has an open engagements list window.
+Nothing will happen if this command is used with a date which already has an open engagements list window.
 
-Format: `calendar opendisplay [date]`. The date must follow a DD/MM/YYYY format.
+Format: `calendar c/opendisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
 
-If this command is used to open an engagement list window using a date from another month, the calendar's view will switch to
+If a date from another month is used to open an engagement list window, the calendar view will switch to
 display that specified month. This command can be used to quickly switch to another month which is not immediately before or
 after the currently displayed month.
 
 All engagement list windows will be closed if something is done to change the displayed calendar month
-(e.g. using the `calendar nextmonth` command). This includes using this command as in the above paragraph.
+(e.g. using the `calendar c/nextmonth` command). This includes using this command as mentioned in the above paragraph.
 
-Example: The calendar is currently displaying information for October 2019 and there are engagement list windows open for three dates
-in the display. If `calendar opendisplay 11/11/2019` is entered into the input box, then all three engagement list windows will be closed.
-The calendar's display then switches to November 2019 and the engagement list window for 11 November 2019 is opened up.
+Example: The calendar is currently displaying information for November 2019 and there are engagement list windows open for three dates
+in the display. If `calendar c/opendisplay d/11/12/2019` is entered into the input box, all three engagement list windows will be closed.
+The calendar's display then switches to December 2019 and the engagement list window for 11 December 2019 opens up.
 
-This command does not work if the application is in another tab (view) or the specified date is invalid.
+This command does not work if the application is in another tab or the specified date is invalid.
 
 .Engagement list for 01/11/2019
 image::calendar-open-display.png[width="450"]
 {empty} +
-After entering `calendar opendisplay 01/11/2019` into the input box while in calendar view for October 2019, the
-above window opens up. The date 01/11/2019 is still valid because it is displayed in the calendar view for October
-2019, albeit at the end of the grid.
+The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
+calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
+the calendar view for November 2019, albeit at the top left corner.
 
-Alternatively, you may click on any of the individual cells within the calendar window to open the engagement list
+Alternatively, you may click on any of the individual cells within the calendar window grid to open the engagement list
 for that date.
 
-=== Changing the calendar display to the next month (calendar view only): `calendar nextmonth`
+=== Closing a displayed list of engagements for a specified date (calendar view only): `calendar c/closedisplay`
+Closes the open engagements list window for the specified date. This command does not work if the application
+if in another tab, the specified date is invalid, or there is no open engagements list window for the specified date.
+
+Format: `calendar c/closedisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
+=== Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
 Changes the calendar view to the month following the currently displayed one. This command does not work if the
-application is in another tab.
+application is in another tab or if attempting to go above the maximum allowable year of 9999.
 
-Format: `calendar nextmonth`
+Format: `calendar c/nextmonth`
 
-.Changing to the next month from October 2019
+.Changing to the next month from November 2019
 image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
-to change the display to the next month.
+to change the display to the next month. The button will not work if the calendar is displaying December 9999.
 
 This command closes any open engagement windows from the current month before updating the display to the next month.
 
-=== Changing the calendar display to the previous month (calendar view only): `calendar previousmonth`
+=== Changing the calendar display to the previous month (calendar view only): `calendar c/previousmonth`
 Changes the calendar view to the month prior to the currently displayed one. This command does not work if the
-application is in another tab.
+application is in another tab or if attempting to go below the minimum allowable year of 0001.
 
-Format: `calendar previousmonth`
+Format: `calendar c/previousmonth`
 
-.Changing to the previous month from October 2019
+.Changing to the previous month from November 2019
 image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
-to change the display to the previous month.
+to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
 
 This command closes any open engagement windows from the current month before updating the display to the previous month.
+
+// end::calendar[]
 
 === Typing game : `tab game`
 Changes the current window to the start window with a kbd:[Start] button.
@@ -349,9 +511,6 @@ User sets the sender as `John`, which is the user's name, and sets `receiver` as
 User can generate multiple report documents with the same engagement, but with different SENDER and RECEIVER names. +
 System will not allow generating documents that already exists in the directory.
 
-.report document window
-image::pdf_1.png[width="520"]
-
 Once user enters the command, system will automatically open the generated document and display the command result in the output panel, showing "Engagement Report successfully generated."
 
 NOTE: User can alternatively click the green refresh button on top right of the documents explorer to refresh the documents directory.
@@ -362,21 +521,29 @@ image::pdf_function_btns.png[width="450", float="left"]
 .After clicking refresh button
 image::pdf_2.png[width="450"]
 
-User can also double click the list item in the documents explorer tree view to open the document file on their local computer file system. Below is the sample of generated document from the system.
+NOTE: Do not manually modify the document file name in the `reports/` directory as it might cause system failure in recognising the documents.
 
+--
 .pdf document sample
-image::pdf_sample.png[width="600", align="center"]
+image::pdf_sample.png[width="400", float="left"]
 
-If the user does not want to keep the document, instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
-button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
+[.left]
+User can also double click the list item in the documents explorer tree view to open the document file on their local computer file system. Below is the sample of generated document from the system.
+--
+
+*Deleting Documents* +
+Instead of directing the actual directory in the local system, user can simply click the red `x` button, next to the refresh
+button to delete the selected document list item. Once system displays the popup message to confirm the user's decision, user will click the `OK` button to confirm deletion. +
+
+Delete function will only available when user has pre-selected the document list item and the selected item must be a .pdf form, not directory.
 Below is the screenshot after user clicks the delete button.
 
-.pdf delete pop up message
-image::pdf_delete.png[width="520"]
+.pdf delete pop up message and after click
+image::pdf_delete_before_after.png[width="750"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
-image::pdf_delete_after.png[width="520"]
+
 
 NOTE: PDF generation and deletion operations cannot be undone via `undo` command.
 
@@ -386,8 +553,8 @@ NOTE: PDF generation and deletion operations cannot be undone via `undo` command
 +
 .duplicate file exception message displayed in status text field.
 image::pdf_error_2.png[width="600"]
-2. System will not allow user to delete directories in the documents explorer tree view. (Figure 26)
-3. System will throw an exception message in the status field if user locks the document. (Figure 26)
+2. System will not allow user to delete directories in the documents explorer tree view.
+3. System will throw an exception message in the status field if user locks the document.
 +
 .file deletion exception message displayed in the status text field.
 image::pdf_error_1.png[width="600"]
@@ -421,6 +588,13 @@ e.g. `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 a/John | E
 ** *Calendar* : `tab b/calendar`
 ** *Game* : `tab b/game`
 ** *Report* : `tab b/report`
+* *Calendar* : `calendar c/CALENDAR_COMMAND`
+** *Open Display* : `calendar c/opendisplay d/DATE` +
+e.g. `calendar c/opendisplay d/11/11/2019`
+** *Close Display* : `calendar c/closedisplay d/DATE` +
+e.g. `calendar c/closedisplay d/11/11/2019`
+** *Next Month* : `calendar c/nextmonth`
+** *Previous Month* : `calendar c/previousmonth`
 * *Clear* : `clear`
 * *Delete* : `delete i/INDEX` +
 e.g. `delete i/3`

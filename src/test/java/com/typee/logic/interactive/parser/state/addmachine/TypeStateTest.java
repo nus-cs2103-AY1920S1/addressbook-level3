@@ -20,6 +20,10 @@ import com.typee.testutil.ArgumentMultimapBuilder;
 
 class TypeStateTest {
 
+    private static final String EXPECTED_CONSTRAINTS = "Let's add an engagement! What is the type of the engagement to"
+            + " be added? Please enter the type of the engagement prefixed by " + PREFIX_ENGAGEMENT_TYPE.getPrefix()
+            + ". Example - [t/meeting]";
+
     @Test
     void transition_validArgumentMultimapOneArgument_returnsPostTransitionState() {
         try {
@@ -112,8 +116,7 @@ class TypeStateTest {
     @Test
     void getStateConstraints_valid_returnsConstraints() {
         State typeState = new TypeState(new ArgumentMultimap());
-        assertEquals("Add Command initiated. Please enter a valid engagement type"
-                + " after the prefix \"t/\".", typeState.getStateConstraints());
+        assertEquals(EXPECTED_CONSTRAINTS, typeState.getStateConstraints());
     }
 
     @Test

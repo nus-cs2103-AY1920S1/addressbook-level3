@@ -23,6 +23,9 @@ import com.typee.testutil.ArgumentMultimapBuilder;
 
 class LocationStateTest {
 
+    private static final String EXPECTED_CONSTRAINTS = "Where will the engagement be held? Please enter the location"
+            + " prefixed by " + PREFIX_LOCATION.getPrefix() + ". Example - [l/I3-AUD]";
+
     @Test
     void transition_validArgumentMultimapOneInput_returnsPostTransitionState() {
         try {
@@ -152,8 +155,7 @@ class LocationStateTest {
     @Test
     void getStateConstraints_valid_returnsConstraints() {
         State state = new LocationState(new ArgumentMultimap());
-        assertEquals(state.getStateConstraints(), "Please enter the location of the meeting,"
-                + " prefixed by \"l/\".");
+        assertEquals(EXPECTED_CONSTRAINTS, state.getStateConstraints());
     }
 
     @Test

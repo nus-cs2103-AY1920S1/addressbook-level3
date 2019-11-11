@@ -1,5 +1,8 @@
 package com.typee.logic.interactive.parser;
 
+import java.util.logging.Logger;
+
+import com.typee.commons.core.LogsCenter;
 import com.typee.commons.core.Messages;
 import com.typee.logic.commands.AddCommand;
 import com.typee.logic.commands.CalendarCommand;
@@ -52,14 +55,23 @@ import com.typee.logic.interactive.parser.state.undomachine.UndoState;
  */
 public class Parser implements InteractiveParser {
 
+    private static final Logger logger = LogsCenter.getLogger(Parser.class);
+
     private static final String BUFFER_TEXT = " ";
-    private static final String MESSAGE_CLEAR_ARGUMENTS = "// clear";
-    private static final String MESSAGE_CURRENT = "// current";
+
+    private static final String COMMAND_WORD_CLEAR_ARGUMENTS = "// clear";
+    private static final String COMMAND_WORD_CURRENT = "// current";
+
     private static final String MESSAGE_MISSING_PREFIX = "Please input only the prefix %s and its argument."
             + " You may enter additional prefixes and arguments as long as they follow the specified ordering.";
     private static final String MESSAGE_RESET = "The arguments of the previously entered command have been flushed."
             + " Please enter another command to get started!";
     private static final String MESSAGE_IDLE_STATE = "No command is being executed currently.";
+
+    private static final String LOG_END_PARSING = "----------------[PARSED INPUT][%s] ";
+    private static final String LOG_EXCESSIVE_ARGUMENTS = "Excessive arguments supplied."
+            + " Reverting Parser to temporary state.";
+    private static final String LOG_INVALID_ARGUMENTS = "Invalid arguments supplied.";
 
 
     /** The state of the finite state machine currently being parsed. */
@@ -103,6 +115,8 @@ public class Parser implements InteractiveParser {
         Prefix[] arrayOfPrefixes = inputProcessor.extractPrefixes(commandText);
         boolean wasActivatedNow = activateStateMachineIfInactive(commandText);
         parseStaticCommand(commandText, wasActivatedNow, arrayOfPrefixes);
+
+        logger.info(String.format(LOG_END_PARSING, commandText));
     }
 
     /**
@@ -127,13 +141,14 @@ public class Parser implements InteractiveParser {
      */
     private void parseDynamicStatelessCommand(String commandText) throws ParseException {
         String trimmedNormalizedText = commandText.trim().toLowerCase();
+
         switch (trimmedNormalizedText) {
 
-        case MESSAGE_CLEAR_ARGUMENTS:
+        case COMMAND_WORD_CLEAR_ARGUMENTS:
             resetParser();
             break;
 
-        case MESSAGE_CURRENT:
+        case COMMAND_WORD_CURRENT:
             initializeCurrent();
             break;
 
@@ -200,6 +215,7 @@ public class Parser implements InteractiveParser {
      */
     private void instantiateStateMachine(String commandText) throws ParseException {
         String commandWord = inputProcessor.getCommandWord(commandText);
+
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
@@ -247,6 +263,7 @@ public class Parser implements InteractiveParser {
             break;
 
         default:
+            logger.info(Messages.MESSAGE_UNKNOWN_COMMAND + " input by the user.");
             throw new ParseException(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
     }
@@ -269,9 +286,11 @@ public class Parser implements InteractiveParser {
                 currentState = currentState.transition(argumentMultimap);
             }
         } catch (PenultimateStateTransitionException e) {
+            logger.info(LOG_EXCESSIVE_ARGUMENTS);
             currentState = temporaryState;
             throw new ParseException(e.getMessage());
         } catch (StateTransitionException e) {
+            logger.info(LOG_INVALID_ARGUMENTS);
             throw new ParseException(e.getMessage());
         }
     }
@@ -285,7 +304,7 @@ public class Parser implements InteractiveParser {
      * @return true if the input corresponds to a {@code CurrentCommand}.
      */
     private boolean isCurrentCommand(String commandText) {
-        return commandText.equalsIgnoreCase(MESSAGE_CURRENT);
+        return commandText.equalsIgnoreCase(COMMAND_WORD_CURRENT);
     }
 
     /**
@@ -295,7 +314,7 @@ public class Parser implements InteractiveParser {
      * @return true if the input corresponds to the clear arguments command.
      */
     private boolean isClearArgumentsCommand(String commandText) {
-        return commandText.equalsIgnoreCase(MESSAGE_CLEAR_ARGUMENTS);
+        return commandText.equalsIgnoreCase(COMMAND_WORD_CLEAR_ARGUMENTS);
     }
 
     /**

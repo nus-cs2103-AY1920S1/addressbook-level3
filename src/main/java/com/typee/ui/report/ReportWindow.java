@@ -6,7 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
@@ -37,6 +38,7 @@ public class ReportWindow extends UiPart<Region> {
     public static final String FXML = "ReportWindow.fxml";
     private final Logger logger = LogsCenter.getLogger(getClass());
     private final Path filePath = Paths.get(System.getProperty("user.dir") + "/reports");
+    private final ZoneId zoneIdSg = ZoneId.of("Asia/Singapore");
 
     @FXML
     private TreeView treeViewReports;
@@ -108,8 +110,8 @@ public class ReportWindow extends UiPart<Region> {
         validateIfPathExistsAndCreate();
 
         refreshFileTreeView();
-        lblStatus.setText("Refreshed Directory: " + DateTimeFormatter.ofPattern("HH:MM:ss")
-                .format((LocalDateTime.now())));
+        lblStatus.setText("Refreshed Directory: " + DateTimeFormatter.ofPattern("HH:mm:ss")
+                .format((ZonedDateTime.now(zoneIdSg))));
     }
 
     /**
@@ -137,7 +139,10 @@ public class ReportWindow extends UiPart<Region> {
             int i = name.split("/").length;
             String fileNameOnly = name.split("/")[i - 1];
             refreshFileTreeView();
-            lblStatus.setText("File: " + fileNameOnly + " deleted.");
+            lblStatus.setText("File deleted ("
+                    + DateTimeFormatter.ofPattern("HH:mm:ss").format((ZonedDateTime.now(zoneIdSg)))
+                    + "): "
+                    + fileNameOnly);
         }
     }
 
@@ -168,9 +173,22 @@ public class ReportWindow extends UiPart<Region> {
     }
 
     /**
+     * Refreshes the document file tree view and sets the lblStatus in ReportWindow.
+     * @param docPath {@code Path} of the document generated.
+     */
+    public void handleStatusLblAfterDocGen(Path docPath) {
+        refreshFileTreeView();
+        lblStatus.setText("File generated ("
+                + DateTimeFormatter.ofPattern("HH:mm:ss").format((ZonedDateTime.now(zoneIdSg)))
+                + "): "
+                + docPath.getFileName()
+        );
+    }
+
+    /**
      * Refreshes the tree view report and clears the status label text.
      */
-    private void refreshFileTreeView() {
+    public void refreshFileTreeView() {
         lblStatus.setText("");
         treeViewReports.setRoot(getNodesForDirectory(filePath.toFile()));
     }
