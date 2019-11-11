@@ -55,6 +55,7 @@ public class SimpleCardBack extends VBox {
         exam.upIndex();
         Pane nextCardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
+        Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }
 
     /**
@@ -66,5 +67,6 @@ public class SimpleCardBack extends VBox {
         exam.upIndex();
         Pane nextCardFront = exam.getCardDisplayFront();
         Consumers.doTask("SWAP_CARD_DISPLAY", nextCardFront);
+        Consumers.doTask("UPDATE_TEST_STATE", exam.getCurrentCard());
     }
 }
