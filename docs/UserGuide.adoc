@@ -710,5 +710,7 @@ e.g. `add-v dist/2 vnum/SFD1234A vtype/Ambulance a/busy`
 * *List Vehicles* : `list-v`
 * *Find Vehicles* : `find-v [dist/KEYWORDS] [vtype/KEYWORD] [vnum/KEYWORD]` +
 e.g. `find-v dist/1 2 3`
+* *Edit Vehicles* : `edit-v [INDEX] [dist/DISTRICT] [vtype/VEHICLE_TYPE] [a/AVAILABILITY]` +
+e.g. `edit-v 1 dist/2 vtype/patrol car a/busy`
 * *Delete Vehicles* : `delete-v [INDEX]` +
 e.g. `delete-v 1`
