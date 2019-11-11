@@ -399,7 +399,7 @@ Examples:
 listexpense
 delete 2
 ----
-Deletes the 2nd expense in the list of expenses, shown after `listexpenses` is executed.
+Deletes the 2nd expense in the list of expenses, shown after `listexpense` is executed.
 
 ----
 listexpense
@@ -501,10 +501,10 @@ deleteevent <INDEX>
 Examples:
 
 ----
-listevents
+listevent
 delete 2
 ----
-Deletes the 2nd event in the list of events, shown by `listevents`.
+Deletes the 2nd event in the list of events, shown by `listevent`.
 
 // end::events[]
 
@@ -1201,9 +1201,9 @@ e.g. `statstrend sd/11-11-2018 ed/12-12-2018 mode/category`
 
 *Everything alias:*
 
-* *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> c/<INPUT>` +
+* *Add alias* (_undoable_) : `addalias a/<ALIAS_NAME> i/<INPUT>` +
 e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
-* *See all aliases* : `listaliases`
+* *See all aliases* : `listalias`
 * *Delete an alias* : `deletealias <DESCRIPTION>`
 
 == Menu Items List
