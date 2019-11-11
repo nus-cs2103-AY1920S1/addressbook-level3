@@ -385,6 +385,61 @@ Use case ends.
 
 Use case resumes from step 4.
 
+=== Undo/Redo
+
+Undo and Redo are commands meant to reverse any alterations to the `ArrayList` of Decks in State. As such, any mistake
+can be easily recovered from. +
+
+Please refer to the following Use case for an example of the uses of Undo/Redo.
+
+==== Use case for Undo/Redo
+
+* System: FlashCard Pro
+* Actor: User
+* Use case: Accidentally deleting the wrong deck and recovering it.
+
+MSS:
+
+. There exists 2 decks: Deck1 and Deck 2.
+
+. The user wishes to delete Deck 1, but accidentally deletes Deck 2.
+
+. In order to recover Deck 2, the user types in the command `undo` into the CLI.
+
+. Deck 2 is recovered.
+
+Use case ends.
+
+*Extensions:
+
+4a) The user decides that they prefer Deck2 to be deleted.
+    4ai) The user types 'redo' into the CLI.
+    4aii) Deck2 is deleted again.
+
+Use case ends.
+
+==== General Activity Diagram of Undo/Redo
+
+*Before an Undo/Redo command is called:* +
+.Activity diagram for deck altering commands
+image::DeckAlteringCommandsActivityDiagram.PNG[]
+
+Whenever the `State`'s `decks` are altered, `State.addCurrDecksToDeckHistory()` is called. This adds a deep copy of the
+current `State.decks` to `State.deckHistory`. Also, `State.resetUndoHistory()` which re-initialises `State.undoHistory`.
+Then, the changes to State are carried out.
+
+*When an Undo/Redo command is called:* +
+.Activity diagram for Undo/Redo
+image::UndoRedoActivityDiagram.PNG[]
+
+NOTE: The Undo and Redo commands are implemented in similar ways. As such, I will be explaining both commands simultaneously.
+
+When an Undo/Redo command is parsed by Responder and Responses, it calls the appropriate method in `State` (for undo:
+`State.undoDeckChanges()`, for redo: `State.redoDeckChanges()`). This then sets `State.deck` to the topmost ArrayList
+of Decks from the appropriate Stack (for undo: `State.deckHistory`, for redo: `State.undoHistory`).
+
+====
+
 // tag::configure_difficulty[]
 === [Proposed] Configure difficulty of test set in `test` mode
 
