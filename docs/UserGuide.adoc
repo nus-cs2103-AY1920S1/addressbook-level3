@@ -71,10 +71,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * First, *add* a food item into the menu by typing `add n/Halal chicken rice p/3.00 d/chicken and rice c/Malay` and
 press kbd:[Enter]
-* Take a look at the food item panel appearing on the left of the window as shown below Figure 1 above.
-
-* Now, try typing `delete 1` and then click kbd:[Enter]. Now the card labelled "1. Halal chicken rice"
-should disappear.
+* The food item will be added to the food item panel appearing on the left of the window as shown below Figure 1 above.
 
 * Type *`exit`* and click kbd:[Enter] and the desktop application should close.
 
@@ -490,7 +487,7 @@ image::makesortsuccess.png[]
 |===
 
 ==== Sort based on your custom comparator: `customsort`
-Sort Using your own custom comparator, which you have creating from MakeSort.
+Sort using your own custom comparator, which you have created with MakeSort.
 
 [NOTE]
 The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
@@ -502,8 +499,8 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 
 [width="100%",cols="5%,95%", grid=none]
 |===
-ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields your custom comparator.]
-ifndef::env-github[a| icon:check[role="green", size="2x"] a|  The list of food items will be sorted by the fields your custom comparator.]
+ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields specified in your custom comparator.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|  The list of food items will be sorted by the fields specified in your custom comparator.]
 
 image::customsortsuccess.png[]
 
