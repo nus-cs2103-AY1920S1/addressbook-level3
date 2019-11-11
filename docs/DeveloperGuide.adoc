@@ -450,6 +450,7 @@ image::AutoCompleteSequenceDiagram.png[]
 
 // end::autocomplete[]
 
+// tag::queue[]
 === Queue feature
 The queue feature allows the user to enqueue and dequeue a patient from the queue.
 
@@ -490,6 +491,7 @@ Step 2: The command then calls Model#enqueuePatient to enqueue the patient into 
 
 Step 3: Patient will then displayed in the queue.
 
+// end::queue[]
 === Appointment feature
 
 The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
@@ -699,6 +701,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: manage queue and appointments faster than a typical mouse/GUI driven app
 
+// tag::userstories[]
 [appendix]
 == User Stories
 
@@ -767,7 +770,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |clerk|cancel appointments for patients | free up appointment time slots
 |=======================================================================
+// end::userstories[]
 
+// tag::queueusecase[]
 [appendix]
 == Use Cases
 
@@ -895,6 +900,7 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+// end::queueusecase[]
 [discrete]
 === Use case: Add new a appointment (UC6)
 Pre-condition: Patient exists in the system
