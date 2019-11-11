@@ -46,6 +46,8 @@ the most expensive food item will be on the bottom of the food list.
 Not only that, the user can turn autosorting on or off. As a result, when the user adds a new food item, the food list
 will be sorted immediately.
 
+>>>
+
 ==== Justification
 
 NUS students would want to view food based on certain priority. They do not want to scroll through the entire list
@@ -118,7 +120,158 @@ The commands are shown below while the full user guide can be found
 https://ay1920s1-cs2103t-f13-2.github.io/main/UserGuide.html[here]._
 |===
 
-include::../UserGuide.adoc[tag=sorting]
+=== Sorting
+Allows the user to sort the food items based on his liking.
+This is done so that the user is able to get the food which is most relevant to his or her preferences.
+
+You must always provide pairs of `FIELD` and `DIRECTION` to execute the Sorting commands.
+****
+* The various `FIELD` are as followed: `NAME`, `DESCRIPTION`, `PRICE`,
+`CATEGORY`, `LOCATION`, `OPENING_HOURS` and `RESTRICTIONS`.
+* The `DIRECTION` are as follows: `ASC` or `DESC`.
+****
+
+[NOTE]
+`NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION` and `RESTRICTIONS` are sorted in lexicographical order. For example, `Chicken`
+has a smaller lexicographical value than `chicken` due to case sensitivity.
+
+[NOTE]
+`OPENING_HOURS` are sorted based on start time and end time. If one food's start time is earlier than another food,
+then the food with the earlier start time will have a smaller comparison value.
+
+[IMPORTANT]
+Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
+price in ascending order. Following which, sorts the food items based on names in descending order.
+
+==== Sorts food items based on fields: `sort`
+Sorts all the food items by some specific `FIELD`.
+
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
+
+[NOTE]
+You can have more than one pair of `FIELD` and `DIRECTION`.
+
+****
+*Format*: `sort FIELD DIRECTION ...` +
+*Example*: `sort PRICE ASC`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields you have entered.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of food items will be sorted by the fields you have entered.]
+
+image::sortsuccess.png[]
+
+{empty}
+|===
+
+==== Make your own custom comparator: `makesort`
+Create your own custom comparator, which will be stored within the storage of the application, using specific
+FIELD and DIRECTION.
+
+****
+*Format*: `makesort FIELD DIRECTION ...` +
+*Example*: `makesort PRICE ASC`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| Your custom comparator will be shwon.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| Your custom comparator will be shown.]
+
+image::makesortsuccess.png[]
+
+{empty}
+|===
+
+==== Sort based on your custom comparator: `customsort`
+Sort using your own custom comparator, which you have created with MakeSort.
+
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
+
+****
+*Format*: `customsort`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted by the fields specified in your custom comparator.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a|  The list of food items will be sorted by the fields specified in your custom comparator.]
+
+image::customsortsuccess.png[]
+
+{empty}
+|===
+
+==== Auto sorts list based on custom comparator: `autosort`
+Turns on and off auto sorting, based on your own custom comparator, every time you make changes to the food list.
+There are only two states, ON or OFF.
+
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
+
+[NOTE]
+Once you turn auto sorting on, `customsort`, `sort` and `default` will not work. They will only work if and only if you
+turn auto sorting off.
+
+****
+*Format*: `autosort STATE` +
+*Example*: `autosort ON`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| A message will inform you if you have turned autosorting on or off.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| A message will inform you if you have turned autosorting on or off.]
+
+image::autosortsuccess.png[]
+
+{empty}
+|===
+
+
+==== Views the fields for the custom comparator: `viewsort`
+Views the current Custom Sorter.
+
+****
+*Format*: `viewsort`
+****
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| A message will inform you of the fields of your custom comparator.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| A message will inform you of the fields of your custom comparator.]
+
+image::viewsortsuccess.png[]
+
+{empty}
+|===
+
+==== Sorts food items based on natural order: `default`
+Sorts the food items based on their default ordering, where it is based on ascending category, name and then price.
+
+[NOTE]
+The list of recommendations would be cleared if you use the this command. You can re-enable recommendations
+by using the `recommend` command again (see <<Getting a list of recommended food items: `recommend`>>).
+
+****
+*Format*: `default`
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| The list of food items will be sorted in its natural order.]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| The list of food items will be sorted in its natural order.]
+
+image::defaultsuccess.png[]
+
+{empty}
+|===
 
 <<<
 
@@ -131,4 +284,142 @@ This section shows the additions that I have made to the sorting feature of the 
 https://ay1920s1-cs2103t-f13-2.github.io/main/DeveloperGuide.html[here]._
 |===
 
-include::../DeveloperGuide.adoc[tag=sorting]
+=== Sorting feature
+The Sorting feature allows users to sort their food items based on certain `FIELD` and `DIRECTION`. The `FIELD` and
+`DIRECTION` are as followed:
+
+****
+1. `FIELD` : `NAME`, `DESCRIPTION`, `PRICE`, `CATEGORY`, `LOCATION`, `OPENING_HOURS`, `RESTRICTIONS`.
+2. `DIRECTION` : `ASC` or `DESC`.
+****
+
+[NOTE]
+The `FIELD` and `DIRECTION` can be entirely in Upper or Lower Case.
+
+First and foremost, users will be able to sort the food items based on their default ordering.
+The default ordering is based on ascending price, name and then category. This is done using the `default` command.+
+
+Not only that, they will be able to implement their own custom comparator using `makesort`. From this, they should be able to use `customsort` and autosort`.  +
+`customsort` sorts the food items based on the custom comparator, where `autosort` sorts the food items every time there is an edit to the food list.
+
+==== Classes for sorting feature in Model
+
+The Sorting feature was implemented with a new set of classes introduced to the Model. +
+
+.Sorting class diagram in Sort component.
+image::SortingClassDiagram.png[width=500]
+
+From the model, the `CustomSorter` stores the comparator for `autosort` and `makesort`. +
+
+From which, you will need to call `makesort FIELD DIRECTION` to create the custom comparator. The `CustomSorter` contains a `FoodComparator`. +
+
+The `FoodComparator` stores fields which will be needed for various `Food` to be compared.
+The `DefaultComparator` helps to sort food items based on their natural ordering. This is called via the `default` command.
+When `default` is called, the food list will be sorted according to ascending category, ascending name and ascending price.
+
+Detailed below are the design considerations taken into account when engineering the `DefaultComparator` and `FoodComparator`
+classes.
+
+.Design considerations of `
+[cols="50,50"]
+|===
+|Alternative 1 (Chosen Implementation) |Alternative 2
+
+a|`DefaultComparator` should extend from `FoodComparator`
+
+* Pros:
+** Duplicate Code is not needed.
+** This from of relationship follows Liskov Substitution Principle, as `DefaultComparator` can be easily substituted
+by an instance of `FoodComparator`.
+
+* Cons:
+** Necessary to specify fields while constructing the `DefaultComparator`.
+
+a|`DefaultComparator` and `FoodComparator` should be standalone classes.
+
+* Pros:
+** Both can implement their own `compareTo()` methods.
+
+* Cons:
+** This Implementation is wasteful as duplicate code is written.
+** Makes it complicated for future developers when they wish to change the `DefaultComparator`.
+|===
+
+As a result, we have chosen alternative 1. By specifying the specific fields in the body of constructor in
+the `DefaultComparator`, it makes it easier for future developers to create their own form of `DefaultComparator`.
+Not only that, it saves time and reduces duplicate code.
+
+>>>
+
+==== Creation of new Custom Comparator
+
+The user may wish to create a new custom comparator. This can be done with the `makesort` command.
+
+The sequence diagram for interactions between the Logic, Model and Storage components when a user executes the `makesort` command is shown below.
+
+.Sequence diagram for sample makesort command
+image::MakeSortSequenceDiagram.png[]
+
+The user may want to create a new custom comparator. This can be done with the `makesort` command.
+
+The fields are stored in the `FoodComparator` in the CustomSorter object, which stores the necessary fields
+as a list.
+
+The current implementation for creating a new `CustomSorter` is done by overwriting the existing `CustomSorter`, with a new
+`CustomSorter` with the desired fields.
+
+The command is read as a text string from the command box in the UI and then is executed by calling MainWindow#executeCommand(),
+which passes this string (named commandText) to the Logic component by calling Logic#execute(Model model).
+
+The following activity diagram below summarizes how the save command works
+
+.Activity diagram for a sample save command
+
+image::MakeSortActivityDiagram.png[align="center", width="500"]
+
+If fields are given, the original CustomSorter is overridden by a new CustomSorter with new fields. Else, the original
+CustomSorter is overridden by a new CustomSorter with no fields.
+
+==== Sorting of the Food list
+After the customization of the Custom Comparator, the user can now call the `customsort` command to sort the food items based
+on the fields specified. For example, if the fields specified are `PRICE ASC NAME DESC`, the system will sort the food items in order
+of ascending price. If two items have the same price, they will be ranked according to their names using lexicographic
+comparison.
+
+.Activity diagram for a sample sort command
+
+image::SortingActivityDiagram.png[align="center", width="500"]
+
+If two foods have the same price, they will compared using lexicographical ordering based on their names. If they
+are lexicographically similar, their ranks do not change.
+
+.Ranking of food items
+|===
+
+|Name |Price ($) |Ranking (Price) | Overall Ranking
+
+|Chicken Rice
+|2.80
+|2
+|2
+|Nasi Lemak
+|2.80
+|2
+|3
+|Fried Rice
+|4.00
+|4
+|4
+|Dim Sum
+|1.80
+|1
+|1
+
+|===
+
+From the table above, we can see Dim Sum will be ranked at the top as it is the cheapest. On the other hand, Fried Rice will
+be ranked at the bottom as it is the most expensive food item.
+
+As Chicken Rice and Nasi Lemak have the same price, they will compared
+using lexicographical ordering based on their names. Chicken Rice still has a higher ranking than Nasi Lemak as Chicken Rice is
+lexicographically smaller than Nasi Lemak.
