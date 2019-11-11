@@ -121,7 +121,7 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/pull/241[#241])
 features (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/98[#98],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/128[#128])
-** Reviewed Pull Requests with non-trivial review comments (Pull requests
+** Reviewed pull requests with non-trivial review comments (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/65[#65],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/91[#91],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/188[#188])
