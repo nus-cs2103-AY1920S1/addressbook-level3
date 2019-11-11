@@ -45,11 +45,10 @@ line and executed by the application.
 
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-**Major enhancement**: I added the ability to display training and performance records in the form of a calendar.
+**Enhancement Added**: I added the ability to display training and performance records in the form of a calendar.
 
 * What it does
-** This feature keeps track of the date that training and performance records were recorded on and displays them in a calendar.
-** Additionally, users are able to select a date on the calendar to display training and performance records recorded on that date.
+** The `view calendar` and `calendar MMYYYY` commands allow users display a monthly calendar indicating which days contain training and performance records.
 * Justification
 ** Being able to keep track of when training and performance records were recorded is important for coaches and captains as it allows them to find out what happened on a specific date.
 ** The use of a calendar to display this information is neat and easy to navigate, which makes the feature more user-friendly.
@@ -57,10 +56,17 @@ This section shows a summary of my coding, documentation, and other helpful cont
 ** This enhancement provides a platform for further development of date-related features, such as the planning of training programmes in advance.
 ** The implementation was also challenging because it required the training and performance features to incorporate a date for the calendar to utilise and the construction of a calendar is complex.
 
-*Minor enhancements*
+**Enhancement Added**: I added the ability to display training and performance records recorded on a specific date.
 
-** I added a sort command that allows the user to sort the list of athletes in alphabetical order.
-** I added a v
+* What it does
+** The `calendar DDMMYYYY` command allows users to display training and performance records recorded on a specific date in the form of tables. The overall team attendance rate is displayed in the form of a pie chart as well.
+* Justification
+** Being able to find out what happened on a specific date is important for coaches and captains to keep track of the progress of their team.
+* Highlights
+** This enhancement provides a platform for further development of date-related features, such as the planning of training programmes in advance. The enhancement was challenging as I had to retrieve information from complex data structures in the `[green]#Training#` and `[green]#Performance#` components which were developed by other team members.
+
+
+*Minor enhancement added*: I added a sort command that allows the user to sort the list of athletes in alphabetical order.
 
 *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shawnlsj97&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T12-3/main[GitHub repository]]
 
@@ -72,7 +78,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 ** Guided the team regarding JavaFX.
 * Enhancements to existing features
 ** Implemented sorting of team list. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/62[#62])
-** Updated the GUI layout of components. (e.g. position of command box, result display etc) (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/68[#68])
+** Updated the GUI layout of components (e.g. position of command box, result display etc). (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/68[#68])
 ** Updated the GUI color scheme. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/87[#87])
 ** Refactored "AddressBook" class names to match "Athletick". (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/201[#201])
 ** Updated Travis, AppVeyor and Coveralls badges to match own repository. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/21[#21])
