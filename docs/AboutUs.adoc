@@ -39,7 +39,7 @@ Responsibilities: In charge of Transactions
 
 '''
 
-=== Tang Shu Hui, Michaela
+=== Tang Shi Hui, Michaela
 
 image::michaelatsh.png[width="150",align="left"]
 {empty}[http://github.com/MichaelaTSH[github]] [<<michaelatsh#, portfolio>>]
