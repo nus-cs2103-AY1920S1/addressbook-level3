@@ -7,21 +7,53 @@
 
 ---
 
-== Overview
+== Introduction
+
+This document serves as a project portfolio for Deliveria.
+It summarises the contributes that I have made and the features I have implemented.
+
+== Project Overview
 
 Deliveria is a *desktop application* that allows a *delivery manager* to *manage and assign delivery tasks* efficiently.
 While it consists of a _Graphical User Interface_ (GUI) that is user-friendly,
 Deliveria is *optimized for those who prefer* to work with a _Command Line Interface_ (CLI) which allows fast management of the delivery tasks in an organisation.
 
+This is what Deliveria looks like:
+
+.The graphical user interface (GUI) of Deliveria
+image::Deliveria_GUI_label.png[]
+
 == Summary of contributions
+This section shows the  enchancements that I have contributed to Deliveria.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancements*
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** *Major enhancement 1*: added *the enhancement to generate delivery task summary in a PDF Document.*
+*** What it does: It generates delivery tasks' information of each driver for the day in PDF.
+*** Justification: This feature will save time to instruct the drivers.
+It acts as a instruction manual that contains essential information needed for the drivers to execute their tasks.
+It also allows easy reference of the tasks each driver has in a table format.
+*** Highlights:
+This enhancement organises the drivers', customers' and tasks' information in a standardised format that is easy to understand and refer to.
+An in-depth understanding of https://github.com/itext/itext7[iText7] is required to implement this enhancement.
+*** Credits: A third-party library, https://github.com/itext/itext7[iText7] is heavily utilized to generate the PDF document.
+
+** *Major enhancement 2*: added *the enhancement to generate delivery orders in a PDF Document.*
+*** What it does: Generates a delivery order layout that encompasses the company's, goods' and customers' information in PDF format.
+*** Justification: This feature will save time to create delivery orders for every delivery tasks.
+It contains all the essential information needed to be used as a proof between the delivery company and receiver that goods are delivered
+as per order and accepted in good condition.
+*** Highlights: This enhancement allows integration of company's information in the delivery order as a header.
+Updating of company's information can bee achieved through a single command.
+An in-depth understanding of https://github.com/itext/itext7[iText7] is required to implement this enhancement.
+*** Credits: A third-party library, https://github.com/itext/itext7[iText7] is heavily utilized to generate the PDF document.
+
+
+* *Minor enhancements*
+** CRUD tasks
+** Introduced a Central Manager to encapsulates all the data needed to be saved.
+** added a history command that allows the user to navigate to previous commands using up/down keys.
+** added a history command that allows the user to navigate to previous commands using up/down keys.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
