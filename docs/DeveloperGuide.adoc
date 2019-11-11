@@ -102,25 +102,34 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `RevisionToolParser` class to parse the user command.
+.  `Logic` uses the `ParserManager` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a question).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In quiz mode, the `CommandResult` object is also used to determine whether the user's answer is correct.
 
 //end::shaun-logic[]
 
-//tag::wilfred-logic[]
+//tag::wilfred-overview[]
 ==== Managing parsing in Configuration and Quiz Mode
-During a quiz session a `QuizParser` instead of `Parser` is used.
+The Revision Tool uses two Parser interfaces (`Parser` and `QuizParser`) to parse different sets of commands (i.e. in Configuration Mode and in Quiz Mode).
 
 .Class Diagram of ParserManager to display how parsers are created in both modes.
 image::ParserClassDiagram.png[width=500]
 
-As different commands are accepted in Configuration and Quiz Mode, the `ParserManager` class uses overloaded methods to
-decide the valid commands in each mode. The following are the parsers used in each mode:
+As shown in the figure above, the `ParserManager` class is responsible for creating the respective parsers for Configuration and Quiz Mode.
+This was designed while taking into consideration that the Quiz Mode Parsers (i.e. XYZParsers) will require
+an extra `Answerable` argument on top of the user input String in order to carry out commands such as determining whether the user's input is the correct answer.
+(E.g. to call methods such as Answerable#isCorrect(Answer))
 
-* ABCParser:
+As different commands are accepted in Configuration and Quiz Mode, the `ParserManager` class uses overloaded methods
+(`parseCommand(String)` and `parseCommand(String, Answerable)` to determine the valid commands in each mode. If a Configuration Mode
+command such as `add` were to be used in Quiz Mode, the ParserManager would deem the the command as invalid. +
+
+With reference to Figure 6, The following are the parsers used in each mode:
+
+* ABCParser (Configuration Mode):
 ** AddCommandParser
 ** DeleteCommandParser
 ** EditCommandParser
@@ -128,38 +137,14 @@ decide the valid commands in each mode. The following are the parsers used in ea
 ** ListCommandParser
 ** StartCommandParser
 
-* XYZParser:
+* XYZParser (Quiz Mode):
 ** McqInputCommandParser
 ** TfInputCommandParser
 ** SaqInputCommandParser
 
-==== Parsing in Configuration Mode
-In Configuration Mode, a single string is passed as an argument to the execute method.
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
-
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-==== Parsing in Quiz Mode
-In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the execute method.
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("c", answerable)` API call.
-
-.Interactions Inside the Logic Component for the `c` input command.
-image::QuizSequenceDiagram.png[width=790]
-
-Key differences between parsing in Configuration Mode and Quiz Mode:
-
-. In Quiz Mode, `Answerable#isCorrect(answer)` is called from the `McqInputCommand` to check whether the user's answer is correct.
-. After which, the result is used to construct a `CommandResult` will be passed back to the `LogicManager`
-. Lastly, the `Model` is accessed to update the user's score history.
-
-[NOTE]
-`CommandResult` is built using a builder design to allow flexibility of values returned to the `LogicManager`.
-To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
-Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
-//end::wilfred-logic[]
+A more detailed description of the implementation of parsing in Configuration and Quiz Mode and its design considerations
+can be found in <<Implementation-ConfigQuiz>>.
+//end::wilfred-overview[]
 
 //tag::shaun-designmodel[]
 [[Design-Model]]
@@ -178,7 +163,8 @@ The `Model`,
 * does not depend on any of the other three components.
 //end::shaun-designmodel[]
 
-//tag::wilfred-answerable[]
+//tag::wilfred-answerable[
+]
 ==== The `Answerable` Class
 
 .Class Diagram of the Answerable Class
@@ -190,7 +176,7 @@ Each `Answerable` class must have 1 `Question`, 1 `Difficulty` and can have any 
 The amount of answers that an `Answerable` can have depends on its type.
 
 There are 3 subclasses of the `Answerable` Class which are: `Mcq`, `TrueFalse` and `Saq`. Each class defines it's
-own rules on the validity of `Answer` s provided to it.
+own rules on the validity of `Answer` s (highlighted in red in the class diagram) provided to it.
 
 The following are the rules of validity for each subclass:
 
@@ -275,14 +261,90 @@ If a command fails its execution, it will not save the question into the `revisi
 ** Pros: User do not have to memorize the correct format and less chance for an invalid command input.
 ** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
 
-//tag::wilfred-quiz[]
-=== Quiz Mode
+//tag::wilfred-implementation[]
+[[Implementation-ConfigQuiz]]
+=== Configuration and Quiz Mode
+As different commands are available for Configuration and Quiz Mode, we have to determine which commands are valid based on
+the state of the application. To do so, we had two main design considerations: The structure of the parser component and how to
+determine which parser to use. We will discuss these considerations in the following segment.
+
+==== Design Considerations
+|===
+|Aspect | Alternative 1 | Alternative 2 | Conclusion and Explanation
+|Structure of the Parser Component
+|Command parsers for both modes implement the same interface (i.e. implement both parse(String) and parse(String, Answerable) methods)
+but for the method which is not used, throw an error if a client calls it.
+|Command parsers belonging to each mode implement different interfaces (i.e. a `Parser` or `QuizParser` interface)
+which dictates the parameters of their parse() methods. (i.e. parse(String) for Configuration Mode vs parse(String, Answerable) for Quiz Mode)
+|Alternative 2 was implemented. The main reason for this choice was to adhere to the interface-segregation principle.
+If alternative 1 were to be implemented, a Configuration Mode command may have to implement a parse(String, Answerable)
+dummy method which it will not use. This is bad design as a client might be able to call the dummy method and receive
+unexpected results. Thus, by separating the interfaces, clients will only need to know about the methods that they need.
+
+|Determining which parser to use| Create two parser manager classes (i.e. `QuizParserManager` and `ParserManager`)
+with accompanying `QuizLogicManager` and `LogicManager` classes whose methods will be called in `MainWindow` for Configuration Mode and
+`StartQuizWindow` for Quiz Mode respectively.
+|Use a single `ParserManager` class which has overloaded methods of parse(String) and parse(String, Answerable). A
+single `LogicManager` will also implement `execute(String)` and `execute(String, Answerable)`. In Configuration Mode, the
+`LogicManager` will call `execute(String)` as there is no need to take in an Answerable and in Quiz Mode, the `LogicManager`
+will call `execute(String, Answerable) to initiate quiz-related commands.
+|Alternative 2 was implemented. By doing so, we were able to adopt a facade design pattern. The main benefit would be that
+the client doesn't need to know the logic involved in selecting which type of parser and logic to use. This hides the internal
+complexity of the `ParserManager` class which will be responsible for determining which type of parser to use.
+|===
+
+==== Commands in Configuration Mode
+In Configuration Mode, a single string is passed as an argument to the Logic#execute method (i.e. execute(String)).
+
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for the `delete 1` Command
+image::DeleteSequenceDiagram.png[]
+
+NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+==== Commands in Quiz Mode
+In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the Logic#execute method. (i.e. execute(String, Answerable))
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("c", answerable)` API call.
+
+.Interactions Inside the Logic Component for the `c` input command.
+image::QuizSequenceDiagram.png[width=790]
+
+==== Key differences between Configuration Mode and Quiz Mode:
+
+|===
+|Configuration Mode | Quiz Mode
+|Logic#execute takes in a single string. | Logic#execute takes in a String and an Answerable.
+|No methods of answerables are called. | Answerable#isCorrect(Answer)) is called from the AnswerableInputCommands such as `McqInputCommand` to check whether the user's answer is correct.
+|CommandResult is used to display feedback to the user| CommandResult is used to display feedback to the user and inform `LogicManager` whether the selected answer is correct.
+|Model is used to save actions such as the addition/deletion of answerables. | Model is used to update the score history statistics.
+|===
+
+==== Implementation of CommandResult (Builder Design Pattern)
+The `CommandResult` class is designed using a builder pattern to allow flexibility of values returned to the `LogicManager`.
+To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
+Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
+
+Below is a code snippet of the `CommandResultBuilder` and `CommandResult` class:
+
+image::wilfred-commandwithfeedback.png[width=790]
+image::wilfred-commandbuild.png[width=790]
+image::wilfred-commandresult.png[width=790]
+
+Examples of how to build a CommandResult:
+....
+CommandResult c = new CommandResultBuilder().withFeedback(message).withExit(true).build();
+CommandResult c = new CommandResultBuilder().isCorrect(true).build();
+....
+
 ==== How the quiz works
-After the user has `start` ed the quiz, the application enters quiz mode. The following is the flow of events after a quiz
+After the user has `start` ed the quiz, the application enters Quiz Mode. The following is the flow of events after a quiz
 session has started.
 
 .Activity Diagram of a Quiz Session in `NormalMode`
 image::QuizSessionActivityDiagram.png[width=790]
+
+Elaboration of Steps:
 
 . After the user has started either a normal / custom mode quiz. He/she will be prompted to key in their answer.
 . If the input is valid, the revision tool will display the subsequent question until the level / entire quiz has ended.
@@ -295,15 +357,7 @@ move on to the next question.
 
 [NOTE]
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
-//end::wilfred-quiz[]
-
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+//end::wilfred-implementation[]
 
 === Logging
 

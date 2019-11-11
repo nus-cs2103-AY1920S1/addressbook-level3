@@ -41,9 +41,10 @@ public class ParserManager {
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput full user input string.
      * @return the command based on the user input
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format or is not a configuration mode
+     * command.
      */
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -98,11 +99,11 @@ public class ParserManager {
 
     /**
      * Checks if user input during quiz is valid.
-     * It should be either an exit command, help command, or an answer to the current question.
-     * @param userInput user response or command
-     * @param currentAnswerable the current question
-     * @return exit command or help command or MCQ input command parser
-     * @throws ParseException
+     * It should be either an exit command, or an answer to the current question.
+     * @param userInput user response or command.
+     * @param currentAnswerable the current answerable.
+     * @return exit command or an answerable input command.
+     * @throws ParseException throws an exception if the user input is not a quiz command.
      */
     public Command parseCommand(String userInput, Answerable currentAnswerable) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());

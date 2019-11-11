@@ -62,6 +62,7 @@ public class StartQuizWindow extends ParentWindow {
     //to keep track of the total number of questions answered so far at every level of the quiz
     private int accumulatedSize = 0;
 
+    /** Current progress of the user in the quiz. Used by {@code ProgressIndicatorBar}.**/
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
@@ -132,61 +133,7 @@ public class StartQuizWindow extends ParentWindow {
         answerableListPanelPlaceholder.getChildren().add(answersGridPane.getRoot());
     }
 
-    /**
-     * Executes the command and returns the result.
-     *
-     * @see Logic#execute(String, Answerable)
-     */
-    @Override
-    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
-        try {
-            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
-            if (commandResult.isCorrect()) {
-                totalScore++;
-                statistics.updateStatistics(currentAnswerable, quizList);
-            }
-
-            timer.resetTimer();
-
-            if (commandResult.isExit()) {
-                handleExit();
-                return new CommandResultBuilder().build();
-            }
-
-            if (!commandResult.isCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
-                handleEnd(currentAnswerable);
-                return new CommandResultBuilder().build();
-            }
-
-            if (!answerableIterator.hasNext()) {
-                handleEnd(currentAnswerable);
-                return new CommandResultBuilder().build();
-            }
-
-            currentProgressIndex.set(getCurrentProgressIndex() + 1);
-
-            previousAnswerable = currentAnswerable;
-            currentAnswerable = answerableIterator.next();
-
-            if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
-                handleNextLevel(previousAnswerable, currentAnswerable);
-            }
-
-            answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
-            setAnswerGridPaneByType(currentAnswerable);
-            answersGridPane.updateAnswers(currentAnswerable);
-
-            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
-
-            return commandResult;
-        } catch (CommandException | ParseException e) {
-            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
-            throw e;
-        }
-    }
-
-    /**
-     * Handles progression to the next level and receives response from the user.
+    /**Handles progression to the next level and receives response from the user.
      * @param nextAnswerable next answerable that will be displayed.
      */
     private void handleNextLevel(Answerable currentAnswerable, Answerable nextAnswerable) {
@@ -205,21 +152,19 @@ public class StartQuizWindow extends ParentWindow {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = nextLevelDialog.showAndWait();
-            if (result.isPresent()) {
-                if (result.get() == nextLevelDialog.getNoButton()) {
-                    handleExit();
-                } else {
-                    //Reset UI in the window
-                    levelLabel.updateLevelLabel(nextLevel);
-                    currentProgressIndex.set(0);
-                    progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
-                            getSizeOfCurrentLevel(nextAnswerable),
-                            "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-                    //Start a new timer for the next level
-                    this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
-                    progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
-                    scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
-                }
+            if (result.isPresent() && result.get() == nextLevelDialog.getNoButton()) {
+                handleExit();
+            } else {
+                //Reset UI in the window
+                levelLabel.updateLevelLabel(nextLevel);
+                currentProgressIndex.set(0);
+                progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
+                        getSizeOfCurrentLevel(nextAnswerable),
+                        "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
+                //Start a new timer for the next level
+                this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
+                progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
+                scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
             }
         });
 
@@ -278,7 +223,7 @@ public class StartQuizWindow extends ParentWindow {
     }
 
     /**
-     * Closes the application.
+     * Closes quiz mode and enters configuration mode by displaying the {@code MainWindow}.
      */
     @FXML
     protected void handleExit() {
@@ -291,31 +236,65 @@ public class StartQuizWindow extends ParentWindow {
                 + "(normal / arcade / custom) to try another quiz!");
     }
 
-    public StackPane getLevelPlaceholder() {
-        return levelPlaceholder;
-    }
+    /**
+     * Executes the command and returns the result.
+     *
+     * @see Logic#execute(String, Answerable)
+     */
+    @Override
+    protected CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        try {
+            CommandResult commandResult = logic.execute(commandText, currentAnswerable);
+            if (commandResult.getIsCorrect()) {
+                totalScore++;
+                statistics.updateStatistics(currentAnswerable, quizList);
+            }
 
-    public CommandBox getCommandBox() {
-        return commandBox;
+            timer.resetTimer();
+
+            if (commandResult.isExit()) {
+                handleExit();
+                return new CommandResultBuilder().build();
+            }
+
+            if (!commandResult.getIsCorrect() && mode.value.equals(Modes.ARCADE.toString())) {
+                handleEnd(currentAnswerable);
+                return new CommandResultBuilder().build();
+            }
+
+            if (!answerableIterator.hasNext()) {
+                handleEnd(currentAnswerable);
+                return new CommandResultBuilder().build();
+            }
+
+            currentProgressIndex.set(getCurrentProgressIndex() + 1);
+
+            previousAnswerable = currentAnswerable;
+            currentAnswerable = answerableIterator.next();
+
+            if (previousAnswerable.getDifficulty().compareTo(currentAnswerable.getDifficulty()) < 0) {
+                handleNextLevel(previousAnswerable, currentAnswerable);
+            }
+
+            answerableListPanelPlaceholder.getChildren().remove(answersGridPane.getRoot());
+            setAnswerGridPaneByType(currentAnswerable);
+            answersGridPane.updateAnswers(currentAnswerable);
+
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
+            throw e;
+        }
     }
 
     public LevelLabel getLevelLabel() {
         return levelLabel;
     }
 
-    public ResultDisplay getQuestionDisplay() {
-        return questionDisplay;
-    }
-
-    public AnswersGridPane getAnswersGridPane() {
-        return answersGridPane;
-    }
-
     public ProgressIndicatorBar getProgressIndicatorBar() {
         return progressIndicatorBar;
     }
 
-    public Timer getTimer() {
-        return timer;
-    }
 }

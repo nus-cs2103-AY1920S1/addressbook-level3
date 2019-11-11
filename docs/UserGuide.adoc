@@ -103,7 +103,8 @@ image::stats.png[width="790"]
 +
 
 Displays the percentage of questions answered correctly by difficulty, for all
-quiz attempts. Indicates to user which difficulty level is he or she weakest in.
+quiz attempts. Indicates to user which difficulty level he or she is weakest in.
+This feature only records results for the normal mode of quizzes.
 
 Format: `stats`
 
@@ -302,10 +303,14 @@ keywords from the correct answer list.
 Levels are separated by difficulty. At the end of each level, user has the choice to move on to the next level or exit the quiz.
 The user is given 30 seconds to answer each question.
 
+image::normal-mode.png[]
+
 === Arcade Mode
 Levels are separated by difficulty. If the user enters a wrong answer before finishing the quiz. The quiz will end and display the results.
 The user is given 30 seconds to answer each question in level 1. Subsequent level timers are 5 seconds faster than the previous level with
 level 3 giving the user 20 seconds to answer each question.
+
+image::arcade-mode.png[]
 
 === Custom Mode
 Category, Difficulty and Timer (must be above 1 second) can be customised by the user. Levels are also sorted according to
@@ -313,7 +318,7 @@ difficulty.
 
 === Answering Questions
 |======
-|MCQ |TFQ |SAQ
+|MCQ |TrueFalse |SAQ
 |Answers can only be A, B, C, or D (Case insensitive) |Answers can only be True (T) / False (F) (Case insensitive)|Answers are open ended. Revision tool uses NLP to parse answers and determine whether they are correct.
 |======
 //end::wilfred-quiz[]
