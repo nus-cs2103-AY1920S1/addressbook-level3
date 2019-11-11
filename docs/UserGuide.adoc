@@ -198,7 +198,7 @@ E.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/CS2040`, `t/CS2040 
 E.g. if the command specifies `w/WORD m/MEANING`, `m/MEANING w/WORD` is also acceptable.
 ====
 
-=== Switch Commands
+=== Switch Commands image:switch-icon.png[width="27.5"]
 (Available in all modes as long as WordBank is selected and game is not running)
 
 ==== Switch to home page: `home`
@@ -309,7 +309,7 @@ Clears the _WordBank_ by removing all cards.
 
 Format: `clear`
 
-=== _WordBank_ Commands image:load_mode_icon.png[load, 22]
+=== WordBank Commands image:load_mode_icon.png[load, 22]
 (Available in Home mode)
 
 ==== Select a _WordBank_: `select`
@@ -377,7 +377,7 @@ Examples:
 * `export w/biology definitions f/~/downloads`
 
 NOTE: We have a drag and drop feature. +
-You can also drag and drop a _WordBank_ out the app into your computer.
+You can also drag and drop a _WordBank_ outside of _Dukemon_, and into your computer.
 
 // end::chenhui-commandusage[]
 
@@ -561,7 +561,7 @@ image::avatar151.png[width='250']
 
 // tag::chenhui-commandusage2[]
 
-=== Misc. Commands
+=== Misc. Commands image:misc-icon.png[width="25.9"]
 [NOTE]
 `help` is available in _Home_ mode +
 `exit` is available in any mode *except* _Game_ mode)
@@ -579,7 +579,7 @@ Format: `exit`
 // end::chenhui-commandusage2[]
 
 // tag::statsjason[]
-== Statistics image:statistics-icon.png[width="32"]
+== Statistics
 This section covers the _Statistics_ shown to the user.
 
 === Game Result
