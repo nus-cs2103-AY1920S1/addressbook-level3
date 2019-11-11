@@ -23,7 +23,7 @@ This write-up documents the contributions I made towards the development of FinS
 
 FinSec is a useful application that was created as an aid to financial secretaries of any organisation. It is a Command Line Interface (CLI) based tool to cater to computing students who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
 
-FinSec comprises carefully evaluated and selected features that are tailored to be relevant to the specific needs of our target audience. All of FinSec's features and implementations are clearly and exhaustively documented in written guides for users and developers.
+FinSec comprises carefully evaluated and selected features that are tailored to be relevant to the specific needs of our target audience. FinSec's main features are the Income, Claim and Budget features. All of FinSec's features and implementations are clearly and exhaustively documented in written guides for users and developers.
 
 .A view of FinSec
 image::../images/Ui.png[width="400"]
