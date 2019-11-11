@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -57,6 +58,9 @@ public class MainWindow extends UiPart<Stage> {
     private NotificationButton notificationButton;
     private CommandBox commandBox;
     private FridgeGridView fridgeGridView;
+
+    @FXML
+    private Scene appScene;
 
     @FXML
     private MenuBar menuBar;
@@ -217,13 +221,21 @@ public class MainWindow extends UiPart<Stage> {
         ResizableWindow.enableResizableWindow(primaryStage, MINIMUM_WIDTH, MINIMUM_HEIGHT,
                 Double.MAX_VALUE, Double.MAX_VALUE);
 
+        /*
         // cancels the focus on items in the menubar (esp menu)
         // necessary to allow users to navigate commandTextField using arrow keys after the mouse has gone over the menu
         // as upon mouse exit of menu, focus on menu is still retained
         Robot robot = new Robot();
-        menuBar.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
-            robot.keyPress(KeyCode.ESCAPE);
+        commandBox.getRoot().setOnKeyPressed(e -> {
+            System.out.println("in");
+            if (e.getCode() == KeyCode.LEFT || e.getCode() == KeyCode.RIGHT) {
+                robot.keyPress(KeyCode.ESCAPE);
+            }
         });
+
+        //helpButton.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+        //});
+        */
     }
 
     /**
