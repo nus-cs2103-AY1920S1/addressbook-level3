@@ -151,8 +151,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         if (typeOptional.isPresent()) {
             String type = typeOptional.get().toLowerCase();
             if (type.isBlank()) {
-                throw new ParseException("Make sure keyword for t/ is not empty." +
-                        SearchMessages.MESSAGE_INVALID_TYPE_COMMAND);
+                throw new ParseException("Make sure keyword for t/ is not empty."
+                        + SearchMessages.MESSAGE_INVALID_TYPE_COMMAND);
             }
             String typeTrimmed = type.trim();
             if (!(typeTrimmed.equals(Type.MOVIE.getType()) || typeTrimmed.equals(Type.TV_SHOW.getType()))) {
@@ -188,8 +188,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         if (isWatchedOptional.isPresent()) {
             String isWatched = isWatchedOptional.get().toLowerCase();
             if (isWatched.isBlank()) {
-                throw new ParseException("Make sure keyword for w/ is not empty." +
-                        SearchMessages.MESSAGE_INVALID_IS_WATCHED_COMMAND);
+                throw new ParseException("Make sure keyword for w/ is not empty."
+                        + SearchMessages.MESSAGE_INVALID_IS_WATCHED_COMMAND);
             }
             String isWatchedTrimmed = isWatched.trim();
             if (!(isWatchedTrimmed.equals(INPUT_FALSE) || isWatchedTrimmed.equals(INPUT_NO)
@@ -210,8 +210,8 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         if (fromOnlineOptional.isPresent()) {
             String fromOnline = fromOnlineOptional.get().toLowerCase();
             if (fromOnline.isBlank()) {
-                throw new ParseException("Make sure keyword for o/ is not empty." +
-                        SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+                throw new ParseException("Make sure keyword for o/ is not empty."
+                        + SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
             }
             String fromOnlineTrimmed = fromOnline.trim();
             if (!(fromOnlineTrimmed.equals(INPUT_FALSE) || fromOnlineTrimmed.equals(INPUT_NO)
