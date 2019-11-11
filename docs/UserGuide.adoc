@@ -267,11 +267,18 @@ Format: `exit`
 User can export can import json files containing the question bank into the application.
 // end::import/export[]
 
-=== Hints `[coming in v2.0]`
+//tag::junxian-proposed-features[]
+=== Mark question as starred during quiz `[coming in v2.0]`
 
-User will be able to get hints for MCQs and SAQs. Typing '/hint' for MCQs will eliminate two wrong answers from the
-options, leaving user with two options, one of which is correct. Typing '/hint' for SAQs will show the user random
-keywords from the correct answer list.
+User will be able to star questions during the quiz by entering `star` for the current question they are on. The question will be updated as "starred", so that the user will remember that they
+had problems with that particular question during the quiz.
+
+=== Enter short code during quiz sessions`[coming in v2.0]`
+
+User will be able to type in code during the quiz, and the app will provide a syntax checker which will not allow the user to submit his code if there are syntax errors.
+//end::junxian-proposed-features[]
+
+
 
 //tag::wilfred-quiz[]
 == Quiz Mode
