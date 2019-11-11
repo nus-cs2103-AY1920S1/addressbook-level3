@@ -373,10 +373,8 @@ This feature will allow the user to improve accountability in filing incident re
 Shows a list of all incidents in the Incident Manager +
 Format: `list-i`
 
-Example usage and expected outcome:
-
+Example usage of the `list-i` command returning all incidents within the system:
 image::listIncidentsCommand.png[]
-.Fig X. The `list-i` command returns all incidents within the system.
 
 * The listing returns all incidents, inclusive of all incomplete drafts and complete drafts and submitted incident reports
 * Adding any keywords or parameters will result in an error. Only `list-i` is allowed.
@@ -395,24 +393,21 @@ Lists all incidents whereby the operator name contains any of the given keywords
 
 * Accepts multiple search terms for the parameter, searching for any match with any search term
 
-* Example of Successful Single Operator Search and Expected Outcome:
+* Example of the `find-i` command with one word under parameter `op/`, returning all incidents whereby the operator name matches `alex` (case-insensitive):
 
 image::findIncidentsCommandWithOperatorParameter.png[]
-.Fig X. The `find-i` command has been called with one word under parameter `op\`, returning all incidents whereby the operator name matches `alex` (case-insensitive)
 
-* Example of Successful Multiple Operator Search and Expected Outcome:
+* Example of the `find-i` command with multiple words under parameter `op/`, returning all incidents whereby the operator name matches `irfan` or `bernice` (case-insensitive):
 
 image::findIncidentsCommandWithOperatorsParameter.png[]
-.Fig X. The `find-i` command has been called multiple words under parameter `op\`, returning all incidents whereby the operator name matches `irfan` or `bernice` (case-insensitive)
 
 **By Description** +
 Format: `find-i desc/<DESCRIPTION KEYWORD [MORE_KEYWORDS]...>` +
 Lists all incidents whereby the incident description contains any the given keywords
 
-* Example of Successful Usage and Expected Outcome:
+* Example of the `find-i` command with parameter `desc/`, returning all incidents whereby the description contains either keyword `fire` or `arson`:
 
 image::findIncidentsCommandWithDescriptionParameter.png[]
-.Fig X. The `find-i` command has been called with parameter `desc\`, returning all incidents whereby the description contains either keyword `fire` or `arson`
 
 **By ID** +
 Format: `find-i id/KEYWORD` +
@@ -420,19 +415,17 @@ Lists all incidents whereby the incident ID is an exact match with the given key
 
 * Requires an exact ID match, only accepts one ID
 
-* Example of Successful Usage and Expected Outcome:
+* Example of `find-i` command with parameter `id/` returning all incidents whereby the ID matches `0620150001` exactly:
 
 image::findIncidentsCommandWithIdParameter.png[]
-.Fig X. The `find-i` command has been called with parameter `id\`, returning all incidents whereby the ID matches `0620150001` exactly
 
 **Self-Search** +
 Format: `find-i self` +
 Lists all incidents whereby the operator name matches the logged-in user's name.
 
-* Example of Successful Usage and Expected Outcome:
+* Example of executing `find-i self` to list all incidents:
 
 image::findIncidentsCommandWithSelfParameter.png[]
-.Fig X. Executing `find-i self` lists all completed drafts ready for submission
 
 * Requires an exact name match with the logged-in user's name
 
@@ -455,6 +448,12 @@ Returns any incidents whereby the operator's name contains 'Dave' and the descri
 Returns any incidents whereby the operator's name contains either 'Alex' or 'Bernice'
 * Self-Search: `find-i self` +
 Returns any incidents whereby the operator's name matches the logged-in operator's name
+
+[NOTE]
+If multiple keywords of the same prefix are provided by user, the command will take the last valid parameter of each prefix. +
+For example `find-i desc/arson desc/fire op/alex op/charlotte` is equivalent to `new desc/fire op/charlotte`. +
+Rationale: user need not waste time backspacing if an input was keyed in wrongly.
+
 // end::findi[]
 
 // tag::edit-i[]
