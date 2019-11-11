@@ -58,10 +58,12 @@ image::Ui.png[width="790"]
 [[Features]]
 == Features
 
+Note:
 
-Note: GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
+** GUI deck displays work ideally for decks with 10 or less cards. Better GUI support will be included for display of decks in V2.0.
+** Some windows are not yet optimised for perfect viewing. [Coming in V2.0]
 
-Please use scroll bar to view the windows properly.
+In such cases, please use scroll bar to view the windows properly.
 
 //@@author huiminlim
 ====
@@ -155,15 +157,11 @@ FlashCard Pro recommends createing a folder in desktop named `flashcardpro`.
 // tag::view[]
 === Viewing flashcards in library: `view`
 
-View the flashcard decks or the individual flashcards in a specific deck
+View the individual flashcards in a specific deck
 
-Format: `view [deck/DECK_NAME]`
+Format: `view deck/DECK_NAME`
 
-Examples:
-
-* `view` +
-
-Displays all the decks of cards in the library
+Example:
 
 * `view deck/science_deck` +
 
