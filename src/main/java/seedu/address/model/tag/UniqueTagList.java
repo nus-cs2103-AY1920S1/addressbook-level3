@@ -94,6 +94,12 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.setAll(tags);
     }
 
+    public void addAllTags(List<Tag> tags) {
+        for (Tag t : tags) {
+            this.add(t);
+        }
+    }
+
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */

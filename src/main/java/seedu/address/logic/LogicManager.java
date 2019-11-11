@@ -58,7 +58,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ReadOnlyStudyBuddyPro getAddressBook() {
+    public ReadOnlyStudyBuddyPro getStudyBuddyPro() {
         return model.getStudyBuddyPro();
     }
 

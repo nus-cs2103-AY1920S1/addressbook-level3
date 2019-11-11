@@ -3,9 +3,9 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":StudyBuddyParser" as StudyBuddyParser LOGIC_COLOR
+participant ":StudyBuddyProParser" as StudyBuddyProParser LOGIC_COLOR
 participant ":AddNoteCommandParser" as AddNoteCommandParser LOGIC_COLOR
-participant "note:AddNoteCommand" as AddNoteCommand LOGIC_COLOR
+participant "noteCommand:AddNoteCommand" as AddNoteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -16,13 +16,13 @@ end box
 [-> LogicManager : execute("add t/title c/content")
 activate LogicManager
 
-LogicManager -> StudyBuddyParser : parseCommand("add t/title c/content")
-activate StudyBuddyParser
+LogicManager -> StudyBuddyProParser : parseCommand("add t/title c/content")
+activate StudyBuddyProParser
 
-StudyBuddyParser -> StudyBuddyParser : parseNoteCommands("add", "t/title c/content")
+StudyBuddyProParser -> StudyBuddyProParser : parseNoteCommands("add", "t/title c/content")
 
 create AddNoteCommandParser
-StudyBuddyParser -> AddNoteCommandParser : parse("t/title c/content")
+StudyBuddyProParser -> AddNoteCommandParser : parse("t/title c/content")
 activate AddNoteCommandParser
 
 create AddNoteCommand
@@ -32,11 +32,11 @@ activate AddNoteCommand
 AddNoteCommand --> AddNoteCommandParser
 deactivate AddNoteCommand
 
-AddNoteCommandParser --> StudyBuddyParser : note
+AddNoteCommandParser --> StudyBuddyProParser : noteCommand
 deactivate AddNoteCommandParser
 
-StudyBuddyParser --> LogicManager : note
-deactivate StudyBuddyParser
+StudyBuddyProParser --> LogicManager : noteCommand
+deactivate StudyBuddyProParser
 
 LogicManager -> AddNoteCommand : execute()
 activate AddNoteCommand

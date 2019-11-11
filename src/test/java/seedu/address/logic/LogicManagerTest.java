@@ -129,7 +129,7 @@
 //     */
 //    private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
 //            String expectedMessage) {
-//        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+//        Model expectedModel = new ModelManager(model.getStudyBuddyPro(), new UserPrefs());
 //        assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
 //    }
 //
