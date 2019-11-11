@@ -4,7 +4,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.flashcard.StartTimeTrialCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -15,6 +17,9 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new StartTimeTrialCommand object
  */
 public class StartTimeTrialCommandParser implements Parser<StartTimeTrialCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(StartTimeTrialCommandParser.class);
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -41,6 +46,9 @@ public class StartTimeTrialCommandParser implements Parser<StartTimeTrialCommand
                 throw new ParseException(e.getMessage());
             }
         }
+
+        logger.info("Parsing timetrial command of arg: " + args);
+
         return new StartTimeTrialCommand(new FlashcardContainsTagPredicate(tags), tagKeywords);
     }
 
