@@ -514,14 +514,14 @@ The following diagrams summarises what happens when a user executes an unknown c
 [reftext="Figure 2.4.1"]
 [caption="Figure 2.4.1: "]
 .ActivityDiagram when a user inputs an unknown command
-image::ShortcutActivityDiagram.png[width="800"]
+image::ShortcutActivityDiagram.png[width="400"]
 
 <<CreateShortCutDiagram>> shows the UML diagram of the flow of logic when a user creates a shortcut to a valid command
 [[CreateShortCutDiagram]]
 [reftext="Figure 2.4.2"]
 [caption="Figure 2.4.2: "]
 .UML diagram when a user creates a shortcut
-image::CreateShortCutDiagram.png[width="800"]
+image::CreateShortCutDiagram.png[width="400"]
 
 
 

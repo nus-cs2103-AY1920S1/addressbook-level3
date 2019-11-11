@@ -451,7 +451,7 @@ Upon entering an unknown command, FinSec will prompt you as to whether you would
 
 *Choice 2 :* You can enter any `existing commands` to map your previous entry to it!
 
-If you have chosen *Choice 2*, you can use the newly created shortcut as a substitute to the command.
+If you have made a mistake and entered the wrong command,  *Choice 1* would allow you to continue.
 
 ==== Example of *Choice 1* :
 
@@ -472,21 +472,21 @@ No shortcut is created. Continue using FinSec as per normal!
 [reftext="Figure 3.11.1.1"]
 [caption="Figure 3.11.1.1: "]
 .When you enter an accidental typo
-image::UG-NoShortcut1.png[width="800"]
+image::UG-NoShortcut1.png[width="400"]
 
 [[UG-NoShortcutExample2]]
 [reftext="Figure 3.11.1.2"]
 [caption="Figure 3.11.1.2: "]
 .FinSec will ask you if you want to create a shortcut (in blue). If you do not wish to create one, enter the command "n" as shown above.
-image::UG-NoShortcut2.png[width="800"]
+image::UG-NoShortcut2.png[width="400"]
 
 [[UG-NoShortcutResult]]
 [reftext="Figure 3.11.1.3"]
 [caption="Figure 3.11.1.3: "]
 .Entering 'n' will allow you to continue.
-image::UG-NoShortcut3.png[width="800"]
+image::UG-NoShortcut3.png[width="400"]
 
-
+If you have wish to create a shortcut,  *Choice 2* would allow you to create a shortcut to a command.
 
 ==== Example of *Choice 2* :
 
@@ -509,19 +509,19 @@ A new shortcut is created for you! From now on, `ai` can be used as a substitute
 [reftext="Figure 3.10.2.1"]
 [caption="Figure 3.10.2.1: "]
 .Enter the shortcut you wish to create.
-image::UG-createShortcut1.png[width="800"]
+image::UG-createShortcut1.png[width="400"]
 
 [[UG-createShortcutExample2]]
 [reftext="Figure 3.10.2.2"]
 [caption="Figure 3.10.2.2: "]
 .Enter the command you wish to have an alias to.
-image::UG-createShortcut2.png[width="800"]
+image::UG-createShortcut2.png[width="400"]
 
 [[UG-createShortcutResult]]
 [reftext="Figure 3.10.2.3"]
 [caption="Figure 3.10.2.3: "]
 .Congratulations! You have just created a shortcut! Now the shortcut is able for use.
-image::UG-createShortcut3.png[width="800"]
+image::UG-createShortcut3.png[width="400"]
 
 ====
 --
@@ -532,7 +532,7 @@ image::warning.png[width = "20", float = "left"]
 * The shortcut you want to add has to be to a default FinSec command.
 
 ====
-
+// end::shortcutfeature[]
 
 === Deleting a shortcut : `delete_shortcut`
 
@@ -563,7 +563,6 @@ image::warning.png[width = "20", float = "left"]
 * This will not work for default commands.
 
 ====
-// end::shortcutfeature[]
 
 //@@author {lawncegoh}
 // tag::introduction[]
