@@ -847,7 +847,31 @@ I also evaluated multiple options to derive an optimal data structure to store t
 ** Cons: Not closely related words may also be recommended to the user.
 // end::recommendationsPartThree[]
 
-=== User Interface Design
+=== Retrieval of Previous Commands
+
+The retrieval of previous commands and later commands are achieved through the `InputHistoryManager` class which implements `HistoryManager` interface.
+The `CommandBox` listens to the keyboard event kbd:[↑] and kbd:[↓] when user types in the `CommandBox`.
+
+Every user input that is non-blank will be saved as a String before execution by the `save(String)` method of `InputHistoryManager`. You can refer to the following
+steps for the retrieval of a *previous* command.
+
+. Step 1: `CommandBox` listens to the KeyPressed event and makes a call to `handleUpKey()` when an up key is pressed.
+. Step 2: `handleUpKey()` checks whether the current input is successfully executed or rejected as an invalid command. This makes a difference
+because successful commands are erased after execution while invalid commands remain in the `CommandBox`.
+. Step 3: If the command is valid and erased, `InputHistoryManager` will try to retrieve the previous command by calling `previous()`.
+. Step 4: `CommandBox` will set its text to be the returned String.
+
+[NOTE]
+If the current input has not been executed or has already been successfully executed, calling the previous command will return the command
+entered before the current input. If the current input is a rejected invalid command, it means that the command has already been
+saved. In this case, calling `previous()` once will retrieve back that invalid command which to user means that the command in the `CommandBox`
+has not been changed despite the up key pressed. Hence, two calls to `previous()` will be made to retrieve the command before the current invalid command.
+
+You can refer to the activity diagram here:
+
+image::RetrievePreviousCommandActivityDiagram.png[]
+
+=== User Interface
 The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
 UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
 sorted and thus all items in the lists will be modified each time a `sort`, `add`, `delete`, `tag` or other commands that modify the lists
@@ -885,6 +909,46 @@ image::UpdateViewPanelActivityDiagram.png[]
 
 [NOTE]
 If the execution by `Logic` is not successful, an error will be thrown and the `ViewPanel` will not be updated and refreshed.
+
+==== Design Considerations
+
+===== Aspect: How ViewPanel and AllItemsPanel updates
+* **Alternative 1 (current choice):** Updates taking in the lists as parameters.
+** Pros: Straightforward implementation that grantees correct result if the list is correct.
+** Cons: It breaks the "Model View Controller" structure because the UI is not listening to the `ObservableList` anymore. Whenever a command is executed, a function
+call has to be made to update the `ViewPanel` and the `AllItemsPanel`.
+
+* **Alternative 2:** Updates using event listeners
+** Pros: It follows the MVC structure where the panels listen to the `ObservableList` for changes.
+** Cons: As mentioned earlier, it is difficult to use event listeners on the `SortedUniqueList` because the listener will catch the sorting
+as modification to the items. In the future, alternative 2 can be considered with changes to how the listener and sorting works.
+
+===== Aspect: Layout of ResultDisplay
+* **Alternative 1 (current choice):** Directly on top of the CommandBox with resizablility.
+** Pros: Long messages can be viewed and referred to when typing the next comment.
+** Cons: It takes up a fixed space on the GUI which could be used to display more items.
+
+* **Alternative 2 (initial implementation):** Use a pop up window to display the messages which disappears when
+any key is pressed and the user can continue.
+** Pros: It saves spaces on the GUI and success and error message can be dismissed so that user do not have to see it all the time.
+** Cons: User is not able to type while referring to the message.
+
+===== Aspect: Layout of ItemCard
+
+The original design does not fit the vertical list as seen below:
+
+image::OriginalItemCard.png[]
+
+The following changes have been made to the layout of the item card for a better view of the items.
+
+. Display the number of days left before the item expires in an obvious manner for user to see.
+. Move the position of the reminder and quantity to the left so that the right is not crowede.
+. Dynamically Change the colour of the card depending on the status of the item. Red for expired, yellow for alerting, green for healthy.
+. Expand the card on clicking and collapse it when not in focus to save space for more items to be displayed.
+
+Here is the redesigned `ItemCard`:
+
+image::ExpandCard.png[]
 
 === Logging
 

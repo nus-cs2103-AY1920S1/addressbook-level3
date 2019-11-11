@@ -8,7 +8,7 @@ image::xiaoyu-nus.png[width="150", align="left"]
 {empty}[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=xiaoyu-nus&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
 
 Role: Developer +
-Responsibilities: Reminder System + Logo and Website Designer
+Responsibilities: Reminder System + Logo and UI Designer
 
 '''
 
