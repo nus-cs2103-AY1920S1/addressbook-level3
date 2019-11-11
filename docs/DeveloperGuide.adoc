@@ -1176,7 +1176,7 @@ _{ more test cases ... }_
 .. Test case: `tag filter t/tech`
     Expected: No expense listed out.
 
-== Listing out all existing tags
+=== Listing out all existing tags
 . Listing out all existing tags while all expenses are listed
 .. Prerequisites: List all expenses using the `list` command.
 .. Test case: `tag list`
