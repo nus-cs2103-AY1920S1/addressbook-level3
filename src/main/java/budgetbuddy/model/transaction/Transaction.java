@@ -29,7 +29,7 @@ public class Transaction {
     /**
      * Every field must be present and not null.
      */
-    public Transaction(Direction direction, Amount amount, Description description, LocalDate date,
+    public Transaction(LocalDate date, Amount amount, Direction direction, Description description,
                        Category... categories) {
         requireAllNonNull(date, amount, direction, description);
         this.direction = direction;

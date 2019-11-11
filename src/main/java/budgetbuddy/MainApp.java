@@ -96,7 +96,7 @@ public class MainApp extends Application {
 
     /**
      * Loads and returns a Loans Manager from storage.
-     * Returns an empty Loans Manager if no file found or if exception occurs during loading.
+     * Returns a Loans Manager with sample data if no file found or if exception occurs during loading.
      */
     private LoansManager initLoansManager(Storage storage) {
         Optional<LoansManager> loansManagerOptional;
@@ -154,22 +154,21 @@ public class MainApp extends Application {
 
     /**
      * Loads and returns an Accounts Manager from storage.
-     * Returns an empty Accounts Manager if no file found or if exception occurs during loading.
+     * Returns a sample Accounts Manager if no file found or if exception occurs during loading.
      */
     private AccountsManager initAccountsManager(Storage storage) {
-        Optional<AccountsManager> accountsManagerOptional;
+        Optional<AccountsManager> accountsManagerOptional = Optional.empty();
 
         try {
             accountsManagerOptional = storage.readAccounts();
             if (accountsManagerOptional.isEmpty()) {
-                logger.info("Accounts file not found. Will be starting with an empty AccountsManager.");
+                logger.info("Accounts file not found. Will be starting with a sample AccountsManager.");
             }
-            return accountsManagerOptional.orElseGet(AccountsManager::new);
-        } catch (Exception e) {
-            logger.log(Level.WARNING, "Error reading accounts; starting with empty AccountsManager", e);
-        }
 
-        return new AccountsManager();
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error reading accounts; starting with a sample AccountsManager", e);
+        }
+        return accountsManagerOptional.orElseGet(SampleDataUtil::getSampleAccountsManager);
     }
 
     private void initLogging(Config config) {
