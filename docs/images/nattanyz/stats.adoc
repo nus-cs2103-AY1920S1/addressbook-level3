@@ -3,9 +3,12 @@
 Written in a separate doc to avoid merge conflicts given frequent updates to DG.
 Unfortunately, it seems that all text is inexplicably bold.
 
-== Statistics feature
+== Saving and viewing user statistics
 
 * The Statistics feature revolves around the storage and interpretation of the user's *sessions*, be it _login_ sessions or _test_ sessions.
 * Therefore, the `Session` class is the main building block of all Statistics-related classes. They are stored in `SessionList` objects.
-* Due to multiple design considerations, the
+* Due to design considerations, the `UserStats` and `DeckStats` objects are intended to be singletons, created upon application startup and modified, but never duplicated or deleted.
+** Thus, they are accessible via the static methods `getUserStats()` and `getDeckStats()` accessible via the `StatsHolder` class.
+** This method of implementation is similar to what my teammates have used to store `State`.
+** Initially, the `UserStats` and `DeckStats` objects were intended to be stored within `State` as well. However, the addition of undo/redo functionality complicated matters. Thus, the statistics objects have been decoupled from `State`.
 
