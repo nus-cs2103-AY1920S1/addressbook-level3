@@ -494,7 +494,7 @@ public abstract class Payment extends Transaction implements LedgerOperations {
 ```
 //end::receive[]
 
-// tag::project[]
+// tag::project1[]
 [[Implementation-Projection]]
 === Project Feature: `project`
 
@@ -528,7 +528,7 @@ Projections on budgets are made by first projecting the _user_'s balance amount 
 Then, it compares the _user_'s projected balance amount at the point of the budget's deadline, with the budget's amount.
 A surplus is indicated when the former is greater than the latter, and a deficit is indicated when the former is smaller
 than the latter.
-
+// end::project1[]
 Given below is an example usage scenario and how the project command executes at each step.
 
 **Step 1**. The user launches the application.
@@ -553,7 +553,7 @@ of the specified `Date`.
 **Step 7**. `ProjectCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
 returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
 
-
+// tag::project2[]
 ===== Activity Diagram
 
 The activity diagram below depicts how a projection is made.
@@ -589,13 +589,14 @@ normal equation method will be used in place of the gradient descent algorithm, 
 a set number (e.g. 500) of transactions.
 
 ==== Design Considerations
-// end::project[]
+// end::project2[]
 
-// tag::display[]
+// tag::display1[]
 === Display Feature: `display`
 This feature provides a graphical view of an existing projection to the _user_. +
 
 ==== Current Implementation
+// end::display1[]
 Given below is an example usage scenario and how the display command executes at each step.
 
 **Step 1**. The user launches the application.
@@ -618,7 +619,7 @@ the input from the user.
 new window.
 
 **Step 7**. `DisplayCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
-
+// tag::display2[]
 The following activity diagram depicts how the `display` command is executed.
 
 .Activity Diagram of the Display Command
@@ -630,7 +631,7 @@ a sequence diagram is provided below.
 .Sequence Diagram of the Display Command
 image::DisplaySequenceDiagram.png[]
 
-// end::display[]
+// end::display2[]
 
 // tag::view[]
 === View Feature: `view`
@@ -820,7 +821,7 @@ The `sort` command is facilitated by the Logic and Model components of the appli
 The following sequence diagram shows how the sorting of transactions work when the user enters `sort date/d`.
 
 .Sequence Diagram for `sort date/d`
-image::SortSequenceDiagram.png[]
+image::SortSequenceDiagram.png[pdfwidth=80%]
 
 ==== Example of Usage
 
@@ -829,12 +830,12 @@ Given below is an example usage of how `sort` behaves at each step.
 **Step 1**. The user launches the application and views an unsorted list of transactions.
 
 .Initial State of PalPay
-image::sort_dg_1.png[]
+image::sort_dg_1.png[pdfwidth=80%]
 
 **Step 2**. The user now executes `sort date/d` to sort the transactions in the order of descending date.
 
 .User Inputs `sort date/d`
-image::sort_dg_2.png[]
+image::sort_dg_2.png[pdfwidth=80%]
 
 **Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
 
@@ -858,7 +859,7 @@ save the latest state of the application.
 at the end.
 
 .After Sorting of Transactions
-image::sort_dg_3.png[]
+image::sort_dg_3.png[pdfwidth=80%]
 
 ==== Design Considerations
 
