@@ -14,7 +14,7 @@ endif::[]
 
 == About the Project
 
-MoneyGoWhere is a personal finance application targeted at students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project. It was morphed from a basic command line Address Book. Some notable features include: setting budget goals, viewing statistics, customised searching and sorting, setting reminders for bills, viewing exchange rates, changing the application currency and importing and exporting data from and to a Csv file.
+MoneyGoWhere is a personal finance application targeted to students at the National University of Singapore (NUS), designed by my team and I for our Software Engineering project. It was morphed from a basic command line Address Book. Some notable features include: setting budget goals, viewing statistics, customised searching and sorting, setting reminders for bills, viewing exchange rates, changing the application currency and importing and exporting data from and to a Csv file.
 
 === My Role
 
