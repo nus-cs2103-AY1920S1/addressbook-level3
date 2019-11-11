@@ -514,14 +514,14 @@ The following diagrams summarises what happens when a user executes an unknown c
 [reftext="Figure 2.4.1"]
 [caption="Figure 2.4.1: "]
 .ActivityDiagram when a user inputs an unknown command
-image::ShortcutActivityDiagram.png[width="400"]
+image::ShortcutActivityDiagram.png[width="600"]
 
 <<CreateShortCutDiagram>> shows the UML diagram of the flow of logic when a user creates a shortcut to a valid command
 [[CreateShortCutDiagram]]
 [reftext="Figure 2.4.2"]
 [caption="Figure 2.4.2: "]
 .UML diagram when a user creates a shortcut
-image::CreateShortCutDiagram.png[width="400"]
+image::CreateShortCutDiagram.png[width="700"]
 
 
 
@@ -1632,6 +1632,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Goto a different view
+. Going to claims page
+.. Prerequisites: User to be in any view of the application other than claims
+.. Test case: `goto claims` +
+	Expected: Claims list should show up on the Main Window.
+
+. Going to incomes page
+.. Prerequisites: User to be in any view of the application other than incomes
+.. Test case: `goto incomes` +
+	Expected: Incomes list should show up on the Main Window.
+
+. Going to claims page
+.. Prerequisites: User to be in any view of the application other than contacts
+.. Test case: `goto contacts` +
+	Expected: Contacts list should show up on the Main Window.
+
 === Viewing Help
 
 . Requesting help from FinSec
@@ -1648,19 +1664,84 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `help cmd/randomstuff type/lalala` +
    Expected: FinSec displays an error message and usage instructions for help
 
-
 === Deleting a contact
 
 . Deleting a contact while all contacts are listed
 
-.. Prerequisites: List all contacts using the `goto_contacts` command. Multiple contacts in the list.
+.. Prerequisites: List all contacts using the `goto contacts` command. Multiple contacts in the list.
 .. Test case: `delete_contact 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+.. Test case: `delete_contact 0` +
+   Expected: No contact is deleted. Error details shown in the status message.
+.. Other incorrect delete contact commands to try: `delete_contact`, `delete_contact x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+
+=== Adding an income
+. Adding an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto_incomes` command. Multiple incomes in the list.
+.. Test case: `add_income d/Shirt sales c/307 date/11-11-2019 n/John Doe p/98765432` +
+   Expected: An income is added to the incomes list. Details of the added income shown in the status message.
+
+.. Test case: `add_income` +
+   Expected: No income is added. Error details shown in the status message.
+.. Other incorrect add income commands to try: `add_income d/Shirtsales`, `add_income x` (where x is a random string) +
+   Expected: Similar to previous.
+
+=== Deleting an income
+
+. Deleting an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto_incomes` command. Multiple incomes in the list.
+.. Test case: `delete_income 1` +
+   Expected: First income is deleted from the list. Details of the deleted income shown in the status message.
+.. Test case: `delete_income 0` +
+   Expected: No income is deleted. Error details shown in the status message.
+.. Other incorrect delete income commands to try: `delete_income`, `delete_income x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Editing an income
+
+. Editing an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto_incomes` command. At least 1 income in the list.
+.. Test case: `edit_income 1 d/This is a test` +
+   Expected: The first income on the list description field is edited. Details of the edited income shown in the status message.
+.. Test case: `edit_income 1` +
+   Expected: The first income on the list is not edited. Error details shown in the status message.
+.. Other incorrect delete income commands to try: `edit_income 1 q/`, `edit_income 1 x/` (where x is an unknown field) +
+   Expected: Similar to previous.
+
+
+=== Entering an unknown command word / Creating a shortcut
+. Entering a command that is not in FinSec
+
+.. Prerequisites: None.
+.. Test case (part 1): `thisisatest` +
+   Expected: FinSec does not recognise the command. FinSec will ask whether a shortcut is to be created or not in the status message. +
+   Test case (part 2): `n` +
+   Expected: FinSec does not create a shortcut. FinSec will continue. Details will be shown in the status message.
+
+.. Test case (part 1): `ac` +
+   Expected: FinSec does not recognise the command. FinSec will ask whether a shortcut is to be created or not in the status message. +
+   Test case (part 2): `add_contact` +
+   Expected: FinSec creates a shortcut. Details will be shown in the status message.
+.. Other incorrect add shortcut commands to try: ` ` (empty string) +
+   Expected: Similar to previous.
+
+
+=== Viewing added autocorrect suggestion
+. See autocorrect suggestion list
+
+.. Prerequisites: Add a new shortcut `addI` that is an alias to `add_income` and that is the only shortcut created.
+.. Test case: Type `ad` into the command bar without entering +
+   Expected: FinSec will show a dropdown list containing `addI`.
+
+.. Test case: Type `test` into the command bar without entering +
+   Expected: The dropdown list will not contain the word `test`.
+
+.. Other incorrect commands to type into the command bar: `x` (where x is a random string).
 
 
 === Displaying budget values
@@ -1684,3 +1765,83 @@ should reflect accurate statistics for the current month.
 .. Test case: `budget 99` +
    Expected: An error pops up stating that `budget` is a standalone command and does not require additional parameters
 
+=== Sorting the various lists
+. Sorting contacts list by name in natural ordering +
+.. Prerequisites: 3 contacts with different names added into claims list
+.. Test case: `sort name` +
+	Expected: Contacts list would be sorted in lexicographical order based on the contacts' names.
+
+. Sorting claims list by name
+.. Prerequisites: 3 claims with different descriptions added into claims list
+.. Test case: `sort name` in natural ordering +
+	Expected: Claims list would be sorted in lexicographical order based on the claims' descriptions.
+
+. Sorting claims list by date
+.. Prerequisites: 3 claims with different dates added into claims list
+.. Test case: `sort date` in natural ordering +
+	Expected: Claims list would be sorted in order based on the claims' dates with oldest entry at the top of the list.
+
+. Sorting claims list by status
+.. Prerequisites: 3 claims with different status added into claims list
+.. Test case: `sort status` in natural ordering +
+	Expected: Claims list would be sorted in order based on the claims' statuses with Pending at the top of the list,
+	followed by Approved then rejected.
+
+. Sorting incomes list by name
+.. Prerequisites: 3 incomes with different descriptions added into incomes list
+.. Test case: `sort name` in natural ordering +
+	Expected: Incomes list would be sorted in lexicographical order based on the contacts' names in each individual
+	income.
+
+. Sorting incomes list by date
+.. Prerequisites: 3 incomes with different dates added into incomes list
+.. Test case: `sort date` in natural ordering +
+	Expected: Incomes list would be sorted in order based on the incomes' dates with oldest entry at the top of the
+	list.
+
+=== Sorting the various lists in reverse order
+. Sorting contacts list by name in reverse order +
+.. Prerequisites: 3 contacts with different names added into claims list
+.. Test case: `reverse name` +
+	Expected: Contacts list would be sorted in reverse lexicographical order based on the contacts' names.
+
+. Sorting claims list by name in reverse order +
+.. Prerequisites: 3 claims with different descriptions added into claims list
+.. Test case: `reverse name` +
+	Expected: Claims list would be sorted in reverse lexicographical order based on the claims' descriptions.
+
+. Sorting claims list by date in reverse order
+.. Prerequisites: 3 claims with different dates added into claims list
+.. Test case: `reverse date` +
+	Expected: Claims list would be sorted in order based on the claims' dates with newest entry at the top of the list.
+
+. Sorting claims list by status in reverse order
+.. Prerequisites: 3 claims with different status added into claims list
+.. Test case: `reverse status` +
+	Expected: Claims list would be sorted in order based on the claims' statuses with Rejected at the top of the list,
+followed by Approved then Pending.
+
+. Sorting incomes list by name in reverse order
+.. Prerequisites: 3 incomes with different descriptions added into incomes list
+.. Test case: `reverse name` +
+	Expected: Incomes list would be sorted in reverse lexicographical order based on the contacts' names in each
+	individual income.
+
+. Sorting incomes list by date in reverse order
+.. Prerequisites: 3 incomes with different dates added into incomes list
+.. Test case: `reverse date` +
+	Expected: Incomes list would be sorted in order based on the incomes' dates with newest entry at the top of the
+list.
+
+=== Checking each Individual Contact or Claim
+. Checking a contact
+.. Prerequisites: 1 contact added into the contacts list
+.. Test case: `check 1` +
+	Expected: The first contact in the contacts list would be shown in a pop-up, displaying the claims that belong
+	to this contact, empty list if it doesn't have any claims.
+
+. Checking a claim
+.. Prerequisites: 1 claim added into the claims list
+.. Test case: `check CLAIMID`, refer to ClaimID number on this claim in the claims list +
+	Expected: This claim will be shown in a pop-up, displaying the important information like date, amount and description
+	that belong to this claim.

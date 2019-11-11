@@ -64,7 +64,7 @@ public class ClaimCard extends UiPart<Region> {
     }
 
     void setClaimId(String text) {
-        claimId.setText("Claim ID: " + text);
+        claimId.setText("Claim ID: #" + text);
     }
 
     void setDate(String text) {
@@ -80,7 +80,7 @@ public class ClaimCard extends UiPart<Region> {
     }
 
     void setAmount(String text) {
-        amount.setText("Amount: " + text);
+        amount.setText("Amount: $" + text);
     }
 
     void setName(String text) {
