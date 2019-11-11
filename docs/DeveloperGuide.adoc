@@ -720,4 +720,4 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Dealing with missing/corrupted data files
 
-.. Manually make a Json file with invalid fields and see if the system can identify these issues or not.
+.. Manually make a Json file with invalid fields and see if FlashMind can identify these issues or not.
