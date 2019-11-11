@@ -402,6 +402,7 @@ image::display3.png[]
 
 [[View]]
 // tag::view[]
+
 === Switching Tabs : `view`
 
 Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
