@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.itinerary.events.EnterCreateEventCommand;
 import seedu.address.logic.commands.itinerary.events.ShowEventDetailsCommand;
@@ -158,4 +159,8 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
         mainWindow.executeGuiCommand(EnterCreateEventCommand.COMMAND_WORD);
     }
 
+    @FXML
+    private void handleHelp() {
+        mainWindow.executeGuiCommand(HelpCommand.COMMAND_WORD);
+    }
 }
