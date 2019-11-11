@@ -36,7 +36,7 @@ import seedu.address.ui.template.Page;
 
 
 /**
- * WARNING INCOMEPLETE: TODO: FIELDS FOR INVENTORY AND BOOKING.
+ * Page for creation and editing of events.
  */
 public class EditEventPage extends Page<AnchorPane> {
     private static final String FXML = "itinerary/events/EditEventPage.fxml";

@@ -14,7 +14,7 @@ import seedu.address.model.itinerary.event.exceptions.DuplicatedEventNameExcepti
 import seedu.address.model.itinerary.event.exceptions.EventNotFoundException;
 
 /**
- * Placeholder.
+ * Finishing and confirming editing and event on the {@link seedu.address.ui.itinerary.EditEventPage}.
  */
 public class DoneEditEventCommand extends Command {
 

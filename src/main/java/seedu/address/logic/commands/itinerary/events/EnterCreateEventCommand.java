@@ -9,7 +9,7 @@ import seedu.address.model.Model;
 import seedu.address.model.appstatus.PageType;
 
 /**
- * Placeholder.
+ * Command to enter the {@link seedu.address.ui.itinerary.EditEventPage} for event creation.
  */
 public class EnterCreateEventCommand extends Command {
     public static final String COMMAND_WORD = "create";
