@@ -35,6 +35,7 @@ import budgetbuddy.model.attributes.Name;
 import budgetbuddy.model.loan.Debtor;
 import budgetbuddy.model.loan.Loan;
 import budgetbuddy.model.loan.Status;
+import budgetbuddy.model.loan.exceptions.DuplicateLoanException;
 import budgetbuddy.model.person.Person;
 
 /**
@@ -64,8 +65,10 @@ public class LoanSplitCommand extends Command {
                     + PREFIX_PERSON + "Satan " + PREFIX_AMOUNT + "0";
 
     public static final String MESSAGE_SUCCESS = "Loans split.";
-    public static final String MESSAGE_SUCCESS_LOANS_ADDED =
-            "Loans split. Debts that you owe/are owed to you have been added to your loan list.";
+    public static final String MESSAGE_LOANS_ADDED =
+            "Debts that you owe/are owed have been added to your loan list, unless duplicate loans exist already.";
+    public static final String MESSAGE_DUPLICATE_LOANS =
+            "The following loans could not be added as identical loans already exist in your list:\n%s";
 
     public static final String MESSAGE_PERSON_AMOUNT_NUMBERS_MISMATCH =
             "The number of persons does not match the number of payments.";
@@ -85,6 +88,8 @@ public class LoanSplitCommand extends Command {
     private Optional<Person> optionalUser;
     private Optional<Description> optionalDescription;
     private Optional<LocalDate> optionalDate;
+
+    private List<Loan> duplicateLoans;
 
     public LoanSplitCommand(List<Person> persons, List<Amount> amounts, List<Long> maxShares,
                             Optional<Person> optionalUser,
@@ -107,6 +112,7 @@ public class LoanSplitCommand extends Command {
         this.optionalUser = optionalUser.isPresent() ? Optional.of(user) : optionalUser;
         this.optionalDescription = optionalDescription;
         this.optionalDate = optionalDate;
+        this.duplicateLoans = new ArrayList<Loan>();
     }
 
     @Override
@@ -131,14 +137,19 @@ public class LoanSplitCommand extends Command {
 
         debtorCreditorAmountList.addAll(calculateSplitList(participants));
 
+        model.getLoansManager().setDebtors(constructDebtorsList());
+
         if (optionalUser.isPresent()) {
-            constructUserLoansList(optionalUser.get()).forEach(loan -> model.getLoansManager().addLoan(loan));
+            constructUserLoansList(optionalUser.get()).forEach(loan -> {
+                try {
+                    model.getLoansManager().addLoan(loan);
+                } catch (DuplicateLoanException e) {
+                    duplicateLoans.add(loan);
+                }
+            });
         }
 
-        model.getLoansManager().setDebtors(constructDebtorsList());
-        return new CommandResult(
-                optionalUser.isPresent() ? MESSAGE_SUCCESS_LOANS_ADDED : MESSAGE_SUCCESS,
-                CommandCategory.LOAN_SPLIT);
+        return new CommandResult(constructResultMessage(), CommandCategory.LOAN_SPLIT);
     }
 
     /**
@@ -194,6 +205,24 @@ public class LoanSplitCommand extends Command {
         debtors.add(new Debtor(currDebtor, currCreditors));
 
         return debtors;
+    }
+
+    /**
+     * Returns a feedback message that will be displayed to the user.
+     * @return The results feedback message as a string.
+     */
+    private String constructResultMessage() {
+        String resultMessage = MESSAGE_SUCCESS;
+        if (optionalUser.isEmpty()) {
+            return resultMessage;
+        }
+
+        resultMessage += " " + MESSAGE_LOANS_ADDED;
+        if (!duplicateLoans.isEmpty()) {
+            resultMessage += "\n" + String.format(MESSAGE_DUPLICATE_LOANS,
+                    duplicateLoans.stream().map(Loan::toString).collect(Collectors.joining("\n")));
+        }
+        return resultMessage;
     }
 
     @Override

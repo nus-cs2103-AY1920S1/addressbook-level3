@@ -119,8 +119,9 @@ public class LoanSplitCommandTest {
                 getDefaultPersons(), getDefaultAmounts(), new ArrayList<>(),
                 Optional.of(TypicalPersons.ELLE), Optional.of(new Description("Test")), Optional.of(LocalDate.now()));
 
-        CommandResult expectedCommandResult =
-                new CommandResult(LoanSplitCommand.MESSAGE_SUCCESS_LOANS_ADDED, CommandCategory.LOAN_SPLIT);
+        CommandResult expectedCommandResult = new CommandResult(
+                LoanSplitCommand.MESSAGE_SUCCESS + " " + LoanSplitCommand.MESSAGE_LOANS_ADDED,
+                CommandCategory.LOAN_SPLIT);
         Model expectedModel = new ModelManager();
         expectedModel.getLoansManager().setDebtors(getDefaultDebtorsWithOptionalUser());
         expectedModel.getLoansManager().addLoan(getDefaultOptionalLoan());
