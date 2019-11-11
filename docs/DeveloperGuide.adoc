@@ -481,20 +481,23 @@ image::AddNewEntryActivityDiagram.png[width=60%]
 
 ==== Implementation
 
-These entries have to fulfill the following requirements set by the budget to be considered in the tabulation:
+The following activity diagram displays the sequence of events after the user inputs to add a new module.
 
-* Each `Module` consists of `ModuleCode`, `Title`, `ModuleCode`, `Semester`, `Credit`, `Grade`.
-* All fields in module are unique.
-* Each class has their respective getter methods.
-
-The class diagram below gives an overview of the Module class.
-
-image::ModuleClassDiagram.png[]
 .Class Diagram of Module
+image::CapActivityDiagram.png[]
 
-==== Implementation of module commands
+For the user to add new modules to the Modulo Grades Tracker, the `Module` has to be designed to satisfy the requirements of a module and the needs of the user.
 
-Module class supports multiple command. It includes:
+* Each `Module` consists of `ModuleCode`, `Title`, `Semester`, `Credit`, `Grade`.
+* All fields in `Module` are unique.
+* Each class has their respective getter methods and validity-check method.
+
+.Class Diagram of Module
+image::ModuleClassDiagram.png[]
+
+==== Implementation of Module commands
+
+Module class supports multiple commands. They include:
 
 * `AddCommand` - Adds a module to the Grades Tracker.
 * `DeleteCommand` - Removes a module from the Grades Tracker by specifying the module code.
@@ -502,13 +505,20 @@ Module class supports multiple command. It includes:
 * `SortCommand` - Sorts the modules in chronological order based on the `Semester` the module was taken.
 * `ListCommand` - List all the modules. Often required after the find command.
 
-image::DeleteSequenceDiagram.png[]
 .Sequence Diagram of DeleteCommand
+image::DeleteSequenceDiagram.png[]
 
 [NOTE]
 The lifelines for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifelines reaches the end of diagram.
 
 After a successful execution, the module with the specified module code will be deleted from Modulo Grades Tracker.
+
+==== Design Consideration
+
+All fields should not be have special characters or left blank as the details are important to the implementation and the user experience.
+
+The class diagram below gives an overview of the Module class.
+
 
 The search for the matching module code is implemented with a linear search. With 70 modules in Modulo, the linear search is still responsive and there were not observable lags.
 
@@ -516,7 +526,16 @@ The search for the matching module code is implemented with a linear search. Wit
 
 An alternative would be to use a search algorithm that comprises a Hash set and linear search.
 
-The interactions in the Model Component for the same command are shown in the sequence diagram below.
+.Considerations when designing the Module class
+[width="80%" cols="^3, ^10" options="header"]
+|=======
+| Field | Validity
+| ModuleCode | Module code should contain a set of 4 integers and no excessive characters. The student is provided with the liberty to input any module code in consideration that new modules and faculties may be created in the future.
+| Semester | Semester should contain valid academic years and semester period. The academic year stated can only be +/-5 years than the current year, assuming that students are able to graduate in at most five years. While the semester period allows input from 1 to 4.
+| Title | The title of the module is left for the user to define. This is to take into account that there might be new modules released in teh future hence the user needs to have the ability to customise the title. It is valid as long as it does not have special characters.
+| Credit | As stated by NUS, the range of modular credit ranges from 2 to 23.
+| Grade | Only NUS approved grades are allowed i.e. A+, A, A-, B+, B, B-, C+, C, D+, D and F
+|=======
 // end::grades tracker[]
 
 == UI

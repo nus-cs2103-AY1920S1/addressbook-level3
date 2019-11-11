@@ -70,18 +70,16 @@ public class ModuleCode {
         try {
             for(int i = 2, n = test.length(); i < n ; i++) {
                 String toCheck = test.substring(i, i + 4);
-
+                //check if there are more than 1 char after the 4 set of integers
                 if (isStringInt(toCheck) && (test.length() - (i + 4)) > 1) {
-                    System.out.println("1");
                     isValid = false;
                     break;
                 }
+                //checks if the last char is an integer
                 if (isStringInt(toCheck) && (test.length() - (i + 4)) == 1) {
-                    System.out.println("2");
                     isValid = !isStringInt(test.substring(i + 3, i + 5));
                     break;
                 } else if (isStringInt(toCheck) && (test.length() - (i + 4)) == 0) {
-                    System.out.println("3");
                     isValid = true;
                     break;
                 }

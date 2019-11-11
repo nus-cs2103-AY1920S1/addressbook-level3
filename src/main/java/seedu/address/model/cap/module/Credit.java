@@ -60,7 +60,7 @@ public class Credit {
     public static boolean isValidCredit(String credit) throws NumberFormatException {
         try {
             int value = Integer.parseInt(credit);
-            if (value < 23 && value >= 2) {
+            if (value <= 23 && value >= 2) {
                 return true;
             } else {
                 return false;

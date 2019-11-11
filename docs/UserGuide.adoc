@@ -19,7 +19,9 @@ By: `Team T16-2`      Since: `September 2019`      Licence: `MIT`
 // tag::intro[]
 == Introduction
 
-Modulo is a desktop application helping National University of Singapore (NUS) students to audit their academics, finances and schedule their time as they try their best to survive yet another semester of college. Those who prefer to work with a Command Line Interface (CLI) might find using Modulo to be more straightforward than the usual Graphical User Interface (GUI) applications. The application has the visual benefits of a GUI but stands strongly rooted in command line usage. Modulo does not require an internet connection to run so there’s no worry when the school wifi goes MIA yet again. The only time you need to be connected is at the start, when downloading the application. Look to <<Quick Start>> to find out how to get started on Modulo!
+Welcome to the User Guide for Modulo!
+
+Modulo is an all-in-one, lifestyle, desktop application to  help National University of Singapore (NUS) students to audit their academics, track their finances, track their grades and schedule their time as they try their best to survive yet another semester of college. Those who prefer to work with a Command Line Interface (CLI) might find using Modulo to be more straightforward than the usual Graphical User Interface (GUI) applications. The application has the visual benefits of a GUI but stands strongly rooted in command line usage. Modulo does not require an internet connection to run so there’s no worry when the school wifi goes MIA yet again. The only time you need to be connected is at the start, when downloading the application. Look to <<Quick Start>> to find out how to get started on Modulo!
 // end::intro[]
 
 == Quick Start
@@ -59,12 +61,18 @@ image::Ui.png[width="790"]
 There are 4 features in _Modulo_: Calendar, Cap (i.e. Modules), Quiz and Finance. +
 
 Format: `switch FEATURE_NAME`
-Example: `switch quiz`
+
+Examples: `switch quiz`, `switch calandar`, `switch cap`, `switch finance`.
 
 ==== Exiting the program
 
 Exits the program.
 Format: `exit`
+
+==== To seek help
+
+Brings up a link that leads to the user guide online. Thus, internet connection is required.
+Format: `help`
 
 //tag::calendar[]
 === Calendar
@@ -168,9 +176,9 @@ Delete all all `ToDoTask` and `ModuleTask` from all weeks.
 
 Format: `clear`
 
-
 //end::calendar[]
 
+//tag::Grades Tracker[]
 === Grades Tracker
 
 To enter the Module section please enter the command: `switch cap`
@@ -184,21 +192,33 @@ To enter the Module section please enter the command: `switch cap`
 | list | | List all the modules, often required after the find command.
 | find | KEYWORD | Find a specific keyword within module code and/or module description.
 | sort | | Display the modules in order of their semesters and academic years taken.
-| clear | | clear all existing modules.
+| clear | | Clear all existing modules.
 |=======
 
 ==== Manually add module to record : `add`
 The user can add new modules into the grade tracker.
 
 The fields of a module consist of: +
-- `MODULE_CODE` The module code of the module. The student is provided with the liberty to input any module code in consideration that new modules may be created in the future. Prefix: `<m>` +
-- `TITLE` The title of the module. The student is provided with the liberty to input any module code in consideration that new modules may be created in the future. Prefix: `<t>`. +
-- `SEMESTER` Semester includes 2 components i.e. the academic year and semester period. The academic year and semester that the module was taken in / provided. Modulo only takes in +/- 5 years for academic year, assuming that students are able to graduate within 5 years. The semester period field takes in 1, 2, 3, 4. Semesters 3 and 4 indicates special term 1 and 2 respectively. Prefix: `<s>`. +
-- `CREDIT` Modular credit for the module. Module credit only accepts 2 to 23 credits. Prefix: `<c>`. +
-- `GRADE` Grades for the attained for the module. Only permitted http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/[grades] are accepted. SU is currently not supported. Prefix: `<g>`.
+- `MODULE_CODE` The module code of the module. e.g. CS2103 Prefix: `<m>` +
+- `TITLE` The title of the module. E.g. Software Engineering Prefix: `<t>`. +
+- `SEMESTER` Semester includes 2 components that are seperated by a 'S' character. i.e. the academic year and semester period. E.g. 1920S1 Prefix: `<s>`. +
+- `CREDIT` Modular credit for the module. Module credit only accepts 2 to 23 credits. E.g. 4 Prefix: `<c>`. +
+- `GRADE` Grades for the attained for the module. Only permitted http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/[grades] are accepted. E.g. A Prefix: `<g>`.
+
+.Input constraints for Add command
+[width="80%" cols="^3, ^10" options="header"]
+|=======
+| Field | Validity
+| ModuleCode | Module code should contain a set of 4 integers and no excessive characters.
+| Semester | Semester should contain valid academic years and semester period. The academic year stated can only be +/-5 years than the current year. While the semester period allows input from 1 to 4.
+| Title | The title of the module is left for you to define. It is valid as long as it does not have special characters.
+| Credit | As stated by NUS, the range of modular credit ranges from 2 to 23.
+| Grade | Only NUS approved grades are allowed i.e. A+, A, A-, B+, B, B-, C+, C, D+, D and F
+|=======
+
 
 .Semester Period Classifications
-[width="80%" options="header" cols="^1,^3"]
+[width="60%" options="header" cols="^1,^4"]
 |=======
 |Input| Semester Period
 | 1 | Semester 1
@@ -208,7 +228,7 @@ The fields of a module consist of: +
 |=======
 
 Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULAR_CREDIT GRADE`
-e.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <c>4 <g>A`
+E.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <c>4 <g>A`
 
 .List of sample commands
 [width="80%" cols="^3, 10" options="header"]
@@ -229,7 +249,7 @@ e.g. `delete CS2103`
 
 ==== Listing all tasks : `list`
 
-Shows the list of all modules in the grades tracker. +
+Shows the list of all modules in the Grades Tracker. +
 Format: `list`
 
 ==== Sort all tasks in chronological order : `sort`
@@ -243,20 +263,21 @@ Finds the module with the matching module code or module description.
 The enhanced search is case insensitive and matches any keyword in the module code or description e.g. `cs1010s` matches `CS1010S`
 
 The search method adopts the inclusive OR search method that returns any modules with the keyword.
-e.g. searching for `metho` will return `Programming Methodology I`, `Programming Methodology II`, `Web Programming and Applications`.
+e.g. searching for `metho` will return `Programming Methodology I` and `Programming Methodology II`.
 
-Format: `find MODULE_CODE [OTHER_KEYWORDS]`
+Format: `find KEYWORD`
 e.g. `find CS1010S`, `find Programming`
 
-==== Clear all modules in a specific semester or clean-slate all records : `clear`
+==== Clear all modules the record : `clear`
 Deletes all modules in the record. The user can avoid clearing modules one-by-one when large number of modules have to be cleared.
-When the only single keyword `clear` is entered, Modulo would recognise it as a command to clear all the modules. The action is irreversible.
+When the single keyword `clear` is entered, Modulo would recognise it as a command to clear all the modules. The action is irreversible!
 
 Format: `clear`
 e.g. `clear`
 
 ==== Categorisation [Coming in V2.0]
-Categorisation of the modules in their respective semesters.
+Categorisation of the modules in their respective semesters and predictive text.
+//end::Grades Tracker[]
 
 // tag::quizsection1[]
 === Quiz
@@ -576,7 +597,10 @@ Format: `*listb*`
 _Modulo_ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _Modulo_ folder.
+
+We have enjoyed budilding Modulo and we hope you have enjoyed Modulo like we do! We look forward to seeing you again in V2.0! May  you get good grades!
