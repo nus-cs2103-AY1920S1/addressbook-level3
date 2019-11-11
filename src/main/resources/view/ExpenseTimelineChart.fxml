@@ -16,7 +16,7 @@
         </xAxis>
 
         <yAxis>
-            <NumberAxis fx:id="YAxis" animated="false" label="Amount/$">
+            <NumberAxis fx:id="yAxis" animated="false" label="Amount/$">
             </NumberAxis>
         </yAxis>
     </LineChart>

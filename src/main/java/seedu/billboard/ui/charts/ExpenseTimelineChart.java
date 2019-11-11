@@ -30,6 +30,7 @@ import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.ExpenseTimeline;
 import seedu.billboard.model.statistics.generators.TimelineGenerator;
 import seedu.billboard.ui.charts.converters.FormattedDateConverter;
+import seedu.billboard.ui.charts.converters.TruncatedNumberConverter;
 
 /**
  * A chart showing the timeline for the currently displayed expenses.
@@ -79,6 +80,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
         formattedDateConverter = new FormattedDateConverter(getDateIntervalFormats(dateInterval.getValue()));
         xAxis.setTickLabelFormatter(formattedDateConverter);
         xAxis.setTickLabelRotation(90);
+        yAxis.setTickLabelFormatter(new TruncatedNumberConverter());
 
         updateTimeline(expenses, expenseGrouping.getValue(), dateInterval.getValue());
         setupListeners();
@@ -147,6 +149,7 @@ public class ExpenseTimelineChart extends ExpenseChart {
     private List<XYChart.Data<Long, BigDecimal>> transformToData(ExpenseTimeline timeline) {
         return timeline.getTimelineValues()
                 .stream()
+                .peek(pair -> System.out.println(pair.getValue().amount))
                 .map(this::dataFromPair)
                 .collect(toList());
     }
