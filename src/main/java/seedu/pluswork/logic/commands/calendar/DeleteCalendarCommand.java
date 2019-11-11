@@ -26,7 +26,7 @@ public class DeleteCalendarCommand extends Command {
             + "Parameters:" + PREFIX_MEMBER_NAME + "MEMBER_NAME\n"
             + "Example: " + COMMAND_WORD + PREFIX_MEMBER_NAME + "Gabriel";
 
-    public static final String MESSAGE_DELETE_CALENDAR_SUCCESS = "Deleted Calendar: %1$s";
+    public static final String MESSAGE_SUCCESS = "Deleted Calendar: %1$s";
 
     private final MemberName calendarMemberName;
 
@@ -44,7 +44,7 @@ public class DeleteCalendarCommand extends Command {
         for (CalendarWrapper calendar : calendarWrapperList) {
             if (calendar.hasMemberName(calendarMemberName)) {
                 model.deleteCalendar(calendar);
-                return new CommandResult(String.format(MESSAGE_DELETE_CALENDAR_SUCCESS, calendar));
+                return new CommandResult(String.format(MESSAGE_SUCCESS, calendar));
             }
         }
         throw new CommandException(Messages.MESSAGE_INVALID_CALENDAR_MEMBER_NAME);

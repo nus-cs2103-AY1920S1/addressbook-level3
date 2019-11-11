@@ -41,8 +41,7 @@ public class IndivMeetingCard extends UiPart<Region> {
 
         displayIndex.setText(index + ". ");
 
-        meetingTime.setText(DateTimeUtil.displayDateTime(meeting.getStartTime()) + " - "
-                + meeting.getEndTime().toLocalTime().toString());
+        meetingTime.setText(DateTimeUtil.displayDateRange(meeting.getStartTime(), meeting.getEndTime()));
         ObservableList<MemberName> memberList = meeting.getMemberNameList();
         String memberListString = "";
         for (int i = 0; i < memberList.size(); i++) {

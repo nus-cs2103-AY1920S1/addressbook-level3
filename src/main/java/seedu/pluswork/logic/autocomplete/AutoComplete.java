@@ -1,5 +1,6 @@
 package seedu.pluswork.logic.autocomplete;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -64,11 +65,11 @@ public class AutoComplete {
                 return members;
 
             case "s/":
-                List<String> taskStatus = List.of("done", "unbegun", "doing");
+                List<String> taskStatus = Arrays.asList("done", "unbegun", "doing");
                 return new LinkedList<>(taskStatus);
 
             case "ty/":
-                List<String> inventoryType = List.of("members", "tasks");
+                List<String> inventoryType = Arrays.asList("members", "tasks");
                 return new LinkedList<>(inventoryType);
 
             case "tt/":
