@@ -26,7 +26,7 @@ The implementation was very challenging as one command had to be suited for vari
 * *Minor enhancement*:
 ** Added a getgrades and getunsubmitted command to retrieve students grades and unsubmitted assignments respectively.
 ** Refactored the code from AB3 with persons, to students and added in additional fields (MedicalConditions, ParentPhone).
-** Added various general commands - FindAssignmentCommand, DeleteClassroomCommand etc and improved on peers codes.
+** Added various CRUD commands - FindAssignmentCommand, DeleteClassroomCommand etc and improved on peers codes.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=weikiat97&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tP code Dashboard]]
 
@@ -36,6 +36,7 @@ The implementation was very challenging as one command had to be suited for vari
 *** Managed releases `v1.1 - v1.3` (4 releases) on GitHub
 *** Added Travis, Coveralls and AppVeyor support for the team
 *** Gave comments to peers before merging PRs.
+*** Helped to make overall code base neater with comments and removed unnecessary methods. (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/202[#202])
 *** Helped to merge and fix all merge conflicts among the PRs in the team (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/60[#60])
 ** Enhancements to existing features:
 *** Retrieving specific students grades and updating grades individually (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/84/[#84])

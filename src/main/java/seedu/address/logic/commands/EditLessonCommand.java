@@ -38,7 +38,7 @@ public class EditLessonCommand extends Command {
             + "[" + PREFIX_STARTTIME + "START TIME] "
             + "[" + PREFIX_ENDTIME + "END TIME] "
             + "[" + PREFIX_REPEAT + "REPEAT] "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_DAY + "3 "
             + PREFIX_LESSONNAME + "Math 3E7 "
             + PREFIX_STARTTIME + "14/10/2019 1200";

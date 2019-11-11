@@ -32,4 +32,5 @@ public interface ReadOnlyNotebook {
      * This list will not contain any duplicate lessons..
      */
     ObservableList<Lesson> getLessonList();
+
 }

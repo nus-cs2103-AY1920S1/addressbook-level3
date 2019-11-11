@@ -1,18 +1,18 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-//import static seedu.address.logic.commands.CommandTestUtil.ASSIGNMENT_DEADLINE_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.ASSIGNMENT_DEADLINE_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.ASSIGNMENT_DEADLINE_DESC_MATH;
-//import static seedu.address.logic.commands.CommandTestUtil.ASSIGNMENT_NAME_DESC_ENGLISH;
+import static seedu.address.logic.commands.CommandTestUtil.ASSIGNMENT_NAME_DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.ASSIGNMENT_NAME_DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_DEADLINE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ASSIGNMENT_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-//import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_DEADLINE_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_NAME_MATH;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-//import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalAssignments.ASSIGNMENT_MATH;
 
 import org.junit.jupiter.api.Test;
@@ -32,16 +32,16 @@ public class AddAssignmentCommandParserTest {
         Assignment expectedAssignment = new AssignmentBuilder(ASSIGNMENT_MATH).build();
 
         // whitespace only preamble
-        //assertParseSuccess(parser, PREAMBLE_WHITESPACE + ASSIGNMENT_NAME_DESC_MATH
-        //        + ASSIGNMENT_DEADLINE_DESC_MATH, new AddAssignmentCommand(expectedAssignment));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + ASSIGNMENT_NAME_DESC_MATH
+                + ASSIGNMENT_DEADLINE_DESC_MATH, new AddAssignmentCommand(expectedAssignment));
 
         // multiple assignment names - last assignment name accepted
-        //assertParseSuccess(parser, ASSIGNMENT_NAME_DESC_ENGLISH + ASSIGNMENT_NAME_DESC_MATH
-        //                + ASSIGNMENT_DEADLINE_DESC_MATH, new AddAssignmentCommand(expectedAssignment));
+        assertParseSuccess(parser, ASSIGNMENT_NAME_DESC_ENGLISH + ASSIGNMENT_NAME_DESC_MATH
+                        + ASSIGNMENT_DEADLINE_DESC_MATH, new AddAssignmentCommand(expectedAssignment));
 
         // multiple deadlines - last deadline accepted
-        //assertParseSuccess(parser, ASSIGNMENT_DEADLINE_DESC_MATH + ASSIGNMENT_DEADLINE_DESC_ENGLISH
-        //        + ASSIGNMENT_DEADLINE_DESC_MATH, new AddAssignmentCommand(expectedAssignment));
+        assertParseSuccess(parser, ASSIGNMENT_NAME_DESC_MATH + ASSIGNMENT_DEADLINE_DESC_ENGLISH
+                + ASSIGNMENT_DEADLINE_DESC_MATH, new AddAssignmentCommand(expectedAssignment));
     }
 
     @Test

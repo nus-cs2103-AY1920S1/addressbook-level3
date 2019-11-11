@@ -25,7 +25,9 @@ and hence should not reside within the classroom class.
  of existing structure and relations between existing classes. The implementation too was challenging as it required changes
  to the entire structure of the application, from logic and commands to storage.
 * *Minor enhancement*: Added color to indicate selection of classrooms
-* *Code contributed*:
+
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=Xelyion&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom[tP dashboard]
 
 * *Other contributions*:
 
@@ -36,7 +38,10 @@ and hence should not reside within the classroom class.
 ** Enhancements to existing features:
 *** Added the ability to create classrooms within the Notebook class and set different classrooms (Pull Request https://github.com/AY1920S1-CS2103-T14-1/main/pull/92[#92])
 *** Added the ability to add grades to Assignment in bulk (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/84/[#84])
+*** Added the ability to differentiate a completed assignment from and uncompleted assignment. (Pull Request https://github.com/AY1920S1-CS2103-T14-1/main/pull/201[#201])
 *** Added the ability to toggle between Student and Assignment lists in a combined panel (Pull Request https://github.com/AY1920S1-CS2103-T14-1/main/pull/63[#63])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide so that they are more coherent: https://github.com/AY1920S1-CS2103-T14-1/main/pull/88/[#88]
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments)
@@ -58,7 +63,7 @@ include::../UserGuide.adoc[tag=assignments]
 write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=assignment]
 
 
 == PROJECT: PowerPointLabs
