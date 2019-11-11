@@ -603,12 +603,12 @@ Given below is an example usage of how `sort` behaves at each step.
 **Step 1**. The user launches the application and views an unsorted list of transactions.
 
 .Initial State of PalPay
-image::sort_dg_1.png[pdfwidth=70%, align="center"]
+image::sort_dg_1.png[]
 
 **Step 2**. The user now executes `sort date/d` to sort the transactions in the order of descending date.
 
-//.User Inputs `sort date/d`
-//image::sort_dg_2.png[pdfwidth=70%, align="center"]
+.User Inputs `sort date/d`
+image::sort_dg_2.png[]
 
 **Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
 
@@ -632,7 +632,7 @@ save the latest state of the application.
 at the end.
 
 .After Sorting of Transactions
-image::sort_dg_3.png[pdfwidth=70%, align="center"]
+image::sort_dg_3.png[]
 
 ==== Design Considerations
 
