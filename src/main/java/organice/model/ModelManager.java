@@ -373,8 +373,11 @@ public class ModelManager implements Model {
             MatchedPatient matchedPatient = new MatchedPatient(patient);
             matchedPatient.setNumberOfMatches(numberOfMatches);
             addMatchedPatient(matchedPatient);
+            logger.info(String.format("----------------[MATCH ALL] Patient: %s\n Number of Matches: %d",
+                    patient.toString(), numberOfMatches));
         }
         setDisplayedPersonList(Arrays.asList(listOfMatches.toArray(Person[]::new)));
+        logger.info("----------------[MATCH ALL] All Patients matched!");
     }
 
     /**

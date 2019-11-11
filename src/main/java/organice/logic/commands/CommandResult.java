@@ -23,9 +23,6 @@ public class CommandResult {
 
     private final Type formType;
 
-    /** This Command Result is marked as a Match Command */
-    private boolean isMatch;
-
     /** This Command Result is marked as a Sort Command */
     private boolean isSort;
 
@@ -38,7 +35,7 @@ public class CommandResult {
         this.exit = exit;
         this.form = form;
         this.formType = formType;
-        this.isMatch = false;
+        this.isSort = false;
     }
 
     /**
@@ -83,12 +80,14 @@ public class CommandResult {
         return form;
     }
 
-    public void setMatch(boolean isMatch) {
-        this.isMatch = isMatch;
+
+    public void setSort(boolean isSort) {
+        this.isSort = isSort;
     }
 
-    public boolean isMatch() {
-        return isMatch;
+    public boolean isSort() {
+        return isSort;
+
     }
 
     @Override
