@@ -1,6 +1,5 @@
 = YongKuan - Project Portfolio
 :site-section: AboutUs
-:toc:
 :experimental:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -20,7 +19,7 @@ desired courses in the upcoming academic term, and represent special circumstanc
 human judgement to resolve.
 
 .Sample User Interface of MAMS
-image::Ui.png[height=50%]
+image::Ui.png[width="790"]
 
 **The Module Appeal Management System (MAMS)** is hence a desktop app that aims
 to fuse a Command Line Interface (CLI) style command input with a triple-pane
@@ -123,23 +122,19 @@ https://github.com/AY1920S1-CS2103-T11-2/main/pull/203[#203])
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-=== Introduction
-[discrete]
-include::../UserGuide.adoc[tag=intro]
-
-=== Quick Start
-[discrete]
-include::../UserGuide.adoc[tag=quickStart]
-
 === Features
-[discrete]
-include::../UserGuide.adoc[tag=featuresPreamble]
 
 include::../UserGuide.adoc[tag=view]
 
 include::../UserGuide.adoc[tag=list]
 
 include::../UserGuide.adoc[tag=history]
+
+<<../UserGuide.adoc#intro, Other UG Contributions: Introduction>>
+
+<<../UserGuide.adoc#quickStart, Other UG Contributions: Quick Start>>
+
+<<../UserGuide.adoc#Features, Other UG Contributions: Command Format and Features Preamble>>
 
 == Contributions to the Developer Guide
 
@@ -151,18 +146,16 @@ include::../DeveloperGuide.adoc[tag=ui]
 
 include::../DeveloperGuide.adoc[tag=history]
 
-=== Product Scope
-[discrete]
-include::../DeveloperGuide.adoc[tag=productScope]
-
-include::../DeveloperGuide.adoc[tag=uc1]
-
 include::../DeveloperGuide.adoc[tag=uc5]
 
-include::../DeveloperGuide.adoc[tag=testingView]
+<<../DeveloperGuide.adoc#productScope, Other DG Contributions: Product Scope>>
 
-include::../DeveloperGuide.adoc[tag=testingList]
+<<../DeveloperGuide.adoc#uc01, Other DG Contributions: Use Case UC01>>
 
-include::../DeveloperGuide.adoc[tag=testingHistory]
+<<../DeveloperGuide.adoc#testingView, Other DG Contributions: Manual Testing for view command>>
+
+<<../DeveloperGuide.adoc#testingList, Other DG Contributions: Manual Testing for list command>>
+
+<<../DeveloperGuide.adoc#testingHistory, Other DG Contributions: Manual Testing for history features>>
 
 

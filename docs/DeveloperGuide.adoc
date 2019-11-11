@@ -572,8 +572,8 @@ Below is a class diagram depicting the relationship between the involved classes
 through previous inputs in the command box.
 
 
-.Class Diagram depicting classes involved in cycling through command history.
-image::CycleCommandHistoryClassDiagram.png[]
+.Class Diagram depicting classes involved in cycling through the command history.
+image::CycleCommandHistoryClassDiagram.png[width="790", align="center"]
 
 `CommandHistory` provides an unmodifiable view into the command history using an `ObservableList`
 passed to `CommandBox` upon initialization. `CommandBox` uses this list to reinitialize and
@@ -587,7 +587,7 @@ depicted for brevity.
 
 
 .Sequence Diagram depicting a possible execution path for cycling through history entries.
-image::CycleCommandHistorySequenceDiagram.png[]
+image::CycleCommandHistorySequenceDiagram.png[width=350, align="center"]
 
 The diagram above first shows how `CommandBox` re-initializes and updates `ListPointer` after
 a command has been entered. Thereafter (in the period between command inputs),
@@ -646,7 +646,7 @@ The following activity sequence diagram provides a high-level view
 of how the command is executed, along with the behaviour of the history window:
 
 .HistoryCommand Activity Diagram
-image::HistoryCommandActivityDiagram.png[]
+image::HistoryCommandActivityDiagram.png[width=400, align="center"]
 
 One specific execution example of the show-history feature with
 more specific implementation details is as follows:
@@ -672,7 +672,7 @@ This specific execution case is shown in the following sequence diagram. Note th
 methods are omitted for brevity.
 
 .`HistoryCommand` Sequence Diagram for the specific input `history -o -s`
-image::HistoryCommandSequenceDiagram.png[]
+image::HistoryCommandSequenceDiagram.png[width="790", align="center"]
 
 NOTE: The lifeline for `HistoryCommandParser` and `HistoryCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -830,7 +830,7 @@ and contains methods for freely converting itself back to the native `InputOutpu
 Below is a class diagram depicting the relationship between the involved classes in JSON serializing of `CommandHistory`
 
 .Class diagram of the classes involved in saving and loading of `CommandHistory` from disk.
-image::CommandHistoryStorageClassDiagram.png[]
+image::CommandHistoryStorageClassDiagram.png[width=200, align="center"]
 
 **Design Considerations:**
 
@@ -968,6 +968,7 @@ Refer to the guide <<Testing#, here>>.
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
+[[productScope]]
 == Product Scope
 // tag::productScope[]
 
@@ -1110,6 +1111,7 @@ warnings of modules likely to receive appeal requests
 Actor is the admin, unless specified otherwise)
 
 // tag::uc1[]
+[[uc01]]
 [discrete]
 === UC01: Resolving an Appeal Request to Drop a Pre-allocated Module
 
@@ -1261,13 +1263,6 @@ student and student’s existing modules.
 *Use case resumes at step 2.*
 
 [none]
-* 1c. Admin wants to show only commands that modified disk data (Coming in v2.0)
-[none]
-** 1c1. Admin specifies this intention in the instruction to MAMS.
-** 1c2. MAMS hides all commands that did not modify disk data.
-*Use case resumes at step 2.*
-
-[none]
 * 2a. Admin uses hot-keys to navigate entries in command history view.
 +
 *Use case resumes at step 3.*
@@ -1280,24 +1275,11 @@ student and student’s existing modules.
 +
 *Use case resumes at step 3.*
 
-* 2c. Admin wants to repeat a certain sequence of commands in the history on current data source. (Coming in v2.0)
-+
-[none]
-** 2c1. Admin specifies this intention as an instruction to MAMS.
-** 2c1. MAMS repeats the sequence of commands and displays command output.
-+
-*Use case ends.*
-
 * 2d. Admin wants to undo a certain command entry in the history (not necessarily the last executed command) (Coming in v2.0)
 +
 [none]
 ** 2d1. Admin specifies this intention as an instruction to MAMS (hot-key or otherwise).
 ** 2d1. MAMS attempts to undo the command, and shows the corresponding feedback.
-+
-*Use case ends.*
-
-[none]
-* 2c. Admin uses hot-keys to exit command history view.
 +
 *Use case ends.*
 
@@ -1452,7 +1434,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: The most recent window size and location is retained.
 
 // tag::testingView[]
-
+[[testingView]]
 === Viewing a MAMS data item
 
 . Viewing a single item when all items (appeals, modules, and students) are listed
@@ -1542,7 +1524,7 @@ Command fails, and details are shown in error message.
 //end::testingView[]
 
 // tag::testingList[]
-
+[[testingList]]
 === Listing MAMS items
 
 . Listing out all items when all three list displays were previously in expanded views.
@@ -1607,7 +1589,7 @@ Command fails, and details are shown in error message.
 //end::testingList[]
 
 // tag::testingHistory[]
-
+[[testingHistory]]
 === Cycling through command history in command box
 
 . Cycling back to previous commands from blank box (non empty history):

@@ -16,6 +16,7 @@ endif::[]
 
 By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
 
+[[intro]]
 == Introduction
 // tag::intro[]
 
@@ -33,6 +34,7 @@ provides a suite of commands for resolving appeals,
 overriding MC limits, and allocation of modules to students.
 //end::intro[]
 
+[[quickStart]]
 == Quick Start
 // tag::quickStart[]
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -63,7 +65,7 @@ folder structure/names look a little like the below:
 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::Ui.png[width="790", align="center"]
 +
 .  NOTE: If the GUI does not display any items on startup,
 the previous step was performed incorrectly.
@@ -152,11 +154,11 @@ Sample Input:
 
 * `view m/7`
 
-image::ViewCommandDemoBefore.png[width="790"]
+image::ViewCommandDemoBefore.png[width="790", align="center"]
 
 Sample Output: Fully expanded administrative details of the module at index 7.
 
-image::ViewCommandDemoAfter.png[width="790"]
+image::ViewCommandDemoAfter.png[width="790", align="center"]
 
 // end::view[]
 
@@ -184,11 +186,11 @@ Sample Input:
 
 * `list -a -s`
 
-image::ListCommandDemoBefore.png[width="790"]
+image::ListCommandDemoBefore.png[width="790", align="center"]
 
 Sample Output: Lists all appeals and students in MAMS
 
-image::ListCommandDemoAfter.png[width="790"]
+image::ListCommandDemoAfter.png[width="790", align="center"]
 
 //end::list[]
 
@@ -204,11 +206,11 @@ in the command history respectively, in a style similar to most CLI terminals.
 
 Example:
 
-image::HistoryCommandArrowDemoBefore.png[width="790"]
+image::HistoryCommandArrowDemoBefore.png[width="790", align="center"]
 
 After pressing kbd:[&uarr;]
 
-image::HistoryCommandArrowDemoAfter.png[width="790"]
+image::HistoryCommandArrowDemoAfter.png[width="790", align="center"]
 
 ==== Show command history: `history`
 
@@ -244,19 +246,20 @@ Sample Input:
 
 * `history`
 
-image::HistoryCommandDemo.png[width="790"]
+image::HistoryCommandDemo.png[width="790", align="center"]
 
 Sample Output: Opens a window displaying command history
 
-image::HistoryWindowDemo.png[width="790"]
+image::HistoryWindowDemo.png[width="790", align="center"]
 
 After pressing kbd:[&uarr;] two times,
 
-image::HistoryWindowUpArrowDemo.png[width="790"]
+image::HistoryWindowUpArrowDemo.png[width="790", align="center"]
 
 Now, after pressing kbd:[q], the command text of the selected cell will be copied,
 
-image:HistoryWindowCopyDemo.png[width="790"]
+
+image:HistoryWindowCopyDemo.png[width="789", align="center"]
 
 ==== Sync Command History to disk
 
@@ -299,7 +302,7 @@ Student list defaults to expanded view since there is only 1 search result.
 
 _CS1020 and CS2105 are displayed since they contain "programming" in their Module Description. You may use `view` command to see._
 
-image::FindDemoSingleKeyword.png[width="790"]
+image::FindDemoSingleKeyword.png[width="790", align="center"]
 
 // end::find[]
 
@@ -309,7 +312,7 @@ Sample Output:
 
 All items containing "add" or "drop" in Appeal list are displayed.
 
-image::FindDemoMultipleKeywords.png[width="790"]
+image::FindDemoMultipleKeywords.png[width="790", align="center"]
 
 * `find m/cs10`
 
@@ -319,8 +322,7 @@ All items containing "cs10" in Module list are displayed. (i.e. CS1010, CS1020, 
 
 _CS2030 is also displayed since it contains "cs10" in its module description._
 
-image::FindDemoModuleSearch.png[width="790"]
-
+image::FindDemoModuleSearch.png[width="790", align="center"]
 
 //tag::clash[]
 
@@ -344,13 +346,13 @@ Examples:
 
 Sample output:
 
-image::ClashCommandInvalidAppealType.png[width="790"]
+image::ClashCommandInvalidAppealType.png[width="790", align="center"]
 
 * `clash a/6`
 
 Sample output:
 
-image::AppealClashDetected.png[width="790"]
+image::AppealClashDetected.png[width="790", align="center"]
 
 ==== Check clashes in a student's timetable
 
@@ -366,7 +368,7 @@ Examples:
 
 Sample output:
 
-image::StudentClashDetected.png[width="790"]
+image::StudentClashDetected.png[width="790", align="center"]
 
 ==== Check clashes between 2 modules
 This command checks if the lecture slots of 2 modules have clashes, and displays the result to the user.
@@ -379,13 +381,13 @@ Examples:
 
 Sample output:
 
-image::NoClashDetectedResponse.png[width="790"]
+image::NoClashDetectedResponse.png[width="790", align="center"]
 
 * `clash m/1 m/3`
 
 Sample output:
 
-image::ModuleClashDetected.png[width="790"]
+image::ModuleClashDetected.png[width="790", align="center"]
 
 // end::clash[]
 
@@ -406,25 +408,25 @@ Sample input 1:
 
 * `addmod s/1 m/7`
 
-image::AddModCommandDemoBefore1.png[width="790"]
+image::AddModCommandDemoBefore1.png[width="790", align="center"]
 
 Sample output:
 
 `Added module to : Celina Conyers`
 
-image::AddModCommandDemoAfter1.png[width="790"]
+image::AddModCommandDemoAfter1.png[width="790", align="center"]
 
 Sample input 2:
 
 * `addmod s/1 m/1`
 
-image::AddModCommandDemoBefore2.png[width="790"]
+image::AddModCommandDemoBefore2.png[width="790", align="center"]
 
 Sample output:
 
 * `Unable to add module to student as the student already has already completed the module `
 
-image::AddModCommandDemoAfter2.png[width="790"]
+image::AddModCommandDemoAfter2.png[width="790", align="center"]
 
 ==== Removing a module from student's timetable
 This command removes a existing module from a student.
@@ -442,25 +444,25 @@ Sample input 1:
 
 * `removemod s/1 m/CS2101`
 
-image::RemoveModCommandDemoBefore1.png[width="790"]
+image::RemoveModCommandDemoBefore1.png[width="790", align="center"]
 
 Sample output:
 
 * `Removed module from : Celina Conyers`
 
-image::RemoveModCommandDemoAfter1.png[width="790"]
+image::RemoveModCommandDemoAfter1.png[width="790", align="center"]
 
 Sample input 2:
 
 * `removemod s/A0180001 m/CS2105`
 
-image::RemoveModCommandDemoBefore2.png[width="790"]
+image::RemoveModCommandDemoBefore2.png[width="790", align="center"]
 
 Sample output:
 
 * `Student is not registered for this module.`
 
-image::RemoveModCommandDemoAfter2.png[width="790"]
+image::RemoveModCommandDemoAfter2.png[width="790", align="center"]
 
 //tag::setcredits[]
 === Update maximum workload for a student: `setcredits`
@@ -504,11 +506,11 @@ Sample Input:
 
 * `approve a/4 r/watch your workload`
 
-image::beforeApprove.png[width="790"]
+image::beforeApprove.png[width="790", align="center"]
 
 Sample Output:
 
-image::afterApprove.png[width="790"]
+image::afterApprove.png[width="790", align="center"]
 
 ==== Approve appeals in bulk
 Format: `approve mass/ [APPEAL_ID]...`
@@ -519,11 +521,11 @@ Sample Input:
 
 * `approve mass/ C0000005  C000006 C000002  C000212 Cdfdsf`
 
-image::beforemassapprove.png[width="790"]
+image::beforemassapprove.png[width="790", align="center"]
 
 Sample Output:
 
-image::aftermassapprove.png[width="790"]
+image::aftermassapprove.png[width="790", align="center"]
 //end::approve[]
 
 //tag::reject[]
@@ -539,11 +541,11 @@ Sample Input:
 
 * `reject a/1 r/student not suitable for high work load`
 
-image::beforeReject.png[width="790"]
+image::beforeReject.png[width="790", align="center"]
 
 Sample Output:
 
-image::afterReject.png[width="790"]
+image::afterReject.png[width="790", align="center"]
 
 ==== Reject appeals in bulk
 Format: `reject mass/ [APPEAL_ID]...`
@@ -554,11 +556,11 @@ Sample Input:
 
 * `reject mass/ C000000  C000007`
 
-image::beforemassreject.png[width="790"]
+image::beforemassreject.png[width="790", align="center"]
 
 Sample Output:
 
-image::aftermassreject.png[width="790"]
+image::aftermassreject.png[width="790", align="center"]
 
 //end::reject[]
 
@@ -589,11 +591,11 @@ Format: `help`
 
 Sample Input: `help`
 
-image::HelpCommandDemoBefore.png[width="790"]
+image::HelpCommandDemoBefore.png[width="790", align="center"]
 
 Sample Output: Help window displayed.
 
-image::HelpCommandDemoAfter.png[width="790"]
+image::HelpCommandDemoAfter.png[width="790", align="center"]
 
 === Exiting the application: `exit`
 Exits the application, and closes all windows. Alternatively, the user may click on the
