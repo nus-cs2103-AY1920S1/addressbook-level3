@@ -273,7 +273,7 @@ Shown below is the class diagram of `Budget` class:
 image::BudgetClassDiagram.png[]
 
 
-Displaying the percentage improves the user experience greatly as our target user is a
+Displaying the percentage remaining improves the user experience greatly as our target user is a
 `visual person who wants to see how much budget he has left in each category so as to cut down on spending as necessary`
 as specified in <<User-Stories, user stories>>. Hence, taking a quick glance at the `Budget card` allows the user to
 determine how much of budget he has left, as well as be alarmed by the red font colour to spend less if he has overspent beyond the budget set. +
@@ -290,17 +290,25 @@ public String displayPercentage() {
 }
 ```
 
-Shown below is an example of an overspent budget. Budget is displayed in red to alert the user that
-he has overspent beyond the set budget:
+Moreover, as our user is a visual person, PalPay makes use of colour to display different messages.
+For instance, budget is displayed in red to alert the user that he has overspent beyond the set budget. +
+
+Shown below is an example of an overspent budget:
 
 .Example of an overspent budget
 image::overspentBudget.png[]
 
+
 When setting a new `Budget`, existence of a duplicate budget is checked through a sequence of checks.
-The activity diagram below shows a simple successful case of setting a new budget:
+The activity diagram below shows the activity diagram of setting a new budget:
 
 .Activity Diagram of successfully setting a new Budget
 image::SetBudgetSimpleActivityDiagram.png[]
+
+As shown, a new budget cannot have the same *initalAmount*, *deadline* and *categories* as any other existing budget in
+budget list. Allowing existence of duplicate budgets will crowd the interface of `Budget` tab,
+which prevents the user from getting a quick overview of his budget status. Hence, a duplicate check is essential
+in providing a pleasing user experience. +
 
 ==== Design Considerations
 
