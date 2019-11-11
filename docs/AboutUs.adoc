@@ -43,6 +43,7 @@ Responsibilities: *Logic Component*
 === Poon Jeun Hoe
 image::jeunhoe.png[width="150", align="left"]
 {empty}[https://github.com/jeunhoe[github]]
+{empty} [https://ay1920s1-cs2103t-t12-3.github.io/main/team/jeunhoe.html[portfolio]]
 
 Role: Quality Assurance Engineer +
 Responsibilities: Code quality, Documentation, *Storage Component*
