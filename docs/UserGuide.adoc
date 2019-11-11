@@ -526,11 +526,14 @@ Changes the current window to the TypingGame window which has a kbd:[Start] butt
 image::StartWindow.png[width="600"]
 Click the kbd:[Start] button to open the game in a new window.
 
-.Sample game play
-image::GameWindow.png[width="600"]
-
 There are moving words that you can type in order to score points. Once you correctly type the specified word,
 the word disappears and the increase in points is reflected in the player information panel in the game window.
+
+.Sample game play
+image::GameWindow.png[width="400"float="left"]
+[.left]
+.Sample game play when game is over
+image::GameOver.png[width="400"]
 
 [TIP]
 Press kbd:[SPACEBAR] or kbd:[Enter] to clear the text area which is located at the bottom of the screen.
@@ -546,8 +549,6 @@ Closing the game midway would result in loss of in-game progress.
 
 After the health points reaches zero, `GAME OVER` is displayed as shown below.
 
-.Sample game play when game is over
-image::GameOver.png[width="600"]
 
 Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
 If you want to play the game again, click the kbd:[Start] button shown in the Start window.
