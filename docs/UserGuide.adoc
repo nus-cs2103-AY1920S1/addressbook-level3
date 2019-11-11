@@ -51,6 +51,7 @@ These are the steps you should take:
 
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
+
 image::Gui.png[width=450]
 
 .  Type the command in the command box and press kbd:[Enter] to execute it. +

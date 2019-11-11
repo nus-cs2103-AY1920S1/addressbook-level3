@@ -648,9 +648,9 @@ a|* Requires more flags to be added to the command syntax which makes it more co
 
 * Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.
 
-
-=== Select feature
 //tag::select[]
+=== Select feature
+
 The `select` feature allows user to view the profile of a selected athlete.
 
 ==== Implementation
@@ -698,7 +698,7 @@ to parse the argument.
 After the argument has been parsed, the athlete is stored in the Model component which houses most of the data in the
 app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected athlete.
 
-The following sequence diagram shows the `select` feature works:
+The following sequence diagram shows how the `select` feature works:
 
 .Sequence Diagram of `select` Command
 image::SelectCommandSequenceDiagram.png[]
@@ -851,17 +851,17 @@ accumulate. As such, we decided to go with the first alternative.
 //end::undoredo[]
 //tag::photo[]
 === Adding/editing photo feature
+The sub feature of `[green]#AddCommand#` and `[green]#EditCommand#` allows the inclusion of photo for an athlete.
+
 ==== Implementation
-The sub feature of `[green]#AddCommand#` and `[green]#EditCommand#` allows the inclusion of photo for an athlete. The
-sub feature is
-facilitated by `[green]#Photo#`.
+The sub feature is facilitated by `[green]#Photo#`. It is similar to the other features such as `[green]#Name#` and
+`[green]#Phone#` which uses a prefix `i/` followed by the file name (e.g. `i/default.png`). Prior to adding the photo
+of an athlete, the image file that is going to be used has to be in the `images` folder which will be generated when the
+jar file is executed. `[green]#Photo#` takes in the file name as a `[green]#String#` and retrieves the photo to be added
+or edited from the `images` folder.
 
-This sub feature is similar to the other features such as `[green]#Name#` and `[green]#Phone#` which uses a prefix `i/`
-followed by the file name (e.g. `i/default.png`). Prior to adding the photo of an athlete, the image file that is going to be used
-has to be in the `images` folder which will be generated when the jar file is executed. `[green]#Photo#` takes in the
-file name as a `[green]#String#` and retrieves the photo to be added or edited from the `images` folder.
-
-NOTE: The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
+[NOTE]
+The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
 This is done to keep the file name simple.
 
 ==== Design Consideration
