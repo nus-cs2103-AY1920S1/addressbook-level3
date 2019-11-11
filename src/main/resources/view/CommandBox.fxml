@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <StackPane HBox.hgrow="ALWAYS">
@@ -21,7 +20,7 @@
                   <Insets left="10.0" />
                </padding>
             </TextField>
-            <Label prefHeight="24.0" prefWidth="12.0" text="&gt;" StackPane.alignment="CENTER_LEFT">
+            <Label focusTraversable="false" prefHeight="24.0" prefWidth="12.0" text="&gt;" StackPane.alignment="CENTER_LEFT">
                <StackPane.margin>
                   <Insets />
                </StackPane.margin>
@@ -31,7 +30,7 @@
             </Label>
          </children>
       </StackPane>
-      <Button mnemonicParsing="false" onMouseClicked="#handleCommandEntered" text="Send">
+      <Button focusTraversable="false" mnemonicParsing="false" onMouseClicked="#handleCommandEntered" text="Send">
          <HBox.margin>
             <Insets left="5.0" top="3.0" />
          </HBox.margin>

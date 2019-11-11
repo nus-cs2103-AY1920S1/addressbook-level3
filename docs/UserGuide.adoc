@@ -257,7 +257,7 @@ To enter the details of the report into VISIT:
 1. Type `addvisit 1 v/03/01/2019` into the command box and press kbd:[Enter] to execute it.
 +
 [.text-center]
-image::UGAddVisit0.png[width="790"]
+image::UGAddVisit0.png[width="500"]
 +
 * Date must be in the "dd/MM/yyyy" format (e.g. `v/19/10/2019`). The valid range of dates starts from the year 1900 and ends at year 2999 (inclusive).
 [TIP]
@@ -265,7 +265,7 @@ If no date is specified and the command is used without the prefix 'v/' (for exa
 2. Key in the details in the respective fields of the pop-up form that appears.
 +
 [.text-center]
-image::UGAddVisit1.png[width="790"]
+image::UGAddVisit1.png[width="500"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
 * Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
@@ -273,14 +273,14 @@ image::UGAddVisit1.png[width="790"]
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 +
 [.text-center]
-image::UGAddVisit2.png[width="790"]
+image::UGAddVisit2.png[width="500"]
 +
 
 [NOTE]
 While  `addvisit 1` is valid, typing in `addvisit 1 v/` without a valid date will give an error.
 
 [.text-center]
-image::UGAddVisit3.png[width="790"]
+image::UGAddVisit3.png[width="500"]
 ==== Editing the particulars of a visitation report : `editvisit`
 
 Opens a pop-up panel that enables the editing of an existing visitation report of a particular patient. +
@@ -290,7 +290,7 @@ Format: `editvisit INDEX [i/REPORT_INDEX]`
 If no report index is specified, `editvisit INDEX` or `editvisit INDEX i/` will open a panel showing the reports of that patient and the relevant indexes of the reports. To edit the visit report, simply re-enter the command with the desired report index.
 
 [.text-center]
-image::UGEditVisit0.png[width="790"]
+image::UGEditVisit0.png[width="500"]
 
 *Example*:
 
@@ -299,12 +299,12 @@ Let's say you want to edit the 2nd visit report of a patient and the patient is 
 1. Type `editvisit 3 i/2` into the command box and press kbd:[Enter] to execute it.
 +
 [.text-center]
-image::UGEditVisit1.png[width="790"]
+image::UGEditVisit1.png[width="500"]
 +
 2. Key in the details in the respective fields of the pop-up form(which is pre-filled with the existing information of the report) that appears.
 +
 [.text-center]
-image::UGEditVisit2.png[width="790"]
+image::UGEditVisit2.png[width="500"]
 +
 * Press kbd:[CTRL] + kbd:[Tab] to navigate to the next field (down)
 * Press kbd:[SHIFT] + kbd:[Tab] to navigate to the previous field (up)
@@ -312,13 +312,13 @@ image::UGEditVisit2.png[width="790"]
 4. The pop-up form closes and the display box will display a message indicating a successful entry.
 
 [.text-center]
-image::UGEditVisit3.png[width="790"]
+image::UGEditVisit3.png[width="500"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
 
 [.text-center]
-image::UGEditVisit4.png[width="790"]
+image::UGEditVisit4.png[width="500"]
 
 ==== Deleting a visitation report : `deletevisit`
 
@@ -329,7 +329,7 @@ Format: `deletevisit INDEX [d/REPORT_INDEX]`
 If no report index is specified, `deletevisit INDEX` or `deletevisit INDEX d/` will open a panel showing the reports of that patient and their relevant indexes of the reports. To delete the visit, simply re-enter the command with the desired report index.
 
 [.text-center]
-image::UGDeleteVisit0.png[width="790"]
+image::UGDeleteVisit0.png[width="500"]
 
 *Example*:
 
@@ -338,23 +338,23 @@ Let's say you want to delete the 1st visit report of a patient and the patient i
 1. Type `deletevisit 2 d/1` into the command box and press kbd:[Enter] to execute it.
 +
 [.text-center]
-image::UGDeleteVisit1.png[width="790"]
+image::UGDeleteVisit1.png[width="500"]
 +
 2. A panel showing the list of reports will be shown, now without the deleted report and the display box will display a message indicating a successful deletion.
 
 [.text-center]
-image::UGDeleteVisit2.png[width="790"]
+image::UGDeleteVisit2.png[width="500"]
 
 [NOTE]
 An error will be thrown if the report with the given report index does not exist or the index given is not a number.
 
 [.text-center]
-image::UGDeleteVisit3.png[width="790"]
+image::UGDeleteVisit3.png[width="500"]
 
 For both `deletevisit` and `editvisit` commands if the patient has no past records, a pop up with the message "Patient has no past records" will be shown instead of a list of reports when `editvisit [INDEX]` or `deletevisit [INDEX]` is run. Note that an error will be raised if the report index is provided to a patient with no past records, for example `editvisit [INDEX] i/1` or `deletevisit [INDEX] d/1`.
 
 [.text-center]
-image::UGNoRecords.png[width="790"]
+image::UGNoRecords.png[width="500"]
 // end::visitreports[]
 [[appointmentsImplementation]]
 // tag::appointments[]
@@ -386,7 +386,7 @@ Creates a follow-up entry on patient with index 9 for 10 days later.
 Creates a follow-up entry on patient with index 1 for 7 days later.
 
 [.text-center]
-image::UGApptFollowUps.png[width="790"]
+image::UGApptFollowUps.png[width="500"]
 
 ==== Creating a generic reminder : `reminder`
 
@@ -404,7 +404,7 @@ Creates a reminder "Two Point Hospital closed" that will display for the next 10
 Creates a reminder "Losartan recall" that will display for the next 7 days.
 
 [.text-center]
-image::UGApptReminders.png[width="790"]
+image::UGApptReminders.png[width="500"]
 
 ==== Removing an Appointment : `removeappt`
 
@@ -422,7 +422,7 @@ Removes any appointment which description is "Two Point Hospital closed".
 Removes any appointments with the patient whose name is Satya Nadella.
 
 [.text-center]
-image::UGApptRemoveAppt.png[width="790"]
+image::UGApptRemoveAppt.png[width="500"]
 
 ==== Show Appointments "Message of the Day" box : `show`
 
@@ -430,7 +430,7 @@ Shows a pop-up containing the appointments. This is useful if you want to keep a
 Format: `show`
 
 [.text-center]
-image::UGApptShow.png[width="790"]
+image::UGApptShow.png[width="500"]
 
 ==== Sort Appointments : `sort`
 
@@ -456,7 +456,8 @@ Typing `ls` now works equivalently as typing `list`.
 * `alias l/display all patients v/list` +
 Typing `display all patients` now works equivalently as typing `list`.
 
-image::UGAddAlias.png[width="800"]
+[.text-center]
+image::UGAddAlias.png[width="500"]
 
 [NOTE]
 The `alias` command will override any previous alias mapping if any. +
@@ -472,7 +473,8 @@ Format: `unalias SHORTHAND`
 * `unalias ls` +
 Typing `ls` will no longer be equivalent to typing `list`.
 
-image::UGUnalias.png[width="800"]
+[.text-center]
+image::UGUnalias.png[width="500"]
 
 ==== Showing all existing shorthand commands / aliases : `aliaslist`
 
@@ -484,7 +486,8 @@ Examples:
 * `aliaslist` +
 Shows all the existing aliases.
 
-image::UGAliasList.png[width="800"]
+[.text-center]
+image::UGAliasList.png[width="500"]
 
 ==== Using aliases
 To use a user-defined alias, you just have to type the alias you defined. Additional optional parameters can also be specified if the aliased command takes in additional arguments. +
@@ -492,7 +495,8 @@ Format: `SHORTHAND [additional arguments]`
 
 Examples:
 
-image::UGApplyAlias.png[width="800"]
+[.text-center]
+image::UGApplyAlias.png[width="500"]
 
 [NOTE]
 Matching of aliases uses the longest substring match. (i.e. if there exists an alias _follow 7_ and _follow_, typing _follow 7_ will always match with _follow 7_ instead of _follow_.)

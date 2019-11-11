@@ -38,7 +38,7 @@ Responsibilities: Documentation, Concept Artist, in charge of `UI` component
 
 === Jerrold Tan
 image::wingedevil.png[width="150", align="left"]
-{empty}[http://github.com/Wingedevil[github]] [<<jerroldtan#, portfolio>>]
+{empty}[http://github.com/Wingedevil[github]] [<<wingedevil#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Git Expert, In charge of `Alias` Component

@@ -922,22 +922,184 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+  Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+  Expected: The most recent window size and location is retained.
 
-=== Deleting a person
+=== User Interface
 
-. Deleting a person while all persons are listed
+. Typing Commands
+
+.. Click on the Command Box with the text “How may I help you?”
+.. Type in any Command (i.e. Adding a person)
+.. Hit Enter on the keyboard
+Expected: The command should have been successfully entered and the application responds appropriately.
+
+. Using Help
+
+.. Press the F1 key on your keyboard; Alternatively, click on the Help menu bar at the top of the application and select the Help menu item. +
+Expected: The Help Window should appear as a new window.
+
+=== Adding a patient
+
+. Adding a patient to the list
+
+.. Test case: `add n/Sam Strand p/90811019 e/strandingdeath@gmail.com a/Blk 09 Piccadilly Road #14-137 t/fatigue` +
+Expected: A patient named Sam Strand should be added into the list with his phone number, email and address. He should
+also have a tag that says fatigue in the list.
+
+=== Deleting a patient
+
+. Deleting a patient while all patients are listed
+
+.. Prerequisites: List all patients using the `list` command. Multiple patients in the list.
+.. Test case: `delete 1` +
+  Expected: First patient is deleted from the list. Details of the deleted patient shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+  Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+  Expected: Similar to previous.
+
+=== Adding a visit report
+
+. Adding a visit report to a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
-   Expected: Similar to previous.
+.. Test case: `addvisit 1` +
+  Expected: Empty form displayed. After saving the form by pressing the Save button or F2, successful save with person details shown in status message. If the person has no previous records or has a Most recent visit date displayed earlier than the current date, Most recent visit date will be updated to current date in the Person card.
+.. Test case: `addvisit 1 v/12/12/2012` +
+  Expected: Similar to previous
+.. Test case: `addvisit 1 v/invalid` +
+  Expected: Error message displayed
+.. Other incorrect addvisit commands to try: `addvisit`, `addvisit x` (where x is larger than the list size), `addvisit x v/dd/mm/yyyy` (where x is valid person index and dd/mm/yyyy is an invalid date e.g 30/02/2019 or date with valid day and month but with year not conforming to 19xx or 2xxx format) +
+  Expected: Similar to previous.
+
+=== Editing a visit report
+
+. Editing a person’s visit reports for chosen person are listed
+
+.. Prerequisites: List all reports using the `editvist [PERSON_INDEX]` command.
+.. Test case: `editvisit 1 i/1` +
+  Expected: Form pops up. After saving the form by pressing the Save button or F2, successful save with person details shown in status message.
+.. Test case: `editvisit 1 i/0` +
+  Expected: No form pops up. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `editvisit`, `editvisit x` (where x is larger than the person list size)  `editvisit x i/y`(where x is is valid person index and y is an invalid report index) +
+  Expected: Similar to previous.
+
+=== Deleting a visit report
+
+. Deleting a report while all visit reports for chosen person are listed
+
+.. Prerequisites: List all reports using the `deletevisit [PERSON_INDEX]` command.
+.. Test case: `deletevisit 1 d/1` +
+  Expected: First report is deleted from the list. List of reports updates. If the patient has no more reports after deleting, list of reports closes and window prompt of patient having no past records shows.
+.. Test case: `delete 1 d/0` +
+  Expected: No report is deleted. Error details shown in the status message.
+.. Other incorrect delete commands to try: `deletevisit`, `deletevisit x` (where x is larger than the list size), `deletevisit x i/y` (where x is is valid person index and y is an invalid report index) +
+  Expected: Similar to previous.
+
+=== Viewing and Exporting a Patient’s Profile
+
+. Opening the ProfileWindow
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: `profile 1` +
+  Expected: Profile panel for the first Patient is shown on the screen. Details of the Patient should be accurately displayed as well, with all attributes (Name, Phone, Address, etc.), as well as Visit Reports shown.
+.. Test case: `profile 0` +
+  Expected: No profile panel is shown. Error message detailing an invalid command.
+.. Other incorrect profile commands to try: `profile`, `profile x` (where x is larger than the list size) +
+  Expected: Similar to previous.
+
+. Generating a Patient’s Profile in a .txt file
+
+.. Prerequisites: A ProfileWindow detailing a valid user is currently shown and in focus.
+.. Press `p` or the _Generate Profile File_ button
+.. Expected: A success message is shown next to the _Generate Profile File_ button and the patient’s file is generated in the _generated_profiles_ folder of VISITapp.jar. The filename should be according to the following format: “NAME_PHONE_DATE TIME.txt”.
+
+=== Appointment System
+
+. Adding a Reminder
+
+.. Test case: `reminder Test` +
+  Expected: A new reminder with the description “Test” is created with 7 days remaining. Appointments panel is updated to reflect the new reminder.
+.. Test case: `reminder Test d/3` +
+  Expected: A new reminder with the description “Test” is created with 3 days remaining. Appointments panel is updated to reflect the new reminder.
+.. Test case: `reminder` +
+  Expected: No reminder is created. Error details shown in the status message.
+.. Test case: `reminder Test d/-1` +
+  Expected: No reminder is created. Error details shown in the status message.
+
+. Adding a Follow-up
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+.. Test case: `followup 1` +
+  Expected: A new follow-up with the patient in Index 1 is created for 7 days’ time. Appointments panel is updated to reflect the new follow-up.
+.. Test case: `followup 1 d/3` +
+  Expected: A new follow-up with the patient in Index 1 is created for 3 days’ time. Appointments panel is updated to reflect the new follow-up.
+.. Test case: `followup` +
+  Expected: No follow-up is created. Error details shown in the status message.
+.. Test case: `followup 1 d/-1` +
+  Expected: No follow-up is created. Error details shown in the status message.
+
+. Sorting Appointments
+
+.. Prerequisites: Multiple appointments in the list.
+
+.. Test case: `sort` +
+  Expected: Appointments in the list are sorted according to type, then days, then text.
+
+. Removing Appointments
+
+.. Prerequisites: Reminder named “Test” and Follow-up named “Satya Nadella” in the list.
+
+.. Test case: `removeappt Test` +
+  Expected: Reminder “Test” is removed. Appointment panel is updated to reflect the deletion.
+.. Test case: `removeappt Satya Nadella` +
+  Expected: Follow-up “Satya Nadella” is removed. Appointment panel is updated to reflect the deletion.
+
+. Show Message of the Day
+
+.. Prerequisites: Multiple appointments in the list.
+
+.. Test case: `show` +
+  Expected: Message of the Day panel appears with Appointment list.
+
+=== Creating, deleting, listing and using aliases
+
+. Creating an alias
+
+.. Test case: `alias l/ls v/list` +
+  Expected: A new alias is created, mapping `ls` to `list`.
+.. Test case: `alias l/a v/list` +
+  Expected: A new alias is created, mapping `a` to `list`, overriding the existing default mapping of `a` to `add`.
+.. Other incorrect alias commands to try: `alias potato`, `alias l/x v/alias` (where x is an existing non-aliased command) +
+  Expected: No alias is created. Error details shown in the status message. Status bar remains the same.
+
+. Deleting an alias
+
+.. Prerequisites: Have an existing alias mapping of `a` to `add`, but no mapping of `potato` to anything.
+.. Test case: `unalias a` +
+  Expected: The existing mapping of `a` to `add` will be deleted.
+.. Test case: `unalias potato` +
+  Expected: No alias is deleted as there is no existing alias with the name `potato`.
+
+. Using alias
+
+.. Prerequisites: Have an existing alias mapping `follow` to `followup 1`, mapping `follow14` to `followup 1 d/14` and list at least one person using the `list` or `find` command.
+.. Test case: `follow` +
+  Expected: A new follow up is created for the first person in the list with the default days of 7 days. The appointments panel will also be updated with the new appointment.
+.. Test case: `follow14` +
+  Expected: A new follow up is created for the first person in the list with the specified input of 14 days. The appointments panel will also be updated with the new appointment.
+.. Test case: `follow d/30` +
+  Expected: A new follow up is created for the first person in the list with the specified input of 30 days. The appointments panel will also be updated with the new appointment.
+
+. Listing aliases
+
+.. Prerequisites: Only have an existing alias mapping of `a` to `add`.
+.. Test case: `aliaslist` +
+  Expected: List of aliases panel is shown on the screen. All existing user-defined aliases are shown.
