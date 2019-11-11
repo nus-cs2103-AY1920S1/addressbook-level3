@@ -36,7 +36,7 @@ Hope following features will benefit you and enjoy!
 * Customized recommendations for healthy dieting
 
 +
-image::Ui_Welcome.png[width="790"]
+image::Ui.png[width="790"]
 +
 image::Ui_Bio.png[width="790"]
 +
