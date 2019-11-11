@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: DukeCooks
+== PROJECT: DukeCooks image:DukeCooks_Logo.png[align="center", width="50"]
 
 == What is in this document?
 
@@ -13,7 +13,7 @@ Here, the Dashboard function's user and developer guide in DukeCooks will be pre
 
 == Who is behind DukeCooks?
 
-DukeCooks is proudly developed by a group of second-year students from the National University of Singapore. This application was made to fit the team project requirements for a software engineering module. An application, AddressBook 3 (AB3), was assigned as a base for our project. Thus, this is a brownfield project which entails morphing AB3 into a new application which in this case, DukeCooks.
+DukeCooks is proudly developed by a group of second-year students from the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore]. This application was made specially for the team project requirements in the software engineering module, CS2103T. An application, https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook3] (AB3), was assigned as a base for our project. Thus, as a brownfield project this entails morphing AB3 into a new application. Which in this case; DukeCooks, the only planner you will ever need for a healthier lifestyle, was born.
 
 == What exactly is DukeCooks?
 
@@ -21,7 +21,7 @@ DukeCooks is a one-stop healthy lifestyle Desktop application capable of managin
 
 Current applications in the market can satisfy one out of the many needs we have. This would mean that we would have to download and keep track of a myriad of applications in our system.
 
-Here in DukeCooks, we hope to eliminate; simplify these tedious and stressful chores, all just in one single application. DukeCooks is equipped with a command-line interface (CLI). With this CLI all you have to do is key in what you want to do with an array of predefined commands ranging from adding tasks to writing a new diary entry. Then, all you have to do is sit back, relax and let DukeCooks do all the dirty work!
+Here in DukeCooks, we hope to eliminate; simplify these tedious and stressful chores, all just in one single application. DukeCooks is equipped with a command-line interface (CLI). With this CLI, all you have to do is key in what you want to do with an array of predefined commands ranging from adding tasks to writing a new diary entry. Then, all you have to do is sit back, relax and let DukeCooks do all the dirty work!
 
 == My Contributions to DukeCooks
 
@@ -33,17 +33,17 @@ Initial works for the Dashboard include referencing the AB3 codebase. The add / 
 
 === Enhancement 1: Creating the `done` command
 
-The 'done' command was created to complement the Dashboard. The user is able to use the command 'done', to mark a task as complete. Whenever a 'done' command is executed, the progress bar will refresh and update to display the latest information. With the implementation of the progress bar, users will have a better gauge of their progress. A progress bar that is not filled can serve as a signal to the user that they have many tasks undone. This will allow the user to plan their time wisely and complete their tasks on time.
+The `done` command was created to complement the Dashboard. The user is able to use the command `done`, to mark a task as complete. Whenever a `done` command is executed, the progress bar will refresh and update to display the latest information. With the implementation of the progress bar, users will have a better gauge of their progress. A progress bar that is not filled can serve as a signal to the user that they have many tasks undone. This will allow the user to plan their time wisely and complete their tasks on time.
 
 === Enhancement 2: Adding more functionality to the `list` command
 
-The 'list' function adapted from AB3, lists all the items in the list. In the case of a dashboard, this might not be adequate. As such, 2 additional functions were added to the `list` command.
+The `list` function adapted from AB3, lists all the items in the list. In the case of a dashboard, this might not be adequate. As such, 2 additional functions were added to the `list` command.
 
 By entering `list taskcomplete` or `list taskincomplete` will display the list of task marked as complete or task that are not complete respectively. With this enhancement, a user is able to look and only focus on the tasks that should be taken care of. Additionally, the `list taskcomplete` can serve as logbook. It allows the user to have access to the completed task in a quick and efficient manner.
 
 === Enhancement 3: Upgrading the Graphic User Interface (GUI)
 
-Using AB3’s GUI as a backbone, the Dashboard was created. In the GUI for the Dashboard, it displays a progress bar which shows the progress of the tasks completed. A date picker is used to allow users to have quick access to the calendar. Lastly, as a way to motivate users to complete their task, a pop up window with an encouraging message in the form of a gif, is added. In order to view the message, users will have to check 5 new tasks as done. Since 5 tasks is required to unlock the message, this will spur the user to finish their task and gain the reward (encouragement message).
+Using AB3’s GUI as a backbone, the Dashboard was created. In the GUI for the Dashboard, it displays a progress bar which shows the progress of the tasks completed. A date picker is used to allow users to have quick access to the calendar. Lastly, as a way to motivate users to complete their task, a pop up window with an encouraging message in the form of a gif, is added. In order to view the message, users will have to check 5 new tasks as done. Since 5 tasks is required to unlock the message, this will spur the user to finish their tasks and gain the reward (encouragement message).
 
 === Enhancement 4: Sorting tasks by date
 
@@ -58,11 +58,14 @@ Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hua-lun&so
 | |What I did
 
 |Project management
-|Managed releases `v1.2.1` (1 release) on GitHub +
+|Managed release https://github.com/AY1920S1-CS2103T-T10-2/main/releases/tag/v1.2.1[v1.2.1] on GitHub +
 Regularly update `Ui.png` to the latest version
 
 |User guide
 |Wrote the "Quick Look at DukeCooks" section.
+
+|About us
+|Wrote and update the about us page.
 
 |Reported bugs
 |Reported bugs and suggestions for other teams in the class +
@@ -116,11 +119,11 @@ Command: `goto dashboard`
 Let's start by using the `add` command to add some tasks into DukeCooks!
 
 Command: `add task` +
-Format: `add task tn/_insert task here_ td/ _insert date here_`
+Format: `add task tn/<insert task here> td/<insert date here>`
 
 [NOTE]
 ====
-Task name entered should not exceed 30 characters.
+Task name entered should not exceed 35 characters.
 When entering the date for a task, please follow the given format: day/month/year.
 ====
 
@@ -152,7 +155,7 @@ Made some typos when adding a task? +
 Fret not! You are able to make changes to them.
 
 Command: `edit task` +
-Format: `edit task _index number_ tn/ _insert new name_ td/ _insert new date_`
+Format: `edit task <index number> tn/ <insert new name> td/ <insert new date>`
 
 [NOTE]
 ====
@@ -182,7 +185,7 @@ Decided that this task is not needed? +
 Well you can delete them off from DukeCooks.
 
 Command: `delete task` +
-Format: `delete task _index number_`
+Format: `delete task <index number>`
 
 [NOTE]
 ====
@@ -211,7 +214,7 @@ Finished with a task? +
 Check it off the list!
 
 Command: `done task` +
-Format: `done task _index number_`
+Format: `done task <index number>`
 
 Example usage (Figure 8 & 9): `done 1`
 
@@ -240,7 +243,7 @@ A pop up window with an encouraging message will be displayed for extra motivati
 For those who want to know what are the tasks relevant given a keyword.
 
 Command: `find task` +
-Format: `find task _keyword_`
+Format: `find task <keyword>`
 
 Example usage (Figure 10 & 11): `find task project`
 
@@ -273,7 +276,7 @@ Command: `list taskincomplete`
 Think you need a little bit more time to complete a task?
 
 Command: `postpone task` +
-Format: `postpone task _index number_ by _number of days_`
+Format: `postpone task <index number> by <number of days>`
 
 Example usage: `postpone task 1 by 5` +
 The above example will postpone the date of task 1 by 5 days.
@@ -478,7 +481,7 @@ This choice was chosen as it reduces the chance of errors making it a safer opti
 DukeCooks would not be possible without the wonderful support from these people:
 
 I would like to thank Prof. Damith for his interesting and insightful lectures on
-Good Software Engineering Practice. Next, Ms Anita providing useful tips in communication and
+Good Software Engineering Practice. Next, Ms Anita for providing useful tips in communication and
 presentation skills. Also, Mr Jeffry for his guidance and suggestions for the team.
 Lastly, many thanks to my wonderful teammates and classmates for the support and help when needed.
 

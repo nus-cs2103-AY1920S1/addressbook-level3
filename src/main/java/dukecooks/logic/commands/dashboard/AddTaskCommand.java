@@ -17,7 +17,7 @@ public class AddTaskCommand extends AddCommand {
 
     public static final String VARIANT_WORD = "task";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + "task : Adds a task to DukeCooks. \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " task : Adds a task to DukeCooks. \n"
             + "Parameters: "
             + CliSyntax.PREFIX_TASKNAME + "TASKNAME "
             + CliSyntax.PREFIX_TASKDATE + "TASKDATE "
