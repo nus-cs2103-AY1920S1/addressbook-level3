@@ -17,7 +17,7 @@ public class HistoryCommandParser implements Parser<HistoryCommand> {
     public static final Option OPTION_HIDE_OUTPUT = new Option("o");
     public static final Option OPTION_HIDE_UNSUCCESSFUL = new Option("s");
 
-    public static final String MESSAGE_OPTIONS_NOT_RECOGNIZED = "Invalid parameters: %1$s";
+    public static final String MESSAGE_OPTIONS_NOT_RECOGNIZED = "Invalid parameter(s): %1$s";
 
     /**
      * Parses the given {@code String} of arguments in the context of the HistoryCommand

@@ -259,7 +259,7 @@ image::HistoryWindowUpArrowDemo.png[width="790", align="center"]
 Now, after pressing kbd:[q], the command text of the selected cell will be copied,
 
 
-image:HistoryWindowCopyDemo.png[width="789", align="center"]
+image::HistoryWindowCopyDemo.png[width="789", align="center"]
 
 ==== Sync Command History to disk
 
@@ -637,7 +637,7 @@ Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4
 - e.g `addmod s/A0180009 m/CS1020`
 To add module CS1020 to student A0180009
 
-* **removemod**:`removemod s/STUDENT_ID m/MODULE_CODE` or `removemod s/STUDENT_INDEX m/MODULE_INDEX`
+* **removemod**: `removemod s/STUDENT_ID m/MODULE_CODE` or `removemod s/STUDENT_INDEX m/MODULE_INDEX`
 - e.g `removemod s/A0180000 m/CS1020`
 To remove module CS1020 from student A0180000
 
@@ -659,7 +659,7 @@ Undo last undoable action.
 
 * **redo**: `redo`
 - e.g. `redo`
-Redo do last Undo if availiable.
+Redo last Undo if available.
 
 * **approve**:
 ** `approve a/INDEX [r/REMARK]`
