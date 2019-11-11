@@ -177,24 +177,29 @@ NOTE: The lifeline for `DeleteParticipantCommandParser` and `DeleteCommandAlloca
 [[Design-Model]]
 === Model component
 
+==== High Level Design Overview
+
 .Structure of the Model Component
-image::BetterModelClassDiagram.png[]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
+* stores other things like `Storage`, `CommandHistory` that also depend on Model
 * stores the lists of our various entities.
 * Model is the bridge between Logic and Storage and provides an abstraction of how the data is stored in memory.
-* It exposes a `ReadableEntityList` which only has the list method to remind Logic that the data given should not be modified.
+* It exposes multiple `ReadableEntityList` which only has the list method to remind Logic that the data given should not be modified.
 * The UI can be bound to these lists so that it automatically updates when the contents of the list change.
 * At the heart of the model are observable lists which allow for the dynamic updating of the UI.
 * The `Model` interface also serves as an API through which controller can edit the data stored in memory.
 
 `ModelManager`
-* ModelManager implements all the methods exposed by the Model Interface. At its heart, it only contains 3 `EntityLists`
-, 3 `FilteredLists` and a `UserPrefs` Object and does all the validation logic needed for the application
+
+* ModelManager implements all the methods exposed by the Model Interface. The 3 most important aspects for its in-memory
+storage and UI are the `FilteredList`, `EntityList` and `UserPrefs` objects. As mentioned above, `ModelManager` also
+consists of other components, but these are not reflected in the diagrams for brevity and clarity.
 
 .Simple Illustration of ModelManager
 image::ModelManagerClassDiagram.png[]
@@ -202,6 +207,86 @@ image::ModelManagerClassDiagram.png[]
 .EntityList simplified structure
 image::EntityListClassDiagram.png[]
 
+Each `EntityList` is also further subclassed into `ParticipantList`, `MentorList`, `TeamList`. Each of
+these lists can be seen as an individual address book from the original AB3 project. The following diagrams show
+the structure of these `Entity` objects within each list. These `Entity` objects are the building blocks of Alfred.
+
+.Participant
+image::ParticipantClassDiagram.png[]
+
+.Team
+image::TeamClassDiagram.png[]
+
+.Mentor
+image::MentorClassDiagram.png[]
+
+==== Usage
+
+When the ModelManager object is first created upon starting the application, the existing data is loaded from
+the disc via methods on the `Storage` object. However, if there are any bugs in the process, perhaps due
+corrupted data, a new `EntityList` is instantiated rather than run the risk of working with outdated data.
+
+Due to its role as the API of the application, all calls which require access to the `Entity` objects will be done
+through `Model` and not via the lists directly. These operations are listed as public methods on the `Model` interface.
+
+For operations which would entail mutating the data within the
+`EntityList` objects in any form, `Model` automatically communicates with the `Storage` object to save the data.
+The saving logic can be found within the `Storage` object and thus `Model` only needs to pass it `EntityList` objects
+on its end. The same applies for the other attributes in `Model`, such as `CommandHistory`; `Model` will
+automatically communicate with it for you.
+
+If there are any errors along the way, it will be logged but the error would be handled within `Model` itself.
+Moreover, if there is an during a model operation, it will not be saved.
+
+==== Design Considerations
+1. Synchronization of data
+    * The role of `ModelManager` is to ensure that the data is in sync with each other across all 3 `EntityList`
+objects. The reason behind this is because for example, the `Participant` object in `ParticipantList` is a separate
+object from the one inside `Team`. It was not possible due to make the `Participant` object hold a reference
+to team due to serialization issues on `Storage`.
+    * As such, for each CRUD operation, `ModelManager` has to perform validation to ensure that the data modified/added
+is sync across all 3 `EntityList` objects.
+    * This was also the reason why `Storage` was moved into the `Model` object, as in the current implementation of
+Alfred, only `ModelManager` needs to be aware of `Storage` to ensure that only it can save/read data. This would
+hence help to synchronize data better.
+
+2. Single Responsibility Principle and Inheritance
+    * Each class in `Model` is only responsible for a single task. For example, `TeamList` is only concerned
+with managing the `Team` entities stored in it. This would help to improve testability and code quality, especially
+since the size of the `Model` codebase is substantial
+    * Inheritance was used to show links between related objects. For `Model`, the two related objects are
+`EntityList` and `Entity`. Inheritance was used to show this relationship and to reduce the need for code
+duplication.
+
+3. Open Closed Principle
+    * `Model` exposes many functions. However, in line with the Open Closed Principle, modifications to `Model`
+come in the form of exposing new methods on it and creating new attributes on the `ModelManager` object. The methods
+on `ModelManager` were also implemented as simply as possible so that future methods can build on them. This way,
+future modifications do not need to edit existing code, reducing the likelihood of regression bugs.
+
+4. Design of the `Entity` objects
+* *Alternative 1*: Make the `Team` object the single source of truth (only `Team` has references to `Participant`
+and `Mentor`)
+    - Pros: This would facilitate the serialization on `Storage`
+    - Cons: As `Participant` and `Mentor` objects no longer hold a reference to the `Team` object,
+it is now possible for their fields to be different from their counterparts stored in `Team`, requiring
+Alfred to do significant validation
+* *Alternative 2*: Make `Participant`, `Mentor` and `Team` objects store a bidirectional reference to each other
+    - Pros: The `Participant` objects in the `Team` 's participants field are exactly the same objects stored in the
+`ParticipantList`, reducing the need for validation code as they will never be out of sync
+    - Cons: `Storage` serialization cannot handle bidirectional associations
+
+We decided to opt for Alternative 1 as there was no easy solution to solve the issues `Storage` had with
+bidirectional associations. Also, the validation code for Alternative 1 was implemented early and employed
+many defensive programming practices, reducing the likelihood of bugs occurring due to similar objects having
+data that is out of sync.
+
+==== Future Extensions
+1. As the single source of truth for the application in runtime, there are many small functions on `ModelManager` now.
+These functions are implemented directly in the file itself. In the future, it may be better to abstract these
+functions out into smaller modules as per the Dependency Inversion Principle. It was not done for v1 of Alfred
+as refactoring these methods would block developers and slow down feature development velocity. However,
+as Alfred scales, it is recommended that this refactoring be done.
 
 [[Design-Storage]]
 === Storage component
@@ -1026,6 +1111,125 @@ To better consider the user's needs and convenience, "Alternative 2" was selecte
 ** Pros: Better use of abstraction and maintains Single Responsibility Principle as the parser class can focus on solely parsing the user commands.
 
 In the end, "Alternative 2" was selected as it follows better software engineering practices by making better use of abstraction. Despite requiring slightly more code and classes, it would still be better than "Alternative 1" which breaks the Single Responsibility Principle as the parser class would have to be changed for changes in tiebreak methods in addition to changes in methods of parsing.
+
+=== Find Command
+Currently, Alfred allows users to view specific entities by their `ID` using the `view ENTITY ID`.
+However, it may not be convenient for users to remember the `ID` of specific users, especially since
+`ID` objects are randomly generated.
+
+To help Alfred become a viable alternative to Excel, Alfred also offers an improved `find` function
+that has been inspired by the power of Excel Macros.
+`find` offers a search by a single field and multiple fields. The list of fields that can be searched for
+for each entity can be found in the
+<<UserGuide.adoc#finding-a-specific-entity-code-find-mentor-team-participant-n-name-code, user guide>>, or by
+simply typing in an incorrect command in the application.
+
+The find command also offers an option to do a negative search of the fields in the list. This can be
+done via the `EXCLUDE` keyword. All the parameters that come after the keyword will undergo a negative
+search. Figure 41 shows an example of this. `find participant EXCLUDE n/uc` will look for all participants
+whose name that does not contain "uc".
+
+.Find Command User Interface
+image::FindScreenshot.png[]
+
+By default, Alfred does a search by intersection for the given entity. However, Alfred also allows
+the user to do a search by union. This can be done by inserting an `OR` keyword before all the parameters.
+Further examples on the usage of `find` can be found in the
+<<UserGuide.adoc#advanced-finding-of-a-specific-entity-by-union-or-negative-code-find-and-or-mentor-team-participant-n-name-exclude-code, user guide>>
+.
+
+==== Find Command Implementation Overview
+
+The following sequence diagram shows the sequence of method calls used to display the filtered list
+on the application, from `Logic` to `ModelManager` upon the execution of a `FindParticipantCommand`.
+An analogous sequence diagram also applies for the `Team` and `Mentor` objects as well.
+
+.Find Participant Command Sequence Diagram
+image::FindCommandSequenceDiagram.png[]
+
+The left half of the diagram covers creation of the `FindParticipantCommand` while the right half
+details the interaction with the `Model`. There are 5 main steps in the execution of the command.
+
+1. `FindCommandAllocator` allocates the correct parser for the find command based on the entity name
+provided. If the entity name is incorrect, then an error will be thrown and execution will terminate.
+
+2. The `FindParticipantCommandParser` will then parse the String provided to it. If the string provided
+is invalid and does not follow the specified format, an error will be thrown. Likewise, if the find command
+is called and no parameters are provided, an error will also be thrown. During the parsing, the parser splits
+the input string given into two separate strings, one for normal parameters and the other for parameters
+that will undergo negated search. Two separate `ArgumentMultimap` objects are generated using the two
+strings. These `ArgumentMultimap` objects are the same as the ones found in AB3 and thus behave in a similar manner
+and have the same constraints.
+
+3. If there are no errors, the `FindParticipantCommandParser` then creates
+a `FindParticipantCommand` which in turn generates the predicate it would use
+to filter the relevant `EntityList` by. These predicates are stored as static variables in a central `Predicates`
+file. `FindParticipantCommand` selects the predicates based on which fields are provided in the original
+input string.
+
+4. With these predicates, it then calls the `findParticipant` method on the model with the generated predicate.
+
+5. A list of `Participant` objects is then returned, and is also printed onto the console for the user's
+reference. Then, at `FindParticipantCommand`, a `CommandResult` is returned after the smooth execution
+of this `find` operation.
+
+[NOTE]xw
+The find command does not mutate the list in any way. It only changes the `Entity` objects displayed using
+the generated predicate.
+
+==== Design Considerations
+
+The following are some design considerations for the Find Command Feature
+
+===== Aspect: Format of the input string
+
+* *Alternative 1*: Use a SQL style query string
+    - Pros: SQL syntax is universally used to communicate with databases and is clean
+    - Cons: Users may not be familiar with SQL
+
+* *Alternative 2*: Use the current format of `n/NAME e/EMAIL ...` (current)
+    -  Pros: Maintains consistency within the application
+    -  Cons: It is not as clear as SQL style syntax.
+
+
+Alternative 1 would take the form
+    of `find where name="John" and phone like "123" and not email="gmail.com"`. This would also have the added
+benefit of better on-boarding SQL users. However,
+while SQL-style syntax  is relatively clean and understandable, we decided not to implement this
+for the following reasons.
+The first reason was that SQL queries are meant to be used for large databases with thousands of columns,
+hence, the structure of the query must be clean to reduce the number of bugs made in the query. On the
+other hand, each `Entity` in Alfred only has a small number of fields (less than 6) and thus the current
+query format would still be understandable. Secondly, as mentioned above, users may not be familiar with SQL.
+
+Hence, Alternative 2 was chosen as it would be more
+user friendly for users to the existing command format instead of memorizing a new format.
+Furthermore, implementing a new format would take more time as
+the new query format would have to be written and tested thoroughly, thus negatively impacting development
+velocity.
+
+===== Aspect: Storing of the predicates
+* *Alternative 1*: Store the Predicates in a central file (current)
+    - Pros: Makes the predicates accessible to the whole application
+hence reducing code duplication
+    - Cons: A large conditional statement would be needed in each Command class.
+
+* *Alternative 2*: Store the Predicates within each `FindCommand` class
+    - Pros: Each predicate is only used by one class, so this would have resulted in a better separation
+of concerns
+    - Cons: A large conditional statement or hash map would still be needed to decide which predicates to
+use
+
+Ultimately, we decided to use Alternative 1. Although most of the predicates are only used once, they are
+all unmodifiable functions that return a predicate in the form of a closure. Thus, the risks associated
+with unrestricted access and modification of an object are greatly reduced. Furthermore, predicates are
+also used in other parts of the codebase. Hence, it is a good idea to consolidate them in a single location.
+Thus, if another class in the codebase needed to implement another predicate, all it had to do would be to check
+this central file to see if a similar one was already written, as opposed to trawling though the entire codebase.
+
+The large conditional statement was also not a major issue. This is because although it is large, the
+code within was understandable and this would have facilitated its extension, as compared to prematurely
+refactoring out into smaller submodules.
 
 === Logging
 

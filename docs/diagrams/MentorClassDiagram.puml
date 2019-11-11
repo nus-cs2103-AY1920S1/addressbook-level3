@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+package Mentor {
+    Mentor .up.|> Entity
+    Mentor *-down-> "1" Phone
+    Mentor *-down-> "1" Email
+    Mentor *-down-> "1" Name
+    Mentor *-down-> "1" Name
+    Mentor *-down-> "1" SubjectName
+    Mentor *-down-> "1" Organization
+}
+@enduml

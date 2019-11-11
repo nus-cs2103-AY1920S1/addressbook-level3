@@ -1,0 +1,16 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+package Team {
+    Team .up.|> Entity
+    Team *-down-> "*" Participant
+    Team *-down-> "0..1" Mentor
+    Team *-down-> "1" SubjectName
+    Team *-down-> "1" Score
+    Team *-down-> "1" Name
+    Team *-down-> "1" Location
+}
+@enduml

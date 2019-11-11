@@ -1,0 +1,84 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":AlfredParser" as AlfredParser LOGIC_COLOR
+participant ":FindCommandAllocator" as FindCommandAllocator LOGIC_COLOR
+participant ":FindParticipantCommandParser" as FindParticipantCommandParser LOGIC_COLOR
+participant ":FindParticipantCommand" as FindParticipantCommand LOGIC_COLOR
+participant ":CommmandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModelManager" as ModelManager MODEL_COLOR
+end box
+
+[-> Logic : execute("find participant n/Bergkamp")
+activate Logic
+
+Logic -> AlfredParser : parseCommand("find participant n/Bergkamp")
+activate AlfredParser
+
+create FindCommandAllocator
+AlfredParser -> FindCommandAllocator: new FindCommandAllocator("participant n/Bergkamp")
+activate FindCommandAllocator
+
+FindCommandAllocator -> AlfredParser
+deactivate FindCommandAllocator
+
+AlfredParser -> FindCommandAllocator: allocate("participant n/Bergkamp")
+activate FindCommandAllocator
+
+create FindParticipantCommandParser
+FindCommandAllocator -> FindParticipantCommandParser: new FindParticipantCommandParser()
+activate FindParticipantCommandParser
+
+FindParticipantCommandParser -> FindCommandAllocator
+deactivate FindParticipantCommandParser
+
+FindCommandAllocator -> FindParticipantCommandParser: parse("n/Bergkamp")
+activate FindParticipantCommandParser
+
+create FindParticipantCommand
+FindParticipantCommandParser -> FindParticipantCommand: FindParticipantCommand("n/Bergkamp, ...")
+activate FindParticipantCommand
+
+FindParticipantCommand -> FindParticipantCommandParser: c
+deactivate FindParticipantCommand
+
+FindParticipantCommandParser -> FindCommandAllocator: c
+deactivate FindParticipantCommandParser
+
+FindCommandAllocator -> AlfredParser: c
+deactivate FindCommandAllocator
+
+AlfredParser -> Logic: c
+deactivate AlfredParser
+
+Logic -> FindParticipantCommand: execute(model)
+activate FindParticipantCommand
+
+FindParticipantCommand -> Model: findParticipant(predicate)
+activate Model
+
+Model -> ModelManager: findParticipant(predicate)
+activate ModelManager
+
+ModelManager -> Model: List<Participant>
+deactivate ModelManager
+
+Model -> FindParticipantCommand: List<Participant>
+deactivate Model
+
+create CommandResult
+FindParticipantCommand -> CommandResult: new CommandResult(msg, CommandType.P)
+activate CommandResult
+
+CommandResult -> FindParticipantCommand: cr
+deactivate CommandResult
+
+FindParticipantCommand -> Logic: cr
+deactivate FindParticipantCommand
+@enduml
