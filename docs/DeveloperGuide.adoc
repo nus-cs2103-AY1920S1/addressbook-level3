@@ -297,7 +297,7 @@ image::statsOverallClassDiagram.png[]
 
 ==== Current Implementation
 
-====== Step-by-step breakdown
+===== Step-by-step breakdown
 
 Below is a more in-depth explanation at each step.
 
@@ -465,7 +465,7 @@ image::ScheduleCommandSequenceDiagram.png[]
 
 Basically, after the `setCalendarDate()` method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its `setAgendaView()` method.
 
-===== Design Considerations / Alternative designs considered
+==== Design Considerations / Alternative designs considered
 
 * Whether schedules should be kept as `Appointment` objects instead of `Schedule` objects.
 ** We felt that the existence of our own `Schedule` object ensures that we can design it the way we want.
