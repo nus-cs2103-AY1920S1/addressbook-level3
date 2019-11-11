@@ -12,15 +12,16 @@
 
 My team of 5 software engineering students was tasked with morphing an existing Command Line Interface (CLI)
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3[desktop application]
-into a useful application for a specific target group. We opted to create a bookmark manager to help computing students
-manage their web browsing activities.
+into a useful application for a specific target group. We chose to create a bookmark manager application
+known as Mark, which intends to help computing students manage their web browsing activities.
+Mark was conceptualised and implemented over a period of 8 weeks.
 
-This is what our product, Mark, looks like:
+This is what Mark looks like:
 
 .Mark's user interface
 image::Ui.png[400, 400]
 
-Our product, Mark, was conceptualised and implemented over a period of 8 weeks. My role as a developer was to design and
+My role as a developer was to design and
 implement a mechanism to allow bookmarks to be categorised automatically. I also improved Mark's storage functionality
 and contributed to various team tasks. The following sections describe these contributions in more detail.
 
@@ -30,18 +31,18 @@ This section summarizes my code, documentation, and team-related contributions t
 
 *Major feature*: I implemented the *autotag* mechanism to facilitate the automatic categorisation of bookmarks.
 
-* _What it does_: Allows bookmarks to be tagged without user input based on a predefined set of conditions.
+* _What it does_: Allows bookmarks to be tagged automatically based on a predefined set of conditions.
 * _Justification_: Organising bookmarks is time-consuming as bookmarks must be edited individually. This enhancement
-allows users to categorise their bookmarks in a few simple steps.
-* _Highlights_: Designing the autotag mechanism and how autotag conditions should be stored
-required significant planning. In addition, this feature involved development in all major components of
-Mark.
+allows users to categorise their bookmarks without additional effort.
+* _Highlights_: Designing the autotag mechanism required significant planning to conceptualize
+how abstract autotag conditions should be stored. In addition, this feature involved development in all
+major components of Mark.
 
 *Minor feature*: I enhanced Mark's existing storage system by adding the capacity to *export* and *import* bookmarks.
 It allows users to save and retrieve bookmarks from different files on the hard disk without exiting Mark, so that
 they can preserve old bookmarks without cluttering their current dashboard.
 
-*Code contributed*: Please click
+*Code contributed*: Click
 https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dorcastan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=dorcastan&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[here]
 to see the code and documentation that I contributed to Mark.
 

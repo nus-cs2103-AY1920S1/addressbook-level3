@@ -245,6 +245,20 @@ save manually.
 
 Format: `*export* [FILENAME]`
 
+For example:
+
+* If you want a quick way to save your current bookmarks before modifying them,
+you can input `*export* myBookmarks` into the command box.
++
+images::ui-screenshots/ExportCommandUi1.png[]
+
+* Mark displays a confirmation message, and you can verify that your Mark data
+has been exported to the folder `/data/bookmarks/myBookmarks.json`.
++
+// not sure if we should show a screenshot of the directory
+images::ui-screenshots/ExportCommandUi2.png[]
+
+Parameter constraints:
 ****
 * {blank}
 +
@@ -255,25 +269,48 @@ Format: `*export* [FILENAME]`
 If the given file already exists, it is overwritten.
 ****
 
-Example:
+Another example:
 
-* `*export* myBookmarks` +
-Exports all bookmark manager data to a file named `mark/data/bookmarks/myBookmarks.json`
-(assuming `mark.jar` is stored in the folder `mark`). The content of `myBookmarks.json`
+* `*export* CS2103TStuff` +
+Exports all bookmark manager data to a file named `mark/data/bookmarks/CS2103TStuff.json`
+(assuming `mark.jar` is located in the folder `mark`). The content of `CS2103TStuff.json`
 is identical to the current content of `mark.json`.
 // end::exportcommand[]
 
 ==== Importing bookmarks: *`import`*
 
-This command imports bookmarks from a file on the hard disk to Mark. A bookmark is, by default, imported
-into a folder with the same name as its original folder (even if the folder
+If you need a way to re-add bookmarks to Mark after deleting them and closing the application,
+the `*import*` command will help you along. This command imports bookmarks from JSON files
+like those produced by `*export*`.
+
+A bookmark is, by default, imported into a folder with the same name as its original folder (even if the folder
 structure is different). If no such folder is found, the bookmark will be imported
 into the folder `ImportedBookmarks`.
 
-Bookmarks with the same name or URL as existing bookmarks are not imported.
+NOTE: Bookmarks with the same name or URL as existing bookmarks are not imported.
 
 Format: `*import* FILENAME`
 
+For example:
+
+* Let's say you originally have many CS2103T bookmarks that you exported to a file named `CS2103TStuff`.
++
+// show the bookmarks, or maybe "succesfully exported"
+image::ui-screenshots/ImportCommandUi0.png[]
+
+* If you accidentally delete all of the bookmarks _and_ exit from Mark before realising that you
+still need them for finals, you can input `*import* CS2103TStuff` to add them back.
++
+// show a limited set of Mark sample data - i.e. 2103 things are gone
+image::ui-screenshots/ImportCommandUi1.png[]
+
+* You can then rest assured that all of your bookmarks are back in their respective folders, ready for
+your use.
++
+// show that 2103 things have been put back
+image::ui-screenshots/ImportCommandUi2.png[]
+
+Parameter constraints:
 ****
 * `FILENAME` is case sensitive and should not include the file extension. E.g.
 `myBookmarks` and not `myBookmarks.json`
@@ -284,11 +321,6 @@ Format: `*import* FILENAME`
 to the JSON files produced by `*export*`.
 ****
 
-Example:
-
-* `*import* myBookmarks` +
-Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
-file `mark/data/bookmarks/myBookmarks.json`.
 
 ==== Clearing all data: *`clear`*
 
@@ -650,8 +682,8 @@ image::DeleteFolderCommandUi2.png[]
 // tag::autotags[]
 === Autotags
 
-_Autotags_ are tags that will be automatically applied to bookmarks which match their
-respective autotag conditions.
+_Autotags_ are tags that will be automatically applied to bookmarks that match their
+autotag conditions.
 You can view the details of existing autotags in the autotag panel at the bottom-right of
 the **Dashboard** tab, as seen below.
 
