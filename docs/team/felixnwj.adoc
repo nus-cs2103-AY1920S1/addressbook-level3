@@ -19,7 +19,8 @@ It has a Graphical User Interface(GUI) created with JavaFX. The GUI is the main 
 This is what our project looks like as shown in Figure 1 below:
 
 image::PPPMain.png[]
-Figure 1: The GUI for CaloFit.
+.Figure 1: The GUI for CaloFit.
+{empty} +
 
 My role was to design and write the codes for the `report` feature. The following sections
 illustrate these enhancements in more detail, as well as the relevant documentation I have added to
@@ -30,7 +31,11 @@ Note the following symbols and formatting used in this document:
 [NOTE]
 This symbol indicates important information.
 
-`report` A grey highlight(called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
+`report` A grey highlight(called a monospace) indicates that this is a command that can be inputted into the command line and executed by the application.
+
+#ReportCommand# A yellow highlight indicates that the text is a Class or Object.
+
+#_Logic#getStatistics()_# A yellow italicised highlight indicates a method call of an Object(method name is indicated after the # symbol).
 
 == Summary of contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the
@@ -40,7 +45,6 @@ team project.
 ** What it does: creates a Report that displays the statistics calculated from the user's meal history for that particualar month.
 ** Justification: This feature gives purpose to the application as the user should be someone who wants to keep track of their calorie intake. By implementing this feature, the user is able to know their calorie intake for the month, as well as other statistics generated from it, whenever they want.
 ** Highlights: As virtually any form of statistical data can be generated from a user's meal history, the scope of the data calculated and shown to the user is not exhaustive. The statistics chosen to be calculated are decided based on the user stories and use cases that our team has considered and is linked here.
-** Credits: {Calculation of statistics}
 
 * *Minor enhancement*: added *automatic saving of the meal history of the user as a JavaScript Objection Notation(JSON) file*.
 ** What it does: The user's meal entries into CaloFit will be saved into a JSON file, allowing the user's meal history to be loaded upon starting up CaloFit.
@@ -52,12 +56,12 @@ team project.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.2.1`, `v1.3` and `v1.4` (3 releases) on GitHub.
+*** Managed releases *v1.2.1* and *v1.3* (2 releases) on GitHub.
 *** Overall project leader, scheduled meeting timings and summarised each meeting afterwards for dissemination to group members.
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (https://github.com/FelixNWJ/ped/issues[List of bugs reported])
 ** Tools:
-*** Set up Travis Continuous Integration for my Individual project and helped the team integrate it into the Team project.
+*** Set up *Travis Continuous Integration* for my Individual project and helped the team integrate it into the Team project.
 
 == Contributions to the User Guide
 
