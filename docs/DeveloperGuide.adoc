@@ -495,12 +495,28 @@ Design Consideration: How to handle different user input formats for individual 
 *** User has options to perform appeal resolution.
 *** Easier to resolve multiple appeals in bulk, as it is quicker to type the index instead of the full ID
 ** Cons:
-*** Harder to implement
+*** Harder to implement.  `ApproveCommandParser` and `RejectCommandParser` will need to parse different type of parameters.
+*** Some index and parameters from  the input might refer to the same appeal if the user makes a mistake.  As such, feedback provided by MAMS will not be useful, as user might have used index to mass resolve rather than appeal ID.
 *** User could resolve the wrong appeals since user does not need to cross check with the appeal ID of the appeals-of-interest.
 
-Design Consideration: Having individual resolve commands and mass resolve commands extend from parent class `ResolveCommand` instead of `Approve` and `Reject`.  Refer to diagram below for better understanding.
+Design Consideration: How individual resolve and mass resolve extends from parent `ResolveCommand`
+
+* Current implementation: Each resolve option `Approve` and `Reject` extends from `ResolveCommand`
+
+** Pros:
+*** Easier to implement.  Resolve option specified by user will be easily parsed.
+** Cons:
+*** More parameters required from user to specify whether to resolve single or multiple appeals.
+
+
+* Alternative consideration: Having individual resolve commands and mass resolve commands extend from parent class `ResolveCommand` instead of `Approve` and `Reject`.  Refer to diagram below for better understanding.
 
 image::ResolveAltClassDiagram.png[]
+
+** Pros:
+*** User can specify whether to resolve single or multiple appeals with fewer keywords.
+** Cons:
+***
 
 //end::resolve[]
 
