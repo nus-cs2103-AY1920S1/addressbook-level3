@@ -249,7 +249,7 @@ public class Budget implements Comparable<Budget> {
 
     @Override
     public String toString() {
-        return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
+        return String.format("$%s by %s", this.initialAmount.toString(), this.deadline.toString());
     }
 
     public String toLabelText() {

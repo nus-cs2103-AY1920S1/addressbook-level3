@@ -145,8 +145,8 @@ public class UpdateCommand extends Command {
                                                  UpdateTransactionDescriptor updateTransactionDescriptor) {
         assert budgetToEdit != null;
 
-        Amount updatedAmount = budgetToEdit.getBudget();
         Amount updatedInitialAmount = updateTransactionDescriptor.getAmount().orElse(budgetToEdit.getInitialBudget());
+        Amount updatedAmount = budgetToEdit.getBudget();
         Date updatedDate = updateTransactionDescriptor.getDate().orElse(budgetToEdit.getDeadline());
         Set<Category> updatedCategories = updateTransactionDescriptor
                 .getCategories().orElse(budgetToEdit.getCategories());
