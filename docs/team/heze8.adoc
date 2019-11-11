@@ -16,7 +16,7 @@ Ultimately, we made the decision to modify it into a management application for 
 
 === 1.1 Overview
 
-image::Ui.png[]
+image::Ui.png[width=600]
 Figure 1. The graphical interface for `EzWatchlist`.
 
 `EzWatchlist` is an application that saves movies and television shows the user adds into a watchlist.
@@ -154,12 +154,11 @@ made for the Introduction:_
 |===
 include::../UserGuide.adoc[tag=intro]
 
-|===
-|_The following is an excerpt from the Advanced Features portion:_
-|===
 ___
-include::../UserGuide.adoc[tag=advancedfeatures]
 
+|===
+|_Moreover I also wrote the Advanced Features portion of the user guide available https://ay1920s1-cs2103t-f13-4.github.io/main/UserGuide.html#advanced-features[here]._
+|===
 
 == Contributions to the Developer Guide
 This sections showcases my contribution to the `EzWatchlist` Developer Guide, which serve to document the implementation of our features to technical users. It demonstrates my capability to use diagrams
