@@ -477,6 +477,16 @@ Examples:
 Deletes all recipes within the recipe book.
 
 ====  Viewing a recipe: `[coming in v2.0]`
+Brings up an in depth view of a recipe according to a specified index.
+
+Here you will be able to see the recipe's total nutritional value, image, difficulty and preparation time.+
+Command `view recipe` +
+Format: `view recipe <index>`
+
+Examples:
+
+* `view recipe 1` +
+Views the first recipe listed within the recipe book.
 
 ==== Giving a recipe an image: `[coming in v2.0]`
 Give images to your recipes according to its index +
@@ -487,6 +497,11 @@ Format: `image recipe <index> <filepath>`
 ====
 If the file path is not specified, the image for this recipe, if present, will be removed instead.
 ====
+
+Examples:
+
+* `image recipe 1 /images/food.png` +
+Gives the image "food.png" to the first indexed recipe.
 
 ==== Giving a recipe a difficulty level: `[coming in v2.0]`
 Tag your recipes difficulty level. +
@@ -500,6 +515,11 @@ The available difficulties are "Easy", "Medium", and "Hard". Only these 3 diffic
 You can filter these recipes using `list recipe`. For example, `list recipe Easy`.
 ====
 
+Examples:
+
+* `diff recipe 3 Hard` +
+Sets the third recipe in the recipe book to have a "Hard" difficulty.
+
 ==== Giving a recipe preparation timing: `[coming in v2.0]`
 Give your recipes a preparation time +
 Command: `prep recipe` +
@@ -512,6 +532,26 @@ Duration of preparation should be entered in minutes.
 You can filter these recipes using `list recipe`. For example, `list recipe shorter 5` shows all recipes with preparation time under 5 minutes.
 `list recipe longer 5` lists those that take longer than 5 minutes.
 ====
+
+Examples:
+
+* `prep recipe 2 7` +
+Sets the second recipe in the recipe book to have a preparation time of 7 minutes.
+
+==== Generating shopping lists for recipes: `[coming in v2.0]`
+Generates a shopping list based on the input indexes of recipes +
+Command: `shoppinglist recipe` +
+Format: `shoppinglist recipe <index>...`
+
+[NOTE]
+====
+A minimum of 1 index should be entered in order to generate a shopping list.
+====
+
+Examples:
+
+* `shoppinglist recipe 1 3 5 8` +
+Generates a shopping list consisting ingredients for the first, third, fifth and eighth recipe in the recipe book.
 
 === Meal Plans
 
@@ -705,6 +745,21 @@ Examples:
 
 * `clear mealplan` +
 Deletes all meal plans within the meal plan book.
+
+==== Generating shopping lists for mealplans: `[coming in v2.0]`
+Generates a shopping list based on the input index of a meal plan +
+Command: `shoppinglist mealplan` +
+Format: `shoppinglist mealplan <index>`
+
+[NOTE]
+====
+Only 1 index should be entered in order to generate a shopping list.
+====
+
+Examples:
+
+* `shoppinglist recipe 4` +
+Generates a shopping list consisting ingredients for all recipes present within the fourth meal plan in the meal plan book.
 
 === Health Records
 
