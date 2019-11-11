@@ -145,6 +145,7 @@ public class DeckDisplay extends VBox {
         State state = StateHolder.getState();
         state.removeDeck(deck.getDeckName());
         StorageManager.deleteDeck(deck);
+        StatsHolder.getDeckStats().deleteDeck(deck.getDeckName());
         Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
 

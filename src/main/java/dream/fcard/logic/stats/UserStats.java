@@ -2,18 +2,16 @@
 package dream.fcard.logic.stats;
 
 /**
- * Contains statistics pertaining to the user's login sessions.
+ * Stores and handles the user's login sessions.
  */
 public class UserStats extends Stats {
 
     /** List of Sessions the user has engaged in. */
     private SessionList sessionList;
 
-    /** The current Session the user is engaging in. */
-    private Session currentSession;
-
     /** Constructs a new instance of UserStats with no stored data. */
-    public UserStats() {
+    UserStats() {
+        // package-private; should only be called by StatsHolder
         this.sessionList = new SessionList();
         this.currentSession = null;
         logger.info("New UserStats object created.");
@@ -31,13 +29,11 @@ public class UserStats extends Stats {
 
     @Override
     public void startCurrentSession() {
-        // replace with assert?
         if (this.currentSession != null) {
             endCurrentSession(); // should not occur, but should terminate just in case
             logger.info("Existing login session detected. Terminating it first...");
         }
 
-        // debug (change to Logger when implemented)
         logger.info("Starting a login session...");
 
         this.currentSession = new Session();
@@ -45,7 +41,6 @@ public class UserStats extends Stats {
 
     @Override
     public void endCurrentSession() {
-        // assert current session is not null?
         if (this.currentSession == null) {
             logger.info("Current login session not found!");
             return;
@@ -56,7 +51,7 @@ public class UserStats extends Stats {
             this.sessionList.addSession(currentSession);
 
             // reset currentSession to null since this is terminated
-            this.currentSession = null;
+            resetCurrentSession();
 
             logger.info("Ending the current login session...");
         } catch (Exception e) {

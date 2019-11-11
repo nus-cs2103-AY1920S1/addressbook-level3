@@ -118,7 +118,10 @@ public class SessionListUtil {
             if (!session.hasScore()) {
                 continue;
             }
-            sumOfScores += SessionListUtil.getScoreAsPercentageDouble(session);
+            double score = SessionListUtil.getScoreAsPercentageDouble(session);
+            //System.out.println("score = " + score);
+            sumOfScores += score;
+            //System.out.println("sumOfScores = " + sumOfScores);
             numOfTestSessionsWithScore++;
         }
 
@@ -127,21 +130,23 @@ public class SessionListUtil {
         }
 
         double averageScoreAsDouble = sumOfScores / numOfTestSessionsWithScore;
+        //System.out.println("averageScoreAsDouble = " + averageScoreAsDouble);
         double roundedAverageScore = roundToTwoDecimalPlaces(averageScoreAsDouble);
+        //System.out.println("roundedAverageScore = " + roundedAverageScore);
         String averageScoreAsString = convertScoreDoubleToString(roundedAverageScore);
         return averageScoreAsString;
     }
 
     /**
      * Calculates the average score of a list of test session lists.
-     * @param sessionsList The list of test session lists.
+     * @param sessionLists The list of test session lists.
      * @return The average score of the list of test sessions, as a String.
      */
-    public static String getAverageScore(ArrayList<SessionList> sessionsList) {
+    public static String getAverageScore(ArrayList<SessionList> sessionLists) {
         int numSessionList = 0; // number of non-empty SessionLists
         double sumOfScores = 0.0;
 
-        for (SessionList sessionList : sessionsList) {
+        for (SessionList sessionList : sessionLists) {
             if (sessionList.isEmpty()) {
                 continue;
             }

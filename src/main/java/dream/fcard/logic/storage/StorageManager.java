@@ -335,9 +335,6 @@ public class StorageManager {
                             DateTimeUtil.getDateTimeFromJson(sessionJsonObj.get(Schema.SESSION_END).getObject()));
                     session.setScore(sessionJsonObj.get(Schema.SESSION_SCORE).getString());
                     StatsHolder.getDeckStats().addSessionToDeckSessionList(session, deckName);
-
-                    // temporary
-                    System.out.println("Test session added to session list for  " + deckName);
                 }
             }
         } catch (FileNotFoundException e) {
