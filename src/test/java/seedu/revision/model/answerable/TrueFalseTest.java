@@ -62,10 +62,10 @@ public class TrueFalseTest {
     }
 
     @Test
-    public void isCorrect() {
-        assertTrue(TF_A.isCorrect(TF_ANSWER_TRUE));
-        assertFalse(TF_A.isCorrect(TF_ANSWER_FALSE));
-        assertThrows(NullPointerException.class, () -> TF_A.isCorrect(null));
+    public void isAnswerCorrect() {
+        assertTrue(TF_A.isAnswerCorrect(TF_ANSWER_TRUE));
+        assertFalse(TF_A.isAnswerCorrect(TF_ANSWER_FALSE));
+        assertThrows(NullPointerException.class, () -> TF_A.isAnswerCorrect(null));
     }
 
     //Concrete method implemented by abstract class Answerable.

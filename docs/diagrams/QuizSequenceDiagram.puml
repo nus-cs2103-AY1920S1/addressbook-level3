@@ -61,7 +61,7 @@ McqInputCommand -> CommandResultBuilder : CommandResultBuilder()
 activate CommandResultBuilder
 deactivate CommandResultBuilder
 
-CommandResultBuilder -> CommandResultBuilder : withFeedback(result)
+CommandResultBuilder -> CommandResultBuilder : withCorrect(result)
 
 CommandResultBuilder -> CommandResultBuilder : build()
 
@@ -70,7 +70,7 @@ activate CommandResultBuilder
 create CommandResult
 CommandResultBuilder -> CommandResult : CommandResult(builder)
 activate CommandResult
-CommandResult-> CommandResultBuilder : commandResult
+CommandResult --> CommandResultBuilder : commandResult
 deactivate CommandResult
 
 deactivate CommandResultBuilder

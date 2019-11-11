@@ -42,7 +42,7 @@ public class Saq extends Answerable {
     }
 
     @Override
-    public boolean isCorrect(Answer selectedAnswer) {
+    public boolean isAnswerCorrect(Answer selectedAnswer) {
         boolean answerIsCorrect = AnswerChecker.check(selectedAnswer.toString(), this);
         return answerIsCorrect;
     }

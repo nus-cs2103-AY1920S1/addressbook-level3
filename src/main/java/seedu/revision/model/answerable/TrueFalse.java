@@ -22,7 +22,7 @@ public class TrueFalse extends Answerable {
     }
 
     @Override
-    public boolean isCorrect(Answer selectedAnswer) {
+    public boolean isAnswerCorrect(Answer selectedAnswer) {
         return correctAnswerList.stream()
                          .map(Answer::toString)
                          .anyMatch(ans -> ans.equalsIgnoreCase(selectedAnswer.toString()));

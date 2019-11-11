@@ -118,7 +118,7 @@ public class EditCommand extends Command {
      */
     private static Answerable createEditedAnswerable(
             Answerable answerableToEdit, EditAnswerableDescriptor editAnswerableDescriptor) {
-        assert answerableToEdit != null;
+        assert answerableToEdit != null : "Attempting to edit null answerable";
 
         Question updatedQuestion = editAnswerableDescriptor.getQuestion().orElse(answerableToEdit.getQuestion());
         ArrayList<Answer> updatedCorrectAnswerList = editAnswerableDescriptor.getCorrectAnswerList()

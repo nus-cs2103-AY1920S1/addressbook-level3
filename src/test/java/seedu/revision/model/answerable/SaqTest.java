@@ -51,10 +51,10 @@ public class SaqTest {
     }
 
     @Test
-    public void isCorrect() {
-        assertTrue(SAQ_A.isCorrect(new Answer("Unit Testing")));
-        assertFalse(SAQ_A.isCorrect(new Answer("Definitely wrong")));
-        assertThrows(NullPointerException.class, () -> SAQ_A.isCorrect(null));
+    public void isAnswerCorrect() {
+        assertTrue(SAQ_A.isAnswerCorrect(new Answer("Unit Testing")));
+        assertFalse(SAQ_A.isAnswerCorrect(new Answer("Definitely wrong")));
+        assertThrows(NullPointerException.class, () -> SAQ_A.isAnswerCorrect(null));
     }
 
     //Concrete method implemented by abstract class Answerable.

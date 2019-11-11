@@ -81,6 +81,7 @@ public class StartQuizWindow extends ParentWindow {
     //to keep track of the total number of questions answered so far at every level of the quiz
     private int accumulatedSize = 0;
 
+    /** Current progress of the user in the quiz. Used by {@code ProgressIndicatorBar}.**/
     private ReadOnlyDoubleWrapper currentProgressIndex = new ReadOnlyDoubleWrapper(
             this, "currentProgressIndex", 0);
 
@@ -244,21 +245,19 @@ public class StartQuizWindow extends ParentWindow {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = nextLevelDialog.showAndWait();
-            if (result.isPresent()) {
-                if (result.get() == nextLevelDialog.getNoButton()) {
-                    handleExit();
-                } else {
-                    //Reset UI in the window
-                    levelLabel.updateLevelLabel(nextLevel);
-                    currentProgressIndex.set(0);
-                    progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
-                            getSizeOfCurrentLevel(nextAnswerable),
-                            "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-                    //Start a new timer for the next level
-                    this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
-                    progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
-                    scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
-                }
+            if (result.isPresent() && result.get() == nextLevelDialog.getNoButton()) {
+                handleExit();
+            } else {
+                //Reset UI in the window
+                levelLabel.updateLevelLabel(nextLevel);
+                currentProgressIndex.set(0);
+                progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
+                        getSizeOfCurrentLevel(nextAnswerable),
+                        "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
+                //Start a new timer for the next level
+                this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
+                progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
+                scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
             }
         });
 
@@ -325,7 +324,7 @@ public class StartQuizWindow extends ParentWindow {
     }
 
     /**
-     * Closes the application.
+     * Closes quiz mode and enters configuration mode by displaying the {@code MainWindow}.
      */
     @FXML
     protected void handleExit() {
@@ -350,18 +349,9 @@ public class StartQuizWindow extends ParentWindow {
         return levelLabel;
     }
 
-    public ResultDisplay getQuestionDisplay() {
-        return questionDisplay;
-    }
-
-    public AnswersGridPane getAnswersGridPane() {
-        return answersGridPane;
-    }
-
     public ProgressIndicatorBar getProgressIndicatorBar() {
         return progressIndicatorBar;
     }
-
     public Timer getTimer() {
         return timer;
     }

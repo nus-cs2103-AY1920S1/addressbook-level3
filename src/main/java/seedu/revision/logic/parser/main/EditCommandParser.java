@@ -88,7 +88,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      * {@code Set<Category>} containing zero categories.
      */
     private Optional<Set<Category>> parseCategoriesForEdit(Collection<String> categories) throws ParseException {
-        assert categories != null;
+        assert categories != null : "Attempting to edit null Category";
 
         if (categories.isEmpty()) {
             return Optional.empty();

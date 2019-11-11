@@ -16,7 +16,7 @@ public class NormalMode extends Mode {
      * time and combinedPredicate.
      */
     public NormalMode() {
-        super("normal");
+        super(Modes.NORMAL.toString());
         this.time = NORMAL_MODE_TIME;
         this.combinedPredicate = NORMAL_MODE_PREDICATE;
     }

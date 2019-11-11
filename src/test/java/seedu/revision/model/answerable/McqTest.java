@@ -78,9 +78,9 @@ public class McqTest {
 
     @Test
     public void isCorrect() {
-        assertTrue(MCQ_C.isCorrect(MCQ_CORRECT_ANSWER_A));
-        assertFalse(MCQ_C.isCorrect(MCQ_WRONG_ANSWER_A));
-        assertThrows(NullPointerException.class, () -> MCQ_C.isCorrect(null));
+        assertTrue(MCQ_C.isAnswerCorrect(MCQ_CORRECT_ANSWER_A));
+        assertFalse(MCQ_C.isAnswerCorrect(MCQ_WRONG_ANSWER_A));
+        assertThrows(NullPointerException.class, () -> MCQ_C.isAnswerCorrect(null));
     }
 
     //Concrete method implemented by abstract alass Answerable.
