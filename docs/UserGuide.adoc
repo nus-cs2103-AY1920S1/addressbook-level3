@@ -154,11 +154,11 @@ Command: `goto dashboard`
 Let's start by using the `add` command to add some tasks into DukeCooks!
 
 Command: `add task` +
-Format: `add task tn/_insert task here_ td/ _insert date here_`
+Format: `add task tn/<insert task here> td/<insert date here>`
 
 [NOTE]
 ====
-Task name entered should not exceed 30 characters.
+Task name entered should not exceed 35 characters.
 When entering the date for a task, please follow the given format: day/month/year.
 ====
 
@@ -178,7 +178,7 @@ Step 3. You can view the newly added task under the Dashboard.
 [caption="Figure 3.2.2b: "]
 image::addtask2.png[width="500"]
 
-[icon tip]
+[TIP]
 ====
 Did you know? You are able to enter Dashboard commands even if you are on another feature. Talk about
 double the productivity!
@@ -190,7 +190,7 @@ Made some typos when adding a task? +
 Fret not! You are able to make changes to them.
 
 Command: `edit task` +
-Format: `edit task _index number_ tn/ _insert new name_ td/ _insert new date_`
+Format: `edit task <index number> tn/ <insert new name> td/ <insert new date>`
 
 [NOTE]
 ====
@@ -220,7 +220,7 @@ Decided that this task is not needed? +
 Well you can delete them off from DukeCooks.
 
 Command: `delete task` +
-Format: `delete task _index number_`
+Format: `delete task <index number>`
 
 [NOTE]
 ====
@@ -249,7 +249,7 @@ Finished with a task? +
 Check it off the list!
 
 Command: `done task` +
-Format: `done task _index number_`
+Format: `done task <index number>`
 
 Example usage (Figure 3.2.5a & 3.2.5b): `done 1`
 
@@ -278,7 +278,7 @@ A pop up window with an encouraging message will be displayed for extra motivati
 For those who want to know what are the tasks relevant given a keyword.
 
 Command: `find task` +
-Format: `find task _keyword_`
+Format: `find task <keyword>`
 
 Example usage (Figure 3.2.6a & 3.2.6b): `find task project`
 
@@ -311,7 +311,7 @@ Command: `list taskincomplete`
 Think you need a little bit more time to complete a task?
 
 Command: `postpone task` +
-Format: `postpone task _index number_ by _number of days_`
+Format: `postpone task <index number> by <number of days>`
 
 Example usage: `postpone task 1 by 5` +
 The above example will postpone the date of task 1 by 5 days.
