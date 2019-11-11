@@ -29,9 +29,7 @@ public class RecurrenceTest {
     @Test
     public void equals() {
         // same values -> returns true
-        Expense expense = BILLS;
         Recurrence recurBillsCopy = new RecurrenceBuilder(RECUR_BILLS).build();
-        Recurrence recurrence = RECUR_BILLS;
         assertEquals(RECUR_BILLS.getExpenses(), recurBillsCopy.getExpenses());
         assertEquals(RECUR_BILLS, recurBillsCopy);
 

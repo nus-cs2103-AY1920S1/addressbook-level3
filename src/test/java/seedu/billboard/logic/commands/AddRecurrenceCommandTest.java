@@ -21,13 +21,6 @@ import seedu.billboard.testutil.RecurrenceBuilder;
  */
 public class AddRecurrenceCommandTest {
 
-    private Model model;
-
-    @BeforeEach
-    public void setUp() {
-        model = new ModelManager(getTypicalBillboardWithRecurrenceExpenses(), new UserPrefs());
-    }
-
     @Test
     public void constructor_nullRecurrence_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddRecurrenceCommand(

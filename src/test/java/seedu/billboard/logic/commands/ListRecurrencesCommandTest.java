@@ -31,7 +31,6 @@ public class ListRecurrencesCommandTest {
                 + "[Name: bill Description: pay bill Amount: 10.00 Created: 01 Jan 2019, "
                 + "12:00 AM Tags: [] Interval: WEEK Iterations: WEEK]";
         CommandResult expectedCommandResult = new CommandResult(expectedFeedback);
-        CommandResult result = new ListRecurrenceCommand().execute(withRecurrencesModel);
         assertCommandSuccess(new ListRecurrenceCommand(),
                 withRecurrencesModel, expectedCommandResult, withRecurrencesExpectedModel);
     }
