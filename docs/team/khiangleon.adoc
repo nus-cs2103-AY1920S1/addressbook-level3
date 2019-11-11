@@ -80,13 +80,12 @@ of any statistical information of past quizzes.
 *** Managed and resolved issues actively throughout project duration.
 
 ** Enhancements to existing features:
-*** Wrote additional GUI tests to increase coverage from 50% to 75% (PR link:{pullUrl}/158[#158], link:{pullUrl}/161[#161], link:{pullUrl}/163[#163])
+*** Wrote tests for Statistics and History related features created by me.
 
 ** Documentation:
-
-
-** Community:
-
+*** Created sequence diagrams for `StatsCommand` feature and class diagram for storage component of the app
+*** Created sequence diagram to better explain how history of quiz results is updated after every successful
+completion of quiz.
 
 
 == Contributions to the User Guide
@@ -108,8 +107,5 @@ include::../UserGuide.adoc[tag=khiangleon-StatsTip]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=wilfred-logic]
+include::../DeveloperGuide.adoc[tag=khiangleon-stats]
 
-include::../DeveloperGuide.adoc[tag=wilfred-answerable]
-
-include::../DeveloperGuide.adoc[tag=wilfred-quiz]

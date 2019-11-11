@@ -81,7 +81,7 @@ deactivate CommandResultBuilder
 McqInputCommand --> LogicManager : commandResult
 deactivate McqInputCommand
 
-ref over LogicManager, Model : update score history
+ref over LogicManager, Model : updateStatistics(answerable)
 
 [<--LogicManager: commandResult
 deactivate LogicManager

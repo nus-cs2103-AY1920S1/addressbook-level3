@@ -1,0 +1,42 @@
+@startuml
+!include style.puml
+
+box Ui UI_COLOR_T1
+participant ":StartQuizWindow" as StartQuizWindow UI_COLOR_T1
+end box
+
+box Logic LOGIC_COLOR_T2
+participant ":LogicManager" as LogicManager LOGIC_COLOR_T2
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ModelManager" as ModelManager MODEL_COLOR_T1
+participant ":History" as History MODEL_COLOR_T1
+end box
+
+[-> StartQuizWindow : execute(commandText)
+activate StartQuizWindow
+
+StartQuizWindow -> StartQuizWindow : handleEnd(answerable)
+
+StartQuizWindow -> LogicManager : updateHistory(statistics)
+activate LogicManager
+
+LogicManager -> ModelManager : addStatistics(statistics)
+activate ModelManager
+
+ModelManager -> History : addStatistics(statistics)
+activate History
+
+History --> ModelManager
+deactivate History
+
+ModelManager --> LogicManager
+deactivate ModelManager
+
+LogicManager --> StartQuizWindow
+deactivate LogicManager
+
+StartQuizWindow -->[
+deactivate StartQuizWindow
+@enduml

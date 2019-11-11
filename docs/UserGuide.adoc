@@ -98,9 +98,7 @@ Examples:
 //tag::khiangleon-stats[]
 === Check your progress: `stats`
 
-+
 image::stats.png[width="790"]
-+
 
 Displays the percentage of questions answered correctly by difficulty, for all
 quiz attempts. Indicates to user which difficulty level he or she is weakest in.
