@@ -272,11 +272,11 @@ Adds an engagement to the system. There are three types of engagements; `Appoint
 Format: `add t/ENGAGEMENT_TYPE s/START_TIME[dd/mm/YYYY/HHMM] e/END_TIME[dd/mm/YYYY/HHMM] l/LOCATION d/DESCRIPTION a/ATTENDEES[Separated by '|'] p/PRIORITY`
 
 .Enters Add Engagement Command in Command Input Text field.
-image::add_1.png[width="800"]
+image::add_1.png[width="800" height='125']
 
 Examples:
 
-* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T a/John | Elijah | Sam  Discussion p/High` +
+* `add t/Meeting s/18/10/2019/1500 e/18/10/2019/1800 l/COM-2-B1-03 d/CS2103T Discussion a/John | Elijah | Sam p/High` +
 Adds an engagement with following information;
 ** Engagement Type: Meeting
 ** Start Time: 18/10/2019/1500
