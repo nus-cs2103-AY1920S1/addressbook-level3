@@ -9,7 +9,8 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.common.HelpCommand;
-import seedu.address.logic.parser.bookings.BookingsParser;
+import seedu.address.logic.parser.bookings.BookingsManagerParser;
+import seedu.address.logic.parser.bookings.edit.EditBookingParser;
 import seedu.address.logic.parser.common.CommonParser;
 import seedu.address.logic.parser.currency.EditCurrencyParser;
 import seedu.address.logic.parser.diary.DiaryParser;
@@ -100,7 +101,9 @@ public class TravelPalParser {
         case DIARY:
             return parseNavbarPageCommand(commandWord, arguments, new DiaryParser(), NavbarCommand.DIARY);
         case BOOKINGS:
-            return parseNavbarPageCommand(commandWord, arguments, new BookingsParser(), NavbarCommand.BOOKINGS);
+            return parseNavbarPageCommand(commandWord, arguments, new BookingsManagerParser(), NavbarCommand.BOOKINGS);
+        case ADD_BOOKINGS:
+            return new EditBookingParser().parse(commandWord, arguments);
         case CONTACTS_MANAGER:
         default:
             throw new ParseException(UNKNOWN_PAGE_MESSAGE);

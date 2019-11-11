@@ -35,6 +35,7 @@ import seedu.address.ui.template.UiChangeConsumer;
 /**
  * {@code Page} for displaying the expense.
  */
+
 public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChangeConsumer {
 
     private static final String FXML = "expense/ExpensesPage.fxml";

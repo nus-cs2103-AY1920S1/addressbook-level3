@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.ParserDateUtil;
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModelTestUtil;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.itinerary.event.Event;
@@ -22,7 +21,7 @@ import seedu.address.storage.diary.JsonAdaptedDiary;
 class JsonAdaptedTripTest {
     //Blank Name
     @Test
-    public void toModelType_invalidName_throwsIllegalValueException() throws ParseException {
+    public void toModelType_invalidName_throwsIllegalValueException() throws IllegalValueException {
         JsonAdaptedTrip jsonAdaptedTrip = new JsonAdaptedTrip("",
                 ParserDateUtil.getDateTimeFromString(VALID_STARTDATE_AFRICA_2),
                 ParserDateUtil.getDateTimeFromString(ModelTestUtil.VALID_ENDDATE_AFRICA_2),
@@ -31,6 +30,7 @@ class JsonAdaptedTripTest {
                 new ArrayList<JsonAdaptedDay>(),
                 new ArrayList<JsonAdaptedExpense>(),
                 new JsonAdaptedDiary(new Diary()),
+                new ArrayList<JsonAdaptedBooking>(),
                 Optional.empty(),
                 new ArrayList<JsonAdaptedInventory>()
         );
@@ -39,7 +39,7 @@ class JsonAdaptedTripTest {
     }
 
     @Test
-    public void toModelType_invalidEndDateBeforeStartDate_throwsIllegalValueException() throws ParseException {
+    public void toModelType_invalidEndDateBeforeStartDate_throwsIllegalValueException() throws IllegalValueException {
         JsonAdaptedTrip jsonAdaptedTrip = new JsonAdaptedTrip(VALID_NAME_AFRICA,
                 ParserDateUtil.getDateTimeFromString(VALID_STARTDATE_AFRICA_2),
                 LocalDateTime.of(2018, 12, 15, 0, 0),
@@ -48,6 +48,7 @@ class JsonAdaptedTripTest {
                 new ArrayList<JsonAdaptedDay>(),
                 new ArrayList<JsonAdaptedExpense>(),
                 new JsonAdaptedDiary(new Diary()),
+                new ArrayList<JsonAdaptedBooking>(),
                 Optional.empty(),
                 new ArrayList<JsonAdaptedInventory>()
         );
