@@ -492,35 +492,14 @@ image::UseGrocerySequenceDiagramRef.png[align="center", width="800"]
 
 The current implementation for using a grocery item is by overwriting the existing grocery item with a new grocery item object with its amount field deducted, as shown in the diagram above. The rest of the fields are copied over without any other modifications.
 
-The `glist use` command is also able to support unit conversion. Currently, the implementation of the unit conversion are calculated manually inside the `Amount` class. No external library is used. (Refer to <<amount-parameter, About the amount parameter>>)
+The `glist use` command is also able to support unit conversion. Currently, the implementation of the unit conversion are calculated manually inside the `Amount` class. No external library is used.
 
 The following activity diagram summarises how the unit conversion is done.
 
-image::UseGroceryActivityDiagram.png[align="center", width="400"]
+image::UseGroceryActivityDiagram.png[align="center", width="300"]
 
 The conversions of units are done in the `Amount` class. Unit type is necessary in the implementation to allow for keeping track of different unit groups across different lists in the application. For example, `kg`, `g`, `lbs`, and `oz` are all categorised under the unit type `Weight`.
-
-[[amount-parameter]]
-====
-*About the Amount Parameter*
-
-* Several commands involve computation of amounts. Units are classified under three unit types:
-- *Volume:* ml, L
-- *Weight:* g, kg, oz, lbs
-- *Quantity:* units
-* Conversion of units can only be applied on the same classification. The conversion implemented in this app is shown in the table below. +
-[width="100%",options="header"]
-|===
-| Amount in the unit specified | Amount in standard form (kg, L, units)
-
-| 1ml | 0.001L
-| 1g  | 0.001kg
-| 1oz | 0.00283495kg
-| 1lbs| 0.453592kg
-|===
-* A certain minimum value is imposed on the `Amount` class (0.1ml for Volume, 0.1kg for Weight, and 0.1units for Quantity) to ensure consistency.
-Any value below the restriction would result in an error.
-====
+(Refer to the <<UserGuide.adoc#amount-parameter, User Guide>> for more info about the `Amount` parameter.
 
 ==== Design Considerations
 ===== Aspect: Storing of the value and unit
@@ -763,7 +742,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |remove a grocery |maintain only usable items in the fridge
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user with many grocery items in the grocery list |sort grocery items by expiry date|locate an expired grocery item easily
 
 |`* * *` |forgetful user |get reminders on expiring food items |prevent food wastage
 
@@ -909,7 +888,7 @@ Use case ends.
 1.  User requests to list grocery items
 2.  GroceryList shows a list of grocery items
 3.  User requests to delete a specific grocery item in the list
-4.  GroceryList deletes the person
+4.  GroceryList deletes the grocery item
 +
 Use case ends.
 
@@ -1034,9 +1013,9 @@ Expected: The amount of the first grocery item is deducted by 50ml. Other fields
 
 .. Prerequisites: List all grocery items in the grocery list using the `glist list` command. Multiple grocery items exist in the grocery list.
 .. Test case: `glist sort by/expiry` +
-Expected: The displayed grocery list would be sorted based on the grocery items' expiry date in ascending order (from earliest to most recent).
+Expected: The displayed grocery list would be sorted based on the grocery item's expiry date in ascending order (from earliest to most recent).
 .. Test case: `glist sort by/alphabetical` +
-Expected: The displayed grocery list would be sorted based on alphabetical order of the grocery items' name in ascending order.
+Expected: The displayed grocery list would be sorted based on the grocery item's name in ascending alphabetical order.
 
 . Finding items based on name or tag
 
@@ -1044,7 +1023,6 @@ Expected: The displayed grocery list would be sorted based on alphabetical order
 Name or tag to be found may exist or not exist in any of the grocery items.
 .. Test case: `glist find apple snack` +
 Expected: The displayed grocery list would now contain items that has `apple` and `snack` as either their name or tag. If no items match, the displayed list would be empty.
-.. Other invalid find commands to try: `glist find b@nana` (would result in error as name and tag cannot contain any non-alphanumeric character).
 
 //end::grocerylistmanualtesting[]
 

@@ -24,7 +24,7 @@ The grocery list management is the backbone of the app as grocery items manageme
 In addition, the grocery list is likely to be the most frequented list by the user.
 ** Highlights: While implementing this feature, I had to implement new commands such as `glist use` and `glist sort`. `glist use` is differentiated from `glist edit` as the underlying implementation of `glist use` appears to be different from `glist edit`. +
 +
-On the other hand, `glist sort` is implemented to further improve the convenience level for the user. As of now, the sorting type supported is in ascending lexicographical order and ascending date.
+On the other hand, `glist sort` is implemented to further improve the convenience level for the user. As of now, the sorting type supported is in ascending alphabetical order and ascending expiry date.
 
 * *Minor enhancement*: Cross-conversion between units in `Amount` class
 ** What it does: Allows for cross-conversion between different units supported by the app.
