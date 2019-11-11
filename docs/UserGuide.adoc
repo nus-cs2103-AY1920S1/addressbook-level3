@@ -250,13 +250,13 @@ For example:
 * If you want a quick way to save your current bookmarks before modifying them,
 you can input `*export* myBookmarks` into the command box.
 +
-images::ui-screenshots/ExportCommandUi1.png[]
+image::ui-screenshots/ExportCommandUi1.png[]
 
 * Mark displays a confirmation message, and you can verify that your Mark data
 has been exported to the folder `/data/bookmarks/myBookmarks.json`.
 +
 // not sure if we should show a screenshot of the directory
-images::ui-screenshots/ExportCommandUi2.png[]
+image::ui-screenshots/ExportCommandUi2.png[]
 
 Parameter constraints:
 ****
