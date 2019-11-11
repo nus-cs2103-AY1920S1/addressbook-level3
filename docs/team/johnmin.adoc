@@ -11,72 +11,72 @@ endif::[]
 
 ==== Overview
 
-[small]#Alfred is a desktop application used for organizing hackathons. This project was morphed from `SE-EDU Addressbook - Level 3`, which you can find the link https://se-education.org/addressbook-level3/[here]. This application allows the user to easily manage the relationships between teams and participants/mentors taking part in an hackathon event along with providing a simple mechanism for judging and scoring of teams. It is written in Java with more than 25 kLoC.#
+Alfred is a desktop application used for organizing hackathons. This project was morphed from `SE-EDU Addressbook - Level 3`, which you can find the link https://se-education.org/addressbook-level3/[here]. This application allows the user to easily manage the relationships between teams and participants/mentors taking part in an hackathon event along with providing a simple mechanism for judging and scoring of teams. It is written in Java with more than 25 kLoC.
 
-[small]#This is what our project looks like:#
+This is what our project looks like:
 
 .The GUI for *Alfred*
 image::Ui.png[pdfwidth=75%, align="center"]
 
-[small]#I implemented the `import` and `export` features for *Alfred*. The following sections will delve deeper into the enhancements I have made along with the relevant documentations I have added to the user and developer guides.#
+I implemented the `import` and `export` features for *Alfred*. The following sections will delve deeper into the enhancements I have made along with the relevant documentations I have added to the user and developer guides.
 
-[small]#Note the following format used in this document:#
+Note the following format used in this document:
 
 [cols=2, grid=none, frame=none, cols="25%,75%"]
 |===
-| [small]#`Words` in red# | [small]#Indicates that this word is either associated with written code, parameters for commands, or Java classes.
-| [small]#Words in `UPPER_CASE`# | [small]#Indicates a parameter that you need to supply for a command.#
-| [small]#Words in `{braces}`# | [small]#Indicates parameters for a command that you can select from. +
-i.e. {A/B/C} indicates that you may either choose A, B, or C.#
-| [small]#Words in `[brackets]`# | [small]#Indicate parameters that are optional for the command. +
-i.e. `add [param]` indicates that both `add` and `add param` commands will work.#
-| [small]#`Entity`# | [small]#Refers to a collective set of Participants, Mentors, and Teams.#
+| `Words` in red | Indicates that this word is either associated with written code, parameters for commands, or Java classes.
+| Words in `UPPER_CASE` | Indicates a parameter that you need to supply for a command.
+| Words in `{braces}` | Indicates parameters for a command that you can select from. +
+i.e. {A/B/C} indicates that you may either choose A, B, or C.
+| Words in `[brackets]` | Indicate parameters that are optional for the command. +
+i.e. `add [param]` indicates that both `add` and `add param` commands will work.
+| `Entity` | Refers to a collective set of Participants, Mentors, and Teams.
 |===
 
 ==== Summary of contributions
 
 *Major Enhancement 1:* added the ability to bulk register entities into *Alfred* through CSV files.
 
-* [small]#*What it does:* Allows the user to add multiple entities into *Alfred* at once instead of one command at a time.#
-* [small]#*Justification:* This feature improves the product significantly as it allows the user to keep track of registered entities in CSV files and mass import it after registration period.#
-* [small]#*Highlights:* This enhancement requires the user to keep a correctly formatted CSV file for this command to work properly. Rules for formatting is included in our <<../UserGuide.adoc#ParameterConstraints, user guide>>.#
+* *What it does:* Allows the user to add multiple entities into *Alfred* at once instead of one command at a time.
+* *Justification:* This feature improves the product significantly as it allows the user to keep track of registered entities in CSV files and mass import it after registration period.
+* *Highlights:* This enhancement requires the user to keep a correctly formatted CSV file for this command to work properly. Rules for formatting is included in our <<../UserGuide.adoc#ParameterConstraints, user guide>>.
 
 *Major Enhancement 2:* added the ability to export all the data in *Alfred* to an external CSV file.
 
-* [small]#*What it does:* Allows the user to keep a record of past hackathon events via a one-line command.#
-* [small]#*Justification:* For big events such as hackathons, it will be important to keep a record of each hackathon event. This documentation can be used for many purposes, including sharing aggregate data with other organizations and analyzing past events to predict necessary investments for future events.#
-* [small]#*Highlights:* The user can choose to export data regarding a certain entity type by specifying it in the command. This may be useful if the user wants to run statistical analysis regarding a specific entity type.#
+* *What it does:* Allows the user to keep a record of past hackathon events via a one-line command.
+* *Justification:* For big events such as hackathons, it will be important to keep a record of each hackathon event. This documentation can be used for many purposes, including sharing aggregate data with other organizations and analyzing past events to predict necessary investments for future events.
+* *Highlights:* The user can choose to export data regarding a certain entity type by specifying it in the command. This may be useful if the user wants to run statistical analysis regarding a specific entity type.
 
 *Minor enhancement:* morphed existing `add`, `delete`, and `edit` commands to fit the class structure of *Alfred*
 
-* [small]#*Highlights:* Although this is included as a minor enhancement, it required creation of 12 new Java classes along with syncing of new methods exposed by our new manager class.#
+* *Highlights:* Although this is included as a minor enhancement, it required creation of 12 new Java classes along with syncing of new methods exposed by our new manager class.
 
 *Code contributed*: [https://tinyurl.com/tzuvoyh[Contributions]]
 
 *Other contributions*:
 
-* [small]#Project Management:#
+* Project Management:
 
-** [small]#Managed README.adoc, AboutUs.adoc, ContactUs.adoc, and our team profile pictures for our https://nus-cs2103-ay1920s1.github.io/website/admin/projectList.html#cs2103t-f11[team showcase] (Pull requests: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/29[#29], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/36[#36])#
+** Managed README.adoc, AboutUs.adoc, ContactUs.adoc, and our team profile pictures for our https://nus-cs2103-ay1920s1.github.io/website/admin/projectList.html#cs2103t-f11[team showcase] (Pull requests: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/29[#29], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/36[#36])
 
-* [small]#Enhancements to existing features:#
+* Enhancements to existing features:
 
-** [small]#Updated existing utility classes to abstract commonly used methods (Pull requests: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/14[#14] https://github.com/AY1920S1-CS2103T-F11-1/main/pull/116[#116])#
-** [small]#Morphed existing commands to fit with our project's structure (Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/2[#2], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/4[#4], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/63[#63])#
+** Updated existing utility classes to abstract commonly used methods (Pull requests: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/14[#14] https://github.com/AY1920S1-CS2103T-F11-1/main/pull/116[#116])
+** Morphed existing commands to fit with our project's structure (Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/2[#2], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/4[#4], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/63[#63])
 
-* [small]#Documentation:#
+* Documentation:
 
-** [small]#Added `ImportCommand` and `ExportCommand` sections in our user guide and developer guide: (Pull request: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/349[#349])#
+** Added `ImportCommand` and `ExportCommand` sections in our user guide and developer guide: (Pull request: https://github.com/AY1920S1-CS2103T-F11-1/main/pull/349[#349])
 
-* [small]#Community:#
+* Community:
 
-** [small]#PRs reviewed with non-trivial review comments: (https://github.com/AY1920S1-CS2103T-F11-1/main/pull/7[#7], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/13[#13] ... https://github.com/AY1920S1-CS2103T-F11-1/main/pull/159[#159] ...)#
-** [small]#Reported bugs and suggestions for our team (Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/324[#324], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/325[#325], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/326[#326], https://github.com[2], https://github.com[3])#
-** [small]#Fixed bugs raised by my teammate and people from other teams (Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/270[#270], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/272[#272], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/322[#322])#
+** PRs reviewed with non-trivial review comments: (https://github.com/AY1920S1-CS2103T-F11-1/main/pull/7[#7], https://github.com/AY1920S1-CS2103T-F11-1/main/pull/13[#13] ... https://github.com/AY1920S1-CS2103T-F11-1/main/pull/159[#159] ...)
+** Reported bugs and suggestions for our team (Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/324[#324], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/325[#325], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/326[#326], https://github.com[2], https://github.com[3])
+** Fixed bugs raised by my teammate and people from other teams (Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/270[#270], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/272[#272], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/322[#322])
 
-* [small]#Tools:#
+* Tools:
 
-** [small]#Integrated a third party library (Netlify) to the project (https://github.com/AY1920S1-CS2103T-F11-1/main/commit/96ead6d1d344e580e2a4df56ecb9adb7f6a2ed99#diff-7bd4a925c695c2eb0eced3872b9b965f[README.adoc commit])#
+** Integrated a third party library (Netlify) to the project (https://github.com/AY1920S1-CS2103T-F11-1/main/commit/96ead6d1d344e580e2a4df56ecb9adb7f6a2ed99#diff-7bd4a925c695c2eb0eced3872b9b965f[README.adoc commit])
 
 ==== Contributions to the User Guide
 
