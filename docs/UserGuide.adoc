@@ -595,7 +595,7 @@ image::RuleUG2.png[width=85%,scaledwidth=85%]
 The picture above shows a transaction added with the command: +
 `txn dn/out x/200 d/Treat friends to buffet food!`
 
-As you can see, two of the rules from _<<Figure, Figure 11>>_ were applied on the transaction, and added categories to it.
+As you can see, two of the rules from the _<<Figure, example list of rules above>>_ were applied on the transaction, and added categories to it.
 // end::ruleExtract1[]
 
 WARNING: All rules will be executed from the top of the list downwards.
