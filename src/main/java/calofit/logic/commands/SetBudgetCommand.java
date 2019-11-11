@@ -37,6 +37,6 @@ public class SetBudgetCommand extends Command {
 
     @Override
     public int hashCode() {
-        return Objects.hash(budget);
+        return budget.hashCode();
     }
 }
