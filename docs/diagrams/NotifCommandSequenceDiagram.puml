@@ -1,0 +1,103 @@
+@startuml
+!include style.puml
+
+
+box Main #f5c1c1
+participant ":MainApp" as MainApp #ab1313
+end box
+
+box Logic #b0d5f7
+participant "addCommand:AddCommand" as AddCommand #1f69ad
+participant "<<class>>\n:NotifCommand" as StaticNotifCommand #1f69ad
+participant "notifCommand:NotifCommand" as NotifCommand #1f69ad
+end box
+
+box Storage #f5c8a2
+participant "storage:StorageManager" as Storage #e67f25
+end box
+
+box Model #e6bdf2
+participant "model:Model" as Model #621c78
+participant "notif:Notif" as Notif #621c78
+end box
+
+box Events Center #bcdfe3
+participant "<<class>>\nses:ScheduledExecutorService" as ScheduledExecutorService #5f9ca3
+end box
+
+activate MainApp
+
+create Storage
+MainApp -> Storage :StorageManager(addressBookStorage, userPrefsStorage)
+activate Storage
+Storage --> MainApp :storage
+deactivate Storage
+
+MainApp -> StaticNotifCommand :setStorage(storage)
+activate StaticNotifCommand
+MainApp <-- StaticNotifCommand
+deactivate StaticNotifCommand
+
+create AddCommand
+MainApp -> AddCommand :AddCommand(body)
+activate AddCommand
+AddCommand --> MainApp :addCommand
+deactivate AddCommand
+
+MainApp -> AddCommand :execute()
+activate AddCommand
+    AddCommand -> Model :addEntity(body)
+    activate Model
+    Model --> AddCommand
+    deactivate Model
+
+    create Notif
+    AddCommand -> Notif :Notif(body)
+    activate Notif
+    Notif --> AddCommand :notif
+    deactivate Notif
+
+    create ScheduledExecutorService
+    create NotifCommand
+
+    AddCommand -> NotifCommand :NotifCommand(notif, NOTIF_PERIOD, NOTIF_TIME_UNIT)
+    activate NotifCommand
+    NotifCommand --> AddCommand :notifCommand
+    deactivate NotifCommand
+
+    AddCommand -> NotifCommand :execute(model)
+    activate NotifCommand
+        NotifCommand -> Notif :getAlert()
+        activate Notif
+        Notif --> NotifCommand :alert
+        deactivate Notif
+
+        NotifCommand -> NotifCommand :startSesChangeBodyStatus()
+        activate NotifCommand
+        NotifCommand -> ScheduledExecutorService :schedule(alert, NOTIF_PERIOD, NOTIF_TIME_UNIT)
+        activate ScheduledExecutorService
+        ScheduledExecutorService --> NotifCommand
+
+        deactivate NotifCommand
+        deactivate ScheduledExecutorService
+
+
+        NotifCommand -> NotifCommand :startSesChangeBodyStatusUi()
+        activate NotifCommand
+        ref over NotifCommand, Storage, Model : Runnable changeUI
+        NotifCommand -> ScheduledExecutorService :schedule(changeUI, NOTIF_PERIOD, NOTIF_TIME_UNIT)
+        activate ScheduledExecutorService
+        ScheduledExecutorService --> NotifCommand
+
+        deactivate ScheduledExecutorService
+
+        deactivate NotifCommand
+
+    NotifCommand --> AddCommand
+    deactivate NotifCommand
+
+
+deactivate AddCommand
+
+
+@enduml

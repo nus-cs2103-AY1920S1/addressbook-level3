@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="fridgeCardPane" maxHeight="1.7976931348623157E308" prefHeight="80.0" prefWidth="100.0" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox id="cardPane" alignment="CENTER" prefWidth="100.0" AnchorPane.topAnchor="0.0">
+         <StackPane fx:id="fridgeIdPlaceholder">
+            <VBox.margin>
+               <Insets bottom="7.0" />
+            </VBox.margin>
+         </StackPane>
+      <Label fx:id="status" styleClass="cell_small_label" text="\$status" textFill="WHITE">
+            <font>
+               <Font size="10.0" />
+            </font>
+         </Label>
+      </VBox>
+      <StackPane layoutY="52.0" prefWidth="100.0" stylesheets="@DarkTheme.css" AnchorPane.bottomAnchor="0.0">
+         <children>
+            <Label id="bodyIdInFridge" fx:id="bodyIdInFridge" alignment="CENTER" maxWidth="80.0" stylesheets="@DarkTheme.css" text="\$body" textAlignment="CENTER" textFill="WHITE" textOverrun="CLIP" wrapText="true" StackPane.alignment="CENTER">
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

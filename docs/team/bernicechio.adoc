@@ -1,0 +1,105 @@
+= Bernice Chio Hui Yin - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: MORTAGO
+
+---
+
+== 1. Introduction
+
+This document serves to note down my contributions to Mortago, our team’s product for our Software Engineering project.
+
+=== 1.1 About the project
+Mortago is a desktop application used for managing mortuaries efficiently. It is primarily used for keeping records of entries into the mortuary.
+
+Mortago provides a *convenient dashboard* for the mortuary manager to keep track of all bodies and fridges, outstanding
+tasks, and notifications. It replaces and improves upon the traditional whiteboard system. Mortago allows the mortuary
+management to be more accurate in managing tasks, calculating the availability of space, viewing archives and generating PDF reports automatically.
+
+The user keys in commands using a CLI, and views the command results on a Graphical User Interface (GUI) created with JavaFX. Mortago was built upon a given base code provided by the SE-EDU team. It is written in Java, and has about 20kLoC.
+
+=== 1.2 About the team
+Our team consists of five Year 2 Computer Science undergraduates including myself taking CS2103T Software Engineering module. We were tasked with enhancing a basic Command Line Interface (CLI) desktop address book application for our three-month project. We chose to morph it into a mortuary management system called Mortago.
+
+=== 1.3 About my role
+My role was to design and write the codes for the generate PDF reports feature. The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
+
+Note the following symbols and formatting used in this document:
+
+====
+* `genReports`:  A dark red text (also known as a mark-up) indicates a command, component, class or object in the architecture of the application.
+====
+
+== 2. Summary of contributions
+
+This section provides the overall view of my contributions to Mortago. All my pull requests (PRs) can be found https://github.com/AY1920S1-CS2103T-T13-2/main/pulls?q=is%3Apr+assignee%3Abernicechio+is%3Aclosed[here].
+
+*2.1. Major Enhancements*
+
+I have contributed 3 supportive enhancements for Mortago’s main feature Generate PDF. Generate PDF automatically generates reports with the specified command.
+
+* *2.1.1. Major enhancement 1:* added the ability to create a PDF document which contains reports for all bodies in the mortuary
+** *What it does:* This enhancement allows the manager to automatically generate all full reports for all bodies in a PDF document.
+** *Justification:* This enhancement provides convenience for the manager to generate reports for all bodies using a single command.
+** *Highlights:* This enhancement standardises the format of every report in the document for consistency and prints timestamp when the report is generated. The manager's signature can also be added to every report automatically. The implementation required a good understanding of the iText Library.
+** *Credits:* The https://github.com/itext/itext7[iText Library] is heavily used in this feature to facilitate generating a PDF file in Java.
+
+* *2.1.2. Major enhancement 2:* added the ability to create a PDF document which serves as the report for a specific body
+** *What it does:* This enhancement allows the manager to automatically generate a single full report containing details of a specific body in a PDF document.
+** *Justification:* In the event that the details of a specific body has been updated, this enhancement provides flexibility for the manager to generate an updated report for the specific body.
+** *Highlights:* This enhancement utilises tables to organise the details of the specific body to improve readability for a comprehensive report and prints timestamp when the report is generated. The implementation required a good understanding of the iText Library.
+** *Credits:* The https://github.com/itext/itext7[iText Library] is heavily used in this feature to facilitate generating a PDF file in Java.
+
+* *2.1.3. Major enhancement 3:* added the ability to create a PDF document which contains a tabular view for all bodies in the mortuary
+** *What it does:* This enhancement allows the manager to have a brief overview of all the bodies in a PDF document.
+** *Justification:* This enhancement highlights key information of each body to the manager so that the manager need not go through every full body report.
+** *Highlights:* This enhancement organises the crucial information for every body in a table and includes statistics such as the total number of bodies in the mortuary. The implementation required a good understanding of the iText Library.
+** *Credits:* The https://github.com/itext/itext7[iText Library] is heavily used in this feature to facilitate generating a PDF file in Java.
+
+*2.2. Minor enhancement*: morphed `list` command to allow the manager to list all bodies, workers and fridges in the application.
+
+*2.3. Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=bernicechio&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[via RepoSense]]
+
+*2.4. Other contributions*
+
+** Project management: Remove non-existing developers photos from `docs/images` folder (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/130[#130])
+** Documentation
+*** updated Section 3.3 Document Generation in the User Guide (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/219[#219])
+*** updated Section 4.4 Generate PDF feature in the Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/102[#102])
+*** made cosmetic tweaks to existing contents of the Developer Guide (Commits: https://github.com/AY1920S1-CS2103T-T13-2/main/commit/02abc4c16450c0f627eb0401e210a4e82e883dc6[1], https://github.com/AY1920S1-CS2103T-T13-2/main/commit/8a189ab2262d3e28a64f05fbc4f7f09fca6f6bca[2], https://github.com/AY1920S1-CS2103T-T13-2/main/commit/c22ec137fdfa00f9530a22d4b319910c0158e338[3])
+*** updated existing diagrams and color scheme for diagrams of the Developer Guide (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/137[#137])
+*** updated Appendix B User Stories in the Developer Guide (Commit https://github.com/AY1920S1-CS2103T-T13-2/main/commit/96c7bdd079d527cfa6e1fbdec7cfe630bafe84c4[1])
+** Community
+*** reviewed PRs: https://github.com/AY1920S1-CS2103T-T13-2/main/pull/9[#9], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/31[#31], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/102[#102]
+*** contributed to forum discussions (Issue: https://github.com/nus-cs2103-AY1920S1/forum/issues/89[#89])
+*** reported bugs and suggestions for other teams (Issues: https://github.com/AY1920S1-CS2103T-F11-4/main/issues/133[133], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/136[136], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/137[137], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/139[139], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/140[140])
+** Tools: Integrated a third party library (iText) to the project (Pull request https://github.com/AY1920S1-CS2103T-T13-2/main/pull/77/files[#77])
+
+== 3. Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+_{start of extract}_
+
+include::../UserGuide.adoc[tag=documentGeneration]
+
+_{end of extract}_
+
+== 4. Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+_{start of extract}_
+
+include::../DeveloperGuide.adoc[tag=genpdf]
+
+_{end of extract}_
+
+---

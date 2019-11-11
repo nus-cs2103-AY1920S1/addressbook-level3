@@ -1,0 +1,47 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor #000000
+skinparam classBackgroundColor LOGIC_COLOR
+
+
+package UI UI_COLOR_T1{
+Class WorkerListPanel UI_COLOR
+Class WorkerListViewCell UI_COLOR
+Class WorkerCard UI_COLOR
+}
+
+package Model MODEL_COLOR_T1 {
+
+package Worker {
+Class Worker MODEL_COLOR
+Class Photo MODEL_COLOR
+}
+Interface Entity <<Interface>> MODEL_COLOR
+}
+
+package Commons #bcdfe3 {
+Class FileUtil #5f9ca3
+}
+
+package JavaFx {
+Class ImageView
+}
+
+
+WorkerListPanel -right-> "*" Worker
+WorkerListPanel .left.> "*" WorkerListViewCell :creates >
+
+WorkerListViewCell --> "1"WorkerCard :creates >
+
+
+Worker .up.|> Entity
+Worker *-left-> "0...1" Photo :contains >
+
+WorkerCard *-right-> "1" ImageView :contains >
+WorkerCard -up-> "1" Worker
+
+Photo .up.> FileUtil :checks existence of image file in <
+
+
+@enduml

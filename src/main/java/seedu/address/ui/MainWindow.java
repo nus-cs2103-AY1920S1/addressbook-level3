@@ -1,22 +1,32 @@
 package seedu.address.ui;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ReadOnlyAddressBook;
 
+//@@author shaoyi1997-reused
+//Reused from SE-EDU Address Book Level 3 with major modifications
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -24,16 +34,42 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final int MINIMUM_HEIGHT = 650;
+    private static final int MINIMUM_WIDTH = 1250;
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private ReadOnlyAddressBook readOnlyAddressBook;
+    private double xOffset = 0;
+    private double yOffset = 0;
+    private boolean isDim = false;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private WorkerListPanel workerListPanel;
+    private LineChartPanel lineChartPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private BodyMasterDetailPane bodyMasterDetailPane;
+    private NotificationButton notificationButton;
+    private CommandBox commandBox;
+    private FridgeGridView fridgeGridView;
+
+    @FXML
+    private Scene appScene;
+
+    @FXML
+    private MenuBar menuBar;
+
+    @FXML
+    private Button minimiseButton;
+
+    @FXML
+    private Button maximiseButton;
+
+    @FXML
+    private Button exitButton;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +78,31 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane workerListPanelPlaceholder;
+
+    @FXML
+    private StackPane fridgeListPlaceholder;
+
+    @FXML
+    private StackPane lineChartPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane bodyMasterListPlaceholder;
+
+    @FXML
+    private StackPane notificationButtonPlaceholder;
+
+    @FXML
+    private Menu fileButton;
+
+    @FXML
+    private Menu helpButton;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -59,6 +113,8 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+        setWindowCloseHandler();
+        setMenuBarHandlers();
 
         setAccelerators();
 
@@ -106,18 +162,80 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Fills up all the placeholders of this window.
      */
-    void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    void fillInnerParts() throws java.text.ParseException {
+        workerListPanel = new WorkerListPanel(logic.getFilteredWorkerList());
+        workerListPanelPlaceholder.getChildren().add(workerListPanel.getRoot());
+
+        lineChartPanel = LineChartPanel.getLineChartPanelInstance(logic.getAddressBook().getBodyList());
+        lineChartPanelPlaceholder.getChildren().add(lineChartPanel.getLineChart());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath(), logic.getAddressBook());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        bodyMasterDetailPane = new BodyMasterDetailPane(new BodyTableView(logic.getFilteredBodyList(),
+                logic.selectedBodyProperty(), logic::setSelectedBody),
+                new BodyCardSelected(logic.selectedBodyProperty()));
+        bodyMasterListPlaceholder.getChildren().add(bodyMasterDetailPane.getRoot());
+
+        notificationButton = NotificationButton.getInstance(logic.getFilteredActiveNotifList());
+        notificationButtonPlaceholder.getChildren().add(notificationButton.getRoot());
+
+        fridgeGridView = new FridgeGridView(logic.getFilteredFridgeList());
+        fridgeListPlaceholder.getChildren().add(fridgeGridView.getRoot());
+    }
+
+    private void setMenuBarHandlers() {
+        // determines the horizontal and vertical positions of the window relative to its origin
+        menuBar.setOnMousePressed((event) -> {
+            xOffset = event.getSceneX();
+            yOffset = event.getSceneY();
+        });
+
+        // changes the window position according to the offset
+        menuBar.setOnMouseDragged((event) -> {
+            primaryStage.setX(event.getScreenX() - xOffset);
+            primaryStage.setY(event.getScreenY() - yOffset);
+        });
+
+        // set handler when user double clicks on the menubar
+        menuBar.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2) {
+                maximiseRestore();
+            }
+        });
+
+        // sets the handlers for the respective buttons
+        setMaximiseButtonHandler();
+        setMinimiseButtonHandler();
+
+        // allows the window to be draggable and resizable
+        ResizableWindow.enableResizableWindow(primaryStage, MINIMUM_WIDTH, MINIMUM_HEIGHT,
+                Double.MAX_VALUE, Double.MAX_VALUE);
+    }
+
+    /**
+     * Enables the maximization and restoration of the window.
+     */
+    private void maximiseRestore() {
+        if (primaryStage.isMaximized()) {
+            primaryStage.setMaximized(false);
+            if (primaryStage.getScene().getWindow().getY() < 0) {
+                primaryStage.getScene().getWindow().setY(0);
+            }
+            maximiseButton.setId("maximiseButton");
+        } else {
+            Rectangle windowBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+            primaryStage.setMaximized(true);
+            primaryStage.setHeight(windowBounds.height);
+            primaryStage.setWidth(windowBounds.width);
+            maximiseButton.setId("restoreButton");
+        }
     }
 
     /**
@@ -132,6 +250,35 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Sets the application to exit when the user presses the default OS close button.
+     */
+    private void setWindowCloseHandler() {
+        primaryStage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, e -> handleExit());
+    }
+
+    /**
+     * Sets the minimising handler for minimise button.
+     */
+    private void setMinimiseButtonHandler() {
+        minimiseButton.setOnMouseClicked(click ->
+            primaryStage.setIconified(true)
+        );
+    }
+
+    /**
+     * Sets the maximising and restoring handler for maximise button
+     * Change button images respectively via css.
+     */
+    private void setMaximiseButtonHandler() {
+        maximiseButton.setOnMouseClicked(click -> {
+            maximiseRestore();
+        });
+    }
+
+    public LineChartPanel getLineChartPanel() {
+        return lineChartPanel;
+    }
     /**
      * Opens the help window or focuses on it if it's already opened.
      */
@@ -158,10 +305,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
@@ -191,3 +334,4 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 }
+//@@author

@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ORGANS_FOR_DONATION;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +33,9 @@ public class ArgumentMultimap {
         argMultimap.put(prefix, argValues);
     }
 
+    public Map<Prefix, List<String>> getMap() {
+        return argMultimap;
+    }
     /**
      * Returns the last value of {@code prefix}.
      */
@@ -56,5 +61,39 @@ public class ArgumentMultimap {
      */
     public String getPreamble() {
         return getValue(new Prefix("")).orElse("");
+    }
+
+    /**
+     * Checks the equality between two maps.
+     * @return True if both maps contain the same corresponding keys and values.
+     */
+    private boolean checkMapEquality(ArgumentMultimap other) {
+        boolean pass = true;
+        try {
+            for (Map.Entry<Prefix, List<String>> entry : argMultimap.entrySet()) {
+                if (entry.getKey().equals(PREFIX_ORGANS_FOR_DONATION)) {
+                    if (!entry.getValue().equals(other.getAllValues(entry.getKey()))) {
+                        pass = false;
+                        break;
+                    }
+                } else {
+                    if (!entry.getValue().get(0).equals(other.getValue(entry.getKey()).get())) {
+                        pass = false;
+                        break;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Exception in comparing maps");
+        }
+        return pass;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ArgumentMultimap // instanceof handles nulls
+                && checkMapEquality((ArgumentMultimap) other));
     }
 }

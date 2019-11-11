@@ -1,0 +1,29 @@
+@startuml
+!include style.puml
+
+participant ":AddCommandParser" as AddCommandParser #black
+
+box Model MODEL_COLOR_T1
+participant ":Worker" as Worker MODEL_COLOR
+participant ":IdentificationNumber" as IdentificationNumber MODEL_COLOR
+participant "uniqueIds:UniqueIdentificationNumberMaps" as UniqueIdentificationNumberMaps MODEL_COLOR
+end box
+
+create AddCommandParser
+create Worker
+AddCommandParser -> Worker
+activate Worker
+    Worker -> IdentificationNumber : generateNewWorkerId(this)
+    activate IdentificationNumber
+        IdentificationNumber -> IdentificationNumber: new IdentificationNumber(worker)
+        activate IdentificationNumber
+            IdentificationNumber -> UniqueIdentificationNumberMaps : addEntity(worker)
+            activate UniqueIdentificationNumberMaps
+                UniqueIdentificationNumberMaps -> UniqueIdentificationNumberMaps : putWorker(worker)
+                activate UniqueIdentificationNumberMaps
+                return newId
+            return newId
+        return IdentificationNumber
+    return IdentificationNumber
+AddCommandParser <-- Worker
+@enduml

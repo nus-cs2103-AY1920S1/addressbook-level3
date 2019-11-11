@@ -22,10 +22,8 @@ Class "<$user>" as User MODEL_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
 
 
-HiddenUI -up[hidden]-> UI
-HiddenModel -left[hidden]-> Model
-Main -up-> HiddenUI
-Main -left-> HiddenModel
+Main -up-> UI
+Main -left-> Model
 UI -> Logic
 UI -right-> Model
 Logic -> Storage
