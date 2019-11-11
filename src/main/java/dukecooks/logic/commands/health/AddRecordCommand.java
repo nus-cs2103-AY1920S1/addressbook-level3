@@ -44,7 +44,7 @@ public class AddRecordCommand extends AddCommand {
         }
         // checks if valid entry
         Type type = toAdd.getType();
-        double value = toAdd.getValue().value;
+        double value = toAdd.getValue().getValue();
         if (!type.isValidNumber(type.toString(), value)) {
             throw new CommandException(type.messageInflatedValue());
         }

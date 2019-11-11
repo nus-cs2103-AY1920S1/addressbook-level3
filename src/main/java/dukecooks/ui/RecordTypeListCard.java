@@ -40,7 +40,7 @@ public class RecordTypeListCard extends UiPart<Region> {
         this.record = record;
         id.setText(displayedIndex + ". ");
         timestamp.setText(record.getTimestamp().toString());
-        value.setText(record.getValue().value + record.getType().getUnit());
+        value.setText(record.getValue().getValue() + record.getType().getUnit());
 
         record.getRemarks().stream()
                 .forEach(remark -> remarkPages.getChildren().add(new Label(remark.remarkName)));
