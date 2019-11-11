@@ -1,4 +1,7 @@
 = Yuan Xinran, Stanley - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == Introduction
 purpose ...highlights my contribution
@@ -15,16 +18,16 @@ code contributed
 other contirbutions
 
 == Contributions to the User Guide
-Given below are my contributions to the User Guide.
+Given below are my contributions to the User Guide. They showcase my ability to write documentation targeting end-users.
 
 *_Start of extract_*
 
-include::../UserGuide.adoc[tag=universalCommand]
+include::../UserGuide.adoc[tag=order]
 
 *_End of extract_*
 
 == Contributions to the Developer Guide
-Given below are my contributions to the Developer Guide.
+Given below are my contributions to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 *_Start of extract_*
 
