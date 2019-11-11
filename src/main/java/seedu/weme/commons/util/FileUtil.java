@@ -26,7 +26,6 @@ public class FileUtil {
     public static final String MESSAGE_READ_FILE_FAILURE = "Error encountered while reading the file %s";
     public static final String MESSAGE_COPY_FAILURE_SOURCE_DOES_NOT_EXIST = "Copy failed: source file does not exist";
     public static final String MESSAGE_COPY_FAILURE_INVALID_DIRECTORY = "Copy failed: Invalid Directory Given";
-    public static final String MESSAGE_COPY_FAILURE_INTERNAL_ERROR = "Copy failed: Internal Error Encountered";
     private static final int INITIAL_FILE_LABEL = 1;
 
 
@@ -46,23 +45,19 @@ public class FileUtil {
      * @throws IOException error encountered while copying.
      */
     public static void copyFiles(List<Path> pathList, Path folderPath) throws IOException {
-        try {
-            int fileLabel = INITIAL_FILE_LABEL;
-            for (Path path : pathList) {
-                String newFilePath;
-                do {
-                    newFilePath = buildFilePath(folderPath, String.valueOf(fileLabel), path);
-                    fileLabel = incrementFileLabel(fileLabel);
-                } while (isFileExists(Paths.get(newFilePath)));
+        int fileLabel = INITIAL_FILE_LABEL;
+        for (Path path : pathList) {
+            String newFilePath;
+            do {
+                newFilePath = buildFilePath(folderPath, String.valueOf(fileLabel), path);
+                fileLabel = incrementFileLabel(fileLabel);
+            } while (isFileExists(Paths.get(newFilePath)));
 
-                if (isValidPath(newFilePath)) {
-                    copy(path, Paths.get(newFilePath));
-                } else {
-                    throw new IOException(MESSAGE_COPY_FAILURE_INVALID_DIRECTORY);
-                }
+            if (isValidPath(newFilePath)) {
+                copy(path, Paths.get(newFilePath));
+            } else {
+                throw new IOException(MESSAGE_COPY_FAILURE_INVALID_DIRECTORY);
             }
-        } catch (IOException e) {
-            throw new IOException(MESSAGE_COPY_FAILURE_INTERNAL_ERROR);
         }
     }
 

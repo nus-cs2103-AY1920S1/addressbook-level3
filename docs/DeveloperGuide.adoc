@@ -1206,6 +1206,105 @@ Expected: No meme is liked. Error details shown in the status message. Status ba
 2. Dislike a meme when there are memes listed +
 Similar to like. Command is `dislike`.
 
+=== Staging a Meme
+
+. Stages a meme while all memes are listed.
+.. Prerequisites: User is in the memes tab.
+.. Test case: `stage 1` +
+   Expected: Stages the meme by the given index to the export staging area. User can view this staged meme
+   by switching to the export tab.
+.. Test case: `Stage 0` +
+   Expected: No meme is being staged. Error details shown in the status message.
+.. Other incorrect delete commands to try: `stage`, `stage x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Unstaging a meme
+
+. Unstages a meme from the export tab.
+.. Prerequisites: User is in the export tab.
+.. Test case: `unstage 1` +
+   Expected: Unstages the meme by the given index from the export staging area. The meme
+   will be removed from the export tab and the user can choose to stage it again by going back to the
+   memes tab.
+.. Test case: `Unstage 0` +
+   Expected: No meme is being unstaged. Error details shown in the status message.
+.. Other incorrect delete commands to try: `unstage`, `unstage x` (where x is larger than the export list size) +
+   Expected: Similar to previous.
+
+=== Clearing staged memes
+
+. Similar to the clear command in the memes tab. User can clear the memes in the export tab.
+.. Prerequisites: User is in the export tab.
+
+
+=== Exporting memes
+
+. Exports all the memes in the export tab to a folder which can be specified by the user by
+   giving the directory path.
+.. Prerequisites: User is in the export tab. User has the path to the folder for the memes
+   to be exported to.
+.. Test case: `export` +
+   Expected: Creates a folder named "export" in the same directory as the jar file.
+.. Test case: `export p//Users/bill/folder` +
+   Expected: If the directory exists and the path is valid, the memes will be exported to the
+   specified folder. If the given directory path is invalid, an error message will be shown.
+.. Other incorrect delete commands to try: `stage`, `stage x` (where x is larger than the list size) +
+   Expected: Error message will be shown.
+
+=== Loading a meme
+
+. Loads all the memes into the import tab from a folder which is specified by the user by
+   giving the directory path containing the memes.
+.. Prerequisites: User is in the import tab. User has the path to the folder for the memes
+to be loaded from.
+.. Test case: `load` +
+   Expected: Nothing is loaded. Error message is shown to prompt the user to specify a valid
+   directory path to load from.
+.. Test case: `load p//Users/bill/folder` +
+   Expected: If the directory exists and the path is valid, the memes will be loaded from the
+   specified folder and the user can see the memes in the import tab.
+   If the given directory path is invalid, an error message will be shown.
+.. Other incorrect load commands to try: `load`, `load p/`,`load x` (where x is larger than the list size) +
+   Expected: Error message will be shown.
+
+=== Importing memes
+
+. Imports all the memes from the import tab into Weme.
+.. Prerequisites: User is in the import tab.
+.. Test case: `import` +
+   Expected: The memes (if any) in the import tab will be successfully imported into Weme. The user
+   can now view these memes in the memes tab. The import tab will then be cleared so that
+   the user can continue loading more memes.
+
+=== Editing loaded memes
+
+. Similar to the edit command in the memes tab. User can edit the memes before importing them.
+.. Prerequisites: User is in the import tab.
+
+=== Deleting loaded memes
+
+. Similar to the delete command in the memes tab. User can delete unwanted memes before importing
+   the remaining memes over to the memes tab.
+.. Prerequisites: User is in the import tab.
+
+=== Clearing loaded memes
+
+. Similar to the clear command in the memes tab. User can clear the memes in the import tab.
+.. Prerequisites: User is in the import tab.
+
+
+=== Viewing a meme
+
+. Views a meme while all memes are listed.
+.. Prerequisites: User is in the memes tab.
+.. Test case: `View 1` +
+   Expected: Views the meme by the given index as an enlarged picture. User can exit this view
+   by doing a tab command (e.g. `tab memes` to go back to the memes tab).
+.. Test case: `View 0` +
+   Expected: No meme is viewed. Error details shown in the status message.
+.. Other incorrect delete commands to try: `view`, `view x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
 === Saving data
 
 . Dealing with missing/corrupted data files

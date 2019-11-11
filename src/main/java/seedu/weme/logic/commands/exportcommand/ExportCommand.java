@@ -3,6 +3,7 @@ package seedu.weme.logic.commands.exportcommand;
 import static java.util.Objects.nonNull;
 import static java.util.Objects.requireNonNull;
 import static seedu.weme.logic.parser.util.CliSyntax.PREFIX_FILEPATH;
+import static seedu.weme.logic.parser.util.ParserUtil.MESSAGE_INVALID_DIRECTORY_PATH;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -64,7 +65,7 @@ public class ExportCommand extends Command {
             List<Path> pathList = model.getExportPathList();
             FileUtil.copyFiles(pathList, getExportPath(model));
         } catch (IOException ioe) {
-            throw new CommandException(ioe.toString());
+            throw new CommandException(MESSAGE_INVALID_DIRECTORY_PATH);
         }
 
         return new CommandResult(MESSAGE_SUCCESS);

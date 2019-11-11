@@ -517,12 +517,12 @@ Format: `clear`
 
 === Import Tab
 Weme supports batch importing memes from a local directory.
-To import a directory of images, first load the directory into the the import staging area.
+To import a directory of images, first load the directory into the the import tab.
 You can then edit or delete memes in the staging area before actually importing them into Weme.
 
-==== Loading memes into the import staging area: `load`
+==== Loading memes into the import tab: `load`
 
-Loads memes from a specified directory into the import staging area. +
+Loads memes from a specified directory into the import tab. +
 Format: `load p/PATH`
 
 ****
@@ -531,25 +531,25 @@ Format: `load p/PATH`
 with `.jpg` extension).
 ****
 
-==== Editing a meme in the import staging area: `edit`
+==== Editing a meme in the import tab: `edit`
 
-Edits a meme from the import staging area. This allows the user
+Edits a meme from the import tab. This allows the user
 to make changes before actually importing the meme. +
 Format: `edit INDEX [d/DESCRIPTION] [t/TAG]...`
 
 ==== Deleting a meme: `delete`
 
-Deletes an unwanted meme from the import staging area. +
+Deletes an unwanted meme from the import tab. +
 Format: `delete INDEX`
 
 ==== Importing memes: `import`
 
-Imports all the memes from the import staging area into Weme. +
+Imports all the memes from the import tab into Weme. +
 Format: `import`
 
 ==== Clearing loaded memes: `clear`
 
-Clears all the memes in the import staging area. +
+Clears all the memes in the import tab. +
 Format: `clear`
 
 

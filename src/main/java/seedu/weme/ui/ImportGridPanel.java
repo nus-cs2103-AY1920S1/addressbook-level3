@@ -16,7 +16,7 @@ import seedu.weme.model.path.ImagePath;
 
 
 /**
- * Panel containing the list of memes in the import staging area.
+ * Panel containing the list of memes in the import tab.
  */
 public class ImportGridPanel extends UiPart<Region> {
     private static final String FXML = "ImportGridPanel.fxml";

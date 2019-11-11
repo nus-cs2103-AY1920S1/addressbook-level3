@@ -168,7 +168,7 @@ public interface Model {
     void importMemes() throws IOException;
 
     /**
-     * Loads the memes to import staging area.
+     * Loads the memes to import tab.
      */
     void loadMemes(List<Path> pathList);
 

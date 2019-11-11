@@ -13,7 +13,7 @@ import seedu.weme.model.Model;
 import seedu.weme.model.meme.Meme;
 
 /**
- * Deletes a meme identified using it's displayed index from the import staging area.
+ * Deletes a meme identified using it's displayed index from the import tab.
  */
 public class ImportDeleteCommand extends Command {
 

@@ -22,14 +22,14 @@ public class LoadCommand extends Command {
     public static final String COMMAND_WORD = "load";
 
     public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
-            + ": loads memes to the import staging area from a given directory. ";
+            + ": loads memes to the import tab from a given directory. ";
 
     public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION
             + " Parameters: "
             + PREFIX_FILEPATH + "PATH \n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_FILEPATH + "C:/Users/username/Downloads/ ";
-    public static final String MESSAGE_SUCCESS = "Memes loaded successfully to the import staging area.";
+    public static final String MESSAGE_SUCCESS = "Memes loaded successfully to the import tab.";
     public static final String MESSAGE_LOAD_FAILURE = "Invalid directory path given.";
     public static final String MESSAGE_LOAD_NON_EMPTY_TAB_FAILURE = "There are memes present in the import tab. "
             + "Please import them first or clear them before loading again.";
@@ -54,6 +54,9 @@ public class LoadCommand extends Command {
             List<Path> pathList = FileUtil.loadImagePath(importDirectoryPath);
             model.loadMemes(pathList);
         } catch (IOException ioe) {
+            throw new CommandException(MESSAGE_LOAD_FAILURE);
+        } catch (NullPointerException npe) {
+            // If the importDirectoryPath is an empty string.
             throw new CommandException(MESSAGE_LOAD_FAILURE);
         }
 

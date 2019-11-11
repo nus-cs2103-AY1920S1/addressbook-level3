@@ -17,7 +17,7 @@ public class ImportCommand extends Command {
     public static final String COMMAND_WORD = "import";
 
     public static final String MESSAGE_DESCRIPTION = COMMAND_WORD
-            + ": imports memes from import staging area into Weme.";
+            + ": imports memes from import tab into Weme.";
 
     public static final String MESSAGE_USAGE = MESSAGE_DESCRIPTION;
     public static final String MESSAGE_SUCCESS = "Memes imported successfully into Weme.";

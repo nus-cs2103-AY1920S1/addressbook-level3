@@ -20,7 +20,7 @@ import seedu.weme.model.path.ImagePath;
 import seedu.weme.model.tag.Tag;
 
 /**
- * Edits the details of an imported meme in the import staging area.
+ * Edits the details of an imported meme in the import tab.
  */
 public class ImportEditCommand extends Command {
 
@@ -40,7 +40,7 @@ public class ImportEditCommand extends Command {
 
     public static final String MESSAGE_EDIT_MEME_SUCCESS = "Edited Meme: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in import staging area.";
+    public static final String MESSAGE_DUPLICATE_MEME = "This meme already exists in import tab.";
 
     private final Index index;
     private final MemeEditCommand.EditMemeDescriptor editMemeDescriptor;
