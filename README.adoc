@@ -11,12 +11,12 @@ image::docs/images/Ui.png[width="600"]
 endif::[]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::docs/images/Ui.png[width="600"]
 endif::[]
 
 
-* StudyBuddy is a desktop app to aid our studies.
-* It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* StudyBuddyPro is a desktop application to aid our studies.
+* It has a GUI (Graphical User Interface) but most of the user interactions happen using a CLI (Command Line Interface).
 * It is intended for *students in the School of Computing* at the *National University of Singapore*.
 * Being highly familiar working with CLI, Computing Students can greatly benefit from the app to manage their studies efficiently and faster than traditional GUI apps.
 
