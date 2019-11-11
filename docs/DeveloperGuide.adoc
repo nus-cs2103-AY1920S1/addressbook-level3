@@ -1,4 +1,4 @@
-= ORGANice - Developer Guide
+= ORGA__Nice__ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -17,22 +17,30 @@ endif::[]
 By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
-Welcome to ORGANice! ORGANice is an organ transplant manager desktop application
+Welcome to ORGA__Nice__! ORGA__Nice__ is an organ transplant manager desktop application
 specifically designed for hospital administration staff who prefer typing.
+
+Do note the following symbols and formatting used in this document:
+
+NOTE: This section contains important information.
+
+TIP: This section contains a helpful tip!
+
+`find` A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box
+and executed by the application.
 
 === Purpose
 This guide documents the software design and considerations
-made during the development of ORGANice.
+made during the development of ORGA__Nice__.
 
 === Intended audience
-This guide is meant for developers who would like to further develop ORGANice.
+This guide is meant for developers who would like to further develop ORGA__Nice__.
 
 == Setting up
-
-To set up the developer tools needed to develop ORGANice, refer to the guide <<SettingUp#, here>>.
+To set up the developer tools needed to develop ORGA__Nice__, refer to the guide <<SettingUp#, here>>.
 
 == Design
-This section provides a high-level overview of ORGANice's codebase.
+This section provides a high-level overview of ORGA__Nice__'s codebase.
 It is divided into 6 subsections:
 
 * Architecture
@@ -44,7 +52,7 @@ It is divided into 6 subsections:
 
 [[Design-Architecture]]
 === Architecture
-The Architecture section is meant to explain the high-level design of ORGANice.
+The Architecture section is meant to explain the high-level design of ORGA__Nice__.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -63,9 +71,9 @@ It is responsible for performing the following tasks:
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. For example,
 the `LogsCenter` class is in the `Commons` collection because it is used by many classes
-to write log messages to the ORGANice's log file.
+to write log messages to the ORGA__Nice__'s log file.
 
-The rest of ORGANice consists of four components.
+The rest of ORGA__Nice__ consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -160,10 +168,10 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `organice.commons` package.
+Classes used by multiple components are in the `ORGA__Nice__.commons` package.
 
 == Implementation
-This section describes some noteworthy details on how features in ORGANice are implemented.
+This section describes some noteworthy details on how features in ORGA__Nice__ are implemented.
 
 // tag::list[]
 === List feature
@@ -200,8 +208,8 @@ The activity diagram below illustrates what happens when a user uses the list co
 image::ListActivityDiagram.png[width=450]
 
 When the user enters a list command, the result differs depending on the parameter of the command.
-If there is no parameter after 'list', ORGANice will simply list all existing doctors, patients, and donors on the list.
-If there is a parameter, ORGANice will check if it is a valid `TYPE` parameter and display the correct list of persons
+If there is no parameter after 'list', ORGA__Nice__ will simply list all existing doctors, patients, and donors on the list.
+If there is a parameter, ORGA__Nice__ will check if it is a valid `TYPE` parameter and display the correct list of persons
 that corresponds to this type.
 If the parameter is not valid, an error message will be displayed to indicate that the command is invalid.
 // end::list[]
@@ -218,10 +226,10 @@ pair with compatible blood and tissue types is considered as a potential match.
 // TODO: find a way to explain that there are two types of matches
 The following operations in `ModelManager` accesses the `match` method:
 
-* `ModelManager#matchDonors(Patient patient)` -- Matches all donors in ORGANice with the specified patient.
+* `ModelManager#matchDonors(Patient patient)` -- Matches all donors in ORGA__Nice__ with the specified patient.
 For each donor that potentially matches the patient, a `MatchedDonor` object is created to store
 the compatibility rate of the donor with the patient.
-* `ModelManager#matchPatients()` -- Matches all donors with all patients. For every patient in ORGANice,
+* `ModelManager#matchPatients()` -- Matches all donors with all patients. For every patient in ORGA__Nice__,
 a `MatchedPatient` object is created to store the number of donors that are potential matches with that patient.
 
 `MatchedDonor` and `MatchedPatient` objects are stored in an `ObservableList` called
@@ -244,7 +252,7 @@ for each patient, which stores the patient's attributes and the number of potent
 image::MatchState1.png[]
 
 Step 3. The user types in the command `match ic/**PATIENT NRIC**`, where **PATIENT NRIC** is the NRIC of a patient in
-ORGANice.
+ORGA__Nice__.
 Existing objects in the `listOfMatches` are removed.
 For each potential donor of the specified patient, a `MatchedDonor`object is created,
 accompanied with the compatibility rate.
@@ -436,20 +444,20 @@ This section will explain two aspects considered in designing the sort feature.
 
 ===== Aspect: Method of storing the sorted result
 * **Alternative 1 (current choice):** Use `SortedList`.
-** Pros: Fast iteration time of O(n * log n), which is important for ORGANice to load and display the sorted result, and more harmonious
+** Pros: Fast iteration time of O(n * log n), which is important for ORGA__Nice__ to load and display the sorted result, and more harmonious
 with current implementations (able to wrap `ObservableList` and sort the content).
-** Cons: Not the most efficient algorithm for insertions or deletions, but ORGANice does not require them.
+** Cons: Not the most efficient algorithm for insertions or deletions, but ORGA__Nice__ does not require them.
 * **Alternative 2:** Use `ArrayList`.
 ** Pros: Fast index-based access and works on any `Collection` class.
 ** Cons: Slower than `SortedList` as it takes O(n) time to iterate and display the results.
 
 ===== Aspect: Method of sorting
 * **Alternative 1 (current choice):** Use `Comparator` and `Comparable`.
-** Pros: Simpler implementation as able to make use of existing methods in ORGANice such as `setComparator`.
+** Pros: Simpler implementation as able to make use of existing methods in ORGA__Nice__ such as `setComparator`.
 ** Cons: More coding involved.
 * **Alternative 2:** Use `Collections.sort()`.
 ** Pros: Has a time complexity of O(n*log(n)) which is relatively fast.
-** Cons: Cannot make use of existing methods in ORGANice that work for Comparator.
+** Cons: Cannot make use of existing methods in ORGA__Nice__ that work for Comparator.
 // end::sort[]
 
 // tag::processingDG[]
@@ -473,7 +481,7 @@ If the donor already have a `ProcessingList`, it means that the donor is already
 Then, this method will check if the patient given by the user is the same patient being processed together with this donor. +
 This is done by checking the `Patient` attribute that is tagged to the `ProcessingList` of the donor. +
 Finally, the method will check if the patient and donor given by the user is valid by checking if
-they are able to be matched or not and if they exist in ORGANice. +
+they are able to be matched or not and if they exist in ORGA__Nice__. +
 A code snippet of the method is shown below: This code aims to get the `Donor` and `Patient` from the given Nrics given by the user. +
 This method is necessary since user is able to give the Nrics input in no particular order.
 ```
@@ -601,7 +609,7 @@ should not be able to match each other anymore. +
 Then, the patient and donor will have their `Status` set to `not processing` so that they can find another match and be considered in future matching results.
 
 If the patient and donor did a cross-matching test and the result of the test is a pass,
-then the patient and donor can be removed from ORGANice already.
+then the patient and donor can be removed from ORGA__Nice__ already.
 
 // end::doneDG[]
 
@@ -623,55 +631,77 @@ This section will explain the reason for having an aspect.
 ** Pros: The data can be accessed for analysis.
 ** Cons: It is harder to implement and space taken may increase exponentially.
 
+// tag::find[]
 === Finding feature
 This section explains the implementation of the find persons by attributes feature.
 
 ==== Current Implementation
-The find feature is facilitated by `FindCommand` and `PersonContainsPrefixesPredicate`. +
-
-===== FindCommand
-
-`FindCommand` extends `Command` with a `predicate` that is used to determine whether a given `person` should be
-displayed. It implements `Command#execute(Model model)` which replaces the `predicate` of the current
-`model.filteredPersons` with the input predicate of `FindCommand`, which triggers an update *INSERT JAVAFX STUFF. +
-
-TODO
+The find feature is facilitated by `PersonContainsPrefixesPredicate` and `FindCommand`. +
 
 ===== PersonContainsPrefixesPredicate
+`PersonContainsPrefixesPredicate` implements `Predicate` and is used to test whether a person's attributes
+match exactly with at least one of the input keywords in each attribute category.
 
-TODO
+===== FindCommand
+`FindCommand` extends `Command` with a `predicate` that is used to determine whether a given
+`person` should be displayed. It implements `Command#execute(Model model)` which replaces the
+`predicate` of the current `model.filteredPersons` with the input predicate of `ExactFindCommand`.
+This triggers a change in the displayed persons to the list of filtered persons.
 
 ===== Execution Behaviour
-The behaviour of `FindCommand` is consistent with that of other commands as described in <<Design-Logic>>. Therefore,
-this section will gloss over higher-level details and instead zoom-in to the behaviour of `FindCommand#execute`.
+The behaviour of `FindCommand` is consistent with that of other commands as described in <<Design-Logic>>.
+Therefore, this section will gloss over higher-level details and instead zoom-in to the behaviour of
+`FindCommand#execute`.
 
-Given below is an example usage scenario and the behaviour of `#execute` at each step. +
+====== FindCommand Execution
+Given below is a step by step description of the behaviour of `FindCommand#execute`:
 
-Step 1: The user inputs a find command, e.g. `find n/Alice Carl Elle t/doctor donor`. It is parsed by
-`FindCommandParser` and used to create an `ArgumentMultimap`: `argMultimap`.
+Step 1: The full list of all persons in ORGA__Nice__ is retrieved and stored as `allPersons`.
 
-Step 2: `argMultimap` is used to initialize a `PersonContainsPrefixesPredicate` object: `predicate`.
+Step 2: A list of exact matches is obtained by filtering `allPersons` using
+`PersonContainsPrefixesPredicate`.
 
-Step 3: `predicate` is used to initialize a `FindCommand` object. `#execute` is then called on it.
+Step 3: A list containing all persons except exact matches is obtained and fuzzy matching is performed on it.
 
-Step 4: `#execute` calls the `#updateFilteredPersonList` of the current `Model` which causes it's
-`FilteredList<Person>`: `filteredPersons` to automatically remove `persons` that fail `predicate#test`.
+Step 4: Fuzzy matching uses `StringUtil#calculateLevenshteinDistance` to filter out possible matches. The matches
+are then sorted in ascending order of similarity to input keywords.
 
-The following sequence diagram illustrates steps x to y: +
+Step 5: `#setDisplayedPersonList` is called.
 
-__insertar diagrama de secuencia__
+The following sequence diagram illustrates steps 1 to 5: +
+
+image::ExactFindSequenceDiagram.png[]
+
+NOTE: The above diagram heavily simplifies the execution of `#fuzzyMatch` as it is further explained in the
+section below.
+
+====== Fuzzy Matching
+`FindCommand#execute` performs fuzzy matching between input keywords and person attributes to detect possible
+matches. This behaviour is facilitated by
+`FindCommand#fuzzyMatch(ArgumentMultimap argMultimap, List<Person> inputList)`. The behaviour of
+`#fuzzyMatch` is detailed in the below activity diagram:
+
+image::FuzzyMatchActivityDiagram.png[]
+
+As seen from the above diagram, `#fuzzyMatch` traverses the `inputList` of persons and tags each person with a
+calculated minimum `combinedLevenshteinDistance`(LD). In the event that no keywords are present, all persons are
+tagged with an LD higher than the acceptable threshold. Once all persons have been tagged, those persons whose LD
+exceeds the threshold are removed from the list. The final list is then sorted in ascending order of LD.
 
 ==== Design Considerations
+This section will explain the main aspect considered in designing the find by prefix feature.
 
-
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+===== Aspect: Method of calculating similarity of keywords
+* **Alternative 1 (current choice):** Calculate Levenshtein Distance.
+** Pros: Able to detect most typos effectively.
+** Cons: Creation of requisite `costMatrix` is computationally expensive and may affect performance for long
+keywords.
+* **Alternative 2:** Use Natural Language Processing Libraries.
+** Pros: Will be able to detect typos more effectively.
+** Cons: Will take up more system resources.
+// end::find[]
 
 === Logging
-
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
@@ -759,7 +789,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `ORGANice` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ORGA__Nice__` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add patient/donor/doctor in a form mode
@@ -767,14 +797,14 @@ _{More to be added}_
 *MSS:*
 
 1.  User requests to add a patient/doctor/donor in a form mode.
-2.  ORGANice shows a form depending on the type of person specified by the User.
+2.  ORGA__Nice__ shows a form depending on the type of person specified by the User.
 3.  OGRANice prompts the User to type in the required attributes one at a time.
-4.  User inputs in the attribute of the person prompted by ORGANice.
+4.  User inputs in the attribute of the person prompted by ORGA__Nice__.
 +
 Steps 3-4 are repeated until the user has inputted all the required attributes for a specific type of person.
-5.  ORGANice prompts the User to confirm the attributes of the person.
+5.  ORGA__Nice__ prompts the User to confirm the attributes of the person.
 6.  User confirms the attributes specified.
-7.  ORGANice adds the person to the list.
+7.  ORGA__Nice__ adds the person to the list.
 
 
 Use case ends.
@@ -783,14 +813,14 @@ Use case ends.
 
 4a. The attribute that the User tries to input is not valid.
 [none]
-* 4a1. ORGANice shows a warning to the User and specifies the pattern of a valid input.
+* 4a1. ORGA__Nice__ shows a warning to the User and specifies the pattern of a valid input.
 * 4a2. User inputs a new value for the attribute.
-* Steps 4a1-4a2 are repeated until the input data is valid for the current attribute prompted by ORGANice.
+* Steps 4a1-4a2 are repeated until the input data is valid for the current attribute prompted by ORGA__Nice__.
 * Use case resumes from step 3 if there are more attributes to fill in, if not it will resumes from step 5.
 
 *a. At any time, User chooses to abort the form.
 [none]
-* *a1. ORGANice nullifies the form.
+* *a1. ORGA__Nice__ nullifies the form.
 * Use case ends.
 
 === Use case: Match a patient and a donor
@@ -798,9 +828,9 @@ Use case ends.
 *MSS*
 
 1.  User requests to list potential donors for a particular patient
-2.  ORGANice shows a list of potential donors for the patient
+2.  ORGA__Nice__ shows a list of potential donors for the patient
 3.  User requests to process the patient with a specified donor
-4.  ORGANice matches the patient and the specified donor
+4.  ORGA__Nice__ matches the patient and the specified donor
 +
 Use case ends.
 
@@ -817,17 +847,17 @@ Use case ends.
 *MSS*
 
 1.  User requests to sort the list of donors of a particular patient.
-2.  ORGANice sorts the list of donors according to the parameters.
+2.  ORGA__Nice__ sorts the list of donors according to the parameters.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. ORGANice detects invalid parameter(s).
+* 1a. ORGA__Nice__ detects invalid parameter(s).
 +
 [none]
-** 1a1. ORGANice prompts for valid parameter(s).
+** 1a1. ORGA__Nice__ prompts for valid parameter(s).
 +
 ** 1a2. User enters correct parameter(s).
 +
@@ -842,17 +872,17 @@ Use case resumes at step 2.
 *MSS*
 
 1.  User requests to list patients/donors/doctors.
-2.  ORGANice shows the list of patients/donors/doctors.
+2.  ORGA__Nice__ shows the list of patients/donors/doctors.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. ORGANice detects an invalid parameter.
+* 1a. ORGA__Nice__ detects an invalid parameter.
 +
 [none]
-** 1a1. ORGANice returns error message.
+** 1a1. ORGA__Nice__ returns error message.
 +
 Use case ends.
 

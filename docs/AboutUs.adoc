@@ -30,7 +30,7 @@ Responsibilities: Ensure project deliverables are done in right format and submi
 
 === Iskandar Zulkarnaien Bin Suhaini
 image::therealravager.png[width="150", align="left"]
-{empty}[https://github.com/TheRealRavager[github]] [<<therealravager #, portfolio>>]
+{empty}[https://github.com/TheRealRavager[github]] [<<therealravager#, portfolio>>]
 
 Role: Tester +
 Responsibilities: Ensures the testing of the project is done properly and on time.
