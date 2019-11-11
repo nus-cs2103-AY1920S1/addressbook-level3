@@ -62,7 +62,7 @@ MAMS is written primarily in Java, and features a GUI created with JavaFX, with 
 ** Justification:  This feature is important as it allows the user to provide justifications to why an appeal was approved or rejected.  Supervisors of the user can also check the reasons should there be any complaints from students with regards to their appeals the reasons added help justify the decisions of the user.
 ** Highlights:  This enhancement allows users to provide students with the reason for their choices to approve or reject their appeals.
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=AaronLuk&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link] (Use provided RepoSense filters to view "Functional" and "Test" Code)
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=aaronluk&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=AaronLuk&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]] (Use provided RepoSense filters to view "Functional" and "Test" Code)
 
 * *Other contributions*:
 ** Documentation:
