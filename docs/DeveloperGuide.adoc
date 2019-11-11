@@ -183,9 +183,10 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-// tag::earnings[]
+
 === Earnings Feature
 
+// tag::earnings[]
 ==== Add Earnings
 
 The `add_earnings` command allows for tutors to add their earnings into TutorAid.
@@ -400,7 +401,7 @@ This command, `auto`, allows the user to add all the earnings that has been prev
  has been used on the particular earnings. You can refer to the activity diagram below to have a clearer understanding.
 
 .Auto Command Activity Diagram
-image::AutoActivityDiagram.png[width="500"]
+image::AutoActivityDiagram.png[width="700"]
 
 *Overview*
 The auto command is facilitated by `AutoCommand`.
@@ -540,25 +541,27 @@ check with the rest of the prior `Notes` object, to ensure that there is no dupl
 `Notes` object have been successfully added.
 
 //end::NotesDG[]
+
+//tag::reminders[]
 === Reminder Features
 ==== Add Reminder
-The `addReminder` command allows for tutors to add their reminders into TutorAid.
+The `add_reminder` command allows for tutors to add their reminders into TutorAid.
 
-The format for the `addReminder` command is as follows:
+The format for the `add_reminder` command is as follows:
 
- addReminder rd/<DESCRIPTION rt/<TIME>
+ add_reminder rd/<DESCRIPTION rt/<TIME>
 
 *Overview*
 
-The add claim `addReminder` mechanism is facilitated by `AddReminderCommand` and `AddReminderParser`, taking in the
+The add claim `add_reminder` mechanism is facilitated by `addReminderCommand` and `addReminderParser`, taking in the
 following input from the user: `Description`, `Time`, which will construct `Reminder` objects.
 
 .Add Reminder Command Sequence Diagram
 ##diagram to be added
 
-The `AddReminderCommand` implements `Parser` with the following operation:
+The `addReminderCommand` implements `Parser` with the following operation:
 
-* `AddReminderParser#parse()` - This operation will take in a `String` input from the user and create
+* `addReminderParser#parse()` - This operation will take in a `String` input from the user and create
 individual objects based on the prefixes `rd/` and `rt/`. The `String` value after the respective prefixes
 will create the respective objects. A validation check will be done to ensure that the strings that are entered
 by the user is entered correctly. If any of the strings entered are invalid, an error will be shown to the user to
@@ -570,7 +573,7 @@ enter the correct format of the respectives objects.
 
 * After validation of the individual objects, a `Reminder` object would be created with the parameters `description` and `time`.
 
-* `AddReminderParser` would then return a `AddReminderCommand` object with the parameter, `Reminder` object.
+* `addReminderParser` would then return a `addReminderCommand` object with the parameter, `Reminder` object.
 
 The following activity diagram summarizes what happens when a user executes a new command.
 
@@ -578,24 +581,25 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 *Example Scenerio*
 
-* Step 1: The user enters `addReminder rd/teach rt/23/01/2019` to add a reminder for teaching classes.
+* Step 1: The user enters `add_reminder rd/teach rt/23/01/2019` to add a reminder for teaching classes.
 This adds an `Notes` object that the user has added to record what needs to be done for the class.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
 
 * Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
-the given command is `addReminder`, thus, `AddReminderParser` object would be created with the user's input.
+the given command is `add_reminder`, thus, `addReminderParser` object would be created with the user's input.
 
-* Step 4: `AddReminderParser` performs a validation check on each of the respective objects through
-`AddReminderParser#parse()`. In this case, it would use `ParserUtil#parseReminderDescription()` and `ParserUtil#parseReminderTime()`.
-It would then return a `AddReminderCommand` object with a `Reminder` object.
+* Step 4: `addReminderParser` performs a validation check on each of the respective objects through
+`addReminderParser#parse()`. In this case, it would use `ParserUtil#parseReminderDescription()` and `ParserUtil#parseReminderTime()`.
+It would then return a `addReminderCommand` object with a `Reminder` object.
 
-* Step 5: `LogicManager` would execute `AddReminderCommand#execute`. In this particular method, the `Reminder` object will be
+* Step 5: `LogicManager` would execute `addReminderCommand#execute`. In this particular method, the `Reminder` object will be
 check with the rest of the prior `Reminder` object, to ensure that there is no duplicate `Reminder` object. If there are no similar
 `Reminder` object with the same parameters created previously, it would then be added into the reminder list.
 
-* Step 6: `AddReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
+* Step 6: `addReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new
 `Reminder` object have been successfully added.
+//end::reminders[]
 
 // tag::learncustomcommands[]
 === Learn wrong commands as custom commands feature
