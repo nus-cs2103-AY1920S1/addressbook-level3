@@ -28,7 +28,27 @@ DukeAcademy can also be used as a teaching tool by educators as they can set the
 
 Duke Academy is written in Java, and has about 15 kLoC.
 
-== My Roles
+== My Roles and Contributions
+=== Change underlying architecture to suit our needs - [refactor]
+. Separated Logic component into cohesive parts
+. Separated model into cohesive parts
+. Implemented Observer pattern
+. Refactor Command pattern
+
+=== Program evaluation feature - [feature]
+
+=== Note-taking feature - [feature]
+
+=== Tabs - [design]
+
+=== Various commands - [feature]
+. Tab
+. Submit
+. New Note
+. Open Note
+. Delete Note
+. Save Note
+. Exit
 
 == Summary of contributions
 
