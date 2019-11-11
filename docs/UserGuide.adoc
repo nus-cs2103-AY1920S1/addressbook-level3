@@ -644,7 +644,7 @@ Example:
 ==== Add Reminder: `addReminder`
 
 Adds new GeneralReminder.
-Format: `addReminder n/<Message> [typ/<EntryType>] [l.b/<LowerBound>] [u.b/<UpperBound>] [start/<Start Date>] [end/<End Date>] [tg/<tags>]
+Format: `addReminder n/<Message> [typ/<EntryType>] [l.b/<LowerBound>] [u.b/<UpperBound>] [start/<Start Date>] [end/<End Date>] [tg/<tags>]`
 
 Examples:
 
