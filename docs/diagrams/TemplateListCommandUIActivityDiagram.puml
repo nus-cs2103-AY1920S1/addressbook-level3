@@ -25,6 +25,6 @@ start
             :Override template list with updated version;
         endif
     endif
-    :Update template list;
+    :Update template list shown in the user interface;
 stop
 @enduml
