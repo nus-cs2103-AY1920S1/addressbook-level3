@@ -460,11 +460,27 @@ image::archiveRevertNonEmptyArchive.png[]
 
 image::statisticsIntro.png[]
 
+{nbsp} +
+
 Billboard has a powerful statistics display system! While trying out other features, you may have realized that the highlighted chart changes from time to time.
 That's right, Billboard has a fully responsive statistics display with charts that dynamically update themselves. You can simply enter any command that changes the displayed
 list of expenses, such as `add n/automatic stats displays are cool a/50.00`, and watch as the chart updates automatically.
 
+.Live statistics display in action upon adding an expense.
 image::live-statistics-demo.gif[]
+
+
+Should you want to view different types of statistics and customize what you are seeing, Billboard also supports various different types of
+charts, with a myriad of different customization options. Read the individual commands below to find out more.
+
+[NOTE]
+The options available are tailored to each specific chart type and thus, not all charts may support the same options. The individual sections
+for each command goes into further detail about the supported options for that command.
+
+
+With this, it becomes extremely easy for you to perform advanced queries on specific types of statistics!
+
+
 
 . _Display timeline overview of expenses: display-stats timeline_ +
 You can view a timeline overview of your currently displayed expenses. The expenses over a
