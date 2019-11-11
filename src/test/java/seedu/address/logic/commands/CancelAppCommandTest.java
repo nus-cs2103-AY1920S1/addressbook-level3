@@ -12,7 +12,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appointments.CancelAppCommand;
+import seedu.address.logic.commands.appointments.CancelApptCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.Event;
@@ -26,15 +26,15 @@ class CancelAppCommandTest {
 
     @Test
     public void constructor_nullEvent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new CancelAppCommand((List<Event>) null));
-        assertThrows(NullPointerException.class, () -> new CancelAppCommand((Event) null));
+        assertThrows(NullPointerException.class, () -> new CancelApptCommand((List<Event>) null));
+        assertThrows(NullPointerException.class, () -> new CancelApptCommand((Event) null));
     }
 
     @Test
     public void execute_validUnfilteredList_success() throws Exception {
         Event eventToDelete = model.getFilteredAppointmentList().get(INDEX_FIRST_EVENT.getZeroBased());
-        CommandResult commandResult = new CancelAppCommand(eventToDelete).execute(model);
-        assertEquals(String.format(CancelAppCommand.MESSAGE_CANCEL_APPOINTMENT_SUCCESS, eventToDelete.getPersonId(),
+        CommandResult commandResult = new CancelApptCommand(eventToDelete).execute(model);
+        assertEquals(String.format(CancelApptCommand.MESSAGE_CANCEL_APPOINTMENT_SUCCESS, eventToDelete.getPersonId(),
                 eventToDelete.getPersonName(), eventToDelete.getEventTiming()),
                 commandResult.getFeedbackToUser());
     }
@@ -44,14 +44,14 @@ class CancelAppCommandTest {
         Event firstEvent = new EventBuilder(ALICE).build();
         Event secondEvent = new EventBuilder(BENSON).build();
 
-        CancelAppCommand firstCancelCommand = new CancelAppCommand(firstEvent);
-        CancelAppCommand secondCancelCommand = new CancelAppCommand(secondEvent);
+        CancelApptCommand firstCancelCommand = new CancelApptCommand(firstEvent);
+        CancelApptCommand secondCancelCommand = new CancelApptCommand(secondEvent);
 
         // same object -> returns true
         assertTrue(firstCancelCommand.equals(firstCancelCommand));
 
         // same values -> returns true
-        CancelAppCommand firstCancelCommandCopy = new CancelAppCommand(firstEvent);
+        CancelApptCommand firstCancelCommandCopy = new CancelApptCommand(firstEvent);
         assertTrue(firstCancelCommand.equals(firstCancelCommandCopy));
 
 

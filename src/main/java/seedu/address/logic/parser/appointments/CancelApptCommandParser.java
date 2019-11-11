@@ -7,8 +7,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_NOT_PATIENTLIST;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.appointments.AddAppCommand;
-import seedu.address.logic.commands.appointments.CancelAppCommand;
+import seedu.address.logic.commands.appointments.AddApptCommand;
+import seedu.address.logic.commands.appointments.CancelApptCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
@@ -20,12 +20,12 @@ import seedu.address.model.events.Event;
 /**
  * Parses input arguments and creates a new CancelAppCommand object
  */
-public class CancelAppCommandParser implements Parser<ReversibleActionPairCommand> {
+public class CancelApptCommandParser implements Parser<ReversibleActionPairCommand> {
 
     private List<Event> lastShownList;
     private Model model;
 
-    public CancelAppCommandParser(Model model) {
+    public CancelApptCommandParser(Model model) {
         this.model = model;
         this.lastShownList = model.getFilteredAppointmentList();
     }
@@ -47,10 +47,10 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
             index = ParserUtil.parseIndex(args);
         } catch (ParseException e) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CancelAppCommand.MESSAGE_USAGE), e);
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CancelApptCommand.MESSAGE_USAGE), e);
         }
         Event eventToDelete = ParserUtil.getEntryFromList(lastShownList, index);
-        return new ReversibleActionPairCommand(new CancelAppCommand(eventToDelete),
-                new AddAppCommand(eventToDelete));
+        return new ReversibleActionPairCommand(new CancelApptCommand(eventToDelete),
+                new AddApptCommand(eventToDelete));
     }
 }

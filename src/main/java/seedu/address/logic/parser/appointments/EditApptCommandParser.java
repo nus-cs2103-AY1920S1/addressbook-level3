@@ -13,7 +13,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.appointments.EditAppCommand;
+import seedu.address.logic.commands.appointments.EditApptCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -30,11 +30,11 @@ import seedu.address.model.events.parameters.Timing;
 /**
  * Parses input arguments and creates a new ChangeAppCommand object
  */
-public class EditAppCommandParser implements Parser<ReversibleActionPairCommand> {
+public class EditApptCommandParser implements Parser<ReversibleActionPairCommand> {
     private Model model;
     private List<Event> lastShownList;
 
-    public EditAppCommandParser(Model model) {
+    public EditApptCommandParser(Model model) {
         this.lastShownList = model.getFilteredAppointmentList();
         this.model = model;
     }
@@ -55,7 +55,7 @@ public class EditAppCommandParser implements Parser<ReversibleActionPairCommand>
         }
 
         if (!argMultimap.arePrefixesPresent(PREFIX_ENTRY, PREFIX_START) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditAppCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditApptCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -78,8 +78,8 @@ public class EditAppCommandParser implements Parser<ReversibleActionPairCommand>
             Event editedEvent = new Appointment(eventToEdit.getPersonId(),
                     eventToEdit.getPersonName(), timing, new Status());
 
-            return new ReversibleActionPairCommand(new EditAppCommand(eventToEdit, editedEvent),
-                    new EditAppCommand(editedEvent, eventToEdit));
+            return new ReversibleActionPairCommand(new EditApptCommand(eventToEdit, editedEvent),
+                    new EditApptCommand(editedEvent, eventToEdit));
 
         } catch (ParseException e) {
             throw new ParseException(e.getMessage());

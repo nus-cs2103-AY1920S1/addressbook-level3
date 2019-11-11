@@ -26,7 +26,7 @@ import seedu.address.model.util.SampleAppointmentDataUtil;
 /**
  * Adds a person to the address book.
  */
-public class AddAppCommand extends ReversibleCommand {
+public class AddApptCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "newappt";
 
@@ -56,7 +56,7 @@ public class AddAppCommand extends ReversibleCommand {
     /**
      * Creates an AddAppCommand to add the specified {@code Event}
      */
-    public AddAppCommand(Event toAdd) {
+    public AddApptCommand(Event toAdd) {
         requireNonNull(toAdd);
         this.toAdd = toAdd;
         this.eventList = null;
@@ -65,7 +65,7 @@ public class AddAppCommand extends ReversibleCommand {
     /**
      * Creates an AddAppCommand to add the specified {@code Events}
      */
-    public AddAppCommand(List<Event> eventList) {
+    public AddApptCommand(List<Event> eventList) {
         requireNonNull(eventList);
         checkArgument(eventList.size() > 0, MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS);
         this.toAdd = null;
@@ -106,7 +106,7 @@ public class AddAppCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddAppCommand // instanceof handles nulls
-                && toAdd.equals(((AddAppCommand) other).toAdd));
+                || (other instanceof AddApptCommand // instanceof handles nulls
+                && toAdd.equals(((AddApptCommand) other).toAdd));
     }
 }

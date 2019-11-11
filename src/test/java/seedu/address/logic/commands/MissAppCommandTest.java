@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.appointments.MissAppCommand;
+import seedu.address.logic.commands.appointments.MissApptCommand;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.events.predicates.EventsMissedPredicate;
@@ -26,9 +26,9 @@ class MissAppCommandTest {
     @Test
     public void execute_zeroKeywords_allEventsFound() {
         model.updateFilteredAppointmentList(new EventsMissedPredicate());
-        String expectedMessage = String.format(MissAppCommand.MESSAGE_MISSED_EVENT_LISTED_OVERVIEW,
+        String expectedMessage = String.format(MissApptCommand.MESSAGE_MISSED_EVENT_LISTED_OVERVIEW,
                 model.getFilteredAppointmentList().size());
-        MissAppCommand command = new MissAppCommand();
+        MissApptCommand command = new MissApptCommand();
         CommandResult commandResult = command.execute(model);
         assertEquals(expectedMessage,
                 commandResult.getFeedbackToUser());

@@ -18,7 +18,7 @@ import seedu.address.model.events.predicates.EventMatchesRefIdPredicate;
 /**
  * cancel a appointments for a patient.
  */
-public class CancelAppCommand extends ReversibleCommand {
+public class CancelApptCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "cancelappt";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Cancels appointment from the schedule. "
             + "Parameters: INDEX (positive integer)\n"
@@ -35,13 +35,13 @@ public class CancelAppCommand extends ReversibleCommand {
     private final List<Event> eventList;
 
 
-    public CancelAppCommand(Event toDelete) {
+    public CancelApptCommand(Event toDelete) {
         requireNonNull(toDelete);
         this.toDelete = toDelete;
         this.eventList = null;
     }
 
-    public CancelAppCommand(List<Event> eventList) {
+    public CancelApptCommand(List<Event> eventList) {
         requireNonNull(eventList);
         checkArgument(eventList.size() > 0, MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS);
         this.toDelete = null;
@@ -91,7 +91,7 @@ public class CancelAppCommand extends ReversibleCommand {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof CancelAppCommand // instanceof handles nulls
-                && toDelete.equals(((CancelAppCommand) other).toDelete));
+                || (other instanceof CancelApptCommand // instanceof handles nulls
+                && toDelete.equals(((CancelApptCommand) other).toDelete));
     }
 }

@@ -12,7 +12,7 @@ import seedu.address.model.events.predicates.EventsMissedPredicate;
 /**
  * mark a appointment's status as MISSED for a patient.
  */
-public class MissAppCommand extends NonActionableCommand {
+public class MissApptCommand extends NonActionableCommand {
     public static final String COMMAND_WORD = "missappt";
 
     public static final String MESSAGE_MISSED_EVENT_LISTED_OVERVIEW = "%1$d missed appointment need to settle!";
@@ -22,7 +22,7 @@ public class MissAppCommand extends NonActionableCommand {
             + "and displays them as a list with index numbers.\n"
             + "Example: " + COMMAND_WORD;
 
-    public MissAppCommand() {
+    public MissApptCommand() {
     }
 
     @Override

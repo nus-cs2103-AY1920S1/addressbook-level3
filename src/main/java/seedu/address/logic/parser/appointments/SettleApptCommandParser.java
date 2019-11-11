@@ -7,7 +7,7 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.appointments.SettleAppCommand;
+import seedu.address.logic.commands.appointments.SettleApptCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -23,7 +23,7 @@ import seedu.address.model.events.parameters.Status;
 /**
  * Parses input arguments and creates a new SettleAppCommand object
  */
-public class SettleAppCommandParser implements Parser<ReversibleActionPairCommand> {
+public class SettleApptCommandParser implements Parser<ReversibleActionPairCommand> {
     public static final String MESSAGE_NOT_MISSEDLIST =
             "Safety check: Appointments displayed must be missed appointments.\n"
                     + "Please first display the missed appointment listing "
@@ -32,7 +32,7 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
     private Model model;
     private List<Event> lastShownList;
 
-    public SettleAppCommandParser(Model model) {
+    public SettleApptCommandParser(Model model) {
         this.lastShownList = model.getFilteredAppointmentList();
         this.model = model;
     }
@@ -71,8 +71,8 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
                     eventToEdit.getEventTiming(),
                     new Status(Status.AppointmentStatuses.SETTLED));
 
-            return new ReversibleActionPairCommand(new SettleAppCommand(eventToEdit, editedEvent),
-                    new SettleAppCommand(editedEvent, eventToEdit));
+            return new ReversibleActionPairCommand(new SettleApptCommand(eventToEdit, editedEvent),
+                    new SettleApptCommand(editedEvent, eventToEdit));
 
         } catch (ParseException e) {
             throw new ParseException(e.getMessage());
