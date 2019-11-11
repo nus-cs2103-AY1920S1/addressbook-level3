@@ -57,7 +57,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                     + PREFIX_NAME + "ACTIVITY_NAME [START_TIME])... "
                     + "[" + PREFIX_ADDRESS + "LOCATION] "
                     + "[" + PREFIX_DAY + "DAY_INDEX...]",
-              COMMAND_WORD + " " + PREFIX_TAG + "Sports " + PREFIX_NAME + "Disneyland 1400 "
+            COMMAND_WORD + " " + PREFIX_TAG + "Sports " + PREFIX_NAME + "Disneyland 1400 "
                     + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4"
     );
 
@@ -239,7 +239,7 @@ public class AutoScheduleCommand extends UndoableCommand {
     }
 
     /**
-     * Creates a list to track the time of each activity to be carried out.
+     * Creates a list to track the time of each activity specified by user to be carried out.
      */
     private List<Optional<LocalTime>> fillTimeSchedule(List<NameOrTagWithTime> schedulePlan) {
         List<Optional<LocalTime>> timeSchedule = new ArrayList<>();
@@ -275,7 +275,7 @@ public class AutoScheduleCommand extends UndoableCommand {
     }
 
     /**
-     * Returns a list of containing all the days
+     * Returns a list of all the day indexes available such that all days in the itinerary will be planned to schedule.
      */
     private List<Index> scheduleForAllDays(int size) {
         return IntStream.rangeClosed(1, size)
@@ -297,7 +297,6 @@ public class AutoScheduleCommand extends UndoableCommand {
                 throw new CommandException(String.format(Messages.MESSAGE_ADDRESS_NOT_FOUND, address.get()));
             }
         }
-
         return filteredList;
     }
 

@@ -5,7 +5,7 @@ import java.util.Objects;
 //@@author oscarsu97
 
 /**
- * Represents the number of times the Activity appears in the Timetable.
+ * Represents the number of times the Activity appears in the itinerary.
  */
 public class ActivityWithCount implements Comparable<ActivityWithCount> {
     private final Activity activity;

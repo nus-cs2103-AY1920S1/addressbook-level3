@@ -26,7 +26,7 @@ public class AutoScheduleCommandParser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AutoScheduleCommand
-     * and returns an AutoScheduleScheduleCommand object for execution.
+     * and returns an AutoScheduleCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */

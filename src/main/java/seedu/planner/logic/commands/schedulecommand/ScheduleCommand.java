@@ -71,7 +71,7 @@ public class ScheduleCommand extends UndoableCommand {
     private final boolean isUndoRedo;
 
     /**
-     * Creates an ScheduleCommand to schedule the specified {@Activity} into the day.
+     * Creates a ScheduleCommand to schedule the specified {@Activity} into the day.
      */
     public ScheduleCommand(Index activityIndex, LocalTime startTime, Index dayIndex, boolean isUndoRedo) {
         requireAllNonNull(activityIndex, startTime, dayIndex);
