@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
 import static seedu.address.testutil.TypicalBudgets.getTypicalBudgetList;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
+import static seedu.address.testutil.TypicalExchangeData.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ITEM;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_ITEM;

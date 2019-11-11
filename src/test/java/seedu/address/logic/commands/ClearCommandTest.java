@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalBudgets.getTypicalBudgetList;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExchangeData;
+import static seedu.address.testutil.TypicalExchangeData.getTypicalExchangeData;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseList;
 
 import org.junit.jupiter.api.Test;

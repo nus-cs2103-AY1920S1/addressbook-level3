@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.expense.Amount;
 import seedu.address.model.expense.Currency;
 import seedu.address.model.expense.Date;
@@ -71,7 +72,7 @@ public class ExpenseBuilder {
      * Sets the {@code Currency} of the {@code Expense} that we are building.
      */
     public ExpenseBuilder withCurrency(String currency) {
-        this.currency = new Currency(currency);
+        this.currency = new Currency(currency, ExchangeDataSingleton.getInstance().getRates().getRate(currency));
         return this;
     }
 
