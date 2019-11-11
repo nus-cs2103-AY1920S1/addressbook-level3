@@ -141,7 +141,7 @@ public class Budget {
     public void recalculateAmountLeft() {
         double amountLeft = this.amount.getValue();
         for (Expense expense : expenseList.getExpenseList()) {
-            amountLeft -= expense.getConvertedAmount(currency).getValue();
+            amountLeft -= expense.getConvertedAmount(currency);
         }
         if (amountLeft <= 0.0) {
             this.amountLeft = new Amount(String.format("%.2f", 0 - amountLeft));

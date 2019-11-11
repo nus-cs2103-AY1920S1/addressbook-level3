@@ -44,17 +44,16 @@ public class Expense implements Comparable<Expense> {
         return name;
     }
 
-    public Amount getConvertedAmount() {
-        double convertedAmount = amount.getValue() / currency.getRate();
-        return new Amount(String.format("%.2f", convertedAmount));
+    public double getConvertedAmount() {
+        return amount.getValue() / currency.getRate();
     }
 
-    public Amount getConvertedAmount(Currency targetCurrency) {
+    public double getConvertedAmount(Currency targetCurrency) {
         // Convert back to base
         double amountAsBase = amount.getValue() / currency.getRate();
         double amountAsTarget = amountAsBase * ExchangeDataSingleton.getInstance()
             .getRates().getRate(targetCurrency.name);
-        return new Amount(String.format("%.2f", amountAsTarget));
+        return amountAsTarget;
     }
 
     public Amount getAmount() {
