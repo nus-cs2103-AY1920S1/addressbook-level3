@@ -289,8 +289,8 @@ Adds an engagement with following information;
 After user enters the above command, Typee will store the information and append it to the displayed list of engagements.
 
 [TIP]
-The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. Example: `add` +
-`t/meeting` `s/11/11/2019/1500` ... `p/High`
+The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. +
+Example: `add` `t/meeting` `s/11/11/2019/1500` ... `p/High`
 
 
 .Engagement successfully saved in system storage.
