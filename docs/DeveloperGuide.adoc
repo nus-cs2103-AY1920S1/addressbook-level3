@@ -420,3 +420,62 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Updating a patient's Visit Todos:
+
+. Updating a patient's Visit Todos. Note that this will not update the patient's visit tasks in an ongoing visit. For more information of the distinction between visit todos and visit tasks, refer to https://ay1920s1-cs2103-f10-1.github.io/main/UserGuide.html#VisitHowTo[Visit Tutorials] in the User Guide.
+
+.. Test case: `pat-edit 1 vt/Check Blood Pressure` +
+   Expected: Patient is updated with the new Visit Todo and this is reflected in the status message.
+.. Test case: `pat-edit 1 vt/` +
+   Expected: Patient is updated with no Visit Todos.
+
+=== Starting a Visit for a patient:
+
+. Starting a visit for a patient.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-start 1` +
+   Expected: An ongoing visit is begun.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-start 1` +
+   Expected: No visit is begun. An error message will appear in the status message informing user that there is already an ongoing visit.
+
+=== Updating an ongoing visit:
+
+. Updating an ongoing visit.
+
+.. Prerequisite: There is an ongoing visit, and this visit has at least one visit task.
+.. Test case: `visit-now-update f/1 r/Patient is healthy. d/1 140/90mmHg` +
+   Expected: Visit is updated. The first visit task is marked as finished with a detail of ""140/90mmHg" and the visit has the remark "Patient is healthy.". This is reflected on the Current Visit tab and in the status message.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-now-update [any argument]` +
+   Expected: No visit is updated. An error message will appear in the status message.
+
+Note: If the format of `visit-now-update` arguments are wrong, the error message will prompt about the format first, before it prompts on whether or not there is an ongoing visit.
+
+=== Cancelling a Visit for a patient:
+
+. Cancelling a visit for a patient.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-cancel` +
+   Expected: The ongoing visit is cancelled.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-cancel` +
+   Expected: No visit is cancelled. An error message will appear in the status message.
+
+=== Finishing a Visit for a patient:
+
+. Finishing a visit for a patient.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-end` +
+   Expected: The ongoing visit is finished. The end date time should be indicated in the visit if you check it in the patient's list of Visits.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-end` +
+   Expected: No visit is finished. An error message will appear in the status message.
