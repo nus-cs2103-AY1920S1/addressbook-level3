@@ -1,7 +1,17 @@
-package seedu.ifridge.logic.parser.templatelist;
+package seedu.ifridge.logic.parser.templatelist.template;
 
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.*;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.AMOUNT_DESC_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.AMOUNT_DESC_PORK;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_NAME_DESC;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_UNIT_DESC;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.NAME_DESC_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.NAME_DESC_PORK;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_AMOUNT_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_NAME_CHEESE;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.ifridge.model.food.Amount.MESSAGE_INVALID_AMOUNT;
@@ -10,8 +20,6 @@ import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
 import org.junit.jupiter.api.Test;
 
 import seedu.ifridge.logic.commands.templatelist.template.AddTemplateItemCommand;
-import seedu.ifridge.logic.parser.templatelist.template.AddTemplateItemCommandParser;
-import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.testutil.TemplateItemBuilder;
@@ -37,7 +45,7 @@ public class AddTemplateItemCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTemplateItemCommand.MESSAGE_USAGE);
 
         // whitespace only preamble
-        assertParseFailure(parser,  PREAMBLE_WHITESPACE + NAME_DESC_CHEESE + AMOUNT_DESC_CHEESE,
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + NAME_DESC_CHEESE + AMOUNT_DESC_CHEESE,
                 expectedMessage);
 
         // name missing

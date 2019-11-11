@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.DuplicateTemplateException;
 import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
 
 public class TemplateListTest {
@@ -52,7 +53,7 @@ public class TemplateListTest {
         List<UniqueTemplateItems> newTemplate = Arrays.asList(DIET_PLAN, editedDietPlan);
         TemplateStub newData = new TemplateStub(newTemplate);
 
-        //assertThrows(DuplicateFoodException.class, () -> templateList.resetData(newData));
+        assertThrows(DuplicateTemplateException.class, () -> templateList.resetData(newData));
     }
 
     @Test

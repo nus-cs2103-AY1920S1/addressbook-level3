@@ -524,9 +524,7 @@ NOTE: The lifeline for `TemplateListParser`, `AddTemplateListCommandParser` shou
 ==== Design Considerations
 Aspect: How add command is parsed
 
-The following class diagram shows the relationship between the TemplateListParser and the TemplateItemParser for the logic component:
-
-image::LogicClassDiagram.png[]
+Refer to the above class diagram about the logic component that shows the relationship between the TemplateListParser and the TemplateItemParser.
 
 * Alternative 1 (current choice): Create a separate parser for template list management and template item management
     ** Pros: Easy to implement. Parser structure follows the same structure as the model. More OOP.
@@ -852,7 +850,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-//tag::manualTestingTemplate[]
+
 === Deleting a person
 
 . Deleting a person while all persons are listed
@@ -866,7 +864,7 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
-
+//tag::manualTestingTemplate[]
 === Adding a template
 .. Prerequisites: Template list must contain a template with the name 'Birthday Party'.
 .. Test case: `tlist add n/x` (where x is a template name that does not currently exist in the template list)

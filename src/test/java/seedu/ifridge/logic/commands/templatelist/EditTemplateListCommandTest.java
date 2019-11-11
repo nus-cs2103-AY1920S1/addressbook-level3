@@ -36,7 +36,8 @@ import seedu.ifridge.model.waste.WasteMonth;
 import seedu.ifridge.testutil.EditTemplateListDescriptorBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code EditTemplateListCommand}.
  */
 public class EditTemplateListCommandTest {
 

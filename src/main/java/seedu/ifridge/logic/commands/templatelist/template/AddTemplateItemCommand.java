@@ -27,7 +27,7 @@ public class AddTemplateItemCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = "tlist template " + COMMAND_WORD
-            + ": Adds a food item to the specified template list.\n"
+            + ": Adds a food item to the specified template.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_NAME + "NAME "
             + PREFIX_AMOUNT + "AMOUNT\n"
@@ -36,7 +36,7 @@ public class AddTemplateItemCommand extends Command {
             + PREFIX_AMOUNT + "300g";
 
     public static final String MESSAGE_SUCCESS = "New food item added into template: %1$s";
-    public static final String MESSAGE_DUPLICATE_FOOD = "This food item already exists in the template list";
+    public static final String MESSAGE_DUPLICATE_FOOD = "This food item already exists in the template";
     public static final String MESSAGE_INCORRECT_UNIT = "This food item's unit conflicts with another food entry "
             + "with the same name";
 

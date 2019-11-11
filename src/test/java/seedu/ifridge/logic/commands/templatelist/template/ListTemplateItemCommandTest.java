@@ -31,7 +31,8 @@ import seedu.ifridge.model.waste.WasteMonth;
 
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code ListTemplateItemCommand}.
  */
 public class ListTemplateItemCommandTest {
 

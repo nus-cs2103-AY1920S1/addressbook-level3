@@ -107,7 +107,6 @@ public class TemplateList implements ReadOnlyTemplateList {
     @Override
     public String toString() {
         return templates.asUnmodifiableObservableList().size() + " templates";
-        // TODO: refine later
     }
 
     @Override
@@ -126,9 +125,6 @@ public class TemplateList implements ReadOnlyTemplateList {
         }
 
         return false;
-        /**return other == this // short circuit if same object
-                || (other instanceof TemplateList // instanceof handles nulls
-                && templates.equals(((TemplateList) other).templates));**/
     }
 
     @Override

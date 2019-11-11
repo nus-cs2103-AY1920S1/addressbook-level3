@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static seedu.ifridge.logic.parser.CliSyntax.*;
+import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
+import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
+import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 import static seedu.ifridge.testutil.Assert.assertThrows;
 
@@ -52,6 +54,7 @@ public class TemplateCommandTestUtil {
     public static final String INVALID_NAME_FOR_WEIGHT = "FullFat Milk";
     public static final String VALID_TEMPLATE_NAME_BULK_UP = "Bulk up Menu";
     public static final String VALID_TEMPLATE_NAME_SICK = "Get well soon Menu";
+    public static final String VALID_TEMPLATE_NAME_APPLE_PIE = "Apple Pie";
 
     public static final String NAME_DESC_PORK = " " + PREFIX_NAME + VALID_NAME_PORK;
     public static final String NAME_DESC_CHEESE = " " + PREFIX_NAME + VALID_NAME_CHEESE;
@@ -62,11 +65,12 @@ public class TemplateCommandTestUtil {
     public static final String AMOUNT_DESC_PORK = " " + PREFIX_AMOUNT + VALID_AMOUNT_PORK;
     public static final String AMOUNT_DESC_MILK = " " + PREFIX_AMOUNT + VALID_AMOUNT_MILK;
     public static final String INDEX_DESC = " " + PREFIX_ITEM_INDEX + "1";
-    public static final String TEMPLATE_NAME_DESC = PREFIX_NAME + VALID_TEMPLATE_NAME_BULK_UP;
+    public static final String TEMPLATE_NAME_DESC = " " + PREFIX_NAME + VALID_TEMPLATE_NAME_BULK_UP;
+    public static final String TEMPLATE_NAME_DESC_APPLE_PIE = " " + PREFIX_NAME + VALID_TEMPLATE_NAME_APPLE_PIE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "-?^511@#";
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "300";
-    public static final String INVALID_UNIT_DESC = " " + PREFIX_AMOUNT + "300D";// 'D' is not a valid unit
+    public static final String INVALID_UNIT_DESC = " " + PREFIX_AMOUNT + "300D"; // 'D' is not a valid unit
     public static final String INVALID_INDEX_DESC = " " + PREFIX_ITEM_INDEX + "A";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
@@ -95,7 +99,7 @@ public class TemplateCommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book, filtered person list and selected person in {@code actualModel} remain unchanged
+     * - the template list, filtered template list and selected template in {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can
@@ -112,7 +116,7 @@ public class TemplateCommandTestUtil {
 
     /**
      * Updates {@code model}'s filtered list to show only the food at the given {@code targetIndex} in the
-     * {@code model}'s address book.
+     * {@code model}'s template list.
      */
     public static void showItemAtIndex(Model model, Index templateIndex, Index itemIndex) {
         requireNonNull(templateIndex);

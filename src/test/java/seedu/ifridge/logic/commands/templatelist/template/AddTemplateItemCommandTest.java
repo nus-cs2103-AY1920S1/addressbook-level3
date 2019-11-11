@@ -50,7 +50,8 @@ import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
 
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code AddTemplateItemCommand}.
  */
 public class AddTemplateItemCommandTest {
     private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
@@ -159,11 +160,9 @@ public class AddTemplateItemCommandTest {
         assertFalse(standardCommand.equals(new DeleteTemplateItemCommand(INDEX_FIRST, INDEX_FIRST)));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(
-                new AddTemplateItemCommand(INDEX_SECOND, standardItem)));
+        assertFalse(standardCommand.equals(new AddTemplateItemCommand(INDEX_SECOND, standardItem)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(
-                new AddTemplateItemCommand(INDEX_FIRST, TEMPLATE_ITEM_RICE)));
+        assertFalse(standardCommand.equals(new AddTemplateItemCommand(INDEX_FIRST, TEMPLATE_ITEM_RICE)));
     }
 }

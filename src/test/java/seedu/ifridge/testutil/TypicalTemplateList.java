@@ -15,7 +15,7 @@ import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 
 /**
- * A utility class containing a list of {@code TemplateItem} objects to be used in tests.
+ * A utility class containing a list of {@code UniqueTemplateItems} objects to be used in tests.
  */
 public class TypicalTemplateList {
     public static final UniqueTemplateItems WEEKLY_NECESSITIES = new UniqueTemplateItemsBuilder().withName(
@@ -24,11 +24,13 @@ public class TypicalTemplateList {
             new Name("Diet Plan")).withTemplateItem(TOMATO).withTemplateItem(MINCEDCHICKEN).build();
     public static final UniqueTemplateItems BIRTHDAY_PARTY = new UniqueTemplateItemsBuilder().withName(
             new Name("Birthday Party")).withTemplateItem(WINE).withTemplateItem(MINCEDBEEF).build();
+    public static final UniqueTemplateItems BULK_UP = new UniqueTemplateItemsBuilder().withName(
+            new Name("BulkUp")).withTemplateItem(TOMATO).withTemplateItem(MILK).build();
 
     private TypicalTemplateList() {} // prevents instantiation
 
     /**
-     * Returns an {@code TemplateList} with all the typical persons.
+     * Returns an {@code TemplateList} with all the typical templates.
      */
     public static TemplateList getTypicalTemplateList() {
         TemplateList ab = new TemplateList();

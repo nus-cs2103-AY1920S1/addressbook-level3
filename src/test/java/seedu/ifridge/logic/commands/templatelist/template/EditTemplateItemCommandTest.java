@@ -61,7 +61,8 @@ import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
 
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code EditTemplateItemCommand}.
  */
 public class EditTemplateItemCommandTest {
 

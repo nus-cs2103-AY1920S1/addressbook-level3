@@ -24,6 +24,10 @@ public class UniqueTemplateItemsBuilder {
         template.add(TEMPLATE_ITEM_RICE);
     }
 
+    public UniqueTemplateItemsBuilder(Name name) {
+        template = new UniqueTemplateItems(name);
+    }
+
     public UniqueTemplateItemsBuilder(UniqueTemplateItems copy) {
         template = new UniqueTemplateItems(copy.getName());
         template.setTemplateItems(copy);

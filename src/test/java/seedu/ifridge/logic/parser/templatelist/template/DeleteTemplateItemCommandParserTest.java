@@ -1,8 +1,4 @@
-package seedu.ifridge.logic.parser.templatelist;
-
-import org.junit.jupiter.api.Test;
-import seedu.ifridge.logic.commands.templatelist.template.DeleteTemplateItemCommand;
-import seedu.ifridge.logic.parser.templatelist.template.DeleteTemplateItemCommandParser;
+package seedu.ifridge.logic.parser.templatelist.template;
 
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INDEX_DESC;
@@ -12,13 +8,10 @@ import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.ifridge.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
 
-/**
- * As we are only doing white-box testing, our test cases do not cover path variations
- * outside of the DeleteTemplateItemCommand code. For example, inputs "1" and "1 abc" take the
- * same path through the DeleteTemplateItemCommand, and therefore we test only one of them.
- * The path variation for those two cases occur inside the ParserUtil, and
- * therefore should be covered by the ParserUtilTest.
- */
+import org.junit.jupiter.api.Test;
+
+import seedu.ifridge.logic.commands.templatelist.template.DeleteTemplateItemCommand;
+
 public class DeleteTemplateItemCommandParserTest {
 
     private DeleteTemplateItemCommandParser parser = new DeleteTemplateItemCommandParser();

@@ -66,10 +66,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 * The iFridge app allows for some flexibility with the units inputted with the amount. The following units are accepted this application:
 ml, L, oz, lbs, kg, g, units.
+* Whitespace between magnitude and unit is allowed.
 * Several commands involve computation of amounts. Units are classified under three unit types:
 - *Volume:* ml, L
 - *Quantity:* units
 - *Weight:* g, kg, oz, lbs
+* Cross conversion between units of the same categories is supported.
 * When adding or editing items, the system will only allow items with similar names (checking is non-case-sensitive) to have similar unit types. However,
 the adding of items with conflicting unit types will not be allowed.
 ====
@@ -468,14 +470,13 @@ Format: `tlist template add TEMPLATEINDEX n/NAME a/AMOUNT`
 ****
 * Adds item into the template under the specified `INDEX` as shown in the displayed template list.
 * All items in the template must be unique. Checking of similar names is case-insensitive.
-* The amount must include a magnitude and a unit.
-* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
+* Amount must have both magnitude and unit.
+* The system only recognises metric units. e.g. kilogram, liter. Items with the same name (check is non-case-sensitive and across templatelist, grocerylist and shoppinglist)
+can have different units as long as the unit belongs in the same unit category.
 * Only the units in the following unit categories are supported:
 ** `Weight`: `kg`, `g`, `oz`, `lbs`
 ** `Volume`: `L`, `ml`
 ** `Quantity`: `units`
-* Whitespace between magnitude and unit is allowed.
-* Items with the same name are allowed to have different units as long as they are of the same unit category.
 ****
 
 Examples:
@@ -492,15 +493,13 @@ Format: `tlist template edit TEMPLATEINDEX i/ITEMINDEX [n/NAME] [a/AMOUNT]`
 * Edits the food item at the specified `ITEMINDEX` in template at specified TEMPLATEINDEX. The index refers to the index number shown in the displayed template. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* The amount must include a magnitude and a unit.
-* The system only recognises metric units. e.g. kilogram, liter. The system does not support unrecognised units such as tablespoon (not precise), and pint (not a metric unit).
+* Amount must have both magnitude and unit.
+* The system only recognises metric units. e.g. kilogram, liter. Items with the same name (check is non-case-sensitive and across templatelist, grocerylist and shoppinglist)
+can have different units as long as the unit belongs in the same unit category.
 * Only the units in the following unit categories are supported:
 ** `Weight`: `kg`, `g`, `oz`, `lbs`
 ** `Volume`: `L`, `ml`
 ** `Quantity`: `units`
-* Whitespace between magnitude and unit is allowed.
-* Items with the same name are allowed to have different units as long as they are of the same unit category.
-
 ****
 
 Examples:
@@ -534,6 +533,8 @@ Examples:
 * `tlist template list 1`
 Shows all entries in the first template
 
+//end::templatelistfeatures[]
+
 //tag::tlistundoredo[]
 ==== Undo Template List: `tlist undo`
 Undo the template list and the corresponding template item list (if applicable). +
@@ -548,7 +549,7 @@ Format: `tlist redo`
 
 Redoing a template list will only display template list.
 Redoing a template item list will display which template is redone.
-//end::templatelistfeatures[]
+
 
 //end::tlistundoredo[]
 === Shopping List Management

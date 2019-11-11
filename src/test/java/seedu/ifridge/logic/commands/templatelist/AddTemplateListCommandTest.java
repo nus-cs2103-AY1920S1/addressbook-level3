@@ -42,7 +42,10 @@ import seedu.ifridge.model.waste.WasteReport;
 import seedu.ifridge.testutil.TemplateItemBuilder;
 import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
 
-
+/**
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code AddTemplateListCommand}.
+ */
 public class AddTemplateListCommandTest {
 
     @Test

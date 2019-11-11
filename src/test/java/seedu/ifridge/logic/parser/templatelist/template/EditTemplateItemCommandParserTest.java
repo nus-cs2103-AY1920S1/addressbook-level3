@@ -1,18 +1,28 @@
-package seedu.ifridge.logic.parser.templatelist;
+package seedu.ifridge.logic.parser.templatelist.template;
 
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.*;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.AMOUNT_DESC_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.AMOUNT_DESC_MILK;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INDEX_DESC;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_AMOUNT_DESC;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.INVALID_NAME_DESC;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.NAME_DESC_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.NAME_DESC_MILK;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_AMOUNT_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_AMOUNT_MILK;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_NAME_CHEESE;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_NAME_MILK;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.ifridge.testutil.TypicalIndexes.*;
+import static seedu.ifridge.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.ifridge.model.food.Amount.MESSAGE_INVALID_AMOUNT;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.ifridge.commons.core.index.Index;
 import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand;
 import seedu.ifridge.logic.commands.templatelist.template.EditTemplateItemCommand.EditTemplateItemDescriptor;
-import seedu.ifridge.logic.parser.templatelist.template.EditTemplateItemCommandParser;
-import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.testutil.EditTemplateItemDescriptorBuilder;
 
@@ -41,10 +51,10 @@ public class EditTemplateItemCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + INDEX_DESC + NAME_DESC_CHEESE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + INDEX_DESC + NAME_DESC_CHEESE, MESSAGE_INVALID_INDEX);
 
         // zero index
-        assertParseFailure(parser, "0" + INDEX_DESC + NAME_DESC_CHEESE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + INDEX_DESC + NAME_DESC_CHEESE, MESSAGE_INVALID_INDEX);
 
         // invalid arguments being parsed as preamble
         assertParseFailure(parser, "1 some random string", MESSAGE_INVALID_FORMAT);
@@ -56,7 +66,7 @@ public class EditTemplateItemCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         assertParseFailure(parser, "1" + INDEX_DESC + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INDEX_DESC + INVALID_AMOUNT_DESC, Amount.MESSAGE_CONSTRAINTS); // invalid amount
+        assertParseFailure(parser, "1" + INDEX_DESC + INVALID_AMOUNT_DESC, MESSAGE_INVALID_AMOUNT); // invalid amount
 
         // multiple invalid values, but only the first invalid value is captured.
         // But bcuz of conflicts, we do only one INVALID ONE IN THIS CASE.
@@ -68,25 +78,11 @@ public class EditTemplateItemCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetTemplateIndex = INDEX_FIRST;
         Index targetItemIndex = INDEX_FIRST;
-        String userInput = targetTemplateIndex.getOneBased() + targetItemIndex.getOneBased() + AMOUNT_DESC_CHEESE
+        String userInput = targetTemplateIndex.getOneBased() + INDEX_DESC + AMOUNT_DESC_CHEESE
                 + NAME_DESC_CHEESE;
 
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_CHEESE)
                 .withAmount(VALID_AMOUNT_CHEESE).build();
-        EditTemplateItemCommand expectedCommand = new EditTemplateItemCommand(targetTemplateIndex,
-                targetItemIndex, descriptor);
-
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_someFieldsSpecified_success() {
-        Index targetTemplateIndex = INDEX_FIRST;
-        Index targetItemIndex = INDEX_FIRST;
-        String userInput = targetTemplateIndex.getOneBased() + INDEX_DESC + AMOUNT_DESC_MILK;
-
-        EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
-                .withAmount(VALID_AMOUNT_MILK).build();
         EditTemplateItemCommand expectedCommand = new EditTemplateItemCommand(targetTemplateIndex,
                 targetItemIndex, descriptor);
 
@@ -100,13 +96,13 @@ public class EditTemplateItemCommandParserTest {
         Index itemIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + INDEX_DESC + NAME_DESC_MILK;
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
-                .withName(VALID_NAME_MILK).withAmount("1L").build();
+                .withName(VALID_NAME_MILK).build();
         EditTemplateItemCommand expectedCommand = new EditTemplateItemCommand(targetIndex, itemIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // amount
         userInput = targetIndex.getOneBased() + INDEX_DESC + AMOUNT_DESC_MILK;
-        descriptor = new EditTemplateItemDescriptorBuilder().withName("Red Wine").withAmount(VALID_AMOUNT_MILK).build();
+        descriptor = new EditTemplateItemDescriptorBuilder().withAmount(VALID_AMOUNT_MILK).build();
         expectedCommand = new EditTemplateItemCommand(targetIndex, itemIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -118,7 +114,7 @@ public class EditTemplateItemCommandParserTest {
         String userInput = targetIndex.getOneBased() + INDEX_DESC + AMOUNT_DESC_CHEESE + AMOUNT_DESC_MILK;
 
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
-                .withName("Red Wine").withAmount(VALID_AMOUNT_MILK).build();
+                .withAmount(VALID_AMOUNT_MILK).build();
         EditTemplateItemCommand expectedCommand = new EditTemplateItemCommand(targetIndex, itemIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -131,13 +127,13 @@ public class EditTemplateItemCommandParserTest {
         Index itemIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + INDEX_DESC + INVALID_NAME_DESC + NAME_DESC_MILK;
         EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder()
-                .withName(VALID_NAME_MILK).withAmount("1L").build();
+                .withName(VALID_NAME_MILK).build();
         EditTemplateItemCommand expectedCommand = new EditTemplateItemCommand(targetIndex, itemIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // other valid values specified
         userInput = targetIndex.getOneBased() + INDEX_DESC + INVALID_NAME_DESC + NAME_DESC_MILK;
-        descriptor = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_MILK).withAmount("1L").build();
+        descriptor = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_MILK).build();
         expectedCommand = new EditTemplateItemCommand(targetIndex, itemIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
     }

@@ -10,7 +10,7 @@
 == Overview
 
 iFridge is a desktop grocery management application to encourage home cooks to manage their food waste. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has a about 20kLoC.
+It is written in Java, and has about 20kLoC.
 
 == Summary of contributions
 

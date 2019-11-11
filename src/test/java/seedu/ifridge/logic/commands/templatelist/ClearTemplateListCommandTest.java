@@ -23,7 +23,10 @@ import seedu.ifridge.model.UserPrefs;
 import seedu.ifridge.model.WasteList;
 import seedu.ifridge.model.waste.WasteMonth;
 
-
+/**
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code ClearTemplateListCommand}.
+ */
 public class ClearTemplateListCommandTest {
 
     @Test

@@ -1,7 +1,45 @@
 {
-  "templates": [ {
-    "name": "Weekly Necessities"
+  "templateList" : [ {
+    "name" : "Weekly Necessities",
+    "template" : [ {
+      "name" : "Orange juice",
+      "amount" : "500ml"
+    }, {
+      "name" : "Roast Beef",
+      "amount" : "1kg"
+    }, {
+      "name" : "Red Wine",
+      "amount" : "1L"
+    }, {
+      "name" : "2",
+      "amount" : "2g"
+    }, {
+      "name" : "reddd wine",
+      "amount" : "1L"
+    } ]
   }, {
-    "name": "Weekly Necessities"
+    "name" : "Weekly Necessities",
+    "template" : [ {
+      "name" : "Minced Chicken",
+      "amount" : "300g"
+    }, {
+      "name" : "Tomato",
+      "amount" : "2units"
+    }, {
+      "name" : "Apples",
+      "amount" : "2units"
+    } ]
+  }, {
+    "name" : "Weekly Necessities",
+    "template" : [ {
+      "name" : "Minced Beef",
+      "amount" : "300g"
+    }, {
+      "name" : "FullFat Milk",
+      "amount" : "1L"
+    }, {
+      "name" : "Eggplant",
+      "amount" : "3units"
+    } ]
   } ]
 }

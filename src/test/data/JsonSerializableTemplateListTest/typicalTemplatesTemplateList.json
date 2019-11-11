@@ -1,8 +1,7 @@
 {
-  "_comment": "TemplateList save file which contains the same Template values as in TypicalTemplateList#getTypicalTemplateList()",
   "templateList" : [ {
-    "name" : "Weekly Necessities",
-    "templateItems" : [ {
+    "name" : "Birthday Party",
+    "template" : [ {
       "name" : "Minced Beef",
       "amount" : "300g"
     }, {
@@ -10,22 +9,22 @@
       "amount" : "1L"
     }]
   }, {
-    "name" : "Birthday Party",
-    "templateItems" : [ {
-      "name" : "Red Wine",
-      "amount" : "1L"
-    }, {
-      "name" : "Minced Beef",
-      "amount" : "300g"
-    }]
-  }, {
     "name" : "Diet Plan",
-    "templateItems" : [ {
+    "template" : [ {
       "name" : "Tomato",
       "amount" : "2units"
     }, {
       "name" : "Minced Chicken",
       "amount" : "300g"
     }]
-  }]
+  }, {
+    "name" : "Weekly Necessities",
+    "template" : [ {
+      "name" : "Red Wine",
+      "amount" : "1L"
+    }, {
+      "name" : "Minced Beef",
+      "amount" : "300g"
+    }]
+  } ]
 }
