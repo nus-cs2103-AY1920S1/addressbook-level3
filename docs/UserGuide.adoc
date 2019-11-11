@@ -163,24 +163,6 @@ Examples:
 [NOTE]
 It is currently not possible to set a reminder for events with an autoreschedule flag. We intend to include this in v2.0 .
 
-==== Adding a reminder: `reminder`
-
-Adds a reminder to the reminder list +
-Format: `reminder DESCRIPTION -r REMINDER [-t TAG]`
-
-Examples:
-
-* `reminder John’s Birthday -r 19/09/2019 1400`
-* `reminder John’s Birthday -r 2019-09-19T14:00 -t friend`
-* `reminder John's Birthday -r 3.day.later`
-
-
-
-See link:#snooze[snooze] to learn how to snooze the reminder!
-
-[NOTE]
-It is not possible to set a reminder in the past.
-
 ==== Editing an item : `edit`
 
 This command is used to edit any of the items that you might have. +
@@ -288,24 +270,60 @@ Here are some interesting commands you can try:
 So focused on your work that you forget the other tasks in your life?
 Don't worry! You can ask ELISA to remind you to do what you need to do, when you need to do it!
 
-Simply add a reminder
+==== Adding a reminder: `reminder`
 
-[[snooze]]
+Simply add your reminder with this command:
+`reminder John’s Birthday -r 11/11/2019 1440` +
+ and ELISA will carry it out!
+
+image::BeforeReminderCommand.PNG[]
+
+Once it's time for you to be reminded, ELISA will remind you!
+Best of all, ELISA will play a chime so you won't need to have ELISA open in order to be reminded!
+
+image::AfterReminderCommand.PNG[]
+
+More specifically, the reminder command format is: `reminder DESCRIPTION -r REMINDER [-t TAG]`
+
+Here are some other ways you could use this command!:
+
+* `reminder Finish UG -r 11/10/2019 1400`
+* `reminder Get John’s Birthday gift -r 2019-09-19T14:00 -t friend`
+* `reminder Study for 2103T Exam -r 3.day.later`
+[NOTE]
+1. It is currently not possible to set a reminder for events with an autoreschedule flag. We intend to include this in v2.0 .
+
+2. It is not possible to set a reminder in the past.
+
+image::FailReminderCommand.PNG[]
+
 ==== Snoozing a reminder: `snooze`
 
-Snoozes a reminder that occurred since the application was open. +
-If an index is not provided, the most recently occurred reminder will be snoozed. +
-If a snooze duration is not specified, the reminder will be snoozed at the default duration of 5 min. +
-Format: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
+If you're in the groove of working but still want to be reminded again of a reminder that just occurred, you can use the snooze command!
 
-Examples:
+`snooze` will snooze the most recent reminder for a duration of time (5 minutes by default)
+
+image::BeforeSnoozeCommand.PNG[]
+
+And ELISA will remind you again once it's time!
+
+image::AfterSnoozeCommand.PNG[]
+
+More specifically the format of this command is: 'snooze [INDEX] [-s SNOOZE_DURATION]' +
+
+1. This snoozes a reminder. +
+2. The index refers to the it's index in the reminder list. +
+3. If an index is not provided, the most recently occurred reminder will be snoozed. +
+4. If a snooze duration is not specified, the reminder will be snoozed at the default duration of 5 min.
+
+Here are some examples you can try out!
 * `snooze 1`
 * `snooze 3 -s 10.min.later`
 * `snooze -s 10/10/2020 1400`
 
 [NOTE]
 1. It is possible to snooze the same reminder multiple times if you wish. +
-2. It is not possible to snooze if no reminder has occurred yet. +
+2. It is not possible to snooze (without specifying index) if no reminder has occurred yet. +
 However, if you use the snooze command incorrectly, ELISA will first attempt to correct your usage of the snooze command.
 
 === Navigation Features
