@@ -19,6 +19,8 @@ endif::[]
 
 By: `SErebros`      Since: `September 2019`      Licence: `MIT`
 
+<<<
+
 == Introduction - What is Dukemon?
 
 .Home screen of Dukemon.
@@ -40,6 +42,8 @@ data will be stored).
 4.  Double-click the `Dukemon.jar` to run the app.
 5.  Before getting to the quick start instructions, get familiar with our interface and appication modes.
 
+<<<
+
 === User Interface
 
 .Regions of the UI where commands are entered (via CLI) and feedback from Dukemon is shown.
@@ -53,6 +57,8 @@ image::UserGuideCommandBox.png[width="790"]
 3. Text-based feedback for each command entered is shown in the _ResultDisplay_ (region in red box).
 
 // end::yida-intro[]
+
+<<<
 
 // tag::switchingmodes[]
 === Switching Modes
@@ -104,6 +110,7 @@ The highlighted section shows, what commands are currently available. You can cl
 
 // end::switchingmodes[]
 
+<<<
 
 // tag::yida-quickstart[]
 
@@ -234,7 +241,7 @@ NOTE: Entering the start command after _WordBank_ is selected will enter game mo
 ==== Customise game play: `settings`
 Enters settings page, so that the user can customise the game play.
 
-=== _Card_ Commands image:card_commands_icon.png[width="29.5"]
+=== Card Commands image:card_commands_icon.png[width="29.5"]
 (Available in Open mode)
 
 ==== Add a _card_: `add`
@@ -383,7 +390,7 @@ You can also drag and drop a _WordBank_ outside of _Dukemon_, and into your comp
 
 // tag::jasonstatscommand[]
 
-=== _WordBank_ Statistics Commands image:statistics-icon.png[width="32"]
+=== WordBank Statistics Commands image:statistics-icon.png[width="32"]
 (Available in Open mode)
 
 ==== Resetting the _WordBank_ statistics: `reset`
