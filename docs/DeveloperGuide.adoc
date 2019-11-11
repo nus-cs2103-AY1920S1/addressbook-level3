@@ -374,10 +374,6 @@ Calendar implements the following operations:
 These operations are exposed in the `Model` interface as `Model#addCalendarEntry()`, `Model#addPastReminder()`,
  `Model#getFilteredCalendarEntryList()`, `Model#getPastReminderList()` and `Model#schedule()` respectively.
 
-See the class diagram below for calendar related classes.
-
-image::CalendarClassDiagram.png[CCD,400,]
-
 ===== Reminder and Event class
 Basically, both `Reminder` and `Event` which extend from the abstract class `CalendarEntry` consist of a `Description` and a `DateTime` field.
 
@@ -386,6 +382,11 @@ It has a field of `Repetition`, which is an enum class representing `Daily`, `We
 
 For `Event`, it has another optional `DateTime` field and an optional `Reminder` field. The compulsory `DateTime` field is the starting date time while the optional one is the ending date time. The `Reminder`
 is for an auto reminder created by the app if the user requires in the command.
+
+
+See the class diagram below for calendar related classes.
+
+image:CalendarClassDiagram.png[CCD,,300]
 
 ===== EventCommand and ReminderCommand class
 To add events or reminders, the calendar system implemented `EventCommand` and `ReminderCommand`. Before adding an event, the calendar system will check whether any duplicate event exists and any events overlap
@@ -398,6 +399,10 @@ will replace them. For those overlap but cannot be resolved, the system will not
 ===== Scheduler class
 To show reminders at certain time, the `Scheduler` utilizes java `ScheduledExecutorService` to schedule a future task with a delay. It creates two inner classes implementing the `Runnable` interface for tasks. The `ReminderAdder`
 class represents a task of adding a reminder to the past reminder list. `Initializer` class represents a task of initializing the scheduler at the beginning of a day.
+
+The following activity diagram shows how scheduler works when it is called to schedule tasks:
+
+image:SchedulerActivityDiagram.png[SAD,400,]
 
 - **Range of tasks scheduled** +
 ** To calculate the accurate delay time for each reminder, the scheduler keeps track of starting time for all the scheduled tasks and the delay is the time duration between this starting time and the reminder time.
@@ -413,13 +418,9 @@ Each time any reminder being added or removed, the scheduler is triggered to res
 Besides scheduling tasks of adding reminders, the scheduler always schedules a task with `Initializer` class for initializing right after the current deadline, so that it can transfer smoothly to the next day if the app is open overnight. This initializer will set the
 deadline to be end of the next day, update date and schedule tasks.
 
-The following activity diagram shows how scheduler works when it is called to schedule tasks:
-
-image::SchedulerActivityDiagram.png[SAD,500,]
-
 The following activity diagram shows an example of how event command and scheduler work together:
 
-image::CalendarActivityDiagram.png[CAD,600,]
+image::CalendarActivityDiagram.png[CAD,400,]
 
 ===== Example usage scenario
 Given below is an example usage scenario and how the calendar behaves at each step.
