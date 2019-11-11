@@ -55,7 +55,6 @@ public class DoneEditEventCommand extends Command {
                     model.getPageStatus().getTrip().getExpenseList().add(eventToAdd.getExpense().get());
                 }
 
-                //Added by Karan Dev Sapra
                 if (eventToAdd.getInventoryList().isPresent()) {
                     model.getPageStatus().getTrip().getInventoryList()
                             .addEventInventoryList(eventToAdd.getInventoryList().get());
@@ -75,13 +74,11 @@ public class DoneEditEventCommand extends Command {
 
                 }
 
-                //Added by Karan Dev Sapra
                 if (eventToEdit.getInventoryList().isPresent()) {
                     model.getPageStatus().getTrip().getInventoryList()
                             .removeEventInventoryList(eventToEdit.getInventoryList().get());
                 }
 
-                //Added by Karan Dev Sapra
                 if (eventToAdd.getInventoryList().isPresent()) {
                     model.getPageStatus().getTrip().getInventoryList()
                             .addEventInventoryList(eventToAdd.getInventoryList().get());

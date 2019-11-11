@@ -5,10 +5,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import seedu.address.commons.core.GuiSettings;
@@ -19,7 +17,6 @@ import seedu.address.model.currency.CustomisedCurrency;
 import seedu.address.model.currency.exceptions.CurrencyNotFoundException;
 import seedu.address.model.currency.exceptions.CurrencyNotRemovableException;
 import seedu.address.model.currency.exceptions.DuplicateCurrencyException;
-import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 import seedu.address.model.trip.exceptions.TripNotFoundException;
@@ -32,7 +29,6 @@ public class ModelManager implements Model {
 
     private final TravelPal travelPal;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
     private final FilteredList<Trip> filteredTripList;
     private final FilteredList<CustomisedCurrency> filteredCurrencyList;
 
@@ -55,7 +51,6 @@ public class ModelManager implements Model {
                 null, null, null,
                 null, null, null,
                 null);
-        filteredPersons = new FilteredList<>(this.travelPal.getPersonList());
         filteredTripList = new FilteredList<>(this.travelPal.getTripList());
         filteredCurrencyList = new FilteredList<>(this.travelPal.getCurrencies());
     }
@@ -109,46 +104,6 @@ public class ModelManager implements Model {
     @Override
     public ReadOnlyTravelPal getTravelPal() {
         return travelPal;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return travelPal.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        travelPal.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        travelPal.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-        travelPal.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
     }
 
     //=========== Filtered Trip List Accessors =============================================================
@@ -237,7 +192,6 @@ public class ModelManager implements Model {
         ModelManager other = (ModelManager) obj;
         return travelPal.equals(other.travelPal)
                 && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons)
                 && filteredTripList.equals(other.filteredTripList)
                 && pageStatus.equals(other.getPageStatus());
     }

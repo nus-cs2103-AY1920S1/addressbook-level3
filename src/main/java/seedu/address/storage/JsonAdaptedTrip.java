@@ -43,7 +43,6 @@ class JsonAdaptedTrip {
     private final List<JsonAdaptedBooking> bookingList = new ArrayList<>();
     private final Optional<JsonAdaptedPhoto> photo;
 
-    //Added by Karan Dev Sapra
     private final List<JsonAdaptedInventory> inventoryList = new ArrayList<>();
 
     /**

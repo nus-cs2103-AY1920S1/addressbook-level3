@@ -22,7 +22,6 @@ import seedu.address.model.ReadOnlyTravelPal;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.TravelPal;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonTravelPalStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
@@ -85,7 +84,7 @@ public class MainApp extends Application {
             if (!addressBookOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with a sample TravelPal");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = addressBookOptional.orElseGet(TravelPal::new);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TravelPal");
             initialData = new TravelPal();

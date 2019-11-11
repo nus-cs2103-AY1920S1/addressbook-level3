@@ -14,17 +14,17 @@ import seedu.address.model.itinerary.Budget;
 public class JsonAdaptedBooking {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Booking's %s field is missing!";
 
-    private final Name name;
+    private final String name;
     private final String contact;
-    private final Budget budget;
+    private final double budget;
 
     /**
      * Constructs a {@code JsonAdaptedExpenditure} with the given Expenditure details.
      */
     @JsonCreator
-    public JsonAdaptedBooking(@JsonProperty("name") Name name,
+    public JsonAdaptedBooking(@JsonProperty("name") String name,
                               @JsonProperty("contact") String contact,
-                              @JsonProperty("budget") Budget budget) {
+                              @JsonProperty("budget") double budget) {
         this.name = name;
         this.contact = contact;
         this.budget = budget;
@@ -34,9 +34,9 @@ public class JsonAdaptedBooking {
      * Converts a given {@code Expenditure} into this class for Jackson use.
      */
     public JsonAdaptedBooking(Booking source) {
-        this.name = source.getName();
+        this.name = source.getName().fullName;
         this.contact = source.getContact();
-        this.budget = source.getBudget();
+        this.budget = source.getBudget().getValue();
     }
 
     /**
@@ -50,7 +50,6 @@ public class JsonAdaptedBooking {
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
 
-        return new Booking(name, contact, budget) {
-        };
+        return new Booking(new Name(name), contact, new Budget(budget));
     }
 }
