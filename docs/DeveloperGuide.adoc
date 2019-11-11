@@ -1306,6 +1306,7 @@ details the interaction with the `Model`. There are 5 main steps in the executio
 
 1. `FindCommandAllocator` allocates the correct parser for the find command based on the entity name
 provided. If the entity name is incorrect, then an error will be thrown and execution will terminate.
+This step is not represented in the sequence diagram to make it neater.
 
 2. The `FindParticipantCommandParser` will then parse the String provided to it. If the string provided
 is invalid and does not follow the specified format, an error will be thrown. Likewise, if the find command
@@ -1327,7 +1328,7 @@ input string.
 reference. Then, at `FindParticipantCommand`, a `CommandResult` is returned after the smooth execution
 of this `find` operation.
 
-[NOTE]xw
+[NOTE]
 The find command does not mutate the list in any way. It only changes the `Entity` objects displayed using
 the generated predicate.
 
