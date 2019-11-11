@@ -32,10 +32,10 @@ import seedu.address.model.tag.Tag;
 public class SamplePersonList {
 
     public static final PersonDescriptor ALICE = new PersonDescriptor(
-            new Name("Alice"),
-            new Phone("91239123"),
-            new Email("alice@gmail.com"),
-            new Address("Kent Ridge Drive"),
+            new Name("User"),
+            Phone.emptyPhone(),
+            Email.emptyEmail(),
+            Address.emptyAddress(),
             Remark.emptyRemark(),
             null
     );
