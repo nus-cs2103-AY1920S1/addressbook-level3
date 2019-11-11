@@ -28,6 +28,7 @@ Refer to the guide <<SettingUp#, here>>.
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
+
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
 [TIP]
@@ -306,7 +307,7 @@ NOTE: The lifeline for `AddCommandParser` and `AddIntervieweeCommand` should end
 
 
 ====
-* See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
+* See the general logic diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
 `Storage` is affected as well.
 * For brevity, the input arguments to functions referenced in this guide may be omitted.
 ====
@@ -414,6 +415,8 @@ The **activity diagram** below summarises the key steps in the algorithm.
 
 .HopcroftKarp Algorithm Activity Diagram
 image::HopcroftKarp.png[300, 500]
+
+
 
 Referring to the diagram above, a graph between interviewees and interview slots will first be built. Specifically, the graph built is a bipartite
 graph where each interviewee is linked to the slot that it can match and vice versa, but interviewees are not linked with each
@@ -617,8 +620,8 @@ With these slots and the current time table (with interviewers only) generated b
 we are able to update the current schedules by slotting in the allocated interviewee's slots.
 
 To prevent confusion and to ensure that the scheduled result is always updated with the latest database of interviewees
-and interviewers, add/delete/edit of interviewee or interviewer after scheduling will clear the scheduled result and reset
-the displayed schedules such that the schedules only display the availabilities of the interviewers. Thus, the user will need
+and interviewers, add/delete/edit of interviewee or interviewer after scheduling will clear the scheduled result and *reset
+the displayed schedules such that the schedules only display the availabilities of the interviewers*. Thus, the user will need
 to run the schedule command again to re-schedule the interviews.
 
 // tag::export[]
@@ -647,6 +650,7 @@ image::ExportActivityDiagram.png[]
 // end::export[]
 
 // tag::email[]
+
 === Email
 ==== Implementation
 
@@ -663,9 +667,7 @@ A similar implementation is used when emailing all interviewees (i.e. using the 
 
 The user is also able to check the email sending status (i.e. if a particular interviewee has been emailed before) using the `status` command type. It is simply going through the list of interviewees stored in the application and counting the number of interviewees with the `emailSent` boolean variable set to true.
 
-Notes:
-
-* To the application, an email is considered as sent when the email window successfully opens on the user's computer. It does not recognise the actual email being sent across the Internet.
+NOTE: To the application, an email is considered as sent when the email window successfully opens on the user's computer. It does not recognise the actual email being sent across the Internet.
 
 ===== Example: Email interview timeslot to an interviewee
 
@@ -1135,8 +1137,11 @@ Please refer to the UI Display section in the <<UserGuide#, user guide>> for mor
 . You can also display the list of interviewers and the scheduled table by the command `display interviewer` and `display schedule` respectively.
 . The format for the displays are shown below.
 
+.Interviewee Format
 image::intervieweeListFormat.png[]
+.Interviewer Format
 image::interviewerListFormat.png[]
+.Schedule Format
 image::scheduleListFormat.png[]
 
 // end::ManualDisplay[]

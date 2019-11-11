@@ -51,6 +51,11 @@ LogicManager -> ImportCommand : execute()
 activate ImportCommand
 
 create CsvReader
+ImportCommand -> CsvReader
+activate CsvReader
+CsvReader --> ImportCommand
+deactivate CsvReader
+
 ImportCommand -> CsvReader : readInterviewers()
 activate CsvReader
 
@@ -77,9 +82,6 @@ activate CommandResult
 
 CommandResult --> ImportCommand : result
 deactivate CommandResult
-
-ImportCommand -[hidden]-> CommandResult
-destroy CommandResult
 
 ImportCommand --> LogicManager : result
 deactivate ImportCommand

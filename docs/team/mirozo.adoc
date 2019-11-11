@@ -34,7 +34,7 @@ with colleagues/interviewers. It also allows the user to use third party applica
 
 * *Minor enhancement*: Implemented responsive UI for `add`, `delete`, `edit`, `import` and `clear` commands, together with team mate Yau Dong.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mirozo&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mirozo&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mirozo&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mirozo&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]]
 
 * *Other contributions*:
 ** Enhancements to existing features:
@@ -48,7 +48,7 @@ Look at section "Updating Schedule List" in Developer's Guide for a better idea 
 *** Added User Stories https://github.com/AY1920S1-CS2103-F09-1/main/pull/35[35] and Use Cases https://github.com/AY1920S1-CS2103-F09-1/main/pull/186[186]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-1/main/pull/161[#161]
-*** Handled merge conflicts for team: https://github.com/AY1920S1-CS2103-F09-1/main/pull/80[#80]
+*** Handled merge conflicts for team: https://github.com/AY1920S1-CS2103-F09-1/main/pull/78[78] https://github.com/AY1920S1-CS2103-F09-1/main/pull/80[#80]
 
 == Contributions to the User Guide
 
