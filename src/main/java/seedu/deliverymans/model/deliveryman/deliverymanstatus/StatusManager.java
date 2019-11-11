@@ -62,6 +62,9 @@ public class StatusManager {
         }
     }
 
+    /**
+     * Adds an deliveryman to the unavailable list.
+     */
     public void addUnavailableMan(Deliveryman deliveryman) {
         unavailableMen.add(deliveryman);
     }
