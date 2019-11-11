@@ -88,7 +88,8 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[width="100%", scaledwidth=18cm]
 
-*API* : link:{repoURL}/src/main/java/seedu/algobase/ui/Ui.java[`Ui.java`]
+*API* :
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/src/main/java/seedu/algobase/ui/Ui.java[`Ui.java`]
 
 The `UI` component consists of a `MainWindow` that is made up of parts
 e.g.`CommandBox`, `ResultDisplay`, `DetailsTabPane`, `DisplayTabPane`, `TaskManagementPane`, `StatusBarFooter` etc.
@@ -122,7 +123,7 @@ The `UI` component,
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/algobase/logic/Logic.java[`Logic.java`]
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/src/main/java/seedu/algobase/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `AlgoBaseParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -148,7 +149,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 image::UiLogicClassDiagram.png[width=70%, scaledwidth=17cm]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java`]
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/src/main/java/seedu/algobase/ui/action/UiLogic.java[`UiLogic.java`]
 
 .  Performing an action (e.g. switching tabs) triggers the creation of a `UiActionDetails` object.
 .  `UiLogic` uses the `AlgoBaseUiActionParser` class to parse the `UiActionDetails` object.
@@ -175,7 +176,8 @@ NOTE: The lifeline for `EditProblemUiActionParser` should end at the destroy mar
 .Structure of the Model Component
 image::design/model/ModelClassDiagram.png[width="65%", scaledwidth=18cm]
 
-*API* : link:{repoURL}/src/main/java/seedu/algobase/model/Model.java[`Model.java`]
+*API* :
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/src/main/java/seedu/algobase/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -227,7 +229,8 @@ image::storage/StorageClassDiagram.png[width="70%", scaledwidth=12cm]
 .Structure of the JsonAdaptedProblemSearchRule Component
 image::storage/ProblemSearchRuleClassDiagram.png[width="65%", scaledwidth=10cm]
 
-*API* : link:{repoURL}/src/main/java/seedu/algobase/storage/Storage.java[`Storage.java`]
+*API* :
+https://github.com/AY1920S1-CS2103T-W11-1/main/blob/master/src/main/java/seedu/algobase/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -286,7 +289,7 @@ Given below is an example usage scenario and how the mechanism for adding tasks 
 The following activity diagram summarizes what happens when a user executes the `AddTaskCommand`:
 
 .Activity Diagram for the Execution of `AddTaskCommand`
-image::task/AddTaskCommandActivityDiagram.png[width="80%", scaledwidth=14cm]
+image::task/AddTaskCommandActivityDiagram.png[width="100%", scaledwidth=18cm]
 
 Step 1. The user launches the application.
 
@@ -302,7 +305,7 @@ to execute `addtask plan/1 prob/1`:
 .High Level Sequence Diagram for the Execution of `addtask plan/1 prob/1`
 image::task/HighLevelAddTaskSequenceDiagram.png[width="80%", scaledwidth=16cm]
 
-The following sequence diagram illustrates the interaction between the `Logic` and `Model` component
+The following sequence diagram illustrates the interaction between the `Logic` and `Model` components
 while executing `AddTaskCommand`:
 
 .Sequence Diagram for the Execution of `AddTaskCommand`

@@ -7,7 +7,18 @@ start
 if () then ([command is valid])
 	:Instantiate an AddTaskCommand with a corresponding AddTaskDescriptor;
 	:Execute AddTaskCommand;
-	:Update Task Management Pane in UI with current plan and corresponding task list;
+	if() then ([the given due date is not within range of target plan])
+	    :Throw an exception;
+	    :Update UI to notify the user;
+	else ([else])
+        if() then ([target plan contains tasks with the same problem])
+            :Throw an exception;
+            :Update UI to notify the user;
+        else ([else])
+            :Create a new task and add it to the target plan;
+            :Update UI with current plan and corresponding task list;
+        endif
+    endif
 else ([else])
 	:Throw an exception;
 	:Update UI to notify the user;

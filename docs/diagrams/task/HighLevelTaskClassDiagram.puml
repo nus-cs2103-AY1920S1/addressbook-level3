@@ -5,13 +5,17 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Package Task {
+    Class Task
+}
+
 class Id
 class Problem
 
-Task --"1" Id
-Task --"1" Problem
-Task --"1" boolean:isDone
-Task --"1" LocalDate:dueDate
+Task *--"1" Id
+Task *--"1" Problem
+Task *--"1" boolean:isDone
+Task *--"1" LocalDate:dueDate
 
 Plan *--"*" Task
 
