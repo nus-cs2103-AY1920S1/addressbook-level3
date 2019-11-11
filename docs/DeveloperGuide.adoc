@@ -1433,7 +1433,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Remind feature
+=== Remind Feature
 
 [TIP]
 ====
@@ -1664,3 +1664,28 @@ command  `timetrial pop`
 .. This highlights how the flashcard that was due today (tagged with "pop") was updated
 when it was viewed during the timetrial and was no longer considered due. Thus, when the user
 tried to exit, only the one overdue flashcard which was still not viewed was flagged.
+
+=== Auto-generation Feature of Cheatsheet
+
+[TIP]
+====
+Do take a look at the section on automation of cheatsheet above for more information of how the feature works!
+====
+
+. Testing `add` command
+
+* Test case 1
+
+.. Prerequisites
+
+... In Flashcard and Notes features, there exist 2 objects in total that is tagged `manualtesting`.
+
+... Currently in cheatsheet mode with Cheatsheet icon highlighted.
+
+.. Test command: `add` with `title` as `Manual Testing` and `tag` as `manualtesting`.
+
+.. Expected: Feedback box outputs message:
+
+    New cheatsheet added:  Title: Manual Testing
+    Tags: [manualtesting]
+    2 content(s) have been successfully generated from the other modes.
