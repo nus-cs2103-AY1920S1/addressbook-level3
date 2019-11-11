@@ -94,8 +94,10 @@ public class DoneTaskCommand extends Command {
         if (taskStatus == TaskStatus.DONE) {
             throw new CommandException(String.format(MESSAGE_TASK_ALREADY_COMPLETED, taskToUpdate));
         }
+        Instant timeStart = taskToUpdate.getTimeStart();
 
         Task newTask = new Task(name, TaskStatus.DONE, tags);
+        newTask.setTimeStart(timeStart);
         newTask.setTimeEnd(Instant.now());
 
         return newTask;

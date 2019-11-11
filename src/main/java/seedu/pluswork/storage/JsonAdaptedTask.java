@@ -1,5 +1,6 @@
 package seedu.pluswork.storage;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ class JsonAdaptedTask {
     private final TaskStatus taskStatus;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
     private String deadline = null;
+    private Instant timeStart = null;
+    private Instant timeEnd = null;
 
     /**
      * Constructs a {@code JsonAdaptedTask} with the given task details.
@@ -35,13 +38,13 @@ class JsonAdaptedTask {
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("name") String name, @JsonProperty("status") TaskStatus taskStatus,
                            @JsonProperty("tagged") List<JsonAdaptedTag> tagged,
-                           @JsonProperty("deadline") String deadline) {
+                           @JsonProperty("deadline") String deadline, @JsonProperty("timeStart") Instant timeStart,
+                           @JsonProperty("timeEnd") Instant timeEnd) {
         this.name = name;
         this.taskStatus = taskStatus;
         this.deadline = deadline;
-        if (tagged != null) {
-            this.tagged.addAll(tagged);
-        }
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
     }
 
     /**
@@ -56,6 +59,8 @@ class JsonAdaptedTask {
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        timeStart = source.getTimeStart();
+        timeEnd = source.getTimeEnd();
     }
 
     /**
@@ -87,6 +92,17 @@ class JsonAdaptedTask {
             final LocalDateTime modelDeadline = LocalDateTime.parse(deadline);
             modelTask.setDeadline(modelDeadline);
         }
+
+        if (timeEnd != null) {
+            final Instant modelTimeEnd = timeEnd;
+            modelTask.setTimeEnd(modelTimeEnd);
+        }
+
+        if (timeStart != null) {
+            final Instant modelTimeStart = timeStart;
+            modelTask.setTimeStart(timeStart);
+        }
+
         return modelTask;
     }
 
