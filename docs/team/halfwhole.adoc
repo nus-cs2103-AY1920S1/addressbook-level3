@@ -23,48 +23,81 @@ This application is written in Java, and morphed from AddressBook-3.
 
 == Summary of contributions
 
+* *Major enhancement*: added the *description of modules*
+
+** What it does: given a module code, users can retrieve a description of the entire module, including
+its focus areas, S/U-ability, prerequisites, and more. Users may also list all core or focus area modules that
+can be taken.
+
+** Justification: this feature allows users to easily refer to information on various modules, which facilitates
+module planning and helps them decide whether or not to include them in their study plans.
+
+** Highlights: it required the creation of a comprehensive JSON file detailing module requirements, prerequisites, and all other
+module-related information, which forms the backbone of all modules created in our application.
+(https://github.com/AY1920S1-CS2103-F09-3/main/pull/61[#61])
+
+** Credits: The information for computer science modules was sourced from https://nusmods.com[NUSMods].
+
 * *Major enhancement*: added the *checking of module prerequisites and study plan requirements*
 
 ** What it does: searches for and highlights modules whose prerequisites are not satisfied in the user's study plan.
 It also checks the study plan for overall graduation requirements, such as focus area requirements,
 core module requirements, and total MC count.
 
-** Justification: This feature allows the user to create a legitimate study plan that satisfies the given requirements,
-so that the resulting study plan is valid and allows the student to graduate according to their study plan.
+** Justification: this feature allows the user to create a legitimate study plan that satisfies the given requirements,
+so that the resulting study plan allows the student to graduate.
 
-** Highlights: This enhancement affects the validity of the entire app and user experience.
-*** It required the creation of a comprehensive JSON file detailing module requirements, prerequisites, and all other
-module-related information, which forms the backbone of all modules created in our application.
-*** Module prerequisites needed to be parsed into trees (involving AND or OR structures), that are checked against
-every time the user makes adjustments to the study plan.
+** Highlights: to check for a module's prerequisites, they need to be parsed into trees (involving AND or OR structures)
+that are checked against every time the user makes adjustments to their study plan.
 
-** Credits: The information for computer science modules was pulled from https://nusmods.com[NUSMods], while the information
-on overall graduation requirements was sourced from the https://www.comp.nus.edu.sg[NUS Computing website].
+** Credits: The information on overall graduation requirements was sourced from the https://www.comp.nus.edu.sg[NUS Computing website].
 
 * *Minor enhancements*:
 
 *** Added a command to clear all invalid modules in a study plan, whose prerequisites have not been met.
-*** Added a command to describe all of a module's related information, given its module code.
 *** Added a command to view all valid modules that can be taken in a given semester. This helps the user to
 decide what modules he or she may take next.
 
-// TODO
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=halfwhole&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and Test Code]]
 
 * *Other contributions*:
 
-// TODO
 ** Project management:
-*** Managed release `v1.3` on GitHub
+*** Took part in the release of `v1.3`
+*** Opened a consolidated bug tracker for issues discovered while testing
+(Issue https://github.com/AY1920S1-CS2103-F09-3/main/issues/239[#239])
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Made GUI displays for invalid modules, showing its module prerequisites.
+(Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/149[#149])
+*** Updated the GUI with a completed and total MC count for the entire study plan
+(Pull request https://github.com/AY1920S1-CS2103-F09-3/main/pull/194[#194])
+*** Wrote additional tests for features related to module information and verification
+(Pull requests
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/154[#154],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/180[#180],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/195[#195],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/228[#228],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/299[#299])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Added several sections to the readme, as well as user and developer guides:
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/46[#46],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/92[#92],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/232[#232],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/294[#294]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Reviewed PRs for other teams (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11[#11]
+*** Made additions and fixes to other related components in the team project:
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/127[#127],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/132[#132],
+https://github.com/AY1920S1-CS2103-F09-3/main/pull/247[#247]
+*** Reported bugs and suggestions for other teams in the class
+(examples:
+https://github.com/halfwhole/ped/issues/7[1],
+https://github.com/halfwhole/ped/issues/2[2],
+https://github.com/halfwhole/ped/issues/1[3],
+https://github.com/halfwhole/ped/issues/8[4],
+https://github.com/halfwhole/ped/issues/6[5],
+https://github.com/halfwhole/ped/issues/18[6])
 
 == Contributions to the User Guide
 
@@ -72,11 +105,19 @@ decide what modules he or she may take next.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-// TODO
-include::../UserGuide.adoc
+include::../UserGuide.adoc[tag=check]
 
-// TODO
-include::../UserGuide.adoc
+include::../UserGuide.adoc[tag=errormessages]
+
+include::../UserGuide.adoc[tag=validmods]
+
+include::../UserGuide.adoc[tag=clearinvalidmods]
+
+include::../UserGuide.adoc[tag=description]
+
+include::../UserGuide.adoc[tag=showcore]
+
+include::../UserGuide.adoc[tag=showfocus]
 
 == Contributions to the Developer Guide
 
@@ -84,10 +125,10 @@ include::../UserGuide.adoc
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=architecture]
+
 include::../DeveloperGuide.adoc[tag=moduleinformationandverification]
 
 include::../DeveloperGuide.adoc[tag=correctprerequisite]
 
 ---
-
-_{Optionally, you may include other projects in your portfolio.}_

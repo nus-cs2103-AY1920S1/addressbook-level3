@@ -95,9 +95,11 @@ Format:  `redo`
 
 // end::undoredo[]
 
+//tag::errormessages[]
 ==== Error messages
 Displays a useful error message if the input is invalid. For example,
 it should highlight wrong commands, wrong numbers of arguments, or arguments in the wrong format.
+//end::errormessages[]
 
 // tag::addremovemod[]
 === Module
@@ -136,6 +138,7 @@ Examples:
 
 // end::dataone[]
 
+//tag::description[]
 ==== Viewing description of a module: `description`
 Shows the description of a particular module, including its prerequisites.
 Only computer-science related modules will have these descriptions, and not general modules nor electives. +
@@ -143,19 +146,27 @@ Format: `description MODULE_CODE` +
 Example:
 
 * `description CS2103T`
+//end::description[]
 
+//tag::showcore[]
 ==== Showing all core modules: `showcore`
 Shows all core modules.
 
 Format: `showcore`
 
+//end::showcore[]
+
+//tag::showfocus[]
 ==== Showing all focus area primary modules: `showfocus`
 Shows all focus area primary modules.
 
 Format: `showfocus`
+///end::showfocus[]
 
+//tag::display[]
 ==== Display for invalid modules
 Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules.
+//end::display[]
 
 // tag::addremovesems[]
 
@@ -202,6 +213,7 @@ Format:  `block SEMESTER [REASON]`
 Unblock the given semester. +
 Format:  `unblock SEMESTER`
 
+//tag::validmods[]
 ==== Viewing modules that can be taken in a given semester : `validmods`
 Shows all the modules that can be taken in a given semester, based only on whether its prerequisites have been met. +
 This semester need not necessarily exist in the module planner for you to view its valid modules. +
@@ -210,6 +222,7 @@ Format: `validmods SEMESTER`
 Example:
 
 * `validmods y2s1`
+//end::validmods[]
 
 // tag::datatwo[]
 
@@ -421,6 +434,7 @@ Format: `listbypriority`
 
 // end::datathree[]
 
+// tag::check[]
 ==== Checking a study plan's feasibility : `check`
 Shows details about what graduation requirements are left to be fulfilled,
 such as MCs, core or focus area modules that remain to be taken.
@@ -438,10 +452,14 @@ Examples
 * `check focus`
 * `check`
 
+// end::check[]
+
+// tag::clearinvalidmods[]
 ==== Clear all currently invalid modules : `clearinvalidmods`
 Clears all modules that are currently invalid, whose prerequisites have not been met in previous semesters.
 This may cause other modules in future semesters to be invalidated as well. +
 Format: `clearinvalidmods`
+// end::clearinvalidmods[]
 
 // tag::versiontracking[]
 === Version Tracking

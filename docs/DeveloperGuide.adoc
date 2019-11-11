@@ -24,6 +24,7 @@ Refer to the guide <<SettingUp#, here>>.
 
 == Design
 
+// tag::architecture[]
 [[Design-Architecture]]
 === Architecture
 
@@ -70,6 +71,7 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+// end::architecture[]
 // tag::Ui[]
 [[Design-Ui]]
 === UI component
