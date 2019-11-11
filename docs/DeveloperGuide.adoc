@@ -85,7 +85,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width = "600"]
+image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -93,7 +93,7 @@ image::LogicClassDiagram.png[width = "600"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[width = "600"]
+image::ArchitectureSequenceDiagram.png[width=600]
 
 The sections below give more details of each component.
 
@@ -101,7 +101,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width = "600"]
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -119,7 +119,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width = "600"]
+image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -133,7 +133,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[width = "600"]
+image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -141,7 +141,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width = "600"]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -155,13 +155,13 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Category` list in `KeyboardFlashCards`, which `FlashCard` can reference. This would allow `KeyboardFlashCards` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[width = "300"]
+image:BetterModelClassDiagram.png[width=600]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width = "600"]
+image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -198,7 +198,7 @@ The user executes `add q>1+1 a>2 c>math` to add new flashcard.
 
 The following sequence diagram shows how the add operation works:
 
-image::AddSequenceDiagram.png[width="600"]
+image::AddSequenceDiagram.png[]
 
 
 The add feature does not allow adding of duplicate FlashCards.
@@ -477,7 +477,7 @@ This feature is supported by the following classes:
 
 The following sequence diagram shows the intended case for the `start` command:
 
-image::StartSequenceDiagram.png[width = "600"]
+image::StartSequenceDiagram.png[]
 
 ==== Design considerations
 Aspect: Data structure to support `FlashCardTestModel`:
@@ -514,7 +514,7 @@ This feature is supported by the following classes:
 
 The sequence diagram below shows how the statistics operation works.
 
-image::StatisticsSequenceDiagram.png[width = "600"]
+image::StatisticsSequenceDiagram.png[]
 
 The sequence diagram below details how these other classes (i.e. `Stage`, `Scene` and `FlowPane`) work with `StatsWindow` to create the statistics pop-up window.
 
@@ -559,7 +559,7 @@ This feature is supported by the following classes:
 
 The sequence diagram below shows how the help operation works.
 
-image::HelpSequenceDiagram.png[width="600"]
+image::HelpSequenceDiagram.png[]
 
 The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window.
 
