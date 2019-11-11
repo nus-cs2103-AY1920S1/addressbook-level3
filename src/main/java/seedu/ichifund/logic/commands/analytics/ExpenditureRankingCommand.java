@@ -101,6 +101,7 @@ public class ExpenditureRankingCommand extends Command {
         TrendReport report = createTrendReport(year);
         fillExpenditureRankingTrendReport(model, report);
         model.updateDataList(report.getSortedTrendList());
+        model.updateCommand(this);
         if (month.isPresent()) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, month.get().wordString(), year.toString()));
         } else {
