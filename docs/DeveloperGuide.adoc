@@ -782,7 +782,6 @@ _{ more test cases ... }_
 _{ more test cases ... }_
 
 // tag::reportTesting[]
-
 === Generating the report
 
 [NOTE]
@@ -835,7 +834,6 @@ Expected: Maximum will be 889, Minimum will be 0, and Average will be 29(for 30 
 Expected: Maximum will be 889, Minimum will be 0, and Average will be 36(for 30 day months) or 35(for 31 day months).
 [NOTE]
 As the above test case requires a change in system time, do allow 2 minutes for CaloFit to be updated, as stated in Point 1(Generation of Report).
-
 // end::reportTesting[]
 
 
