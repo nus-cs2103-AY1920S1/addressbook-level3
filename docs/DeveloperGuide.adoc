@@ -627,7 +627,7 @@ input (`budget`) as a parameter. +
 *Step 3 :* FinSecParser then references the various command words and identifies the command to be a `budget` command
 . It then calls the `**BudgetCommand**` class.
 
-*Step 4 :* This newly created `**BudgetCommand**` object is returned to the LogicManager class, which then calls the
+*Step 4 :* This newly created `**BudgetCommand**` object is returned to the `**LogicManager**` class, which then calls the
 `**BudgetCommand::execute**` method.
 
 *Step 5 :* The `**BudgetCommand**` then interacts with the model component of our software architecture to create a
@@ -644,7 +644,7 @@ values and returning a new `**CommandResult**` with the specific message string 
 `**LogicManager::execute**`.
 
 *Step 8 :* `**LogicManager::execute**` method returns a `**CommandResult**` to the calling method which is
-`**MainWindow::executeCommand**`
+`**MainWindow::executeCommand**`.
 
 *Step 9 :* The specific feedback is then retrieved through `**CommandResult::getFeedbackToUser**` and set in the result
 display of the MainWindow. +
@@ -1632,6 +1632,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Goto a different view
+. Going to claims page
+.. Prerequisites: User to be in any view of the application other than claims
+.. Test case: `goto claims` +
+	Expected: Claims list should show up on the Main Window.
+
+. Going to incomes page
+.. Prerequisites: User to be in any view of the application other than incomes
+.. Test case: `goto incomes` +
+	Expected: Incomes list should show up on the Main Window.
+
+. Going to claims page
+.. Prerequisites: User to be in any view of the application other than contacts
+.. Test case: `goto contacts` +
+	Expected: Contacts list should show up on the Main Window.
+
 === Viewing Help
 
 . Requesting help from FinSec
@@ -1648,12 +1664,11 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `help cmd/randomstuff type/lalala` +
    Expected: FinSec displays an error message and usage instructions for help
 
-
 === Deleting a contact
 
 . Deleting a contact while all contacts are listed
 
-.. Prerequisites: List all contacts using the `goto_contacts` command. Multiple contacts in the list.
+.. Prerequisites: List all contacts using the `goto contacts` command. Multiple contacts in the list.
 .. Test case: `delete_contact 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 .. Test case: `delete_contact 0` +
@@ -1761,3 +1776,83 @@ should reflect accurate statistics for the current month.
 .. Test case: `budget 99` +
    Expected: An error pops up stating that `budget` is a standalone command and does not require additional parameters
 
+=== Sorting the various lists
+. Sorting contacts list by name in natural ordering +
+.. Prerequisites: 3 contacts with different names added into claims list
+.. Test case: `sort name` +
+	Expected: Contacts list would be sorted in lexicographical order based on the contacts' names.
+
+. Sorting claims list by name
+.. Prerequisites: 3 claims with different descriptions added into claims list
+.. Test case: `sort name` in natural ordering +
+	Expected: Claims list would be sorted in lexicographical order based on the claims' descriptions.
+
+. Sorting claims list by date
+.. Prerequisites: 3 claims with different dates added into claims list
+.. Test case: `sort date` in natural ordering +
+	Expected: Claims list would be sorted in order based on the claims' dates with oldest entry at the top of the list.
+
+. Sorting claims list by status
+.. Prerequisites: 3 claims with different status added into claims list
+.. Test case: `sort status` in natural ordering +
+	Expected: Claims list would be sorted in order based on the claims' statuses with Pending at the top of the list,
+	followed by Approved then rejected.
+
+. Sorting incomes list by name
+.. Prerequisites: 3 incomes with different descriptions added into incomes list
+.. Test case: `sort name` in natural ordering +
+	Expected: Incomes list would be sorted in lexicographical order based on the contacts' names in each individual
+	income.
+
+. Sorting incomes list by date
+.. Prerequisites: 3 incomes with different dates added into incomes list
+.. Test case: `sort date` in natural ordering +
+	Expected: Incomes list would be sorted in order based on the incomes' dates with oldest entry at the top of the
+	list.
+
+=== Sorting the various lists in reverse order
+. Sorting contacts list by name in reverse order +
+.. Prerequisites: 3 contacts with different names added into claims list
+.. Test case: `reverse name` +
+	Expected: Contacts list would be sorted in reverse lexicographical order based on the contacts' names.
+
+. Sorting claims list by name in reverse order +
+.. Prerequisites: 3 claims with different descriptions added into claims list
+.. Test case: `reverse name` +
+	Expected: Claims list would be sorted in reverse lexicographical order based on the claims' descriptions.
+
+. Sorting claims list by date in reverse order
+.. Prerequisites: 3 claims with different dates added into claims list
+.. Test case: `reverse date` +
+	Expected: Claims list would be sorted in order based on the claims' dates with newest entry at the top of the list.
+
+. Sorting claims list by status in reverse order
+.. Prerequisites: 3 claims with different status added into claims list
+.. Test case: `reverse status` +
+	Expected: Claims list would be sorted in order based on the claims' statuses with Rejected at the top of the list,
+followed by Approved then Pending.
+
+. Sorting incomes list by name in reverse order
+.. Prerequisites: 3 incomes with different descriptions added into incomes list
+.. Test case: `reverse name` +
+	Expected: Incomes list would be sorted in reverse lexicographical order based on the contacts' names in each
+	individual income.
+
+. Sorting incomes list by date in reverse order
+.. Prerequisites: 3 incomes with different dates added into incomes list
+.. Test case: `reverse date` +
+	Expected: Incomes list would be sorted in order based on the incomes' dates with newest entry at the top of the
+list.
+
+=== Checking each Individual Contact or Claim
+. Checking a contact
+.. Prerequisites: 1 contact added into the contacts list
+.. Test case: `check 1` +
+	Expected: The first contact in the contacts list would be shown in a pop-up, displaying the claims that belong
+	to this contact, empty list if it doesn't have any claims.
+
+. Checking a claim
+.. Prerequisites: 1 claim added into the claims list
+.. Test case: `check CLAIMID`, refer to ClaimID number on this claim in the claims list +
+	Expected: This claim will be shown in a pop-up, displaying the important information like date, amount and description
+	that belong to this claim.
