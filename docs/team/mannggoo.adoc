@@ -129,8 +129,7 @@ Different parsers have different requirements, such as "10.min.later" parser hav
 * *Project Management* +
 https://github.com/AY1920S1-CS2103T-T10-3/main/pull/51[PR #51] -- Gave suggestions to use LocalDateTime and improve readability of code, which was eventually adopted. +
 https://github.com/AY1920S1-CS2103T-T10-3/main/pull/72[PR #72] -- Gave suggestions to use final variables for the string representation of tabs, which was eventually adopted. +
-https://github.com/AY1920S1-CS2103T-T10-3/main/pull/99[PR #99] -- Gave suggestion to move code block for better adherence to design principles. +
-https://github.com/AY1920S1-CS2103T-T10-3/main/pull/119[PR #119] -- Gave suggestions for better adherence to design principles and improve logging. +
+(https://github.com/AY1920S1-CS2103T-T10-3/main/pull/99[PR #99]) (https://github.com/AY1920S1-CS2103T-T10-3/main/pull/119[PR #119]) -- Gave suggestion to move code block for better adherence to design principles. +
 https://github.com/AY1920S1-CS2103T-T10-3/main/pull/130[PR #130] -- Pointed out a potential bug, which was eventually modified. +
 https://github.com/AY1920S1-CS2103T-T10-3/main/pull/252[PR #252] -- Helped the team resolve multiple parsing issues.
 
