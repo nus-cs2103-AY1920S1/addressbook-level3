@@ -11,15 +11,7 @@
         </VBox>
         <Region VBox.vgrow="ALWAYS"/>
         <VBox alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
-            <Label fx:id="dataFilePath" alignment="CENTER" contentDisplay="CENTER" text="\$dataFilePath" />
-        </VBox>
-        <Region VBox.vgrow="ALWAYS"/>
-        <VBox alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
-            <Label fx:id="memeImagePath" alignment="CENTER" contentDisplay="CENTER" text="\$memeImagePath" />
-        </VBox>
-        <Region VBox.vgrow="ALWAYS"/>
-        <VBox alignment="CENTER" styleClass="tab" VBox.vgrow="NEVER">
-            <Label fx:id="templateImagePath" alignment="CENTER" contentDisplay="CENTER" text="\$templateImagePath" />
+            <Label fx:id="dataFolderPath" alignment="CENTER" contentDisplay="CENTER" text="\$dataFolderPath" />
         </VBox>
         <Region VBox.vgrow="ALWAYS"/>
     </children>

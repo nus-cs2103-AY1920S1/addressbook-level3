@@ -70,9 +70,14 @@ public interface Model {
     Path getDataFilePath();
 
     /**
-     * Sets the user prefs' data file path.
+     * Returns the user prefs' data folder path.
      */
-    void setDataFilePath(Path dataFilePath);
+    Path getDataFolderPath();
+
+    /**
+     * Sets the user prefs' data folder path.
+     */
+    void setDataFolderPath(Path dataFolderPath);
 
     /**
      * Returns the user prefs' meme image path.
@@ -91,19 +96,9 @@ public interface Model {
     void setViewableMeme(Meme meme);
 
     /**
-     * Sets the user prefs' meme image path.
-     */
-    void setMemeImagePath(Path memeImagePath);
-
-    /**
      * Returns the user prefs' template image path.
      */
     Path getTemplateImagePath();
-
-    /**
-     * Sets the user prefs' template image path.
-     */
-    void setTemplateImagePath(Path templateImagePath);
 
     /**
      * Replaces Weme data with the data in {@code weme}.

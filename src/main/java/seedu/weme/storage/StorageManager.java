@@ -48,30 +48,30 @@ public class StorageManager implements Storage {
     // ================ Weme methods ==============================
 
     @Override
-    public Path getWemeFilePath() {
-        return wemeStorage.getWemeFilePath();
+    public Path getWemeFolderPath() {
+        return wemeStorage.getWemeFolderPath();
     }
 
     @Override
     public Optional<ReadOnlyWeme> readWeme() throws DataConversionException, IOException {
-        return readWeme(wemeStorage.getWemeFilePath());
+        return readWeme(wemeStorage.getWemeFolderPath());
     }
 
     @Override
-    public Optional<ReadOnlyWeme> readWeme(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return wemeStorage.readWeme(filePath);
+    public Optional<ReadOnlyWeme> readWeme(Path folderPath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + folderPath);
+        return wemeStorage.readWeme(folderPath);
     }
 
     @Override
     public void saveWeme(ReadOnlyWeme weme) throws IOException {
-        saveWeme(weme, wemeStorage.getWemeFilePath());
+        saveWeme(weme, wemeStorage.getWemeFolderPath());
     }
 
     @Override
-    public void saveWeme(ReadOnlyWeme weme, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        wemeStorage.saveWeme(weme, filePath);
+    public void saveWeme(ReadOnlyWeme weme, Path folderPath) throws IOException {
+        logger.fine("Attempting to write to data file: " + folderPath);
+        wemeStorage.saveWeme(weme, folderPath);
     }
 
 }

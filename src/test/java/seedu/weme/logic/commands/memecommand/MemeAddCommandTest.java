@@ -178,14 +178,20 @@ public class MemeAddCommandTest extends ApplicationTest {
         }
 
         @Override
-        public Path getDataFilePath() {
+        public Path getDataFolderPath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setDataFilePath(Path dataFilePath) {
+        public void setDataFolderPath(Path dataFolderPath) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Path getDataFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
 
         @Override
         public Path getMemeImagePath() {
@@ -193,17 +199,7 @@ public class MemeAddCommandTest extends ApplicationTest {
         }
 
         @Override
-        public void setMemeImagePath(Path memeImagePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public Path getTemplateImagePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setTemplateImagePath(Path templateImagePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -497,7 +493,7 @@ public class MemeAddCommandTest extends ApplicationTest {
 
         @Override
         public Path getMemeImagePath() {
-            return UserPrefsBuilder.DEFAULT_MEME_IMAGE_PATH;
+            return UserPrefsBuilder.DEFAULT_DATA_FOLDER_PATH.resolve("memes");
         }
 
     }
@@ -526,7 +522,7 @@ public class MemeAddCommandTest extends ApplicationTest {
         }
 
         public Path getMemeImagePath() {
-            return UserPrefsBuilder.DEFAULT_MEME_IMAGE_PATH;
+            return UserPrefsBuilder.DEFAULT_DATA_FOLDER_PATH.resolve("memes");
         }
 
         @Override

@@ -1,5 +1,7 @@
 package seedu.weme.storage;
 
+import java.nio.file.Path;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,19 +34,21 @@ class JsonAdaptedTemplate {
 
     /**
      * Converts a given {@code Template} into this class for Jackson use.
+     * @param folderPath the path to the folder the template images are saved in.
      */
-    public JsonAdaptedTemplate(Template source) {
+    public JsonAdaptedTemplate(Template source, Path folderPath) {
         name = source.getName().toString();
-        filePath = source.getImagePath().toString();
+        filePath = folderPath.relativize(source.getImagePath().getFilePath()).toString(); // store only filename
         isArchived = source.isArchived();
     }
 
     /**
      * Converts this Jackson-friendly adapted template object into the model's {@code Template} object.
      *
+     * @param folderPath the path to the folder the template images are saved in.
      * @throws IllegalValueException if there were any data constraints violated in the adapted template.
      */
-    public Template toModelType() throws IllegalValueException {
+    public Template toModelType(Path folderPath) throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -57,10 +61,11 @@ class JsonAdaptedTemplate {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                 ImagePath.class.getSimpleName()));
         }
-        if (!ImagePath.isValidFilePath(filePath)) {
+        String imagePathString = folderPath.resolve(filePath).toString(); // convert to be usable by Weme
+        if (!ImagePath.isValidFilePath(imagePathString)) {
             throw new IllegalValueException(ImagePath.MESSAGE_CONSTRAINTS);
         }
-        final ImagePath modelFilePath = new ImagePath(filePath);
+        final ImagePath modelFilePath = new ImagePath(imagePathString);
 
         return new Template(modelName, modelFilePath, isArchived);
     }

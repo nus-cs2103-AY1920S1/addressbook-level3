@@ -21,7 +21,7 @@ public interface Storage extends WemeStorage, UserPrefsStorage {
     void saveUserPrefs(ReadOnlyUserPrefs userPrefs) throws IOException;
 
     @Override
-    Path getWemeFilePath();
+    Path getWemeFolderPath();
 
     @Override
     Optional<ReadOnlyWeme> readWeme() throws DataConversionException, IOException;

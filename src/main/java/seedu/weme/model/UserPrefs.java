@@ -17,14 +17,13 @@ import seedu.weme.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     public static final String EXPORT_PATH_KEY = "exportPath";
-    public static final String DATA_FILE_PATH_KEY = "dataFilePath";
-    public static final String MEME_IMAGE_PATH_KEY = "memeImagePath";
-    public static final String TEMPLATE_IMAGE_PATH_KEY = "templateImagePath";
+    public static final String DATA_FOLDER_PATH_KEY = "dataFolderPath";
+    public static final String MEME_IMAGE_DIRECTORY_NAME = "memes";
+    public static final String TEMPLATE_IMAGE_DIRECTORY_NAME = "templates";
+    public static final String DATA_FILE_NAME = "weme.json";
 
     private GuiSettings guiSettings = new GuiSettings();
-    private Path dataFilePath = Paths.get("data" , "weme.json");
-    private Path memeImagePath = Paths.get("data", "memes");
-    private Path templateImagePath = Paths.get("data", "templates");
+    private Path dataFolderPath = Paths.get("data");
     private Path exportFilePath = Paths.get(System.getProperty("user.home"));
 
     /**
@@ -46,9 +45,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
-        setDataFilePath(newUserPrefs.getDataFilePath());
-        setMemeImagePath(newUserPrefs.getMemeImagePath());
-        setTemplateImagePath(newUserPrefs.getTemplateImagePath());
+        setDataFolderPath(newUserPrefs.getDataFolderPath());
         setExportPath(newUserPrefs.getExportPath());
     }
 
@@ -61,13 +58,19 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         this.guiSettings = guiSettings;
     }
 
-    public Path getDataFilePath() {
-        return dataFilePath;
+    @Override
+    public Path getDataFolderPath() {
+        return dataFolderPath;
     }
 
-    public void setDataFilePath(Path dataFilePath) {
-        requireNonNull(dataFilePath);
-        this.dataFilePath = dataFilePath;
+    public void setDataFolderPath(Path dataFolderPath) {
+        requireNonNull(dataFolderPath);
+        this.dataFolderPath = dataFolderPath;
+    }
+
+    @Override
+    public Path getDataFilePath() {
+        return dataFolderPath.resolve(DATA_FILE_NAME);
     }
 
     public Path getDefaultExportPath() {
@@ -76,32 +79,21 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
     @Override
     public Path getMemeImagePath() {
-        return memeImagePath;
+        return dataFolderPath.resolve(MEME_IMAGE_DIRECTORY_NAME);
     }
 
-    public void setMemeImagePath(Path memeImagePath) {
-        requireNonNull(memeImagePath);
-        this.memeImagePath = memeImagePath;
+    @Override
+    public Path getTemplateImagePath() {
+        return dataFolderPath.resolve(TEMPLATE_IMAGE_DIRECTORY_NAME);
     }
 
     public ObservableMap<String, String> getObservableUserPreferences() {
         ObservableMap<String, String> observablePreferences = FXCollections.observableHashMap();
         observablePreferences.put(EXPORT_PATH_KEY, exportFilePath.toString());
-        observablePreferences.put(DATA_FILE_PATH_KEY, dataFilePath.toString());
-        observablePreferences.put(MEME_IMAGE_PATH_KEY, memeImagePath.toString());
-        observablePreferences.put(TEMPLATE_IMAGE_PATH_KEY, templateImagePath.toString());
+        observablePreferences.put(DATA_FOLDER_PATH_KEY, dataFolderPath.toString());
         return observablePreferences;
     }
 
-    @Override
-    public Path getTemplateImagePath() {
-        return templateImagePath;
-    }
-
-    public void setTemplateImagePath(Path templateImagePath) {
-        requireNonNull(templateImagePath);
-        this.templateImagePath = templateImagePath;
-    }
 
     public void setExportPath(Path exportFilePath) {
         requireNonNull(exportFilePath);
@@ -125,24 +117,20 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return guiSettings.equals(o.guiSettings)
-                && dataFilePath.equals(o.dataFilePath)
-                && memeImagePath.equals(o.memeImagePath)
-                && exportFilePath.equals(o.exportFilePath)
-                && templateImagePath.equals(o.templateImagePath);
+                && dataFolderPath.equals(o.dataFolderPath)
+                && exportFilePath.equals(o.exportFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, dataFilePath, memeImagePath, templateImagePath, exportFilePath);
+        return Objects.hash(guiSettings, dataFolderPath, exportFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
-        sb.append("\nLocal data file location : " + dataFilePath);
-        sb.append("\nMemes image location : " + memeImagePath);
-        sb.append("\nTemplate image location : " + templateImagePath);
+        sb.append("\nLocal data folder location : " + dataFolderPath);
         sb.append("\nExport Path directory : " + exportFilePath);
         return sb.toString();
     }

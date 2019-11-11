@@ -48,14 +48,14 @@ public class ModelManagerTest extends ApplicationTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setDataFilePath(Paths.get("weme/book/file/path"));
+        userPrefs.setDataFolderPath(Paths.get("weme/book/file/path"));
         userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setDataFilePath(Paths.get("new/weme/book/file/path"));
+        userPrefs.setDataFolderPath(Paths.get("new/weme/book/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -72,15 +72,15 @@ public class ModelManagerTest extends ApplicationTest {
     }
 
     @Test
-    public void setWemeFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setDataFilePath(null));
+    public void setDataFolderPath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setDataFolderPath(null));
     }
 
     @Test
-    public void setWemeFilePath_validPath_setsWemeFilePath() {
+    public void setDataFolderPath_validPath_setsWemeFilePath() {
         Path path = Paths.get("weme/book/file/path");
-        modelManager.setDataFilePath(path);
-        assertEquals(path, modelManager.getDataFilePath());
+        modelManager.setDataFolderPath(path);
+        assertEquals(path, modelManager.getDataFolderPath());
     }
 
     @Test
@@ -139,7 +139,7 @@ public class ModelManagerTest extends ApplicationTest {
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setDataFilePath(Paths.get("differentFilePath"));
+        differentUserPrefs.setDataFolderPath(Paths.get("differentFilePath"));
         assertFalse(modelManager.equals(new ModelManager(weme, differentUserPrefs)));
     }
 }

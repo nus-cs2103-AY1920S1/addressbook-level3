@@ -13,20 +13,14 @@ import seedu.weme.model.UserPrefs;
 public class UserPrefsBuilder {
 
     public static final GuiSettings DEFAULT_GUI_SETTINGS = new GuiSettings();
-    public static final Path DEFAULT_DATA_FILE_PATH = TestUtil.getFilePathInSandboxFolder("data/weme.json");
-    public static final Path DEFAULT_MEME_IMAGE_PATH = TestUtil.getFilePathInSandboxFolder("data/memes");
-    public static final Path DEFAULT_TEMPLATE_IMAGE_PATH = TestUtil.getFilePathInSandboxFolder("data/templates");
+    public static final Path DEFAULT_DATA_FOLDER_PATH = TestUtil.getFilePathInSandboxFolder("data");
 
     private GuiSettings guiSettings;
-    private Path dataFilePath;
-    private Path memeImagePath;
-    private Path templateImagePath;
+    private Path dataFolderPath;
 
     public UserPrefsBuilder() {
         guiSettings = DEFAULT_GUI_SETTINGS;
-        dataFilePath = DEFAULT_DATA_FILE_PATH;
-        memeImagePath = DEFAULT_MEME_IMAGE_PATH;
-        templateImagePath = DEFAULT_TEMPLATE_IMAGE_PATH;
+        dataFolderPath = DEFAULT_DATA_FOLDER_PATH;
     }
 
     /**
@@ -34,9 +28,7 @@ public class UserPrefsBuilder {
      */
     public UserPrefsBuilder(ReadOnlyUserPrefs userPrefsToCopy) {
         guiSettings = userPrefsToCopy.getGuiSettings();
-        dataFilePath = userPrefsToCopy.getDataFilePath();
-        memeImagePath = userPrefsToCopy.getMemeImagePath();
-        templateImagePath = userPrefsToCopy.getTemplateImagePath();
+        dataFolderPath = userPrefsToCopy.getDataFolderPath();
     }
 
     /**
@@ -53,32 +45,12 @@ public class UserPrefsBuilder {
     }
 
     /**
-     * Sets the data file path of the {@code UserPrefs} that we are building.
+     * Sets the data folder path of the {@code UserPrefs} that we are building.
      *
-     * @param dataFilePath
+     * @param dataFolderPath
      */
-    public UserPrefsBuilder withDataFilePath(Path dataFilePath) {
-        this.dataFilePath = dataFilePath.toFile().toPath();
-        return this;
-    }
-
-    /**
-     * Sets the meme image path of the {@code UserPrefs} that we are building.
-     *
-     * @param memeImagePath
-     */
-    public UserPrefsBuilder withMemeImagePath(Path memeImagePath) {
-        this.memeImagePath = memeImagePath.toFile().toPath();
-        return this;
-    }
-
-    /**
-     * Sets the template image path of the {@code UserPrefs} that we are building.
-     *
-     * @param templateImagePath
-     */
-    public UserPrefsBuilder withTemplateImagePath(Path templateImagePath) {
-        this.templateImagePath = templateImagePath.toFile().toPath();
+    public UserPrefsBuilder withDataFolderPath(Path dataFolderPath) {
+        this.dataFolderPath = dataFolderPath.toFile().toPath();
         return this;
     }
 
@@ -90,9 +62,7 @@ public class UserPrefsBuilder {
     public UserPrefs build() {
         UserPrefs ret = new UserPrefs();
         ret.setGuiSettings(guiSettings);
-        ret.setDataFilePath(dataFilePath);
-        ret.setMemeImagePath(memeImagePath);
-        ret.setTemplateImagePath(templateImagePath);
+        ret.setDataFolderPath(dataFolderPath);
         return ret;
     }
 

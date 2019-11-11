@@ -1,5 +1,6 @@
 package seedu.weme.storage;
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.weme.commons.exceptions.IllegalValueException;
 import seedu.weme.model.ReadOnlyWeme;
+import seedu.weme.model.UserPrefs;
 import seedu.weme.model.Weme;
 import seedu.weme.model.meme.Meme;
 import seedu.weme.model.template.Template;
@@ -46,11 +48,17 @@ class JsonSerializableWeme {
      * Converts a given {@code ReadOnlyWeme} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableWeme}.
+     * @param folderPath the path to the data folder of Weme.
      */
-    public JsonSerializableWeme(ReadOnlyWeme source) {
-        memes.addAll(source.getMemeList().stream().map(JsonAdaptedMeme::new).collect(Collectors.toList()));
-        templates.addAll(source.getTemplateList().stream().map(JsonAdaptedTemplate::new).collect(Collectors.toList()));
-        stats = new JsonSerializableStats(source.getStats());
+    public JsonSerializableWeme(ReadOnlyWeme source, Path folderPath) {
+        Path memeFolderPath = folderPath.resolve(UserPrefs.MEME_IMAGE_DIRECTORY_NAME);
+        Path templateFolderPath = folderPath.resolve(UserPrefs.TEMPLATE_IMAGE_DIRECTORY_NAME);
+        memes.addAll(source.getMemeList().stream().map(meme -> new JsonAdaptedMeme(meme, memeFolderPath))
+                .collect(Collectors.toList()));
+        templates.addAll(source.getTemplateList().stream()
+                .map(template -> new JsonAdaptedTemplate(template, templateFolderPath))
+                .collect(Collectors.toList()));
+        stats = new JsonSerializableStats(source.getStats(), memeFolderPath);
         records = new JsonSerializableRecords(source.getRecords());
     }
 
@@ -61,25 +69,28 @@ class JsonSerializableWeme {
     /**
      * Converts this Weme into the model's {@code Weme} object.
      *
+     * @param folderPath the path to the data folder of Weme.
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public Weme toModelType() throws IllegalValueException {
+    public Weme toModelType(Path folderPath) throws IllegalValueException {
         Weme weme = new Weme();
+        Path memeFolderPath = folderPath.resolve(UserPrefs.MEME_IMAGE_DIRECTORY_NAME);
+        Path templateFolderPath = folderPath.resolve(UserPrefs.TEMPLATE_IMAGE_DIRECTORY_NAME);
         for (JsonAdaptedMeme jsonAdaptedMeme : memes) {
-            Meme meme = jsonAdaptedMeme.toModelType();
+            Meme meme = jsonAdaptedMeme.toModelType(memeFolderPath);
             if (weme.hasMeme(meme)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_MEME);
             }
             weme.addMeme(meme);
         }
         for (JsonAdaptedTemplate jsonAdaptedTemplate : templates) {
-            Template template = jsonAdaptedTemplate.toModelType();
+            Template template = jsonAdaptedTemplate.toModelType(templateFolderPath);
             if (weme.hasTemplate(template)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TEMPLATE);
             }
             weme.addTemplate(template);
         }
-        weme.setStats(stats.toModelType());
+        weme.setStats(stats.toModelType(memeFolderPath));
         weme.setRecords(records.toModelType());
         return weme;
     }

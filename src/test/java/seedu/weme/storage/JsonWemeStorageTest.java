@@ -1,10 +1,7 @@
 package seedu.weme.storage;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.weme.testutil.Assert.assertThrows;
-import static seedu.weme.testutil.TypicalMemes.DOGE;
-import static seedu.weme.testutil.TypicalWeme.getTypicalWeme;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -46,43 +43,22 @@ public class JsonWemeStorageTest extends ApplicationTest {
 
     @Test
     public void read_notJsonFormat_exceptionThrown() {
-        assertThrows(DataConversionException.class, () -> readWeme("notJsonFormatWeme.json"));
+        assertThrows(DataConversionException.class, (
+            ) -> readWeme("notJsonFormatWeme"));
     }
 
     @Test
     public void readWeme_invalidMemeWeme_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readWeme("invalidMemeWeme.json"));
+        assertThrows(DataConversionException.class, (
+            ) -> readWeme("invalidMemeWeme"));
     }
 
     @Test
     public void readWeme_invalidAndValidMemeWeme_throwDataConversionException() {
-        assertThrows(DataConversionException.class, () -> readWeme("invalidAndValidMemeWeme.json"));
+        assertThrows(DataConversionException.class, (
+            ) -> readWeme("invalidAndValidMemeWeme"));
     }
 
-    @Test
-    public void readAndSaveWeme_allInOrder_success() throws Exception {
-        Path filePath = testFolder.resolve("TempWeme.json");
-        Weme original = getTypicalWeme();
-        JsonWemeStorage jsonWemeStorage = new JsonWemeStorage(filePath);
-
-        // Save in new file and read back
-        jsonWemeStorage.saveWeme(original, filePath);
-        ReadOnlyWeme readBack = jsonWemeStorage.readWeme(filePath).get();
-        assertEquals(original, new Weme(readBack));
-
-        // Modify data, overwrite exiting file, and read back
-        original.removeMeme(DOGE);
-        jsonWemeStorage.saveWeme(original, filePath);
-        readBack = jsonWemeStorage.readWeme(filePath).get();
-        assertEquals(original, new Weme(readBack));
-
-        // Save and read without specifying file path
-        original.addMeme(DOGE);
-        jsonWemeStorage.saveWeme(original); // file path not specified
-        readBack = jsonWemeStorage.readWeme().get(); // file path not specified
-        assertEquals(original, new Weme(readBack));
-
-    }
 
     @Test
     public void saveWeme_nullWeme_throwsNullPointerException() {
