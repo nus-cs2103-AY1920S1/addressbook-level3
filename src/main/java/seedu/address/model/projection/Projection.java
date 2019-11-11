@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -15,7 +16,6 @@ import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 
 /**
@@ -25,7 +25,7 @@ public class Projection {
 
     private final ObservableList<BankAccountOperation> transactionHistory;
     private final Date date;
-    private ObservableList<Budget> budgets = new UniqueBudgetList().asUnmodifiableObservableList();
+    private ObservableList<Budget> budgets = FXCollections.observableArrayList();
     private List<Amount> budgetProjections = new ArrayList<>();
     private List<Amount> budgetStartValues = new ArrayList<>();
     private List<Amount> budgetThresholds = new ArrayList<>();
@@ -35,18 +35,18 @@ public class Projection {
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
                       ObservableList<Budget> budgets) {
-        this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
-        this.budgets = budgets;
+        this.transactionHistory = transactionHistory.sorted(new DateComparator());
+        this.budgets = budgets.filtered(x -> Date.daysBetween(this.date, x.getDeadline()) <= 0);
         this.category = Category.GENERAL;
         this.project();
     }
 
     public Projection(ObservableList<BankAccountOperation> transactionHistory, Date date,
                       ObservableList<Budget> budgets, Category category) {
-        this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.date = date;
-        this.budgets = budgets.sorted();
+        this.transactionHistory = transactionHistory.sorted(new DateComparator());
+        this.budgets = budgets.filtered(x -> Date.daysBetween(this.date, x.getDeadline()) <= 0).sorted();
         this.category = category;
         this.project();
     }
@@ -64,7 +64,7 @@ public class Projection {
         this.transactionHistory = transactionHistory.sorted(new DateComparator());
         this.projection = amount;
         this.date = date;
-        this.budgets = budgets.sorted();
+        this.budgets = budgets.filtered(x -> Date.daysBetween(this.date, x.getDeadline()) <= 0).sorted();
         this.budgetProjections = new ArrayList<>();
         this.category = category;
         this.project();
@@ -146,6 +146,14 @@ public class Projection {
 
     Amount getBudgetThreshold(int idx) {
         return this.budgetThresholds.get(idx);
+    }
+
+    Date getBudgetDeadline(int idx) {
+        return this.budgets.get(idx).getDeadline();
+    }
+
+    Date getBudgetStart(int idx) {
+        return this.budgets.get(idx).getStart();
     }
 
     public String getAllBudgetForecastText() {

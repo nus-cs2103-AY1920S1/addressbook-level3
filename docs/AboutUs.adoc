@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Bertrand Tan
 
 image::berttwm.png[width="150",align="left"]
-{empty} [https://github.com/berttwm[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/berttwm[github]] [<<Berttwm#, portfolio>>]
 
 Role: UI +
 Responsibilities: SceneBuilder
@@ -23,7 +23,7 @@ Responsibilities: SceneBuilder
 === Ding Yu Chen
 
 image::dingyuchen.png[width="150",align="left"]
-{empty}[http://github.com/dingyuchen[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/dingyuchen[github]] [<<dingyuchen#, portfolio>>]
 
 Role: Tester +
 Responsibilities: Testing
@@ -43,7 +43,7 @@ Responsibilities: Ensuring proper coding standards
 === Park Ye Won
 
 image::yewon0303.png[width="150",align="left"]
-{empty}[http://github.com/yewon0303[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/yewon0303[github]] [<<yewon0303#, portfolio>>]
 
 Role: Deliverables and Deadlines +
 Responsibilities: Ensure project deliverables are done on time and in the right format
@@ -53,7 +53,7 @@ Responsibilities: Ensure project deliverables are done on time and in the right 
 === Wallace Lim
 
 image::wallacelim97.png[width="150",align="left"]
-{empty}[http://github.com/wallacelim97[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/wallacelim97[github]] [<<wallacelim97#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Overall project coordination

@@ -392,6 +392,58 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateProjectionsAfterUpdate(Budget toUpdate, Budget updated) {
+        List<Projection> copy = new ArrayList<>(this.getFilteredProjectionsList());
+        copy.forEach(x -> {
+            if (x.isGeneral() && toUpdate.isGeneral()) {
+                this.delete(x);
+                UniqueBudgetList newBudgets = new UniqueBudgetList();
+                newBudgets.setBudgets(x.getBudgets());
+                if (newBudgets.contains(toUpdate)) {
+                    newBudgets.setBudget(toUpdate, updated);
+                } else {
+                    newBudgets.add(updated);
+                }
+                this.add(new Projection(x.getTransactionHistory(), x.getDate(),
+                        newBudgets.asUnmodifiableObservableList()));
+            } else {
+                boolean sameCategoryAsToUpdate = toUpdate.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                boolean sameCategoryAsUpdated = updated.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategoryAsToUpdate) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    if (newBudgets.contains(toUpdate)) {
+                        newBudgets.remove(toUpdate);
+                    }
+                    this.add(new Projection(x.getTransactionHistory(),
+                            x.getDate(), newBudgets.asUnmodifiableObservableList()));
+                }
+                if (sameCategoryAsUpdated) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    if (newBudgets.contains(updated)) {
+                        newBudgets.add(updated);
+                    }
+                    this.add(new Projection(x.getTransactionHistory(),
+                            x.getDate(), newBudgets.asUnmodifiableObservableList()));
+                }
+            }
+        });
+    }
+
+    @Override
     public void updateProjectionsAfterDelete(BankAccountOperation deleted) {
         List<Projection> copy = new ArrayList<>(this.getFilteredProjectionsList());
         copy.forEach(x -> {
@@ -399,7 +451,9 @@ public class ModelManager implements Model {
                 this.delete(x);
                 UniqueTransactionList newTransactions = new UniqueTransactionList();
                 newTransactions.setTransactions(x.getTransactionHistory());
-                newTransactions.remove(deleted);
+                if (newTransactions.contains(deleted)) {
+                    newTransactions.remove(deleted);
+                }
                 if (newTransactions.asUnmodifiableObservableList().size()
                     >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
                     this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
@@ -416,7 +470,9 @@ public class ModelManager implements Model {
                     this.delete(x);
                     UniqueTransactionList newTransactions = new UniqueTransactionList();
                     newTransactions.setTransactions(x.getTransactionHistory());
-                    newTransactions.remove(deleted);
+                    if (newTransactions.contains(deleted)) {
+                        newTransactions.remove(deleted);
+                    }
                     if (newTransactions.asUnmodifiableObservableList().size()
                             >= ProjectCommand.REQUIRED_MINIMUM_TRANSACTIONS) {
                         this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
@@ -435,7 +491,9 @@ public class ModelManager implements Model {
                 this.delete(x);
                 UniqueBudgetList newBudgets = new UniqueBudgetList();
                 newBudgets.setBudgets(x.getBudgets());
-                newBudgets.remove(deleted);
+                if (newBudgets.contains(deleted)) {
+                    newBudgets.remove(deleted);
+                }
                 this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
                     newBudgets.asUnmodifiableObservableList()));
             } else {
@@ -449,7 +507,9 @@ public class ModelManager implements Model {
                     this.delete(x);
                     UniqueBudgetList newBudgets = new UniqueBudgetList();
                     newBudgets.setBudgets(x.getBudgets());
-                    newBudgets.remove(deleted);
+                    if (newBudgets.contains(deleted)) {
+                        newBudgets.remove(deleted);
+                    }
                     this.add(new Projection(x.getTransactionHistory(),
                         x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
                 }

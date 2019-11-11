@@ -222,6 +222,8 @@ public class Budget implements Comparable<Budget> {
         double percentage = this.amount.divideAmount(this.initialAmount) * 100;
         if (percentage < 0.00) {
             percentage = 0.0; // should not display a negative percentage
+        } else if (percentage > 100.00) {
+            percentage = 100.0; // should not display a percentage greater than 100%
         }
         return String.format("%.2f%% remaining", percentage);
     }
@@ -243,7 +245,7 @@ public class Budget implements Comparable<Budget> {
 
     @Override
     public String toString() {
-        return String.format("$%s by %s", this.amount.toString(), this.deadline.toString());
+        return String.format("$%s by %s", this.initialAmount.toString(), this.deadline.toString());
     }
 
     public String toLabelText() {

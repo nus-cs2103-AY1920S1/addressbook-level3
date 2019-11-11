@@ -6,7 +6,6 @@ import org.math.plot.Plot2DPanel;
 
 /**
  * A sample plotting utility for 2 variable graphs
- * TODO: integrate with MainWindow for graphical view mode
  */
 public class SamplePlotDataUtil {
     private static double[] x = {2, 4, 6, 8};

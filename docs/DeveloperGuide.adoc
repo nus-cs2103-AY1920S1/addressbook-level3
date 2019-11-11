@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -38,6 +39,11 @@ In particular, the intended audience of this document will be the students takin
 
 _PalPay_ is a CLI application targeted for users who have poor financial management skills. The users should also prefer typing over mouse inputs.
 It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration to achieve long-term financial success. Additionally, users can keep a ledger of lending and borrowing of money with others so that the users can keep track of the flow of their money.
+
+Below is the Graphical User Interface (GUI) of PalPay:
+
+.PalPay's GUI
+image::dg_gui_example.png[]
 
 == Setting up
 
@@ -74,7 +80,7 @@ The rest of the App consists of four components.
 
 Each of the four components
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+* Defines its <<api, _API_>> in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
@@ -85,9 +91,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *_Sequence Diagram_* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete t1` command
+.Component Interactions for `delete t1` Command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -143,23 +149,15 @@ image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
-// TODO: check accuracy?
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Bank Account data.
-* exposes an unmodifiable `ObservableList<BankOperation>` and `ObservableList<Budget>`
-that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change due to user command.
+* stores the User State data.
+* exposes an unmodifiable `ObservableList<BankAccountOperation>`, `ObservableList<Budget>`, `ObservableList<LedgerOperation>` and `ObservableList<Projection>`
+that can be 'observed'. +
+For example, the UI can be bound to these lists so that the UI automatically updates when the data in the lists change due to user commands.
 * does not depend on any of the other three components.
 
-//[NOTE]
-//As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference.
-//This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object.
-//An example of how such a model may look like is given below. +
-//+
-//image:BetterModelClassDiagram.png[]
-
-//TODO: update
 [[Design-Storage]]
 === Storage Component
 
@@ -183,6 +181,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::transaction[]
+// tag::transaction1[]
+
 === Transaction: `in` / `out`
 
 The `Transaction` abstract class allows user to input income and expense statements. Both `in` and `out` transactions requires the mandatory `Amount`, `Description` and `Date` fields to be appended. There is an optional `Category` field which can accept one or more input depending on the user specifications.
@@ -194,10 +194,32 @@ The `in` transactions will increase the `BankAccount` balance amount whilst the 
 
 ==== Current Implementation
 
+// end::transaction1[]
+
+Given below is an example usage of how `in` behaves at each step. `out` command follows a similar logic flow.
+
+**Step 1**. The user executes `in $/200 n/coke d/10102019` to input a new income of $100 on 10th November 2019 under the *category* GENERAL.
+
+**Step 2**. Upon executing the command, `LogicManager` uses `MainParser#parse` to parse this input from the user.
+
+**Step 3**. `MainParser` determines which command is being executed and creates `InCommandParser` to further parse the input.
+
+**Step 4**. `InCommandParser` parses the argument and checks the validity of arguments. If it is invalid, an exception is thrown.
+Else, it returns a `InCommand`.
+
+**Step 5**. `LogicManager` uses `InCommand#execute()` to add a new `InTransaction`.
+
+**Step 6**. `BankAccount` then calls `InTransaction#handleBalance()` to increase its balance amount by $200.
+
+**Step 7**. `InCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user.
+
+// tag::transaction2[]
+
 The sequence diagram below illustrates how PalPay handles the command input `in $/200 n/coke d/10102019`. The arguments are parsed into the logic component where the subsequent model objects are created.
 
-.Sequence diagram for executing an `InCommand`
-image::InSequenceDiagram.png[]
+.Sequence Diagram for Executing an `InCommand`
+image::InSequenceDiagram.png[pdfwidth=70%]
 
 The `in` and `out` transaction follows the same logic flow after they are parsed.
 
@@ -211,7 +233,7 @@ Given that the `BankAccount` balance initially starts with 0 dollars.
 * The Activity Diagram shown below will provide a visual representation of the two routes a Transaction object can take.
 
 .Activity Diagram for In and Out Transactions
-image::InActivityDiagram.png[]
+image::InActivityDiagram.png[pdfwidth=70%]
 
 ==== Design Considerations
 
@@ -243,17 +265,17 @@ that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** Only `Out` Transactions can affect `Budget`.
 ** The activity diagram below shows how and when a `Transaction` object affects `Budget`.
 
-.Activity diagram for Out Transaction affecting Budget
-image::OutbudgetActivityDiagram.png[]
+.Activity Diagram for Out Transaction Affecting Budget
+image::OutbudgetActivityDiagram.png[pdfwidth=70%]
 
-
+// end::transaction2[]
 // end::transaction[]
 
 // tag::set[]
 === Set Budget Feature: `set`
 
 The `Budget` class allows the user to set a budget for a given time period for a category, if specified.
-The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
+The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *category*) are not allowed.
 Upon setting the budget, making `OutTransaction` will deduct the amount from relevant budgets in the list.
 The detailed implementation of the process of updating the budget is explained further below in <<Current-Implementation, Current Implementation>>.
 
@@ -268,14 +290,14 @@ A `Budget` stores an *initial amount*, *amount* (the current amount), *deadline*
 There is a need for a `Budget` to store both *initial amount* and *amount* as it allows for percentage of budget remaining to be calculated. +
 Shown below is the class diagram of `Budget` class:
 
-.Class diagram of Budget class
+.Class Diagram of Budget class
 image::BudgetClassDiagram.png[]
 
 
 Displaying the percentage remaining improves the user experience greatly as our target user is a
 `visual person who wants to see how much budget he has left in each category so as to cut down on spending as necessary`
-as specified in <<User-Stories, user stories>>. Hence, taking a quick glance at the `Budget card` allows the user to
-determine how much of budget he has left, as well as be alarmed by the red font colour to spend less if he has overspent beyond the budget set. +
+as specified in the <<User-Stories, User Story>>. Hence, taking a quick glance at the `Budget card` allows the user to
+determine how much of budget he has left, as well as be alarmed by the red font color to spend less if he has overspent beyond the budget set. +
 
 A snippet of the code which calculates the percentage of budget left is shown below:
 
@@ -284,30 +306,61 @@ public String displayPercentage() {
     double percentage = this.amount.divideAmount(this.initialAmount) * 100;
     if (percentage < 0.00) {
         percentage = 0.0; // should not display a negative percentage
+    } else if (percentage > 100.00) {
+        percentage = 100.0; // should not display a percentage greater than 100%
     }
     return String.format("%.2f%% remaining", percentage);
 }
 ```
 
-Moreover, as our user is a visual person, PalPay makes use of colour to display different messages.
+Moreover, as our user is a visual person, PalPay makes use of color to display different messages.
 For instance, budget is displayed in red to alert the user that he has overspent beyond the set budget. +
 
 Shown below is an example of an overspent budget:
 
-.Example of an overspent budget
+.Example of an Overspent Budget
 image::overspentBudget.png[]
 
 
 When setting a new `Budget`, existence of a duplicate budget is checked through a sequence of checks.
 The activity diagram below shows the activity diagram of setting a new budget:
 
-.Activity Diagram of successfully setting a new Budget
+
+[[Duplicate-budget-check]]
+.Activity Diagram of Setting a New Budget Successfully
 image::SetBudgetSimpleActivityDiagram.png[]
 
 As shown, a new budget cannot have the same *initalAmount*, *deadline* and *categories* as any other existing budget in
 budget list. Allowing existence of duplicate budgets will crowd the interface of `Budget` tab,
 which prevents the user from getting a quick overview of his budget status. Hence, a duplicate check is essential
-in providing a pleasing user experience. +
+in providing a pleasing user exp. +
+
+==== Example of Usage
+
+Given below is an example usage of how `set` behaves at each step.
+
+**Step 1**. The user executes `set $/100 d/31122019 c/shopping` to set a new budget of $100 until 31st December 2019 under the *category* shopping.
+
+.User Inputs `set $/100 d/31122019 c/shopping`
+image::set_dg_1.png[]
+
+**Step 2**. Upon executing the command, `LogicManager` uses `MainParser#parse` to parse the input from the user.
+
+**Step 3**. `MainParser` determines which command is being executed and creates `SetCommandParser` to further parse the input.
+
+**Step 4**. `SetCommandParser` parses the argument and checks if it is valid. If it is invalid, an exception is thrown.
+Else, it returns a `SetCommand`.
+
+**Step 5**. `LogicManager` uses `SetCommand#execute()` to add a new budget. +
+`SetCommand` uses `ModelManager#has(Budget)` to check if it is a duplicate of an existing budget
+in the `UniqueBudgetList` as shown above in <<Duplicate-budget-check, the above diagram>>.
+
+**Step 6**. `SetCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
+
+.New Budget Successfully Created
+image::set_dg_2.png[]
+
 
 ==== Design Considerations
 
@@ -327,24 +380,50 @@ This feature allows the user to pay for a certain item or make a transaction on 
 Refer to the <<UserGuide#Features, UserGuide>> for usage details.
 
 ==== Current Implementation
-
 The `split` command is an abstraction of `LendMoney` class. +
 Given a list of *shares* and *people*, each person is assigned an *amount* based on the corresponding positional share and the total amount given to `split` command. +
 A `LendMoney` instance is created for each person and executed.
 
-.Class diagram for operations that deal with Ledger
-image::LedgerOperationDiagram.png[]
 
-.Activity diagram for creating a `Split` object
-image::SplitBehaviour.png[]
+Below shows how a typical command from the user is executed by the program.
+
+.Sequence Diagram for Executing a `SplitCommand`
+image::Split.png[]
+
+**Step 1**: User enters `split $/200 n/a n/b n/c a/desc` into the command line to split *$200* among *a*, *b* and *c*.
+
+**Step 2**: Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 3**: `MainParser` determines that user input is an instance of a `SplitCommand` and creates a `SplitCommandParser`
+to further parse the input.
+
+**Step 4**: `SplitCommandParser` parses the command and checks if fields like amount and names are valid.
+If all fields are valid, it returns a `SplitCommand`. Else, an error is thrown to the result box and the execution
+terminates.
+
+**Step 5**: `LogicManager` uses `SplitCommand#execute()` to update the balances of `Ledger` and people involved in the
+transaction.
+
+**Step 6**: `SplitCommand#execute()` calls `Model#add()` to add the user input into the user history.
+Within the function call, the actual update of balances is handled in `Ledger#handleOperation()`.
+
+**Step 7**: `SplitCommand` calls `Model#commitUserState()` after executing to save the latest state of the application.
+
+**Step 8**: A `CommandResult` is then returned to the `LogicManager` which is then displayed to the user.
+
+
+.Activity Diagram for Creating a `Split` Object
+image::SplitBehaviour.png[pdfwidth=60%]
 
 ==== Design Considerations
 
+Below shows how the classes involved with `Ledger` interact with each other.
+
+.Class Diagram for Operations that Deal with Ledger
+image::LedgerOperationDiagram.png[pdfwidth=60%]
+
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
 However, this introduces coupling as the behavior of `Split` is now inexplicably tied to `LendMoney`.
-
-.Sequence diagram for executing a `SplitCommand`
-image::Split.png[]
 
 // end::split[]
 
@@ -358,9 +437,36 @@ The balance in the `Ledger` and the balance of the sender is updated accordingly
 
 The `receive` command creates `ReceiveMoney` class that handles the transfer of fund from another person to the user.
 
+How `receive` relates to the rest of the `Ledger` classes can be inferred from the
+class diagram above.
+
 In the `handleBalance` method of `ReceiveMoney`, it will find the correct person in the `Ledger` by name,
 or create a new `Person` with given *name* if it is not already in the `Ledger`. +
 Balance of the user and the sender is then updated accordingly.
+
+Below is an example usage scenario for how `receive` would behave.
+
+**Step 1**: User enters `receive $/200 n/a` into the command line to settle up *$200* from *a*.
+
+**Step 2**: Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 3**: `MainParser` determines that user input is an instance of a `ReceiveCommand` and creates a `ReceiveCommandParser`
+to further parse the input.
+
+**Step 4**: `ReceiveCommandParser` parses the command and checks if fields like amount and names are valid.
+If all fields are valid, it returns a `ReceiveCommand`. Else, an error is thrown to the result box and the execution
+terminates.
+
+**Step 5**: `LogicManager` uses `ReceiveCommand#execute()` to update the balances of `Ledger` and the person in the
+transaction.
+
+**Step 6**: `ReceiveCommand#execute()` calls `Model#add()` to add the user input into the user history.
+Within the function call, the person in `Ledger` is found and his/her outstanding balance is updated in `Ledger#handleOperation()`. +
+If he is not already inside the `Ledger`, a new `Person` is created with the same name.
+
+**Step 7**: `SplitCommand` calls `Model#commitUserState()` after executing to save the latest state of the application.
+
+**Step 8**: A `CommandResult` is then returned to the `LogicManager` which is then displayed to the user.
 
 .Code snippet of `handleBalance` in ReceiveMoney
 ```
@@ -387,7 +493,7 @@ public abstract class Payment extends Transaction implements LedgerOperations {
 ```
 //end::receive[]
 
-// tag::project[]
+// tag::project1[]
 [[Implementation-Projection]]
 === Project Feature: `project`
 
@@ -421,7 +527,32 @@ Projections on budgets are made by first projecting the _user_'s balance amount 
 Then, it compares the _user_'s projected balance amount at the point of the budget's deadline, with the budget's amount.
 A surplus is indicated when the former is greater than the latter, and a deficit is indicated when the former is smaller
 than the latter.
+// end::project1[]
+Given below is an example usage scenario and how the project command executes at each step.
 
+**Step 1**. The user launches the application.
+
+**Step 2**. If the user does not have at least *5* transactions, he / she adds transactions until
+there are sufficient transactions to project upon. Then, the user executes the `project` command.
+
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 4**. `MainParser` determines which command is being used and creates `ProjectCommandParser` to further parse
+the input from the user.
+
+**Step 5**. `ProjectCommandParser` parses the argument and checks if a valid date and category was provided. +
+
+* If an invalid date or category was provided, or if no date was provided, `ProjectCommandParser` throws an exception and terminates.
+
+* Otherwise, it returns a `ProjectCommand`, which contains a `Date` and possibly a `Category` specified by the user.
+
+**Step 6**. `LogicManager` uses `ProjectCommand#execute()` to project the user's balance and budget states at the time
+of the specified `Date`.
+
+**Step 7**. `ProjectCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
+
+// tag::project2[]
 ===== Activity Diagram
 
 The activity diagram below depicts how a projection is made.
@@ -457,12 +588,37 @@ normal equation method will be used in place of the gradient descent algorithm, 
 a set number (e.g. 500) of transactions.
 
 ==== Design Considerations
-// end::project[]
+// end::project2[]
 
+// tag::display1[]
 === Display Feature: `display`
 This feature provides a graphical view of an existing projection to the _user_. +
 
 ==== Current Implementation
+// end::display1[]
+Given below is an example usage scenario and how the display command executes at each step.
+
+**Step 1**. The user launches the application.
+
+**Step 2**. If the user does not have any existing projections, he / she creates one or more projections.
+Then, the user executes the `display` command.
+
+**Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
+
+**Step 4**. `MainParser` determines which command is being used and creates `DisplayCommandParser` to further parse
+the input from the user.
+
+**Step 5**. `DisplayCommandParser` parses the argument and checks if a valid type and index was provided. +
+
+* If an invalid type or index was provided, or if no type or index was provided, `DisplayCommandParser` throws an exception and terminates.
+
+* Otherwise, it returns a `DisplayCommand`, which contains a `Type` and an `Index` specified by the user.
+
+**Step 6**. `LogicManager` uses `ProjectCommand#execute()` to display the specified `projection` in a
+new window.
+
+**Step 7**. `DisplayCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user at the end.
+// tag::display2[]
 The following activity diagram depicts how the `display` command is executed.
 
 .Activity Diagram of the Display Command
@@ -474,8 +630,7 @@ a sequence diagram is provided below.
 .Sequence Diagram of the Display Command
 image::DisplaySequenceDiagram.png[]
 
-
-// end::display[]
+// end::display2[]
 
 // tag::view[]
 === View Feature: `view`
@@ -523,6 +678,23 @@ This feature allows the user to delete an existing transaction, budget, ledger o
 
 * The delete feature is facilitated by the Logic and Model components of the application.
 * The delete feature works for `Transaction`, `Budget`, `Ledger` and `Projection` entries.
+
+Given below is an example usage of how `delete` behaves at each step.
+
+**Step 1**. The user executes `delete t1` to delete the first entry from the transaction list.
+
+**Step 2**. Upon executing the command, `LogicManager` uses `MainParser#parse` to parse this input from the user.
+
+**Step 3**. `MainParser` determines which command is being executed and creates `DeleteCommandParser` to further parse the input.
+
+**Step 4**. `DeleteCommandParser` parses the argument and checks the validity of arguments. If it is invalid, an exception is thrown.
+Else, it returns a `DeleteCommand`.
+
+**Step 5**. `LogicManager` uses `DeleteCommand#execute()` to delete either the `Transaction`, `Budget`, `Ledger` or `Projection` from their respective unique lists.
+
+**Step 6**. `DeleteCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user.
+
 * The following activity diagram summarizes what happens when a user executes a `delete` command:
 
 .Activity Diagram for `delete` command
@@ -551,11 +723,15 @@ image::DeleteActivityDiagram.png[]
 // end::delete[]
 
 // tag::update[]
+// tag::update1[]
+
 === Update Existing Entry Feature: `update`
 
-This feature currently allows users to update `Transaction` or `Budget` entries. The user is unable to perform this feature on `Ledger` operations. The rationale for this will be further explained in **Aspect 2**. The user is currently unable to perform this feature on `Projection` operations as it will be further implemented in future updates.
+This feature currently allows users to update `Transaction` or `Budget` entries. The user is unable to perform this feature on `Ledger` operations. The rationale for this will be further explained in <<Aspect2>>. The user is currently unable to perform this feature on `Projection` operations as it will be further implemented in future updates.
 
 ==== Current Implementation
+
+// end::update1[]
 
 *  The update feature is facilitated by the Logic and Model components of the application.
 * The parameter requirements differs for the type of entry:
@@ -563,33 +739,57 @@ This feature currently allows users to update `Transaction` or `Budget` entries.
 ** `Budget` type requires at least one of it's `Amount`, `Date` or `Category` fields to be updated.
 ** `Project` type requires it's `Date` and `Category` fields to be updated (Future implementation).
 * At least one valid parameter must be changed when executing an `update` command. (i.e. `update b1` will result in an error as no fields are being changed).
+
+**Step 1**. The user executes `update t2 $/200` to update the second entry's amount, from the transaction list, to $200 .
+
+**Step 2**. Upon executing the command, `LogicManager` uses `MainParser#parse` to parse this input from the user.
+
+**Step 3**. `MainParser` determines which command is being executed and creates `UpdateCommandParser` to further parse the input.
+
+**Step 4**. `UpdateCommandParser` parses the argument and checks the validity of arguments. If it is invalid, an exception is thrown.
+Else, it returns a `UpdateCommand`.
+
+**Step 5**. `LogicManager` uses `UpdateCommand#execute()` to update either the `Transaction` or `Budget` from their respective unique lists.
+
+**Step 6**. `UpdateCommand#execute()` uses the `UpdateTransactionDescriptor` class to create a new instance of a transaction or budget with the appended variables.
+
+**Step 7**. `Model` from `UpdateCommand` then changes the necessary fields of this entry.
+
+**Step 8**. `UpdateCommand` uses `Model#commitUserState()` to save the latest state of the application. It then
+returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user.
+
 * The following activity diagram summarizes what happens when a user executes an update command:
 
 .Activity Diagram for `update`
-image::UpdateActivityDiagram.png[]
+image::UpdateActivityDiagram.png[pdfwidth=70%]
 
+// tag::update2[]
 ==== Design Considerations
 
 The `update` feature allows one or more fields of a Transaction or Budget to be updated. (e.g. `update t1 $/2` and `update t1 $/2 d/10102019` will both work as intended).
 
-More often than not, users do not need to change an entire Transaction or Budget entry. This will minimize inputs for users if they do not require every single parameters of a Transaction or Budget to be changed.
+More often than not, users do not need to change an entire Transaction or Budget entry. This will minimize inputs from users if they do not require every single parameters of a Transaction or Budget to be changed.
+
+// end::update2[]
 
 ===== Aspect 1: Update requires `TYPE+INDEX` as one of its parameter
 
 * **Alternative 1 (current choice):** takes in `TYPE+INDEX` to decide whether to update an item from Transaction, Budget or Projection list. (e.g. `delete b1` deletes item index 1 from budget).
-** Pros: Requires lesser user steps to be taken before executing a `update` command.
-** Cons: Requires three unique lists to be utilized instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
+** Pros: Requires lesser user steps to be taken before executing an `update` command.
+** Cons: Requires 2 unique lists to be utilized instead of 1. (e.g. the `UniqueTransactionList` stores Transaction items and the `UniqueBudgetList` to store Budget items).
 ** For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Change to **Transaction**, **Budget** or **Projection** mode and keying in only index (e.g. `update 1 ..`).
 ** Pros: Requires only one unique list required to store all operation types.
 ** Cons: Requires additional user step to switch between modes before executing a updating command.
 
+// tag::update3[]
+[[Aspect2]]
 ===== Aspect 2: Update can not edit Ledger Operations
 
-* **Alternative 1 (current choice):** Update Command only works with `Transaction`, `Budget` and `Projection` Operations.
+* **Alternative 1 (current choice):** Update Command does not work with `Ledger` operations.
 ** Pros: Intuitive implementation and execution for the user.
 ** Cons: Requires excessive user operations.
-*** The user has to first delete the `Ledger` operation that he/she wishes to change, followed by inputting the `Ledger` operation with the amended fields back into PalPay.
+*** The user has to first delete the `Ledger` operation that he/she wishes to change, followed by inputting the `Ledger` operation with the amended fields back into _PalPay_.
 * **Alternative 2:** Update Command to also work with `Ledger` operations.
 ** Pros: Requires only one user command to append or change `Ledger` entries.
 ** Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the `Split` feature.
@@ -603,8 +803,9 @@ Currently the update feature has not been implemented for `Projection` operation
 
 The activity diagram below will provide a visual representation of the possible user routes using the `update` command after this enhancement has been implemented.
 
-.Activity Diagram for future `update`
-image::UpdatefutureActivityDiagram.png[]
+.Activity Diagram for Future `update`
+image::UpdatefutureActivityDiagram.png[pdfwidth=70%]
+// end::update3[]
 // end::update[]
 
 // tag::sort[]
@@ -619,7 +820,7 @@ The `sort` command is facilitated by the Logic and Model components of the appli
 The following sequence diagram shows how the sorting of transactions work when the user enters `sort date/d`.
 
 .Sequence Diagram for `sort date/d`
-image::SortSequenceDiagram.png[]
+image::SortSequenceDiagram.png[pdfwidth=80%]
 
 ==== Example of Usage
 
@@ -628,12 +829,12 @@ Given below is an example usage of how `sort` behaves at each step.
 **Step 1**. The user launches the application and views an unsorted list of transactions.
 
 .Initial State of PalPay
-image::sort_dg_1.png[]
+image::sort_dg_1.png[pdfwidth=80%]
 
 **Step 2**. The user now executes `sort date/d` to sort the transactions in the order of descending date.
 
 .User Inputs `sort date/d`
-image::sort_dg_2.png[]
+image::sort_dg_2.png[pdfwidth=80%]
 
 **Step 3**. Upon executing the command, `LogicManager` uses `MainParser#parse()` to parse the input from the user.
 
@@ -650,14 +851,14 @@ invalid, `SortCommandParser` throws an exception and terminates. Else, it return
 
 **Step 8**. `SortCommand` uses `SortCommand#sortTransactionHistory()` to sort the transactions.
 
-**Step 9**. `SortCommand` uses `Model#setTransactions()` to store the sorted transactions and `Model#commitUserState()` to
+**Step 9**. `SortCommand` uses `Model#set()` to store the sorted transactions and `Model#commitUserState()` to
 save the latest state of the application.
 
 **Step 10**. `SortCommand` returns a `CommandResult` to the `LogicManager` and the result will be displayed to the user
 at the end.
 
 .After Sorting of Transactions
-image::sort_dg_3.png[]
+image::sort_dg_3.png[pdfwidth=80%]
 
 ==== Design Considerations
 
@@ -749,6 +950,7 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 The `VersionedUserState` will be initialized with the initial user state, and the `currentStatePointer`
 pointing to that single user state.
 
+.Initial State
 image::UndoRedoState0.png[pdfwidth=50%, align="center"]
 
 **Step 2**. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
@@ -756,12 +958,14 @@ The `delete` command calls `Model#commitUserState()`, causing the modified state
 `delete t5` command executes to be saved in the `userStateList`, and the `currentStatePointer` is shifted
 to the newly inserted user state.
 
+.After `delete t1` Command
 image::UndoRedoState1.png[pdfwidth=50%, align="center"]
 
 **Step 3**. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
 The `in` command also calls `Model#commitUserState()`, causing another modified user state to be saved
 into the `userStateList`.
 
+.After `in $/10 n/Allowance d/07112019` Command
 image::UndoRedoState2.png[pdfwidth=50%, align="center"]
 
 [NOTE]
@@ -773,6 +977,7 @@ executing the `undo` command. The `undo` command will call `Model#undoUserState(
 `currentStatePointer` once to the left, pointing it to the previous user state, and restores the user state
 to that state.
 
+.After `undo` Command
 image::UndoRedoState3.png[pdfwidth=50%, align="center"]
 
 [NOTE]
@@ -784,6 +989,7 @@ If so, it will return an error to the user rather than attempting to perform the
 Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
 `Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
 
+.After `list` Command
 image::UndoRedoState4.png[pdfwidth=50%, align="center"]
 
 **Step 6**. The user executes `clear`, which calls `Model#commitUserState()`.
@@ -791,10 +997,12 @@ Since the `currentStatePointer` is not pointing at the end of the `userStateList
 the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the
 `in $/10 n/Allowance d/07112019` command. This is the behavior that most modern desktop applications follow.
 
+.After `clear` Command
 image::UndoRedoState5.png[pdfwidth=50%, align="center"]
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo Sequence Diagram
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
@@ -973,35 +1181,20 @@ _{More to be added}_
 [appendix]
 == Glossary
 
+[[api]]
+API::
+Application Programming Interface
+
+
 [[mainstream-os]]
 Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]]
-Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
 
-Given below are instructions to test the app manually.
+Given below are instructions to test the application manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
@@ -1023,23 +1216,145 @@ Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an In Transaction
 
-=== Deleting a Person
+. Adding an in transaction with the command: `in`
 
-. Deleting a person while all persons are listed
+.. Prerequisites:
 
-.. Prerequisites: List all persons using the `list` command.
-Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list.
-Details of the deleted contact shown in the status message.
-Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted.
-Error details shown in the status message.
-Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Test case: `in $/1000 n/Allowance d/11112019` +
+Expected: An in transaction will be added into the list of transactions in the Transaction tab.
+
+.. Test case: `in $/0 n/Allowance d/11112019` +
+Expected: No transaction is added. Error details will be shown in the status message.
+
+.. Other incorrect `in` commands to try: `in $/10.001 n/Allowance d/11112019`, `in $/1000 n/Allow@nce d/11112019`
+(Contains non-alphanumeric characters). +
+Expected: Similar to previous.
+
+=== Adding an Out Transaction
+
+. Adding an out transaction with the command: `out`
+
+.. Prerequisites:
+
+.. Test case: `out $/10 n/KFC d/11112019` +
+Expected: An out transaction will be added into the list of transactions in the Transaction tab.
+
+.. Test case: `out $/0 n/KFC d/11112019` +
+Expected: No transaction is added. Error details will be shown in the status message.
+
+.. Other incorrect `out` commands to try: `out $/10.001 n/KFC d/11112019`, `out $/10 n/KFC d/32112019`
+(Date is invalid). +
+Expected: Similar to previous.
+
+=== Adding a Budget
+
+. Adding a budget with the command: `set`
+
+.. Prerequisites:
+
+.. Test case: `set $/1000 c/Shopping d/31122019` +
+Expected: A budget will be added into the list of budgets in the Budget tab.
+
+.. Test case: `set $/1000 c/Shopping d/01012019` +
+Expected: No budget is added. Error details will be shown in the status message.
+
+.. Other incorrect `set` command to try: `set $/-10 c/Shopping d/31122019` (Amount is negative). +
+Expected: Similar to previous.
+
+=== Adding a Split Ledger
+
+. Adding a split ledger with the command: `split`
+
+.. Prerequisites:
+
+.. Test case: `split $/1000 n/Amy n/Betty a/HaiDiLao` +
+Expected: An overall ledger with 4 individual ledgers will be added into the list of ledgers in the Ledger tab.
+
+.. Test case: `split $/1000 n/Amy n/Betty` +
+Expected: No ledger is added. Error details will be shown in the status message.
+
+.. Other incorrect `split` command to try: `split $/1000 n/Amy n/Betty a/HaiDiLao s/1 s/2 s/3 s/4`
+(Greater number of shares than number of people). +
+Expected: Similar to previous.
+
+=== Adding a Receive Ledger
+
+. Adding a receive ledger with the command: `receive`
+
+.. Prerequisites:
+
+.. Test case: `receive $/20 n/Albert` +
+Expected: An overall ledger with an individual ledger will be added into the list of ledgers in the ledger tab.
+
+.. Test case: `receive $/20 n/A|bert` +
+Expected: No ledger is added. Error details will be shown in the status message.
+
+.. Other incorrect `receive` command to try: `receive $/20.001 n/Albert` (Amount cannot have more than
+two decimal places). +
+Expected: Similar to previous.
+
+=== Switching Tabs
+
+. Switching tabs with the command: `view`
+
+.. Prerequisites:
+
+.. Test case: `view budget` +
+Expected: Switches to budget tab if user is in another tab. Else, user remains in budget tab.
+
+.. Test case: `view budg3t` +
+Expected: Remains in current tab. Error details will be shown in the status message.
+
+.. Other incorrect `view` command to try: `view loans` (Loans tab does not exist). +
+Expected: Similar to previous.
+
+=== Deleting an Entry
+
+. Deleting an entry with the command: `delete`
+
+.. Prerequisites:
+
+.. Test case: `delete t1` +
+Expected: First transaction is deleted from the list. Balance in the footer will be updated.
+
+.. Test case: `delete t0` +
+Expected: No transaction is deleted. Error details shown in the status message. Balance remains the same.
+
+.. Other incorrect `delete` commands to try: `delete`, `delete t1000` (When size of the list of transaction
+is smaller than 1000). +
+Expected: Similar to previous.
+
+=== Updating an Entry
+
+. Updating an entry with the command: `update`
+
+.. Prerequisites:
+
+.. Test case: `update t1 $/1000` +
+Expected: First transaction in the list is updated. Balance will be updated as well.
+
+.. Test case: `update t0 $/1000` +
+Expected: No transaction is updated. Error details shown in the status message. Balance remains the same.
+
+.. Other incorrect `update` commands to try: `update`, `update i/Invalid` (Invalid prefix). +
+Expected: Similar to previous.
+
+=== Sorting the Transactions
+
+. Sorting the transactions with the command: `sort`
+
+Prerequisites:
+
+.. Test case: `sort amount/a` +
+Expected: Transaction list will be sorted from smallest amount to greatest amount. Balance remains the same.
+
+.. Test case: `sort amount` +
+Expected: Transaction list remains unchanged. Error details shown in the status message.
+
+.. Other incorrect `sort` commands to try: `sort`, `sort date` (Order not stated). +
+Expected: Similar to previous.
 
 
 === Viewing Help Window

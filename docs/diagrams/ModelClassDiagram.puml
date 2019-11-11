@@ -85,6 +85,7 @@ HiddenOutside ..> Model
 
 'read only implementation
 Ledger .up.|> ReadOnlyLedger
+Ledger ---"1" UniquePersonList
 BankAccount .up.|> ReadOnlyBankAccount
 'UserPrefs .up.|> ReadOnlyUserPrefs
 

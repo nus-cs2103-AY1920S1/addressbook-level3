@@ -78,6 +78,32 @@ public class MainParser {
         case ViewCommand.COMMAND_WORD:
             return new ViewCommandParser().parse(arguments);
 
+        case UpdateCommand.COMMAND_WORD:
+            return new UpdateCommandParser().parse(arguments);
+
+        case DeleteCommand.COMMAND_WORD:
+            return new DeleteCommandParser().parse(arguments);
+
+        case ReceiveCommand.COMMAND_WORD:
+            return new ReceiveCommandParser().parse(arguments);
+
+        case DisplayCommand.COMMAND_WORD:
+            return new DisplayCommandParser().parse(arguments);
+
+        default:
+            return singleCommandWordParser(commandWord, arguments);
+        }
+    }
+
+    /**
+     * Parses single word commands.
+     */
+    public Command singleCommandWordParser(String commandWord, String arguments) throws ParseException {
+        if (!arguments.equals("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "One word only."));
+        }
+
+        switch(commandWord) {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -87,12 +113,6 @@ public class MainParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case UpdateCommand.COMMAND_WORD:
-            return new UpdateCommandParser().parse(arguments);
-
-        case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(arguments);
-
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
 
@@ -101,12 +121,6 @@ public class MainParser {
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
-
-        case ReceiveCommand.COMMAND_WORD:
-            return new ReceiveCommandParser().parse(arguments);
-
-        case DisplayCommand.COMMAND_WORD:
-            return new DisplayCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

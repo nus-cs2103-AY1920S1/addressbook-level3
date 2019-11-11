@@ -50,7 +50,6 @@ public class MainTabPanel extends UiPart<Region> {
         projectionGraphPlaceholder.getChildren().add(projectionListPanel.getRoot());
     }
 
-    //  TODO: remove
     protected void switchToTransactionTab() {
         this.mainTabPanel.getSelectionModel().select(0);
     }

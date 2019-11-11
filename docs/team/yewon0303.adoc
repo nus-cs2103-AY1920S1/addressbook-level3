@@ -1,0 +1,113 @@
+= Park Ye Won - Project Portfolio
+:site-section: AboutUs
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:tip: :bulb:
+
+== Introduction
+This project portfolio documents my contribution to the software project PalPay.
+
+=== About the team
+PalPay is a project collectively done by five Sophomore Computer Science Undergraduate students
+in National University of Singapore. As part of a requirement for our module - CS2103T Software Engineering,
+we morphed an existing product called Address Book (Level 3) given constraints
+that the user must interact with it using Command Line Interface (CLI).
+
+=== About the project
+PalPay is a desktop application that is target to students who have limited time to keep track of their incomes
+and expenditure and wish to have a simple and quick means to take charge of their finances.
+Also recognising the problem faced by many students that they cannot keep track of lending and borrowing of money with friends,
+PalPay offers a ledger function which keeps track of the movement of money between friends on a daily basis.
+
+This is what PalPay looks like:
+
+.PalPay's Graphical User Interface
+image::dg_gui_example.png[]
+
+
+With my role as a developer for this project, I implemented the budget function.
+Understanding that many students have a poor management of their expenses, PalPay budget function allows them to set a budget
+so that they can be more conscious of their expenditure. As they make expenses in that particular category,
+the budget will indicate the amount of money left from the budget and serve as a constant reminder for them to make smart financial choices.
+
+
+== Summary of contributions
+This section shows a summary of my coding, documentation and other helpful contributions to the team in this project.
+
+*Enhancement added*: I added the ability to set a budget in the bank account
+*	What it does: The `set` command allows the user to set a budget until a deadline in a given category.
+As the user makes `OutTransaction` s of the given category, he can see the percentage of remaining budget, as well as the number of days remaining.
+
+*	Justification: As the user wishes to manage his expenses and restrict the overspending of money,
+setting the budget is useful in allowing the user to track the outflow of his money.
+Moreover, as the deadline he set approaches or upon exceeding the set budget,
+the budget card displays red font which alerts the user that he needs to manage his finance better.
+More details will be discussed below in the <<User-guide, user guide>> and <<Developer-guide, developer guide>>.
+
+*	Highlights: This enhancement is based on `Budget` class which is a build-up of the current
+`Transaction` class. While `Transaction` class allows the user to key in inflows and outflows of money,
+`Budget` allows the user to have an indication of the outflows in a given category.
+As the two classes behaves as though `Budget` is a child class of `Transaction`,
+an in-depth analysis of design alternatives was necessary to ensure that Liskov Substitution Principal
+was not violated. More details will be elaborated in section Design Considerations of <<Developer-guide, developer guide>> excerpt below.
+
+
+
+*Code contributed*: Please click these links to see a sample of my code:
+https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=yewon0303&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
+
+
+
+*Other contributions* :
+
+*	Project management:
+**	Managed several issue trackers on GitHub:
+(Issues: https://github.com/AY1920S1-CS2103T-W12-3/main/issues/92[#92],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/119[#119],
+https://github.com/AY1920S1-CS2103T-W12-3/main/issues/199[#199])
+
+*	Enhancements to existing features:
+** Comprehensive Unit and Integration Tests
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/204[#204])
+
+**	Updated the GUI colour scheme for budget tab so that necessary messages can be brought across the user such as exceeding the set budget
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/212[#212]
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/223[#223])
+
+* Documentation:
+** Made updates to the User Guide and Developer Guide to make them more informative for the following sections:
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/107[#107]
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/127[#127]
+https://github.com/AY1920S1-CS2103T-W12-3/main/pull/227[#227])
+
+* Community:
+** Reported bugs and offered suggestions for other teams in the class
+(Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/253[#253],
+https://github.com/AY1920S1-CS2103T-F11-1/main/issues/255[#255],
+https://github.com/AY1920S1-CS2103T-F11-1/main/issues/256[#256],
+https://github.com/AY1920S1-CS2103T-F11-1/main/issues/260[#260])
+
+
+[[User-guide]]
+
+== Contributions to the User Guide
+Original AddressBook User Guide was updated with instructions for the enhancements we added.
+The following is an excerpt from our PalPay User Guide, showing additions that I have made for the `set` command feature.
+
+<Start of Excerpt>
+
+include::../UserGuide.adoc[tag=set]
+
+<End of Excerpt>
+
+[[Developer-guide]]
+== Contributions to the Developer Guide
+The following excerpt shows my contribution to PalPay Developer Guide for the section `set` command.
+The section also highlights the relationship of `Budget` class with the overall system.
+
+<Start of Excerpt>
+
+include::../DeveloperGuide.adoc[tag=set]
+
+<End of Excerpt>

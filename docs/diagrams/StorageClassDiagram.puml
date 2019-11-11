@@ -6,22 +6,26 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
-Interface BankAccountStorage <<Interface>>
+Interface UserStateStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
-Class JsonBankAccountStorage
+Class JsonUserStateStorage
 
 StorageManager .left.|> Storage
 StorageManager o-right-> UserPrefsStorage
-StorageManager o--> BankAccountStorage
+StorageManager o--> UserStateStorage
 
 JsonUserPrefsStorage .left.|> UserPrefsStorage
-JsonBankAccountStorage .left.|> BankAccountStorage
-JsonBankAccountStorage .down.> JsonSerializableBankAccountStorage
-JsonSerializableBankAccountStorage .right.> JsonSerializableTransaction
-JsonSerializableBankAccountStorage .left.> JsonSerializableBudget
-JsonSerializableTransaction ...> JsonAdaptedCategory
+JsonUserStateStorage .left.|> UserStateStorage
+JsonUserStateStorage .down.> JsonSerializableUserState
+JsonSerializableUserState .down.> JsonAdaptedBankAccountOperations
+JsonSerializableUserState .left.> JsonSerializableBudget
+JsonSerializableUserState .right.> JsonAdaptedLedgerStorage
+JsonSerializableUserState .down.> JsonAdaptedProjection
+JsonAdaptedBankAccountOperations .left.> JsonAdaptedCategory
+JsonAdaptedLedgerStorage .right.> JsonAdaptedLedgerOperations
+JsonAdaptedLedgerOperations .down.> JsonAdaptedPerson
 JsonSerializableBudget ...> JsonAdaptedCategory
 
 @enduml

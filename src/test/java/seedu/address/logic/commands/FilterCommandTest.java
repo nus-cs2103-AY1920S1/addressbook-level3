@@ -64,7 +64,6 @@ public class FilterCommandTest {
         assertFalse(filterFirstCommand.equals(filterSecondCommand));
     }
 
-    // TODO: more testcases
     @Test
     public void execute_zeroKeywords_noTransactionFound() {
         String expectedMessage = String.format(MESSAGE_TRANSACTIONS_LISTED_OVERVIEW, 0);

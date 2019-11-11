@@ -46,12 +46,6 @@ public class BankAccountTest {
         assertEquals(newData, bankAccount);
     }
 
-    // TODO: implement test for budget during copying
-    // @Test
-    // public  void resetData_withDuplicateBudget_throwsDuplicateBudgetException() {
-    //
-    // }
-
     @Test
     public void has_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> bankAccount.has((BankAccountOperation) null));
