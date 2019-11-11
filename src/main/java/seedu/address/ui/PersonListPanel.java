@@ -25,7 +25,7 @@ public class PersonListPanel extends UiPart<Region> {
 
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
-        boxLabel.setText("Operators");
+        boxLabel.setText("Accounts");
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
     }

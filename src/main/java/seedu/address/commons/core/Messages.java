@@ -68,7 +68,7 @@ public class Messages {
     public static final String MESSAGE_ALL_SUBMITTED_INCIDENTS_LISTED = "Listed all submitted incident reports "
             + "that can be edited.";
 
-    public static final String MESSAGE_ACCESS_ADMIN = "You must be an admin to perform this operation. "
+    public static final String MESSAGE_ACCESS_ADMIN = "You must login with an admin account to perform this operation.\n"
             + "Please see help page for more info.";
 
 }
