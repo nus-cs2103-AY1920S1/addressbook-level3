@@ -19,6 +19,7 @@ public class RestoreCommand extends Command {
      *
      * @param model {@code Model} which the command should operate on.
      * @return feedback message of the operation result for display.
+     * @@author ShaunNgTx
      */
     @Override
     public CommandResult execute(Model model) {

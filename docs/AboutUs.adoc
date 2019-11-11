@@ -20,10 +20,10 @@ Role: Project Advisor / Lecturer
 
 === Wilfred Bradley Tan
 image::wilfredbtan.png[width="150", align="left"]
-{empty}[http://github.com/wilfredbtan[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/wilfredbtan[github]] [<<wilfredbtan#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: Parser
+Responsibilities: Develop main driver for quiz, integration of features, UI / UX
 
 '''
 
@@ -38,10 +38,10 @@ Responsibilities: UI
 
 === Ng Tze Xuan, Shuan
 image::ShaunNgTX.png[width="150", align="left"]
-{empty}[http://github.com/ShaunNgTX[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/ShaunNgTX[github]] [<<shaunngtx#, portfolio>>]
 
 Role: Code Quality +
-Responsibilities: Logic
+Responsibilities: In charge of Documentation
 
 '''
 

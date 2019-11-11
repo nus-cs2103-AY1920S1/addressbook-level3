@@ -39,16 +39,15 @@ public class SaqTest {
         Saq saqWithNoCorrectAnswers = new SaqBuilder()
                 .withCorrectAnswerList(new ArrayList<>()).build();
         assertFalse(Saq.isValidSaq(saqWithNoCorrectAnswers));
-        
-        
+
         //Null Value
         assertThrows(NullPointerException.class, () -> Saq.isValidSaq(null));
     }
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Saq Saq = new SaqBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> Saq.getCategories().remove(0));
+        Saq saq = new SaqBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> saq.getCategories().remove(0));
     }
 
     @Test

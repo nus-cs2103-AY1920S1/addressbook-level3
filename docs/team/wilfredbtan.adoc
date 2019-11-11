@@ -15,6 +15,8 @@ endif::[]
 :contributedCodeUrl: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=wilfredbtan
 :ab3Url: https://github.com/nus-cs2103-AY1920S1/addressbook-level3
 :pullUrl: https://github.com/AY1920S1-CS2103-F10-3/main/pull
+:mainPullUrl: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull
+:issuesUrl: https://github.com/nus-cs2103-AY1920S1/forum/issues
 
 By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
@@ -49,8 +51,8 @@ of many of the other features.
 
 ** *What it does*: After entering quiz mode, the driver parses user input, determines whether the answer is correct and displays the next question. At the end of each level and the entire quiz, the user is shown his/her score and given the choice to continue (i.e. proceed to the next level or restart) or exit the quiz.
 ** *Justification*: This essential feature is the core of the application and allows other features to be built upon it. Furthermore, it significantly improves the product as it adds the element of interaction to the application.
-** *Highlights*: This enhancement required the deep understanding of the entire project structure as it can be considered the nervous system that connects the application from UI to Storage. Other functionality such as answering MCQs, True & False or Short-Answer Questions (SAQ) were built upon this feature.
-** Credits: Code for the GUI display was adapted from Address Book – Level 3
+** *Highlights*: This enhancement required the deep understanding of the entire project structure as it can be considered the nervous system that connects the application from UI to Storage. Other functionality such as answering MCQs, True & False or Short-Answer Questions (SAQ) were built upon this feature. This feature was also tested using automated GUI tests.
+** Credits: Code for the GUI display was adapted from Address Book – Level 3 and the structure for GUI tests was adapted from Address Book - Level 4.
 
 * *Minor enhancements*:
 ** Created the Normal and Arcade mode for the quiz. In Arcade Mode, each level has increasing difficulty and a shorter time limit, whenever a user gets a question wrong, the quiz ends and the user has to restart.
@@ -64,22 +66,19 @@ of many of the other features.
 
 ** Project management:
 *** Managed releases v1.3 - v1.4 (2 releases) on GitHub
+*** Managed issues and resolved the main bulk of the post Mock PE issues.
 
 ** Enhancements to existing features:
-*** Wrote additional GUI tests to increase coverage from 50% to 72% (PR link:{pullUrl}/158[#158])
+*** Wrote additional GUI tests to increase coverage from 50% to 75% (PR link:{pullUrl}/158[#158], link:{pullUrl}/161[#161], link:{pullUrl}/163[#163])
 *** Updated the GUI colour scheme and added aesthetic artifacts such as level label (PR link:{pullUrl}/98[#98], link:{pullUrl}/148[#148])
-*** Created skeleton class for `AnswerableBuilder` using Java Generics and the builder class design so that other teammates will be able to build upon it easily (PR link:{pullUrl}/148[#148], link:{pullUrl}/149[#149])
-*** Adapted CommandResult to follow the builder design pattern .
+*** Created skeleton class for `AnswerableBuilder` using Java Generics and builder design pattern so that my teammates will be able to build upon it easily (PR link:{pullUrl}/148[#148], link:{pullUrl}/149[#149])
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide link:{pullUrl}
+*** Created skeleton sequence and activity diagrams for the team to reuse so that the DG can have a more congruent look.
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-
+*** Reviewed this link:{mainPullUrl}/14[PR].
+*** Helped a fellow student in this link:{issuesUrl}/60[forum post].
 
 == Contributions to the User Guide
 

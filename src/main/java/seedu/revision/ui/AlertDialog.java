@@ -61,7 +61,7 @@ public class AlertDialog {
                 + "Your current score is: " + score + "/" + totalScore + "\n"
                 + "Would you like to proceed to level " + nextLevel + "?\n"
                 + "Press [ENTER] to proceed.\n"
-                + "Press [ESC] to return to main screen.");
+                + "Press [ESC] to return to Configuration Mode.");
 
         return nextLevelAlert;
     }
@@ -83,14 +83,14 @@ public class AlertDialog {
                     + "/" + totalScore + "\n"
                     + "Try again?\n"
                     + "Press [ENTER] to try again.\n"
-                    + "Press [ESC] to return to main screen.");
+                    + "Press [ESC] to return to Configuration Mode.");
         } else {
             endAlert.alert.setAlertType(Alert.AlertType.INFORMATION);
             endAlert.alert.setContentText("Quiz has ended! Your final score is " + score
                     + "/" + totalScore + "\n"
                     + "Try again?\n"
                     + "Press [ENTER] to try again.\n"
-                    + "Press [ESC] to return to main screen.");
+                    + "Press [ESC] to return to Configuration Mode.");
         }
 
         return endAlert;

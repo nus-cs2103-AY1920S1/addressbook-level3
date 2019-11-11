@@ -8,6 +8,7 @@ import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Saq;
 
+/** Factory class to create {@code Saq} objects. **/
 public class SaqBuilder extends AnswerableBuilder<Saq> {
     public SaqBuilder() {
         super();

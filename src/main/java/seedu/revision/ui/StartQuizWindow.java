@@ -114,7 +114,7 @@ public class StartQuizWindow extends ParentWindow {
         questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
         resultDisplayPlaceholder.getChildren().add(questionDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRevisionToolFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         commandBox = new CommandBox(this::executeCommand, false);
@@ -161,7 +161,7 @@ public class StartQuizWindow extends ParentWindow {
         try {
 
             if (commandText.equals(TIMER_UP_SKIP_QUESTION) && !timer.isTimeUp()) {
-                 throwParseExceptionWhenUserSkipsQuestion();
+                throwParseExceptionWhenUserSkipsQuestion();
             }
 
             CommandResult commandResult = logic.execute(commandText, currentAnswerable);
@@ -169,6 +169,8 @@ public class StartQuizWindow extends ParentWindow {
                 totalScore++;
                 score++;
             }
+
+            timer.resetTimer();
 
             if (commandResult.isExit()) {
                 handleExit();
@@ -200,7 +202,6 @@ public class StartQuizWindow extends ParentWindow {
 
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString());
 
-            timer.resetTimer();
             return commandResult;
         } catch (CommandException | ParseException e) {
             questionDisplay.setFeedbackToUser(currentAnswerable.getQuestion().toString() + "\n\n" + e.getMessage());
@@ -243,19 +244,21 @@ public class StartQuizWindow extends ParentWindow {
 
         task.setOnSucceeded(e -> {
             Optional<ButtonType> result = nextLevelDialog.showAndWait();
-            if (result.get() == nextLevelDialog.getNoButton()) {
-                handleExit();
-            } else {
-                //Reset UI in the window
-                levelLabel.updateLevelLabel(nextLevel);
-                currentProgressIndex.set(0);
-                progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
-                        getSizeOfCurrentLevel(nextAnswerable),
-                        "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
-                //Start a new timer for the next level
-                this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
-                progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
-                scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
+            if (result.isPresent()) {
+                if (result.get() == nextLevelDialog.getNoButton()) {
+                    handleExit();
+                } else {
+                    //Reset UI in the window
+                    levelLabel.updateLevelLabel(nextLevel);
+                    currentProgressIndex.set(0);
+                    progressIndicatorBar = new ProgressIndicatorBar(currentProgressIndex,
+                            getSizeOfCurrentLevel(nextAnswerable),
+                            "%.0f/" + getSizeOfCurrentLevel(nextAnswerable));
+                    //Start a new timer for the next level
+                    this.timer = new Timer(mode.getTime(nextLevel), this::executeCommand);
+                    progressAndTimerGridPane = new ScoreProgressAndTimerGridPane(progressIndicatorBar, timer);
+                    scoreProgressAndTimerPlaceholder.getChildren().add(progressAndTimerGridPane.getRoot());
+                }
             }
         });
 
@@ -363,6 +366,11 @@ public class StartQuizWindow extends ParentWindow {
         return timer;
     }
 
+
+    /**
+     *
+     * @throws ParseException when uses attempts to skip question using internal command.
+     */
     private void throwParseExceptionWhenUserSkipsQuestion() throws ParseException {
         if (currentAnswerable instanceof Mcq) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, McqInputCommand.MESSAGE_USAGE));

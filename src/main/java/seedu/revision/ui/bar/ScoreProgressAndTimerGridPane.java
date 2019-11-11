@@ -42,7 +42,7 @@ public class ScoreProgressAndTimerGridPane extends UiPart<Region> {
         this.pane1.getChildren().setAll(bar, text);
 
         this.timer = timer;
-        this.timerLabel = timer.getLabel();
+        this.timerLabel = timer.getTimerLabel();
         this.pane2.getChildren().setAll(timerLabel);
 
         this.timer.startTimer();

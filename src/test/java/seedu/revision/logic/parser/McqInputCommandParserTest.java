@@ -6,7 +6,6 @@ import static seedu.revision.logic.parser.CommandParserTestUtil.assertQuizParseS
 import static seedu.revision.testutil.TypicalMcqs.MCQ_A;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_A_COMMAND;
 
-
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.quiz.McqInputCommand;

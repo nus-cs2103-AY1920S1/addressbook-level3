@@ -7,7 +7,6 @@ import static seedu.revision.testutil.TypicalMcqs.MCQ_A;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_A;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_A_COMMAND;
 
-
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.quiz.TfInputCommand;

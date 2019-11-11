@@ -7,7 +7,8 @@ participant ":QuizCommandParser" as QuizCommandParser LOGIC_COLOR_T1
 participant ":McqInputCommandParser" as McqInputCommandParser LOGIC_COLOR_T1
 participant "m:McqInputCommand" as McqInputCommand LOGIC_COLOR_T1
 participant ":Answerable" as Answerable LOGIC_COLOR_T1
-participant ":CommandResultBuilder" as CommandResultBuilder LOGIC_COLOR_T1
+participant "builder:CommandResultBuilder" as CommandResultBuilder LOGIC_COLOR_T1
+participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR_T1
 end box
 
 box Model MODEL_COLOR_T1
@@ -63,6 +64,16 @@ deactivate CommandResultBuilder
 CommandResultBuilder -> CommandResultBuilder : withFeedback(result)
 
 CommandResultBuilder -> CommandResultBuilder : build()
+
+activate CommandResultBuilder
+
+create CommandResult
+CommandResultBuilder -> CommandResult : CommandResult(builder)
+activate CommandResult
+CommandResult-> CommandResultBuilder : commandResult
+deactivate CommandResult
+
+deactivate CommandResultBuilder
 
 CommandResultBuilder --> McqInputCommand : commandResult
 deactivate CommandResultBuilder

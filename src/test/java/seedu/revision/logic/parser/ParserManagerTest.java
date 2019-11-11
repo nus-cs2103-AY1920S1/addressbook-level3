@@ -31,8 +31,8 @@ import seedu.revision.logic.parser.main.ParserManager;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.AnswerableUtil;
-import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 import seedu.revision.testutil.McqBuilder;
+import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
 public class ParserManagerTest {
 

@@ -1,8 +1,5 @@
 package seedu.revision.testutil;
 
-
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -46,8 +43,8 @@ public class TypicalSaqs {
 
     public static final SaqInputCommand SAQ_B_COMMAND = new SaqInputCommand("UML Diagram", SAQ_B);
 
-
-    private TypicalSaqs() {} // prevents instantiation
+    // prevents instantiation
+    private TypicalSaqs() {}
 
     /**
      * Returns an {@code RevisionTool} with all the typical answerables.

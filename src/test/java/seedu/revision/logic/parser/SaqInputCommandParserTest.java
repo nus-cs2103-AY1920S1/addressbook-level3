@@ -7,7 +7,6 @@ import static seedu.revision.testutil.TypicalMcqs.MCQ_A;
 import static seedu.revision.testutil.TypicalSaqs.SAQ_B;
 import static seedu.revision.testutil.TypicalSaqs.SAQ_B_COMMAND;
 
-
 import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.quiz.SaqInputCommand;

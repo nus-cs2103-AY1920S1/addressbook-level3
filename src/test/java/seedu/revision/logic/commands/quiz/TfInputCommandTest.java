@@ -1,7 +1,5 @@
 package seedu.revision.logic.commands.quiz;
 
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,10 +9,10 @@ import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess
 import static seedu.revision.testutil.TypicalTrueFalse.TF_A;
 import static seedu.revision.testutil.TypicalTrueFalse.TF_A_COMMAND;
 
+import org.junit.jupiter.api.Test;
 
 import seedu.revision.logic.commands.Command;
 import seedu.revision.logic.commands.main.CommandResult;
-import seedu.revision.logic.commands.main.CommandResultBuilder;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.Model;
 import seedu.revision.model.ModelManager;

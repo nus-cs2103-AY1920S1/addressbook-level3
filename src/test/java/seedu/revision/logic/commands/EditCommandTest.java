@@ -10,10 +10,10 @@ import static seedu.revision.logic.commands.CommandTestUtil.VALID_MCQ_QUESTION_2
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.revision.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.revision.logic.commands.CommandTestUtil.showAnswerableAtIndex;
-import static seedu.revision.testutil.TypicalMcqs.MCQ_INVALID_CORRECT_ANSWER_LIST;
-import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_FIRST_ANSWERABLE;
 import static seedu.revision.testutil.TypicalIndexes.INDEX_SECOND_ANSWERABLE;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_INVALID_CORRECT_ANSWER_LIST;
+import static seedu.revision.testutil.TypicalMcqs.getMcqRevisionTool;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,9 +30,9 @@ import seedu.revision.model.RevisionTool;
 import seedu.revision.model.UserPrefs;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.testutil.McqBuilder;
 import seedu.revision.testutil.builder.AnswerableBuilder;
 import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
-import seedu.revision.testutil.McqBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.

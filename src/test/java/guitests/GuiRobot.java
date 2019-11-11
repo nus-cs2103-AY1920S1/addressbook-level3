@@ -40,6 +40,13 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
+     * Pauses execution for certain tasks that require buffer time.
+     */
+    public void pause() {
+        sleep(PAUSE_FOR_HUMAN_DELAY_MILLISECONDS);
+    }
+
+    /**
      * Returns true if tests are run in headless mode.
      */
     public boolean isHeadlessMode() {

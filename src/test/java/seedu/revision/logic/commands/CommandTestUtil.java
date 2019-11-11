@@ -24,7 +24,6 @@ import seedu.revision.model.Model;
 import seedu.revision.model.RevisionTool;
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
-import seedu.revision.model.answerable.TrueFalse;
 import seedu.revision.model.answerable.predicates.QuestionContainsKeywordsPredicate;
 import seedu.revision.testutil.builder.EditAnswerableDescriptorBuilder;
 
@@ -35,8 +34,8 @@ public class CommandTestUtil {
 
     public static final String VALID_MCQ_QUESTION_1 = "What type of project is AB3?";
     public static final String VALID_MCQ_QUESTION_2 = "Which of the following is not true?";
-    public static final String VALID_TF_QUESTION_1 = "As per the textbook, " +
-            "PR reviews is one of the two ways of reviewing code";
+    public static final String VALID_TF_QUESTION_1 = "As per the textbook, "
+            + "PR reviews is one of the two ways of reviewing code";
     public static final String VALID_TF_QUESTION_2 = "Linters are a subset of dynamic (not static) analysis tools";
     public static final String VALID_SAQ_QUESTION_1 = "What does Boundary Value Analysis suggests?";
 
@@ -73,11 +72,6 @@ public class CommandTestUtil {
     public static final EditCommand.EditAnswerableDescriptor DESC_ALPHA;
     public static final EditCommand.EditAnswerableDescriptor DESC_BETA;
 
-    private static final Answer correctAnswer = new Answer("CORRECT");
-    private static final ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(correctAnswer));
-    private static final Answer wrongAnswer = new Answer("WRONG");
-    private static final ArrayList<Answer> defaultWrongAnswerList = new ArrayList<>(Arrays.asList(wrongAnswer));
-
     public static final CommandResultBuilder COMMAND_RESULT_BUILDER_CORRECT_HELP_FALSE_EXIT_FALSE =
             new CommandResultBuilder().withCorrect(true)
             .withHelp(false).withExit(false);
@@ -86,6 +80,11 @@ public class CommandTestUtil {
     public static final CommandResultBuilder COMMAND_RESULT_BUILDER_WRONG_HELP_FALSE_EXIT_FALSE =
             new CommandResultBuilder().withCorrect(false)
             .withHelp(false).withExit(false);
+
+    private static final Answer correctAnswer = new Answer("CORRECT");
+    private static final ArrayList<Answer> defaultCorrectAnswerList = new ArrayList<>(Arrays.asList(correctAnswer));
+    private static final Answer wrongAnswer = new Answer("WRONG");
+    private static final ArrayList<Answer> defaultWrongAnswerList = new ArrayList<>(Arrays.asList(wrongAnswer));
 
 
 

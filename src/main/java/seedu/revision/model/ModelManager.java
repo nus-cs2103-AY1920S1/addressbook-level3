@@ -94,8 +94,6 @@ public class ModelManager implements Model {
         userPrefs.setHistoryFilePath(historyFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
     @Override
     public void setRevisionTool(ReadOnlyRevisionTool revisionTool) {
         this.revisionTool.resetData(revisionTool);

@@ -1,6 +1,5 @@
 package seedu.revision.testutil;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,11 +44,6 @@ public class TypicalTrueFalse {
             .build();
 
     public static final TfInputCommand TF_A_COMMAND = new TfInputCommand("True", TF_A);
-
-
-//    public static final Answerable K_ANSWERABLE = new SaqBuilder().build();
-//    public static final TfInputCommand K_SAQ_COMMAND = new TfInputCommand(
-//            "The statement is untrue", K_ANSWERABLE);
 
 
     private TypicalTrueFalse() {} // prevents instantiation

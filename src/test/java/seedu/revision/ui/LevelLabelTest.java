@@ -1,69 +1,67 @@
 package seedu.revision.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.testfx.api.FxAssert;
-import org.testfx.api.FxRobot;
-import org.testfx.framework.junit5.ApplicationExtension;
-import org.testfx.framework.junit5.Start;
-import org.testfx.matcher.control.LabeledMatchers;
 
-import javafx.application.Platform;
+import guitests.guihandles.LevelLabelHandle;
 
-import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
+class LevelLabelTest extends GuiUnitTest {
 
-@ExtendWith(ApplicationExtension.class)
-class LevelLabelTest {
+    private static final int VALID_LEVEL_1 = 1;
+    private static final int VALID_LEVEL_2 = 2;
+    private static final int VALID_LEVEL_3 = 3;
+    private static final int INVALID_LEVEL_0 = 0;
+    private static final int INVALID_LEVEL_4 = 4;
 
     private LevelLabel levelLabel;
+    private LevelLabelHandle levelLabelHandle;
 
-    /**
-     * Will be called with {@code @Before} semantics, i. e. before each test method.
-     *
-     * @param stage - Will be injected by the test runner.
-     */
-    @Start
-    private void start(Stage stage) {
-        levelLabel = new LevelLabel(1);
-        levelLabel.getLevelLabel().setId("myLabel");
-        stage.setScene(new Scene(new StackPane(levelLabel.getLevelLabel()), 300, 100)); // arbitrary height
-        stage.show();
+    @BeforeAll
+    public static void runHeadless() {
+        System.setProperty("testfx.robot", "glass");
+        System.setProperty("testfx.headless", "true");
+        System.setProperty("prism.order", "sw");
+        System.setProperty("prism.text", "t2k");
+    }
+
+    @BeforeEach
+    public void setUp() {
+        levelLabel = new LevelLabel(VALID_LEVEL_1); //set to default level 1
+        levelLabelHandle = new LevelLabelHandle(getChildNode(levelLabel.getRoot(),
+                LevelLabelHandle.LEVEL_LABEL_ID));
+        levelLabel.getLevelLabel().setStyle("-fx-min-width: 300");
+        uiPartExtension.setUiPart(levelLabel);
     }
 
     /**
-     * Default after intialiser should show level 1.
-     * @param robot - Will be injected by the test runner.
+     * Tests that the {@code LevelLabel} updates correctly when valid levels are passed to it.
      */
     @Test
-    public void levelLabel_default_shouldDisplayLevelOne(FxRobot robot) {
-        FxAssert.verifyThat(levelLabel.getLevelLabel(), LabeledMatchers.hasText("Level 1"));
+    public void levelLabel_updateLevel_shouldShowNextLevel() {
+        guiRobot.pause();
+        assertEquals("Level 1", levelLabelHandle.getText()); //default level 1
+        levelLabel.updateLevelLabel(VALID_LEVEL_2);
+        guiRobot.pause();
+        assertEquals("Level 2", levelLabelHandle.getText()); //update to level 2
+        levelLabel.updateLevelLabel(VALID_LEVEL_3);
+        guiRobot.pause();
+        assertEquals("Level 3", levelLabelHandle.getText()); //update to level 3
     }
 
-    /**
-     * Update level to 2 should show Level 2.
-     * @param robot - Will be injected by the test runner.
-     */
-    @Test
-    public void updateLevelLabel_validLevel_shouldDisplayUpdatedLevel(FxRobot robot) {
-        Platform.runLater(() -> {
-            levelLabel.updateLevelLabel(2);
-            assertEquals("Level 2", levelLabel.getLevelLabel().getText());
-        });
-    }
 
     /**
-     * Update level to invalid level should not show level.
-     * @param robot - Will be injected by the test runner.
+     * Tests that the {@code LevelLabel} throws an assertion error when invalid levels are passed to it.
      */
     @Test
-    public void udpateLevelLabel_invalidLevel_shouldNotDisplayLevel(FxRobot robot) {
-        levelLabel.updateLevelLabel(4);
-        assertFalse(levelLabel.getLevelLabel().getText().equals("Level 4"));
-
+    public void levelLabel_updateInvalidLevel_shouldThrowAssertionError() {
+        //Invalid Boundary values 0, 4
+        guiRobot.pauseForHuman();
+        assertThrows(AssertionError.class, () -> levelLabel.updateLevelLabel(INVALID_LEVEL_0));
+        guiRobot.pauseForHuman();
+        assertThrows(AssertionError.class, () -> levelLabel.updateLevelLabel(INVALID_LEVEL_4));
     }
 }

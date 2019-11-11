@@ -6,7 +6,7 @@ import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.TrueFalse;
 
-/** Factory class to create {@code Mcq} objects. **/
+/** Factory class to create {@code TrueFalse} objects. **/
 public class TrueFalseBuilder extends AnswerableBuilder<TrueFalse> {
 
     public TrueFalseBuilder() {

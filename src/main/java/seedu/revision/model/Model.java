@@ -56,7 +56,7 @@ public interface Model {
     void setHistoryFilePath(Path historyFilePath);
 
     /**
-     * Replaces revision tool data with the data in {@code addressBook}.
+     * Replaces revision tool data with the data in {@code revisionTool}.
      */
     void setRevisionTool(ReadOnlyRevisionTool revisionTool);
 

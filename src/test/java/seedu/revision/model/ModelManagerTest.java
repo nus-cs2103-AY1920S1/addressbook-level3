@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.model.Model.PREDICATE_SHOW_ALL_ANSWERABLE;
 import static seedu.revision.testutil.Assert.assertThrows;
-import static seedu.revision.testutil.TypicalMcqs.MCQ_D;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_D;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -115,7 +115,7 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
+        // different revision tool -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentRevisionTool, userPrefs, history)));
 
         // different filteredList -> returns false
