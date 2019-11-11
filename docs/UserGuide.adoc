@@ -561,7 +561,7 @@ image::ugalvin/deleteevent.png[width=100%]
 
 After deleting that event from TimeBook, Bobby's schedule is automatically updated!
 
-==== View a Schedule: `schedule`
+==== Generate a Schedule: `schedule`
 ____
 Want to see a schedule between you and your friends? Simple use the `schedule` command!
 ____
@@ -829,6 +829,101 @@ image:./icons/warning.png[] Take note that if you are exporting a group's schedu
 Format:
 
 * `export` +
+
+==== Select Time Slot: `select`
+
+____
+Want to get more information about a particular time slot? Want to know where the venue of that time slot is?
+No worries! Simply select the time slot and TimeBook will tell you all about it!
+____
+
+When viewing a schedule on TimeBook, you can select a time slot to get more information out of it!
+
+The `select` command works when view a group's schedule, person's schedule or home page! The format for this command's
+use are detailed below!
+
+Format (group schedule): `select n/NAME [week/WEEK_NUMBER] i/ID`
+
+* Selects a time slot specified by `ID` that belongs to a person specified by `NAME`, on week `WEEK_NUMBER`
+
+Format (person schedule): `select [week/WEEK_NUMBER] i/ID`
+
+* Selects a time slot specified by `ID` on week `WEEK_NUMBER` that belongs to the current person shown in the schedule
+
+* If a name is specified, TimeBook will ignore it! Because we know you want to view the current person that is shown!
+
+Format (home): `select i/ID`
+
+* Selects a time slot specified by `ID` on your home page. The home page will not show the ID of the time slot,
+the `ID` is ordered with the earliest time slot as `ID:1`
+
+* If a person name or week is specified, TimeBook will ignore it! Because we know you want to view the time slots on your home page!
+
+Prefixes:
+
+* `n/`: specifies the name of a person
+** A name must be alphanumeric
+* `week/` specifies the week of the schedule (optional)
+** A week must be an interger between 1 and 4 inclusive
+** If no week number is specified, TimeBook will choose the default week 1
+* `i/`: specifies the ID number of the time slot
+** An ID must be a positive number.
+
+When you execute the `select` command, it  generates a pop up window that shows you the details of the selected time slot!
+We have also integrated this service with GoogleMaps and shows you the location of this time slot on the map!
+
+The figure below shows how a pop up window will look like!
+
+image::ugalvin/selectpopup.png[width=100%]
+
+After you have viewed the time slot details, simply press the `ESC` key on your keyboard, and it will close the pop up!
+You will never have to touch your mouse!
+
+| image:./icons/important.png[] | When the location of the time slot is not a valid location in NUS, the location
+will not be shown on the map!
+
+image::ugalvin/select1.png[width=100%]
+
+When a group's schedule is shown, each members time slots are colour coded as shown above.
+Each time slot is also labeled with an ID for easy reference!
+
+Let us try to select Bobby's time slot 1. To select it, simply execute the following command!
+
+Example:
+
+* `select n/Bobby i/1`
+
+After executing that command, a pop up will be shown just like the one above!
+
+
+image::ugalvin/select2.png[width=100%]
+
+When a person's schedule is shown, each events are colour coded as shown above.
+Each time slot is also labeled with an ID for easy reference! The name of the event is also shown!
+
+Let us try to select time slot 1. To select it, simply execute the following command!
+
+Example:
+
+* `select i/1`
+
+After executing that command, a pop up will be shown just like the one above!
+
+image::ugalvin/select3.png[width=100%]
+
+When the home page is shown, you can select each time slot on the list! Do note that the first time slot on the list
+will have `ID:1` and the following time slots will follow with the next number. We chose to omit the number so you have
+a more cleaner home page!
+
+Simply execute the `select` command and specify the time slot you want to view like so:
+
+Example:
+
+* `select i/1`
+
+After executing that command, a pop up will be shown similar to the one above!
+
+
 
 === Closest Common Location
 
