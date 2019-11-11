@@ -2,6 +2,7 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:icons: font
 
 This document serves to show the various contributions that I have made in the development of link:https://ay1920s1-cs2103t-f13-4.github.io/main/index.html[EzWatchlist]
 in a concise and understandable manner.
@@ -22,19 +23,30 @@ image::Ui.png[width="790"]
 * Online search and syncing of shows
 * Statistics about user's watchlist
 
-[NOTE]
-Highlighted words indicate commands or components of the application. Eg. `watch` command, `WatchCommand` class
-
-== Summary of Contributions
-
-This section provides an overview of the contributions that I have made to the development of EzWatchlist. It also
-showcases some of my coding and documentation abilities, and the challenges I faced during the development of EzWatchlist.
-
 === Role
 I was tasked with ensuring integration of the features of EzWatchlist. This means that I had to ensure that the commands
 work with one another well and perform their expected functions in the respective pages. This was a challenge
 since our application uses 4 different tabs, each with their unique functions and list of shows, so the implementation
 of the commands would vary from tab to tab.
+
+=== Interpreting Symbols
+The table below shows a summary of the symbols used and their respective meanings.
+
+[width="59%",cols="^22%,^50%",options="header",align="centre"]
+|===================================
+|Symbol |Meaning
+
+|`Command` `Component`|Commands and Components of the Project
+
+|icon:lightbulb-o[role="icon-tip", size="2x"]|Tips for the user
+
+|icon:info-circle[role="icon-note", size="2x"] |Additional information
+|===================================
+
+== Summary of Contributions
+
+This section provides an overview of the contributions that I have made to the development of EzWatchlist. It also
+showcases some of my coding and documentation abilities, and the challenges I faced during the development of EzWatchlist.
 
 === Major Contributions
 

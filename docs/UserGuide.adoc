@@ -617,13 +617,13 @@ There is no need to save manually.
 
 == Command Summary
 
-* *Add* `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]` +
+* *Add* : `add n/SHOW_NAME t/SHOW_TYPE [d/DATE_OF_RELEASE] [w/WATCHED] [r/RUNNING_TIME] [s/DESCRIPTION] [a/ACTOR_NAME]` +
 e.g. `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
-* *Add from search result page* `add INDEX` +
+* *Add from search result page* : `add INDEX` +
 e.g. `add 1`
-* *Sync* `sync INDEX` +
+* *Sync* : `sync INDEX` +
 e.g. `sync 2`
-* *CLEAR* `clear`
+* *Clear* : `clear`
 * *Watch* : `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
@@ -632,9 +632,9 @@ e.g. `edit 2 n/John Wick a/Johnny Depp`
 * *Search*
 ** *by name* : `search n/SHOW_NAME... [g/GENRE]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
 e.g. `search n/Joker o/no` searches for shows with the name 'Joker' within the watchlist
-** *by genre* `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
+** *by genre* : `search g/GENRE... [n/SHOW_NAME]... [a/ACTOR_NAME]... [i/IS_INTERNAL] [t/TYPE] [w/IS_WATCH]` +
 e.g. `search g/Action t/movie` searches for movies from the online database with the genre 'Action'
-** *by actor from watchlist* `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]` +
+** *by actor from watchlist* : `search a/ACTOR_NAME... [n/SHOW_NAME]... [g/GENRE]... [t/TYPE] [w/IS_WATCH]` +
 e.g. `search a/Tom` searches from shows within the watchlist with actor named 'Tom'
 
 * *Exit* : `exit`
