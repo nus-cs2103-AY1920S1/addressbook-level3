@@ -1580,7 +1580,7 @@ If paragraph 1 had a note, it is now found at the bottom of the page.
 .. Test case: `annotate-delete 1 p/p1 h/true` +
 Expected: Annotation on the offline copy of the first bookmark is affected. Paragraph 1 no longer has a note.
 
-. Deleting the annotation of a paragraph of an offline copy (general)
+. Deleting the annotation of a paragraph of an offline copy (in other cases)
 
 .. Prerequisites: Bookmark must have an offline copy available. Paragraph chosen must be annotated.
 .. Test case: `annotate-delete 1 p/p1` +
