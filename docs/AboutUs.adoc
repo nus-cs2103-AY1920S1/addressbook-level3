@@ -27,7 +27,7 @@ Responsibilities: UI
 
 === Keven Loo
 image::aulud.png[width="150", align="left"]
-{empty}[https://github.com/Aulud[github]]
+{empty}[https://github.com/Aulud[GitHub]][https://ay1920s1-cs2103t-w11-2.github.io/main/team/aulud.html[Project Portfolio page]]
 
 Role: Developer +
 Responsibilities: UI

@@ -2,13 +2,6 @@
 
 !include style.puml
 
-actor "User"
-
-box Ui UI_COLOR_T1
-participant ":MainWindow" as MainWindow UI_COLOR
-participant "rd:ResultDisplay" as ResultDisplay UI_COLOR
-end box
-
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
@@ -21,13 +14,10 @@ box Model MODEL_COLOR_T1
 participant "Context" as ContextFactory MODEL_COLOR
 participant "ct:Context" as Context MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
-participant "flp:FilteredList" as FilteredList MODEL_COLOR
+participant "flp:FilteredList<Activity>" as FilteredList MODEL_COLOR
 end box
 
-User -> MainWindow : executeCommand(\n"list a/")
-activate MainWindow
-
-MainWindow -> LogicManager : execute("list a/")
+[-> LogicManager : execute("list a/")
 activate LogicManager
 
 LogicManager -> AddressBookParser : parseCommand(\n"list a/")
@@ -42,12 +32,6 @@ deactivate ListCommandParser
 
 AddressBookParser -> ListCommandParser : parse("a/")
 activate ListCommandParser
-
-ListCommandParser -> ListCommandParser : onePrefixPresent(argMultimap,\nPREFIX_CONTACT, PREFIX_ACTIVITY)
-activate ListCommandParser
-
-ListCommandParser --> ListCommandParser : true
-deactivate ListCommandParser
 
 create ListCommand
 ListCommandParser -> ListCommand : ListCommand(ACTIVITY)
@@ -112,28 +96,7 @@ deactivate ListCommand
 ListCommand -[hidden]-> LogicManager
 destroy ListCommand
 
-LogicManager --> MainWindow : cr
+LogicManager -->[ : cr
 deactivate LogicManager
-
-MainWindow -> ResultDisplay : setFeedbackToUser(...)
-activate ResultDisplay
-
-ResultDisplay --> MainWindow
-deactivate ResultDisplay
-
-MainWindow -> CommandResult : getUpdatedContext()
-activate CommandResult
-
-CommandResult --> MainWindow : Optional<LIST_ACTIVITY>
-deactivate CommandResult
-
-MainWindow -> MainWindow : contextSwitch(LIST_ACTIVITY)
-activate MainWindow
-
-MainWindow --> MainWindow
-deactivate MainWindow
-
-MainWindow --> User : cr
-deactivate MainWindow
 
 @enduml

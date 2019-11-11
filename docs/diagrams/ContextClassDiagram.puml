@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam dpi 250
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam FontColor #FFFFFFF
+skinparam ClassFontSize 14
+skinparam ArrowFontSize 13
+
+show members
+hide empty members
+
+class Activity
+class Person
+
+class Context {
+    -object: Optional<Object>
+    {static} +newListActivityContext(): Context
+    {static} +newListContactContext(): Context
+    +getActivity(): Optional<Activity>
+    +getContact(): Optional<Person>
+    +getType(): ContextType
+}
+
+enum ContextType<<enumeration>> {
+    VIEW_CONTACT
+    VIEW_ACTIVITY
+    LIST_CONTACT
+    LIST_ACTIVITY
+}
+
+Context -down-> "type 1 " ContextType
+Context .left.> Activity
+Context .right.> Person
+@enduml

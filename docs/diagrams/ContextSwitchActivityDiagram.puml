@@ -1,0 +1,57 @@
+@startuml
+start
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+:Command execution finishes,
+returning a CommandResult;
+
+:Display the success message
+from executing the command;
+
+if () then ([Result shows help])
+    :   Display help window to user   ;
+else ([Do not show help])
+endif
+
+if () then ([Result exits app]])
+    :Close the application window;
+    stop
+else([Do not exit])
+endif
+
+if () then ([Result contains new Context])
+    :Remove currently displayed UI panel;
+    :Determine type of new Context;
+    -> Switch based on context type;
+    if (LIST_ACTIVITY) then (true)
+        :Refresh activity
+        list panel;
+        :Display activity
+        list panel;
+    elseif(LIST_CONTACT) then (true)
+        :Display contact
+        list panel;
+    elseif(VIEW_ACTIVITY) then (true)
+        :Retrieve activity
+        from Context;
+        :Create details panel
+        for this activity;
+        :Display activity
+        details panel;
+    elseif(VIEW_CONTACT) then (true)
+        :Retrieve contact
+        from Context;
+        :Create details panel
+        for this contact;
+        :Display contact
+        details panel;
+    else ([default case])
+        :Show warning
+        in status bar;
+    endif
+else([Context unchanged])
+endif
+stop
+@enduml
