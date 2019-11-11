@@ -1,0 +1,61 @@
+@startuml
+!include ../style.puml
+
+title Executing "edit ds/10/10/2019" in Days Page
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":TravelPalParser" as TravelPalParser LOGIC_COLOR
+participant ":EditDayParser" as EditDayParser LOGIC_COLOR
+participant ":EditDayFieldParser" as EditDayFieldParser LOGIC_COLOR
+participant "editDayDescriptor:EditDayDescriptor" as EditDayDescriptor LOGIC_COLOR
+participant "command:EditDayFieldCommand" as EditDayFieldCommand LOGIC_COLOR
+end box
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":PageStatus" as PageStatus MODEL_COLOR
+end box
+
+
+[-> LogicManager : execute("edit ds/10/10/2019")
+activate LogicManager
+
+LogicManager -> TravelPalParser : parseCommand("edit ds/10/10/2019")
+activate TravelPalParser
+
+create EditDayParser
+TravelPalParser -> EditDayParser
+activate EditDayParser
+return
+TravelPalParser -> EditDayParser : parse("edit", "ds/10/10/2019)
+activate EditDayParser
+
+create EditDayFieldParser
+EditDayParser -> EditDayFieldParser
+activate EditDayFieldParser
+return
+EditDayParser -> EditDayFieldParser : parse("ds/10/10/2019")
+activate EditDayFieldParser
+
+create EditDayDescriptor
+EditDayFieldParser -> EditDayDescriptor
+activate EditDayDescriptor
+return
+EditDayFieldParser -> EditDayDescriptor : setStartDate(startDate)
+activate EditDayDescriptor
+return
+
+create EditDayFieldCommand
+EditDayFieldParser -> EditDayFieldCommand
+activate EditDayFieldCommand
+return command
+return command
+return command
+return command
+
+ref over LogicManager, TravelPalParser, EditDayParser, EditDayFieldParser, EditDayDescriptor, EditDayFieldCommand, Model, PageStatus
+Execute command
+end ref
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
