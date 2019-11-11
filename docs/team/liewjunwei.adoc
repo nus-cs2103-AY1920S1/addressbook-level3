@@ -41,7 +41,7 @@ The diary feature provide users with the ability to share their fitness and heal
 view diaries in a simple and intuitive manner. The initial works for building the diary feature includes heavy referencing from the existing
 Address Book 3 (AB3) codebase.
 
-=== Major Enhancements
+=== *Major Enhancements*
 
 ==== Enhancement 1: Creating the `ViewDiaryCommand`
 
@@ -62,7 +62,7 @@ interface that is more suited for lengthy inputs.
 This enhancement required heavy works in terms of GUI and I had to ensure that the inputs provided in the Page Input Form
 are first validated before it can be executed as a command.
 
-=== Minor Enhancements
+=== *Minor Enhancements*
 
 ==== Enhancement: Adding icons and colours to pages
 
