@@ -12,6 +12,8 @@ import seedu.billboard.commons.core.GuiSettings;
 import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.recurrence.Recurrence;
+import seedu.billboard.model.recurrence.RecurrenceList;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
@@ -221,4 +223,20 @@ public interface Model {
      * @return HashMap the filteredArchives.
      */
     HashMap<String, FilteredList<Expense>> getFilteredArchives();
+
+    // ====================== Recurrence methods =======================
+
+    boolean hasRecurrence(Recurrence recurrence);
+
+    RecurrenceList getRecurrences();
+
+    void setRecurrences(RecurrenceList recurrences);
+
+    void setRecurrences(List<Recurrence> recurrences);
+
+    void addRecurrence(Recurrence recurrence);
+
+    void removeRecurrence(Recurrence recurrence);
+
+    Recurrence removeRecurrence(int index);
 }

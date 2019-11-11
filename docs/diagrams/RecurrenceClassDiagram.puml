@@ -1,0 +1,32 @@
+@startuml
+skinparam classAttributeIconSize 0
+hide empty members
+
+package model {
+Interface Model <<Interface>>
+Class ModelManager
+Interface ReadOnlyRecurrenceList
+Class RecurrenceList
+}
+
+package recurrence {
+    Class Recurrence {
+    String name
+    }
+}
+
+package expense {
+    Class ExpenseList
+    Class Expense
+}
+
+
+
+ModelManager .up.|> Model
+RecurrenceList .up.|> ReadOnlyRecurrenceList
+ModelManager o-right- "1" RecurrenceList
+Recurrence -right-|> ExpenseList
+RecurrenceList *-right- Recurrence
+ExpenseList o-down- "*" Expense
+
+@enduml

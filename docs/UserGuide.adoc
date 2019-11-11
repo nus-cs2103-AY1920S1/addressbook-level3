@@ -54,7 +54,6 @@ provide a value for that parameter, it will default to the default value stated.
 
 ====
 
-
 === Managing expenses: `expense`
 
 . _Add a new expense: add_ +
@@ -75,7 +74,8 @@ INFO: +
 +
 Example:  +
 `add n/buy a book d/math textbook a/10 t/coop` +
-Adds an expense to record where the name is “buy a book”, description is "math textbook" and the amount is 10. +
+Adds an expense to record where the name is “buy a book”, description is "math textbook",
+the amount is 10, and attach a "coop" tag on it. +
 {nbsp} +
 
 . _Edit an existing expense: edit_ +
@@ -146,6 +146,75 @@ This _actually_ deletes all your commands, use with caution! The undo feature ma
 
 [NOTE]
 Archived expenses are not cleared. +
+
+=== Managing recurring expenses
+
+. _Add a new recurrence: recur add_ +
+Adds an recurrence to records. +
+Usage:
+
+ recur add [NAME] [DESCRIPTION] [AMOUNT] [START DATE] [END DATE] [INTERVAL]
++
+Example:  +
+`recur add n/pay school fees d/yearly nus tuition fees a/8000 sd/1/8/2018 ed/1/8/2021 interval/yearly` +
+Adds an recurring expense to record where the name is "pay school fees", description is “yearly nus tuition fees”,
+ amount of payment is 8000, first payment is on 1 Auguest 2018, last payment is on 1 August 2021, payment interval is
+  yearly. +
+{nbsp} +
+
+. _Edit an existing recurrence: recur edit_ +
+Edits an existing recurring expense that is being displayed on the GUI. At least one editing option must be supplied. +
+[Coming in V2.0] +
+{nbsp} +
+Usage:
+
+ recur edit [INDEX] [OPTIONS]
++
+Options: +
+
+* `n/`: Specify new name to update occurrence with. +
+* `d/`: Specify new description to update occurrence with. +
+* `a/`: Specify new amount to update occurrence with. +
+* `sd/`: Specify new start date to update occurrence with. +
+* `ed/`: Specify new end date to update occurrence with. +
+* `interval/`: Specify new interval to update occurrence with. +
+{nbsp} +
+
++
+Example: +
+`recur edit 2 d/“buy a math book”` +
+Edit the recurrence at index 2 with new description of: “buy a math book” +
+{nbsp} +
+
+. _Delete an existing recurrence: recur rm_ +
+Deletes an existing recurrence that is being displayed on the GUI. +
+[Coming in V2.0] +
+{nbsp} +
+Usage:
+
+ recur rm [INDEX]
++
+Example: +
+`recur rm 3` +
+Deletes the recurrence with index 3. +
+{nbsp} +
+
+. _List all recurrence: recur list_ +
+Lists all the recurrence in the record list. +
+{nbsp} +
+Usage:
+
+ recur list
++
+Example: +
+`recur list` +
+Displays below recurences (for example) in the GUI: +
+
+* pay school fees / yearly tuition fee / amount: $8000 / start date: 1 Aug 2018 / end date: 1 Aug 2021 /
+Interval: Yearly +
+ * pay for phone subscription / Starhub XL Plan / amount: $150 / start date: 1 Aug 2018 / end date: 1 Jul 2020 /
+Interval: Monthly
+{nbsp} +
 
 // tag::tagging[]
 === Tagging expenses: `tag`
@@ -306,7 +375,7 @@ Sort expenses by amount of expense in from largest to smallest. +
 {nbsp} +
 Usage:
 
- sort amt
+ sort amount
 
 {nbsp} +
 
@@ -665,15 +734,6 @@ By pressing the Down(&darr;) key, you can get the sequential command entered in 
 {nbsp} +
 
 // end::updownkey[]
-
-// tag::clear[]
-=== Clear the expenses: `clear`
-
-. _Get the previous entered command: &uarr;_ +
-You can clear all the expenses in Billboard by simply executing the `clear` command. `clear` will ignore the parameter you key in. +
-{nbsp} +
-
-// end::clear[]
 
 === Viewing help: `help`
 

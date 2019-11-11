@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.recurrence.RecurrenceList;
 import seedu.billboard.model.tag.Tag;
 
 /**
@@ -16,6 +17,8 @@ public interface ReadOnlyBillboard {
      * Returns an unmodifiable view of the expense list.
      */
     ObservableList<Expense> getExpenses();
+
+    RecurrenceList getRecurrences();
 
     Map<Tag, Integer> getCountManager();
 
