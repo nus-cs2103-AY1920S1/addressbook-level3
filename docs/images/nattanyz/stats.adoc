@@ -1,0 +1,11 @@
+= Statistics feature
+
+Written in a separate doc to avoid merge conflicts given frequent updates to DG.
+Unfortunately, it seems that all text is inexplicably bold.
+
+== Statistics feature
+
+* The Statistics feature revolves around the storage and interpretation of the user's *sessions*, be it _login_ sessions or _test_ sessions.
+* Therefore, the `Session` class is the main building block of all Statistics-related classes. They are stored in `SessionList` objects.
+* Due to multiple design considerations, the
+

@@ -72,6 +72,10 @@ The following table provides a summary of some of my GUI enhancements:
 |image:old mcq.png[]
 |image:new mcq.png[]
 
+|Same as above, but for Java card test cases. Also added prompt text to help user with inputting test cases.
+|image:old java card.png[]
+|image:new java card.png[]
+
 |Set a constrained minimum size for the application window, to maintain visibility when the window is resized by the user.
 |image:old resize.png[] The window can be resized beyond reasonable limits.
 |image:new empty deck.png[] The window maintains its minimum size.
