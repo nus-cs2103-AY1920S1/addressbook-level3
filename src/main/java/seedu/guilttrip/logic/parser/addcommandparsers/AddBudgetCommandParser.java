@@ -46,13 +46,13 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
                 PREFIX_CATEGORY, PREFIX_DESC, PREFIX_AMOUNT, PREFIX_DATE, PREFIX_PERIOD);
 
         String categoryName = argMultimap.getValue(PREFIX_CATEGORY).get();
+        Category category = ParserUtil.parseCategory(categoryName, "Expense");
         Description desc = ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Period period = ParserUtil.parsePeriods(argMultimap.getValue(PREFIX_PERIOD).get());
         Amount amt = ParserUtil.parseAmount(argMultimap.getValue(PREFIX_AMOUNT).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Entry entry = new Budget(new Category(categoryName, "Expense"), desc, date, period, amt, tagList);
+        Entry entry = new Budget(category, desc, date, period, amt, tagList);
 
         return new AddBudgetCommand(entry);
     }

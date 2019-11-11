@@ -51,7 +51,7 @@ public class IncomeCard extends UiPart<Region> {
         desc.setText(descWithType);
         date.setText(income.getDate().toString());
         amt.setText("$" + income.getAmount().value);
-        category.setText(income.getCategory().categoryName);
+        category.setText(income.getCategory().getCategoryName());
 
         income.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

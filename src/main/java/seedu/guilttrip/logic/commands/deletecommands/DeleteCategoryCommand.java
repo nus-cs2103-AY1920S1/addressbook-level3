@@ -14,7 +14,7 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Category;
 
 /**
- * Deletes a category from guilttrip();
+ * Deletes a category from guiltTrip;
  */
 public class DeleteCategoryCommand extends Command {
 
@@ -38,6 +38,16 @@ public class DeleteCategoryCommand extends Command {
         this.targetCategory = category;
     }
 
+    /**
+     *  Deletes Category target category to the existing categories. Model will handle the check if the category is
+     *  present in the list and if the category has any existing entries.
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the category to be deleted does not exist in the list or if the category to be
+     * deleted has existing entries
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

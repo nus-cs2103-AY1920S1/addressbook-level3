@@ -35,6 +35,14 @@ public class DeleteExpenseCommand extends Command {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Deletes Expense from the specified Index.
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the index specified is invalid.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

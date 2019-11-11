@@ -2,14 +2,20 @@ package seedu.guilttrip.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.AMOUNT_STRING;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.DESC_CLOTHING_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.DESC_FOOD_EXPENSE;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_CLOTHING_EXPENSE;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_DESC_FOOD_EXPENSE;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.guilttrip.logic.commands.CommandTestUtil.showExpenseAtIndex;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_FIRST_ENTRY;
 import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_SECOND_ENTRY;
+import static seedu.guilttrip.testutil.TypicalIndexes.INDEX_THIRD_ENTRY;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,10 +25,13 @@ import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.CommandHistoryStub;
 import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand;
 import seedu.guilttrip.logic.commands.editcommands.EditExpenseCommand.EditExpenseDescriptor;
+import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
 import seedu.guilttrip.model.UserPrefs;
+import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.testutil.EditExpenseDescriptorBuilder;
+import seedu.guilttrip.testutil.ExpenseBuilder;
 
 /**
  * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
@@ -33,7 +42,7 @@ public class EditExpenseCommandTest {
     private Model model = new ModelManager(getTypicalGuiltTrip(), new UserPrefs());
     private CommandHistory chs = new CommandHistoryStub();
 
-    /*@Test
+    @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Expense editedExpense = new ExpenseBuilder().build();
         EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder(editedExpense).build();
@@ -46,9 +55,9 @@ public class EditExpenseCommandTest {
         expectedModel.commitGuiltTrip();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, chs);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
         Index indexLastExpense = Index.fromOneBased(model.getFilteredExpenses().size());
         //Last Expense is travel expense
@@ -71,9 +80,9 @@ public class EditExpenseCommandTest {
         expectedModel.commitGuiltTrip();
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, chs);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_sameExpenseEditedUnfilteredList_throwsIllegalValueException() {
         Expense editedExpense = model.getFilteredExpenses().get(INDEX_FIRST_ENTRY.getZeroBased());
 
@@ -85,9 +94,9 @@ public class EditExpenseCommandTest {
 
         String expectedMessage = String.format(EditExpenseCommand.MESSAGE_DUPLICATE_ENTRY, editedExpense);
         assertCommandFailure(editCommand, model, expectedMessage, chs);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_filteredList_success() {
         showExpenseAtIndex(model, INDEX_THIRD_ENTRY);
         //after filtered left with 1 which is the third entry, which is why all is INDEX_FIRST_ENTRY
@@ -102,9 +111,9 @@ public class EditExpenseCommandTest {
         expectedModel.setExpense(model.getFilteredExpenses().get(INDEX_FIRST_ENTRY.getZeroBased()), editedExpense);
         expectedModel.commitGuiltTrip();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, chs);
-    }*/
+    }
 
-    /*@Test
+    @Test
     public void execute_duplicateExpenseList_success() {
         //duplicate the first entry
         Expense firstExpense = model.getFilteredExpenses().get(INDEX_FIRST_ENTRY.getZeroBased());
@@ -118,8 +127,7 @@ public class EditExpenseCommandTest {
         String expectedMessage = String.format(EditExpenseCommand.MESSAGE_EDIT_ENTRY_SUCCESS, editedExpense);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel, chs);
-    }*/
-
+    }
 
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {

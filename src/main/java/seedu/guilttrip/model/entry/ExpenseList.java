@@ -25,7 +25,7 @@ import seedu.guilttrip.model.entry.exceptions.EntryNotFoundException;
 public class ExpenseList implements Iterable<Expense> {
 
     private final ObservableList<Expense> internalList = FXCollections.observableArrayList(toobserve ->
-            new Observable[] {new SimpleStringProperty(toobserve.getCategory().categoryName)});
+            new Observable[] {new SimpleStringProperty(toobserve.getCategory().getCategoryName())});
     private final ObservableList<Expense> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 

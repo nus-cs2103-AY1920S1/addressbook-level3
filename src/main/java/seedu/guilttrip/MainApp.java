@@ -16,7 +16,6 @@ import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.logic.LogicManager;
-import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
 import seedu.guilttrip.model.ReadOnlyGuiltTrip;
@@ -83,14 +82,14 @@ public class MainApp extends Application {
             initialData = guiltTripOptional.orElseGet(SampleDataUtil::getSampleGuiltTrip);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty GuiltTrip");
-            initialData = new GuiltTrip(true);
+            initialData = SampleDataUtil.getSampleGuiltTrip();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty GuiltTrip");
-            initialData = new GuiltTrip(true);
+            initialData = SampleDataUtil.getSampleGuiltTrip();
         } catch (IllegalArgumentException e) {
             logger.warning("Problem while reading from the file. There is a duplicate category and "
                     + "will be starting with an empty GuiltTrip");
-            initialData = new GuiltTrip(true);
+            initialData = SampleDataUtil.getSampleGuiltTrip();
         }
 
         return new ModelManager(initialData, userPrefs);

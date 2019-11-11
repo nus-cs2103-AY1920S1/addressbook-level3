@@ -1,0 +1,82 @@
+@startuml
+package Statistics {
+Interface Statistics <<Interface>>
+Class StatisticsManager
+Class MonthList
+Class DailyList
+Class DailyStatistics
+Class CategoryStatistics
+}
+
+interface Statistics {
+updateListOfStats(): void
+updateListOfStats(List<Date>): void
+updateBarCharts(): void
+updateBarCharts(Date): void
+}
+
+class StatisticsManager {
+    -yearlyRecord: ObservableMap<Integer, ObservableMap<Integer, MonthList>>
+    -listOfStatsForExpense: ObservableList<CategoryStatistics>
+    -listOfStatsForIncome: ObservableList<CategoryStatistics>
+    -listOfStatsForDaily: ObservableList<DailyStatistics>
+    -totalExpenseForPeriod: DoubleProperty
+    -totalIncomeForPeriod: DoubleProperty
+    +updateBarCharts(): void
+    +updateBarCharts(Date monthToShow): void
+    +updateListOfStats(): void
+    +updateListOfStats(List<Date>): void
+    -getMonth(Date): ArrayList<MonthList>
+    -getListOfMonths(List<Date>): ArrayList<MonthList>
+    -retrieveSpecifiedMonths(startMonth: int, endMonth: int, year: int): ArrayList<MonthList>
+    -countStats(ArrayList<MonthList>, ObservableList<CategoryStatistics>: double
+    -calculateTotalAmountForCategory(ArrayList<MonthList>, Category): double
+
+}
+class DailyStatistics {
+-EXACT_DAY: LocalDate
+-totalExpense: double
+-totalIncome: double
++getTotalExpense(): double
++getTotalIncome(): double
+}
+
+class DailyList {
+-listOfExpenses: FilteredList<Expense>
+-listOfIncomes: FilteredList<Income>
+-date: LocalDate
++calculateStatisticsForBarChart(): DailyStatistics
+}
+
+class MonthList {
+-listOfExpenseCategories: List<Category>
+-listOfIncomeCategories: List<Category>
+-mapOfExpenseCategories: ObservableMap<Category, FilteredList<Expense>>
+-mapOfIncomeCategories: ObservableMap<Category, FilteredList<Income>>
+-listOfDailyStatistics: ObservableList<DailyStatistics>
+-mapOfDailyLists: ObservableMap<Integer, DailyList>
+-yearMonth: YearMonth
++calculateStatisticsForBarChart(): ObservableList<DailyStatistics>
++updateListOfStats(Category): double
+-initRecords(): void
+-updateMapOfEntries(Category cat): void
+}
+
+class CategoryStatistics {
+-nameOfCategory: Category
+-amountCalculated: double
++getCategoryName(): String
++setAmountCalculated(double): void
++getCategoryNameProperty(): StringProperty
++getCategory(): Category
++getAmountCalculated(): double
++getAmountCalculatedProperty(): DoubleProperty
+}
+
+StatisticsManager .up.|> Statistics
+StatisticsManager *--> "1..*" CategoryStatistics
+StatisticsManager *--> "1..*" MonthList
+MonthList *--> "28..31" DailyList
+MonthList *--> "28..31" DailyStatistics
+
+@enduml

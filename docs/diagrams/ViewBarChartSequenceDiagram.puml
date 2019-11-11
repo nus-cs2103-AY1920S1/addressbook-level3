@@ -1,0 +1,100 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
+participant ":ViewBarChartCommandParser" as ViewBarChartCommandParser LOGIC_COLOR
+participant "v:ViewBarChartCommand" as ViewBarChartCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Statistics STATS_COLOR
+participant ":StatisticsManager" as StatisticsManager STATS_COLOR_T1
+participant "m:MonthList" as MonthList STATS_COLOR_T1
+participant "dl:DailyList" as DailyList STATS_COLOR_T1
+participant "ds:DailyStatistics" as DailyStatistics STATS_COLOR_T1
+end box
+
+[-> LogicManager : execute("viewBar p/2019-09")
+activate LogicManager
+
+LogicManager -> guiltTripParser : parseCommand("viewBar p/2019-09")
+activate guiltTripParser
+
+create ViewBarChartCommandParser
+guiltTripParser -> ViewBarChartCommandParser
+activate ViewBarChartCommandParser
+
+ViewBarChartCommandParser --> guiltTripParser
+deactivate ViewBarChartCommandParser
+
+guiltTripParser -> ViewBarChartCommandParser : parse("p/2019-09")
+activate ViewBarChartCommandParser
+
+create ViewBarChartCommand
+ViewBarChartCommandParser -> ViewBarChartCommand
+activate ViewBarChartCommand
+
+ViewBarChartCommand --> ViewBarChartCommandParser : v
+deactivate ViewBarChartCommand
+
+ViewBarChartCommandParser --> guiltTripParser : v
+deactivate ViewBarChartCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ViewBarChartCommandParser -[hidden]-> guiltTripParser
+destroy ViewBarChartCommandParser
+
+guiltTripParser --> LogicManager : v
+deactivate guiltTripParser
+
+LogicManager -> ViewBarChartCommand : execute()
+activate ViewBarChartCommand
+
+ViewBarChartCommand -> Model : updateBarChart(monthToShow)
+activate Model
+
+Model -> StatisticsManager: updateBarChart(monthToShow)
+activate StatisticsManager
+
+StatisticsManager -> MonthList: getSpecifiedMonth(monthToShow)
+activate MonthList
+MonthList -> StatisticsManager: m
+deactivate MonthList
+
+StatisticsManager -> MonthList: calculateStatisticsForBarChart()
+activate MonthList
+loop until all DailyLists in the MonthList have been called
+MonthList -> DailyList: calculateStatisticsForBarChart()
+activate DailyList
+DailyList -> DailyStatistics: createDailyStatistics(dateOfDailyList, totalExpenseForDay, totalIncomeForDay)
+activate DailyStatistics
+DailyStatistics --> DailyList: ds
+deactivate DailyStatistics
+DailyList --> MonthList: ds
+end
+deactivate DailyList
+MonthList --> StatisticsManager: replaceWithNewListOfDailyStatistics
+deactivate MonthList
+StatisticsManager --> Model:
+deactivate StatisticsManager
+Model --> ViewBarChartCommand
+deactivate Model
+
+create CommandResult
+ViewBarChartCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ViewBarChartCommand: result
+deactivate CommandResult
+
+ViewBarChartCommand --> LogicManager : result
+deactivate ViewBarChartCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

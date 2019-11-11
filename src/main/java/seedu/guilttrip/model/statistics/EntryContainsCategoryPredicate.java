@@ -13,7 +13,7 @@ public class EntryContainsCategoryPredicate implements Predicate<Entry> {
     private Category categoryFromUser;
 
     /**
-     * Filters the entrylist based on the int day.
+     * Filters the entrylist based on the specified category.
      */
     public EntryContainsCategoryPredicate(Category categoryFromUser) {
         this.categoryFromUser = categoryFromUser;

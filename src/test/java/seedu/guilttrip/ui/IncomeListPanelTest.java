@@ -17,6 +17,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Income;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.ui.gui.guihandles.IncomeCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.IncomeListPanelHandle;
 import seedu.guilttrip.ui.income.IncomeListPanel;
@@ -87,7 +88,7 @@ public class IncomeListPanelTest extends GuiUnitTest {
         for (int i = 0; i < incomeCount; i++) {
             Description desc = new Description(i + "a");
             Amount amt = new Amount("20");
-            Category category = new Category("Salary", "Income");
+            Category category = new Category("Salary", CategoryType.INCOME);
             Date date = new Date("2019 11 09");
             Income income = new Income(category, desc, date, amt, Collections.emptySet());
             backingList.add(income);

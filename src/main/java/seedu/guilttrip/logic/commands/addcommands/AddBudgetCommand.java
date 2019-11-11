@@ -57,6 +57,13 @@ public class AddBudgetCommand extends Command {
         toAdd = entry;
     }
 
+    /**
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return
+     * @throws CommandException if the category of the income to be added does not exists in the list.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

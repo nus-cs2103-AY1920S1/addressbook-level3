@@ -18,6 +18,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.ui.expense.ExpenseListPanel;
 import seedu.guilttrip.ui.gui.guihandles.ExpenseCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.ExpenseListPanelHandle;
@@ -88,7 +89,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         for (int i = 0; i < expenseCount; i++) {
             Description desc = new Description(i + "a");
             Amount amt = new Amount("20");
-            Category category = new Category("Food", "Expense");
+            Category category = new Category("Food", CategoryType.EXPENSE);
             Date date = new Date("2019 11 09");
             Expense expense = new Expense(category, desc, date, amt, Collections.emptySet());
             backingList.add(expense);

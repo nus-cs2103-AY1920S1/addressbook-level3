@@ -4,8 +4,8 @@
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":DeleteExpenseCommandParser" as DeleteExpenseCommandParser LOGIC_COLOR
+participant "d:DeleteExpenseCommand" as DeleteExpenseCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -19,50 +19,50 @@ activate LogicManager
 LogicManager -> guiltTripParser : parseCommand("delete 1")
 activate guiltTripParser
 
-create DeleteCommandParser
-guiltTripParser -> DeleteCommandParser
-activate DeleteCommandParser
+create DeleteExpenseCommandParser
+guiltTripParser -> DeleteExpenseCommandParser
+activate DeleteExpenseCommandParser
 
-DeleteCommandParser --> guiltTripParser
-deactivate DeleteCommandParser
+DeleteExpenseCommandParser --> guiltTripParser
+deactivate DeleteExpenseCommandParser
 
-guiltTripParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+guiltTripParser -> DeleteExpenseCommandParser : parse("1")
+activate DeleteExpenseCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteExpenseCommand
+DeleteExpenseCommandParser -> DeleteExpenseCommand
+activate DeleteExpenseCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteExpenseCommand --> DeleteExpenseCommandParser : d
+deactivate DeleteExpenseCommand
 
-DeleteCommandParser --> guiltTripParser : d
-deactivate DeleteCommandParser
+DeleteExpenseCommandParser --> guiltTripParser : d
+deactivate DeleteExpenseCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> guiltTripParser
-destroy DeleteCommandParser
+DeleteExpenseCommandParser -[hidden]-> guiltTripParser
+destroy DeleteExpenseCommandParser
 
 guiltTripParser --> LogicManager : d
 deactivate guiltTripParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteExpenseCommand : execute()
+activate DeleteExpenseCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteExpenseCommand -> Model : deleteExpense(1)
 activate Model
 
-Model --> DeleteCommand
+Model --> DeleteExpenseCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteExpenseCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteExpenseCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+DeleteExpenseCommand --> LogicManager : result
+deactivate DeleteExpenseCommand
 
 [<--LogicManager
 deactivate LogicManager

@@ -6,16 +6,16 @@ import seedu.guilttrip.model.entry.Entry;
 
 
 /**
- * Filters the entrylist predicates based on the int month.
+ * Filters the entrylist predicates based on the int month and int year. Identifies the entries by the month.
  */
-public class EntryTimeContainsPredicate implements Predicate<Entry> {
+public class EntryContainsMonthYearPredicate implements Predicate<Entry> {
     private int monthFromUser;
     private int yearFromUser;
 
     /**
      * Filters the entrylist based on the int monthFromUser and int yearFromUser.
      */
-    public EntryTimeContainsPredicate(int monthFromUser, int yearFromUser) {
+    public EntryContainsMonthYearPredicate(int monthFromUser, int yearFromUser) {
         this.monthFromUser = monthFromUser;
         this.yearFromUser = yearFromUser;
     }
@@ -29,8 +29,8 @@ public class EntryTimeContainsPredicate implements Predicate<Entry> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EntryTimeContainsPredicate // instanceof handles nulls
-                && monthFromUser == ((((EntryTimeContainsPredicate) other).monthFromUser))
-                && yearFromUser == ((((EntryTimeContainsPredicate) other).yearFromUser))); // state check
+                || (other instanceof EntryContainsMonthYearPredicate // instanceof handles nulls
+                && monthFromUser == ((((EntryContainsMonthYearPredicate) other).monthFromUser))
+                && yearFromUser == ((((EntryContainsMonthYearPredicate) other).yearFromUser))); // state check
     }
 }

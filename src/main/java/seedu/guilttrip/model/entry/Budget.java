@@ -94,7 +94,7 @@ public class Budget extends Entry {
      * Returns a new Budget if and only if it's category is edited.
      */
     public Budget modifiedBudget(String newName) {
-        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        Category newCategory = new Category(newName, super.getCategory().getCategoryType());
         return new Budget(newCategory, super.getDesc(), super.getDate(), this.getPeriod(),
                 this.getAmount(), super.getTags(), this.spent);
     }

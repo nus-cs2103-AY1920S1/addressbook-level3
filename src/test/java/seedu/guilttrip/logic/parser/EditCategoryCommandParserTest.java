@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.guilttrip.logic.commands.editcommands.EditCategoryCommand;
 import seedu.guilttrip.logic.parser.editcommandparsers.EditCategoryCommandParser;
 import seedu.guilttrip.model.entry.Category;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.testutil.EditCategoryDescriptorBuilder;
 
 public class EditCategoryCommandParserTest {
@@ -65,7 +66,7 @@ public class EditCategoryCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         String userInput = CATEGORY_TYPE_EXPENSE + CATEGORY_NAME_FOR_EDIT_OLD + CATEGORY_NAME_FOR_EDIT_NEW;
-        Category oldCategoryToEdit = new Category(VALID_OLD_CATEGORY_NAME, VALID_CATEGORY_TYPE_EXPENSE);
+        Category oldCategoryToEdit = new Category(VALID_OLD_CATEGORY_NAME, CategoryType.EXPENSE);
         EditCategoryCommand.EditCategoryDescriptor descriptor = new EditCategoryDescriptorBuilder()
                 .withCategoryName(VALID_NEW_CATEGORY_NAME).withCategoryType(VALID_CATEGORY_TYPE_EXPENSE).build();
         EditCategoryCommand expectedCommand = new EditCategoryCommand(oldCategoryToEdit, descriptor);
