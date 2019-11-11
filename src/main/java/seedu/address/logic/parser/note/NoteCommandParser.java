@@ -6,8 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NOTE_DISPLAYED
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_NOTE_PREAMBLE;
 
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.note.NoteAddCommand;
 import seedu.address.logic.commands.note.NoteCommand;
@@ -23,6 +25,7 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.question.QuestionCommandParser;
 import seedu.address.model.note.Note;
 import seedu.address.model.note.Priority;
 
@@ -30,6 +33,8 @@ import seedu.address.model.note.Priority;
  * Parses input arguments and creates a new {@code NoteCommand} object
  */
 public class NoteCommandParser implements Parser<NoteCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(NoteCommandParser.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the note commands
@@ -63,6 +68,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
+            logger.info("Note preamble index provided is invalid.");
             throw new ParseException(String.format(MESSAGE_INVALID_NOTE_PREAMBLE, NoteEditCommand.MESSAGE_USAGE), pe);
         }
         EditNoteDescriptor editNoteDescriptor = new EditNoteDescriptor();
@@ -70,6 +76,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         Optional<String> desc = argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION);
         if ((note.isPresent() && note.get().isEmpty())
                 || (desc.isPresent() && desc.get().isEmpty())) {
+            logger.info("Note fields provided for editing is invalid.");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteEditCommand.MESSAGE_USAGE));
         }
         editNoteDescriptor.setNote(note);
@@ -85,6 +92,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         if (args.trim().equals("list")) {
             return new NoteListCommand();
         } else {
+            logger.info("note list command error, no additional fields are allowed");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteListCommand.MESSAGE_USAGE));
         }
     }
@@ -93,6 +101,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         if (args.trim().equals("sort")) {
             return new NoteSortCommand();
         } else {
+            logger.info("note sort command error, no additional fields are allowed");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteSortCommand.MESSAGE_USAGE));
         }
     }
@@ -102,10 +111,12 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         try {
             int indexToDelete = Integer.parseInt(argMultimap.getValue(CliSyntax.PREFIX_DELETE).orElse("0"));
             if (indexToDelete <= 0) {
+                logger.info("index of note to delete must be a positive integer");
                 throw new ParseException(MESSAGE_INVALID_NOTE_DISPLAYED_INDEX + "\n" + NoteDeleteCommand.MESSAGE_USAGE);
             }
             index = Index.fromOneBased(indexToDelete);
         } catch (NumberFormatException e) {
+            logger.info("error parsing index of note to delete");
             throw new ParseException(MESSAGE_INVALID_NOTE_DISPLAYED_INDEX + "\n" + NoteDeleteCommand.MESSAGE_USAGE);
         }
         return new NoteDeleteCommand(index);
@@ -115,6 +126,7 @@ public class NoteCommandParser implements Parser<NoteCommand> {
         String note = argMultimap.getValue(CliSyntax.PREFIX_NOTE).orElse("").trim();
         String description = argMultimap.getValue(CliSyntax.PREFIX_DESCRIPTION).orElse("").trim();
         if (note.isEmpty() || description.isEmpty()) {
+            logger.info("note add command has missing fields, command error");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, NoteAddCommand.MESSAGE_USAGE));
         }
         Optional<Priority> priority = argMultimap.getValue(CliSyntax.PREFIX_PRIORITY).isPresent()

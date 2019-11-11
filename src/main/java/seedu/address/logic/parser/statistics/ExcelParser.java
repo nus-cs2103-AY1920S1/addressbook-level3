@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 
 import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.NotOfficeXmlFileException;
@@ -24,12 +25,16 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.quiz.QuizCommandParser;
 
 /**
  * A data parser that parses formatted excel(.xlsx) files containing students score data.
  */
 public class ExcelParser implements DataParser {
+
+    private static final Logger logger = LogsCenter.getLogger(ExcelParser.class);
 
     private FileInputStream file;
     private HashMap<String, HashMap<String, Double>> data;
@@ -53,6 +58,7 @@ public class ExcelParser implements DataParser {
             populateData(rowIterator, students);
             file.close();
         } catch (IOException ex) {
+            logger.info("Error parsing excel input file");
             throw new ParseException(EXCEL_FILE_NOT_PARSED);
         }
         return data;
@@ -89,6 +95,7 @@ public class ExcelParser implements DataParser {
                     throw new ParseException(EXCEL_FILE_ILLEGAL_INPUT);
                 }
             } catch (NullPointerException | NoSuchElementException ex) {
+                logger.info("Excel input file has wrong format");
                 throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
             }
         }
@@ -143,10 +150,12 @@ public class ExcelParser implements DataParser {
                 } else if (studentCell.getCellType() == CellType.NUMERIC) {
                     students.add(String.valueOf(studentCell.getNumericCellValue()));
                 } else {
+                    logger.info("Excel input file has wrong format");
                     throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
                 }
             }
         } else {
+            logger.info("Excel input file has wrong format");
             throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
         }
         return students;
@@ -162,9 +171,11 @@ public class ExcelParser implements DataParser {
             Cell dataStart = studentsIterator.next();
             if (dataStart.getCellType() != CellType.STRING
                     || !dataStart.getStringCellValue().trim().equals("Students")) {
+                logger.info("Excel input file has illegal headers");
                 throw new ParseException(EXCEL_ILLEGAL_HEADER);
             }
         } else {
+            logger.info("Excel input file has wrong format");
             throw new ParseException(EXCEL_FILE_ILLEGAL_FORMAT);
         }
     }
@@ -185,10 +196,13 @@ public class ExcelParser implements DataParser {
             XSSFSheet sheet = workbook.getSheetAt(0);
             return sheet;
         } catch (FileNotFoundException ex) {
+            logger.info("Input file is not found");
             throw new ParseException(EXCEL_FILE_NOT_FOUND);
         } catch (IOException ex) {
+            logger.info("Input file is not parsed, system error");
             throw new ParseException(EXCEL_FILE_NOT_PARSED);
         } catch (NotOfficeXmlFileException | POIXMLException ex) {
+            logger.info("Input file is not supported. Try excel files with .xlsx extension");
             throw new ParseException(EXCEL_FILE_TYPE_ISSUE);
         }
     }

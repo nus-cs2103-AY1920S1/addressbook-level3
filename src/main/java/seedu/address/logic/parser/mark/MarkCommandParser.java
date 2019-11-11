@@ -5,8 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_UNMARK;
 
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.mark.AddMarkCommand;
 import seedu.address.logic.commands.mark.MarkCommand;
@@ -18,11 +20,15 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.question.QuestionCommandParser;
 
 /**
  * Represents a parser for mark commands.
  */
 public class MarkCommandParser implements Parser<MarkCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(MarkCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddMarkCommand/RemoveMarkCommand.
      *
@@ -55,6 +61,7 @@ public class MarkCommandParser implements Parser<MarkCommand> {
                     .orElseThrow(() -> new ParseException(""));
             index = ParserUtil.parseIndex(indexStr);
         } catch (ParseException pe) {
+            logger.info("could not parse mark command, invalid command syntax");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMarkCommand.MESSAGE_USAGE, pe.getMessage()),
                     pe);
@@ -76,6 +83,7 @@ public class MarkCommandParser implements Parser<MarkCommand> {
                     .orElseThrow(() -> new ParseException(""));
             index = ParserUtil.parseIndex(indexStr);
         } catch (ParseException pe) {
+            logger.info("error parsing index of unmark command");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveMarkCommand.MESSAGE_USAGE, pe.getMessage()),
                     pe);

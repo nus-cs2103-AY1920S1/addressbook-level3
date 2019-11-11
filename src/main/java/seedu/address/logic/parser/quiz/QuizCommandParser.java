@@ -19,8 +19,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SHOW_QUESTIONS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.quiz.QuizAddQuestionCommand;
 import seedu.address.logic.commands.quiz.QuizCommand;
 import seedu.address.logic.commands.quiz.QuizCreateAutomaticallyCommand;
@@ -36,11 +38,14 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.question.QuestionCommandParser;
 
 /**
  * Parses input arguments and creates a new {@code RemarkCommand} object
  */
 public class QuizCommandParser implements Parser<QuizCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(QuizCommandParser.class);
 
     /**
      * Parses the given {@code String} of arguments in the context of the QuizCommand
@@ -85,6 +90,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_NUM_QUESTIONS, PREFIX_TYPE)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the create quiz automatically command, command error");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCreateAutomaticallyCommand.MESSAGE_USAGE));
@@ -113,6 +119,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUESTION_NUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the create quiz manually command, command error.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizCreateManuallyCommand.MESSAGE_USAGE));
@@ -134,6 +141,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     private QuizAddQuestionCommand addQuestionCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUESTION_NUMBER, PREFIX_QUIZ_QUESTION_NUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the add question command, command error.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizAddQuestionCommand.MESSAGE_USAGE));
@@ -174,6 +182,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     private QuizDeleteQuestionCommand removeQuestionCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID, PREFIX_QUIZ_QUESTION_NUMBER)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the remove question command, command error.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizDeleteQuestionCommand.MESSAGE_USAGE));
@@ -204,6 +213,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     private QuizExportCommand exportCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the export command, command error.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, QuizExportCommand.MESSAGE_USAGE));
@@ -222,6 +232,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     private QuizShowQuestionsCommand listQuestionsCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the list questions command, command error.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -241,6 +252,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
     private QuizShowAnswersCommand listAnswersCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the list answers command, command error.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -261,6 +273,7 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_QUIZ_ID)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the listing questions and answers command, command error.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT,

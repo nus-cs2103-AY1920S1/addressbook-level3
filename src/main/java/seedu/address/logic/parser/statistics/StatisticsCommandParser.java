@@ -6,8 +6,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_SAVE_STATS_FILE_ERROR;
 import static seedu.address.commons.util.FileUtil.isValidFileName;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.statistics.StatisticsAddCommand;
 import seedu.address.logic.commands.statistics.StatisticsCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -16,12 +18,15 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.quiz.QuizCommandParser;
 import seedu.address.model.statistics.Statistics;
 
 /**
  * Parses input arguments and creates a new StatisticsCommand object
  */
 public class StatisticsCommandParser implements Parser<StatisticsCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(StatisticsCommandParser.class);
 
     private DataParser dataParser = new ExcelParser();
 
@@ -40,6 +45,7 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
 
         if (!arePrefixesPresent(argMultimap, CliSyntax.PREFIX_FILEPATH)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in statistics command");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatisticsAddCommand.MESSAGE_USAGE));
         }
@@ -47,6 +53,7 @@ public class StatisticsCommandParser implements Parser<StatisticsCommand> {
         String filePath = argMultimap.getValue(CliSyntax.PREFIX_FILEPATH).orElse("");
         String printableName = argMultimap.getValue(CliSyntax.PREFIX_PRINT).orElse("");
         if ((arePrefixesPresent(argMultimap, CliSyntax.PREFIX_PRINT) && !isValidFileName(printableName))) {
+            logger.info("filename provided is invalid.");
             throw new ParseException(MESSAGE_SAVE_STATS_FILE_ERROR);
         }
         HashMap<String, HashMap<String, Double>> data = dataParser.parseFile(filePath);

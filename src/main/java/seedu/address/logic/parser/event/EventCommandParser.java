@@ -27,11 +27,13 @@ import static seedu.address.logic.parser.ParserUtil.parseRecurrenceType;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import jfxtras.icalendarfx.components.VEvent;
 import jfxtras.icalendarfx.properties.component.descriptive.Categories;
 import jfxtras.icalendarfx.properties.component.recurrence.RecurrenceRule;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.event.EventAddCommand;
 import seedu.address.logic.commands.event.EventCommand;
@@ -48,12 +50,16 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.question.QuestionCommandParser;
 
 
 /**
  * Parses input arguments and creates a new {@code EventCommand} object
  */
 public class EventCommandParser implements Parser<EventCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(EventCommandParser.class);
+
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentMultimap}.
@@ -98,6 +104,7 @@ public class EventCommandParser implements Parser<EventCommand> {
                 isEdit = true;
             }
         } catch (ParseException pe) {
+            logger.info("Event Command Parser cannot parse the preamble index.");
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EventEditCommand.MESSAGE_USAGE),
                 pe);
@@ -218,6 +225,7 @@ public class EventCommandParser implements Parser<EventCommand> {
             }
             index = Index.fromOneBased(indexToDelete);
         } catch (NumberFormatException e) {
+            logger.info("Invalid event index provided for deleting.");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             EventDeleteCommand.MESSAGE_USAGE));
@@ -260,6 +268,7 @@ public class EventCommandParser implements Parser<EventCommand> {
         String uniqueIdentifier = generateUniqueIdentifier(eventName, startDateTimeString, endDateTimeString);
 
         if (!validateStartEndDateTime(startDateTime, endDateTime)) {
+            logger.info("Invalid event start and/or end date.");
             throw new ParseException(MESSAGE_INVALID_EVENT_DATETIME_RANGE);
         }
 
@@ -287,6 +296,7 @@ public class EventCommandParser implements Parser<EventCommand> {
 
         if (!(argMultimap.getValue(PREFIX_GET_INDEX).isPresent())
                 || (argMultimap.getValue(PREFIX_GET_INDEX).get().isBlank())) {
+            logger.info("The event name is empty, command error");
             throw new ParseException(MESSAGE_INDEX_EMPTY_EVENT_NAME);
         }
 
