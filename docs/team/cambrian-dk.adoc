@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Daryl Koh - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

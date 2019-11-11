@@ -21,9 +21,6 @@ public class TransactionList implements Iterable<Transaction> {
     private final ObservableList<Transaction> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
 
-    public TransactionList() {
-    }
-
     /**
      * Returns true if the list contains an equivalent Transaction as the given argument.
      */

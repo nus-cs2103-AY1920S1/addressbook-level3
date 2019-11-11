@@ -10,7 +10,6 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
-import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -52,8 +51,7 @@ public class TransactionEditCommand extends ScriptCommand {
             + "[" + PREFIX_DESCRIPTION + "<description>] "
             + "[" + PREFIX_ACCOUNT + "<account>] "
             + "[" + PREFIX_CATEGORY + "<category>] "
-            + "[" + PREFIX_DATE + "<date>] "
-            + "[" + PREFIX_RECURRENCE + "<d|w|m|y>]\n"
+            + "[" + PREFIX_DATE + "<date>]\n"
             + "Example: " + COMMAND_WORD + " "
             + "3 "
             + PREFIX_DIRECTION + "out "
@@ -61,8 +59,7 @@ public class TransactionEditCommand extends ScriptCommand {
             + PREFIX_DESCRIPTION + "apple  "
             + PREFIX_ACCOUNT + "food  "
             + PREFIX_CATEGORY + "fruits "
-            + PREFIX_DATE + DATE_EXAMPLE + " "
-            + PREFIX_RECURRENCE + "d\n";
+            + PREFIX_DATE + DATE_EXAMPLE + "\n";
 
     public static final String MESSAGE_SUCCESS = "Transaction %1$d edited.";
     public static final String MESSAGE_UNEDITED = "The edited transaction cannot be the same as the target";

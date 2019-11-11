@@ -9,7 +9,6 @@ import static budgetbuddy.logic.parser.CliSyntax.PREFIX_CATEGORY;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DATE;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static budgetbuddy.logic.parser.CliSyntax.PREFIX_DIRECTION;
-import static budgetbuddy.logic.parser.CliSyntax.PREFIX_RECURRENCE;
 import static java.util.Objects.requireNonNull;
 
 import budgetbuddy.commons.core.index.Index;
@@ -38,16 +37,14 @@ public class TransactionAddCommand extends ScriptCommand {
             + PREFIX_DESCRIPTION + "<description> "
             + "[" + PREFIX_ACCOUNT + "<account>] "
             + "[" + PREFIX_CATEGORY + "<category>] "
-            + "[" + PREFIX_DATE + "<date>] "
-            + "[" + PREFIX_RECURRENCE + "<d|w|m|y>]\n"
+            + "[" + PREFIX_DATE + "<date>]\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_DIRECTION + "out "
             + PREFIX_AMOUNT + "10 "
             + PREFIX_DESCRIPTION + "apple  "
             + PREFIX_ACCOUNT + "food  "
             + PREFIX_CATEGORY + "fruits "
-            + PREFIX_DATE + DATE_EXAMPLE + " "
-            + PREFIX_RECURRENCE + "d\n";
+            + PREFIX_DATE + DATE_EXAMPLE + "\n";
 
     public static final String MESSAGE_SUCCESS = "Transaction added: %1$s";
     public static final String MESSAGE_FAILURE = "Error adding transaction.";
