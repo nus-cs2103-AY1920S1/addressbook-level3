@@ -42,7 +42,7 @@ image::ryoarmanda.png[width="150", align="left"]
 {empty}[http://github.com/ryoarmanda[github]] [<<ryoarmanda#, portfolio>>]
 
 Role: Developer +
-Responsibilities: In charge of Undo-Redo
+Responsibilities: In charge of History and Project Integration.
 
 '''
 

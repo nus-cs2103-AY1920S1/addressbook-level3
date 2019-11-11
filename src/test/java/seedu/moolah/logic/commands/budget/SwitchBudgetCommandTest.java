@@ -16,6 +16,8 @@ import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.general.Description;
+import seedu.moolah.model.modelhistory.ModelChanges;
+import seedu.moolah.model.modelhistory.ModelHistory;
 
 public class SwitchBudgetCommandTest {
     @Test
@@ -33,8 +35,12 @@ public class SwitchBudgetCommandTest {
         try {
             Description validInput = SCHOOL.getDescription();
             SwitchBudgetCommand command = new SwitchBudgetCommand(validInput);
+            ModelHistory expectedModelHistory = new ModelHistory();
+            expectedModelHistory.addToPastChanges(new ModelChanges(command.getDescription())
+                    .setMooLah(model.getMooLah()));
             CommandResult commandResult = command.run(model);
             assertEquals(model.getPrimaryBudget(), SCHOOL);
+            assertEquals(model.getModelHistory(), expectedModelHistory);
             assertEquals(String.format(SwitchBudgetCommand.MESSAGE_SUCCESS, validInput),
                     commandResult.getFeedbackToUser());
         } catch (CommandException e) {

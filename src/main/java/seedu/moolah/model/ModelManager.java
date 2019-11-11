@@ -176,7 +176,7 @@ public class ModelManager implements Model {
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+        this.userPrefs.resetData(userPrefs.copy());
     }
 
     @Override
