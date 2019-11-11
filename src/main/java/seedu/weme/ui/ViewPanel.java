@@ -6,12 +6,12 @@ import java.util.logging.Logger;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.weme.commons.core.LogsCenter;
 import seedu.weme.model.meme.Meme;
 
@@ -33,11 +33,11 @@ public class ViewPanel extends UiPart<Region> {
     @FXML
     private FlowPane tags;
     @FXML
-    private StackPane stackPane;
+    private ScrollPane scroll;
 
     public ViewPanel(ObservableValue<Meme> observableMeme) {
         super(FXML);
-        stackPane.widthProperty().addListener(((observable, oldValue, newValue) -> {
+        scroll.widthProperty().addListener(((observable, oldValue, newValue) -> {
             display.setFitWidth((double) newValue - IMAGE_PADDING * 2); // 20 padding on each side
         }));
         observableMeme.addListener((observable, oldValue, newValue) -> {
