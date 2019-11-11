@@ -24,7 +24,7 @@ import seedu.guilttrip.logic.parser.exceptions.ParseException;
  */
 public final class GuiltTripCommandSuggester {
 
-    private static String lastOutput = "";
+    private static String lastOutput = "Welcome to GuiltTrip!";
 
     private static final int COMMAND_RECOMMENDATION_COUNT = 5;
 

@@ -16,6 +16,7 @@ import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.logic.LogicManager;
+import seedu.guilttrip.model.GuiltTrip;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
 import seedu.guilttrip.model.ReadOnlyGuiltTrip;
@@ -63,6 +64,8 @@ public class MainApp extends Application {
         model = initModelManager(storage, userPrefs);
         logic = new LogicManager(model, storage);
         ui = new UiManager(logic);
+        GuiltTrip guiltTrip = (GuiltTrip) model.getGuiltTrip();
+        guiltTrip.linkReminderListToUi((UiManager) ui);
     }
 
     /**
@@ -71,6 +74,7 @@ public class MainApp extends Application {
      * or an empty GuiltTrip will be used instead if errors occur when reading {@code storage}'s GuiltTrip.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+        TimeUtil.startTimer();
         Optional<ReadOnlyGuiltTrip> guiltTripOptional;
         ReadOnlyGuiltTrip initialData;
         try {

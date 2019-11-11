@@ -43,7 +43,7 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
      */
     public FindBudgetCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_DESC, PREFIX_DATE, PREFIX_AMOUNT, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_CATEGORY, PREFIX_AMOUNT, PREFIX_DESC, PREFIX_DATE, PREFIX_TAG);
 
         List<Predicate<Entry>> predicateList = new ArrayList<Predicate<Entry>>();
         if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
@@ -55,6 +55,11 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
 
             String[] nameKeywords = trimmedArgs.split("\\s+");
             predicateList.add(new EntryContainsDescriptionPredicate(Arrays.asList(nameKeywords)));
+        }
+
+        if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
+            String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, CategoryType.EXPENSE)));
         }
 
         if (argMultimap.getValue(PREFIX_AMOUNT).isPresent()) {

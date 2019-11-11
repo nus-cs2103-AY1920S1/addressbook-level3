@@ -24,6 +24,7 @@ import seedu.guilttrip.model.util.CategoryType;
 class JsonAdaptedExpense {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
+    private final String uniqueId;
     private final String category;
     private final String desc;
     private final String date;
@@ -34,9 +35,10 @@ class JsonAdaptedExpense {
      * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
-    public JsonAdaptedExpense(@JsonProperty("category") String category, @JsonProperty("desc") String desc,
-                              @JsonProperty("amt") String amt, @JsonProperty("time") String time,
-                              @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedExpense(@JsonProperty("uniqueId") String uniqueId, @JsonProperty("category") String category,
+                              @JsonProperty("desc") String desc, @JsonProperty("amt") String amt,
+                              @JsonProperty("time") String time, @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+        this.uniqueId = uniqueId;
         this.category = category;
         this.desc = desc;
         this.amt = amt;
@@ -51,6 +53,7 @@ class JsonAdaptedExpense {
      * Converts a given {@code Expense} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
+        uniqueId = source.getUniqueId();
         category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
@@ -112,7 +115,12 @@ class JsonAdaptedExpense {
         final Amount modelAmt = new Amount(amt);
 
         final Set<Tag> modelTags = new HashSet<>(entryTags);
-        return new Expense(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        Expense modelExpense = new Expense(modelCategory, modelDesc, modelTime, modelAmt, modelTags);
+        if (uniqueId != null) {
+            modelExpense.setUniqueId(uniqueId);
+            modelExpense.setHasReminder(true);
+        }
+        return modelExpense;
     }
 
 }

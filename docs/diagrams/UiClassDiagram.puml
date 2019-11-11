@@ -20,6 +20,7 @@ Class XYZCard
 Class StatusBarFooter
 Class CommandBox
 Class FontName
+Class FontManager
 Class Theme
 Class StatisticsWindow
 Class StatisticsPieChartPanel

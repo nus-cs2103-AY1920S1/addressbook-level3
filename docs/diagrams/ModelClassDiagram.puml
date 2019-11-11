@@ -16,7 +16,6 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 Class VersionedGuiltTrip
 
-
 Package Entry {
 Class Entry
 Class Description
@@ -106,6 +105,7 @@ Entry *-->"1" Date
 Entry *-->"1" Amount
 Entry *--> "*" Tag
 Entry *-->"1" Category
+
 
 Budget --> "1" BudgetAmount
 Budget --> "1" Period
