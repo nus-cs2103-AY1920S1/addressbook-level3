@@ -5,7 +5,6 @@
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
-:imagesDir: images/user-guide-pictures
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
