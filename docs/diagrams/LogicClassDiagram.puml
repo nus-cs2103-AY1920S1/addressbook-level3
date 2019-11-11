@@ -3,11 +3,12 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
+hide members
 
 package Logic {
 
 package Parser {
-Interface Parser <<Interface>>
+Interface Parser <<interface>>
 Class JarvisParser
 Class XYZCommandParser
 Class CliSyntax
@@ -38,8 +39,8 @@ LogicManager .up.|> Logic
 LogicManager -->"1" JarvisParser
 JarvisParser .left.> XYZCommandParser: creates >
 
-XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser
+XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
 ArgumentTokenizer .left.> ArgumentMultimap
@@ -53,7 +54,7 @@ LogicManager .left.> Command : executes >
 
 LogicManager --> Model
 Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
+note right of XYZCommand: XYZCommand = AddTaskCommand, \nFindTaskCommand, etc
 
 Logic ..> CommandResult
 LogicManager .down.> CommandResult
