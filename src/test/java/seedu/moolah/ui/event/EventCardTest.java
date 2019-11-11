@@ -15,7 +15,7 @@ import seedu.moolah.ui.GuiUnitTest;
  * Contains tests for {@code EventCard}.
  *
  * Refactored from:
- * https://github.com/se-edu/addressbook-level4/blob/master/src/test/java/seedu/address/ui/PersonCardTest.java
+ * https://github.com/se-edu/addressbook-level4/blob/master/src/test/java/seedu/address/ui/EventCardTest.java
  */
 public class EventCardTest extends GuiUnitTest {
 
@@ -57,18 +57,18 @@ public class EventCardTest extends GuiUnitTest {
     }
 
     /**
-     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code eventCard} displays the details of {@code expectedEvent} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(EventCard personCard, Event expectedPerson, int expectedId) {
+    private void assertCardDisplay(EventCard eventCard, Event expectedEvent, int expectedId) {
         guiRobot.pauseForHuman();
 
-        EventCardHandle personCardHandle = new EventCardHandle(personCard.getRoot());
+        EventCardHandle eventCardHandle = new EventCardHandle(eventCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(expectedId), personCardHandle.getIndex());
+        assertEquals(Integer.toString(expectedId), eventCardHandle.getIndex());
 
-        // verify person details are displayed correctly
-        assertCardDisplaysEvent(expectedPerson, personCardHandle);
+        // verify event details are displayed correctly
+        assertCardDisplaysEvent(expectedEvent, eventCardHandle);
     }
 }

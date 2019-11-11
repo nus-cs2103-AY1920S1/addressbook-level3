@@ -6,106 +6,82 @@
 == PROJECT: MooLah
 
 ---
-//UG: write clear user instructions
-//add steps and SS
-//add preface below each chapter
-//Add natty and refer to top
-//UG - quick start - Copy the file to the folder you want to use as the home folder for Alfred.
 
 == Overview
 
 This Project Portfolio documents my contributions to MooLah, a student project for a Software
-Engineering module. Tasked to work in teams of five, to develop seedu project AddressBook - Level 3
-to a product of our own . Our team decided to morph it to an expense tracker - MooLah.
+Engineering module. In teams of five, we were tasked with developing the seedu project "AddressBook - Level 3"
+to a product of our own choice. Our team decided to morph it to a hassle-free expense tracker - MooLah.
 
 Expense tracking is an inherently troublesome task, because it includes managing
-multiple budgets and monitoring complicated statistics. MooLah aims to streamline this process by
-providing a user-friendly desktop Command-Line Interface (CLI) solution.
+multiple budgets, monitoring complicated statistics, and anticipating future spending.
+MooLah aims to streamline this process by providing a user-friendly desktop Command-Line Interface (CLI) solution. MooLah is written in Java, and has about 23 kLoC. It improves efficiency of expense tracking through autocomplete and prefix suggestions.
+With a natural language time parser, MooLah accepts more intuitive and flexible time input. The robust budgeting feature
+help users cultivate healthy spending habits. With powerful statistics, users can visualize their expenditure in
+graphical forms. Besides, the menu feature is specially tailored to students in National University of Singapore,
+allowing them to record an expense in school canteens directly from preset menus. Furthermore, MooLah's support for undo-redo
+creates a seamless user experience. All these solid and well-developed features make MooLah a perfect personal financial assistant.
 
-It improves user experience through autocomplete and prefix suggestions, boosting efficiency.
-It also an external library Natty, to parse natural language time parser, to allow accept
-more intuitive input format for time.
-
-Budgeting feature, track expenses under different budgets, clearly view the budget progress bar and
-get timely notification when thresholds are reached. Support managing, editing, deleting budgets.
-
-Statistics feature view in different modes, be it a pie chart, a table or a trendline.
-Reminders of future events .
-undo-redo feature
-menu feature tailored to NUS students.
-
-Making MooLah is a hassle-free expense tracker.
-
-MooLah is written in Java, and has about 17 kLoC.
-
-//all features of app
-
-
-== Summary of contributions
-My main role in the team was to develop the budget feature. The following is a summary of my
+== Summary of Contributions
+My main role in the team was to develop the budgeting feature. The following is a summary of my
 contributions to this feature.
-//how does it integrate with the other components?
 
-* *Major enhancement*: added *the ability to track expenses under budgets, and manage different budgets*.
-The budget feature is a significant enhancement to MooLah. Users need a tool to help them monitor their expenditure and avoid overspending.
-This is especially relevant to our main target users - university students, most of whom do not have a stable income and live on resources from
-parents. The budgeting feature enables users to be more controlled with their own expenses, grow healthy saving habits,
+* *Major Enhancement*: added *the ability to track expenses under different budgets, and manage multiple budgets*. +
+The budgeting feature is a significant enhancement to MooLah. Users need a tool to help them monitor their expenditure and avoid overspending.
+This is especially relevant to our main target users - university students, most of whom do not have a stable income.
+The budgeting feature enables users to be more controlled with their own expenses, grow healthy saving habits,
 and cultivate good financial management skills to prepare for the future.
-** What it does:
-(i) Allows the user to add, modify, delete, and clear budgets (ii) Allows users to switch primary budget
-(iii) Allows users to view expenses in a past budgeting period
+** What It Does:
+(i) Allows users to monitor spending through a budget progress bar and receive timely notifications when total expenditure hits
+important thresholds.
+(ii) Allows users to add, modify, delete, and clear budgets.
+(iii) Allows users to switch primary budget.
+(iv) Allows users to view expenses in a past budgeting period.
 ** Highlights:
-Developed many budget-related commands, and write unit tests for all (lines coverage = 100%)
-The major difficulty is normalize
-had to deep copy and constantly debug for marginal cases such as February, leap year, and months with 30 days
-make sure it integrates well with undo redo
-Since budgeting-related commands are many,
-had to check through every command to make sure all undo and redo changes are immediately reflected on GUI
-and json file
-make sure a deep copy of budget is made upon every changes of the existing budgets in MooLah
+The budgeting feature involves adjustments to the existing model, logic, storage and UI components.
+I developed ten budgeting-related commands, added utility classes such as `Percentage`, `BudgetPeriod` and `BudgetWindow`,
+and wrote unit tests for all, achieving 100% lines coverage for my part.
+One highlight is `BudgetWindow#normalize()`, which shifts the budgeting period to another anchored by a specific date.
+While developing this method, it was necessary for me to take into account marginal cases such as February, leap year, and months with 30 days,
+and constantly fix emerging bugs to ensure good functionality.
+Besides, to make sure budgeting integrates well with undo-redo, I must check through every command to make sure all
+undo-redo changes are immediately reflected both on GUI and in storage files. Considering that undo revolves
+around `Model`, I need to ensure a deep copy of the budget is made upon every single modification of existing budgets in
+the model, which was challenging and time-consuming to debug.
 
-This feature allows users to add, edit, switch, delete, clear budgets as well as switch the budget window
-to view expenses in a past period. It involves adjustments to the existing model, logic, UI components, and integrates
-well with the current implementation of other core features such as undoredo and statistics.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used
-in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Minor Enhancement*: added two commands (`EditExpenseFromBudgetCommand` & `DeleteExpenseFromBudgetCommand`) that allow
+users to *edit or delete expenses directly from the budget panel, without having to switch to general expense list first*.
 
-* *Minor enhancement*: added two commands (EditExpenseFromBudgetCommand & DeleteExpenseFromBudgetCommand) that allows
-users to edit or delete expenses directly from the budget, without having to switch to general expense list first.
+* *Code Contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Test code]]
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=anqichen9856&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=anqichen9856&tabRepo=AY1920S1-CS2103T-T11-1%2Fmain%5Bmaster%5D[Test code]]
+* *Other Contributions*:
 
-* *Other contributions*:
-
-** Project management:
-//link to PR
-*** Set up various types of issue labels in team repo
-*** Migrated user stories from team Google Doc (for brainstorming) to GitHub issues
-*** Managed issues on GitHub and assigned team members to corresponding issues
-*** Set up milestones with suitable deadlines in team repo on Github
-*** Wrapped up milestones at deadline, closing resolved issues and moving unresolved ones to next milestone
-*** Managed releases `v1.1`, `v1.2.1`, `v1.3.0`, `v1.3.1`, `v1.4.0` (5 releases) on GitHub
+** Project Management:
+*** Managed issues on GitHub, set up various labels, and assigned team members to corresponding issues
+*** Set up milestones with suitable deadlines and wrapped up regularly, closing resolved issues and moving unresolved ones to next milestone
+*** Managed releases `v1.1`, `v1.2.1`, `v1.3.0`, `v1.3.1` (4 releases) on GitHub
 
 ** Refactor:
-*** Replaced all traces of "address book" (from parameter names, class names, javadoc comments and tests in the code base) with "moolah"
-*** Organized commands and parsers into different packages according to their features
-*** Changed the package "seedu.address" to "seedu.moolah"
-*** Created an icon for MooLah ("moolah.png") and replaced the "address_book_32.png" icon with it
+*** Replaced all traces of "address book" (from parameter names, class names, javadoc comments and tests in the code base) with "moolah" (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/123[#123])
+*** Organized commands, parsers and UI components into different packages according to their features in both main and test directories (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/126[#126])
+*** Changed the package "seedu.address" to "seedu.moolah" in both main and test directories (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/253[#253])
+*** Changed output jar name from "addressbook.jar" to "moolah.jar" in Gradle build file (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/155[#155])
+*** Created an app icon for MooLah (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/126[#126])
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme to a more elegant and modern one (Pull requests https://github.com[#33], https://github.com[#34])
-*** Populated SampleDataUtil class with various budgets and expenses so that MooLah has sufficient data upon first launch
-*** Improved code readability by adding separator comments to group methods into different features (in MooLahParser, MainWindow,
-ModelManager, MooLah and TypicalMooLah)
+*** Updated the GUI to adopt a more elegant and harmonic color scheme with purple and yellow (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/166[#166])
+*** Adjusted font colors on GUI to a darker one, increasing contrast against background and improving readability (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/245[#245])
+*** Populated SampleDataUtil class with various budgets and expenses so that MooLah has sufficient data upon first launch (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/156[#156])
 
 ** Documentation:
-*** Improved introduction section of the User Guide: https://github.com[#14]
-*** Transferred user stories from GitHub issues to User Guide and format in table form:
-*** Updated Ui.png with annotations alongside different GUI components
+*** Improved introduction section of the User Guide (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/259[#259])
+*** Transferred user stories from GitHub issues to Developer Guide and formatted them in table form for better readability (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/53[#53])
+*** Updated Gradle configuration (site name, etc.) and URLs in User Guide and Developer Guide to suit MooLah project site (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/43[#43], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/54[#54])
+*** Updated About Us, Contact Us, and README to match Project MooLah (PR https://github.com/AY1920S1-CS2103T-T11-1/main/pull/51[#51], https://github.com/AY1920S1-CS2103T-T11-1/main/pull/56[#56])
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Reviewed PRs of peer teams with non-trivial review comments (examples: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/28[#28])
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/234[#234], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/224[#224], https://github.com/AY1920S1-CS2103T-F11-1/main/issues/230[#230])
 
 ** Tools:
 *** Set up Netlify to the team repo, which facilitated previewing changes to documentation files if the PR contains updates to documentation.
@@ -116,8 +92,6 @@ ModelManager, MooLah and TypicalMooLah)
 |_Given below are sections I contributed to the User Guide.
 They showcase my ability to write documentation targeting end-users._
 |===
-
-include::../UserGuide.adoc[tag=intro]
 
 include::../UserGuide.adoc[tag=budget]
 

@@ -19,7 +19,6 @@ endif::[]
 
 By: `Team MooLah`      Since: `Aug 2019`      Licence: `MIT`
 
-//tag::intro[]
 == What is MooLah?
 
 Welcome to MooLah, your perfect personal financial assistant.
@@ -36,11 +35,9 @@ Although a desktop app optimised for Command Line, MooLah has an elegant Graphic
 This is what MooLah looks like:
 
 .The graphical user interface for MooLah
-image::Ui.png[width="790"]
+image::Ui_annotated.png[width="790"]
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
-
-//end::intro[]
 
 == Before We Start
 //insert UG legend
@@ -71,25 +68,24 @@ quickly.
 ====
 *Command Format*
 
-* Words in between `<` and `>` are the parameters which are to be supplied by you! +
-  e.g. `add p/<PRICE>`, you will need to supply a value to be used as the `PRICE` such as `add p/2.50` .
+* Words in between `<` and `>` are the parameters which are to be supplied by you!
+** `add p/<PRICE>`, you will need to supply a value to be used as the `PRICE` such as `add p/2.50`.
 * You don't have to input the parameters in square brackets if you don't want to. These arguments are optional, and you
 may use them to specify more details.
 ** `addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/<DATE>]` means that both +
 `addexpense d/Chicken Rice p/2.50 c/Food` and +
 `addexpense d/Chicken Rice p/2.50 c/Food t/25-01` +
-are valid inputs
+are valid inputs.
 
 
-* You may also enter parameters which have a prefix in any order.
+* You may also enter parameters with prefixes in any order.
 ** `addexpense p/2.50 d/chicken rice c/food` +
  `addexpense c/food d/chicken rice p/2.50` are both valid.
-* However, for commands which require an argument without a prefix require that the argument be supplied immediately after the command word.
+* However, commands that require indexes will only be successful if the index is supplied immediately after the command word.
 ** `editexpense 1 p/2.30` is valid.
 ** `editexpense d/2.30 1` is not valid.
 
 ====
-
 
 === Viewing help : `help`
 
@@ -165,7 +161,7 @@ These are the panels which you may access through the `view` command: +
 ****
 *Note*
 
-1. Panel names are case-sensitive.
+1. Panel names are case-insensitive.
 
 2. Statistics panel is not viewable until statistics have been generated.
 ----
@@ -174,7 +170,7 @@ view Statistics
 
 ----
 stats
-listexpenses
+listexpense
 view Statistics
 ----
 ****
@@ -193,14 +189,26 @@ will be interpreted as:
 addexpense d/chicken duck p/3 c/food
 ----
 
-=== Natural language DateTime parsing
-DateTime formats accepted are handled mostly by a third-party Natural Language Parser library, Natty, which supports human jargon.
+// tag::natty[]
+
+=== Natural language Datetime parsing
+In MooLah, you can type all dates and times in natural language! You no longer have to remember what date it was a week ago;
+just type '1 week ago' into the appropriate parameter in the command line and MooLah will handle the rest!
+Datetime formats are parsed mostly by a third-party Natural Language Parser library, Natty, which supports human jargon.
 Please refer to http://natty.joestelmach.com/ for documentation and more information.
-[NOTE]
+[IMPORTANT]
 Natty naturally parses all datetime formats in the American format (e.g. MM/dd, MM-dd).
 In MooLah however, we have modified the parser such that all formats are parsed in the international format (e.g. dd/MM).
+So, the tryout page on Natty's official website will parse dates differently in this aspect.
+[NOTE]
+The seconds or even nanoseconds you add to your datetime inputs won't be processed by MooLah! (i.e. all seconds and
+nanoseconds are rounded down to 0.)
 
-=== Basic Expense-related Commands
+// end::natty[]
+
+// tag::expenses[]
+
+=== Expense-related Commands
 ==== Adding an expense: `addexpense`
 
 This is MooLah's fundamental feature: you can add your expenses.
@@ -212,6 +220,7 @@ addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/TIMESTAMP]
 
 ****
 * If you don't specify the time, your expense will be added with its time being the current system time.
+* You cannot input an expense from the future. There's a better way to do that, see <<Adding an event: `addevent`, here>>!
 * You should only input one of the following into the CATEGORY field: `FOOD`, `TRAVEL`, `TRANSPORT`,
 `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
@@ -225,9 +234,9 @@ Examples:
 ==== Adding an expense from NUS canteens' menu : `addmenuexpense`
 
 This is what makes MooLah special for NUS students.
-Shortcut your way on adding expenses for foods and drinks in NUS!
+Shortcut your way to adding expenses for foods and drinks in NUS!
 
-Currently, MooLah only supports just a handful of menu items, though. Head over to <<Menu Items List>> to see the
+Currently, MooLah only supports just a handful of menu items, though. Head over to our <<Menu Items List, menu items list>> to see the
 supported menu items. A more comprehensive menu list is on its way in v2.0!
 
 Format:
@@ -243,11 +252,11 @@ addmenuexpense m/deck chicken rice
 This will add a new expense that corresponds to The Deck's Chicken Rice and MooLah will automatically fill in
 the description, price, and category for you.
 
-==== Listing all expenses : `listexpenses`
+==== Listing all expenses : `listexpense`
 
 You can list every single expense you have added into MooLah.
 
-Format: `listexpenses`
+Format: `listexpense`
 
 ==== Updating an expense: `editexpense`
 
@@ -281,12 +290,16 @@ findexpense <KEYWORD> [<MORE_KEYWORDS>]
 ----
 
 ****
-* The search is case insensitive. e.g `chicken` will match `Chicken`
-* The order of the keywords does not matter. e.g. `Puff Curry` will match `Curry Puff`
+* The search is case-insensitive.
+** `chicken` will match `Chicken`.
+* The order of the keywords does not matter.
+** `Puff Curry` will match `Curry Puff`.
 * Only the description is searched.
-* Only full words will be matched. e.g. `chick` will not match `chicken`
-* Expenses matching at least one keyword will be returned (i.e. OR search). e.g. an expense with description
-`Chicken rice`, and expense with description `Duck Rice` will both match `rice`
+* Only full words will be matched.
+** `chick` will not match `chicken`.
+* Expenses matching at least one keyword will be returned (i.e. OR search).
+** An expense with description
+`Chicken rice`, and expense with description `Duck Rice` will both match `rice`.
 ****
 
 Examples:
@@ -313,28 +326,36 @@ deleteexpense <INDEX>
 Examples:
 
 ----
-listexpenses
+listexpense
 delete 2
 ----
 Deletes the 2nd expense in the list of expenses, shown after `listexpenses` is executed.
 
 ----
-listexpenses
+listexpense
 findexpense chicken
 deleteexpense 1
 ----
 Deletes the 1st expense in the results of the `findexpense` command.
 
-=== Basic Event-related Commands
+// end::expenses[]
+
+// tag::events[]
+
+=== Event-related Commands
 
 Events are pretty similar to expenses, except that they denote potential expenses that they may happen in the future.
 You should use this feature to keep track of future important events in your life that would require you to spend some money
 (e.g. your friends' birthdays).
 
-At launch, MooLah will remind you of your upcoming events. Any transpired events would also appear as popups,
+At launch, MooLah will remind you of your upcoming events. Any transpired events also appear as popups,
 asking you whether you wish to add these events as corresponding expenses.
 
 image::TranspiredEventsPopup.png[width="790"]
+
+[NOTE]
+MooLah updates time every 10 seconds, so you may experience a slight delay of 10 seconds maximum when it comes to
+event popups!
 
 ==== Adding an event: `addevent`
 
@@ -345,7 +366,7 @@ Format:
 addevent d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> t/<TIMESTAMP>
 ----
 ****
-* Events are potential future expenses, so the `TIMESTAMP` field is compulsory and should contain a future time.
+* Events are potential future expenses, so the `TIMESTAMP` field is compulsory and must contain a future time.
 * You should only input one of the following into the `CATEGORY` field:
 `FOOD`, `TRAVEL`, `TRANSPORT`, `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.
@@ -356,13 +377,13 @@ Examples:
 * `addevent d/Family buffet c/Food p/250 t/31-12`
 * `addevent d/Bangkok plane tickets t/tomorrow p/200 c/Travel`
 
-==== Listing all events : `listevents`
+==== Listing all events : `listevent`
 
 You can list every single event you have added into MooLah.
 
 Format:
 ----
-listevents
+listevent
 ----
 ==== Updating an event: `editevent`
 
@@ -375,9 +396,10 @@ editevent <INDEX> [p/<PRICE>] [d/<DESCRIPTION>] [t/<TIMESTAMP>] [c/<CATEGORY>]
 
 Example:
 ----
+listevent
 editevent 2 p/300
 ----
-Updates the price of the 2nd event in the current list to be 300.
+This will update the price of the 2nd event in the current list to be 300.
 
 
 ****
@@ -409,6 +431,8 @@ delete 2
 ----
 Deletes the 2nd event in the list of events, shown by `listevents`.
 
+// end::events[]
+
 //tag::budget[]
 === Let's Do Budgeting
 
@@ -417,113 +441,97 @@ It can help you cultivate better financial management habits in the following wa
 
 * Each budget has a progress bar with a percentage (rounded to the nearest integer), which indicates how much you have
 spent as a proportion to the limit.
-* The color of the progress bar implies the following 4 situations:
-- GREEN: Less than half of the limit.
-- YELLOW: Spent half of the limit.
-- ORANGE: Reached 90% of the limit.
-- RED: Exceeded the limit.
-* When your expenses reach 50% of the limit, it will notify that you're halfway through.
-* When your expenses reach 90% of the limit, it will give a warning to remind you of the approaching limit.
-* When your expenses exceed the budget limit, it will give another warning to remind you to
-cut down on your spending. However, the percentage will continue to update even you exceed the budget, to give you a
-better idea of how much you have overspent.
-* Note that when the budget is exceeded too much (more than 10^7 times the budget
-limit), you will not be able to add any new expense -- I hope that won't happen!
+* The color of the progress bar implies the following 4 status:
+- *GREEN*: `0% - 49%` of the limit.
+- *YELLOW*: `50% - 89%` of the limit (MooLah will notify you're halfway through)
+- *ORANGE*: `90% - 100%` of the limit. (MooLah will remind you of the approaching limit)
+- *RED*: `> 100%` of the limit. (MooLah will give a warning and advise you to cut down on your spending. However, the
+percentage will continue to update even if you exceed the budget, to give you a better idea of how much you have overspent.)
 
-==== Create a new budget : `addbudget`
-Want your expenses tracked under a recurring budget? Simple enough with this command: `addbudget`
+NOTE: When the budget is exceeded too much (more than `10^7` times the budget
+limit), you will not be able to add any new expense -- I hope that won't happen ;)
+
+==== Create a New Budget : `addbudget`
+Want your expenses tracked under a recurring budget? Simple enough with this command: `addbudget`.
 
 The concrete format is:
 ----
 addbudget d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>
 ----
 
-For example, given after typing
+For example, after typing:
 ----
 addbudget d/school p/300 sd/01-10-2019 pr/month
 ----
-You'll see that a new budget "school" is created, and set to $300, recurring monthly, starting from 1st October 2019.
+You'll see that a new budget `school` is created, and set to `$300`, recurring `monthly`, starting from `1 Oct 2019`.
 
-Tips:
-
-* All expenses that do not have a budget will go under "Default Budget", which is not deletable nor modifiable.
-* Each budget must have a unique name (case-insensitive).
-* 4 types of budget periods are supported, namely `day`, `week`, `month`, and `year` (all in lower case).
-* The year in start date is optional, i.e. you can simply input `01-10` and the year will be automatically set
-to the current year.
-* The start date can be any time in the past or future, the budget period will automatically
-normalize to the current period.
+NOTE: All expenses that do not have a budget will go under `Default Budget`, which is not deletable nor modifiable. +
+Each budget must have a *unique (case-insensitive) name*. +
+MooLah supports 4 types of budget period input: `day`, `week`, `month`, and `year` (all in *lower case*). +
+The year in <START_DATE> is optional, i.e. you can simply input `01-10` and the year will be automatically set
+to the current year. +
+The <START_DATE> can be any time in the past or future, the budget period will *automatically
+normalize to the current period*.
 For example, if today is `23-10-2019`, when you type `sd/01-07 pr/month`, the resulting budget period
-will be `01-10-2019 to 31-10-2019`, since that's the period anchored by today's date.
-* All budgets are recurring. Continuing from the example above, at 1 Nov 2019, you'll see the budget's period refreshed
+will be `01-10-2019 to 31-10-2019`, since that's the period anchored by today's date. +
+All budgets are *recurring*. Continuing from the example above, on 1 Nov 2019, you'll see the budget's period refreshed
 to `01-11-2019 to 30-11-2019`, and all past expenses archived, giving you an empty budget panel to start with.
 
-==== Switch between budgets : `switchbudget`
+==== Switch Between Budgets : `switchbudget`
 Now that you've successfully added a few different budgets, wonder how to toggle between them? Try this magical command:
-`switchbudget`, which switches the primary budget to any other budget in one shot!
+`switchbudget`, which switches the primary budget to any other budget in one click!
 
 The concrete format is:
 ----
-switchbudget d/<BUDGET_NAME>`
+switchbudget d/<BUDGET_NAME>
 ----
 
-For example, suppose you're at primary budget `school` now.
-
-After typing:
+For example, suppose you're at primary budget `school` now. After typing:
 ----
 switchbudget d/outside school
 ----
 
-You will see that the primary budget panel is switched from "school" to "outside school". Every expense you add
-from now on will be tracked under the "outside school" budget instead.
+You will see that the primary budget panel is switched from `school` to `outside school`. Every expense you add
+from now on will be tracked under the `outside school` budget instead.
 
-Tips:
+NOTE: There is one, and only one, *primary budget* in MooLah at all times. Every expense you enter automatically goes to
+this current primary budget. If you wish to let an expense be tracked by a different budget, *switch to that
+corresponding budget* first, before you add the expense. +
+The <BUDGET_NAME> is case-insensitive.
 
-* There is one, and only one, "primary budget" in MooLah at all times. Every expense you enter automatically goes under
-this current primary budget. If you wish to let an expense be tracked by a different budget, switch to that
-corresponding budget first, before you add the expense.
-* As a result, every expense can be tracked under one, and only one, budget.
-* The BUDGET_NAME you type is case-insensitive.
-
-==== List all budgets: `listbudget`
+==== List All Budgets: `listbudget`
 To get an overview of all the budgets at hand, simply type:
-
 ----
 listbudget
 ----
 You'll see a list of all budgets in MooLah.
 
-Tips:
+NOTE: The primary budget is marked with a *red border*. +
+To go back to primary budget panel, type `view primary budget`.
 
-* The primary budget is marked with a red border.
-* To go back to primary budget panel, type `view Primary Budget`.
-
-==== Edit a budget: `editbudget`
+==== Edit a Budget: `editbudget`
 A typo? On a second thought? No worries, you can easily modify your budget with `editbudget`.
 
 The concrete format is:
 ----
 listbudget (first go to list of budgets)
-editbudget <INDEX> d/<DESCRIPTION> p/<AMOUNT> sd/<START DATE> pr/<PERIOD>
+editbudget <INDEX> [d/<DESCRIPTION>] [p/<AMOUNT>] [sd/<START_DATE>] [pr/<PERIOD>]
 ----
 
-For example, if the second budget shown in the list is "school", recurring monthly, amount set at $300,
-refreshed on the first day of each month, after typing:
+For example, if the second budget shown in the list is `school`, recurring `monthly`, amount set as `$300`,
+refreshed on `the 1st of each month`, after typing:
 
 ----
-listbudget (first go to list of budgets)
+listbudget
 editbudget 2 d/school expenses p/400 sd/05-10
 ----
 
-It will change to "school expenses", capped at $400, refreshed on the 5th of every month.
+It will change to `school expenses`, capped at `$400`, refreshed on `the 5th of each month`.
 
-Tips:
-
-* You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START DATE`
+NOTE: You can choose to edit any of these 4 attributes of a budget: `DESCRIPTION`, `AMOUNT`, `START_DATE`
 and `PERIOD`, more than one at a time.
-* Budgets can't have duplicate names (case-insensitive).
 
-==== Delete a budget (by name) : `deletebudget`
+==== Delete a Budget (by Name) : `deletebudget`
 Don't want it any more? Use `deletebudget` to say bye to your budget!
 
 The concrete format is:
@@ -537,16 +545,12 @@ For example, after typing:
 deletebudget d/school
 ----
 
-The budget with the name "school" will be deleted.
+The budget with the name `school` will be deleted.
 
-Tips:
+NOTE: The *Default Budget* cannot be deleted or modified. It archives all expenses without a proper budget defined by you. +
+After a budget is deleted, its expenses will be transferred to the Default Budget.
 
-Tips:
-
-* The Default Budget cannot be deleted or modified. It archives all expenses without a proper budget defined by you.
-* After a budget is deleted, its expenses will be transferred to the Default Budget.
-
-==== Delete a budget (by index) : `deletebudget-id`
+==== Delete a Budget (by Index) : `deletebudget-id`
 Budget names are too long? Don't worry, there's an easier way to delete them: `deletebudget-id`.
 
 The concrete format is:
@@ -556,15 +560,13 @@ deletebudget-id <INDEX>
 ----
 You'll see the corresponding budget disappear from the list.
 
-Tips:
-
-* Regretted? Type `undo` to get it back ;D
+NOTE: Regretted? Type `undo` to get it back ;D
 
 ==== Delete all budgets: `clearbudget`
-Don't feel like living on budgets any more? You can clear them all, just by a simple command:
+Don't feel like living on budgets any more? You can clear them all, just using this simple command:
 `clearbudget`.
 
-==== View expenses in a different period: `switchperiod`
+==== View Expenses in a Different Period: `switchperiod`
 Wanna see your archived expenses in the past? The command `switchperiod` is the time machine you need.
 
 The concrete format is:
@@ -572,51 +574,44 @@ The concrete format is:
 switchperiod t/<DATE>
 ----
 
-For example, suppose you have a monthly budget "school", refreshed at the first day of each month; and
-suppose it is November now.
-After typing:
+For example, suppose you have a monthly budget `school`, refreshed on `the 1st of each month`; and
+suppose it is November now. After typing:
 ----
 switchperiod t/01-05
 ----
-You'll see all expenses tracked under "school" from 1 May to 31 May this year.
+You'll see all expenses tracked under `school` from `1 May to 31 May` this year.
 
-Tips:
+NOTE: The time machine can only travel *back* in time! That is, you will only be able to switch to periods
+*before or equal to* the current period. If the date you enter is in a future period, you'll need to input again. +
+Only expenses tracked under *the current budget* are shown.
 
-* The time machine can only travel back in time! That is, you will only be able to switch to periods
-*before or equal to* the current period. If the date you enter is in a future period, you'll need to input again.
-* Only expenses tracked under *the current budget* are shown.
-
-==== Edit expenses inside a budget: `editexpense-primary`
-When you are staring at the primary budget panel, and suddenly want to modify an expense,
-there's a quicker way to do it than switching back to the general expense list: you can edit it directly from
-this primary budget! The trick is: `editexpense-primary`
+==== Edit Expenses Inside a Budget: `editexpense-primary`
+When you are staring at the primary budget panel, and suddenly want to modify an expense...
+Rather than switch back to the general expense list, there's a quicker way to do it: you can edit it *directly from
+this budget panel*! The trick is: `editexpense-primary`.
 
 The concrete format is:
 ----
-editexpense-primary INDEX [d/DESCRIPTION] [p/PRICE] [c/CATEGORY] [t/TIMESTAMP]
+editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]
 ----
 
-The INDEX depends on the current budget's expenses, rather than the general expense list.
+The `INDEX` depends on the current budget's expenses, instead of the general expense list.
 
-Tips:
-
-* Editing an expense from a budget has the same effect as editing it from the general expense list.
+NOTE: Editing an expense from a budget has the same effect as editing it from the general expense list.
 That is, this expense will also be updated in the general expense list.
 
 ==== Delete expense inside a budget: `deleteexpense-primary`
-Similarly to editing expense inside a budget, you can delete an expense directly from the
-primary budget: `deleteexpense-primary`
+Similarly to editing expense inside a budget, you can delete an expense *directly from the
+budget panel*: `deleteexpense-primary`.
 
 The concrete format is:
 ----
-deleteexpense-primary INDEX
+deleteexpense-primary <INDEX>
 ----
 
-The INDEX depends on the current budget's expenses, rather than the general expense list.
+The `INDEX` depends on the current budget's expenses, instead of the general expense list.
 
-Tips:
-
-* Deleting an expense from a budget has the same effect as deleting it from the general expense list.
+NOTE: Deleting an expense from a budget has the same effect as deleting it from the general expense list.
 That is, this expense will also disappear from the general expense list.
 
 //end::budget[]
@@ -774,7 +769,21 @@ Format: `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]`
 
 - `START_DATE` will be checked to be earlier than `END_DATE`
 
+- The success message for this command is "Pie Chart calculated!"
+
 - Categories where no tracked expenses fall under will not be reflected in the Statistics Panel.
+
+- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
+recommended to type this command when in that budget. It is after all a placeholder budget that
+is meant to hold expenses not associated to any budgets when starting out, which also implies it
+doesn't support editing any of its attributes, especially period. Also, the budget period is set to
+a large interval by design, so the output might not make sense.
+
+- When there are no expenses in the current window of the current budget, a successful `statsbasic`
+can stil be called. However, the same success message "Pie Chart calculated!" is still seen on the result display,
+but now with a blank screen in the StatsPanel.
+
+
 ****
 
 Tips:
@@ -789,7 +798,7 @@ the unit of time and statistics is calculated till one unit of time after `START
 the unit of time and statistics is calculated starting from one unit of time before `END_DATE`.
 
 - If both `START_DATE` and `END_DATE` are empty, statistics will be calculated using the start date and end date
-of the current window of the budget.
+of the current window of the budget, seen on the top right of the budget progress bar.
 
 - As the 3 alternative configurations involve the knowledge of the budget's period, be familiar with the
 procedure of editing a budget's period.
@@ -812,7 +821,7 @@ To generate the pie chart for the expenses for this window.
 
 
 . Type `statsbasic` into the command box and press `Enter` to execute it.
-. The result box will display the message "Pie Chart calculated!".
+. The result display will display the message "Pie Chart calculated!".
 . The screen will be switched into the Statistics Panel where the Pie Chart will be generated
 as shown below.
 
@@ -868,9 +877,17 @@ shows the frequency and total expenditure common to both periods.
 the values for differences in frequency and differences in total expenditure for each category
 is calculated using the formula `second period – first period`.
 
+- The success message for this command is "Statistics Comparison Calculated!"
+
 - The default size of the application window accounts just sufficiently for a nicely fitted view of the
 table columns. Adjustments to the program window should not be made, otherwise some columns may be covered
 or excess space will be revealed. Currently the default startup dimension is Height = 800 and Width = 1254.
+
+- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
+recommended to type this command when in that budget. It is after all a placeholder budget that
+is meant to hold expenses not associated to any budgets when starting out, which also implies it
+doesn't support editing any of its attributes, especially period. Also, the budget period is set to
+a large interval by design, so the output might not make sense.
 
 ****
 
@@ -885,6 +902,11 @@ overlap between the 2 periods or there are no expenses recorded in the common pe
 - It is possible to reorder the columns generated after the Table is being generated for better
 comparison.
 
+- As the 2 intervals to be compared are constructed with the budget's period, be familiar with the
+procedure of editing a budget's period.
+
+
+
 Example of configurations:
 ----
 statscompare sd1/12-12 sd2/ 1 month ago
@@ -897,7 +919,7 @@ Step-by-step guide:
 To generate the table view:
 
 . Type `statscompare sd1/27-10 sd2/ 28-10' into the command box and press `Enter` to execute it.
-. The result box will display the message "Statistics Comparison Calculated!".
+. The result display will display the message "Statistics Comparison Calculated!".
 . The screen will be switched into the Statistics Panel where the Table View will be generated.
 
 ==== Growth Statistics : `statstrend`
@@ -953,11 +975,18 @@ the budget windows after the most recent possible window, relative to the curren
 This also applies to budget windows which have intervals that are future to the current time. For example, a window spanning
 from 18 Oct to 24 Oct for a weekly budget is a legal point even when it is currently 19 Oct.
 
+- The success message for this command is "Statistics Trend Calculated!"
+
 - The categories that do not have any expenses in any of the time intervals will not be reflected
 as trend lines in the Statistics Panel.
 
-****
+- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
+recommended to type this command when in that budget. It is after all a placeholder budget that
+is meant to hold expenses not associated to any budgets when starting out, which also implies it
+doesn't support editing any of its attributes, especially period. Also, the budget period is set to
+a large interval by design, so the output might not make sense.
 
+****
 
 Tips:
 
@@ -977,6 +1006,8 @@ start date of the current window of the current budget.
 - The unit interval of time is set to always be the period of the current budget,
 hence to access other time modes of this command, please edit the budget's period.
 
+- As the 3 alternative configurations involve the knowledge of the budget's period, be familiar with the
+procedure of editing a budget's period.
 
 Example of configurations:
 ----
@@ -1030,6 +1061,7 @@ the data of your previous MooLah folder.
 * *Exit the app* : `exit`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Clear MooLah* : `clearmoolah`
 
 ---
 
@@ -1038,7 +1070,7 @@ the data of your previous MooLah folder.
 * *Add an expense* (_undoable_) : `addexpense d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> [t/<TIME>]` +
 e.g. `addexpense d/Chicken Rice p/2.50 t/15-09-2019 1230 c/Food`
 
-* *List all expenses* (_undoable_) : `listexpenses`
+* *List all expenses* : `listexpense`
 
 * *Edit an expenses* (_undoable_) : `editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
 e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
@@ -1047,28 +1079,42 @@ e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 
 * *Find an expense* (_undoable_) : `findexpense <KEYWORD> [<MORE_KEYWORD>]`
 
-* *Clear all expenses and budgets* (_undoable_) : `clearall`
+---
+
+*All about events:*
+
+* *Add an event* (_undoable_) : `addevent d/<DESCRIPTION> p/<PRICE>  c/<CATEGORY> t/<TIME>` +
+e.g. `addevent d/Family buffet p/50 t/1 week from now c/Food`
+
+* *List all events* : `listevent`
+
+* *Edit an event* (_undoable_) : `editexpense <INDEX> [d/<DESCRIPTION>] [p/<PRICE>]  [c/<CATEGORY>] [t/<TIME>]` +
+e.g. `editexpense 1 p/2.50 c/Food`
+
+* *Delete an event* (_undoable_) : `deleteevent <INDEX>`
 
 ---
 
-*All about budgeting:*
+*All About Budgeting:*
 
 * *Create a new budget* (_undoable_) : `addbudget d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>` +
 e.g. `budget d/school p/300 sd/01-10-2019 pr/month`
 * *Switch between budgets* (_undoable_) : `switchbudget d/DESCRIPTION` +
 e.g. `switchbudget d/outside school`
 * *List all budgets* : `listbudget`
-* *Edit a budget* (_undoable_): `editbudget <INDEX> d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>` +
+* *Edit a budget* (_undoable_): `editbudget <INDEX> [d/<DESCRIPTION>] [p/<AMOUNT>] sd/<START_DATE> pr/<PERIOD>` +
 e.g. `editbudget 2 d/school expenses p/400 sd/05-10 pr/week`
 * *Delete a budget by name* (_undoable_): `deletebudget d/<DESCRIPTION>` +
 e.g. `deletebudget d/school`
-* *Delete a budget by index* (_undoable_): `deletebudgetid <INDEX>` +
+* *Delete a budget by index* (_undoable_): `deletebudget-id <INDEX>` +
 e.g. `deletebudget-id 2`
-* *Clear all budgets* : `clearbudget`
+* *Clear all budgets* : `clearbudget` (_undoable_)
 * *View expenses in a different period* (_undoable_): `switchperiod t/<DATE>` +
 e.g. `switchperiod t/01-05`
-* *Edit expense inside a budget* : `editexpense-primary`
-* *Delete expense inside a budget* : `deleteexpense-primary`
+* *Edit expense inside a budget* (_undoable_): `editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]` +
+e.g. `editexpense-primary 1 d/chicken`
+* *Delete expense inside a budget* : `deleteexpense-primary` <INDEX> +
+e.g. `deleteexpense-primary 2`
 
 ---
 

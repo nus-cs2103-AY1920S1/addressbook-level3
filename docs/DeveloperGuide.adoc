@@ -18,8 +18,22 @@ By: `Team MooLah`      Since: `Aug 2019`      Licence: `MIT`
 
 == Introduction
 
-To be filled later
+MooLah is a expense tracker, morphed from the seedu project "AddressBook - Level 3".
 
+Expense tracking is an inherently troublesome task, because it includes managing
+multiple budgets, monitoring complicated statistics, and anticipating future spending.
+MooLah aims to streamline this process by providing a user-friendly desktop Command-Line Interface (CLI) solution.
+
+MooLah improves user experience through autocomplete and prefix suggestions, significantly boosting efficiency.
+MooLah also adopts an external library Natty, a natural language time parser, so that it accepts
+more intuitive input format for time. MooLah's robust budgeting feature allows users to track expenses under different
+budgets, monitor their spending through the progress bar, and receive timely notification when important thresholds are
+reached. With MooLah's powerful statistics, users can view a summary of their spending in various modes, be
+it a pie chart, a table or a trend line. Besides, users can plan ahead and set up reminders for future events.
+Furthermore, the menu feature is specially tailored to students in National University of Singapore, allowing them to
+record a food item expense directly from preset menus in school canteens. Almost all commands in MooLah support
+undo-redo, increasing tolerance for occasional mistakes and thus creating a seamless user experience.
+All these solid and well-developed features make MooLah a perfect personal financial assistant.
 
 === Purpose & Scope
 This document specifies architecture and software design decisions for the app MooLah.
@@ -30,11 +44,13 @@ MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
 In particular, it is tailored to students in National University of Singapore who dine frequently in school canteens.
 
-== Setting up
+== Setting Up
+This section contains information on steps to set up the developer environment on your computer.
 
 Refer to the guide <<SettingUp#, here>>.
 
 == Design
+This section explains MooLah's software architecture.
 
 [[Design-Architecture]]
 === Architecture
@@ -48,7 +64,7 @@ The *_Architecture Diagram_* given above explains the high-level design of the A
 The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
 Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
 
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:{repoURL}/src/main/java/seedu/moolah/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/moolah/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -91,11 +107,11 @@ The sections below give more details of each component.
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:{repoURL}/src/main/java/seedu/moolah/ui/Ui.java[`Ui.java`]
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `SinglePanelView`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/moolah/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -125,7 +141,7 @@ image::ViewPanelSequenceDiagram.png[]
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/moolah/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `MooLahParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
@@ -146,7 +162,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/moolah/model/Model.java[`Model.java`]
 
 The `Model`,
 
@@ -166,7 +182,7 @@ image:BetterModelClassDiagram.png[]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:{repoURL}/src/main/java/seedu/moolah/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
@@ -176,7 +192,7 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.moolah.commons` package.
 
 == Implementation
 
@@ -254,246 +270,239 @@ by the `add` command.
 
 
 // tag::budget[]
-=== Budget Feature
-The budget feature allows users to: (i) *add, delete and modify* budgets; (ii) monitor spending by the budget's
+=== Budgeting Feature
+The budgeting feature allows users to: (i) *add, delete and modify* budgets; (ii) monitor spending by the budget's
 *progress bar* and *pop up notifications*; (iii) easily *modify or remove expenses* from the budget; (iv) *switch
 period* to view past expenses; and (v) *switch the primary budget* to flexibly track expenses under different budgets.
 
 ==== Basics
 
-Budgets form a partition of all expenses. That is, an expense must belong to *one and only one* budget,
-and all expenses from all budgets must add up to the total number in the general expense list.
-Each expense keeps track of its own budget through budget name (of Description type) - this is made possible by
-disallowing duplicate names in UniqueBudgetList. On the other hand, each budget keeps track of a list of expenses
-added to this budget.
+Budgets form a *partition* of all expenses. That is, an `Expense` must belong to one and only one `Budget`,
+and all expenses from all `Budget` must add up to the total number in the general expense list.
+Each `Expense` keeps track of its own `Budget` through the `budgetName` attribute -- this is possible because
+`UniqueBudgetList` disallows duplicate budget names. On the other hand, each `Budget` keeps track of a list of `Expense`
+added to this budget, as shown in the figure below.
 
-image::ExpenseAndBudgetRelationshipClassDiagram.png[]
+image::ExpenseAndBudgetRelationshipClassDiagram.png[width=33%]
 
-As shown in the figure below, each `Budget` has 5 attributes:
-
-. *description* (Description) : budget name;
-. *amount* (Price) : budget limit;
-. *window* (BudgetWindow) : the current budgeting period (see <<BudgetWindow and SwitchPeriodCommand>>)
-. *expenses* (ObservableList<Expense>) : the list of all expenses under this budget
-. *isPrimary* (boolean) : a flag indicating whether this budget is currently primary budget
-(see <<Primary Budget and SwitchBudgetCommand>>)
-
-image::BudgetClassDiagram.png[]
+//As shown in the figure below, each `Budget` has 5 attributes:
+//
+//. *description* (Description) : budget name;
+//. *amount* (Price) : budget limit;
+//. *window* (BudgetWindow) : the current budgeting period (see <<BudgetWindow and SwitchPeriodCommand>>)
+//. *expenses* (ObservableList<Expense>) : the list of all expenses under this budget
+//. *isPrimary* (boolean) : a flag indicating whether this budget is currently primary budget
+//(see <<Primary Budget and SwitchBudgetCommand>>)
+//
+//image::BudgetClassDiagram.png[width=60%]
 
 ==== Add, Edit, Delete, Clear Budgets
 There are five commands related to the addition, modification and removal of budgets, namely:
-AddBudgetCommand, EditBudgeCommand, DeleteBudgetByIndexCommand, DeleteBudgetByNameCommand,
-and ClearBudgetsCommand. +
+`AddBudgetCommand`, `EditBudgeCommand`, `DeleteBudgetByIndexCommand`, `DeleteBudgetByNameCommand`,
+and `ClearBudgetsCommand`. +
 
-Here is the class diagram of AddBudgetCommand:
+Here is the class diagram of `AddBudgetCommand`:
 
-image::AddBudgetCommandClassDiagram.png[]
+image::AddBudgetCommandClassDiagram.png[width=60%]
 
-As shown in the figure above, AddBudgetCommand has 2 methods:
-(i) validate(model), which checks whether the command is legal (i.e. will not result in duplicate budgets being added
- to MooLah), and throws CommandException to notify user of the illegal input if any;
-(ii) execute(model), which runs this command in model and successfully adds a new budget.
+As shown in the figure above, `AddBudgetCommand` has 2 methods:
+(i) `validate(model)`, which checks whether the command is legal (i.e. will not result in duplicate budgets being added
+ to MooLah), and throws `CommandException` to notify user of the illegal input if any;
+(ii) `execute(model)`, which runs this command in model and successfully adds a new budget.
 
-The following sequence diagram shows how the add budget operation works:
+The following sequence diagram shows how the `add budget` operation works:
 
 image::AddBudgetSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddBudgetCommandParser` and `AddBudgetCommand` should end at the destroy marker (X) but due to
 a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-As shown in the figure above, when user inputs "addbudget ...", LogicManager executes the string, MooLahParser creates the
-corresponding CommandParser which parses the input into an AddBudgetCommand. AddBudgetCommand then validates itself by
-checking if there is an identical budget already existing in MooLah. If no duplicate budgets are found, it executes the
-command, adding the specified new budget to MooLah. After that, AddBudgetCommand creates a CommandResult and passes it
-back to LogicManager. LogicManager then saves the updated MooLah as json file, and returns the CommandResult to GUI to
-be displayed to user.
+As shown in the figure above, when user inputs "addbudget ...", `LogicManager` executes the `String`, and `MooLahParser`
+creates the corresponding `CommandParser` which parses the input into an `AddBudgetCommand`. `AddBudgetCommand` then
+validates itself by checking if there is an identical `Budget` already existing in `MooLah`. If no duplicate budgets are
+found, it executes the command, adding the new `Budget` to `MooLah`. After that, `AddBudgetCommand` creates a `CommandResult`
+and passes it back to `LogicManager`. `LogicManager` then saves the updated `MooLah` as Json file, and returns the
+`CommandResult` to GUI to be displayed to user.
 
-The implementation of other commands has similar flow as AddBudgetCommand, differing only in the parameters and corresponding
-methods in ModelManager, MooLah and UniqueBudgetList. A noteworthy implementation in EditBudgetCommand is that it
-has a inner class EditBudgetDescriptor to record the updated attributes of the budget, which is then used in the method
-EditBudgetCommand#createEditedBudget(Budget, EditBudgetDescriptor) to create an edited budget, maintaining non-updated
-attributes the same as the original budget.
+The implementation of other commands follows a similar flow as `AddBudgetCommand`, differing only in the parameters and corresponding
+methods in ModelManager. A noteworthy implementation in `EditBudgetCommand` is that it has a inner class `EditBudgetDescriptor`
+to record the updated attributes of the budget, which is then used in the method `EditBudgetCommand#createEditedBudget(Budget, EditBudgetDescriptor)`
+to create an edited `Budget`, maintaining non-updated attributes the same as the original `Budget`.
 
-When a budget is edited, the original budget's expenses will be transferred to the updated budget through
-Budget#transferExpensesTo(Budget other). The transfer process does two things: (i) set the expenses's budget name
-to the new budget name; (ii) add the expenses to the new budget's expense list. Similarly, when a budget is deleted,
-all its expenses will be transferred to default budget through the same method.
-
+When a `Budget` is edited, the original budget's expenses will be transferred to the updated budget through
+`Budget#transferExpensesTo(Budget other)`. The transfer process does two things: (i) set the expenses's `budgetName`
+to the new budget's name; (ii) add the expenses to the new budget's expense list. Similarly, when a `Budget` is deleted,
+all its expenses will be transferred to `Default Budget` through the same method.
 
 ==== Primary Budget and SwitchBudgetCommand
 At any time, there is one, and only one, *primary budget* in MooLah. All expenses added will go to this primary budget.
-If the user wants to track expenses under a different budget,
-he switches to the target budget first, before adding the expense.
+If the user wants to track expenses under a different budget, he switches to the target budget first, before adding the expense.
 A newly created budget is automatically set to primary.
-MooLah creates a default budget upon first launching. If no budget is created by the user, expenses will be tracked
-under this default budget, which has a huge budget limit (10^21) and budgeting period (100 years).
+MooLah creates a `Default Budget` upon first launching. If no budget is created by the user, expenses will be tracked
+under this `Default Budget`, which has a huge budget limit (`10^21`) and budgeting period (`100 years`).
 
-The SwitchBudgetCommand takes in a budget name and switches primary budget to that budget.
+The `SwitchBudgetCommand` takes in a budget name and switches primary budget to that budget.
 Given below is an example usage scenario of SwitchBudgetCommand: +
 
 *Step 1.* The user launches MooLah for the first time. The default budget will be created and set as the primary budget.
 
-image::PrimaryBudget1.png[]
+image::PrimaryBudget1.png[width=40%]
 
 *Step 2.* The user adds an expense "bubble tea". Since the default budget is the primary one, this expense will go
 under default budget.
 
-image::PrimaryBudget2.png[]
+image::PrimaryBudget2.png[width=40%]
 
 *Step 3.* The user creates a budget "School". Since "School" is newly added, it will be set as the primary budget.
 
-image::PrimaryBudget3.png[]
+image::PrimaryBudget3.png[width=40%]
 
 *Step 4.* The user adds an expense "chicken rice". Since "School" is the primary budget, this expense will go
 under "School".
 
-image::PrimaryBudget4.png[]
+image::PrimaryBudget4.png[width=40%]
 
 *Step 5.* The user now wants to add another expense "movie", but does not want it tracked under "School". As such, the
 user executes `switchbudget d/default budget`. The default budget is now the primary budget.
 
-image::PrimaryBudget5.png[]
+image::PrimaryBudget5.png[width=40%]
 
 *Step 6.* The user adds the expense "movie", which is tracked under the current primary budget - default budget.
 
-image::PrimaryBudget6.png[]
+image::PrimaryBudget6.png[width=40%]
 
 ==== BudgetWindow and SwitchPeriodCommand
 
-A budget is like a *sliding window* that moves along the time axis. The window has a fixed size determined by the
-BudgetPeriod, an enum class having five values: DAY, WEEK, MONTH, YEAR, INFINITY (for Default Budget).
-Only expenses within the current window are shown in the app. Every time
-the budget refreshes, the window "slides" to the next period, starting with an empty screen that gradually gets
-populated with newly added expenses over time. This is achieved through the BudgetWindow class.
+A budget is like a *sliding window* that moves along the time axis. The window has a fixed size determined by
+`BudgetPeriod`, an enum class with five values: `DAY`, `WEEK`, `MONTH`, `YEAR`, `INFINITY` (for Default Budget).
+Only expenses within the *current window* are shown in the app. Every time the budget refreshes, the window "slides"
+to the next period, starting with an empty screen that gradually gets populated with newly added expenses over time.
+This is achieved through the `BudgetWindow` class.
 
-Here is the class diagram of BudgetWindow:
+Here is the class diagram of `BudgetWindow`:
 
-image::BudgetWindowClassDiagram.png[]
+image::BudgetWindowClassDiagram.png[width=33%]
 
-As shown in the figure above, BudgetWindow has 3 attributes: start date, end date, and period. The start and end
+As shown in the figure above, `BudgetWindow` has 3 attributes: start date, end date, and period. The start and end
 dates are modifiable, but the period is fixed. This corresponds to the above-mentioned "sliding window" concept.
 
 A budget keeps a list of all expenses ever been tracked by this budget, including historical ones. Additionally,
-it has a method Budget#getCurrentPeriodExpenses() that filters from this list expenses within the current
-budgeting period, which are shown in the current GUI screen.
+it has a method `Budget#getCurrentPeriodExpenses()` that filters from this list expenses within the current
+budgeting period, which in turn get to be shown on MooLah's GUI.
 
-When users want to view expenses in a past period, they can do so by executing SwitchPeriodCommand. This command
-takes in a timestamp and switches the budget window to a period anchored by that timestamp. This is achieved by
-BudgetWindow#normalize(Timestamp anchor) method. This method takes into account marginal cases such as months with 30
-days, February, and leap year.
+When users want to view expenses in a past period, they can do so by executing `SwitchPeriodCommand`. This command
+takes in a `Timestamp` and switches the budget window to a period anchored by that `Timestamp`. This is achieved by
+`BudgetWindow#normalize(Timestamp anchor)` method.
 
-Given below is an example usage scenario of SwitchPeriodCommand: +
+Given below is an example usage scenario of `SwitchPeriodCommand`: +
 
 *Step 1.* The user has a monthly budget "school" that recurs on the 5th of each month. Suppose the current date is
-Nov 10. As a result, the current budgeting period will be Nov 5 - Dec 4. There are 1 expense "chicken rice" recorded
-in this current period.
+`10 Nov`. As a result, the current budgeting period will be `5 Nov - 4 Dec`.
 
 *Step 2.* The user wants to view expenses in September. As such, the user executes `switchperiod t/20-09`
-(interchangeable with any other dates within Sep 5 - Oct 4). This command calls
-`BudgetWindow#normalize(Timestamp anchor)`, which shifts the window's start and end dates to Sep 5 and Oct 4 respectively, while maintaining the fixed period - MONTH.
-As a result, the user sees expenses tracked under the budget during this period.
+(`20-09` is interchangeable with any other dates within `5 Sep - 4 Oct`). This command calls
+`BudgetWindow#normalize(Timestamp anchor)`, which shifts the window's start and end dates to `5 Sep` and `4 Oct` respectively,
+while maintaining the fixed period -- `MONTH`. As a result, the user sees expenses tracked under the budget during `5 Sep - 4 Oct`.
 
-The BudgetWindow#normalize(Timestamp anchor) method is also called upon adding a new budget to MooLah. No matter how
+The `BudgetWindow#normalize(Timestamp anchor)` method is also called upon adding a new `Budget` to MooLah. No matter how
 far the start date inputted by the user is from now, it will be normalized to the current period, such that expenses added
 subsequently will correctly be reflected in the budget panel.
 
-Each budget, once added, will recur infinitely. This is achieved by Budget#refresh() along with the Timekeeper class.
-Every 10 seconds, Timekeeper checks if it is a new day, and call Budget#refresh() if necessary. Subsequently,
-BudgetWindow#normalize(Timestamp anchor) is called; the anchor passed in is current time. As a result, the budget is
+Each budget, once added, will recur infinitely. This is achieved by `Budget#refresh()`, along the `Timekeeper` class.
+Every 10 seconds, `Timekeeper` checks if it is a new day, and call `Budget#refresh()` if necessary. Subsequently,
+`BudgetWindow#normalize(Timestamp anchor)` is called; the anchor passed in is current time. As a result, the `Budget` is
 successfully normalized to the current period.
 
-==== Add, Edit, Delete Expense from a Budget
-Addition of expenses are executed through AddExpenseCommand. Since it does not take in any INDEX parameters,
-the execution can be done irrespective of the currently shown list, and the change will always be correctly reflected
-in the budget panel.
-The case is different for editing and deleting expenses, which takes in an INDEX dependent on the currently shown list.
-As such, editing from the general expense list is different from editing from a budget's expense list. This is why two
-separate commands, EditExpenseFromBudgetCommand and DeleteExpenseFromBudgetCommand, are implemented, apart from
-EditExpenseCommand and DeleteExpenseCommand which work on the general expense list.
+//==== Add, Edit, Delete Expense from a Budget
+//Addition of expenses are executed through AddExpenseCommand. Since it does not take in any INDEX parameters,
+//the execution can be done irrespective of the currently shown list, and the change will always be correctly reflected
+//in the budget panel.
+//The case is different for editing and deleting expenses, which takes in an INDEX dependent on the currently shown list.
+//As such, editing from the general expense list is different from editing from a budget's expense list. This is why two
+//separate commands, EditExpenseFromBudgetCommand and DeleteExpenseFromBudgetCommand, are implemented, apart from
+//EditExpenseCommand and DeleteExpenseCommand which work on the general expense list.
+//
+//EditExpenseFromBudgetCommand and DeleteExpenseFromBudgetCommand obtain their target expense (to be edited/deleted)
+//through `model.getPrimaryBudget().getCurrentPeriodExpenses()` in the two commands' validate() and execute() method.
+//This makes sure the INDEX is based on the primary budget's currently shown expense list, which includes all expenses
+//within the current budgeting period.
 
-EditExpenseFromBudgetCommand and DeleteExpenseFromBudgetCommand obtain their target expense (to be edited/deleted)
-through `model.getPrimaryBudget().getCurrentPeriodExpenses()` in the two commands' validate() and execute() method.
-This makes sure the INDEX is based on the primary budget's currently shown expense list, which includes all expenses
-within the current budgeting period.
-
-==== List budgets
-ListBudgetsCommand shows a list of all budgets stored in MooLah. The command returns a CommandResult with view
-request to "BudgetListPanel.PANEL_NAME". Subsequently, MainWindow#changePanel(PanelName) will switch the currently
-shown panel to BudgetListPanel.
-ListBudgetsCommand has the same effect as "view budget list".
+//==== List budgets
+//ListBudgetsCommand shows a list of all budgets stored in MooLah. The command returns a CommandResult with view
+//request to "BudgetListPanel.PANEL_NAME". Subsequently, MainWindow#changePanel(PanelName) will switch the currently
+//shown panel to BudgetListPanel.
+//ListBudgetsCommand has the same effect as "view budget list".
 
 ==== UI Component of Budget
-There are three classes related to the UI display of Budgets:
-(i) BudgetCard, which shows the budget name, period, and progress bar - GUI representation of a budget
-(ii) BudgetListPanel, which displays a list of BudgetCard - called through ListBudgetsCommand or "view budget list"
-(iii) BudgetPanel, which displays a BudgetCard at top representing the primary budget, and a list of expenses tracked
-under this primary budget in this current budgeting period - called through "view primary budget"
+There are three classes related to the UI display of budgets:
+(i) `BudgetCard`, which shows the budget name, period, and progress bar -- GUI representation of a `Budget`
+(ii) `BudgetListPanel`, which displays a list of `BudgetCard` -- called through `ListBudgetsCommand` or `view budget list`
+(iii) `BudgetPanel`, which displays a `BudgetCard` at the top, and a list of current period expenses below -- called through `view primary budget`
 
-The progress bar in BudgetCard shows the proportion used against the budget limit. This is calculated by
-Budget#calculateProportionUsed(), which divides the sum of all current period expenses against the budget limit,
-returning a Percentage that wraps the result (rounded to the nearest integer).
+The progress bar in `BudgetCard` shows the proportion used against the budget limit. This is calculated by
+`Budget#calculateProportionUsed()`, which divides the *sum of all current period expenses* against the *budget limit*,
+returning a `Percentage` that wraps the result (rounded to the nearest integer).
 
-Besides, the budget also gives popup notification when proportion used reaches 50%, 90%, and 100%. These 3 status
-correspond to Budget#isHalf(), Budget#isNear() and Budget#isExceeded(). Before each command in MooLah is executed, the
-initial values of these 3 booleans are recorded by LogicManager#recordInitialPrimaryBudgetStatus(), which returns a
+Besides, the budget also gives popup notification when proportion used reaches *50%*, *90%*, and *100%*. These 3 status
+correspond to `Budget#isHalf()`, `Budget#isNear()` and `Budget#isExceeded()`. Before each command in MooLah is executed, the
+initial values of these 3 booleans are recorded by `LogicManager#recordInitialPrimaryBudgetStatus()`, which returns a
 boolean array of size 3. At the end of each command, the final values of these 3 booleans are recorded again by
-LogicManager#recordFinalPrimaryBudgetStatus(). The two resulting arrays are then passed into
-MainWindow#showWarningIfAny() for a comparision, and if any values have changed, MainWindow#showPopupMessage will show
-the corresponding pop up notification to remind the user of the budget progress.
+`LogicManager#recordFinalPrimaryBudgetStatus()`. The two arrays are then passed into `MainWindow#showWarningIfAny()`
+for a comparision, and if any values have changed, `MainWindow#showPopupMessage()` will show the corresponding pop up
+notification to remind the user of the budget progress.
 //diagram
 //image::PercentageClassDiagram.png[]
 
 ==== Storage of Budgets
-Budget objects are stored in Json format, through the JsonAdaptedBudget class. The json file has
-the same properties as the budget, except: (i) it flattens the BudgetWindow field into start date, end date and period,
-for clearer display; (ii) it stores a list of UniqueIdentifiers to expenses, instead of a list of JsonAdaptedExpenses.
+Budget objects are stored in Json format, through the `JsonAdaptedBudget` class. The Json file has the same properties
+as the budget, except: (i) it flattens the `BudgetWindow` field into start date, end date and period, for clearer display;
+(ii) it stores a list of `UniqueIdentifier` to expenses, instead of a list of `JsonAdaptedExpense`.
 
 The following activity diagram summarizes what happens to budgets when the app launches and when a new expense is added:
 
-image::BudgetActivityDiagram.png[]
+image::BudgetActivityDiagram.png[width=50%]
 
-==== Integration with undo-redo
-Budgeting-related commands integrate well with Undo-Redo feature, by extending UndoableCommand. Undoable commands are
-those modifying data in MooLah, for example, AddBudgetCommand and EditBudgetCommand. On the other hand, commands that
-only result in GUI changes, such as ListBudgetsCommand, is not undoable.
+==== Integration with Undo-Redo
+Budgeting-related commands integrate well with Undo-Redo feature, by extending `UndoableCommand`. Undoable commands are
+those modifying data in MooLah, for example, `AddBudgetCommand` and `EditBudgetCommand`. On the other hand, commands that
+only result in GUI changes, such as `ListBudgetsCommand`, is not undoable.
 
 A difficulty here is to make every "undo" immediately reflected on GUI. Since undo rollback on models, this dictates that
 every change must result in a new budget object being created and replacing the old one. Otherwise, even though the
 change is reflected backend, it will not show in frontend because the Budgets in two models are still referring to
-the same object. This task is handled by Budget#deepCopy(), which is widely called from UniqueBudgetList, in every method
+the same object. This task is handled by `Budget#deepCopy()`, which is widely called from `UniqueBudgetList`, in every method
 that modifies the existing budgets.
 
 //table for all undoable commands
 
 ==== Design Considerations
 
-===== Aspect: Since Budget already keeps a list of Expenses, should Expense have a Budget field?
+===== Aspect: Since `Budget` already keeps a list of `Expense`, should `Expense` have a `Budget` field?
 
-* **Alternative 1:** Expense has a Budget field
+* **Alternative 1:** `Expense` has a `Budget` field
 ** Pros: Easier to manage expenses.
 ** Cons: Causes cyclical dependency, and reduces testability. Also, this will cause infinite loop when creating
-JsonAdaptedExpense and JsonAdaptedBudget.
+`JsonAdaptedExpense` and `JsonAdaptedBudget`.
 
-* **Alternative 2:** Expense does not have reference to Budget
+* **Alternative 2:** `Expense` does not have any reference to `Budget`
 ** Pros: Less coupling.
-** Cons: When reconstructing MooLah from json file, system does not know which budget to add the past expenses to.
+** Cons: When reconstructing MooLah from Json file, system does not know which budget to add the past expenses to.
 
 * **Solution (Current implementation):**
-Each Expense keeps a budgetName field which indicates the name of the Budget it is tracked under. Since UniqueBudgetList
-checks for duplicate budget names, a name is sufficient to identify a Budget. Besides, since budgetName is of
-Description type instead of Budget type, it is easy to convert to String, and resolves the problem of infinite loop
-when creating json files. Also, the resulting JsonAdaptedExpense file will not be too long, since the "budgetName"
-property stores only the budget name instead of the full budget object.
+Each `Expense` keeps a `budgetName` field which indicates the name of the `Budget` it is tracked under. Since `UniqueBudgetList`
+disallows duplicate budget names, a name is sufficient to identify a `Budget`. Besides, since `budgetName` is of
+`Description` type instead of `Budget` type, it is easy to convert to `String`, and resolves the problem of infinite loop
+when creating Json files. Also, the resulting `JsonAdaptedExpense` file will not be too long, since the `budgetName` property
+stores only the budget name instead of the full `Budget` object.
 
+===== Aspect: Can one `Expense` be tracked under multiple `Budget`? Or under no `Budget` at all?
 
-===== Aspect: Can one Expense be tracked under multiple Budgets? Or under no budget at all?
-
-* **Alternative 1:** Every expense must be tracked under one, and only one budget.
+* **Alternative 1:** Every `Expense` must be tracked under one, and only one `Budget`.
 ** Pros: Budgets would be a partition of all expenses, which makes generating statistics (pie charts, etc.) easier.
 ** Cons: Reduces flexibility in tracking expenses - users would not be able to track expenses that fall under multiple
 budgets.
 
-* **Alternative 2:** Allow expenses with multiple budgets, or without any budget.
+* **Alternative 2:** Allow `Expense` with multiple `Budget`, or without any `Budget`.
 ** Pros: Users would enjoy more flexible budgeting experience.
 ** Cons: This might result in duplicate calculation of expenses and difficulty in generating pie charts, as statistics
 revolves around budgets.
@@ -524,12 +533,10 @@ of MooLah's general expenses, is sufficient to correctly reconstruct those expen
 benefit of protecting MooLah from external json modification outweighs the extra hassle in reconstructing MooLah from
 storage.
 
-//===== Aspect: Should Budgets has proportionUsed field?
-//and isPrimary field?
-
 // end::budget[]
 
-// category::events[]
+// tag::events[]
+
 === Events feature
 ==== Implementation
 
@@ -592,7 +599,7 @@ the user inputs in the command.
 Users can set their expenses to recur. Recurring expenses will generate events daily/weekly/monthly (based on
 the user's decision) that can then be added as expenses when their due dates are reached.
 
-//end::events[]
+// end::events[]
 
 // tag::statsdg[]
 === Statistics Feature
@@ -618,7 +625,7 @@ The following activity diagram summarizes how statistics are shown from a curren
 to modify the attributes of the budget.
 
 
-image::StatisticsClassDiagram.png[]
+image::BasicStatisticsCommandActivityDiagram.png[]
 
 In the following sections, the implementation details of one of the more complicated command words will be discussed,
 as well as its design considerations.
@@ -645,52 +652,57 @@ Step 2. The newly created `StatsCommandParser` calls `parse("stats sd/01-10-2019
 which in turns calls `ArgumentTokenizer#tokenize("sd/01-10-2019 ed/01-11-2019", PREFIX_START_DATE, PREFIX_END_DATE)` to
 split the arguments into its preamble(the start date and end date). This returns an `ArgumentMultimap` object, `argMultimap` containing the split input.
 
-Step 3. The `StatsCommandParser` object calls `ParserUtil#parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get())` which parses the arguments to get the start date.
-The date, that is present in this example, is parsed into the correct form and the end date is obtained similarly with
-`ParserUtil#parseTimestamp(argMultimap.getValue(PREFIX_END_DATE)#get())`.
-A `StatsDescriptor` object `desc`, eventually containing the start date and end date is created, and a `StatsCommand` object `cmd` will
-be created with `desc`, which will be returned to the `LogicManager`.
 
-NOTE: By right Steps 2 to 3 should be still described in this sequence, but the descriptor details should be abstracted from the main UML.
+Step 3. The `StatsCommandParser` object creates a `StatsDescriptor` object `desc` to hold the start date and end date that was specified by the user.
+Depending on the presence of start date and end date, `desc` will be filled in differently.
 
-Step 4. The `LogicManager` calls `StatsCommand#execute()`, which calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
-The `PieChartStatistics` object `statistics`, will be created with `createPieChartStatistics', after which it will called its implemented method
-`populate()` to fill in the `attributes` required by the `Statistics Panel`.
+If the start date and end date is both specified by the user, the start date will be checked to be before the end date.
+If the end date happens to be before the start date, a `ParseException` will be thrown
 
-NOTE: As `populate()` is a method specified by the Statistics interface, need to show it in the main UML. It may be good to wrap
+Step 4. The filled `desc` will be returned to the `LogicManager` where a new `StatsCommand` command, `statsCommand` will be created with `desc`
 
-Step 5. `ModelManager` calls `setStatistics(statistics)` which updates the `Statistics` attribute in ModelManager.
+Figure 1. below illustrates the details from Steps 2 to 4.
 
-Step 6. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
+image::BasicStatisticsParserToCommand.png[]
+
+Figure 1. Reference Diagram for creating a `StatsCommand`
+
+
+Step 4. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
+
+Step 5. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
+After which, `StatsCommand` will call `createPieChartStatistics', which takes in `desc` and the primary budget.
+
+Step 6. To construct the time interval required for statistics, information from `desc` is being processed.
+If there are unspecified inputs inside `desc`, the time interval will be constructed with some information from the primary budget.
+
+Step 7. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
+After which, `StatsCommand` will call `PieChartStatistics` implementation of `populateData()` to fill up its other fields
+
+Step 8. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
+
+Step 9. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
 to the `Statistics Panel` where a Pie Chart will be generated.
 
 
+Figure 2. below illustrates the details from Steps 6 to 9.
+
+image::CreatePieChartReference.png[]
+
+Figure 2. Reference Diagram for creating a `StatsCommand`
 
 
+The following sequence diagram shows how the `statsbasic` operation works as a big picture:
 
-The following sequence diagram shows how the `statsbasic` operation works:
+image::BasicStatisticsCommandSequenceDiagram.png[]
 
-image::BasicStatisticsCommand.png[]
+Figure 3. Sequence Diagram for executing a `StatsCommand`
 
-Figure 1. Sequence Diagram for executing a `StatsCommand`
-
-
-The following reference diagram shows how `StatsCommandParser` handle optional start date and end date entries
-before creating a `StatsCommand`. This is used mainly to illustrate the interactions in Steps 2 to 3.
-
-
-image::StatsCommandParser.png[]
-
-Figure 2. Reference Diagram for deciding start date and end date for a `StatsCommand`
-
-
-NOTE: As of Week 10, the design of `StatsCommand#execute()` in Step 4 is still a work in progress because of concurrent refactoring, developing command words
-and other dependencies due to outdated methods that causes a depreciated return type to still be in use. This should be resolved ideally by v1.3.
 
 
 ==== Design Considerations
 
-When designing the interaction of `Statistics#calculateStatistics()` with `statsbasic`, decisions have to be made on the most
+When designing the interaction of the command word `statsbasic`, decisions have to be made on the most
 suitable visual representation for `statsbasic` particular use case.
 
 * ** Alternative 1:** Table view
@@ -759,7 +771,7 @@ is added.
 image::HighLevelAddAliasSequenceDiagram.png[]
 [None]
 . 1. The user enters a command with the following syntax `` alias a/ <name> i/ <input>``.
-. 2. The `UI` passes this command string to the `LogicManager` which passes it onto the `AddressBookParser`.
+. 2. The `UI` passes this command string to the `LogicManager` which passes it onto the `MooLahParser`.
 . 3. The parser extracts the argument string and passes it to an ``AliasCommandParser``.
 
 image::ParseAliasCommandSequenceDiagram.png[]
@@ -785,10 +797,10 @@ image::addAlias.png[]
 . 11. The `Alias` is now usable  by the user.
 
 
-When a user enters an ``input`` to be executed, the ``AddressBookParser`` will first try to parse first token in
+When a user enters an ``input`` to be executed, the ``MooLahParser`` will first try to parse first token in
 the ``input`` as a ``CommandWord``, failing which, it will try to parse it as an ``Alias``. If it successfully does so,
 it replaces the first token in the original command string with the ``input`` stored in the ``Alias``.
-Finally, the ``AddressBookParser`` re-parses the modified ``input``.
+Finally, the ``MooLahParser`` re-parses the modified ``input``.
 
 ==== Design Considerations
 

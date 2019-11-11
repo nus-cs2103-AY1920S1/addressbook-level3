@@ -419,14 +419,14 @@ public class MainWindow extends UiPart<Stage> {
             singlePanelView.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
         } else if (panelName.equals(BudgetPanel.PANEL_NAME)) {
             singlePanelView.setPanel(BudgetPanel.PANEL_NAME, new BudgetPanel(logic.getPrimaryBudget()));
-        //} else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
-        //    singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, new BudgetListPanel(logic.getFilteredBudgetList()));
-        //} else if (panelName.equals(ExpenseListPanel.PANEL_NAME)) {
-        //    singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
-        //            new ExpenseListPanel(logic.getFilteredExpenseList(), true));
-        //} else if (panelName.equals(EventListPanel.PANEL_NAME)) {
-        //    singlePanelView.setPanel(EventListPanel.PANEL_NAME,
-        //            new EventListPanel(logic.getFilteredEventList(), true));
+        } else if (panelName.equals(BudgetListPanel.PANEL_NAME)) {
+            singlePanelView.setPanel(BudgetListPanel.PANEL_NAME, new BudgetListPanel(logic.getFilteredBudgetList()));
+        } else if (panelName.equals(ExpenseListPanel.PANEL_NAME)) {
+            singlePanelView.setPanel(ExpenseListPanel.PANEL_NAME,
+                    new ExpenseListPanel(logic.getFilteredExpenseList(), true));
+        } else if (panelName.equals(EventListPanel.PANEL_NAME)) {
+            singlePanelView.setPanel(EventListPanel.PANEL_NAME,
+                    new EventListPanel(logic.getFilteredEventList(), true));
         } else if (panelName.equals(StatsPanel.PANEL_NAME)) {
             try {
                 populateStatisticsPanel();

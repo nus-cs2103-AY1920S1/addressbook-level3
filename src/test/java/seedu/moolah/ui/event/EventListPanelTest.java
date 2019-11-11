@@ -22,7 +22,7 @@ import seedu.moolah.ui.GuiUnitTest;
  * Contains tests for {@code EventListPanel}.
  *
  * Refactored from:
- * https://github.com/se-edu/addressbook-level4/blob/master/src/test/java/seedu/address/ui/PersonListPanelTest.java
+ * https://github.com/se-edu/addressbook-level4/blob/master/src/test/java/seedu/address/ui/EventListPanelTest.java
  */
 public class EventListPanelTest extends GuiUnitTest {
 
@@ -32,7 +32,7 @@ public class EventListPanelTest extends GuiUnitTest {
 
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * Verifies that creating and deleting large number of events in {@code EventListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
@@ -42,12 +42,12 @@ public class EventListPanelTest extends GuiUnitTest {
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of event cards exceeded time limit");
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * Returns a list of events containing {@code eventCount} events that is used to populate the
+     * {@code EventListPanel}.
      */
     private ObservableList<Event> createBackingList(int eventCount) {
         ObservableList<Event> backingList = FXCollections.observableArrayList();
@@ -63,8 +63,8 @@ public class EventListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
-     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
+     * Initializes {@code eventListPanelHandle} with a {@code EventListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code EventListPanel}.
      */
     private void initUi(ObservableList<Event> backingList) {
         EventListPanel listPanel =

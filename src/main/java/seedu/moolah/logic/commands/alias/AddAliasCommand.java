@@ -33,8 +33,8 @@ public class AddAliasCommand extends UndoableCommand {
             + PREFIX_ALIAS_ALIAS_INPUT + "<" + PREFIX_ALIAS_ALIAS_INPUT.getDescriptionOfArgument() + ">" + "\n"
             + "Example: \n"
             + COMMAND_WORD + " " + PREFIX_ALIAS_ALIAS_NAME + " "
-            + "findAnimal " + PREFIX_ALIAS_ALIAS_INPUT + " "
-            + " find rat rats mouse mice cow cows ox oxen tiger tigers";
+            + "petstuff " + PREFIX_ALIAS_ALIAS_INPUT + " "
+            + " findexpense cat catfood dog dogfood fish fishfood";
 
     public static final String MESSAGE_SUCCESS = "Alias created:\n %1$s";
 
