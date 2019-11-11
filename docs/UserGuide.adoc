@@ -167,7 +167,7 @@ no text will be displayed.
 
 === Adding a spending : `add`
 
-Adds a spending to the list when the user incurs a new spending. Key information such as its name, cost, date, tags (if any) and remarks (if any) are stored. +
+Adds a spending to the list when you incur a new spending. Key information such as its name, cost, date, tags (if any) and remarks (if any) are stored. +
 
 *Format:* `add n/NAME c/COST d/DATE [t/TAG]... [r/REMARKS]`
 
@@ -518,12 +518,12 @@ A graph is shown.
 
 === Adding a reminder: `reminder add`
 
-Adds a reminder to the reminder list when the user enters a new reminder. Key information such as deadline and message are recorded.
+Adds a reminder to the reminder list when you enters a new reminder. Key information such as deadline and message are recorded.
 
 *Format:* `reminder add d/DATE m/MESSAGE`
 
 [NOTE]
-The date of the deadline in a reminder must be in the future before the end of next year. In other words, MoneyGoWhere will accept dates starting from today until the end of next year as deadlines.
+You have to ensure that the date of the deadline in must be in the future before the end of next year. In other words, MoneyGoWhere will accept dates starting from today until the end of next year as deadlines.
 
 *Examples:*
 
@@ -532,7 +532,7 @@ The date of the deadline in a reminder must be in the future before the end of n
 
 *Expected Output:*
 
-A new reminder is added according to the information provided.
+A new reminder is added according to the information you provided.
 
 === Deleting a reminder: `reminder delete`
 Deletes a reminder at the specified `INDEX`.
