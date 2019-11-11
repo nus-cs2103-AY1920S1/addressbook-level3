@@ -92,7 +92,7 @@ The `UI` component extends out to many different pages in TravEzy which represen
 * Achievements
 
 [CAUTION]
-The Calendar and Itinerary window work in tandem with each other. Due to their dependency, modification to one of the feeature might result in the the other feature breaking.
+The Calendar and Itinerary window work in tandem with each other. Due to their dependency, modification to one of the feature might result in the the other feature breaking.
 
 The `UI` component,
 
@@ -510,12 +510,13 @@ image::FinancialTrackerActivityDiagram.png[width=800]
 .Architecture Diagram for Diary Feature
 image::DiaryArchitectureDiagram.png[]
 
-The architecture diagram above explains the high-level design and implementation of the Diary Feature within TravEzy.
+The *_Architecture Diagram_* above explains the high -level design of the _Diary_ within _TravEzy_. Below, there is a brief explanation of each component.
 
 
-`Diary Model` has multiple classes which form the basis of a Diary.
-This implementation starts at the root object, which is a `DiaryEntry`. These entries
-are stored within a `DiaryList`, which are then encapsulated within a `DiaryBook`
+The actual _Diary_ is represented as a ``DiaryModel`` in the diagram. This ``DiaryModel`` has the basic functionalities of a real _Diary_.
+It can store multiple entries which can then be manipulated by the user. The exact functionalities are described in more detail in the *_Model_* section below.
+
+The _Diary_
 
 After receiving user input from `DiaryUi`, `DiaryParser`
 changes the input to a executable format, and `DiaryCommand` allows for execution of the user input.
