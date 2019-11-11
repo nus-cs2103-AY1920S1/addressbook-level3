@@ -11,36 +11,38 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
 import java.util.stream.Stream;
 
+import seedu.ezwatchlist.commons.core.messages.Messages;
 import seedu.ezwatchlist.commons.core.messages.SearchMessages;
 import seedu.ezwatchlist.logic.commands.SearchCommand;
 import seedu.ezwatchlist.logic.parser.exceptions.ParseException;
+import seedu.ezwatchlist.model.show.Type;
 
 /**
- * Parses input arguments and creates a new SearchCommand object
+ * Parses input arguments and creates a new SearchCommand object.
  */
 public class SearchCommandParser implements Parser<SearchCommand> {
+    private static final String INPUT_TRUE = "true";
+    private static final String INPUT_YES = "yes";
+    private static final String INPUT_FALSE = "false";
+    private static final String INPUT_NO = "no";
+
     private HashMap<SearchKey, List<String>> searchShowsHashMap = new HashMap<>();
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
-    }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SearchCommand
+     * Parses the given {@code String} of arguments in the context of the SearchCommand.
      * and returns a SearchCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
+     * @throws ParseException if the user input does not conform the expected format.
      */
-
     public SearchCommand parse(String args, String currentPanel) throws ParseException {
-        // checkSyntaxError(args);
+        checkNoOtherPrefixPresent(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_NAME, PREFIX_TYPE, PREFIX_ACTOR, PREFIX_GENRE, PREFIX_IS_WATCHED, PREFIX_FROM_ONLINE);
+
+        checkPrefixPresent(argMultimap);
 
         List<String> nameList = argMultimap.getAllValues(PREFIX_NAME);
         Optional<String> typeOptional = argMultimap.getValue(PREFIX_TYPE);
@@ -54,24 +56,47 @@ public class SearchCommandParser implements Parser<SearchCommand> {
         parseActorToBeSearched(actorList);
         parseGenreToBeSearched(genreList);
         parseIsWatchedToBeSearched(isWatchedOptional);
-        parseIsInternalToBeSearched(fromOnlineOptional);
+        parseFromOnlineToBeSearched(fromOnlineOptional);
 
         return new SearchCommand(searchShowsHashMap);
     }
 
     /**
-     * Checks if the user input the command correctly with the correct syntax.
-     * @param args User input to be checked for the correct syntax
-     * @throws ParseException if the user input does not conform the expected format
+     * Returns true if any of the prefixes for name, genre or actor is present
+     * in the given {@code ArgumentMultimap}.
+     * @throws ParseException if the user input does not conform the expected format.
      */
-    private void checkSyntaxError(String args) throws ParseException {
-        String[] keywordsArray = args.split(" ");
-        int length = keywordsArray.length;
-        for (int i = 1; i < length; i++) {
-            String s = keywordsArray[i].trim();
-            if (s.length() > 2 && (!s.substring(0, 2).equals("n/") && !s.substring(0, 2).equals("a/")
-                    && !s.substring(0, 2).equals("g/") && !s.substring(0, 2).equals("t/")
-                    && !s.substring(0, 2).equals("w/") && !s.substring(0, 2).equals("o/"))) {
+    private void checkPrefixPresent(ArgumentMultimap argMultimap) throws ParseException {
+        if (!anyPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GENRE, PREFIX_ACTOR)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    SearchMessages.MESSAGE_USAGE));
+        }
+    }
+
+    /**
+     * Returns true if any of the prefixes does not contain empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean anyPrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).anyMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
+     * Checks if the user input the command correctly with the correct syntax.
+     * @param args User input to be checked for the correct syntax.
+     * @throws ParseException if the user input does not conform the expected format.
+     */
+    private void checkNoOtherPrefixPresent(String args) throws ParseException {
+        String[] keywordsArray = args.split("/");
+        int arrayLength = keywordsArray.length;
+        for (int i = 0; i < arrayLength - 1; i++) {
+            String s = keywordsArray[i];
+            String[] sArray = s.split(" ");
+            int sLength = sArray.length;
+            String prefix = sArray[sLength - 1];
+            if (!prefix.equals("n") && !prefix.equals("a") && !prefix.equals("g") && !prefix.equals("t")
+                    && !prefix.equals("o") && !prefix.equals("w")) {
                 throw new ParseException("Invalid syntax.\n" + SearchMessages.MESSAGE_USAGE);
             }
         }
@@ -89,10 +114,13 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * Parses the type to be searched.
      * @param typeOptional Type to be searched.
      */
-    private void parseTypeToBeSearched(Optional<String> typeOptional) {
-        ArrayList<String> listOfType = new ArrayList<String>(); // Empty if can be of any type
+    private void parseTypeToBeSearched(Optional<String> typeOptional) throws ParseException {
+        ArrayList<String> listOfType = new ArrayList<String>();
         if (typeOptional.isPresent()) {
             String type = typeOptional.get().trim().toLowerCase();
+            if (!(type.equals(Type.MOVIE.getType()) || type.equals(Type.TV_SHOW.getType()))) {
+                throw new ParseException(SearchMessages.MESSAGE_INVALID_TYPE_COMMAND);
+            }
             listOfType.add(type);
         }
         searchShowsHashMap.put(SearchKey.KEY_TYPE, listOfType);
@@ -118,26 +146,34 @@ public class SearchCommandParser implements Parser<SearchCommand> {
      * Parses whether the show is watched.
      * @param isWatchedOptional True/Yes if is watched, else, False/No
      */
-    private void parseIsWatchedToBeSearched(Optional<String> isWatchedOptional) {
-        ArrayList<String> listOfIsWatched = new ArrayList<String>(); // Empty if can be any
-        if (isWatchedOptional.isPresent()) { // true or yes || false or no
+    private void parseIsWatchedToBeSearched(Optional<String> isWatchedOptional) throws ParseException {
+        ArrayList<String> listOfIsWatched = new ArrayList<String>();
+        if (isWatchedOptional.isPresent()) {
             String isWatched = isWatchedOptional.get().trim();
+            if (!(isWatched.equals(INPUT_FALSE) || isWatched.equals(INPUT_NO) || isWatched.equals(INPUT_TRUE)
+                    || isWatched.equals(INPUT_YES))) {
+                throw new ParseException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            }
             listOfIsWatched.add(isWatched);
         }
         searchShowsHashMap.put(SearchKey.KEY_IS_WATCHED, listOfIsWatched);
     }
 
     /**
-     * Parses whether the show is internal.
-     * @param isInternalOptional True/Yes if is internal, else, False/No
+     * Parses whether the show searched should be from online.
+     * @param fromOnlineOptional True/Yes if is from online, else, False/No.
      */
-    private void parseIsInternalToBeSearched(Optional<String> isInternalOptional) {
-        ArrayList<String> listOfIsInternal = new ArrayList<String>(); // Empty if can be any
-        if (isInternalOptional.isPresent()) { // true or yes || false or no
-            String isInternal = isInternalOptional.get().trim();
-            listOfIsInternal.add(isInternal);
+    private void parseFromOnlineToBeSearched(Optional<String> fromOnlineOptional) throws ParseException {
+        ArrayList<String> listOfFromOnline = new ArrayList<String>();
+        if (fromOnlineOptional.isPresent()) {
+            String fromOnline = fromOnlineOptional.get().trim();
+            if (!(fromOnline.equals(INPUT_FALSE) || fromOnline.equals(INPUT_NO) || fromOnline.equals(INPUT_TRUE)
+                    || fromOnline.equals(INPUT_YES))) {
+                throw new ParseException(SearchMessages.MESSAGE_INVALID_FROM_ONLINE_COMMAND);
+            }
+            listOfFromOnline.add(fromOnline);
         }
-        searchShowsHashMap.put(SearchKey.KEY_FROM_ONLINE, listOfIsInternal);
+        searchShowsHashMap.put(SearchKey.KEY_FROM_ONLINE, listOfFromOnline);
     }
 
     /**

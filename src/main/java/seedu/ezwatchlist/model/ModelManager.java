@@ -25,6 +25,7 @@ public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final WatchList watchList;
+    private final WatchList database;
     private final WatchList searchResult = new WatchList();
     private final FilteredList<Show> unWatchedList;
     private final FilteredList<Show> watchedList;
@@ -37,13 +38,15 @@ public class ModelManager implements Model {
     /**
      * Initializes a ModelManager with the given watchList and userPrefs.
      */
-    public ModelManager(ReadOnlyWatchList watchList, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyWatchList watchList, ReadOnlyWatchList database, ReadOnlyUserPrefs userPrefs) {
         super();
         CollectionUtil.requireAllNonNull(watchList, userPrefs);
 
-        logger.fine("Initializing with watchlist: " + watchList + " and user prefs " + userPrefs);
+        logger.fine("Initializing with watchlist: " + watchList + ", database: " + database + " and user prefs "
+                + userPrefs);
 
         this.watchList = new WatchList(watchList);
+        this.database = new WatchList(database);
         this.userPrefs = new UserPrefs(userPrefs);
 
         filteredShows = new FilteredList<>(this.watchList.getShowList());
@@ -55,7 +58,7 @@ public class ModelManager implements Model {
     }
 
     public ModelManager() {
-        this(new WatchList(), new UserPrefs());
+        this(new WatchList(), new WatchList(), new UserPrefs());
     }
 
     //=========== UserPrefs ==================================================================================
@@ -118,7 +121,7 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Show> getShowIfHasName(Name showName) {
+    public List<Show> getShowFromWatchlistIfHasName(Name showName) {
         requireNonNull(showName);
         return watchList.getShowIfHasName(showName);
     }
@@ -130,13 +133,13 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+    public List<Show> getShowFromWatchlistIfHasActor(Set<Actor> actorSet) {
         requireNonNull(actorSet);
         return watchList.getShowIfHasActor(actorSet);
     }
 
     @Override
-    public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
+    public List<Show> getShowFromWatchlistIfIsGenre(Set<Genre> genreSet) {
         requireNonNull(genreSet);
         return watchList.getShowIfIsGenre(genreSet);
     }
@@ -218,7 +221,45 @@ public class ModelManager implements Model {
         return searchResult.getShowList();
     }
 
+    //=========== Database ================================================================================
+    @Override
+    public Path getDatabaseFilePath() {
+        return userPrefs.getDatabaseFilePath();
+    }
 
+    @Override
+    public void setDatabaseFilePath(Path databaseFilePath) {
+        requireNonNull(databaseFilePath);
+        userPrefs.setDatabaseFilePath(databaseFilePath);
+    }
+
+    @Override
+    public void setDatabase(ReadOnlyWatchList database) {
+        this.database.resetData(database);
+    }
+
+    @Override
+    public ReadOnlyWatchList getDatabase() {
+        return database;
+    }
+
+    @Override
+    public List<Show> getShowFromDatabaseIfHasName(Name showName) {
+        requireNonNull(showName);
+        return database.getShowIfHasName(showName);
+    }
+
+    @Override
+    public List<Show> getShowFromDatabaseIfHasActor(Set<Actor> actorSet) {
+        requireNonNull(actorSet);
+        return database.getShowIfHasActor(actorSet);
+    }
+
+    @Override
+    public List<Show> getShowFromDatabaseIfIsGenre(Set<Genre> genreSet) {
+        requireNonNull(genreSet);
+        return database.getShowIfIsGenre(genreSet);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -235,6 +276,8 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return watchList.equals(other.watchList)
+                && watchedList.equals(other.watchedList)
+                && database.equals(other.database)
                 && userPrefs.equals(other.userPrefs)
                 && filteredShows.equals(other.filteredShows);
     }

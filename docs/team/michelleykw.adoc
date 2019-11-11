@@ -1,0 +1,73 @@
+= Michelle Yong Kai Wen - Project Portfolio for EzWatchList
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== 1. Introduction
+
+---
+
+The purpose of the portfolio is to document my roles and contributions to the project in terms of code, the user and
+developer guides.
+
+=== 1.1 Overview
+
+In a team of 5 software engineering students, we were tasked to enhance a basic command line interface desktop
+addressbook application for our software engineering project. We chose to morph it into a watchlist for movie and
+television series called EzWatchList.
+
+My role was to design the code for the `search` feature and ensure proper documentation of the code in general. I had
+to implement the `search` feature such that users would be able to search within the watchlist and from online. The
+code had to be refactored and the `search` command had to be modified to allow users to search for different
+categories such as searching by name or actor.
+
+=== 1.2 About EzWatchList
+
+EzWatchList is a desktop application, designed for those who types fast and prefer to work with Command Line
+Interface (CLI) for managing movies and television series watchlist. It helps users keep track of the shows they had
+watched or wish to watch, reducing the hassle of having to search for shows frequently.
+
+image::Ui.png[]
+_Figure 1: The graphical interface for Ezwatchlist_
+
+[width="100%",cols="5,^15"]
+|===
+| [Note] |  This symbol indicates information and tips to take note of.
+| `Search` | A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command
+line and executed by the application.
+| (different front/colour text) | This indicates that it is a class, method or field in the code.
+|===
+
+=== 1.3 Summary of Contributions
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project. +
+
+Enhancement added: +
+
+I modified the `search` command. +
+
+* What it does: The `search` command allows the user to search for a show.
+* Justification:
+* Highlights:
+* Credits:
+* Code contributed +
+Below is a sample of my code: +
+ // screenshot of code
+
+Please click here to see the above full code and here for other sample of my code.
+
+Other contributions: +
+
+* Project Management:
+* Enhancements to exisiting features:
+* Documentation:
+* Community:
+* Tools:
+
+=== 1.4 Contributions to the User Guide
+
+include::../UserGuide.adoc[tag=search]
+
+=== 1.5 Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=search]
+

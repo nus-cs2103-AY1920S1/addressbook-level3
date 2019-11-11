@@ -35,7 +35,6 @@ public class WatchListParserTest {
     private final WatchListParser parser = new WatchListParser();
     private final String currentTab = "watchlist";
 
-
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD, currentTab) instanceof ClearCommand);

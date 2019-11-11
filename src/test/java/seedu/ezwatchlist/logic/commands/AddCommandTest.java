@@ -220,7 +220,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getDatabaseFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setWatchListFilePath(Path watchListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setDatabaseFilePath(Path databaseFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -235,7 +245,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void setDatabase(ReadOnlyWatchList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public ReadOnlyWatchList getWatchList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyWatchList getDatabase() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -250,7 +270,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public List<Show> getShowIfHasName(Name showName) {
+        public List<Show> getShowFromWatchlistIfHasName(Name showName) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Show> getShowFromDatabaseIfHasName(Name showName) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -260,12 +285,22 @@ public class AddCommandTest {
         }
 
         @Override
-        public List<Show> getShowIfIsGenre(Set<Genre> genreSet) {
+        public List<Show> getShowFromWatchlistIfIsGenre(Set<Genre> genreSet) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public List<Show> getShowIfHasActor(Set<Actor> actorSet) {
+        public List<Show> getShowFromDatabaseIfIsGenre(Set<Genre> genreSet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Show> getShowFromWatchlistIfHasActor(Set<Actor> actorSet) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Show> getShowFromDatabaseIfHasActor(Set<Actor> actorSet) {
             throw new AssertionError("This method should not be called.");
         }
 

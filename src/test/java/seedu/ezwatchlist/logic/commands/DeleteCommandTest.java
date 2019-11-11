@@ -7,6 +7,7 @@ import static seedu.ezwatchlist.logic.commands.CommandTestUtil.assertCommandSucc
 import static seedu.ezwatchlist.logic.commands.CommandTestUtil.showShowAtIndex;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_FIRST_SHOW;
 import static seedu.ezwatchlist.testutil.TypicalIndexes.INDEX_SECOND_SHOW;
+import static seedu.ezwatchlist.testutil.TypicalShows.getDatabase;
 import static seedu.ezwatchlist.testutil.TypicalShows.getTypicalWatchList;
 
 import org.junit.jupiter.api.Test;
@@ -23,7 +24,7 @@ import seedu.ezwatchlist.model.show.Show;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalWatchList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalWatchList(), getDatabase(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -32,7 +33,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SHOW_SUCCESS, showToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getWatchList(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getWatchList(), getDatabase(), new UserPrefs());
         expectedModel.deleteShow(showToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -55,7 +56,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_SHOW_SUCCESS, showToDelete);
 
-        Model expectedModel = new ModelManager(model.getWatchList(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getWatchList(), getDatabase(), new UserPrefs());
         expectedModel.deleteShow(showToDelete);
         showNoShow(expectedModel);
 
