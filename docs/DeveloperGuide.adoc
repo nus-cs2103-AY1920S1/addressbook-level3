@@ -19,7 +19,7 @@ By: `Team DukeCooks`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals. Targeting busy
+DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious students. Targeting busy
 students that are long-time users of the Command-Line Interface (CLI), DukeCooks offers such users a CLI healthy
 lifestyle application. This means, expert-CLI student users will be able to execute different commands, all within a single line.
 They will be able to manage various aspects of their lifestyle, from their diet, to exercises and health records.
@@ -238,10 +238,7 @@ The `Model`,
 * stores the Duke Cooks data.
 * exposes an unmodifiable `ObservableList<XYZ>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-* BlackBox refers to the model diagram of the individual components of DukeCooks as shown below
-
-.Structure of Workout Model
-image::WorkoutPlannerModelClassDiagram.png[]
+* BlackBox refers to the model diagram of the individual components of DukeCooks.
 
 [NOTE]
 ====
@@ -277,7 +274,7 @@ Classes used by multiple components are in the `dukecooks.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Implementation of Commands and Parser
+=== Commands and Parser
 All command variants (i.e `AddRecipeCommand`, `AddExerciseCommand`) extends from `AddCommand`,
 instead of the abstract `Command` class.
 This applies to other type of commands as well, such as `DeleteCommand` and `EditCommand`.
@@ -324,7 +321,6 @@ In DukeCooks, a `Dashboard` object represents an event a user needs to attend to
 a `DashboardName`, `TaskDate` and `TaskStatus`. Below is a class diagram (Figure 10) that illustrates how `Dashboard` interacts with other classes.
 
 .Dashboard Class Diagram
-[caption="Figure 10: "]
 image::DashboardClassDiagram.png[width="500"]
 
 ==== Implementation
@@ -395,7 +391,7 @@ image::DoneTaskSequenceDiagram.png[width="600"]
 
 ==== Making Decisions
 
-[cols="10%,50%,40%""]
+[cols="20%,40%,40%""]
 [width="100%"]
 |===
 |*Aspect* |*Option 1 (Chosen)*|*Option 2*
@@ -403,9 +399,11 @@ image::DoneTaskSequenceDiagram.png[width="600"]
 |Storing a task's status
 |A custom class, `TaskStatus`, is created to keep track of the task's status.
 
-*Pros*: Additional statuses can be introduced in easily in the future. +
+*Pros* +
+Additional statuses can be introduced in easily in the future. +
 
-*Cons*: Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
+*Cons* +
+Because a `String` is used to create a `TaskStatus`, typos could be made when adding test cases. +
 
 *Our Choice* +
 This choice was chosen as it does not limit us to only having tasks marked as "COMPLETED" or "NOT COMPLETE".
@@ -413,27 +411,33 @@ Since choice 1 was used, additional status, "RECENTLY COMPLETED" could be added 
 
 |Use a boolean to check if a task is complete.
 
-*Pros*: Easy to implement.
+*Pros* +
+Easy to implement.
 
-*Cons*: Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
+*Cons* +
+ Limits expansion since a task can only be marked as "COMPLETED" or "NOT COMPLETE".
 
 |Sorting tasks by date
 
 |Every time the `add`, `delete`, `edit` task command is called, a `sort` is executed.
 
-*Pros*: Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
+*Pros* +
+ Easy to implement. Because `sort` is implemented regardless if the list is in-order or not,
 there is lesser chance for errors.
 
-*Cons*: Because `sort` is executed every time, this might slow down the performance.
+*Cons* +
+ Because `sort` is executed every time, this might slow down the performance.
 
 *Our Choice* +
 This choice was chosen as it reduces the chance of errors making it a safer option.
 
 |Keep an instance of the earliest and latest date. If dates fall out of range from the two dates, sorting does not happen.
 
-*Pros*: Faster runtime.
+*Pros* +
+Faster runtime.
 
-*Cons*: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
+*Cons* +
+Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
 |===
 // end::dashboard[]
 
@@ -665,7 +669,7 @@ of the workout.
 
 *Design Considerations*
 
-[cols="10%,50%,40%""]
+[cols="20%,40%,40%""]
 [width="100%"]
 |===
 |Aspect |Option 1 (Chosen)|Option 2
@@ -673,54 +677,70 @@ of the workout.
 |Storing an Exercise/Workout's intensity
 |Intensity was stored as an Enumeration instead of a class
 
-- Pros: Intensity can be limited only a specific amount of values +
+*Pros* +
+Intensity can be limited only a specific amount of values
 
-- Cons: Intensity will only be an estimate instead of a specific value given the value limits +
+*Cons* +
+Intensity will only be an estimate instead of a specific value given the value limits +
 
+*Our Choice* +
 This option was chosen in the end to simplify the classification of exercise so that users can more easily filter by
 intensity. Furthermore, this allows for more Ui diversification by having different images for each intensity.
 
 |Setting Intensity as a Class
 
-- Pros: Easy to implement.
+*Pros* +
+Easy to implement.
 
-- Cons: Makes filtering by intensity a more tedious affair for both developers and users.
+*Cons* +
+Makes filtering by intensity a more tedious affair for both developers and users.
 
 |Storing MuscleTypes
 
 |Have MuscleType be a class on its own
 
-- Pros: Muscles are referred to by various names and allowing the user to set their own muscle names allow for more
+*Pros* +
+Muscles are referred to by various names and allowing the user to set their own muscle names allow for more
 familiarity
 
-- Cons: MuscleType class will require stricter validation to ensure that users do not mess up the programme with unintended
+*Cons* +
+MuscleType class will require stricter validation to ensure that users do not mess up the programme with unintended
 inputs.
 
+*Our Choice* +
 This option was chosen to allow for greater flexibility of naming for the muscle types but at the same time still limited
 to prevent the users from going wild.
 
 |Store MuscleType as an enumeration
 
-- Pros: There are limited muscles in the body, allowing for a proper limit +
+*Pros* +
+There are limited muscles in the body, allowing for a proper limit +
 
-- Cons: Muscles may have multiple names that are not accounted for by the enum.
+*Cons* +
+Muscles may have multiple names that are not accounted for by the enum.
 
 |Storage of Exercises in Workout
 |Workouts only store a list of ExerciseName and not the full exercise
 
-- Pros: Exercises only have to be edited once upon execution of edit command - more cost effective. It also avoids
-unnecessarily large storage files. +
+*Pros* +
+Exercises only have to be edited once upon execution of edit command - more cost effective. It also avoids
+unnecessarily large storage files.
 
-- Cons: Each time an exercise of workout has to be referenced, the entire storage of exercise has to be scoured
+*Cons* +
+Each time an exercise of workout has to be referenced, the entire storage of exercise has to be scoured
 
+*Our Choice*
 In the end we decided to choose this option as we foresee that the edit command will be utilised more often than calling
 an exercise from a workout. Furthermore, to improve timing, we kept a sorted storage for exercise to allow for the quicker
 binary search.
 
 | Workouts store whole Exercises
 
-- Pros : Exercises can be extracted quickly
-- Cons : Huge storage space is required. Also complicates editing of exercises.
+*Pros* +
+Exercises can be extracted quickly
+
+*Cons* +
+Huge storage space is required. Also complicates editing of exercises.
 |===
 
 === Health Records feature
@@ -873,10 +893,10 @@ Sets do not provide an order to the `Page` objects.
 | Defensively copies images into our internal data folder and all subsequent loading of images is done from this folder.
 
 *Pros* +
-Less prone to user errors when loading images (i.e Deleted image in local directory)
+Less prone to user errors when loading images. (i.e when user deletes image from their local directory)
 
 *Cons* +
- Increased memory usage as each image needs to be saved internally
+ Increased memory usage as each image needs to be saved internally.
 
 *Our Choice* +
 This choice was chosen as it is less-prone to user errors and is safer.
@@ -887,7 +907,7 @@ This choice was chosen as it is less-prone to user errors and is safer.
 Easy to implement.
 
 *Cons* +
- May lead to unexpected errors when loading images (i.e when user deletes the image from directory)
+ May lead to unexpected errors when loading images. (i.e when user deletes image from their local directory)
 |===
 
 // end::diary[]
@@ -983,7 +1003,7 @@ Attributes left unset in `.adoc` files will use their *default value*, if any.
 [cols="1,2a,1", options="header"]
 .List of per-file attributes, excluding Asciidoctor's built-in attributes
 |===
-|Attribute exerciseName |Description |Default value
+|Attribute name |Description |Default value
 
 |`site-section`
 |Site section that the document belongs to.
@@ -1126,7 +1146,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 The following is a Use Case diagram for the Dashboard.
 
 .Dashboard Use Case Diagram
-[caption="Figure 11: "]
 image::DashboardUseCase.png[width="200"]
 
 (For all use cases below, the *System* is `DukeCooks` and the *Actor* is the `user`, unless specified otherwise)
