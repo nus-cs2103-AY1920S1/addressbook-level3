@@ -393,9 +393,11 @@ Then, the computation of the number of `HIGH_PRIORITY` and `LOW_PRIORITY` cards 
 
 The structure of Statistics-related classes is depicted in the class diagram below.
 
-image::class diagram.png
+image::nattanyz/class diagram.png[]
 
 The following sequence diagram depicts the starting, ending and saving of the user's `Session` when they open and close the app.
+
+image::nattanyz/sequence diagram.png[]
 
 === Challenges in implementation
 * Because of the custom `StorageManager` class used to load and save JSON objects, the implementation of loading and saving statistics is somewhat tightly coupled with `StorageManager`.
