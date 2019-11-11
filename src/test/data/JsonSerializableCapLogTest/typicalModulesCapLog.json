@@ -7,7 +7,7 @@
     "faculty" : "Computing",
     "grade" : "A"
   }, {
-    "moduleCode" : "CS2030 with invalid grade field",
+    "moduleCode" : "CS2030",
     "title" : "Programming Methodology II",
     "semester" : "1920S1",
     "credit" : "4",

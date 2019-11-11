@@ -44,19 +44,19 @@ public class NameContainsKeywordsPredicateTest {
         // One keyword
         NameContainsKeywordsPredicate predicate =
                 new NameContainsKeywordsPredicate(Collections.singletonList("CS2103"));
-        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2103 CS2100").build()));
+        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2103").build()));
 
         // Multiple keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2103", "CS2100"));
-        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2103 CS2100").build()));
+        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2103").build()));
 
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2100", "CS2100"));
-        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2103 CS2100").build()));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2100", "CS2103"));
+        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2103").build()));
 
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("cS2103", "cs2100"));
-        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2103 CS2100").build()));
+        assertTrue(predicate.test(new ModuleBuilder().withModuleCode("CS2100").build()));
     }
 
     @Test
@@ -67,6 +67,6 @@ public class NameContainsKeywordsPredicateTest {
 
         // Non-matching keyword
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("CS2101"));
-        assertFalse(predicate.test(new ModuleBuilder().withModuleCode("CS2103 CS2100").build()));
+        assertFalse(predicate.test(new ModuleBuilder().withModuleCode("CS2103").build()));
     }
 }
