@@ -451,7 +451,6 @@ by opening the engagements list window for that particular date.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
 
 // tag::typinggame[]
-
 === Game Feature
 ==== Implementation
 The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
@@ -459,7 +458,8 @@ by button-click in `StartWindow`. This means that there can only be one `gameIns
 of the game being over.
 
 //image::GameActivityDiagram.png[float="left"]
-image::GameActivityDiagram.png[]
+image::GameActivityDiagram.png[width="60%"]
+.Activity Diagram of the Game Window
 
 `GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
 
@@ -532,7 +532,7 @@ The sort mechanism is facilitated by `EngagementComparator`.
 The `EngagementComparator` is an enum class that implements Java Comparator<Engagement> and specifies the comparing logic of 8 different orders, namely `START_TIME`, `START_TIME_REVERSE`, `END_TIME`, `END_TIME_REVERSE`, `ALPHABETICAL`, `ALPHABETICAL_REVERSE`, `PRIORITY`, and `PRIORITY_REVERSE`.
 Each positive sequence comparator compares two `Engagements` with the field specified within its name in ascending order, and `_REVERSE` comparators compare in descending order.
 
-Additionaly, the `Model` interface is modified to support the following methods:
+Additionally, the `Model` interface is modified to support the following methods:
 
 * `Model#setComparator(Comparator<Engagement>)` -- Sets the designated comparator in model.
 * `Model#updateSortedEngagementList()` -- Executes the sorting method with the `currentComparator` in model to sort the internal list.
@@ -1017,8 +1017,8 @@ and carry out administrative tasks.
 [[manager]] Manager::
 The person that the secretary is assigned to work for.
 
-[[appointment]] Appointment::
-An arrangement, managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
+[[engagement]] Engagement::
+An arrangement, meeting or interview managed and maintained by a secretary, for the manager to meet someone at a particular time and place.
 //end::glossary[]
 
 
@@ -1061,4 +1061,78 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding an engagement
+
+(i) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(ii) Test case: `add t/ s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid engagement type due to invalid engagement type.
+
+(iii) Test case: `add t/meeting s/ e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid start time due to invalid start time.
+
+(iv) Test case: `add t/meeting s/16/11/2019/1500 e/ l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid end time due to invalid end time.
+
+(v) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/ d/Team Meeting a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid location due to invalid location.
+
+(vi) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/ a/John | Smith p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for due to invalid description.
+
+(vii) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/ p/High`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid attendees due to invalid attendees.
+
+(vii) Test case: `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/高`
+
+Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
+
+(viii) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/High
+```
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(ix) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/appointment
+s/01/01/2019/0900
+e/01/01/2019/1000
+l/Meeting Room 3
+d/Team Discussion
+a/John Smith
+p/None
+```
+Expected: Status bar shows the successful addition of engagement with its details. The engagement list is updated accordingly.
+
+(x) Test case: +
+The sequence of commands is as follows:
+```
+add
+t/meeting
+s/16/11/2019/1500
+e/16/11/2019/1600
+l/Meeting Room 2
+d/Team Meeting
+a/John | Smith
+p/😄
+```
+Expected: The engagement is not added. Status bar shows prompt for a valid priority due to invalid priority.
