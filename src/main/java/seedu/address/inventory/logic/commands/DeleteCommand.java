@@ -9,7 +9,7 @@ import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.util.CommandResult;
 
 /**
- * Deletes a transaction to the transaction list.
+ * Deletes an item from the inventory list.
  */
 public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";

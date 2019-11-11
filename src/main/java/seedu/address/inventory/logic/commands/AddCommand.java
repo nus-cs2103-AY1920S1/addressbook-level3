@@ -12,7 +12,7 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.util.CommandResult;
 
 /**
- * Adds a transaction to the transaction list.
+ * Adds an item to the inventory list.
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";

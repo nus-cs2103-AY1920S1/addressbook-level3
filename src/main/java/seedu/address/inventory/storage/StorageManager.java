@@ -56,6 +56,10 @@ public class StorageManager implements Storage {
         } else {
             throw new ParseFileException("Incorrect number of fields");
         }
+        if (i.getSubtotal() >= 10000 || i.getTotalCost() >= 10000 || i.getQuantity() < 1
+            || i.getCost() < 0 || i.getPrice() < 0) {
+            throw new NumberFormatException("Number(s) outside of approved range.");
+        }
         return i;
     }
 
