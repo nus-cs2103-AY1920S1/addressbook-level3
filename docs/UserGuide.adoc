@@ -957,7 +957,7 @@ The contract will contains details of the event such as the location, budget, an
 | *Clear DateTime from an Event*| `clear_ev_dt EVENT_INDEX`
 | `clear_ev_dt 2`
 | *Display Schedule for specific date*| `display_schedule_date on/DDMMYYYY` | `display_schedule_date on/02/12/2019`
-| *Display Schedule for specific month*| `display_schedule_month for/MMYYYY` | `display_schedule_month for/02/12/2019`
+| *Display Schedule for specific month*| `display_schedule_month for/MMYYYY` | `display_schedule_month for/12/2019`
 | *Display Schedule for between 2 dates*| `display_schedule_between start/DDMMYYYY end/DDMMYYYY` | `display_schedule_between start/02/12/2019 end/05/12/2019`
 | *Generate Entire Schedule*| `generate_schedule` | `generate_schedule`
 | *Generate Statistics [coming in v2.0]* | `stats_g` | `stats_g`
