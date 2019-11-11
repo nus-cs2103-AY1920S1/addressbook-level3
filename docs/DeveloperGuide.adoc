@@ -420,6 +420,7 @@ image::GenerateScheduleClassDiagram.png[align="center"]
 
 ---
 Below is an example usage scenario and how the `display_schedule` command behaves at each step.
+
 ._Program flow of the Generate Schedule Feature_
 image::GenerateScheduleFlowChart.png[align="center"]
 
