@@ -12,6 +12,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.elisa.commons.core.GuiSettings;
 import seedu.elisa.model.ItemStorage;
 import seedu.elisa.model.UserPrefs;
+import seedu.elisa.testutil.TypicalItems;
 
 public class StorageManagerTest {
 
@@ -44,8 +45,11 @@ public class StorageManagerTest {
     }
 
     @Test
+    // test the itemstorage methods too
     public void itemStorageReadSave() throws Exception {
         ItemStorage original = new ItemStorage();
+        original.add(TypicalItems.ITEM_WITH_ALL);
+        original.add(TypicalItems.ITEM_WITH_EVENT);
         storageManager.saveItemStorage(original);
         ItemStorage retrieved = storageManager.toModelType();
         assertEquals(original, retrieved);

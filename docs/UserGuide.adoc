@@ -15,7 +15,7 @@ endif::[]
 
 = ELISA - User Guide
 
-image::ug_title.png[]
+image::ug_title.PNG[]
 
 By: `AY1920S1-CS2103T-T10-3`
 Since: `Sep 2019`
@@ -23,7 +23,7 @@ Licence: `NUS`
 
 == Introduction
 
-image::ug_introduction.png[]
+image::ug_introduction.PNG[]
 
 Hello, I am an Extremely Loud and Intelligent Student Assistant (ELISA)!
 
@@ -35,7 +35,7 @@ Enjoy!
 
 == Quick Start
 
-image::ug_quickstart.png[]
+image::ug_quickstart.PNG[]
 
 .  Have you installed Java `11` ?
 .  Find me, `ELISA.jar` link:{repoURL}/releases[here].
@@ -49,8 +49,26 @@ image::MainWindow.png[width="790"]
 
 == Legend
 
-image::ug_legend.png[]
+image::ug_legend.PNG[]
+Here are the icons that will be used in the app:
 
+image:Completed.PNG[Done, title="Done"] shows that you've completed this task. +
+image:Uncompleted.PNG[Not done, title="Not done"] shows that you have yet to complete this task. +
+
+.Difference between Task, Event, Reminder
+image::Legend_difference.PNG[]
+
+.Legend description
+|===
+|What it creates: |Example command:
+|1) Task only | task shower
+|2) Event only | event christmas -d 25/12/2019 0000
+|3) Reminder only | reminder shower -r 10.min.later
+|4) Task and Reminder | task shower -r 10.min.later
+|5) Event and Reminder | event christmas -d 25/12/2019 0000 -r 24/12/2019 0000
+|6) Task and Event | task CS2103T Quiz -d 11/11/2019 2359
+|7) Task, Event, Reminder | task CS2103T Quiz -d 11/11/2019 2359 -r 10/11/2019 1200
+|===
 
 
 [[Features]]
@@ -118,12 +136,6 @@ There are three other flags that do not take in any parameters and are only used
 
 [NOTE]
 Not all tags work for every command. Please check the specific command for more details.
-
-Here are the icons that will be used in the app:
-
-image:Completed.PNG[Done, title="Done"] shows that you've completed this task. +
-image:Uncompleted.PNG[Not done, title="Not done"] shows that you have yet to complete this task. +
-image:EventIcon.PNG[Event, title="Event"] shows that this is an Event with the date shown in its eyes. +
 
 [WARNING]
 All time dependent elements such as deadline, reminder and calendar time are dependent on the *system time*
@@ -213,8 +225,9 @@ Here are some example commands for edit:
 Edits item 1 of the current list. Changes the description to `read books`, deadline to `3.day.later` and priority to `low`.
 * `edit 3 -desc CS2103 team meeting -r 3.hour.later -p high` +
 Edits item 2 of the current list. Changes the description to `CS2103 team meeting`, reminder to `3.hour.later` and priority to `high`.
+//end::edit[]
 
-// tag::delete[]
+//tag::delete[]
 ==== Deleting a reminder/task/event : `delete`
 
 Deletes the reminder/task/event from ELISA. +
@@ -233,11 +246,54 @@ Examples:
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
 
+==== Completing a task: `done`
+
+Mark a task at the specific index as done.
+
+Format: `done INDEX`
+
+Examples:
+
+* `done 1` - Marks the task at index 1 as done.
+
+****
+* This command can only be used in the task list panel.
+
+* The index refers to the index number shown in the list.
+
+* The index *must be a positive integer* (1, 2, 3 ...)
+
+* No flags should be given with this command.
+
+****
+
+==== Continuing with a task: `continue`
+
+Mark a task at the specific index as undone.
+
+Format: `continue INDEX`
+
+Examples:
+
+* `continue 1` - Marks the task at index 1 as undone.
+
+* `cont 1` - Short version of the above command
+
+****
+* This command can only be used in the task list panel.
+
+* The index refers to the index number shown in the list.
+
+* The index *must be a positive integer* (1, 2, 3 ...)
+
+* No flags should be given with this command.
+
+****
+
+//tag::autoreschedule[]
 === AutoReschedule Feature
 
-Do you have to go to the supermarket weekly? Complete a quiz weekly? Jog daily? +
-Well this would definitely make your life much easier! +
-
+Do you have to go to the supermarket weekly? Complete a quiz weekly? Jog daily? Well this would definitely make your life much easier! +
 Your events can now update its own time when it is already over! All you need to do is to add a `-auto` flag, along with a time period.
 
 Here is how you can do it. You might have weekly quizzes due on the same day every week, the command you can enter is `event CS2103T Quiz -d 23/11/2019 2359 -auto week`. +
@@ -247,7 +303,7 @@ Convenient isn't it! Now you no longer have to manually change their dates after
 That's not it! If you add an AutoReschedule event with a date that is already over, ELISA would automatically update its date to show the upcoming one. +
 This is what I mean. If you add an event that is already over, eg. `event quiz 11/08/2019 2359 -auto week`:
 
-image::edit-5.PNG[]
+image::edit-5.PNG[100, 500]
 ELISA immediately changes it to show the upcoming date for this week. ELISA shows 10 NOV as it is 9 NOV at this point.
 
 Also, are you worried that the events wouldn't be updated if you leave the app? No worries as ELISA's got you covered! +
@@ -264,6 +320,8 @@ Here are some interesting commands you can try:
 * `event grocery shopping -d 9/9/2019 1200 -auto week`
 * `event jog -d 23/11/2019 0800 -auto day`
 * `event smile -d 1.min.later -auto 1.min.later` (it's good to be happy)
+//end::autoreschedule[]
+
 
 // tag::reminder[]
 === Reminder Feature

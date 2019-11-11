@@ -8,6 +8,7 @@ import static seedu.elisa.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -356,5 +357,19 @@ public class ItemModelManagerTest {
         testModel.sort();
         VisualizeList newList = testModel.getVisualList();
         assertFalse(original == newList);
+    }
+
+    @Test
+    public void scheduleOffPriorityMode_validLdt_createTimerTask () throws IllegalListException, InterruptedException {
+        assertFalse(testModel.getPriorityMode().getValue()); // check that priority mode is not on
+        testModel.addItem(TypicalItems.ITEM_WITH_TASK);
+        testModel.addItem(TypicalItems.ITEM_WITH_ALL); // populate the list
+        testModel.togglePriorityMode(); // turns on priority mode
+        assertTrue(testModel.getPriorityMode().getValue());
+        assertEquals(1, testModel.getVisualList().size()); // check that there is only one task
+        testModel.scheduleOffPriorityMode(LocalDateTime.now());
+        Thread.sleep(1000); // give time for timer to work
+        assertFalse(testModel.getPriorityMode().getValue());
+        assertEquals(2, testModel.getVisualList().size());
     }
 }

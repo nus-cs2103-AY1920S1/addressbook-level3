@@ -31,7 +31,7 @@ Responsibilities: Functionality
 
 === Lim Yu Hui
 image::mannggoo.png[width="150", align="left"]
-{empty}[http://github.com/mannggoo[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/mannggoo[github]] [<<mannggoo#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic
