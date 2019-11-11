@@ -155,7 +155,6 @@ My contributions to EzWatchList can be found in the following link: [https://nus
 features. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=addfirst]
 include::../UserGuide.adoc[tag=addsecond]
 include::../UserGuide.adoc[tag=sync]
 
@@ -167,7 +166,7 @@ include::../UserGuide.adoc[tag=sync]
 and the technical depth of my software engineering skills to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=add]
+//include::../DeveloperGuide.adoc[tag=add]
 include::../DeveloperGuide.adoc[tag=sync]
 
 
