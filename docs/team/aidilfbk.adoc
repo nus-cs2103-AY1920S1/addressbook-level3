@@ -20,7 +20,7 @@ TimeBook was built by a team of five NUS Computer Science undergraduates over th
 * *Major enhancement*: added *fuzzy matching for commands auto-completion and context-sensitive suggestions for command parameters*
 ** _What it does_ +
 Provides real-time context-sensitive suggestions for commands and parameter values.
-This feature works in two parts. The first is centered around the commands itself and the second are the parameters that a command accepts. In both cases, they can use keyboard keys to select and autocomplete the commands and parameters.
+This feature works in two parts. The first is centered around the commands itself and the second are the parameters that a command accepts. In both cases, users can use the same keyboard keys to select and autocomplete the commands and parameters.
 +
 {nbsp} +
 In terms of commands, this feature will dynamically filter all the valid commands based on what the user has keyed in. As seen in the below figure, the user has typed `d` and only the relevant commands are suggested. Additionally, users can create their own abbreviations when typing in commands. Instead of typing `deletefromgroup`, they can type any of its letters as long as the sequence is maintained. For example, the abbreviations `dfg`, `delfromgroup`, `dfgr`, `delfgroup`, `dmg` will also suggest the `deletefromgroup` command.
@@ -53,6 +53,18 @@ Added a history feature that allows the user to navigate to previous commands us
 
 ** Project management:
 *** Managed https://github.com/AY1920S1-CS2103T-T10-4/main/releases/tag/v1.3[release `v1.3` on GitHub]
+** Documentation:
+*** Regrouped commands in the User Guide based on what they do (i.e. Navigation, Person Management, Group Management and Advanced Features) (https://github.com/AY1920S1-CS2103T-T10-4/main/pull/166[#166])
+** Testing:
+*** Wrote test cases for all of my features throughout (https://github.com/AY1920S1-CS2103T-T10-4/main/pull/50[#50],
+https://github.com/AY1920S1-CS2103T-T10-4/main/pull/71[#71],
+https://github.com/AY1920S1-CS2103T-T10-4/main/pull/82[#82],
+https://github.com/AY1920S1-CS2103T-T10-4/main/pull/150[#150],
+https://github.com/AY1920S1-CS2103T-T10-4/main/pull/168[#168],
+https://github.com/AY1920S1-CS2103T-T10-4/main/pull/180[#180],
+https://github.com/AY1920S1-CS2103T-T10-4/main/pull/235[#235],
+https://github.com/AY1920S1-CS2103T-T10-4/main/pull/239[#239])
+*** Added a sample data set consisting of 1000 people with varying completeness of data and 365 groups that is useful for stress testing (https://github.com/AY1920S1-CS2103T-T10-4/main/pull/145[#145])
 
 == User Guide Contributions
 
