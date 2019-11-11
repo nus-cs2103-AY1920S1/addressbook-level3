@@ -35,14 +35,14 @@ of the HR staff greatly.
 ** Highlights: The Finance section required a deep understanding of the Employee class as several fields of an Employee object are modified upon the execution of Finance commands. Understanding of the relevant Parser classes were also essential as arithmetic calculations depended on static methods within those Parser classes.
 * *Minor enhancement*: Implement Employee class, and all relevant new fields in the class that did not exist in AB3.
 
-* *Code contributed*: [https://github.com[Functional code]]  _{give links to collated code files}_
+* *Code contributed*: [https://github.com[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=crisgu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Crisgu&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D]] [https://github.com[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=crisgu&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Crisgu&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D]]  _{give links to collated code files}_
 
 * *Other contributions*:
 
 ** Project management:
-*** In charged of the entire *Finance* feature of AddMin+ which includes 2 Finance related commands
-*** In charged of Add and Edit commands related to employee.
-*** Managed to refactor person class to employee class and added 5 fields of employee.
+*** In charged of the entire *Finance* feature of AddMin+ which includes 2 Finance related commands. (Pull Request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/238)
+*** In charged of Add and Edit commands related to employee. (Pull Request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92)
+*** Managed to refactor person class to employee class and added 5 fields of employee. (Pull Request https://github.com/AY1920S1-CS2103T-T11-3/main/pull/92)
 *** PRs reviewed
 
 
