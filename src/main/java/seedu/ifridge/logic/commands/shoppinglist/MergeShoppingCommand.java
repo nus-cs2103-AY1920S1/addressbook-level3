@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_SHOPPING_ITEMS;
 import static seedu.ifridge.model.food.Amount.MESSAGE_INVALID_RESULTANT_AMOUNT;
+import static seedu.ifridge.model.food.Amount.getValue;
 
 import java.util.List;
 import java.util.Set;
@@ -59,6 +60,11 @@ public class MergeShoppingCommand extends Command {
             }
             try {
                 Amount updatedShoppingAmount = shoppingAmount.reduceBy(boughtAmount);
+                if (getValue(updatedShoppingAmount) == 0) {
+                    model.deleteShoppingItem(shoppingItem);
+                    --i;
+                    return;
+                }
                 ShoppingItem editedShoppingItem = new ShoppingItem(shoppingItem.getName(), updatedShoppingAmount,
                         false, shoppingItem.isUrgent()); //once amount reduced, it is not bought anymore
                 model.setShoppingItem(shoppingItem, editedShoppingItem);
