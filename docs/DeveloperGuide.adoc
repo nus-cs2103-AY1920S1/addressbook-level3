@@ -1734,7 +1734,6 @@ Clearing all budgets in MooLah
 .. Edit the event via the command `editevent <INDEX> t/ now`, where <INDEX> is the index of the event you want to test. +
    Expected: A success message will appear.
 .. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
-<<<<<<< HEAD
 Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event. You can then view that budget
 to see that the expense has been added.
 
