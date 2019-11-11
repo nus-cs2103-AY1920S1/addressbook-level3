@@ -1,72 +1,112 @@
-= John Doe - Project Portfolio
+= Shawn Lee Shi Jie - Project Portfolio for Athletick
 :site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/AY1920S1-CS2103T-T12-3/main
 
-== PROJECT: AddressBook - Level 3
+== Introduction
+This document details my contribution to the team project, **Athletick**.
 
----
+=== About the team
 
-== Overview
+**Athletick** was completed by 4 other students and myself. We are second-year computer science undergraduates from the National University of Singapore (NUS).
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+=== About the project
+
+**Athletick** is a team management desktop
+application for coaches and team captains of timing-based performance sports. **Athletick** provides coaches and team captains with athlete information managing, attendance tracking and performance monitoring. This enables them to better manage their team, plan for trainings and prepare for upcoming competitions.
+
+**Athletick** was developed as part of a requirement for our second-year software engineering module, https://nusmods.com/modules/CS2103T/software-engineering[CS2103T]. The project was completed over a period of  six weeks. We were tasked to morph a generic https://se-education.org/addressbook-level3/[address book application] that manages contacts into an application that manages something else. As part of the project constraints, the input to **Athletick** needs to be primarily Command-Line Interface (CLI), where the user interacts with **Athletick** by issuing lines of commands.
+
+Note the following symbols and formatting used in this document:
+
+NOTE: This symbol indicates important information
+
+[horizontal]
+
+`command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command
+line and executed by the application.
+
+`[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
+
+
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+**Enhancement Added**: I added the ability to display training and performance records in the form of a calendar.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* What it does
+** The `view calendar` and `calendar MMYYYY` commands allow users display a monthly calendar indicating which days contain training and performance records.
+* Justification
+** Being able to keep track of when training and performance records were recorded is important for coaches and captains as it allows them to find out what happened on a specific date.
+** The use of a calendar to display this information is neat and easy to navigate, which makes the feature more user-friendly.
+* Highlights
+** This enhancement provides a platform for further development of date-related features, such as the planning of training programmes in advance.
+** The implementation was also challenging because it required the training and performance features to incorporate a date for the calendar to utilise and the construction of a calendar is complex.
 
-* *Other contributions*:
+**Enhancement Added**: I added the ability to display training and performance records recorded on a specific date.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+* What it does
+** The `calendar DDMMYYYY` command allows users to display training and performance records recorded on a specific date in the form of tables. The overall team attendance rate is displayed in the form of a pie chart as well.
+* Justification
+** Being able to find out what happened on a specific date is important for coaches and captains to keep track of the progress of their team.
+* Highlights
+** This enhancement provides a platform for further development of date-related features, such as the planning of training programmes in advance. The enhancement was challenging as I had to retrieve information from complex data structures in the `[green]#Training#` and `[green]#Performance#` components which were developed by other team members.
 
-_{you can add/remove categories in the list above}_
+
+*Minor enhancement added*: I added a sort command that allows the user to sort the list of athletes in alphabetical order.
+
+*Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=shawnlsj97&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[RepoSense]] [https://github.com/AY1920S1-CS2103T-T12-3/main[GitHub repository]]
+
+*Other contributions*
+
+* Project management
+** Managed releases https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.1[v1.1], https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.2[v1.2], https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.2.5[v1.2.5], https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3.1[v1.3.1] and https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3.2[v1.3.2] (5 releases) on GitHub.
+** Served as the team's Integration Engineer, ensuring all features are integrated together nicely for each project milestone.
+** Guided the team regarding JavaFX.
+* Enhancements to existing features
+** Implemented sorting of team list. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/62[#62])
+** Updated the GUI layout of components (e.g. position of command box, result display etc). (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/68[#68])
+** Updated the GUI color scheme. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/87[#87])
+** Refactored "AddressBook" class names to match "Athletick". (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/201[#201])
+** Updated Travis, AppVeyor and Coveralls badges to match own repository. (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/21[#21])
+* Documentation
+** Added documentation for the `calendar`, `sort` and `view` commands in the User Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/124[#123], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/214[#214])
+** Added documentation for the `calendar`, `sort` and `view` commands in the Developer Guide. (Pull requests https://github.com/AY1920S1-CS2103T-T12-3/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/220[#220])
+** Updated the Introduction section and styling of the Developer Guide (Pull Request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/105[#105])
+* Community:
+** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/65[#65], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-T12-3/main/pull/91[#91]
+** Reported bugs and suggestions for other teams in the class (https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+label%3Atype.FunctionalityBug[Bug reports], https://github.com/shawnlsj97/ped/issues?q=is%3Aopen+is%3Aissue+-label%3Atype.FunctionalityBug[Suggestions])
+** Reviewed PRs by other teams to give suggestions and comments.
 
 == Contributions to the User Guide
 
+This section displays my contributions to the user guide for the calendar feature. They showcase my ability to write documentation targeting end-users of our application.
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+[blue]#_Start of extract from User Guide_#
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=calendar]
 
-include::../UserGuide.adoc[tag=dataencryption]
+[blue]#_End of extract from User Guide_#
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+This section displays my contributions to the developer guide for the calendar feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+[blue]#_Start of extract from Developer Guide_#
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=calendar]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+[blue]#_End of extract from Developer Guide_#

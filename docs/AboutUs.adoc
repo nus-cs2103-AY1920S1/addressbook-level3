@@ -43,15 +43,15 @@ image::jeunhoe.png[width="150", align="left"]
 {empty}[https://github.com/jeunhoe[github]]
 
 Role: Quality Assurance Engineer +
-Responsibilities: Code quality, Documentation, *Ui Component*
+Responsibilities: Code quality, Documentation, *Storage Component*
 
 '''
 
 === Shawn Lee
 image::shawnlsj97.png[width="150", align="left"]
-{empty}[https://github.com/shawnlsj97[github]]
+{empty}[https://shawnlsj.github.io/[personal website]] [https://github.com/shawnlsj97[github]] [<<shawnlsj97#, portfolio>>]
 
-Role: Integration Developer +
-Responsibilities: Git expert, *Storage Component*
+Role: Integration Developer, UI/UX Designer +
+Responsibilities: Git expert, *Ui Component*
 
 '''

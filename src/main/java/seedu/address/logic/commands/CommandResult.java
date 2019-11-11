@@ -64,21 +64,26 @@ public class CommandResult {
     }
 
     /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and {@code
-     * featureToDisplay}, and other fields set to their default value.
-     */
-    public CommandResult(String feedbackToUser, Feature featureToDisplay) {
-        this(feedbackToUser, false, false, false);
-        this.feature = featureToDisplay;
-    }
-
-    /**
      * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code
      * featureToDisplay} and {@code model}, and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, Feature featureToDisplay, Model model) {
         this(feedbackToUser, false, false, false);
         this.feature = featureToDisplay;
+        this.model = model;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code date}
+     * and {@code model}, and other fields set to their default value.
+     * @param feedbackToUser String to display to user
+     * @param date Date
+     * @param model Model representing state of Athletick
+     */
+    public CommandResult(String feedbackToUser, Feature feature, AthletickDate date, Model model) {
+        this(feedbackToUser, false, false, false);
+        this.feature = feature;
+        this.date = date;
         this.model = model;
     }
 
@@ -101,26 +106,6 @@ public class CommandResult {
     public CommandResult(String feedbackToUser, Person selectedPerson) {
         this(feedbackToUser, false, false, false);
         this.person = selectedPerson;
-    }
-
-    /**
-     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser}, {@code date}
-     * and {@code model}, and other fields set to their default value.
-     * @param feedbackToUser String to display to user
-     * @param date Date
-     * @param model Model representing state of Athletick
-     */
-    public CommandResult(String feedbackToUser, AthletickDate date, Model model) {
-        this(feedbackToUser, false, false, false);
-        this.date = date;
-        this.model = model;
-    }
-
-    public CommandResult(String feedbackToUser, AthletickDate date, Model model, String eventName) {
-        this(feedbackToUser, false, false, false);
-        this.date = date;
-        this.model = model;
-        this.eventName = eventName;
     }
 
     public Feature getFeature() {
