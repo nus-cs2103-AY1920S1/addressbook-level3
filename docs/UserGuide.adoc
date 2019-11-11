@@ -308,9 +308,78 @@ Transfers the 2nd item from the replenish list to the main list with expiry date
 
 [TIP]
 For items with single quantity, you can save time by keying in only the item name and expiry date.
-
-
 // end::shift[]
+
+// tag::tag[]
+==== Tagging an item : `tag`
+
+===== Display all tags created
+Shows all the tags in the current list view.
+
+Format: `tag`
+
+[NOTE]
+Like `help` and `export`, this command is not undoable. +
+This command does not show tags of items that are not on the current list on the screen. +
+If you would like to view all the tags in the main list or the replenish list, simply key in `view`, followed by `tag`!
+
+===== Add new tag(s) to an item
+
+.Item at index 4 tagged with #Fruit and #Yellow
+image::tag.png[width="790"]
+
+Tags an item from the list according to your own input +
+Format: `tag|<index>|<tag>[<other tags>]...`
+
+[TIP]
+You can tag a particular item with more than 2 tags or more at a time. Just be mindful of the 5 tags per item limit!
+
+****
+* Tags the item at the specified `<index>`.
+* The index refers to the index number shown in the list.
+* The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
+* Your tags must be prefixed with a '#'.
+* You are only allowed a maximum of 5 tags per item.
+* Tag lengths are restricted to 20 characters. Make use of those 20 characters wisely!
+* Your tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
+****
+
+Examples:
+
+* `view|main` +
+`tag|2|#Nestle #Caffeine` +
+Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
+// end::tag[]
+
+==== Deleting variable(s): `delete`
+
+===== Deleting an item
+Deletes the specified item from your list. +
+Format: `delete|<index>` +
+
+Examples:
+
+* `view|main` +
+`delete|2` +
+Deletes the 2nd item in the main list.
+* `sort|name` +
+`delete|3` +
+Deletes the 3rd item in the sorted main list.
+* `search|potato` +
+`delete|1` +
+Deletes the 1st item in the results of the `search` command.
+
+// tag::deletetag[]
+===== Deleting certain tags from an item
+Deletes tag(s) from the specified item. +
+Format: `delete|<index>|<tag>[<other tags>]...` +
+
+Examples:
+
+* `view|main` +
+`delete|3|#Fruit #Food` +
+Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
+// end::deletetag[]
 
 // tag::clear[]
 ==== Clearing all entries : `clear`
@@ -430,33 +499,6 @@ For items with single quantity, you can save time by keying in only the item nam
 // tag::delete[]
 ==== Deleting variable(s): `delete`
 
-===== Deleting an item
-Deletes the specified item from your list. +
-Format: `delete|<index>` +
-
-Examples:
-
-* `view|main` +
-`delete|2` +
-Deletes the 2nd item in the main list.
-* `sort|name` +
-`delete|3` +
-Deletes the 3rd item in the sorted main list.
-* `search|potato` +
-`delete|1` +
-Deletes the 1st item in the results of the `search` command.
-
-// tag::deletetag[]
-===== Deleting certain tags from an item
-Deletes tag(s) from the specified item. +
-Format: `delete|<index>|<tag>[<other tags>]...` +
-
-Examples:
-
-* `view|main` +
-`delete|3|#Fruit #Food` +
-Deletes the tags `#Fruit` and `#Food` from the 3rd item in the main list.
-// end::deletetag[]
 ===== Reducing the quantity of an item
 
 .Item at index 4 reduced in quantity by 1
@@ -480,47 +522,6 @@ Examples:
 `delete|4|1` +
 Reduces the quantity of the 4th item by 1.
 // end::delete[]
-
-// tag::tag[]
-==== Tagging an item : `tag`
-
-===== Display all tags created
-Shows all the tags in the current list view.
-
-Format: `tag`
-
-[NOTE]
-Like `help` and `export`, this command is not undoable. +
-This command does not show tags of items that are not on the current list on the screen. +
-If you would like to view all the tags in the main list or the replenish list, simply key in `view`, followed by `tag`!
-
-===== Add new tag(s) to an item
-
-.Item at index 4 tagged with #Fruit and #Yellow
-image::tag.png[width="790"]
-
-Tags an item from the list according to your own input +
-Format: `tag|<index>|<tag>[<other tags>]...`
-
-[TIP]
-You can tag a particular item with more than 2 tags or more at a time. Just be mindful of the 5 tags per item limit!
-
-****
-* Tags the item at the specified `<index>`.
-* The index refers to the index number shown in the list.
-* The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
-* Your tags must be prefixed with a '#'.
-* You are only allowed a maximum of 5 tags per item.
-* Tag lengths are restricted to 20 characters. Make use of those 20 characters wisely!
-* Your tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
-****
-
-Examples:
-
-* `view|main` +
-`tag|2|#Nestle #Caffeine` +
-Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
-// end::tag[]
 
 // tag::set reminder[]
 [[Reminder]]
@@ -710,6 +711,20 @@ The table below summarises the common commands available for use in both lists.
 |`shift\|<index>\|<expiry date>[\|<quantity>]`
 |`shift\|2\|14/2/2020\|2`
 
+1.2+|*Tag*
+|`tag`
+|
+
+|`tag\|<index>\|<tag>[<other tags>]...`
+|`tag\|2\|#drink #healthy`
+
+1.2+|
+*Delete*
+|`delete\|<index>`
+|`delete\|3`
+
+|`delete\|<index>\|<tag>[<other tags>]...`
+|`delete\|3\|#fruit`
 
 |*Clear*
 |`clear`|
@@ -733,23 +748,11 @@ The table below summarises the commands only available for use in the main list.
 |`add\|<item name>\|<expiry date>\|<quantity>`
 |`add\|durian\|30/9/2019\|8`
 
-1.3+|
+|
 *Delete*
-|`delete\|<index>`
-|`delete\|3`
-
-|`delete\|<index>\|<tag>[<other tags>]...`
-|`delete\|3\|#fruit`
-
 |`delete\|<index>\|<quantity>`
 |`delete\|3\|2`
 
-1.2+|*Tag*
-|`tag`
-|
-
-|`tag\|<index>\|<tag>[<other tags>]...`
-|`tag\|2\|#drink #healthy`
 
 |*Set reminder*
 |`set reminder\|<index>\|<reminder threshold>`
@@ -769,6 +772,7 @@ The table below summarises the commands only available for use in the main list.
 |`sort\|date`
 
 |===
+
 // end::tablesummary[]
 
 == Command Shorthands
