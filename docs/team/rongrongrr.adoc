@@ -1,0 +1,236 @@
+= rongrongrr(Chan Jing Rong) - Project Portfolio
+:site-section: AboutUs
+:imagesDir:  ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: guiltTrip()
+
+---
+==== Overview
+
+Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those
+*aspiring to be able to afford their Mala*, finally!
+
+==== Summary of contributions
+History:
+
+* *Major enhancement*: added *Undo and Redo features*
+** What it does: allows the user to undo and redo commands.
+** Justification: This feature improves the product significantly because it allows the user to be able to modify and easily amend any command line input mistakes.
+** Highlights: This feature complements other existing commands and can be used to modify the state of the finance tracker after other commands were executed.
+
+* *Minor enhancement*: added *History feature*
+** What it does: Allows the user to view the list of commands previously entered by the user.
+** Justification: This feature improves the product as the user now can review his/her previous commands before using the undo or redo command.
+** Highlights: This feature acts as a supporting feature to undo and redo through providing user with visual aid on previously entered commands.
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=rongrongrr&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
+
+* *Other contributions*:
+
+** Project management:
+*** Assigned tasks and issues to team members.
+*** Managed issues related to *History* and *Budget*
+** Documentation:
+*** Added the initial UI Mockup (Pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/38[#38])
+*** Updated the Developer Guide to match the format of User Guide (Pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/104[#104])
+*** Updated the User Guide (Pull requests https://github.com/AY1920S1-CS2103-T16-4/main/pull/47[#47], https://github.com/AY1920S1-CS2103-T16-4/main/pull/303[#303])
+** Community:
+*** Reported bugs and suggestions for other teams (https://github.com/rongrongrr/ped/issues[PE dry run])
+*** Set up the basic structure for the project. (Creation of budget classes, pull request https://github.com/AY1920S1-CS2103-T16-4/main/pull/67[#75])
+
+=== Contributions to the User Guide
+
+=== Undo/ Redo
+==== Undo previous command : `undo`
+Restores the finance tracker to the state before the previous undoable command was executed or
+before the specified number of undoable commands were executed.
+
+Format: `undo` `undo <step>`
+
+* `<step>`: The number of commands to undo. Additionally the step must be greater than zero and positive.
+* `undo <step>` is only executed if the number of undoable commands is more than or equal to `<step>`.
+* [NOTE] `undo 1` has the same function as `undo`.
+
+Example Usage:
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::undo-1.png[]
+
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::undo-2.png[]
+
+. If you would like to undo your deletion, key in the command `undo`.
++
+image::undo-3.png[]
+
+. You should see the previously deleted budget back in the list of budgets as displayed below.
++
+image::undo-4.png[]
+
+Other examples:
+
+* `delete 1` +
+`delete 2` +
+`undo 2` (reverses the `delete 2` and `delete 1` commands)
+
+==== Redo previously undone command : `redo`
+Reverses the most recent undone command or the specified number of most recent undone commands.
+
+Format: `redo` `redo <step>`
+
+* `<step>`: The number of undone commands to redo. Additionally the step must be greater than zero and positive.
+* `redo <step>` is only executed if the number of redoable commands is more than or equal to `<step>`.
+* [NOTE] `redo 1` has the same function as `redo`.
+
+Example Usage:
+[start = 1]
+. If you would like to delete a budget, whereby the budget is located at index 1 as shown below,
+key in the command  `deleteBudget 1`.
++
+image::undo-1.png[]
+
+. You should see the budget being deleted in the list of budgets as displayed below.
++
+image::undo-2.png[]
+
+. If you would like to undo your deletion, key in the command `undo`.
++
+image::undo-3.png[]
+
+. You should see the previously deleted budget back in the list of budgets as displayed below.
++
+image::undo-4.png[]
+
+. If you would like to redo your undone command, key in the command `redo'.
++
+image::redo-1.png[]
+
+. You should see that the deleted budget that you previously have undone is now deleted again.
++
+image::redo-2.png[]
+
+Other examples:
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reverses the latest `undo` command) +
+`redo` (reverse the latest `undo` command)
+
+* `delete 1` +
+`delete 2` +
+`undo` (reverses the `delete 2` command) +
+`undo` (reverses the `delete 1` command) +
+`redo 2` (reverses the 2 latest `undo` commands)
+
+=== History
+==== View the history of commands entered : `history`
+Displays the list of commands entered, from most recent to earliest.
+
+Format: `history`
+
+* [NOTE] `history` can only be executed if there were commands already entered before trying to use `history`.
+
+Example Usage:
+[start = 1]
+. If you would like to display the list of commands entered, key in the command `history`.
++
+image::history-1.png[]
+
+. You should see that the income and expense lists in the main panel are now replaced with the history panel.
++
+image::history-2.png[]
+
+. If you would like to return the panel display to its original state, key in the command `list`.
++
+image::history-3.png[]
+
+. You should see that the income and expense panels are now back to their original positions.
++
+image::history-4.png[]
+
+== Contributions to the Developer Guide
+=== Undo/ Redo
+
+==== Implementation
+The undo/redo mechanism is facilitated by `VersionedGuiltTrip`.
+It extends `GuiltTrip` with an undo/redo history, stored internally as an `guiltTripStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedGuiltTrip#commit()` -- Saves the current finance tracker state in its history.
+* `VersionedGuiltTrip#undo()` -- Restores the previous finance trackerk state from its history.
+* `VersionedGuiltTrip#redo()` -- Restores a previously undone finance tracker state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitGuiltTrip()`, `Model#undoGuiltTrip()` and `Model#redoGuiltTrip()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. The `VersionedGuiltTrip` will be initialized with the initial finance tracker state, and the `currentStatePointer` pointing to that single finance tracker state.
+
+image::UndoRedoState0.png[]
+
+Step 2. The user executes `delete 5` command to delete the 5th entry in the finance tracker. The `delete` command calls `Model#commitGuiltTrip()`, causing the modified state of the finance tracker after the `delete 5` command executes to be saved in the `guiltTripStateList`, and the `currentStatePointer` is shifted to the newly inserted finance tracker state.
+
+image::UndoRedoState1.png[]
+
+Step 3. The user executes `add typ/Expense...` to add a new expense. The `add` command also calls `Model#commitGuiltTrip()`, causing another modified finance tracker state to be saved into the `guiltTripStateList`.
+
+image::UndoRedoState2.png[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitGuiltTrip()`, so the finance tracker state will not be saved into the `guiltTripStateList`.
+
+Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoGuiltTrip()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous finance tracker state, and restores the finance tracker to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial finance tracker state, then there are no previous finance tracker states to restore. The `undo` command uses `Model#canUndoGuiltTrip()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The `redo` command does the opposite -- it calls `Model#redoGuiltTrip()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the finance tracker to that state.
+
+[NOTE]
+If the `currentStatePointer` is at index `guiltTripStateList.size() - 1`, pointing to the latest finance tracker state, then there are no undone finance tracker states to restore. The `redo` command uses `Model#canRedoGuiltTrip()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the finance tracker, such as `list`, will usually not call `Model#commitGuiltTrip()`, `Model#undoGuiltTrip()` or `Model#redoGuiltTrip()`. Thus, the `guiltTripStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+Step 6. The user executes `clear`, which calls `Model#commitGuiltTrip()`. Since the `currentStatePointer` is not pointing at the end of the `guiltTripStateList`, all finance tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add typ/Expense ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire GuiltTrip.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of finance tracker states.
+** Pros: Easy to understand and implement.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedGuiltTrip`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
