@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.ichifund.commons.core.GuiSettings;
 import seedu.ichifund.commons.core.LogsCenter;
+import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
@@ -37,6 +38,7 @@ public class ModelManager implements Model {
     private final FilteredList<Loan> filteredLoans;
     private final FilteredList<Budget> filteredBudgets;
     private final FilteredList<Data> datas;
+    private Optional<Command> command;
 
     private SimpleObjectProperty<TransactionContext> transactionContext;
 
@@ -56,6 +58,7 @@ public class ModelManager implements Model {
         filteredLoans = new FilteredList<>(this.fundBook.getLoanList());
         filteredBudgets = new FilteredList<>(this.fundBook.getBudgetList());
         datas = new FilteredList<>(this.fundBook.getDataList());
+        command = Optional.empty();
         initTransactionContext();
     }
 
@@ -348,6 +351,17 @@ public class ModelManager implements Model {
     public void updateDataList(List<Data> datas) {
         requireNonNull(datas);
         fundBook.setData(datas);
+    }
+
+    @Override
+    public void updateCommand(Command command) {
+        requireNonNull(command);
+        this.command = Optional.of(command);
+    }
+
+    @Override
+    public Optional<Command> getCommand() {
+        return command;
     }
 
     @Override

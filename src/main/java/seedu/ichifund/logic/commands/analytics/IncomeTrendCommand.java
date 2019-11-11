@@ -79,6 +79,7 @@ public class IncomeTrendCommand extends TrendCommand {
         TrendReport report = createTrendReport(year);
         fillIncomeTrendReport(model, report);
         model.updateDataList(report.getTrendList());
+        model.updateCommand(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, year.toString()));
     }
 }

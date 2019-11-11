@@ -714,14 +714,6 @@ image::Loan_3_help.png[]
 Have you ever wondered where all your money is going?
 Our analytics feature provides deeper insights into your incomes and expenditures, so that you can take control of your personal finances.
 
-* `loanpaid 1` +
-Takes the first loan and removes it form the list.
-
-.After Executing loanpaid
-image::Loan_4_help.png[]
-
-// end::loanpaid[]
-
 On startup, the analytics tab is empty.
 
 With each analytics command entered, the analytics tab is updated with the list of command results.
@@ -813,8 +805,8 @@ Displays monthly balance trend for 2019.
 ==== Viewing expenditure breakdown by category: `breakdown`
 Format: `breakdown [m/MONTH] [y/YEAR]`
 
-Perhaps you have entered the `expenditure` command, and you are now aware that you are overspending, but you are still
-unsure what is it exactly that you are overspending on.
+Perhaps you have entered the `expenditure` command, and you are now aware that you are spending more than you would like to, but you are still
+unsure what is it exactly that you are spending the bulk of your money on.
 With the `breakdown` command, you will be given a clear breakdown of your expenditure by category, and hence
 be able to pinpoint the categories that have larger contributions to your expenditure.
 

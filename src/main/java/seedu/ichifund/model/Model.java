@@ -2,11 +2,13 @@ package seedu.ichifund.model;
 
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import seedu.ichifund.commons.core.GuiSettings;
+import seedu.ichifund.logic.commands.Command;
 import seedu.ichifund.model.analytics.Data;
 import seedu.ichifund.model.budget.Budget;
 import seedu.ichifund.model.context.TransactionContext;
@@ -227,4 +229,9 @@ public interface Model {
     /** Updates the current analytics view */
     void updateDataList(List<Data> datas);
 
+    /** Returns the command tied to the current analytics view */
+    Optional<Command> getCommand();
+
+    /** Updates the command tied to the current analytics view */
+    void updateCommand(Command command);
 }
