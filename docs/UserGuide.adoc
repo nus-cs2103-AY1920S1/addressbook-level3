@@ -961,14 +961,9 @@ image::AutoCompleteAddExample.png[]
 *** When you enter `add-c` followed by a space, the system will suggest
 a list of prefixes you can enter, such as `n/`.
 
-<<<<<<< HEAD
 *** When you enter `add-c n/`, the system will suggest a list of names that
 belong to existing customers. This is helpful in checking if the data you are
 entering is duplicated.
-=======
-*** When you enter `add-c n/`, the system will suggest a list of names that belong to
-existing customers. This helps check if the data you are entering is duplicated.
->>>>>>> master
 
 *** The list of data that is suggested depends on the prefix that is last entered.
 For instance, if the last entered prefix was `e/`, it would instead suggest a
@@ -1002,7 +997,6 @@ where `N` is the largest valid index that can be entered. In this case,
 * Commands of this type include `delete`, `copy`, `complete`, `cancel`.
 ****
 
-<<<<<<< HEAD
 ==== Example: `edit`
 
 *** When you enter `edit-c` followed by a space, the system will suggest
@@ -1015,10 +1009,6 @@ suggest a list of prefixes you can enter, such as `n/`, `c/`, `e/`.
 *** When you enter `edit-c 1 c/`, the system will suggest a list of
 contact numbers that belong to existing customers.
 This is helpful in checking if the data you are editing to is duplicated.
-=======
-*** When you enter `edit-c 1 c/`, the system will suggest a list of contact numbers that belong to existing customers.
-This helps check if the data you are editing to is duplicated.
->>>>>>> master
 
 *** The list of suggestions depends on the prefix that is last
 entered. If the last entered prefix was `i/`, it would instead suggest a

@@ -650,7 +650,7 @@ image::dg-diagram/UndoRedoStackPushActivityDiagram.png[width="600"]
 Next, when `UndoCommand` is being performed, `UndoStack` will remove the first command in its stack and add it to `RedoStack`.
 It will then call `UndoableCommand#undo()` of the command that is removed.
 The `undo()` method will then set the model to the previous snapshots of CustomerBook, PhoneBook, OrderBook, ScheduleBook and ArchivedOrderBook.
-Afterwhich, it will save the original state of the model (e.g. before Undo took place) by calling `UndoableCommand#save(Model model)`.
+After which, it will save the original state of the model (e.g. before Undo took place) by calling `UndoableCommand#save(Model model)`.
 
 Likewise, when `RedoCommand` is being performed, `RedoStack` will remove the first command in its stack and add it to `UndoStack`.
 It will then call `UndoableCommand#redo()` of the command that is removed.
@@ -894,12 +894,12 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Confirm order (UC03)
+=== Use case: Add and complete order (UC03)
 
 *MSS*
 
-1. Actor adds order to the system. SML displays the new order list.
-2. Actor schedule order. (UC04)
+1. Actor adds an order to the system. SML displays the new order list.
+2. Actor adds a schedule to the order. (UC04)
 3. Actor mark order as completed. SML displays completed order message.
 
 *Extensions*
@@ -914,7 +914,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Actor schedule order (UC04)
+=== Use case: Actor adds a schedule to existing order (UC04)
 
 *MSS*
 
@@ -967,8 +967,6 @@ Use case resumes at step 1.
 .  The system should ideally respond within 5 seconds
 .  The system allows for wrong input from user and recovers from erroneous input
 .  The application can be downloaded and run via a jar file
-
-_ {More to be added}_
 
 [appendix]
 == Glossary
@@ -1115,17 +1113,14 @@ These instructions only provide a starting point for testers to work on; testers
 .. When the application is relaunched, it will check for the validity of the data.
 Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
 
-
-
 === Testing Statistics
 
 . Display statistics between 2 dates
 
 .. Prerequisites: Ensure that archived order panel has suitable `Completed` and `scheduled` orders. Only these orders
 will show up in the calculation
-.. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13`
-
-    Expected: Chart is displayed in pop-up window
+.. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13` +
+    Expected: Chart is displayed in popup window
 
 === Autocomplete
 
@@ -1135,3 +1130,5 @@ will show up in the calculation
 . `delete-c`
 . `find-c`
 . `export`
+
+
