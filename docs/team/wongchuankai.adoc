@@ -64,7 +64,7 @@ Firstly, it allows the user to add movies or TV shows into the watch list.
 User has to input several information of the show such as name, description, and
 name of actors. Beside this core function, the add command also allows user to add a movie found in search
 result page after user has used the `search` online feature. Search page displays the search result of the movies the user
-is interested to watch. The `search` feature is implemented by my team mate.
+is interested to watch. The `search` feature is implemented by my team mate, Michelle.
 
 *Justification*:
 
