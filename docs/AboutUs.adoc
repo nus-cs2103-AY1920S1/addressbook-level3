@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Njoy was developed by the boys. +
+Njoy was developed by 5 computing students who are passionate about computing and aims to innovate and automate the everyday tasks around us. +
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
@@ -36,7 +36,7 @@ Role: Developer +
 '''
 
 === Fabian Chia
-image::fabbbbbbyy.png[width="150", align="left"]
+image::fabbbbbbyy.jpg[width="150", align="left"]
 {empty}[http://github.com/fabbbbbbyy[github]]
 
 Role: Developer +
