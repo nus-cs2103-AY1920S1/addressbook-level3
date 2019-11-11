@@ -15,7 +15,7 @@ Furthermore, DukeCooks runs on a command-line interface (CLI). This means that e
 
 == Who is behind DukeCooks?
 
-DukeCooks is developed by a group of year 2 students from School of Computing, National University of Singapore
+DukeCooks is developed by a group of 5 second-year students from School of Computing, National University of Singapore
 
 == My Contributions to DukeCooks
 
