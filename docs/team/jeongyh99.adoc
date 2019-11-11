@@ -15,8 +15,8 @@ the efficiency of their daily tasks such as creating quizzes, schedules, notes a
 
 This is what our project looks like:
 
+.The graphical user interface for Njoy.
 image::Ui.png[]
-_Figure 1. The graphical user interface for Njoy._
 
 My role was to design and write code for the notes and statistics features. The rest of the sections covers the
 summary of my contributions to the codebase, user guide and developer guide.
@@ -109,11 +109,11 @@ I have decided to select one command for each feature as a representation of my 
 
 *The following is an example of Creating Notes*:
 
-include::../UserGuide.adoc[lines=1056..1085]
+include::../UserGuide.adoc[lines=1132..1162]
 
 *The following is an example of Statistics Generation*:
 
-include::../UserGuide.adoc[lines=1157..1226]
+include::../UserGuide.adoc[lines=1234..1304]
 
 == Contributions to the Developer Guide
 
@@ -124,10 +124,10 @@ one example from each feature to demonstrate the depth of my technical capacitie
 
 *The following is an example of Adding Notes*:
 
-include::../DeveloperGuide.adoc[lines=1112..1135]
+include::../DeveloperGuide.adoc[lines=1130..1154]
 
 {nbsp} +
 
 *The following is an example of Statistics Generation*:
 
-include::../DeveloperGuide.adoc[lines=1223..1263]
+include::../DeveloperGuide.adoc[lines=1241..1281]

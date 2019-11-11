@@ -2,11 +2,12 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_EVENT_NAME_BACKSLASH;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COLOR_STRING;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_RECURRENCE_TYPE;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SCHEDULE_VIEW_MODE;
 import static seedu.address.commons.util.EventUtil.BAD_DATE_FORMAT;
 import static seedu.address.commons.util.EventUtil.DAILY_RECUR_RULE_STRING;
-import static seedu.address.commons.util.EventUtil.INVALID_RECURRENCE_TYPE;
 import static seedu.address.commons.util.EventUtil.NONE_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.WEEKLY_RECUR_RULE_STRING;
 import static seedu.address.commons.util.EventUtil.dateToLocalDateTimeFormatter;
@@ -26,9 +27,6 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.EventScheduleViewMode;
 import seedu.address.model.event.RecurrenceType;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Phone;
 import seedu.address.model.student.Name;
 import seedu.address.model.tag.Tag;
 
@@ -70,51 +68,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code phone} is invalid.
-     */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code address} is invalid.
-     */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
-
-    /**
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -146,7 +99,7 @@ public class ParserUtil {
      */
     public static ArrayList<Categories> parseColorNumber(String colorNumberString) throws ParseException {
         if (!validateColorNumberString(colorNumberString)) {
-            throw new ParseException("invalid color string passed.");
+            throw new ParseException(MESSAGE_INVALID_COLOR_STRING);
         }
         String colorCategoryString = convertNumberToColorNumber(colorNumberString);
         Categories colorCategory = new Categories(colorCategoryString);
@@ -200,7 +153,7 @@ public class ParserUtil {
      */
     public static RecurrenceRule parseRecurrenceType(String recurrenceTypeString) throws ParseException {
         if (!validateRecurTypeString(recurrenceTypeString)) {
-            throw new ParseException(INVALID_RECURRENCE_TYPE);
+            throw new ParseException(MESSAGE_INVALID_RECURRENCE_TYPE);
         }
         RecurrenceRule result;
         try {
