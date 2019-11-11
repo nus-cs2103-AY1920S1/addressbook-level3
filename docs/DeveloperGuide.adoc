@@ -198,14 +198,14 @@ the item is automatically tagged as `#Expired`.**
 
 ===== Implementation
 As shown in a snippet of the `Logic` class diagram below, both `XpireParser` and `ReplenishParser` implement the interface `Parser`.
-In particular, `ReplenishParser` parses and handles the commands in the replenish list.
+In particular, `ReplenishParser` is the one that parses and handles the commands in the replenish list.
 
 .Snippet of Logic class diagram to highlight the relationship between the parsers
 image::ParserClassDiagram.png[]
 
 [NOTE]
 Certain commands such as sorting by date, or deleting
-of item quantities are not permitted, as items in the replenish list do not have expiry dates or quantities.
+of item quantities are not permitted by `ReplenishParser`, as items in the replenish list do not have expiry dates or quantities.
 
 The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
 replenish list.
@@ -234,9 +234,9 @@ my analysis and decisions.
 // tag::autosortPartOne[]
 === Auto-sorting of items by name then date
 ==== Implementation
-Items in both lists are automatically sorted by their name then date in chronological order.
+As mentioned previously, items in both lists are automatically sorted by their name then date.
 This auto-sorting mechanism is facilitated by `SortedUniqueXpireItemList` and `SortedUniqueReplenishItemList`
-that both implement `SortedUniqueItemList`, in a relationship summarised in the diagram below.
+that both implement `SortedUniqueItemList`, in a relationship summarised in the class diagram below.
 
 .Snippet of Model class diagram to bring attention to the relationship between internal sorted lists
 image::SortedUniqueItemListClassDiagram.png[]
@@ -276,7 +276,7 @@ The list returned is the sortedInternalList wrapped as an unmodifiable list.
 
 [NOTE]
 Every time view is called, the current method of sorting specified is retrieved. If it has not been explicitly specified,
-the default method of sorting is then retrieved. +
+the default method of sorting (by name) is then retrieved. +
 
 // end::autosortPartOne[]
 
@@ -315,17 +315,17 @@ The ability to check for spelling errors of command arguments is explained in a 
 
 // tag::autosortPartThree[]
 ==== Design Considerations
-In the process of actualising this feature, I contemplated on when items should be automatically sorted by name and displayed.
+In the process of actualising this feature, I contemplated on when items should be automatically sorted by their names and displayed.
 I also tried and tested varied options to derive an optimal data structure to store the sorted items. The following is a brief summary of my analysis and decisions.
 
 ===== Aspect: When items auto-sorted by their names are displayed
 
-* **Alternative 1 (current choice):** Display the sorted list of items when items are viewed.
+* **Alternative 1 (current choice):** Maintain the current method of sorting unless a sort command is executed.
 ** Pros: Does not reset the method of sorting back to name by default with the addition of every item.
-** Cons: The user might not be able to find items added solely by their names.
+** Cons: The user might not be able to find items recently added.
 
-* **Alternative 2:** Display the sorted list of items with the addition of every item.
-** Pros: Allows the user to find any added item with ease as items are sorted by their name in chronological order.
+* **Alternative 2:** Re-sort the list of items by their names with the addition of every item.
+** Pros: Allows the user to find any added item with ease as items are sorted by their name in lexicographical order.
 ** Cons: Resets the method of sorting back to name by default every time an item is added.
 
 ===== Aspect: Data structure to store the auto-sorted items
@@ -590,7 +590,7 @@ image::SearchCommandSequenceDiagram.png[]
 Invalid commands are checked for spelling mistakes.
 The spelling correction mechanism is based primarily on the Damerau–Levenshtein distance algorithm, which computes the edit distance between two strings.
 This distance is based on the number of substitutions, deletions, insertions or transpositions of characters, needed to convert the source string into the target string.
-Relevant functions supporting this operation are implemented in `StringUtil`.
+Relevant functions supporting this operation are implemented in link:{repoURL}/src/main/java/io/xpire/commons/util/StringUtil.java[`StringUtil`].
 
 [NOTE]
 Only keywords with edit distance of less than 2 are recommended, to filter away less similar word recommendations.
@@ -632,30 +632,30 @@ as its closest match and wrapped as a recommendation in a `ParseException` objec
 // tag::recommendationsPartThree[]
 The figure below presents what happens when a user executes a command with invalid arguments.
 
-.Activity diagram showing what happens when an a command is executed with misspelled arguments
+.Activity diagram showing what happens when a command is executed with misspelled arguments
 
 image::RecommendCommandArgumentsActivityDiagram.png[]
 
 [NOTE]
 Only search and sort commands support this operation.
 
-In the example below encapsulated in a sequence diagram, the user has misspelled "date" as "dat" in a sort command.
+In the example below encapsulated in a sequence diagram, the user has misspelled `"date"` as `"dat"` in a sort command.
 
-.Sequence diagram illustrating the recommendations mechanism for command "sort|dat"
+.Sequence diagram illustrating the recommendations mechanism for command `sort|dat`
 
 image::RecommendationsSortSequenceDiagram.png[]
 
 The sequence diagram titled `find similar words` below expands on the process omitted above.
 
-.Sequence diagram showing how "date" is found to be the most similar word to "dat"
+.Sequence diagram showing how `"date"` is found to be the most similar word to `"dat"`
 
 image::FindSimilarSequenceDiagram.png[]
 
-The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `dat`.
-In this process, `dat` is compared with a set of valid inputs, i.e. both `name` and `date`, and the corresponding edit distances are stored.
-`getSuggestions("dat")` then filters the results and finds `date` to be the best match.
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `"dat"`.
+In this process, `"dat"` is compared with a set of valid inputs, i.e. both `"name"` and `"date"`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `"date"` to be the best match.
 
-At last, a `ParseException` which contains the recommendation `date`
+At last, a `ParseException` which contains the recommendation `"date"`
 is then thrown to the user as feedback.
 
 ==== Design Considerations
@@ -664,12 +664,12 @@ I also evaluated multiple options to derive an optimal data structure to store t
 
 ===== Aspect: How recommendations execute
 
-* **Alternative 1 (current choice):** Displays recommendations after user inputs command that fails to produce results.
+* **Alternative 1 (current choice):** Displays recommendations after the user inputs a command that fails to produce results.
 ** Pros: Simpler and straightforward implementation.
 ** Cons: May be less intuitive to the user as opposed to auto-completed commands.
 
 * **Alternative 2:** Auto-completion of commands.
-** Pros: Lowers likelihood of spelling mistakes in user input to begin with.
+** Pros: Lowers likelihood of spelling mistakes in user input.
 ** Cons: We must ensure that the structure of every single command and their variations are taken into consideration.
 
 ===== Aspect: Data structure to store the recommendations
