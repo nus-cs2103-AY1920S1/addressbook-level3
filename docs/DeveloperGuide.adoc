@@ -57,11 +57,11 @@ image::UiClassDiagram_FlashCardPro.png[]
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Responder Component
+.Structure of the Logic Package
 image::Logic_Class_Diagram.PNG[]
 
 *API* :
-link:{repoURL}/src/main/tree/master/src/main/java/dream/fcard/logic [`Logic Package`]
+link:{repoURL}/main/java/dream/fcard/logic [`Logic Package`]
 
 The Logic package manages the internal logic of the application. +
 
