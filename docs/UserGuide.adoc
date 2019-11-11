@@ -37,7 +37,7 @@ TIP: A tip or suggestion
 
 CAUTION: A cautionary word of advice
 
-== Quick Start
+== Quick start
 
 .  Ensure you have Java 11 or above installed in your Computer.
 .  Download the latest build KeyboardFlashCards.jar link:https://github.com/AY1920S1-CS2103T-T12-4/main/releases[here].
@@ -418,7 +418,7 @@ image::EndResults.png[width="600"]
 
 // tag::flashcardexport[]
 
-=== Export flashcards to a file: `export c>CATEGORY p>FILE_PATH`
+=== Export FlashCards to a file: `export c>CATEGORY p>FILE_PATH`
 
 You can use this command to export all your FlashCards in a particular category, to an external file.
 This may be useful if you wish to publish your FlashCards somewhere, print them out, or share them with a friend.
@@ -465,7 +465,7 @@ Please take care not to modify exported JSON files - your friends might have tro
 
 
 
-=== Import flashcards from a JSON file: `import p>FILE_PATH`
+=== Import FlashCards from a JSON file: `import p>FILE_PATH`
 
 You can use this command to import FlashCards from a file that you or someone else had exported to earlier.
 We currently only support importing from JSON ('.json') files. +
@@ -614,7 +614,7 @@ To exit:
 
 
 
-== Command Summary
+== Command summary
 
 * Add new flashcard - `add q>QUESTION a>ANSWER [c>CATEGORY]…​` +
 e.g. `add q>1+1 a>2`

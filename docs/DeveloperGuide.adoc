@@ -342,7 +342,7 @@ Given below is an example usage scenario of `bad INDEX` :
 
 The user executes `bad 2` to rate the second `FlashCard` in the list as "Bad".
 
-==== Design Considerations
+==== Design considerations
 ===== Aspect: How to store "Bad" FlashCard in storage
 
 * **Alternative 1(current choice):** Use a `HashMap` with the specified date as the key. Store `FlashCard` as an
@@ -645,12 +645,12 @@ Refer to the guide <<Documentation#, here>>.
 
 Refer to the guide <<Testing#, here>>.
 
-== Dev Ops
+== DevOps
 
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
-== Product Scope
+== Product scope
 
 *Target user profile*:
 
@@ -664,7 +664,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: learning platform to help students remember things easily, test their knowledge on certain subjects and at the same time be reminded on important study sessions and exams
 
 [appendix]
-== User Stories
+== User stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -706,7 +706,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 _{More to be added}_
 
 [appendix]
-== Use Cases
+== Use cases
 
 (For all use cases below, the *System* is `KeyboardFlashCards` and the *Actor* is the `user`, unless specified otherwise)
 
@@ -745,7 +745,7 @@ Use case resumes at step 2.
 
 
 [discrete]
-=== Use case: Edit Flashcard
+=== Use case: Edit FlashCard
 
 *MSS*
 
@@ -780,7 +780,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [appendix]
-== Non Functional Requirements
+== Non-functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 2000 flash cards without a noticeable sluggishness in performance for typical usage.
@@ -828,14 +828,14 @@ Cons:
 * ...
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 
@@ -849,9 +849,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
-
-=== Deleting a flashCard
+=== Deleting a FlashCard
 
 . Deleting a flashCard while all flashCards are listed
 
@@ -863,12 +861,9 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Saving data
 
 . Dealing with missing/corrupted data files
 
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
-_{ more test cases ... }_
