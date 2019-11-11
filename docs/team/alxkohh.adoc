@@ -1,4 +1,4 @@
-= Alex Koh - Project Portfolio
+= Alex Koh Nan Yu - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images/ak_ppp
 :stylesDir: ../stylesheets
@@ -13,7 +13,8 @@ Duke Academy is an all-in-one programming practice app targeted for students tak
 
 Here is a preview of Duke Academy:
 
-image::UiPreview.png[width="1000"]
+image::gui.png[align="center" width="800"]
+
 
 == Summary of contributions
 
@@ -71,5 +72,3 @@ include::../UserGuide.adoc[tag=help]
 include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=bookmark]
 include::../DeveloperGuide.adoc[tag=manualtesting]
-include::../DeveloperGuide.adoc[tag=design]
-
