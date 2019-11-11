@@ -108,15 +108,20 @@ UI image and description to be updated with the later milestones.
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+The UI consist of a link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] that is made up of different parts like link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter.`] , link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] and more. All these including link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindo`] , inherit from the abstract link:{repoURL}/src/main/java/seedu/address/ui/UiPart.java[`UiPart`] class.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `EntityListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The link:{repoURL}/src/main/java/seedu/address/ui/EntityListPanel.java[`EntityListPanel`] consist of any number link:{repoURL}/src/main/java/seedu/address/ui/EntityCard.java[`EntityCard`] (which also inherits from the abstract UiPart class). The link:{repoURL}/src/main/java/seedu/address/ui/EntityCard.java[`EntityCard`]  will dynamically generate cards of different entity type according to the data provided by Model, hence it will have a soft dependency on Model.
+The UI component uses JavaFX UI framework, with the support of third party libraries JFeonix and FontAwesomeFX. The layout of these UI parts are defined in matching .fxml files that are in the src/main/resources/view folder. For example, the layout of the MainWindow is specified in MainWindow.fxml.
+The UI component,
+•  Executes user commands using the Logic component.
+•  Listens for changes to link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] data so that the UI can be updated with the modified data.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
-* Executes user commands using the `Logic` component.
-* Looks at the prefix commandType given in the CommandResult(returned after every Command is executed), as displays the specific EntityListPanel respectively.
+* Executes user commands using the link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic`] component.
+* Looks at the prefix commandType given in the CommandResult(returned after every Command is executed), as displays the specific link:{repoURL}/src/main/java/seedu/address/ui/EntityListPanel.java[`EntityListPanel`] respectively.
 
 ==== Design Considerations
 1. Ways to update different entity list
@@ -951,8 +956,51 @@ The first five result will then be mapped to their respective link:https://docs.
 This link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/ContextMenu.html[`ContextMenu`] will then appear as a pop up box.
 ser input box, the method. Pressing ```up``` and ```down``` arrow keys will enable the user to choose a command suggestion.
 Additionally, pressing ```enter``` will filter out different https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html[`Text`] from the link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/TextFlow.html[`TextFlow`] object. The link:{repoURL}/src/main/java/seedu/address/ui/AutoCompleteCommandBox.java[`setText`] method will then be called to set the link:https://github.com/jfoenixadmin/JFoenix/blob/master/jfoenix/src/main/java/com/jfoenix/controls/JFXTextField.java[`JFXTextField`] to the said link:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/text/Text.html[`Text`] object.
-
 //end::command-suggestion[]
+
+====== Design Considerations
+
+===== Aspect: How to store a set of correct commands and search through it as the user types
+ In order to provide suggestions as a user types, there needs to be a way to store the set of correct commands as strings in the system, and search through it to check if it contains some parts of user input. The results will be provided to the user as suggestions.
+* *Alternative 1:* Use an `ArrayList` and go through every element in the array list one by one to look for commands that matches the user input.
+
+* *Pros*: Easy to implement
+
+* *Pros*: When new commands are implemented, they can easily be added into the `ArrayList`
+
+* *Cons*: Allows duplicates, if duplicate commands are added into the `ArrayList`, duplicate suggestions may be provided.
+
+* *Cons*: Searching through the `ArrayList` is inefficient as `Stream` is not used.
+
+* *Alternative 2*: Store the commands in a `Set` and convert it to a `Stream` to search through the commands.
+
+**Pros*: Prevent duplicates, so that duplicate commands will not be entered accidentally.
+
+* *Pros*: More efficient.
+
+* *Pros*: Easier to search through the set of commands when it is stored as `Stream`.
+
+I have decided to proceed with this option as preventing duplicates enables a more defensive style of programming. It is also more efficient.
+
+===== Aspect: How to fill up user input text field when a command suggestion is chosen
+
+upon choosing a command suggestion, it template(the command suggestion excluding blue-colored instructions and grey-colored guides) will be used to occupy the user input text field.
+
+* *Alternative 1* :Map each command suggestion to their respective templates in `String` form
+
+* *Pros*: Easy to implement.
+
+* *Cons*: Tedious to implement(requires many lines of code).
+
+* *Cons*: Duplicate logic will be implemented, as the templates could be extracted from the command suggestion itself.
+
+* *Alternative 2* : Filter out the relevant text template from the command suggestion that is choosen.
+
+* *Pros*: No duplicate logic is implemented as the templates are extracted directly from the choosen command suggestion.
+
+* *Pros*: Lesser code needs to be written in order to extract the template from the choosen command suggestion.
+
+* *Pros*: Use of regular express ion may be harder to implement.
 
 //tag::assign-remove[]
 === `assign` / `remove` feature
