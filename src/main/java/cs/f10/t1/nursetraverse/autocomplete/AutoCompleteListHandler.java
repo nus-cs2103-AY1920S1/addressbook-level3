@@ -75,33 +75,7 @@ public class AutoCompleteListHandler {
     }
 
     /**
-     * Update list of autocomplete words to be suggested according to current phrase in command box textfield
-     *
-     * @param matchedAutoCompleteWords Linkedlist of matched words
-     * @param currentList List to be updated
-     * @param parsedUserInputList list of parsed userinput {objectword, commandword, ...}
-     * @return updatedList
-     */
-    public ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
-                                                       ObservableList<AutoCompleteWord> currentList,
-                                                       LinkedList<String> parsedUserInputList) {
-        ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();
-
-        if (matchedAutoCompleteWords.size() == parsedUserInputList.size()) {
-            return currentList;
-        } else {
-            for (AutoCompleteWord autoCompleteWord : currentList) {
-                if (autoCompleteWord.getSuggestedWord()
-                        .startsWith(parsedUserInputList.get(matchedAutoCompleteWords.size()))) {
-                    updatedList.add(autoCompleteWord);
-                }
-            }
-            return updatedList;
-        }
-    }
-
-    /**
-     * Filter unrelated words from either prefix or command wordlist
+     * Filter unrelated words from either the chosen prefix or command wordlist
      *
      * @param listToBeSuggested list to be filtered
      * @return filteredList
@@ -141,6 +115,32 @@ public class AutoCompleteListHandler {
             return filteredList;
         } else {
             return listToBeSuggested;
+        }
+    }
+
+    /**
+     * Update list of autocomplete words to be suggested according to current phrase in command box textfield
+     *
+     * @param matchedAutoCompleteWords Linkedlist of matched words
+     * @param currentList List to be updated
+     * @param parsedUserInputList list of parsed userinput {objectword, commandword, ...}
+     * @return updatedList
+     */
+    public ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
+                                                       ObservableList<AutoCompleteWord> currentList,
+                                                       LinkedList<String> parsedUserInputList) {
+        ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();
+
+        if (matchedAutoCompleteWords.size() == parsedUserInputList.size()) {
+            return currentList;
+        } else {
+            for (AutoCompleteWord autoCompleteWord : currentList) {
+                if (autoCompleteWord.getSuggestedWord()
+                        .startsWith(parsedUserInputList.get(matchedAutoCompleteWords.size()))) {
+                    updatedList.add(autoCompleteWord);
+                }
+            }
+            return updatedList;
         }
     }
 }
