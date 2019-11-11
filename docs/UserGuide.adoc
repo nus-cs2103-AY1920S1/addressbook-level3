@@ -363,12 +363,12 @@ CAUTION: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline d
 
 
 ==== Start command: `start [category]`
-This command starts the flashcard test mode. If no parameter is supplied, the application will test all
-available FlashCards.
+This command starts the `FlashCard` test mode. If no parameter is supplied, the application will test all
+available `FlashCards`.
 
 image::StartEmptyParam.png[width="600"]
 
-If tag(s) are entered, this command starts the FlashCard test from any specific category. Only relevant FlashCards from the tag(s) will
+If tag(s) are entered, this command starts the `FlashCard` test from any specific category. Only relevant `FlashCards` from the tag(s) will
 be tested.
 
 image::StartWithTagParam.png[width="600"]
@@ -377,18 +377,18 @@ After starting the test, you should see the first question.
 
 image::StartResults.png[width="600"]
 
-==== See flashcard answer: `ans`
-This command allows you to check the answer of the flashcard question.
+==== See FlashCard answer: `ans`
+This command allows you to check the answer of the `FlashCard` question.
 
 image::ShowAnswerCommand.png[width="600"]
 
-After entering the `ans` command, you will see the answer to that FlashCard.
+After entering the `ans` command, you will see the answer to that `FlashCard`.
 
 image::ShowAnswerResults.png[width="600"]
 
-==== Rate flashcard: `rate [easy/good/hard]`
-After seeing the answer, you can enter this command which rates the flashcard,
-depending on how well you answered the question i.e. easy, good, hard.
+==== Rate FlashCard: `rate [easy/good/hard]`
+After seeing the answer, you can enter this command which rates the `FlashCard`,
+depending on how well you answered the question i.e. `easy`, `good`, `hard`.
 
 image::RateCommand.png[width="600"]
 
@@ -397,7 +397,7 @@ At the same time, the next question will be displayed if available.
 image::RateResults.png[width="600"]
 
 ==== Skip question: `skip`
-If you would like to manually filter and skip questions, the `skip` command helps you to skip FlashCards,
+If you would like to manually filter and skip questions, the `skip` command helps you to skip `FlashCards`,
 saving you extra time.
 
 image::SkipCommand.png[width="600"]
@@ -412,7 +412,7 @@ You can stop the test any time simply by typing `end`.
 image::EndCommand.png[width="600"]
 
 By exiting the test mode, normal commands such as `listall` and `add` are re-enabled.
-The entire list of FlashCards in the system will be displayed again.
+The entire list of `FlashCards` in the system will be displayed again.
 
 image::EndResults.png[width="600"]
 
