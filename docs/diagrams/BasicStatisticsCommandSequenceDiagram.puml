@@ -5,8 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":MooLahParser" as MooLahParser LOGIC_COLOR
 participant ":StatsCommandParser" as StatsCommandParser LOGIC_COLOR
-participant "desc:StatsDescriptor" as StatsDescriptor LOGIC_COLOR
-participant "cmd:StatsCommand" as StatsCommand LOGIC_COLOR
+participant "statsCommand:StatsCommand" as StatsCommand LOGIC_COLOR
 participant "result:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -31,40 +30,44 @@ deactivate StatsCommandParser
 MooLahParser -> StatsCommandParser : parse("statsbasic \n sd/01-10-2019 \n ed/01-11-2019)
 activate StatsCommandParser
 
-create StatsDescriptor
-StatsCommandParser -> StatsDescriptor
-activate StatsDescriptor
-
-StatsDescriptor --> StatsCommandParser : desc
 
 
-StatsCommandParser -> StatsDescriptor
-
-
-StatsDescriptor --> StatsCommandParser
-deactivate StatsDescriptor
-
-ref over StatsCommandParser, StatsDescriptor : Sets the Optional parameters for StatsDescriptor
+ref over StatsCommandParser, StatsCommand : Extract parameters \ncreate StatsCommand
 
 
 create StatsCommand
-StatsCommandParser -> StatsCommand : (desc)
+StatsCommandParser -> StatsCommand :
 activate StatsCommand
 
-StatsCommand --> StatsCommandParser : cmd
+StatsCommand --> StatsCommandParser : statsCommand
 deactivate StatsCommand
 
-StatsCommandParser --> MooLahParser : cmd
-deactivate StatsCommandParser
+StatsCommandParser --> MooLahParser : statsCommand
+destroy StatsCommandParser
 
-MooLahParser --> LogicManager : cmd
+
+
+
+
+MooLahParser --> LogicManager : statsCommand
 deactivate MooLahParser
 
-LogicManager -> StatsCommand : execute()
+LogicManager -> StatsCommand : run(model)
+activate StatsCommand
+
+StatsCommand -> StatsCommand: validate
+activate StatsCommand
+
+
+StatsCommand -> StatsCommand:
+deactivate StatsCommand
+
+StatsCommand -> StatsCommand: execute
 activate StatsCommand
 
 StatsCommand -> ModelManager : getPrimaryBudget()
 activate ModelManager
+
 
 ModelManager --> StatsCommand : primaryBudget
 deactivate ModelManager
@@ -73,8 +76,7 @@ create Statistics
 StatsCommand -> Statistics : createPieChartStatistics(\n primaryBudget, \n desc)
 activate Statistics
 
-ref over Statistics, Statistics : create populated Statistics \n with start date and end date
-Statistics --> Statistics
+ref over StatsCommand, Statistics : Create pie chart statistics
 
 
 Statistics -> StatsCommand : statistics
@@ -87,15 +89,18 @@ activate ModelManager
 ModelManager --> StatsCommand
 deactivate ModelManager
 
+StatsCommand --> StatsCommand
+deactivate StatsCommand
+
 create CommandResult
 StatsCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> StatsCommand : result
+CommandResult --> StatsCommand :
 deactivate CommandResult
 
 StatsCommand --> LogicManager : result
-deactivate StatsCommand
+destroy StatsCommand
 
 [<--LogicManager : result
 deactivate LogicManager

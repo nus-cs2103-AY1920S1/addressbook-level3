@@ -624,7 +624,7 @@ The following activity diagram summarizes how statistics are shown from a curren
 to modify the attributes of the budget.
 
 
-image::StatisticsClassDiagram.png[]
+image::BasicStatisticsCommandActivityDiagram.png[]
 
 In the following sections, the implementation details of one of the more complicated command words will be discussed,
 as well as its design considerations.
@@ -651,52 +651,57 @@ Step 2. The newly created `StatsCommandParser` calls `parse("stats sd/01-10-2019
 which in turns calls `ArgumentTokenizer#tokenize("sd/01-10-2019 ed/01-11-2019", PREFIX_START_DATE, PREFIX_END_DATE)` to
 split the arguments into its preamble(the start date and end date). This returns an `ArgumentMultimap` object, `argMultimap` containing the split input.
 
-Step 3. The `StatsCommandParser` object calls `ParserUtil#parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get())` which parses the arguments to get the start date.
-The date, that is present in this example, is parsed into the correct form and the end date is obtained similarly with
-`ParserUtil#parseTimestamp(argMultimap.getValue(PREFIX_END_DATE)#get())`.
-A `StatsDescriptor` object `desc`, eventually containing the start date and end date is created, and a `StatsCommand` object `cmd` will
-be created with `desc`, which will be returned to the `LogicManager`.
 
-NOTE: By right Steps 2 to 3 should be still described in this sequence, but the descriptor details should be abstracted from the main UML.
+Step 3. The `StatsCommandParser` object creates a `StatsDescriptor` object `desc` to hold the start date and end date that was specified by the user.
+Depending on the presence of start date and end date, `desc` will be filled in differently.
 
-Step 4. The `LogicManager` calls `StatsCommand#execute()`, which calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
-The `PieChartStatistics` object `statistics`, will be created with `createPieChartStatistics', after which it will called its implemented method
-`populate()` to fill in the `attributes` required by the `Statistics Panel`.
+If the start date and end date is both specified by the user, the start date will be checked to be before the end date.
+If the end date happens to be before the start date, a `ParseException` will be thrown
 
-NOTE: As `populate()` is a method specified by the Statistics interface, need to show it in the main UML. It may be good to wrap
+Step 4. The filled `desc` will be returned to the `LogicManager` where a new `StatsCommand` command, `statsCommand` will be created with `desc`
 
-Step 5. `ModelManager` calls `setStatistics(statistics)` which updates the `Statistics` attribute in ModelManager.
+Figure 1. below illustrates the details from Steps 2 to 4.
 
-Step 6. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
+image::BasicStatisticsParserToCommand.png
+
+Figure 1. Reference Diagram for creating a `StatsCommand`
+
+
+Step 4. The `LogicManager` calls `StatsCommand#run()`, where the `StatsCommand` will be validated before getting executed.
+
+Step 5. During execution, `StatsCommand` calls `ModelManager#getPrimaryBudget()` to retrieve the primary budget to calculate statistics from.
+After which, `StatsCommand` will call `createPieChartStatistics', which takes in `desc` and the primary budget.
+
+Step 6. To construct the time interval required for statistics, information from `desc` is being processed.
+If there are unspecified inputs inside `desc`, the time interval will be constructed with some information from the primary budget.
+
+Step 7. The `PieChartStatistics` object will be created with the constructed interval as well as the expenses the primary budget tracks.
+After which, `StatsCommand` will call `PieChartStatistics` implementation of `populateData()` to fill up its other fields
+
+Step 8. `StatsCommand` calls `ModelManager#setStatistics(statistics)` which updates the `Statistics` attribute in `ModelManager`.
+
+Step 9. A `CommandResult` is then created and returned to `LogicManager`, which will then force a switch
 to the `Statistics Panel` where a Pie Chart will be generated.
 
 
+Figure 2. below illustrates the details from Steps 6 to 9.
+
+image::CreatePieChartReference.png
+
+Figure 2. Reference Diagram for creating a `StatsCommand`
 
 
+The following sequence diagram shows how the `statsbasic` operation works as a big picture:
 
-The following sequence diagram shows how the `statsbasic` operation works:
+image::BasicStatisticsCommandSequenceDiagram.png[]
 
-image::BasicStatisticsCommand.png[]
+Figure 3. Sequence Diagram for executing a `StatsCommand`
 
-Figure 1. Sequence Diagram for executing a `StatsCommand`
-
-
-The following reference diagram shows how `StatsCommandParser` handle optional start date and end date entries
-before creating a `StatsCommand`. This is used mainly to illustrate the interactions in Steps 2 to 3.
-
-
-image::StatsCommandParser.png[]
-
-Figure 2. Reference Diagram for deciding start date and end date for a `StatsCommand`
-
-
-NOTE: As of Week 10, the design of `StatsCommand#execute()` in Step 4 is still a work in progress because of concurrent refactoring, developing command words
-and other dependencies due to outdated methods that causes a depreciated return type to still be in use. This should be resolved ideally by v1.3.
 
 
 ==== Design Considerations
 
-When designing the interaction of `Statistics#calculateStatistics()` with `statsbasic`, decisions have to be made on the most
+When designing the interaction of the command word `statsbasic`, decisions have to be made on the most
 suitable visual representation for `statsbasic` particular use case.
 
 * ** Alternative 1:** Table view

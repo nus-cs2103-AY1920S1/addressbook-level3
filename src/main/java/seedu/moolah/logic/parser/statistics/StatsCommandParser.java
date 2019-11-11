@@ -7,6 +7,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_START_DATE;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.moolah.commons.core.Messages;
 import seedu.moolah.logic.commands.statistics.StatsCommand;
@@ -51,11 +52,15 @@ public class StatsCommandParser implements Parser<StatsCommand> {
         Timestamp startDate = null;
         Timestamp endDate = null;
 
-        boolean isStartPresent = argMultimap.getValue(PREFIX_START_DATE).isPresent();
-        boolean isEndPresent = argMultimap.getValue(PREFIX_END_DATE).isPresent();
+        Optional<String> startDateString = argMultimap.getValue(PREFIX_START_DATE);
+        Optional<String> endDateString = argMultimap.getValue(PREFIX_END_DATE);
+
+        boolean isStartPresent = startDateString.isPresent();
+        boolean isEndPresent = endDateString.isPresent();
+
         if (isStartPresent && isEndPresent) {
-            startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
-            endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
+            startDate = ParserUtil.parseTimestamp(startDateString.get());
+            endDate = ParserUtil.parseTimestamp(endDateString.get());
             statsDescriptor.setStartDate(startDate);
             statsDescriptor.setEndDate(endDate);
             if (!statsDescriptor.isStartBeforeEnd()) {
@@ -65,10 +70,10 @@ public class StatsCommandParser implements Parser<StatsCommand> {
                 //the test should be tested too
             }
         } else if (isStartPresent) {
-            startDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_START_DATE).get());
+            startDate = ParserUtil.parseTimestamp(startDateString.get());
             statsDescriptor.setStartDate(startDate);
         } else if (isEndPresent) {
-            endDate = ParserUtil.parseTimestamp(argMultimap.getValue(PREFIX_END_DATE).get());
+            endDate = ParserUtil.parseTimestamp(endDateString.get());
             statsDescriptor.setEndDate(endDate);
         }
 
