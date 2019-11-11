@@ -26,55 +26,30 @@ Jump to <<Getting Started>> to get started.
 
 == Features Summary
 
-. *Manage your classes* easily with just a few strokes of your keyboard.
-.. Managing your list of students.
-.. Tagging students who are weak at certain subjects.
-.. Marking students performing poorly overall in academics.
-.. Add students to groups to manage them better.
+. *Manage your students* easily with just a few strokes of your keyboard.
+.. Easily assign students to group.
+.. Tag or mark students who are weak at certain subjects.
+
 . *Create questions* that allows you to start in-class activities and distribute quizzes to your students.
 Simply define a type, a topic and an answer and you are all set.
 .. Easy input and management of your questions.
-. *Generate quizzes* for your students.
-.. Type once, generate anytime
-.. Randomised
-.. Distribute
-. *Timetable Manager* for scheduling your classes.
-.. Create and manage
-.. Schedule classes
-.. Class Reminders
-.. Repeatable daily/monthly and even yearly
+.. Utilise your questions fully by using Slideshow.
+
+. *Generate quizzes* for your students. Type once, generate anytime.
+.. Create random quizzes either automatically or manually.
+.. Export quizzes for distribution.
+
+. *Timetable Manager* for scheduling your classes and events.
+.. Create and manage your schedule with a single calendar.
+.. Easily export your timetable with a single command.
+
 . *Notes Manager* to act as lightweight, digital Post-It to easily identify your priorities.
 .. Keep track of your reminders.
 .. View in a glance the important tasks.
+
 . *Statistics* provide a comprehensive view of your students' performance.
 .. Understand the academic performance of your class.
 .. View honourable students and identify the struggling students in one look.
-
-
-== Features
-
-=== Questions
-Manage your questions using a single interface. Saving questions is easy, simply enter a topic, a question
-and an answer and you are all set!
-
-.Questions management interface
-image::questions/ListQuestionResult.png[]
-
-=== Slideshow
-Engage your students in the classroom with our slideshow feature. Easily display existing questions
-without the need to recreate them.
-
-.Slideshow feature
-image::questions/SlideshowExample.png[]
-
-==== Control
-Controlling Slideshow is simple. With just your arrow and space keys, you are in control of your questions.
-
-[[Features-Slideshow-Polling]]
-==== Polling _(MCQ only)_
-Get your students participating in the discussion with the polling feature included in slideshow. Gather
-responses before revealing the answer to test your students' understanding.
-
 
 == Getting Started
 
@@ -180,6 +155,8 @@ Adds a student named John Doe with one tag Chemistry
 * *Student with multiple tags*: `student name/John Doe tag/Chemistry tag/Physics` +
 Adds a student named John Doe with tags Chemistry and Physics
 
+'''
+
 ==== Editing a student
 
 Edit a student currently stored. +
@@ -211,6 +188,7 @@ image::EditStudent2.png[]
 .Successfully change the name of student in index 1 to John Doe.
 image::EditStudent3.png[]
 
+'''
 
 ==== Deleting a student
 
@@ -229,6 +207,8 @@ Example:
 
 * `student delete 1` +
 Deletes the first student in the student list.
+
+'''
 
 [[Feature-Student-List]]
 ==== Listing students
@@ -301,6 +281,8 @@ Examples:
 * `mark index/1` +
 Marks the student with index number 1
 
+'''
+
 ==== Remove mark from a student: `unmark`
 
 Allows a user to remove mark from an already created student who has been previously marked. +
@@ -350,6 +332,8 @@ Examples:
 * `group manual groupID/G03 studentNumber/1 2 3` +
 Adds student index numbers 1, 2 and 3 to the group named G03.
 
+'''
+
 ==== Adding a Student to a Group: `add`
 
 Allows a user to add a Student to a Group. +
@@ -376,6 +360,8 @@ Examples:
 * `group add groupID/G01 studentNumber/2 groupIndexNumber/3` +
 Adds student 2 to the group index number 3 for the group named G01.
 
+'''
+
 ==== Removing a Student from a Group: `delete`
 
 Allows a user to remove a student from a group. +
@@ -395,6 +381,8 @@ Examples:
 
 * `group delete groupID/G01 groupIndexNumber/1` +
 Removes the student with group index number 1 for the group named G01.
+
+'''
 
 ==== Exporting a Group to a Word Document: `export`
 
@@ -417,6 +405,8 @@ Examples:
 
 * `group export groupID/G01` +
 Exports the group named G01 to a word document named `G01.docx`, found under the exports folder.
+
+'''
 
 ==== Showing students from a group:
 
@@ -445,6 +435,8 @@ image::GroupView2.png[]
 
 .View of G02.
 image::GroupView3.png[]
+
+'''
 
 === Questions ​-​ `question`
 
@@ -733,6 +725,8 @@ Adds question numbers 1, 2 and 3 to the quiz labelled CS2103T.
 .Results of the create quiz manual command.
 image::QuizManual1.PNG[]
 
+'''
+
 ==== Creating a Quiz automatically: `auto`
 
 Allows a user to create a quiz automatically. +
@@ -770,6 +764,8 @@ image::QuizAuto2.PNG[]
 .Results of the third create quiz automatically command.
 image::QuizAuto3.PNG[]
 
+'''
+
 ==== Adding a Question to a Quiz: `add`
 
 Allows a user to add a question to a quiz. +
@@ -793,6 +789,8 @@ Adds question 2 to the quiz question number 3 for the quiz labelled CS2103T.
 
 .Results of the add question to quiz command.
 image::QuizAdd1.PNG[]
+
+'''
 
 ==== Deleting a Question from a Quiz: `delete`
 
@@ -819,6 +817,8 @@ Deletes the quiz question number 3 for the quiz labelled CS2103T.
 
 .Results of the delete question from quiz command.
 image::QuizDelete.PNG[]
+
+'''
 
 ==== Exporting a Quiz to HTML: `export`
 
@@ -862,6 +862,8 @@ image::QuizExported.PNG[]
 
 {nbsp} +
 
+'''
+
 ==== Listing a Quiz: `list`
 
 Allows a user to list a quiz's questions and answers. +
@@ -883,6 +885,8 @@ Lists the questions and answers for the quiz labelled CS2103T.
 
 .Results of the list quiz command.
 image::QuizList.PNG[]
+
+'''
 
 ==== Showing only a Quiz's Questions: `showQuestions`
 
@@ -906,6 +910,8 @@ Shows only the questions for the quiz labelled CS2103T.
 .Results of the show questions of quiz command.
 image::QuizShowQuestions.PNG[]
 
+'''
+
 ==== Showing only a Quiz's Answers: `showAnswers`
 
 Allows a user to show only a quiz's answers. +
@@ -927,6 +933,8 @@ Shows only the answers for the quiz labelled CS2103T.
 
 .Results of the show answers of quiz command.
 image::QuizShowAnswers.PNG[]
+
+'''
 
 === Events ​-​ `event`
 
@@ -967,6 +975,8 @@ date and time _'7th Nov 2019, 1700'_ and a color grouping of _'17'_.
 .Adding a teachers meeting event to the schedule
 image::EventScheduleAdd.png[]
 
+'''
+
 [[Feature-Event-Index]]
 ==== Indexing a event
 
@@ -988,6 +998,8 @@ Examples:
 * `event indexOf/CS2103T Lecture` +
 Returns the index of the event in the calendar
 
+'''
+
 ==== Editing a event
 
 Edit a event currently stored. All fields are *optional*. +
@@ -1007,6 +1019,8 @@ Examples:
 * `event 2 eventName/CS2103T Lecture` +
 Edits the first event in the list changing existing event name to _'CS2103T Lecture'_.
 
+'''
+
 ==== Deleting a event
 
 Delete a event from the calendar. +
@@ -1021,6 +1035,8 @@ Deleting a event which is recurring (daily or weeekly) will delete all instances
 
 * `event delete 1` +
 Deletes the event with index 1
+
+'''
 
 ==== Taking screenshot of schedule
 
@@ -1067,6 +1083,8 @@ image::EventScreenshotSample.PNG[]
 
 {nbsp} +
 
+'''
+
 ==== Viewing all events
 
 Show all your events in the calendar. All fields are optional
@@ -1088,6 +1106,7 @@ Opens the calendar view in daily mode with the target date 7 November 2019.
 .Viewing the calendar in daily mode with target date 7 November 2019
 image::EventViewDailyMode.PNG[]
 
+'''
 
 ==== Export all events
 
@@ -1128,6 +1147,8 @@ image::EventExportFile.PNG[]
 
 {nbsp} +
 
+'''
+
 === Notes - `notes`
 
 ==== Creating a note
@@ -1160,6 +1181,8 @@ Creates an unmarked note with title _'Friday morning class 6A'_ and description 
 * *High priority note*: `note note/Tuesday 1pm desc/Science Conference priority/high` +
 Creates a high priority note with title _'Tuesday 1pm'_ and description _'Science Conference'_.
 
+'''
+
 ==== Editing a note
 
 Edit a note currently stored. All fields are *optional* but at least one field has to be provided for editing. The new note should not be the same as the original one and should have a unique note title. +
@@ -1182,6 +1205,8 @@ Edits the first note in the list to the title _'changed title'_.
 * `note 2 desc/give speech priority/unmarked` +
 Edits the description of the second note in the list to _’give speech’_ of unmarked/default priority.
 
+'''
+
 ==== Deleting a note
 
 Delete a note from the notes list. +
@@ -1196,6 +1221,7 @@ Example:
 * `note delete 1` +
 Deletes the first note in the list.
 
+'''
 
 [[Feature-Note-List]]
 ==== Listing notes
@@ -1214,6 +1240,8 @@ Example:
 * `note list` +
 Lists the notes.
 
+'''
+
 [[Feature-Note-Sort]]
 ==== Sorting notes
 
@@ -1227,6 +1255,8 @@ Example:
 
 * `note sort` +
 Sorts the notes by priority.
+
+'''
 
 [[Feature-Statistics]]
 === Statistics - `statistics`
@@ -1302,6 +1332,8 @@ The screenshot below illustrates a sample data set that fulfills all of the abov
 .Screenshot of Valid Excel format
 image::ExcelFormat.png[]
 
+'''
+
 === Help ​-​ `help`
 
 Opens up the help window. +
@@ -1314,7 +1346,8 @@ _-This command does not require any additional options-_
 == FAQ
 
 *Q*: Where can I find a list of commands? +
-*A*: You may access the help guide included in the application by navigating to `Help > Help F1` located on the menu bar or by pressing the `F1` key.
+*A*: You may access the help guide included in the application by navigating to `Help > Help F1` located on the menu bar or by pressing the `F1` key. +
+
 *Q*: Unable to run the application. +
 *A*: Please see <<Getting-Started-Run>> on how to start the application.
 
