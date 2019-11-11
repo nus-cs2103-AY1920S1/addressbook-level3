@@ -95,6 +95,9 @@ Format: `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...`
 
 Example: `add d/Gmail u/user1 p/password1 w/www.gmail.com/signin t/work`
 
+image::AddPW1.png[width="790"]
+image::AddPW2.png[width="790"]
+
 ==== Accessing a password : `read`
 
 You can open and view the password for the specified index.
@@ -103,11 +106,37 @@ Format: `read INDEX`
 
 Example: `read 1`
 
+image::Read 1.png[width="790"]
+image::Read 2.png[width="790"]
+
+====
+--
+image::tip.png[width = "20", float = "left"]
+--
+*Tip*
+
+* Your password will expire expire in a year.
+* You will be reminded if your password is expired or about to expire.
+* You can toggle the eye icon to see your password. Be wary of surveillance by secret agents or people standing behind you
+====
+
+This reminder will be shown 30 days before your password expires.
+
+image::PasswordExpiring.png[width="300"]
+
+This reminder will be shown if you have *not* changed your password for over a year.
+
+image::PasswordExpired.png[width="300"]
+
 ==== Copying a field in a password : `copy`
 
 You can copy the password value, website or username for the specific index.
 
 Format: `copy password INDEX`
+
+Format: `copy username INDEX`
+
+Format: `copy website INDEX`
 
 ====
 --
@@ -166,7 +195,7 @@ image::warning.png[width = "20", float = "left"]
 * Deleted passwords are not recoverable
 ====
 
-No longer use the user account? You can delete the password as specified by the user.
+No longer use the user account? You can delete the password.
 
 Format: `delete INDEX`
 
@@ -174,7 +203,7 @@ Example: `delete 2`
 
 ==== Finding a password: `find`
 
-Too many passwords? You can find the password description as specified by the user.
+Too many passwords? Simply type find and the description of the password.
 
 Format: `find KEYWORD`
 
@@ -700,11 +729,11 @@ There is no need to save manually.
 Accessing Password directory: `goto password`
 
 - `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...` : Adds a password to the app.
-- `read INDEX`:  Shows the username and password for the specified index provided by you.
-- `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`: Edits a password as specified by you.
-- `copy password INDEX`: Copies the password value, website or username for the specific index
-- `delete INDEX`: Deletes a password as specified by the user.
-- `find DESCRIPTION`: Finds a password description as specified by the user.
+- `read INDEX`:  Shows the username and password for the specified index specified by you.
+- `edit INDEX [d/DESCRIPTION] [u/USERNAME] [p/PASSWORD] [w/WEBSITE] [t/TAG]`: Edits a password specified by you.
+- `copy password INDEX`: Copies the password value, website or username specified by you.
+- `delete INDEX`: Deletes a password as specified by you.
+- `find DESCRIPTION`: Finds a password description as specified by you.
 - `generate [length/LENGTH] [lower/TRUE] [upper/TRUE] [num/TRUE] [special/TRUE]`: Generates a new random password based on user preference input and copies generated password into user clipboard.
 - `analyse`: Analyses all passwords currently stored and produces a security summary report.
 - `analyse [strong/INDEX]`: Analyses in detail a specified password based on the user specified index.
