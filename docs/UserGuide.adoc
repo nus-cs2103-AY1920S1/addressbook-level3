@@ -471,9 +471,11 @@ For example:
 * If you want to add the first bookmark in the bookmark list to your favorite bookmarks,
 simply input `*favorite* 1`, a `Favorite` tag will be added to the fist bookmark and the
 bookmark will also appear in the favorite bookmark list in the dashboard.
+// end::favorite-command[]
 
-image::ui-screenshots/FavoriteUI1.png[]
+image::ui-screenshots/FavoriteCommandUI1.png[]
 
+// tag::favorite-command-2[]
 * Alternatively, you can also type a shorter command `*fav* 1` to add the first bookmark to your
 favorite bookmarks as well.
 
@@ -484,7 +486,7 @@ Parameter constraints:
 * The index refers to the index number shown in the displayed bookmark list.
 * The index must be a positive integer `1`, `2`, `3`, …​
 ****
-// end::favorite-command[]
+// end::favorite-command-2[]
 
 '''
 
