@@ -360,6 +360,7 @@ image::view_attendance_after.png[width=350]
 
 // end::training[]
 
+// tag::performance[]
 === Performance
 To help you keep track of your team's performance,
 Athletick has a built-in performance tracker for you record and analyse your team's performance.
@@ -541,6 +542,8 @@ Additionally, the feature box (orange box) will show the athletes who have recor
 followed by a graph of their progress over time.
 
 image::viewrecords_wyss.png[width=450]
+
+// end::performance[]
 
 === Calendar
 

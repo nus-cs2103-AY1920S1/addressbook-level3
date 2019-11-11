@@ -144,7 +144,30 @@ https://github.com/AY1920S1-CS2103T-F11-4/main/issues/131[#131])
 * Tools
 ** Integrated a new GitHub plugin (Coveralls) to the team repo
 
+== Contributions to the User Guide
 
+|===
+|_Given below are sections I contributed to the User Guide.
+They showcase my ability to write documentation targeting end-users._
+|===
 
+_[Start of extract from User Guide]_
 
+include::../UserGuide.adoc[tag=performance]
 
+include::../UserGuide.adoc[tag=filter]
+
+_[End of extract from User Guide]_
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide.
+They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+_[Start of extract from Developer Guide]_
+
+include::../DeveloperGuide.adoc[tag=performance]
+
+_[End of extract from User Guide]_

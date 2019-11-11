@@ -351,6 +351,8 @@ which defeats the purpose of having a command line interface. Editing training b
 `training` command makes it quicker.
 
 // end::training[]
+
+// tag::performance[]
 === Performance feature
 
 Athletick allows users to record athlete's performance details from timed trials.
@@ -511,6 +513,8 @@ can be difficult when the event of interest is located at the end
 * Navigating from event overview to a particular event mimics how people navigate in apps - tapping on a
 chat title (in this case, viewing records for a particular event), to see the whole conversation (record
 details for a particular event)
+
+// end::performance[]
 
 === Calendar feature
 
