@@ -6,8 +6,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.ui.UiPart;
 
-import java.util.Comparator;
-
 /**
  * An UI component that displays information of a {@code Person}.
  */

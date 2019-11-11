@@ -1,15 +1,14 @@
 package seedu.guilttrip.ui.history;
 
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.guilttrip.commons.core.LogsCenter;
-import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.ui.UiPart;
-
-import java.util.logging.Logger;
 
 /**
  * Side panel for budgets.
