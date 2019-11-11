@@ -13,6 +13,7 @@
 == Overview
 
 .Sample User Interface of MAMS
+
 image::Ui.png[height=50%]
 
 Every semester, administrators from the National University of Singapore (NUS) have to
