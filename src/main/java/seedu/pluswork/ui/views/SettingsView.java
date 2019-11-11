@@ -15,7 +15,6 @@ import seedu.pluswork.ui.UiPart;
 
 /**
  * Layout displaying the current settings in +Work.
- * Responsive highlighting is adapted from CS2103 course mate (found using RepoSense)
  */
 public class SettingsView extends UiPart<Region> {
     private static final String FXML = "SettingsWindow.fxml";
