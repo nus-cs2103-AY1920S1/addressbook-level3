@@ -183,22 +183,7 @@ The `Storage` component,
 * can save the Time Book data in json format and read it back.
 
 [[Design-API]]
-=== Api component
-
-The following diagram explains the design of the API component:
-
-.Expected structure of API Component in `v2.0`.
-image::api/ApiComponentClassDiagram.png[]
-[NOTE]
-Currently there is no `Api` interface or `ApiManager` to manage the external interactions with other components. Other components are directly accessing static methods in the `xxxApi` classes and `Cache` class for accessing API data. We intend to refactor the component to make it more OOP as shown in the figure above in `v2.0`.
-
-The `Api`,
-
-* handles queries to external APIs such as Google Maps and NUSMods.
-* handles caching of API results for limited connectivity support.
-
-[[Design-API]]
-=== Api component
+=== Api Component
 
 The following diagram explains the design of the API component:
 
@@ -312,7 +297,7 @@ object to get the `Person` object specified by the `Name` object.
 
 The following sequence diagram shows how the ScheduleCommand is executed:
 
-image::scheduler/scheduleGeneratorSequenceDiagram1.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram1.png[width=100%,pdfwidth=100%]
 
 * `Step 4`: Generate the Schedule
 ** `ModelManager` calls the `ScheduleManager#updateScheduleWithPersons` method with the List of `Persons`
@@ -330,7 +315,7 @@ such as previous location data of each person, start time and end time.
 
 The following sequence diagram shows how the `ScheduleDisplay` is generated:
 
-image::scheduler/scheduleGeneratorSequenceDiagram2.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram2.png[width=100%,pdfwidth=100%]
 
 * `Step 6`: Return feedback to user
 -	The `ScheduleCommand` has finished executing and returns a `CommandResult` with the feedback to user
@@ -342,7 +327,7 @@ Schedules of a `Person` or a `User` as well.
 The following activity diagram summarizes what happens when the `ScheduleManager` is invoked to
 generate a `ScheduleDisplay`:
 
-image::scheduler/scheduleGeneratorActivityDiagram.png[width=100%]
+image::scheduler/scheduleGeneratorActivityDiagram.png[width=100%,pdfwidth=100%]
 
 ==== Design Considerations
 
@@ -418,13 +403,13 @@ image::command-suggestions/Step7.svg[]
 The following sequence diagram condenses all the above diagrams into one, given the input `deleteperson n/|`:
 
 .Full sequence diagram for input `deleteperson n/|`
-image:command-suggestions/DeletePersonSequenceDiagram.svg[pdfwidth=100%]
+image:command-suggestions/DeletePersonSequenceDiagram.svg[pdfwidth=100%,pdfwidth=100%]
 
 [#command-suggestions-caret-within-commandWord]
 The `SuggestionLogic` behaves differently when the caret position is within the `commandWord` section. The sequence diagram below shows the behaviour for the case of `find|person n/`. <<command-suggestions-caret-within-arguments,To read how the behaviour changes if the caret was placed within the `arguments` section, click here.>>
 
 .Sequence diagram for when the caret position is within the `commandWord` section
-image:command-suggestions/SuggestingCommands.svg[pdfwidth=100%]
+image:command-suggestions/SuggestingCommands.svg[pdfwidth=100%,pdfwidth=100%]
 
 The result is the following:
 
@@ -459,13 +444,6 @@ image::command-suggestions/ActivityDiagram.svg[pdfwidth=65%]
 ** Cons: ``Suggester``s are restricted in terms of the flexibility of their suggestions, as they lack info about the relative ordering of all the arguments.
 // end::suggestions-design-considerations[]
 // end::suggestions[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -629,7 +607,7 @@ image::gmaps/SuccessfulPopup.png[Popup]
 
 Below is an example of how the algorithm is applied on arbitrary locations `l1...ln` with arbitrary travelling distance
 to compute the closest common location for `l2,ln-2 and ln1`.
-[#img-GmapsClassDiagram]
+[#img-Algorithm]
 .Example of how the algorithm is used. The closest common location for this instance is `ln-2`.
 image::gmaps/Algorithm.png[Algorithm]
 
