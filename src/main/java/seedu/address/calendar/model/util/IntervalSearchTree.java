@@ -262,6 +262,13 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         root.max = getMaxIntervalPart(root.interval.getEnd(), maxBetweenLeftAndRight);
     }
 
+    /**
+     * Gets the maximum interval part.
+     *
+     * @param currentEnd The current end interval part
+     * @param otherMax The other maximum interval part
+     * @return The relevant interval part
+     */
     private S getMaxIntervalPart(S currentEnd, S otherMax) {
         if (currentEnd.compareTo(otherMax) < 0) {
             return otherMax;
@@ -272,6 +279,13 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
 
     /* Helper functions that maintain balanced AVL tree. */
 
+    /**
+     * Computes the height of the current node.
+     *
+     * @param leftSubtree The relevant left subtree
+     * @param rightSubtree The relevant right subtree
+     * @return The required height
+     */
     private int computeHeight(Node leftSubtree, Node rightSubtree) {
         int rightSubtreeHeight = rightSubtree == null ? 0 : rightSubtree.height;
         int leftSubtreeHeight = leftSubtree == null ? 0 : leftSubtree.height;
@@ -279,6 +293,12 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return 1 + Math.max(rightSubtreeHeight, leftSubtreeHeight);
     }
 
+    /**
+     * Finds the minimum in the branch.
+     *
+     * @param node The required node to be deleted
+     * @return The relevant node to be removed.
+     */
     private Node findMin(Node node) {
         if (node.leftNode == null) {
             return node;
@@ -286,6 +306,12 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return findMin(node.leftNode);
     }
 
+    /**
+     * Delete the minimum from the relevant branch.
+     *
+     * @param node The node to be deleted
+     * @return The relevant node to be removed
+     */
     private Node deleteMin(Node node) {
         if (node == null) {
             return null;
@@ -304,6 +330,12 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return avlBalance(node);
     }
 
+    /**
+     * Balances the interval search tree.
+     *
+     * @param root The root of the tree
+     * @return The relevant node
+     */
     private Node avlBalance(Node root) {
         Node rightSubtree = root.rightNode;
         Node leftSubtree = root.leftNode;

@@ -12,8 +12,9 @@ import seedu.address.calendar.model.date.MonthOfYear;
  */
 
 public class MonthOfYearUtil {
-    public static final String MESSAGE_CONSTRAINTS_JAVA_MONTH = "All Java months should be between 0 and 11, inclusive";
-    public static int NUM_MONTHS_IN_YEAR = 12;
+    private static final String MESSAGE_CONSTRAINTS_JAVA_MONTH = "All Java months should be between 0 and 11, "
+            + "inclusive";
+    static int NUM_MONTHS_IN_YEAR = 12;
 
     /**
      * Converts an {@code int} which represents a month in Java's default {@code Calendar} class to an instance of
