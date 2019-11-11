@@ -38,7 +38,7 @@ public class PhoneContainsKeywordsPredicateTest {
         // null -> returns false
         assertFalse(firstPredicate.equals(null));
 
-        // different person -> returns false
+        // different phone -> returns false
         assertFalse(firstPredicate.equals(secondPredicate));
     }
 

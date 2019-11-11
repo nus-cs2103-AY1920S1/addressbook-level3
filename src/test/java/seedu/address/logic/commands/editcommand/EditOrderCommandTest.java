@@ -38,7 +38,7 @@ import seedu.address.testutil.EditOrderDescriptorBuilder;
 import seedu.address.testutil.OrderBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * Contains integration tests (interaction with the Model)
  * and unit tests for EditOrderCommand.
  */
 public class EditOrderCommandTest {
@@ -159,7 +159,7 @@ public class EditOrderCommandTest {
     public void execute_duplicateOrderFilteredList_failure() {
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
-        // edit order in filtered list into a duplicate in address book
+        // edit order in filtered list into a duplicate in order book
         Order orderInList = model.getOrderBook().getList().get(INDEX_SECOND_ORDER.getZeroBased());
         EditOrderCommand editCommand = new EditOrderCommand(INDEX_FIRST_ORDER, Optional.empty(), Optional.empty(),
                 new EditOrderDescriptorBuilder(orderInList).build());
@@ -186,7 +186,7 @@ public class EditOrderCommandTest {
     public void execute_invalidPhoneIndexFilteredList_failure() {
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
         Index outOfBoundIndex = INDEX_SECOND_ORDER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of order book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getOrderBook().getList().size());
 
         EditOrderCommand editCommand = new EditOrderCommand(outOfBoundIndex, Optional.empty(),

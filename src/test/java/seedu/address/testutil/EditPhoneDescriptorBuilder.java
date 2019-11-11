@@ -102,7 +102,7 @@ public class EditPhoneDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPhoneDescriptor}
      * that we are building.
      */
     public EditPhoneDescriptorBuilder withTags(String... tags) {

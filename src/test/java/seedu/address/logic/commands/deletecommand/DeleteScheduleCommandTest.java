@@ -33,7 +33,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.OrderBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteScheduleCommand}.
  */
 public class DeleteScheduleCommandTest {

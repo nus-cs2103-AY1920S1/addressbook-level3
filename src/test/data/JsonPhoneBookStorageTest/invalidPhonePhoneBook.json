@@ -1,0 +1,12 @@
+{
+  "phones" : [ {
+    "identityNumber" : "Invalid ID Number: 9900037A?E54321",
+    "serialNumber" : "28xa9q2ns",
+    "phoneName" : "iPhone 11",
+    "brand" : "Apple",
+    "capacity" : "128",
+    "colour" : "Jet Black",
+    "cost" : "$1100",
+    "tagged" : [ "New" ]
+  } ]
+}

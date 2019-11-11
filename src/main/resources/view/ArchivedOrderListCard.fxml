@@ -95,6 +95,10 @@
                         <Label text="Customer Tags: " styleClass="cell_small_label_header" />
                         <FlowPane fx:id="customerTags" />
                     </HBox>
+                    <HBox>
+                        <Label text="Phone Tags: " styleClass="cell_small_label_header" />
+                        <FlowPane fx:id="phoneTags" />
+                    </HBox>
                     <padding>
                         <Insets top="5" right="5" bottom="5" left="15" />
                     </padding>

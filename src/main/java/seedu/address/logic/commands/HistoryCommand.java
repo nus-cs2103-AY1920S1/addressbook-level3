@@ -23,7 +23,7 @@ public class HistoryCommand extends Command {
     public CommandResult execute(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         requireNonNull(model);
 
-        LinkedList<String> commandList = new LinkedList<>(CommandHistory.getCommandHistory().getCommandHistoryList());
+        LinkedList<String> commandList = new LinkedList<>(commandHistory.getCommandHistoryList());
 
         if (commandList.isEmpty()) {
             return new CommandResult(MESSAGE_FAILURE);

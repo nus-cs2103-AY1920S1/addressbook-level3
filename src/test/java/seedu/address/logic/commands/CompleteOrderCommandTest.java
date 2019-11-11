@@ -33,7 +33,7 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * {@code CompleteOrderCommand}.
  */
 public class CompleteOrderCommandTest {
@@ -108,7 +108,7 @@ public class CompleteOrderCommandTest {
         showOrderAtIndex(model, INDEX_FIRST_ORDER);
 
         Index outOfBoundIndex = INDEX_SECOND_ORDER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of order book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getOrderBook().getList().size());
 
         CompleteOrderCommand completeOrderCommand = new CompleteOrderCommand(outOfBoundIndex);

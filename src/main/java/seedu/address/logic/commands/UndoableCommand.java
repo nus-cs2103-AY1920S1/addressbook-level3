@@ -94,23 +94,14 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Executes the command and updates the filtered lists to show all customers,
-     * phones, orders, schedules and archived.
+     * Reverts all the books to the state before this command
+     * was executed and updates all the list to
+     * show all customers, phones, orders, schedules and archived.
      */
     protected final void redo(Model model) {
         requireNonNull(model);
 
-        model.setCustomerBook(previousCustomerBook);
-        model.setPhoneBook(previousPhoneBook);
-        model.setOrderBook(previousOrderBook);
-        model.setScheduleBook(previousScheduleBook);
-        model.setArchivedOrderBook(previousArchivedOrderBook);
-
-        model.updateFilteredCustomerList(Model.PREDICATE_SHOW_ALL_CUSTOMERS);
-        model.updateFilteredPhoneList(Model.PREDICATE_SHOW_ALL_PHONES);
-        model.updateFilteredOrderList(Model.PREDICATE_SHOW_ALL_ORDER);
-        model.updateFilteredScheduleList(Model.PREDICATE_SHOW_ALL_SCHEDULE);
-        model.updateFilteredArchivedOrderList(Model.PREDICATE_SHOW_ALL_ORDER);
+        undo(model);
     }
 
 

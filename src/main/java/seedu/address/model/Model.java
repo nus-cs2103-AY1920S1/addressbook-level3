@@ -51,7 +51,7 @@ public interface Model {
     ////customer operations
 
     /**
-     * Replaces address book data with the data in {@code customerBook}.
+     * Replaces customer book data with the data in {@code customerBook}.
      */
     void setCustomerBook(ReadOnlyDataBook<Customer> customerBook);
 
@@ -59,19 +59,19 @@ public interface Model {
     ReadOnlyDataBook<Customer> getCustomerBook();
 
     /**
-     * Returns true if a customer with the same identity as {@code customer} exists in the address book.
+     * Returns true if a customer with the same identity as {@code customer} exists in the customer book.
      */
     boolean hasCustomer(Customer customer);
 
     /**
      * Deletes the given customer.
-     * The customer must exist in the address book.
+     * The customer must exist in the customer book.
      */
     void deleteCustomer(Customer target);
 
     /**
      * Adds the given customer.
-     * {@code customer} must not already exist in the address book.
+     * {@code customer} must not already exist in the customer book.
      */
     void addCustomer(Customer customer);
 
@@ -114,14 +114,14 @@ public interface Model {
 
     /**
      * Adds the given phone.
-     * {@code phone} must not already exist in the address book.
+     * {@code phone} must not already exist in the phone book.
      */
     void addPhone(Phone phone);
 
     /**
      * Replaces the given phone {@code target} with {@code editedPhone}.
-     * {@code target} must exist in the address book.
-     * The phone identity of {@code editedPhone} must not be the same as another existing phone in the address book.
+     * {@code target} must exist in the phone book.
+     * The phone identity of {@code editedPhone} must not be the same as another existing phone in the phone book.
      */
     void setPhone(Phone target, Phone editedPhone);
 
@@ -145,26 +145,26 @@ public interface Model {
     ReadOnlyDataBook<Order> getOrderBook();
 
     /**
-     * Returns true if a order with the same identity as {@code order} exists in the address book.
+     * Returns true if a order with the same identity as {@code order} exists in the order book.
      */
     boolean hasOrder(Order order);
 
     /**
      * Deletes the given order.
-     * The order must exist in the address book.
+     * The order must exist in the order book.
      */
     void deleteOrder(Order target);
 
     /**
      * Adds the given order.
-     * {@code order} must not already exist in the address book.
+     * {@code order} must not already exist in the order book.
      */
     void addOrder(Order order);
 
     /**
      * Replaces the given order {@code target} with {@code editedOrder}.
-     * {@code target} must exist in the address book.
-     * The order identity of {@code editedOrder} must not be the same as another existing order in the address book.
+     * {@code target} must exist in the order book.
+     * The order identity of {@code editedOrder} must not be the same as another existing order in the order book.
      */
     void setOrder(Order target, Order editedOrder);
 
@@ -188,25 +188,25 @@ public interface Model {
     ReadOnlyDataBook<Schedule> getScheduleBook();
 
     /**
-     * Returns true if a schedule with the same identity as {@code schedule} exists in the address book.
+     * Returns true if a schedule with the same identity as {@code schedule} exists in the schedule book.
      */
     boolean hasSchedule(Schedule schedule);
 
     /**
      * Deletes the given schedule.
-     * The schedule must exist in the address book.
+     * The schedule must exist in the schedule book.
      */
     void deleteSchedule(Schedule target);
 
     /**
      * Adds the given schedule.
-     * {@code schedule} must not already exist in the address book.
+     * {@code schedule} must not already exist in the schedule book.
      */
     void addSchedule(Schedule schedule);
 
     /**
      * Replaces the given schedule {@code target} with {@code editedSchedule}.
-     * {@code target} must exist in the address book.
+     * {@code target} must exist in the schedule book.
      * The schedule identity of {@code editedSchedule} must not be the same as another existing schedule.
      */
     void setSchedule(Schedule target, Schedule editedSchedule);
@@ -242,7 +242,7 @@ public interface Model {
      */
     void setArchivedOrderBook(ReadOnlyDataBook<Order> archivedOrderBook);
 
-    /** Returns the AddressBook */
+    /** Returns the ArchivedOrderBook */
     ReadOnlyDataBook<Order> getArchivedOrderBook();
 
     /**
@@ -252,7 +252,7 @@ public interface Model {
 
     /**
      * Deletes the given order.
-     * The order must exist in the address book.
+     * The order must exist in the archived order book.
      */
     void deleteArchivedOrder(Order target);
 

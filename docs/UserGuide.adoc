@@ -227,7 +227,7 @@ Customers cannot share the same contact number or email.
 * Adds a single customer
 . `add-c n/Steve Jobs c/12345678 e/stevejobs@apple.com`
 
-image::ug-command/ug-add-c.png[width="900"]
+image::ug-command/ug-add-c.png[width="600"]
 
 ==== Delete a customer : `delete-c`
 Deletes a customer in SML. Note that deleting a customer will also delete the orders and schedules associated with the customer. +
@@ -269,13 +269,13 @@ Finds customers whose fields contain any of the given keywords. +
 * Find customers with keyword `colleague` +
 . `find-c colleague` +
 
-image::ug-command/ug-find-c-1.png[width="800"]
+image::ug-command/ug-find-c-1.png[width="600"]
 
 * Find customers with keywords `charlotte` `oliveiro` +
 . `find-c charlotte oliveiro` +
 
-image::ug-command/ug-find-c-2.png[width="800"]
-
+image::ug-command/ug-find-c-2.png[width="600"]
+// end::customer[]
 
 ==== List the customers : `list-c`
 
@@ -341,7 +341,7 @@ Emails a customer in SML. Opens Gmail on web browser and drafts an email to cust
 [underline]#Format#: `email-c INDEX`
 
 
-// end::customer[]
+
 
 // tag::phone[]
 === Phone Commands
@@ -513,7 +513,9 @@ Format: `find-o KEYWORD [KEYWORD]...`
 
 
 ==== Complete an order : `complete`
-Completes the order, order status changed to `COMPLETED`. Phone associated with order will also be deleted. +
+Completes the order, order status changed to `COMPLETED`. +
+Only `SCHEDULED` orders can be completed. +
+Phone associated with order will also be deleted. +
 Format: `complete INDEX`
 
 ==== Cancel an order : `cancel`
@@ -585,7 +587,9 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 Note:
 
 - You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
-- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
+- Venue that is too long will be truncated / not visible on the calendar schedule.
+- If a schedule spans across 2 days, the order index and venue might not be visible.
+- Simple hover your cursor over the schedule (where content is truncated), the full string (order index + venue) should appear as a temporary pop-up in a while.
 ****
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
 
@@ -728,6 +732,9 @@ image::ug-command/ug-undo.png[width="800"]
 ==== Redo : `redo`
 Redo the previous undone command. Inverse of undo.  +
 
+When you redo a delete command, it will specifically delete the customer/phone/order that was previously deleted.
+When you redo an add command, it will specifically add the customer/phone/order that was previously added.
+
 Currently, the following commands are undoable and redoable. +
 
 . Add Customer
@@ -739,6 +746,7 @@ Currently, the following commands are undoable and redoable. +
 . Edit Order
 . Complete Order
 . Cancel Order
+. Clear Order
 
 . Add Phone
 . Edit Phone
@@ -784,7 +792,7 @@ image::ug-command/ug-redo.png[width="800"]
 
 === History: `history`
 
-Views the command history of all your previous commands.
+Views the command history of all your previous commands, starting from the latest to the earliest command.
 
 [underline]#Format#: `history`
 
@@ -805,13 +813,13 @@ Lacking any of this will cause its non-inclusion into the statistics calculation
 The value calculated is the sum over the total time period within a month, meaning that it will take the date period,
 calculate the statistics for orders within that time period, split it by month and display it.
 
-e.g `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
+e.g Total `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
 (as it falls within a single month) and
 display this value.
 
 * Accepts two types of input:
-** Without date input
-** with date input +
+** Without date input - display total value for that particular statistics
+** with date input - displays chart (Monthly value) and total value for that particular statistics  +
 
 Generates the statistics with no date input. +
 
@@ -825,7 +833,7 @@ The argument must match this three words perfectly.
 Shown below:
 
 
-image::StatsExampleDefault.png[width="600"]
+image::StatsExampleDefault.png[width="300"]
 
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
@@ -835,8 +843,9 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::StatsExampleGraph.png[width="600"]
+image::StatsExampleGraph.png[width="300"]
 
+// end::statisticsCommandUG[]
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
 [TIP]
@@ -857,10 +866,10 @@ This behaviour is intentional and not a bug.
 * Date range starts from 1970 onwards
 ** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
 
-* Auto truncation of labels
+* Auto truncation of labels and values
 ** the X-axis labels will adjust automatically based on the range of inputs. This is intended to give users the
 flexibility with regards to the range of dates to be inputted. Above a certain range the interval between x-axis data
-will decrease e.g 2 months
+will decrease e.g 2 months. Above a certain values, labels will be replaced by standard notation e.g 9999999E8
 
 * Stats window data not updating
 ** If you already have a stats window open and you complete an order,
@@ -874,7 +883,6 @@ when the remaining statistic windows are closed manually.
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
 
-
 ==== Average Statistics `[coming in v2.0]`
 ** More advanced commands like `average profit` etc
 
@@ -883,8 +891,6 @@ we estimate at least a few seconds before the window will be loaded.
 
 ==== Export Chart to PDF `[coming in v2.0]`
 ** User will be able to export their charts to pdf with a click of a button.
-
-// end::statisticsCommandUG[]
 
 === Exiting the program : `exit`
 
@@ -1058,7 +1064,7 @@ The hash tag represents the length of the valid input for the primary key.
 
 ==== Add fields to a new product `[coming in v2.0]`
 
-This command is to allow users to add a field to their product.
+This command allow users to add a field to their product.
 Users have to first key in the field name.
 This will be followed by the data type of the field.
 The data types that will be supported are: #_DIGIT, #_CHARACTERS, #_ALPHANUMERIC, and also any of the existing fields.
@@ -1092,12 +1098,12 @@ simplified to `gp`.
 |=======================================================================
 |Command | Summary
 |`switch-c` | Switches to customer tab panel.
-|`add-c n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…`| Adds a new customer into SML
-|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​ `| Edits an existing customer.
+|`add-c n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]…`| Adds a new customer into SML
+|`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​ `| Edits an existing customer.
 |`delete-c INDEX`| Deletes a customer and its associated orders and schedules.
 |`clear-c`| Deletes all customers and their associated orders and schedules.
 |`find-c KEYWORD [MORE_KEYWORDS]`| Finds the customers that contains the keywords in its field.
-|`copy-c INDEX`| Copies a customer into clipboard
+|`copy-c INDEX`| Copies a customer into clipboard.
 |=======================================================================
 
 

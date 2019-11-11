@@ -10,11 +10,8 @@ import seedu.address.logic.commands.UndoableCommand;
 /**
  * Undo-redo Stack
  * Solution adapted from https://github.com/se-edu/addressbook-level4/pull/610/files with modifications / bug fixes
- *
  */
 public class UndoRedoStack {
-
-    private static UndoRedoStack undoRedoStack = new UndoRedoStack();
 
     private LinkedList<UndoableCommand> undoStack;
     private LinkedList<UndoableCommand> redoStack;
@@ -76,10 +73,6 @@ public class UndoRedoStack {
      */
     public boolean canRedo() {
         return redoStack.size() > 0;
-    }
-
-    public static UndoRedoStack getUndoRedoStack() {
-        return undoRedoStack;
     }
 
     @Override

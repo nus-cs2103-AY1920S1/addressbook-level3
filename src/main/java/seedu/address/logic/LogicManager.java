@@ -36,8 +36,8 @@ public class LogicManager implements Logic {
     private final Storage storage;
     private final SellerManagerParser sellerManagerParser;
     private final Statistic statistic;
-    private final CommandHistory commandHistory = CommandHistory.getCommandHistory();
-    private final UndoRedoStack undoRedoStack = UndoRedoStack.getUndoRedoStack();
+    private final CommandHistory commandHistory;
+    private final UndoRedoStack undoRedoStack;
     private final AutoCompleteResultGenerator autoCompleteResultGenerator;
 
     public LogicManager(Model model, Storage storage, Statistic statistic) {
@@ -46,6 +46,8 @@ public class LogicManager implements Logic {
         this.statistic = statistic;
         autoCompleteResultGenerator = new AutoCompleteResultGenerator(model);
         sellerManagerParser = new SellerManagerParser();
+        commandHistory = new CommandHistory();
+        undoRedoStack = new UndoRedoStack();
     }
 
     @Override
@@ -57,6 +59,9 @@ public class LogicManager implements Logic {
 
         try {
             Command command = sellerManagerParser.parseCommand(commandText);
+
+            logger.info("----------------[COMMAND][" + command + "]");
+
             commandResult = command.execute(model, commandHistory, undoRedoStack);
             storage.saveCustomerBook(model.getCustomerBook());
             storage.savePhoneBook(model.getPhoneBook());

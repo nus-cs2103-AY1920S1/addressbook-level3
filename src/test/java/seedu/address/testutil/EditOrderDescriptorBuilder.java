@@ -62,7 +62,7 @@ public class EditOrderDescriptorBuilder {
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditOrderDescriptor}
      * that we are building.
      */
     public EditOrderDescriptorBuilder withTags(String... tags) {

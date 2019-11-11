@@ -24,7 +24,7 @@ import seedu.address.model.customer.Customer;
 import seedu.address.model.order.Order;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteCustomerCommand}.
  */
 public class DeleteCustomerCommandTest {
@@ -76,7 +76,7 @@ public class DeleteCustomerCommandTest {
         showCustomerAtIndex(model, INDEX_FIRST_CUSTOMER);
 
         Index outOfBoundIndex = INDEX_SECOND_CUSTOMER;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of customer book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getCustomerBook().getList().size());
 
         DeleteCustomerCommand deleteCommand = new DeleteCustomerCommand(outOfBoundIndex);

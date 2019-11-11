@@ -46,6 +46,8 @@ UndoableCommand --> UndoStack : toUndoCommand
 
 deactivate UndoableCommand
 
+
+
 UndoStack --> UndoRedoStack : toUndoCommand
 
 deactivate UndoStack
@@ -69,12 +71,29 @@ UndoableCommand -> Model : setXYZBook, updateFilteredXYZList
 activate Model
 
 
+deactivate Model
+
 Model --> UndoableCommand
 
 UndoableCommand --> UndoCommand
 deactivate UndoableCommand
 
+UndoCommand -> UndoableCommand : save()
+activate UndoableCommand
+
+UndoableCommand -> UndoableCommand ++: saveXYZBookSnapshot()
+
+UndoableCommand -> Model : getXYZBook()
+activate Model
+
+Model --> UndoableCommand : XYZBook
 deactivate Model
+
+UndoableCommand --> UndoCommand
+deactivate UndoableCommand
+
+
+
 
 UndoCommand --> LogicManager : result
 deactivate UndoCommand

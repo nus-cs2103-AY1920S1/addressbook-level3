@@ -71,7 +71,7 @@ public class AddPhoneCommandTest {
         // null -> returns false
         assertFalse(addiPhone11Command.equals(null));
 
-        // different person -> returns false
+        // different phone -> returns false
         assertFalse(addiPhone11Command.equals(addiPhone11ProCommand));
     }
 

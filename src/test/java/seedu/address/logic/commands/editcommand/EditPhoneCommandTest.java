@@ -36,7 +36,7 @@ import seedu.address.testutil.EditPhoneDescriptorBuilder;
 import seedu.address.testutil.PhoneBuilder;
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * Contains integration tests (interaction with the Model)
  * and unit tests for EditPhoneCommand.
  */
 public class EditPhoneCommandTest {
@@ -127,7 +127,7 @@ public class EditPhoneCommandTest {
     public void execute_duplicatePhoneFilteredList_failure() {
         showPhoneAtIndex(model, INDEX_FIRST_PHONE);
 
-        // edit phone in filtered list into a duplicate in address book
+        // edit phone in filtered list into a duplicate in phone book
         Phone phoneInList = model.getPhoneBook().getList().get(INDEX_SECOND_PHONE.getZeroBased());
         EditPhoneCommand editCommand = new EditPhoneCommand(INDEX_FIRST_PHONE,
                 new EditPhoneDescriptorBuilder(phoneInList).build());
@@ -153,7 +153,7 @@ public class EditPhoneCommandTest {
     public void execute_invalidPhoneIndexFilteredList_failure() {
         showPhoneAtIndex(model, INDEX_FIRST_PHONE);
         Index outOfBoundIndex = INDEX_SECOND_PHONE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of phone book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPhoneBook().getList().size());
 
         EditPhoneCommand editCommand = new EditPhoneCommand(outOfBoundIndex,

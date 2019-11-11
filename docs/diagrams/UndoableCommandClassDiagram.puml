@@ -8,29 +8,29 @@ abstract class Command {
 
 abstract class UndoableCommand {
 
-    - ReadOnlyDataBook<Customer> previousCustomerBook
-    - ReadOnlyDataBook<Order> previousOrderBook
-    - ReadOnlyDataBook<Phone> previousPhoneBook
-    - ReadOnlyDataBook<Schedule> previousScheduleBook
-    - ReadOnlyDataBook<Order> previousArchivedOrderBook
+    - previousCustomerBook
+    - previousOrderBook
+    - previousPhoneBook
+    - previousScheduleBook
+    - previousArchivedOrderBook
 
-    - void saveCustomerBookSnapshot(Model model)
-    - void saveOrderBookSnapshot(Model model)
-    - void savePhoneBookSnapshot(Model model)
-    - void saveScheduleBookSnapshot(Model model)
-    - void saveArchivedOrderBookSnapshot(Model model)
+    - saveCustomerBookSnapshot(Model model)
+    - saveOrderBookSnapshot(Model model)
+    - savePhoneBookSnapshot(Model model)
+    - saveScheduleBookSnapshot(Model model)
+    - saveArchivedOrderBookSnapshot(Model model)
 
-    # final void undo(Model model)
-    # final void redo(Model model)
+    # undo(Model model)
+    # redo(Model model)
 
 
     + void save(Model model)
-    + CommandResult execute(Model model, CommandHistory commandHistory,
+    + execute(Model model, CommandHistory commandHistory,
                        UndoRedoStack undoRedoStack)
 
 
 
-    # CommandResult executeUndoableCommand(Model model, CommandHistory commandHistory,
+    # executeUndoableCommand(Model model, CommandHistory commandHistory,
                              UndoRedoStack undoRedoStack) {abstract}
 
 }

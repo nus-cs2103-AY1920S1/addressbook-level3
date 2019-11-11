@@ -59,6 +59,12 @@ public class TypicalCustomers {
     public static final Customer GEORGE = new CustomerBuilder().withName("George Best")
             .withContactNumber("94824423")
             .withEmail("anna@example.com").build();
+    public static final Customer HARRY = new CustomerBuilder().withName("Harry Potter")
+            .withContactNumber("94456272")
+            .withEmail("harryp@example.com").build();
+    public static final Customer INDY = new CustomerBuilder().withName("Indy Row")
+            .withContactNumber("99345513")
+            .withEmail("indiana@example.com").build();
     /**
      * Returns a {@code DataBook} with all the typical customers.
      */
