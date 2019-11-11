@@ -612,7 +612,7 @@ The above sequence diagram only shows how a `DeleteReminderCommand` is created a
 
 ==== Design Considerations
 
-[width="100%", cols="1,2,2", options="header",]
+[width="90%", cols="1,2,2", options="header",]
 |===
 |Aspect |Alternative 1 (Current choice) |Alternative 2
 
@@ -638,7 +638,7 @@ Requires additional implementation for storing reminders. +
 Has to manage multiple files for storage of user's data
 |===
 
-Alternative 1 from above table, is currently implemented in MoneyGoWhere (v1.4) since it is efficient for the application to access user's data from a single storage file.
+Alternative 1 from above table, is currently implemented in MoneyGoWhere since it is efficient for the application to access user's data from a single storage file.
 
 The following Architecture Diagram summarizes how different components in MoneyGoWhere application interact with each other while storing a reminder from the valid user input with the current implementation.
 
