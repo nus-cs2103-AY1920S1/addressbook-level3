@@ -6,7 +6,6 @@ import static seedu.pluswork.logic.commands.universal.HelpCommand.SHOWING_HELP_M
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.universal.HelpCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 

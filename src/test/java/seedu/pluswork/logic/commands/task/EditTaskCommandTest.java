@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.task.EditTaskCommand;
 import seedu.pluswork.logic.commands.task.EditTaskCommand.EditTaskDescriptor;
 import seedu.pluswork.logic.commands.universal.ClearCommand;
 import seedu.pluswork.model.Model;

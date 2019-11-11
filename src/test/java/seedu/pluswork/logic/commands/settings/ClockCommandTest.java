@@ -1,15 +1,14 @@
 package seedu.pluswork.logic.commands.settings;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.pluswork.logic.commands.settings.ClockCommand.SHOWING_CLOCK_MESSAGE;
 import static seedu.pluswork.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.pluswork.logic.commands.settings.ClockCommand.SHOWING_CLOCK_MESSAGE;
 import static seedu.pluswork.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.settings.ClockCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 import seedu.pluswork.model.settings.ClockFormat;

@@ -15,7 +15,6 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.member.FindMemberCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 import seedu.pluswork.model.UserPrefs;

@@ -7,9 +7,8 @@ import static seedu.pluswork.logic.parser.CommandParserTestUtil.assertParseSucce
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.inventory.DeleteInventoryCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.logic.parser.inventory.DeleteInventoryCommandParser;
+import seedu.pluswork.logic.commands.inventory.DeleteInventoryCommand;
 
 public class DeleteInventoryCommandParserTest {
     private DeleteInventoryCommandParser parser = new DeleteInventoryCommandParser();

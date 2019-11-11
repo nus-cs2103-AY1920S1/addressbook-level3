@@ -6,7 +6,6 @@ import static seedu.pluswork.logic.commands.settings.SettingsCommand.SHOWING_SET
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.settings.SettingsCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 

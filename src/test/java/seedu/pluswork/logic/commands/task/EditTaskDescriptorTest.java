@@ -9,7 +9,6 @@ import static seedu.pluswork.logic.commands.CommandTestUtil.VALID_TASK_NAME_PUBL
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.task.EditTaskCommand;
 import seedu.pluswork.logic.commands.task.EditTaskCommand.EditTaskDescriptor;
 import seedu.pluswork.model.task.TaskStatus;
 import seedu.pluswork.testutil.EditTaskDescriptorBuilder;

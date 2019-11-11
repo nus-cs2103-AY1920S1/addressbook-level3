@@ -14,7 +14,6 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.core.Messages;
-import seedu.pluswork.logic.commands.member.DeleteMemberCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 import seedu.pluswork.model.UserPrefs;

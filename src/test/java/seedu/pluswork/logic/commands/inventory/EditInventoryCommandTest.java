@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.core.Messages;
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.inventory.EditInventoryCommand;
 import seedu.pluswork.logic.commands.universal.ClearCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;

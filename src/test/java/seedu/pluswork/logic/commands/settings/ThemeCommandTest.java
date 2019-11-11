@@ -8,7 +8,6 @@ import static seedu.pluswork.testutil.Assert.assertThrows;
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.settings.ThemeCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;
 import seedu.pluswork.model.settings.Theme;

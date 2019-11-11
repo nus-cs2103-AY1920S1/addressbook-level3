@@ -28,10 +28,9 @@ import static seedu.pluswork.testutil.TypicalIndexes.INDEX_THIRD_TASK;
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.core.index.Index;
+import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.commands.task.EditTaskCommand;
 import seedu.pluswork.logic.commands.task.EditTaskCommand.EditTaskDescriptor;
-import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.logic.parser.task.EditTaskCommandParser;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.TaskStatus;

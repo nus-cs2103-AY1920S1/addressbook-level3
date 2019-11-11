@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.pluswork.logic.commands.task.SetDeadlineCommand;
 import seedu.pluswork.logic.commands.universal.ClearCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ModelManager;

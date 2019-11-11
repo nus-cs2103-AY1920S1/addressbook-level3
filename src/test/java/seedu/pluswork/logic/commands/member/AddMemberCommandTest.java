@@ -20,7 +20,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.pluswork.commons.core.GuiSettings;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.logic.commands.member.AddMemberCommand;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;

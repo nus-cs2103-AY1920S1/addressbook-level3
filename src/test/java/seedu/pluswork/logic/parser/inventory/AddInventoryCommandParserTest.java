@@ -13,9 +13,8 @@ import static seedu.pluswork.testutil.TypicalInventories.SPORTS;
 import org.junit.jupiter.api.Test;
 
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
-import seedu.pluswork.logic.parser.inventory.AddInventoryCommandParser;
+import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
 import seedu.pluswork.model.inventory.Inventory;
 import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.testutil.InventoryBuilder;

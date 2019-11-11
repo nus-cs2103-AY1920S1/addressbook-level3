@@ -4,13 +4,13 @@ package seedu.pluswork.logic.MultiLine;
 import java.util.ArrayList;
 
 import seedu.pluswork.commons.core.index.Index;
-import seedu.pluswork.logic.commands.multiline.AddICommand;
-import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
 import seedu.pluswork.logic.commands.Command;
 import seedu.pluswork.logic.commands.CommandResult;
-import seedu.pluswork.logic.commands.task.DoneTaskCommand;
-import seedu.pluswork.logic.commands.multiline.YesCommand;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
+import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
+import seedu.pluswork.logic.commands.multiline.AddICommand;
+import seedu.pluswork.logic.commands.multiline.YesCommand;
+import seedu.pluswork.logic.commands.task.DoneTaskCommand;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.Model;
 import seedu.pluswork.model.inventory.InvName;
