@@ -1035,7 +1035,7 @@ The Class Diagram below showing the high level representation of the Object Orie
 .Remove Class Diagram
 image::RemoveClassDiagram.png[width="600"]
 
-Upon successful assignation, the new participant or mentor will be stored internally in the list of participant or optional mentor field in the Team object. Upon successful removal of Participant or Team, the specified participant or mentor will be removed from the Team object. Additionally, it calls the following operations:
+Upon successful assignation, the new participant or mentor will be stored internally in the list of participants or https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html[`Optional`] mentor field in the Team object. Upon successful removal of Participant or Team, the specified participant or mentor will be removed from the Team object. Additionally, it calls the following operations:
 
 *	link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager#addMentorToTeam`] – adds mentor to a specified team
 *	link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager#addParticipantToTeam`] – adds participant to team

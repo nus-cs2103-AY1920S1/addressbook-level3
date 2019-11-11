@@ -965,18 +965,22 @@ As you type: +
 
 1.	Type ‘add’ into the command box, and `add participant`, `add mentor` and `add team`  commands will be suggested to you. The grey text are meant as guides and blue text are meant as usage instructions . These text will not appear when you choose the command of choice.
 
+.Step 1 of command suggestion box
 image::CommandSuggestionStep1.png[width="600", height="10"]
 
 2.	Press the kbd:[up arrow] or kbd:[down arrow] arrow keys to navigate up and down the popup box.
 
+.Step 2 of command suggestion box
 image::CommandSuggestionStep2.png[width="600", height="10"]
 
 3.	Press kbd:[Enter] to choose the command of your choice. The command will then appear on the user input box.
 
+.Step 3 of command suggestion box
 image::CommandSuggestionStep3.png[width="600", height="10"]
 
 4.	Press kbd:[left arrow] or kbd:[right arrow] keys to navigate the cursor and fill in the respective fields. Press kbd:[Enter] to execute the command.
 
+.Step 4 of command suggestion box
 image::CommandSuggestionStep4.png[width="600", height="10"]
 
 //end::suggestions[]

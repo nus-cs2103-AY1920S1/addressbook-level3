@@ -52,7 +52,7 @@ the architecture of the application. Clicking these text will redirect user to t
 *Other contributions*:
 
 * Project management:
-•	There were a total of 5 releases, from version 1.1 to 1.5. I managed releases versions https://github.com/AY1920S1-CS2103T-F11-1/main/releases/tag/v1.2.1[1.2.1] on GitHub.
+**	There were a total of 5 releases, from version 1.1 to 1.5. I managed releases versions https://github.com/AY1920S1-CS2103T-F11-1/main/releases/tag/v1.2.1[1.2.1] on GitHub.
 * Enhancements to existing features:
 ** Wrote additional tests for existing features to increase coverage (Pull request https://github.com/AY1920S1-CS2103T-F11-1/main/pull/347[#347])
 ** Added and modified constraints of different fields in the commands(Pull requests https://github.com/AY1920S1-CS2103T-F11-1/main/pull/15[#15])
