@@ -641,8 +641,12 @@ on the `INDEX` of the reminders entry.
 
 During the design of our delete reminders function, we considered between two alternatives.
 
+//end::reminders2[]
+
 .Delete Reminder Sequence Diagram
 image::reminders/DeleteReminderSequenceDiagram.png[]
+
+//tag::reminders3[]
 
 *Example Scenerio*
 
@@ -661,7 +665,7 @@ of that index will be deleted from the current unique filtered reminder list.
 
 * Step 6: `deleteReminderCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new reminder list.
 
-//end::reminders2[]
+//end::reminders3[]
 
 // tag::learncustomcommands[]
 === Learn wrong commands as custom commands feature
@@ -1353,7 +1357,7 @@ A Task will be shown on that date in the Calendar view as well.
    Expected: No reminder is added. Error details and correct format shown in the status message.
 .. Other incorrect command format to try: `add_reminder reminder`, `add_reminder rd/error rt/20/9/2019 13:00, 21/9/2019 15:00`
 .. Reminder: Reminders with duplicate `description` cannot be created.
-//end::ManuelTestReminder[]
+//end::ManualTestReminder[]
 
 === Deleting a reminder
 
