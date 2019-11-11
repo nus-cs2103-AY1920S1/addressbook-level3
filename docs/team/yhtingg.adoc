@@ -8,7 +8,7 @@ My team of 4 software engineering students and I were tasked with enhancing a ba
 
 My role was to implement the cards management feature of our app. This is how the cards mode looks like:
 
-image::CardOverview.png[width = "790"]
+image::CardOverview.png[width = "600"]
 
 Note that the following symbols and formatting used in this documents:
 [cols="3,40"]
@@ -26,9 +26,9 @@ a|image::warning.png[width = "20"] | Warning! Danger zone. Make sure you know wh
 
 * *Minor enhancement*: Refactored `CommandResult` constructors to use the `Builder` class, to allow us to customise our constructors, thus minimizing the amount of code required for various constructors.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yhtingg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yhtingg&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=yhtingg&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=yhtingg&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Functional code]]
 
-* *Other contributions*:
+* *Other contributions*
 
 ** Project management:
 *** Updated website heading and github URL (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/7[#7])
@@ -37,10 +37,8 @@ a|image::warning.png[width = "20"] | Warning! Danger zone. Make sure you know wh
 ** Enhancements to existing features:
 *** Refactor CommandResult class (Pull request https://github.com/AY1920S1-CS2103T-F11-3/main/pull/73[#73])
 ** Documentation:
-*** User Guide:
-**** Updated Quick Start to address users better: https://github.com[#14]
-*** Developer Guide:
-**** Updated Use Case and Non-Functional Requirements (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/9[#9])
+*** Updated Quick Start to address users better: https://github.com[#14]
+*** Updated Use Case and Non-Functional Requirements (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/9[#9])
 **** Updated UML diagrams (Pull Request: https://github.com/AY1920S1-CS2103T-F11-3/main/pull/54[#54])
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/yhtingg/ped/issues/1[1], https://github.com/yhtingg/ped/issues/4[2], https://github.com/yhtingg/ped/issues/3[3], https://github.com/yhtingg/ped/issues/5[4])
@@ -49,7 +47,7 @@ a|image::warning.png[width = "20"] | Warning! Danger zone. Make sure you know wh
 
 
 |===
-|_Since we had morphed the original addressbook application, we had to update the User Guide accordingly to match our app. Given below are sections that I have contributed to the User Guide, with additions regarding the card feature that I had implemented. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections that I have contributed to the updated User Guide, with additions regarding the card feature that I had implemented. They showcase my ability to write documentation targeting end-users._
 |===
 
 === Card
@@ -68,7 +66,7 @@ Let's say that you have just gotten a fresh new credit card from the bank and yo
 
 You can type in the command.
 
-image::AddCard1.png[width = "790"]
+image::AddCard1.png[width = "400"]
 
 Format: `add d/DESCRIPTION c/CARDNUMBER v/CVC e/EXPIRY [t/TAG]`
 
@@ -76,7 +74,7 @@ Example: `add d/VisaPOSB c/5203123458392748 v/456 e/12/25 t/groceries`
 
 The result box will display the message as shown. You can see that your card has been successfully added into the list.
 
-image::AddCard2.png[width = "790"]
+image::AddCard2.png[width = "400"]
 
 ====
 --
@@ -90,8 +88,6 @@ image::tip.png[width = "20", float = "left"]
 ** Without dashes: 1234567812345678
 * Card expiry is of the format MM/YY.
 * You can include up to 5 tags.
-====
-====
 --
 image::tip.png[width = "20", float = "left"]
 --
@@ -99,12 +95,10 @@ image::tip.png[width = "20", float = "left"]
 
 * SecureIT does not support cards types that are not MasterCard or Visa.
 * All card numbers entered must have 16 digits.
-====
-====
 --
 image::tip.png[width = "20", float = "left"]
 --
-*Tip*
+*Tip:*
 
 * After adding your cards, a card's description and its index in the list are interchangeable with each other. In other words, the following commands accept either *description* or *index*, but not both.
 * If you know exactly which card you need, you can easily type the description without needing to scroll through the list.
@@ -113,53 +107,41 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Reading a card : `read`
 
-If you already have a card in mind and want to view its details, you can easily do so by entering the card description and its CVC.
+If you already have a card in mind and want to view its details, you can easily do so by entering the card description and its CVC. You can also obtain the same result by using a card's index in the list with the correct CVC.
 
-Format: `read d/DESCRIPTION v/CVC`
+Format: `read d/DESCRIPTION v/CVC` OR `read INDEX v/CVC`
 
-Example: `read d/VisaPOSB v/456`
-
-You can also obtain the same result by using a card's index in the list with the correct CVC.
-
-Format: `read INDEX v/CVC`
-
-Example: `read 1 v/456`
+Example: `read d/VisaPOSB v/456` OR `read 1 v/456`
 
 Type in the command.
 
-image::ReadCard1.png[width = "790"]
+image::ReadCard1.png[width = "400"]
 
 The result box will display the message as shown. You can see a new panel that contains your desired credit card details appearing at the side.
 
-image::ReadCard2.png[width = "790"]
+image::ReadCard2.png[width = "400"]
 
 ==== Copying a card : `copy`
 
 You can copy a specific card's card number to your clipboard as well.
 
-You can choose to copy the card number using its description:
+You can choose to copy the card number using its description. Alternatively, you can also perform the command with the card's index in the list:
 
-Format: `copy d/DESCRIPTION v/CVC`
+Format: `copy d/DESCRIPTION v/CVC` OR `copy INDEX v/CVC`
 
-Example: `copy d/VisaPOSB v/456`
-
-Alternatively, you can also perform the command with the card's index in the list.
-
-Format: `copy INDEX v/CVC`
-
-Example: `copy 1 v/456`
+Example: `copy d/VisaPOSB v/456` OR `copy 1 v/456`
 
 Type in the command.
 
-image::CopyCard1.png[width = "790"]
+image::CopyCard1.png[width = "400"]
 
 The result box will display the message as shown.
 
-image::CopyCard2.png[width = "790"]
+image::CopyCard2.png[width = "400"]
 
 Upon pasting from your clipboard, the card number of your desired card should appear.
 
-image::CopyCard3.png[width = "790"]
+image::CopyCard3.png[width = "400"]
 
 ====
 --
@@ -182,27 +164,21 @@ image::warning.png[width = "20", float = "left"]
 
 If your card has expired, you can easily remove it from the application.
 
-Again, you could do this by the card's description:
+Again, you could do this by the card's description or by its index:
 
-Format: `delete DESCRIPTION`
+Format: `delete DESCRIPTION` OR `delete INDEX`
 
-Example: `delete VisaPOSB`
-
-Or by its index:
-
-Format: `delete INDEX`
-
-Example: `delete 1`
+Example: `delete VisaPOSB` OR `delete 1`
 
 Type in the command.
 
-image::DeleteCard1.png[width = "790"]
+image::DeleteCard1.png[width = "400"]
 
 The result box will display the message as shown.
 
 You can see that your card is no longer visible from the list.
 
-image::DeleteCard2.png[width = "790"]
+image::DeleteCard2.png[width = "400"]
 
 == Contributions to the Developer Guide
 
