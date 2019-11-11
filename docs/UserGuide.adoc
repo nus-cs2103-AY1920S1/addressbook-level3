@@ -53,6 +53,15 @@ the category *food* and the description *pie*.
 == Features
 
 === Transactions
+The _Transaction_ feature represents the bread and butter logging of incomes and expenditures.
+PalPay will tabulate and display the overall balance to give users a better insight on their spending and saving habits.
+
+The _Transactions_ are split into:
+
+. `in` : income
+. `out` : expenditure
+
+These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
 
 === Budgets
 
@@ -282,7 +291,7 @@ You can set a budget for a particular category until a certain date, given it is
 A duplicate budget is a budget with the same `AMOUNT` and `DATE` and `CATEGORY`. +
 If you attempt to do so, you will receive an error message: `This budget already exists`. +
 
-Format: `set $/AMOUNT d/DATE c/CATEGORY`
+Format: `set $/AMOUNT d/DATE [c/CATEGORY]...`
 
 ****
 * `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
@@ -574,16 +583,15 @@ Deletes the specified Transaction, Budget, Ledger or Projection from PalPay. +
 Format: `delete TYPE+INDEX`
 
 ****
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
 * `TYPE` accepts either `t` (Transaction), `b` (Budget), `l` (Ledger) or `p` (Projection). (e.g. `delete b1` refers to deleting a *Budget* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `delete b 1` or `delete 1` or `delete 1b` will not work).
-* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
 ==== Important Details:
 
-PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
+* PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
+* You can only delete an existing transaction or budget. Nothing will be deleted if the transaction or budget of `INDEX` does not exists.
 
 ==== Example Usage:
 
@@ -617,30 +625,25 @@ Did you make a mistake in one of your entries? Perhaps you over counted that exp
 
 The `update` feature has different implementations for different entry types. The conditions for the `update` feature is as follows.
 
-Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]` +
+Format (Transactions): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [n/ITEM] [c/CATEGORY]...` +
 
-Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
+Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]...` +
 
 Format (Ledger): Cannot be updated +
 
 Format (Projections): Cannot be updated
 
 ****
-* `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
-* `ITEM` accepts the description of this entry.
-* `DATE` accepts the date of this entry.
-* `CATEGORY` accepts the CATEGORY for the entry.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
-* `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
 * `TYPE` only accepts either `t` (Transaction) or `b` (Budget). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
-* You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
 ****
 
 ==== Important Details:
 
 * `update` requires at least one field to be updated. (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
+* You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
 * You cannot change an `in` Transaction to an `out` Transaction or vice versa.
 * Changing an expenditure's (`out` Transaction) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in <<UG_UPDATE_EXAMPLE_3>>)
