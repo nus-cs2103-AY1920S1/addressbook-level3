@@ -133,9 +133,9 @@ image::Autocomplete2.png[width="790"]
 //end::shaun-autocomplete[]
 
 //tag::wilfred-add[]
-=== Adding a question: `add`
+=== Adding MCQ/TrueFalse question: `add`
 
-Adds a question to the question bank
+Adds a MCQ or TrueFalse question to the question bank
 
 Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER x/WRONG_ANSWER... `
 
@@ -144,7 +144,6 @@ Format: `add type/TYPE q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER 
 The following are the valid answer formats for each question type:
 *MCQ*: 1 Correct answer and 3 Wrong answers.
 *True & False*: 1 Correct answer (i.e. True / False) wrong answers omitted.
-*SAQ*: Multiple correct answers, no wrong answers.
 ****
 
 Examples:
@@ -152,8 +151,33 @@ Examples:
 * `add type/mcq q/According to the textbook, which kind of project is more difficult? cat/Week 2 diff/1
 x/Greenfield x/Brownfield y/None of the others x/Padifield`
 * `add type/tf q/OODMs are Class Diagrams cat/uml diff/2 y/true`
-* `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
 //end::wilfred-add[]
+
+//tag::sihao-add[]
+=== Adding SAQ: `add`
+
+Adds a SAQ to the question bank
+
+Format: `add type/saq q/QUESTION cat/CATEGORY diff/DIFFICULTY y/CORRECT_ANSWER ... `
+
+****
+[%hardbreaks]
+The following are the valid answer formats for SAQ:
+*SAQ*: Multiple correct answers, no wrong answers.
+****
+
+Examples:
+
+* `add type/saq q/What does UML stands for? cat/cs2103 diff/1 y/unified modeling language`
+
+****
+[%hardbreaks]
+*NOTE*:
+Answer to the SAQ cannot be "exit".
+Answer cannot appear in the question
+(eg. q/What is UML diagram? y/UML Diagram).
+****
+//end::sihao-add[]
 
 //tag::wilfred-edit[]
 === Editing a question : `edit`
@@ -262,12 +286,6 @@ Format: `exit`
 User can export can import json files containing the question bank into the application.
 // end::import/export[]
 
-=== Hints `[coming in v2.0]`
-
-User will be able to get hints for MCQs and SAQs. Typing '/hint' for MCQs will eliminate two wrong answers from the
-options, leaving user with two options, one of which is correct. Typing '/hint' for SAQs will show the user random
-keywords from the correct answer list.
-
 //tag::wilfred-quiz[]
 == Quiz Mode
 
@@ -297,6 +315,12 @@ User can end the quiz and go back into Configuration Mode (see <<ConfigurationMo
 .
 
 Format: `exit`
+
+=== Hints `[coming in v2.0]`
+
+User will be able to get hints for MCQs and SAQs. Typing '/hint' for MCQs will eliminate two wrong answers from the
+options, leaving user with two options, one of which is correct. Typing '/hint' for SAQs will show the user random
+keywords from the correct answer list.
 
 == FAQ
 
