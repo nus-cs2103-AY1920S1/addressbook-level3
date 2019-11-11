@@ -91,16 +91,17 @@ _Note: the index of a question is the number displayed next to its title._
 image::questionindex.png[width="1000"]
 +
 
+
 [[Overview]]
 == Overview
 
 The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
-=== Home
-The *Home* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
+=== Dashboard
+The *Dashboard* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
 
-image::homepage.png[width="1000"]
+image::dashboard.png[width="1000"]
 
 On the *Personal Dashboard* you can:
 
@@ -121,8 +122,8 @@ The *Questions* tab contains a list of all the available questions and also a wi
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
 are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles. _(View <<Features>> for more details.)_
 
-. To quickly see all questions, enter `showall` into the *CommandBox*.
-. To view the problem statement for a question, enter `view [Qn Index]`. The problem statement will then be displayed
+. To quickly see all questions, enter `showall` into the *Command Box*.
+. To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
   on the right.
 
 +
@@ -146,11 +147,11 @@ This panel displays the correctness of your program when evaluated against the p
 +
 A built-in editor for you to write your code.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+To submit your attempt, enter `submit` into the *Command Box*.
 
 To begin your attempt on a question, enter `attempt [Qn Index]` into the *CommandBox*.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+To submit your attempt, enter `submit` into the *Command Box*.
 
 === Notes
 The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
@@ -178,9 +179,9 @@ A canvas for you to draw any ideas you may have pertaining to data structures!
 +
 
 
-To create a new note, enter `newnote [Title]` into the *CommandBox*
+To create a new note, enter `newnote <Title>` into the *CommandBox*
 
-To open an exiting note, enter `opennote [Id] into the *CommandBox*.
+To open an exiting note, enter `opennote <Id> into the *CommandBox*.
 
 The id of the note is the number that appears next to the title in the *NotesListDisplay*.
 
@@ -191,6 +192,8 @@ The help page is where you can get a quick summary of all of the features and co
 
 [[BeforeStart]]
 == Before you start
+. The programe evaluator searches for a class with the class name `Main` as the entry point into your program. Please ensure
+that you declare your *main method* in a class called `Main`.
 
 . The program evaluator uses *stdin* to feed your program inputs and *stdout* to receive your program's outputs. Thus,
 it is important that your program uses the `Scanner` class to read inputs and for you to print your results.
@@ -439,33 +442,24 @@ Navigates to the *Notes* tab and deleting the note corresponding to the id.
 * `deletenote 1` +
 Navigates to the *Notes* page after deleting the note with the id 1.
 
-
+//tag::load[]
 === Loading new questions: `loadquestions`
 
-Imports your own set of questions into the application through a text file.
+Imports new questions into the application through a text file.
 
 *Format:* `loadquestions [filename]`
 
-*Procedure:*
+****
+* Your text file should be located at the Desktop.
+* Your text file should follow the format specified at <<Custom-Questions>>.
+* The questions in the text file will only be loaded after entering this command.
+* Your questions will be loaded immediately.
+****
 
-* Create your own question set text file. The text file should follow the format specified at <<Custom-Questions>>.
-* Your text file should be located inside the `DukeAcademy/newQuestions` directory. This `DukeAcademy` folder resides in the same directory whereby you put the `DukeAcademy.jar` application.
+*Examples:*
 
-*Example:*
-
-* We prepared for you a dummy custom question set located in `DukeAcademy/newQuestions`.
-* It includes 2 questions, namely `Apple` and `Banana`.
-* To load, type `loadquestions NewProblems.txt`.
-
-
-image::loadquestions.png[width="1000"]
-
-*Note:*
-
-* The `.txt` suffix need to be typed as well.
-* The file name is case-sensitive. It might not work for case-insensitive entries.
-
-
+* `loadquestions my_problem_set.txt` +
+Loads the questions from the file "my_problem_set.txt" located on your desktop.
 //end::load[]
 
 === Exit the application: `exit`
@@ -510,7 +504,7 @@ level, solution, as well as algorithm category. Check out <<Custom-Questions>> f
 * Load questions: ​`loadquestions​ [filename]`
 * Create a new note: `newnote [title]`
 * Save current note: `savenote`
-* Open a  note: `opennote [id]`
+* Open a note: `opennote [id]`
 * Delete a note: `deletenote [id]`
 * Switch tab sequentially: `tab`
 * Exit: `exit`
@@ -518,8 +512,6 @@ level, solution, as well as algorithm category. Check out <<Custom-Questions>> f
 //end::summary[]
 
 == Question storage file format
-
-image::samplequestions.png[width="920"]
 
 ****
 * The text file is a json list of json objects representing each question.

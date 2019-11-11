@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+
+    <ScrollPane fitToHeight="true" fitToWidth="true" style="-fx-background-color: #7d2277;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+        <padding>
+            <Insets left="45.0" right="45.0" />
+        </padding>
+
+        <VBox fx:id="main_container" spacing="20.0" style="-fx-background-color: white;">
+
+            <padding>
+                <Insets bottom="40.0" left="45.0" right="45.0" top="25.0" />
+            </padding>
+
+            <Label text="Welcome to Duke Academy!" textFill="#63075d" wrapText="true">
+                <font>
+                    <Font name="Century Gothic" size="36.0" />
+                </font>
+            </Label>
+
+            <Separator>
+            </Separator>
+
+            <VBox spacing="10.0">
+                <Label prefWidth="${main_container.width}" text="Here, you will embark on a journey to hone your programming and problem solving skills." textFill="black" wrapText="true">
+                    <font>
+                        <Font name="Century Gothic" size="14.0" />
+                    </font>
+                </Label>
+
+                <Label prefWidth="${main_container.width}" text="As your skills improve, you will rise through the ranks from Novice all the way up to Duke, the hallmark of an elite programmer." textFill="black" wrapText="true">
+                    <font>
+                        <Font name="Century Gothic" size="14.0" />
+                    </font>
+                </Label>
+
+                <Label prefWidth="${main_container.width}" text="Here's wishing you an exciting journey ahead!" textFill="black" wrapText="true">
+                    <font>
+                        <Font name="Century Gothic" size="14.0" />
+                    </font>
+                </Label>
+            </VBox>
+
+<!--            <HBox spacing="25.0">-->
+<!--                <Button fx:id="userGuideButton" alignment="CENTER" prefWidth="195.0" text="User Guide"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false"-->
+<!--                        onAction="#handleUserGuideButtonClick">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <Button fx:id="devGuideButton" prefWidth="195.0" text="Developer Guide"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <Button fx:id="aboutUsButton" prefWidth="195.0" text="About us"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <Button fx:id="contactUsButton" prefWidth="195.0" text="Contact us"-->
+<!--                        textAlignment="CENTER" mnemonicParsing="false">-->
+<!--                    <font>-->
+<!--                        <Font name="Century Gothic" size="15.0"/>-->
+<!--                    </font>-->
+<!--                </Button>-->
+
+<!--                <padding>-->
+<!--                    <Insets top="10.0"/>-->
+<!--                </padding>-->
+<!--            </HBox>-->
+
+            <Separator>
+                <padding>
+                    <Insets top="10.0" />
+                </padding>
+            </Separator>
+
+            <GridPane VBox.vgrow="ALWAYS">
+
+                <VBox GridPane.columnIndex="0" GridPane.rowIndex="0" VBox.vgrow="ALWAYS">
+
+                    <Label text="Your progress:" textFill="#63075d">
+                        <font>
+                            <Font name="Century Gothic" size="16.0" />
+                        </font>
+
+                        <padding>
+                            <Insets bottom="15.0" />
+                        </padding>
+                    </Label>
+
+                    <VBox alignment="CENTER" spacing="20.0" style="-fx-border-color: #63075d" VBox.vgrow="ALWAYS">
+                        <ProgressIndicator fx:id="indicator" minHeight="150.0" minWidth="150.0" progress="0.22" />
+
+                        <TextFlow textAlignment="CENTER">
+                            <Text fx:id="numDone" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="22">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0" />
+                                </font>
+                            </Text>
+                            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="  /  ">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0" />
+                                </font>
+                            </Text>
+                            <Text fx:id="numTotal" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="100">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0" />
+                                </font>
+                            </Text>
+                            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text=" COMPLETED">
+                                <font>
+                                    <Font name="Century Gothic Italic" size="22.0" />
+                                </font>
+                            </Text>
+
+                            <padding>
+                                <Insets left="15.0" right="15.0" />
+                            </padding>
+                        </TextFlow>
+
+                        <TextFlow textAlignment="CENTER">
+                            <Text fx:id="numToNextTier" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="8">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0" />
+                                </font>
+                            </Text>
+                            <Text fx:id="progressDescription" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text=" more completed questions to reach ">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0" />
+                                </font>
+                            </Text>
+                            <Text fx:id="nextTier" strokeType="OUTSIDE" strokeWidth="0.0" text="Apprentice">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0" />
+                                </font>
+                            </Text>
+
+                            <padding>
+                                <Insets left="15.0" right="15.0" />
+                            </padding>
+                        </TextFlow>
+
+                        <TextFlow textAlignment="CENTER">
+                            <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Skill Tier: ">
+                                <font>
+                                    <Font name="Century Gothic" size="15.0" />
+                                </font>
+                            </Text>
+                            <Text fx:id="currentTier" fill="#63075d" fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Novice">
+                                <font>
+                                    <Font name="Century Gothic" size="24.0" />
+                                </font>
+                            </Text>
+                        </TextFlow>
+
+                        <padding>
+                            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                        </padding>
+                    </VBox>
+                </VBox>
+
+                <VBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="0" VBox.vgrow="ALWAYS">
+                    <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Currently attempting:">
+                        <font>
+                            <Font name="Century Gothic" size="16.0" />
+                        </font>
+                    </Text>
+
+                    <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="attempting" />
+                    </ScrollPane>
+
+                    <padding>
+                        <Insets left="40.0" right="40.0" />
+                    </padding>
+                </VBox>
+
+                <VBox spacing="10.0" GridPane.columnIndex="2" GridPane.rowIndex="0" VBox.vgrow="ALWAYS">
+                    <Text fontSmoothingType="LCD" strokeType="OUTSIDE" strokeWidth="0.0" text="Bookmarked questions:">
+                        <font>
+                            <Font name="Century Gothic" size="16.0" />
+                        </font>
+                    </Text>
+
+                    <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+                        <VBox fx:id="bookmarked" />
+                    </ScrollPane>
+
+                    <padding>
+                        <Insets left="40.0" right="40.0" />
+                    </padding>
+                </VBox>
+
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="36.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="32.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" percentWidth="32.0" />
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints percentHeight="100" vgrow="ALWAYS" />
+                </rowConstraints>
+
+                <padding>
+                    <Insets left="5.0" right="5.0" />
+                </padding>
+            </GridPane>
+
+            <!--        <AnchorPane layoutX="29.0" layoutY="6.0" prefHeight="188.0" prefWidth="652.0" AnchorPane.leftAnchor="0.0"-->
+            <!--                    AnchorPane.topAnchor="0.0">-->
+
+
+            <!--            <AnchorPane fx:id="userGuidePane" layoutX="334.0" layoutY="18.0" prefHeight="188.0"-->
+            <!--                        prefWidth="278.0"-->
+            <!--                        style="-fx-background-color: white; -fx-border-color: #63065d; -fx-border-width: 2;"-->
+            <!--                        visible="false">-->
+            <!--                <HBox layoutX="2.0" layoutY="2.0" prefHeight="39.0" prefWidth="276.0"-->
+            <!--                      style="-fx-background-color: lightgrey;" AnchorPane.leftAnchor="1.0"-->
+            <!--                      AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">-->
+            <!--                    <Button fx:id="closeUserGuideButton" alignment="CENTER" mnemonicParsing="false"-->
+            <!--                            onAction="#handleCloseUserGuideButtonClick" text="Close" translateX="180.0"-->
+            <!--                            translateY="2.5"/>-->
+            <!--                </HBox>-->
+            <!--                <TextArea editable="false" layoutX="12.0" layoutY="113.0" prefHeight="52.0"-->
+            <!--                          prefWidth="254.0" style="-fx-border-color: silver;"-->
+            <!--                          text="https://github.com/AY1920S1-CS2103T-F14-1/main/blob/master/docs/UserGuide.adoc"-->
+            <!--                          wrapText="true"/>-->
+            <!--                <Text layoutX="12.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0"-->
+            <!--                      text="Please copy the link below and paste it in your preferred web browser."-->
+            <!--                      wrappingWidth="254.0">-->
+            <!--                    <font>-->
+            <!--                        <Font size="14.0"/>-->
+            <!--                    </font>-->
+            <!--                </Text>-->
+            <!--            </AnchorPane>-->
+            <!--        </AnchorPane>-->
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

@@ -24,7 +24,7 @@ import com.dukeacademy.logic.commands.browse.BrowseCommandFactory;
 import com.dukeacademy.logic.commands.exit.ExitCommandFactory;
 import com.dukeacademy.logic.commands.find.FindCommandFactory;
 import com.dukeacademy.logic.commands.help.HelpCommandFactory;
-import com.dukeacademy.logic.commands.home.HomeCommandFactory;
+import com.dukeacademy.logic.commands.home.DashboardCommandFactory;
 import com.dukeacademy.logic.commands.list.ListCommandFactory;
 import com.dukeacademy.logic.commands.load.LoadCommandFactory;
 import com.dukeacademy.logic.commands.notes.DeleteNoteCommandFactory;
@@ -301,10 +301,10 @@ public class MainApp extends Application {
             new ViewCommandFactory(this.questionsLogic, applicationState);
         commandLogicManager.registerCommand(viewCommandFactory);
         // Registering home command
-        HomeCommandFactory homeCommandFactory =
-            new HomeCommandFactory(this.questionsLogic,
+        DashboardCommandFactory dashboardCommandFactory =
+            new DashboardCommandFactory(this.questionsLogic,
                 this.programSubmissionLogic, applicationState);
-        commandLogicManager.registerCommand(homeCommandFactory);
+        commandLogicManager.registerCommand(dashboardCommandFactory);
         // Registering list command
         ListCommandFactory listCommandFactory = new ListCommandFactory(this.questionsLogic, applicationState);
         commandLogicManager.registerCommand(listCommandFactory);

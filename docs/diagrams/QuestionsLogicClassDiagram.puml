@@ -1,0 +1,17 @@
+@startuml
+
+interface QuestionsLogic {
+    ObservableList<Question> : getAllQuestionsList()
+    ObservableList<Question> : getAllFilteredQuestionsList()
+    void : filterQuestionsList(predicate)
+    void : addQuestion(question)
+    void : addQuestionFromPath(path)
+    Question : getQuestion(id)
+    void : setQuestion(id, question)
+    void : replaceQuestion(oldQuestion, newQuestion)
+    void : deleteAllQuestions()
+    Observable<Question> : getSelectedQuestion()
+    void : selectQuestion(id)
+}
+
+@enduml

@@ -28,9 +28,6 @@ public class StandardProgramExecutor implements ProgramExecutor {
     private final Runtime runtime;
     private final Logger logger = LogsCenter.getLogger(StandardProgramExecutor.class);
 
-    /**
-     * Instantiates a new Standard program executor.
-     */
     public StandardProgramExecutor() {
         this.runtime = Runtime.getRuntime();
     }
@@ -44,8 +41,10 @@ public class StandardProgramExecutor implements ProgramExecutor {
             logger.info("Starting program execution: " + program);
             logger.info("Feeding program input: " + program);
 
+            // Starts the program by feeding the necessary inputs
             this.feedProgramInput(process, input);
 
+            // Converts the rest of the evaluation process into a CompletableFuture asynchronous task
             return CompletableFuture.supplyAsync(() -> {
                 logger.info("Processing program output: " + program);
 
@@ -60,6 +59,7 @@ public class StandardProgramExecutor implements ProgramExecutor {
                     throw new ProgramExecutorExceptionWrapper();
                 }
             }).whenCompleteAsync((programOutput, throwable) -> {
+                // Closes the input and output streams and kills the evaluation process to prevent memory leaks
                 this.closeStreams(process);
                 process.destroy();
             });
@@ -68,19 +68,6 @@ public class StandardProgramExecutor implements ProgramExecutor {
         }
     }
 
-    @Override
-    public ProgramOutput executeProgram(ClassFile program) throws ProgramExecutorException {
-        Process process = this.getExecutionProcess(program);
-
-        try {
-            return this.getProgramOutput(process);
-        } catch (IOException e) {
-            throw new ProgramExecutorException(MESSAGE_PROGRAM_EXECUTION_FAILED + program);
-        } finally {
-            this.closeStreams(process);
-            process.destroy();
-        }
-    }
 
     /**
      * Gets the execution process using Java's RunTime standard library.
