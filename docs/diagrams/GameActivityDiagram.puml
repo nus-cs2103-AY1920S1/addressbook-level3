@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes game;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([isGameOver()])
+    :New game is created;
+else ([else])
+    :Exception thrown;
+endif
+stop
+@enduml
