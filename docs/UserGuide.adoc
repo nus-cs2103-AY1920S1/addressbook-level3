@@ -551,7 +551,6 @@ image::Reimbursement/ReimbursementBackCommand.png[width="600"]
 . Hit `Enter`
 +
 The tab will now show the full reimbursement list.
-
 +
 //.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
@@ -569,7 +568,6 @@ The reimbursement status is not shown in the transaction tab.
 * Steps:
 . Type the command, along with the person's name whose reimbursement is to be marked as done,
 as shown in the screenshot below:
-
 +
 //.Screenshot of the user input into Command Box for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommand.png[width="600"]
@@ -578,7 +576,6 @@ image::Reimbursement/ReimbursementDoneCommand.png[width="600"]
 . Hit `Enter`
 +
 The reimbursement for that person will be removed from the tab, as shown below:
-
 +
 //.Screenshot of a successful user input for Done Command in Reimbursement Tab
 image::Reimbursement/ReimbursementDoneCommandSuccess.png[width="600"]
@@ -591,17 +588,14 @@ This command helps you to sort the reimbursement lists based on amount, in desce
 
 * Steps:
 . Type the command [blue]`sort amount`, as shown in the screenshot below:
-
 +
 //.Screenshot of the user input into Command Box for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommand.png[width="600"]
-
 
 +
 . Hit `Enter`
 +
 The reimbursements are sorted in descending order of the amount.
-
 +
 //.Screenshot of a successful user input for Sort Amount Command in Reimbursement Tab
 image::Reimbursement/ReimbursementSortAmountCommandSuccess.png[width="600"]
