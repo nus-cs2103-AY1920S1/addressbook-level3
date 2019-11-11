@@ -1477,14 +1477,274 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: GUI shows set of sample transactions.
+   Filter title set to current month and year of system time.
+   Window size is fixed at 960x720px.
+.. Click on repeater tab
+   Expected: Shows the GUI
 
-. Saving window preferences
+. Launch with corrupted config.json and/or preferences.json
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+.. Manually edit config.json and/or preferences.json by adding "aaa" to start of file.
+.. Perform same steps as above test case.
 
+=== Tab switching
+
+. Tab switching by shortcut key
+
+.. Press `Ctrl+2`. +
+   Expected: GUI shows repeaters tab.
+.. Press `Ctrl+3`. +
+   Expected: GUI shows budgets tab.
+.. Press `Ctrl+4`. +
+   Expected: GUI shows loan tab.
+.. Press `Ctrl+5`. +
+   Expected: GUI shows analytics tab.
+.. Press `Ctrl+1`. +
+   Expected: GUI shows transaction tab.
+
+. Tab switching by command
+
+.. Enter command `rep`. +
+   Expected: GUI shows repeaters tab.
+.. Enter command `budget`. +
+   Expected: GUI shows budgets tab.
+.. Enter command `loan`. +
+   Expected: GUI shows loan tab.
+.. Enter command `analytics`. +
+   Expected: GUI shows analytics tab.
+.. Enter command `tx`. +
+   Expected: GUI shows transaction tab.
+
+. Tab switching by mouse click
+
+.. Click on repeater tab. +
+   Expected: GUI shows repeaters tab.
+.. Click on budget tab. +
+   Expected: GUI shows budgets tab.
+.. Click on loan tab. +
+   Expected: GUI shows loan tab.
+.. Click on analytics tab. +
+   Expected: GUI shows analytics tab.
+.. Click on transaction tab. +
+   Expected: GUI shows transaction tab.
+
+. Separate parsing for different tabs
+
+.. Enter `add` in transaction tab. +
+   Expected: Console shows error message for `AddTransactionCommand`.
+.. Go to repeaters tab and enter `add`. +
+   Expected: Console shows error message for `AddRepeaterCommand`.
+.. Go to budgets tab and enter `add`. +
+   Expected: Console shows error message for `AddBudgetCommand`.
+.. Go to loan tab and enter `add`. +
+   Expected: Console shows error message for `AddLoanCommand`.
+.. Go to analytics tab and enter `add`. +
+   Expected: Console shows error message for unrecognised command.
+
+=== Filtering transactions
+. Filter title changes correctly
+.. Enter a `filter` command with all arguments (e.g. `filter m/1 y/2008 c/food ty/exp`) +
+   Expected: Filter title contains information of all arguments (e.g. January 2008 Expenditure - Food)
+.. Enter a `filter` command with only month and year arguments (e.g. `filter m/2 y/2009`) +
+   Expected: Filter title retains information on category and transaction type, and updates to show correct month and year.
+.. Enter `filter c/!all ty/!all` +
+   Expected: Filter title now only contains information about month and year.
+
+. Filters transactions correctly
+.. Prerequisites: No transactions from January 2001 and 2002
+.. Enter `add de/a a/1 c/a d/1 m/1 y/2001 ty/exp`
+.. Enter `add de/b a/1 c/b d/1 m/1 y/2001 ty/exp`
+.. Enter `add de/c a/1 c/a d/1 m/1 y/2001 ty/in`
+.. Enter `filter m/1 y/2002` +
+   Expected: No transactions shown
+.. Enter `filter y/2001` +
+   Expected: All 3 transactions added shown
+.. Enter `filter ty/exp` +
+   Expected: Transactions with descriptions "a", "b" shown
+.. Enter `filter c/a` +
+   Expected: Transaction with description "a" shown
+.. Enter `filter ty/!all` +
+   Expected: Transactions with descriptions "a", "c" shown
+
+. Invalid `Month`
+.. Enter `filter m/13` +
+   Expected: Console shows error message.
+.. Enter `filter m/aaa` +
+   Expected: Console shows error message.
+
+. Invalid `Year`
+.. Enter `filter y/1999` +
+   Expected: Console shows error message.
+.. Enter `filter y/10000` +
+   Expected: Console shows error message.
+
+. Invalid `TransactionType`
+.. Enter `filter ty/xxx` +
+   Expected: Console shows error message.
+
+. Invalid `Category`
+.. Enter `filter c/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz` +
+   Expected: Console shows error message.
+.. Enter `filter c/!!!` +
+   Expected: Console shows error message.
+
+=== Adding a transaction
+. Transaction correctly created
+.. Add any valid transaction using `add` with all fields specified +
+   Expected: GUI changes context if necessary, and transaction added is shown with correct fields
+
+. Optional arguments correctly filled
+.. Enter `filter m/3 y/2005 c/food ty/in`
+.. Enter `add a/1 de/z` +
+   Expected: New transaction("z") appears in the same list, marked as income item with category as "FOOD".
+   Date of transaction is X March 2005, where X is the current day of the month.
+.. Enter `filter ty/!all`
+.. Enter `add a/1 de/y` +
+   Expected: New transaction("y") appears in the same list. Similar to "z", but marked as expenditure.
+.. Enter `filter c/!all`
+.. Enter `add a/1 de/x` +
+   Expected: New transaction("x") appears in the same list. Similar to "y", but under category "UNCATEGORISED".
+
+. Automatic sorting of transaction
+.. Prerequisite: Current list of transactions show no transactions.
+.. Enter `add de/a a/1 d/3`
+.. Enter `add de/b a/1 d/2` +
+   Expected: New transaction("b") appears at the bottom of the transaction list.
+.. Enter `add de/c a/1 d/4` +
+   Expected: New transaction("c") appears at the top of the transaction list.
+.. Enter `add de/d a/1 d/4 c/z` +
+   Expected: New transaction("d") appears at the second index.
+.. Enter `add de/e a/1 d/4 c/a` +
+   Expected: New transaction("e") appears at the top of the transaction list.
+   Resulting list: "e", "c", "d", "a", "b".
+
+. Filter switch when adding transaction
+.. Prerequisites: Current filter is "November 2019 Expenditure - Food"
+.. Enter `add de/a a/1 y/2018` +
+   Expected: Filter changes to "November 2018 Expenditure - Food"
+.. Enter `add de/a a/1 m/10` +
+   Expected: Filter changes to "October 2018 Expenditure - Food"
+.. Enter `add de/a a/1 c/a` +
+   Expected: Filter changes to "October 2018 Expenditure"
+.. Enter `add de/a a/1 ty/in` +
+   Expected: Filter changes to "October 2018"
+
+. Invalid `Description`
+.. Enter `add a/1 de/abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/!!!` +
+   Expected: Console shows error message.
+
+. Invalid `Amount`
+.. Enter `de/a a/a` +
+   Expected: Console shows error message.
+.. Enter `de/a a/999999` +
+   Expected: Console shows error message.
+.. Enter `de/a a/-1` +
+   Expected: Console shows error message.
+
+. Invalid `Day` or `Date`
+.. Enter `add a/1 de/a d/32` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/31 m/11` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/30 m/2` +
+   Expected: Console shows error message.
+.. Enter `add a/1 de/a d/29 m/2 y/2003` +
+   Expected: Console shows error message.
+
+=== Editing a transaction
+
+. Transaction correctly edited
+.. Add any valid transaction using `edit` with any fields specified +
+   Expected: GUI changes context if necessary, and transaction edited is shown with correct fields
+
+. Filter switch when editing transaction
+.. Prerequisites: Current filter is "November 2019 Expenditure - Food". There is at least 1 transaction shown.
+.. Enter `edit 1 y/2018` +
+   Expected: Filter changes to "November 2018 Expenditure - Food"
+.. Enter `edit 1 m/10` +
+   Expected: Filter changes to "October 2018 Expenditure - Food"
+.. Enter `edit 1 c/a` +
+   Expected: Filter changes to "October 2018 Expenditure"
+.. Enter `edit 1 ty/in` +
+   Expected: Filter changes to "October 2018"
+
+. Invalid `Index`
+.. Enter `edit 0 de/a` +
+   Expected: Console shows error message.
+.. Prerequisite: less than 20 items shown in list of transactions.
+.. Enter `edit 20 de/a` +
+   Expected: Console shows error message.
+
+=== Deleting a transaction
+
+. Valid deletion of transaction
+.. Prerequisite: at least 2 people shown in list of transactions
+.. Enter `delete 2` +
+   Expected: Second transaction in list of items deleted.
+
+. Invalid `Index`
+.. Enter `delete 0` +
+   Expected: Console shows error message.
+.. Enter `delete x` +
+   Expected: Console shows error message.
+.. Prerequisite: less than 20 items shown in list of transactions.
+.. Enter `delete 20` +
+   Expected: Console shows error message.
+
+=== Adding a repeater
+
+. Adding repeaters creates associated transactions
+
+.. Go to the repeaters tab.
+.. Add a repeater using any valid `add` command. +
+   Expected: Shows newly created repeater with correct fields.
+.. Go to the transaction tab and use `filter` command to find newly added transactions. +
+   Expected: Shows newly created transactions with correct fields for appropriate filters.
+
+. Boundary value arguments
+.. Add a repeater with end date later than start date by exactly 60 months. +
+   Expected: Repeater successfully added.
+
+. Invalid command arguments
+
+.. Go to the repeaters tab.
+.. Add a repeater with end date earlier than start date. +
+   Expected: Error message displayed on console.
+.. Add a repeater with end date later than start date by >60 months. +
+   Expected: Error message displayed on console.
+.. Add a repeater with both month offsets ignored. +
+   Expected: Error message displayed on console.
+
+. Duplicate repeaters
+
+.. Add any valid repeater.
+.. Add a repeater with the exact same field. +
+   Expected: Error message displayed on console.
+
+=== Editing a repeater
+
+. Editing repeaters edits associated transactions
+
+.. Go to the repeaters tab.
+.. If required, add a repeater.
+.. Edit a repeater using a valid `edit` command (e.g. `edit 1 a/0.41`). +
+   Expected: Shows newly created repeater with correct fields.
+.. Go to the transaction tab and use `filter` command to find newly edited transactions. +
+   Expected: Shows newly edited transactions with correct fields for appropriate filters.
+
+=== Deleting a repeater
+
+. Deleting repeaters delete associated transactions
+
+.. Go to the repeaters tab.
+.. If required, add a repeater.
+.. Delete a repeater using a valid `delete` command (e.g. `delete 1`). +
+   Expected: GUI no longer shows deleted repeater.
+.. Go to the transaction tab and use `filter` command to find associated transactions. +
+   Expected: Associated transactions cannot be found.
 
 //tag::LoanManual[]
 === Adding and modifying a Loan
@@ -1492,11 +1752,11 @@ These instructions only provide a starting point for testers to work on; testers
 . Adding a Loan while other loans are present
 
 .. Prerequisites: List all loans. Multiple loans in the list.
-.. Test case: `add a/420.42 n/Felix Kjellberg sd/12 sm/12 sy/2019 ed/23 em/2 ey/2020 de/Borrowed for apple earpods ` +
+.. Enter `add a/420.42 n/Felix Kjellberg sd/12 sm/12 sy/2019 ed/23 em/2 ey/2020 de/Borrowed for apple earpods ` +
    Expected: Loan is added to the list. Details of the added loan shown in the status message.
-.. Test case: `add a/220` +
+.. Enter `add a/220` +
    Expected: Loan is added with default values. Loan Details shown in the status message. Status bar remains the same.
-.. Test Case: `add n/Felix`
+.. Enter `add n/Felix`
     Expected: No amount given error is shown. No Loan is added to the list. The status shows correct format to enter.
 .. Other incorrect delete commands to try: `add`, `add a/24 n/123` +
    Expected: Similar to previous.
@@ -1504,11 +1764,11 @@ These instructions only provide a starting point for testers to work on; testers
 . Editing Existing loans
 
 .. Prerequisites: List all loans. Multiple loans in the list.
-.. TestCase: 'edit 2 a/220 n/NewName sd/12 ey/2012' +
+.. Enter 'edit 2 a/220 n/NewName sd/12 ey/2012' +
     Expected: First loan on the list is changed to new assigned values. No other loans or entries are changed.
-.. TestCase: 'edit 1 n/NewName sd/12 ey/2012 d/New Description for the Loan' +
+.. Enter 'edit 1 n/NewName sd/12 ey/2012 d/New Description for the Loan' +
     Expected: First loan on the list is changed to new assigned values including description. No other loans or entries are changed. Other values are derived from existing entry.
-.. TestCase: 'edit a/220 n/NewName sd/12 ey/2012' +
+.. Enter 'edit a/220 n/NewName sd/12 ey/2012' +
     Expected: Wrong format for edit command is shown in status. No Loan is edited.
 .. Other incorrect delete commands to try: `edit`, `edit 5` +
    Expected: Similar to previous.
@@ -1516,9 +1776,9 @@ These instructions only provide a starting point for testers to work on; testers
 . Paying off Existing loans
 
 .. Prerequisites: List all loans. Multiple loans in the list.
-.. TestCase: 'pay 1' +
+.. Enter 'pay 1' +
     Expected: First loan on the list is removed from list. No other loans or entries are changed. Status bar indicates deletion.
-.. TestCase: 'pay a/220' +
+.. Enter 'pay a/220' +
     Expected: Wrong format for pay command is shown in status. No Loan is removed. Status shows correct format of command.
 .. Other incorrect delete commands to try: `pay`, `pay a` +
    Expected: Similar to previous.
@@ -1527,8 +1787,68 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Launch with corrupted fundbook.json
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. Manually edit and save data/fundbook.json, corrupting data by entering "aaaaa" at start of file.
+.. Double-click the jar file. +
+   Expected: Shows the GUI with no data items. Window size is fixed at 960x720px.
 
-_{ more test cases ... }_
+. Relaunch after changing list of transactions
+
+.. Go to the transaction tab.
+.. Add a transaction using the `add` command and exit IchiFund.
+.. Double-click the jar file.
+.. If necessary, use `filter` command to find newly added transaction. +
+   Expected: Shows the GUI with newly added transaction.
+.. Edit the transaction using the `edit` command and exit IchiFund.
+.. Double-click the jar file.
+.. If necessary, use `filter` command to find newly added transaction. +
+   Expected: Shows the GUI with newly edited transaction.
+.. Delete the transaction using the `delete` command and exit IchiFund.
+.. Double-click the jar file.
+.. If necessary, use `filter` command to find deleted transaction. +
+   Expected: Shows the GUI without the deleted transaction.
+
+. Relaunch after changing list of repeaters
+
+.. Go to the repeaters tab.
+.. Add a repeater using the `add` command.
+.. Exit IchiFund.
+.. Double-click the jar file.
+.. Go to repeaters tab. +
+   Expected: GUI shows newly added repeater.
+.. Go to the repeaters tab.
+.. Edit a repeater using the `edit` command.
+.. Go to the transaction tab and use `filter` command to find newly edited transactions. +
+   Expected: Shows newly edited transactions for appropriate filters.
+.. Exit IchiFund.
+.. Double-click the jar file.
+.. Go to repeaters tab, or search for newly edited transactions in transaction tab. +
+   Expected: In repeaters tab, shows newly edited repeater; in
+transaction tab, shows newly edited transactions for appropriate filters.
+.. Go to the repeaters tab.
+.. Add a repeater using the `delete` command.
+.. Exit IchiFund.
+.. Double-click the jar file.
+.. Go to repeaters tab. +
+   Expected: In repeaters tab, deleted repeater is not shown.
+
+. Relaunch after changing list of budgets
+
+.. Go to the budget tab.
+.. Add a budget using the `add` command and exit IchiFund.
+.. Double-click the jar file.
+.. Go to the budget tab. +
+   Expected: Shows the GUI with newly added budget. Budget progress is the same.
+.. Delete a budget using the `delete` command and exit IchiFund.
+.. Double-click the jar file.
+.. Go to the budget tab. +
+   Expected: GUI does not show deleted budget.
+
+. Relaunch after changing list of loans
+
+.. Go to the loan tab.
+.. Add a loan using the `add` command and exit IchiFund.
+.. Double-click the jar file.
+.. Go to the loan tab. +
+   Expected: Shows the GUI with newly added loan.
