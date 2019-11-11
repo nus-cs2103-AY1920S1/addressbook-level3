@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;*/
 
 import java.util.HashSet;
 
-import seedu.pluswork.logic.commands.AddTaskCommand;
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
 import seedu.pluswork.logic.parser.Parser;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
 import seedu.pluswork.model.tag.Tag;

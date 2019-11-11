@@ -7,48 +7,75 @@ import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.pluswork.logic.commands.AddCalendarCommand;
-import seedu.pluswork.logic.commands.AddDCommand;
-import seedu.pluswork.logic.commands.AddICommand;
-import seedu.pluswork.logic.commands.AddInventoryCommand;
-import seedu.pluswork.logic.commands.AddMeetingCommand;
-import seedu.pluswork.logic.commands.AddMemberCommand;
-import seedu.pluswork.logic.commands.AddTaskCommand;
-import seedu.pluswork.logic.commands.AssignCommand;
-import seedu.pluswork.logic.commands.ClearCommand;
-import seedu.pluswork.logic.commands.ClockCommand;
 import seedu.pluswork.logic.commands.Command;
-import seedu.pluswork.logic.commands.DeleteCalendarCommand;
-import seedu.pluswork.logic.commands.DeleteInventoryCommand;
-import seedu.pluswork.logic.commands.DeleteMeetingCommand;
-import seedu.pluswork.logic.commands.DeleteMemberCommand;
-import seedu.pluswork.logic.commands.DeleteTaskCommand;
-import seedu.pluswork.logic.commands.DoingTaskCommand;
-import seedu.pluswork.logic.commands.DoneTaskCommand;
-import seedu.pluswork.logic.commands.EditInventoryCommand;
-import seedu.pluswork.logic.commands.EditMemberCommand;
-import seedu.pluswork.logic.commands.EditTaskCommand;
-import seedu.pluswork.logic.commands.ExitCommand;
-import seedu.pluswork.logic.commands.FindMeetingTimeCommand;
-import seedu.pluswork.logic.commands.FindMemberCommand;
-import seedu.pluswork.logic.commands.FindTaskCommand;
-import seedu.pluswork.logic.commands.FireCommand;
-import seedu.pluswork.logic.commands.GeneratePDFCommand;
-import seedu.pluswork.logic.commands.GetStatisticsCommand;
-import seedu.pluswork.logic.commands.HelpCommand;
-import seedu.pluswork.logic.commands.HomeCommand;
-import seedu.pluswork.logic.commands.ListInventoryCommand;
-import seedu.pluswork.logic.commands.ListMemberCommand;
-import seedu.pluswork.logic.commands.ListTaskCommand;
-import seedu.pluswork.logic.commands.NoCommand;
-import seedu.pluswork.logic.commands.RedoCommand;
-import seedu.pluswork.logic.commands.SetDeadlineCommand;
-import seedu.pluswork.logic.commands.SetImageCommand;
-import seedu.pluswork.logic.commands.SettingsCommand;
-import seedu.pluswork.logic.commands.ThemeCommand;
-import seedu.pluswork.logic.commands.UndoCommand;
-import seedu.pluswork.logic.commands.YesCommand;
+import seedu.pluswork.logic.commands.calendar.AddCalendarCommand;
+import seedu.pluswork.logic.commands.calendar.AddMeetingCommand;
+import seedu.pluswork.logic.commands.calendar.DeleteCalendarCommand;
+import seedu.pluswork.logic.commands.calendar.DeleteMeetingCommand;
+import seedu.pluswork.logic.commands.calendar.FindMeetingTimeCommand;
+import seedu.pluswork.logic.commands.inventory.AddInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.DeleteInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.EditInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.GeneratePDFCommand;
+import seedu.pluswork.logic.commands.inventory.ListInventoryCommand;
+import seedu.pluswork.logic.commands.member.AddMemberCommand;
+import seedu.pluswork.logic.commands.member.AssignCommand;
+import seedu.pluswork.logic.commands.member.DeleteMemberCommand;
+import seedu.pluswork.logic.commands.member.EditMemberCommand;
+import seedu.pluswork.logic.commands.member.FindMemberCommand;
+import seedu.pluswork.logic.commands.member.FireCommand;
+import seedu.pluswork.logic.commands.member.ListMemberCommand;
+import seedu.pluswork.logic.commands.member.SetImageCommand;
+import seedu.pluswork.logic.commands.multiline.AddDCommand;
+import seedu.pluswork.logic.commands.multiline.AddICommand;
+import seedu.pluswork.logic.commands.multiline.NoCommand;
+import seedu.pluswork.logic.commands.multiline.YesCommand;
+import seedu.pluswork.logic.commands.settings.ClockCommand;
+import seedu.pluswork.logic.commands.settings.SettingsCommand;
+import seedu.pluswork.logic.commands.settings.ThemeCommand;
+import seedu.pluswork.logic.commands.statistics.GetStatisticsCommand;
+import seedu.pluswork.logic.commands.task.AddTaskCommand;
+import seedu.pluswork.logic.commands.task.DeleteTaskCommand;
+import seedu.pluswork.logic.commands.task.DoingTaskCommand;
+import seedu.pluswork.logic.commands.task.DoneTaskCommand;
+import seedu.pluswork.logic.commands.task.EditTaskCommand;
+import seedu.pluswork.logic.commands.task.FindTaskCommand;
+import seedu.pluswork.logic.commands.task.ListTaskCommand;
+import seedu.pluswork.logic.commands.task.SetDeadlineCommand;
+import seedu.pluswork.logic.commands.universal.ClearCommand;
+import seedu.pluswork.logic.commands.universal.ExitCommand;
+import seedu.pluswork.logic.commands.universal.HelpCommand;
+import seedu.pluswork.logic.commands.universal.HomeCommand;
+import seedu.pluswork.logic.commands.universal.RedoCommand;
+import seedu.pluswork.logic.commands.universal.UndoCommand;
+import seedu.pluswork.logic.parser.calendar.AddCalendarCommandParser;
+import seedu.pluswork.logic.parser.calendar.AddMeetingCommandParser;
+import seedu.pluswork.logic.parser.calendar.DeleteCalendarCommandParser;
+import seedu.pluswork.logic.parser.calendar.DeleteMeetingCommandParser;
+import seedu.pluswork.logic.parser.calendar.FindMeetingTimeCommandParser;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
+import seedu.pluswork.logic.parser.inventory.AddInventoryCommandParser;
+import seedu.pluswork.logic.parser.inventory.DeleteInventoryCommandParser;
+import seedu.pluswork.logic.parser.inventory.EditInventoryCommandParser;
+import seedu.pluswork.logic.parser.inventory.GeneratePDFCommandParser;
+import seedu.pluswork.logic.parser.member.AddMemberCommandParser;
+import seedu.pluswork.logic.parser.member.AssignCommandParser;
+import seedu.pluswork.logic.parser.member.DeleteMemberCommandParser;
+import seedu.pluswork.logic.parser.member.EditMemberCommandParser;
+import seedu.pluswork.logic.parser.member.FindMemberCommandParser;
+import seedu.pluswork.logic.parser.member.FireCommandParser;
+import seedu.pluswork.logic.parser.member.SetImageCommandParser;
+import seedu.pluswork.logic.parser.multiline.AddDCommandParser;
+import seedu.pluswork.logic.parser.multiline.AddICommandParser;
+import seedu.pluswork.logic.parser.settings.ClockCommandParser;
+import seedu.pluswork.logic.parser.settings.ThemeCommandParser;
+import seedu.pluswork.logic.parser.task.AddTaskCommandParser;
+import seedu.pluswork.logic.parser.task.DeleteTaskCommandParser;
+import seedu.pluswork.logic.parser.task.DoingTaskCommandParser;
+import seedu.pluswork.logic.parser.task.DoneTaskCommandParser;
+import seedu.pluswork.logic.parser.task.EditTaskCommandParser;
+import seedu.pluswork.logic.parser.task.FindTaskCommandParser;
+import seedu.pluswork.logic.parser.task.SetDeadlineCommandParser;
 
 /**
  * Parses user input.
@@ -85,13 +112,13 @@ public class ProjectDashboardParser {
                 return new DeleteTaskCommandParser().parse(arguments);
 
             case FindTaskCommand.COMMAND_WORD:
-                return new FindCommandParser().parse(arguments);
+                return new FindTaskCommandParser().parse(arguments);
 
             case ListTaskCommand.COMMAND_WORD:
                 return new ListTaskCommand();
 
             case EditTaskCommand.COMMAND_WORD:
-                return new EditCommandParser().parse(arguments);
+                return new EditTaskCommandParser().parse(arguments);
 
             case DoingTaskCommand.COMMAND_WORD:
                 return new DoingTaskCommandParser().parse(arguments);

@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.pluswork.logic.commands.EditMemberCommand;
+import seedu.pluswork.logic.commands.member.EditMemberCommand;
 import seedu.pluswork.model.member.Member;
 import seedu.pluswork.model.member.MemberName;
 import seedu.pluswork.model.tag.Tag;

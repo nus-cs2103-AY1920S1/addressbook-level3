@@ -3,8 +3,8 @@ package seedu.pluswork.logic;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.logging.Logger;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;

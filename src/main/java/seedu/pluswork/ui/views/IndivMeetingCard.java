@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
 import seedu.pluswork.commons.util.DateTimeUtil;
 import seedu.pluswork.model.calendar.Meeting;
 import seedu.pluswork.model.member.MemberName;

@@ -7,8 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.pluswork.logic.commands.EditTaskCommand;
-import seedu.pluswork.logic.commands.EditTaskCommand.EditTaskDescriptor;
+import seedu.pluswork.logic.commands.task.EditTaskCommand;
+import seedu.pluswork.logic.commands.task.EditTaskCommand.EditTaskDescriptor;
 import seedu.pluswork.model.tag.Tag;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;

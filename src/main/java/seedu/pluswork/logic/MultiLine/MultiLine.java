@@ -10,7 +10,7 @@ import seedu.pluswork.model.Model;
 
 public abstract class MultiLine {
     CommandResult manageOne(CommandResult commandResult, Command command,
-                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+                            Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         return null;
     }
 

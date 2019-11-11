@@ -3,7 +3,6 @@ package seedu.pluswork.model.calendar;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;

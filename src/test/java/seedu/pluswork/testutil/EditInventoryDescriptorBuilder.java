@@ -2,7 +2,7 @@ package seedu.pluswork.testutil;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.pluswork.logic.commands.EditInventoryCommand;
+import seedu.pluswork.logic.commands.inventory.EditInventoryCommand;
 import seedu.pluswork.model.inventory.InvName;
 import seedu.pluswork.model.inventory.Inventory;
 import seedu.pluswork.model.inventory.Price;
