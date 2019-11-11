@@ -425,7 +425,7 @@ NOTE: `split` *does not* include how much you spent into the _Ledger_ balance.
 
 . Enter appropriate command into the command line.
 +
-.Input for Splitting evenly
+.Input for Splitting Evenly
 image::SplitEven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
@@ -448,7 +448,7 @@ image::SplitUneven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
-.Uneven split results
+.Display of Correctly Assigned Amounts
 image::SplitUneven2.png[pdfwidth=70%]
 +
 Since the number of shares is equal to the number of people listed, you are not included in the splitting of the bill.
@@ -469,12 +469,12 @@ Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 
 . Enter appropriate command into the command line.
 +
-.Receive payment
+.Input for Receiving $20 from Albert
 image::Receive1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly.
 +
-.Receive payment result
+.Result of Payment from Albert
 image::Receive2.png[pdfwidth=70%]
 +
 Albert is removed from the _Ledger_ since he no longer owes any money. _Ledger_ balance is also updated accordingly.
