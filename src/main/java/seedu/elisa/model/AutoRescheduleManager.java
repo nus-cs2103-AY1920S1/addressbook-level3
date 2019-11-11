@@ -9,6 +9,7 @@ import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.item.Event;
 import seedu.elisa.commons.core.item.Item;
 import seedu.elisa.logic.LogicManager;
+import seedu.elisa.logic.parser.ParserUtil;
 import seedu.elisa.model.item.EventList;
 
 /**
@@ -91,12 +92,8 @@ public class AutoRescheduleManager {
         // Use modulo to get the remaining time till the next reschedule time. Add that remaining time to the time now.
         long period = event.getPeriod().getPeriod();
         LocalDateTime startDateTime = event.getStartDateTime();
-        long millisDifference = Duration.between(startDateTime, LocalDateTime.now()).toMillis(); // positive difference;
 
-        long millisRemainder = millisDifference % period; //millisDifferenceBi.mod(periodBi).longValue();
-        long tillNextStart = period - millisRemainder;
-        LocalDateTime updatedDateTime = LocalDateTime.now().plusNanos(Duration.ofMillis(tillNextStart).toNanos());
-
+        LocalDateTime updatedDateTime = ParserUtil.getUpdatedDateTime(startDateTime, period);
         return updatedDateTime;
     }
 
@@ -110,12 +107,13 @@ public class AutoRescheduleManager {
             Duration delay = Duration.between(LocalDateTime.now(), task.getStartTime());
             if (delay.getSeconds() < 0) {
                 LocalDateTime updatedTime = getUpdatedDateTime(task.getEvent());
+                //delay = Duration.between(LocalDateTime.now(), updatedTime);
             }
 
             RescheduleTask.addToAllTasks(task);
             timer.scheduleAtFixedRate(task, delay.toMillis(), task.getLongPeriod());
         } catch (Exception e) {
-            logger.warning("----------------[Failed to schedule Event][" + task.getEvent() + "]");
+            logger.warning("----------------[Failed to schedule Event][" + task.getEvent() + "]" + e.getMessage());
         }
     }
 

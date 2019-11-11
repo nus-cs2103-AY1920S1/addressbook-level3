@@ -152,14 +152,13 @@ Examples:
 ==== Adding an event: `event`
 
 Adds an event to events list and calendar +
-Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG] [-auto PERIOD]`
+Format: `event DESCRIPTION -d DATETIME [-r REMINDER] [-p PRIORITY] [-t TAG]`
 
 Examples:
 
 * `event John’s Birthday -d 20/09/2019 1800`
 * `event John’s Birthday -d 20/09/2019 1800 -r 19/09/2019 1800`
 * `event John’s Birthday -d 3.day.later -r 2.day.later -p high -t friend`
-* `event CS2013T Quiz -d 11/11/2019 2359 -auto week`
 
 [NOTE]
 It is currently not possible to set a reminder for events with an autoreschedule flag. We intend to include this in v2.0 .
@@ -191,7 +190,7 @@ This command is used to edit any of the items that you might have. +
 * You are only able to edit the item currently shown in your view. For example, when you're on the task list, you can only edit the tasks shown. You will not be able to edit events or reminders.
 * The new item with the edited fields must not already exist. Don't worry if you can't remember that, ELISA will remind you!
 
-Format: `edit INDEX [-desc DESCRIPTION] [-d DATETIME] [-r REMINDER] [-p PRIORITY] [-t TAG]...`
+Format: `edit INDEX [-desc DESCRIPTION] [-d DATETIME] [-r REMINDER] [-p PRIORITY] [--tk] [--e] [--r] [-t TAG]...`
 
 ****
 * Edits the task at the specified `INDEX`. The index refers to the index number shown in currently viewed list. The index *must be a positive integer* 1, 2, 3, ...
@@ -199,7 +198,34 @@ Format: `edit INDEX [-desc DESCRIPTION] [-d DATETIME] [-r REMINDER] [-p PRIORITY
 * Existing values will be updated to the input values.
 ****
 
-Examples:
+Now, you might wonder, what does `--tk`, `--e`, `--r` do? +
+Haven't you thought of how you would remove just a reminder of a task, or remove just the deadline of a task, without deleting the entire item? +
+Well this is just what you are looking for! +
+
+For an item with a task, event and reminder, `--tk` removes the task portion while `--e` removes the event portion while `--r` removes the reminder portion. +
+For example, here is an item that is a task, with an event and a reminder:
+
+image::edit-1.PNG[]
+
+After you enter `edit 1 --e --r`, this is how the item would look:
+
+image::edit-2.PNG[]
+
+Convenient isn't it? As you can see, the event and reminder details are removed, which is precisely what we want.
+
+But wait! The resultant item should not be totally empty! It just doesn't make sense to have an empty item just hanging there in your list. There should have at least a task, event or reminder. +
+Well, if you can't remember what fields can or cannot be removed, fret not. ELISA will be sure to tell you that:
+
+image::edit-3.PNG[]
+
+Also, if you decide to edit something and remove the part in the same command, ELISA would just remove it as she believes that your command to remove it is more important. +
+For example, you decide to edit the reminder time and also remove the reminder with the command `edit 1 -r 8.hour.later --r`:
+
+image::edit-4.PNG[]
+
+As you can see, the reminder part is removed.
+
+Here are some example commands for edit:
 
 * `edit 1 -desc read books -d 3.day.later -p low` +
 Edits item 1 of the current list. Changes the description to `read books`, deadline to `3.day.later` and priority to `low`.
@@ -224,6 +250,38 @@ Examples:
 * `show r` +
 `delete 2` +
 Deletes the 2nd reminder in the shown reminder list.
+
+=== AutoReschedule Feature
+
+Do you have to go to the supermarket weekly? Complete a quiz weekly? Jog daily? +
+Well this would definitely make your life much easier! +
+
+Your events can now update its own time when it is already over! All you need to do is to add a `-auto` flag, along with a time period.
+
+Here is how you can do it. You might have weekly quizzes due on the same day every week, the command you can enter is `event CS2103T Quiz -d 23/11/2019 2359 -auto week`. +
+This creates an event whose date will change every week.
+Convenient isn't it! Now you no longer have to manually change their dates after it is over.
+
+That's not it! If you add an AutoReschedule event with a date that is already over, ELISA would automatically update its date to show the upcoming one. +
+This is what I mean. If you add an event that is already over, eg. `event quiz 11/08/2019 2359 -auto week`:
+
+image::edit-5.PNG[]
+ELISA immediately changes it to show the upcoming date for this week. ELISA shows 10 NOV as it is 9 NOV at this point.
+
+Also, are you worried that the events wouldn't be updated if you leave the app? No worries as ELISA's got you covered! +
+When you come back again, you would see that all the events that have AutoReschedule would show the upcoming date.
+
+[NOTE]
+But there is a small drawback... AutoReschedule currently does not work with reminders. That means that if you add an `-auto` flag for an event, you would not be able to add a `-r` flag for reminders.
+This also means that reminders cannot be created with the `-auto` flag. But you can look forward to this in V2.0 of ELISA!
+
+For the rescheduling period, you can use `hour`, `day`, `week` or the `10.min.later` format.
+
+Here are some interesting commands you can try:
+
+* `event grocery shopping -d 9/9/2019 1200 -auto week`
+* `event jog -d 23/11/2019 0800 -auto day`
+* `event smile -d 1.min.later -auto 1.min.later` (it's good to be happy)
 
 === Reminder Feature
 
@@ -510,3 +568,6 @@ There is no need to save manually.
 * Currently, it only shows the *current* month. We are still working to bring the next month to you.
 * Please keep a full screen. If you resize, we are unable to guarantee the view of the calendar.
 
+== Coming in V2.0
+
+* Events with AutoReschedule can have reminders that will be rescheduled along with it.

@@ -26,8 +26,8 @@ public class ContinueCommandParser implements Parser<ContinueCommand> {
 
         // if index is not provided
         if (args.equals("")) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ContinueCommand.MESSAGE_USAGE)
-                    + " I need an index!");
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, " I need an index! \n"
+                    + ContinueCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(args);
