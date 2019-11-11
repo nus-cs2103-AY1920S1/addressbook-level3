@@ -591,7 +591,7 @@ Format: `slist edit INDEX [n/FOODNAME] [a/AMOUNT]`
 * Edits the food item at the specified `INDEX`. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* Units in the amount field must match that of the item specified
+* Unit type in the amount field must match that of the item specified and pre-existing items with same name.
 ****
 
 Examples:
@@ -633,7 +633,7 @@ Format: `slist bought INDEX e/EXPIRYDATE a/AMOUNT`
 
 ****
 * Marks the shopping item at the specified `INDEX` as bought. The index refers to the index number shown in the shopping list. The index *must be a positive integer* 1, 2, 3, ...
-* Both `EXPIRYDATE` and `AMOUNT` of items bought must be specified. `AMOUNT` must match with that of the item in the shopping list.
+* Both `EXPIRYDATE` and `AMOUNT` of items bought must be specified. `AMOUNT` 's unit type must match with that of the item in the shopping list.
 * There is flexibility in the amount of items that are bought. You can indicate more or less quantity of items bought than the number indicated in the shopping list.
 * When an item is completely bought, it is moved to the bottom of the list with a 'Fully Bought' tag.
 * Once an item is completely bought, it loses its 'urgent!' status if it has one.
