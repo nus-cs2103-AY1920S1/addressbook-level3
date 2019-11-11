@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReferenceId;
 
 /**
- * Lists all persons in the address book to the user.
+ * Undo the dequeue command.
  */
 public class UndoDequeueCommand extends ReversibleCommand {
 
@@ -28,7 +28,7 @@ public class UndoDequeueCommand extends ReversibleCommand {
     private final int indexOfPatientInQueue;
 
     /**
-     * Creates an EnqueueCommand to add the specified {@code PatientReferenceId}
+     * Creates an UndoDequeueCommand to add the specified {@code PatientReferenceId}
      */
     public UndoDequeueCommand(ReferenceId patientReferenceId, int index) {
         requireNonNull(patientReferenceId);

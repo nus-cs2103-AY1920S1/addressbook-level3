@@ -127,20 +127,19 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
     * The execution of a reactive search differs from the normal command, in the way that it only allows the execution of `NonActionableCommand` types.
         Hence, there is no modification of any data in the system's model when executing a reactive search.
 
-
+// tag::queueuml[]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `enqueue E0000001A` API call.
 
 .Interactions inside the Logic Component for the `enqueue E0000001A` Command.
 image::EnqueueSequenceDiagram.png[]
 
-
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
 image::ModelOverviewClassDiagramV3.png[]
-
+// end::queueuml[]
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 ==== Overall Model component
@@ -500,6 +499,8 @@ The Appointment feature enables users to manage appointments for patients by pro
 The number of scheduled appointments cannot be more than the number of on-duty staff doctors at any given time.
 
 ==== Current Implementation
+The current appointment feature is implemented using a list which works like a balanced binary search tree. This allows us to search for an appointment within O(logn) instead of O(n) time, where n is the number of appointments in the list.
+
 The Appointment feature contains multiple operations to indirectly manipulate the `UniqueEventList`. The implemented operations include:
 
 `newappt` Command - Creates an new appointment or reoccurring appointments for a patient.

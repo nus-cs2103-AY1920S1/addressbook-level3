@@ -1,4 +1,4 @@
-= <Wong Shun Min> - Project Portfolio
+= Wong Shun Min - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -59,8 +59,6 @@ include::../UserGuide.adoc[tag=summary]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+include::../DeveloperGuide.adoc[tag=queueuml]
+
 include::../DeveloperGuide.adoc[tag=queue]
-
-include::../DeveloperGuide.adoc[tag=userstories]
-
-include::../DeveloperGuide.adoc[tag=queueusecase]
