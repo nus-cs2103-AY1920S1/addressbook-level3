@@ -25,7 +25,7 @@ GuiltTrip is a finance tracker application, optimized for those who prefer to wo
 
 ** Improve `listBudget` and `listWish` to replace budgets/wishes with expenses and incomes in the main panel. Thus this allocates more space for the user to view budgets or wishes, whenever the user wants to.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jessicax941&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jessicax941&tabRepo=AY1920S1-CS2103-T16-4%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jessicax941&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jessicax941&tabRepo=AY1920S1-CS2103-T16-4%2Fmain%5Bmaster%5D[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jessicax941&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=jessicax941&tabRepo=AY1920S1-CS2103-T16-4%2Fmain%5Bmaster%5D[Reposense code]]
 
 * *Other contributions*:
 

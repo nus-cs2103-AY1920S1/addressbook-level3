@@ -70,10 +70,11 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
-[[Design-Ui]]
-=== UI component
 
 // tag::uicomponent[]
+
+[[Design-Ui]]
+=== UI component
 
 .Structure of UI component
 image::UiClassDiagram.png[]
@@ -225,12 +226,12 @@ The sequence diagram is as explained below:
 . Since it is true, it retrieves the `PanelName` `WISH` from `commandResult` and calls on its own method `handleTogglePanel`.
 . This method then calls on another method `togglePanel()` that toggles the panel and takes in the `PanelName` `WISH` as a parameter.
 .. (Not shown in sequence diagram to reduce its complexity) It also checks if the wishlist is already shown in the main panel.
-.. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is shown in the main method.
+.. If it is, then a `CommandException` is thrown to prevent the user from toggling the wishlist side panel when the wishlist is already shown in the main panel.
 
 The following activity diagram summarizes what happens when a user executes a `toggle` command:
 
 .Activity diagram showing what happens when user executes a `toggle` command
-image::ToggleActivityDiagram.png[width="240"]
+image::ToggleActivityDiagram.png[width="400"]
 
 ==== Design Considerations
 
@@ -312,7 +313,7 @@ The sequence diagram is as explained:
 . Since it is true, it retrieves the `newTheme` from `commandResult`, `LIGHT`, and calls on its own method `switchThemeTo(LIGHT)`.
 .. (Following details were trivial and thus omitted from the diagram) This method retrieves the URLs for the light theme and corresponding extensions css files and adds it to the stylesheets for the scene.
 This is done after removing the stylesheets for the previous theme.
-. This is essentially the same for `setDarkTheme` command, with the `newTheme` as `DARK` instead.
+. This implementation is essentially the same for `setDarkTheme` command, with the `newTheme` as `DARK` instead.
 
 The following activity diagram summarizes what happens when a user executes a `setLightTheme` command:
 
