@@ -230,6 +230,6 @@ If there other days to schedule, the steps taken will also be the same as Step 4
 * **Current Choice:** Allows user to input the start time of activity
 ** Pros: Gives user the flexibility and they are better able to gauge the travelling time of each activity
 ** Cons: It restrict the number of possible activities that could be scheduled as we have to consider activity not overlapping with the start time of the next activty.
-* **Alternative:** Fix a break of 30min between every activity to acount for travel time
+* **Alternative:** Fix a break of 30min between every activity to account for travel time
 ** Pros: Activities that user prioritised are more likely to be scheduled as we do not have to consider overlap of the start time of next activity.
 ** Cons: Certain activity may require more travelling time. If we fix a longer travelling time, it might not be optimising the schedule plan as certain activity might have shorter travelling time.
