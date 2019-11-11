@@ -3,31 +3,76 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <fx:root fitToHeight="true" fitToWidth="true" minViewportHeight="600.0" minViewportWidth="600.0" stylesheets="@../defaultStyles.css" type="javafx.scene.control.ScrollPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <content>
       <VBox prefHeight="600.0" prefWidth="600.0" styleClass="main-content-window">
          <Label fx:id="windowTitle" styleClass="window-title" text="My overall statistics" />
-         <Label fx:id="totalSessions" text="Total login sessions: 0 sessions" />
-         <Label fx:id="sessionsThisWeek" text="Total login sessions this week: 0 sessions" />
+         <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <children>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                  <children>
+                     <Label fx:id="totalSessions" styleClass="big-number" text="0" />
+                     <Label fx:id="totalSessionsExplainer" text="login sessions all time" />
+                  </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                  <children>
+                     <Label fx:id="sessionsThisWeek" styleClass="big-number" text="0" />
+                     <Label fx:id="sessionsThisWeekExplainer" text="login sessions this week" />
+                  </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <Label fx:id="numDecksTotal" styleClass="big-number" text="0" />
+                     <Label fx:id="numDecksTotalExplainer" text="decks" />
+                  </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                  <children>
+                     <Label fx:id="numCardsTotal" styleClass="big-number" text="0" />
+                     <Label fx:id="numCardsTotalExplainer" text="cards" />
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
          <Label fx:id="totalDuration" text="Total login duration: 0 hours 0 minutes 0 seconds" />
          <Label fx:id="averageDuration" text="Average duration per login: 0 hours 0 minutes 0 seconds" />
          <Label styleClass="window-subtitle" text="My login sessions" />
          <ScrollPane fx:id="sessionsScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="400.0" minHeight="200.0">
             <content>
-               <TableView fx:id="sessionsTableView" fixedCellSize="24.0">
-                  <placeholder><Label text="There are no recorded sessions yet!" /></placeholder>
-               </TableView>
+               <TableView fx:id="sessionsTableView" fixedCellSize="24.0" />
             </content>
          </ScrollPane>
          <Label text="To view statistics for individual decks, type &quot;stats deck/[deckname]&quot;" />
          <Label styleClass="window-subtitle" text="My statistics by deck" />
+         <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <children>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                  <children>
+                     <Label fx:id="testSessionsTotal" styleClass="big-number" text="0" />
+                     <Label fx:id="testSessionsTotalExplainer" text="total test sessions all time" />
+                  </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                  <children>
+                     <Label fx:id="testSessionsThisWeek" styleClass="big-number" text="0" />
+                     <Label fx:id="testSessionsThisWeekExplainer" text="total test sessions this week" />
+                  </children>
+               </VBox>
+               <VBox alignment="CENTER" prefHeight="200.0" prefWidth="150.0">
+                  <children>
+                     <Label fx:id="averageScore" styleClass="big-number" text="0" />
+                     <Label fx:id="averageScoreExplainer" text="average score" />
+                  </children>
+               </VBox>
+            </children>
+         </HBox>
          <ScrollPane fx:id="deckTableScrollPane" fitToHeight="true" fitToWidth="true" maxHeight="400.0" minHeight="200.0">
             <content>
-               <TableView fx:id="decKTableView" fixedCellSize="24.0">
-                  <placeholder><Label text="There are no decks yet!" /></placeholder>
-               </TableView>
+               <TableView fx:id="decKTableView" fixedCellSize="24.0" />
             </content>
          </ScrollPane>
       </VBox>

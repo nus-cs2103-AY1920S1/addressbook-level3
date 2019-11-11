@@ -86,10 +86,13 @@ public class DeckStatisticsWindow extends ScrollPane {
         int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
         this.sessionsThisWeek.setText(String.valueOf(numSessionsThisWeek));
         this.sessionsThisWeekExplainer.setText("test"
-            + (numSessionsThisWeek == 1 ? " session" : " sessions")
-            + " this week");
+            + (numSessionsThisWeek == 1 ? " session" : " sessions") + " this week");
 
         String duration = this.testSessionList.getTotalDurationAsString();
+        if (numSessions == 0) {
+            // do not set text for total test duration; keep it as "0 hours 0 minutes 0 seconds"
+            return;
+        }
         totalDuration.setText("Total test duration: " + duration);
     }
 }

@@ -27,7 +27,11 @@ public class StatisticsWindow extends ScrollPane {
     @FXML
     private Label totalSessions;
     @FXML
+    private Label totalSessionsExplainer;
+    @FXML
     private Label sessionsThisWeek;
+    @FXML
+    private Label sessionsThisWeekExplainer;
     @FXML
     private Label totalDuration;
     @FXML
@@ -72,14 +76,16 @@ public class StatisticsWindow extends ScrollPane {
     /** Retrieves and displays numerical stats, like the total number of login sessions. */
     private void displaySummaryStats() {
         int numSessions = userStats.getSessionList().getNumberOfSessions();
-        this.totalSessions.setText("Total login sessions: " + numSessions
-            + (numSessions == 1 ? " session" : " sessions"));
+        this.totalSessions.setText(String.valueOf(numSessions));
+        this.totalSessionsExplainer.setText("login"
+            + (numSessions == 1 ? " session" : " sessions") + " all time");
 
         SessionList sublistForThisWeek = SessionListUtil.getSublistForThisWeek(
             userStats.getSessionList());
         int numSessionsThisWeek = sublistForThisWeek.getNumberOfSessions();
-        this.sessionsThisWeek.setText("Total login sessions this week: " + numSessionsThisWeek
-            + (numSessionsThisWeek == 1 ? " session" : " sessions"));
+        this.sessionsThisWeek.setText(String.valueOf(numSessionsThisWeek));
+        this.sessionsThisWeekExplainer.setText("login"
+            + (numSessionsThisWeek == 1 ? " session" : " sessions") + " this week");
 
         String duration = userStats.getSessionList().getTotalDurationAsString();
         this.totalDuration.setText("Total login duration: " + duration);
