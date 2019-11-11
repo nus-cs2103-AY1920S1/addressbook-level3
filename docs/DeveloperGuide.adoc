@@ -356,7 +356,7 @@ Vehicle will be automatically assigned to the incident draft if any is available
 
 Below is a sequence diagram of a successful case:
 
-image::NewDraftSequenceDiagramAuto.png[width="500"]
+image::NewDraftSequenceDiagramAuto.png[width="600"]
 
 ==== Manual Vehicle Dispatchment:
 
@@ -366,7 +366,7 @@ User then inputs the index of vehicle based on the list of available vehicle in 
 
 Below is an activity diagram illustrating the above:
 
-image::DraftingActivityDiagram.png[width="500"]
+image::DraftingActivityDiagram.png[width="400"]
 
 
 ==== Design Considerations
