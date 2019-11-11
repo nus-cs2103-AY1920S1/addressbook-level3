@@ -18,7 +18,7 @@ This new application, FinSec, allows for these Finance Secretaries to easily sto
 
 This is what our project looks like:
 [[fig-PPP-ui]]
-.Structure of the Logic Component
+.Ui of the Project
 image::PPP-ui.png[width="400"]
 
 == Summary of contributions
@@ -76,7 +76,8 @@ user one more time to ensure that the command was not by accident.
 * *Other contributions*:
 
 ** Project management:
-*** There were a total of 5 releases, from version 1.0 to 1.4. I managed releases versions 1.0 and 1.2
+*** There were a total of 5 releases, from version 1.0 to 1.4. I managed releases versions 1.1 https://github.com/AY1920S1-CS2103T-W12-1/main/releases/tag/v1.1[v1.1] and 1.2.1 https://github.com/AY1920S1-CS2103T-W12-1/main/releases/tag/v1.2.1[v1.2.1]
+
 *** Fixed a few bugs found during PE. https://github.com/AY1920S1-CS2103T-W12-1/main/issues/269[269], https://github.com/AY1920S1-CS2103T-W12-1/main/issues/270[270],
 https://github.com/AY1920S1-CS2103T-W12-1/main/issues/262[262]
 
@@ -91,7 +92,7 @@ https://github.com/AY1920S1-CS2103T-W12-1/main/issues/262[262]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-W12-1/main/pull/74[74],
 https://github.com/AY1920S1-CS2103T-W12-1/main/pull/58[58], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/40[40]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/139[139],
+*** Reported bugs and suggestions for other teams in the class https://github.com/nus-cs2103-AY1920S1/forum/issues/139[139],
 https://github.com/nus-cs2103-AY1920S1/forum/issues/45[2]
 
 ** Tool:
