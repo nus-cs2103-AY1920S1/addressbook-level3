@@ -251,6 +251,9 @@ Format: `new dist/DISTRICT auto/N v/INDEX`
 * After the new incident is successfully created, the vehicle pane will show all vehicles in the given district.
 ****
 
+[IMPORTANT]
+For manual dispatchment of vehicle, the index of the chosen vehicle must be from the list of vehicles available in the given district, which is only displayed when `new dist/DISTRICT auto/N` is used.
+
 * Example usage:
 
 image::newCommandAutoNPromptSS.png[width="500"]
@@ -262,8 +265,6 @@ If multiple flags of the same prefix is provided by user, the command will take 
 For example `new dist/1 dist/2 dist/3 auto/Y auto/N` is equivalent to `new dist/3 auto/N`. +
 Rationale: user need not waste time backspacing if an input was keyed in wrongly.
 
-[IMPORTANT]
-For manual dispatchment of vehicle, the index of the chosen vehicle must be from the list of vehicles available in the given district, which is only displayed when `new dist/DISTRICT auto/N` is used.
 // end::new[]
 
 
