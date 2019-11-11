@@ -392,12 +392,6 @@ Aspect: De-conflict process
 
 // end::optimise[]
 
-// tag::autocomplete[]
-
-=== Autocomplete
-
-// end::autocomplete[]
-
 // tag::scheduleactivity[]
 === Schedule feature
 
@@ -529,64 +523,82 @@ If there other days to schedule, the steps taken will also be the same as Step 4
 There are many commands to learn in our program and some of the commands can be wordy. In order to ease the learning curve and to help the user be productive as quickly as possible, autocomplete was implemented.
 
 === Implementation
-The autocomplete feature provides a list of suggestions to the user as the user types the command. The `AutoCompleteParser` starts by parsing the user input into the command word, the preamble and a list of prefixes used in the program.
+*KEY IDEA:*
 
-After the input is parsed, the `AutoCompleteSuggester` gathers insight based on the parsed information and generate suggestions. If the command word is still being typed by the user, the `AutoCompleteSuggester` will suggest command words that partially matches the input. If the command word is in the input and that command word requires a preamble, `AutoCompleteSuggester` will suggest the preamble if the preamble has not been typed. Finally, the `AutoCompleteSuggester` will check the possible prefix for the command. The required prefix will appear at the top of the suggestions while optionals will be at the bottom.
+Every command in the planner can be broadly broken down into a few categories, namely:
 
-Given below is a sequence diagram showing the generation of suggestions in `AutoCompleteSuggester`:
+. Command Word
+. Preamble
+. Required Prefix
+.. That are used once
+.. That are used multiple times
+. Optional Prefix
+.. That are used once
+.. That are used multiple times
 
-image::AutoScheduleSequenceDiagram.png[]
+AutoCompleteSuggester makes use of this and checks the input for these categories one by one.
 
-Below are the steps taken when executing of the `AutoScheduleCommand`:
+* If the input lacks the command word, then the best matching command word will be suggested.
+* If the command word is provided, but the preamble is not (and it is required by the command), then the preamble will be suggested.
+* If the input contains the command word and contains the preamble(when necessary), then the required prefixes and optional prefixes will be suggested. Since there are some prefix that should only be used, the input will be checked to see if these prefixes are present and remove them from the suggestions.
 
-*Step 1.* `AutoScheduleCommand` will firstly get the `list of days` and `list of activities` from the `Model` class
+The `AutoCompleteParser` supports the `AutoCompleteSuggester` by parsing the user input into the command word, the preamble and a list of prefixes used in the program.
 
-*Step 2.* If address is specified, the `list of activities` will be filtered to get all activities that has the same `address`.
+Given below is a sequence diagram showing the generation of suggestions:
 
-*Step 3.* If no `day indexes` to schedule are being specified, `AutoScheduleCommand` will generate a schedule for all `days`.
+.Sequence diagram showing the generation of suggestions.
+image::AutoCompleteSuggesterSequenceDiagram.png[]
 
-Below shows the checks taken by `AutoScheduleCommand` before it proceeds to schedule:
+.Sub diagram for getPossibilities
+image::AutoCompleteSuggesterGetPossibilitiesSequenceDiagram.png[]
 
-.Activity diagram showing how `AutoScheduleCommand` checks the requirement given by user:
-image::AutoScheduleActivityDiagram1.png[]
+Below is how the `autocomplete` feature is triggered:
 
-After filtering the activity list, `AutoScheduleCommand` will proceed to begin preparation for the scheduling of the first activity of those specified day(s).
+*Step 1.* Modification in the text of `AutoCompleteTextField` is detected.
 
-*Step 4.* It will filter the list that has been filtered by address to get all the activities with the same tag or activity name as the first activity to schedule.
+*Step 2.* If the input is empty, hide the pop-up box which contains the suggestions. If not empty, get entries (suggestions) for the pop-up box.
 
-*Step 5.* After which it will sort the list such that the activity that has not been scheduled will be scheduled first.It will ensure that for cases where both activities has not been scheduled before, the one with the higher priority will be scheduled first.
+*Step 3.* If there are entries, populate the pop-up box with it. Else, hide the pop-up box.
 
-.Activity diagram showing how `AutoScheduleCommand` handles the preparation for the scheduling of the first activity:
-image::AutoScheduleActivityDiagram2.png[]
+*Step 4.* If pop-up box in previous step was populated, then show the pop-up box to the user.
 
-*Step 6.* Next, `AutoScheduleCommand` will check if the chosen activity to be scheduled does not overlap with the start time of the next activity if user specify.
+.Activity diagram showing how the pop-up box containing the suggestions appears:
+image::AutoCompleteActivityDiagram1.png[]
 
-*Step 7.* If the chosen activity overlaps, it will traverse the filtered list, picking the next activity with the **next lowest count** in the itinerary and check if it overlaps.
-The process will continue until it finds a suitable activity or it has finished traversing the whole filtered list. If the activity to be scheduled is the last activity, it will instead check to ensure that it does not overlap til the next day.
+Below is how entries for the pop-up box is obtained:
 
-.Activity diagram showing how `AutoScheduleCommand` finds an activity to schedule:
-image::AutoScheduleActivityDiagram3.png[]
+*Step 1.* Check if input contains '<' or '>', as that would indicate that the user has accepted the suggestion of preamble, which has description enclosed with < and > (for e.g. <INDEX>) but has not replaced it with the actual preamble. If it has '<' or '>', then don't give suggestions to user.
 
-Step 4 to Step 7 will repeat for the next activity to schedule for that day until it reaches the last activity to schedule for that day or it could not find a suitable activity to schedule.
-If there other days to schedule, the steps taken will also be the same as Step 4 to Step 7.
+*Step 2.* If the input does not contain '<' or '>', parse the command word.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 3.* Next check if command word can be found. If it is not found, suggest command words that partially matches what the user has already inputted. If command word was found, do a check if there is a space at the end of the input.
+
+*Step 4.* If there is no space, don't give suggestions to the user as it is assumed that the user is still typing. If there is a space, then parse preamble, parse prefix and make suggestions based on the command word, preamble and prefix present in the input.
+
+.Activity diagram showing how entries for the pop-up box is generated:
+image::AutoCompleteActivityDiagram2.png[]
 
 ==== Design Considerations
 
-===== Aspect: Counting the number of times each activity of the same name or tag appears in the list
-* **Current Choice:** Count the number of times all the similar activities appear in the itinerary every time we are planning to schedule an activity.
-** Pros: It will ensure that the count number for the similar activities will always be right before they are chosen to be scheduled
-** Cons: Slow down the program as we have to traverse through all the activities for each day.
-* **Alternative:** Have a counter inside the activity itself to keep track
-** Pros: Significantly improve the runtime speed and less complicated to implement
-** Cons: Over time, the count might be inaccurate due to multiple scheduling and unscheduling which alter the count number and we might not have keep track of it at certain point of time.
+===== Aspect: Underlying data structure to store the command words
+* **Current Choice:** Use an ArrayList
+** Pros: Simple to implement.
+** Cons: Might be slow in providing suggestion for the command word, as in the worse case, it needs to iterate through every command word entry and check with every entry.
+* **Alternative:** Use a Trie
+** Pros: Faster in providing suggestion for command word as it only has to iterate through the length of the input.
+** Cons: More complicated to implement. The Trie also needs to be built during startup.
 
-===== Aspect: Account for travelling time
-* **Current Choice:** Allows user to input the start time of activity
-** Pros: Gives user the flexibility and they better able to gauge their own travelling time of each activity
-** Cons: It restrict the number of possible activities that could be scheduled as we have to consider activity not overlapping with the start time of the next activty.
-* **Alternative:** Fix a break of 30min between every activity to acount for travel time
-** Pros: Activities that user prioritised are more likely to be scheduled as we do not have to consider overlap of the start time of next activity.
-** Cons: Certain activity may require more travelling time. If we fix a longer travelling time, it might not be optimising the schedule plan as certain activity might have shorter travelling time.
+* **Reason for choice**: Given that the program does not have many commands and unlikely to have a significant number more commands in the future, search times are not an issue.
+
+===== Aspect: Checking if the user has completed typing the command word/preamble/prefix content
+* **Current Choice:** Assumes the user has finished the command word/preamble/prefix content when there is a whitespace at the end of input
+** Pros: Simple to implement. Works in most cases.
+** Cons: Might be wrong when suggesting new prefix as there are some commands like autoschedule that have prefixes that can have 2 arguments (autoschedule t/argument1 argument2 d/argument1 argument2...)
+* **Alternative:** Waits for a specific duration of time before giving user suggestions
+** Pros: More likely to provide suggestions when the user needs it.
+** Cons: There might be a noticeable delay in the suggestions appearing if the specific duration is too long. More complicated to implement.
 // end::autocomplete[]
 
 === Logging

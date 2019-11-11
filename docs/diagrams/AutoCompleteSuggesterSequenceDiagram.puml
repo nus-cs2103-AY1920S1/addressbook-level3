@@ -13,28 +13,33 @@ activate AutoCompleteTextField
 alt input contains '<' or '>'
     [<-- AutoCompleteTextField : emptyList
 else else
-    AutoCompleteTextField --> AutoCompleteParser : parseCommandWord(input)
+    AutoCompleteTextField -> AutoCompleteParser : parseCommandWord(input)
     activate AutoCompleteParser
     AutoCompleteParser --> AutoCompleteTextField : command
     deactivate AutoCompleteParser
-    alt userMightStillBeTyping
+    AutoCompleteTextField -> AutoCompleteTextField : userMightStillBeTyping(input)
+    activate AutoCompleteTextField
+    AutoCompleteTextField --> AutoCompleteTextField : userIsTyping
+    deactivate AutoCompleteTextField
+
+    alt userIsTyping
         [<-- AutoCompleteTextField : emptyList
     else else
-        AutoCompleteTextField --> AutoCompleteParser : parsePreamble(input, command)
+        AutoCompleteTextField -> AutoCompleteParser : parsePreamble(input, command)
         activate AutoCompleteParser
         AutoCompleteParser --> AutoCompleteTextField : preamble
         deactivate AutoCompleteParser
-        AutoCompleteTextField --> AutoCompleteParser : parsePrefix(input)
+        AutoCompleteTextField -> AutoCompleteParser : parsePrefix(input)
         activate AutoCompleteParser
         AutoCompleteParser --> AutoCompleteTextField : listOfPrefixPresent
         deactivate AutoCompleteParser
-        AutoCompleteTextField --> AutoCompleteSuggester : getPossibilities(command, preambleIsPresent, listOfPrefixPresent)
+        AutoCompleteTextField -> AutoCompleteSuggester : getPossibilities(command, preambleIsPresent, listOfPrefixPresent)
         activate AutoCompleteSuggester
         ref over AutoCompleteSuggester : **getPossibilities**
-    end
         AutoCompleteSuggester --> AutoCompleteTextField : possibilities
         deactivate AutoCompleteSuggester
         [<-- AutoCompleteTextField : possibilities
+        deactivate AutoCompleteTextField
+    end
 end
-deactivate AutoCompleteTextField
 @enduml

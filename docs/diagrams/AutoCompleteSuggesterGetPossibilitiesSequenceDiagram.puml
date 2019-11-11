@@ -3,25 +3,68 @@
 'sub-diagram getPossibilities
 box Logic LOGIC_COLOR_T1
 participant "**:AutoCompleteSuggester**" as AutoCompleteSuggester LOGIC_COLOR
+participant "**commandInformation:CommandInformation**" as CommandInformation LOGIC_COLOR
 end box
-List
+participant "**possibilities:List**" as possibilities USER_COLOR_2
 
 [-> AutoCompleteSuggester : getPossibilities(command, preambleIsPresent, listOfPrefixPresent)
 activate AutoCompleteSuggester
-AutoCompleteSuggester --> AutoCompleteSuggester : findMatchingCommandInformation(command)
+AutoCompleteSuggester -> AutoCompleteSuggester : findMatchingCommandInformation(command)
+activate AutoCompleteSuggester
+AutoCompleteSuggester --> AutoCompleteSuggester : commandInformation
+deactivate AutoCompleteSuggester
 alt CommandNotFound
-    AutoCompleteSuggester --> AutoCompleteSuggester : closestMatchingCommand(command)
-    [<-- AutoCompleteSuggester : closestCommands
+    AutoCompleteSuggester -> AutoCompleteSuggester : closestMatchingCommand(command)
+    activate AutoCompleteSuggester
+    AutoCompleteSuggester --> AutoCompleteSuggester : closestCommands
+    deactivate AutoCompleteSuggester
+    AutoCompleteSuggester -> possibilities : addAll(closestCommands)
+    activate possibilities
+    deactivate possibilities
+
+    [<-- AutoCompleteSuggester : possibilities
 else command has preamble and preamble not present in input
-    AutoCompleteSuggester --> AutoCompleteSuggester : possibilities.add(commandInformation.getPreamble().get())
+    AutoCompleteSuggester -> CommandInformation : getPreamble()
+    activate CommandInformation
+    CommandInformation --> AutoCompleteSuggester : preamble
+    deactivate CommandInformation
+    AutoCompleteSuggester -> possibilities : add(preamble)
+    activate possibilities
+    deactivate possibilities
     [<-- AutoCompleteSuggester : possibilities
 else else
-    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleRequiredPrefixSingle(commandInformation, prefixesPresent);
-    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleRequiredPrefixMultiple(commandInformation);
-    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleOptionalPrefixSingle(commandInformation, prefixesPresent);
-    AutoCompleteSuggester --> AutoCompleteSuggester : getPossibleOptionalPrefixMultiple(commandInformation);
-    AutoCompleteSuggester --> List : getPossibleOptionalPrefixMultiple(commandInformation);
+    AutoCompleteSuggester -> AutoCompleteSuggester : getPossibleRequiredPrefixSingle(commandInformation, prefixesPresent)
+    activate AutoCompleteSuggester
+    AutoCompleteSuggester --> AutoCompleteSuggester : possibleRequiredPrefixSingle
+    deactivate AutoCompleteSuggester
+    AutoCompleteSuggester -> possibilities : addAll(possibleRequiredPrefixSingle)
+    activate possibilities
+    deactivate possibilities
+
+    AutoCompleteSuggester -> AutoCompleteSuggester : getPossibleRequiredPrefixMultiple(commandInformation)
+    activate AutoCompleteSuggester
+    AutoCompleteSuggester --> AutoCompleteSuggester : possibleRequiredPrefixMultiple
+    deactivate AutoCompleteSuggester
+    AutoCompleteSuggester -> possibilities : addAll(possibleRequiredPrefixMultiple)
+    activate possibilities
+    deactivate possibilities
+
+    AutoCompleteSuggester -> AutoCompleteSuggester : getPossibleOptionalPrefixSingle(commandInformation, prefixesPresent)
+    activate AutoCompleteSuggester
+    AutoCompleteSuggester --> AutoCompleteSuggester : possibleOptionalPrefixSingle
+    deactivate AutoCompleteSuggester
+    AutoCompleteSuggester -> possibilities : addAll(possibleOptionalPrefixSingle)
+    activate possibilities
+    deactivate possibilities
+
+    AutoCompleteSuggester -> AutoCompleteSuggester : getPossibleOptionalPrefixMultiple(commandInformation)
+    activate AutoCompleteSuggester
+    AutoCompleteSuggester --> AutoCompleteSuggester : possibleOptionalPrefixMultiple
+    deactivate AutoCompleteSuggester
+    AutoCompleteSuggester -> possibilities : addAll(possibleOptionalPrefixMultiple)
+    activate possibilities
+    deactivate possibilities
     [<-- AutoCompleteSuggester : possibilities
+    deactivate AutoCompleteSuggester
 end
-deactivate AutoCompleteSuggester
 @enduml

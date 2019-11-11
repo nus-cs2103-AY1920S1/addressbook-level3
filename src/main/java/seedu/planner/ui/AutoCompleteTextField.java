@@ -49,7 +49,7 @@ public class AutoCompleteTextField extends TextField {
                     entriesPopup.hide();
                 } else {
                     if (entries.size() > 0) {
-                        populatePopup(entries);
+                            populatePopup(entries);
                         if (!entriesPopup.isShowing()) {
                             entriesPopup.show(AutoCompleteTextField.this, Side.BOTTOM, 0, 0);
                         }
