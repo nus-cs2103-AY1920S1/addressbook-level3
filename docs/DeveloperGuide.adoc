@@ -129,7 +129,7 @@ An outline of how a command is processed through `Logic` is as follows:
 . The command execution can affect the `Model` (e.g. adding a person, transaction).
 . The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui` (not depicted).
 
-A general sequence diagram depicting the above outline is shown below:
+A general Sequence Diagram depicting the above outline is shown below:
 
 [[GeneralLogicSD]]
 .Sequence Diagram for execution within `Logic`.
@@ -423,7 +423,7 @@ These are the definitions of the methods shown above:
 * `Model#addTransaction(transaction): It adds the given `Transaction` object to its `TransactionList` objects attributes.
 
 Thus, when the `Model#resetPredicate()` method is called in the `AddCommand`, the UI table will immediately shows the full transaction list regardless of the list shown at the start of the <<activityDiagramAdd, Activity Diagram>>.
-If the prior command was a find command, then the list in the beginning of the Activity Diagram would be a filtered list but after the Add command is executed, the full list of transactions would be shown.
+If the prior command was a Find command, then the list in the beginning of the Activity Diagram would be a filtered list but after the Add command is executed, the full list of transactions would be shown.
 
 After the command is executed, the `LogicManager` updates the in-app list of transactions via the `ModelManager` and updates the data file via the `StorageManager`.
 The following Sequence Diagram shows how the updating of the list of transactions in the app and in the data file:
@@ -448,7 +448,7 @@ This update of the Reimbursements tab is done for every command after the list o
 [[activityDiagramAdd]]
 To better illustrate the flow of events from the moment a user inputs a command till the completion of the command, the Activity Diagram for the Add command is shown below:
 
-.Activity Diagram of the add command in the Home tab (transaction package)
+.Activity Diagram of the Add command in the Home tab (transaction package)
 image::HomeTabActivityDiagramAddCommand.png[]
 
 As shown, when a user does not input all the compulsory fields or input a name that does not match anyone in the `AddressBook`, a response to inform the user of the incorrect input is shown and when a successful addition is done, a response message is shown as well by our mascot, Leo.
@@ -462,7 +462,7 @@ This section explains the implementation of the Delete command in the Home tab.
 This feature allows for 2 types of deletion, by the index shown in the table or by the person's name.
 Inputting the person's name will cause all transactions linked to that person to be deleted.The following Activity Diagram shows the steps needed to delete a new transaction:
 
-.Activity Diagram of the delete command in the Home tab (transaction package)
+.Activity Diagram of the Delete command in the Home tab (transaction package)
 image::HomeTabActivityDiagramDeleteCommand.png[]
 
 The above Activity Diagram assumes the index to be within the bounds of the table but if it is not, a response will be shown about the incorrect input.
@@ -566,7 +566,7 @@ This feature allows for deletion by the index shown in the the Members tab.
 This tab integrates the existing `AddressBook`.
 The following Sequence Diagram shows how the Delete command works:
 
-.Sequence Diagram of the delete command in the Member tab (transaction package)
+.Sequence Diagram of the Delete command in the Member tab (transaction package)
 image::MembersDeleteSD.png[]
 
 Before, the deletion is done, there will be a check to the `TransactionModel` to ensure that the member is not linked to any transaction records since every transaction must be linked to a `Person` in the `Members Tab` (`AddressBook`).
@@ -618,7 +618,7 @@ Otherwise, when the execution is successful, a response informs the user that de
 ==== Find Command feature
 
 This command is used to find a reimbursement that contains the person's name.
-The find command requires access to `Model` of the person package which the `AddressBook` implementation is contained in.
+The Find command requires access to `Model` of the person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
 .Sequence Diagram of Find Command in Reimbursements tab (reimbursement package)
@@ -633,14 +633,14 @@ After the operations, that reimbursement is returned and reimbursement tab only 
 .Activity Diagram of Find Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[]
 
-The above activity diagram shows the steps needed for find command.
+The above activity diagram shows the steps needed for Find command.
 The person's name is checked whether it exists in reimbursement list.
 If not, our app informs the user that command is incorrect.
 If command is valid, the reimbursement is found and displayed in the tab.
 
 ==== Back Command feature
 
-This command is used to return to the original list after executing find command
+This command is used to return to the original list after executing Find command
 
 .Sequence Diagram of Back Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementBackCommandSD.png[]
@@ -732,14 +732,14 @@ The following Class Diagram shows the architectural design of the tab:
 image::InventoryTabClassDiagram.png[]
 
 ==== Add Item Feature
-This section explains the implementation of the add command feature of the Inventory Tab,
+This section explains the implementation of the Add command feature of the Inventory Tab,
 which allows the addition of items to the inventory. These items are represented by `Item` objects.
 The addition of an `Item` to the inventory requires an input of the `Item`’s description, category, quantity, and cost.
 The price field is optional and may be added only to an `Item` meant for sale.
 
 The following Sequence Diagram shows how the AddCommandParser creates an `Item`:
 
-.Sequence Diagram of the add command parser in the Inventory tab (inventory package)
+.Sequence Diagram of the Add command parser in the Inventory tab (inventory package)
 image::inventoryDG/AddCommandParserSeqDiagram.png[]
 
 As seen in the above diagram, the parser takes in the user input as well as the existing `InventoryList`. Within the
@@ -767,24 +767,24 @@ After the `Item` is created and the command is executed, the `LogicManager` upda
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
 AddCommand works:
 
-.Sequence Diagram of the add command in the Inventory tab (inventory package)
+.Sequence Diagram of the Add command in the Inventory tab (inventory package)
 image::inventoryDG/AddCommandSeqDiagram.png[]
 
 For a greater understanding of the flow of events and checks, you may consult the following activity diagram that
-shows the steps that follow the input of an add command:
+shows the steps that follow the input of an Add command:
 
-.Activity Diagram of the add command in the Inventory tab (inventory package)
+.Activity Diagram of the Add command in the Inventory tab (inventory package)
 image::inventoryDG/AddCommandFlowChart.png[]
 
 ==== Delete Item Feature
 
-This section explains the implementation of the delete command feature of the Inventory Tab, which allows the deletion
+This section explains the implementation of the Delete command feature of the Inventory Tab, which allows the deletion
 of items from the inventory. This feature requires only the command keyword and an index or description as input.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
 `DeleteCommand` works:
 
-.Sequence Diagram of the delete command in the Inventory tab (inventory package)
+.Sequence Diagram of the Delete command in the Inventory tab (inventory package)
 image::inventoryDG/DeleteCommandSeqDiagram.png[]
 
 The `DeleteCommandParser` is responsible for checking the validity of the input, and does not allow any indexes that
@@ -796,24 +796,24 @@ After the command is executed and the `Item` is deleted, the `LogicManager` upda
 
 ==== Edit Item Feature
 
-This section explains the implementation of the edit command feature of the Inventory Tab, which allows you to edit
+This section explains the implementation of the Edit command feature of the Inventory Tab, which allows you to edit
 items in the inventory. This feature requires the command keyword, an index and at least one field as input.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
 `EditCommand` works:
 
-.Sequence Diagram of the edit command in the Inventory tab (inventory package)
+.Sequence Diagram of the Edit command in the Inventory tab (inventory package)
 image::inventoryDG/EditCommandSeqDiagram.png[]
 
 ==== Sort Items Feature
 
-This section explains the implementation of the sort command feature of the Inventory Tab, which allows the sorting
+This section explains the implementation of the Sort command feature of the Inventory Tab, which allows the sorting
 of items within the inventory. There are 3 ways items can be sorted - by description, category or quantity.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
 `SortCommand` works:
 
-.Sequence Diagram of the sort command in the Inventory tab (inventory package)
+.Sequence Diagram of the Sort command in the Inventory tab (inventory package)
 image::inventoryDG/SortCommandSeqDiagram.png[]
 
 ==== Overall Design Considerations
@@ -917,21 +917,21 @@ There will also be checks to ensure that the item specified is available for sal
 
 If description and quantity are both valid, the `ModelManager` will add the item into the sales list as shown in Figure 2.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works:
+The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works:
 
 
 .Sequence Diagram of Add Command in Cashier tab (cashier package)
 image::AddCommandCashierSeq.png[]
 
 [NOTE]
-After every add command, the quantity of items in the Inventory tab will still remain the same. The remaining stock
+After every Add command, the quantity of items in the Inventory tab will still remain the same. The remaining stock
 will only be updated after the Checkout Command.
 
 
 [NOTE]
 Once the item is added, boolean `onCashierMode` in ModelManager will be immediately set to true if it is initially false.
 
-The following activity diagram shows the steps proceeding after the user input an add command:
+The following activity diagram shows the steps proceeding after the user input an Add command:
 
 .Activity Diagram of Add Command (cashier package)
 image::AddCommandCashierActivity.png[]
@@ -945,14 +945,14 @@ To set a cashier, the person's name inputted has to match an existing name in th
 This means that SetCommandParser requires access to the `Model` of the Person package where the `AddressBook` implementation is. +
 If the person's name cannot be found in the `Model` of the Person package, a response message will be shown by Leo, informing the user that there is no such person.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the SetCashierCommandParser checks for an existing person:
+The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the SetCashierCommandParser checks for an existing person:
 
 .Sequence Diagram of SetCashierCommandParser (cashier package)
 image::SetCashierCommandSeq1.png[]
 
 If the specified name is valid, the `Model` of the cashier package will set the person as cashier.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the set cashier command works:
+The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the set cashier command works:
 
 .Sequence Diagram of Set Cashier Command (cashier package)
 image::SetCashierCommandSeq2.png[]
@@ -982,7 +982,7 @@ After the execution of the above methods, a clear command will then be called au
 [NOTE]
 After checkout command is executed, boolean `onCashierMode` in ModelManager will be immediately set to false.
 
-The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the checkout command is executed:
+The following Sequence Diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the checkout command is executed:
 
 .Sequence Diagram of Checkout Command (cashier package)
 image::CheckoutCommandCashierSeq1.png[]
@@ -991,7 +991,7 @@ The `Cashier Logic` will call relevant methods to update the inventory list and 
 To update the view on the Inventory tab and Transaction tab, transaction will be added to the transaction `Model` and
 `readInUpdatedList()` method of inventory `Model` will called to read in the entire inventory data file.
 
-The following sequence diagram shows how the transaction and inventory are updated:
+The following Sequence Diagram shows how the transaction and inventory are updated:
 
 .Sequence Diagram of how transaction and inventory get updated (cashier package)
 image::CheckoutCommandCashierSeq2.png[]
@@ -1079,7 +1079,7 @@ to set percentage thresholds for notifications.
 
 This feature allows the user to set a goal for their budget, expense or sales targets.
 
-The following sequence diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
+The following Sequence Diagram depicts how the Set Command operates, and is an extension of the general sequence diagram
 found in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>:
 
 .Sequence Diagram of Set Command in the Overview package.
@@ -1093,7 +1093,7 @@ the data file.
 This feature allows the user to set a percentage threshold for notifications. Upon hitting that percentage for a
 particular financial goal, the user will automatically be notified of it with a message from Leo.
 
-The following sequence diagram depicts how the Notify Command operates, and is an extension of the general sequence
+The following Sequence Diagram depicts how the Notify Command operates, and is an extension of the general sequence
 diagram found in <<GeneralLogicSD, 2.3 Logic component: Figure 5>>:
 
 .Sequence Diagram of Notify Command in the Overview Package
@@ -1481,7 +1481,7 @@ Use case resumes from step 4
 
 *MSS*
 
-1. User type in command field with add command
+1. User type in command field with Add command
 2. Lion replies with success message
 3. Table shows list of transactions
 
@@ -1512,7 +1512,7 @@ Lion replies with wrong input message if input is invalid
 Lion replies with wrong input if invalid index inputted
 
 * 3a.
-User input back command for table to show all transactions if find command was prior to the delete command
+User input back command for table to show all transactions if Find command was prior to the Delete command
 
 [discrete]
 === Use Case 4: Delete a transaction by the person's name
@@ -1535,7 +1535,7 @@ User input back command for table to show all transactions if find command was p
 Lion replies with wrong input if invalid index inputted
 
 * 3a.
-User input back command for table to show all transactions if find command was prior to the delete command
+User input back command for table to show all transactions if Find command was prior to the Delete command
 
 [discrete]
 === Use Case 5: Edit a transaction
@@ -1560,14 +1560,14 @@ User input back command for table to show all transactions if find command was p
 Lion replies with wrong input message if there is invalid index or person given
 
 * 3a.
-User input back command for table to show all transactions if find command was prior to the delete command
+User input back command for table to show all transactions if Find command was prior to the Delete command
 
 [discrete]
 === Use Case 6: Sort transactions
 
 *MSS*
 
-1. Type in command field with sort command
+1. Type in command field with Sort command
 2. Lion replies with success message
 3. List is sorted
 
@@ -1875,7 +1875,7 @@ Timestamp in the status bar is updated.
 Expected: No person is deleted.
 Error details shown in the status message.
 Status bar remains the same.
-.. Other incorrect delete commands to try: [blue]`delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect Delete commands to try: [blue]`delete`, `delete x` (where x is larger than the list size) _{give more}_ +
 Expected: Similar to previous.
 
 . Deleting a person when it has a transaction record
@@ -1893,7 +1893,7 @@ Expected: The person at the index of 1 is edited with the specified parameters.
 Expected: Nothing is edited and Leo responds to inform of this.
 . Test case 3: [blue]`edit 0 p/91234567 e/johndoe@example.com` +
 Expected: No person is edited and Leo responds to inform of this.
-.. Other incorrect delete commands to try: [blue]`edit`, `edit x` (where x is larger than the list size) +
+.. Other incorrect Delete commands to try: [blue]`edit`, `edit x` (where x is larger than the list size) +
 Expected: Similar to previous.
 
 . Finding a person
@@ -1950,10 +1950,10 @@ Expected: The reimbursements are sorted based on alphabetical order of the names
 Expected: The reimbursements are sorted based on amount of money.
 .. Test case 4: [blue]`sort` +
 Expected: Leo responds with an error message that
-sort command is invalid.
+Sort command is invalid.
 .. Test case 5: [blue]`sort amount date` +
 Expected: Leo responds with an error message that
-sort command is invalid.
+Sort command is invalid.
 
 . Going back to display the full list
 .. Prerequisites: The [blue]`find` or [blue]`deadline` commands have been used.
@@ -2010,9 +2010,9 @@ the item before and after the edit.
 Expected: The item at index 1 now has an empty description. Leo responds with a success message comparing
 the item before and after the edit.
 .. Test case 2: [blue]`edit` +
-Expected: Leo responds with an error message detailing the correct edit command format.
+Expected: Leo responds with an error message detailing the correct Edit command format.
 .. Test case 2: [blue]`edit 1` +
-Expected: Leo responds with an error message that the item was not edited and detailing the correct edit command format.
+Expected: Leo responds with an error message that the item was not edited and detailing the correct Edit command format.
 
 . Sorting the items
 .. Test case 1: [blue]`sort description` +
