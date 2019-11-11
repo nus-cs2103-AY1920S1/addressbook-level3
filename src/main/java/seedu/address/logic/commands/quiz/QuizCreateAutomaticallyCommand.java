@@ -81,9 +81,9 @@ public class QuizCreateAutomaticallyCommand extends QuizCommand {
      */
     private String generateSuccessMessage() {
         if (numQuestions == 1) {
-            return "Created Quiz: " + quizId + " with " + numQuestions + " question.";
+            return "Created quiz: " + quizId + " with " + numQuestions + " question.";
         } else {
-            return "Created Quiz: " + quizId + " with " + numQuestions + " questions.";
+            return "Created quiz: " + quizId + " with " + numQuestions + " questions.";
         }
     }
 

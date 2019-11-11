@@ -110,14 +110,6 @@ public class QuestionBank implements Iterable<Question> {
         requireAllNonNull(target, editedQuestion);
 
         int index = questions.indexOf(target);
-        if (index == -1) {
-            //throw new StudentNotFoundException();
-        }
-
-        if (!target.isSameQuestion(editedQuestion) && contains(editedQuestion)) {
-            //throw new DuplicateStudentException();
-        }
-
         questions.set(index, editedQuestion);
     }
 
@@ -217,21 +209,6 @@ public class QuestionBank implements Iterable<Question> {
         String summary = "Below is the list of questions.\n"
             + "There are currently " + questions.size() + " questions saved.\n";
         return summary;
-    }
-
-    /**
-     * Returns true if a question has been repeated, else false.
-     *
-     * @param question The question to be checked.
-     * @return True if the question has been repeated, else false.
-     */
-    private boolean isRepeated(Question question) {
-        for (Question q : questions) {
-            if (q.isSameQuestion(question)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     /**

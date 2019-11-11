@@ -21,6 +21,9 @@ import seedu.address.model.event.EventRecord;
 import seedu.address.model.event.ReadOnlyVEvents;
 import seedu.address.testutil.model.ModelStub;
 
+/**
+ * Event add command test.
+ */
 public class EventAddCommandTest {
 
     private static final String VALID_EVENT_NAME = "my event";

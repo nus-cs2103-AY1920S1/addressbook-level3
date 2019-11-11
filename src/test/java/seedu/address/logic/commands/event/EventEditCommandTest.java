@@ -27,6 +27,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
+/**
+ * Tests for event edit command.
+ * Contains integration testing due to interactions between model manager and EditCommand.
+ */
 public class EventEditCommandTest {
 
     private static final String EDITED_EVENT_NAME = "Edited event name";

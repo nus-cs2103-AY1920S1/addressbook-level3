@@ -190,7 +190,6 @@ public class StorageManager implements Storage {
     }
     //endregion
 
-
     //region EventRecord methods
     @Override
     public Path getEventRecordFilePath() {
@@ -224,7 +223,7 @@ public class StorageManager implements Storage {
     public String exportEvent(ReadOnlyVEvents eventRecord) throws IOException {
         return eventExport.exportEvent(eventRecord);
     }
-    //endRegion
+    //endregion
 
     @Override
     public void savePrintable(NjoyPrintable printable) throws IOException {

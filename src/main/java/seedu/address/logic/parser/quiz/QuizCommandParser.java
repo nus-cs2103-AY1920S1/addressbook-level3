@@ -155,6 +155,13 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             }
         }
 
+        if (intQuestionNumber == 0) {
+            intQuestionNumber = -1;
+        }
+        if (intQuizQuestionNumber == 0) {
+            intQuizQuestionNumber = -1;
+        }
+
         return new QuizAddQuestionCommand(quizId, intQuestionNumber, intQuizQuestionNumber);
     }
 
@@ -179,6 +186,10 @@ public class QuizCommandParser implements Parser<QuizCommand> {
             if (isNumeric(quizQuestionNumber)) {
                 intQuizQuestionNumber = Integer.parseInt(quizQuestionNumber);
             }
+        }
+
+        if (intQuizQuestionNumber == 0) {
+            intQuizQuestionNumber = -1;
         }
 
         return new QuizDeleteQuestionCommand(quizId, intQuizQuestionNumber);
