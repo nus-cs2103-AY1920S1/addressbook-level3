@@ -11,6 +11,7 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.messages.Notification;
 
 /**
  * Unmodifiable view of an guilttrip book
@@ -40,4 +41,7 @@ public interface ReadOnlyGuiltTrip extends Observable {
     ObservableList<Reminder> getReminderList();
 
     ObservableList<Condition> getConditionList();
+
+    ObservableList<Notification> getNotificationList();
+
 }

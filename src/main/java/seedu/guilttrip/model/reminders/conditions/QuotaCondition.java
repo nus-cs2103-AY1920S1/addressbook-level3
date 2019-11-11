@@ -8,16 +8,26 @@ import seedu.guilttrip.model.entry.Entry;
  */
 public class QuotaCondition extends Condition {
     private double quota;
+    private boolean isLowerBound;
     private Predicate<Entry> quotaPredicate = new Predicate<>() {
         @Override
         public boolean test(Entry entry) {
-            return entry.getAmount().value >= quota;
+            if (isLowerBound) {
+                return entry.getAmount().value >= quota;
+            } else {
+                return entry.getAmount().value <= quota;
+            }
         }
     };
-    public QuotaCondition(Double quota) {
+    public QuotaCondition(Double quota, boolean isLowerBound) {
         super("Quota Condition");
         this.quota = quota;
+        this.isLowerBound = isLowerBound;
         super.setPred(quotaPredicate);
+    }
+
+    public boolean isLowerBound() {
+        return this.isLowerBound;
     }
     public double getQuota() {
         return quota;
@@ -29,7 +39,8 @@ public class QuotaCondition extends Condition {
         } else if (!(other instanceof QuotaCondition)) {
             return false;
         } else {
-            return this.quota == (((QuotaCondition) other).quota);
+            return this.quota == (((QuotaCondition) other).quota)
+                    && this.isLowerBound == ((QuotaCondition) other).isLowerBound;
         }
     }
 }

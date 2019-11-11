@@ -2,8 +2,6 @@ package seedu.guilttrip.logic.parser.remindercommandparsers;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.List;
-
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
 import seedu.guilttrip.logic.parser.Parser;
@@ -21,7 +19,7 @@ public class RemoveConditionFromReminderCommandParser implements Parser<RemoveCo
      */
     public RemoveConditionFromReminderCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        List<Index> indexes = ParserUtil.parseIndexes(args);
-        return new RemoveConditionFromReminderCommand(indexes.get(0), indexes.get(1));
+        Index index = ParserUtil.parseIndex(args.trim());
+        return new RemoveConditionFromReminderCommand(index);
     }
 }

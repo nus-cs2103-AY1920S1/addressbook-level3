@@ -28,8 +28,10 @@ import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.ReminderList;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.ConditionsManager;
+import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
+import seedu.guilttrip.ui.UiManager;
 
 /**
  * Wraps all data at the guilttrip-book level Duplicates are not allowed (by
@@ -86,6 +88,10 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
                 this.addCategory(sampleCategory);
             }
         }
+    }
+
+    public void linkReminderListToUi(UiManager uiManager) {
+        this.reminders.linkToUi(uiManager);
     }
 
     //// list overwrite operations
@@ -171,6 +177,13 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     }
 
     //// entry-level operations
+    public void selectReminder(Reminder reminder) {
+        reminders.setReminderSelected(reminder);
+    }
+
+    public Reminder getReminderSelected() {
+        return reminders.getReminderSelected();
+    }
     /**
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * guilttrip book.
@@ -184,6 +197,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * Returns true if a entry with the same identity as {@code entry} exists in the
      * guilttrip book.
      */
+
     public boolean hasIncome(Income income) {
         requireNonNull(income);
         return incomes.contains(income);
@@ -225,7 +239,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         return wishes.contains(entry);
     }
     /**
-     * Returns true if a reminder with the same identity as {@code reminder} exists
+     * Returns true if a generalReminder with the same identity as {@code generalReminder} exists
      * in the guilttrip book.
      */
     public boolean hasReminder(Reminder reminder) {
@@ -234,7 +248,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     }
 
     /**
-     * Returns true if a reminder with the same identity as {@code reminder} exists
+     * Returns true if a generalReminder with the same identity as {@code generalReminder} exists
      * in the guilttrip book.
      */
     public boolean hasCondition(Condition condition) {
@@ -325,7 +339,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
 
     /**
      * Adds the specified ExpenseTrackerReminder to the app.
-     * @param reminder the specified Reminder to be added.
+     * @param reminder the specified GeneralReminder to be added.
      */
     public void addReminder(Reminder reminder) {
         reminders.add(reminder);
@@ -407,6 +421,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void setExpense(Expense target, Expense editedEntry) {
         requireNonNull(editedEntry);
         expenses.setExpense(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -420,6 +435,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void setIncome(Income target, Income editedEntry) {
         requireNonNull(editedEntry);
         incomes.setIncome(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -433,6 +449,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void setWish(Wish target, Wish editedEntry) {
         requireNonNull(editedEntry);
         wishes.setWish(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -444,10 +461,10 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     }
 
     /**
-     * Replaces the given Reminder {@code target} in the list with {@code editedEntry}.
+     * Replaces the given GeneralReminder {@code target} in the list with {@code editedEntry}.
      * {@code target} must exist in the guilttrip book.
      * The ExpenseTracer identity of {@code editedTracker}
-     * must not be the same as another existing Reminder in the guilttrip book.
+     * must not be the same as another existing GeneralReminder in the guilttrip book.
      */
     public void setReminder(Reminder target, Reminder editedEntry) {
         requireNonNull(editedEntry);
@@ -464,16 +481,17 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void setBudget(Budget target, Budget editedEntry) {
         requireNonNull(editedEntry);
         budgets.setBudget(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
 
 
     /**
-     * Replaces the given reminder {@code target} in the list with {@code editedTracker}.
+     * Replaces the given generalReminder {@code target} in the list with {@code editedTracker}.
      * {@code target} must exist in the guilttrip book.
      * The ExpenseTracer identity of {@code editedTracker}
-     * must not be the same as another existing Reminder in the guilttrip book.
+     * must not be the same as another existing GeneralReminder in the guilttrip book.
      */
     /*public void setWishReminder(EntrySpecificCondition target, EntrySpecificCondition editedEntry) {
         requireNonNull(editedEntry);
@@ -489,6 +507,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void setAutoExpense(AutoExpense target, AutoExpense editedEntry) {
         requireNonNull(editedEntry);
         autoExpenses.setAutoExpense(target, editedEntry);
+        reminders.setEntryUpdate(target, editedEntry);
         conditions.setEntryUpdate(target, editedEntry);
         indicateModified();
     }
@@ -532,7 +551,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * {@code key} must exist in the guilttrip book.
      */
     public void removeEntry(Entry key) {
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -542,7 +560,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
-        conditions.deleteEntryUpdate(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -552,7 +570,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeIncome(Income key) {
         incomes.remove(key);
-        conditions.deleteEntryUpdate(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -563,7 +581,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     public void removeWish(Wish key) {
         checkArgument(hasCategory(key.getCategory()), MESSAGE_NONEXISTENT_CATEGORY);
         wishes.remove(key);
-        conditions.deleteEntryUpdate(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -573,7 +591,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeBudget(Budget key) {
         budgets.remove(key);
-        conditions.deleteEntryUpdate(key);
+        reminders.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -583,7 +601,6 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void removeAutoExpense(AutoExpense key) {
         autoExpenses.remove(key);
-        conditions.deleteEntryUpdate(key);
         indicateModified();
     }
 
@@ -678,6 +695,11 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
     @Override
     public ObservableList<Condition> getConditionList() {
         return conditions.asUnmodifiableObservableList();
+    }
+
+    @Override
+    public ObservableList<Notification> getNotificationList() {
+        return reminders.asUnmodifiableNotificationList();
     }
 
     /*@Override

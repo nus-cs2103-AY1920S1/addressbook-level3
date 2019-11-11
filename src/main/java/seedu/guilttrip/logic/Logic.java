@@ -16,6 +16,7 @@ import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.conditions.Condition;
+import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
 
@@ -59,6 +60,10 @@ public interface Logic {
     ObservableList<Wish> getFilteredWishList();
 
     ObservableList<Reminder> getFilteredReminders();
+
+    Reminder getReminder();
+
+    ObservableList<Notification> getFilteredNotifications();
 
     ObservableList<Condition> getFilteredConditions();
 

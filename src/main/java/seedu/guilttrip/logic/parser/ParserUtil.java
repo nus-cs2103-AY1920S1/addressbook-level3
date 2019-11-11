@@ -27,6 +27,7 @@ import seedu.guilttrip.logic.commands.ListBudgetCommand;
 import seedu.guilttrip.logic.commands.ListCategoriesCommand;
 import seedu.guilttrip.logic.commands.ListCommand;
 import seedu.guilttrip.logic.commands.ListWishCommand;
+import seedu.guilttrip.logic.commands.PurchaseWishCommand;
 import seedu.guilttrip.logic.commands.RedoCommand;
 import seedu.guilttrip.logic.commands.UndoCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddAutoExpenseCommand;
@@ -34,14 +35,6 @@ import seedu.guilttrip.logic.commands.addcommands.AddBudgetCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddCategoryCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddExpenseCommand;
 import seedu.guilttrip.logic.commands.addcommands.AddIncomeCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddClassConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddDateConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddHasKeyWordConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddQuotaConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.AddTagsConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.DeleteConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.ReplaceConditionCommand;
-import seedu.guilttrip.logic.commands.conditioncommands.ShowConditionListCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteBudgetCommand;
 import seedu.guilttrip.logic.commands.deletecommands.DeleteCategoryCommand;
@@ -59,13 +52,13 @@ import seedu.guilttrip.logic.commands.findcommands.FindBudgetCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindIncomeCommand;
 import seedu.guilttrip.logic.commands.findcommands.FindWishCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddConditionToReminderCommand;
-import seedu.guilttrip.logic.commands.remindercommands.AddReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.AddGeneralReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.DeleteReminderCommand;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
-import seedu.guilttrip.logic.commands.remindercommands.ListActiveRemindersCommand;
-import seedu.guilttrip.logic.commands.remindercommands.ListAllRemindersCommand;
+import seedu.guilttrip.logic.commands.remindercommands.ListRemindersCommand;
 import seedu.guilttrip.logic.commands.remindercommands.RemoveConditionFromReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.SelectReminderCommand;
+import seedu.guilttrip.logic.commands.remindercommands.SetReminderCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortAutoExpenseCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortBudgetCommand;
 import seedu.guilttrip.logic.commands.sortcommands.SortExpenseCommand;
@@ -87,7 +80,6 @@ import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
-import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.tag.Tag;
 import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.Frequency;
@@ -121,7 +113,7 @@ public class ParserUtil {
         String[] indexArr = indexes.split(",");
         List<Index> indexList = new ArrayList<>();
         for (String indexString : indexArr) {
-            indexList.add(parseIndex(indexString));
+            indexList.add(parseIndex(indexString.trim()));
         }
         return indexList;
     }
@@ -374,18 +366,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code String trackerType} into {@code TrackerType}
-     *
-     * @param trackerType
-     * @return
-     * @throws ParseException
-     */
-    public static Reminder.TrackerType parseTrackerType(String trackerType) throws ParseException {
-        requireNonNull(trackerType);
-        return Reminder.TrackerType.parse(trackerType);
-    }
-
-    /**
      * Parses {@code String fontName} into a {@code FontName}.
      */
     public static FontName parseFontName(String fontName) throws ParseException {
@@ -420,6 +400,20 @@ public class ParserUtil {
                 throw new ParseException(String.format(MESSAGE_MISSING_ARGUMENT_FORMAT, compulsoryPrefix.getFullUsage())
                         + "\n" + messageUsage);
             }
+        }
+    }
+
+    /**
+     * Parses boolean value
+     */
+    public static boolean parseBool(String bool) throws ParseException {
+        switch (bool.trim().toLowerCase()) {
+        case "true":
+            return true;
+        case "false":
+            return false;
+        default:
+            throw new ParseException("Please enter a correct boolean value");
         }
     }
 
@@ -459,21 +453,13 @@ public class ParserUtil {
                 SortAutoExpenseCommand.COMMAND_WORD,
                 SortWishCommand.COMMAND_WORD,
                 HelpCommand.COMMAND_WORD,
-                AddReminderCommand.COMMAND_WORD,
+                AddGeneralReminderCommand.COMMAND_WORD,
+                SetReminderCommand.COMMAND_WORD,
                 EditReminderCommand.COMMAND_WORD,
+                SelectReminderCommand.COMMAND_WORD,
                 DeleteReminderCommand.COMMAND_WORD,
-                AddConditionToReminderCommand.COMMAND_WORD,
+                ListRemindersCommand.COMMAND_WORD,
                 RemoveConditionFromReminderCommand.COMMAND_WORD,
-                ListAllRemindersCommand.COMMAND_WORD,
-                ListActiveRemindersCommand.COMMAND_WORD,
-                AddClassConditionCommand.COMMAND_WORD,
-                AddDateConditionCommand.COMMAND_WORD,
-                AddHasKeyWordConditionCommand.COMMAND_WORD,
-                AddQuotaConditionCommand.COMMAND_WORD,
-                AddTagsConditionCommand.COMMAND_WORD,
-                DeleteConditionCommand.COMMAND_WORD,
-                ReplaceConditionCommand.COMMAND_WORD,
-                ShowConditionListCommand.COMMAND_WORD,
                 AddAutoExpenseCommand.COMMAND_WORD,
                 EditAutoExpenseCommand.COMMAND_WORD,
                 DeleteAutoExpenseCommand.COMMAND_WORD,
@@ -481,6 +467,7 @@ public class ParserUtil {
                 ViewTableCommand.COMMAND_WORD,
                 ViewPieChartCommand.COMMAND_WORD,
                 ViewEntryCommand.COMMAND_WORD,
+                PurchaseWishCommand.COMMAND_WORD,
                 TogglePanelCommand.COMMAND_WORD,
                 UndoCommand.COMMAND_WORD,
                 RedoCommand.COMMAND_WORD,
@@ -527,25 +514,18 @@ public class ParserUtil {
         toReturn.put(SortAutoExpenseCommand.COMMAND_WORD, SortAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(SortWishCommand.COMMAND_WORD, SortWishCommand.ONE_LINER_DESC);
         toReturn.put(HelpCommand.COMMAND_WORD, HelpCommand.ONE_LINER_DESC);
-        toReturn.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.ONE_LINER_DESC);
+        toReturn.put(AddGeneralReminderCommand.COMMAND_WORD, AddGeneralReminderCommand.ONE_LINER_DESC);
+        toReturn.put(SetReminderCommand.COMMAND_WORD, SetReminderCommand.ONE_LINER_DESC);
         toReturn.put(EditReminderCommand.COMMAND_WORD, EditReminderCommand.ONE_LINER_DESC);
         toReturn.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.ONE_LINER_DESC);
-        toReturn.put(AddConditionToReminderCommand.COMMAND_WORD, AddConditionToReminderCommand.ONE_LINER_DESC);
+        toReturn.put(SelectReminderCommand.COMMAND_WORD, SelectReminderCommand.ONE_LINER_DESC);
+        toReturn.put(ListRemindersCommand.COMMAND_WORD, ListRemindersCommand.ONE_LINER_DESC);
         toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD,
                 RemoveConditionFromReminderCommand.ONE_LINER_DESC);
-        toReturn.put(ListAllRemindersCommand.COMMAND_WORD, ListAllRemindersCommand.ONE_LINER_DESC);
-        toReturn.put(ListActiveRemindersCommand.COMMAND_WORD, ListActiveRemindersCommand.ONE_LINER_DESC);
-        toReturn.put(AddClassConditionCommand.COMMAND_WORD, AddClassConditionCommand.ONE_LINER_DESC);
-        toReturn.put(AddDateConditionCommand.COMMAND_WORD, AddDateConditionCommand.ONE_LINER_DESC);
-        toReturn.put(AddHasKeyWordConditionCommand.COMMAND_WORD, AddHasKeyWordConditionCommand.ONE_LINER_DESC);
-        toReturn.put(AddQuotaConditionCommand.COMMAND_WORD, AddQuotaConditionCommand.ONE_LINER_DESC);
-        toReturn.put(AddTagsConditionCommand.COMMAND_WORD, AddTagsConditionCommand.ONE_LINER_DESC);
-        toReturn.put(DeleteConditionCommand.COMMAND_WORD, DeleteConditionCommand.ONE_LINER_DESC);
-        toReturn.put(ReplaceConditionCommand.COMMAND_WORD, ReplaceConditionCommand.ONE_LINER_DESC);
-        toReturn.put(ShowConditionListCommand.COMMAND_WORD, ShowConditionListCommand.ONE_LINER_DESC);
         toReturn.put(AddAutoExpenseCommand.COMMAND_WORD, AddAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(EditAutoExpenseCommand.COMMAND_WORD, EditAutoExpenseCommand.ONE_LINER_DESC);
         toReturn.put(DeleteAutoExpenseCommand.COMMAND_WORD, DeleteAutoExpenseCommand.ONE_LINER_DESC);
+        toReturn.put(PurchaseWishCommand.COMMAND_WORD, PurchaseWishCommand.ONE_LINER_DESC);
         toReturn.put(ViewBarChartCommand.COMMAND_WORD, ViewBarChartCommand.ONE_LINER_DESC);
         toReturn.put(ViewTableCommand.COMMAND_WORD, ViewTableCommand.ONE_LINER_DESC);
         toReturn.put(ViewPieChartCommand.COMMAND_WORD, ViewPieChartCommand.ONE_LINER_DESC);
@@ -595,22 +575,15 @@ public class ParserUtil {
         toReturn.put(SortBudgetCommand.COMMAND_WORD, SortBudgetCommand.MESSAGE_USAGE);
         toReturn.put(SortAutoExpenseCommand.COMMAND_WORD, SortAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(SortWishCommand.COMMAND_WORD, SortWishCommand.MESSAGE_USAGE);
+        toReturn.put(PurchaseWishCommand.COMMAND_WORD, PurchaseWishCommand.MESSAGE_USAGE);
         toReturn.put(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE);
-        toReturn.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.MESSAGE_USAGE);
+        toReturn.put(AddGeneralReminderCommand.COMMAND_WORD, AddGeneralReminderCommand.MESSAGE_USAGE);
+        toReturn.put(SetReminderCommand.COMMAND_WORD, SetReminderCommand.MESSAGE_USAGE);
         toReturn.put(EditReminderCommand.COMMAND_WORD, EditReminderCommand.MESSAGE_USAGE);
         toReturn.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.MESSAGE_USAGE);
-        toReturn.put(AddConditionToReminderCommand.COMMAND_WORD, AddConditionToReminderCommand.MESSAGE_USAGE);
+        toReturn.put(ListRemindersCommand.COMMAND_WORD, ListRemindersCommand.MESSAGE_USAGE);
+        toReturn.put(SelectReminderCommand.COMMAND_WORD, SelectReminderCommand.MESSAGE_USAGE);
         toReturn.put(RemoveConditionFromReminderCommand.COMMAND_WORD, RemoveConditionFromReminderCommand.MESSAGE_USAGE);
-        toReturn.put(ListAllRemindersCommand.COMMAND_WORD, ListAllRemindersCommand.MESSAGE_USAGE);
-        toReturn.put(ListActiveRemindersCommand.COMMAND_WORD, ListActiveRemindersCommand.MESSAGE_USAGE);
-        toReturn.put(AddClassConditionCommand.COMMAND_WORD, AddClassConditionCommand.MESSAGE_USAGE);
-        toReturn.put(AddDateConditionCommand.COMMAND_WORD, AddDateConditionCommand.MESSAGE_USAGE);
-        toReturn.put(AddHasKeyWordConditionCommand.COMMAND_WORD, AddHasKeyWordConditionCommand.MESSAGE_USAGE);
-        toReturn.put(AddQuotaConditionCommand.COMMAND_WORD, AddQuotaConditionCommand.MESSAGE_USAGE);
-        toReturn.put(AddTagsConditionCommand.COMMAND_WORD, AddTagsConditionCommand.MESSAGE_USAGE);
-        toReturn.put(DeleteConditionCommand.COMMAND_WORD, DeleteConditionCommand.MESSAGE_USAGE);
-        toReturn.put(ReplaceConditionCommand.COMMAND_WORD, ReplaceConditionCommand.MESSAGE_USAGE);
-        toReturn.put(ShowConditionListCommand.COMMAND_WORD, ShowConditionListCommand.MESSAGE_USAGE);
         toReturn.put(AddAutoExpenseCommand.COMMAND_WORD, AddAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(EditAutoExpenseCommand.COMMAND_WORD, EditAutoExpenseCommand.MESSAGE_USAGE);
         toReturn.put(DeleteAutoExpenseCommand.COMMAND_WORD, DeleteAutoExpenseCommand.MESSAGE_USAGE);

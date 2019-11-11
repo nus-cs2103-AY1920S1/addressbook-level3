@@ -40,7 +40,7 @@ public class EntrySpecificCondition extends Condition implements PropertyChangeL
 
     /**
      * TimeUtil periodically updates currDate,
-     * which in turn triggers condition to call propertyChange and update reminder.
+     * which in turn triggers condition to call propertyChange and update generalReminder.
      * @param evt
      */
     @Override

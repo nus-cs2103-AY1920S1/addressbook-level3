@@ -52,6 +52,8 @@ public class TypicalEntries {
     public static final Budget BUBBLETEA_BUDGET = new BudgetBuilder().withDesc("nov bubbletea budget")
             .withCategory("Expense").withDate("2019 11 01").withTotalAmt(50).withTags("REDUCEYOURSPENDING").build();
 
+
+
     // Standard categories
     public static final Category CATEGORY_FOOD = new CategoryBuilder().withCatType("Expense").withCatName("food")
             .build();
@@ -61,6 +63,10 @@ public class TypicalEntries {
             .withCatName("travel").build();
     public static final Category CATEGORY_BUSINESS = new CategoryBuilder().withCatType("Income").withCatName("business")
             .build();
+
+    /*public static final Category CATEGORY_STOCKS = new CategoryBuilder().withCatType("Income").withCatName("stocks")
+            .build();*/
+
     public static final Category CATEGORY_SALARY = new CategoryBuilder().withCatType("Income").withCatName("salary")
             .build();
     public static final Category CATEGORY_GIFT = new CategoryBuilder().withCatType("Income").withCatName("gift")
