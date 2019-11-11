@@ -112,7 +112,8 @@ This section shows the contributions that I have made to the recommendation feat
 
 |===
 | _I wrote the commands for `recommend`, `like`, `dislike`, `removelike` and `removedislike`.
-The commands are shown below while the full user guide can be found
+
+The `recommend`, `like` and `dislike` commands are shown below while the full user guide can be found
 https://ay1920s1-cs2103t-f13-2.github.io/main/UserGuide.html[here]._
 |===
 
