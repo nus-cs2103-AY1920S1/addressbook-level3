@@ -3,11 +3,11 @@
 
 Author: Denis Tjia <denis@u.nus.edu>
 
-== Preface
+==== Preface
 
 The purpose of this portfolio is to document the contributions that I have made to a software engineering project, during my second year of study at the National University of Singapore.
 
-== About the Project
+==== About the Project
 
 The project was structured to resemble an intermediate stage of a real life software project.
 We were tasked to implement enhancements to the software, and also ensure that the finished product can be easily taken over by other developers.
@@ -29,7 +29,7 @@ For this project, I was given a few critical roles:
 
 <<<
 
-== Major Contribution
+==== Major Contribution
 
 [cols="1h, 5a"]
 |===
@@ -61,7 +61,7 @@ https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/a
 | Design Patterns: Elements of Reusable Object-Oriented Software (1994) by The "Gang of Four".
 |===
 
-== Minor Contribution
+==== Minor Contribution
 
 [cols="1h, 5a"]
 |===
@@ -85,7 +85,7 @@ https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/src/test/java/seedu/a
 
 |===
 
-== Other Contributions
+==== Other Contributions
 
 [cols="1h, 5a"]
 |===
@@ -113,7 +113,7 @@ https://github.com/AY1920S1-CS2103T-F12-1/main/pull/223/commits/4b1e2808bdc1477d
 
 <<<
 
-== User Guide Contributions
+==== User Guide Contributions
 ****
 The section below contains excerpts taken from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/UserGuide.adoc[User Guide], written by me.
 ****
@@ -159,7 +159,7 @@ image::EventCardScreenShot.png[EventCardScreenShot, 350]
 
 <<<
 
-== Developer Guide Contributions
+==== Developer Guide Contributions
 ****
 The section below contains excerpts of the CommandManager taken from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide], written by me.
 ****
@@ -195,7 +195,7 @@ To understand how the FSM works, study the activity diagram below:
 .Activity diagram of CommandParser
 image::CommandParserActivityDiagram.png[CommandParser, 300]
 
-==== Design Considerations
+===== Design Considerations
 
 [%header, cols="1h, 2a, 2a"]
 |===
@@ -248,7 +248,7 @@ To understand how `CommandBuilder` works, study the activity diagram below:
 .Activity diagram of CommandBuilder
 image::CommandBuilderActivityDiagram.png[CommandBuilderActivityDiagram, 300]
 
-==== Design Considerations
+===== Design Considerations
 
 [%header, cols="1h, 2a, 2a"]
 |===
