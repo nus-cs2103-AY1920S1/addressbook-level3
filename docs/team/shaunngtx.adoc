@@ -75,11 +75,32 @@ as a form of "Restart", as most of our default questions are taken from the week
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=shaun-autocomplete]
+=== AutoComplete Function
 
-include::../UserGuide.adoc[tag=shaun-restore]
+Helps you complete your command when you type.
 
-include::../UserGuide.adoc[tag=shaun-AcTip]
+Users will be able to see a list of auto complete options while they are typing. Once the auto complete context menu is
+shown, users can use the arrow keys to choose the options they want and upon pressing the "ENTER" button, they would be able to
+select the option.
+
+Examples:
+
+* `User wants to type the "start" command in the command box`
+* `He will be able to see a list of dropdown options as shown:`
+* `First "ENTER" button will select the option`
+* `Second "ENTER" button will execute the option`
++
+image::Autocomplete2.png[width="790"]
+
+=== Restoring all entries : `restore`
+
+Clears all current questions from the question bank and restores the default questions that were in the original app. +
+Users will be prompted if they really want to restore their current question bank as the command is non-reversible.
+Format: `restore`
+
+[TIP]
+*AutoComplete*: Suggested commands will be shown as you type. Navigate through the dropdown list using the up and down
+arrow keys and hit kbd:[Enter] to complete the command.
 
 == Contributions to the Developer Guide
 
@@ -87,16 +108,221 @@ include::../UserGuide.adoc[tag=shaun-AcTip]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=shaun-logic]
+==== Overview of Logic Component
 
-include::../DeveloperGuide.adoc[tag=shaun-designmodel]
+[[fig-LogicClassDiagram]]
+.Structure of the Logic Component
+image::LogicClassDiagram2.png[]
 
-include::../DeveloperGuide.adoc[tag=shaun-storage]
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-include::../DeveloperGuide.adoc[tag=shaun-add]
+.  `Logic` uses the `ParserManager` class to parse the user command.
+.  This results in a `Command` object which is executed by the `LogicManager`.
+.  The command execution can affect the `Model` (e.g. adding a question).
+.  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+.  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+.  In quiz mode, the `CommandResult` object is also used to determine whether the user's answer is correct.
 
-include::../DeveloperGuide.adoc[tag=shaun-restore]
+[[Design-Model]]
+=== Model component
 
-include::../DeveloperGuide.adoc[tag=shaun-autocomplete]
+.Structure of the Model Component
+image::ModelClassDiagram2.png[]
 
-include::../DeveloperGuide.adoc[tag=shaun-appendix]
+*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+
+The `Model`,
+
+* stores a `QuestionBank` object that represents the Question Bank.
+* stores the Question Bank data.
+* exposes an unmodifiable `ObservableList<Answerable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other three components.
+
+[[Design-Storage]]
+=== Storage component
+
+.Structure of the Storage Component
+image::StorageClassDiagram2.png[]
+
+*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+
+The `Storage` component,
+
+* can save `Question Bank` objects in json format and read it back.
+* can save the Test Bank data in json format and read it back.
+
+=== Add questions feature
+==== Implementation
+
+The add questions mechanism is facilitated by `AddCommand`.
+It extends `Command` that will read a user command and execute the command result.
+Additionally, it implements the following operations:
+
+* `AddCommand#addMcq()` -- Adds a mcq question to the question bank.
+* `AddCommand#addShortAns()` -- Adds a short answer question to the question bank.
+* `AddCommand#addTf()` -- Adds a True False answer question to the question bank.
+
+These operations are exposed in the `Model` interface as `Model#addMcqCommand()`, `Model#addTfCommand()` and `Model#addShortAnsCommand()` respectively.
+
+Given below is an example usage scenario and how the add questions mechanism behaves at each step.
+
+Step 1. The user types `add type/mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.
+
+image::InitialState.png[]
+
+Step 2. The command is being parse into the parser and the AddCommand object of type Command will be created.
+
+image::FirstState.png[]
+
+Step 3. The AddCommand object will call its `addMcq()` method, this method will read the command and store the question with the answers into the `test bank` accordingly.
+
+image::SecondState.png[]
+
+[NOTE]
+If a command fails its execution, it will not save the question into the `revision tool`. It will however throw an invalid command exception.
+
+=== Restore feature
+==== Implementation
+The restore mechanism is facilitated by `RestoreCommand`.
+It extends `Command` that will read a user command and execute the command result.
+Additionally, it implements the following operations:
+
+* `#handleRestore()` -- Prompts the user with an alert box if he really wishes to execute the restore function.
+* `#setRevisionTool()` -- Clears the current question bank and reset it with our own default questions.
+
+These operations are exposed in the `Model` interface as `Model#setRevisionTool()` and from `MainWindow` as `#handleRestore()` respectively.
+
+==== Design Considerations
+* When implementing the restore feature, we didn't want users to face a problem if they entered the command accidentally hence the alert popup was implemented, to prompt users if they really want to carry out the command before executing it.
+* With this popup, users will now be more cautious when trying to restore and only do so when they really want to reset their revision tool.
+* Furthermore, the questions that we included in the default revision tool question bank are questions taken from the lecture quiz and weekly quiz which are most probably deemed important by the professor himself.
+
+===== Aspect: How Restore executes
+** User enters the command "restore".
+** Command is taken in and a popup is shown to reconfirm if the user would like to carry out the restore command.
+** Upon clicking yes, restore command will be handled.
+** Current questions will be deleted and default questions will reset to the revision tool.
+
+=== AutoComplete feature
+==== Implementation
+* A set of commands and auto completed text are saved in a set.
+* When users type a command on the text box, method `#populatePopup` will be called where the user's command will be matched against our SortedSet.
+* If there is a match, a contextMenu showing all possible auto complete text will show up.
+* This method is implemented such that the results in the contextMenu will change and show as the user is typing and this would make it more intuitive for users.
+
+==== Design Considerations
+* The main design consideration here would be to have value added auto complete list to pop up.
+* How we managed that is to show:
+** The basic command
+** Basic command + possible parse commands where they can easily fill in.
+
+image::AutoComplete2.png[]
+
+===== Aspect: How AutoComplete works
+** Users wishes to enter an "Add" command `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1`
+** Upon typing either "a", "ad" or even "add", the auto complete context menu will pop up showing possible auto complete list, mainly:
+*** add
+*** add type/ q/ y/ x/ cat/ diff/
+** Upon seeing that, users will be able to select those options or use those as a guideline to complete his commands more intuitively.
+
+[appendix]
+== Non Functional Requirements
+
+.  RevisionTool should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  RevisionTool be able to hold up to 1000 questions without any significant reduction in performance for typical usage.
+.  A user with above slow typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  RevisionTool should be able to run without any internet connectivity.
+.  RevisionTool does not require any further installation upon downloading the jar file.
+
+
+[appendix]
+== Glossary
+
+[[mainstream-os]] Mainstream OS::
+Windows, Linux, Unix, OS-X
+
+[[Answerables]] Answerables::
+A set of question answers, which includes :
+* Type: MCQ, True False, Short Answered Question
+* Question
+* Correct Answers (Can contain multiple answers)
+* Wrong Answers (Can contain multiple answers)
+* Category
+* Difficulty
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample answerables. The window size may not be optimum.
+
+. Saving window preferences
+
+.. Resize the window to an optimum size. Move the window to a different location. Close the window by using the `x` button at the top right hand corner or by using the command `exit`.
+.. Re-launch the app by double clicking the jar file. +
+   Expected: The most recent window size and location is retained.
+
+=== Adding an answerable
+
+. Adding a MCQ to the current list
+
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: new MCQ answerable will be created and appended at the bottom of the list. Details of the the added answerable will be shown at the bottom of the list, and the correct answer will be highlighted in green.
+
+. Adding a True False to the current list
+
+.. Test case: `add type/tf q/What is 1 + 1 = 2 y/true cat/easy diff/1` +
+Expected: new True False answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list, and only the correct answer will be shown and highlighted in green.
+
+. Adding a Short Answer Question (SAQ) to the current list
+
+.. Test case: `add type/saq q/What is smaller than 10 but bigger than 7? y/8 y/9 cat/easy diff/1` +
+Expected: new SAQ answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list and all the correct answers state will be highlighted in green.
+
+. Adding an Answerable that already exist in the Revision Tool
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: No new answerable will be added as the question already exist in the Revision Tool. An error message will be thrown, informing users that the answerable already exist in the Revision Tool.
+
+=== Deleting an answerable
+
+. Deleting an answerable while all answerables are listed
+
+.. Prerequisites: List all answerables using the `list` command. Multiple answerables in the list.
+.. Test case: `delete 1` +
+   Expected: First answerable is deleted from the list. Details of the deleted answerable shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete 0` +
+   Expected: No answerable is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: Similar to previous.
+
+=== Starting quiz
+
+. Starting a quiz
+.. Test case: `start mode/normal` +
+Expected: Start quiz window will pop up with a question showing under the command box and the answers in the result box further below. Answer the questions using the CLI accordingly to see the progress bar move till quiz completion. Users will be prompted if he wishes to proceed to level 2.
+.. Test case: `start mode/arcade` +
+Expected: Start quiz window will pop up similar to previous test case. The only difference would be that once the quiz proceeds and an incorrect answer is input, the quiz ends and the score will be shown. This is the "hard mode" of our quiz mode.
+.. Test case `start mode/custom timer/3` +
+Expected: Start quiz window will pop up similar to previous test case. The difference here will be the timer. Instead of the 30 seconds timer per question, the new timer (seen at the bottom right beside the status progress bar) will be at 3 seconds as set by the user.
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. If there is a missing answerables data file, the RevisionTool will automatically create a default data file with all the default answerables inside.
+.. If there is a corrupted answerable data file, the RevisionTool will automatically start with a list of empty file. Users will then be able to use the `#restoreCommand` here to get a list of default answerables or alternatively, create a new set of answerables manually.
+
+. To identify missing/corrupted data files:
+.. `.\data\revisiontool.json`
+.. `.\data\history.json`
