@@ -45,7 +45,7 @@ functionalities. More importantly, MYMorise is *optimized for those who prefer t
 .  Copy the jar file to the folder you want to use as the home folder for MYMorise.
 .  Run `java -jar path_to_folder/MYMorise.jar` in your CLI. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+image::UIUG.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.

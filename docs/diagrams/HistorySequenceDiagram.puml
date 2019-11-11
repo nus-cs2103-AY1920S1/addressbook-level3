@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant "h:HistoryCommand" as HistoryCommand LOGIC_COLOR
+participant "c:CommandHistory" as CommandHistory LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+[-> LogicManager : execute("history")
+activate LogicManager
+
+LogicManager -> HistoryCommand : execute(model, history)
+activate HistoryCommand
+
+HistoryCommand -> CommandHistory : getHistory(history)
+activate CommandHistory
+
+CommandHistory -> HistoryCommand : list<History>
+deactivate CommandHistory
+
+HistoryCommand -> CommandResult : list<History>
+activate CommandResult
+
+CommandResult --> HistoryCommand : commandResult
+deactivate CommandResult
+
+HistoryCommand --> LogicManager : commandResult
+deactivate HistoryCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
