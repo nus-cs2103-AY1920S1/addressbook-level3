@@ -60,7 +60,7 @@ public abstract class Task {
     }
 
     /**
-     * Gets the {@code Frequency} of the {@Code Todo}.
+     * Gets the {@code Frequency} of the {@code Todo}.
      * @return {@code Frequency} of the {@code Todo}.
      */
     public Frequency getFrequency() {

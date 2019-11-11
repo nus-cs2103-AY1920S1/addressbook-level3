@@ -133,8 +133,8 @@ public class MainApp extends Application {
                 logger.info("Data file not found. Will be starting with a sample Cca Tracker");
                 return SampleDataUtil.getSampleCcaTracker();
             }
-
         } catch (DataConversionException | IOException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty Cca Tracker");
             return new CcaTracker();
         }
     }
@@ -254,8 +254,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            // TODO check if this is a proper logger message
-            logger.warning("Problem while reading from the file. Will be starting with an empty Jarvis.");
+            logger.warning("Problem while reading from the file. Will be starting with no user preferences.");
             initializedPrefs = new UserPrefs();
         }
 
