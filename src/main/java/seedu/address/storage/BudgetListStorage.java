@@ -5,8 +5,8 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.budget.BudgetList;
-import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.BudgetList;
+import seedu.address.model.ReadOnlyBudgetList;
 
 /**
  * Represents a storage for {@link BudgetList}.

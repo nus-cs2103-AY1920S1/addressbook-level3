@@ -25,7 +25,7 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.budget.BudgetList;
+import seedu.address.model.BudgetList;
 import seedu.address.model.exchangedata.ExchangeData;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;

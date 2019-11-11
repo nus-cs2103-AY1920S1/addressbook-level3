@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetList;
+import seedu.address.model.BudgetList;
 
 /**
  * A utility class to help with building BudgetList objects.

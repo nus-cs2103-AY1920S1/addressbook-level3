@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.ReadOnlyBudgetList;
 
 /**
  * A class to access BudgetList data stored as a json file on the hard disk.

@@ -8,7 +8,7 @@ import seedu.address.model.ExpenseList;
 import seedu.address.model.Model;
 import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetList;
+import seedu.address.model.BudgetList;
 
 /**
  * Clears all Expenses/Budgets.

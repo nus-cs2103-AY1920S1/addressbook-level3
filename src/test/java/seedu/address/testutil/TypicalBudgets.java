@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.BudgetList;
+import seedu.address.model.BudgetList;
 
 /**
  * A utility class containing a list of {@code Budget} objects to be used in tests.

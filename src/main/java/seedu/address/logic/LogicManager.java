@@ -15,7 +15,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseList;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.budget.ReadOnlyBudgetList;
+import seedu.address.model.ReadOnlyBudgetList;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.Storage;
 
