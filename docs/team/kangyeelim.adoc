@@ -18,8 +18,8 @@ and showcases the key features I implemented.
 
 === About the Team
 
-My team of 5 members consists of 4 year 2 Computer Science Undergraduate students, including me, and another
-year 4 Computer Engineering Undergraduate student.
+My team of five members consists of four Year 2 Computer Science Undergraduate students, including me, and a
+Year 4 Computer Engineering Undergraduate student.
 
 === About the Project
 
