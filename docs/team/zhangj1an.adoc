@@ -14,7 +14,7 @@ Duke Academy is a Java programming platform equipped with a library of programmi
 This is what our project looks like:
 
 
-image::homepage_annotated.png[width="1000"]
+image::homepage_annotated.png[width="300"]
 Figure 1. The graphical user interface for Duke Academy.
 
 == Summary of contributions
@@ -39,7 +39,7 @@ Figure 1. The graphical user interface for Duke Academy.
 
 *Command*
 
-1. added *the `view` command*
+1. implemented *the `view` command*
 ** What it does: Displays the problem statement of the question.
 ** Justification: the user need to view the problem description in order to understand the requirement of the problem context, as well as the specified input/output format.
 ** Highlights: requires user interface to be updated based on the data obtained from the storage.
@@ -69,7 +69,9 @@ Implemented tests for the `showall` command, namely `ShowallCommandFactoryTest` 
 Added a Problem Display Panel to the Questions and Workspace Tab.
 
 
-=== *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=zhangj1an&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]]
+=== *Code contributed*:
+
+[[Functional code]] [[Test code]]
 
 === *Other contributions*:
 
@@ -81,8 +83,8 @@ Added a Problem Display Panel to the Questions and Workspace Tab.
 *** Did cosmetic tweaks to existing contents of the User Guide's quickstart section.
 *** Contributed to Developer Guide and User Guide as shown at the end.
 ** Community:
-*** PRs reviewed: https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#13], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/15[#15], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#20], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/13[#21], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/36[#36], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/50[#50], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/52[#52], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/53[#53], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/57[#57], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/64[#64], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/70[#70], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/71[#71], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/87[#87], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/91[#91], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/104[#104], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/133[#133], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/173[#173]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-W12-4/main/issues/193[Typos in UG], https://github.com/AY1920S1-CS2103T-W12-4/main/issues/192[Feature not present: 6 Load commands stated in UG not implemented], https://github.com/AY1920S1-CS2103T-W12-4/main/issues/191[Budget command not working with only amount and description entered])
+*** PRs reviewed: #13, #14, #15, #20, #21, #36, #47, #50, #52, #53, #57, #63, #64, #70, #71, #87, #91, #102, #104, #133, #173
+*** Reported bugs and suggestions for other teams in the class (examples:   Typos in UG, Feature not present: 6 Load commands stated in UG not implemented, Budget command not working with only amount and description entered)
 ** Tools:
 *** Integrated 2 third party library (Travis, Codacy) to the project.
 
@@ -113,7 +115,7 @@ Loads the questions from the file "my_problem_set.txt" located in the `../DukeAc
 
 We have prepared a dummy problem set for you to try out as shown in diagram below.
 
-image::default_problem_set.png[width="1000"]
+image::default_problem_set.png[width="300"]
 
 Type `loadquestions NewProblems.txt` (case sensitive), and
 two new questions titled `Apple` and `Banana` will be loaded onto Duke Academy.
@@ -129,38 +131,9 @@ and repeat the ​ loadquestions​ command.
 
 *A:* Install the app in the other computer and overwrite the empty data file it creates
 with the file that contains the data of your previous DukeAcademy folder.
-
-*Q:* What is the format of problem setting?
-
-*A:* It should contain the following: problem statement, input and output files, difficulty
-level, solution, as well as algorithm category. Check out <<Custom-Questions>> for detailed reference.
-
-*Q:* What if I want to delete questions?
-
-*A:* Currently there is no delete question feature implemented. To restore to default setting, delete the `DukeAcademy` folder located at the same directory as the `DukeAcademy.jar`, and restart the app.
-
-== Command Summary
-
-* Home: `home`
-* List all questions: `showall`
-* Adding bookmark: `bookmark [id]`
-* Removing bookmark: `deletebookmark [id]`
-* Find by question title: `find​ [keyword]...`
-* Browse by category: ​`browse​ [keyword]...`
-* View: `view​ [id]`
-* Attempt a question: `attempt​ [id]`
-* Submit:​ `submit`
-* Load questions: ​`loadquestions​ [filename]`
-* Create a new note: `newnote [title]`
-* Save current note: `savenote`
-* Open a note: `opennote [id]`
-* Delete a note: `deletenote [id]`
-* Switch tab sequentially: `tab`
-* Exit: `exit`
-
 [[Custom-Questions]]
 == Format for Custom Questions
-image::custom_questions.png[width="920"]
+image::custom_questions.png[width="300"]
 
 * Create a .txt file.
 * The format of a question goes like follows:
@@ -207,7 +180,7 @@ Output::
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram.png[width="500"]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -254,7 +227,7 @@ The storage components are interfaces so their implementation can be changed eas
 *JsonAdaptedQuestion:*
 
 .Class diagram of the JsonAdaptedQuestion class
-image::JsonAdaptedQuestionClassDiagram.png[]
+image::JsonAdaptedQuestionClassDiagram.png[width=200]
 
 * It contains all the necessary attributes for a question, including title, completion status, difficulty level, isBookmarked, topics belonged to, testCases, userProgram attempted and question description.
 * Compared with a standard `question` object, this `JsonAdaptedQuestion` object has processed its attributes to be compatible with json format. That is, this object  can be directly serialized to and de-serialized from json files.
@@ -269,12 +242,25 @@ The standard implementation of the `QuestionBankStorage` is the `JsonSerializabl
 
 *Overview:*
 
-.Structure of the Storage Component for Questions
-image::StorageClassDiagram.png[]
+.Overall Structure of the Storage Component for Questions
+image::StorageClassDiagram.png[width=300]
+
+The `QuestionBankStorage` manages tasks such as `saveQuestionBank()` or `readQuestionBank()`.
+
+The `Question` object is associated to the rest of the files in the same package as follows:
+
+.Class Diagram: Compositions that make up the QuestionBank being stored
+image::ClassDiagramQuestionStorage.png[width=170]
+
 
 === Problem Statement Panel
-Since the problem description cannot be viewed fully from the question list, we introduced a new problem description panel. When type `view [id]`, the panel updates to
+Since the problem description cannot be viewed fully from the question list, we introduced a new problem description panel. As shown on Figure 5, when type `view [id]`, the panel updates to
 display all the additional information a question has to provide.
+
+
+.Activity Diagram on View command
+image::viewactivity.png[width=300]
+
 
 ==== General Procedure of Command execution:
 
@@ -321,31 +307,12 @@ the command generated is a `view` command. If yes, force the `ProblemStatementPa
 ** automatic progress checker
 ** personal tutor to recommend problems with suitable difficulties and topics
 ** fun in learning with achievement badges to unlock
-** no WiFi needed,
-
-* or has a need to distribute problem sets:
-+
-[none]
-** can set the coding problems easily
-** share problems via link
-** view-only answers protected by passwords
-
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*:
-[none]
-* everyone can learn data structures - anytime, anywhere
-* make coding threshold-less
-* manage contacts faster than a typical mouse/GUI driven app
-
+** no WiFi needed
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Duke Academy` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Duke Academy` and the *Actor* is the `user`).
 
 [discrete]
 === Use case: UC01 Set questions
@@ -364,91 +331,10 @@ Use case ends.
 +
 Duke Academy reports wrong format error. Duke Academy resumes at step 3.
 
-=== Use case: UC02 View Questions
-*MSS*
-
-1. User finds a question by question ID, title or category.
-2. Duke Academy shows a list of problems that matches the keyword.
-3. User views the question identified by ID.
-4. Duke Academy displays the problem statement of the question.
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 1a. User inputs wrong keywords.
-+
-Duke Academy reports error and prompts link to help page.
-+
-Use case resumes at step 1.
-
-=== Use case: UC03 Attempt Questions
-*MSS*
-
-1. User chooses a problem to attempt.
-2. Duke Academy shows up the problem statement and an editor.
-3. User inputs the code in editor.
-4. User submit the answer.
-5. Duke Academy compiles the problem and display whether it has passed the test cases.
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. User requests to reset the previous input in the editor for this question.
-+
-[none]
-** 2a1. Duke Academy clears the cached code.
-+
-** Use case resumes from step 3.
-
-* 2b. User requests to set a timer.
-+
-[none]
-** 2b1. Duke Academy requests for a time duration.
-** 2b2. User inputs a time duration.
-** 2b3. Duke Academy displays a timer.
-** 2b4. User starts the timer.
-+
-Use case resumes from step 4.
-
-* 2c. User requests to quit the program.
-+
-[none]
-** 2c1. Duke Academy requests to save the draft.
-** 2c2. User confirms or denies.
-** 2c3. Duke Academy follows user's preference to save or discard the draft.
-** 2d4. Duke Academy exists.
-+
-Use case ends.
-
-* *a. At any time, user chooses to attempt an question imported from external resources.
-+
-[none]
-** *a1. load the questions from file.
-+
-*a2. Duke Academy stores the problem in local machine.
-+
-*a3. User search for the problem imported.
-+
-*a4. Duke Academy displays the question.
 
 [appendix]
 == Non Functional Requirements
-
-.  Should work on any *mainstream OS* as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 problem sets without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 . Time taken to assess the submitted programmes should not exceed 3 minutes.
 . Data not intended for disclosure should be encrypted with minimum needs so that it's protected from direct access.
 . Should not take more than 5 seconds to load the initial screen.
 . If interrupted, the program should provide an auto-saved version and prompt for restore when the app opens next time.
-
-
-
-== PROJECT: PowerPointLabs
-
-'''
-
-_{Optionally, you may include other projects in your portfolio.}_
