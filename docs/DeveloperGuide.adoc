@@ -905,7 +905,7 @@ image::addAlias.png[]
 
 ===== Usage of aliases in input
 .Activity Diagram showing the a high level view of the events that occur when parsing a command.
-image::CommandParsingActivityDiagram.png[]
+image::CommandParsingActivityDiagram.png[width=500,align=center]
 
 When a user enters an ``input`` to be executed, the ``MooLahParser`` will do the following:
 
@@ -915,6 +915,7 @@ When a user enters an ``input`` to be executed, the ``MooLahParser`` will do the
 .. Finally, the ``MooLahParser`` re-parses the modified ``input``.
 . If this too fails, an exception is thrown indicating that the command was invalid
 
+// end::alias[]
 
 ==== Design Considerations
 
@@ -951,7 +952,6 @@ The purpose behind this feature was to make CLI input less troublesome, so users
 to carry out commands they may use frequently. In v2.0 we want to look into using data analysis track users' input habits in
 order to make suggestions on possible shortcuts or Aliases they may find convenient to have.
 
-// end::alias[]
 
 ===== Aspect: Data structure to store Aliases.
 
@@ -1708,3 +1708,88 @@ Clearing all budgets in MooLah
    Expected: A success message will appear.
 .. Within 10 seconds, a popup will appear to prompt for the automatic addition of an expense corresponding to the event.
 Pressing 'Yes' will add the expense into whichever primary budget you were on when you added the event.
+
+=== Testing of aliases
+.. Test case: `addalias a/ cr i/ addexpense d/ chicken rice p/1.3 c/food` +
+    Expected: Successful creation of alias.
+.. The alias can be seen in your list of aliases, accessible by the `view aliases` or `listalias`
+   Expected: displays list of aliases.
+.. Try using the alias by entering `cr` and pressing enter. +
+   This should execute the command saved in the alias. +
+   Expected: an expense is made with description `chicken rice` and price `1.30` in the food category in your current primary budget.
+.. Delete the alias by typing `deletealias cr`
+.. Test case : `addalias a/ addexpense i/ anything` +
+  Expected: error complaining that an alias name cannot use a reserved command word
+.. Test case :`addalias a/ magic i/ magic` (or any case where the alias name is the same as the first word of the input) +
+   Expected: error message complaining that an alias cannot be be recursive.
+
+=== Testing of suggestions
+.. When you first open the applications, the suggestion feature is off by default (no green border around textfield).
+.. Click the command box and press `tab` to enable suggestions (textfield should have a green border) +
+   Dropdown menu should show all possible commands you may enter (if the textfield is empty) +
+   Type `add`, commands starting with add should be shown (you may have to scroll with arrow keys if the context menu shrinks and
+you do not see all the options.).
+.. Type `addexpense` with a space behind, the menu should show the prefixes available for the command: +
+   `d/` `p/` `c/` and `t/` and `ALLMISSING` +
+    Use arrow keys to scroll to `ALLMISSING` +
+    Press enter +
+    Expected: the non-optional prefixes `d/` `p/` and `c/` should be appended.
+.. Press `tab` again. This should disable suggestions.
+
+=== Testing of input history
+.. On a *fresh session* (restart the app), execute the following commands: +
+   `listevent` +
+    `listexpense` +
+    `listalias` +
+   These 3 commands should execute properly and be saved to your input history +
+   With the `suggestion` feature disabled (no green box around text field) +
+   Press `up` to re-enter the past inputs. +
+   1st `up` : `listalias` shown +
+   2nd  `up` : `listexpense` shown +
+   3rd `up` : `listevent` shown +
+   4th `up` : no change, `listevent` still shown +
+   1st `down`: no change, `listevent` still shown +
+   2nd `down`: `listexpense` shown +
+   3rd `down`: `listalias` shown +
+   4th `down`: no change, `listalias` still shown
+
+=== Testing of generic commands
+
+Navigate to the panels on the left column of the table below using the `view` command.
+Execute a valid input for the commands in their respective
+sections.  It should behave as the command stated next to it.
+i.e. `add` on the Expense List panel, should behave as `addexpense`
+
+.List of all generic command configurations
+[cols="0%,<25%"]
+|=======================================================================
+|Expense List   |`add` addexpense +
+                `delete` deleteexpense +
+                `list` listexpense +
+                `edit` edit expense
+
+|Budget List    |`add` addbudget +
+                `list` listbudget
+
+|Event List     | `add` addevent +
+                `delete` deleteevent +
+                `list` listevent +
+                `edit` editevent
+
+|Aliases        |`add` addalias +
+                `list` listalias +
+                `delete` deletealias
+|Primary Budget |`add` addexpense +
+                 `delete` deleteexpense-primary +
+                 `edit` editexpense-primary
+|=======================================================================
+
+
+
+
+
+
+
+
+
+
