@@ -250,37 +250,36 @@ image::ListcatStep3.png[width="600"]
 
 // tag::deadline[]
 
-=== Add general deadlines reminders: `deadline t>TASK d>DUE DATE`
+=== Add general Deadlines: `deadline t>TASK d>DUEDATE`
 
-This command adds a general deadline into a list of deadlines. The list will be display on the right-side pane.
-Note: [DUE DATE] has to be in dd/MM/yyyy format.
+This command adds a general `Deadline` into a list. The list will be displayed on the right-side pane.
+Note: [DUEDATE] has to be in dd/MM/yyyy format.
 
 You can refer to the example below.
 `deadline t>CS2103 Exam d>10/12/2019`
 
-Key the above mentioned into the command box
-
 image::deadline-entry.png[width="600"]
 
-After which, the result box will show the success message. The new deadline will now be shown at the right side-bar.
+After keying in the command, the result box will show the success message.
+The new `Deadline` will now be shown at the right-side pane.
 
 image::deadline-entered.png[width="600"]
 
-NOTE: Note that deadlines entered will be sorted in ascending order i.e. Earliest deadline on index 1
+NOTE: Note that `Deadline`(s) entered will be sorted in ascending order i.e. earliest `Deadline` on index 1
 
-CAUTION: Deadlines can only be after the current date. Earlier dates are invalid.
+CAUTION: `Deadline`(s) can only be after the current date. Earlier `DUEDATE` are invalid.
 
 === Remove deadline from list: `remove index`
 
-Removes a specific deadline into the deadline list. The list on the right-side pane will no longer have the deadline.
+Removes a specific `Deadline`. The list on the right-side pane will no longer have the `Deadline`.
 
 `remove 2`
 
 ****
-* Removes the deadline at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
+* Removes the `Deadline` at the specified `INDEX` from the list. The index refers to the index number shown in the displayed deadline list on the right-sde pane. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
-NOTE: When a deadline of re-test questions is removed, the list of questions will still be stored in the specific date.
+NOTE: When a `Deadline` of re-test questions is removed, the list of questions will still be stored in the specific date.
 
 === Show monthly calendar with all deadlines: `calendar`
 
@@ -292,7 +291,7 @@ The calendar will pop up, seen below.
 
 image::calendar.png[width="400", height="500"]
 
-NOTE: Calendar does not show the specific deadline names, but an overview of all your deadlines for the month ahead.
+NOTE: Calendar does not show the specific `Deadline`, but an overview of all your `Deadline`(s) for the month ahead.
 
 //end::deadline[]
 
