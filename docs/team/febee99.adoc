@@ -4,7 +4,7 @@
 :stylesDir: ../stylesheets
 
 image::febee99.png[width="150", align="left"]
-{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]]
+{empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]] +
 Role: Developer +
 Responsibilities: Code Quality + Scheduling and Tracking
 
@@ -91,7 +91,8 @@ allowing the user to add items and have them arranged in an organised fashion.
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are some snippets of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+For more of my personal work, please refer to sections 4.1.1 (Help), 4.2.6 (Sort) and 6.1 (Table Summary) of the User Guide._
 |===
 
 include::../UserGuide.adoc[tag=view]
@@ -103,7 +104,8 @@ include::../UserGuide.adoc[tag=view]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are some snippets of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+For more of my personal work and the omitted details, please refer to sections 3.2 (Auto-sorting of items by name then date), 3.8 (Spelling correction with alternative recommendations), Appendix D, G.2, and G.5 to G.9 of the Developer Guide._
 |===
 
 include::../DeveloperGuide.adoc[tag=replenishListCommands]
