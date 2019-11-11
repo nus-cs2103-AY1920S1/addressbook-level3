@@ -1268,6 +1268,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
   Expected: Shows the GUI with the calendar at today's date, with no events or tasks.
 
+=== Adding, Deleting and Editing Events
+
+. Adding
+
+.. Start Horo with no save data.
+.. Enter `list` into the command box.
+.. Enter `add_event "My Event Description" "11/11/2019 12:00"` into the command box.
+.. Expected: An event will be created with the title "My Event Description", with start date "11/11/2019 12:00".
+
+. Editing
+
+.. Enter `edit_event 0 --description "New Event Description"` into the command box.
+.. Expected: Your event "My Event Description" will be renamed to "New Event Description".
+
+. Deleting
+
+.. Enter `delete_event 0` into the command box.
+.. Expected: Your event "New Event Description" will be deleted, leaving an empty list view.
+
+=== Import and Export
+
 . Export
 
 .. Start Horo with no save data.
@@ -1298,3 +1319,95 @@ Expected: The imported events and tasks should be the same as when they were exp
 .. Test case: `add_task "Test Task" --due "[CURRENT DATE] [CURRENT TIME INCREMENTED BY ONE MINUTE]"`
    Expected: Upon the next minute, a notification should be posted to your desktop through the system tray.
 // end::notifmanualtesting[]
+
+// tag::uiManualTest[]
+=== Ui System
+
+. Change between different UI views
+.. Prerequisites: Make sure you are on a different view panel than the one you are going to execute.
+.. Test case: `list` +
+Expected: Changes to the list view panel.
+.. Test case: `log` +
+Expected: Changes to the log view panel.
+.. Test case: `calendar` +
+Expected: Changes to the calendar view panel.
+
+. Change date of the calendar without changing the timeline.
+.. Test case: `calendar --date "10/2019"` +
+Expected: Calendar date will change accordingly
+.. If you are not in the calendar view panel, it should change the current view to the calendar view.
+
+. Change date of the timeline in calendar view
+.. Test case: `week dd/MM/yyyy` +
+Expected: Changes the timeline to the week view containing that day in the given week.
+
+.. Test case: `month MM/yyyy` +
+Expected: Changes the timeline to the month view of the specified month and year.
+
+.. Test case: `day dd/MM/yyyy` +
+Expected: Changes the timeline to the day view of the specified day, month and year.
+
+.. For all the test cases, if you are not in calendar view panel, it should change the current view to the calendar view.
+// end::uiManualTest[]
+
+=== Undoing and Redoing Commands
+
+. Undoing an `add_event` or `add_task` command
+.. Firstly, switch to the List-view of Horo
+... `listview`
+.. Input the following command to add an event:
+... `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME]`
+.. To add a task, input the following command:
+... `add_task "Test Task"`
+.. Expected: The added event or task is now visible in the List-view of Horo
+.. Now, run the undo command
+... `undo`
+.. Expected: The added event or task is no longer visible in the List-view of Horo
+
+. Redoing an `add_event` or `add_task` command
+.. Continuing from the above undo command, now run the redo command
+... `redo`
+.. Expected: the formerly added event or task reappears in the List-view of Horo
+
+. Undoing `delete_event` or `delete_task` command
+.. Firstly, switch to the List-view of Horo
+... `listview`
+.. Input the following command to add an event: (Since our delete command allows multiple deletion, try adding more than one)
+... `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME]`
+.. To add a task, input the following command:
+... `add_task "Test Task"`
+.. Expected: The added event or task is now visible in the List-view of Horo
+.. Now, delete the event or task that you have added (you can delete multiple by specifying multiple indexes delimited by spaces)
+... `delete_event [INDEX/ES OF EVENT IN LIST VIEW]`
+... `delete_task [INDEX/ES OF TASK IN LIST VIEW]`
+... Example: `delete_event 0 1 2` (deletes the events with index 0, 1 and 2)
+.. Expected: The added events or tasks are no longer visible in the List-view of Horo
+.. Run the undo command
+... `undo`
+.. Expected: The deleted events and tasks are again visible in the List-view of Horo
+
+. Redoing a `delete_event` or `delete_task` command
+.. Continuing from the above undo command, now run the redo command
+... `redo`
+.. Expected: the formerly added events or tasks are once again removed from the List-view of Horo
+
+. Undoing `edit_event` or `edit_task` command
+.. Firstly, switch to the List-view of Horo
+... `listview`
+.. Input the following command to add an event:
+... `add_event "Test Event" "[CURRENT DATE] [CURRENT TIME]`
+.. To add a task, input the following command:
+... `add_task "Test Task"`
+.. Expected: The added event or task is now visible in the List-view of Horo
+.. Now, edit the event or task that you have added (the description, due date and tags are optional)
+... `edit_event [INDEX OF EVENT IN LIST VIEW] [NEW DESCRIPTION] [NEW DUE DATE] [NEW TAG]`
+... Example: `edit_task 1 --description "Buy Rori a present" --due "17/08/2019 12:00" --tag Present`
+.. Expected: Any of the specified new description, due date or tag of the event or task will replace the old information in the List-view
+.. Run the undo command
+... `undo`
+.. Expected: The task or event will contain its old data before the edit was being made
+
+. Redoing a `edit_event` or `edit_task` command
+.. Continuing from the above undo command, now run the redo command
+... `redo`
+.. Expected: the event or task has been updated again to the new information that was initially specified in the edit command

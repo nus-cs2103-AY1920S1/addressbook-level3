@@ -1,6 +1,5 @@
 = Project Portfolio Page
 :imagesdir: ../images
-:docinfodir: ../docs
 
 Author: Denis Tjia <denis@u.nus.edu>
 
@@ -19,7 +18,7 @@ Our application, named *Horo*, aims to allow efficient management and organizati
 {empty} +
 
 .Graphical user interface (GUI) of Horo
-image::Ui.png[GUI]
+image::Ui.png[GUI, 600]
 
 {empty} +
 
@@ -116,98 +115,53 @@ https://github.com/AY1920S1-CS2103T-F12-1/main/pull/223/commits/4b1e2808bdc1477d
 
 ==== User Guide Contributions
 ****
-Below are excerpts taken from the User Guide, written by me.
+The section below contains excerpts taken from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/UserGuide.adoc[User Guide], written by me.
 ****
 
 === 3. Features
-====
-*Command Format for Horo*
 
-* You can enter a command by typing the command name first followed by arguments of the command.
-- E.g. `*command_name* <argument1> <argument2>...`
-
-* If you want to type an argument containing blank spaces, surround your sentence within quotation marks.
-- E.g. `"Buy Groceries"`
-- E.g. `*add_task* "Buy Groceries"`
-
-* Command parameters are prefixed by `--`, and they are optional.
-- E.g. `*--date* 09/2019`
-- E.g. `*calendar* *--date* 09/2019`
-====
-
-====
-*Command Format for this User Guide*
-
-* Arguments are fully capitalized which are to be supplied by you.
-- E.g. `*add_task* TASK`
-
-* Arguments suffixed with ellipsis (`...`) indicate that the argument can be entered zero or more times.
-- E.g. `*delete_task* INDEX...`
-
-* Parameters separated by a vertical bar `|` can be used interchangeably.
-- e.g. given the command format `-d|--description DESCRIPTION`, the following inputs accomplish the same thing:
-- `*--description* "Buy Groceries"`
-- `*-d* "Buy Groceries"`
-====
-
-<<<
-
-=== 3.2.1. Adding Events
-
-.Add Event Command
-image::AddEventCommandScreenShot.png[]
-
-You may use the `add_event` command to add an event to the calendar.
-
-Command Format: +
-`*add_event* DESCRIPTION START_DATE`
-
-Command Parameters: +
-`*--end* END_DATE` +
-`*--remind* REMIND_DATE` +
-`*--tag* TAG...`
-
-Argument Format: +
-`START_DATE` : `"DD/MM/YYYY HH:MM"` +
-`END_DATE` : `"DD/MM/YYYY HH:MM"` +
-`REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
-
-Examples: +
-`*add_event* "Roris Birthday" "18/08/2019 16:00"` +
-`*add_event* "Roris Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00"` +
-`*add_event* "Roris Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00" *--remind* "18/08/2019 12:00" *--tag* Birthday Rori`
+include::../UserGuide.adoc[tag=commandFormat]
 
 <<<
 
 === 3.2.2. Deleting Events
 
 .Delete Event Command
-image::DeleteEventCommandScreenShot.png[]
+image::DeleteEventCommandScreenShot.png[DeleteEventCommandScreenShot, 550]
 
-You may use the `delete_event` command to delete one or more events from the calendar. +
+You may use the `delete_event` command to delete one or more events from the calendar.
 
-Command Format: +
-`*delete_event* INDEX...`
+Command Format:
+****
+*delete_event* INDEX...
+****
 
-Command Parameters: +
-`*--tag* TAG...` +
+Command Parameters:
 
-Remarks: +
-Events which match both `INDEX` and `TAG` will be deleted. +
-`INDEX` can be found on the event's top right corner.
+- `*--tag* TAG...`
 
-Examples: +
-`*delete_event* 1` +
-`*delete_event* 1 2 3` : Deletes events 1, 2 and 3. +
-`*delete_event* *--tag* Birthday` : Deletes events tagged as `Birthday`. +
-`*delete_event* *--tag* Birthday Rori` : Deletes events tagged as `Birthday` and `Rori`. +
-`*delete_event* 1 2 3 *--tag* Birthday Rori` : Deletes events 1, 2 and 3 only if they have been tagged as `Birthday` and `Rori`.
+Examples:
+
+- `*delete_event* 0`
+- `*delete_event* 0 1 2` : Deletes events 0, 1 and 2.
+- `*delete_event* *--tag* Birthday` : Deletes events tagged as `Birthday`.
+- `*delete_event* *--tag* Birthday Rori` : Deletes events tagged as `Birthday` and `Rori`.
+- `*delete_event* 0 1 2 *--tag* Birthday Rori` : Deletes events 0, 1 and 2 only if they have been tagged as `Birthday` and `Rori`.
+
+[NOTE]
+====
+- Events which match both `INDEX` and `TAG` will be deleted.
+- `INDEX` can be found on the event's top right corner.
+
+.Index found on the top right of the event.
+image::EventCardScreenShot.png[EventCardScreenShot, 350]
+====
 
 <<<
 
 ==== Developer Guide Contributions
 ****
-Below are excerpts taken from the Developer Guide, written by me.
+The section below contains excerpts of the CommandManager taken from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide], written by me.
 ****
 
 [[Design-CommandManager]]
@@ -272,7 +226,7 @@ Additionally, it is difficult for future developers to maintain and extend logic
 
 A state machine is easy to understand and configure.
 
-A state machine can tokenize complex command inputs, allowing future developers to parse advanced command inputs.
+A state machine can tokenize complex command inputs. This grants future developers the ability to parse more advanced command inputs.
 |===
 
 === 3.3.4 CommandBuilder
@@ -292,7 +246,7 @@ Referring to the diagram above, the definition the command is implemented in two
 To understand how `CommandBuilder` works, study the activity diagram below:
 
 .Activity diagram of CommandBuilder
-image::CommandBuilderActivityDiagram.png[CommandBuilder, 300]
+image::CommandBuilderActivityDiagram.png[CommandBuilderActivityDiagram, 300]
 
 ===== Design Considerations
 
@@ -326,3 +280,54 @@ Each `Command` does not require any logic, only arguments are required to be def
 
 Since all logic is in `CommandBuilder`, it is simple for developers to test.
 |===
+
+<<<
+
+****
+The section below contains excerpts of the Architecture and Model from the https://github.com/AY1920S1-CS2103T-F12-1/main/blob/master/docs/DeveloperGuide.adoc[Developer Guide], written by me.
+****
+
+=== 3.1. Architecture
+
+.Architecture Diagram
+image::ArchitectureDiagram.png[ArchitectureDiagram, 300]
+
+The *_Architecture Diagram_* given above explains the high-level design of Horo. Given below is a quick overview of each component.
+
+...
+
+The rest of Horo is managed by seven components:
+
+. `CommandManager` : Responsible for executing commands from the user.
+. `Ics` : Responsible for handling the importing and exporting of ICS files.
+. `ModelManager` : Responsible for reading and writing to the in-memory data of Horo.
+. `NotificationManager` : Responsible for sending notifications to the user.
+. `StorageManager` : Responsible for reading and writing the Model to an external disk.
+. `UiManager` : Responsible for managing the user interface (UI) of Horo.
+. `UndoRedoManager` : Responsible for tracking changes in ModelManager, and reverting its history when needed.
+
+Most components follow the https://en.wikipedia.org/wiki/Observer_pattern[observer design pattern], to reduce tight coupling and increase cohesion.
+They implement these listeners:
+
+. `CommandInputListener` : The component will be notified about command input from the user.
+. `ModelDataListener` : The component will be notified whenever the Model changes.
+. `UserOutputListener` : The component will be notified whenever a message needs to be displayed to the user.
+
+
+=== 3.4. ModelManager Component
+
+The `ModelManager` is responsible for the reading and writing of events and tasks in Horo.
+
+.Class diagram of the ModelManager
+image::ModelManagerClassDiagram.png[ModelManagerClassDiagram, 500]
+
+The `ModelManager` has three main functions:
+
+. Stores all events and tasks in a wrapper class `ModelData`.
+. Notifies all `ModelDataListeners` whenever the `ModelData` changes.
+. Allows any class with a reference to `ModelManager` to update the current `ModelData`.
+
+To give a more concrete example of how `ModelManager` notifies its listeners, refer to the sequence diagram below of *adding a task* to Horo:
+
+.Sequence diagram of adding a task
+image::ModelManagerAddTaskSequenceDiagram.png[]
