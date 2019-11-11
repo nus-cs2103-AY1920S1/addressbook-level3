@@ -66,5 +66,5 @@ include::../UserGuide.adoc[tag=reactiveSearchUG]
 |===
 
 include::../DeveloperGuide.adoc[tag=autocomplete]
-include::../DeveloperGuide.adoc[tag=reactivesearch]
+include::../DeveloperGuide.adoc[tag=reactivesearchUI]
 include::../DeveloperGuide.adoc[tag=carbongridContribManualTesting]
