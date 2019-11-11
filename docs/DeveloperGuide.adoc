@@ -677,7 +677,31 @@ I also evaluated multiple options to derive an optimal data structure to store t
 ** Cons: Not closely related words may also be recommended to the user.
 // end::recommendationsPartThree[]
 
-=== User Interface Design
+=== Retrieval of Previous Commands
+
+The retrieval of previous commands and later commands are achieved through the `InputHistoryManager` class which implements `HistoryManager` interface.
+The `CommandBox` listens to the keyboard event kbd:[↑] and kbd:[↓] when user types in the `CommandBox`.
+
+Every user input that is non-blank will be saved as a String before execution by the `save(String)` method of `InputHistoryManager`. You can refer to the following
+steps for the retrieval of a *previous* command.
+
+. Step 1: `CommandBox` listens to the KeyPressed event and makes a call to `handleUpKey()` when an up key is pressed.
+. Step 2: `handleUpKey()` checks whether the current input is successfully executed or rejected as an invalid command. This makes a difference
+because successful commands are erased after execution while invalid commands remain in the `CommandBox`.
+. Step 3: If the command is valid and erased, `InputHistoryManager` will try to retrieve the previous command by calling `previous()`.
+. Step 4: `CommandBox` will set its text to be the returned String.
+
+[NOTE]
+If the current input has not been executed or has already been successfully executed, calling the previous command will return the command
+entered before the current input. If the current input is a rejected invalid command, it means that the command has already been
+saved. In this case, calling `previous()` once will retrieve back that invalid command which to user means that the command in the `CommandBox`
+has not been changed despite the up key pressed. Hence, two calls to `previous()` will be made to retrieve the command before the current invalid command.
+
+You can refer to the activity diagram here:
+
+image::RetrievePreviousCommandActivityDiagram.png[]
+
+=== User Interface Update
 The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
 UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
 sorted and thus all items in the lists will be modified each time a `sort`, `add`, `delete`, `tag` or other commands that modify the lists
