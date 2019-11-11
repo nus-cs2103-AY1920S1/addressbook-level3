@@ -138,12 +138,12 @@ Please click these links to see a sample of my code.
 === Other contributions
 
 * Project management:
-** Managed releases v1.3.1 on GitHub, out of the 3 releases.
+** Managed release v1.3.1 on GitHub, out of the 2 releases.
 ** Resolved the issues found by others related to my feature on Github.
 
 * Enhancements to existing features:
 ** Updated README aka the main page, user guide and developer with NJoy Assistant related pictures: https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177]
-** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177],
+** Wrote additional tests for existing features to increase coverage from 38% to 44% (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/177[#177],
 https://github.com/AY1920S1-CS2103T-W13-2/main/pull/184[#184])
 
 * Documentation:
@@ -191,7 +191,7 @@ include::../UserGuide.adoc[lines=741..777]
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 Again, I'm only going to include the most relevant portions of the guide as mentioned in the <<Grouping, `above`>> citing. Also, some of
-the command hyperlinks will obviously not work because I have omitted them for brevity._
+the command hyperlinks will not work because I have omitted them for brevity._
 |===
 
 include::../DeveloperGuide.adoc[lines=410..416]
