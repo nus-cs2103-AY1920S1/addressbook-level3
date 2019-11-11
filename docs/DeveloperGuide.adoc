@@ -417,7 +417,7 @@ Task Description at the current stage of Jarvis, hence there is no real need to 
 additional layer of abstraction for it. If we do intend to continue developing Jarvis in
 the future, however, Option 2 might be a viable choice.
 
-=== Finance Tracker feature
+=== Finance Tracker Feature
 
 ==== Overview
 The Finance Tracker feature allows the user to track their
@@ -838,14 +838,16 @@ This entails implementing `CcaProgess` class as consisting of a `CcaMilestoneLis
 
 * *Option 2: Implement `CcaProgress` as a parent class.*
 This entails creating classes such as SportProgress/PerformingArtsProgress that extend from CcaProgress for each type
-of `Cca`. Such an implementation can be represented using the class diagram below:
-
-.Class diagram showing the alternative implementation of CcaProgress.
-image::ccatracker/AlternativeCcaProgressClassDiagram.png[]
+of `Cca`.
 
 ** Pros: Easier to extend functionality for each type of cca.
 ** Cons: Does not significantly extend functionality for this version of
-   Jarvis.
+Jarvis.
++
+Such an implementation can be represented using the class diagram below
+
+.Class diagram showing the alternative implementation of CcaProgress.
+image::ccatracker/AlternativeCcaProgressClassDiagram.png[]
 
 ===== Our Thoughts
 After much consideration, we have decided to implement `CcaProgress` as per option 1. This is because we wish to afford
@@ -877,7 +879,7 @@ Implementing the `CcaProgressList` as an `ArrayList` would have been an easier o
 the `CcaProgressList` as an `ObservableList` proved to be a wiser choice as `Javafx` fully supports the manipulation and
 rendering of an `ObservableList`. Using an `ArrayList`  would have made the building of the ui thoroughly cumbersome.
 
-=== Course Planner feature
+=== Course Planner Feature
 
 ==== Overview
 The Course Planner feature allows the user to track what courses they
