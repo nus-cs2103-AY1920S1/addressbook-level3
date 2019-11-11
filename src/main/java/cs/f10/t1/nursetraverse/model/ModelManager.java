@@ -89,6 +89,9 @@ public class ModelManager implements Model {
         stagedAppointments = FXCollections.observableArrayList();
         filteredAppointments = new FilteredList<>(FXCollections.unmodifiableObservableList(stagedAppointments));
         refreshStagedAppointments();
+        sortStagedAppointments();
+        replaceStagedAppointmentBook(stagedAppointments);
+        refreshFilteredAppointmentList();
     }
 
     public ModelManager() {
@@ -443,6 +446,8 @@ public class ModelManager implements Model {
     public void deleteAppointment(Appointment target) {
         stagedAppointmentBook.removeAppointment(target);
         refreshStagedAppointments();
+        sortStagedAppointments();
+        replaceStagedAppointmentBook(stagedAppointments);
         refreshFilteredAppointmentList();
     }
 

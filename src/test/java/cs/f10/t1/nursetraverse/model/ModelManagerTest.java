@@ -118,7 +118,7 @@ public class ModelManagerTest {
         PatientBook differentPatientBook = new PatientBook();
         UserPrefs userPrefs = new UserPrefs();
         AppointmentBook appointmentBook = new AppointmentBookBuilder()
-                .withAppointment(TypicalAppointments.ALICE_APPT).build();
+                .withAppointment(TypicalAppointments.APPT_ONE).build();
         AppointmentBook differentAppointmentBook = new AppointmentBook();
 
         // same values -> returns true
