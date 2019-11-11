@@ -16,13 +16,13 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-F13-3/main
 
-By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
+By: `Team CS2103T-F13-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
 *MoneyGoWhere* is a personal finance application targeted to students at the National University of Singapore (NUS).
 It allows students to keep track of all their spending and their related information such as date, cost and tags.
-Users can also set budget goals, view statistics, set reminders for bills and export their data to a Csv file.
+Users can also set budget goals, view statistics, set reminders for bills, view exchange rates, use different currencies, and import and export their data.
 With an easy-to-use Graphical User Interface (GUI) and employment of Command Line Interface (CLI), users can easily navigate through the application, contributing to its user-friendliness and efficiency.
 
 What are you waiting for? Start tracking your finances now!
@@ -736,7 +736,7 @@ This command clears all stored reminders and spending from the application, and 
 
 *Expected Output:*
 
-All application data is cleared.
+All data stored in MoneyGoWhere is cleared and the budget is set to $1000.
 
 //end::clear[]
 
