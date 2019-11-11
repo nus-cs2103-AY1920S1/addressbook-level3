@@ -949,10 +949,6 @@ The private `FoodComparator` constructor that directly takes in `Comparator` is 
 
 *API:* link:{repoURL}{generalPath}/model/recmf/FoodComparator.java[`FoodComparator.java`]
 
-The following object diagram summaries the described components in the `recmf` command.
-
-image::RecmFoodObjectDiagram.png[]
-
 ===== `recmfmix` command
 `UniqueFoodList#getMixedFoodList()` generates a temporary `ObservableList` from the existing food data. This list will eventually be supplied to `FoodFlowPane` via `Model` and then `Logic`.
 
