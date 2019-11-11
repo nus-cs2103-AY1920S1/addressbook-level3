@@ -1484,6 +1484,33 @@ Use case ends.
 +
 Use case resumes at step 1.
 
+[discrete]
+=== Use case: Set Aliases
+
+*MSS*
+
+1. User requests to set an alias, providing a command word and an alias word.
+2. $aveNUS checks if the command and alias words are valid, and sets the alias word of the command word.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The alias word given happens to be a command word.
++
+[none]
+** 1a1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The command word given is not a valid command word of $aveNUS.
++
+[none]
+** 1b1. $aveNUS shows an error message.
++
+Use case resumes at step 1.
+
 [appendix]
 == Non Functional Requirements
 
