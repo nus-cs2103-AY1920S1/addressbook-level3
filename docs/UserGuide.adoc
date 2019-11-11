@@ -18,8 +18,9 @@ By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-treasurerPro (tP) is for treasurers of student co-curricular activities (CCAs)/student clubs who *prefer to use a desktop app for managing their club expenses*.
-More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+treasurerPro (tP) is an application designed for treasurers of student co-curricular activities (CCAs)/student clubs
+who *prefer to use a desktop app for managing their club expenses*. More importantly, tP is *optimized for those who
+prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
 Interested?
