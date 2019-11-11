@@ -72,19 +72,7 @@ include::../UserGuide.adoc[tag=FeatureMarkAttendance]
 
 include::../UserGuide.adoc[tag=FeatureExportAttendance]
 
-include::../UserGuide.adoc[tag=FeatureAddAssignment]
-
-include::../UserGuide.adoc[tag=FeatureDeleteAssignment]
-
-include::../UserGuide.adoc[tag=FeatureSetAssignmentScore]
-
 include::../UserGuide.adoc[tag=FeatureAddEvent]
-
-include::../UserGuide.adoc[tag=FeatureDeleteEvent]
-
-include::../UserGuide.adoc[tag=FeatureEditEvent]
-
-include::../UserGuide.adoc[tag=FeatureListEvent]
 
 include::../UserGuide.adoc[tag=FeatureSetSemStart]
 

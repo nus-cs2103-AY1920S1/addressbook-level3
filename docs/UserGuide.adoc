@@ -427,6 +427,7 @@ Example:
 * `cd m`
 * `cd s`
 // end::FeatureCd[]
+
 // tag::FeatureImport[]
 === Import tutorials via NUSMods url: `import`
 
@@ -443,6 +444,7 @@ Example:
 Command synonyms: `importtutorials`, `importmods`, `importtutorial`
 ====
 // end::FeatureImport[]
+
 // tag::FeatureMarkAttendance[]
 === Marks attendance of a tutorial `markAttendance`
 
@@ -459,12 +461,26 @@ Example:
 * markAttendance i/1 w/5
 * markAttendance n/John Doe tn/Lab 1 m/CS1010 w/5
 
+Example of marking attendance of student:
+Inputting "markAttendance n/Mark tn/Lab Session m/CS1010S w/7" will toggle the attendance of Mark in tutorial of name "Lab Session" and the attendance table of the tutorial will be displayed accordingly.
+
+image::MarkAttendance1.png[width="600"]
+
+image::MarkAttendance2.png[width="600"]
+
+Example of marking attendance of tutorial:
+When "markAttendance tn/Lab Session m/CS1010S w/7" is inputted, the application will prompt the user to mark/toggle the attendance of the first student in the tutorial.
+
+image::MarkAttendance3.png[width="600"]
+
+The user may input "y" or "n", after which the command will be executed/cancelled respectively and the application will prompt the user to mark the attendance of the next student.
+
+image::MarkAttendance4.png[width="600"]
+
 [TIP]
 ====
 You can use either tutorial index or tutorial name with module code to specify the tutorial. +
 Specifying the student name marks/toggles the attendance of a student, otherwise the entire tutorial will have their attendance marked.
-
-* E.g tn/Lab Session m/CS1010S w/1
 
 Command Synonyms:  `mark`, `marka`, `markatt`
 ====
