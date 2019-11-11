@@ -87,16 +87,16 @@ public class SampleDataUtil {
 
     public static Tag[] getSampleFlashcardTags() {
         return new Tag[] {
-                new Tag("IntelliJ"),
-                new Tag("Shortcuts"),
-                new Tag("SE"),
-                new Tag("Principles")
+            new Tag("IntelliJ"),
+            new Tag("Shortcuts"),
+            new Tag("SE"),
+            new Tag("Principles")
         };
     }
 
     public static Tag[] getSampleNotesTags() {
         return new Tag[] {
-                new Tag("CS2100")
+            new Tag("CS2100")
         };
     }
 }
