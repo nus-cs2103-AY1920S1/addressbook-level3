@@ -32,7 +32,7 @@ public class UniqueTagList implements Iterable<Tag> {
 
     /**
      * Adds a tag to the list.
-     * The person must not already exist in the list.
+     * The StudyBuddyProItem must not already exist in the list.
      */
     public void add(Tag toAdd) {
         requireNonNull(toAdd);
@@ -94,6 +94,10 @@ public class UniqueTagList implements Iterable<Tag> {
         internalList.setAll(tags);
     }
 
+    /**
+     * Adds all tags
+     * @param tags list of tags to be added
+     */
     public void addAllTags(List<Tag> tags) {
         for (Tag t : tags) {
             this.add(t);
