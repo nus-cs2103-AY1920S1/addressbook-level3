@@ -44,8 +44,9 @@ and hence should not reside within the classroom class.
 *** Did cosmetic tweaks to existing contents of the User Guide so that they are more coherent: https://github.com/AY1920S1-CS2103-T14-1/main/pull/88/[#88]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments)
-*** Reported bugs and suggestions for other teams in the class (examples:   https://github.com/Xelyion/ped/issues/5)
+*** PRs reviewed (examples: https://github.com/AY1920S1-CS2103-T14-1/main/pull/158[#158], https://github.com/AY1920S1-CS2103-T14-1/main/pull/163[#163])
+*** Reported bugs and suggestions for other teams in the class (examples:   https://github.com/Xelyion/ped/issues/5[1], https://github.com/Xelyion/ped/issues/4[2], https://github.com/Xelyion/ped/issues/6[3], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/37[4])
+
 == Contributions to the User Guide
 
 
