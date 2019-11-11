@@ -513,7 +513,7 @@ Format: `set_ev_dt EVENT_INDEX [on/EVENT_DATE] [till/EVENT_DATE] time/EVENT_DAYT
 
 ****
 * Note the <<Constraints>> for *INDEX*, *DATE*, and *TIME PERIOD*.
-* If *both* the `on/` and `till/` prefixes are *not used*, then all dates inclusive of the start to end date of the target event will be set with the stated `EVENT_DAYTIME`. 
+* If *both* the `on/` and `till/` prefixes are *not used*, then all dates inclusive of the start to end date of the target event will be set with the stated `EVENT_DAYTIME`.
 * If *both* the `on/` and `till/` prefixes are used, then the date range (inclusive) from the start to end date stated will be set with the stated `EVENT_DAYTIME`.
 * If *only* the `on/` prefix is used, it will just set the `EVENT_DAYTIME` for the __single__ stated `EVENT_DATE`.
 * The `till/` prefix must be used with the `on/` prefix, and not by itself.
