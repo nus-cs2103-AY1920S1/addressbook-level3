@@ -1,0 +1,19 @@
+@startuml
+start
+
+:input email command with the \n"alltimeslot" command type;
+
+:Parse prefixes and retrieve arguments;
+:Get list of Interviewees in the database;
+
+repeat
+    if () then ([slots allocated])
+        :Test;
+    else ([no slots allocated])
+    ;
+    endif
+repeat while () is (more interviewees)
+->no more interviewees;
+
+stop
+@enduml

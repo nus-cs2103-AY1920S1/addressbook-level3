@@ -65,9 +65,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `clear`.
 
-.Component interactions for `delete 1` command
+.Component interactions for `clear` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -234,6 +234,7 @@ or the schedules changes.
 * exposes a list of `ObservableList<Interviewee>` that can be 'observed' by the UI.
 * does not depend on any of the three components.
 
+// tag::storage[]
 ==== Schedule
 The `Schedule` objects are filled up and created by the imported interviewer's availability. The inner data of a `Schedule` object is the same as the corresponding availability
 table in the imported interviewer's availability. The data of the `Schedule` can be changed after running the scheduling algorithm.
@@ -249,7 +250,10 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the list of Interviewees data in json format and read it back.
+* can save the list of Interviewers data in json format and read it back.
+
+// end::storage[]
 
 [[Design-Commons]]
 === Common classes
@@ -506,6 +510,8 @@ image::ScheduleSequenceDiagram.png[]
 
 // end::schedule[]
 
+// tag::import[]
+
 === Import
 ==== Implementation
 
@@ -582,7 +588,7 @@ the data of the InterviewerList. Therefore, modification of IntervieweeList will
 in the list of schedules at this point of time.
 
 To update the list of schedules in the model every time the InterviewerList is modified, the method
-`updateScheduleList()` is called in the model. The notable implementations of this method is discussed below.
+`updateScheduleList()` is called in the model. The notable implementations of this method are discussed below.
 
 * `updateScheduleList()` basically re-generates the list of schedules in the model from the updated InterviewerList.
 * It will get `startTime`, `endTime` and `duration` of a timeslot from `UserPref` and generates the
@@ -601,6 +607,9 @@ will be responsive to these changes. The only trade-off is performance, due to t
 the schedules every time a command is ran. However, this will not be a big issue if the number of
 interviewers is < 100.
 
+// end::import[]
+
+
 ==== After Scheduling of Interviews
 
 After the scheduling algorithm is ran, each interviewer should have a list of allocated interviewee slots.
@@ -611,6 +620,8 @@ To prevent confusion and to ensure that the scheduled result is always updated w
 and interviewers, add/delete/edit of interviewee or interviewer after scheduling will clear the scheduled result and reset
 the displayed schedules such that the schedules only display the availabilities of the interviewers. Thus, the user will need
 to run the schedule command again to re-schedule the interviews.
+
+// tag::export[]
 
 === Export
 ==== Implementation
@@ -633,31 +644,42 @@ The Activity Diagram below summarises the execution of the export command.
 .Export Activity Diagram
 image::ExportActivityDiagram.png[]
 
+// end::export[]
+
 // tag::email[]
 === Email
 ==== Implementation
 
-The Email feature makes use of the `java.awt.Desktop` package to activate the default Mail client of the user.
+The Email feature makes use of the `java.awt.Desktop` package to activate the default Mail client of the user. For the case of computers without a Mail client available, this feature will not be supported (mainly for headless computers such as servers).
 
-* The `To:` field is automatically populated with all the emails that are tagged to a particular Interviewee.
-* The `Cc:` field is configurable by the user via an optional configuration file.
+* The `To:` field is automatically populated with all the emails that are tagged to a particular Interviewee. This combines all the emails of both the `PERSONAL` and `NUS` email types.
+* The `Cc:` field is configurable by the user via an optional user preferences file (located in `preferences.json`)
 * The subject and message body are also automatically populated with details that are relevant to the Interviewee, depending on the context of the command used.
 
-.Email Sequence Diagram
+.Email Sequence Diagram for emailing a particular interviewee
 image::EmailSequenceDiagram.png[]
 
-===== Example: Interview timeslot
+A similar implementation is used when emailing all interviewees (i.e. using the `alltimeslot` command type). However, interviewees with the `emailSent` boolean variable set to true will not be sent an email again. This can be overridden by emailing that particular interviewee again (using the `timeslot` command type).
 
-This is for opening the email dialog for sending the email to the Interviewee of his/her allocated interview timeslot. Details that vary according to the Interviewee include:
+The user is also able to check the email sending status (i.e. if a particular interviewee has been emailed before) using the `status` command type. It is simply going through the list of interviewees stored in the application and counting the number of interviewees with the `emailSent` boolean variable set to true.
 
+Notes:
+
+* To the application, an email is considered as sent when the email window successfully opens on the user's computer. It does not recognise the actual email being sent across the Internet.
+
+===== Example: Email interview timeslot to an interviewee
+
+When the application opens an email dialog for sending the email to the selected Interviewee, the email dialog will be automatically populated with information on his/her allocated interview timeslot. The email message body also contains information that are customised to each Interviewee.
+
+Details that vary according to the Interviewee include:
+
+* Name of the Interviewee
 * Date and time of allocated timeslot
-* Interviewer allocated
 
 Additional details that can be configured by the user (as user preferences) include:
 
 * Location to report
-* Dress code
-* Any other additional information
+* Any other additional information such as dress code.
 
 The message content can also be configured by the user. However, a default template will be used when no such configuration file exists or is provided.
 
@@ -925,6 +947,7 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+
 // end::DisplayUseCases[]
 
 === Use Case: (UC-6) Export Schedules
@@ -954,7 +977,6 @@ Use case resumes at step 3.
 ** 3a1. Scheduler displays error message in the UI.
 +
 Use case resumes at step 1.
-
 
 [appendix]
 == Non Functional Requirements
@@ -1018,6 +1040,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
 
 === Importing data
 

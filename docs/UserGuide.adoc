@@ -177,7 +177,9 @@ IMPORTANT: The indicated timeslots, in adding or importing interviewers/intervie
 Shows helpful information on using this software.
 Format: `help`
 
-//tag::import
+
+// tag::import[]
+
 === Importing existing availabilities `import`
 2 types of data can be imported - interviewers' availabilities and interviewees' details.
 Both of these details needs to be in CSV format and must follow the format given in the templates below.
@@ -233,6 +235,8 @@ NOTE: There will be no changes in the schedules tab after the import of intervie
 
 Key formatting information for Interviewee's Data:
 
+image::IntervieweeData.png[]
+
 * Headers specify the details of the Interviewee to be imported. The order of the headers must be strictly followed as shown in the above template.
 * Timeslots: Each timeslot should be in the format `dd/MM/yyy HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
 * There can only be 1 unique value for all other fields. Commas should not be used in these fields.
@@ -250,7 +254,7 @@ Constraints:
 * Timeslots must obey the allowed values that are specified in the <<User Preferences, User Preferences>>.
 * Duplicate entries of the same interviewee cannot be presented in the CSV file to be imported.
 
-// end::import
+// end::import[]
 
 // tag::clear
 === Clear all data `clear`
@@ -261,7 +265,8 @@ Format: `clear`
 WARNING: Data erased cannot be undone!
 //end::clear
 
-=======
+// tag::add[]
+
 === UI Display
 
 ==== Display Schedules
@@ -716,12 +721,15 @@ add/delete/edit of interviewee or interviewer will remove the scheduling result,
 
 // end::schedule[]
 
+
+// tag::export[]
+
 === Exporting of interview schedule `export`
 Exports the allocated interview schedule timetable to the specified comma separated values (CSV) file.
 
 Format: `export fp/FILE_PATH`
 
-* PATH_TO_FILE is the absolute path to the file.
+* FILE_PATH is the path to the file.
 * E.g C:\\Users\Bob\file.csv
 
 NOTE: If `FILE_PATH` is a valid .csv file but does not exist, it will be created in the specified path.
@@ -733,7 +741,7 @@ Example:
 Exported data format:
 
 * The exported data will follow the format of the schedules in 'schedules' tab.
-* Each schedule (table) will be separated from the previous with 2 empty lines.
+* Each schedule (table) will be separated from the previous by 2 empty lines.
 * Timeslots with "0" indicates that the interviewer is not available for the timeslot.
 Timeslots with "1" indicates that it is an available slot that has not been filled up by an interviewee.
 * Csv file can be converted into an excel file by following this guide - https://www.ablebits.com/office-addins-blog/2014/05/01/convert-csv-excel/.
@@ -744,6 +752,8 @@ Constraints:
 * Although the specified filepath does not need to exist, it needs to be of .csv extension.
 
 WARNING: The exported data will erase and replace all pre-existing data in the specified file.
+
+// end::export[]
 
 // tag::email[]
 
@@ -823,8 +833,8 @@ Format: `record rank`
 |`help` +
 
 |Import existing availabilities
-|`import interviewer fp/PATH_TO_FILE` +
-  `import interviewee fp/PATH_TO_FILE`
+|`import interviewer fp/FILE_PATH` +
+  `import interviewee fp/FILE_PATH`
 
 |Clear imported data
 |`clear` +
