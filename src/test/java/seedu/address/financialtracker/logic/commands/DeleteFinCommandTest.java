@@ -3,6 +3,7 @@ package seedu.address.financialtracker.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Amount;
 import seedu.address.financialtracker.model.expense.Country;

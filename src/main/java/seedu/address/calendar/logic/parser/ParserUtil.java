@@ -1,15 +1,15 @@
 package seedu.address.calendar.logic.parser;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
 import seedu.address.calendar.logic.commands.CommandUtil;
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Provides helper functions for the parsing process.

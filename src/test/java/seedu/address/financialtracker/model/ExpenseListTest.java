@@ -1,8 +1,10 @@
 package seedu.address.financialtracker.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.financialtracker.model.expense.Amount;
 import seedu.address.financialtracker.model.expense.Country;
 import seedu.address.financialtracker.model.expense.Date;

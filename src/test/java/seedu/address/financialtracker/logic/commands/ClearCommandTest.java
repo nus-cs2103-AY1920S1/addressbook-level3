@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.model.expense.Amount;
 import seedu.address.financialtracker.model.expense.Country;

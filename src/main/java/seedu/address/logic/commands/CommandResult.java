@@ -64,7 +64,7 @@ public class CommandResult {
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, boolean showClear) {
-        this(feedbackToUser, false, false, false, false,showClear);
+        this(feedbackToUser, false, false, false, false, showClear);
     }
 
     /**

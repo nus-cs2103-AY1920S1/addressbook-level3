@@ -1,5 +1,11 @@
 package seedu.address.calendar.model;
 
+import java.nio.file.NoSuchFileException;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Stream;
+
 import seedu.address.calendar.model.date.Date;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
@@ -12,12 +18,6 @@ import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
 import seedu.address.calendar.model.util.CalendarStatistics;
 import seedu.address.calendar.model.util.DateUtil;
 import seedu.address.calendar.model.util.exceptions.NoVacationException;
-
-import java.nio.file.NoSuchFileException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * Represents a calendar. The calendar is aware of what has to be shown to the user graphically and has access to

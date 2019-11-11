@@ -1,7 +1,7 @@
 package seedu.address.calendar.logic.commands;
 
-import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.logic.parser.CliSyntax;
+import seedu.address.calendar.model.Calendar;
 import seedu.address.logic.commands.Command;
 
 public abstract class DeleteCommand extends Command<Calendar> {

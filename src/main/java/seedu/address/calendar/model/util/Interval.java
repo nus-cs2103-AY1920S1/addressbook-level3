@@ -1,8 +1,8 @@
 package seedu.address.calendar.model.util;
 
-import java.util.Arrays;
-
 import static java.util.Objects.requireNonNull;
+
+import java.util.Arrays;
 
 /**
  * An interface which is used to represent any interval with a start and an end.

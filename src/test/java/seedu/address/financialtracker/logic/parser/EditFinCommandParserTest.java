@@ -3,6 +3,7 @@ package seedu.address.financialtracker.logic.parser;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 class EditFinCommandParserTest {
