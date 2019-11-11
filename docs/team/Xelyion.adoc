@@ -16,13 +16,14 @@ Teacher's Notebook is a desktop application designed for teachers to manage thei
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to manage classrooms with the Notebook class*
-** What it does:
+** What it does: Allows the user to group students and assignments within classrooms, and reminders
+outside of classrooms.
 ** Justification: This feature improves the product significantly because a user can have more than one classroom of students, and
-have different assignments for each classroom.
+have different assignments for each classroom. Reminders are also not specific to a classroom,
+and hence should not reside within the classroom class.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis
  of existing structure and relations between existing classes. The implementation too was challenging as it required changes
  to the entire structure of the application, from logic and commands to storage.
-
 * *Minor enhancement*: Added color to indicate selection of classrooms
 * *Code contributed*:
 
@@ -31,17 +32,21 @@ have different assignments for each classroom.
 ** Project management:
 *** Managed releases `v1.1` - `v1.3rc` (4 releases) on GitHub
 *** Gave comments to peers before merging PRs.
-*** Helped to merge and fix some merge conflicts among the PRs in the team
+*** Helped to merge and fix some merge conflicts among the PRs in the team (Pull Request https://github.com/AY1920S1-CS2103-T14-1/main/pull/64[#64])
 ** Enhancements to existing features:
-*** Added the ability to
+*** Added the ability to create classrooms within the Notebook class and set different classrooms (Pull Request https://github.com/AY1920S1-CS2103-T14-1/main/pull/92[#92])
+*** Added the ability to add grades to Assignment in bulk (Pull request https://github.com/AY1920S1-CS2103-T14-1/main/pull/84/[#84])
+*** Added the ability to toggle between Student and Assignment lists in a combined panel (Pull Request https://github.com/AY1920S1-CS2103-T14-1/main/pull/63[#63])
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments)
-*** Reported bugs and suggestions for other teams in the class
+*** Reported bugs and suggestions for other teams in the class (examples:   https://github.com/Xelyion/ped/issues/5)
 == Contributions to the User Guide
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to
+write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=assignments]
@@ -49,7 +54,8 @@ include::../UserGuide.adoc[tag=assignments]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to
+write technical documentation and the technical depth of my contributions to the project._
 |===
 
 include::../DeveloperGuide.adoc[tag=undoredo]
