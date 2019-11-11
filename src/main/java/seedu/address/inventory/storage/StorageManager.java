@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.inventory.model.Item;
+import seedu.address.inventory.storage.exception.ParseFileException;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -21,16 +22,20 @@ public class StorageManager implements Storage {
     }
 
     public InventoryList getInventoryList() throws IOException {
-        ArrayList<Item> inventoryArrayList = new ArrayList<>();
-        file.getAbsoluteFile().getParentFile().mkdirs();
-        file.createNewFile();
-        BufferedReader bfr = new BufferedReader(new FileReader(file));
-        String line = null;
-        while ((line = bfr.readLine()) != null) {
-            Item t = this.readInFileLine(line);
-            inventoryArrayList.add(t);
+        try {
+            ArrayList<Item> inventoryArrayList = new ArrayList<>();
+            file.getAbsoluteFile().getParentFile().mkdirs();
+            file.createNewFile();
+            BufferedReader bfr = new BufferedReader(new FileReader(file));
+            String line = null;
+            while ((line = bfr.readLine()) != null) {
+                Item t = this.readInFileLine(line);
+                inventoryArrayList.add(t);
+            }
+            return new InventoryList(inventoryArrayList);
+        } catch (NumberFormatException | ParseFileException | NullPointerException e) {
+            return new InventoryList();
         }
-        return new InventoryList(inventoryArrayList);
     }
 
     /**
@@ -38,7 +43,7 @@ public class StorageManager implements Storage {
      * @param line Line of text.
      * @return Item created.
      */
-    public static Item readInFileLine(String line) {
+    public static Item readInFileLine(String line) throws ParseFileException {
         String[] stringArr = line.split(" [|] ", 0);
         Item i = null;
         if (stringArr.length == 5) {
@@ -48,6 +53,8 @@ public class StorageManager implements Storage {
             i = new Item(stringArr[1], stringArr[2], Integer.parseInt(stringArr[3]),
                     Double.parseDouble(stringArr[4]), Double.parseDouble(stringArr[5]),
                     Integer.parseInt(stringArr[0]));
+        } else {
+            throw new ParseFileException("Incorrect number of fields");
         }
         return i;
     }
