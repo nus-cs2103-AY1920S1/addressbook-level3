@@ -40,13 +40,13 @@ public class RemoveParticipantCommandTest {
     @Test
     public void execute_participantNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
 
-        modelStub.addTeam(validTeam);
+        TypicalTeams.clearTeamEmpty();
+
+        modelStub.addTeam(TypicalTeams.EMPTY.copy());
 
 
-        RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
+        RemoveParticipantCommand command = new RemoveParticipantCommand(TypicalParticipants.A.copy().getId(), TypicalTeams.EMPTY.getId());
 
         assertThrows(
                 CommandException.class,
@@ -56,13 +56,11 @@ public class RemoveParticipantCommandTest {
     @Test
     public void execute_teamNotFound_throwsCommandException() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
 
-        modelStub.addParticipant(validParticipant);
+        modelStub.addParticipant(TypicalParticipants.A.copy());
 
 
-        RemoveParticipantCommand command = new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId());
+        RemoveParticipantCommand command = new RemoveParticipantCommand(TypicalParticipants.A.copy().getId(), TypicalTeams.EMPTY.getId());
 
         assertThrows(
                 CommandException.class,
@@ -72,24 +70,23 @@ public class RemoveParticipantCommandTest {
     @Test
     public void execute_removeParticipantFromTeam_removeSuccessful() throws Exception {
         ModelManagerStub modelStub = new ModelManagerStub();
-        Participant validParticipant = new ParticipantBuilder().build();
-        Team validTeam = new TeamBuilder().build();
 
-        modelStub.addTeam(validTeam);
-        modelStub.addParticipant(validParticipant);
+        modelStub.addTeam(TypicalTeams.EMPTY.copy());
+
+        modelStub.addParticipant(TypicalParticipants.A.copy());
 
         //add mentor to team
         AssignParticipantCommand assignParticipantCommand =
-                new AssignParticipantCommand(validParticipant.getId(), validTeam.getId());
+                new AssignParticipantCommand(TypicalParticipants.A.copy().getId(), TypicalTeams.EMPTY.getId());
         assignParticipantCommand.execute(modelStub);
 
         CommandResult commandResult =
-                new RemoveParticipantCommand(validParticipant.getId(), validTeam.getId()).execute(modelStub);
+                new RemoveParticipantCommand(TypicalParticipants.A.copy().getId(), TypicalTeams.EMPTY.getId()).execute(modelStub);
 
         assertEquals(
                 String.format(
                         RemoveParticipantCommand.MESSAGE_REMOVE_PARTICIPANT_SUCCESS,
-                        validParticipant.getName(), validParticipant.getId(), validTeam.getName(), validTeam.getId()
+                        TypicalParticipants.A.getName(), TypicalParticipants.A.getId(), TypicalTeams.EMPTY.getName(), TypicalTeams.EMPTY.getId()
                 ),
                 commandResult.getFeedbackToUser());
 
@@ -99,12 +96,13 @@ public class RemoveParticipantCommandTest {
     public void execute_participantNotInTeam_throwsCommandException() throws AlfredException {
         ModelManagerStub modelStub = new ModelManagerStub();
 
-        TypicalTeams.clearTeamEmpty();
+
 
         modelStub.addTeam(TypicalTeams.EMPTY);
+        modelStub.addParticipant(TypicalParticipants.A.copy());
 
         RemoveParticipantCommand command =
-                new RemoveParticipantCommand(TypicalParticipants.C.getId(), TypicalTeams.EMPTY.getId());
+                new RemoveParticipantCommand(TypicalParticipants.A.getId(), TypicalTeams.EMPTY.getId());
 
         assertThrows(
                 CommandException.class,
