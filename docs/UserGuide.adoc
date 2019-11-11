@@ -910,20 +910,30 @@ If csv file of the input file name does not exist, the application data will be 
 
 [underline]#Format#: `export FILE_NAME` +
 
-
+// tag::autocomplete[]
 === Autocomplete
 As you type into the command line, suggestions will appear.
 
 A maximum of 8 suggestions will appear in a dropdown menu, sorted by their degree of
 similarity to the entered text.
 
+image::AutoCompleteCommandExample.png[]
+
 [TIP]
-The system may lag and not work occasionally if you are typing too fast.
+Suggestions in _Cyan_ mean that the entire word is suggested.
+
+[TIP]
+Suggestions in _Yellow_ mean that the word is partially matched.
+
+[TIP]
+The system may lag and not work if you are typing too fast.
 
 [TIP]
 The system is case-sensitive.
 
 ==== Example: `add`
+
+image::AutoCompleteAddExample.png[]
 
 *** When you enter `add-c` followed by a space, the system will suggest
 a list of prefixes you can enter, such as `n/`.
@@ -947,16 +957,28 @@ compulsory arguments are entered.
 any specified order, the autocomplete system enforces an artificial order to reduce
 confusion.
 
-* When you update data in the application, the suggestions that use these
-pieces of data will be updated accordingly.
+* When you alter data in the application, the suggestions will be updated
+accordingly.
+****
+
+==== Example: `delete-c`
+
+image::AutoCompleteDeleteExample.png[]
+
+*** For commands such as `delete-c` which take only a single index and
+no additional arguments, the system will suggest two numbers: `1` and `N`,
+where `N` is the largest valid index that can be entered. In this case,
+`N` corresponds to the number of customers displayed on the customer panel.
+
+****
+* Commands of this type include `delete`, `copy`, `complete`, `cancel`.
 ****
 
 ==== Example: `edit`
 
 *** When you enter `edit-c` followed by a space, the system will suggest
 two numbers: `1` and `N`, where `N` is the largest valid index that can
-be entered. In this case, `N` corresponds to the number of customers
-displayed on the customer panel.
+be entered.
 
 *** When you enter `edit-c 1` followed by a space, the system will
 suggest a list of prefixes you can enter, such as `n/`, `c/`, `e/`.
@@ -965,7 +987,7 @@ suggest a list of prefixes you can enter, such as `n/`, `c/`, `e/`.
 contact numbers that belong to existing customers.
 This is helpful in checking if the data you are editing to is duplicated.
 
-*** The list of data that is suggested depends on the prefix that is last
+*** The list of suggestions depends on the prefix that is last
 entered. If the last entered prefix was `i/`, it would instead suggest a
 list of existing identity numbers.
 
@@ -978,26 +1000,19 @@ the system is designed to always suggest the entire set of possible prefixes.
 
 ==== Example: `find`
 
+image::AutoCompleteFindExample.png[]
+
 *** When you enter `find-c` followed by a space, the system will suggest
 values from every attribute of every customer in the database.
 
 ****
-* As `find` commands accept any unlimited number of keywords, the system
+* As `find` commands accept an unlimited number of keywords, the system
 will endlessly suggest the same set of possible keywords when a space is
 entered.
 
 * Autocomplete works similarly for all `find` commands.
 ****
 
-==== Example: `delete-c`
-
-*** For commands such as `delete-c` which take only a single index and
-no additional arguments, the system will suggest two numbers: `1` and `N`,
-where `N` is the largest valid index that can be entered.
-
-****
-* Commands of this type include `delete`, `copy`, `complete`, `cancel`.
-****
 
 ==== Example: `switch`
 
@@ -1010,9 +1025,12 @@ and nothing else.
 
 ==== Example: `schedule`
 
-*** If you enter `schedule` followed by a space, the system will suggest
+image::AutoCompleteScheduleExample.png[]
+
+*** When you enter `schedule` followed by a space, the system will suggest
 dates that already have orders scheduled on them. This is helpful in
 checking for duplicates.
+// end::autocomplete[]
 
 === Other commands
 

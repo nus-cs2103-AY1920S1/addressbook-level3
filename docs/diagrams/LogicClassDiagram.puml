@@ -70,16 +70,16 @@ Class StatisticsManager
 }
 
 StatisticsManager .up.|> Statistics
-CommandResult .up.> StatsPayload : contains >
+CommandResult .left.> StatsPayload : contains >
 XYZCommand .up.>StatsPayload : creates >
-Logic ..> CommandResult
+Logic -..> CommandResult
 LogicManager .up.> Statistics
-LogicManager .right.> CommandResult
+LogicManager .up.> CommandResult
 Command .up.> CommandResult
 CommandResult -[hidden]-> Parser
 
 Logic .> AutoCompleteResult
-LogicManager *-> "1" AutoCompleteResultGenerator
+LogicManager *--.up.> "1" AutoCompleteResultGenerator
 AutoCompleteResultGenerator .> AutoCompleteResult
 
 @enduml

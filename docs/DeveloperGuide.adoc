@@ -362,57 +362,108 @@ class.
 
 // end::statisticsCommand[]
 
+// tag::autocomplete[]
 === Autocomplete feature
-
-image::AutoCompleteClassDiagram.png[]
-image::GraphsClassDiagram.png[]
-image::NodesClassDiagram.png[]
-
-==== Current Implementation
 
 This feature is visible in the UI as a dropdown menu when the user types
 into the command box.
+
+image::AutoCompleteAddExample.png[]
+
+==== Current Implementation
 
 ===== How the UI works
 
 The command box uses a custom `AutoCompleteTextField` which extends from JavaFX's
 `TextField`. It stores a reference to a `SortedSet` of strings. When the input is
 changed, it automatically compares the input with this set of suggestions. If any
-suggestion is contained in the input, it will be further compared with other
+suggestion matches some region of the input, it will be further compared with other
 suggestions to determine which suggestion is more similar to the input. The degree of
 similarity is determined by the index of the first character of the matching region.
 
-For example, <insert picture>
+image::AutoCompleteCommandExample.png[]
 
-The lower the index, the more similar the suggestion is.
+The smaller the index, the more similar the suggestion is.
 
 In order to customize the suggestions to fit different inputs, the `CommandBox`
 attaches a listener to the `AutoCompleteTextField`. When the text is changed, the
 `CommandBox` will extract the entered text and query the `LogicManager` for a set
-of suggestions. The query process will be elaborated on below. This sequence diagram
-is a high level example of the logic.
+of suggestions. This query process will be explained below.
 
-image::AutoCompleteSequenceDiagram.png[]
-
-===== The underlying data structures
+===== Underlying data structures
 
 This feature was designed to display values that are currently in the `Model`.
 
 For example, the input text `add-c n/` would display a list of `CustomerName`
 that already exists in the `Customer` `DataBook`.
 
-In order to achieve this, the first data structure used is a directed `Graph`
-with every `Node` storing a reference to a `List` in a `DataBook`.
+====== Directed Graph
 
-===== Design Considerations
+In order to achieve this, one of the data structures used is a directed `Graph`
+implemented as a list of `Edge`, each storing references to a source and destination
+`Node`. Each `Node` then stores a reference to a `List` in a `DataBook`.
 
-* Dynamically updated: By storing references to a set of values that can be backed by `ObservableList` in the `Model`, whenever the user alters any data, it will be reflected in the displayed values.
+These were the design considerations:
 
-* Supports optional arguments: By storing the possible prefixes as "edge weights", it is possible to represent an optional argument by having an edge to the `Node` containing its values, as well as an edge to the next `Node`.
+* Enforcement of artificial prefix order: By storing prefixes as edge weights,
+it is possible to enforce an artificial order. First, initialise a pointer
+to a starting `Node`. Then for each prefix encountered in the input, attempt to
+traverse an outgoing `Edge` from this `Node` by matching the prefix with the
+edge weight. This way, if the prefix is out of order, later prefixes will be
+inaccessible.
 
-* Infinite structure: By having a `TagNode` store a reference to itself, it is possible to endlessly display `t/` as a possible argument at the end of the input text,
-which is consistent with the unlimited number of `Tag` a `Customer` can hold.
+* Dynamically updated: By storing references to a set of values that can be
+backed by `ObservableList` in the `Model`, whenever the user alters any data,
+it will automatically be reflected in the displayed values.
 
+* Supports optional arguments: By storing the possible prefixes as
+edge weights, it is possible to represent an optional argument by
+having an edge to the `Node` containing its values, as well as an edge to the next `Node`.
+
+* Infinite structure: By having a `TagNode` store a reference to itself, it
+is possible to endlessly display `t/` as a possible prefix at the end
+of the input text, which is consistent with the unlimited number of
+`Tag` a `Customer` can hold.
+
+====== Wrapper for a pointer
+
+The idea here is similar to the above. It can be thought of as a singular
+`Node`. This data structure is used for simple commands which require only
+one argument. As there is no need to enforce any order or support an
+infinite structure, a `Graph` would be overkill.
+
+===== Specifics
+
+This is an example sequence diagram for `add-c n/`.
+
+image::AutoCompleteSequenceDiagram.png[]
+
+When the `UI` queries the `LogicManager` for suggestions, an `AutoCompleteResult`
+is returned, which contains a `SortedSet` of strings and a separate string to match
+with these suggestions.
+
+In order to generate this `AutoCompleteResult`, the `LogicManager` requests
+a `AutoCompleteResultGenerator` to process the input.
+
+`AutoCompleteResultGenerator` contains references to `AutoCompleteResultProvider`
+which have the ability to return `AutoCompleteResult`.
+
+An example of a `AutoCompleteResultProvider` would be `AddCustomerGraph`, which
+does the heavy lifting in terms of processing the input string and collating values
+from `AutoCompleteValueProvider` in the form of `AutoCompleteNode`.
+
+For clarity, here are some class diagrams for the AutoComplete package.
+
+image::AutoCompleteClassDiagram.png[]
+image::GraphsClassDiagram.png[]
+image::NodesClassDiagram.png[]
+
+===== Alternative Designs
+
+An alternative design would be to integrate the system with existing `Parser`
+by making use of `ArgumentTokenizer` and `ArgumentMultimap`.
+
+// end::autocomplete[]
 
 // tag::schedule[]
 

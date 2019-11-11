@@ -24,8 +24,8 @@ the user to determine if he is entering duplicated data in real time, instead of
 feedback after entering the command.
 ** Highlights: This enhancement supports all existing commands of varying formats and was
 designed to be easily extensible to commands added in future. The autocomplete system is
-contextually aware, by suggesting values catered to each command specifically. The possible
-values will also automatically update according to changes in the database.
+contextually aware, by suggesting values catered to each command and prefix
+specifically. The possible values will also automatically update according to changes in the database.
 ** Credits: UI code for displaying a dropdown menu was inspired by this StackOverflow post:
 https://stackoverflow.com/questions/36861056/javafx-textfield-auto-suggestions
 
@@ -43,6 +43,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/122[#122]
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/143[#143]
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/155[#155]
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/277[#277]
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/262[#262]
 
 ** Refactor:
 https://github.com/AY1920S1-CS2103T-T09-4/main/pull/137[#137]
@@ -59,17 +60,29 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/117[#117]
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Released `v1.2` on GitHub
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Removed unwanted AB3 code related to Person
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed (with non-trivial review comments):
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/141[#141],
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/83[#83],
+https://github.com/AY1920S1-CS2103T-T09-4/main/pull/106[#106]
+*** Reported bugs and suggestions for other teams in the class (
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/203[ExerHealth #203],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/204[ExerHealth #204],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/205[ExerHealth #205],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/206[ExerHealth #206],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/209[ExerHealth #209],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/210[ExerHealth #210],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/219[ExerHealth #219],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/220[ExerHealth #220],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/221[ExerHealth #221],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/222[ExerHealth #222],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/223[ExerHealth #223],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/226[ExerHealth #226],
+https://github.com/AY1920S1-CS2103T-T09-2/main/issues/227[ExerHealth #227]
+)
 
 == Contributions to the User Guide
 
@@ -78,9 +91,7 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/117[#117]
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
-
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=autocomplete]
 
 == Contributions to the Developer Guide
 
@@ -88,6 +99,4 @@ https://github.com/AY1920S1-CS2103T-T09-4/main/pull/117[#117]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=autocomplete]
