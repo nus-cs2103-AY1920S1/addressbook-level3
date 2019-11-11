@@ -630,7 +630,7 @@ Step 3. The `UnknownCommand` is executed by `Logic` and `plus` is saved on the `
 Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters `ad` instead of `add`. Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`. Note that `prevUnknownCommand` is the last saved command retrieved from the `savedCommand` Stack.
 
 [NOTE]
-Logic#execute(String userInput) has been changed to Logic#execute(String userInput, boolean isUnknown) to account for different execution pathways when in normal and "learner" mode.
+`Logic#execute(String userInput)` has been changed to `Logic#execute(String userInput, boolean isUnknown)` to account for different execution pathways when in normal and "learner" mode.
 
 Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and `ad` is also saved.
 Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in `cancel`.
