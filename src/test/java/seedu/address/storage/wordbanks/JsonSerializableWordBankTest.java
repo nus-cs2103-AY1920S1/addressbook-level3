@@ -39,7 +39,7 @@ class JsonSerializableWordBankTest {
     }
 
     @Test
-    void toModelType_duplicateCardsInWordBank_throwsINullPointerException() throws Exception {
+    void toModelType_duplicateCardsInWordBank_throwsNullPointerException() throws Exception {
         JsonSerializableWordBank dataFromFile = JsonUtil.readJsonFile(DUPLICATE_CARDS_IN_WORD_BANK_FILE,
                 JsonSerializableWordBank.class).get();
         assertThrows(NullPointerException.class, dataFromFile::toModelType);
