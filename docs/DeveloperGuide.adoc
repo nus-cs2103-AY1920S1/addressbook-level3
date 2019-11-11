@@ -91,7 +91,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
-
+//tag::logic[]
 [[Design-Logic]]
 === Logic components
 
@@ -303,6 +303,7 @@ image::NoteSavingSequence.png[]
 . `Note` and *sketch* is retrieved from the `NoteSubmissionChannel`
 . `Note` is saved by the `NoteBankStorage` while the *sketch* is saved by the `SketchManager`
 ====
+//end::logic[]
 
 [[Design-Model]]
 === Model component
@@ -354,6 +355,7 @@ Classes used by multiple components are in the `com.dukeacademy.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
+//tag::programevaluation[]
 [[Implementation-ProgramEvaluation]]
 === Evaluation of user program submissions
 The evaluation of the user's programs is facilitated by the `solutions` package.
@@ -501,6 +503,7 @@ The implementations of `CompilerEnvironment`, `Compiler` and `ProgramExecutor` u
     - `StandardProgramExecutor` accesses the input stream of the process and feeds the program the necessary inputs.
     - `StandardProgramExecutor` access the output and error stream of the process and collects any produced output or errors.
     - The process is destroyed and the collected output and errors and packaged as a `ProgramOutput` instance.
+//end::programevaluation[]
 
 === Logging
 

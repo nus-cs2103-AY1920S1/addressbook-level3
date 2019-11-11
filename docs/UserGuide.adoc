@@ -98,29 +98,34 @@ _Note: the index of a question is the number displayed next to its title._
 image::questionindex.png[width="1000"]
 +
 
+//tag::overview[]
 [[Overview]]
 == Overview
 
 The application is divided into 5 separate tabs, each one of them serving a specific purpose. You can toggle between the
 different tabs by entering `tab` into the *CommandBox*.
 
-=== Home
-The *Home* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
+=== Dashboard
+The *Dashboard* tab contains an introduction of the application, and more importantly, a *Personal Dashboard* for you to keep track of your progress made in Duke Academy.
 
 image::homepage.png[width="1000"]
+. *Completion Progress* +
+   Displays the number of questions that you have completed and how close you are to the next skill tier
+. *Currently attempting* +
+  Displays all the questions that you are currently attempting
+. *Bookmarked questions* +
+  Displays all your bookmarked questions
 
-On the *Personal Dashboard* you can:
+====
+*Duke Academy ranks*:
 
-. See the percentage of questions you completed and your current skill tier.
-+
-Novice 0 - 29 % {nbsp} +
-Apprentice 30 - 49 % {nbsp} +
-Master 50 - 69 % {nbsp} +
-Grandmaster 70 - 89 % {nbsp} +
-Duke 90 - 100 %
-+
-. Keep track of the questions that you are currently attempting.
-. Keep track of the questions that you bookmarked.
+- *Novice* - 0 - 29 % {nbsp}
+- *Apprentice* - 30 - 49 % {nbsp}
+- *Master* 50 - 69 % {nbsp}
+- *Grandmaster* - 70 - 89 % {nbsp}
+- *Duke* - 90 - 100 %
+
+====
 
 === Questions
 The *Questions* tab contains a list of all the available questions and also a window to view your problem statements.
@@ -128,14 +133,13 @@ The *Questions* tab contains a list of all the available questions and also a wi
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
 are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles. _(View <<Features>> for more details.)_
 
-. To quickly see all questions, enter `showall` into the *CommandBox*.
-. To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
-  on the right.
-
-+
 image::questionspage.png[width="1000"]
-+
 
+====
+* To quickly see all questions, enter `showall` into the *CommandBox*.
+* To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
+  on the right.
+====
 
 === Workspace
 The workspace is where you will work on the various questions.
@@ -153,49 +157,54 @@ This panel displays the correctness of your program when evaluated against the p
 +
 A built-in editor for you to write your code.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+====
+- To submit your attempt, enter `submit` into the *CommandBox*.
 
-To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
+- To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
 
-To submit your attempt, enter `submit` into the *CommandBox*.
+- To submit your attempt, enter `submit` into the *CommandBox*.
+====
 
 === Notes
 The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
 
 image::notespage.png[width="1000"]
 
-. NotesListDisplay
+. *NotesListDisplay*
 +
 Displays all of the notes that you have previously created.
 +
 
-. CurrentNoteTitle
+. *CurrentNoteTitle*
 +
 Shows the title of the note that you are currently viewing/editing.
 +
 
-. NoteTextInput
+. *NoteTextInput*
 +
 Input space for any text-based notes that you wish to record.
 +
 
-. Sketchpad
+. *Sketchpad*
 +
 A canvas for you to draw any ideas you may have pertaining to data structures!
-+
 
+====
+- To create a new note, enter `newnote <Title>` into the *CommandBox*
 
-To create a new note, enter `newnote <Title>` into the *CommandBox*
+- To open an exiting note, enter `opennote <Id> into the *CommandBox*.
 
-To open an exiting note, enter `opennote <Id> into the *CommandBox*.
+- The id of the note is the number that appears next to the title in the *NotesListDisplay*.
 
-The id of the note is the number that appears next to the title in the *NotesListDisplay*.
+- To save any changes to your notes, enter `savenote` into the *CommandBox*.
+====
+//end::overview[]
 
-To save any changes to your notes, enter `savenote` into the *CommandBox*.
 
 === Help
 The help page is where you can get a quick summary of all of the features and commands in the application.
 
+//tag::beforestart[]
 [[BeforeStart]]
 == Before you start
 . The programe evaluator searches for a class with the class name `Main` as the entry point into your program. Please ensure
@@ -207,6 +216,8 @@ it is important that your program uses the `Scanner` class to read inputs and fo
 . Take note that your program is being evaluated *on your local machine* and not within a container or a virtual machine.
 Thus, *do not write any code that you would not want to run on your local machine*.
 
+. Most importantly, remember to have fun!
+//end::beforestart[]
 
 [[Features]]
 == Features
@@ -374,6 +385,7 @@ Navigates to the *Questions* tab where you can code your solution to solve the p
 
 image::attempt.png[width=1000"]
 
+//tag::submit[]
 === Submitting your answer: `submit`
 
 Submits your solution.​ Your code will be compiled and run against test cases. The results will be displayed in
@@ -387,6 +399,10 @@ the *ProgramEvaluationDisplay* on the bottom left of the GUI.
 ****
 
 image::submit.png[width="1000"]
+
+//end::submit[]
+
+//tag::notes[]
 
 === Creating a new note: `newnote`
 
@@ -448,6 +464,7 @@ Navigates to the *Notes* tab and deleting the note corresponding to the id.
 * `deletenote 1` +
 Navigates to the *Notes* page after deleting the note with the id 1.
 
+//end::notes[]
 
 === Loading new questions: `loadquestions`
 
