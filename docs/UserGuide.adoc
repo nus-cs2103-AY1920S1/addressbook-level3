@@ -117,6 +117,7 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 
 ====
 
+// tag::in[]
 [[In]]
 === Logging Income : `in`
 
@@ -180,6 +181,9 @@ image::in_ug_4.png[]
 * `in $/250.50 d/29022020 n/mom c/family`
 * `in $/120 d/31122019 n/helping friend`
 
+//end::in[]
+
+//tag::out[]
 [[Out]]
 === Logging Expense : `out`
 
@@ -283,6 +287,8 @@ image::out_ug_8.png[]
 * `out $/100 d/01012019 n/milk c/food c/drinks`
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
+
+//end::out[]
 
 [[Set]]
 === Setting a Budget : `set`
@@ -616,7 +622,12 @@ image::delete_ug_3.png[]
 * `delete l2`
 * `delete p4`
 
+//end::delete[]
+
 [[Update]]
+
+//tag::update[]
+
 === Updating Finance : `update`
 
 Did you make a mistake in one of your entries? Perhaps you over counted that expenditure you made. PalPay provides you with an `update` feature which helps you change specific fields within your entries.
@@ -715,6 +726,8 @@ image::update_ug_11.png[]
 * `update t1 $/20 n/coke c/drinks d/12122019`
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
+
+//end::update[]
 
 [[Sort]]
 // tag::sort[]
