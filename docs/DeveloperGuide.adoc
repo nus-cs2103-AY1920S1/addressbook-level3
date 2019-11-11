@@ -50,6 +50,7 @@ The rest of the App consists of four components.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
@@ -142,7 +143,7 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Time Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -540,7 +541,7 @@ image::VisualRepresentationSD1.png[]
 // tag::Closest-Common-Location[]
 [[Implementation-ClosestLocation]]
 === Closest Common Location
-Closest common location utilises Google Maps Api to get the best center location to meet for a group project meeting.
+Closest common location utilises Google Maps API to get the best center location to meet for a group project meeting.
 We define this location as Closest Common Location. Below is an example of this feature.
 [#img-Popup]
 .Popup for the closest common location.
@@ -550,12 +551,12 @@ image::gmaps/SuccessfulPopup.png[Popup]
 
 * Due to connectivity constraints, we cannot support location outside of NUS. View <<UserGuide#Supported-Locations, User Guide>> for the full list of location we support.
 * The closest location is the location that has the least average travelling distance by car from the various sources.
-* All invalid location are omitted during as the source location will not be considered.
+* All invalid locations are omitted and will not be considered in the computation of the closest common locations.
 
 ==== Algorithm
 
 . Create a complete graph where the vertices are the different locations in NUS and edges are the respective travelling distance by car from location `u` to `v`
-. Represent this graph in a v x v matrix where `i` represents the source location and `j` represent destination location and `distanceMatrix[i][j]` represent the time needed to travel from `i` to `j`
+. Represent this graph in a v x v matrix where `i` represent the source location and `j` represent destination location and `distanceMatrix[i][j]` represents the time needed to travel from `i` to `j`
 . To get the closest common location of S1 ... Sn:
 .. Get the rows i = l1 ... ln
 .. Sum the values of the rows to a new row `totalDistance`
@@ -571,17 +572,17 @@ image::gmaps/Algorithm.png[Algorithm]
 
 *Consideration*
 
-. Google Maps Api only provides free $400 credit per account and every 1000 API call cost USD$10-USD$20.
+. Google Maps API charges USD$10-USD$20 per 1000 call.
 . https://developers.google.com/maps/documentation/distance-matrix/usage-and-billing[Google Maps Distance Matrix Api]
 has a limit of 100 elements for every API call.
 . Google Maps Api has bug
-.. Inconsistency in the identifying locations. Example
-... `NUS_LT17` identified as the correct location and `LT17` is not.
+.. Inconsistency in identifying locations. Example
+... `NUS_LT17` is identified as the correct location and `LT17` is not.
 ... `NUS_AS6` is not identified as the correct location but `AS6` is identified as the correct location.
 .. Certain locations are not supported by Google Maps
-... `S4` and `S6` is identifiable but `S5` is not.
+... `S4` and `S6` are identifiable but `S5` is not.
 .. Some locations are valid on Google Maps Places Api but not on Google Maps Distance Matrix Api.
-. Not all venues on NUSMods are identifiable on Google Maps Api.
+. Not all venues on NUSMods are identifiable on Google Maps API.
 . Some venues on NUSMods are in the same building(ie AS6-0213 and AS6-0214).
 
 *Implementation*
@@ -613,20 +614,20 @@ image::gmaps/MatrixCreationSequenceDiagram.png[Gmaps-Sequence-Diagram]
 
 *Brief overview*
 The initialising of the matrix is broken into 2 steps. The first step is to get the list of locations in NUSMods and
-checking against google maps API if that location is identifiable by google. The second step is to use the identifiable
+checking against Google Maps API if that location is identifiable by Google. The second step is to use the identifiable
 location to construct the matrix.
 
 *Steps*
 
-. Check if the name of the location in NUSMods is identifiable on google maps. `ProcessVenues#process` is the driver for this step.
-.. Call NUSMods api with `Cache#loadVenues` to get an array of Venues(`String`) in NUS,
+. Check if the name of the location in NUSMods is identifiable on Google Maps. `ProcessVenues#process` is the driver for this step.
+.. Call NUSMods API with `Cache#loadVenues` to get an array of Venues in NUS,
 .. Iterate through each venue and sanitize it to Google Maps Identifiable location.
 ... Sanitizes the location name given by NUSMods by appending `NUS_` to the front and removing any characters after `-`
 or `/` as the room in the building does not matter. This will help to reduce the cost of Google Maps API calls.
 ... `UrlUtil#conditionalLocationName` maps the location name that are not supported on Google Maps to a valid location
 name.
 ... Each venue in the array will have a `validLocationName` and `placeId` mapped to it in the
-`Location` class. This will help with the generation of Google Maps Distance Matrix Api and retrieving of the location
+`Location` class. This will help with the generation of Google Maps Distance Matrix API and retrieving of the location
 image from Google Maps Maps Static API
 . Construct matrix. `ProcessLocationGraph#process` is the driver for this step.
 .. Get the list of valid location with the relevant data(`placeId` and `validLocationName`)
@@ -642,6 +643,20 @@ closest common location.
 `JSON` is used to transfer data in `HTTP APIs`, `ClosestCommonLocationData` is used to transfer the relevant data to the
 `UI` to display the popup.
 // end::Closest-Common-Location[]
+
+==== Design Considerations
+
+====== Aspect: Limited Connectivity Support
+Current choice: we chose alternative 2 as we have limited Google Maps API calls and to reduce the time and space complexity
+of the application.
+
+* **Alternative 1:** Get the distance of the location directly from the NUSMods.
+** Pros: Simplify the code base as we can directly call Google Maps API after calling NUSMods API.
+** Cons: Bad time complexity as there would be quadratically more data to process. Prone to error as Google Maps might
+identify `AS6-0114` but not `AS6-0223`.
+* **Alternative 2:** Sanitize the Locations on NUSMods API according to their buildings(ie `AS6-0114`->`AS6`)
+** Pros: Save time and space complexity as the number of venues will decrease by a factor of 10.
+** Cons: Increase in complexity of the code base as an additional step of processing will be required.
 
 // tag::nusmods[]
 === Add NUSMods To Schedule
