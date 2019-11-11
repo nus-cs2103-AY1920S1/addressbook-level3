@@ -303,6 +303,35 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void updateProjectionsAfterAdd(Budget added) {
+        this.getFilteredProjectionsList().forEach(x -> {
+            if (added.isGeneral() && x.isGeneral()) {
+                this.delete(x);
+                UniqueBudgetList newBudgets = new UniqueBudgetList();
+                newBudgets.setBudgets(x.getBudgets());
+                newBudgets.add(added);
+                this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
+                        newBudgets.asUnmodifiableObservableList()));
+            } else {
+                boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
+                    if (x.getCategory() != null) {
+                        return c.equals(x.getCategory());
+                    }
+                    return false;
+                });
+                if (sameCategory) {
+                    this.delete(x);
+                    UniqueBudgetList newBudgets = new UniqueBudgetList();
+                    newBudgets.setBudgets(x.getBudgets());
+                    newBudgets.add(added);
+                    this.add(new Projection(x.getTransactionHistory(),
+                            x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
+                }
+            }
+        });
+    }
+
+    @Override
     public void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated) {
         this.getFilteredProjectionsList().forEach(x -> {
             if (x.isGeneral()) {
@@ -342,35 +371,6 @@ public class ModelManager implements Model {
                     newTransactions.add(toUpdate);
                     this.add(new Projection(newTransactions.asUnmodifiableObservableList(),
                             x.getDate(), x.getBudgets()));
-                }
-            }
-        });
-    }
-
-    @Override
-    public void updateProjectionsAfterAdd(Budget added) {
-        this.getFilteredProjectionsList().forEach(x -> {
-            if (added.isGeneral() && x.isGeneral()) {
-                this.delete(x);
-                UniqueBudgetList newBudgets = new UniqueBudgetList();
-                newBudgets.setBudgets(x.getBudgets());
-                newBudgets.add(added);
-                this.add(new Projection(this.getFilteredTransactionList(), x.getDate(),
-                    newBudgets.asUnmodifiableObservableList()));
-            } else {
-                boolean sameCategory = added.getCategories().stream().anyMatch(c -> {
-                    if (x.getCategory() != null) {
-                        return c.equals(x.getCategory());
-                    }
-                    return false;
-                });
-                if (sameCategory) {
-                    this.delete(x);
-                    UniqueBudgetList newBudgets = new UniqueBudgetList();
-                    newBudgets.setBudgets(x.getBudgets());
-                    newBudgets.add(added);
-                    this.add(new Projection(x.getTransactionHistory(),
-                        x.getDate(), newBudgets.asUnmodifiableObservableList(), x.getCategory()));
                 }
             }
         });
