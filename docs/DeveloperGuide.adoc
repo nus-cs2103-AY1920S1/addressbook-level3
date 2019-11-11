@@ -681,7 +681,7 @@ They are: +
 Allows developers to use and extend this architecture to streamline their feature implementation. +
 Allows user to save and load their _WordBanks_. +
 
-Observe closely the attributes and methods of the following class diagrams. +
+The attributes and methods of the following class diagrams have been carefully written. +
 They describe and explain _WordBank_'s data structure and its storage system in detail. +
 
 
@@ -780,7 +780,7 @@ image::OverviewOfWordBankList.png[]
 .Integration of `WordBankList` within `Storage` and `Model`.
 image::WBStorage.png[]
 
-`WordBankListStorage` consists of robust and self-explanatory methods in which developers can use and extend upon easily. +
+`WordBankListStorage` consists of robust methods in which developers can use and extend upon easily. +
 Alongside with _WordBank_'s data structure, they lay the foundation for the other complementary sections of _WordBank_ Management.
 
 On top of that, they serve as a essential foundation for Dukemon. As such, these data structures and methods were required
@@ -814,7 +814,7 @@ You can refer to it to enhance your understanding of this implementation.
 //A word bank command edits the word bank within that particular word bank list. Therefore it needs to make function calls through
 //the WordBankList data structure.
 
-Let me first introduce you how these commands are implemented and structured in `Logic`. +
+Let us first introduce you how these commands are implemented and structured in `Logic`. +
 
 .Overview class diagram of `Logic` with emphasis on `CardCommands` and `WordBankCommands`.
 image::WBLogicStorageModel.png[]
@@ -842,7 +842,7 @@ image::ImportCommandSeqDiagram.png[]
 // end::chenhui-importCommandSequenceDiagram[]
 
 
-NOTE: Most of these methods utilised can be found in my _WordBank_'s data structure and storage class diagrams. +
+NOTE: Most of these methods utilised can be found in _WordBank_'s data structure and storage class diagrams. +
 The emphasis here is to show how these commands utilise _WordBank_'s data structure and storage.
 
 We will see the case where an `ImportCommand` is valid. +
@@ -981,7 +981,7 @@ These components include:
 * GameStatistics
 
 Given that well-developed methods reside in each of these components, we then require an overview of revision bank implementation.
-The activity diagram above is able to detail my thought process and implementation.
+The activity diagram above is able to detail the thought process and implementation.
 
 1. `AppManager` gets first notification that a `Game` session has ended.
 2. `StorageManager` creates revision word bank if necessary.
