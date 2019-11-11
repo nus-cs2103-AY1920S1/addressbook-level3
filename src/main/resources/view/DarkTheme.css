@@ -99,19 +99,69 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell:filled:even {
+.list-cell:filled:even #contactListCardPane {
     -fx-background-color: #3c3e3f;
 }
 
-.list-cell:filled:odd {
+.list-cell:filled:odd #contactListCardPane {
     -fx-background-color: #515658;
 }
 
-.list-cell:filled:selected {
+.list-cell:filled:selected #contactListCardPane {
     -fx-background-color: #424d5f;
 }
 
-.list-cell:filled:selected #cardPane {
+.list-cell:filled:selected #contactListCardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled #noteListCardPane {
+    -fx-background-color: #383838;
+    -fx-padding: 10 10 10 10;
+}
+
+.list-cell:filled:selected #noteListCardPane {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled #noteListCardPane > #noteListInternalPane {
+    -fx-border-radius: 10;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-background-color: #313131;
+}
+
+.list-cell:filled:even #groupListCardPane {
+    -fx-background-color: #3c3e3f;
+}
+
+.list-cell:filled:odd #groupListCardPane {
+    -fx-background-color: #515658;
+}
+
+.list-cell:filled:selected #groupListCardPane {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #groupListCardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell:filled:even #tagListCardPane {
+    -fx-background-color: #3c3e3f;
+}
+
+.list-cell:filled:odd #tagListCardPane {
+    -fx-background-color: #515658;
+}
+
+.list-cell:filled:selected #tagListCardPane {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #tagListCardPane {
     -fx-border-color: #3e7b91;
     -fx-border-width: 1;
 }
@@ -213,7 +263,7 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;
+    -fx-padding: 5 15 5 15;
     -fx-border-color: #e2e2e2;
     -fx-border-width: 2;
     -fx-background-radius: 0;
@@ -307,7 +357,7 @@
     -fx-padding: 8 1 8 1;
 }
 
-#cardPane {
+#contact-list {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }
@@ -328,18 +378,13 @@
     -fx-text-fill: white;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #contactListPanel, #contactWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
 #resultDisplay .content {
     -fx-background-color: transparent, #383838, transparent, #383838;
     -fx-background-radius: 0;
-}
-
-#tags {
-    -fx-hgap: 7;
-    -fx-vgap: 3;
 }
 
 #tags .label {
@@ -349,4 +394,98 @@
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
+}
+
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#memberIds .label {
+    -fx-text-fill: white;
+    -fx-background-color: #3e7b91;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 13;
+}
+
+#memberIds {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.dialog-box {
+    -fx-spacing: 15;
+    -fx-pref-width: 400;
+    -fx-background-color: #383838;
+}
+
+.dialog-box > .message-content {
+    -fx-padding: 10 10 10 10;
+    -fx-border-radius: 13;
+    -fx-background-radius: 13;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+    -fx-font-family: "Segoe UI Light";
+}
+
+.dialog-box > .response-dialog {
+    -fx-text-fill: #EEEEEE;
+    -fx-background-color: #6890BC;
+}
+
+.dialog-box > .command-dialog {
+    -fx-text-fill: #DDDDDD;
+    -fx-background-color: #666666;
+}
+
+.auto-complete-popup {
+    -fx-background-color: #FF0000;
+    -fx-control-inner-background: #202020;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled {
+    -fx-font-size: 11pt;
+    -fx-control-inner-background: #383838;
+}
+
+.auto-complete-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:filled:selected {
+    -fx-control-inner-background: #6890BC;
+}
+
+#groupProfileResultView .big_label {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI Semibold"
+}
+
+#groupProfileResultView .small_label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI"
+}
+
+#groupListCardPane #emptyGroupLabel {
+    -fx-text-fill: #999999;
+}
+
+#contactProfileResultView .big_label {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-family: "Segoe UI Semibold"
+}
+
+#contactProfileResultView .small_label {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-family: "Segoe UI"
 }

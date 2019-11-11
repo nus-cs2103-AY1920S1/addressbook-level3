@@ -15,7 +15,7 @@ plugins {
 }
 
 // Specifies the entry point of the application
-mainClassName = 'seedu.address.Main'
+mainClassName = 'tagline.Main'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
@@ -60,15 +60,19 @@ dependencies {
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
+    implementation group: 'org.controlsfx', name: 'controlsfx', version: '11.0.0'
+    testCompile group: 'org.testfx', name: 'testfx-core', version: '4.0.16-alpha'
+    testCompile group: 'org.testfx', name: 'testfx-junit5', version: '4.0.16-alpha'
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
+    testRuntimeOnly "org.testfx:openjfx-monocle:jdk-11+26"
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
-
+    archiveName = 'tagline.jar'
     destinationDir = file("${buildDir}/jar/")
 }
 
@@ -114,6 +118,25 @@ test {
     }
 }
 
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                    'java.awt.headless': 'true',
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
+                    'headless.geometry': '1600x1200-32'
+            ]
+        }
+    }
+}
+
+// Makes sure that headless properties are set before running tests
+test.mustRunAfter headless
+
 asciidoctor {
     backends 'html5'
     sourceDir 'docs'
@@ -133,8 +156,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'tagline',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-F12-3/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

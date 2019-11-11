@@ -1,0 +1,23 @@
+{
+  "groups" : [ {
+    "groupname" : "Children-of-Thanos",
+    "groupdescription" : "\"Hear me and rejoice! You have had the privilege of being saved by the Great Titan. You may think this is suffering. No... it is salvation. The universal scales tip toward balance because of your sacrifice. Smile... for even in death, you have become children of Thanos.\"",
+    "members" : [ "4131", "1225" ]
+  }, {
+    "groupname" : "",
+    "groupdescription" : "Heil Hydra",
+    "members" : [ "1", "12" ]
+  }, {
+    "groupname" : "Wakandan-Royal-Guard",
+    "groupdescription" : "Wakanda Forever",
+    "members" : [ "432", "92341", "4inv1", "7543" ]
+  }, {
+    "groupname" : "The-OG-6",
+    "groupdescription" : "The Earths Mightiest Heroes",
+    "members" : [ "40000", "1", "2", "3", "56" ]
+  }, {
+    "groupname" : "Guardians_of_theGalaxy",
+    "groupdescription" : "",
+    "members" : [ ]
+  } ]
+}

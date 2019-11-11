@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="www.draw.io" modified="2019-10-27T06:57:23.339Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="5KeUIsas3hNErEiji1ys" version="12.1.7" type="google" pages="4">
+  <diagram id="8SCaTs84i48YMBm5k0R-" name="Step 3">
+    <mxGraphModel dx="768" dy="418" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="9M08_IwNgnsST_BVsyql-0"/>
+        <mxCell id="9M08_IwNgnsST_BVsyql-1" parent="9M08_IwNgnsST_BVsyql-0"/>
+        <mxCell id="RbdzM763Fd1ILNjOycv--0" value="loop" style="shape=umlFrame;whiteSpace=wrap;html=1;" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="520" y="600" width="360" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-2" value="" style="shape=umlLifeline;participant=umlActor;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;verticalAlign=top;spacingTop=36;labelBackgroundColor=#ffffff;outlineConnect=0;size=60;" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="130" y="440" width="30" height="370" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-3" value="User" style="text;html=1;resizable=0;points=[];autosize=1;align=center;verticalAlign=top;spacingTop=-4;" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="125" y="420" width="40" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-4" value=":Ui" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="310" y="450" width="100" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-5" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#d5e8d4;strokeColor=#82b366;" parent="rT1Z2S0mdnFYzaz-yNJf-4" vertex="1">
+          <mxGeometry x="43" y="110" width="15" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-8" value=":Logic" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontStyle=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="550" y="450" width="100" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-9" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="rT1Z2S0mdnFYzaz-yNJf-8" vertex="1">
+          <mxGeometry x="43" y="140" width="15" height="141" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-14" value="p:Prompt" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;fontStyle=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="767" y="450" width="100" height="360" as="geometry"/>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-23" value="execute(&quot;note create&quot;, promptList)" style="html=1;verticalAlign=bottom;endArrow=classicThin;entryX=0.047;entryY=0.002;endFill=1;entryDx=0;entryDy=0;entryPerimeter=0;" parent="9M08_IwNgnsST_BVsyql-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="368" y="589.3200000000002" as="sourcePoint"/>
+            <mxPoint x="593.7049999999999" y="589.3200000000002" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-24" value="" style="html=1;verticalAlign=bottom;endArrow=classicThin;dashed=1;endSize=8;exitX=-0.087;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;endFill=1;" parent="9M08_IwNgnsST_BVsyql-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="730" as="targetPoint"/>
+            <mxPoint x="593.6949999999999" y="730" as="sourcePoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rT1Z2S0mdnFYzaz-yNJf-25" value="Display feedback to user" style="html=1;verticalAlign=bottom;endArrow=classicThin;dashed=1;endSize=8;endFill=1;" parent="9M08_IwNgnsST_BVsyql-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="145" y="760" as="targetPoint"/>
+            <mxPoint x="350.5" y="760" as="sourcePoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-8pE2_JoScCcPRgTzUHy-0" value="[for each element in promptList]" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="580" y="600" width="237" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="iZDc6IIN_WvU-dVmpJad-0" value="getResponse()" style="html=1;verticalAlign=bottom;endArrow=classicThin;endFill=1;" parent="9M08_IwNgnsST_BVsyql-1" target="iZDc6IIN_WvU-dVmpJad-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="610" y="640" as="sourcePoint"/>
+            <mxPoint x="800" y="640" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iZDc6IIN_WvU-dVmpJad-1" value="" style="html=1;verticalAlign=bottom;endArrow=classicThin;dashed=1;endSize=8;endFill=1;" parent="9M08_IwNgnsST_BVsyql-1" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="608" y="692.5" as="targetPoint"/>
+            <mxPoint x="810" y="692.5" as="sourcePoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iZDc6IIN_WvU-dVmpJad-2" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;" parent="9M08_IwNgnsST_BVsyql-1" vertex="1">
+          <mxGeometry x="810" y="640" width="15" height="53" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,65 @@
+= Yehezkiel Raymundo Theodoroes - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: TagLine
+
+== Overview
+
+This portfolio is made to summarize my contribution in my CS2103T project.
+
+My team, which consists of 5 CS students, was asked to develop an address book application as part of our project
+assignment.
+
+After some discussion, we decided to morph the application into a note management app called as Tagline which utilizes
+several types of tags in order to helps its user in managing their notes efficiently.
+
+Following are the screenshot of Tagline:
+
+image:yehezkiel_screenshot.png[width=600]
+
+== Summary of contributions
+
+* *Major enhancement*: I added `note tag` and `note untag` commands in TagLine.
+** What it does: This command allow user to tag its note with any of three types of tags in tagline.
+** Justification: This tagging feature along with the filtering `note list` command will help its user to manage
+their notes efficiently.
+
+* *Major enhancement*: I implemented `Hash Tag` model.
+** What it does: Hash Tag is one of the three types of tags which helps its user to categorize their notes with topics.
+
+* *Minor enhancement*: I refactored `contact model` from address book
+** What it does: Tagline has an address book integrated inside of it. Therefore, we decided to reuse some part of AB3.
+However, we need to do some minor tweak so that it suits our app well.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Yehezkiel01&tabRepo=AY1920S1-CS2103T-F12-3%2Fmain%5Bmaster%5D[RepoSense report]]
+
+* *Other contributions*:
+
+** Project management:
+*** Set up milestone and allocate issues.
+*** Setup Netlify
+** Community:
+*** Actively asked in forums and slack to clarify my doubts and others:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/119[#119]
+
+== Contributions to the User Guide
+
+|===
+|_Below are parts which I contributed to in the User Guide_.
+|===
+
+include::../UserGuide.adoc[tag=tagging1]
+include::../UserGuide.adoc[tag=tagging2]
+
+== Contributions to the Developer Guide
+
+|===
+|_Below are parts which I contributed to in the Developer Guide Guide._
+|===
+
+include::../DeveloperGuide.adoc[tag=yehez1]
+include::../DeveloperGuide.adoc[tag=yehez2]
+include::../DeveloperGuide.adoc[tag=yehez3]
+include::../DeveloperGuide.adoc[tag=yehez4]

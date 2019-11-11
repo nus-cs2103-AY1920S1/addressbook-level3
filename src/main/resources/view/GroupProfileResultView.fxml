@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:id="groupProfileResultView" spacing="10">
+    <padding>
+        <Insets top="20" right="10" bottom="10" left="10" />
+    </padding>
+    <HBox>
+        <padding>
+            <Insets left="5" right="5"/>
+        </padding>
+        <Label fx:id="name" text="\$name" styleClass="big_label" wrapText="true">
+            <minWidth>
+                <!-- Ensures that the label text is never truncated -->
+                <Region fx:constant="USE_PREF_SIZE"/>
+            </minWidth>
+        </Label>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Label fx:id="memberCount" text="\$members" styleClass="big_label" wrapText="true"/>
+    </HBox>
+    <Label fx:id="description" text="\$description" styleClass="small_label" wrapText="true">
+        <minHeight>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE"/>
+        </minHeight>
+    </Label>
+    <Separator minHeight="2.0"/>
+    <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+</VBox>

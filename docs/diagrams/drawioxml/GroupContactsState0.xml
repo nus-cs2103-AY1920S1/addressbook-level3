@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="www.draw.io" modified="2019-10-27T06:42:01.303Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0" etag="-bVo28zdaWQ-8d95-JwO" version="12.1.7" type="google" pages="8">
+  <diagram name="initial" id="4vGiBnst38akDCAAfNTY">
+    <mxGraphModel dx="768" dy="418" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-0"/>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-1" parent="oo1hqCD3S3C8XQNSBOtb-0"/>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-2" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="90" y="60" width="540" height="330" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-3" value="Model State" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="330" y="70" width="80" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-4" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="110" y="100" width="330" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-5" value="AddressBook" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="240" y="110" width="80" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-6" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;taehyung:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00001&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="130" y="150" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-7" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;jungkook:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00002&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="280" y="150" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-8" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;jimin:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00003&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="130" y="220" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-9" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="450" y="100" width="160" height="270" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-10" value="GroupBook" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="490" y="110" width="80" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-11" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;yuju:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00013&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="130" y="290" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-12" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;eunha:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00014&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="280" y="290" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="oo1hqCD3S3C8XQNSBOtb-1" source="oo1hqCD3S3C8XQNSBOtb-4" target="oo1hqCD3S3C8XQNSBOtb-4" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="oo1hqCD3S3C8XQNSBOtb-1" source="oo1hqCD3S3C8XQNSBOtb-2" target="oo1hqCD3S3C8XQNSBOtb-2" edge="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-16" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;suga:Contact&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00004&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#F8CECC;strokeColor=#B85450;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="280" y="220" width="140" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-18" value="" style="shape=ext;double=1;rounded=0;whiteSpace=wrap;html=1;glass=0;shadow=0;fillColor=none;strokeColor=#006600;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="650" y="60" width="180" height="330" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-19" value="UI Display" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=15;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="700" y="70.5" width="80" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-20" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;taehyung:ContactListCard&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00001&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#D5E8D4;strokeColor=#006600;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="660" y="104.5" width="160" height="51" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-21" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;jungkook:ContactListCard&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00002&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#D5E8D4;strokeColor=#006600;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="660" y="163.5" width="160" height="51" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-22" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;jimin:ContactListCard&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00003&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#D5E8D4;strokeColor=#006600;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="660" y="224" width="160" height="51" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-23" value="&lt;p style=&quot;margin: 0px ; margin-top: 4px ; text-align: center ; text-decoration: underline&quot;&gt;&lt;b&gt;suga:ContactListCard&lt;/b&gt;&lt;/p&gt;&lt;hr&gt;&lt;p style=&quot;margin: 0px ; margin-left: 8px&quot;&gt;ContactId = 00004&lt;br&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#D5E8D4;strokeColor=#006600;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="660" y="284.5" width="160" height="51" as="geometry"/>
+        </mxCell>
+        <mxCell id="oo1hqCD3S3C8XQNSBOtb-24" value="" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;fillColor=#D5E8D4;strokeColor=#006600;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+          <mxGeometry x="660" y="344" width="160" height="36" as="geometry"/>
+        </mxCell>
+        <UserObject label="&lt;div&gt;&lt;b&gt;ContactListCards&lt;/b&gt; &lt;br&gt;&lt;/div&gt;&lt;div&gt;for 00013, 00014&lt;/div&gt;" placeholders="1" name="Variable" id="oo1hqCD3S3C8XQNSBOtb-25">
+          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;" parent="oo1hqCD3S3C8XQNSBOtb-1" vertex="1">
+            <mxGeometry x="670" y="350" width="140" height="30" as="geometry"/>
+          </mxCell>
+        </UserObject>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

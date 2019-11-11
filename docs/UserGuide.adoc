@@ -1,4 +1,7 @@
-= AddressBook Level 3 - User Guide
+= TagLine - User Guide
+:toclevels: 3
+:sectnums:
+:sectnumlevels: 3
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,166 +15,874 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F12-3/main/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2103T-F12-03`      Since: `Oct 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TagLine is for those who prefer to use a desktop app for managing notes.
+More importantly, TagLine is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TagLine can streamline your note management much faster than traditional GUI apps. Interested? This User Guide will provide all you need to know to use TagLine, jump to the Quick Start to get started. Enjoy!
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure that you have Java 11 or above installed.
+.  Download the latest TagLine.jar here.
+.  Move the file to the folder you want to use as the home folder for TagLine. You are recommended to create a new folder for TagLine as it will create files to store your data.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  The panel on the left is the Chatbot Interface. Type a command in the message box and press Enter to execute it.
+.  Some commands you can try:
+- `contact list`: Lists all contacts
+- `note list`: Lists all notes
+.  Your output will be displayed on the panel on the right. For more features on each command, refer to the Command List.
+.  Refer to <<Command List>> for details of each command.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+// tag::learningtagline[]
+== Learning TagLine
 
-.  Refer to <<Features>> for details of each command.
+Are you new to TagLine? Or are you prone to making typos? In either case, TagLine has some nifty features to help you out.
 
-[[Features]]
-== Features
+=== Autocomplete
+
+When you enter a command, TagLine will display autocomplete suggestions as you type.
+
+To illustrate, let's suppose you are trying to create a new contact. However, you only remember that the first keyword is `contact`! With the autocomplete feature, it is easy to find the correct command. Try following the following steps:
+
+. Type `contact` into the command box. A list of suggestions will pop up under the command bar.
++
+image::ug_autocomplete1.png[width="600"]
+
+. Use the arrow keys to navigate to the correct command (optional if using mouse).
++
+image::ug_autocomplete2.png[width="600"]
+
+. Press the Enter key or click on the command in the menu. Your command box will now display `contact create`.
++
+image::ug_autocomplete3.png[width="600"]
+
+====
+*Note*
+
+After typing a command, if the autocomplete menu is still showing, please wait a moment for it to disappear, or click elsewhere on the screen. If you press Enter too quickly, this will cause your command to be overwritten.
+====
+
+=== Prompts
+
+For some commands, TagLine can prompt you when there is missing important information. Instead of having to type the whole command again, you will only need to fill in the couple of fields you missed.
+
+Let's take the same example of creating a new contact.
+
+. Suppose you accidentally pressed Enter too early, and sent the command `contact create` as is.
++
+image::ug_prompt1.png[width="600"]
+
+. Maybe you have intended to call this new contact `Bob`. Then type `Bob` into the command box and press Enter (or Send). Then TagLine would appear like this:
++
+image::ug_prompt2.png[width="600"]
+
+. As can be seen above, TagLine has successfully created a new contact named `Bob`.
+
+==== Aborting an incomplete command
+
+But what if we don't want to proceed with the command? You can abort the command by pressing the Escape key.
+
+.. After step 1 of the above example, let's say you no longer want to create a new contact. Press the Escape key.
++
+image::ug_prompt3.png[width="600"]
+
+.. The incomplete command will not be executed. Now you can continue to enter other commands into the command box.
+
+====
+*Note*
+
+When given prompts, to minimize inconvenience to you, the autocomplete menu is temporarily disabled. Once prompting is complete or aborted, autocomplete will be re-enabled.
+====
+// end::learningtagline[]
+
+== Command List
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `contact create --n NAME`, `NAME` is a parameter which can be used as `contact create --n John Doe`.
+* Items in square brackets are optional e.g `[--n NAME]` and `[--e EMAIL]` can be used as `--n John Doe --e j.doe@gmail.com` or only `--n John Doe`.
+* Items with `\*` after them can be used multiple times including zero times e.g. `[--t TAG]*`​ can be used as `<empty>` (i.e. 0 times), `--t #friend`, `--t #friend --t #family`, etc.
+* Items with `+`​ after them can be used one or multiple times e.g. `[--t TAG]+`​ can be used as `--t #friend` and `--t #friend --t #family` but cannot be used as `<empty>` (i.e. 0 times),
+* Parameters can be in any order e.g. `--n NAME --p PHONE_NUMBER` and `--p PHONE_NUMBER --n NAME` are considered the same.
+* For parameters that cannot be used multiple times (i.e. without `*` or `+` after them), if there are multiple values provided (e.g. `--p 12345 --p 67890`), only the last value will be considered as part of the user input.
 ====
 
-=== Viewing help : `help`
+=== Basic Commands
 
-Format: `help`
+==== Views help: `help`
 
-=== Adding a person: `add`
+Displays the list of commands and their usages.
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format:
 
-[TIP]
-A person can have any number of tags (including 0)
+`help`
+
+==== Exits the app: `exit`
+
+Exits the application.
+
+Format:
+`exit`
+
+=== Manage contacts: `contact`
+
+Tagline can help people to manage their contacts easily. When you use contact commands, a view that displays a
+list of contacts will appear in the right pane. The left pane still displays a chat bot for user interaction.
+
+.An example of Contact View
+image::ContactListExample.png[]
+
+==== Create a contact: `create`
+
+Creates a new contact.
+
+Format:
+
+`contact create --n NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+
+Example:
+
+* Suppose you just have a new friend - `Dwayne Johnson` - and you want to save his contact along with some
+information that you know about him. +
+You can just enter the following command:
+ `contact create --n Dwayne Johnson --p 81234567 --e johnson@gmail.com --d Friend from CS2100`.
++
+.Entering the command
+image::ug_contactcreate1.png[width="600"]
+
+* This creates a new contact with name and other attribute values that you entered. +
+The display will show the profile of the contact that you just created.
++
+.Command executed, a new contact created
+image::ug_contactcreate2.png[width="600"]
+
+NOTE: Contact id is generated randomly. As a result, you may see a different value with the example provided.
+
+==== Edit a contact: `edit`
+
+Edits an existing contact.
+
+Format:
+
+`contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+
+Example:
+
+* After creating a contact, suppose you get a new information about that person and want to edit the data. +
+You can just enter the following command:
+`contact edit 99022 --a NUS School of Computing`
++
+.Entering the command
+image::ug_contactedit1.png[width="600"]
+
+* This edits an existing contact with the id that you entered. +
+The display will show the profile of the contact that you just edited.
++
+.Command executed, the new contact data displayed
+image::ug_contactedit2.png[width="600"]
+
+NOTE: Partial edit will be supported in v2.0
+
+==== Delete a contact: `delete`
+
+Deletes a contact with the given id.
+
+Format:
+
+`contact delete CONTACT_ID`
+
+Example:
+
+* Suppose you feel that it is no longer necessary to store data for one of your contacts +
+You can just enter the following command:
+`contact delete 2`
++
+.Entering the command
+image::ug_contactdelete1.png[width="600"]
+
+* This deletes an existing contact with the contact id that you entered. +
+The display will show the refreshed contact list.
++
+.Command executed, the specified contact deleted.
+image::ug_contactdelete2.png[width="600"]
+
+==== List all contacts: `list`
+
+Lists all contacts in the application.
+
+Format:
+
+`contact list`
+
+Example:
+
+* Suppose you want to know all the contacts that are stored in Tagline. +
+You can just enter the following command:
+`contact list`
++
+.Entering the command
+image::ug_contactlist1.png[width="600"]
+
+* This deletes an existing contact with the contact id that you entered. +
+The display will show the refreshed contact list.
++
+.Command executed, all contacts displayed.
+image::ug_contactlist2.png[width="600"]
+
+==== Locate persons by keyword: `find`
+
+Lists all contacts whose name matches the given keyword.
+
+Format:
+
+`contact find KEYWORD`
+
+Example:
+
+* Suppose you just listed all the contacts. However, after seeing so many contacts, you are only interested in finding
+contacts with that contain `Alex` in its name.
++
+.Initial list of contacts.
+image::ug_contactfind1.png[width="600"]
+
+* This command allows you to contacts with the specified name easily. +
+You can just enter the following command:
+`contact find Alex`
++
+.Entering the command
+image::ug_contactfind2.png[width="600"]
++
+.Command executed, only contacts that contain the specified name displayed.
+image::ug_contactfind3.png[width="600"]
+
+// tag::contact-show[]
+==== Display the profile of a person: `show`
+
+Displays a contact profile that contains information and list of notes that are associated with a given contact id.
+
+Format:
+
+`contact show CONTACT_ID`
+
+Example:
+
+* Suppose you are interested to know information and notes that are associated with your contact `Alex Yeoh`
+which is stored with a contact id equals to `1` in Tagline. In addition, suppose that Tagline currently stores
+the following data:
++
+.List of all contacts that are stored by Tagline.
+image::ug_contactshow1.png[width="600"]
++
+.List of all groups that are stored by Tagline.
+image::ug_contactshow2.png[width="600"]
++
+.List of all notes that are stored by Tagline.
+image::ug_contactshow3.png[width="600"]
+
+* Instead of checking association between notes and contacts one by one, you can just enter the following command:
+`contact show 1`
++
+.Entering the command
+image::ug_contactshow4.png[width="600"]
+
+* This command allows you display a profile for a contact with id equals to `1`. The profile contains basic information
+about a contact (i.e. name, email, phone number, address, and description) and list of notes that are associated with it.
++
+.Command executed, contact profile displayed
+image::ug_contactshow5.png[width="600"]
+// end::contact-show[]
+
+==== Pin a person: `pin` `[coming in v2.0]`
+
+Pins a contact to the top of the contact list.
+
+Format:
+
+`contact pin CONTACT_ID`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `contact pin 00343`
 
-=== Listing all persons : `list`
+==== Clear all entries : `clear`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Clears all data that you have in your contact list. Before executing this command, the application will also ask for confirmation through the chatbot because you won’t be able to undo this operation.
 
-=== Editing a person : `edit`
+Format:
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+`contact clear`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `contact clear`
++
+Executing this command will trigger a confirmation in the chatbot:
++
+  Please confirm some additional details for the command. Press the escape key to abort.
+  Are you sure you want to clear your contact list? Enter 'Y' to continue.
++
 
-=== Locating persons by name: `find`
+.Confirmation for clearing notes
+image::ug_contactclear1.png[width="600"]
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Then, if you answer "Y", the chatbot will clear all data in your contact list.
++
+.Command executed, the contact list cleared.
+image::ug_contactclear2.png[width="600"]
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+If you press the ESC key, the command will be aborted.
 
-Examples:
+// tag::group-command[]
+=== Manage groups: `group`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+NOTE: group descriptions and editing groups will be supported in v2.0, disregard any group description references here
 
-// tag::delete[]
-=== Deleting a person : `delete`
+// tag::groupcreate-command[]
+==== Create a contact group: `create`
+Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format:
 
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
+`group create GROUP_NAME [--i CONTACT_ID]*`
 
-Examples:
+Example:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* Lets imagine we wish to organize our contacts better by starting a mailing list of '_ao3_' fanfic readers.
+We can start by creating an '_ao3_' group with a few initial members using the command
+ `group create ao3 --i 212 --i 215`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+.Entering the command
+image::ug_groupcreate1.png[width="600"]
 
-Clears all entries from the address book. +
-Format: `clear`
+* This creates a group with name '_ao3_' that contains contacts with ID '_212_' and '_215_' +
+The display will show the group created and the contact that has been added.
 
-=== Exiting the program : `exit`
+.Command executed Group created
+image::ug_groupcreate2.png[width="600"]
 
-Exits the program. +
-Format: `exit`
+NOTE: group descriptions and editing groups will be supported in v2.0
+// end::groupcreate-command[]
 
-=== Saving the data
+// tag::groupremove-command[]
+==== Remove member from a group: `remove`
+Removes member from a group.
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Format:
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+`group remove GROUP_NAME [--i CONTACT_ID]+`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Example:
 
-== FAQ
+* Social circles change over time. One of our former '_ao3_' members have left us to join rival
+fanfic site '_wattpad_'. To remove an '_ao3_' members we can do so with the command
+ `group remove ao3 --i 215`
 
-*Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+.Entering the command
+image::ug_groupremove1.png[width="600"]
 
-== Command Summary
+* This adds a removes the contact with ID '_000215_' from the group with name '_ao3_'
+The display will show the group and the contact left in the group.
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+.Command executed group member removed
+image::ug_groupremove2.png[width="600"]
+// end::groupremove-command[]
+
+
+NOTE: The UI prompt would indicate 'Attempting to remove contact(s) from group' this
+prompt is a confirmation and signals that the command has been executed and no other
+prompt will be given. The prompts purpose is to warn that contact ids given which
+do not appear in the Group would not be detected and the user should check it manually.
+Auto detection of contacts to be deleted that are not found in the Group is left to v2.0
+
+// tag::groupadd-command[]
+
+==== Add member to a group: `add`
+Adds members to a group.
+
+Format:
+
+`group add GROUP_NAME [--i CONTACT_ID]+`
+
+Example:
+
+* Over time our '_ao3_' group has grown with new members joining. We need to update our
+group to record the recent addition. To add a member to our '_ao3_' group we can use the command
+ `group create ao3 --i 90040`
+
+.Entering the command
+image::ug_groupadd1.PNG[width="600"]
+
+* This adds a contact with ID '_90040_' to the group with name '_ao3_'
+The display will show the group and the contact that has been added.
+
+.Command executed Group created
+image::ug_groupadd2.PNG[width="600"]
+// end::groupadd-command[]
+
+NOTE: The UI prompt would indicate 'Attempting to add contact(s) from group' this
+prompt is a confirmation and signals that the command has been executed and no other
+prompt will be given. The prompts purpose is to warn that contact ids given which
+do not appear in the Addressbook would not be detected and the user should check it manually.
+Auto detection of contacts to be added that are not found in the Addressbook is left to v2.0
+
+==== List all groups: `list`
+Lists all groups
+
+Format:
+
+`group list`
+
+Example:
+
+* Sometimes we may wish to take a step back and view all the groups we are managing.
+To show all the groups stored we can use the command
+ `group list`
+
+.Entering the command
+image::ug_grouplist1.png[width="600"]
+
+* This displays all groups
+
+.Command executed, Groups displayed
+image::ug_grouplist2.png[width="600"]
+
+NOTE: group descriptions will be supported in v2.0
+
+==== Find a group: `find`
+Finds a specific group and display the members
+
+Format:
+
+`group find GROUP_NAME`
+
+Example:
+
+* Often we may forget who is in a group and wish to know the contacts currently in
+a group. To find the '_ao3_' group from the list of groups, we can use command
+ `group find ao3` with the exact group name we are looking for
+
+.Entering the command
+image::ug_groupfind1.png[width="600"]
+
+* This searches for a group with the exact name as group '_ao3_'
+The display will show the group and the group members
+
+.Command executed, Group found and displaying Contacts
+image::ug_groupfind2.png[width="600"]
+
+NOTE: group descriptions will be supported in v2.0
+
+==== Display profile of a group: `show` `[coming in v2.0]`
+Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
+
+Format:
+
+`group show GROUP_NAME`
+
+Example:
+
+* `group show CS2103-F12-3`
+
+==== Delete a group: `delete`
+Deletes a group. Note the contacts in the deleted group still exists, only the group has been disbanded.
+
+Format:
+
+`group delete GROUP_NAME​`
+
+Example:
+
+* Suffering from success, our little mailing list of '_ao3_' members have grown
+too large and split into several regional chapters to facilitate organization.
+Its time to disband the original '_ao3_' group and make new groups for each chapter.
+To delete the group '_ao3_', we can use command `group delete ao3`
+
+.Entering the command
+image::ug_groupdelete1.png[width="600"]
+
+* This searches for a group with the exact name as group '_ao3_'
+The display will display all remaining groups in a list.
+
+.Command executed Group deleted
+image::ug_groupdelete2.png[width="600"]
+
+NOTE: group descriptions will be supported in v2.0
+// end::group-command[]
+
+// tag::note-command[]
+=== Manage your notes: `note`
+
+Tagline can help people to manage their notes easily. When you use note commands, a view that displays a
+list of notes will appear in the right pane. The left pane still displays a chat bot for user interaction.
+
+.An example of Note View
+image::NoteListExample.png[width="600"]
+// end::note-command[]
+
+// tag::note-create[]
+==== Creates a note: `create`
+
+Creates a new note. If any tags are listed, the note will be tagged with them. +
+Notes without title will be titled "Untitled Note"
+
+Format:
+
+`note create [--T TITLE] [--c CONTENT] [--t TAG]*`
+
+IMPORTANT: TITLE and CONTENT can be optional if the other is defined but cannot be both empty.
+
+Example:
+
+. Let's say you found a resource link that can be referenced for your assignment and you would like to make a note. You can create a note with the resource link as the content with the following command
+`note create --T MIPS --c https://en.wikipedia.org/wiki/MIPS_architecture --t #assignment`
++
+.Entering `note create` command
+image::ug_notecreate1.png[width="600"]
+
+. A note is created with the title "MIPS" and content "https://en.wikipedia.org/wiki/MIPS_architecture". The note is also tagged with the hashtag "assignment". +
+The note created is displayed in the right pane.
++
+.Note created after command execution
+image::ug_notecreate2.png[width="600"]
+
+NOTE: Upload of image will be supported in v2.0
+// end::note-create[]
+
+// tag::note-delete[]
+==== Delete a note: `delete`
+
+Deletes a note.
+
+Format:
+
+`note delete NOTE_ID`
+
+IMPORTANT: As assigned note id is static, deleted note id are not reassigned.
+
+Example:
+
+. If you have completed your assignment and would like to delete the note related to the resource link, you can delete with the command `note delete 16`. +
+As the note id is "00016", you can enter "16" as the NOTE_ID parameter.
++
+.Entering `note delete` command
+image::ug_notedelete1.png[width="600"]
+
+. The note will be deleted from TagLine.
++
+.Note deleted after command execution
+image::ug_notedelete2.png[width="600"]
+// end::note-delete[]
+
+// tag::note-edit[]
+==== Edit a note: `edit`
+
+Edits a saved note.
+
+Format:
+
+`note edit NOTE_ID [--T NEW_TITLE] [--c NEW_CONTENT]`
+
+IMPORTANT: Enter the parameters to update.
+
+Example:
+
+. If you find that your note title should have more information, you can enter the command `note edit 16 --T CS2100 Assignment: MIPS`
++
+.Entering `note edit` command
+image::ug_noteedit1.png[width="600"]
+
+. The title of the note will be changed from "MIPS" to "CS2100 Assignment: MIPS".
++
+.Note edited after command execution
+image::ug_noteedit2.png[width="600"]
+
+NOTE: Upload of image will be supported in v2.0 +
+Partial editing will be supported in v2.0
+// end::note-edit[]
+
+// tag::tagging1[]
+[#note-tag]
+==== Tag a note: `tag`
+
+Tags a note with one or more tags.
+
+Format:
+
+`note tag NOTE_ID [--t TAG]+`
+
+In Tagline, there are 3 types of tags. They are hash tag, contact tag and group tag.
+
+===== Tag a note with a hash tag
+
+Hash tag is a tag of the form `#TOPIC` where `TOPIC` could be substituted with any string not longer than 30
+characters.
+
+Example: `#Assignment_1`, `#Project CS2103T`, `#Meeting Notes`
+
+By tagging a note with a hash tag, user can easily find all notes related to a certain topic.
+
+Here is an example of tagging a note with a hash tag
+
+. Enter the command `note tag 1 --t #any topic` into the command box.
++
+image::ug_notetag_hashtag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_hashtag2.png[width="600"]
+
+// end::tagging1[]
+
+{empty} +
+
+// tag::contact-tag[]
+
+===== Tag a note with a contact tag
+
+Contact tag is a tag of the form `@CONTACT_ID` where `CONTACT_ID` could be substituted with any non-negative integer with
+at most 8 digits.
+
+Example: `@12345`, `@00001`, `@2`
+
+By tagging a note with a contact tag, user can easily find all notes related to a certain contact.
+
+Here is an example of tagging a note with a contact tag
+
+. Enter the command `note tag 1 --t @2` into the command box.
++
+image::ug_notetag_contacttag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_contacttag2.png[width="600"]
+
+// end::contact-tag[]
+
+// tag::group-tag[]
+===== Tag a note with a group tag
+
+Group tag is a tag of the form `%GROUP_NAME` where `GROUP_NAME` could be substituted with any string that does not
+contain whitespace.
+
+Example: `#cs2103t`, `#cs2100-cs2101`
+
+By tagging a note with a group tag, user can easily find all notes related to a certain group of contacts.
+
+{empty} +
+
+Here is an example of tagging a note with a group tag
+
+. Enter the command `note tag 1 --t #cs2103t` into the command box.
++
+image::ug_notetag_grouptag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_grouptag2.png[width="600"]
+
+{empty} +
+
+// end::group-tag[]
+
+
+// tag::tagging2[]
+===== Tag a note with all tags
+We can also combine the three tags above in one `note tag` command.
+
+Example:
+
+* `note tag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
++
+Tags note with id '_00002_' with tag '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_'.
+
+==== Untag a note: `untag`
+
+Untags a note from one or more tags.
+
+Format:
+
+`note untag NOTE_ID [--t TAG]+`
+
+Similar with `note tag` command we can also untag a note with three types of tags.
+
+Example:
+
+* `note untag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
++
+Untags '_#CS2103T_', '_#Duke_' and user with id '_@12300_' and group '_%cs2103T_' from note with id '_00002_'.
+// end::tagging2[]
+
+// tag::note-list[]
+[#note-list]
+==== List notes: `list`
+
+Lists all notes in the application. Filters can be applied to show only notes related to certain keywords, hashtags, users or groups.
+
+Format:
+
+`note list [# / @ / %][FILTER]`
+
+Example:
+
+[cols=3*,options=header]
+|===
+|Format
+|Example
+|Outcome
+
+|`note list`
+|`note list`
+|Lists all notes.
+
+|`note list KEYWORD`
+|`note list meeting`
+|Lists all notes which contain the phrase “_meeting_”.
+
+|`note list #HASHTAG`
+|`note list #cs2100`
+|Lists all notes with the hashtag '_#cs2100_'.
+
+|`note list @CONTACTID`
+|`note list @12345`
+|Lists all notes tagged with the contact of ID '_12345_'.
+
+|`note list %GROUPNAME`
+|`note list %cs2103-team`
+|Lists all notes tagged with the group '_cs2103-team_'.
+|===
+
+. When you would like to see all the notes you have in TagLine, you can enter the command `note list`.
++
+.Entering `note list` command
+image::ug_notelist1.png[width=600]
+
+. All notes are displayed.
++
+.All notes displayed
+image::ug_notelist2.png[width="600"]
+
+. When you would like to find the notes containing the keyword "cs", you can enter the command `note list cs`.
++
+.Entering `note list` command with keyword
+image::ug_notelist3.png[width="600"]
+
+. Notes with the keyword "cs" found in the title or content are displayed.
++
+.Notes containing keyword displayed
+image::ug_notelist4.png[width="600"]
+
+. When you would like to see the notes tagged with the hashtag "assignment", you can enter the command `note list #assignment`.
++
+.Entering `note list` command with tag filter
+image::ug_notelist5.png[width="600"]
+
+. Notes tagged with "#assignment" are displayed.
++
+.Filtered tagged notes displayed
+image::ug_notelist6.png[width="600"]
+
+. When you would like to filter by multiple tags, you can enter the command `note list @00001 %cs2103t`.
++
+.Entering `note list` command with multiple tag filter
+image::ug_notelist7.png[width="600"]
+
+. Notes tagged with contact of contact id "1" or with group with group name "cs2103t" are displayed.
++
+.Filtered notes displayed
+image::ug_notelist8.png[width="600"]
+// end::note-list[]
+
+// tag::note-clear[]
+==== Clear all notes: `clear`
+Clears all notes.
+
+Format:
+
+`note clear`
+
+Executing this command will trigger a confirmation in the chatbot:
+
+  Please confirm some additional details for the command. Press the escape key to abort.
+
+  Are you sure you want to clear your contact list? Enter 'Y' to continue.
+
+.Confirmation for clearing notes
+image::ug_noteclear.png[width="600"]
+
+If you answer "Y", the chatbot will clear all data in your contact list. +
+If you press the ESC key, the command will be aborted.
+// end::note-clear[]
+
+==== Sort your notes: `sort` `[coming in v2.0]`
+Sort notes in different orders (i.e last updated date, alphabetically).
+
+=== Manage your tags: `tag`
+
+// tag::tag-list[]
+==== List tags: `list`
+
+Lists all valid tags that have ever been associated with your notes.
+A tag will appear in this list if it has been successfully used to tag a note previously.
+However, if a tag is no longer valid, it will be automatically removed from the list. Here are the conditions for a tag to be marked as invalid:
+- The tag is considered as a contact tag and the referenced contact is removed from Tagline.
+- The tag is considered as a group tag and the referenced group is removed from Tagline.
+
+NOTE:: if you untag a note, it will still appear in this list. The tag list serves as a history to remind you of tags that you can use.
+
+Format:
+
+`tag list`
+
+Example:
+
+* Suppose you want to know tags that you have used previously and still valid. +
+You can just use the following command: `tag list`.
++
+.Command executed, list of tags displayed
+image::ug_taglist1.png[width="600"]
+// end::tag-list[]
+
+== Command summary
+
+*Contact*
+
+* *Create a contact:* `contact create --n NAME [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+* *List all contacts:* `contact list`
+* *Display profile of a contact:* `contact show CONTACT_ID`
+* *Edit a contact:* `contact edit CONTACT_ID [--n NAME] [--p PHONE_NUMBER] [--e EMAIL] [--a ADDRESS] [--d DESCRIPTION]`
+* *Delete a contact:* `contact delete CONTACTID`
+* *Find contact by keyword:* `contact find KEYWORD`
+* *Clear all contacts:* `contact clear`
+
+*Group*
+
+* *Create a group:* `group create GROUP_NAME [--i CONTACT_ID]*`
+* *Remove a member from group:* `group remove GROUP_NAME [--i CONTACT_ID]+`
+* *Add a member to group:* `group add GROUP_NAME [--i CONTACT_ID]+`
+* *List all groups:* `group list`
+* *Find a group:* `group find GROUP_NAME`
+* *Delete a group:* `group delete GROUP_NAME​`
+
+*Note*
+
+* *Create a note:* `note create [--T TITLE] [--c CONTENT] [--t TAG]*`
+* *Delete a note:* `note delete NOTE_ID`
+* *Edit a note:* `note edit NOTE_ID [--T NEW_TITLE] [--c NEW_CONTENT]`
+* *Tag a note:* `note tag NOTE_ID [--t TAG]+`
+* *Untag a note:* `note untag NOTE_ID [--t TAG]+`
+* *List all notes:* `note list`
+* *Filter notes by keyword:* `note list [KEYWORD]+`
+* *Filter notes by tag:* `note list [TAG]+`
+* *Clear all notes:* `note clear`
+
+*Tag*
+
+* *List all tags:* `tag list`

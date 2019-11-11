@@ -1,0 +1,85 @@
+= Jonas Ong - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Tagline
+
+'''
+
+== Purpose of Personal Project Portfolio
+This portfolio is to document my contributions made towards the project done in CS2103T.
+It highlights several of my code contributions as well as documentation additions to show the
+main feature I have been working on as part of the project.
+
+== About the project: Tagline
+Tasked with enhancing the capabilities of a basic command line interface desktop addressbook
+application, my team of five chose to extend the functionality to include note-taking
+capabilities. Combining the existing contact infrastructure with tags and note support,
+we aim to make a more people-centric note taking platform we call Tagline.
+This application aims to help students more easily organize and find their notes based on
+the people the notes are connected to.
+
+This is what our project looks like
+
+image::frontpage.png[]
+//image::frontpage.png[width="500"]
+
+My role for this project is to implement the `Group`  feature to allow for organizing `Contact`s together into `Groups` which can be used to manage notes as a whole. The following sections together with documentation added to the user and developer guides depict this enhancement in greater detail.
+
+The following are the conventions used in this document:
+
+** `GroupCommand` - Texts with grey highlights indicates a class, object or a command that is used in Tagline.
+** https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/main/java/tagline/logic/commands/group/GroupCommand.java[Functional code] - Texts in blue are linked to reference webpages with further examples
+
+== Summary of contributions
+In this project, I my main feature was to develop a way to organize contact together into
+Groups. This allows users to organize contacts in a more natural way based on social circles
+of relationships rather than as an alphatically ordered list.
+It would also lay the groundwork for other features such as group tagging of notes.
+
+* *Major enhancement*: I added a range of features providing the *ability to group contacts together* for better organization
+** What it does: with `group create` a group of contacts can be created, contacts can be added or removed using `group add` and `group remove` commands. Groups can be searched for and displayed using `group list` and `group find`.
+** Justification: social circles exist in more than just a one to one relationship and can belong in a group with a shared feature be it an orientation group of friends who all know each other or a project group with common purpose. Having the capability to quickly reference other contacts in the same group would make the user experience much better compared to scrolling through an alphabetically ordered list in an addressbook.
+** Highlights: this enhancements supplements the existing structure of the addressbook.
+
+* *Code contributed*: The following links highlight samples of my code [https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/main/java/tagline/logic/parser/group/GroupCommandParser.java[Functional code]] [https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/test/java/tagline/model/group/GroupManagerTest.java[Test code]]
+
+* *Other contributions*:
+
+** Documentation:
+*** Updated the developer guide to better reflect `Model` and `Storage` components after they have been changed to accommodate other features: https://ay1920s1-cs2103t-f12-3.github.io/main/DeveloperGuide.html#Design-NoteModel[NoteModel], https://ay1920s1-cs2103t-f12-3.github.io/main/DeveloperGuide.html#Design-Storage[StorageComponent]
+** Community:
+*** Contributed to forum discussions to clarify potential tripups (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/131[131]
+*** Reviewed and offered suggestions for other teams in class  (examples:  https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/62[SecureIT#22]
+
+== Contributions to the User Guide
+The following sample highlights some of my additions to Tagline User Guide.
+This is primarily for `group` features I had developed.
+
+|===
+|_The following excerpt for `group add` is chosen to represent other group command
+which are written in a similar style but ommitted due repetition. The sample aims to
+demonstrate my approach to writing documentation to help
+end users better understand the features of the product._
+|===
+
+
+=== Sample: `group add` command
+
+include::../UserGuide.adoc[tag=groupadd-command]
+
+== Contributions to the Developer Guide
+The following sample highlights some of my additions to Tagline Developer Guide.
+This is primarily for `group` features I had developed.
+
+|===
+|_The following excerpt demonstrate my approach to writing documentation to showcase
+how I write technical documentation to explain how my developed feature functions
+to aid future developers better understand how the feature functions and the
+design choices considered and made._
+|===
+
+include::../DeveloperGuide.adoc[tag=groupcontacts]
+
+
