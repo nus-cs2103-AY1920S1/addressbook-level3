@@ -213,22 +213,34 @@ We have considered between two differing help philosophies.
 We have settled on adopting the multi-faceted help philosophy as the current implementation of help simply does not cut it. Measures have been taken such as allowing the user to type in `help` with no additional
 parameters to display the command list and explain the deeper features of the help command; thus retaining its simplicity.
 
+// tag::addClaim_feature[]
 === Claim feature
 
-The `add_claim` command allows for admins to register Claims into FinSec.
+`Claim` is meant to model a claim made by a person. It has the following fields: `Id`, `Description`, `Amount`,
+`Date`, `Name` and `Tags`.
+
+==== Adding a Claim
+
+===== Overview
+
+The `add_claim` command allows for admins to register `Claims` into `FinSec`.
 
 The format for the `add_claim` command is as follows:
 
- add_claim d/<DESCRIPTION> c/<CASH AMOUNT> date/<DATE> n/<NAME> p/<PHONE NUMBER>
-
-
-// tag::addClaim_feature[]
-==== Adding a Claim
-
-*Overview*
+ add_claim n/<NAME> d/<DESCRIPTION> c/<CASH AMOUNT> date/<DATE> [t/<TAG>]
 
 The add claim `add_claim` mechanism is facilitated by `AddClaimCommand` and `AddClaimCommandParser`, taking in the
-following input from the user: `Description`, `Amount`, `Date` and `Name`, which will construct `Claim` objects.
+following input from the user: `Description`, `Amount`, `Date`, `Name` and optionally `Tags`, which will construct
+`Claim` objects.
+
+===== Implementation
+
+Figure 9 is an activity diagram that models the workflow of the addition of a claim.
+
+.Add Claim Command Activity Diagram
+image::AddClaimActivityDiagram.png[]
+
+Figure 10 and 11 shows the sequence diagrams in executing the `AddClaimCommand`.
 
 .Add Claim Command Sequence Diagram
 image::AddClaimSequenceDiagram.png[]
@@ -236,34 +248,52 @@ image::AddClaimSequenceDiagram.png[]
 .Add Claim Command Sequence Diagram (extension)
 image::AddClaimSequenceDiagram_Model.png[]
 
-The `AddClaimCommandParser` implements `Parser` with the following operation:
+* Upon calling for the command, the `AddClaimCommandParser#parse()` will be executed:
 
-* `AddClaimCommandParser#parse()` - This operation takes in a String input from the user that will create `Claim`
-objects based on the prefixes 'd/', 'c/', 'date/', 'n/' and 't/'. The String value after the individual prefixes will
-create the respective object: d/`description`, c/`amount`, date/`date`,  n/`name` and t/`tags`. A regex validation
-check will be imposed upon the creation of each argument. Any checks that fails the validation would prompt the user on
-the failed component.
+** This operation takes in a String input from the user that will create `Claim` objects based on the prefixes 'd/',
+'c/', 'date/', 'n/' and 't/'. The String value after the individual prefixes will create the respective object:
+d/`description`, c/`amount`, date/`date`,  n/`name` and t/`tags`. A regex validation check will be imposed upon the
+creation of each argument. Any checks that fails the validation would prompt the user on the failed component.
 
-For example:
+** Each of the parameters will be checked whether they are valid:
 
-** `date` uses `ParseUtil#parseDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY. The
-date also has to be a valid date _(29-02-2019 is invalid but 29-09-2016 is valid)_.
-
-** `amount` uses `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of
+*** `amount` uses `ParserUtil#parseAmount()` to ensure that cash amount would only contain numbers and a maximum of
 2 decimal places.
+*** `date` uses `Date#isValidDate()` to ensure that the date entered is in the correct format of DD-MM-YYYY. The
+date also has to be a valid date _(29-02-2019 is invalid but 29-09-2016 is valid)_. An example of validation in code is
+shown below.
 
-** After validation checks are completed with no errors, a `Claim` object will be constructed with `Id`, `Description`,
+[source, java]
+
+public static final String VALIDATION_REGEX = "(31[\\-.](0[13578]|1[02])[\\-.](18|19|20)[0-9]{2})|((29|30)[\\-.](01|0[3-9]|1[1-2])[\\-.](18|19|20)[0-9]{2})|((0[1-9]|1[0-9]|2[0-8])[\\-.](0[1-9]|1[0-2])[\\-.](18|19|20)[0-9]{2})|(29[\\-.](02)[\\-.](((18|19|20)(04|08|[2468][048]|[13579][26]))|2000))";
+public static boolean isValidDate(String test) {
+	return test.matches(VALIDATION_REGEX);
+}
+
+
+** After the validation checks are completed successfully, a `Claim` object will be constructed with `Id`, `Description`,
 `Amount`, `Date`, `Name` and `Tags` as the parameters.
 
 ** `AddClaimCommandParser` will then return an `AddClaimCommand` object with `Claim` as its attribute.
 
 ** `AddClaimCommand#execute` will check against all existing contacts against the input `name` to make sure
-the contact exists.
+the contact exists:
 
-.Add Claim Command Activity Diagram
-image::AddClaimActivityDiagram.png[]
+[source, java]
+@Override
+public CommandResult execute(Model model) throws CommandException {
+	requireNonNull(model);
+	if (model.hasClaim(toAdd)) {
+		throw new CommandException(MESSAGE_DUPLICATE_CLAIM);
+	}
+	if (!model.hasContactFor(toAdd)) {
+		throw new CommandException(MESSAGE_CONTACT_NOT_FOUND);
+	}
+	model.addClaim(toAdd);
+	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+}
 
-The above activity diagram models the workflow of the addition of a claim.
+
 
 *Example*
 
@@ -1676,11 +1706,40 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete contact commands to try: `delete_contact`, `delete_contact x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+=== Adding a claim
+. Adding a claim.
+
+.. Prerequisites: List all claims using the `goto claims` command. All the claims will be listed.
+.. Test case: `add_claim n/John Doe d/Logistics for Event c/304.5 date/15-11-2019` +
+	Expected: _(if a contact with the name of "John Doe" exists)_ A claim will be added to the claim list. Details of
+ 	the	added claim shown in the status message window. +
+	Expected: _(if a contact with the name of "John Doe" does [.underline]#not# exist)_ Claim will not be added, and
+	an error message stating the contact cannot be found will be shown in the status message window.
+.. Test case: `add_claim` +
+	Expected: No claim will be added, and error details would be shown in the status message window.
+.. Other incorrect `add_claim` commands to try: the valid command but with incorrect parameters. +
+	For example: `add_claim n/John Doe d/Logistics for Event c/304.5 date/29-11-2019` or
+	`add_claim n/John Doe d/Logistics for Event c/304.586 date/15-11-2019` +
+	Expected: An error message specifying the incorrect parameter will be shown in the status message window.
+
+=== Approving or rejecting a claim
+. Approving or rejecting a claim.
+
+.. Prerequisites: List all claims using the `goto claims` command. All the claims will be listed. There should be
+some claims listed already.
+
+.. Test case: `approve 1` or `reject 1`
+	Expected: _(if the first claim is pending)_ The claim status of the first claim will be changed to approved or
+	rejected, depending on the command. Successful message will be shown in the status message window. +
+	Expected: _(if the first claim is not pending)_ The claim status of the first claim will not be changed. Error
+	message will be shown in the status message window.
+.. Test case: `approve 0` or `reject 10000000` _(or any number larger than the size of the claim list)_ +
+	Expected: Error message will be shown in the status message window.
 
 === Adding an income
 . Adding an income while all incomes are listed
 
-.. Prerequisites: List all incomes using the `goto_incomes` command. Multiple incomes in the list.
+.. Prerequisites: List all incomes using the `goto incomes` command. Multiple incomes in the list.
 .. Test case: `add_income d/Shirt sales c/307 date/11-11-2019 n/John Doe p/98765432` +
    Expected: An income is added to the incomes list. Details of the added income shown in the status message.
 
@@ -1693,7 +1752,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Deleting an income while all incomes are listed
 
-.. Prerequisites: List all incomes using the `goto_incomes` command. Multiple incomes in the list.
+.. Prerequisites: List all incomes using the `goto incomes` command. Multiple incomes in the list.
 .. Test case: `delete_income 1` +
    Expected: First income is deleted from the list. Details of the deleted income shown in the status message.
 .. Test case: `delete_income 0` +
