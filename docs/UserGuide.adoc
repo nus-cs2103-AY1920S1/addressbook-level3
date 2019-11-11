@@ -94,7 +94,7 @@ p/High
 ```
 
 .Typee's prompt in response to the user entering `add`
-image::interactive_parsing_1.png[height='175' width="520"]
+image::interactive_parsing_1.png[height='125' width="520"]
 
 Experienced users that have a grasp of the structure and format of various commands can also benefit from this feature.
 Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
@@ -109,10 +109,10 @@ a/John | Smith p/High
 ```
 
 .A user about to pass 3 arguments to Typee in one input, following `add`.
-image::interactive_parsing_2.png[height='175' width='520']
+image::interactive_parsing_2.png[height='125' width='520']
 
 .Typee's response to the above input.
-image::interactive_parsing_3.png[height='175' width='520']
+image::interactive_parsing_3.png[height='125' width='520']
 
 Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
 the entire command at once. This is identical to the format introduced in the beginning of this section: -
@@ -201,10 +201,10 @@ and prompts the user to enter an acceptable engagement type instead. Since Typee
 the subsequent input must begin with `t/...`
 
 .A user about to enter an invalid input.
-image::interactive_parsing_4.png[height='175' width='520']
+image::interactive_parsing_4.png[height='125' width='520']
 
 .Typee's response to the invalid input.
-image::interactive_parsing_5.png[height='175' width='520']
+image::interactive_parsing_5.png[height='125' width='520']
 
 Attempting to replace the argument for a parameter or supply different arguments to the same parameter will result in Typee rejecting
 the user input.
