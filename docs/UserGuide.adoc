@@ -441,6 +441,8 @@ Navigates to the *Notes* tab and saves any changes made to the note that you wer
 * The saved changes will be reflected the next time you open the note again.
 ****
 
+//end::notes[]
+
 === Opening an existing note: `opennote`
 
 Navigates to the *Notes* tab and opens the note corresponding to the id for viewing/editing.
@@ -469,8 +471,6 @@ Navigates to the *Notes* tab and deleting the note corresponding to the id.
 
 * `deletenote 1` +
 Navigates to the *Notes* page after deleting the note with the id 1.
-
-//end::notes[]
 
 === Loading new questions: `loadquestions`
 

@@ -105,12 +105,12 @@ The logic components are interfaces so their implementation can be changed easil
 
 ====
 [.text-center]
-_Class diagrams for various logic classes:_
+_Class diagrams for various logic classes_
 
-image:CommandLogicClassDiagram.png[width="400"]
-image:ProgramSubmissionLogicClassDiagram.png[width="400"]
-image:NotesLogicClassDiagram.png[width="400"]
-image:QuestionsLogicClassDiagram.png[width="400"]
+image:CommandLogicClassDiagram.png[width="150"]
+image:ProgramSubmissionLogicClassDiagram.png[width="250"]
+image:NotesLogicClassDiagram.png[width="250"]
+image:QuestionsLogicClassDiagram.png[width="250"]
 ====
 
 ====
@@ -141,15 +141,6 @@ image:QuestionsLogicClassDiagram.png[width="400"]
 - Deals with all CRUD operations pertaining to the notes found in the application.
 - Uses the `NoteSubmissionChannel` interface to enable other components such as the `UI` to serve as a source for notes without introducing them as dependencies.
 
-*Note model:*
-[[fig-NoteClassDiagram]]
-.Class diagram of the Note class
-image::NoteClassDiagram.png[align="center" width="200"]
-- The note model class represents a user's note in the application.
-- It contains a *title* which provides an easy way for the user to identify and organize his or her notes
-- It contains a *content* string to represent all the text-based notes that the user has entered.
-- Each note also contains a *sketch* which the user can draw and edit within the `NoteCanvas` component. The sketch is stored as a png whose file name corresponds to the *sketchId* of the note.
-
 ====
 
 ==== CommandLogic implementation
@@ -159,7 +150,7 @@ The standard implementation of the CommandLogic is the `CommandLogicManager` cla
 
 [[fig-CommandLogicManagerAssociations]]
 .Associations of the CommandLogicManager
-image::CommandLogicManager.png[align="center" width="250"]
+image::CommandLogicManager.png[align="center" width="600"]
 
 - For commands to be parsed by `CommandLogic`,  they have to be registered with `registerCommand()`.
 - A `CommandSupplier` and a command word is required to register a `Command`
@@ -196,6 +187,8 @@ image::CommandLogicSequence.png[align="center" width="800"]
 . `CommandLogicManager` receives and executes `Command`
 ====
 
+//end::logic[]
+
 ==== QuestionsLogic implementation
 The standard implementation of the `QuestionsLogic` interface is the `QuestionsLogicManager`. It stores questions
 in the form of a `QuestionBank`
@@ -205,7 +198,7 @@ _(View <<Design-Storage>> for more details)_.
 
 [[fig-QuestionsLogicManagerAssociations]]
 .Associations of the QuestionLogicManager
-image::QuestionsLogicManager.png[align="center" width="200"]
+image::QuestionsLogicManager.png[align="center" width="600"]
 
 - Allows other components of the application to make changes to existing questions using its inteface.
 
@@ -231,7 +224,7 @@ _(View <<Implementation-ProgramEvaluation>> for more details)_.
 
 [[fig-ProgramSubmissionLogicAssociations]]
 .Associations of the ProgramSubmissionLogicManager
-image::ProgramSubmissionLogicManager.png[align="center" width="800"]
+image::ProgramSubmissionLogicManager.png[align="center" width="650"]
 
 - Keeps track of a _currently attempting_ `Question`.
 - _Currently attempting_ `Question` can be set through `setCurrentQuestion(question)`.
@@ -248,7 +241,7 @@ image::ProgramSubmissionLogicManager.png[align="center" width="800"]
 ====
 [[fig-ProgramSubmissionSequenceDiagram]]
 .Sequence diagram of program submissions
-image::ProgramSubmissionSequence.png[align="center" width="800"]
+image::ProgramSubmissionSequence.png[align="center" width="650"]
 
 *The basic sequence of submitting a program from a `UI`  component is as follows:*
 
@@ -258,7 +251,7 @@ image::ProgramSubmissionSequence.png[align="center" width="800"]
 . User program is retrieved from the `UI` component and evaluated against the _currently attempting_ question.
 ====
 
-
+//tag::logic1[]
 ==== NotesLogic implementation
 The standard implementation of the `NotesLogic` interface is the `NotesLogicManager`. It relies on `SketchManager` to handle loadiand saving of the *Sketches*.
 It also stores the notes in the application in the form of a `NoteBank`. _(View <<Design-Storage>> for more details.)_
@@ -267,7 +260,7 @@ It also stores the notes in the application in the form of a `NoteBank`. _(View 
 
 [[fig-NotesLogicManagerAssociations]]
 .Associations of the NotesLogicManager
-image::NotesLogicManager.png[align="center" width="800"]
+image::NotesLogicManager.png[align="center" width="600"]
 - Allows other components of the application to make changes to the current state of notes using its interface.
 - Other components of the application can also observe the current state of notes by getting an `ObservableList` through `getAllNotesList()`
 
@@ -285,7 +278,7 @@ image::NotesLogicManager.png[align="center" width="800"]
 *SketchManager:*
 [[fig-SketchManagerClassDiagram]]
 .Class diagram of the SketchManager
-image::SketchManagerClassDiagram.png[align="center" width="200"]
+image::SketchManagerClassDiagram.png[align="center" width="250"]
 * Handles the saving, loading and deleting of *sketches*.
 * Deals with *sketches* in two formats, `WritableImage` class used by the JavaFX `UI` components for rendering the image, and png form in storage.
 * Converts *sketches* between the two formats upon loading/before saving.
@@ -294,7 +287,7 @@ image::SketchManagerClassDiagram.png[align="center" width="200"]
 ====
 [[fig-NoteSavingSequence]]
 .Sequence diagram of saving a note
-image::NoteSavingSequence.png[align="center" width="800"]
+image::NoteSavingSequence.png[align="center" width="650"]
 
 *The basic sequence of saving a user's note from a `UI`  component is as follows:*
 
@@ -303,11 +296,21 @@ image::NoteSavingSequence.png[align="center" width="800"]
 . `Note` and *sketch* is retrieved from the `NoteSubmissionChannel`
 . `Note` is saved by the `NoteBankStorage` while the *sketch* is saved by the `SketchManager`
 ====
-//end::logic[]
+//end::logic1[]
 
 [[Design-Model]]
 === Model component
 
+====
+*Note model:*
+[[fig-NoteClassDiagram]]
+.Class diagram of the Note class
+image::NoteClassDiagram.png[align="center" width="200"]
+- The note model class represents a user's note in the application.
+- It contains a *title* which provides an easy way for the user to identify and organize his or her notes
+- It contains a *content* string to represent all the text-based notes that the user has entered.
+- Each note also contains a *sketch* which the user can draw and edit within the `NoteCanvas` component. The sketch is stored as a png whose file name corresponds to the *sketchId* of the note.
+====
 
 //tag::storage[]
 
@@ -358,7 +361,7 @@ This section describes some noteworthy details on how certain features are imple
 //tag::programevaluation[]
 [[Implementation-ProgramEvaluation]]
 === Evaluation of user program submissions
-The evaluation of the user's programs is facilitated by the `solutions` package.
+The evaluation of the user's programs is facilitated by the `testexecutor` package.
 
 ==== Entry point
 
@@ -370,8 +373,11 @@ a list of `TestCase`.
 
 *UserProgram* - stores the name of the class which contains the _main method_ along with the source code (_note that the class name must match the source code for it to be evaluated successfully_).
 
-image:UserProgramClassDiagram.png[width=240]
-image:TestCaseClassDiagram.png[width=240]
+[.text-center]
+_Class Diagrams for UserProgram and TestCase_
+
+image:UserProgramClassDiagram.png[width=150]
+image:TestCaseClassDiagram.png[width=150]
 
 ====
 
@@ -412,19 +418,19 @@ This temporary folder is deleted in `closed()`. Uses `JavaFile`.
 
 [[fig-CompilerEnvironmentAssociations]]
 .Associations of CompilerEnvironment
-image::CompilerEnvironment.png[align="center" width="800"]
+image::CompilerEnvironment.png[align="center" width="500"]
 
 *Compiler* - in charge of compiling the Java files into Class files at a given file path. Uses `ClassFile`.
 
 [[fig-CompilerAssociations]]
 .Associations of Compiler
-image::Compiler.png[align="center" width="800"]
+image::Compiler.png[align="center" width="500"]
 
 *ProgramExecutor* - in charge of executing the compiled Class files. Uses `ProgramOutput`.
 
 [[fig-ProgramExecutorAssociations]]
 .Associations of ProgramExecutor
-image::ProgramExecutor.png[align="center" width="800"]
+image::ProgramExecutor.png[align="center" width="1000"]
 
 *Models classes:*
 
@@ -441,7 +447,7 @@ an `FileNotFoundException` is thrown during instantiation.
 
 [[fig-TestExecutorSequenceDiagram]]
 .Sequence diagram for the evaluation of a user's program
-image::TestExecutorSequenceDiagram.png[align:center width="800"]
+image::TestExecutorSequenceDiagram.png[align="center" width="650"]
 
 . `TestExecutor` calls `clearEnvironment()` of `CompilerEnvironment` to remove any leftover files from previous program evaluations.
 
@@ -463,6 +469,8 @@ image::TestExecutorSequenceDiagram.png[align:center width="800"]
 * Compile errors and runtime errors will also be reflected in the `TestResult` and `TestCaseResult` models respectively.
 
 ====
+
+//end::programevaluation[]
 
 ==== Implementation details
 The implementations of `CompilerEnvironment`, `Compiler` and `ProgramExecutor` are as follows:
@@ -488,9 +496,6 @@ The implementations of `CompilerEnvironment`, `Compiler` and `ProgramExecutor` a
     - Test inputs are fed into the input stream.
     - Results and errors are collected from the output stream.
     - The process is destroyed upon completion.
-
-//end::programevaluation[]
-
 
 === Logging
 

@@ -20,8 +20,6 @@ Duke Academy is an integrated platform with a built-in text editor, an auto-grad
 
 DukeAcademy can also be used as a teaching tool by educators as they can set their own questions to be loaded by their students using our simplified text format.
 
-Duke Academy is written in Java, and has about 15 kLoC.
-
 == My Roles and Contributions
 
 The following segment illustrates the different roles and tasks that I have performed for our team in detail.
@@ -138,21 +136,19 @@ On RepoSense, you can select options to view my functional code and test code.
 
 == Contributions to the User Guide
 
-Given below are sections that I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+Given below are some of the sections that I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
 
 include::../UserGuide.adoc[tag=overview]
 
 include::../UserGuide.adoc[tag=beforestart]
 
-include::../UserGuide.adoc[tag=submit]
-
-include::../UserGuide.adoc[tag=notes]
-
 == Contributions to the Developer Guide
 
-Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+Given below are some of the sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=logic1]
 
 include::../DeveloperGuide.adoc[tag=programevaluation]
 
