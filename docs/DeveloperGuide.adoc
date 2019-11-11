@@ -162,7 +162,9 @@ The following sequence diagram shows how the quiz and flip diagram works.
 
 image::QuizSequenceDiagram.png[]
 
-After each flip, the each flashcard can automatically record how many correct answers and wrong answers has the user did on this flashcard.
+=== Stats feature
+
+After a series of quizzes, each flashcard can automatically record how many correct answers and wrong answers has the user did on this flashcard.
 The stats command helps the user to see their progress while doing the quizzes. Below is a sequence diagram of how this command
 works.
 
