@@ -58,7 +58,7 @@ image::UiClassDiagram_FlashCardPro.png[]
 
 [[fig-LogicClassDiagram]]
 .Structure of the Responder Component
-image::Logic_Class_Diagram.png[]
+image::Logic_Class_Diagram.PNG[]
 
 *API* :
 link:{repoURL}/src/main/tree/master/src/main/java/dream/fcard/logic [`Logic Package`]
