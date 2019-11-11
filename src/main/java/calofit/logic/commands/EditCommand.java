@@ -7,8 +7,10 @@ import static calofit.model.Model.PREDICATE_SHOW_DEFAULT;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -46,6 +48,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_TAGS_SUCCESS = "Tags have been updated!";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database.";
+    public static final String MESSAGE_TAGS_DO_NOT_EXIST = "The following tag you want to remove do not "
+            + "exist in the meal you want to edit.\n%s";
 
     private final Index index;
     private final EditDishDescriptor editDishDescriptor;
@@ -91,67 +95,41 @@ public class EditCommand extends Command {
             }
         }
 
+        if (editDishDescriptor.getTagsToRemove().isPresent()) {
+            Set<Tag> unknownTags = new HashSet<>(editDishDescriptor.getTagsToRemove().get());
+            unknownTags.removeAll(updatedTags);
+            if (!unknownTags.isEmpty()) {
+                String nonExistTags = "";
+                List<Tag> listOfNonExistTags = new ArrayList<>(unknownTags);
+                for (int i = 0; i < listOfNonExistTags.size(); i++) {
+                    int iAtOne = i + 1;
+                    if (i == listOfNonExistTags.size() - 1) {
+                        nonExistTags = nonExistTags + iAtOne + ". " + listOfNonExistTags.get(i).toString();
+                    } else {
+                        nonExistTags = nonExistTags + iAtOne + ". " + listOfNonExistTags.get(i).toString() + "\n";
+                    }
+                }
+                throw new CommandException(String.format(MESSAGE_TAGS_DO_NOT_EXIST, nonExistTags));
+            }
+
+            updatedTags.removeAll(editDishDescriptor.getTagsToRemove().get());
+        }
         // Directly update the meal to the one in the dish db
         boolean isDishUpdated = false;
         Dish updatedDish = dishPointer;
 
-
         if (editDishDescriptor.getName().isPresent()
-                && editDishDescriptor.getCalories().isPresent()
-                && editDishDescriptor.getTags().isPresent()) {
-            updatedName = editDishDescriptor.getName().get();
-            updatedCalories = editDishDescriptor.getCalories().get();
-            updatedTags = editDishDescriptor.getTags().get();
-
-            updatedDish = new Dish(updatedName, updatedCalories, updatedTags);
-            isDishUpdated = true;
-
-        } else if (editDishDescriptor.getName().isPresent()
                 && editDishDescriptor.getCalories().isPresent()) {
             // Check if both name tags and calorie tags are used.
             updatedName = editDishDescriptor.getName().get();
             updatedCalories = editDishDescriptor.getCalories().get();
-            //if (model.hasDish(new Dish(updatedName, updatedCalories))) {
-            //    updatedDish = model.getDish(new Dish(updatedName, updatedCalories));
-            //    isDishUpdated = true;
-            //}
         } else if (editDishDescriptor.getName().isPresent()) {
             // Check if only name tag is used
             updatedName = editDishDescriptor.getName().get();
-            // Check if name is present in the dishDB
-            // If not present, do not do anything
-            //if (model.hasDishName(updatedName)) {
-            //    updatedDish = model.getDishByName(updatedName);
-            //    updatedTags = new HashSet<Tag>();
-            //    updatedTags.addAll(updatedDish.getTags());
-            //    if (isTagsEmpty) {
-            //        updatedTags = new HashSet<Tag>();
-            //    } else if (editDishDescriptor.getTags().isPresent()) {
-            //        updatedTags.addAll(editDishDescriptor.getTags().get());
-            //    }
-            //    updatedCalories = updatedDish.getCalories();
-            //    updatedName = updatedDish.getName();
-            //    updatedDish = new Dish(updatedName, updatedCalories, updatedTags);
-            //    isDishUpdated = true;
-            //}
 
         } else if (editDishDescriptor.getCalories().isPresent()) {
             // Check if only calorie tag is used
             updatedCalories = editDishDescriptor.getCalories().get();
-            //if (model.hasDish(new Dish(updatedName, updatedCalories))) {
-            //    updatedDish = model.getDish(new Dish(updatedName, updatedCalories));
-            //    updatedTags = new HashSet<Tag>();
-            //    updatedTags.addAll(updatedDish.getTags());
-            //    if (isTagsEmpty) {
-            //        updatedTags = new HashSet<Tag>();
-            //    } else if (editDishDescriptor.getTags().isPresent()) {
-            //        updatedTags.addAll(editDishDescriptor.getTags().get());
-            //    }
-            //    updatedCalories = updatedDish.getCalories();
-            //    updatedName = updatedDish.getName();
-            //    updatedDish = new Dish(updatedName, updatedCalories, updatedTags);
-            //    isDishUpdated = true;
-            //}
         }
 
         Dish editedDish;
@@ -163,38 +141,9 @@ public class EditCommand extends Command {
 
         Meal editedMeal = new Meal(editedDish, mealToEdit.getTimestamp());
 
-        if (!model.hasDish(editedDish)) {
-            model.addDish(editedDish);
-        }
-
-        model.getMealLog().setMeal(mealToEdit, editedMeal);
+        model.setMeal(mealToEdit, editedMeal);
         model.setDishFilterPredicate(PREDICATE_SHOW_DEFAULT);
         return new CommandResult(String.format(MESSAGE_EDIT_MEAL_SUCCESS, mealToEdit, editedMeal));
-    }
-
-    /**
-     * Creates and returns a {@code Dish} with the details of {@code dishToEdit}
-     * edited with {@code editDishDescriptor}.
-     */
-    private static Dish createEditedDish(Dish dishToEdit, EditDishDescriptor editDishDescriptor) {
-        assert dishToEdit != null;
-
-        Name updatedName;
-        Calorie updatedCalories;
-        Set<Tag> updatedTags;
-        Optional<Name> updatedNameOptional = editDishDescriptor.getName();
-        if (updatedNameOptional.isPresent()) {
-            updatedName = updatedNameOptional.get();
-            updatedCalories = editDishDescriptor.getCalories().orElse(dishToEdit.getCalories());
-            updatedTags = editDishDescriptor.getTags().orElse(dishToEdit.getTags());
-
-        } else {
-            updatedName = dishToEdit.getName();
-            updatedCalories = editDishDescriptor.getCalories().orElse(dishToEdit.getCalories());
-            updatedTags = editDishDescriptor.getTags().orElse(dishToEdit.getTags());
-        }
-
-        return new Dish(updatedName, updatedCalories, updatedTags);
     }
 
     @Override
@@ -223,6 +172,7 @@ public class EditCommand extends Command {
         private Name name;
         private Calorie calories;
         private Set<Tag> tags;
+        private Set<Tag> tagsToRemove;
 
         public EditDishDescriptor() {}
 
@@ -234,13 +184,14 @@ public class EditCommand extends Command {
             setName(toCopy.name);
             setCalories(toCopy.calories);
             setTags(toCopy.tags);
+            setTagsToRemove(toCopy.tagsToRemove);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, calories, tags);
+            return CollectionUtil.isAnyNonNull(name, calories, tags, tagsToRemove);
         }
 
         public void setName(Name name) {
@@ -268,12 +219,29 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code tagsToRemove} to this object's {@code tagsToRemove}.
+         * A defensive copy of {@code tagsToRemove} is used internally.
+         */
+        public void setTagsToRemove(Set<Tag> tagsToRemove) {
+            this.tagsToRemove = (tagsToRemove != null) ? new HashSet<>(tagsToRemove) : null;
+        }
+
+        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable set of tags to remove, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tagsToRemove} is null.
+         */
+        public Optional<Set<Tag>> getTagsToRemove() {
+            return (tagsToRemove != null) ? Optional.of(Collections.unmodifiableSet(tagsToRemove)) : Optional.empty();
         }
 
         @Override

@@ -109,16 +109,34 @@ Commands below are come other example commands:
 ==== Editing previous meal entry : `edit`
 
 Edits a meal that the user previously ate today. +
-Format: `edit MEAL_NUMBER [n/NAME] [c/CALORIES] [t/TAGS]` +
-The input of at least 1 field (either NAME, CALORIES or TAGS) is required.
+Format: `edit MEAL_NUMBER [n/NAME] [c/CALORIES] [t/TAGS] [tr/TAGSTOREMOVE]` +
+The input of at least 1 field (either NAME, CALORIES, TAGS or TAGSTOREMOVE) is required.
 A mix of the different fields is possible as well.
+//with the exception of TAGS and TAGSTOREMOVE.
+//This means if you use the TAGS flag (t/), you cannot use the TAGSTOREMOVE flag (tr/).
 
-Examples:
+Example usages: +
+While rushing to type in the meals, you misspelled "Mushroom Soup" as "Mushroom Soop" and
+added 2000 calories instead of the correct 200 calories. What do you do?
 
-* `edit 1 n/Wanton Noodle c/1000`
-* `edit 2 n/Chicken Rice`
-* `edit 3 c/500`
-* `edit 4 t/tasty`
+* Type "edit 1 n/Mushroom Soup c/200" into the command bar and press the `enter` key.
+
+image::EditCommandInitial.png[]
+
+* The name of the meal will be edited to "Mushroom Soup" and the calories will be edited
+to the correct amount of 200 in the calorie bar.
+
+image::EditCommandSuccess.png[]
+
+Commands below are come other example commands:
+
+* `edit 1 n/Wanton Noodle c/1000` - Edits the meal at index 1 to name "Wanton Noodle" with calorie 1000.
+* `edit 2 n/Chicken Rice` - Edits the meal at index 2 to name "Chicken Rice" without changing anything else.
+* `edit 3 c/500` - Edits the meal at index 3 to have a calorie count of 500 without changing the other fields.
+* `edit 4 t/tasty` - Adds the tag "tasty" to the existing list of tags for meal at index 4.
+* `edit 5 tr/tasty` - Removes the tag "tasty" if it exists in the list of tags for meal at index 5.
+* `edit 6 t/` - Clears all tags for meal at index 6.
+
 
 ==== Deleting previous meal entry : `delete`
 

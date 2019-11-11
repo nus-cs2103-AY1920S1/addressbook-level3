@@ -89,6 +89,9 @@ public class TypicalDishes {
     public static MealLog getTypicalMealLog() {
         MealLog mealLog = new MealLog();
         mealLog.addMeal(dishToMeal(SPAGHETTI));
+        mealLog.addMeal(dishToMeal(MACARONI));
+        mealLog.addMeal(dishToMeal(CHICKEN_RICE));
+        mealLog.addMeal(dishToMeal(NASI_LEMAK));
         return mealLog;
     }
 

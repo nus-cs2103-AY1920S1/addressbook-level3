@@ -3,6 +3,7 @@ package calofit.logic.parser;
 import static calofit.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static calofit.logic.parser.CliSyntax.PREFIX_CALORIES;
 import static calofit.logic.parser.CliSyntax.PREFIX_NAME;
+import static calofit.logic.parser.CliSyntax.PREFIX_REMOVE_TAG;
 import static calofit.logic.parser.CliSyntax.PREFIX_TAG;
 import static java.util.Objects.requireNonNull;
 
@@ -10,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import calofit.commons.core.index.Index;
 import calofit.logic.commands.EditCommand;
@@ -29,7 +31,7 @@ public class EditCommandParser implements Parser<EditCommand> {
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_CALORIES, PREFIX_TAG, PREFIX_REMOVE_TAG);
 
         Index index;
 
@@ -47,6 +49,13 @@ public class EditCommandParser implements Parser<EditCommand> {
             editDishDescriptor.setCalories(ParserUtil.parseCalorie(argMultimap.getValue(PREFIX_CALORIES).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editDishDescriptor::setTags);
+
+        if (argMultimap.getValue(PREFIX_REMOVE_TAG).isPresent()) {
+
+            Set<Tag> tagsToRemove = argMultimap.getAllValues(PREFIX_REMOVE_TAG).stream()
+                    .map(Tag::new).collect(Collectors.toSet());
+            editDishDescriptor.setTagsToRemove(tagsToRemove);
+        }
 
         if (!editDishDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
