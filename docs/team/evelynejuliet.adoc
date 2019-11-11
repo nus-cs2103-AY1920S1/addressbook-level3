@@ -50,8 +50,8 @@ be visible and easily understandable by the users.
 ** Project management:
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 //** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-F10-2/main/pull/116[#116])
-*** Wrote additional tests for existing features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103-F10-2/main/pull/239[#239])
+*** Updated the GUI color scheme (Pull request https://github.com/AY1920S1-CS2103-F10-2/main/pull/116[#116]) and App Logo (Pull request https://github.com/AY1920S1-CS2103-F10-2/main/pull/244[#244])
+*** Wrote additional tests for existing features to increase coverage (Pull request https://github.com/AY1920S1-CS2103-F10-2/main/pull/239[#239])
 ** Documentation:
 *** Updated Acknowledgement in README.adoc and Website Heading (Pull Request https://github.com/AY1920S1-CS2103-F10-2/main/pull/8[#8])
 ** Community:
