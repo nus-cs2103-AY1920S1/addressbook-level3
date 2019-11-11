@@ -44,14 +44,15 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of four components
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Game,*`Game`*>>: Holds game data.
 
-Each of the four components
+The first four components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -470,13 +471,36 @@ by opening the engagements list window for that particular date.
 ** Pros: Shows more detailed information in the calendar window.
 ** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
-
 // end::calendar[]
 
-=== Game Window
+
+
+// tag::typinggame[]
+
+=== Game Feature
+==== Implementation
+The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
+by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
+of the game being over. `GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
 
 .Structure of the Game Window
 image::GameWindowClassDiagram.png[]
+
+The component `GameBody` makes use of `javafx.animation.AnimationTimer` API to continuously loop `MovingWords` objects moving from top
+to bottom of the window using `GameBody#loopWords()`. `MovingWords` are created using
+`HighlighterUtil#convertToTextFlowUsing(String word)`
+, which appears as a `TextFlow` object of `javafx.scene.text` API.
+
+Player input is represented as  a `javafx.beans.property.StringProperty` in `Player`.
+Based on player input, `MovingWords` are updated using
+`HighlighterUtil#convertToTextFlowUsing(String playerInput, String word)`
+, which appears as a highlighted `TextFlow` object. In order to update the `MovingWords` object, the API
+`javafx.animation.AnimationTimer` is used by calling `MovingWords#continuouslyUpdate()`.
+
+The component `PlayerInformation` is bound to `Player` using `javafx.beans.property` API and is also updated when
+`MovingWords#continuouslyUpdate()` is called.
+
+The table below summarises the various purposes of the 3 main Game Window UI components.
 
 .Game Window UI Components
 [%header, cols=4*]
@@ -501,6 +525,24 @@ image::GameWindowClassDiagram.png[]
 | Displays the individual word.
 | To allow user to know the next word to type.
 |===
+
+==== Design Considerations
+
+===== Aspect: Singleton pattern design of Game Window
+
+* **Alternative 1 (current choice):** Game Window with Singleton pattern design
+** Pros: +
+*** Prevent users from instantiating multiple Game Windows which may cause performance issues or even cause the application
+to crash.
+** Cons:
+*** Reduced testability as it is difficult to replace Singleton objects with stubs, and increased coupling across code base.
+
+* **Alternative 2:** Game Window without Singleton pattern design
+** Pros: Increased testability and reduced coupling.
+** Cons: There could be the risk of users being able to instantiate hundreds or thousands of GameWindows which would cause
+performance issues or application crash issues.
+
+// end::typinggame[]
 
 //tag::sort[]
 === Sort feature
@@ -552,7 +594,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 image::SortUpdateActivityDiagram.png[width="190", align="center"]
 
 ==== Design Considerations
-
 
 ===== Aspect: How sort executes
 
@@ -873,6 +914,7 @@ Use case resumes at step 1.
 Use case resumes at step 1.
 
 //Updated by Jun Hao
+//tag::use-case-game[]
 [discrete]
 === Use case: (UC14) Typing game
 
@@ -893,6 +935,7 @@ Use case ends.
 * 2a. User exits game
 +
 Use case ends.
+//end::use-case-game[]
 
 [discrete]
 //Updated by Ko Gi Hun 30/09/19
