@@ -1,4 +1,4 @@
-= Sugar Mummy - Developer Guide
+= SugarMummy - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -1215,7 +1215,7 @@ that is always easily accessible |instantly calculate all my medical costs when 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Sugar Mummy` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `SugarMummy` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add blood sugar record
