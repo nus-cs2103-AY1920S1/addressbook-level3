@@ -16,7 +16,7 @@ public class Caretaker extends Notebook {
 
     /**
      * Initializes the list of mementos.
-     * @param notebook the notebook where changes are updated in
+     * @param notebook the notebook where changes are updated in.
      */
     public Caretaker(Notebook notebook) {
         requireNonNull(notebook);

@@ -72,11 +72,13 @@ public class Notebook implements ReadOnlyNotebook {
         lessons.setLessons(newLessonList);
     }
 
-    //=========== Notebook ================================================================================
+    //=========== Classroom ================================================================================
+
     public void setClassrooms(List<Classroom> classrooms) {
         this.classrooms.setClassrooms(classrooms);
     }
 
+    /** Sets {@code classroom} as the current classroom. */
     public void setCurrentClassroom(Classroom classroom) {
         requireNonNull(classroom);
         if (hasClassroom(classroom)) {
@@ -84,6 +86,7 @@ public class Notebook implements ReadOnlyNotebook {
         }
     }
 
+    /** Gets the current classroom of the notebook. */
     public Classroom getCurrentClassroom() {
         if (currentClassroom != null && hasClassroom(currentClassroom)) {
             return currentClassroom;
@@ -92,6 +95,7 @@ public class Notebook implements ReadOnlyNotebook {
         }
     }
 
+    /** Gets the first classroom of the notebook. */
     public Classroom getFirstClassroom() {
         List<Classroom> classroomList = classrooms.asUnmodifiableObservableList();
         if (classroomList.isEmpty()) {
@@ -138,6 +142,7 @@ public class Notebook implements ReadOnlyNotebook {
         classrooms.remove(key);
     }
 
+    /** Gets the {@code classroom} from the notebook. */
     public Classroom getClassroom(Classroom classroom) {
         List<Classroom> classroomList = getClassroomList();
         for (Classroom toCheck : classroomList) {
@@ -147,6 +152,8 @@ public class Notebook implements ReadOnlyNotebook {
         }
         return null;
     }
+
+    //=========== Student  =============================================================================
 
     /**
      * Returns true if the current classroom has the given student.
@@ -158,6 +165,24 @@ public class Notebook implements ReadOnlyNotebook {
         return currentClassroom.hasStudent(student);
     }
 
+    public void setStudent(Student target, Student editedStudent) {
+        requireAllNonNull(target, editedStudent);
+        currentClassroom.setStudent(target, editedStudent);
+    }
+
+    /** Adds a specified student to the notebook. */
+    public void addStudent(Student student) {
+        currentClassroom.addStudent(student);
+    }
+
+    /** Deletes a specified student from the notebook. */
+    public void deleteStudent(Student target) {
+        currentClassroom.removeStudent(target);
+    }
+
+
+    //=========== Assignment  ===========================================================================
+
     /**
      * Returns true if the current classroom has the given assignment.
      * @param assignment checks to see if this assignment is in the classroom.
@@ -168,19 +193,9 @@ public class Notebook implements ReadOnlyNotebook {
         return currentClassroom.hasAssignment(assignment);
     }
 
-
-    public void deleteStudent(Student target) {
-        currentClassroom.removeStudent(target);
-    }
-
-
+    /** Deletes a specified assignment from the notebook. */
     public void deleteAssignment(Assignment target) {
         currentClassroom.removeAssignment(target);
-    }
-
-
-    public void addStudent(Student student) {
-        currentClassroom.addStudent(student);
     }
 
     /**
@@ -191,17 +206,12 @@ public class Notebook implements ReadOnlyNotebook {
         currentClassroom.addAssignment(assignment);
     }
 
-
-    public void setStudent(Student target, Student editedStudent) {
-        requireAllNonNull(target, editedStudent);
-        currentClassroom.setStudent(target, editedStudent);
-    }
-
-
     public void setAssignment(Assignment target, Assignment editedAssignment) {
         requireAllNonNull(target, editedAssignment);
         currentClassroom.setAssignment(target, editedAssignment);
     }
+
+    //=========== Display Operations =====================================================================
 
     public boolean isDisplayStudents() {
         return currentClassroom.isDisplayStudents();
@@ -215,6 +225,8 @@ public class Notebook implements ReadOnlyNotebook {
         currentClassroom.displayAssignments();
     }
 
+
+    //=========== Lesson ===========================================================================
 
     /**
      * Adds a lessons to the classroom.
@@ -257,7 +269,6 @@ public class Notebook implements ReadOnlyNotebook {
         lessons.remove(key);
     }
 
-
     /**
      * Replaces the given lesson {@code target} in the list with {@code editedLesson}.
      * {@code target} must exist in the classroom.
@@ -276,7 +287,6 @@ public class Notebook implements ReadOnlyNotebook {
         }
     }
 
-
     /**
      * Replaces the contents of the lesson list with {@code lessons}.
      * {@code lessons} must not contain duplicate lessons.
@@ -289,83 +299,28 @@ public class Notebook implements ReadOnlyNotebook {
     //=========== Filtered Student List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Classroom} backed by the internal list of
-     * {@code Caretaker}
+     * Returns an unmodifiable view of the list of {@code Classroom}.
      */
     public ObservableList<Classroom> getClassroomList() {
         return classrooms.asUnmodifiableObservableList();
     }
 
-    /*
-    public void updateFilteredStudentList(Predicate<Student> predicate) {
-        requireNonNull(predicate);
-        filteredStudents.setPredicate(predicate);
-    }
-
-    public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
-        requireNonNull(predicate);
-        filteredAssignments.setPredicate(predicate);
-    }
-
-    public void updateFilteredLessonList(Predicate<Lesson> predicate) {
-        requireNonNull(predicate);
-        filteredLessons.setPredicate(predicate);
-    }
-    */
-
-    /*
-    public ObservableList<Student> getStudentList() {
-        return currentClassroom().getStudentList();
-    }
-
-    public ObservableList<Assignment> getAssignmentList() {
-        return currentClassroom().getAssignmentList();
-    }
+    /**
+     * Returns an unmodifiable view of the list of {@code Lesson}.
      */
-
-    /*
-    public List<Classroom> getClassroomList() {
-        ArrayList<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
-        ObservableList<Classroom>
-        return classroomList;
-    }
-     */
-
     public ObservableList<Lesson> getLessonList() {
         return lessons.asUnmodifiableObservableList();
     }
 
+    /**
+     * Returns an unmodifiable view of the list of {@code UniqueLessonList}.
+     */
     public ObservableList<UniqueLessonList> getLessonWeekList() {
         return lessonLists.asUnmodifiableObservableList();
     }
 
 
-    //=========== Undo and Redo Operations =============================================================
-
-    /*
-    public ReadOnlyNotebook undo() {
-        return caretaker.undo();
-    }
-
-    public boolean canUndo() {
-        return caretaker.canUndo();
-    }
-
-    public ReadOnlyClassroom redo() {
-        return caretaker.redo();
-    }
-
-    public boolean canRedo() {
-        return caretaker.canRedo();
-    }
-
-    public void saveState() {
-        caretaker.saveState();
-        updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
-        updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
-        updateFilteredLessonList(PREDICATE_SHOW_ALL_LESSONS);
-    }
-    */
+    //=========== Utility Operations ===================================================================
 
     @Override
     public boolean equals(Object obj) {

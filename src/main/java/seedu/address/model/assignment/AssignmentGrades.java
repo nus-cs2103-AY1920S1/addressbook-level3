@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Represents a AssignmentGrades in the classroom.
+ * Represents an AssignmentGrades in the classroom.
  * Guarantees: immutable; is valid as declared in {@link #isValidGrade(String[])}
  */
 public class AssignmentGrades {
@@ -18,11 +18,6 @@ public class AssignmentGrades {
     public static final String SINGLE_ASSIGNMENT_MESSAGE_CONSTRAINTS =
             "There should be only one mark when editing an individual student's marks, which should only contain "
                     + "numeric characters between 0 to 100, and it should not be blank";
-
-    /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
-     */
 
     public static final String VALIDATION_REGEX = "100|\\d{1,2}";
 
@@ -58,7 +53,7 @@ public class AssignmentGrades {
 
     /**
      * Parses a {@code String studentName}.
-     * Removes the key-value pair for key: studentName.
+     * Adds a key-value pair with key: studentName, value: "Not submitted.".
      */
     public void addOneStudentGrade (String studentName) {
         assignmentGrades.put(studentName, "Not submitted.");
@@ -72,7 +67,6 @@ public class AssignmentGrades {
         assignmentGrades.remove(studentName);
     }
 
-
     /**
      * Returns a {@code List<String> names} created from keys in LinkedHashMap assignmentGrades
      */
@@ -83,7 +77,7 @@ public class AssignmentGrades {
     }
 
     /**
-     * Returns a {@code List<Integer> marks} created from values in LinkedHashMap assignmentGrades
+     * Returns a {@code List<String> marks} created from values in LinkedHashMap assignmentGrades
      */
     public List<String> marksStringListFromGrades() {
         List<String> marks = new ArrayList<>();

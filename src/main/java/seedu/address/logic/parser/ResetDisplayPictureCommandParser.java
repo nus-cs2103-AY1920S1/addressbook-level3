@@ -7,9 +7,10 @@ import seedu.address.logic.commands.ResetDisplayPictureCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new resetDisplayPictureCommand
+ * Parses input arguments and creates a new ResetDisplayPictureCommand
  */
 public class ResetDisplayPictureCommandParser implements Parser<ResetDisplayPictureCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the ResetDisplayPictureCommand
      * and returns an ResetDisplayPictureCommand object for execution.

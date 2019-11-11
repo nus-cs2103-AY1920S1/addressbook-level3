@@ -22,8 +22,8 @@ Role: Project Advisor
 image::weikiat97.png[width="150", align="left"]
 {empty}[https://github.com/weikiat97[github]] [<<weikiat97#, portfolio>>]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Logic + Model
 
 '''
 
@@ -32,7 +32,7 @@ image::sebastianlie.png[width="150", align="left"]
 {empty}[https://github.com/SebastianLie[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Data + UI
 
 '''
 
@@ -41,7 +41,7 @@ image::sheryltay28.png[width="150", align="left"]
 {empty}[https://github.com/sheryltay28[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Logic + Data
 
 '''
 
@@ -50,6 +50,6 @@ image::xelyion.png[width="150", align="left"]
 {empty}[https://github.com/Xelyion[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Model + UI
 
 '''

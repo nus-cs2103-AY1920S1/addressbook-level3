@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  * Parses input arguments and creates a new EditLessonCommand object
  */
 public class EditLessonCommandParser implements Parser<EditLessonCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditLessonCommand
      * and returns an EditLessonCommand object for execution.

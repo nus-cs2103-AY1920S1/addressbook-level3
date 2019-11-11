@@ -71,12 +71,12 @@ Examples:
 Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
 Classroom must be in the current list of classrooms, and class name cannot be empty. +
 
-Format: `deleteclassroom c/CLASS_NAME`
+Format: `deleteclass c/CLASS_NAME`
 
 Examples:
 
-* `deleteclassroom c/4E7`
-* `deleteclassroom c/3E8`
+* `deleteclass c/4E7`
+* `deleteclass c/3E8`
 
 ==== Setting: setclass
 

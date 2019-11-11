@@ -28,43 +28,37 @@ public interface Logic {
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
-    /**
-     * Returns the Classroom.
-     *
-     * @see seedu.address.model.Model#getCurrentClassroom()
-     */
+    /** Returns a ReadOnlyClassroom view of the current classroom. */
     ReadOnlyClassroom getClassroom();
 
+    /** Returns a ReadOnlyNotebook view of the notebook. */
     ReadOnlyNotebook getNotebook();
-    /** Returns an unmodifiable view of the filtered list of students */
+
+    /** Returns an unmodifiable view of the filtered list of students. */
     ObservableList<Student> getFilteredStudentList();
 
-
-    /** Returns an unmodifiable view of the filtered list of assignments */
+    /** Returns an unmodifiable view of the filtered list of assignments. */
     ObservableList<Assignment> getFilteredAssignmentList();
 
-    /** Returns an unmodifiable view of the filtered list of reminders */
+    /** Returns an unmodifiable view of the filtered list of lessons in the day. */
     ObservableList<Lesson> getFilteredLessonList();
 
-    /** Returns an unmodifiable view of the filtered list of lesson lists */
+    /** Returns an unmodifiable view of the filtered list of lessons in all days. */
     ObservableList<UniqueLessonList> getFilteredLessonWeekList();
 
-    /**
-     * Returns the user prefs' notebook file path.
-     */
+    /** Returns an unmodifiable view of the classrooms. */
+    ObservableList<Classroom> getClassroomList();
+
+    /** Returns the user prefs' notebook file path. */
     Path getNotebookFilePath();
 
-    /**
-     * Returns the user prefs' GUI settings.
-     */
+    /** Returns the user prefs' GUI settings. */
     GuiSettings getGuiSettings();
 
-    /**
-     * Set the user prefs' GUI settings.
-     */
+    /** Set the user prefs' GUI settings. */
     void setGuiSettings(GuiSettings guiSettings);
 
+    /** Returns true if the current notebook is set to display students. */
     boolean isDisplayStudents();
 
-    ObservableList<Classroom> getClassroomList();
 }
