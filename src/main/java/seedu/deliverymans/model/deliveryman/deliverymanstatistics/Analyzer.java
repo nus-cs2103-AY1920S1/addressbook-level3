@@ -91,9 +91,7 @@ public class Analyzer {
     // ======= Functions to calculate state levels ============================================================
 
     /**
-     *
-     * @param utilLevel
-     * @return
+     * Function to compute the {@code State} of the {@code utilLevel}.
      */
     private State calcUtilisationState(double utilLevel) {
         if (utilLevel <= lowUtilisationBoundary) {
@@ -108,9 +106,7 @@ public class Analyzer {
     }
 
     /**
-     *
-     * @param activeLevel
-     * @return
+     * Function to compute the {@code State} of the {@code activeLevel}.
      */
     private State calcActivityState(double activeLevel) {
         if (activeLevel <= lowActivityBoundary) {

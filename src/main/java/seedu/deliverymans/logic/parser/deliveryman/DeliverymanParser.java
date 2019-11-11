@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 
 import seedu.deliverymans.logic.commands.Command;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAddCommand;
-import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAssignCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanDeleteCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanEditCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanGetStatisticsCommand;
@@ -46,9 +45,6 @@ public class DeliverymanParser {
         switch (commandWord) {
         case DeliverymanAddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
-
-        case DeliverymanAssignCommand.COMMAND_WORD:
-            return new AssignCommandParser().parse(arguments);
 
         case DeliverymanDeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);

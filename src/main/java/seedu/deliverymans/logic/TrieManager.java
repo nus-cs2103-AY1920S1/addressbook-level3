@@ -9,7 +9,6 @@ import seedu.deliverymans.logic.commands.customer.CustomerHistoryCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerListCommand;
 import seedu.deliverymans.logic.commands.customer.CustomerSortCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAddCommand;
-import seedu.deliverymans.logic.commands.deliveryman.DeliverymanAssignCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanDeleteCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanEditCommand;
 import seedu.deliverymans.logic.commands.deliveryman.DeliverymanGetStatisticsCommand;
@@ -78,7 +77,6 @@ class TrieManager {
      */
     private void addDeliverymanCommands() {
         deliverymanTrie.insertCommand(DeliverymanAddCommand.COMMAND_WORD);
-        deliverymanTrie.insertCommand(DeliverymanAssignCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanDeleteCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanEditCommand.COMMAND_WORD);
         deliverymanTrie.insertCommand(DeliverymanGetStatisticsCommand.COMMAND_WORD);

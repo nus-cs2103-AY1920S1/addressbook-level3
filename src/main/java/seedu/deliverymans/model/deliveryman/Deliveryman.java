@@ -25,7 +25,7 @@ public class Deliveryman {
 
     // Data fields
     private final Set<Tag> tags;
-    private StatusTag status;
+    private final StatusTag status;
 
     /**
      * Every field must be present and not null.
