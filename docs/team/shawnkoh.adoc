@@ -1,4 +1,4 @@
-= Shawn Koh - Project Portfolio
+= Koh Zheng Qiang Shawn - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets

@@ -20,7 +20,7 @@ Role: Project Advisor
 '''
 
 === Ho Wei Chin
-image::HoWeiChin.png[width="180", align="left"]
+image::howeichin.png[width="180", align="left"]
 {empty}[https://github.com/HoWeiChin[github]] [<<howeichin#, portfolio>>]
 
 Role: Developer +
@@ -39,7 +39,7 @@ Component IC: Storage, Context-Switching
 
 '''
 
-=== Shawn Koh
+=== Koh Zheng Qiang Shawn
 image::shawnkoh.png[width="180", align="left"]
 {empty}[https://github.com/shawnkoh[github]] [<<shawnkoh#, portfolio>>]
 
@@ -49,7 +49,7 @@ Component IC: Leaderboard
 
 '''
 
-=== Christabel Teo
+=== Christabel Teo Hwee Teng
 image::belbel98.png[width="180", align="left"]
 {empty}[https://github.com/belbel98[github]] [<<belbel98#, portfolio>>]
 
