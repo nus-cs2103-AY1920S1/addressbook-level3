@@ -40,7 +40,8 @@ public class CommandResult {
                 SignInCommand.COMMAND_WORD,
                 BackCommand.COMMAND_WORD,
                 HelpCommand.COMMAND_WORD,
-                ExitCommand.COMMAND_WORD
+                ExitCommand.COMMAND_WORD,
+                SetTimetableCommand.COMMAND_WORD
         );
         if (list.contains(commandWord)) {
             this.changeInUi = false;

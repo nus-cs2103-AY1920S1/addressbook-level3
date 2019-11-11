@@ -23,16 +23,16 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class AddTimetableCommand extends Command {
+public class SetTimetableCommand extends Command {
 
-    public static final String COMMAND_WORD = "addTimetable";
+    public static final String COMMAND_WORD = "setTimetable";
 
     public static final Prefix PREFIX_FILEPATH = new Prefix("f/");
     public static final Prefix PREFIX_NUSMODS_URL = new Prefix("n/");
-    private static final Logger logger = LogsCenter.getLogger(AddTimetableCommand.class);
+    private static final Logger logger = LogsCenter.getLogger(SetTimetableCommand.class);
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Add timetable to the person identified "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set timetable to the person identified "
             + "by the index number used in the displayed person list. "
             + "Existing timetable will be overwritten by the input timetable.\n"
             + "Parameters: INDEX (must be a positive integer) "
@@ -42,7 +42,7 @@ public class AddTimetableCommand extends Command {
             + COMMAND_WORD + " 1 " + PREFIX_FILEPATH + "/path/to/timetable/file\n"
             + COMMAND_WORD + " 1 " + PREFIX_NUSMODS_URL + "https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27";
 
-    public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "Added timetable to: %s\n%s";
+    public static final String MESSAGE_SET_TIMETABLE_SUCCESS = "Set timetable to: %s\n%s";
     public static final String MESSAGE_INVALID_FILEPATH = "Please provide a proper absolute filepath to the timetable file";
     public static final String MESSAGE_INVALID_URL = "Invalid URL. Please provide a proper URL to NUSMODs";
     public static final String MESSAGE_INVALID_URL_OR_INTERNET_ERROR = "Unable to reach URL. Please check your internet connection and ensure that you have entered a proper NUSMods link";
@@ -58,19 +58,19 @@ public class AddTimetableCommand extends Command {
      * @param index of the person in the filtered person list to edit
      * @param absoluteFilepath absoluteFilepath to timetable file
      */
-    public AddTimetableCommand(Index index, String absoluteFilepath) {
+    public SetTimetableCommand(Index index, String absoluteFilepath) {
         this(index, absoluteFilepath, null);
         requireNonNull(absoluteFilepath);
-        logger.info("Creating AddTimetableCommand using absoluteFilepath: " + absoluteFilepath);
+        logger.info("Creating SetTimetableCommand using absoluteFilepath: " + absoluteFilepath);
     }
 
-    public AddTimetableCommand(Index index, URL url) {
+    public SetTimetableCommand(Index index, URL url) {
         this(index, null, url);
         requireNonNull(url);
-        logger.info("Creating AddTimetableCommand using NUSMods URL: " + url.toString());
+        logger.info("Creating SetTimetableCommand using NUSMods URL: " + url.toString());
     }
 
-    public AddTimetableCommand(Index index, String absoluteFilepath, URL url) {
+    public SetTimetableCommand(Index index, String absoluteFilepath, URL url) {
         requireNonNull(index);
         this.index = index;
         this.absoluteFilepath = absoluteFilepath;
@@ -108,7 +108,7 @@ public class AddTimetableCommand extends Command {
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson.getName().toString(), new TimetableVisualization(timetable).visualize()), COMMAND_WORD);
+        return new CommandResult(String.format(MESSAGE_SET_TIMETABLE_SUCCESS, editedPerson.getName().toString(), new TimetableVisualization(timetable).visualize()), COMMAND_WORD);
     }
 
     @Override
@@ -119,12 +119,12 @@ public class AddTimetableCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddTimetableCommand)) {
+        if (!(other instanceof SetTimetableCommand)) {
             return false;
         }
 
         // state check
-        AddTimetableCommand a = (AddTimetableCommand) other;
+        SetTimetableCommand a = (SetTimetableCommand) other;
         return index.equals(a.index)
                 && absoluteFilepath.equals(a.absoluteFilepath);
     }

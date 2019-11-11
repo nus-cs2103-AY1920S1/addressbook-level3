@@ -203,21 +203,22 @@ image::AddFromContactsCommandSuccess.png[]
 
 // end::addFromContacts[]
 
-==== Add a timetable: `addTimetable`
+// tag::setTimetable[]
+==== Set a timetable: `setTimetable`
 
 Need to keep track of your team members' schedule? Use this command to record down their timetable easily!
 
 [TIP]
-Timetable added can be used to generate avaiable meeting timeslots using the command `generate`
+Timetable set can be used to generate avaiable meeting timeslots using the command `generate`
 
 Format:
 
-`addTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]`
+`setTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]`
 
 Example:
 
-* `addTimetable 3 f//home/john/Desktop/aliceTimetable.txt` +
-Add Alice's timetable to Alice, who has index 3 in the list of persons.
+* `setTimetable 3 f//home/john/Desktop/aliceTimetable.txt` +
+Set Alice's timetable to Alice, who has index 3 in the list of persons.
 
 [NOTE]
 File should be formatted as a newline separated list of time ranges, e.g: +
@@ -225,26 +226,31 @@ MONDAY 1000 MONDAY 1200 +
 MONDAY 1400 MONDAY 1600 +
 TUESDAY 1100 TUESDAY 1500
 
-* `addTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
-Add timetable to the person with index 2 on the list of persons, by retrieving timetable data from NUSMods.
+* `setTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
+Set timetable to the person with index 2 on the list of persons, by retrieving timetable data from NUSMods.
 
-Below is a step-by-step instruction to guide you through the process of adding a timetable to Alice, through the use of NUSMods:
+Below is a step-by-step instruction to guide you through the process of setting a timetable to Alice, through the use of NUSMods:
 
-* Step 1: Type `addTimetable`, followed by the index of the person you wish to add the timetable to, and the URL of the share link.
+* Step 1: Type `setTimetable`, followed by the index of the person you wish to set the timetable to, and the URL of the share link.
 
 .User enters timetable of team member
-image::add-timetable/add-timetable-step-1.png[]
+image::set-timetable/set-timetable-step-1.png[]
 
-* Step 2: Press enter, and you would see the following message. You can even scroll down to view a simple visualization of the timetable added!
+* Step 2: Press enter, and you would see the following message. You can even scroll down to view a simple visualization of the timetable set!
 
-.`addTimetable` command success
-image::add-timetable/add-timetable-step-2.png[]
+.`setTimetable` command success
+image::set-timetable/set-timetable-step-2a.png[]
+
+.Visualization of timetable set
+image::set-timetable/set-timetable-step-2b.png[]
 
 [TIP]
 Even if you accidentally entered a wrong URL, MyProject would prompt you helpfully!
 
 .Error message when entered URL is invalid
-image::add-timetable/add-timetable-step-3.png[]
+image::set-timetable/set-timetable-step-3.png[]
+
+// end::setTimetable[]
 
 ==== Add a task: `addTask` [Checkout]
 
@@ -463,14 +469,15 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 For every project, you can add meetings to it, and below you will be able to find more useful commands
 associated with this functionality.
 
+// tag::generate[]
 ==== Generate meeting timing: `generate` [Checkout]
 
 Need to decide on a meeting timing, but having trouble finding a time where all members are free? This command can help suggest meeting timings!
 
-* Prerequisite: Timetables have been assigned to the members with the command `addTimetable`
+* Prerequisite: Timetables have been assigned to the members with the command `setTimetable`
 
 [NOTE]
-`generate` would not give an error if some members do not have timetable assigned to them. Ensure that you have done `addTimetable` for each of the members in the project before using `generate`.
+`generate` would not give an error if some members do not have timetable assigned to them. Ensure that you have done `setTimetable` for each of the members in the project before using `generate`.
 
 Format: `generate d/DURATION [r/TIMERANGE]`
 
@@ -479,7 +486,7 @@ Example:
 * `generate d/2 r/MONDAY 0900 MONDAY 1800` +
 Generates all possible meeting timeslots that lasts at least 2 hours, within the time frame of Monday 9am to Monday 6pm.
 
-Below is a step-by-step instruction to guide you through generating a meeting timeslot that lasts for 2 hours, between Monday 1000 to Monday 1800:
+Below is a step-by-step instruction to guide you through generating a meeting timeslot that lasts for at least 1 hours, between Monday 1000 to Monday 1800:
 
 * Step 1: To generate a meeting timing for a project, you first need to `checkout` that project.
 
@@ -501,6 +508,7 @@ If MyProject is unable to find a timeslot where all members are free, it would t
 
 .Result shown when not all members are available. Members available would be listed.
 image::generate/generate-alt.png[]
+// end::generate[]
 
 === Email
 Tired of switching between applications? We got you covered, below you will find some commands which support sending

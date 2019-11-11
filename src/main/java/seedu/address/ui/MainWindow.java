@@ -335,8 +335,6 @@ public class MainWindow extends UiPart<Stage> {
 
         case AddTaskCommand.COMMAND_WORD:
 
-        case AddTimetableCommand.COMMAND_WORD:
-
         case AssignTaskCommand.COMMAND_WORD:
 
         case DeleteProjectMeetingCommand.COMMAND_WORD:

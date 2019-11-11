@@ -4,7 +4,7 @@ ifdef::env-github,env-browser[:relfileprefix: docs/]
 https://travis-ci.org/AY1920S1-CS2103T-T17-1/main[image:https://travis-ci.org/AY1920S1-CS2103T-T17-1/main.svg?branch=master[Build Status]]
 https://coveralls.io/github/AY1920S1-CS2103T-T17-1/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103T-T17-1/main/badge.svg?branch=master[Coverage Status]]
 
-Too overwhelmed by the amount of group projects? Don't worry! My project is here to help. With our vast array of functionality, you would soon be managing your projects with ease.
+Too overwhelmed by the amount of group projects? Don't worry! MyProject is here to help. With our vast array of functionality, you would soon be managing your projects with ease.
 
 MyProject is a desktop Project Management application. It has a GUI to display various useful information but most of the user interactions happen using a CLI (Command Line Interface).
 

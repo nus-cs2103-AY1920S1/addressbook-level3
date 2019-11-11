@@ -522,6 +522,7 @@ Only the two following methods are exposed:
 
 This feature depends on the timetable stored internally as an attribute of each members:
 
+.Class diagram of the `TimeSlotGenerator`
 image::GenerateSlotClassDiagram.png[]
 
 Typical usage of `TimeSlotGenerator` would be look like this:
@@ -530,6 +531,7 @@ Typical usage of `TimeSlotGenerator` would be look like this:
 
 The following sequence diagram shows the entire process of generating timeslot after the command `generate d/2` is given:
 
+.Timeline of process from user entering the command to the results being displayed to the user.
 image::GenerateSlotSequenceDiagram.png[]
 
 As shown in the sequence diagram above, the command execution would go through the following stages:
@@ -585,9 +587,9 @@ There are two ways to input member's timetable:
 . Member send a formatted text file to the team leader, which would then be parsed by the system. The file would be a list of newline separated time ranges
 . Member send their NUSMods timetable URL to the team leader, and the system would parse the URL and fetch timetable data using NUSMods API
 
-User command would be in the format: `addTimetable INDEX m/member [n/NUSMODS_URL] [f/FILEPATH]`
+User command would be in the format: `setTimetable INDEX m/member [n/NUSMODS_URL] [f/FILEPATH]`
 
-The main logic is implemented within the `TimetableInput` class, which is invoked by the `AddTimetableCommand` class.
+The main logic is implemented within the `TimetableInput` class, which is invoked by the `SetTimetableCommand` class.
 
 ==== Details
 
@@ -596,19 +598,19 @@ Important functions in `TimetableInput`:
 * `TimetableInput#getTimetableFromNUSMods(Url url)` -- Parse URL and fetch timetable data using NUSMods API
 * `TimetableInput#getTimetableFromFile(String filepath)` -- Parse file to obtain timetable data
 
-Below is an overview of the classes related to timetable input:
+Below is an overview of the classes related to time+table input:
 
 .Class diagram for timetable input feature
-image::add-timetable/AddTimetableClassDiagram.png[]
+image::set-timetable/SetTimetableClassDiagram.png[]
 
-`addTimetableCommand` accepts either a filepath or a URL, which is then supplied to `TimetableInput` to fetch the timetable data.
+`setTimetableCommand` accepts either a filepath or a URL, which is then supplied to `TimetableInput` to fetch the timetable data.
 
-Afterwards, the timetable is passed into `TimetableVisualization` to provide a visual representation of the added timetable. This visualization is then passed back as a `CommandResult` to be displayed to the user.
+Afterwards, the timetable is passed into `TimetableVisualization` to provide a visual representation of the set timetable. This visualization is then passed back as a `CommandResult` to be displayed to the user.
 
-The following sequence diagram illustrates what happens when the user issues the command `addTimetable` to add their timetable from a shared NUSMods timetable.
+The following sequence diagram illustrates what happens when the user issues the command `setTimetable` to add their timetable from a shared NUSMods timetable.
 
 .Timeline of entire process from user executing their command to getting the result back.
-image::add-timetable/AddTimetableSequenceDiagram.png[]
+image::set-timetable/SetTimetableSequenceDiagram.png[]
 
 
 ==== Design Considerations
