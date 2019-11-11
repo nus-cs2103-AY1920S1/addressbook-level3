@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
+import seedu.address.model.password.Username;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -39,6 +40,14 @@ public class ParserUtilTest {
     private static final String VALID_FILE_NAME = "Test.txt";
     private static final String VALID_FILE_PATH = "/Users/Desktop";
     private static final String VALID_FULL_PATH = "/Users/Desktop/Test.txt";
+
+    private static final String VALID_USERNAME = "RandomGuy1";
+    private static final String VALID_PASSWORD_VALUE = "Pca$%^Bn";
+    private static final String VALID_PASSWORD_DESCRIPTION = "Google mail";
+
+    private static final String INVALID_USERNAME = "BHSCJABCSJHABCSABCSJACSKNCNSKCNA";
+    private static final String INVALID_PASSWORD_VALUE = "学中文";
+    private static final String INVALID_PASSWORD_DESCRIPTION = "Google mail%^";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -228,4 +237,35 @@ public class ParserUtilTest {
         FilePath expectedFileName = new FilePath("");
         assertEquals(expectedFileName, ParserUtil.parseFilePath(VALID_FILE_NAME));
     }
+    @Test
+    public void parseUsername_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseUsername((String) null));
+    }
+
+    @Test
+    public void parseUsername_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseUsername(INVALID_USERNAME));
+    }
+
+    @Test
+    public void parseUsername_validValueWithoutWhitespace_returnsUsername() throws Exception {
+        Username expectedUsername = new Username(VALID_USERNAME);
+        assertEquals(expectedUsername, ParserUtil.parseUsername(VALID_USERNAME));
+    }
+
+    @Test
+    public void parseUsername_validValueWithWhitespace_returnsTrimmedUsername() throws Exception {
+        String usernameWithWhitespace = WHITESPACE + VALID_USERNAME + WHITESPACE;
+        Username expectedUsername = new Username(VALID_USERNAME);
+        assertEquals(expectedUsername, ParserUtil.parseUsername(VALID_USERNAME));
+    }
+    @Test
+    public void parsePasswordDescription_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePasswordDescription(INVALID_PASSWORD_DESCRIPTION));
+    }
+    @Test
+    public void parsePasswordValue_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parsePasswordValue(INVALID_PASSWORD_VALUE));
+    }
+
 }

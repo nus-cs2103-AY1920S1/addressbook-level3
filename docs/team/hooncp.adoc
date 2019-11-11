@@ -53,7 +53,7 @@ Defensive programming is also evident throughout the enhancement.
 *Minor enhancement*
 Designed the UI of the current application by adding in a `ReadDisplayPanel` and `ModeDisplay`.
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hooncp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=zoom[RepoSense]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=hooncp&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hooncp&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[RepoSense]
 
 *Other contributions*:
 

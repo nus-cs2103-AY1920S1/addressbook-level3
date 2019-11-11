@@ -267,20 +267,12 @@ By default, the password generation feature will generate a random password that
 
 * is 10 letters long
 
-* includes lower case alphabets
-
-* includes upper case alphabets
-
-* includes numerals
-
-* includes Special characters
+* contains lower case alphabets, upper case alphabets, numbers, and special characters.
 
 However, users can alternatively choose to customise any of the aforementioned fields as per their needs through their input.
 
 The generation of truly random passwords is made possible through the use of the `java.security.SecureRandom` API.
 It provides a cryptographically strong random number generator (RNG) that will be used in the password generation.
-
-The intricacies will be further reviewed in the **Implementation** section below.
 
 ==== Implementation
 
@@ -297,19 +289,19 @@ The steps below outline explicity the generation of passwords :
 * Based on the user input, a `GeneratePasswordDescriptor` is instantiated.
 ** If the user input includes optional prefixes to customise configuration, we modify the attributes of the `GeneratePasswordDescriptor` through various setter methods.
 
-** Else, the default `GeneratePasswordDescriptor` instantiated through the static method `GeneratePasswordDescriptor#getDefaultConfiguration()`.
+** Else, the default `GeneratePasswordDescriptor` is instantiated through the static method `GeneratePasswordDescriptor#getDefaultConfiguration()`.
 
 
 [NOTE]
 The `GeneratePasswordDescriptor` is an object that encapsulates the settings of the **configuration** used for password generation.
 
-* Upon `GeneratePasswordCommand` is instantiated with the given configuration.
+* The `GeneratePasswordCommand` is then instantiated with the given configuration.
 
-* Upon `#execute()`, the static method `GeneratorUtil#generateRandomPassword()` is invoked:
+* Upon `GeneratePasswordCommand#execute()`, the static method `GeneratorUtil#generateRandomPassword()` is invoked:
 
 ** Based on the configuration, the relevant character sets (lower-case alphabets, upper case alphabets, numerals, special characters) are added into a list.
 
-** The `GeneratorUtil` class uses the method `java.security.SecureRandom.nextInt()` to choose a random characters set, followed by a random character within the set to be used in the new password.
+** The `GeneratorUtil` class uses the method `java.security.SecureRandom.nextInt()` to choose a random characters set, followed by a random character within that set to be included in the new password.
 
 ** This process of choosing a character to include in the password is repeated for the length of the password.
 
@@ -333,9 +325,7 @@ How to generate a truly random password
 | **Randomly choose a character set, followed by a character within the set to include in password**: +
  +
 [underline]_Pros:_ +
-Randomness is achieved because there is no predictability in the way a character set, or character is chosen.
-
-
+Randomness is achieved because there is no predictability in the way a character set, or character is chosen. +
 [underline]_Cons:_ +
 Efficiency is compromised. Generating a password this way may produce a password that does not meet user configuration
 (e.g. random password does not include special characters, although it was supposed to).
@@ -344,7 +334,6 @@ As such, program needs to keep producing new random password until all the user 
  +
 [underline]_Pros:_ +
 Efficiency is achieved. We are guaranteed to generate a password that matches users' configuration everytime (e.g. lower case -> upper case -> numeral -> special case patter) +
-
 [underline]_Cons:_ +
 Randomness is compromised. Generating passwords in such a pattern makes the password style very predictable, hence compromising randomness and security.
 
@@ -374,20 +363,20 @@ The user can either :
 SecureIT analyses 6 core components of every `Password`, using various `Analysers`. The following table summarises the functionality of each `Analyser`:
 
 |===
-||**Purpose / Checks for**
-|**UniqueAnalyser **: +
+|**Analyser:**|**Purpose:**
+|**UniqueAnalyser ** +
 | Checks that every password is unique.
-|**StrengthAnalyser **: +
+|**StrengthAnalyser ** +
 | Checks the complexity of every password.
-|**SimilarityAnalyser **: +
+|**SimilarityAnalyser ** +
 | Checks that no two accounts share a password that is at least 70% similar.
 
-|**DictionaryAnalyser **: +
+|**DictionaryAnalyser ** +
 | Checks that password does not contain any commonly-used passwords. (e.g. "password")
 
-|**SequenceAnalyser **: +
+|**SequenceAnalyser ** +
 | Checks that password does not contain any commonly-used sequences. (e.g. "ABC")
-|**KeyboardAnalyser **: +
+|**KeyboardAnalyser ** +
 | Checks that password does not contain any commonly-used keyboard patterns. (e.g. "qwerty")
 
 |===
@@ -395,7 +384,7 @@ SecureIT analyses 6 core components of every `Password`, using various `Analyser
 The following class diagram is the current structure of the `Analyser` component.
 
 .Class diagram depicting the structure of the Analyser component.
-image::AnalyserClassDiagram.png[]
+image::AnalyserClassDiagram.png[width="550"]
 
 In summary,
 
@@ -412,7 +401,7 @@ In summary,
 
 ==== Implementation
 
-On `#execute()`, AnalysePasswordCommand retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
+On `#execute()`, `AnalysePasswordCommand` retrieves the current list of passwords via `Model#getFilteredPasswordList()`.
 It also retrieves the required analysers via `#getRequiredAnalysers()`.
 
 Each `Analyser` has it's own implementation of `#analyse()`, which will subsequently be invoked by the `AnalysePasswordCommand` given the current list of passwords.
@@ -420,35 +409,30 @@ Each `Analyser` has it's own implementation of `#analyse()`, which will subseque
 The following sequence diagram breaks down the general flows of events stated above, and in the context of a `DictionaryAnalyser`:
 
 [NOTE]
-The other `Analysers` are instantiated in a similar fashion in `#getRequiredAnalsyers()` and hence omitted to the make the diagram less congested.
+For the following sequence diagram, the other `Analysers` are instantiated in a similar fashion in `#getRequiredAnalsyers()` and hence omitted to the make the diagram less congested.
 
 .Sequence diagram depicting the flow of analysing the list of passwords, in the context of DictionaryAnalyser.
 image::AnalysePasswordSequenceDiagram.png[]
 
 In the following discussion, we will be reviewing how `Results` are produced for each password, in the context of the `DictionaryAnalyser`.
 
-In the case of the `DictionaryAnalyser#analyse()`, every password is checked to see if it contains any subsequence that is listed as a commonly used password in the instantiated `Dictionary`. This is done in the internal method `#getAllMatches(password)` within `#analyse()`.
+In the case of the `DictionaryAnalyser#analyse()`, every password is checked to see if it contains any subsequence that is listed as a commonly used password in the instantiated `Dictionary`. This is done in the internal method `#getAllMatches()` within `#analyse()`.
 
 [NOTE]
 The `Dictionary` is an object that maps commonly used passwords to their ranking in terms of how commonly used they are. (e.g. "123456" is mapped to rank 1 in the Dictionary because it is  the most commonly used password)
 
 If there exists a subsequence that tests positive when looked up against the `Dictionary` , a `DictionaryMatch` is created to note down the details of the subsequence.
 
-[NOTE]
-A `Match` is an object that is created to encapsulate the details of any matches found when analysing a given password. Each `Analyser` will create it's respective `Match` when needed.
-
-Thus, we see that the method `#getAllMatches(password)` will return a list of all `DictionaryMatch` found for a given password.
-
 As long as a `DictionaryMatch` is found, then the password has failed the analysis. A `DictionaryResult` with the attribute `ResultOutcome.FAIL` will be created for that password. This process is repeated for every password. Following, the list of `DictionaryResult` are returned to be compiled and written by the `AnalysisReport`.
+
+It is also worth mentioning that `DictionaryAnalyser` is capable of identifying commonly used passwords even in leet-ed variations (e.g. p@5sw0rd).
+
+This is made possible because of the method `#LeetUtil.translateLeet()`, which is a recursive algorithm designed to return all possible un-leet variations, given a leet-ed password.
 
 The following sequence diagram depicts the flow of events mentioned above:
 
 .Sequence diagram depicting the flow of getting all Match objects for a given password.
 image::GetAllMatchesSequence.png[width="500"]
-
-It is also worth mentioning that `DictionaryAnalyser` is capable of identifying commonly used passwords even in leet-ed variations (e.g. p@5sw0rd).
-
-This is made possible because of the method `#LeetUtil.translateLeet()`, which is a recursive algorithm designed to return all possible un-leet variations, given a leet-ed password. The details of the algorithm can be found here:
 
 ==== Design Considerations
 ===== Aspect: How analyse/analyse strong executes
@@ -457,26 +441,20 @@ This is made possible because of the method `#LeetUtil.translateLeet()`, which i
 
 | **Always analyse the entire list of Password objects for every "analyse" command,
 even if the list of Passwords was unchanged.** +
- +
 [underline]_Pros:_ +
-Easy to implement, not required to check state if the current list of Passwords has been modified.
- +
-
+Easy to implement, not required to check state if the current list of Passwords has been modified. +
 [underline]_Cons:_ +
 May have performance issues in terms of speed of the programme.
 |**Save in memory the result produced by the Analyser objects, and update result upon modification of
-list of Passwords (e.g. new passwords added/ passwords deleted.)** +
- +
+list of Passwords.** +
 [underline]_Pros:_ +
 Performance of programme will be a lot faster and efficient. +
-
 [underline]_Cons:_ +
 Hard to implement. Have to keep track of state of the list of Password objects and check if the list has been modified
 from the last time they were analysed.
 
 2+|**Why did we choose Alternative 1:** +
-From a more practical point of view, users are not expected to constantly want to keep analysing their passwords, so it may be a waste of memory to constantly save the results, as per Alternative 2.
-
+From a more practical point of view, users are not expected to analyse their passwords on a very regular basis, so it may be inefficient use of memory to constantly save the results.
 Also, considering the fact that each password is capped at a length of 25, time performance will not be affected significantly when analysing each password.
 
 
