@@ -91,9 +91,9 @@ image::LogicClassDiagram.png[]
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *_Sequence Diagram_* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
-.Component interactions for `delete t1` command
+.Component Interactions for `delete t1` Command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -213,7 +213,7 @@ returns a `CommandResult` to the `LogicManager` and the result will be displayed
 
 The sequence diagram below illustrates how PalPay handles the command input `in $/200 n/coke d/10102019`. The arguments are parsed into the logic component where the subsequent model objects are created.
 
-.Sequence diagram for executing an `InCommand`
+.Sequence Diagram for Executing an `InCommand`
 image::InSequenceDiagram.png[]
 
 The `in` and `out` transaction follows the same logic flow after they are parsed.
@@ -260,7 +260,7 @@ that deal with `Ledger` implements the `LedgerOperation` interface. +
 ** Only `Out` Transactions can affect `Budget`.
 ** The activity diagram below shows how and when a `Transaction` object affects `Budget`.
 
-.Activity diagram for Out Transaction affecting Budget
+.Activity Diagram for Out Transaction Affecting Budget
 image::OutbudgetActivityDiagram.png[]
 
 
@@ -285,7 +285,7 @@ A `Budget` stores an *initial amount*, *amount* (the current amount), *deadline*
 There is a need for a `Budget` to store both *initial amount* and *amount* as it allows for percentage of budget remaining to be calculated. +
 Shown below is the class diagram of `Budget` class:
 
-.Class diagram of Budget class
+.Class Diagram of Budget class
 image::BudgetClassDiagram.png[]
 
 
@@ -322,7 +322,7 @@ The activity diagram below shows the activity diagram of setting a new budget:
 
 
 [[Duplicate-budget-check]]
-.Activity Diagram of setting a New Budget Successfully
+.Activity Diagram of Setting a New Budget Successfully
 image::SetBudgetSimpleActivityDiagram.png[]
 
 As shown, a new budget cannot have the same *initalAmount*, *deadline* and *categories* as any other existing budget in
@@ -382,7 +382,7 @@ A `LendMoney` instance is created for each person and executed.
 
 Below shows how a typical command from the user is executed by the program.
 
-.Sequence diagram for executing a `SplitCommand`
+.Sequence Diagram for Executing a `SplitCommand`
 image::Split.png[]
 
 **Step 1**: User enters `split $/200 n/a n/b n/c a/desc` into the command line to split *$200* among *a*, *b* and *c*.
@@ -407,14 +407,14 @@ Within the function call, the actual update of balances is handled in `Ledger#ha
 **Step 8**: A `CommandResult` is then returned to the `LogicManager` which is then displayed to the user.
 
 
-.Activity diagram for creating a `Split` object
+.Activity Diagram for Creating a `Split` Object
 image::SplitBehaviour.png[pdfwidth=60%]
 
 ==== Design Considerations
 
 Below shows how the classes involved with `Ledger` interact with each other.
 
-.Class diagram for operations that deal with Ledger
+.Class Diagram for Operations that Deal with Ledger
 image::LedgerOperationDiagram.png[pdfwidth=60%]
 
 Current implementation of `Split` class encourages code reuse by abstracting the delegating the task of rebalancing to another class. +
@@ -775,7 +775,7 @@ More often than not, users do not need to change an entire Transaction or Budget
 * **Alternative 1 (current choice):** Update Command does not work with `Ledger` operations.
 ** Pros: Intuitive implementation and execution for the user.
 ** Cons: Requires excessive user operations.
-*** The user has to first delete the `Ledger` operation that he/she wishes to change, followed by inputting the `Ledger` operation with the amended fields back into PalPay.
+*** The user has to first delete the `Ledger` operation that he/she wishes to change, followed by inputting the `Ledger` operation with the amended fields back into _PalPay_.
 * **Alternative 2:** Update Command to also work with `Ledger` operations.
 ** Pros: Requires only one user command to append or change `Ledger` entries.
 ** Cons: Results in convoluted implementation and user experience. This will also hinder future permeability of the `Split` feature.
@@ -789,7 +789,7 @@ Currently the update feature has not been implemented for `Projection` operation
 
 The activity diagram below will provide a visual representation of the possible user routes using the `update` command after this enhancement has been implemented.
 
-.Activity Diagram for future `update`
+.Activity Diagram for Future `update`
 image::UpdatefutureActivityDiagram.png[]
 // end::update[]
 
@@ -935,6 +935,7 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 The `VersionedUserState` will be initialized with the initial user state, and the `currentStatePointer`
 pointing to that single user state.
 
+.Initial State
 image::UndoRedoState0.png[pdfwidth=50%, align="center"]
 
 **Step 2**. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
@@ -942,12 +943,14 @@ The `delete` command calls `Model#commitUserState()`, causing the modified state
 `delete t5` command executes to be saved in the `userStateList`, and the `currentStatePointer` is shifted
 to the newly inserted user state.
 
+.After `delete t1` Command
 image::UndoRedoState1.png[pdfwidth=50%, align="center"]
 
 **Step 3**. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
 The `in` command also calls `Model#commitUserState()`, causing another modified user state to be saved
 into the `userStateList`.
 
+.After `in $/10 n/Allowance d/07112019` Command
 image::UndoRedoState2.png[pdfwidth=50%, align="center"]
 
 [NOTE]
@@ -959,6 +962,7 @@ executing the `undo` command. The `undo` command will call `Model#undoUserState(
 `currentStatePointer` once to the left, pointing it to the previous user state, and restores the user state
 to that state.
 
+.After `undo` Command
 image::UndoRedoState3.png[pdfwidth=50%, align="center"]
 
 [NOTE]
@@ -970,6 +974,7 @@ If so, it will return an error to the user rather than attempting to perform the
 Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
 `Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
 
+.After `list` Command
 image::UndoRedoState4.png[pdfwidth=50%, align="center"]
 
 **Step 6**. The user executes `clear`, which calls `Model#commitUserState()`.
@@ -977,10 +982,12 @@ Since the `currentStatePointer` is not pointing at the end of the `userStateList
 the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the
 `in $/10 n/Allowance d/07112019` command. This is the behavior that most modern desktop applications follow.
 
+.After `clear` Command
 image::UndoRedoState5.png[pdfwidth=50%, align="center"]
 
 The following sequence diagram shows how the undo operation works:
 
+.Undo Sequence Diagram
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
