@@ -1113,6 +1113,9 @@ Unfortunately, you are unable to change the app’s language.
 | <<Shows either the user's savings/withdrawals only in savings history: `show`, `show`>>
 | Shows specifically the user's savings/withdrawals as determined from the user's input.
 | ```show savings```
+| <<Changing the application's theme: `theme`, `theme`>>
+| Allows user to change the theme of the application.
+| ```theme dark```
 | <<Top up money into wallet: `topup`, `topup`>>
 | Allows users to top up the money into their wallet.
 | ```topup 10```
