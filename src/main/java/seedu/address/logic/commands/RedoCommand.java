@@ -26,13 +26,16 @@ public class RedoCommand extends Command {
             Command redoneCommand = model.redo();
             if (redoneCommand instanceof TrainingCommand) {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
-                    + " Success!", ((TrainingCommand) redoneCommand).getDate(), model);
+                    + " Success!", new Feature("calendar"), (
+                            (TrainingCommand) redoneCommand).getDate(), model);
             } else if (redoneCommand instanceof DeleteTrainingCommand) {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
-                    + " Success!", ((DeleteTrainingCommand) redoneCommand).getDate(), model);
+                    + " Success!", new Feature("calendar"), (
+                            (DeleteTrainingCommand) redoneCommand).getDate(), model);
             } else if (redoneCommand instanceof PerformanceCommand) {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
-                    + " Success!", ((PerformanceCommand) redoneCommand).getDate(), model);
+                    + " Success!", new Feature("calendar"), (
+                            (PerformanceCommand) redoneCommand).getDate(), model);
             } else if (redoneCommand instanceof ClearCommand) {
                 return new CommandResult(MESSAGE_SUCCESS + redoneCommand
                     + " Success!", new Feature("calendar"), model);

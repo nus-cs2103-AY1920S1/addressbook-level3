@@ -211,10 +211,9 @@ table.tableblock > .title,
     #site-header {
         display: none;
     }
-}
 
-@media print {
-    a[href]:after {
+    a[href]::after {
         content: none !important;
     }
 }
+

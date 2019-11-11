@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.date.AthletickDate;
+import seedu.address.ui.feature.Feature;
 
 /**
  * Allows user to navigate the date of the calendar and view training and performance details on a
@@ -38,10 +39,10 @@ public class CalendarCommand extends Command {
         case 1:
             String resultMsg =
                     MESSAGE_SUCCESS_1 + date.toString();
-            return new CommandResult(resultMsg, date, model);
+            return new CommandResult(resultMsg, new Feature("calendar"), date, model);
         case 2:
             String resultMsg2 = MESSAGE_SUCCESS_2 + date.getMth() + " " + date.getYear();
-            return new CommandResult(resultMsg2, date, model);
+            return new CommandResult(resultMsg2, new Feature("calendar"), date, model);
         default:
             throw new CommandException(MESSAGE_INVALID_DATE);
         }

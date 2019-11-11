@@ -1,9 +1,4 @@
 = Athletick - Developer Guide
-
-++++
-<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
-++++
-
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,7 +7,6 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
-:icons: font
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -138,7 +132,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[]
+image::UiClassDiagram.png[width="700"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`[green]#Ui.java#`]
 
@@ -372,6 +366,8 @@ one with the `training` command makes it editing much quicker.
 
 // end::training_design[]
 // end::entire_training[]
+
+// tag::performance[]
 === Performance feature
 
 Athletick allows users to record athlete's performance details from timed trials.
@@ -533,6 +529,9 @@ can be difficult when the event of interest is located at the end
 chat title (in this case, viewing records for a particular event), to see the whole conversation (record
 details for a particular event)
 
+// end::performance[]
+
+// tag::calendar[]
 === Calendar feature
 
 To allow users to retrieve training and performance records using the date they were recorded on, Athletick has a calendar feature which provides 2 main functions:
@@ -547,57 +546,78 @@ The implementation of the above functions will be described separately in this s
 
 ===== Function 1: Displays an overview of training and performance records in a selected month
 
-Function 1 is facilitated by `[green]#CalendarPanel#`. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
+There are 2 commands that users can issue to perform function 1:
 
-* `[green]#CalendarPanel#retrieveCurrentDate()#` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a month to view.
-* `[green]#CalendarPanel#retrieveProvidedDate()#` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
-* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all 42 cells of the `GridPane` with the respective days based on the selected date (current / provided date) by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
+. `view calendar`: Displays calendar for the current month.
+
+. `calendar MMYYYY`: Displays calendar for the month specified by the user.
+
+The following sequence diagram shows you how the `calendar MMYYYY` (e.g. `calendar 012019` where `012019` corresponds to January 2019) command works.
+
+.Interactions inside the `[green]#UI#` and `[green]#Logic#` components for the `calendar 012019` Command
+image::CalendarCommandSequenceDiagram1.png[width="700"]
+
+Upon completion of the above execution, the calendar for January 2019 will be displayed to the user.
+
+The `view calendar` command is similar except that `[green]#displayCalendar(CommandResult)#` is called instead of `[green]#displayCalendarWithDate(CommandResult)#` and the `[green]#CalendarPanel#` class is instantiated _without_ an `[green]#AthletickDate#` specified by the user. The calendar displayed to the user will reflect the current month and year since date is not specified by the user.
+
+The following activity diagram summarises what happens when a user wants to perform function 1.
+
+.Activity diagram showing what happens when a user wants to  perform function 1
+image::Function1ActivityDiagram.png[width=300]
+
+Function 1 is facilitated by the `[green]#CalendarPanel#` class. It extends `[green]#UiPart<Region>#` and represents the calendar using a `[green]#GridPane#` with dimensions of 7 by 6 (42 cells). Additionally, it implements the following operations:
+
+* `[green]#CalendarPanel#retrieveCurrentDate()#` -- Retrieves the details of today's date to be used as the title of the calendar feature and for rendering the displayed month on the calendar when the user does not provide a specific month to view.
+* `[green]#CalendarPanel#retrieveProvidedDate(AthletickDate)#` -- Retrieves the details of the date provided by the user for rendering the displayed month on the calendar.
+* `[green]#CalendarPanel#initialiseSelectedDate()#` -- Fills up all the 42 cells of the `[green]#GridPane#` with their respective days based on the selected month by the user. Days of the previous and next month used to fill up the remaining cells are marked in a lighter colour.
 
 +
 In addition, days with training or performance records will be marked with a small green or purple dot indicator respectively.
 
-These operations are performed when an instance of `[green]#CalendarPanel#` is created in the `[green]#MainWindow#` class. An instance of `[green]#CalendarPanel#` is created when the `[green]#CommandResult#` obtained after executing the user's command contains a `[green]#Feature#` corresponding to a calendar and an optional `[green]#AthletickDate#`.
+These operations are performed when an instance of the `[green]#CalendarPanel#` class is created in the `[green]#MainWindow#` class. An instance of `[green]#CalendarPanel#` is created when the `[green]#CommandResult#` obtained in `[green]#MainWindow#` after the execution of the user's command contains a `[green]#Feature#` corresponding to a calendar and an _optional_ `[green]#AthletickDate#`.
 
-Given below is an example usage scenario for the first function and how the operation behaves at each step:
+The sequence diagram below shows you what happens when the `[green]#CalendarPanel#` class is instantiated.
 
-Step 1:. The user either issues the `view calendar` or `calendar [MMYYYY]` (e.g. `calendar 012019`) command. The first command displays the calendar for the current month, while the second command displays the calendar for the specified the month and year.
+.Interactions inside the `[green]#UI#` and `[green]#Model#` components when `[green]#CalendarPanel#` is instantiated
+image::CalendarConstructorSequenceDiagram.png[width="700"]
 
-Step 2. The issued command
+With reference to the above diagram, if `[green]#hasTrainingOn(AthletickDate)#` returns true, a green dot indicator will be added to the cell of the `[green]#GridPane#`. Similarly, if `[green]#hasPerformanceOn(AthletickDate)#` returns true, a purple dot indicator will be added.
 
-// to be continued
+Upon completion of the above execution, all 42 cells `[green]#GridPane#` will be filled with a number corresponding to the day of the month. Days with training or performance records will be marked with a green or purple dot indicator respectively. The following diagram depicts how each individual cell will look like.
 
-The following sequence diagram shows how the `calendar [MMYYYY]` operation works:
-
-// sequence diagram
-
-The following activity diagram summarises what happens when a user executes the `view calendar` or `calendar [MMYYYY]` command:
-
-// activity diagram
+image::CellResult.png[width="400"]
 
 ===== Function 2: Displays training and performance records entered on a specific date
 
-Function 2 is facilitated by `[green]#CalendarDetailPanel#`. It extends `UiPart<Region>` and displays the attendance and performance records for a specific date in a table. Additionally, it implements the following operations:
+In order to perform function 2, the user issues the `calendar DDMMYYYY` command (e.g. `calendar 01012019` where `01012019` corresponds to 1st January 2019).
 
-* `[green]#CalendarDetailPanel#initialiseAttendanceData#` -- Retrieves and displays the attendance of each person on the specified date.
-* `[green]#CalendarDetailPanel#initialisePerformanceData#` -- Retrieves and displays the performance records on the specified date.
+The following sequence diagram shows you how the `calendar DDMMYYYY` (e.g. `calendar 01012019`) operation works.
 
-These operations are performed when an instance of `[green]#CalendarDetailPanel#` is created in the `[green]#MainWindow#` class. An instance of `CalendarDetailPanel` is created when the `[green]#CommandResult#` obtained after executing the user's command contains an `[green]#AthletickDate#`.
+.Interactions inside the `[green]#UI#` and `[green]#Logic#` components for the `calendar 01012019` command
+image::CalendarCommandSequenceDiagram2.png[width="700"]
 
-Given below is an example usage scenario for the second function and how the operation behaves at each step:
+Upon completion of the above execution, the attendance and performance records for 1st January 2019 will be displayed to the user.
 
-Step 1: The user either issues the `calendar [DDMMYYYY]` (e.g. `calendar 01012019`) command.
+The following activity diagram summarises what happens when a user issues the `calendar DDMMYYYY` command.
 
-Step 2. The issued command
+.Activity diagram showing what happens when a user issues the `calendar DDMMYYYY` command
+image::Function2ActivityDiagram.png[]
 
-// to be continued
+Function 2 is facilitated by `[green]#CalendarDetailPanel#`. It extends `[green]#UiPart<Region>#` and displays the attendance and performance records for a date specified by the user. Additionally, it implements the following operations:
 
-The following sequence diagram shows how the `calendar [DDMMYYYY]` operation works:
+* `[green]#CalendarDetailPanel#displayAttendanceChart()#` -- Calculates and displays a pie chart showing overall team attendance percentage for the specified date.
+* `[green]#CalendarDetailPanel#displayAttendanceTable()#` -- Retrieves and displays a table with the athletes' names in the first column and their attendance (marked with a tick or cross) in the second column.
+* `[green]#CalendarDetailPanel#displayPerformanceStats()#` -- Displays the total number of performance records recorded on the specified date.
+* `[green]#CalendarDetailPanel#displayPerformanceTable()#` -- Retrieves and displays the performance records recorded on the specified date. Records are grouped according to the event they belong to.
+
+These operations are performed when an instance of `[green]#CalendarDetailPanel#` is created in the `[green]#MainWindow#` class. An instance of `CalendarDetailPanel` is created when the `[green]#CommandResult#` obtained after executing the user's command contains a `[green]#Feature#` corresponding to a calendar and an `[green]#AthletickDate#`.
+
+The sequence diagram below shows you what happens when the `[green]#CalendarDetailPanel#` class is instantiated.
 
 // sequence diagram
 
-The following activity diagram summarises what happens when a user executes the `calendar [DDMMYYYY]` command:
 
-// activity diagram (show what happens when records found vs not found)
 
 ==== Design considerations
 
@@ -607,7 +627,9 @@ This section contains some of our design considerations for the calendar feature
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Use a monthly calendar|Alternative 2: Use a monthly list
+|
+a|**Alternative 1 (Current Choice)**: Use a monthly calendar
+a|**Alternative 2**: Use a monthly list
 
 |**Pros**
 a|* Displays information more clearly especially when users have a large number of training and performance records in a month
@@ -620,7 +642,7 @@ a|* Displays information in rows and columns which is no better than using Excel
 
 |===
 
-**Reason for choice of alternative 1:**
+**Reasons for choice of alternative 1:**
 
 * Alternative 1 displays information more clearly when users have a large amount of training and performance information, which is a probable scenario in the case of sports teams. In contrast, alternative 2 uses a list similar to Excel which we are trying to improve upon.
 * Alternative 1 abides by our design principle to keep **Athletick** designer friendly since future developers can expand upon it and implement more date-related functionalities.
@@ -629,7 +651,9 @@ a|* Displays information in rows and columns which is no better than using Excel
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Display using a fixed 7 by 6 `[green]#GridPane#`, fill up left over days with days from previous and next month|Alternative 2: Display using a variable sized `[green]#GridPane#` that is populated with days from selected month only
+|
+a|**Alternative 1 (Current Choice)**: Display using a fixed 7 by 6 `[green]#GridPane#`, fill up left over days with days from previous and next month
+a|**Alternative 2**: Display using a variable sized `[green]#GridPane#` that is populated with days from selected month only
 
 |**Pros**
 a|* Makes implementation easier
@@ -642,7 +666,7 @@ a|* Increases difficulty of implementation
 
 |===
 
-**Reason for choice of alternative 1:**
+**Reasons for choice of alternative 1:**
 
 * Alternative 1 is easier to implement since the dimensions of the calendar are fixed so we do not have to recalculate it constantly. The ease of implementation is important given the tight deadlines we have to contend with in our software engineering module.
 * Alternative 1 emulates the implementation of other successful calendar applications (e.g. Google Calendar) so we do not have to reinvent the wheel.
@@ -651,7 +675,9 @@ a|* Increases difficulty of implementation
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Use one `calendar [DDMMYYYY]` command to view _both_ attendance and performance records on the specified date|Alternative 2: Use two separate commands to view attendance and performance records _separately_ on the specified date
+|
+a|**Alternative 1 (Current Choice)**: Use one `calendar DDMMYYYY` command to view _both_ attendance and performance records on the specified date
+a|**Alternative 2**: Use two separate commands to view attendance and performance records _separately_ on the specified date
 
 |**Pros**
 a|* Makes access of data more efficient
@@ -663,13 +689,14 @@ a|* Requires more flags to be added to the command syntax which makes it more co
 
 |===
 
-**Reason for choice of alternative 1:**
+**Reasons for choice of alternative 1:**
 
 * Alternative 1 is more user-friendly as it reduces the number of commands users have to remember in order to access the information they want to see. In addition, attendance and performance records are displayed into separate sections in the window so the information will not be cluttered.
+// end::calendar[]
 
-
-=== Select feature
 //tag::select[]
+=== Select feature
+
 The `select` feature allows user to view the profile of a selected athlete.
 
 ==== Implementation
@@ -717,7 +744,7 @@ to parse the argument.
 After the argument has been parsed, the athlete is stored in the Model component which houses most of the data in the
 app. The Ui listens for any changes made to the Model data, and updates the Ui to display the selected athlete.
 
-The following sequence diagram shows the `select` feature works:
+The following sequence diagram shows how the `select` feature works:
 
 .Sequence Diagram of `select` Command
 image::SelectCommandSequenceDiagram.png[]
@@ -730,15 +757,24 @@ would better suit the application. The following consists of the design consider
 There were a few ways how the personal information of the selected athlete could be displayed and the following
 alternatives are some of the considerations I had when implementing.
 
-* *Alternative 1 (current choice)*: Displaying it in a feature box.
-** Pros: Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
-** Cons: Aesthetic is not as good compared to the other alternatives.
-* *Alternative 2*: Displaying it in a tab form.
-** Pros: Looks more organised compared to the other alternatives
-** Cons: Not as intuitive to use as mouse has to be used to switch around tabs.
-* *Alternative 3*: Displaying via a pop-up.
-** Pros: Looks neater and organised.
-** Cons: Increase the use of mouse to close the window and may be distracting to user.
+[width="100%", cols="1, 5, 5, 5"]
+|===
+|
+a| *Alternative 1 (current choice)*: Displaying it in a feature box.
+a| *Alternative 2*: Displaying it in a tab form.
+a| *Alternative 3*: Displaying via a pop-up.
+
+|*Pros*
+a|** Minimises the use of mouse and is in line with the other features that is utilizing the feature box.
+a|** Looks more organised compared to the other alternatives.
+a|** Looks neater and organised.
+
+|*Cons*
+a|** Aesthetic is not as good compared to the other alternatives.
+a|** Not as intuitive to use as mouse has to be used to switch around tabs.
+a|** Increase the use of mouse to close the window and may be distracting to user.
+
+|===
 
 Reason: Alternative 1 was chosen because it utilises more of the command line interface and we wanted to steer away
 from the use of the mouse. Even those the aesthetic might not be as good as alternative 2 and 3, I felt that it was a
@@ -748,13 +784,22 @@ better choice as it was in line with the other features that my group mates were
 There were two ways on how an athlete could be selected and it was between choosing by index or by name which I had
 to consider.
 
-* Alternative 1 (current choice): Choosing by the index number.
-** Pros: Intuitive to use and can be used with other commands such as `[green]#FindCommand#` and
+[width="100%", cols="1, 5, 5"]
+|===
+|
+a| Alternative 1 (current choice): Choosing by the index number.
+a| Alternative 2: Choosing by name.
+
+|*Pros*
+a|** Pros: Intuitive to use and can be used with other commands such as `[green]#FindCommand#` and
 `[green]#FilterCommand#` to narrow down the list of people.
-** Cons: Additional step of filtering the list to make it shorter before selecting an athlete.
-* Alternative 2: Choosing by name.
-** Pros: Can omit the filtering step and select the athlete directly.
-** Cons: There may be 2 people with the same name and thus result in an error.
+a|** Pros: Can omit the filtering step and select the athlete directly.
+
+|*Cons*
+a|** Cons: Additional step of filtering the list to make it shorter before selecting an athlete.
+a|** Cons: There may be 2 people with the same name and thus result in an error.
+
+|===
 
 Reason: In the end, I went with alternative 1 because it was more intuitive to use and was in line with some of the
 other functions such as `[green]#DeleteCommand#` or `[green]#FindCommand#` which also uses index. It also reduces the
@@ -870,27 +915,34 @@ accumulate. As such, we decided to go with the first alternative.
 //end::undoredo[]
 //tag::photo[]
 === Adding/editing photo feature
+The sub feature of `[green]#AddCommand#` and `[green]#EditCommand#` allows the inclusion of photo for an athlete.
+
 ==== Implementation
-The sub feature of `[green]#AddCommand#` and `[green]#EditCommand#` allows the inclusion of photo for an athlete. The
-sub feature is
-facilitated by `[green]#Photo#`.
+The sub feature is facilitated by `[green]#Photo#`. It is similar to the other features such as `[green]#Name#` and
+`[green]#Phone#` which uses a prefix `i/` followed by the file name (e.g. `i/default.png`). Prior to adding the photo
+of an athlete, the image file that is going to be used has to be in the `images` folder which will be generated when the
+jar file is executed. `[green]#Photo#` takes in the file name as a `[green]#String#` and retrieves the photo to be added
+or edited from the `images` folder.
 
-This sub feature is similar to the other features such as `[green]#Name#` and `[green]#Phone#` which uses a prefix `i/`
-followed by the file name (e.g. `i/default.png`). Prior to adding the photo of an athlete, the image file that is going to be used
-has to be in the `images` folder which will be generated when the jar file is executed. `[green]#Photo#` takes in the
-file name as a `[green]#String#` and retrieves the photo to be added or edited from the `images` folder.
-
-NOTE: The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
+[NOTE]
+The file name of the images is restricted to alphanumerics only and the file format that will be used is `.png`.
 This is done to keep the file name simple.
 
 ==== Design Consideration
 The following consists of some of the design consideration when I was designing this sub-feature.
 
 ===== Aspect: Regular expression for the file name
-* **Alternative 1 (current choice):** To use alphanumerics only.
-** Pros: Keeps it simple without the confusion of special characters.
-* **Alternative 2:** Alphanumerics and special characters.
-** Cons: These special characters are reserved used by operation systems such as Windows.
+
+[width="100%", cols="1, 5"]
+
+|===
+|
+a|**Alternative 1 (current choice):** To use alphanumerics only.
+
+|*Pros*
+a| Pros: Keeps it simple without the confusion of special characters.
+
+|===
 
 Reason: Alternative 1 was chosen because it simplifies the parsing of the filename and reduces the error it might
 have if special characters were included.
@@ -955,7 +1007,7 @@ The following sequence diagram shows how the `sort` operation works:
 .Interactions Inside the Logic and Model Components for the `sort` Command
 image::SortCommandSequenceDiagram.png[]
 
-Upon completion of the above execution, the sorted list of athletes would be displayed immediately to the user.
+With reference to the diagram above, when the user issues the `sort` command, a `[green]#SortCommand#` object `[green]#s#` is created. `[green]#s#` is then executed by `[green]#LogicManager#`, which calls the `[green]#sortByName()#` method in `[green]#LogicManager#`. An instance of `[green]#PersonNameComparator#` is then created and is used by the `[green]#sortByName(PersonNameComparator)#` method in `[green]#Athletick#` to sort the observable `[green]#internalList#` in `[green]#UniquePersonList#`. Upon completion of the above execution, the sorted list of athletes would be displayed immediately to the user.
 
 To support sorting by more attributes (e.g. attendance rate/performance) in the future, you can simply create a new class that implements the `[green]#Comparator#` interface which compares athletes by that attribute instead. After which, you have to edit the `sort` command syntax to allow users to indicate how they want their list to be sorted.
 
@@ -967,7 +1019,9 @@ This section contains some of our design considerations for the sort command.
 
 [width="100%", cols="1, 5, 5"]
 |===
-||Alternative 1 (Current Choice): Sort address book after user issues the `sort` command|Alternative 2: Sort address book persistently in alphabetical order
+|
+a|**Alternative 1 (Current Choice)**: Sort address book after user issues the `sort` command
+a|**Alternative 2**: Sort address book persistently in alphabetical order
 
 |**Pros**
 a|* Allows users to view their newly added athletes at the bottom of the list which is more user-friendly especially when the list of athletes is very long
@@ -1040,15 +1094,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="90%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |Team coach |Input attendance of my team  |Keep track of their attendance rate and commitment level
+|`* * *` |Team coach who values commitment |Input attendance of my team  |Keep track of their attendance rate and commitment level
+
+|`* * *` |Efficient team coach |Take attendance quickly |Focus on coaching my team
 
 |`* * *` |Team coach |Track performance of my team |Know how to help them improve
 
+|`* * *` |Motivational Team coach |Performance data analysis of the performance of my team |Provide detailed feedback to my athletes
+
+|`* * *` |Detailed team coach |Retrieve past training and performance records on a specific date |Know what happened on a specific date
+
+|`* * *` |Team coach |View profile of specific members |Monitor their individual progress
+
 |`* * *` |Careless user |Undo my previous commands |Redo any mistakes
 
-|`* * *` |Team coach |Assign tags to my team members |Differentiate roles of team members
+|`* * *` |New user |Know the available commands |Be able to use all the app functionalities
 
-|`* *` |Team coach |See all past and scheduled training sessions |Plan better to prepare for competitions
+|`* *` |Team coach |Assign tags to my team members |Differentiate roles of team members
+
+|`* *` |Team coach |Filter out my best performers for each event |Plan my team to send for competitions
+
+|`*` |Coach who is in-charge of multiple teams |Add multiple teams |Manage my teams separately
+
+|`*` |Forgetful coach |See past commands issued |Know what changes I have made
+
+|`*` |User who wants customisation |Change the app’s colour |Customise the app according to my preference
 
 |`*` |Coach who wants fit players |Filter players by overweight BMIs |Single them out and get them to lose weight
 |=======================================================================
