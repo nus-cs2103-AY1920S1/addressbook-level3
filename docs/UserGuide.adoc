@@ -108,7 +108,7 @@ A request for goods.
 A meetup with a buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
 Duration of the schedule is set to be 1 hour.
 
-=== SML-specific Terms
+==== SML-specific Terms
 
 . *Command* +
 An instruction that will produce an output once entered in SML.
