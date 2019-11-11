@@ -83,6 +83,24 @@ public class DateTimeUtil {
     }
 
     /**
+     * Displays a date/time range in a user friendly-manner.
+     */
+    public static String displayDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        requireNonNull(startDate);
+        requireNonNull(endDate);
+        String startDateString = defaultDisplayFormat.format(startDate);
+        DateTimeFormatter timeFormatter;
+        if (defaultDisplayFormat.equals(displayFormatterTwelveHour)) {
+            timeFormatter = DateTimeFormatter.ofPattern("hh:mm a");
+        } else {
+            timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        }
+        String endDateString = timeFormatter.format(endDate.toLocalTime());
+
+        return startDateString + " - " + endDateString;
+    }
+
+    /**
      * Checks if a task is due soon {@see REMINDER_SCHEDULE} by comparing its due date to the current date and time.
      *
      * @param dateTime deadline of the task
