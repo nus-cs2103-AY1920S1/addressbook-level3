@@ -2,6 +2,9 @@ package seedu.address.logic.parser.flashcard;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.logging.Logger;
+
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.flashcard.ViewFlashcardCommand;
 import seedu.address.logic.parser.Parser;
@@ -13,6 +16,9 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ViewFlashcardCommandParser implements Parser<ViewFlashcardCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(ViewFlashcardCommandParser.class);
+
+
     /**
      * Parses the given {@code String} of arguments in the context of the ViewFlashcardCommand
      * and returns a ViewFlashcardCommand object for execution.
@@ -21,6 +27,8 @@ public class ViewFlashcardCommandParser implements Parser<ViewFlashcardCommand> 
     public ViewFlashcardCommand parse(String args) throws ParseException {
         try {
             Index index = ParserUtil.parseIndex(args);
+
+            logger.info("Parsing ViewFlashcardCommand of args: " + args);
             return new ViewFlashcardCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(

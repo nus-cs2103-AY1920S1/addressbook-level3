@@ -6,7 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.flashcard.FilterFlashcardByTagCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -20,6 +22,9 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new FilterFlashcardByTagCommand object
  */
 public class FilterFlashcardByTagCommandParser implements Parser<FilterFlashcardByTagCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(FilterFlashcardByTagCommandParser.class);
+
 
     /**
      * Parses the given {@code String} of arguments in the context of the FilterFlashcardByTagCommand
@@ -45,6 +50,9 @@ public class FilterFlashcardByTagCommandParser implements Parser<FilterFlashcard
         for (Tag t : tags) {
             tagKeywords.add(t.toString());
         }
+
+        logger.info("Parsing FilterFlashcardByTagCommand of args: " + args);
+
         return new FilterFlashcardByTagCommand(new FlashcardContainsTagPredicate(tags), tagKeywords);
     }
 
