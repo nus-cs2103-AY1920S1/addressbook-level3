@@ -1,12 +1,15 @@
 package seedu.address.testutil;
 
-import seedu.address.model.TutorAid;
-import seedu.address.model.note.Notes;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.TutorAid;
+import seedu.address.model.note.Notes;
+
+/**
+ * A utility class containing a list of {@code Notes} objects to be used in tests.
+ */
 public class TypicalNotes {
     public static final Notes NOTES_CS2103T = new NotesBuilder().withModuleCode("CS2103T")
             .withClassType("tut").withContent("check report submission").build();

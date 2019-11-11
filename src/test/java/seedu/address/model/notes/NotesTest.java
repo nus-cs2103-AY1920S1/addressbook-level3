@@ -1,15 +1,16 @@
 package seedu.address.model.notes;
 
-import org.junit.jupiter.api.Test;
-import seedu.address.model.note.Notes;
-import seedu.address.testutil.NotesBuilder;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSID_NOTE_CALVIN;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TYPE_NOTES_LAB;
 import static seedu.address.testutil.TypicalNotes.NOTES_CS2103T;
 import static seedu.address.testutil.TypicalNotes.NOTES_CS3235;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.address.model.note.Notes;
+import seedu.address.testutil.NotesBuilder;
 
 public class NotesTest {
     @Test

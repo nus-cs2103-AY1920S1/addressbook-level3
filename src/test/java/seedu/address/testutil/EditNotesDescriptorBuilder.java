@@ -1,12 +1,14 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.note.EditNotesCommand;
 import seedu.address.logic.commands.util.EditNotesDescriptor;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Notes;
 
+/**
+ * A utility class to help with building EditNotesDescriptor objects.
+ */
 public class EditNotesDescriptorBuilder {
     private EditNotesDescriptor descriptor;
 

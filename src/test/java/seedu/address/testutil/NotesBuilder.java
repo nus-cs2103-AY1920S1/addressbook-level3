@@ -5,6 +5,9 @@ import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.Notes;
 
+/**
+ * A utility class to help with building NotesBuilder objects.
+ */
 public class NotesBuilder {
     public static final String DEFAULT_CLASSID = "CS2100";
     public static final String DEFAULT_TYPE = "tut";
@@ -37,7 +40,8 @@ public class NotesBuilder {
         this.code = new ClassId(code);
         return this;
     }
-    /*
+
+    /**
      * Sets the {@code ClassType} of the {@code Notes} that we are building.
      */
     public NotesBuilder withClassType(String type) {

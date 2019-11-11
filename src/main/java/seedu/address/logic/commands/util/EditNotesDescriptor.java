@@ -1,11 +1,11 @@
 package seedu.address.logic.commands.util;
 
+import java.util.Optional;
+
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
-
-import java.util.Optional;
 
 /**
  * Stores the details to edit the person with. Each non-empty field value will replace the
