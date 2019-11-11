@@ -8,6 +8,14 @@ if () then ([valid command syntax])
     - Parse input arguments
     - Execute history command
 
+        if () then ([user specified \n to show only\nsuccessful\ncommands])
+            - Unsuccessful commands\nare filtered out from\n display.
+
+        else ([else])
+            - Show all commands (unfiltered)
+        endif
+
+
     if () then ([user specified \n to hide output])
         - All command outputs\n in history window\n is hidden
 
@@ -21,11 +29,16 @@ if () then ([valid command syntax])
         - Re-open history \n window
     endif
 
-    if () then ([user presses \n escape key])
-        - History window closed
-    else([else])
+    while () is ([window is open])
 
-    endif
+        if () then ([UP/DOWN\narrow key\npressed])
+            - Navigate across history entries
+        else([Q key pressed])
+            - Copy selected command to clipboard
+
+        endif
+
+    endwhile ([ESC key pressed\n or window closed])
 
 else ([Invalid command syntax])
 -Invalid command message

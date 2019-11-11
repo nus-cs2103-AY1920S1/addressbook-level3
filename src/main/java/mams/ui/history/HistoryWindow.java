@@ -45,12 +45,14 @@ public class HistoryWindow extends UiPart<Stage> {
         super(FXML, root);
         requireNonNull(commandHistory);
         this.hideOutputHistory = hideOutputHistory;
+
         this.historyListPanel = new HistoryListPanel(commandHistory);
         historyDisplayPanelPlaceholder.getChildren().add(historyListPanel.getRoot());
+
         this.historyWindowFeedback = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(historyWindowFeedback.getRoot());
 
-        // Global event filter: whenever ESC key is pressed, exit HistoryWindow regardless of focus.
+        // Global event filter: whenever ESC key is pressed, exit HistoryWindow regardless of element focus.
         root.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
     }
 

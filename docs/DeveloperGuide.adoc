@@ -74,23 +74,37 @@ image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
 
+//tag::ui[]
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
-image::UiClassDiagram.png[]
+.Overall Structure of the UI Component
+image::UiClassArchitectureDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `StudentListPanel`, `AppealListPanel`, `ModuleListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts
+e.g.`CommandBox`, `ResultDisplay`, `StatusBarFooter`,
+ `AppealListPanel` (from `Appeal` UI package), `ModuleListPanel` (from `Module` UI package) ,
+ `StudentListPanel` (from `Student` UI package) etc.
+All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+
+A closer look at each of the packages within the UI component is given in the next two class diagrams.
+
+.A more detailed view of the classes within the `Appeal`, `Module`, and `Student` packages. Note that the abstract class `UiPart` is intentionally omitted for neatness of representation.
+image::UiItemListClassDiagram.png[]
+
+.A more detailed view of the classes within the `History` package. Note that the abstract class `UiPart` is intentionally omitted for neatness of representation.
+image::UiHistoryWindowClassDiagram.png[]
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
 * Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Listens for changes to `Model` (Appeals, Modules, Students) and `Logic` (Command History) data so that the UI can be updated with the modified data.
 
+//end::ui[]
 [[Design-Logic]]
 === Logic component
 
@@ -447,26 +461,26 @@ To implement design considerations......
 
 // tag::history[]
 === Command History
-The command history feature encapsulates a few different related functions, mainly:
+The command history feature encapsulates a few related functions, mainly:
 
 * The ability to cycle through previous inputs in the `CommandBox` using the kbd:[&uarr;]
 and kbd:[&darr;] arrow keys.
 * A command to open a new window displaying the command history
-- Optional parameters can be specified to hide command output
+- Optional parameters can be specified to hide command output and show only successful commands.
 * Persistent storage of command history - the history is serialized to JSON file format
 and is loaded upon the next startup
 
 ==== Cycling Through Previous Inputs
 The core of the cycle-command-history feature is implemented through three different classes:
- `CommandHistory`, `ListPointer`, and `InputOutput`. In addition, the `CommandBox` was modified
-to accomodate the UX changes.
+ `CommandHistory`, `ListPointer`, and `InputOutput`. In addition, the `CommandBox` from AB3 was modified
+to accommodate the changes.
 
-* `InputOutput`: Class wrapper around two `String` objects representing the command input
-and command feedback output from MAMS. It is chiefly comprised of an input and an output, hence
-the name.
+* `InputOutput`: Class representing a single command history entry. Comprises of an `input` and `output` String,
+a `TimeStamp` object, and a flag indicating whether execution was successful.
 * `CommandHistory`: A wrapper around a list of `InputOutput` objects along with specific methods, representing
 the command history of the command entered thus far.
-* `ListPointer`: An iterable pointer to a `List` of objects.
+* `ListPointer`: An iterable pointer to a `List` of objects. This is used by the `CommandBox` to cycle through
+past commands.
 - This differs from `java.util.Iterator` in the sense that `ListPointer#next()` always advances the pointer first then returns the
 next element in the `List`, while `java.util.Iterator#next()` does the opposite: it returns
 the current value, then advances the pointer.
@@ -474,23 +488,25 @@ the current value, then advances the pointer.
 to serve as a common utility class in `mams.common.util`, but is used primarily for
 iterating a `List` of `InputOutput` objects for the command history feature.
 * `CommandBox`: The command box in MAMs was modified to respond to the kbd:[&uarr;] and kbd:[&darr;]
-arrows, constantly replacing the text field with the previous commands when iterating.
+`KeyEvent`, auto-filling the text field with the previous commands when iterating through the command history.
 
 Below is a class diagram depicting the relationship between the involved classes for cycling
 through previous inputs in the command box.
 
+.Class diagram depicting the classes involved in implementing the cycle-command-history feature.
 image::CycleCommandHistoryClassDiagram.png[]
 
 `CommandHistory` provides an unmodifiable view into the command history using an `ObservableList`
 passed to `CommandBox` upon initialization. `CommandBox` uses this list to reinitialize and
 update `ListPointer` after every command execution. Upon initialization, `ListPointer` keeps
-an internal copy of the InputOutput list. Finally, `CommandBox` responds to key-presses and
+an internal copy of the InputOutput list. Finally, `CommandBox` responds to user key-presses and
 retrieves the previous commands by using `ListPointer` to iterate
 through its internal defensive list.
 
 Below is a simple sequence diagram depicting this function. Note that some methods/pathways are not
 depicted for brevity.
 
+.Sequence diagram depicting how the `ListPointer` is internally updated after every command, and how key-presses are handled by the `CommandBox` in between command executions.
 image::CycleCommandHistorySequenceDiagram.png[]
 
 The diagram above first shows how `CommandBox` re-initializes and updates `ListPointer` after
@@ -498,10 +514,33 @@ a command has been entered. Thereafter (in the period between command inputs),
 `KeyEvent` events are handled by `handleKeyPress`,
 which replaces the text in its text field accordingly.
 
-To be continued...
+*Design Considerations*
 
-placement of commandHistory attribute
-alternatives: usage of ListPointer versus Iterator
+Aspect: How `ListPointer` (iterator used by `CommandBox`) is updated
+
+* Current Implementation: Stores a defensive copy of the command history in `ListPointer`.
+The `ListPointer` is re-initialized after every command
+execution in MAMS (when new entries are added to the command history).
+
+** Pros:
+*** `ListPointer` only has a direct dependence on the passed `CommandHistory` list during initialization.
+If the reference to that list is invalidated for any reason while
+the user is iterating through the list, `ListPointer` will be unaffected since it stores a defensive copy.
+
+** Cons:
+*** It may be more computationally heavy to re-initialize `ListPointer` with a new defensive copy after every
+command execution, especially if the command history has many entries from long-term usage of the application.
+
+* Alternative Implementation: Do not store a defensive copy. After every re-initialization, `ListPointer`
+will instead store the direct reference to the command history list.
+
+** Pros:
+*** `ListPointer` re-initialization will most likely process in O(1) constant time (only needs to copy reference),
+which might be computationally more efficient than the current implementation.
+
+** Cons:
+*** If the reference to the list is invalidated for any reason (eg. new feature by future developers) in between command executions, `ListPointer`
+might run into an unrecoverable error (eg. `NullPointerException`) while user is cycling and iterating through command history.
 
 ==== Displaying History Window: `HistoryCommand`
 
@@ -510,92 +549,93 @@ MAMS input/output history upon command.
 
 The core of the `HistoryCommand` feature is facilitated by a few different classes:
 
-* `HistoryCommand`: A sub-type of `Command`. Represents a user command to trigger the display
+* `HistoryCommand`: A sub-type of the abstract `Command` class. Represents a user command to trigger the display
 of the history window.
 * `HistoryCommandParser`: A class to parse user input in the context of a `HistoryCommand`,
 returning a `HistoryCommand`.
 * `HistoryWindow`: A UI class representing the controller for the history window. Displays information
 about the command history to the user
 * `CommandHistory`: see previous section.
+* `FilterOnlyCommandHistory`: An interface that inherits from `ReadOnlyCommandHistory`. Exposes methods to
+read and filter the internal list in `CommandHistory`, while restricting modification access.
 
 The following activity sequence diagram provides a high-level view
-of how the command is executed:
+of how the command is executed, along with the behaviour of the history window:
 
 image::HistoryCommandActivityDiagram.png[]
 
 One specific execution example of the show-history feature with
 more specific implementation details is as follows:
 
-1. User enters `history -h` into command box.
-2. A `HistoryCommand` object is created after parsing, with `hideOutput` set to true.
-3. `HistoryCommand` is executed and produces a `CommandResult`
+. User enters `history -o -s` into command box. The `-o` option indicates user intention to hide all command output
+display in the history window, and the `-s` option indicates user intention to show only successful commands.
+. A `HistoryCommand` object is created after parsing, with `hideOutput` set to true, and HistoryDisplaySettings set to
+`SHOW_ONLY_SUCCESSFUL`.
+. `HistoryCommand` object is executed on `Model` (unused) and `FilterOnlyCommandHistory`. The `FilterOnlyCommandHistory` taken in as a parameter is updated
+with a predicate to filter successful commands.
+ - NOTE: Since the history window uses an observer pattern to update the history window (keeps reference to `ObservableList`),
+the history window is updated at this step.
+. A `CommandResult` object is returned
 with `showHistory` and `hideOutput` flags set to true.
-4. `CommandResult` is passed to the calling GUI element (`MainWindow`), which is then used to set
-the flags in `HistoryWindow` contoller accordingly.
-5. `HistoryWindow` hides all command outputs in the history window.
-6. `MainWindow` gets `CommandHistory` from `Logic`, and uses it to update `HistoryWindow`.
-7. GUI displays the history window.
+. `Logic` updates `CommandHistory` with this command, as with any other command.
+ - NOTE: Again, the observer pattern used by the history window prompts a GUI update at this step.
+. The `CommandResult` object is passed to the calling GUI element (`MainWindow`), which is then used to set
+the flags in `HistoryWindow` controller accordingly.
+. `HistoryWindow` hides all command outputs in the history window.
+. MAMS displays the history window.
 
 This specific execution case is shown in the following sequence diagram. Note that some
 methods are omitted for brevity.
 
+.A sequence diagram showing how the user input "history -o -s" is processed and executed. Certain method calls were not depicted for brevity.
 image::HistoryCommandSequenceDiagram.png[]
 
 NOTE: The lifeline for `HistoryCommandParser` and `HistoryCommand` should end at the destroy marker (X), but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+*Design Consideration*
 
-*Design Considerations*
+Aspect: Method for displaying command history
 
-
-* Current Implementation: `HistoryCommand` sets boolean flags (`showHistory` and `hideOutput`)
-in `CommandResult` to prompt the GUI to display the history window and hide command outputs
-respectively.
+* Current Implementation: Deploy a dedicated pop-up window for displaying command history. This window will retrieve the
+`CommandHistory` list directly to update itself.
 
 ** Pros:
-*** `CommandHistory` does not need to be passed in as a parameter for
-`Command#execute`. There is thus no need to
-modify the existing `Command` abstract class, which will require
-changes to every single existing `Command` sub-type (for very little benefit,
-since `HistoryCommand` is the only existing `Command` that acts on `CommandHistory`).
-*** `HistoryCommand` does not need to handle the formatting and display of
-`CommandHistory` in the history GUI window. This separates their responsibilities
-better as such display options should be left up to the GUI classes.
-*** Since `HistoryCommand` only sets parameter flags for the `HistoryWindow`, and
-the `HistoryWindow` controller gets the history data directly from an `ObservableList`, the
-history window GUI is able to update while adhering to the user-specified configuration
-(ie. hide output/ show output) after every command iteration, even if `HistoryCommand` is not executed.
+*** All display decisions (eg. formatting of the history text, navigability of the list) can be encapsulated
+within the UI component - specifically, within `HistoryWindow` and its related classes.
+*** Display can be optimized solely for displaying the command history, without the need to check for compatibility with
+other commands/features that may be using the same UI element to display.
+*** Since command history can be extremely verbose, having a separate pop-up window will ensure that the user is have enough
+space to view it properly.
+*** The history window can be kept open while running other commands to provide informative real-time feedback on commands
+that were performed.
 
 ** Cons:
-*** If more parameters need to be added to `HistoryCommand` (eg. filter history
-display by execution success) in future iterations of MAMS, more boolean flags
-will have to be added to the `CommandResult` class. This can eventually be
-unsustainable if there are too many parameters that needs to be communicated
-to the GUI.
+*** Requires a whole new GUI window (and its elements) to be created and debugged for any display issues, which can be a
+tedious process.
 
-* Alternative Implementation 1: Change the method signature in `Command#execute(Model model)`
-to accept a `CommandHistory` object. `HistoryCommand` will format the command history
-text based on the user specifications, then pass the formatted text as a single string in the
-`feedbackToUser` parameter. The `HistoyWindow` controller will then display this text on
-on the history window.
+* Alternative Implementation: Format the entire history to text within the execution of `HistoryCommand` and pass it back to the GUI
+as a normal command feedback, to be displayed in the `ResultDisplay` box of the GUI.
 
 ** Pros:
-*** Since all of the user specifications and flags are processed within execution of
-`HistoryCommand`, `CommandResult` does not need to store too many flags if future
-parameters are added to `HistoryCommand`. (Refer to the current implementation)
+*** Requires very minimal change to the AB3 GUI, since the GUI elements for `ResultDisplay` already exists
+to display normal command feedback.
+*** The history window GUI elements would no longer be required, eliminating the need to create, style, debug, and
+format an entirely new GUI window.
 
-**  Cons:
-*** Requires a change to `execute()` method signature of the `Command` abstract class. Since all
-other commands are a sub-type of the `Command` class, this will require a change to every other
-command, which will necessitate huge changes across many classes and tests, and may result
-in regression problems,.
-*** Text display formatting is handled directly by the `HistoryCommand` class, which limits
-the ability of the GUI to customize the display. Moreover, the `HistoryCommand` class is now
+** Cons:
+*** Text display filtering and formatting is now handled directly by the `HistoryCommand` class, which severely limits
+the ability of the GUI to customize the display (eg. colour code input and output differently)
+*** As a corollary to the above point, the `HistoryCommand` class is now
 in charge of one aspect of the display formatting, which is not a good separation of responsibilities
 between the `Logic` and `Ui` components of MAMS.
-*** If the entire command history is passed to `Logic` as a `CommandResult` feedback of
-an executed `HistoryCommand`, future requests of the command history will also include
-that that particular `HistoryCommand` feedback.
-**** A crude CLI example of this is shown below.
+*** The `ResultDisplay` on the main window of the GUI application is only optimized to display command feedback
+of short length (up to 3 or 4 lines on most monitors). It is hence not suitable for displaying
+output from the `HistoryCommand`, which can become extremely verbose especially if the application has
+been used extensively.
+*** If the command output in the history is to be displayed, special care must be taken not to recursively include
+the outputs of previous `history` commands in later `history` commands. (This is not an issue in the current implementation,
+which separates history command feedback from the history display through the means of a separate UI). A contrived example
+is shown below:
 
  >> history
  input: list -a
@@ -619,71 +659,96 @@ that that particular `HistoryCommand` feedback.
          output: input: list -a
                  output: listed all appeals
 
-**** Special conditionals hence needs to be implemented to handle
-such cases when updating `CommandHistory`, which can make the implementation
-more complicated.
+**** Each subsequent call to `history` command unnecessarily includes outputs of previous `history` commands
+**** Special conditional logic is hence required to exclude or handle `history` command output from the command history,
+which can obfuscate the code for command history and cause it
+to be less understandable to future developers if not implemented or documented properly.
+*** Whenever history is to be viewed, the `history` command has to be performed again.
+
+
+Aspect: Implementation to allow existing `Command` sub-type classes like `HistoryCommand` to access and manipulate
+command history (eg. read past commands, perform filtering)
+
+* Current Implementation: To allow `HistoryCommand` to access the command history, change the
+method signature in `Command#execute(Model model)`
+to accept another `FilterOnlyCommandHistory` object (to access `CommandHistory` through an API that only
+allows filtering and reading, not modification). The history window GUI elements will then use
+the observer pattern to update itself based on changes in the `FilteredCommandHistory`. A flag is also
+raised in the returned `CommandResult` object to indicate to the GUI that the history window is to be opened.
+
+** Pros:
+*** The history window will update itself automatically (regardless of whether it is showing)
+after every change to the commandHistory, without the need to explicitly pass a list object to
+the GUI controller (except during initialization) after every execution.
+*** Future commands will also have access to a version of `CommandHistory` that allows reading and filtering,
+which can be useful for commands that
+require knowledge of past commands eg. an undo command that can be specified to act only on certain commands.
+*** Using such an interface to access `CommandHistory` also prevents future commands by other developers
+from unwittingly modifying the `CommandHistory`, which should only take place after execution of command
+in `LogicManager` in order to maintain a true record of the executed commands.
+
+** Cons:
+*** Requires a change to the method signature of every existing command, which may cause unexpected
+regression problems if refactoring is not performed appropriately.
+*** Most commands may not need access to `CommandHistory`, so the extra parameter may be redundant in most
+calls of `#execute()`.
+
+* Alternative Implementation 1: Change the method signature of `Command#execute(Model model)`
+to directly take in a reference to the `CommandHistory` object in `Logic`. GUI will still update via the
+observer pattern as per the current implementation, and display command history in a separate window.
+
+** Pros:
+*** Same as the current implementation above, except for the last point.
+
+** Cons:
+*** Also requires a change to the method signature of every existing command, which can cause unexpected
+regression problems if refactoring is not performed appropriately.
+*** Future commands by other developers now have direct access to the `CommandHistory` object in `Logic`,
+and may cause unintentional modification to `CommandHistory` object during exeuction of command.
+
+* Alternative Implementation 2: Instead of changing the `#execute()` signature of the `Command` abstract class,
+only use the flag in the returned `CommandResult` object to indicate to the GUI that the history window is to be displayed.
+This is similar to how the `HelpCommand` and `ExitCommand` is implemented in AB3.
+
+** Pros:
+*** Simple to implement, and requires very minimal changes to the existing code architecture (Only `CommandResults` and GUI
+needs to be changed/extended).
+
+** Cons:
+*** Although it still provides the same default display as the current implementation, the displayed command history
+can no longer be preferentially filtered based on the parameters passed in to the `history` command. This may
+limit the utility of the `history` command (even in future development), as the user now has to scroll
+through the entire history instead of filtering it based on certain criteria (which can even be expanded on in the future).
+**** One way of circumventing this is by
+passing more boolean flags (or parameters) to `CommandResult` for the `HistoryWindow` to process, but this would
+cause the `CommandResult` class to store too many attributes specific to just the `HistoryCommand`, which would not be
+a particularly good design since all `Command` objects have a dependency on the `CommandResult` class.
+
+=== Sync Command History to disk
+
+The command history in MAMS is persistent across sessions -
+history data is automatically saved to disk as a `.json` file whenever
+`CommandHistory` is updated with new command information.
+Upon startup, MAMS will load the history data from the same file.
+This is useful for resuming work from a previous session,
+or for supervisory figures within NUS to keep a permanent
+log of all data changes that the appeal administrator makes.
+
+This sub-feature of command history is facilitated by the following main classes/interfaces:
+
+* `JsonCommandHistoryStorage`: A class that manages the reading and writing of `CommandHistory` to disk
+* `JsonSerializableCommandHistory`: A class representing a `CommandHistory` object that is Jackson-compatible (able to be used for
+serializing to-and-from JSON format), with methods for converting it back to the native `CommandHistory` object used in MAMS.
+* `JsonAdaptedInputOutput`: A class representing an `InputOutput` object that is Jackson-compatible,
+and contains methods for freely converting itself back to the native `InputOutput` object used in MAMS.
+* `CommandHistoryStorage`: API that the main `StorageManager` class uses to manipulate JSON serializing of `CommandHistory`.
+
+Below is a class diagram depicting the relationship between the involved classes in JSON serializing of `CommandHistory`
+
+.Class diagram of the classes involved in saving and loading of `CommandHistory` from disk.
+image::CommandHistoryStorageClassDiagram.png[]
 
 // end::history[]
-
-// tag::ui[]
-=== UI/UX
-
-The GUI interface from AddressBook-Level3 was re-designed to incorporate additional
-elements and features for MAMS. These include:
-
-* Two additional types of List Panels, up to a total of 3. (`AppealListPanel`,
-`ModuleListPanel`, `StudentListPanel`)
-* Two additional types of List Cards, up to a total of 3. (`AppealCard`, `ModuleCard`,
-`StudentCard`)
-* Three additional types of Expanded Cards, up to a total of 3. The purpose of these
-is to serve as a full display of information contained in each item type, as opposed to
-the brief summary shown on the normal List Cards. (`ExpandedAppealCard`, `ExpandedModuleCard`,
-`ExpandedStudentCard`) [Ongoing]
-* CSS Theme redesign for a more vibrant dark mode interface
-* Simple unix-style command history (up and down arrows to cycle
-through previously entered commands)
-
-The existing elements adapted from AddressBook are:
-
-* Command Box
-* Result Box
-
-Although it may at first seem natural to define a common ListPanel parent for all three types of ListPanels due
-to the similar semantics behind them, they share almost no fields or method signatures in common. The same goes for
-Cards and Expanded Cards.
-
-==== List Panel (`AppealListPanel`, `ModuleListPanel`, `StudentListPanel`)
-
-Each type of List Panel is built to contain their respective cards (eg. `AppealListPanel` can contain a list of
-`AppealCard` or a `ExpandedAppealCard`). The fields shown on each card is specific to the type, but are similar in nature.
-As an example, the `ModuleCard` contains the following GUI elements:
-
-* `ModuleCard#moduleCode` - `Label` element displaying module code
-* `ModuleCard#moduleName` - `Label` element displaying the module name
-* `ModuleCard#id` - `Label` element displaying the card's index within the displayed list
-* `ModuleCard#lecturerName` - `Label` element displaying the name of the module coordinator
-* `ModuleCard#timeSlot` - `Label` element displaying the weekly lecture slots for the module
-* `ModuleCard#enrolment` - `Label` element displaying student enrolment in text form
-* `ModuleCard#quota` - `Label` element displaying total module capacity in text form
-* `ModuleCard#quotaBar` - `ProgressBar` element displaying the filled student capacity (enrolment & total capacity) of the module in a
-visual bar representation.
-* Miscellaneous `Label` elements as descriptors of some elements above (eg. `Coordinator:`)
-
-In addition, the `ModuleListPanel` may also hold an `ExpandedModuleCard`. Although an Expanded Card contains all the fields
-present in their corresponding Card, they are formatted differently to take advantage of the additional height, and also have additional
-fields present. As an example, the `ExpandedModuleCard` contains the following fields in addition to the ones above:
-
-* `ExpandedModuleCard#description` - `Text` element displaying the full description of the module
-* `ExpandedModuleCard#students` - `Text` element displaying the full list of students in the module
-
-When the GUI detects only one item in the List Panel to be displayed, it automatically defaults to using the Expanded Card
-for displaying the item, eg., performing a `find` command that returns only one module as the result will cause the GUI to display
-the single module using `ExpandedModuleCard`.
-
-
-to be continued...
-
-// end::ui[]
 
 //tag::undo[]
 === Backup and undo actions feature
@@ -744,13 +809,6 @@ image::UndoSequenceDiagram.png[]
 ** Cons: Increases coupling between the Logic class and Command subclasses
 // end::undo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -783,6 +841,7 @@ Refer to the guide <<Testing#, here>>.
 
 Refer to the guide <<DevOps#, here>>.
 
+// tag::productScope[]
 [appendix]
 == Product Scope
 
@@ -807,6 +866,7 @@ and modules to/from the current database (out of job purview)
 *Value proposition*: View, manage, and resolve appeals as fast as or
 faster than a typical mouse/GUI driven app.
 
+//end::productScope[]
 [appendix]
 == User Stories
 
@@ -922,6 +982,7 @@ warnings of modules likely to receive appeal requests
 (For all use cases below, the System is the MAMS application and the
 Actor is the admin, unless specified otherwise)
 
+// tag::uc1[]
 [discrete]
 === UC01: Resolving an Appeal Request to Drop a Pre-allocated Module
 
@@ -948,13 +1009,15 @@ information *(Coming in v2.0)*
 *Use case resumes at step 1.*
 
 * 4a. Student workload goes below the minimum MC requirement for one
-semester
+semester *(Coming in v2.0)*
 +
 [none]
 ** 4a1. MAMS alerts the admin and asks for confirmation
 ** 4a2. Admin confirms the decision.
 +
 *Use case resumes at step 5.*
+
+//end::uc1[]
 
 [discrete]
 === UC02: Approve second appeal in the list (a request from student to add a module)
@@ -1037,6 +1100,7 @@ student with student’s existing modules.
 +
 *Use case ends.*
 
+// tag::uc5[]
 [discrete]
 === UC05: Viewing Command History
 
@@ -1067,6 +1131,8 @@ student with student’s existing modules.
 * 2c. Admin uses hot-keys to exit command history view.
 +
 *Use case ends.*
+
+//end::uc5[]
 
 [discrete]
 === UC06: Add a module to a student
@@ -1167,8 +1233,6 @@ than 5 minutes to navigate (excluding the time needed for user
 consideration and decision)
 .  Should be convenient for users to view details of different objects
 at the same time.
-.  Should be able to hold up to 40000 students and 1000 modules without
-a noticeable sluggishness in performance for typical usage.
 .  Should only load data from current semesters by default.
 .  Should have a dark theme/comfortable visual interface as the user
 might spend long hours on MAMS.
@@ -1185,9 +1249,8 @@ student/appeal/module data from different semesters.
 Windows, Linux, Unix, OS-X
 
 [[module]] Module::
-A module refers to a course taken by a National Univerisity
-of Singapore (NUS) student during a semester. These can be semester-long
-or year-long.
+A module refers to a course taken by a National University
+of Singapore (NUS) student during a semester.
 
 [[appeal]] Appeal::
 An appeal refers to a formal request by a student seeking
@@ -1221,7 +1284,50 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Viewing a MAMS data item
+
+. Viewing a single item when all items (appeals, modules, and students) are listed
+
+.. Prerequisites: List all items using the `list` command. Multiple items in each list.
+.. Test case: `view a/1` +
+    Expected: Appeal List now displays the fully expanded details of the appeal previously at index 1.
+.. Test case: `view `a/0` +
+    Expected: 0 is an invalid index. No appeal is expanded. Details are shown in the status message.
+.. Test case: `view m/1` +
+    Expected: Module List now displays the fully expanded details of the module previously at index 1.
+.. Test case: `view `m/0` +
+    Expected: 0 is an invalid index. No module is expanded. Details are shown in the status message.
+.. Test case: `view s/1` +
+    Expected: Student List now displays the fully expanded details of the student previously at index 1.
+.. Test case: `view `s/0` +
+    Expected: 0 is an invalid index. No student is expanded. Details are shown in the status message.
+.. Test case: `view `s/invalid` +
+    Expected: `invalid` is not a valid index parameter. No student is expanded. Details are shown in the status message.
+
+. Viewing multiple items in a single command.
+
+.. Prerequisites: List all items using the `list` command. Multiple items (at least 3) in each list.
+
+.. Test case: `view a/1 s/2` +
+    Expected: Appeal and Student Lists now displays the fully expanded details of the appeal and student
+    previously at indexes 1 and 2 respectively.
+.. Test case: `view `a/0 s/2` +
+    Expected: 0 is an invalid index. No appeals or students are expanded, and command execution fails.
+    Details are shown in the status message.
+.. Test case: `view m/1 a/3` +
+    Expected: Module and Appeal Lists now displays the fully expanded details of the module and appeal
+    previously at indexes 1 and 3 respectively.
+.. Test case: `view `m/-1 s/3` +
+    Expected: -1 is an invalid index. No modules or students are expanded. Details are shown in the status message.
+.. Test case: `view s/1 a/3 m/2` +
+    Expected: Appeal, Module, and Student lists now displays the fully expanded details of
+    the appeal, module, and student previously at indexes 3, 2, and 1 previously.
+.. Test case: `view a/1s/2m/1` +
+    Expected: Although the general prefixes are present, they need to be space separated. No items are expanded.
+    Details are shown in the status message.
+
+. Other incorrect `view` commands to try: `view`, `view invalid`, view a/
+
 
 === Deleting a person
 
