@@ -11,15 +11,12 @@ Class UiManager
 Class MainWindow
 Class HelpWindow
 Class ResultDisplay
-Class PersonListPanel
-Class PersonCard
+Class EngagementListPanel
+Class EngagementCard
 Class StatusBarFooter
 Class CommandBox
-Class StartWindow
-Class GameWindow
-Class PlayerInformation
-Class GameBody
-Class MovingWords
+Class Tab
+Class TabListPanel
 }
 
 package Model <<Rectangle>> {
@@ -36,37 +33,30 @@ HiddenOutside ..> Ui
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
 MainWindow --> HelpWindow
-MainWindow --> StartWindow
 MainWindow *-down-> CommandBox
 MainWindow *-down-> ResultDisplay
-MainWindow *-down-> PersonListPanel
+MainWindow *-down-> EngagementListPanel
 MainWindow *-down-> StatusBarFooter
-
-PersonListPanel -down-> PersonCard
-StartWindow -down-> GameWindow
-GameWindow -down-> GameBody
-GameWindow -down-> MovingWords
-GameWindow -down-> PlayerInformation
+MainWindow *-down-> Tab
+MainWindow *-down-> TabListPanel
 
 MainWindow -left-|> UiPart
 
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-PersonListPanel --|> UiPart
-PersonCard --|> UiPart
+EngagementListPanel --|> UiPart
+EngagementCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow -down---|> UiPart
-StartWindow -down-|> UiPart
-GameWindow -down-|> UiPart
-MovingWords -down---|> UiPart
-GameBody -down---|> UiPart
-PlayerInformation -down---|> UiPart
+Tab -down---|> UiPart
 
-PersonCard ..> Model
+EngagementListPanel --> EngagementCard
+
+EngagementCard ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
+EngagementListPanel -[hidden]left- HelpWindow
 HelpWindow -[hidden]left- CommandBox
 CommandBox -[hidden]left- ResultDisplay
 ResultDisplay -[hidden]left- StatusBarFooter
