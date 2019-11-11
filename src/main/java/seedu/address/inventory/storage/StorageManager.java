@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.storage.exception.ParseFileException;
-import seedu.address.inventory.ui.InventoryMessages;
 import seedu.address.inventory.util.InventoryList;
 
 /**
