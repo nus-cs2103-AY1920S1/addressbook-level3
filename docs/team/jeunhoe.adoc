@@ -9,10 +9,10 @@
 This project portfolio details my key contributions to the software engineering project *Athletick*.
 
 === About the project
-*Athletick* is a desktop team-management application designed for coaches and captains who manage teams of time-based
-sports. *Athletick* allows users to manage athlete information, record training sessions and save competition results.
-*Athletick* also allows users to monitor their training schedule and track an athlete’s attendance, performance and
-sporting progress. This enables users to better manage their team, plan for trainings and prepare for upcoming
+*Athletick* is a desktop team-management application designed for coaches and captains who manage time-based sports
+(e.g. swimming, racing) teams. *Athletick* allows users to manage athlete information, record training sessions and
+save competition results. *Athletick* also allows users to monitor their training schedule and track an athlete’s
+attendance, performance and sporting progress. This enables users to better manage their team, plan for trainings and prepare for upcoming
 competitions.
 
 === About the team
@@ -41,15 +41,15 @@ programs. We also allow storage of attendance information as a coach would want 
 session.
 
 * Highlights:
-** Classes in the training feature were designed to function as a standalone unit and do not rely on any other
+** The training feature was designed to function as a standalone unit and does not rely on any other
 components. This allows for easy extension of the feature to cater to different users. We have plans to extend the
 training feature to include more information, like type of training (e.g. gym training, sprints training) and athlete
 performance.
 
 ** There are 2 variations of the `training` command. This allows users to indicate attendance of a training
 by listing members present, or by members absent. We understand that keying player attendance can be very tedious for
-big teams. Giving the option to coaches to mark attendance by entering players absent will reduce the amount of
-typing which will save time.
+big teams. Giving the option to coaches and captains to mark attendance by entering players absent will reduce the
+amount of typing which will save time.
 
 * Credits:
 ** Saving of training data into .json files is done with the use of the Jackson library.
@@ -57,15 +57,15 @@ typing which will save time.
 *Enhancement added:* I added the ability to monitor an athlete’s attendance.
 
 * What it does:
-** A built-in attendance tracker allows users to track their team’s attendance using the `attendance`, `select`, `view
-attendance` and `calendar` commands.
+** A built-in attendance tracker allows coaches and captains to track their team’s attendance using the `attendance`,
+`select`, `view attendance` and `calendar` commands.
 
 
 * Justification:
 ** Coaches are concerned about their team’s overall attendance rate as it is a good indicator an
 athlete’s commitment and how prepared an athlete is for a competition. Providing an automatic attendance tracker
-removes the need for manual calculation as it can be tedious for coaches, especially if he has to go through many
-training sessions.
+removes the need for manual calculation as it can be tedious for coaches and captains, especially if they have to go
+through many training sessions.
 
 * Highlight:
 ** Attendance of a particular training is used in the calendar command and attendance rate is used in the
@@ -83,7 +83,7 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=jeunhoe[(All commi
 ** Managed release version 1.3 of *Athletick* on GitHub.
 https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3[(v1.3)]
 
-** Performed manual testing of application to detect bugs that were not covered by test classes.
+** Performed manual testing of application before every release to detect bugs that were not covered by test classes.
 
 ** Served as the team's Quality Assurance Engineer -- reviewed code quality and documentation of every pull request
 before merging.
