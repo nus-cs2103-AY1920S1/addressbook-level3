@@ -504,7 +504,7 @@ Deletes the 12th repeater in the current list. This also deletes the transaction
 
 Format: `find [KEYWORDS]...`
 
-You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
+You can use the `find` command to find repeaters whose description matches any the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
 
 Examples:
 

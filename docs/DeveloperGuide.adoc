@@ -701,7 +701,7 @@ This feature allows the user to find repeaters in IchiFund. The search by matchi
 ===== Implementation
 The `find` command is facilitated by the Logic and Model components of the application. Given below is an example usage scenario of how `find` behaves at each step.
 
-*Step 1*: In the repeaters tab, the user executes `find phone husband` to find all repeaters whose descriptions contain both the keywords "phone" and "husband".
+*Step 1*: In the repeaters tab, the user executes `find phone husband` to find all repeaters whose descriptions contain any of the keywords "phone" and "husband".
 
 *Step 2*: `LogicManager` uses `IchiFundParser#parserCommand()` to parse the input from the user.
 
