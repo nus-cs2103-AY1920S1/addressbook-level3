@@ -1513,10 +1513,10 @@ Expected: No problem is added. The problem's name shouldn't be blank. Error deta
 
 .. Prerequisites: List all problems using the `listprob` or `findprob` or  `sortprob` command. Multiple problems in the list.
 .. Test case: `deleteprob 1` +
-   Expected: First problem is deleted from the list. Details of the deleted problem shown in the status message. Timestamp in the status bar is updated.
+   Expected: First problem is deleted from the list, details shown in the status message, timestamp in the status bar is updated. Otherwise show message will ask to force delete all related tasks in plans.
 .. Test case: `deleteprob 0` +
    Expected: No problem is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `deletedeleteprob x` (where x is larger than the list size) +
+.. Other incorrect delete commands to try: `delete`, `deleteprob x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
 ==== Editing a problem
@@ -1636,9 +1636,9 @@ Expected: All problems in AlgoBase are listed in the problem panel.
    Expected: The description and the dates of the first displayed plan is changed.
 .. Test case: `editplan 1 end/2018-02-02` +
    Expected: Edit command is invalid. Error details shown in the status message. Starting date should be before or equal to end date.
-.. Test case: `editplan 1 end/2019-02-02 /f` +
+.. Test case: `editplan 1 end/2019-02-02 f/` +
 Expected: The end date of the first displayed plan is changed to `2019-02-02`. Any task's due date after `2019-02-02` will be changed to `2019-02-02`.
-..Test case: `editplan 1 start/2019-01-30 /f` +
+..Test case: `editplan 1 start/2019-01-30 f/` +
 Expected: The starting date of the first displayed plan is changed to `2019-01-30`. Any task's due date before `2019-01-30` will be changed to the plan's end date.
 
 ==== Finding plans
