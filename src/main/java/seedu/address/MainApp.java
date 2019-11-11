@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import seedu.address.inventory.model.ReadInUpdatedListOnlyModel;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.person.commons.core.Config;
@@ -25,6 +26,8 @@ import seedu.address.person.model.ModelManager;
 import seedu.address.person.model.ReadOnlyAddressBook;
 import seedu.address.person.model.ReadOnlyUserPrefs;
 import seedu.address.person.model.UserPrefs;
+import seedu.address.person.model.person.exceptions.DuplicatePersonException;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
 import seedu.address.person.model.util.SampleDataUtil;
 import seedu.address.person.storage.AddressBookStorage;
 import seedu.address.person.storage.JsonAddressBookStorage;
@@ -33,6 +36,7 @@ import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.AddTransactionOnlyModel;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.exception.FileReadException;
@@ -179,7 +183,14 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        ModelManager modelManager;
+        try {
+            modelManager = new ModelManager(initialData, userPrefs);
+        } catch (DuplicatePersonException e) {
+            initialData = new AddressBook();
+            return new ModelManager(initialData, userPrefs);
+        }
+        return modelManager;
     }
 
     /**
@@ -193,7 +204,7 @@ public class MainApp extends Application {
         try {
             transactionList = storage.readTransactionList();
             return new seedu.address.transaction.model.ModelManager(transactionList);
-        } catch (FileReadException e) {
+        } catch (FileReadException | PersonNotFoundException | ParseException e) {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty transaction list");
             transactionList = new TransactionList();
@@ -318,8 +329,6 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping treasurerPro ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
-            /*transactionModel.sortReset();
-            transactionStorage.writeFile(transactionModel.getTransactionList());*/
             reimbursementStorage.writeFile(reimbursementModel.getReimbursementList());
             inventoryStorage.writeFile(inventoryModel.getInventoryList());
         } catch (IOException | NoSuchIndexException e) {

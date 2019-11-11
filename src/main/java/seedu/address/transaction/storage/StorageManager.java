@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.person.model.person.Person;
+import seedu.address.person.model.person.exceptions.PersonNotFoundException;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.storage.exception.FileReadException;
@@ -23,6 +25,9 @@ public class StorageManager implements Storage {
     public static final String ERROR_READING_FILE = "Date file could not be read from."
             + "Please delete the 'data' folder and restart"
             + "treasurerPro.";
+    private static final double MAX_AMOUNT_ACCEPTED = 999999.99;
+    private static final double MIN_AMOUNT_ACCEPTED = -999999.99;
+    private static final double ZERO = 0.0;
 
 
     private final File file;
@@ -35,7 +40,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public TransactionList readTransactionList() throws FileReadException {
+    public TransactionList readTransactionList() throws FileReadException, PersonNotFoundException, ParseException {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             file.getAbsoluteFile().getParentFile().mkdirs();
@@ -75,12 +80,17 @@ public class StorageManager implements Storage {
      * @param personModel Address Book model.
      * @return Transaction created.
      */
-    private static Transaction readInFileLine(String line, CheckAndGetPersonByNameModel personModel) {
+    private static Transaction readInFileLine(String line, CheckAndGetPersonByNameModel personModel)
+            throws PersonNotFoundException, ParseException {
         String[] stringArr = line.split(" [|] ", 0);
         String[] dateTimeArr = stringArr[0].split(" ");
         Person person = personModel.getPersonByName(stringArr[4]);
+        double amount = Double.parseDouble(stringArr[3]);
+        if (amount > MAX_AMOUNT_ACCEPTED | amount < MIN_AMOUNT_ACCEPTED | amount == ZERO) {
+            throw new ParseException("Amount read exceeds limitations.");
+        }
         Transaction t = new Transaction(dateTimeArr[1], stringArr[1],
-                stringArr[2], Double.parseDouble(stringArr[3]), person,
+                stringArr[2], amount, person,
                 Integer.parseInt(dateTimeArr[0].split("[.]")[0]), isReimbursed(stringArr[5]));
         return t;
     }
@@ -90,7 +100,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public void appendToTransaction(Transaction transaction) throws FileReadException, IOException {
+    public void appendToTransaction(Transaction transaction) throws FileReadException, IOException, ParseException {
         FileWriter fw = new FileWriter(this.file, true);
         TransactionList transactionList = readTransactionList();
         String textFileMsg = "";

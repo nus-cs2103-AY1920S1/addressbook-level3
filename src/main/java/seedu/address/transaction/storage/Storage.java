@@ -2,6 +2,7 @@ package seedu.address.transaction.storage;
 
 import java.io.IOException;
 
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.model.transaction.Transaction;
 import seedu.address.transaction.storage.exception.FileReadException;
@@ -15,7 +16,7 @@ public interface Storage {
      * Reads in the transaction list from the specified text file in Storage.
      * @return Transaction List read.
      */
-    TransactionList readTransactionList() throws FileReadException;
+    TransactionList readTransactionList() throws FileReadException, ParseException;
 
     /**
      * Write the given transaction list into the specified text file in Storage.
@@ -30,6 +31,6 @@ public interface Storage {
      * @throws FileReadException If an error occurs while reading the file
      * @throws IOException If an error occurs when writing to the file
      */
-    void appendToTransaction(Transaction transaction) throws FileReadException, IOException;
+    void appendToTransaction(Transaction transaction) throws FileReadException, IOException, ParseException;
 
 }
