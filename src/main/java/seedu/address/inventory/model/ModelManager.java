@@ -19,13 +19,9 @@ public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
         this.inventoryList = inventoryList;
     }
 
-    public ModelManager(Storage storage) {
+    public ModelManager(Storage storage) throws IOException {
         this.storage = storage;
-        try {
-            this.inventoryList = storage.getInventoryList();
-        } catch (IOException e) {
-            this.inventoryList = new InventoryList();
-        }
+        this.inventoryList = storage.getInventoryList();
     }
 
     @Override
@@ -39,7 +35,7 @@ public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
     }
 
     @Override
-    public void setItem(int i, Item editedItem) throws Exception {
+    public void setItem(int i, Item editedItem) {
         inventoryList.set(i - 1, editedItem);
     }
 
@@ -79,7 +75,7 @@ public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
     }
 
     @Override
-    public void writeInInventoryFile() throws Exception {
+    public void writeInInventoryFile() throws IOException, NoSuchIndexException {
         storage.writeFile(inventoryList);
     }
 

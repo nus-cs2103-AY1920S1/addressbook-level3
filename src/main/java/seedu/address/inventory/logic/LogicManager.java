@@ -1,13 +1,21 @@
 package seedu.address.inventory.logic;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.inventory.logic.commands.Command;
 import seedu.address.inventory.logic.commands.CommandResult;
+import seedu.address.inventory.logic.commands.exception.CommandException;
+import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
+import seedu.address.inventory.logic.commands.exception.NotANumberException;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
+import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
+import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
+import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
-import seedu.address.inventory.model.ModelManager;
+import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -28,7 +36,9 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws Exception {
+    public CommandResult execute(String commandText) throws IOException, OnCashierModeException, ParseException,
+            NoSuchItemException, NotANumberException, NoSuchSortException, InvalidNumberException,
+            NoSuchIndexException, CommandException {
         Command command = parser.parseCommand(commandText, inventoryModel.getInventoryList());
         CommandResult commandResult = command.execute(inventoryModel);
         inventoryModel.updateIndexes();
@@ -48,8 +58,8 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception {
-        this.inventoryModel = new ModelManager(inventoryList);
+    public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException {
+        //this.inventoryModel = new ModelManager(inventoryList);
         inventoryStorage.writeFile(inventoryList);
     }
 }

@@ -8,7 +8,7 @@ import seedu.address.inventory.ui.InventoryMessages;
  */
 public class SortQuantityCommand extends SortCommand {
     @Override
-    public CommandResult execute(Model model) throws Exception {
+    public CommandResult execute(Model model) {
         model.sortByQuantity();
         return new CommandResult(InventoryMessages.MESSAGE_SORTED_BY_QUANTITY);
     }
