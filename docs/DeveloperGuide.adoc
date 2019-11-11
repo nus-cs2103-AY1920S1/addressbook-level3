@@ -420,11 +420,10 @@ Use case ends.
 Use case ends.
 
 ==== General Activity Diagram of Undo/Redo
-
-* *Before an Undo/Redo command is called:*
 .Activity diagram for deck altering commands
 image::DeckAlteringCommandsActivityDiagram.PNG[]
 
+* *Before an Undo/Redo command is called:*
 Whenever the `State`'s `decks` are altered, `State.addCurrDecksToDeckHistory()` is called. This adds a deep copy of the
 current `State.decks` to `State.deckHistory`. Also, `State.resetUndoHistory()` which re-initialises `State.undoHistory`.
 Then, the changes to State are carried out.
