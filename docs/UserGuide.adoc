@@ -614,7 +614,7 @@ Undo the payment of employee with $100.
 
 
 
-//tag::Schedule[]
+//tag::Schedule1[]
 === Schedule Management
 
 Welcome to Schedule!
@@ -678,6 +678,8 @@ It does not take into account of the event's set date and time.
 - As long as the user's specified input date falls between the event's start and end date, the event will be displayed.
 ====
 
+//end::Schedule1[]
+
 ---
 
 ==== Display Schedule for a specific Month and Year: `display_schedule_month`
@@ -713,7 +715,7 @@ image::ScheduleUiMonthStep3.png[]
 
 [NOTE]
 ====
-- The event list will be empty and not display anything if there is no event on the specified date.
+- The event list will be empty and not display anything if there is no event on the specified month, year.
 - The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
 It does not take into account of the event's set date and time.
 (To have a more detailed view of the event, simply double click on that event).
@@ -721,6 +723,7 @@ It does not take into account of the event's set date and time.
 ====
 
 ---
+//tag::Schedule2[]
 
 ==== Generate Entire Schedule: `generate_schedule`
 
@@ -741,7 +744,7 @@ Users are advised to use the
 `generate_schedule` once all events are confirmed.
 ====
 
-**To display the entire schedule:**
+**Example: To display the entire schedule:**
 
 **Step 1**.
 Either type `generate_schedule` into the command box or click on the generate schedule button to display the entire schedule.
@@ -761,7 +764,7 @@ image::ScheduleUiGenerateStep3.png[]
 [NOTE]
 The generated list will be empty and not display anything if there is no event in the current event list.
 
-//end::Schedule[]
+//end::Schedule2[]
 
 ---
 
