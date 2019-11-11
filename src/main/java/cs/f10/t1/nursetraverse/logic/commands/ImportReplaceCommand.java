@@ -12,9 +12,11 @@ import cs.f10.t1.nursetraverse.importexport.CsvUtil;
 import cs.f10.t1.nursetraverse.importexport.ImportExportPaths;
 import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 
+//@@author cheongsiuhong
 /**
  * Imports data from a csv file.
  * Replaces ALL data in the patient book with the imported data
@@ -68,7 +70,7 @@ public class ImportReplaceCommand extends MutatorCommand {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE, e);
         } catch (IllegalValueException e) {
-            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS, e);
+            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS + "\n" + e.getMessage());
         }
 
         // Ensure imported list is unique.
@@ -82,6 +84,8 @@ public class ImportReplaceCommand extends MutatorCommand {
         }
 
         model.replaceStagedPatientBook(importedPatients);
+        // Delete all existing appointments
+        model.setStagedAppointmentBook(new AppointmentBook());
 
         return new CommandResult(MESSAGE_SUCCESS);
     }

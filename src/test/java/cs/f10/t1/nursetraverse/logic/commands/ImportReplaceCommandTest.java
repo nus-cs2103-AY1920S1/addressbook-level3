@@ -58,9 +58,9 @@ public class ImportReplaceCommandTest {
                                            TypicalAppointments.getTypicalAppointmentBook());
 
         PatientBook expectedPatientBook = new PatientBook();
+        // Appointment book must be completely reset
         AppointmentBook expectedAppointmentBook = new AppointmentBook();
         expectedPatientBook.setPatients(TypicalPatients.getTypicalPatientsWithoutVisit());
-        expectedAppointmentBook.setAppointments(TypicalAppointments.getTypicalAppointments());
         Model expectedModel = new ModelManager(expectedPatientBook, new UserPrefs(), expectedAppointmentBook);
 
         CommandTestUtil.assertCommandSuccess(

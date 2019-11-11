@@ -591,3 +591,27 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
 
 .. Test case: Type "ap" into empty command box +
    Expected: The suggestion list should only contain "appt-" and "app-" now
+
+=== Exporting data
+
+. Export patient data into a CSV file
+
+.. Prerequisite: There are existing patients.
+.. Test case: `app-export n/testcase1` +
+   Expected: All patient data written to `./exports/testcase1.csv`.
+
+.. Prerequisite: There are existing patients at indexes 1 and 3.
+.. Test case: `app-export n/testcase2 i/1 i/3` +
+   Expected: Data of patients at index 1 and 3 written to `./exports/testcase2.csv`.
+
+=== Importing data
+
+. Import patient data from a CSV file
+
+.. Prerequisite: `./imports/testcase3.csv` exists and contains some patient data in the correct format.
+.. Test case: `app-import-replace n/testcase3` +
+   Expected: All patient data is **replaced** with patients from `testcase3.csv`.
+
+.. Prerequisite: `./imports/testcase4.csv` exists and contains **only new** patient data in the correct format.
+.. Test case: `app-import-merge n/testcase3` +
+   Expected: All patients in `testcase4.csv` added into the app.
