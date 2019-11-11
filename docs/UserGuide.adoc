@@ -439,8 +439,8 @@ addevent d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> t/<TIMESTAMP>
 ----
 ****
 * Events are potential future expenses, so the `TIMESTAMP` field is compulsory and must contain a future time.
-* The highest price you can input is `100000`.
-* The accepted datetime range is `1 Jan 2000` to `31 Dec 2099`.
+* Due to how MooLah rounds all seconds to zero, inputting events with very precise timings such as `1 second from now`
+will likely result in errors since MooLah will interpret it as a past datetime input.
 * You should only input one of the following into the `CATEGORY` field:
 `FOOD`, `TRAVEL`, `TRANSPORT`, `SHOPPING`, `UTILITIES`, `HEALTHCARE`, `ENTERTAINMENT`, `EDUCATION`, `OTHERS`.
 These categories are case-insensitive.

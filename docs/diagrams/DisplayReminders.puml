@@ -1,0 +1,17 @@
+@startuml
+start
+:MooLah launches;
+:creates an empty list for reminders;
+:iterates through list of events;
+repeat
+    :compares timestamp field of event with system time;
+    if () then (event will happen in less than 7 days)
+        :adds a new reminder to the reminders list;
+    else (event happens in 7 days or more)
+        :continue;
+    endif;
+repeat while (any more events to iterate?) is (yes)
+-> no;
+:displays list of reminders to user;
+stop
+@enduml

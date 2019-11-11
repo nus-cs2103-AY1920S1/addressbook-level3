@@ -1,0 +1,19 @@
+@startuml
+
+class Event
+class Description
+class Price
+class Timestamp
+class Category
+
+Description "2" <-- Event
+Price "1" <-- Event
+Timestamp "1" <-- Event
+Category "1" <-- Event
+
+class Event {
++ setBudget(b: Budget)
++ convertToExpense()
+}
+
+@enduml
