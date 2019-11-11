@@ -904,8 +904,8 @@ Use case ends.
 .  Compliance with data, security, copyright laws.
 .  The application will be offline-friendly with online data being the only functionality missing.
 
-_{More to be added}_
 
+// tag::glossary[]
 [appendix]
 == Glossary
 [[details-page]] Details page::
@@ -943,6 +943,8 @@ The page where the user can access to view the list of shows indicated as watche
 
 [[watchlist]] Watchlist::
 The list of shows that the user wishes to watch in the future.
+
+// end::glossary[]
 
 [appendix]
 == Instructions for Manual Testing
