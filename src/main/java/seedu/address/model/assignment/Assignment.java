@@ -77,6 +77,11 @@ public class Assignment {
         checkCompletion();
     }
 
+    public void clearGrades() {
+        this.assignmentGrades.clear();
+        isCompleted = false;
+    }
+
     /**
      * Checks if the given assignment is completed from the assignment grades map.
      */

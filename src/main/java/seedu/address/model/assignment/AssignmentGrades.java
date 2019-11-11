@@ -51,6 +51,10 @@ public class AssignmentGrades {
         }
     }
 
+    public void clear() {
+        this.assignmentGrades.clear();
+    }
+
     /**
      * Parses a {@code String studentName}.
      * Adds a key-value pair with key: studentName, value: "Not submitted.".

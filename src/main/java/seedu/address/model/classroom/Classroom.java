@@ -1,9 +1,11 @@
 package seedu.address.model.classroom;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import javafx.collections.ObservableList;
@@ -219,6 +221,29 @@ public class Classroom implements ReadOnlyClassroom {
         assignments.remove(key);
     }
 
+    /**
+     * Updates all the assignments with the new edited student's name.
+     * Replaces the unique lesson list with new assignments.
+     */
+    public void updateAllAssignmentNamesWithName(String oldStudentName, String newStudentName) {
+        requireAllNonNull(oldStudentName, newStudentName);
+        System.out.println(oldStudentName);
+        List<Assignment> newAssignmentList = new ArrayList<>();
+        for (Assignment assignment : assignments) {
+            List<String> studentNames = assignment.namesStringListFromGrades();
+            List<String> grades = assignment.marksStringListFromGrades();
+            for (int i = 0; i < studentNames.size(); i++) {
+                if (studentNames.get(i).equals(oldStudentName)) {
+                    studentNames.set(i, newStudentName);
+                    break;
+                }
+            }
+            Assignment toAdd = new Assignment(assignment.getAssignmentName(), assignment.getAssignmentDeadline());
+            toAdd.setGrades(studentNames, grades);
+            newAssignmentList.add(toAdd);
+        }
+        assignments.setAssignments(newAssignmentList);
+    }
 
     @Override
     public ObservableList<Assignment> getAssignmentList() {
@@ -261,4 +286,5 @@ public class Classroom implements ReadOnlyClassroom {
     public int hashCode() {
         return Objects.hash(students, assignments);
     }
+
 }

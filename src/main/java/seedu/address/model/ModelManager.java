@@ -199,6 +199,15 @@ public class ModelManager implements Model {
         notebook.setAssignment(target, editedAssignment);
     }
 
+    /**
+     * Updates the assignments in the notebook with the new student's name.
+     */
+    public void updateAllAssignmentsWithName(Student oldStudent, Student newStudent) {
+        requireAllNonNull(oldStudent, newStudent);
+        notebook.updateAllAssignmentNamesWithName(oldStudent.getName().toString(), newStudent.getName().toString());
+    }
+
+
 
     //=========== Display Operations =====================================================================
 
