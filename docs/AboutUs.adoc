@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === Chong Chee Yuan
 image::ccyccyccy.png[width="150", align="left"]
 {empty}[http://chongcheeyuan.me/[homepage]] [https://github.com/ccyccyccy[github]]
-{empty}[https://github.com/AY1920S1-CS2103T-T17-1/main/blob/master/docs/team/ccyccyccy.adoc]]
+{empty}[https://github.com/AY1920S1-CS2103T-T17-1/main/blob/master/docs/team/ccyccyccy.adoc[portforlio]]
 
 Role: Member
 
@@ -40,6 +40,7 @@ Role: Member
 === Wang Runding
 image::R-D-D-D.png[width="150", align="left"]
 {empty}[https://github.com/r-d-d-d[github]]
+{empty}[https://github.com/AY1920S1-CS2103T-T17-1/main/blob/master/docs/team/r-d-d-d.adoc[portfolio]]
 
 Role: Member
 
