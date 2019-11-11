@@ -46,6 +46,8 @@ public class CommandTestUtil {
     public static final String VALID_MEDICALCONDITION_BOB = "Sinus";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    public static final String VALID_FILE_1 = "file:/C:/ping.png";
+    public static final String VALID_FILE_2 = "file:/C:/ping.jpg";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -71,6 +73,14 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
+    public static final String VALID_CLASSNAME_MATH = "Math Class";
+    public static final String VALID_CLASSNAME_ENGLISH = "English Class";
+    public static final String VALID_STARTTIME_MON = "06/01/2020 1200";
+    public static final String VALID_STARTTIME_TUE = "07/01/2020 1200";
+    public static final String VALID_STARTTIME_WED = "08/01/2020 1200";
+    public static final String VALID_ENDTIME_MON = "06/01/2020 1300";
+    public static final String VALID_ENDTIME_TUE = "07/01/2020 1300";
+    public static final String VALID_ENDTIME_WED = "08/01/2020 1300";
 
     public static final String VALID_ASSIGNMENT_NAME_ENGLISH = "English Worksheet 1";
     public static final String VALID_ASSIGNMENT_NAME_MATH = "Math Homework 3";
