@@ -49,7 +49,7 @@ public class Priority {
 
     @Override
     public int hashCode() {
-        return  priorityValue.hashCode();
+        return priorityValue.hashCode();
     }
 }
 

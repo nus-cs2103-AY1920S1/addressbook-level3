@@ -52,15 +52,13 @@ public class AutoScheduleCommand extends UndoableCommand {
     public static final LocalTime DEFAULT_START_TIME = LocalTime.parse("0900", TIME_FORMATTER);
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD,
-            "Generates a schedule for specified days based on location, "
-                    + " tags and names order.",
+            "Generates a schedule based on the following.",
             COMMAND_WORD + " (" + PREFIX_TAG + "TAG [START_TIME] || "
                     + PREFIX_NAME + "ACTIVITY_NAME [START_TIME])... "
                     + "[" + PREFIX_ADDRESS + "LOCATION] "
                     + "[" + PREFIX_DAY + "DAY_INDEX...]",
-            COMMAND_WORD + " " + PREFIX_TAG + "Dining 1000 " + PREFIX_TAG + "Attraction 1200 "
-                    + PREFIX_NAME + "Disneyland 1400 " + PREFIX_TAG + "Dining "
-                    + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4 5"
+              COMMAND_WORD + " " + PREFIX_TAG + "Sports " + PREFIX_NAME + "Disneyland 1400 "
+                    + PREFIX_ADDRESS + "Tokyo " + PREFIX_DAY + "1 4"
     );
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(
@@ -71,22 +69,22 @@ public class AutoScheduleCommand extends UndoableCommand {
             new ArrayList<>()
     );
 
-    private List<NameOrTagWithTime> draftSchedule;
+    private List<NameOrTagWithTime> schedulePlan;
     private Optional<Address> address;
     private List<Index> days;
     private final boolean isUndoRedo;
 
-    public AutoScheduleCommand(List<NameOrTagWithTime> draftSchedule, Optional<Address> address, List<Index> days,
+    public AutoScheduleCommand(List<NameOrTagWithTime> schedulePlan, Optional<Address> address, List<Index> days,
                                boolean isUndoRedo) {
-        requireNonNull(draftSchedule);
-        this.draftSchedule = draftSchedule;
+        requireNonNull(schedulePlan);
+        this.schedulePlan = schedulePlan;
         this.address = address;
         this.days = days;
         this.isUndoRedo = isUndoRedo;
     }
 
     public List<NameOrTagWithTime> getDraftSchedule() {
-        return draftSchedule;
+        return schedulePlan;
     }
 
     public Optional<Address> getAddress() {
@@ -107,14 +105,14 @@ public class AutoScheduleCommand extends UndoableCommand {
         requireNonNull(model);
         List<Day> editDays = new ArrayList<>(model.getFilteredItinerary());
         List<Activity> activityListByLocation = new ArrayList<>(filterByLocation(model.getFilteredActivityList()));
-        List<Optional<LocalTime>> timeSchedule = fillTimeSchedule(draftSchedule);
+        List<Optional<LocalTime>> timeSchedule = fillTimeSchedule(schedulePlan);
         Collections.sort(activityListByLocation);
 
         if (editDays.size() == 0) {
             throw new CommandException(Messages.MESSAGE_NO_DAYS_AVAILABLE);
         }
         if (days.size() == 0) {
-            days = daysToSchedule(editDays.size());
+            days = scheduleForAllDays(editDays.size());
         }
 
         Model initialModel = new ModelManager(model.getAccommodations(), model.getActivities(), model.getContacts(),
@@ -126,8 +124,8 @@ public class AutoScheduleCommand extends UndoableCommand {
             if (dayIndex.getZeroBased() >= editDays.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_DAY_DISPLAYED_INDEX);
             }
-            for (int i = 0; i < draftSchedule.size(); i++) {
-                List<Activity> similarActivities = getSimilarActivities(activityListByLocation, draftSchedule.get(i));
+            for (int i = 0; i < schedulePlan.size(); i++) {
+                List<Activity> similarActivities = getSimilarActivities(activityListByLocation, schedulePlan.get(i));
                 List<ActivityWithCount> activitiesWithCount = updateCount(similarActivities, editDays,
                         activitiesForTheDay, dayIndex);
                 int nextIndex = i + 1;
@@ -146,7 +144,7 @@ public class AutoScheduleCommand extends UndoableCommand {
                 // Sets the next timing as the end time of chosen activity if next timing in schedule is unavailable
                 int duration = activity.get().getDuration().value;
                 if ((nextTimingIndex.isEmpty() || (nextTimingIndex.getAsInt() != nextIndex
-                        && nextTimingIndex.getAsInt() != draftSchedule.size()))) {
+                        && nextTimingIndex.getAsInt() != schedulePlan.size()))) {
                     timeSchedule.set(nextIndex, Optional.ofNullable(currentTime.plusMinutes(duration)));
                 }
             }
@@ -170,8 +168,8 @@ public class AutoScheduleCommand extends UndoableCommand {
             LocalTime currentTiming = timeSchedule.get(currentIndex).get();
             LocalTime currentActivityEndTime = currentTiming.plusMinutes(duration);
 
-            // Check if it is the last activity in the draftSchedule to schedule
-            if (currentIndex == draftSchedule.size() - 1) {
+            // Check if it is the last activity in the schedulePlan to schedule
+            if (currentIndex == schedulePlan.size() - 1) {
                 if (currentActivityEndTime.isBefore(currentTiming)) {
                     continue;
                 }
@@ -243,9 +241,9 @@ public class AutoScheduleCommand extends UndoableCommand {
     /**
      * Creates a list to track the time of each activity to be carried out.
      */
-    private List<Optional<LocalTime>> fillTimeSchedule(List<NameOrTagWithTime> draftSchedule) {
+    private List<Optional<LocalTime>> fillTimeSchedule(List<NameOrTagWithTime> schedulePlan) {
         List<Optional<LocalTime>> timeSchedule = new ArrayList<>();
-        for (NameOrTagWithTime nameAndTagWithTime : draftSchedule) {
+        for (NameOrTagWithTime nameAndTagWithTime : schedulePlan) {
             timeSchedule.add(nameAndTagWithTime.getTime());
         }
         if (timeSchedule.get(0).isEmpty()) {
@@ -279,7 +277,7 @@ public class AutoScheduleCommand extends UndoableCommand {
     /**
      * Returns a list of containing all the days
      */
-    private List<Index> daysToSchedule(int size) {
+    private List<Index> scheduleForAllDays(int size) {
         return IntStream.rangeClosed(1, size)
                 .mapToObj(x -> Index.fromOneBased(x))
                 .collect(Collectors.toList());
@@ -307,7 +305,7 @@ public class AutoScheduleCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this
                 || (other instanceof AutoScheduleCommand
-                && draftSchedule.equals(((AutoScheduleCommand) other).draftSchedule))
+                && schedulePlan.equals(((AutoScheduleCommand) other).schedulePlan))
                 && address.equals(((AutoScheduleCommand) other).address)
                 && days.equals((((AutoScheduleCommand) other).days));
     }
