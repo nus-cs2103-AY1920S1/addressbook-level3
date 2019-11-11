@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.event;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INDEX_EMPTY_EVENT_NAME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COLOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE;
@@ -62,6 +63,7 @@ public class EventCommandParserTest {
     public static final String INVALID_DELETE_NEGATIVE_INDEX = " " + PREFIX_DELETE + "-1";
     public static final String INVALID_DELETE_NO_INDEX = " " + PREFIX_DELETE;
     public static final String VALID_INDEX_OF = " " + PREFIX_GET_INDEX + "my event";
+    public static final String INVALID_INDEX_OF = " " + PREFIX_GET_INDEX;
 
 
     private final EventCommandParser parser = new EventCommandParser();
@@ -204,5 +206,16 @@ public class EventCommandParserTest {
     public void parseCommand_validIndexOf_success() throws Exception {
         Command command = parser.parse(VALID_INDEX_OF);
         assertTrue(command instanceof EventIndexCommand);
+    }
+
+    /**
+     * Test a invalid event index command with empty argument
+     * @throws Exception
+     */
+    @Test
+    public void parseCommand_invalidIndexOf_throwsParseException() {
+        assertThrows(ParseException.class,
+                MESSAGE_INDEX_EMPTY_EVENT_NAME, () ->
+                        parser.parse(INVALID_INDEX_OF));
     }
 }
