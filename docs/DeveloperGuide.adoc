@@ -52,7 +52,7 @@ image::UiClassDiagram_FlashCardPro.png[]
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
 
-
+// tag::Logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -83,6 +83,7 @@ implementation of the specific command (eg a `help` command will print out the a
 To assist with the running of certain commands, the `HelpCommand` and `CreateCommand` classes are used to abstract the logic
 further.
 
+// end::Logic[]
 
 [[Design-Model]]
 
@@ -439,6 +440,8 @@ Use case ends.
 
 Use case resumes from step 4.
 
+// tag::UndoRedo[]
+
 === Undo/Redo Commands
 
 Undo and Redo are commands meant to reverse any alterations to the `ArrayList` of Decks in State. As such, any mistake
@@ -491,6 +494,8 @@ NOTE: The Undo and Redo commands are implemented in similar ways. As such, I wil
 When an Undo/Redo command is parsed by Responder and Responses, it calls the appropriate method in `State` (for undo:
 `State.undoDeckChanges()`, for redo: `State.redoDeckChanges()`). This then sets `State.deck` to the topmost ArrayList
 of Decks from the appropriate Stack (for undo: `State.deckHistory`, for redo: `State.undoHistory`). +
+// end::UndoRedo[]
+
 
 // tag::configure_difficulty[]
 === [Proposed] Configure difficulty of test set in `test` mode
