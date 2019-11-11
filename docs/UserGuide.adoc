@@ -27,6 +27,8 @@ Typing fast allows you to complete your tasks much faster than GUI apps.
 
 Interested? Refer to <<Quick Start>> to get started. Enjoy!
 
+// tag::quickStart[]
+
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
@@ -54,14 +56,21 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternati
 
 Do not directly edit any of the  following json files: e.g. `appointments.json`, `dutyRoster.json`, `patientDetails.json`, `staffDetails.json`, `preferences.json`, `config.json`
 
+// end::quickStart[]
+
 [[Features]]
 
 == Features
 
 ====
+
+// tag::autoCompleteAndHistoryUG[]
+
 *AutoComplete & History*
 
 * When the command box is blank, kbd:[UP] & kbd:[DOWN] will auto-fill the command box with commands previously entered. kbd:[UP] gives older commands and kbd:[DOWN] gives newer commands.
+
+** Note: History is not saved in any manner after the application has closed.
 
 * When the command box is not blank, AutoComplete will come into action and tries to suggest commands that are available for whatever that has been typed. During which, you may traverse your selection of the suggestions via kbd:[UP] & kbd:[DOWN] then press kbd:[ENTER] to confirm selection.
 
@@ -71,6 +80,8 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * kbd:[TAB] changes focus from TabBar/OmniPanel to CommandBox and from CommandBox to TabBar.
 
+// end::autoCompleteAndHistoryUG[]
+// tag::reactiveSearchUG[]
 
 *Reactive search*
 
@@ -81,6 +92,8 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * When searching for a specific appointment or duty shift, using the `appointments` or `shifts` command, the results are filtered based
     on whether the events involves a person whose reference Id contains the given keyword.
+
+// end::reactiveSearchUG[]
 
 *Validity of Appointment's timings*
 
@@ -93,7 +106,7 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
     insufficient staffing to accommodate already scheduled appointments.
 
 ====
-// end::ui[]
+
 ====
 *Command Format*
 
@@ -222,7 +235,6 @@ Format: `dequeue <QUEUE_INDEX>`
 * e.g. `dequeue E0000001A`
 
 ==== Assigns next patient to an available doctor : `next` ====
-//todo add doctor first
 
 Assigns the next patient in the queue to a doctor. +
 
@@ -247,8 +259,12 @@ Format: `resume <ENTRY_ID>`
 * e.g. `resume 1`
 
 // end::queue[]
+// tag::appointment[]
 
 === Appointment Management
+
+NOTE: Before you process any commands in appointment management, please ensure you have a patient with referenceid of E0000001A by using `patient E0000001A`. +
+You can refer to `newpatient` command to register this patient if the patient is not registered.
 
 ==== Displays appointments: `appointments` ====
 
@@ -334,6 +350,9 @@ List all the available empty slots for patients to make appointments +
 
 Format: `slot -start <START_DATE>`
 
+// end::appointment[]
+// tag::shift[]
+
 === Duty-shift Management
 
 ==== Displays duty shifts: `shift` ====
@@ -381,6 +400,8 @@ Format: `editshift -entry <ENTRY_ID> -start <START_TIMING> -end <END_TIMING>`
 
 * e.g. `editshift -entry 1 -start 12/12/19 1200 -end 12/12/19 2100`
 
+// end::shift[]
+
 === Inventory Commands (v2.0) ===
 
 ==== Views the inventory: `inventory` (v2.0) ====
@@ -394,6 +415,7 @@ Format: `inventory`
 Displays the prescription. A prescription is a list of medications prescribed by the doctor. +
 
 Format: `prescription <PRESCRIPTION_ID | PRESCRIPTION_NAME>`
+
 
 === User Accounts (v2.0) ===
 

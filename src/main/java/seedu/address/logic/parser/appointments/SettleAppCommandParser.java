@@ -52,30 +52,25 @@ public class SettleAppCommandParser implements Parser<ReversibleActionPairComman
             throw new ParseException(MESSAGE_NOT_MISSEDLIST);
         }
 
-        try {
-            if (lastShownList.size() == 0) {
-                throw new ParseException(Messages.MESSAGE_NOTHING_SETTLE + "\n"
-                        + "No need: " + "settleappt" + args);
-            }
-
-            Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            int idx = index.getZeroBased();
-
-            if (idx >= lastShownList.size()) {
-                throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
-            }
-
-            Event eventToEdit = lastShownList.get(idx);
-            Event editedEvent = new Appointment(eventToEdit.getPersonId(),
-                    eventToEdit.getPersonName(),
-                    eventToEdit.getEventTiming(),
-                    new Status(Status.AppointmentStatuses.SETTLED));
-
-            return new ReversibleActionPairCommand(new SettleAppCommand(eventToEdit, editedEvent),
-                    new SettleAppCommand(editedEvent, eventToEdit));
-
-        } catch (ParseException e) {
-            throw new ParseException(e.getMessage());
+        if (lastShownList.size() == 0) {
+            throw new ParseException(Messages.MESSAGE_NOTHING_SETTLE + "\n"
+                    + "No need: " + "settleappt" + args);
         }
+
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        int idx = index.getZeroBased();
+
+        if (idx >= lastShownList.size()) {
+            throw new ParseException(Messages.MESSAGE_INVALID_INDEX);
+        }
+
+        Event eventToEdit = lastShownList.get(idx);
+        Event editedEvent = new Appointment(eventToEdit.getPersonId(),
+                eventToEdit.getPersonName(),
+                eventToEdit.getEventTiming(),
+                new Status(Status.AppointmentStatuses.SETTLED));
+
+        return new ReversibleActionPairCommand(new SettleAppCommand(eventToEdit, editedEvent),
+                new SettleAppCommand(editedEvent, eventToEdit));
     }
 }

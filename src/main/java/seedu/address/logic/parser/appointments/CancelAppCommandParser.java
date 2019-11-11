@@ -1,7 +1,6 @@
 //@@author woon17
 package seedu.address.logic.parser.appointments;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_NOT_PATIENTLIST;
 
 import java.util.List;
@@ -43,12 +42,8 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
             throw new ParseException(MESSAGE_NOT_PATIENTLIST);
         }
 
-        try {
-            index = ParserUtil.parseIndex(args);
-        } catch (ParseException e) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CancelAppCommand.MESSAGE_USAGE), e);
-        }
+        index = ParserUtil.parseIndex(args);
+
         Event eventToDelete = ParserUtil.getEntryFromList(lastShownList, index);
         return new ReversibleActionPairCommand(new CancelAppCommand(eventToDelete),
                 new AddAppCommand(eventToDelete));

@@ -1,4 +1,4 @@
-= <NAME> - Project Portfolio
+= <WEN SHUFA> - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -13,35 +13,45 @@ ClerkPro is a desktop application used for managing clinic's appointments, queue
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+This section’s purpose is to summarise my contributions for the duration of this project. For more details about the contributions, click the link to the corresponding pull request.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major enhancement 1*: added *Appointment Management* feature
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** What it does: The Appointment feature enables users to manage appointments for patients by providing basic Create, Read, Update, Delete (CRUD) of appointments. User is also able to find missed appointments and settle each missed appointment efficiently.
+
+** Justification: This feature greatly improves the product as it meets the necessary demands a receptionist faces on a
+day-to-day basis, i.e. Add appointments.
+
+** Highlights: Appointments, in reality, rely heavily on different components such as patients and onduty doctors to be booked.
+The challenge in implementing this feature was checking appointments time with doctors' duty shifts. It requires an in-depth understanding of clerkPro’s architecture.
+
+* *Major enhancement 2*: added *Duty Shift Schedule* feature
+
+** What it does: The duty shift scheduling provides users the ability to schedule duty shifts for doctors. It can help doctors to check, add, cancel and edit duty shifts efficiently.
+
+** Justification: This feature is important as the user would need to schedule duty shift for doctor. i.e. change duty shift.
+
+* *Code contributed*
+*** The following link contains all the code contributed throughout the entire project:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-10&tabType=authorship&tabAuthor=woon17&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=woon&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&until=2019-11-10&tabType=authorship&tabAuthor=woon17&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]
 
 * *Other contributions*:
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Contributed to forum discussions (example: https://github.com/nus-cs2103-AY1920S1/forum/issues/144[1]]
+*** Reported bugs and suggestions. i.e. I mentioned that user should not edit or delete data file in UG.
 
-_{you can add/remove categories in the list above}_
+** Documentation:
+*** Added command information regarding the appointment feature into the User Guide:(examples: https://github.com/AY1920S1-CS2103T-T09-3/main/pull/221[1], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/143[2])
+*** Added examples to different commands:(example: https://github.com/AY1920S1-CS2103T-T09-3/main/pull/237[1])
+*** Added UML diagrams for appointment feature into the Development Guide:(examples: https://github.com/AY1920S1-CS2103T-T09-3/main/pull/92[1])
+
+** Database:
+*** edits pre-load database(Pull request https://github.com/AY1920S1-CS2103T-T09-3/main/pull/139[#139])
+
+** Enhancements to existing features:
+*** Wrote additional tests for existing features to increase coverage from 66.25% to 71.55% (Pull requests https://github.com/AY1920S1-CS2103T-T09-3/main/pull/112[#112])
 
 == Contributions to the User Guide
 
@@ -50,9 +60,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=appointment]
 
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=shift]
 
 == Contributions to the Developer Guide
 
@@ -60,6 +70,6 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=appointment]
 
-//include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=shift]
