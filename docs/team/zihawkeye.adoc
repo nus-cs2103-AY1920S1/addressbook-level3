@@ -51,6 +51,10 @@ The application will determine the dates of completed tutorials from the current
 ** The application relies on precached NUSMods data of all existing tutorials in AY 2019-2020, hence it does not rely on a internet connection.
 Even then, the loading of the all the data into T.A.rence at initialization is not too computationally/memory intensive, without significant lag.
 This is partly because extraneous elements (Lectures, Venues) have been filtered out in the cached data to reduce file size.
+** Retrieval of NUSMods tutorials after the initialization is also efficient since the cached data is loaded into a data structure of nested HashMaps that has keys in the following order:
+Module code, Semester, Lesson Type(Sectionals, Tutorials, Labs) and finally a unique ClassNo.
+** The primary challenge in implementing the importing of tutorials was ensuring the compatibility between the cached data and the Tutorial Class already defined in Application.
+This required delving into NUSMods data to understand the general structure of the JSON, as well as reading existing API documentation.
 
 * Credits:
 ** NUS modules and tutorials data was retrieved from NUSMods database [link:https://api.nusmods.com/v2/2019-2020/[NUSMods]]
@@ -75,10 +79,6 @@ This is partly because extraneous elements (Lectures, Venues) have been filtered
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
 include::../UserGuide.adoc[tag=FeatureImport]
 
 include::../UserGuide.adoc[tag=FeatureMarkAttendance]
@@ -90,10 +90,6 @@ include::../UserGuide.adoc[tag=FeatureAddEvent]
 include::../UserGuide.adoc[tag=FeatureSetSemStart]
 
 == Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
 
 include::../DeveloperGuide.adoc[tag=model]
 
