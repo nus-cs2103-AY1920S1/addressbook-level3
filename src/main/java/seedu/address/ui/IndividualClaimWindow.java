@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.claim.Claim;
 
+//@@author{lawncegoh}
 /**
  * Controller for a individual claimHelpWindow.fxml
  */
@@ -23,9 +24,6 @@ public class IndividualClaimWindow extends UiPart<Stage> {
 
     @FXML
     private Label name;
-
-    @FXML
-    private Label contact;
 
     @FXML
     private Label date;
@@ -51,7 +49,7 @@ public class IndividualClaimWindow extends UiPart<Stage> {
         super(FXML, root);
         windowSetup();
         name.setText("Name: " + claim.getName().toString());
-        date.setText("Date: " + claim.getDescription().toString());
+        date.setText("Date: " + claim.getDate().toString());
         amount.setText("Amount: $" + claim.getAmount().toString());
         description.setText("Description: " + claim.getDescription().toString());
     }
@@ -93,7 +91,6 @@ public class IndividualClaimWindow extends UiPart<Stage> {
      */
     public void windowSetup() {
         name.setAlignment(Pos.CENTER);
-        contact.setAlignment(Pos.CENTER);
         date.setAlignment(Pos.CENTER);
         amount.setAlignment(Pos.CENTER);
         description.setAlignment(Pos.CENTER);

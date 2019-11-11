@@ -17,11 +17,6 @@
                         <Insets right="20.0" />
                     </HBox.margin>
                 </Label>
-                <Label fx:id="contact" text="Label">
-                    <HBox.margin>
-                        <Insets right="20.0" />
-                    </HBox.margin>
-                </Label>
                 <Label fx:id="date" text="Label">
                     <HBox.margin>
                         <Insets right="20.0" />
