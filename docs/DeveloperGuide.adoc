@@ -252,6 +252,9 @@ Step 5. The `CalendarWrapper` object is passed to the `Model` and subsequently `
 
 *Command:* `Model#findMeetingTime(startDate, endDate, meetingDuration)`
 
+The commands introduced by this feature include `generate-timings`, `ics` import and commands.
+The commands are facilitated by `ProjectCalendar`. The various `ics` files of the members are parsed in this component.
+
 The following sequence diagram shows how the `findMeetingTime` operation works:
 
 .FindMeetingTimeCommand Sequence Diagram
