@@ -44,6 +44,14 @@ MooLah is a desktop CLI application that help users track their expenses.
 The App supports many other extensions such as budgeting, planning and reminders.
 In particular, it is tailored to students in National University of Singapore who dine frequently in school canteens.
 
+=== How to Read this Developer Guide
+
+[NOTE]
+Contains essential information that explains a concept more clearly.
+
+[TIP]
+Contains extra information that might be useful.
+
 == Setting Up
 This section contains information on steps to set up the developer environment on your computer.
 
@@ -951,14 +959,18 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 == Documentation
+This section contains information on how to edit, publish, convert documentation, as well as relevant tools and settings.
 
 Refer to the guide <<Documentation#, here>>.
 
 == Testing
+This section contains information on running tests and troubleshooting.
 
 Refer to the guide <<Testing#, here>>.
 
 == Dev Ops
+
+This section contains information on project workflow and useful automation tools.
 
 Refer to the guide <<DevOps#, here>>.
 

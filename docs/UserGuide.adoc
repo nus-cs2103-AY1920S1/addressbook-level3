@@ -39,13 +39,20 @@ image::Ui_annotated.png[width="790"]
 
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
-== Before We Start
-//insert UG legend
+== How to Read This User Guide
+
+First, let's familiarize ourselves with the symbols and formats used in this document:
+
+NOTE: Contains key information relevant to the execution of commands.
+
+```
+{contains sample command-line input}
+```
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `MooLah-v1.4.0.jar` link:{repoURL}/releases[here].
+.  Download the latest `MooLah-v1.4.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for `MooLah`.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 .  Make sure the window is not in fullscreen and there is some space below the textfield in order
