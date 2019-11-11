@@ -11,10 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Gender;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.policy.Policy;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -25,22 +29,35 @@ class JsonAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     private final String name;
+    private final String nric;
     private final String phone;
     private final String email;
     private final String address;
+    private final String dateOfBirth;
+    private final String gender;
+    private final List<JsonAdaptedPolicy> policies = new ArrayList<>();
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
+    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("nric") String nric,
+                             @JsonProperty("phone") String phone, @JsonProperty("email") String email,
+                             @JsonProperty("address") String address, @JsonProperty("date of birth") String dateOfBirth,
+                             @JsonProperty("gender") String gender,
+                             @JsonProperty("policies") List<JsonAdaptedPolicy> policies,
+                             @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
+        this.nric = nric;
         this.phone = phone;
         this.email = email;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
         this.address = address;
+        if (policies != null) {
+            this.policies.addAll(policies);
+        }
         if (tagged != null) {
             this.tagged.addAll(tagged);
         }
@@ -51,12 +68,18 @@ class JsonAdaptedPerson {
      */
     public JsonAdaptedPerson(Person source) {
         name = source.getName().fullName;
+        nric = source.getNric().nric;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        dateOfBirth = source.getDateOfBirth().value;
+        gender = source.getGender().gender;
+        policies.addAll(source.getPolicies().stream()
+            .map(JsonAdaptedPolicy::new)
+            .collect(Collectors.toList()));
         tagged.addAll(source.getTags().stream()
-                .map(JsonAdaptedTag::new)
-                .collect(Collectors.toList()));
+            .map(JsonAdaptedTag::new)
+            .collect(Collectors.toList()));
     }
 
     /**
@@ -66,8 +89,14 @@ class JsonAdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
+        final List<Policy> policyList = new ArrayList<>();
+
         for (JsonAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
+        }
+
+        for (JsonAdaptedPolicy policy : policies) {
+            policyList.add(policy.toModelType());
         }
 
         if (name == null) {
@@ -77,6 +106,14 @@ class JsonAdaptedPerson {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
+
+        if (nric == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
+        }
+        if (!Nric.isValidNric(nric)) {
+            throw new IllegalValueException(Nric.MESSAGE_CONSTRAINTS);
+        }
+        final Nric modelNric = new Nric(nric);
 
         if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
@@ -102,8 +139,29 @@ class JsonAdaptedPerson {
         }
         final Address modelAddress = new Address(address);
 
+        if (dateOfBirth == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                DateOfBirth.class.getSimpleName()));
+        }
+        if (!DateOfBirth.isValidDateOfBirth(dateOfBirth)) {
+            throw new IllegalValueException(DateOfBirth.MESSAGE_CONSTRAINTS);
+        }
+        final DateOfBirth modelDateOfBirth = new DateOfBirth(dateOfBirth);
+
+        if (gender == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Gender.class.getSimpleName()));
+        }
+        if (!Gender.isValidGender(gender)) {
+            throw new IllegalValueException(Gender.getMessageConstraints());
+        }
+
+        final Gender modelGender = new Gender(gender);
+
+        final Set<Policy> modelPolicies = new HashSet<>(policyList);
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelNric, modelPhone, modelEmail, modelAddress, modelDateOfBirth, modelGender,
+            modelPolicies, modelTags);
     }
 
 }

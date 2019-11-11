@@ -1,0 +1,90 @@
+= Chen Yuan Bo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Insurelytics
+
+---
+ifndef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
+== Overview
+
+Insurelytics is a desktop client management application for insurance agents.
+Insurelytics facilitates the tracking of client and policies, and also generate statistical analytics to provide insights for the agent.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 85 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added *Bin Feature*
+** What it does: Added a bin to store all deleted items. When deleting either persons or policies, instead of being
+removed permanently, deleted items are shifted to the bin instead. Just like a recycling bin on a typical computer, items
+inside the bin can be restored as long as they have not exceeded their expiry date.
+** Justification: This allows for the user to restore persons or policies that could have been wrongly deleted in
+previous sessions. Additionally, this is also useful in the case when the user wants to restore an item that was
+deleted at the start of the session, where it is too troublesome to undo cleanly.
+** Highlights:
+*** The bin is persistent across different sessions. Its items are saved into a json file, as with persons and policies.
+*** Once the deleted items have exceeded their expiry date, they will be automatically deleted on restart of the
+application.
+*** The amount of time an item stays in the bin before it is deleted can be set by the user as a user setting,
+through the command `binitemexpiry`. This is a global setting and applies for all items in the bin.
+
+* *Minor enhancement*:
+*** Redesigned User Interface to give a cleaner, sleek look. [Pull Request https://github.com/AY1920S1-CS2103-F09-4/main/pull/209[#209]]
+
+ifndef::env-github[]
+image::uiscreenshot.png[width="800", align="left"]
+endif::[]
+
+ifdef::env-github[]
+image::uiscreenshot.png[width="800", align="left"]
+endif::[]
+
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=ybchen97[tp Code
+Dashboard]] [https://github.com/AY1920S1-CS2103-F09-4/main/pull/232[Test code]]
+
+* *Other contributions*:
+
+** Enhancements to existing features:
+*** Implemented command to delete and edit policies. [Pull requests https://github.com/AY1920S1-CS2103-F09-4/main/pull/80[#80],
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/84[#84]]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-4/main/pull/112[#112],
+https://github.com/AY1920S1-CS2103-F09-4/main/pull/75[#75]
+*** Fixed bugs from PE Dry run [Pull request https://github.com/AY1920S1-CS2103-F09-4/main/pull/196[#196]]
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=deleteperson]
+
+include::../UserGuide.adoc[tag=deletepolicy]
+
+include::../UserGuide.adoc[tag=restore]
+
+include::../UserGuide.adoc[tag=binitemexpiry]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=bin]
+
+include::../DeveloperGuide.adoc[tag=deleteperson]
+
+include::../DeveloperGuide.adoc[tag=restore]

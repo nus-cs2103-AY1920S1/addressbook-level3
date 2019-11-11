@@ -33,11 +33,19 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label id;
     @FXML
+    private Label nric;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
     @FXML
+    private Label dateOfBirth;
+    @FXML
+    private Label gender;
+    @FXML
     private Label email;
+    @FXML
+    private FlowPane policies;
     @FXML
     private FlowPane tags;
 
@@ -46,12 +54,40 @@ public class PersonCard extends UiPart<Region> {
         this.person = person;
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
+        nric.setText("NRIC: " + person.getNric().nric);
+        phone.setText("Phone Number: " + person.getPhone().value);
+        address.setText("Address: " + person.getAddress().value);
+        dateOfBirth.setText("DOB: " + person.getDateOfBirth().value);
+        gender.setText("Gender: " + person.getGender().gender);
+        email.setText("Email: " + person.getEmail().value);
+        person.getPolicies().stream()
+                .sorted(Comparator.comparing(policy -> policy.getName().policyName))
+                .forEach(policy -> policies.getChildren().add(new Label(policy.getName().policyName)));
         person.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    /**
+     * Custom fxml passed in. Used by BinPersonCard.
+     */
+    public PersonCard(Person person, int displayedIndex, String fxml) {
+        super(fxml);
+        this.person = person;
+        id.setText(displayedIndex + ". ");
+        name.setText(person.getName().fullName);
+        nric.setText("NRIC: " + person.getNric().nric);
+        phone.setText("Phone Number: " + person.getPhone().value);
+        address.setText("Address: " + person.getAddress().value);
+        dateOfBirth.setText("DOB: " + person.getDateOfBirth().value);
+        gender.setText("Gender: " + person.getGender().gender);
+        email.setText("Email: " + person.getEmail().value);
+        person.getPolicies().stream()
+            .sorted(Comparator.comparing(policy -> policy.getName().policyName))
+            .forEach(policy -> policies.getChildren().add(new Label(policy.getName().policyName)));
+        person.getTags().stream()
+            .sorted(Comparator.comparing(tag -> tag.tagName))
+            .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
     @Override

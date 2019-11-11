@@ -1,14 +1,16 @@
 package seedu.address.ui;
 
+import static java.util.Objects.isNull;
+import static java.util.Objects.requireNonNull;
+
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +18,10 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Person;
+import seedu.address.model.policy.Policy;
+import seedu.address.model.visual.DisplayFormat;
+import seedu.address.model.visual.DisplayIndicator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,6 +30,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String LOGO_URL = "/images/InsurelyticsLogo.png";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
@@ -32,23 +39,39 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private PolicyListPanel policyListPanel;
+    private BinItemListPanel binItemListPanel;
+    private HistoryListPanel historyListPanel;
+    private DisplayPanel displayPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private String rightPanelCommandText;
+    private boolean listChangedSinceLastExpand = false;
+    private boolean lastExpandedIsPerson = false;
+    private boolean lastExpandedIsPolicy = false;
+    private String lastExpandedPersonNric;
+    private String lastExpandedPolicyName;
+    private Person lastExpandedPerson;
+    private Policy lastExpandedPolicy;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private StackPane listPanelPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane displayPlaceHolder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private GridPane resultHolder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -60,8 +83,6 @@ public class MainWindow extends UiPart<Stage> {
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
 
-        setAccelerators();
-
         helpWindow = new HelpWindow();
     }
 
@@ -69,38 +90,13 @@ public class MainWindow extends UiPart<Stage> {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
-    /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
-     */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
+    private void setLogo() {
+        Image image = new Image(LOGO_URL);
+        ImageView imageView = new ImageView();
+        imageView.setImage(image);
+        imageView.setFitWidth(400);
+        imageView.setFitHeight(400);
+        displayPlaceHolder.getChildren().add(imageView);
     }
 
     /**
@@ -108,16 +104,20 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+
+        setLogo();
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        resultHolder.prefHeightProperty().bind(((VBox) resultHolder.getParent()).heightProperty());
     }
 
     /**
@@ -154,33 +154,281 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+            (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
+        logic.setUserSettings();
         helpWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    private void showListPolicy() {
+        policyListPanel = new PolicyListPanel(logic.getFilteredPolicyList());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(policyListPanel.getRoot());
+    }
+
+    private void showListPeople() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /** Show command history in right panel */
+    private void showListHistory() {
+        logger.info("Displaying command history...");
+        historyListPanel = new HistoryListPanel(logic.getHistoryList());
+        displayPlaceHolder.getChildren().removeAll();
+        displayPlaceHolder.getChildren().add(historyListPanel.getRoot());
+    }
+
+    private void showListBin() {
+        binItemListPanel = new BinItemListPanel(logic.getFilteredBinItemList());
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(binItemListPanel.getRoot());
+    }
+
+    /**
+     * Shows display on right panel.
+     */
+    private void showListDisplay(CommandResult commandResult) throws ParseException {
+        DisplayIndicator displayIndicator = commandResult.getDisplayIndicator();
+        DisplayFormat displayFormat = commandResult.getDisplayFormat();
+        DisplayController displayController = null;
+
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        switch (displayFormat.value) {
+        case DisplayFormat.PIECHART:
+            logger.info("Displaying piechart...");
+            displayController = new PieChartController(logic, displayIndicator);
+            break;
+        case DisplayFormat.BARCHART:
+            logger.info("Displaying barchart...");
+            displayController = new BarChartController(logic, displayIndicator);
+            break;
+        case DisplayFormat.LINECHART:
+            logger.info("Displaying linechart...");
+            displayController = new LineChartController(logic, displayIndicator);
+            break;
+        default:
+            throw new ParseException(DisplayFormat.getMessageConstraints());
+        }
+
+        requireNonNull(displayController);
+        displayPlaceHolder.getChildren().add(displayController.getRoot());
+    }
+
+    /**
+     * Expands person in right panel
+     *
+     * @param commandResult
+     */
+    private void showExpandPerson(CommandResult commandResult) {
+        displayPanel = new DisplayPanel(commandResult.getPersonToExpand());
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+    }
+
+    /**
+     * Expands policy in right panel
+     *
+     * @param commandResult
+     */
+    private void showExpandPolicy(CommandResult commandResult) {
+        displayPanel = new DisplayPanel(commandResult.getPolicyToExpand());
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+    }
+
+    /**
+     * Returns true if command result uses display place holder.
+     *
+     * @return boolean
+     */
+    private boolean usesRightPanel(CommandResult commandResult) {
+        return commandResult.isDisplay()
+            || commandResult.isExpandPerson()
+            || commandResult.isExpandPolicy()
+            || commandResult.isListHistory();
+    }
+
+    /**
+     * Returns true if command result changes the list shown on the left panel.
+     *
+     * @return boolean
+     */
+    private boolean changesList(CommandResult commandResult, String commandText) {
+        return commandResult.isListPeople()
+                || commandResult.isListPeople()
+                || commandResult.isListPolicy()
+                || commandText.startsWith("delete ")
+                || commandText.startsWith("deletepolicy ")
+                || commandText.startsWith("restore")
+                || commandText.startsWith("undo")
+                || commandText.startsWith("redo");
+    }
+
+    /**
+     * Renders right panel. Any logic execution here is always a system input.
+     */
+    private CommandResult renderRightPanel(String commandText) throws
+        CommandException, ParseException {
+        try {
+            boolean isSystemInput = true;
+            CommandResult commandResult = logic.execute(commandText, isSystemInput);
+            logger.info("Result from render right panel: " + commandResult.getFeedbackToUser());
+
+            if (commandResult.isListHistory()) {
+                showListHistory();
+            } else if (commandResult.isDisplay()) {
+                showListDisplay(commandResult);
+            } else if (commandResult.isExpandPerson()) {
+                showExpandPerson(commandResult);
+            } else if (commandResult.isExpandPolicy()) {
+                showExpandPolicy(commandResult);
+            }
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Renders right panel only if the command is history or display. Any logic execution here is always a system input.
+     */
+    private CommandResult renderHistoryOrDisplay(String commandText) throws
+            CommandException, ParseException {
+        try {
+            boolean isSystemInput = true;
+            CommandResult commandResult = logic.execute(commandText, isSystemInput);
+            logger.info("Result from render right panel: " + commandResult.getFeedbackToUser());
+
+            if (commandResult.isListHistory()) {
+                showListHistory();
+            } else if (commandResult.isDisplay()) {
+                showListDisplay(commandResult);
+            }
+
+            return commandResult;
+        } catch (CommandException | ParseException e) {
+            logger.info("Invalid command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Expands the last expanded person or policy, regardless of list changes
+     */
+    private void expandPersonOrPolicy() {
+        boolean personOrPolicyFound = false;
+        if (lastExpandedIsPerson) {
+            for (Person person : logic.getAddressBook().getPersonList()) {
+                if (person.getNric().toString().equals(lastExpandedPersonNric)) {
+                    lastExpandedPerson = person;
+                    personOrPolicyFound = true;
+                    break;
+                }
+            }
+            if (personOrPolicyFound) {
+                showExpandPerson(new CommandResult("", lastExpandedPerson));
+            }
+        } else if (lastExpandedIsPolicy) {
+            for (Policy policy : logic.getAddressBook().getPolicyList()) {
+                if (policy.getName().toString().equals(lastExpandedPolicyName)) {
+                    lastExpandedPolicy = policy;
+                    personOrPolicyFound = true;
+                    break;
+                }
+            }
+            if (personOrPolicyFound) {
+                showExpandPolicy(new CommandResult("", lastExpandedPolicy));
+            }
+        }
+    }
+
+    /**
+     * Clears the display panel, showing only the logo
+     */
+    private void clearDisplayPanel() {
+        displayPanel = new DisplayPanel();
+        displayPlaceHolder.getChildren().clear();
+        assert displayPlaceHolder.getChildren().isEmpty();
+        displayPlaceHolder.getChildren().add(displayPanel.getRoot());
+        lastExpandedIsPerson = false;
+        lastExpandedIsPolicy = false;
+        setLogo();
     }
 
     /**
      * Executes the command and returns the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @see seedu.address.logic.Logic#execute(String, boolean)
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    private CommandResult executeCommand(String commandText, boolean isSystemInput) throws
+        CommandException, ParseException {
         try {
-            CommandResult commandResult = logic.execute(commandText);
+            CommandResult commandResult = logic.execute(commandText, isSystemInput);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            } else if (commandResult.isExit()) {
+                handleExit();
+            } else if (commandResult.isListPolicy()) {
+                showListPolicy();
+            } else if (commandResult.isListPeople()) {
+                showListPeople();
+            } else if (commandResult.isListHistory()) {
+                showListHistory();
+            } else if (commandResult.isListBin()) {
+                showListBin();
+            } else if (commandResult.isDisplay()) {
+                showListDisplay(commandResult);
+            } else if (commandResult.isExpandPerson()) {
+                showExpandPerson(commandResult);
+                listChangedSinceLastExpand = false;
+                lastExpandedIsPerson = true;
+                lastExpandedIsPolicy = false;
+                lastExpandedPersonNric = commandResult.getPersonToExpand().getNric().toString();
+            } else if (commandResult.isExpandPolicy()) {
+                showExpandPolicy(commandResult);
+                listChangedSinceLastExpand = false;
+                lastExpandedIsPerson = false;
+                lastExpandedIsPolicy = true;
+                lastExpandedPolicyName = commandResult.getPolicyToExpand().getName().toString();
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
+            if (changesList(commandResult, commandText)) {
+                listChangedSinceLastExpand = true;
+            }
+
+            if (usesRightPanel(commandResult)) {
+                rightPanelCommandText = commandText;
+            } else if (!isNull(rightPanelCommandText)) {
+                if (!listChangedSinceLastExpand) {
+                    renderRightPanel(rightPanelCommandText);
+                } else {
+                    if (!rightPanelCommandText.startsWith("expand")) {
+                        renderHistoryOrDisplay(rightPanelCommandText);
+                    } else {
+                        if (!(commandText.startsWith("delete ")
+                                || commandText.startsWith("deletepolicy ")
+                                || commandText.startsWith("restore")
+                                || commandText.startsWith("undo")
+                                || commandText.startsWith("redo"))) {
+                            expandPersonOrPolicy();
+                        } else {
+                            clearDisplayPanel();
+                        }
+                    }
+                }
             }
 
             return commandResult;

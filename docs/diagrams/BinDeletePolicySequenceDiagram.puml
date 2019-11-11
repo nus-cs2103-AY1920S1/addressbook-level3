@@ -1,0 +1,51 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":DeletePolicyCommand" as DeletePolicyCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant "policyToBin:BinItem" as BinItem MODEL_COLOR
+participant ":AddressBook" as AddressBook MODEL_COLOR
+participant ":UniqueBinItemList" as UniqueBinItemList MODEL_COLOR
+end box
+
+[-> DeletePolicyCommand : execute()
+activate DeletePolicyCommand
+
+DeletePolicyCommand -> Model : deletePolicy(1)
+activate Model
+
+Model -> Model : deletePolicy(policyToDelete)
+activate Model
+deactivate Model
+
+Model -> UniqueBinItemList: Remove references to policyToDelete
+
+Model -> BinItem **: BinItem(policyToDelete)
+activate BinItem
+
+BinItem --> Model : policyToBin
+deactivate BinItem
+
+Model -> Model : addBinItem(policyToBin)
+activate Model
+
+Model -> AddressBook : addBinItem(policyToBin)
+activate AddressBook
+
+AddressBook -> UniqueBinItemList : addBinItem(policyToBin)
+activate UniqueBinItemList
+
+UniqueBinItemList --> AddressBook
+deactivate UniqueBinItemList
+
+AddressBook --> Model
+deactivate AddressBook
+
+Model --> DeletePolicyCommand
+deactivate Model
+
+@enduml

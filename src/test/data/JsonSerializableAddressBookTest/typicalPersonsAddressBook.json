@@ -1,46 +1,549 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
-  "persons" : [ {
-    "name" : "Alice Pauline",
-    "phone" : "94351253",
-    "email" : "alice@example.com",
-    "address" : "123, Jurong West Ave 6, #08-111",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Benson Meier",
-    "phone" : "98765432",
-    "email" : "johnd@example.com",
-    "address" : "311, Clementi Ave 2, #02-25",
-    "tagged" : [ "owesMoney", "friends" ]
-  }, {
-    "name" : "Carl Kurz",
-    "phone" : "95352563",
-    "email" : "heinz@example.com",
-    "address" : "wall street",
-    "tagged" : [ ]
-  }, {
-    "name" : "Daniel Meier",
-    "phone" : "87652533",
-    "email" : "cornelia@example.com",
-    "address" : "10th street",
-    "tagged" : [ "friends" ]
-  }, {
-    "name" : "Elle Meyer",
-    "phone" : "9482224",
-    "email" : "werner@example.com",
-    "address" : "michegan ave",
-    "tagged" : [ ]
-  }, {
-    "name" : "Fiona Kunz",
-    "phone" : "9482427",
-    "email" : "lydia@example.com",
-    "address" : "little tokyo",
-    "tagged" : [ ]
-  }, {
-    "name" : "George Best",
-    "phone" : "9482442",
-    "email" : "anna@example.com",
-    "address" : "4th street",
-    "tagged" : [ ]
-  } ]
+  "persons": [
+    {
+      "name": "Alice Pauline",
+      "nric": "S0000001J",
+      "phone": "94351253",
+      "email": "alice@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "gender": "Female",
+      "policies": [
+        {
+          "name": "Health Insurance",
+          "description": "Insurance for healthcare",
+          "coverage": "days/10 months/11 years/12",
+          "price": "$50000",
+          "criteria": [
+            "diabetic"
+          ],
+          "tagged": [
+            "health insurance"
+          ],
+          "startAge": "30",
+          "endAge": "75"
+        },
+        {
+          "name": "Fire Insurance",
+          "description": "Insurance for fire",
+          "coverage": "days/30 months/12",
+          "price": "$7500",
+          "criteria": [
+            "public housing"
+          ],
+          "tagged": [
+            "home insurance"
+          ],
+          "startAge": "0",
+          "endAge": "85"
+        }
+      ],
+      "tagged": [
+        "diabetic",
+        "high blood pressure",
+        "public housing"
+      ],
+      "dateOfBirth": "12.12.1982"
+    },
+    {
+      "name": "Benson Meier",
+      "nric": "S0000002J",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "address": "311, Clementi Ave 2, #02-25",
+      "gender": "Male",
+      "policies": [
+        {
+          "name": "Life Insurance",
+          "description": "Insurance for life",
+          "coverage": "years/50",
+          "price": "$1000000",
+          "criteria": [
+            "high blood pressure"
+          ],
+          "tagged": [
+            "term insurance"
+          ],
+          "startAge": "21",
+          "endAge": "80"
+        }
+      ],
+      "tagged": [
+        "smoker",
+        "disabled",
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1942"
+    },
+    {
+      "name": "Carl Kurz",
+      "nric": "S0000003J",
+      "phone": "95352563",
+      "email": "heinz@example.com",
+      "address": "wall street",
+      "gender": "Male",
+      "policies": [],
+      "tagged": [],
+      "dateOfBirth": "6.6.1996"
+    },
+    {
+      "name": "Daniel Meier",
+      "nric": "S0000004J",
+      "phone": "87652533",
+      "email": "cornelia@example.com",
+      "address": "10th street",
+      "gender": "Male",
+      "policies": [],
+      "tagged": [],
+      "dateOfBirth": "14.2.2019"
+    },
+    {
+      "name": "Elle Meyer",
+      "nric": "S0000005J",
+      "phone": "94822247",
+      "email": "werner@example.com",
+      "address": "michegan ave",
+      "gender": "Male",
+      "policies": [],
+      "tagged": [],
+      "dateOfBirth": "17.5.2000"
+    },
+    {
+      "name": "Fiona Kunz",
+      "nric": "S0000006J",
+      "phone": "94824279",
+      "email": "lydia@example.com",
+      "address": "little tokyo",
+      "gender": "Female",
+      "policies": [],
+      "tagged": [],
+      "dateOfBirth": "15.8.2008"
+    },
+    {
+      "name": "George Best",
+      "nric": "S0000007J",
+      "phone": "94824425",
+      "email": "anna@example.com",
+      "address": "4th street",
+      "gender": "Male",
+      "policies": [],
+      "tagged": [],
+      "dateOfBirth": "5.5.2015"
+    },
+    {
+      "name": "Asyraf",
+      "nric": "S0000008J",
+      "phone": "94351253",
+      "email": "asyraf@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "gender": "Male",
+      "policies": [
+        {
+          "name": "Health Insurance",
+          "description": "Insurance for healthcare",
+          "coverage": "days/10 months/11 years/12",
+          "price": "$50000",
+          "criteria": [
+            "diabetic"
+          ],
+          "tagged": [
+            "health insurance"
+          ],
+          "startAge": "30",
+          "endAge": "75"
+        },
+        {
+          "name": "Fire Insurance",
+          "description": "Insurance for fire",
+          "coverage": "days/30 months/12",
+          "price": "$7500",
+          "criteria": [
+            "public housing"
+          ],
+          "tagged": [
+            "home insurance"
+          ],
+          "startAge": "0",
+          "endAge": "85"
+        }
+      ],
+      "tagged": [
+        "smoker",
+        "diabetic",
+        "public housing",
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1992"
+    },
+    {
+      "name": "Keith Tan",
+      "nric": "S0000009J",
+      "phone": "94351253",
+      "email": "asyraf@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "gender": "Male",
+      "policies": [
+        {
+          "name": "Health Insurance",
+          "description": "Insurance for healthcare",
+          "coverage": "days/10 months/11 years/12",
+          "price": "$50000",
+          "criteria": [
+            "diabetic"
+          ],
+          "tagged": [
+            "health insurance"
+          ],
+          "startAge": "30",
+          "endAge": "75"
+        },
+        {
+          "name": "Fire Insurance",
+          "description": "Insurance for fire",
+          "coverage": "days/30 months/12",
+          "price": "$7500",
+          "criteria": [
+            "public housing"
+          ],
+          "tagged": [
+            "home insurance"
+          ],
+          "startAge": "0",
+          "endAge": "85"
+        }
+      ],
+      "tagged": [
+        "smoker",
+        "diabetic",
+        "public housing",
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1992"
+    },
+    {
+      "name": "Robin",
+      "nric": "S0000010J",
+      "phone": "94351253",
+      "email": "asyraf@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "gender": "Male",
+      "policies": [
+        {
+          "name": "Health Insurance",
+          "description": "Insurance for healthcare",
+          "coverage": "days/10 months/11 years/12",
+          "price": "$50000",
+          "criteria": [
+            "diabetic"
+          ],
+          "tagged": [
+            "health insurance"
+          ],
+          "startAge": "30",
+          "endAge": "75"
+        },
+        {
+          "name": "Fire Insurance",
+          "description": "Insurance for fire",
+          "coverage": "days/30 months/12",
+          "price": "$7500",
+          "criteria": [
+            "public housing"
+          ],
+          "tagged": [
+            "home insurance"
+          ],
+          "startAge": "0",
+          "endAge": "85"
+        }
+      ],
+      "tagged": [
+        "smoker",
+        "diabetic",
+        "public housing",
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1992"
+    },
+    {
+      "name": "Tay Yang",
+      "nric": "S0000011J",
+      "phone": "94351253",
+      "email": "asyraf@example.com",
+      "address": "123, Jurong West Ave 6, #08-111",
+      "gender": "Male",
+      "policies": [
+        {
+          "name": "Health Insurance",
+          "description": "Insurance for healthcare",
+          "coverage": "days/10 months/11 years/12",
+          "price": "$50000",
+          "criteria": [
+            "diabetic"
+          ],
+          "tagged": [
+            "health insurance"
+          ],
+          "startAge": "30",
+          "endAge": "75"
+        },
+        {
+          "name": "Fire Insurance",
+          "description": "Insurance for fire",
+          "coverage": "days/30 months/12",
+          "price": "$7500",
+          "criteria": [
+            "public housing"
+          ],
+          "tagged": [
+            "home insurance"
+          ],
+          "startAge": "0",
+          "endAge": "85"
+        }
+      ],
+      "tagged": [
+        "smoker",
+        "diabetic",
+        "public housing",
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1992"
+    },
+    {
+      "name": "Chloe",
+      "nric": "S0000012J",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "address": "311, Clementi Ave 2, #02-25",
+      "gender": "Female",
+      "policies": [
+        {
+          "name": "Life Insurance",
+          "description": "Insurance for life",
+          "coverage": "years/50",
+          "price": "$1000000",
+          "criteria": [
+            "high blood pressure"
+          ],
+          "tagged": [
+            "term insurance"
+          ],
+          "startAge": "21",
+          "endAge": "80"
+        }
+      ],
+      "tagged": [
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1952"
+    },
+    {
+      "name": "Victoria",
+      "nric": "S0000013J",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "address": "311, Clementi Ave 2, #02-25",
+      "gender": "Female",
+      "policies": [
+        {
+          "name": "Life Insurance",
+          "description": "Insurance for life",
+          "coverage": "years/50",
+          "price": "$1000000",
+          "criteria": [
+            "high blood pressure"
+          ],
+          "tagged": [
+            "term insurance"
+          ],
+          "startAge": "21",
+          "endAge": "80"
+        }
+      ],
+      "tagged": [
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1952"
+    },
+    {
+      "name": "Natasha",
+      "nric": "S0000014J",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "address": "311, Clementi Ave 2, #02-25",
+      "gender": "Female",
+      "policies": [
+        {
+          "name": "Life Insurance",
+          "description": "Insurance for life",
+          "coverage": "years/50",
+          "price": "$1000000",
+          "criteria": [
+            "high blood pressure"
+          ],
+          "tagged": [
+            "term insurance"
+          ],
+          "startAge": "21",
+          "endAge": "80"
+        }
+      ],
+      "tagged": [
+        "high blood pressure"
+      ],
+      "dateOfBirth": "12.12.1952"
+    },
+    {
+      "name": "Rachel",
+      "nric": "S0000015J",
+      "phone": "98765432",
+      "email": "johnd@example.com",
+      "address": "311, Clementi Ave 2, #02-25",
+      "gender": "Female",
+      "policies": [
+        {
+          "name": "Senior Insurance",
+          "description": "Insurance for senior",
+          "coverage": "months/10 years/20",
+          "price": "$100000",
+          "criteria": [
+            "diabetic"
+          ],
+          "tagged": [
+            "senior insurance"
+          ],
+          "startAge": "50",
+          "endAge": "100"
+        }
+      ],
+      "tagged": [
+        "high blood pressure",
+        "diabetic"
+      ],
+      "dateOfBirth": "12.12.1932"
+    }
+  ],
+  "policies": [
+    {
+      "name": "Health Insurance",
+      "description": "Insurance for healthcare",
+      "coverage": "days/10 months/11 years/12",
+      "price": "$50000",
+      "criteria": [
+        "diabetic"
+      ],
+      "tagged": [
+        "health insurance"
+      ],
+      "startAge": "30",
+      "endAge": "75"
+    },
+    {
+      "name": "Life Insurance",
+      "description": "Insurance for life",
+      "coverage": "years/50",
+      "price": "$1000000",
+      "criteria": [
+        "high blood pressure"
+      ],
+      "tagged": [
+        "term insurance"
+      ],
+      "startAge": "21",
+      "endAge": "80"
+    },
+    {
+      "name": "Fire Insurance",
+      "description": "Insurance for fire",
+      "coverage": "days/30 months/12",
+      "price": "$7500",
+      "criteria": [
+        "public housing"
+      ],
+      "tagged": [
+        "home insurance"
+      ],
+      "startAge": "0",
+      "endAge": "85"
+    },
+    {
+      "name": "Senior Insurance",
+      "description": "Insurance for senior",
+      "coverage": "months/10 years/20",
+      "price": "$100000",
+      "criteria": [
+        "diabetic"
+      ],
+      "tagged": [
+        "senior insurance"
+      ],
+      "startAge": "50",
+      "endAge": "100"
+    }
+  ],
+  "binItems": [
+    {
+      "dateDeleted": "22 Oct 2019 at 09:57 PM",
+      "expiryDate": "21 Nov 2019 at 09:57 PM",
+      "personItem": {
+        "name": "David Georgia",
+        "nric": "S0000010T",
+        "phone": "94820001",
+        "email": "davegeorge@example.com",
+        "address": "10th Fly street",
+        "gender": "Male",
+        "policies": [],
+        "tagged": [],
+        "dateOfBirth": "5.3.1980"
+      },
+      "policyItem": null
+    },
+    {
+      "dateDeleted": "23 Oct 2019 at 09:57 PM",
+      "expiryDate": "22 Nov 2019 at 09:57 PM",
+      "personItem": {
+        "name": "Lincoln Feathers",
+        "nric": "S0000011T",
+        "phone": "94820002",
+        "email": "lincfeats@example.com",
+        "address": "11th Boxer street",
+        "gender": "Male",
+        "policies": [],
+        "tagged": [],
+        "dateOfBirth": "1.3.1990"
+      },
+      "policyItem": null
+    },
+    {
+      "dateDeleted": "24 Oct 2019 at 09:57 PM",
+      "expiryDate": "23 Nov 2019 at 09:57 PM",
+      "personItem": {
+        "name": "Kassandra Pearl",
+        "nric": "S0000012T",
+        "phone": "94820003",
+        "email": "kpearl@example.com",
+        "address": "13th Jewel street",
+        "gender": "Female",
+        "policies": [],
+        "tagged": [],
+        "dateOfBirth": "9.10.2000"
+      },
+      "policyItem": null
+    },
+    {
+      "dateDeleted": "25 Oct 2019 at 09:57 PM",
+      "expiryDate": "24 Nov 2019 at 09:57 PM",
+      "personItem": null,
+      "policyItem": {
+        "name": "Car Insurance",
+        "description": "Insurance for car",
+        "coverage": "months/6 years/5",
+        "price": "$5000",
+        "criteria": [],
+        "tagged": [],
+        "startAge": "18",
+        "endAge": "100"
+      }
+    }
+  ]
 }

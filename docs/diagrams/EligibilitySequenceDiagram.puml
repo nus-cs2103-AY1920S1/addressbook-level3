@@ -1,0 +1,37 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":EligiblePeopleCommand" as EligiblePeopleCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":PersonEligibleForPolicyPredicate" as Predicate MODEL_COLOR
+end box
+
+[-> EligiblePeopleCommand : execute()
+activate EligiblePeopleCommand
+
+EligiblePeopleCommand -> Model : getFilteredPolicyList()
+activate Model
+
+Model --> EligiblePeopleCommand : lastShownList
+deactivate Model
+
+EligiblePeopleCommand -> Predicate : PersonEligibleForPolicyPredicate(policy)
+activate Predicate
+
+Predicate --> EligiblePeopleCommand : predicate
+deactivate Predicate
+
+EligiblePeopleCommand -> Model : updateFilteredPersonList(predicate)
+activate Model
+
+Model --> EligiblePeopleCommand
+deactivate Model
+
+[<-- EligiblePeopleCommand
+deactivate EligiblePeopleCommand
+
+@enduml

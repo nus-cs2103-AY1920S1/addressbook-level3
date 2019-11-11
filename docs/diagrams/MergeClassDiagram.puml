@@ -1,0 +1,67 @@
+@startuml
+
+abstract class MergeCommand
+class MergePersonCommand
+MergeCommand <|-- MergePersonCommand
+
+MergeCommand : {abstract} getDifferences(): String[]
+MergeCommand : {abstract} removeFirstDifferentField()
+MergeCommand : {abstract} getNextMergeType(): String
+MergeCommand : {abstract} onlyOneMergeLeft(): boolean
+MergeCommand : equals(Object): boolean
+
+MergePersonCommand : originalPerson: Person
+MergePersonCommand : inputPerson: Person
+MergePersonCommand : differentFields: ArrayList<String[]>
+MergePersonCommand : MergePersonCommand(Person)
+MergePersonCommand : execute(Model): CommandResult
+MergePersonCommand : updateOriginalPerson(Person)
+MergePersonCommand : getNextMergePrompt(): String
+MergePersonCommand : getDifferences(): String[]
+MergePersonCommand : removeFirstDifferentField()
+MergePersonCommand : onlyOneMergeLeft(): boolean
+MergePersonCommand : equals(Object)
+MergePersonCommand : ...()
+
+abstract class MergeConfirmedCommand
+class MergePersonConfirmedCommand
+MergeConfirmedCommand <|-- MergePersonConfirmedCommand
+
+MergeConfirmedCommand : {abstract} execute(Model): CommandResult
+MergeConfirmedCommand : {abstract} isLastMerge(Model): boolean
+MergeConfirmedCommand : equals(Object): boolean
+
+MergePersonCommand <-- MergePersonConfirmedCommand
+MergePersonConfirmedCommand : MergePersonConfirmedCommand(MergePersonCommand)
+MergePersonConfirmedCommand : execute(Model): CommandResult
+MergePersonConfirmedCommand : isLastMerge(Model): boolean
+
+abstract class MergeRejectedCommand
+class MergePersonRejectedCommand
+MergeRejectedCommand <|-- MergePersonRejectedCommand
+
+MergeRejectedCommand : {abstract} execute(Model): CommandResult
+MergeRejectedCommand : {abstract} isLastMerge(): boolean
+MergeRejectedCommand : equals(Object): boolean
+
+MergePersonCommand <-- MergePersonRejectedCommand
+MergePersonRejectedCommand : MergePersonRejectedCommand(MergePersonCommand)
+MergePersonRejectedCommand : execute(Model): CommandResult
+MergePersonRejectedCommand : isLastMerge(Model): boolean
+MergePersonRejectedCommand : equals(Object): boolean
+
+class DoNotMergePersonCommand
+DoNotMergePersonCommand : originalPerson: Person
+DoNotMergePersonCommand : inputPerson: Person
+DoNotMergePersonCommand : DoNotMergePersonCommand(Person)
+DoNotMergePersonCommand : execute(Model): CommandResult
+DoNotMergePersonCommand : equals(Object): boolean
+
+class AddressBookParser
+AddressBookParser : ...()
+MergeCommand <-- AddressBookParser
+AddressBookParser : isMerging: boolean
+AddressBookParser : mergeType: String
+AddressBookParser : parseMerge(String): Command
+
+@enduml

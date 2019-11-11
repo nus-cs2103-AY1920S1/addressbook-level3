@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Insurelytics - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F09-4/main.git
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team cinnamon-agents`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -122,9 +122,10 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* stores the Address Book data, in the form of a stateful address book which maintains a list of address books as states.
+* stores the list of previously entered commands, in the form of a `CommandHistory` object.
+* exposes an unmodifiable `ObservableList<Person>` and `ObservableList<Policy>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* does not depend on any of the other components.
 
 [NOTE]
 As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
@@ -153,87 +154,375 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::merging[]
+=== Merging Feature
+==== Implementation
+
+The merging mechanism is facilitated by abstract classes `MergeCommand`, `DoNotMergeCommand`, `MergeConfirmedCommand` and `MergeRejectedCommand` and their child classes, which implement the merging of profiles and policies respectively.
+These classes extend `Command`. The child classes of `MergeCommand` are `MergePersonCommand` and `MergePolicyCommand`. A `MergePersonCommand` object will store the `Person` created by the input and the corresponding `Person` that is stored in the model.
+Additionally, the main crucial operations implemented by this class are:
+
+* `MergeCommand#getDifferences()` -- Finds all the different fields between the input person and the original person.
+* `MergeCommand#removeFirstDifferentField()` -- Removes the first different field in the list of differences. This method is called after a merge decision has been input by the user and executed.
+* `MergeCommand#getNextMergeFieldType()` -- Returns the type of the field for the next merge.
+* `MergeCommand#onlyOneMergeLeft()` -- Checks whether there is only one merge left.
+
+The implementation of `MergePolicyCommand` is similar.
+
+The child classes of `MergeConfirmedCommand` are `MergePersonConfirmedCommand` and `MergePolicyConfirmedCommand`, while the child classes of `MergeRejectedCommand` are `MergePersonRejectedCommand` and `MergePolicyRejectedCommand`.
+They all implement `#execute(Model)`. Additionally, these classes implement an `#isLastMerge()` command to indicate if this is the last possible merge for the entity being merged.
+
+AddressBookParser stores a boolean flag to indicate whether a merge is currently taking place. When it is set as true, all other commands will not be parsed and will be treated as invalid commands.
+The AddressBookParser object also stores the MergeCommand object during a merge process. This object is then used by `MergeConfirmedCommand` objects and `MergeRejectedCommand` objects in their execution.
+
+image::MergeClassDiagram.png[]
+
+Given below is an example usage scenario and how the merge mechanism behaves at each step.
+
+Step 1. The user adds a duplicate profile. The `AddCommand` will throw a `DuplicatePersonWithMergeException` during its execution.
+This exception is thrown if there is at least one different field between the input person and the original person stored in the model. Else, a `DuplicatePersonWithoutMergeException` will be thrown.
+The `DuplicatePersonWithMergeException` will finally be caught in the `CommandBox`. UI outputs the error message and a prompt to start a merge. `CommandBox` then constructs two command strings: one to proceed with the merge and one to reject the merge.
+This is done via `#standByForMerge(String, String)`. This string is then stored.
+
+Step 2. The user inputs yes or presses enter to proceed with the merge. `CommandBox` then calls `CommandExecutor#execute()` to execute the merge command it constructed previously.
+When the command is being parsed in the `AddressBookParser` object, a new `MergeCommand` object is created and stored. The `isMerging` flag is also set to true.
+The execution of this command then returns a CommandResult that prompts the next merge.
+
+Step 3. The user inputs yes or presses enter to update the field that was displayed in the prompt. The `AddressBookParser` parses the input and creates a new `MergePersonConfirmedCommand` object.
+The `MergePersonConfirmedCommand` object obtains information for the merge from the `MergeCommand` object that was passed in as a parameter in the constructor.
+In the execution, a new `EditCommand` is created and `EditCommand#executeForMerge()` is used to update the person in the model. If the
+`MergePersonConfirmedCommand#isLastMerge` returns false, `MergeCommand#removeFirstDifferentField` is called and the command result then shows a success message and the next prompt.
+
+This process is shown in the sequence diagram below.
+
+image::MergeSequenceDiagram.png[]
+
+[NOTE]
+If the user inputs an invalid command, the prompt will be displayed again along with an error message.
+
+Step 4. The user inputs no to reject the update of the field that was displayed in the prompt. The input gets parsed in the `AddressBookParser` object and creates a new MergePersonRejectedCommand.
+If it is not the last merge, `MergeCommand#removeFirstDifferentField` is called. The command result then shows the next prompt. Else, it will show a success message of successfully updating the profile.
+
+This is repeated until all merges have been prompted.
+
+image::MergeActivityDiagram.png[width=200]
+
+==== Design Considerations
+
+===== Aspect: How merge command executes
+
+* **Alternative 1 (current choice):** Stores the `MergeCommand` object in the `AddressBookParser` to be accessed by `MergeConfirmedCommand` and `MergeRejectedCommand` objects.
+** Pros: Finding of different fields is only executed once and can be used by future commands.
+** Cons: More coupling between `MergeCommand` and other classes.
+* **Alternative 2:** Update the field in the command string and pass it on in the command result.
+** Pros: Less coupling between `MergeCommand` and other classes.
+** Cons:
+*** User has to see the updated command (information that user does not need to see is displayed).
+*** Command still has to be stored somewhere to be accessed by other future merge commands.
+// end::merging[]
+
+// tag::display[]
+=== Display Feature
+==== Implementation
+
+The `display` mechanism follows the Model-View-Controller design pattern. The model is facilitated by the `AddressBook`
+instance, which provides the data the controller needs.
+The controller is facilitated by an abstract class `DisplayController`, which extends `UIPart<Region>`.
+Every supported format controller extends this abstract class.
+
+The following class diagram shows the OOP solution for `display`:
+
+image::DisplayClassDiagram.png[]
+
+[NOTE]
+Every controller needs to support every indicator. In the event a controller cannot display a particular
+indicator, it will throw a `parseException` error, which provides suggestions of which visual controllers are supported
+by the particular indicator.
+
+The view is facilitated by the associated FXML. These views share a common
+CSS, and also have their individual CSS file.
+
+Given below is an example usage scenario and how the display mechanism behaves at each step.
+
+Step 1. The user executes the `display i/policy-popularity-breakdown f/barchart` command to display the policy
+popularity breakdown indicator in bar chart format. The execution of a `display` command determines
+what will be shown (`displayIndicator`) and how it will be shown (`displayFormat`).
+
+Step 2. `displayFormat` specifies that the controller `BarChartController` will be instantiated.
+
+Step 3. The `BarChartController` initialises all the attributes of its associated FXML in its construction.
+Let us take a  closer look at the initialisation of the `series` attribute. The controller utilises the display
+indicator `policy-popularity-breakdown` to retrieve the data in the model it needs. The controller
+then casts the model’s data type to the data type supported by bar charts. The result is assigned to `series` attribute.
+
+The following sequence diagram shows the interaction between UI, Controller and Model for steps 2 and 3:
+
+image::DisplaySequenceDiagram.png[]
+
+Step 4. The bar chart controller then sets all the attributes of its associated FXML.
+
+Step 5. Finally, the `MainWindow` calls `DisplayController#getRoot()` and displays the view.
+
+The following activity diagram summarizes what happens when a user executes the display command:
+
+image::DisplayActivityDiagram.png[width=150]
+
+==== Design Considerations
+===== Aspect: How should controllers interact with model
+
+* **Alternative 1 (current choice):** Within controllers (by passing `logic`, which accesses the model, as an argument
+to the instantiation of a controller.)
+** Pros: Every controller handles their own interaction with the model.
+** Cons: Inconsistent with current implementation (alternative 2).
+* **Alternative 2:** Within `MainWindow`
+** Pros: Consistent with current implementation
+** Cons: The controllers are fully dependent on `MainWindow` for the data from the model. This entails that
+
+
+===== Aspect: OOP solution for visual controllers
+
+* **Alternative 1 (current choice):** Display controllers to extend from abstract class `DisplayController`
+** Pros:
+*** Allows display controller subclasses to share code. (refer to class diagram above)
+*** Subclasses have many common methods (`initIndicators(Logic)`)
+* **Alternative 2:** Display controllers to implement interface `DisplayController`
+** Pros: Satisfies the can-do relationship of an interface.
+** Cons: Restricted to public access modifiers. This violates Law of Demeter.
+// end::display[]
+
+// tag::bin[]
+=== Bin Feature
+==== Implementation
+
+The bin feature is facilitated by `BinItem`, `UniqueBinItemList` classes and the interface `Binnable`. Objects that
+can be "binned" will implement the interface  `Binnable`. When a `Binnable` object is deleted, it is wrapped in a
+wrapper class `BinItem` and is moved into `UniqueBinItemList`.
+
+The follow class diagram shows how bin is implemented.
+
+image::BinClassDiagram.png[]
+
+`BinItem` has 2 key attributes that is wrapped on top of the `Binnable` object, namely: `dateDeleted` and `expiryDate`.
+Objects in the bin stays there for 30 days, before it is automatically deleted forever. Both attributes are used in the
+auto-deletion mechanism of objects in the bin.
+
+Given below is an example usage scenario and how the bin mechanism behaves at each step.
+
+Step 1. When the user launches *Insurelytics*, `ModelManager` will run `ModelManager#binCleanUp()`, which will check the
+`expiryDate` of all objects in `UniqueBinItemList` against the system clock. If the system clock exceeds `expiryDate`,
+`UniqueBinItemList#remove()` is called and deletes the expired object forever.
+
+Step 2. The user executes `deletepolicy 1` command to delete the first policy in the address book. The `deletepolicy`
+command calls the constructor of `BinItem` with the deleted policy to create a new `BinItem` object. At this
+juncture, the attribute `dateDeleted` is created, and `expiryDate` is generated by adding `TIME_TO_LIVE` to
+`dateDeleted`. At the same time, references to the policy that was just deleted will also be removed from any `BinItem`
+that has them.
+
+[NOTE]
+Removing references of deleted policies in items inside the bin only happens for `deletepolicy`. Removing of
+references does not happen for deleted persons, since policies don't keep track of the persons that bought them.
+
+Step 3. The `deletepolicy` command then calls `Model#addBinItem(policyToBin)` and shifts the newly created `BinItem` to
+`UniqueBinItemList`.
+
+The following sequence diagram shows how a `deletepolicy` operation involves the bin.
+
+image::BinDeletePolicySequenceDiagram.png[]
+
+Step 4. The user quits the current session and starts a new session some time later. He/she then realises that he/she
+needs the person that was deleted and wants it back, so he/she executes `restore 1` to restore the deleted person
+from the bin.
+
+Step 5. The `restore` command then calls `Model#deleteBinItem(itemToRestore)`, which removes `itemToRestore` from
+`UniqueBinItemList`. The wrapper class `BinItem` is then stripped and the internal policy item is added back to
+`UniquePolicyList`.
+
+The following sequence diagram shows how a restore command operates.
+
+image::RestoreSequenceDiagram.png[]
+
+The following activity diagram summarizes the steps above.
+
+image::BinActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: Which part of the architecture does Bin belong
+* **Alternative 1 (current choice):** As part of AddressBook
+** Pros: Lesser repeated code and unnecessary refactoring. Other features at the AddressBook level such as undo/redo
+will not be affected with a change/modification made to Bin as it is not dependent on them.
+** Cons: From a OOP design point of view, this is not the most direct way of structuring the program.
+
+* **Alternative 2:** Just like AddressBook, as part of Model
+** Pros: More OOP like and lesser dependencies since Bin is extracted out from AddressBook. Methods related to bin
+operations are called only from within Bin.
+** Cons: Many sections with repeated code since it is structurally similar to AddressBook.
+// end::bin[]
+
+//tag::history[]
+=== Command History Feature
+==== Implementation
+
+To allow users to view the list of previously entered commands, a command history mechanism is implemented, which
+lists down all the previous (valid) commands entered by the user from the point of starting the application. Commands entered
+while merging are not added. The feature is supported by the `CommandHistory` class, an instance of which is stored as one of the
+memory objects inside `ModelManager`. The main operations implemented by this class are:
+
+* `addCommand(commandWord, commandText)` -- Adds the command with the command word `commandWord` and full command text
+`commandText` into the list of previously entered commands `userInputHistory`.
+* `getHistory()` -- Reverses the list of previously entered commands and returns the list.
+
+The history view is accompanied by its associated `HistoryCard` and `HistoryListPanel` FXML. These views share a common CSS
+with other FXML files.
+
+Following is the sequence diagram that shows the interaction between different components of the app when the command
+`history` is typed in by the user:
+
+image::CommandHistorySequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Where to store the CommandHistory object
+
+* **Alternative 1:** Place the `CommandHistory` object directly in the `LogicManager` class
+** Pros: Since the user input is being parsed in `LogicManager`, storing the command history ensures that data is
+not being passed around between the `LogicManager` and the `ModelManager`.
+** Cons: By right the `LogicManager` is only concerned with handling logic, any data storage should be performed in
+`ModelManager`. Violates Single Responsibility Principle and Separation of Concerns.
+
+* **Alternative 2 (current choice):** Place the `CommandHistory` object in model manager, parse user input in
+`LogicManager` and pass it to `ModelManager`.
+** Pros: Separation of concerns and Single Responsibility Principle for `LogicManager` and `ModelManager` is maintained.
+** Cons: Increases coupling between `LogicManager` and `ModelManager`, thereby violating the Law of Demeter.
+
+===== Aspect: Which commands to display in command history
+
+* **Alternative 1:** Display only those commands which will be relevant to user if she is considering undo/redo
+(therefore, display only data changes)
+** Pros: Only commands which are more relevant shown to user.
+** Cons: Which commands are relevant depends on the user, moreover limits the application of command history
+feature to undo/redo application.
+
+* **Alternative 2 (current choice):** Display every valid command entered by the user
+** Pros: More accurate representation of command history.
+** Cons: Clutters the command history with potentially unnecessary commands.
+// end::history[]
+
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo Feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+To allow users to revert/return to a previous/future state of the address book, an undo/redo mechanism is implemented, which
+undoes/redoes the last data change made in the application. The feature is supported by the `StatefulAddressBook` class,
+an instance of which is stored as one of the memory objects inside `ModelManager`.
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+image::UndoRedoClassDiagram.png[]
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Given below is an example usage scenario and how the undo-redo mechanism works at each step. Let us assume that `StatefulAddressBook` has just been initialised.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 1. The user makes some data changes. This adds a list of states to our `StatefulAddressBook`, and updates the
+`currentStatePointer`.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 2. User types `undo`. The `currentStatePointer` is decremented, and the address book is reset to the one being pointed to by
+`currentStatePointer`.
 
 image::UndoRedoState2.png[]
 
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+Step 3a. The use can perform another data change, following which states after `currentStatePointer` are erased,
+and a new state is added.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+image::UndoRedoState3a.png[]
 
-image::UndoRedoState3.png[]
+Step 3b. If a command which does not perform a data change is called, `StatefulAddressBook` stays the same
+as seen in `Step 2`. If a `redo()` is called, then the `currentStatePointer` is incremented.
 
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+image::UndoRedoState3c.png[]
 
-The following sequence diagram shows how the undo operation works:
+Step 4. If the address book data is reset to another state's, then all the data inside the application is reloaded, with
+the resulting changes now reflected.
 
-image::UndoSequenceDiagram.png[]
+Following is the activity diagram. The diagram for a `redo` command will be similar.
 
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::UndoActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
+** Pros: Easy to implement, takes way lesser code.
 ** Cons: May have performance issues in terms of memory usage.
+
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for delete, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+* **Alternative 3:** Do not store entire address book, but a PersonList, PolicyList and BinList depending on what
+is changed.
+** Pros: Will use less memory (e.g. for delete, just save the person list).
+** Cons: We must ensure that the implementation of each individual command are correct. Several cases to consider
+when we try to undo a command.
 // end::undoredo[]
+
+// tag::eligibility[]
+=== Eligibility Feature
+==== Implementation
+
+Eligibility was implemented as part of the overall search feature. It comprises the following two separate but related
+functionalities: searching for eligible policies given a person and searching for eligible people given a policy. These
+features can be accessed by the user from the `eligiblepolicies` and `eligiblepeople` commands respectively. The feature
+is supported by the `Person`, `Policy` and `Tag`, `StartAge` and `EndAge` classes from the model component. The
+eligibility functionality is supported by the following main operations:
+
+* `Policy#isEligible(Person person)` -- Checks if a person is eligible for the policy the method is called from
+* `Policy#isEligibleAge(int age)` -- Checks if an age is eligible for the policy the method is called from
+* `Person#getTags()` -- Returns a `Set<Tag>` of all the tags a person possesses
+* `Tag#equals(Object other)` -- Checks if a tag is equal to another object
+
+The following is a class diagram illustrating the relationship between the classes involved in determining eligibility:
+
+image::EligibilityClassDiagram.png[]
+
+Given below is an example usage scenario of `eligiblepeople` and how the eligibility mechanism works at each step. The
+eligibility mechanism for `eligiblepolicies` is similar.
+
+Step 1. The user enters the `eligiblepeople` command with a valid policy index (e.g. `eligiblepeople 1`) to display the
+list of people eligible for the policy, resulting in the `EligiblePeopleCommand#execute()` command being called.
+
+Step 2. A `PersonEligibleForPolicy` predicate is created from the specified policy and passed into the
+`model#updateFilteredPersonList` command.
+
+Step 3. The `FilteredList` object entitled 'filteredList' is then updated through testing of each person with
+`PersonEligibleForPolicyPredicate#test(Person person)`.
+
+- For each iteration, the `Policy#isEligible(Person person)` method is called, which checks if the person
+possesses all the policy's criteria in its tags (from `Person#getTags()`) and that his or her age (calculated from his
+date of birth), lies between the policy's start and end age.
+- If both of these conditions are met, the item passes the predicate and remains on the filtered list; otherwise it is
+removed.
+
+Step 4. The `EligiblePeopleCommand#execute()` method returns a `CommandResult` with the `listPeople` attribute set as true.
+
+Following is the sequence diagram that illustrates the above process:
+
+image::EligibilitySequenceDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Format to store criteria
+
+* **Alternative 1 (current choice):** Store each criteria as a `Tag` object
+** Pros: Since criteria are stored as tags, checking to see if a person's tag and a policy's criterion match is extremely
+simple, utilizing the `Tag#equals(Other object)` method. Repetition of code can therefore be avoided.
+** Cons: Future developers unaware of this design choice may be confused by the method of checking eligibility.
+
+* **Alternative 2:** Create a separate `Criteria` class for criteria
+** Pros: Separation of concerns and Single Responsibility Principle for `Tag` and `Criteria` is maintained.
+** Cons: An equivalence function will need to be written to compare `Tag` and `Criteria` objects, which is unnecessary
+code to be written and maintained. Increases coupling between `Tag` and `Criteria`, changing the format of one will
+inevitably need to be reflected in the other. Failing to do so would introduce bugs.
+// end::eligibility[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -279,13 +568,17 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* is an insurance agent
+* is always meeting new clients, so needs to manage a significant number of contacts
+* needs to manage a significant number of insurance policies
+* always offering insurance schemes to client base
+* finds it easier to understand visual data
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manages large number of contacts and insurance policies faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -297,13 +590,65 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new contact/policy |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |delete a contact/policy |remove entries that I no longer need
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |insurance agent |find a person/policy by name |locate details of persons without having to go through the entire list
+
+|`* * *` |insurance agent |predefine a custom set of policies |so I can select policies in this predefined set and make data entry faster
+
+|`* * *` |insurance agent |tag or untag clients |so I can target people belonging to different target groups
+
+|`* * *` |insurance agent |generate basic statistics and data about my sales for the month| so I can visualise and keep track of them
+
+|`* * *` |busy user |quickly check what commands  are available |so I do not have to remember all commands of the app
+
+|`* * *` |user handling many profiles and contacts |can use mass operations to change the same details across different people/policies |so I can speed up my workflow
+
+|`* * *` |insurance agent with many clients |filter and sort people according to their policies and tags |so I can get information about a particular group of people quickly
+
+|`* * *` |user who prefers typing over using a mouse |interact with all aspects of GUI using commands only |
+
+|`* * *` |insurance agent | view the key KPIs of my address book | track my performance
+
+|`* *` |user with not a strong memory |view all commands as a dropdown list |
+
+|`* *` |insurance agent prone to making mistakes during manual entry |I want to be sure that the details of buyers are valid without having to manually check every record |
+
+|`* *` |insurance agent |start-up page to reflect key KPIs (e.g: sales in current quarter) |
+
+|`* *` |insurance agent with many contacts |disallow creating duplicate profiles |so I need not worry about accidentally creating duplicate profiles
+
+|`* *` |clumsy insurance agent |retrieve deleted contacts from an archive of recently deleted contacts |
+
+|`* *` |insurance agent |want to see which policies a new contact is eligible for |so I can quickly check eligible policies while constantly adding new contacts
+
+|`* *` |clumsy user |I can undo and redo my previous commands |to amend mistakes made by entering incorrect commands
+
+|`* *` |insurance agent |I can export the data as an Excel document for easier sharing of data |so I can generate reports and and send these reports to authorities/other agents
+
+|`* *` |insurance agent |I can group families who are under the same insurance |so it is easier to sell/manage plans for these people
+
+|`* *` |insurance agent with new policies |I want to be able to filter people based on eligibility for these policies |for faster data entry
+
+|`* *` |insurance agent |I can have details auto-filled into business/government forms |so I can save time keying in details I already have
+
+|`* *` |insurance agent |receive reminders for clients whose policies are almost due for renewal |so I can contact them to renew their insurance policy
+
+|`* *` |insurance agent |receive reminders when clients pass a certain age group |so I can contact them about the new policies that they are now eligible for.
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`* *` |insurance agent who prefers visualisation | view key performance indicators as diagrams |
+
+|`*` |insurance agent with many clients |configure automatic greeting emails to policyholders |so I can maintain a good relationship with clients without manually sending individual emails
+
+|`*` |user with personal preferences |configure the CLI |so I can speed up my workflow
+
+|`*` |insurance agent with many clients |want to contact my policyholders with ease (such as email) |so I have a convenient method of communication
+
+|`*` |busy user |auto-complete my commands |so I can perform operations and find the data I need quickly
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
@@ -312,18 +657,80 @@ _{More to be added}_
 
 [appendix]
 == Use Cases
+(For all use cases below, the *System* is  `Insurelytics` and the *Actor* is the `user`, unless specified otherwise)
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+[discrete]
 
+//tag::addperson[]
+=== Use case: Add person
+Guarantees: +
+
+1. Person is added even if input fields might be invalid (see 1a).
+
+*MSS*
+
+1.  User requests to add a person.
+2.  Insurelytics adds the person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Either of the given NRIC, contact number, or email address is invalid.
++
+[none]
+** 1a1. Insurelytics adds the person into address book.
+** 1a1. Insurelytics shows a warning.
+
+* 1b. Duplicate profile is added.
++
+[none]
+** 1b1. Insurelytics shows an error message and will attempt to merge the profile.
++
+//end::addperson[]
+
+//tag::editperson[]
+[discrete]
+=== Use case: Edit person
+
+*MSS*
+
+1.  User requests to list persons.
+2.  Insurelytics shows a list of persons.
+3.  User requests to edit a specific person in the list.
+4.  Insurelytics edits the person.
+5.  The person's edited details are now visible in the address book.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+* 3b. The given edited details are invalid.
++
+[none]
+** 3*1. Insurelytics shows an error message.
++
+Use case resumes at step 2.
+//end::editperson[]
+
+//tag::deleteperson[]
 [discrete]
 === Use case: Delete person
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list persons.
+2.  Insurelytics shows a list of persons.
+3.  User requests to delete a specific person in the list.
+4.  Insurelytics deletes the person.
+5.  Person appears in the recycling bin.
 +
 Use case ends.
 
@@ -337,9 +744,118 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. Insurelytics shows an error message.
 +
 Use case resumes at step 2.
+//end::deleteperson[]
+
+//tag::assignpolicy[]
+[discrete]
+=== Use case: Assigning a policy to a person
+
+*MSS*
+
+1.  User requests to list persons.
+2.  Insurelytics shows a list of persons.
+3.  User requests to assign a policy to a specific person.
+4.  The policy gets assigned to the person.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+* 3b. The person is not eligible for the policy.
+* 3c. The policy is not present in the global list of policies.
++
+[none]
+** 3*1. Insurelytics shows an error message.
++
+Use case resumes at step 2.
+//end::assignpolicy[]
+
+//tag::undo[]
+[discrete]
+=== Use case: Undoing a data change
+
+*MSS*
+
+1.  User enters a command.
+2.  Insurelytics performs the entered command.
+3.  User requests to undo the previously entered command.
+4.  The previously entered command gets undone and the data is reverted back to the previous state.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. The previously entered command did not perform a data change.
++
+[none]
+** 3a1. Insurelytics shows an error message.
++
+Use case ends.
+//end::undo[]
+
+//tag::restore[]
+[discrete]
+=== Use case: Restoring recently deleted items
+
+*MSS*
+
+1.  User requests to list recently deleted items from bin.
+2.  Insurelytics shows a list of bin items.
+3.  User requests to restore a specific item in the list.
+4.  AddressBook restores the item to the list it belongs to.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. Insurelytics shows an error message.
++
+Use case resumes at step 2.
+//end::restore[]
+
+[discrete]
+// tag::mergingusecase[]
+=== Use case: Merging a duplicate person with different fields
+
+*MSS*
+
+1.  User requests to add a person.
+2.  Insurelytics indicates that this person already exists and prompts a merge.
+3.  User indicates whether or not to edit this profile.
+4.  A different field is displayed and asks the user whether or not to update this field.
+5.  Steps 3 and 4 repeat until decisions whether or not to merge different fields have been completed.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* *a. User indicates to stop the merging process.
++
+[none]
+** 3a1. The user inputs an invalid command.
+** 3a2. The Insurelytics indicates an error and prompts the merge again.
++
+Use case resumes at 4.
+// end::mergingusecase[]
 
 _{More to be added}_
 
@@ -349,6 +865,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should display visual representations as long as Excel is installed.
 
 _{More to be added}_
 
@@ -356,27 +873,10 @@ _{More to be added}_
 == Glossary
 
 [[mainstream-os]] Mainstream OS::
-Windows, Linux, Unix, OS-X
+Windows, Linux, Unix, macOS
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -392,7 +892,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample persons and policies. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -406,15 +906,120 @@ _{ more test cases ... }_
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all persons using the `listpeople` command. Multiple persons in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First person is deleted from the list. Details of the deleted person shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+   Expected: No person is deleted. Error details shown in the status message.
+.. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Deleting a policy
+
+. Deleting a policy while all policies are listed
+
+.. Prerequisites: List all policies using the `listpolicy` command. Multiple policies in the list.
+.. Test case: `deletepolicy 1` +
+   Expected: First person is deleted from the list. Details of the deleted person shown in the status message. If
+policy is referenced by any person, the reference will be removed as well.
+.. Test case: `deletepolicy 0` +
+   Expected: No policy is deleted. Error details shown in the status message.
+.. Other incorrect `deletepolicy` commands to try: `deletepolicy`, `deletepolicy x` (where x is larger than the list
+size) +
+   Expected: Similar to previous.
+
+=== Assigning a policy
+
+. Assigning a policy when all persons are listed
+
+.. Prerequisites:
+... Add a policy using the command: `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400`.
+... List all persons using the `listpeople` command. Multiple people in the list.
+
+.. Test case: `assignpolicy 1 pol/Test Policy` +
+   Expected: The policy `Test Policy` is assigned to the first person in the list, and the policies for the person
+             updated to show the assigned policy.
+
+.. Test case: `assignpolicy 0 pol/Test Policy` +
+   Expected: No person is deleted. Error details shown in the status message.
+
+.. Other incorrect `assignpolicy` commands to try: `assignpolicy`, `assignpolicy 1`, `assignpolicy pol/Test Policy`. Also
+entering a policy already assigned/not present in the list of policies will raise an error.
+
+=== Merging a duplicate profile
+
+. Merging a duplicate profile.
+
+.. Prerequisites: The new profile being added has to have the same NRIC as a existing profile. The details of the new profile has to be valid.
+
+.. Test case: No Different Fields between input profile and original profile
+... Command to add a person to the list: `add n/Johnathan Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male`
+... Command to create the duplicate profile with no different field: `add n/Johnathan Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male` +
+    Expected: An error message will be shown, telling the user that the profile already exists.
+
+.. Test case: Rejecting a merge
+... Command to add a person to the list: `add n/Amber Tan ic/T0123456A p/91234567 a/Ang Mo Kio Ave 6 e/amber@gmail.com dob/3.2.1990 g/Female`
+... Command to create the duplicate profile: `add n/Amber Tan ic/T0123456A p/97654321 a/Ang Mo Kio Ave 6 e/ambertan@gmail.com dob/3.2.1990 g/Female` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the phone number of the profile.
+... Type `no` +
+    Expected: Message that the profile is not updated will be displayed, followed by the details of the original person.
+
+.. Test case: 2 Different Fields between input profile and original profile
+... Command to add a person to the list (skip if person has already been added previously): `add n/Amber Tan ic/T0123456A p/91234567 a/Ang Mo Kio Ave 6 e/amber@gmail.com dob/3.2.1990 g/Female`
+... Command to create the duplicate profile: `add n/Amber Tan ic/T0123456A p/97654321 a/Ang Mo Kio Ave 6 e/ambertan@gmail.com dob/3.2.1990 g/Female` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the profile.
+... Press enter or type `yes` +
+    Expected: A prompt to edit the phone number of the profile will be shown.
+... Press enter or type `yes` +
+    Expected: Phone number will be updated and a success message for updating the phone number will be shown, followed by a prompt to edit the email address of the person.
+... Type `no' +
+    Expected: Email address will *not* be updated and a success message for updating the profile will be shown.
+
+.. Test case: Stopping a merge midway
+... Command to add a person to the list: `add n/Andrea Chan ic/T9876543A p/92345678 a/Jurong Street 6 Blk 20 #03-88 e/andrea@yahoo.com dob/20.12.2000 g/Female`
+... Command to create the duplicate profile: `add n/Bernice Chan ic/T9876543A p/92345678 a/Orchard Road e/andrea@yahoo.com dob/20.12.2000 g/Female` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the profile.
+... Press enter or type `yes` +
+    Expected: A prompt to update the name of the person will be shown.
+... Press enter or type `yes` +
+    Expected: Name will be updated and a success message for updating the name will be shown, followed by a prompt to edit the address of the person.
+... Type `stop`
+    Expected: Message that the merge has been stopped will be shown, followed by the updated details of the person.
+
+.. Test case: Invalid commands
+... Command to add a person to the list (skip if person has already been added previously): `add n/Johnathan Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male`
+... Command to invoke merge: `add n/John Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the profile.
+... Press enter or type `yes` +
+    Expected: A prompt to update the name of the person will be shown.
+... Type any other command word or random word e.g. `listpeople`, `history` +
+    Expected: Error message that the command is not recognised will be shown and the prompt will be shown again.
+
+=== Getting contact details for invalid NRICS, phone numbers and emails
+. Adding invalid contact details or NRICS
+
+.. Test case: Invalid NRIC and valid phone and email
+... `add n/Ivan Ang ic/T7134A p/91827364 a/Tampines Street 12 e/ivan@gmail.com dob/18.8.1886 g/Male` +
+    Expected: Error message indicating an invalid NRIC and returns the phone number and email address of the person. The person is not added.
+
+.. Test case: Invalid phone and valid NRIC and email
+... `add n/Ivan Ang ic/S9182734B p/9182 a/Tampines Street 12 e/ivan@gmail.com dob/18.8.1886 g/Male` +
+    Expected: Error message indicating an invalid phone number and returns the email address of the person. The person will not be added.
+
+.. Other invalid commands: any combination of invalid details (NRIC, phone number and email) +
+   Expected: similar to above. If none are valid, no contact details will be returned.
+
+=== Getting suggestion for invalid commands
+. Suggestions for invalid command words
+
+.. Prerequisites: Suggestions are turned on (can be turned on by entering `suggestion ON/`)
+.. Test case: Invalid NRIC and valid phone and email
+... `dlete 2` +
+    Expected: Message to indicate an invalid command word and automatically updates the command word to a suggested one. +
+    In this case, `delete 2`
+
+.. Other commands to try: `adpoicy n/Health Insurance d/Insurance for healthcare. This policy has been available since 2012. c/years/13 pr/$60000 sa/18 ea/75`,
+`lstpol`
 
 === Saving data
 
@@ -423,3 +1028,123 @@ _{ more test cases ... }_
 .. _{explain how to simulate a missing/corrupted file and the expected behavior}_
 
 _{ more test cases ... }_
+
+// tag::manualtestdisplay[]
+=== Displaying indicators
+
+. Indicators are up to date and shown in the correct format
+
+.. Test case: +
+    `display i/policy-popularity-breakdown f/piechart` +
+    `addpolicy n/Child Care d/Care for children c/days/20 months/11 years/5 pr/$50000 sa/0 ea/10` +
+   Expected: Popularity of child care policy should be 0. Format of indicator should be piechart.
+.. Test case: +
+    `display i/age-group-breakdown f/linechart` +
+    `add n/Norman ic/S0000001A p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Male` +
+   Expected: Number of people in the age group below 20 years old should increase by 1.
+Format of indicator should be linechart.
+.. Test case: +
+    `display i/gender-breakdown f/barchart` +
+    `add n/Sally ic/S0000002A p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.2000 g/Female` +
+   Expected: Number of females should increase by 1. Format of indicator should be barchart.
+// end::manualtestdisplay[]
+
+=== Restore deleted items
+
+.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Test case: +
+    `restore 1` +
+   Expected: First item is restored to the appropriate list. If the item is a person, it'll show up on the person
+page. If it is a policy, it'll show up on the policy page.
+.. Test case: +
+    `restore 0` +
+   Expected: No person is restored. Error details shown in the status message.
+.. Other incorrect `restore` commands to try: `restore`, `restore x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+=== Set Bin item expiry
+
+.. Test case: +
+    `binitemexpiry days/10` +
+   Expected: Status message will show that the user setting bin item expiry has changed to 10 days. If there are
+items in the bin currently, their expiry dates will be 10 days after their deletion dates.
+.. Test case: +
+    `binitemexpiry days/0` +
+   Expected: User setting is not changed. Error details shown in the status message.
+.. Other incorrect `binitemexpiry` commands to try: `binitemexpiry`, `binitemexpiry days/x` (where x is a non
+positive integer), `binitemexpiry day/30`, `binitemexpiry yrs/30` +
+   Expected: Similar to previous.
+
+=== Undo/Redo Feature
+
+. Undoing/redoing a change made to the address book
+
+.. Prerequisites:
+... List all policies using the `listpolicy` command. Multiple policies in the list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `undo` +
+   Expected: The policy `Test Policy` is removed from the policy list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `undo` +
+   `redo` +
+   Expected: The policy `Test Policy` is first removed then added back to the policy list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `undo` +
+   `undo` +
+   Expected: No change in address book performed. App shows an error message in the status.
+
+.. Incorrect `undo` commands to try: `undo 10`, `undo Test`.
+   Expected: No change in address book performed. App shows an error message in the status.
+
+=== History Feature
+
+. Viewing the history of previously entered commands.
+
+.. Prerequisites:
+... List all policies using the `listpolicy` command. Multiple policies in the list.
+
+.. Test case: +
+   `addpolicy n/Test Policy d/Test Policy c/months/10 days/23 pr/$400` +
+   `history` +
+   Expected: Show a history of the three commands entered till this point.
+
+.. Test case: +
+   `history` +
+   `listpeople` +
+   `undo` +
+   Expected: List of entered commands dynamically updated on right panel. `undo` command not added as it was not
+             executed because of no data change.
+
+.. Incorrect ways to use `history`: `history 10`, `history Test`
+   Expected: No change in address book performed. App shows an error message in the status.
+
+[NOTE]
+While entering commands, you can also navigate to previous commands using the up/down keyboard keys.
+
+// tag::manualtesteligibility[]
+=== Eligibility
+
+. People who are eligible for policies show up during `eligiblepeople`
+.. Test case: +
+    `add n/John Doe ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.1982 g/Male` +
+    `addtag [INDEX OF PERSON JUST ADDED] t/test` +
+    `addpolicy n/Motor Care d/Insurance for cars c/months/10 pr/$50000 sa/18 ea/100` +
+    `addcriteria [INDEX OF POLICY JUST ADDED] cr/test
+    `eligiblepeople [INDEX OF POLICY JUST ADDED]` +
+    Expected: Person just added should show up on the list that appears during the run of `eligiblepeople`
+
+. Policies that are eligible for people show up during `eligiblepolicies`
+.. Test case: +
+    `add n/John Doe ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.1982 g/Male` +
+    `addtag [INDEX OF PERSON JUST ADDED] t/test` +
+    `addpolicy n/Motor Care d/Insurance for cars c/months/10 pr/$50000 sa/18 ea/100` +
+    `addcriteria [INDEX OF POLICY JUST ADDED] cr/test
+    `eligiblepolicies [INDEX OF PERSON JUST ADDED]` +
+    Expected: Policy just added should show up on the list that appears during the run of `eligiblepolicies`
+// end::manualtesteligibility[]

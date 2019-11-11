@@ -1,0 +1,24 @@
+@startuml
+start
+
+scale 0.6
+
+:Prompt user for merge;
+:User executes command;
+
+repeat
+    :prompt next field merge;
+    :User executes command;
+    if () then (["yes" or ""])
+
+    :update field;
+
+    else (["no"])
+
+    :skip merge;
+
+    endif
+repeatwhile (has unprompted different fields) is ([true])
+-> [false];
+stop
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+
+abstract class UIPart {
+}
+abstract class DisplayController {
+#title: String
++DisplayController(String)
+#initTitle(String)
+#initAttributes(Logic, DisplayIndicator)
+#{abstract}castData(ObservableMap): T
+#{abstract}setChart()
+#{abstract}initIndicators(Logic)
+#{abstract}requireNonNullAttributes()
+}
+abstract class AxisController {
+#xAxis: CategoryAxis
+#yAxis: NumberAxis
+#series: XYChart.Series<String, Integer>
+-axisLabels: String
++AxisController(String)
+#castData(ObservableMap): T
+#initIndicators(Logic)
+#requireNonNullAttributes()
+#{abstract}setChart()
+}
+class PieChartController{
+-FXML: String = "PieChartView.fxml"
+-pieChartData: ObservableList<PieChart.Data>
+-piechart: PieChart
++ PieChartController(Logic, DisplayIndicator)
+#castData(ObservableMap): T
+#setChart()
+#initIndicators(Logic)
+#requireNonNullAttributes()
+}
+class BarChartController{
+-FXML: String = "BarChartView.fxml"
+-barchart: BarChart<String, Integer>
++ BarChartController(Logic, DisplayIndicator)
+# setChart()
+}
+class LineChartController{
+-FXML: String = "LineChartView.fxml"
+-linechart: LineChart<String, Integer>
++ LineChartController(Logic, DisplayIndicator)
+# setChart()
+}
+
+UIPart <|-down- DisplayController
+DisplayController <|-down- AxisController
+DisplayController <|-down- PieChartController
+AxisController <|-down- BarChartController
+AxisController <|-down- LineChartController
+
+note bottom of DisplayController: initIndicators(Logic) = \ninitPolicyPopularityBreakdown(), \ninitGenderBreakdown(), etc
+note left of AxisController: axisLabels := \nPOLICY_POPULARITY_XAXIS, \nPOLICY_POPULARITY_YAXIS, etc
+
+@enduml

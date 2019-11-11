@@ -9,6 +9,7 @@ if () then ([command commits AddressBook])
     :Purge redunant states;
     :Save AddressBook to
     addressBookStateList;
+    :Increment currentStatePointer;
 else ([else])
 endif
 stop

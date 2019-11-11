@@ -1,0 +1,38 @@
+@startuml
+
+Interface ReadOnlyAddressBook <<Interface>>
+ReadOnlyAddressBook : ~getPersonList()
+ReadOnlyAddressBook : ~getPolicyList()
+ReadOnlyAddressBook : ~getBinItemList()
+
+class AddressBook
+AddressBook .right.|> ReadOnlyAddressBook
+
+class StatefulAddressBook
+StatefulAddressBook .up[hidden].>UndoCommand
+StatefulAddressBook -right-|> AddressBook
+StatefulAddressBook -right-> "1..*" ReadOnlyAddressBook : contains a list of >
+StatefulAddressBook : -currentStatePointer
+StatefulAddressBook : -clearStatesAfterCurrentPointer()
+StatefulAddressBook : +saveAddressBookState()
+StatefulAddressBook : +canUndo()
+StatefulAddressBook : +canRedo()
+StatefulAddressBook : +undo()
+StatefulAddressBook : +redo()
+
+class ModelManager
+ModelManager --> "1" StatefulAddressBook
+ModelManager : ...()
+ModelManager : +saveAddressBookState()
+ModelManager : +canUndoAddressBook()
+ModelManager : +canRedoAddressBook()
+ModelManager : +undoAddressBook()
+ModelManager : +redoAddressBook()
+
+class UndoCommand
+UndoCommand .right.> ModelManager
+
+class RedoCommand
+RedoCommand .left.> ModelManager
+
+@enduml

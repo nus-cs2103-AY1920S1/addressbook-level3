@@ -12,6 +12,7 @@ public class Name {
     public static final String MESSAGE_CONSTRAINTS =
             "Names should only contain alphanumeric characters and spaces, and it should not be blank";
 
+    public static final String DATA_TYPE = "NAME";
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
@@ -28,7 +29,7 @@ public class Name {
     public Name(String name) {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
-        fullName = name;
+        fullName = formatName(name);
     }
 
     /**
@@ -36,6 +37,24 @@ public class Name {
      */
     public static boolean isValidName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * TODO: Better documentation
+     * Formats name.
+     * @param name name
+     * @return
+     */
+    private String formatName(String name) {
+        String[] nameSplitBySpace = name.toLowerCase().split(" ");
+        StringBuilder formattedName = new StringBuilder();
+        for (int i = 0; i < nameSplitBySpace.length; i++) {
+            String firstLetter = nameSplitBySpace[i].substring(0, 1);
+            String remainingLetters = nameSplitBySpace[i].substring(1);
+            formattedName.append(firstLetter.toUpperCase() + remainingLetters);
+            formattedName.append(" ");
+        }
+        return formattedName.toString().trim();
     }
 
 

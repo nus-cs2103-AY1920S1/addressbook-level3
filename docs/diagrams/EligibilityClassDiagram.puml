@@ -1,0 +1,43 @@
+@startuml
+
+Person - Policy
+Policy --> "*" Tag
+Person --> "*" Tag
+Person --> "1" StartAge
+Person --> "1" EndAge
+
+
+class Person {
+dateOfBirth : DateOfBirth
+tags : Set<Tag>
+policies : Set<Policy>
+.getTags() : Set<Tag>
+...()
+}
+
+class Policy {
+startAge : StartAge
+endAge : EndAge
+criteria : Set<Tag>
+isEligible(Person person) : boolean
+isEligibleAge(int age) : boolean
+...()
+}
+
+class Tag {
+tagName : String
+equals() : boolean
+...()
+}
+
+class StartAge {
+age : String
+...()
+}
+
+class EndAge {
+age : String
+...()
+}
+
+@enduml

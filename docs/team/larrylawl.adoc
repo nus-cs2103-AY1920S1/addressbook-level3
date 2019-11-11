@@ -1,0 +1,96 @@
+= Larry Law - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Insurelytics
+
+---
+ifndef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+
+ifdef::env-github[]
+image::InsurelyticsLogo.png[width="250"]
+endif::[]
+== Overview
+Insurelytics is a desktop client management application for insurance agents.
+Insurelytics facilitates the tracking of client and policies, and also generate statistical analytics to provide insights for the agent.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 85 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: Added the `display` feature.
+** *What it does:* Displays indicators of the address book in specified format.
+The agent can visualise the age group breakdown, policy popularity breakdown, and gender breakdown of his address book.
+Visualisation comes in the form of bar chart, pie chart, or line chart.
+** *Justification:* Analytics of the data in the address book yield insight for the agent. This facilitates data-driven decisions by the agent.
+** *Highlights:*
+*** The `display` mechanism follows the Model-View-Controller design pattern. It also uses an OOP solution, which features the use of abstract classes to reuse code.
+The OOP solution is illustrated in the link:../DeveloperGuide.adoc[developer’s guide].
+*** `display` also required mastery of JavaFX.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=larrylawl&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[tP Code Dashboard]]
+* *Functional Code contributed*:
+** *Model*: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/model/ModelManager.java[Model Manager]]
+*** `getPolicyPopularityBreakdown()`, `getAgeGroupBreakdown()`, `getGenderBreakdown()`
+** *View*: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/resources/view/BarChartView.fxml[Bar Chart View]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/resources/view/PieChartView.fxml[Pie Chart View]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/resources/view/LineChartView.fxml[Line Chart View]]
+** *Controller*: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/ui/DisplayController.java[Display Controller]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/ui/AxisController.java[Axis Controller]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/ui/PieChartController.java[Piechart Controller]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/ui/LineChartController.java[Linechart Controller]]
+** *Command*: [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/commands/DisplayCommand.java[Display Command]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/logic/parser/DisplayCommandParser.java[Display Command Parser]]
+* *Test Code Contributed*: [https://github.com[Display Command Test]][https://github.com[Display Command Parser Test]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/model/ModelManagerTest.java[Model Manager Test]]
+
+ifndef::env-github[]
+image::PolicyPopBreakdown.png[width="700", align="left"]
+endif::[]
+
+ifdef::env-github[]
+image::PolicyPopBreakdown.png[width="700", align="left"]
+endif::[]
+
+* *Minor enhancement*:
+*** Save policies into JSON. Policy data needs to persist across usage of application. [Pull request https://github.com/AY1920S1-CS2103-F09-4/main/pull/81[#81]]
+*** List Policy Command. [Pull Request https://github.com/AY1920S1-CS2103-F09-4/main/pull/86[#86]]
+*** Updated tests to include policies. [Pull Request https://github.com/AY1920S1-CS2103-F09-4/main/pull/91[#91]]
+*** Utility to handle DateOfBirth (such as `parseAgeGroup`) [https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/main/java/seedu/address/commons/util/TimeUtil.java[Functional Code]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/commons/util/TimeUtilTest.java[Test Code]]
+
+* *Other contributions*:
+** Tools:
+*** Set up image:https://travis-ci.org/AY1920S1-CS2103-F09-4/main.svg?branch=master["Build Status", link="https://travis-ci.org/AY1920S1-CS2103-F09-4/main"]
+https://coveralls.io/github/AY1920S1-CS2103-F09-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-F09-4/main/badge.svg?branch=master[Coverage
+Status]] image:https://api.netlify.com/api/v1/badges/069e22b0-46f6-4637-aaec-3d593e33589f/deploy-status["Netlify Status", link="https://app.netlify.com/sites/insurelytics/deploys"]
+image:https://api.codacy.com/project/badge/Grade/b4c6f87fc11549a49da8e727b71a9cc0["Codacy code quality",
+link="https://www.codacy.com/manual/larrylawl/main?utm_source=github
+.com&utm_medium=referral&utm_content=AY1920S1-CS2103-F09-4/main&utm_campaign=Badge_Grade"] and https://github.com/AY1920S1-CS2103-F09-4/main/issues/new/choose[Bug Report Template]
+*** IntelliJ to auto format based on `checkstyle.xml`.
+** Project Management:
+*** Managed releases from v1.1 to v1.3 on GitHub
+** Documentation:
+*** Resolved part of the documentation bugs from PE dry run (Pull request https://github.com/AY1920S1-CS2103-F09-4/main/pull/187[#187])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=display]
+
+include::../UserGuide.adoc[tag=addperson]
+
+include::../UserGuide.adoc[tag=addpolicy]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=display]
+
+include::../DeveloperGuide.adoc[tag=addperson]
+
+
+include::../DeveloperGuide.adoc[tag=manualtestdisplay]
+
+
+

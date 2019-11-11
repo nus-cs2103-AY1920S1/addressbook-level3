@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UserSettings;
 
 /**
  * Represents User's preferences.
@@ -14,6 +15,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs implements ReadOnlyUserPrefs {
 
     private GuiSettings guiSettings = new GuiSettings();
+    private UserSettings userSettings = new UserSettings();
     private Path addressBookFilePath = Paths.get("data" , "addressbook.json");
 
     /**
@@ -35,6 +37,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void resetData(ReadOnlyUserPrefs newUserPrefs) {
         requireNonNull(newUserPrefs);
         setGuiSettings(newUserPrefs.getGuiSettings());
+        setUserSettings(newUserPrefs.getUserSettings());
         setAddressBookFilePath(newUserPrefs.getAddressBookFilePath());
     }
 
@@ -45,6 +48,15 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         this.guiSettings = guiSettings;
+    }
+
+    public UserSettings getUserSettings() {
+        return this.userSettings;
+    }
+
+    public void setUserSettings(UserSettings userSettings) {
+        requireNonNull(userSettings);
+        this.userSettings = userSettings;
     }
 
     public Path getAddressBookFilePath() {
@@ -80,6 +92,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings);
+        sb.append("User Settings : " + userSettings);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         return sb.toString();
     }
