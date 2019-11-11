@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= MODULO - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,30 +12,35 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-T16-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team T16-2`      Since: `September 2019`      Licence: `MIT`
 
+// tag::intro[]
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Welcome to the User Guide for Modulo!
+
+Modulo is an all-in-one student life application which is mainly targeted to NUS students. The app features four different functions which consists of weekly organizer, financial record system, quiz revision, and grades tracker.
+
+Those who prefer to work with a Command Line Interface (CLI) might find using Modulo to be more straightforward than the usual Graphical User Interface (GUI) applications. The application has the visual benefits of a GUI but stands strongly rooted in command line usage. Modulo does not require an internet connection to run so there’s no worry when the school wifi goes MIA yet again. The only time you need to be connected is at the start, when downloading the application. Look to <<Quick Start>> to find out how to get started on Modulo!
+// end::intro[]
 
 == Quick Start
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
+.  Make sure that `Java 11` or above is installed in your computer. Otherwise, you can download Java 11 https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html[here].
+*  Enter the follow command in Command Prompt for Windows or Terminal on Mac to check your current version of Java: `java --version`
+.  Download the latest `modulo.jar` here.
+.  Copy the `.jar` file to a folder you wish to set as your working directory for the application.
+.  Double-click the file to start Modulo. If the GUI does not appear in a few seconds, please try running `java -jar modulo.jar` in your command prompt or terminal.
 +
 image::Ui.png[width="790"]
 +
-.  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
+.  Type the command in the command box and press kbd:[Enter] to execute it.
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* `add <title>CS2109 Assignment <day>tuesday <desc>Submit code through LumiNUS <deadline>21-10-2019 <time>13:00`: adds a to-do task to _Modulo_
+* `add CS2103 1920S1`: adds module `CS2103` to academic year and semester `1920S1`
+* `add <qns> What can one catch that is not thrown? <type> normal <ans> A cold <cat> CS2131`: adds a new quiz question to category `CS2131`
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -46,132 +51,542 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add <n>NAME`, `NAME` is a parameter which can be used as `add <n>John Doe`.
+* Items in square brackets are optional e.g `<n>NAME [<t>TAG]` can be used as `<n>John Doe <t>friend` or as `<n>John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[<t>TAG]...` can be used as `{nbsp}` (i.e. 0 times), `<t>friend`, `<t>friend <t>family` etc.
+* Parameters can be in any order e.g. if the command specifies `<n>NAME <p>PHONE_NUMBER`, `<p>PHONE_NUMBER <n>NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Common commands
 
+==== Switch to another feature’s tab
+There are 4 features in _Modulo_: Calendar, Cap (i.e. Modules), Quiz and Finance. +
+
+Format: `switch FEATURE_NAME`
+
+Examples: `switch quiz`, `switch calandar`, `switch cap`, `switch finance`.
+
+==== Exiting the program
+
+Exits the program.
+Format: `exit`
+
+==== To seek help
+
+Brings up a link that leads to the user guide online. Thus, internet connection is required.
 Format: `help`
 
-=== Adding a person: `add`
+//tag::calendar[]
+=== Calendar
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Calendar displays a weekly list of tasks and modules which the user has added. To enter the Calendar section
+please enter the command: `switch calendar`.
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Add a new ToDo Task: `add`
+Adds a new `ToDoTask` to the calendar. This `ToDoTask` only exist in the week that is currently displayed.
+All fields except for `TAG` are compulsory fields. You could not add a new task if in the current week there already
+exists another task with the same title, day, and deadline.
 
-Examples:
+The fields of `ToDoTask` consist of: +
+- `TaskTitle` The name of the task. Prefix: `<title>` +
+- `TaskDay` The time when the user plan to do the task. Prefix: `<day>`. +
+- `TaskDescription` Additional description of the `Task`. Prefix: `<desc>`. +
+- `TaskDeadline` The date when the task is due in dd-mm-yyyy format. Only valid dates are accepted
+(e.g. the date 31-02-2019 does not exist and hence is not accepted). Prefix: `<deadline>`. +
+- `TaskTime` Where time when the task occurs, in HH:mm 24-hour format from 00:00 to 23:59. Prefix: `<time>`. +
+- `TAG` Tag that can be used to sort the tasks. Prefix: `<tag>`.
+More than one `TAG` can be added to each task, e.g. `<tag> High-Priority <tag>Math`
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+Format: `add <title>TITLE <day>DAY <desc>DESCRIPTION <deadline>DEADLINE <time>TIME [<tag>TAG]` +
+e.g. `add <title>CS2109 Assignment <day>tuesday <desc>Submit code through LumiNUS <deadline>21-10-2019
+<time>13:00 <tag>IMPORTANT`
 
-=== Listing all persons : `list`
+NOTE: If the calendar list gets too long, you can scroll individual days to see the tasks that are not currently on screen.
 
-Shows a list of all persons in the address book. +
+==== Add a new Module Task: `addmod`
+Adds a new `ModuleTask` to the calendar. `ModuleTask` are the same as `ToDoTask` except it doesn't need a
+deadline and it would be automatically added to each week. `ModuleTask` is not affected by the command `clearweek`.
+
+Format: `addmod <title>TITLE <day>DAY <desc>DESCRIPTION <time>TIME [<tag>TAG]` +
+e.g. `addmod <title>CS2109 Lecture <day>tuesday <desc>Submit code through LumiNUS <time>13:00`
+
+==== Edit existing task: `edit`
+Edit one or multiple fields of an existing task. `INDEX` should be a positive integer and a task with the number `INDEX`
+should already exist on the current week's calendar. Editing the deadline is only available for `ToDoTask`.
+
+Format: `edit  INDEX <title>TITLE <day>DAY <desc>DESCRIPTION <deadline>DEADLINE <time>TIME <tag>TAG` +
+e.g. `edit 1 <title>CS2108 Assignment <day>friday`
+
+==== Delete existing task: `delete`
+Delete an existing task. `INDEX` should be a positive integer and a task with the number `INDEX`
+should already exist on the current week's calendar.
+
+Format: `delete INDEX` +
+e.g.   `delete 1`
+
+==== Listing all tasks : `list`
+
+Shows a list of all task in the calendar. +
 Format: `list`
 
-=== Editing a person : `edit`
+==== Sort tasks: `sort`
+Sort the tasks according to the specified `SORT_TYPE`.
+There are three `SORT_TYPE`: +
+- `sort time` will sort the tasks according to the their time in ascending order +
+- `sort deadline` will sort the tasks according to their deadline in ascending order +
+- `sort title` will sort the tasks according to their title in ascending alphabetical order +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+When the application is launched for the first time, the tasks are sorted according to `time`. Subsequently, it will
+use the sorting type that is last used in the previous session.
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Format: `sort  SORT_TYPE` +
+e.g. `sort deadline`
 
-Examples:
+==== Change week: `go`
+Go to the specified week `WEEK_NUMBER`. The `WEEK_NUMBER` must between 0 to 14 inclusive. The default week is week 0 and
+would be shown every time the application is launched.
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+Format: `go WEEK_NUMBER`
+e.g. `go 2`
 
-=== Locating persons by name: `find`
+==== Clear week data: `clearweek`
+Delete all `ToDoTask` of the current week.
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `clearweek`
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+==== Clear all data: `clear`
+Delete all all `ToDoTask` and `ModuleTask` from all weeks.
 
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+//end::calendar[]
 
-Exits the program. +
-Format: `exit`
+//tag::grades1[]
+
+=== Grades Tracker
+
+To enter the Module section please enter the command: `switch cap`
+
+.Quick Reference sheet
+[width="90%" cols="^3,^8, 10" options="header"]
+|=======
+|Available Commands | Prefixes / Input  required | Use
+| add | <m> MODULE_CODE, <t>TITLE, <s> SEMESTER, <c> CREDIT <g> GRADE | Adds a new module.
+| delete | MODULE_CODE | Deletes a specific module.
+| list | | List all the modules, often required after the find command.
+| find | KEYWORD | Find a specific keyword within module code and/or module description.
+| sort | | Display the modules in order of their semesters and academic years taken.
+| clear | | Clear all existing modules.
+|=======
+
+==== Manually add module to record : `add`
+The user can add new modules into the grade tracker.
+
+The fields of a module consist of: +
+- `MODULE_CODE` The module code of the module. e.g. CS2103 Prefix: `<m>` +
+- `TITLE` The title of the module. E.g. Software Engineering Prefix: `<t>`. +
+- `SEMESTER` Semester includes 2 components that are seperated by a 'S' character. i.e. the academic year and semester period. E.g. 1920S1 Prefix: `<s>`. +
+- `CREDIT` Modular credit for the module. Module credit only accepts 2 to 23 credits. E.g. 4 Prefix: `<c>`. +
+- `GRADE` Grades for the attained for the module. Only permitted http://www.nus.edu.sg/nusbulletin/yong-siew-toh-conservatory-of-music/undergraduate-education/degree-requirements/grading-system-and-regulations/[grades] are accepted. E.g. A Prefix: `<g>`.
+
+.Input constraints for Add command
+[width="80%" cols="^3, ^10" options="header"]
+|=======
+| Field | Validity
+| ModuleCode | Module code should contain a set of 4 integers and no excessive characters.
+| Semester | Semester should contain valid academic years and semester period. The academic year stated can only be +/-5 years than the current year. While the semester period allows input from 1 to 4.
+| Title | The title of the module is left for you to define. It is valid as long as it does not have special characters.
+| Credit | As stated by NUS, the range of modular credit ranges from 2 to 23.
+| Grade | Only NUS approved grades are allowed i.e. A+, A, A-, B+, B, B-, C+, C, D+, D and F
+|=======
+
+
+.Semester Period Classifications
+[width="60%" options="header" cols="^1,^4"]
+|=======
+|Input| Semester Period
+| 1 | Semester 1
+| 2 | Semester 1
+| 3 | Special Term 1
+| 4 | Special Term 2
+|=======
+
+Format: `add MODULE_CODE MODULE_TITLE MODULE_YEAR_AND_SEMESTER MODULAR_CREDIT GRADE`
+E.g. `add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A`, `add <m>ACC1002 <t>Financial Accounting <s>1920S1 <c>4 <g>A`
+
+.List of sample commands
+[width="80%" cols="^3, 10" options="header"]
+|=======
+| Module | Command
+| CS2103 | add <m>CS2103 <t>Software Engineering <s>1920S1 <c>4 <g>A
+| EC3343 | add <m>CS3343 <t>International Finance I <s>2021S1 <c>4 <g>A
+| CS3202 | add <m>CS3202 <t>Software Engineering Project II <s>2021S2 <c>4 <g>B+
+| CS3211 | add <m>CS3211 <t>Parallel and Concurrent Programming <s>2021S2 <c>4 <g>A-
+| CS3218 | add <m>CS3218 <t>Multimodal Processing in Mobile Platforms <s>2122S1 <c>4 <g>B
+|=======
+
+==== Delete module from record : `delete`
+Delete a specific module from the list of modules by specifying the module code. The command is very strict on matching the module code given to the existing modules in modulo.
+
+Format: `delete MODULE CODE`
+e.g. `delete CS2103`
+
+==== Listing all tasks : `list`
+
+Shows the list of all modules in the Grades Tracker. +
+Format: `list`
+
+==== Sort all tasks in chronological order : `sort`
+
+Sorts the list of modules in chronological order, the modules taken earlier to the modules taken later. The determination is based on the academic year then the semesters. +
+Format: `sort`
+
+==== Locating module by module code or title : `find`
+Finds the module with the matching module code or module description.
+
+The enhanced search is case insensitive and matches any keyword in the module code or description e.g. `cs1010s` matches `CS1010S`
+
+The search method adopts the inclusive OR search method that returns any modules with the keyword.
+e.g. searching for `prog metho` will return `Programming Methodology I` and `Programming Methodology II`.
+
+Format: `find KEYWORD`
+e.g. `find CS1010S`, `find Programming`
+
+==== Clear all modules the record : `clear`
+Deletes all modules in the record. The user can avoid clearing modules one-by-one when large number of modules have to be cleared.
+When the single keyword `clear` is entered, Modulo would recognise it as a command to clear all the modules. The action is irreversible!
+
+Format: `clear`
+e.g. `clear`
+
+==== Categorisation [Coming in V2.0]
+Categorisation of the modules in their respective semesters and predictive text.
+
+//end::grades1[]
+
+// tag::quizsection1[]
+=== Quiz
+
+To enter the Quiz section please enter the command: `switch quiz` +
+
+*Note on pre-populated data:* The pre-populated data are used to help you to get the picture of how
+quiz show the data. You can use the command `clear` or go to `3.4.12` section to clear the given data.
+
+*Note on UI:* Modulo quiz uses dark theme to prevent users from straining their eyes by staring at
+their computer window too long. You can adjust the size of the split pane by sliding the window separator
+between the two windows to fully see the whole question. Go to `3.4.6` section to fully see the
+question properly.
+
+==== Add the details of the quiz question:
+Users can add new quiz questions with the details in it. The details of the question should
+be added with the following requirements.
+
+*The keyword instructions of the question include:* +
+- `<qns>` Indicate that the next several phrases will be the name of the question. +
+- `<ans>` Indicate that the next several phrases will be the answer to the question. +
+- `<cat>` Indicate that the next several phrases will be the category of the question. +
+- `<type>` Indicate that the next several phrases will be the priority/importance level of the question. +
+- `<tag>` Indicate that the next several phrases will be the customized tag of the question.
+
+*The details instructions after the keyword of the question:* +
+- `<qns>` are required. The character limit is 200 and minimum 3 letters. +
+- `<ans>` are required. The character limit is 125. +
+- `<cat>` are required. The character limit is 50. +
+- `<type>` are required. The format after this command should only be: `high`, `normal`, `low`. +
+- `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
+
+Note: Two questions are the same if they have the same *<qns>*, *<ans>* and *<cat>* +
+Format: `add *<qns>* _your_question_ *<ans>* _your_answer_ *<cat>* _your_category_ *<type>* _your_priority_
+*<tag>* _your_tag_`
+
+*Example 1*: +
+*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Tomorrow_ *<cat>* _CS2131_ *<type>* _high_ *<tag>* _lecture_ *<tag>* _tutorial_
+
+*Example 2*: +
+*add <qns>* _What can one catch that is not thrown?_ *<type>* _normal_ *<ans>* _A cold_ *<cat>* CS2131
+
+- *Remark (please avoid this):* +
+*add <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
+{empty} +
+
+==== Delete question from record:
+Delete a specific quiz question from the group questions.
+
+Format: `delete *[NUMBER]*` +
+Usage: *[NUMBER]* is the index/row from that category that you want to delete. +
+
+Example 1: +
+*delete* 1 +
+{empty} +
+
+==== Edit details of a question : `edit`
+Specify which question you want to edit and modify it from the question list.
+
+*The details/instructions of the new questions include:* +
+- `<qns>` Indicate that the next several phrases will be the name of the question. +
+- `<ans>` Indicate that the next several phrases will be the answer to the question. +
+- `<cat>` Indicate that the next several phrases will be the category of the question. +
+- `<type>` Indicate that the next several phrases will be the priority/importance level of the question. +
+- `<tag>` Indicate that the next several phrases will be the customized tag of the question.
+
+*Note that at least one of the following must be modified and replaced:* +
+- `<qns>` character limit is 200. No minimum letter. +
+- `<ans>` character limit is 125. No minimum letter. +
+- `<cat>` character limit is 50. +
+- `<type>` format after this command should only be: `high`, `normal`, `low`. +
+- `<tag>` are optional. To add numerous tags, please prepend <tag> keyword to differentiate one tag from another. +
+
+Format: `*edit [NUMBER] <qns>* _your_new_question_ *<ans>* _your_new_answer_ *<cat>* _your_new_category_
+*<type>* _your_new_priority_ *<tag>* _your_tag_` +
+
+Usage: *[NUMBER]* is the index/row from that category that you want to edit. +
+
+Example 1: +
+*edit 1 <qns>* _How many mammals are there in the universe?_ *<type>* low +
+
+- Remark (Please avoid this): +
+*edit 1 <qns>* _What is <qns>always comi<qns>ng, but never arrives?_ *<ans>* _Tom<ans>orrow_ +
+{empty} +
+
+==== List all the questions
+To list all the questions.
+
+Format: `list` +
+{empty} +
+
+==== Find the quiz questions with keyword:
+Find the quiz questions from the list of questions.
+
+Format: `find [INSTRUCTION] <key>[KEYWORDS]` +
+Note: The [KEYWORDS] is the list of keywords that I want to search.
+
+*The expected details/instructions for [INSTRUCTION] keyword are:*  +
+- `question` - Indicate that I want to include the name of the question in my search. +
+- `answer` - Indicate that I want to include the answer to the question in my search. +
+- `category` - Indicate that I want to include the category of the question in my search. +
+- `type` - Indicate that I want to include the priority/importance level of the question in my search. +
+- `tag` - Indicate that I want to include the customized tag of the question in my search.
+
+*Note:* +
+• To search for everything, leave the [INSTRUCTION] field blank. +
+• To include multiple instructions to be searchable or to search for multiple keywords, you can split it with a comma `,` +
+• To enable friendlier syntax [KEYWORDS] when searching your desired questions, add `-i` after your find command.
+
+Example 1: *find* <key> CS2131, lecture +
+Explanation: search for _CS2131_ and _lecture_ keyword from the whole question
+
+Example 2: *find* category, answer <key> Tomorrow +
+Explanation: search from the category and answer portion of each question that matches keyword _Tomorrow_
+
+Example 3: *find -i* answer <key> Tomrrow +
+Explanation: search from the answer portion of each question that matches keyword that is similar to _Tomrrow_ +
+{empty} +
+
+==== Details of a selected question:
+Show the details of a selected question. This details will show the whole questions that is truncated from the preview window
+and reveal the comment/explanation from the selected question.
+
+Format: `detail [INDEX]` +
+Usage: *[INDEX]* is the index/row from the question that you want to see. +
+Example: detail 1 +
+{empty} +
+
+==== Add Comment of a question:
+Users can add a comment/explanation of a particular questions.
+
+Format: `comment [INDEX] <val> _your_comment_` +
+Usage: *[INDEX]* is the index/row from the question that you want to comment. +
+Example: comment 1 <val> The explanation is in pg 194 textbook. +
+{empty} +
+
+==== Hide answer of a question:
+Users can hide all question answers when they want to revise or for other purposes. It also
+provide the user the hint of the answer. By default the answer is shown.
+
+Format: `showAnswer [yes/no]` +
+Example: showAnswer no +
+{empty} +
+
+==== Undo:
+Undo some of the previous action. +
+Action that is undoable include: `add`, `edit`, `delete`, `clear`, `comment` +
+Format: `undo` +
+{empty} +
+
+==== Redo:
+Redo some of the previous action. +
+Action that is redo-able include: `add`, `edit`, `delete`, `clear`, `comment` +
+Format: `redo` +
+{empty} +
+
+==== Clear all data:
+To remove all of the current data in quiz book. +
+Format: `clear` +
+{empty} +
+
+// end::quizsection1[]
+
+==== Help:
+Format : `help` +
+{empty} +
+
+==== Exit application:
+To exit application (Modulo). +
+Format: `exit` +
+{empty} +
+
+
+// tag::finance1[]
+=== Finances
+
+To enter the Finances section, please enter the command: `switch finance`
+
+All amounts are taken to be in SGD and recorded as if with dollar signs and numerals. For example, 110 cents should be written as `1.10` or `1.1`.
+
+If dates are to be specified, only dates of format `DD-MM-YYYY` will be recognised. If dates are not specified, the default day will be set to the current day when the entry was entered. Dates should not be in the future.
+
+Note that category names should be without whitespaces (e.g. `catFood`, *not* `cat food`).
+
+==== Add an entry of expenditure: `spend`
+
+Record down an entry of spending with relevant information associated with it. If place of spending is not specified, it will default to `-`.
+
+Format: `*spend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD [<place>PLACE] [<day>TRANSACTION_DATE] [<cat>CATEGORY]...` +
+e.g. `spend <amt>2.80 <day>15-10-2019 <item>Yong Tau Foo <met>Cash <place>Frontier`
+// end::finance1[]
+
+==== Add an entry of income: `income`
+
+Record down an entry of incoming money. Source of income should be specified.
+
+Format: `*income* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD <from>SOURCE_OF_INCOME [<day>TRANSACTION_DATE] [<cat>CATEGORY]...` +
+e.g. `income <amt>300 <day>09-08-2019 <item>GST Voucher <met>Bank credit <from>Govt`
+
+==== Add an entry of borrowed money: `borrow`
+
+Record down an entry of money borrowed from someone but not yet repaid.
+
+Format: `*borrow* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD <from>PERSON_BORROWED_FROM [<day>DATE_BORROWED] [<cat>CATEGORY]...` +
+
+e.g. `borrow <amt>2 <day>09-08-2019 <item>Dilys egg tarts <met>Cash <from>Classmate`
+
+==== Add an entry of lent money: `lend`
+
+Record down an entry of money lent to someone but not yet repaid.
+
+Format: `*lend* <amt>AMOUNT <item>DESCRIPTION <met>TRANSACTION_METHOD <to>PERSON_LENT_TO [<day>DATE_LENT] [<cat>CATEGORY]...` +
+e.g. `lend <amt>1 <day>08-08-2019 <item>HL Choco milk <met>Cash <to>Brother`
+
+==== Mark a Borrow or Lend entry as repaid: `repaid`
+
+Indicate that borrowed money or money lent has been returned. Note that index of log entry in list has to be of type 'borrow' or 'lend' to be successfully marked as repaid, all other log entries (i.e. 'spend', 'income') will be considered invalid. +
+Once the log entry has been marked as repaid, it cannot be undone and it is no longer editable.
+
+The recorded day of when the entry was repaid is the day the entry was marked as so.
+
+Format: `*repaid* INDEX` +
+e.g. `repaid 4`
+
+==== Clone a log entry: `clone`
+
+Duplicate a log entry, with the same information except for the date of transaction. The date of transaction will be the day the entry was cloned.
+
+Format: `*clone* INDEX` +
+e.g. `clone 3`
+
+==== List out finances: `list`
+
+List out all entries in recorded down. All entries will be ordered chronologically, with the latest entry at the top (i.e. indexed 1).
+
+Format: `*list*`
+
+// tag::finance2[]
+==== Edit an entry: `edit`
+
+Edit an entry previously entered by index of entry in listed listed out by `list`. Index provided should be valid, within range of the list and positive. There is not need to re-enter all details of the log entry to edit it - just specify the field to be edited. Any irrelevant fields to the log entry (e.g. 'Borrow' entries do not have a `<place>` field) will be ignored. +
+
+Note that the newly-entered information will overwrite the details at the attribute. For example, if there were categories `food` and `hobby` linked to the entry at index 5 of the list, command `edit 5 <cat>pet` will delete the previous two categories and replace them with a single category `pet.` +
+
+Repaid 'Borrow' and 'Lend' entries cannot be edited.
+
+Format: `*edit* INDEX [<amt>AMOUNT] [<day>DAY] [<item>DESCRIPTION] [<met>TRANSACTION_METHOD] [<cat>CATEGORY ]` +
+* Additional field available for 'Spend' entries: `[<place>PLACE]` +
+* Additional field available for 'Income' and 'Borrow' entries: `[<from>SOURCE/PERSON_BORROWED_FROM]` +
+* Additonal field available for 'Lend' entries: `[<to>PERSON_LENT_TO]` +
+e.g. `edit 1 <day>12-02-2019 <cat>Gift`
+
+==== Delete entry/entries: `delete`
+
+Delete an entry by its index in the list.
+
+Format: `*delete* INDEX` +
+e.g. `delete 5`
+
+==== Search and filter list of log entries: `find`
+
+Search through the list of log entries by keyword. This will search through every entry's item description, place (for 'Spend' entries), transaction method, source of income (for 'Income' entries), person borrowed from (for 'Borrow' entries) and person lent to (for 'Lend' entries). Note that only item description will allow for partial word matching (i.e. `cook` in `cookie` is valid), the rest will search for a full word match. This search is case-insensitive.
+
+Filter the list of log entries by their log entry type (i.e. spend, income, borrow, lend).
+
+At least one field has to be specified.
+
+To return to the default full list of log entries, use the `list` command.
+
+Format: `*find* [<type> spend/income/borrow/lend] [<keyword> KEYWORD [MORE_KEYWORDS]...] [<cat> CATEGORY_NAME [MORE_CATEGORY_NAMES]...]` +
+E.g. `find <type>spend`
+
+==== Show statistical summaries of finances: `stats`
+
+Shows an overview of the state of expenses and incomes. Log entries can be grouped by (`<gb>`) a specified attribute with either the frequency or total amount of each group summarised (`<sum>`) in a graphical display. These attributes include log entries of the same month, type, transaction method, category or place.
+
+Both `<gb>` and `<sum>` have to be present, with combination of `ATTRIBUTE` and `STAT` specified.
+
+Format: `*stats* <gb>ATTRIBUTE <sum>STAT` +
+* Possible `ATTRIBUTE` values for `<gb>` are: `month`, `entrytype`, `met`, `cat`, `place` (only shows `Spend` entries) +
+* Possible `STAT` values for `<sum>` are: `freq` and `amt` +
+E.g. `stats <gb> met <sum> freq`
+
+==== Add a budget: `budget`
+
+Specify a budget. Budgets will only take into account the amount spent (i.e. `Spend` entries) and are generally characterised by a starting date, an ending date and a limit (maximum threshold). When total amount associated with spending crosses this limit, the budget is considered to be exceeded.
+
+Budgets for a specific place, category or transaction method can also be set (optional). Only at most one field out of these 3 optional fields - `<met>`, `<cat>`, `<place>` - can be included to make the budget more specific. If a spend entry matches the specified field and also falls within the budget duration, it will be included in the budget tabulation. If none of these fields are indicated, the budget will sum up the amounts of *all* `Spend` entries which fall between the budget duration.
+
+In essence, there are 3 optional fields (only at most one can be used at any time):
+
+1. `[<met>TRANSACTION_METHOD]`
+2. `[<cat>CATEGORY_NAME]`
+3. `[<place>PLACE_OF_SPENDING]`
+
+Note that these fields are case-sensitive (e.g. `Spend` entries with category `food` will not match if budget field is specified as `<cat> FOOD`).
+
+There are 3 ways to specify the duration (start, end) of a budget:
+
+1. <start>START_DATE <end>END_DATE
+2. <start>START_DATE <dur>DURATION_IN_DAYS
+3. <month>MM-YYYY
+
+Example Format 1: `*budget* <amt>AMOUNT <start>START_DATE <end>END_DATE [<met>TRANSACTION_METHOD]` +
+Example Format 2: `*budget* <amt>AMOUNT <start>START_DATE <dur>DURATION_IN_DAYS [<cat>CATEGORY_NAME]` +
+Example Format 3: `*budget* <amt>AMOUNT <month>MM-YYYY [<place>PLACE_OF_SPENDING]` +
+e.g. `budget <amt> 300 <month>11-2019 <met>cash`
+// end::finance2[]
+
+==== List out all budgets: `listb`
+
+List out all budgets which have been recorded down.
+
+Format: `*listb*`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+_Modulo_ data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
-
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous _Modulo_ folder.
 
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+We have enjoyed budilding Modulo and we hope you have enjoyed Modulo like we do! We look forward to seeing you again in V2.0! May  you get good grades!

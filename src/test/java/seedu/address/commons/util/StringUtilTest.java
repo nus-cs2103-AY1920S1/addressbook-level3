@@ -65,11 +65,11 @@ public class StringUtilTest {
             -> StringUtil.containsWordIgnoreCase("typical sentence", "  "));
     }
 
-    @Test
-    public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
-            -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB"));
-    }
+    //    @Test
+    //    public void containsWordIgnoreCase_multipleWords_throwsIllegalArgumentException() {
+    //        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
+    //            -> StringUtil.containsWordIgnoreCase("typical sentence", "aaa BBB"));
+    //    }
 
     @Test
     public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {

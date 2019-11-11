@@ -1,0 +1,17 @@
+{
+  "questions" : [ {
+    "name" : "In which year did NUS founded?",
+    "comment" : null,
+    "answer" : "1905",
+    "category" : "history",
+    "type" : "low",
+    "tagged" : [ "general", "trivia" ]
+  }, {
+    "name" : "In which year did NUS founded?",
+    "comment" : null,
+    "answer" : "1905",
+    "category" : "history",
+    "type" : "low",
+    "tagged" : [ "lecture", "trivia" ]
+  } ]
+}

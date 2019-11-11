@@ -1,0 +1,69 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":SortCommandParser" as SortCommandParser LOGIC_COLOR
+participant "d:SortCommand" as SortCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("sort title")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("sort title.")
+activate AddressBookParser
+
+create SortCommandParser
+AddressBookParser -> SortCommandParser
+activate SortCommandParser
+
+SortCommandParser --> AddressBookParser
+deactivate SortCommandParser
+
+AddressBookParser -> SortCommandParser : parse("title")
+activate SortCommandParser
+
+create SortCommand
+SortCommandParser -> SortCommand :
+activate SortCommand
+
+SortCommand --> SortCommandParser : d
+deactivate SortCommand
+
+SortCommandParser --> AddressBookParser : d
+deactivate SortCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+SortCommandParser -[hidden]-> AddressBookParser
+destroy SortCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+
+LogicManager -> SortCommand : execute()
+activate SortCommand
+
+SortCommand -> Model : switchSortType("title")
+activate Model
+
+Model --> SortCommand
+deactivate Model
+
+create CommandResult
+SortCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> SortCommand
+deactivate CommandResult
+
+SortCommand --> LogicManager : result
+deactivate SortCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

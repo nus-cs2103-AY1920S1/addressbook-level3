@@ -9,10 +9,21 @@ src/main/resources/docs/
 /*.iml
 
 # Storage/log files
-/data/
+/data/addressbookquiz.json
+/data/calendardata.json
+/data/capmodulelog.json
+/data/financelog.json
+
 /config.json
 /preferences.json
+/capmodulelog.json
+/financepreferences.json
+/preferencesFinance.json
+/cappreferences.json
+/calendarpreferences.json
+/preferencesQuiz.json
 /*.log.*
+/.settings/
 
 # Test sandbox files
 src/test/data/sandbox/

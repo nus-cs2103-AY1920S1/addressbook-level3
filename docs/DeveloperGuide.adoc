@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= MODULO - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -12,9 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-T16-2/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103-T16-2`      Since: `September 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -25,16 +25,11 @@ Refer to the guide <<SettingUp#, here>>.
 [[Design-Architecture]]
 === Architecture
 
-.Architecture Diagram
+.Architecture Diagram for a feature
 image::ArchitectureDiagram.png[]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
-[TIP]
-The `.puml` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder.
-Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and edit diagrams.
-
-`Main` has two classes called link:{repoURL}/src/main/java/seedu/address/Main.java[`Main`] and link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+`Main` has two classes called link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/Main.java[`Main`] and link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
 
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
@@ -44,7 +39,7 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App covers the four features in _Modulo_ (Calendar, Cap, Quiz, Finance). All the features have the very similar structure, each consisting of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -58,15 +53,22 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
+.Class Diagram of the Logic Component for the feature Cap
 image::LogicClassDiagram.png[]
+
+// tag::rationale[]
+[discrete]
+==== Rationale for having multiple `UI`, `Logic`, `Model`, `Storage` classes in _Modulo_
+
+The features in _Modulo_ are quite distinct and having minimal overlaps, each feature has its own data file to read and modify. The logic to execute commands are also handled differently in each feature. As such, our decision to have 4 components for each feature was to reduce coupling and allow flexibility in our implementations. This means that the same `add` command is now able to trigger a different sequence of actions depending on the feature the user is currently in. This architecture style allows each feature to be developed independently, free from the constraints set by other features. Each time a user switches to another feature, the `Ui`, `Logic`, `Model` and `Storage` classes will be replaced by that of the new feature.
+// end::rationale[]
 
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete CS2103` when in the feature _Module_.
 
-.Component interactions for `delete 1` command
+.Component interactions for ``delete CS2103`` command in _Cap_ feature
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -74,14 +76,14 @@ The sections below give more details of each component.
 [[Design-Ui]]
 === UI component
 
-.Structure of the UI Component
+.Structure of the UI Component for each feature
 image::UiClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/calendar/Ui.java[`Ui.java` (calendar)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/cap/Ui.java[`Ui.java` (cap)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/quiz/Ui.java[`Ui.java` (quiz)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/finance/Ui.java[`Ui.java` (finance)]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `XYZListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class. Each feature in _Modulo_ (represented generically in the class diagram with `XYZ`) has their own UI component, largely with the same structure but mainly differing in classes `XYZPanel` and `XYZCard` to better present the information associated with the feature.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
 The `UI` component,
 
@@ -92,155 +94,73 @@ The `UI` component,
 === Logic component
 
 [[fig-LogicClassDiagram]]
-.Structure of the Logic Component
+.Structure of the Logic Component for the feature _Cap_
 image::LogicClassDiagram.png[]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/calendar/Logic.java[`Logic.java` (calendar)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/cap/Logic.java[`Logic.java` (cap)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/quiz/Logic.java[`Logic.java` (quiz)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/logic/finance/Logic.java[`Logic.java` (finance)]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+The example below is in the context of the feature _Cap_ but all four  features in _Modulo_ have the same structure for their Logic components.
+
+.  `Logic` uses the `CapLogParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call, in the context of another feature of the APP, _Calendar_.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `sort title` Command for the feature Calendar
+image::CalendarSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+NOTE: The lifeline for `SortCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
 
-.Structure of the Model Component
-image::ModelClassDiagram.png[]
+.Structure of the Model Component for the feature Cap
+image::CapModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+.Structure of the Model Component for the feature Finance
+image::FinanceModelClassDiagram.png[]
+
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/calendar/CalendarModel.java[`CalendarModel.java` (calendar)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/cap/Model.java[`Model.java` (cap)],
+link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/quiz/Model.java[`Model.java` (quiz)], link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/model/finance/Model.java[`Model.java` (finance)]
+
+Due to the different nature and behaviour of each feature in _Modulo_ dealing with different kinds of information (e.g. tasks, modules, quiz questions, finance logs etc), `Model` components between the feature can look very different. However, they do share some similar structures as mentioned below.
 
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the data for the feature (e.g. Calendar Data, Cap Module Log, Quiz book, Finance Log).
+* exposes an unmodifiable `ObservableList<{Object used in Feature}>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
 
-.Structure of the Storage Component
-image::StorageClassDiagram.png[]
+.Structure of the Storage Component for the feature _Finance_
+image::FinanceStorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/calendar/Storage.java[`Storage.java` (calendar)], https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/cap/Storage.java[`Storage.java` (cap)], https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/quiz/Storage.java[`Storage.java` (quiz)], https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/storage/finance/Storage.java[`Storage.java` (finance)]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the data used in each feature in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+[[Implementation-Configuration]]
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -257,10 +177,374 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
-[[Implementation-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
+
+// tag::calendar[]
+=== Calendar
+
+==== Calendar week change
+===== Implementation
+.Activity diagram on calendar week change
+image::CalendarActivityDiagram.png[]
+Calendar week change is done by removing all tasks from the calendar and adding all the tasks that either have the new
+corresponding week number or is an instance of `ModuleTask`.
+
+===== Design Considerations
+
+====== Aspect: How `go WEEK_NUMBER` executes
+
+* **Alternative 1 (current choice):** Save all data in a single json file.
+** Pros: No need to switch storage file.
+** Cons: Unnecessary reading of data from other weeks. Need to add filter to get only the relevant data.
+* **Alternative 2:** Read and load for each week from separate json storage file.
+** Pros: Easy to clear data from a certain week.
+** Cons: Need to switch storage file each time the user go to the next/previous week.
+
+==== Persistent `ModuleTask`
+===== Implementation
+.Structure of the Model Component for the feature Calendar
+image::CalendarModelClassDiagram.png[]
+
+The abstract class `Task` has two subclasses: `ToDoTask` and `ModuleTask`. `ToDoTask` only exists in its corresponding
+week while `ModuleTask` is persistent. When a `ModuleTask` is added to any arbitrary week, it would be automatically
+added to all of the other weeks and when a certain week is cleared using the `clearweek` command, it would not affect
+the `ModuleTask`. Hence, `ModuleTask` can only be deleted by using the command `clear` or deleting each `ModuleTask`
+manually using `delete`.
+
+===== Design consideration
+* **Alternative 1 (current choice): ** Create separate classes for `ToDoTask` and `ModuleTask` that both inherits from
+the abstract class `Task`. User use different command `add` and `addmod` to create the corresponding subclass.
+** Pros: Code looks cleaner. Easier to implement a different UI for each subclass.
+** Cons: More code.
+* **Alternative 2: ** Use a non-abstract class `Task` for both ToDos and Modules and add a boolean field `isPersistent`.
+** Pros: No need to add new classes.
+** Cons: User needs to input an extra field `<persist> [TRUE/FALSE]`. It is more difficult to differentiate the
+type of `Task` when reading the code.
+
+==== Sorting
+===== Implementation
+
+`Task` can be sorted according to `TaskTitle`, `TaskDeadline`, or `TaskTime`. Each type of sorting has its own
+comparator implemented in a method that would return a sorted `FilteredList<Task>`.
+
+===== Design consideration
+* **Alternative 1 (current choice): **Use an external comparator.
+** Pros: Easy to switch between different sort type.
+** Cons: Need to call the sort method each time the calendar is updated.
+* **Alternative 2: **Set the `Task` class to implement the `Comparable` interface.
+** Pros: Need to switch the `compareTo()` method of each `Task` each time `sort` is called.
+** Cons: New/edited task would be automatically placed at the correct order.
+// end::calendar[]
+
+// tag::createquestion1[]
+=== Quiz feature
+==== Create question feature
+===== Implementation
+
+To use this feature, the user will need to switch to the quiz mode and add the question they want with
+several requirements on the syntax stated in the UserGuide. Modulo quiz uses dark theme
+because we don’t want users to strain their eyes from staring at their computer window too long.
+
+Below are the quiz model class diagram:
+
+image::ModelQuizClassDiagram.png[]
+
+In quiz feature, a `Question` has 6 attributes namely: `Name`, `Answer`, `Category`, `Type`, `Comment`, `Tag`, with
+the first three attributes differentiate one `Question` from the others. When the users first time launch the app or there are no data yet,
+Modulo will automatically populate the four questions from `SampleDataUtil`. The users are able to use the `clear` command
+if they want to delete the given data entirely. UI will then pull and updates the data from the `ModelQuizManager` which
+represents the in-memory model of the `AddressQuizBook` data, and show them to the users.
+
+Given below is an example usage scenario on how to add a question properly and the mechanism that behaves at each step.
+
+*Step 1.* The user launches the application and switch to the *quiz* mode by executing `switch quiz`.
+
+*Step 2.* The user executes `*add <qns>* _What is always coming, but never arrives?_ *<ans>* _Today_ *<cat>* _CS2131_ *<type>* _high_`
+command to add a question with the question name: _What is always coming, but never arrives?_ and answer: _Tomorrow_, category: CS2131, type: _high_ in the quiz book.
+The `add` command calls `Model#addQuestion()`, causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and shown in the UI.
+
+*Step 3.* If the user realized that they have typed the wrong answer for a particular question, then the user can executes
+`*edit 1 <ans>* _Tomorrow_` command to replace the previous answer with the new answer with the given index prepend behind. The `edit` command calls `Model#setQuestion()`,
+causing the modified state of the quiz book, after the command executes, to be saved in the `quizBookStateList` and updated in the UI.
+
+*Step 4.* _[Addtional]_ The user can execute `*comment 1 <val>* _The explanation is in pg 194 textbook_` if he/she now decide to add a comment or explanation of a quiz question at index 1.
+The `comment` command calls `Model#setQuestion()` to parse in an additional parameter of comment into the entity of the question. It will then be saved in the
+`quizBookStateList` and shown in the UI.
+// end::createquestion1[]
+
+[NOTE]
+Users can also utilize the undo/redo command when they realize that they have execute a command that they shouldn't do (Will be explained in [3.4.2]).
+
+// tag::createquestion2[]
+The following activity diagram summarizes the basic question creation process:
+
+image::QuizCreationActivityDiagram.png[]
+
+===== Design Considerations
+
+====== Aspect: How to add question
+
+* **Alternative 1 (current choice):** Users add question to the last of the list.
+** Pros: Easy to implement and fast (Insertion O(1)).
+** Cons: User may not be able to position the question from the list of questions.
+* **Alternative 2:** Users insert the question to the desired position.
+** Pros: User can order the list as they desired and remember things better.
+** Cons: Not as fast as the insertion at the back of the list from alternative 1. +
+{empty} +
+
+// end::createquestion2[]
+// tag::undoredo1[]
+==== Undo/Redo feature
+===== Implementation
+
+The undo/redo mechanism is facilitated by `VersionedQuizBook`.
+It extends `QuizBook` with an undo/redo history, stored internally as an `quizBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
+
+* `VersionedQuizBook#commit()` -- Saves the current quiz book state in its history.
+* `VersionedQuizBook#undo()` -- Restores the previous quiz book state from its history.
+* `VersionedQuizBook#redo()` -- Restores a previously undone quiz book state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitQuizBook()`, `Model#undoQuizBook()` and `Model#redoQuizBook()` respectively.
+
+Below is an example usage scenario on how the undo/redo mechanism behaves at each step.
+
+*Step 1.* The user launches the application for the first time. The `VersionedQuizBook` will be initialized with the initial quiz book state, and the `currentStatePointer` pointing to that single quiz book state.
+
+image::UndoRedoState0.png[]
+
+*Step 2.* The user executes `delete 5` command to delete the 5th question in the quiz book. The `delete` command calls `Model#commitQuizBook()`, causing the modified state of the quiz book after the `delete 5` command executes to be saved in the `quizBookStateList`, and the `currentStatePointer` is shifted to the newly inserted quiz book state.
+
+image::UndoRedoState1.png[]
+
+*Step 3.* The user executes `comment 1 <val> NewComment` to add a new question. The `add` command also calls `Model#commitQuizBook()`, causing another modified quiz book state to be saved into the `quizBookStateList`.
+
+image::UndoRedoState2.png[]
+
+// end::undoredo1[]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitQuizBook()`, so the quiz book state will not be saved into the `quizBookStateList`.
+
+// tag::undoredo2[]
+*Step 4.* The user now decides that adding the question was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoQuizBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous quiz book state, and restores the quiz book to that state.
+
+image::UndoRedoState3.png[]
+
+[NOTE]
+If the `currentStatePointer` is at index 0, pointing to the initial quiz book state, then there are no previous quiz book states to restore. The `undo` command uses `Model#canUndoQuizBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+image::UndoSequenceDiagram.png[]
+//end::undoredo2[]
+
+NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+// tag::undoredo3[]
+The `redo` command does the opposite -- it calls `Model#redoQuizBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the quiz book to that state.
+// end::undoredo3[]
+
+[NOTE]
+If the `currentStatePointer` is at index `quizBookStateList.size() - 1`, pointing to the latest quiz book state, then there are no undone quiz book states to restore. The `redo` command uses `Model#canRedoQuizBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+*Step 5.* The user then decides to execute the command `list`. Commands that do not modify the quiz book, such as `list`, will usually not call `Model#commitQuizBook()`, `Model#undoQuizBook()` or `Model#redoQuizBook()`. Thus, the `quizBookStateList` remains unchanged.
+
+image::UndoRedoState4.png[]
+
+*Step 6.* The user executes `clear`, which calls `Model#commitQuizBook()`. Since the `currentStatePointer` is not pointing at the end of the `quizBookStateList`, all quiz book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+
+image::UndoRedoState5.png[]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::CommitActivityDiagram.png[]
+
+// tag::undoredo4[]
+
+===== Design Considerations
+
+====== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire quiz book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the question being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+// end::undoredo4[]
+
+====== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of quiz book states.
+** Pros: Easy for new developers to understand.
+** Cons: May suffer from performance issues on the memory (When a new command is executed, we must remember to update the list from `VersionedQuizBook`).
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+
+// tag::budget[]
+=== Budgets in finances
+
+==== Implementation
+
+A budget is an estimate or threshold of spending set for a specified period of time. In _Modulo_, a budget can be set to only include spendings of a particular characteristic (i.e. transaction method, place of spending or category). For example, budgets of spendings at a particular place can be set. _Modulo_ will only take into account spendings recorded to be associated with this place and falling within the specified period of time.
+
+To compute the current total amount spent so far and see whether this total amount still falls within the budget, amounts associated with entries are summed together.
+
+These entries have to fulfill the following requirements set by the budget to be considered in the tabulation:
+
+* Has to be a log entry of type `Spend`
+* Transaction date has to fall within budget period (i.e. between the start and end dates)
+* (If addition field of transaction method, place of spending or categorys specified) Has to either have the same transaction method, place of spending or be tagged with the same category
+
+There are some classes in the `Model` component necessary for the computation of budgets:
+
+* `Budget` - Contains the basic information about a budget (amount, start and end dates, additional characteristic `Spend` entry has to fall under (if any))
+* `BudgetData` - The `Budget` object associated to it, the limit set by the budget and the current total amount tabulated from the `Spend` entries matching the budget requirements
+
+In `ModelFinanceManager` which implements the `Model` interface, `Model#getFilteredBudgetDataList()` will return the list of `BudgetData` objects mapped from the list of `Budget` objects stored in the _Modulo_. These `BudgetData` are instantiated using information from the list of entries stored in _Modulo_. They filter out entries which do not match the requirements of the budget they are associated with, and then add up all the amounts of the entries to obtain the current total amount spent.
+
+If the total amount of spending is close to exceeding the budget (more than or equals to 80% of budget spent), an orange label at the menu bar will be shown to notify the user that a budget is near to reaching its limit.
+
+And if the total amount of spending has exceeding the limit set by the budget, the menu bar will have a red label indicating that the budget has been exceeded. The amount of money spend has gone over the estimate set and is now in deficit.
+
+Given below is an example usage scenario for what happens when a budget is set, and how _Modulo_ behaves at each step.
+
+This assumes that the user has not set any budget in the application before but has some entries recorded in the finance log. These entries are:
+
+1. (Income) Amount: 800, Item: Internship Pay, From: ABCompany,  Transaction Method: Bank Transfer, Day:  7-11-2019
+2. (Spend) Amount: 50, Item: EzLink TopUp, Transaction Method: NETS, Place: Caldecott MRT, Day:  4-11-2019
+3. (Spend) Amount: 107.70, Item: Bicycle, Transaction Method: Cash, Day:  5-11-2019, Place: Toa Payoh Lor 4, Categories: bike
+4. (Spend) Amount: 1.10, Item: KopiO, Transaction Method: Cash, Day:  2-11-2019, Categories: drink, kopitiam
+
+*Step 1.* The user launches the application and switch to the *finance* mode by executing `switch finance`.
+
+*Step 2.* The user wants to set a budget of 300 dollars for November for spendings done using cash. He executes the `budget <amt> 300 <month> 11-2019 <met> Cash` command to set this budget. The `budget` command calls `Model#addBudget(b)`, where upon the finance log will add `Budget` object `b` to `budgetList`, the list of budgets.
+
+The interactions inside the Logic Component for `budget <amt> 300 <month> 11-2019 <met> cash` Command are shown in the sequence diagram below.
+
+image::BudgetLogicSequenceDiagram.png[]
+
+[NOTE]
+The lifelines for `BudgetCommandParser` and `BudgetCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifelines reaches the end of diagram.
+
+The interactions in the Model Component for the same command are shown in the sequence diagram below.
+
+image::BudgetModelSequenceDiagram.png[]
+
+The budget is added to the list of budgets (this being the first budget in the list). The list of budgets will update with the status of each budget.
+
+Modulo will change the view after a `budget` command to show the list of budgets stored in Modulo.
+
+[NOTE]
+If the exact same budget already exists in the budget list, it will not call `Model#addBudget(b)`, and this budget will not be added to the list of budgets. Modulo will show an error message that this budget already exists.
+
+*Step 3.* The user now decides to add another entry of spending. This time the user has recently spent 400 dollars on a Nintendo Switch and paid for it using cash. He enters this record with the `spend <amt> 400 <item> Nintendo Switch <met> Cash <day> 7-11-2019` command. This entry is added to the list of entries.
+
+Since this entry is paid using cash, transaction date was in November 2019 it is included in the tabulation of the budget. It causes the total amount spent to exceed the budget of 300 dollars, and a red label in the menu bar appears to notify the user that a budget has exceeded.
+
+*Step 4.* The user views the list of budgets (in this example, there is only one budget) using the `listb` command.
+
+The window changes to a view of the budget, with information about its status shown.
+
+These information include:
+
+* Type of budget (for all `Spend` entries, for entries done using a specific transaction method, conducted at a specific place or tagged with a specific category)
+* Start and end date of budget
+* Progress bar of how much money has been spent (for entries fulfilling budget requirements)
+* Whether the budget is active (current date falls between start and end dates) or not (end date of budget has passed or start date has yet to come)
+* Total amount spend so far
+* Limit set by budget
+* Amount of money left to limit or how much has the budget been exceeded by
+
+The flow on how what happens when the user enters a new entry is shown in the activity diagram below.
+
+image::AddNewEntryActivityDiagram.png[width=60%]
+
+==== Design Considerations
+
+===== Aspect: Data structure to support tabulation of spendings
+
+* **Alternative 1 (current choice):** Save just the basic details related to the budget - amount (limit to amount to be spent), start and end date, optional requirements `Spend` entries should fufill (transaction method, place of spending or category).
+** Pros: Less information to store, flexible to changes such as updates to entries during edits (e.g. changes in amounts etc). Budgets can be retrospective (even if dates have past, budgets can still be set to see spending was kept within limits).
+** Cons: Additional step of filtering to obtain entries matching budget requirements before tabulating the total amount - may have performance issues when number of entries is large in terms of time complexity.
+* **Alternative 2:** Budget stores the same information as above, and also the list of entries that fulfill the budget requirements.
+** Pros: Removes the need for filtering entries before tabulation, simply calculate total amount from list of entries stored under the budget.
+** Cons: Will use more memory (now storing the list of entries). Difficult when an entry is delete or modified, have to delete and modify entry accordingly in the list of entries stored under the budget.
+// end::budget[]
+
+//tag::grades tracker[]
+=== Grades Tracker
+
+==== Implementation
+
+The following activity diagram displays the sequence of events after the user inputs to add a new module.
+
+.Class Diagram of Module
+image::CapActivityDiagram.png[]
+
+For the user to add new modules to the Modulo Grades Tracker, the `Module` has to be designed to satisfy the requirements of a module and the needs of the user.
+
+* Each `Module` consists of `ModuleCode`, `Title`, `Semester`, `Credit`, `Grade`.
+* All fields in `Module` are unique.
+* Each class has their respective getter methods and validity-check method.
+
+.Class Diagram of Module
+image::ModuleClassDiagram.png[]
+
+==== Implementation of Module commands
+
+Module class supports multiple commands. They include:
+
+* `AddCommand` - Adds a module to the Grades Tracker.
+* `DeleteCommand` - Removes a module from the Grades Tracker by specifying the module code.
+* `FindCommand` - Find and returns any modules with `ModuleCode` and/or `Title` that matches the keyword specified by the user.
+* `SortCommand` - Sorts the modules in chronological order based on the `Semester` the module was taken.
+* `ListCommand` - List all the modules. Often required after the find command.
+
+.Sequence Diagram of DeleteCommand
+image::DeleteSequenceDiagram.png[]
+
+[NOTE]
+The lifelines for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifelines reaches the end of diagram.
+
+After a successful execution, the module with the specified module code will be deleted from Modulo Grades Tracker.
+
+==== Design Consideration
+
+All fields should not be have special characters or left blank as the details are important to the implementation and the user experience.
+
+The class diagram below gives an overview of the Module class.
+
+
+The search for the matching module code is implemented with a linear search. With 70 modules in Modulo, the linear search is still responsive and there were not observable lags.
+
+*Alternative*
+
+An alternative would be to use a search algorithm that comprises a Hash set and linear search.
+
+.Considerations when designing the Module class
+[width="80%" cols="^3, ^10" options="header"]
+|=======
+| Field | Validity
+| ModuleCode | Module code should contain a set of 4 integers and no excessive characters. The student is provided with the liberty to input any module code in consideration that new modules and faculties may be created in the future.
+| Semester | Semester should contain valid academic years and semester period. The academic year stated can only be +/-5 years than the current year, assuming that students are able to graduate in at most five years. While the semester period allows input from 1 to 4.
+| Title | The title of the module is left for the user to define. This is to take into account that there might be new modules released in teh future hence the user needs to have the ability to customise the title. It is valid as long as it does not have special characters.
+| Credit | As stated by NUS, the range of modular credit ranges from 2 to 23.
+| Grade | Only NUS approved grades are allowed i.e. A+, A, A-, B+, B, B-, C+, C, D+, D and F
+|=======
+//end::GradesTracker[]
+
+== UI
+
+The User Interface features a sleak and modern interface. The primary concept of the user interface includes simplicity, rounded corners, shadow-like back panes and trendy fonts. We have greatly enhanced the UI from the original addressbook. Borders are removed to ensure a smooth flow of content, delivering a "less is more" modern concept to enhance the user experience.
+
+The quiz feature remains to have a dark theme as the dark theme doesn't harm the eyes of the user. It uses a more neutral tone to improve the productivity of the user.
+
 
 == Documentation
 
@@ -279,13 +563,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* students at the National University of Singapore
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage modules, tasks, learning (through quizzes) and finances in a single application and with more flexibility than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,62 +579,229 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |busy and motivated university student |add my modules by specifying a specific module code or title |track the modules the student am taking this semester
 
-|`* * *` |user |add a new person |
+|`* * *` |busy student |view my schedule for today |
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |busy student |know the deadlines for my tasks |plan my schedule
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |new user |view the user guide easily |spend less time figuring out how to use the app
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |organised student |schedule the times when I plan to do an assignment |know my timetable for the day
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |lazy user |add a tag for each task |search each task more quickly by using the tag
+
+|`* * *` |competitive student |add some questions and answers that I have learnt today |read again and attempt them before exam
+
+|`* * *` |student with basic finance literacy | keep a record of my finances | understand my spending habits
+
+|`* * *` | cash-strapped student | set a budget for the month | limit my spending
+
+|`* * *` |busy and motivated university student |add my modules by specifying a specific module code or title |track the grades of the modules that the user has taken
+
+|`* * *` |student concerned with his/her CAP |find out the current CAP and total MCs taken |display CAP and total MCs with degree classification
+
+|`* *` |person who often make mistakes |undo my previous actions |
+
+|`* *` |Busy and organised student |view the modules that have taken in chronological order |display the modules in chronological order of their semesters taken
+
+|`* *` |Curious and analytical student |view the the overall grades make up |display grades in an analytical format to view the different portion of grades that make up the CAP
+
+|`* *` |busy student| refer and use the predictive text |input a command with great ease and less time
+
+|`* *` |forgetful user |receive reminders on assignments and work near the deadline |remember to complete and submit it on time
+
+|`* *` |curious student |calculate and predict how much effort I need to put for a particular module based on the score I have gained so far |
+
+|`* *` |lazy and forgetful student |keep track of lectures that I have missed |
+
+|`* *` |student with too many assignments | automatically get my assignment sorted according to its grade percentage |
+
+|`* *` |kiasu student |make a checklist of materials that I have to learn for my exams |
+
+|`*` |student interested in numbers |view an overall summary of my academic journey so far |reflect on it
+
+|`*` |clumsy typer |have a program that still understand my commands even with minor spelling errors |not have to enter the command again
+
+|`*` |calendar app user |sync my timetable to my own personal calendar |refer to my schedule
+
+|`*` |student who often lends money to people | keep track of the people who have not returned my money | chase after them for their unpaid debt or refuse to lend to people who consistently borrow but don't return
+
+|`*` |student who prefers graphical representation to numbers | see plots and charts summarising my finances over time and in different categories | understand the overall status of my finances at a glance and see the trends and changes in my spending habit
+
 |=======================================================================
 
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+//(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a module task to calendar
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User request to add a module task
+2.  Modulo checks the validity of the request
+3.  Modulo adds the module task to the user's calendar
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+
+* 2a. The given time is invalid.
++
+[none]
+** 2a1. Modulo shows an error message.
+
+// tag::financeMSS[]
+[discrete]
+=== Use case: Record down an entry of borrowing to finance log
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User enters details of money borrowed.
+2.  User requests to add a Borrow entry.
+3.  Modulo adds Borrow entry and displays it in list of log entries.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+*Extensions*
 
-_{More to be added}_
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[discrete]
+=== Use case: Set a budget
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User enters details of budget.
+2.  User requests to add a budget to finance log.
+3.  Modulo adds the budget and displays it in list of budgets.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[none]
+* 2b. Modulo detects that budget already exists in finance log (with all details exactly the same).
+[none]
+** 2b1. Modulo shows an error message.
+* Use case ends.
+
+[discrete]
+=== Use case: Record down an entry of borrowing to finance log
+Preconditions: User has switched to the _finance_ feature, a budget exists in finance log
+
+*MSS*
+
+1.  User enters details of money spend.
+2.  User requests to add a Spend entry.
+3.  Modulo adds Spend entry and displays it in list of log entries.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Modulo detects an error in command/details entered.
+[none]
+** 2a1. Modulo shows an error message.
+** 2a2. Modulo requests for command to be entered in the correct format.
+** 2a3. User enters new line of command with new details.
+* Steps 2a1-2a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 3.
+
+[none]
+* 3a. Spend entry is included under budget and budget is exceeded (i.e. limit set by budget is crossed).
+[none]
+** 3a1. Modulo notifies that budget has been exceeded.
+** 3a2. Exceeded budget is marked as so.
+* Use case ends.
+
+[none]
+* 3b. Spend entry is included under budget and budget is close to being exceeded.
+[none]
+** 3b1. Modulo notifies that budget is close to exceeding.
+* Use case ends.
+
+[discrete]
+=== Use case: Mark an entry of money lent as repaid
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User requests to mark Lend entry as repaid.
+2.  Modulo marks the entry as repaid and record downs the date of repayment.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. User requests to mark Lend entry as repaid with date of repayment specified.
+* Use case resumes from step 2.
+[none]
+* 2a. Modulo checks that entry was already repaid and notifies user of it.
+* Use case ends.
+
+[discrete]
+=== Use case: View statistical summary of finance log
+Preconditions: User has switched to the _finance_ feature
+
+*MSS*
+
+1.  User requests to view statistical summary with type of summary specified.
+2.  Modulo shows graphs summarising the flow of money in the finance log.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Modulo detects an error in command/details entered.
+[none]
+** 1a1. Modulo shows an error message.
+** 1a2. Modulo requests for command to be entered in the correct format.
+** 1a3. User enters new line of command with new details.
+* Steps 1a1-1a3 are repeated until the command and details entered are in the correct format.
+* Use case resumes from step 2.
+
+[none]
+* 2a. Modulo detects that no entries have been entered in the finance log.
+[none]
+** 1a1. Modulo shows an empty page.
+* Use case ends.
+// end::financeMSS[]
+
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should minimize the amount of typing
+.  Should work on various desktop size
 
 [appendix]
 == Glossary
@@ -358,68 +809,47 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+//[[private-contact-detail]] Private contact detail::
+//A contact detail that is not meant to be shared with others
 
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+//[appendix]
+//== Product Survey
+//
+//*Product Name*
+//
+//Author: ...
+//
+//Pros:
+//
+//* ...
+//* ...
+//
+//Cons:
+//
+//* ...
+//* ...
 
 [appendix]
 == Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+//[NOTE]
+//These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
-. Initial launch
+. First launch
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an initial setup page.
+.. User types in `exit` +
+   Expected: Closes the app and GUI
 
-. Saving window preferences
+. Subsequent launches
+.. Double-click the jar file +
+   Expected: Shows the GUI with the timetable displayed.
+.. User types in `exit` +
+   Expected: Closes the app and GUI
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
-
-=== Deleting a person
-
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_

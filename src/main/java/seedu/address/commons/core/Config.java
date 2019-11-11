@@ -14,7 +14,10 @@ public class Config {
 
     // Config values customizable through config file
     private Level logLevel = Level.INFO;
-    private Path userPrefsFilePath = Paths.get("preferences.json");
+    private Path quizUserPrefsFilePath = Paths.get("preferenceQuiz.json");
+    private Path calendarUserPrefsFilePath = Paths.get("calendarpreferences.json");
+    private Path financeUserPrefsFilePath = Paths.get("financepreferences.json");
+    private Path capUserPrefsFilePath = Paths.get("capmodulelog.json");
 
     public Level getLogLevel() {
         return logLevel;
@@ -24,12 +27,24 @@ public class Config {
         this.logLevel = logLevel;
     }
 
-    public Path getUserPrefsFilePath() {
-        return userPrefsFilePath;
+    public Path getQuizUserPrefsFilePath() {
+        return quizUserPrefsFilePath;
     }
 
-    public void setUserPrefsFilePath(Path userPrefsFilePath) {
-        this.userPrefsFilePath = userPrefsFilePath;
+    public Path getCalendarUserPrefsFilePath() {
+        return calendarUserPrefsFilePath;
+    }
+
+    public Path getFinanceUserPrefsFilePath() {
+        return financeUserPrefsFilePath;
+    }
+
+    public void setCalendarUserPrefsFilePath(Path calendarUserPrefsFilePath) {
+        this.calendarUserPrefsFilePath = calendarUserPrefsFilePath;
+    }
+
+    public Path getCapUserPrefsFilePath() {
+        return capUserPrefsFilePath;
     }
 
     @Override
@@ -44,19 +59,19 @@ public class Config {
         Config o = (Config) other;
 
         return Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath);
+                && Objects.equals(calendarUserPrefsFilePath, o.calendarUserPrefsFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(logLevel, userPrefsFilePath);
+        return Objects.hash(logLevel, calendarUserPrefsFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Current log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
+        sb.append("\nPreference file Location : " + calendarUserPrefsFilePath);
         return sb.toString();
     }
 

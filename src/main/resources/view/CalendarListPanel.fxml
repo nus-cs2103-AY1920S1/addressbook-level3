@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@LightTheme.css">
+ <HBox VBox.vgrow="ALWAYS">
+      <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+         <children>
+            <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Monday" VBox.vgrow="ALWAYS">
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </Label>
+        <ListView fx:id="mondayListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+         <children>
+             <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Tuesday" VBox.vgrow="ALWAYS">
+                 <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="tuesdayListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+         <children>
+             <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Wednesday" VBox.vgrow="ALWAYS">
+                 <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="wednesdayListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1695.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+         <children>
+             <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Thursday" VBox.vgrow="ALWAYS">
+                 <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="thursdayListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1795.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+         <children>
+             <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Friday" VBox.vgrow="ALWAYS">
+                 <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="fridayListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1895.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+         <children>
+             <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Saturday" VBox.vgrow="ALWAYS">
+                 <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="saturdayListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+      <VBox alignment="TOP_CENTER" layoutX="1995.0" layoutY="10.0" HBox.hgrow="ALWAYS">
+         <children>
+             <Label contentDisplay="CENTER" styleClass="calendar-label-header"  text="Sunday" VBox.vgrow="ALWAYS">
+                 <padding>
+                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                 </padding>
+             </Label>
+        <ListView fx:id="sundayListView" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
+ </HBox>
+</VBox>

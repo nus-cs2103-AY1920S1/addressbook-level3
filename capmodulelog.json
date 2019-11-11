@@ -1,0 +1,8 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 1250.0,
+    "windowHeight" : 800.0,
+    "windowCoordinates" : null
+  },
+  "capLogFilePath" : "data\\capmodulelog.json"
+}

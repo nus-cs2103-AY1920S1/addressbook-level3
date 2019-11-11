@@ -6,6 +6,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.Set;
+
+import seedu.address.model.quiz.tag.Tag;
 
 /**
  * Helper functions for handling strings.
@@ -28,14 +31,123 @@ public class StringUtil {
         requireNonNull(word);
 
         String preppedWord = word.trim();
+        String[] wordsInPreppedSentence = getPreppedSentence(sentence, preppedWord);
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(preppedWord::equalsIgnoreCase);
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains {@code str}.
+     *   Ignores case, as long as word in sentence matches partially the given string.
+     *   <br>examples:<pre>
+     *       containsPartialWordIgnoreCase("ABc def", "abc") == true
+     *       containsPartialWordIgnoreCase("ABc def", "DEF") == true
+     *       containsPartialWordIgnoreCase("ABc def", "AB") == true
+     *       </pre>
+     * @param sentence cannot be null
+     * @param str cannot be null, cannot be empty, must be a single str
+     */
+    public static boolean containsPartialWordIgnoreCase(String sentence, String str) {
+        requireNonNull(sentence);
+        requireNonNull(str);
+
+        String preppedWord = str.trim().toLowerCase();
+        String[] wordsInPreppedSentence = getPreppedSentence(sentence, preppedWord);
+
+        for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+            wordsInPreppedSentence[i] = wordsInPreppedSentence[i].toLowerCase();
+        }
+
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(word -> word.contains(preppedWord));
+    }
+
+    private static String[] getPreppedSentence(String sentence, String preppedWord) {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single str");
+
+        String preppedSentence = sentence;
+        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        return wordsInPreppedSentence;
+    }
+
+    /**
+     * Returns true if the {@code sentence} contains the {@code word}.
+     *   Ignores case, but a full word match is required.
+     *   <br>examples:<pre>
+     *       containsWordIgnoreCase("ABc def", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "DEF") == true
+     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       </pre>
+     * @param sentence cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     * @param allowTypo whether the user may type a typo word.
+     */
+    public static boolean containsQuizWordMatch(String sentence, String word, boolean allowTypo) {
+        requireNonNull(sentence);
+        requireNonNull(word);
+
+        String preppedWord = word.trim();
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
 
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
-        return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
+        for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+            wordsInPreppedSentence[i] = wordsInPreppedSentence[i].replaceAll("[^A-Za-z0-9]", "");
+        }
+
+        if (Arrays.stream(wordsInPreppedSentence).anyMatch(preppedWord::equalsIgnoreCase)) {
+            return true;
+        } else if (allowTypo) {
+            for (int i = 0; i < wordsInPreppedSentence.length; i++) {
+                if (wordsInPreppedSentence[i].contains(preppedWord)) {
+                    return true;
+                }
+            }
+
+            String firstLetter = Character.toString(preppedWord.charAt(0)).toLowerCase();
+            String lastLetter = Character.toString(preppedWord.charAt(preppedWord.length() - 1)).toLowerCase();
+
+            if (Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(text -> text.toLowerCase().startsWith(firstLetter)
+                        && text.toLowerCase().endsWith(lastLetter))) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true if the {@code tagList} contains the {@code word}.
+     *   Ignores case, but a full word match is required.
+     *   <br>examples:<pre>
+     *       containsWordIgnoreCase("ABc def", "abc") == true
+     *       containsWordIgnoreCase("ABc def", "DEF") == true
+     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
+     *       </pre>
+     * @param tagList cannot be null
+     * @param word cannot be null, cannot be empty, must be a single word
+     * @param allowTypo whether the user may type a typo word.
+     */
+    public static boolean containsTagQuizIgnoreCase(Set<Tag> tagList, String word, boolean allowTypo) {
+        for (Tag myTag : tagList) {
+            String preppedWord = word.trim();
+            String comparedWord = myTag.tagName.toLowerCase();
+
+            if (comparedWord.equals(preppedWord.toLowerCase())) {
+                return true;
+            } else if (allowTypo) {
+                String firstLetter = Character.toString(preppedWord.charAt(0)).toLowerCase();
+                String lastLetter = Character.toString(preppedWord.charAt(preppedWord.length() - 1)).toLowerCase();
+                if (comparedWord.startsWith(firstLetter) && comparedWord.endsWith(lastLetter)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

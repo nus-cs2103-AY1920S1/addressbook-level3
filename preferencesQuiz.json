@@ -1,0 +1,11 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 1250.4000244140625,
+    "windowHeight" : 750.4000244140625,
+    "windowCoordinates" : {
+      "x" : 184,
+      "y" : 43
+    }
+  },
+  "addressBookFilePath" : "data\\addressbookquiz.json"
+}

@@ -1,0 +1,39 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface Storage <<Interface>>
+Interface UserPrefsStorage <<Interface>>
+Interface FinanceStorage <<Interface>>
+
+Abstract Class JsonAdaptedLogEntry
+
+Class FinanceStorageManager
+Class JsonAdaptedBorrowLogEntry
+Class JsonAdaptedCategory
+Class JsonAdaptedIncomeLogEntry
+Class JsonAdaptedLendLogEntry
+Class JsonAdaptedSpendLogEntry
+Class JsonFinanceStorage
+Class JsonFinanceUserPrefsStorage
+Class JsonSerializableFinanceLog
+Class JsonAdaptedBudget
+
+FinanceStorageManager .left.|> Storage
+FinanceStorageManager o-right-> UserPrefsStorage
+FinanceStorageManager o--> FinanceStorage
+
+JsonFinanceUserPrefsStorage .left.|> UserPrefsStorage
+JsonFinanceStorage .left.|> FinanceStorage
+JsonFinanceStorage .down.> JsonSerializableFinanceLog
+JsonSerializableFinanceLog .right.> JsonAdaptedLogEntry
+JsonSerializableFinanceLog .left.> JsonAdaptedBudget
+JsonAdaptedLogEntry .right.> JsonAdaptedCategory
+JsonAdaptedBorrowLogEntry -up-|> JsonAdaptedLogEntry
+JsonAdaptedIncomeLogEntry -up-|> JsonAdaptedLogEntry
+JsonAdaptedLendLogEntry -up-|> JsonAdaptedLogEntry
+JsonAdaptedSpendLogEntry -up-|> JsonAdaptedLogEntry
+
+@enduml

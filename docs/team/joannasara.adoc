@@ -1,0 +1,68 @@
+= Joanna Sara - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Modulo
+
+---
+
+== Overview
+
+Modulo is a NUS student life application specially designed for busy and motivated NUS students.
+
+As busy students in NUS, we understand that it can be daunting to keep track of various tasks and concurrently do well for exams. Modulo features a one-stop application to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes.
+
+The user interacts with Modulo using a CLI, and it features an outstanding user-friendly GUI created with JavaFX. It is written in Java, and has about 35 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: create *calendar* feature
+** What it does: allows the user to manage their tasks and classes in a weekly calendar view.
+** Justification: This feature improves the product significantly because our targeted user, which are NUS students, needed a
+fast and convenient way to manage all of their tasks.
+** Highlights: This enhancement affects existing commands and needs to be supported by change of the graphical user interface.
+The implementation too was challenging as it required changes to existing commands.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=joannasara&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional and test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed release `v1.3` on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/163[#163], https://github.com/AY1920S1-CS2103-T16-2/main/pull/165[#165])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/145[#145], https://github.com/AY1920S1-CS2103-T16-2/main/pull/148[#148])
+*** Wrote additional tests for existing features to increase coverage by 13.09% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/89[#89],
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/101[#101], https://github.com/AY1920S1-CS2103-T16-2/main/pull/145[#145], https://github.com/AY1920S1-CS2103-T16-2/main/pull/148[#148])
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/167[#167]
+//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=calendar]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=calendar]
+
+
+=== Other class diagrams
+
+.Interactions Inside the Logic Component for the `sort title` Command for the feature Calendar
+image::CalendarSequenceDiagram.png[]
+
+

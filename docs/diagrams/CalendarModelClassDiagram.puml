@@ -1,0 +1,64 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyCalendarAddressBook <<Interface>>
+Interface CalendarModel <<Interface>>
+Interface ObservableList <<Interface>>
+Class CalendarAddressBook
+Class ReadOnlyCalendarAddressBook
+Class CalendarModel
+Class CalendarModelManager
+Class CalendarUserPrefs
+Class ReadOnlyCalendarUserPrefs
+
+Package Task {
+Class "{abstract}\nTask" as Task
+Class TaskTime
+Class TaskDescription
+Class TaskTitle
+Class TaskDay
+Class TaskDeadline
+Class UniqueTaskList
+Class ToDoTask
+Class ModuleTask
+}
+
+Package Tag {
+Class TaskTag
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> CalendarModel
+
+CalendarAddressBook .up.|> ReadOnlyCalendarAddressBook
+
+CalendarModelManager .up.|> CalendarModel
+CalendarModel .right.> ObservableList
+CalendarModelManager o--> "1" CalendarAddressBook
+CalendarModelManager o-left-> "1" CalendarUserPrefs
+CalendarUserPrefs .up.|> ReadOnlyCalendarUserPrefs
+
+CalendarAddressBook *--> "1" UniqueTaskList
+UniqueTaskList o--> "*" Task
+Task *--> TaskTitle
+Task *--> TaskDay
+Task *--> TaskDescription
+Task *--> TaskTime
+Task *--> TaskDeadline
+Task *--> "*" TaskTag
+
+TaskTitle -[hidden]right-> TaskDay
+TaskDay -[hidden]right-> TaskTime
+TaskTime -[hidden]right-> TaskDescription
+TaskDescription -[hidden]right-> TaskDeadline
+
+ToDoTask -right-|> Task
+ModuleTask -left-|> Task
+
+CalendarModelManager -->"1" Task : filtered list
+@enduml

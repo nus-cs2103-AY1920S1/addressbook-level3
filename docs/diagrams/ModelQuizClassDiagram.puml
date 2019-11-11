@@ -1,0 +1,67 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Interface ReadOnlyQuizBook <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class AddressQuizBook
+Class VersionedQuizBook
+Class ReadOnlyQuizBook
+Class Model
+Class ModelQuizManager
+Class UserPrefs
+Class ReadOnlyUserPrefs
+
+Package Question {
+Class Question
+Class Answer
+Class Category
+Class Name
+Class Comment
+Class Type
+Class UniqueQuestionList
+}
+
+Package Tag {
+Class Tag
+}
+
+
+Package Util {
+Class SampleDataUtil {
+}
+}
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+AddressQuizBook .up.|> ReadOnlyQuizBook
+
+VersionedQuizBook -left-|> AddressQuizBook
+ModelQuizManager .up.|> Model
+Model .right.> ObservableList
+ModelQuizManager o--> "1" AddressQuizBook
+ModelQuizManager o-right-> "1" UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
+
+AddressQuizBook *--> "1" UniqueQuestionList
+UniqueQuestionList o--> "*" Question
+Question *--> "1" Name
+Question *--> "1" Type
+Question *--> "1" Category
+Question *--> "1" Answer
+Question *--> "0..1" Comment
+Question *--> "*" Tag
+Question *--> "4" SampleDataUtil
+
+Name -[hidden]right-> Answer
+Answer -[hidden]right-> Category
+Category -[hidden]right-> Type
+
+ModelQuizManager -->"1" Question : filtered list
+@enduml

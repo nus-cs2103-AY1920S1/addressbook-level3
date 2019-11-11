@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane HBox.hgrow="ALWAYS">
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+    </columnConstraints>
+    <VBox alignment="CENTER_LEFT" minHeight="105" prefWidth="150.0" style="-fx-padding: 14 14 8 14;" GridPane.columnIndex="0">
+      <padding>
+        <Insets bottom="5" left="15" right="5" top="5" />
+      </padding>
+         <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 0 0 0;">
+            <children>
+               <Circle fx:id="circleType" fill="DODGERBLUE" radius="8.0" stroke="BLACK" strokeType="INSIDE" />
+            <FlowPane fx:id="tags" />
+            </children>
+         </HBox>
+      <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 0 0 0;">
+        <Label fx:id="id" styleClass="cell_big_label">
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
+        </Label>
+        <Label fx:id="name" style="-fx-label-padding: 1; -fx-font-weight: bold;" styleClass="cell_big_label" text="\$first">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
+         <Label fx:id="type" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-label-padding: 3;" styleClass="cell_small_label" text="\$type">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+      </HBox>
+         <HBox prefHeight="22.0" prefWidth="120.0">
+            <children>
+            <Label fx:id="answerText" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="Answer: ">
+                  Answer: <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="answer" style="-fx-font-size: 15;" styleClass="cell_small_label" text="\$answer">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+         <HBox prefHeight="22.0" prefWidth="120.0">
+            <children>
+               <Label fx:id="answerText1" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="Category: ">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+            <Label fx:id="category" style="-fx-font-size: 15;" styleClass="cell_small_label" text="\$category">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+    </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
+  </GridPane>
+</HBox>

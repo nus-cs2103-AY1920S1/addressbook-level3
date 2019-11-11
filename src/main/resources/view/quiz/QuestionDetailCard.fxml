@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <GridPane HBox.hgrow="ALWAYS">
+    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+    </columnConstraints>
+    <VBox alignment="CENTER_LEFT" minHeight="105" prefWidth="150.0" style="-fx-padding: 14 14 8 14;" GridPane.columnIndex="0">
+      <padding>
+        <Insets bottom="5" left="15" right="5" top="5" />
+      </padding>
+
+
+      <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 3 3 0;">
+            <Circle fx:id="circleType" fill="DODGERBLUE" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label fx:id="id" style="-fx-padding: 0 0 0 5;" styleClass="cell_big_label">
+          <minWidth>
+            <!-- Ensures that the label text is never truncated -->
+            <Region fx:constant="USE_PREF_SIZE" />
+          </minWidth>
+        </Label>
+          <FlowPane fx:id="tags" style="-fx-padding: 4 0 0 0;" />
+      </HBox>
+         <Separator prefWidth="200.0" style="-fx-padding: 4 0 0 0; -fx-background-color: #ff0000;" />
+    <HBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 3 3 3 0;">
+          <Text fx:id="name" style="-fx-fill: #ffffff; -fx-label-padding: 1 1 1 4; -fx-font-weight: bold;" styleClass="cell_big_label" text="\$first">
+               <font>
+                  <Font size="14.0" />
+               </font></Text>
+      </HBox>
+         <Separator prefWidth="200.0" style="-fx-background-color: #FF9100;" />
+         <HBox prefHeight="22.0" prefWidth="120.0" style="-fx-padding: 4 0 0 0;">
+            <children>
+
+            <Label fx:id="answerText" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="Answer:  ">
+                  Answer: <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+               <Label fx:id="answer" style="-fx-font-size: 15;" styleClass="cell_small_label" text="\$answer">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+         <HBox prefHeight="22.0" prefWidth="120.0" style="-fx-padding: 1 0 0 0;">
+            <children>
+               <Label fx:id="answerText1" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="Category: ">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+            <Label fx:id="category" style="-fx-font-size: 15;" styleClass="cell_small_label" text="\$category">
+                  <font>
+                     <Font size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+         <HBox prefHeight="26.0" prefWidth="122.0">
+            <children>
+               <Label fx:id="answerText12" style="-fx-font-weight: bold; -fx-label-padding: 1 2 0 0; -fx-font-size: 15;" styleClass="cell_small_label" text="Comment / Explanation: ">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+           <Label fx:id="type" alignment="CENTER" prefWidth="54.0" style="-fx-border-radius: 3; -fx-border-color: #ffffff; -fx-label-padding: 2;" styleClass="cell_small_label" text="\$type">
+               <font>
+                   <Font size="14.0" />
+               </font>
+           </Label>
+            </children>
+         </HBox>
+         <HBox prefHeight="22.0" prefWidth="120.0" style="-fx-padding: 1 0 0 0;">
+            <children>
+               <Label fx:id="answerText11" style="-fx-font-weight: bold; -fx-font-size: 15;" styleClass="cell_small_label" text="-&gt; ">
+                  <font>
+                     <Font size="14.0" />
+                  </font>
+               </Label>
+                <Text fx:id="comment" style="-fx-font-size: 15; -fx-fill: #ffffff;" text="\$comment">
+                  <font>
+                      <Font size="15.0" />
+                  </font>
+              </Text>
+            </children>
+         </HBox>
+    </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
+  </GridPane>
+</HBox>

@@ -1,0 +1,103 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Package Model <<Rectangle>>{
+Package cap {
+Interface ReadOnlyCapLog <<Interface>>
+Interface ReadOnlySemesterLog <<Interface>>
+Interface Model <<Interface>>
+Interface ObservableList <<Interface>>
+Class CapLog
+Class CapUserPrefs
+Class Model
+Class ModelCapManager
+Class ReadOnlyCapLog
+Class ReadOnlySemesterLog
+Class ReadOnlyUserPrefs
+Class AchievementManager
+
+Package common {
+Class Module
+}
+
+Package module {
+Class Title
+Class ModuleCode
+Class Credit
+Class Semester
+Class Grade
+Class SemesterPeriod
+Class AcademicYear
+Class NameContainsKeywordPredicate
+Class UniqueModuleList
+Class UniqueSemesterList
+Class DegreeClassification
+
+Package rank {
+Class Fail
+Class FirstClass
+Class Freshie
+Class Pass
+Class Rank
+Class SecondLower
+Class SecondUpper
+Class ThirdClass
+}
+}
+
+AchievementManager ..> Fail
+AchievementManager ..> FirstClass
+AchievementManager ..> Freshie
+AchievementManager ..> Pass
+AchievementManager ..> Rank
+AchievementManager ..> SecondLower
+AchievementManager ..> SecondUpper
+AchievementManager ..> ThirdClass
+
+DegreeClassification <-down-o Fail
+DegreeClassification <-down-o FirstClass
+DegreeClassification <-down-o Freshie
+DegreeClassification <-down-o Pass
+DegreeClassification <-down-o Rank
+DegreeClassification <-down-o SecondLower
+DegreeClassification <-down-o SecondUpper
+DegreeClassification <-down-o ThirdClass
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Model
+
+CapLog .up.|> ReadOnlyCapLog
+
+ModelCapManager .up.|> Model
+Model .right.> ObservableList
+ModelCapManager o--> "1" CapLog
+ModelCapManager o-left-> "1" CapUserPrefs
+CapUserPrefs .up.|> ReadOnlyUserPrefs
+
+ReadOnlyCapLog *--> "1" UniqueModuleList
+ReadOnlySemesterLog *--> "1" UniqueSemesterList
+UniqueModuleList <--o ObservableList
+UniqueModuleList o--> "*" Module
+UniqueSemesterList o--> "*" Semester
+UniqueSemesterList <--o ObservableList
+CapLog o--> Module
+
+Module *--> Title
+Module *--> ModuleCode
+Module *--> Credit
+Module *--> Semester
+Module *--> Grade
+Semester *--> SemesterPeriod
+Semester *--> AcademicYear
+
+ModelCapManager o-->"1" Module : moduleFilteredList
+ModelSemesterManager o-->"1" Module : semesterFilteredList
+}
+}
+FindCommand o--> NameContainsKeywordPredicate
+
+
+@enduml

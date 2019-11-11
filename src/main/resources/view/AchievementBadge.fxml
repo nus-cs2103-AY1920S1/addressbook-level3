@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+
+<StackPane prefHeight="23.0" styleClass="inner-stack-pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox prefHeight="20.0" HBox.hgrow="ALWAYS" >
+      <padding>
+         <Insets bottom="5" left="30" right="10" top="5" />
+      </padding>
+      <ImageView xmlns:fx="http://javafx.com/fxml/1" fx:id="badgeImage" fitHeight="80.0" fitWidth="80.0"
+                 pickOnBounds="true"
+                 preserveRatio="true" xmlns="http://javafx.com/javafx/8"/>
+      <children>
+         <Label fx:id="achievementTitle" prefHeight="100" styleClass="cap-result-display" wrapText="true"/>
+      </children>
+   </HBox>
+</StackPane>

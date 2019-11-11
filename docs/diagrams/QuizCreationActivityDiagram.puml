@@ -1,0 +1,20 @@
+@startuml
+start
+:User switch to quiz mode;
+
+repeat
+:User executes command;
+
+if () then ([User wants to comment question])
+    :User comments question;
+else ([else])
+if () then ([User wants to add question])
+    :User adds question;
+else ([User wants to edit question])
+    :User edits question;
+endif
+endif
+repeat while () is ([more?])
+
+stop
+@enduml

@@ -1,0 +1,57 @@
+.error {
+    -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
+}
+
+.list-cell:empty {
+    /* Empty cells will not have alternating colours */
+    -fx-background: #383838;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.list-view .scroll-bar:vertical {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.list-cell:filled:even {
+    -fx-background-color: #3c3e3f;
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #515658;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell .label {
+    -fx-text-fill: white;
+}
+
+.tag-selector {
+    -fx-border-width: 1;
+    -fx-border-color: white;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+}
+
+.tooltip-text {
+    -fx-text-fill: white;
+}
