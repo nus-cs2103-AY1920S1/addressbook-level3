@@ -297,7 +297,7 @@ Format: `redo`
 
 ==== Setting User Settings: `set`
 
-Sets the user settings for loan period (in days), renew period (in days), fine increment (in cents) and maximum renews allowed. +
+Sets the user settings of the application. +
 
 Format: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS]`
 
@@ -322,9 +322,8 @@ Examples:
 *  `set` +
 Shows the current user settings.
 
-The figure below show the user interface
-after the `set` command has been added. The yellow box shows the change to
-the result display as now it shows the current user settings of the application.
+The yellow box in the figure below is what you will see after
+entering the set command.
 
 .User interface after set to used to view current user sittings
 image::ViewSettingsCommand.png[width=450, align=center]

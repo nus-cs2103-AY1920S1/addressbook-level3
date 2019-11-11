@@ -329,9 +329,9 @@ It contains a undo/redo command history, stored internally as an
 
 Additionally, it implements the following operations:
 
-* `CommandHistory#commit()` -- Saves the current reversible command in its command history.
-* `CommandHistory#getUndoCommand()` -- Returns the undo command for the most recent reversible command.
-* `CommandHistory#getRedoCommand()` -- Returns the redo command for the most recent undone command.
+* `CommandHistory#commit()` -- Saves `ReversibleCommand` in command history.
+* `CommandHistory#getUndoCommand()` -- Returns command to undo `ReversibleCommand`.
+* `CommandHistory#getRedoCommand()` -- Returns command to redo `ReversibleCommand`.
 
 These operations are exposed in the `Model` interface as `Model#commitCommand()`,
 `Model#getUndoCommand()` and `Model#getRedoCommand()` respectively.
@@ -357,9 +357,9 @@ that payments are not refundable.
 The `ReversibleCommand` interface specifies that each command contains
 these three operations:
 
-* `ReversibleCommand#getUndoCommand()` -- Returns a command that undoes the `ReversibleCommand`.
-* `ReversibleCommand#getRedoCommand()` -- Returns a command that redoes the `ReversibleCommand`.
-* `ReversibleCommand#getCommandResult()` -- Returns the command result of the `ReversibleCommand`.
+* `ReversibleCommand#getUndoCommand()` -- Returns command that undoes the `ReversibleCommand`.
+* `ReversibleCommand#getRedoCommand()` -- Returns command that redoes the `ReversibleCommand`.
+* `ReversibleCommand#getCommandResult()` -- Returns command result of the `ReversibleCommand`.
 
 Given below is an example usage scenario and how the undo/redo mechanism
 behaves at each step.
