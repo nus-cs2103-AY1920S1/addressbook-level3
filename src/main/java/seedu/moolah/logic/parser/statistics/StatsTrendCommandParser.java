@@ -54,6 +54,8 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
         Timestamp startDate = null;
         Timestamp endDate = null;
 
+        //made modifications to make code nicer like StatsCommandParser
+
         boolean isStartPresent = argMultimap.getValue(PREFIX_START_DATE).isPresent();
         boolean isEndPresent = argMultimap.getValue(PREFIX_END_DATE).isPresent();
         Mode mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());

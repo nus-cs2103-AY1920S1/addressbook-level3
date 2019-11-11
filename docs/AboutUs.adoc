@@ -49,7 +49,7 @@ Responsibilities: In charge of Budgeting
 
 === Quek Wei Ping
 image::qweiping31415.png[width="150", align="left"]
-{empty}[http://github.com/qweiping31415[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/qweiping31415[github]] [<<qweiping31415#, portfolio>>]
 
 Role: Developer +
 Responsibilities: In charge of Statistics

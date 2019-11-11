@@ -742,7 +742,21 @@ Format: `statsbasic [sd/<START_DATE>] [ed/<END_DATE>]`
 
 - `START_DATE` will be checked to be earlier than `END_DATE`
 
+- The success message for this command is "Pie Chart calculated!"
+
 - Categories where no tracked expenses fall under will not be reflected in the Statistics Panel.
+
+- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
+recommended to type this command when in that budget. It is after all a placeholder budget that
+is meant to hold expenses not associated to any budgets when starting out, which also implies it
+doesn't support editing any of its attributes, especially period. Also, the budget period is set to
+a large interval by design, so the output might not make sense.
+
+- When there are no expenses in the current window of the current budget, a successful `statsbasic`
+can stil be called. However, the same success message "Pie Chart calculated!" is still seen on the result display,
+but now with a blank screen in the StatsPanel.
+
+
 ****
 
 Tips:
@@ -757,7 +771,7 @@ the unit of time and statistics is calculated till one unit of time after `START
 the unit of time and statistics is calculated starting from one unit of time before `END_DATE`.
 
 - If both `START_DATE` and `END_DATE` are empty, statistics will be calculated using the start date and end date
-of the current window of the budget.
+of the current window of the budget, seen on the top right of the budget progress bar.
 
 - As the 3 alternative configurations involve the knowledge of the budget's period, be familiar with the
 procedure of editing a budget's period.
@@ -780,7 +794,7 @@ To generate the pie chart for the expenses for this window.
 
 
 . Type `statsbasic` into the command box and press `Enter` to execute it.
-. The result box will display the message "Pie Chart calculated!".
+. The result display will display the message "Pie Chart calculated!".
 . The screen will be switched into the Statistics Panel where the Pie Chart will be generated
 as shown below.
 
@@ -836,9 +850,17 @@ shows the frequency and total expenditure common to both periods.
 the values for differences in frequency and differences in total expenditure for each category
 is calculated using the formula `second period – first period`.
 
+- The success message for this command is "Statistics Comparison Calculated!"
+
 - The default size of the application window accounts just sufficiently for a nicely fitted view of the
 table columns. Adjustments to the program window should not be made, otherwise some columns may be covered
 or excess space will be revealed. Currently the default startup dimension is Height = 800 and Width = 1254.
+
+- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
+recommended to type this command when in that budget. It is after all a placeholder budget that
+is meant to hold expenses not associated to any budgets when starting out, which also implies it
+doesn't support editing any of its attributes, especially period. Also, the budget period is set to
+a large interval by design, so the output might not make sense.
 
 ****
 
@@ -853,6 +875,11 @@ overlap between the 2 periods or there are no expenses recorded in the common pe
 - It is possible to reorder the columns generated after the Table is being generated for better
 comparison.
 
+- As the 2 intervals to be compared are constructed with the budget's period, be familiar with the
+procedure of editing a budget's period.
+
+
+
 Example of configurations:
 ----
 statscompare sd1/12-12 sd2/ 1 month ago
@@ -865,7 +892,7 @@ Step-by-step guide:
 To generate the table view:
 
 . Type `statscompare sd1/27-10 sd2/ 28-10' into the command box and press `Enter` to execute it.
-. The result box will display the message "Statistics Comparison Calculated!".
+. The result display will display the message "Statistics Comparison Calculated!".
 . The screen will be switched into the Statistics Panel where the Table View will be generated.
 
 ==== Growth Statistics : `statstrend`
@@ -921,11 +948,18 @@ the budget windows after the most recent possible window, relative to the curren
 This also applies to budget windows which have intervals that are future to the current time. For example, a window spanning
 from 18 Oct to 24 Oct for a weekly budget is a legal point even when it is currently 19 Oct.
 
+- The success message for this command is "Statistics Trend Calculated!"
+
 - The categories that do not have any expenses in any of the time intervals will not be reflected
 as trend lines in the Statistics Panel.
 
-****
+- Even though the `Default Budget` can contain expenses and has a valid budget period, it is not
+recommended to type this command when in that budget. It is after all a placeholder budget that
+is meant to hold expenses not associated to any budgets when starting out, which also implies it
+doesn't support editing any of its attributes, especially period. Also, the budget period is set to
+a large interval by design, so the output might not make sense.
 
+****
 
 Tips:
 
@@ -945,6 +979,8 @@ start date of the current window of the current budget.
 - The unit interval of time is set to always be the period of the current budget,
 hence to access other time modes of this command, please edit the budget's period.
 
+- As the 3 alternative configurations involve the knowledge of the budget's period, be familiar with the
+procedure of editing a budget's period.
 
 Example of configurations:
 ----
