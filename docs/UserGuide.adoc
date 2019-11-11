@@ -490,6 +490,8 @@ image::archiveRevertNonEmptyArchive.png[]
 
 // end::archive[]
 
+// tag::statistics[]
+
 === Displaying of statistics: `display-stats`
 
 image::statisticsIntro.png[]
@@ -613,6 +615,8 @@ The displayed chart may look something like this: +
 
 image::display-heatmap-example-normal.png[]
 {nbsp} +
+
+// end::statistics[]
 
 // tag::undoredo[]
 === Undo and Redo: `undo/redo`

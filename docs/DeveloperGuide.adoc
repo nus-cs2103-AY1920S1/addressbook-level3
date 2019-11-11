@@ -555,6 +555,7 @@ Set of predicates can but do not need to include `AllContainsKeywordsPredicate`,
 
 // end::finding[]
 
+// tag::statistics[]
 === Statistics
 Billboard includes a dynamically updating statistics panel containing a chart. It has the following functionality: +
 
@@ -668,6 +669,8 @@ and saved.
 *** The data can be stored in a human readable format, so users can view those statistics without opening the application.
 ** Cons:
 *** Requires extra complexity to serialize the data upon each change to the overall list of expenses.
+
+#end::statistics[]
 
 // tag::history[]
 === History feature
