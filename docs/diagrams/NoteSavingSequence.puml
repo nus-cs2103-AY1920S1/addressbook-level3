@@ -2,12 +2,22 @@
 Application -> NotesLogicManager: setNoteSubmissionChannel(UI)
 User -> Application: Create new note
 Application -> Application: new Note()
+activate Application
+deactivate Application
 Application -> NotesLogicManager: createNewNote(note)
 User -> UI: Draw/write new note
 User -> Application: Save Note
 Application -> NotesLogicManager: saveNoteFromSubmissionChannel()
+activate NotesLogicManager
 NotesLogicManager -> UI: getNoteAndSketchPair()
+activate UI
 UI -> NotesLogicManager: Note and Sketch
+deactivate UI
 NotesLogicManager -> NoteBankStorage: Modify and Save  new note
-NotesLogicManager -> Sketch: saveSketch(sketchId, sketch)
+activate NoteBankStorage
+deactivate NoteBankStorage
+NotesLogicManager -> SketchManager: saveSketch(sketchId, sketch)
+activate SketchManager
+deactivate SketchManager
+deactivate NotesLogicManager
 @enduml

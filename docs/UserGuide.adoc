@@ -64,13 +64,13 @@ For Windows:
 - This folder will contain all of your app's data. To fix any errors related to corrupted data, delete this folder and the app will be reinstalled.
 
 +
-image::quickstart1.png[width="1000"]
+image::quickstart1.png[width="800" align="center"]
 +
 
 . Once the app is launched, you will immediately be greeted with the main User Interface of the app.
 
 +
-image::homepage_annotated.png[width="1000"]
+image::homepage_annotated.png[width="800" align="center"]
 +
 The User Interfaces that are important for now:
 
@@ -92,16 +92,17 @@ e.g. after executing *`showall`* command, "List all questions..." will be displa
 +
 Consists of 5 different tabs: _Home_, _Questions_, _Workspace_, _Notes_ and _Help_
 
-. After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt <Qn Index>`
+. After executing *`showall`* in the *CommandBox*, find a question that interests you and type `attempt [Qn Index]`
   into the *CommandBox* to start your DukeAcademy experience.
 +
 _Note: the index of a question is the number displayed next to its title._
 
 +
-image::questionindex.png[width="1000"]
+image::questionindex.png[width="800" align="center"]
 +
 
 
+//tag::overview[]
 [[Overview]]
 == Overview
 
@@ -112,8 +113,7 @@ different tabs by entering `tab` into the *CommandBox*.
 === Dashboard Tab
 The *Dashboard* allows you to keep track of your learning journey and progress made in Duke Academy.
 
-image::dashboard.png[width="1000"]
-
+image::dashboard.png[width="800" align="center"]
 On the *Dashboard* you can:
 
 . See the percentage of questions you completed and your current skill tier.
@@ -134,19 +134,18 @@ The *Questions* tab contains a list of all the available questions and also a wi
 You can use commands such as `browse` and `find` to filter through the list of questions in order to find what you
 are looking for. `browse` can lookup any keywords in titles, difficulty, description, topics, etc. `find` only finds by titles. _(View <<Features>> for more details.)_
 
-. To quickly see all questions, enter `showall` into the *Command Box*.
-. To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
+image::questionspage.png[width="800" align="center"]
+
+====
+* To quickly see all questions, enter `showall` into the *CommandBox*.
+* To view the problem statement for a question, enter `view <Qn Index>`. The problem statement will then be displayed
   on the right.
-
-+
-image::questionspage.png[width="1000"]
-+
-
+====
 
 === Workspace Tab
 The workspace is where you will work on the various questions.
 
-image::workspace.png[width="1000"]
+image::workspace.png[width="800" align="center"]
 
 . *Problem Statement Display*
 +
@@ -159,45 +158,49 @@ This panel displays the correctness of your program when evaluated against the p
 +
 A built-in editor for you to write your code.
 
-To submit your attempt, enter `submit` into the *Command Box*.
+====
+- To submit your attempt, enter `submit` into the *CommandBox*.
 
-To begin your attempt on a question, enter `attempt <Qn Index>` into the *Command Box*.
+- To begin your attempt on a question, enter `attempt <Qn Index>` into the *CommandBox*.
 
-To submit your attempt, enter `submit` into the *Command Box*.
+- To submit your attempt, enter `submit` into the *CommandBox*.
+====
 
 === Notes Tab
 The notes page is where you can record notes or even sketch out some of your ideas to aid your learning process.
 
-image::notespage.png[width="1000"]
+image::notespage.png[width="800" align="center"]
 
-. NotesListDisplay
+. *NotesListDisplay*
 +
 Displays all of the notes that you have previously created.
 +
 
-. CurrentNoteTitle
+. *CurrentNoteTitle*
 +
 Shows the title of the note that you are currently viewing/editing.
 +
 
-. NoteTextInput
+. *NoteTextInput*
 +
 Input space for any text-based notes that you wish to record.
 +
 
-. Sketchpad
+. *Sketchpad*
 +
 A canvas for you to draw any ideas you may have pertaining to data structures!
-+
 
+====
+- To create a new note, enter `newnote <Title>` into the *CommandBox*
 
-To create a new note, enter `newnote <Title>` into the *CommandBox*
+- To open an exiting note, enter `opennote <Id> into the *CommandBox*.
 
-To open an exiting note, enter `opennote <Id> into the *CommandBox*.
+- The id of the note is the number that appears next to the title in the *NotesListDisplay*.
 
-The id of the note is the number that appears next to the title in the *NotesListDisplay*.
+- To save any changes to your notes, enter `savenote` into the *CommandBox*.
+====
+//end::overview[]
 
-To save any changes to your notes, enter `savenote` into the *CommandBox*.
 
 //tag::help1[]
 === Help Tab
@@ -206,9 +209,10 @@ The help tab is where you can get a quick overview of commands used in Duke Acad
 image::help.png[width="1000"]
 //end::help1[]
 
+//tag::beforestart[]
 [[BeforeStart]]
 == Before you start
-. The programe evaluator searches for a class with the class name `Main` as the entry point into your program. Please ensure
+. The evaluator searches for a class with the class name `Main` as the entry point into your program. Please ensure
 that you declare your *main method* in a class called `Main`.
 
 . The program evaluator uses *stdin* to feed your program inputs and *stdout* to receive your program's outputs. Thus,
@@ -217,6 +221,10 @@ it is important that your program uses the `Scanner` class to read inputs and fo
 . Take note that your program is being evaluated *on your local machine* and not within a container or a virtual machine.
 Thus, *do not write any code that you would not want to run on your local machine*.
 
+. Most importantly, remember to have fun!
+
+
+//end::beforestart[]
 
 [[Features]]
 == Features
@@ -245,8 +253,7 @@ The *Help* tab contains a quick overview of commands used in Duke Academy, and a
 
 *Format:* `help`
 
-image::help.png[width="1000"]
-//end::help[]
+image::help.png[width="800" align="center"]
 
 //tag::dashboard[]
 === Access Dashboard: `dashboard`
@@ -259,7 +266,6 @@ The Dashboard allows the user to keep track of his learning journey and progress
 image::dashboard.png[width="1000"]
 //end::dashboard[]
 
-//tag::showall[]
 
 === List all questions: `showall`
 
@@ -267,7 +273,7 @@ Navigates to the *Questions* Tab and displays all available questions.
 
 *Format:* `showall`
 
-image::listallquestions.png[width="1000"]
+image::listallquestions.png[width="800" align="center"]
 
 //end::showall[]
 
@@ -283,7 +289,7 @@ Bookmarks a specific question.
 * The bookmarked question will appear in the list of bookmarked questions located within your *Personal Dashboard*.
 ****
 
-image::bookmark.png[width="1000"]
+image::bookmark.png[width="800" align="center"]
 //end::bookmark[]
 
 //tag::deletebookmark[]
@@ -299,7 +305,6 @@ Removes the bookmark from a specific question.
 ****
 //end::deletebookmark[]
 
-//tag::find[]
 === Find question by title : `find`
 
 Searches for question of which the title contains *strictly* the keywords entered.
@@ -372,14 +377,13 @@ Displays the problem statement of the question.
 * The id of the question can be seen next to its title.
 ****
 
-image::view.png[width="1000"]
+image::view.png[width="800" align="center"]
 
 *Examples:*
 
 * `view 1` +
 Displays the question with the id "1" in the right side window of the GUI, as shown in the above picture.
 
-//end::find[]
 
 === Attempting a question : `attempt`
 
@@ -394,6 +398,7 @@ Navigates to the *Questions* tab where you can code your solution to solve the p
 
 image::attempt.png[width=1000"]
 
+//tag::submit[]
 === Submitting your answer: `submit`
 
 Submits your solution.​ Your code will be compiled and run against test cases. The results will be displayed in
@@ -406,7 +411,11 @@ the *ProgramEvaluationDisplay* on the bottom left of the GUI.
 * Remember to import the relevant packages that you have used in your code!
 ****
 
-image::submit.png[width="1000"]
+image::submit.png[width="800" align="center"]
+
+//end::submit[]
+
+//tag::notes[]
 
 === Creating a new note: `newnote`
 
@@ -422,7 +431,7 @@ Navigates to the *Notes* tab and creates a new note with the given title.
 
 *Examples:*
 
-image::newnotecommand.png[width="1000"]
+image::newnotecommand.png[width="800" align="center"]
 
 * `newnote Linked Lists` +
 Creates a new note titled "Linked Lists" and loads it into the Notes page for you to edit/view.
@@ -439,6 +448,8 @@ Navigates to the *Notes* tab and saves any changes made to the note that you wer
 * The saved changes will be reflected the next time you open the note again.
 ****
 
+//end::notes[]
+
 === Opening an existing note: `opennote`
 
 Navigates to the *Notes* tab and opens the note corresponding to the id for viewing/editing.
@@ -449,7 +460,7 @@ Navigates to the *Notes* tab and opens the note corresponding to the id for view
 * Be careful as there is no way to retrieve your notes once they are deleted!
 ****
 
-image::opennotecommand.png[width="1000"]
+image::opennotecommand.png[width="800" align="center"]
 
 * `opennote 1` +
 Navigates to the *Notes* page after opening the note with the id 1.
@@ -468,7 +479,7 @@ Navigates to the *Notes* tab and deleting the note corresponding to the id.
 * `deletenote 1` +
 Navigates to the *Notes* page after deleting the note with the id 1.
 
-
+//tag::load[]
 === Loading new questions: `loadquestions`
 
 Imports new questions into the application through a text file.
@@ -476,20 +487,23 @@ Imports new questions into the application through a text file.
 *Format:* `loadquestions [filename]`
 
 ****
-* Your text file should be located at the Desktop.
+* Your text file should be located in the `../DukeAcademy/newQuestions/` directory. The `DukeAcademy` folder
+is located in the same directory as where you put the jar file.
 * Your text file should follow the format specified at <<Custom-Questions>>.
-* The questions in the text file will only be loaded after entering this command.
-* Your questions will be loaded immediately.
 ****
-
-image::loadquestions.png[width="1000"]
 
 *Examples:*
 
 * `loadquestions my_problem_set.txt` +
-Loads the questions from the file "my_problem_set.txt" located on your desktop.
-//end::load[]
+Loads the questions from the file "my_problem_set.txt" located in the `../DukeAcademy/newQuestions/` directory.
 
+We have prepared a dummy problem set for you to try out as shown in diagram below.
+
+image::default_problem_set.png[width="1000"]
+
+Type `loadquestions NewProblems.txt` (case sensitive), and
+two new questions titled `Apple` and `Banana` will be loaded onto Duke Academy.
+//end::load[]
 
 === Exit the application: `exit`
 
@@ -513,8 +527,11 @@ with the file that contains the data of your previous DukeAcademy folder.
 *Q:* What is the format of problem setting?
 
 *A:* It should contain the following: problem statement, input and output files, difficulty
-level, solution, algorithm category. Check out ​ default_problem_set.txt​ for reference.
+level, solution, as well as algorithm category. Check out <<Custom-Questions>> for detailed reference.
 
+*Q:* What if I want to delete questions?
+
+*A:* Currently there is no delete question feature implemented. To restore to default setting, delete the `DukeAcademy` folder located at the same directory as the `DukeAcademy.jar`, and restart the app.
 
 == Command Summary
 
@@ -524,14 +541,15 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 * Removing bookmark: `deletebookmark [id]`
 * Find by question title: `find​ [keyword]...`
 * Browse by category: ​`browse​ [keyword]...`
-* View: view: ​`view​ [id]`
+* View: `view​ [id]`
 * Attempt a question: `attempt​ [id]`
 * Submit:​ `submit`
 * Load questions: ​`loadquestions​ [filename]`
 * Create a new note: `newnote [title]`
 * Save current note: `savenote`
-* Open a  note: `opennote [id]`
+* Open a note: `opennote [id]`
 * Delete a note: `deletenote [id]`
+* Switch tab sequentially: `tab`
 * Exit: `exit`
 
 //end::summary[]
@@ -551,7 +569,8 @@ level, solution, algorithm category. Check out ​ default_problem_set.txt​ fo
 
 //tag::customqn[]
 [[Custom-Questions]]
-== Load Your Custom Questions
+== Format for Custom Questions
+image::custom_questions.png[width="920"]
 
 * Create a .txt file.
 * The format of a question goes like follows:
@@ -578,13 +597,13 @@ Output::
 
 * Title, Description can be any non-empty string.
 
-* Difficulty can only be EASY, MEDIUM or HARD.
+* Difficulty can only be `EASY`, `MEDIUM` or `HARD`. (Must be capitalized)
 
-* Topics can only be ARRAY, LINKED_LIST, HASHTABLE, TREE, GRAPH, RECURSION, DIVIDE_AND_CONQUER, DYNAMIC_PROGRAMMING, SORTING, or OTHERS.
+* Topics can only be `ARRAY`, `LINKED_LIST`, `HASHTABLE`, `TREE`, `GRAPH`, `RECURSION`, `DIVIDE_AND_CONQUER`, `DYNAMIC_PROGRAMMING`, `SORTING`, or `OTHERS`. (Must be capitalized)
 
 * One question can only have one title, description and difficulty. It can have multiple topics separated by `,`. It can have multiple test cases, each begin with a `TestCase::` identifier.
 
-* For sample questions, refer to the image above.
+* For sample questions, refer to the `../DukeAcademy/newQuestions/NewProblems.txt` file.
 
 //end::customqn[]
 
