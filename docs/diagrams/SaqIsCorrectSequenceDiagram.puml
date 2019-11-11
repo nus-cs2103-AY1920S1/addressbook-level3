@@ -1,0 +1,59 @@
+@startuml
+!include style.puml
+box SaqAnswerCheckerSequenceDiagram LOGIC_COLOR_T2
+participant ":Saq" as Saq LOGIC_COLOR_T1
+participant ":AnswerChecker" as AnswerChecker LOGIC_COLOR_T1
+participant ":Pipeline" as Pipeline LOGIC_COLOR_T1
+participant ":StanfordCoreNLP" as StanfordCoreNLP LOGIC_COLOR_T1
+participant ":FuzzyWuzzy" as FuzzyWuzzy LOGIC_COLOR_T1
+end box
+[-> Saq : isCorrect(userInput)
+activate Saq
+
+Saq -> AnswerChecker : check(userInput, answerable)
+activate AnswerChecker
+
+AnswerChecker -> AnswerChecker : processQuestion(answerable.question.question)
+AnswerChecker -> AnswerChecker : processString(userInput)
+opt userInput.isBlank()
+    AnswerChecker --> Saq : false
+    end
+
+loop Answer answer : CorrectAnswerList
+    AnswerChecker -> AnswerChecker : processString(answer.getAnswer())
+    AnswerChecker -> AnswerChecker : hasSameSentiment(userInput, correctAnswer)
+    activate AnswerChecker
+    AnswerChecker -> Pipeline : getPipeline()
+    activate Pipeline
+    Pipeline --> AnswerChecker
+    deactivate Pipeline
+    AnswerChecker -> StanfordCoreNLP : annotate(userInput)
+    AnswerChecker -> StanfordCoreNLP : annotate(CorrectAnswer)
+    AnswerChecker -> StanfordCoreNLP : userInput.sentiment()
+    activate StanfordCoreNLP
+    StanfordCoreNLP --> AnswerChecker : sentimentValueOfUserInput
+    deactivate StanfordCoreNLP
+    AnswerChecker -> StanfordCoreNLP : correctAnswer.sentiment()
+    activate StanfordCoreNLP
+    StanfordCoreNLP --> AnswerChecker : sentimentValueOfCorrectAnswer
+    deactivate StanfordCoreNLP
+    AnswerChecker --> AnswerChecker : sentimentValueOfUserInput.equals(sentimentValueOfCorrectAnswer)
+    deactivate AnswerChecker
+
+    AnswerChecker -> AnswerChecker : isMatched(userInput, correctAnswer)
+    activate AnswerChecker
+    AnswerChecker -> FuzzyWuzzy : FuzzySearch.weightedRatio(userInput, correctAnswer)
+    activate FuzzyWuzzy
+    FuzzyWuzzy --> AnswerChecker : matchedPercentage
+    deactivate FuzzyWuzzy
+    AnswerChecker --> AnswerChecker : matchedPercentage > matchedPercentageThreshold
+    deactivate AnswerChecker
+    opt hasSameSentiment == true && isMatched == true
+        AnswerChecker --> Saq : true
+        end
+    AnswerChecker --> Saq : false
+    end
+[<-- Saq : result : boolean
+deactivate Saq
+
+@enduml

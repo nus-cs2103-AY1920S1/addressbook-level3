@@ -50,7 +50,7 @@ image::khiangleon.png[width="150", align="left"]
 {empty}[http://github.com/khiangleon[github]] [<<johndoe#, portfolio>>]
 
 Role: Integration +
-Responsibilities: Model
+Responsibilities: Storage
 
 '''
 
@@ -58,5 +58,5 @@ Responsibilities: Model
 image::jxofficial.png[width="150", align="left"]
 {empty}[http://github.com/jxofficial[github]] [<<johndoe#, portfolio>>]
 
-Role: Testing +
-Responsibilities: Storage
+Role: InCharge of Model Component +
+Responsibilities: Model
