@@ -5,10 +5,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
+import calofit.logic.commands.exceptions.CommandException;
+import calofit.model.meal.Meal;
+import calofit.testutil.TypicalDishes;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import calofit.model.Model;
@@ -38,10 +44,25 @@ public class AddCommandTest {
         assertEquals(Arrays.asList(validDish), modelStub.dishesAdded);
     }
 
+    @Test
+    public void execute_mealAddedToMealLog_addSuccessful() throws CommandException {
+        ObservableList<Dish> dishes = FXCollections.observableList(TypicalDishes.getTypicalDishes());
+        MealLog mealLog = Mockito.mock(MealLog.class);
+        Model model = Mockito.mock(Model.class);
+        Mockito.doReturn(mealLog).when(model).getMealLog();
+        Mockito.doReturn(dishes).when(model).getFilteredDishList();
+
+        List<Integer> indexes = List.of(1,3,6);
+        CommandResult result = new AddCommand(indexes).execute(model);
+        ArgumentCaptor<LinkedList<Meal>> mealsAdded = ArgumentCaptor.forClass(LinkedList.class);
+        Mockito.verify(mealLog).addListOfMeals(mealsAdded.capture());
+        Set<Dish> addedDishes = mealsAdded.getValue().stream().map(Meal::getDish).collect(Collectors.toSet());
+        Set<Dish> targetDishes = indexes.stream().map(i -> dishes.get(i-1)).collect(Collectors.toSet());
+        assertEquals(targetDishes, addedDishes);
+    }
+
     //@Test
-    //public void execute_mealAddedToMealLog_addSuccessful() {
-    //
-    //}
+    //public void execute_
 
     @Test
     public void equals() {

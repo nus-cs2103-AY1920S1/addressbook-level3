@@ -120,6 +120,7 @@ image::suggest_pane.png[]
 * Items in square brackets are optional e.g `add n/<<mealname_syntax, MEAL_NAME>> [c/<<calories_syntax, CALORIES>>]` can be used as `add n/Carbonara c/430` or as `add n/Carbonara`.
 ====
 
+// tag::mealTrack[]
 === Meal Tracking
 
 ==== Adding a meal: `add`
@@ -254,6 +255,7 @@ Commands below are come other example commands:
 
 * `delete 1` - deletes the first meal in the consumed meal section.
 * `delete 1 2 3` - bulk deleting of meals 1, 2 and 3 in the consumed meal section.
+// end::mealTrack[]
 
 === Find meals in the meal database: `find`
 
@@ -437,7 +439,7 @@ Q: Do I have to pay for anything? +
 A: Currently CaloFit is totally free!
 
 Q: Will the dishes that I add be saved for future use? +
-A:
+A: The dishes added will be saved for future use! Clearing of outdated dishes will come in v2.0.
 
 Q: What are the dishes stored when I just installed CaloFit? +
 A: Currently we have a sample dish database loaded, however we plan to integrate the database from the Health Promotion Board(HPB) in v2.0 of CaloFit!
