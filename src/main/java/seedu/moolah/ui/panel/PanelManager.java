@@ -8,6 +8,25 @@ import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
 public interface PanelManager {
 
     /**
+     * Switches the in-view Panel to the Panel mapped to the specified Panel Name, if there is a Panel
+     * mapped to that name.
+     * @param panelName The Panel Name used to request a change of the in-view Panel.
+     * @throws UnmappedPanelException if there is no Panel mapped to that name
+     */
+    void viewPanel(PanelName panelName) throws UnmappedPanelException;
+
+    /**
+     * Returns the current in-view Panel
+     */
+    Panel getCurrentPanel();
+
+    /**
+     * Returns the PanelName assigned to the current in-view panel.
+     * @return PanelName assigned to the current in-view panel.
+     */
+    PanelName getCurrentPanelName();
+
+    /**
      * Assigns a Panel Name to a Panel for later access.
      * @param panelName The name assigned to the specified Panel.
      * @param panel The Panel which is stored for later access.

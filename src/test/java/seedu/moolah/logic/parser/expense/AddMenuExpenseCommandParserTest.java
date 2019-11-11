@@ -12,7 +12,7 @@ import static seedu.moolah.logic.parser.CommandParserTestUtil.assertParseFailure
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.expense.AddMenuExpenseCommand;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.menu.MenuItem;
 
 public class AddMenuExpenseCommandParserTest {

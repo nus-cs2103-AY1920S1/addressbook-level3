@@ -6,7 +6,10 @@ interface Statistics {
 ~getTitle():String
 ~setTitle(title: String)
 ~populateData()
+~createFactory():StatisticsRegionFactory
 }
+
+
 
 class PieChartStatistics {
 -Timestamp: startDate

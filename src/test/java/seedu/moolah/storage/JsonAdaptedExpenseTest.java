@@ -8,10 +8,10 @@ import static seedu.moolah.testutil.TypicalMooLah.BUSAN_TRIP;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.exceptions.IllegalValueException;
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Price;
-import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.model.expense.UniqueIdentifier;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
+import seedu.moolah.model.general.Timestamp;
 
 public class JsonAdaptedExpenseTest {
     private static final String INVALID_DESCRIPTION = "R@chel";

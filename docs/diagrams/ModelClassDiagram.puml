@@ -3,54 +3,70 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam linetype ortho
+
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyMooLah <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class MooLah
+Class ReadOnlyMooLah
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Expense {
+Class UniqueIdentifier
+Class Expense
+Class Description
+Class Category
+Class Price
+Class UniqueExpenseList
 }
 
-Package Tag {
-Class Tag
+Package Event {
+Class Event
+Class UniqueEventList
+}
+
+Package Budget {
+Class Budget
+Class UniqueBudgetList
+}
+
+Package Alias {
+Class Alias
+Class AliasMappings
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+MooLah .up.|> ReadOnlyMooLah
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" MooLah
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+MooLah *--> UniqueExpenseList
+MooLah *--> UniqueEventList
+MooLah *--> UniqueBudgetList
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+UniqueBudgetList o--> Budget
+UniqueExpenseList "*" o--> Expense
+Expense *--> Price
+Expense *--> Description
+Expense *--> Category
+Expense *--> UniqueIdentifier
+UserPrefs *--> AliasMappings
+AliasMappings "*" o--> Alias
+Budget "*" o--> UniqueIdentifier
+UniqueEventList "*" o-->  Event
 
-ModelManager -->"1" Person : filtered list
+
 @enduml

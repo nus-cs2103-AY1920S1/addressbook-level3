@@ -8,7 +8,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Objects;
 
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 /**
  * Represents the current budget window, with start and end dates, and a period.

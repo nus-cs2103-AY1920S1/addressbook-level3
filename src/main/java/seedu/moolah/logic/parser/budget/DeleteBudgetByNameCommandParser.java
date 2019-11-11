@@ -14,7 +14,7 @@ import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 
 /**
  * Parses input arguments and creates a new DeleteBudgetByNameCommand object.

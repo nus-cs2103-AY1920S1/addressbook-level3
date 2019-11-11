@@ -3,8 +3,8 @@ package seedu.moolah.model.menu;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Price;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
 
 /**
  * Menu represents the collection of {@code MenuItems} supported by MooLah.

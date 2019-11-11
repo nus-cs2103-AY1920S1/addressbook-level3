@@ -1,0 +1,34 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor black
+skinparam classBackgroundColor LOGIC_COLOR
+skinparam classBorderColor white
+skinparam classFontColor white
+skinparam classFontColor white
+skinparam linetype ortho
+skinparam classAttributeFontColor white
+
+class Model MODEL_COLOR
+class Alias MODEL_COLOR
+class UserPrefs MODEL_COLOR
+
+class AddAliasCommand {
++{static} COMMAND_WORD: String
++{static} MESSAGE_USAGE: String
++{static} MESSAGE_SUCCESS: String
+#validate(model: Model)
+#execute(model: Model): CommandResult
+}
+show AddAliasCommand members
+abstract class "{abstract}\nUndoableCommand"
+
+AddAliasCommand -up-|> "{abstract}\nUndoableCommand"
+AddAliasCommand ---> "1" Alias: toAdd
+AddAliasCommand ..> Model
+AddAliasCommand ..> UserPrefs
+AddAliasCommand ..> CommandResult
+AddAliasCommand .left.> CommandException: throws
+
+@enduml

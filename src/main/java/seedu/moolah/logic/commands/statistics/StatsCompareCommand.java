@@ -13,7 +13,7 @@ import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.statistics.Statistics;
 import seedu.moolah.model.statistics.TabularStatistics;
 import seedu.moolah.ui.statistics.StatsPanel;

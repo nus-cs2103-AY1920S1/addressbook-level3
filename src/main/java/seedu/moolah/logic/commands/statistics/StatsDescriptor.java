@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
 
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 /**
  * Stores the details of StatsCommand. Each non-empty field value will

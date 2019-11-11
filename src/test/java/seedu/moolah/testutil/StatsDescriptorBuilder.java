@@ -1,7 +1,7 @@
 package seedu.moolah.testutil;
 
 import seedu.moolah.logic.commands.statistics.StatsDescriptor;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.statistics.PieChartStatistics;
 
 

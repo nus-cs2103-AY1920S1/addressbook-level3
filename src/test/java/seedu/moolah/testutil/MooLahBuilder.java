@@ -1,7 +1,7 @@
 package seedu.moolah.testutil;
 
 import seedu.moolah.model.MooLah;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 
 /**

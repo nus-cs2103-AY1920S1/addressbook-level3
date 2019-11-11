@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.moolah.commons.exceptions.IllegalValueException;
-import seedu.moolah.model.expense.Category;
+import seedu.moolah.model.general.Category;
 
 /**
  * Jackson-friendly version of {@link Category}.

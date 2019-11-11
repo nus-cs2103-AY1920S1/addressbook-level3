@@ -8,7 +8,7 @@ import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 import seedu.moolah.ui.budget.BudgetPanel;
 
 /**

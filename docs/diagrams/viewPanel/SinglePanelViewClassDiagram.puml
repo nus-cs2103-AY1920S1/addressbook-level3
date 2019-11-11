@@ -1,0 +1,51 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+skinparam classBorderColor White
+skinparam classFontColor White
+skinparam classAttributeFontColor white
+skinparam linetype ortho
+
+Class "{abstract}\nUiPart" as UiPart
+package panel {
+interface PanelManager
+class PanelName
+class SinglePanelView
+class PanelMapping
+abstract "{abstract}\n Panel" as panel
+class PlaceholderPanel
+}
+
+interface PanelManager <<interface>> {
+setPanel(PanelName, Panel) : void
+hasPanel(PanelName) : boolean
+getPanel(PanelName) : Panel
+removePanel(PanelName) : Panel
+getCurrentPanelName() : PanelName
+viewPanel(PanelName) : void
+getCurrentPanel() : Panel
+}
+show PanelManager members
+
+abstract "{abstract}\nPanel" as panel {
+hide() : void
+view() : void
+}
+
+show panel members
+
+PanelManager <|.. SinglePanelView
+UiPart <|-- SinglePanelView
+UiPart <|-- panel
+panel <|-- PlaceholderPanel
+SinglePanelView "*" o--> PanelMapping
+PanelMapping *---> "1" panel
+PanelMapping "1"*-->  PanelName
+
+
+
+
+@enduml

@@ -10,7 +10,7 @@ import seedu.moolah.logic.commands.expense.FindExpenseCommand;
 import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object

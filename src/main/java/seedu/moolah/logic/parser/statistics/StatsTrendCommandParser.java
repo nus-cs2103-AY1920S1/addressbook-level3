@@ -18,7 +18,7 @@ import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.statistics.Mode;
 
 /**
@@ -53,6 +53,8 @@ public class StatsTrendCommandParser implements Parser<StatsTrendCommand> {
 
         Timestamp startDate = null;
         Timestamp endDate = null;
+
+        //made modifications to make code nicer like StatsCommandParser
 
         boolean isStartPresent = argMultimap.getValue(PREFIX_START_DATE).isPresent();
         boolean isEndPresent = argMultimap.getValue(PREFIX_END_DATE).isPresent();

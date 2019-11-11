@@ -1,0 +1,31 @@
+@startuml
+start
+:Step 1: User inputs command ;
+:Step 2: Ensure no syntax error or logic error;
+if () then ([No logic or syntax error])
+:Step 3: Check that there is an allocated budget to calculate statistics from;
+if () then ([A target budget is present])
+:Step 4: Get the current budget;
+:Step 5: Calculate the period to make statistics from \nbased on user input;
+if () then (None of above)
+    :checks for more cases;
+    if () then (None of above)
+        :checks for more cases;
+        if () then (Both dates are specified)
+            :Statistics interval uses specified start and end dates;
+        else (only end date is specified);
+            :Statistics interval starts from 1 budget period \nbefore end date till end date;
+        endif;
+    else (only start date is specified);
+        :Statistics interval starts from start date\ntill 1 budget period after;
+    endif;
+else (both start date and end date not specified)
+    :Statistics interval is equal to budget period;
+endif;
+:Step 6: Calculate the statistics;
+else ([No budget is allocated])
+endif
+else ([Error])
+endif
+stop
+@enduml

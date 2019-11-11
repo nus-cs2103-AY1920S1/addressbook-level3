@@ -3,8 +3,9 @@
 !include <office/Concepts/documents>
 !include <office/Users/user>
 !include style.puml
+skinparam linetype ortho
 
-Package " "<<Rectangle>>{
+Package "MooLah" <<Rectangle>> {
     Class UI UI_COLOR
     Class Logic LOGIC_COLOR
     Class Storage STORAGE_COLOR
@@ -13,19 +14,14 @@ Package " "<<Rectangle>>{
     Class Commons LOGIC_COLOR_T2
     Class "Log Center" as Logs UI_COLOR_T2
     Class Hidden #FFFFFF
-    Class HiddenUI #FFFFFF
     Class HiddenModel #FFFFFF
-
-
 }
+
 Class "<$user>" as User MODEL_COLOR_T2
 Class "<$documents>" as File UI_COLOR_T1
 
-
-HiddenUI -up[hidden]-> UI
-HiddenModel -left[hidden]-> Model
-Main -up-> HiddenUI
-Main -left-> HiddenModel
+Main -up-> UI
+Main -left-> Model
 UI -> Logic
 UI -right-> Model
 Logic -> Storage
@@ -35,8 +31,8 @@ Logs -right- Commons
 Hidden .down.> Commons
 Hidden .down.> Commons
 Hidden .down.> Commons
-
 Storage .right.>File
+
 User --> UI
 Main --> Hidden
 @enduml

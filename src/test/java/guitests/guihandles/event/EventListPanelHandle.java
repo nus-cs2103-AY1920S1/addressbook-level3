@@ -2,7 +2,7 @@ package guitests.guihandles.event;
 
 import guitests.guihandles.ListHandle;
 import javafx.scene.control.ListView;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 
 /**
  * Provides a handle for {@code EventListPanel} containing the list of {@code Event}.

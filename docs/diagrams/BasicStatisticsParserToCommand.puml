@@ -1,0 +1,151 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+
+participant ":StatsCommandParser" as StatsCommandParser LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant ":ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant "statsCommand :StatsCommand" as StatsCommand LOGIC_COLOR
+participant "desc: StatsDescriptor" as StatsDescriptor LOGIC_COLOR
+participant "ParseException" as ParseException LOGIC_COLOR
+end box
+
+-> StatsCommandParser : parse("statsbasic \n sd/01-10-2019 \n ed/01-11-2019)
+activate StatsCommandParser
+
+StatsCommandParser -> ArgumentTokenizer : tokenize("sd/01-10-2019 ed/01-11-2019",\n PREFIX_START_DATE, \n PREFIX_END_DATE)
+activate ArgumentTokenizer
+
+create ArgumentMultimap
+ArgumentTokenizer -> ArgumentMultimap
+activate ArgumentMultimap
+
+ArgumentMultimap -> ArgumentTokenizer: argMultimap
+deactivate ArgumentMultimap
+
+
+
+
+ArgumentTokenizer --> StatsCommandParser : argMultimap
+deactivate ArgumentTokenizer
+
+
+create StatsDescriptor
+StatsCommandParser -> StatsDescriptor
+activate StatsDescriptor
+
+
+
+StatsDescriptor --> StatsCommandParser : desc
+deactivate StatsDescriptor
+
+StatsCommandParser -> ArgumentMultimap: getValue(PREFIX_START_DATE)
+activate ArgumentMultimap
+
+ArgumentMultimap -> StatsCommandParser: optionalStartDate
+deactivate ArgumentMultimap
+
+
+StatsCommandParser -> ArgumentMultimap: getValue(PREFIX_START_DATE)
+activate ArgumentMultimap
+
+ArgumentMultimap -> StatsCommandParser: optionalEndDate
+deactivate ArgumentMultimap
+
+
+
+
+alt both present
+
+    StatsCommandParser -> ParserUtil : parseTimestamp(optionalStartDate.get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: startDate
+    deactivate ParserUtil
+
+    StatsCommandParser -> ParserUtil : parseTimestamp(optionalEndDate.get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: endDate
+    deactivate ParserUtil
+
+
+    StatsCommandParser --> StatsDescriptor: set desc with both start and end date
+    activate StatsDescriptor
+
+    StatsDescriptor -> StatsCommandParser:
+    deactivate StatsDescriptor
+
+
+
+    opt end date before start date
+
+    create ParseException
+    StatsCommandParser --> ParseException
+    activate ParseException
+
+    ParseException -> StatsCommandParser : exception
+    deactivate ParseException
+
+    StatsCommandParser --> ParseException : throw
+    activate ParseException
+
+
+    ParseException -> : exception thrown
+    deactivate ParseException
+
+    end
+
+
+else isStartPresent
+
+    StatsCommandParser -> ParserUtil : parseTimestamp(optionalStartDate.get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: startDate
+    deactivate ParserUtil
+
+
+
+    StatsCommandParser --> StatsDescriptor: set desc with start date
+    activate StatsDescriptor
+
+    StatsDescriptor -> StatsCommandParser:
+    deactivate StatsDescriptor
+
+
+else isEndPresent
+
+
+    StatsCommandParser -> ParserUtil : parseTimestamp(optionalEndDate.get())
+    activate ParserUtil
+
+    ParserUtil --> StatsCommandParser: endDate
+    deactivate ParserUtil
+
+
+
+    StatsCommandParser --> StatsDescriptor: set desc with end date
+    activate StatsDescriptor
+
+    StatsDescriptor -> StatsCommandParser:
+    deactivate StatsDescriptor
+
+end
+
+
+
+create StatsCommand
+
+StatsCommandParser -> StatsCommand : (desc)
+activate StatsCommand
+
+StatsCommand --> StatsCommandParser:
+deactivate StatsCommand
+
+<-- StatsCommandParser: statsCommand
+destroy StatsCommandParser
+
+@enduml

@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 import seedu.moolah.model.expense.exceptions.DuplicateExpenseException;
 import seedu.moolah.testutil.ExpenseBuilder;
