@@ -28,6 +28,7 @@ import seedu.guilttrip.model.reminders.Reminder;
 import seedu.guilttrip.model.reminders.ReminderList;
 import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.conditions.ConditionsManager;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
@@ -355,7 +356,7 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
         if (categoryType.equalsIgnoreCase("Income")) {
             ObservableList<Income> tocheckIncomeList = this.getIncomeList();
             List<Income> filteredListOfIncome = tocheckIncomeList.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfIncome.stream().forEach(t -> setIncome(t, t.modifiedCategory(newCategoryName)));
         } else {
@@ -364,19 +365,19 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
             ObservableList<Budget> toCheckBudget = this.getBudgetList();
             ObservableList<AutoExpense> toCheckAutoExpense = this.getAutoExpenseList();
             List<Expense> filteredListOfExpense = toCheckExpenseList.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfExpense.stream().forEach(t -> setExpense(t, t.modifiedCategory(newCategoryName)));
             List<Wish> filteredListOfWish = toCheckWishList.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfWish.stream().forEach(t -> setWish(t, t.modifiedWish(newCategoryName)));
             List<AutoExpense> filteredListOfAutoExpense = toCheckAutoExpense.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfAutoExpense.stream().forEach(t -> setAutoExpense(t, t.modifiedAutoExpense(newCategoryName)));
             List<Budget> filteredListOfBudget = toCheckBudget.stream()
-                    .filter(t -> t.getCategory().categoryName.equalsIgnoreCase(oldCategoryName))
+                    .filter(t -> t.getCategory().getCategoryName().equalsIgnoreCase(oldCategoryName))
                     .collect(Collectors.toList());
             filteredListOfBudget.stream().forEach(t -> setBudget(t, t.modifiedBudget(newCategoryName)));
         }
@@ -389,10 +390,10 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      */
     public void setCategory(Category target, Category editedCategory) {
         requireNonNull(editedCategory);
-        String oldCategoryName = target.categoryName;
-        String newCategoryName = editedCategory.categoryName;
+        String oldCategoryName = target.getCategoryName();
+        String newCategoryName = editedCategory.getCategoryName();
         categoryList.setCategory(target, editedCategory);
-        String categoryType = target.categoryType;
+        String categoryType = target.getCategoryType().getCatType();
         editCategoryNamesToNewName(oldCategoryName, newCategoryName, categoryType);
         indicateModified();
     }
@@ -496,23 +497,23 @@ public class GuiltTrip implements ReadOnlyGuiltTrip {
      * Returns the truth value for whether the Category has any entries that currently exist in guilttrip.
      */
     public boolean categoryHasAnyEntries(Category category) {
-        if (category.categoryType.equalsIgnoreCase("Income")) {
+        if (category.getCategoryType().equals(CategoryType.INCOME)) {
             ObservableList<Income> tocheckIncomeList = this.getIncomeList();
             return tocheckIncomeList.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
         } else {
             ObservableList<Expense> toCheckExpenseList = this.getExpenseList();
             boolean hasEntriesInExpenseList = toCheckExpenseList.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             ObservableList<Budget> tocheckBudgetList = this.getBudgetList();
             boolean hasEntriesInBudgetList = tocheckBudgetList.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             ObservableList<Wish> toCheckWish = this.getWishList();
             boolean hasEntriesInWishList = toCheckWish.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             ObservableList<AutoExpense> toCheckAutoExpense = this.getAutoExpenseList();
             boolean hasEntriesInAutoList = toCheckAutoExpense.stream()
-                    .anyMatch(t -> t.getCategory().categoryName.equalsIgnoreCase(category.categoryName));
+                    .anyMatch(t -> t.getCategory().getCategoryName().equalsIgnoreCase(category.getCategoryName()));
             return hasEntriesInBudgetList || hasEntriesInExpenseList || hasEntriesInWishList || hasEntriesInAutoList;
         }
     }

@@ -5,17 +5,18 @@ import java.util.function.Predicate;
 import seedu.guilttrip.model.entry.Entry;
 
 /**
- * Filters the entrylist predicates based on the int month.
+ * Filters the entrylist predicates based on the specific date.
  */
-public class EntryDayContainsPredicate implements Predicate<Entry> {
+public class EntryContainsDayPredicate implements Predicate<Entry> {
     private int monthFromUser;
     private int yearFromUser;
     private int dailyFromUser;
 
     /**
-     * Filters the entrylist based on the int monthFromUser and int yearFromUser.
+     * Filters the entrylist based on the LocalDate which comprises of dailyFromUser
+     * and monthFromUser and int yearFromUser.
      */
-    public EntryDayContainsPredicate(int dailyFromUser, int monthFromUser, int yearFromUser) {
+    public EntryContainsDayPredicate(int dailyFromUser, int monthFromUser, int yearFromUser) {
         this.dailyFromUser = dailyFromUser;
         this.monthFromUser = monthFromUser;
         this.yearFromUser = yearFromUser;
@@ -31,9 +32,9 @@ public class EntryDayContainsPredicate implements Predicate<Entry> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EntryDayContainsPredicate // instanceof handles nulls
-                && monthFromUser == ((((EntryDayContainsPredicate) other).monthFromUser))
-                && yearFromUser == ((((EntryDayContainsPredicate) other).yearFromUser))); // state check
+                || (other instanceof EntryContainsDayPredicate // instanceof handles nulls
+                && monthFromUser == ((((EntryContainsDayPredicate) other).monthFromUser))
+                && yearFromUser == ((((EntryContainsDayPredicate) other).yearFromUser))); // state check
     }
 }
 

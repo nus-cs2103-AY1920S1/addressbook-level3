@@ -20,7 +20,7 @@ import seedu.guilttrip.model.entry.Category;
 public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
+     * Parses the given {@code String} of arguments in the context of the AddCategoryCommand
      * and returns an AddCategoryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -30,10 +30,9 @@ public class AddCategoryCommandParser implements Parser<AddCategoryCommand> {
 
         ParserUtil.errorIfCompulsoryPrefixMissing(AddCategoryCommand.MESSAGE_USAGE, argMultimap, false,
                 PREFIX_CATEGORY, PREFIX_DESC);
-
-        String categoryType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
         String categoryName = argMultimap.getValue(PREFIX_DESC).get().toLowerCase();
-        Category categoryToCreate = new Category(categoryName, categoryType);
+        String catType = argMultimap.getValue(PREFIX_CATEGORY).get().toLowerCase();
+        Category categoryToCreate = ParserUtil.parseCategory(categoryName, catType);
 
         return new AddCategoryCommand(categoryToCreate);
     }

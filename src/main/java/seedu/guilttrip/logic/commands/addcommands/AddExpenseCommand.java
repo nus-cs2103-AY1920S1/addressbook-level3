@@ -55,6 +55,14 @@ public class AddExpenseCommand extends Command {
         toAdd = expense;
     }
 
+    /**
+     * Adds toAdd Expense to the existing expenses. Model will handle the check if the category of the expense is
+     * a valid Category present in the list.
+     *
+     * @param model the model to carry out commands on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the category of the expense to be added does not exists in the list.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

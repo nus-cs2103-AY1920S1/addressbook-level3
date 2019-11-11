@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.guilttrip.commons.exceptions.IllegalValueException;
 import seedu.guilttrip.model.entry.Category;
-import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Jackson-friendly version of {@link Tag}.
+ * Jackson-friendly version of {@link Category}.
  */
 class JsonAdaptedCategory {
 
@@ -18,7 +18,7 @@ class JsonAdaptedCategory {
     private final String categoryName;
     private final String categoryType;
     /**
-     * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
+     * Constructs a {@code JsonAdaptedCategory} with the given {@code categoryName, @code categoryType}.
      */
     @JsonCreator
     public JsonAdaptedCategory(@JsonProperty("categoryName") String categoryName,
@@ -28,15 +28,15 @@ class JsonAdaptedCategory {
     }
 
     /**
-     * Converts a given {@code Tag} into this class for Jackson use.
+     * Converts a given {@code Category} into this class for Jackson use.
      */
     public JsonAdaptedCategory(Category source) {
-        categoryName = source.categoryName;
-        categoryType = source.categoryType;
+        categoryName = source.getCategoryName();
+        categoryType = source.getCategoryType().getCatType();
     }
 
     /**
-     * Converts this Jackson-friendly adapted tag object into the model's {@code Tag} object.
+     * Converts this Jackson-friendly adapted category object into the model's {@code Category} object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
@@ -51,7 +51,8 @@ class JsonAdaptedCategory {
         if (!Category.isValidCategoryType(categoryType)) {
             throw new IllegalValueException(String.format(WRONG_CATEGORY_TYPE_MESSAGE_FORMAT, categoryName));
         }
-        return new Category(categoryName, categoryType);
+        CategoryType categoryTyp = CategoryType.parse(categoryType);
+        return new Category(categoryName, categoryTyp);
     }
 
 }

@@ -9,6 +9,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
@@ -31,7 +32,7 @@ public class AutoExpenseBuilder {
     private Frequency freq;
 
     public AutoExpenseBuilder() {
-        category = new Category(DEFAULT_CATEGORY, "Expense");
+        category = new Category(DEFAULT_CATEGORY, CategoryType.EXPENSE);
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
@@ -95,7 +96,7 @@ public class AutoExpenseBuilder {
      * Sets the {@code Category} of the {@code AutoExpense} that we are building.
      */
     public AutoExpenseBuilder withCategory(String categoryString) {
-        this.category = new Category(categoryString, "Expense");
+        this.category = new Category(categoryString, CategoryType.EXPENSE);
         return this;
     }
 

@@ -64,7 +64,8 @@ public class EditExpenseCommandParser implements Parser<EditExpenseCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editExpenseDescriptor::setTags);
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
-            Category editedCategory = new Category(argMultimap.getValue(PREFIX_CATEGORY).get(), "Expense");
+            Category editedCategory = ParserUtil.parseCategory(argMultimap.getValue(PREFIX_CATEGORY).get(),
+                    "Expense");
             editExpenseDescriptor.setCategory(editedCategory);
         }
 

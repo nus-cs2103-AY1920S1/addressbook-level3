@@ -52,6 +52,11 @@ public class AddIncomeCommand extends Command {
         toAdd = income;
     }
 
+    /**
+     * Creates an AddIncomeCommand to add the specified {@code income}
+     *
+     * @throws CommandException if the category of the income to be added does not exists in the list.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

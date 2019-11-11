@@ -17,6 +17,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Wish;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.ui.gui.guihandles.WishListCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.WishListPanelHandle;
 import seedu.guilttrip.ui.wishlist.WishListPanel;
@@ -86,7 +87,7 @@ public class WishListPanelTest extends GuiUnitTest {
         for (int i = 0; i < wishCount; i++) {
             Description desc = new Description(i + "a");
             Amount amt = new Amount("20");
-            Category category = new Category("Shopping", "Expense");
+            Category category = new Category("Shopping", CategoryType.EXPENSE);
             Date date = new Date("2019 11 09");
             Wish wish = new Wish(category, desc, date, amt, Collections.emptySet());
             backingList.add(wish);

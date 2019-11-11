@@ -18,7 +18,7 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Entry;
 
 /**
- * Finds and lists all wishes in guilttrip book whose name contains any of the argument keywords.
+ * Finds and lists all wishes in guiltTrip with fields matching any of the predicates.
  * Keyword matching is case insensitive.
  */
 public class FindWishCommand extends Command {
@@ -29,7 +29,7 @@ public class FindWishCommand extends Command {
     public static final String MESSAGE_USAGE = ONE_LINER_DESC + "which contains "
             + " the keywords that the user requests to be filtered by contain any of and displays them as a list with "
             + "index numbers.\n "
-            + "[" + PREFIX_CATEGORY + "KEYWORDS] "
+            + "[" + PREFIX_CATEGORY + "CATEGORY NAME] "
             + "[" + PREFIX_DESC + "KEYWORDS] "
             + "[" + PREFIX_DATE + "TIME] "
             + "[" + PREFIX_AMOUNT + "AMOUNT] "
@@ -44,11 +44,16 @@ public class FindWishCommand extends Command {
         this.predicate = predicate;
     }
 
+    /**
+     * Filters the list of Wish by the conjuction of the existing predicates.
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
-        Predicate<Entry> newPredicate = this.predicate.stream().reduce(t -> true, (tbefore, tafter) ->
-                tbefore.and(tafter));
+        Predicate<Entry> newPredicate = this.predicate.stream().reduce(t -> true, Predicate::and);
         model.updateFilteredWishes(newPredicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_WISHES_LISTED_OVERVIEW, model.getFilteredWishes().size()));

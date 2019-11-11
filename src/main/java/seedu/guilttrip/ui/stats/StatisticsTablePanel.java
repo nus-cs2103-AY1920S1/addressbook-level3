@@ -13,17 +13,17 @@ import seedu.guilttrip.ui.UiPart;
 /**
  * Contains the statistics tables in the grid.
  */
-public class StatisticsTableHolder extends UiPart<Region> {
+public class StatisticsTablePanel extends UiPart<Region> {
     private static final String FXML = "statistics/StatisticsPlaceHolder.fxml";
-    private final Logger logger = LogsCenter.getLogger(StatisticsPieChartHolder.class);
+    private final Logger logger = LogsCenter.getLogger(StatisticsPieChartPanel.class);
     private StatisticsTable expenseStatsTable;
     private StatisticsTable incomeStatsTable;
 
     @FXML
     private GridPane gridPanePlaceHolder;
 
-    public StatisticsTableHolder(ObservableList<CategoryStatistics> expenseStats,
-                                    ObservableList<CategoryStatistics> incomeStats) {
+    public StatisticsTablePanel(ObservableList<CategoryStatistics> expenseStats,
+                                ObservableList<CategoryStatistics> incomeStats) {
         super(FXML);
         this.expenseStatsTable = new StatisticsTable(expenseStats, "Expense");
         this.incomeStatsTable = new StatisticsTable(incomeStats, "Income");

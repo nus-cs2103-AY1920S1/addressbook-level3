@@ -18,6 +18,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.ui.budget.BudgetPanel;
 import seedu.guilttrip.ui.gui.guihandles.BudgetCardHandle;
 import seedu.guilttrip.ui.gui.guihandles.BudgetListPanelHandle;
@@ -88,7 +89,7 @@ public class BudgetListPanelTest extends GuiUnitTest {
         for (int i = 0; i < budgetCount; i++) {
             Description desc = new Description(i + "a");
             Amount amt = new Amount("200");
-            Category category = new Category("Food", "Expense");
+            Category category = new Category("Food", CategoryType.EXPENSE);
             Date date = new Date("2019 11 01");
             Period period = new Period("1m");
             Budget budget = new Budget(category, desc, date, period, amt, Collections.emptySet());

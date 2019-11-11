@@ -16,17 +16,39 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 Class VersionedGuiltTrip
 
+enum CategoryType {
+EXPENSE
+INCOME
+}
+
 Package Entry {
 Class Entry
 Class Description
 Class Date
 Class Amount
-Class UniqueEntryList
+Class ExpenseList
+Class Expense
+}
+
+Package Category {
+Class CategoryList
+Class Category
 }
 
 Package Tag {
 Class Tag
 }
+
+package Statistics {
+Interface ObservableMap <<Interface>>
+Interface Statistics <<Interface>>
+Class StatisticsManager
+Class MonthList
+Class DailyList
+Class DailyStatistics
+Class CategoryStatistics
+}
+
 }
 
 Class HiddenOutside #FFFFFF
@@ -38,19 +60,39 @@ VersionedGuiltTrip .up.|> GuiltTrip
 ModelManager .up.|> Model
 Model .right.> ObservableList
 ModelManager o--> "1" VersionedGuiltTrip
+ModelManager o--> "1" Statistics
+
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-VersionedGuiltTrip *--> "1" UniqueEntryList
-UniqueEntryList o--> "*" Entry
-Entry *--> Description
-Entry *--> Date
-Entry *--> Amount
+VersionedGuiltTrip *--> "1" CategoryList
+CategoryList o--> "*" Category
+Category *--> CategoryType
+
+VersionedGuiltTrip *--> "1" ExpenseList
+Expense ---|> Entry
+ExpenseList o--> "*" Expense
+Entry *-->"1" Description
+Entry *-->"1" Date
+Entry *-->"1" Amount
 Entry *--> "*" Tag
+Entry *-->"1" Category
+
+
+StatisticsManager .up.|> Statistics
+StatisticsManager *--> "1..*" CategoryStatistics
+StatisticsManager ..> ObservableList
+StatisticsManager ..> ObservableMap
+StatisticsManager *--> "1..*" MonthList
+
+MonthList *--> "28..31" DailyList
+MonthList *--> "28..31" DailyStatistics
+MonthList ..> ObservableList
+MonthList ..> ObservableMap
 
 Description -[hidden]right-> Date
 Date -[hidden]right-> Amount
 
-ModelManager -->"1" Entry : filtered list
+show CategoryType fields
 @enduml
 © 2019 GitHub, Inc.

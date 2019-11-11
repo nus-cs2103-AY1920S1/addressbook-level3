@@ -49,7 +49,7 @@ public class AutoExpense extends Entry {
      * Returns a new Budget if and only if it's category is edited.
      */
     public AutoExpense modifiedAutoExpense(String newName) {
-        Category newCategory = new Category(newName, super.getCategory().categoryType);
+        Category newCategory = new Category(newName, super.getCategory().getCategoryType());
         return new AutoExpense(newCategory, super.getDesc(), this.getAmount(), super.getTags(), this.freq,
                 this.getDate());
     }

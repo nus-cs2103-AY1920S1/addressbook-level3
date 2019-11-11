@@ -20,6 +20,7 @@ import seedu.guilttrip.model.entry.SortType;
  * Parses input arguments and creates a new SortAutoExpense object
  */
 public class SortAutoExpenseCommandParser implements Parser<SortAutoExpenseCommand> {
+
     /**
      * Parses the given {@code String} of arguments in the context of the SortAutoExpenseCommand
      * and returns a SortAutoExpenseCommand object for execution.

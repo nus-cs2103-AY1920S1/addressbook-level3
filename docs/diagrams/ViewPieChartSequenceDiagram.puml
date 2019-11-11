@@ -1,0 +1,134 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":guiltTripParser" as guiltTripParser LOGIC_COLOR
+participant ":ViewPieChartCommandParser" as ViewPieChartCommandParser LOGIC_COLOR
+participant "v:ViewPieChartCommand" as ViewPieChartCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+box Statistics STATS_COLOR
+participant ":StatisticsManager" as StatisticsManager STATS_COLOR_T1
+participant "c:Category" as Category STATS_COLOR_T1
+participant "s:CategoryStatistics" as CategoryStatistics STATS_COLOR_T1
+end box
+
+[-> LogicManager : execute("viewPie p/2019-09,2019-11")
+activate LogicManager
+
+LogicManager -> guiltTripParser : parseCommand("viewPie p/2019-09,2019-11")
+activate guiltTripParser
+
+create ViewPieChartCommandParser
+guiltTripParser -> ViewPieChartCommandParser
+activate ViewPieChartCommandParser
+
+ViewPieChartCommandParser --> guiltTripParser
+deactivate ViewPieChartCommandParser
+
+guiltTripParser -> ViewPieChartCommandParser : parse("p/2019-09,2019-11")
+activate ViewPieChartCommandParser
+
+create ViewPieChartCommand
+ViewPieChartCommandParser -> ViewPieChartCommand
+activate ViewPieChartCommand
+
+ViewPieChartCommand --> ViewPieChartCommandParser : v
+deactivate ViewPieChartCommand
+
+ViewPieChartCommandParser --> guiltTripParser : v
+deactivate ViewPieChartCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+ViewPieChartCommandParser -[hidden]-> guiltTripParser
+destroy ViewPieChartCommandParser
+
+guiltTripParser --> LogicManager : s
+deactivate guiltTripParser
+
+LogicManager -> ViewPieChartCommand : execute()
+activate ViewPieChartCommand
+
+ViewPieChartCommand -> Model : updateListOfStats(rangeOfDates)
+activate Model
+
+Model -> StatisticsManager: updateListOfStats(rangeOfDates)
+activate StatisticsManager
+
+alt rangeOfDatesSize == 1
+StatisticsManager -[#Gray]> StatisticsManager: getMonth(Date)
+
+activate StatisticsManager #Gray
+StatisticsManager -[#Gray]> StatisticsManager: MonthListToCalculate
+deactivate StatisticsManager #Gray
+
+else rangeOfDatesSize == 2
+
+StatisticsManager -[#Gray]> StatisticsManager: getListOfMonths(rangeOfDates)
+activate StatisticsManager #Gray
+StatisticsManager -[#Gray]> StatisticsManager: listOfMonthListToCalculate
+deactivate StatisticsManager #Gray
+end
+activate StatisticsManager #DarkSalmon
+StatisticsManager -[#DarkRed]> StatisticsManager: countStats(MonthListToCalculate, listOfStatisticsByCategoryForExpense)
+activate StatisticsManager #DarkRed
+loop for All Categories in CategoryList in Expense
+StatisticsManager -[#DarkRed]> Category: getCategoryFromCategoryList()
+activate Category
+Category --> StatisticsManager #DarkRed: c
+deactivate Category
+
+StatisticsManager -[#DarkOrange]> StatisticsManager: calculateTotalAmountForCategory(MonthListToCalculate, c)
+activate StatisticsManager #DarkOrange
+StatisticsManager -[#DarkOrange]> StatisticsManager: totalAmountCalculated
+deactivate StatisticsManager #DarkOrange
+StatisticsManager -[#DarkRed]> CategoryStatistics: createCategoryStatistics(c, totalAmountCalculated)
+activate CategoryStatistics
+CategoryStatistics --> StatisticsManager #DarkRed: s
+deactivate CategoryStatistics
+end
+StatisticsManager -[#DarkRed]> StatisticsManager: Total Expense
+deactivate StatisticsManager #DarkRed
+
+StatisticsManager -[#DarkRed]> StatisticsManager: countStats(MonthListToCalculate, listOfStatisticsByCategoryForIncome)
+activate StatisticsManager #DarkRed
+loop for All Categories in CategoryList in Income
+StatisticsManager -[#DarkRed]> Category: getCategoryFromCategoryList()
+activate Category
+Category --> StatisticsManager #DarkRed: c
+deactivate Category
+
+StatisticsManager -[#DarkOrange]> StatisticsManager: calculateTotalAmountForCategory(MonthListToCalculate, c)
+activate StatisticsManager #DarkOrange
+StatisticsManager -[#DarkOrange]> StatisticsManager: totalAmountCalculated
+deactivate StatisticsManager #DarkOrange
+StatisticsManager -[#DarkRed]> CategoryStatistics: createCategoryStatistics(c, totalAmountCalculated)
+activate CategoryStatistics
+CategoryStatistics --> StatisticsManager #DarkRed: s
+deactivate CategoryStatistics
+end
+StatisticsManager -[#DarkRed]> StatisticsManager: Total Income
+deactivate StatisticsManager #DarkRed
+StatisticsManager --> Model
+deactivate StatisticsManager
+Model --> ViewPieChartCommand
+deactivate Model
+
+create CommandResult
+ViewPieChartCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> ViewPieChartCommand: result
+deactivate CommandResult
+
+ViewPieChartCommand --> LogicManager : result
+deactivate ViewPieChartCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

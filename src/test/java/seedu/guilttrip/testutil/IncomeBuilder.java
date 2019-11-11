@@ -9,6 +9,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Income;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
@@ -28,7 +29,7 @@ public class IncomeBuilder {
     private Set<Tag> tags;
 
     public IncomeBuilder() {
-        cat = new Category(DEFAULT_CATEGORY, "Income");
+        cat = new Category(DEFAULT_CATEGORY, CategoryType.INCOME);
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
@@ -58,7 +59,7 @@ public class IncomeBuilder {
      * Sets the {@code Category} of the {@code Income} that we are building.
      */
     public IncomeBuilder withCategory(String catName) {
-        this.cat = new Category(catName, "Income");
+        this.cat = new Category(catName, CategoryType.INCOME);
         return this;
     }
 

@@ -42,8 +42,12 @@ public class AddCategoryCommand extends Command {
     }
 
     /**
-     * Creates an AddCategoryCommand to add to the existing categories. Model will handle the check if the category is
+     * Adds Category toAdd to the existing categories. Model will handle the check if the category is
      * already present in the list.
+     *
+     * @param model the model to carry out commands on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the category to be added already exists in the list.
      */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
