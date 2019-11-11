@@ -15,19 +15,24 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyBorrowerRecords;
+import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.ReadOnlyLoanRecords;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.borrowerrecords.BorrowerRecordsStorage;
+import seedu.address.storage.borrowerrecords.JsonBorrowerRecordsStorage;
+import seedu.address.storage.catalog.CatalogStorage;
+import seedu.address.storage.catalog.JsonCatalogStorage;
+import seedu.address.storage.loanrecords.JsonLoanRecordsStorage;
+import seedu.address.storage.loanrecords.LoanRecordsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -36,9 +41,15 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 4, 2, false);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
+    private static final String MESSAGE_DATA_NOT_FOUND = "Data file(s) not found. "
+        + "Will be starting with sample library records";
+    private static final String MESSAGE_DATA_INCORRECT_FORMAT = "Data file(s) not in the correct format. "
+        + "Will be starting with sample library records";
+    private static final String MESSAGE_PROBLEM_READING_FILE = "Problem while reading from file(s). "
+        + "Will be starting with sample library records";
 
     protected Ui ui;
     protected Logic logic;
@@ -48,7 +59,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing LiBerry ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,8 +67,13 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        LoanRecordsStorage loanRecordsStorage = new JsonLoanRecordsStorage(userPrefs.getLoanRecordsFilePath());
+        CatalogStorage catalogStorage = new JsonCatalogStorage(userPrefs.getCatalogFilePath());
+        BorrowerRecordsStorage borrowerRecordsStorage =
+            new JsonBorrowerRecordsStorage(userPrefs.getBorrowerRecordsFilePath());
+
+        storage = new StorageManager(userPrefsStorage,
+            loanRecordsStorage, catalogStorage, borrowerRecordsStorage);
 
         initLogging(config);
 
@@ -69,28 +85,54 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s catalog, borrower records, loan records
+     * and {@code userPrefs}. <br>
+     * <p>
+     * The data from the sample catalog will be used instead if {@code storage}'s catalog is not found,
+     * or an empty catalog will be used instead if errors occur when reading {@code storage}'s catalog.
      */
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+
+        Optional<ReadOnlyLoanRecords> loanRecordsOptional;
+        ReadOnlyLoanRecords initialLoanRecords;
+        Optional<ReadOnlyCatalog> catalogOptional;
+        ReadOnlyCatalog initialCatalog;
+        Optional<ReadOnlyBorrowerRecords> borrowerRecordsOptional;
+        ReadOnlyBorrowerRecords initialBorrowerRecords;
+
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            loanRecordsOptional = storage.readLoanRecords();
+            if (loanRecordsOptional.isEmpty()) {
+                logger.info(MESSAGE_DATA_NOT_FOUND);
+                return getSampleModelManager(userPrefs, MESSAGE_DATA_NOT_FOUND);
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialLoanRecords = loanRecordsOptional.get();
+            catalogOptional = storage.readCatalog(initialLoanRecords);
+            borrowerRecordsOptional = storage.readBorrowerRecords(initialLoanRecords);
+
+            if (catalogOptional.isEmpty() || borrowerRecordsOptional.isEmpty()) {
+                logger.info(MESSAGE_DATA_NOT_FOUND);
+                return getSampleModelManager(userPrefs, MESSAGE_DATA_NOT_FOUND);
+            }
+            initialCatalog = catalogOptional.get();
+            initialBorrowerRecords = borrowerRecordsOptional.get();
+
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(MESSAGE_DATA_INCORRECT_FORMAT);
+            return getSampleModelManager(userPrefs, MESSAGE_DATA_INCORRECT_FORMAT);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning(MESSAGE_PROBLEM_READING_FILE);
+            return getSampleModelManager(userPrefs, MESSAGE_PROBLEM_READING_FILE);
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialCatalog, initialLoanRecords, initialBorrowerRecords, userPrefs);
+    }
+
+    private Model getSampleModelManager(ReadOnlyUserPrefs userPrefs, String message) {
+        ReadOnlyLoanRecords initialLoanRecords = SampleDataUtil.getSampleLoanRecords();
+        return new ModelManager(
+            SampleDataUtil.getSampleCatalog(initialLoanRecords), initialLoanRecords,
+            SampleDataUtil.getSampleBorrowerRecords(initialLoanRecords), userPrefs, message);
     }
 
     private void initLogging(Config config) {
@@ -120,7 +162,7 @@ public class MainApp extends Application {
             initializedConfig = configOptional.orElse(new Config());
         } catch (DataConversionException e) {
             logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. "
-                    + "Using default config properties");
+                + "Using default config properties");
             initializedConfig = new Config();
         }
 
@@ -148,10 +190,10 @@ public class MainApp extends Application {
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. "
-                    + "Using default user prefs");
+                + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting default user prefs");
             initializedPrefs = new UserPrefs();
         }
 
@@ -167,13 +209,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting LiBerry " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping LiBerry ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

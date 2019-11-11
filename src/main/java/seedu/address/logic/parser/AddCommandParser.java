@@ -1,52 +1,89 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_AUTHOR_NAME_TOO_LONG;
+import static seedu.address.commons.core.Messages.MESSAGE_BOOK_TITLE_TOO_LONG;
+import static seedu.address.commons.core.Messages.MESSAGE_GENRE_TOO_LONG;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_GENRES;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_AUTHOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GENRE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUMBER;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.book.Author;
+import seedu.address.model.book.Book;
+import seedu.address.model.book.SerialNumber;
+import seedu.address.model.book.SerialNumberGenerator;
+import seedu.address.model.book.Title;
+import seedu.address.model.genre.Genre;
+import seedu.address.model.loan.Loan;
 
 /**
  * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser implements Parser<AddCommand> {
 
+    private static final int MAX_TITLE_LENGTH = 50;
+    private static final int MAX_AUTHOR_LENGTH = 50;
+    private static final int MAX_GENRE_LENGTH = 20;
+    private static final int MAX_GENRE_COUNT = 5;
+    private static final Loan NULL_LOAN = null;
+
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
+     *
+     * @return AddCommand object.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_SERIAL_NUMBER, PREFIX_AUTHOR,
+                        PREFIX_GENRE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_AUTHOR)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
+        if (title.toString().length() > MAX_TITLE_LENGTH) {
+            throw new ParseException(String.format(MESSAGE_BOOK_TITLE_TOO_LONG, MAX_TITLE_LENGTH));
+        }
 
-        Person person = new Person(name, phone, email, address, tagList);
+        Author author = ParserUtil.parseAuthor(argMultimap.getValue(PREFIX_AUTHOR).get());
+        if (author.toString().length() > MAX_AUTHOR_LENGTH) {
+            throw new ParseException(MESSAGE_AUTHOR_NAME_TOO_LONG);
+        }
 
-        return new AddCommand(person);
+        Set<Genre> genreList = ParserUtil.parseGenres(argMultimap.getAllValues(PREFIX_GENRE));
+        boolean genreTooLong = false;
+        for (Genre g : genreList) {
+            if (g.toString().length() > MAX_GENRE_LENGTH) {
+                genreTooLong = true;
+            }
+        }
+        if (genreList.size() > MAX_GENRE_COUNT) {
+            throw new ParseException(String.format(MESSAGE_TOO_MANY_GENRES, MAX_GENRE_COUNT));
+        }
+        if (genreTooLong) {
+            throw new ParseException(String.format(MESSAGE_GENRE_TOO_LONG, MAX_GENRE_LENGTH));
+        }
+
+        boolean haveSerialNumber = argMultimap.getValue(PREFIX_SERIAL_NUMBER).isPresent();
+        SerialNumber serialNumber;
+        if (haveSerialNumber) {
+            serialNumber = ParserUtil.parseSerialNumber(argMultimap.getValue(PREFIX_SERIAL_NUMBER).get());
+        } else {
+            serialNumber = SerialNumberGenerator.generateSerialNumber();
+        }
+        Book book = new Book(title, serialNumber, author, NULL_LOAN, genreList);
+        return new AddCommand(book);
     }
 
     /**

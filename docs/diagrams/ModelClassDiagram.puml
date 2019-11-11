@@ -5,52 +5,97 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyCatalog <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface ReadOnlyUserPrefs <<Interface>>
+Class Catalog
+Class BorrowerRecords
+Class LoanRecords
+Class ReadOnlyCatalog
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class GuiSettings
+Class UserSettings
 
-Package Person {
-Class Person
-Class Address
-Class Email
-Class Name
-Class Phone
-Class UniquePersonList
+Package Book {
+Class Book
+Class Title
+Class Author
+Class SerialNumber
+Class Loan
+Class UniqueBookList
 }
 
-Package Tag {
-Class Tag
+Package Borrower {
+Class BorrowersList
+Class Borrower
+Class Name
+Class Phone
+Class Email
+Class BorrowerId
+}
+
+Package Loan {
+Class LoanList
+Class Loan
+Class LoanId
+BorrowerId -- SerialNumber
+(BorrowerId, SerialNumber) .. Loan
+Class LocalDate
+}
+
+Package Genre {
+Class Genre
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Catalog .up.|> ReadOnlyCatalog
+
+UserPrefs *--> "1" GuiSettings
+UserPrefs *--> "1" UserSettings
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Catalog
+ModelManager o--> "1" LoanRecords
+ModelManager o--> "1" BorrowerRecords
+ModelManager o--> "0..1" Borrower : serves >
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Catalog *--> "1" UniqueBookList
+UniqueBookList o--> "*" Book
+Book *--> "*" Genre
+Book *--> "1" Title
+Book *--> "1" Author
+Book *--> "1" SerialNumber
+Book *--> "1" LoanList : "LoanHistory"
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+BorrowerRecords *--> "1" BorrowersList
+BorrowersList o--> "*" Borrower
+Borrower *--> "1" Name
+Borrower *--> "1" Phone
+Borrower *--> "1" Email
+Borrower *--> "1" BorrowerId
+Borrower *--> "2" LoanList
 
-ModelManager -->"1" Person : filtered list
+LoanList *--> "*" Loan
+LoanRecords *--> "1" LoanList
+Loan *--> "1" LoanId
+Loan *--> "3" LocalDate
+
+
+Catalog -[hidden]> LoanRecords
+LoanRecords -[hidden]> BorrowerRecords
+UniqueBookList -[hidden]> LoanList
+LoanList -[hidden]> BorrowersList
+
+SerialNumber -[hidden]> BorrowerId
+ModelManager -->"*" Book : filtered list
 @enduml

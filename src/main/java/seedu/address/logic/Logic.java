@@ -7,8 +7,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
 
 /**
  * API of the Logic component
@@ -24,19 +25,30 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the Catalog.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getCatalog()
      */
-    ReadOnlyAddressBook getAddressBook();
+    ReadOnlyCatalog getCatalog();
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    /** Returns an unmodifiable view of the filtered list of books */
+    ObservableList<Book> getFilteredBookList();
+
+    /** Returns true if model within Logic component is in Serve Mode */
+    boolean isServeMode();
+
+    /** Returns the borrower being served in Serve Mode, or null if in Normal Mode */
+    Borrower getServingBorrower();
+
+    /** Returns the list of books borrowed by the borrower being served */
+    ObservableList<Book> getServingBorrowerBookList();
+
+    String getLoanHistoryOfBookAsString(Book target);
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the user prefs' catalog file path.
      */
-    Path getAddressBookFilePath();
+    Path getCatalogFilePath();
 
     /**
      * Returns the user prefs' GUI settings.
@@ -47,4 +59,9 @@ public interface Logic {
      * Set the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    /**
+     * Get the initial load status message on start up
+     */
+    String getLoadStatus();
 }

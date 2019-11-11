@@ -1,0 +1,109 @@
+= Lin Yuting - Project Portfolio Page
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+This portfolio aims to highlight Lin Yuting's contributions to project 'LiBerry'.
+
+== LiBerry
+
+=== Overview
+
+With the motivation to raise literacy rate in the world and encourage more setups of community libraries, my team has developed
+Liberry - a desktop software for managing community and private libraries. The target users are mainly librarians looking to set up
+or are already running private or community libraries, especially those in under-developed communities who cannot afford
+commercial versions of such software.
+
+LiBerry can execute the basic functions of library management:
+
+* Addition and deletion of books in the catalog
+* Registering Borrowers and editing their particulars
+* Loan, return, renew and pay fine functions
+* Searching through books in the catalog by filters
+
+As part of the requirements of the project, we were given the source code for a common AddressBook
+application and were tasked to morph it to something else that is useful.
+We were also limited to designing software that takes in the majority of user input through a Command Line Interface
+(CLI), though displays information through a Graphical User Interface (GUI).
+
+My role was to:
+
+. configure the basic AddressBook software to create a `Borrower` class and its related classes.
+. implement borrower-related commands such as the *Register Command*, *Serve Command*, *Done Command*, +
+*EditBorrowerCommand* and *UnregisterCommand*
+
+== Summary of Contributions
+
+=== Main enhancement - Borrower-related features
+added features related to the registering, unregistering and serving borrowers in our library management app, LiBerry.
+
+==== What it does
+allow our users, librarians, to *register* a borrower, *serve* a borrower, *edit* a borrwer and be able to *unregister*
+a borrower from the library system.
+
+==== Justification
+These features are some of the core features to the library system
+
+==== Highlights
+The implementation was challenging as these features are widely used in other parts of the application.
+It requires careful implementation and consideration for many different cases.
+
+=== *Minor enhancement*:
+* added a Borrower ID generator that auto generates a borrower's ID.
+
+=== *Code contributed*: +
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=linyuting&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Link for RepoSense]
+
+=== *Other contributions*:
+
+==== Project management
+* Managed the release of `v1.2` on GitHub. In `v1.2`, we have the following features:
+** Set default user settings
+** Exit the application
+** Register a borrower into the library System
+** Setting the application to serving mode
+** Exiting the serving mode
+** Loaning a book
+** Returning a book
+** Deleting a book
+
+
+==== Enhancements to existing features:
+* Wrote additional tests for existing features to increase coverage
+(Pull requests https://github.com/AY1920S1-CS2103T-F13-1/main/pull/105[#105],
+ https://github.com/AY1920S1-CS2103T-F13-1/main/pull/171[#171])
+
+==== Documentation:
+* Update ContactUs document https://github.com/AY1920S1-CS2103T-F13-1/main/pull/92[#92]
+* Improve user stories of the User Guide: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/103[#103],
+ https://github.com/AY1920S1-CS2103T-F13-1/main/pull/262[#262]
+* Updating Developer Guide: https://github.com/AY1920S1-CS2103T-F13-1/main/pull/155[#155],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/165[#165],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/183[#183],
+https://github.com/AY1920S1-CS2103T-F13-1/main/pull/262[#262]
+
+==== Community:
+* PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+* https://github.com/linyutinglyt/ped/issues[Reported] bugs and suggestions for other teams in the class.
+* Contributed to forum discussions as a group (Shared a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] on how to check code coverage when running tests)
+
+
+== Contributions to the User Guide
+Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
+
+=== Borrower Feature
+include::../UserGuide.adoc[tag=UGyuting]
+include::../UserGuide.adoc[tag=UGyuting2]
+
+== Contributions to the Developer Guide
+
+Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+
+include::../DeveloperGuide.adoc[tag=registerBorrower]
+
+=== Use cases written for developer guide
+
+include::../DeveloperGuide.adoc[tag=yutingUseCase]
+
+=== Manual testing
+include::../DeveloperGuide.adoc[tag=borrowerTest]

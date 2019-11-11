@@ -1,0 +1,23 @@
+@startuml
+start
+:User enters "loan sn/BOOK_SN";
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Model is not\n in Serve mode])
+    :Throw exception for
+    not in Serve mode;
+elseif () then ([Model does not\n have book with the\n given serial number])
+    :Throw exception
+    for no such book;
+elseif () then ([Book is already\n loaned out])
+    :Throw exception
+    for book already
+    on loan;
+else ([else])
+    :Book successfully
+    loaned to borrower;
+endif
+stop
+@enduml

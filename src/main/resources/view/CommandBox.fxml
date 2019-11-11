@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."/>
-</StackPane>
 
+<TextField fx:id="commandTextField" maxHeight="35.0" maxWidth="Infinity" minHeight="35.0" minWidth="0.0"
+           onAction="#handleCommandEntered" prefHeight="35.0" prefWidth="600.0" promptText="Enter command here..."
+           AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" xmlns="http://javafx.com/javafx/11.0.0"
+           xmlns:fx="http://javafx.com/fxml/1"/>

@@ -3,18 +3,16 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "list"
+title After command "help"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab2:AddressBook__"
+package CommandHistory <<rectangle>> {
+    class Command1 as "__c0:Command__"
+    class Command2 as "__c1:Command__"
 }
 
-State1 -[hidden]right-> State2
-State2 -[hidden]right-> State3
+Command1 -[hidden]right-> Command2
 
-class Pointer as "Current State" #FFFFF
+class Pointer as "Current Command" #FFFFF
 
-Pointer -up-> State2
+Pointer -up-> Command1
 @end

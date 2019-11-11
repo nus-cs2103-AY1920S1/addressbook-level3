@@ -3,19 +3,18 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "clear"
+title After command "set lp/7"
 
-package States <<rectangle>> {
-    class State1 as "__ab0:AddressBook__"
-    class State2 as "__ab1:AddressBook__"
-    class State3 as "__ab3:AddressBook__"
+package CommandHistory <<rectangle>> {
+    class Command1 as "__c0:Command__"
+    class Command2 as "__c2:Command__"
 }
 
-State1 -[hidden]right-> State2
-State2 -[hidden]right-> State3
+Command1 -[hidden]right-> Command2
 
-class Pointer as "Current State" #FFFFF
+class Pointer as "Current Command" #FFFFF
 
-Pointer -up-> State3
-note right on link: State ab2 deleted.
+Pointer -up-> Command2
+note right on link: Command c1 deleted.
+
 @end

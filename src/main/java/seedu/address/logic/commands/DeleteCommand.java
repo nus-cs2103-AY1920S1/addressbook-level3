@@ -1,53 +1,84 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.List;
+import java.time.LocalDate;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.DateUtil;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
+import seedu.address.model.loan.Loan;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Abstract parent class for DeleteBySerialNumberCommand and DeleteByIndexCommand.
  */
-public class DeleteCommand extends Command {
-
+public abstract class DeleteCommand extends ReversibleCommand {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the displayed person list.\n"
+            + ": Deletes the book identified by the "
+            + "index number used in the displayed book list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "or \n"
+            + "SERIAL_NUMBER (must be valid serial number)\n"
+            + "Example: " + COMMAND_WORD + " 1 or " + COMMAND_WORD + " sn/B00001";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_BOOK_SUCCESS = "Deleted Book: %1$s";
 
-    private final Index targetIndex;
+    protected static final int FINE_AMOUNT_ZERO = 0;
 
-    public DeleteCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    public abstract CommandResult execute(Model model) throws CommandException;
+
+    /**
+     * Marks a book as returned.
+     */
+    private void markBookAsReturned(Model model, Book bookToBeReturned, Book returnedBook,
+                                      Loan loanToBeReturned, Loan returnedLoan) {
+        requireAllNonNull(model, bookToBeReturned, returnedBook, loanToBeReturned, returnedBook);
+
+        // update Book in model to have Loan removed
+        model.setBook(bookToBeReturned, returnedBook);
+
+        // remove Loan from Borrower's currentLoanList and move to Borrower's returnedLoanList
+        model.servingBorrowerReturnLoan(loanToBeReturned, returnedLoan);
+
+        // update Loan in LoanRecords with returnDate and remainingFineAmount
+        model.updateLoan(loanToBeReturned, returnedLoan);
     }
 
-    @Override
-    public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
+    /**
+     * Marks a book as returned with the given loans.
+     */
+    protected void returnBook(Model model, Book bookToDelete) {
+        boolean wasInServeMode = model.isServeMode();
+        if (bookToDelete.isCurrentlyLoanedOut()) {
+            Borrower borrower = model.getBorrowerFromId(bookToDelete.getLoan().get().getBorrowerId());
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            if (!wasInServeMode) {
+                model.setServingBorrower(borrower);
+            }
+
+            Loan loanToBeReturned = bookToDelete.getLoan().get();
+            LocalDate returnDate = DateUtil.getTodayDate();
+            Loan returnedLoan = loanToBeReturned.returnLoan(returnDate, FINE_AMOUNT_ZERO);
+
+            Book returnedBook = bookToDelete.returnBook();
+
+            // mark book as returned
+            markBookAsReturned(model, bookToDelete, returnedBook, loanToBeReturned, returnedLoan);
+            LoanSlipUtil.unmountSpecificLoan(loanToBeReturned, bookToDelete);
+
+            if (!wasInServeMode) {
+                model.exitsServeMode();
+            }
+            undoCommand = new UndeleteCommand(returnedBook, bookToDelete, returnedLoan, loanToBeReturned);
+        } else {
+            undoCommand = new AddCommand(bookToDelete);
         }
-
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-        model.deletePerson(personToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
-    }
+
 }

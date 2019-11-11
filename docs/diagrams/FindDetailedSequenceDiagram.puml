@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":CatalogParser" as CatalogParser LOGIC_COLOR
+participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
+participant "command:FindCommand" as FindCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "predicate:BookPredicate" as BookPredicate MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("find t/Animal Farm a/George")
+activate LogicManager
+
+LogicManager -> CatalogParser ++ : parseCommand()
+
+create FindCommandParser
+CatalogParser -> FindCommandParser ++
+return
+
+CatalogParser -> FindCommandParser ++ : parse("t/Animal Farm a/George")
+
+FindCommandParser -> ArgumentTokenizer ++ : tokenize()
+return
+
+create BookPredicate
+FindCommandParser -> BookPredicate ++
+FindCommandParser -> BookPredicate : set title and author
+return predicate
+
+create FindCommand
+FindCommandParser -> FindCommand ++ : new FindCommand(predicate)
+return command
+return command
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+FindCommandParser -[hidden]-> CatalogParser
+destroy FindCommandParser
+
+return command
+
+LogicManager -> FindCommand ++ : execute()
+
+FindCommand -> Model : updateFilteredList()
+
+
+return result
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml

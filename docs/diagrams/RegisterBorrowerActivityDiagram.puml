@@ -1,0 +1,7 @@
+@startuml
+start
+:User executes RegisterCommand;
+:Generate borrower ID;
+:Create borrower;
+stop
+@enduml

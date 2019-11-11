@@ -1,0 +1,8 @@
+{
+  "books": [ {
+    "title": "&Hans Muster",
+    "serialNumber": "invalid9482424",
+    "author": "@invalidAuthor",
+    "genre": "Action"
+  } ]
+}

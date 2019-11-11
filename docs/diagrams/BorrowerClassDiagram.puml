@@ -1,0 +1,12 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+Borrower --> "1" Name
+Borrower --> "1" Phone
+Borrower --> "1" Email
+Borrower -Right> "1" BorrowerId
+Borrower --> "2" LoanList
+@enduml

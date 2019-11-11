@@ -1,0 +1,13 @@
+{
+  "books": [ {
+    "title": "Harry Porrter",
+    "serialNumber": "B00001",
+    "author": "Rowling",
+    "genres": [ "FICTION" ]
+  }, {
+    "title": "Harry Porrter",
+    "serialNumber": "B00001",
+    "author": "Rowling",
+    "genres": [ "FICTION" ]
+  } ]
+}

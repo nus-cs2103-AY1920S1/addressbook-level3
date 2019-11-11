@@ -1,0 +1,26 @@
+@startuml
+start
+:User enters "return INDEX";
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([Model is not\n in Serve mode])
+    :Throw exception for
+    not in Serve mode;
+elseif () then ([Index is invalid])
+    :Throw exception
+    for invalid index;
+elseif () then ([Book is not\n loaned out])
+    :Throw exception
+    for book not on loan;
+elseif () then ([Currently serving\n borrower does not\n loan this book])
+    :Throw exception
+    for book not loaned
+    by borrower;
+else ([else])
+    :Book successfully
+    returned;
+endif
+stop
+@enduml

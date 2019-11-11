@@ -29,7 +29,9 @@
 !define STORAGE_COLOR_T1 #FFE374
 !define STORAGE_COLOR_T2 #EDC520
 !define STORAGE_COLOR_T3 #806600
-!define STORAGE_COLOR_T2 #544400
+!define STORAGE_COLOR_T4 #544400
+
+!define COMMONS_COLOR #888888
 
 !define USER_COLOR #000000
 
@@ -61,7 +63,6 @@ skinparam Sequence {
 
 skinparam Participant {
     FontColor #FFFFFFF
-    Padding 20
 }
 
 skinparam MinClassWidth 50

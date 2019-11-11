@@ -1,0 +1,150 @@
+= Wang Shiyao - Project Portfolio Page
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+This is Wang Shiyao's Project Portfolio Page - highlighting his contributions to his CS2103T Software Engineering Project.
+
+== LiBerry
+
+=== Overview
+
+In the spirit of spreading education, literacy and a sense of community to the world (and completing our software engineering project), my team has developed
+Liberry - a desktop software for managing community and private libraries. The target users are mainly librarians in under-developed communities who cannot afford
+commercial versions of such software.
+
+LiBerry can execute the basic functions of library management:
+
+* Addition and deletion of books in the catalog
+* Registering Borrowers and editing their particulars
+* Loan, return, renew and pay fine functions
+* Searching through books in the catalog by filters
+
+As part of the requirements of the project, we were given the source code for a common AddressBook
+application and were tasked to morph it to something else that is useful.
+We were also limited to designing software that takes in the majority of user input through a Command Line Interface
+(CLI), though displays information through a Graphical User Interface (GUI).
+
+This is what the GUI looks like:
+
+.Graphical User Interface (GUI) for *LiBerry*
+image::Ui.png[]
+
+My role was to:
+
+. configure the basic AddressBook software to accommodate Json-type storage for a catalog, a record of borrowers,
+and a record of loans
+. design the *Find Command* to execute given a set of parameters - such as searching by title, genre, loan status etc
+. Add a *Clear Command* to clear user searches
+. design the GUI in terms of color schemes
+. create the *Toggle UI Command* to allow users to switch the GUI between 'light mode' and 'dark mode' themes
+. Create sample data for testing
+
+== Summary of Contributions
+
+=== *Major enhancement - Finding by various parameters* +
+Allows the user to *filter the catalog by various parameters*
+
+==== What it does
+... Searches books in catalog and displays them on the screen through filtering by:
+.... title
+.... author
+.... serial number
+.... genres
+.... loan status (available / loaned / overdue)
+... sets the number of books to display on the screen
+
+==== Justification +
+As a librarian who is keeping charge of book and loan records, the ability to find books and their loan statuses fast is necessary.
+
+==== Highlights +
+This enhancement was decently demanding as it required a way to test every book on whether it met the query requirements.
+It showcases my ability to play with functional programming and Streams in Java.
+As the predicate used has multiple possible combinations, extensive tests were written to ensure that it worked the way it should.
+
+=== *Minor enhancement - Switching GUI themes* +
+Allows the user to toggle the GUI between 'light mode' and 'dark mode'.
+
+==== Justification +
+As a librarian who may work after the sun has set, this command helps to switch the GUI into a more eye-friendly mode when using the software.
+
+==== Highlights +
+This feature was rather challenging as it required a decent amount of CSS knowledge and the ability to manipulate JavaFx elements.
+
+=== *Code contributed* +
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shiyao821&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&until=2019-11-10[Code changes made by me (Tracked by RepoSense)]
+
+=== *Other contributions*
+==== Project management
+[none]
+* Managed the release of https://github.com/AY1920S1-CS2103T-F13-1/main/releases/tag/v1.4-alpha[`v1.4-alpha`] on GitHub.
+This is the final version of our software at Alpha release for final pre-release testing. The improvements made to `v1.3` are:
+** Feature: Undo and Redo
+** Feature: Toggle UI theme
+** GUI theme update
+** Additional sample data on startup
+** Bug fixes
+
+==== Enhancements to existing features
+Done through the following pull requests: +
+
+[none]
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/292[#292]: Updated sample data for users to test on
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/255[#255]: Updated the GUI color scheme
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/84[#84]: Created the relevant Storage classes for others to build on
+
+==== Documentation
+Done through the following pull requests: +
+
+[none]
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/277[#277]: Styled the aesthetics of the LiBerry Netlify main page and sub-pages (including User Guide (UG) and Developer Guide (DG))
+* https://github.com/AY1920S1-CS2103T-F13-1/main/pull/94[#94]: Create the broad User Guide structure for others to build on
+
+==== Community
+
+[none]
+* Left a https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/58[DG review] on another group's PR as a group
+* Posted a https://github.com/nus-cs2103-AY1920S1/forum/issues/115[tip] in the module forum (as a group) on making a code coverage check shortcut
+* Left a https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/49[User Stories review] on another group's PR as a group
+* Tested another team's https://github.com/AY1920S1-CS2103T-F12-3/main/releases[PR] and submitted bugs during Practical Exam Dry Run.
+
+== Contributions to the User Guide
+|===
+|_Given below are sections I have contributed to in the User Guide. They showcase my ability to write documentation targeting end-users.
+The official User Guide is linked https://ay1920s1-cs2103t-f13-1.github.io/main/UserGuide.html[here]._
+|===
+
+=== User Guide: Find Command
+The following segment shows my description of the `find` command which I have implemented in LiBerry.
+
+'''
+
+include::../UserGuide.adoc[tag=UGshiyao1]
+
+=== User Guide: Command Summary
+The following segment shows my summary of all the commands in LiBerry. I made this so that users can have an overview of
+all the commands and be able to find the relevant one quickly without having to go through the entire User Guide.
+
+'''
+
+include::../UserGuide.adoc[tag=UGshiyao2]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I have contributed to in the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+The official Developer Guide is linked https://ay1920s1-cs2103t-f13-1.github.io/main/DeveloperGuide.html[here]_
+|===
+
+Book Finding is the main feature that I have implemented in LiBerry. The following is an extract from the Developer Guide that describes and explains the feature.
+
+'''
+include::../DeveloperGuide.adoc[tag=bookFinding]
+
+'''
+
+== End of PPP
+Thank you for reading this Portfolio Page. If you have any suggestions for LiBerry, for this page, or for me in general, contact me at wangshiyao@u.nus.edu!
+
+Special thanks to my team for making this project a success!

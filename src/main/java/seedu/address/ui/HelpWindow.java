@@ -1,31 +1,54 @@
 package seedu.address.ui;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
+import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
+import seedu.address.logic.commands.EditBorrowerCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.InfoCommand;
+import seedu.address.logic.commands.LoanCommand;
+import seedu.address.logic.commands.PayCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.RegisterCommand;
+import seedu.address.logic.commands.RenewCommand;
+import seedu.address.logic.commands.ReturnCommand;
+import seedu.address.logic.commands.ServeCommand;
+import seedu.address.logic.commands.SetCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UnregisterCommand;
 
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart<Stage> {
-
-    public static final String USERGUIDE_URL = "https://se-education.org/addressbook-level3/UserGuide.html";
-    public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL;
+public class HelpWindow extends UiPart<Stage> implements Initializable {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
     @FXML
-    private Button copyButton;
+    private TableView<HelpTableEntry> helpTable;
 
     @FXML
-    private Label helpMessage;
+    private TableColumn<HelpTableEntry, String> commandCol;
+
+    @FXML
+    private TableColumn<HelpTableEntry, String> usageCol;
 
     /**
      * Creates a new HelpWindow.
@@ -34,7 +57,6 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        helpMessage.setText(HELP_MESSAGE);
     }
 
     /**
@@ -42,6 +64,38 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow() {
         this(new Stage());
+    }
+
+    /**
+     * Initialises the table of commands and usages within the HelpWindow.
+     */
+    public void initialize(URL url, ResourceBundle rb) {
+        final ObservableList<HelpTableEntry> data = FXCollections.observableArrayList(
+                new HelpTableEntry(AddCommand.COMMAND_WORD, AddCommand.MESSAGE_USAGE),
+                new HelpTableEntry(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_USAGE),
+                new HelpTableEntry(DeleteCommand.COMMAND_WORD, DeleteCommand.MESSAGE_USAGE),
+                new HelpTableEntry(DoneCommand.COMMAND_WORD, DoneCommand.MESSAGE_USAGE),
+                new HelpTableEntry(EditBorrowerCommand.COMMAND_WORD, EditBorrowerCommand.MESSAGE_USAGE),
+                new HelpTableEntry(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_USAGE),
+                new HelpTableEntry(FindCommand.COMMAND_WORD, FindCommand.MESSAGE_USAGE),
+                new HelpTableEntry(HelpCommand.COMMAND_WORD, HelpCommand.MESSAGE_USAGE),
+                new HelpTableEntry(InfoCommand.COMMAND_WORD, InfoCommand.MESSAGE_USAGE),
+                new HelpTableEntry(LoanCommand.COMMAND_WORD, LoanCommand.MESSAGE_USAGE),
+                new HelpTableEntry(PayCommand.COMMAND_WORD, PayCommand.MESSAGE_USAGE),
+                new HelpTableEntry(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_USAGE),
+                new HelpTableEntry(RegisterCommand.COMMAND_WORD, RegisterCommand.MESSAGE_USAGE),
+                new HelpTableEntry(RenewCommand.COMMAND_WORD, RenewCommand.MESSAGE_USAGE),
+                new HelpTableEntry(ReturnCommand.COMMAND_WORD, ReturnCommand.MESSAGE_USAGE),
+                new HelpTableEntry(ServeCommand.COMMAND_WORD, ServeCommand.MESSAGE_USAGE),
+                new HelpTableEntry(SetCommand.COMMAND_WORD, SetCommand.MESSAGE_USAGE),
+                new HelpTableEntry(UndoCommand.COMMAND_WORD, UndoCommand.MESSAGE_USAGE),
+                new HelpTableEntry(UnregisterCommand.COMMAND_WORD, UnregisterCommand.MESSAGE_USAGE)
+        );
+
+        commandCol.setCellValueFactory(new PropertyValueFactory<>("command"));
+        usageCol.setCellValueFactory(new PropertyValueFactory<>("usage"));
+
+        helpTable.setItems(data);
     }
 
     /**
@@ -89,14 +143,4 @@ public class HelpWindow extends UiPart<Stage> {
         getRoot().requestFocus();
     }
 
-    /**
-     * Copies the URL to the user guide to the clipboard.
-     */
-    @FXML
-    private void copyUrl() {
-        final Clipboard clipboard = Clipboard.getSystemClipboard();
-        final ClipboardContent url = new ClipboardContent();
-        url.putString(USERGUIDE_URL);
-        clipboard.setContent(url);
-    }
 }

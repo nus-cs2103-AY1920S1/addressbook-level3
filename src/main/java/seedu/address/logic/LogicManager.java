@@ -4,17 +4,22 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.LoanSlipException;
+import seedu.address.commons.util.LoanSlipUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
+import seedu.address.logic.parser.CatalogParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyCatalog;
+import seedu.address.model.book.Book;
+import seedu.address.model.borrower.Borrower;
 import seedu.address.storage.Storage;
 
 /**
@@ -26,12 +31,12 @@ public class LogicManager implements Logic {
 
     private final Model model;
     private final Storage storage;
-    private final AddressBookParser addressBookParser;
+    private final CatalogParser catalogParser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        addressBookParser = new AddressBookParser();
+        catalogParser = new CatalogParser();
     }
 
     @Override
@@ -39,31 +44,70 @@ public class LogicManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
         CommandResult commandResult;
-        Command command = addressBookParser.parseCommand(commandText);
+        Command command = catalogParser.parseCommand(commandText);
         commandResult = command.execute(model);
 
+        if (command instanceof ReversibleCommand) {
+            model.commitCommand((ReversibleCommand) command);
+        }
+
         try {
-            storage.saveAddressBook(model.getAddressBook());
+            storage.saveLoanRecords(model.getLoanRecords());
+            storage.saveCatalog(model.getCatalog());
+            storage.saveBorrowerRecords(model.getBorrowerRecords());
+            if (commandResult.isDone()) {
+                if (LoanSlipUtil.isMounted()) {
+                    logger.info("making new loan slip");
+                    storage.storeNewLoanSlip();
+                    LoanSlipUtil.openGeneratedLoanSlip();
+                    LoanSlipUtil.clearSession();
+                }
+            }
         } catch (IOException ioe) {
+            logger.info("IOException");
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
+        } catch (LoanSlipException lse) {
+            logger.info("Error in generating loan slip");
+            return commandResult;
         }
 
         return commandResult;
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
+    public Borrower getServingBorrower() {
+        assert (isServeMode()) : "Not in serve mode";
+        return model.getServingBorrower();
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public ObservableList<Book> getServingBorrowerBookList() {
+        return FXCollections.observableList(model.getBorrowerBooks());
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
+    public String getLoanHistoryOfBookAsString(Book target) {
+        return model.getLoanHistoryOfBookAsString(target);
+    }
+
+    @Override
+    public boolean isServeMode() {
+        return model.isServeMode();
+    }
+
+    @Override
+    public ReadOnlyCatalog getCatalog() {
+        return model.getCatalog();
+    }
+
+    @Override
+    public ObservableList<Book> getFilteredBookList() {
+        return model.getFilteredBookList();
+    }
+
+    @Override
+    public Path getCatalogFilePath() {
+        return model.getCatalogFilePath();
     }
 
     @Override
@@ -74,5 +118,10 @@ public class LogicManager implements Logic {
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         model.setGuiSettings(guiSettings);
+    }
+
+    @Override
+    public String getLoadStatus() {
+        return model.getLoadStatus();
     }
 }

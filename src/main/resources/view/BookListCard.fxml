@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="Infinity" minWidth="10.0" prefWidth="205.0"/>
+        </columnConstraints>
+        <VBox alignment="CENTER_LEFT" minHeight="80" GridPane.columnIndex="0" GridPane.hgrow="ALWAYS">
+            <padding>
+                <Insets bottom="5" left="15" right="5" top="5"/>
+            </padding>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE"/>
+                    </minWidth>
+                </Label>
+                <Label fx:id="title" styleClass="cell_big_label" text="\$first"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Label fx:id="serialNumber" alignment="CENTER_RIGHT" styleClass="serial_number" text="\$serialNumber">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE"/>
+                    </minWidth>
+                    <HBox.margin>
+                        <Insets right="10.0"/>
+                    </HBox.margin>
+                </Label>
+            </HBox>
+            <Label fx:id="author" styleClass="cell_small_label" text="\$author">
+                <VBox.margin>
+                    <Insets bottom="1.0"/>
+                </VBox.margin>
+            </Label>
+            <FlowPane fx:id="genres">
+                <VBox.margin>
+                    <Insets bottom="2.0" top="2.0"/>
+                </VBox.margin>
+            </FlowPane>
+        </VBox>
+        <rowConstraints>
+            <RowConstraints/>
+        </rowConstraints>
+    </GridPane>
+    <VBox alignment="CENTER_LEFT" minHeight="70.0" minWidth="110.0" prefHeight="80.0" prefWidth="150.0">
+        <VBox fx:id="loanStatusBox" alignment="CENTER_LEFT" prefHeight="60" prefWidth="110"
+              styleClass="loan_status_box">
+            <Label fx:id="loanStatus" text=""/>
+            <Label fx:id="dueDate" text=""/>
+            <Label fx:id="renewCount" text=""/>
+            <VBox.margin>
+                <Insets bottom="5" left="5.0" right="15.0" top="5"/>
+            </VBox.margin>
+            <padding>
+                <Insets bottom="9.0" left="12.0" right="9.0" top="9.0"/>
+            </padding>
+        </VBox>
+    </VBox>
+</HBox>

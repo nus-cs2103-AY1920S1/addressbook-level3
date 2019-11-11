@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+actor Librarian
+actor System
+rectangle LiBerry {
+    Librarian -- (Manage books)
+    Librarian -- (Manage borrowers)
+    Librarian -- (Manage loans and returns)
+    Librarian -- (Set default settings)
+    System -- (Calculate fines)
+    System -- (Generate loan slips)
+}
+@enduml

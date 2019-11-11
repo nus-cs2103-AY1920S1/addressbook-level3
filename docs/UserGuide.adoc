@@ -1,8 +1,9 @@
-= AddressBook Level 3 - User Guide
+= LiBerry - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -12,166 +13,575 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103T-F13-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `AY1920S1-CS2103T-F13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+*LiBerry* is a desktop app for librarians to *quickly manage their community libraries!*
+LiBerry is optimized for librarians who prefer to work with a Command Line Interface (CLI) while still having the
+benefits of a Graphical User Interface (GUI).
+You can type quickly and serve your long line of borrowers in a short amount of time.
 
+LiBerry can manage all your books and borrowers efficiently and meticulously. You can easily add new books to your library
+records, register new borrowers, loan out books, track outstanding fines and more!
+
+This user guide will introduce to you the different features of LiBerry and how to use them!
+Jump to <<Quick Start>> to get started now! Enjoy!
+
+== Legend
+
+
+TIP: Denotes useful tips.
+
+IMPORTANT: Denotes important details to take note of.
+
+// tag::quickStart[]
 == Quick Start
+Dive into LiBerry with our simple set-up guide for a quick tour of our user interface and features!
+// need to elaborate here, add more egs
 
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Ensure you have `Java 11` or above installed in your Computer.
+.  Download the latest `LiBerry.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your LiBerry.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
-image::Ui.png[width="790"]
+.Components of LiBerry's User Interface (UI)
+image::annotated-ui.png[align=center]
 +
+. The UI of LiBerry consists of 5 main components. +
+1. The *command box* where you input commands to interact with the software.
+2. The *command results display* which provides feedback for your inputs.
+3. The *displayed book list* which displays all the books in LiBerry's catalog and also search results.
+4. The *borrower panel* which displays information about a borrower and his/her borrowed books when LiBerry is in Serve mode.
+5. The *mode indicator* which indicates if LiBerry is in Normal mode or Serve mode.
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+. Here are some commands you can try out:
+.. *Add a new book* to LiBerry by using `add t/Animal Farm a/George Orwell`
+.. *Register a new borrower* to LiBerry by using `register n/John Smith p/97875454 e/jsmith@gmail.com`
 
 .  Refer to <<Features>> for details of each command.
+// end::quickStart[]
 
 [[Features]]
+// tag::UGshiyao3[]
 == Features
+This section contains a detailed guide to every feature LiBerry supports, including how to use and the
+format of the commands to use the feature.
+The following table shows the format used to describe each command.
 
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `find t/TITLE`, `TITLE` is a parameter which can be used as `find t/Harry Potter`.
+* Items in square brackets are optional. E.g. `t/TITLE [g/GENRE]` can be used as `t/Harry Potter g/fiction` or as `t/Harry Potter`.
+* Curly brackets indicate that at least 1 of the optional parameters have to be given, e.g. `{ [t/TITLE] [a/AUTHOR] }` can be used as `t/Harry Potter`
+* Items with `...`​ after them can be used multiple times including zero times, e.g. `[g/GENRE]...` can be used as `{nbsp}` (i.e. 0 times), `g/fiction`, `g/fiction g/adventure` etc.
+* Parameters can be in any order e.g. if the command specifies `t/TITLE a/AUTHOR`, `a/AUTHOR t/TITLE` is also acceptable.
 ====
+// end::UGshiyao3[]
 
-=== Viewing help : `help`
+=== Using Normal Mode
+
+Normal Mode is for librarians to manage the books in the library. Commands in normal mode are not specific to any borrowers. Normal Mode also provides some utility commands to help the librarian use LiBerry. However, it is important to note that commands specific to Serve Mode cannot be used while in Normal Mode.
+
+// tag::UGHelp[]
+
+==== Viewing help : `help`
+
+Opens up a help window, which shows a summary of the list
+possible commands that you can execute. +
+
+.Screenshot of Help Window
+image::HelpWindow.png[]
+
+The figure above shows a screenshot of the help window.
+The left side of the window shows the command while the
+right side of the window gives a description of the command
+and a usage example.
 
 Format: `help`
 
-=== Adding a person: `add`
+// end::UGHelp[]
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+// tag::UGshiyao1[]
 
-[TIP]
-A person can have any number of tags (including 0)
+==== Locating books by title: `find`
+
+Shows all relevant books found. +
+
+Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available] }` +
+Format: `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN] [-overdue] [-loaned] [-available] [-rated] [-popular] [-new] }` ** - Coming in v2.0**
+
+****
+* The search is case insensitive. e.g `harry` will match `Harry`
+* When searching by book titles and authors, partial words will also be matched e.g. `Har` will match `Harry`, `J` will match `J K Rowling` and `Jin Yong`
+* Books matching at least one keyword will be returned (i.e. `OR` search). e.g. `harry` will return both `Harry Potter` and `Harry Botter`
+* `[NUMBER]` will limit the search to `NUMBER` books
+* `[t/TITLE]` will be used to search through book titles
+* `[a/AUTHOR]` will be used to search through or filter by authors
+* `[g/GENRE]` will be used to search through or filter by genre
+* `[sn/BOOK_SN]` will be used to search through book serial numbers
+* Only 1 of the following 3 flags can be used
+** `[-overdue]` will only show overdue books
+** `[-loaned]` will only show loaned books
+** `[-available]` will only show available books
+* Adding one of the following will sort the books such that:
+** `[-rated]` will list the top 10 highly rated books ** - Coming in v2.0**
+** `[-popular]` will list the top 10 most borrowed books ** - Coming in v2.0**
+** `[-new]` will list the 10 newest books ** - Coming in v2.0**
+****
+
+
+TIP: Inputs for `g/GENRE` is automatically capitalized.
+
+TIP: `t/TITLE` and `a/AUTHOR` are matched by partial spellings. Search `t/phil` if you forgot how to spell 'Philosopher'!
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `find t/Animal Farm a/George Orwell` +
+Searches for the book titled “Animal Farm” by the author “George Orwell”.
 
-=== Listing all persons : `list`
+* `find 3 g/mystery g/children -available` +
+Searches for children mystery books that are not on loan and show the first 3 entries.
+// end::UGshiyao1[]
 
-Shows a list of all persons in the address book. +
-Format: `list`
+// tag::info[]
+==== Viewing a book's information: `info`
 
-=== Editing a person : `edit`
+Views more information about a book in the displayed list. +
+The information displayed includes: +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+* Title of book
+* Genres of book, if any
+* Serial number of book
+* Author of book
+* Loan status of book
+* Loan history of book +
+{nbsp}
 
+Format: `info INDEX`
+
+The figure below shows how an info window might look like.
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+.Info window of a selected book
+image::infowindow.png[width=500, align=center]
 ****
+In the window above, we can see that information related to the book 'Man's Search for Munning' is displayed in a viewable window.
 
-Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+// end::info[]
+==== Clearing all entries : `clear`
 
-=== Locating persons by name: `find`
+Clears the most recent search from the displayed book list and displays all books. +
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-// tag::delete[]
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-// end::delete[]
-=== Clearing all entries : `clear`
-
-Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+// tag::bookRelated[]
+
+==== Adding a book: `add`
+
+Adds a new book to library records. +
+
+Format: `add t/TITLE a/AUTHOR [sn/BOOK_SN] [g/GENRE]...`
+
+****
+* Adds a book with the title `TITLE`, written by `AUTHOR`, classified by the genres `GENRE` and tagged with the serial number `BOOK_SN`.
+* `TITLE` should be at most 50 characters long.
+* `AUTHOR` should be at most 50 characters long.
+* `GENRE`, if provided, should be at most 20 characters long.
+* `BOOK_SN`, if provided, must be a valid serial number that starts with the prefix 'B' followed by 5 digits. They should be unique.
+****
+
+TIP: A book can have up to 5 genres (but can have no genres as well).
+
+TIP: You do not need to specify the serial number if you wish so. +
+LiBerry will then auto-generate a valid serial number for the new book.
+
+Examples:
+
+* `add t/Harry Botter a/Raylei Jolking sn/B02010 g/children` +
+Adds a children book titled "Harry Botter" by "Raylei Jolking", with the serial number "B02010", to LiBerry.
+
+* `add t/Inferno a/Tande g/classic g/epic`
+Adds a book titled "Inferno" by "Tande", with the genres "classic" and "epic" to LiBerry. The serial number for
+this book will be automatically generated.
+
+==== Deleting a book : `delete`
+
+Deletes a book from the library records. Used when book is lost or trashed. +
+
+Format: `delete INDEX` or `delete sn/BOOK_SN`
+
+****
+* Deletes the book at the specified `INDEX`.
+* `INDEX` refers to the index number shown in the displayed book list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ...
+* `delete INDEX` will delete the book with the book at `INDEX` position in the results list.
+* `delete sn/BOOK_SN` will delete the book with this serial number.
+****
+
+Examples:
+
+* `find t/harry` +
+`delete 1` +
+Deletes the 1st book in the results of the `find` command.
+* `delete sn/B00422` +
+Deletes the book with serial number `sn/B00422`.
+
+// end::bookRelated[]
+// tag::UGyuting[]
+==== Registering a new borrower: `register`
+
+Registers a new borrower to the library records. A unique ID associated with the borrower will automatically be generated and displayed. Borrowers are expected to know his ID in order for loans to be processed. +
+
+Format: `register n/NAME p/PHONE_NUMBER e/EMAIL`
+
+Example:
+
+* `register n/matt p/83938249 e/matt@damon.com` +
+Registers a new borrower called "matt", with phone number "83938249" and email "matt@damon.com" to LiBerry.
+
+==== Unregistering a borrower: `unregister`
+
+Unregisters and removes a borrower with the given borrower ID from the library records. +
+
+Format:  `unregister id/BORROWER_ID`
+
+Example:
+
+* `unregister id/K0001` +
+Deletes the borrower with the borrower ID `id/K0001`
+
+// end::UGyuting[]
+
+// tag::UGUndo[]
+
+==== Undoing mistakes: `undo`
+
+Undoes the previous command/action.
+This command only works for commands that modifies the
+catalog, loan records, borrower records or user settings.
+
+Undoable Commands:
+
+* `add`, `delete`, `edit`, `loan`, `register`, `renew`,
+`return`, `set`, `toggleui` and `unregister`.
+
+IMPORTANT: After every `serve`, `done` or `pay` command, all previous
+state would be cleared. This means that you would not be able
+to undo to the state before the `serve`, `done` or `pay` command.
+
+TIP: Check the commands you made and ensure that they are correct
+before entering a `serve`, `done` or `pay` command.
+
+Format: `undo`
+
+// end::UGUndo[]
+// tag::UGRedo[]
+
+==== Redoing undone commands : redo
+
+Redoes the most recent command that was undone. This
+command only works if there are undone commands. +
+
+IMPORTANT: Once a new undoable command is entered, you
+may not redo previously undone commands.
+
+Format: `redo`
+
+// end::UGRedo[]
+// tag::UGSet[]
+
+==== Setting User Settings: `set`
+
+Sets the user settings of the application. +
+
+Format: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS]`
+
+****
+* Updates the user settings with the specified `LOAN_PERIOD`,
+`RENEW_PERIOD`, `FINE_INCREMENT` and `MAX_RENEW`.
+* All the fields that are specified must be a positive integer.
+* If none of the fields are specified, the current user settings
+would be displayed.
+* `LOAN_PERIOD` refers to the number of days that a book can be
+loaned out for.
+* `RENEW_PERIOD` refers to the number of days that the loan can be
+extended for.
+* `FINE_INCREMENT` refers to the amount of cents charged per day for each
+overdue book.
+* `MAX_RENEWS` refers to the maximum amount renewals that can be made
+per loaned out book.
+****
+
+Examples:
+
+*  `set` +
+Shows the current user settings.
+
+The yellow box in the figure below is what you will see after
+entering the set command.
+
+.User interface after set to used to view current user sittings
+image::ViewSettingsCommand.png[width=450, align=center]
+
+
+
+*  `set lp/7 rp/7 fi/5 mr/2` +
+Sets the loan period to 7 days, renew period to 7 days,
+fine increment to 5 cents per day and maximum renews allowed to 2.
+
+.User interface before set command is executed.
+image::BeforeSetCommand.png[width=450, align=center]
+
+The figure above shows the user interface before the set
+command is executed. The yellow box shows the set command that
+is being entered.
+
+.User interface after set command is executed.
+image::AfterSetCommand.png[width=450, align=center]
+
+After entering the set command, the user settings would be updated.
+The updated user settings will then be displayed in the result display
+as shown in the yellow box in the figure above.
+
+// end::UGSet[]
+
+==== Toggling dark mode : `toggleui`
+
+Toggles between light mode and dark mode for the UI. +
+
+Format: `toggleui`
+
+==== Rating a book : `rate` - Coming in v2.0
+Gives a book a numerical rating. +
+
+Format: `rate INDEX r/RATING`
+
+==== Exiting the program : `exit`
 
 Exits the program. +
+
 Format: `exit`
 
-=== Saving the data
+// tag::UGyuting2[]
+==== Entering Serve Mode: `serve`
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+Enters Serve Mode. All commands/actions will be done on this specific borrower. A list of the borrower’s currently loaned books and their serial numbers will be displayed. +
+Borrower ID is used as the borrower will produce their library card which contains their ID to the librarian to be served. +
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+Format: `serve id/BORROWER_ID`
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Example:
+
+* `serve id/K0001` +
+Enters save mode to serve a borrower with the ID `K0001`
+
+'''
+=== Using Serve Mode
+
+The Serve Mode is for librarians to serve borrowers. All commands in Serve Mode are done on a specific borrower currently served by the librarian.
+All commands in Normal Mode, except for `serve` and `exit`, can be used in Serve Mode too.
+The command `unregister` cannot be used on the currently serving borrower.
+
+
+// tag::loanSlip[]
+==== Exiting Serve Mode: `done`
+
+Exits Serve Mode. +
+
+Format: `done`
+
+After loaning all books, upon the `done` command, a printable loan slip in pdf format will be generated.
+The loan slip will be opened in your computer's pdf viewer and also saved in the `loan_slips` folder.
+The figure below shows an example of how a loan slip might look like.
+
+****
+.Printable loan slip generated.
+image::LoanSlip.png[width=250, align=center]
+****
+In the figure above, we can see that the loan slip records all the books borrowed by 'Bill'.
+// end::loanSlip[]
+
+==== Editing a borrower: `edit`
+
+Edit borrower’s particulars. +
+
+Format: `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }`
+
+****
+* Edits the currently serving borrower's particulars.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+****
+
+Examples:
+
+* `edit p/91234567 e/jane@austen.com` +
+Edits the phone number and borrower's email address to be `91234567` and `jane@austen.com` respectively.
+* `edit n/Betsy Crower` +
+Edits the name of the borrower to be `Betsy Crower`.
+
+// end::UGyuting2[]
+
+// tag::loanRelated[]
+==== Loaning book(s): `loan`
+
+Loan book(s) to the currently served borrower. +
+The serial number of the book is used as the borrower would bring the physical copy of the book they want to borrow
+to you. Thus, you do not have to search for the index of the book in the displayed book list.
+
+Format: `loan sn/BOOK_SN` +
+Format: `loan sn/BOOK_SN [sn/BOOK_SN]...` **- Coming in v2.0** +
+
+Examples:
+
+* `loan sn/B00006` +
+You loan out the book with serial number B00006 to the currently served borrower. +
+{empty} +
++
+.The user interface after the book is loaned out.
+image::ug-loan-pic.png[width=850, align=center]
+After this command is entered, the command results display will provide you with a summary of which book is loaned
+out and tho who it is loaned to. As seen from the screenshot, the book will also be added to the list of currently loaned out books in the borrower's
+panel on the right. Inside the main list on the left, an on-loan box would also indicate
+this book as being loaned out.
+
+* `loan sn/B00201 sn/B02929 sn/B00203` **- Coming in v2.0** +
+You loan out the books with serial numbers B00201, B02929 and B00203 to the currently served borrower.
+
+==== Returning book(s): `return`
+
+Return book(s) that were loaned by the borrower. +
+Fine incurred for late returns will automatically be calculated and added to
+the borrower's total outstanding fines. +
+
+Format: `return INDEX` or `return -all` +
+
+****
+* Returns the book at the specified `INDEX` in the *borrower panel* or `-all` of the currently served borrower's loaned out books.
+* `INDEX` indicates the book at this index number shown in the borrower's book list on the right side of the UI.
+The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
+* `-all` indicates all the books currently loaned out by the borrower. +
+{nbsp}
+
+.Screenshot to illustrate the return commands that can be entered.
+image::ug-return.png[width=850, align=center]
+* Referring to the above screenshot as an example, entering `return 1` would successfully return the book "Stefe Jobz".
+However, entering `return 3` would be invalid as there's no book at index 3 in the borrower panel. Entering `return -all`
+would return all of Bobby's loaned out books, which are "Stefe Jobz" and "Behaves".
+****
+
+==== Renewing book(s): `renew`
+
+Renew book(s) that are still loaned by the borrower, i.e., extend their due dates. +
+
+Format: `renew INDEX` or `renew -all` +
+
+****
+* Renews the book at the specified `INDEX` in the *borrower panel* or all of the currently served borrower's loaned out books that can still be renewed.
+* `INDEX` indicates the book at this index number shown in the borrower's book list on the right side of the UI.
+The index *must be a positive integer* such as 1, 2 or 3, and must appear in the borrower panel.
+* `-all` indicates all the books currently loaned out by the borrower that still can be renewed.
+* You cannot renew overdue books or books that have reached the maximum renew count.
+* If you just loaned out or renewed a book, you cannot renew that same book in the same Serve mode session.
+****
+
+==== Paying fines: `pay`
+
+Receive AMOUNT (in dollars and up to 2 decimal places) from the currently served borrower to pay off his/her outstanding fines. +
+
+Format: `pay $AMOUNT`
+
+Examples:
+
+* `pay $12.80` +
+You receive $12.80 from the borrower to pay off his/her fine. +
+{empty} +
++
+.The command results display after paying fines.
+image::ug-pay.png[width=470, align=center]
+As seen from the screenshot above, after a fine amount is paid, a summary can be seen. You will see any outstanding fine the
+borrower still has. If the borrower pays an amount greater than his/her total outstanding fine, you can refer to the change given line
+to see how much change you should return to the borrower.
+
+* `pay $5` +
+You receive $5 from the borrower to pay off his/her fine.
+
+// end::loanRelated[]
+
+==== Reserving a book: `reserve` - Coming in v2.0
+
+Reserve a particular book for the borrower. +
+
+Format: `reserve INDEX` or `reserve sn/BOOK_SN`
+
+****
+* Reserves the book at the specified `INDEX` or the book with the specified serial number `BOOK_SN` for the currently served borrower.
+* `INDEX` indicates the book at this index number shown in the displayed book list.
+The index *must be a positive integer* such as 1, 2 or 3, and must appear in the displayed book list.
+* `sn/BOOK_SN` indicates the particular book with this serial number.
+****
+
+Examples:
+
+* `reserve 2` +
+Reserves the 2nd book shown in the displayed book list for the currently served borrower.
+* `reserve sn/B02422` +
+Reserves the book with serial number `sn/B02422` for the currently served borrower.
+
+'''
+
+=== Saving the Data
+
+LiBerry data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually. +
+Data saved should not be manually edited to prevent files from being corrupted.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous LiBerry folder.
+
+
 
 == Command Summary
+// tag::UGshiyao2[]
+This section contains the summary of LiBerry's commands. +
+Commands applicable to both *Normal* and *Serve* mode:
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
 * *Help* : `help`
+* *Find a book* : `find [NUMBER] { [t/TITLE] [a/AUTHOR] [g/GENRE]... [sn/BOOK_SN]] [-overdue] [-loaned] [-available] }` +
+e.g. `find t/Animal Farm a/George Orwell`, `find 3 g/mystery g/children -available` +
+`[-rated] [-popular] [-new]` ** - Coming in v2.0**
+* *View book info* : `info INDEX`
+* *Clear results* : `clear`
+* *Add a book* : `add t/TITLE a/AUTHOR sn/BOOK_SN [g/GENRE]... ` +
+e.g. `add t/Harry Botter and the Baby's Potty a/Reali Jolking sn/B02010 g/children`
+* *Delete a book* : `delete INDEX` or `delete sn/BOOK_SN`
+* *Register a borrower* : `register n/NAME p/PHONE_NUMBER e/EMAIL` +
+e.g. `register n/matt p/83938249 e/matt@damon.com`
+* *Unregister a borrower* : `unregister id/BORROWER_ID`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Set user settings*: `set [lp/LOAN_PERIOD] [rp/RENEW_PERIOD] [fi/FINE_INCREMENT] [mr/MAX_RENEWS]`
+* *Toggle UI theme*: `toggleui`
+* *Rate a book* : `rate INDEX r/RATING` ** - Coming in v2.0**
+* *Exit* : `exit`
+* *Enter Serve mode* : `serve id/BORROWER_ID` +
+e.g. `serve id/K0001`
+
+Commands applicable to *Serve* mode only:
+
+* *Exit serve mode* : `done`
+* *Edit a borrower's particulars* : `edit { [n/NAME] [p/PHONE_NUMBER] [e/email] }` +
+e.g. `edit p/91234567 e/jane@austen.com`
+* *Loan book* : `loan sn/BOOK_SN` +
+e.g. `loan sn/B00201`
+* *Return book(s)* : `return INDEX` or `return -all`
+* *Renew book(s)* : `renew INDEX` or `renew -all`
+* *Pay fines* : `pay $AMOUNT`
+* *Reserve book* : `reserve INDEX` or `reserve sn/BOOK_SN` ** - Coming in v2.0**
+// end::UGshiyao2[]

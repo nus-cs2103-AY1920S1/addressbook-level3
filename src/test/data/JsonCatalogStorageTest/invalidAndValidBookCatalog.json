@@ -1,0 +1,13 @@
+{
+  "books": [ {
+    "title": "Valid Book",
+    "serialNumber": "B00001",
+    "author": "hans",
+    "genre": "action"
+  }, {
+    "title": "Book With Invalid serial Field",
+    "serialNumber": "948asdf2424",
+    "author": "hans",
+    "genre": "action"
+  } ]
+}

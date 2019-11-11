@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.testutil.Assert.assertThrows;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -80,6 +81,18 @@ public class CollectionUtilTest {
         assertFalse(CollectionUtil.isAnyNonNull((Object[]) null));
         assertTrue(CollectionUtil.isAnyNonNull(new Object()));
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
+    }
+
+    @Test
+    public void areAllSameSize() {
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+
+        assertTrue(CollectionUtil.areAllSameSize(new ArrayList<>(list), new ArrayList<>(list),
+                new ArrayList<>(list)));
+        assertFalse(CollectionUtil.areAllSameSize(new ArrayList<>(list), new ArrayList<>()));
     }
 
     /**

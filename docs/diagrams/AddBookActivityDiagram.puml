@@ -1,0 +1,14 @@
+@startuml
+start
+:User executes AddCommand;
+if () then ([Invalid arguments])
+    :Throw exception for invalid arguments;
+else
+    if () then ([Serial Number provided])
+    else ([Serial Number not provided])
+        :Generate valid Serial Number;
+    endif
+    :Create book;
+endif
+stop
+@enduml

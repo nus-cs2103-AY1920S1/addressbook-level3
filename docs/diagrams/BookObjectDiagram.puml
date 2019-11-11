@@ -1,0 +1,54 @@
+@startuml
+!include style.puml
+show members
+left to right direction
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+skinparam ObjectAttributeFontSize 12
+
+object "__:Book__" as Book {
+}
+
+object "__serialNumber:SerialNumber__" as SerialNumber {
+    value = "B00001"
+}
+
+object "__title:Title__" as Title {
+    value = "Harry Botter"
+}
+
+object "__author:Author__" as Author {
+    value = "J K Rowling"
+}
+
+object "__loan:Optional<Loan>__" as Loan {
+    value = loan
+}
+
+object "__:Genre__" as Genre1 {
+    genreName = "ACTION"
+}
+
+object "__:Genre__" as Genre2 {
+    genreName = "FICTION"
+}
+
+object "__LoanHistory:LoanList__" as LoanHistory {
+
+}
+
+object "__loanList:ArrayList__" as LoanList {
+
+}
+
+Book --> SerialNumber
+Book --> Title
+Book --> Author
+Book --> Genre1
+Book --> Genre2
+Book --> Loan
+Book --> LoanHistory
+
+LoanHistory --> LoanList
+@enduml

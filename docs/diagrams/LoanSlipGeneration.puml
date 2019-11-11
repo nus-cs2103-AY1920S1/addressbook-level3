@@ -1,0 +1,57 @@
+@startuml
+!include style.puml
+
+box Logic #Lightblue
+    participant ":Logic" as Logic LOGIC_COLOR
+    participant ":LoanCommand" as LoanCommand LOGIC_COLOR
+end box
+box Model #Pink
+    participant ":Model" as Model MODEL_COLOR
+    participant ":Loan" as Loan MODEL_COLOR
+    participant ":LoanSlipUtil" as LoanSlipUtil MODEL_COLOR
+end box
+box Storage #Lightyellow
+    participant ":Storage" as Storage STORAGE_COLOR
+end box
+
+activate Logic
+Logic -> LoanCommand : execute(model)
+activate LoanCommand
+
+create Loan
+LoanCommand -> Loan : new Loan(LoanId, Book, Borrower, StartDate, DueDate)
+activate Loan
+Loan --> LoanCommand : Loan
+deactivate Loan
+
+LoanCommand -> LoanSlipUtil : mountLoan(Loan, Book, Borrower)
+activate LoanSlipUtil
+LoanSlipUtil --> LoanCommand
+deactivate LoanSlipUtil
+
+LoanCommand -> Logic : CommandResult
+deactivate LoanCommand
+destroy LoanCommand
+
+Logic -> Storage : storeNewLoanSlip()
+activate Storage
+Storage -> LoanSlipUtil : createLoanSlipInDirectory()
+activate LoanSlipUtil
+LoanSlipUtil --> Storage : LoanSlip.pdf
+deactivate LoanSlipUtil
+
+Storage -> Logic
+deactivate Storage
+
+Logic -> LoanSlipUtil : openGeneratedLoanSlip()
+activate LoanSlipUtil
+LoanSlipUtil --> Logic
+deactivate LoanSlipUtil
+
+Logic -> LoanSlipUtil : clearSession()
+activate LoanSlipUtil
+LoanSlipUtil --> Logic
+deactivate LoanSlipUtil
+
+deactivate Logic
+@enduml

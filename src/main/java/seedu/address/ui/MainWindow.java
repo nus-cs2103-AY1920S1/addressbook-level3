@@ -1,14 +1,16 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.GuiSettings.DARK_THEME_CSS_PATH;
+import static seedu.address.commons.core.GuiSettings.LIBERRY_THEME_CSS_PATH;
+
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -16,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.book.Book;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,31 +27,36 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
+    private static final String SERVE_MODE = "SERVE MODE";
+    private static final String NORMAL_MODE = "NORMAL MODE";
 
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
+    private GuiSettings guiSettings;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private BookListPanel bookListPanel;
+    private BorrowerPanel borrowerPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private InfoWindow infoWindow;
 
     @FXML
-    private StackPane commandBoxPlaceholder;
+    private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
+    private AnchorPane resultDisplayPlaceholder;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane bookListPanelPlaceholder;
 
     @FXML
-    private StackPane resultDisplayPlaceholder;
+    private StackPane borrowerPanelPlaceholder;
 
     @FXML
-    private StackPane statusbarPlaceholder;
+    private Label mode;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -56,65 +64,94 @@ public class MainWindow extends UiPart<Stage> {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
+        guiSettings = logic.getGuiSettings();
+        helpWindow = new HelpWindow();
+        infoWindow = new InfoWindow();
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setWindowDefaultSize(guiSettings);
+        setTheme(guiSettings);
 
-        setAccelerators();
+        if (logic.isServeMode()) {
+            mode.setText(SERVE_MODE);
+        } else {
+            mode.setText(NORMAL_MODE);
+        }
+    }
 
-        helpWindow = new HelpWindow();
+    public void displayInitMessage() {
+        resultDisplay.setFeedbackToUser(logic.getLoadStatus());
+    }
+
+    private void setTheme(GuiSettings guiSettings) {
+        requireNonNull(guiSettings);
+        assert infoWindow != null : "infoWindow not initialized!";
+        assert helpWindow != null : "helpWindow not initialized!";
+
+        if (guiSettings.isDarkTheme()) {
+            helpWindow.getRoot().getScene().getStylesheets().clear();
+            helpWindow.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
+            infoWindow.getRoot().getScene().getStylesheets().clear();
+            infoWindow.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
+            this.getRoot().getScene().getStylesheets().clear();
+            this.getRoot().getScene().getStylesheets().add(DARK_THEME_CSS_PATH);
+        } else {
+            helpWindow.getRoot().getScene().getStylesheets().clear();
+            helpWindow.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
+            infoWindow.getRoot().getScene().getStylesheets().clear();
+            infoWindow.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
+            this.getRoot().getScene().getStylesheets().clear();
+            this.getRoot().getScene().getStylesheets().add(LIBERRY_THEME_CSS_PATH);
+        }
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
+    /**
+     * updates the UI of dynamically allocated Mode Label when theme is changed
+     */
+    public void updateModeUi() {
+        if (logic.isServeMode()) {
+            if (guiSettings.isDarkTheme()) {
+                mode.setStyle("-fx-background-color: " + GuiSettings.COLOR_DARK_THEME_MODE_LABEL + ";");
+            } else {
+                mode.setStyle("-fx-background-color: " + GuiSettings.COLOR_LIBERRY_THEME_MODE_LABEL + ";");
+            }
+        } else {
+            mode.setStyle("-fx-background-color: " + GuiSettings.COLOR_TRANSPARENT + ";");
+        }
+        primaryStage.show();
     }
 
     /**
-     * Sets the accelerator of a MenuItem.
-     * @param keyCombination the KeyCombination value of the accelerator
+     * Changes the Ui between LiBerry Theme and Dark Theme,
+     * updating the relevant panels and dynamically allocated items
      */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
+    public void handleToggleUi() {
+        setTheme(guiSettings);
+        bookListPanel = new BookListPanel(logic.getFilteredBookList(), guiSettings.isDarkTheme());
+        bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
+        updateModeUi();
+        if (logic.isServeMode()) {
+            updateBorrowerPanel();
+        }
+        primaryStage.show();
     }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        bookListPanel = new BookListPanel(logic.getFilteredBookList(), guiSettings.isDarkTheme());
+        bookListPanelPlaceholder.getChildren().add(bookListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        borrowerPanel = new BorrowerPanel(guiSettings.isDarkTheme());
+        borrowerPanelPlaceholder.getChildren().add(borrowerPanel.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -124,12 +161,25 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        if (guiSettings.isDefault()) {
+            primaryStage.setHeight(getDefaultHeight());
+            primaryStage.setWidth(getDefaultWidth());
+        } else {
+            primaryStage.setHeight(guiSettings.getWindowHeight());
+            primaryStage.setWidth(guiSettings.getWindowWidth());
+        }
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    public static double getDefaultWidth() {
+        return Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    public static double getDefaultHeight() {
+        return Screen.getPrimary().getVisualBounds().getHeight();
     }
 
     /**
@@ -144,8 +194,25 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the info window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleInfo(Book book) {
+        infoWindow.updateData(book, logic.getLoanHistoryOfBookAsString(book));
+        if (!infoWindow.isShowing()) {
+            infoWindow.show();
+        } else {
+            infoWindow.focus();
+        }
+    }
+
     void show() {
         primaryStage.show();
+    }
+
+    public BookListPanel getBookListPanel() {
+        return bookListPanel;
     }
 
     /**
@@ -153,15 +220,42 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
-        GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
-        logic.setGuiSettings(guiSettings);
+        GuiSettings newGuiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
+                (int) primaryStage.getX(), (int) primaryStage.getY(), this.guiSettings.isDarkTheme());
+        logic.setGuiSettings(newGuiSettings);
         helpWindow.hide();
+        infoWindow.hide();
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Updates the borrower panel and sets the label to Serve Mode.
+     */
+    @FXML
+    private void handleServe() {
+        mode.setText(SERVE_MODE);
+        updateModeUi();
+    }
+
+    /**
+     * Updates the borrower panel in Serve Mode.
+     */
+    @FXML
+    private void updateBorrowerPanel() {
+        assert logic.isServeMode() : "Not in serve mode";
+        borrowerPanel.setBorrower(
+                logic.getServingBorrower(), logic.getServingBorrowerBookList(),
+                guiSettings.isDarkTheme());
+    }
+
+    /**
+     * Resets the borrower panel and sets the label to Normal Mode.
+     */
+    @FXML
+    private void handleDone() {
+        mode.setText(NORMAL_MODE);
+        updateModeUi();
+        borrowerPanel.reset();
     }
 
     /**
@@ -177,10 +271,20 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
+            } else if (commandResult.isExit()) {
+                handleExit();
+            } else if (commandResult.isServe()) {
+                handleServe();
+            } else if (commandResult.isDone()) {
+                handleDone();
+            } else if (commandResult.isInfo()) {
+                handleInfo(commandResult.getBook());
+            } else if (commandResult.isToggleUi()) {
+                handleToggleUi();
             }
 
-            if (commandResult.isExit()) {
-                handleExit();
+            if (logic.isServeMode() && !commandResult.isDone()) {
+                updateBorrowerPanel();
             }
 
             return commandResult;

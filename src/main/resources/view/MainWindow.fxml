@@ -1,60 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="450" minHeight="600" onCloseRequest="#handleExit">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
-  <scene>
-    <Scene>
-      <stylesheets>
-        <URL value="@DarkTheme.css" />
-        <URL value="@Extensions.css" />
-      </stylesheets>
-
-      <VBox>
-        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-          <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-          </Menu>
-        </MenuBar>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
-                   minHeight="100" prefHeight="100" maxHeight="100">
-          <padding>
-            <Insets top="5" right="10" bottom="5" left="10" />
-          </padding>
-        </StackPane>
-
-        <VBox fx:id="personList" styleClass="pane-with-border" minWidth="340" prefWidth="340" VBox.vgrow="ALWAYS">
-          <padding>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </padding>
-          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-        </VBox>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-      </VBox>
-    </Scene>
-  </scene>
+<fx:root minHeight="600" minWidth="800.0" onCloseRequest="#handleExit" title="LiBerry" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1">
+    <scene>
+        <Scene>
+            <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                        prefHeight="510.0" prefWidth="615.0" xmlns="http://javafx.com/javafx/11.0.0"
+                        xmlns:fx="http://javafx.com/fxml/1">
+                <center>
+                    <HBox BorderPane.alignment="CENTER" alignment="CENTER">
+                        <VBox fx:id="bookList" minWidth="350.0" prefWidth="600.0" styleClass="foundation_pane"
+                              alignment="CENTER_LEFT"
+                              VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                            <padding>
+                                <Insets bottom="10" left="7" right="10" top="10"/>
+                            </padding>
+                            <StackPane fx:id="bookListPanelPlaceholder" styleClass="placeholder" VBox.vgrow="ALWAYS"/>
+                            <Pane minHeight="10" prefHeight="10.0"/>
+                            <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="150.0" minHeight="150.0" prefHeight="150.0"
+                                        styleClass="placeholder" VBox.vgrow="ALWAYS">
+                            </AnchorPane>
+                        </VBox>
+                        <VBox maxWidth="500.0" minWidth="320.0" prefWidth="500.0" styleClass="foundation_pane"
+                                alignment="CENTER_RIGHT">
+                            <padding>
+                                <Insets bottom="10" left="7" right="10" top="10"/>
+                            </padding>
+                            <StackPane fx:id="borrowerPanelPlaceholder"
+                                       styleClass="placeholder" VBox.vgrow="ALWAYS">
+                            </StackPane>
+                        </VBox>
+                    </HBox>
+                </center>
+                <top>
+                    <HBox styleClass="header_pane" prefHeight="47.0" prefWidth="615.0" BorderPane.alignment="CENTER">
+                        <children>
+                            <ImageView fitHeight="47.0" fitWidth="118.0" pickOnBounds="true" preserveRatio="true"
+                                       HBox.hgrow="NEVER">
+                                <image>
+                                    <Image url="@../images/LiBerryLogo.png"/>
+                                </image>
+                                <HBox.margin>
+                                    <Insets left="13.0" top="7.0"/>
+                                </HBox.margin>
+                            </ImageView>
+                            <Pane prefHeight="47.0" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="mode" text="SERVE MODE">
+                                <HBox.margin>
+                                    <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                                </HBox.margin>
+                                <padding>
+                                    <Insets left="5.0" right="5.0"/>
+                                </padding>
+                            </Label>
+                        </children>
+                    </HBox>
+                </top>
+                <bottom>
+                    <AnchorPane fx:id="commandBoxPlaceholder"
+                                styleClass="placeholder"
+                                maxHeight="35.0" minHeight="35.0" minWidth="0.0" prefHeight="35.0" prefWidth="600.0"
+                                BorderPane.alignment="CENTER">
+                    </AnchorPane>
+                </bottom>
+            </BorderPane>
+        </Scene>
+    </scene>
 </fx:root>

@@ -1,0 +1,32 @@
+@startuml
+!include style.puml
+
+participant "User" as User USER_COLOR
+participant ":UI" as UI UI_COLOR
+participant ":Logic" as Logic LOGIC_COLOR
+participant ":Model" as Model MODEL_COLOR
+participant ":Storage" as Storage STORAGE_COLOR
+
+User -> UI : add t/Animal Farm a/George
+activate UI
+
+UI -> Logic : execute("add t/Animal Farm a/George")
+activate Logic
+
+Logic -> Model : addBook(animalFarm)
+activate Model
+Model --> Logic
+deactivate Model
+
+Logic -> Storage : saveCatalog(updatedCatalog)
+activate Storage
+Storage -> Storage : saveToLocalFile
+Storage --> Logic
+deactivate Storage
+
+Logic --> UI
+deactivate Logic
+
+UI --> User
+deactivate UI
+@enduml

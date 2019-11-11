@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Scene?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.stage.Stage?>
+
+<fx:root alwaysOnTop="true" height="400.0" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0"
+         resizable="false" title="Info" type="javafx.stage.Stage" width="700.0" xmlns="http://javafx.com/javafx/11.0.0"
+         xmlns:fx="http://javafx.com/fxml/1">
+    <icons>
+        <Image url="@/images/LiBerryLogo_square.png"/>
+    </icons>
+    <scene>
+        <Scene>
+            <ScrollPane styleClass="foundation_pane"
+                        hbarPolicy="NEVER" maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0"
+                        prefHeight="400.0" prefWidth="700.0">
+                <VBox styleClass="foundation_pane"
+                      maxHeight="400.0" maxWidth="700.0" minHeight="400.0" minWidth="700.0" prefHeight="400.0"
+                      prefWidth="700.0">
+                    <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/11.0.0"
+                          xmlns:fx="http://javafx.com/fxml/1">
+                        <GridPane maxWidth="500.0" minWidth="500.0" prefWidth="500.0" HBox.hgrow="ALWAYS">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="Infinity" minWidth="10.0"
+                                                   prefWidth="205.0"/>
+                            </columnConstraints>
+                            <VBox alignment="CENTER_LEFT" maxWidth="500.0" minHeight="105" minWidth="500.0"
+                                  prefHeight="105.0" prefWidth="500.0" GridPane.columnIndex="0"
+                                  GridPane.hgrow="ALWAYS">
+                                <padding>
+                                    <Insets bottom="5.0" right="5.0" top="5.0"/>
+                                </padding>
+                                <HBox alignment="CENTER_LEFT">
+                                    <Label fx:id="id" styleClass="cell_big_label">
+                                        <minWidth>
+                                            <!-- Ensures that the label text is never truncated -->
+                                            <Region fx:constant="USE_PREF_SIZE"/>
+                                        </minWidth>
+                                    </Label>
+                                    <Label fx:id="title" styleClass="cell_big_label" text="\$first"/>
+                                </HBox>
+                                <FlowPane fx:id="genres"/>
+                                <Label fx:id="serialNumber" styleClass="cell_small_label"
+                                       text="\$serialNumber"/>
+                                <Label fx:id="author" styleClass="cell_small_label" text="\$author"/>
+                                <GridPane.margin>
+                                    <Insets/>
+                                </GridPane.margin>
+                            </VBox>
+                            <rowConstraints>
+                                <RowConstraints/>
+                            </rowConstraints>
+                        </GridPane>
+                        <Pane maxWidth="281.0" minHeight="105.0" minWidth="120.0" prefHeight="105.0"
+                              prefWidth="240.0">
+                            <children>
+                                <Label fx:id="loanStatus" layoutY="41.0" styleClass="cell_small_label" text=""/>
+                                <Label fx:id="dueDate" layoutY="62.0" styleClass="cell_small_label" text=""/>
+                                <Label fx:id="renewCount" layoutY="78.0" styleClass="cell_small_label" text=""/>
+                            </children>
+                        </Pane>
+                        <VBox.margin>
+                            <Insets/>
+                        </VBox.margin>
+                    </HBox>
+                    <Label fx:id="loanHistory" styleClass="cell_small_label" text="Label" VBox.vgrow="ALWAYS"/>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0"/>
+                    </padding>
+                </VBox>
+            </ScrollPane>
+        </Scene>
+    </scene>
+</fx:root>

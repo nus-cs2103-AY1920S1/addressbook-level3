@@ -1,4 +1,4 @@
-@startuml
+    @startuml
 !include ../style.puml
 
 Package "Short\n->" {
