@@ -233,6 +233,8 @@ NOTE: There will be no changes in the schedules tab after the import of intervie
 
 Key formatting information for Interviewee's Data:
 
+image::IntervieweeData.png[]
+
 * Headers specify the details of the Interviewee to be imported. The order of the headers must be strictly followed as shown in the above template.
 * Timeslots: Each timeslot should be in the format `dd/MM/yyy HH:mm - HH:mm`. Use commas to separate the timeslots if there are more than 1.
 * There can only be 1 unique value for all other fields. Commas should not be used in these fields.
@@ -261,7 +263,6 @@ Format: `clear`
 WARNING: Data erased cannot be undone!
 //end::clear
 
-=======
 === UI Display
 
 ==== Display Schedules
