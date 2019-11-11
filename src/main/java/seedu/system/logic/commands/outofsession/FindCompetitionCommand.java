@@ -20,7 +20,7 @@ public class FindCompetitionCommand extends Command {
     public static final CommandType COMMAND_TYPE = CommandType.PARTICIPATION;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-        + ": Finds all participations whose names contain any of the specified keywords (case-insensitive)\n"
+        + ": Finds all competitions whose names contain any of the specified keywords (case-insensitive)\n"
         + "in its competition or person name and displays them as a list with index numbers.\n"
         + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
         + "Example: " + COMMAND_WORD + " NUS 2019 OPEN";

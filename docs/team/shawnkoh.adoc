@@ -1,0 +1,76 @@
+= Shawn Koh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Powerlifting Competition Coordinator
+
+---
+
+== Overview
+Powerlifting Competition Coordinator (PCC) aims to help organisers Powerlifting competition to administer
+powerlifting competitions. PCC manages athletes, competitions and participations in competitions.
+
+
+== Summary of contributions
+
+* *Major enhancement 1*: added *to find participations using keywords*
+** What it does: allows the user to find an athlete who participates in a competition using some keywords.
+For instance, competition organisers can search for all athletes who participate in a competition by supplying
+a competition name as the keyword. Organisers can also search for which competitions an athlete is participating in
+by supplying an athlete's name as a keyword.
+** Justification: A search for athletes and their associated competitions.
+
+* *Major enhancement 2*: added *to find competitions using keywords*
+** What it does: allows the user to find competitions using some keywords.
+** Justification: To match and return all relevant data which match keywords.
+
+* *Major enhancement 3*: added *compute overall rank*
+** What it does: Sorts and displays ranking of athletes according to the amount of times they are the overall champions for any competition.
+** Justification: To find which athlete(s) is a consistent podium finisher.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shawnkoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+
+* *Other contributions*:
+
+** Project management: <to be amended>
+*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+** Enhancements to existing features:
+*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+** Tools:
+*** Integrated a third party library (Natty) to the project (https://github.com[#42])
+*** Integrated a new Github plugin (CircleCI) to the team repo
+
+_{you can add/remove categories in the list above}_
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=OverallRank]
+
+include::../UserGuide.adoc[tag=findParticipation]
+
+include::../UserGuide.adoc[tag=findComp]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=overallRank]
+
+include::../DeveloperGuide.adoc[tag=dataencryption]
+
+

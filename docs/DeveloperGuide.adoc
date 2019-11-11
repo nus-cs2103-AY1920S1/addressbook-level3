@@ -715,6 +715,7 @@ Cons:
 
 * User will have to scroll through the participation list on the app to type in the index.
 
+//tag::overallRank[]
 
 ==== Overall Rank feature
 The user can list the persons in the system by the number of times they won a competition.
@@ -736,6 +737,10 @@ Pros:
 Cons:
 
 * User will have to scroll through the person list if it is very long to find a specific name.
+.Activity Diagram of the overallRank Command
+image::overallRank_activity.png[]
+
+//end::overallRank[]
 
 == Documentation
 

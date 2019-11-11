@@ -94,6 +94,19 @@ Format: `deleteCompetition INDEX`
 Example:
 `deleteCompetition 1`
 
+//tag::findComp[]
+
+==== Finding an existing competition: findCompetition
+Finds and lists all competitions in the system whose name or dates contains any of the argument keywords.
+Keyword matching is case insensitive.
+
+Format: `findCompetition [KEYWORD 1] ... [KEYWORD N]`
+
+Example:
+`findCompetition NUS Open 2019`
+
+//end::findComp[]
+
 ==== Editing information of a competition: `editCompetition`
 Edits the details of the competition identified by the index number, used in the Competition list (shown in the GUI).
 Existing values will be overwritten by the input values.
@@ -235,6 +248,20 @@ Examples:
 
 * `deleteParticipation 2`
 
+//tag::findParticipation[]
+
+==== Finding participations in a competition: `findParticipation`
+Finds and lists all athletes in the participation list, who participate in a competition(s) with some keyword(s).
+
+Format: `findParticipation [KEYWORD 1] ... [KEYWORD N]`
+
+Examples:
+
+* `findParticipation NUS Open 2019`
+
+* `findParticipation Alex`
+
+//end::findParticipation[]
 
 === Auxiliary commands
 
@@ -251,10 +278,13 @@ Display URL to this User Guide to teach users how to use the appropriate command
 
 Format: `help`
 
+//tag::OverallRank[]
 ==== Showing overall ranking: `overallRank`
 Sorts and displays ranking of athletes according to the amount of times they are the overall champions for any competition.
 
 Format: `overallRank`
+
+//end::OverallRank[]
 
 ==== Starting a competition event along with its competing athletes (person): `startSession`
 Enters into a competition session. Switches the context to being in a competition session.
