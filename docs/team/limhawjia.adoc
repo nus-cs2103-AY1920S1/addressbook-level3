@@ -36,9 +36,10 @@ It also provides a bit of justification for the different choices that I have ma
 
 === Change underlying architecture to suit our needs - [refactor]
 
-I was given the task of modifying the existing architecture of AddressBook3 to suit our application.
-Due to the increased complexity of our product, a large part of the existing architecture had to be changed.
-I have summarized most of the changes into the following 4 sections:
+|===
+|_Due to the increased complexity of our product, a large part of the existing architecture had to be changed.
+Most of the changes can be summarized into the 4 following sections :_
+|===
 
 . *Separated Logic component into cohesive parts*
 
@@ -65,38 +66,63 @@ I have summarized most of the changes into the following 4 sections:
   Open-closed principle is maintained by requiring commands to be registered into the `CommandLogic` with a `Supplier` functional interface. The https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Supplier.html[`Supplier`] is in charge of injecting different dependencies that various commands need.
 
   * Justification : +
-  The previous implementation of the `Command` in AddressBook3 was very inflexible in the sense that the execution of each command requires a `Model`. The command arguments also had to follow a fixed format. However, as the complexity of our application grew, our commands started to vary. Most Commands no longer relied on a `Model` for execution and started to have their own unique sets of argument parsing rules.
+  The previous implementation of the `Command` in AddressBook3 was inflexible in the sense that the execution of each command requires a `Model`. The command arguments also had to follow a fixed format. However, as the complexity of our application grew, our commands started to vary. Most Commands no longer relied on a `Model` for execution and started to have their own unique sets of argument parsing rules.
 
 === Program evaluation feature - [feature]
+* What it does : +
+  Allows users' solutions to be automatically graded by our application. The user's solution is evaluated against test cases specified in the `Question` class.
+* Justification : +
+  It is difficult to come up with your own test cases to evaluate your solutions whenever you attempt programming questions. It is also very cumbersome to run each test case manually. Allowing users to automatically have their solutions evaluated will allow them to focus more on their learning.
+* Highlights :
+** Compile and runtime errors are also displayed to the user in the event that they occur so that user's are able to learn from their mistakes.
+** A _Time Limit Exceeded_ error is displayed if the user's program takes too long to complete. This will enable users to know if their solutions are properly optimized.
 
 === Note-taking feature - [feature]
+* What it does : +
+  Allows users to record notes in the form of text or a simple sketch.
+
+* Justification : +
+  Being able to pen down ideas is extremely useful when coming up with solutions to programming questions. Furthermore, being able to take notes for future reference will help to reinforce the user's learning.
+
+* Highlights : +
+  In addition to taking notes in the form of text, user's are also able to sketch their ideas within a a sketch pad and have them saved for future reference. This is particularly useful when dealing with data structures.
 
 === Tabs - [design]
+* What it does  : +
+  Splits the various functions of the application, _browsing and viewing of questions_, _attempting of questions and evaluation of results_, _note-taking_, into individual tabs.
+
+* Justification : +
+  Separating the various functions of our application into their own separate tabs will reduce clutter and enable users to be more organized in their learning.
+
+* Highlights : +
+  In line with the _Command Line_ theme, the user is able to switch tabs by typing the command _"tab"_ instead of using a mouse-click.
 
 
-=== Various commands - [feature]
+=== Various commands
 
-. *Tab*
-. *Submit*
-. *New Note*
-. *Open Note*
-. *Delete Note*
-. *Save Note*
+|===
+| Apart from the exit command, the other commands are extensions of the features described above. They serve as a medium for users to be able to perform functions related to the above features through a  _Command Line_ interface.
+|===
+
+. *Tab* +
+  * What it does : changes the current tab that the application is showing
+
+. *Submit* +
+  * What it does : evaluates the user's solution against the question that he is currently attempting.
+. *New Note* +
+  * What it does : creates a new note and opens it in the application.
+. *Open Note* +
+  * What it does : loads an existing  note in the application.
+. *Delete Note* +
+ * What it does : deletes an existing note
+. *Save Note* +
+ * What it does : saves changes made to the currently opened note.
 . *Exit*
+ * What it does : exits the application
+ * Highlights : automatically saves any changes that the user has made to his solution and notes before exiting the application.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time.
-Preceding undo commands can be reversed by using the redo command.
-** Justification:
-This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights:
-This enhancement affects existing commands and commands to be added in future.
-It required an in-depth analysis of design alternatives.
-The implementation too was challenging as it required changes to existing commands.
-
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
 
 == Other Contributions
 
