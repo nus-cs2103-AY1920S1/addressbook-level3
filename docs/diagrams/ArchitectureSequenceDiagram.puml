@@ -13,13 +13,13 @@ activate ui UI_COLOR
 ui -[UI_COLOR]> logic : execute("delete t1")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : deleteTransaction(t1)
+logic -[LOGIC_COLOR]> model : delete(t1)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveBankAccount(bankAccount)
+logic -[LOGIC_COLOR]> storage : saveUserState(userState)
 activate storage STORAGE_COLOR
 
 storage -[STORAGE_COLOR]> storage : Save to file

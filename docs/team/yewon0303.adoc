@@ -52,8 +52,12 @@ As the two classes behaves as though `Budget` is a child class of `Transaction`,
 an in-depth analysis of design alternatives was necessary to ensure that Liskov Substitution Principal
 was not violated. More details will be elaborated in section Design Considerations of <<Developer-guide, developer guide>> excerpt below.
 
+
+
 *Code contributed*: Please click these links to see a sample of my code:
 https://ay1920s1-cs2103t-w12-3.github.io/publish-RepoSense/#search=&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=yewon0303&tabRepo=AY1920S1-CS2103T-W12-3%2Fmain%5Bmaster%5D[RepoSense]
+
+
 
 *Other contributions* :
 
@@ -64,26 +68,29 @@ https://github.com/AY1920S1-CS2103T-W12-3/main/issues/119[#119],
 https://github.com/AY1920S1-CS2103T-W12-3/main/issues/199[#199])
 
 *	Enhancements to existing features:
+** Comprehensive Unit and Integration Tests
+(Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/204[#204])
+
 **	Updated the GUI colour scheme for budget tab so that necessary messages can be brought across the user such as exceeding the set budget
 (Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/212[#212]
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/223[#223])
 
 * Documentation:
-** Made updates to the User Guide and Developer Guide to make them more informative:
+** Made updates to the User Guide and Developer Guide to make them more informative for the following sections:
 (Pull requests: https://github.com/AY1920S1-CS2103T-W12-3/main/pull/107[#107]
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/127[#127]
 https://github.com/AY1920S1-CS2103T-W12-3/main/pull/227[#227])
 
 * Community:
-** Reviewed Pull Requests
-(Pull Requests: )
 ** Reported bugs and offered suggestions for other teams in the class
 (Issues: https://github.com/AY1920S1-CS2103T-F11-1/main/issues/253[#253],
 https://github.com/AY1920S1-CS2103T-F11-1/main/issues/255[#255],
 https://github.com/AY1920S1-CS2103T-F11-1/main/issues/256[#256],
 https://github.com/AY1920S1-CS2103T-F11-1/main/issues/260[#260])
 
+
 [[User-guide]]
+
 == Contributions to the User Guide
 Original AddressBook User Guide was updated with instructions for the enhancements we added.
 The following is an excerpt from our PalPay User Guide, showing additions that I have made for the `set` command feature.
