@@ -40,10 +40,11 @@ Responsibilities: Logic
 
 === Low Cheng Yi
 image::Icesiolz.png[width="150", align="left"]
-{empty}[http://github.com/Icesiolz[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Icesiolz[github]] [<<icesiolz#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
+
 '''
 
 === Ng Siang Hwee
