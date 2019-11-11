@@ -46,7 +46,7 @@ public class ExpenseCard extends UiPart<Region> {
         name.setText(expense.getName().fullName);
         if (expense.isForeign()) {
             amount.setText(expense.getConvertedAmount().value + " SGD");
-            currency.setText("(" + expense.getCurrency().toString() + ")");
+            currency.setText("(" + expense.getAmount() + expense.getCurrency().toString() + ")");
         } else {
             amount.setText(expense.getAmount().value);
             currency.setText(expense.getCurrency().name);
