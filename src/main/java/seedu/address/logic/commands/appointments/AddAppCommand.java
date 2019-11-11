@@ -45,7 +45,7 @@ public class AddAppCommand extends ReversibleCommand {
             + PREFIX_REOCCURRING + "m "
             + PREFIX_REOCCURRING_TIMES + "2\n";
 
-    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "Appointment for [%1$s] %2$s were added:\n%3$s";
+    public static final String MESSAGE_ADD_APPOINTMENT_SUCCESS = "The appointment for [%1$s] %2$s were added:\n%3$s";
     public static final String MESSAGE_SUCCESS_REOCCURRING = "%1$s reoccurring Appointments for "
             + "[%2$s] %3$s were added:\n%4$s";
     public static final String MESSAGE_CANCEL_APPOINTMENTS_CONSTRAINTS = "Must indicate at least 1 appointment to add";
