@@ -171,7 +171,7 @@ Task name entered should not exceed 35 characters.
 When entering the date for a task, please follow the given format: day/month/year.
 ====
 
-Example usage (Figure 2 & 3): `add task tn/Bake CupCakes td/11/11/2019`
+Example usage (Figure 4 & 5): `add task tn/Bake CupCakes td/11/11/2019`
 
 Step 1. Enter the task you want to add into the command box and hit enter.
 
@@ -204,7 +204,7 @@ Format: `edit task <index number> tn/ <insert new name> td/ <insert new date>`
 When editing a task, you can choose to change just 1 field or edit both fields.
 ====
 
-Example usage (Figure 4 & 5): `edit task 1 tn/Bake cupcakes td/21/10/2019`
+Example usage (Figure 6 & 7): `edit task 1 tn/Bake cupcakes td/21/10/2019`
 
 Step 1. Look at the index number corresponding to the task you want to edit. +
 Step 2. Enter the task information you want to edit into the command box and hit enter.
@@ -232,7 +232,7 @@ Format: `delete task <index number>`
 Tasks that are marked as "RECENTLY COMPLETED" or "COMPLETED", cannot be deleted.
 ====
 
-Example usage (Figure 6 & 7): `delete task 1`
+Example usage (Figure 8 & 9): `delete task 1`
 
 Step 1. Look at the index number corresponding to the task you want to delete. +
 Step 2. Enter the task index number you want to delete into the command box and hit enter.
@@ -254,7 +254,7 @@ Check it off the list!
 Command: `done task` +
 Format: `done task <index number>`
 
-Example usage (Figure 8 & 9): `done 1`
+Example usage (Figure 10 & 11): `done 1`
 
 Step 1. Look at the index number corresponding to the task you want to mark as complete. +
 Step 2. Enter the task index number you want to mark as complete into the command box and hit enter.
@@ -281,7 +281,7 @@ For those who want to know what are the tasks relevant given a keyword.
 Command: `find task` +
 Format: `find task <keyword>`
 
-Example usage (Figure 10 & 11): `find task project`
+Example usage (Figure 12 & 13): `find task project`
 
 Step 1. Enter the a keyword for that tasks you to find into the command box and hit enter.
 
