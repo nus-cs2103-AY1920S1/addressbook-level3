@@ -69,10 +69,10 @@ SML helps you to organize your customers, phones, orders and schedules without c
 
 SML allows you to save time by:
 
-* allowing you to export to Microsoft Excel
+* allowing you to export to Microsoft Excel.
 * update your inventory with a single command.
-* find and copy information easily
-* undo and redo when you make mistakes
+* find and copy information easily.
+* undo and redo when you make mistakes.
 
 
 ==== Track your sales performance
@@ -190,7 +190,7 @@ toggle to the Tab Panel that it belongs to.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command specifies `n/NAME c/CONTACT_NUMBER`, `c/CONTACT_NUMBER n/NAME` is also acceptable.
-*Note that this applies only to Customer, Phone, Order and statistics commands*
+*Note that this applies only to Customer, Phone, Order and statistics commands*.
 ====
 
 === Viewing help: `help`
@@ -263,7 +263,7 @@ Finds customers whose fields contain any of the given keywords. +
 * The search matches anywhere for the name, contact number, email and tags.
 * The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * Entries matching ALL fields will be returned (i.e. `AND` search).
-** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`;
+** e.g. `find-c aaa bbb` will match a customer with name `Aaah` and with tag `bbb`
 ****
 
 [underline]#Examples#:
@@ -318,7 +318,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 . `edit-c 2 t/` +
 
 ==== Copy customer: `copy-c`
-Copies a customer in SML to clipboard +
+Copies a customer in SML to clipboard. +
 
 [underline]#Format#: `copy-c INDEX`
 
@@ -331,7 +331,7 @@ Copies a customer in SML to clipboard +
 
 [underline]#Examples#: +
 
-* Copy the 1st customer
+* Copy the 1st customer.
 . `copy-c 1`
 
 * Copy the 1st customer after performing find.
@@ -379,7 +379,7 @@ A customer can have any number of tags, including 0.
 image::ug-command/ug-add-p.png[width="800"]
 
 ==== Delete a phone: `delete-p`
-Deletes a phone in SML. Note that deleting a phone will also delete the orders and schedules associated with the phone.+
+Deletes a phone in SML. Note that deleting a phone will also delete the orders and schedules associated with the phone. +
 
 [underline]#Format#: `delete-p INDEX`
 
@@ -410,7 +410,7 @@ Finds phones whose fields contain any of the given keywords. +
 * The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * The search matches anywhere for the name, serial number, identity number, brand, capacity, colour, cost and tags.
 * Entries matching ALL field will be returned (i.e. `AND` search).
-** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`;
+** e.g. `find-c aaa bbb` will match a phone with name `Aaah` and with tag `bbb`
 ****
 
 [underline]#Examples#:
@@ -462,7 +462,7 @@ The index *must be a positive integer* 1, 2, 3, ...
 . `edit-c 2 t/` +
 
 ==== Copy phone: `copy-p`
-Copies a phone in SML to clipboard +
+Copies a phone in SML to clipboard. +
 
 [underline]#Format#: `copy-p INDEX`
 
@@ -476,14 +476,14 @@ Copies a phone in SML to clipboard +
 
 [underline]#Examples#:
 
-* Copy the 1st phone
+* Copy the 1st phone.
 . `copy-p 1`
 
 * Copy the 1st phone after performing find.
 . `find-p apple`
 . `copy-p 1`
 
-==== Add Photo to phone: `addphoto PHONE_INDEX fc/` `[coming in v2.0]`
+==== Add photo to phone: `addphoto PHONE_INDEX fc/` `[coming in v2.0]`
 
 Adds a photo to a phone in the database using the system's user interface dialogue.
 
@@ -494,7 +494,7 @@ Adds a photo to a phone in the database using the system's user interface dialog
 Commands that work on orders that you have.
 
 ==== Switch to Order Tab Panel: `switch-o`
-Switches to Order Tab Panel.
+Switches to Order Tab Panel. +
 [underline]#Format#: `switch-o`
 
 ==== Add an order: `add-o`
@@ -519,7 +519,7 @@ Finds orders whose fields contain any of the given keywords. +
 * The search looks for partial matches e.g. `ha` will match `hans`. However, `hns` will not match `hans`.
 * The search matches anywhere for id, customer, phone and price.
 * Entries matching ALL field will be returned (i.e. `AND` search).
-** e.g. `find-o aaa bbb` will match an order with id `Aaah` and with tag `bbb`;
+** e.g. `find-o aaa bbb` will match an order with id `Aaah` and with tag `bbb`
 ****
 
 [underline]#Examples#:
@@ -826,7 +826,7 @@ Exits the program. +
 
 [underline]#Format#: `exit`
 
-If there are any statistics window open when executing this, the application will not terminate until those windows are closed too
+If there are any statistics window open when executing this, the application will not terminate until those windows are closed too.
 
 
 // tag::statisticsCommand[]
@@ -849,8 +849,8 @@ e.g Total `revenue` between 2019.11.12 and 2019.11.29 will calculate the order b
 display this value.
 
 * Accepts two types of input:
-** Without date input - display total value for that particular statistics
-** with date input - displays chart (Monthly value) and total value for that particular statistics  +
+** Without date input - display total value for that particular statistics.
+** with date input - displays chart (Monthly value) and total value for that particular statistics.  +
 
 Generates the statistics with no date input. +
 
@@ -889,7 +889,7 @@ The statistic type argument must match `profit`, `revenue`, `cost` (no upper cas
 
 Limitations:
 
-* Range of dates affecting chart display:
+* Range of dates affecting chart display
 ** The chart can accept a large range of dates, but take note that above a
 certain threshold the gap between the months will change, depending on how large of a range you are calculating.
 This behaviour is intentional and not a bug.
@@ -900,7 +900,7 @@ This behaviour is intentional and not a bug.
 * Auto truncation of labels and values
 ** the X-axis labels will adjust automatically based on the range of inputs. This is intended to give users the
 flexibility with regards to the range of dates to be inputted. Above a certain range the interval between x-axis data
-will decrease e.g 2 months. Above a certain values, labels will be replaced by standard notation e.g 9999999E8
+will decrease e.g 2 months. Above a certain values, labels will be replaced by standard notation e.g 9999999E8.
 
 * Stats window data not updating
 ** If you already have a stats window open and you complete an order,
@@ -915,7 +915,7 @@ when the remaining statistic windows are closed manually.
 we estimate at least a few seconds before the window will be loaded.
 
 ==== Average Statistics `[coming in v2.0]`
-** More advanced commands like `average profit` etc
+** More advanced commands like `average profit` etc.
 
 ==== Different Charts `[coming in v2.0]`
 ** Instead of just being able to display via a line chart, users will be able to select the type of chart
@@ -1159,7 +1159,7 @@ simplified to `gp`.
 |=======================================================================
 |Command | Summary
 |`switch-c` | Switches to customer tab panel.
-|`add-c n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]…`| Adds a new customer into SML
+|`add-c n/NAME p/PHONE_NUMBER e/EMAIL [t/TAG]…`| Adds a new customer into SML.
 |`edit-c INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​ `| Edits an existing customer.
 |`delete-c INDEX`| Deletes a customer and its associated orders and schedules.
 |`clear-c`| Deletes all customers and their associated orders and schedules.
@@ -1173,12 +1173,12 @@ simplified to `gp`.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML
+|`add-p i/IDENTITY NUMBER (IMEI) s/SERIAL NUMBER n/NAME b/BRAND cp/CAPACITY (in GB) cl/COLOUR $/COST [t/TAG]…​`| Adds a new phone into SML.
 |`edit-p INDEX [i/IMEI] [s/SERIAL NUMBER] [n/NAME] [b/BRAND] [cp/CAPACITY] [cl/COLOUR] [$/COST] [t/TAG]…`| Edits an existing phone.
 |`delete-p INDEX`| Deletes a phone and its associated orders and schedules.
 |`clear-p`| Deletes all phones and their associated orders and schedules.
 |`find-p KEYWORD [MORE_KEYWORDS]`| Finds the phones that contain the keywords in its field.
-|`copy-p INDEX`| Copies a phone into the clipboard
+|`copy-p INDEX`| Copies a phone into the clipboard.
 |=======================================================================
 
 === Order Commands
@@ -1186,13 +1186,13 @@ simplified to `gp`.
 [width="100%",cols="20%,<30%",options="header",]
 |=======================================================================
 |Command | Summary
-|`add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`| Adds a new order into SML
+|`add-o c/CUSTOMER_INDEX p/PHONE_INDEX $/PRICE [t/TAG]...`| Adds a new order into SML.
 |`edit-o INDEX [c/CUSTOMER_INDEX] [p/PHONE_INDEX] [$/PRICE] [t/TAG]…`| Edits an existing order.
 |`complete INDEX`| Completes an order and shift it into Archived Order Tab. Also deletes the associated phone.
 |`cancel INDEX`| Cancels an order and shift it into Archived Order Tab.
-|`clear-o`| Deletes all orders
+|`clear-o`| Deletes all orders.
 |`find-o KEYWORD [MORE_KEYWORDS]`| Finds the orders that contain the keywords in its field.
-|`copy-o INDEX`| Copies an order into the clipboard
+|`copy-o INDEX`| Copies an order into the clipboard.
 |=======================================================================
 
 === Schedule Commands
@@ -1201,7 +1201,7 @@ simplified to `gp`.
 |=======================================================================
 |Command | Summary
 |`schedule cd/DATE`| Shows the week of the date specified by the user.
-|`add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]`| Adds a new schedule into SML
+|`add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]`| Adds a new schedule into SML.
 |`edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`| Edits an existing schedule.
 |`delete-s ORDER_INDEX`| Deletes a schedule.
 |`clear-s`| Deletes all schedules.

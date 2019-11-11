@@ -7,7 +7,7 @@
 
 == Overview
 
-Seller Manager Lite (SML) is a desktop application used for handphone resellers to manage their customers, phones, orders and schedules all on one platform..
+Seller Manager Lite (SML) is a desktop application used for handphone resellers to manage their customers, phones, orders and schedules all on one platform.
 The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX. It is written in Java, and has about 10+ kLoC.
 
 == Summary of contributions
@@ -40,11 +40,11 @@ To make the application more user friendly, the application automatically switch
 *** Wrote Contact Us page. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/47[#47])
 *** Initial tweak of AB3 User Guide to fit our application. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/52[#52])
 *** Edited and added diagrams in Developer Guide. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/150/files[#150])
-*** Added test cases in Appendix (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/268[#268])
+*** Added test cases in Appendix. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/268[#268])
 
 ** Community:
 *** Reviewed PRs (with non-trivial review comments). (examples: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/133[#133])
-*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T09-2/main/issues/212[#212], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/214[#214])
+*** Reported bugs and suggestions for other teams in the class. (examples: https://github.com/AY1920S1-CS2103T-T09-2/main/issues/212[#212], https://github.com/AY1920S1-CS2103T-T09-2/main/issues/214[#214])
 
 ** Tools:
 *** Integrated a third party library (jfxtras.Agenda) into SML.
