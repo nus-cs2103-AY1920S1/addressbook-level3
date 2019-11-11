@@ -191,7 +191,7 @@ public class BankAccount implements ReadOnlyBankAccount {
             Amount outAmount = txn.getAmount();
             Set<Category> outCategories = txn.getCategories();
             for (Budget bd : budgets) {
-                boolean beforeDeadline = txn.getDate().compareTo(bd.getDeadline()) < 0;
+                boolean beforeDeadline = txn.getDate().compareTo(bd.getDeadline()) <= 0;
                 if (beforeDeadline) {
                     Budget newBd = bd.updateBudget(outAmount, outCategories, isRemoveTransaction);
                     setBudget(bd, newBd);
