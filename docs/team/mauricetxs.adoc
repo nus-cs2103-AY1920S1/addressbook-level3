@@ -48,7 +48,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 * *Other contributions*:
 
 ** Edited, improve and formatted Developer and User Guide.
-** Reported bugs and suggestions for other teams in the class (https://github.com/MauriceTXS/ped [List of bugs reported]).
+** Reported bugs and suggestions for other teams in the class (https://github.com/MauriceTXS/ped[List of bugs reported]).
 
 == Contributions to the User Guide
 
