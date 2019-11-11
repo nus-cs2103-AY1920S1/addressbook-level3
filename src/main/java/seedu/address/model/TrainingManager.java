@@ -169,16 +169,6 @@ public class TrainingManager {
         return null; // With assertion, code should not reach here.
     }
 
-    public Training getTrainingOnDate(AthletickDate date) {
-        assert (this.hasTrainingOnDate(date));
-        for (Training training : trainings) {
-            if (date.equals(training.getDate())) {
-                return training;
-            }
-        }
-        return null; // With assertion, code should not reach here.
-    }
-
     /**
      * Resets trainings in TrainingManager to the {@code newTrainingList}.
      */
