@@ -74,7 +74,7 @@ public class ElisaParser {
     protected Matcher inputToMatcher(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(MESSAGE_INVALID_COMMAND_FORMAT);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, " This doesn't match anything!"));
         }
         return matcher;
     }
