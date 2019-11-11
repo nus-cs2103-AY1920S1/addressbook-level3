@@ -13,6 +13,9 @@ public class Notification {
         currDateTime = LocalDateTime.now();
     }
 
+    public Notification (LocalDateTime currDateTime) {
+        this.currDateTime = currDateTime;
+    }
     /**
      * Check for breakfast.
      * @return boolean value
@@ -55,7 +58,7 @@ public class Notification {
         if (dishDateTime.getDateTime().getHour() >= 16) {
             return true;
         } else {
-            return (currDateTime.getHour() <= 20);
+            return (currDateTime.getHour() <= 19);
         }
     }
 

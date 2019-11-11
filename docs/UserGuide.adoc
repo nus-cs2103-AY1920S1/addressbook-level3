@@ -19,11 +19,14 @@ By: `Team AY1920S1-CS2103T-W11-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
-CaloFit is suitable for those who prefer to track their calories gained from day-to-day meals. CaloFit is primarily uses a Command Line Interface(CLI) while still displaying the results through a Graphical User Interface(GUI). You can set your daily calorie target and CaloFit will do its best to help you stay on track.
+CaloFit is suitable for those who prefer to track their calories gained from day-to-day meals. CaloFit primarily uses a Command Line Interface(CLI) while still displaying the results through a Graphical User Interface(GUI). You can set your daily calorie target and CaloFit will do its best to help you stay on track.
 
-As of our latest version, v1.4. CaloFit would be able to run on all computers, be it Windows, Mac, Linux and more!
+The CLI is where you can input your command into CaloFit and is a rectangular area near the top of the application, while the GUI is the main screen that you will see upon the startup of CaloFit. +
+Do not worry if the above terms are not clear as our features will have pictures to guide you along!
 
-Currently our product would be able to let you set a desired calorie budget, track your meals, provide assistance to keep you on track, last but not least a monthly report will be provided for you!
+As of our latest version, v1.4, CaloFit would be able to run on all computers, be it Windows, Mac, Linux and more!
+
+Currently our product is able to let you set a desired calorie budget, track your meals, provide assistance to keep you on track, and last but not least create a monthly report just for you!
 
 == About
 
@@ -31,7 +34,12 @@ This user guide provides the user a simple yet useful utility guide on how CaloF
 
 There will be very minimal prior technical knowledge that the user would need to have in order to use Calofit.
 
+Here are some symbols that we will be using in this guide to help you along:
 
+[NOTE]
+This icon means that there is important information listed!
+
+`add n/spaghetti c/980` Text in a grey highlight represents a command that you can enter to CaloFit.
 
 == Quick Start
 
@@ -423,7 +431,7 @@ e.g. `help`
 
 == Trouble shooting/FAQ
 Q: Do I need to key in the date or time? +
-A: There won't be a need to as CaloFit automatically update the current system date and time for the user.
+A: There won't be a need to as CaloFit will automatically update the current system date and time for the user.
 
 Q: Do I have to pay for anything? +
 A: Currently CaloFit is totally free!
@@ -431,4 +439,10 @@ A: Currently CaloFit is totally free!
 Q: Will the dishes that I add be saved for future use? +
 A:
 
+Q: What are the dishes stored when I just installed CaloFit? +
+A: Currently we have a sample dish database loaded, however we plan to integrate the database from the Health Promotion Board(HPB) in v2.0 of CaloFit!
+
 == Product Glossary
+CaloFit -> The name of our application! :)
+Java -> A widely used programming language. Typing "java 11 download" into Google should show you page results downloading Java 11.
+Tag(s) -> A description that is entirely up to you, but do note that tags can only be alphanumeric.
