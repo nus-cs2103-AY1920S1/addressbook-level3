@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.topteamscommand;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIE_BREAK;
 
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ public abstract class TopTeamsCommand extends Command {
             + " where K is an integer value you type in. Teams are sorted in "
             + "descending order of their score and tie-break methods used if specified.\n"
             + "Format: " + COMMAND_WORD + " K \n"
-            + "Format (With Tiebreak): " + COMMAND_WORD + " K " + PREFIX_TIE_BREAK + "[Tie-break Methods]\n"
+            + "Format (With Tiebreak): " + COMMAND_WORD + " K " + PREFIX_TIE_BREAK + "[Tie-break Methods] "
+            + PREFIX_SUBJECT_NAME + "[Subject Name]\n"
             + "For example: " + COMMAND_WORD + " 5 " + PREFIX_TIE_BREAK + "moreParticipants random";
 
     protected int numberOfTeams;

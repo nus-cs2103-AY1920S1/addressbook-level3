@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.leaderboardcommand;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TIE_BREAK;
 
 import java.util.ArrayList;
@@ -30,7 +31,8 @@ public abstract class LeaderboardCommand extends Command {
             + "with teams sorted in "
             + " descending order of their score and tie-break methods used if specified. \n"
             + "Format: " + COMMAND_WORD + "\n"
-            + "Format (For Tie-break): " + COMMAND_WORD + " " + PREFIX_TIE_BREAK + "[Tie-break Methods]\n"
+            + "Format (For Tie-break and Subject): " + COMMAND_WORD + " " + PREFIX_TIE_BREAK + "[Tie-break Methods] "
+            + PREFIX_SUBJECT_NAME + "[Subject Name]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_TIE_BREAK + "moreParticipants random";
 
     protected ArrayList<Comparator<Team>> comparators;

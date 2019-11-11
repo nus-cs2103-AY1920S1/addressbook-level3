@@ -9,7 +9,9 @@ public enum SubjectName {
     ENVIRONMENTAL("Environmental"),
     SOCIAL("Social"),
     HEALTH("Health"),
-    EDUCATION("Education");
+    EDUCATION("Education"),
+    ENTERTAINMENT("Entertainment"),
+    OTHER("Other");
 
     public static final String MESSAGE_CONSTRAINTS =
             "SubjectName should be one of the following:\n"

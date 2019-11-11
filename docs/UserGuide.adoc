@@ -123,7 +123,7 @@ Must be one of the values below:
 * Health
 * Education
 * Entertainment
-* Social
+* Other
 
 `Score` - must be an integer ranging from 0 to 100.
 
@@ -608,7 +608,7 @@ Format: `score sub TEAM_ID POINTS`
 
 Example:
 
-* `score sub T-1 15` will subtract 20 points from the score of the team with ID T-1.
+* `score sub T-1 15` will subtract 15 points from the score of the team with ID T-1.
 
 * `score sub T-5 10` will subtract 10 points from the score of the team with ID T-5.
 
@@ -644,7 +644,7 @@ Example:
 
 * `score reset T-1` will reset the score of the team with ID T-1.
 
-* `score reset T-5 10` will reset the score of the team with ID T-5.
+* `score reset T-5` will reset the score of the team with ID T-5.
 
 // tag::rankings[]
 
@@ -760,8 +760,6 @@ Example:
 
 .GUI Display for Command "leaderboard s/Health"
 image::HealthLeaderboard.png[width=600,height=420]
-
-Note that the above leaderboard only shows team with the subject "Health".
 
 * `getTop 3 tb/moreParticipants s/Health` will display the top 3 teams within the hackathon, all of which will consist of only of those with subject "Health". Additionally, any ties between these teams will be broken using the tiebreak method "moreParticipants" - the team with more participants wins the tie.
 
