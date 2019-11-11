@@ -21,7 +21,7 @@ import seedu.address.model.schedule.Schedule;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "Undo success!";
+    public static final String MESSAGE_SUCCESS = "Undo success! \n Undo command: %1$s";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
 
@@ -52,7 +52,7 @@ public class UndoCommand extends Command {
         Model oldModel = new ModelManager(previousCustomerBook, previousPhoneBook, previousOrderBook,
                 previousScheduleBook, previousArchivedOrderBook, new UserPrefs());
         toUndoCommand.save(oldModel);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toUndoCommand.getSuccessMessage()));
     }
 
 }

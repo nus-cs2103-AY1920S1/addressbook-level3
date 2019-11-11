@@ -21,7 +21,7 @@ import seedu.address.model.schedule.Schedule;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
-    public static final String MESSAGE_SUCCESS = "Redo success!";
+    public static final String MESSAGE_SUCCESS = "Redo success! \n Redo command: %1$s";
     public static final String MESSAGE_FAILURE = "No more commands to redo!";
 
 
@@ -55,7 +55,7 @@ public class RedoCommand extends Command {
                 previousScheduleBook, previousArchivedOrderBook, new UserPrefs());
         toRedoCommand.save(oldModel);
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toRedoCommand.getSuccessMessage()));
     }
 
 }
