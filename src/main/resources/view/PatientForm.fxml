@@ -21,9 +21,6 @@
           <padding>
             <Insets top="10.0" />
           </padding>
-          <effect>
-            <Glow level="1.0" />
-          </effect>
         </Label>
       </children>
     </AnchorPane>
@@ -40,9 +37,6 @@
               <font>
                 <Font name="Malgun Gothic" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
           </children>
         </AnchorPane>
@@ -52,9 +46,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="nric" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="292.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -69,9 +60,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="phone" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="292.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -86,9 +74,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="age" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="292.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -103,9 +88,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="organ" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="292.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -120,9 +102,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="bloodType" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="292.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -137,9 +116,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="tissueType" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="292.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -154,9 +130,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="priority" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="323.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -171,9 +144,6 @@
               <font>
                 <Font name="Malgun Gothic Bold" size="14.0" />
               </font>
-              <effect>
-                <Glow level="1.0" />
-              </effect>
             </Text>
             <Label fx:id="doctorIc" layoutX="113.0" layoutY="7.0" prefHeight="20.0" prefWidth="323.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="Label" textFill="#ff5138">
               <font>
@@ -185,12 +155,8 @@
             <AnchorPane prefHeight="40.0" prefWidth="500.0">
                <children>
                   <ProgressBar fx:id="progressBar" layoutX="130.0" layoutY="6.0" opacity="0.75" prefHeight="19.0" prefWidth="205.0" progress="0.0" style="-fx-accent: #ff5138;" />
-                  <Label fx:id="progressPercentage" layoutX="340.0" layoutY="6.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="0%">
-                     <effect>
-                        <Glow level="1.0" />
-                     </effect>
-                  </Label>
-                  <Button fx:id="findMatch" onMouseClicked="#onHandleClick" visible="false" layoutX="24.0" layoutY="5.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="116.0" style="-fx-text-fill: #ff5138; -fx-border-radius: 5; -fx-background-color: #292929; -fx-pref-width: 95; -fx-pref-height: 10; -fx-border-color: white; -fx-font-family: Malgun Gothic; -fx-font-size: 10; -fx-padding: 1;" text="Find Match">
+                  <Label fx:id="progressPercentage" layoutX="340.0" layoutY="6.0" style="-fx-font-style: italic; -fx-text-fill: #ff5138;" text="0%" />
+                  <Button fx:id="findMatch" layoutX="24.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#onHandleClick" prefHeight="25.0" prefWidth="116.0" style="-fx-text-fill: #ff5138; -fx-border-radius: 5; -fx-background-color: #292929; -fx-pref-width: 95; -fx-pref-height: 10; -fx-border-color: white; -fx-font-family: Malgun Gothic; -fx-font-size: 10; -fx-padding: 1;" text="Find Match" visible="false">
                      <effect>
                         <Glow />
                      </effect>

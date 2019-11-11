@@ -48,7 +48,7 @@ deactivate AddressBookParser
 LogicManager -> SortCommand : execute()
 activate SortCommand
 
-SortCommand -> ModelManager : sortBySuccessRate()
+SortCommand -> ModelManager : sortByCompatibilityRate()
 activate ModelManager
 
 ModelManager --> SortCommand

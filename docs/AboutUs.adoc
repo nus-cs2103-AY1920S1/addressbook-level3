@@ -12,7 +12,7 @@ We are a group of students in the http://www.comp.nus.edu.sg[School of Computing
 
 === William Ryan Kusnadi
 image::williamryank.png[width="150", align="left"]
-{empty}[https://github.com/WilliamRyank[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/WilliamRyank[github]] [<<williamryankusnadi#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: In charge of overall project coordination.
@@ -21,7 +21,7 @@ Responsibilities: In charge of overall project coordination.
 
 === Chow Jia Ying
 image::c-likethis123.png[width="150", align="left"]
-{empty}[https://github.com/C-likethis123[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/C-likethis123[github]] [<<c-likethis123#, portfolio>>]
 
 Role: Deliverables and Deadlines +
 Responsibilities: Ensure project deliverables are done in right format and submitted on time.
@@ -30,7 +30,7 @@ Responsibilities: Ensure project deliverables are done in right format and submi
 
 === Iskandar Zulkarnaien Bin Suhaini
 image::therealravager.png[width="150", align="left"]
-{empty}[https://github.com/TheRealRavager[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/TheRealRavager[github]] [<<therealravager#, portfolio>>]
 
 Role: Tester +
 Responsibilities: Ensures the testing of the project is done properly and on time.
@@ -39,7 +39,7 @@ Responsibilities: Ensures the testing of the project is done properly and on tim
 
 === Chua Sim Nee
 image::simnee.png[width="150", align="left"]
-{empty}[https://github.com/SimNee[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/SimNee[github]] [<<simnee#, portfolio>>]
 
 Role: Code Quality +
 Responsibilities: Ensure proper coding standards are followed.
@@ -48,7 +48,7 @@ Responsibilities: Ensure proper coding standards are followed.
 
 === Yip Yen Peng
 image::yen-peng.png[width="150", align="left"]
-{empty}[http://github.com/Yen-Peng[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/Yen-Peng[github]] [<<yen-peng#, portfolio>>]
 
 Role: UI designer +
 Responsibilities: In charge of the UI design of the application.

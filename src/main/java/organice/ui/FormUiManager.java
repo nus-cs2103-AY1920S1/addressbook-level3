@@ -75,11 +75,11 @@ public class FormUiManager {
     private int currentState = -1;
 
 
-    public FormUiManager(MainWindow mainWindow, Type formType, Model model, Logger logger) {
+    public FormUiManager(MainWindow mainWindow, Type formType) {
         this.mainWindow = mainWindow;
         this.formType = formType;
-        this.model = model;
-        this.logger = logger;
+        this.model = mainWindow.getModel();
+        this.logger = mainWindow.getLogger();
     }
 
     private CommandResult getName(String personName) throws ParseException {
@@ -500,7 +500,11 @@ public class FormUiManager {
         }
     }
 
+    /**
+     * Handles abort special command. It will redirect the user to the original state of the application.
+     */
     private void handleAbort() {
+        logger.info("[FORM MODE aborted]");
         FormAnimation.fadingAnimation(mainWindow);
         mainWindow.getResultDisplay().setFeedbackToUser(MESSAGE_ABORT);
         mainWindow.resetInnerParts();

@@ -1,0 +1,19 @@
+@startuml
+
+start
+:User enters processing command;
+if () then ([no parameter])
+    :ORGANice displays error message;
+else ([has parameter])
+    :ORGANice checks parameter;
+    if () then ([patient and donor NRICs given and are valid])
+        :ORGANice saves patient-donor pair
+        and generates a list of administrative
+                     tasks to be done;
+    else ([invalid parameter])
+        :    ORGANice displays an "invalid
+             command format" message;
+    endif
+endif
+stop
+@enduml

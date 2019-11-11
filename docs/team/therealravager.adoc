@@ -1,0 +1,118 @@
+= Iskandar Zulkarnaien - Project Portfolio for ORGA__Nice__
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the project
+This project portfolio serves to showcase my contributions to the development and documentation of ORGA__Nice__.
+The following sections will introduce the ORGA__Nice__ project and my role in its development.
+
+=== What is ORGA__Nice__?
+ORGA__Nice__ is a team project done by a group of five developers including myself. We are second year Computer Science
+students from the National University of Singapore. ORGA__Nice__ was developed as part of CS2103T, an introductory
+Software Engineering module. ORGA__Nice__ is a desktop application created to help hospital administration staff manage
+organ transplants. ORGA__Nice__ was developed with the assumption that they prefer typing compared to other forms of
+usage. As such, ORGA__Nice__ utilises a Command Line Interface - a text-based system where users type in commands to
+execute tasks rather than clicking buttons. As part of the module, ORGA__Nice__ is morphed from an existing project,
+https://se-education.org/addressbook-level3/[AddressBook-Level3], an address book management application.
+
+This is what ORGA__Nice__ looks like:
+
+.The graphical user interface for ORGANice
+image::ORGANiceComponents.png[width="790" height="500"]
+
+These are the main features of ORGA__Nice__:
+
+* Managing patients, donors and doctors
+* Matching patients with potential donors
+* Sorting matches by priority, compatibility and organ expiry date
+* Finding persons by attributes
+* Managing administrative work relating to organ transplants
+
+=== How did I contribute?
+My role was to design and implement the find by attribute feature and handle the automatic generation of dummy data on
+initial application startup. The following sections illustrate the contributions I have made in implementing said
+features, including the relevant documentation for both users and developers.
+
+Do note the following symbols and formatting used in this document:
+
+NOTE: This section contains important information.
+
+TIP: This section contains a helpful tip!
+
+`find` A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box
+and executed by the application.
+
+== Summary of contributions
+This section shows a summary of my coding, documentation and other helpful contributions to the team project.
+
+*Major Enhancement*: I added the ability to search for persons based on their attributes.
+
+* What it does: Allows the user to search for specific persons (i.e. patients, doctors and donors) based on their
+attributes (e.g. name).
+* Justification: This feature improves ORGA__Nice__ significantly as a user can look for specific persons quickly rather
+than having to scroll through the entire list of persons in ORGA__Nice__.
+* Highlights: This feature performs fuzzy matching on the inputted name, NRIC and phone number to allow for relevant
+search results to be displayed even if the user makes a typo.
+* Pull Requests:
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/143[#143],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/174[#174],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/184[#184]
+
+*Minor Enhancement*: I added NRIC checksum validation to ensure input NRICs are valid.
+
+* What it does: Checks that the NRIC input by the user is a valid NRIC.
+* Justification: This feature is crucial to the functionality of ORGA__Nice__ as credential correctness is crucial for
+hospital administrative workflow.
+* Pull Request: https://github.com/AY1920S1-CS2103T-T13-1/main/commit/36a54c909e8a621bacfb0626b0161179f6c3a2d6[#255]
+
+*Minor Enhancement*: I added dummy data generation for initial startup of ORGA__Nice__.
+
+* What it does: Generates dummy data consisting of 10 doctors, 20 patients and 20 donors on inital application startup.
+* Justification: This feature is beneficial for hospitals transitioning to using ORGA__Nice__ as it provides users with
+data to test out and familiarise themselves with the various commands available in ORGA__Nice__ before using it for
+daily work.
+* Pull Request: https://github.com/AY1920S1-CS2103T-T13-1/main/commit/9707403685db8ad694d45602b892f3ddece18e5d[#172]
+
+*Code contributed*: Click https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=TheRealRavager&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=TheRealRavager&tabRepo=AY1920S1-CS2103T-T13-1%2Fmain%5Bmaster%5D[here]
+to view my code contributions.
+
+*Other contributions*:
+
+* Git Workflow Management:
+** Helped team members resolve Git related issues such as merge conflicts and taught them how to use more complicated
+features such as rebasing and stashing.
+
+** Helped the team migrate to a branching Git workflow (Issue https://github.com/AY1920S1-CS2103T-T13-1/main/issues/39[#39])
+** Set up team's GitHub repository including branch protection and requiring Travis checks and reviews before merging.
+* Documentation:
+** Updated User Guide and Developer Guide to reflect changes to `find` (Pull Requests
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/158[#158],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/277[#277])
+* Community:
+** Contributed to forum discussions (Examples:
+https://github.com/nus-cs2103-AY1920S1/forum/issues/9[#9],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/11[#11],
+https://github.com/nus-cs2103-AY1920S1/forum/issues/21[#21])
+** Reviewed Pull Requests (
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/96[#96],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/98[#98],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/134[#134],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/141[#141])
+
+== Contributions to the User Guide
+|===
+|_Shown below is an extract from our User Guide detailing the usage of the `find` command. I wrote this section to
+specifically target the end users who may not be tech savvy._
+|===
+
+include::../UserGuide.adoc[tag=find]
+
+== Contributions to the Developer Guide
+
+|===
+|_Shown below is an extract from our Developer Guide detailing the architecture and execution of the `find` command.
+I wrote this section to specifically target new developers with little Software Engineering experience._
+|===
+
+include::../DeveloperGuide.adoc[tag=find]

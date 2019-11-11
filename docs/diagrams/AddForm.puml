@@ -1,0 +1,24 @@
+@startuml
+start
+:User executes command;
+:Generate a form;
+
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+while (Any field left ?) is ([yes])
+  :Prompt user to input a value;
+  while (User enters a value)
+    if () then ([Valid input])
+        :Reflect input on the form;
+        break
+    else ([else])
+        :Show a warning;
+    endif
+  endwhile
+
+endwhile ([else])
+:Add the person into ORGANice;
+stop
+@enduml

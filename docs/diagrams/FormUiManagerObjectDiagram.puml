@@ -1,0 +1,14 @@
+@startuml
+!include style.puml
+skinparam classBackgroundColor UI_COLOR
+
+class "<u>formUiManager:FormUiManager"
+
+"<u>formUiManager:FormUiManager" -left> "<u>type:FormType"
+"<u>mainWindow:MainWindow" --up> "<u>commandBox:CommandBox"
+"<u>mainWindow:MainWindow" --up> "<u>personPanel:PersonPanelListPlaceholder "
+"<u>mainWindow:MainWindow" --down> "<u>logic:LogicManager"
+"<u>mainWindow:MainWindow" -right> "<u>model:ModelManager"
+"<u>formUiManager:FormUiManager" -> "<u>mainWindow:MainWindow"
+
+@enduml

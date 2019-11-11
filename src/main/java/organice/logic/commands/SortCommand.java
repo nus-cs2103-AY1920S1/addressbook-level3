@@ -2,6 +2,9 @@ package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import organice.commons.core.LogsCenter;
 import organice.logic.commands.exceptions.CommandException;
 import organice.logic.parser.SortCommandParser;
 import organice.model.Model;
@@ -21,12 +24,13 @@ public class SortCommand extends Command {
     public static final String LIST_OF_SORTED_DONORS = "List of matched donors found.\n";
     public static final String LIST_OF_SORTED_PATIENTS = "List of matched patients found.\n";
     public static final String MESSAGE_SUCCESS = "Successfully sorted.\n";
-    public static final String MESSAGE_FAILURE = "No match list detected.\n"
-            + "Before sorting, run a match command first with 'match ic/[patientNRIC]' or 'match ic/all'.\n";
+
+    private static final Logger logger = LogsCenter.getLogger(SortCommand.class);
 
     private String input;
 
     public SortCommand(String input) {
+        logger.info("Input to SortCommand: " + input);
         requireNonNull(input);
         this.input = input;
     }
@@ -37,16 +41,19 @@ public class SortCommand extends Command {
         requireNonNull(model);
         if (input.equalsIgnoreCase(SortCommandParser.ORGAN_EXPIRY_DATE)) {
             model.sortByOrganExpiryDate();
+            logger.info("Sorting all matches by expiry date.");
             resultMessage = LIST_OF_SORTED_DONORS;
         } else if (input.equalsIgnoreCase(SortCommandParser.PRIORITY)) {
             model.sortByPriority();
             resultMessage = LIST_OF_SORTED_PATIENTS;
-        } else if (input.equalsIgnoreCase(SortCommandParser.SUCCESS_RATE)) {
-            model.sortBySuccessRate();
+            logger.info("Sorting all matches by priority");
+        } else if (input.equalsIgnoreCase(SortCommandParser.COMPATIBILITY_RATE)) {
+            model.sortByCompatibilityRate();
             resultMessage = LIST_OF_SORTED_DONORS;
+            logger.info("Sorting all matches by compatibility rate.");
         }
         CommandResult commandResult = new CommandResult(resultMessage + MESSAGE_SUCCESS);
-        commandResult.setSort(true);
+        logger.info("Finished sorting matches in ORGANice!");
         return commandResult;
     }
 

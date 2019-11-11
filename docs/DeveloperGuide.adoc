@@ -1,4 +1,4 @@
-= ORGANice - Developer Guide
+= ORGA__Nice__ - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -17,22 +17,30 @@ endif::[]
 By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
-Welcome to ORGANice! ORGANice is an organ transplant manager desktop application
+Welcome to ORGA__Nice__! ORGA__Nice__ is an organ transplant manager desktop application
 specifically designed for hospital administration staff who prefer typing.
+
+Do note the following symbols and formatting used in this document:
+
+NOTE: This section contains important information.
+
+TIP: This section contains a helpful tip!
+
+`find` A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box
+and executed by the application.
 
 === Purpose
 This guide documents the software design and considerations
-made during the development of ORGANice.
+made during the development of ORGA__Nice__.
 
 === Intended audience
-This guide is meant for developers who would like to further develop ORGANice.
+This guide is meant for developers who would like to further develop ORGA__Nice__.
 
 == Setting up
-
-To set up the developer tools needed to develop ORGANice, refer to the guide <<SettingUp#, here>>.
+To set up the developer tools needed to develop ORGA__Nice__, refer to the guide <<SettingUp#, here>>.
 
 == Design
-This section provides a high-level overview of ORGANice's codebase.
+This section provides a high-level overview of ORGA__Nice__'s codebase.
 It is divided into 6 subsections:
 
 * Architecture
@@ -44,7 +52,7 @@ It is divided into 6 subsections:
 
 [[Design-Architecture]]
 === Architecture
-The Architecture section is meant to explain the high-level design of ORGANice.
+The Architecture section is meant to explain the high-level design of ORGA__Nice__.
 
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
@@ -63,9 +71,9 @@ It is responsible for performing the following tasks:
 
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. For example,
 the `LogsCenter` class is in the `Commons` collection because it is used by many classes
-to write log messages to the ORGANice's log file.
+to write log messages to the ORGA__Nice__'s log file.
 
-The rest of ORGANice consists of four components.
+The rest of ORGA__Nice__ consists of four components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -131,11 +139,13 @@ image::EditSequenceDiagram.png[]
 
 NOTE: The lifeline for `EditCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+// tag::modeldiagram[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram.png[width=630]
+// end::modeldiagram[]
 
 The `Model`,
 
@@ -158,11 +168,12 @@ The `Storage` component,
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `organice.commons` package.
+Classes used by multiple components are in the `ORGA__Nice__.commons` package.
 
 == Implementation
-This section describes some noteworthy details on how features in ORGANice are implemented.
+This section describes some noteworthy details on how features in ORGA__Nice__ are implemented.
 
+// tag::list[]
 === List feature
 This section describes how the list feature is implemented.
 
@@ -170,11 +181,12 @@ The list feature is implemented using the `ListCommand(Type type)`. When the lis
 the method `ModelManager#updateFilteredPersonList(Predicate<Person> predicate)` takes in a predicate
 to decide what type of `Person` to show on the `filteredPersons` list.
 
-Therefore, in addition to the existing `PREDICATE_SHOW_ALL_PERSONS` predicate, three others predicates are introduced
+Therefore, in addition to the existing `PREDICATE_SHOW_ALL_PERSONS` predicate, three other predicates are introduced
 in the `Model` interface to update the list.
+
 The code snippet below shows what these predicates are:
 
-```
+``` java
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
@@ -193,12 +205,14 @@ The code snippet below shows what these predicates are:
 The activity diagram below illustrates what happens when a user uses the list command.
 
 .Activity Diagram of a List Command
-image::ListActivityDiagram.png[]
+image::ListActivityDiagram.png[width=450]
 
 When the user enters a list command, the result differs depending on the parameter of the command.
-If there is no parameter, ORGANice will simply list all existing doctors, patients and donors on the list.
-If there is a parameter, ORGANice will check the `TYPE` input and display the respective list of doctors, patients
-or donors that corresponds to the input.
+If there is no parameter after 'list', ORGA__Nice__ will simply list all existing doctors, patients, and donors on the list.
+If there is a parameter, ORGA__Nice__ will check if it is a valid `TYPE` parameter and display the correct list of persons
+that corresponds to this type.
+If the parameter is not valid, an error message will be displayed to indicate that the command is invalid.
+// end::list[]
 
 === Matching feature
 This section describes how the matching feature is implemented.
@@ -212,10 +226,10 @@ pair with compatible blood and tissue types is considered as a potential match.
 // TODO: find a way to explain that there are two types of matches
 The following operations in `ModelManager` accesses the `match` method:
 
-* `ModelManager#matchDonors(Patient patient)` -- Matches all donors in ORGANice with the specified patient.
+* `ModelManager#matchDonors(Patient patient)` -- Matches all donors in ORGA__Nice__ with the specified patient.
 For each donor that potentially matches the patient, a `MatchedDonor` object is created to store
 the compatibility rate of the donor with the patient.
-* `ModelManager#matchPatients()` -- Matches all donors with all patients. For every patient in ORGANice,
+* `ModelManager#matchPatients()` -- Matches all donors with all patients. For every patient in ORGA__Nice__,
 a `MatchedPatient` object is created to store the number of donors that are potential matches with that patient.
 
 `MatchedDonor` and `MatchedPatient` objects are stored in an `ObservableList` called
@@ -238,7 +252,7 @@ for each patient, which stores the patient's attributes and the number of potent
 image::MatchState1.png[]
 
 Step 3. The user types in the command `match ic/**PATIENT NRIC**`, where **PATIENT NRIC** is the NRIC of a patient in
-ORGANice.
+ORGA__Nice__.
 Existing objects in the `listOfMatches` are removed.
 For each potential donor of the specified patient, a `MatchedDonor`object is created,
 accompanied with the compatibility rate.
@@ -290,32 +304,61 @@ The `Match` class can contain methods more specific to matching.
 and displayed.
 
 // tag::formmode[]
-=== Add person `Form` mode feature
-This section explains the implementation of the adding person in `Form` mode feature.
+=== Form mode feature
+This section explains the implementation of the form mode feature.
 
 ==== Implementation
 
-The `Form` mode mechanism is facilitated by `FormUiManager`.
-It modifies the `CommandBox` as well as `PersonPanelListPlaceholder` each time a user input a specific attribute.
-Additionally, it implements the following operations:
+The form mode mechanism is facilitated by `FormUiManager`.
+It modifies the `CommandBox` as well as `PersonPanelListPlaceholder` each time you input a specific attribute.
+The following object diagram models the relationship and dependencies between `FormUiManager` and other objects:
 
-* `FormUiManager#getPersonField()` -- Modifies `CommandBox` and prompts the user to input a specific attribute.
+.Object Diagram for the `FormUiManager` object
+image::FormUiManagerObjectDiagram.png[width="300"]
+
+`FormUiManager` will need an object of class `Type` in order to determine what type of form(patient, doctor, or donor) will be displayed to you.
+
+Additionally, `FormUiManager` implements the following operations:
+
+* `FormUiManager#getPersonDetails()` -- Modifies `CommandBox` and prompts the user to input the attributes required.
 * `FormUiManager#setPersonDetails()` -- Sets the value for all required attributes of a specific type of person.
 * `FormUiManager#addDoctorToList()` -- Adds a doctor to the person list.
 * `FormUiManager#addPatientToList()` -- Adds a patient to the person list.
 * `FormUiManager#addDonorToList()` -- Adds a donor to the person list.
 
-These operations are exposed in the `Logic` interface when the specific command is invoked by the user.
+These operations are exposed in the `Logic` interface when the specific command is invoked by you.
 
-Given below is an example usage scenario and how the `Form` mode mechanism behaves at each step:
+Given below is an example usage scenario and how the form mode mechanism behaves at each step so that you can better understand how the different classes interact with each other:
 
-Step 1. The user launches the application for the first time.
+Step 1. A user launches the application for the first time.
 
-Step 2. The user executes `add t/doctor` command to add a doctor in a `Form` mode. The `add` command calls `AddressBookParser#parseCommand()` that will return a new `AddCommand` instance.
+Step 2. The user executes `add t/doctor` command to add a doctor in the form mode. The `add` command calls `AddressBookParser#parseCommand()` that will return a new `AddCommand` instance.
 
-Step 3. The `LogicManager` executes the command and notice that the `Command` is a `Form` type command and thus will create a new `FormUiManager` instance.
+Step 3. The `LogicManager` executes the command and notice that the `CommandResult` having a boolean value `isForm` and thus will create a new `FormUiManager` instance. The code snippet below demonstrates how the `FormUiManager` is created.
 
-Step 4. The `FormUiManager` changes the display of the application based on the type of the person specified in Step 1 by modifying the content of the `PersonListPanelPlaceholder` as well as the `CommandExecutor` in the `CommandBox` object by calling `FormUiManager#getPersonFields()`.
+```
+if (commandResult.isForm()) {
+    resultDisplayPlaceholder.setMinHeight(100);
+    FormAnimation.fadingAnimation(this);
+    Type formType = commandResult.getFormType();
+    FormUiManager formUiManager = new FormUiManager(this, formType, model, logger);
+    personListPanelPlaceholder.getChildren().clear();
+    if (formType.isDoctor()) {
+        form = new DoctorForm();
+        personListPanelPlaceholder.getChildren().add(((DoctorForm) form).getRoot());
+    } else if (formType.isDonor()) {
+        form = new DonorForm();
+        personListPanelPlaceholder.getChildren().add(((DonorForm) form).getRoot());
+    } else if (formType.isPatient()) {
+        form = new PatientForm(this);
+                    personListPanelPlaceholder.getChildren().add(((PatientForm) form).getRoot());
+                }
+                formUiManager.getPersonDetails();
+                return commandResult;
+            }
+```
+
+Step 4. The `FormUiManager` changes the display of the application based on the type of the person specified in Step 1 by modifying the content of the `PersonListPanelPlaceholder` as well as the `CommandExecutor` in the `CommandBox` object by calling `FormUiManager#getPersonDetails()`.
 
 Step 5. The user inputs the attribute that is prompted until all the required attributes are specified.
 
@@ -323,22 +366,30 @@ Step 6. The user confirms the details of the person and `FormUiManager#setPerson
 
 Step 7. `FormUiManager` calls the `AddressBookParser#parseCommand()` to add the person and save it in the `Storage` interface.
 
+Given below is the Sequence Diagram for interactions within the Logic component when a user typed in `add t/doctor`
+
+.Sequential Diagram for the form mode feature
+image::AddFormSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when you execute the `add t/**TYPE**` command:
+
+.Activity Diagram for adding a person using form mode feature
+image::Form.png[width="300", height="300"]
+
 ==== Design Considerations
 This section will explain the reason for having some aspects.
 
-===== Aspect: How undo & redo executes
+===== Aspect: How form mode feature executes
 
 * **Alternative 1 (current choice):** Use the same `add` command to do the `Form` mode.
-** Pros: Easy to implement.
+** Pros: Easy to implement. This is the reason why this alternative is chosen as it does not take too much time to implement.
 ** Cons: May not be the best approach since one command will have two different modes.
 * **Alternative 2:** Use a new command for the `Form` mode.
 ** Pros: Will be less confusing for the user since there is a separate command for `Form` mode
 ** Cons: We must creates a new parser and command classes just to deal with another `add` functionality.
-
 // end::formmode[]
 
-// tag::dataencryption[]
-
+// tag::sort[]
 === Sort feature
 This section describes how the sort feature is implemented.
 
@@ -346,7 +397,6 @@ Sorting is done by using `Comparators` in the `Logic` component and makes use of
 This command only works after a `MatchCommand` is called by the user, because it takes in `listOfMatches` returned
 from calling a `MatchCommand`. Importantly, this `listOfMatches` is an `ObservableList`, which cannot be modified.
 Therefore, it makes use of `SortedList` to wrap around the `ObservableList` so that the list can be modified by sorting.
-The `boolean` in `CommandResult#setSort(boolean isSort)` will be set to `true` for a list that has been sorted.
 Thus far, the sort command can only take in one `String` parameter, but more methods can be added in the future for more sorting options.
 
 Three methods of sorting are implemented to sort based on the following categories:
@@ -355,31 +405,31 @@ Three methods of sorting are implemented to sort based on the following categori
 +
 * Sorting based on priority with `sort priority`
 +
-* Sorting based on success rate of match with `sort rate`
+* Sorting based on compatibility rate of the match with `sort rate`
 
 These three methods' implementation will be further elaborated upon below.
 
 ==== Sort by Expiry
-Sorting by Expiry sorts a list of `MatchedDonor` using the `ModelManager#sortByOrganExpiryDate()` method.
+Sorting by Expiry sorts a list of `MatchedDonor` with the `ModelManager#sortByOrganExpiryDate()` method.
 
-In this method, the `ExpiryComparator` is used to compare two matched donors' organ expiry date, and this requires
-the `OrganExpiryDate` of the donors to be parsed into a date format that can be compared.
+In this method, the `ExpiryComparator` is used to compare two matched donors' organ expiry dates, and this requires
+the `OrganExpiryDate` of the donors to be parsed into a data format that can be compared.
 
-==== Sort by Success Rate
-Sorting by Success Rate sorts a list of `MatchedPatient` using the `ModelManager#sortBySuccessRate()` method.
+==== Sort by Compatibility Rate
+Sorting by Compatibility Rate sorts a list of `MatchedPatient` using the `ModelManager#sortBySuccessRate()` method.
 
-The `SuccessRateComparator` is created to compare two matched patients' rate of success for the match.
+The `CompatibilityRateComparator` is created to compare two matched patients' rate of compatibility for the match.
 
-Given below is the Sequence Diagram for the interactions with the `Logic` component for the `execute(sort rate)`,
-assuming the user has entered a `match ic/**NRIC**` command before this.
+Given below is a Sequence Diagram to show the interactions with the `Logic` component when executing the `execute(sort rate)` method,
+assuming the user has entered a valid `match ic/**NRIC**` command before this.
 
-.Structure of the Logic Component when executing `sort rate` command
-image::SortSequenceDiagram.png[width=790]
+.Sequential Diagram of the `sort rate` command
+image::SortSequenceDiagram.png[width=600]
 
 After the command is given by the user, it would be parsed by the `AddressBookParser`.
 The `SortCommandParser` then parses the parameter `rate` and a `SortCommand` is created.
-The `LogicManager` will then execute the command and call the `sortBySuccessRate()` method from the `ModelManager`.
-The list of `MatchedPatient` will then be sorted based on their match's success rate.
+The `LogicManager` will then execute the command and call the `sortByCompatibilityRate()` method from the `ModelManager`.
+The list of `MatchedPatient` will then be sorted based on their match's compatibility rate.
 
 ==== Sort by Priority
 Sorting by Expiry sorts a list of `MatchedPatient` using the `ModelManager#sortByPriority()` method.
@@ -399,7 +449,7 @@ and numeric order for Sorting integers.
 In particular, the `PriorityComparator` makes use of the `compareTo` method implemented in the `Priority` class.
 A code snippet of this method is shown below.
 
-```
+``` java
 @Override
 public int compareTo(Priority priority) {
 Integer thisPriorityNumber = 0;
@@ -423,101 +473,273 @@ Integer otherPriorityNumber = 0;
     }
 ```
 
-This implementation was the result of using `String` to represent the different priorities in the `Priority` class.
+This implementation is the result of using `String` to represent the different priorities in the `Priority` class.
 Therefore, they are converted into `Integer` for easier comparison. An alternative solution would be to make use of
 `Enum` class to define each priority so that this `compareTo` method implementation can be simplified.
 
 ==== Design considerations
 This section will explain two aspects considered in designing the sort feature.
 
-===== Aspect: Method of storing sorted result
+===== Aspect: Method of storing the sorted result
 * **Alternative 1 (current choice):** Use `SortedList`.
-** Pros: Fast iteration time of O(n * log n), which is important for ORGANice to load and display the sorted result, and more harmonious
+** Pros: Fast iteration time of O(n * log n), which is important for ORGA__Nice__ to load and display the sorted result, and more harmonious
 with current implementations (able to wrap `ObservableList` and sort the content).
-** Cons: It is not the most efficient algorithm for insertions or deletions, but ORGANice does not require them.
+** Cons: Not the most efficient algorithm for insertions or deletions, but ORGA__Nice__ does not require them.
 * **Alternative 2:** Use `ArrayList`.
 ** Pros: Fast index-based access and works on any `Collection` class.
-** Cons: Iterating through the list to display the result takes O(n) time, which is slower than using `SortedList`.
+** Cons: Slower than `SortedList` as it takes O(n) time to iterate and display the results.
 
 ===== Aspect: Method of sorting
 * **Alternative 1 (current choice):** Use `Comparator` and `Comparable`.
-** Pros: Simpler implementation as able to make use of existing methods in ORGANice such as `setComparator`.
+** Pros: Simpler implementation as able to make use of existing methods in ORGA__Nice__ such as `setComparator`.
 ** Cons: More coding involved.
 * **Alternative 2:** Use `Collections.sort()`.
-** Pros: Time complexity is O(n*log(n)) which is relatively fast.
-** Cons: Cannot make use of existing methods in ORGANice that work for Comparator.
+** Pros: Has a time complexity of O(n*log(n)) which is relatively fast.
+** Cons: Cannot make use of existing methods in ORGA__Nice__ that work for Comparator.
+// end::sort[]
+
+// tag::processingDG[]
 
 === Processing feature
 This section describes how the processing feature is implemented.
 
-Processing is done by accessing `Patient` and `Donor` in `ModelManager`, then creating an ArrayList named, `ProcessingList` to store the tasks needed to do.
+Processing is facilitated by the `ProcessingCommand` class, which extends the `Command` class.
 
-If the donor and patient pair had never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
+Processing is done by accessing `Patient` and `Donor` in `ModelManager`,
+then creating a `ProcessingList` which acts like ArrayList to store the tasks which needs to be done.
 
-If the user made any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
+It implements the `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` boolean operation. +
+This method will first determine which Nric belongs to a patient and which Nric belongs to a donor
+since the input allows user to give two Nric in no particular order. +
+It will also get the `Donor` and `Patient` objects with the NRIC given. +
+Then, it will check if the donor have a `ProcessingList` generated before. +
+If the donor have an empty `ProcessingList`, it means that the donor is newly processed. +
+Hence, it will mean that the donor may be able to pair with the given patient. +
+If the donor already have a `ProcessingList`, it means that the donor is already being processed with a patient. +
+Then, this method will check if the patient given by the user is the same patient being processed together with this donor. +
+This is done by checking the `Patient` attribute that is tagged to the `ProcessingList` of the donor. +
+Finally, the method will check if the patient and donor given by the user is valid by checking if
+they are able to be matched or not and if they exist in ORGA__Nice__. +
+A code snippet of the method is shown below: This code aims to get the `Donor` and `Patient` from the given Nrics given by the user. +
+This method is necessary since user is able to give the Nrics input in no particular order.
+```
+if (model.hasDonor(firstNric)) {
+    donorNric = firstNric;
+    donor = model.getDonor(donorNric);
 
-//Todo: additional feature such as add tasks, delete tasks etc
+    patientNric = secondNric;
+    patient = model.getPatient(patientNric);
+} else {
+    patientNric = firstNric;
+    patient = model.getPatient(patientNric);
+
+    donorNric = secondNric;
+    donor = model.getDonor(donorNric);
+}
+```
+
+`Status` class is also  created and it is one of the attributes of `Patient` and `Donor`.
+However, this cannot be edited or added by users. +
+The status of the 'Patient' and 'Donor' will change when Processing command is executed on that pair of patient and donor.
+
+* When a new `Patient` or `Donor` object is created, the `Status` of the new object will be set to `not processing`.
+
+* When the `Processing` command is being executed, `Status` of the `Patient` and the `Donor` will be changed to `processing`,
+provided that the `Patient` and `Donor` are valid.
+
+* When the `Done` command is being executed, `Status` of the `Patient` and the `Donor` will be changed to `done`,
+provided that the `Patient` and `Donor` are valid.
+
+If the donor and patient have never been processed before, a default `ProcessingList` will be generated and it will belong to the patient and donor pair uniquely.
+
+If the user makes any changes to the `ProcessingList`, the list will be saved to the donor as one of its attribute which takes in a parameter of the patient's NRIC.
+
+When the user executes the processing feature, the method, `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` will be called
+to determine if the user give a valid patient and donor input. +
+It will then check if there is a need to generate a new default task list or the donor already have a list tagged to itself. +
+Then, the `Status` of the patient and donor will be set to `processing`.
+It will then display the list out.
+
+Following is an activity diagram to show the processing feature.
+
+.Activity Diagram of the Processing Command
+image::ProcessingActivity.png[]
+
+//Todo: additional feature such as add, edit and delete tasks
+
+// end::processingDG[]
 
 ==== Design considerations
 This section will explain the reason for having some aspects.
 
 ===== Aspect: Method of storing the `ProcessingList`
-* **Alternative 1 (current choice):** Use ArrayList to store the tasks.
-** Pros: Easy to implement.
-** Cons: It is not the most efficient algorithm and the huge number of `ProcessingList` may take up a huge datafile at the end of the day.
-* **Alternative 2:** Use a new class that works like ArrayList.
+* **Alternative 1 (current choice):** Use a new class, `TaskList` that works like ArrayList.
 ** Pros: Able to implement more specific methods for the ProcessingList.
-** Cons: More methods and test cases needed and it is harder to implement.
+** Cons: More methods and test cases needed which are harder to implement.
+* **Alternative 2:** Use ArrayList to store the tasks.
+** Pros: Easy to implement as the default methods are already created.
+** Cons: Future extension on this will be difficult as the `ProcessingList` is unique to this feature.
 
+===== Aspect: Using specific prefixes for Nric inputs
+* **Alternative 1 (current choice):** Nrics of patient and donor can be inputted in no particular order.
+** Pros: More user friendly as users do not need to make sure the Nric must be in correct order. (For example, patient's Nric must come before donor's Nric)
+** Cons: It is harder to implement and more exceptions need to be taken care of.
+* **Alternative 2:** Using specific prefixes for Nric input to differentiate the Nrics of donor and patient.
+** Pros: It is easier to implement as `icP/PATIENT NRIC` and `icD/DONOR NRIC` will be easier to parse to the Command method.
+** Cons: It is less user friendly as users need to remember more prefixes for this entire application.
+
+// tag::processingMarkDoneDG[]
+
+=== ProcessingMarkDone feature
+This section describes how the processingMarkDone feature is implemented.
+
+ProcessingMarkDone is facilitated by the `ProcessingMarkDoneCommand` class, which extends the `Command` class.
+
+ProcessingMarkDone is done by accessing `Patient` and `Donor` in `ModelManager`,
+then, it will get the `ProcessingList` from the `Donor` and then marking a task as done.
+
+It implements the `ProcessingMarkDoneCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` boolean operation. +
+This method works similar to `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` method but with a slight difference. +
+This method just need to check the `Status` of the `Donor` and `Patient` object and make sure it is `processing`. +
+However, this method still need to determine which Nric belongs to a patient and which Nric belongs to a donor
+since the input allows user to give two Nric in no particular order. +
+A code snippet of the method is shown below: This part of the method is different from the `ProcessingCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` method.
+
+```
+if (model.hasPatient(patientNric) && model.hasDonor(donorNric)
+        && patient.getStatus().isProcessing() && donor.getStatus().isProcessing()
+        && match(donor, patient)) {
+    return true;
+} else {
+    return false;
+}
+```
+
+When the user execute the processingMarkDone feature, the method, `ProcessingMarkDoneCommand#isValidDonorPatientPair(Nric firstNric, Nric secondNric, Model model)` will be called
+to determine if the user give a valid patient and donor input. +
+It will also check if the task number given is valid. +
+Then, it will call `Donor#markTaskAsDone(int taskNumber)` to mark the task on the `ProcessingList` of that donor.
+It will then display the list out.
+
+Following is an object diagram to show the processingMarkDone feature
+
+TODO diagram
+
+// end::processingMarkDoneDG[]
+
+// tag::doneDG[]
+
+=== Done feature
+This section describes how the done feature is implemented.
+
+Done is facilitated by the `DoneCommand` class, which extends the `Command` class.
+
+Done is executed by accessing `Patient` and `Donor` in `ModelManager`,
+then determine if the patient and donor can match each other or not.
+
+It implements the `DoneCommand#isPass(String result)` boolean operation. +
+This method checks whether the result of the cross-matching test. +
+
+If the patient and donor did a cross-matching test and the result of the test is a fail,
+then the patient and donor needs to be sent back to find new matches and they
+should not be able to match each other anymore. +
+`Donor` will have an ArrayList `patientsMatchedBefore` which stores all the patients' Nric which fails to match with it.
+Then, the patient and donor will have their `Status` set to `not processing` so that they can find another match and be considered in future matching results.
+
+If the patient and donor did a cross-matching test and the result of the test is a pass,
+then the patient and donor can be removed from ORGA__Nice__ already.
+
+// end::doneDG[]
+
+Following is an object diagram to show the processingMarkDone feature
+
+TODO diagram
+
+//Todo store the patient and donor information as archive instead of removing it
+
+
+==== Design considerations
+This section will explain the reason for having an aspect.
+
+===== Aspect:
+* **Alternative 1 (current choice):** To remove the patient and donor details if they pass the cross-matching test.
+** Pros: It is easier to implement given the short amount of time we have to complete this project.
+** Cons: It will be harder for users to do data analysis regarding the past successful matches.
+* **Alternative 2:** Archive the details of patient and donor.
+** Pros: The data can be accessed for analysis.
+** Cons: It is harder to implement and space taken may increase exponentially.
+
+// tag::find[]
 === Finding feature
 This section explains the implementation of the find persons by attributes feature.
 
 ==== Current Implementation
-The find feature is facilitated by `FindCommand` and `PersonContainsPrefixesPredicate`. +
-
-===== FindCommand
-
-`FindCommand` extends `Command` with a `predicate` that is used to determine whether a given `person` should be
-displayed. It implements `Command#execute(Model model)` which replaces the `predicate` of the current
-`model.filteredPersons` with the input predicate of `FindCommand`, which triggers an update *INSERT JAVAFX STUFF. +
-
-TODO
+The find feature is facilitated by `PersonContainsPrefixesPredicate` and `FindCommand`. +
 
 ===== PersonContainsPrefixesPredicate
+`PersonContainsPrefixesPredicate` implements `Predicate` and is used to test whether a person's attributes
+match exactly with at least one of the input keywords in each attribute category.
 
-TODO
+===== FindCommand
+`FindCommand` extends `Command` with a `predicate` that is used to determine whether a given
+`person` should be displayed. It implements `Command#execute(Model model)` which replaces the
+`predicate` of the current `model.filteredPersons` with the input predicate of `ExactFindCommand`.
+This triggers a change in the displayed persons to the list of filtered persons.
 
 ===== Execution Behaviour
-The behaviour of `FindCommand` is consistent with that of other commands as described in <<Design-Logic>>. Therefore,
-this section will gloss over higher-level details and instead zoom-in to the behaviour of `FindCommand#execute`.
+The behaviour of `FindCommand` is consistent with that of other commands as described in <<Design-Logic>>.
+Therefore, this section will gloss over higher-level details and instead zoom-in to the behaviour of
+`FindCommand#execute`.
 
-Given below is an example usage scenario and the behaviour of `#execute` at each step. +
+====== FindCommand Execution
+Given below is a step by step description of the behaviour of `FindCommand#execute`:
 
-Step 1: The user inputs a find command, e.g. `find n/Alice Carl Elle t/doctor donor`. It is parsed by
-`FindCommandParser` and used to create an `ArgumentMultimap`: `argMultimap`.
+Step 1: The full list of all persons in ORGA__Nice__ is retrieved and stored as `allPersons`.
 
-Step 2: `argMultimap` is used to initialize a `PersonContainsPrefixesPredicate` object: `predicate`.
+Step 2: A list of exact matches is obtained by filtering `allPersons` using
+`PersonContainsPrefixesPredicate`.
 
-Step 3: `predicate` is used to initialize a `FindCommand` object. `#execute` is then called on it.
+Step 3: A list containing all persons except exact matches is obtained and fuzzy matching is performed on it.
 
-Step 4: `#execute` calls the `#updateFilteredPersonList` of the current `Model` which causes it's
-`FilteredList<Person>`: `filteredPersons` to automatically remove `persons` that fail `predicate#test`.
+Step 4: Fuzzy matching uses `StringUtil#calculateLevenshteinDistance` to filter out possible matches. The matches
+are then sorted in ascending order of similarity to input keywords.
 
-The following sequence diagram illustrates steps x to y: +
+Step 5: `#setDisplayedPersonList` is called.
 
-__insertar diagrama de secuencia__
+The following sequence diagram illustrates steps 1 to 5: +
+
+image::ExactFindSequenceDiagram.png[]
+
+NOTE: The above diagram heavily simplifies the execution of `#fuzzyMatch` as it is further explained in the
+section below.
+
+====== Fuzzy Matching
+`FindCommand#execute` performs fuzzy matching between input keywords and person attributes to detect possible
+matches. This behaviour is facilitated by
+`FindCommand#fuzzyMatch(ArgumentMultimap argMultimap, List<Person> inputList)`. The behaviour of
+`#fuzzyMatch` is detailed in the below activity diagram:
+
+image::FuzzyMatchActivityDiagram.png[]
+
+As seen from the above diagram, `#fuzzyMatch` traverses the `inputList` of persons and tags each person with a
+calculated minimum `combinedLevenshteinDistance`(LD). In the event that no keywords are present, all persons are
+tagged with an LD higher than the acceptable threshold. Once all persons have been tagged, those persons whose LD
+exceeds the threshold are removed from the list. The final list is then sorted in ascending order of LD.
 
 ==== Design Considerations
+This section will explain the main aspect considered in designing the find by prefix feature.
 
-
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
+===== Aspect: Method of calculating similarity of keywords
+* **Alternative 1 (current choice):** Calculate Levenshtein Distance.
+** Pros: Able to detect most typos effectively.
+** Cons: Creation of requisite `costMatrix` is computationally expensive and may affect performance for long
+keywords.
+* **Alternative 2:** Use Natural Language Processing Libraries.
+** Pros: Will be able to detect typos more effectively.
+** Cons: Will take up more system resources.
+// end::find[]
 
 === Logging
-
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
@@ -589,11 +811,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |mark a match as done|know that a particular match has undergone a surgery
 
-|`* * *` |user |sort the potential donors by success rate/priority|match a patient with the best possible donor
+|`* * *` |user |sort the potential donors of a patient by compatibility rate |match a patient with the most compatible donor
 
-|`* * ` |user |add multiple data using external file|reduce the time to add in a data into the system
+|`* * *` |user |sort the potential donors of a patient by organ expiry date |ensure that organs are used before they expire
 
-|`* * ` |user |find a patient/donor/doctor with incomplete keywords|reduce the time to type in the whole keyword
+|`* * *` |user |sort the patients by priority |find out which patients I should prioritize
+
+|`* * ` |user |add multiple data using external file |reduce the time to add in a data into the system
+
+|`* * ` |user |find a patient/donor/doctor with incomplete keywords |reduce the time to type in the whole keyword
 |=======================================================================
 
 _{More to be added}_
@@ -601,7 +827,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `ORGANice` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ORGA__Nice__` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add patient/donor/doctor in a form mode
@@ -609,14 +835,14 @@ _{More to be added}_
 *MSS:*
 
 1.  User requests to add a patient/doctor/donor in a form mode.
-2.  ORGANice shows a form depending on the type of person specified by the User.
+2.  ORGA__Nice__ shows a form depending on the type of person specified by the User.
 3.  OGRANice prompts the User to type in the required attributes one at a time.
-4.  User inputs in the attribute of the person prompted by ORGANice.
+4.  User inputs in the attribute of the person prompted by ORGA__Nice__.
 +
 Steps 3-4 are repeated until the user has inputted all the required attributes for a specific type of person.
-5.  ORGANice prompts the User to confirm the attributes of the person.
+5.  ORGA__Nice__ prompts the User to confirm the attributes of the person.
 6.  User confirms the attributes specified.
-7.  ORGANice adds the person to the list.
+7.  ORGA__Nice__ adds the person to the list.
 
 
 Use case ends.
@@ -625,14 +851,14 @@ Use case ends.
 
 4a. The attribute that the User tries to input is not valid.
 [none]
-* 4a1. ORGANice shows a warning to the User and specifies the pattern of a valid input.
+* 4a1. ORGA__Nice__ shows a warning to the User and specifies the pattern of a valid input.
 * 4a2. User inputs a new value for the attribute.
-* Steps 4a1-4a2 are repeated until the input data is valid for the current attribute prompted by ORGANice.
+* Steps 4a1-4a2 are repeated until the input data is valid for the current attribute prompted by ORGA__Nice__.
 * Use case resumes from step 3 if there are more attributes to fill in, if not it will resumes from step 5.
 
 *a. At any time, User chooses to abort the form.
 [none]
-* *a1. ORGANice nullifies the form.
+* *a1. ORGA__Nice__ nullifies the form.
 * Use case ends.
 
 === Use case: Match a patient and a donor
@@ -640,9 +866,9 @@ Use case ends.
 *MSS*
 
 1.  User requests to list potential donors for a particular patient
-2.  ORGANice shows a list of potential donors for the patient
+2.  ORGA__Nice__ shows a list of potential donors for the patient
 3.  User requests to process the patient with a specified donor
-4.  ORGANice matches the patient and the specified donor
+4.  ORGA__Nice__ matches the patient and the specified donor
 +
 Use case ends.
 
@@ -653,53 +879,52 @@ Use case ends.
 +
 Use case ends.
 
+// tag::usecasesort[]
 === Use case: Sort list according to priority/rate/expiry
 
 *MSS*
 
 1.  User requests to sort the list of donors of a particular patient.
-2.  ORGANice sorts the list of donors according to the parameters.
+2.  ORGA__Nice__ sorts the list of donors according to the parameters.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. ORGANice detects invalid parameter(s).
+* 1a. ORGA__Nice__ detects invalid parameter(s).
 +
 [none]
-** 1a1. ORGANice prompts for valid parameter(s).
+** 1a1. ORGA__Nice__ prompts for valid parameter(s).
 +
 ** 1a2. User enters correct parameter(s).
 +
 Steps 1a1-1a2 are repeated until the data entered are correct.
 +
 Use case resumes at step 2.
+// end::usecasesort[]
 
+// tag::usecaselist[]
 === Use case: List all patients/donors/doctors
 
 *MSS*
 
 1.  User requests to list patients/donors/doctors.
-2.  ORGANice shows the list of patients/donors/doctors.
+2.  ORGA__Nice__ shows the list of patients/donors/doctors.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. ORGANice detects an invalid parameter.
+* 1a. ORGA__Nice__ detects an invalid parameter.
 +
 [none]
-** 1a1. ORGANice requests for correct parameter.
+** 1a1. ORGA__Nice__ returns error message.
 +
-** 1a2. User enters correct parameter.
-+
-Steps 1a1-1a2 are repeated until the data entered are correct.
-+
-Use case resumes at step 2.
+Use case ends.
 
-_{More to be added}_
+// end::usecaselist[]
 
 [appendix]
 == Non Functional Requirements

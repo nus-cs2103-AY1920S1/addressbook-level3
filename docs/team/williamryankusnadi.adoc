@@ -1,0 +1,70 @@
+= William Ryan Kusnadi - Project Portfolio for ORGANice
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== About the project
+
+My team and I developed ORGANice during our 2nd year of our Computer Science degree in National University of Singapore for our Software Engineering Project. ORGANice is a desktop application for hospital administration staff who prefer to use Command Line Interface applications to manage organ transplants. The purpose of this project portfolio is to demonstrate my contribution to the project as well as to the user and developer guides
+
+This is what our project looks like:
+
+.The graphical user interface for ORGANice
+image::ORGANiceComponents.png[width="790" height="500"]
+
+Below is the list of main features that are available in our application:
+
+* Form mode feature
+* Matching feature
+* Sorting feature
+* Finding feature
+* Processing feature
+
+== Summary of contributions
+Below are the summary of my contributions for this project which include feature enhancements, project management, and documentation.
+
+* *Major enhancement*: Added *the ability to add a person with form mode*.
+** What it does: Allows user to add a person by typing each attribute one at a time.
+** Justification: This feature improves the product significantly because a user can ensure that he/she enter the person's attributes correctly which is essential for an application that will be used in a hospital.
+** Highlights: This feature includes other special commands such as 'undo' if the user typed in a wrong input and `Find Match` button so that the user can click on this button to directly find the potential donor for a patient without typing another command.
+
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=williamryank&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=WilliamRyank&tabRepo=AY1920S1-CS2103T-T13-1%2Fmain%5Bmaster%5D[Code contributed]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
+** Enhancements to existing features:
+*** Helped to integrate basic feature such as adding, editing, and deleting to different type of person(Pull requests https://github.com/AY1920S1-CS2103T-T13-1/main/pull/107[#107] https://github.com/AY1920S1-CS2103T-T13-1/main/pull/260[#260])
+** Documentation:
+*** Added a guide for user to understand the form mode feature to User Guide: https://https://github.com/AY1920S1-CS2103T-T13-1/main/pull/148.com[#148]
+*** Added a guide for developer to understand how classes interact among each other in the form mode feature to Developer Guide: https://github.com/AY1920S1-CS2103T-T13-1/main/pull/154[#154]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T13-1/main/pull/113[#113], https://github.com/AY1920S1-CS2103T-T13-1/main/pull/176[#176], https://github.com/AY1920S1-CS2103T-T13-1/main/pull/155[#155]
+** Tools:
+*** Integrated a github plugin (TravisCI) and update Coveralls badge to the project (https://github.com/AY1920S1-CS2103T-T13-1/main/pull/7[#7])
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+{start of extract}
+
+include::../UserGuide.adoc[tag=add]
+
+{end of extract}
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+{start of extract}
+
+include::../DeveloperGuide.adoc[tag=formmode]
+
+{end of extract}
+

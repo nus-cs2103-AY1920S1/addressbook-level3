@@ -2,6 +2,7 @@ package organice.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND;
 import static organice.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static organice.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static organice.logic.parser.CliSyntax.PREFIX_NAME;
@@ -82,7 +83,7 @@ public class AddressBookParserTest {
         ListCommand command = (ListCommand) parser.parseCommand(ListCommand.COMMAND_WORD + " t/patient");
         assertEquals(new ListCommand(type), command);
 
-        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE), ()
+        assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND, ListCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(ListCommand.COMMAND_WORD + " unknownParameter"));
     }
 

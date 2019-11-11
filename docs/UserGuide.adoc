@@ -1,4 +1,4 @@
-= ORGANice - User Guide
+= ORGA__Nice__ - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -17,23 +17,24 @@ endif::[]
 
 By: `CS2103T-T13-1`      Since: `Sep 2019`      Licence: `MIT`
 // tag:: intro[]
+
 == Introduction
 
-This user guide explains how to use ORGANice to manage organ transplants.
-ORGANice is a desktop application for hospital administration staff who prefer
+This user guide explains how to use ORGA__Nice__ to manage organ transplants.
+ORGA__Nice__ is a desktop application for hospital administration staff who prefer
 to use Command Line Interface applications to manage organ transplants.
 
-With ORGANice, you can easily do the following:
+With ORGA__Nice__, you can easily do the following:
 
 * organise information about patients, doctors, and donors
 * find matches between organ donors and patients
 
-If you are a hospital administrator and would like to use ORGANice, check out <<Quick Start>>
+If you are a hospital administrator and would like to use ORGA__Nice__, check out <<Quick Start>>
 to get started.
 
 == Quick Start
 
-Below is a list of things to do to use ORGANice:
+Below is a list of things to do to use ORGA__Nice__:
 
 1.  Ensure you have Java `11` or above installed in your computer. +
 If not, install it link:{javaURL}[here].
@@ -42,39 +43,47 @@ If not, install it link:{javaURL}[here].
 4.  Double-click the JAR file to start the application. The application should appear in a few seconds.
 Figure 1 shows how the application looks like after starting it.
 
-.**How ORGANice looks upon starting up**
+.**How ORGA__Nice__ looks upon starting up**
 
 image::Ui.png[width="790"]
 
+If what you are seeing on your screen looks like what is shown in Figure 1, congratulations! You have successfully started the application. From this point on, do note the following symbols and formatting used in this document:
 
-If what you are seeing on your screen looks like what is shown in Figure 1, congratulations! You have successfully started the application.
-Now that you have have succeeded, it is time to learn about the various components in this application.
+NOTE: This section contains important information.
 
-== Components of ORGANice
+TIP: This section contains a helpful tip!
 
-This section aims to introduce you to the various components of ORGANice.
-We will be using Figure 2, which has all the components of ORGANice labelled.
+`find` A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command box
+and executed by the application.
 
-.**Components of ORGANice**
+
+Now that you have have succeeded, lets move on to learn more about the various components in this application.
+
+== Components of ORGA__Nice__
+
+This section aims to introduce you to the various components of ORGA__Nice__.
+We will be using Figure 2, which has all the components of ORGA__Nice__ labelled.
+
+.**Components of ORGA__Nice__**
 image::ORGANiceComponents.png[width="790"]
 
 The following list explains each component and the function of that component:
 
 * Component: Command Box
-** Function of component: the Command Box is a text box for you to type in commands. Commands are instructions to ORGANice to perform a feature.
+** Function of component: the Command Box is a text box for you to type in commands. Commands are instructions to ORGA__Nice__ to perform a feature.
 * Component: Message Display Box
 ** Function of component: the Message Display Box displays messages after executing commands. These messages aim to let you know if
 you have succeeded or failed in executing a command.
 * Component: Person List
-** Function of component: the Person List is a display of people's information stored in ORGANice. You can scroll down this list to see
+** Function of component: the Person List is a display of people's information stored in ORGA__Nice__. You can scroll down this list to see
 more people in this application.
 
 
-Now that you know the components of ORGANice, let's move on to <<List of Attributes>> to understand
-what kind of information can be stored in ORGANice.
+Now that you know the components of ORGA__Nice__, let's move on to <<List of Attributes>> to understand
+what kind of information can be stored in ORGA__Nice__.
 
 == List of Attributes
-In ORGANice, a person's data is represented by attributes. Attributes
+In ORGA__Nice__, a person's data is represented by attributes. Attributes
 refer to personal particulars such as name, type of person and blood type. +
 
 The following list shows the list of attributes that can be specified for
@@ -154,23 +163,19 @@ is also acceptable.
 ====
 
 // tag::help[]
-=== Viewing help : `help`
-There may be times where you do not understand how ORGANice works, or you need a simple reminder on how to use
-ORGANice. To access the user guide of ORGANice, you can do the following:
+=== Viewing help: `help`
+There may be times where you need more information on how ORGA__Nice__ works.
+To access the user guide of ORGA__Nice__, you can do the following:
 
-. Type `help` in the Command Box and press kbd:[Enter].
-. A new window is launched, as shown in Figure 3. Open the link in a browser to read this document.
-. Click the x button to close the window and return to the default display.
+Simply type `help` in the Command Box and press kbd:[Enter]. You will see a link given in a pop-up "Help" window.
+You may click on the kbd:[Copy URL] button and paste it in a browser to see our user guide for more information on how to use ORGA__Nice__.
 
-.**Help Window**
-
-image::HelpWindow.png[width="790"]
+To exit the window, click the kbd:[x] button found near the top of the window to close it and return to the default display.
 // end::help[]
 
-// tag::add[]
 === Adding a person: `add`
 
-This command allows you to add a patient, doctor, or donor to ORGANice with the attributes given,
+This command allows you to add a patient, doctor, or donor to ORGA__Nice__ with the attributes given,
 depending on what is specified.
 
 There are two methods to add a person:
@@ -181,8 +186,8 @@ There are two methods to add a person:
 To understand how to add a person via the 'Normal Add' method, go to <<Adding as per normal>>.
 To understand how to add a person via the 'Form mode' method, go to <<Form mode>>.
 
-Note that when you add a person, ORGANice will detect if the person you are trying to add
-has the same NRIC as another person in ORGANice. When this happens, ORGANice will not allow you to
+Note that when you add a person, ORGA__Nice__ will detect if the person you are trying to add
+has the same NRIC as another person in ORGA__Nice__. When this happens, ORGA__Nice__ will not allow you to
 add that person. An error message will be displayed, prompting you to change the NRIC of the person you are trying to
 add.
 
@@ -210,6 +215,7 @@ d/S2235456D a/29`
 exp/23-Nov-2020 a/21`
 * `add t/doctor n/Lim Chu Kang p/91054444 ic/S5678908D`
 
+// tag::add[]
 ==== Form mode
 
 In this mode, instead of typing a long command at one go, you can add a person's attribute one by one.
@@ -217,7 +223,7 @@ After entering an attribute, the system will prompt you to input another attribu
 
 To add a person in this mode, enter the following command of the format: `add t/**TYPE**`
 
-ORGANice will prompt you to type in each attribute, one by one until all the fields are filled.
+ORGA__Nice__ will prompt you to type in each attribute, one by one until all the fields are filled.
 Here are some special commands that might be useful when you are in the process of filling up the form:
 
 * `/abort` - The command to abandon the current form that you are currently filling.
@@ -230,78 +236,76 @@ Note that `/exit`, `/abort`, and `/undo` commands can be used at any point in ti
 These are the important commands for this feature, so now let's take a look at an example on how you can use this feature.
 Let's say you want to add a patient to the application. You should type `add t/patient` in the `Command Box`. Three changes will occur on your screen:
 
-1. A form will appear in the space where the `Person List` used to occupy.
-2. The `Message Display Box` will display a message that prompts you to enter the patient’s name.
-3. There is a `Progress Bar` detailing your progress in filling up the form.
+1. A form will appear in the space where the Person List used to occupy.
+2. The Message Display Box will display a message that prompts you to enter the patient’s name.
+3. There is a Progress Bar detailing your progress in filling up the form.
 
-Refer to the `Figure 4` to see how the resulting screen will look like.
+Refer to the Figure 4 to see how the resulting screen will look like.
 
 .Screenshot of the screen after you have successfully entered the form mode
-image::addForm.png[width="790"]
+image::addForm.png[width="790", height="500"]
 
 If you want to add a patient named "John Doe", type `John Doe` and then press kbd:[Enter].
-After entering the name, the patient's name will be displayed on the form and the progress bar will increase as seen in `Figure 5`.
+After entering the name, the patient's name will be displayed on the form and the progress bar will increase as seen in Figure 5.
 
 .Form layout after you have entered a valid name
-image::nameFilled.png[width="790"]
+image::nameFilled.png[width="790", height="500"]
 
-Each time you type an input, ORGANice will check if it is a valid input. If the input is valid, it will be reflected on the form.
-If not, ORGANice will display a warning message stating the criteria for a valid input of that attribute.
+Each time you type an input, ORGA__Nice__ will check if it is a valid input. If the input is valid, it will be reflected on the form.
+If not, ORGA__Nice__ will display a warning message stating the criteria for a valid input of that attribute.
 
 Say you typed in "G999999999A" and pressed kbd:[Enter] when ORGANice prompts you to type in the NRIC of the patient.
-Three changes occur to ORGANice, which can be seen in the `Figure 6`:
+Three changes occur to ORGA__Nice__, which can be seen in the Figure 6:
 
-1. Your input will remain in the `Command Box`, but the colour of the input text turns to red.
-2. A warning message is displayed in the `Message Display Box`. This warning message details the criteria for a valid NRIC input. This error message is specific to the attribute type. For example if you typed in an invalid NRIC, an error message detailing the criteria for a valid NRIC will be displayed.
+1. Your input will remain in the Command Box, but the colour of the input text turns to red.
+2. A warning message is displayed in the Message Display Box. This warning message details the criteria for a valid NRIC input. This error message is specific to the attribute type. For example if you typed in an invalid NRIC, an error message detailing the criteria for a valid NRIC will be displayed.
 3. Your input will not be reflected in the form.
 
 .Form layout if you entered an invalid value
-image::invalidInput.png[width="790"]
+image::invalidInput.png[width="790", height="500"]
 
 After all of the attributes have been specified, you can type in:
 
-* `/done` to add the person to the ORGANice list of persons
+* `/done` to add the person to the ORGA__Nice__ list of persons
 * Click the `Find Match` button to directly add the person and find the potential donors at the same time.
 Note that the `Find Match` button will only appear on the `Patient` form. Note that this action is only applicable if you are adding a patient.
 
 The `Figure 7` will show how the form will look like after you have entered all the required attributes.
 
 .Form layout after all the required attributes have been specified
-image::allFieldSpecified.png[width="790"]
+image::allFieldSpecified.png[width="790", height="500"]
 
-When you type in `/done`, the `Person List` will return to its original state of displaying people in ORGANice.
+When you type in `/done`, the `Person List` will return to its original state of displaying people in ORGA__Nice__.
 The `Message Display Box` will show a success message, indicating that you have successfully added a new person to the Person List as seen in `Figure 8`.
 
 .The UI changed back to it's original state and shows a success message
-image::addSuccess.png[width="790"]
+image::addSuccess.png[width="790", height="500"]
 
-The `Find Match` button will appear when all attributes are filled. After you clicked this button, `ORGANice` will add the patient to the list and it will execute the `Match` command as described in <<Detecting matches: `match`>>.
-`ORGANice` will then return back to its original state(exits from the form mode) and shows the list of potential donors for the patient you have just added as seen in `Figure 10`. Note that this button only appeared if you are adding a patient.
+The 'Find Match' button will appear when all attributes are filled. After you clicked this button, `ORGANice` will add the patient to the list and it will execute the 'match' command.
+ORGA__Nice__ will then return back to its original state(exits from the form mode) and shows the list of potential donors for the patient you have just added as seen in Figure 10. Note that this button only appeared if you are adding a patient.
 
 .The UI displayed the potential donors for a patient that you have added
-image::findMatch.png[width="790"]
+image::findMatch.png[width="790", height="500"]
 
 At any point in time, if you decided not to proceed with the addition and typed in `/abort`, you will be directed into the main page and notified that
-you have abandoned the form as seen in `Figure 10`.
+you have abandoned the form as seen in Figure 10.
 
 .The UI changed back to it's original state and shows a message the form has been abandoned
-image::abandonForm.png[width="790"]
+image::abandonForm.png[width="790", height="500"]
 
 Furthermore, if you made any mistake while you are filling up the form, you can type in `/undo` to remove the last entry you entered.
-For example, if you enter the wrong name and want to undo the action, type `/undo` in the `Command Box` and press kbd:[Enter]. Your previous input for the name will be removed from the form as seen in `Figure 11`
+For example, if you enter the wrong name and want to undo the action, type `/undo` in the Command Box and press kbd:[Enter]. Your previous input for the name will be removed from the form as seen in Figure 11
 
 .Form layout showing that the last entry is removed after you typed in '/undo'
-image::undoCommand.png[width="790"]
+image::undoCommand.png[width="790", height="500"]
 // end::add[]
 
 // tag::list[]
-=== Listing persons : `list`
-This list command can show you the list of persons in ORGANice.
+=== Listing persons: `list`
+This list command can show you the list of persons in ORGA__Nice__.
 
 ==== Listing all persons
-Simply type `list` in the Command Box and ORGANice will show you all patients, doctors and donors present in the system.
-
-Format: `list`
+Simply type `list` in the Command Box and press kbd:[Enter]. ORGA__Nice__ will show you all patients, doctors, and donors present in the system.
 
 ==== Listing persons of a specified type
 If you wish to see a certain type of person only, you can provide the type parameter in the list command.
@@ -313,7 +317,7 @@ For instance, if you only want to see all doctors, you can enter the following:
 // end::list[]
 
 // tag::edit[]
-=== Editing a person's attribute : `edit`
+=== Editing a person's attribute: `edit`
 If you want to make any changes to a person's attribute, you can edit the information using an edit command.
 If there are multiple attributes to change, you can do so in the same edit command.
 
@@ -325,20 +329,18 @@ For instance, if you want to change a patient's phone number to 91234567, you ca
 as follows: `edit S8732457G p/91234567`.
 
 **You can only make changes to attributes that the person has.**
-For example, you cannot change a doctor's age because a doctor does not have that attribute in ORGANice.
+For example, you cannot change a doctor's age because a doctor does not have that attribute in ORGA__Nice__.
 
-**In addition, there are some attributes that cannot be edited.** These include:
+**Besides that, some attributes cannot be edited.** These include:
 
 * NRIC
 +
 * Type
-+
-* Organ expiry date
 
-
-You might want to refer to <<List of Attributes>> to see what attributes are applicable to each type of person in ORGANice.
+You may want to refer to <<List of Attributes>> to see what attributes apply to each type of person in ORGA__Nice__.
 // end::edit[]
 
+// tag::find[]
 === Finding persons by attributes: `find`
 
 You can use the `find` command to search for persons whose attributes match your input keywords. A list of matching
@@ -346,21 +348,23 @@ persons along with the number of exact and possible matches will be displayed. +
 
 Format: `find __PREFIX__/__KEYWORD__ (__PREFIX__/__KEYWORD__...)`
 
-Optional parameters: Multiple __keyword__s per __prefix__, multiple __prefixe__s in the same find command.
+Optional parameters: Multiple __keyword__s per __prefix__, multiple __prefix__es in the same find command.
 
 [TIP]
 You may wish to reference <<List of Attributes>>, to view the list of available prefixes to search by.
 
 The find command is **case insensitive** and performs **OR** matching within a prefix and **AND** matching between
-prefixes. It also matches similar looking words to account for possible typos in your keywords. The following example illustrates
-these concepts:
+prefixes. It also matches similar looking words to account for possible typos in your keywords. The following example
+illustrates these concepts:
 
 .Find command with multiple prefixes and multiple keywords per prefix.
 image::findByPrefix.png[width="790"]
 
 In Figure 12, you can see that `find n/Duncan n/Loinel n/Helen t/patient t/donor` shows a list of 44 matches. The two
 exact matches are listed at the top; those below are possible matches, sorted according to how closely they match your
-keywords. 'Duncan Chua' and 'Helen Davidson' are among the matched persons due to the fact that Duncan's name matches
+keywords.
+
+'Duncan Chua' and 'Helen Davidson' are among the matched persons due to the fact that Duncan's name matches
 either of 'Duncan' **OR** 'Loinel' **OR** 'Helen' **AND** he is also either a 'patient' **OR** 'donor'. The same is true
 for Helen. 'Lionel Lim' also appears in the search results as his name is similar to 'Loinel'. Hey, good thing we
 picked up on that typo or we'd have missed Lionel!
@@ -369,20 +373,20 @@ NOTE: The only exception to this rule is tissue type matching, which uses `AND` 
 
 Lets take a look at some examples and pointers showcasing the use of `find`:
 
-__Use case with multiple keywords per prefix__ +
+1. Use case with multiple keywords per prefix +
 * `find n/Laura n/Marisha Ray b/A b/B b/O` +
 Displays all persons whose name contains either 'Laura' or 'Marisha Ray' and whose blood type is either 'A', 'B' or 'O'.
 
-__Use case demonstrating prefix order insensitivity__ +
+2. Use case demonstrating prefix order insensitivity +
 * `find b/A n/Benson Carter b/O n/Alice b/B` +
 Displays the same result as the preceding example.
 
-__Use case demonstrating tissue type finding__ +
+3. Use case demonstrating tissue type finding +
 * `find tt/4,1,2,3` +
-Displays all persons whose tissue type contains tissues: 4, 1, 2 and 3; in any order.
+Displays all persons whose tissue type contains tissues: 4, 1, 2 and 3; in any order. +
 
 [TIP]
-Looking for exact matches? No problem! Just replace `find` with `exactFind`!
+Looking for exact matches only? No problem! Just replace `find` with `exactFind`!
 
 That's it for this section. Congratulations, you now know how to use the `find` command!
 // end::find[]
@@ -390,12 +394,12 @@ That's it for this section. Congratulations, you now know how to use the `find` 
 // tag::match[]
 === Detecting matches: `match`
 
-This command runs a kidney matching test on patients and donors in ORGANice and displays potential matches.
+This command runs a kidney matching test on patients and donors in ORGA__Nice__ and displays potential matches.
 A patient-donor pair is considered a potential match if they pass the blood type and
 tissue compatibility tests.
 Refer to <<FAQ>> for a better understanding of the procedure for kidney matching.
 
-You can either run a kidney matching test on a specific patient or on all patients in ORGANice.
+You can either run a kidney matching test on a specific patient or on all patients in ORGA__Nice__.
 To learn how to run kidney matching tests on a specific patient,
 refer to <<Matching a specific patient>>.
 To learn how to run kidney matching tests on all patients,
@@ -424,7 +428,7 @@ with an example.
 If you want to find potential donors for all patients,
 type `match ic/all` in the Command Box and press kbd:[Enter].
 
-You will see a list of all the patients in ORGANice along with the number of
+You will see a list of all the patients in ORGA__Nice__ along with the number of
 potential donors for each patient.
 
 As seen in Figure 14, 'Someone edited' is displayed with the red text 'Matches: 3'.
@@ -437,9 +441,10 @@ Following this, you can sort the matches based on different criteria to
 determine which patient to prioritize. Head over to the next section to find out
 how to sort matches.
 // end::match[]
+
 // tag::sort[]
 === Sorting matches: `sort`
-After using the match command, you can sort the list of matches to determine which patient to prioritize for organ transplant.
+After using the match command, you can sort the list of matches to determine which patients to prioritize for an organ transplant.
 
 **The sort command can only be used after a match command** to sort the resulting list of patient-donor pairs generated.
 There are three criteria in which you can sort the matches, namely:
@@ -448,11 +453,11 @@ There are three criteria in which you can sort the matches, namely:
 +
 * Sorting based on priority
 +
-* Sorting based on compatibility rate of match
+* Sorting based on the compatibility rate of match
 
 These criteria will be further explained below.
 
-Note that **only one criteria can be used in one sort command**.
+Note that **only one criterion can be used in a single sort command**.
 
 ==== Sorting based on donor's organ expiry date
 To find out which organs are expiring soon, you can sort the list of matched donors based on the donor's organ expiry date (from the earliest to the latest expiry date).
@@ -463,7 +468,7 @@ For example, after running a match command on a specific patient with `match ic/
 You can then run `sort expiry` to obtain the list of donors with earlier organ expiry dates near the top of the list.
 
 ==== Sorting based on priority
-To determine which patient to prioritize for organ transplant, you can sort the list of matched patients based on their priority (from highest to lowest).
+To determine which patient to prioritize for an organ transplant, you can sort the list of matched patients based on their priority (from highest to lowest).
 You may refer to <<Glossary>> to understand what priority means.
 
 Format: `sort priority`
@@ -474,16 +479,17 @@ You can then run `sort priority` to obtain the list with higher priority patient
 Note that in the case where patients have the **same priority**, those with more matched donors will be displayed first.
 If these two factors are the same for a group of patients, they will be displayed according to their names in alphabetical order.
 
-==== Sorting based on compatibility rate of match
+==== Sorting based on the compatibility rate of match
 To determine which patient-donor pair is the most compatible, you can
 sort the list of compatible donors of that patient based on the compatibility rate of the match (from highest to lowest).
-You can refer to <<Glossary>> for more information on the compatibility rate.
+You may refer to <<Glossary>> for more information on the compatibility rate.
 
 Format: `sort rate`
 
 Take for instance, after running a match command on a specific patient with `match ic/**NRIC**`, you will get a list of donors that are compatible with said patient.
 You can then run `sort rate` to obtain the list of donors with higher compatibility rates near the top of the list.
 // end::sort[]
+// end::match[]
 
 // tag::process[]
 
@@ -492,25 +498,25 @@ You can then run `sort rate` to obtain the list of donors with higher compatibil
 After finding a list of matches, the hospital will be able to schedule a cross-matching test between
 a specific donor and patient.
 To schedule a cross-matching test, there will be a lot of other administrative tasks to be done.
-Hence, this command will be able to allow you to have an overview on what kind of tasks you need to do for that
+Hence, this command will be able to allow you to have an overview of what kind of tasks you need to do for that
 particular pair of donor and patient before the cross-matching.
 
 ==== `Status` of the donor and patient pair
 
-You can also view the current state of every donor and patient in ORGANice by looking at their `Status`.
+You can also view the current state of every donor and patient in ORGA__Nice__ by looking at their `Status`.
 
 The `Status` of patient and donor can be either `Not Processing`, `Processing` or `Done`.
 
 * `Not Processing` : The current donor or patient is not yet matched with anyone and is not going for any cross-matching test yet.
 
-* `Processing` : The current donor or patient found a match already and is in the midst of preparing for a cross-matching test.
+* `Processing` : The current donor or patient has already found a match and is in the midst of preparing for a cross-matching test.
 
 * `Done` : The current donor or patient have completed the cross-matching and the result of the cross-matching shows a positive result.
-Hence, this donor or patient does not need to be in ORGANice anymore.
+Hence, this donor or patient does not need to be in ORGA__Nice__ anymore.
 
-All the patients and donors should be `Not Processing` initially.
-When the command is used for the first time for the patient and donor pair, the `Status` of the patient and donor will change from `Not Processing` to `Processing`.
-If the patient and donor is being processed, their `Status` will remain `Processing`.
+All the patients and donors should be `Not Processing` initially. +
+When the command is used for the first time for the patient and donor pair, the `Status` of the patient and donor will change from `Not Processing` to `Processing`. +
+If the patient and donor is being processed, their `Status` will remain as `Processing`.
 
 ==== Task list for the donor and patient
 
@@ -557,13 +563,14 @@ Example:
 
 // tag::mark[]
 
-=== Checking the task list : `processingMarkDone`
+=== Checking the task list: `processingMarkDone`
 
 As introduced above, this command serves to help you mark a task on the task list as done.
 This will allow you to be able to know what other administrative things you need to do
 for the specific donor and patient before the cross-matching test.
 Beside each task on the task list, there will be either a cross, ✘, or a tick, ✓.
 A tick would mean that the task is completed and a cross will mean that the task has not yet been completed.
+A screenshot of the list generated can be shown below:
 
 .Screenshot of the screen after you use the command on a valid donor and patient and a valid task number
 
@@ -576,29 +583,30 @@ The donor and patient need to be in `Processing` state to be considered valid.
 Example:
 `processingMarkDone ic/S6764235G ic/S5234567D 1`
 
-// end::process[]
+// end::mark[]
 
-// tag::mark[]
+// tag::done[]
 
-=== Mark as done : `done`
+=== Mark as done: `done`
 
 After the hospital has the results of the cross matching test, they can
-update the results in ORGANice.
+update the results in ORGA__Nice__.
 Cross matching tests have two possible results: pass or fail.
 
 Format: `done ic/**PATIENT NRIC** ic/**DONOR NRIC** res/[pass/fail]`
-The order of the NRICs does not matter, as long as the patient and the donor must be valid.
+
+The order of the NRICs does not matter, as long as the patient and the donor must both be valid.
 
 The following section outlines what happens based on the two results: +
 
 If the result of the cross matching is a 'pass':
 
 . Run the command based on the given format
-. It is up to the you to schedule an organ transplant surgery
+. It is up to you to schedule an organ transplant surgery
 between the patient and donor.
 . Mark the patient and donor as `Done`, based on the command format.
 . The patient and donor statuses will be marked as `Done`.
-. After running the command, the system removes the patient and donor from ORGANice.
+. After running the command, the system removes the patient and donor from ORGA__Nice__.
 
 
 If the result of the cross matching is a 'fail': +
@@ -610,19 +618,38 @@ match detection with other patients and donors.
 
 . The patient and donor statuses will be marked as `Not Processing`.
 
-. The donor and patient pair will not be considered a potential match in future match detection.
+. The donor and patient pair will not be considered a potential match anymore in future match detections.
 
 
 Example:
 
 * `done ic/S6764235G ic/S5234567D res/pass`
-* `done ic/S6764235G ic/S5234567D res/fail`
+* `done ic/S5234567D ic/S6764235G  res/fail`
 
-// end::mark[]
+// end::done[]
+
+// tag::delete[]
+
+=== Deleting a person : `delete`
+
+If you want to delete a person in ORGA__Nice__, you can type in a command of the following format: `delete **NRIC**`  +
+ORGA__Nice__ will prevent you from deleting a person if he/she is any of the following:
+
+* A patient whose status is currently under processing.
+* A donor whose status is currently under processing.
+* A doctor who is in charge of one or more patients in ORGA__Nice__.
+
+Here is an example. If you want to delete a patient with the NRIC S4612296H and is not under processing, type the following command: `delete S4612296H`.
+
+// end::delete[]
+
+=== Clearing all entries : `clear`
+
+You can clear all data in ORGA__Nice__ by typing `clear`. You could use this command to remove all dummy data after you have familiarized yourself with how ORGA__Nice__ works.
 
 === Exiting the program : `exit`
 
-To exit ORGANice, type `exit` in the Command Box. ORGANice will close on its own.
+To exit ORGA__Nice__, type `exit` in the Command Box. ORGA__Nice__ will close on its own.
 
 === Saving the data
 
@@ -636,7 +663,7 @@ It is further divided into two sub-sections: **Proposed New Features** and **Pro
 
 === Proposed New Features
 
-This section describes features that can be added to ORGANice in version 2.0.
+This section describes features that can be added to ORGA__Nice__ in version 2.0.
 
 ==== Implementing tab completion
 
@@ -654,7 +681,7 @@ patient/doctor/donor from data in a specified text file.
 
 ==== Supporting more types of transplants
 
-Currently ORGANice has patient-donor matching for kidneys only. Future versions can include matching for
+Currently ORGA__Nice__ has patient-donor matching for kidneys only. Future versions can include matching for
 more types of organs.
 
 ==== Processing a match: `process`
@@ -667,7 +694,7 @@ Format: `process **NRIC**`
 
 *Q*: How do I transfer my data to another computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file +
-that contains the data of your previous ORGANice folder.
+that contains the data of your previous ORGA__Nice__ folder.
 
 *Q*: What are the steps to find a patient-donor kidney match? +
 *A*: There are three steps to finding a patient-donor match:
@@ -703,11 +730,11 @@ p/**PHONE** ic/**NRIC** exp/**EXPIRY** a/**AGE**`
 ** *Sort based on compatibility rate*: `sort/rate`
 ** *Sort based on organ expiry date*: `sort expiry`
 ** *Sort based on patient priority* `sort priority` +
-* *Processing*: `processing ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**`
-* *Mark tasks as done*: `processingMarkDone ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**
+* *Processing*: `processing ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR** **TASKNUMBER**`
+* *Mark tasks as done*: `processingMarkDone ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR**`
 * *List* : `list t/**TYPE**`
 * *Help* : `help`
-* *Done* : `done ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR** `
+* *Done* : `done ic/**NRIC OF PATIENT** ic/**NRIC OF DONOR** res/[pass/fail]`
 * *Exit* : `exit`
 
 == Glossary

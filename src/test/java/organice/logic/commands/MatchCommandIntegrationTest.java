@@ -32,7 +32,6 @@ public class MatchCommandIntegrationTest {
         CommandResult expectedCommandResult = new CommandResult(
                 String.format(MatchCommand.MESSAGE_SUCCESS_MATCH_PATIENT, 1, VALID_NAME_PATIENT_IRENE,
                         VALID_NRIC_PATIENT_IRENE));
-        expectedCommandResult.setMatch(true);
 
         assertCommandSuccess(new MatchCommand(VALID_NRIC_PATIENT_IRENE), model, expectedCommandResult, expectedModel);
     }
@@ -42,7 +41,6 @@ public class MatchCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         CommandResult expectedCommandResult = new CommandResult(MatchCommand.MESSAGE_SUCCESS);
-        expectedCommandResult.setMatch(true);
 
         assertCommandSuccess(new MatchCommand(MatchCommandParser.ALL), model, expectedCommandResult, expectedModel);
     }
