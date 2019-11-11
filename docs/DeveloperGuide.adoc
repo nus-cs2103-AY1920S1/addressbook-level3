@@ -701,7 +701,7 @@ You can refer to the activity diagram here:
 
 image::RetrievePreviousCommandActivityDiagram.png[]
 
-=== User Interface Update
+=== User Interface
 The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
 UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
 sorted and thus all items in the lists will be modified each time a `sort`, `add`, `delete`, `tag` or other commands that modify the lists
@@ -762,6 +762,23 @@ as modification to the items. In the future, alternative 2 can be considered wit
 any key is pressed and the user can continue.
 ** Pros: It saves spaces on the GUI and success and error message can be dismissed so that user do not have to see it all the time.
 ** Cons: User is not able to type while referring to the message.
+
+===== Aspect: Layout of ItemCard
+
+The original design does not fit the vertical list as seen below:
+
+image::OriginalItemCard.png[]
+
+The following changes have been made to the layout of the item card for a better view of the items.
+
+. Display the number of days left before the item expires in an obvious manner for user to see.
+. Move the position of the reminder and quantity to the left so that the right is not crowede.
+. Dynamically Change the colour of the card depending on the status of the item. Red for expired, yellow for alerting, green for healthy.
+. Expand the card on clicking and collapse it when not in focus to save space for more items to be displayed.
+
+Here is the redesigned `ItemCard`:
+
+image::ExpandCard.png[]
 
 === Logging
 
