@@ -165,7 +165,7 @@ Type the edit command in the following format, using the relevant prefixes to ed
 
 Format: `edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] g/[GENDER] a/[ADDRESS] t/[TAGS] i/[IMAGE]`
 
-In order to edit Roy Balakrishnan's name to Shawn, type in the following.
+In order to edit Chad le Clos name to Shawn, type in the following.
 
 Example: `edit 6 n/Shawn`
 
@@ -191,9 +191,9 @@ in `.png`.
 
 image::afterEdit.png[width=450]
 
-If successfully edited, the edited information of Roy (now Shawn) will be displayed in the result box.
+If successfully edited, the edited information of Chad le Clos (now Shawn) will be displayed in the result box.
 
-The team list should also reflect Roy's new details.
+The team list should also reflect Chad le Clos's new details.
 
 
 // tag::entire_training[]
