@@ -157,6 +157,8 @@ They showcase my ability to write technical documentation and the technical dept
 
 _[Start of extract from Developer Guide]_
 
-include::../DeveloperGuide.adoc[tag=performance_designconsideratons]
+include::../DeveloperGuide.adoc[tag=performance_intro]
+
+include::../DeveloperGuide.adoc[tag=performance_designconsiderations]
 
 _[End of extract from Developer Guide]_

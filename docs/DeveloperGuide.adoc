@@ -364,6 +364,7 @@ one with the `training` command makes it editing much quicker.
 
 // end::training_design[]
 
+// tag::performance_intro[]
 === Performance feature
 
 Athletick allows users to record athlete's performance details from timed trials.
@@ -386,22 +387,19 @@ Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`
 The class diagram below shows how the different components mentioned interact with one another.
 
 .Class diagram for showing how Performance is implemented.
-image::performance_classdiagram.png[width="250"]
+image::performance_classdiagram.png[width=150]
 
 As the name suggests, all `[green]#Event#` names are unique in `[green]#UniqueEventList#`.
 This is ensured by `[green]#UniqueEventList#contains()#` that checks whether there is an `[green]#Event#`
 with the same name before the `[green]#Event#` is added.
 
 Every event has its own https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/HashMap.html[HashMap]
-where performances under this event are stored. The key and value of the HashMap are explained below.
-
-[horizontal]
-
-Key:: `[green]#Person#` that the performance records will be under.
-Value:: List of `[green]#Record#` s under the `[green]#Person#`.
+where performances under this event are stored.
+The _key_ of the HashMap is the `[green]#Person#` that the performance records will be under, while the _value_
+of the HashMap is a list of `[green]#Record#` s under the `[green]#Person#`.
 
 .Class diagram showing how Records are stored in Event.
-image::event_classdiagram.png[width="250']
+image::event_classdiagram.png[width=200]
 
 This structure allows each `[green]#Person#` to have multiple `[green]#Record#` s stored in Athletick so
 their progress over time can be analysed using the `[green]#AthletickDate#` and `[green]#Timing#`
@@ -417,6 +415,8 @@ The _Observer Pattern_ is adopted when displaying `[green]#Performance#` data th
 `[green]#Model#` exposes an unmodifiable `[green]#ObservableList<Event>#` through
 `[green]#Model#getPerformance#` that returns a `[green]#ReadOnlyPerformance#`. It can be 'observed'
 and is updated accordingly when data in `[green]#Performance#` changes.
+
+// end::performance_intro[]
 
 ===== Function 1: Adding and Deleting of Event
 
