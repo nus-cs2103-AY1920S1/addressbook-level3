@@ -551,6 +551,7 @@ Redoing a template item list will display which template is redone.
 //end::templatelistfeatures[]
 
 //end::tlistundoredo[]
+//tag::shoppinglistfeatures1[]
 === Shopping List Management
 
 ==== Add new item to shopping list: `slist add`
@@ -568,7 +569,7 @@ Examples:
 * `slist add n/milk a/1L`
 * `slist add n/banana a/3units`
 
-
+//end::shoppinglistfeatures1[]
 //tag::addTempfeature[]
 ==== Add items in template into shopping list: `slist addTemp`
 
@@ -580,6 +581,7 @@ Examples:
 * `slist addTemp 1`
 
 //end::addTempfeature[]
+//tag::shoppinglistfeatures2[]
 ==== Edit item in shopping list: `slist edit`
 
 Edits the name of a specified item in a shopping list. +
@@ -646,7 +648,8 @@ Marks the item at index 2 as bought and sets its expiry date as 3rd November, 20
 
 ==== Add bought items: `slist mergebought`
 
-Adds all items marked as ‘bought’ to the grocery list.
+This command represents a user moving all the bought items into the fridge.
+It adds all items marked as ‘bought’ to the grocery list.
 Format: `slist mergebought`
 
 ****
@@ -659,6 +662,7 @@ Format: `slist mergebought`
 ****
 **_Important Note_**: This command cannot be undone/redone.
 
+//end::shoppinglistfeatures2[]
 ==== Mark shopping item as Urgent: `slist urgent`
 
 Marks the specified item in the shopping list as *urgent!*
