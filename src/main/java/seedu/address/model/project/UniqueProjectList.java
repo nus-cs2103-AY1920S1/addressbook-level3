@@ -118,7 +118,6 @@ public class UniqueProjectList implements Iterable<Project> {
                         project.getTasks(), project.getFinance(), project.getGeneratedTimetable());
                 updatedProject.setListOfMeeting(project.getListOfMeeting());
                 editedProjects.add(updatedProject);
-                updatedProject.setListOfMeeting(project.getListOfMeeting());
             }
         }
 
