@@ -379,7 +379,7 @@ move on to the next `Answerable`.
 . Once the entire quiz has ended, the user will be given the choice to restart or exit the quiz.
 
 [NOTE]
-For Custom Mode, the game play is the same except that user can choose the category and difficulty of questions. +
+For Custom Mode, the game play is the same except that user can choose the category, difficulty and timer for the questions. +
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 //end::wilfred-implementation[]
 
@@ -869,7 +869,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Adding an answerable
 
-. Adding a MCQ to the current list
+. Adding an MCQ to the current list.
 
 .. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
 Expected: new MCQ answerable will be created and appended at the bottom of the list. Details of the the added answerable will be shown at the bottom of the list, and the correct answer will be highlighted in green.
@@ -890,7 +890,7 @@ Expected: No new answerable will be added as the question already exist in the R
 
 === Deleting an answerable
 
-. Deleting an answerable while all answerables are listed
+. Deleting an answerable while all answerables are listed.
 
 .. Prerequisites: List all answerables using the `list` command. Multiple answerables in the list.
 .. Test case: `delete 1` +
@@ -902,13 +902,39 @@ Expected: No new answerable will be added as the question already exist in the R
 
 === Starting quiz
 
-. Starting a quiz
+. Starting a quiz in various modes.
 .. Test case: `start mode/normal` +
 Expected: Start quiz window will pop up with a question showing under the command box and the answers in the result box further below. Answer the questions using the CLI accordingly to see the progress bar move till quiz completion. Users will be prompted if he wishes to proceed to level 2.
 .. Test case: `start mode/arcade` +
 Expected: Start quiz window will pop up similar to previous test case. The only difference would be that once the quiz proceeds and an incorrect answer is input, the quiz ends and the score will be shown. This is the "hard mode" of our quiz mode.
 .. Test case `start mode/custom timer/3` +
 Expected: Start quiz window will pop up similar to previous test case. The difference here will be the timer. Instead of the 30 seconds timer per question, the new timer (seen at the bottom right beside the status progress bar) will be at 3 seconds as set by the user.
+
+=== Answering questions during Normal Mode
+
+. Answering an MCQ.
+.. Test case: `a` +
+Expected: Revision Tool will progress to the next question if there are still questions available.
+
+. Answering a True & False Question.
+.. Test case: `t` +
+Expected: Revision Tool will progress to the next question if there are still questions available.
+
+. Answering an SAQ.
+.. Test case: `Short answer` +
+Expected: Revision Tool will progress to the next question if there are still questions available.
+
+. Ending the quiz.
+.. Test case: `exit` +
+Expected: Revision Tool will end the quiz and go back to configuration mode.
+
+[NOTE]
+For the scenarios 1-3. If the level has ended, the user will be prompted to continue to the next level
+or end the quiz. If the entire quiz has ended, the user will be prompted to restart or end the quiz.
+
+Testing for Custom Mode is similar to Normal Mode except that the category, difficulty and timer are customisable.
+For Arcade Mode, whenever the user answers a questions wrongly, the quiz will end and the user will be prompted to restart
+or end the quiz.
 
 === Saving data
 

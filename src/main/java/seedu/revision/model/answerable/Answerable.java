@@ -13,6 +13,7 @@ import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.category.Category;
 
 /**
+ * @author wilfredbtan
  * Represents a Answerable in the Test Bank.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
