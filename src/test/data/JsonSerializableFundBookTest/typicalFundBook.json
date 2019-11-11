@@ -1,6 +1,7 @@
 {
   "_comment": "AddressBook save file which contains the same Person values as in TypicalFundBook#getTypicalFundBook()",
   "currentRepeaterUniqueId": "0",
+  "currentLoanId": "0",
   "transactions" : [ {
     "description" : "Allowance from Daddy",
     "amount" : "500",
@@ -43,5 +44,6 @@
     "month" : "12",
     "year" : "2012",
     "category" : "entertainment"
-  } ]
+  } ],
+  "loans" : [ ]
 }
