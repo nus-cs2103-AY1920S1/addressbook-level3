@@ -1040,21 +1040,86 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. Unreferenced image files are removed
 
-=== Deleting a person
+.. Open Weme
+.. Delete memes
+.. Open data/memes folder
+.. Exit Weme +
+   Expected: Deletes the image files associated to deleted memes.
 
-. Deleting a person while all persons are listed
+=== Undoing a command
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+. Undoing a command when undoable commands have been executed
+
+.. Prerequisites: Executed at least one undoable command. Weme is not viewing a meme.
+.. Test case: `undo` +
+   Expected: Weme will be restored to the previous state. The status message states the undo was successful, and states the command that was undone.
+.. Test case: `undo anything can be here` +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+. Undoing a command when no undoable commands have been executed
+
+.. Prerequisites: Have not executed any undoable commands. Weme is not viewing a meme.
+.. Test case: `undo` +
+   Expected: Undo fails. Error details shown in the status message state that there are no commands to undo.
+
+=== Redoing a command
+
+. Redoing a command when `undo` has just been executed
+
+.. Prerequisites: Just executed `undo` at least once. Weme is not viewing a meme.
+.. Test case: `redo` +
+   Expected: Weme will be restored to the state before undoing. The status message states the redo was successful, and states the command that was redone.
+.. Test case: `redo anything can be here` +
+   Expected: Similar to previous.
+
+. Redoing a command when `undo` has not been executed
+
+.. Prerequisites: Have not executed `undo`. Weme is not viewing a meme.
+.. Test case: `redo` +
+   Expected: Redo fails. Error details shown in the status message state that there are no commands to redo.
+
+=== Adding a meme
+
+. Adding a meme while all memes are listed
+
+.. Prerequisites: Weme is in the memes tab. An image file is on the hard disk.
+.. Test case: `add p/PATH_TO_IMAGE_ON_DISK` +
+   Expected: The meme is added to the memes list. The view is updated to include this new meme. The status message states the add was successful. The added meme has no description or tags.
+.. Test case: `add p/PATH_TO_IMAGE_ON_DISK d/random description t/firstTag t/2ndTag` +
+   Expected: The meme is added to the memes list. The view is updated to include this new meme. The status message states the add was successful. The added meme has a description "random description" and two tags "firstTag" and "2ndTag"
+.. Test case: `add p/INVALID_PATH_TO_IMAGE_ON_DISK` +
+   Expected: No meme is added. Error details shown in the status message state the path should lead to an existing file or it should be in a supported image format.
+.. Test case: `add d/random description` +
+   Expected: No meme is added. Error details shown in the status message state the command syntax is invalid.
+.. Other incorrect add commands to try: `add`, `add p/PATH_TO_IMAGE_ON_DISK t/first tag` +
+   Expected: Similar to previous
+
+. Adding a meme while in `find`
+
+.. Prerequisites: Weme is in the memes tab and just executed a `find` command. An image file is on the hard disk.
+.. Similar to above, but after successful execution of `add`, the user is redirected to the `list` view.
+
+=== Archiving a meme
+
+. Archiving an unarchived meme
+
+.. Prerequisites: Weme is in the memes tab. Currently in `list` view. At least one meme in the list.
+.. Test case: `archive 1` +
+   Expected: The meme is archived. The view is updated without the meme. The status message states the archiving was successful.
+.. Test case: `archive 0` +
+   Expected: No meme is archived. Error details shown in the status message state the command syntax is invalid.
+
+=== Unarchiving a meme
+
+. Unarchiving an archived meme
+
+.. Prerequisites: Weme is in the memes tab. Currently in `archives` view. At least one meme in the list.
+.. Test case: `unarchive 1` +
+   Expected: The meme is unarchived. The view is updated without the meme. The status message states the unarchiving was successful.
+.. Test case: `unarchive 0` +
+   Expected: No meme is unarchived. Error details shown in the status message state the command syntax is invalid.
 
 === Saving data
 
