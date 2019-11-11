@@ -613,6 +613,8 @@ There is no need to save manually.
 e.g. `add n/John Wick t/movie d/24 OCTOBER 2014 w/false r/101 s/An ex-hit-man comes out of retirement to track down the gangsters that killed his dog and took everything from him. a/Keanu Reeves`
 * *Add from search result page* `add INDEX` +
 e.g. `add 1`
+* *Sync* `sync INDEX` +
+e.g. `sync 2`
 * *CLEAR* `clear`
 * *Watch* : `watch INDEX [e/EPISODE_NUMBER] [s/SEASON_NUMBER]`
 * *Delete* : `delete INDEX` +
