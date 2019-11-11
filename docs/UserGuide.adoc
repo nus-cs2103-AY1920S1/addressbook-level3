@@ -465,22 +465,6 @@ This is how _TravEzy's_ Itinerary looks like:
 
 image::ItineraryInterface.png[width=800]
 
-=== Auto-completion feature
-
-Don't you wish there's a way to quickly type all your commands. Well _TravEzy's_ Itinerary got you covered! _TravEzy's_
-Itinerary _command box_ has auto-completion function which offers suggestions based on your input.
-
-This is how _TravEzy's_ Itinerary auto-complete looks like:
-
-image::ItineraryAuto.png[width=600]
-
-1. _Auto-complete dropdown bar_. Provides suggestions to complete your command base on your current input typed in the
-_command box_.
-
-[WARNING]
-The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
-it to read the input before hitting _Enter_
-
 === Adding an event: ``add``
 
 Planning to visit DisneySea tomorrow? Add some rides that you plan to take then! 🎢
@@ -784,6 +768,22 @@ TravEzy has helped sorted out your life!"
 Step 3. The Itinerary will present the sorted _event list_ based on the sort condition given.
 
 image::ItinerarySort2.png[width=600]
+
+=== Auto-completion feature
+
+Don't you wish there's a way to quickly type all your commands. Well _TravEzy's_ Itinerary got you covered! _TravEzy's_
+Itinerary _command box_ has auto-completion function which offers suggestions based on your input.
+
+This is how _TravEzy's_ Itinerary auto-complete looks like:
+
+image::ItineraryAuto.png[width=600]
+
+1. _Auto-complete dropdown bar_. Provides suggestions to complete your command base on your current input typed in the
+_command box_.
+
+[WARNING]
+The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
+it to read the input before hitting _Enter_
 
 == Address Book
 
@@ -1619,11 +1619,14 @@ of the actual percentage.
 *Q:* Who can I contact should there be a bug or feedback that I would like to share? +
 *A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve _TravEzy_. Thank you and we looking forward to serving you better!
 
-*Q:* Is it advisable to edit the storage files in _TravEzy_ so that the changes will be reflected when I start the application? +
+*Q:* Is it advisable to edit the storage files in _TravEzy_ so that the changes will also be reflected when I start the application? +
 *A:* _TravEzy_ gives you a caveat and strongly advise against tempering with the storage files in _TravEzy_ as this could result in falsification of the data.
 
-*Q:* Why are there data which I did not included when I first startup _TravEzy_?
+*Q:* Why are there data which I did not included when I first startup _TravEzy_? +
 *A:* Being a new user, _TravEzy_ will provide you with some sample data to experiment first before you start using _TravEzy_ proper. Hope that you will enjoy using _TravEzy_.
+
+*Q:* I'm seemed to be having a bug whereby when given multiple similar prefixes, _TravEzy_ will still accept the input but only takes in the second prefix argument. Is this suppose to work as expected? +
+*A:* Yes, _TravEzy_ allows users to implement multiple similar prefixes for some commands so it reduce the trouble to delete the previous prefix argument in order to add in a new one.
 
 *Q:* What are some of the cool features that are available in _TravEzy_ currently? +
 *A:* _TravEzy_ currently boast a plethora of features such as calendar, itinerary, address book, travelling diary, financial tracker and achievements page. All these features work in tandem with each other to give you the best and only the best travelling experience. Not only that, the _TravEzy_ team also decided to spice things up and included some easter eggs scattered throughout the

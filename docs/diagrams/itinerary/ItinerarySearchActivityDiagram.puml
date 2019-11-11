@@ -10,15 +10,13 @@ start
 'diamond we place it as the true branch instead.
 
 repeat
-if () then ([Event matches attribute in \nSearchEventDescriptor])
-    :Put Event into new filtered list;
-    :Save EventList to
-    ItineraryeventList.txt;
+if () then ([Event matches attributes \nin SearchEventDescriptor])
+    :Insert matched Event into new filtered event list;
 else ([else])
 endif
 repeat while () is (more event?)
 
-:Return newly filtered list as result;
+:Return newly filtered event list as result;
 
 stop
 @enduml
