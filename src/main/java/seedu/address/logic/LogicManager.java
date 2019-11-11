@@ -44,7 +44,7 @@ public class LogicManager implements Logic {
     private final SystemCommandParser addressBookParser;
     private final CommandHistory commandHistory;
     private final QueueManager queueManager;
-    private Thread lastEagerEvaluationThread;
+    private Thread currentRequestThread;
     private String lastEagerCommandWord = "";
 
     public LogicManager(Model model, Storage storage) {
@@ -53,7 +53,7 @@ public class LogicManager implements Logic {
         this.commandHistory = new CommandHistory();
         this.addressBookParser = new SystemCommandParser(commandHistory);
         this.queueManager = new QueueManager();
-        this.lastEagerEvaluationThread = new Thread();
+        this.currentRequestThread = new Thread();
     }
 
     /**
@@ -138,16 +138,16 @@ public class LogicManager implements Logic {
         }
 
         // multi-thread eager evaluation
-        assert lastEagerEvaluationThread != null;
-        lastEagerEvaluationThread.interrupt();
-        Thread previousEagerEvaluationThread = lastEagerEvaluationThread;
-        lastEagerEvaluationThread = new Thread(() ->
+        assert currentRequestThread != null;
+        currentRequestThread.interrupt();
+        Thread previousEagerEvaluationThread = currentRequestThread;
+        currentRequestThread = new Thread(() ->
                 runEagerEvaluation(
                         commandText,
                         command,
                         displayResult,
                         previousEagerEvaluationThread));
-        lastEagerEvaluationThread.start();
+        currentRequestThread.start();
     }
 
     @Override

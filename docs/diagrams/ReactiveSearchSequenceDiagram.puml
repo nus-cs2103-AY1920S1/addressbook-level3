@@ -2,13 +2,15 @@
 !include style.puml
 
 box Ui UI_COLOR_T1
-participant ":CommandBox" as CommandBox UI_COLOR
+participant ":CommandBox  " as CommandBox UI_COLOR
 participant ":MainWindow" as MainWindow UI_COLOR
 end box
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":Thread" as Thread #Grey
+participant ":LogicManager   " as LogicManager LOGIC_COLOR
+participant "currentRequest:Thread      " as Thread #Grey
+participant "query:Runnable      " as Runnable LOGIC_COLOR
+
 end box
 
 [-> CommandBox : handleTextChanged()
@@ -21,17 +23,28 @@ opt #Orange commandText not blank
 MainWindow -> LogicManager : eagerEvaluate("patient san",\nresultDisplay::setFeedbackToUser)
 activate LogicManager
 
+create Runnable
+LogicManager -> Runnable
+activate Runnable
+LogicManager <-- Runnable
+deactivate Runnable
+
 create Thread
-LogicManager -> Thread
+LogicManager -> Thread : Thread(query)
 activate Thread
 LogicManager <-- Thread
 deactivate Thread
 
+
+
 LogicManager -> Thread : start()
 activate Thread
+Thread -> Runnable : run()
+activate Runnable
 
 MainWindow <-- LogicManager
 deactivate LogicManager
+
 
 end
 
