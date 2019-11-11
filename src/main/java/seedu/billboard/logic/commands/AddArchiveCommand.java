@@ -14,6 +14,7 @@ import seedu.billboard.model.Model;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Adds an expense to an existing archive.
  * If the archive does not exist, create a new archive to store the expense.
@@ -65,13 +66,15 @@ public class AddArchiveCommand extends ArchiveCommand {
             model.addArchiveExpense(archiveName, expenseToArchive);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS_CREATE_ARCHIVE,
-                    archiveName, expenseToArchive.getName(), archiveName));
+                    archiveName, expenseToArchive.getName(), archiveName),
+                    false, false, CommandResult.DEFAULT_LIST_VIEW);
         }
 
         model.addArchiveExpense(archiveName, expenseToArchive);
 
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName));
+                String.format(MESSAGE_SUCCESS_EXISTING_ARCHIVE, expenseToArchive.getName(), archiveName),
+                false, false, CommandResult.DEFAULT_LIST_VIEW);
     }
 
     @Override

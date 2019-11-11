@@ -19,7 +19,7 @@ _Billboard_ is a Command Line Interface(CLI) desktop application, meaning that i
 For more user friendliness, _Billboard_ has a Graphical User Interface(GUI). +
 
 This is what _Billboard_ looks like: +
-image:tagging/billboardppp.png[] +
+image:tagging/Billboardppp.png[] +
 
 My role was to design and implement features related to tagging. The following sections illustrate these enhancements in more detail, as well as the relevant documentation i have added to the user and developer guides in relation to them. +
 
@@ -28,9 +28,9 @@ Note the following symbols and formatting used in this document:
 [NOTE]
 This symbol indicates important information +
 
-`tag` - Red text indicates that this is a command that can be inputted into the command line and executed by the application.
+`tag` - A grey highlight (called a mark-up) indicates that this is a command that can be inputted into the command line and executed by the application.
 
-`*UniqueTagList*` - Bold red text indicates a component, class or object in the architecture of the application.
+`*UniqueTagList*` - A grey highlight (called a mark-up) with bold text indicates a component, class or object in the architecture of the application.
 
 "_tech_" - Italicised text with quotation marks indicates the name of an expense or tag.
 
@@ -76,7 +76,7 @@ This command adds your input tag(s) to the expense at the index you have specifi
 {nbsp} +
 Usage:
 
- tag add [INDEX] t/[TAG] t/[TAG…]
+ tag add [INDEX] t/[TAG] t/<TAG>...
 
 Example: +
 Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense "_USS_" at index 2. +
@@ -105,7 +105,7 @@ This command removes your input tag(s) from the expense at the index you have sp
 {nbsp} +
 Usage:
 
- tag rm [INDEX] t/[TAG] t/[TAG…]
+ tag rm [INDEX] t/[TAG] t/<TAG>...
 
 Example: +
 Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense "_USS_" at index 2. +
@@ -134,7 +134,7 @@ This command filters expenses by your input tag(s). +
 {nbsp} +
 Usage:
 
- tag filter t/[TAG] t/[TAG…]
+ tag filter t/[TAG] t/<TAG>...
 
 ==== Listing out all the tags: `tag list` +
 This command lists out all existing tags. +

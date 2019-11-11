@@ -12,6 +12,7 @@ import seedu.billboard.logic.commands.exceptions.CommandException;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.expense.Expense;
 
+//@@author davidcwh
 /**
  * Deletes an archive expense identified using it's displayed index from
  * the given archive name and archive list of expenses.
@@ -64,7 +65,7 @@ public class DeleteArchiveCommand extends ArchiveCommand {
         if (archiveList.size() == 0) {
             model.deleteArchive(archiveName);
             feedback += "\n" + String.format(MESSAGE_EMPTY_ARCHIVE_AFTER_DELETE_EXPENSE, archiveName);
-            return new CommandResult(feedback);
+            return new CommandResult(feedback, false, false, CommandResult.DEFAULT_LIST_VIEW);
         } else {
             return new CommandResult(feedback, false, false, archiveName);
         }

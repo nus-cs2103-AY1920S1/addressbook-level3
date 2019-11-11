@@ -22,6 +22,10 @@ while still enjoying all the benefits of having a fully fledged Graphical User I
 If you can type fast, _Billboard_ can help you manage your expenses faster than traditional
 GUI apps!
 
+_Billboard's_ basic functionality involves the adding, editing and delete of expenses, which are saved locally in your computer
+in a simple, human readable format (.JSON). In top of that, _Billboard_ provides a host of additional features designed to
+simplify, enhance, improve, and make convenient your management of expenses. These features will be further detailed below.
+
 == Quick Start
 
 . Ensure you have Java 11 or above installed on your machine.
@@ -37,44 +41,58 @@ GUI apps!
 ====
 *Command Format*
 
-* Words in `[SQUARE BRACKETS]` are the mandatory parameters to be supplied by the user e.g. in `expense add [DESCRIPTION] [AMOUNT]`, `DESCRIPTION` and `AMOUNT` are parameters which can be used as `expense add “buy a book” 10`.
-* The mandatory parameters must be supplied in the order specified.
-* Default values can be specified in the square brackets, e.g `[NUM_ENTRIES, DEFAULT = 10]`. If the user does not provide a value for that parameter, it will default to the default value stated.
-* Some commands may have optional parameters denoted under options. These can be included by specifying a flag, usually of the format `--flag` or `-f`. E.g `--description` can be used as `expense edit 2 --description "changed description"`.
-* Flags can be in any order.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[TAG]...` can be used as `{nbsp}` (i.e. 0 times), `bills`, `bills fees` etc.
+* Parameters in the format `prefix/[SQUARE BRACKETS]` are _mandatory parameters_ to be supplied by the user
+e.g. in `add n/[NAME] a/[AMOUNT]`, `NAME` and `AMOUNT` are mandatory parameters which should be supplied, as in: `add n/buy a book a/10.00`.
+* The mandatory parameters can be in any order.
+* Some commands may have _optional parameters_. These are denoted by using `prefix/<ANGULAR BRACKETS>`,
+e.g When you see `a/<AMOUNT>`, the command can be either `edit 2 n/lunch a/10` or `edit 2 n/lunch`.
+* Default values can be specified in the angular brackets, e.g `prefix/<NUM_ENTRIES = 10>`. If the user does not
+provide a value for that parameter, it will default to the default value stated.
+* Optional parameters can be in any order.
+* Parameters with `…`​ after them can be used zero or more times e.g. `t/<TAG>...` can be used as `{nbsp}` (i.e. 0 times), `t/bills` or even `t/bills t/fees` etc.
+* Additional information on the parameters can be detailed in a section labelled `INFO` under the format if necessary.
 
 ====
 
 === Managing expenses: `expense`
 
-. _Add a new expense: expense add_ +
-Adds an expense to records. +
+. _Add a new expense: add_ +
+You can add an expense to your saved expense list using this command. All expenses that you add in this manner will be saved in
+`data/billboard.json` in your current directory, and will be available again on your next application startup. +
 Usage:
 
- expense add [DESCRIPTION] [AMOUNT]
+ add n/[NAME] a/[AMOUNT]  d/<DESCRIPTION>  date/<DATE> t/<TAG>...
++
+INFO: +
+
+* `NAME` must be alphanumeric and may have spaces.
+* `AMOUNT` must be a positive and non-zero monetary amount.
+* `DESCRIPTION` has no constraints.
+* `DATE` should be in the format dd/mm/yyyy <HHMM> where HHMM is optional.
+* `TAG` should be alphanumeric without spaces.
+
 +
 Example:  +
-`expense add “buy a book” 10` +
-Adds an expense to record where the description is “buy a book” and the amount is 10. +
+`add n/buy a book d/math textbook a/10 t/coop` +
+Adds an expense to record where the name is “buy a book”, description is "math textbook" and the amount is 10. +
 {nbsp} +
 
-. _Edit an existing expense: expense edit_ +
-Edits an existing expense that is being displayed on the GUI. Either description or amount must be supplied. +
+. _Edit an existing expense: edit_ +
+You can edit any existing expense that is being displayed, in the event that you have a need to change a past expense.
+Changes made are automatically saved. +
 {nbsp} +
 Usage:
 
- expense edit [INDEX] [OPTIONS]
+ edit [INDEX] n/<NAME> d/<DESCRIPTION> a/<AMOUNT> date/<DATE> t/<TAG>...
 +
-Options: +
+INFO: +
 
-* `--description`, `-d`: Specify new description to update expense with. +
-* `--amount`, `-a`: Specify new amount to update expense with. +
+*  You need to supply at least one of the optional parameters, or the command will fail.
 {nbsp} +
 
 +
 Example: +
-`expense edit 2 -d “buy a math book”` +
+`edit 2 d/buy a math book` +
 Edit the expense at index 2  with new description of: “buy a math book” +
 
 [NOTE]
@@ -83,33 +101,34 @@ This command overwrites existing tags if you input tags.
 
 {nbsp} +
 
-. _Delete an existing expense: expense rm_ +
-Deletes an existing expense that is being displayed on the GUI. +
+. _Delete an existing expense: delete_ +
+You can delete any unwanted existing expense that is being displayed. +
 {nbsp} +
 Usage:
 
- expense rm [INDEX]
+ delete [INDEX]
 +
 Example: +
-`expense rm 3` +
+`delete 3` +
 Deletes the expense with index 3. +
 {nbsp} +
 
-. _List all expenses: expense list_ +
-Lists all the expenses in the record list. +
+. _List all expenses: list_ +
+You can list all the expenses in your expense list using this command, allowing you to easily get an overview of all your expenses. `list` will ignore all parameters. +
 {nbsp} +
 Usage:
 
- expense list
+ list
 +
 Example: +
-`expense list` +
-Displays below expenses (for example) in the GUI: +
+`list` +
+Displays below expenses (for example) in the GUI:
+ +
 
-* buy a book / amount: $10 +
- * pay for dinner / amount: $5 +
+image::ListCommandExample.png[]
 {nbsp} +
 
+<<<<<<< HEAD
 === Managing recurring expenses
 
 . _Add a new recurrence: recur add_ +
@@ -178,6 +197,25 @@ Interval: Yearly +
  * pay for phone subscription / Starhub XL Plan / amount: $150 / start date: 1 Aug 2018 / end date: 1 Jul 2020 /
 Interval: Monthly
 {nbsp} +
+=======
+. _Clear all expenses: clear_ +
+You can clear all the expenses in your expense list using this command. +
+{nbsp} +
+Usage:
+
+ clear
++
+Example: +
+`clear` +
+Clears all your expenses.
+ +
+
+[WARNING]
+This _actually_ deletes all your commands, use with caution! The undo feature may come in handy if you unintentionally used this command.
+
+[NOTE]
+Archived expenses are not cleared. +
+>>>>>>> master
 
 // tag::tagging[]
 === Tagging expenses: `tag`
@@ -197,7 +235,7 @@ This command adds your input tag(s) to the expense at the index you have specifi
 {nbsp} +
 Usage:
 
- tag add [INDEX] t/[TAG] t/[TAG…]
+ tag add [INDEX] t/[TAG] t/<TAG>...
 
 Example: +
 Lets say that you want to add the tags "_holiday_" and "_hangout_" to the expense "_USS_" at index 2. +
@@ -226,7 +264,7 @@ This command removes your input tag(s) from the expense at the index you have sp
 {nbsp} +
 Usage:
 
- tag rm [INDEX] t/[TAG] t/[TAG…]
+ tag rm [INDEX] t/[TAG] t/<TAG>...
 
 Example: +
 Lets say that you want to remove the tags "_holiday_" and "_hangout_" from the expense "_USS_" at index 2. +
@@ -255,7 +293,7 @@ This command filters expenses by your input tag(s). +
 {nbsp} +
 Usage:
 
- tag filter t/[TAG] t/[TAG…]
+ tag filter t/[TAG] t/<TAG>...
 
 
 Example: +
@@ -301,6 +339,7 @@ image:tagging/listtagtwo.png[] +
 {nbsp} +
 
 // end::tagging[]
+[[Find]]
 === Finding expenses by attributes: `find`
 
 . _Find : find_ +
@@ -316,9 +355,7 @@ Finds all expenses that contain the keyword ‘lunch’ or 'book' and amount bet
 and date between 1 Jan 2019 to 1 Oct 2019 in any of its attributes. +
 {nbsp} +
 
-
-
-=== Sorting expenses by attributes: `[Coming in v1.3]`
+=== Sorting expenses by attributes: `[Coming in v2.0]`
 
 . _Sort by name:_ +
 Sort expenses by name in alphabetical order. +
@@ -525,66 +562,133 @@ image::archiveRevertNonEmptyArchive.png[]
 
 === Displaying of statistics: `display-stats`
 
-. _Display timeline overview of expenses: display-stats timeline_ +
-You can view a timeline overview of your currently displayed expenses. The expenses over a
-specified time period are aggregated and added as data points on the timeline. +
+image::statisticsIntro.png[]
+
+{nbsp} +
+
+Billboard has a powerful statistics display system! While trying out other features, you may have realized that the highlighted chart changes from time to time.
+That is because Billboard has a _fully responsive_ statistics display with charts that dynamically update themselves. You can simply enter any command that changes the displayed
+list of expenses, such as `add n/automatic stats displays are cool a/50.00`, and watch as the chart updates automatically.
+
+.Live statistics display in action upon adding an expense.
+image::live-statistics-demo.gif[]
+{nbsp} +
+
+
+Should you want to view different types of statistics and customize the information you get, Billboard also supports various different types of
+charts, with a plethora of different customization options. Read the documentation on individual commands below to find out more.
+
+[NOTE]
+The options available are tailored to each specific chart type and thus, not all charts may support the same options. The individual sections
+for each command goes into further detail about the supported options for that command.
+
+
+With this, it becomes effortless for you to perform advanced queries on specific types of statistics! For example,
+if you want to track the weekly total spending of all your expenses that contain the word "food" over a specific month, simply type `display-stats timeline interval/week`
+followed by `find d/food sd/01/01/2019 ed/01/02/2019`. (Unsure about this command? Refer to <<Find>> for more information). +
+{nbsp} +
+
+
+==== _Display timeline overview of expenses: display-stats timeline_ +
+
+.Timeline of expenses grouped by tag
+image::display-timeline-example-normal.png[]
+{nbsp} +
+
+You can view one or more timelines that are based on your currently displayed expenses. Upon entering the command, the statistic chart will automatically update to display a timeline configured with the options you have provided.
+The expenses over a specified time period are aggregated and added as data points on the timeline, allowing you to easily keep track of your relative spending. You can customize the date interval used, as well as the groupings used to split your expenses into each individual timeline. +
 {nbsp} +
 Usage:
 
- display-stats timeline [OPTIONS]
-+
-Options:
+ display-stats timeline interval/<DATE INTERVAL = MONTH> groupby/<GROUPING = NONE>
 
-* `interval/`: Specifies the date interval to be used to split the expenses into groups by.
-Supported date intervals include 'day', 'week', 'month' and 'year'.
+
+INFO:
+
+* `DATE_INTERVAL`: Specifies the date interval to be used to aggregate the expenses by. Supported date intervals include 'day', 'week', 'month' and 'year'.
+The start date of each interval will always be the "logical" start, ie. the start date for "week" will always be a Monday and the start date for "month" will always be the 1st of that month.
+
+* `GROUPING`: Specifies the grouping to use to group the expenses into each separate timeline. Supported groupings include "none", "tag", "month" and "day-of-week".
+
 {nbsp} +
 
-+
 Example: +
-`display-stats timeline interval/week` +
-Displays a timeline overview of the displayed expenses with the expenses being grouped into weeks. +
+`display-stats timeline interval/month groupby/tag` +
+Displays timelines based on the displayed expenses. First, the expenses are divided based on tag, forming one timeline for every tag. Next, for each timeline, the total amount spent each week, starting from Monday and ending on Sunday, is totalled to form each data point. The chart may look something like this: +
+
+.Chart after executing the above command
+image::display-timeline-example-tag.png[]
 {nbsp} +
 
-. _Display breakdown of expenses: display-stats breakdown_ +
-You can view a breakdown of expenses by tag for the currently displayed expenses. The total
-expenses per tag are totalled and displayed in a pie chart. +
+[NOTE]
+The options for this command, and for all other `display-stats` commands, are case-sensitive, ie. "Week" is not a valid substitute for "week".
+{nbsp} +
+
+
+==== _Display breakdown of expenses: display-stats breakdown_ +
+
+.Breakdown of expenses grouped by month.
+image::display-breakdown-example-month.png[]
+{nbsp} +
+
+You can break the displayed expenses down into smaller groups and view that breakdown as a pie chart, allowing you to compare your spending between groups. Upon entering the command, the statistic chart will automatically update to display a breakdown chart configured with the options you have provided. The total
+expenses per category are totalled and displayed as each slice in the pie chart. You can customize the criteria used to split the expenses into groups. +
+
 {nbsp} +
 Usage:
 
- display-stats breakdown
-+
+ display-stats breakdown groupby/<GROUPING = TAG>
 
 {nbsp} +
+INFO:
 
-+
+* `GROUPING`: Specifies the grouping to use to group the expenses into each separate slice in the pie chart.
+Supported groupings include "none", "tag", "month" and "day-of-week". Note that the default value for `GROUPING` for this command is not "none", but "tag". (The "none" option has limited use). +
+{nbsp} +
+
+
 Example: +
-`display-stats breakdown` +
-Shows a pie chart breakdown by tag of all currently displayed expenses. +
+`display-stats breakdown groupby/MONTH` +
+
+Shows a pie chart breakdown by month of all currently displayed expenses. Within each grouping, the total expenses in that grouping are summed up, and the
+total amount determines the size of its slice of the pie chart.
 {nbsp} +
 
 
-. _Display heatmap of expenses: display-stats heatmap_ +
-You can view a heatmap of expenses per day for the currently displayed expenses, limited to the past year. The larger
-the bubble for the particular day, the higher the expense. +
+==== _Display heatmap of expenses: display-stats heatmap_ +
+
+.Heatmap of all expenses grouped by tags.
+image::display-heatmap-example-normal.png[]
+{nbsp} +
+
+You can view a heatmap of total expenses per day for the currently displayed expenses, limited to the past year. The y-axis represents the day of the week the expense was made, while
+the x-axis represents the week of the year the expense was made, with each bubble representing the expenses made on that particular day. The larger the bubble for the particular day, the higher the total expenses on that day.
+This allows you to get an overall impression of your spending behaviours over the past year. +
+
 {nbsp} +
 Usage:
 
- display-stats heatmap
-+
+ display-stats heatmap groupby/<GROUPING = NONE>
+
+INFO:
+
+* GROUPING: Specifies the grouping to use to calculate the heatmap. Expenses from different groups that occur on the same day will not be totalled, and will instead form two separate bubbles of different colors.
+Accepted values include: "none", "tag", "month", "day-of-week'.
 
 {nbsp} +
-
-+
 Example: +
-`display-stats heatmap` +
-Shows a bubble chart heatmap of all currently displayed expenses, limited to a year. +
+`display-stats heatmap groupby/none` +
+Shows a heatmap of all currently displayed expenses, limited to a year. Since "none" grouping was specified, the expenses are not grouped and are all categorized under "All Expenses".
+The displayed chart may look something like this: +
+
+image::display-heatmap-example-normal.png[]
 {nbsp} +
 
-
+// tag::undoredo[]
 === Undo and Redo: `undo/redo`
 
 . _Undo the previous action: undo_ +
-Undo will restore the previous billboard state from state history. Undo will ignore all arguments. +
+You can use `undo` command restore the previous billboard state from state history. `undo` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -592,7 +696,7 @@ Usage:
 +
 {nbsp} +
 . _Redo the previous undo action: redo_ +
-Redo will restore a previously undone billboard state from state history. Redo will ignore all arguments. +
+You can use `redo` command to redo a previously undone command and restore undone billboard state from state history. `redo` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -606,7 +710,7 @@ Usage:
 === Viewing History: `history`
 
 . _View the past command history: history_ +
-History will show all previous command histories. History will ignore all arguments. +
+You can view all previous command histories by using `history` command. `history` will ignore the parameter you key in. +
 {nbsp} +
 Usage:
 
@@ -620,17 +724,26 @@ Usage:
 === Up and down key: `&uarr;/&darr;`
 
 . _Get the previous entered command: &uarr;_ +
-Up arrow key(&uarr;) will get the previous command entered in the command history on the text field. +
+By pressing the Up(&uarr;) key, you can get the previous command entered in the command history on the text field. +
 {nbsp} +
 . _Get the sequential entered command: &darr;_ +
-Down arrow key(&darr;) will get the sequential command entered in the command history on the text field. +
+By pressing the Down(&darr;) key, you can get the sequential command entered in the command history on the text field. +
 {nbsp} +
 
 // end::updownkey[]
 
+// tag::clear[]
+=== Clear the expenses: `clear`
+
+. _Get the previous entered command: &uarr;_ +
+You can clear all the expenses in Billboard by simply executing the `clear` command. `clear` will ignore the parameter you key in. +
+{nbsp} +
+
+// end::clear[]
+
 === Viewing help: `help`
 
-. _Help list of complete set of commands: help_ +
+==== _Help list of complete set of commands: help_ +
 Shows the complete list of commands and instructions/description on how to use them. +
 {nbsp} +
 Usage:
@@ -640,14 +753,11 @@ Usage:
 {nbsp} +
 
 === Exporting data: `[Coming in v2.0]`
+You will be able to export their expense data using the command `export f/[FORMAT]`, where format refers to the type of export file format
+you wish to use. Formats that are intended to be supported include .csv files, .json files, as well as PDF documents.
 
-_{explain how the user can enable/disable data encryption}_
 
 
-
-== FAQ
-{nbsp} +
-Coming soon!
 
 
 

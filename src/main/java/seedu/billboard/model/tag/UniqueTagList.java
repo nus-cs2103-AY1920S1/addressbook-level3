@@ -13,6 +13,7 @@ import java.util.Set;
 import seedu.billboard.model.tag.exceptions.DuplicateTagException;
 import seedu.billboard.model.tag.exceptions.TagNotFoundException;
 
+//@@author waifonglee
 /**
  * A list of tags that enforces uniqueness between its elements and does not allow nulls.
  * A Tag is considered unique by comparing their hashcode.  As such, adding and updating of
@@ -95,6 +96,7 @@ public class UniqueTagList {
         return Collections.unmodifiableSet(toReturn);
     }
 
+    //@@author
     /**
      * Returns a clone of this object.
      * @return clone of this object.
@@ -106,6 +108,7 @@ public class UniqueTagList {
         return clonedList;
     }
 
+    //@@author waifonglee
     /**
      * Removes mapping of specified tag name and its corresponding tag.
      * Tag name must exist in the Map.

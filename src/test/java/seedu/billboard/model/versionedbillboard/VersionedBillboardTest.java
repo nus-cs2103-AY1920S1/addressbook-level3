@@ -10,6 +10,7 @@ import java.util.Stack;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.model.Model;
 import seedu.billboard.model.ModelManager;
 import seedu.billboard.model.UserPrefs;
@@ -31,7 +32,8 @@ class VersionedBillboardTest {
     @Test
     void commit() {
         //currentState == 0
-        VersionedBillboard.addCmd("start");
+        VersionedBillboard.addCmd("start",
+                new CommandResult("", false, false, null));
         VersionedBillboard.commit(model);
         modelList.push(model);
         assertTrue(vb.compareBillboardModels(modelList));

@@ -12,7 +12,6 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import seedu.billboard.model.expense.Expense;
-import seedu.billboard.model.tag.Tag;
 import seedu.billboard.testutil.TypicalExpenses;
 
 
@@ -25,12 +24,12 @@ public class FilledExpenseBreakdownTest {
 
     // Based off the expenses found in TypicalExpenses
     @Test
-    public void getTagBreakdownValues_normalInput_returnsEquivalentMap() {
+    public void getBreakdownValues_normalInput_returnsEquivalentMap() {
         List<Expense> typicalExpenses = TypicalExpenses.getTypicalExpenses();
-        Map<Tag, List<Expense>> testMap = new HashMap<>();
+        Map<String, List<Expense>> testMap = new HashMap<>();
 
         typicalExpenses.forEach(expense ->
-                expense.getTags().forEach(tag -> testMap.merge(tag, List.of(expense), (list1, list2) -> {
+                expense.getTags().forEach(tag -> testMap.merge(tag.tagName, List.of(expense), (list1, list2) -> {
                         List<Expense> newList = new ArrayList<>(list1);
                         newList.addAll(list2);
                         return newList;
@@ -38,7 +37,7 @@ public class FilledExpenseBreakdownTest {
                 )));
 
         FilledExpenseBreakdown breakdown = new FilledExpenseBreakdown(testMap);
-        Map<Tag, List<Expense>> actualValues = breakdown.getTagBreakdownValues();
+        Map<String, ? extends List< ? extends Expense>> actualValues = breakdown.getBreakdownValues();
 
         assertThat(actualValues.entrySet(), equalTo(testMap.entrySet()));
     }

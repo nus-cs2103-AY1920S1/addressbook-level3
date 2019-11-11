@@ -12,8 +12,9 @@ import seedu.billboard.logic.commands.ListArchiveNamesCommand;
 import seedu.billboard.logic.commands.RevertArchiveCommand;
 import seedu.billboard.logic.parser.exceptions.ParseException;
 
+//@@author davidcwh
 /**
- * Parses user input.
+ * Parses user input regarding Archive commands.
  */
 public class ArchiveCommandParser implements Parser<ArchiveCommand> {
 

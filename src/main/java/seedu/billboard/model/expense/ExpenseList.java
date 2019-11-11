@@ -160,7 +160,7 @@ public class ExpenseList implements Iterable<Expense> {
     public ExpenseList getClone() {
         ExpenseList clonedList = new ExpenseList();
         for (Expense e : this.internalList) {
-            Expense clonedExpense = e.getClone(); // get a deeep clone of each expense
+            Expense clonedExpense = e.getClone(); // get a deep clone of each expense
             clonedList.add(clonedExpense);
         }
         return clonedList;

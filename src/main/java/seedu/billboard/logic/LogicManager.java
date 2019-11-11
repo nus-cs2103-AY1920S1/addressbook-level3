@@ -17,7 +17,6 @@ import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.logic.commands.DeleteArchiveCommand;
 import seedu.billboard.logic.commands.DeleteCommand;
 import seedu.billboard.logic.commands.EditCommand;
-import seedu.billboard.logic.commands.FilterTagCommand;
 import seedu.billboard.logic.commands.RemoveTagCommand;
 import seedu.billboard.logic.commands.RevertArchiveCommand;
 import seedu.billboard.logic.commands.exceptions.CommandException;
@@ -53,17 +52,17 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = billboardParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        CommandResult commandResult = command.execute(model);
 
         if ((command instanceof AddArchiveCommand) || (command instanceof AddCommand)
                 || (command instanceof AddTagCommand) || (command instanceof ClearCommand)
                 || (command instanceof DeleteArchiveCommand) || (command instanceof DeleteCommand)
                 || (command instanceof RevertArchiveCommand) || (command instanceof EditCommand)
-                || (command instanceof FilterTagCommand) || (command instanceof RemoveTagCommand)) {
-            VersionedBillboard.addCmd(commandText);
+                || (command instanceof RemoveTagCommand)) {
             VersionedBillboard.commit(model.getClone());
+            VersionedBillboard.addCmd(commandText, commandResult);
+
         }
 
         try {

@@ -2,6 +2,8 @@ package seedu.billboard.model.versionedbillboard;
 
 import java.util.Stack;
 
+import javafx.util.Pair;
+import seedu.billboard.logic.commands.CommandResult;
 import seedu.billboard.model.Model;
 
 /**
@@ -9,7 +11,7 @@ import seedu.billboard.model.Model;
  */
 public class VersionedBillboard {
     private static Stack<Model> stateList = new Stack<>();
-    private static Stack<String> cmdList = new Stack<>();
+    private static Stack<Pair<String, CommandResult>> cmdList = new Stack<>();
     private static int currentStatePointer = 0;
 
     /**
@@ -26,8 +28,8 @@ public class VersionedBillboard {
         stateList.push(model);
     }
 
-    public static void addCmd(String cmd) {
-        cmdList.push(cmd);
+    public static void addCmd(String cmd, CommandResult result) {
+        cmdList.push(new Pair<>(cmd, result));
     }
 
     /**
@@ -39,7 +41,11 @@ public class VersionedBillboard {
     }
 
     public static String getUndoCmd() {
-        return cmdList.get(cmdList.size() - currentStatePointer);
+        return cmdList.get(cmdList.size() - currentStatePointer).getKey();
+    }
+
+    public static CommandResult getUndoCmdResult() {
+        return cmdList.get(cmdList.size() - currentStatePointer).getValue();
     }
 
     /**
@@ -51,7 +57,11 @@ public class VersionedBillboard {
     }
 
     public static String getRedoCmd() {
-        return cmdList.get(cmdList.size() - currentStatePointer);
+        return cmdList.get(cmdList.size() - currentStatePointer).getKey();
+    }
+
+    public static CommandResult getRedoCmdResult() {
+        return cmdList.get(cmdList.size() - currentStatePointer).getValue();
     }
 
     public static boolean isUndoable() {

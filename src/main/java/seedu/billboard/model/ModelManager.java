@@ -21,6 +21,7 @@ import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.recurrence.Recurrence;
 import seedu.billboard.model.recurrence.RecurrenceList;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
@@ -54,12 +55,13 @@ public class ModelManager implements Model {
         this.statsFormat = new ObservableData<>();
         this.statsFormat.setValue(StatisticsFormat.TIMELINE); // default stats type
         this.statsOptions = new ObservableData<>();
-        this.statsOptions.setValue(StatisticsFormatOptions.withOptions(DateInterval.MONTH)); // default interval
+        this.statsOptions.setValue(StatisticsFormatOptions.withOptions(DateInterval.MONTH,
+                        ExpenseGrouping.NONE)); // default values
 
         logger.fine("Initializing with billboard: " + billboard
                 + " and archives: " + archives
                 + "and user prefs: " + userPrefs
-                + "and default stats type: " + statsFormat.getValue());
+                + "and chart type: " + statsFormat.getValue());
 
         filteredExpense = new FilteredList<>(this.billboard.getExpenses());
 
@@ -381,5 +383,13 @@ public class ModelManager implements Model {
                 && userPrefs.equals(other.userPrefs)
                 && filteredExpense.equals(other.filteredExpense)
                 && filteredArchives.equals(other.filteredArchives);
+    }
+
+    @Override
+    public String toString() {
+        return "Billboard: " + billboard.toString()
+                + "\nArchives: " + archives.toString()
+                + "\nFiltered Expenses: " + filteredExpense.toString()
+                + "\nFiltered Archives: " + filteredArchives.toString();
     }
 }
