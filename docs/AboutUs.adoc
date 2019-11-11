@@ -3,6 +3,7 @@
 :relfileprefix: team/
 :imagesDir: images
 :stylesDir: stylesheets
+:stylesheet: asciidoctor.css
 
 DukeCooks is a lifestyle app developed by our team.
 

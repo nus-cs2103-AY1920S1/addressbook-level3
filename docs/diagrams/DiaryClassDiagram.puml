@@ -29,10 +29,29 @@ Class Title {
  + isValidTitle()
 }
 
+Class PageType {
+ - pageType : String
+ + isValidPageType()
+}
+
+Class PageDescription {
+ - pageDescription : String
+ + isValidPageDescription()
+}
+
+Class Image {
+ - imagePath : String
+ + isValidImage()
+}
+
+
 Diary *-down-> "1" DiaryName : has unique >
 Diary *-left-> "*" Page : can contain many >
 
-Page *-down-> "1" Title : has unique
+Page *-left-> "1" Title : has unique
+Page *-down-> "1" PageType
+Page *-down-> "1" PageDescription
+Page *-down-> "1" Image
 
 show members
 @enduml

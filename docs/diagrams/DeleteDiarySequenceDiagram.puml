@@ -1,0 +1,88 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":DukeCooksParser" as DukeCooksParser LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant ":DeleteDiaryCommandParser" as DeleteDiaryCommandParser LOGIC_COLOR
+participant "d:DeleteDiaryCommand" as DeleteDiaryCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("delete diary 1")
+activate LogicManager
+
+LogicManager -> DukeCooksParser : parseCommand("delete diary 1")
+activate DukeCooksParser
+
+create DeleteCommandParser
+DukeCooksParser -> DeleteCommandParser
+activate DeleteCommandParser
+
+DeleteCommandParser --> DukeCooksParser
+deactivate DeleteCommandParser
+
+DukeCooksParser -> DeleteCommandParser : parse("diary 1")
+activate DeleteCommandParser
+
+create DeleteDiaryCommandParser
+DeleteCommandParser -> DeleteDiaryCommandParser
+activate DeleteDiaryCommandParser
+
+DeleteDiaryCommandParser -> DeleteCommandParser
+deactivate DeleteDiaryCommandParser
+
+DeleteCommandParser -> DeleteDiaryCommandParser : parse("1")
+activate DeleteDiaryCommandParser
+
+create DeleteDiaryCommand
+DeleteDiaryCommandParser -> DeleteDiaryCommand
+activate DeleteDiaryCommand
+
+DeleteDiaryCommand --> DeleteDiaryCommandParser : d
+deactivate DeleteDiaryCommand
+
+DeleteDiaryCommandParser --> DeleteCommandParser : d
+deactivate DeleteDiaryCommandParser
+
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteDiaryCommandParser
+
+DeleteCommandParser --> DukeCooksParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> DukeCooksParser
+destroy DeleteCommandParser
+
+DukeCooksParser --> LogicManager : d
+deactivate DukeCooksParser
+
+LogicManager -> DeleteDiaryCommand : execute()
+activate DeleteDiaryCommand
+
+DeleteDiaryCommand -> Model : deleteDiary(1)
+activate Model
+
+Model --> DeleteDiaryCommand
+deactivate Model
+
+create CommandResult
+DeleteDiaryCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> DeleteDiaryCommand
+deactivate CommandResult
+
+DeleteDiaryCommand --> LogicManager : result
+deactivate DeleteDiaryCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml
+

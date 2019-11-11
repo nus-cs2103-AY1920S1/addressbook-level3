@@ -56,7 +56,7 @@ public class FindExerciseCommandTest {
 
     @Test
     public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(Messages.MESSAGE_EXERCISES_LISTED_OVERVIEW, 0);
         ExerciseNameContainsKeywordsPredicate predicate = preparePredicate(" ");
         FindExerciseCommand command = new FindExerciseCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
@@ -66,7 +66,7 @@ public class FindExerciseCommandTest {
 
     @Test
     public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
+        String expectedMessage = String.format(Messages.MESSAGE_EXERCISES_LISTED_OVERVIEW, 3);
         ExerciseNameContainsKeywordsPredicate predicate = preparePredicate("Curtsy Pushup Flye");
         FindExerciseCommand command = new FindExerciseCommand(predicate);
         expectedModel.updateFilteredExerciseList(predicate);
