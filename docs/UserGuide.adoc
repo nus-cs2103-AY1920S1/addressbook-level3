@@ -668,7 +668,7 @@ image::ScheduleUiStep3.png[]
 ====
 - The event list will be empty and not display anything if there is no event on the specified date.
 - The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
-It does not take into account of the event's set date and time on the specified input date
+It does not take into account of the event's set date and time.
 (To have a more detailed view of the event, simply double click on that event).
 As long as the user's specified input date falls between the event's start and end date, the event will be displayed.
 ====
@@ -707,7 +707,7 @@ image::ScheduleUiMonthStep3.png[]
 ====
 - The event list will be empty and not display anything if there is no event on the specified date.
 - The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
-It does not take into account of the event's set date and time on the specified input month, year
+It does not take into account of the event's set date and time.
 (To have a more detailed view of the event, simply double click on that event).
 As long as the user's specified input month, year falls between the event's start and end date, the event will be displayed.
 ====
@@ -722,12 +722,14 @@ which has an event and also displays all the events that happen on that date.
 Format: `generate_schedule`
 
 [NOTE]
-** The `generate_schedule` will only display dates and events that have a set date and time allocated to it.
-** Events with no set date and time, will only be displayed according to it's start and end date.
-** The `generate_schedule` command opens a new window to display the new list of information.
-** The `generate_schedule` command processes and creates the list based on when the command is called.
-** Any changes to the events after the command will not be reflected. Users are advised to use the
+====
+- The `generate_schedule` will only display dates and events that have a set date and time allocated to it.
+- Events with no set date and time, will only be displayed according to it's start and end date.
+- The `generate_schedule` command opens a new window to display the new list of information.
+- The `generate_schedule` command processes and creates the list based on when the command is called.
+- Any changes to the events after the command will not be reflected. Users are advised to use the
 `generate_schedule` once all events are confirmed.
+====
 
 **To display the entire schedule:**
 
@@ -770,7 +772,7 @@ Examples:
 ====
 - The event list will be empty and not display anything if there is no event between the specified dates.
 - The command is designed to give an overview of the user's schedule and is based on the event's Start and End date.
-It does not take into account of the event's set date and time on the specified input date range.
+It does not take into account of the event's set date and time.
 (To have a more detailed view of the event, simply double click on that event).
 As long as the user's specified start and end date range includes a single date that the event's start and end date spans across
 , the event will be displayed.
