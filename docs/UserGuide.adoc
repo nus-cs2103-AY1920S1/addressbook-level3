@@ -427,9 +427,10 @@ Sample Output:
 `Redo Successful`
 
 //end::undoredo[]
+
+//tag::approve[]
 === Approve an appeal: `approve`
 Marks an existing appeal as approved, with an optional message that can be supplied in the remarks section of the appeal results.
-
 
 ==== Approve appeals individually
 Format: `approve a/INDEX [r/APPEAL_REMARK]`
@@ -460,7 +461,9 @@ image::beforemassapprove.png[width="790"]
 Sample Output:
 
 image::aftermassapprove.png[width="790"]
+//end::approve[]
 
+//tag::reject[]
 === Reject an appeal: `reject`
 Marks an existing appeal as rejected. with an optional message that can be supplied in the remarks section of the appeal results.
 
@@ -493,6 +496,8 @@ image::beforemassreject.png[width="790"]
 Sample Output:
 
 image::aftermassreject.png[width="790"]
+
+//end::reject[]
 
 //tag::backuprestore[]
 === Saving the data

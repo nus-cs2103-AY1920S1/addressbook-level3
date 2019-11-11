@@ -1,0 +1,54 @@
+= Luk Chi Heng - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Module Appeal Management System (MAMS)
+
+---
+
+== Overview
+
+Module Appeal Managament System (MAMS) is a desktop appeal management interface. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *the ability to resolve single and multiple appeals*
+** What it does: allows the user to approve or reject one or many appeals.  Upon approval, MAMS will automatically make changes to modules and students related to the resolved appeal.  Timetable clash checks will also be performed to inform user if an appeal cannot be approved due to clashes.
+** Justification: This feature improves the product significantly because it streamlines the process of resolving appeals.  The user's quality of life will be improved as the user need not perform the other functions separately to resolve an appeal as the resolve function performs all changes and checks in the background.
+** Highlights: Appeals may be submitted in the hundreds and will be overwhelming for the user.  As such this enhancement allows the user to carry out his job more efficiently by reducing the time taking and the number of commands to resolve appeals.  This implementation was challenging as it requires the integration of many other function like `clash`, `addmod`.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancement*: added *the ability to add reason for the approval or rejection for an appeal*
+** What it does: allows the user to add a reason to the approval or rejection of an appeal.  The reason will be added to the MAMS.json data file for future references.
+** Justification:  This feature is important as it allows the user to provide justifications to why an appeal was approved or rejected.  Supervisors of the user can also check the reasons should there be any complaints from students with regards to their appeals the reasons added help justify the decisions of the user.
+** Highlights:  This enhancement allows users to provide students with the reason for their choices to approve or reject their appeals.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=approve]
+
+include::../UserGuide.adoc[tag=reject]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=resolve]
+
+
+== PROJECT: PowerPointLabs
+
+---
+
+_{Optionally, you may include other projects in your portfolio.}_
