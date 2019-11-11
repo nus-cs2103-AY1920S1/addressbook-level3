@@ -265,7 +265,7 @@ public class EventManager implements EventViewer {
                 .mapToObj(i -> String.format("%d. %s", i + 1, relevantList.get(i)))
                 .reduce("", (prev, curr) -> prev + curr + "\n")
                 .trim();
-        return  String.format("There is no such event with the same start and end dates. "
+        return String.format("There is no such event with the same start and end dates. "
                 + "Event(s) with the same start and end dates:\n%s\n"
                 + "If you would like to select an option, enter the relevant index. "
                 + "Otherwise, type 'no' or other commands.",
@@ -345,7 +345,7 @@ public class EventManager implements EventViewer {
     public String suggest(EventQuery eventQuery) {
         return suggestBlocks(eventQuery)
                 .map(Object::toString)
-                .reduce("", (prev, curr) ->  prev + curr + "\n")
+                .reduce("", (prev, curr) -> prev + curr + "\n")
                 .trim();
     }
 
@@ -676,7 +676,7 @@ public class EventManager implements EventViewer {
     public long getNumDaysVacation() {
         return vacations.values()
                 .stream()
-                .flatMap(events ->  events.stream()
+                .flatMap(events -> events.stream()
                         .map(event -> DateUtil.daysBetween(event.getStart(), event.getEnd()) + 1))
                 .reduce((long) 0, Long::sum);
 
@@ -690,7 +690,7 @@ public class EventManager implements EventViewer {
     public long getNumDaysTrip() {
         return engagements.values()
                 .stream()
-                .flatMap(events ->  events.stream()
+                .flatMap(events -> events.stream()
                         .filter(event -> event.getEventType().equals(EventType.TRIP))
                         .map(event -> DateUtil.daysBetween(event.getStart(), event.getEnd()) + 1))
                 .reduce((long) 0, Long::sum);

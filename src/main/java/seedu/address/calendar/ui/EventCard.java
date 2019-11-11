@@ -6,7 +6,9 @@ import java.util.List;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-
+/**
+ * Represent an event card.
+ */
 public class EventCard {
     private VBox card;
     private Text content;

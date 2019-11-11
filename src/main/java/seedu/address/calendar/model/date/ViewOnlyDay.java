@@ -2,6 +2,9 @@ package seedu.address.calendar.model.date;
 
 import seedu.address.calendar.model.event.EventType;
 
+/**
+ * Represents a view only day.
+ */
 public class ViewOnlyDay {
     private DayOfWeek dayOfWeek;
     private int dayOfMonth;
@@ -19,6 +22,11 @@ public class ViewOnlyDay {
         return new ViewOnlyDay(day.getDayOfWeek(), day.getDayOfMonth());
     }
 
+    /**
+     * Adds the specified event type to {@code this}.
+     *
+     * @param eventType The event type to be added
+     */
     public void addEventType(EventType eventType) {
         switch (eventType) {
         case COMMITMENT:

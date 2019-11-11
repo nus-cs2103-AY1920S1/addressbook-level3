@@ -6,6 +6,9 @@ import seedu.address.calendar.model.event.EventQuery;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 
+/**
+ * Checks whether the user can travel between the specified time.
+ */
 public class CheckCommand extends Command<Calendar> {
     public static final String COMMAND_WORD = "check";
     public static final String MESSAGE_AVAILABLE = "You are available.";
