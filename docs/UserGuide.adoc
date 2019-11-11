@@ -420,7 +420,7 @@ Examples:
 
 //tag::priority[]
 ==== Entering priority mode: `priority`
-Feeling overwhelmed by the sheer amount of tasks to do? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
+Overwhelmed by the number of tasks to complete? Priority mode will help you narrow your focus down to the most pressing task to complete.
 
 .ELISA before priority mode with a long list of tasks
 image::BeforePriority.PNG[500,500]
@@ -439,7 +439,7 @@ When you are done with your current task, just tell ELISA you are done by simply
 .ELISA after completing the first task
 image::AfterDone.PNG[500,500]
 
-Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone tasks and you will be automatically brought out of priority mode.
+To go back to the normal task view, simply type `priority` again. Or even better, complete all your tasks and you will be automatically brought out of priority mode.
 
 
 .ELISA after all tasks are completed
@@ -447,7 +447,7 @@ image::AllDone.PNG[500,500]
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
-There is also an extreme focus mode for the easily distracted. Simply tell ELISA that you want to enter the extreme focus mode by attaching a `-f` flag to the back of the command. In the extreme focus mode, commands such as `show`, `sort`, `find`, `game`, `event` and `reminder` are banned.
+For the easily distracted, there is an extreme focus mode available. Simply tell ELISA that you want to enter the extreme focus mode by attaching a `-f` flag to the back of the command. In the extreme focus mode, commands such as `show`, `sort`, `find`, `game`, `event` and `reminder` are banned.
 
 Format: `priority [DATETIME] [-f]`
 

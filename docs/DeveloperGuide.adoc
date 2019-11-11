@@ -123,13 +123,13 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[500,500]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/blob/master/src/main/java/seedu/elisa/model/ItemModel.java[`ItemModel.java`]
 
-The `Model`,
+The `ItemModel`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Item Storage data
-* exposes four observable lists that can be viewed by the Ui and will cause an update in the Ui when it is updated
+* contains the `ItemStorage` that stores all the data for ELISA.
+* exposes four observable lists that can be viewed by the `Ui` and will cause an update in the `Ui` when it is updated.
 
 ==== Design Consideration
 The original implementation was to have one single observable list and modifying it whenever the view changes. We decided against it as we believe that this will result in O(n) time complexity for switching the different views as we need to iterate through all the items to find the relevant items.
@@ -315,9 +315,9 @@ The figure below shows the sequence diagram on what happens from a simple execut
 .Sequence diagram for priority mode
 image::PriorityMode.png[]
 
-. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```AddressBookParser```
+. When the user types in the command, the ```LogicManager``` takes in the command as a string and pass it to the ```ELISAParser```
 
-. The ```AddressBookParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case,  a new ```ScheduledPriorityCommand``` is created and is passed back to the ```LogicManager```.
+. The ```ELISAParser``` parses the string and determine whether the command is that of a normal ```PriorityCommand``` or a ```ScheduledPriorityCommand```. In this case,  a new ```ScheduledPriorityCommand``` is created and is passed back to the ```LogicManager```.
 
 [NOTE]
 The following steps (except step 4) are also applicable to ```PriorityCommand```.
@@ -419,8 +419,8 @@ However, in this section, we will only show how Task and Event is added. Adding 
 Given below is an example usage scenario of how add behaves at each step: +
 
 Step 1. The user enters the command `"task shower -d 1.hour.later"`. +
-Step 2. The LogicManager creates an AddressBookParser to parse the user input. +
-Step 3. AddressBookParser creates a AddTaskCommandParser which parses the input and returns an AddCommand. +
+Step 2. The LogicManager creates an ELISAParser to parse the user input. +
+Step 3. ELISAParser creates a AddTaskCommandParser which parses the input and returns an AddCommand. +
 Step 4. LogicManager will execute the AddCommand. AddCommand will then invoke `ItemModel#add(Item)`, which adds Task to its TaskList and Event to its EventList. +
 Step 5. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)`
 Step 6. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view.
