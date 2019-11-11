@@ -2,107 +2,71 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":DukeCooksParser" as DukeCooksParser LOGIC_COLOR
 participant ":AddCommandParser" as AddCommandParser LOGIC_COLOR
-participant ":AddHealthCommandParser" as AddHealthCommandParser LOGIC_COLOR
-participant "d:AddHealthCommand" as AddHealthCommand LOGIC_COLOR
+participant ":AddRecordCommandParser" as AddRecordCommandParser LOGIC_COLOR
+participant "d:AddRecordCommand" as AddRecordCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "t:Type" as Type MODEL_COLOR
-participant "dt:Timestamp" as Timestamp MODEL_COLOR
-participant "val:Value" as Value MODEL_COLOR
-participant "r:Record" as Record MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> DukeCooksParser : parseCommand("add \n health glucose*")
+[-> LogicManager : execute("add \n health t/glucose * ")
+activate LogicManager
+
+LogicManager -> DukeCooksParser : parseCommand("add \n health t/glucose * ")
 activate DukeCooksParser
 
-DukeCooksParser -> AddCommandParser : parse("health glucose *")
+DukeCooksParser -> AddCommandParser : parse("health t/glucose * ")
 activate AddCommandParser
 
-AddCommandParser -> AddHealthCommandParser :  parse("glucose *")
-activate AddHealthCommandParser
+AddCommandParser -> AddRecordCommandParser :  parse("t/glucose * ")
+activate AddRecordCommandParser
 
-create Type
-AddHealthCommandParser -> Type : new Type("glucose")
-activate Type
+create AddRecordCommand
+AddRecordCommandParser -> AddRecordCommand : r
+activate AddRecordCommand
 
-Type -> Type : isValidType()
-activate Type
+AddRecordCommand --> AddRecordCommandParser : d
+deactivate AddRecordCommand
 
-Type --> Type
-deactivate Type
-
-Type --> AddHealthCommandParser : t
-deactivate Type
-
-create Timestamp
-AddHealthCommandParser -> Timestamp : new Timestamp("10/10/2019 12:00")
-activate Timestamp
-
-Timestamp -> Timestamp : isValidDateTime()
-activate Timestamp
-
-Timestamp --> Timestamp
-deactivate Timestamp
-
-Timestamp --> AddHealthCommandParser : dt
-deactivate Timestamp
-
-create Value
-AddHealthCommandParser -> Value : new Value("80")
-activate Value
-
-Value -> Value : isValidNumber()
-activate Value
-
-Value --> Value
-deactivate Value
-
-Value --> AddHealthCommandParser : val
-deactivate Value
-
-create Record
-AddHealthCommandParser -> Record : new Record(t, val, dt)
-activate Record
-
-Record --> AddHealthCommandParser : r
-deactivate Record
-
-create AddHealthCommand
-AddHealthCommandParser -> AddHealthCommand : r
-activate AddHealthCommand
-
-AddHealthCommand --> AddHealthCommandParser : d
-deactivate AddHealthCommand
-
-AddHealthCommandParser --> AddCommandParser : d
-deactivate AddHealthCommandParser
+AddRecordCommandParser --> AddCommandParser : d
+deactivate AddRecordCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-AddHealthCommandParser -[hidden]-> AddCommandParser
-destroy AddHealthCommandParser
+AddRecordCommandParser -[hidden]-> AddCommandParser
+destroy AddRecordCommandParser
 
 AddCommandParser --> DukeCooksParser : d
 deactivate AddCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddCommandParser -[hidden]-> DukeCooksParser
+destroy AddCommandParser
 
-DukeCooksParser -> AddHealthCommand : execute()
-activate AddHealthCommand
+DukeCooksParser --> LogicManager : d
+deactivate DukeCooksParser
 
-Model --> AddHealthCommand
+LogicManager -> AddRecordCommand : execute(model)
+activate AddRecordCommand
+
+AddRecordCommand -> Model : addRecord(r)
+activate Model
+
+Model --> AddRecordCommand
 deactivate Model
 
 create CommandResult
-AddHealthCommand -> CommandResult
+AddRecordCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> AddHealthCommand
+CommandResult --> AddRecordCommand
 deactivate CommandResult
 
-AddHealthCommand --> DukeCooksParser : result
-deactivate AddHealthCommand
+AddRecordCommand --> LogicManager : result
+deactivate AddRecordCommand
 
-[<--DukeCooksParser
+[<--LogicManager
 deactivate DukeCooksParser
 @enduml

@@ -529,70 +529,126 @@ allows for the details to be obtained more efficiently as well as limit them to 
 
 
 === Health Records feature
-The Health Records feature handles the following:
+The Health Records feature allows user to record their health progress using the commands
+`add health`, as well as making record changes with `edit health`, `delete health` and `clear health`.
 
-* Keeping track of the health data recorded by the user
-* Present the data with visual representation of a trend graph that shows the health progress of the user
+Additionally, users can create and personalize their own profile with commands `add profile`,
+`edit profile` and `delete profile`.
 
-*Proposed Implementation*
+In a nut shell, the Health Records feature supports the following operations:
 
-The commands that are callable by the user are as followed:
+* Storing of the health data recorded by the user
+* Present the data with graph representation that shows the health progress of the user
+* Personalizing user profile
 
-.  `view health` - view the specific type of health records
-.  `add health` - adds a new record respective to the type of health records
-.  `edit health` - edits a existing health record
-.  `delete health` - deletes a existing health record
+==== Implementation
 
-The class diagram below illustrates the structure of a Health Record class.
+A `Record` consist of four key components: `Type`, `Timestamp`, `Value`, `Remark`.
+Refer to the diagram below to understand the structure of `Record`.
 
-.HealthRecords Class Diagram
+.Structure of the Record Component
 image::HealthRecordsClassDiagram.png[]
 
-Each Health Record object consist of a Type, Timestamp and Value. The current implementation stores 6 key areas:
+==== Implementation of Health Records commands
 
-1. Weight
-2. Height
-3. Calories
-4. Glucose
-5. Blood Pressure
-6. Menstrual Cycle (for Females)
+`Record` class supports multiple commands. It includes:
 
-[NOTE]
-The types available are stored in a list named `TYPE_UTIL`. This means that the validity check of `Type` Object will be checked against `TYPE_UTIL` list. If type does not exist, the record will fail to construct.
+* `AddRecordCommand` - Adds a `Record` into DukeCooks
+* `DeleteRecordCommand` - Deletes a `Record` from DukeCooks
+* `EditRecordCommand` - Edits the specified `Record` with a new changes made
+* `ListHealthCommand` - Lists all available records to user
+* `ListHealthByTypeCommand` - Lists all available records of the corresponding record type to user
+* `ClearHealthCommand` - Clears all available records
 
-In future implementations (possibly in v2.0), the `TYPE_UTIL` list will accommodate more record types defined by the user. This means that there will not be a restriction imposed in health types that can be recorded. User can create a new health type to start health tracking (eg. Sodium level).
+`Person` class supports multiple commands. It includes:
 
-==== `add health` Command
-`add health t/[type] [inputs]` is parsed in the `addHealthCommandParser`. The inputs will first be initialised to its respective objects with underlying validation checks (eg. `Type` object will call for `isValidType()` method to check against `TYPE_UTIL` List). A `Record` object will then be created with the three valid object components.
+* `AddProfileCommand` - Adds a new `Person` into DukeCooks
+* `DeleteProfileCommand` - Deletes the `Person` into DukeCooks
+* `EditProfileCommand` - Edits various fields of the specified `Person`
 
-The sequence diagram below illustrates a sample run of program where `add health` command has been successfully parsed.
+[IMPORTANT]
+====
+User Profile consist of one `person` object.
+Dukecooks will only allow one user profile to exist.
+====
 
-.Sequence Diagram for `add health` command
+==== Execution of AddRecordCommand
+
+The sequence diagram below illustrates the execution of an `AddRecordCommand`.
+
+.AddHealthCommand Sequence Diagram
 image::AddHealthSequenceDiagram.png[]
 
+The command will first be parsed in 'DukeCooksParser' and be handled to its corresponding parsers (i.e. `AddRecordCommandParser`) based on its variant word
+(i.e. `Add`).
+
+After the parsing has been executed successfully, the string argument will be converted to `Type`, `Value`, `Timestamp`,
+`Remark` attributes. These attributes will then be passed into the `Model` component for its underlying validity checks.
+
+Once all checks have passed successfully, a new `Record` will be created according to those attributes
+and added to health records with the command `Model#addRecord`.
+
+[NOTE]
+====
+The illustration of the above execution only applies to all record types except for **Weight** and **Height**.
+Refer to the next section for more details.
+====
+
+==== Syncing record data with profile
+
+To illustrate why the simple model of `AddRecordCommand` will not suffice for *Weight* and *Height* record types,
+below depicts the class diagram of the `Person` class
+
+.Structure of the Person Component
+image::PersonClassDiagram.png[]
+
+It can be observed that `Person` share similar attributes to `Record`, *Weight* and *Height*.
+However, the implementation of the two types are distinctly different among `Record` and `Person`. `Record` have
+structured *Weight* and *Height* to be attributes of its `Type` enum class while `Person` has defined
+them separately to be classes of their own.
+
+The Sequence diagram below illustrates the execution of `AddRecordCommand` with additional component introduced to
+help sync data between the `Record` and `Person`.
+
+.Reconstructed AddRecordCommand
+image::LinkHealthToProfileSequenceDiagram.png[]
+
+Once `Model#addRecord` has been executed, `AddRecordCommand` will check the type of
+the newly added record. If it is a *Weight* or *Height* record, `LinkProfile#updateProfile`
+will be called. The `LinkProfile` acts as a bridge for `AddRecordCommand` to invoke `EditProfileCommand`,
+calling for changes to be made for profile.
+
+A simplified activity diagram of the problem can be shown below.
+
+.Activity Diagram of adding a new Weight record
+image::LinkProfileActivityDiagram.png[]
+
+Once profile have been successfully updated, person's weight/ height is expected to be
+in sync with health records.
 
 ==== Design Considerations
 
-*Aspect: Data structure on how the different health types are stored*
+[cols="10%,50%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-*Alternative 1 (Current Choice)*
+|Way of implementating Record `Type`
+|A HashMap is used to store Record Type.
 
-Maintain a Map to validate type of health record
+- Pros: More static control over the record types with varying validity checks. +
+- Cons: More error prone compared to enums +
 
-A `HashMap` is used to store the different health types and its respective metric unit (eg. Weight, kg). When a health related command is called, the `TYPE_UTIL` will be accessed and checked against to determine if command is valid.
-
-* Pros: Greater flexibility in the implementation and usage of `TYPE_UTIL` Map. Allow possible extension of having more user defined health types.
-* Cons: Difficult to keep track of each health type and lack of clarity.
-
-
-*Alternative 2*
-
-Introduce each health type as a Class on its own
-
-* Pros: Clearer distinction and declaration of each health type
-* Cons: Limited to a specific number of health types. User cannot introduce their own health type for record tracking. Requires diligence on developer’s end to introduce new classes for more variations.
+This choice was chosen as it is easier to maintain for our model. Additionally, the extension of having user defined health
+types would mean more validity checks and maintainence needed.
 
 
+|A HashMap is used to store Record Type.
+
+- Pros: Increase flexibility and possible extension of having user defined health types. +
+- Cons: More error prone compared to enums +
+
+|===
 
 === Diary feature
 ==== Implementation

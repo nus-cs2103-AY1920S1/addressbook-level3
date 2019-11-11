@@ -144,7 +144,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
         ObservableList<XYChart.Data<String, Double>> data =
                 FXCollections.<XYChart.Data<String, Double>>observableArrayList();
         for (Record r: record) {
-            data.add(new XYChart.Data<>(r.getTimestamp().getDate().toString(), r.getValue().value));
+            data.add(new XYChart.Data<>(r.getTimestamp().getDate().toString(), r.getValue().getValue()));
         }
         XYChart.Series series = new XYChart.Series(data);
         lineGraph.getData().add(series);
@@ -182,7 +182,7 @@ public class RecordTypeListPanel extends UiPart<Region> {
         ObservableList<XYChart.Data<String, Double>> data =
                 FXCollections.<XYChart.Data<String, Double>>observableArrayList();
         for (Record r: record) {
-            data.add(new XYChart.Data<>(r.getTimestamp().getDate().toString(), r.getValue().value));
+            data.add(new XYChart.Data<>(r.getTimestamp().getDate().toString(), r.getValue().getValue()));
         }
         XYChart.Series series = new XYChart.Series(data);
         barGraph.getData().add(series);

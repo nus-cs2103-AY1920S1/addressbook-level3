@@ -48,7 +48,7 @@ public class RecordUtil {
                 remarks.forEach(s -> sb.append(CliSyntax.PREFIX_REMARK).append(s.remarkName).append(" "));
             }
         }
-        descriptor.getValue().ifPresent(value -> sb.append(CliSyntax.PREFIX_VALUE).append(value.value)
+        descriptor.getValue().ifPresent(value -> sb.append(CliSyntax.PREFIX_VALUE).append(value.getValue())
                 .append(" "));
         descriptor.getTimestamp().ifPresent(timestamp -> sb.append(CliSyntax.PREFIX_DATETIME)
                 .append(timestamp.toString()).append(" "));
