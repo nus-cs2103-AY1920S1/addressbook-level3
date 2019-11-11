@@ -453,6 +453,103 @@ public class ActivityTest {
     }
 
     @Test
+    public void getParticipantCount_staticActivities_correctCount() {
+        Activity emptyActivity = TypicalActivities.BREAKFAST_EMPTY;
+        assertEquals(0, emptyActivity.getParticipantCount());
+
+        Activity activityWithParticipants = TypicalActivities.LUNCH;
+        assertEquals(2, activityWithParticipants.getParticipantCount());
+    }
+
+    @Test
+    public void getParticipantCount_participantsChange_updatesCount() {
+        Activity activity = new ActivityBuilder()
+                .withTitle("Activity with changing participants")
+                .addPerson(TypicalPersons.ALICE)
+                .addPerson(TypicalPersons.BOB)
+                .build();
+
+        activity.invite(TypicalPersons.CARL);
+        assertEquals(3, activity.getParticipantCount());
+
+        activity.disinvite(TypicalPersons.ALICE, TypicalPersons.CARL);
+        assertEquals(1, activity.getParticipantCount());
+    }
+
+    @Test
+    public void getTotalSpending_noDeletedItems_excludesSettlements() {
+        Activity activity = new ActivityBuilder()
+                .withTitle("Activity with static expenses and settlements")
+                .addPerson(TypicalPersons.AMY)
+                .addPerson(TypicalPersons.BENSON)
+                .build();
+
+        List<Integer> ids = activity.getParticipantIds();
+
+        // 2 expenses and 1 partial settlement
+        // Amounts are specifically chosen to avoid floating-point errors
+        Expense appetiser = new Expense(ids.get(0), new Amount(12.00), "Appetiser");
+        Expense mainCourse = new Expense(ids.get(1), new Amount(24.00), "Main course");
+        Expense aliceToBob = new Expense(ids.get(0), new Amount(3.00), "Partial repayment", true, ids.get(1));
+
+        activity.addExpense(appetiser, mainCourse, aliceToBob);
+
+        assertEquals(36.00, activity.getTotalSpending());
+    }
+
+    @Test
+    public void getTotalSpending_insertAndSoftDeleteItems_updatesSum() {
+        Activity activity = new ActivityBuilder()
+                .withTitle("Activity with insertions and soft deletions")
+                .addPerson(TypicalPersons.ANDY)
+                .addPerson(TypicalPersons.BOB)
+                .addPerson(TypicalPersons.CARL)
+                .build();
+
+        List<Integer> ids = activity.getParticipantIds();
+
+        // 3 expenses: index 0, 1, 2
+        // Amounts are specifically chosen to avoid floating-point errors
+        Expense transport = new Expense(ids.get(0), new Amount(210.75), "Bus tickets");
+        Expense hotel = new Expense(ids.get(1), new Amount(301.50), "Resort stay");
+        Expense archery = new Expense(ids.get(2), new Amount(69.00), "Archery activity", ids.get(0));
+
+        // 1 partial settlement (index 3) and 1 full settlement (index 4)
+        Expense carlToAndy = new Expense(ids.get(2), new Amount(8.50), "Half settlement", true, ids.get(0));
+        Expense carlToBob = new Expense(ids.get(2), new Amount(107.75), "Full settlement", true, ids.get(1));
+
+        activity.addExpense(transport, hotel, archery, carlToAndy, carlToBob);
+
+        assertEquals(581.25, activity.getTotalSpending());
+
+        // Insertion of new expense (index 5) -> adds new amount to sum
+        Expense errorExpense = new Expense(ids.get(0), new Amount(60.00), "Added in error");
+        activity.addExpense(errorExpense);
+        assertEquals(641.25, activity.getTotalSpending());
+
+        // Invalidation of newly added expense -> removes added amount from sum
+        activity.deleteExpense(5);
+        assertEquals(581.25, activity.getTotalSpending());
+
+        // Invalidation of existing expense -> removes that amount from sum
+        activity.deleteExpense(2);
+        assertEquals(512.25, activity.getTotalSpending());
+
+        // Invalidation of existing settlement -> no change to sum
+        activity.deleteExpense(3);
+        assertEquals(512.25, activity.getTotalSpending());
+
+        // Insertion of new full settlement (index 6) -> no change to sum
+        Expense carlToAndyFull = new Expense(ids.get(2), new Amount(40.00), "New full settlement", true, ids.get(0));
+        activity.addExpense(carlToAndyFull);
+        assertEquals(512.25, activity.getTotalSpending());
+
+        // Invalidation of newly added settlement -> no change to sum
+        activity.deleteExpense(6);
+        assertEquals(512.25, activity.getTotalSpending());
+    }
+
+    @Test
     public void hasPerson() {
         Activity lunch = TypicalActivities.LUNCH;
 

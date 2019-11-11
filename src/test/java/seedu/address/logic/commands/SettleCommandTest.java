@@ -25,7 +25,6 @@ public class SettleCommandTest {
     private static final List<Expense> expenses = new ArrayList<>();
     private static final Amount amount = new Amount(10);
     private static final String emptyString = "";
-    private static final String notEmptyString = "hello werld";
     private static SettleCommand command;
 
     @BeforeEach
@@ -68,7 +67,7 @@ public class SettleCommandTest {
         assertEquals(String.format(SettleCommand.MESSAGE_SUCCESS,
                 TypicalPersons.ALICE.getNameStr(),
                 TypicalPersons.BENSON.getNameStr(),
-                amount),
+                amount.value),
                 commandResult.getFeedbackToUser());
 
         Expense settlement = new Expense(TypicalPersons.ALICE.getPrimaryKey(),
@@ -180,8 +179,9 @@ public class SettleCommandTest {
         expectedActivity.addExpense(expense);
 
         // execute command to get this
+        Amount transferAmount = new Amount(5);
         Expense settle = new Expense(TypicalPersons.ALICE.getPrimaryKey(),
-                new Amount(5),
+                transferAmount,
                 String.format(SettleCommand.EXPENSE_DESCRIPTION,
                     TypicalPersons.ALICE.getName(),
                     TypicalPersons.BENSON.getName()),
@@ -201,7 +201,7 @@ public class SettleCommandTest {
         String expectedMessage = String.format(SettleCommand.MESSAGE_SUCCESS,
                 TypicalPersons.ALICE.getName(),
                 TypicalPersons.BENSON.getName(),
-                "5");
+                transferAmount.value);
         assertCommandSuccess(command, model, expectedMessage, expectedModel, expectedModel.getContext());
     }
 
