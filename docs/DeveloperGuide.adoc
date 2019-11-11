@@ -533,8 +533,10 @@ In Figure 4, User input search(online) command. User then input `add INDEX` comm
 ==== Design Considerations
 
 ===== Aspect: How `AddCommand` executes
+
 ** Current choice: Retrieve the show object found in `searchList` of INDEX from ModelManager and add it to `filteredShowList`.
-*** Pros: Easy to implement and make use of.
+** Pros: Enables for greater cohesion since there is a specific command for adding information of a show in watchlist.
+** Cons: Requires longer code, and the code is also repetitive since its implementation is similar to that of the add and edit command
 *** Cons: May have performance issues in terms of memory usage.
 
 // end::add[]
