@@ -1,0 +1,11 @@
+@startuml
+
+(*) --> [request to generate list] "generate list"
+-->[try to match userinput for each position] "check"
+-->[choose initial list] "choose"
+-->[filter out unrelated words in chosen list] "filter"
+-->[update filtered list based on the last user's partially typed word] "update"
+-->[set the final list in autocomplete panel] "set"
+--> (*)
+
+@enduml

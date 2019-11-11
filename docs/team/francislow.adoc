@@ -9,39 +9,37 @@
 
 == Overview
 
-NurseTraverse is a desktop application meant for community nurse to help manage all the data that a community nurse might need. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+NurseTraverse is a desktop application designed to help community nurses manage all the data they may need, including visit management, appointment scheduling, and importing and exporting of patient data.
+The user interacts with the app using a CLI (Command Line Interface) enhanced with an autocomplete functionality and ability to undo and redo commands. The app has a GUI created with JavaFX and is written in Java.
+NurseTraverse is built by me and 4 other students.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to autocomplete any command words in application*
+** What it does: +
+-  Allows the user to easily complete a full command with or without typing. +
+-  Guides user in selecting which command to enter next through commands classifications in suggestion panel and command explanations in result box +
+** Justification: Nurses and new users may not be familiar with command line input and the different types commands in the application. Thus, having a suggestion panel at the side will greatly enhance user experience, especially for slow typers. Having a guided system will aid nurses in familiarising with the application commands and understanding of the different functions in the system in general.
+** Highlights: The implementation of word suggestion is rather tedious since many of the full commands have different formats. For example, "pat-list" do not require any patient index and prefixes but "pat-edit 1 n/ ..." requires both. Thus the implementation of list handlers were changed a few times to fit the objective of providing a better user experience. Logic for checking already matched words in order to change a new set of suggestion words is challenging as well, mainly due to many commands having different formats as mentioned earlier.
+** Credits: No outside code or ideas were referenced in the development of these features (beyond code that already exists within Address Book 3).
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: An overview of contributed code can be found
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=francislow[here].
+- Milestone v1.2: https://github.com/AY1920S1-CS2103-F10-1/main/issues/55[#55]
+- Milestone v1.3: https://github.com/AY1920S1-CS2103-F10-1/main/issues/56[#56]
+- Milestone v1.4: https://github.com/AY1920S1-CS2103-F10-1/main/issues/61[#61]
+- Bug hunting: https://github.com/AY1920S1-CS2103-F10-1/main/issues/183[#183]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Managed release `v1.3` on GitHub
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated developers guide(appendix A-E) https://github.com/AY1920S1-CS2103-F10-1/main/pull/44[#44]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Misc team bug fixes https://github.com/AY1920S1-CS2103-F10-1/main/issues/186[#186]
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F10-1/main/pull/81[#81], https://github.com/AY1920S1-CS2103-F10-1/main/pull/98[#98], https://github.com/AY1920S1-CS2103-F10-1/main/pull/217[#217]
+*** Set up travis CI for the project
 
 == Contributions to the User Guide
 
@@ -50,9 +48,7 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../userguide/AutoComplete.adoc[]
 
 == Contributions to the Developer Guide
 
@@ -60,13 +56,4 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+include::../devguide/Autocomplete.adoc[]

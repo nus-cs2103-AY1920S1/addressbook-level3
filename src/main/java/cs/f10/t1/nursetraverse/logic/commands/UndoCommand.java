@@ -76,4 +76,17 @@ public class UndoCommand extends MutatorCommand {
         return String.format(MESSAGE_UNDO_SUCCESS,
                 undoneRecords.size(), undoneRecords.size() > 1 ? "s" : "", sb.toString());
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof UndoCommand)) {
+            return false;
+        }
+        UndoCommand otherCommand = (UndoCommand) obj;
+        return targetIndex == otherCommand.targetIndex // handle null
+                || targetIndex.equals(otherCommand.targetIndex);
+    }
 }

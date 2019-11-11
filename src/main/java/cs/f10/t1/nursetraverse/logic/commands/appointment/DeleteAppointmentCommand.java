@@ -13,7 +13,7 @@ import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 
 /**
- * Deletes a patient identified using it's displayed index from the patient book.
+ * Deletes an appointment identified using it's displayed index from the appointment book.
  */
 public class DeleteAppointmentCommand extends MutatorCommand {
 

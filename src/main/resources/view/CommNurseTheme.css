@@ -53,11 +53,15 @@
     -fx-vgap: 3;
 }
 
-#tags .label {
+#tags .label, #recurDateTime .label {
     -fx-background-color: #61bfba;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
     -fx-text-fill: white;
+}
+
+#frequency .label {
+    -fx-font-style: italic;
 }

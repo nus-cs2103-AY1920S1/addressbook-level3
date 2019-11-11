@@ -70,7 +70,11 @@ public class UniquePatientList implements Iterable<Patient> {
             throw new PatientNotFoundException();
         }
 
-        if (!target.isSamePatient(editedPatient) && contains(editedPatient)) {
+        List<Patient> samePatients = getSamePatients(editedPatient);
+        if (samePatients.size() > 1) {
+            throw new DuplicatePatientException();
+        }
+        if (!target.isSamePatient(editedPatient) && !samePatients.isEmpty()) {
             throw new DuplicatePatientException();
         }
 
@@ -142,6 +146,21 @@ public class UniquePatientList implements Iterable<Patient> {
             }
         }
         return true;
+    }
+
+    /**
+     * Returns a list of patients with the same identity as {@code toCheck}. This is possible because
+     * {@link Patient#isSamePatient(Patient)} is not transitive (e.g. toCheck.isSamePatient(b) and
+     * toCheck.isSamePatient(c) but !b.isSamePatient(c))
+     */
+    private ObservableList<Patient> getSamePatients(Patient toCheck) {
+        ObservableList<Patient> samePatients = FXCollections.observableArrayList();
+        for (Patient patient : internalList) {
+            if (patient.isSamePatient(toCheck)) {
+                samePatients.add(patient);
+            }
+        }
+        return FXCollections.unmodifiableObservableList(samePatients);
     }
 
     /**

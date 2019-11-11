@@ -1,5 +1,6 @@
 package cs.f10.t1.nursetraverse.logic.commands.appointment;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
@@ -12,11 +13,14 @@ import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_WEEKS;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_RECUR_YEARS;
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.appointment.Appointment;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 /**
  * Adds an appointment to the appointment list
@@ -50,6 +54,8 @@ public class AddAppointmentCommand extends MutatorCommand {
     public static final String MESSAGE_SUCCESS = "New appointment added: %1$s";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists "
             + "in the appointment book";
+    public static final String MESSAGE_CLASHING_APPOINTMENT = "This appointment clashes with another appointment "
+            + "in the appointment book";
 
     private Appointment toAdd;
 
@@ -65,10 +71,17 @@ public class AddAppointmentCommand extends MutatorCommand {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
+        List<Patient> fullPatientList = model.getStagedPatientList();
+        if (toAdd.getPatientIndex().getZeroBased() >= fullPatientList.size()) {
+            throw new CommandException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
         toAdd.setPatient(model.getPatientByIndex(toAdd.getPatientIndex()));
 
         if (model.hasAppointment(toAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+        if (model.hasClashingAppointment(toAdd)) {
+            throw new CommandException(MESSAGE_CLASHING_APPOINTMENT);
         }
 
         model.addAppointment(toAdd);

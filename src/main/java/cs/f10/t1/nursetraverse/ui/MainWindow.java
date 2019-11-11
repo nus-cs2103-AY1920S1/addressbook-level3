@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandBox commandBox;
     private DataPanelsTabPaneManager dataPanelsTabPaneManager;
     private HistoryPanel historyPanel;
+    private AutoCompletePanelManager autoCompletePanelManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -133,28 +134,39 @@ public class MainWindow extends UiPart<Stage> {
         ongoingVisitListPanel = new OngoingVisitListPanel(logic.getObservableOngoingVisitList());
         ongoingVisitPanelPlaceholder.getChildren().add(ongoingVisitListPanel.getRoot());
 
-        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
-        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPatientBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        autoCompletePanel = new AutoCompletePanel(logic.getFilteredPatientList(), logic.getFilteredAppointmentList());
+        autoCompletePanel = new AutoCompletePanel();
         autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
+        autoCompletePanelManager = new AutoCompletePanelManager(
+                autoCompletePanel,
+                logic.getFilteredPatientList(),
+                logic.getFilteredAppointmentList(),
+                logic.getObservableHistoryList());
 
-        commandBox = new CommandBox(this::executeCommand, autoCompletePanel);
+        commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        historyPanel = new HistoryPanel(logic.getObservableHistoryList());
+        historyPanelPlaceholder.getChildren().add(historyPanel.getRoot());
+
+        appointmentListPanel = new AppointmentListPanel(logic.getFilteredAppointmentList());
+        appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
+
+        // Add observers into commandBox observer list
+        commandBox.addObserver(autoCompletePanelManager);
+        commandBox.addObserver(resultDisplay);
+        // Set data sender for commandBox
+        commandBox.setDataSender(autoCompletePanelManager);
 
         dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
                 patientTabPage,
                 ongoingVisitTabPage,
                 appointmentTabPage);
-
-        historyPanel = new HistoryPanel(logic.getObservableHistoryList());
-        historyPanelPlaceholder.getChildren().add(historyPanel.getRoot());
     }
 
     /**
@@ -209,10 +221,6 @@ public class MainWindow extends UiPart<Stage> {
         return appointmentListPanel;
     }
 
-    public AutoCompletePanel getAutoCompletePanel() {
-        return autoCompletePanel;
-    }
-
     public DataPanelsTabPaneManager getDataPanelsTabPaneManager() {
         return dataPanelsTabPaneManager;
     }
@@ -246,12 +254,5 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    /**
-     * Set listeners for all individual components in main window
-     */
-    public void setAllListeners() {
-        commandBox.setOnButtonPressedListener();
     }
 }

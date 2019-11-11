@@ -84,6 +84,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+Manager classes like `AutoCompletePanelManager` and `DataPanelsTabPaneManager` handles changes of its respective components.
+
+`UiPartObserver` interface prevents direct communication between 2 UiPart. It is implemented by the result display and autocomplete panel to listen for userinput from the command box and make changes acccordingly.
+
 [[Design-Logic]]
 === Logic component
 
@@ -94,7 +98,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `PatientBookParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -118,14 +122,11 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the `PatientBook`, `AppointmentBook`, and `HistoryManager` data.
+* exposes unmodifiable `ObservableList<Patient>`, `ObservableList<Appointment>`, and `ObservableList<HistoryRecord>`
+that can be 'observed' i.e. the UI can be bound to these lists so that the UI automatically updates when the data in the
+lists change.
 * does not depend on any of the other three components.
-
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
 === Storage component
@@ -138,12 +139,13 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Patient Book data in json format and read it back.
+* can save the Appointment Book data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `cs.f10.t1.nursetraverse.commons` package.
 
 == Implementation
 
@@ -154,13 +156,6 @@ This section describes some noteworthy details on how certain features are imple
 
 include::./devguide/UndoRedoHistory.adoc[]
 // end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Visits Management
 
@@ -299,7 +294,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `PatientBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Add patient
@@ -326,32 +321,6 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: View patient profile
-
-*MSS*
-
-1.  User requests to list persons
-2.  Application shows a list of persons
-3.  User requests to view a specific patient in the list
-4.  Application shows the specified patient profile
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The one or more given parameters are invalid.
-+
-[none]
-** 3a1. Application shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
 === Use case: Delete patient profile
 
 *MSS*
@@ -371,34 +340,6 @@ Use case ends.
 Use case ends.
 
 * 3a. The one or more given parameters are invalid.
-+
-[none]
-** 3a1. Application shows an error message.
-+
-Use case resumes at step 2.
-
-[discrete]
-=== Use case: Take notes for a patient
-
-*MSS*
-
-1.  User requests to open note GUI for a specific patient
-2.  User edit the patient’s notes
-3.  User request to exit note GUI
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. Invalid command
-+
-[none]
-** 1a1. Application shows an error message.
-+
-Use case ends.
-
-* 3a. Invalid command
 +
 [none]
 ** 3a1. Application shows an error message.
@@ -442,32 +383,13 @@ Use case resumes at step 2.
 
 
 [appendix]
-== Glossary (do along the way)
-
-Define terms that are worth recording. Eg:
+== Glossary
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 [[private-contact-detail]] Private contact detail::
 A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -491,26 +413,205 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Deleting a patient
 
-=== Deleting a person
+. Deleting a patient while all patients are listed
 
-. Deleting a person while all persons are listed
-
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Prerequisites: List all patients using the `pat-list` command. Multiple patients in the list.
+.. Test case: `pat-delete 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Test case: `pat-delete 0` +
+   Expected: No patient is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect delete commands to try: `pat-delete`, `pat-delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Updating a patient's Visit Todos:
 
-=== Saving data
+. Updating a patient's Visit Todos. Note that this will not update the patient's visit tasks in an ongoing visit. For more information of the distinction between visit todos and visit tasks, refer to https://ay1920s1-cs2103-f10-1.github.io/main/UserGuide.html#VisitHowTo[Visit Tutorials] in the User Guide.
 
-. Dealing with missing/corrupted data files
+.. Test case: `pat-edit 1 vt/Check Blood Pressure` +
+   Expected: Patient is updated with the new Visit Todo and this is reflected in the status message.
+.. Test case: `pat-edit 1 vt/` +
+   Expected: Patient is updated with no Visit Todos.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Starting a Visit for a patient:
 
-_{ more test cases ... }_
+. Starting a visit for a patient.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-start 1` +
+   Expected: An ongoing visit is begun.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-start 1` +
+   Expected: No visit is begun. An error message will appear in the status message informing user that there is already an ongoing visit.
+
+=== Updating an ongoing visit:
+
+. Updating an ongoing visit.
+
+.. Prerequisite: There is an ongoing visit, and this visit has at least one visit task.
+.. Test case: `visit-now-update f/1 r/Patient is healthy. d/1 140/90mmHg` +
+   Expected: Visit is updated. The first visit task is marked as finished with a detail of ""140/90mmHg" and the visit has the remark "Patient is healthy.". This is reflected on the Current Visit tab and in the status message.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-now-update [any argument]` +
+   Expected: No visit is updated. An error message will appear in the status message.
+
+Note: If the format of `visit-now-update` arguments are wrong, the error message will prompt about the format first, before it prompts on whether or not there is an ongoing visit.
+
+=== Cancelling a Visit for a patient:
+
+. Cancelling a visit for a patient.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-cancel` +
+   Expected: The ongoing visit is cancelled.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-cancel` +
+   Expected: No visit is cancelled. An error message will appear in the status message.
+
+=== Finishing a Visit for a patient:
+
+. Finishing a visit for a patient.
+
+.. Prerequisite: There is an ongoing visit.
+.. Test case: `visit-end` +
+   Expected: The ongoing visit is finished. The end date time should be indicated in the visit if you check it in the patient's list of Visits.
+
+.. Prerequisite: There is no ongoing visit.
+.. Test case: `visit-end` +
+   Expected: No visit is finished. An error message will appear in the status message.
+
+=== Adding an appointment
+
+. Adding an appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... Ensure all the suggested date times below don't already exist in the appointment book. If they do, try with start and end date times that don't exist in the appointment list to get the expected results.
+.. Test case: `appt-add p/1 sdt/01-01-2020 1000 edt/01-01-2020 1200` +
+   Expected: Appointment is added to the list (based on its start date and time as the list is sorted by that) with first patient's details from the list of patients and the input start and end date times. Details of the added appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-add p/1 sdt/14-02-2020 2000 edt/14-02-2020 2100 rmon/4` +
+   Expected: Appointment is added to the list with first patient's details from the list of patients, the input start and end date times, and recurring frequency of 4 months. The added appointment will be marked `recurring` as well. Details of the added appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case (two commands): `appt-add p/1 sdt/12-02-2020 2000 edt/12-02-2020 2100 ryr/1` +
+                             Followed by: +
+                             `appt-add p/1 sdt/12-02-2020 2000 edt/12-02-2020 2100 rmon/1` +
+   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
+.. Test case (two commands): `appt-add p/1 sdt/10-02-2020 2000 edt/12-02-2020 2100` +
+                             Followed by: +
+                             `appt-add p/1 sdt/10-02-2020 2000 edt/12-02-2020 2100` +
+   Expected: No appointment is added. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment add commands to try: `appt-add`, `appt-delete p/x` (where x is larger than the patient list size) +
+   Expected: Similar to previous.
+
+=== Editing an appointment
+
+. Editing an appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... Ensure all the suggested date times below don't already exist in the appointment book. If they do, try with start and end date times that don't exist in the appointment list to get the expected results.
+.. Test case: `appt-edit 1 p/5 sdt/01-01-2020 1000 edt/01-01-2020 1200` +
+   Expected: First appointment is edited in the list to fifth patient's details from the list of patients and the input start and end date times as mentioned. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-edit 1 rmon/3` +
+   Expected: First appointment is edited in the list to recur by 3 months. If the appointment was previously not recurring, it will be tagged as `recurring`. Details of the edited appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-edit 3 p/0` +
+   Expected: No appointment is edited. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment edit commands to try: `appt-edit`, `appt-edit x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting a non-recurring appointment
+
+. Deleting a non-recurring appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... xth appointment in the appointment list should be a non-recurring appointment, where x is a positive integer.
+.. Test case: `appt-delete x` +
+   Expected: xth appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect non-recurring appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting a recurring appointment
+
+. Deleting a recurring appointment while all appointments are listed
+
+.. Prerequisites:
+... List all appointments using the `appt-list` command. Multiple appointments in the list.
+... xth appointment in the appointment list should be a recurring appointment.
+.. Test case: `appt-delete x` +
+   Expected: xth appointment is deleted from the list and the next appointment from xth appointment being recurred is gotten and added to the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect recurring appointment delete commands to try: `appt-delete`, `appt-delete x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Deleting an appointment permanently
+
+. Deleting an appointment permanently while all appointments are listed
+
+.. Prerequisites: List all appointments using the `appt-list` command. Multiple appointments in the list.
+.. Test case: `appt-delete-permanent 1` +
+   Expected: First appointment is deleted from the list. Details of the deleted appointment shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `appt-delete-permanent 0` +
+   Expected: No appointment is deleted. Error details shown in the status message. Status bar remains the same.
+.. Other incorrect appointment permanent delete commands to try: `appt-delete-permanent`, `appt-delete-permanent x` (where x is larger than the appointment list size) +
+   Expected: Similar to previous.
+
+=== Changing of autocomplete suggestion list:
+
+. Changing list from object list to command list.
+
+.. Test case: Type "pat-" into empty command box +
+   Expected: The suggestion list is changed from object list to command list
+
+. Changing list from command list to prefix list.
+
+.. Test case: Type "pat-add" into empty command box +
+   Expected: The suggestion list is changed from command list to prefix list
+
+. Changing list from command list to index list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit" into empty command box +
+   Expected: The suggestion list is changed from command list to index list
+
+. Changing list from index list to prefix list.
+
+.. Prerequisite: At least 1 patient registered in application
+.. Test case: Type "pat-edit 1" into empty command box +
+   Expected: The suggestion list is changed from index list to prefix list
+
+=== Updating of current autocomplete suggestion list:
+. Updating the object list.
+
+.. Test case: Type "ap" into empty command box +
+   Expected: The suggestion list should only contain "appt-" and "app-" now
+
+=== Exporting data
+
+. Export patient data into a CSV file
+
+.. Prerequisite: There are existing patients.
+.. Test case: `app-export n/testcase1` +
+   Expected: All patient data written to `./exports/testcase1.csv`.
+
+.. Prerequisite: There are existing patients at indexes 1 and 3.
+.. Test case: `app-export n/testcase2 i/1 i/3` +
+   Expected: Data of patients at index 1 and 3 written to `./exports/testcase2.csv`.
+
+=== Importing data
+
+. Import patient data from a CSV file
+
+.. Prerequisite: `./imports/testcase3.csv` exists and contains some patient data in the correct format.
+.. Test case: `app-import-replace n/testcase3` +
+   Expected: All patient data is **replaced** with patients from `testcase3.csv`.
+
+.. Prerequisite: `./imports/testcase4.csv` exists and contains **only new** patient data in the correct format.
+.. Test case: `app-import-merge n/testcase3` +
+   Expected: All patients in `testcase4.csv` added into the app.

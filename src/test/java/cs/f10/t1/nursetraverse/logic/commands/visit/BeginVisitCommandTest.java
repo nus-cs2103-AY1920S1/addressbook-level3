@@ -2,6 +2,7 @@ package cs.f10.t1.nursetraverse.logic.commands.visit;
 
 import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
 import static cs.f10.t1.nursetraverse.logic.commands.CommandTestUtil.assertCommandFailure;
+import static cs.f10.t1.nursetraverse.testutil.TypicalAppointments.getTypicalAppointmentBook;
 import static cs.f10.t1.nursetraverse.testutil.TypicalIndexes.INDEX_FIRST_PATIENT;
 import static cs.f10.t1.nursetraverse.testutil.TypicalIndexes.INDEX_SECOND_PATIENT;
 import static cs.f10.t1.nursetraverse.testutil.TypicalPatients.getTypicalPatientBook;
@@ -30,7 +31,7 @@ import cs.f10.t1.nursetraverse.model.visit.Visit;
  */
 public class BeginVisitCommandTest {
 
-    private Model model = new ModelManager(getTypicalPatientBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalPatientBook(), new UserPrefs(), getTypicalAppointmentBook());
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
@@ -44,7 +45,8 @@ public class BeginVisitCommandTest {
     public void execute_valid_success() {
         BeginVisitCommand command = new BeginVisitCommand(INDEX_FIRST_PATIENT);
 
-        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs(),
+                                               model.getStagedAppointmentBook());
         Patient expectedPatient = expectedModel.getFilteredPatientList().get(INDEX_FIRST_PATIENT.getZeroBased());
 
         try {

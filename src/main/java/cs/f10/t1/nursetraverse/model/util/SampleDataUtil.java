@@ -6,9 +6,14 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import cs.f10.t1.nursetraverse.commons.core.index.Index;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.PatientBook;
+import cs.f10.t1.nursetraverse.model.ReadOnlyAppointmentBook;
 import cs.f10.t1.nursetraverse.model.ReadOnlyPatientBook;
+import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
+import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
 import cs.f10.t1.nursetraverse.model.patient.Address;
 import cs.f10.t1.nursetraverse.model.patient.Email;
@@ -110,6 +115,42 @@ public class SampleDataUtil {
         return resultPatientArr;
     }
 
+    public static Appointment[] getSampleAppointments() {
+        Long zero = Long.parseLong("0");
+        Long one = Long.parseLong("1");
+        Long three = Long.parseLong("3");
+        Long five = Long.parseLong("5");
+        Long seven = Long.parseLong("7");
+        Appointment[] resultAppointmentArr = new Appointment[] {
+            new Appointment(new StartDateTime("25-12-2019 1000"),
+                new EndDateTime("25-12-2019 1200"),
+                new RecurringDateTime(new Long[]{zero, zero, zero, zero, zero, zero}),
+                Index.fromOneBased(1), "Dental checkup"),
+            new Appointment(new StartDateTime("31-12-2019 1800"),
+                    new EndDateTime("31-12-2019 1900"),
+                    new RecurringDateTime(new Long[]{one, zero, zero, zero, zero, zero}),
+                    Index.fromOneBased(2), "Health checkup"),
+            new Appointment(new StartDateTime("01-12-2019 1800"),
+                    new EndDateTime("01-12-2019 1900"),
+                    new RecurringDateTime(new Long[]{zero, zero, seven, zero, zero, zero}),
+                    Index.fromOneBased(4), "Weekly physiotherapy treatment"),
+            new Appointment(new StartDateTime("08-12-2019 1645"),
+                    new EndDateTime("08-12-2019 1730"),
+                    new RecurringDateTime(new Long[]{one, zero, zero, zero, five, zero}),
+                    Index.fromOneBased(3), ""),
+            new Appointment(new StartDateTime("08-12-2019 1000"),
+                    new EndDateTime("08-12-2019 1100"),
+                    new RecurringDateTime(new Long[]{one, three, zero, zero, zero, zero}),
+                    Index.fromOneBased(3), ""),
+            new Appointment(new StartDateTime("07-12-2019 1500"),
+                    new EndDateTime("07-12-2019 1600"),
+                    new RecurringDateTime(new Long[]{zero, zero, zero, zero, zero, zero}),
+                    Index.fromOneBased(5), "")
+        };
+
+        return resultAppointmentArr;
+    }
+
     public static ReadOnlyPatientBook getSamplePatientBook() {
         PatientBook sampleAb = new PatientBook();
         for (Patient samplePatient : getSamplePatients()) {
@@ -168,5 +209,16 @@ public class SampleDataUtil {
      */
     public static List<Visit> collateVisits(Visit... visits) {
         return Arrays.stream(visits).collect(Collectors.toList());
+    }
+
+    public static ReadOnlyAppointmentBook getSampleAppointmentBook() {
+        AppointmentBook sampleAb = new AppointmentBook();
+        Patient[] samplePatients = getSamplePatients();
+        for (Appointment sampleAppointment : getSampleAppointments()) {
+            Patient samplePatient = samplePatients[sampleAppointment.getPatientIndex().getZeroBased()];
+            sampleAppointment.setPatient(samplePatient);
+            sampleAb.addAppointment(sampleAppointment);
+        }
+        return sampleAb;
     }
 }

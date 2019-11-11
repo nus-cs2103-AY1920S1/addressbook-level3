@@ -120,6 +120,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public Path getAppointmentBookFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAppointmentBookFilePath(Path appointmentBookFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPatient(Patient patient) {
             throw new AssertionError("This method should not be called.");
         }
@@ -275,7 +285,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public boolean hasClashingAppointment(Appointment appointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteAppointment(Appointment target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteRecurringAppointment(Appointment target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteAppointments(Patient target, Index targetIndex) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -286,6 +311,11 @@ public class AddCommandTest {
 
         @Override
         public void setAppointment(Appointment target, Appointment editedAppointment) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setAppointments(Patient patientToEdit, Patient editedPatient) {
             throw new AssertionError("This method should not be called.");
         }
 

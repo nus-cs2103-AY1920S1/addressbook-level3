@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 
 import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
+import cs.f10.t1.nursetraverse.model.AppointmentBook;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
 import cs.f10.t1.nursetraverse.model.PatientBook;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
+import cs.f10.t1.nursetraverse.testutil.TypicalAppointments;
 import cs.f10.t1.nursetraverse.testutil.TypicalIndexes;
 import cs.f10.t1.nursetraverse.testutil.TypicalPatients;
 
@@ -26,8 +28,9 @@ public class ExportCommandTest {
     private static final String testFilename = "test";
     private static final Optional<Set<Index>> emptyIndexSet = Optional.empty();
 
-    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs());
-    private Model emptyModel = new ModelManager(new PatientBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalPatients.getTypicalPatientBook(), new UserPrefs(),
+                                           TypicalAppointments.getTypicalAppointmentBook());
+    private Model emptyModel = new ModelManager(new PatientBook(), new UserPrefs(), new AppointmentBook());
 
     @Test
     public void execute_emptyPatientBook_failure() {

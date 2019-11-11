@@ -29,9 +29,10 @@ public class StartDateTime extends DateTime {
     }
 
     /**
-     * Returns if a given string is a valid dateTime.
+     * Returns true if a given string is a valid date time.
      */
     public static boolean isValidStartDateTime(String test) {
         return isValidDateTime(test);
     }
+
 }

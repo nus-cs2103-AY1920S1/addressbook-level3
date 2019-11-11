@@ -21,7 +21,9 @@ Format: `visit-start PATIENT_INDEX`
 * The index refers to the index number shown in the list of patients displayed by `pat-list` or `pat-find`.
 * The index *must be a positive integer* 1, 2, 3, ...
 * There can only be one ongoing visit at any point in time; if there is already an ongoing visit this command does nothing.
-* This command does not bring up the "Current Visit" tab (Feature coming in v2.0)
+* This command does not bring up the "Current Visit" tab. You will have to manually click the tab.
+* You cannot delete the patient who you are currently visiting.
+* You can update the details of the patient you are currently visiting, but changes to his/her Visit Todos will not affect the ongoing visit's Visit Tasks.
 ****
 
 Examples:
@@ -40,7 +42,7 @@ Format: `visit-now-update [d/TASK_INDEX DETAIL]… [f/TASK_INDEX]… [uf/TASK_IN
 Each argument (e.g. `d/`, `f/`, `uf/`, `r/`) triggers their own change to the visit:
 
 * `d/` Represents "detail". Each task in the visit checklist can be assigned some information if it is useful for you. For example, if task of index 1 is "Check Body Temp", you can use `d/1 37.0degc` to record that detail to that task (`TASK_INDEX` followed by a space followed by the details you want to store).
-* `f/` Represents "finish". Each task begins as unfinished and to mark a task as finished, you can use this prefix. For example, to mark task of index 1 as finished, you can use `f/1` (`TASK_INDEX of the task you want to mark as finished).
+* `f/` Represents "finish". Each task begins as unfinished and to mark a task as finished, you can use this prefix. For example, to mark task of index 1 as finished, you can use `f/1` (`TASK_INDEX` of the task you want to mark as finished).
 * `uf/` Represents "un-finish". If you have marked a task as finished prior using `f/` and you want to undo that, you can use `uf/` (e.g. for task index 1 use `uf/1`).
 * `r/` Represents "remark". You can use this to update the remarks section of the visit.
 ****
@@ -60,11 +62,11 @@ When you are on the "Current Visit" tab, you will see information of the patient
 Other notes:
 
 * If you use both `f/` and `uf/` on the same task in a single `visit-now-update` command, `uf/` will take priority (i.e. the task will be marked as unfinished).
-
 * A task does not need to be marked as finished in order to finish the visit. It is simply for your reference and to help you keep track of which tasks have / have not been finished.
+* Editing the Visit Todos of a patient while a visit is ongoing for that patient will not update the Visit Tasks of said patient. If you want to update the tasks, cancel the visit first, then start the visit again.
 ****
 
-Example:
+Example for `visit-now-update`:
 
 Assume that you have an ongoing visit and 2 tasks (task 1 is "Check Blood Pressure", task 2 is "Check for bed bugs") in your visit checklist. After you're done, you can update the application using:
 

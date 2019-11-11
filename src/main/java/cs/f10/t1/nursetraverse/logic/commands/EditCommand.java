@@ -26,6 +26,7 @@ import cs.f10.t1.nursetraverse.model.patient.Email;
 import cs.f10.t1.nursetraverse.model.patient.Name;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.model.patient.Phone;
+import cs.f10.t1.nursetraverse.model.patient.exceptions.DuplicatePatientException;
 import cs.f10.t1.nursetraverse.model.tag.Tag;
 import cs.f10.t1.nursetraverse.model.visit.Visit;
 import cs.f10.t1.nursetraverse.model.visittodo.VisitTodo;
@@ -83,12 +84,15 @@ public class EditCommand extends MutatorCommand {
         Patient patientToEdit = lastShownList.get(index.getZeroBased());
         Patient editedPatient = createEditedPatient(patientToEdit, editPatientDescriptor);
 
-        if (!patientToEdit.isSamePatient(editedPatient) && model.hasPatient(editedPatient)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PATIENT);
+        try {
+            model.setPatient(patientToEdit, editedPatient);
+        } catch (DuplicatePatientException e) {
+            throw new CommandException(MESSAGE_DUPLICATE_PATIENT, e);
         }
-
-        model.setPatient(patientToEdit, editedPatient);
         model.updateFilteredPatientList(Model.PREDICATE_SHOW_ALL_PATIENTS);
+        model.setAppointments(patientToEdit, editedPatient);
+        model.updateFilteredAppointmentList(Model.PREDICATE_SHOW_ALL_APPOINTMENTS);
+
         return new CommandResult(String.format(MESSAGE_EDIT_PATIENT_SUCCESS, editedPatient));
     }
 

@@ -1,5 +1,7 @@
 package cs.f10.t1.nursetraverse.logic.commands.appointment;
 
+import static cs.f10.t1.nursetraverse.commons.core.Messages.MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX;
+import static cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand.MESSAGE_CLASHING_APPOINTMENT;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_END_DATE_AND_TIME;
 import static cs.f10.t1.nursetraverse.logic.parser.CliSyntax.PREFIX_APPOINTMENT_START_DATE_AND_TIME;
@@ -19,7 +21,6 @@ import cs.f10.t1.nursetraverse.commons.core.Messages;
 import cs.f10.t1.nursetraverse.commons.core.index.Index;
 import cs.f10.t1.nursetraverse.commons.util.CollectionUtil;
 import cs.f10.t1.nursetraverse.logic.commands.CommandResult;
-import cs.f10.t1.nursetraverse.logic.commands.EditCommand;
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.model.Model;
@@ -27,6 +28,7 @@ import cs.f10.t1.nursetraverse.model.appointment.Appointment;
 import cs.f10.t1.nursetraverse.model.datetime.EndDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.RecurringDateTime;
 import cs.f10.t1.nursetraverse.model.datetime.StartDateTime;
+import cs.f10.t1.nursetraverse.model.patient.Patient;
 
 /**
  * Edits the details of an existing appointment in the appointment book.
@@ -58,6 +60,8 @@ public class EditAppointmentCommand extends MutatorCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_APPOINTMENT = "This appointment already exists in the "
                                                                 + "appointment book.";
+    public static final String MESSAGE_START_AFTER_END_DATE_TIME = "This appointment's start date time is after its "
+                                                                    + "end date time.";
 
     private final Index index;
     private final EditAppointmentDescriptor editAppointmentDescriptor;
@@ -86,8 +90,22 @@ public class EditAppointmentCommand extends MutatorCommand {
         Appointment appointmentToEdit = lastShownList.get(index.getZeroBased());
         Appointment editedAppointment = createEditedAppointment(appointmentToEdit, editAppointmentDescriptor);
 
+        List<Patient> fullPatientList = model.getStagedPatientList();
+        if (editedAppointment.getPatientIndex().getZeroBased() >= fullPatientList.size()) {
+            throw new CommandException(MESSAGE_INVALID_PATIENT_DISPLAYED_INDEX);
+        }
+        editedAppointment.setPatient(model.getPatientByIndex(editedAppointment.getPatientIndex()));
+
         if (!appointmentToEdit.isSameAppointment(editedAppointment) && model.hasAppointment(editedAppointment)) {
             throw new CommandException(MESSAGE_DUPLICATE_APPOINTMENT);
+        }
+        model.deleteRecurringAppointment(appointmentToEdit);
+        if (model.hasClashingAppointment(editedAppointment)) {
+            throw new CommandException(MESSAGE_CLASHING_APPOINTMENT);
+        }
+        model.addAppointment(appointmentToEdit);
+        if (editedAppointment.getStartDateTime().dateTime.isAfter(editedAppointment.getEndDateTime().dateTime)) {
+            throw new CommandException(MESSAGE_START_AFTER_END_DATE_TIME);
         }
 
         model.setAppointment(appointmentToEdit, editedAppointment);
@@ -108,7 +126,6 @@ public class EditAppointmentCommand extends MutatorCommand {
                                                                       .orElse(appointmentToEdit.getStartDateTime());
         EndDateTime updatedEndDateTime = editAppointmentDescriptor.getEndDateTime()
                                                                   .orElse(appointmentToEdit.getEndDateTime());
-
         Long[] editedAppointmentFrequency = updateFrequency(appointmentToEdit, editAppointmentDescriptor);
         RecurringDateTime updatedFrequency = new RecurringDateTime(editedAppointmentFrequency);
 
@@ -147,7 +164,7 @@ public class EditAppointmentCommand extends MutatorCommand {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditAppointmentCommand)) {
             return false;
         }
 

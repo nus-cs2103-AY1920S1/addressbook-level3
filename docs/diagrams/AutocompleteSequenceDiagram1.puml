@@ -1,0 +1,28 @@
+@startuml
+!include style.puml
+
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":AutoCompletePanelManager" as AutoCompletePanelManager UI_COLOR
+participant ":AutoCompletePanel" as AutoCompletePanel UI_COLOR
+
+[-> CommandBox : User presses UP key;
+activate CommandBox
+
+CommandBox -> CommandBox : notifyObserversKeyPressed(KeyCode.UP);
+activate CommandBox
+
+CommandBox -> AutoCompletePanelManager : update(KeyCode.UP);
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanel: select(selectedIndex)
+activate AutoCompletePanel
+
+AutoCompletePanel --> AutoCompletePanelManager
+deactivate AutoCompletePanel
+
+AutoCompletePanelManager --> CommandBox
+deactivate AutoCompletePanelManager
+return
+
+@enduml
+

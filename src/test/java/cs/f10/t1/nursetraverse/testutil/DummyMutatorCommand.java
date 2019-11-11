@@ -5,7 +5,7 @@ import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 import cs.f10.t1.nursetraverse.model.Model;
 
 /**
- * Dummy {@link MutatorCommand} for testing history functionality
+ * Dummy {@link MutatorCommand} for testing history functionality.
  */
 public class DummyMutatorCommand extends MutatorCommand {
     public static final String RESULT_PREAMBLE = "This is a dummy command with data %s";

@@ -68,6 +68,15 @@ public class CommandTestUtil {
     public static final EditCommand.EditPatientDescriptor DESC_AMY;
     public static final EditCommand.EditPatientDescriptor DESC_BOB;
 
+    public static final String DESC_ONE = "Medical checkup";
+
+    public static final String START_DATE_TIME_ONE = "10-12-2019 1700";
+    public static final String END_DATE_TIME_ONE = "10-12-2019 1800";
+
+    private static final Long zero = Long.parseLong("0");
+    private static final Long one = Long.parseLong("1");
+    public static final Long[] FREQUENCY_ONE = new Long[]{zero, one, zero, zero, zero, zero};
+
     static {
         DESC_AMY = new EditPatientDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)

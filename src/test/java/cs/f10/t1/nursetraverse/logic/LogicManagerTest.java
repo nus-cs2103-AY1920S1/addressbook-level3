@@ -20,9 +20,11 @@ import cs.f10.t1.nursetraverse.logic.commands.exceptions.CommandException;
 import cs.f10.t1.nursetraverse.logic.parser.exceptions.ParseException;
 import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.ModelManager;
+import cs.f10.t1.nursetraverse.model.ReadOnlyAppointmentBook;
 import cs.f10.t1.nursetraverse.model.ReadOnlyPatientBook;
 import cs.f10.t1.nursetraverse.model.UserPrefs;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
+import cs.f10.t1.nursetraverse.storage.JsonAppointmentBookStorage;
 import cs.f10.t1.nursetraverse.storage.JsonPatientBookStorage;
 import cs.f10.t1.nursetraverse.storage.JsonUserPrefsStorage;
 import cs.f10.t1.nursetraverse.storage.StorageManager;
@@ -44,7 +46,9 @@ public class LogicManagerTest {
         JsonPatientBookStorage patientBookStorage =
                 new JsonPatientBookStorage(temporaryFolder.resolve("patientBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(patientBookStorage, userPrefsStorage);
+        JsonAppointmentBookStorage appointmentBookStorage =
+                new JsonAppointmentBookStorage(temporaryFolder.resolve("appointmentBook.json"));
+        StorageManager storage = new StorageManager(patientBookStorage, userPrefsStorage, appointmentBookStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -73,7 +77,10 @@ public class LogicManagerTest {
                 new JsonPatientBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionPatientBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(patientBookStorage, userPrefsStorage);
+        JsonAppointmentBookStorage appointmentBookStorage =
+                new JsonAppointmentBookIoExceptionThrowingStub(temporaryFolder
+                                                               .resolve("ioExceptionAppointmentBook.json"));
+        StorageManager storage = new StorageManager(patientBookStorage, userPrefsStorage, appointmentBookStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -128,7 +135,8 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getStagedPatientBook(), new UserPrefs(),
+                                               model.getStagedAppointmentBook());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -155,6 +163,20 @@ public class LogicManagerTest {
 
         @Override
         public void savePatientBook(ReadOnlyPatientBook patientBook, Path filePath) throws IOException {
+            throw DUMMY_IO_EXCEPTION;
+        }
+    }
+
+    /**
+     * A stub class to throw an {@code IOException} when the save method is called.
+     */
+    private static class JsonAppointmentBookIoExceptionThrowingStub extends JsonAppointmentBookStorage {
+        private JsonAppointmentBookIoExceptionThrowingStub(Path filePath) {
+            super(filePath);
+        }
+
+        @Override
+        public void saveAppointmentBook(ReadOnlyAppointmentBook appointmentBook, Path filePath) throws IOException {
             throw DUMMY_IO_EXCEPTION;
         }
     }
