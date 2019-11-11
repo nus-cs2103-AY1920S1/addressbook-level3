@@ -1,6 +1,9 @@
 //@@author nattanyz
 package dream.fcard.logic.stats;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import dream.fcard.logic.storage.Schema;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
@@ -12,9 +15,6 @@ import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
 import dream.fcard.util.stats.SessionListUtil;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Contains statistics pertaining to the user's deck test sessions.
@@ -41,16 +41,6 @@ public class DeckStats extends Stats implements JsonInterface {
     /** Gets the hash map containing session lists for all decks. */
     public HashMap<String, SessionList> getDeckHashMap() {
         return this.deckHashMap;
-    }
-
-    /** Ends the current session, and sets its score. */
-    public void endCurrentSession(String score) {
-        if (this.currentSession == null) {
-            logger.info("Current test session not found!");
-            return;
-        }
-        this.currentSession.setScore(score);
-        endCurrentSession();
     }
 
     /** Sets the name of the deck under test. */
@@ -86,6 +76,16 @@ public class DeckStats extends Stats implements JsonInterface {
         logger.info("Starting a test session of deck " + currentDeck + "...");
 
         this.currentSession = new Session();
+    }
+
+    /** Ends the current session, and sets its score. */
+    public void endCurrentSession(String score) {
+        if (this.currentSession == null) {
+            logger.info("Current test session not found!");
+            return;
+        }
+        this.currentSession.setScore(score);
+        endCurrentSession();
     }
 
     @Override

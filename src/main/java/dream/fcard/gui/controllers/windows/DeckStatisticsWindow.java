@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import dream.fcard.core.commons.core.LogsCenter;
 import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
-import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.model.Deck;
 import dream.fcard.util.stats.SessionListUtil;
 import dream.fcard.util.stats.StatsDisplayUtil;

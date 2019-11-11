@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import dream.fcard.logic.stats.Session;
 import dream.fcard.logic.stats.SessionList;
 import dream.fcard.logic.stats.StatsHolder;
 import dream.fcard.logic.storage.Schema;
@@ -16,7 +15,6 @@ import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.IndexNotFoundException;
 import dream.fcard.util.DeepCopy;
 import dream.fcard.util.json.JsonInterface;
-import dream.fcard.util.json.exceptions.JsonWrongValueException;
 import dream.fcard.util.json.jsontypes.JsonArray;
 import dream.fcard.util.json.jsontypes.JsonObject;
 import dream.fcard.util.json.jsontypes.JsonValue;
@@ -37,9 +35,6 @@ public class Deck implements JsonInterface {
     /** List of FlashCards with Low priority levels. */
     private ArrayList<FlashCard> lowPriorityList;
 
-    /** List of sessions the user has engaged in involving this Deck. */
-    private SessionList testSessionList;
-
     //@@author huiminlim
     /**
      * Constructor to create a Deck with no name and cards.
@@ -51,7 +46,6 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
         highPriorityList = new ArrayList<>();
         lowPriorityList = new ArrayList<>();
-        testSessionList = new SessionList();
     }
 
     /**
@@ -65,7 +59,6 @@ public class Deck implements JsonInterface {
 
         highPriorityQueue = new ArrayList<>();
         lowPriorityQueue = new ArrayList<>();
-        testSessionList = new SessionList();
     }
 
     /**
@@ -81,7 +74,6 @@ public class Deck implements JsonInterface {
         lowPriorityQueue = new ArrayList<>();
 
         addCardsToQueues(initialCards);
-        testSessionList = new SessionList();
     }
 
     /**

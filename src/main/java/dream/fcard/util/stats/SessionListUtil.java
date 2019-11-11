@@ -58,15 +58,6 @@ public class SessionListUtil {
     }
 
     /**
-     * Rounds a given score, as a double, to 2 decimal places and returns it as a double.
-     */
-    public static double roundToTwoDecimalPlaces(double scoreAsDouble) {
-        DecimalFormat decimalFormat = new DecimalFormat("#.##"); // rounds to 2 d.p.
-        String percentage = decimalFormat.format(scoreAsDouble);
-        return Double.parseDouble(percentage);
-    }
-
-    /**
      * Given a Session, return a double representing the percentage of correct answers.
      * Assumes that the Session provided has a score.
      * @param session The Session whose score to get.
@@ -75,6 +66,15 @@ public class SessionListUtil {
     public static double getScoreAsPercentageDouble(Session session) {
         String score = session.getScore();
         return SessionListUtil.getScoreAsPercentageDouble(score);
+    }
+
+    /**
+     * Rounds a given score, as a double, to 2 decimal places and returns it as a double.
+     */
+    public static double roundToTwoDecimalPlaces(double scoreAsDouble) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.##"); // rounds to 2 d.p.
+        String percentage = decimalFormat.format(scoreAsDouble);
+        return Double.parseDouble(percentage);
     }
 
     /**
