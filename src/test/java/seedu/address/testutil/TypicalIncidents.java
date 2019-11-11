@@ -152,6 +152,14 @@ public class TypicalIncidents {
         return ab;
     }
 
+    /**
+     * Returns an {@code IncidentManager} with no incidents present.
+     */
+    public static IncidentManager getEmptyIncidentManager() {
+        IncidentManager ab = new IncidentManager();
+        return ab;
+    }
+
     private static List<Incident> getTypicalIncidents() {
         return new ArrayList<>(Arrays.asList(firstIncident, firstIncidentCopy, secondIncident, thirdIncident,
                 fourthIncident, fifthIncident, sixthIncident, seventhIncident));

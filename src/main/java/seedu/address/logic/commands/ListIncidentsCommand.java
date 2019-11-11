@@ -47,6 +47,7 @@ public class ListIncidentsCommand extends Command {
         } else if (this.predicate.equals(PREDICATE_SHOW_INCIDENT_LISTING_ERROR)) {
             resultMessage = Messages.MESSAGE_IRRELEVANT_PREFIXES;
         } else {
+            // this should never be reached
             resultMessage = Messages.MESSAGE_INVALID_COMMAND_FORMAT;
         }
 
