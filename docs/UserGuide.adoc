@@ -956,7 +956,7 @@ Tags: [cs2100midterm]
 === To edit a Cheatsheet: `edit`
 
 Oh no! It appears that you might have accidentally misspelled something during creating a cheatsheet.
-Fret not, instead of deleting the cheatsheet and adding another one, edit allows you to edit a cheatsheet's title, tag, content by a specified <CHEATSHEET_INDEX>. At least one of the optional fields must be specified to edit.
+Fret not, edit allows you to edit a cheatsheet's title or remove tag or content by a specified <CHEATSHEET_INDEX>. At least one of the optional fields must be specified to edit.
 
     Format: edit (index) [t/TITLE] [tag/TAG]...
 
