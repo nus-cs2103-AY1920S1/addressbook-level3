@@ -36,7 +36,7 @@ Role: Developer +
 '''
 
 === Fabian Chia
-image::fabbbbbbyy.png[width="150", align="left"]
+image::fabbbbbbyy.jpg[width="150", align="left"]
 {empty}[http://github.com/fabbbbbbyy[github]]
 
 Role: Developer +
