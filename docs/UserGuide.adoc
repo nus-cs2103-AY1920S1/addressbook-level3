@@ -73,6 +73,7 @@ An example would be when creating a new Budget, the category that the budget was
 If the default set of categories does not cover your needs, you can add more by calling addCategory.
 
 Adds a new Category for either Income or Expense. The category added must not currently exist in the application.
+Category names are case-insensitive.
 
 Format: `addCategory cat/<category type> n/<category name>`
 
@@ -147,6 +148,7 @@ image::deletingCategory-1.png[]
 image::deletingCategory-2.png[]
 
 Other Examples:
+
 * `deleteCategory cat/Income n/Business`
 * `deleteCategory cat/Expense n/Food`
 
@@ -158,10 +160,10 @@ Adds a new expenditure to your total spending.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
 in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `addExpense cat/<category> n/<description> a/<expenditure> d/<date> [t/<tag>]`
+Format: `addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]`
 
-* `<category name>`: The `category` that the entry belongs to.
-* `<description>`: The name of this entry.
+* `<category name>`: The `category` that the expense belongs to.
+* `<description>`: The name of this expense.
 * `<expenditure>`: The amount spent for this expense. It can contain at most 2 decimal points.
 * `<date>`: The date of this expense.
 * `<tag>`: Optional tags for this expense. The tag must not have spaces and most only be alphanumeric.
@@ -178,8 +180,8 @@ image::addingExpense-2.png[]
 
 Other examples:
 
-* `add c/Gifts typ/Expense n/Rubber Duck for Yee Jian a/55 d/2019 11 09 t/sanity check`
-* `add c/Travel typ/Expense n/Travel To Alaska a/550000 d/2019 09 09`
+* `addExpense c/Gifts typ/Expense n/Rubber Duck for Yee Jian a/55 d/2019 11 09 tg/sanity check`
+* `addExpense c/Travel typ/Expense n/Travel To Alaska a/550000 d/2019 09 09`
 
 ==== Adding Income : `addIncome`
 Adds a new Income to your total income.
@@ -200,14 +202,14 @@ Example Usage:
 
 Other examples:
 
-* `add c/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 t/food`
+* `add c/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 tg/food`
 * `add c/Business typ/Income n/business Trip To Mars a/20000.00 d/2019 09 09`
 
 ==== Editing a Expense: `editExpense`
 
 Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
 
-Format: `edit <index> [c/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [t/<tag>]`
+Format: `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [tg/<tag>]`
 
 * `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
 * You can update any of the fields of the entry. But you must at least edit one field.
@@ -226,9 +228,9 @@ image::editingExpense-2.png[]
 
 Other Examples:
 
-* `edit 1 c/Food n/deck mala with friends`
-* `edit 3 c/Business n/Selling Coding Services a/0.01`
-* `edit 5 t/helpmykidneys`
+* `editExpense 1 cat/Food n/deck mala with friends`
+* `editExpense 3 cat/Business n/Selling Coding Services a/0.01`
+* `editExpense 5 tg/helpmykidneys`
 
 ==== Deleting a Expense: `deleteExpense`
 
@@ -237,13 +239,12 @@ Deletes the recorded expenditure with the given index number.
 Format: `deleteExpense <index>`
 
 * `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
-* You can update any of the fields of the entry. But you must at least edit one field.
 
 Example Usage:
 
 [start = 1]
-. If you would like to delete an expense, whereby the expense is located at index 2 as shown below,
-key in the command  `deleteExpense 2`.
+. If you would like to delete an expense, whereby the expense is located at index 6 as shown below,
+key in the command  `deleteExpense 6`.
 +
 image::deleteExpense-1.png[]
 
@@ -386,7 +387,7 @@ screen will reset the Table to show the month of statistics that reflects the co
 
 Format: `viewTable [p/<RangeOfMonths>]`
 
-* `<RangeOfMonths>`: The dates that you would like to display the statistics by. If you are interested in a range of months, you have to make sure that the *startMonth* and *endMonth* is separated by a comma, `,`.
+* `<RangeOfMonths>`: The dates that you would like to display the statistics by. If you are interested in a range of months, you have to make sure that the *startMonth* and *endMonth* is separated by a comma, `,`. If you're only interested in one month, specify the month in the format `yyyy/MM`
 
 Example Usage:
 
@@ -421,9 +422,13 @@ Example Usage:
 +
 image::ViewPie-1.png[]
 
-. GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
+. GuiltTrip will display to you the statistics for this period of time broken down in pie chart form as shown below.
 +
 image::viewPie-2.png[]
+
+[NOTE]
+If the data category percentage is too small, it could be rounded off to 0.0% and
+there is a likelihood that it'll be hard to see the portion of that category in the pie chart.
 
 Other Examples:
 
