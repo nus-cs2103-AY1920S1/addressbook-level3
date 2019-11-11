@@ -1,4 +1,4 @@
-= <Wong Shun Min> - Project Portfolio
+= Wong Shun Min - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
