@@ -205,7 +205,7 @@ If it is not the last merge, `MergeCommand#removeFirstDifferentField` is called.
 
 This is repeated until all merges have been prompted.
 
-image::MergeActivityDiagram.png[]
+image::MergeActivityDiagram.png[width=200]
 
 ==== Design Considerations
 
@@ -914,8 +914,6 @@ _{ more test cases ... }_
 .. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
-
 === Deleting a policy
 
 . Deleting a policy while all policies are listed
@@ -947,6 +945,81 @@ size) +
 
 .. Other incorrect `assignpolicy` commands to try: `assignpolicy`, `assignpolicy 1`, `assignpolicy pol/Test Policy`. Also
 entering a policy already assigned/not present in the list of policies will raise an error.
+
+=== Merging a duplicate profile
+
+. Merging a duplicate profile.
+
+.. Prerequisites: The new profile being added has to have the same NRIC as a existing profile. The details of the new profile has to be valid.
+
+.. Test case: No Different Fields between input profile and original profile
+... Command to add a person to the list: `add n/Johnathan Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male`
+... Command to create the duplicate profile with no different field: `add n/Johnathan Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male` +
+    Expected: An error message will be shown, telling the user that the profile already exists.
+
+.. Test case: Rejecting a merge
+... Command to add a person to the list: `add n/Amber Tan ic/T0123456A p/91234567 a/Ang Mo Kio Ave 6 e/amber@gmail.com dob/3.2.1990 g/Female`
+... Command to create the duplicate profile: `add n/Amber Tan ic/T0123456A p/97654321 a/Ang Mo Kio Ave 6 e/ambertan@gmail.com dob/3.2.1990 g/Female` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the phone number of the profile.
+... Type `no` +
+    Expected: Message that the profile is not updated will be displayed, followed by the details of the original person.
+
+.. Test case: 2 Different Fields between input profile and original profile
+... Command to add a person to the list (skip if person has already been added previously): `add n/Amber Tan ic/T0123456A p/91234567 a/Ang Mo Kio Ave 6 e/amber@gmail.com dob/3.2.1990 g/Female`
+... Command to create the duplicate profile: `add n/Amber Tan ic/T0123456A p/97654321 a/Ang Mo Kio Ave 6 e/ambertan@gmail.com dob/3.2.1990 g/Female` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the profile.
+... Press enter or type `yes` +
+    Expected: A prompt to edit the phone number of the profile will be shown.
+... Press enter or type `yes` +
+    Expected: Phone number will be updated and a success message for updating the phone number will be shown, followed by a prompt to edit the email address of the person.
+... Type `no' +
+    Expected: Email address will *not* be updated and a success message for updating the profile will be shown.
+
+.. Test case: Stopping a merge midway
+... Command to add a person to the list: `add n/Andrea Chan ic/T9876543A p/92345678 a/Jurong Street 6 Blk 20 #03-88 e/andrea@yahoo.com dob/20.12.2000 g/Female`
+... Command to create the duplicate profile: `add n/Bernice Chan ic/T9876543A p/92345678 a/Orchard Road e/andrea@yahoo.com dob/20.12.2000 g/Female` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the profile.
+... Press enter or type `yes` +
+    Expected: A prompt to update the name of the person will be shown.
+... Press enter or type `yes` +
+    Expected: Name will be updated and a success message for updating the name will be shown, followed by a prompt to edit the address of the person.
+... Type `stop`
+    Expected: Message that the merge has been stopped will be shown, followed by the updated details of the person.
+
+.. Test case: Invalid commands
+... Command to add a person to the list (skip if person has already been added previously): `add n/Johnathan Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male`
+... Command to invoke merge: `add n/John Po ic/T6543210A p/98765432 a/Tampines Street 12 e/johnathanpo@gmail.com dob/18.8.1886 g/Male` +
+    Expected: Details of the original person in the list and the input person are shown, followed by a prompt to edit the profile.
+... Press enter or type `yes` +
+    Expected: A prompt to update the name of the person will be shown.
+... Type any other command word or random word e.g. `listpeople`, `history` +
+    Expected: Error message that the command is not recognised will be shown and the prompt will be shown again.
+
+=== Getting contact details for invalid NRICS, phone numbers and emails
+. Adding invalid contact details or NRICS
+
+.. Test case: Invalid NRIC and valid phone and email
+... `add n/Ivan Ang ic/T7134A p/91827364 a/Tampines Street 12 e/ivan@gmail.com dob/18.8.1886 g/Male` +
+    Expected: Error message indicating an invalid NRIC and returns the phone number and email address of the person. The person is not added.
+
+.. Test case: Invalid phone and valid NRIC and email
+... `add n/Ivan Ang ic/S9182734B p/9182 a/Tampines Street 12 e/ivan@gmail.com dob/18.8.1886 g/Male` +
+    Expected: Error message indicating an invalid phone number and returns the email address of the person. The person will not be added.
+
+.. Other invalid commands: any combination of invalid details (NRIC, phone number and email) +
+   Expected: similar to above. If none are valid, no contact details will be returned.
+
+=== Getting suggestion for invalid commands
+. Suggestions for invalid command words
+
+.. Prerequisites: Suggestions are turned on (can be turned on by entering `suggestion ON/`)
+.. Test case: Invalid NRIC and valid phone and email
+... `dlete 2` +
+    Expected: Message to indicate an invalid command word and automatically updates the command word to a suggested one. +
+    In this case, `delete 2`
+
+.. Other commands to try: `adpoicy n/Health Insurance d/Insurance for healthcare. This policy has been available since 2012. c/years/13 pr/$60000 sa/18 ea/75`,
+`lstpol`
 
 === Saving data
 
