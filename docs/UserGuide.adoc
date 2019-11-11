@@ -54,7 +54,7 @@ When you enter a command, TagLine will display autocomplete suggestions as you t
 
 To illustrate, let's suppose you are trying to create a new contact. However, you only remember that the first keyword is `contact`! With the autocomplete feature, it is easy to find the correct command. Try following the following steps:
 
-. Type `contact` into the command box, followed by a space. A list of suggestions will pop up under the command bar.
+. Type `contact` into the command box. A list of suggestions will pop up under the command bar.
 +
 image::ug_autocomplete1.png[width="790"]
 

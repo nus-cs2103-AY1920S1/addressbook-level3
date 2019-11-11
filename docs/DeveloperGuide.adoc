@@ -1113,4 +1113,3 @@ The autocomplete menu will only pop up *after* the user types in the command box
    *Expected*: Group _ao3_ is deleted and all groups remaining groups (if any) are being displayed, contact of contactID 1 still exists in Addressbook. Status message indicates "Success! now showing all groups.".
 .. *Test case*: `group delete archive of our own` +
    *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
-

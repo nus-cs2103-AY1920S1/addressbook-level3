@@ -13,7 +13,7 @@ We chose to expand the application into a note management application with conta
 
 Below is a screenshot of our project:
 
-image:ui_notes.png[]
+image:tagline_screenshot.png[]
 
 My role was to design the UI and write Java code, FXML and CSS for it. The following sections illustrate some more specific enhancements I have made to the UI, as well as some relevant documentation in the user and developer guides related to these enhancements.
 
