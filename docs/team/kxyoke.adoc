@@ -2,11 +2,11 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+//:toc:
+//:toclevels: 1
 
 == PROJECT: Mark
 :sectnums:
-:toc:
-:toclevels: 2
 
 == Overview
 
@@ -46,13 +46,13 @@ the completed annotation feature works well and is aesthetically pleasing on the
 * Credits: I used the https://jsoup.org/[JSoup library] to extract the paragraph contents of the web pages. Colours of the highlight are provided by the javafx css extension.
 
 === Major enhancement: Added the web browsing feature
-I added the ability to browse web pages on the application. Users can navigate the web using the embedded web view and the address bar.
+I added the ability to browse web pages on the application.
 
 * Justification: Users no longer need to open a separate web browser window to view their bookmarks, which improves navigability within the application.
 
 * Highlights: This enhancement allows users to browse directly on the application and more conveniently bookmark the tab they are viewing on Mark.
 
-* Credits: I took inspiration from the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AB-4], which was not navigable as a user would expect of a browser.
+* Credits: I referred to the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AB-4], which was lacking a navigation bar.
 
 === Minor enhancement: Added tab view
 I created tabs and added the ability to switch views from tab to tab.
