@@ -10,8 +10,8 @@ import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITY_A;
 import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITY_B;
 import static seedu.planner.testutil.contact.TypicalContacts.ALICE;
 import static seedu.planner.testutil.contact.TypicalContacts.CARL;
-import static seedu.planner.testutil.day.TypicalActivityWithTime.ACTIVITYWITHTIME_A;
-import static seedu.planner.testutil.day.TypicalActivityWithTime.ACTIVITYWITHTIME_B;
+import static seedu.planner.testutil.day.TypicalActivityWithTime.ACTIVITY_WITH_TIME_A1;
+import static seedu.planner.testutil.day.TypicalActivityWithTime.ACTIVITY_WITH_TIME_B1;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ public class ResultInformationTest {
         ResultInformation resultInformationContact = new ResultInformation(ALICE, INDEX_FIRST);
         ResultInformation resultInformationActivity = new ResultInformation(ACTIVITY_A, INDEX_FIRST);
         ResultInformation resultInformationAccommodation = new ResultInformation(BENSON, INDEX_FIRST);
-        ResultInformation resultInformationActivityWithTime = new ResultInformation(ACTIVITYWITHTIME_A, INDEX_FIRST);
+        ResultInformation resultInformationActivityWithTime = new ResultInformation(ACTIVITY_WITH_TIME_A1, INDEX_FIRST);
         ResultInformation resultInformationContactWithDescription = new ResultInformation(CARL,
                 INDEX_FIRST, description);
 
@@ -32,14 +32,14 @@ public class ResultInformationTest {
         assertTrue(resultInformationContact.getContact().get().equals(ALICE));
         assertTrue(resultInformationActivity.getActivity().get().equals(ACTIVITY_A));
         assertTrue(resultInformationAccommodation.getAccommodation().get().equals(BENSON));
-        assertTrue(resultInformationActivityWithTime.getActivityWithTime().get().equals(ACTIVITYWITHTIME_A));
+        assertTrue(resultInformationActivityWithTime.getActivityWithTime().get().equals(ACTIVITY_WITH_TIME_A1));
         assertTrue(resultInformationContactWithDescription.getDescription().get().equals(description));
         assertTrue(resultInformationActivity.getIndex().equals(INDEX_FIRST));
 
         assertFalse(resultInformationContact.getContact().get().equals(CARL));
         assertFalse(resultInformationActivity.getActivity().get().equals(ACTIVITY_B));
         assertFalse(resultInformationAccommodation.getAccommodation().get().equals(DANIEL));
-        assertFalse(resultInformationActivityWithTime.getActivityWithTime().get().equals(ACTIVITYWITHTIME_B));
+        assertFalse(resultInformationActivityWithTime.getActivityWithTime().get().equals(ACTIVITY_WITH_TIME_B1));
         assertFalse(resultInformationContactWithDescription.getDescription().get().equals("wrong"));
         assertFalse(resultInformationActivity.getIndex().equals(INDEX_SECOND));
     }
@@ -49,7 +49,7 @@ public class ResultInformationTest {
         ResultInformation resultInformationContact = new ResultInformation(ALICE, INDEX_FIRST);
         ResultInformation resultInformationActivity = new ResultInformation(ACTIVITY_A, INDEX_FIRST);
         ResultInformation resultInformationAccommodation = new ResultInformation(BENSON, INDEX_FIRST);
-        ResultInformation resultInformationActivityWithTime = new ResultInformation(ACTIVITYWITHTIME_A, INDEX_FIRST);
+        ResultInformation resultInformationActivityWithTime = new ResultInformation(ACTIVITY_WITH_TIME_A1, INDEX_FIRST);
 
         ResultInformation resultInformationContactWithDescription = new ResultInformation(CARL,
                 INDEX_FIRST, "description");
@@ -62,7 +62,7 @@ public class ResultInformationTest {
         assertTrue(resultInformationContact.equals(new ResultInformation(ALICE, INDEX_FIRST)));
         assertTrue(resultInformationActivity.equals(new ResultInformation(ACTIVITY_A, INDEX_FIRST)));
         assertTrue(resultInformationAccommodation.equals(new ResultInformation(BENSON, INDEX_FIRST)));
-        assertTrue(resultInformationActivityWithTime.equals(new ResultInformation(ACTIVITYWITHTIME_A, INDEX_FIRST)));
+        assertTrue(resultInformationActivityWithTime.equals(new ResultInformation(ACTIVITY_WITH_TIME_A1, INDEX_FIRST)));
         assertTrue(resultInformationContactWithDescription.equals(new ResultInformation(CARL,
                 INDEX_FIRST, "description")));
         assertTrue(resultInformationActivityWithDescription.equals(new ResultInformation(ACTIVITY_B,
@@ -89,7 +89,8 @@ public class ResultInformationTest {
         assertFalse(resultInformationAccommodation.equals(new ResultInformation(DANIEL, INDEX_FIRST)));
 
         // different ActivityWithTime value -> returns false
-        assertFalse(resultInformationActivityWithTime.equals(new ResultInformation(ACTIVITYWITHTIME_B, INDEX_FIRST)));
+        assertFalse(resultInformationActivityWithTime.equals(
+                new ResultInformation(ACTIVITY_WITH_TIME_B1, INDEX_FIRST)));
 
         // different description value -> returns false
         assertFalse(resultInformationContactWithDescription.equals(new ResultInformation(CARL,

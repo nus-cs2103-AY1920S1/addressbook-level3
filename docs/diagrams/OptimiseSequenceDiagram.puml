@@ -60,6 +60,12 @@ activate OptimiseCommand
 OptimiseCommand --> OptimiseCommand
 deactivate OptimiseCommand
 
+OptimiseCommand -> ModelManager : setDay(oldDay, newDay)
+activate ModelManager
+
+ModelManager --> OptimiseCommand
+deactivate ModelManager
+
 create CommandResult
 OptimiseCommand -> CommandResult
 activate CommandResult
