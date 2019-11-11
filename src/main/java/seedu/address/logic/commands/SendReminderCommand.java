@@ -23,7 +23,7 @@ public class SendReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "sendReminder";
 
-    public static final String MESSAGE_SUCCESS = "Reminders has been sent!";
+    public static final String MESSAGE_SUCCESS = "Reminders have been sent!";
 
     public static final String MESSAGE_SIGN_IN = "Please sign in using your email account before sending Reminder";
 

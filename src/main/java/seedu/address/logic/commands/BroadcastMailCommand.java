@@ -23,7 +23,7 @@ public class BroadcastMailCommand extends Command {
 
     public static final String COMMAND_WORD = "broadcastMail";
 
-    public static final String MESSAGE_SUCCESS = "Mails has been sent successfully";
+    public static final String MESSAGE_SUCCESS = "Mails have been sent successfully";
 
     public static final String MESSAGE_SIGN_IN = "Please sign in using your email account before sending Email";
 

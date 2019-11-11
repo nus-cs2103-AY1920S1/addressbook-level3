@@ -265,7 +265,7 @@ Whenever you add a time with the prefix c/, the format should be dd/MM/yyyy HHmm
 Adds a new project meeting to the current working project.  +
 Format: `Format: addProjectMeeting [c/ dd/MM/yyyy HHmm] [s/MEETING_DESCRIPTION]`
 
-`dd/MM/yyyy HHmm` refers to the date and time the meeting is to be held.
+`dd/MM/yyyy HHmm` refers to the date and time the meeting is to be held. +
 `MEETING_DESCRIPTION` refers to the purpose of the meeting.
 
 Example: +
@@ -550,7 +550,7 @@ Example:
 * `sendMail r/example@gmail.com su/Test me/HelloWorld!`
 
 [NOTE]
-We will not check the correctness of the member's email address
+We will not check the correctness of the person's email address
 
 ==== Broadcast an email: `broadcastMail` [Checkout]
 
@@ -560,9 +560,6 @@ Format: `broadcastMail su/SUBJECT me/MESSAGE_BODY`
 `SUBJECT` refers to the email header. +
 `MESSAGE_BODY` refers to the email body.
 
-[NOTE]
-We will not check the correctness of the members' email address
-
 Example:
 Let's say that a new task has just been added and you want to inform your group members of the new task. Instead of switching to another
 application to inform your group members, you can simply use the `broadcastMail` command to inform everyone in the group.
@@ -570,24 +567,24 @@ application to inform your group members, you can simply use the `broadcastMail`
 To broadcast Email:
 
 1. Type `broadcastMail su/New Task Added me/Finalise UG and DG before 17th November` and press enter to execute it.
-Note that the `SUBJECT` will be sent as the email header and the `MESSAGE_BODY` will be send as the email body.
+Note that the `SUBJECT` will be sent as the email header and the `MESSAGE_BODY` will be sent as the email body.
 image:broadcastMail1.png[]
 
-2. A success message will be displayed in the box saying "Reminders has been sent!"
+2. A success message will be displayed in the box saying "Mail have been sent successfully!"
 image:broadcastMail2.png[]
 
 3. Members will receive the email that looks like the following:
 image:broadcastMail3.png[]
 
+[NOTE]
+We will not check the correctness of the members' email addresses
+
 ==== Send reminder: `sendReminder` [Checkout]
 
 Sends a reminder to all members from the current working project of the upcoming Meeting and Task that is due. +
-Format: `sendReminder`d/DURATION
+Format: `sendReminder d/DURATION`
 
 `DURATION` is the number of days from the current time within which the Tasks are due and The Meetings are held.
-
-[NOTE]
-We will not check the correctness of the members' email address
 
 Example: +
 Let's say that you have several meetings and task for the coming week, and you want to remind your group of the upcoming meetings
@@ -602,11 +599,14 @@ To send reminder:
 only meeting meetings 2-4 and task 1-3 will be sent as reminders to the members.
 image:sendReminder1.png[]
 
-2. A success message will be displayed in the box saying "Reminders has been sent!"
+2. A success message will be displayed in the box saying "Reminders have been sent!"
 image:sendReminder2.png[]
 
 3. Members will receive an email with the tasks due and meetings happening within the next 7 days.
 image:sendReminder3.png[]
+
+[NOTE]
+We will not check the correctness of the members' email addresses
 
 // end::email[]
 
