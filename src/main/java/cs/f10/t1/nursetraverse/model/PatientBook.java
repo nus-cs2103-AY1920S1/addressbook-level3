@@ -148,7 +148,7 @@ public class PatientBook implements ReadOnlyPatientBook {
         try {
             return new JsonSerializablePatientBook(this).toModelType();
         } catch (IllegalValueException e) {
-            throw new CopyError("Error copying PatientBook");
+            throw new CopyError("Error copying PatientBook", e);
         }
     }
 

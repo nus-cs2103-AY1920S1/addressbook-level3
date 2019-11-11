@@ -2,7 +2,7 @@
 
 package cs.f10.t1.nursetraverse.model;
 
-import static java.util.Objects.requireNonNull;
+import static cs.f10.t1.nursetraverse.commons.util.CollectionUtil.requireAllNonNull;
 
 import cs.f10.t1.nursetraverse.logic.commands.MutatorCommand;
 
@@ -25,9 +25,7 @@ public class HistoryRecord {
      * @param appointmentBook the state before the execution of the command
      */
     public HistoryRecord(MutatorCommand command, PatientBook patientBook, AppointmentBook appointmentBook) {
-        requireNonNull(command);
-        requireNonNull(patientBook);
-        requireNonNull(appointmentBook);
+        requireAllNonNull(command, patientBook, appointmentBook);
         this.command = command;
         this.patientBook = patientBook.deepCopy();
         this.appointmentBook = appointmentBook.deepCopy();
