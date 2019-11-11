@@ -37,7 +37,7 @@ TIP: A tip or suggestion
 
 CAUTION: A cautionary word of advice
 
-== Quick Start
+== Quick start
 
 .  Ensure you have Java 11 or above installed in your Computer.
 .  Download the latest build KeyboardFlashCards.jar link:https://github.com/AY1920S1-CS2103T-T12-4/main/releases[here].
@@ -360,13 +360,14 @@ NOTE: Using the `remove` command to remove a "ToDo: Bad Questions" Deadline does
 === Test mode: `start`
 
 
-==== Start command: `start category`
-This command starts the flashcard test mode. If no parameter is supplied, the application will test all
-available FlashCards.
+
+==== Start command: `start [CATEGORY]`
+This command starts the `FlashCard` test mode. If no parameter is supplied, the application will test all
+available `FlashCards`.
 
 image::StartEmptyParam.png[width="600"]
 
-If tag(s) are entered, this command starts the FlashCard test from any specific category. Only relevant FlashCards from the tag(s) will
+If tag(s) are entered, this command starts the `FlashCard` test from any specific category. Only relevant `FlashCards` from the tag(s) will
 be tested.
 
 image::StartWithTagParam.png[width="600"]
@@ -375,18 +376,18 @@ After starting the test, you should see the first question.
 
 image::StartResults.png[width="600"]
 
-==== See flashcard answer: `ans`
-This command allows you to check the answer of the flashcard question.
+==== See FlashCard answer: `ans`
+This command allows you to check the answer of the `FlashCard` question.
 
 image::ShowAnswerCommand.png[width="600"]
 
-After entering the `ans` command, you will see the answer to that FlashCard.
+After entering the `ans` command, you will see the answer to that `FlashCard`.
 
 image::ShowAnswerResults.png[width="600"]
 
-==== Rate flashcard: `rate [easy/good/hard]`
-After seeing the answer, you can enter this command which rates the flashcard,
-depending on how well you answered the question i.e. easy, good, hard.
+==== Rate FlashCard: `rate RATING`
+After seeing the answer, you can enter this command which rates the `FlashCard`,
+depending on how well you answered the question i.e. `easy`, `good`, `hard`.
 
 image::RateCommand.png[width="600"]
 
@@ -395,7 +396,7 @@ At the same time, the next question will be displayed if available.
 image::RateResults.png[width="600"]
 
 ==== Skip question: `skip`
-If you would like to manually filter and skip questions, the `skip` command helps you to skip FlashCards,
+If you would like to manually filter and skip questions, the `skip` command helps you to skip `FlashCards`,
 saving you extra time.
 
 image::SkipCommand.png[width="600"]
@@ -410,7 +411,7 @@ You can stop the test any time simply by typing `end`.
 image::EndCommand.png[width="600"]
 
 By exiting the test mode, normal commands such as `listall` and `add` are re-enabled.
-The entire list of FlashCards in the system will be displayed again.
+The list of `FlashCards` in the system will be displayed again.
 
 image::EndResults.png[width="600"]
 
@@ -418,7 +419,7 @@ image::EndResults.png[width="600"]
 
 // tag::flashcardexport[]
 
-=== Export flashcards to a file: `export c>CATEGORY p>FILE_PATH`
+=== Export FlashCards to a file: `export c>CATEGORY p>FILE_PATH`
 
 You can use this command to export all your FlashCards in a particular category, to an external file.
 This may be useful if you wish to publish your FlashCards somewhere, print them out, or share them with a friend.
@@ -465,7 +466,7 @@ Please take care not to modify exported JSON files - your friends might have tro
 
 
 
-=== Import flashcards from a JSON file: `import p>FILE_PATH`
+=== Import FlashCards from a JSON file: `import p>FILE_PATH`
 
 You can use this command to import FlashCards from a file that you or someone else had exported to earlier.
 We currently only support importing from JSON ('.json') files. +
@@ -614,10 +615,11 @@ To exit:
 
 
 
-== Command Summary
+== Command summary
 
 * Add new `FlashCard` - `add q>QUESTION a>ANSWER [c>CATEGORY]…​` +
 e.g. `add q>1+1 a>2`
+* Show answer during test mode - `ans`
 * Set a `FlashCard` as bad - `bad INDEX` +
 e.g.  `bad 2`
 * Show Calendar of all `Deadline`(s) - `calendar`
@@ -638,6 +640,8 @@ e.g.  `import p>C:\Users\User\Documents\flashcards.json`
 e.g.  `list Math`
 * List all `FlashCard`(s) - `listall`
 * List all "Bad" `FlashCard`(s) - `listbad`
+* Rate `FlashCard` during test mode - `rate RATING`
+e.g. `rate easy`
 * Remove `Deadline` from list - `remove INDEX` +
 e.g.  `remove 2`
 * Remove a "Bad" rated `FlashCard` from list - `removebad INDEX` +
@@ -646,6 +650,7 @@ e.g.  `removebad 2`
 ** `search KEYWORD(S)`  e.g `search c`
 ** `searchans KEYWORD(S)`  e.g `searchans name`
 ** `searchqn KEYWORD(S)`  e.g `searchqn pointer`
+* Skip `FlashCard` during test mode - `skip`
 * Start a certain topic of `FlashCard`(s) - `start CATEGORY` +
 e.g.  `start Mathematics`
 * View overall statistics - `stats`

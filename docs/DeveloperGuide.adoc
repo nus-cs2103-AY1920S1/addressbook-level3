@@ -85,7 +85,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width = "600"]
+image::LogicClassDiagram.png[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -93,7 +93,7 @@ image::LogicClassDiagram.png[width = "600"]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[width = "600"]
+image::ArchitectureSequenceDiagram.png[width=600]
 
 The sections below give more details of each component.
 
@@ -105,7 +105,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiClassDiagram.png[width = "600"]
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -125,7 +125,7 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[width = "600"]
+image::LogicClassDiagram.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -139,7 +139,7 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[width = "600"]
+image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
@@ -147,7 +147,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[width = "600"]
+image::ModelClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -161,13 +161,13 @@ The `Model`,
 [NOTE]
 As a more OOP model, we can store a `Category` list in `KeyboardFlashCards`, which `FlashCard` can reference. This would allow `KeyboardFlashCards` to only require one `Category` object per unique `Category`, instead of each `Flashcard` needing their own `Category` object. An example of how such a model may look like is given below. +
  +
-image:BetterModelClassDiagram.png[width = "300"]
+image:BetterModelClassDiagram.png[width=600]
 
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[width = "600"]
+image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -204,7 +204,7 @@ The user executes `add q>1+1 a>2 c>math` to add new flashcard.
 
 The following sequence diagram shows how the add operation works:
 
-image::AddSequenceDiagram.png[width="600"]
+image::AddSequenceDiagram.png[]
 
 
 The add feature does not allow adding of duplicate FlashCards.
@@ -345,7 +345,7 @@ Given below is an example usage scenario of `bad INDEX` :
 
 The user executes `bad 2` to rate the second `FlashCard` in the list as "Bad".
 
-==== Design Considerations
+==== Design considerations
 ===== Aspect: How to store "Bad" FlashCard in storage
 
 * **Alternative 1(current choice):** Use a `HashMap` with the specified date as the key. Store `FlashCard` as an
@@ -470,32 +470,64 @@ NOTE: **Alternative 2** was preferred as it provides users with an experience cl
 Test mode allows users to start a flash card test from a selected list of tags. If no parameters are provided, all
 flashcards contained in the system will be tested.
 
+The following activity diagram shows the typical scenario of a `FlashCard` test. Note that special commands such as
+`skip` and `end` are omitted for brevity.
+
+image::TestModeActivityDiagram.png[width="600"]
+
 ==== Implementation
 This feature is supported by the following classes:
 
-* `KeyboardFlashCardsParser` to control the flow of command in the entire program.
-* `StartCommandParser` to parse arguments for StartCommand.
-* `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode.
-* `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags.
+* `KeyboardFlashCardsParser` to control the flow of command in the entire program
+* `StartCommandParser` to parse arguments for StartCommand
+* `ModelManager` which stores `FlashCardTestModel`, an aggregation of `FlashCards`, to be used for test mode
+* `CategoryContainsAnyKeywordsPredicate` to search and generate a list of `FlashCards` with relevant tags
+* `StartCommand` to set the application to test mode, starting the `FlashCard` test
+* `ShowAnswerCommand` allows the user to view the answer to the `FlashCard` currently tested
+* `NextQuestionCommand` is an abstract class that allows its subclasses to fetch the next `FlashCard`
+* `RateQuestionCommand` extends `NextQuestionCommand`, and allows the users to rate the `FlashCard`
+* `SkipQuestionCommand` extends `NextQuestionCommand`, and allows the users to skip the question
+* `EndTestCommand` allows the use to end the test mode anytime, enabling normal commands such as `listall`
+
+The following class diagram shows the structure of the `StartCommand` class.
+The class diagrams for other test commands are omitted due to similarities.
+
+image::StartCommandClassDiagram.png[width="600"]
 
 The following sequence diagram shows the intended case for the `start` command:
 
-image::StartSequenceDiagram.png[width = "600"]
+image::StartSequenceDiagram.png[]
 
 ==== Design considerations
 Aspect: Data structure to support `FlashCardTestModel`:
 
 * **Alternative 1 (Current choice):** `LinkedList` implementation:
-** Pros: Very efficient, with O(1) complexity removing the head of the list every time a question is tested.
-** Cons: Less memory efficient than `ArrayList`.
+** Pros: Very efficient, with O(1) complexity removing the head of the list every time a question is tested
+** Cons: Less memory efficient than `ArrayList`
 * **Alternative 2:** ArrayList implementation:
-** Pros: More memory efficient than `LinkedList`.
+** Pros: More memory efficient than `LinkedList`
 ** Cons: To obtain the same performance as `LinkedList`, the last index/size of the `ArrayList` has to be constantly tracked.
 This slightly decreases code readability compared to the `LinkedList` implementation.
 * **Alternative 3:** Queue interface:
 ** Pros: Use of `Queue` interface brings simplicity to code structure and readability while having the same performance
-as a `LinkedList` implementation.
-** Cons: There will be potential coupling by using `Queue` instead of `List` interface.
+as a `LinkedList` implementation
+** Cons: Potential coupling by using `Queue` instead of `List` interface
+
+NOTE: **Alternative 1** is preferred due to better readability while maintaining O(1) efficiency, i.e. `remove(0)`
+instead of `remove(list.size() - 1)` in `ArrayList` to remove either ends of the list.
+
+Aspect: Hiding of the list of `FlashCards` during test mode:
+
+* **Alternative 1 (Current choice):** Adding a new scene in test mode:
+** Pros: No need to mutate the `ObservableList` to hide the `FlashCards` as the
+new scene is layered on top of it
+** Cons: Use of multiple scenes will be needed, hence the implementation will be slightly complicated
+* **Alternative 2:** Hiding and showing `FlashCards` by changing `ObservableList`:
+** Pros: Simple to implement
+** Cons: Potentially interferes with other functions, such as the updating of statistics
+
+NOTE: **Alternative 1** is preferred as it does not interfere with the `ObservableList` to hide/show
+the list of `FlashCards`, hence reducing the potential for bugs and side-effects.
 
 // end::dataencryption[]
 
@@ -517,7 +549,7 @@ This feature is supported by the following classes:
 
 The sequence diagram below shows how the statistics operation works.
 
-image::StatisticsSequenceDiagram.png[width = "600"]
+image::StatisticsSequenceDiagram.png[]
 
 The sequence diagram below details how these other classes (i.e. `Stage`, `Scene` and `FlowPane`) work with `StatsWindow` to create the statistics pop-up window.
 
@@ -562,7 +594,7 @@ This feature is supported by the following classes:
 
 The sequence diagram below shows how the help operation works.
 
-image::HelpSequenceDiagram.png[width="600"]
+image::HelpSequenceDiagram.png[]
 
 The sequence diagram below details how these other classes (i.e. `Stage`, `Image` and `ImageView`) work with `HelpWindow` to create the help pop-up window.
 
@@ -622,12 +654,12 @@ Refer to the guide <<Documentation#, here>>.
 
 Refer to the guide <<Testing#, here>>.
 
-== Dev Ops
+== DevOps
 
 Refer to the guide <<DevOps#, here>>.
 
 [appendix]
-== Product Scope
+== Product scope
 
 *Target user profile*:
 
@@ -640,7 +672,7 @@ Refer to the guide <<DevOps#, here>>.
 *Value proposition*: learning platform to help students remember things easily, test their knowledge on certain subjects and at the same time be reminded on important study sessions and exams
 
 [appendix]
-== User Stories
+== User stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -680,7 +712,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |=======================================================================
 
 [appendix]
-== Use Cases
+== Use cases
 
 (For all use cases below, the *System* is `KeyboardFlashCards` and the *Actor* is the `user`, unless specified otherwise)
 
@@ -719,7 +751,7 @@ Use case resumes at step 2.
 
 
 [discrete]
-=== Use case: Edit Flashcard
+=== Use case: Edit FlashCard
 
 *MSS*
 
@@ -754,7 +786,7 @@ Use case resumes at step 2.
 Use case resumes at step 2.
 
 [appendix]
-== Non Functional Requirements
+== Non-functional requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
 .  Should be able to hold up to 2000 flash cards without a noticeable sluggishness in performance for typical usage.
@@ -802,14 +834,14 @@ Cons:
 * Does not have cloud integration
 
 [appendix]
-== Instructions for Manual Testing
+== Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
 [NOTE]
 These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
 
-=== Launch and Shutdown
+=== Launch and shutdown
 
 . Initial launch
 
@@ -823,7 +855,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting a flashCard
+=== Deleting a FlashCard
 
 . Deleting a flashCard while all flashCards are listed
 

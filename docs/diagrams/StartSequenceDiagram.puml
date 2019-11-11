@@ -3,7 +3,7 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":KeyboardFlashCardsParser" as KeyboardFlashCardsParser LOGIC_COLOR
 participant ":StartCommandParser" as StartCommandParser LOGIC_COLOR
 participant "d:StartCommand" as StartCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
@@ -16,19 +16,19 @@ end box
 [-> LogicManager : execute("start cs2103")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("start cs2103")
-activate AddressBookParser
+LogicManager -> KeyboardFlashCardsParser : parseCommand("start cs2103")
+activate KeyboardFlashCardsParser
 
-AddressBookParser -> AddressBookParser : parseNormalCommand("start cs2103")
-activate AddressBookParser
+KeyboardFlashCardsParser -> KeyboardFlashCardsParser : parseNormalCommand("start cs2103")
+activate KeyboardFlashCardsParser
 create StartCommandParser
-AddressBookParser -> StartCommandParser
+KeyboardFlashCardsParser -> StartCommandParser
 activate StartCommandParser
 
-StartCommandParser --> AddressBookParser
+StartCommandParser --> KeyboardFlashCardsParser
 deactivate StartCommandParser
 
-AddressBookParser -> StartCommandParser : parse("cs2103")
+KeyboardFlashCardsParser -> StartCommandParser : parse("cs2103")
 activate StartCommandParser
 
 create StartCommand
@@ -38,16 +38,16 @@ activate StartCommand
 StartCommand --> StartCommandParser : d
 deactivate StartCommand
 
-StartCommandParser --> AddressBookParser : d
+StartCommandParser --> KeyboardFlashCardsParser : d
 deactivate StartCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-StartCommandParser -[hidden]-> AddressBookParser
-AddressBookParser --> AddressBookParser : d
-deactivate AddressBookParser
+StartCommandParser -[hidden]-> KeyboardFlashCardsParser
+KeyboardFlashCardsParser --> KeyboardFlashCardsParser : d
+deactivate KeyboardFlashCardsParser
 destroy StartCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+KeyboardFlashCardsParser --> LogicManager : d
+deactivate KeyboardFlashCardsParser
 
 LogicManager -> StartCommand : execute()
 activate StartCommand
@@ -63,10 +63,10 @@ activate Model
 Model --> StartCommand
 deactivate Model
 
-StartCommand -> AddressBookParser : startTestMode()
-activate AddressBookParser
-AddressBookParser --> StartCommand
-deactivate AddressBookParser
+StartCommand -> KeyboardFlashCardsParser : startTestMode()
+activate KeyboardFlashCardsParser
+KeyboardFlashCardsParser --> StartCommand
+deactivate KeyboardFlashCardsParser
 
 StartCommand -> Model : getTestQuestion()
 activate Model
