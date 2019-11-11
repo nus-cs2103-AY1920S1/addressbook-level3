@@ -10,7 +10,6 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import seedu.address.inventory.model.ReadInUpdatedListOnlyModel;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
-import seedu.address.inventory.util.InventoryList;
 import seedu.address.person.commons.core.Config;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.commons.core.Version;
@@ -112,7 +111,8 @@ public class MainApp extends Application {
         //For Inventory Storage and Model
         inventoryStorage =
                 new seedu.address.inventory.storage.StorageManager(new File("data/inventoryInformation.txt"));
-        inventoryModel = initInventoryModelManager(inventoryStorage);
+        inventoryModel =
+                new seedu.address.inventory.model.ModelManager(inventoryStorage);
 
         transactionLogic = new
                 seedu.address.transaction.logic.LogicManager(transactionModel, transactionStorage,
@@ -211,30 +211,11 @@ public class MainApp extends Application {
 
         try {
             ReimbursementList reimbursementList = storage.getReimbursementFromFile(transactionList);
-            logger.info("Successful inventory initialisation.");
             return new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         } catch (FileReadException e) {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty reimbursement list");
             return new seedu.address.reimbursement.model.ModelManager(new ReimbursementList());
-        }
-    }
-
-    /**
-     * Returns a {@code ModelManager} for transaction with the data from inventory {@code storage}'s file.<br>
-     * An empty inventory list will be used instead if {@code storage}'s file is not found,
-     * or if errors occur when reading {@code storage}'s file.
-     */
-    private seedu.address.inventory.model.Model initInventoryModelManager(
-            seedu.address.inventory.storage.Storage storage) {
-
-        try {
-            InventoryList storageInventoryList = storage.getInventoryList();
-            return new seedu.address.inventory.model.ModelManager(storageInventoryList);
-        } catch (IOException e) {
-            logger.warning("Data file not in the correct format or problem reading from the file. "
-                    + "Will be starting with an empty reimbursement list");
-            return new seedu.address.inventory.model.ModelManager(new InventoryList());
         }
     }
 

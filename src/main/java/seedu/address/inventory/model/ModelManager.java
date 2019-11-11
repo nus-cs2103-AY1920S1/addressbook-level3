@@ -39,7 +39,7 @@ public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
     }
 
     @Override
-    public void setItem(int i, Item editedItem) throws Exception {
+    public void setItem(int i, Item editedItem) {
         inventoryList.set(i - 1, editedItem);
     }
 
@@ -79,7 +79,7 @@ public class ModelManager implements Model, ReadInUpdatedListOnlyModel {
     }
 
     @Override
-    public void writeInInventoryFile() throws Exception {
+    public void writeInInventoryFile() throws IOException, NoSuchIndexException {
         storage.writeFile(inventoryList);
     }
 

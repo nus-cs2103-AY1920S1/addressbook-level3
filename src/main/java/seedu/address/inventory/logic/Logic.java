@@ -1,9 +1,18 @@
 package seedu.address.inventory.logic;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.inventory.logic.commands.CommandResult;
+import seedu.address.inventory.logic.commands.exception.CommandException;
+import seedu.address.inventory.logic.commands.exception.NoSuchSortException;
+import seedu.address.inventory.logic.commands.exception.NotANumberException;
+import seedu.address.inventory.logic.parser.exception.InvalidNumberException;
+import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
+import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
+import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;
 
 /**
@@ -17,7 +26,9 @@ public interface Logic {
      * @return the result of the command execution.
      * @throws Exception If an error occurs during command execution.
      */
-    CommandResult execute(String commandText) throws Exception;
+    CommandResult execute(String commandText) throws IOException, OnCashierModeException, ParseException,
+            NoSuchItemException, NotANumberException, NoSuchSortException, InvalidNumberException, NoSuchIndexException,
+            CommandException;
 
     /**
      * Returns the inventory list in the model manager.
@@ -29,7 +40,7 @@ public interface Logic {
      * Returns the inventory list in the form of array list.
      * @return the inventory list in the form of array list.
      */
-    ArrayList<Item> getInventoryListInArrayList() throws Exception;
+    ArrayList<Item> getInventoryListInArrayList();
 
-    void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception;
+    void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws IOException, NoSuchIndexException;
 }
