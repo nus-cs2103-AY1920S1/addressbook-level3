@@ -50,8 +50,8 @@ An in-depth understanding of https://github.com/itext/itext7[iText7] is required
 
 
 * *Minor enhancements*
-** CRUD tasks
-** Introduced a Central Manager to encapsulates all the data needed to be saved.
+** Create, Read, Update, Delete (CRUD) commands for Delivery Tasks.
+** Refactor storage way by introduced a Central Manager to encapsulates all the data needed to be saved.
 ** added a history command that allows the user to navigate to previous commands using up/down keys.
 ** added a history command that allows the user to navigate to previous commands using up/down keys.
 
