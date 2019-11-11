@@ -935,7 +935,7 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
 
 . Entering game mode (easy)
 
-image::SnakeGame.png[500,600]
+image::SnakeGame.PNG[500,600]
 
 .. Test case: `game` +
 Expected: Enters easy mode of game (Refer to figure above)
@@ -948,7 +948,7 @@ Expected: Same as above.
 
 . Entering game mode (hard)
 
-image::snakegameHard.png[500,600]
+image::snakegamehard.PNG[500,600]
 
 .. Test case: `game H` +
 Expected: Enters hard mode of game (Refer to figure above)
