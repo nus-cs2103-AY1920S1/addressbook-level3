@@ -34,14 +34,20 @@ public class TagNoteParser implements Parser<TagNoteCommand> {
      */
     public TagNoteCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TAG);
-        checkCompulsoryFields(argMultimap);
 
-        NoteId noteId;
-        try {
-            noteId = NoteParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagNoteCommand.MESSAGE_USAGE), pe);
+        //A rather hacky solution
+        NoteId noteId = null;
+        if (!argMultimap.getPreamble().isEmpty()) {
+            try {
+                noteId = NoteParserUtil.parseIndex(argMultimap.getPreamble());
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        TagNoteCommand.MESSAGE_USAGE), pe);
+            }
         }
+
+        checkCompulsoryFields(argMultimap);
+        assert noteId != null;
 
         List<String> tags = argMultimap.getAllValues(PREFIX_TAG);
         if (tags.isEmpty()) {
