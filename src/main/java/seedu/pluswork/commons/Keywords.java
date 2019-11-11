@@ -26,6 +26,7 @@ import seedu.pluswork.logic.commands.FindMeetingTimeCommand;
 import seedu.pluswork.logic.commands.FindMemberCommand;
 import seedu.pluswork.logic.commands.FindTaskCommand;
 import seedu.pluswork.logic.commands.FireCommand;
+import seedu.pluswork.logic.commands.GeneratePDFCommand;
 import seedu.pluswork.logic.commands.GetStatisticsCommand;
 import seedu.pluswork.logic.commands.HelpCommand;
 import seedu.pluswork.logic.commands.HomeCommand;
@@ -71,7 +72,7 @@ public class Keywords {
             AddInventoryCommand.COMMAND_WORD,
             EditInventoryCommand.COMMAND_WORD,
             DeleteInventoryCommand.COMMAND_WORD,
-            // GeneratePDFCommand.COMMAND_WORD,
+            GeneratePDFCommand.COMMAND_WORD,
 
             //CALENDAR
             AddCalendarCommand.COMMAND_WORD,
@@ -174,8 +175,8 @@ public class Keywords {
             case DeleteInventoryCommand.COMMAND_WORD:
                 return commandWord + " " + DeleteInventoryCommand.PREFIX_USAGE;
 
-            // case GeneratePDFCommand.COMMAND_WORD:
-            //     return commandWord + " " + GeneratePDFCommand.PREFIX_USAGE;
+            case GeneratePDFCommand.COMMAND_WORD:
+                return commandWord + " " + GeneratePDFCommand.PREFIX_USAGE;
 
             //CALENDAR
             case AddCalendarCommand.COMMAND_WORD:

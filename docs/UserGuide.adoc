@@ -16,6 +16,8 @@ endif::[]
 
 By: `CS2103T-T12-1`      Since: `Sept 2019`      Licence: `MIT`
 
+// tag::introduction[]
+
 == Introduction
 
 +Work is a project management tool that allows students to successfully achieve your objectives for their project.
@@ -23,6 +25,9 @@ It is aimed at NUS project leaders who are in charge of a small project group of
 +Work is a one-stop application to help you manage your members, meeting times, task allocations as well as equipment purchased.
 Take full advantage of our Command Line Interface (CLI) while still having the all the benefits of a Graphical User Interface (GUI).
 Happy working!
+// end::introduction[]
+
+// tag::quickstart[]
 
 == Quick Start
 
@@ -41,6 +46,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`add-task tn/Finish up milestone setting`** : Adds a task with name "Finish up milestone" to the project.
 * **`assign ti/1 mi/JD`** : Assigns the project member "John Doe" (with member id "JD"), to the task "Finish up milestone setting".
 * **`doing-task ti/1`** : Changes status of task "Finish up milestone setting"  to `doing`:
+// end::quickstart[]
 
 [[Features]]
 == Features
@@ -918,10 +924,23 @@ image::clock-twelve-res-dashboard.png[]
 Project data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
+// tag::autocomplete[]
 === Command Line Autocomplete
 
 +Work will automatically prompt you on the various possible commands based on input and help you paste the correct command format into the command line if chosen. +
-For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down and paste `add-member mn/ mi/ mt/` into your command-line automatically.
+For example, when you type `add-mem` into the command-line, +Work will prompt you to select `add-member` from the drop down menu.
+
+image::AutoCompletePre.png[]
+
+After selecting `add-member`, +Work will paste `add-member mn/ mi/ mt/` into your command-line automatically!
+
+image::AutoCompletePost.png[]
+
+
+[TIP]
+You can use kbd:[control] to navigate along the various prefixes.
+
+//end::autocomplete[]
 
 ////
 
@@ -931,7 +950,7 @@ tag::dataencryption[]
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-////
+//
 
 == FAQ
 
@@ -956,19 +975,22 @@ _{explain how the user can enable/disable data encryption}_
 *Q*: What happens when a task has been completed? +
 *A*: You can mark the task as `done`, which will move the task to the bottom of the task list. In the case where you do not want to keep the task in the list, using ‘Remove Task’ will delete it.
 
+// tag::commandsummary[]
 == Command Summary
 
-* `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS_FILE]`: *Adds a calendar*
+* `add-calendar [mn/MEMBER_NAME] [fp/PATH_TO_ICS]`:  *Imports a calendar*
 
 * `add-inv [i/NAME] [p/PRICE] [ti/TASKID] [mi/MEMBER_ID]`: *Adds an inventory*
 
-* `add-meeting [meeting/INDEX]`: *Adds a meeting*
+* `add-meeting [meeting/index]`: *Adds a meeting from the generated meeting time list from `find-meeting-time`*
 
 * `add-member [mn/MEMBER_NAME] [mi/MEMBER_ID] [mt/MEMBER_TAG]`: *Adds a member*
 
-* `add-task [tn/TASK_NAME] s/TASK_STATUS tt/TASK_TAG`: *Adds a task*
+* `add-task [tn/TASK_NAME] [s/TASK_STATUS] [tt/TASK_TAG]`: *Adds a task*
 
 * `assign [ti/TASK_ID] [mi/MEMBER_ID]`: *Adds a task to a member*
+
+* `clear`: *Clears all data from dashboard*
 
 * `clock twelve`: *Switches deadline display to the 12 hour clock format*
 
@@ -976,33 +998,33 @@ _{explain how the user can enable/disable data encryption}_
 
 * `set-deadline [ti/TASK_ID] [at/dd-mm-yyyy hh:mm]`: *Assigns a deadline to a task*
 
-* `delete-calendar [mn/MEMBER_NAME]`: *Deletes a member's calendar*
+* `delete-calendar [mn/MEMBER_NAME]`: Deletes calendar of member
 
 * `delete-inv [ii/ITEM_ID]`: *Deletes an inventory*
 
-* `delete-meeting [meeting/INDEX]`: *Deletes a meeting*
+* `delete-meeting [meeting/MEETING_INDEX]`: *Deletes a meeting*
+
+* `delete-task [ti/TASK_INDEX]`: *Deletes a task*
 
 * `doing-task [ti/TASK_ID]`: *Marks a task as `doing`*
 
 * `done-task [ti/TASK_ID]`: *Marks a task as `done`*
 
-* `edit-inv [ii/ITEM_ID] i/ITEM_NAME p/PRICE ti/TASK_ID mi/MEMBER_ID`: *Edits a inventory*
+* `edit-inv [ii/ITEM_ID] [i/ITEM_NAME] [p/PRICE] [ti/TASK_ID] [mi/MEMBER_ID]`: *Edits an inventory*
 
-* `edit-member [mi/MEMBER_ID] mn/MEMBER_NAME mt/MEMBER_TAG`: *Edits a member*
+* `edit-member [mi/MEMBER_ID] [mn/MEMBER_NAME] [mt/MEMBER_TAG]`: *Edits a member*
 
 * `edit-task [ti/TASk_ID] [FIELDS_TO_EDIT]`: *Edits a task*
 
-* `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`: *Generate a list of possible meeting times*
+* `exit`: *Exits +Work*
 
-* `fire-member [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
+* `fire [ti/TASK_ID] [mi/MEMBER_ID]`: *Removes a task from a member*
 
-* `generate-inventory /task`: *Generates report of inventory by task*
-
-* `generate-inventory /person`: *Generates report of inventory by person*
+* `find-meeting-time [start/dd-mm-yyyy hh:mm] [end/dd-mm-yyyy hh:mm] [hours/HOURS]`: *Generates free times among members*
 
 * `home`: *Switches to the project dashboard*
 
-* `help`: *Accesses the help window*
+* `help`: *Navigates to help page*
 
 * `list-members`: *Lists all members*
 
@@ -1010,17 +1032,27 @@ _{explain how the user can enable/disable data encryption}_
 
 * `list-inv`: *Lists all inventories*
 
+* `member-stats`: *Displays member statistics*
+
 * `pdf [ty/TYPE]`: *Creates a PDF document of inventory list*
+
+* `redo`: *Redoes last known command*
 
 * `remove-member [mi/MEMBER_ID]`: *Removes a member*
 
-* `remove-task [ti/TASK_ID]`: *Removes a task*
+* `set-image[mi/MEMBER_ID] [im/IMAGE_FILEPPATH]`: *Switches to the settings configuration page*
 
 * `settings`: *Switches to the settings configuration page*
+
+* `task-stats`: *Displays task statistics*
 
 * `theme dark`: *Switches to the dark theme*
 
 * `theme light`: *Switches to the light theme*
+
+* `undo`: *Undoes last known command*
+
+// end::commandsummary[]
 
 == Upcoming Features
 
@@ -1032,6 +1064,10 @@ Collaborate online with your teammates, and store your project details such as m
 === Customisable User Profiles `[coming in v2.0]`
 
 Create more detailed profiles for members and choose who has authority to change details of the project.
+
+=== AutoComplete Support for prefixes `[coming in v2.0]`
+
+AutoComplete to support users in prompting existing entities. For example, membedID and taskTags to be prompted to users when prefix is input.
 
 === Instant Messaging `[coming in v2.0]`
 
