@@ -5,6 +5,7 @@
 :stylesDir: ../stylesheets
 :xrefstyle: full
 :experimental:
+:stylesheet: asciidoctor.css
 
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -48,7 +49,8 @@ These icons and their following descriptions enable greater clarity in understan
 
 This section shows a summary of my contributions to the team project.
 
-* *Major enhancement*: Added the ability to import & export spending data.
+=== Major Enhancement: Import & Export Features
+//* *Major enhancement*: Added the ability to import & export spending data.
 
 * *What it does*: It allows the user to save his spending data in an external file and modifies the data before importing it back into the application.
 It also allows the user to change between computers without a fear of losing his spending data.
@@ -60,7 +62,8 @@ It required an in-depth analysis of design alternatives.
 
 * *Credits*: https://github.com/FasterXML/jackson[Jackson].
 
-* *Minor enhancement*: Redesign the user interface to be more user-friendly.
+=== Minor Enhancement: Redesigned User Interface
+//* *Minor enhancement*: Redesign the user interface to be more user-friendly.
 
 * *What it does*: This enhancement allows the application to have a better-looking, more user-friendly colour theme
 as well as allows the application window size to be resizeable.
@@ -75,16 +78,15 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jonathantjendana&sort
 == Other contributions
 
 ** Project management
-*** Guided teammates for tips and tricks in regards to using JavaFx and FXML
-*** Helps teammates review their pull requests
+*** Guided teammates for tips and tricks in regards to using JavaFX and FXML.
 
 ** Enhancements to existing features:
-*** Updated the GUI (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/136[#136], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/137[#137])
-*** Refactored existing class `email` to `remark` to fit the needs of our application. (Pull request https://github.com/AY1920S1-CS2103T-F13-3/main/pull/69[#68])
+*** Updated the GUI (Pull requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/136[#136], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/137[#137], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/208[#208]).
+*** Refactored existing class `email` to `remark` to fit the needs of our application. (Pull request: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/69[#68]).
 
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/47[#47]
-*** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/98[#98]
+*** Added contents of the User Guide (Pull requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/39[#39], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/47[#47], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/254[#254]).
+*** Added contents of the Developer Guide (Pull requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/98[#98], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/228[#228], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/254[#254]).
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-3/main/pull/106[#106]
 
