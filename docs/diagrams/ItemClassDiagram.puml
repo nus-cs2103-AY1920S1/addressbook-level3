@@ -4,51 +4,32 @@ skinparam arrowThickness 1.1
 skinparam arrowColor ITEM_COLOR_T4
 skinparam classBackgroundColor ITEM_COLOR
 
-package Commons {
-
-package Core {
-
 package Item {
-class Item
+class ItemBuilder
+class Item {
+    - Task : task
+    - Event : event
+    - Reminder : reminder
+    - Priority : priority
+    - Hashset<Tag> : tags
+    - ItemDescription : itemDescription
+
+}
 class Task
 class Event
 class Reminder
-class ItemDescription
+class Task
+class Tag
+ItemBuilder .right.> Item: creates >
+Item "0..1  " .up.-o Task
+Item "   0..1" .up.--o Event
+Item "\n\n0..1" .up.-o Reminder
 enum Priority {
-    HIGH
-    MEDIUM
-    LOW
+  HIGH
+  MEDIUM
+  LOW
 }
-}
-
-}
-
-
-/'
-LogicManager .up.|> Logic
-LogicManager -->"1" AddressBookParser
-AddressBookParser .left.> XYZCommandParser: creates >
-
-XYZCommandParser ..> XYZCommand : creates >
-XYZCommandParser ..|> Parser
-XYZCommandParser ..> ArgumentMultimap
-XYZCommandParser ..> ArgumentTokenizer
-ArgumentTokenizer .left.> ArgumentMultimap
-XYZCommandParser ..> CliSyntax
-CliSyntax ..> Prefix
-XYZCommandParser ..> ParserUtil
-ParserUtil .down.> Prefix
-ArgumentTokenizer .down.> Prefix
-XYZCommand -up-|> Command
-LogicManager .left.> Command : executes >
-
-LogicManager --> Model
-Command .right.> Model
-note right of XYZCommand: XYZCommand = AddCommand, \nFindCommand, etc
-
-Logic ..> CommandResult
-LogicManager .down.> CommandResult
-Command .up.> CommandResult
-CommandResult -[hidden]-> Parser
-'/
+Item " 1" .left.--* ItemDescription
+Item "1" .left.--* Priority
+Item "                          \n\n*" .up.---o Tag
 @enduml

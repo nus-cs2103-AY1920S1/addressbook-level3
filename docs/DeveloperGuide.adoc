@@ -40,6 +40,7 @@ Refer to the <<UsingPlantUml#, Using PlantUML guide>> to learn how to create and
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
+// tag::commons[]
 <<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 The following class plays an important role at the architecture level:
 
@@ -48,6 +49,16 @@ The following class plays an important role at the architecture level:
 * `Events` : Used by classes to store, access and modify details regarding events.
 * `Reminders` : Used by classes to store, access and modify details regarding reminders.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+.Class Diagram of the Item
+image::ItemClassDiagram.png[]
+* An `Item` can contain an task, event or reminder. However it must contain at least one of the three.
+* The `ItemBuilder` class ensures the validation of the above rule when `build()` is called..
+* An `Item` is immutable in order to support thread safety.
+* An `Item` is created via the ItemBuilder class.
+* Setter methods of `Item` create a new `Item` through `ItemBuilder` to ensure immutability.
+
+// end::commons[]
 
 The rest of the App consists of four components.
 
@@ -61,10 +72,9 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+For example, the `Logic` component (see the class diagram <<Logic component, given below>>) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
-.Class Diagram of the Logic Component
-image::LogicComponentUML.png[]
+
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -93,6 +103,7 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+//tag::logic[]
 [[Design-Logic]]
 === Logic component
 
@@ -105,17 +116,13 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `ElisaParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `ItemModel` (e.g. adding a person).
+.  The command execution can affect the `ItemModel` (e.g. adding an Item).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 .  More instructions for the `Ui` can be given through implementing `ScrollCommand`
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+//end::logic[]
 
 //tag::model[]
 [[Design-Model]]
@@ -158,6 +165,136 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
+
+//tag::add[]
+=== Add Task/Event feature
+Task, Events and Reminders are all Items and can be added using the *same* command. Adding of Items is facilitated by ItemModel#add(Item). +
+
+==== Implementation
+A Task with a deadline flag `-d` will be considered an Event. A Task with a reminder flag `-r` will be considered a Reminder. +
+The following activity diagram shows the how a task can be added, depending on the flags present:
+
+.Activity Diagram of adding a Task
+image::AddTaskActivity.png[200, 600]
+
+This shows how we can easily add Task, Event and Reminder with a _single_ command.
+However, in this section, we will only show how Task and Event is added. Adding of Reminders is shown in a separate section as it includes other steps.
+
+==== Internal workings of the command
+Given below is an example usage scenario of how add behaves at each step: +
+
+Step 1. The user enters the command `"task shower -d 1.hour.later"`. +
+Step 2. The LogicManager creates an AddressBookParser to parse the user input. +
+Step 3. AddressBookParser creates a AddTaskCommandParser which parses the input and returns an AddCommand. +
+Step 4. LogicManager will execute the AddCommand. AddCommand will then invoke `ItemModel#add(Item)`, which adds Task to its TaskList and Event to its EventList. +
+Step 5. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)`
+Step 6. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view.
+
+The figures below shows the sequence diagram on what happens from a simple execution of `task shower -d 1.min.later` user command: +
+
+.Call execute in LogicManager to create an AddTaskCommand
+image::AddCommandPart_1.png[]
+
+This diagram shows how `execute` is carried out in the `Logic` component.
+The following diagram shows how the same command is continued onto the `Model` component:
+
+.LogicManager executes the AddTaskCommand and returns CommandResult
+image::AddCommandPart_2.png[]
+
+This shows how `execute(model)` affects the `Model` component. It then returns a `CommandResult` r, which is the result of calling LogicManager#execute("task shower -d 1.hour.later").
+
+==== Design considerations
+The design considerations for the classes are shown below:
+|===
+|Alternatives: |Pros: |Cons:
+|1. Placing all fields into an Item object and retrieving the specific fields when needed. | Easy to implement. Reduce dependencies between classes as everything is in one class. Editing can be done all in one object.| Does not separate out the different functionalities of Task, Event and Reminder.
+|2. Having separate classes for Task, Event, Reminder | Reduce dependencies as well as having functionalities separated. | Some attributes and methods overlap. Repetition of code for same functionality. Have to add all three objects individually. Editing of an item would require searching, obtaining and individually editing all 3 objects.
+|3. *(Current)* Having a general Item class which comprise of `Optional<>` fields Task, Event, Reminder | Similar fields such as description and priority can be placed in Item. This makes adding an Item more convenient. Related task/event/reminder can have access to each other. | Increase coupling and dependency amongst Task, Event, Reminder classes.
+|===
+As of now, these are the considered designs and the current design seems to work well for our purpose. However, there could be better designs which are unexplored that could mitigate our cons and we welcome them. +
+
+This is end of the section of adding a Task and Event. As mentioned above, adding of Reminder will be shown in a separate section due it having extra features. Do look out for it if you're interested.
+//end::add[]
+
+//tag::autoreschedule[]
+=== Rescheduling of recurring Events automatically
+This section talks about how the `autoReschedule` function is implemented. This feature aims to provide users with greater convenience when scheduling events that occur periodically (eg. weekly deadlines, monthly appointments).
+
+==== Implementation
+To reschedule a task, we need a deadline as we need to be able to calculate the next date. Recall that any Task with a deadline is considered an Event. As such, *only Events can be rescheduled.*
+
+To automatically reschedule an Event, when creating the Event, include the `-auto` flag along with its reschedule period (eg `-auto day` for daily rescheduling) +
+The accepted parameters for `-auto` is `day`, `week`, `month` and the format of `10.min.later`.
+
+The following diagram shows the process of adding an Event with -auto flag:
+
+[Cols="2,2"]
+|===
+||
+a|.Activity diagram of AutoReschedule
+image:AutoRescheduleActivity.png[100, 200]
+|In the diagram, when we add the Event initially, we would check the start time of the Event and update it accordingly.
+However, this is not the only place where rescheduling occurs. +
+
+*3 places where rescheduling can occur:* +
+
+1) When the event is created, as shown in the diagram above. +
+2) While the app is running, the Event's start time will be continuously updated when it has passed. +
+This is done using `Timer` and `TimerTask`, using `Timer#scheduleAtFixedRate()`. +
+3) When the app is started and Events are loaded from the storage. The stored Event time might already be over, as such the time has to be updated to the latest upcoming one.
+|===
+
+
+To illustrate how they work, first we need to know what classes are involved before we can understand the sequence of actions carried out. +
+The classes involved in the above rescheduling are: +
+
+* `AutoReschedulePeriod` -- Represents the period of every reschedule (eg day/week/month)
+* `RescheduleTask` -- Represents the action to perform when rescheduling its associated event.
+* `AutoRescheduleManager` -- Manages all the rescheduling tasks. There is only one of such manager.
+
+To better understand its underlying structure, we can look at the class diagram below:
+
+.Class Diagram of classes involved in AutoReschedule function
+image::AutoRescheduleClassDiagram.png[100, 500]
+
+==== Internal workings of the command
+Now we are ready to look at the sequence of actions. Given below is an example usage scenario of how add behaves at each step: +
+
+Step 1. The user enters the command `event CS2103T Quiz -d 23/09/2019 2359 -auto week`. +
+Step 2. The Event is created, following the sequence of steps in the section _Adding Task/Event_. However there are now some extra steps from Step 3 onwards that occur concurrently from the object creation of Event. +
+Step 3a. The presence of the `-auto week` creates an AutoReschedulePeriod, which is stored in the Event created. This can be seen in the Class Diagram above. +
+Step 3b. If the start time of this Event is already over, the Event's start time will be modified to show the next start time, using this Event's AutoReschedulePeriod.
+Step 4. When `LogicManager#execute(model)` is called, the presence of AutoReschedulePeriod in the Event triggers the creation of a RescheduleTask, which represents the task of rescheduling this Event. +
+Step 5. This RescheduleTask is added to an AutoRescheduleManager, which manages all RescheduleTasks. +
+Step 6. When the start time of this Event has passed, AutoRescheduleManager will call `RescheduleTask#run()`, and this updates the Event start time, which will be reflected in the Ui. +
+
+
+The following diagrams show how the command `event Quiz -d 10.hour.later -auto week` is executed from the Logic component.
+The first diagram shows the adding of an Event, which may appear familiar as it has a sequence similar to the adding of task in <<Add Task/Event feature>>. However, there are some minor differences due to the presence of `-auto` which should be noted.
+
+.Call execute in LogicManager and create an AddEventCommand
+image::AutoRescheduleSequence_1.png[]
+
+As mentioned, the key points to take note of in the diagram above is `Event#setAutoReschedule(true)` and `Event#setReschedulePeriod(period)`. +
+The significance of these methods will be shown in the continuing diagram below:
+
+.LogicManager executing AddEventCommand and create task for AutoRescheduleManager
+image::AutoRescheduleSequence_2.png[100, 700]
+
+From the above diagram, we can see that the presence of `AutoReschedulePeriod` in Event results in the creation of `RescheduleTask` which would be queued into the Timer managed by `AutoRescheduleManager`.
+
+==== Design considerations
+The design considerations for the classes are shown below: +
+
+*Alternative 1:* Creating a AutoRescheduleManager for every RescheduleTask +
+*Pros*: Easy for the Timer in AutoRescheduleManager to keep track of its TimerTask. +
+*Cons*: There could potentially be many Timer threads. +
+*Alternative 2: (Current)* Singleton pattern for AutoRescheduleManager +
+*Pros*: Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. +
+*Cons*: Difficult to create tests for AutoRescheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
+
+//end::autoreschedule[]
+
 
 === Game feature
 
@@ -433,7 +570,6 @@ At the moment, the user is not able to keep track of the amount of time that he 
 // end::priority[]
 
 // tag::dataencryption[]
-
 === Add Task/Event feature
 Task, Events and Reminders are all Items and can be added using the *same* command. Adding of Items is facilitated by ItemModel#add(Item). +
 
@@ -553,12 +689,40 @@ The design considerations for the classes are shown below:
 |*(Current)* Singleton pattern for AutoRescheduleManager |Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. | Difficult to create tests for AutoResheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
 |===
 
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
 // end::dataencryption[]
 
+// tag::addreminder[]
+=== Add Reminder feature
+
+Step 1. The user enters the command `"reminder John's Birthday -r 3.day.later"`. +
+Step 2. The LogicManager creates an ELISAParser to parse the user input. +
+Step 3. ELISAParser creates a AddReminderCommandParser which parses the input and returns an ReminderCommand. +
+Step 4. LogicManager will execute the ReminderCommand. AddCommand will then invoke `ItemModel#add(Item)`, which adds the Item that contains the reminder to the `RemindersList` and the `futureRemindersList`. +
+Step 5. Each time an Item is added to the `futureRemindersList`, the Items in futureRemindersList is sorted according to the `occurrenceDateTime` of its Reminder in order of recency. +
+Step 6. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)` +
+Step 7. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view. +
+
+When the application is launched, the LogicManager also creates a separate thread using the `ScheduledThreadPoolExecutor` that constantly runs checkTask every 5 seconds. +
+CheckTask is a runnable that monitors the ItemModelManager to see if there are any reminders in `futureRemindersList` that have an `occurrenceDateTime` after `LocalDateTime#now()`. +
+If there is, it transfers those reminders to `activeRemindersList` which is an ObservableList. +
+
+Meanwhile, the MainWindow binds a listener `activeRemindersList` in order to observe if any Items with Reminders have been added to it. +
+If so, it will add `ReminderDialogBox` with the appropriate details for the added Items to the `resultDisplay`. +
+// end::addreminder[]
+
+// tag::snoozereminder[]
+=== Snooze Reminder feature
+We can see how snooze is performed through the activity diagram below.
+
+.Activity Diagram to snooze a reminder
+image::SnoozeActivityDiagram.png[]
+
+From the image above, we can see that there 2 guard conditions. +
+The first checks whether there is a reminder to snooze (either via an index or recently occurred reminder). If there isn't, an exception is thrown. +
+The second checks if the `newReminderOccurrenceIsValid` (i.e. reminder does not occur in the past). Otherwise, it throws an exception. +
+If the duration of the reminder is not specified, then the default duration for the snooze is 5 minutes.
+
+// end::snoozereminder[]
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -748,7 +912,36 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use Case 004: Find upcoming reminders.
+=== Use Case 004: Snooze a reminder
+
+*MSS*
+
+1. User enters the snooze command.
+2. ELISA snoozes the reminder.
+3. ELISA reminds the user of that reminder after the specified duration.
+
+*Extensions*
+
+* 1a. There are no recent reminders to be snooze
++
+** 1a1. ELISA displays an error message.
++
+Use case ends.
+
+* 1b. The user does not which reminder to snooze.
++
+** 1b1. ELISA snoozes the most recent reminder.
+
+Use case resumes at step 2.
+
+* 1c. The user does not specify how long to snooze.
++
+** 1c1. ELISA snoozes the reminder for a default duration.
+
+Use case resumes at step 2.
+
+[discrete]
+=== Use Case 005: Find upcoming reminders.
 
 *MSS*
 
@@ -757,8 +950,9 @@ Use case resumes at step 2.
 3. User enters command to sort reminders by date and time.
 4. ELISA shows the updated list of reminders sorted by date and time.
 // tag::usecaselrchema[]
+
 [discrete]
-=== Use Case 005: Search for a task by its description
+=== Use Case 006: Search for a task by its description
 
 *MSS*
 
@@ -776,7 +970,7 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
-=== Use Case 006: Undo the last command
+=== Use Case 007: Undo the last command
 
 *MSS*
 
@@ -793,7 +987,7 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use Case 007: Using Priority Mode
+=== Use Case 008: Using Priority Mode
 
 *MSS*
 
@@ -816,7 +1010,7 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 tasks / events / reminders (combined) without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
@@ -861,15 +1055,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an empty set of tasks. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Adding a task
 
@@ -902,12 +1094,45 @@ Even though this is for task, the same tests can be used for testing events and 
 .. Test case: `delete 1` +
    Expected: First task is deleted from the list. Details of the deleted task will show in the result display.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the result display.
+   Expected: No task is deleted. Error details shown in the result display.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
-
 [NOTE]
 Even though this is for task, the same tests can be used for testing events and reminders.
+
+=== Adding a reminder
+. Adding a reminder
+.. Prerequisites: Know the current date and time. Volume of computer is audible to tester. +
+.. Test case: `reminder John's Birthday -r 1.min.later` +
+   Expected: View is switched to reminder list panel (if not already there). A reminder is added to the reminder list. Details of the reminder will be shown in the result display. After 1 minute, a chime is played and a red dialog box with the details of the reminder will appear in the result display.
+.. Test case: `reminder John's Birthday -r x` (where x is the date and time 1 minute later from now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -r 15/11/2019 1800)
+   Expected: Similar to previous test case. (Since x is 1 minute from now.) +
+.. Test case: `reminder John's Birthday -r y` (where y is the date and time 1 minute later from now in the format `yyyy-MM-ddTHHmm`. E.g. `reminder John's Birthday` -r 2019-11-15T18:00)
+   Expected: Similar to previous test case. (Since y is 1 minute from now.) +
+.. Test case: `undo` (used after one of the above has taken place)
+   Expected: ELISA will reverse the addition of the reminder and no reminder will occur later on. +
+.. Test case: `redo` (used after a valid undo command has taken place)
+   Expected: ELISA will reverse the undo of the addition of the reminder and a reminder will occur at the appropriate time. Note that if the time for the reminder to occur has already passed, the reminder will not occur. +
+.. Test case: `reminder John's Birthday -r z` (where z is the date and time 1 minute before now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -r 15/11/2019 1358)
+   Expected: No reminder is added. Error details shown in result display. (Since z is 1 minute before now.)
+
+=== Snoozing a reminder
+. Snoozing a reminder
+.. Prerequisites: Reminder has been added. Know the current date and time. Volume of computer is audible to tester. +
+.. Test case: `snooze 1` +
+   Expected: First reminder of the reminder list will occur again five minutes from now.
+.. Test case: `snooze 1 -s 1.min.later` +
+   Expected: First reminder of the reminder list will occur again one minute from now.
+.. Test case: `snooze 1 -s x` (where x is the date and time 1 minute later from now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -r 15/11/2019 1800)
+   Expected: Similar to previous test case. (Since x is 1 minute from now.) +
+.. Test case: `snooze John's Birthday -s y` (where y is the date and time 1 minute later from now in the format `yyyy-MM-ddTHHmm`. E.g. `reminder John's Birthday` -s 2019-11-15T18:00)
+   Expected: Similar to previous test case. (Since y is 1 minute from now.) +
+.. Test case: `undo` (used after one of the above has taken place)
+Expected: ELISA will reverse the snoozing of the reminder and reminder's occurrence date time will revert to it its state before the snooze. +
+.. Test case: `redo` (used after a valid undo command has taken place)
+Expected: ELISA will reverse the undo of the snoozing of the reminder and a reminder will occur at the appropriate time. Note that if the time for the reminder to occur has already passed, the reminder will not occur. +
+.. Test case: `snooze John's Birthday -s z` (where z is the date and time 1 minute before now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -s 15/11/2019 1358)
+   Expected: No reminder is snoozed. Error details shown in result display. (Since z is 1 minute before now.)
 
 === Editing a task
 
