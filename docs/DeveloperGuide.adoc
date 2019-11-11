@@ -2280,7 +2280,7 @@ Expected: Shows appropriate error messages of why the command failed.
    Expected: If the statistics report is not generated, the command result shows the reasons for failure. Otherwise, it can be verified that the statistics report generated has erroneous data or ineffective descriptive statistics as mentioned in the User Guide as a result of the failure to follow data specifications.
 .. Test case: `statistics file/{some valid file path} print/{invalid file name}`. Examples of illegal characters in file name include /, ? and *. +
    Expected: Shows error message of reasons for failure.
-   
+
 === Student
 
 . Adding a student to the student list.
