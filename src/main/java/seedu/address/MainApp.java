@@ -36,6 +36,7 @@ import seedu.address.person.storage.Storage;
 import seedu.address.person.storage.StorageManager;
 import seedu.address.person.storage.UserPrefsStorage;
 import seedu.address.reimbursement.model.ReimbursementList;
+import seedu.address.transaction.logic.parser.exception.ParseException;
 import seedu.address.transaction.model.AddTransactionOnlyModel;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.exception.FileReadException;
@@ -203,7 +204,7 @@ public class MainApp extends Application {
         try {
             transactionList = storage.readTransactionList();
             return new seedu.address.transaction.model.ModelManager(transactionList);
-        } catch (FileReadException | PersonNotFoundException e) {
+        } catch (FileReadException | PersonNotFoundException | ParseException e) {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty transaction list");
             transactionList = new TransactionList();
