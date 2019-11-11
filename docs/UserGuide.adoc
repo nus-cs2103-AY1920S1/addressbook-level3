@@ -99,7 +99,6 @@ image::tip.png[width = "20",float = "left"]
 
 You can access the password directory using this command : `goto password`
 
-// tag::add[]
 ==== Adding a password : `add`
 
 Too many passwords to remember?
@@ -109,11 +108,9 @@ Format: `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...`
 
 Example: `add d/Gmail u/user1 p/password1 w/www.gmail.com/signin t/work`
 
-.Example of how an add command can be used.
-image::Add 2 in 1.png[]
+image::AddPW1.png[width="790"]
+image::AddPW2.png[width="790"]
 
-// end::add[]
-// tag::read[]
 ==== Accessing a password : `read`
 
 You can open and view the password for the specified index.
@@ -122,8 +119,8 @@ Format: `read INDEX`
 
 Example: `read 1`
 
-.Example of how an read command can be used.
-image::Read 2 in 1.png[]
+image::Read 1.png[width="790"]
+image::Read 2.png[width="790"]
 
 ====
 --
@@ -140,14 +137,12 @@ Be wary of surveillance by secret agents or people standing behind you
 
 You will see this reminder 30 days before your password expires.
 
-.Example of when your password is about to expire
-image::PasswordExpiring.png[width="220"]
+image::PasswordExpiring.png[width="300"]
 
 You will see this reminder if you have *not* changed your password for over a year.
 
-.Example of when your password is expired
-image::PasswordExpired.png[width="220"]
-// end::read[]
+image::PasswordExpired.png[width="300"]
+
 ==== Copying a field in a password : `copy`
 
 You can copy the password value, website or username for the specific index.
@@ -206,9 +201,6 @@ Example: `edit 1 u/NewUsername`
 
 Example: `edit 1 p/password123 t/`
 
-.Example of how an edit command can be used.
-image::Edit 2 in 1.png[]
-
 ==== Deleting a password: `delete`
 
 ====
@@ -263,10 +255,16 @@ image::tip.png[width = "20",float = "left"]
 
 *Try it out!*
 
-* Want to customise your password? Don't worry, we've got that covered too. You can customise the following fields:
+* Want to customise your password? Don't worry, we've got that covered too. You can customise the following fields during generation:
 ** Length of password (Between 4 and 25)
 
-** Exclusion of lower alphabets | upper alphabets | numbers | special characters
+** Exclusion of lower alphabets
+
+** Exclusion of upper alphabets
+
+** Exclusion of numbers
+
+** Exclusion of special characters
 
 * Refer to usage format below for more details.
 
@@ -278,12 +276,17 @@ Please ensure **at least one character set  is included**.
 
 Format: `generate [length/LENGTH] [lower/FALSE] [upper/FALSE] [num/FALSE] [special/FALSE]`
 
-Example: `generate` | `generate length/10` | `generate lower/false special/false`
+Example: `generate`
 
-.Example user input (left) and resultant output (right) for generate.
-image::GeneratePassword.png[width="700"]
+Example: `generate length/10`
 
+Example: `generate lower/false special/false`
 
+.Example user input for generate password
+image::GeneratePasswordScreenShot0.png[width="500"]
+
+.Example outcome for generate password
+image::GeneratePasswordScreenShot1.png[width="500"]
 // end::generate[]
 
 // tag::analyse[]
@@ -300,8 +303,13 @@ image::tip.png[width = "20",float = "left"]
 
 *Try it out!*
 
+* You can opt to view:
 
-* To view the detailed analysis of a particular password, simply add in the `strong` prefix with the `INDEX` of the password.
+** A general, summary security report for **all** passwords, or
+
+** A detailed security report for a **specific** password.
+
+* To view the detailed analysis of a particular password, simply add in the `strong` prefix with the `INDEX`
 
 [NOTE]
 `INDEX` used should be that of an existing password.
@@ -312,14 +320,21 @@ image::tip.png[width = "20",float = "left"]
 
 Format: `analyse [strong/INDEX]`
 
-Example: `analyse` | `analyse strong/8`
+Example: `analyse`
 
-.Example user input (left) and resultant output (right) for analyse.
-image::AnalysePassword.png[width="700"]
+Example: `analyse strong/8`
 
-.Example user input (left) and resultant output (right) for analyse strong.
-image::AnalyseStrongPassword.png[width="700"]
+.Example user input for analyse
+image::AnalysePasswordScreenShot0.png[width="500"]
 
+.Example outcome for analyse
+image::AnalysePasswordScreenShot1.png[width="500"]
+
+.Example user input for analyse strong
+image::AnalyseStrongPasswordScreenShot0.png[width="500"]
+
+.Example outcome for analyse strong
+image::AnalyseStrongPasswordScreenShot1.png[width="500"]
 
 // end::analyse[]
 
@@ -745,7 +760,8 @@ image::DeleteNote2.png[width="600"]
 
 ==== Finding a note: `find`
 
-Finds a note as specified by the user.
+Tired of scrolling through all your notes to find the note you are looking for?
+Use our `find` command to look for that note! 
 
 Format: `find TEXT`
 
