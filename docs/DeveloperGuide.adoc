@@ -1268,6 +1268,27 @@ These instructions only provide a starting point for testers to work on; testers
 .. Double-click the jar file +
   Expected: Shows the GUI with the calendar at today's date, with no events or tasks.
 
+=== Adding, Deleting and Editing Events
+
+. Adding
+
+.. Start Horo with no save data.
+.. Enter `list` into the command box.
+.. Enter `add_event "My Event Description" "11/11/2019 12:00"` into the command box.
+.. Expected: An event will be created with the title "My Event Description", with start date "11/11/2019 12:00".
+
+. Editing
+
+.. Enter `edit_event 0 --description "New Event Description"` into the command box.
+.. Expected: Your event "My Event Description" will be renamed to "New Event Description".
+
+. Deleting
+
+.. Enter `delete_event 0` into the command box.
+.. Expected: Your event "New Event Description" will be deleted, leaving an empty list view.
+
+=== Import and Export
+
 . Export
 
 .. Start Horo with no save data.
