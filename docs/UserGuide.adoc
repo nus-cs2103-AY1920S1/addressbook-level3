@@ -98,7 +98,7 @@ image::tip.png[width = "20",float = "left"]
 === Password
 
 You can access the password directory using this command : `goto password`
-
+// tag::add[]
 ==== Adding a password : `add`
 
 Too many passwords to remember?
@@ -108,19 +108,20 @@ Format: `add d/DESCRIPTION u/USERNAME p/PASSWORD [w/WEBSITE] [t/TAG]...`
 
 Example: `add d/Gmail u/user1 p/password1 w/www.gmail.com/signin t/work`
 
-image::AddPW1.png[width="790"]
-image::AddPW2.png[width="790"]
+.Example of how an add command can be used.
+image::Add 2 in 1.png[]
 
 ==== Accessing a password : `read`
-
+// end::add[]
+// tag::read[]
 You can open and view the password for the specified index.
 
 Format: `read INDEX`
 
 Example: `read 1`
 
-image::Read 1.png[width="790"]
-image::Read 2.png[width="790"]
+.Example of how an read command can be used.
+image::Read 2 in 1.png[
 
 ====
 --
@@ -137,11 +138,14 @@ Be wary of surveillance by secret agents or people standing behind you
 
 You will see this reminder 30 days before your password expires.
 
-image::PasswordExpiring.png[width="300"]
+.Example of when your password is about to expire
+image::PasswordExpiring.png[width="220"]
 
 You will see this reminder if you have *not* changed your password for over a year.
 
-image::PasswordExpired.png[width="300"]
+.Example of when your password is expired
+image::PasswordExpired.png[width="220"]
+// end::read[]
 
 ==== Copying a field in a password : `copy`
 
@@ -200,6 +204,9 @@ image::tip.png[width = "20",float = "left"]
 Example: `edit 1 u/NewUsername`
 
 Example: `edit 1 p/password123 t/`
+
+.Example of how an edit command can be used.
+image::Edit 2 in 1.png[]
 
 ==== Deleting a password: `delete`
 
