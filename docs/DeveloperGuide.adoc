@@ -543,17 +543,24 @@ image::ListIncidentsSequenceDiagram.png[]
 
 Next, we will look at an example in which the user calls `find-i` to look for incidents written by an operator whose name contains `Alex`.
 
-The execution of this method is a little more complex.
-
-The following sequence diagram shows how the `search` command identifies the keyword and flag, and returns related incidents:
+The execution of this method is a little more complex. The following sequence diagram shows how the `find-i` command identifies the keyword and flag, and returns related incidents:
 
 image::FindIncidentsSequenceDiagram.png[]
 
-The key difference is the utility of the `SearchIncidentsCommandParser` to parse the keyword after tag `op\` in the command. It creates a `NameKeywordsPredicate` using the String "Alex", which is returned to be used in constructing a new instance of `SearchIncidentsCommand`, stored as a `Predicate<Incident> predicate`. From there, the process is similar, in that `SearchIncidentsCommand#execute()` is run, causing the Model to run `Model#updateFilteredIncidentList(predicate)` using the predicate stored in `SearchIncidentsCommand`. Upon updating the list similar to the `incidents` listing command above, `SearchIncidentsCommand` also calls `Model#getFilteredIncidentList()` to return `ObservableList<Incident>`. It obtains the size of this list, and returns it in `CommandResult commandResult`.
+The key steps are as follows:
+
+* `IncidentManagerParser` passes the arguments to `FindIncidentsCommandParser` to parse the keywords after the prefixes `desc/` and `op/` in the command.
+* `FindIncidentsCommandParser` utilises `ParserUtil` to parse out the keywords, in this case "pmd" for the description prefix and "alex" for the operator name prefix
+* `FindIncidentsCommandParser` creates a new instance of `DescriptionKeywordsPredicate` to be added to `List<Predicate<Incident>> predicateArr`
+* It does the same for `NameKeywordsPredicate` and any other valid search parameters identified
+* A new instance of `FindIncidentsCommand` is passed the new `List<Predicate<Incident>> predicateArr`, combining the predicates using `combinePredicates()` to account for all predicates in the `List`
+* As before, the `LogicManager` calls `FindIncidentsCommand#execute()`, which causes the Model to run `Model#updateFilteredIncidentList(predicate)` using the combined predicate stored in `FindIncidentsCommand`.
+* This filters and updates the list in `FilteredList<Incident> filteredList`, by running `filteredList#setPredicate(predicate)` with the passed combined predicate.
+* Upon updating the list similar to the List Command above, `FindIncidentsCommand` also calls `Model#getFilteredIncidentList()` to return `ObservableList<Incident>`. It obtains the size of this list, and returns it in `CommandResult commandResult`.
 
 ==== Design Considerations
 
-===== Aspect: How incident search keyword is inputted
+===== Aspect: How user keys in `find-i` keywords
 
 * **Current choice:** Parse user input after flag (eg. `op\` or `desc\`)
 ** Pros: Easy to implement.
@@ -564,21 +571,56 @@ The key difference is the utility of the `SearchIncidentsCommandParser` to parse
 
 ===== Aspect: How listing all incidents is called
 
-* **Current choice:** Utilise separate command `incidents`
+* **Current choice:** Utilise separate command `list-i`
 ** Pros: Intuitive to use.
-** Cons: Similar code under different command.
-* **Alternative:** Utilise `search` command (eg. `search unfiltered`)
+** Cons: Similar code under different command, leading to code reuse.
+* **Alternative:** Utilise `find-i` command (eg. `find-i unfiltered`)
 ** Pros: Less overlap in code.
 ** Cons: Unintuitive to the user as no search is being made, even more keywords to remember.
 
-===== Aspect: How predicate is added to `SearchIncidentsCommand`
+===== Aspect: Whether the search only returns full word matches
 
-* **Current choice:** `SearchIncidentsCommandParser` class calls `Model` to create a new Predicate based on search string.
-** Pros: Abstracts the creation and management of predicates to the `Model`.
+* **Current choice:** Search only returns full word matches
+** Pros: Intuitive to use.
+** Cons: Unable to return similar words eg. search for "desc/fire" does not return description containing "fires"
+* **Alternative:** Search returns all keyword-containing matches
+** Pros: Able to account for similar words to be returned.
+** Cons: Unintuitive to return certain longer words from certain searches eg. "desc/the" returns descriptions containing "weather" +
+    Faster search as code is less inefficient
+
+===== Aspect: How multiple keywords with the same prefixes are processed
+
+* **Current choice:** Keywords are read as an array into `Predicate<Incident>` to be fed into a stream to search for any match with any of the keywords
+** Pros: Requires lesser code. Abstraction of checking matches in keywords remains within the `Predicate<Incident>` class +
+    Able to separate the handling of multiple keywords with the same prefixes, in `Predicate<Incident>`, with the handling of different prefixes, done in `FindIncidentsCommand`
+** Cons: More difficult to implement
+* **Alternative:** Every new predicate takes in a keyword and returns all results with exact matches, to be combined in `FindIncidentsCommand` as separate predicates
+** Pros: Easier to implement
+** Cons: May lead to confusing implementation of the `combinePredicates()` function for returning results which have all prefixes fulfilled, but only require at least one match in keywords fulfilled for each prefix
+
+===== Aspect: How multiple different prefixes are processed
+
+* **Current choice:** `FindIncidentsCommandParser` checks for the presence of every possible prefix and creates a new `Predicate<Incident>` to be added to `predicateArr` to be combined in `FindCommandParser`
+** Pros: Intuitive to use, majorly improves the Find Incidents Command +
+    Utilises Inheritance and Polymorphism principles from OOP to combine the `DescriptionKeywordsPredicate` and `NameKeywordsPredicate` and `IdKeywordsPredicate`, inherited from `Predicate<Incident>` class, all stored in `predicateArr`
+** Cons:
+    Challenging to implement.
+* **Alternative:** `FindIncidentsCommandParser` returns a new `FindCommand` for every prefix identified
+** Pros: Less complicated
+** Cons: More code needed +
+    Does not follow the `Command` interface abstracted from, in that multiple `FindCommands` will run `execute()` at each time, returning multiple `CommandResults`
+* **Alternative:** Do not allow multiple different prefixes to be processed
+** Pros: Easy to implement, less challenging.
+** Cons: Very limited capabilities of Find Incidents Command if multiple parameters cannot be accepted at once.
+
+===== Aspect: How predicate is added to `FindIncidentsCommand`
+
+* **Current choice:** `FindIncidentsCommand` class calls `Model` to create a new Predicate based on search string.
+** Pros: Abstracts the creation and management of predicates to the `Model`. Maintains Separation of Concerns principle.
 ** Cons: Requires greater level of coupling between classes.
-* **Alternative:** `SearchIncidentsCommand` or `SearchIncidentsCommandParser` directly create Predicate based on search string.
+* **Alternative:** `FindIncidentsCommand` or `FindIncidentsCommand` directly create Predicate based on search string.
 ** Pros: Less dependencies within the parser class.
-** Cons: Breaks abstraction flow.
+** Cons: Breaks Model-View-Controller pattern.
 // end::incidentsearch[]
 
 // tag::incidentedit[]

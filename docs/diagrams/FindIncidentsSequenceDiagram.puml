@@ -2,55 +2,64 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":IncidentManagerParser" as IncidentManagerParser LOGIC_COLOR
-participant ":SearchIncidentsCommandParser" as SearchIncidentsCommandParser LOGIC_COLOR
-participant "l:SearchIncidentsCommand" as SearchIncidentsCommand LOGIC_COLOR
+participant ":FindIncidentsCommandParser" as FindIncidentsCommandParser LOGIC_COLOR
+participant "l:FindIncidentsCommand" as FindIncidentsCommand LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
+participant "dkp: DescriptionKeywordsPredicate" as DescriptionKeywordsPredicate MODEL_COLOR
+participant "nkp: NameKeywordsPredicate" as NameKeywordsPredicate MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 participant "filteredIncidents:FilteredList<Incident>" as FilteredList MODEL_COLOR
 end box
-[-> LogicManager : execute("search op/Alex")
-activate LogicManager
-
-LogicManager -> IncidentManagerParser : parseCommand("search op/Alex")
+[-> IncidentManagerParser : parseCommand("find-i op/alex desc/pmd")
 activate IncidentManagerParser
 
-create SearchIncidentsCommandParser
-IncidentManagerParser -> SearchIncidentsCommandParser
-activate SearchIncidentsCommandParser
+create FindIncidentsCommandParser
+IncidentManagerParser -> FindIncidentsCommandParser
+activate FindIncidentsCommandParser
 
-SearchIncidentsCommandParser --> IncidentManagerParser
-deactivate SearchIncidentsCommandParser
+FindIncidentsCommandParser --> IncidentManagerParser
+deactivate FindIncidentsCommandParser
 
-IncidentManagerParser -> SearchIncidentsCommandParser : parse("Alex")
-activate SearchIncidentsCommandParser
+IncidentManagerParser -> FindIncidentsCommandParser : parse("op/alex desc/pmd")
+activate FindIncidentsCommandParser
 
-SearchIncidentsCommandParser -> Model : "Alex"
-activate Model
-Model --> SearchIncidentsCommandParser : predicate
-deactivate Model
+FindIncidentsCommandParser -> DescriptionKeywordsPredicate : "pmd"
+activate DescriptionKeywordsPredicate
+DescriptionKeywordsPredicate --> FindIncidentsCommandParser : dkp
+deactivate DescriptionKeywordsPredicate
 
-create SearchIncidentsCommand
-SearchIncidentsCommandParser -> SearchIncidentsCommand : predicate
-activate SearchIncidentsCommand
+FindIncidentsCommandParser -> FindIncidentsCommandParser : predicateArr.add(dkp)
 
-SearchIncidentsCommand --> SearchIncidentsCommandParser : l
-deactivate SearchIncidentsCommand
+FindIncidentsCommandParser -> NameKeywordsPredicate : "alex"
+activate NameKeywordsPredicate
+NameKeywordsPredicate --> FindIncidentsCommandParser : nkp
+deactivate NameKeywordsPredicate
 
-SearchIncidentsCommandParser --> IncidentManagerParser : l
-deactivate SearchIncidentsCommandParser
+FindIncidentsCommandParser -> FindIncidentsCommandParser : predicateArr.add(nkp)
 
-IncidentManagerParser --> LogicManager : l
+create FindIncidentsCommand
+FindIncidentsCommandParser -> FindIncidentsCommand : predicateArr
+activate FindIncidentsCommand
+
+FindIncidentsCommand -> FindIncidentsCommand : combinePredicates()
+
+FindIncidentsCommand --> FindIncidentsCommandParser : l
+deactivate FindIncidentsCommand
+
+FindIncidentsCommandParser --> IncidentManagerParser : l
+deactivate FindIncidentsCommandParser
+
+IncidentManagerParser -->[  : l
 deactivate IncidentManagerParser
-destroy SearchIncidentsCommandParser
+destroy FindIncidentsCommandParser
 
-LogicManager -> SearchIncidentsCommand : execute()
-activate SearchIncidentsCommand
+[-> FindIncidentsCommand : execute()
+activate FindIncidentsCommand
 
-SearchIncidentsCommand -> Model : updatedFilteredIncidentList(predicate)
+FindIncidentsCommand -> Model : updatedFilteredIncidentList(predicate)
 activate Model
 
 Model -> FilteredList : setPredicate(predicate)
@@ -58,21 +67,18 @@ activate FilteredList
  FilteredList --> Model :
 deactivate FilteredList
 
-Model --> SearchIncidentsCommand
+Model --> FindIncidentsCommand
 deactivate Model
 
-SearchIncidentsCommand -> Model : getFilteredIncidentList
+FindIncidentsCommand -> Model : getFilteredIncidentList
 activate Model
 
-Model --> SearchIncidentsCommand
+Model --> FindIncidentsCommand
 deactivate Model
 
-SearchIncidentsCommand -> SearchIncidentsCommand : size()
+FindIncidentsCommand -> FindIncidentsCommand : size()
 
-SearchIncidentsCommand --> LogicManager : commandResult
-deactivate SearchIncidentsCommand
-SearchIncidentsCommand -[hidden]-> LogicManager : commandResult
-
-[<--LogicManager
-deactivate LogicManager
+FindIncidentsCommand -->[ : commandResult
+deactivate FindIncidentsCommand
+FindIncidentsCommand -[hidden]->] : commandResult
 @enduml
