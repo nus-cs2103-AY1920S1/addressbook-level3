@@ -74,7 +74,8 @@ INFO: +
 +
 Example:  +
 `add n/buy a book d/math textbook a/10 t/coop` +
-Adds an expense to record where the name is “buy a book”, description is "math textbook" and the amount is 10. +
+Adds an expense to record where the name is “buy a book”, description is "math textbook",
+the amount is 10, and attach a "coop" tag on it. +
 {nbsp} +
 
 . _Edit an existing expense: edit_ +
@@ -374,7 +375,7 @@ Sort expenses by amount of expense in from largest to smallest. +
 {nbsp} +
 Usage:
 
- sort amt
+ sort amount
 
 {nbsp} +
 
@@ -729,15 +730,6 @@ By pressing the Down(&darr;) key, you can get the sequential command entered in 
 {nbsp} +
 
 // end::updownkey[]
-
-// tag::clear[]
-=== Clear the expenses: `clear`
-
-. _Get the previous entered command: &uarr;_ +
-You can clear all the expenses in Billboard by simply executing the `clear` command. `clear` will ignore the parameter you key in. +
-{nbsp} +
-
-// end::clear[]
 
 === Viewing help: `help`
 

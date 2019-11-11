@@ -27,6 +27,7 @@ Class Amount
 Class ExpenseList
 Class Archive
 Class Recurrence
+Class Date
 }
 
 Package Tag {
@@ -66,6 +67,7 @@ ExpenseList <|-right Recurrence
 Expense *--> Name
 Expense *--> Amount
 Expense *--> Description
+Expense *--> Date
 Expense o--> "*" Tag
 
 Description -[hidden]right-> Amount
