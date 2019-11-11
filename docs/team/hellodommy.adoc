@@ -67,7 +67,7 @@ which required efficient storage and retrieval. There was up to 4 levels of nest
 each event with a list of athletes paired with their personal list of records, each record having a date and
 timing. This also made the implementation exceptionally challenging.
 
-*Minor enhancement added:* I added the ability to `filter` athletes by their tags.
+*Minor enhancement added:* I added the ability to _filter_ athletes by their tags.
 
 * What it does: It allows captains and coaches to find athletes through their tags. Filtering by multiple
 tags is supported.
@@ -81,7 +81,7 @@ gender or location.
 
 *Code contributed:* The links provided are a compilation of my code contributed to the project:
 https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=hellodommy[[GitHub repository]]
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hellodommy&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[[RepoSense]]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=hellodommy[[RepoSense]]
 
 *Other contributions*
 
@@ -102,12 +102,13 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/pull/84[#84])
 ** Modified the colour scheme of the documentation for consistency with *Athletick*'s signature dark blue
 (Pull request
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/79/files[#79])
-** Added Developer Guide documentation for `filter`, `[green]#Performance#` and `[green]#Storage#` (Pull requests
+** Added Developer Guide documentation for `[green]#FilterCommand#`, `[green]#Performance#` and
+`[green]#Storage#` (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/83[#83],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/226[#226],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/232[#232],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/238[#238])
-** Added User Guide documentation for `filter`, `find`, `delete -p` and `[green]#Performance#`-related
+** Added User Guide documentation for `filter`, `find`, `delete -p` and performance-related
 commands (Pull
 requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/79[#79],
