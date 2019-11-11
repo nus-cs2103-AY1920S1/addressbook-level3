@@ -640,7 +640,7 @@ you are _notes_ mode, please ensure you used the `switch notes` command before t
 screen should now look like the one found in the screenshot below.
 ====
 
-image::NotesSuccess.PNG[width="700"]
+image::NotesSuccess.png[width="700"]
 
 
 === Creating a note: `add`
@@ -922,7 +922,7 @@ you are _cheatsheet_ mode, please ensure you used the `switch cs` command before
 screen should now look like the one found in the screenshot below.
 ====
 
-image::CheatSheetSuccess.PNG[width="700"]
+image::CheatSheetSuccess.png[width="700"]
 
 //tag::cheatsheetAdd[]
 
