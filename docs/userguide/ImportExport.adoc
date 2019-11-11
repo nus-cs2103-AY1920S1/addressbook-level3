@@ -31,6 +31,30 @@ You can import patient data from a .csv file into the application using
 * Both import commands are undoable.
 ****
 
+[IMPORTANT]
+=====
+CSV files used for importing must adhere to the following format requirements.
+
+* Provided file name should not be blank, and can contain only alphanumerics, hyphens and underscores.
+* The top row of the file must be exactly the following headers in the order:
+
+	name, phone, email, address, tagged, visitTodos
+
+* Each row in the .csv corresponds to one patient.
+* The data in each cell must adhere to the format of the field it belongs in.
+** Cells under `phone` must contain 3 to 8 digit numbers, cells under `name` must contain only alphanumerics and spaces, etc.
+** For the fields `tagged` and `visitTodos` with multiple elements per cell,
+each element is to be separated with a newline.
+* The data row for any patient cannot have empty cells in the following fields:
+
+	`name`, `phone`, `address`, `email`
+
+* The .csv file should adhere to the link:https://tools.ietf.org/html/rfc4180[RFC 2048] standard.
+
+=====
+Examples of valid CSV files can be seen
+link:https://github.com/AY1920S1-CS2103-F10-1/main/tree/master/docs/samplecsvs[here]
+
 ==== Import and Replace: `app-import-replace`
 
 Reads patient data from a specified .csv file.
@@ -62,12 +86,13 @@ Examples:
 ==== Import and Merge: `app-import-merge`
 
 Patient data will be read from a specified .csv file and merged without
-affecting existing data. Provided file should not be empty.
+affecting existing data.
 
 `".csv"` will be auto-appended to the specified `FILENAME`,
 **so there is no need to type in the file extension**.
 
 ****
+* Provided file should not be empty.
 * The .csv file cannot contain a patient that already exists in the app.
 * Can be executed when there is an ongoing visit.
 ****
@@ -80,34 +105,12 @@ Examples:
 
 ** Patient data from `./imports/my_new_patients.csv` will be added into the app.
 
-[IMPORTANT]
-=====
-CSV files used for importing must adhere to the following format requirements.
-
-* Provided file name should not be blank, and can contain only alphanumerics, hyphens and underscores.
-* The top row of the file must be exactly the following headers in the order:
-
-	name, phone, email, address, tagged, visitTodos
-
-* Each row in the .csv corresponds to one patient.
-* The data in each cell must adhere to the format of the field it belongs in.
-** Cells under `phone` must contain 3 to 8 digit numbers, cells under `name` must contain only alphanumerics and spaces, etc.
-** For the fields `tagged` and `visitTodos` with multiple elements per cell,
-each element is to be separated with a newline.
-* The data row for any patient cannot have empty cells in the following fields:
-
-	`name`, `phone`, `address`, `email`
-
-* The .csv file should adhere to the link:https://tools.ietf.org/html/rfc4180[RFC 2048] standard.
-
-=====
-Examples of valid CSV files can be seen
-link:https://github.com/AY1920S1-CS2103-F10-1/main/tree/master/docs/samplecsvs[here]
-
 === Exporting data into a CSV file: `app-export`
 
 You can export patient data from the application into a .csv file using `app-export`.
+
 A new .csv file will be created and data will be written into it.
+
 Indexes can be provided to selectively export data of specific persons.
 
 `".csv"` will be auto-appended to the specified `FILENAME`,

@@ -42,6 +42,20 @@ If successful, return the path of the written file.
 3. `importsAreUnique(List<Patient>)` -- Check if the patients in a given list are unique, i.e. the list
 contains no duplicate patients.
 
+==== Csv Processing Design Considerations
+* **Alternative 1 (current choice)**: Use `Jackson` 's `dataformat.csv` library.
+** Pros: Well integrated with the existing `Jackson` JSON parsing libraries. Tons of functions for CSV parsing.
+** Cons: Does not support Excel formats. Comprehensive library, recently updated but not well-documented. Hard to understand.
+
+* Alternative 2: Use other libraries, like Apache Commons CSV.
+** Pros: More features like Excel format parsing. Well documented.
+** Cons: Does not integrate well with the existing `Jackson` libraries used.
+
+* Alternative 3: Build your own parser!
+** Pros: Lightweight, implement only what is needed. Can be white box tested.
+** Cons: Lots of developer work to reinvent the wheel.
+Likely to be buggy as there are tons of edge cases to consider, due to many special characters.
+
 ==== Command Implementation
 
 ===== Command: `app-export`
