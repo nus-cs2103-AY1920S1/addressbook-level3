@@ -90,9 +90,7 @@ image::../images/calendarScreenshots/otherContributions.png[Other functionalitie
 
 {empty}
 
-To view my code in more detail: 
-
-// add link to code
+To view my code in more detail, please click here: [https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar[Functional code]] [https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/test/java/seedu/address/calendar/model[Test code]]
 
 == Other contributions
 
