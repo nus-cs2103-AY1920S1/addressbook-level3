@@ -282,6 +282,9 @@ However limitations of Java arose as classes cannot inherit more than one class 
 |===
 
 // end::teoha_ppp[]
+
+[[Delete-Trip]]
+
 === [Itinerary] Delete Trip/Day/Event
 ==== Implementation
 Deletion of `Trip/Day/Event` is facilitated by `PageStatus`. `PageStatus` stores the current state of execution of the user program.
@@ -394,12 +397,14 @@ steps shows the sequence of event happened within the method:
 
 ===== Delete an Expense
 
-Deletion of expense is similar to the _Delete Trip/Day/Event_ feature (see <<Delete_Trip>>).
+Deletion of expense is similar to the _Delete Trip/Day/Event_ feature (see <<Delete-Trip>>).
 
 The `DeleteExpenseCommand` in logic checks for index of deletion and type of expense. Only `MiscExpense` can be deleted through
 this command. Below is an example execution of deleting an expense:
 [[delete_expense_activity_diagram]]
 image::expense/developerguide/DeleteExpenseDiagram.png[width="80%" title=Activity diagram showing the execution of deleting an expense]
+
+// end::expense_ppp[]
 
 '''
 
@@ -450,7 +455,7 @@ is to be used to display `Budget` with the selected currency symbol and rate con
 
 All the monetary values in the application is displayed through calling the method from UI: `Budget#getValueStringInCurrency(CustomisedCurrency)`
 
-// end::expense_ppp[]
+
 
 '''
 

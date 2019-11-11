@@ -18,42 +18,41 @@ with our diary feature.
 
 As _TravelPal_ is for those who prefer using the keyboard over a mouse, it uses a Command Line Interface (CLI) for keyboard input, but it also provide alternative input with mouse. As for output, it is displayed in a Graphical User Interface (GUI) - which is a display that includes panes, menus and message boxes. We believe such implementation makes our application more user-friendly.
 
-
+In our project, my role was to implement the _Expense Manager_ and _Currency_ feature. The following sections will elaborate on these enhancements.
 
 == Summary of contributions
 
+|===
+|
 This section encompasses an overview of my contribution to the TravelPal application, including the summary of my code
 implementation and how they add value to the application in terms of functionality and user experience.
+|===
 
+=== *Major enhancements*: Implementation of the _Expense Manager_ feature
 
-==== Major enhancements: Implemented the _Expense Manager_ feature.
-
-I implemented the complete _Expense Manager_ feature and handled the expenditures of trips.
-
-image::expense/PPP/ExpenseManagerDays1.png[width="90%" align="center"]
-* *What it does*: the _Expense Manager_ allows users to micromanage a list of expenses. User can choose to manually add a new
+** *What it does*: the _Expense Manager_ allows users to micromanage a list of expenses. User can choose to manually add a new
 expense to a day or include an expense when adding an event in trip itinerary. All expenses will be displayed according
 to the days, and a summary of the daily expenses and the total expenses for the trip will be displayed.
-* *Justification*: This is one of the most useful features for pre-trip planning. A potential user may use the manager
+** *Justification*: This is one of the most useful features for pre-trip planning. A potential user may use the manager
 to keep track of their estimated expenses, compare it with the budget and adjust their schedules accordingly.
-* *Highlights*: This enhancement requires understanding of other features as the expenses needs to be updated whenever
+** *Highlights*: This enhancement requires understanding of other features as the expenses needs to be updated whenever
 there is a change in trip events. The expenses also need to be grouped under each days. Therefore, I had to make sure
 that the interactions between event class, day list and expenses are bug-free and efficient.
-* *Credits*: I used the concepts and logic from the existing code of address book to implement my features.
+** *Credits*: I used the concepts and logic from the existing code of address book to implement my features.
 
 '''
 
-==== Second enhancements: Implemented the _Currency Manager_ feature.
+=== Second enhancements: Implementation of the _Currency Manager_ feature.
 
-I added a currency feature which allows users to create and select customised currency with exchange rate.
+I added a _Currency_ feature which allows users to create and select customised currency with exchange rate.
 
-* *What it does*: the _Currency_ feature allows users to add and select currencies with customised currency name, symbol and
+** *What it does*: the _Currency_ feature allows users to add and select currencies with customised currency name, symbol and
 exchange rate. When a currency is selected, all the monetary valued will be displayed in that currency.
 
-* *Justification*: Given the limited domestic tourism size, currency conversion is very relevant to travellers in Singapore.
+** *Justification*: Given the limited domestic tourism size, currency conversion is very relevant to travellers in Singapore.
 International travellers may want to view the expenses in local currency so that our trip manager can be more intuitive and easy to use.
 
-* *Highlights*: To help users type currency symbols more efficiently, I added a list of preset currency symbols with index. This feature allows
+** *Highlights*: To help users type currency symbols more efficiently, I added a list of preset currency symbols with index. This feature allows
  users to simply enter an index, which is automatically converted into currency symbols. The implementation demands effective handling of javafx.
 
 '''
@@ -67,19 +66,20 @@ International travellers may want to view the expenses in local currency so that
 ** Contributed main idea of _TravelPal_ and its various sub-features (itinerary, diary, expenses, etc.) during project
 inception. (see https://docs.google.com/document/d/1mKmIZghbtYwgSWdDTiRQDLdXjKNhjuys8uSO8Y6McyI/edit[travelpal idea generation google docs])
 
+* Enhancements to existing features:
+** Wrote test cases for _Expense Manager_ and _Currency_ related classes.
+** Updates UI to make it more user friendly https://github.com/AY1920S1-CS2103T-T11-4/main/pull/160[#160]
+
 * Project management:
 ** Reviewed and approved several PRs
-** Update AboutUs page https://github.com/AY1920S1-CS2103T-T11-4/main/pull/18[#18]
+** Updated AboutUs page https://github.com/AY1920S1-CS2103T-T11-4/main/pull/18[#18]
 
 
 == Contributions to the User Guide
 
 |===
 |
-In developing __TravelPal__, a completely new user guide was needed to provide usage instructions for the various new features.
-
-Shown below is one of the various sections I contributed to the User Guide,
-on adding a photo inside the *diary* feature.
+This section displays the section of User Guide relating to the usage of _Expense Manager_ feature and _Currency_ customisation, created and edited by me.
 |===
 
 include::../UserGuide.adoc[tag=expense_ppp1]
@@ -92,7 +92,7 @@ NOTE: See the https://ay1920s1-cs2103t-t11-4.github.io/main/UserGuide.html[user 
 
 |===
 |
-This section displays the section of User Guide relating to the expense manager and currency customisation, created and edited by me.
+This section displays the section of Developer Guide showing the logic, model and user interface implementation of the _Expense manager_, created and edited by me.
 |===
 
 include::../DeveloperGuide.adoc[tag=expense_ppp]
