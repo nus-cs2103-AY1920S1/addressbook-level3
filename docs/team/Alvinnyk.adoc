@@ -56,17 +56,20 @@ details of the time slot such as the event name, timings and the location on Goo
 *** Morphed existing model for use in TimeBook (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/56[#56], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/149[#149], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/265[#265])
 *** Implemented new commands to interact with model (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/56[#56], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/162[#162])
 *** Implemented storage component to save model data(Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/70[#70])
-*** Wrote tests for model and logic component and increased coverage by a total of 13% (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/257[#257], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/262[#262], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/266[#266])
+*** Wrote tests for model and logic component and increased coverage by a total of 11% (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/257[#257], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/262[#262], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/266[#266])
 
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+___
+
 include::../UserGuide.adoc[tag=schedule-command]
+
+___
 
 include::../UserGuide.adoc[tag=select-command]
 
@@ -76,5 +79,6 @@ include::../UserGuide.adoc[tag=select-command]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=schedule-generator]
+include::../DeveloperGuide.adoc[tag=scheduler]
 
+___
