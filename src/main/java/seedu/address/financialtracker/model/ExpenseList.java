@@ -80,7 +80,7 @@ public class ExpenseList {
      */
     public void addExpense(Expense expense, boolean isUserInput) throws CommandException {
         if ((maximumCap + expense.getAmount().numericalValue) > 1000000000000d) {
-            throw new CommandException("Maximum cap 1 trillion reached! Are you sure you're not crazy?!");
+            throw new CommandException("Maximum cap 1 trillion reached! You wouldn't want to spend that :(");
         } else {
             if (isUserInput) {
                 undoStack.add(this.copy());

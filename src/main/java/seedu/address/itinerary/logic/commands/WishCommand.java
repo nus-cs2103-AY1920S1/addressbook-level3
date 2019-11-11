@@ -7,6 +7,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+// The wish command will be implemented in v2.0.
 /**
  * TravEzy look through previous entries and suggest three events for the given time slot.
  */

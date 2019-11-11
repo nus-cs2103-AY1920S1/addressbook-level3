@@ -46,8 +46,8 @@ public class ItineraryLogic {
         try {
             Optional<ReadOnlyItinerary> itineraryOptional = itineraryStorage.readItinerary();
 
-            itineraryOptional.ifPresentOrElse(ItinerarySampleDataUtil::doNothing,
-                    () -> System.out.println("Starting without a json file!"));
+            itineraryOptional.ifPresentOrElse(ItinerarySampleDataUtil::doNothing, () ->
+                    System.out.println("Starting without a json file!"));
 
             itinerary.updateItinerary(itineraryOptional.orElse(ItinerarySampleDataUtil.getSampleItinerary()));
 

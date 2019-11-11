@@ -36,15 +36,17 @@ public class HelpCommandWindow extends UiPart<Stage> {
     private static final String HELP = "help";
     private static final String GOTO_MESSAGE = "goto [page]";
     private static final String EXIT_MESSAGE = "exit";
-    private static final String ADD_MESSAGE = "add title/[title] date/[date] time/[time] l/[location] d/[description]";
-    private static final String DELETE_MESSAGE = "delete [index]";
-    private static final String EDIT_MESSAGE = "edit [index] [type]/[details]";
-    private static final String DONE_MESSAGE = "done [index]";
+    private static final String ADD_MESSAGE = "add title/TITLE date/DATE time/TIME [l/LOCATION] d/[DESCRIPTION]";
+    private static final String DELETE_MESSAGE = "delete INDEX";
+    private static final String EDIT_MESSAGE = "edit INDEX [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION]"
+            + " [d/DESCRIPTION] [tag/]";
+    private static final String DONE_MESSAGE = "done INDEX";
     private static final String LIST_MESSAGE = "list";
-    private static final String SORT_MESSAGE = "sort by/[title | location | chronological | completion | priority]";
+    private static final String SORT_MESSAGE = "sort by/[title] [location] [chronological] [completion] [priority]";
     private static final String HISTORY_MESSAGE = "history";
     private static final String UNDO_MESSAGE = "This command box supports auto-completion!";
-    private static final String SEARCH_MESSAGE = "search [title | date | time | location]/[keyword]";
+    private static final String SEARCH_MESSAGE = "search [title/TITLE] [date/DATE] [time/TIME] [l/LOCATION]"
+            + " [d/DESCRIPTION] [tag/]";
     //  private static final String WISH_MESSAGE = "wish by/[activity | time] [details]";
     private static final String INSTA_URL = "https://www.instagram.com/zhaoming_boiboi/";
     private static final String GITHUB_URL = "https://github.com/ngzhaoming";

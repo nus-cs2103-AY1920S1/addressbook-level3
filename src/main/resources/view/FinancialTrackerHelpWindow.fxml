@@ -16,7 +16,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="417.0" minWidth="581.0" resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -26,7 +26,7 @@
             <children>
                <HBox alignment="CENTER">
                   <children>
-                     <Label fx:id="helpMessage" text="Label" wrapText="true">
+                     <Label fx:id="helpMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="120.0" prefWidth="458.0" text="Label" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                         <HBox.margin>
                            <Insets right="5.0" />
                         </HBox.margin>
