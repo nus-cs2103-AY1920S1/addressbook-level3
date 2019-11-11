@@ -20,7 +20,7 @@ public class FindDiaryCommand extends FindCommand {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all diaries whose names contain any of "
             + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " Asian Food";
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " Asian Food";
 
     private static Event event;
     private final DiaryNameContainsKeywordsPredicate predicate;
