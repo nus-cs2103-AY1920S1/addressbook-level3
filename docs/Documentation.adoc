@@ -1,4 +1,4 @@
-= EzWatchlist  - Documentation
+= EzWatchlist - Documentation
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
