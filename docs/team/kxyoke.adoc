@@ -82,10 +82,11 @@ I created tabs and added the ability to switch views from tab to tab.
 
 === Code contributed
 //TODO: thisssss
- [https://github.com[Functional code]] [https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]] _{give links to collated code files}_
-To view the code I wrote, please click on the following links: +
- [https://github.com/kxyoke/main/tree/master/src/main/java/seedu/mark[Functional code]]
- [https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]]
+To view the code I wrote, please click on the following links:
+
+https://github.com/kxyoke/main/tree/master/src/test/java/seedu/mark[Test code]
+https://github.com/kxyoke/main/tree/master/src/main/java/seedu/mark[Functional code]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kxyoke&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=kxyoke&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[Reposense]
 
 
 
