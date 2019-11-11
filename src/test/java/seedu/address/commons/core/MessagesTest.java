@@ -13,8 +13,8 @@ public class MessagesTest {
         assertEquals(Messages.getMessageTransactionsListedOverview(), "%1$d transactions listed!");
         assertEquals(Messages.getMessageInvalidTransactionDisplayedIndex(),
             "The transaction index provided is invalid");
-        assertEquals(Messages.getMessageInvalidBudgetDisplayedIndex(), "The budget index provided is invalid");
+        assertEquals(Messages.getMessageInvalidBudgetDisplayedIndex(), "The budget index provided is invalid.");
         assertEquals(Messages.getMessageInvalidCommandUsage(), "Invalid command usage! \n%1$s");
-        assertEquals(Messages.getMessageInvalidProjectionDisplayedIndex(), "The projection index provided is invalid");
+        assertEquals(Messages.getMessageInvalidProjectionDisplayedIndex(), "The projection index provided is invalid.");
     }
 }

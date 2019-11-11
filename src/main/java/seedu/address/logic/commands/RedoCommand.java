@@ -23,6 +23,6 @@ public class RedoCommand extends Command {
         }
 
         model.redoUserState();
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, false, false, model.getCurrentTab());
     }
 }

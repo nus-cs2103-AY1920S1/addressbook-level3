@@ -11,11 +11,14 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.ui.tab.Tab;
 
 public class RedoCommandTest {
 
     private final Model model = new ModelManager(getTypicalUserState(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalUserState(), new UserPrefs());
+    private final CommandResult expectedCommandResult =
+            new CommandResult(RedoCommand.MESSAGE_SUCCESS, false, false, Tab.TRANSACTION);
 
     @BeforeEach
     public void setUp() {
@@ -35,11 +38,11 @@ public class RedoCommandTest {
     public void execute() {
         // multiple redoable states in model
         expectedModel.redoUserState();
-        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, expectedCommandResult, expectedModel);
 
         // single redoable state in model
         expectedModel.redoUserState();
-        assertCommandSuccess(new RedoCommand(), model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, expectedCommandResult, expectedModel);
 
         // no redoable state in model
         assertCommandFailure(new RedoCommand(), model, RedoCommand.MESSAGE_FAILURE);

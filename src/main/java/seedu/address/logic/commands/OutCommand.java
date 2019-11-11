@@ -48,8 +48,9 @@ public class OutCommand extends Command {
         requireNonNull(model);
 
         model.add(transaction);
-        model.commitUserState();
         model.updateProjectionsAfterAdd(transaction);
+        model.commitUserState();
+
         return new CommandResult(
             String.format(MESSAGE_SUCCESS, transaction), false, false, Tab.TRANSACTION);
     }
