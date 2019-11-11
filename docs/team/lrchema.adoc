@@ -51,11 +51,11 @@ My role was to implement the undo and redo functionality as well as give ELISA m
 *** Reviewed and gave suggestions on how to improve the ELISA logo my teammate Chengyi created, which were implemented in the final version of the logo.
 The logo before, which looks cute and innocent
 
-image::lrchema/elisaBefore.PNG[]
+image::lrchema/elisaBefore.PNG[][, 200]
 
 and the logo after, which is more confident and sassy
 
-image::lrchema/elisaAfter.PNG[]
+image::lrchema/elisaAfter.PNG[][, 200]
 
 *** Created a chime sound for the reminder function, used in https://github.com/AY1920S1-CS2103T-T10-3/main/pull/157[PR #157]
 
@@ -79,6 +79,8 @@ include::../UserGuide.adoc[tag=joke]
 |===
 
 include::../DeveloperGuide.adoc[tag=undobyreverse]
+
+include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=userstories]
 

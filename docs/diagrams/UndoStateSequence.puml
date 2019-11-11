@@ -1,0 +1,60 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+participant ":UndoCommand" as UndoCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":ElisaStateHistory" as ElisaStateHistory MODEL_COLOR
+participant ":ItemModel" as ItemModel MODEL_COLOR
+end box
+
+[-> LogicManager : execute(undo)
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand(undo)
+activate AddressBookParser
+
+create UndoCommand
+AddressBookParser -> UndoCommand
+activate UndoCommand
+
+UndoCommand --> AddressBookParser
+deactivate UndoCommand
+
+AddressBookParser --> LogicManager : u
+deactivate AddressBookParser
+
+LogicManager -> UndoCommand : execute()
+activate UndoCommand
+
+UndoCommand -> ElisaStateHistory : popCommand()
+activate ElisaStateHistory
+
+ElisaStateHistory --> UndoCommand :
+deactivate ElisaStateHistory
+
+UndoCommand --> LogicManager : result
+deactivate UndoCommand
+UndoCommand -[hidden]-> LogicManager : result
+destroy UndoCommand
+
+LogicManager -> ItemModel : setToCurrState()
+activate ItemModel
+ItemModel -> ItemModel : setState(currentState)
+ItemModel --> LogicManager
+deactivate ItemModel
+
+LogicManager -> ItemModel : updateModelLists()
+activate ItemModel
+ItemModel -> ItemModel : emptyLists()
+ItemModel --> LogicManager
+deactivate ItemModel
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

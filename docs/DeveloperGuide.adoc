@@ -224,18 +224,18 @@ The command execution history is stored in a stack, which is maintained in `Elis
 
 The activity diagram below shows the flow of the undo command.
 
-image::UndoActivity.png[]
+image::UndoActivity.png[][,250]
 
 Below is a possible usage scenario and the app behaviour.
 
 Step 1. The user executes `task eat`. A task with description "eat" is added and then the command is pushed into the commands stack.
 
-image::UndoStackStep1.png[]
+image::UndoStackStep1.png[][,250]
 
 Step 2. The user realises that adding the task was a mistake, and decides to undo by entering `undo` into ELISA. The `undo` command
 will pop the `AddTaskCommand` from the stack and reverse the effects of that command, in this case by deleting the task "eat" from the `TaskList`.
 
-image::UndoStackStep2.png[]
+image::UndoStackStep2.png[][,250]
 
 Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
 
@@ -245,90 +245,62 @@ That is, the redo stack is only non empty when the latest executed `Command`(s) 
 
 The activity diagram below shows the flow of the redo command.
 
-image::RedoActivity.png[]
+image::RedoActivity.png[][,250]
 
 // end::undobyreverse[]
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== [Previous] Undo/Redo feature
+==== Previous Implementation [Has since been refactored]
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `ElisaStateHistory`.
+It stores a stack of type `ElisaState`, which keeps track of the app data with a deep copy of the `ItemStorage` and the current displayed list with a deep copy of `VisualizeList`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `ElisaStateHistory#push()` -- Saves the current ELISA state in its history.
+* `ElisaStateHistory#pop()` -- Removes and returns the latest state as long as there is more than 1 item in the stack. This 1 item is the original application state that is saved on startup.
+* `ElisaStateHistory#size()` -- Returns the number of states in the stack.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Step 1. The user launches the application for the first time. The `ElisaStateHistory` will be initialized with the initial ELISA state
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+image::UndoState0.png[]
 
-image::UndoRedoState0.png[]
+Step 2. The user executes `task eat` command to add a task with a description "eat". Upon execution of any command except `undo` and `show`, the `Logic` calls `ItemModel#updateState()` to save the latest state to `ElisaStateHistory`.
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+image::UndoState1.png[]
 
-image::UndoRedoState1.png[]
+Step 3. The user executes `task jogging` to add another task with description "jogging". This command also calls `ItemModel#updateState()`, causing another modified ELISA state to be saved into the `ElisaStateHistory`.
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
+image::UndoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `ItemModel#updateState()`, so the ELISA state will not be saved.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the task "jogging" was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `ElisaStateHistory#popCommand()`, which will delete the last added state, and `Logic` will update the application state to the one at the top of the stack after command execution.
 
-image::UndoRedoState3.png[]
+image::UndoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the size of `ElisaStateHistory` is 1, that is, only containing the initial state, then there are no previous Elisa states to restore. The `undo` command checks for this case within its `execute()` method. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
+image::UndoStateSequence.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (initial choice):** Saves the entire Elisa state.
 ** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: May have performance issues in terms of memory usage, especially when a large number of items are added.
+** Another Con found after implementation: Reminders fire multiple times due to storing multiple references to items
+* **Alternative 2 (current choice):** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the item being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 // tag::priority[]
@@ -930,6 +902,32 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
    Expected: No person is deleted. Error details shown in the result display.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
+
+
+=== Undoing/Redoing previous commands
+
+. Undoing when no `UndoableCommand`(s) have been executed
+
+.. Prerequisites: Open the application and do not execute any add, edit, delete, priority or show commands
+.. Test case: `undo` +
+   Expected: No changes to be undone. Error message shown in chat box.
+.. Test case: `redo` +
+   Expected: No undo commands to be redone. Error message shown in chat box.
+
+. Undoing when `UndoableCommand`(s) _have_ been executed
+
+.. Prerequisites: Open the application and execute some commands like adding/removing items, changing done/not done of tasks, modifying dates/descriptions
+.. Test case: `undo` +
+   Expected: Last executed change should be reverted.
+.. Test case: `redo` +
+   Expected: Last undone change should be re-applied
+.. Other test cases: You can `undo` and `redo` multiple times in either direction to remove and apply changes.
+
+. Redoing when previous `UndoCommand`(s) exist but are not the last executed
+
+.. Prerequisites: Execute at least one `UndoableCommand`, followed by one or more `UndoCommand`(s), and then another `UndoableCommand`
+.. Test case: `redo` +
+    Expected: Should not be able to redo as the undo/redo command history has changed. Error message shown in chat box.
 
 === Priority mode testing
 . Toggling on priority mode
