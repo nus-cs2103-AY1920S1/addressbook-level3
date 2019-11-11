@@ -151,11 +151,13 @@ This section describes some details on how certain features are implemented.
 
 === Data Presentation: Categories
 ==== Implementation
+
+.Class Diagram for Categories
 image::CategoryListClassDiagram.png[]
 
 For all entries in guiltTrip, the entries should always belong to one category.
 Creation of categories are also helpful for breakdown of statistics to be complete.
-The implementation of `Category` and `CategoryList` are largely similar to UniqueEntryList in
+The implementation of `Category` and `CategoryList` are largely similar to `UniqueEntryList` in
 the original AddressBook. However, the slight difference lies in that `Category` is a field of
 `Entry` instead of being a child of `Entry` itself. A `Category` can only belong under Expense or Income, which
 is defined by the Enum `CategoryType.EXPENSE` or `CategoryType.INCOME`.
@@ -173,6 +175,7 @@ if there are existing entries of the original `Category` to carry out modificati
 
 Given below is an example of an activity diagram for editing a category to illustrate the point above.
 
+.Activity Diagram for Editing Category
 image::EditingCategory.png[]
 
 As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
@@ -186,7 +189,7 @@ As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
 * *Alternative 2*: Users are allowed to have any category names for their entries. There is no CategoryList to carry out validation checks on.
     ** Pros: Intuitive and convenient for the user.
     ** Cons: Calculation of Statistics would be messy if the user adds many different categories for their entries on a whim, the breakdown of statistics by category could be huge.
-* *Alternative 3(Current)*: There is a fixed set of categories, with users able to add delete or edit the existing set of Categories, but a command must be called by the user to modify the categories in the CategoryList.
+* *Alternative 3(Current)*: There is a fixed set of categories, with users able to add delete or edit the existing set of Categories, but a command must be consciously called by the user to modify the categories in the CategoryList.
     ** Pros: Allows the flexibility for addition of additional categories as well as solving the many different categories problem if alternative 2 was taken as users have to make the conscious effort to create a new category.
     ** Cons: Slightly more complicated to implement.
 
@@ -194,7 +197,7 @@ As the rest of the implementation is similar to AB3's CRUD, it won't be covered.
 
 ==== Implementation
 
-The sort command extends the Command class. It works on the `ObservableList` by wrapping the `ObservableList` on a
+The sort command extends the `Command` class. It works on the `ObservableList` by wrapping the `ObservableList` on a
 `SortedList` and adding a `EntryComparator` to the List.
 By default, the `Entry` in GuiltTrip are sorted by `Date`, followed by `Amount`,
 `Description`, `Category`, and finally `Tags`.
@@ -206,10 +209,11 @@ A Sort Command contains:
 * `SortSequence`: Ascending, Descending
 
 An Example of Sorting the Expense List is shown below
+
 .  The user executes the command `sortExpense typ/Amount s/ascending`
 .  `Logic` uses the `guiltTripParser` class to parse the user command
-.  This results in a `SortCommand` object which is executed by the `LogicManager`
-.  The `SortCommand` calls the `Model#sortFilteredExpenseList` to sort the list of expenses
+.  This results in a `SortExpenseCommand` object which is executed by the `LogicManager`
+.  The `SortExpenseCommand` calls the `Model#sortFilteredExpenseList` to sort the list of expenses
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 .  `Logic` returns the `CommandResult` object
 
@@ -219,7 +223,6 @@ The `Model#sortFilteredExpenseList` creates an `EntryComparator` which takes in 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("sortExpense typ/Amount s/ascending")` API call.
 
 .Interactions Inside the Logic Component for the `sortExpense typ/Amount s/ascending` Command
-
 image::SortSequence.png[]
 
 === Data Presentation: Find Command
@@ -235,6 +238,7 @@ For Example, the user can find by both `Amount` and `Description`. These are the
 
 === Data Presentation: Statistics
 
+.Class Diagram for Statistics Component.
 image::StatisticsClassDiagram.png[]
 
 The Statistics class diagram is shown above. Many of the operations are handled by StatisticsManager.
@@ -248,13 +252,13 @@ list of `DailyStatistics`.
 
 ==== Implementation: (Statistics) - ViewPieChart/ViewTable Command
 
-The ViewPie and ViewTable commands are a unique case as they both depend on `CategoryStatistics`.
-StatisticsManager has two `ObservableList` of `CategoryStatistics`, one for Expense, `listOfStatsForExpense`
-and one for Income, `listOfStatsForIncome`.
-The `StatisticsPieChart`and `StatisticsTable` in guiltTrip listens to these two `ObservableList`, and will update accordingly. Hence all operations
+The ViewPie and ViewTable commands are a unique case as they both depend on `CategoryStatistics`. StatisticsManager has two `ObservableList` of `CategoryStatistics`, one for `Expense`, *listOfStatsForExpense*
+and one for `Income`, *listOfStatsForIncome*.
+The `StatisticsPieChart` and `StatisticsTable` in guiltTrip listens to these two `ObservableList`, and will update accordingly. Hence all operations
 which involve calculation of category statistics needs to update this `ObservableList` by replacing its entries so as to
 update the relevant Pie Chart and Table in the Ui.
 
+.Activity Diagram when user wants to view the statistics in Pie Chart form.
 image::ViewPieActivityDiagram.png[]
 
 The overview of this process can be found in the Activity Diagram above.
@@ -265,25 +269,24 @@ The details of the process is as below:
 .  `LogicManager` uses the `guiltTripParser` class to parse the user command.
 .  This results in a `viewPieChartCommand` object which is executed by the `LogicManager`.
 .  The `viewPieChartCommand` calls the `Model#updateListOfStats(RangeOfDates)` 's method which then calls `StatisticsManager#updateListOfStats(RangeOfDates)` method to calculate the statistics for that type.
-.  `StatisticsManager#updateListOfStats(RangeOfDates)` detects that the size of the list is 2 and calls `#getListOfMonths(RangeOfDates)` to retrieve the list of `MonthListToCalculate` from start Date to End Date from `yearlyRecord`, the `ObservableMap` inside `StatisticsManager`.
-.  `StatisticsManager#updateListOfStats(RangeOfDates)` then calls `countStats(MonthListToCalculate, listOfStatistics)`, which will calculate the list of statistics for
+.  `StatisticsManager#updateListOfStats(RangeOfDates)` detects that the size of the list is 2 and calls `#getListOfMonths(RangeOfDates)` to retrieve the list of `MonthList` *MonthListToCalculate* from start Date to End Date from `yearlyRecord`, the `ObservableMap` inside `StatisticsManager`.
+.  `StatisticsManager#updateListOfStats(RangeOfDates)` then calls `StatisticsManager#countStats(MonthListToCalculate, listOfStatistics)`, which will calculate the list of statistics for
 expense and income categories and create many new `CategoryStatistics` objects to save the data of the calculated Statistics for each Category.
-.  `countStats(MonthListToCalculate, listOfStatistics)` will replace the all the `CategoryStatistics` objects in the `ObservableList` of `CategoryStatistics` with the newly calculated `CategoryStatistics` objects.
+.  `StatisticsManager#countStats(MonthListToCalculate, listOfStatistics)` will replace the all the `CategoryStatistics` objects in the `ObservableList` of `CategoryStatistics` with the newly calculated `CategoryStatistics` objects.
 .  As the `ObservableList` is updated, the PieChart and Table which uses this `ObservableList` is also updated, leading to them being updated.
-.  Finally, `countStats(MonthListToCalculate, listOfStatistics)` will set the new TotalExpense and TotalIncome values to the new values calculated, which will also update the Ui for Stats which displays the total expense and total income.
+.  Finally, `StatisticsManager#countStats(MonthListToCalculate, listOfStatistics)` will set the new TotalExpense and TotalIncome values to the new values calculated, which will also update the `Ui` for Stats which displays the total expense and total income.
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 .  `Logic` returns the `CommandResult` object.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewPie p/2019-09,2019-11")` API call.
 
+.Interactions Inside the Logic Component for the `viewPie p/2019-09,2019-11` Command
 image::ViewPieChartSequenceDiagram.png[]
 
-.Interactions Inside the Logic Component for the `viewPie p/2019-09,2019-11` Command
-
 ==== Implementation: (Statistics) - ViewBarChartCommand
-Similar to ViewPie and ViewTable, the `StatisticsBarChart` class listens to the `ObservableList` of `DailyStatistics` and will update
+Similar to `ViewPie` and `ViewTable`, the `StatisticsBarChart` class listens to the `ObservableList` of `DailyStatistics` and will update
 according to changes in it. Hence all operations which involve calculation of daily statistics needs to update this `ObservableList` by replacing its entries so as to
-update the relevant Bar Chart in Ui.
+update the relevant Bar Chart in `Ui`.
 
 The details of the process is as below:
 
@@ -301,6 +304,7 @@ returning it to `StatisticsManager`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("viewBar p/2019-09")` API call.
 
+.Interactions Inside the Logic Component for the `viewBar p/2019-09` Command
 image::ViewBarChartSequenceDiagram.png[]
 
 ==== Design Considerations: Statistics
