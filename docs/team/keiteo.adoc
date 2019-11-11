@@ -1,4 +1,4 @@
-= Keith Teo - Project Portfolio
+= Keith Teo - Project Portfolio for KeyboardFlashCards
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -20,17 +20,11 @@ same time helping our users, computing students familiar with the CLI, to save t
 to provide an efficient way to study for our peers to NUS School of Computing. Hence, we came up with an easy to use,
 flashcard manager using CLI for efficient and quick storage of important revision material to aid their study.
 
-KFC enables users the manage their list of flashcards efficiently, via commands such as adding, deleting and editing.
-The application also features a test mode where the users can choose from a list of categories to include when testing themselves.
-Subsequently, based on test results, KFC tracks the users' performances and provides data visualisation based on test statistics. In addition,
-the application enables users to store tasks with deadlines, e.g. reminders to study before a test, and reminding users to test flashcards
-that they were not able to answer in previous tests. Lastly, KFC allows users to import and export their list of flashcards easily.
-
 Here is a screenshot of our project:
 
-image::annotatedUi.png[width="600"]
+image::annotatedUi.png[width="1200"]
 
-Note the following symbols and formatting used in this document.
+Please note the following symbol used in this document.
 
 [NOTE]
 This section explains certain information that require the user to take note of.
