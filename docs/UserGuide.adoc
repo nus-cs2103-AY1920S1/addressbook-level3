@@ -106,7 +106,7 @@ There are several fields in each lesson as shown below:
 * Day - Prefix: day/
 ** Day should be an integer between 1-7.
 
-=== Adding: addlesson
+==== Adding: addlesson
 
 Adds a lesson to the lesson list of the notebook, +
 feature to repeat lessons will be implemented in v2.0 +
@@ -130,7 +130,7 @@ Examples:
 [NOTE]
 The index and day index provided must be valid and at least one field must be edited.
 
-=== Deleting: deletelesson
+==== Deleting: deletelesson
 
 Deletes a lesson at the specified index in the day list of reminder panel. +
 Day index represents day in week, e.g. Monday: 1, Tuesday: 2 +
@@ -144,7 +144,7 @@ Examples:
 [NOTE]
 The index and day index provided must be valid and at least one field must be edited.
 
-=== Finding: findlesson
+==== Finding: findlesson
 
 Finds lessons which match the given keyword. +
 Format: 'findlesson KEYWORD'
