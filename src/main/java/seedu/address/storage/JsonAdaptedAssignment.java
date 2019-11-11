@@ -18,6 +18,8 @@ import seedu.address.model.assignment.AssignmentName;
  */
 public class JsonAdaptedAssignment {
 
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Assignment's %s field is missing!";
+
     private final String assignmentName;
     private final String assignmentDeadline;
 
@@ -63,14 +65,21 @@ public class JsonAdaptedAssignment {
     public Assignment toModelType() throws IllegalValueException {
 
         if (assignmentName == null) {
-
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    Assignment.class.getSimpleName()));
+                    AssignmentName.class.getSimpleName()));
         }
         if (!AssignmentName.isValidAssignmentName(assignmentName)) {
             throw new IllegalValueException(AssignmentName.MESSAGE_CONSTRAINTS);
         }
         final AssignmentName modelAssignmentName = new AssignmentName(assignmentName);
+
+        if (assignmentDeadline == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    AssignmentDeadline.class.getSimpleName()));
+        }
+        if (!AssignmentDeadline.isValidAssignmentDeadline(assignmentDeadline)) {
+            throw new IllegalValueException(AssignmentDeadline.MESSAGE_CONSTRAINTS);
+        }
         final AssignmentDeadline modelAssignmentDeadline = new AssignmentDeadline(assignmentDeadline);
 
         Assignment newAssignment = new Assignment(modelAssignmentName, modelAssignmentDeadline);

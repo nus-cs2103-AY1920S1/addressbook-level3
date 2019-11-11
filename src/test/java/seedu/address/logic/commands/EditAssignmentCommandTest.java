@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_DEADLINE_MATH;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_NAME_ENGLISH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ASSIGNMENT_NAME_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 //import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -12,9 +13,6 @@ import static seedu.address.logic.commands.CommandTestUtil.showAssignmentAtIndex
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
 import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +24,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.Notebook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.student.Student;
 import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 
@@ -46,11 +43,7 @@ public class EditAssignmentCommandTest {
         EditAssignmentCommand.EditAssignmentDescriptor descriptor =
                 new EditAssignmentDescriptorBuilder(editedAssignment).build();
         EditAssignmentCommand editAssignmentCommand = new EditAssignmentCommand(INDEX_FIRST_OBJECT, descriptor);
-
-        List<String> studentNameList = new ArrayList<>();
-        for (Student student : model.getFilteredStudentList()) {
-            studentNameList.add(student.getName().toString());
-        }
+        //editedAssignment.initialiseGrades(model.getCurrentClassroom().getStudentNameList());
 
         String expectedMessage = String.format(EditAssignmentCommand.MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment);
 
@@ -74,6 +67,7 @@ public class EditAssignmentCommandTest {
                 .withAssignmentName(VALID_ASSIGNMENT_NAME_MATH).withAssignmentDeadline(VALID_ASSIGNMENT_DEADLINE_MATH)
                 .build();
         EditAssignmentCommand editAssignmentCommand = new EditAssignmentCommand(indexLastAssignment, descriptor);
+        editedAssignment.initialiseGrades(model.getCurrentClassroom().getStudentNameList());
 
         String expectedMessage = String.format(EditAssignmentCommand.MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment);
 
@@ -104,10 +98,11 @@ public class EditAssignmentCommandTest {
 
         Assignment assignmentInFilteredList = model.getFilteredAssignmentList().get(INDEX_FIRST_OBJECT.getZeroBased());
         Assignment editedAssignment = new AssignmentBuilder(assignmentInFilteredList)
-                .withAssignmentName(VALID_ASSIGNMENT_NAME_MATH).build();
+                .withAssignmentName(VALID_ASSIGNMENT_NAME_ENGLISH).build();
         EditAssignmentCommand editAssignmentCommand = new EditAssignmentCommand(INDEX_FIRST_OBJECT,
-                new EditAssignmentDescriptorBuilder().withAssignmentName(VALID_ASSIGNMENT_NAME_MATH).build());
+                new EditAssignmentDescriptorBuilder().withAssignmentName(VALID_ASSIGNMENT_NAME_ENGLISH).build());
 
+        editedAssignment.initialiseGrades(model.getCurrentClassroom().getStudentNameList());
         String expectedMessage = String.format(EditAssignmentCommand.MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment);
 
         Model expectedModel = new ModelManager(new Notebook(model.getNotebook()), new UserPrefs());

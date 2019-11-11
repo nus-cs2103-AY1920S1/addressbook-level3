@@ -211,6 +211,14 @@ public class Notebook implements ReadOnlyNotebook {
         currentClassroom.setAssignment(target, editedAssignment);
     }
 
+    /**
+     * Updates the assignments in the current classroom with the new student's name.
+     */
+    public void updateAllAssignmentNamesWithName(String oldStudentName, String newStudentName) {
+        requireAllNonNull(oldStudentName, newStudentName);
+        currentClassroom.updateAllAssignmentNamesWithName(oldStudentName, newStudentName);
+    }
+
     //=========== Display Operations =====================================================================
 
     public boolean isDisplayStudents() {

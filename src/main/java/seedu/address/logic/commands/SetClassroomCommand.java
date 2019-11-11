@@ -18,11 +18,11 @@ public class SetClassroomCommand extends Command {
     public static final String COMMAND_WORD = "setclass";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a classroom as current classroom"
                                                        + "Parameters: "
-                                                       + PREFIX_CLASSROOM + "CLASSROOMNAME ";
+                                                       + PREFIX_CLASSROOM + "CLASSROOMNAME";
 
     public static final String MESSAGE_SUCCESS = "Classroom set: %1$s";
-    public static final String MESSAGE_CLASSROOM_NOT_FOUND = "This classroom does not exists in the notebook";
-
+    public static final String MESSAGE_CLASSROOM_NOT_FOUND = "This classroom does not exist in the notebook";
+    public static final String MESSAGE_CLASSROOM_BLANK = "Classroom name cannot be blank!";
 
     private final Classroom toSet;
 
@@ -34,7 +34,10 @@ public class SetClassroomCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
+        String toSetName = toSet.getClassroomName();
+        if (toSetName.equals("")) {
+            throw new CommandException(MESSAGE_CLASSROOM_BLANK);
+        }
         if (model.hasClassroom(toSet)) {
             Classroom newCurrentClassroom = model.getClassroom(toSet);
             model.setCurrentClassroom(newCurrentClassroom);
@@ -52,7 +55,7 @@ public class SetClassroomCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                       || (other instanceof AddLessonCommand // instanceof handles nulls
+                       || (other instanceof SetClassroomCommand // instanceof handles nulls
                                    && toSet.equals(((SetClassroomCommand) other).toSet));
     }
 }

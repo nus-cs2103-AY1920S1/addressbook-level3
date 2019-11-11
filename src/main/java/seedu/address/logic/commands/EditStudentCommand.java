@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARENTPHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.Collections;
@@ -93,7 +94,11 @@ public class EditStudentCommand extends Command {
         }
 
         model.setStudent(studentToEdit, editedStudent);
+        if (!studentToEdit.getName().toString().equals(editedStudent.getName().toString())) {
+            model.updateAllAssignmentsWithName(studentToEdit, editedStudent);
+        }
         model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
+        model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         model.saveState();
         return new CommandResult(String.format(MESSAGE_EDIT_STUDENT_SUCCESS, editedStudent));
     }

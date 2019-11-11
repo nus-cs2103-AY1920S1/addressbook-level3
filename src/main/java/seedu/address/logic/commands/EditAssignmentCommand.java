@@ -34,7 +34,7 @@ public class EditAssignmentCommand extends Command {
             + "[" + PREFIX_DEADLINE + "ASSIGNMENT_DEADLINE]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_ASSIGNMENT + "Math Homework 2 "
-            + PREFIX_DEADLINE + "11/11/2019 1200";
+            + PREFIX_DEADLINE + "11/11/2020 1200";
 
 
     public static final String MESSAGE_EDIT_ASSIGNMENT_SUCCESS = "Edited Assignment: %1$s";

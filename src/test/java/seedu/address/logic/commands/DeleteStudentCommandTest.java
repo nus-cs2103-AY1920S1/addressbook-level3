@@ -3,10 +3,13 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
 import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +18,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.student.Student;
 
 /**
@@ -28,15 +32,24 @@ public class DeleteStudentCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
+        model = new ModelManager(getTypicalNotebook(), new UserPrefs());
         Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_OBJECT.getZeroBased());
         DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_OBJECT);
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getNotebook(), new UserPrefs());
+        // emulates delete command behaviour
         expectedModel.deleteStudent(studentToDelete);
-
-        //assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
+        List<Assignment> assignmentList = expectedModel.getFilteredAssignmentList();
+        for (Assignment assignment: assignmentList) {
+            Assignment editedAssignment = new Assignment(assignment.getAssignmentName(),
+                    assignment.getAssignmentDeadline());
+            editedAssignment.setGrades(assignment.namesStringListFromGrades(), assignment.marksStringListFromGrades());
+            editedAssignment.deleteOneStudentGrade(studentToDelete.getName().fullName);
+            expectedModel.setAssignment(assignment, editedAssignment);
+        }
+        assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
     }
 
 
@@ -52,19 +65,24 @@ public class DeleteStudentCommandTest {
     @Test
     public void execute_validIndexFilteredList_success() {
         showStudentAtIndex(model, INDEX_FIRST_OBJECT);
-
         Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_OBJECT.getZeroBased());
         DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_OBJECT);
 
         String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
         Model expectedModel = new ModelManager(model.getNotebook(), new UserPrefs());
+        showStudentAtIndex(expectedModel, INDEX_FIRST_OBJECT);
         expectedModel.deleteStudent(studentToDelete);
-        showNoStudent(expectedModel);
-
-        //assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
+        List<Assignment> assignmentList = expectedModel.getFilteredAssignmentList();
+        for (Assignment assignment: assignmentList) {
+            Assignment editedAssignment = new Assignment(assignment.getAssignmentName(),
+                    assignment.getAssignmentDeadline());
+            editedAssignment.setGrades(assignment.namesStringListFromGrades(), assignment.marksStringListFromGrades());
+            editedAssignment.deleteOneStudentGrade(studentToDelete.getName().fullName);
+            expectedModel.setAssignment(assignment, editedAssignment);
+        }
+        assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
     }
-
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
