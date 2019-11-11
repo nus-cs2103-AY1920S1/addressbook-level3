@@ -11,11 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
+import seedu.billboard.commons.core.observable.ObservableData;
 import seedu.billboard.model.expense.Amount;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.statistics.formats.ExpenseBreakdown;
+import seedu.billboard.model.statistics.formats.ExpenseGrouping;
 import seedu.billboard.model.statistics.generators.BreakdownGenerator;
-import seedu.billboard.model.tag.Tag;
 
 
 /**
@@ -28,6 +29,7 @@ public class ExpenseBreakdownChart extends ExpenseChart {
     @FXML
     private PieChart pieChart;
 
+    private final ObservableData<ExpenseGrouping> expenseGrouping;
     private final BreakdownGenerator breakdownGenerator;
     private final ObservableList<PieChart.Data> dataList;
 
@@ -36,37 +38,43 @@ public class ExpenseBreakdownChart extends ExpenseChart {
      * Returns a new {@code ExpenseBreakdownChart} with the specified parameters.
      *
      * @param expenses           An observable wrapper of the currently displayed expenses.
-     * @param breakdownGenerator Instance of a class that generates the breakdown to be viewed.
+     * @param expenseGrouping    An observable wrapper of the currently selected grouping to group expenses by.
+     * @param breakdownGenerator Instance of a generator that generates the breakdown to be viewed.
      */
-    public ExpenseBreakdownChart(ObservableList<? extends Expense> expenses, BreakdownGenerator breakdownGenerator) {
+    public ExpenseBreakdownChart(ObservableList<? extends Expense> expenses,
+                                 ObservableData<ExpenseGrouping> expenseGrouping,
+                                 BreakdownGenerator breakdownGenerator) {
         super(FXML, expenses);
         this.breakdownGenerator = breakdownGenerator;
         this.dataList = FXCollections.observableArrayList();
+        this.expenseGrouping = expenseGrouping;
+        expenseGrouping.setValue(ExpenseGrouping.TAG); // Default value
 
-        initChart();
+        ExpenseBreakdown expenseBreakdown = breakdownGenerator.generate(expenses);
+        dataList.setAll(breakdownValuesToList(expenseBreakdown.getBreakdownValues()));
+        pieChart.setData(dataList);
+
+        setupListeners();
     }
 
     /**
-     * Initializes the breakdown values and adds a listener to observe for changes in the underlying list and update the
-     * timeline accordingly.
+     * Sets up listeners to observe for changes in the relevant observables and update the breakdown accordingly.
      */
-    private void initChart() {
-        ExpenseBreakdown expenseBreakdown = breakdownGenerator.generate(expenses);
-
-        dataList.setAll(breakdownValuesToList(expenseBreakdown.getTagBreakdownValues()));
-        pieChart.setData(dataList);
+    private void setupListeners() {
+        expenseGrouping.observe(grouping ->
+                updateBreakdown(breakdownGenerator.generateAsync(expenses, grouping)));
 
         expenses.addListener((ListChangeListener<Expense>) c ->
-                onDataChange(breakdownGenerator.generateAsync(c.getList())));
+                updateBreakdown(breakdownGenerator.generateAsync(c.getList(), expenseGrouping.getValue())));
     }
 
     /**
      * Helper method called when the displayed list of expenses change.
      */
-    private void onDataChange(Task<ExpenseBreakdown> newDataTask) {
+    private void updateBreakdown(Task<ExpenseBreakdown> newDataTask) {
         newDataTask.setOnSucceeded(event -> {
             ExpenseBreakdown newData = newDataTask.getValue();
-            List<PieChart.Data> data = breakdownValuesToList(newData.getTagBreakdownValues());
+            List<PieChart.Data> data = breakdownValuesToList(newData.getBreakdownValues());
             Platform.runLater(() -> dataList.setAll(data));
         });
     }
@@ -74,10 +82,10 @@ public class ExpenseBreakdownChart extends ExpenseChart {
     /**
      * Converts a map of breakdown values into a list of pie chart data
      */
-    private List<PieChart.Data> breakdownValuesToList(Map<Tag, List<Expense>> breakdownValues) {
+    private List<PieChart.Data> breakdownValuesToList(Map<String, ? extends List<? extends Expense>> breakdownValues) {
         return breakdownValues.entrySet()
                 .stream()
-                .map(entry -> new PieChart.Data(entry.getKey().tagName,
+                .map(entry -> new PieChart.Data(entry.getKey(),
                         totalAmount(entry.getValue()).amount.doubleValue()))
                 .collect(Collectors.toList());
     }
@@ -88,7 +96,7 @@ public class ExpenseBreakdownChart extends ExpenseChart {
      * @param expenses List of expenses.
      * @return Total amount.
      */
-    private Amount totalAmount(List<Expense> expenses) {
+    private Amount totalAmount(List<? extends Expense> expenses) {
         return expenses.stream()
                 .reduce(new Amount("0"), (amount, expense) -> amount.add(expense.getAmount()),
                         Amount::add);

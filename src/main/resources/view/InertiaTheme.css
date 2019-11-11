@@ -364,6 +364,7 @@
 }
 
 .chart-title {
+  -fx-font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
   -fx-font-size: 1.6em;
   -fx-padding: 10px;
   -fx-underline: true;
@@ -401,6 +402,10 @@
 
 .default-color0.chart-series-line {
     -fx-stroke: #ff5a5a;
+}
+
+.chart-bubble.default-color0 {
+    -fx-bubble-fill: #ff6a6a;
 }
 
 

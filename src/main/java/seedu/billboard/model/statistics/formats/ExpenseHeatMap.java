@@ -4,9 +4,6 @@ import java.util.EnumMap;
 import java.util.List;
 import java.time.DayOfWeek;
 
-import javafx.util.Pair;
-
-import seedu.billboard.commons.core.date.DateRange;
 import seedu.billboard.model.expense.Amount;
 
 /**
@@ -19,5 +16,5 @@ public interface ExpenseHeatMap {
      * represents a week, with the {@code DateRange} specifying the dates of the start and end of the week, and the
      * {@code EnumMap} specifying the days of the week mapped to the aggregate amount spend on that day.
      */
-    List<Pair<DateRange, EnumMap<DayOfWeek, Amount>>> getHeatMapValues();
+    List<EnumMap<DayOfWeek, Amount>> getHeatMapValues();
 }
