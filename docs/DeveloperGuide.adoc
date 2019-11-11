@@ -532,7 +532,9 @@ When a user tries to add a card, there are various checks to ensure that the exp
 
 The other operations are used in `ParserUtil#parseExpiryDate(String expiryDate)` to ensure that user input passes these validations, before allowing the card to be added to the list. Upon startup of the app, the repopulation of data also checks against these validations to ensure that there are no illegal values stored in the list.
 
-Given below is an example usage scenario and how the validations behave at each step.
+Given below is an example usage scenario and how the validations behave at each step. The following sequence diagram shows how the expiry validations work.
+
+image::CardExpiryValidation.png[Diagram, 700]
 
 Step 1. The user executes `add d/VisaPOSB v/4291728395018293 c/256 e/12/15` command to add a new card named 'VisaPOSB' in the card book. The `CardBookParser#parseCommand(String userInput)` calls `AddCardCommandParser#parse(String args)` and the command parser tries to breakdown the string in to various parameters.
 
@@ -540,9 +542,7 @@ Step 2. The `AddCardCommandParser` calls `ParserUtil#parseExpiryDate(String expi
 
 Step 3. The `ParserUtil#parseExpiryDate(String expiry)` then calls `ExpiryDate#isValidExpiryDate(String test)`, which calls `ExpiryUtil#getMonthToExp(String expiry)`. However, `-47` is returned and the condition in `ExpiryDate#isValidExpiryDate` returns `false`.
 
-Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the command box.
-
-The following sequence diagram shows how the expiry validations work:
+Step 4. A `ParseException` is thrown from `ParserUtil#parseExpiryDate(String expiryDate)` and the error message is shown on the result box.
 
 ==== Expiry Notification
 The expiry notification is facilitated by `ExpiryDisplay`. It exists as an attribute within `MainWindow` and obtains the required expiring cards list from `LogicManager`. This is internally stored as `expiringCards`. Additionally, it implements the following operations:
@@ -753,37 +753,29 @@ It is less complex to implement and the code is much cleaner for better readabil
 
 // tag::carddesign[]
 
-[width="80%",cols="3,10,10",options="header"]
-|=========================================================
-|Aspect |Alternative 1 |Alternative 2
+===== Aspect: Implementation of expiry tagging system
+* Alternative 1 (current choice): Check for expiring and expired cards and add respective tags upon startup.
+** Pros: Adds the tag in real time on startup, removing the concern of updating tags.
+** Cons: Startup time may take longer due to extra processing of information.
 
-|Implementation of expiry tagging system
-a|The system saves a copy of the entire address book whenever the commands are executed.
+* Alternative 2: Add respective expiring and expired tags upon detection of nearing expiry.
+** Pros: Users can visibly see the addition of expiry tags when cards are expiring.
+** Cons: There will be a need to update expiring tags to expired tags, after the card has expired. This may lead to potential bugs.
 
-* Pros:
-* Cons:
+*The reason why we chose alternative 1:*
+It is much easier to code, and it is less susceptible to unforeseen circumstances such as a card having both expiring and expired tags.
 
-I decided to proceed with this option because
+===== Aspect: Deciding when the expiry notification should appear
+* Alternative 1 (current choice): Notification should appear upon startup.
+** Pros: User is immediately warned of their expiring cards and is able to take the necessary actions required.
+** Cons: Potentially disruptive as notification would appear every time the user starts up the app, as long as expiring cards exists.
 
-a|List 2.
+* Alternative 2: Notification should appear upon navigating to card book.
+** Pros: User can immediately tell which cards are in need of attention.
+** Cons: Expiring cards may be left unnoticed if user does not explicitly navigate to the card book.
 
-* Pros:
-* Cons:
-
-|Implementation of expiry tagging system
-a|The system saves a copy of the entire address book whenever the commands are executed.
-
-* Pros:
-* Cons:
-
-I decided to proceed with this option because
-
-a|List 2.
-
-* Pros:
-* Cons:
-
-|=========================================================
+*The reason why we chose alternative 1:*
+The main purpose of notifications is to remind users to take action and users can subsequently delete the card so that the notification stops appearing.
 
 // end::carddesign[]
 ==== Sort Note feature
