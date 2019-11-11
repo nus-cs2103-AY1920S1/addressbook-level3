@@ -280,7 +280,7 @@ image::BudgetClassDiagram.png[]
 
 Displaying the percentage remaining improves the user experience greatly as our target user is a
 `visual person who wants to see how much budget he has left in each category so as to cut down on spending as necessary`
-as specified in <<User-Stories, user stories>>. Hence, taking a quick glance at the `Budget card` allows the user to
+as specified in the <<User-Stories, User Story>>. Hence, taking a quick glance at the `Budget card` allows the user to
 determine how much of budget he has left, as well as be alarmed by the red font colour to spend less if he has overspent beyond the budget set. +
 
 A snippet of the code which calculates the percentage of budget left is shown below:
@@ -1067,26 +1067,6 @@ _{More to be added}_
 Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]]
-Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing

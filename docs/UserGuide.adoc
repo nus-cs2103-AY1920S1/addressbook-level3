@@ -68,6 +68,9 @@ The _Transactions_ are split into:
 These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
 
 === Budgets
+The _Budget_ feature represent the budget to be set until a stipulated deadline for a certain *CATEGORY*.
+As you make transactions of particular *CATEGORY*, the budget with the same *CATEGORY* will be adjusted accordingly.
+(see <<Set, *Setting a Budget*>>)
 
 === Ledgers
 
@@ -293,12 +296,12 @@ image::out_ug_8.png[]
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
 
-=======
 //end::out[]
 
 // tag::set[]
 
 [[Set]]
+
 === Setting a Budget : `set`
 
 You can set a budget for a particular category until a certain date, given it is not already present in the budget list.
