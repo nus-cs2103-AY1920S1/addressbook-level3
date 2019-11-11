@@ -1064,9 +1064,9 @@ e.g. `find James Jake`
 * *Find Policy* : `findpolicy KEYWORD [MORE_KEYWORDS]` +
 e.g. `findpolicy senior`
 * *Find People by Tags*: `findtagpeople t/TAG [MORE_TAGS]` +
-e.g. `findtagpeople smoker diabetic`
+e.g. `findtagpeople t/smoker t/diabetic`
 * *Find Policy by Tags*: `findtagpolicy t/TAG [MORE_TAGS]` +
-e.g. `findtagpolicy accident life`
+e.g. `findtagpolicy t/accident t/life`
 * *Find Policyholders*: `findpolicyholders INDEX` +
 e.g. `findpolicyholders 4`
 * *Find Eligible People by Policy*: `eligiblepeople INDEX` +

@@ -1136,7 +1136,7 @@ While entering commands, you can also navigate to previous commands using the up
     `addtag [INDEX OF PERSON JUST ADDED] t/test` +
     `addpolicy n/Motor Care d/Insurance for cars c/months/10 pr/$50000 sa/18 ea/100` +
     `addcriteria [INDEX OF POLICY JUST ADDED] cr/test
-    `eligiblepeople [INDEX OF PERSON JUST ADDED]` +
+    `eligiblepeople [INDEX OF POLICY JUST ADDED]` +
     Expected: Person just added should show up on the list that appears during the run of `eligiblepeople`
 
 . Policies that are eligible for people show up during `eligiblepolicies`
@@ -1145,6 +1145,6 @@ While entering commands, you can also navigate to previous commands using the up
     `addtag [INDEX OF PERSON JUST ADDED] t/test` +
     `addpolicy n/Motor Care d/Insurance for cars c/months/10 pr/$50000 sa/18 ea/100` +
     `addcriteria [INDEX OF POLICY JUST ADDED] cr/test
-    `eligiblepolicies [INDEX OF POLICY JUST ADDED]` +
+    `eligiblepolicies [INDEX OF PERSON JUST ADDED]` +
     Expected: Policy just added should show up on the list that appears during the run of `eligiblepolicies`
 // end::manualtesteligibility[]
