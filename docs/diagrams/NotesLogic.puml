@@ -1,15 +1,15 @@
 @startuml
 
 interface NotesLogic {
-    void : setNoteSubmissionChannel(channel)
-    ObservableList<Note> : getAllNotesList()
-    void : addNoteWithSketch(note, sketch)
-    void : addNote(note)
-    Optional<Note> : saveNoteFromSubmissionChannel()
-    void : replaceNote(oldNote, newNote)
-    Observable<Pair<Note, WritableImage>> : getSelectedNote()
-    Note : selectNote(id)
-    Note : deleteNote(id)
+    setNoteSubmissionChannel(channel)
+    getAllNotesList()
+    addNoteWithSketch(note, sketch)
+    addNote(note)
+    saveNoteFromSubmissionChannel()
+    replaceNote(oldNote, newNote)
+    getSelectedNote()
+    selectNote(id)
+    deleteNote(id)
 }
 
 @enduml
