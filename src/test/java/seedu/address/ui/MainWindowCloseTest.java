@@ -67,8 +67,9 @@ public class MainWindowCloseTest extends GuiUnitTest {
     }
 
     @Test
-    public void minimise_minimiseButton_windowMinimised() {
+    public void minimise_minimiseButton_windowMinimised() throws InterruptedException {
         mainWindowHandle.clickOnMinimiseButton();
+        Thread.sleep(1000);
         assertTrue(guiRobot.getStage("Address App").isIconified());
         Platform.runLater(() -> guiRobot.getStage("Address App").setIconified(false));
     }
