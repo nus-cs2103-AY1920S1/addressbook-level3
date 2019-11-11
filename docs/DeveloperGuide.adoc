@@ -370,7 +370,7 @@ If a `redo` command was executed afterwards, the `ClearCommand` would simply be 
 The following activity diagram shows what happens when a user executes a new `UndoableCommand`. In this case, it is the `ClearCommand` being undone. The control flow is similar for other `UndoableCommands`; they only differ in the implementation of `undo()`.
 
 .Activity Diagram Showing the Execution Control Flow of a Command
-image::CommandProcessActivityDiagram.png[width=400]
+image::CommandProcessActivityDiagram.png[]
 
 ===== Defensive programming
 To defend against improper undoing or redoing, an `UndoableCommand` can only be added to the `commandHistory` or `undoHistory` of `ModelManager` through its `execute()` or `undo()` method.
@@ -510,7 +510,7 @@ It will be explained in further detail later. Currently, this value is set to `1
 The following class diagram (Figure 14) models the relationships and dependencies among classes in this feature:
 
 .Notification Class Diagram
-image::NotifCommandClassDiagram.png[width=400]
+image::NotifCommandClassDiagram.png[]
 
 The following sequence diagrams (Figure 15 and 16) illustrate the execution of the notification feature:
 
@@ -524,7 +524,7 @@ The following activity diagram summarizes what happens when a user adds a new bo
 instantiated:
 
 .Notification Command Activity Diagram
-image::NotifCommandActivityDiagram.png[width=200]
+image::NotifCommandActivityDiagram.png[]
 
 ===== Storing executed and pending `Notifs`
 `NotifCommand` supports storage where each `Notif` with its associated `Body` and the `long` equivalent of the
@@ -626,7 +626,7 @@ The `genReport <BODY_ID> (sign)` command calls `ReportGenerator#generate(body, s
 The following activity diagram (Figure 18) summarizes what happens when manager executes a `genReport <BODY_ID> (sign)` command:
 
 .Activity diagram when `genReport 1 John Doe` is executed by manager.
-image::GenReportActivityDiagram.png[width=200]
+image::GenReportActivityDiagram.png[]
 
 The following code snippet from `GenReportCommand.java` demonstrates how an error message is displayed when manager inputs an invalid command and when report is not successfully generated:
 
