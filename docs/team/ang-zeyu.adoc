@@ -25,26 +25,31 @@ trip with both multimedia and text.
 ==== Main contribution 1: Implemented the diary feature.
 
 image::diary/userguide/welcome_to_diary_image.png[width="90%" align="center"]
-* What it does: Overall, this feature allows the user to key in memorable details of his / her travels, and store multimedia such
+* *What*: Overall, this feature allows the user to key in memorable details of his / her travels, and store multimedia such
 as photos of the trip, displayed in a user friendly and eye-catching format.
-* Justification: Leisure travellers often want to reminisce on previous trips they have made long after the trip,
+* *Justification*: Leisure travellers often want to reminisce on previous trips they have made long after the trip,
 or share its details with friends and loved ones.
-* Highlights: Due to the large amounts of displayable multimedia, the user interface of this feature was most
+* *Highlights*: Due to the large amounts of displayable multimedia, the user interface of this feature was most
 challenging to implement, requiring much analysis and consideration
-in striking a balance between code performance and organization. To ensure support for a range of multimedia in the future,
-the implementation user interface implementation also had to be highly extensible.
+in striking a balance between code performance and organization. To ensure support for various forms of multimedia in the future,
+the user interface implementation also had to be highly extensible.
 
 '''
 
 ==== Main Contribution 2: Base _address book_ code refactor
 
-* What: Refactored all of the `logic` code component of the base _address book_ code for common use in _TravelPal_,
-along with several `ui` components.
-* Justification: Although the code base given to us was extensive, many of the common functionality we had in mind for
-_TravelPal_, such as the ability to switch between pages of the application, was not immediately implementable from _address book_.
-* Highlights: In considering the common functionality needed by the team, it was challenging to find solutions to
-build upon the existing code rather than make intrusive code changes. Given the limited time frame of our project, it was crucial that
-we utilised much of the existing code to speed our development process.
+* *What*: I refactored all of the `logic` code component of the base _address book_ code for team use in _TravelPal_.
+I also added and updated several `ui` components, which of particular note was `ui FormItems`, a convenient and reusable
+code structure to build user input forms anywhere in _TravelPal_.
+* *Justification*: Although the code base given to us was extensive, much of the common functionality we had in mind for
+_TravelPal_, such as the ability to switch between pages of the application, was not immediately implementable from the given _address book_ code base.
++
+Given the limited time frame of our project, it was also crucial that we utilised much of the existing code to
+speed our development process, and develop code components that were easily reusable.
+
+* *Highlights*: It was challenging to avoid making
+intrusive changes to the code base whenever possible while achieving the desired functionality,
+as it would introduce an additional burden for the team to understand the code.
 
 '''
 
@@ -52,30 +57,28 @@ we utilised much of the existing code to speed our development process.
 
 image::Ui.png[width="90%" align="center"]
 
-* What: The trip manager allows the user to create and delete trips, and serves as the entry point into a single trip's
+* *What*: The trip manager allows the user to create and delete trips, and serves as the entry point into a single trip's
 sub-features.
 other sub-features.
-* Justification: As the application entry point, the trip manager was required before the team commence on developing
+* *Justification*: As the application entry point, the trip manager was required before the team commence on developing
 their own sub-features.
 
 '''
+==== Other Contributions
+* Code contributed: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ang-zeyu&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[RepoSense code]] [https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?q=is%3Apr+author%3Aang-zeyu+is%3Aclosed[Github pull requests]]
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ang-zeyu&tabRepo=AY1920S1-CS2103T-T11-4%2Fmain%5Bmaster%5D[Reposense code]] [https://github.com/AY1920S1-CS2103T-T11-4/main/pulls?q=is%3Apr+author%3Aang-zeyu+is%3Aclosed[Github pull requesets]]
-
-* *Other contributions*:
-
-** Idea generation:
-*** Contributed main idea of _TravelPal_ and its various sub-features (itinerary, diary, expenses, etc.) during project
+* Idea generation:
+** Contributed main idea of _TravelPal_ and its various sub-features (itinerary, diary, expenses, etc.) during project
 inception, which the team agreed upon. (see https://docs.google.com/document/d/1mKmIZghbtYwgSWdDTiRQDLdXjKNhjuys8uSO8Y6McyI/edit[travelpal idea generation google docs])
-** Enhancements to existing features
-*** Enhanced navigation bar icon looks https://github.com/AY1920S1-CS2103T-T11-4/main/pull/68[#68]
+* Enhancements to existing features
+** Enhanced navigation bar icon looks https://github.com/AY1920S1-CS2103T-T11-4/main/pull/68[#68]
 
-** Project management:
-*** Managed releases `v1.1` - `v1.3` (4 releases) on GitHub: https://github.com/AY1920S1-CS2103T-T11-4/main/releases[releases]
-*** Maintained issue tracker for milestones `1.1` through `1.4` https://github.com/AY1920S1-CS2103T-T11-4/main/issues?q=is%3Aissue+is%3Aclosed[issues]
-** Tools:
-*** Set up several continuous integration services (appveyor, coveralls)
-*** Set up team github organization and repo
+* Project management:
+** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub: https://github.com/AY1920S1-CS2103T-T11-4/main/releases[releases]
+** Maintained issue tracker for milestones `1.1` through `1.4` https://github.com/AY1920S1-CS2103T-T11-4/main/issues?q=is%3Aissue+is%3Aclosed[issues]
+* Tools:
+** Set up several continuous integration services (https://ci.appveyor.com/project/ang-zeyu/main[AppVeyor], https://coveralls.io/github/AY1920S1-CS2103T-T11-4/main[Coveralls])
+** Set up team github organization and repo
 
 
 == Contributions to the User Guide
@@ -89,7 +92,7 @@ on adding a photo inside the *diary* feature.
 |===
 
 include::../UserGuide.adoc[tag=diary_ppp1]
-NOTE: See the <<UserGuide#, user guide>> for this usage scenario, not included in this project portfolio page.
+NOTE: See the https://ay1920s1-cs2103t-t11-4.github.io/main/UserGuide.html[user guide] for this usage scenario, not included in this project portfolio page.
 
 
 
@@ -109,14 +112,13 @@ include::../DeveloperGuide.adoc[tag=diary_ppp]
 
 == Conclusion
 
-Developing _TravelPal_ under the various constraints given to us proved to be challenging. Of particular
-note was our inexperience in building an application on top of a given code base.
+The constraints imposed on our development process necessitated careful deliberation and
+consideration of both our product, _TravelPal_, and the changes needed to our code.
+From this process, I gained many invaluable insights for future software projects, particularly in
+the area of requirements analysis.
 
-Nonetheless, using my prior experience of developing organized code, I was able to contribute and implement various suggestions
-which resulted in a highly extensible code base, easing the team development process.
+Nonetheless, using my prior experience and knowledge in developing well organized code,
+I was able to contribute and implement numerous suggestions
+which resulted in a extensible code base, easing the team development process.
 
-Through thoroughly practicing the striking a balance between the various
-guidelines and principles of good software engineering during this project,
-I have also which would be my key takeaway from this.
-
-
+Overall, developing _TravelPal_ under the various constraints given to us proved to be both a challenging and fruitful expereince.
