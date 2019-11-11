@@ -24,6 +24,10 @@ public class JsonSerializableFinSecTest {
     private static final Path TYPICAL_APPROVED_CLAIMS_FILE = TEST_DATA_FOLDER.resolve(
             "typicalApprovedClaimsFinSec.json");
 
+    private static final Path TYPICAL_INCOMES_FILE = TEST_DATA_FOLDER.resolve("typicalIncomesFinSec.json");
+    private static final Path TYPICAL_COMMANDITEMS_FILE = TEST_DATA_FOLDER.resolve("typicalCommandItemsFinSec.json");
+    private static final Path TYPICAL_SUGGESTIONS_FILE = TEST_DATA_FOLDER.resolve("typicalSuggestionsFinSec.json");
+
     //@@author{weigenie}
     @Test
     public void toModelType_typicalClaimsFile_success() throws Exception {
@@ -41,6 +45,36 @@ public class JsonSerializableFinSecTest {
                 JsonSerializableFinSec.class).get();
         FinSec finSecFromFile = dataFromFile.toModelType();
         FinSec typicalClaimsFinSec = TypicalObjects.getTypicalFinSecWithApprovedClaims();
+        assertEquals(finSecFromFile, typicalClaimsFinSec);
+    }
+
+    //@@author{joshuaseetss}
+    @Test
+    public void toModelType_typicalIncomesFile_success() throws Exception {
+        JsonSerializableFinSec dataFromFile = JsonUtil.readJsonFile(TYPICAL_CLAIMS_FILE,
+                JsonSerializableFinSec.class).get();
+        FinSec finSecFromFile = dataFromFile.toModelType();
+        FinSec typicalClaimsFinSec = TypicalObjects.getTypicalFinSec();
+        assertEquals(finSecFromFile, typicalClaimsFinSec);
+    }
+
+    //@@author{joshuaseetss}
+    @Test
+    public void toModelType_typicalSuggestionsFile_success() throws Exception {
+        JsonSerializableFinSec dataFromFile = JsonUtil.readJsonFile(TYPICAL_CLAIMS_FILE,
+                JsonSerializableFinSec.class).get();
+        FinSec finSecFromFile = dataFromFile.toModelType();
+        FinSec typicalClaimsFinSec = TypicalObjects.getTypicalFinSec();
+        assertEquals(finSecFromFile, typicalClaimsFinSec);
+    }
+
+    //@@author{joshuaseetss}
+    @Test
+    public void toModelType_typicalCommandItemsFile_success() throws Exception {
+        JsonSerializableFinSec dataFromFile = JsonUtil.readJsonFile(TYPICAL_CLAIMS_FILE,
+                JsonSerializableFinSec.class).get();
+        FinSec finSecFromFile = dataFromFile.toModelType();
+        FinSec typicalClaimsFinSec = TypicalObjects.getTypicalFinSec();
         assertEquals(finSecFromFile, typicalClaimsFinSec);
     }
 

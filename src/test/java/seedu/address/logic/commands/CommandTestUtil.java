@@ -169,6 +169,27 @@ public class CommandTestUtil {
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book, filtered contact list and selected contact in {@code actualModel} remain unchanged
      */
+    //@@author{joshuaseetss}
+    public static void assertCommandFailureNoExceptionThrown(Command command, Model actualModel,
+                                                             String expectedMessage) {
+        // we are unable to defensively copy the model for comparison later, so we can
+        // only do so by copying its components.
+        FinSec expectedFinSec = new FinSec(actualModel.getFinSec());
+        List<seedu.address.model.contact.Contact> expectedFilteredList = new ArrayList<>(
+                actualModel.getFilteredContactList());
+
+
+        assertEquals(expectedFinSec, actualModel.getFinSec());
+        assertEquals(expectedFilteredList, actualModel.getFilteredContactList());
+    }
+
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - a {@code CommandException} is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
+     * - the address book, filtered contact list and selected contact in {@code actualModel} remain unchanged
+     */
     public static void assertViewContactFailure(Command command, Model actualModel, String expectedMessage) {
         assertThrows(CommandException.class, expectedMessage, () -> command.execute(actualModel));
     }

@@ -7,12 +7,16 @@
 
 == Overview
 
-This is a project for a Software Engineering module, CS2103T in National University of Singapore. I am in a team of 4 Computer Science students and we were given the task of enhancing the existing Command Line Interface application that the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations. The name of the application is FinSec.
+image::lawncegoh.png[width="100", align="left"]
+{empty}[https://github.com/lawncegoh[github]]
 
-This new application, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
+Hi! My name is Lawnce. I am a second year student in School of Computing. This page aims to document the contributions I have made in a project that my team and I completed for the module CS2103T.
+
+My team was tasked to enhance the existing Command Line Interface application the module provided us with. We decided to morph the application into a Financial Tracker for Finance Secretaries in organisations.
+
+This new application, FinSec, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
 
 This is what our project looks like:
-
 [[fig-PPP-ui]]
 .Structure of the Logic Component
 image::PPP-ui.png[]
@@ -22,7 +26,7 @@ image::PPP-ui.png[]
 This section is a summary of my contributions to the project. I have 3 major enhancements and 1 minor enhancement in total. They are as follows:
 
 * *Major enhancement 1*: I added *ability to `goto` a different view, through the different lists*
-** *What it does*: this `goto` feature allows the user to get to the different lists, namely: contacts,
+** *What it does*: This `goto` feature allows the user to get to the different lists, namely: contacts,
 claims and incomes, changing the state at which the
 user is currently at
 ** *Justification*: This feature is the backbone of my next 2 features because the changing of state is the underlying flag or checker
@@ -35,9 +39,9 @@ ensure that this list is able to update to another list when the correct command
 Also, after implementing the changing of lists, I had to also implement a state in each of these lists to make sure that the state
 changes when a certain view is input as parameter into this `goto` feature.
 
-* *Major enhancement 2*: I added *ability to `sort` and `reverse` the 3 various lists.
+* *Major enhancement 2*: I added *ability to `sort` and `reverse` the 3 various lists*
 
-** *What it does*:The user is able to sort the lists according to name, date and status.
+** *What it does*: The user is able to sort the lists according to name, date and status.
 `reverse` on the other hand sorts the lists in the reverse order. This is where the states of the various lists will allow this sort feature to work
 differently. An example will be in the state of claims. Only the `sort status` and `reverse status` will work as status belongs only to claim.
 ** *Justification*: The user can now sort the claims based on the most critical ones which are the pending claims. The `reverse`
@@ -52,7 +56,7 @@ what was most important for the user. An example is that I chose to sort the cla
 `sort name`. A Financial Secretary would be more likely to need the description of the claims when he wants to check through his claims.
 
 * *Major enhancement 3*: I added *the ability to `check` each individual claim or contact*
-** *What it does*: in contacts page, the `check` feature allows the user to see the claims and details that are linked to the this current contact. In the
+** *What it does*: The `check` feature allows the user to see the claims and details that are linked to the this current contact in the contacts page. In the
 claims page, the check feature allows the user to view a single claim with the most important details on this
 card. Both are shown through a pop-up to show the individual contact or claim. This feature once again makes use of the change of state in the goto
 feature to ensure that the check works differently in both contacts or claims list.
@@ -67,8 +71,7 @@ the ability to pop up the claims that are of a certain date or status. If the so
 * *Minor enhancement 1*: I tweaked the `clear` feature in the existing AB3 to ensure that before the user is able to clear the list, the application prompts the
 user one more time to ensure that the command was not by accident.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D
-[Code]]_{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=lawncegoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=lawncegoh&tabRepo=AY1920S1-CS2103T-W12-1%2Fmain%5Bmaster%5D[Code]]
 
 * *Other contributions*:
 
@@ -91,7 +94,7 @@ https://github.com/AY1920S1-CS2103T-W12-1/main/pull/58[#58], https://github.com/
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/139[139],
 https://github.com/nus-cs2103-AY1920S1/forum/issues/45[2]
 
-** Tools:
+** Tool:
 *** Integrated coveralls to the project
 
 == Contributions to the User Guide
@@ -123,8 +126,5 @@ I have made for `sort` and `check` features._
 include::../DeveloperGuide.adoc[tag=sortfeature]
 
 include::../DeveloperGuide.adoc[tag=checkfeature]
-
-
-
 ---
 

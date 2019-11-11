@@ -15,7 +15,7 @@ image::lawncegoh.png[width="150", align="left"]
 {empty}[https://github.com/lawncegoh[github]][<<lawncegoh#, portfolio>>]
 
 Roles: Documentation + Scheduling and Tracking + In Charge of Model and Views + IntelliJ Expert +
-Responsibilities: Goto feature(Changing views)
+Responsibilities: Goto feature(Changing views), Sort Feature, Check Feature, Enhancement to Clear Feature
 
 '''
 

@@ -174,19 +174,33 @@ image::warning.png[width = "20", float = "left"]
 
 ====
 
+// tag::claimfeature[]
+
 === Adding a claim : `add_claim`
 
-Adds a claim to the claims list +
+Adds a claim to the claims list. +
 
 Keyword: `add_claim`
 
-Format: `add_claim d/DESCRIPTION_OF_CLAIM a/AMOUNT n/NAME [t/TAG]`
+Format: `add_claim n/NAME d/DESCRIPTION_OF_CLAIM c/AMOUNT date/DATE [t/TAG]`
 
 Examples:
 
 ....
-add_claim d/Sports Equipment a/115.2 date/29-12-2019 n/Lee Wei Gen t/Sports
+add_claim n/Lee Wei Gen d/Sports Equipment c/115.2 date/29-12-2019 t/Sports t/Equipment
 ....
+
+<<UG-AddClaimExample>> and <<UG-AddClaimResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+[[UG-AddClaimExample]]
+[reftext="Figure 3.4.1"]
+[caption="Figure 3.4.1: "]
+.Type in the add_claim command.
+image::UG-beforeAddClaim.png[width="800"]
+[[UG-AddClaimResult]]
+[reftext="Figure 3.4.2"]
+[caption="Figure 3.4.2: "]
+.Result after adding the claim.
+image::UG-afterAddClaim.png[width="800"]
 
 ====
 --
@@ -195,14 +209,14 @@ image::warning.png[width = "20", float = "left"]
 *Warning*
 
 * `AMOUNT` should be up to 2 decimal places only. +
-* `DATE` should be a valid date (eg. 29-02-2019 not valid). +
+* `DATE` should be a valid date in the form of "dd-MM-yyyy"_(eg. 29-02-2019 not valid)_. +
 * A contact must already exist with the inputted `NAME`.
 
 ====
 
 === Approving a claim : `approve`
 
-Approves an existing pending claim +
+Approves an existing pending claim at the specified `INDEX`. +
 
 Keyword: `approve`
 
@@ -211,8 +225,22 @@ Format: `approve INDEX`
 Examples:
 
 ....
-approve 1 (approves the first claim in the claim list)
+approve 1
 ....
+
+The above example approves the first claim in the claim list.
+
+<<UG-ApproveExample>> and <<UG-ApproveResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+[[UG-ApproveExample]]
+[reftext="Figure 3.5.1"]
+[caption="Figure 3.5.1: "]
+.Type in the approve claim command.
+image::UG-beforeApprove.png[width="800"]
+[[UG-ApproveResult]]
+[reftext="Figure 3.5.2"]
+[caption="Figure 3.5.2: "]
+.Result after approving the claim.
+image::UG-afterApprove.png[width="800"]
 
 ====
 --
@@ -220,20 +248,17 @@ image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* Can only approve a pending claim (ie. Approved and rejected claims cannot be approved).
+* The claim list must be currently displayed.
+* Claim at the specified `INDEX` must be a pending claim.
+* `INDEX` refers to the index number shown in the displayed claim list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
+claim list.
 
 ====
 
-* Approves the claim at the specified `INDEX`.
-* The displayed list must be the claim list.
-* Claim at the specified `INDEX` must be a pending claim.
-* The index refers to the index number shown in the displayed claim list.
-* The index *must be a positive integer* 1, 2, 3, ...
-
-
 === Rejecting a claim : `reject`
 
-Rejects an existing pending claim +
+Rejects an existing pending claim at the specified `INDEX`. +
 
 Keyword: `reject`
 
@@ -242,15 +267,23 @@ Format: `reject INDEX`
 Examples:
 
 ....
-reject 1 (approves the first claim in the claim list)
+reject 1
 ....
 
+The above example rejects the first claim in the claim list.
 
-* Rejects the claim at the specified `INDEX`.
-* The displayed list must be the claim list.
-* Claim at the specified `INDEX` must be a pending claim.
-* The index refers to the index number shown in the displayed claim list.
-* The index *must be a positive integer* 1, 2, 3, ...
+<<UG-RejectExample>> and <<UG-RejectResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+[[UG-RejectExample]]
+[reftext="Figure 3.6.1"]
+[caption="Figure 3.6.1: "]
+.Type in the reject claim command.
+image::UG-beforeReject.png[width="800"]
+[[UG-RejectResult]]
+[reftext="Figure 3.6.2"]
+[caption="Figure 3.6.2: "]
+.Result after rejecting the claim.
+image::UG-afterReject.png[width="800"]
+
 
 ====
 --
@@ -258,9 +291,13 @@ image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* Can only reject a pending claim (ie. Approved and rejected claims cannot be rejected).
-
+* The displayed list must be the claim list.
+* Claim at the specified `INDEX` must be a pending claim.
+* `INDEX` refers to the index number shown in the displayed claim list.
+* `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
+claim list.
 ====
+
 
 //=== Editing a claim : `edit_claim`
 //
@@ -274,6 +311,7 @@ image::warning.png[width = "20", float = "left"]
 //
 //* `edit_claim 2 d/Sports Equipment a/115.2 n/Lee Wei Gen p/96777777 t/Sports`
 
+// end::claimfeature[]
 
 === Adding an income : `add_income`
 
@@ -413,7 +451,7 @@ Upon entering an unknown command, FinSec will prompt you as to whether you would
 
 *Choice 2 :* You can enter any `existing commands` to map your previous entry to it!
 
-If you have chosen *Choice 2*, you can use the newly created shortcut as a substitute to the command.
+If you have made a mistake and entered the wrong command,  *Choice 1* would allow you to continue.
 
 ==== Example of *Choice 1* :
 
@@ -448,7 +486,7 @@ image::UG-NoShortcut2.png[width="800"]
 .Entering 'n' will allow you to continue.
 image::UG-NoShortcut3.png[width="800"]
 
-
+If you have wish to create a shortcut,  *Choice 2* would allow you to create a shortcut to a command.
 
 ==== Example of *Choice 2* :
 
@@ -494,7 +532,7 @@ image::warning.png[width = "20", float = "left"]
 * The shortcut you want to add has to be to a default FinSec command.
 
 ====
-
+// end::shortcutfeature[]
 
 === Deleting a shortcut : `delete_shortcut`
 
@@ -525,7 +563,6 @@ image::warning.png[width = "20", float = "left"]
 * This will not work for default commands.
 
 ====
-// end::shortcutfeature[]
 
 //@@author {lawncegoh}
 // tag::introduction[]

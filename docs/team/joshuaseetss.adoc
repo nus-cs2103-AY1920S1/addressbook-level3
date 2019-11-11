@@ -4,7 +4,9 @@
 :stylesDir: ../stylesheets
 
 == Introduction
-
+|===
+|_About Me._
+|===
 image::joshuaseetss.png[width="200", align="left"]
 {empty}[https://github.com/joshuaseetss[github]]
 
@@ -12,44 +14,51 @@ Hi! My name is Joshua.
 
 I'm currently a second year SoC (School of Computing) student in NUS majoring in Computer Science.
 
-This portfolio page aims to document the contributions I have made in the development of FinSec, which is a project that my team and I completed for the module CS2103T. This project has definitely been greatly beneficial to my own learning and self-development in becoming a more competent software engineer.
+This write-up documents the contributions I made towards the development of FinSec, a project which my team and I undertook for the module CS2103T. Individually, I have benefited in no small measure, as working on the project has significantly enhanced my knowledge and ability to become a more competent software engineer.
 
 == PROJECT: FinSec
+|===
+|_The description of the project._
+|===
 
-FinSec is a useful application that was created with the end goal of aiding Financial Secretaries of any organisation. It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
+FinSec is a useful application that was created as an aid to financial secretaries of any organisation. It is a Command Line Interface (CLI) based tool to cater to computing students who are highly adept at typing but also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
 
-FinSec boasts relevant and useful features which have been carefully selected and scrutinised to fit the needs of our target audience. All of FinSec's features and implementations are well documented in guides for users and developers respectively.
+FinSec comprises carefully evaluated and selected features that are tailored to be relevant to the specific needs of our target audience. All of FinSec's features and implementations are clearly and exhaustively documented in written guides for users and developers.
 
 .A view of FinSec
 image::../images/Ui.png[width="602"]
 
 == Role
+|===
+|_The role I played in the team._
+|===
+My primary role in the project was to create the prototype for the Shortcut feature and the Income feature, and develop them respectively.
 
-My main role was to prototype and develop the Shortcut feature and the Income feature.
-The shortcut feature required handling unknown command words that are not recognized by FinSec. Instead of throwing an error when the user inputs an invalid command, FinSec is able give the user an option if he wanted to use that wrongly input command as an existing command, thereby creating an alias for the default commands for increased user experience.
-I created the base classes to facilitate these features, then linked it to the Model and Storage components since the shortcuts created and income entries have to be saved for future use. I also wrote rigorous tests for quality assurance of our product and to ensure that any possible bugs are kept to a minimal.
+I was also in charge of Testing and UI, ensuring that the coverall percentage does not fall too low and the UI/UX of FinSec is up to standards.
 
 
 == Summary of contributions
 
-This section shows a summary of my coding, documentation, and other contributions I made to the project.
+|===
+|_This section contains a summary of the coding, documentation, and other contributions I made towards the project._
+|===
 
 * *Major enhancement*: Added the *Shortcut Feature*
-** What it does: The `shortcut feature` gives FinSec the ability to learn new shortcuts to existing commands. Whenever the user inputs a value that is not recognised by FinSec, FinSec would be able to take that unknown command and turn it into a shortcut, making that value a valid command in the future.
-** Justification: This feature greatly improves the usability of FinSec since that it allows users to create their own manual shortcuts for commands. This will especially be useful for our target audience, Financial Secretaries, since data entry is majority of what they will be doing. With the ability to create shortcuts, users would not have to type in the whole command, such as "add_claim", every time they want to add a claim. Instead, they can create an alias "ac" for the command "add_claim". This would greatly improve the user interface of FinSec.
-** Implementation: This enhancement alters the flow of command execution in FinSec. Executing an unknown command that FinSec does not recognize changes the command execution pathway and creates a new command that FinSec will recognise. This is facilitated by the use of a TreeMap in the parser which stores a list of all available commands and their actions as key-value pairs.
+** What it does: The shortcut feature enables FinSec to convert an unknown command into a shortcut, which becomes a valid command for future use.
+** Justification: This feature significantly enhances user experience of FinSec as it allows users to create their own manual shortcuts for commands. Our target audience, Financial Secretaries, would find their tasks (typically data entry) much aided by FinSec which removes the need to type in the whole command, such as "add_claim" for every entry. Instead, they can, using FinSec, create an alias such as "ac" for the command "add_claim". This would avoid unnecessary duplication of commands, thereby raising efficiency.
+** Implementation: For this to work, the flow of command execution in FinSec has to be altered. Executing an unknown command that FinSec does not recognize changes the command execution pathway and creates a new command that FinSec will recognise. This is facilitated by the use of a TreeMap in the parser which stores a list of all available commands and their actions as key-value pairs.
 ** Highlights: This feature enhances the entire software model to be more Object Oriented since through this implementation, commands are created as objects. This is different from the previous implementation of commands in the Address Book 3 (AB3). With a higher level of abstraction, future features would be easier for implementation. However, the implementation of this feature is challenging because it requires key changes to the flow of command execution of FinSec. After implementing this feature, without proper communication, my team members would have difficulty with the sudden change in the flow of the program. This was easily overcome with proper communication with my team members and more specific documentation in the java docs.
 
 * *Minor enhancement*: Added the *Income feature*
-** What it does: This feature allows users, who are mainly Financial Secretaries, to enter Income transactions into the FinSec application and track their income entries.
+** What it does: This feature allows users (typically Financial Secretaries) to enter Income transactions into the FinSec application and track their income entries.
 ** Justification: The `income feature` is a vital feature to the FinSec application since that the majority of organisations and clubs have incomes to keep track of. It allows Financial Secretaries to keep proper records of the organisation and to keep track of its financial status.
 ** Implementation: The Person class in Address Book 3 (AB3) is remodelled to resemble an income entry (with additional attributes of Description, Amount, Date).
-** Highlights: The implementation of this feature is fairly manageable since that it is an adaptation of the Person class.
+** Highlights: The implementation of this feature is fairly straightforward since that it is a direct adaptation of the Person class.
 
 * *Minor enhancement*: Added the *Autocorrect Suggestions feature*
 ** What it does: This feature gives users suggestions in a drop-down list as they are typing their commands into FinSec. The suggestions given corresponds with what the user is currently typing. Currently, the possible suggestions are the default commands available for the user to use. Whenever the user adds a shortcut (from the `shortcut feature`) or a contact, it will add on (in real-time) to the suggestions list that could be displayed to the user (depending on what the user types).
 ** Justification: The drop-down list that this feature provides greatly enhances the user experience when using the application. With this feature, the user does not have to perpetually refer to the User Guide for the list of available commands. This is especially useful for FinSec, an application with 20 commands.
-** Implementation: An additional class AutocorrectTextField is created to cater for the add-ons to the Text Field class. By loading the updated Set of Strings in that class, the new dictionary of suggestions is available to be displayed to the user when he types.
+** Implementation: An additional class AutocorrectTextField is created to cater for the add-ons to the TextField class. By loading the updated Set of Strings in that class, the new dictionary of suggestions is available to be displayed to the user when he types.
 ** Highlights: The implementation of this feature is slightly difficult since that it deals with majority of UI which I am not very familiar with. However, tutorials online help me to learn more about the different components such as Listeners. I also made minor enhancements to this feature by adding attributes (such as Name) into the claim suggestions for better usability for the user.
 
 * *Code contributed*: [https://github.com/AY1920S1-CS2103T-W12-1/main/commits?author=joshuaseetss[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=joshuaseetss[Project Code Dashboard]]
@@ -63,7 +72,7 @@ This section shows a summary of my coding, documentation, and other contribution
 ** Documentation
 *** I made improvements to the Developer's Guide and did the Use Cases section: https://github.com/AY1920S1-CS2103T-W12-1/main/pull/350[#350], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/181[#181], https://github.com/AY1920S1-CS2103T-W12-1/main/pull/142[#142]
 ** Community
-*** I conducted reviews on other team's PR to give suggestions and constructive comments: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/31[#31],
+*** I conducted reviews on other team's PR to give suggestions and constructive comments: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/31[#31]
 *** I also reported bugs and potential flaws in other teams' project to help prepare them for the demo: https://github.com/joshuaseetss/ped/issues/1[#1], https://github.com/joshuaseetss/ped/issues/10[#10], https://github.com/joshuaseetss/ped/issues/8[#8]
 ** Tools
 ** Created Google Docs for team planning

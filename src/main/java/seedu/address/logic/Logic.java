@@ -61,7 +61,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getFinSecFilePath();
 
     /**
      * Returns the model.

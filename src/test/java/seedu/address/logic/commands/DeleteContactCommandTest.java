@@ -46,36 +46,6 @@ public class DeleteContactCommandTest {
         assertCommandFailure(deleteContactCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    //    @Test
-    //    public void execute_validIndexFilteredList_success() {
-    //        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-    //
-    //        Contact contactToDelete = model.getFilteredContactList().get(INDEX_FIRST_PERSON.getZeroBased());
-    //        DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST_PERSON);
-    //
-    //        String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_PERSON_SUCCESS,
-    //                                                                                              contactToDelete);
-    //
-    //        Model expectedModel = new ModelManager(model.getFinSec(), new UserPrefs());
-    //        expectedModel.deleteContact(contactToDelete);
-    //        showNoPerson(expectedModel);
-    //
-    //        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    //    }
-
-    //    @Test
-    //    public void execute_invalidIndexFilteredList_throwsCommandException() {
-    //        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-    //
-    //        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-    //        // ensures that outOfBoundIndex is still in bounds of address book list
-    //        assertTrue(outOfBoundIndex.getZeroBased() < model.getFinSec().getContactList().size());
-    //
-    //        DeleteContactCommand deleteCommand = new DeleteContactCommand(outOfBoundIndex);
-    //
-    //        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    //    }
-
     @Test
     public void equals() {
         DeleteContactCommand deleteFirstCommand = new DeleteContactCommand(INDEX_FIRST_PERSON);
