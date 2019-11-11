@@ -19,7 +19,7 @@ deactivate Compiler
 loop test cases
 TestExecutor -> ProgramExecutor:executeProgram with input
 activate ProgramExecutor
-ProgramExecutor -> TestExecutor:ProgramOutput
+ProgramExecutor -> TestExecutor:CompletableFuture<ProgramOutput>
 deactivate ProgramExecutor
 TestExecutor -> TestExecutor:mapTestCaseResult
 activate TestExecutor

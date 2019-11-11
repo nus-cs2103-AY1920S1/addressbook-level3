@@ -1,0 +1,15 @@
+@startuml
+
+interface ProgramSubmissionLogic {
+    Observable<TestResult> : getTestResultObservable()
+    Observable<Question> : getCurrentQuestionObservable()
+    Optional<Question> : getCurrentQuestion()
+    void : setCurrentQuestion()
+    void : submitUserProgram(userProgram)
+    void : setUserProgramSubmissionChannel(channel)
+    Optional<TestResult> : submitUserProgramFromSubmissionChannel()
+    UserProgram : getUserProgramFromSubmissionChannel()
+    void : closeProgramSubmissionLogicManager()
+}
+
+@enduml

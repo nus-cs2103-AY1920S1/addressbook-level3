@@ -1,0 +1,13 @@
+@startuml
+Application -> ProgramSubmissionLogicManager: setUserProgramChannel(UI)
+User -> Application: Attempt new question
+Application -> ProgramSubmissionLogicManager: setCurrentQuestion(question)
+User -> UI: Enter solution
+User -> Application: Submit command
+Application -> ProgramSubmissionLogicManager: submitUserProgramFromSubmissionChannel()
+ProgramSubmissionLogicManager -> UI: getUserProgram()
+UI -> ProgramSubmissionLogicManager: userProgram
+ProgramSubmissionLogicManager -> TestExecutor: runTestCases(testCases, userProgram)
+TestExecutor -> ProgramSubmissionLogicManager: TestResult
+UI -> UI: Update result from observable
+@enduml

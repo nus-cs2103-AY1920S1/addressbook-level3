@@ -48,14 +48,16 @@ public class SubmitCommand implements Command {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
         UserProgram userProgram = programSubmissionLogic.getUserProgramFromSubmissionChannel();
 
-        applicationState.setCurrentActivity(Activity.WORKSPACE);
-
+        // The submit command cannot be executed if the user has not attempted any question
         if (currentlyAttemptingQuestion.isEmpty()) {
             logger.warning("No question being attempted at the moment, command will not be executed");
             throw new CommandException("You have not attempted a question yet.");
         }
 
-        // Save the user's program first
+        // Set the UI to focus on the Workspace page for display of results
+        applicationState.setCurrentActivity(Activity.WORKSPACE);
+
+        // Save the user's new program first
         logger.info("Saving user program first : " + userProgram);
         Question question = currentlyAttemptingQuestion.get();
         Question questionWithNewProgram = question.withNewUserProgram(userProgram);
@@ -68,24 +70,25 @@ public class SubmitCommand implements Command {
             resultsOptional = this.programSubmissionLogic.submitUserProgram(userProgram);
         } catch (IncorrectCanonicalNameException e) {
             logger.warning("Main class not detected, command will not be executed");
-            throw new CommandException("Main class needed as entry point.");
+            throw new CommandException("Please write your main method in a class called Main");
         } catch (EmptyUserProgramException e) {
             logger.warning("Program is empty, command will not be executed");
             throw new CommandException("Program must not be empty.");
         }
 
+        // Unexpected error with the program evaluation
         if (resultsOptional.isEmpty()) {
             logger.warning("Submit command failed unexpectedly");
             throw new CommandException("Tests failed unexpectedly. Please report this bug at "
                     + "https://github.com/AY1920S1-CS2103T-F14-1/main");
         }
 
-        // Update question with result status
+        // Check if the result was successful
         boolean isSuccessful = resultsOptional.get().getNumPassed() == questionWithNewProgram.getTestCases().size();
 
         if (isSuccessful) {
+            // Save the new success status
             Question successfulQuestion = questionWithNewProgram.withNewStatus(Status.PASSED);
-
             this.updateQuestion(questionWithNewProgram, successfulQuestion);
         }
 

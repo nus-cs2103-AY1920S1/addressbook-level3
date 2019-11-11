@@ -1,0 +1,21 @@
+@startuml
+
+class CommandLogicManager
+interface CommandSupplier {
+    + Command : getCommand(commandText)
+}
+class CommandParser {
+    + void : registerCommand(commandWord, supplier)
+    + Command : parseCommandText(commandText)
+}
+interface CommandFactory {
+    + String : getCommandWord()
+    + Command : getCommand(arguments)
+}
+
+CommandLogicManager-|> CommandSupplier
+CommandLogicManager*--"1" CommandParser
+CommandSupplier <|- CommandParser
+CommandLogicManager -|> CommandFactory
+
+@enduml

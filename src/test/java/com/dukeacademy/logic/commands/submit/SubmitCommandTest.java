@@ -55,7 +55,8 @@ class SubmitCommandTest {
         // Check that an exception is thrown if no appropriate class name is found
         UserProgram invalidClassNameSubmission = new UserProgram("Main", "public class Test {}");
         submissionLogic.setUserProgramSubmissionChannel(() -> invalidClassNameSubmission);
-        assertThrows(CommandException.class, "Main class needed as entry point.", command::execute);
+        assertThrows(CommandException.class, "Please write your main method in a class called Main",
+                command::execute);
 
         // Check that questionsLogic has changed accordingly
         List<Question> expected = TypicalQuestions.getTypicalQuestions();

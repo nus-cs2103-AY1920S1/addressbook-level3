@@ -41,6 +41,7 @@ public class ExitCommand implements Command {
         Optional<Question> currentlyAttemptingQuestion = this.programSubmissionLogic.getCurrentQuestion();
         UserProgram latestUserProgram = this.programSubmissionLogic.getUserProgramFromSubmissionChannel();
 
+        // Save currently attempting question with the latest user program if present
         if (currentlyAttemptingQuestion.isPresent()) {
             Question oldQuestion = currentlyAttemptingQuestion.get();
             String loggerMessage = "Latest question attempt : " + oldQuestion.getTitle()
@@ -49,24 +50,16 @@ public class ExitCommand implements Command {
             logger.info(loggerMessage);
 
             Question newQuestion = oldQuestion.withNewUserProgram(latestUserProgram).withNewStatus(Status.ATTEMPTED);
-            saveQuestion(oldQuestion, newQuestion);
+            this.questionsLogic.replaceQuestion(oldQuestion, newQuestion);
         } else {
             logger.info("No question attempt found. Skipping program save.");
         }
 
+        // Save the latest user note
         logger.info("Attempting to save latest note...");
         this.notesLogic.saveNoteFromNoteSubmissionChannel();
 
         return new CommandResult("Exiting application...", true);
     }
 
-    /**
-     * Helper method to save changes to a question.
-     *
-     * @param oldQuestion the old question to be replaced
-     * @param newQuestion the new question.
-     */
-    private void saveQuestion(Question oldQuestion, Question newQuestion) {
-        this.questionsLogic.replaceQuestion(oldQuestion, newQuestion);
-    }
 }
