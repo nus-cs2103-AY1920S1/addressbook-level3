@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Setting Up
+= DukeCooks - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:

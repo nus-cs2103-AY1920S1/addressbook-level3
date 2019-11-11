@@ -49,6 +49,7 @@ public class DeleteRecordCommand extends DeleteCommand {
         model.deleteRecord(recordToDelete);
 
         Type type = recordToDelete.getType();
+        ListHealthByTypeCommand.setCurrentTypeView(type);
         model.updateFilteredRecordList(x -> x.getType().equals(type));
         if (type.equals(Type.Weight) || type.equals(Type.Height)) {
             LinkProfile.updateProfile(model, type);

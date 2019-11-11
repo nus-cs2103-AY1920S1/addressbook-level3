@@ -14,7 +14,7 @@ public class GotoRecipeCommand extends GotoCommand {
 
     public static final String VARIANT_WORD = "recipe";
 
-    public static final String MESSAGE_SUCCESS = "You are now at recipe";
+    public static final String MESSAGE_SUCCESS = "You are now at the recipe book";
 
     private static Event event;
 
