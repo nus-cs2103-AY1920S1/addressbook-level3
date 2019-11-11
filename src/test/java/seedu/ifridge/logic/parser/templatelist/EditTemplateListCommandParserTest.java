@@ -8,7 +8,7 @@ import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.
 import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_TEMPLATE_NAME_APPLE_PIE;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -61,7 +61,7 @@ public class EditTemplateListCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() {
-        Index targetTemplateIndex = INDEX_FIRST;
+        Index targetTemplateIndex = INDEX_FIRST_FOOD;
         String userInput = targetTemplateIndex.getOneBased() + TEMPLATE_NAME_DESC_APPLE_PIE;
 
         EditTemplateListCommand.EditTemplateListDescriptor descriptor = new EditTemplateListDescriptorBuilder()

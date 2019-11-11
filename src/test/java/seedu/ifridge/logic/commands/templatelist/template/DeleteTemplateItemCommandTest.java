@@ -8,8 +8,8 @@ import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_TEMPLATES;
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalUnitDictionary.getTypicalUnitDictionary;
@@ -45,9 +45,9 @@ public class DeleteTemplateItemCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
-        TemplateItem itemToDelete = templateToEdit.get(INDEX_FIRST.getZeroBased());
-        DeleteTemplateItemCommand deleteCommand = new DeleteTemplateItemCommand(INDEX_FIRST, INDEX_FIRST);
+        UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(INDEX_FIRST_FOOD.getZeroBased());
+        TemplateItem itemToDelete = templateToEdit.get(INDEX_FIRST_FOOD.getZeroBased());
+        DeleteTemplateItemCommand deleteCommand = new DeleteTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD);
         UniqueTemplateItems editedTemplate = new UniqueTemplateItems(templateToEdit.getName());
         editedTemplate.setTemplateItems(templateToEdit);
 
@@ -74,30 +74,32 @@ public class DeleteTemplateItemCommandTest {
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTemplateList().size() + 1);
 
-        DeleteTemplateItemCommand withInvalidTempIndex = new DeleteTemplateItemCommand(outOfBoundIndex, INDEX_FIRST);
+        DeleteTemplateItemCommand withInvalidTempIndex = new DeleteTemplateItemCommand(outOfBoundIndex,
+                INDEX_FIRST_FOOD);
         assertCommandFailure(withInvalidTempIndex, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
 
-        DeleteTemplateItemCommand withInvalidItemIndex = new DeleteTemplateItemCommand(INDEX_FIRST, outOfBoundIndex);
+        DeleteTemplateItemCommand withInvalidItemIndex = new DeleteTemplateItemCommand(INDEX_FIRST_FOOD,
+                outOfBoundIndex);
         assertCommandFailure(withInvalidItemIndex, model, Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        DeleteTemplateItemCommand deleteFirstCommand = new DeleteTemplateItemCommand(INDEX_FIRST,
-                INDEX_FIRST);
-        DeleteTemplateItemCommand deleteSecondCommand = new DeleteTemplateItemCommand(INDEX_FIRST,
-                INDEX_SECOND);
+        DeleteTemplateItemCommand deleteFirstCommand = new DeleteTemplateItemCommand(INDEX_FIRST_FOOD,
+                INDEX_FIRST_FOOD);
+        DeleteTemplateItemCommand deleteSecondCommand = new DeleteTemplateItemCommand(INDEX_FIRST_FOOD,
+                INDEX_SECOND_FOOD);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteTemplateItemCommand deleteFirstCommandCopy = new DeleteTemplateItemCommand(INDEX_FIRST,
-                INDEX_FIRST);
+        DeleteTemplateItemCommand deleteFirstCommandCopy = new DeleteTemplateItemCommand(INDEX_FIRST_FOOD,
+                INDEX_FIRST_FOOD);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(deleteFirstCommand.equals(new AddTemplateItemCommand(INDEX_FIRST, TEMPLATE_ITEM_CHEESE)));
+        assertFalse(deleteFirstCommand.equals(new AddTemplateItemCommand(INDEX_FIRST_FOOD, TEMPLATE_ITEM_CHEESE)));
 
         // null -> returns false
         assertFalse(deleteFirstCommand.equals(null));

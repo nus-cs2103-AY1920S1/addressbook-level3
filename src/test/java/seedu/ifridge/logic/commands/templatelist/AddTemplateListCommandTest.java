@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.ifridge.testutil.Assert.assertThrows;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -70,14 +70,14 @@ public class AddTemplateListCommandTest {
     public void equals() {
         TemplateItem mincedMeat = new TemplateItemBuilder().withName("Ground Pork").build();
         TemplateItem freshVeg = new TemplateItemBuilder().withName("Tomato").build();
-        AddTemplateItemCommand addMincedMeatCommand = new AddTemplateItemCommand(INDEX_FIRST_PERSON, mincedMeat);
-        AddTemplateItemCommand addFreshVegCommand = new AddTemplateItemCommand(INDEX_FIRST_PERSON, freshVeg);
+        AddTemplateItemCommand addMincedMeatCommand = new AddTemplateItemCommand(INDEX_FIRST_FOOD, mincedMeat);
+        AddTemplateItemCommand addFreshVegCommand = new AddTemplateItemCommand(INDEX_FIRST_FOOD, freshVeg);
 
         // same object -> returns true
         assertTrue(addMincedMeatCommand.equals(addMincedMeatCommand));
 
         // same values -> returns true
-        AddTemplateItemCommand addMincedMeatCommandCopy = new AddTemplateItemCommand(INDEX_FIRST_PERSON, mincedMeat);
+        AddTemplateItemCommand addMincedMeatCommandCopy = new AddTemplateItemCommand(INDEX_FIRST_FOOD, mincedMeat);
         assertTrue(addMincedMeatCommand.equals(addMincedMeatCommandCopy));
 
         // different types -> returns false

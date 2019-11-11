@@ -3,7 +3,7 @@ package seedu.ifridge.logic.parser.shoppinglist;
 import static seedu.ifridge.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,7 @@ class UrgentShoppingCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsUrgentShoppingCommand() {
-        assertParseSuccess(parser, "1", new UrgentShoppingCommand(INDEX_FIRST_PERSON));
+        assertParseSuccess(parser, "1", new UrgentShoppingCommand(INDEX_FIRST_FOOD));
     }
 
     @Test

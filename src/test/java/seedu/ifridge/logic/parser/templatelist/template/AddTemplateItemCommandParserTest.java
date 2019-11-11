@@ -15,7 +15,7 @@ import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.ifridge.model.food.Amount.MESSAGE_INVALID_AMOUNT;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -33,11 +33,11 @@ public class AddTemplateItemCommandParserTest {
 
         // multiple names - last name accepted
         assertParseSuccess(parser, "1" + NAME_DESC_CHEESE + NAME_DESC_PORK + AMOUNT_DESC_PORK,
-                new AddTemplateItemCommand(INDEX_FIRST, expectedTemplateItem));
+                new AddTemplateItemCommand(INDEX_FIRST_FOOD, expectedTemplateItem));
 
         // multiple amount - last amount accepted
         assertParseSuccess(parser, "1" + NAME_DESC_PORK + AMOUNT_DESC_CHEESE + AMOUNT_DESC_PORK,
-                new AddTemplateItemCommand(INDEX_FIRST, expectedTemplateItem));
+                new AddTemplateItemCommand(INDEX_FIRST_FOOD, expectedTemplateItem));
     }
 
     @Test
