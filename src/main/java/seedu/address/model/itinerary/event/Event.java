@@ -185,13 +185,13 @@ public class Event {
 
     @Override
     public String toString() {
-        return "name: " + name +
-                ", startDate: " + startDate +
-                ", endDate: " + endDate +
-                ", destination: " + destination +
-                ", inventory: " + inventory +
-                ", expense: " + expense +
-                ", booking: " + booking +
-                ", description: " + description;
+        return "name: " + name
+                + ", startDate: " + startDate
+                + ", endDate: " + endDate
+                + ", destination: " + destination
+                + ", inventory: " + inventory
+                + ", expense: " + expense
+                + ", booking: " + booking
+                + ", description: " + description;
     }
 }
