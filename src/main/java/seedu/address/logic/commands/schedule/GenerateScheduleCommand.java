@@ -42,7 +42,7 @@ public class GenerateScheduleCommand extends Command {
         if (distinctDates.size() == 0) {
             return new CommandResult(MESSAGE_GENERATE_FAILURE);
         }
-        return new CommandResult(MESSAGE_SUCCESS, "Generate");
+        return new CommandResult(MESSAGE_SUCCESS, "Generate_Schedule");
     }
 
     @Override
