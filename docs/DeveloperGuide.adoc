@@ -77,7 +77,7 @@ The sections below give more details of each component.
 === UI component
 
 .Structure of the UI Component
-image::UiComponent.png[]
+image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/blob/master/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
