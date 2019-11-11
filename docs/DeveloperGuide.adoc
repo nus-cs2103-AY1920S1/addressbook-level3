@@ -199,7 +199,7 @@ to deal with this consideration.
 |===
 |Alternative 1 (Chosen Implementation) |Alternative 2
 
-a|`equals(Food food)` method should rely on Name, and have an additional check for equality of Location, Opening Hours
+a|`equals(Food food)` method should rely on Name, Category, and have an additional check for equality of Location, Opening Hours
 and Restrictions
 
 * Pros:

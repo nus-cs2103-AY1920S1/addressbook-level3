@@ -282,6 +282,10 @@ by using the `recommend` command again (see <<Getting a list of recommended food
 *Example*: `add n/Chicken Rice d/Rice with Chicken p/2.50 c/Chinese l/NUS o/0800 2000 r/NI t/Chicken t/RiceL`
 ****
 
+[IMPORTANT]
+You are not allowed to add in duplicate foods. Duplicate foods have the same name, category, description, location,
+restrictions and opening hours.
+
 [width="100%",cols="5%,95%", grid=none]
 |===
 ifdef::env-github[| :white_check_mark: a| The food list will scroll to the bottom, where the new food item is added.]
