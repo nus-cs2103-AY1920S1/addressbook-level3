@@ -34,7 +34,7 @@ public class BrowseCommand implements Command {
         String[] attributeKeywords = keywords.trim().split("\\s+");
         this.predicate =
             new AttributeContainsKeywordsPredicate(Arrays.asList(attributeKeywords));
-        if(keywords.isEmpty()) {
+        if (keywords.isEmpty()) {
             validity = false;
         } else {
             validity = true;
@@ -43,7 +43,7 @@ public class BrowseCommand implements Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        if(validity == false) {
+        if (validity == false) {
             throw new CommandException("Browse should be followed by keywords"
                 + ".");
         }

@@ -34,7 +34,7 @@ public class FindCommand implements Command {
         String[] titleKeywords = keywords.trim().split("\\s+");
         this.predicate =
             new TitleContainsKeywordsPredicate(Arrays.asList(titleKeywords));
-        if(keywords.isEmpty()) {
+        if (keywords.isEmpty()) {
             validity = false;
         } else {
             validity = true;
@@ -43,7 +43,7 @@ public class FindCommand implements Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        if(validity == false) {
+        if (validity == false) {
             throw new CommandException("Find should be followed by keywords.");
         }
         // Update status of question
