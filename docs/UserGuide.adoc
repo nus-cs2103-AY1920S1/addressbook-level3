@@ -289,13 +289,13 @@ Let's say you have this list of expired items and you want to remind yourself to
 To do so, you can transfer the ice cream to the replenish list by typing `shift|1`, where `1` refers to item number displayed.
 
 .Current list view of items that have expired.
-image::shift_to_replenish_command_example.png[]
+image::shift_to_replenish_command_example.png[width="790"]
 
 With this, your item will be shifted to the replenish list as seen from the figure below.
 When you go for grocery shopping in future, you can refer to this handy replenish list to stock up on your ice cream, or any items that have run out.
 
 .List view of items in the replenish list.
-image::shift_to_replenish_success.png[]
+image::shift_to_replenish_success.png[width="790"]
 
 ===== Shifting an item from the replenish list to the main list
 After some shopping, you may have stocked up on the items that were in the replenish list.
@@ -308,12 +308,12 @@ For example, you have just replenished the ice cream and you wish to keep track 
 To transfer the ice cream back to the tracking list, simply key in `shift|3|<expiry date>|<quantity>`.
 
 .List view of items in the replenish list.
-image::shift_to_main_command_example.png[]
+image::shift_to_main_command_example.png[width="790"]
 
 Now, the ice cream that you just bought is on the tracking list as seen from the diagram below.
 
 .List view of items in the main list after shift.
-image::shift_to_main_success.png[]
+image::shift_to_main_success.png[width="790"]
 
 
 ****
@@ -481,13 +481,13 @@ Now, you no longer have any more potato chips, so you would like to update the i
 To update the potato chips with the new quantity, simply key in `delete|3|1`.
 
 .Reducing an item quantity
-image::delete_quantity_example.png[]
+image::delete_quantity_example.png[width="790"]
 
 Since the item has run out, you would also like to add it to the replenish list so that you will be reminded to stock up on it.
 To save you the trouble of keying in the details again, our system has already automatically added the chips to your replenish list for you.
 
 .Item that has run out is automatically transferred to the replenish list
-image::delete_quantity_shift_success.png[]
+image::delete_quantity_shift_success.png[width="790"]
 
 ****
 * The index refers to the index number shown on the list.

@@ -148,20 +148,45 @@ This section describes some noteworthy details on how certain features are imple
 === Replenish List
 // tag::replenishListItems[]
 
-==== Items in the replenish list
+====  Items in replenish list and main list
+Items in the replenish list with only `Name` and `Tag` field are represented by the `Item` class.
+On the other hand, items in the main list (tracking list) with additional fields such as `ExpiryDate`,
+`Quantity` and `ReminderThreshold` are represented by the `XpireItem` class.
+To utilise the concept of inheritance and reduce duplicate data and methods, the `XpireItem` is written to inherit from `Item`.
+This relationship can be observed from the diagram below.
+
+.Snippet of Model Component Class Diagram to illustrate inheritance of `XpireItem` from `Item`.
+image::condensed_item_class_diagram.png[]
+
+==== Moving items in the main list into the replenish list
+An `XpireItem` in the main list can be transferred into the replenish list using the `ShiftToReplenishCommand`.
+Any `XpireItem` whose quantity have hit `0` will also be automatically added to the replenish list.
 
 ===== Implementation
-//{Explain here how the ToReplenish/ToBuy List is implemented}_
-Items are added to the replenish list by the user using the `ShiftCommand`.
-When an item expires, the item is automatically tagged as `#Expired`.
+When the user executes a `ShiftToReplenishCommand`, the target item in the main list be adapted from a `XpireItem` into an `Item`.
+The adapted item will be subsequently added to the replenish list, while the target item is removed.
+The following sequence diagrams demonstrate how the command makes changes to
+both the main list and replenish list.
 
-.All expired items are automatically tagged with the `Expired` tag (circled in figure).
-image::expired_tags.png[]
+.Sequence diagram for `ShiftToReplenishCommand`.
+image::shift_to_replenish_sequence_diagram.png[]
 
-By searching for the `Expired` tag using the `SearchCommand`, the user is able to retrieve a list of expired items.
+.Sequence diagram when an item is shifted to the replenish list.
+image::transfer_item_to_replenish_sequence_diagram.png[]
 
-.Sequence Diagram for ItemManager Class
-image::ItemManagerSequenceDiagram.png[]
+[NOTE]
+The shift would not be successful if an item with the same `Name` already exists on the replenish list.
+The user would be prompted to delete the existing item in the replenish list in order to add the target item into the replenish list.
+
+==== Moving items in the replenish list to the main list
+On the other hand, items can be transferred out of the replenish list using the `ShiftToMainCommand`.
+The following activity diagram summarises how the command works:
+
+.Activity diagram for `ShiftToMainCommand`.
+image::shift_to_main_activity_diagram.png[]
+
+[NOTE]
+In this case, the user would have to
 
 On the other hand, when an item has run out, an item is automatically added to the replenish list.
 This occurs when the user uses the `DeleteCommand` to

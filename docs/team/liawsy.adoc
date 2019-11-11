@@ -28,6 +28,7 @@ stock up on, such as when the item expires.
 item index to transfer an existing item to the replenish list. This makes the overall user experience more fuss-free.
 ** Highlights: This enhancement required a refactor of the `Model` component using important concepts such as polymorphism and inheritance.
 The implementation was also challenging as it required a in-depth understanding of generics to avoid a huge overhaul of the existing implementation.
+Additionally, the implementation familiarised me with JSON serialization in FXML using the Jackson Library.
 
 * *Major enhancement*: added the ability to automatically add an item to the replenish list once the item runs out.
 ** What it does: -	automatically transfers an item that has depleted into the replenish list.
@@ -37,7 +38,7 @@ manually when it runs out, this enhancement collapses this two-step process into
 that edge cases will also be factored in.
 
 * *Minor enhancement*: Added the ability to input item quantity.
-The parsing of the quantity field familiarised me with Regex as I had to consider edge cases.
+The parsing of the quantity field familiarised me with Regex.
 * *Minor enhancement*: Added the ability to input similar items into the tracking list.
 This allows the user to add to existing items in cases where they bought the same item on separate occasions.
 
