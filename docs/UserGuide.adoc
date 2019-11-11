@@ -272,7 +272,8 @@ For example, user enters `tab b/calendar`
 [NOTE]
 Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
-image::tab_2.png[width="800"]
+image::tab_2.png[width="600"]
+//end::tab-command[]
 
 Users can start building a command in one tab, switch tabs midway and finish building the command in another tab.
 This can be achieved by the following sequence of inputs.
@@ -283,9 +284,6 @@ tab
 b/calendar
 l/COM-1 d/Meeting a/Damith p/High
 ```
-
-
-//end::tab-command[]
 
 === Adding an engagement: `add`
 
@@ -437,7 +435,7 @@ l/Com Basement
 ```
 The non-interactive equivalent of this sequence is `find l/Com Basement`.
 
-[%header, cols=3*]
+[%header, cols="15%, 10%, 75%"]
 |===
 |Search parameter
 |Tag
@@ -719,7 +717,7 @@ Delete function will only available when user has pre-selected the document list
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message and after click
-image::pdf_delete_before_after.png[width="750"]
+image::pdf_delete_before_after.png[align="center", width="750"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
