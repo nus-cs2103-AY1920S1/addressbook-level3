@@ -9,6 +9,7 @@ public interface ReadOnlyModelHistory {
 
     /**
      * Creates a read-only copy of the model.
+     * @return a copy of the current model.
      */
     ReadOnlyModelHistory copy();
 

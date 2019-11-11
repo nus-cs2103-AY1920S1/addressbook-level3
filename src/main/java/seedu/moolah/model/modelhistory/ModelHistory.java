@@ -13,17 +13,26 @@ public class ModelHistory implements ReadOnlyModelHistory {
     private Stack<ModelChanges> pastChanges;
     private Stack<ModelChanges> futureChanges;
 
+    /**
+     * Constructs a ModelHistory object.
+     * @param pastChanges a {@code Stack} of {@code ModelChanges} that stores the past changes in history.
+     * @param futureModels a {@code Stack} of {@code ModelChanges} that stores the future changes in history.
+     */
     public ModelHistory(Stack<ModelChanges> pastChanges, Stack<ModelChanges> futureModels) {
         setPastChanges(pastChanges);
         setFutureChanges(futureModels);
     }
 
+    /**
+     * Constructs an empty ModelHistory object.
+     */
     public ModelHistory() {
         this(new Stack<>(), new Stack<>());
     }
 
     /**
      * Copy constructor for ModelHistory.
+     * @param history the ModelHistory object to be copied
      */
     public ModelHistory(ReadOnlyModelHistory history) {
         this();
@@ -32,6 +41,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Sets model history data with the copy of the given model history.
+     * @param history a ModelHistory object whose field values are going to replace the current ones
      */
     public void resetData(ReadOnlyModelHistory history) {
         requireNonNull(history);
@@ -56,6 +66,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Sets past changes data with the copy of the given past changes.
+     * @param pastChanges the past changes to be copied
      */
     public void setPastChanges(Stack<ModelChanges> pastChanges) {
         requireNonNull(pastChanges);
@@ -67,6 +78,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Sets future changes data with the copy of the given future changes.
+     * @param futureChanges the future changes to be copied
      */
     public void setFutureChanges(Stack<ModelChanges> futureChanges) {
         requireNonNull(futureChanges);
@@ -78,6 +90,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Adds the given model changes to the past changes history.
+     * @param change the {@code ModelChanges} object to be added
      */
     public void addToPastChanges(ModelChanges change) {
         requireNonNull(change);
@@ -86,6 +99,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Adds the given model changes to the future changes history.
+     * @param change the {@code ModelChanges} object to be added
      */
     public void addToFutureChanges(ModelChanges change) {
         requireNonNull(change);
@@ -101,6 +115,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Checks whether there are no past changes.
+     * @return true if there are no past changes, false otherwise
      */
     public boolean isPastChangesEmpty() {
         return pastChanges.isEmpty();
@@ -108,13 +123,15 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Checks whether there are no future changes.
+     * @return true if there are no future changes, false otherwise
      */
     public boolean isFutureChangesEmpty() {
         return futureChanges.isEmpty();
     }
 
     /**
-     * Returns and removes the previous changes in history if exists.
+     * Retrieves and removes the previous changes in history if exists.
+     * @return an {@code Optional} containing the previous {@code ModelChanges} if exists, an empty optional otherwise.
      */
     public Optional<ModelChanges> getPrevChanges() {
         if (isPastChangesEmpty()) {
@@ -126,6 +143,7 @@ public class ModelHistory implements ReadOnlyModelHistory {
 
     /**
      * Returns and removes the next changes in history if exists.
+     * @return an {@code Optional} containing the next {@code ModelChanges} if exists, an empty optional otherwise.
      */
     public Optional<ModelChanges> getNextChanges() {
         if (isFutureChangesEmpty()) {

@@ -25,11 +25,19 @@ public class ModelChanges {
     private Predicate<? super Event> eventPredicate;
     private Predicate<? super Budget> budgetPredicate;
 
+    /**
+     * Constructs a ModelChanges object.
+     * @param changeMessage the change message
+     */
     public ModelChanges(String changeMessage) {
         requireNonNull(changeMessage);
         setChangeMessage(changeMessage);
     }
 
+    /**
+     * Copy constructor for ModelChanges.
+     * @param changes the ModelChanges object to be copied.
+     */
     public ModelChanges(ModelChanges changes) {
         requireNonNull(changes);
         setChangeMessage(changes.changeMessage);
@@ -40,6 +48,10 @@ public class ModelChanges {
         setBudgetPredicate(changes.budgetPredicate);
     }
 
+    /**
+     * Creates a copy of the current ModelChanges.
+     * @return a new ModelChanges object with values equal to the current ModelChanges.
+     */
     public ModelChanges copy() {
         return new ModelChanges(this);
     }
@@ -137,7 +149,7 @@ public class ModelChanges {
     }
 
     /**
-     * Compares two {@code Model}s for changes and keeping the first model data if there are any.
+     * Compares two {@code Model}s for changes and keeping the first model data if there are any differences.
      * @param changeMessage The change message to be included if there are changes.
      * @param base The first model to be compared.
      * @param other The second model to be compared.
@@ -170,8 +182,6 @@ public class ModelChanges {
 
         return changes;
     }
-
-    // Debug purposes
 
     @Override
     public String toString() {
@@ -222,7 +232,7 @@ public class ModelChanges {
     /**
      * Compares the MooLah field with the other ModelChanges given.
      * @param other the other ModelChanges to compare to.
-     * @return true if both fields are null or both are equal.
+     * @return true if both fields are null or both are equal, false otherwise.
      */
     private boolean compareMooLahFieldOnly(ModelChanges other) {
         if (getMooLah().isEmpty()) {
@@ -235,7 +245,7 @@ public class ModelChanges {
     /**
      * Compares the UserPrefs field with the other ModelChanges given.
      * @param other the other ModelChanges to compare to.
-     * @return true if both fields are null or both are equal.
+     * @return true if both fields are null or both are equal, false otherwise.
      */
     private boolean compareUserPrefsFieldOnly(ModelChanges other) {
         if (getUserPrefs().isEmpty()) {

@@ -32,16 +32,19 @@ public interface Model {
 
     /**
      * Resets the model according to the given model.
+     * @param model the {@code Model} whose values are going to replace the current ones
      */
     void resetData(Model model);
 
     /**
      * Creates a copy of the current model.
+     * @return a copy of the current model.
      */
     Model copy();
 
     /**
      * Modifies the model according to the given changes.
+     * @param changes changes that are going to be applied to the model
      */
     void applyChanges(ModelChanges changes);
 
@@ -49,48 +52,60 @@ public interface Model {
 
     /**
      * Returns the model history.
+     * @return a read-only view of the model history
      */
     ReadOnlyModelHistory getModelHistory();
 
     /**
      * Replaces model history with the data in {@code history}.
+     * @param history the {@code ModelHistory} object whose data are going to replace the current ones
      */
     void setModelHistory(ReadOnlyModelHistory history);
 
     /**
      * Adds an entry to the past changes.
+     * @param changes the {@code ModelChanges} to be added
      */
     void addToPastChanges(ModelChanges changes);
 
     /**
      * Adds an entry to the future changes.
+     * @param changes the {@code ModelChanges} to be added
      */
     void addToFutureChanges(ModelChanges changes);
 
     /**
      * Commits the current model to the history with respect to the previous model.
+     * @param changeMessage the change message to be recorded
+     * @param prevModel the previous state of the model for reference
      */
     void commit(String changeMessage, Model prevModel);
 
     /**
      * Checks whether model can be rolled-back.
+     * @return true if model can be rolled-back, false otherwise
      */
     boolean canRollback();
 
     /**
      * Rolls back model to the immediate previous state and returns the
      * description of the applied change.
+     * @return an {@code Optional} that contains the description of the applied change if there are changes,
+     * false otherwise.
      */
     Optional<String> rollback();
 
     /**
      * Checks whether model can be migrated.
+     * @return true if model can be migrated, false otherwise
      */
     boolean canMigrate();
 
     /**
      * Migrates model to the immediate next state and returns the
      * description of the applied change.
+     * @return an {@code Optional} that contains the description of the applied change if there are changes,
+     * false otherwise.
      */
     Optional<String> migrate();
 

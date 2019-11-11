@@ -63,6 +63,7 @@ public class ModelManager implements Model {
 
     /**
      * Copy constructor for ModelManager.
+     * @param model the {@code ModelManager} object to be copied
      */
     public ModelManager(Model model) {
         this();
