@@ -1776,13 +1776,13 @@ every `search` command to reset the current list.
    Expected: New current list will be empty.
 .. Test case: `search|e` then `search|r` +
    Expected: "pear" will be in the new current list.
-.. Test case: `search|#Fruit`
+.. Test case: `search|#Fruit` +
    Expected: "apple" and "pear" will be in the new current list.
-.. Test case: `search|#fruit`
+.. Test case: `search|#fruit` +
    Expected: "apple" and "pear" will be in the new current list.
-.. Test case: `search|#Frui`
+.. Test case: `search|#Frui` +
    Expected: New current list will be empty.
-.. Test case: `search|#yellow|app`
+.. Test case: `search|#yellow|app` +
    Expected: "apple" and "banana" will be in the new current list.
 
 . Empty current list
