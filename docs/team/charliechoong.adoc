@@ -14,7 +14,9 @@ the need to manage 4 different aspects which are food orders, deliverymen, resta
 different in-built interfaces(also known formally as contexts): *universal*/*order*, *deliverymen*, *restaurant*, and *customer*.
 The user primarily interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
 
-This is what our project looks like:
+This is what our project looks like in the case of the deliverymen context:
+
+image::Uipic.png[width="790"]
 
 My role was to design and write the codes for the context for the deliverymen side. This comprises all the features to manage deliverymen status as well as computing crucial
 statistics regarding their status.
@@ -50,7 +52,7 @@ the user and developer guides in relation to these enhancements.
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
 *** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Integrated a new Github plugin (TravisCI) to the team repo (https://github.com/AY1920S1-CS2103T-T12-2/main/pull/2[#2])
 
 
 == Contributions to the User Guide
