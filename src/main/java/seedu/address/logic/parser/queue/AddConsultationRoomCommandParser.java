@@ -23,8 +23,8 @@ import seedu.address.model.queue.Room;
  */
 public class AddConsultationRoomCommandParser implements Parser<ReversibleActionPairCommand> {
 
+    private Index index;
     private List<Person> lastShownList;
-    Index index;
 
     public AddConsultationRoomCommandParser(Model model) {
         this.lastShownList = model.getFilteredStaffList();
@@ -40,7 +40,8 @@ public class AddConsultationRoomCommandParser implements Parser<ReversibleAction
         try {
             index = ParserUtil.parseIndex(args);
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddConsultationRoomCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddConsultationRoomCommand.MESSAGE_USAGE));
         }
         ReferenceId referenceId = ParserUtil.getEntryFromList(lastShownList, index).getReferenceId();
         Room roomToAdd = new Room(referenceId);
