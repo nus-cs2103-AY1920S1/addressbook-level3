@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
 <VBox styleClass="result-display" xmlns="http://javafx.com/javafx/8"
       xmlns:fx="http://javafx.com/fxml/1">
-    <TextArea fx:id="noActiveStudyPlanString" editable="false" styleClass="result-display"/>
+    <padding>
+        <Insets bottom="5" left="5" right="5" />
+    </padding>
+    <Label fx:id="noActiveStudyPlanString" styleClass="result-display"/>
 </VBox>
