@@ -28,6 +28,7 @@ import cs.f10.t1.nursetraverse.importexport.exceptions.ImportingException;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.storage.JsonAdaptedPatient;
 
+//@@author cheongsiuhong
 /**
  * Reads and writes Java based Patient objects to and fro .csv files
  */
@@ -37,8 +38,6 @@ public class CsvUtil {
     private static final String MESSAGE_OVERRIDING_FORBIDDEN = "File with given filename already exists,"
             + "overriding is not allowed";
     private static final String MESSAGE_MISSING_FILE = "File not found.";
-
-    private static final String importFolder = "imports";
 
     //=========== Writing/Export functions =============================================================
 
@@ -172,5 +171,4 @@ public class CsvUtil {
         }
         return false;
     }
-
 }

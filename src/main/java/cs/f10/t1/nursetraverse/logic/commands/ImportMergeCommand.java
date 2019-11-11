@@ -16,7 +16,7 @@ import cs.f10.t1.nursetraverse.model.Model;
 import cs.f10.t1.nursetraverse.model.patient.Patient;
 import cs.f10.t1.nursetraverse.model.patient.exceptions.DuplicatePatientException;
 
-
+//@@author cheongsiuhong
 /**
  * Imports data from a .csv file.
  * Patients from the .csv are batch added into the AB.
@@ -62,7 +62,7 @@ public class ImportMergeCommand extends MutatorCommand {
         } catch (IOException e) {
             throw new CommandException(MESSAGE_FAILURE, e);
         } catch (IllegalValueException e) {
-            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS, e);
+            throw new CommandException(MESSAGE_INVALID_CSV_FIELDS + "\n" + e.getMessage());
         } catch (DuplicatePatientException e) {
             throw new CommandException(MESSAGE_DUPLICATE_CSV_PATIENTS, e);
         }
