@@ -28,11 +28,14 @@ import seedu.address.logic.commands.addcommand.AddCustomerCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.listcommand.ListCustomerCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.DataBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyDataBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.customer.Customer;
+import seedu.address.model.order.Order;
+import seedu.address.model.phone.Phone;
 import seedu.address.statistic.Statistic;
 import seedu.address.statistic.StatisticManager;
 import seedu.address.storage.JsonCustomerBookStorage;
@@ -125,6 +128,27 @@ public class LogicManagerTest {
 
         assertThrows(IOException.class, () -> customerBookStorage.saveCustomerBook(model.getCustomerBook()));
 
+    }
+
+    @Test
+    public void setCustomerBook_validCustomerBook_success() {
+        ReadOnlyDataBook<Customer> book = new DataBook<Customer>();
+        model.setCustomerBook(book);
+        assertEquals(book, logic.getOrderBook());
+    }
+
+    @Test
+    public void setPhoneBook_validPhoneBook_success() {
+        ReadOnlyDataBook<Phone> book = new DataBook<Phone>();
+        model.setPhoneBook(book);
+        assertEquals(book, logic.getPhoneBook());
+    }
+
+    @Test
+    public void setOrderBook_validOrderBook_success() {
+        ReadOnlyDataBook<Order> book = new DataBook<Order>();
+        model.setOrderBook(book);
+        assertEquals(book, logic.getOrderBook());
     }
 
     /**
