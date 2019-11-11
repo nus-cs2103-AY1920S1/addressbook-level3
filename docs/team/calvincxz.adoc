@@ -11,7 +11,7 @@
 == Overview
 
 My team of 4 software engineering students and I were tasked with enhancing a basic command line interface desktop
-addressbook application for our Software Engineering project. We chose to morph it into a all-in-one administration
+addressbook application for our Software Engineering project. We chose to morph it into an all-in-one administration
 desktop application called AddMin+.
 
 AddMin+ is specially designed to ease the workload of the admin staffs in event management companies by allowing them to
@@ -40,13 +40,14 @@ I have added to the user and developer guides in relation to these features.
 viewing of the association via the *fetch event* command. All related commands have *GUI features* implemented.
 
 ** What it does: This feature allows the user to allocate employees to events with filter requirements. The internal
-algorithm also ensures that employees cannot be allocated to events with conflicting time periods.
+algorithm also ensures that employees cannot be allocated to events with conflicting time periods. The portable *Fetch Event Window*
+also allows users to allocate events manpower in different *Tabs* inside AddMin+.
 
 ** Justification: This feature improves the product significantly because a user can now allocate employees to events,
 which is a key component for event management companies that our app is targeting. The algorithm used to check for
 conflicting schedule is also highly beneficial as users no longer have to waste precious time checking the availability
 of every individual employee. The GUI features further provide convenience for users who prefer using the mouse.
-** Highlights: This enhancement affects existing commands and commands to be added in future.
+** Highlights: This enhancement affects existing commands and commands to be added in the future.
 It required an in-depth analysis of design alternatives. The implementation too was challenging as it
 required the knowledge of both `Event` and `Employee` classes.
 
