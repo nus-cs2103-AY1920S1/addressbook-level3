@@ -5,8 +5,10 @@ package seedu.deliverymans.model.deliveryman.deliverymanstatistics;
  * Each variable represent a statistic.
  */
 public class StatisticsRecordCard {
+
     private static final String UTILIZATION_MESSAGE = "(Utilisation level signals the level of \nidle deliverymen.)";
     private static final String ACTIVITY_MESSAGE = "(Activity level signals the level of \nactive deliverymen.)";
+
     // empty data fields
     private Integer numAvailableMen;
     private Integer numUnavailableMen;
@@ -30,7 +32,7 @@ public class StatisticsRecordCard {
     }
 
     /**
-     *
+     * Fills in the empty data fields in the StatisticsReportCard.
      */
     public void editCard(int f1, int f2, int f3, int f4, double f5, double f6, State s1, State s2) {
         numAvailableMen = f1;
@@ -44,7 +46,7 @@ public class StatisticsRecordCard {
     }
 
     /**
-     *
+     * Represents the analysis results that is to be output to user.
      */
     public String resultMessage() {
         String resultMessage = "=========================================\n" + "TOTAL DELIVERYMEN  :  "
@@ -57,7 +59,7 @@ public class StatisticsRecordCard {
     }
 
     /**
-     *
+     * Represents the summary of the analysis that is to be output to user.
      */
     public String adviceMessage() {
         StringBuilder sb = new StringBuilder();
@@ -94,7 +96,7 @@ public class StatisticsRecordCard {
     }
 
     /**
-     *
+     * Returns the data based on the field index requested.
      */
     public Object retrieveRecordCardField(int fieldIndex) {
         assert (fieldIndex >= 1 && fieldIndex < 9);

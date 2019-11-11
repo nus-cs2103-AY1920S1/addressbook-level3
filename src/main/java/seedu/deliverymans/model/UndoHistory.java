@@ -54,6 +54,23 @@ class UndoHistory<T> {
         return history.get(current);
     }
 
+    List<State> getStateList() {
+        return List.copyOf(history);
+    }
+
+    int getCurrentPosition() {
+        return current;
+    }
+
+    int size() {
+        return history.size();
+    }
+
+    State undoTill(int position) {
+        current = position;
+        return history.get(current);
+    }
+
     /**
      * Wrapper for the action causing the change to the object, the subsequent action, and the
      * object itself at this state.
