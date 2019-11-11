@@ -1,16 +1,16 @@
-= Samuel Lim - Project Portfolio for StudyBuddyPro
+= Samuel Lim - StudyBuddyPro Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
 == About the Project
-This Project Porfolio is intended to document and detail my personal contributions to my software engineering project
+This Project Portfolio is intended to document and detail my personal contributions to my software engineering project
 for the module CS2103T Software Engineering. In this module, me and my team of four other software engineering
 coursemates were tasked with morphing a given codebase for a desktop app that primarily made use of typed input to
 receive instructions. We decided to morph the app into an all-in-one study aid application named *StudyBuddyPro*,
 targeted specifically at NUS Computer Science students who preferred visual learning. Our app supports the use of
-flashcards and notes, provides a timetrial feature for flashcards, and includes an automatic cheatsheet-generation
-tool.
+flashcards and notes, provides a timetrial and reminder feature for flashcards, and includes an automatic
+cheatsheet-generation tool.
 
 The image below displays the current Graphical User Interface (GUI) of StudyBuddyPro:
 
@@ -22,59 +22,53 @@ to add tags within the content of notes. Additionally, I was tasked with complet
 developer guide portions for the entire Notes feature, and any other relevant documentation. This Project Portfolio
 thus details how I implemented these changes.
 
-== Informative Highlights
+== Informative Callouts
 
 The following symbols will be used throughout this document to indicate more important pieces of information in this
-Porfolio:
+Portfolio:
 
 [WARNING]
 ====
-Contains information that you should follow, else the app will not work as intended.
+Information that, if not followed, will result in StudyBuddyPro not functioning correctly.
 ====
 
 [IMPORTANT]
 ====
-Contains information that is crucial for you to understand the details of this Portfolio.
+Information that is crucial for you to understand the details of this Portfolio.
 ====
 
 [NOTE]
 ====
-Contains information that will enrich your understanding of the app and this Portfolio.
+Information that will enrich your understanding of this Portfolio.
 ====
 
-`words or phrases in highlights`
-====
-Contains a word or phrase that is used as a command that you can type into the app.
-====
+`colored words` --- Refers either to a command word or a part of StudyBuddyPro's architecture.
 
 == Summary of Contributions
 
-<SHOULD GET RID OF THE EXTREME CHUNKINESS OF THE SUMMARY. TRY TO SPLIT IT UP INTO SMALLER POINTS.>
+As mentioned earlier, these are my contributions to my software engineering project:
 
-As mentioned earlier, these are my contributions to my software engineering project, arranged in descending order of
-significance:
-
-* *Major Contribution 1*: Implemented *Notes*, along with its basic features.
-** What: Notes are pieces of information that contain a title, some content, and some tags. They can be added,
+* *Major Contribution 1*: Implemented *Notes*, along with their basic features.
+** *What*: Notes are pieces of information that contain a title, some content, and some tags. They can be added,
 deleted, viewed, and filtered.
-** Why: Notes can be used by students to store information. They form one of the two main sources of information for
+** *Why*: Notes can be used by students to store information. They form one of the two main sources of information for
 cheatsheet creation in StudyBuddyPro, and are therefore essential to the studying process.
 
 * *Major Contribution 2*: Implemented the *Add Tags Within Notes* feature.
-** What: This feature allows the user to use a pre-defined syntax to tag specific portions of a note with tags (these
+** *What*: This feature allows the user to use a pre-defined syntax to tag specific portions of a note with tags (these
 tags are henceforth referred to as 'note fragment tags'). Note fragment tags are independent of the note's original
 tags, and can be filtered just like normal notes can be.
-** Why: This feature can be used by students to add information to cheatsheets much more precisely. It can also be
+** *Why*: This feature can be used by students to add information to cheatsheets much more precisely. It can also be
 used to highlight specific important parts of a note. This would be very helpful for students to revise more
 efficiently.
 
 * *Minor Contribution 1*: Implemented the `view` and `viewraw` commands for Notes.
-** What: Both commands view a given note fragment tag, but the `view` command also cleans up the syntax of the note
+** *What*: Both commands view a given note, but the `view` command also cleans up the syntax of the note
 to remove the leftover syntax from the addition of note fragment tags.
-** Why: Users will not want the GUI of the app to be cluttered up by note fragment tag syntax. It will be more
+** *Why*: Users will not want the GUI of the app to be cluttered up by note fragment tag syntax. It will be more
 aesthetically pleasing to have the option to not view the syntax when viewing a note.
 
-* *Code Contributed*: Do view this link to see a sample of my code: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sam-limyr&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Sam-limyr&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[Code contributed]
+* *Code Contributed*: This link contains the code that I wrote for this project: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sam-limyr&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Sam-limyr&tabRepo=AY1920S1-CS2103T-W13-3%2Fmain%5Bmaster%5D[My code]
 
 * *Other Contributions*:
 ** Project management:
@@ -91,318 +85,50 @@ aesthetically pleasing to have the option to not view the syntax when viewing a 
 
 == Contributions to User Guide
 
-== Notes Feature:
+In this project, I was tasked with writing all portions of the User Guide related to Notes (specifically Section 6 of
+the User Guide). The sections below hence document my contributions to the User Guide of StudyBuddyPro. In the
+following 3 pages, I will describe how you can add and view notes from StudyBuddyPro, in an easy-to-follow manner.
 
 [IMPORTANT]
 ====
-All the operations in this section assume that the user is in the _notes_ mode.
+All the operations in this section assume that you are in the _notes_ mode. To be sure
+you are in the _notes_ mode, please ensure that you have used the `switch notes` command before this.
 ====
 
-=== Creating a note: `add`
-
-Adds a note from user input with title `TITLE` and content `CONTENT`. The title of the note cannot be a duplicate
-of an existing note title.
-
-```
-Format: add t/TITLE c/CONTENT [tag/TAG]...
-```
-
-Example usage:
-```
-add t/Pipelining Definition c/Pipelining is a process where a processor executes multiple processes simultaneously. tag/cs2100
-```
-
-Expected output:
-```
-New note added:
-    Title: Pipelining Definition
-    Content: Pipelining is a process where a processor executes multiple processes simultaneously.
-    Tags: [cs2100]
-
-The added Note has no detected note fragment tags!
-```
-
-More advanced usage: Tagging of note fragments is also supported. The note fragment tagging is added at the
-same time as the note is created.
-
-Note fragment tags are added with content `FRAGMENT_CONTENT`, at least one tag
-`FRAGMENT_TAG`, and any number of additional tags `ADDITIONAL_FRAGMENT_TAG`:
-
-```
-Format (within CONTENT): /* C/FRAGMENT_CONTENT TAG/FRAGMENT_TAG [TAG/ADDITIONAL_FRAGMENT_TAG]... */
-```
-
-IMPORTANT: The format for note fragment content is 'C/', not 'c/', and the format for note fragment tags is 'TAG/', not
-'tag/'.
-
-WARNING: If the format is not followed correctly, the note fragment tag will simply not be added (but the note will
-still be added). StudyBuddyPro will assume that the user has typed the tags correctly.
-
-In the following example, two note fragment tags are added to the same note fragment:
-
-Example usage:
-```
-add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
-```
-
-Expected output:
-
-```
-New note added:
-	Title: About Notes
-	Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
-	Tags: [about]
-
-Note fragment tags detected:
-	Title: About Notes
-	Content: highlighted
-	Tags: [important][highlight]
-```
-
-This adds a note with content "Notes can be highlighted if needed.", and a note fragment tag with content
-"highlighted" and two tags "cs2100" and "important".
-
-NOTE: The spaces around the syntax elements of '/\*', 'C/' etc are part of the syntax. For example, if a note
-fragment tag looks like this: '/* C/highlighted TAG/important */if needed', then the resultant Note will look like
-this: 'highlightedif needed'.
-
-Multiple note fragment tags are allowed. These do not interfere with the other tags of the Note.
-
-IMPORTANT: Overlapping note fragment tags are not allowed.
-
-NOTE: Note fragment tags can be used for filtering notes (see Section 6.6), or filtering globally (see Section 4.3).
-For a clearer visualization of note fragments, compare the `view` (see Section 6.3) and `viewraw` (see Section 6.4)
-commands.
-
-=== Deleting a note: `delete`
-
-Deletes the note of index `NOTE_INDEX`.
-
-The user will be prompted once to confirm their deletion.
-
-```
-Format: delete (index)
-```
-
-Example usage:
-```
-delete 3
-```
-
-Expected output:
-
-```
-Are you sure you would like to delete the following note?
-
-    Title: About Notes
-    Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
-    Tags: [about]
-    Please use `delete 3` again to confirm your deletion.
-```
-
-Upon hitting enter, the note will be deleted.
-```
-Deleted note:
-    Title: About Notes
-    Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
-    Tags: [about]
-```
-
-=== Viewing a note: `view`
-
-Views the note of index `NOTE_INDEX`. If the note contains any note fragment tags, those tags will be hidden.
-
-NOTE: To view the note with its note fragment tags, use the `viewraw` command instead (see Section 6.4).
-
-```
-Format: view (index)
-```
-
-Example usage:
-```
-view 3
-```
-
-Expected output:
-
-```
-Viewing note:
-    Title: About Notes
-    Content: Notes can be highlighted if needed.
-    Tags: [about]
-```
-
-=== Viewing a raw note: `viewraw`
-
-Views the note of index `NOTE_INDEX`. The note is shown exactly as written, including all note fragment tags.
-
-```
-Format: viewraw (index)
-```
-
-Example usage:
-```
-viewraw 3
-```
-
-Expected output:
-
-```
-Viewing raw note:
-    Title: About Notes
-    Content: Notes can be /* C/highlighted TAG/cs2100 TAG/important */ if needed.
-    Tags: [about]
-```
-
-=== Listing notes: `list`
-
-Lists all notes found in StudyBuddyPro.
-
-```
-Format: list
-```
-
-Expected output:
-
-```
-A complete list of all notes currently in StudyBuddyPro.
-```
-
-Example output:
-
-```
-Listing all notes:
-1.
-    Title: Pipelining Definition
-    Content: Pipelining is a process where a /* C/processor TAG/mips */ executes multiple processes simultaneously.
-    Tags: [cs2100]
-2.
-    Title: UML Diagrams
-    Content: UML Diagrams help with visualizing project structure.
-    Tags: [cs2103t]
-```
-
-NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will not be listed along with the notes. To
-visualize specific note fragment tags, use the `filter` command (see Section 6.6).
-
-=== Filtering by tags: `filter`
-
-* Filters the note library by the user specified tag(s).
-* The user must specify at least one tag, and can specify multiple tags.
-* Notes that match all of the specified tags will be displayed.
-* Note fragment tags containing all of the specified tags will also be displayed, even if their parent note is
-not tagged.
-
-```
-Format: filter tag/TAG [tag/TAG]...
-```
-
-Example usage:
-```
-filter tag/difficult
-```
-
-Expected output:
-```
-Filter notes by tag(s) :
-    [difficult]
-    2. Title: Tough Math
-        Content: 1 + 2 is 3.
-        Tags: [difficult]
-    4. Title: MA1521 Chapter 5
-        Content: dy/dx = 0 is turning point of bellcurve.
-        Tags: [difficult][MA1521]
-    5-1. Title: CS2103T
-          Content: sequence diagram
-          Tags: [difficult][diagram]
-```
-
-NOTE: Notes will be labeled with indices '1', '2' etc. Note fragment tags will be labeled with '1-1', '1-2', '2-1' etc.
-'5-1' means 'the first note fragment tag in the fifth note'.
-
-=== Editing a note: `edit` (Coming in v2.0)
-
-Edits a note's title, content, or tags. The note will be referred to by their original title `ORIGINAL_TITLE`.
-
-* The user can specify one of the optional fields to edit.
-
-```
-Format: edit ORIGINAL_TITLE [t/TITLE] [c/CONTENT] [tag/TAG]...
-```
-
-Example usage:
-```
-edit Pipelining Definition t/Pipelined Definition tag/cs2100finals
-```
-
-Expected output:
-
-```
-Edited Note:
-    Title: Pipelined Definition
-    Content: Pipelining is a process where a processor executes multiple processes simultaneously.
-    Tags: [cs2100finals]
-```
-
+include::../UserGuide.adoc[tag=notesAdd]
+include::../UserGuide.adoc[tag=notesView]
 
 == Contributions to Developer Guide
 
-=== Add Tags Within Notes feature
+In this project, I was tasked with writing all portions of the Developer Guide related to Notes (specifically
+Sections 3.4 and 4.7 of the Developer Guide). The sections below hence document my contributions to the Developer
+Guide of StudyBuddyPro. In the following 5 pages, I will detail out how I decided on and created my feature. I will
+also describe the architecture of my feature using various types of diagrams, so that you can more clearly understand
+how the feature works.
 
-`Notes` are used in the creation of `CheatSheet` objects as well as in general use of StudyBuddyPro. This Add Tags
-Within Notes feature allows for the addition of tags within the content of the `Note`, to allow more precise
-highlighting and tagging of information.
-
-[IMPORTANT]
-All the operations assume that the user is in the _notes_ mode.
-
-==== Design Implementation of Notes
+=== Implementation of Notes
 
 `Notes` contain a `Title` and a `Content`, with optional `Tags` and `NoteFragments`, as shown in the class diagram
 below:
 
 .An overview of the Note class and its associated classes
-image::samDiagrams/NoteModelClassDiagram.png[]
+image::samDiagrams/NoteModelClassDiagram.png[pdfwidth=50vw]
 
-NOTE: As is standard in this Developer Guide, red classes are part of the `Model` package, and blue classes are part of
+[NOTE]
+====
+As is standard in this Developer Guide, red classes are part of the `Model` package, and blue classes are part of
 the `Logic` package.
+====
 
-As the diagram above shows, `Notes` are `StudyBuddyItems`, and can contain any number of `NoteFragments`.
-`NoteFragment` objects are used to represent the specific areas within a `Note` that have been tagged. Each tag
-within a `Note` is referred to as a *note fragment tag* (which is represented by a `NoteFragment` object).
+=== Implementation of the Add Tags Within Notes feature
 
-NOTE: Note fragment tags should not be confused with `Tags`.
+In the following section, I will describe in general how I implemented the Add Tags Within Notes feature, which
+allows users to store specific sections of their notes with tags.
 
-==== Usages of Notes
-
-`Notes` can be used to:
-
-** Store information under a title
-** Categorize information via the use of `Tags`
-** Provide information to `CheatSheets` for collation
-
-`Notes` can currently be:
-
-** Added to `StudyBuddyPro`
-** Deleted from `StudyBuddyPro`
-** Viewed raw or cleaned from `StudyBuddyPro`
-** Viewed using `filter` from `StudyBuddyPro`
-
-==== Design Implementation of the Add Tags Within Notes feature
-
-The Add Tags Within Notes feature was implemented in the following way:
-
-** Creation of a `NoteFragment` class that represents one tag within a `Note`
-** Have each `Note` contain any number of `NoteFragments` in a list
-** Upon addition of a `Note`, parse its `Content` to check for any note fragment tags within it
-** Create any required `NoteFragment` objects and add them to the list in their parent `Note`
-** Since `NoteFragments` are contained within `Notes`, when a `Note` is deleted, its `NoteFragments` will be deleted as well.
-
-The following class diagram shows a more specific view of the relationships between the `Note`, `NoteFragment`, and
-`NoteFeatureUtil` classes.
+include::../DeveloperGuide.adoc[tag=notesImplementationIntro]
 
 .A detailed view of the Note, NoteFragment, and NoteFeatureUtil classes
-image::samDiagrams/NoteModelDetailedClassDiagram.png[]
+image::samDiagrams/NoteModelDetailedClassDiagram.png[pdfwidth=70vw]
 
 As shown in the diagram above, `NoteFragments` contain:
 
@@ -410,233 +136,58 @@ As shown in the diagram above, `NoteFragments` contain:
 ** A `Content` that is a substring of their parent `Note`
 ** Any indicated `Tags` that are independent of their parent `Note`
 
-`NoteFragments` are viewed or used in the following situations:
+=== Implementation of NoteFragment creation
 
-** Viewable through the `filter` and `filterall` commands
-** Usable through `add` commands in _cheatsheet_ mode (see Section 4.4)
+In the following section, I will describe how I implemented the creation of `NoteFragments`. While `Notes`
+themselves are quite useful, I felt that implementing `NoteFragments` would allow users to gain even more value out
+of the automatic cheatsheet-generation feature in StudyBuddyPro.
 
-There are four main methods that involve `NoteFragments`. They are listed below:
-
-** `NoteFeatureUtil#parseNoteFragmentsFromNote()`: Used by `Note` to create `NoteFragments`.
-** `ModelManager#collectTaggedItems()`: Used in the `filterall` command.
-** `ModelManager#collectTaggedNotes()`: Used in the _notes_ `filter` command.
-** `AddCheatSheetCommand#getRelevantContents()`: Used to generate `CheatSheets`.
-
-Out of these four methods, only `NoteFeatureUtil#parseNoteFragmentsFromNote()` is aware of the `NoteFragment` class.
-The other three methods are only aware of the `Note` class.
-
-The implementation of these four methods is shown below:
-
-===== Implementation of `NoteFeatureUtil#parseNoteFragmentsFromNote()`:
-
-The method of parsing `Content` in `NoteFeatureUtil#parseNoteFragmentsFromNote()` relies on the use of `Prefixes`
-around each note fragment tag. Each note fragment tag is specified with a start and end marker (represented by the
-`Prefixes` '/\*' and '*/'), and its `Content` and `Tags` are also represented with the `Prefixes` 'C/' and 'TAG/'.
-
-Example usage:
-
-```
-add t/About Notes c/Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed. tag/about
-```
-
-[NOTE]
-'C/' and 'TAG/' have to be used instead of the default 'c/' and 'tag/' because otherwise the `Note` would not be
-parsed correctly (since only the most recent 'c/' tag is used for each command).
-
-Expected output:
-
-```
-New note added:
-    Title: About Notes
-    Content: Notes can be /* C/highlighted TAG/highlight TAG/important */ if needed.
-    Tags: [about]
-
-Note fragment tags detected:
-    Title: About Notes
-    Content: highlighted
-    Tags: [important][highlight]
-```
+include::../DeveloperGuide.adoc[tag=notesImplementationNoteFeatureUtil1]
 
 A `Note` has been added with the `Content` of 'Notes can be /* C/highlighted TAG/highlight TAG/important */ if
 needed.', and a note fragment tag with `Content` 'highlighted' and two `Tags` 'cs2100' and 'important'. The `Note`
 itself is instead tagged with the `Tag` 'about'.
 
-The sequence diagram below describes the process of adding a new `Note` that contains a note fragment tag:
+[NOTE]
+====
+You can refer to the earlier pages of this Portfolio to recall the specific syntax used in note fragment tags.
+====
 
-.Overview of how a Note is added to StudyBuddyPro
-image::samDiagrams/AddNoteSequenceDiagram.png[]
-
-As seen in the diagram above, when an `add` command is entered by the user:
-
-** The `StudyBuddyProParser` identifies the user's input as an add-type command.
-** An `AddNoteCommandParser` is created to parse the user's input.
-** Only the `Prefixes` 't/', 'c/', and 'tag/' are identified and parsed.
-** `Notes` and `NoteFragments` are created (see next diagram for more details).
-** The new state of StudyBuddyPro is saved via the `StorageManager`.
-
-The following sequence diagram elaborates upon the creation process of `Notes` and `NoteFragments`.
+The following sequence diagram elaborates upon the creation process of `Notes` and `NoteFragments`:
 
 .Illustration of how Notes and NoteFragments are created
-image::samDiagrams/AddNoteSequenceDiagramZoomedIn.png[]
+image::samDiagrams/AddNoteSequenceDiagramZoomedIn.png[pdfwidth=50vw]
 
-As can be seen from the zoomed-in diagram above, when an `AddNoteCommand` is created:
+include::../DeveloperGuide.adoc[tag=notesImplementationNoteFeatureUtil2]
 
-** A `Note` is created with the desired `Title`, `Content`, and `Tags`.
-** The `Content` of the `Note` is parsed for the `Prefixes` '/\*', '*/', 'C/', and 'TAG/', using `NoteFeatureUtil`.
-** A `List<NoteFragment>` is returned to the `Note`.
-** A `CommandResult` is returned to describe the AddNoteCommand's result.
+=== Implementation of ViewNoteCommand
 
-NOTE: All four `Prefixes` must be present for the note fragment tag to be considered valid. Otherwise, an exception is
-thrown.
+In the following section, I will describe how I implemented `ViewNoteCommand`. I chose to implement this command
+because users might not want to see complicated syntax when they are viewing notes.
 
-===== Implementation of `NoteFragments` in `filter` command:
-
-When `Notes` are filtered, the method `ModelManager#collectTaggedNotes()` is used, which checks for any valid tags in
-`NoteFragments` within the `Note` as it checks each `Note`.
-
-However, `ModelManager` uses the method `Note#getFilteredNoteFragments()` to achieve this, and therefore is not
-aware of the existence of `NoteFragments`.
-
-The separation between `Notes` and `NoteFragments` in the `filter` command allows for more finely-tuned viewing of
-specific tagged details. For instance:
-
-** A small portion of a long `Note` can be tagged out as 'important'.
-** Different parts of the same `Note` can be given different `Tags` like 'CS2103T' or 'CS2100', even as the entire
-`Note` is tagged under a larger category like 'CS'.
-
-This behaviour of the `filter` command is distinct from that of the `list` command. In the `list` command,
-`NoteFragments` are not listed. This decision is made because the `list` command already lists all `Notes`, and
-therefore it would be unnecessary to also list all `NoteFragments`, as `NoteFragments` form a subset of `Notes`.
-
-The differences between the two implementations can be summarized in the activity diagram below:
-
-.Differences between filter and list command executions
-image::samDiagrams/FilterVersusListActivityDiagram.png[]
-
-Whilst `filter` uses `ModelManager#collectTaggedNotes()` (as shown in the notes on the diagram above), `list` uses
-`ModelManager#formatOutputListString()`, which does not check for any `NoteFragments` within `Notes`.
-
-===== Implementation of `NoteFragments` in `filterall` command:
-
-When all `StudyBuddyItems` are filtered, the method `ModelManager#collectTaggedItems()` is used, which performs a
-similar task to `ModelManager#collectTaggedNotes()`, but also collects `Flashcard` and `CheatSheet` objects as well.
-The reasoning for this decision is similar to that in the `filter` command.
-
-===== Implementation of `NoteFragments` in `add` command in `CheatSheets`:
-
-When a `CheatSheet` is created, the method `AddCheatSheetCommand#getRelevantContent()` is used to filter out all
-`Notes` and `NoteFragments` that contain the specified `Tags`. `AddCheatSheetCommand` uses the method
-`Note#getFilteredNoteFragments()` to obtain the filtered list of `NoteFragments`, and is therefore unaware of the
-existence of `NoteFragment`.
-
-Since the `Tags` stored in `Notes` and `NoteFragments` are independent of each other, they are filtered in the same
-way as in the `filter` command. As a result, it is possible for a `NoteFragment` to be included in a `CheatSheet`
-even when its parent `Note` is not.
-
-==== Design Implementation of ViewNoteCommand
-
-There are two Commands available if the user intends to view a particular `Note`: `ViewNoteCommand` and
-`ViewRawNoteCommand`. `ViewNoteCommand` displays the `Note` to the user while hiding any note fragment tag syntax
-from the content of the `Note`, while `ViewRawNoteCommand` displays the `Note` to the user exactly as it was inputted.
-
-The main difference in the process of the two commands is shown in the activity diagram below:
+include::../DeveloperGuide.adoc[tag=notesImplementationView1]
 
 .Difference between ViewNoteCommand and ViewRawNoteCommand
-image::samDiagrams/ViewVersusViewRawActivityDiagram.png[]
+image::samDiagrams/ViewVersusViewRawActivityDiagram.png[pdfwidth=50vw]
 
 As can be seen in the diagram above, the method `Note#getContentCleanedFromTags()` is used to obtain a copy of the
-`Content` of the `Note`, and reformat it by replacing its note fragment tags with blank spaces.
-
-The object diagram below elaborates on the process of `Note#getContentCleanedFromTags()`:
+`Content` of the `Note`, and reformat it by replacing its note fragment tags with blank spaces. This is further
+elaborated on by the object diagram below:
 
 .A possible instance of a use of ViewNoteCommand
-image::samDiagrams/NoteCleanedContentObjectDiagram.png[]
+image::samDiagrams/NoteCleanedContentObjectDiagram.png[pdfwidth=70vw]
 
-As can be seen from the diagram above, the `Note` object named 'note' makes use of the `NoteFeatureUtil` object and
-its own `Content` object to return the cleaned content String to the `ViewNoteCommand` object. The `ViewNoteCommand`
-object then creates a separate `Note` object named 'cleanedNote' to obtain the information to display.
+include::../DeveloperGuide.adoc[tag=notesImplementationView2]
 
-This indicates that calling a `ViewNoteCommand` does not affect the original `Note`, as a separate `Note` object is
-created instead.
+=== Design Considerations of the Add Tags Within Notes feature and ViewNoteCommand
 
-==== Design Considerations of the Add Tags Within Notes feature and ViewNoteCommand
+In the following section, I will describe two of the decisions that I had to make while creating my feature, and will
+elaborate on the pros and cons of each choice.
 
-===== Aspect: Container location for `NoteFragment`
+[NOTE]
+====
+Some of the architectural components mentioned in these alternatives (e.g. `UniqueNoteList`) are not mentioned in
+this Portfolio. Should you wish to read up more about them, you can refer to the full Developer Guide https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/DeveloperGuide.adoc[here].
+====
 
-** Alternative 1 (current choice): Each `Note` contains a `List<NoteFragment>`:
-*** Pros: Much easier maintenance, since `NoteFragments` are automatically deleted with the deletion of their parent
-`Note`.
-*** Cons: O(n^2^) search time for `filter` commands, as all `NoteFragments` in each `Note` in the `UniqueNoteList`
-must be searched through to filter them out.
-
-** Alternative 2: Separate `UniqueNoteFragmentList` from `UniqueNoteList`:
-*** Pros: O(n) search time for `filter` commands, as the `UniqueNoteFragmentList` exists separately from the
-`UniqueNoteList`.
-*** Cons: Difficult to maintain; deletion of a parent Note requires searching the `UniqueNoteFragmentList` for any
-child `NoteFragments` to delete as well.
-
-===== Aspect: Implementation of `ViewNoteCommand`
-
-** Alternative 1 (current choice): Create a method `Note#getContentCleanedFromTags()` that also returns a Content:
-*** Pros: Allows `Note` to remain as the sole point of interaction between the other `Note` classes (specifically
-`Content` and `Tags`).
-*** Cons: Is more complicated as `Content` must be converted to String before manipulation.
-
-** Alternative 2: Create a method `Content#getContentCleanedFromTags()` that returns a cleaned copy of itself.
-*** Pros: Can manipulate the String of the `Content` directly without having to convert it to and from `Content`.
-*** Cons: Breaks the Single Responsibility Principle, as `Content` will now be dependent on `Tags`, even though it
-does not use `Tags`.
-
-==== Usages of the Add Tags Within Notes feature
-
-Generally, the Add Tags Within Notes feature allows for more precise filtering of `Notes` and their contents. Since
-`Notes` may be very long, this feature allows the user to highlight certain portions of the `Notes` in order to take
-out only the more important parts for `CheatSheet` creation. The user can still use the full `Content` of the `Note`
-for general revision.
-
-As such, the main usages of this feature can be summarized as follows:
-
-** Saves space when using `add` for `CheatSheets`
-** Highlights specific sections of `Notes` when using `filter`
-** Makes the GUI less cluttered when using `filter` and `filterall`
-
-==== (Proposed) Future Improvements for v2.0
-
-===== `edit` command for `Notes`
-
-This feature will allow for users to edit their `Notes`, by specifying a new `Title`, `Content`, or `Tags`.
-
-===== (Proposed) Implementation
-
-** Expected inputs:
-*** The original `Title` of the `Note` to be edited
-*** One or more fields that the user wants to edit
-** Create an `EditCommandParser` to parse the input command using `ArgumentTokenizer`
-** Create an `EditCommand` which contains `EditCommand#execute()`
-*** This method creates a new `Note` which contains all old fields, then replaces any old field with a new field, if
-it is made available
-
-Example usage:
-
-    edit Old Title t/New Title
-
-This would result in the `Note` which was originally called 'Old Title' having its `Title` changed to 'New Title'.
-Since no two `Notes` are allowed to have the same `Title`, it is a unique identifier of the `Note` to be edited.
-
-===== Design Considerations
-
-====== Aspect: Method of editing
-
-** Alternative 1: Create a new `Note` object
-*** Pros: Is more defensive, since only a shallow copy of the `Note` object is returned.
-*** Cons: Longer command run time, as a new `Note` object needs to be created first, and then edited.
-
-** Alternative 2: Edit the exiting `Note` object
-*** Pros: Command will run faster, since no new `Note` object needs to be created.
-*** Cons: Is not defensively programmed, as `Notes` should be immutable.
-
-
-
-
-
-
+include::../DeveloperGuide.adoc[tag=notesConsiderations]
