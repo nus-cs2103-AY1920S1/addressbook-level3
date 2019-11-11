@@ -28,15 +28,23 @@ considerations for the implementation of Athletick's features.
 
 The intended audience of this document includes the developers and software testers of Athletick.
 
-Note the following symbols and formatting used in this document
+
+// tag::symbol[]
+
+Note the following symbols and formatting used in this document:
+
+NOTE:  This symbol indicates important information.
 
 [horizontal]
 
-NOTE:: This symbol indicates important information
-
-`command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
+`command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command
+line and executed by the application.
 
 `[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
+
+// end::symbol[]
+
+//====
 
 === Design goals
 
@@ -223,7 +231,7 @@ Classes used by multiple components are in the `[green]#seedu.addressbook.common
 
 This section describes some noteworthy details on how certain features are implemented. We have included our design considerations for you to understand our decision making processes.
 
-// tag::training[]
+// tag::training_structure[]
 === Training feature
 
 *Athletick* allows users to record training information like the date of training and an athlete's attendance. This
@@ -241,7 +249,7 @@ image::training_class_diagram.png[]
 A training session is represented by a `[green]#Training#` class and it contains information like the date of
 training and training attendance. The `[green]#AthletickDate#` class represents the date of a training session in
 `[green]#Training#`. This class is shared across both the frontend and backend of the application, allowing training
-information to be used in other features. A `[green]#HashMap<Person, Boolean>#` represents attendance in
+information to be used in other features that use `[green]#AthletickDate#`. A `[green]#HashMap<Person, Boolean>#` represents attendance in
 `[green]#Training#` and indicates whether a `[green]#Person#` has attended that training session. If a
 `[green]#Person#` attended, the value associated with him in the `[green]#HashMap<Person, Boolean>#` will be true,
 and false if he did not attend.
@@ -274,6 +282,8 @@ shows how the `TrainingManager` provides other components with attendance rates.
 .Sequence diagram showing how `view attendance` command gets attendance rate
 image::view_attendance_sequence_diagram.png[]
 
+// end::training_structure[]
+
 `[green]#TrainingManager#` also allows users to get the attendance of one particular training using the following
 operation:
 
@@ -284,6 +294,8 @@ when a `calendar` command is executed.
 
 .Sequence diagram showing how `calendar` command gets training attendance
 image::calendar_sequence_diagram.png[]
+
+// tag::training_design[]
 
 ==== Design Considerations
 This section contains some of our considerations for the training feature.
@@ -323,8 +335,8 @@ implementation allows us to easily do so.
 |Makes obtaining information much quicker.
 
 |*Cons*
-|Accessing accessing attendance and attendance rate of one person takes more time.
-|Requires more effort to maintain and coding of new functions to edit data.
+|Accessing attendance and attendance rate of one person takes more time.
+|Requires more effort to maintain and requires coding of new functions to edit data.
 |===
 
 Reason for choosing alternative 2: The `select` and `attendance` commands require the attendance rate of only one
@@ -338,7 +350,7 @@ person and a hash table provides us with the fastest access time to access atten
 |*Alternative 2:* Create a command to support editing of training.
 
 |*Pros*
-|Users no need to type lengthy edit commands.
+|Users will not need to type lengthy edit commands.
 |More intuitive to a user who wants to edit.
 
 |*Cons*
@@ -346,11 +358,11 @@ person and a hash table provides us with the fastest access time to access atten
 |Users have the option to edit date, attendance and even add a person which will require lengthy commands.
 |===
 
-Reason for choosing alternative 1: Editing training information would require typing long time-consuming commands
-which defeats the purpose of having a command line interface. Editing training by replacing an old one with the
-`training` command makes it quicker.
+Reason for choosing alternative 1: Editing training information would require typing long commands which will be very
+time-consuming and this defeats the purpose of having a command line interface. Editing training by replacing an old
+one with the `training` command makes it editing much quicker.
 
-// end::training[]
+// end::training_design[]
 
 // tag::performance[]
 === Performance feature

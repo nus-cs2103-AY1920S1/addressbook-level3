@@ -1,8 +1,16 @@
 = Lim Jun Hup - Project Portfolio for Athletick
+
+//++++
+//<link rel="stylesheet"  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+//++++
+
 :site-section: AboutUs
 :imagesDir: ../images
 :sectnums:
+//:icons: font
+ifdef::env-github[]
 :note-caption: :information_source:
+endif::[]
 :stylesDir: ../stylesheets
 
 == Introduction
@@ -48,10 +56,10 @@ in relation to these enhancements.
 
 Note the following symbols and formatting used in this document:
 
+
+NOTE: This symbol indicates important information
+
 [horizontal]
-
-NOTE:: This symbol indicates important information
-
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the command line and executed by the application.
 
 `[green]#component#`:: Green text with grey highlight indicates a component, class, object or method in the architecture of the application.
@@ -89,7 +97,7 @@ allow the future enhancement for such features to be easily integrated into the 
 * Project management
 ** Introduced Trello for tasks and deadlines management
 ** Served as the team's Backend Engineer and assisted in the logic of the program whenever needed.
-* Enhancements to existing features
+* Existing features enhancement
 ** Implemented Training and Attendance classes (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/63[#63])
 ** Added the Gender attribute (Pull request https://github.com/AY1920S1-CS2103T-T12-3/main/pull/130[#130])
 * Documentation

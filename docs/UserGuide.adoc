@@ -18,6 +18,7 @@ By: `CS2103T-T12-3`      Since: `Sep 2019`      Licence: `MIT`
 
 == Introduction
 
+
 Athletick is a team management desktop application for captains and coaches of timing-based sports teams. Athletick helps you to handle your administrative tasks so that you can focus on what you love doing: leading and motivating your team.
 
 Athletick supports *storing of your team members' personal details, attendance tracking and performance recording*. If you are a fast typist, you'll love Athletick's *Command Line Interface* (CLI) which will get your team management tasks done faster than ever before!
@@ -31,9 +32,9 @@ This document serves to assist you in the navigation and utilisation of Athletic
 Note the following symbols and formatting used in this document
 
 [horizontal]
+NOTE: This symbol indicates important information
 
-NOTE:: This symbol indicates important information
-
+[horizontal]
 `command`:: A grey highlight (called a mark-up) indicates that this is a command that can be typed into the
 command line and executed by the application.
 
@@ -193,15 +194,18 @@ If successfully edited, the edited information of Roy (now Shawn) will be displa
 
 The team list should also reflect Roy's new details.
 
-// tag::training[]
+// tag::training_intro[]
 === Training
 *Athletick* allows you to record your team's training sessions, so that you can store important information like
 date of training and training attendance. After adding a training session, you can look at past trainings to check
 attendance on that particular date. You can also edit training attendance or delete a training from *Athletick*.
+// end::training_intro[]
 
 NOTE: *Athletick* does not support recording of multiple trainings on the same date. Recording a training on the same
 date will replace the previous training. (see <<Edit attendance of an existing training session: `training` or `training -a`>>)
 
+
+// tag::training_present[]
 ==== Record training session by indicating athletes present : `training`
 
 This command saves a training session to *Athletick*, and marks the athletes indicated as present. You will need
@@ -228,7 +232,9 @@ If successfully added, the result box will display the following result as shown
 also appear at the date on the calendar, indicating that the training has been recorded.
 
 image::training_without_flag_after.png[width=350]
+// end::training_present[]
 
+// tag::training_absent[]
 ==== Record training session by indicating athletes absent : `training -a`
 
 This command saves a training session to *Athletick*, and marks the athletes indicated as absent. You will need
@@ -257,6 +263,9 @@ If successfully added, the result box will display the following result as shown
 will appear also at the date on the calendar, indicating that the training has been recorded.
 
 image::training_with_flag_after.png[width=350]
+// end::training_absent[]
+
+// tag::training_edit[]
 
 ==== Edit attendance of an existing training session: `training` or `training -a`
 This command allows you to edit the attendance of a training session. You will need the date of training and indexes
@@ -285,6 +294,10 @@ If successfully edited, the result box will display the following result as show
 
 image::edit_training_after.png[width=350]
 
+// end::training_edit[]
+
+// tag::training_delete[]
+
 ==== Delete a training session: `delete -t`
 This command allows you to delete a training session. You will need the date of the training session you wish to delete.
 
@@ -309,18 +322,27 @@ at the date will also disappear, indicating that it has been removed.
 
 image::delete_training_after.png[width=350]
 
+// end::training_delete[]
+
+// tag::attendance_intro[]
+
 === Attendance
 To save you the trouble of manually calculating your team's attendance, Athletick has an attendance tracker that
 checks your team's overall attendance for you as you record trainings.
 
+// end::attendance_intro[]
+
 After recording a training, you can check the attendance of an athlete
 (see <<Check attendance of an athlete : `attendance`>>) or check your team's attendance (see: <<Check overall attendance of your team : `view attendance`>>)
+
+
+// tag::attendance_command[]
 
 ==== Check attendance of an athlete : `attendance`
 This command allows you to check the attendance of an athlete.
 
 Let's say you notice that Michael hasn't been attending recent trainings and would like to check on his overall
-attendance rate.
+attendance.
 
 *What you should do*
 
@@ -334,10 +356,14 @@ image::attendance_command_before.png[width=350]
 
 *What you should see*
 
-If the command is successful, the athlete's name and attendance rate will be displayed in the result box as shown in
+If the command is successful, the athlete's name and attendance will be displayed in the result box as shown in
 the diagram below.
 
 image::attendance_command_after.png[width=350]
+
+// end::attendance_command[]
+
+// tag::view_attendance_command[]
 
 ==== Check overall attendance of your team : `view attendance`
 This command allows you to check the overall attendance of your team.
@@ -354,11 +380,11 @@ image::view_attendance_before.png[width=350]
 *What you should see*
 
 If the command is successful, the result box will display the following result as shown in the diagram below. The
-feature box will show you your team's overall attendance rate.
+feature box will show you your team's overall attendance.
 
 image::view_attendance_after.png[width=350]
 
-// end::training[]
+// end::view_attendance_command[]
 
 // tag::performance[]
 === Performance
@@ -745,7 +771,7 @@ Let's say you want to see which athletes are butterfly swimmers
 
 *What you should do*
 
-Type in the following command and press `Enter`.
+Type in the command in the following format and press `Enter` to execute it.
 
 Format : `filter TAG [TAG]...`
 
@@ -755,34 +781,30 @@ image::filter_wysd.png[width=450]
 
 *What you should see*
 
-If successfully executed,
-the message "x persons listed!" will be displayed in the result box (red box), where x is the number of
-athletes that match the tag you filtered by.
+If successfully filtered, the result box will display the message "_x persons listed!_", where _x_ is the
+number of athletes that have the tag you filtered by, as shown in the red box in the diagram below.
 
-Additionally, the athlete list (orange box) will contain only the athletes that have the tag you filtered
-by.
+Additionally, the athlete list (orange box) will show only the athletes that have the tag you filtered by.
 
-In the example given below, 3 athletes have the `butterfly` tag.
-
-.Note that the index numbers of the athletes in the filtered list may differ from that of the unfiltered list (refer to the diagram below for an explanation).
+.Note that the index numbers of the athletes in the filtered list may differ from that of the unfiltered list. Refer to the diagram below for an explanation.
 image::filter_wyss.png[width=450]
 
 The diagram below shows the change in the active list (from unfiltered to filtered) when the filter is
 applied.
-Notice that the index of some athletes have changed (eg. Joseph Schooling has changed from 3 to 2).
 
-image::filter_change.png[width="395"]
+.Notice that the index of some athletes have changed (eg. Joseph Schooling has changed from 3 to 2).
+image::filter_change.png[width="650"]
 
 ==== Finding athletes by their name : `find`
 
-This command find athletes whose name contains any of the given keywords.
+This command find athletes whose name contains any of the keywords you provide.
 
 [NOTE]
 ====
 
-The `find` command is case-insensitive.
+This command will change your athletes’ `INDEX`.
 
-This command will change your athletes’ index numbers.
+This command is case-insensitive, so finding by `Joseph` and `joseph` will give the same result.
 
 Only full keyword matches are accepted (eg. to find `Joseph Schooling`, you need to search
 for `Joseph` or `Schooling`, but *not `Jo`*.
@@ -793,23 +815,31 @@ Let's say that you want to find Joseph Schooling from your long list of athletes
 
 *What you should do*
 
-Type in the find command, followed by the keywords you want to find.
+Type in the command in the following format and press `Enter` to execute it.
 
 Format : `find KEYWORD [MORE_KEYWORDS]`
 
 Example : `find joseph`
 
-image::find_wysd.png[width="400"]
+image::find_wysd.png[width="450"]
 
 *What you should see*
 
-If successfully executed, he athlete list in the left sidebar should only display athletes whose name
-contains the given keywords.
+If successfully found, the result box will display the message "_x persons listed!_", where _x_ is the
+number of athletes whose names have the keyword(s) you provided, as shown in the red box in the diagram
+below.
 
-The result box should should also show the number of athletes in the results.
+Additionally, the athlete list (orange box) will show only the athletes whose names have the keyword(s) you
+provided.
 
-.Notice that Joseph Tan is also in the result as his name has 'Joseph'.
-image::find_wyss.png[width="400"]
+.Note that the index numbers of the athletes in the searched list may differ from that of the unsearched list. Refer to the diagram below for an explanation.
+image::find_wyss.png[width="450"]
+
+The diagram below shows the change in the active list (from unsearched to searched) when the search term is
+applied.
+
+.Notice that the index of some athletes have changed (eg. Joseph Schooling has changed from 4 to 1).
+image::find_change.png[width="650"]
 
 === Miscellaneous
 
