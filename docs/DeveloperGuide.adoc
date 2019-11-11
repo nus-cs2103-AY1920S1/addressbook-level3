@@ -434,7 +434,7 @@ based on the show type.
 The following _activity diagram_ summarises the workflow of the `Search` feature:
 
 .Activity Diagram for the `Search` Feature
-image::SearchActivityDiagram.png[width="400"]
+image::SearchActivityDiagram.png[width="450"]
 
 {sp} +
 
