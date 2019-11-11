@@ -1033,33 +1033,28 @@ Use case resumes from step 4.
 ....
 
 [discrete]
-=== Use case: UC03 - Adding Calorie Intake
+=== Use case: UC03 - Adding Glucose Record
 
 *MSS*
 
-1.  User requests to add calorie intake for the day
-2.  DukeCooks shows a list of Nutrition (Breakdown)
-3.  User requests to add certain nutrition value fields
-4.  DukeCooks updates Health Records
+1.  User requests to add glucose record
+2.  A new glucose record is added to Health Records
+3.  DukeCooks filters the records to only glucose related records
+4.  DukeCooks directs user to health record's record type page.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The Nutrition list is empty (User did not give any nutrition inputs).
+* 1a. DukeCooks detects error in parsing user input
 +
 [none]
-** 2a1. DukeCooks updates calorie count in Health Records (omit nutritional information).
+** 1a1. DukeCooks displays error message
+** 1a2. User enters new input
 +
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. DukeCooks shows an error message.
-+
-Use case resumes at step 2.
+Steps 1a1. and 1a2. are repeated until the data entered are correct.
+Use case resumes from step 2.
 
 [discrete]
 === Use case: UC04 - Creating Workouts

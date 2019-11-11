@@ -831,7 +831,7 @@ Keeping your profile safe! This action will have no effect to your profile!
 ====
 
 ==== Link Recipes: `[Coming in v2.0]`
-A feature to track user's food consumption based on existing records. +
+A feature to track user's food consumption based on existing recipes. +
 
 Adds relevant records based on the recipe's nutritional information +
 Format: `link recipe n/_<recipename>_ /to health dt/_<date time>_ [remarks/_<remarks>_]`
@@ -869,7 +869,7 @@ Examples:
 
 * `print health t/glucose period/ 01/01/2019 - 01/02/2019` +
 Generates a PDF copy of all the blood sugar records from 1st Jan 2019 to 1st Feb 2019.
-* `print health t/glucose t/weight 01/01/2019 - 31/08/2019` +
+* `print health t/glucose t/weight period/ 01/01/2019 - 31/08/2019` +
 Generates a PDF copy of all the blood sugar and weight records respectively from 1st Jan 2019 to 31st Aug 2019.
 
 === Workout Tracker
@@ -1426,14 +1426,22 @@ e.g. `view recipe Chicken Rice`
 
 *Health Records*
 
-* *View health data* : `view health t/<type>` +
-e.g. `view health t/glucose`
-* *Add health data* : `add health t/<type> val/<value> dt/<date> <time>` +
-e.g. `add health t/glucose 120 dt/21/10/2019 12:00`
-* *Edit health data* : `edit health <index> val/<value>` +
-e.g. `edit health 1 120`
-* *Delete health data* : `delete health <index>` +
+* *Going to the Health Records:* `goto health`
+* *Add profile* : `add profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>]` +
+e.g. `add profile n/Alex Yeoh d/23/02/1995 g/female bt/a+ w/57.8 h/173.2 m/Stroke m/Diabetes`
+* *Edit existing profile* : `edit profile n/ <name> d/ <date of birth> g/ <gender> bt/ <blood type> w/ <weight> h/ <height> [m/ <medical history>] [m-/ <medical history>]` +
+e.g. `edit profile g/male bt/a- w/57.5 h/173 m-/Stroke m/High Blood Pressure`
+* *Delete existing profile* : `delete profile`
+
+* *List health by record type* : `list health t/ <type>` +
+e.g. `list health t/glucose`
+* *Add health data* : `add health t/ <type> val/ <value> dt/ <date time> [remark/ <remark>]` +
+e.g. `add health t/weight val/60 dt/10/11/2019 12:00 remark/after meal`
+* *Edit existing health data* : `edit health <index> val/ <value> dt/ <date time> [remark/ <remark>]` +
+e.g. `edit health 1 val/62 dt/10/11/2019 10:30 remark-/after meal remark/before meal`
+* *Delete existing health data* : `delete health <index>` +
 e.g. `delete health 1`
+* *Clear all records* : `clear health`
 
 *Workout Tracker*
 
