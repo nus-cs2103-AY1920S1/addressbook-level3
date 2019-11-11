@@ -4,6 +4,9 @@ import seedu.address.calendar.model.event.Event;
 
 import java.util.List;
 
+/**
+ * Represents a read-only calendar.
+ */
 public class ReadOnlyCalendar {
     List<Event> events;
 

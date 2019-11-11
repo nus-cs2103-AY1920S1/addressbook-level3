@@ -21,11 +21,24 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
 
     /* Methods that perform basic operations. */
 
+    /**
+     * Inserts an interval into the tree.
+     *
+     * @param interval The interval to be added
+     * @return The relevant node
+     */
     public Node insert(T interval) {
         root = insert(interval, root);
         return root;
     }
 
+    /**
+     * Inserts an interval into the tree.
+     *
+     * @param interval The interval to be added
+     * @param root The root to add the interval to
+     * @return The relevant node
+     */
     private Node insert(T interval, Node root) {
         if (root == null) {
             incrementInterval(interval);
@@ -50,6 +63,11 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return avlBalance(root);
     }
 
+    /**
+     * Increments the number of intervals with specified interval.
+     *
+     * @param interval The specified interval
+     */
     private void incrementInterval(Interval interval) {
         if (!intervalTracker.containsKey(interval)) {
             intervalTracker.put(interval, 1);
@@ -60,6 +78,12 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return;
     }
 
+    /**
+     * Removes an interval from the tree.
+     *
+     * @param interval The interval to be removed
+     * @throws NoSuchElementException If the interval cannot be removed
+     */
     public void remove(T interval) throws NoSuchElementException {
         if (!intervalTracker.containsKey(interval)) {
             throw new NoSuchElementException("Unable to remove a non-existent interval");
@@ -73,6 +97,13 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         root = remove(interval, root);
     }
 
+    /**
+     * Removes an interval from the tree.
+     *
+     * @param interval The interval to be removed
+     * @param root The relevant root to remove the node from
+     * @throws NoSuchElementException If the interval cannot be removed
+     */
     private Node remove(T interval, Node root) {
         if (root == null) {
             return null;
@@ -107,6 +138,11 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         return avlBalance(root);
     }
 
+    /**
+     * Reduces the number of intervals specified.
+     *
+     * @param interval The specified interval to be removed
+     */
     private void decrementInterval(Interval interval) {
         if (!intervalTracker.containsKey(interval)) {
             assert false : "Deleting of non-existent value is not allowed";
@@ -144,7 +180,7 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
             return getCollision(newInterval, rightSubtree);
         }
     }
-
+/*
     public void traverse(Node node) {
         if (node == null) {
             return;
@@ -165,8 +201,14 @@ public class IntervalSearchTree<S extends IntervalPart<S>, T extends Interval<S,
         System.out.println(" height: " + node.height);
         preOrder(node.leftNode);
         preOrder(node.rightNode);
-    }
+    }*/
 
+    /**
+     * Gets intervals that collide with that specified.
+     *
+     * @param newInterval The specified interval
+     * @return The colliding intervals
+     */
     public List<T> getCollisions(Interval<S, ?> newInterval) {
         List<T> collisions = new ArrayList<>();
         getCollisions(newInterval, root, collisions);

@@ -252,6 +252,12 @@ public class Date implements IntervalPart<Date> {
         return new Date(day, monthOfYear, year);
     }
 
+    /**
+     * Compares {@code this} to the other date.
+     *
+     * @param otherDate The other date to be compared to
+     * @return An {@code int} representing the order between the two dates (follows Java conventions)
+     */
     public int compareTo(Date otherDate) {
         Year otherYear = otherDate.year;
         int compareYear = year.compareTo(otherYear);

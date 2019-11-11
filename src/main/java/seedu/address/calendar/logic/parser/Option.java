@@ -3,13 +3,16 @@ package seedu.address.calendar.logic.parser;
 import java.util.Optional;
 import java.util.OptionalInt;
 
+/**
+ * Represents an option (a user option).
+ */
 public class Option {
     private OptionalInt optionNumber;
     private Optional<Boolean> optionBinary;
 
     private Option(int option) {
         optionNumber = OptionalInt.of(option - 1); // zero-based
-        optionBinary= Optional.empty();
+        optionBinary = Optional.empty();
     }
 
     private Option(boolean option) {
@@ -29,8 +32,12 @@ public class Option {
         return new Option(option);
     }
 
+    /**
+     * Checks if the user input represents a binary choice.
+     *
+     * @return {@code true} if the user input represents a binary choice
+     */
     public boolean isBinary() {
-        // todo: add assertion to ensure that it is either a yes or a number
         return optionBinary.isPresent();
     }
 

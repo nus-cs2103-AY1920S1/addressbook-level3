@@ -7,12 +7,22 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parses a check command.
+ */
 public class CheckCommandParser {
     private static final String MESSAGE_INVALID_COMMAND_FORMAT = "Incorrect check command format. %s";
     private static final Prefix[] prefixes = { CliSyntax.PREFIX_START_DAY, CliSyntax.PREFIX_START_MONTH,
             CliSyntax.PREFIX_START_YEAR, CliSyntax.PREFIX_END_DAY, CliSyntax.PREFIX_END_MONTH,
             CliSyntax.PREFIX_END_YEAR };
 
+    /**
+     * Parses a check command.
+     *
+     * @param args The arguments provided by the user
+     * @return The required check command
+     * @throws ParseException If the command cannot be parsed successfully
+     */
     CheckCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, prefixes);
 

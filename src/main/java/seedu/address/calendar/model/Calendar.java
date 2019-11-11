@@ -123,29 +123,59 @@ public class Calendar {
         return events.getEventsAtSpecificTime(eventQuery);
     }
 
+    /**
+     * Checks if the user is available at the specified period of time.
+     *
+     * @param eventQuery The specified period of time
+     * @return {@code true} if the user is available at the specified period of time
+     */
     public boolean isAvailable(EventQuery eventQuery) {
         boolean isAvailable = events.isAvailable(eventQuery);
         updateMonthView(eventQuery);
         return isAvailable;
     }
 
+    /**
+     * Suggests user periods of times when he/she is free.
+     *
+     * @param eventQuery The period of time of interest
+     * @return Suggestions for the user
+     */
     public String suggest(EventQuery eventQuery) {
         String suggestions = events.suggest(eventQuery);
         updateMonthView(eventQuery);
         return suggestions;
     }
 
+    /**
+     * Suggests user periods of times when he/she is free and only returns those that meets the minimum time period.
+     *
+     * @param eventQuery The period of time of interest
+     * @param minPeriod The minimum period of time
+     * @return Suggestions for the user
+     */
     public String suggest(EventQuery eventQuery, int minPeriod) {
         String suggestions = events.suggest(eventQuery, minPeriod);
         updateMonthView(eventQuery);
         return suggestions;
     }
 
+    /**
+     * Gets a read-only calendar.
+     *
+     * @return A read-only calendar
+     */
     public ReadOnlyCalendar getCalendar() {
         List<Event> eventsCopy = events.asList();
         return new ReadOnlyCalendar(eventsCopy);
     }
 
+    /**
+     * Updates calendar using a read-only calendar.
+     *
+     * @param readOnlyCalendar A read-only calendar
+     * @throws NoSuchFileException If the file cannot be found
+     */
     public void updateCalendar(Optional<ReadOnlyCalendar> readOnlyCalendar) throws NoSuchFileException {
         try {
             List<Event> eventList = readOnlyCalendar.get().getEventList();
@@ -169,6 +199,13 @@ public class Calendar {
         updateMonthView(currentMonth, currentYear);
     }
 
+    /**
+     * Adds event from the read-only calendar.
+     *
+     * @param event The event to be added
+     * @throws DuplicateEventException If there are duplicated events detected
+     * @throws NoSuchElementException If there is no such element
+     */
     private void addEventFromReadable(Event event) throws DuplicateEventException, NoSuchElementException {
         try {
             events.add(event);
@@ -187,6 +224,12 @@ public class Calendar {
         updateMonthView(updatedViewOnlyMonth);
     }
 
+    /**
+     * Updates month view with the specified month and year.
+     *
+     * @param month The specified month
+     * @param year The specified year
+     */
     public void updateMonthView(MonthOfYear month, Year year) {
         Date firstDateOfMonth = DateUtil.getFirstDateInMonth(month, year);
         Date lastDateOfMonth = DateUtil.getLastDateInMonth(month, year);
