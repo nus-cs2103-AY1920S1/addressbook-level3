@@ -788,19 +788,11 @@ Format: `toggle <panel name>`
 Examples:
 
 * `toggle wishlist`
-* `toggle budget`
-* `toggle r`
-
-==== List Fonts : `listFont`
-Lists all available fonts the user can switch to.
-
-Format: `listFont`
-
-Example: `listFont`
+* `toggle r``
 
 ==== Change Font : `changeFont`
 Changes the font used in application to the specified font. The input is case-sensitive. Only the following font names are accepted:
-"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana"
+"arial", "calibri", "cambria", "candara", "garamond", "georgia", "rockwell", "segoe UI", "serif", "verdana". The available fonts to change to will be shown in the result display box for the user to refer to easily. The change in font will be saved.
 
 Format: `changeFont <font name>`
 
@@ -810,14 +802,14 @@ Examples:
 * `changeFont segoe UI`
 
 ==== Change to dark theme : `setDarkTheme`
-Changes the theme from light to dark.
+Changes the theme from light to dark. The change in theme will be saved.
 
 Format: `setDarkTheme`
 
 Example: `setDarkTheme`
 
 ==== Change to light theme : `setLightTheme`
-Changes the theme from dark to light.
+Changes the theme from dark to light. The change in theme will be saved.
 
 Format: `setLightTheme`
 
