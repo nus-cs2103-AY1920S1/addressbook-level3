@@ -1148,7 +1148,7 @@ Expected: No transaction is updated. Error details shown in the status message. 
 .. Other incorrect `update` commands to try: `update`, `update i/Invalid` (Invalid prefix). +
 Expected: Similar to previous.
 
-=== Sort the Transactions
+=== Sorting the Transactions
 
 . Sorting the transactions with the command: `sort`
 
