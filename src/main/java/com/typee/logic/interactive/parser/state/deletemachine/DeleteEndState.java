@@ -7,7 +7,7 @@ import com.typee.logic.commands.Command;
 import com.typee.logic.commands.DeleteCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.EndState;
@@ -49,7 +49,7 @@ public class DeleteEndState extends EndState {
     public Command buildCommand() throws CommandException {
         String oneBasedIndex = soFar.getValue(PREFIX_LIST_INDEX).get();
         try {
-            Index index = InteractiveParserUtil.parseIndex(oneBasedIndex);
+            Index index = StateUtil.parseIndex(oneBasedIndex);
             return new DeleteCommand(index);
         } catch (ParseException e) {
             logger.severe(String.format(LOG_BUILD_FAILURE, DeleteCommand.class, e.getMessage()));

@@ -9,7 +9,7 @@ import com.typee.logic.commands.CalendarCloseDisplayCommand;
 import com.typee.logic.commands.Command;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.state.EndState;
 import com.typee.logic.interactive.parser.state.State;
@@ -44,7 +44,7 @@ public class CloseDisplayEndState extends EndState {
      */
     private LocalDate fetchDate(String dateString) throws CommandException {
         try {
-            LocalDate date = InteractiveParserUtil.parseLocalDate(dateString, DATE_PATTERN);
+            LocalDate date = StateUtil.parseLocalDate(dateString, DATE_PATTERN);
             return date;
         } catch (DateTimeException e) {
             logger.severe(String.format(LOG_BUILD_FAILURE, CalendarCloseDisplayCommand.class, MESSAGE_INVALID_INPUT));

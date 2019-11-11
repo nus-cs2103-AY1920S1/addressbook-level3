@@ -9,7 +9,7 @@ import com.typee.logic.commands.Command;
 import com.typee.logic.commands.PdfCommand;
 import com.typee.logic.commands.exceptions.CommandException;
 import com.typee.logic.interactive.parser.ArgumentMultimap;
-import com.typee.logic.interactive.parser.InteractiveParserUtil;
+import com.typee.logic.interactive.parser.state.StateUtil;
 import com.typee.logic.interactive.parser.Prefix;
 import com.typee.logic.interactive.parser.exceptions.ParseException;
 import com.typee.logic.interactive.parser.state.EndState;
@@ -46,7 +46,7 @@ public class PdfEndState extends EndState {
     private Index fetchIndex() throws CommandException {
         String oneBasedIndex = soFar.getValue(PREFIX_LIST_INDEX).get();
         try {
-            Index index = InteractiveParserUtil.parseIndex(oneBasedIndex);
+            Index index = StateUtil.parseIndex(oneBasedIndex);
             return index;
         } catch (ParseException e) {
             logger.severe(String.format(LOG_BUILD_FAILURE, PdfCommand.class, e.getMessage()));
