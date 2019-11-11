@@ -3,20 +3,15 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalTrips.TRIP_B;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.TravelPalBuilder;
 
 public class ModelManagerTest {
@@ -73,17 +68,6 @@ public class ModelManagerTest {
         assertEquals(path, modelManager.getTravelPalFilePath());
     }
 
-    @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
-    }
-
-
-    @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
-    }
-
     // TripList accessors
     @Test
     public void getFilteredTripList_modifyList_throwsUnsupportedOperationException() {
@@ -93,7 +77,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() {
-        TravelPal travelPal = new TravelPalBuilder().withPerson(ALICE).withPerson(BENSON).withTrip(TRIP_B).build();
+        TravelPal travelPal = new TravelPalBuilder().withTrip(TRIP_B).build();
         TravelPal differentTravelPal = new TravelPal();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -113,14 +97,6 @@ public class ModelManagerTest {
 
         // different travelPal -> returns false
         assertFalse(modelManager.equals(new ModelManager(differentTravelPal, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(differentTravelPal, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();

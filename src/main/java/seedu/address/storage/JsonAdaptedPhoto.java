@@ -10,16 +10,17 @@ import seedu.address.model.common.Photo;
 /**
  * Jackson-friendly version of {@link Photo}.
  */
-public class JsonAdaptedPhoto {
+class JsonAdaptedPhoto {
 
-    private String imagePath;
+    private static final String MISSING_IMAGE_PATH_MESSAGE = "A photo is missing its image path in the storage file!";
+
+    private final String imagePath;
 
     /**
      * Constructs a {@code JsonAdaptedTripPhoto} with the given details.
      */
     @JsonCreator
-    public JsonAdaptedPhoto(
-            @JsonProperty("imagePath") String imagePath) {
+    public JsonAdaptedPhoto(@JsonProperty("imagePath") String imagePath) {
         requireNonNull(imagePath);
         this.imagePath = imagePath;
     }
@@ -36,6 +37,10 @@ public class JsonAdaptedPhoto {
      * Converts this Jackson-friendly adapted diary object into the model's {@code Photo} object.
      */
     public Photo toModelType() {
+        if (imagePath == null) {
+            throw new IllegalArgumentException(MISSING_IMAGE_PATH_MESSAGE);
+        }
+
         return new Photo(imagePath);
     }
 }

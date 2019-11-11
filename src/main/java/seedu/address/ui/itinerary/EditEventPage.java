@@ -96,7 +96,6 @@ public class EditEventPage extends Page<AnchorPane> {
         currentEditDescriptor.getDescription().ifPresent(description ->
                 eventDescriptionFormItem.setValue(description.toString()));
 
-        //Added by Karan Dev Sapra
         currentEditDescriptor.getInventoryList().ifPresent(inventoryList ->
                 listView.setItems(FXCollections.observableList(inventoryList.getList())));
 
@@ -139,17 +138,6 @@ public class EditEventPage extends Page<AnchorPane> {
 
         eventInventoryFormItem = new TextFormItem("Inventory Items Needed : ", null);
 
-
-        //No need for any action since this is already done by the add button
-        /*
-        eventInventoryFormItem = new TextFormItem("Inventory Items Needed : ", itemName -> {
-
-            //No need for any action since this is already done by the add button
-
-            mainWindow.executeGuiCommand(EditEventFieldCommand.COMMAND_WORD
-                    + " " + PREFIX_ADD_INVENTORY + itemName);
-        });*/
-
         addInventoryButton = new Button("add");
 
 
@@ -186,20 +174,7 @@ public class EditEventPage extends Page<AnchorPane> {
             }
         });
 
-        eventNameFormItem.getRoot().getStylesheets().clear();
-        eventStartTimeFormItem.getRoot().getStylesheets().clear();
-        eventEndTimeFormItem.getRoot().getStylesheets().clear();
-        eventTotalBudgetFormItem.getRoot().getStylesheets().clear();
-        eventDestinationFormItem.getRoot().getStylesheets().clear();
-        eventInventoryFormItem.getRoot().getStylesheets().clear();
-
-        eventNameFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
-        eventStartTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
-        eventEndTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
-        eventTotalBudgetFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
-        eventDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
-
-        eventInventoryFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        setStyleSheets();
 
         eventDescriptionFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
 
@@ -217,6 +192,23 @@ public class EditEventPage extends Page<AnchorPane> {
 
     }
 
+    private void setStyleSheets() {
+        eventNameFormItem.getRoot().getStylesheets().clear();
+        eventStartTimeFormItem.getRoot().getStylesheets().clear();
+        eventEndTimeFormItem.getRoot().getStylesheets().clear();
+        eventTotalBudgetFormItem.getRoot().getStylesheets().clear();
+        eventDestinationFormItem.getRoot().getStylesheets().clear();
+        eventInventoryFormItem.getRoot().getStylesheets().clear();
+
+        eventNameFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventStartTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventEndTimeFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventTotalBudgetFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+        eventDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+
+        eventInventoryFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
+    }
+
     @FXML
     private void handleEditEventDone() {
         String commandText = DoneEditEventCommand.COMMAND_WORD;
@@ -228,25 +220,5 @@ public class EditEventPage extends Page<AnchorPane> {
         String commandText = CancelEditEventCommand.COMMAND_WORD;
         mainWindow.executeGuiCommand(commandText);
     }
-
-    /*
-    public static class HBoxCell extends HBox {
-        private Label label = new Label();
-        private Button button = new Button();
-
-        HBoxCell(String labelText, String buttonText) {
-            super();
-
-            label.setText(labelText);
-            label.setMaxWidth(Double.MAX_VALUE);
-            HBox.setHgrow(label, Priority.ALWAYS);
-
-            button.setText(buttonText);
-
-            this.getChildren().addAll(label, button);
-        }
-    }*/
-
-
 
 }

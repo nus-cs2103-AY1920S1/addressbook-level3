@@ -15,7 +15,7 @@ import seedu.address.ui.UiPart;
 /**
  * A component for displaying the details of a singular {@code Trip}.
  */
-public class TripCard extends UiPart<GridPane> {
+class TripCard extends UiPart<GridPane> {
     private static final String FXML = "trips/TripCard.fxml";
 
     @FXML

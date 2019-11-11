@@ -12,7 +12,8 @@ import seedu.address.model.diary.Diary;
  * Jackson-friendly version of {@link Diary}.
  */
 public class JsonAdaptedDiary {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary's %s field is missing!";
+    private static final String MISSING_DIARY_ENTRY_LIST_MESSAGE =
+            "A trip's diary is missing a diary entry list in the storage file!";
 
     private final JsonAdaptedDiaryEntryList diaryEntryList;
 
@@ -39,6 +40,10 @@ public class JsonAdaptedDiary {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
      */
     public Diary toModelType() throws IllegalValueException {
+        if (diaryEntryList == null) {
+            throw new IllegalValueException(MISSING_DIARY_ENTRY_LIST_MESSAGE);
+        }
+
         return new Diary(diaryEntryList.toModelType());
     }
 }

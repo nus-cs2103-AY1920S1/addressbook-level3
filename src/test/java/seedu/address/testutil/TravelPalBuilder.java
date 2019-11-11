@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import seedu.address.model.TravelPal;
-import seedu.address.model.person.Person;
 import seedu.address.model.trip.Trip;
 import seedu.address.model.trip.exceptions.ClashingTripException;
 
@@ -20,14 +19,6 @@ public class TravelPalBuilder {
 
     public TravelPalBuilder(TravelPal travelPal) {
         this.travelPal = travelPal;
-    }
-
-    /**
-     * Adds a new {@code Person} to the {@code TravelPal} that we are building.
-     */
-    public TravelPalBuilder withPerson(Person person) {
-        travelPal.addPerson(person);
-        return this;
     }
 
     /**

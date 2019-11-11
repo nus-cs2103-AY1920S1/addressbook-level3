@@ -10,7 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.model.diary.photo.DiaryPhoto;
 import seedu.address.ui.UiPart;
-import seedu.address.ui.components.PersonCard;
 
 /**
  * Abstraction of a diary gallery card able to display a {@link DiaryPhoto}.
@@ -71,7 +70,7 @@ class DiaryGalleryCard extends UiPart<AnchorPane> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonCard)) {
+        if (!(other instanceof DiaryGalleryCard)) {
             return false;
         }
 

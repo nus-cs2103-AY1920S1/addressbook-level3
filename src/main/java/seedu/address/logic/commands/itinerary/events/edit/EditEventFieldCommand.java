@@ -83,10 +83,6 @@ public class EditEventFieldCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-
-        //System.out.println("model's event's inventoryList's size is " +
-        // model.getPageStatus().getEvent().getInventoryList().get().getSize());
-
         requireNonNull(model);
         EditEventDescriptor currentDescriptor = model.getPageStatus().getEditEventDescriptor();
         EditEventDescriptor newEditEventDescriptor = currentDescriptor == null

@@ -18,6 +18,9 @@ import seedu.address.model.diary.DiaryEntryList;
  * Jackson-friendly version of {@link DiaryEntryList}.
  */
 class JsonAdaptedDiaryEntryList {
+    private static final String MISSING_DIARY_ENTRIES_MESSAGE =
+            "A diary's diary entry list is missing its diary entries in the storage file!";
+
     private final List<JsonAdaptedDiaryEntry> diaryEntries;
 
     /**
@@ -34,7 +37,7 @@ class JsonAdaptedDiaryEntryList {
     /**
      * Converts a given {@code Diary} into this class for Jackson use.
      */
-    public JsonAdaptedDiaryEntryList(DiaryEntryList source) {
+    JsonAdaptedDiaryEntryList(DiaryEntryList source) {
         requireNonNull(source);
         this.diaryEntries = new ArrayList<JsonAdaptedDiaryEntry>();
         ObservableList<DiaryEntry> diaryEntryList = source.getDiaryEntrySortedList();
@@ -50,6 +53,10 @@ class JsonAdaptedDiaryEntryList {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
      */
     public DiaryEntryList toModelType() throws IllegalValueException {
+        if (diaryEntries == null) {
+            throw new IllegalArgumentException(MISSING_DIARY_ENTRIES_MESSAGE);
+        }
+
         List<DiaryEntry> diaryEntries = new ArrayList<DiaryEntry>();
         for (JsonAdaptedDiaryEntry jsonAdaptedDiaryEntry : this.diaryEntries) {
             diaryEntries.add(jsonAdaptedDiaryEntry.toModelType());

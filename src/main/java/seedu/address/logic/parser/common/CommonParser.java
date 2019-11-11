@@ -3,6 +3,7 @@ package seedu.address.logic.parser.common;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_TYPE;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.common.ExitCommand;
 import seedu.address.logic.commands.common.HelpCommand;
 import seedu.address.logic.parser.PageParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,6 +27,8 @@ public class CommonParser implements PageParser<Command> {
         switch (commandType) {
         case HELP:
             return new HelpCommand();
+        case EXIT:
+            return new ExitCommand();
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_TYPE, MESSAGE_COMMAND_TYPES));
         }

@@ -23,7 +23,7 @@ import seedu.address.storage.diary.photo.JsonAdaptedDiaryPhoto;
  * Jackson-friendly version of {@link DiaryEntry}.
  */
 class JsonAdaptedDiaryEntry {
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Diary entry's %s field is missing!";
+    private static final String INVALID_FIELD_MESSAGE_FORMAT = "Diary entry's %s field is missing or invalid!";
 
     private final int dayIndex;
     private final String diaryText;
@@ -49,7 +49,7 @@ class JsonAdaptedDiaryEntry {
     /**
      * Converts a given {@code DiaryEntry} into this class for Jackson use.
      */
-    public JsonAdaptedDiaryEntry(DiaryEntry source) {
+    JsonAdaptedDiaryEntry(DiaryEntry source) {
         requireNonNull(source);
         this.dayIndex = source.getDayNumber();
         this.diaryText = source.getDiaryText();
@@ -65,12 +65,27 @@ class JsonAdaptedDiaryEntry {
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary entry.
      */
     public DiaryEntry toModelType() throws IllegalValueException {
+        Index diaryEntryIndex;
+        try {
+            diaryEntryIndex = Index.fromOneBased(dayIndex);
+        } catch (IndexOutOfBoundsException ex) {
+            throw new IllegalArgumentException(String.format(INVALID_FIELD_MESSAGE_FORMAT, "dayIndex"));
+        }
+
+        if (diaryText == null) {
+            throw new IllegalArgumentException(String.format(INVALID_FIELD_MESSAGE_FORMAT, "diaryText"));
+        }
+
+        if (photos == null) {
+            throw new IllegalArgumentException(String.format(INVALID_FIELD_MESSAGE_FORMAT, "photos"));
+        }
+
         List<DiaryPhoto> photoList = new ArrayList<DiaryPhoto>();
         for (JsonAdaptedDiaryPhoto photo : photos) {
             photoList.add(photo.toModelType());
         }
         PhotoList modelPhotoList = new PhotoList(photoList);
 
-        return new DiaryEntry(Index.fromOneBased(dayIndex), modelPhotoList, diaryText);
+        return new DiaryEntry(diaryEntryIndex, modelPhotoList, diaryText);
     }
 }

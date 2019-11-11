@@ -85,7 +85,6 @@ public class EventsPage extends PageWithSidebar<AnchorPane> implements UiChangeC
             }
         });
 
-        //Added by Karan Dev Sapra
         inventoryListView.setCellFactory(param -> new ListCell<Inventory>() {
             @Override
             protected void updateItem(Inventory item, boolean empty) {

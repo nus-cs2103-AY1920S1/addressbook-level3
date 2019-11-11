@@ -24,7 +24,7 @@ public class EnterEditTripCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Enters the trip information editing screen\n"
             + "Parameters: INDEX (must be a positive integer)";
 
-    public static final String MESSAGE_ENTER_EDIT_TRIP_SUCCESS = " Welcome to your trip! %1$s";
+    private static final String MESSAGE_ENTER_EDIT_TRIP_SUCCESS = " Welcome to your trip! %1$s";
 
     private final Index indexToEdit;
 
