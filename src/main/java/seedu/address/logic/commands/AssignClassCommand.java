@@ -58,9 +58,11 @@ public class AssignClassCommand extends Command {
 
         for (Index index : this.index) {
             if (index.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                throw new CommandException(Messages.MESSAGE_INVALID_PEOPLE_DISPLAYED_INDEX);
             }
+        }
 
+        for (Index index : this.index) {
             Person personToEdit = lastShownList.get(index.getZeroBased());
             Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -75,7 +77,7 @@ public class AssignClassCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_ASSIGN_SUCCESS),
                 false, false, false, false,
-                true, true, false, false);
+                false, true, false, false);
     }
 
     /**
