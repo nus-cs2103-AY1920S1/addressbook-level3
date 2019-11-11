@@ -10,7 +10,7 @@ Ezwatchlist was developed by a group of students based in the http://www.comp.nu
 
 === Caleb Goh
 image::heze8.png[width="150", align="left"]
-{empty} [https://github.com/heze8[github]] [<<johndoe#, portfolio>>]
+{empty} [https://github.com/heze8[github]] [<<heze8#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Movie API, Recommendations
@@ -19,7 +19,7 @@ Responsibilities: Movie API, Recommendations
 
 === Wu Xia
 image::tswuxia.png[width="150", align="left"]
-{empty}[http://github.com/tswuxia[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/tswuxia[github]] [<<tswuxia#, portfolio>>]
 
 Role: Code Quality +
 Responsibilities: UI
@@ -28,7 +28,7 @@ Responsibilities: UI
 
 === Jared Chiang
 image::jcjjjared.png[width="150", align="left"]
-{empty}[http://github.com/jcjjjared[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/jcjjjared[github]] [<<jcjjjared#, portfolio>>]
 
 Role: Integration +
 Responsibilities: Main Logic
@@ -46,7 +46,7 @@ Responsibilities: Component Logic
 
 === Michelle Yong
 image::michelleykw.png[width="150", align="left"]
-{empty}[http://github.com/michelleykw[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/michelleykw[github]] [<<michelleykw#, portfolio>>]
 
 Role: Documentation +
 Responsibilities: Search and Tag Logic
