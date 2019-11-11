@@ -48,6 +48,11 @@ public interface Model {
     void setUserPrefs(ReadOnlyUserPrefs userPrefs);
 
     /**
+     * Deletes the budget in the current working project.
+     */
+    void deleteBudget(Budget target);
+
+    /**
      * Returns the user prefs.
      */
     ReadOnlyUserPrefs getUserPrefs();

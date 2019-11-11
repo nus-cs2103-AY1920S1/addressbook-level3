@@ -2,8 +2,11 @@ package seedu.address.model.finance;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
+
 
 import java.util.List;
 import java.util.ArrayList;
@@ -20,6 +23,11 @@ public class Finance {
 
     public Finance() {
 
+    }
+
+    public Budget removeBudget(Index index) {
+        requireNonNull(index);
+        return budgets.remove(index.getZeroBased());
     }
 
     public List<Budget> getBudgets() {

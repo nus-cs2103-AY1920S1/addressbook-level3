@@ -363,6 +363,8 @@ public class MainWindow extends UiPart<Stage> {
 
         case SortSpendingCommand.COMMAND_WORD:
 
+        case DeleteBudgetCommand.COMMAND_WORD:
+
         case ListBudgetCommand.COMMAND_WORD:
             state = State.PROJECT_FINANCE;
             break;

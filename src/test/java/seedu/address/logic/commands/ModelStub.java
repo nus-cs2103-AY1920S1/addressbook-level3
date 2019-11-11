@@ -20,6 +20,11 @@ import java.util.function.Predicate;
  */
 public class ModelStub implements Model {
     @Override
+    public void deleteBudget(Budget target) {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
     public boolean hasBudget(Budget budget) {
         throw new AssertionError("This method should not be called");
     }

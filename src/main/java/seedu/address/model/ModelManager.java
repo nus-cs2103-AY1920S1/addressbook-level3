@@ -85,6 +85,11 @@ public class ModelManager implements Model {
         }
     }
 
+    @Override
+    public void deleteBudget(Budget target) {
+
+    }
+
     /**
      * @return If the user checkout to a project.
      */

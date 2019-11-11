@@ -724,7 +724,7 @@ that you can record this information in MyProject!
 Let's say the organization gave you budgets on equipment and
 manpower, let's first add these budgets to the project.
 
-Format: `addBudget [b/NAME_OF_BUDGET ex/AMOUNT_OF_BUDGET]`
+Format: `addBudget b/NAME_OF_BUDGET ex/AMOUNT_OF_BUDGET`
 
 image::addBudget.png[]
 
@@ -737,7 +737,7 @@ image::projectOverview.png[]
 
 ==== Add expense: `addExpense` [Checkout]
 
-Format: `addExpense [INDEX_OF_BUDGET] [s/DESCRIPTION] [ex/AMOUNT SPEND] [c/dd/MM/yyyy HHmm]`
+Format: `addExpense INDEX_OF_BUDGET s/DESCRIPTION ex/AMOUNT SPEND c/dd/MM/yyyy HHmm`
 
 One month later...
 
@@ -748,7 +748,6 @@ addExpense to add it under the budget. In order to do that, you
 need the index of the budgets which you may already forgot, but
 you may simply type listBudgets to view them again.
 
-<<<<<<< HEAD
 image::addExpense.png[]
 
 ==== List budgets: `listBudget` [Checkout]
@@ -768,6 +767,14 @@ will be available at the project overview with a stacked bar graph
 indicating the amount remaining and the amount spent.
 
 image::projectOverviewFinal.png[]
+
+==== Delete Budget
+
+Format: `deleteBudget INDEX_OF_BUDGET`
+
+Of course you may make a mistake in typing in information about a budget
+or your sponsors does not want to fund that budget anymore. Simplt type
+`deleteBudget` with the index to delete it!
 
 ==== Excel sheet storage
 
