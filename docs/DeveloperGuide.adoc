@@ -26,7 +26,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::DaArchitectureDiagram.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -51,7 +51,6 @@ The rest of the App consists of six components.
 * <<Design-Logic,*`Logic`*>>: Includes 3 types of executors: the Command Executor, the Program Submission Executor, and the Question Builder Executor,.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
-* <<Design-Observable, *`Observable`*>>:
 * <<Design-TextExecutor, *`TextExecutor`*>>: Compile the user program and run it against test cases. Output result.
 
 Each of the six components:
@@ -82,7 +81,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/difficulty/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/difficulty/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -544,19 +543,36 @@ three pieces of data.
 
 These pieces of information will then be displayed on the Home Page through standard JavaFX controls.
 
+//tag::problem_description[]
+=== Problem Description Panel
+The *Problem Display Panel* is responsible for displaying the problem statement of the user-selected question. This
+panel is activated after the `ViewCommand` is executed, when the status of the question view is updated and reflected
+back to the current application state.
+//end::problem_description[]
+
 === Code Result Panel
 
-The code result panel is a panel below the editor that shows the evaluation of the user's program against the specified
-test cases in the question.
+The *Code Result Panel* is located beneath the *Problem Display Panel*. It is responsible for showing the results after
+the user-submitted code is evaluated for its correctness against a pre-defined set of test cases.
 
-It takes in a `List` of `TestCaseResults` which contains useful information about how the user's program fared against
+It takes in a `List` of `TestCaseResults` which contains useful information on how the user's program fared against
 the various test cases.
 
 These information are then displayed on the Code Result Panel through standard JavaFX controls.
 
-//tag::problem_description[]
-== Problem Description Panel
-//end::problem_description[]
+=== Editor Panel
+The editor panel is the panel right next to the *Problem Display Panel* and the *Program Evaluation Panel*. The editor panel
+consists of two parts: The main text editor and the line counter component.
+
+The main text editor is where the user codes and is responsible for feeding the text input to the `Program Submission
+Logic Manager` for compilation of the user-written code. It is capable of performing auto-indentations for the user and
+this is achieved by overwriting the function of the Enter key. Through helper methods available in `Editor.java`, the
+number of unclosed braces can easily be counted so as to perform the appropriate indentations.
+
+The line counter component of the editor keeps track of the number of lines written by the user in the editor. It takes
+in a `SimpleIntegerProperty` and is updated automatically whenever there are changes to the text observed in the editor.
+This is achieved through adding a `InvalidationListener` to the text property of the editor, along with using the
+necessary helper functions to count the number of newline characters in the text.
 
 == Documentation
 

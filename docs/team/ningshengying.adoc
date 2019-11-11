@@ -1,54 +1,106 @@
 = Ning Sheng Ying - Project Portfolio
+
 :site-section: AboutUs
-:imagesDir: ../images
+:imagesDir: ../images/nsy_ppp
 :stylesDir: ../stylesheets
 
 == PROJECT: Duke Academy
 
-'''
+=== About the Project
+My team of 4 Computer Science students were tasked with enhancing a basic Command Line Interface (CLI) desktop addressbook
+application for our Software Engineering project. We chose to morph it into a coding practice application called Duke Academy.
 
-== Overview
+Duke Academy is written in the Java programming language and the Graphical User Interface (GUI) of the application is
+created with JavaFX. It relies primarily on Command Line Interface (CLI) as its primary input for user commands.
 
-Duke Academy is a Java programming platform equipped with a library of programming questions related to the field of Data Structures and Algorithms, as well as an automated judging system. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+Duke Academy is designed for both coding students and educators alike. It is equipped with a library of programming
+questions related to the field of Data Structures and Algorithms for students to practice their coding skills and allows
+educators to set their own problem statements for their students to attempt. This enhanced application also allows
+students to run their programs within the app itself, track their programming practice history and make personalized notes
+all in one application, without the need for external tools.
+
+This is how our project looks like:
+
+.GUI of Duke Academy
+image::homepage.png[]
 
 == Summary of contributions
+This section shows a brief overview of my contributions to the project. A summary of my coding, documentation and other
+relevant details will be listed below.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+*Major enhancement added*: I have integrated a built-in text editor with a line counter component.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** *What it does:*
+. The built-in text editor allows users to code out their solutions internally within Duke Academy itself.
+. It is also fully capable of performing auto-indentations for the user.
+. The text-editor also has a line counter component which helps the user to keep track and manage his code for
+convenient reference.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** *Justification (Text Editor):* This feature improves the product significantly because users do not need to source for an external
+text editor to code out their solutions for problems and can instead do everything within Duke Academy itself. This then
+increases the productivity of users as they would not need to constantly switch between the external editor and Duke
+Academy while attempting questions, providing a hassle-free coding experience.
+
+** *Justification (Auto-Indentation):* This quality-of-life feature significantly increases the user coding experience
+in Duke Academy because it helps users organize and compartmentalize their code automatically. Having auto-indentation
+means that users do not need to key in 4 spaces manually after every code block, and thus it helps the user uphold
+code readability without the user having to do anything on their part.
+
+** *Justification (Line Counter):* This feature adds significant value to the product because it allows users to keep track
+of the micro-details in their code. For example, should anything go wrong with their code (e.g. compilation error), they
+can quickly trace down the source of the bug and make the necessary changes efficiently and conveniently without having
+to trace through line-by-line.
+
+** *Highlights:* This feature is designed to imitate, as closely as possible, the functions of an Integrated Development
+Environment (IDE) editor. The implementation of this feature was exceptionally challenging as there were no exact tutorials
+on how to design a text editor with the above mentioned features specifically, and thus it was only made possible by putting
+together all the small parts.
+
+*Minor enhancement*: Added a UI format for QuestionCard.
+
+* *What it does:* Displays a summary of the question with a clean look that fits the theme of DukeAcademy. It is redesigned
+to reflect the topics of the selected question, and the attributes such as whether it is attempted by the user and its
+difficulty level.
+
+* *Justification:* This provides the user with adequate information at a glance to help him decide if it is a question
+he/she is qualified to attempt or is it a question that has been attempted.
+
+* *Highlights:* This was easy to implement because it only requires a slight redesign. This redesign was also necessary
+because the old Contact Card used in AddressBook was insufficient in reflecting certain details of a question while also
+having irrelevant fields.
+
+*Minor enhancement*: Redesigned Dashboard (home) page to fit the theme of DukeAcademy more.
+
+*Minor enhancement*: Ensured that all UI components scale properly and appropriately with window size.
+
+*Minor enhancement*: Configured the dimensions of the application window to prevent users from minimizing the window too
+much such that the inner components become unusable.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ning-sy210&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[RepoSense Report]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Managed releases `v1.2.1` and `v1.3` (2 releases) on GitHub
+*** Assigned project milestones for `v1.2`
 
-_{you can add/remove categories in the list above}_
+** Enhancements to existing features:
+*** Updated the GUI theme (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/99[#99])
+*** Made early changes to the redesign of the UI for Duke Academy (Pull requests https://github.com/AY1920S1-CS2103T-F14-1/main/pull/99[#99], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/191[#191])
+*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38]) // >>>>>>>>>>>>>>>>need work on this<<<<<<<<<<<<<<<
+
+** Community:
+*** Reported bugs and suggestions for other teams in the class (https://github.com/ning-sy210/ped/tree/master/files[PE Dry Run])
 
 == Contributions to the User Guide
 
+|===
+|We had to update the original AddressBook User Guide with instructions for the enhancements that
+we had added. The following is an excerpt from our Duke Academy User Guide, showing additions that I have
+made.
+|===
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+
 
 include::../UserGuide.adoc[tag=delete]
 
