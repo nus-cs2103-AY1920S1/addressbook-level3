@@ -1,4 +1,4 @@
-package seedu.revision.testutil;
+package seedu.revision.testutil.builder;
 
 import java.util.ArrayList;
 import java.util.Set;
