@@ -2,6 +2,9 @@ package organice.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import organice.commons.core.LogsCenter;
 import organice.commons.core.Messages;
 import organice.model.Model;
 import organice.model.person.PersonContainsPrefixesPredicate;
@@ -20,6 +23,8 @@ public class ExactFindCommand extends Command {
             + "Parameters: PREFIX/KEYWORD [MORE_PREFIX-KEYWORD_PAIRS]...\n"
             + "Example: " + COMMAND_WORD + " n/alice t/doctor";
 
+    private static final Logger logger = LogsCenter.getLogger(ExactFindCommand.class);
+
     private final PersonContainsPrefixesPredicate predicate;
 
     public ExactFindCommand(PersonContainsPrefixesPredicate predicate) {
@@ -30,6 +35,7 @@ public class ExactFindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        logger.info("Executing ExactFindCommand");
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
                 String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));

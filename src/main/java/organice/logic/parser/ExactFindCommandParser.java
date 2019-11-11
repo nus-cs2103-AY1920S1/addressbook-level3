@@ -14,6 +14,9 @@ import static organice.logic.parser.CliSyntax.PREFIX_PRIORITY;
 import static organice.logic.parser.CliSyntax.PREFIX_TISSUE_TYPE;
 import static organice.logic.parser.CliSyntax.PREFIX_TYPE;
 
+import java.util.logging.Logger;
+
+import organice.commons.core.LogsCenter;
 import organice.logic.commands.ExactFindCommand;
 import organice.logic.parser.exceptions.ParseException;
 import organice.model.person.PersonContainsPrefixesPredicate;
@@ -23,12 +26,15 @@ import organice.model.person.PersonContainsPrefixesPredicate;
  */
 public class ExactFindCommandParser implements Parser<ExactFindCommand> {
 
+    private static final Logger logger = LogsCenter.getLogger(ExactFindCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the ExactFindCommand
      * and returns a ExactFindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public ExactFindCommand parse(String args) throws ParseException {
+        logger.info("Attempting to parse ExactFindCommand with args: " + args);
         args = args.replaceAll("\n", " ").replaceAll("\\s+", " ");
         String trimmedArgs = args.trim();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_NRIC, PREFIX_PHONE,
