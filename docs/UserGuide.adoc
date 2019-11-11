@@ -674,7 +674,7 @@ image::ViewPie-1.png[]
 . GuiltTrip will display to you the statistics for this period of time broken down in pie chart form as shown below.
 +
 
-image::ViewPie-2.PNG[]
+image::viewPie-2.PNG[]
 
 [NOTE]
 If the data category percentage is too small, it could be rounded off to 0.0% and
