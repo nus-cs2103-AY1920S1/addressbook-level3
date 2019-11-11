@@ -432,6 +432,7 @@ Finds plans that contain a task named 'Sequences'.
 Adds a task to a specified plan. +
 Format: `addtask plan/PLAN_INDEX prob/PROBLEM_INDEX [due/DUE_DATE]`
 
+* The target plan should not contain tasks with the same problem as the one identified by `PROBLEM_INDEX`.
 * `DUE_DATE` should be in the format of `yyyy-MM-dd`
 * `DUE_DATE` should be in between plan's start date and end date (inclusive).
 

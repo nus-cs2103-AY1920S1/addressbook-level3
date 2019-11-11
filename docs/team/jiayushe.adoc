@@ -16,7 +16,7 @@ image::Ui.png[]
 
 == Summary of contributions
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=jiayushe[View on RepoSense]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=jiayushe[View on RepoSense]]
 
 * *Major enhancement*: Implemented task management feature
 ** What it does:
@@ -28,7 +28,7 @@ It allows the user to manage the problems as tasks in separate plans for differe
 such as interviews for different companies or different rounds,
 instead of managing all problems stored in the database all together.
 By introducing the notion of tasks, user can add more details to the problems
-such as due dates and whether each problem has been solved, without modifying the original problems.
+such as due dates and whether each problem has been done, without modifying the original problems.
 This adds significant value to AlgoBase as an algorithmic problem manager.
 ** Highlights:
 *** This feature involves full-stack development in all five main components in AlgoBase,
@@ -41,7 +41,7 @@ all corresponding tasks in all plans need to be deleted or updated simultaneousl
 which may cause additional overhead to bring back the tasks,
 a distinction between normal mode and "forced" mode is introduced to reduce such risks.
 (User command to delete problems that are used in tasks will fail gracefully,
-unless a "forced" flag is added to the end of his/her command to enable "forced" mode.)
+unless a "forced" flag is added to the end of the command to enable "forced" mode.)
 *** A task management pane is also added in the main display
 to allow user direct and convenient access to the current plan he/she is doing.
 
