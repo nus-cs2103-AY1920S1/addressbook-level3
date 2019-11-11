@@ -56,7 +56,7 @@ the category *food* and the description *pie*.
 [[Features]]
 == Features
 
-=== Transactions
+=== Transaction
 The _Transaction_ feature represents the bread and butter logging of incomes and expenditures.
 PalPay will tabulate and display the overall balance to give users a better insight on their spending and saving habits.
 
@@ -67,14 +67,25 @@ The _Transactions_ are split into:
 
 These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
 
+<<<<<<< HEAD
 === Budgets
 The _Budget_ feature represent the budget to be set until a stipulated deadline for a certain *CATEGORY*.
 As you make transactions of particular *CATEGORY*, the budget with the same *CATEGORY* will be adjusted accordingly.
 (see <<Set, *Setting a Budget*>>)
+=======
+=== Budget
+>>>>>>> d892296651702bdbff2880f8dacd22de0cb543ab
 
-=== Ledgers
+=== Ledger
+The _Ledger_ feature allows you to track outstanding balances when you
+split a bill with your friends and when they pay you back.
 
-=== Projections
+_Ledger_ commands consist of:
+
+. `split` : split a bill between friends
+. `receive` : log a single payment from 1 friend
+
+=== Projection
 By using the _Projections_ feature, you can project your:
 
 . Account Balance
@@ -389,12 +400,13 @@ field to determine nature of bill.
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
 ** shares cannot be negative numbers
+** *shares can be 0 but result is not guaranteed to be meaningful*
 ====
 
 ===== Ledger GUI
 
 .Sample Ledger Graphical User Interface
-image::LedgerUI.png[]
+image::LedgerUI.png[pdfwidth=60%]
 
 This is how the *Ledger* looks when you switch to the *Ledger* tab. +
 The left shows the people who has unresolved balances with you, while the right lists
@@ -411,12 +423,12 @@ at the bottom right corner.
 . Enter appropriate command into the command line.
 +
 .Splitting evenly
-image::SplitEven1.png[]
+image::SplitEven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Splitting evenly (result)
-image::SplitEven2.png[]
+image::SplitEven2.png[pdfwidth=70%]
 +
 For an even split of $1000, each person pays $200. Therefore *Ledger* shows $200 on the tab of each person.
 *Ledger* balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
@@ -429,12 +441,12 @@ from the rest of his friends. Therefore *Ledger* balance is -$800, as shown in t
 . Enter appropriate command into the command line.
 +
 .Splitting unevenly
-image::SplitUneven1.png[]
+image::SplitUneven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Uneven split results
-image::SplitUneven2.png[]
+image::SplitUneven2.png[pdfwidth=70%]
 // end::split[]
 
 // tag::receive[]
@@ -453,12 +465,12 @@ Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 . Enter appropriate command into the command line.
 +
 .Receive payment
-image::Receive1.png[]
+image::Receive1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly.
 +
 .Receive payment result
-image::Receive2.png[]
+image::Receive2.png[pdfwidth=70%]
 +
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 //end::receive[]
