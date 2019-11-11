@@ -169,6 +169,7 @@ image::ui-screenshots/TabUI1.png[]
 +
 image::ui-screenshots/TabUi2.png[]
 
+Parameter constraints:
 ****
 * `INDEX` is `1`, `2` or `3`, which correspond to the
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
@@ -352,6 +353,7 @@ image::ui-screenshots/FindCommandUi1.png[]
 +
 image::ui-screenshots/FindCommandUi2.png[]
 
+Parameter constraints:
 ****
 * At least one keyword, tag or folder must be provided.
 * The list of keywords to be searched must be before tags and folders.
@@ -460,6 +462,7 @@ image::ui-screenshots/EditCommandUi1.png[]
 +
 image::ui-screenshots/EditCommandUi2.png[]
 
+Parameter constraints:
 ****
 * The bookmark at the specified `INDEX` will be edited. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
@@ -497,6 +500,7 @@ image::ui-screenshots/DeleteCommandUi1.png[]
 +
 image::ui-screenshots/DeleteCommandUi2.png[]
 
+Parameter constraints:
 ****
 * Deletes the bookmark at the specified INDEX.
 * The index refers to the index number shown in the displayed bookmark list.
@@ -573,7 +577,7 @@ image::ui-screenshots/ExpandCommandUi1.png[]
 +
 image::ui-screenshots/ExpandCommandUi2.png[]
 
-
+Parameter constraints:
 ****
 * `LEVEL` should be a positive integer.
 * If `LEVEL` is higher than the maximum possible level of folders to expand, it will simply expand all of them.
@@ -601,6 +605,7 @@ image::ui-screenshots/CollapseCommandUi1.png[]
 +
 image::ui-screenshots/CollapseCommandUi2.png[]
 
+Parameter constraints:
 ****
 * `LEVEL` should be a positive integer.
 * If `LEVEL` is higher than the maximum possible level of folders to collapse, it will simply collapse all of them.
@@ -632,6 +637,7 @@ image::ui-screenshots/AddFolderCommandUi1.png[]
 +
 image::ui-screenshots/AddFolderCommandUi2.png[]
 
+Parameter constraints:
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
 * `FOLDER_NAME` must NOT be an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
@@ -663,7 +669,7 @@ image::ui-screenshots/EditFolderCommandUi1.png[]
 +
 image::ui-screenshots/EditFolderCommandUi2.png[]
 
-// More details about command constraints
+Parameter constraints:
 ****
 * `FROM_FOLDER_NAME` and `TO_FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
 * `FROM_FOLDER_NAME` must exist be an existing folder. (Note that you cannot edit the `ROOT` folder.)
@@ -690,7 +696,7 @@ image::ui-screenshots/DeleteFolderCommandUi1.png[]
 +
 image::ui-screenshots/DeleteFolderCommandUi2.png[]
 
-// More details about command constraints
+Parameter constraints:
 ****
 * `FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
 * `FOLDER_NAME` must be an existing folder.
