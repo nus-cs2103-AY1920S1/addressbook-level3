@@ -9,7 +9,9 @@
 
 == Overview
 
-NurseTraverse is a desktop application meant for community nurse to help manage all the data that a community nurse might need. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+NurseTraverse is a desktop application designed to help community nurses manage all the data they may need, including visit management, appointment scheduling, and importing and exporting of patient data.
+The user interacts with the app using a CLI (Command Line Interface) enhanced with an autocomplete functionality and ability to undo and redo commands. The app has a GUI created with JavaFX and is written in Java.
+NurseTraverse is built by me and 4 other students.
 
 NOTE: This PPP may exceed the page limit as the URLs are not printed properly.
 
@@ -64,7 +66,7 @@ The full list of PRs by me (which includes all the PRs for https://github.com/AY
 == Contributions to the User Guide
 
 |===
-|_Below are sections I contributed to the User Guide (non-exhaustive to keep within the page limit). They showcase my ability to write documentation targeting end-users._
+|_Below are sections I contributed to the User Guide (non-exhaustive to keep within the page limit). They showcase my ability to write documentation targeting end-users. For more examples you can refer to the Visit portion of the UG._
 |===
 
 //include::../userguide/Visit.adoc[]
