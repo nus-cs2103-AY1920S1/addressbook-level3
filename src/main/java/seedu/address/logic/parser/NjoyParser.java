@@ -3,9 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -36,6 +38,8 @@ import seedu.address.logic.parser.tag.TagCommandParser;
  */
 public class NjoyParser {
 
+    private static final Logger logger = LogsCenter.getLogger(NjoyParser.class);
+
     /**
      * Used for initial separation of command word and args.
      */
@@ -51,6 +55,7 @@ public class NjoyParser {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
+            logger.info("command syntax does not match expected input");
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
@@ -92,6 +97,7 @@ public class NjoyParser {
             return new EventCommandParser().parse(arguments);
 
         default:
+            logger.info("unsupported command input");
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }

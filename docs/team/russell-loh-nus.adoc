@@ -15,8 +15,8 @@ allows them to manage their classes, timetables, notes, questions and quizzes.
 
 Below is an example image of the application:
 
+.Njoy Teaching Assistant application.
 image::InterfaceWithLabels.png[width=80%, scaledwidth=12cm]
-_Figure 1. Njoy Teaching Assistant application._
 
 I was tasked to brainstorm a solution that could enhance classroom learning and implement it. Eventually, I came up with the solution of using question prompts through
 a slideshow that is able to facilitate discussions in the classroom and at the same time, allow teachers to manage these questions more efficiently.

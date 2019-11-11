@@ -9,8 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.student.StudentAddCommand;
 import seedu.address.logic.commands.student.StudentCommand;
@@ -32,6 +34,9 @@ import seedu.address.model.tag.Tag;
  * Represents a parser for student commands.
  */
 public class StudentCommandParser implements Parser<StudentCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(StudentCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the CreationStudentCommand
      * and returns an CreateStudentCommand object for execution.
@@ -56,6 +61,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
                 isEdit = true;
             }
         } catch (ParseException pe) {
+            logger.info("error in student command preamble.");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, StudentEditCommand.MESSAGE_USAGE),
                     pe);
@@ -91,12 +97,14 @@ public class StudentCommandParser implements Parser<StudentCommand> {
                     .parseInt(argMultimap.getValue(PREFIX_DELETE).orElse("0"));
 
             if (indexToDelete <= 0) {
+                logger.info("student delete index must be a positive integer.");
                 throw new ParseException(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                 StudentDeleteCommand.MESSAGE_USAGE));
             }
             index = index.fromOneBased(indexToDelete);
         } catch (NumberFormatException e) {
+            logger.info("error in the student delete index number format");
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                             StudentDeleteCommand.MESSAGE_USAGE));
@@ -129,6 +137,7 @@ public class StudentCommandParser implements Parser<StudentCommand> {
     private StudentAddCommand addCommand(ArgumentMultimap argMultimap) throws ParseException {
         if (!arePrefixesPresent(argMultimap, PREFIX_STUDENT)
                 || !argMultimap.getPreamble().isEmpty()) {
+            logger.info("missing fields in the student add command.");
             throw new ParseException(
                     String
                             .format(MESSAGE_INVALID_COMMAND_FORMAT, StudentAddCommand.MESSAGE_USAGE));

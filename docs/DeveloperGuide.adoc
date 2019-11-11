@@ -93,7 +93,7 @@ image::UiClassDiagramNjoy.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `XYZListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -1668,17 +1668,17 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage classes of students
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-* has a need to create questions easily
-* has a need to generate quizzes with previously created questions
-* requires a timetable manager
-* prefers efficient viewing statistics of students rather than manually computing it
+* Has a need to manage classes of students
+* Prefer desktop apps over other types
+* Can type fast
+* Prefers typing over mouse input
+* Is reasonably comfortable using CLI apps
+* Has a need to create questions easily
+* Has a need to generate quizzes with previously created questions
+* Requires a timetable manager
+* Prefers efficient viewing statistics of students rather than manually computing it
 
-*Value proposition*: manage classes of students faster than a typical mouse/GUI driven app
+*Value proposition*: Manage classes of students faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -1700,7 +1700,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |teacher |record scores | tally the marks accurately instead of manually inputting them into the system
 
-|`* * *` [Epic] |teacher |write questions to a question bank |store questions to be used later on
+|`* * *` |teacher |store questions that I have prepared |I can refer to them in the future
+
+|`* * *` |teacher |start an in-class activity with my students |interact more with my students
 
 |`* * *` |teacher |have the option to format the questions as either MCQ or Open Ended |have different types of questions
 
@@ -1735,12 +1737,10 @@ appropriate slots when I am free
 
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is `NJoy` and the *Actor* is the `Teacher`, unless specified otherwise)
+(For all use cases below, the *System* is `Njoy` and the *Actor* is the `Teacher`, unless specified otherwise)
 
 [discrete]
 === Use case: Add a student (UC01)
@@ -1748,7 +1748,7 @@ _{More to be added}_
 *MSS*
 
 1.  Teacher enter details of student
-2.  NJoy saves the record of the student
+2.  Njoy saves the record of the student
 +
 Use case ends.
 
@@ -1756,7 +1756,7 @@ Use case ends.
 
 [none]
 * 1a. Missing student details
-** 1a1. NJoy shows error message.
+** 1a1. Njoy shows error message.
 +
 Use case resumes at step 1.
 
@@ -1771,9 +1771,9 @@ Use case resumes at step 1.
 
 1.  Teacher finds a student (UC05)
 2.  Teacher requests to edit a student details
-3.  NJoy returns list of fields able to edit
+3.  Njoy returns list of fields able to edit
 4.  Teacher enter the field to edit
-5.  NJoy save the edited record
+5.  Njoy save the edited record
 +
 Use case ends.
 
@@ -1795,9 +1795,9 @@ Use case ends.
 
 1.  Teacher finds a student (UC05)
 2.  Teacher requests to delete a student
-3.  NJoy request for confirmation
+3.  Njoy request for confirmation
 4.  Teacher confirms the deletion
-5.  NJoy deletes the student
+5.  Njoy deletes the student
 +
 Use case ends.
 
@@ -1814,7 +1814,7 @@ Use case ends.
 *MSS*
 
 1.  Teacher enter name of student to find
-2.  NJoy display the student details
+2.  Njoy display the student details
 +
 Use case ends.
 
@@ -1822,7 +1822,7 @@ Use case ends.
 
 [none]
 * 1a. Name of student cannot be found
-** 1a1. NJoy shows error message
+** 1a1. Njoy shows error message
 +
 Use case resumes at step 1.
 
@@ -1832,7 +1832,7 @@ Use case resumes at step 1.
 *MSS*
 
 1.  Teacher enter new class details
-2.  NJoy saves the new class
+2.  Njoy saves the new class
 +
 Use case ends.
 
@@ -1840,7 +1840,7 @@ Use case ends.
 
 [none]
 * 1a. Class name already taken
-** 1a1. NJoy shows error message
+** 1a1. Njoy shows error message
 +
 Use case resumes at step 1.
 
@@ -1855,7 +1855,7 @@ Use case resumes at step 1.
 
 1.  Teacher requests to edit class description
 2.  Teacher enters new class description
-3.  NJoy save the edited record
+3.  Njoy save the edited record
 +
 Use case ends.
 
@@ -1876,9 +1876,9 @@ Use case ends.
 *MSS*
 
 1.  Teacher requests to delete a class
-2.  NJoy request for confirmation
+2.  Njoy request for confirmation
 3.  Teacher confirms the deletion
-4.  NJoy deletes the class
+4.  Njoy deletes the class
 +
 Use case ends.
 
@@ -1900,7 +1900,7 @@ Use case ends.
 *MSS*
 
 1.  Teacher requests to add a student to class
-2.  NJoy adds the student to the class
+2.  Njoy adds the student to the class
 +
 Use case ends.
 
@@ -1915,9 +1915,9 @@ Use case ends.
 *MSS*
 
 1.  Teacher requests to remove a student from class
-2.  NJoy request for confirmation
+2.  Njoy request for confirmation
 3.  Teacher confirms the deletion
-4.  NJoy remove the student from the class
+4.  Njoy remove the student from the class
 +
 Use case ends.
 
@@ -1935,7 +1935,7 @@ Use case ends.
 
 1.  Teacher requests to add an item to the calendar
 2.  Teacher enter details of the item
-3.  NJoy save the item
+3.  Njoy save the item
 +
 Use case ends.
 
@@ -1943,12 +1943,12 @@ Use case ends.
 
 [none]
 * 2a. Missing item details
-** 2a1. NJoy shows error message.
+** 2a1. Njoy shows error message.
 +
 Use case resumes at step 2.
 
 * 2b. Invalid class id
-** 2b1. NJoy shows error message.
+** 2b1. Njoy shows error message.
 +
 Use case resumes at step 2.
 
@@ -1958,7 +1958,7 @@ Use case resumes at step 2.
 *MSS*
 
 1.  Teacher requests for the events in
-2.  NJoy returns list of events in the calendar
+2.  Njoy returns list of events in the calendar
 +
 Use case ends.
 
@@ -1980,9 +1980,9 @@ Use case ends.
 
 1.  Teacher list events in calendar (UC11)
 2.  Teacher request to delete item in calendar
-3.  NJoy request for confirmation
+3.  Njoy request for confirmation
 4.  Teacher confirms the deletion
-5.  NJoy remove the item from the calendar
+5.  Njoy remove the item from the calendar
 +
 Use case ends.
 
@@ -1994,12 +1994,12 @@ Use case ends.
 Use case ends.
 
 [discrete]
-=== Use case: Creating a mcq question (UC13)
+=== Use case: Creating a Open Ended question (UC13)
 
 *MSS*
 
 1.  Teacher enter topic and answers to the question
-2.  NJoy save the question
+2.  Njoy save the question
 +
 Use case ends.
 
@@ -2007,23 +2007,74 @@ Use case ends.
 
 [none]
 * 1a. Teacher did not enter answers
-** 1a1. NJoy shows error message.
+** 1a1. Njoy shows error message.
 +
 Use case resumes at step 1.
 
 * 1b. Teacher did not enter topic
-** 1b1. NJoy shows error message.
+** 1b1. Njoy shows error message.
 +
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Make notes (UC14)
+=== Use case: Creating a MCQ question (UC14)
+
+*MSS*
+
+1.  Teacher enter topic and answers to the question and options for MCQ.
+2.  Njoy save the question
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Teacher did not enter answers
+** 1a1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+* 1b. Teacher did not enter topic
+** 1b1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+* 1c. Teacher did not enter options to the question
+** 1c1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Start a slideshow (UC15)
+
+*MSS*
+
+1.  Teacher selects question to add to slideshow.
+2.  Njoy displays the questions selected
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. Teacher did not enter correct question number.
+** 1a1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+* 1b. Teacher did not select and questions.
+** 1b1. Njoy shows error message.
++
+Use case resumes at step 1.
+
+[discrete]
+=== Use case: Make notes (UC16)
 
 *MSS*
 
 1.  Teacher requests to make a note.
 2.  Teacher enters specifications of the note.
-3.  NJoy saves the item and displays the new record.
+3.  Njoy saves the item and displays the new record.
 +
 Use case ends.
 
@@ -2031,89 +2082,89 @@ Use case ends.
 
 [none]
 * 2a. Njoy detects missing or invalid specifications.
-** 2a1. NJoy shows error message.
+** 2a1. Njoy shows error message.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Edit notes (UC15)
+=== Use case: Edit notes (UC17)
 
 *MSS*
 
 1.  Teacher requests to edit a note.
 2.  Teacher enters specifications of the edited note.
-3.  NJoy saves the item and displays the new record.
+3.  Njoy saves the item and displays the new record.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. NJoy detects missing or invalid specifications.
-** 2a1. NJoy shows error message.
+* 2a. Njoy detects missing or invalid specifications.
+** 2a1. Njoy shows error message.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Delete notes (UC16)
+=== Use case: Delete notes (UC18)
 
 *MSS*
 
 1.  Teacher requests to delete a note.
 2.  Teacher enters specifications of the note to delete.
-3.  NJoy removes the item and displays the new record.
+3.  Njoy removes the item and displays the new record.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. NJoy detects invalid specifications.
-** 2a1. NJoy shows error message.
+* 2a. Njoy detects invalid specifications.
+** 2a1. Njoy shows error message.
 +
 Use case ends.
 
 [discrete]
-=== Use case: List notes (UC17)
+=== Use case: List notes (UC19)
 
 *MSS*
 
 1.  Teacher requests to list notes to view.
-2.  NJoy displays the list of notes record.
+2.  Njoy displays the list of notes record.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Sort notes (UC18)
+=== Use case: Sort notes (UC20)
 
 *MSS*
 
 1.  Teacher requests to sort the notes by priority.
-2.  NJoy displays the list of sorted notes record.
+2.  Njoy displays the list of sorted notes record.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Generate Statistics (UC19)
+=== Use case: Generate Statistics (UC21)
 
 *MSS*
 
 1.  Teacher requests to generate statistics report.
 2.  Teacher enters specifications of the data file.
-3.  NJoy reads the data file and generates statistics to show.
+3.  Njoy reads the data file and generates statistics to show.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. NJoy detects invalid specifications of the data file or request.
-** 2a1. NJoy shows error message.
+* 2a. Njoy detects invalid specifications of the data file or request.
+** 2a1. Njoy shows error message.
 +
 Use case ends.
 
 [discrete]
-=== Use case: Save Statistics Report (UC20)
+=== Use case: Save Statistics Report (UC22)
 
 *MSS*
 
@@ -2135,11 +2186,6 @@ Use case ends.
 .  The teacher should be able to have as many classes as desired
 .  The assistant is not required to synchronize timetables / quizzes between 2 teachers
 
-
-
-_{More to be added}_
-
-
 [appendix]
 == Glossary
 
@@ -2157,7 +2203,7 @@ _{More to be added}_
 
 *Class* - A manageable unit of Student that Teacher can create, read, edit and delete.
 
-*UI* - User Interface that users use to interact with the application.
+*GUI or UI* - Graphical User Interface that users use to interact with the application.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
@@ -2168,7 +2214,7 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Njoy*
+=== Njoy
 
 Pros:
 
@@ -2203,7 +2249,73 @@ These instructions only provide a starting point for testers to work on; testers
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Questions
+
+. Adding a question to the question list.
+
+.. Test case: `question question/What are the multiples of 10? answer/ 10, 20, 30, 40, 50, ... type/open` +
+   Expected: Adds a new Open Ended question to the question list.
+.. Test case: `question question/What is 30 + 20? answer/50 type/mcq a/30 b/40 c/50 d/60 ` +
+   Expected: Adds a new MCQ question to the question list.
+.. Test case: `question question/ answer/ type/` +
+   Expected: Shows error message of missing keywords.
+.. Other incorrect commands to try: `question question/Test question answer/ type/`, `question question/Test question answer/Test answer type/mcq` +
+   Expected: Shows error message regarding reason for failure.
+
+. Editing a question from the question list.
+
+.. Prerequisites: At least one question has to be in the question list.
+
+.. Test case: `question 1 question/What are the multiples of 20? answer/ 20, 40, 60, 80, ...` +
+   Expected: Edits the first question topic and answer.
+.. Test case: `question 1 type/mcq a/30 b/40 c/50 d/60 ` +
+   Expected: Changes the first question type.
+.. Test case: `question 1 type/mcq` +
+   Expected: Shows error message of missing options.
+.. Other incorrect commands to try: `question 0 question/Test question`, `question 1 question/` +
+   Expected: Shows error message regarding reason for failure.
+
+. Deleting a question from the question list.
+
+.. Prerequisites: At least one question has to be in the question list.
+
+.. Test case: `question delete 1` +
+   Expected: Deletes the first question.
+.. Test case: `question delete 0` +
+   Expected: Shows error message of invalid index.
+.. Test case: `question delete -1`,` +
+   Expected: Shows error message of invalid index.
+
+. Listing questions.
+
+.. Test case: `question list` +
+   Expected: Lists the questions stored.
+
+. Finding questions
+
+.. Prerequisites: Question list has to contain a question 'What is 1+1?'.
+
+.. Test case: `question find/What is 1+1?` +
+   Expected: Lists the question that matches the search term.
+.. Test case: `question find/Whxt is 1+1?` +
+   Expected: Lists the question that is similar to the search term.
+.. Test case: `question find/What is` +
+   Expected: Lists the question that is similar to the search term.
+.. Test case: `question find/Last digit of pi?` +
+   Expected: Return zero results.
+.. Test case: `question find/` +
+   Expected: Shows error message of empty search.
+
+. Starting a slideshow
+
+.. Prerequisites: Question list has to contain at least one question.
+
+.. Test case: `question slideshow 1` +
+   Expected: Opens a fullscreen window with question prompt.
+.. Test case: `question slideshow` +
+   Expected: Shows error message of having no index defined.
+.. Other incorrect add commands to try: `question slideshow 2 3`, `question slideshow a` +
+   Expected: Shows error message of having invalid indexes.
 
 === Notes
 
@@ -2530,11 +2642,3 @@ as it is valid.
 
 .. Test case: `event view targetDate/2019-01-01 scheduleMode/invalid` +
    Expected: Shows error message for invalid schedule view mode. Prompting user to input weekly or daily only.
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
