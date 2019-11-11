@@ -666,7 +666,7 @@ You can clear all the expenses in Billboard by simply executing the `clear` comm
 
 === Viewing help: `help`
 
-. _Help list of complete set of commands: help_ +
+==== _Help list of complete set of commands: help_ +
 Shows the complete list of commands and instructions/description on how to use them. +
 {nbsp} +
 Usage:
@@ -676,14 +676,11 @@ Usage:
 {nbsp} +
 
 === Exporting data: `[Coming in v2.0]`
+You will be able to export their expense data using the command `export f/[FORMAT]`, where format refers to the type of export file format
+you wish to use. Formats that are intended to be supported include .csv files, .json files, as well as PDF documents.
 
-_{explain how the user can enable/disable data encryption}_
 
 
-
-== FAQ
-{nbsp} +
-Coming soon!
 
 
 
