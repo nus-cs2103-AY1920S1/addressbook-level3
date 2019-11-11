@@ -259,7 +259,7 @@ image::OutbudgetActivityDiagram.png[]
 === Set Budget Feature: `set`
 
 The `Budget` class allows the user to set a budget for a given time period for a category, if specified.
-The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *tag*) are not allowed.
+The user is allowed to set multiple budgets, but duplicate budgets (budgets with the same identity in terms of *amount*, *date* and *category*) are not allowed.
 Upon setting the budget, making `OutTransaction` will deduct the amount from relevant budgets in the list.
 The detailed implementation of the process of updating the budget is explained further below in <<Current-Implementation, Current Implementation>>.
 
