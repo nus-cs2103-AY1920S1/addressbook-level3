@@ -15,7 +15,7 @@
     <columnConstraints>
       <ColumnConstraints hgrow="NEVER" prefWidth="70" />
       <ColumnConstraints hgrow="SOMETIMES" prefWidth="300" />
-      <ColumnConstraints hgrow="NEVER" prefWidth="60" />
+      <ColumnConstraints hgrow="NEVER" prefWidth="55" />
     </columnConstraints>
     <VBox alignment="CENTER_LEFT" minHeight="75" GridPane.columnIndex="0">
       <ImageView fx:id="cardPic" styleClass="person-card-image"

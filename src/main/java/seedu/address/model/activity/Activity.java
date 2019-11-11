@@ -29,6 +29,7 @@ public class Activity {
     private final ArrayList<Integer> participantIds;
     private final ArrayList<Boolean> participantActive;
     private final ArrayList<Double> participantBalances;
+
     // A dictionary mapping id to position in participantIds.
     private final HashMap<Integer, Integer> idDict;
     // Each [i][j] entry with value E means i owes j -E amount.
@@ -99,10 +100,10 @@ public class Activity {
     }
 
     /**
-     * Gets the list of expenses in the activity.
-     * @return An ArrayList of expenses.
+     * Returns a {@code List} containing all expenses in this {@code Activity}.
+     * @return A {@code List} of {@code Expense} instances associated with this {@code Activity}.
      */
-    public ArrayList<Expense> getExpenses() {
+    public List<Expense> getExpenses() {
         return expenses;
     }
 
@@ -125,8 +126,19 @@ public class Activity {
     }
 
     /**
+     * Returns the total spending computed from all non-deleted expenses of this {@code Activity}.
+     * @return The total spending of this {@code Activity} as a {@code double}.
+     */
+    public double getTotalSpending() {
+        return this.getNonSettlementExpenses().stream()
+                .filter(expense -> !expense.isDeleted())
+                .map(expense -> expense.getAmount().value)
+                .reduce(0.00, (acc, amt) -> acc + amt);
+    }
+
+    /**
      * Gets the name of the activity.
-     * @return A String representation of the name of the activity.
+     * @return A {@code String} representation of the name of the activity.
      */
     public Title getTitle() {
         return title;
@@ -138,6 +150,14 @@ public class Activity {
      */
     public List<Integer> getParticipantIds() {
         return participantIds;
+    }
+
+    /**
+     * Returns the number of participants of this {@code Activity}.
+     * @return The number of participants as an {@code int}.
+     */
+    public int getParticipantCount() {
+        return participantIds.size();
     }
 
     /**
@@ -178,7 +198,7 @@ public class Activity {
         requireNonNull(participantId);
 
         Integer participantIndex = idDict.get(participantId);
-        assert participantIndex != null;
+        assert participantIndex != null : "Participant supplied should be involved in this activity!";
 
         simplifyExpenses();
 
@@ -187,32 +207,35 @@ public class Activity {
     }
 
     /**
-     * Returns a triplet containing the necessary settlements needed to resolve
-     * all debt. The lists of people returned by this function are only
-     * primaryKeys. You can traverse all three lists at the same time to get a
-     * relationship of "owes[i] needs to pay amountOwed[i] to owed[i]".
-     * @return A Triplet of owes, owed, amountOwed, which are lists of Int, Int, Double respectively.
+     * Returns a {@code List} of triplets, describing all the settlements required
+     * to resolve all debt in this {@code Activity}. Each triplet describes a settlement,
+     * comprising a sender, recipient, and the transfer amount, in that order. The
+     * sender and recipient are specified by their primary key.
+     * @return A {@code List} of {@code Triplet}, each describing a required settlement.
      */
     public List<Triplet<Integer, Integer, Double>> getSolution() {
         List<Triplet<Integer, Integer, Double>> sol = new ArrayList<>();
 
-        for (int i : idDict.keySet()) {
-            for (int j : idDict.keySet()) {
-                if (i == j) {
+        simplifyExpenses();
+
+        int numParticipants = getParticipantCount();
+
+        for (int i = 0; i < numParticipants; i++) {
+            ArrayList<Double> row = transferMatrix.get(i);
+            for (int j = i; j < numParticipants; j++) {
+                double transferAmt = row.get(j);
+
+                // i and j do not owe each other anything
+                if (transferAmt == 0.0) {
                     continue;
                 }
 
-                // see how much i owes j?
-                double debtEntry = getOwed(i, j);
-                if (debtEntry == 0.0) {
-                    continue;
-                }
-
-                // j owes i instead.
-                if (debtEntry < 0) {
-                    sol.add(new Triplet<>(j, j, -debtEntry));
+                if (row.get(j) < 0) {
+                    // i owes j some amount (i --> j)
+                    sol.add(new Triplet<>(participantIds.get(i), participantIds.get(j), -transferAmt));
                 } else {
-                    sol.add(new Triplet<>(i, j, debtEntry));
+                    // j owes i some amount (j --> i)
+                    sol.add(new Triplet<>(participantIds.get(j), participantIds.get(i), transferAmt));
                 }
             }
         }
@@ -422,10 +445,6 @@ public class Activity {
             transferMatrix.get(j).set(i, transferMatrix.get(j).get(i) + m);
             participantBalances.set(i, bi - m);
             participantBalances.set(j, bj + m);
-        }
-        System.out.println("Transfer matrix:");
-        for (ArrayList<Double> a : transferMatrix) {
-            System.out.println(a.toString());
         }
     }
 
