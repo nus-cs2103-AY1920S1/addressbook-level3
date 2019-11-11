@@ -34,7 +34,7 @@ I worked on the notification feature and the delete command. Moreover, I was res
 management in Mortago. The sections below summarize my contributions to the code base, user guide, developer guide, as
 well as other team project tasks.
 
-The following are the frequently used symbols used in this document:
+The following are the frequently used symbols in this document:
 
 * `delete` : A dark-red text (also known as a mark-up) indicates that this text is either a full or partial command that
 can be entered into the CLI. It can also mean a component, class, function, or object used in the code base.
@@ -51,8 +51,10 @@ This section summarizes my coding, documentation, and other contributions to the
 
 *Major Enhancement:* I added the notification feature.
 
-* What it does: This enhancement reminds the mortuary manager to contact the police, after 10 seconds, by automatically
-changing the status of a `Body` and showing a pop-up notification. It also maintains a list of all the notifications
+* What it does: This enhancement reminds the mortuary manager to contact the police, after 10 seconds from the point
+of adding a `Body` to Mortago,
+by automatically
+changing its status and showing a pop-up notification. It also maintains a list of all the notifications
 (`Notif`) that can be viewed by either using the `showNotif` command or clicking on the bell icon beside the command
 box.
 * Justification: If the next-of-kin of a body has been uncontactable for more than 24 hours, police must be informed
@@ -65,7 +67,7 @@ the UI was initially challenging because JavaFX works on a separate thread from 
 * Credits: @bjhoohaha/duke's https://github.com/bjhoohaha/duke/blob/master/src/main/java/duke/view/AlertWindow.java[AlertWindow.java]
 was reused to create `NotifWindow`.
 
-*Major Enhancement:* I morphed the `delete` command in AB3
+*Major Enhancement:* I morphed the `delete` command in AB3.
 
 * What it does: The `delete` command allows the user to delete a `Body`, `Worker`, or `Fridge` in Mortago. It uses
 flagging to differentiate them.
@@ -79,7 +81,7 @@ changes as follows:
 `UNOCCUPIED`.
 ** If the `Body` has an associated `Notif`, this command will also delete the `Notif`.
 
-*Minor Enhancement:* I automated fridge management
+*Minor Enhancement:* I automated fridge management.
 
 * What it does: If a `Body` is assigned a `Fridge` and either `delete` or `update` commands are used on this `Body`,
 Mortago
@@ -93,7 +95,7 @@ errors.
 that, the following features are automated:
 
 ** If the status of a `Body` is updated to `CLAIMED` or `DONATED`, its associated `FRIDGE` 's status is reset to
-`UNOCCUPIED` and the `Body` is no longer assigned the `Fridge`.
+`UNOCCUPIED` and the `Body` is no longer assigned to this `Fridge`.
 ** A user cannot assign a `Fridge` to a `Body` with status `CLAIMED` or `DONATED`.
 ** An `OCCUPIED` `Fridge` cannot be deleted. The user needs to either assign the `Body` to another `Fridge` or delete
 the `Body`.
@@ -119,9 +121,9 @@ GitHub.
 (Pull requests
 https://github.com/AY1920S1-CS2103T-T13-2/main/pull/252/files[#252],
 https://github.com/AY1920S1-CS2103T-T13-2/main/pull/267/files[#267]).
-** Updated existing diagrams and color scheme in developer guide
+** Updated existing diagrams to fit the team's chosen colour scheme
 (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/123/files[#123]).
-** Updated use cases for notification feature in developer guide
+** Updated use cases for notification feature in the developer guide
 (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/40[#40]).
 
 * Community
@@ -142,7 +144,7 @@ https://github.com/arjavibahety/ped/issues/15[#15].
 
 === 3. Contributions to the User Guide
 The following are the excerpts I wrote in the user guide to teach a user how the notification feature works and
-how  they can use the delete command.
+how  they can use the `delete` command.
 
 _{start of extract 1: notification feature}_
 

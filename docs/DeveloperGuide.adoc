@@ -480,7 +480,7 @@ on a thread dedicated to JavaFX application at some unspecified time in the futu
 if some updates to the model are wrapped inside it as a `Runnable` while others are not, it can result in a
 mismatch of model. For instance, you may want to delete a `Notif` which already exists in the model. The usual
 process will be to first check whether it exists and if it does, then proceed with deletion. However, due to
-threading, you may end up in a situation when the app finds the `Notif` at the point of checking but throws a
+threading, you may end up in a situation where the app finds the `Notif` at the point of checking but throws a
 `NullPointerException` when proceeding with the deletion.
 
 To prevent this, addition or deletion of `Notif` in the model during the execution of the
@@ -526,7 +526,7 @@ to manually deal with threads.
 system
 time and `notifCreationTime` exceeds `period`.
 ** Pros: Ensures that the user does not forget about contacting the police.
-** Cons: May slow down the computer and lag the app if there are too many pop-up notifications at the same time.
+** Cons: May slow down the computer and lag the application if there are too many pop-up notifications at the same time.
 
 Alternative 1 is the current choice because we want the app to be responsive and scalable in the long term. The
 notification bell placed beside the command box aims to constantly remind the user.
