@@ -158,14 +158,9 @@ in the application like using `add` command as well.
 
 *Documentation*:
 
-* Improved the structure of the user guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/15[#15], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/214[#214]
-* Updated the developer guide link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/241[#241]
-
 
 *Community*:
 
-* Reviewed team pull requests link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/77[#74], link:https://github.com/AY1920S1-CS2103T-F13-4/main/pull/81[#81], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/84[#84]
-* Reported bugs and suggestions for other teams in the class (examples: link:https://github.com/jcjjjared/ped/issues/1[1], link:https://github.com/jcjjjared/ped/issues/2[2], link:https://github.com/jcjjjared/ped/issues/4[3])
 
 *Tools*:
 
