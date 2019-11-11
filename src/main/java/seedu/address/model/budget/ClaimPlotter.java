@@ -35,6 +35,7 @@ public class ClaimPlotter {
      */
 
     XYSeries plotClaims() {
+        Double amountToAdd;
         findClaimValueAtStartOfMonth();
         claimSeries.add(1, startingExpenses);
         double currentExpenses = startingExpenses;
@@ -42,9 +43,10 @@ public class ClaimPlotter {
         for (int day = 2; day <= 30; day++) {
             for (Claim claim : approvedClaimsInCurrentMonthList) {
                 if (claim.getDate().date.getDayOfMonth() == day) {
-                    currentExpenses += Double.parseDouble(claim.getAmount().value);
+                    amountToAdd = Double.parseDouble(claim.getAmount().value);
+                    assert amountToAdd >= 0 : "A negative claim value managed to get into the claim list";
+                    currentExpenses += amountToAdd;
                     currentExpenses = Math.round(currentExpenses * 100) / 100.0;
-                    assert currentExpenses >= 0 : "A negative claim value managed to get into the claim list";
                 }
             }
             claimSeries.add(day, currentExpenses);
@@ -59,13 +61,15 @@ public class ClaimPlotter {
     private void findClaimValueAtStartOfMonth() {
         assert currentMonthNumber <= 12 : "There is an error with LocalDate Month";
         assert currentYearNumber > 0 : "There is an error with LocalDate Year";
+        Double amountToAdd;
         LocalDate firstDayOfMonth = LocalDate.of(currentYearNumber, currentMonthNumber, 2);
         for (Claim claim : claimList) {
             if (claim.getStatus() == Status.APPROVED) {
                 if (claim.getDate().date.isBefore(firstDayOfMonth)) {
-                    startingExpenses += Double.parseDouble(claim.getAmount().value);
+                    amountToAdd = Double.parseDouble(claim.getAmount().value);
+                    assert amountToAdd >= 0 : "A negative claim value managed to get into the claim list";
+                    startingExpenses += amountToAdd;
                     startingExpenses = Math.round(startingExpenses * 100) / 100.0;
-                    assert startingExpenses >= 0 : "A negative claim value managed to get into the claim list";
                 }
             }
         }
