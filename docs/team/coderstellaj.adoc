@@ -239,44 +239,6 @@ image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[width="3
 As shown by the above activity diagram, when a user inputs a person who does not exist in any reimbursement or keys in an invalid data format, our app displays the expected format of the deadline command.
 Otherwise, when the execution is successful, a response informs the user that deadline is successfully added to the reimbursement.
 
-
-//==== Done Command feature
-//
-//This command is used to mark a reimbursement that has been done.
-//Done command requires access to `Model` of the person package.
-//Person field should be provided and the person's name should exist in reimbursement list.
-//
-//[[ReimbursementDoneCommandSD]]
-//.Sequence diagram of done command execution in reimbursements tab (reimbursement package)
-//image::Reimbursement/ReimbursementDoneCommandSD.png[width="350"]
-//
-//A user needs to mark a reimbursement as done by specifying the person's name for the specific reimbursement.
-//The `DeadlineCommandParser` creates a `DoneCommand` with person's information.
-//As shown in the above figure, `DoneCommand` is returned back to `LogicManager`
-//and it is executed by calling `doneReimbursement` method in
-//`ModelManager`.
-//After the operations, the status of transactions that consist of this reimbursement is updated to `True`
-//and that reimbursement is deleted from the reimbursement list.
-//Then the updated reimbursement list is displayed and this new list without that deleted reimbursement is saved.
-//
-//The following figure shows how transactions' status is updated.
-//Firstly, the reimbursement which contains the person's name updates status of all transactions that made up of the reimbursement.
-//Then `LogicManager` gets the updated transaction list and passes this list to `StorageManager`
-//of transaction tab to save it.
-//
-//[[ReimbursementUpdateTransactionsSD]]
-//.Sequence diagram of updating transactions in reimbursements tab (reimbursement package)
-//image::Reimbursement/ReimbursementUpdateTransactionsSD.png[width="500"]
-//
-//<<ReimbursementTabActivityDiagramDoneCommand, The following activity diagram>> shows the steps needed for done command.
-//The person's name is checked whether it exists in reimbursement list.
-//If not, our app informs the user that command is incorrect.
-//If command is valid, the reimbursement containing the provided person's name is deleted from reimbursement list and will not be displayed.
-//
-//[[ReimbursementTabActivityDiagramDoneCommand]]
-//.Activity Diagram of Done Command in Reimbursements tab (reimbursement package)
-//image::Reimbursement/ReimbursementTabActivityDiagramDoneCommand.png[width="250"]
-
 === Find command feature
 
 This command is used to find a reimbursement that contains the person's name.
@@ -314,7 +276,7 @@ This section's table explains the design considerations for some implementations
 |Alternative 2 is chosen.
 `transactionLogic` follows Façade pattern to prevent exposing the internal details of the transaction tab.
 So, instead of directly manipulating model and storage of transactions from `reimbursementLogic`,
-the operations are done through `transactionLogic` as shown in the <<facade, code snippet>> below the table.
+the operations are done through `transactionLogic` as shown in the <<facadeRe, code snippet>> below the table.
 
 |How reimbursement records are saved and read from `.txt` files
 |The reimbursement tab saves all the information of transactions that make up a reimbursement into `reimbursementInformation.txt`.
@@ -325,7 +287,7 @@ Alternative 2 does not save duplicate information that has already been saved in
 So, alternative 2 is more efficient.
 |===
 
-[[facade]]
+[[facadeRe]]
 .Code snippet of `transactionLogic` facade class in `MainWindow`
 image::Reimbursement/codeSnippetTransactionLogic.png[width = "600"]
 
