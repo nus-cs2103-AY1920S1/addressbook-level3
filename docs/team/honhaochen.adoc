@@ -1,4 +1,7 @@
 = Hon Hao Chen - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
 
 == PROJECT: TravEzy
 
@@ -6,17 +9,17 @@
 
 == About the project
 
-My team of 4 software engineering students and I were tasked with enhancing a basic https://searchwindowsserver.techtarget.com/definition/command-line-interface-CLI[Command Line Interface (CLI)] desktop addressbook application for our Software Engineering project. Our constraint is that we have to target users who are able to type fast and prefer typing over other means of input.
+My team of 4 software engineering students and I were tasked with enhancing a basic https://searchwindowsserver.techtarget.com/definition/command-line-interface-CLI[Command Line Interface (CLI)] desktop _Addressbook_ application for our Software Engineering project. Our constraint is that we have to target users who are able to type fast and prefer typing over other means of input.
 
-With the stated constraint in mind, we choose to morph the given addressbook application into an travelling companion application which synthesis various kinds of features including financial tracker, diary, itinerary planner, contacts and achievement. This enhanced application allows users who love to travel to plan their trip beforehand, record down their expenses and write down their precious memories during travel. We ensured that the users have to type commands and instructions for all of the added features.
+With the stated constraint in mind, we choose to morph the given _Addressbook_ application into an travelling companion application which synthesis various kinds of features including financial tracker, diary, itinerary planner, contacts and achievement. This enhanced application allows users who love to travel to plan their trip beforehand, record down their expenses and write down their precious memories during travel. We ensured that the users have to type commands and instructions for all of the added features.
 
 This is what our project looks like: +
 
-image::../images/Ui.png[]
+image::../images/Ui.png[width=800]
 
 
 === My Role
-My role was to design and write the codes for the Financial Tracker feature. The following sections illustrate my contributions in detail, as well as the relevant documentation I have added to the user and developer guides in relation to these contributions.
+My role was to design and write the codes for the _Financial Tracker_ feature. The following sections illustrate my contributions in detail, as well as the relevant documentation I have added to the user and developer guides in relation to these contributions.
 
 == Summary of contributions
 
@@ -24,44 +27,55 @@ This section shows a summary of my contributed feature and other relevant contri
 
 *Major contributions*
 
-Financial Tracker:
+_Financial Tracker:_
 
 * What is it?
 
-    The Financial Tracker is an expense recorder whereby users can keep track of the records of their spending during their trips to different countries.
+** The _Financial Tracker_ is an expense recorder whereby users can keep track of the records of their spending during their trips to different countries.
 
 * Justification
 
-    Our target users which we have chosen are NUS students who love to travel. During our users analysis, we realised that students nowadays are very likely to overspend their budget during
-    travelling. Therefore, this financial tracker feature allows our target users to keep a record of their spending in order to remind them of their budget.
+** Our target users which we have chosen are NUS students who love to travel. During our users analysis, we realised that students nowadays are very likely to overspend their budget during
+    travelling. Therefore, this _Financial Tracker_ feature allows our target users to keep a record of their spending in order to remind them of their budget.
 
 * More to it
 
-    Users could also generate an overview of their expenses in an easy-to-look pie chart form!
+** Users have the expense list filtered countries by countries and can switch between each expense list seamlessly.
 
-Code contributed: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/76[76],
- https://github.com/AY1920S1-CS2103T-T17-2/main/pull/47[47]
+** Users are able to sort their expense list according to their needs and undo any accident actions that has been done.
+
+** Users can generate an overview of their expenses in an easy-to-look pie chart form!
+
+Codes contributed: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96 (v1.1)], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/76[76 (v1.2)],
+ https://github.com/AY1920S1-CS2103T-T17-2/main/pull/47[47 (v1.3)], https://github.com/AY1920S1-CS2103T-T17-2/main/pull/157[157 (v1.4)]
 
 *Minor contributions*
 
 Project management:
 
-* Started implementing Ui components and link them to FXML. This provides skeletal codes for the rest of my teammates to adapt with.
-* Modified command Command class to be generic so that the other Command classes in other features can take in their own Model classes.
+* Started implementing user interface(Ui) components and link them to FXML. This provides skeletal codes for the rest of my teammates to adapt with. +
+Code for reference: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/36[36]
+
+* Modified common `Command` abstract class to be generic so that the other `Command` classes in other features can take in their own `Model` classes. +
+Code for reference: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/70[70]
+
+* Helped on modifying _Main_ feature and QnA section in the UserGuide. +
+Code for reference: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/206[206]
 
 Enhancements to existing features:
 
-* Updated the Main page's Ui:
+* Updated the _Main_ page's Ui. +
+Code for reference: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/103[103]
 
 Community:
 
-* PRs reviewed (with non-trivial review comments):
-* Reported bugs and suggestions for other teams in the class:
+* PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T17-2/main/pull/34[34]
+* Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/14[14]
 
 == Contributions to the User Guide
 
 |===
-|_Given below are sections which I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I shall focus on 3 relevant commands here which are the ``help``, ``sort`` and ``summary`` commands.
+|Given below are sections which I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. I shall focus on 3 relevant commands here which are the ``switch``, ``sort`` and ``summary`` commands.
 |===
 
 include::../UserGuide.adoc[tag=financialtracker]
