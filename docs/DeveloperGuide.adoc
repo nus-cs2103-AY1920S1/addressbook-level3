@@ -859,7 +859,7 @@ Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-=== Event 
+=== Event
 
 . Editing an Event Date
 
@@ -884,7 +884,6 @@ Status bar remains the same.
 
 .. Test Case: `delete_ev_dt 1 on/25/10/2019` +
     Expected: Successfully deleted Date-Time Mapping, with message "Deleted DateTime [25/10/2019] from Event: [Musical]." Double click on the Event or use `fetch_ev 1` to verify that the mapping of '25/10/2019' is no longer there.
-
 
 === Saving data
 
