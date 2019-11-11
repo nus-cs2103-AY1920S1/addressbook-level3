@@ -110,6 +110,12 @@ https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/a
 
 ** *Processor*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/processor/DistinctDatesProcessor.java[*DistinctDatesProcessor*]]
 
+** *Ui*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/DateCard.java[`DateCard`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/DateWindow.java[`DateWindow`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/FetchEmployeeWindow.java[`FetchEmployeeWindow`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/ScheduleBox.java[`ScheduleBox`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/ui/Tabs.java[`Tabs`]]
+
 * *Test Code Contributed*:
 
 ** *Event*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventContainsKeyDatePredicateTest.java[`EventContainsKeyDatePredicateTest`],

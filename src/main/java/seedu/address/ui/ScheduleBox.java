@@ -29,13 +29,13 @@ import seedu.address.model.event.Event;
  * A ui for the Schedule Tab that is displayed on the secondary Tab of the application.
  */
 public class ScheduleBox extends Tabs<AnchorPane> {
+    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final String FXML = "Schedule.fxml";
     private String[] monthName = {"January", "February", "March", "April",
                                   "May", "June", "July", "August", "September",
                                   "October", "November", "December"};
     private int currentMonthInFocus;
     private int currentYearInFocus;
-    public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     @FXML
     private ListView<Event> eventScheduleListView;
