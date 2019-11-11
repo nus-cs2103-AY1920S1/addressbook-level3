@@ -2,7 +2,7 @@
 start
 
 
-while () is (User wishes to adds or update a worker with a photo)
+while () is ([User wishes to adds or update a worker with a photo])
     :User executes add or update command;
 
 'Since the beta syntax does not support placing the condition outside the
@@ -14,6 +14,6 @@ if () then ([Image file is valid])
     :Photo object is assigned to an instance variable in the worker;
 else ([else])
 endif
-endwhile (photo added or user stops adding a photo)
+endwhile ([photo added or user stops adding a photo])
 stop
 @enduml
