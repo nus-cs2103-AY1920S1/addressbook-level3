@@ -82,10 +82,9 @@ However, certain other changes such as adding new types of financial records (ie
 *** Replaced almost all of the instances of the word "AddressBook" and "Person" from the project JavaDocs and replaced them with "Billboard" and "Expense."[https://github.com/AY1920S1-CS2103T-F12-4/main/pull/38[PR #38]]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** Pull requests reviewed with constructive comments:
+**** [https://github.com/AY1920S1-CS2103T-F12-4/main/pull/48[#48]]
+**** [https://github.com/AY1920S1-CS2103T-F12-4/main/pull/20[#20]]
 
 ** Tools:
 *** Added third party libraries (HamCrest and Mockito) to the project to help to ease writing fluent and effective unit tests.
@@ -96,7 +95,8 @@ However, certain other changes such as adding new types of financial records (ie
 
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Seen below are the sections that I personally contributed to the User Guide for Billboard. They showcase my ability to write precise and concise instructions
+for users that may be unfamiliar, and to explain the purpose and advantage of my feature, the dynamic statistics charts._
 |===
 
 include::../UserGuide.adoc[tag=statistics]
@@ -104,14 +104,9 @@ include::../UserGuide.adoc[tag=statistics]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Displayed below are the sections I contributed for the developer guide. They highlight the work done into building a clean extensible architecture for statistics display,
+and my technical writing capabilities in conveying fairly technically heavy concepts in relatively simple prose. _
 |===
 
 include::../DeveloperGuide.adoc[tag=statistics]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
