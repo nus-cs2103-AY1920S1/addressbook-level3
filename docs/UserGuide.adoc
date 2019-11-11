@@ -18,8 +18,9 @@ By: `CS2103T-T13-3`      Since: `September 2019`      Licence: `MIT`
 
 == Introduction
 
-treasurerPro (tP) is for treasurers of student co-curricular activities (CCAs)/student clubs who *prefer to use a desktop app for managing their club expenses*.
-More importantly, tP is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
+treasurerPro (tP) is an application designed for treasurers of student co-curricular activities (CCAs)/student clubs
+who *prefer to use a desktop app for managing their club expenses*. More importantly, tP is *optimized for those who
+prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 
 If you can type fast, tP can get your expense management tasks done faster than traditional GUI apps.
 Interested?
@@ -539,12 +540,10 @@ This command helps you to display the full reimbursement list after `find` and `
 +
 //.Screenshot of the user input into the Command Box for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommand.png[width="600"]
-
 +
 . Hit `Enter`
 +
 The tab will now show the full reimbursement list.
-
 +
 //.Screenshot of a successful user input for Back Command in Reimbursement Tab
 image::Reimbursement/ReimbursementBackCommandSuccess.png[width="600"]
@@ -649,8 +648,6 @@ This section will contain details on all commands in the Inventory Tab.
 [WARNING]
 Due to size limitations, a large number may be truncated when shown in the table. +
 To avoid this, you are advised to key in a number smaller than 10,000.
-Also, if the inventoryInformation.txt file is altered, it may cause the app to not open.
-In such events, delete the txt file.
 ====
 
 ==== Add an Item:
@@ -778,7 +775,7 @@ update of items.
 the inventory.
 * After every checkout, the sales made will be recorded as one transaction which will be then labelled as "Items sold"
 under the category "Sales" and person will be the cashier-in-charge. The Home tab will be updated with this transaction.
-* Once there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
+* Whenever there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
 make any modification to existing items in the inventory except for the adding of new items.
 
 [NOTE]
@@ -789,7 +786,7 @@ Due to size limitation, you will not be allowed to add any items into the table 
 are advised to reduce the quantity of items or checkout separately in another cart.
 
 [NOTE]
-The description is case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
+The description and category are case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
 
 ====
 
@@ -988,11 +985,11 @@ The Home tab will be updated with this transaction and the remaining stock in th
 
 [NOTE]
 This command checks out and clears all the sales items, turning off the `Cashier Mode` until a new item is added into the cart.
-You can now modify the existing items on the Inventory tab.
+After turning executing this command, you can now modify the existing items on the Inventory tab.
 
 
 ==== Clears All the Sales Items in the Table
-This command clears all the sales item in the table.
+This command clears all the sales items in the table.
 
 * Command:
 [blue]`clear`
@@ -1074,7 +1071,7 @@ To reset the goal, simply set it to 0.
 image::overviewUG/SetCommandExample.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Hit `Enter`.
 
 //.Screenshot of a successful user input for Set Command in Overview tab
 image::overviewUG/SetCommandResult.png[width="600"]
@@ -1110,7 +1107,7 @@ To disable notifications for a particular financial goal, simply set its notific
 image::overviewUG/NotifyCommandExample.png[width="600"]
 
 [start = 2]
-. Hit `Enter`
+. Hit `Enter`.
 
 //.Screenshot of a successful user input for Notify Command in Overview tab
 image::overviewUG/NotifyCommandResult.png[width="600"]

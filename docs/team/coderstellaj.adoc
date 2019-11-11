@@ -14,22 +14,17 @@ endif::[]
 == Introduction
 
 This project portfolio page (PPP) introduces the project, treasurerPro.
-The PPP outlines my contributions to the project and showcases the key features I implemented.
+Then the PPP outlines my contributions to the project and showcases the key features I implemented.
 
 === About the project
 
 My team consists of 5 students from Computer Science/Computer Engineering.
-And the project is part of the module 'CS2103T Software Engineering Project' where we were tasked to develop a basic command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
+And the project is part of the module 'CS2103T Software Engineering Project'
+where we were tasked to develop a basic command line interface desktop application by morphing or enhancing an existing AddressBook desktop application.
 Our team decided to incorporate and morph the AddressBook application into our application **treasurerPro**.
-Our application enables treasurers of Co-Curricular Activities (CCA) Clubs to manage their club finances, reimbursements, inventory and member’s contact details easily.
-The duration of our project was 13 weeks.
 
-=== About our application
-
-treasurerPro consists of home tab, members tab, reimbursements tab, inventory tab, cashier tab and overview tab, a command box for users to input their commands and a response box for Leo which is our lion mascot.
-Each tab serves a different purpose that helps treasurers and members better manage their club or society's finances.
-
-This is what our application looks like when it is first opened:
+Our application enables treasurers of Co-Curricular Activities (CCA) Clubs to manage their club finances,
+reimbursements, inventory and member’s contact details easily. This is what treasurerPro looks like when it is first opened:
 
 .Graphical user interface of treasurerPro
 image::Reimbursement/AnnotatedUi.png[width="500"]
@@ -209,10 +204,15 @@ As for the complete additions, please refer to
 https://ay1920s1-cs2103t-t13-3.github.io/main/DeveloperGuide.html#reimbursements-tab[reimbursement tab section]
 in the developer guide.
 
-The following is an overview class diagram for reimbursement tab:
+This is an overview class diagram for `LogicManager` of reimbursement tab:
 
 .Overview class diagram of reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabClassDiagram.png[width="700"]
+
+And this is a
+https://github.com/AY1920S1-CS2103T-T13-3/main/blob/master/docs/images/GeneralSequenceDiagram.png[general sequence diagram]
+of command execution.
+The detailed implementations of command execution in reimbursement tab are in the following section.
 
 === Deadline command feature
 
@@ -226,12 +226,12 @@ The following sequence diagram shows the execution of deadline command:
 .Sequence diagram of deadline command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementDeadlineCommandSD.png[width="350"]
 
-As shown, a user needs to add a deadline to a reimbursement by specifying the person's name and providing a date.
-The `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline date information.
-This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and is executed by calling `addDeadline` method in
-`ModelManager`.
+A user needs to add a deadline to a reimbursement by specifying the person's name and providing a date.
+Firstly, the `DeadlineCommandParser` creates a `DeadlineCommand` with person and deadline date information.
+This `DeadlineCommand` is returned back to `LogicManager` of reimbursement.
+Secondly, as shown in the figure, the command is executed by calling `addDeadline` method in `ModelManager`.
 After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
-After that, the deadline is saved into a `reimbursementInformation.txt` file.
+Lastly, the deadline is saved into a `reimbursementInformation.txt` file.
 
 .Activity diagram of deadline command in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[width="350"]
@@ -245,7 +245,7 @@ This command is used to find a reimbursement that contains the person's name.
 The find command requires access to `Model` of the person package.
 Person field should be provided and the person's name should exist in reimbursement list.
 
-.Sequence diagram of find command in reimbursements tab (reimbursement package)
+.Sequence diagram of find command execution in reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementFindCommandSD.png[width="350"]
 
 A user needs to find a reimbursement by providing the person's name.
@@ -276,7 +276,7 @@ This section's table explains the design considerations for some implementations
 |Alternative 2 is chosen.
 `transactionLogic` follows Façade pattern to prevent exposing the internal details of the transaction tab.
 So, instead of directly manipulating model and storage of transactions from `reimbursementLogic`,
-the operations are done through `transactionLogic` as shown in the <<facade, code snippet>> below the table.
+the operations are done through `transactionLogic` as shown in the <<facadeRe, code snippet>> below the table.
 
 |How reimbursement records are saved and read from `.txt` files
 |The reimbursement tab saves all the information of transactions that make up a reimbursement into `reimbursementInformation.txt`.
@@ -287,8 +287,8 @@ Alternative 2 does not save duplicate information that has already been saved in
 So, alternative 2 is more efficient.
 |===
 
-[[facade]]
+[[facadeRe]]
 .Code snippet of `transactionLogic` facade class in `MainWindow`
-image::Reimbursement/codeSnippetTransactionLogic.png[width = "700"]
+image::Reimbursement/codeSnippetTransactionLogic.png[width = "600"]
 
 

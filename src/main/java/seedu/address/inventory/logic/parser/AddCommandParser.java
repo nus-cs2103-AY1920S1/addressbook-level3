@@ -177,7 +177,7 @@ public class AddCommandParser {
         boolean isValid = false;
         try {
             isValid = Double.parseDouble(strNum) >= 0 && Double.parseDouble(strNum) < 10000;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             throw new NotANumberException(InventoryMessages.MESSAGE_NOT_A_NUMBER);
         }
         return isValid;
