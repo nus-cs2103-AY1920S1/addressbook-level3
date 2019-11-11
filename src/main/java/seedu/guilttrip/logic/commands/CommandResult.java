@@ -33,7 +33,6 @@ public class CommandResult {
 
     /** For changing the font. */
     private final FontName fontName;
-    private final boolean listFonts;
     private final boolean changeFont;
 
     /** For changing the theme. */
@@ -64,7 +63,6 @@ public class CommandResult {
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
         this.fontName = null;
-        this.listFonts = false;
         this.changeFont = false;
         this.isList = false;
         this.toList = null;
@@ -93,7 +91,6 @@ public class CommandResult {
         this.toggleBarChart = toggleBooleans.get(2);
         this.toggleEntryPanel = toggleBooleans.get(3);
         this.fontName = null;
-        this.listFonts = false;
         this.changeFont = false;
         this.toList = null;
         this.isList = false;
@@ -115,7 +112,6 @@ public class CommandResult {
         this.togglePanel = false;
         this.toggleStats = false;
         this.fontName = null;
-        this.listFonts = false;
         this.changeFont = false;
         this.togglePieChart = false;
         this.toggleBarChart = false;
@@ -142,7 +138,6 @@ public class CommandResult {
         this.toggleBarChart = false;
         this.toggleEntryPanel = false;
         this.fontName = null;
-        this.listFonts = false;
         this.changeFont = false;
         this.toList = null;
         this.isList = false;
@@ -155,14 +150,13 @@ public class CommandResult {
     /**
      * Constructs a {@code CommandResult} with the specified fields, and other fields are set to their default value.
      */
-    public CommandResult(String feedbackToUser, FontName fontName, boolean listFonts, boolean changeFont) {
+    public CommandResult(String feedbackToUser, FontName fontName, boolean changeFont) {
         this.feedbackToUser = feedbackToUser;
         this.showHelp = false;
         this.exit = false;
         this.panelName = null;
         this.togglePanel = false;
         this.fontName = fontName;
-        this.listFonts = listFonts;
         this.changeFont = changeFont;
         this.toggleStats = false;
         this.changeTheme = false;
@@ -189,7 +183,6 @@ public class CommandResult {
         this.togglePanel = false;
         this.toggleStats = false;
         this.fontName = null;
-        this.listFonts = false;
         this.changeFont = false;
         this.togglePieChart = false;
         this.toggleBarChart = false;
@@ -210,7 +203,6 @@ public class CommandResult {
         this.togglePanel = false;
         this.toggleStats = false;
         this.fontName = null;
-        this.listFonts = false;
         this.changeFont = false;
         this.togglePieChart = false;
         this.toggleBarChart = false;
@@ -281,10 +273,6 @@ public class CommandResult {
         return changeFont;
     }
 
-    public boolean isListFonts() {
-        return listFonts;
-    }
-
     public boolean isChangeTheme() {
         return changeTheme;
     }
@@ -321,7 +309,6 @@ public class CommandResult {
                 && panelName == otherCommandResult.panelName
                 && togglePanel == otherCommandResult.togglePanel
                 && fontName == otherCommandResult.fontName
-                && listFonts == otherCommandResult.listFonts
                 && changeFont == otherCommandResult.changeFont
                 && changeTheme == otherCommandResult.changeTheme
                 && newTheme == (otherCommandResult.newTheme);
@@ -329,8 +316,8 @@ public class CommandResult {
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, listFonts, changeFont,
-                newTheme, changeTheme, toList);
+        return Objects.hash(feedbackToUser, showHelp, exit, panelName, togglePanel, fontName, changeFont, newTheme,
+                changeTheme, toList);
     }
 
 }

@@ -1,0 +1,7 @@
+@startuml
+start
+:User executes set light theme command;
+:Change application theme to light;
+
+stop
+@enduml

@@ -14,7 +14,6 @@ import seedu.guilttrip.commons.util.ObservableSupport.Evt;
 import seedu.guilttrip.commons.util.StringUtil;
 import seedu.guilttrip.logic.Logic;
 import seedu.guilttrip.model.reminders.Reminder;
-import seedu.guilttrip.model.reminders.messages.Message;
 
 /**
  * The manager of the UI component.
@@ -89,9 +88,7 @@ public class UiManager implements Ui, ListenerSupport {
 
     @Override
     public void propertyChange(Evt evt) {
-        if (evt.getPropertyName().equals("NewReminderMessage")) {
-            this.mainWindow.displayPopUp((Message) evt.getNewValue());
-        } else if (evt.getPropertyName().equals("SelectedReminder")) {
+        if (evt.getPropertyName().equals("SelectedReminder")) {
             this.mainWindow.updateReminderSelected((Reminder) evt.getNewValue());
         }
     }
