@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ModuleCode {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "ModuleCode should only contain alphanumeric characters, there "
-                + "should not be spaces and it should not be blank";
+            "ModuleCode should only contain alphanumeric characters, and a set of 4 digit number."
+                + "There should not be spaces and it should not be blank";
 
     /*
      * The first character of the module code must not be a whitespace,
@@ -29,6 +29,7 @@ public class ModuleCode {
     public ModuleCode(String code) {
         requireNonNull(code);
         checkArgument(isValidName(code), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidModuleCode(code), MESSAGE_CONSTRAINTS);
         moduleCode = code.toUpperCase();
     }
 
@@ -65,29 +66,39 @@ public class ModuleCode {
      * Returns true if a given string is a valid module code for the module.
      */
     public static boolean isValidModuleCode(String test) {
+        boolean isValid = false;
         try {
-            String code = test.substring(0, 2).toLowerCase();
-            switch (code) {
-            case "cs":
-            case "ec":
-            case "acc":
-            case "fn":
-            case "fi":
-            case "ar":
-            case "ie":
-            case "ges":
-            case "ger":
-            case "geh":
-            case "geq":
-            case "get":
-            case "cfg":
-            case "asp":
-            case "as":
-                return true;
-            default:
-                return false;
+            for(int i = 2, n = test.length(); i < n ; i++) {
+                String toCheck = test.substring(i, i + 4);
+
+                if (isStringInt(toCheck) && (test.length() - (i + 4)) > 1) {
+                    System.out.println("1");
+                    isValid = false;
+                    break;
+                }
+                if (isStringInt(toCheck) && (test.length() - (i + 4)) == 1) {
+                    System.out.println("2");
+                    isValid = !isStringInt(test.substring(i + 3, i + 5));
+                    break;
+                } else if (isStringInt(toCheck) && (test.length() - (i + 4)) == 0) {
+                    System.out.println("3");
+                    isValid = true;
+                    break;
+                }
             }
         } catch (StringIndexOutOfBoundsException e) {
+            return false;
+        }
+
+        return isValid;
+    }
+
+    private static boolean isStringInt(String s) {
+        try
+        {
+            Integer.parseInt(s);
+            return true;
+        } catch (NumberFormatException ex) {
             return false;
         }
     }
