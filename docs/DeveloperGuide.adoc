@@ -235,7 +235,7 @@ image::UndoStackStep1.png[][,250]
 Step 2. The user realises that adding the task was a mistake, and decides to undo by entering `undo` into ELISA. The `undo` command
 will pop the `AddTaskCommand` from the stack and reverse the effects of that command, in this case by deleting the task "eat" from the `TaskList`.
 
-image::UndoStackStep2.png[][,250]
+image::UndoStackStep2.png[][,450]
 
 Step 3. After successful execution of the `UndoCommand` a confirmation message is displayed in the chat box.
 
@@ -265,22 +265,22 @@ Given below is an example usage scenario and how the undo mechanism behaves at e
 
 Step 1. The user launches the application for the first time. The `ElisaStateHistory` will be initialized with the initial ELISA state
 
-image::UndoState0.png[]
+image::UndoState0.png[][, 500]
 
 Step 2. The user executes `task eat` command to add a task with a description "eat". Upon execution of any command except `undo` and `show`, the `Logic` calls `ItemModel#updateState()` to save the latest state to `ElisaStateHistory`.
 
-image::UndoState1.png[]
+image::UndoState1.png[][, 500]
 
 Step 3. The user executes `task jogging` to add another task with description "jogging". This command also calls `ItemModel#updateState()`, causing another modified ELISA state to be saved into the `ElisaStateHistory`.
 
-image::UndoState2.png[]
+image::UndoState2.png[][, 500]
 
 [NOTE]
 If a command fails its execution, it will not call `ItemModel#updateState()`, so the ELISA state will not be saved.
 
 Step 4. The user now decides that adding the task "jogging" was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `ElisaStateHistory#popCommand()`, which will delete the last added state, and `Logic` will update the application state to the one at the top of the stack after command execution.
 
-image::UndoState3.png[]
+image::UndoState3.png[][, 500]
 
 [NOTE]
 If the size of `ElisaStateHistory` is 1, that is, only containing the initial state, then there are no previous Elisa states to restore. The `undo` command checks for this case within its `execute()` method. If so, it will return an error to the user rather than attempting to perform the undo.
