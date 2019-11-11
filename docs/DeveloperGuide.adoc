@@ -1275,5 +1275,3 @@ default reminder settings is set to 3 days.
 
 .. In the event that no json file is found in the data folder for a specific list, our app will initialise with some sample data for that particular list.
 .. If a corrupted file is found in the data folder for a specific list, a new file will be created.
-
-_{ more test cases ... }_
