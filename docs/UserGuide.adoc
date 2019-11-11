@@ -174,7 +174,7 @@ Examples:
 
 ==== Delete a transaction: `txn delete`
 
-This command will delete the transaction with the specified id in the displayed list of transactions.
+This command will delete the transaction with the specified ID in the displayed list of transactions.
 
 Format: `txn delete <id>`
 
@@ -182,25 +182,25 @@ Examples:
 
 * `txn delete 3`
 
-==== List transactions(s): 'txn list'
+==== List transaction(s): 'txn list'
 
-This will the transactions from the currently active account, and you can optionally filter/sort them as well.
+This will list the transactions from the currently active account, and you can optionally filter/sort them as well.
 
 Format: `txn list [c/category] [f/from date] [u/until date] [af/from amount] [au/until amount] [d/description]
-[s/<aw|dw|ax|dx|ad|dd>]`
+[s/aw|dw|ax|dx|ad|dd]`
 
 Examples:
 
 * `txn list c/food u/10/4/2019 af/5 au/10 d/fruits s/ad`
 ****
-The explanation of the sorting abbreviations following 's/' are as follows:
+The explanation of the sorting abbreviations following `s/` are as follows:
 
-* aw: Sort the transactions by ascending date.
-* dw: Sort the transactions by descending date.
-* ax: Sort the transactions by ascending amount.
-* dx: Sort the transactions by descending amount.
-* ad: Sort the transactions by description, ascending alphabetically.
-* dd: Sort the transactions by description, descending alphabetically.
+* `aw`: Sort the transactions by ascending date.
+* `dw`: Sort the transactions by descending date.
+* `ax`: Sort the transactions by ascending amount.
+* `dx`: Sort the transactions by descending amount.
+* `ad`: Sort the transactions by description, ascending alphabetically.
+* `dd`: Sort the transactions by description, descending alphabetically.
 ****
 // end::transactions[]
 
