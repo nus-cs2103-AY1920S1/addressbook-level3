@@ -3,11 +3,22 @@ class Tab {
     - name: String
     - url: String
     - controller: UiPart<Region>
-    Tab(name:String): Tab
-    Tab(name:String, url:String, controller:UiPart<Region>): Tab
-    getName(): String
-    setName(name: String)
-    getController(): UiPart<Region>
-    setController(controller:UiPart<Region>): void
+    + Tab(name:String): Tab
+
+    + Tab(name:String, url:String, controller:UiPart<Region>): Tab
+
+    + getName(): String
+
+    + setName(name: String)
+
+    + getUrl(): String
+
+    + setUrl(url: String)
+
+    + getController(): UiPart<Region>
+
+    + setController(controller:UiPart<Region>): void
+
+    + equals(other:Object): boolean
 }
 @enduml

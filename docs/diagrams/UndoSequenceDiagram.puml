@@ -3,7 +3,8 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":TypeeParser" as TypeeParser LOGIC_COLOR
+participant ":Parser" as Parser LOGIC_COLOR
+participant ":UndoState" as UndoState LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 end box
 
@@ -14,18 +15,32 @@ end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> TypeeParser : parseCommand(undo)
-activate TypeeParser
+LogicManager -> Parser : parseInput(undo)
+activate Parser
+
+create UndoState
+Parser -> UndoState
+activate UndoState
+UndoState --> Parser
+Parser --> LogicManager
+
+LogicManager -> Parser : makeCommand()
+Parser -> UndoState : buildCommand()
 
 create UndoCommand
-TypeeParser -> UndoCommand
+UndoState -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> TypeeParser
+UndoCommand --> UndoState
 deactivate UndoCommand
 
-TypeeParser --> LogicManager : u
-deactivate TypeeParser
+UndoState -> Parser : u
+deactivate UndoState
+UndoState -[hidden]-> Parser : result
+destroy UndoState
+
+Parser --> LogicManager : u
+deactivate Parser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
@@ -35,7 +50,6 @@ activate Model
 
 Model -> HistoryManager : undo()
 activate HistoryManager
-HistoryManager -> HistoryManager :isUndoable()
 HistoryManager -> HistoryManager :resetData(ReadOnlyEngagementList)
 HistoryManager --> Model :
 deactivate HistoryManager

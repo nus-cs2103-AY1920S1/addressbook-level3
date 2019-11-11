@@ -1,7 +1,10 @@
 @startuml
 (*)  --> "check tab name in the tab list"
---> "Fetch Tab Information"
---> "setController of matching tab name"
---> "Return fetched tab"
--->(*)
+if "tab name matches" then
+    -->[true] "Fetch Tab Information"
+    --> "setController of matching tab name"
+    --> "Return fetched tab"
+    -->(*)
+else
+    -->[false] (*)
 @enduml
