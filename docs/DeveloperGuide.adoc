@@ -311,7 +311,7 @@ Step 4. The `SuggestionLogic` asks the static `Suggester` class which ``Prefix``
 image::command-suggestions/Step4.svg[]
 {nbsp} +
 
-Step 5. The `SuggestionLogic` then asks the static `Suggester` class to create the relevant `Suggester` object based on the `commandWord`. In this case, the static `Suggester` class returns a new `DeletePersonSuggester` because the `commandWord` is `deleteperson`.
+Step 5. The `SuggestionLogic` then asks the static `Suggester` class to create the relevant `Suggester` object based on the `commandWord`. In this case, the static `Suggester` class returns a new `DeletePersonCommandSuggester` because the `commandWord` is `deleteperson`.
 
 .Creating the relevant `Suggester`
 image::command-suggestions/Step5.svg[]
@@ -323,7 +323,7 @@ Step 6. The `SuggestionLogic` asks the `ArgumentList` object which `CommandArgum
 image::command-suggestions/Step6.svg[]
 {nbsp} +
 
-Step 7. The `SuggestionLogic` asks for the suggestions from the `DeletePersonSuggester` by providing three things to it. First, the current `Model` object, second the previously parsed `ArgumentList` object and finally, the `CommandArgument` to provide suggestions for. After obtaining the list of suggestions, the `SuggestionLogic` class returns it to the `SuggestingCommandBox` UI class for display.
+Step 7. The `SuggestionLogic` asks for the suggestions from the `DeletePersonCommandSuggester` by providing three things to it. First, the current `Model` object, second the previously parsed `ArgumentList` object and finally, the `CommandArgument` to provide suggestions for. After obtaining the list of suggestions, the `SuggestionLogic` class returns it to the `SuggestingCommandBox` UI class for display.
 
 .Obtaining and displaying suggestions
 image::command-suggestions/Step7.svg[]
