@@ -46,7 +46,7 @@ public class EditEventCommand extends UndoableCommand {
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event:\n %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in MooLah.";
+    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in MooLah!";
 
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
