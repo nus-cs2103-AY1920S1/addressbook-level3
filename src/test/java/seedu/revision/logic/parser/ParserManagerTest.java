@@ -23,8 +23,12 @@ import seedu.revision.logic.commands.main.EditCommand;
 import seedu.revision.logic.commands.main.ExitCommand;
 import seedu.revision.logic.commands.main.FindCommand;
 import seedu.revision.logic.commands.main.HelpCommand;
+import seedu.revision.logic.commands.main.HistoryCommand;
 import seedu.revision.logic.commands.main.ListCommand;
+import seedu.revision.logic.commands.main.RestoreCommand;
 import seedu.revision.logic.commands.main.StartCommand;
+import seedu.revision.logic.commands.main.StatsCommand;
+
 import seedu.revision.logic.commands.quiz.McqInputCommand;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.logic.parser.main.ParserManager;
@@ -48,7 +52,6 @@ public class ParserManagerTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
     }
 
     @Test
@@ -73,7 +76,6 @@ public class ParserManagerTest {
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
     }
 
     @Test
@@ -87,7 +89,21 @@ public class ParserManagerTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+    }
+
+    @Test
+    public void parseCommand_restore() throws Exception {
+        assertTrue(parser.parseCommand(RestoreCommand.COMMAND_WORD) instanceof RestoreCommand);
+    }
+
+    @Test
+    public void parseCommand_stats() throws Exception {
+        assertTrue(parser.parseCommand(StatsCommand.COMMAND_WORD) instanceof StatsCommand);
+    }
+
+    @Test
+    public void parseCommand_history() throws Exception {
+        assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
     }
 
     @Test
