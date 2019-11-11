@@ -127,15 +127,7 @@ public class ScheduleCommand extends UndoableCommand {
         if (dayToEdit.getListOfActivityWithTime().contains(activityWithTimeToAdd)) {
             throw new CommandException(MESSAGE_DUPLICATE_ACTIVITY_SCHEDULED);
         }
-        int numOfOverlap = 0;
-        for (ActivityWithTime activity : dayToEdit.getListOfActivityWithTime()) {
-            if (activityWithTimeToAdd.isOverlapping(activity)) {
-                numOfOverlap++;
-            }
-        }
-        if (numOfOverlap >= MAX_LIMIT_OF_OVERLAP) {
-            throw new CommandException(MESSAGE_EXCEED_LIMIT_OF_OVERLAP);
-        }
+        checkNumberOfOverlaps(dayToEdit, activityWithTimeToAdd);
 
         if (!isUndoRedo) {
             //Not due to undo method of UnscheduleEvent or redo method of ScheduleEvent
@@ -146,6 +138,21 @@ public class ScheduleCommand extends UndoableCommand {
 
         return new CommandResult(String.format(MESSAGE_SCHEDULE_ACTIVITY_SUCCESS, dayIndex.getOneBased()),
                 new UiFocus[]{UiFocus.AGENDA});
+    }
+
+    /**
+     * Check if the activity to be scheduled exceeds the limit of 5 overlapping activities.
+     */
+    private void checkNumberOfOverlaps(Day dayToEdit, ActivityWithTime activityWithTimeToAdd) throws CommandException {
+        int numOfOverlap = 0;
+        for (ActivityWithTime activity : dayToEdit.getListOfActivityWithTime()) {
+            if (activityWithTimeToAdd.isOverlapping(activity)) {
+                numOfOverlap++;
+            }
+        }
+        if (numOfOverlap >= MAX_LIMIT_OF_OVERLAP) {
+            throw new CommandException(MESSAGE_EXCEED_LIMIT_OF_OVERLAP);
+        }
     }
 
     @Override
