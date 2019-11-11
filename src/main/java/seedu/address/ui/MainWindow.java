@@ -7,12 +7,16 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.robot.Robot;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import seedu.address.commons.core.GuiSettings;
@@ -92,6 +96,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane notificationButtonPlaceholder;
+
+    @FXML
+    private Menu fileButton;
+
+    @FXML
+    private Menu helpButton;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -207,6 +217,13 @@ public class MainWindow extends UiPart<Stage> {
         ResizableWindow.enableResizableWindow(primaryStage, MINIMUM_WIDTH, MINIMUM_HEIGHT,
                 Double.MAX_VALUE, Double.MAX_VALUE);
 
+        // cancels the focus on items in the menubar (esp menu)
+        // necessary to allow users to navigate commandTextField using arrow keys after the mouse has gone over the menu
+        // as upon mouse exit of menu, focus on menu is still retained
+        Robot robot = new Robot();
+        menuBar.addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, e -> {
+            robot.keyPress(KeyCode.ESCAPE);
+        });
     }
 
     /**

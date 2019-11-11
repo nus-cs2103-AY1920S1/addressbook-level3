@@ -157,22 +157,22 @@ This section describes some noteworthy details on how certain features are imple
 // tag:uniqueIdentificationNumber[]
 === Unique Identification Number
 
-In Mortago, each entity is assigned a unique `IdentificationNumber`.
+In Mortago, you will find that each entity is assigned a unique `IdentificationNumber`.
 
-* `IdentificationNumbers` in Mortago consist of two parts: the `String typeOfEntity` referring to whether it is a worker, body or fridge, and `Integer idNum` referring to its unique ID number.
+* `IdentificationNumbers` in Mortago consist of two parts: `String typeOfEntity` that tells you whether it is a worker, body or fridge, and `Integer idNum` that refers to its unique ID number.
 * Each `IdentificationNumber` is automatically generated within the application, based on the next sequential ID number available.
-* The generation of unique `IdentificationNumbers` allows the user to identify different entities solely based on their `IdentificationNumber`, without relying on attributes such
+* You can identify different entities solely based on their `IdentificationNumber` due to its uniqueness, without relying on attributes such
 as `name` which may have similar duplications within the system.
 
 ==== Implementation
 
 The generation of unique `IdentificationNumbers` is facilitated by `UniqueIdentificationNumberMaps`.
-The class diagram below illustrates the relation between `IdentificationNumber` and `UniqueIdentificationNumberMaps`.
+You can refer to the class diagram below that illustrates the relation between `IdentificationNumber` and `UniqueIdentificationNumberMaps`.
 
 .Unique `IdentificationNumber` Class Diagram
 image::UniqueIdentificationNumberClassDiagram.png[]
 
-===== The first consideration to examine is determining the next free number.
+===== An important consideration to examine is determining the next free number.
 
 Note that in the diagram above, `UniqueIdentificationNumberMaps` keeps three `HashMap`, one for each entity.
 In each `HashMap`, the `Integer` ID number serves as the key, which maps to the entity it is assigned to.
@@ -201,7 +201,7 @@ This sequential iteration checks for any number that is not assigned to any work
 If there is an existing gap in the sequential iteration of numbers, this number is assigned to the newly added worker.
 If there is no gap available, the next highest number is assigned to the worker.
 
-===== Hence, this leads us to forumulate the execution sequence of generating a unique `IdentificationNumber` for a worker:
+===== This leads us to forumulate the execution sequence of generating a unique `IdentificationNumber` for a worker:
 
 . The user executes `add -w /name Zach ...` to add a new worker to Mortago.
 . `AddCommandParser` parses the given input and calls the `Worker` constructor.
@@ -214,12 +214,12 @@ The figure below illustrates the sequence diagram of the aforementioned steps.
 .Generation of unique `IdentificationNumber` Sequence Diagram
 image::UniqueIdentificationNumberSequenceDiagram.png[]
 
-Note that the execution sequence is similar for the generation of unique `IdentificationNumber` for fridges and bodies.
+You will find that the execution sequence will be similar for the generation of unique `IdentificationNumber` for fridges and bodies.
 
 ==== Design Considerations
 
 When designing this feature, it is important to keep in mind the scalability of the application.
-When the data set becomes large, the ID number can become arbitrarily large if gaps in the middle are not filled.
+When the number of entities grows exponentially, the ID number can become arbitrarily large if gaps in the middle are not (re)assigned.
 
 *Aspect: Tracking of numbers and determination of next free number*
 

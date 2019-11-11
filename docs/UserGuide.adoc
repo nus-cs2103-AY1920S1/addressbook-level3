@@ -480,13 +480,23 @@ You can select a body and view its full details by entering a select command wit
 
 Format: `select id`
 
-Example: `select 1` +
+Example: `select 1`
 
-View a body with the ID B00000001.
+The following illustrates how you can use the select command.
 
+. Suppose you wish to select a body with ID B00000001.
 
+image::Select1.png[]
 
+[start=2]
+. Enter in `select 1` in the command box.
 
+image::Select2.png[]
+
+[start=3]
+. The body with ID B00000001 will be selected and you can view all its details on the side panel.
+
+image::Select3.png[]
 
 // end::select[]
 
