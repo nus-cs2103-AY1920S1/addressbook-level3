@@ -16,6 +16,9 @@ My team was tasked to enhance the existing Command Line Interface application th
 
 This new application, FinSec, allows for these Finance Secretaries to easily store their claims requests, income inflows and keep track of budget accurately. On top of these, the secretary can store the contacts of all the people who have made transactions with him so that it ensures easier tracking in the future.
 
+== Role
+My primary role in the project was to implement the Goto, Sort, Check features. I also enhanced the existing Clear Feature. I was also handling the scheduling and tracking of the project, ensuring that deadlines are met.
+
 This is what our project looks like:
 [[fig-PPP-ui]]
 .Ui of the Project
