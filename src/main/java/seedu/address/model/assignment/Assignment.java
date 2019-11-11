@@ -159,4 +159,11 @@ public class Assignment {
     public void setCompletionStatus(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                       || (other instanceof Assignment // instanceof handles nulls
+                       && assignmentName.equals(((Assignment) other).assignmentName));
+    }
 }
