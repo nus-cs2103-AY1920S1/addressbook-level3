@@ -8,10 +8,10 @@
 == 1. Introduction
 
 This project portfolio showcases the contributions I have made to Mortago, a software project my team and I built
-for a software engineering module.
+for CS2103T, a software engineering module.
 
 === About the Team
-Our team comprises 5 dedicated Year 2 Computer Science students taking CS2103T, a compulsory software engineering module.
+Our team comprises 5 dedicated Year 2 Computer Science students taking CS2103T.
 
 === About the Project
 
@@ -39,8 +39,16 @@ The sections below detail my contributions as well as the documentation I wrote 
 You will encounter the following symbols and formatting in this document:
 
 ====
-* `undo`:  Dark red text with monospace font indicates that this text is a command or part of a command that can be entered into the CLI.
-* `[purple]#GenReportCommand.java#`: Purple text in monospace font indicates a component, class, function or object in the application's architecture.
+* `undo`:  Dark red text with monospace font indicates that this text is a command that can be entered into the CLI or a code component.
+* Tips: A tip annotation contains information that is likely to be useful to users.
+
+[TIP]
+This is an example of a tip.
+
+* Notes: A note contains explanatory information.
+
+NOTE: This is an example of a note.
+
 ====
 
 == 2. Summary of Contributions
@@ -79,12 +87,12 @@ to update the fields of an entity is essential, as the states of entities must b
 It was vital that the command didn't require every field to be supplied, as it would require excessive user effort.
 
 ** Highlights: The `update` command took a lot of effort to implement because Mortago's entities contain many fields.
-For instance, the [purple]`Body` class contains 16 fields. To make updating more efficient and easy to undo or redo, `update` makes use of special descriptors
+For instance, the `Body` class contains 16 fields. To make updating more efficient and easy to undo or redo, `update` makes use of special descriptors
 to store the fields' values.
 
 *Minor enhancement*: I added storage functionality for Mortago's entities.
 
-** What it does: The storage functionality allows Mortago's [purple]`Body`, [purple]`Worker`, [purple]`Fridge`, and [purple]`Photo` objects to be stored on the user's
+** What it does: The storage functionality allows Mortago's `Body`, `Worker`, `Fridge`, and `Photo` objects to be stored on the user's
 computer. Data is automatically saved after every change to Mortago.
 
 ** Justification: The storage functionality is critical to Mortago, as its core purpose is to act
@@ -94,19 +102,20 @@ as a digital database.
 entities contain many fields. I also had to deal with storing entities that contained other entities.
 
 === Code Contributed
-You can view my code at the link here: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[(via Reposense)]
+You can view my code at https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=falsegroupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ambervoong&tabRepo=AY1920S1-CS2103T-T13-2%2Fmain%5Bmaster%5D[Reposense].
+If you are on Mac and this link is broken, please open the PDF using Google Chrome's PDF reader or Acrobat Reader DC instead of Preview.
 
 === Other contributions
 Other contributions I have made to the team and the project are listed in this section, along with relevant links.
 
 ** Project management:
-*** Maintained the issue tracker and project discussion board on GitHub (https://github.com/AY1920S1-CS2103T-T13-2/main/issues?q=is%3Aissue+is%3Aclosed[link to issue tracker], https://github.com/AY1920S1-CS2103T-T13-2/main/projects/1[link to discussion board])
-*** Managed release `v1.2` on GitHub. (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/88[#88])
+*** Maintained the issue tracker and project discussion board on GitHub for every release (https://github.com/AY1920S1-CS2103T-T13-2/main/issues?q=is%3Aissue+is%3Aclosed[link to issue tracker], https://github.com/AY1920S1-CS2103T-T13-2/main/projects/1[link to discussion board])
+*** Managed two out of three releases in this project, `v1.2` and `v1.4` on GitHub (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/88[#88])
 ** Enhancements to existing features:
-*** Added storage functionality for Mortago's [purple]`Body`, [purple]`Worker`, [purple]`Fridge`, and [purple]`Photo` classes (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/91[#91])
+*** Added storage functionality for Mortago's `Body`, `Worker`, `Fridge`, and `Photo` classes (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/128[#128], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/91[#91])
 ** Documentation:
-*** Wrote the UG and DG for the `undo`, `redo`, and `update` features (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/113[#113], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/229/files[#229], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70])
-*** Morphed the AB3 User Guide for Mortago (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22])
+*** Wrote the UG and DG for the `undo`, `redo`, and `update` features (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/113[#113], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/229/files[#229], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/280[#280])
+*** Morphed general sections of AB3's User Guide, Developer Guide, and various documents for Mortago (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/22[#22], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/280[#280])
 *** Updated the User Guide diagrams to fit the team's chosen colour scheme (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/249[#249])
 *** Added tags to the User Guide for all features (https://github.com/AY1920S1-CS2103T-T13-2/main/pull/70[#70])
 *** Added use cases and a value preposition to the Developer Guide (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/41/files[#41], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/43[#43])
@@ -114,6 +123,8 @@ Other contributions I have made to the team and the project are listed in this s
 *** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T13-2/main/pull/31[#31], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/63[#63], https://github.com/AY1920S1-CS2103T-T13-2/main/pull/49[#49])
 *** Contributed to forum discussions (examples:  https://github.com/nus-cs2103-AY1920S1/forum/issues/88[88], https://github.com/nus-cs2103-AY1920S1/forum/issues/135[135])
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-T11-3/main/pull/114[for Team AddMin+], https://github.com/ambervoong/ped/issues?q=is:issue+is:open[for Team CaloFit])
+** Branding
+*** Designed and drew the Mortago icon used in the PDFs of the User Guide and Developer Guide
 
 == 3. Contributions to the User Guide
 These sections of the User Guide teach the user how to use the undo, redo, and update commands. It contains relevant examples,
@@ -133,7 +144,7 @@ _{end of extract}_
 
 
 == 4. Contributions to the Developer Guide
-These sections of the Developer Guide explains to a developer how the undo/redo feature works, its architecture, and important considerations made during its design.
+These sections of the Developer Guide explains to a developer how the undo/redo feature works, its architecture, and important considerations for its design.
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
