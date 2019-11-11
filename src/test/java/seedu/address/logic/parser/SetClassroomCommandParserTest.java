@@ -10,12 +10,22 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.SetClassroomCommand;
 
+/**
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ *  {@code FindStudentCommandParser}.
+ */
 public class SetClassroomCommandParserTest {
     private SetClassroomCommandParser parser = new SetClassroomCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                SetClassroomCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_noPrefix_throwsParseException() {
+        assertParseFailure(parser, "class", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 SetClassroomCommand.MESSAGE_USAGE));
     }
 

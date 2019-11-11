@@ -125,6 +125,25 @@ public class Assignment {
         return otherAssignment != null
                    && otherAssignment.getAssignmentName().equals(getAssignmentName());
     }
+    /**
+     * Returns true if both assignments have the same identity and data fields.
+     * This defines a stronger notion of equality between two assignments.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Assignment)) {
+            return false;
+        }
+
+        Assignment otherStudent = (Assignment) other;
+        return otherStudent.getAssignmentName().equals(getAssignmentName())
+                && otherStudent.getAssignmentDeadline().equals(getAssignmentDeadline())
+                && otherStudent.getGrades().equals(getGrades());
+    }
 
     @Override
     public String toString() {
