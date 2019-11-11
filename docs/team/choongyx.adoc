@@ -56,7 +56,7 @@ This helps them to better analyze their spending habits.
 
 ** Enhancements to existing features:
 *** Refactored and modified existing class `Address` to `Cost` to fit the needs of our application
-(Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/61)[#61],
+(Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/61[#61],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/67[#67],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/71[#71])
 
@@ -72,7 +72,7 @@ https://github.com/AY1920S1-CS2103T-F13-3/main/pull/98[#98])
 
 ** Community:
 *** PRs reviewed with non-trivial review comments (Pull requests
-https://github.com/AY1920S1-CS2103T-F13-3/main/pull/62)[#62],
+https://github.com/AY1920S1-CS2103T-F13-3/main/pull/62[#62],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/70[#70],
 https://github.com/AY1920S1-CS2103T-F13-3/main/pull/81[#81])
 *** Conducted manual testing, reported bugs and offered suggestions for our team
