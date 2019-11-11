@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Mark
+=== PROJECT: Mark
 
 ---
 
@@ -11,7 +11,6 @@
 This document will introduce my role and contribution in Mark.
 Mark is a 6 weeks group project for the module CS2103T Software Engineering.
 Our team composed of 5 NUS Computer Science year 2 students.
-We have a team meeting every Tuesday and Thursday.
 From this project, we learn the skill of designing a Java application with basic CRUD structure,
 working on git,
 distributing works on Github,
@@ -101,8 +100,9 @@ The section extracted from the Developer Guide below showcase my ability to writ
 
 ==== _------------- This is the start of extraction -------------_
 include::../DeveloperGuide.adoc[tag=reminder]
+
 include::../DeveloperGuide.adoc[tag=use-case-reminder]
-include::../DeveloperGuide.adoc[tag=test-reminder]
+//include::../DeveloperGuide.adoc[tag=test-reminder]
 
 ==== _------------- This is the end of extraction -------------_
 

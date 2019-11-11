@@ -543,7 +543,7 @@ This mechanism is facilitated by `Reminder` and `ReminderAssociation`.
  the relation from `Reminder` to `Bookmark` and `Reminder` to `Bookmark`.
 
 .Class diagram of the Reminder component
-image::ReminderAssociationDiagram.png[]
+image::ReminderAssociationDiagram.png[600, 400]
 
 There are four parts of the reminder feature:
 
@@ -573,7 +573,7 @@ It works the same as `goto` command of the bookmark.
 
 The following activity diagram summarizes what happens when a user attempts to use a reminder command:
 
-image::ReminderActivityDiagram.png[]
+image::ReminderActivityDiagram.png[600, 400]
 
 ==== Design Considerations
 ===== Aspect: How to represent the relationship between reminder and bookmark

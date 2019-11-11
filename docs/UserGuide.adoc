@@ -1170,7 +1170,7 @@ image::ui-screenshots/GotoReminderUi2.png[400, 400]
 
 * The tab will switch to Online and show NUSMODs website.
 
-image::ui-screenshots/GotoReminderUi3.png[600, 400]
+image::ui-screenshots/GotoReminderUi3.png[400, 400]
 
 Other examples:
 
