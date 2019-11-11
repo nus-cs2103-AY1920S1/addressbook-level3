@@ -1259,7 +1259,6 @@ Expected: No tasks are assigned and error message for invalid format is shown.
 .. Other incorrect `assignTask` commands to try: `assignTask 2000 1` (this should be an incorrect task index specified) +
 `assignTask -1 2 3` (this is an incorrect format as indexes should be positive).
 
-
 === Saving data
 
 . Dealing with missing/corrupted data files

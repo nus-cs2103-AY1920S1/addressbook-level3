@@ -34,6 +34,7 @@ that I have added to the user and developer guides in relation to these enhancem
 
 This section shows a summary of my coding, documentation and other helpful contribution towards the team project.
 
+Credits to https://javaee.github.io/javamail/ for providing the JavaMail library and the javax.Mail API.
 === Code Contributed:
 Please click the link to see my sample code: link:https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=philipalexanderb&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]
 
@@ -70,9 +71,6 @@ normal GUI that user normally encounters and are very easy to remember. Some of 
 works which was outside the coverages of the course. These enhancements are extendable as we can further enhance to support
 more email domains which users wish to use as well as send attachments. Overall, the enhancements can support all the basic one-way mailing features which
 are sufficient for the optimisation of the team leaders' works.
-
-==== Credits
-Credits to https://javaee.github.io/javamail/ for providing the JavaMail library and the javax.Mail API.
 
 === Secondary Enhancement - Meeting attribute in the project.
 
@@ -128,12 +126,11 @@ To add a project meeting:
 
 1. Type `addProjectMeeting c/19/11/2019 1300 s/DIscussion on version 2` and press enter to execute it.Note that
 this project meeting will be held after the 4th meeting on 16/11/2019 1700 and before the 5th meeting on 29/11/2019 1300.
-image:addProjectMeetingPPP1.png[]
+image:addProjectMeetingPPP1.png[addProjectMeetingPPP1, 400]
 
 2. Success message with the respective information about the meeting will be displayed. The meeting added will
 be automatically sorted according to the dates and times in ascending order. Thus, the new meeting added will
-be placed as number 5.
-image:addProjectMeetingPPP2.png[]
+be placed as number 5 and the previous meeting with number 5 will be move to number 6.
 
 === Email Features
 
@@ -182,12 +179,11 @@ To send reminder:
 
 1. Type `sendReminder d/7` and press enter to execute it.Note that the date at the time this screenshot was taken is 10/11/2019, thus,
 only meeting meetings 2-4 and task 1-3 will be sent as reminders to the members.
-image:sendReminderPPP1.png[]
+image:sendReminderPPP1.png[sendReminderPPP1, 350]
 
 2. A success message will be displayed in the box saying "Reminders have been sent!"
 
 3. Members will receive an email with the tasks due and meetings happening within the next 7 days.
-image:sendReminder3.png[]
 
 [NOTE]
 We will not check the correctness of the members' email addresses
@@ -209,7 +205,7 @@ The diagram below shows the class diagram of the meeting class and how it intera
 
 .Class Diagram for Meeting
 
-image::MeetingClassDiagram.png[]
+image::MeetingClassDiagram.png[MeetingClassDiagram, 200]
 
 As shown above, each project stores multiple meetings in a list. These meetings are automatically sorted based on the time in ascending order.
 Here are some meeting related commands that can be executed by the app.
@@ -241,7 +237,7 @@ SendReminder takes in a single integer as parameter. The integer will be the dur
 The following sequence diagram shows the process of sending reminder to the project members.
 
 .Sequence Diagram for sendReminder
-image::SendReminderSequenceDiagram.png[]
+image::SendReminderSequenceDiagram.png[SendReminderSequenceDiagram, 800]
 
 These are the stages shown in figure 2.
 
@@ -255,7 +251,7 @@ These are the stages shown in figure 2.
 . Display the success message.
 
 .Activity Diagram for sendReminder
-image::SendReminderActivityDiagram.png[]
+image::SendReminderActivityDiagram.png[SendReminderActivityDiagram, 700]
 
 The diagram above shows how `sendReminder` works. There are 2 possible error messages for invalid input. Firstly,
 if the user inputs nothing as the duration and input cannot be empty error message is shown. Secondly,
@@ -294,7 +290,7 @@ signIn takes in two inputs, first is the email address of the user (in gmail), s
 The following sequence diagram shows the process of signing in to the user's account.
 
 .Sequence Diagram for signIn command
-image::SignInSequenceDiagram.png[]
+image::SignInSequenceDiagram.png[SignInSequenceDiagram, 550]
 
 These are the stages shown in figure 4.
 
@@ -306,16 +302,6 @@ These are the stages shown in figure 4.
 
 
 ==== Design considerations
-
-===== Aspect: Algorithm to check validity of the Account in SignIn commands
-
-* **Alternative 1 (current choice):** Sends an email to a dummy email address cs2103t17@gmail.com.
-** Pros: Easy to implement. Do not need to use external libraries which might be time-consuming and difficult to learn.
-** Cons: Takes a while for the method to be executed as it checks whether it can send an email to the address cs2103t17@gmail.com.
-* **Alternative 2:** Use external libraries and utilise more of the javax.Mail API.
-** Pros: Might make the email checking more efficient, thus need only check for the password input.
-** Cons: Would have to use external libraries which will be harder to implement. Only checks for the existence of the email address and does not
-check for the correctness of the password input.
 
 ===== Aspect: Eliminating signIn command
 
