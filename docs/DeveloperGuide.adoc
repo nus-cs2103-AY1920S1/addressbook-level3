@@ -1124,6 +1124,64 @@ _{ more test cases ... }_
 
 _{ more test cases ... }_
 
+=== Adding tags to an expense
+. Adding tags to an expense in a list with multiple expenses (filtered or not).
+.. Prerequisites: Multiple expenses in the list. First expense does not have the tag "_holiday_" but have the tag "_tech_".
+.. Test case: `tag add 1 t/holiday` +
+    Expected: Tag "_holiday_" is added to the first expense. Details of first expense shown in the status message.
+.. Test case: `tag add 1 t/tech` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 t/holiday t/tech` +
+    Expected: Tag "_holiday_" is added to the first expense. Details of first expense shown in the status message.
+.. Test case: `tag add 0 t/holiday` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 holiday` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 t/holiday time` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 t/holiday__` +
+    Expected: No tags added to any expense. Error details shown in the status message. +
+
+. Adding tags to an expense in an empty list
+.. Test case: `tag add 1 t/holiday` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+
+=== Removing tags from an expense
+. Removing tags from an expense in a list with multiple expenses.
+.. Prerequisites: Multiple expenses in the list. First expense has the tag "_holiday_" but does not contain the tag "_tech_".
+.. Test case: `tag rm 1 t/holiday` +
+    Expected: Tag "_holiday_" is removed from the first expense. Details of first expense shown in the status message.
+.. Test case: `tag rm 1 t/tech` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 t/tech t/holiday` +
+    Expected: Tag "_holiday_" is removed from the first expense. Details of first expense shown in the status message.
+.. Test case: `tag rm 0 t/holiday` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 holiday` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 t/holiday time` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 t/holiday__` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+
+. Removing tags from an expense in an empty list
+.. Test case: `tag rm 1 t/holiday` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+
+=== Filtering expenses by tag
+. Filtering expenses by tag while all expenses are listed
+.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list. One or more expenses contain the tag "_holiday_". All expenses do not contain the tag "_tech_"
+.. Test case: `tag filter t/holiday`
+    Expected: Expenses that contain the tag "_holiday_" are listed out. Number of expenses shown in status message.
+.. Test case: `tag filter t/tech`
+    Expected: No expense listed out.
+
+== Listing out all existing tags
+. Listing out all existing tags while all expenses are listed
+.. Prerequisites: List all expenses using the `list` command.
+.. Test case: `tag list`
+    Expected: All existing tags are listed out in the status message.
+
 === Saving data
 
 . Dealing with missing/corrupted data files
