@@ -604,11 +604,12 @@ These pieces of information will then be displayed on the Home Page through stan
 Since the problem description cannot be viewed fully from the question list, we introduced a new problem description panel. When type `view [id]`, the panel updates to
 display all the additional information a question has to provide.
 
-General Procedure of Command execution:
+==== General Procedure of Command execution:
 
 * User types `view [id]` in the command box.
 The `MainApp` class receives the input, calls the `commandLogic` class to executes the command and returns an `CommandResult` object.
 
+==== Implementation Details
 The implementation details are narrated following user cases as follows:
 
 . When the `view` command is executed, it switches the pane to "Question" by calling the `applicationState` object's `setCurrentActivity(Activity pane)` method.
@@ -619,8 +620,20 @@ question that is currently of interest by the user. If positive, they will call 
 
 As such, the functionality required by problem display panel is well covered.
 
+==== Future Improvement
 In version 2.0, we aim to achieve rich text display of problem description. It can be in MarkDown format, containing LaTeX formulas, images, URL links,
 coloured text, formatted code snippet, etc.
+
+==== Design Considerations
+This is my design consideration on how to update the problem statement panel when a `view` command is entered.
+
+* Alternative 1 (current choice): Use `questionLogic` to track the current `Question` being viewed by the user. `UI` components can access attributes in `Logic` components and display them.
+** Pros: More OOP. It is clear that `UI` does not interfere with the tasks responsible by the `Logic` component. There is less coupling, making the code easier to understand and undertake testing.
+** Cons: Complicates the code base by abstracting another attribute onto the `QuestionLogic` class.
+* Alternative 2 : Stores the `Problem Description` content as a String temporarily. Use `MainWindow` controller to check whether
+the command generated is a `view` command. If yes, force the `ProblemStatementPanel` to update.
+** Pros: Easy to implement based on the existing code base.
+** Cons: It breaks OOP's open and close principle. It mixed up `UI` class with `Logic` class.
 
 //end::problem_description[]
 
