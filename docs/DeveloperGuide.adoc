@@ -1139,15 +1139,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample projects. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Deleting a person
 
@@ -1160,13 +1158,14 @@ _{ more test cases ... }_
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
-
-_{ more test cases ... }_
-
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+   
+=== Editing a task
+  
+  .. Prerequisities: Checkout to a project using the `checkout` command. Multiple tasks in the task list.
+  .. Test case: `editTask 1 d/` +
+     Expected: First task is marked as done(cross changes to a tick).
+  .. Test case: `editTask 2 s/Do parts of the parser` +
+     Expected: The description of the second task is edited. Since d/ is not included in the input, the task is unchecked.
+  .. Test case `editTask 3 d/` +
+     Expected: No task is edited. Error details shown in the status message.
+  .. Other incorrect editTask commands to try: `editTask x` (where x is negative or larger than the list size), `editTask c/1/1/2019 1500` (Wrong time format)
