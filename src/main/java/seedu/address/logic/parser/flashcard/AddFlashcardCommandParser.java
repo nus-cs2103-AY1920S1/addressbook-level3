@@ -9,8 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
 
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.flashcard.AddFlashcardCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -29,6 +31,9 @@ import seedu.address.model.tag.Tag;
  * Parses input arguments and creates a new {@code AddFlashcardCommand} object
  */
 public class AddFlashcardCommandParser implements Parser<AddFlashcardCommand> {
+
+    private static final Logger logger = LogsCenter.getLogger(AddFlashcardCommandParser.class);
+
     /**
      * Parses the given {@code String} of arguments in the context of the {@code AddFlashcardCommand}
      * and returns a {@code AddFlashcardCommand} object for execution.
@@ -36,6 +41,9 @@ public class AddFlashcardCommandParser implements Parser<AddFlashcardCommand> {
      */
     public AddFlashcardCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
+        logger.info("Parsing AddFlashcardCommand for arg: " + args);
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER,
                 PREFIX_TITLE, PREFIX_TAG);
 

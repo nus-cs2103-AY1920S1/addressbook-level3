@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.FILTER;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.commandresults.FlashcardCommandResult;
@@ -27,9 +29,11 @@ public class FilterFlashcardByTagCommand extends Command {
 
     public static final String NO_ITEM_FOUND = "There is no such FlashCard with the specified tag(s).";
 
-    private ArrayList<String> tagKeywords;
+    private static final Logger logger = LogsCenter.getLogger(FilterFlashcardByTagCommand.class);
 
+    private ArrayList<String> tagKeywords;
     private final FlashcardContainsTagPredicate tagPredicate;
+
 
     /**
      * Constructor for filter by tag.
@@ -65,6 +69,9 @@ public class FilterFlashcardByTagCommand extends Command {
         ArrayList<String> taggedFlashcardResult = model.collectTaggedFlashcards(tagPredicate);
         //model.updateFilteredFlashcardList(tagPredicate);
         StringBuilder sb = new StringBuilder("");
+
+        logger.info("Filtering flashcards of tag: " + showTagQueries());
+
         for (String s : taggedFlashcardResult) {
             sb.append(s);
             sb.append("\n");
