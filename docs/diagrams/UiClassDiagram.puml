@@ -19,6 +19,7 @@ Class MealCard
 Class ReportWindow
 Class StatusBarFooter
 Class CommandBox
+class Notification
 }
 
 package Model <<Rectangle>> {
@@ -34,6 +35,7 @@ HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> MainWindow
+UiManager -> Notification
 MainWindow --> HelpWindow
 MainWindow --> ReportWindow
 MainWindow *-down-> CommandBox
@@ -42,6 +44,7 @@ MainWindow *-down-> DishListPanel
 MainWindow *-down-> MealListPanel
 MainWindow *-down-> StatusBarFooter
 MainWindow *-down-> BudgetBar
+
 
 DishListPanel -down-> DishCard
 MealListPanel -down-> MealCard
@@ -63,6 +66,7 @@ MealCard ..> Model
 BudgetBar ..> Model
 UiManager -right-> Logic
 MainWindow -left-> Logic
+Notification -> Logic
 
 DishListPanel -[hidden]left- MealListPanel
 CommandBox -[hidden]left- ResultDisplay
