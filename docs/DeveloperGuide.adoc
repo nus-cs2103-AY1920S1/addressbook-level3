@@ -897,8 +897,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |forgetful user |have guidance when typing |complete my commands easily
 
-|`* *` |careless user who type wrong commands frequently|undo my commands |do not have to manually reverse my mistakes
-
 |`* *` |inexperienced user |group people’s timetables |complete my commands easily
 
 |`* *` |user |generate email invite |notify other members of the group/project about the scheduled meeting
@@ -911,7 +909,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `TimeBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -935,7 +933,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TimeBook shows an error message.
 +
 Use case resumes at step 2.
 
