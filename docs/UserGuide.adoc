@@ -55,7 +55,7 @@ the category "food" and the description "pie".
 [[Features]]
 == Features
 
-=== Transactions
+=== Transaction
 The _Transaction_ feature represents the bread and butter logging of incomes and expenditures.
 PalPay will tabulate and display the overall balance to give users a better insight on their spending and saving habits.
 
@@ -67,10 +67,21 @@ The _Transactions_ are split into:
 These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
 
 === Budgets
+The _Budget_ feature represent the budget to be set until a stipulated deadline for a certain *CATEGORY*.
+As you make transactions of particular *CATEGORY*, the budget with the same *CATEGORY* will be adjusted accordingly.
+(see <<Set, *Setting a Budget*>>)
 
-=== Ledgers
 
-=== Projections
+=== Ledger
+The _Ledger_ feature allows you to track outstanding balances when you
+split a bill with your friends and when they pay you back.
+
+_Ledger_ commands consist of:
+
+. `split` : split a bill between friends
+. `receive` : log a single payment from 1 friend
+
+=== Projection
 By using the _Projections_ feature, you can project your:
 
 . Account Balance
@@ -292,12 +303,12 @@ image::out_ug_8.png[]
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
 
-=======
 //end::out[]
 
 // tag::set[]
 
 [[Set]]
+
 === Setting a Budget : `set`
 
 You can set a budget for a particular category until a certain date, given it is not already present in the budget list.
