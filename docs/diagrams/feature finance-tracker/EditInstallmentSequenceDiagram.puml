@@ -34,7 +34,9 @@ EditInstallmentCommandParser -> EditInstallmentCommand
 activate EditInstallmentCommand
 
 EditInstallmentCommand --> EditInstallmentCommand : createEditedInstallment(Installment,\nEditInstallmentDescriptor)
-
+activate EditInstallmentCommand
+EditInstallmentCommand --> EditInstallmentCommand : Installment
+deactivate EditInstallmentCommand
 EditInstallmentCommand --> EditInstallmentCommandParser : d: EditInstallmentCommand
 deactivate EditInstallmentCommand
 
