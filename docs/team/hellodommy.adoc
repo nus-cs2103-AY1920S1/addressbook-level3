@@ -22,12 +22,12 @@ The team consists of five Year 2 Computer Science undergraduates in the National
 (NUS), including myself.
 
 The project was completed as part of a CS2103T Software Engineering module offered by the NUS School of Computing.
-We were given six weeks to to either _morph_ or _enhance_ an existing Java project,
+We were given six weeks to either _morph_ or _enhance_ an existing Java project,
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)].
 
 We chose to morph the project into *Athletick*, a tool for coaches and captains to use to keep track of their
-team's attendance and performance. *Athletick* also features a calendar for coaches and captains to plan
-ahead, and supports the sorting, filtering, and finding of athletes in their database.
+team's attendance and performance. *Athletick* also features a calendar for coaches and captains to plan their
+schedules, and supports the sorting, filtering, and finding of athletes in their database.
 
 Like Address Book, *Athletick* uses the command-line as its main method of input and a JavaFX Graphical User
 Interface for display. Some constraints of the project were that it should have a command-line input, and
@@ -43,11 +43,11 @@ include::../DeveloperGuide.adoc[tag=symbol]
 
 This section shows a summary of my coding, documentation, and other helpful contributions to *Athletick*.
 
-*Enhancement addded (major):*  I added the ability to _add_, _delete_, and _view_ events and records.
+*Enhancement added (major):*  I added the ability to _add_, _delete_, and _view_ events and records.
 
 * What it does: It allows coaches and captains to log records that an athlete completed for a certain
-event, on a certain day, into *Athletick*. An event can store multiple records over time for the same athlete in
-order to track their progress, which can be visualised with a line chart provided.
+event, on a certain day, into *Athletick*. An event can store multiple records over time for the same athlete
+to track their progress, which can be visualised with a line chart provided.
 
 * Justification: It is crucial for coaches and captains to track the progress of their team over time,
 hence the ability to add records. There are also different types of recordings to take in a sports team --
@@ -57,14 +57,14 @@ The ability to delete records and events was also necessary, as teams may no lon
 events, or records can be entered incorrectly.
 +
 The presentation of record progress over a line chart was meant to give coaches and captains a quick
-overview on their athlete's fitness status.
+overview of their athlete's fitness status.
 
 * Highlights: This enhancement works well with future extensions to further analyse and present the records
 data as the required framework has been built.
 +
-An in-depth analysis of design alternatives was necessary due to complex structure of the records data
+An in-depth analysis of design alternatives was necessary due to the complex structure of the records data
 which required efficient storage and retrieval. There was up to 4 levels of nesting  - a list of events,
-each event with a list of athletes paired with their own list of records, each record having a date and
+each event with a list of athletes paired with their personal list of records, each record having a date and
 timing. This also made the implementation exceptionally challenging.
 
 *Enhancement added (minor):* I added the ability to _filter_ athletes by their tags.
@@ -87,14 +87,14 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sort
 
 * Project management
 ** Acted as the Team Lead and assigned GitHub issues to team members
-** Managed the deliverables for all 4 milestones -
+** Managed the deliverables for all 4 milestones:
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/1[v1.1],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/2[v1.2],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/3[v1.3],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/4[v1.4]
 ** Released https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3.3[v1.3.3]
-of the product, prior to the final v1.4 release
-* Enhancement to existing feature
+of the product, before the final v1.4 release
+* Enhancement to an existing feature
 ** Extended the existing _find by name_ feature to allow users to _find by tags_ (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/84[#84])

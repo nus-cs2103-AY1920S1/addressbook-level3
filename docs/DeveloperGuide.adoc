@@ -368,7 +368,7 @@ one with the `training` command makes it editing much quicker.
 
 === Performance feature
 
-Athletick allows users to record athlete's performance details from timed trials.
+Athletick allows users to record an athlete's performance details from timed trials.
 With this information recorded, Athletick allows users to get an overview of the team's capability and
 progress in specific events.
 
@@ -407,7 +407,7 @@ of the HashMap is a list of `[green]#Record#` s under the `[green]#Person#`.
 
 This structure allows each `[green]#Person#` to have multiple `[green]#Record#` s stored in Athletick so
 their progress over time can be analysed using the `[green]#AthletickDate#` and `[green]#Timing#`
-attributes in `[green]#Record#`. Additionally, athlete's records can be easily retrieved by calling the
+attributes in `[green]#Record#`. Additionally, an athlete's records can be easily retrieved by calling the
 `[green]#HashMap#get()#` method.
 
 `[green]#Event#` s are added using the `[green]#EventCommand#`, and `[green]#Record#` s are added using the
@@ -468,8 +468,8 @@ image::recordspanel_sequencediagram.png[width="400"]
 
 ==== Design Considerations
 
-This section explains the factors that we took into consideration when making decision on how different
-aspects in `[green]#Performance#` should be implemented.
+This section explains the factors that we took into consideration when deciding on how different
+aspects of `[green]#Performance#` should be implemented.
 
 ===== Aspect: Method of storing performance records for athletes.
 
@@ -501,8 +501,8 @@ is not always known
 **Reason for choice of Alternative 1:**
 
 * Retrieving from a HashMap is fast, which fulfils one of our non-functional requirements of being able to support a database of 1000 athletes
-* Using a athlete-records relationship is similar to the key-value relationship in HashMap so the existing
-methods that are in the HashMap API are relevant
+* Using an _athlete-records_ relationship is similar to the _key-value_ relationship in HashMap so the
+existing methods that are in the HashMap API are relevant
 
 ===== Aspect: Method of displaying events and records to users.
 
@@ -520,14 +520,14 @@ graph on each athlete's records under this event.
 | *Alternative 2: Display all records under all events.*
 
 |**Pros**
-a|* Viewing events, followed by "zooming" in to a particular event's records gives users a more immersive
+a|* Viewing events, followed by "zooming" into a particular event's records gives users a more immersive
 experience
-a|* Navigating is simple as viewing events and its records requires only one command
+a|* Navigating is simple as viewing events and its records require only one command
 
 |**Cons**
 a|* Getting an overview of all events and its respective records is not possible
-* Supporting 2 commands results in overhead in parsing the command and creating the relevant Ui in the
-feature box
+* Supporting 2 commands results in overhead in parsing the command and creating the relevant `[green]#Ui#`
+in the feature box
 a|* Displaying of information will require a lot of scrolling (since the feature box is limited in size) and
 can be difficult when the event of interest is located at the end
 |===
