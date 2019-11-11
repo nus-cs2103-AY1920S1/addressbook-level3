@@ -492,6 +492,10 @@ public class MainWindow extends UiPart<Stage> {
                     GenericCommandWord.DELETE,
                     Collections.emptyList(),
                     Collections.emptyList());
+            commandBox.enableSuggestionAndSyntaxHighlightingFor(
+                    GenericCommandWord.EDIT,
+                    EditExpenseCommandParser.REQUIRED_PREFIXES,
+                    EditExpenseCommandParser.OPTIONAL_PREFIXES);
 
         //event list command
         } else if (panelName.equals(EventListPanel.PANEL_NAME)) {

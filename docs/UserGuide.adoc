@@ -179,15 +179,38 @@ Using it after a prior statistic command will show you the previous statistics g
 
 
 === Generic commands
-MooLah has 5 generic commands which behave differently depending on which Panel you are viewing.
+MooLah has 4 generic commands which behave differently depending on which Panel you are viewing.
 
-These commands are `add`, `list`, `clear`, `delete`, and `edit`. These generic commands differ from Panel to Panel.
+These commands are `add`, `list`, `delete`, and `edit`. These generic commands differ from Panel to Panel.
 
 For example, if you are in the Expense List Panel, then: +
 `add` = `addexpense`
 
 However, in the Aliases panel: +
  `add` = `addalias`
+
+.List of all generic command configurations
+[cols="0%,<25%"]
+|=======================================================================
+|Expense List   |`add` addexpense +
+                `delete` deleteexpense +
+                `list` listexpense +
+                `edit` edit expense
+
+|Budget List    |`add` addbudget +
+                `list` listbudget
+
+|Event List     | `add` addevent +
+                `delete` deleteevent +
+                `list` listevent +
+                `edit` editevent
+|Aliases        |`add` addalias +
+                `list` listalias +
+                `delete` deletealias
+|Primary Budget |`add` addexpense +
+                 `delete` deleteexpense-primary +
+                 `edit` editexpense-primary
+|=======================================================================
 
 
 
