@@ -145,6 +145,7 @@ For example, the `Logic` component defines its API using an interface `Logic`.
 `Logic` is then implemented by the `LogicManager` concrete class, which
 exposes its functionality to the rest of the application.
 
+[[Design-ArchitectureInteraction]]
 ==== Architecture: Interactions between Components
 
 The sequence diagram below shows how the components interact with each other
@@ -887,7 +888,7 @@ A sample, valid `AB1234.json` is given below for a fictional course `AB1234`.
 ----
 {
     "courseCode": "AB1234",
-    "courseCredit": "4",]
+    "courseCredit": "4",
     "description": "Course description for AB1234.",
     "faculty": "A Faculty in NUS",
     "fulfillRequirements": [ "AB2234" ],
@@ -1150,6 +1151,10 @@ program checks if the user satisfies the course's prerequisites.
 
 .CheckCommand Sequence Diagram
 image::ryanytan-CheckCommandSequenceDiagram.png[]
+
+The implementation in the back-end is quite similar to the other features, as
+seen in the similarities between the above sequence diagram and the one
+<<Design-ArchitectureInteraction, under the Architecture section>>.
 
 // end::courseplanner[]
 
