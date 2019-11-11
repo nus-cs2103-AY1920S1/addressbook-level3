@@ -174,8 +174,7 @@ colour scheme of individual components and general look and feel of the UI.
 
 We were put in charge of our own sections of the User Guide content while
 another member had styled and verified the cohesiveness of the User Guide as a
-whole. Most of the screen-shots were also provided by the team member in
-question.
+whole. The following is my section of the User Guide:
 
 '''
 
