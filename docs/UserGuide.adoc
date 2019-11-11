@@ -1,11 +1,10 @@
-= guiltTrip() - User Guide
+= GuiltTrip - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
-:imagesDir: images/user-guide-pictures
 :stylesDir: stylesheets
 :xrefstyle: full
 :experimental:
@@ -86,8 +85,8 @@ Isn't this COOL?
 Ever feel like your list of expenses are extremely messy? This is where categories come in handy! Every entry belongs to one category, which makes it easier for you to organize your data! Categories can be either grouped under Expense or Income.
 GuiltTrip comes with a default set of Categories as listed below. All entries must have a category.
 
-* Income: `Business,Salary,Gifts,Loans`
-* Expense: `Food,Travel,Family,Bills,Entertainment,Transport,Shopping,HealthCare,Groceries,Rent`
+* Income: `Business, Salary, Gifts, Loans`
+* Expense: `Food, Travel, Family, Bills, Entertainment, Transport, Shopping, HealthCare, Groceries, Rent`
 
 Categories for Expense, Budget and Wish all belong under the Expense Category. Categories for Income belong under the Income Category.
 An example would be when creating a new Budget, the category that the budget was created must belong to one of the existing categories in Expense.
@@ -179,21 +178,24 @@ Other Examples:
 Want to feel guiltTripped by your one Mala and Bubble Tea per day? GulitTrip's main function is thus used to record your sinful expenses and income.
 
 ==== Adding Expense: `addExpense`
-Adds a new expenditure to your total spending.
-Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
-in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
+Adds a new expenditure to your total spending. Some things to take note:
+
+* Inputs can be arranged in a different order.
+* Tag may be omitted from the command.
+* Category must already exist in the list of expense categories. (type `listCategories`)
+* Amount must be larger than 0 and less than 10 million.
 
 Format: `addExpense cat/<category> n/<description> amt/<amount> d/<date> [tg/<tag>]`
 
-* `<category name>`: The `category` that the expense belongs to.
+* `<category name>`: The `category` that the expense falls under to.
 * `<description>`: The name of this expense.
-* `<expenditure>`: The amount spent for this expense. It can contain at most 2 decimal points.
+* `<amount>`: The amount spent for this expense. It can contain at most 2 decimal points.
 * `<date>`: The date of this expense.
-* `<tag>`: Optional tags for this expense. The tag must not have spaces and most only be alphanumeric.
+* `<tag>`: Optional tags for this expense. The tag must not have spaces and can only be alphanumeric.
 
 Example Usage:
 [start = 1]
-. If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food typ/Expense n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
+. If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
 +
 image::addingExpense-1.png[]
 
@@ -203,30 +205,8 @@ image::addingExpense-2.png[]
 
 Other examples:
 
-* `addExpense c/Gifts n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
-* `addExpense c/Travel n/Travel To Alaska amt/550000 d/2019 09 09`
-
-==== Adding Income : `addIncome`
-Adds a new Income to your total income.
-Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist in the list of category.  Amount must be larger than 0 and less than 10 million.
-
-Format: `addIncome cat/<category name> n/<description> amt/<income> d/<date> [tg/<tag>]`
-
-* `<category name>`: The `category` that the entry belongs to.
-* `<description>`: The name of this entry.
-* `<amount>`: The amount spent for this income. It can contain at most 2 decimal points.
-* `<date>`: The date of this income.
-* `<tag>`: Optional tags for this income. The tag must not have spaces and must only be alphanumeric.
-
-Example Usage:
-[start = 1]
-. If you would like to add a recent Income from a bursary, key in the command  `addIncome cat/Gifts n/Bursary amt/5000 d/2019 11 09 tg/reward for studying` .
-. You should see the new income being added into in the list of entries as displayed below.
-
-Other examples:
-
-* `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
-* `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
+* `addExpense cat/Gifts n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
+* `addExpense cat/Travel n/Travel To Alaska amt/550000 d/2019 09 09`
 
 ==== Editing a Expense: `editExpense`
 
@@ -344,6 +324,88 @@ if you stopped your Spotify subscription.
 View after the command above is executed:
 
 image::autoexpense_delete.png[]
+
+=== Income
+==== Adding Income : `addIncome`
+Adds a new Income to your total income. Some things to note:
+
+* Inputs can be arranged in a different order.
+* Tag may be omitted from the command.
+* Category must already exist in the list of income categories. (type `listCategories`)
+* Amount must be larger than 0 and less than 10 million.
+
+Format: `addIncome cat/<category name> n/<description> amt/<income> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the entry belongs to.
+* `<description>`: The name of this entry.
+* `<amount>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Optional tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to add a recent Income, key in the command  `addIncome cat/Gifts n/monthly allowance amt/2000 d/2019 11 09 tg/fromsugardaddy` .
++
+image::AddIncomeBefore.png[]
+. You should see the new income being added into in the list of incomes as displayed below.
++
+image::AddIncomeAfter.png[]
+
+Other examples:
+
+* `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
+
+==== Editing Income: `editIncome`
+Edits an existing Income at the given index. Some things to note:
+
+* Inputs can be arranged in a different order.
+* If you are editing the category of an Income, it must already exist in the list of income categories. (type `listCategories`)
+* If you are editing the amount of an Income, it must be larger than 0 and less than 10 million.
+
+Format: `editIncome cat/<category name> n/<description> amt/<income> d/<date> [tg/<tag>]`
+
+* `<category name>`: The `category` that the income belongs to.
+* `<description>`: The name of this income.
+* `<amount>`: The amount spent for this income. It can contain at most 2 decimal points.
+* `<date>`: The date of this income.
+* `<tag>`: Tags for this income. The tag must not have spaces and must only be alphanumeric.
+
+Example Usage:
+[start = 1]
+. If you would like to edit an existing Income, key in the command  `editIncome 2 n/selling my soul` .
++
+image::EditIncomeBefore.png[]
+
+. You should see that the second Income's description has successfully changed from `side business` to `selling my soul`.
++
+image:EditIncomeAfter.png[]
+
+Other examples:
+
+* `editIncome 1 amt/200`
+* `editIncome 3 tg/wheresmypayraise`
+
+==== Deleting Income: `deleteIncome`
+Deletes an existing Income from the list at the given index.
+
+Format: `deleteIncome <index>`
+
+* `<index>`: The `index` of the Income in the Income list panel. It must be greater than zero and positive.
+
+Example Usage:
+[start = 1]
+. If you would like to delete the Income at index 2, key in the command `deleteIncome 2`.
++
+image::DeleteIncomeBefore.png[]
+. You would see that the Income is no longer in the list and the result display box shows the details of the Income that you have just deleted.
++
+image::DeleteIncomeAfter.png[]
+
+Other examples:
+
+* `add cat/Gifts n/Durian amt/200.00 d/2019 09 09 tg/food`
+* `add cat/Business n/business Trip To Mars amt/20000.00 d/2019 09 09`
 
 === Budget
 ==== Adding Budget : `addBudget`
@@ -910,7 +972,6 @@ do so.
 .. `editCategory typ/<category type> cat/<old category name> n/<new category name>`
 .. `listCategories`
 .. `deleteCategory cat/<category type> n/<category name>`
->>>>>>> upstream/master
 
 . Statistics:
 .. `viewTable [p/<RangeOfMonths>]`
@@ -953,7 +1014,6 @@ do so.
 .. `sortWishlistPriority <ascending/descending>`
 .. `findWish [c/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
 .. `purchase <index>`
->>>>>>> upstream/master
 
 . Undo and Redo:
 .. `undo`
