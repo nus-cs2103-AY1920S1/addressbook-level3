@@ -14,7 +14,7 @@ import seedu.guilttrip.model.tag.Tag;
 
 /**
  * Represents a EntryComparator in the finance manager.
- * SortType specifies the type of sorting and SortSequence specifies the direction of sorting.
+ * SortType specifies the type of sorting and SortSequence specifies the sequence of sorting.
  */
 public class EntryComparator implements Comparator<Entry> {
 
@@ -145,7 +145,7 @@ public class EntryComparator implements Comparator<Entry> {
 
             return helperSortByTag(e1, e2);
         default:
-            //TODO
+            //Should not reach this point as valid checks were carried out beforehand.
             return 1;
         }
     }

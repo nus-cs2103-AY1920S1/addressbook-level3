@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 import seedu.guilttrip.model.entry.Category;
 
 /**
- * Contains the list of statistics by category in the categorylist.
+ * Contains the list of statistics by category in the CategoryList.
  */
 public class CategoryStatistics {
 
@@ -20,7 +20,7 @@ public class CategoryStatistics {
     }
 
     public String getCategoryName() {
-        return this.nameOfCategory.categoryName;
+        return this.nameOfCategory.getCategoryName();
     }
 
     public void setAmountCalculated(double amountCalculated) {
@@ -28,7 +28,7 @@ public class CategoryStatistics {
     }
 
     public StringProperty getCategoryNameProperty() {
-        return new SimpleStringProperty(nameOfCategory.categoryName);
+        return new SimpleStringProperty(nameOfCategory.getCategoryName());
     }
 
     public Category getCategory() {

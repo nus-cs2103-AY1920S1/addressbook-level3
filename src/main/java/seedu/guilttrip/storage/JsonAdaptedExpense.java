@@ -16,9 +16,10 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Jackson-friendly version of {@link Entry}.
+ * Jackson-friendly version of {@link Expense}.
  */
 class JsonAdaptedExpense {
 
@@ -31,7 +32,7 @@ class JsonAdaptedExpense {
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given entry details.
+     * Constructs a {@code JsonAdaptedExpense} with the given expense details.
      */
     @JsonCreator
     public JsonAdaptedExpense(@JsonProperty("uniqueId") String uniqueId, @JsonProperty("category") String category,
@@ -49,11 +50,11 @@ class JsonAdaptedExpense {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Expense} into this class for Jackson use.
      */
     public JsonAdaptedExpense(Expense source) {
         uniqueId = source.getUniqueId();
-        category = source.getCategory().categoryName;
+        category = source.getCategory().getCategoryName();
         desc = source.getDesc().fullDesc;
         amt = source.getAmount().toString();
         date = source.getDate().toString();
@@ -63,9 +64,9 @@ class JsonAdaptedExpense {
     }
 
     /**
-     * Converts this Jackson-friendly adapted entry object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted entry object into the model's {@code Expense} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted entry.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted expense.
      */
     public Expense toModelType() throws IllegalValueException {
         final List<Tag> entryTags = new ArrayList<>();
@@ -76,6 +77,11 @@ class JsonAdaptedExpense {
         if (desc == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Description.class.getSimpleName()));
+        }
+
+        if (amt == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Amount.class.getSimpleName()));
         }
 
         if (category == null) {
@@ -100,7 +106,7 @@ class JsonAdaptedExpense {
             throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS_FOR_ENTRIES);
         }
 
-        final Category modelCategory = new Category(category, "Expense");
+        final Category modelCategory = new Category(category, CategoryType.EXPENSE);
 
         final Description modelDesc = new Description(desc);
 

@@ -11,6 +11,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * A utility class to help with building EditExpenseDescriptor objects.
@@ -65,7 +66,7 @@ public class EditExpenseDescriptorBuilder {
      * @return
      */
     public EditExpenseDescriptorBuilder withCategory(String catName) {
-        descriptor.setCategory(new Category(catName, "Expense"));
+        descriptor.setCategory(new Category(catName, CategoryType.EXPENSE));
         return this;
     }
 

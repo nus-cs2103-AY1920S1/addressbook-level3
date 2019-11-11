@@ -51,6 +51,9 @@ public class AddWishCommand extends Command {
         toAdd = wish;
     }
 
+    /**
+     * @throws CommandException if the category of the Wish to be added does not exists in the list.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);

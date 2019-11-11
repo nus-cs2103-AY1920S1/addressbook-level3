@@ -61,7 +61,7 @@ public class ExpenseReminderCard extends UiPart<Region> {
         desc.setText(descWithType);
         date.setText(expense.getDate().toString() + "period: " + period + " freq: " + freq.toString());
         amt.setText("$" + expense.getAmount().value);
-        category.setText(expense.getCategory().categoryName);
+        category.setText(expense.getCategory().getCategoryName());
 
         expense.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))

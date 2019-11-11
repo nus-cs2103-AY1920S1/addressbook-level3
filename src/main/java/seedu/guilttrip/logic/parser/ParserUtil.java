@@ -74,12 +74,14 @@ import seedu.guilttrip.logic.commands.uicommands.SetLightThemeCommand;
 import seedu.guilttrip.logic.commands.uicommands.TogglePanelCommand;
 import seedu.guilttrip.logic.parser.exceptions.ParseException;
 import seedu.guilttrip.model.entry.Amount;
+import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.SortSequence;
 import seedu.guilttrip.model.entry.SortType;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.util.FontName;
 import seedu.guilttrip.ui.util.PanelName;
@@ -206,7 +208,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a time in String to ArrayList.
+     * Parses a time in String to ArrayList. Period is sorted so that the smaller period is first.
      *
      * @param period the time as a String.
      * @return the specified time as Date.
@@ -215,6 +217,7 @@ public class ParserUtil {
         String[] dateArr = period.split(",");
         List<Date> startAndEnd = Arrays.stream(dateArr).map(dateString -> new Date(dateString.trim(), true))
                 .collect(Collectors.toList());
+        startAndEnd.sort((start, end) -> start.getDate().compareTo(end.getDate()));
         return startAndEnd;
     }
 
@@ -240,6 +243,28 @@ public class ParserUtil {
     public static Frequency parseFrequency(String stringFreq) {
         requireNonNull(stringFreq);
         return Frequency.parse(stringFreq);
+    }
+
+    /**
+     * Parses a category from String to CategoryType.
+     *
+     * @param catType the type of category as a String.
+     * @return the type of category as CategoryType.
+     */
+    public static Category parseCategory(String catName, String catType) {
+        requireNonNull(catType);
+        return Category.parseCategory(catName, catType);
+    }
+
+    /**
+     * Parses a categoryType from String to CategoryType.
+     *
+     * @param catType the type of category as a String.
+     * @return the type of category as CategoryType.
+     */
+    public static CategoryType parseCategoryType(String catType) {
+        requireNonNull(catType);
+        return CategoryType.parse(catType);
     }
 
     /**

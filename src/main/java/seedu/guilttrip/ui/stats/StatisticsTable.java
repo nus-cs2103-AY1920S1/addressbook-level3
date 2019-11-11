@@ -14,7 +14,7 @@ import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.ui.UiPart;
 
 /**
- * Panel containing the statisticsTable.
+ * Displays Statistics for Categories in a Table form.
  */
 public class StatisticsTable extends UiPart<Region> {
 

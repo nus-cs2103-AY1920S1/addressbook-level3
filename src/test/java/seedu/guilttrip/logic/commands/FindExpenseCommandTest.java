@@ -1,8 +1,10 @@
 package seedu.guilttrip.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import static seedu.guilttrip.commons.core.Messages.MESSAGE_ENTRIES_LISTED_OVERVIEW;
+import static seedu.guilttrip.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.guilttrip.testutil.TypicalEntries.getTypicalGuiltTrip;
 
 import java.util.Arrays;
@@ -12,6 +14,8 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.guilttrip.logic.CommandHistory;
+import seedu.guilttrip.logic.CommandHistoryStub;
 import seedu.guilttrip.logic.commands.findcommands.FindExpenseCommand;
 import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.ModelManager;
@@ -19,6 +23,7 @@ import seedu.guilttrip.model.UserPrefs;
 import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.predicates.EntryContainsAmountPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsDescriptionPredicate;
+import seedu.guilttrip.testutil.TypicalEntries;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindExpenseCommand}.
@@ -72,7 +77,7 @@ public class FindExpenseCommandTest {
         assertFalse(findFirstCommand.equals(findSecondCommand));
     }
 
-    /*@Test
+    @Test
     public void execute_multipleKeywords_multipleExpensesFound() {
         CommandHistory chs = new CommandHistoryStub();
         String expectedMessage = String.format(MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredExpenses().size() - 1);
@@ -83,7 +88,22 @@ public class FindExpenseCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel, chs);
         assertEquals(Arrays.asList(TypicalEntries.CLOTHING_EXPENSE, TypicalEntries.FOOD_EXPENSE),
                 model.getFilteredExpenses());
-    }*/
+    }
+
+
+    @Test
+    public void execute_multipleKeywordsMultiplePredicates_singleExpensesFound() {
+        CommandHistory chs = new CommandHistoryStub();
+        String expectedMessage = String.format(MESSAGE_ENTRIES_LISTED_OVERVIEW, model.getFilteredExpenses().size() - 2);
+        EntryContainsDescriptionPredicate predicate = preparePredicate("mala cotton Mars");
+        EntryContainsAmountPredicate amtpredicate = new EntryContainsAmountPredicate(500);
+        List<Predicate<Entry>> predicateToPassIn = Arrays.asList(predicate, amtpredicate);
+        FindExpenseCommand command = new FindExpenseCommand(predicateToPassIn);
+        expectedModel.updateFilteredExpenses(predicate.and(amtpredicate));
+        assertCommandSuccess(command, model, expectedMessage, expectedModel, chs);
+        assertEquals(Arrays.asList(TypicalEntries.TRAVEL_EXPENSE),
+                model.getFilteredExpenses());
+    }
 
     /**
      * Parses {@code userInput} into a {@code NameContainsKeywordsPredicate}.

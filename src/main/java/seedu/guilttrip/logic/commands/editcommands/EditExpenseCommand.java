@@ -31,7 +31,7 @@ import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.tag.Tag;
 
 /**
- * Edits the details of an existing entry in the guilttrip book.
+ * Edits the details of an existing expense in the guiltTrip.
  */
 public class EditExpenseCommand extends Command {
 
@@ -59,8 +59,8 @@ public class EditExpenseCommand extends Command {
     private final EditExpenseDescriptor editEntryDescriptor;
 
     /**
-     * @param index of the entry in the filtered entry list to edit
-     * @param editEntryDescriptor details to edit the entry with
+     * @param index of the expense in the filtered expense list to edit
+     * @param editEntryDescriptor details to edit the expense with
      */
     public EditExpenseCommand(Index index, EditExpenseDescriptor editEntryDescriptor) {
         requireNonNull(index);
@@ -70,6 +70,17 @@ public class EditExpenseCommand extends Command {
         this.editEntryDescriptor = new EditExpenseDescriptor(editEntryDescriptor);
     }
 
+
+    /**
+     *  Edits Expense at Index index in the list of Expenses. Model will handle the check if the expense is
+     *  present in the list.
+     *
+     * @param model   {@code Model} which the command should operate on.
+     * @param history {@code CommandHistory} which the command should operate on.
+     * @return CommandResult the CommandResult for guiltTrip to display to User.
+     * @throws CommandException if the category of the edited expense is not in the list of Categories, as well as if
+     * the newly edited expense does not change any fields of the original existing one.
+     */
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
@@ -96,8 +107,8 @@ public class EditExpenseCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
+     * edited with {@code editExpenseDescriptor}.
      */
     private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editEntryDescriptor) {
         assert expenseToEdit != null;
@@ -128,8 +139,8 @@ public class EditExpenseCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the entry with. Each non-empty field value will replace the
-     * corresponding field value of the entry.
+     * Stores the details to edit the expense with. Each non-empty field value will replace the
+     * corresponding field value of the expense.
      */
     public static class EditExpenseDescriptor {
         private Category category;
@@ -142,7 +153,6 @@ public class EditExpenseCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
             setCategory(toCopy.category);

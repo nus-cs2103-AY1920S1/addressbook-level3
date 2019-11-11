@@ -29,6 +29,7 @@ import seedu.guilttrip.model.entry.predicates.EntryContainsDatePredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsDescriptionPredicate;
 import seedu.guilttrip.model.entry.predicates.EntryContainsTagsPredicate;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 
 /**
  * Parses input arguments and creates a new FindBudgetCommand object
@@ -63,7 +64,7 @@ public class FindBudgetCommandParser implements Parser<FindBudgetCommand> {
 
         if (argMultimap.getValue(PREFIX_CATEGORY).isPresent()) {
             String name = argMultimap.getValue(PREFIX_CATEGORY).get().trim();
-            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, "Expense")));
+            predicateList.add(new EntryContainsCategoryPredicate(new Category(name, CategoryType.EXPENSE)));
         }
 
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {

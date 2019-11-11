@@ -38,6 +38,7 @@ import seedu.guilttrip.model.reminders.conditions.Condition;
 import seedu.guilttrip.model.reminders.messages.Notification;
 import seedu.guilttrip.model.statistics.CategoryStatistics;
 import seedu.guilttrip.model.statistics.DailyStatistics;
+import seedu.guilttrip.model.statistics.Statistics;
 import seedu.guilttrip.model.statistics.StatisticsManager;
 import seedu.guilttrip.model.util.EntryComparator;
 
@@ -46,7 +47,7 @@ import seedu.guilttrip.model.util.EntryComparator;
  */
 public class ModelManager implements Model, ListenerSupport {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private StatisticsManager stats;
+    private Statistics stats;
     private final SortType sortByTime = new SortType("time");
     private final SortSequence sortByAsc = new SortSequence("descending");
     private final UserPrefs userPrefs;
@@ -69,7 +70,9 @@ public class ModelManager implements Model, ListenerSupport {
     private LocalDate currDate;
 
     /**
-     * Initializes a ModelManager with the given GuiltTrip and userPrefs.
+     * Initializes a ModelManager with the given GuiltTrip and userPrefs. The original ObservableList for all entries
+     * is first wrapped in a SortedList so sort operations can be done on them, and finally wrapped in a FilteredList
+     * so that find operations can be done on them.
      */
     public ModelManager(ReadOnlyGuiltTrip guiltTrip, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -539,6 +542,12 @@ public class ModelManager implements Model, ListenerSupport {
     }
 
     // =================== Filtering =============================================================
+
+    /**
+     * By Default, the list of entries is sorted first before filtering to standardize that entries are always sorted
+     * by date.
+     * @param predicate the predicate to update the FilteredList by.
+     */
     /*Override
     public void updateAllLists(Predicate<Entry> predicate) {
         requireNonNull(predicate);
@@ -552,24 +561,28 @@ public class ModelManager implements Model, ListenerSupport {
     @Override
     public void updateFilteredExpenses(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredExpense(sortByTime, sortByAsc);
         filteredExpenses.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredIncomes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredIncome(sortByTime, sortByAsc);
         filteredIncomes.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredWishes(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredWishes(sortByTime, sortByAsc);
         filteredWishes.setPredicate(predicate);
     }
 
     @Override
     public void updateFilteredBudgets(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredBudget(sortByTime, sortByAsc);
         filteredBudgets.setPredicate(predicate);
         for (Budget budget : filteredBudgets) {
             budget.setSpent(filteredExpenses);
@@ -584,6 +597,7 @@ public class ModelManager implements Model, ListenerSupport {
     @Override
     public void updateFilteredAutoExpenses(Predicate<Entry> predicate) {
         requireNonNull(predicate);
+        sortFilteredAutoExpense(sortByTime, sortByAsc);
         filteredAutoExpenses.setPredicate(predicate);
     }
 

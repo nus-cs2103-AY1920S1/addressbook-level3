@@ -9,6 +9,7 @@ import seedu.guilttrip.model.entry.Date;
 import seedu.guilttrip.model.entry.Description;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.tag.Tag;
+import seedu.guilttrip.model.util.CategoryType;
 import seedu.guilttrip.model.util.SampleDataUtil;
 
 /**
@@ -28,7 +29,7 @@ public class WishBuilder {
     private Set<Tag> tags;
 
     public WishBuilder() {
-        cat = new Category(DEFAULT_CATEGORY, "Expense");
+        cat = new Category(DEFAULT_CATEGORY, CategoryType.EXPENSE);
         desc = new Description(DEFAULT_DESCRIPTION);
         amt = new Amount(DEFAULT_AMOUNT);
         date = new Date(DEFAULT_DATE);
@@ -74,7 +75,7 @@ public class WishBuilder {
      * Sets the {@code catName} of the {@code Wish} that we are building.
      */
     public WishBuilder withCategory(String catName) {
-        this.cat = new Category(catName, "Expense");
+        this.cat = new Category(catName, CategoryType.EXPENSE);
         return this;
     }
 

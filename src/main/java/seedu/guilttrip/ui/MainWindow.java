@@ -38,6 +38,7 @@ import seedu.guilttrip.ui.income.IncomeListPanel;
 import seedu.guilttrip.ui.reminder.NotificationPanel;
 import seedu.guilttrip.ui.reminder.ReminderPanel;
 import seedu.guilttrip.ui.stats.StatisticsBarChart;
+import seedu.guilttrip.ui.stats.StatisticsPieChartPanel;
 import seedu.guilttrip.ui.stats.StatisticsWindow;
 import seedu.guilttrip.ui.util.FontManager;
 import seedu.guilttrip.ui.util.FontName;
@@ -71,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
     private PopupWindow popupWindow;
     private StatisticsWindow statsListPanel;
+    private StatisticsPieChartPanel statsGraphics;
     private StatisticsBarChart statsBar;
     private BudgetPanel budgetsPanel;
 
@@ -361,7 +363,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder.
+     * Toggles the isVisible and isManaged properties of the sidePanelsPlaceHolder in preparation for switching panels.
      */
     private void togglePlaceHolderForStats(boolean isStatsWindow) {
         if (isStatsWindow) {
