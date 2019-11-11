@@ -91,6 +91,7 @@ import seedu.moolah.ui.budget.BudgetListPanel;
 import seedu.moolah.ui.budget.BudgetPanel;
 import seedu.moolah.ui.event.EventListPanel;
 import seedu.moolah.ui.expense.ExpenseListPanel;
+import seedu.moolah.ui.panel.PanelManager;
 import seedu.moolah.ui.panel.PanelName;
 import seedu.moolah.ui.panel.PlaceholderPanel;
 import seedu.moolah.ui.panel.SinglePanelView;
@@ -416,6 +417,9 @@ public class MainWindow extends UiPart<Stage> {
     void changePanel(PanelName panelName) throws UnmappedPanelException {
         configureGenericCommands(panelName);
 
+        if (panelName.equals(PanelName.CURRENT)) {
+            panelName = panelManager.getCurrentPanelName();
+        }
         if (panelName.equals(AliasListPanel.PANEL_NAME)) {
             panelManager.setPanel(AliasListPanel.PANEL_NAME, new AliasListPanel(logic.getAliasMappings()));
         } else if (panelName.equals(BudgetPanel.PANEL_NAME)) {
