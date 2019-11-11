@@ -10,7 +10,8 @@ skinparam activity {
   BorderColor blue
   ControlBackgroundColor white
   FontColor Snow
-  FontName Arial
+  FontName Calibri
+  FontSize 16
 }
 
 skinparam activityDiamond {
