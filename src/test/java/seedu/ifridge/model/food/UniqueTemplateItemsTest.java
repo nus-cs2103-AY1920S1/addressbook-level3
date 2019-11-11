@@ -51,7 +51,7 @@ public class UniqueTemplateItemsTest {
     }
 
     @Test
-    public void add_duplicateTemplateItem_throwsDuplicatePersonException() {
+    public void add_duplicateTemplateItem_throwsDuplicateTemplateItemException() {
         uniqueTemplateItems.add(MINCEDBEEF);
         assertThrows(DuplicateFoodException.class, () -> uniqueTemplateItems.add(MINCEDBEEF));
     }
@@ -102,7 +102,7 @@ public class UniqueTemplateItemsTest {
     }
 
     @Test
-    public void setPerson_editedTemplateItemHasNonUniqueIdentity_throwsDuplicateTemplateItemException() {
+    public void setTemplateItem_editedTemplateItemHasNonUniqueIdentity_throwsDuplicateTemplateItemException() {
         uniqueTemplateItems.add(MINCEDBEEF);
         uniqueTemplateItems.add(MINCEDCHICKEN);
         assertThrows(DuplicateFoodException.class, () -> uniqueTemplateItems

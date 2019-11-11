@@ -2,7 +2,7 @@ package seedu.ifridge.logic.commands.templatelist;
 
 import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
 import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
 import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
@@ -30,7 +30,7 @@ public class RedoTemplateCommandTest {
                 model.getWasteArchive(), model.getShoppingList(), model.getBoughtList(), model.getUnitDictionary());
 
         List<UniqueTemplateItems> lastShownList = model.getFilteredTemplateList();
-        UniqueTemplateItems templateToDelete = lastShownList.get(INDEX_FIRST_PERSON.getZeroBased());
+        UniqueTemplateItems templateToDelete = lastShownList.get(INDEX_FIRST_FOOD.getZeroBased());
         RedoTemplateCommand redoTemplateCommand = new RedoTemplateCommand();
 
         model.deleteTemplate(templateToDelete);

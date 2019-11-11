@@ -6,7 +6,7 @@ import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.ifridge.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.ifridge.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_FOOD;
 
 import org.junit.jupiter.api.Test;
 
@@ -18,7 +18,7 @@ public class DeleteTemplateItemCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteTemplateCommand() {
-        assertParseSuccess(parser, "1" + INDEX_DESC, new DeleteTemplateItemCommand(INDEX_FIRST, INDEX_FIRST));
+        assertParseSuccess(parser, "1" + INDEX_DESC, new DeleteTemplateItemCommand(INDEX_FIRST_FOOD, INDEX_FIRST_FOOD));
     }
 
     @Test

@@ -24,12 +24,12 @@ public class GroceryListPanel extends UiPart<Region> {
     private int numOfDays;
 
     @FXML
-    private ListView<GroceryItem> personListView;
+    private ListView<GroceryItem> groceryItemListView;
 
     public GroceryListPanel(ObservableList<GroceryItem> foodList, String numOfDays) {
         super(FXML);
-        personListView.setItems(foodList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+        groceryItemListView.setItems(foodList);
+        groceryItemListView.setCellFactory(listView -> new GroceryListViewCell());
         this.numOfDays = Integer.valueOf(numOfDays);
     }
 
@@ -37,7 +37,7 @@ public class GroceryListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Food} using a
      * {@code ExpiredGroceryCard, IsExpiringGroceryCard, NotExpiringGroceryCard}.
      */
-    class PersonListViewCell extends ListCell<GroceryItem> {
+    class GroceryListViewCell extends ListCell<GroceryItem> {
         @Override
         protected void updateItem(GroceryItem food, boolean empty) {
             super.updateItem(food, empty);

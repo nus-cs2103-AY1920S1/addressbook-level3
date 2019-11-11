@@ -87,7 +87,7 @@ public class JsonWasteListStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+    public void readAndSaveWasteList_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("TempWasteArchive.json");
         TreeMap<WasteMonth, WasteList> original = getTypicalWasteArchive();
         JsonWasteListStorage jsonWasteListStorage = new JsonWasteListStorage(filePath);

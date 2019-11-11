@@ -67,7 +67,7 @@ public class TemplateListTest {
     }
 
     @Test
-    public void hasTemplateItem_personInTemplateList_returnsTrue() {
+    public void hasTemplateItem_templateInTemplateList_returnsTrue() {
         templateList.addTemplate(DIET_PLAN);
         assertTrue(templateList.hasTemplate(DIET_PLAN));
     }
