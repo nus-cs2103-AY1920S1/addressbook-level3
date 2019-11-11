@@ -35,32 +35,12 @@ public class SampleDataUtil {
             new Expense(new Name("Hang out"), new Amount("50"), new Currency("SGD"),
                 new Date("15/12/2019 2100"),
                 new Tag("entertainment")),
-            new Expense(new Name("Lunch"), new Amount("7.5"), new Currency("SGD"),
-                new Date("25/12/2019"),
-                new Tag("food")),
-            new Expense(new Name("Milk tea"), new Amount("8"), new Currency("SGD"),
-                new Date("1/11/2019"),
-                new Tag("relationship")),
-            new Expense(new Name("Phone Charger"), new Amount("25"), new Currency("SGD"),
-                new Date("12/11/2019"),
-                new Tag("lifestyle")),
-            new Expense(new Name("Travel to California"), new Amount("850"), new Currency("USD"),
-                new Date("5/10/2019"),
+            new Expense(new Name("Travel to Paris"), new Amount("850"), new Currency("SGD"),
+                new Date("25/12/2019 800"),
                 new Tag("travel")),
-            new Expense(new Name("Hat"), new Amount("18"), new Currency("SGD"),
-                new Date("10/7/2019 1800"), new Tag("clothes")),
-            new Expense(new Name("Nike shoes"), new Amount("190"), new Currency("SGD"),
-                new Date("15/8/2019 2100"),
-                new Tag("clothes")),
-            new Expense(new Name("Sunglasses"), new Amount("140"), new Currency("SGD"),
-                new Date("3/5/2019"),
-                new Tag("clothes")),
-            new Expense(new Name("Cover for phone"), new Amount("17"), new Currency("SGD"),
-                new Date("1/2/2019"),
-                new Tag("food")),
-            new Expense(new Name("Japan Travel"), new Amount("88000"), new Currency("JPY"),
-                new Date("8/10/2018"),
-                new Tag("travel"))
+            new Expense(new Name("Gift for duke"), new Amount("30"), new Currency("SGD"),
+                new Date("1/11/2019"),
+                new Tag("relationship"))
         };
     }
 
@@ -116,12 +96,9 @@ public class SampleDataUtil {
 
     public static ReadOnlyBudgetList getSampleBudgetList() {
         BudgetList sampleB1 = new BudgetList();
-        sampleB1.addBudget(new Budget(new Name("Japan Travel"), new Amount("90000.00"), new Amount("90000.00"),
-            new Currency("JPY"), new Date("12/12/2019"), new Date("18/12/2019"), new ExpenseList()));
-        sampleB1.addBudget(new Budget(new Name("Jan Spend"), new Amount("1500.00"), new Amount("1500.00"),
-            new Currency("SGD"), new Date("01/01/2020"), new Date("02/02/2020"), new ExpenseList()));
-        sampleB1.addBudget(new Budget(new Name("Hang out with friends"), new Amount("325.00"), new Amount("325.00"),
-            new Currency("SGD"), new Date("08/09/2020"), new Date("10/09/2020"), new ExpenseList()));
+        sampleB1.addBudget(new Budget(new Name("Japan Travel"), new Amount("2000.00"), new Amount("2000.00"),
+            new Currency("USD"), new Date("12/12/2019"), new Date("18/12/2019"), new ExpenseList()));
         return sampleB1;
     }
+
 }
