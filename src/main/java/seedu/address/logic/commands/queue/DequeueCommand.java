@@ -21,7 +21,7 @@ public class DequeueCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Dequeues the person identified by the index number used in the displayed queue.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a non-zero positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DEQUEUE_SUCCESS = "Dequeued patient: %s";

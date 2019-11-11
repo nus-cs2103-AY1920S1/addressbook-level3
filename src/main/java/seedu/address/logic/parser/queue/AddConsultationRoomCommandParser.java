@@ -1,6 +1,8 @@
 //@@author wongsm7
 package seedu.address.logic.parser.queue;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -22,6 +24,7 @@ import seedu.address.model.queue.Room;
 public class AddConsultationRoomCommandParser implements Parser<ReversibleActionPairCommand> {
 
     private List<Person> lastShownList;
+    Index index;
 
     public AddConsultationRoomCommandParser(Model model) {
         this.lastShownList = model.getFilteredStaffList();
@@ -34,7 +37,11 @@ public class AddConsultationRoomCommandParser implements Parser<ReversibleAction
      * @throws ParseException if the user input does not conform the expected format
      */
     public ReversibleActionPairCommand parse(String args) throws ParseException {
-        Index index = ParserUtil.parseIndex(args);
+        try {
+            index = ParserUtil.parseIndex(args);
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddConsultationRoomCommand.MESSAGE_USAGE));
+        }
         ReferenceId referenceId = ParserUtil.getEntryFromList(lastShownList, index).getReferenceId();
         Room roomToAdd = new Room(referenceId);
         return new ReversibleActionPairCommand(new AddConsultationRoomCommand(roomToAdd),

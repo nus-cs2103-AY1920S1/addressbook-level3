@@ -19,7 +19,7 @@ public class RemoveRoomCommand extends ReversibleCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes the doctor on-duty from the list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a non-zero positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_OFF_DUTY_SUCCESS = "%s is off-duty";

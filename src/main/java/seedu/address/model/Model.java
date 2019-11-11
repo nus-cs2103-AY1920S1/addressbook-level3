@@ -198,6 +198,11 @@ public interface Model extends ReferenceIdResolver {
     boolean isPatientBeingServed(ReferenceId id);
 
     /**
+     * Checks if the doctor is on duty
+     */
+    boolean isDoctorOnDuty(ReferenceId id);
+
+    /**
      * Checks if the patient is in queue
      */
     void changePatientRefIdInQueue(ReferenceId idToEdit, ReferenceId editedId);
