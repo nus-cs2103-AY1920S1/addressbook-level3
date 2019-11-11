@@ -833,7 +833,7 @@ image::warning.png[width = "20",float = "left"]
 
 //end::sortNote[]
 
-=== Clearing all entries : `clear`
+==== Clearing all entries : `clear`
 
 Want to delete all the notes in your note book but too much trouble to perform `delete` for every one of them?
 Make use of our `clear` command!
@@ -955,6 +955,7 @@ Accessing File directory: `goto file`
 - `move INDEX TARGET_DIRECTORY`: Moves an encrypted file as specified by its index number.
 - `find KEYWORDS...`: Finds matching encrypted files as specified by the search keywords.
 - `list`: Lists all encrypted files managed by SecureIT.
+- `preview INDEX`: Previews an encrypted file as specified by its index number.
 
 *Note*
 
@@ -967,15 +968,15 @@ Accessing Note directory: `goto note`
 - `sort by/SORTBYCONDITION`: Sorts notes by the condition specified by you.
 - `undo`: Undo last action on notes.
 - `redo`: Redo last undone action on notes.
+- `clear`: Clears all entries from the note book.
 
 *Others*
 
 Other commands
 
-- `clear`: Clears all entries from the current book user is on.
 - `exit`: Exits the program.
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and copy store.tmp files from the application’s directory to the new computer.
+*A*: Install the app in the other computer and copy all files from the application’s directory to the new computer.
