@@ -21,6 +21,7 @@ import javafx.collections.ObservableList;
 
 import seedu.ifridge.model.food.Name;
 import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.food.exceptions.DuplicateTemplateException;
 import seedu.ifridge.testutil.UniqueTemplateItemsBuilder;
 
 public class TemplateListTest {
@@ -47,12 +48,12 @@ public class TemplateListTest {
     @Test
     public void resetData_withDuplicateTemplates_throwsDuplicateTemplateException() {
         // Two persons with the same identity fields
-        UniqueTemplateItems editedDietPlan = new UniqueTemplateItemsBuilder(new Name("Diet Plan"))
+        UniqueTemplateItems editedDietPlan = new UniqueTemplateItemsBuilder().withName(new Name("Diet Plan"))
                 .withTemplateItem(MINCEDBEEF).build();
         List<UniqueTemplateItems> newTemplate = Arrays.asList(DIET_PLAN, editedDietPlan);
         TemplateStub newData = new TemplateStub(newTemplate);
 
-        //assertThrows(DuplicateFoodException.class, () -> templateList.resetData(newData));
+        assertThrows(DuplicateTemplateException.class, () -> templateList.resetData(newData));
     }
 
     @Test
@@ -74,7 +75,7 @@ public class TemplateListTest {
     @Test
     public void hasTemplate_templateWithSameIdentityFieldsInTemplateList_returnsTrue() {
         templateList.addTemplate(DIET_PLAN);
-        UniqueTemplateItems editedDietPlan = new UniqueTemplateItemsBuilder(new Name("Diet Plan"))
+        UniqueTemplateItems editedDietPlan = new UniqueTemplateItemsBuilder().withName(new Name("Diet Plan"))
                 .withTemplateItem(MINCEDPORK).build();
         assertTrue(templateList.hasTemplate(editedDietPlan));
     }

@@ -25,4 +25,10 @@ public class ListTemplateListCommand extends Command {
 
         return commandResult;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || other instanceof ListTemplateListCommand; // instanceof handles nulls
+    }
 }

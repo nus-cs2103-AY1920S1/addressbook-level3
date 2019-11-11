@@ -39,8 +39,7 @@ public class TemplateItem extends Food implements Comparable<TemplateItem> {
             return true;
         }
 
-        return otherFood != null
-                && otherFood.getName().equals(getName());
+        return otherFood != null && otherFood.getName().equals(getName());
     }
 
     @Override
@@ -53,7 +52,6 @@ public class TemplateItem extends Food implements Comparable<TemplateItem> {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(this.getName(), this.getAmount());
     }
 

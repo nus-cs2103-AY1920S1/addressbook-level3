@@ -1,7 +1,11 @@
 package seedu.ifridge.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static seedu.ifridge.testutil.Assert.assertThrows;
+import static seedu.ifridge.testutil.TypicalTemplateList.BIRTHDAY_PARTY;
+import static seedu.ifridge.testutil.TypicalTemplateList.BULK_UP;
+import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -48,15 +52,15 @@ public class JsonTemplateListStorageTest {
 
     @Test
     public void readTemplateList_invalidTemplateItemTemplateList_throwDataConversionException() {
-        //assertThrows(DataConversionException.class, () -> readTemplateList("invalidTemplateItemTemplateList.json"));
+        assertThrows(DataConversionException.class, () -> readTemplateList("invalidTemplateTemplateList.json"));
     }
 
     @Test
     public void readTemplateList_invalidAndValidTemplateItemTemplateList_throwDataConversionException() {
-        //assertThrows(DataConversionException.class, ()
-        // -> readTemplateList("invalidAndValidTemplateItemTemplateList.json"));
+        assertThrows(DataConversionException.class, ()
+            -> readTemplateList("invalidAndValidTemplateTemplateList.json"));
     }
-    /**
+
     @Test
     public void readAndSaveTemplateList_allInOrder_success() throws Exception {
         Path filePath = testFolder.resolve("typicalTemplatesTemplateList.json");
@@ -69,19 +73,19 @@ public class JsonTemplateListStorageTest {
         assertEquals(original, new TemplateList(readBack));
 
         // Modify data, overwrite exiting file, and read back
-        original.addTemplate(DIET_PLAN);
         original.removeTemplate(BIRTHDAY_PARTY);
+        original.addTemplate(BIRTHDAY_PARTY);
         jsonTemplateListStorage.saveTemplateList(original, filePath);
         readBack = jsonTemplateListStorage.readTemplateList(filePath).get();
         assertEquals(original, new TemplateList(readBack));
 
         // Save and read without specifying file path
-        original.addTemplate(WEEKLY_NECESSITIES);
+        original.addTemplate(BULK_UP);
         jsonTemplateListStorage.saveTemplateList(original); // file path not specified
         readBack = jsonTemplateListStorage.readTemplateList().get(); // file path not specified
         assertEquals(original, new TemplateList(readBack));
 
-    }**/
+    }
 
     @Test
     public void saveTemplateList_nullTemplateList_throwsNullPointerException() {

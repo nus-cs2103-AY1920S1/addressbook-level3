@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.ifridge.logic.commands.CommandTestUtil;
 import seedu.ifridge.model.Model;
 import seedu.ifridge.model.ModelManager;
 import seedu.ifridge.model.UnitDictionary;
@@ -41,6 +42,6 @@ public class RedoTemplateCommandTest {
         expectedModel.deleteTemplate(templateToDelete);
         expectedModel.commitTemplateList(null, null, -1);
 
-        TemplateCommandTestUtil.assertCommandSuccess(redoTemplateCommand, model, expectedMessage, expectedModel);
+        CommandTestUtil.assertCommandSuccess(redoTemplateCommand, model, expectedMessage, expectedModel);
     }
 }

@@ -1,0 +1,30 @@
+@startuml
+start
+:User executes commands involving the template list;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+    if () then ([template item command])
+        :Retrieve specified template;
+        if () then  ([list command])
+        else([else])
+        :Update and override specified template;
+        :Override template list with updated template;
+        endif
+        :Override template shown
+         in the user interface;
+    else ([template list command])
+        if () then ([list command])
+        else ([else])
+            if () then ([delete or add command])
+                :Add or delete template into/from
+                template list respectively;
+            else([clear command])
+            endif
+            :Override template list with updated version;
+        endif
+    endif
+    :Update template list;
+stop
+@enduml

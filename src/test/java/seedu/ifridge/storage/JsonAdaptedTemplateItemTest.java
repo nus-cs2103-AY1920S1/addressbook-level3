@@ -1,5 +1,6 @@
 package seedu.ifridge.storage;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.ifridge.storage.JsonAdaptedTemplateItem.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.ifridge.testutil.Assert.assertThrows;
 import static seedu.ifridge.testutil.TypicalTemplateItems.MILK;
@@ -19,7 +20,7 @@ public class JsonAdaptedTemplateItemTest {
     @Test
     public void toModelType_validTemplateItemDetails_returnsTemplateItem() throws Exception {
         JsonAdaptedTemplateItem templateItem = new JsonAdaptedTemplateItem(MILK);
-        //assertEquals(MILK, templateItem.toModelType());
+        assertEquals(MILK, templateItem.toModelType());
     }
 
     @Test

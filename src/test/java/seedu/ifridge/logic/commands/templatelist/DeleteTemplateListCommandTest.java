@@ -2,86 +2,82 @@ package seedu.ifridge.logic.commands.templatelist;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.assertCommandFailure;
+import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
+import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
+import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
+import static seedu.ifridge.testutil.TypicalUnitDictionary.getTypicalUnitDictionary;
+import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
+
+import java.util.TreeMap;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.ifridge.logic.commands.templatelist.template.DeleteTemplateItemCommand;
+import seedu.ifridge.commons.core.Messages;
+import seedu.ifridge.commons.core.index.Index;
+import seedu.ifridge.model.GroceryList;
+import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.ShoppingList;
+import seedu.ifridge.model.TemplateList;
+import seedu.ifridge.model.UnitDictionary;
+import seedu.ifridge.model.UserPrefs;
+import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.waste.WasteMonth;
+
 
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
- * {@code DeleteTemplateCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code DeleteTemplateListCommand}.
  */
 public class DeleteTemplateListCommandTest {
 
-    /**private Model model = new ModelManager(getTypicalTemplateList(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+            getTypicalUnitDictionary());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
-        TemplateItem itemToDelete = model.getFilteredTemplateItemList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteTemplateItemCommand deleteTemplateCommand = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON);
+        UniqueTemplateItems templateToDelete = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
+        DeleteTemplateListCommand deleteCommand = new DeleteTemplateListCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(DeleteTemplateItemCommand.MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS,
-            itemToDelete);
+        String expectedMessage = String.format(DeleteTemplateListCommand.MESSAGE_SUCCESS,
+            templateToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getTemplate(), new UserPrefs());
-        expectedModel.deleteTemplateItem(itemToDelete);
+        Model expectedModel = new ModelManager(
+                new GroceryList(model.getGroceryList()), new UserPrefs(model.getUserPrefs()),
+                new TemplateList(model.getTemplateList()), new TreeMap<WasteMonth, WasteList>(model.getWasteArchive()),
+                new ShoppingList(model.getShoppingList()), new GroceryList(model.getBoughtList()),
+                new UnitDictionary(model.getUnitDictionary()));
+
+        expectedModel.deleteTemplate(templateToDelete);
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTemplateItemList().size() + 1);
-        DeleteTemplateItemCommand deleteTemplateCommand = new DeleteTemplateItemCommand(outOfBoundIndex);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTemplateList().size() + 1);
+        DeleteTemplateListCommand deleteCommand = new DeleteTemplateListCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteTemplateCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
 
-    @Test
-    public void execute_validIndexFilteredList_success() {
-        showTemplateItemAtIndex(model, INDEX_FIRST_PERSON);
-
-        TemplateItem itemToDelete = model.getFilteredTemplateItemList().get(INDEX_FIRST_PERSON.getZeroBased());
-        DeleteTemplateItemCommand deleteTemplateCommand = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON);
-
-        String expectedMessage = String.format(DeleteTemplateItemCommand.MESSAGE_DELETE_TEMPLATE_ITEM_SUCCESS,
-            itemToDelete);
-
-        Model expectedModel = new ModelManager(model.getGroceryList(), new UserPrefs());
-        expectedModel.deleteTemplateItem(itemToDelete);
-        showNoTemplateItem(expectedModel);
-
-        assertCommandSuccess(deleteTemplateCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showTemplateItemAtIndex(model, INDEX_FIRST_PERSON);
-
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getTemplate().getTemplate().size());
-
-        DeleteTemplateItemCommand deleteTemplateCommand = new DeleteTemplateItemCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteTemplateCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-    **/
     @Test
     public void equals() {
-        DeleteTemplateItemCommand deleteFirstCommand = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON,
-                INDEX_SECOND_PERSON);
-        DeleteTemplateItemCommand deleteSecondCommand = new DeleteTemplateItemCommand(INDEX_SECOND_PERSON,
-                INDEX_FIRST_PERSON);
+        DeleteTemplateListCommand deleteFirstCommand = new DeleteTemplateListCommand(INDEX_FIRST);
+        DeleteTemplateListCommand deleteSecondCommand = new DeleteTemplateListCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteTemplateItemCommand deleteFirstCommandCopy = new DeleteTemplateItemCommand(INDEX_FIRST_PERSON,
-                INDEX_SECOND_PERSON);
+        DeleteTemplateListCommand deleteFirstCommandCopy = new DeleteTemplateListCommand(INDEX_FIRST);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
@@ -93,15 +89,4 @@ public class DeleteTemplateListCommandTest {
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
-
-    /**
-     * Updates {@code model}'s filtered list to show no one.
-     */
-    /**
-    private void showNoTemplateItem(Model model) {
-        model.updateFilteredTemplateItemList(p -> false);
-
-        assertTrue(model.getFilteredTemplateItemList().isEmpty());
-    }
-    **/
 }

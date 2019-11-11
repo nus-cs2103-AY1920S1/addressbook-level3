@@ -1,5 +1,5 @@
 {
-  "templates": [ {
+  "templateList": [ {
     "name": "Valid Template"
   }, {
     "name": "@"

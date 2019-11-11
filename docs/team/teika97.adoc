@@ -10,7 +10,7 @@
 == Overview
 
 iFridge is a desktop grocery management application to encourage home cooks to manage their food waste. The user interacts with it using a CLI, and it has a GUI created with JavaFX.
-It is written in Java, and has a about 20kLoC.
+It is written in Java, and has about 20kLoC.
 
 == Summary of contributions
 
@@ -44,19 +44,17 @@ have the same unit type. E.g. Volume unit type: ml, L or Weight unit type: g, kg
 //*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
 *** Updated ContactUs, AboutUs: https://github.com/AY1920S1-CS2103-F10-2/main/pull/14[#30]
+*** Updated Class diagram for Logic component
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/teika97/ped/issues/1[1], https://github.com/teika97/ped/issues/3[3], https://github.com/teika97/ped/issues/4[4])
-*** Contributed to forum discussions (examples: ...)
+*** Contributed to forum discussions (examples: https://nus-cs2103-ay1920s1.slack.com/archives/CM4H41AN9/p1568817306026000[1])
 
 == Contributions to the User Guide
-
-
 |===
 |_Below are some notable sections I contributed to the User Guide which showcase my ability to write documentation targeting our target end-users._
 |===
 
 include::../UserGuide.adoc[tag=templatelistfeatures]
-
 include::../UserGuide.adoc[tag=addTempfeature]
 
 == Contributions to the Developer Guide
@@ -65,6 +63,10 @@ include::../UserGuide.adoc[tag=addTempfeature]
 |_Below are some notable sections I contributed to the Developer Guide that showcase my ability to write technical documentation and the technical depth of my contributions to the project_
 |===
 
-include::../DeveloperGuide.adoc[tag=editTemplateItemfeature]
+include::../DeveloperGuide.adoc[tag=logicClassDiagram]
+include::../DeveloperGuide.adoc[tag=addTemplateListfeature]
+include::../DeveloperGuide.adoc[tag=manualTestingTemplate]
+
+
 
 

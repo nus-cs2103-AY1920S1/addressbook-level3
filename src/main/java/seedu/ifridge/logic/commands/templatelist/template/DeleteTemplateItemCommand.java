@@ -16,7 +16,8 @@ import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a template item identified using it's displayed index from the template identified
+ * using it's displayed index in the template list.
  */
 public class DeleteTemplateItemCommand extends Command {
 

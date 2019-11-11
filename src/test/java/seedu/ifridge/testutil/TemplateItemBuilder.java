@@ -20,7 +20,7 @@ public class TemplateItemBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the TemplateItemBuilder with the data of {@code TemplateItem}.
      */
     public TemplateItemBuilder(TemplateItem itemToCopy) {
         name = itemToCopy.getName();
@@ -28,7 +28,7 @@ public class TemplateItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code TemplateItem} that we are building.
      */
     public TemplateItemBuilder withName(String name) {
         this.name = new Name(name);
@@ -36,7 +36,7 @@ public class TemplateItemBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code TemplateItem} that we are building.
      */
     public TemplateItemBuilder withAmount(String amount) {
         this.amount = new Amount(amount);

@@ -1,144 +1,88 @@
 package seedu.ifridge.logic.commands.templatelist;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.ifridge.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.DESC_TEMP_BULK_UP;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.DESC_TEMP_SICK;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.VALID_TEMPLATE_NAME_BULK_UP;
+import static seedu.ifridge.logic.commands.templatelist.TemplateCommandTestUtil.assertCommandFailure;
+import static seedu.ifridge.testutil.TypicalBoughtList.getTypicalBoughtList;
+import static seedu.ifridge.testutil.TypicalGroceryItems.getTypicalGroceryList;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.ifridge.testutil.TypicalIndexes.INDEX_SECOND;
+import static seedu.ifridge.testutil.TypicalShoppingList.getTypicalShoppingList;
+import static seedu.ifridge.testutil.TypicalTemplateList.getTypicalTemplateList;
+import static seedu.ifridge.testutil.TypicalUnitDictionary.getTypicalUnitDictionary;
+import static seedu.ifridge.testutil.TypicalWasteArchive.getTypicalWasteArchive;
+
+import java.util.TreeMap;
+
+import org.junit.jupiter.api.Test;
+
+import seedu.ifridge.commons.core.Messages;
+import seedu.ifridge.commons.core.index.Index;
+import seedu.ifridge.logic.commands.templatelist.EditTemplateListCommand.EditTemplateListDescriptor;
+import seedu.ifridge.model.GroceryList;
+import seedu.ifridge.model.Model;
+import seedu.ifridge.model.ModelManager;
+import seedu.ifridge.model.ShoppingList;
+import seedu.ifridge.model.TemplateList;
+import seedu.ifridge.model.UnitDictionary;
+import seedu.ifridge.model.UserPrefs;
+import seedu.ifridge.model.WasteList;
+import seedu.ifridge.model.food.UniqueTemplateItems;
+import seedu.ifridge.model.waste.WasteMonth;
+import seedu.ifridge.testutil.EditTemplateListDescriptorBuilder;
+
 /**
- * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and
- * unit tests for EditTemplateCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand)
+ * for {@code EditTemplateListCommand}.
  */
 public class EditTemplateListCommandTest {
-    /**
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    private Model model = new ModelManager(getTypicalGroceryList(), new UserPrefs(), getTypicalTemplateList(),
+            getTypicalWasteArchive(), getTypicalShoppingList(), getTypicalBoughtList(),
+            getTypicalUnitDictionary());
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        TemplateItem editedTemplateItem = new TemplateItemBuilder().build();
-        EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder(editedTemplateItem).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_PERSON, descriptor);
+        UniqueTemplateItems templateToEdit = model.getFilteredTemplateList().get(INDEX_FIRST.getZeroBased());
+        EditTemplateListDescriptor descriptor = new EditTemplateListDescriptorBuilder()
+                .withName(VALID_TEMPLATE_NAME_BULK_UP).withTemplateItems(templateToEdit).build();
 
-        String expectedMessage = String.format(EditTemplateItemCommand.MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS,
-            editedTemplateItem);
+        EditTemplateListCommand editCommand = new EditTemplateListCommand(INDEX_FIRST, descriptor);
 
-        Model expectedModel = new ModelManager(new TemplateList(model.getTemplate()), new UserPrefs());
-        expectedModel.setGroceryItem(model.getFilteredTemplateList().get(0), editedTemplateItem);
+        String expectedMessage = String.format(EditTemplateListCommand.MESSAGE_SUCCESS, templateToEdit);
 
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
+        Model expectedModel = new ModelManager(
+                new GroceryList(model.getGroceryList()), new UserPrefs(model.getUserPrefs()),
+                new TemplateList(model.getTemplateList()), new TreeMap<WasteMonth, WasteList>(model.getWasteArchive()),
+                new ShoppingList(model.getShoppingList()), new GroceryList(model.getBoughtList()),
+                new UnitDictionary(model.getUnitDictionary()));
 
-    @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastTemplateItem = Index.fromOneBased(model.getFilteredTemplateList().size());
-        TemplateItem lastTemplateItem = model.getFilteredTemplateList().get(indexLastTemplateItem.getZeroBased());
-
-        TemplateItemBuilder templateItemInList = new TemplateItemBuilder(lastTemplateItem);
-        TemplateItem editedTemplateItem = templateItemInList.withName(VALID_NAME_BOB)
-                .withAmount(VALID_AMOUNT_BOB).build();
-
-        EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withAmount(VALID_AMOUNT_BOB).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(indexLastTemplateItem, descriptor);
-
-        String expectedMessage = String.format(EditTemplateItemCommand.MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS,
-            editedTemplateItem);
-
-        Model expectedModel = new ModelManager(new TemplateList(model.getTemplate()), new UserPrefs());
-        expectedModel.setTemplateItem(lastTemplateItem, editedTemplateItem);
+        expectedModel.setTemplate(templateToEdit, descriptor.getTemplate());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_noFieldSpecifiedUnfilteredList_success() {
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_PERSON,
-            new EditTemplateItemDescriptor());
-        TemplateItem editedTemplateItem = model.getFilteredTemplateList().get(INDEX_FIRST_PERSON.getZeroBased());
-
-        String expectedMessage = String.format(EditTemplateItemCommand.MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS,
-            editedTemplateItem);
-
-        Model expectedModel = new ModelManager(new TemplateList(model.getTemplate()), new UserPrefs());
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_filteredList_success() {
-        showTemplateItemAtIndex(model, INDEX_FIRST_PERSON);
-
-        TemplateItem templateItemsInFilteredList = model.getFilteredTemplateList()
-            .get(INDEX_FIRST_PERSON.getZeroBased());
-        TemplateItem editedTemplateItem = new TemplateItemBuilder(templateItemsInFilteredList)
-            .withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_PERSON,
-            new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB).build());
-
-        String expectedMessage = String.format(EditTemplateItemCommand.MESSAGE_EDIT_TEMPLATE_ITEM_SUCCESS,
-            editedTemplateItem);
-
-        Model expectedModel = new ModelManager(new TemplateList(model.getTemplate()), new UserPrefs());
-        expectedModel.setTemplateItem(model.getFilteredTemplateList().get(0), editedTemplateItem);
-
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
-    }
-
-    @Test
-    public void execute_duplicateTemplateItemUnfilteredList_failure() {
-        TemplateItem firstTemplateItem = model.getFilteredTemplateList().get(INDEX_FIRST_PERSON.getZeroBased());
-        EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder(firstTemplateItem).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_SECOND_PERSON, descriptor);
-
-        assertCommandFailure(editCommand, model, EditTemplateItemCommand.MESSAGE_DUPLICATE_TEMPLATE_ITEM);
-    }
-
-    @Test
-    public void execute_duplicateTemplateItemFilteredList_failure() {
-        showTemplateItemAtIndex(model, INDEX_FIRST_PERSON);
-
-        // edit person in filtered list into a duplicate in address book
-        TemplateItem templateItemInList = model.getTemplate().getTemplate().get(INDEX_SECOND_PERSON.getZeroBased());
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(INDEX_FIRST_PERSON,
-                new EditTemplateItemDescriptorBuilder(templateItemInList).build());
-
-        assertCommandFailure(editCommand, model, EditTemplateItemCommand.MESSAGE_DUPLICATE_TEMPLATE_ITEM);
-    }
-    */
-
-    /**
-    @Test
-    public void execute_invalidTemplateItemIndexUnfilteredList_failure() {
+    public void execute_invalidTemplateIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTemplateList().size() + 1);
-        EditTemplateItemDescriptor descriptor = new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_BOB).
-                withAmount(VALID_AMOUNT_BOB).build();
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(outOfBoundIndex, descriptor);
+        EditTemplateListDescriptor descriptor = new EditTemplateListDescriptorBuilder()
+                .withName(VALID_TEMPLATE_NAME_BULK_UP).build();
+        EditTemplateListCommand editCommand = new EditTemplateListCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
-    }
-    */
-
-    /**
-     * Edit filtered list where index is larger than size of filtered list,
-     * but smaller than size of template list.
-     */
-    /**
-    @Test
-    public void execute_invalidTemplateItemIndexFilteredList_failure() {
-        showTemplateItemAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getTemplate().getTemplate().size());
-
-        EditTemplateItemCommand editCommand = new EditTemplateItemCommand(outOfBoundIndex,
-                new EditTemplateItemDescriptorBuilder().withName(VALID_NAME_BOB).withAmount(VALID_AMOUNT_BOB).build());
-
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_ITEM_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_TEMPLATE_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        // Need to set a new DESC_AMY for CommandTestUtil with a TemplateItemDescriptor
-        final EditTemplateItemCommand standardCommand = new EditTemplateItemCommand(INDEX_FIRST_PERSON, DESC_AMY);
+        final EditTemplateListCommand standardCommand = new EditTemplateListCommand(INDEX_FIRST, DESC_TEMP_BULK_UP);
 
         // same values -> returns true
-        EditTemplateItemDescriptor copyDescriptor = new EditTemplateItemDescriptor(DESC_AMY);
-        EditTemplateItemCommand commandWithSameValues = new EditTemplateItemCommand(INDEX_FIRST_PERSON, copyDescriptor);
+        EditTemplateListDescriptor copyDescriptor = new EditTemplateListDescriptor(DESC_TEMP_BULK_UP);
+        EditTemplateListCommand commandWithSameValues = new EditTemplateListCommand(INDEX_FIRST, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -148,13 +92,12 @@ public class EditTemplateListCommandTest {
         assertFalse(standardCommand.equals(null));
 
         // different types -> returns false
-        assertFalse(standardCommand.equals(new ClearTemplateItemCommand()));
+        assertFalse(standardCommand.equals(new ClearTemplateListCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditTemplateItemCommand(INDEX_SECOND_PERSON, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditTemplateListCommand(INDEX_SECOND, DESC_TEMP_BULK_UP)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditTemplateItemCommand(INDEX_FIRST_PERSON, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditTemplateListCommand(INDEX_SECOND, DESC_TEMP_SICK)));
     }
-    */
 }

@@ -13,7 +13,7 @@ import seedu.ifridge.model.food.TemplateItem;
 import seedu.ifridge.model.food.UniqueTemplateItems;
 
 /**
- * An Immutable GroceryList that is serializable to JSON format.
+ * An Immutable Template that is serializable to JSON format.
  */
 class JsonSerializableTemplate {
 
