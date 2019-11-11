@@ -1,0 +1,86 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor LOGIC_COLOR_T4
+skinparam classBackgroundColor LOGIC_COLOR
+
+package Logic {
+
+package Interactive {
+package Parser {
+Interface InteractiveParser <<Interface>>
+Class Parser
+Class ArgumentMultimap
+Class ArgumentTokenizer
+Class InputProcessor
+Class CliSyntax
+Class Prefix
+
+package State {
+Class StateUtil
+Class "{abstract}\nState" as State
+Class "{abstract}\nEndState" as EndState
+Class "{abstract}\nPenultimateState" as PenultimateState
+Interface OptionalState <<Interface>>
+
+package PdfMachine {
+Class PdfIndexState
+Class FromState
+Class ToState
+Class PdfEndState
+
+}
+
+}
+
+}
+
+
+}
+
+package Command {
+Class PdfCommand
+Class CommandResult
+Class "{abstract}\nCommand" as Command
+}
+
+}
+
+package Model{
+Class HiddenModel #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> Logic
+
+PdfCommand -up-|> Command
+Command -up-> CommandResult
+Command ..> Model
+
+Parser .up.|> InteractiveParser
+Parser ..> ArgumentMultimap
+Parser ..> ArgumentTokenizer
+Parser ..> InputProcessor
+Parser ..> CliSyntax
+Parser -right-> State
+Parser ...> OptionalState
+
+ArgumentTokenizer ..> Prefix
+CliSyntax ..> Prefix
+
+State .left.> StateUtil
+EndState -up-|> State
+PenultimateState -|> State
+EndState ..> Command
+
+PdfIndexState --|> State
+FromState --|> State
+ToState --|> PenultimateState
+PdfEndState --|> EndState
+
+PdfIndexState .right.> FromState
+FromState .right.> ToState
+ToState .down.> PdfEndState
+PdfEndState .> PdfCommand
+
+@enduml

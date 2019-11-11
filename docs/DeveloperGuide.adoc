@@ -96,6 +96,13 @@ The `UI` component,
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
+{empty} +
+
+[NOTE]
+The package state contains additional packages that represent state machines for each `Command`. These packages have been
+omitted for brevity. +
+XYZ refers to any arbitrary command. For example: +
+`XYZEndState` can be `AddEndState` and `XYZCommand` can be `AddCommand`.
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -688,6 +695,14 @@ the `State` being tracked transitions into an `EndState`. Once the tracked `Stat
 which is executed by the `LogicManager`.
 
 The structure of the interactive parser is detailed in the UML diagram below.
+
+.Class diagram of the interactive parser. This figures shows an example of a state machine inside the package `State`.
+image::InteractiveParserDiagram.png
+{empty} +
+
+[NOTE]
+The above diagram only shows the component of the package `State` that handles the `PdfCommand`. The other packages have been
+omitted for brevity.
 
 Parsing of user entered inputs can be viewed as parsing a small, finite context-free language. The command built by a sequence of inputs
 is uniquely determined by the sequence of inputs entered by the user and happens to be deterministic. +
