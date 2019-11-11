@@ -590,8 +590,8 @@ and is not required for `set_in`, `set_out` and `switch_direct`
 *Script Usage in Rules:*
 
 * Scripts used in rules have access to two additional arguments:
-** The transaction to test/act upon is stored in "_argv[0]_"
-** The account that the transaction belongs to is stored in "_argv[1]_"
+** The transaction to test/act upon is stored in `argv[0]`
+** The account that the transaction belongs to is stored in `argv[1]`
 * Refer to <<Scripting>> for general script usage.
 ****
 
