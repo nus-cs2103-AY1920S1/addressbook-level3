@@ -1,4 +1,4 @@
-= DukeCooks - User Guide
+= DukeCooks - User Guide image:DukeCooks_Logo.png[icon, 50, 50]
 :site-section: UserGuide
 :toc:
 :toc-title:

@@ -1,4 +1,4 @@
-= DukeCooks - Developer Guide
+= DukeCooks - Developer Guide image:DukeCooks_Logo.png[align="center", width="50"]
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
