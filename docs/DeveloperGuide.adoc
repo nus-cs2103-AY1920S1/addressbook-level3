@@ -1826,20 +1826,20 @@ If there are no spending to be displayed, an empty graph is shown.
    Expected: Tab switches to Graph tab if not already showing. MoneyGoWhere will display graph for spending that fall between last week and today.
 If there are no spending in the date range to be displayed, an empty graph is shown.
 
-=== Setting a new Budget
+=== Setting a New Budget
 
 . Setting a new budget for the current month
 .. Test case: `budget 1000` +
     Expected: The budget will be set to 1000, which can be seen in the Graphical User Interface
 
-=== Viewing previous commands
+=== Viewing Previous Commands
 
 . Traversing previous commands using the up key
 .. Prerequisites: There should be at least one existing command previously executed.
 .. Test case:  Press `up` key +
     Expected: The previous command will be shown in the command box.
 
-=== Viewing next commands
+=== Viewing Next Commands
 
 . Traversing next commands using the down key
 .. Prerequisites: There should be at least two existing command previously executed and user has pressed the up key twice.
