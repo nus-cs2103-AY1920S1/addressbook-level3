@@ -315,6 +315,9 @@ To make a Java card via the CLI
     HELLO
     ALREADYUPPERCASE
 
+* if you want to put a blank input, just type input/ with nothing after it to make it explicit to FlashCard Pro that you want a blank input.
+* Outputs still cannot be blank.
+
 To continue making a JavaScript card via the GUI
 
 - Enter a question that tells you what code to write. +

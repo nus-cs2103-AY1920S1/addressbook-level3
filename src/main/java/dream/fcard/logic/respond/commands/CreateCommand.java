@@ -206,12 +206,22 @@ public class CreateCommand extends Command {
      * @param cases the input in multiline.
      */
     public static void createJavaCard(String cases) {
-        ArrayList<ArrayList<String>> res = RegexUtil.parseCommandFormat("Enter your inputs/outputs below.",
-                new String[]{"input/", "output/"}, cases);
+        ArrayList<ArrayList<String>> res;
+
+        try {
+            res = RegexUtil.parseCommandFormat("Enter your inputs/outputs below.",
+                    new String[]{"input/", "output/"}, cases);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            //empty output
+            StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Inputs must be entered before outputs!");
+            return;
+        }
+
         if (res.get(0).size() != res.get(1).size()) {
             //inputs not equal to output
             StateHolder.getState().setCurrState(StateEnum.DEFAULT);
-            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Number of input/ must match number of output/");
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Blank output or diff number of inputs/outputs detected");
             return;
         }
         if (res.get(0).size() == 0 && res.get(1).size() == 0) {
