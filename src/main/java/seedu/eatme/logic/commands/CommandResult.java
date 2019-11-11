@@ -34,13 +34,13 @@ public class CommandResult {
     /**
      * The application should save to-do eatery to eatery list.
      */
-    private final boolean wantToSave;
+    private final String wantToSave;
 
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
     public CommandResult(String feedbackToUser, Eatery eateryToShow, Review reviewToShow,
-                         boolean showHelp, boolean exit, boolean wantToSave, boolean showStats) {
+                         boolean showHelp, boolean exit, String wantToSave, boolean showStats) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.eateryToShow = eateryToShow;
         this.reviewToShow = reviewToShow;
@@ -55,7 +55,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, null, null, false, false, false, false);
+        this(feedbackToUser, null, null, false, false, null, false);
     }
 
     /**
@@ -63,7 +63,7 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser, Eatery eateryToShow) {
-        this(feedbackToUser, eateryToShow, null, false, false, false, false);
+        this(feedbackToUser, eateryToShow, null, false, false, null, false);
     }
 
     /**
@@ -71,13 +71,13 @@ public class CommandResult {
      * and other fields are set to their default value.
      */
     public CommandResult(String feedbackToUser, Review reviewToShow) {
-        this(feedbackToUser, null, reviewToShow, false, false, false, false);
+        this(feedbackToUser, null, reviewToShow, false, false, null, false);
     }
     /**
      * Constructs a {@code CommandResult} with the specified fields,
      * and {@code eateryToShow} set to its default value
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, boolean wantToSave, boolean showStats) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, String wantToSave, boolean showStats) {
         this(feedbackToUser, null, null, showHelp, exit, wantToSave, showStats);
     }
 
@@ -97,7 +97,7 @@ public class CommandResult {
         return exit;
     }
 
-    public boolean wantToSave() {
+    public String wantToSave() {
         return wantToSave;
     }
 

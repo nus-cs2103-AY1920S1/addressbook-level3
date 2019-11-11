@@ -170,8 +170,7 @@ public class MainWindow extends UiPart<Stage> {
      * Display pending command generated from to-do in commandbox.
      */
     private void handleSaveTodo(String pendingCommand) {
-        String[] resTokens = pendingCommand.split(":");
-        commandBox = new CommandBox(this::executeCommand, resTokens[1]);
+        commandBox = new CommandBox(this::executeCommand, pendingCommand);
         commandBoxPlaceholder.getChildren().clear();
         commandBoxPlaceholder.getChildren().addAll(commandBox.getRoot());
     }
@@ -199,8 +198,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
-            if (commandResult.wantToSave()) {
-                handleSaveTodo(commandResult.getFeedbackToUser());
+            if (commandResult.wantToSave() != null) {
+                handleSaveTodo(commandResult.wantToSave());
             }
 
             if (commandResult.isShowStats()) {

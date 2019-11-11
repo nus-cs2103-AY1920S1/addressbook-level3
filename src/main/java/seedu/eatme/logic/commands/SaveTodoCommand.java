@@ -65,7 +65,7 @@ public class SaveTodoCommand extends Command {
         model.toggle();
 
         String res = MESSAGE_REMINDER_TO_USER + pendingCommand;
-        return new CommandResult(res, false, false, true, false);
+        return new CommandResult(res, false, false, pendingCommand, false);
     }
 
     @Override

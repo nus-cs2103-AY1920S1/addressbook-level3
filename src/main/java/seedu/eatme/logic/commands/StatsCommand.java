@@ -42,7 +42,7 @@ public class StatsCommand extends Command {
         try {
             Statistics stats = new Statistics(model.getEateryList().getEateryList());
             model.setStatistics(stats);
-            return new CommandResult(MESSAGE_STATS_SUCCESS, false, false, false, true);
+            return new CommandResult(MESSAGE_STATS_SUCCESS, false, false, null, true);
 
         } catch (NoAvailableDataException n) {
             throw new CommandException(MESSAGE_STATS_ERROR_NODATA);
