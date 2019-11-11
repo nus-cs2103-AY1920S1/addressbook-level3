@@ -903,7 +903,6 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
 
-
 === Undoing/Redoing previous commands
 
 . Undoing when no `UndoableCommand`(s) have been executed
@@ -928,6 +927,33 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
 .. Prerequisites: Execute at least one `UndoableCommand`, followed by one or more `UndoCommand`(s), and then another `UndoableCommand`
 .. Test case: `redo` +
     Expected: Should not be able to redo as the undo/redo command history has changed. Error message shown in chat box.
+
+=== Game mode testing
+
+.Entering game mode (easy)
+image::SnakeGame.PNG[500,600]
+
+.. Test case: `game` +
+Expected: Enters easy mode of game (Refer to figure above)
+.. Test case: `game e` +
+Expected: Same as above.
+.. Test case: `game EASY`
+Expected: Same as above.
+
+.Entering game mode (hard)
+image::snakegamehard.PNG[500,600]
+
+.. Test case: `game H` +
+Expected: Enters hard mode of game (Refer to figure above)
+.. Test case: `game hard` +
+Expected: Same as above.
+
+=== Change theme testing
+
+. Changing theme of ELISA
+.. Prerequisites: You must be in a different theme from the theme you are switching to before you can see the change.
+.. Test case: `theme white`
+Expected: Change ELISA's theme to white.
 
 === Priority mode testing
 . Toggling on priority mode
