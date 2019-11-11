@@ -65,8 +65,10 @@ public class Messages {
     public static final String MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST = "Current Window does not have "
             + "an Employee List\n" + "Note: Employee Commands should be executed in either the Main or Finance Tab.";
     public static final String MESSAGE_WRONG_TAB_MISSING_EVENT_LIST = "Current Window does not have an Event List\n"
-            + "Note: Event Commands should be executed in either the Main or Schedule or Statistics Tab.";
-
+            + "Note: Event Commands should be executed in either the Main or Schedule tab";
+    public static final String MESSAGE_WRONG_TAB_STATS = "Current Window does not support the "
+            + "stats feature\n" + "Note: Statistics Commands should be executed in the "
+            + "Statistics Tab.\n";
     public static final String MESSAGE_WRONG_TAB = "Current Window does not support this "
             + "command\n" + "Note: This command should be executed in the Main Tab";
 }
