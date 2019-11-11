@@ -7,8 +7,8 @@ title After command "redo"
 
 package ModelHistory{
     package PastModels {
-        class State1 as "__m0:Model__"
-        class State2 as "__m1:Model__"
+        class State1 as "__m0:ModelChanges__"
+        class State2 as "__m3:ModelChanges__"
 
         State1 -[hidden]up-> State2
     }
@@ -16,9 +16,4 @@ package ModelHistory{
     package FutureModels {}
 }
 
-class State3 as "__m2:Model__"
-
-class Pointer as "Current State" #FFFFF
-
-Pointer -up-> State3
 @end

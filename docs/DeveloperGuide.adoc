@@ -236,45 +236,54 @@ Classes used by multiple components are in the `seedu.moolah.commons` package.
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
+=== Undo and Redo feature
 ==== Implementation
 
-The undo/redo functionality is facilitated by `ModelHistory` which is an instance-level member for models.
-Internally, it stores model snapshots by using two stacks: `pastModels` and `futureModels`.
-With the addition of model history, now `Model` also supports these operations:
+The undo and redo functionality is facilitated by `ModelHistory`, which is available as an instance-level member of `Model`. It keeps track of the model's history
+by storing the changed fields of the model throughout execution, which will be represented as `ModelChanges`. Internally, `ModelHistory` stores the history by using two stacks of `ModelChanges`, namely: `pastChanges` and `futureChanges`.
 
-* `Model#addToHistory()` -- Moves the history forward by saving the current model snapshot in its past history and clearing the future history.
-* `Model#rollback()` -- Restores the state to the immediate previous model in the history.
-* `Model#migrate()` -- Forwards the state to the immediate next model in the history.
+With the addition of model history, `Model` can support these operations:
 
-`ModelHistory` only stores histories of models which were about to be (or are going to be) executed by model-changing commands.
-As some of the commands available are intuitively not undoable (e.g. `help`), we make commands extend to either `UndoableCommand` or a non-undoable `Command` classes.
-So, the `Model#addToHistory()` will only be called if the command to be executed is an instance of `UndoableCommand`.
+* `Model#commit(String, Model)` -- Saves the changes between the current model and the given previous model to the past changes history, keeping the previous model's data should there be any differences. This adds the changes to the past history, and clearing the future history.
+* `Model#applyChanges(ModelChanges)` -- Applies the changes in history
+* `Model#canRollback()` -- Checks whether the model can be rolled-back
+* `Model#rollback()` -- Restores the model one step back by applying the changes described in the immediate previous changes in history.
+* `Model#canMigrate()` -- Checks whether the model can be migrated
+* `Model#migrate()` -- Moves the model one step forward in history by applying the changes described in the immediate next changes.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+To support these capabilities, `ModelChanges` offers these methods as well:
+
+* `ModelChanges#compareModels(Model, Model)` -- Compares two models' data and creates a new `ModelChanges` object that c
+* `ModelChanges#revertChanges(Model)` -- Reverts the current changes with respect to the base model given.
+
+`ModelHistory` only stores changes of models that were (or are going to be) executed by model-manipulating - or simply, undoable - commands.
+As some of the commands available are intuitively not undoable (e.g. `help`), every command is configured to extend either `UndoableCommand` or a non-undoable `Command` classes.
+With the division, `Model#commit(String, Model)` will only be called if the command to be executed is an instance of `UndoableCommand`.
+
+Given below is an example usage scenario and how the undo and redo functionality behaves at each step.
 
 Step 1. The user launches the application for the first time. The current `ModelHistory` is now empty.
 
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `add d/Chicken Rice p/2.50 ...` command to add an expense.
-The `add` command, being an `UndoableCommand`, calls `Model#addToHistory()`, which saves the state of the model just before the command executes to `pastModels`, and `futureModels` is cleared.
+Step 2. The user executes `addexpense d/chicken rice p/2.50 c/food` command to add an expense.
+The `addexpense` command, being an `UndoableCommand`, calls `Model#commit(String, Model)`, which saves the state of the model just before the command executes to `pastChanges`, and `futureChanges` is cleared.
 
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `delete 1` to delete the first expense on the list. The `delete` command, also an `UndoableCommand`, calls `Model#addToHistory()`, inserting another entry to the `pastModels` and clearing `futureModels` again.
+Step 3. The user executes `deleteexpense-primary 1` to delete the first expense on the list. The `deleteexpense-primary` command, also an `UndoableCommand`, calls `Model#commit(String, Model)`, inserting another entry to the `pastChanges` and clearing `futureChanges` again.
 
 image::UndoRedoState2.png[]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#addToHistory()`, so the model will not be saved into `ModelHistory`.
 
-Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollbackModel()`, which will retrieve the immediate previous model in history, adding the current model to the future history of the retrieved model, and restores the model according to that state.
+Step 4. The user now decides that deleting the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#rollback()`, which will retrieve the immediate previous change in history, adding the reverting change to the future history of the retrieved model, and applies the change to the model.
 
 image::UndoRedoState3.png[]
 
 [NOTE]
-If `pastModels` is empty, then there are no previous models to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If `pastChanges` is empty, then there are no previous changes to roll back. The `undo` command uses `Model#canRollback()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo command works:
 
@@ -282,26 +291,42 @@ image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-Inversely, the `redo` command calls `Model#migrate()`, which retrieves the immediate next model in history, adds the current model to the past history of the retrieved model, and resets the model according to that snapshot.
+Inversely, the `redo` command calls `Model#migrate()`, which retrieves the immediate next changes in history, adds the reverting change to the past history, and applies the changes to the model.
 
 [NOTE]
-If `futureModels` is empty, then there are no snapshots to be redone. The `redo` command uses `Model#canMigrate()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If `futureChanges` is empty, then there are no snapshots to be redone. The `redo` command uses `Model#canMigrate()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+As explained earlier, additions of entry to `ModelHistory` will only be performed when the command being executed is an instance of `UndoableCommand`.
+The following diagram briefly describes how the execution of undoable commands will do so:
+
+image::UndoableCommandActivityDiagram.png[]
 
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire model.
-** Pros: Easier to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual commands have their own counter-command that can negate the effects.
-** Pros: Quite intuitive (e.g. for `add`, just do `delete` to counter it).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-We choose Alternative 1 as this approach will be less likely to cause problems specific to restoring the state to the way it was before the execution of a command,
+* **Alternative 1:** Saves the model data.
+** Pros: It is easier to implement.
+** Cons: The approach introduces a new
+* **Alternative 2:** Individual commands have their own counter-command that negate the effects.
+** Pros: This approach is quite intuitive (e.g. for `addmenuexpense`, we can do `deleteexpense-primary` to counter it).
+** Cons: It has to be ensured that the implementation of each individual command is correct.
+* **Current implementation (Alternative 1)**:
+We choose this approach as it will be less likely to cause problems specific to restoring the state precisely to the state before the execution of a command,
 as some commands will create a problem specific on their own which might not be supported by the proposed counter-command.
-As an example, to undo `delete 3`, we must re-add that expense to that specific position, which at the moment is not supported
-by the `add` command.
+As an example, to undo `delete 3`, we must re-add that expense to that specific position (third from beginning), which at the moment is not supported
+by the `addexpense` command.
+
+===== Aspect: How to store the model data
+
+* **Alternative 1:** Saves the entire model.
+** Pros:
+** Cons: The approach introduces a lot of memory usage that is going increasing  usage.
+* **Alternative 2:** Saves the members of the model that were (or are going to be) changed.
+** Pros:
+** Cons:
+* **Current implementation (Alternative 2)**:
+We choose this approach as
 
 // end::undoredo[]
 
