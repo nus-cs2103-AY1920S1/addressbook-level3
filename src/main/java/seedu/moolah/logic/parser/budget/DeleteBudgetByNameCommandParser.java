@@ -26,6 +26,8 @@ public class DeleteBudgetByNameCommandParser implements Parser<DeleteBudgetByNam
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteBudgetByNameCommand
      * and returns an DeleteBudgetByNameCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteBudgetByNameCommand parse(String args) throws ParseException {

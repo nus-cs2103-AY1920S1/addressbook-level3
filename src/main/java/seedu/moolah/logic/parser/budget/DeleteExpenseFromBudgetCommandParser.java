@@ -23,6 +23,8 @@ public class DeleteExpenseFromBudgetCommandParser implements Parser<DeleteExpens
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteExpenseFromBudgetCommand
      * and returns a DeleteExpenseFromBudgetCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteExpenseFromBudgetCommand parse(String args) throws ParseException {

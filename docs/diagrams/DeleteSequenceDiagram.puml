@@ -3,9 +3,9 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":MooLahParser" as MooLahParser LOGIC_COLOR
+participant ":DeleteExpenseCommandParser" as DeleteExpenseCommandParser LOGIC_COLOR
+participant "d:DeleteExpenseCommand" as DeleteExpenseCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -13,56 +13,56 @@ box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
+[-> LogicManager : execute("deleteexpense 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> MooLahParser : parseCommand("deleteexpense 1")
+activate MooLahParser
 
-create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
-activate DeleteCommandParser
+create DeleteExpenseCommandParser
+MooLahParser -> DeleteExpenseCommandParser
+activate DeleteExpenseCommandParser
 
-DeleteCommandParser --> AddressBookParser
-deactivate DeleteCommandParser
+DeleteExpenseCommandParser --> MooLahParser
+deactivate DeleteExpenseCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
-activate DeleteCommandParser
+MooLahParser -> DeleteExpenseCommandParser : parse("1")
+activate DeleteExpenseCommandParser
 
-create DeleteCommand
-DeleteCommandParser -> DeleteCommand
-activate DeleteCommand
+create DeleteExpenseCommand
+DeleteExpenseCommandParser -> DeleteExpenseCommand
+activate DeleteExpenseCommand
 
-DeleteCommand --> DeleteCommandParser : d
-deactivate DeleteCommand
+DeleteExpenseCommand --> DeleteExpenseCommandParser : d
+deactivate DeleteExpenseCommand
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
+DeleteExpenseCommandParser --> MooLahParser : d
+deactivate DeleteExpenseCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
-destroy DeleteCommandParser
+DeleteExpenseCommandParser -[hidden]-> MooLahParser
+destroy DeleteExpenseCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+MooLahParser --> LogicManager : d
+deactivate MooLahParser
 
-LogicManager -> DeleteCommand : execute()
-activate DeleteCommand
+LogicManager -> DeleteExpenseCommand : execute()
+activate DeleteExpenseCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteExpenseCommand -> Model : deleteExpense(1)
 activate Model
 
-Model --> DeleteCommand
+Model --> DeleteExpenseCommand
 deactivate Model
 
 create CommandResult
-DeleteCommand -> CommandResult
+DeleteExpenseCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> DeleteCommand
+CommandResult --> DeleteExpenseCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+DeleteExpenseCommand --> LogicManager : result
+deactivate DeleteExpenseCommand
 
 [<--LogicManager
 deactivate LogicManager

@@ -37,6 +37,8 @@ public class AddBudgetCommandParser implements Parser<AddBudgetCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the AddBudgetCommand
      * and returns an AddBudgetCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddBudgetCommand parse(String args) throws ParseException {

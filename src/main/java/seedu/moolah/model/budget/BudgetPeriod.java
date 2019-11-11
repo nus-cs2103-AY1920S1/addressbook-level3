@@ -17,6 +17,12 @@ public enum BudgetPeriod {
     private final String label;
     private final Period period;
 
+    /**
+     * Constructs a BudgetPeriod object with a string description and a period.
+     *
+     * @param label A string description of this BudgetPeriod.
+     * @param period A Period representing the length of this BudgetPeriod.
+     */
     BudgetPeriod(String label, Period period) {
         requireAllNonNull(label, period);
         this.label = label;
@@ -27,6 +33,11 @@ public enum BudgetPeriod {
         return this.period;
     }
 
+    /**
+     * Generates a string representation of this BudgetPeriod.
+     *
+     * @return A string that describes the period.
+     */
     @Override
     public String toString() {
         return this.label;

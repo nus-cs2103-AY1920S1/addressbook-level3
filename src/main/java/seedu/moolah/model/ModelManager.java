@@ -269,42 +269,85 @@ public class ModelManager implements Model {
 
     //=========== Budget ================================================================================
 
+    /**
+     * Checks whether the model contains an equivalent budget as the given argument.
+     *
+     * @param budget The budget to check.
+     * @return True if the model contains budget identical to the budget to check.
+     */
     @Override
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
         return mooLah.hasBudget(budget);
     }
 
+    /**
+     * Adds a budget to the model.
+     *
+     * @param budget The budget to be added.
+     */
     @Override
     public void addBudget(Budget budget) {
         mooLah.addBudget(budget);
     }
 
+    /**
+     * Returns true if there is a budget with the specified description in the model.
+     *
+     * @param targetDescription The specified description.
+     * @return True if there exists a budget with the specified description in the model, false otherwise.
+     */
     @Override
     public boolean hasBudgetWithName(Description targetDescription) {
         return mooLah.hasBudgetWithName(targetDescription);
     }
 
+    /**
+     * Returns the primary budget in this model.
+     *
+     * @return The primary budget in this model.
+     */
     @Override
     public Budget getPrimaryBudget() {
         return mooLah.getPrimaryBudget();
     }
 
+    /**
+     * Checks if the model has a primary budget.
+     *
+     * @return True if the model has a primary budget, false otherwise.
+     */
     @Override
     public boolean hasPrimaryBudget() {
         return getPrimaryBudget() != null;
     }
 
+    /**
+     * Switches the primary budget to the budget with the specified description.
+     *
+     * @param targetDescription The specified description.
+     */
     @Override
     public void switchBudgetTo(Description targetDescription) {
         mooLah.switchBudgetTo(targetDescription);
     }
 
+    /**
+     * Removes a budget from this model.
+     *
+     * @param target The budget to remove.
+     */
     @Override
     public void deleteBudget(Budget target) {
         mooLah.removeBudget(target);
     }
 
+    /**
+     * Replaces the target budget with an edited budget.
+     *
+     * @param target The budget to be replaced.
+     * @param editedBudget The updated budget.
+     */
     @Override
     public void setBudget(Budget target, Budget editedBudget) {
         requireAllNonNull(target, editedBudget);
@@ -312,6 +355,11 @@ public class ModelManager implements Model {
         mooLah.setBudget(target, editedBudget);
     }
 
+    /**
+     * Changes window of primary budget to a different window anchored by the specified date.
+     *
+     * @param pastDate A date in the past to anchor the window to be switched to.
+     */
     @Override
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
         requireAllNonNull(pastDate);
@@ -319,11 +367,17 @@ public class ModelManager implements Model {
         mooLah.changePrimaryBudgetWindow(pastDate);
     }
 
+    /** Clears all budgets in the model, except the default budget. */
     @Override
     public void clearBudgets() {
         mooLah.clearBudgets();
     }
 
+    /**
+     * Deletes the budget with the specified description from the model.
+     *
+     * @param description The specified description.
+     */
     @Override
     public void deleteBudgetWithName(Description description) {
         mooLah.deleteBudgetWithName(description);

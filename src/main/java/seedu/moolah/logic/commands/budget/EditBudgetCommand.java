@@ -65,11 +65,23 @@ public class EditBudgetCommand extends UndoableCommand {
         this.editBudgetDescriptor = new EditBudgetDescriptor(editBudgetDescriptor);
     }
 
+    /**
+     * Returns a description of this EditBudgetCommand.
+     *
+     * @return A string that describes this EditBudgetCommand.
+     */
     @Override
     public String getDescription() {
         return String.format(COMMAND_DESCRIPTION, index.getOneBased());
     }
 
+    /**
+     * Validates this EditBudgetCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     * @throws CommandException If the index is invalid, or the budget to edit is default budget, or if the command
+     * will result in duplicate budgets.
+     */
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
@@ -89,6 +101,12 @@ public class EditBudgetCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Executes this EditBudgetCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);

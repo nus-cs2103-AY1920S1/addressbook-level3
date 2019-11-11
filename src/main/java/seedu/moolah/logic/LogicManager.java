@@ -147,6 +147,12 @@ public class LogicManager implements Logic {
         model.setGuiSettings(guiSettings);
     }
 
+    /**
+     * Records initial status of primary budget before executing a command.
+     *
+     * @return A boolean array containing initial {@code isHalf}, {@code isNear}, {@code isExceeded}
+     * flags of the primary budget.
+     */
     @Override
     public boolean[] recordInitialPrimaryBudgetStatus() {
         Budget primaryBudget = getPrimaryBudget();
@@ -156,6 +162,12 @@ public class LogicManager implements Logic {
         return new boolean[]{initialIsExceeded, initialIsNear, initialIsHalf};
     }
 
+    /**
+     * Records final status of primary budget after executing a command.
+     *
+     * @return A boolean array containing final {@code isHalf}, {@code isNear}, {@code isExceeded}
+     * flags of the primary budget.
+     */
     @Override
     public boolean[] recordFinalPrimaryBudgetStatus() {
         Budget primaryBudget = getPrimaryBudget();

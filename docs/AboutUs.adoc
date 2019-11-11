@@ -4,28 +4,27 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-MooLah was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+*MooLah* was developed by Team `AY1920S1-CS2103T-T11-1`, based on "AddressBook - Level 3" by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== Anqi Chen
-image::anqichen9856.png[width="150", align="left"]
-{empty}[https://github.com/anqichen9856[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: In charge of Budgeting & Expense Tracking
-
-'''
-
 === Brian Fung
 image::briyanii.png[width="150", align="left"]
-{empty}[http://github.com/briyanii[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/briyanii[github]] [<<briyanii#, portfolio>>]
 
 Role: Developer  +
 Responsibilities: In charge of GUI
+
+'''
+
+=== Chen Anqi
+image::anqichen9856.png[width="150", align="left"]
+{empty}[https://github.com/anqichen9856[github]] [<<anqichen9856#, portfolio>>]
+
+Role: Developer +
+Responsibilities: In charge of Budgeting and Documentation
 
 '''
 

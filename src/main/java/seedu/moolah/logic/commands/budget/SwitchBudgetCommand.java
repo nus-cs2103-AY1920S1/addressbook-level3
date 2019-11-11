@@ -31,17 +31,30 @@ public class SwitchBudgetCommand extends UndoableCommand {
 
     /**
      * Creates an SwitchBudgetCommand to switch primary budget the budget with the specified {@code targetDescription}.
+     *
+     * @param targetDescription The description of the budget to switch to.
      */
     public SwitchBudgetCommand(Description targetDescription) {
         requireNonNull(targetDescription);
         this.targetDescription = targetDescription;
     }
 
+    /**
+     * Returns a description of this SwitchBudgetCommand.
+     *
+     * @return A string that describes this SwitchBudgetCommand.
+     */
     @Override
     public String getDescription() {
         return String.format(COMMAND_DESCRIPTION, targetDescription);
     }
 
+    /**
+     * Validates this SwitchBudgetCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     * @throws CommandException If the budget does not exist, or if the budget is already primary.
+     */
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
@@ -55,6 +68,12 @@ public class SwitchBudgetCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Executes this SwitchBudgetCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
@@ -63,6 +82,12 @@ public class SwitchBudgetCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetDescription), BudgetPanel.PANEL_NAME);
     }
 
+    /**
+     * Checks whether another object is identical to this SwitchBudgetCommand.
+     *
+     * @param other The other object to be compared.
+     * @return True if the other object is a SwitchBudgetCommand with the same target description, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

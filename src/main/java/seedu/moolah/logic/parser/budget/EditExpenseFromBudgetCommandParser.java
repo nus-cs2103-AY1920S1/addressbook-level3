@@ -30,10 +30,11 @@ public class EditExpenseFromBudgetCommandParser implements Parser<EditExpenseFro
             PREFIX_DESCRIPTION, PREFIX_PRICE, PREFIX_CATEGORY, PREFIX_TIMESTAMP
     ));
 
-
     /**
      * Parses the given {@code String} of arguments in the context of the EditExpenseFromBudgetCommand
      * and returns an EditExpenseFromBudgetCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditExpenseFromBudgetCommand parse(String args) throws ParseException {
