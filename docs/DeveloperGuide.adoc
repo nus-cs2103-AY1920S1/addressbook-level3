@@ -268,6 +268,12 @@ for the keywords.:
 * `PreclusionContainsKeywordsPredicate` -- Tests that a `module` preclusions matches any of the keywords given.
 * `SemesterContainsKeywordsPredicate` -- Tests that a `module` semester matches any of the keywords given.
 
+.Class diagram for search.
+image::FindCommandClassDiagram.png[]
+
+As shown in the figure above, predicate classes are created in the FindCommandParser, the list of predicates is used to construct a find command.
+Note that only DescriptionContainsKeywordsPredicate and TitleContainsKeywordsPredicate depends on LevenshteinDistanceChecker, the rest of the predicates do not depend on it.
+
 .Activity diagram for search predicates.
 image::SearchActivityDiagram.png[]
 

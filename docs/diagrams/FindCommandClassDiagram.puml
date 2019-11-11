@@ -1,0 +1,24 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+
+Interface Predicate <<Interface>>
+
+Class FindCommand
+Class FindCommandParser
+Class XYZContainsKeywordsPredicate
+Class LevenshteinDistanceChecker
+
+FindCommandParser ..> FindCommand : creates >
+FindCommandParser ..> XYZContainsKeywordsPredicate : creates >
+Predicate <|.left. XYZContainsKeywordsPredicate
+
+FindCommand o-- "0..*" XYZContainsKeywordsPredicate
+
+XYZContainsKeywordsPredicate ..> LevenshteinDistanceChecker
+note left: Only DescriptionContainsKeywordsPredicate \nand TitleContainsKeywordsPredicate depends \non LevenshteinDistanceChecker
+
+@enduml
