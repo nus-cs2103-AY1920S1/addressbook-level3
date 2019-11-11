@@ -10,6 +10,7 @@ package Parser {
 Interface Parser <<Interface>>
 Class SpendingBookParser
 Class XYZCommandParser
+Class ReminderCommandParser
 Class XYZReminderCommandParser
 Class CliSyntax
 Class ParserUtil
@@ -41,7 +42,8 @@ HiddenOutside ..> Logic
 LogicManager .up.|> Logic
 LogicManager -->"1" SpendingBookParser
 SpendingBookParser .left.> XYZCommandParser: creates >
-XYZCommandParser .left.> XYZReminderCommandParser: creates >
+SpendingBookParser .left.> ReminderCommandParser: creates >
+ReminderCommandParser .right.> XYZReminderCommandParser: creates >
 
 XYZCommandParser ..> XYZCommand : creates >
 XYZCommandParser ..|> Parser

@@ -7,7 +7,6 @@ skinparam classBackgroundColor MODEL_COLOR
 
 Package Reminder {
 class Reminder
-class ReminderList
 class ReminderMessage
 enum ReminderType <<Enumeration>>
 }
@@ -17,8 +16,7 @@ class Date
 }
 
 Class HiddenOutside #FFFFFF
-HiddenOutside ..> ReminderList
-ReminderList o--> "*" Reminder
+HiddenOutside ..> Reminder
 Reminder *--> ReminderMessage
 Reminder *--> Date
 Reminder *--> ReminderType
