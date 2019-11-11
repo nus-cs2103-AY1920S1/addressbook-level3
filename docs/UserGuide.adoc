@@ -638,12 +638,6 @@ Items with the same name will be sorted by their expiry dates.
 ****
 // end::sort[]
 
-// tag::dataencryption[]
-//=== Encrypting data files `[coming in v2.0]`
-
-//_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
-
 // tag::undoredo[]
 ==== Undo previous command : `undo`
 Undo the previous command that you have entered in. +
@@ -666,6 +660,21 @@ This command works in the opposite way as `undo`, it will redo any command that 
 Keying in a new command other than `redo` will erase the earlier command that you have undid. Thus, doing so will not allow you to redo that command again.
 
 // end::undoredo[]
+
+=== Upcoming features (coming in v2.0)
+
+==== User authentication
+
+Want to have your own personal password-protected account? Look forward to our user authentication functionality
+where you can create an account and keep your items' data safe and secure!
+
+Here're some sneak peeks of the upcoming feature!
+
+.Login page
+image::user-login.png[width="790"]
+
+.Sign-up page
+image::user-register.png[width="790"]
 
 == FAQ
 
