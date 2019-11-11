@@ -3,6 +3,7 @@ package seedu.address.logic.commands.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_FOUND_IN_MAP;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_IN_EVENT_RANGE;
+import static seedu.address.logic.commands.event.AssignDateCommand.createEventAfterChangeDateTimeMap;
 
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +66,8 @@ public class DeleteDateMappingCommand extends Command {
         }
 
         Event targetEvent = lastShownList.get(targetIndex.getZeroBased());
-        EventDateTimeMap eventDateTimeMap = targetEvent.getEventDateTimeMap();
+        EventDateTimeMap newMap = new EventDateTimeMap(targetEvent.getEventDateTimeMap());
+        String successMessage;
 
         if (endDateRange.isPresent()) { //delete for a range
             EventDate endDate = endDateRange.get();
@@ -76,20 +78,27 @@ public class DeleteDateMappingCommand extends Command {
             }
 
             startOrTargetEventDate.datesUntil(endDateRange.get())
-                    .forEach(eventDate -> eventDateTimeMap.deleteDateKey(eventDate));
+                    .forEach(eventDate -> newMap.deleteDateKey(eventDate));
 
-            return new CommandResult(String.format(MESSAGE_CLEAR_EVENT_DATE_RANGE_MAPPING_SUCCESS,
-                    startOrTargetEventDate, endDateRange.get(), targetEvent.getName()));
+            successMessage = String.format(MESSAGE_CLEAR_EVENT_DATE_RANGE_MAPPING_SUCCESS,
+                    startOrTargetEventDate, endDateRange.get(), targetEvent.getName());
+
         } else { //delete for a single date
-            if (eventDateTimeMap.containsDateKey(startOrTargetEventDate)) {
-                eventDateTimeMap.deleteDateKey(startOrTargetEventDate);
-                return new CommandResult(String.format(MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS,
-                        startOrTargetEventDate, targetEvent.getName()));
+            if (newMap.containsDateKey(startOrTargetEventDate)) {
+                newMap.deleteDateKey(startOrTargetEventDate);
+                successMessage = String.format(MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS,
+                        startOrTargetEventDate, targetEvent.getName());
+
             } else {
                 throw new CommandException(String.format(MESSAGE_DATE_NOT_FOUND_IN_MAP,
                         startOrTargetEventDate, targetEvent.getName()));
             }
         }
+
+        Event newEvent = createEventAfterChangeDateTimeMap(targetEvent, newMap);
+        model.setEvent(targetEvent, newEvent);
+
+        return new CommandResult(successMessage);
     }
 
     @Override

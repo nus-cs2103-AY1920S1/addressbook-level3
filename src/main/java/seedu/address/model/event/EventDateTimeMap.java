@@ -35,6 +35,13 @@ public class EventDateTimeMap {
     }
 
     /**
+     * Create a new, immutable copy of the EventDateTimeMap
+     */
+    public EventDateTimeMap(EventDateTimeMap other) {
+        this(other.getDateTimeMap());
+    }
+
+    /**
      * Used when constructing EventDateTimeMap object from JsonStorage.
      *
      * @param stringMap Stored String in JSON.

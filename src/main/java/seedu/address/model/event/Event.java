@@ -153,13 +153,6 @@ public class Event {
     }
 
     /**
-     * Clears all DateTime Mappings associated with the EventDateTimeMap.
-     */
-    public void clearDateTimeMapping() {
-        this.eventDateTimeMap.clearMapping();
-    }
-
-    /**
      * Gets the Event's total hours based on the mapped DateTimes of the Event.
      */
     public double getEventTotalHours() {

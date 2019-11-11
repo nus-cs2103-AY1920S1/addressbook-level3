@@ -9,6 +9,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_IN_EVENT_RANG
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -19,7 +20,13 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventDate;
+import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.model.event.EventDayTime;
+import seedu.address.model.event.EventManpowerAllocatedList;
+import seedu.address.model.event.EventManpowerNeeded;
+import seedu.address.model.event.EventName;
+import seedu.address.model.event.EventVenue;
+import seedu.address.model.tag.Tag;
 import seedu.address.ui.MainWindow;
 
 /**
@@ -104,9 +111,11 @@ public class AssignDateCommand extends Command {
         }
 
         Event eventToAssign = lastShownList.get(index.getZeroBased());
+        EventDateTimeMap newMap = new EventDateTimeMap(eventToAssign.getEventDateTimeMap());
 
         boolean isSingleAssign = startOrTargetEventDate.isPresent() && endEventDate.isEmpty();
         boolean isDateRangeAssign = startOrTargetEventDate.isPresent() && endEventDate.isPresent();
+        String successMessage;
 
         if (isSingleAssign) {
             EventContainsKeyDatePredicate dateCheck =
@@ -115,16 +124,14 @@ public class AssignDateCommand extends Command {
                 throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
             }
 
-            eventToAssign.assignDateTime(startOrTargetEventDate.get(), eventDayTime);
-            return new CommandResult(String.format(MESSAGE_SUCCESS_TARGET,
-                    startOrTargetEventDate.get(), eventDayTime, eventToAssign.getName()));
+            newMap.mapDateTime(startOrTargetEventDate.get(), eventDayTime);
+            successMessage = String.format(MESSAGE_SUCCESS_TARGET,
+                    startOrTargetEventDate.get(), eventDayTime, eventToAssign.getName());
+
         } else { //Either Target or Range
             EventDate startDate = isDateRangeAssign ? startOrTargetEventDate.get()
                     : eventToAssign.getStartDate();
             EventDate endDate = isDateRangeAssign ? endEventDate.get() : eventToAssign.getEndDate();
-
-            EventDate eventStartDate = eventToAssign.getStartDate();
-            EventDate eventEndDate = eventToAssign.getEndDate();
 
             EventContainsKeyDatePredicate startDateCheck = new EventContainsKeyDatePredicate(startDate);
             EventContainsKeyDatePredicate endDateCheck = new EventContainsKeyDatePredicate(endDate);
@@ -134,11 +141,15 @@ public class AssignDateCommand extends Command {
             }
 
             startDate.datesUntil(endDate)
-                    .forEach(eventDate -> eventToAssign.assignDateTime(eventDate, eventDayTime));
-
-            return new CommandResult(String.format(MESSAGE_SUCCESS_RANGE,
-                    startDate, endDate, eventToAssign.getName(), eventDayTime));
+                    .forEach(eventDate -> newMap.mapDateTime(eventDate, eventDayTime));
+            successMessage = String.format(MESSAGE_SUCCESS_RANGE,
+                    startDate, endDate, eventToAssign.getName(), eventDayTime);
         }
+
+        Event newEvent = createEventAfterChangeDateTimeMap(eventToAssign, newMap);
+        model.setEvent(eventToAssign, newEvent);
+
+        return new CommandResult(successMessage);
 
     }
 
@@ -157,5 +168,25 @@ public class AssignDateCommand extends Command {
         return index.equals(e.index)
                 && startOrTargetEventDate.equals(e.startOrTargetEventDate)
                 && endEventDate.equals(e.endEventDate);
+    }
+
+    /**
+     * Creates and returns a {@code Event} with an edited EventDateTimeMap
+     */
+    static Event createEventAfterChangeDateTimeMap(Event eventToEdit, EventDateTimeMap newMap) {
+        assert eventToEdit != null;
+        assert newMap != null;
+
+        EventName originalEventName = eventToEdit.getName();
+        EventVenue originalEventVenue = eventToEdit.getVenue();
+        EventManpowerNeeded originalManpowerNeeded = eventToEdit.getManpowerNeeded();
+        EventManpowerAllocatedList originalAllocatedList = eventToEdit.getManpowerAllocatedList();
+        EventDate originalStartDate = eventToEdit.getStartDate();
+        EventDate originalEndDate = eventToEdit.getEndDate();
+        Set<Tag> originalTags = eventToEdit.getTags();
+
+        return new Event(originalEventName, originalEventVenue,
+                originalManpowerNeeded, originalStartDate,
+                originalEndDate, originalAllocatedList, newMap, originalTags);
     }
 }
