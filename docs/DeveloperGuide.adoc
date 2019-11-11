@@ -772,8 +772,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*`|handphone seller|use an in-built messenger to communicate with my customer| talk to them without switching to another application.
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -826,12 +824,12 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Confirm order (UC03)
+=== Use case: Add and complete order (UC03)
 
 *MSS*
 
 1. Actor add order to the system. SML displays the new order list.
-2. Actor schedule order. (UC04)
+2. Actor adds a schedule to the order. (UC04)
 3. Actor mark order as completed. SML displays completed order message.
 
 *Extensions*
@@ -846,7 +844,7 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Actor schedule order (UC04)
+=== Use case: Actor adds a schedule to existing order (UC04)
 
 *MSS*
 
@@ -899,8 +897,6 @@ Use case resumes at step 1.
 .  System should ideally respond within 5 seconds
 .  System allows for wrong input from user and recovers from erroneous input
 .  App can be downloaded and run via a jar file
-
-_ {More to be added}_
 
 [appendix]
 == Glossary
@@ -1056,8 +1052,6 @@ These instructions only provide a starting point for testers to work on; testers
 .. When the application is relaunched, it will check for the validity of the data.
 Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
 
-
-
 === Testing Statistics
 
 . Display statistics between 2 dates
@@ -1065,4 +1059,4 @@ Any corrupted data in any of the data files (customer, phone, order, schedule, a
 .. Prerequisites: Ensure that archive order panel has suitable `Completed` and `scheduled` orders. Only these orders
 will show up in the calculation
 .. Test case: `generate-s s/revenue d1/2018.12.13 d2/2019.11.13`
-    Expeected: Chart is displayed in popup window
+    Expected: Chart is displayed in popup window
