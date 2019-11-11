@@ -283,8 +283,7 @@ The following activity diagram summarizes what happens when a user executes a de
 
 image::DeadlineActivityDiagram.png[width=320,height=480]
 
-The Remove Deadline command `remove` works in a similar way, and hence the Sequence and Activity diagrams
-will be omitted for redundancy.
+The `remove` command works in a similar way, and hence the Sequence and Activity diagrams will be omitted for redundancy.
 
 ==== Design considerations
 ===== Aspect: How to implement Deadline
@@ -303,7 +302,7 @@ prefixes like `t>` and `d>`
 //@@author dalsontws
 // tag::badflashcard[]
 
-=== Bad `FlashCard` feature
+=== Bad FlashCard feature
 ==== Implementation
 
 The `bad` feature allows the user to rate specific `FlashCards` as 'bad' if they did not perform well on them.
@@ -315,7 +314,7 @@ learning technique known as https://en.wikipedia.org/wiki/Spaced_repetition[Spac
 active recall technique which is said to overcome forgetting, theorised by Hermann Ebbinghaus, and his theory of
 https://en.wikipedia.org/wiki/Forgetting_curve[Forgetting Curve].
 
-The following are new classes used to integrate the Bad `FlashCard` feature.
+The following are new classes used to integrate the "Bad" `FlashCard` feature.
 
 * `BadQuestions` -- Main object class for the feature. Makes use of a `HashMap` of key-value pairing of a Date `String`
 that is converted to a `LocalDate` class as the key, and the value is a `ArrayList` of `FlashCards`. This allows ease of
@@ -326,8 +325,8 @@ at start up of application. A `Comparator` class was added to arrange the list a
 the `Deadline` that will be added.
 * `RemoveBadCommand` -- Parses user input and uses it to construct a `DeadlineCommand` instance.
 
-In addition, two Exception classes are added to handle possible runtime errors while adding new Deadlines.
-This is done to ensure that the user specified Deadline is valid for storage and processing.
+In addition, two Exception classes are added to handle possible runtime errors while adding new "Bad" `FlashCards`.
+This is done to ensure that the user specified "Bad" `FlashCard` is valid for storage and processing.
 
 * `NoBadFlashCardException` -- This exception is thrown when the user attempts to add an identical `Deadline` object
 is added into the existing `UniqueDeadlineList`.
@@ -341,7 +340,7 @@ i.e. bad 2
 
 Given below is an example usage scenario of `bad INDEX` :
 
-The user executes `bad 2` to rate the second `FlashCard` as a "Bad".
+The user executes `bad 2` to rate the second `FlashCard` in the list as "Bad".
 
 ==== Design Considerations
 ===== Aspect: How to store "Bad" FlashCard in storage

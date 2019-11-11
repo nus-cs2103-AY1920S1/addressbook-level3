@@ -5,6 +5,7 @@ package seedu.address.model.deadline;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -70,10 +71,11 @@ public class DueDate {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate testDate = LocalDate.parse(test, formatter);
         Period difference = Period.between(testDate, today);
-        if (difference.getDays() <= 1) {
+        if (difference.getYears() < 1 && difference.getMonths() < 1 && difference.getDays() < 1) {
             return false;
+        } else {
+            return true;
         }
-        return true;
     }
 
 
