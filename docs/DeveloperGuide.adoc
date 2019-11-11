@@ -371,7 +371,7 @@ of the savings are added into the `SavingsHistoryList`, found within the `Saving
 
 The following sequence diagram shows how the making of a saving works:
 
-ADD SEQUENCE DIAGRAM HERE
+image::SaveSequenceDiagram.png[width=600]
 
 The following activity diagram summarises what happens when a user executes a `SaveCommand`:
 

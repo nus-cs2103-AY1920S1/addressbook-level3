@@ -2,39 +2,54 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":Logic" as Logic LOGIC_COLOR
 participant ":SaveNusParser" as SaveNusParser LOGIC_COLOR
 participant ":SaveCommandParser" as SaveCommandParser LOGIC_COLOR
+participant ":CommandWordParser" as CommandWordParser LOGIC_COLOR
 participant "d:SaveCommand" as SaveCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant ":Wallet" as Wallet MODEL_COLOR
 participant ":SavingsAccount" as SavingsAccount MODEL_COLOR
-participant ":SavingHistory" as SavingHistory MODEL_COLOR
+participant ":CurrentSavings" as CurrentSavings MODEL_COLOR
+participant ":SavingsHistory" as SavingsHistory MODEL_COLOR
 end box
 
 box Storage STORAGE_COLOR_T1
 participant ":Storage" as Storage STORAGE_COLOR
+participant ":JsonSavingsAccountStorage" as JsonSavingsAccountStorage STORAGE_COLOR
 participant ":JsonSavingsStorage" as JsonSavingsStorage STORAGE_COLOR
-participant ":JsonSerializableSavingsAccount" as JsonSerializableSavingsAccount STORAGE_COLOR
-participant ":JsonAdaptedSavings" as JsonAdaptedSavings STORAGE_COLOR
 end box
 
-[-> LogicManager : execute("save 10.00")
-activate LogicManager
+[-> Logic : execute("save 10.00")
+activate Logic
 
-LogicManager -> SaveNusParser : parseCommand("save 10.00")
+Logic -> Model : getAliasList()
+activate Model
+Model --> Logic : AliasList aliasList
+
+deactivate Model
+Logic -> SaveNusParser : parseCommand(aliasList, "save 10.00")
 activate SaveNusParser
+
+create CommandWordParser
+SaveNusParser -> CommandWordParser
+activate CommandWordParser
+CommandWordParser --> SaveNusParser
+deactivate CommandWordParser
+SaveNusParser -> CommandWordParser : : parseWord(aliasList, matcher.group("commandWord"))
+activate CommandWordParser
+CommandWordParser --> SaveNusParser : commandWord
+deactivate CommandWordParser
 
 create SaveCommandParser
 SaveNusParser -> SaveCommandParser
 activate SaveCommandParser
-
 SaveCommandParser --> SaveNusParser
 deactivate SaveCommandParser
-
 SaveNusParser -> SaveCommandParser : parse("10.00")
 activate SaveCommandParser
 
@@ -51,15 +66,38 @@ deactivate SaveCommandParser
 SaveCommandParser -[hidden]-> SaveNusParser
 destroy SaveCommandParser
 
-SaveNusParser --> LogicManager : d
+SaveNusParser --> Logic : d
 deactivate SaveNusParser
 
-LogicManager -> SaveCommand : execute()
+Logic -> SaveCommand : execute()
 activate SaveCommand
 
 SaveCommand -> Model : depositInSavings(Savings savings)
 activate Model
+Model -> Model : deductFromWallet(Savings savings)
+activate Model
+Model -> Wallet : deductFromWallet(Savings savings)
+activate Wallet
+Wallet --> Model
+deactivate Wallet
+Model --> Model
+deactivate Model
 
+Model -> SavingsAccount : addToSavings(Savings savings)
+activate SavingsAccount
+SavingsAccount -> CurrentSavings : setCurrentSavings(Money newAmount)
+activate CurrentSavings
+CurrentSavings --> SavingsAccount
+deactivate CurrentSavings
+SavingsAccount --> Model
+deactivate SavingsAccount
+
+Model -> SavingsHistory : addToHistory(Savings savings)
+activate SavingsHistory
+SavingsHistory --> Model
+deactivate SavingsHistory
+'Hidden arrow for neatness of diagram.
+Model -[hidden]-> SaveCommand
 Model --> SaveCommand
 deactivate Model
 
@@ -70,39 +108,28 @@ activate CommandResult
 CommandResult --> SaveCommand
 deactivate CommandResult
 
-SaveCommand --> LogicManager : result
+SaveCommand --> Logic : result
 deactivate SaveCommand
 
-[<--LogicManager
-deactivate LogicManager
-
-LogicManager -> Storage : saveSavingsAccount(model.getSavingsAccount())
+Logic -> Storage : saveSavingsAccount(model.getSavingsAccount())
 activate Storage
 
 Storage -> JsonSavingsStorage : saveSavingsAccount(ReadOnlySavingsAccount savingsAccount)
-activate JsonSavingsStorage
-
-create JsonSerializableSavingsAccount
-JsonSavingsStorage -> JsonSerializableSavingsAccount
-activate JsonSerializableSavingsAccount
-
-create JsonAdaptedSavings
-JsonSerializableSavingsAccount -> JsonAdaptedSavings
-activate JsonAdaptedSavings
-
-JsonAdaptedSavings --> JsonSerializableSavingsAccount
-deactivate JsonAdaptedSavings
-
-JsonSerializableSavingsAccount --> JsonSavingsStorage
-deactivate JsonSerializableSavingsAccount
-
+activate JsonSavingsAccountStorage
 JsonSavingsStorage --> Storage
-deactivate JsonSavingsStorage
-
-Storage --> LogicManager
+deactivate JsonSavingsAccountStorage
+Storage --> Logic
 deactivate Storage
 
-[<--LogicManager
-deactivate LogicManager
+Logic -> Storage : saveSavingsHistory(mode.getSavingsHistory())
+activate Storage
+Storage -> JsonSavingsStorage : saveSavingsHistory(ReadOnlySavingsHistory savingsHistory)
+activate JsonSavingsStorage
+JsonSavingsStorage --> Storage
+deactivate JsonSavingsStorage
+Storage --> Logic
+
+[<--Logic
+deactivate Logic
 
 @enduml
