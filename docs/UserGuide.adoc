@@ -364,13 +364,13 @@ Returns the 2rd employee from the displayed employee list.
 //tag::calvin[]
 === Event-Specific Management
 
-[NOTE]
-Some event-specific commands have GUI features enabled to improve user experience. However, such features are
-implemented as a *best-effort service* and should not be heavily relied on.
-
 ==== Fetch Full Details of an Event: `fetch_ev`
 
 Fetches an event by displaying a pop-up window with full details of the event.
+
+[NOTE]
+The *Fetch Event Window* serves as a portable platform for event manpower allocation. It can be
+accessed from the `Main` and `Schedule` Tab.
 
 Format: `fetch_ev EVENT_INDEX`
 
@@ -398,12 +398,13 @@ image::afterfetch.png[width="600"]
 
 ==== Automated allocation of Employees to Events: `allocate`
 
-Automatically filters and allocates a specified number of employees from the
-complete employee list to an event. *Once an employee is allocated
+Automatically allocates a specified number of employees from the
+complete employee list to an event based on the filter tags specified by the user. There is no
+manual selection of employees. *Once an employee is allocated
 to an event, it is assumed that he will be unavailable
 from the start date to the end date of the event.*
 
-Format: `allocate EVENT_INDEX [n/NUMBER_OF_EMPLOYEES] [t/TAG]...`
+Format: `allocate EVENT_INDEX [n/NUMBER_OF_EMPLOYEES] [t/TAG_FOR_FILTER]...`
 
 [NOTE]
 Random selection of employees to allocate if supply exceeds demand of event.
@@ -413,7 +414,7 @@ Random selection of employees to allocate if supply exceeds demand of event.
 * The `EVENT_INDEX` refers to the index number shown in the displayed event list.
 * The `NUMBER_OF_EMPLOYEES` refers to the number of employees to be allocated to the event.
 * Note the <<Constraints>> for *INDEX* and *INTEGER* _(for NUMBER_OF_EMPLOYEES)_.
-
+* `TAG_FOR_FILTER` should be alpha-numerical.
 * If no `NUMBER_OF_EMPLOYEES` is specified, it is assumed to be the current manpower count required by the event.
 
 ****
@@ -431,17 +432,15 @@ Alternatively, the `allocate` command can be executed from the GUI in just 1 sim
 as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
 
 
-==== Manually allocation of Employees to Events: `allocatem`
+==== Manual allocation of Employees to Events: `allocatem`
 
 Manually chooses and allocates a single employee to an event.
 
-Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`
-Format: `allocatem EVENT_INDEX id/EMPLOYEE_ID`
+Format: `allocatem EVENT_INDEX n/EMPLOYEE_INDEX`/ `allocatem EVENT_INDEX id/EMPLOYEE_ID`
 
 ****
 * Allocate an employee with `EMPLOYEE_INDEX` or `EMPLOYEE_ID` to the event at the specified `EVENT_INDEX`.
-* The `EVENT_INDEX` refers to the index number shown in the displayed event list.
-* The `EMPLOYEE_INDEX` refers to the index number shown in the displayed employee list.
+* The `EVENT_INDEX`/`EMPLOYEE_INDEX` refers to the index shown in the respective displayed list.
 * `EMPLOYEE_ID` must match the exact 3-digit ID shown in the *FetchEventWindow*.
 * Note the <<Constraints>> for *INDEX*.
 ****
@@ -495,7 +494,7 @@ as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch
 
 [NOTE]
 To *free* a particular employee to an event, double-click the employee card on the right list
-as shown in the 2nd figure in <<Manually allocation of Employees to Events: `allocatem`>>
+as shown in the 2nd figure in <<Manual allocation of Employees to Events: `allocatem`>>
 
 //end::calvin[]
 
@@ -854,11 +853,17 @@ such as the location, budget, and date.
 | *Edit Event* | `edit_ev INDEX n/EVENT_NAME m/MANPOWER_NEEDED on/DDMMYYYY till/DDMMYYYY at/LOCATION_NAME [t/TAG]...`
 | `edit_ev 2 n/Concert`
 
-| *Find Employee/Event* | `find_em KEYWORD [MORE_KEYWORDS]`
+| *Find Employee/Event* | `find_em_name KEYWORD [MORE_KEYWORDS]`
 
-`find_ev KEYWORD [MORE_KEYWORDS]`  | `find_em John`
+`find_em_tag KEYWORD [MORE_KEYWORDS]`
 
-`find_ev Music`
+`find_ev_name KEYWORD [MORE_KEYWORDS]`
+
+`find_ev_tag KEYWORD [MORE_KEYWORDS]`
+
+| `find_em_name John`
+
+`find_ev_tag music`
 | *Delete Employee/Event* | `delete_em EMPLOYEE_INDEX`
 
 `delete_ev EVENT_INDEX` |`delete_em 2`

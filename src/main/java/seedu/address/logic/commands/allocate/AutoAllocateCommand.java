@@ -1,6 +1,6 @@
 /*
-@@author calvincxz
- */
+@author calvincxz
+*/
 
 package seedu.address.logic.commands.allocate;
 
@@ -45,6 +45,7 @@ public class AutoAllocateCommand extends Command {
             + "Parameters: EVENT_INDEX "
             + "[" + PREFIX_MANPOWER_TO_ADD + "NUMBER] "
             + "[" + PREFIX_TAG + "TAG_FOR_FILTER]\n"
+            + "Number should be an integer and tags should be alphanumerical.\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_EMPLOYEE_NUMBER + "3 "
             + PREFIX_TAG + "male";
