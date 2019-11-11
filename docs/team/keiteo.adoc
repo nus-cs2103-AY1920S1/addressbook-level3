@@ -1,0 +1,61 @@
+= Keith Teo - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: KeyboardFlashCards
+
+== Introduction
+
+This project portfolio highlights the contributions I have made for my project, _KeyboardFlashCards_ (KFC).
+Done as a major part of our introductory software engineering module in the National University of Singapore,
+we started off by morphing an address book application into our very own product,
+a flashcard manager that is purely controlled using the Command-Line Interface (CLI). This is the key constraint of the
+project, as users can only perform tasks by typing commands on the keyboard.
+exclusively using the keyboard. In addition, this is a desktop application, used only on a computer.
+
+This is a 6 week software engineering project, where we worked in a team of 5 who are students from the NUS School of Computing.
+Our team consists of 3 second year students majoring in Computer Science, including myself, and 2 Computer Engineering students in their final year of study.
+
+Our finalised product, _KeyboardFlashCards_ is a educational tool that aims to make remembering things easy, while at the
+same time helping our users, computing students familiar with the CLI, to save time with simple and quick keyboard commands. We wanted
+to provide an efficient way to study for our peers to NUS School of Computing. Hence, we came up with an easy to use,
+flashcard manager using CLI for efficient and quick storage of important revision material to aid their study.
+
+KFC enables users the manage their list of flashcards efficiently, via commands such as adding, deleting and editing.
+The application also features a test mode where the users can choose from a list of categories to include when testing themselves.
+Subsequently, based on test results, KFC tracks the users' performances and provides data visualisation based on test statistics. In addition,
+the application enables users to store tasks with deadlines, e.g. reminders to study before a test, and reminding users to test flashcards
+that they were not able to answer in previous tests. Lastly, KFC allows users to import and export their list of flashcards easily.
+
+Here is a screenshot of our project:
+
+image::annotatedUi.png[width="600"]
+
+Note the following symbols and formatting used in this document.
+
+[NOTE]
+This section explains certain information that require the user to take note of.
+i.e. prefixes used in our application and what it represents, certain functionality of the command
+
+[CAUTION]
+This section is used clarify certain possible assumptions the user/developer might have when using our application
+
+== Summary of contributions
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=TestMode]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=TestMode]
+
