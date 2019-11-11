@@ -356,7 +356,7 @@ The syntax used here is slightly different. The user need not specify the `tag/`
 ====
 ** The TimeTrial feature will be further elaborated in Section 4.5.
 
-==== [Proposed] Future improvements
+==== [Proposed] Future Improvements
 
 ** Supporting deletion of Tags
 *** Allow the user to delete a specified Tag.
@@ -473,7 +473,7 @@ According to the above table, the system will be able to remove _tag2_ first bef
 
 //end::cheatsheetAutomation[]
 
-==== [Proposed] Future improvements
+==== [Proposed] Future Improvements
 
 - Alerts users of possible duplications of contents
 - Allows users to gauge the size of the contents (whether if it fits in single-sided or double-sided A4 paper)
@@ -538,7 +538,7 @@ object.
 ** Pros: Better flow of time trial feature and improved user experience
 ** Cons: Hard to implement
 
-==== [Proposed] Future improvements
+==== [Proposed] Future Improvements
 ** Allowing users to set their own time limit for each flashcard in the time trial mode
 *** Command will be inputted to set the duration of the timer for each flashcard
 ** Allowing users to decide when to move on to the next flashcard
@@ -739,7 +739,7 @@ application, and forget about the feature since it is now out of sight. Even if 
 such an automatic reminding functionality in the future, they may have forgotten this feature existed.
 
 
-==== [Proposed] Future improvements
+==== [Proposed] Future Improvements
 ** Improve the formula used for determining when flashcards should be revised.
 *** We could take into account other factors such as user confidence level or number of times flashcard was answered
 correctly or incorrectly to create a more dynamic reminding schedule.
