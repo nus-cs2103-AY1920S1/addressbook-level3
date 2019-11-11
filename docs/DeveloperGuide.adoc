@@ -200,20 +200,40 @@ This section describes some noteworthy details on how certain features are imple
 
 Given below is an example usage scenario and how the statistics mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time and generates statistics via the `statistics /g` command.
+Step 1. The user launches the application for the first time and navigates to the statistics tab by either clicking the Statistics tab on the UI or `statistics` command.
 
-Step 2. Statistics are generated on-demand and displayed to the user based on the current data.
+Step 2. Statistics are generated on-demand and displayed to the user based on the current data by either clicking the Generate Statistics button on the UI or `generate_stats` command.
 
 ==== Design Considerations
 
 ===== Aspect: How statistics executes
 
-* **Alternative 1 (current choice):** Generate statistics data on-demand, when the user requests.
-** Pros: Easier to implement as would not have to mannage storage of statistical data.
-** Cons: App may have overall lower performance, with the possibility of lag as the app needs to read through all the stored data and generate the statistics data whenever it is queried.
-* **Alternative 2:** Generate statistics each time there is change in the data and store them.
-** Pros: Statistical data will be displayed faster as it is recalculated and stored in the JSON file storage.
-** Cons: Requires managing the storage of the statistical data and possibly lead to lowered performance of other features such as the command which does CRUD to Employees/Events which will be slower with the need to generate the statistical data and store it in the JSON file storage.
+|===
+||**Alternative 1**|**Alternative 2**
+|**Consideration 1**: +
+Data Structure to support Generate Statistics Command.
+| **Processes the data and generates statistics upon `generate_stats` command. (Current choice)**: +
+
+_Pros:_ +
+Simpler implementation as storage management is not required as statistics are generated on-demand.
+
+_Cons:_ +
+App may have overall lower performance, with the possibility of lag as the app needs to read through all the stored data and generate the statistics data whenever it is queried.
+
+|**Generate statistics each time there is change in the data and store them.** +
+
+_Pros:_ +
+Statistical data will be displayed according to the data stored on the JSON file storage and user will not be required to perform any action to see the latest statistics at any point of time.  +
+
+_Cons:_ +
+ Requires managing the storage of the statistical data and possibly lead to lowered performance of other features such as the command which does CRUD to Employees/Events which will be slower with the need to generate the statistical data and store it in the JSON file storage.
+
+3+|**Why We chose Alternative 1:** +
+Alternative 1 makes more logical sense and will be more efficient as compared to Alternative 2. Alternative 1 requires less intermediate processing and storage units to support the feature.
+Processing is done on demand. Looking at the use case of the `generate_stats` command, it will be used by the user when they need an overview of the most current data regarding events and employees.
+
+|===
+
 // end::statistics[]
 
 // tag::calvin[]
@@ -849,11 +869,13 @@ Close the window.
 .. Prerequisites: List all employees using the `list_em` command.
 Multiple employees in the list.
 .. Test case: `delete_em 1` +
-   Expected: Employee of index '1' is deleted from the list.
+   Expected: Employee of ID '1' is deleted from the list.
 Details of the deleted contact shown in the status message.
+Timestamp in the status bar is updated.
 .. Test case: `delete_em 0` +
    Expected: No employee is deleted.
 Error details shown in the status message.
+Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
@@ -950,32 +972,24 @@ The event list will not be updated.
 .. Test Case: `delete_ev_dt 1 on/25/10/2019` +
     Expected: Successfully deleted Date-Time Mapping, with message "Deleted DateTime [25/10/2019] from Event: [Musical]." Double click on the Event or use `fetch_ev 1` to verify that the mapping of '25/10/2019' is no longer there.
 
-=== Auto-Allocation of employees to an event
-. Allocating employees to a displayed Event.
+=== Generating Statistics
 
-.. Prerequisites:
-1. User is in `Main` or `Schedule` Tab.
-2. There are at least two Events in the displayed list.
-3. There are sufficient available employees for the Event.
-4. Chosen Event still requires manpower.
-.. Test case: `allocate 1` +
-    Expected: Employees with non-conflicting schedules are allocated to the
-1st Event displayed in the list. Number of employees allocated is based on demand of event.
-.. Test case: `allocate 1 t/male` +
-    Expected: Employees, tagged [male] with non-conflicting schedules are allocated to the
-1st Event displayed in the list. Number of employees allocated is based on demand of event.
-.. Test case: `allocate 2 n/1` +
-    Expected: 1 Employee with non-conflicting schedule is allocated to the
-2nd Event displayed in the list.
-.. Test case: `allocate 2 n/1 t/male` +
-    Expected: 1 Employee, tagged [male], with non-conflicting schedules are allocated to the
-2nd Event displayed in the list.
+. Generating Statistics based on the current data on both events and employees.
 
-.. Test case: `allocate 0` +
-    Expected: No employee is allocated to event.
-Error details shown in the status message.
-.. Other incorrect auto-allocate commands to try: `allocate`, `allocate x` (where x is larger than the list size) +
-   Expected: Similar to previous.
+.. Prerequisites: Multiple events in the event list and multiple employees in the employee list. User must navigate to the Statistics tab.
+.. Test case: `generate_stats` +
+   Expected: Statistics window will display statistics.
+Statistics window will be populated with different types of data including a list of upcoming events requiring manpower, a pie chart for these events based on their tags and a pie chart to represent the employee tags.
+If an event does not have any set tags, the user would likely allocate any employee to it.
+
+=== Generating Detailed Statistics
+
+. Generating Detailed Statistics based on the current data on both events and employees.
+
+.. Prerequisites: Multiple events in the event list and multiple employees in the employee list. User must navigate to the Statistics tab.
+.. Test case: `generate_stats_detail` +
+   Expected: New window will open displaying detaile statistics of both events and employees.
+Statistics pop-up window will be populated with statistical data based on the most current app data. This will be displayed in a text file format for the user to quickly scroll through and get the data they require.
 
 === Saving data
 
