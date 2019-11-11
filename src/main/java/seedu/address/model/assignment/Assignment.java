@@ -40,7 +40,7 @@ public class Assignment {
     public void initialiseGrades(List<String> studentNames) {
         requireNonNull(studentNames);
         for (String studentName : studentNames) {
-            assignmentGrades.addOneStudentGrade(studentName);
+            assignmentGrades.addOneUncompletedStudentGrade(studentName);
         }
     }
 
@@ -71,9 +71,10 @@ public class Assignment {
      * Checks if the given assignment is completed from the assignment grades map.
      */
     private void checkCompletion() {
+        isCompleted = true;
         for (String value : getGrades().values()) {
-            if (value != "Not submitted.") {
-                isCompleted = true;
+            if (value.equals("Not submitted.")) {
+                isCompleted = false;
             }
         }
     }
@@ -81,14 +82,23 @@ public class Assignment {
     /**
      * Parses a {@code String studentName} into an {@code Assignment}.
      * Returns the updated assignment after adding key-value pair for key: studentName.
-     * Value is set to zero as student was added after assignment was graded.
+     * Value is set to "Not submitted" as student was added before assignment was graded.
+     */
+    public void addNewStudentGrade (String studentName) {
+        assignmentGrades.addOneUncompletedStudentGrade(studentName);
+        setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
+    }
+
+    /**
+     * Parses a {@code String studentName} into an {@code Assignment}.
+     * Returns the updated assignment after adding key-value pair for key: studentName.
+     * Value is set to "Late to the party" as student was added after assignment was graded.
      */
     public void addOneStudentGrade (String studentName) {
-        assignmentGrades.addOneStudentGrade(studentName);
-        //Assignment outputAssignment = new Assignment (this.assignmentName, this.assignmentDeadline);
+        assignmentGrades.addOneCompletedStudentGrade(studentName);
         setGrades(this.namesStringListFromGrades(), this.marksStringListFromGrades());
-        //return outputAssignment;
     }
+
 
     /**
      * Parses a {@code String studentName} into an {@code Assignment}.

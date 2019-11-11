@@ -72,14 +72,16 @@ public class AddStudentCommand extends Command {
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         List<Assignment> assignmentList = model.getFilteredAssignmentList();
         for (Assignment assignment: assignmentList) {
+            Assignment editedAssignment = new Assignment(assignment.getAssignmentName(),
+                    assignment.getAssignmentDeadline());
+            editedAssignment.setGrades(assignment.namesStringListFromGrades(),
+                    assignment.marksStringListFromGrades());
             if (assignment.isCompleted()) {
-                Assignment editedAssignment = new Assignment(assignment.getAssignmentName(),
-                        assignment.getAssignmentDeadline());
-                editedAssignment.setGrades(assignment.namesStringListFromGrades(),
-                        assignment.marksStringListFromGrades());
                 editedAssignment.addOneStudentGrade(toAdd.getName().fullName);
-                model.setAssignment(assignment, editedAssignment);
+            } else {
+                editedAssignment.addNewStudentGrade(toAdd.getName().fullName);
             }
+            model.setAssignment(assignment, editedAssignment);
         }
         model.saveState();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

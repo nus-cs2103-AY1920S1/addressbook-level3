@@ -22,9 +22,9 @@ public class AddAssignmentCommand extends Command {
                                                     + "Parameters: "
                                                     + PREFIX_ASSIGNMENT + "ASSIGNMENTNAME "
                                                     + PREFIX_DEADLINE + "DEADLINE "
-                                                    + "Example: " + COMMAND_WORD + " "
+                                                    + "\nExample: " + COMMAND_WORD + " "
                                                     + PREFIX_ASSIGNMENT + "Math Test "
-                                                    + PREFIX_DEADLINE + "29/10/2019 1400";
+                                                    + PREFIX_DEADLINE + "11/11/2020 1400";
     public static final String MESSAGE_SUCCESS = "New assignment added: %1$s";
     public static final String MESSAGE_DUPLICATE_ASSIGNMENT = "This assignment already exists in the classroom";
 

@@ -44,21 +44,21 @@ tasks and students’ information. It is optimized for teachers who prefer to wo
 * Parameters can be in any order e.g. if the command specifies `n/NAME a/ADDRESS`, `a/ADDRESS, n/NAME` is also acceptable
 ====
 
-// tag::classes[]
-=== Classes
-The user can view his or her classes in the middle panel of the GUI of Teacher's Notebook as shown below. +
+// tag::classrooms[]
+=== Classrooms
+The user can view his or her classrooms in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
 image::class/class1.JPG[class,500,480,pdfwidth=50%,scaledwidth=50%]
 
-The class colored in blue shows the class that the user is currently viewing.
-Viewing a class enables a user to see the full profiles of the students, +
-As well as full information about assignments. Changing classes will allow the user to view the students and assignments of another class.
-The number of students, and the number of assignments are displayed for each class +
+The classroom colored in blue shows the classroom that the user is currently viewing.
+Viewing a classroom enables a user to see the full profiles of the students, +
+As well as full information about assignments. Changing classrooms will allow the user to view the students and assignments of another class.
+The number of students, and the number of assignments are displayed for each classroom +
 
-==== Adding: addclass
+==== Adding Classroom: addclass
 
-Adds a new class to the list of existing classes. The name of the new class must not be empty,
-and it must be different from all the current class names.
+Adds a new classroom to the list of existing classrooms. The name of the new classroom must not be empty,
+and it must be different from all the current classrooms names.
 
 Format: `addclass c/CLASS_NAME`
 
@@ -67,10 +67,10 @@ Examples:
 * `addclass c/4E7`
 * `addclass c/3E8`
 
-==== Deleting: deleteclass
+==== Deleting Classroom: deleteclass
 
-Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
-Classroom must be in the current list of classrooms, and class name cannot be empty. +
+Allows a user to delete the selected classroom, if the user no longer needs the classroom or entered its name wrongly. +
+Classroom must be in the current list of classrooms, and classroom name cannot be empty. +
 
 Format: `deleteclassroom c/CLASS_NAME`
 
@@ -79,10 +79,11 @@ Examples:
 * `deleteclassroom c/4E7`
 * `deleteclassroom c/3E8`
 
-==== Setting: setclass
+==== Setting Classroom: setclass
 
-Allows a user to delete the selected class, if the user no longer needs the class or entered its name wrongly. +
-Classroom must be in the current list of classrooms, and class name cannot be empty. +
+Allows a user to set a classroom as the selected classroom. +
+Student and Assignment functions will act on the selected classroom. +
+Classroom must be in the current list of classrooms, and classroom name cannot be empty. +
 
 Format: `setclass c/CLASS_NAME`
 
@@ -98,7 +99,7 @@ Examples:
 
 // tag::students[]
 === Students
-Students are contained within each class. There are several fields in each student as shown below:
+Students are contained within each classroom. There are several fields in each student as shown below:
 
 * Name - Prefix: n/
 ** Names must be alphanumerical, and cannot be empty.
@@ -117,7 +118,7 @@ Students are contained within each class. There are several fields in each stude
 * DisplayPicture - Prefix: none
 ** Display pictures must be in PNG file format. A default display picture is set for each student.
 
-==== Adding: addstudent
+==== Adding Student: addstudent
 
 Adds a student to the student list of the current class. +
 Format: `addstudent n/NAME e/EMAIL p/PHONE a/ADDRESS pp/PARENT_PHONE [m/MEDICAL_CONDITIONS]... [t/TAG]...`
@@ -127,7 +128,7 @@ Examples:
 * `addstudent n/John Doe e/johndoe@gmail.com p/81930042 a/Jurong East Avenue 3 Blk 639 #12-02 pp/84295512 m/Sinus`
 * `addstudent n/Jane Doe e/janedoe@hotmail.com p/91823051 a/Tampinese Avenue 5 Blk 772 #02-84 pp/99811241 t/PE Rep t/Naughty`
 
-==== Editing: editstudent
+==== Editing Student: editstudent
 
 Edits a student at the specified index in the student list of the current class. +
 Format: `editstudent STUDENT_INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [pp/PARENT_PHONE] [m/MEDICAL_CONDITIONS], [t/TAG]...`
@@ -138,9 +139,9 @@ Examples:
 * `editstudent 4 n/Xavier Lim`
 
 [NOTE]
-The index provided must be valid and at least one field must be edited.
+The index provided must be valid (is an integer and exists in the student list) and at least one field must be edited. If the list has been filtered through the Finding Student command, the index provided corresponds to the index on the filtered list.
 
-==== Deleting: deletestudent
+==== Deleting Student: deletestudent
 
 Deletes a student at the specified index in the student list of the current class. +
 Format: `deletestudent STUDENT_INDEX`
@@ -150,14 +151,14 @@ Example:
 * `deletestudent 5`
 
 [NOTE]
-The index provided must be valid.
+The index provided must be valid (is an integer and exists in the student list) If the list has been filtered through the Finding Student command, the index provided corresponds to the index on the filtered list.
 
-==== Listing: liststudents
+==== Listing Students: liststudents
 
 Lists all the students in the current classroom.
 Format: `liststudents`
 
-==== Finding: findstudent
+==== Finding Student: findstudent
 
 Find students whose name matches a given keyword in the current classroom. +
 Format: `findstudent STUDENT_NAME`
@@ -185,8 +186,8 @@ Example:
 * `upload 3`
 
 [NOTE]
-The index provided must be valid and the directory of the image uploaded is assumed to not change.
-If the image is moved or deleted after it is set as the display picture, the display picture will be empty when the user starts up Teacher's Notebook.
+The index provided must be valid (is an integer and exists in the student list). If the list has been filtered through the Finding Student command, the index provided corresponds to the index on the filtered list.
+The directory of the image uploaded is assumed to not change. If the image is moved or deleted after it is set as the display picture, the display picture will be empty when the user starts up Teacher's Notebook.
 
 ==== Resetting display picture
 
@@ -205,6 +206,93 @@ Example:
 // tag::assignments[]
 === Assignments
 // end::assignments[]
+
+Assignments are contained within each class. There are two fields in each assignment as shown below:
+
+* Name - Prefix: as/
+** Names must be alphanumerical, and cannot be empty.
+* Deadline - Prefix: d/
+** Deadlines must be in the format dd/MM/yyyy HHmm, and later than the current date and time e.g. 01/12/19 0000, 25/12/19 2359
+
+
+==== Adding Assignment: addassignment
+
+Adds an assignment to the assignment list of the current class. +
+Format: `addassignment as/ASSIGNMENT d/DEADLINE:dd/MM/yyyy HHmm`
+
+Examples:
+
+* `addassignment as/Math Test d/29/11/2020 1400`
+* `addassignment as/English Test 2 d/30/11/2020 1400`
+
+==== Editing Assignment: editassignment
+
+Edits an assignment at the specified index in the student list of the current class. +
+Format: `editassignment ASSIGNMENT_INDEX [as/ASSIGNMENT_NAME] [d/ASSIGNMENT_DEADLINE]`
+
+Examples:
+
+* `editassignment 1 as/English Test d/29/11/2020 1400`
+* `editassignment 1 as/Math Test d/29/11/2020 1600`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the assignment list) and at least one field must be edited. If the list has been filtered through the Finding Assignment command, the index provided corresponds to the index on the filtered list.
+
+==== Deleting: deleteassignment
+
+Deletes an assignment at the specified index in the assignment list of the current class. +
+Format: `deleteassignment ASSIGNMENT_INDEX`
+
+Example:
+
+* `deleteassignment 1`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the assignment list). If the list has been filtered through the Finding Assignment command, the index provided corresponds to the index on the filtered list.
+
+==== Listing Assignments: listassignments
+
+Lists all the assignments in the assignment list
+    Format: `listassignments`
+
+==== Finding Assignment: findstudent
+
+Find assignments whose name matches a given keyword in the current classroom. +
+Format: `findassignment ASSIGNMENT_NAME`
+
+Examples:
+
+* `findassignment Math`
+* `findassignment Test`
+
+[NOTE]
+The keyword is not case-sensitive, so as to provide ease of use for the user.
+
+==== Updating Grades: grades
+
+Updates the grades of the assignment identified by the index number of the assignment list of the current classroom +
+This can be done for all students simultaneously or for a particular student. +
+Format (All Students): `as/ASSIGNMENT_INDEX g/GRADE GRADE ... GRADE` +
+Format (One Student): `as/ASSIGNMENT_INDEX s/STUDENT_INDEX g/GRADE` +
+
+Examples:
+
+*`grades as/1 g/ 10 20 30 40`+
+*`grades as/1 s/1 10`+
+
+[NOTE]
+Grades must be an integer from 0 to 100, and ASSIGNMENT_INDEX must be valid (check above for definition of valid ASSIGNMENT_INDEX). For the All Students variant, the number of grades input must be equal to the total number of students in the classroom. For the One Student variant, the STUDENT_INDEX must be valid.+
+The default grades of all students is "Not Submitted". Once there are no longer any "Not Submitted" grades belonging to the assignment, the assignment is marked as completed+
+When a student is added, each uncompleted assignment will include the new student with the grade "Not Submitted"+
+When a student is added, each completed assignment will include the new student with the grade "Late to the party". This distinguishes the whether the student was added before or after the assignment was marked (completed) by the user, and it would be unfair to expect a new student to submit work that was assigned before he/she joined the classroom.
+
+Examples:
+
+* `editassignment 1 as/English Test d/29/11/2020 1400`
+* `editassignment 1 as/Math Test d/29/11/2020 1600`
+
+[NOTE]
+The index provided must be valid (is an integer and exists in the assignment list) and at least one field must be edited. If the list has been filtered through the Finding Assignment command, the index provided corresponds to the index on the filtered list.
 
 
 // tag::userfriendly[]
@@ -305,8 +393,8 @@ This will give teachers a clearer idea of what they need to do in the reminder p
 
 === Statistics for Assignments [coming in v2.0]
 
-Calculates the statistics for the chosen assignment for each class - Average, Median, 25th / 75th percentile etc. +
-This will give teachers a clearer idea of how each class as a whole is doing. +
+Calculates the statistics for the chosen assignment for each classroom - Average, Median, 25th / 75th percentile etc. +
+This will give teachers a clearer idea of how each classroom as a whole is doing. +
 Format: `getstats ASSIGNMENT_INDEX`
 
 //end::statistics[]
