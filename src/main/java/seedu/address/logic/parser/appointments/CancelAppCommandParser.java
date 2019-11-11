@@ -30,8 +30,8 @@ public class CancelAppCommandParser implements Parser<ReversibleActionPairComman
     }
 
     /**
-     * Parses the given {@code String} of arguments in the context of the CancelApptCommand
-     * and returns an CancelApptCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the CancelAppCommand
+     * and returns an CancelAppCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
      */
