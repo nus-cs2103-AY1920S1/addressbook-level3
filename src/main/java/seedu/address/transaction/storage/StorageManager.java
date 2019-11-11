@@ -36,7 +36,7 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public TransactionList readTransactionList() throws FileReadException, PersonNotFoundException{
+    public TransactionList readTransactionList() throws FileReadException, PersonNotFoundException {
         try {
             ArrayList<Transaction> transactionArrayList = new ArrayList<>();
             file.getAbsoluteFile().getParentFile().mkdirs();
