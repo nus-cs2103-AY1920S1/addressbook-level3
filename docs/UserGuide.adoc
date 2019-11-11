@@ -590,7 +590,7 @@ image::defaultsuccess.png[]
 //tag::budgeting[]
 === Budgeting
 .Example User's Wallet
-image::wallet.png[width = "400"]
+image::wallet.png[width = "300"]
 
 [NOTE]
 Maximum budget amount is $1,000,000. +
@@ -750,7 +750,7 @@ Only the date shall be entered, no time is required.
 === Purchasing
 
 .Example User's PurchaseHistory
-image::PurchaseHistory.png[width = 600]
+image::PurchaseHistory.png[width = 400]
 
 ==== Buy a food item: `buy`
 Allows users to log a food expense into the application.
