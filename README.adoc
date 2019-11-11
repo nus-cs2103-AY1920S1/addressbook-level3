@@ -7,8 +7,10 @@ https://coveralls.io/github/AY1920S1-CS2103T-T12-1/main?branch=master[image:http
  "Smash those deadlines"
 
 ifndef::env-github[]
-image::docs/images/Ui.png[width="600"]
+// image::docs/images/Ui.png[width="600"]
 endif::[]
+
+image::docs/images/Ui.png[width="600"]
 
 * +Work is a desktop project management application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * The application is targeted at NUS students who are project leaders for organisations, school work or CCA.
