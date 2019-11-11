@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:id="locationsViewContainer" vgap="25" hgap="25">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10" />
+    </padding>
+    <StackPane fx:id="locationOverviewCard" GridPane.rowIndex="0" GridPane.columnIndex="0"
+               GridPane.columnSpan="3" GridPane.halignment="CENTER"/>
+    <StackPane fx:id="firstLocationCard" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <StackPane fx:id="secondLocationCard" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <StackPane fx:id="thirdLocationCard" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+</GridPane>

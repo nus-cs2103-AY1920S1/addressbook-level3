@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml" fx:id="scheduleView" alignment="TOP_CENTER">
+    <Label fx:id="title" alignment="CENTER" VBox.vgrow="NEVER"/>
+        <StackPane fx:id="scheduleHeaderWrapper" HBox.hgrow="ALWAYS">
+            <GridPane fx:id="scheduleHeaderContainer">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="9"/>
+                    <ColumnConstraints percentWidth="13"/>
+                    <ColumnConstraints percentWidth="13"/>
+                    <ColumnConstraints percentWidth="13"/>
+                    <ColumnConstraints percentWidth="13"/>
+                    <ColumnConstraints percentWidth="13"/>
+                    <ColumnConstraints percentWidth="13"/>
+                    <ColumnConstraints percentWidth="13"/>
+                </columnConstraints>
+            </GridPane>
+        </StackPane>
+    <ScrollPane hbarPolicy="NEVER" fitToWidth="true" fx:id="scheduleContents" vbarPolicy="NEVER">
+        <GridPane fx:id="scheduleContentContainer">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="9"/>
+                <ColumnConstraints percentWidth="13"/>
+                <ColumnConstraints percentWidth="13"/>
+                <ColumnConstraints percentWidth="13"/>
+                <ColumnConstraints percentWidth="13"/>
+                <ColumnConstraints percentWidth="13"/>
+                <ColumnConstraints percentWidth="13"/>
+                <ColumnConstraints percentWidth="13"/>
+            </columnConstraints>
+        </GridPane>
+    </ScrollPane>
+</VBox>

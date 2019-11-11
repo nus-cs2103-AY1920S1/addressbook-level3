@@ -21,6 +21,7 @@ sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
 
 repositories {
+    jcenter()
     mavenCentral()
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
@@ -57,6 +58,9 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'win'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'mac'
+    implementation group: 'org.openjfx', name: 'javafx-swing', version: javaFxVersion, classifier: 'linux'
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -64,10 +68,21 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
+
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: jUnitVersion
+
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
+
+    testCompile "org.testfx:testfx-junit5:4.0.16-alpha"
+    testCompile "org.testfx:testfx-core:4.0.16-alpha"
+    testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
+
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-11+26'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'timebook.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -97,6 +112,22 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                    'java.awt.headless': 'true',
+                    'testfx.robot': 'glass',
+                    'testfx.headless': 'true',
+                    'prism.order': 'sw',
+                    'prism.text': 't2k',
+                    'headless.geometry': '1600x1200-32'
+            ]
+        }
+    }
+}
+
 test {
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
@@ -112,6 +143,7 @@ test {
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
     }
+
 }
 
 asciidoctor {
@@ -133,8 +165,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level3',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level3',
+        'site-name': 'TimeBook',
+        'site-githuburl': 'https://github.com/AY1920S1-CS2103T-T10-4/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 

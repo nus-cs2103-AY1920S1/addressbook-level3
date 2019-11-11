@@ -7,8 +7,8 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.TimeBook;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -17,14 +17,14 @@ import seedu.address.model.UserPrefs;
 public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private AddressBookStorage addressBookStorage;
     private UserPrefsStorage userPrefsStorage;
+    private TimeBookStorage timeBookStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(UserPrefsStorage userPrefsStorage, TimeBookStorage timeBookStorage) {
         super();
-        this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.timeBookStorage = timeBookStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -44,34 +44,32 @@ public class StorageManager implements Storage {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
-
-    // ================ AddressBook methods ==============================
+    // ================ TimeBook methods ==============================
 
     @Override
-    public Path getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
+    public Path getTimeBookFilePath() {
+        return timeBookStorage.getTimeBookFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    public Optional<TimeBook> readTimeBook() throws DataConversionException, IOException {
+        return readTimeBook(timeBookStorage.getTimeBookFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException, IOException {
-        logger.fine("Attempting to read data from file: " + filePath);
-        return addressBookStorage.readAddressBook(filePath);
+    public Optional<TimeBook> readTimeBook(Path filePath) throws DataConversionException, IOException {
+        return timeBookStorage.readTimeBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    public void saveTimeBook(TimeBook timeBook) throws IOException {
+        saveTimeBook(timeBook, timeBookStorage.getTimeBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-        logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+    public void saveTimeBook(TimeBook timeBook, Path filePath) throws IOException {
+        timeBookStorage.saveTimeBook(timeBook, filePath);
     }
+
 
 }

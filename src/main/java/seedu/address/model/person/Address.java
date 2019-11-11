@@ -31,6 +31,20 @@ public class Address {
     }
 
     /**
+     * Constructs an empty address. (Optional).
+     */
+    private Address() {
+        value = "";
+    }
+
+    /**
+     * Static method to get empty address.
+     */
+    public static Address emptyAddress() {
+        return new Address();
+    }
+
+    /**
      * Returns true if a given string is a valid email.
      */
     public static boolean isValidAddress(String test) {

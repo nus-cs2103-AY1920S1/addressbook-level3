@@ -30,6 +30,13 @@ public class Email {
     public final String value;
 
     /**
+     * Constructs an empty email.
+     */
+    private Email() {
+        value = "";
+    }
+
+    /**
      * Constructs an {@code Email}.
      *
      * @param email A valid email address.
@@ -38,6 +45,13 @@ public class Email {
         requireNonNull(email);
         checkArgument(isValidEmail(email), MESSAGE_CONSTRAINTS);
         value = email;
+    }
+
+    /**
+     * Static method to obtain empty Email.
+     */
+    public static Email emptyEmail() {
+        return new Email();
     }
 
     /**

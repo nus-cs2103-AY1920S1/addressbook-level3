@@ -1,9 +1,11 @@
 package seedu.address.ui;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -15,7 +17,28 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.export.Exporter;
+import seedu.address.logic.export.GroupScheduleExporter;
+import seedu.address.logic.export.IndividualScheduleExporter;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.display.scheduledisplay.GroupScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.HomeScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.PersonScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleDisplay;
+import seedu.address.model.display.scheduledisplay.ScheduleState;
+import seedu.address.model.display.sidepanel.SidePanelDisplayType;
+import seedu.address.model.display.timeslots.PersonTimeslot;
+import seedu.address.ui.SuggestingCommandBox.SuggestionLogic;
+import seedu.address.ui.home.DefaultStartView;
+import seedu.address.ui.popup.LocationPopup;
+import seedu.address.ui.popup.LocationsView;
+import seedu.address.ui.popup.TimeslotPopup;
+import seedu.address.ui.popup.TimeslotView;
+import seedu.address.ui.schedule.GroupInformationDisplay;
+import seedu.address.ui.schedule.PersonInformationDisplay;
+import seedu.address.ui.schedule.ScheduleViewManager;
+import seedu.address.ui.schedule.exceptions.InvalidScheduleViewException;
+import seedu.address.ui.util.ColorGenerator;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,8 +55,14 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private GroupListPanel groupListPanel;
+    private TabPanel tabPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private ScheduleViewManager scheduleViewManager;
+    private CommandBox commandBox;
+
+    private SidePanelDisplayType currentSidePanelDisplay;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -42,13 +71,16 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane sideBarPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
 
+    //@FXML
+    //private StackPane statusbarPlaceholder;
+
     @FXML
-    private StackPane statusbarPlaceholder;
+    private StackPane scheduleDisplayPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -75,6 +107,7 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Sets the accelerator of a MenuItem.
+     *
      * @param keyCombination the KeyCombination value of the accelerator
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -107,17 +140,35 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
+        tabPanel = new TabPanel();
+        //To do for logic -> getGroupList.
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupDisplayList());
+        tabPanel.setContent(personListPanel.getRoot(), groupListPanel.getRoot());
+        sideBarPlaceholder.getChildren().add(tabPanel.getTabs());
+        currentSidePanelDisplay = SidePanelDisplayType.TABS;
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+        //StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        //statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        if (logic instanceof SuggestionLogic) {
+            logger.info("logic supports suggestions, loading SuggestingCommandBox");
+            final SuggestionLogic suggestionLogic = (SuggestionLogic) logic;
+            commandBox = new SuggestingCommandBox(this::executeCommand, suggestionLogic);
+        } else {
+            logger.warning("logic does not suggestions, loading CommandBox");
+            commandBox = new CommandBox(this::executeCommand);
+        }
+
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        //setting up default detailsview
+        scheduleDisplayPlaceholder.getChildren().add(new DefaultStartView(logic.getScheduleDisplay()
+                .getPersonSchedules().get(0))
+                .getRoot());
     }
 
     /**
@@ -130,6 +181,51 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+    }
+
+    /**
+     * Sets graphic of the schedule view window.
+     * @param graphic details to be set inside detailsViewPlaceHolder in MainWindow.
+     */
+    public void setGraphicForScheduleDisplay(Node graphic) {
+        scheduleDisplayPlaceholder.getChildren().clear();
+        scheduleDisplayPlaceholder.getChildren().add(graphic);
+    }
+
+    /**
+     * Handles change of sidepanel view.
+     */
+    public void handleChangeToTabsPanel() {
+        sideBarPlaceholder.getChildren().clear();
+        personListPanel = new PersonListPanel(logic.getFilteredPersonDisplayList());
+        groupListPanel = new GroupListPanel(logic.getFilteredGroupDisplayList());
+        tabPanel.setContent(personListPanel.getRoot(), groupListPanel.getRoot());
+        sideBarPlaceholder.getChildren().add(tabPanel.getTabs());
+        currentSidePanelDisplay = SidePanelDisplayType.TABS;
+    }
+
+    /**
+     * Handles tab switch view.
+     */
+    public void handleTabSwitch() {
+        if (!currentSidePanelDisplay.equals(SidePanelDisplayType.TABS)) {
+            //Do nothing.
+        } else if (tabPanel.getTabs().getSelectionModel().getSelectedIndex() == 0) {
+            tabPanel.getTabs().getSelectionModel().select(1);
+        } else {
+            tabPanel.getTabs().getSelectionModel().select(0);
+        }
+    }
+
+    /**
+     * Sets the graphic for the side panel.
+     * @param graphic The graphic to be placed in the side panel.
+     * @param type The type.
+     */
+    public void setSidePanelGraphic(Node graphic, SidePanelDisplayType type) {
+        sideBarPlaceholder.getChildren().clear();
+        sideBarPlaceholder.getChildren().add(graphic);
+        currentSidePanelDisplay = type;
     }
 
     /**
@@ -160,8 +256,45 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    /**
+     * Method to handle scrolling events.
+     */
+    private void handleScroll() {
+        if (scheduleViewManager == null) {
+            //No schedule has been loaded yet. Do nothing.
+        } else {
+            scheduleViewManager.scrollNext();
+        }
+    }
+
+    /**
+     * Method to handle exportation of the current schedule view.
+     */
+    private void handleExport() {
+        ScheduleState type = scheduleViewManager.getScheduleWindowDisplayType();
+        if (type.equals(ScheduleState.PERSON)) {
+            Exporter exporter = new IndividualScheduleExporter(scheduleViewManager.getScheduleViewCopy(),
+                    "png", "./export.png");
+            try {
+                exporter.export();
+            } catch (IOException e) {
+                resultDisplay.setFeedbackToUser("Error exporting");
+            }
+        } else if (type.equals(ScheduleState.GROUP)) {
+            GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) logic.getScheduleDisplay();
+            GroupInformationDisplay groupInformationDisplay = new GroupInformationDisplay(groupScheduleDisplay
+                    .getPersonDisplays(),
+                    null, groupScheduleDisplay.getGroupDisplay(),
+                    ColorGenerator::generateColor);
+            Exporter exporter = new GroupScheduleExporter(scheduleViewManager.getScheduleViewCopy(),
+                    groupInformationDisplay,
+                    "png", "./export.png");
+            try {
+                exporter.export();
+            } catch (IOException e) {
+                resultDisplay.setFeedbackToUser("Error exporting");
+            }
+        }
     }
 
     /**
@@ -175,6 +308,98 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            ScheduleDisplay scheduleDisplay = logic.getScheduleDisplay();
+            //Command results that require early return statements.
+            if (commandResult.isScroll()) {
+                handleScroll();
+                return commandResult;
+            }
+
+            if (commandResult.isSwitchTabs()) {
+                handleTabSwitch();
+                return commandResult;
+            }
+
+            if (commandResult.isToggleNextWeek()) {
+                scheduleViewManager.toggleNext();
+                setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
+                return commandResult;
+            }
+
+            if (commandResult.isExport()) {
+                handleExport();
+                return commandResult;
+            }
+
+            if (commandResult.isFilter()) {
+                GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
+                if (!groupScheduleDisplay.getFilteredNames().isEmpty()) {
+                    setSidePanelGraphic(new GroupInformationDisplay(groupScheduleDisplay.getPersonDisplays(),
+                            groupScheduleDisplay.getFilteredNames().get(), groupScheduleDisplay.getGroupDisplay(),
+                            ColorGenerator::generateColor).getRoot(), SidePanelDisplayType.GROUP);
+                    scheduleViewManager.filterPersonsFromSchedule(groupScheduleDisplay.getFilteredNames().get());
+                    setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
+                }
+                return commandResult;
+            }
+
+            if (commandResult.isSelect()) {
+                PersonTimeslot personTimeslot;
+                if (commandResult.getPersonTimeslotData().isPresent()) {
+                    personTimeslot = commandResult.getPersonTimeslotData().get();
+
+                    TimeslotView timeslotView = new TimeslotView(personTimeslot);
+                    new TimeslotPopup(timeslotView.getRoot()).show();
+
+                }
+                return commandResult;
+            }
+
+            if (commandResult.isPopUp()) {
+                LocationsView locationsView = new LocationsView(commandResult.getLocationData());
+                new LocationPopup(locationsView.getRoot()).show();
+                return commandResult;
+            }
+
+            ScheduleState displayType = scheduleDisplay.getState();
+
+            if (ScheduleViewManager.getInstanceOf(scheduleDisplay) != null) {
+                scheduleViewManager = ScheduleViewManager.getInstanceOf(scheduleDisplay);
+            }
+
+
+            switch (displayType) {
+            case PERSON:
+                PersonScheduleDisplay personScheduleDisplay = (PersonScheduleDisplay) scheduleDisplay;
+                //There is only 1 schedule in the scheduleWindowDisplay
+                setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
+                setSidePanelGraphic(new PersonInformationDisplay(
+                        personScheduleDisplay
+                        .getPersonSchedules()
+                        .get(0)
+                        .getPersonDisplay())
+                        .getRoot(), SidePanelDisplayType.PERSON);
+                break;
+            case GROUP:
+                GroupScheduleDisplay groupScheduleDisplay = (GroupScheduleDisplay) scheduleDisplay;
+                setGraphicForScheduleDisplay(scheduleViewManager.getScheduleView().getRoot());
+                setSidePanelGraphic(new GroupInformationDisplay(groupScheduleDisplay.getPersonDisplays(), null,
+                                groupScheduleDisplay.getGroupDisplay(), ColorGenerator::generateColor).getRoot(),
+                        SidePanelDisplayType.GROUP);
+                break;
+            case HOME:
+                HomeScheduleDisplay homeScheduleDisplay = (HomeScheduleDisplay) scheduleDisplay;
+
+                setGraphicForScheduleDisplay(new DefaultStartView(homeScheduleDisplay
+                        .getPersonSchedules().get(0))
+                        .getRoot());
+                handleChangeToTabsPanel();
+                break;
+            default:
+                //Nothing to show
+                break;
+            }
+
             if (commandResult.isShowHelp()) {
                 handleHelp();
             }
@@ -182,11 +407,15 @@ public class MainWindow extends UiPart<Stage> {
             if (commandResult.isExit()) {
                 handleExit();
             }
-
             return commandResult;
+        } catch (InvalidScheduleViewException e) {
+            logger.severe("Schedule(s) given is/are not valid. Database must have been corrupted.");
+            resultDisplay.setFeedbackToUser("Database corrupted. " + e.getMessage());
+            return new CommandResult("Database corrupted");
         } catch (CommandException | ParseException e) {
             logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
+            commandBox.commandTextField.clear();
             throw e;
         }
     }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          prefHeight="500.0" fx:id="defaultStartViewContainer" vgap="10" hgap="10">
+    <rowConstraints>
+        <RowConstraints percentHeight="10" vgrow="SOMETIMES" valignment="CENTER"/>
+        <RowConstraints percentHeight="90" valignment="CENTER"/>
+    </rowConstraints>
+    <columnConstraints>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+        <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+    </columnConstraints>
+    <padding>
+        <Insets left="10" right="10" top="10" bottom="10"/>
+    </padding>
+    <Label fx:id="defaultTitle" alignment="CENTER" GridPane.rowIndex="0"
+           GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <StackPane fx:id="calendarPlaceHolder" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <StackPane fx:id="noticeBoardPlaceHolder" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+</GridPane>

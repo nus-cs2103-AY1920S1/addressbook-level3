@@ -1,0 +1,2775 @@
+{
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_SDE&" : {
+    "candidates" : [ {
+      "name" : "NUS School of Design & Environment",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7689751201073,
+            "lat" : 1.296098870107278
+          },
+          "northeast" : {
+            "lng" : 103.7716747798927,
+            "lat" : 1.298798529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7704826,
+          "lat" : 1.2974774
+        }
+      },
+      "place_id" : "ChIJrY4IlPka2jERhqeUbnzFVKY"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_Y&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_AKIMLA4&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_CELC&" : {
+    "candidates" : [ {
+      "name" : "CELC",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7698443201073,
+            "lat" : 1.295592720107278
+          },
+          "northeast" : {
+            "lng" : 103.7725439798927,
+            "lat" : 1.298292379892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7713543,
+          "lat" : 1.2970561
+        }
+      },
+      "place_id" : "ChIJDb-5pPka2jERKqyo5otS_Dc"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT9&" : {
+    "candidates" : [ {
+      "name" : "NUS LT9",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7708568201073,
+            "lat" : 1.293558120107278
+          },
+          "northeast" : {
+            "lng" : 103.7735564798927,
+            "lat" : 1.296257779892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7722152,
+          "lat" : 1.2952441
+        }
+      },
+      "place_id" : "ChIJE7S-aUwb2jERqkmZB4YI-8g"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_E1A&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S6&" : {
+    "candidates" : [ {
+      "name" : "NUS S6",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7788350701073,
+            "lat" : 1.293958170107278
+          },
+          "northeast" : {
+            "lng" : 103.7815347298927,
+            "lat" : 1.296657829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7803112,
+          "lat" : 1.2951331
+        }
+      },
+      "place_id" : "ChIJkW5bqQAb2jER-KDdeQ3SNEk"
+    }, {
+      "name" : "Science Library",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7786845201073,
+            "lat" : 1.293958820107278
+          },
+          "northeast" : {
+            "lng" : 103.7813841798927,
+            "lat" : 1.296658479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.780073,
+          "lat" : 1.2951379
+        }
+      },
+      "place_id" : "ChIJFwAfuVYa2jER0h6yBOtStS8"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S17&" : {
+    "candidates" : [ {
+      "name" : "NUS S17",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7791049201073,
+            "lat" : 1.296394520107278
+          },
+          "northeast" : {
+            "lng" : 103.7818045798927,
+            "lat" : 1.299094179892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7804811,
+          "lat" : 1.2976883
+        }
+      },
+      "place_id" : "ChIJc9Y2SFca2jERUd33B_8nY6s"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS6&" : {
+    "candidates" : [ {
+      "name" : "AS6 Building",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7718897201073,
+            "lat" : 1.293905520107278
+          },
+          "northeast" : {
+            "lng" : 103.7745893798927,
+            "lat" : 1.296605179892722
+          }
+        },
+        "location" : {
+          "lng" : 103.773247,
+          "lat" : 1.2955033
+        }
+      },
+      "place_id" : "ChIJpYX76Pga2jER3n5mFqflPiU"
+    }, {
+      "name" : "NUS CO-OP@AS6",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7712343701073,
+            "lat" : 1.294805220107278
+          },
+          "northeast" : {
+            "lng" : 103.7739340298927,
+            "lat" : 1.297504879892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7728835,
+          "lat" : 1.2958417
+        }
+      },
+      "place_id" : "ChIJX4_DWfga2jERbQ9O_QoPC1E"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT1&" : {
+    "candidates" : [ {
+      "name" : "LT1, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7696564701073,
+            "lat" : 1.298021520107278
+          },
+          "northeast" : {
+            "lng" : 103.7723561298927,
+            "lat" : 1.300721179892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7713285,
+          "lat" : 1.299585
+        }
+      },
+      "place_id" : "ChIJ0fcnb_ca2jER_YoyP7CAb7E"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_CELS&" : {
+    "candidates" : [ {
+      "name" : "Saw Swee Hock School Of Public Health",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7787400701073,
+            "lat" : 1.294158170107278
+          },
+          "northeast" : {
+            "lng" : 103.7814397298927,
+            "lat" : 1.296857829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7801227,
+          "lat" : 1.2955098
+        }
+      },
+      "place_id" : "ChIJ90rzxlYa2jERKheMspKJPOI"
+    }, {
+      "name" : "UTown Auditorium 1, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7723744701073,
+            "lat" : 1.302538670107278
+          },
+          "northeast" : {
+            "lng" : 103.7750741298927,
+            "lat" : 1.305238329892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7737243,
+          "lat" : 1.3038885
+        }
+      },
+      "place_id" : "ChIJVVWV3fUa2jERwig9ZkkUNzU"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_KEVII&" : {
+    "candidates" : [ {
+      "name" : "King Edward VII Hall",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7797621701073,
+            "lat" : 1.291278170107278
+          },
+          "northeast" : {
+            "lng" : 103.7824618298927,
+            "lat" : 1.293977829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7810773,
+          "lat" : 1.2923976
+        }
+      },
+      "place_id" : "ChIJRdd4d1Qa2jER8Jm2S_sC99o"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_I3&" : {
+    "candidates" : [ {
+      "name" : "i3 Auditorium",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7743311701073,
+            "lat" : 1.290949320107278
+          },
+          "northeast" : {
+            "lng" : 103.7770308298927,
+            "lat" : 1.293648979892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7753953,
+          "lat" : 1.2928825
+        }
+      },
+      "place_id" : "ChIJtX3gi1Ua2jERefFjXXzP-xk"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT12&" : {
+    "candidates" : [ {
+      "name" : "NUS LT12",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7697686201073,
+            "lat" : 1.293823870107278
+          },
+          "northeast" : {
+            "lng" : 103.7724682798927,
+            "lat" : 1.296523529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7711454,
+          "lat" : 1.2949679
+        }
+      },
+      "place_id" : "ChIJ_xC4S2Mb2jERtq3C7HpIrCY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_E3&" : {
+    "candidates" : [ {
+      "name" : "Mechanobiology Institute",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7707970201073,
+            "lat" : 1.298702870107278
+          },
+          "northeast" : {
+            "lng" : 103.7734966798927,
+            "lat" : 1.301402529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7721158,
+          "lat" : 1.3000393
+        }
+      },
+      "place_id" : "ChIJi7JYc_ca2jER22YSSzHzGV4"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_RMI&" : {
+    "candidates" : [ {
+      "name" : "NUS Risk Management Institute",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7743504201073,
+            "lat" : 1.291183870107278
+          },
+          "northeast" : {
+            "lng" : 103.7770500798927,
+            "lat" : 1.293883529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7756614,
+          "lat" : 1.2924684
+        }
+      },
+      "place_id" : "ChIJj1ELpRob2jER1JEcgA1ezhg"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT8&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S16&" : {
+    "candidates" : [ {
+      "name" : "S16",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7788318701073,
+            "lat" : 1.295404220107278
+          },
+          "northeast" : {
+            "lng" : 103.7815315298927,
+            "lat" : 1.298103879892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7802672,
+          "lat" : 1.2967963
+        }
+      },
+      "place_id" : "ChIJj0nvJVca2jERG8I4Ivxwp14"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS7&" : {
+    "candidates" : [ {
+      "name" : "NUS AS7 Shaw Foundation Building",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7696042701073,
+            "lat" : 1.292858970107278
+          },
+          "northeast" : {
+            "lng" : 103.7723039298927,
+            "lat" : 1.295558629892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7710034,
+          "lat" : 1.2942381
+        }
+      },
+      "place_id" : "ChIJ8Yh3Nvka2jERWw7qp5RkdZE"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_UT&" : {
+    "candidates" : [ {
+      "name" : "Town Plaza",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7710109201073,
+            "lat" : 1.303119970107278
+          },
+          "northeast" : {
+            "lng" : 103.7737105798927,
+            "lat" : 1.305819629892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7724828,
+          "lat" : 1.3046931
+        }
+      },
+      "place_id" : "ChIJf0Ylw_Ua2jERfrSRsF04uf8"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_Raffles_Hall&" : {
+    "candidates" : [ {
+      "name" : "NUS Raffles Hall",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7713576201073,
+            "lat" : 1.299653120107278
+          },
+          "northeast" : {
+            "lng" : 103.7740572798927,
+            "lat" : 1.302352779892722
+          }
+        },
+        "location" : {
+          "lng" : 103.772705,
+          "lat" : 1.300983
+        }
+      },
+      "place_id" : "ChIJSQ-Mq_ca2jERCkg3EdYFX1s"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_COM1&" : {
+    "candidates" : [ {
+      "name" : "NUS School of Computing",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7725357701073,
+            "lat" : 1.293737170107278
+          },
+          "northeast" : {
+            "lng" : 103.7752354298927,
+            "lat" : 1.296436829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7738856,
+          "lat" : 1.295087
+        }
+      },
+      "place_id" : "ChIJW-fkx_ga2jERSjkkKeJjaUM"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_UTSRC&" : {
+    "candidates" : [ {
+      "name" : "University Town, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7714854701073,
+            "lat" : 1.304208820107278
+          },
+          "northeast" : {
+            "lng" : 103.7741851298927,
+            "lat" : 1.306908479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7730596,
+          "lat" : 1.3054859
+        }
+      },
+      "place_id" : "ChIJF__3dfUa2jERyEFGvbTUVhA"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_RVR&" : {
+    "candidates" : [ {
+      "name" : "Ridge View Residential College",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7758925701073,
+            "lat" : 1.296189170107278
+          },
+          "northeast" : {
+            "lng" : 103.7785922298927,
+            "lat" : 1.298888829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.777179,
+          "lat" : 1.2975803
+        }
+      },
+      "place_id" : "ChIJlUr57Fca2jERplWDpkgW0ls"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT13&" : {
+    "candidates" : [ {
+      "name" : "NUS LT13",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694674701073,
+            "lat" : 1.293675070107278
+          },
+          "northeast" : {
+            "lng" : 103.7721671298927,
+            "lat" : 1.296374729892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7709157,
+          "lat" : 1.295104
+        }
+      },
+      "place_id" : "ChIJoViMIbYb2jERQbzhdcWZAc4"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_E4&" : {
+    "candidates" : [ {
+      "name" : "NUS Engineering E4",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7710511701073,
+            "lat" : 1.297206320107278
+          },
+          "northeast" : {
+            "lng" : 103.7737508298927,
+            "lat" : 1.299905979892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7726252,
+          "lat" : 1.2983506
+        }
+      },
+      "place_id" : "ChIJHb9MLPga2jERkr_999Yy7m4"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_CLB&" : {
+    "candidates" : [ {
+      "name" : "NUS Central Library",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7714597701073,
+            "lat" : 1.295273070107278
+          },
+          "northeast" : {
+            "lng" : 103.7741594298927,
+            "lat" : 1.297972729892722
+          }
+        },
+        "location" : {
+          "lng" : 103.773003,
+          "lat" : 1.296454
+        }
+      },
+      "place_id" : "ChIJ77M1mP4a2jERRfwA553Qz3E"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_MD4&" : {
+    "candidates" : [ {
+      "name" : "Department of Microbiology and Immunology",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7793000201073,
+            "lat" : 1.294382320107278
+          },
+          "northeast" : {
+            "lng" : 103.7819996798927,
+            "lat" : 1.297081979892722
+          }
+        },
+        "location" : {
+          "lng" : 103.780973,
+          "lat" : 1.2956081
+        }
+      },
+      "place_id" : "ChIJT8PQL1Ea2jERN-TUfW6F1Bw"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=SR_LT_19&" : {
+    "candidates" : [ {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    }, {
+      "name" : "NUS School of Computing",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7725357701073,
+            "lat" : 1.293737170107278
+          },
+          "northeast" : {
+            "lng" : 103.7752354298927,
+            "lat" : 1.296436829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7738856,
+          "lat" : 1.295087
+        }
+      },
+      "place_id" : "ChIJW-fkx_ga2jERSjkkKeJjaUM"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT7&" : {
+    "candidates" : [ {
+      "name" : "LT7, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7697881201073,
+            "lat" : 1.299018270107278
+          },
+          "northeast" : {
+            "lng" : 103.7724877798927,
+            "lat" : 1.301717929892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7710473,
+          "lat" : 1.3001193
+        }
+      },
+      "place_id" : "ChIJxfwSHv4b2jERuvPdNU7SbUw"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_SDE4&" : {
+    "candidates" : [ {
+      "name" : "NUS School of Design & Environment",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7689751201073,
+            "lat" : 1.296098870107278
+          },
+          "northeast" : {
+            "lng" : 103.7716747798927,
+            "lat" : 1.298798529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7704826,
+          "lat" : 1.2974774
+        }
+      },
+      "place_id" : "ChIJrY4IlPka2jERhqeUbnzFVKY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_RC4&" : {
+    "candidates" : [ {
+      "name" : "Residential College 4",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7721423701073,
+            "lat" : 1.306855920107278
+          },
+          "northeast" : {
+            "lng" : 103.7748420298927,
+            "lat" : 1.309555579892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7734074,
+          "lat" : 1.3082439
+        }
+      },
+      "place_id" : "ChIJyfRWy4oa2jERKHO_rI7eurw"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=S7&" : {
+    "candidates" : [ {
+      "name" : "Organic Nano Device Laboratory",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7778057701073,
+            "lat" : 1.294806870107278
+          },
+          "northeast" : {
+            "lng" : 103.7805054298927,
+            "lat" : 1.297506529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.779126,
+          "lat" : 1.2958559
+        }
+      },
+      "place_id" : "ChIJ7ywNeH0b2jERQtJ_fA5VaQM"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_PGPH&" : {
+    "candidates" : [ {
+      "name" : "bluPort - NUS Prince George's Park",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7794615201073,
+            "lat" : 1.289584720107278
+          },
+          "northeast" : {
+            "lng" : 103.7821611798927,
+            "lat" : 1.292284379892722
+          }
+        },
+        "location" : {
+          "lng" : 103.78079,
+          "lat" : 1.290875
+        }
+      },
+      "place_id" : "ChIJUeQOY1Ma2jER4WwNPbrS4mk"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_E5&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_EW2&" : {
+    "candidates" : [ {
+      "name" : "NUS Engineering Workshop EW2/WS2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7710292701073,
+            "lat" : 1.297743920107278
+          },
+          "northeast" : {
+            "lng" : 103.7737289298927,
+            "lat" : 1.300443579892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7725358,
+          "lat" : 1.2991483
+        }
+      },
+      "place_id" : "ChIJaVUqgvca2jERlWU6Yn95-Po"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_Sheares_Hall&" : {
+    "candidates" : [ {
+      "name" : "Sheares Hall",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7743317201073,
+            "lat" : 1.290200270107278
+          },
+          "northeast" : {
+            "lng" : 103.7770313798927,
+            "lat" : 1.292899929892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7756428,
+          "lat" : 1.291437
+        }
+      },
+      "place_id" : "ChIJE0CLe1Ua2jER0F6FW3D3BnA"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_CFG&" : {
+    "candidates" : [ {
+      "name" : "NUS Centre for Future-ready Graduates",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7734239701073,
+            "lat" : 1.297450820107278
+          },
+          "northeast" : {
+            "lng" : 103.7761236298927,
+            "lat" : 1.300150479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7748244,
+          "lat" : 1.2985829
+        }
+      },
+      "place_id" : "ChIJ6ybBA_ga2jERde6wz4R8beg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_COM2&" : {
+    "candidates" : [ {
+      "name" : "COM 2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7726273201073,
+            "lat" : 1.293009420107278
+          },
+          "northeast" : {
+            "lng" : 103.7753269798927,
+            "lat" : 1.295709079892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7741012,
+          "lat" : 1.2942824
+        }
+      },
+      "place_id" : "ChIJRafctPga2jER8aiJ3XzHihM"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_FED&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS4&" : {
+    "candidates" : [ {
+      "name" : "NUS, Department of Japanese Studies",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7708209201073,
+            "lat" : 1.294780420107278
+          },
+          "northeast" : {
+            "lng" : 103.7735205798927,
+            "lat" : 1.297480079892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7722574,
+          "lat" : 1.295895
+        }
+      },
+      "place_id" : "ChIJoYQbLvka2jERzFT7vXQ-ICI"
+    }, {
+      "name" : "Seminar Room AS4-06-04",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7707278701073,
+            "lat" : 1.293248970107278
+          },
+          "northeast" : {
+            "lng" : 103.7734275298927,
+            "lat" : 1.295948629892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7719497,
+          "lat" : 1.2946642
+        }
+      },
+      "place_id" : "ChIJwxqWCbsb2jERTMjEo817ek0"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT26&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=E2A&" : {
+    "candidates" : [ {
+      "name" : "E2A",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7699145201073,
+            "lat" : 1.297192020107278
+          },
+          "northeast" : {
+            "lng" : 103.7726141798927,
+            "lat" : 1.299891679892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7715058,
+          "lat" : 1.2986539
+        }
+      },
+      "place_id" : "ChIJlbKk2fka2jERIPydkV6fLp8"
+    }, {
+      "name" : "E2A Kimly Pte. Ltd.",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7721694701073,
+            "lat" : 1.377461970107278
+          },
+          "northeast" : {
+            "lng" : 103.7748691298927,
+            "lat" : 1.380161629892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7735166,
+          "lat" : 1.3787512
+        }
+      },
+      "place_id" : "ChIJCRrsy6AR2jERcmy3oNgT74w"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_NAK&" : {
+    "candidates" : [ {
+      "name" : "The Ngee Ann Kongsi Auditorium",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7719490701073,
+            "lat" : 1.304313070107278
+          },
+          "northeast" : {
+            "lng" : 103.7746487298927,
+            "lat" : 1.307012729892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7732989,
+          "lat" : 1.3056629
+        }
+      },
+      "place_id" : "ChIJ_Wq1p_Ua2jERRbnxALRpu-0"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT14&" : {
+    "candidates" : [ {
+      "name" : "NUS LT14",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7719788201073,
+            "lat" : 1.294009220107278
+          },
+          "northeast" : {
+            "lng" : 103.7746784798927,
+            "lat" : 1.296708879892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7733803,
+          "lat" : 1.2957153
+        }
+      },
+      "place_id" : "ChIJBRIdw1Yb2jER_w4k6qhkwAk"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_TC&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT6&" : {
+    "candidates" : [ {
+      "name" : "LT6",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7707579201073,
+            "lat" : 1.297380620107278
+          },
+          "northeast" : {
+            "lng" : 103.7734575798927,
+            "lat" : 1.300080279892722
+          }
+        },
+        "location" : {
+          "lng" : 103.771977,
+          "lat" : 1.2986992
+        }
+      },
+      "place_id" : "ChIJJSZ61vka2jERgnM3i4HsKaI"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S14&" : {
+    "candidates" : [ {
+      "name" : "S14",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7785434701073,
+            "lat" : 1.295477270107278
+          },
+          "northeast" : {
+            "lng" : 103.7812431298927,
+            "lat" : 1.298176929892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7797737,
+          "lat" : 1.2967695
+        }
+      },
+      "place_id" : "ChIJk7crIlca2jERv-HAgOh1LEE"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS5&" : {
+    "candidates" : [ {
+      "name" : "AS5",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7704576701073,
+            "lat" : 1.292583420107278
+          },
+          "northeast" : {
+            "lng" : 103.7731573298927,
+            "lat" : 1.295283079892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7718603,
+          "lat" : 1.2942061
+        }
+      },
+      "place_id" : "ChIJ8c94Qukb2jERlo0SqgxeAqA"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_CAPT&" : {
+    "candidates" : [ {
+      "name" : "College of Alice & Peter Tan (CAPT)",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7721532201073,
+            "lat" : 1.306459820107278
+          },
+          "northeast" : {
+            "lng" : 103.7748528798927,
+            "lat" : 1.309159479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7734417,
+          "lat" : 1.3078284
+        }
+      },
+      "place_id" : "ChIJ9VpWMPUa2jER7SZx4Arz7BM"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_HSSMLCR&" : {
+    "candidates" : [ {
+      "name" : "Biz 2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7738005701073,
+            "lat" : 1.292042170107278
+          },
+          "northeast" : {
+            "lng" : 103.7765002298927,
+            "lat" : 1.294741829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7751218,
+          "lat" : 1.2934021
+        }
+      },
+      "place_id" : "ChIJyZQi-FUa2jERnuxGL51dmnQ"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=E2&" : {
+    "candidates" : [ {
+      "name" : "E2 (Faculty of Engineering)",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7696721701073,
+            "lat" : 1.297690020107278
+          },
+          "northeast" : {
+            "lng" : 103.7723718298927,
+            "lat" : 1.300389679892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7712543,
+          "lat" : 1.2991477
+        }
+      },
+      "place_id" : "ChIJAbKsZvca2jER7Htl8yrN2N8"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_MD10&" : {
+    "candidates" : [ {
+      "name" : "Department of Anatomy, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7805573701073,
+            "lat" : 1.295063270107278
+          },
+          "northeast" : {
+            "lng" : 103.7832570298927,
+            "lat" : 1.297762929892722
+          }
+        },
+        "location" : {
+          "lng" : 103.781942,
+          "lat" : 1.296522
+        }
+      },
+      "place_id" : "ChIJk4kk2FAa2jER_zcE_-Zi1U8"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_CQT&" : {
+    "candidates" : [ {
+      "name" : "Centre for Quantum Technologies",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7789358701073,
+            "lat" : 1.295923970107278
+          },
+          "northeast" : {
+            "lng" : 103.7816355298927,
+            "lat" : 1.298623629892722
+          }
+        },
+        "location" : {
+          "lng" : 103.78031,
+          "lat" : 1.297155
+        }
+      },
+      "place_id" : "ChIJMWRAJlca2jERWL96yXLSPpg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S1&" : {
+    "candidates" : [ {
+      "name" : "NUS S1",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7766418701073,
+            "lat" : 1.294247170107278
+          },
+          "northeast" : {
+            "lng" : 103.7793415298927,
+            "lat" : 1.296946829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7779917,
+          "lat" : 1.295597
+        }
+      },
+      "place_id" : "ChIJ42wORiAb2jERgdazoePF2fg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_EW1&" : {
+    "candidates" : [ {
+      "name" : "Engineering EW1, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7693103701073,
+            "lat" : 1.297648820107278
+          },
+          "northeast" : {
+            "lng" : 103.7720100298927,
+            "lat" : 1.300348479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7705791,
+          "lat" : 1.298961
+        }
+      },
+      "place_id" : "ChIJ74gxX_ca2jERSiGy2d3Fpik"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT7A&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_AKIMAUD&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT15&" : {
+    "candidates" : [ {
+      "name" : "LT15",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7720474701073,
+            "lat" : 1.293921270107278
+          },
+          "northeast" : {
+            "lng" : 103.7747471298927,
+            "lat" : 1.296620929892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7734457,
+          "lat" : 1.2955498
+        }
+      },
+      "place_id" : "ChIJdWF-ZWkb2jERUDZwn6itdNs"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_BIZ2&" : {
+    "candidates" : [ {
+      "name" : "Biz 2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7738005701073,
+            "lat" : 1.292042170107278
+          },
+          "northeast" : {
+            "lng" : 103.7765002298927,
+            "lat" : 1.294741829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7751218,
+          "lat" : 1.2934021
+        }
+      },
+      "place_id" : "ChIJyZQi-FUa2jERnuxGL51dmnQ"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S13&" : {
+    "candidates" : [ {
+      "name" : "S13",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7778622701073,
+            "lat" : 1.295299470107278
+          },
+          "northeast" : {
+            "lng" : 103.7805619298927,
+            "lat" : 1.297999129892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7792265,
+          "lat" : 1.2967105
+        }
+      },
+      "place_id" : "ChIJ_wwcHFca2jERxmBfSKZcDBE"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_E3A&" : {
+    "candidates" : [ {
+      "name" : "Solar Energy Research Institute of Singapore (SERIS)",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7700949701073,
+            "lat" : 1.299092620107278
+          },
+          "northeast" : {
+            "lng" : 103.7727946298927,
+            "lat" : 1.301792279892722
+          }
+        },
+        "location" : {
+          "lng" : 103.771414,
+          "lat" : 1.300358
+        }
+      },
+      "place_id" : "ChIJRSenE_ca2jERqvkfsltzIpM"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT31&" : {
+    "candidates" : [ {
+      "name" : "LT31",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7791625701073,
+            "lat" : 1.295570720107278
+          },
+          "northeast" : {
+            "lng" : 103.7818622298927,
+            "lat" : 1.298270379892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7804496,
+          "lat" : 1.2968661
+        }
+      },
+      "place_id" : "ChIJ0xoOL1ca2jERs3Li2JZozaY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_SDE2&" : {
+    "candidates" : [ {
+      "name" : "SDE 2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7696945201073,
+            "lat" : 1.295780670107278
+          },
+          "northeast" : {
+            "lng" : 103.7723941798927,
+            "lat" : 1.298480329892722
+          }
+        },
+        "location" : {
+          "lng" : 103.771114,
+          "lat" : 1.297413
+        }
+      },
+      "place_id" : "ChIJBSFPvPka2jERljBq4CLgtmI"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=SDE2&" : {
+    "candidates" : [ {
+      "name" : "SDE 2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7696945201073,
+            "lat" : 1.295780670107278
+          },
+          "northeast" : {
+            "lng" : 103.7723941798927,
+            "lat" : 1.298480329892722
+          }
+        },
+        "location" : {
+          "lng" : 103.771114,
+          "lat" : 1.297413
+        }
+      },
+      "place_id" : "ChIJBSFPvPka2jERljBq4CLgtmI"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_Eusoff_Hall&" : {
+    "candidates" : [ {
+      "name" : "Eusoff Hall",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7687702201073,
+            "lat" : 1.292323620107278
+          },
+          "northeast" : {
+            "lng" : 103.7714698798927,
+            "lat" : 1.295023279892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7700204,
+          "lat" : 1.2935465
+        }
+      },
+      "place_id" : "ChIJ1Unfuv4a2jER8YrTbzR_LwU"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_ENG&" : {
+    "candidates" : [ {
+      "name" : "NUS Faculty of Engineering",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7691897701073,
+            "lat" : 1.2985076
+          },
+          "northeast" : {
+            "lng" : 103.7718894298927,
+            "lat" : 1.301448
+          }
+        },
+        "location" : {
+          "lng" : 103.770791,
+          "lat" : 1.300259
+        }
+      },
+      "place_id" : "ChIJQ91DPvca2jERARhJO1i77Cg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS2&" : {
+    "candidates" : [ {
+      "name" : "AS2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7697550201073,
+            "lat" : 1.293970920107278
+          },
+          "northeast" : {
+            "lng" : 103.7724546798927,
+            "lat" : 1.296670579892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7711182,
+          "lat" : 1.295262
+        }
+      },
+      "place_id" : "ChIJITJKPvka2jERpJCjC6L1bps"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS%20Yong%20Siew%20Toh%20Conservatory%20of%20Music&" : {
+    "candidates" : [ {
+      "name" : "Yong Siew Toh Conservatory of Music",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7718028701073,
+            "lat" : 1.300770720107278
+          },
+          "northeast" : {
+            "lng" : 103.7745025298927,
+            "lat" : 1.303470379892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7729095,
+          "lat" : 1.3022102
+        }
+      },
+      "place_id" : "ChIJSejKW_Ya2jER9bHfrr9sA-c"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_USP&" : {
+    "candidates" : [ {
+      "name" : "University Scholars Programme, National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7721007701073,
+            "lat" : 1.305492270107278
+          },
+          "northeast" : {
+            "lng" : 103.7748004298927,
+            "lat" : 1.308191929892722
+          }
+        },
+        "location" : {
+          "lng" : 103.77339,
+          "lat" : 1.306755
+        }
+      },
+      "place_id" : "ChIJhfsMrVca2jER_qYWR23L00A"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT16&" : {
+    "candidates" : [ {
+      "name" : "NUS LT16",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7724238201073,
+            "lat" : 1.292451820107278
+          },
+          "northeast" : {
+            "lng" : 103.7751234798927,
+            "lat" : 1.295151479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7738458,
+          "lat" : 1.2939265
+        }
+      },
+      "place_id" : "ChIJ_6V-wnYb2jERnyniSN0LAV0"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT28&" : {
+    "candidates" : [ {
+      "name" : "NUS LT28",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7799771201073,
+            "lat" : 1.295821670107278
+          },
+          "northeast" : {
+            "lng" : 103.7826767798927,
+            "lat" : 1.298521329892722
+          }
+        },
+        "location" : {
+          "lng" : 103.781209,
+          "lat" : 1.2972123
+        }
+      },
+      "place_id" : "ChIJN16IDygb2jEROR8LWE4pRss"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_BIZ1&" : {
+    "candidates" : [ {
+      "name" : "Biz 2",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7738005701073,
+            "lat" : 1.292042170107278
+          },
+          "northeast" : {
+            "lng" : 103.7765002298927,
+            "lat" : 1.294741829892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7751218,
+          "lat" : 1.2934021
+        }
+      },
+      "place_id" : "ChIJyZQi-FUa2jERnuxGL51dmnQ"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S12&" : {
+    "candidates" : [ {
+      "name" : "S12",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7774798701073,
+            "lat" : 1.295464670107277
+          },
+          "northeast" : {
+            "lng" : 103.7801795298927,
+            "lat" : 1.298164329892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7787223,
+          "lat" : 1.2969197
+        }
+      },
+      "place_id" : "ChIJQwi2BFca2jERjH7cWNPP2P8"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_MD1&" : {
+    "candidates" : [ {
+      "name" : "MD1 - Tahir Foundation Building",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7789979701073,
+            "lat" : 1.294302870107278
+          },
+          "northeast" : {
+            "lng" : 103.7816976298927,
+            "lat" : 1.297002529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7804305,
+          "lat" : 1.2955513
+        }
+      },
+      "place_id" : "ChIJcZSxxVYa2jERLKUYt9o2AgE"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT20&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT32&" : {
+    "candidates" : [ {
+      "name" : "LT32 NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7769104201073,
+            "lat" : 1.294894320107278
+          },
+          "northeast" : {
+            "lng" : 103.7796100798927,
+            "lat" : 1.297593979892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7783237,
+          "lat" : 1.2960652
+        }
+      },
+      "place_id" : "ChIJd6fn-FYa2jER1eMe-wts2_E"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT4&" : {
+    "candidates" : [ {
+      "name" : "LT4",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7721366701073,
+            "lat" : 1.296151470107278
+          },
+          "northeast" : {
+            "lng" : 103.7748363298927,
+            "lat" : 1.298851129892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7734865,
+          "lat" : 1.2975013
+        }
+      },
+      "place_id" : "ChIJB9BKXvUb2jERh7f1jvKALDE"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS3&" : {
+    "candidates" : [ {
+      "name" : "NUS Social Work",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7696179701073,
+            "lat" : 1.293362720107278
+          },
+          "northeast" : {
+            "lng" : 103.7723176298927,
+            "lat" : 1.296062379892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7711769,
+          "lat" : 1.2947374
+        }
+      },
+      "place_id" : "ChIJVVVVJfka2jERSZNKzq41-b0"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S11&" : {
+    "candidates" : [ {
+      "name" : "NUS S11",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7775339701073,
+            "lat" : 1.295310370107278
+          },
+          "northeast" : {
+            "lng" : 103.7802336298927,
+            "lat" : 1.298010029892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7788514,
+          "lat" : 1.2966686
+        }
+      },
+      "place_id" : "ChIJMW2gnpUb2jERlUYTYSaawlc"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT17&" : {
+    "candidates" : [ {
+      "name" : "NUS LT17",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7725399201073,
+            "lat" : 1.292192720107278
+          },
+          "northeast" : {
+            "lng" : 103.7752395798927,
+            "lat" : 1.294892379892722
+          }
+        },
+        "location" : {
+          "lng" : 103.773989,
+          "lat" : 1.2935909
+        }
+      },
+      "place_id" : "ChIJBeHqfnAb2jERL1OoMUzA7yE"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT29&" : {
+    "candidates" : [ {
+      "name" : "LT29",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7800380701073,
+            "lat" : 1.295753570107278
+          },
+          "northeast" : {
+            "lng" : 103.7827377298927,
+            "lat" : 1.298453229892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7813455,
+          "lat" : 1.2971181
+        }
+      },
+      "place_id" : "ChIJD8PBzVAa2jER4aeSkEGQwK0"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT33&" : {
+    "candidates" : [ {
+      "name" : "LT 33",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7796919201073,
+            "lat" : 1.296338370107278
+          },
+          "northeast" : {
+            "lng" : 103.7823915798927,
+            "lat" : 1.299038029892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7810333,
+          "lat" : 1.2977613
+        }
+      },
+      "place_id" : "ChIJRaLWSlca2jERRLrHUa9NSqo"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_E4A&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_AKI5B&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S4&" : {
+    "candidates" : [ {
+      "name" : "NUS Department of Pharmacy",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7778581201073,
+            "lat" : 1.294822220107278
+          },
+          "northeast" : {
+            "lng" : 103.7805577798927,
+            "lat" : 1.297521879892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7792225,
+          "lat" : 1.2958868
+        }
+      },
+      "place_id" : "ChIJVSYW7lYa2jERabid659SkTc"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT21&" : {
+    "candidates" : [ {
+      "name" : "LT21",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7784904201073,
+            "lat" : 1.294078520107278
+          },
+          "northeast" : {
+            "lng" : 103.7811900798927,
+            "lat" : 1.296778179892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7796219,
+          "lat" : 1.2953773
+        }
+      },
+      "place_id" : "ChIJqxqtNfka2jERLnTm-1Ajycc"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=MD7&" : {
+    "candidates" : [ {
+      "name" : "Md7",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7793022201073,
+            "lat" : 1.294739520107278
+          },
+          "northeast" : {
+            "lng" : 103.7820018798927,
+            "lat" : 1.297439179892722
+          }
+        },
+        "location" : {
+          "lng" : 103.780938,
+          "lat" : 1.296106
+        }
+      },
+      "place_id" : "ChIJ30Ns01Ya2jERNDxbAsIrGzU"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_ISS&" : {
+    "candidates" : [ {
+      "name" : "NUS Institute of Systems Science",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7763914201073,
+            "lat" : 1.289595370107278
+          },
+          "northeast" : {
+            "lng" : 103.7790910798927,
+            "lat" : 1.292295029892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7777615,
+          "lat" : 1.2910241
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jEREtrDRjksFsM"
+    }, {
+      "name" : "NUS-ISS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7760565701073,
+            "lat" : 1.290320520107278
+          },
+          "northeast" : {
+            "lng" : 103.7787562298927,
+            "lat" : 1.293020179892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7775339,
+          "lat" : 1.2916417
+        }
+      },
+      "place_id" : "ChIJwZ7RmFUa2jER1yVtJXlcF6k"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS8&" : {
+    "candidates" : [ {
+      "name" : "NUS AS8",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7708893701073,
+            "lat" : 1.294854070107278
+          },
+          "northeast" : {
+            "lng" : 103.7735890298927,
+            "lat" : 1.297553729892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7723239,
+          "lat" : 1.2960131
+        }
+      },
+      "place_id" : "ChIJB9oi5zAX2jERPO8sd5tVob0"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_EA&" : {
+    "candidates" : [ {
+      "name" : "NUS Faculty of Engineering",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7691897701073,
+            "lat" : 1.2985076
+          },
+          "northeast" : {
+            "lng" : 103.7718894298927,
+            "lat" : 1.301448
+          }
+        },
+        "location" : {
+          "lng" : 103.770791,
+          "lat" : 1.300259
+        }
+      },
+      "place_id" : "ChIJQ91DPvca2jERARhJO1i77Cg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT3&" : {
+    "candidates" : [ {
+      "name" : "LT3",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7719203701073,
+            "lat" : 1.296468870107278
+          },
+          "northeast" : {
+            "lng" : 103.7746200298927,
+            "lat" : 1.299168529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7733811,
+          "lat" : 1.2977203
+        }
+      },
+      "place_id" : "ChIJ0c1lR_ga2jERfVFxggCR_Ic"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_YI&" : {
+    "candidates" : [ ],
+    "status" : "ZERO_RESULTS"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LAW&" : {
+    "candidates" : [ {
+      "name" : "National University of Singapore Faculty of Law",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.8156326201073,
+            "lat" : 1.317680670107278
+          },
+          "northeast" : {
+            "lng" : 103.8183322798927,
+            "lat" : 1.320380329892722
+          }
+        },
+        "location" : {
+          "lng" : 103.817208,
+          "lat" : 1.3187759
+        }
+      },
+      "place_id" : "ChIJfyddcgMa2jER6C0WKzLdP6w"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_MD9&" : {
+    "candidates" : [ {
+      "name" : "Department of Physiology | YLLSOM | NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7799421201073,
+            "lat" : 1.295529470107278
+          },
+          "northeast" : {
+            "lng" : 103.7826417798927,
+            "lat" : 1.298229129892722
+          }
+        },
+        "location" : {
+          "lng" : 103.78118,
+          "lat" : 1.296722
+        }
+      },
+      "place_id" : "ChIJJVKa1FAa2jERN6Ja2kg-1IA"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_NHM&" : {
+    "candidates" : [ {
+      "name" : "Lee Kong Chian Natural History Museum",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7722899201073,
+            "lat" : 1.300075870107278
+          },
+          "northeast" : {
+            "lng" : 103.7749895798927,
+            "lat" : 1.302775529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.773645,
+          "lat" : 1.3014053
+        }
+      },
+      "place_id" : "ChIJlcijSfYa2jERGZ3CD7lpz_E"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_ERC&" : {
+    "candidates" : [ {
+      "name" : "University Town, NUS",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7714854701073,
+            "lat" : 1.304208820107278
+          },
+          "northeast" : {
+            "lng" : 103.7741851298927,
+            "lat" : 1.306908479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7730596,
+          "lat" : 1.3054859
+        }
+      },
+      "place_id" : "ChIJF__3dfUa2jERyEFGvbTUVhA"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT18&" : {
+    "candidates" : [ {
+      "name" : "NUS LT18",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7734875201073,
+            "lat" : 1.292093320107278
+          },
+          "northeast" : {
+            "lng" : 103.7761871798927,
+            "lat" : 1.294792979892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7745132,
+          "lat" : 1.2935577
+        }
+      },
+      "place_id" : "ChIJUUCd6iQb2jERwMPiZN49r24"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_E1&" : {
+    "candidates" : [ {
+      "name" : "Nus Blk E1a #07-16 Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7694319201073,
+            "lat" : 1.297764820107278
+          },
+          "northeast" : {
+            "lng" : 103.7721315798927,
+            "lat" : 1.300464479892722
+          }
+        },
+        "location" : {
+          "lng" : 103.770845,
+          "lat" : 1.299144
+        }
+      },
+      "place_id" : "ChIJdX9qxCYb2jERMo9YISDNBpY"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LKY&" : {
+    "candidates" : [ {
+      "name" : "LKY School of Public Policy",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.8167219701073,
+            "lat" : 1.318138470107278
+          },
+          "northeast" : {
+            "lng" : 103.8194216298927,
+            "lat" : 1.320838129892722
+          }
+        },
+        "location" : {
+          "lng" : 103.8179677,
+          "lat" : 1.3194343
+        }
+      },
+      "place_id" : "ChIJrRD_oAMa2jERxhENP6ktOxo"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT34&" : {
+    "candidates" : [ {
+      "name" : "LT34",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7797547701073,
+            "lat" : 1.296429670107278
+          },
+          "northeast" : {
+            "lng" : 103.7824544298927,
+            "lat" : 1.299129329892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7810273,
+          "lat" : 1.2977778
+        }
+      },
+      "place_id" : "ChIJP8M0tVAa2jER9ox-CN1aIi0"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_CHPC&" : {
+    "candidates" : [ {
+      "name" : "Clinical and Health Psychology Clinic (CHPC)",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7750011701073,
+            "lat" : 1.297615420107278
+          },
+          "northeast" : {
+            "lng" : 103.7777008298927,
+            "lat" : 1.300315079892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7764122,
+          "lat" : 1.2991161
+        }
+      },
+      "place_id" : "ChIJU1YXHFga2jERe-ShZMD78oU"
+    }, {
+      "name" : "National University of Singapore",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.76256585,
+            "lat" : 1.2871405
+          },
+          "northeast" : {
+            "lng" : 103.79249765,
+            "lat" : 1.3062541
+          }
+        },
+        "location" : {
+          "lng" : 103.7763939,
+          "lat" : 1.2966426
+        }
+      },
+      "place_id" : "ChIJ2QJCeFYa2jERa434wdYIjUg"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT10&" : {
+    "candidates" : [ {
+      "name" : "AS7",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7697185201073,
+            "lat" : 1.292759220107278
+          },
+          "northeast" : {
+            "lng" : 103.7724181798927,
+            "lat" : 1.295458879892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7711239,
+          "lat" : 1.2941671
+        }
+      },
+      "place_id" : "ChIJFRHC98wb2jERXP6ZzdMt7qk"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_S1A&" : {
+    "candidates" : [ {
+      "name" : "LT21",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7784904201073,
+            "lat" : 1.294078520107278
+          },
+          "northeast" : {
+            "lng" : 103.7811900798927,
+            "lat" : 1.296778179892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7796219,
+          "lat" : 1.2953773
+        }
+      },
+      "place_id" : "ChIJqxqtNfka2jERLnTm-1Ajycc"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_TP&" : {
+    "candidates" : [ {
+      "name" : "Town Plaza",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7710109201073,
+            "lat" : 1.303119970107278
+          },
+          "northeast" : {
+            "lng" : 103.7737105798927,
+            "lat" : 1.305819629892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7724828,
+          "lat" : 1.3046931
+        }
+      },
+      "place_id" : "ChIJf0Ylw_Ua2jERfrSRsF04uf8"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT2&" : {
+    "candidates" : [ {
+      "name" : "Mechanobiology Institute",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7707970201073,
+            "lat" : 1.298702870107278
+          },
+          "northeast" : {
+            "lng" : 103.7734966798927,
+            "lat" : 1.301402529892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7721158,
+          "lat" : 1.3000393
+        }
+      },
+      "place_id" : "ChIJi7JYc_ca2jER22YSSzHzGV4"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_LT19&" : {
+    "candidates" : [ {
+      "name" : "NUS LT19",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7727772201073,
+            "lat" : 1.292199270107278
+          },
+          "northeast" : {
+            "lng" : 103.7754768798927,
+            "lat" : 1.294898929892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7744207,
+          "lat" : 1.2936921
+        }
+      },
+      "place_id" : "ChIJH7nBTf8a2jERkRfKRBAFVRc"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=NUS_TH&" : {
+    "candidates" : [ {
+      "name" : "Temasek Hall",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7700234701073,
+            "lat" : 1.291545370107278
+          },
+          "northeast" : {
+            "lng" : 103.7727231298927,
+            "lat" : 1.294245029892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7713629,
+          "lat" : 1.2927579
+        }
+      },
+      "place_id" : "ChIJj0ws4f4a2jERp5m4FKgrSfs"
+    } ],
+    "status" : "OK"
+  },
+  "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?location=.sg&inputtype=textquery&fields=name,place_id,geometry&locationbias=circle:4000@1.2966426,103.7763939&input=AS1&" : {
+    "candidates" : [ {
+      "name" : "NUS Department of Sociology",
+      "geometry" : {
+        "viewport" : {
+          "southwest" : {
+            "lng" : 103.7708034701073,
+            "lat" : 1.293481020107278
+          },
+          "northeast" : {
+            "lng" : 103.7735031298927,
+            "lat" : 1.296180679892722
+          }
+        },
+        "location" : {
+          "lng" : 103.7720741,
+          "lat" : 1.2950899
+        }
+      },
+      "place_id" : "ChIJgXtGIfka2jERRkLDVNpd00w"
+    } ],
+    "status" : "OK"
+  }
+}

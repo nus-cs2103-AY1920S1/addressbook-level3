@@ -3,18 +3,30 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
+
 public class CommandResultTest {
+
+    private CommandResult commandResult;
+    private String feedback = "feedback";
+
+    @BeforeEach
+    void init() {
+        commandResult = new CommandResult(feedback);
+    }
+
     @Test
     public void equals() {
-        CommandResult commandResult = new CommandResult("feedback");
-
         // same values -> returns true
         assertTrue(commandResult.equals(new CommandResult("feedback")));
-        assertTrue(commandResult.equals(new CommandResult("feedback", false, false)));
 
         // same object -> returns true
         assertTrue(commandResult.equals(commandResult));
@@ -29,26 +41,87 @@ public class CommandResultTest {
         assertFalse(commandResult.equals(new CommandResult("different")));
 
         // different showHelp value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", true, false)));
+        assertFalse(commandResult.equals(
+                new CommandResultBuilder("feedback").setShowHelp().build()));
 
         // different exit value -> returns false
-        assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
+        assertFalse(commandResult.equals(
+                new CommandResultBuilder("feedback").setExit().build()));
     }
 
     @Test
     public void hashcode() {
-        CommandResult commandResult = new CommandResult("feedback");
-
         // same values -> returns same hashcode
         assertEquals(commandResult.hashCode(), new CommandResult("feedback").hashCode());
 
         // different feedbackToUser value -> returns different hashcode
         assertNotEquals(commandResult.hashCode(), new CommandResult("different").hashCode());
+    }
 
-        // different showHelp value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", true, false).hashCode());
 
-        // different exit value -> returns different hashcode
-        assertNotEquals(commandResult.hashCode(), new CommandResult("feedback", false, true).hashCode());
+    @Test
+    void getFeedbackToUser() {
+        assertEquals(feedback, commandResult.getFeedbackToUser());
+    }
+
+    @Test
+    void isShowHelp() {
+        assertFalse(commandResult.isShowHelp());
+    }
+
+    @Test
+    void isExit() {
+        assertFalse(commandResult.isExit());
+    }
+
+    @Test
+    void isExport() {
+        assertFalse(commandResult.isExport());
+    }
+
+    @Test
+    void isScroll() {
+        assertFalse(commandResult.isScroll());
+    }
+
+    @Test
+    void isPopUp() {
+        assertFalse(commandResult.isPopUp());
+    }
+
+    @Test
+    void isToggleNextWeek() {
+        assertFalse(commandResult.isToggleNextWeek());
+    }
+
+    @Test
+    void isHome() {
+        assertFalse(commandResult.isHome());
+    }
+
+    @Test
+    void isSwitchTabs() {
+        assertFalse(commandResult.isSwitchTabs());
+    }
+
+    @Test
+    void isSelect() {
+        assertFalse(commandResult.isSelect());
+    }
+
+    @Test
+    void isFilter() {
+        assertFalse(commandResult.isFilter());
+    }
+
+    @Test
+    void getPersonTimeslotData() {
+        assertEquals(Optional.empty(), commandResult.getPersonTimeslotData());
+    }
+
+    @Test
+    void getLocationData() {
+        assertThrows(CommandException.class, () ->
+                commandResult.getLocationData());
     }
 }

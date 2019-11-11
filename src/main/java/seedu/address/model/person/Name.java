@@ -20,6 +20,10 @@ public class Name {
 
     public final String fullName;
 
+    private Name() {
+        this.fullName = "";
+    }
+
     /**
      * Constructs a {@code Name}.
      *
@@ -29,6 +33,10 @@ public class Name {
         requireNonNull(name);
         checkArgument(isValidName(name), MESSAGE_CONSTRAINTS);
         fullName = name;
+    }
+
+    public static Name emptyName() {
+        return new Name();
     }
 
     /**
@@ -48,7 +56,7 @@ public class Name {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && fullName.equals(((Name) other).fullName)); // state check
+                && fullName.toLowerCase().equals(((Name) other).fullName.toLowerCase())); // state check
     }
 
     @Override

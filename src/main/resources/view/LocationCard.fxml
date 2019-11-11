@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="locationCardContainer">
+    <HBox alignment="CENTER_LEFT">
+        <padding>
+            <Insets top="5" right="5" bottom="5" left="10" />
+        </padding>
+        <Label fx:id="locationTitle" styleClass="cell_extra_big_label" prefWidth="200"/>
+        <VBox HBox.hgrow="ALWAYS" alignment="CENTER_LEFT">
+            <Label fx:id="locationNameLabel" styleClass="cell_big_label"/>
+            <Label fx:id="locationAvgTravelDistanceLabel" styleClass="cell_small_label"/>
+        </VBox>
+    </HBox>
+    <ImageView fx:id="locationMap"/>
+</VBox>
