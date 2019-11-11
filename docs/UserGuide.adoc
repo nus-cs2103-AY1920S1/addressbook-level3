@@ -609,7 +609,7 @@ Examples:
 * ` setReminder 1 typ/expense n/Mala p/1d f/daily '
 
 
-==== List all active Reminders (reminders currently set to display) : `listActiveReminders`
+==== List all active Reminders (reminders currently set to display) : `listReminders`
 Shows reminder pannel.
 
 Format: `listReminders`

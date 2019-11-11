@@ -386,7 +386,7 @@ image::ReminderClassDiagram.png[]
 
 General reminders are not tied to any specific entry, and sent the user notifications whenever an entry matching the user specified conditions is entered in the app. These specified conditions include entry type, a lower and upper quota for the entry amount, a specified time period in which an entry takes place, or a list of tags which the entry must have.
 
-image::GeneralReminderSequenceDiagram.png[GRS, 1000, 420]
+image::GeneralReminderSequenceDiagram.png[GRS, 1000, 600]
 
 ====== The sequence diagram above illustrates what happens when an entry fulfils all conditions in an entry.
 
@@ -402,7 +402,7 @@ STEP 5)  The number of conditions met is reset a the end of the process so the r
 
 An entry reminder targets a specific expense/ income or wish. It is set to send notifications at a specified period at specified intervals before the date of the event.
 
-image::EntryReminderSequenceDiagram.png[ERS, 1000, 420]
+image::EntryReminderSequenceDiagram.png[ERS, 1000, 400]
 
 ====== The sequence diagram above illustrates what happens when an it is time for an entry reminder to send a notification.
 
