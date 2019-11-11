@@ -1,9 +1,6 @@
 package seedu.address.testutil;
 
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
->>>>>>> 64b71057453ef1dd4a0942222e39a34ee2bb22bd
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -39,11 +36,7 @@ public class EateryBuilder {
     private Address address;
     private Category category;
     private Set<Tag> tags;
-<<<<<<< HEAD
-    private Set<Review> reviews;
-=======
     private List<Review> reviews;
->>>>>>> 64b71057453ef1dd4a0942222e39a34ee2bb22bd
 
     public EateryBuilder() {
         name = new Name(DEFAULT_NAME);
@@ -52,11 +45,7 @@ public class EateryBuilder {
         category = new Category(DEFAULT_CATEGORY);
         address = new Address(DEFAULT_ADDRESS);
         tags = new HashSet<>();
-<<<<<<< HEAD
-        reviews = new HashSet<>();
-=======
         reviews = new ArrayList<>();
->>>>>>> 64b71057453ef1dd4a0942222e39a34ee2bb22bd
     }
 
     /**
@@ -68,11 +57,7 @@ public class EateryBuilder {
         address = eateryToCopy.getAddress();
         category = eateryToCopy.getCategory();
         tags = new HashSet<>(eateryToCopy.getTags());
-<<<<<<< HEAD
-        reviews = new HashSet<>();
-=======
         reviews = new ArrayList<>();
->>>>>>> 64b71057453ef1dd4a0942222e39a34ee2bb22bd
     }
 
     /**
