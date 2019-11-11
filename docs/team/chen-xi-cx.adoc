@@ -11,7 +11,7 @@
 
 SugarMummy is a desktop application tailored for type 2 diabetics to better manage their day-to-day life.
 Users interact with it using a CLI, and it has a GUI created with JavaFX. It is written in Java and has
-about 24 kLOC.
+about 30 kLOC.
 
 Besides being a schedule planner cum reminder app, SugarMummy also supports logging of data such as
 blood sugar level and BMI. As these data are closely linked to the severity of type 2 diabetes, they
