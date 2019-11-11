@@ -267,6 +267,12 @@ Upon setting a new budget, a `BudgetCard` is created and displayed in a list in 
 
 A `Budget` stores an *initial amount*, *amount* (the current amount), *deadline*, *categories*.
 There is a need for a `Budget` to store both *initial amount* and *amount* as it allows for percentage of budget remaining to be calculated. +
+Shown below is the class diagram of `Budget` class:
+
+.Class diagram of Budget class
+image::BudgetClassDiagram.png[]
+
+
 Displaying the percentage improves the user experience greatly as our target user is a
 `visual person who wants to see how much budget he has left in each category so as to cut down on spending as necessary`
 as specified in <<User-Stories, user stories>>. Hence, taking a quick glance at the `Budget card` allows the user to
