@@ -70,6 +70,8 @@ This represents a *warning*. A warning denotes something of great significance, 
 Displays a help page +
 Format: `help`
 
+
+// tag::view[]
 === View specific tab `view`
 
 Displays the tab specified. The available tabs to view are `itinerary`, `info` and `help`. +
@@ -82,7 +84,8 @@ Examples:
 * `view help`
 
 Each command will display the tab specified.
-
+// end::view[]
+// tag::set[]
 === Set name/start date : `set`
 
 Sets the trip's name or start date +
@@ -90,7 +93,7 @@ Format: `set [n/NAME] [sd/START_DATE]`
 
 * The name provided cannot exceed 30 characters long.
 * The start date provided needs to be in dd-mm-yyyy format.
-
+// end::set[]
 // tag::addaccommodation[]
 
 === Adding an accommodation: `add accommodation`
@@ -418,7 +421,7 @@ Examples:
 Deletes day 2 from the itinerary.
 
 // end::deleteday[]
-
+// tag::listday[]
 === List activities in a day: `list day`
 
 Lists the activities within day DAY_INDEX of the itinerary. +
@@ -429,7 +432,7 @@ Examples:
 * `list day 3`
 
 Lists activities within day 3 of the itinerary.
-
+// end::listday[]
 // tag::schedule[]
 
 === Scheduling an activity to a day: `schedule`

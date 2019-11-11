@@ -36,16 +36,12 @@ image::../images/plan2travelSample.png[]
 ** Justification: An itinerary is naturally composed of days, hence it was helpful when using it to store activities that have been scheduled on a particular day.
 ** Highlights: This enhancement interacts with the itinerary UI and different considerations had to be made to ensure the UI will be able to accurately display what was saved in the each day.
 
-* *Functional Code contributed*:
+
+* *Other contributions*: Coded the redesign from AddressBook to plan2travel. Also, added functionality to allow information about activity, accommodation, contact and day to be displayed in the info tab via `list activity/accommodation/contact/day` or through `view activity/accommodation/contact`.
 
 ** Enhanced the GUI (Pull requests https://github.com/AY1920S1-CS2103T-T09-1/main/pull/109[#109], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/126[#126], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/207[#207], https://github.com/AY1920S1-CS2103T-T09-1/main/pull/212[#212])
 
-
-
-
-* *Test Code contributed*:
-
-* *Other contributions*: Coded the redesign from AddressBook to plan2travel. Also, added functionality to allow information about activity, accommodation, contact and day to be displayed in the info tab via `list activity/accommodation/contact/day` or through `view activity/accommodation/contact`.
+** Added tests to increase coverage: https://github.com/AY1920S1-CS2103T-T09-1/main/pull/247[#247]
 
 ** Community:
 *** Over 40 https://github.com/AY1920S1-CS2103T-T09-1/main/pulls?utf8=%E2%9C%93&q=is%3Apr+author%3Aoscarsu97[Pull Requests] on Github
@@ -53,8 +49,20 @@ image::../images/plan2travelSample.png[]
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/AY1920S1-CS2103T-T11-2/main/issues/163[1], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/164[2], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/165[3], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/166[4], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/167[5], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/168[6], https://github.com/AY1920S1-CS2103T-T11-2/main/issues/169[7])
 *** Overview of Code Contribution https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=1nefoostep[here]
 ** Documentation:
-*** Contributed to the Developer Guide for this project. See below for more details.
+*** Contributed to the User Guide and Developer Guide for this project. See below for more details.
 
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=view]
+
+include::../UserGuide.adoc[tag=set]
+
+include::../UserGuide.adoc[tag=listday]
 == Contributions to the Developer Guide
 
 |===
@@ -62,8 +70,11 @@ image::../images/plan2travelSample.png[]
 |===
 [[Design-Model]]
 include::../DeveloperGuide.adoc[tag=autocomplete]
+
 include::../DeveloperGuide.adoc[tag=timetable]
+
 include::../DeveloperGuide.adoc[tag=uicomponent]
+
 include::../DeveloperGuide.adoc[tag=model]
 
 
