@@ -9,6 +9,7 @@ import static seedu.eatme.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.eatme.logic.parser.CliSyntax.PREFIX_RATING;
 
 import java.util.Date;
+import java.util.stream.Stream;
 
 import seedu.eatme.commons.core.index.Index;
 import seedu.eatme.logic.commands.ReviewCommand;
@@ -28,6 +29,11 @@ public class ReviewCommandParser implements Parser<ReviewCommand> {
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, PREFIX_DESCRIPTION,
                 PREFIX_COST, PREFIX_RATING, PREFIX_DATE);
 
+        if (!arePrefixesPresent(argumentMultimap, PREFIX_DESCRIPTION, PREFIX_COST, PREFIX_RATING,
+                PREFIX_DATE)
+                || !argumentMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReviewCommand.MESSAGE_USAGE));
+        }
         Index index;
 
         try {
@@ -45,6 +51,14 @@ public class ReviewCommandParser implements Parser<ReviewCommand> {
         } catch (ParseException | java.text.ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReviewCommand.MESSAGE_USAGE), pe);
         }
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
 
