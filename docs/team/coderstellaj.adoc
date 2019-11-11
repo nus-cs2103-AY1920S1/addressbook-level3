@@ -24,7 +24,7 @@ where we were tasked to develop a basic command line interface desktop applicati
 Our team decided to incorporate and morph the AddressBook application into our application **treasurerPro**.
 
 Our application enables treasurers of Co-Curricular Activities (CCA) Clubs to manage their club finances,
-reimbursements, inventory and member’s contact details easily. This is what our application looks like when it is first opened:
+reimbursements, inventory and member’s contact details easily. This is what treasurerPro looks like when it is first opened:
 
 .Graphical user interface of treasurerPro
 image::Reimbursement/AnnotatedUi.png[width="500"]
