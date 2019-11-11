@@ -8,7 +8,7 @@ Ezwatchlist was developed by a group of students based in the http://www.comp.nu
 
 == Project Team
 
-=== Caleb Goh
+=== Caleb Goh Ee Gen
 image::heze8.png[width="150", align="left"]
 {empty} [https://github.com/heze8[github]] [<<heze8#, portfolio>>]
 
@@ -26,7 +26,7 @@ Responsibilities: UI
 
 '''
 
-=== Jared Chiang
+=== Chiang Jiajun Jared
 image::jcjjjared.png[width="150", align="left"]
 {empty}[http://github.com/jcjjjared[github]] [<<jcjjjared#, portfolio>>]
 
@@ -44,7 +44,7 @@ Responsibilities: Component Logic
 
 '''
 
-=== Michelle Yong
+=== Michelle Yong Kai Wen
 image::michelleykw.png[width="150", align="left"]
 {empty}[http://github.com/michelleykw[github]] [<<michelleykw#, portfolio>>]
 
