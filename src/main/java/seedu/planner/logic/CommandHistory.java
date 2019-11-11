@@ -49,6 +49,14 @@ public class CommandHistory {
     }
 
     /**
+     * Clears the undoEventStack in CommandHistory. Used for testing purposes.
+     */
+    public static void clearUndoStack() {
+        logger.info("----------------[UNDO EVENT STACK CLEARED]");
+        undoEventStack.clear();
+    }
+
+    /**
      * Clears the redoEventStack in CommandHistory.
      */
     public static void clearRedoStack() {
