@@ -45,10 +45,9 @@ Example: Typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
 
 * `view transaction` : shows list of your transactions.
-* `in $/100 n/mother d/31102019 c/allowance` : adds an income to your personal finance of *100* dollars with
-the category *mother* and the description *allowance*.
-* `out $/3 n/pie d/19112019 c/food` : adds an expenditure to your personal finance of *3* dollars with
-the category *food* and the description *pie*.
+* `in $/100 n/allowance d/31102019 c/mother` : adds an allowance from "mother" with value "$100" to PalPay.
+* `out $/3 n/pie d/19112019 c/food` : adds an expenditure to your personal finance of "3" dollars with
+the category "food" and the description "pie".
 * `exit` : exits the app
 
 . Refer to <<Commands>> for details of each command.
@@ -153,7 +152,7 @@ Format: `in $/AMOUNT n/DESCRIPTION d/DATE [c/CATEGORY]...`
 image::in_ug_1.png[]
 +
 . Income added
-* The income is added to the empty *Transactions* tab.
+* The income is added to the `Transaction` tab.
 * The added income is given a `GENERAL` category.
 * Balance has increased from $0 to $120 (red box in Figure 2).
 +
