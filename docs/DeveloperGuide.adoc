@@ -425,7 +425,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Other incorrect delete commands to try: `pat-delete`, `pat-delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-=== Updating a patient's Visit Todos:
+=== Updating a patient's Visit Todos
 
 . Updating a patient's Visit Todos. Note that this will not update the patient's visit tasks in an ongoing visit. For more information of the distinction between visit todos and visit tasks, refer to https://ay1920s1-cs2103-f10-1.github.io/main/UserGuide.html#VisitHowTo[Visit Tutorials] in the User Guide.
 
@@ -434,7 +434,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `pat-edit 1 vt/` +
    Expected: Patient is updated with no Visit Todos.
 
-=== Starting a Visit for a patient:
+=== Starting a Visit for a patient
 
 . Starting a visit for a patient.
 
@@ -446,7 +446,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `visit-start 1` +
    Expected: No visit is begun. An error message will appear in the status message informing user that there is already an ongoing visit.
 
-=== Updating an ongoing visit:
+=== Updating an ongoing visit
 
 . Updating an ongoing visit.
 
@@ -460,7 +460,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 Note: If the format of `visit-now-update` arguments are wrong, the error message will prompt about the format first, before it prompts on whether or not there is an ongoing visit.
 
-=== Cancelling a Visit for a patient:
+=== Cancelling a Visit for a patient
 
 . Cancelling a visit for a patient.
 
@@ -472,7 +472,7 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
 .. Test case: `visit-cancel` +
    Expected: No visit is cancelled. An error message will appear in the status message.
 
-=== Finishing a Visit for a patient:
+=== Finishing a Visit for a patient
 
 . Finishing a visit for a patient.
 
@@ -562,7 +562,7 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
 .. Other incorrect appointment permanent delete commands to try: `appt-delete-permanent`, `appt-delete-permanent x` (where x is larger than the appointment list size) +
    Expected: Similar to previous.
 
-=== Changing of autocomplete suggestion list:
+=== Changing of autocomplete suggestion list
 
 . Changing list from object list to command list.
 
@@ -586,7 +586,7 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
 .. Test case: Type "pat-edit 1" into empty command box +
    Expected: The suggestion list is changed from index list to prefix list
 
-=== Updating of current autocomplete suggestion list:
+=== Updating of current autocomplete suggestion list
 . Updating the object list.
 
 .. Test case: Type "ap" into empty command box +
