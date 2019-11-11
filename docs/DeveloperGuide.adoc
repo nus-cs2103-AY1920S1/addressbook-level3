@@ -1093,7 +1093,9 @@ These instructions only provide a starting point for testers to work on.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-=== Deleting an account
+=== Accounts
+
+==== Deleting an Account
 
 . Deleting an account while all accounts are listed
 
@@ -1104,3 +1106,76 @@ These instructions only provide a starting point for testers to work on.
    Expected: No account is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `account delete`, `account delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
+
+=== Loans
+
+==== Adding a Loan
+
+. Adding a loan when no duplicate loan exists in the list
+
+.. Prerequisites: None
+.. Test case: `loan out x/4.20 p/John d/For dinner` +
+   Expected: A loan is added to the list at the appropriate position based on the current sorting order.
+   The date of the loan should be the current system date.
+
+==== Listing Loans
+
+. Listing loans in the main display panel with optional filtering/sorting
+
+.. Prerequisites: None
+.. Test case: `loan list`
+   Expected: All loans are listed.
+.. Test case: `loan list out p/John s/p`
+   Expected: Only loans out involving the person "John" are listed.
+   The list is also sorted by person in alphabetical order.
+
+==== Editing a Loan
+
+. Editing an existing loan while all loans are listed
+
+.. Prerequisites: List all loans using the `loan list` command. At least one loan in the list.
+.. Test case: `loan edit 1 x/500`
+   Expected: First loan's amount is changed to $500 and it is sorted into the appropriate position based on the current sorting order.
+
+==== Marking a Loan as Paid
+
+. Marking an existing loan as paid while all loans are listed
+
+.. Prerequisites: List all loans using the `loan list` command. At least one loan in the list that is unpaid.
+.. Test case: `loan paid 1`
+   Expected: First loan is marked as paid. A "tick" icon should appear to the left of the loan's index.
+.. Test case: `loan paid p/John`
+   Expected: All loans pertaining to the person "John" are marked as paid.
+
+==== Marking a Loan as Unpaid
+
+. Marking an existing loan as unpaid while all loans are listed
+
+.. Prerequisites: List all loans using the `loan list` command. At least one loan in the list that is paid.
+.. Test case: `loan unpaid 1`
+   Expected: First loan is marked as unpaid. The "tick" icon should disappear from the left of the loan's index.
+.. Test case: `loan unpaid p/John`
+   Expected: All loans pertaining to the person "John" are marked as unpaid.
+
+==== Deleting a Loan
+
+. Deleting an existing loan while all loans are listed
+
+.. Prerequisites: List all loans using the `loan list` command. At least one loan in the list.
+.. Test case: `loan delete 1`
+   Expected: Deletes the first loan from the list.
+.. Test case: `loan delete p/John`
+   Expected: All loans pertaining to the person "John" are deleted.
+
+==== Splitting a Payment into Loans
+
+. Splitting a group payment into loans/debts
+
+.. Prerequisites: None
+.. Test case: `loan split p/John x/0 p/Mary x/10 p/Peter x/90`
+   Expected: Displays a list saying John owes Peter $3.33 and Mary owes Peter $23.33.
+.. Test case: `loan split p/John x/0 max/10 p/Mary x/10 p/Peter x/30 p/Bruce x/90 p/Thomas x/50 me/John d/Big lunch`
+   Expected: Displays a list saying Mary owes Bruce $32.50, Peter owes Bruce $12.50,
+   and You owe Bruce and Thomas $2.50 and $7.50 respectively.
+   Two new loans out to Bruce and Thomas should be added to the normal loan list as well
+   (press `Ctrl + D` to switch between the two lists).
