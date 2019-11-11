@@ -44,4 +44,27 @@ public class QuizTest {
         Quiz editedQuiz = new QuizBuilder(QUIZ_TWO).withQuizId("EditedGroup").build();
         assertFalse(editedQuiz.equals(QUIZ_TWO));
     }
+
+    @Test
+    public void equals() {
+        // same values -> returns true
+        Quiz quiz1Copy = new QuizBuilder(QUIZ_ONE).build();
+        assertTrue(quiz1Copy.equals(QUIZ_ONE));
+
+        // same object -> returns true
+        assertTrue(QUIZ_ONE.equals(QUIZ_ONE));
+
+        // null -> returns false
+        assertFalse(QUIZ_ONE.equals(null));
+
+        // different type -> returns false
+        assertFalse(QUIZ_ONE.equals(5));
+
+        // different quiz -> returns false
+        assertFalse(QUIZ_ONE.equals(QUIZ_TWO));
+
+        // different quiz id -> returns false
+        Quiz editedQuiz1 = new QuizBuilder(QUIZ_ONE).withQuizId("editedQuizID").build();
+        assertFalse(editedQuiz1.equals(QUIZ_ONE));
+    }
 }

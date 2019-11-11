@@ -22,6 +22,9 @@ import seedu.address.logic.commands.CommandResultType;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.testutil.model.ModelStub;
 
+/**
+ * Test for event delete command.
+ */
 public class EventDeleteCommandTest {
 
     @Test
