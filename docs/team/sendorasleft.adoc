@@ -13,7 +13,7 @@
 == Overview
 
 .Sample User Interface of MAMS
-image::Ui.png[]
+image::Ui.png[height=50%]
 
 Every semester, administrators from the National University of Singapore (NUS) have to
 systematically work their way through a heavy backlog of special requests, known as "appeals".
@@ -76,17 +76,18 @@ allowing them to resume their work much more quickly.
 ** Highlights:
 - This enhancement can have useful and interesting implications for future command development. For example, an `undo` command having the knowledge of all previously
 executed commands, along with their details and execution status, can specifically target certain types of commands to be undone. Time-stamped history entries, along
-with the record of successful/non-successful commands, can provide valuable work statistics. The independent serialization of command history to disk can allow MAMS to recover from
+with the record of successful/non-successful commands, can provide valuable work statistics for the admin/NUS. The independent serialization of command history to disk can allow MAMS to recover from
 catastrophic data corruption by repeating the same sequence of commands on the original data source retrieved from NUS.
 - This suite of history features was especially challenging as it required extensive end-to-end implementation across the whole of MAMS (from backend storage,
 to model and logic, and finally to extensive changes and creation of new element in GUI). To integrate the entire suite of features into MAMS smoothly, it
 required an in-depth analysis of design alternatives (eg. how existing commands can access history, placement of CommandHistory,
 implementing real-time updates of the history window) in order for it to mesh well with the existing code architecture.
 
-* *Minor enhancement*: Was solely in charge of the MAMS UI/UX. Re-worked entire GUI with revised colour-scheme, and further improved the display and navigability of
+* *Minor enhancement*: Was solely in charge of the MAMS UI/UX. Re-worked entire GUI with revised layout/colour-scheme, and further improved the display and navigability of
 the visual data by implementing `list` and `view` commands to switch between side-by-side compact list views and expanded card views.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sendorasleft&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=SendorasLeft&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]]
+(Use provided RepoSense filters to view "Functional" and "Test" Code)
 
 * *Other contributions*:
 
@@ -122,7 +123,17 @@ https://github.com/AY1920S1-CS2103-T11-2/main/pull/203[#203])
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
+=== Introduction
+[discrete]
 include::../UserGuide.adoc[tag=intro]
+
+=== Quick Start
+[discrete]
+include::../UserGuide.adoc[tag=quickStart]
+
+=== Features
+[discrete]
+include::../UserGuide.adoc[tag=featuresPreamble]
 
 include::../UserGuide.adoc[tag=view]
 
@@ -140,10 +151,18 @@ include::../DeveloperGuide.adoc[tag=ui]
 
 include::../DeveloperGuide.adoc[tag=history]
 
+=== Product Scope
+[discrete]
 include::../DeveloperGuide.adoc[tag=productScope]
 
 include::../DeveloperGuide.adoc[tag=uc1]
 
 include::../DeveloperGuide.adoc[tag=uc5]
+
+include::../DeveloperGuide.adoc[tag=testingView]
+
+include::../DeveloperGuide.adoc[tag=testingList]
+
+include::../DeveloperGuide.adoc[tag=testingHistory]
 
 

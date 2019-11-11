@@ -16,8 +16,8 @@ endif::[]
 
 By: `ay1920s1-cs2103-t11-2`      Since: `Sep 2019`      Licence: `MIT`
 
-// tag::intro[]
 == Introduction
+// tag::intro[]
 
 The Module Appeal Management System (MAMS) is a desktop app that aims
 to combine Command Line Interface (CLI) style commands with a triple-pane
@@ -25,26 +25,34 @@ GUI for easy navigation of module appeals, module information, and student
 particulars. This app is particularly aimed towards *module appeal
 administrators who prefer to work through their heavy backload of module appeals
 without ever having to leave the comfort of the keyboard for their mouse*.
-he MAMS system can quickly bring up entire lists of students, appeals,
+The MAMS system can quickly bring up entire lists of students, appeals,
 and modules for side-by-side comparison, with specific display commands
 to view the expanded details of any particular object in question.
 Once reviewing of the information is complete, the MAMS system also
 provides a suite of commands for resolving appeals,
 overriding MC limits, and allocation of modules to students.
+//end::intro[]
 
 == Quick Start
-
+// tag::quickStart[]
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `mams.jar` link:https://github.com/AY1920S1-CS2103-T11-2/main/releases[here].
-.  Copy the file to the folder you want to use as the home folder for The Module Appeal Management System (MAMS).
-. **Important**: Unzip `data.zip`. Inside, there should be a folder containing `mams.json`, ie. `data/mams.json`.
+.  Download the latest `mams.jar`
+link:https://github.com/AY1920S1-CS2103-T11-2/main/releases[here].
+.  Copy the file to the folder you want to use as the home folder
+for The Module Appeal Management System (MAMS).
+. **Important**: Unzip `data.zip`. Inside, there should be a folder
+containing `mams.json`, ie. `data/mams.json`.
 Copy the `data` folder containing `mams.json` to the same directory as `mams.jar`.
 
-  - This is required due to the special nature of the application, where target users are specifically restricted from
-deleting/adding data entries since it does not fall under their job scope. We hence provide a sample data-set for testing purposes.
+  - This is required due to the special nature of the application,
+where target users are specifically restricted from
+deleting/adding data entries since it does not fall under their job scope.
+We hence provide a sample data-set for testing purposes.
 This may be replaced with actual data differing on a semester-by-semester basis.
- - Note that certain un-archiver tools may automatically create a new parent `data/` folder around the zipped `data/` folder.
-Should that happen, please only move the inner `data/` folder containing `mams.json` to the target directory.
+ - Note that certain un-archiver tools may automatically create a
+new parent `data/` folder around the zipped `data/` folder.
+Should that happen, please only move the inner `data/` folder
+containing `mams.json` to the target directory.
  - **Important** : Before proceeding to the next step, check that the resulting
 folder structure/names look a little like the below:
 
@@ -57,15 +65,21 @@ folder structure/names look a little like the below:
 +
 image::Ui.png[width="790"]
 +
-.  NOTE: If the GUI does not display any items on startup, the previous step was performed incorrectly.
+.  NOTE: If the GUI does not display any items on startup,
+the previous step was performed incorrectly.
 Please close the application and review the folder structure.
 .  Type the command in the command box and press kbd:[Enter] to execute it.
 .  Refer to <<Features>> for details of each command.
-. Note that the application is developed primarily for Windows or MacOS usage. If you use a different OS,
+. Note that the application is developed primarily for Windows
+or MacOS usage. If you use a different OS,
 you may face unexpected issues.
+
+//end::quickStart[]
 
 [[Features]]
 == Features
+
+// tag::featuresPreamble[]
 
 Broadly speaking, MAMS handles three main types of items: *Appeals, Modules, and Students*.
 
@@ -78,42 +92,59 @@ A student is uniquely identified by his/her 8-character Matriculation Number sta
 ====
 *Command Format*
 
-* Each command must begin with a command word. See each command below for the list of associated command words.
+* Each command must begin with a command word. See each command
+below for the list of associated command words.
 * Words in `UPPER_CASE` are the arguments to be supplied by the user eg. `INDEX` denotes
 that you should provide a numeric index in the command-specified format.
-* Items enclosed by square brackets are optional, eg. `list [-a] [-m] [-s]` can be used as `list` or `list -s`.
+* Items enclosed by square brackets are optional, eg. `list [-a] [-m] [-s]`
+can be used as `list` or `list -s`.
 However, some commands may require that at
-least one of the optional parameters be present. These will be specified in the command itself.
+least one of the optional parameters be present. These will be specified
+in the command itself.
 * Any item that is followed by an ellipsis (`...`) can be used multiple times including zero
 eg. `[m/PARAMETER]...` can be supplied as `m/PARAMETER` or `m/PARAMETER1 m/PARAMETER2`
 * Arguments within square brackets can be supplied in any order.
-* As a general rule, invalid or unnecessary parameters will cause the command to be treated as invalid. This is not
-definitive, however, and exceptions to this rule may be specified for specific commands, either now or in the future.
+* As a general rule, invalid or unnecessary parameters will cause
+the command to be treated as invalid. This is not
+definitive, however, and exceptions to this rule may be specified
+for specific commands, either now or in the future.
 * Tags will often be used in the command to specify the targeted list for the command.
 Certain commands allow operations on multiple lists, eg.
-** `a/` : prefix for supplying values specific to the `Appeal List` (`a/VALUE_TO_BE_SUPPLIED`)
-** `m/` : prefix for supplying values specific to the `Module List` (`m/VALUE_TO_BE_SUPPLIED`)
-** `s/` : prefix for supplying values specific to the `Student List` (`m/VALUE_TO_BE_SUPPLIED`)
-** This list is not exhaustive, and is for illustrative purposes only. Precise formats will be given in each command.
+** `a/` : prefix for supplying values specific to the
+`Appeal List` (`a/VALUE_TO_BE_SUPPLIED`)
+** `m/` : prefix for supplying values specific to the
+`Module List` (`m/VALUE_TO_BE_SUPPLIED`)
+** `s/` : prefix for supplying values specific to the
+`Student List` (`m/VALUE_TO_BE_SUPPLIED`)
+** This list is not exhaustive, and is for illustrative purposes only.
+Precise formats will be given in each command.
 ====
-//end::intro[]
+
+// end::featuresPreamble[]
 
 // tag::view[]
 === Viewing single objects: `view`
 
-This command brings up an item with fully expanded details on a single pane. Multiple MAMS items can be displayed
+This command brings up an item with fully expanded details on a single pane.
+Multiple MAMS items can be displayed
 in one single command, as long as they are from different types.
 
 Format: `view [a/INDEX] [m/INDEX] [s/INDEX]`
 
-Note: Even though all the parameter tags are marked as optional, at least one must be present for the command to
-execute. In the case where a parameter tag is used more than once, the last tag of that type will be accepted.
+Note: Even though all the parameter tags are marked as optional,
+at least one must be present for the command to
+execute. In the case where a parameter tag is used more than once,
+the last tag of that type will be accepted.
 
 Tags:
 
 * `a/INDEX`: displays the expanded details of the appeal at `INDEX` on the displayed appeal list
 * `m/INDEX`: displays the expanded details of the module at `INDEX` on the displayed module list
 * `s/INDEX`: displays the expanded details of the student at `INDEX` on the displayed student list
+*  All supplied `INDEX` values must be non-zero positive integers.
+*  When multiple tags of the same type are specified, only the last supplied tag of each type will be checked.
+*  Invalid parameters will cause the command to fail
+*  At least one prefix must be present for the command to execute successfully.
 
 *Examples:*
 
