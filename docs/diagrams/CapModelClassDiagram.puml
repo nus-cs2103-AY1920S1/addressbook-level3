@@ -17,25 +17,54 @@ Class ModelCapManager
 Class ReadOnlyCapLog
 Class ReadOnlySemesterLog
 Class ReadOnlyUserPrefs
+Class AchievementManager
 
-Package Common {
+Package common {
 Class Module
 }
 
-Package Person {
+Package module {
 Class Title
-Class Description
 Class ModuleCode
 Class Credit
 Class Semester
-Class Faculty
 Class Grade
 Class SemesterPeriod
 Class AcademicYear
 Class NameContainsKeywordPredicate
 Class UniqueModuleList
 Class UniqueSemesterList
+Class DegreeClassification
+
+Package rank {
+Class Fail
+Class FirstClass
+Class Freshie
+Class Pass
+Class Rank
+Class SecondLower
+Class SecondUpper
+Class ThirdClass
 }
+}
+
+AchievementManager ..> Fail
+AchievementManager ..> FirstClass
+AchievementManager ..> Freshie
+AchievementManager ..> Pass
+AchievementManager ..> Rank
+AchievementManager ..> SecondLower
+AchievementManager ..> SecondUpper
+AchievementManager ..> ThirdClass
+
+DegreeClassification <-down-o Fail
+DegreeClassification <-down-o FirstClass
+DegreeClassification <-down-o Freshie
+DegreeClassification <-down-o Pass
+DegreeClassification <-down-o Rank
+DegreeClassification <-down-o SecondLower
+DegreeClassification <-down-o SecondUpper
+DegreeClassification <-down-o ThirdClass
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
@@ -58,10 +87,8 @@ CapLog o--> Module
 
 Module *--> Title
 Module *--> ModuleCode
-Module *--> Description
 Module *--> Credit
 Module *--> Semester
-Module *--> Faculty
 Module *--> Grade
 Semester *--> SemesterPeriod
 Semester *--> AcademicYear

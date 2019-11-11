@@ -19,7 +19,7 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.image.Image;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.module.Semester;
 import seedu.address.model.cap.util.GradeHash;
 import seedu.address.model.common.Module;
 

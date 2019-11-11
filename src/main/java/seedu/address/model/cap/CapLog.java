@@ -6,14 +6,14 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.person.UniqueModuleList;
-import seedu.address.model.cap.person.UniqueSemesterList;
+import seedu.address.model.cap.module.Semester;
+import seedu.address.model.cap.module.UniqueModuleList;
+import seedu.address.model.cap.module.UniqueSemesterList;
 import seedu.address.model.common.Module;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the Modulo level
+ * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class CapLog implements ReadOnlyCapLog {
 
@@ -35,7 +35,7 @@ public class CapLog implements ReadOnlyCapLog {
     public CapLog() {}
 
     /**
-     * Creates an CapLog using the Persons in the {@code toBeCopied}
+     * Creates an CapLog using the Modules in the {@code toBeCopied}
      */
     public CapLog(ReadOnlyCapLog toBeCopied) {
         this();
@@ -45,15 +45,15 @@ public class CapLog implements ReadOnlyCapLog {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the task list with {@code tasks}.
-     * {@code tasks} must not contain duplicate tasks.
+     * Replaces the contents of the semester list with {@code tasks}.
+     * {@code tasks} must not contain duplicate semesters.
      */
     public void setSemesters(List<Semester> semesters) {
         this.semesters.setSemesters(semesters);
     }
 
     /**
-     * Resets the existing data of this {@code CalendarAddressBook} with {@code newData}.
+     * Resets the existing data of this {@code CapLog} with {@code newData}.
      */
     public void resetData(ReadOnlyCapLog newData) {
         requireNonNull(newData);
@@ -63,7 +63,7 @@ public class CapLog implements ReadOnlyCapLog {
     //// task-level operations
 
     /**
-     * Returns true if a task with the same identity as {@code task} exists in the address book.
+     * Returns true if a semester {@code semester} exists in the modulo.
      */
     public boolean hasSemester(Semester semester) {
         requireNonNull(semester);
@@ -71,17 +71,18 @@ public class CapLog implements ReadOnlyCapLog {
     }
 
     /**
-     * Adds a task to the address book.
-     * The task must not already exist in the address book.
+     * Adds a semester to the modulo.
+     * The semester must not already exist in the modulo.
      */
     public void addSemester(Semester p) {
         semesters.add(p);
     }
 
     /**
-     * Replaces the given task {@code target} in the list with {@code editedTask}.
-     * {@code target} must exist in the address book.
-     * The task identity of {@code editedTask} must not be the same as another existing task in the address book.
+     * Replaces the given semester {@code target} in the list with {@code editedTask}.
+     * {@code target} must exist in the modulo.
+     * The semester identity of {@code editedTask} must not
+     * be the same as another existing semester in the modulo.
      */
     public void setSemester(Semester target, Semester editedTask) {
         requireNonNull(editedTask);
@@ -90,8 +91,8 @@ public class CapLog implements ReadOnlyCapLog {
     }
 
     /**
-     * Removes {@code key} from this {@code CalendarAddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code CapLog}.
+     * {@code key} must exist in the modulo.
      */
     public void removeSemester(Semester semester) {
         semesters.remove(semester);
@@ -101,7 +102,7 @@ public class CapLog implements ReadOnlyCapLog {
 
     @Override
     public String toString() {
-        return semesters.asUnmodifiableObservableList().size() + " persons";
+        return semesters.asUnmodifiableObservableList().size() + " modules";
         // TODO: refine later
     }
 
@@ -124,17 +125,17 @@ public class CapLog implements ReadOnlyCapLog {
 
     ////////// MODULES METHODS /////////////
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the module list with {@code modules}.
+     * {@code modules} must not contain duplicate modules.
      */
     public void setModules(List<Module> modules) {
         this.modules.setModules(modules);
     }
 
-    //// person-level operations
+    //// module-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a module with the same identity as {@code module} exists in the modulo.
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
@@ -142,27 +143,27 @@ public class CapLog implements ReadOnlyCapLog {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a module to the modulo.
+     * The module must not already exist in the modulo.
      */
     public void addModule(Module module) {
         modules.add(module);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given module {@code target} in the list with {@code editedModule}.
+     * {@code target} must exist in the modulo.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the modulo.
      */
-    public void setModule(Module target, Module editedPerson) {
-        requireNonNull(editedPerson);
+    public void setModule(Module target, Module editedModule) {
+        requireNonNull(editedModule);
 
-        modules.setModule(target, editedPerson);
+        modules.setModule(target, editedModule);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code Modulo}.
+     * {@code key} must exist in the modulo.
      */
     public void removeModule(Module module) {
         modules.remove(module);

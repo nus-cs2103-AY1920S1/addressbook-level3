@@ -19,7 +19,7 @@ public interface CapStorage {
     Path getCapLogFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ReadOnlyCapLog}.
+     * Returns CapLog data as a {@link ReadOnlyCapLog}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.

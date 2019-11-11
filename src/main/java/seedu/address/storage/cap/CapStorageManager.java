@@ -14,7 +14,7 @@ import seedu.address.model.cap.ReadOnlyCapLog;
 import seedu.address.model.cap.ReadOnlyUserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of CapLog data in local storage.
  */
 public class CapStorageManager implements Storage {
 

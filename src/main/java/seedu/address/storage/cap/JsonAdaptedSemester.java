@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.cap.person.AcademicYear;
-import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.person.SemesterPeriod;
+import seedu.address.model.cap.module.AcademicYear;
+import seedu.address.model.cap.module.Semester;
+import seedu.address.model.cap.module.SemesterPeriod;
 
 
 /**
@@ -20,7 +20,7 @@ class JsonAdaptedSemester {
     private final String academicYear;
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedPerson} with the given semester details.
      */
     @JsonCreator
     public JsonAdaptedSemester(@JsonProperty("semester") int semester,
@@ -30,7 +30,7 @@ class JsonAdaptedSemester {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Semester} into this class for Jackson use.
      */
     public JsonAdaptedSemester(Semester source) {
         semesterPeriod = source.getSemesterPeriod().getSemesterPeriod();
@@ -38,10 +38,10 @@ class JsonAdaptedSemester {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted semester object into the model's {@code Semester} object.
      *
-     * @return a Module
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @return a Semester
+     * @throws IllegalValueException if there were any data constraints violated in the adapted semester.
      */
     public Semester toModelType() throws IllegalValueException {
 

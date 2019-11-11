@@ -7,11 +7,11 @@ import java.util.List;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.person.ModuleCode;
+import seedu.address.model.cap.module.ModuleCode;
 import seedu.address.model.common.Module;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Deletes a module identified using it's module code from the modulo.
  */
 public class DeleteCommand extends Command {
 

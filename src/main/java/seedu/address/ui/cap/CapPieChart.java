@@ -13,7 +13,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Panel containing the list of persons.
+ * Encapsulates the piechart ui containing the list of grades breakdown.
  */
 public class CapPieChart extends UiPart<Region> {
     private static final String FXML = "CapPieChart.fxml";
@@ -35,6 +35,10 @@ public class CapPieChart extends UiPart<Region> {
         });
     }
 
+    /**
+     * Update the current set of grades to update the pie chart.
+     * @param grades valid set of grades.
+     */
     public void setPieChartUpdate(ObservableList<Data> grades) {
         requireNonNull(grades);
         gradesPieChart.setData(grades);

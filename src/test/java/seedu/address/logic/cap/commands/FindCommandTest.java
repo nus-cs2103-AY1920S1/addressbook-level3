@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.cap.CapUserPrefs;
 import seedu.address.model.cap.Model;
 import seedu.address.model.cap.ModelCapManager;
-import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
+import seedu.address.model.cap.module.NameContainsKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.

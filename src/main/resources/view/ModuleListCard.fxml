@@ -23,7 +23,7 @@
                      <Label fx:id="semester" styleClass="cell_small_label" text="\$semester" />
                  </VBox>
                  <padding>
-                     <Insets bottom="5" left="10" right="200" top="5" />
+                     <Insets bottom="5" left="10" right="150" top="5" />
                  </padding>
              </StackPane>
              <Label fx:id="grade" styleClass="cell_extreme_label" text="\$grade">

@@ -3,13 +3,13 @@ package seedu.address.logic.cap.parser;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.AcademicYear;
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Grade;
-import seedu.address.model.cap.person.ModuleCode;
-import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.person.SemesterPeriod;
-import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.module.AcademicYear;
+import seedu.address.model.cap.module.Credit;
+import seedu.address.model.cap.module.Grade;
+import seedu.address.model.cap.module.ModuleCode;
+import seedu.address.model.cap.module.Semester;
+import seedu.address.model.cap.module.SemesterPeriod;
+import seedu.address.model.cap.module.Title;
 
 
 /**

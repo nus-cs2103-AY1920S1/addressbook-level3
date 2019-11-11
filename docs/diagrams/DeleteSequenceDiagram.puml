@@ -2,68 +2,104 @@
 !include style.puml
 
 box Logic LOGIC_COLOR_T1
-participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":LogicCapManager" as LogicCapManager LOGIC_COLOR
+participant ":CapLogParser" as CapLogParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
-participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
+participant ":DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
+participant "module:Module" as Module MODEL_COLOR
+participant "moduleCode:ModuleCode" as ModuleCode MODEL_COLOR
 end box
 
-[-> LogicManager : execute("delete 1")
-activate LogicManager
+[-> LogicCapManager : execute("delete CS2103")
+activate LogicCapManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicCapManager -> CapLogParser : parseCommand("delete CS2103")
+activate CapLogParser
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+CapLogParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> CapLogParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+CapLogParser -> DeleteCommandParser : parse("delete CS2103")
 activate DeleteCommandParser
+
+create ParserUtil
+DeleteCommandParser -> ParserUtil : parseModuleCode("delete CS2103")
+activate ParserUtil
+
+ParserUtil --> DeleteCommandParser
+deactivate ParserUtil
+
+create ModuleCode
+DeleteCommandParser -> ModuleCode : new ModuleCode("CS2103")
+activate ModuleCode
+
+ModuleCode -> ModuleCode : isValidModuleCode()
+activate ModuleCode
+
+ModuleCode --> ModuleCode
+deactivate ModuleCode
+
+ModuleCode --> DeleteCommandParser : moduleCode
+deactivate ModuleCode
 
 create DeleteCommand
-DeleteCommandParser -> DeleteCommand
+DeleteCommandParser -> DeleteCommand : new DeleteCommand(moduleCode)
 activate DeleteCommand
 
-DeleteCommand --> DeleteCommandParser : d
+DeleteCommand --> DeleteCommandParser
 deactivate DeleteCommand
 
-DeleteCommandParser --> AddressBookParser : d
-deactivate DeleteCommandParser
-'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
+DeleteCommandParser --> CapLogParser
+deactivate  DeleteCommandParser
+
+CapLogParser --> LogicCapManager
+deactivate CapLogParser
+
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
-
-LogicManager -> DeleteCommand : execute()
+LogicCapManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model
 activate Model
 
 Model --> DeleteCommand
-deactivate Model
 
-create CommandResult
+loop until match or no match for all
+DeleteCommand -> Module
+activate Module
+
+Module -> ModuleCode
+activate ModuleCode
+
+ModuleCode --> Module
+deactivate ModuleCode
+
+Module --> DeleteCommand
+deactivate Module
+
+end
+
+DeleteCommand -> Model
+
 DeleteCommand -> CommandResult
 activate CommandResult
 
 CommandResult --> DeleteCommand
 deactivate CommandResult
 
-DeleteCommand --> LogicManager : result
-deactivate DeleteCommand
+LogicCapManager <-- DeleteCommand : result
 
-[<--LogicManager
-deactivate LogicManager
+[<-- LogicCapManager
+
 @enduml

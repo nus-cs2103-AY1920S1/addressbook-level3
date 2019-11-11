@@ -2,13 +2,13 @@ package seedu.address.model.cap.util;
 
 import seedu.address.model.cap.CapLog;
 import seedu.address.model.cap.ReadOnlyCapLog;
-import seedu.address.model.cap.person.AcademicYear;
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Grade;
-import seedu.address.model.cap.person.ModuleCode;
-import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.person.SemesterPeriod;
-import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.module.AcademicYear;
+import seedu.address.model.cap.module.Credit;
+import seedu.address.model.cap.module.Grade;
+import seedu.address.model.cap.module.ModuleCode;
+import seedu.address.model.cap.module.Semester;
+import seedu.address.model.cap.module.SemesterPeriod;
+import seedu.address.model.cap.module.Title;
 
 import seedu.address.model.common.Module;
 

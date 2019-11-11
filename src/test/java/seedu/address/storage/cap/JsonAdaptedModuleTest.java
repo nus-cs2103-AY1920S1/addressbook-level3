@@ -7,10 +7,10 @@ import static seedu.address.testutil.TypicalModule.CS2100;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Grade;
-import seedu.address.model.cap.person.ModuleCode;
-import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.module.Credit;
+import seedu.address.model.cap.module.Grade;
+import seedu.address.model.cap.module.ModuleCode;
+import seedu.address.model.cap.module.Title;
 
 public class JsonAdaptedModuleTest {
 

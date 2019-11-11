@@ -14,9 +14,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.model.cap.person.UniqueModuleList;
-import seedu.address.model.cap.person.exceptions.DuplicateModuleException;
-import seedu.address.model.cap.person.exceptions.ModuleNotFoundException;
+import seedu.address.model.cap.module.exceptions.DuplicateModuleException;
+import seedu.address.model.cap.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.common.Module;
 import seedu.address.testutil.ModuleBuilder;
 

@@ -3,14 +3,14 @@ package seedu.address.model.cap;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.cap.person.rank.Fail;
-import seedu.address.model.cap.person.rank.FirstClass;
-import seedu.address.model.cap.person.rank.Freshie;
-import seedu.address.model.cap.person.rank.Pass;
-import seedu.address.model.cap.person.rank.Rank;
-import seedu.address.model.cap.person.rank.SecondLower;
-import seedu.address.model.cap.person.rank.SecondUpper;
-import seedu.address.model.cap.person.rank.ThirdClass;
+import seedu.address.model.cap.module.rank.Fail;
+import seedu.address.model.cap.module.rank.FirstClass;
+import seedu.address.model.cap.module.rank.Freshie;
+import seedu.address.model.cap.module.rank.Pass;
+import seedu.address.model.cap.module.rank.Rank;
+import seedu.address.model.cap.module.rank.SecondLower;
+import seedu.address.model.cap.module.rank.SecondUpper;
+import seedu.address.model.cap.module.rank.ThirdClass;
 
 /**
  * Encapsulates the AchievementManager class that manages the achievement processes.

@@ -4,22 +4,22 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
-import seedu.address.model.cap.person.Credit;
-import seedu.address.model.cap.person.Grade;
-import seedu.address.model.cap.person.ModuleCode;
-import seedu.address.model.cap.person.Semester;
-import seedu.address.model.cap.person.Title;
+import seedu.address.model.cap.module.Credit;
+import seedu.address.model.cap.module.Grade;
+import seedu.address.model.cap.module.ModuleCode;
+import seedu.address.model.cap.module.Semester;
+import seedu.address.model.cap.module.Title;
 
 /**
- * Represents a NUS modules in the address book.
+ * Represents a NUS modules in the capLog.
  */
 public class Module {
 
-    private ModuleCode moduleCode;
-    private Title title;
-    private Semester semester;
-    private Credit credit;
-    private Grade grade;
+    private final ModuleCode moduleCode;
+    private final Title title;
+    private final Semester semester;
+    private final Credit credit;
+    private final Grade grade;
 
     /**
      *  Constructs a {@code Module}.

@@ -23,7 +23,7 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <VBox>
+      <VBox VBox.vgrow="ALWAYS" HBox.Hgrow="ALWAYS">
         <MenuBar fx:id="menuBar" style="-fx-background-color: #64D9C7;" styleClass="menu-bar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="Grades Tracker">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -37,12 +37,12 @@
             <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="50" minHeight="30" prefHeight="30" styleClass="pane-without-border" VBox.vgrow="ALWAYS">
+        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="80" minHeight="70" prefHeight="70" styleClass="pane-without-border" VBox.vgrow="NEVER">
           <padding>
-            <Insets bottom="5" left="10" right="10" top="25" />
+            <Insets bottom="5" left="10" right="10" top="5" />
           </padding>
         </StackPane>
-            <HBox prefHeight="700" >
+            <HBox prefHeight="700" VBox.vgrow="ALWAYS" >
                <children>
                  <VBox fx:id="gradeList" prefWidth="600" minWidth="180" styleClass="pane-without-border" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                    <padding>
@@ -50,9 +50,9 @@
                    </padding>
                    <StackPane fx:id="moduleListPanelPlaceholder" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"/>
                  </VBox>
-                  <VBox prefHeight="700.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="700.0" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                      <children>
-                        <StackPane fx:id="capPanelPlaceholder" maxHeight="30.0" minHeight="30" prefHeight="105.0" styleClass="pane-without-border"  VBox.vgrow="ALWAYS" HBox.hgrow = "ALWAYS">
+                        <StackPane fx:id="capPanelPlaceholder" maxHeight="30.0" minHeight="30" prefHeight="105.0" styleClass="pane-without-border" HBox.hgrow = "ALWAYS">
                           <padding>
                             <Insets bottom="5" left="10" right="10" top="5" />
                           </padding>

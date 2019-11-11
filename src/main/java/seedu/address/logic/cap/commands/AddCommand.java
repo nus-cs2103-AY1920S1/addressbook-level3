@@ -10,11 +10,11 @@ import static seedu.address.logic.cap.parser.CliSyntax.PREFIX_TITLE;
 
 import seedu.address.logic.cap.commands.exceptions.CommandException;
 import seedu.address.model.cap.Model;
-import seedu.address.model.cap.person.Semester;
+import seedu.address.model.cap.module.Semester;
 import seedu.address.model.common.Module;
 
 /**
- * Adds a person to the address book.
+ * Adds a module to the modulo.
  */
 public class AddCommand extends Command {
 

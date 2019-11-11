@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import seedu.address.logic.cap.commands.FindCommand;
 import seedu.address.logic.cap.parser.exceptions.ParseException;
-import seedu.address.model.cap.person.NameContainsKeywordsPredicate;
+import seedu.address.model.cap.module.NameContainsKeywordsPredicate;
 
 
 /**

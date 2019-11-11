@@ -3,67 +3,210 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Modulo
-image::modulo.png[]
+== PROJECT: Modulo image:modulo.png[align="center", width="50"]
+For the passionate.
 
----
+I am excited to introduce you to Modulo in this document. I have enjoyed building it despite the many
+challenges and sleepless nights. I hope you will enjoy Modulo as much as I do!
 
-== Overview
+== Overview (What exactly is Modulo?)
 
-Modulo (Level 3) is a NUS student life application specially designed for busy and motivated NUS students.
+Modulo is a NUS student life application specially designed for busy and motivated NUS students.
 
-As busy students in NUS, we understand that it can be daunting to keep track of various
-tasks and concurrently do well for exams. Modulo features a one-stop app to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes.
+As busy student developers in NUS, we understand that it can be daunting to keep track of various
+tasks and concurrently do well for exams. Modulo features a one-stop app to keep track of one's timetable, finances and academic progress. It also includes a quiz feature that facilitates students with actively recalling their study concepts to improve their study outcomes. We are strong believers of passion and we believe that students with passion in their fields of studies can leverage on Modulo to be more productive and successful.
 
-The user interacts with it using a CLI, and it features an outstanding user-friendly GUI created with JavaFX. It is written in Java, and has about 40 kLoC.
+The user interacts with it using a CLI, and it features an outstanding, modern, user-friendly GUI created with JavaFX. It is written in Java, and has about 40 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: greatly enhanced the grades tracking feature and developed the person class into module class
-** What it does: The CAP tracker allows our user to keep track of his/her grades, overall Cumulative Average Point (CAP), MC taken and the degree classification (also known as "class") the user is in.
-** Justification: This feature complements the function of Modulo as an all-in-one application for NUS students to manage their life in NUS. For students in NUS who are well-concerned and motivated, the CAP Tracker allows students to keep track of their CAP and grades with ease.
-** Highlights: The implementation of the CAP feature was challenging but satisfying. It requires in-depth design considerations around the students. The implementation also required an overhaul of existing commands. The single 'add' command initiates a series of major operations that generates the CAP, displays the right degree classifications and generates the pie chart. The implementation requires knowledge in object-oriented programming, data structure and algorithms. Many classes are interlinked hence increased the complexity of the modification and implementation.
+The Dashboard in Modulo Grades Tracker provides an overview of the list of modules to be taken with their accompany grades attained. It is also coupled with a statistical pie chart, degree classification, Cumulative Average Point (CAP) and Modular Credit (MC) displayed for student users.
 
-* *Minor enhancement*: Enhanced the find command to search for keywords in module code and title. The enhanced search returns any module that contains the keyword in the module code and/or module title.
+=== Major Enhancement: `Add` Command and the primary features of Grades Tracker
 
-* *Minor enhancement*: Added a filter command that allows the student to filter his/her grades.
+The `Add` was greatly enhanced to allow the student user to add new modules to Grades Tracker. The single command executes the codes to generate the pie chart, information display and degree classification. The person class had to be developed into module class. Whenever, a new add command is executed the 3 aforementioned components will refresh to show the updated information.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* What it does: The CAP tracker allows our user to keep track of his/her grades, overall Cumulative Average Point (CAP), MC taken and the degree classification (also known as "class") the user is in.
+* Justification: This feature complements the function of Modulo and is a highly cohesive fit for the product as an all-in-one application for NUS students to manage their life in NUS. Being able to track grades is crucial as motivated NUS students have to know their progress and the modules that have taken so far. For students in NUS who are well-concerned and motivated. The CAP Tracker allows students to keep track of their CAP and grades with ease. Moreover, there are no existing applications that facilitate such a need.
+* Highlights: The implementation of the CAP feature was challenging but satisfying. It required in-depth design considerations around the students and a good knowledge of the grading system in NUS. I had to sought for advice from the academic department on various guidelines such as the range of approved modular credit. Defensive programming means that constraint requirements have to be well-thought of. Moreover, the implementation also required an overhaul of existing commands and codes. The structure remains intact but the code required heavy refractoring along with new implementations for the new feature. The single 'add' command initiates a series of major operations that generates the CAP, displays the right degree classifications and generates the pie chart. The implementation requires knowledge in object-oriented programming, data structure and algorithms. Many classes are interlinked hence increased the complexity of the modification and implementation.
 
-* *Other contributions*:
+=== Major Enhancement: Ravamped User-Interface (UI)
 
-** Project management:
-*** Managed releases `v1.3` - `v1.4` (3 releases) on GitHub
-** Enhancements to existing features:
+image::images/CapUI.png[width="800"]
+
+The UI is revamped to a new design that features modern curved edges and shadow-like background panes. Borders are taken away to promote a more cohesive flow of content. The aim is to deliver a "less is more" simplicity concept. Much attention is given to the effects of having a grey-like background matching with the black fonts and white background. It is designed in a way to display the services that Modulo offers without ambiguity, in order to draw our users' attention and keep them on our site.
+
+=== Minor Enhancement: `Find` Command
+
+The find command was not adequately powerful. It has a number of limitations such as not being able to work if the student user does not use very specific keywords that match the fields exactly.
+
+The find command is enhanced to search for keywords in module code and module title. The enhanced search returns any module that contains the keyword in the module code and/or module title.
+
+Special attention has to be given to the implementation as find returns only matching modules to the user but it would have caused the various pie chart, CAP, MC and degree classification information to change. Thus, the implementation requires the developer to isolate the updates from this command.
+
+=== Minor Enhancement: `List` Command
+
+The `List` command became necessary as the find command returns only matching modules to the student user. Thus, the `List` command will allow the user to return to the full list of modules again.
+
+=== Minor Enhancement: `Sort` Command
+
+The `Sort` command was created to complement the feature of Modulo Grades Tracker. The Modulo Grades tracker first order the modules by the sequence that they are added.
+
+The `Sort` command sorts the modules in chronological order by the semesters that the modules were taken. The implementation requires knowledge of comparators and streams.
+
+=== Minor Enhancement: `Delete` Command
+
+As the Grades Tracker feature does not have indexes the original delete command became obsolete. The `Delete` command was modified to allow the user to delete any desired modules based simply by specifying the module code. This tremendously reduces the time needed to search for a module and identify the index if an index system is applied and when the module list becomes long.
+
+*Code contributed*: Visit this https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=tuandingwei&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=tuandingwei&tabRepo=AY1920S1-CS2103-T16-2%2Fmain%5Bmaster%5D[link] to view the codes that I have contributed.
+
+=== Project management:
+*** Managed releases `v1.3` - `v1.4` (3 releases) on GitHub, with a v1.3.1 pre-release after a major revamp of the UI.
 *** Updated the GUI color scheme and command bar design (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
+*** Wrote additional tests for existing features to increase coverage from 46% to 49% (Pull requests https://github.com/AY1920S1-CS2103-T16-2/main/pull/166[#166]) Major components of the tests have to be refracted as the major classes of the addressbook have been replaced.
+*** Documentation: Classes and methods are properly documented.
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T16-2/main/pull/159#pullrequestreview-314558487[#159]
-*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1920S1/forum/issues/167#issuecomment-552096062[1] https://github.com/AY1920S1-CS2103-T16-2/main/issues/161[2] https://github.com/nus-cs2103-AY1920S1/forum/issues/157#issuecomment-552096555[3])
+*** Contributed to forum discussions (example:  https://github.com/nus-cs2103-AY1920S1/forum/issues/167#issuecomment-552096062[1], https://github.com/AY1920S1-CS2103-T16-2/main/issues/161[2], https://github.com/nus-cs2103-AY1920S1/forum/issues/157#issuecomment-552096555[3])
 *** Reported bugs and suggestions for other teams in the class (examples: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/46[Mortago], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/167[T.A.rence])
-** Tools:
 *** Integrated a third party library (https://o7planning.org/en/11057/javafx-tooltip-tutorial[Tooltip]) for the pie chart animation (https://github.com[#42])
-
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/UserGuide.html[link] to view my contributions._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/UserGuide.html[link] to view the entire User Guide._
 |===
 
-include::../UserGuide.adoc[tag=add]
+Following are the links to the PR:
 
-include::../UserGuide.adoc[tag=dataencryption]
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/166[UG Contribution 1]
+
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/171[UG Contribution 2]
+
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/53[UG Contribution 3]
+
+include::../UserGuide.adoc[tag=intro]
+include::../UserGuide.adoc[tag=grades1]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/DeveloperGuide.html[link] to view my contributions._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. You may visit this https://ay1920s1-cs2103-t16-2.github.io/main/DeveloperGuide.html[link] to the entire developer guide._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+Following are the links to the PR:
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/100[DG Contribution 1]
+
+https://github.com/AY1920S1-CS2103-T16-2/main/pull/53[DG Contribution 2]
+
+
+[[Design-Architecture]]
+=== Architecture
+
+.Architecture Diagram for a feature
+image::ArchitectureDiagram.png[]
+
+
+`Main` has two classes called link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/Main.java[`Main`] and link:https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+
+* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
+* At shut down: Shuts down the components and invokes cleanup method where necessary.
+
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
+The following class plays an important role at the architecture level:
+
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+
+The rest of the App covers the four features in _Modulo_ (Calendar, Cap, Quiz, Finance). All the features have the very similar structure, each consisting of four components.
+
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+
+Each of the four components
+
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
+
+.Class Diagram of the Logic Component for the feature Cap
+image::LogicClassDiagram.png[]
+
+// tag::rationale[]
+[discrete]
+==== Rationale for having multiple `UI`, `Logic`, `Model`, `Storage` classes in _Modulo_
+
+The features in _Modulo_ are quite distinct and having minimal overlaps, each feature has its own data file to read and modify. The logic to execute commands are also handled differently in each feature. As such, our decision to have 4 components for each feature was to reduce coupling and allow flexibility in our implementations. This means that the same `add` command is now able to trigger a different sequence of actions depending on the feature the user is currently in. This architecture style allows each feature to be developed independently, free from the constraints set by other features. Each time a user switches to another feature, the `Ui`, `Logic`, `Model` and `Storage` classes will be replaced by that of the new feature.
+// end::rationale[]
+
+[discrete]
+==== How the architecture components interact with each other
+
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete CS2103` when in the feature _Module_.
+
+.Component interactions for `delete 1` command in _Cap_ feature
+image::ArchitectureSequenceDiagram.png[]
+
+The sections below give more details of each component.
+
+=== Grades Tracker
+
+==== Implementation
+
+The following activity diagram displays the sequence of events after the user inputs to add a new module.
+
+.Class Diagram of Module
+image::CapActivityDiagram.png[]
+
+For the user to add new modules to the Modulo Grades Tracker, the `Module` has to be designed to satisfy the requirements of a module and the needs of the user.
+
+* Each `Module` consists of `ModuleCode`, `Title`, `Semester`, `Credit`, `Grade`.
+* All fields in `Module` are unique.
+* Each class has their respective getter methods and validity-check method.
+
+.Class Diagram of Module
+image::ModuleClassDiagram.png[]
+
+==== Implementation of Module commands
+
+Module class supports multiple commands. They include:
+
+* `AddCommand` - Adds a module to the Grades Tracker.
+* `DeleteCommand` - Removes a module from the Grades Tracker by specifying the module code.
+* `FindCommand` - Find and returns any modules with `ModuleCode` and/or `Title` that matches the keyword specified by the user.
+* `SortCommand` - Sorts the modules in chronological order based on the `Semester` the module was taken.
+* `ListCommand` - List all the modules. Often required after the find command.
+
+.Sequence Diagram of DeleteCommand
+image::DeleteSequenceDiagram.png[]
+
+[NOTE]
+The lifelines for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifelines reaches the end of diagram.
+
+After a successful execution, the module with the specified module code will be deleted from Modulo Grades Tracker.
+
+==== Design Consideration
+
+All fields should not be have special characters or left blank as the details are important to the implementation and the user experience.
+
+The class diagram below gives an overview of the Module class.
+
+
+The search for the matching module code is implemented with a linear search. With 70 modules in Modulo, the linear search is still responsive and there were not observable lags.
+
+*Alternative*
+
+An alternative would be to use a search algorithm that comprises a Hash set and linear search.
+
+.Considerations when designing the Module class
+[width="80%" cols="^3, ^10" options="header"]
+|=======
+| Field | Validity
+| ModuleCode | Module code should contain a set of 4 integers and no excessive characters. The student is provided with the liberty to input any module code in consideration that new modules and faculties may be created in the future.
+| Semester | Semester should contain valid academic years and semester period. The academic year stated can only be +/-5 years than the current year, assuming that students are able to graduate in at most five years. While the semester period allows input from 1 to 4.
+| Title | The title of the module is left for the user to define. This is to take into account that there might be new modules released in teh future hence the user needs to have the ability to customise the title. It is valid as long as it does not have special characters.
+| Credit | As stated by NUS, the range of modular credit ranges from 2 to 23.
+| Grade | Only NUS approved grades are allowed i.e. A+, A, A-, B+, B, B-, C+, C, D+, D and F
+|=======

@@ -1,0 +1,62 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+skinparam classAttributeIconSize 0
+skinparam classAttributeFontColor #FFFFFF
+
+
+Class Module {
+ - moduleCode : ModuleCode
+ - Title : Title
+ - semester : Semester
+ - credit : Credit
+ - grade : Grade
+ + getModuleCode()
+ + getTitle()
+ + getSemester()
+ + getCredit()
+ + getGrade()
+ + isSameModule()
+ + hashCode()
+}
+
+Class ModuleCode {
+ - moduleCode : String
+ + isValidModuleCode()
+}
+
+Class Title {
+ - title : Title
+ + getTitle()
+ + isValidTitle()
+}
+
+Class Semester {
+ - semester : String
+ + getSemester()
+ + isValidSemester()
+}
+
+Class Credit {
+ - credit : Int
+ + getCredit()
+ + isValidCredit()
+}
+
+Class Grade {
+ - grade : String
+ + getGrade()
+ + isValidGrade()
+}
+
+
+Module *--> "1" ModuleCode : has unique >
+Module *--> "1" Title : has unique >
+Module *--> "1" Semester : has unique >
+Module *--> "1" Credit : has unique >
+Module *--> "1" Grade : has unique >
+
+show members
+@enduml

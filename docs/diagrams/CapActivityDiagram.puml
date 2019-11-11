@@ -1,0 +1,17 @@
+@startuml
+start
+:User inputs command to add a new module;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([week number is valid])
+    :Remove all tasks from the calendar view;
+    :Get and show tasks for the new week;
+else ([error in command])
+    -> "User inputs command to add a new module"
+endif
+
+
+stop
+@enduml
