@@ -2,11 +2,11 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:toc:
-:toclevels: 2
 
 == PROJECT: Mark
 :sectnums:
+:toc:
+:toclevels: 2
 
 == Overview
 

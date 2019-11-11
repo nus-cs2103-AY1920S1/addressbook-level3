@@ -557,9 +557,10 @@ NOTE: The lifeline for `AddAnnotationCommandParser` and `AddAnnotationCommand` s
 
 In the <<sd-annotation-general, figure above>>, the specifics of how `Parser#parse` and `AnnotationCommand#execute` are abstracted out because each command is handled differently.
 //This is because each of the annotation commands have different input criteria. Hence each command is parsed and handled differently.
-The reference frame may refer to the following sequence diagrams for adding, deleting and editing annotations respectively:
+The reference frame may refer to the following sequence diagrams for <<addsd,adding>>, <<deletesd,deleting>> and <<editsd,editing>> annotations respectively:
 
 //The sub-sections below will show you some examples illustrating how each command works.
+[[addsd]]
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate 1 p/p2 n/example note h/orange`. `ARGS` include `pid`, `highlight` and `note`.
 image::AddAnnotationSequenceDiagram.png[350,350]
 
@@ -568,16 +569,19 @@ The above example adds an annotation to a `:TrueParagraph`. Alternatively, if th
 
 NOTE: A `:TrueParagraph`, whose content is from the `cache`, must be highlighted in order to have a note attached. A `:PhantomParagraph` is a temporary holding place for a general note and has no content.
 
+[[deletesd]]
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-delete 1 p/p2 n/true`. `ARGS` include `pid`.
 image::DeleteAnnotationSequenceDiagram.png[350,350]
 
 The above example deletes only the highlight from a `:TrueParagraph` which has a note, and then creates a `:PhantomParagraph` to keep a reference to the note.
 
 NOTE: For other `annotate-delete` functions, instances of other derived classes of `DeleteAnnotationCommand` is used instead of `:DeleteAnnotationHighlightCommand`.
+
 If the user requests to remove the entire annotation instead, `DeleteAnnotationAllCommand` is used and the `an:Annotation` is simply dereferenced.
 If the user requests to remove only the annotation note, `DeleteAnnotationNoteCommand` is used and the `AnnotationNote` of `Annotation` is dereferenced.
 Alternatively, if the user requests to remove annotations from all paragraphs, `DeleteAnnotationClearAllCommand` is used and the entire `:OfflineDocument` is dereferenced and a new, unannotated copy is created.
 
+[[editsd]]
 .Sequence diagram referenced by the <<sd-annotation-general, general sequence diagram for annotations>> when `cmdStr` given is `annotate-edit 1 p/g1 to/p1 h/green`. `ARGS` include `origPid`, `targetPid` and `newHighlight` and `newNote`.
 image::EditAnnotationSequenceDiagram.png[350,350]
 
@@ -593,6 +597,7 @@ You will see why the sequence diagram for the `annotate-edit` command is much lo
 
 The following activity diagram summarizes what happens when a user attempts to annotate their offline document:
 
+.Activity diagram for an annotation request.
 image::AnnotationActivityDiagram.png[350,350]
 
 ==== Design Considerations
