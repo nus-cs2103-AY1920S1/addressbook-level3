@@ -1392,4 +1392,3 @@ Expected: Message "Deleted Vehicle Patrol Car Vehicle Number: SFD3204V District:
 . Executing `delete-v` with a non admin account
 .. Test case: `delete-v 1` +
 Expected: Message "You must be an admin to perform this operation. Please see help page for more info."
-
