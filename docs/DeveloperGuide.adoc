@@ -325,6 +325,7 @@ If the index given is not a valid index (ie, out of bounds or negative), it will
 [NOTE]
 If the review is missing a `Description`, `Rating`, `Cost` or a `Date` field, an error will be shown to the user instead of adding the review.
 
+
 Step 3. The eatery list now returns a success message upon successfully adding a review to the eatery.
 
 The following diagram shows the activities involved.
@@ -441,6 +442,10 @@ Operate directly on the list of reviews after using `show` command and set the c
 
 ** Pros: `DeleteReview` is only accessible after using `show` command.
 ** Cons: Difficult to implement and understand.
+
+The following diagram shows the use case of review field as a whole.
+
+image:ReviewUseCaseDiagram.png[]
 
 //end::deletereview[]
 
