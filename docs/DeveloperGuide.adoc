@@ -1024,6 +1024,35 @@ Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
+=== Adding an In Transaction
+
+. Adding an in transaction with the command: `in`
+
+.. Prerequisites:
+
+.. Test case: `in $/1000 n/Allowance d/11112019` +
+Expected: An in transaction will be added into the list of transactions in the Transaction tab.
+
+.. Test case: `in $/0 n/Allowance d/11112019` +
+Expected: No transaction is added. Error details will be shown in the status message.
+
+.. Other incorrect `in` commands to try: `in $/10.001 n/Allowance d/11112019`, `in $/1000 n/Allow@nce d/11112019`
+(Contains non-alphanumeric characters). +
+Expected: Similar to previous.
+
+. Adding an out transaction with the command: `out`
+
+.. Prerequisites:
+
+.. Test case: `out $/10 n/KFC d/11112019` +
+Expected: An out transaction will be added into the list of transactions in the Transaction tab.
+
+.. Test case: `out $/0 n/KFC d/11112019` +
+Expected: No transaction is added. Error details will be shown in the status message.
+
+.. Other incorrect `out` commands to try: `out $/10.001 n/KFC d/11112019`, `out $/10 n/KFC d/32112019`
+(Date is invalid). +
+Expected: Similar to previous.
 
 === Deleting a Person
 
