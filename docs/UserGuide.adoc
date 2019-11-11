@@ -442,6 +442,9 @@ Format: `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONT
 
 You can use the `add` command to create a repeater. This also creates the transactions associated with the created repeater.
 
+[NOTE]
+Duplicate repeaters, where both repeaters have exactly the same fields, are not allowed in IchiFund.
+
 The optional arguments take the following default values if left unspecified.
 
 |==============================
@@ -455,6 +458,7 @@ The optional arguments take the following default values if left unspecified.
 
 Constraints:
 
+* No duplicate repeater currently exists.
 * Repeater end must not occur before repeater start.
 * Repeater start and end can span at most 60 months (5 years).
 * At least one of month start offset or month end offset must not be ignored.
@@ -475,6 +479,7 @@ The repeater fields will only be updated where the arguments are specified.
 
 Constraints:
 
+* No duplicate repeater currently exists.
 * Repeater end must not occur before repeater start.
 * Repeater start and end can span at most 60 months (5 years).
 * At least one of month start offset or month end offset must not be ignored.
@@ -497,9 +502,9 @@ Deletes the 12th repeater in the current list. This also deletes the transaction
 
 ==== Finding repeater: `find`
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [KEYWORDS]...`
 
-You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s).
+You can use the `find` command to find repeaters whose description matches all the (case-insensitive) given keyword(s). If no keyword is specified, then the search filter is cleared.
 
 Examples:
 
@@ -855,7 +860,7 @@ Displays expenditure ranking chart for July 2019.
 * *Repeater Add* : `add de/DESCRIPTION a/AMOUNT [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] sm/START_MONTH sy/START_YEAR em/END_MONTH ey/END_YEAR`
 * *Repeater Edit* : `edit INDEX [de/DESCRIPTION] [a/AMOUNT] [c/CATEGORY] [ty/TRANSACTION_TYPE] [so/MONTH_START_OFFSET] [eo/MONTH_END_OFFSET] [sm/START_MONTH] [sy/START_YEAR] [em/END_MONTH] [ey/END_YEAR]`
 * *Repeater Delete* : `delete INDEX`
-* *Repeater Filter* : `find KEYWORD [MORE_KEYWORDS]`
+* *Repeater Find* : `find [KEYWORDS]...`
 * *Loan Add new* : `add a/Amount [d/DATE] [n/NAME]`  (Coming in v2.0)
 * *Loan Payment* : `paid i/INDEX [n/NAME] [a/AMOUNT]`  (Coming in v2.0)
 * *Loan Categorical Search* : `find [s/KEYWORD]`  (Coming in v2.0)

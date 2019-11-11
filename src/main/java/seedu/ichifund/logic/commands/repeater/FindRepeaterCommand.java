@@ -17,8 +17,9 @@ public class FindRepeaterCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all repeaters whose descriptions contain"
-            + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+            + "any of the specified keywords (case-insensitive) and displays them as a list with index numbers. If "
+            + "no keyword is specified, then the search filter is cleared.\n"
+            + "Parameters: [KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " food anime";
 
     private final RepeaterDescriptionPredicate predicate;
