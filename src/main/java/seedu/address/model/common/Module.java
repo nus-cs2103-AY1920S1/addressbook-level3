@@ -15,11 +15,11 @@ import seedu.address.model.cap.module.Title;
  */
 public class Module {
 
-    private ModuleCode moduleCode;
-    private Title title;
-    private Semester semester;
-    private Credit credit;
-    private Grade grade;
+    private final ModuleCode moduleCode;
+    private final Title title;
+    private final Semester semester;
+    private final Credit credit;
+    private final Grade grade;
 
     /**
      *  Constructs a {@code Module}.

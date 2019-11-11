@@ -232,7 +232,7 @@ e.g. `delete CS2103`
 Shows the list of all modules in the grades tracker. +
 Format: `list`
 
-==== Listing all tasks : `sort`
+==== Sort all tasks in chronological order : `sort`
 
 Sorts the list of modules in chronological order, the modules taken earlier to the modules taken later. The determination is based on the academic year then the semesters. +
 Format: `sort`

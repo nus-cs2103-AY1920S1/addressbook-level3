@@ -476,6 +476,46 @@ image::AddNewEntryActivityDiagram.png[width=60%]
 ** Cons: Will use more memory (now storing the list of entries). Difficult when an entry is delete or modified, have to delete and modify entry accordingly in the list of entries stored under the budget.
 // end::budget[]
 
+// tag::grades tracker[]
+=== Grades Tracker
+
+==== Implementation
+
+These entries have to fulfill the following requirements set by the budget to be considered in the tabulation:
+
+* Each `Module` consists of `ModuleCode`, `Title`, `ModuleCode`, `Semester`, `Credit`, `Grade`.
+* All fields in module are unique.
+* Each class has their respective getter methods.
+
+The class diagram below gives an overview of the Module class.
+
+image::ModuleClassDiagram.png[]
+
+==== Implementation of module commands
+
+Module class supports multiple command. It includes:
+
+* `AddCommand` - Adds a module to the Grades Tracker.
+* `DeleteCommand` - Removes a module from the Grades Tracker by specifying the module code.
+* `FindCommand` - Find and returns any modules with `ModuleCode` and/or `Title` that matches the keyword specified by the user.
+* `SortCommand` - Sorts the modules in chronological order based on the `Semester` the module was taken.
+* `ListCommand` - List all the modules. Often required after the find command.
+
+image::DeleteSequenceDiagram.png[]
+
+[NOTE]
+The lifelines for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifelines reaches the end of diagram.
+
+After a successful execution, the module with the specified module code will be deleted from Modulo Grades Tracker.
+
+The search for the matching module code is implemented with a linear search. With 70 modules in Modulo, the linear search is still responsive and there were not observable lags.
+
+*Alternative*
+An alternative would be to use a search algorithm that comprises a Hash set and linear search.
+
+The interactions in the Model Component for the same command are shown in the sequence diagram below.
+// end::grades tracker[]
+
 == Documentation
 
 Refer to the guide <<Documentation#, here>>.
@@ -509,11 +549,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |university student |add my modules by specifying a specific module code or title |track the modules I am taking this semester
+|`* * *` |busy and motivated university student |add my modules by specifying a specific module code or title |track the modules the student am taking this semester
 
-|`* * *` |student |view details, content, and requirements of each modules |comprehensively come to a decision on which module to take in the upcoming semester
-
-|`* * *` |busy student |view my today's schedule |
+|`* * *` |busy student |view my schedule for today |
 
 |`* * *` |busy student |know the deadlines for my tasks |plan my schedule
 
@@ -529,15 +567,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` | cash-strapped student | set a budget for the month | limit my spending
 
-|`* *` |student concerned with my CAP |find out what grades I should get in the current semester |pull my CAP up to the next degree classification
+|`* * *` |busy and motivated university student |add my modules by specifying a specific module code or title |track the grades of the modules that the user has taken
 
-|`* *` |student |view details of modules I have taken in previous semesters |see my progress
-
-|`* *` |graduating student |see what remaining modules I need to take in order to fulfill my graduation requirements |plan my semester
+|`* * *` |student concerned with his/her CAP |find out the current CAP and total MCs taken |display CAP and total MCs with degree classification
 
 |`* *` |person who often make mistakes |undo my previous actions |
 
-|`* *` |new user |see how many marks I have obtained for a module so far |review my progress
+|`* *` |Busy and organised student |view the modules that have taken in chronological order |display the modules in chronological order of their semesters taken
+
+|`* *` |Curious and analytical student |view the the overall grades make up |display grades in an analytical format to view the different portion of grades that make up the CAP
 
 |`* *` |busy student| refer and use the predictive text |input a command with great ease and less time
 
