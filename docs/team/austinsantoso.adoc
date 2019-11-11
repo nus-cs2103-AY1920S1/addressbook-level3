@@ -17,7 +17,7 @@ It is written in Java, and has about 15 kLoC.
 
 == My Role
 
-I was tasked to implement the `Budget` feature of the program, as well as implemented the ability for users to press the up and down key to traverse their command history. I have also made notable contributions to the User Guide and Developer Guide.
+I was a developer and was tasked to implement the `Budget` feature of the program, as well as implemented the ability for users to press the up and down key to traverse their command history. I have also made notable contributions to the User Guide and Developer Guide.
 
 == Summary of contributions
 This section shows my contributions to the team project.
@@ -28,7 +28,7 @@ This section shows my contributions to the team project.
 ** Highlights: This enhancement requires an in-depth  of the software architecture. It affects other commands as it affected by certain commands.
 
 * *Minor enhancement*: Implemented `showbudget` command to show users their budget as well as sum of spending in the month set.
-* *Minor enhancement*: Implemented the ability for users to navigate to previous commands using up/down keys.
+* *Minor enhancement*: Implemented the ability for users to navigate through previous commands using up/down keys.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=austinsantoso&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Collated code]]
 
@@ -36,6 +36,7 @@ This section shows my contributions to the team project.
 
 ** Project management:
 *** Posted user stories as issues
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-3/main/pull/87[#87]
 ** Enhancements to existing features:
 *** Refactored existing class `Person` to `Spending` (Pull requests https://github.com/AY1920S1-CS2103T-F13-3/main/pull/54[#54])
 
@@ -44,8 +45,8 @@ This section shows my contributions to the team project.
 *** Did cosmetic tweaks to existing contents of the Developer Guide: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/110[#110], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/112[#112]
 
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F13-3/main/pull/87[#87]
-*** Reported bugs and suggestions for other teams in the class
+*** Performed manual testing, Reported bugs and suggestions for teammates.
+*** Performed manual testing, Reported bugs and suggestions for other teams in the class
 
 == Contributions to the User Guide
 

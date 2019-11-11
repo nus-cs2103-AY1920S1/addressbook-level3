@@ -879,7 +879,7 @@ to parse the user input.
 Budget also keeps track of the sum of all spending in order to show the user how much budget the user has left.
 Initially, it has totaled up all spending in the save file, and then the value is modified when the `add`, `delete` and `edit` commands are called.
 
-The following sequence diagram will demonstrate how Budget modifies its value when the `add` command is used:
+The following sequence diagram demonstrates how Budget modifies its value when the `add` command is used:
 
 .Sequence Diagram for `Budget` when `add` command is called
 image::BudgetAddSpendingSequenceDiagram.png[]

@@ -387,7 +387,7 @@ All available exchange rates are shown, or a conversion of an input currency is 
 
 // tag::budget[]
 === Setting monthly budget : `budget`
-Sets a budget for the current month in the currency set . +
+Allows you to set a budget for the current month in the currency set. +
 *Format:* `budget MONTHLY_BUDGET` +
 
 ****
@@ -417,7 +417,7 @@ The budget for the current month is changed to the set amount.
 
 // tag::showbudget[]
 === Showing current budget : `showbudget`
-Returns the current monthly budget, total spending and remaining budget in Singapore Dollars. +
+Shows you  current monthly budget, total spending and remaining budget in Singapore Dollars. +
 *Format:* `showbudget`
 
 *Expected Output:*
