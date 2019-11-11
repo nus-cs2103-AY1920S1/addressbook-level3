@@ -701,7 +701,7 @@ You can refer to the activity diagram here:
 
 image::RetrievePreviousCommandActivityDiagram.png[]
 
-// tag::user interface[]
+// tag::userinterface[]
 === User Interface
 The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
 UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
@@ -780,7 +780,7 @@ The following changes have been made to the layout of the item card for a better
 Here is the redesigned `ItemCard`:
 
 image::ExpandCard.png[]
-// end::user interface[]
+// end::userinterface[]
 
 === Logging
 

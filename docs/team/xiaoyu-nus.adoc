@@ -51,7 +51,7 @@ The feature is not hard coded and can easily integrate with future commands.
 
 ** Project management:
 ** Documentation:
-*** Added GUI and replenish list section of the User Guide: (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/134[#134])
+*** Added GUI and User Guide writing instructions of the User Guide: (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/134[#134])
 ** *Enhancements to existing features:*
 *** Refactored and expanded TypicalItems to be used by J-Unit Testing. (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/219[#219])
 *** Make the ResultDisplay resizable. (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/184[#184])
@@ -65,7 +65,7 @@ The feature is not hard coded and can easily integrate with future commands.
 include::../UserGuide.adoc[tag=card]
 include::../UserGuide.adoc[tag=retrieve]
 
-include::../UserGuide.adoc[tag=set reminder]
+include::../UserGuide.adoc[tag=setreminder]
 
 == Contributions to the Developer Guide
 
@@ -74,7 +74,7 @@ include::../UserGuide.adoc[tag=set reminder]
 |===
 
 include::../DeveloperGuide.adoc[tag=setreminder]
-include::../DeveloperGuide.adoc[tag=user interface]
+include::../DeveloperGuide.adoc[tag=userinterface]
 //
 //
 //== PROJECT: PowerPointLabs

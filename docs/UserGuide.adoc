@@ -530,7 +530,7 @@ Examples:
 Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
 // end::tag[]
 
-// tag::set reminder[]
+// tag::setreminder[]
 [[Reminder]]
 ==== Setting reminder for an item: `set reminder`
 
@@ -573,7 +573,7 @@ Removes the reminder for the first item in the list.
 However, the app understands that you want the reminder to be activated immediately, and will activate the reminder right away.
 * The maximum reminder threshold is 36500 days.
 ****
-// end::set reminder[]
+// end::setreminder[]
 
 // tag::check[]
 ==== Listing expiring items: `check`
