@@ -37,8 +37,9 @@ public class AccountAddCommandParser implements CommandParser<AccountAddCommand>
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
-                || !argMultimap.getPreamble().isEmpty()) {
+        checkArgumentMultimap(argMultimap);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccountAddCommand.MESSAGE_USAGE));
         }
 
@@ -54,6 +55,18 @@ public class AccountAddCommandParser implements CommandParser<AccountAddCommand>
         Account account = new Account(name, description, transactionList);
 
         return new AccountAddCommand(account);
+    }
+
+    /**
+     * Checks if the given {@code ArgumentMultimap} is valid for parsing into a {@code AccountAddCommand}.
+     * @throws ParseException If the {@code argMultimap} is invalid.
+     */
+    private void checkArgumentMultimap(ArgumentMultimap argMultimap) throws ParseException {
+
+        if (argMultimap.getValueCount(PREFIX_NAME) > 1
+                || argMultimap.getValueCount(PREFIX_DESCRIPTION) > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccountAddCommand.MESSAGE_USAGE));
+        }
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
