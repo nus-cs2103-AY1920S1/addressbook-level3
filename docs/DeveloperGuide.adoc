@@ -84,6 +84,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+Manager classes like `AutoCompletePanelManager` and `DataPanelsTabPaneManager` handles changes of its respective components.
+
+`UiPartObserver` interface prevents direct communication between 2 UiPart. It is implemented by the result display and autocomplete panel to listen for userinput from the command box and make changes acccordingly.
+
 [[Design-Logic]]
 === Logic component
 
