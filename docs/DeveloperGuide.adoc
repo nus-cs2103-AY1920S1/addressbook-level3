@@ -1515,22 +1515,25 @@ able to track the progress of each person in their Ccas. Hence, there is a
 need to represent the CcaTracker as a list of Ccas on which the application
 can perform create, read, update and delete operations on each Cca.
 
-==== Implementation
-The `CcaTracker` mechanism is facilitated by `CcaTrackerModel`.
+==== The CcaTracker Model
 
-`Model` supports operations to facilitate
-cca tracking capabilities by extending the `CcaTrackerModel` which has the
-following operations:
+The `CcaTracker` class within the model provides an interface between the
+components of the feature and the updating of the overall model. Like other
+features, `Model` is associated with the cca tracker feature by
+implementing `CcaTrackerModel`, from which `Model` implements.
+
+Some of the more significant methods within the `CcaTracker` are shown
+below:
 
 * `Model#containsCca(Cca cca)` -- Checks if the `CcaTracker` contains the
-  given cca.
+given cca.
 
 * `Model#addCca(Cca cca)` -- Adds a `Cca` to the `CcaTracker`.
 
 * `Model#removeCca(Cca cca)` -- Removes a `Cca` from the `CcaTracker`.
 
 * `Model#updateCca(Cca toBeUpdatedCca, Cca updatedCca)` -- Updates a `Cca` in
-  the `CcaTracker`.
+the `CcaTracker`.
 
 * `Model#getCcaTracker()` -- Gets the `CcaTracker` instance.
 
@@ -1546,13 +1549,51 @@ following operations:
 * `Model#getFilteredCcaList()` -- Returns an instance of the `FilteredCcaList`
 
 * `Model#addProgress(Cca targetCca, CcaProgressList toAddCcaProgressList)` -
-  Adds `CcaProgressList` to the target `Cca`.
+Adds `CcaProgressList` to the target `Cca`.
 
 * `Model#increaseProgress(Index index)` -- Increases the progress of the `Cca`
 
+
+
+==== Cca Tracker components
 The class diagram for CcaTrackerModel is shown below:
 
+.CcaTracker Class Diagram
 image::ModelCcaTrackerClassDiagram.png[]
+
+As seen in the diagram above, The `CcaTracker` consists primarily of a single `CcaList` object. This `CcaList` object is
+essentially a wrapper around an `ObservableList` of `Cca` objects. Do note that the `CcaList` object can contain any
+number of `Cca` objects (including none).
+
+More interestingly, each `Cca` is made up of the following components, all of which are **non-nullable** attributes:
+
+===== CcaName
+Each `CcaName` is essentially just a wrapper class around a string that is the `Cca` 's name.
+
+===== CcaType
+Each `CcaType` is also just a wrapper class around a string that is the `Cca` 's type. Note that each `CcaType` is
+restricted to 1 of the 4 enum types:
+
+* sport
+* performingArt
+* uniformedGroup
+* club
+
+===== EquipmentList
+Each `EquipmentList` is implemented as an `ObservableList` of `Equipment` objects. Note that each `EquipmentList` can
+contain any number of `Equipment` objects (including none).
+
+===== CcaProgress
+The `CcaProgress` is a little more noteworthy. Each `CcaProgress` object contains a `CcaMilestoneList` object and a
+`CcaCurrentProgress` object. As with all the lists in the `CcaTracker` feature, the `CcaMilestoneList` object is
+implemented using an `ObservableList` as well. The `CcaCurrentProgress` class is merely a wrapper around an integer that
+tracks the exact `CcaMilestone` that the user is currently at.
+
+
+Now that we have an understanding of the underlying implementation of `CcaTracker`, lets take a closer look at the
+feature details.
+
+==== Feature details
 
 CcaTracker has 7 specific commands that support the given operations to mutate
 the state of the `Model`. Each command is represented as seperate class:
@@ -1572,23 +1613,32 @@ the state of the `Model`. Each command is represented as seperate class:
 
 * `IncreaseProgressCommand` -- Increments the progress level of a cca.
 
-
 For brevity's sake, we will illustrate only 1 specific command and its
-execution on model. The following activity diagram illustrates how a `Cca`'s
-progress is incremented when a user types in a `increase-progress` command:
+execution on model.
 
-The diagram below is an activity diagram that illustrates the process of incrementing a Cca's
-progress.
+The following activity diagram illustrates how a `Cca` 's
+progress is incremented when a user types in an `increase-progress` command:
 
+===== Increasing a cca's progress
+
+.Activity Diagram for increase-progress command
 image::ccatracker/IncreaseCcaProgressActivityDiagram.png[]
 
+Firstly , before any increasing of progress can take place, the user has to add a `Cca` to the `CcaTracker` through the
+`add-cca` command. The user then has to add a `CcaMilestoneList` to the `CcaTracker` through the `add-progress` command.
 
+[NOTE]
+Note that the execution of each command as stated above branches off into different scenarios, all of which present
+themselves to the user in form of prompts in the user interface.
+
+==== Command Execution
 The diagram below shows the sequence diagram of the increase-progress mechanism.
 
+.Sequence diagram for increase-progress command
 image::ccatracker/IncreaseProgressSequenceDiagram.png[]
 
 
-Given below is an example usage scenario of how increase-progress mechanism
+Given below is an example usage scenario of how the increase-progress mechanism
 behaves.
 
 Step 1. The user launches the application for the first time. The `CcaTracker`
@@ -1620,7 +1670,7 @@ calls `CcaCurrentProgress#increaseProgress` method. At long last, the final
 the `currentProgress` counter is incremented by 1.
 
 [NOTE]
-TLDR: The calling of the `#increaseProgress` method at the `CcaTracker` level
+In short, the calling of the `#increaseProgress` method at the `CcaTracker` level
 triggers a cascading series of `#increaseProgress` methods which culminates in
 the `currentProgress` variable being incremented by 1.
 
@@ -1628,30 +1678,54 @@ the `currentProgress` variable being incremented by 1.
 
 ===== Aspect: Whether to have subclasses for each type of cca.
 
-* *Alternative 1 (Current choice):* Instantiate a generic `CcaProgress` for
-  each `Cca`.
-** Pros: Less code needed.
-** Cons: Less extensible as CcaProgress is now limited to a list of strings.
+* *Option 1: Instantiate a `CcaProgress` object for
+  each `Cca`*
+This entails implementing `CcaProgess` class as consisting of a `CcaMilestoneList` and a `CcaCurrentProgess`. The
 
-* *Alternative 2:* Implement `CcaProgress` as a parent class. Create classes
-  such as SportProgress/PerformingArtsProgress that extend from CcaProgress
-  for each type of `Cca`
+** Pros: Less code needed.
+** Cons: Less extensible as CcaProgress is now limited to what is essentially a list of strings.
+
+* *Option 2: Implement `CcaProgress` as a parent class.*
+This entails creating classes such as SportProgress/PerformingArtsProgress that extend from CcaProgress for each type
+of `Cca`. Such an implementation can be represented using the class diagram below:
+
+.Class diagram showing the alternative implementation of CcaProgress.
+image::ccatracker/AlternativeCcaProgressClassDiagram.png[]
+
 ** Pros: Easier to extend functionality for each type of cca.
 ** Cons: Does not significantly extend functionality for this version of
    Jarvis.
 
+===== Our Thoughts
+After much consideration, we have decided to implement `CcaProgress` as per option 1. This is because we wish to afford
+the user the flexibility to set whichever milestones they wish to in their Cca.
+
+Option 2 would entail hardcoding a certain type of `CcaMilestone` for each type of `CcaProgress`. For example,
+each `UniformedGroupProgress` might have included a series of `CcaMilestoneRanks`, where the user can set each
+CcaMilestoneRanks to be ranks such as Private, Lance Corporal, Corporal, Sergeant etc. Then, the
+`UniformedGroupProgress` could have individualised attributes such as types of awards etc.
+
+However, in light of the fact that Jarvis is a CLI application, it would have been extremely cumbersome for the user to
+type the myriad number of options.
+
 ===== Aspect: Whether to use observable list for `CcaProgressList`
 
-* *Alternative 1 (Current choice):* Implement CcaProgressList as an
-  `ObservableList` .
+* *Option 1 : Implement CcaProgressList as an
+  `ObservableList`*
 ** Pros: Easier to manipulate for JavaFx.
 ** Cons: Potentially complicated nesting when passing arguments to it as
    CcaProgressList is nested several classes within `Cca`.
 
-* *Alternative 2:* Implement CcaProgressList as a normal `List` e.g.
-  `ArrayList`.
+* *Option 2: Implement CcaProgressList as a normal `List` e.g.
+  `ArrayList`.*
 ** Pros: Does not require predicates to be passed in.
 ** Cons: Might be more complicated when rendering in Javafx.
+
+===== Our Thoughts
+Implementing the `CcaProgressList` as an `ArrayList` would have been an easier option. However, the implementation of
+the `CcaProgressList` as an `ObservableList` proved to be a wiser choice as `Javafx` fully supports the manipulation and
+rendering of an `ObservableList`. Using an `ArrayList`  would have made the building of the ui thoroughly cumbersome.
+
 // end::ccatracker[]
 
 === Logging

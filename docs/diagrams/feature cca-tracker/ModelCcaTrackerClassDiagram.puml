@@ -4,7 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
-Package Cca {
+Package CcaTracker {
     Class CcaTracker
     Class CcaList
     Class Cca
