@@ -53,6 +53,15 @@ the category *food* and the description *pie*.
 == Features
 
 === Transactions
+The _Transaction_ feature represents the bread and butter logging of incomes and expenditures.
+PalPay will tabulate and display the overall balance to give users a better insight on their spending and saving habits.
+
+The _Transactions_ are split into:
+
+. `in` : income
+. `out` : expenditure
+
+These transactions requires the mandatory `AMOUNT`, `DATE` and `DESCRIPTION` fields to be filled. Additionally, The transactions can take in one or more `CATEGORY` tags.
 
 === Budgets
 
