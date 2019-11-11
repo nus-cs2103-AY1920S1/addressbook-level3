@@ -1369,19 +1369,19 @@ Examples of time-based sports are swimming and track & field, where performance 
 [appendix]
 == Product Survey
 
-*Product Name*
+*https://teamstuff.com/[Teamstuff]*
 
-Author: ...
+Author: Dominique Ng Wenyi
 
 Pros:
 
-* ...
-* ...
+* Availability of team members for future trainings can be shown
+* Alerts given to user for upcoming trainings or a change in attendance
 
 Cons:
 
-* ...
-* ...
+* Lacks analysis of data with visual aids like charts
+* Not catered to performance-based sports
 
 [appendix]
 == Instructions for Manual Testing
