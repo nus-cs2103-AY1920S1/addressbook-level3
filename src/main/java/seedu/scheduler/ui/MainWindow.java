@@ -138,14 +138,14 @@ public class MainWindow extends UiPart<Stage> {
 
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
 
-        scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
-        schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
-
         intervieweeListPanel = new IntervieweeListPanel(logic.getFilteredIntervieweeList());
         intervieweeListPlaceholder.getChildren().add(intervieweeListPanel.getRoot());
 
         interviewerListPanel = new InterviewerListPanel(logic.getFilteredInterviewerList());
         interviewerListPlaceholder.getChildren().add(interviewerListPanel.getRoot());
+
+        scheduleViewPanel = new ScheduleViewPanel(logic.getTitlesLists(), logic.getObservableLists());
+        schedulePanelPlaceholder.getChildren().add(scheduleViewPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -206,9 +206,14 @@ public class MainWindow extends UiPart<Stage> {
         scheduleViewPanel.dataUpdated(newTitles, newSchedules);
     }
 
+    /**
+     * Change tab from scheduler.
+     * @param index The selected tab.
+     */
     public void changeTab(int index) {
         tabPane.getSelectionModel().select(index);
     }
+
     /**
      * Executes the command and returns the result.
      *

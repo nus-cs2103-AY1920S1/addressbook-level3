@@ -8,9 +8,14 @@
 ---
 
 == Overview
+Scheduling interviews for school events such as Freshman Orientation Camps or Committee Roles in CCAs has been a tedious and
+time consuming thing to do. Furthermore, manual scheduling may cause allocation errors where interviewees were not allocated a
+slot in interviews. Thus, we want to create an application to eases this process of scheduling and eliminate any allocation
+errors.
 
 Scheduler is a desktop application which is used to automate the process of scheduling interviews.
-Its main feature is matching interviewees with interview time slots to generate an interview timetable.
+Its main feature is matching interviewees with interview time slots to generate an interview timetable, by importing data of the
+interviewees and interviewers, we are able to auto generate an optimal time slot for both parties.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
@@ -30,16 +35,23 @@ and in the end decided on converting the table into a list cell view.
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mrchensheng21&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mrchensheng21&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]]
                       [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mrchensheng21&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mrchensheng21&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Test code]]
 
-* *Other contributions*:
-
 ** Project management:
-*** Help in making sure that the code is following the checkstyle.
-** Enhancements to existing features:
+*** Help in checking code quality of the team.
+*** Help to check the flow and readability of the UserGuide.
 
-*** Update GUI style https://github.com/AY1920S1-CS2103-F09-1/main/pull/175[#175]
+** Enhancements to existing features:
+*** Creating tabs for the UI to display the different views. https://github.com/AY1920S1-CS2103-F09-1/main/pull/153[#153]
+*** Update GUI style https://github.com/AY1920S1-CS2103-F09-1/main/pull/157[#157] https://github.com/AY1920S1-CS2103-F09-1/main/pull/175[#175]
+
+** Enhancements to existing features:
+*** Update GUI style to ensure that the viewing of schedule table is clear. Different colors are used to differentiate
+the cells whether the interviewer is available, unavailable or has been allocated to a slot with an interviewee.
+https://github.com/AY1920S1-CS2103-F09-1/main/pull/175[#175]
 *** Creating tabs for the UI to display the different views. https://github.com/AY1920S1-CS2103-F09-1/main/pull/160[#160]
+*** Added UseCases for the Developer Guide https://github.com/AY1920S1-CS2103-F09-1/main/pull/175[#175]
+
 ** Tools:
-*** Used multiple css files to enhance the UI display. https://github.com/AY1920S1-CS2103-F09-1/main/pull/157[#157]
+*** Used multiple css files to enhance the UI display for the table views and to beautify the tabs https://github.com/AY1920S1-CS2103-F09-1/main/pull/157[#157]
 
 == Contributions to the User Guide
 |===
