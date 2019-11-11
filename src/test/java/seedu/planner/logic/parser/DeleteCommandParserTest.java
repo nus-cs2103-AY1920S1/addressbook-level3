@@ -3,7 +3,7 @@ package seedu.planner.logic.parser;
 import static seedu.planner.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.planner.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.planner.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST_CONTACT;
+import static seedu.planner.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteContactCommand() {
         assertParseSuccess(parser, DeleteContactCommand.SECOND_COMMAND_WORD + " " + "1",
-                new DeleteContactCommand(INDEX_FIRST_CONTACT, false));
+                new DeleteContactCommand(INDEX_FIRST, false));
     }
 
     @Test
