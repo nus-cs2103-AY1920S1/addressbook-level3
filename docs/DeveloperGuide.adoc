@@ -1363,7 +1363,7 @@ Windows, Linux, Unix, OS-X
 [[cli]] CLI::
 Command line interface (CLI) is a text-based interface that is used to operate software and operating systems while allowing the user to respond to visual prompts by typing single commands into the interface and receiving a reply in the same way.
 
-[[time-base-sports]] Time-base Sports::
+[[time-based-sports]] Time-based Sports::
 Examples of time-based sports are swimming and track & field, where performance can be measured in terms of time or distance.
 
 [appendix]
@@ -1442,4 +1442,25 @@ general unknown command error message.
 .. Test case: `delete -e backstroke 100m` +
    Expected: No event is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete e`, `delete event`.
-   Expected: Similar to previous.
+Expected: Similar to previous.
+
+=== Undoing a previous command
+. Undoing a previous command after user executes `list` command
+
+.. Prerequisites: Previous command is `list`.
+.. Test case: `undo` +
+    Expected: Error details shown in the status message. Status bar remains
+the same. List of people remains the same.
+.. Other incorrect undo commands to try: `undo x` (where x is any word) +
+Expected: Similar to previous.
+
+=== Redoing a previous command
+. Redoing a previous command after user executes `undo` command
+
+.. Prerequisites: Previous command is `undo`.
+.. Test case: `redo` +
+    Expected: `undo` command reversed. Details of the redone command shown
+in the status message.
+.. Test case: `redo undo` +
+Expected: Error details shown in status message. Status bar remains the same.
+List of people remains the same.
