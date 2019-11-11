@@ -1,0 +1,858 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Ravi Arun Kumarr - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="../images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link active" href="../index.html">AB-3</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level4">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">PlusWork</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="../LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/AY1920S1-CS2103T-T12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Ravi Arun Kumarr - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="introduction"><a class="link" href="#introduction">Introduction</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>TThis project portfolio details my contributions for a Software Engineering group project taken in National University of Singapore.
+My team of 4 software engineering students and I built a command line interface (CLI) desktop application, +Work targeted at NUS student leaders.</p>
+</div>
+<div class="sect2">
+<h3 id="about-the-project"><a class="link" href="#about-the-project">About the Project</a></h3>
+<div class="paragraph">
+<p>We were tasked with enhancing a basic command line interface desktop addressbook application for our Software Engineering project. We chose to morph it into a project management tool called +Work.
+This enhanced application enables NUS student project leaders to manage team members, meeting times, task allocations as well as equipment purchased.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="important-symbols"><a class="link" href="#important-symbols">Important Symbols</a></h3>
+<div class="paragraph">
+<p>Shown below are a few symbols that will appear in this document, along with their significance.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Information listed here should be noted by users to help them improve their experience.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Information listed here is essential to users. They need to understand this in order for +Work to work optimally.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add-inv</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>A grey highlight (called a mark-up) indicates that this is a command that   can be inputted into the command line and executed by the application.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>[i/NAME] (p/PRICE)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Command attributes in square brackets,’[ ]’ mean it is required.
+Meanwhile, attributes in round brackets, ‘( )’ mean it is optional.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of Contributions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section shows a summary of my coding, documentation, and other helpful contributions to the team project.</p>
+</div>
+<div class="sect2">
+<h3 id="enhancements"><a class="link" href="#enhancements">Enhancements</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Enhancement one</strong> : I added the ability to manage inventories.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Commands to manage inventory allow user to add, delete, edit and print PDF reports of inventories.</p>
+</li>
+<li>
+<p>Justification: +Work is designed for university-level students’ projects which usually require inventories.
+Rather than keeping a separate log of inventories in an excel spreadsheet, +Work allows them to manage it together with project tasks at the same place for extra convenience.</p>
+</li>
+<li>
+<p>Highlights: An in-depth analysis of design alternatives was necessary to design the PDF-report feature of inventory management.
+The decision to create reports in a PDF format rather than other formats was made to increase efficiency and to simplify programming.</p>
+</li>
+<li>
+<p>Credits: Code from AddressBook-3 provided was adapted to create the inventory features.
+iText library was used to create PDF reports for inventory.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Enhancement two</strong>: I added the ability to handle multiline commands.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Multiline commands ask users questions based on their input, allowing them to add extra attributes.</p>
+</li>
+<li>
+<p>Justification: If an user wants to add a task and set deadline or member to it or wants to save a task as inventory after it is done, he/ she has to do it in multiple steps. Multiline commands help to remove this issue by interacting with the user and adding whatever is necessary.</p>
+</li>
+<li>
+<p>Highlights: Multiline commands will work with existing as well as future commands. The implementation was challenging since the original code was not designed to ask for user inputs based on previous user inputs. In addition to solving this issue, the multiline features were also created without causing much disruption to the existing code.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=ArunBeCoding&amp;tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D">Functional code</a>] [<a href="https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&amp;sort=groupTitle&amp;sortWithin=title&amp;since=2019-09-06&amp;timeframe=commit&amp;mergegroup=false&amp;groupSelect=groupByRepos&amp;breakdown=false&amp;tabOpen=true&amp;tabType=authorship&amp;tabAuthor=ArunBeCoding&amp;tabRepo=AY1920S1-CS2103T-T12-1%2Fmain%5Bmaster%5D">Test code</a>]</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other Contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Project Management:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Added additional tests to the repository to bump coverage up from 40% to 42% (Pull request <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/170">#170</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Enhancements to existing features:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the storage to accommodate inventory and members(Pull requests <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/29">#29</a>, <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/61">#61</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Made improvements to the existing User Guide and Developer Guide to make it more reader friendly (Pull Request <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/161">#161</a>, <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/165">#165</a> )</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reviewed Pull Requests (with non-trivial review comments): <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/12">#12</a>, <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/17">#17</a>, <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/63">#63</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Tools:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Integrated a third party library (iText) to the project (Pull Request <a href="https://github.com/AY1920S1-CS2103T-T12-1/main/pull/71">#71</a>)</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We had to update the original addressbook User Guide with instructions for the enhancements that we had added.
+The following is an excerpt from our +Work User Guide, showing additions that I have made for the inventory and multiline features.</p>
+</div>
+<div class="sect2">
+<h3 id="inventory-commands"><a class="link" href="#inventory-commands">Inventory Commands</a></h3>
+<div class="sect3">
+<h4 id="adding-an-inventory-code-add-inv-code"><a class="link" href="#adding-an-inventory-code-add-inv-code">Adding an inventory: <code>add-inv</code></a></h4>
+<div class="paragraph">
+<p>This command allows you to add an inventory bought or retrieved for a specific task by a specific member.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>add-inv [i/ITEM_NAME] [p/PRICE(optional)] [ti/TASK_ID] [mi/MEMBER_ID]</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The item name, task id and member id are compulsory inputs. An input without any price value will automatically set the price to $0.
+Ensure that an existing task id and member id (as displayed by <code>list-tasks</code> and <code>list-members</code> respectively) is being typed into the command box.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add-inv i/scissors ti/4 mi/GS</code><br>
+When you enter this command, it adds the inventory “scissors” to the inventory list. The item is tagged to task with id as 4 (id is shown by <code>list-tasks</code>) and is provided by member with the member id “GS” for a price of $0.</p>
+</li>
+<li>
+<p><code>add-inv i/eggs p/2.40 ti/2 mi/AR</code><br>
+When you enter this command, it adds the item “eggs” for $2.40 to the inventory list. This item is tagged to task tagged to task with id as 2 (id is shown by <code>list-tasks</code>) and was paid for by the member with member id “AR”. The following pictures show how this command is to be executed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First, type <code>add-inv i/eggs p/2.40 ti/2 mi/AR</code> into the command box as shown below.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Add-inv_1.PNG" alt="Add inv 1">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Then, hit the <kbd>Enter</kbd> key and you will see that the inventory has been added! You should see a window like the one below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Add-inv_2.PNG" alt="Add inv 2">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="deleting-an-inventory-code-delete-inv-code"><a class="link" href="#deleting-an-inventory-code-delete-inv-code">Deleting an inventory: <code>delete-inv</code></a></h4>
+<div class="paragraph">
+<p>This command allows you to delete an inventory.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete-inv [ii/ITEM_ID]</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>delete-inv ii/3</code><br>
+This command deletes the third item from the inventory list. The following pictures show how this command is to be executed</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First, find the index of inventory that you want to delete, by navigating to inventory list view using <code>list-inv</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Delete-inv_1.PNG" alt="Delete inv 1">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Then, type <code>delete-inv ii/6</code> into the command box as shown below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Delete-inv_2.PNG" alt="Delete inv 2">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Hit the <kbd>Enter</kbd> key and you will see that the inventory has been deleted! You should see a window like the one below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Delete-inv_3.PNG" alt="Delete inv 3">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="list-existing-inventories-code-list-inv-code-br"><a class="link" href="#list-existing-inventories-code-list-inv-code-br">List existing inventories: <code>list-inv</code><br></a></h4>
+<div class="paragraph">
+<p>To get a list of all inventories added to +Work, used the command <code>list-inv</code> following the format below.<br>
+Format: <code>list-inv</code><br></p>
+</div>
+<div class="paragraph">
+<p>Example: Entering <code>list-inv</code> into the command prompt will result in the following:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/list-inv.png" alt="list inv">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="editing-a-inventory-code-edit-inv-code"><a class="link" href="#editing-a-inventory-code-edit-inv-code">Editing a inventory: <code>edit-inv</code></a></h4>
+<div class="paragraph">
+<p>This command allows you to edit the details of an existing inventory.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>edit-inv [ii/ITEM_ID] (i/ITEM_NAME) (p/PRICE) (ti/TASK_ID) (mi/MEMBER_ID)</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Multiple attributes can be changed at the same time, but at least one of the inventory attributes must be changed.
+Therefore, this command is invalid: <code>edit-inv ii/4</code>
+However, this command is valid: <code>edit-inv ii/4 i/toys ti/4 mi/AR</code>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit-inv ii/4 i/toys ti/4 mi/AR</code><br>
+This command edits the 4th inventory from the inventory list as shown by <code>list-inv</code>. It changes the inventory name to toys, the task attached to 4, and the member attached to the member with member ID “AR”. The following pictures show how this command is to be executed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First, type <code>edit-inv ii/4 i/toys ti/4 mi/AR</code> into the command box as shown below.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Edit-inv_1.PNG" alt="Edit inv 1">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Hit the <kbd>Enter</kbd> key and you will see that the 4th inventory has been edited! The name has been changed to toys, task has been changed to the task with index 4, and finally member has been changed to member with index “AR”. You should see a window like the one below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Edit-inv_2.PNG" alt="Edit inv 2">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="creating-a-report-of-inventories-code-pdf-code"><a class="link" href="#creating-a-report-of-inventories-code-pdf-code">Creating a report of inventories: <code>pdf</code></a></h4>
+<div class="paragraph">
+<p>This command allows you to create a PDF report of the existing inventories classified either by the member attached or by the task attached.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>pdf [ty/TYPE]</code></p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+The only two attributes for TYPE are <code>members</code> and <code>tasks</code>. Other inputs will not work.
+If a PDF created and is currently open, it has to be closed before another PDF can be created.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>pdf ty/members</code><br>
+This command creates and opens a pdf file of inventories that is classified according to the member attached. The following pictures show how this command is to be executed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First, type <code>pdf ty/members</code> into the command box as shown below.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pdf-inv_1.PNG" alt="pdf inv 1">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Hit the <kbd>Enter</kbd> key and you will see that the default PDF viewer will open to show the PDF report. You should see a report like the one below.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/pdf-inv_2.PNG" alt="pdf inv 2">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="multiline-commands"><a class="link" href="#multiline-commands">Multiline Commands</a></h3>
+<div class="sect3">
+<h4 id="adding-a-task-code-add-task-code"><a class="link" href="#adding-a-task-code-add-task-code">Adding a task: <code>add-task</code></a></h4>
+<div class="paragraph">
+<p>As mentioned in the earlier part of user guide, to add a task to the project, use the <code>add-task</code> command in the format below. This will result in a series of questions that allow you to add deadline and a member to the task. The following flowchart shows this series of feedbacks from the application and user inputs.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_1.PNG" alt="ml task 1">
+</div>
+</div>
+<div class="paragraph">
+<p>Format (to add task): <code>add-task [t/TASK_NAME]</code><br>
+Format (for yes): <code>yes</code><br>
+Format (for no): <code>no</code><br>
+Format (to add deadline and member): <code>add-d [at/DEADLINE] [mi/MEMBER_ID]</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>add-d</code> command does not work unless it is typed after <code>add-task</code> and <code>yes</code>.<br>
+Either deadline or member or both can be added using the <code>add-d</code> command. However at least one attribute must be present.<br>
+Remember to input deadline using the 24 hour time format of dd-mm-yyyy hh:mm
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>add-task tn/Finish Portfolio s/unbegun tt/Education</code> <br>
+A new task will be added to the project dashboard, which prompts a sequence of questions, as shown in the following pictures</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First, type the <code>add-task</code> command</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_2_1.PNG" alt="ml task 2 1">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This prompts the feedback asking for your choice to add deadline and member</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_2_2.PNG" alt="ml task 2 2">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Type <code>yes</code> to add deadline or member</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_2_3.PNG" alt="ml task 2 3">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This prompts to add the details</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_2_4.PNG" alt="ml task 2 4">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Type <code>add-d at/10-12-2019 18:00 mi/AR</code> to set deadline at 10-10-2019 18:00 and assign the member with member id “AR” to the task.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_2_5.PNG" alt="ml task 2 5">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This sets the deadline and assigns the member successfully! You should see a window like this.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_2_6.PNG" alt="ml task 2 6">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="changing-a-task-status-to-done-code-done-task-code-br"><a class="link" href="#changing-a-task-status-to-done-code-done-task-code-br">Changing a task status to done: <code>done-task</code><br></a></h4>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+only for tasks that are tagged “Inventory”
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>As mentioned in the earlier part of user guide, to change the task status to “done”, use the <code>done-task</code> command in the format below. If the task is tagged as "Inventory", this will result in a series of questions that allow you to add the task as an inventory. The following flowchart shows this series of feedbacks from the application and user inputs.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_3.PNG" alt="ml task 3">
+</div>
+</div>
+<div class="paragraph">
+<p>Format (for done task): <code>done-task [ti/TASK_ID]</code><br>
+Format (for yes): <code>yes</code><br>
+Format (for no): <code>no</code><br>
+Format (to add price and member): <code>add-i [p/PRICE] [mi/MEMBER_ID]</code></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>add-i</code> command does not work unless it is typed after <code>done-task</code> and <code>yes</code>.<br>
+Unlike <code>add-task</code>, in this case both attributes price and member id are required.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>done-task ti/8</code><br>
+The task with index 8 will have its task status changed to done. Since the task is tagged as “Inventory”, this will prompt a series of questions, as shown in the pictures below.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>First, type <code>done-task ti/8</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_4_1.PNG" alt="ml task 4 1">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This prompts the feedback asking for your choice to add it as an inventory.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_4_2.PNG" alt="ml task 4 2">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After typing <code>yes</code> as the user input, feedback will prompt you to add the details.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_4_3.PNG" alt="ml task 4 3">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Type <code>add-i p/5.50 mi/AB</code> to set the price at $5.50 and to assign the member with member id “AB” to the inventory</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_4_4.PNG" alt="ml task 4 4">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>This sets the price and assigns the member successfully! You should see a window like this.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/ml-task_4_5.PNG" alt="ml task 4 5">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following is an excerpt taken from the Developer Guide of +Work, showing additions I have made to explain the technical
+aspects of the storage and inventory features.</p>
+</div>
+<div class="sect2">
+<h3 id="Design-Storage"><a class="link" href="#Design-Storage">Storage component</a></h3>
+<div class="paragraph">
+<p>The Storage component serves the following purposes.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It can save UserPref objects in json format and read it back.</p>
+</li>
+<li>
+<p>It can save the +Work data in json format and read it back.</p>
+</li>
+<li>
+<p>It can also save the user settings in json format and read it back.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/StorageClassDiagram.png" alt="StorageClassDiagram">
+</div>
+<div class="title">Figure 1. Structure of the Storage Component</div>
+</div>
+<div class="paragraph">
+<p><strong>API</strong> : <a href="{repoURL}/src/main/java/seedu/pluswork/storage/Storage.java"><code>Storage.java</code></a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="inventory-feature"><a class="link" href="#inventory-feature">Inventory feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">Proposed Implementation</a></h4>
+<div class="paragraph">
+<p>This feature was implemented to allow users to add inventories when using +Work.</p>
+</div>
+<div class="paragraph">
+<p>The commands introduced by this feature include; <code>add-inv</code>, <code>delete-inv</code>, <code>edit-inv</code>, <code>list-inv</code>.
+The commands are facilitated by UniqueInventoryList class which resides in Model.
+The UniqueInventoryList class implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>UniqueInventoryList #add(Inventory toAdd)</code> — This command adds the Inventory toAdd to the inventory list of +Work.</p>
+</li>
+<li>
+<p><code>UniqueInventoryList #remove(Inventory toAdd)</code> —  This command removes the Inventory toAdd from the inventory list of +Work.</p>
+</li>
+<li>
+<p><code>UniqueInventoryList #setInventory (Inventory target, Inventory editedInventory)</code> — This command replaces the target Inventory with the new editedInventory.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are exposed in the Model interface as
+<code>Model#addInventory(Inventory inventory)</code>,
+<code>Model#deleteInventory(Inventory target)</code>,
+<code>Model#setInventory(Inventory target, Inventory editedInventory)</code>
+respectively.</p>
+</div>
+<div class="paragraph">
+<p>The activity diagram below summarises the process of executing an <code>add-inv</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AddInvActivityDiagram.png" alt="AddInvActivityDiagram">
+</div>
+<div class="title">Figure 2. Activity diagram of <code>add-inv</code> command execution.</div>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how add-inv command behaves at each step:</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application. The inventories will be initiated by Model based on the inventories previously saved.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>add-inv</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. <code>Logic#execute()</code> calls <code>Model#addInventory(Inventory inventory)</code>, which calls <code>UniqueInventoryList #add(Inventory toAdd)</code>. This adds the inventory to UniqueInventoryList.</p>
+</div>
+<div class="paragraph">
+<p>Step 4. The UI will be updated to reflect the changes. This can be viewed using the <code>list-inv</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Step 5. The settings have been updated and stored in projectdashboard.json.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the add-inv command works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AddInvSequenceDiagram.png" alt="AddInvSequenceDiagram">
+</div>
+<div class="title">Figure 3. Operational flow of <code>AddInventoryCommand</code></div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p>This section explores how the design can affect the inventory features in +Work.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-storage-of-an-inventory"><a class="link" href="#aspect-storage-of-an-inventory">Aspect: Storage of an inventory</a></h5>
+<div class="paragraph">
+<p>Within a specific setting, each option has data that helps yield a specific behaviour. Currently the available settings are
+represented as enumerations.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong> : Each inventory only stores the inventory name and price. The task and member attached to each inventory is stored in UniqueMappingManager.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Better design as it is more modular. If task or member is deleted, it only needs to be changed in UniqueMappingManager for the expected behaviour to be achieved.</p>
+</li>
+<li>
+<p>Cons: Retrieving of the mappings (task and member attached) is more difficult and may result in bugs if not implemented accurately.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: Each inventory also contains the attribute for task attached and member attached.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Retrieving the mappings is easier and faster.</p>
+</li>
+<li>
+<p>Cons: When a task or member is deleted, all the inventories need to be checked and updated. This would be a very slow method.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-display-of-inventories-list"><a class="link" href="#aspect-display-of-inventories-list">Aspect: Display of inventories list</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice)</strong>: The inventories are listed without any classification and is not sorted  by any attributes.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: This would be easier to implement and maintain UI components.</p>
+</li>
+<li>
+<p>Cons: User must use the pdf method to see any statistics, making for a less user-friendly experience.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2</strong>: More statistics, classifications and sorting methods available to customize the inventories list.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: The inventories list is more user-friendly and more provides more details.</p>
+</li>
+<li>
+<p>Cons: Implementation is harder, and we have to ensure minimal errors or bugs.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 11:26:49 SGT</div></div></div></body></html>
