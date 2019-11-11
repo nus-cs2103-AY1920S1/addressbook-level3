@@ -43,7 +43,7 @@ public class EditAssignmentCommandTest {
         EditAssignmentCommand.EditAssignmentDescriptor descriptor =
                 new EditAssignmentDescriptorBuilder(editedAssignment).build();
         EditAssignmentCommand editAssignmentCommand = new EditAssignmentCommand(INDEX_FIRST_OBJECT, descriptor);
-        editedAssignment.initialiseGrades(model.getCurrentClassroom().getStudentNameList());
+        //editedAssignment.initialiseGrades(model.getCurrentClassroom().getStudentNameList());
 
         String expectedMessage = String.format(EditAssignmentCommand.MESSAGE_EDIT_ASSIGNMENT_SUCCESS, editedAssignment);
 
