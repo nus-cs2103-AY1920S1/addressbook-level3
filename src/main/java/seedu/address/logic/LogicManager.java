@@ -48,7 +48,7 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveManager(new CentralManager(model.getCustomerManager(), model.getDriverManager(),
-                    model.getTaskManager(), model.getIdManager()));
+                    model.getTaskManager(), model.getIdManager(), model.getCompany()));
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }

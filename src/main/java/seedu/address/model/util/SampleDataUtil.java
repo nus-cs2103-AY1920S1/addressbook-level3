@@ -11,6 +11,7 @@ import seedu.address.model.CustomerManager;
 import seedu.address.model.Description;
 import seedu.address.model.DriverManager;
 import seedu.address.model.EventTime;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.legacy.AddressBook;
 import seedu.address.model.legacy.ReadOnlyAddressBook;
@@ -161,7 +162,10 @@ public class SampleDataUtil {
 
         IdManager sampleIdManager = getSampleIdManager();
 
-        return new CentralManager(sampleCustomerManager, sampleDriverManager, sampleTaskManager, sampleIdManager);
+        Company sampleCompany = getSampleCompany();
+
+        return new CentralManager(sampleCustomerManager, sampleDriverManager, sampleTaskManager,
+                sampleIdManager, sampleCompany);
     }
 
     private static CustomerManager getSampleCustomerManager() {
@@ -191,6 +195,10 @@ public class SampleDataUtil {
 
     private static IdManager getSampleIdManager() {
         return new IdManager(SAMPLE_LAST_TASK_ID, SAMPLE_LAST_CUSTOMER_ID, SAMPLE_LAST_DRIVER_ID);
+    }
+
+    private static Company getSampleCompany() {
+        return new Company();
     }
 
     /**

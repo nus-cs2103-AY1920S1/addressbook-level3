@@ -12,6 +12,7 @@ import seedu.address.model.EventTime;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.company.Company;
 import seedu.address.model.id.IdManager;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Customer;
@@ -184,11 +185,15 @@ public class SampleEntity {
 
 
         return new CentralManager(customerManager, driverManager, taskManager, new IdManager(
-                SECOND_VALID_TASK_ID, SECOND_VALID_CUSTOMER.getId(), SECOND_VALID_DRIVER.getId()
-        ));
+                SECOND_VALID_TASK_ID, SECOND_VALID_CUSTOMER.getId(), SECOND_VALID_DRIVER.getId()),
+                new Company());
     }
 
     public static Model getSampleFreshModel() {
         return new ModelManager(SampleEntity.getSampleCentralManager(), new UserPrefs());
+    }
+
+    public static Model getSampleEmptyModel() {
+        return new ModelManager(new CentralManager(), new UserPrefs());
     }
 }

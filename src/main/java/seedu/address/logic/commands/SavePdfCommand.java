@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATETIME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PDF;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -17,29 +19,54 @@ import seedu.address.model.pdfmanager.exceptions.PdfNoTaskToDisplayException;
 public class SavePdfCommand extends Command {
 
     public static final String COMMAND_WORD = "savepdf";
-    public static final String FILE_NAME = "DeliveryTasks";
-    public static final String DEFAULT_FILE_PATH = "./data/" + FILE_NAME + " %1$s.pdf";
 
-    public static final String MESSAGE_SUCCESS = "Successfully saved all drivers' task into a PDF document. \n"
-            + "It is saved in the same folder as your deliveria.jar file as " + FILE_NAME + ".pdf";
+    // document types for input
+    public static final String PDF_SUMMARY = "summary";
+    public static final String PDF_DELIVERY_ORDER = "order";
+
+    //file names
+    public static final String FILE_NAME_SUMMARY = "DeliveryTasks";
+    public static final String FILE_NAME_DELIVERY_ORDER = "DeliveryOrders";
+
+    //file paths
+    public static final String FILE_PATH_SUMMARY = "./data/DeliveryTasks/" + FILE_NAME_SUMMARY + " %1$s.pdf";
+    public static final String FILE_PATH_DELIVERY_ORDER = "./data/DeliveryOrders/"
+            + FILE_NAME_DELIVERY_ORDER + " %1$s.pdf";
+
+    //messages
+    public static final String MESSAGE_SUCCESS_SUMMARY =
+            "Successfully generate all drivers' task for %1$s in a PDF document. \n"
+            + "It is saved in a folder in the same directory as your deliveria.jar file as "
+            + FILE_NAME_SUMMARY + " %1$s.pdf";
+    public static final String MESSAGE_SUCCESS_DELIVERY_ORDER =
+            "SuccessFully generated all delivery orders for %1$s in a PDF document. \n"
+            + "It is saved in a folder in the same directory as your deliveria.jar file "
+            + "as " + FILE_NAME_DELIVERY_ORDER + " %1$s.pdf";
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": "
-            + "Saves all drivers' tasks into PDF for the specific date. "
+            + "Generates a Task Summary in PDF for the specific date. (Document Type: `summary`)\n"
+            + "Generates Delivery Orders in PDF for the specific date. (Document Type: `order`)\n"
             + "Date field is optional. "
             + "if a date is not specified, then today's date will be chosen. \n"
             + "Parameters: "
-            + "[DATE] \n"
-            + "Example: " + COMMAND_WORD + " 20/10/2019";
+            + "[pdf/DOCUMENT TYPE] [dt/DATE] \n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_PDF + PDF_DELIVERY_ORDER + " "
+            + PREFIX_DATETIME + "29/11/2019";
 
+    private String documentType;
     private String filePath;
 
     private Optional<LocalDate> date;
 
-    public SavePdfCommand(Optional<LocalDate> date) {
+    public SavePdfCommand(String documentType, Optional<LocalDate> date) {
+        this.documentType = documentType;
         this.date = date;
-        this.filePath = DEFAULT_FILE_PATH;
+        this.filePath = (documentType.equals(PDF_SUMMARY)) ? FILE_PATH_SUMMARY : FILE_PATH_DELIVERY_ORDER;
     }
 
-    public SavePdfCommand(Optional<LocalDate> date, String filePath) {
+    public SavePdfCommand(String documentType, Optional<LocalDate> date, String filePath) {
+        this.documentType = documentType;
         this.date = date;
         this.filePath = filePath;
     }
@@ -52,17 +79,45 @@ public class SavePdfCommand extends Command {
         if (date.isEmpty()) {
             date = Optional.of(GlobalClock.dateToday());
         }
-
         LocalDate dateOfDelivery = date.get();
 
         String filePathWithDate = String.format(filePath, dateOfDelivery);
 
         try {
-            model.saveDriverTaskPdf(filePathWithDate, dateOfDelivery);
+            generatePdf(model, filePathWithDate, documentType, dateOfDelivery);
         } catch (IOException | PdfNoTaskToDisplayException e) {
             throw new CommandException(e.getMessage());
         }
 
-        return new CommandResult(MESSAGE_SUCCESS);
+        return getCommandResultPdf(documentType, dateOfDelivery);
+    }
+
+    /**
+     * Generates a pdf document based on type of document requested.
+     *
+     * @param model model.
+     * @param filePathWithDate file path consists of date of delivery.
+     * @param documentType type of pdf document.
+     * @param dateOfDelivery date of delivery.
+     * @throws IOException if unable to save file or if file is in used.
+     * @throws PdfNoTaskToDisplayException if there is no tasks to display.
+     */
+    private void generatePdf(Model model, String filePathWithDate, String documentType, LocalDate dateOfDelivery)
+            throws IOException, PdfNoTaskToDisplayException {
+        if (documentType.equals(PDF_SUMMARY)) {
+            model.generateTaskSummaryPdf(filePathWithDate, dateOfDelivery);
+        } else {
+            //delivery order
+            model.generateDeliveryOrderPdf(filePathWithDate, dateOfDelivery);
+        }
+    }
+
+    private CommandResult getCommandResultPdf(String documentType, LocalDate dateOfDelivery) {
+        if (documentType.equals(PDF_SUMMARY)) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS_SUMMARY, dateOfDelivery));
+        } else {
+            //delivery order
+            return new CommandResult(String.format(MESSAGE_SUCCESS_DELIVERY_ORDER, dateOfDelivery));
+        }
     }
 }
