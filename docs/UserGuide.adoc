@@ -103,7 +103,7 @@ This tip works on budget dates too!
 Examples:
 
 * `expense n/Coffee a/1.80 t/food`
-* `expense n/Textbook a/23.50 t/education t/school`
+* `expense n/Textbook a/23.50 t/education`
 
 *An added expense may automatically fall into a budget if the date of expense
 falls into a budget period. Otherwise it will fall into the default expense list.
@@ -176,7 +176,7 @@ Examples:
 * `editExpense 1 a/20.10` +
 Edits the amount of the first expense to be `20.10`.
 * `editExpense 2 n/Poets Coffee t/` +
-Replaces the name of the second expense to `Poets Coffee` and clears all existing tags.
+Replaces the name of the second expense to `Poets Coffee` and clears the existing tag.
 
 === Editing a budget : `editBudget`
 Edits an existing budget in the budget list. +

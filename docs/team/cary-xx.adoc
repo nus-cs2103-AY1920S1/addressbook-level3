@@ -18,45 +18,124 @@ kLoC.
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to autocomplete*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** What it does: Similar to the autocomplete feature in modern IDE, user can press key or click on a selected item to
+autocomplete
+** Justification: This feature improves the product significantly because a user can type faster and no longer need
+to type exactly the same command word. Autocomplete will do this for you.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
+analysis of Javafx component as well as searching logic. The implementation too was challenging because several parts
+need to be combined together and some checks and fixes are also required towards a bug-free autocomplete feature.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using F3/F4 keys
+and display history command list.
+** What it does: The history command helps user to trace the commands he/she entered since he/she starts the app.
+Navigation of history using key is also supported.
+** Justification: This feature improves the product significantly because a user can track his/her input history and
+navigate to any history command without the need to type again if he/she wants to execute previous command.
+
+* *Minor enhancement*: rearrange GUI layout and draw piechart for displaying statistics.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Functional code]][https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=xiu%20ziheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Cary-Xx&tabRepo=AY1920S1-CS2103-T14-4%2Fmain%5Bmaster%5D[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Set up travis, coverall,etc
+*** Managed releases `v1.2` - `v1.4` (5 releases) on GitHub
+*** Managed all PRs on team repo
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Set up base for the app: https://github.com/AY1920S1-CS2103-T14-4/main/pull/24[#24]
+*** Improve existing code quality: https://github.com/AY1920S1-CS2103-T14-4/main/pull/79[#79],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/89[#89]
+*** Fix existing bugs: https://github.com/AY1920S1-CS2103-T14-4/main/pull/87[#87],
+https://github.com/AY1920S1-CS2103-T14-4/main/pull/148[#148]
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=undoredo]
+== Introduction
 
-include::../UserGuide.adoc[tag=dataencryption]
+*MYMorise -- Manage Your Money(MYM)* is a desktop application for those who *prefer tracking personal expenses on their
+computers*. With MYMorise, you can easily see your daily expenses as well as a summary, along with other useful
+functionalities. More importantly, MYMorise is *optimized for those who prefer to work with Command Line Interface (CLI)* while still having the benefits of a *Graphical User Interface
+(GUI)*. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+****
+*Things to note in MYMorise:*
+
+* Expense - refers to the cost incurred in or required for something which the user would like to record
+* Budget - refers to an estimate of income and expenditure for a set period of time.
+* Default expense list - refers to all expenses that do not fall into any budgets in MYMorise.
+* The amounts used in MYMorise can only work for numbers up to 2 decimal places.
+* MYMorise's GUI consists of 3 display panels:
+
+    The left panel - displays all expenses recorded in MYMorise. User commands do not reference from this panel and should not be made based on this panel. Commands made should reference from the centre panel. The purpose of this panel is solely for displaying all expenses recorded only.
+
+    The centre panel - displays the current view requested by user. All commands made are in relative to the content displayed in this panel. That is, if a user enters the command `listBudgets` or `view 1`, this panel will reflect the content requested. Subsequent commands such as `editExpense` and `editBudget` will reference from this panel. On start up, the centre panel displays the default expense list.
+
+    The right panel - displays the visual graphics of the content shown in the centre panel only.
+****
+
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `MYMorise.jar`.
+.  Copy the jar file to the folder you want to use as the home folder for MYMorise.
+.  Run `java -jar path_to_folder/MYMorise.jar` in your CLI. The GUI should appear in a few seconds.
+
+=== Autocomplete
+Equip with IDE-like autocomplete function for faster input and
+enables users to quickly fill in command arguments with
+autocomplete suggestions.
+
+Suggestions include commonly used words in MYMorise and users may customize the suggestion list by changing the
+`vocabulary.txt`
+
+When the user types, if there are suggestions for a certain input, user can press kbd:[tab] to autofill the first
+suggestion or press kbd:[DOWN] and kbd:[UP] to navigate between suggestions and then press kbd:[tab] or kbd:[enter]
+to autofill the selected item. User may also just kbd:[click] on an item to autofill.
+
+=== Retrieve the history of the commands executed: `history`
+Returns the list of history commands executed.
+[TIP]
+Press kbd:[F3] to navigate to previous input; Press kbd:[F4] to navigate to next input;
+[NOTE]
+Use keyboard to navigate through the history will only take effect when the focus is in `TextField`.
+[NOTE]
+kbd:[UP] and kbd:[DOWN] cannot be used here to navigate through the history since they are used to navigate through
+the autocomplete suggestions.
+
+=== Exiting the program : `exit`
+Exits the program. +
+Format: `exit`
+
+// tag::saving[]
+=== Saving data
+Expense and Budget data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
+// end::saving[]
+
+=== Locating expenses by name: `find` `[coming in v2.0]`
+Finds all expenses by name, date, tag. +
+Format: `find [n/NAME] [d/DATE] [t/TAG]`
+
+****
+* Search by name and tag is case insensitive. e.g hans will match Hans
+* Search by date must use the date format `dd/MM/yyyy`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the fields provided are searched.
+* Only whole words will be matched e.g. `Han` will not match `Hans`
+****
+
+Examples:
+
+* `find n/Coffee` +
+Returns `coffee` and `Starbucks Coffee`.
+* `find n/Cheesecake` +
+Returns any expense having names `Cheesecake`, eg: `Strawberry Cheesecake`, `Blueberry Cheesecake`.
 
 == Contributions to the Developer Guide
 
@@ -64,6 +143,80 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+=== AutoComplete Feature
+==== Implementation
+Autocomplete is facilitated by several parts.
+The logic part is implemented through `java.seedu.address.logic.search` package which contains `AutoComplete` and
+`BinarySearch`.
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+The model is constructed through `java.seedu.address.model.autocomplete` which contains `AutoCompleteModel` and `Word`.
+
+The Ui part is implemented through `java.seedu.address.ui.QueryCard` on top of `CommandBox`.
+
+Given below is an example usage scenario and how the autocomplete mechanism behaves at each step. (p.s. details are
+omitted)
+
+Step 1. The user launches MYMorise and the user will be prompted to enter a command as shown in the command box.
+
+Step 2. User enter `a` and the listener is triggered. Then `AutoComplete#initAc()` and
+`AutoComplete#getSuggestions()` is invoked.
+
+Step 3. `initAc()` calls `AutoComplete#readWordsFromFile()` which reads the vocabulary from our local dictionary to get
+the database and then construct an `AutocompleteModel` with the vocabulary read.
+
+Step 4. `getSuggestions(input)` calls `AutocompleteModel#allMatches()` which utilises the improved version of binary
+search algorithm `BinarySearch`. The algorithm will return the first and last index of potential matched results.
+Since the result is based on a pre-order for sorting, all the words inside this range will be the qualified ones.
+
+Step 5. The listview of `QueryCard` will be updated based on the words and weights given and attached to the
+`TextField`.
+
+The following sequence diagram shows how autocomplete operation works:
+
+image::AutocompleteSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user enter something new.
+
+image::AutocompleteActivityDiagram.png[]
+
+==== Design Considerations
+===== Aspect: How Autocomplete works
+In terms of the retrieving suggestion list, an enhanced binary search algorithm is used. Since a word (which
+represents a autocomplete term) has a name and weight, the default "vocabulary" will be first sort based on weight
+and for same weight, sort alphanumerically.
+
+In terms of replacing the target term to the `TextField`, 2 approaches are proposed
+
+* **Approach 1 (current choice)**: 2 listeners were added. 1) 1st listener for `TextFormatter`, this is especially
+utilised
+to retrieving the updated cursor position, which is where it outperforms. 2) 2nd listener for
+`TextInputControl`
+to detect the text change of `TextField`. Then combined with previously returned caret position, we can replace the
+corresponding position with target term (the one user selected)
+
+* **Approach 2**. 1 listener for `caretProperty` is added to detect the change of position of caret (i.e., cursor).
+This approach is simpler with regard to logic but more complicated during implementation. Since caret position change
+does not necessarily mean textField change, therefore extra check would be required, also resulting in
+potential inaccuracy.
+
+In terms of user interaction, different listeners are added for different valid actions (e.g. press TAB, ENTER and
+navigate using UP and DOWN) to make user benefit by typing faster.
+
+=== History Feature
+==== Implementation
+History is mainly facilitated by `CommandHistory` with `HistoryPointer`. When the app starts, a `CommandHistory`
+instance is created and any command executed (no matter valid or not) will be saved to a list of history commands.
+And when the user calls the `history`, the overall history list will display on the `resultDisplayPanel`. And when
+user press *F3* and *F4* to navigate through the history list, the `HistoryPointer` will point to corresponding
+history.
+
+Similar to Section 3.1, the history displayed on `textField` is facilitated by `KeyEventListener`. When the keyinput
+event of *F3* or *F4* is triggered, it will navigate to previous input and next input correspondingly.
+
+The following class diagram illustrates the interaction between `historyCommand` and other parts:
+
+image::HistoryClassDiagram.png[]
+
+The following sequence diagram illustrates the flow of how history commands works:
+
+image::HistorySequenceDiagram.png[]
