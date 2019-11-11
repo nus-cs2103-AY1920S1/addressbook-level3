@@ -20,7 +20,7 @@ package "logic.commands" {
 }
 logic.commands -[hidden]-> commons.util
 
-ImportCommand --> FileUtil LOGIC_COLOR : uses >
+ImportCommand .-> FileUtil LOGIC_COLOR : uses >
 
 package "model" {
     Interface Model <<interface>> MODEL_COLOR
@@ -29,7 +29,7 @@ package "model" {
 }
 logic.commands -[hidden]-> model
 
-ImportCommand -down-> Model LOGIC_COLOR : adds entities >
-CsvUtil -down> Model LOGIC_COLOR : retrieves entities >
+ImportCommand .-down> Model LOGIC_COLOR : adds entities >
+CsvUtil .down> Model LOGIC_COLOR : retrieves entities >
 
 @enduml

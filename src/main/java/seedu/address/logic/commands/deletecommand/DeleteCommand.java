@@ -18,10 +18,10 @@ public abstract class DeleteCommand extends Command implements TrackableState {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the specified entity by the ID provided in the input\n"
-            + "Delete command must specify the entity being deleted "
+            + "\tDelete command must specify the entity being deleted "
             + "along with its ID. \n"
             + "Format: delete [entity] [entity ID] \n"
-            + "For example: delete participant P-1";
+            + "Example: delete participant P-1";
 
     protected Id id;
 

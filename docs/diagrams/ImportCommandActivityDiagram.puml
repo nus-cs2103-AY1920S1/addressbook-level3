@@ -1,0 +1,31 @@
+@startuml
+
+skinparam defaultTextAlignment center
+
+start
+
+:Parser receives argument\nand extracts file paths;
+if () then ([file path is valid])
+    :new ImportCommand\nwith file paths is executed;
+    :Open CSV file;
+    while (Read next line) is (line is not null)
+        if () then ([line is valid])
+            if () then ([line corresponds\nto a team])
+                :Buffer team for later;
+            else ([line corresponds to\nparticipant or mentor])
+                :Parse to\ncorresponding entity;
+            endif
+            :Parse and add rest of the teams;
+        else ([else])
+            :Add line to ErrorTracker\nwith cause of invalidity;
+        endif
+    endwhile (reached EOF)
+    (A)
+    :Notify user of result;
+else ([else])
+    :Notify user of failure;
+endif
+
+stop
+
+@enduml

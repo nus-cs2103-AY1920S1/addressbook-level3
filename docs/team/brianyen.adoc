@@ -40,7 +40,7 @@ data reliably is key to the application's success.
 * *Major Enhancement* Created an undo/redo feature.
 ** Purpose: Allows users to undo/redo previously executed commands. This allows users to easily correct mistakes while using Alfred.
 ** Justification: Should users make a mistake or have a need to reverse previously executed commands, this feature allows them
-to quickly revert changes by invoking the `redo` command, improving their overall productivity and streamlining workflows with the application. Should they
+to quickly revert changes by invoking the `undo` command, improving their overall productivity and streamlining workflows with the application. Should they
 change their mind and actually wish to execute the command again, there is no need for them to re-type and execute the command,
 as they can simply invoke the `redo` command.
 ** Highlights: You can undo/redo multiple commands at once, by invoking `undo N`/`redo N`, where N is an integer.
@@ -50,21 +50,16 @@ as they can simply invoke the `redo` command.
 had previously executed. Hence, the `history` command provides a convenient visualisation of previously executed commands to
 better inform users on which commands they would like to `undo`/`redo`.
 * *Minor Enhancement* Allow users to navigate to previously executed commands using the ALT + UP/DOWN Arrow Keys
-* Purpose: Allow quick access to previously executed commands, as opposed to re-typing everything.
-* Justification: This is a convenience feature that most Command Line prompts have, so it is a nice feature for Alfred to
+** Purpose: Allow quick access to previously executed commands, as opposed to re-typing everything.
+** Justification: This is a convenience feature that most Command Line prompts have, so it is a nice feature for Alfred to
 include, given that Alfred is ultimately a Command Line Interface.
 ** Highlights: Users can navigate up to 50 previous commands.
 
 === Code Contributions
-These are some of the code I have written (my contributions are not limited to these files):
-** Functional Code
-*** https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master/src/main/java/seedu/address/storage[Storage Code]
-*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/main/java/seedu/address/model/ModelHistoryManager.java[Model History Code]
-*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/main/java/seedu/address/model/CommandHistoryManager.java[Command History Code]
-** Test Code
-*** https://github.com/AY1920S1-CS2103T-F11-1/main/tree/master/src/test/java/seedu/address/storage[Storage Test Code]
-*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/test/java/seedu/address/model/ModelHistoryManagerTest.java[Model History Test Code]
-*** https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/src/test/java/seedu/address/model/CommandHistoryManagerTest.java[Command History Test Code]
+These are some of the code I have written:
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=brianyenna&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=brianyenna&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Functional Code]
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=brianyenna&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=brianyenna&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Test Code]
 
 
 === Other Contributions
@@ -74,7 +69,8 @@ These are some of the other ways I have helped my team along the way to develop 
 ** Helped manage releases `v1.2` - `v1.4` on GitHub
 * Tests
 ** Helped write tests to ensure that test code coverage is maintained at a healthy level
-** These tests helped ensure that the implementation of new features by my teammates can be verified to not break existing features.
+** These tests helped ensure that the implementation of new features by my teammates can be verified to not break existing features,
+therebys streamlining Alfred's development.
 * Documentation:
 ** In charge of team's Documentation.
 ** Helped standardise the format for both User Guide and Developer Guide
@@ -86,22 +82,222 @@ of the documentation being a top priority.
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users. The following text is taken from the History feature section of the User Guide, and explains how to use the History feature. For more information on the features I implemented, please feel free to look through the User Guide https://ay1920s1-cs2103t-f11-1.github.io/main/UserGuide.html[here]._
 |===
 
-include::../UserGuide.adoc[tag=history]
+=== Show Command History: `history`
+Shows you up to the last 50 commands that you executed.
 
-include::../UserGuide.adoc[tag=commandhistorynavigation]
+[[history_diagram]]
+.History Section of UI
+image::UndoRedoExplanation.png[pdfwidth=70%]
+
+This command is to facilitate the undo/redo commands, as it becomes easier for you to track what changes were made before, and which
+commands can be undone/redone. This is especially useful when many commands have been executed and it is difficult to remember the sequence of
+execution of the commands.
+
+Executing the `history` command will bring you to the "History" section of Alfred, which displays all the previously-executed
+commands as panels. There are 3 main delimiters. Each delimiter is just a visual representation of the limits for the undo/redo commands.
+
+You cannot redo any command beyond the "redo" delimiter, or undo any command beyond the "undo" delimiter. The "current" delimiter tells you where you are at relative to the rest of the commands you have executed. It represents the
+current state of the data.
+
+Note that only commands that change the state of the data in Alfred will be displayed in the "History" section and are undo/redo-able.
+For instance, `list participants` will not be undo/redo-able, as it simply shows you the participants in Alfred and does not change any information in Alfred.
+On the other hand, invoking `add participant` with the suitable parameters will be undo/redo-able and will be shown in the "History" section by the `history` command.
+
+In total, only 50 states will be stored, so this serves as a limit for the number of commands you can undo/redo to.
+
+[NOTE]
+The following commands are not undo/redo-able: `help`, `list`, `find`, `history`, `leaderboard`, `getTop`, `export`, `help`, `home`, `undo`, `redo`.
+All other commands are undo/redo-able.
+
+Example:
+
+After running the following commands: +
+
+1. `list participants` +
+
+2. `add participant n/SuperHero1 p/+6591111111 e/superhero1@gmail.com` +
+
+3. `add participant n/SuperHero2 p/+6592222222 e/superhero2@gmail.com` +
+
+4. `add participant n/SuperHero3 p/+6593333333 e/superhero3@gmail.com` +
+
+5. `edit participant P-4 n/The Flash` +
+
+Running `history` will show you the following output in the "History" section of the Graphical User Interface:
+
+.Example Output from History Command
+image::HistoryCommandExampleOutput.png[pdfwidth=70%]
+
+//Add annotations to image when the UI is finalised
+The topmost panel is the "redo" delimiter. The second panel from the top is the "current" delimiter. The bottommost panel shows you the "undo" delimiter.
+
+In this example, the output of the `history` command shows you can invoke the `undo` command four times.
+
+Notice that the `list participants` command is not shown in the "History" section as it does not change data.
+
+Also note that the undo-able commands are numbered, with the 1st undo-able command being the most recently executed command (the EditParticipantCommand),
+and the 4th undo-able command being the oldest executed command. In this case, the maximum number of commands you can undo at once is 4.
+
+Also note that in this case, no commands are redo-able, that's why there are no panels between the "redo" and "current" delimiters. Hence, executing `redo` command will result in an error.
+
+//end::history2[]
+
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. The following text is taken from the Undo/Redo feature section of the Developer Guide, and explains how the Undo/Redo feature works. For more information on the rest of the features I implemented, please feel free to look through the developer guide https://ay1920s1-cs2103t-f11-1.github.io/main/DeveloperGuide.html[here]._
 |===
 
-include::../DeveloperGuide.adoc[tag=undo]
+// tag::undoredoDG1[]
+=== Undo/Redo feature
 
-include::../DeveloperGuide.adoc[tag=storage]
+The Undo/Redo feature, as the name suggests, allows you to undo and redo commands. Only commands that alter the state of the data
+in Alfred can be undone/redone. The state of the 3 EntityLists (ParticipantList, MentorList and TeamList) is tracked across the execution
+of different commands, and the state can be recovered through the use of the undo/redo feature. The last used IDs for each of the 3 EntityLists
+are also saved.
 
+The feature has been updated in v1.4 to support multiple undos/redos. This means that invoking `undo N`/`redo N` on Alfred, where `N`
+is an integer, allows you to undo/redo `N` commands at one go.
+
+To undo/redo to next immediate command, simply invoking `undo`/`redo` on Alfred would suffice, as it implicitly calls `undo 1`/`redo 1`
+in the code.
+
+This feature is a convenience feature as it allows users of Alfred to quickly correct and recover
+from mistakes, greatly increasing the utility of the application.
+
+[NOTE]
+Only a maximum of 50 data states is stored in `ModelHistoryManager` at any one point in time. The addition of any more data states will
+result in the discarding of the oldest data state.
+
+==== Implementation
+
+The general idea is as follows: The undo/redo mechanism is mainly facilitated by the interface `ModelHistory` and its implementation `ModelHistoryManager`.
+Alfred's data is held in memory within the `ModelManager` object. After the execution of commands that mutate the data in Alfred, a deep copy
+of all 3 EntityLists is made and saved as a `ModelHistoryRecord` in `ModelHistoryManager`. A deep copy is necessary to ensure that
+any subsequent changes to data will not alter the data in the `ModelHistoryRecord`, allowing each `ModelHistoryRecord` to serve as
+a pristine record of the state of the data in Alfred at the end of the execution of each command.
+
+Whenever the `undo` command is invoked, `ModelHistoryManager` returns a `ModelHistoryRecord`.
+A deep copy of the EntityLists contained within `ModelHistoryRecord` are then used to replace the EntityLists in the `ModelManager` for its operations, effectively
+reverting the data in Alfred to a previous state.
+
+[NOTE]
+The data in each `ModelHistoryRecord` in `ModelHistoryManager` is stored in memory, and is not stored on disc, so it will
+persist only while the Alfred application is running.
+
+==== Implementation: How `ModelManager` is Updated When the Undo Command is Executed
+The following sequence diagram shows what happens when the UndoCommand is executed.
+
+.Sequence Diagram for the Execution of the Undo Command
+image::UndoSequenceDiagramExecutionofUndo.png[]
+
+The important issue to take note of here is that the code first checks whether it is valid to undo to a certain state by
+calling the `canUndo()` method in `ModelHistory`. The implementation of `ModelHistory` in `ModelHistoryManager` does so by checking
+if there are sufficient states to undo to, otherwise an exception is thrown.
+
+[NOTE]
+A analogous process is executed for the Redo Command.
+
+// tag::undoredoDG2[]
+==== Behaviour of Undo/Redo Mechanism
+`ModelHistoryMangager` contains a List of `ModelHistoryRecord`, and a pointer pointing to the `ModelHistoryRecord` that
+reflects the current state of the data in Alfred.
+
+In order to better illustrate how the state of the data is tracked and stored in `ModelHistoryManager`, consider the following example.
+The following commands are executed:
+
+1. AddParticipantCommand: `add participant n/Clark Kent p/+6598321212 e/clark.kent@supermail.com` +
+
+2. AddMentorCommand: `add mentor n/Lex Luthor o/LexCorp p/+6598321010 e/lex.not.evil@gmail.com s/Social` +
+
+3. ListParticipantCommand: `list participants` +
+
+4. UndoCommand: `undo 2` +
+
+5. AddTeamCommand: `add team n/Justice League s/Social pn/BetterThanAvengers l/12` +
+
+*This is the state of `ModelHistoryManager` when Alfred is first started.*
+
+.Initial State of `ModelHistoryManager`
+image::UndoRedoState0.png[]
+
+
+*This is what happens after each step:*
+
+__ Step 1. AddParticipantCommand: `add participant n/Clark Kent p/+6598321212 e/clark.kent@supermail.com` __ +
+
+.State of `ModelHistoryManager` after Step 1
+image::UndoRedoState1.png[]
+
+A new `ModelHistoryRecord` is created to reflect the state of the data in Alfred after the execution of the AddParticipantCommand.
+
+__ Step 2. AddMentorCommand: `add mentor n/Lex Luthor o/LexCorp p/+6598321010 e/lex.not.evil@gmail.com s/Social` __ +
+
+.State of `ModelHistoryManager` after Step 2
+image::UndoRedoState2.png[]
+
+A new `ModelHistoryRecord` is created to reflect the state of the data in Alfred after the execution of the AddMentorCommand.
+
+__ Step 3. ListParticipantCommand: `list participants` __ +
+
+.State of `ModelHistoryManager` after Step 3
+image::UndoRedoState3.png[]
+
+Note that no new `ModelHistoryRecord` is created because the ListParticipantCommand does not alter the state of the data in Alfred.
+Hence, it does not implement the TrackableState interface.
+
+__ Step 4. UndoCommand: `undo 2` __ +
+
+.State of `ModelHistoryManager` after Step 4
+image::UndoRedoState4.png[]
+
+After executing the `undo 2` command, the pointer in `ModelHistoryManager` shifts backwards by 2 to point to the `ModelHistoryRecord`
+at the zero-th index.
+
+Note that this means that `undo 3` would throw an error, as you cannot move beyond the very first `ModelHistoryRecord` in `ModelHistoryManager`.
+
+__ Step 5. AddTeamCommand: `add team n/Justice League s/Social pn/BetterThanAvengers l/12` __ +
+
+.State of `ModelHistoryManager` after Step 5
+image::UndoRedoState5.png[]
+
+Note that the execution of a new command will invalidate the `ModelHistoryRecord` after the pointer. This is because all subsequent
+data states are the result of transformations that have already been undone, so it is not valid to be able to `redo` to them.
+
+==== Design Considerations
+When designing the undo/redo feature, there were some design considerations to take note of.
+
+===== Aspect: How Undo/Redo Executes
+* **Alternative 1 (current choice):** Saves the entire data state of Alfred in memory.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct, which is not trivial for
+certain commands, such as `import`, which provides a best-effort implementation and tries to import as many valid data entries
+as possible. In order to implement an `undo` method for this, we would have to keep track of the new Entities that got created
+due to the command execution and then invoke deletion of these Entities.
+
+Given the large number of commands that are available in Alfred, it is not very scalable to implement
+an undo/redo method for each of the commands. It is also more extensible to use Alternative 1 as it allows
+future commands to be added without the need for further changes for the undo/redo feature - simply get the new
+command's class to implement the TrackableState interface if it alters the state of the data in Alfred.
+
+===== Aspect: Use of Marker Interface
+Allows for an easy way to determine if the state of the data should be saved after the execution of the command.
+It is also very easy to change in the codebase. This means that should a feature in the future alter the state of the
+data in Alfred after execution, it is trivial to allow `ModelHistoryManager` to track the state.
+
+===== Aspect: Limitation of Number of Data States Stored
+Given that the Undo/Redo feature saves the state of the data in Alfred after the execution of TrackableState commands,
+it is important to ensure that memory usage by `ModelHistoryManager` is limited, otherwise Alfred will run very slowly and
+potentially crash once a substantial number of commands have been executed.
+
+In order to accommodate this design for the Undo/Redo feature, we decided to limit the number of `ModelHistoryRecord` stored in
+`ModelHistoryManager` to 50. It is unlikely that a user would want to undo more than 50 commands at a go, as that would indicate
+a very significant error in the workflow, and recovering from that should not have a reliance on the Undo/Redo feature.

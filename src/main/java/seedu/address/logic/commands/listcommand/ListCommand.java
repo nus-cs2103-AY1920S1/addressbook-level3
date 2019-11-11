@@ -22,8 +22,8 @@ public abstract class ListCommand extends Command {
     public static final String MESSAGE_NO_TEAM = "There are currently no teams in Alfred.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all entities of the specified entity type "
             + "stored within Alfred.\n"
-            + "Format: " + COMMAND_WORD + " [entity name] \n"
-            + "For example: \"list mentors\" or \"list participants\" or \"list teams\"";
+            + "Format: " + COMMAND_WORD + " [entity type] \n"
+            + "Example: \"list mentors\" or \"list participants\" or \"list teams\"";
 
     private static final String MESSAGE_MENTOR_HEADER = "List of all mentors:";
     private static final String MESSAGE_PARTICIPANT_HEADER = "List of all participants:";

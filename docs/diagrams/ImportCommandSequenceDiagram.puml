@@ -21,7 +21,7 @@ LogicManager -> AlfredParser : parseCommand("import fp/data/Alfred.csv")
 activate AlfredParser
 
 create ImportCommandParser
-AlfredParser -> ImportCommandParser
+AlfredParser -> ImportCommandParser : <<create>>
 activate ImportCommandParser
 
 ImportCommandParser --> AlfredParser
@@ -31,7 +31,7 @@ AlfredParser -> ImportCommandParser : parse(" fp/data/Alfred.csv")
 activate ImportCommandParser
 
 create ImportCommand
-ImportCommandParser -> ImportCommand : <<create>>\n  with file path "data/Alfred/csv"
+ImportCommandParser -> ImportCommand : <<create>> with file path "data/Alfred/csv"
 activate ImportCommand
 
 ImportCommand --> ImportCommandParser : i
