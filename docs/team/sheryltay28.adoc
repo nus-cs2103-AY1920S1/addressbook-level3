@@ -49,6 +49,8 @@ include::../UserGuide.adoc[tag=lessons]
 |===
 
 include::../DeveloperGuide.adoc[tag=model]
+
 include::../DeveloperGuide.adoc[tag=Lesson]
+
 include::../DeveloperGuide.adoc[tag=Schedule]
 
