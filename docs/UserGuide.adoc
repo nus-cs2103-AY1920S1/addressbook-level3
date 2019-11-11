@@ -203,9 +203,8 @@ To save any changes to your notes, enter `savenote` into the *CommandBox*.
 === Help Tab
 The help tab is where you can get a quick overview of commands used in Duke Academy, and the URL to the official User Guide.
 
-+
 image::help.png[width="1000"]
-+
+
 //tag::help1[]
 
 [[BeforeStart]]
