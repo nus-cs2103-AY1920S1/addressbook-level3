@@ -21,7 +21,7 @@ public class AddConsultationRoomCommand extends ReversibleCommand {
     public static final String MESSAGE_INVALID_DOCTOR_ID = "The reference ID '%1$s' does not belong "
             + "to any registered doctor!";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a doctor to the list of doctors on-duty.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be a non-zero positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
     private final Room roomToAdd;

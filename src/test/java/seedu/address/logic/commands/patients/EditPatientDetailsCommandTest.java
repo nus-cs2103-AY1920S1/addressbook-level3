@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
-import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -30,18 +29,15 @@ import seedu.address.testutil.TestUtil;
 public class EditPatientDetailsCommandTest {
 
     @Test
-    public void execute_allFieldsSpecifiedUnfilteredList_success() {
+    public void execute_allFieldsSpecifiedUnfilteredList_failure() {
         Model model = TestUtil.getTypicalModelManager();
         Person personToEdit = model.getFilteredPatientList().get(0);
 
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, BOB);
 
-        Model expectedModel = TestUtil.getTypicalModelManager();
-        expectedModel.setPatient(personToEdit, BOB);
-        expectedModel.changePatientRefIdInQueue(personToEdit.getReferenceId(), BOB.getReferenceId());
-        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, BOB);
+        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_PATIENT_IN_QUEUE, BOB);;
 
-        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editPatientDetailsCommand, model, expectedMessage);
     }
 
     @Test
@@ -52,11 +48,9 @@ public class EditPatientDetailsCommandTest {
 
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, editedPerson);
 
-        Model expectedModel = TestUtil.getTypicalModelManager();
-        expectedModel.setPatient(personToEdit, editedPerson);
-        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_PATIENT_IN_QUEUE, editedPerson);
 
-        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editPatientDetailsCommand, model, expectedMessage);
     }
 
     @Test
@@ -66,11 +60,12 @@ public class EditPatientDetailsCommandTest {
         Person editedPerson = model.getFilteredPatientList().get(0);
 
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(personToEdit, editedPerson);
-        assertCommandFailure(editPatientDetailsCommand, model, MESSAGE_NOT_EDITED);
+        assertCommandFailure(editPatientDetailsCommand, model,
+                MESSAGE_NOT_EDITED);
     }
 
     @Test
-    public void execute_someFieldsSpecifiedUnfilteredList_success() {
+    public void execute_someFieldsSpecifiedUnfilteredList_failure() {
         Model model = TestUtil.getTypicalModelManager();
 
         Index indexLastPerson = Index.fromOneBased(model.getFilteredPatientList().size());
@@ -82,23 +77,21 @@ public class EditPatientDetailsCommandTest {
 
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(lastPerson, editedPerson);
 
-        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_PATIENT_IN_QUEUE, editedPerson);
 
-        Model expectedModel = TestUtil.getTypicalModelManager();
-        expectedModel.setPatient(lastPerson, editedPerson);
-
-        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editPatientDetailsCommand, model, expectedMessage);
     }
 
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_failure() {
         Model model = TestUtil.getTypicalModelManager();
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(ALICE, ALICE);
-        assertCommandFailure(editPatientDetailsCommand, model, MESSAGE_NOT_EDITED);
+        assertCommandFailure(editPatientDetailsCommand, model,
+                MESSAGE_NOT_EDITED);
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredList_failure() {
         Model model = TestUtil.getTypicalModelManager();
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
@@ -107,12 +100,9 @@ public class EditPatientDetailsCommandTest {
         EditPatientDetailsCommand editPatientDetailsCommand = new EditPatientDetailsCommand(
             personInFilteredList, editedPerson);
 
-        String expectedMessage = String.format(EditPatientDetailsCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+        String expectedMessage = EditPatientDetailsCommand.MESSAGE_PATIENT_IN_QUEUE;
 
-        Model expectedModel = TestUtil.getTypicalModelManager();
-        expectedModel.setPatient(personInFilteredList, editedPerson);
-
-        assertCommandSuccess(editPatientDetailsCommand, model, expectedMessage, expectedModel);
+        assertCommandFailure(editPatientDetailsCommand, model, expectedMessage);
     }
 
     @Test

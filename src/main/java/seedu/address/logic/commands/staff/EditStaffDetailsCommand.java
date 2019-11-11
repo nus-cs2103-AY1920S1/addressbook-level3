@@ -42,6 +42,7 @@ public class EditStaffDetailsCommand extends ReversibleCommand {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Staff details: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This staff member has already been registered.";
+    public static final String MESSAGE_DOCTOR_ON_DUTY = "Cannot edit while the doctor is on duty";
 
     private final Person personToEdit;
     private final Person editedPerson;
@@ -70,6 +71,10 @@ public class EditStaffDetailsCommand extends ReversibleCommand {
 
         if (model.hasStaff(editedPerson) && !personToEdit.isSameAs(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
+        if (model.isDoctorOnDuty(editedPerson.getReferenceId())) {
+            throw new CommandException(MESSAGE_DOCTOR_ON_DUTY);
         }
 
         model.setStaff(personToEdit, editedPerson);

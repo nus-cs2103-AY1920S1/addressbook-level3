@@ -143,9 +143,7 @@ Hence, the user *should not have administrative privilege to unregister any pati
 
 Updates the particulars of a patients +
 
-NOTE: Must be in the patient listing screen for this command to be accepted. +
-
-IMPORTANT: Editing tags will overwrite all existing tags. +
+NOTE: Editing tags will overwrite all existing tags. Must not edit when patient is in queue or being served. +
 
 Format: `editpatient -entry <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
@@ -180,9 +178,7 @@ Hence, the user *should not have administrative privilege to unregister any staf
 
 If user is in the doctors listing screen, updates any change for doctor’s profiles. +
 
-NOTE: Must be in the staff listing screen for this command to be accepted. +
-
-IMPORTANT: Editing tags will overwrite all existing tags. +
+NOTE: Editing tags will overwrite all existing tags. Must not edit when the doctor is on duty. +
 
 Format: `editdoctor -entry <ENTRY_ID> [-id <STAFF_REFERENCE_ID>] [-name <NAME>] [-phone <PHONE_NUM>]
 [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
