@@ -522,8 +522,8 @@ Format: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
 
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
-* `FOLDER_NAME` cannot be the name of an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
-* `FOLDER_NAME` must be alphanumeric.
+* `FOLDER_NAME` must NOT be an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
+* `FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
 * `PARENT_FOLDER` must be an existing folder.
 * If `PARENT_FOLDER` is not specified, `PARENT_FOLDER` will default to `ROOT`.
 ****
@@ -533,6 +533,57 @@ Examples:
 * `*folder* CS2103 p/NUS` +
 Creates a new folder named `CS2103` under the parent folder `NUS`.
 //end::AddFolderCommand[]
+
+==== Editing a folder: *`folder-edit`*
+
+// Context: When to use this command?
+If your favorite band recently changed its name, you may want to edit your folder for it to reflect its new name. You can do so with this command.
+
+Format: `*folder-edit* FROM_FOLDER​_NAME t/TO_FOLDER_NAME`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit enter.
++
+image::EditFolderCommandUi1.png[]
+// dashboard tab, showing Dear folder with links of photo albums etc.
+* You see folder `Dear` renamed to `Ex`. All your bookmarks previously in the folder `Dear` have also been edited to now be in the folder `Ex`.
++
+image::EditFolderCommandUi2.png[]
+
+// More details about command constraints
+****
+* `FROM_FOLDER_NAME` and `TO_FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
+* `FROM_FOLDER_NAME` must exist be an existing folder. (Note that you cannot edit the `ROOT` folder.)
+* `TO_FOLDER_NAME` must NOT be an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
+****
+
+==== Deleting a folder: *`folder-delete`*
+
+// Context: When to use this command?
+If you have an unused folder you wish to delete, this is the command you should use.
+
+Format: `*folder-delete* FOLDER​_NAME`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You see an unused bookmark `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
++
+image::DeleteFolderCommandUi1.png[]
+// dashboard tab, showing CS2101 folder with no bookmarks/subfolders
+* You no longer see folder `CS2101` appear in the folders section of the Dashboard.
++
+image::DeleteFolderCommandUi2.png[]
+
+// More details about command constraints
+****
+* `FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
+* `FOLDER_NAME` must be an existing folder.
+* `FOLDER_NAME` must not contain other bookmarks/subfolders (or else they would be lost).
+* `FOLDER_NAME` must not be `ROOT`, as it is the ancestor of all folders.
+****
 
 '''
 
@@ -587,7 +638,8 @@ that contain `NUS`, `School` or `Uni` now have the tag `NUS`.
 // show updated dashboard and bookmark list, with the relevant bookmarks having been tagged
 image::ui-screenshots/AutotagCommandUi2.png[]
 
-Parameter constraints:
+[[autotag-parameter-constraints]]
+There are several restrictions on the usage of command parameters:
 ****
 * At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
 * `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
@@ -641,6 +693,50 @@ Creates an autotag named `Quiz` which tags all bookmarks that are either in
 the folder `NUS` or in the folder `Module`, and that do not contain any of the
 keywords `github` or `stackoverflow` in their URLs.
 // end::autotagcommand[]
+
+==== Editing an automatic tag: *`autotag-edit`*
+
+If you want to modify an autotag, you can use the *`autotag-edit`* command to edit the autotag's
+name and/or conditions.
+
+TIP: This is essentially a shortcut for *`autotag-delete`* followed by *`autotag-add`*.
+
+Format: `*autotag-edit* TAG_NAME [t/NEW_TAG_NAME] [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...
+[nn/NOT_NAME_KEYWORD]... [nu/NOT_URL_KEYWORD]... [nf/NOT_FOLDER]...`
+
+For example:
+
+* To modify the autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
++
+image::AutotagEditCommandUi1.png[]
+
+* You can then observe that the autotag `NUS` has been renamed `University`, and its folder conditions now
+include the folder `CS2103T`.
++
+image::AutotagEditCommandUi2.png[]
+
+The parameter constraints are similar to <<autotag-parameter-constraints, those for the `*autotag*` command>>,
+with the following differences:
+****
+* There should only be one `NEW_TAG_NAME`.
+* At least one parameter _in total_ should be specified. In other words, if `t/NEW_TAG_NAME` is present, there is
+no need to specify any conditions.
+****
+
+Other examples:
+
+* `*autotag-edit* Quiz u/luminus.nus.edu.sg u/quiz nu/attempt`
++
+image::AutotagEditCommandExample1.png[]
++
+Modifies the autotag `Quiz` such that it tags bookmarks with URLs that contain either of the keywords
+`luminus.nus.edu.sg` or `quiz`, but do not contain the keyword `attempt`.
+
+* `*autotag-edit* Quiz t/Quizzes`
++
+image::AutotagEditCommandExample2.png[]
++
+Modifies the name of the autotag `Quiz` such that it now tags bookmarks with the tag `Quizzes` instead of `Quiz`.
 
 ==== Deleting an automatic tag: *`autotag-delete`*
 
@@ -1026,23 +1122,6 @@ Lists all the bookmarks based on name/alphabetical order.
 Sort all the bookmarks based on the order they were added.
 // end::sort[]
 
-==== Deleting a folder: *`folder-delete`* `[coming in v2.0]`
-//TODO: What happens to the bookmarks under the folder?
-Deletes the specified folder and its subfolders.
-
-Format: `*folder-delete* FOLDER_NAME`
-
-****
-* `FOLDER_NAME` must be an existing folder.
-* If `FOLDER_NAME` contains other folders, those folders will be deleted as well.
-****
-
-Examples:
-
-* `*folder-delete* CS2103` +
-Deletes the folder named `CS2103` and all of its subfolders.
-
-
 ==== Opening a bookmark from a reminder: *`goto-reminder`* `[coming in v2.0]`
 
 Opens the related bookmark of the specified reminder from the bookmark manager.
@@ -1132,10 +1211,12 @@ General notes are found at the bottom of the rightmost column on the offline cop
 | Delete bookmark: `*delete* INDEX`
 | Favorite bookmark: `*favorite\|fav* INDEX`
 
-.3+|Folders
+.5+|Folders
 | Expand view: `*expand* [LEVEL=1]`
 | Collapse view: `*collapse* [LEVEL=1]`
 | Add folder: `*folder* FOLDER_NAME [p/PARENT_FOLDER=ROOT]`
+| Edit folder: `*folder-edit* FROM_FOLDER_NAME t/TO_FOLDER_NAME`
+| Delete folder: `*folder-delete* FOLDER_NAME`
 
 .2+|Autotags
 | Add autotag: `*autotag* TAG_NAME [n/NAME_KEYWORD]... [u/URL_KEYWORD]... [f/FOLDER]...

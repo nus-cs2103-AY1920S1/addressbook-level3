@@ -69,10 +69,9 @@ public class AutotagController {
      * Removes the given {@code tagger} from this {@code AutotagController}.
      *
      * @param tagger {@link SelectiveBookmarkTagger} to be removed.
-     * @return {@code false} if the tagger is not found.
      */
-    private boolean removeTagger(SelectiveBookmarkTagger tagger) {
-        return taggers.remove(tagger);
+    private void removeTagger(SelectiveBookmarkTagger tagger) {
+        taggers.remove(tagger);
     }
 
     /**
@@ -81,14 +80,20 @@ public class AutotagController {
      *
      * @param taggerName Name of the tag of the {@link SelectiveBookmarkTagger}
      *                   to be removed.
-     * @return {@code false} if the tagger is not found.
+     * @return An {@code Optional} containing the {@link SelectiveBookmarkTagger}
+     *         that was removed if the tagger exists, and an empty {@code Optional}
+     *         otherwise.
      */
-    public boolean removeTagger(String taggerName) {
-        Optional<SelectiveBookmarkTagger> taggerToRemove =
-                taggers.stream().filter(tagger -> taggerName.equals(tagger.getTagToApply().tagName))
-                        .findFirst();
-        // TODO: find a way to use #hasTagger() instead of relying on side effects
-        return taggerToRemove.isPresent() ? removeTagger(taggerToRemove.get()) : false;
+    public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
+        requireNonNull(taggerName);
+        Optional<SelectiveBookmarkTagger> taggerToRemove = taggers.stream()
+                .filter(tagger -> taggerName.equals(tagger.getTagToApply().tagName))
+                .findFirst();
+        if (taggerToRemove.isEmpty()) {
+            return Optional.empty();
+        }
+        removeTagger(taggerToRemove.get());
+        return taggerToRemove;
     }
 
     /**

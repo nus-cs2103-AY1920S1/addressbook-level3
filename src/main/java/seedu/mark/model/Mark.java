@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +26,7 @@ import seedu.mark.model.autotag.SelectiveBookmarkTagger;
 import seedu.mark.model.bookmark.Bookmark;
 import seedu.mark.model.bookmark.Folder;
 import seedu.mark.model.bookmark.UniqueBookmarkList;
+import seedu.mark.model.bookmark.util.BookmarkBuilder;
 import seedu.mark.model.folderstructure.FolderStructure;
 import seedu.mark.model.reminder.Reminder;
 import seedu.mark.model.reminder.ReminderAssociation;
@@ -169,6 +171,38 @@ public class Mark implements ReadOnlyMark {
         this.folderStructure.addFolder(folder, parentFolder);
     }
 
+    /**
+     * Renames a folder with name {@code from} to {@code to}.
+     * {@code from} must exist.
+     * {@code to} must not exist.
+     */
+    public void renameFolder(Folder from, Folder to) {
+        this.folderStructure.renameFolder(from, to);
+        changeFolderOfBookmarks(from, to);
+    }
+
+    /**
+     * Deletes folder {@code folder} from Mark.
+     * @param folder
+     */
+    public void deleteFolder(Folder folder) {
+        this.folderStructure.deleteFolder(folder);
+        changeFolderOfBookmarks(folder, Folder.ROOT_FOLDER);
+    }
+
+    /**
+     * Renames folder of bookmarks from {@code from} to {@code to}.
+     * @param from
+     * @param to
+     */
+    private void changeFolderOfBookmarks(Folder from, Folder to) {
+        for (Bookmark bookmark: bookmarks) {
+            if (bookmark.getFolder().equals(from)) {
+                setBookmark(bookmark, new BookmarkBuilder(bookmark).withFolder(to.folderName).build());
+            }
+        }
+    }
+
     //// reminder operations
 
     /**
@@ -274,9 +308,11 @@ public class Mark implements ReadOnlyMark {
      * Removes the given tagger from Mark.
      *
      * @param taggerName name of the tagger to be removed.
-     * @return false if the tagger is not found.
+     * @return An {@code Optional} containing the {@link SelectiveBookmarkTagger}
+     *         that was removed if the tagger exists, and an empty {@code Optional}
+     *         otherwise.
      */
-    public boolean removeTagger(String taggerName) {
+    public Optional<SelectiveBookmarkTagger> removeTagger(String taggerName) {
         return autotagController.removeTagger(taggerName);
     }
 
