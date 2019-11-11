@@ -1,0 +1,69 @@
+@startuml
+!include ../style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant ":PullTaskCommandParser" as PullTaskCommandParser LOGIC_COLOR
+participant "d:PullTaskCommand" as PullTaskCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("pull-task p/high")
+activate LogicManager
+
+LogicManager -> JarvisParser : parseCommand("pull-task p/high")
+activate JarvisParser
+
+create PullTaskCommandParser
+JarvisParser -> PullTaskCommandParser
+activate PullTaskCommandParser
+
+PullTaskCommandParser --> JarvisParser
+deactivate PullTaskCommandParser
+
+JarvisParser -> PullTaskCommandParser : parse("p/high")
+activate PullTaskCommandParser
+
+create PullTaskCommand
+PullTaskCommandParser -> PullTaskCommand
+activate PullTaskCommand
+
+PullTaskCommand --> PullTaskCommandParser : d : command
+deactivate PullTaskCommand
+
+PullTaskCommandParser --> JarvisParser : d : command
+deactivate PullTaskCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+PullTaskCommandParser -[hidden]-> JarvisParser
+destroy PullTaskCommandParser
+
+JarvisParser --> LogicManager : d : command
+deactivate JarvisParser
+
+LogicManager -> PullTaskCommand : execute()
+activate PullTaskCommand
+
+PullTaskCommand -> Model : updateFilteredTaskList
+activate Model
+
+Model --> PullTaskCommand
+deactivate Model
+
+create CommandResult
+PullTaskCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> PullTaskCommand
+deactivate CommandResult
+
+PullTaskCommand --> LogicManager : result
+deactivate PullTaskCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

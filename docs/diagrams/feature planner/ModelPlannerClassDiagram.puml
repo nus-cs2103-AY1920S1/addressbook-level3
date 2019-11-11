@@ -16,9 +16,11 @@ Package Planner <<Rectangle>> {
     Class Tag
     Class Status
     Class TaskType
+    Class FilteredList
 }
 
-Planner *--> "1" TaskList
+Planner *-down-> "1" TaskList
+Planner *-left-> "4" FilteredList
 TaskList o--> "*" Task
 Event -up-|> Task
 Deadline -up-|> Task
