@@ -21,7 +21,7 @@ Responsibilities: Goto feature(Changing views), Sort Feature, Check Feature, Enh
 
 === Lee Wei Gen
 image::weigenie.png[width="150", align="left"]
-{empty}[http://github.com/weigenie[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/weigenie[github]] [<<weigenie#, portfolio>>]
 
 Role: Team Lead + Code Quality + In Charge of Storage + Travis Expert +
 Responsibilities: Claims Feature
