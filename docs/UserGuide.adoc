@@ -70,18 +70,34 @@ NOTE: Please ensure you have Java 11 or above installed before proceeding!
 2. Place the file in the folder you want to set as the home directory. All data and
 miscellaneous files associated with StudyBuddyPro will be placed in this folder.
 
-3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds. If not, please
+3. Double-click `StudyBuddyPro.jar` to launch the application. The GUI should appear in a few seconds, and
+should look like the screen shown below. If not,
+please
 refer to the first question in the
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#8-FAQ[FAQ]
 for help!
 
 +
-image::Ui.png[width="700"]
+.GUI of StudyBuddyPro application displayed on startup
+image::Ui.PNG[width="700"]
 +
 
-4. Type a command in the command box execute it by pressing kbd:[Enter]. Refer to the
+4. Type a command in the command box execute it by pressing kbd:[Enter]. Typed commands
+will appear in the CLI highlighted in the purple box in the diagram above. Refer to the
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
 section for a quick overview of all the available commands!
+
++
+[TIP]
+The blue box in the diagram above with the "Flashcards", "Notes" and "Cheatsheets" logo
+can be used to quickly check which mode you are in! Switching into a mode will highlight
+the relevant mode's logo in an orange circle, as shown in this
+https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-feature[figure].
++
+
+5. Output from the command will be shown in the boxes highlighted in orange and green in
+the diagram above. The green box is used to display a flashcard, note or cheatsheet
+while the orange box outputs feedback from commands.
 
 == Command Format / Rules
 
@@ -356,6 +372,14 @@ Flashcards feature a try! This feature can help you create your very own flashca
 help you consistently revise. With our built-in reminder features and timetrial modes to
 test yourself, use this feature and be on track to better revising habits today!
 
+[TIP]
+====
+Good news - StudyBuddyPro comes with some preloaded flashcards, specially catered for you as a
+computing student! Be sure to take a look! Psst - here's a hint for our more tech-savvy
+users: You can delete your _flashcards.json_ file in the StudyBuddyPro data folder to restore
+these default flashcards at any time. Of course, your current flashcards will be deleted as well!
+====
+
 [IMPORTANT]
 ====
 All the operations in this section assume that the user is in the _flashcard_ mode. To be sure
@@ -365,7 +389,7 @@ screen should now look like the one found in the screenshot below.
 
 image::FlashcardSuccess.PNG[width="700"]
 
-=== Creating a flashcard: `add`
+=== How to create a flashcard: `add`
 
 Adds a flashcard from user input question <QUESTION> and answer <ANSWER>.
 
@@ -419,17 +443,40 @@ Flashcard answer loaded
 
 === Editing a flashcard: `edit` (Coming in v2.0)
 
-Edits flashcard <FLASHCARD_ID> by changing any field of the flashcard.
+Edits a flashcard's question, answer, title, or tags. The flashcard will be referred to by their original title
+`ORIGINAL_TITLE`.
 
-    Format: edit id/FLASHCARD_ID [m/MODULE] [q/NEW_QUESTION] [f/FILE_NAME] [a/ANSWER] [t/TITLE] [h/HINT] [tag/TAG]...
+    Format: edit ORIGINAL_TITLE [q/NEW_QUESTION] [a/ANSWER] [t/TITLE] [tag/TAG]...
 
 * At least one of the optional fields must be provided.
 
-=== Listing all flashcards: `list`
+Example usage:
+
+    edit IntelliJ Question 1 q/What is the meaning of SLAP? a/Single Layer of Abstraction Principle t/SE Question 1
+
+Expected output:
+```
+Edited flashcard:
+    Title: SE Question 1
+    Question: What is the meaning of SLAP?
+    Tags: [cs2100]
+```
+
+* Notice how the fields that are not edited retain their original information. For example,
+the _tag_ field was not changed and so the original _cs2100_ tag was retained.
+
+* Multiple fields can be edited at the same time. In the example, the _question_, _answer_
+and _title_ fields were all edited at once.
+
+=== How to view a list of all available flashcards: `list`
 
 Lists all flashcards.
 
    Format: list
+
+Example usage:
+
+    list
 
 Expected output:
 ```
@@ -438,7 +485,7 @@ Listed all flashcards:
     Tags: [CS2100]
 ```
 
-=== Deleting a flashcard: `delete`
+=== How to delete a flashcard: `delete`
 
 Deletes the flashcard by <FLASHCARD_INDEX>.
 
@@ -522,10 +569,13 @@ Expeted output:
 
 === Find out what flashcards to revise today, or ones you may have missed: `remind`
 
-Reminds the user regarding the flashcards due for revision today and the flashcards
-overdue for revision. Automatically suggests a new date the flashcard should next be
-viewed at for optimal learning. These increments scale with time i.e. suggested viewing
-dates are closer at the start and spread further after more viewings.
+This feature helps the user check which flashcards are due for revision today and which flashcards
+overdue for revision. Don't worry, StudyBuddyPro automatically sets the date the flashcard should next be
+viewed at for optimal learning. These increments also scale with time i.e. newer flashcards will
+have to be viewed more often.
+
+[TIP]
+Be sure to check in everyday to see which flashcards you have due!
 
 [NOTE]
 StudyBuddyPro only marks a flashcard as revised and removes it from the due and
@@ -1140,7 +1190,13 @@ should I do? +
 do this while Mac users can use the Terminal application.
 
 *Q*: When I minimise the application, the entire application has shrunk and now it is gone! Help! +
-*A*: Currently our application do not allow diagonal or vertical resizing of the it. It is best not to resize the application at all and leave it as the maximized mode. For the this problem, we suggest that you try to maximise the application from the task manager or try to split the screen with another application so that StudyBuddyPro will resize back to normal. If the mentioned solutions fail, please do download our StudyBuddyPro again!
+*A*: Currently our application do not allow diagonal or vertical resizing of the it. It is best not to resize the application at all and leave it as the maximized mode. For the this problem, we suggest that you try to maximise the application from the task manager or try to split the screen with another application so that StudyBuddyPro will resize back to normal. If the mentioned solutions fail, please do download StudyBuddyPro again!
+
+*Q*: The preloaded deck of flashcards is overdue for revision and StudyBuddyPro says the last viewed date for
+those preloaded flashcards was when I first opened StudyBuddyPro, even though I never even
+viewed those flashcards! How is this possible? +
+*A*: StudyBuddyPro assumes all the default flashcards will be viewed when the application
+was first opened. Aren't you curious to see what we collated for you?
 
 == Command Summary
 
