@@ -5,5 +5,7 @@ package seedu.address.logic.parser.inventory;
  */
 public enum InventoryViewCommand {
     ADD,
-    DELETE
+    DELETE,
+    CHECK,
+    UNCHECK
 }

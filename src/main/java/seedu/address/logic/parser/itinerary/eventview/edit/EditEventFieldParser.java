@@ -1,15 +1,20 @@
 package seedu.address.logic.parser.itinerary.eventview.edit;
 
 import static java.util.Objects.requireNonNull;
+
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BOOKING;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_BUDGET;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_END;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_INVENTORY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Optional;
 
@@ -22,6 +27,9 @@ import seedu.address.logic.parser.ParserDateUtil;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.itinerary.ItineraryParserUtil;
+import seedu.address.model.inventory.Inventory;
+import seedu.address.model.inventory.InventoryList;
+import seedu.address.model.inventory.exceptions.DuplicateInventoryException;
 
 /**
  * Parser for {@link EditEventFieldCommand}.
@@ -44,8 +52,10 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
                         PREFIX_LOCATION,
                         PREFIX_INDEX,
                         PREFIX_BOOKING,
-                        PREFIX_INVENTORY,
+                        PREFIX_ADD_INVENTORY,
+                        PREFIX_DELETE_INVENTORY,
                         PREFIX_DESCRIPTION);
+
 
         Optional<Index> index;
 
@@ -91,12 +101,38 @@ public class EditEventFieldParser implements Parser<EditEventFieldCommand> {
         /*
         if(argMultimap.getValue(PREFIX_BOOKING).isPresent()) {
             editEventDescriptor.setBooking(ItineraryParserUtil.parseBooking());
+        }*/
+
+        if (argMultimap.getValue(PREFIX_ADD_INVENTORY).isPresent()) {
+
+            InventoryList inventoryList = new InventoryList();
+
+            for (String name : argMultimap.getAllValues(PREFIX_ADD_INVENTORY)) {
+                Inventory inventory = ItineraryParserUtil.parseAddInventory(name);
+                try {
+                    inventoryList.add(inventory);
+                } catch (DuplicateInventoryException e) {
+                    continue;
+                }
+            }
+
+            editEventDescriptor.setInventoryList(inventoryList);
+
         }
 
-        if (argMultimap.getValue(PREFIX_INVENTORY).isPresent()) {
-            editEventDescriptor.setInventory(ItineraryParserUtil.parseInventory());
+        if (argMultimap.getValue(PREFIX_DELETE_INVENTORY).isPresent()) {
+
+            List<Index> inventoriesToDelete = new ArrayList<>();
+
+            for (String s : argMultimap.getAllValues(PREFIX_DELETE_INVENTORY)) {
+                Index i = ParserUtil.parseIndex(s);
+                inventoriesToDelete.add(i);
+            }
+
+            editEventDescriptor.setInventoriesToDelete(inventoriesToDelete);
+
         }
-        */
+
         if (!editEventDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditEventFieldCommand.MESSAGE_NOT_EDITED);
         }

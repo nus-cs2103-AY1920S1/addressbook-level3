@@ -12,6 +12,6 @@ public class AddInventoryParser implements Parser<AddInventoryCommand> {
 
     @Override
     public AddInventoryCommand parse(String userInput) throws ParseException {
-        return new AddInventoryCommand(userInput);
+        return new AddInventoryCommand(InventoryParserUtil.parseName(userInput));
     }
 }
