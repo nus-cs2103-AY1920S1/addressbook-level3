@@ -96,7 +96,7 @@ public class EventTest {
         // different type -> returns false
         assertFalse(EVENT1.equals(5));
 
-        // different person -> returns false
+        // different event -> returns false
         assertFalse(EVENT1.equals(EVENT2));
 
         // different event name -> returns false
