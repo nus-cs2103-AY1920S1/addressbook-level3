@@ -324,7 +324,7 @@ The above implementation empowers the application with the following features :
    The below activity diagram demonstrates four possible states and a typical user flow.
 
 .Activity diagram of a typical application flow
-image::StateActivityDiagram.PNG[width="400"]
+image::StateActivityDiagram.PNG[width="790"]
 
 *   Definitions of Switch and Mode in table above
 **   SwitchCommands = (commands that change mode)
