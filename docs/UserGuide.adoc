@@ -356,12 +356,27 @@ This command undoes the effects of a command that you have previously executed.
 Format: `-undo`
 
 Say you have accidentally executed a command and now want to reverse it. Just type `-undo` into the
-command line and press Enter like any other command. The result pane will then show the following:
+command line and press *Enter* like any other command. The result box will then show the following:
 
-Successfully undid: (your previous command here)
+_Successfully undid: (your previous command here)_
 
 The command which you last performed has now been reversed. Subsequent invocations of `-undo` will
 reverse commands which you have performed even earlier.
+
+The following is a step-by-step illustration of this process. Say you have just executed `delete 1`
+to delete Alex Yeoh from the customer list, and now realise that it was a mistake! In the image
+below, the result box confirms that Alex has been deleted, and his details are no longer in the
+customer list.
+
+image::userguide/UndoExample1.png[]
+
+To undo this deletion, just type `-undo` into the program as shown and press *Enter*.
+
+image::userguide/UndoExample2.png[]
+
+Success! The result box displays the undone command, and Alex is back in the customer list.
+
+image::userguide/UndoExample3.png[]
 
 {nbsp} +
 
@@ -372,16 +387,88 @@ commands which you have undone earlier.
 
 Format: `-redo`
 
-After performing `-redo`, the result pane will show:
+After performing `-redo`, the result box will show:
 
-Successfully redid: (your previous command here)
+_Successfully redid: (your previous command here)_
+
+The operation of this command is similar to the `-undo` command which is illustrated above.
+
+{nbsp} +
+
+==== Listing of undo/redo actions: `-undo_list`
+This command lists the actions that can be undone and redone so that multiple actions can be redone
+at once with the `-undo_till` command.
+
+Format: `-undo_list`
+
+Upon executing the command, the result box will show something similar to the following:
+
+_Here are the actions that can be undone or redone, use -undo_till INDEX to undo or redo till that
+action._
+
+_1: (Undo) (command you previously executed here)_
+
+_3: (Redo) (command you previously undid here)_
+
+(Undo) indicates that the command was performed, and its effects can be undone. (Redo) indicates
+that the command has previously been undone, and can now be redone. After using this command, take
+note of the index of the command that you want to undo (or redo) until, and use the command
+`-undo_till INDEX` to perform the undo or redo.
+
+[NOTE]
+The undo list can be seen as a timeline of commands; it is not possible to undo only certain
+commands and not the other intervening commands.
+
+Say you have undone two commands and decided that you actually want both of the commands redone.
+First type `-undo_list` in the area indicated below by the red rectangle and press *Enter*.
+
+image::userguide/UndoList1.png[]
+
+The list of commands that can be undone or redone is then listed. In the image below, there
+are two commands that can be redone. To redo _till_ the last command, take note of the index of the
+last command, which is 3.
+
+image::userguide/UndoList2.png[]
+
+Now execute `-undo_till 3`. This command will be explained in more detail in the following section.
+
+{nbsp} +
+
+==== Undoing or redoing commands till a specific command: `-undo_till`
+This command undoes or redoes all commands from the current state until after a specific command.
+It takes in one parameter, INDEX, which is the index of the specific command. This index is obtained
+from the command described in the previous section, `-undo_list`.
+
+Format: `-undo_till INDEX`
+
+Example: `-undo_till 3`
+
+[NOTE]
+====
+.Requirement
+The index provided must be a valid index obtained from `-undo_list`.
+====
+
+From the previous section, the index of the command to redo till is 3. Type `-undo_till 3` in the
+app and press *Enter*. From the result box in the image below, it can be deduced that the first
+order was assigned a deliveryman and marked as completed, but these two commands were then undone.
+The image also shows that the deliveryman is now unassigned and the order is now shown as not
+delivered.
+
+image::userguide/UndoTill1.png[]
+
+Upon successful execution, the result box shows whether commands were undone or redone, and the
+specific command that has been undone or redone until. Also, the first order now has the deliveryman
+reassigned and delivery marked as completed!
+
+image::userguide/UndoTill2.png[]
 
 {nbsp} +
 
 // end::undoRedo[]
 // tag::universalCommand2[]
 
-==== Exiting program: `-exit`
+==== Exiting the program: `-exit`
 This command exits the program.
 
 Format: `-exit`
@@ -486,7 +573,7 @@ image::userguide\CustomerHistory.png[width="790"]
 [start=3]
 . John Doe's order history will be listed on the right panel.
 
-image::userguide\CustomerHistoryResult.png[width="790"]
+image::userguide/CustomerHistoryResult.png[width="790"]
 
 [NOTE]
 ====
@@ -649,6 +736,7 @@ image::userguide\AutoTag.png[width="790"]
 
 // end::restaurantCommand[]
 
+// tag::deliverymenCommand[]
 {nbsp} +
 
 === Deliverymen commands
@@ -806,6 +894,7 @@ the red border is a summary of the analysis.
 If you just want a brief update on the current state of your deliverymen, the textual analysis displayed inside the red
 border summarizes it all for you!
 
+// end::deliverymenCommand[]
 {nbsp} +
 
 {nbsp} +
@@ -827,6 +916,8 @@ border summarizes it all for you!
 - Switch to deliverymen context: `-deliverymen`
 - Undo command: `-undo`
 - Redo command: `-redo`
+- List undo/redo: `-undo_list`
+- Undo/redo till: `-undo_till INDEX`
 - Exit application: `-exit`
 
 * Customer commands
