@@ -1225,10 +1225,11 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: Similar to previous.
 
 === Undoing/redoing a command
+
 * Undoing an `AddCommand`
-.. Prerequisites: A body was added to Mortago in the previous executed command.
+.. Prerequisites: An entity was added to Mortago in the previous executed command.
 .. Test case: `undo` +
-    Expected: The added body is removed from Mortago.
+    Expected: The added entity is removed from Mortago.
 * Undoing an `UpdateCommand`
 .. Prerequisites: A body or worker in Mortago was updated in the previous executed command.
 .. Test case: `undo` +
