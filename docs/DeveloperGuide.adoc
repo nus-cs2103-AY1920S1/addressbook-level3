@@ -385,7 +385,7 @@ Use case ends.
 
 Use case resumes from step 4.
 
-=== Undo/Redo
+=== Undo/Redo Commands
 
 Undo and Redo are commands meant to reverse any alterations to the `ArrayList` of Decks in State. As such, any mistake
 can be easily recovered from. +
@@ -413,8 +413,8 @@ Use case ends.
 *Extensions:
 
 4a) The user decides that they prefer Deck2 to be deleted.
-    4ai) The user types 'redo' into the CLI.
-    4aii) Deck2 is deleted again.
+    .. i) The user types 'redo' into the CLI.
+    .. i) Deck2 is deleted again.
 
 Use case ends.
 
