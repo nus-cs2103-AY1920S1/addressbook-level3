@@ -394,7 +394,7 @@ Every `[green]#Event#` in Athletick is stored in this `[green]#UniqueEventList#`
 The class diagram below shows how the different components mentioned interact with one another.
 
 .Class diagram for showing how Performance is implemented.
-image::performance_classdiagram.png[width=150]
+image::performance_classdiagram.png[width=250]
 
 As the name suggests, all `[green]#Event#` names are unique in `[green]#UniqueEventList#`.
 This is ensured by `[green]#UniqueEventList#contains()#` that checks whether there is an `[green]#Event#`
@@ -406,7 +406,7 @@ The _key_ of the HashMap is the `[green]#Person#` that the performance records w
 of the HashMap is a list of `[green]#Record#` s under the `[green]#Person#`.
 
 .Class diagram showing how Records are stored in Event.
-image::event_classdiagram.png[width=200]
+image::event_classdiagram.png[width=250]
 
 This structure allows each `[green]#Person#` to have multiple `[green]#Record#` s stored in Athletick so
 their progress over time can be analysed using the `[green]#AthletickDate#` and `[green]#Timing#`
