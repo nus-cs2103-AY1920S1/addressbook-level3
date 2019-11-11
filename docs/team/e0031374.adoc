@@ -27,6 +27,11 @@ image::frontpage.png[]
 
 My role for this project is to implement the `Group`  feature to allow for organizing `Contact`s together into `Groups` which can be used to manage notes as a whole. The following sections together with documentation added to the user and developer guides depict this enhancement in greater detail.
 
+The following are the conventions used in this document:
+
+** `GroupCommand` - Texts with grey highlights indicates a class, object or a command that is used in Tagline.
+** https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/main/java/tagline/logic/commands/group/GroupCommand.java[Functional code] - Texts in blue are linked to reference webpages with further examples
+
 == Summary of contributions
 In this project, I my main feature was to develop a way to organize contact together into
 Groups. This allows users to organize contacts in a more natural way based on social circles
@@ -38,7 +43,7 @@ It would also lay the groundwork for other features such as group tagging of not
 ** Justification: social circles exist in more than just a one to one relationship and can belong in a group with a shared feature be it an orientation group of friends who all know each other or a project group with common purpose. Having the capability to quickly reference other contacts in the same group would make the user experience much better compared to scrolling through an alphabetically ordered list in an addressbook.
 ** Highlights: this enhancements supplements the existing structure of the addressbook.
 
-* *Code contributed*: The following links highlight samples of my code [https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/main/java/tagline/logic/parser/group/GroupCommandParser.java[Functional code]] [https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/test/java/tagline/model/group/GroupManagerTest.java[Test code]] _
+* *Code contributed*: The following links highlight samples of my code [https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/main/java/tagline/logic/parser/group/GroupCommandParser.java[Functional code]] [https://github.com/AY1920S1-CS2103T-F12-3/main/blob/master/src/test/java/tagline/model/group/GroupManagerTest.java[Test code]]
 
 * *Other contributions*:
 

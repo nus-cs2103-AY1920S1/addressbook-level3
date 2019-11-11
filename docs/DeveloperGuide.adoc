@@ -1040,3 +1040,77 @@ The autocomplete menu will only pop up *after* the user types in the command box
    *Continuation*: Press the escape key. +
    *Expected*: A special message will be shown indicating that the command has been aborted.
 
+=== Creating a group
+
+. Creating a group with no members with all groups listed
+.. *Prerequisites*: List all groups using the `group list` command. Multiple groups in the list. Must have Contact of ID 1 in Addressbook (the display showing all available contacts, use `contact list`), cannot have Contact of ID 0 in Addressbook. Be sure to delete group _ao3_ before the start of every test case with `group delete ao3`.
+.. *Test case*: `group create ao3` +
+   *Expected*: Group _ao3_ is created with no members. Status message indicates "New group successfully added".
+.. *Test case*: `group create ao3 --i 1` +
+   *Expected*: Group _ao3_ is created with with ContactID of 1 listed in the group. Status message indicates "New group successfully added.".
+.. *Test case*: `group create ao3 --i 0 --i 1` +
+   *Expected*: Group _ao3_ is created with with ContactID of 1 listed in the group. Status message indicates "New group successfully added. The following members were not found [00000]".
+.. *Test case*: `group create ao3 --i holland` +
+   *Expected*: Group _ao3_ is not created. Status message indicates "MemberIds should be numeric and only up to 5 characters long".
+.. *Test case*: `group create archive of our own` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+=== Adding members to a group
+
+. Adding members to a group with the group currently being displayed
+.. *Prerequisites*: Display contacts in group _BTS_ with `group find BTS`, if not found create with the group. Must have Contact of ID 1 in Addressbook (the display showing all available contacts, use `contact list`), cannot have Contact of ID 0 in Addressbook. Group _BTS_ should not contain members with Contact of ID 1 or 0.
+.. *Test case*: `group add BTS --i 1` +
+   *Expected*: Group _BTS_ is displayed with members including Contact with ContactID of 1. Status message indicates "Attempting to add contact(s) to group".
+.. *Test case*: `group add BTS --i 1` +
+   *Note*: The purpose of this test is cummulative with the previous to add a contact to a group that already exists in the group +
+   *Expected*: Group _BTS_ is displayed with members including Contact with ContactID of 1. Status message indicates "Attempting to add contact(s) to group".
+.. *Test case*: `group add BTS --i 0` +
+   *Expected*: Group _BTS_ is unchanged. Status message indicates "Attempting to add contact(s) to group. The following members were not found [00000]".
+.. *Test case*: `group add BTS --i holland` +
+   *Expected*: Group _BTS_ is unchanged. Status message indicates "MemberIds should be numeric and only up to 5 characters long".
+.. *Test case*: `group add archive of our own --i 1` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+
+=== Removing members from a group
+
+. Removing members from a group with the group currently being displayed
+.. *Prerequisites*: Display contacts in group _BTS_ with `group find BTS`, if not found create with the group. Must have Contact of ID 1 in the group (if not there add it in using `group add BTS --i 1`), cannot have Contact of ID 0 in the group.
+.. *Test case*: `group remove BTS --i 1` +
+   *Expected: Group _BTS_ is displayed with members excluding Contact with ContactID of 1. Status message indicates "Attempting to remove contact(s) from group.".
+.. *Test case*: `group remove BTS --i 0` +
+   *Expected: Group _BTS_ is unchanged. Status message indicates "Attempting to remove contact(s) from group. The following members were not found [00000]".
+.. *Test case*: `group remove BTS --i holland` +
+   *Expected*: Group _BTS_ is unchanged. Status message indicates "MemberIds should be numeric and only up to 5 characters long".
+.. *Test case*: `group remove bangtan sonyeondan --i 1` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+
+=== List all available groups
+
+. List all groups.
+.. *Prerequisites*: Must contain at least one Group
+.. *Test case*: `group list` +
+   *Expected*: All groups are listed. Status message indicates "Success! Listing groups found."
+
+
+=== Find a specific group
+
+. Display all members in a group with group currently not being dislayed.
+.. *Prerequisites*: Group _BTS_ must exist in the list of group, check with `group list`, if not found create with the group. Group _fanficdotnet_ does not exist in list of groups. Ensure that group is currently not being displayed using `contact list` before every test case.
+.. *Test case*: `group find BTS` +
+   *Expected: Group _BTS_ is displayed with members. Status message indicates "Success! Di*splaying the group".
+.. *Test case*: `group find fanficdotnet` +
+   Expected: UI is unchanged. Status message indicates "The group name provided could not be found.".
+.. *Test case*: `group find archive of our own` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
+=== Deleting a group
+
+. Deleting a group while viewing members in the group
+.. *Prerequisites*: View group _ao3_ (which must already exist otherwise create it) with `group find ao3`, group _ao3_ must have Contact of ContactID 1 in it and exist in Addressbook (check with `contact list`).
+.. *Test case*: `group delete ao3` +
+   *Expected*: Group _ao3_ is deleted and all groups remaining groups (if any) are being displayed, contact of contactID 1 still exists in Addressbook. Status message indicates "Success! now showing all groups.".
+.. *Test case*: `group delete archive of our own` +
+   *Expected*: UI is unchanged. Status message indicates "GroupNames should not contain whitespace, and it should not be blank. Alphanumeric, dash, and underscores are acceptable".
+
