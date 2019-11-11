@@ -513,7 +513,9 @@ Format: `find-o KEYWORD [KEYWORD]...`
 
 
 ==== Complete an order : `complete`
-Completes the order, order status changed to `COMPLETED`. Phone associated with order will also be deleted. +
+Completes the order, order status changed to `COMPLETED`. +
+Only `SCHEDULED` orders can be completed. +
+Phone associated with order will also be deleted. +
 Format: `complete INDEX`
 
 ==== Cancel an order : `cancel`
