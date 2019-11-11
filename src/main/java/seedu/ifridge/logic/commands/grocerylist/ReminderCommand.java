@@ -10,7 +10,7 @@ import seedu.ifridge.model.Model;
 import seedu.ifridge.model.food.NameContainsCloseExpiryDatePredicate;
 
 /**
- * Finds and lists all food in iFridge whose expiry dates is within n days.
+ * Finds and lists all grocery item in grocery list whose expiry dates is within n days.
  */
 public class ReminderCommand extends Command {
     public static final String COMMAND_WORD = "rem";

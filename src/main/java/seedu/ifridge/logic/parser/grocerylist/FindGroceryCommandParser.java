@@ -11,13 +11,13 @@ import seedu.ifridge.model.food.NameContainsKeywordsPredicate;
 import seedu.ifridge.model.food.TagContainsKeywordsPredicate;
 
 /**
- * Parses input arguments and creates a new FindCommand object
+ * Parses input arguments and creates a new FindGroceryCommand object
  */
 public class FindGroceryCommandParser implements Parser<FindGroceryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FindGroceryCommand
+     * and returns a FindGroceryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindGroceryCommand parse(String args) throws ParseException {

@@ -12,12 +12,12 @@ import seedu.ifridge.logic.parser.Prefix;
 import seedu.ifridge.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new ListDefaultCommand object
+ * Parses input arguments and creates a new SortGroceryCommand object
  */
 public class SortGroceryCommandParser {
     /**
-     * Parses the given {@code String} of arguments in the context of the ListDefaultCommand
-     * and returns a ListDefaultCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SortGroceryCommand
+     * and returns a SortGroceryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SortGroceryCommand parse(String args) throws ParseException {

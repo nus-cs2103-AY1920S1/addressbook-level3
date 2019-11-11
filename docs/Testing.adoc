@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103-F10-2/main/tree/master
 
 == Running Tests
 
@@ -35,11 +35,11 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 We have three types of tests:
 
 .  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
+e.g. `seedu.ifridge.commons.StringUtilTest`
 .  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+e.g. `seedu.ifridge.storage.StorageManagerTest`
 .  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.ifridge.logic.LogicManagerTest`
 
 
 == Troubleshooting Testing

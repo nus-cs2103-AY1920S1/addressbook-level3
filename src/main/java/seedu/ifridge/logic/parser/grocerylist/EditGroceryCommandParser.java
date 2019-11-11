@@ -24,13 +24,13 @@ import seedu.ifridge.logic.parser.exceptions.ParseException;
 import seedu.ifridge.model.tag.Tag;
 
 /**
- * Parses input arguments and creates a new EditCommand object
+ * Parses input arguments and creates a new EditGroceryCommand object
  */
 public class EditGroceryCommandParser implements Parser<EditGroceryCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the EditGroceryCommand
+     * and returns an EditGroceryCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditGroceryCommand parse(String args) throws ParseException {
