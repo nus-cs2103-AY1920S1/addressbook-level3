@@ -266,6 +266,7 @@ In other words, command history is persistent across usage sessions of MAMS.
 
 //end::history[]
 
+//tag::find[]
 === Find keywords: `find`
 
 Displays item(s) that contain(s) any of the keyword(s) in the specified list(s).
@@ -281,8 +282,8 @@ Tags can be in any sequence. User may enter multiple keywords after a tag.
 * `find` supports searching in multiple lists for multiple keywords. All items contains the keyword as a word or a part of word (See examples for more details).
 * Searching is case-insensitive.
 * In Appeal list, items that contains any of the keywords in Appeal Type, Appeal ID, Status(resolved/unresolved),
-Module Requested or Module to Drop will be displayed.
-* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description wil be displayed.
+ Requested Module or Module to Drop will be displayed.
+* In Module list, items that contains any of the keywords in Module Code, Module Name, or Module Description (is be shown in expanded view) wil be displayed.
 * In Student list, items that contains any of the keywords in Student Name or Matric ID will be displayed.
 ====
 
@@ -318,6 +319,9 @@ All items containing "cs10" in Module list are displayed. (i.e. CS1010, CS1020, 
 CS2030 is also displayed since it contains "cs10" in its module description.
 
 image::FindDemoModuleSearch.png[width="790"]
+// end::find[]
+
+//tag::clash[]
 
 === Show clashes: `clash`
 
@@ -331,7 +335,7 @@ Checks if there is clash between the module which a student is requesting to add
 Only appeals requesting to add or drop module will need for clash checks. If the target appeal is not of any of the two
 types, a reminder message will be shown.
 
-Format: `clash [a/INDEX]`
+Format: `clash a/INDEX`
 
 Examples:
 
@@ -353,11 +357,11 @@ Checks if there are clashes in a student’s (pre-allocated) timetable. This com
 there is really a timetable clash in the student's pre-allocated timetable if the student submits an appeal to drop a
 pre-allocated module due to timetable clash.
 
-Format: `clash [s/INDEX]`
+Format: `clash s/INDEX`
 
 Examples:
 
-* `clash s/1`
+* `clash s/2`
 
 Sample output:
 
@@ -366,7 +370,7 @@ image::StudentClashDetected.png[width="790"]
 ==== Show clashes between 2 modules
 This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user.
 
-Format: `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [m/INDEX]`
+Format: `clash m/MODULE_CODE m/MODULE_CODE` or `clash m/INDEX m/INDEX`
 
 Examples:
 
@@ -376,27 +380,30 @@ Sample output:
 
 image::NoClashDetectedResponse.png[width="790"]
 
-* `clash m/1 m/2`
+* `clash m/1 m/3`
 
 Sample output:
 
 image::ModuleClashDetected.png[width="790"]
 
+// end::clash[]
 
 === Add or remove modules `addmod` & `removemod`
 
 ==== Add a module to a student
-This command adds a module to specific student. Either Index or matric id
-can be used. If both are given, index takes priority.
+This command adds a module to specific student.
+For student identifier, it can either be the matric id or index in the student list.
+For module identifier, it can either be the module code or index in the module list.
 
 Format: `addmod s/STUDENT_ID m/MODULE_CODE` or
-`addmod i/INDEX m/MODULE_CODE`
+
+`addmod s/STUDENT_INDEX m/MODULE_INDEX`
 
 Examples:
 
 Sample input 1:
 
-* `addmod s/A0180000 m/CS1010`
+* `addmod s/1 m/7`
 
 image::AddModCommandDemoBefore1.png[width="790"]
 
@@ -408,28 +415,31 @@ image::AddModCommandDemoAfter1.png[width="790"]
 
 Sample input 2:
 
-* `addmod i/1 m/CS1010`
+* `addmod s/1 m/1`
 
 image::AddModCommandDemoBefore2.png[width="790"]
 
 Sample output:
 
-* `Student is already registered for this module.`
+* `Unable to add module to student as the student already has already completed the module `
 
 image::AddModCommandDemoAfter2.png[width="790"]
 
 ==== Removing a module from student's timetable
-This command removes a existing module from a student. Either Index or matric id
-can be used. If both are given, index takes priority.
+This command removes a existing module from a student.
+For student identifier, it can either be the matric id or index in the student list.
+For module identifier, it can either be the module code or index in the module list.
 
-Format: `removemod s/STUDENT_ID m/MODULE_CODE` or
-`removemod i/INDEX m/MODULE_CODE`
+
+Format: `removemod s/STUDENT_ID m/MODULE_CODE`
+
+`removemod s/STUDENT_INDEX m/MODULE_INDEX`
 
 Examples:
 
 Sample input 1:
 
-* `removemod s/A0180000 m/CS1010`
+* `removemod s/1 m/CS2101`
 
 image::RemoveModCommandDemoBefore1.png[width="790"]
 
@@ -441,7 +451,7 @@ image::RemoveModCommandDemoAfter1.png[width="790"]
 
 Sample input 2:
 
-* `removemod i/1 m/CS1010`
+* `removemod s/A0180001 m/CS2105`
 
 image::RemoveModCommandDemoBefore2.png[width="790"]
 
@@ -451,6 +461,7 @@ Sample output:
 
 image::RemoveModCommandDemoAfter2.png[width="790"]
 
+//tag::setcredits[]
 === Update maximum workload for a student: `setcredits`
 Sets an existing student’s maximum modular credit for this semester to a new value.
 
@@ -464,6 +475,8 @@ Sample output:
 
 `Updated  maximum workload of student A0111111B to 28 MC.`
 
+//end::setcredits[]
+//tag::undoredo[]
 === Undo and Redo: `undo/redo`
 This command allows the administrator to undo last command made.
 
@@ -475,6 +488,7 @@ Sample Output:
 
 `Redo Successful`
 
+//end::undoredo[]
 === Approve an appeal: `approve`
 Marks an existing appeal as approved, with an optional message that can be supplied in the remarks section of the appeal results.
 
@@ -542,6 +556,7 @@ Sample Output:
 
 image::aftermassreject.png[width="790"]
 
+//tag::backuprestore[]
 === Saving the data
 Saves a snapshot of the current state under the data folder with the name "mamshistory_[TAG]". If no tag is given, a timestamp is used instead.
 
@@ -559,6 +574,7 @@ Format `restore [t/TAG]`
 Example: `restore t/Backup_1`
 
 Sample Output: `Backup "data/mamshistory_Backup_1" restored!`
+//end::backuprestore[]
 
 === Displaying help: `help`
 Displays a window containing a URL to this UserGuide.
@@ -599,23 +615,23 @@ Sample Output: All windows related to MAMS closed.
 - e.g. `find a/cs1010 m/data algorithm`
 
 * **clash**:
-** `clash [m/MODULE_CODE] [m/MODULE_CODE]` or `clash [m/INDEX] [M/INDEX]`
+** `clash m/MODULE_CODE m/MODULE_CODE` or `clash m/INDEX m/INDEX`
 - e.g. `clash m/cs1010 m/cs1020` shows clash details between CS1010 and CS1020;
 Or `clash m/2 m/4` to shows clash details between the modules at indices 2 and 4 respectively.
 
-** `clash [s/INDEX]`
+** `clash s/INDEX`
 - e.g. `clash s/2` to shows clash details in a student’s (prea-llocated) timetable.
 
-** `clash [a/INDEX]`
+** `clash a/INDEX`
 - e.g. `clash a/INDEX` to show if the module a student is requesting for clashes with his/her current existing modules.
 
-* **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod i/INDEX m/MODULE_CODE`
-- e.g `addmod s/A0180000 m/CS2103` `addmod i/10 m/CS2103`
-To add module CS2103 to student A0180000
+* **addmod**: `addmod s/STUDENT_ID m/MODULE_CODE` or `addmod s/STUDENT_INDEX m/MODULE_INDEX`
+- e.g `addmod s/A0180009 m/CS1020`
+To add module CS1020 to student A0180009
 
-* **removemod**: `removemod s/STUDENT_ID m/MODULE_CODE` or `removemod i/INDEX m/MODULE_CODE`
-- e.g `removemod s/A0180000 m/CS1020` `removemod i/4 m/CS1020`
-To remove module CS2103 from student A0180000
+* **removemod**:`removemod s/STUDENT_ID m/MODULE_CODE` or `removemod s/STUDENT_INDEX m/MODULE_INDEX`
+- e.g `removemod s/A0180000 m/CS1020`
+To remove module CS1020 from student A0180000
 
 * **setcredits**: `setcredits INDEX NEW_MC`
 - e.g. `setcredits 2 c/28`

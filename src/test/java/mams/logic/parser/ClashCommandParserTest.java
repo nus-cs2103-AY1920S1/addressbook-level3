@@ -1,8 +1,10 @@
 package mams.logic.parser;
 
 import static mams.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import static mams.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static mams.logic.parser.CommandParserTestUtil.assertParseSuccess;
+
 import static mams.testutil.TypicalIndexes.INDEX_FIRST;
 import static mams.testutil.TypicalIndexes.INDEX_SECOND;
 import static mams.testutil.TypicalModules.CS1010;
@@ -41,6 +43,17 @@ public class ClashCommandParserTest {
         // irrelevant prefix with input
         assertParseFailure(parser,
                 " s/1 t/1 y/1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_nonEmptyPreAmple_throwsParseException() {
+        assertParseFailure(parser,
+                " p/ a/",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser,
+                " alice a/",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
     }
 

@@ -32,6 +32,7 @@ public class TypicalAppeals {
             "", "", "cs2040",
             "", false, "");
 
+
     public static List<Appeal> getTypicalAppeals() {
         return new ArrayList<>(Arrays.asList(APPEAL1, APPEAL2, APPEAL3, APPEAL4));
     }

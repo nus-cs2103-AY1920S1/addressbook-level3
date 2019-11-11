@@ -55,6 +55,7 @@ public class ApproveCommand extends Approve {
     public CommandResult execute(Model model, FilterOnlyCommandHistory commandHistory) throws CommandException {
         List<Appeal> lastShownList = model.getFilteredAppealList();
 
+
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_APPEAL_DISPLAYED_INDEX);
         }
@@ -63,7 +64,7 @@ public class ApproveCommand extends Approve {
 
         Appeal appealToApprove = lastShownList.get(index.getZeroBased());
 
-        if (appealToApprove.isResolved() == false) {
+        if (!appealToApprove.isResolved()) {
             Student studentToEdit;
             Student editedStudent;
             Module moduleToEdit;
@@ -370,7 +371,13 @@ public class ApproveCommand extends Approve {
                 && reason.equals(e.reason);
     }
 
-
+    /**
+     * Returns an ArrayList of Integers that contains the clashing time slots.
+     * @param moduleA a Module object of module A
+     * @param moduleB a Module object of module B
+     * @return an ArrayList of Integers that contains the clashing time slots.
+     */
+    //@@author chensu2436
     private Optional<ClashCase> getClashCase(Module moduleA, Module moduleB) {
         int[] timeTableA = moduleA.getTimeSlotToIntArray();
         int[] timeTableB = moduleB.getTimeSlotToIntArray();
@@ -392,6 +399,12 @@ public class ApproveCommand extends Approve {
         return Optional.empty();
     }
 
+    /**
+     * Returns a String representation of details of each {@code ClashCase} object in the clashCases list.
+     * (i.e. two module codes and the time slots they have in common)
+     * @return a String representation of details of each {@code ClashCase} object in the clashCases list.
+     */
+    //@@author chensu2436
     private String getClashDetails(ArrayList<ClashCase> clashCases) {
         StringBuilder s = new StringBuilder();
         for (ClashCase c : clashCases) {
@@ -404,5 +417,6 @@ public class ApproveCommand extends Approve {
         }
         return s.toString();
     }
+
 
 }
