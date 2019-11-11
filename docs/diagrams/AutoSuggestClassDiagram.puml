@@ -1,0 +1,52 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+package seedu.guiltTrip {
+    package ui {
+        Class MainWindow
+    }
+    package logic.commands {
+        Class GuiltTripCommandSuggester
+        Interface CommandSuggester
+        package util {
+            Class EditDistanceComparator
+        }
+    }
+}
+
+package java.util {
+    Interface "Comparator<String>"
+    Class "PriorityQueue<String>"
+}
+
+MainWindow ..|> CommandSuggester
+MainWindow ..> GuiltTripCommandSuggester
+GuiltTripCommandSuggester ..> EditDistanceComparator
+GuiltTripCommandSuggester ..> "PriorityQueue<String>"
+EditDistanceComparator ..|> "Comparator<String>"
+
+Interface "Comparator<String>" <<interface>> {
+    {abstract} + compare(): int
+}
+
+Interface CommandSuggester <<interface>> {
+    {abstract} {static} +suggest(): void
+}
+
+Class MainWindow {
+    -suggestCommand(): void
+}
+
+Class GuiltTripCommandSuggester {
+    {static} +getSuggestionString(): String
+    {static} +setLastOutput(): void
+    {static} -getClosestCommands(): String
+}
+
+Class EditDistanceComparator {
+    + compare(): int
+    - editDistance(String, String): int
+}
+
+@enduml
