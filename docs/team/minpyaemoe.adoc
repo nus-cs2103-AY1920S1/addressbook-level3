@@ -1,0 +1,91 @@
+= Min Pyae Moe - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+
+== PROJECT: MoneyGoWhere
+
+---
+== Introduction
+The aim of this portfolio is to demonstrate my programming skills and abilities to implement features and integrate codes into a team project.
+This portfolio also highlights my documentation strategy to showcase usage and design of the product.
+The project was done for Software Engineering Module (CS2103T) from National University of Singapore (NUS),
+and is based on morphing given Address book application into personal finance application.
+
+== Overview
+
+MoneyGoWhere is a desktop application mainly targeted to students who often have troubles managing their finance.
+This application help users by allowing them to record their daily expenses, set budget goal as well as reminders for payment and bills.
+With the integrated pie chart and graph display, students are able to have clear view of their total weekly, monthly or yearly spending.
+Moreover, since the user interaction is mainly through command line interface (CLI), this application also brings convenience to users who prefers fast typing.
+
+
+== Contribution Summary
+* *Role* : Developer
+* *Responsibility* : Development, Integration and Testing
+* *Major enhancements*:
+** *Add reminder*
+*** Functionality: With this enhancement, students are able to set reminders of future tasks such as bills and payment to be made by specifying deadline and notification message.
+*** Justification: Students would need to be reminded of the important tasks because high number of deadlines usually causes students to have difficulties remembering all of them.
+*** Highlights : On Graphical User Interface (GUI), the reminders with the earlier deadline are place on top of the list, therefore, users are able to notice the tasks with higher priority.
+
+** *Delete reminder*
+*** Functionality: This allows user to remove unwanted reminders from application.
+*** Justification: When a task is completed, reminders related to it becomes outdated. Accumulation of unnecessary reminders may lead to confusion and waste of storage space.
+*** Highlights : Since each reminder is displayed with an index on GUI, user can easily delete a reminder using it without needing to specify any additional information.
+
+** *Responsive reminder display*
+*** Functionality: This enhancement allow reminder list to adapt varying screen sizes with text wrapping, therefore, each reminder is displayed without overflow.
+*** Justification: Students would need to enter high amount of information into the reminder message because they can easily fetch all the necessary information from one place as the deadlines becomes closer.
+*** Highlights : The deadlines displayed by reminders are translated and colored in response to their urgency, therefore, user can easily notice them and quickly interpret them.
+
+* *Minor enhancement*:
+** *View help*
+*** This feature allows user to view not only all available commands in MoneyGoWhere but also their purposes. This feature can also be quickly assessed through F1 key.
+
+* *Code contribution*:
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=minpyaemoe&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByAuthors&breakdown=false&tabOpen=false[Functional and Test codes]
+
+* *Other contributions*:
+
+** Project Management
+*** Ensured that the team members are always aware of weekly deadlines and deliverables.
+
+** Documentation
+*** Created use cases and updated them into Developer Guide. (Pull Requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/40[#40])
+*** Updated the existing Developer Guide of Address book for MoneyGoWhere application. (Pull Requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/95[#95])
+
+** Testing
+*** Handled unit and integration testing of reminder feature. (Pull Requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/83[#83], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/113[#113], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/139[#139])
+
+** Debugging
+*** Contributed in implementing solutions for flaws and bugs found in the application. (Pull Requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/203[#203], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/219[#219])
+
+** Community
+*** Reviewed Pull Requests from teammates (with non-trivial review comments). (Pull Requests: https://github.com/AY1920S1-CS2103T-F13-3/main/pull/28[#28], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/82[#82], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/84[#84], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/97[#97], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/112[#112], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/134[#134], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/136[#136], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/137[#137], https://github.com/AY1920S1-CS2103T-F13-3/main/pull/138[#138])
+*** Performed manual testing, reported bugs, feature flaws and gave suggestions to teammates.
+*** Performed manual testing, reported bugs, feature flaws and gave suggestions to other teams in the class.
+
+== Contributions to the User Guide
+
+Below is a icon which highlights the important information in this document.
+
+[NOTE]
+Represents important information to be noted.
+
+
+
+|===
+|_Followings are the sections in the User Guide that I have contributed, which also demonstrates my documentation skills to target end-users effectively._
+|===
+
+include::../UserGuide.adoc[tag=reminder]
+include::../UserGuide.adoc[tag=clear]
+
+== Contributions to the Developer Guide
+|===
+|_The following sections in thee Developer Guide are contributed by me and they highlights my documentation skills in technical aspect._
+|===
+
+include::../DeveloperGuide.adoc[tag=reminder]

@@ -52,11 +52,9 @@ class BudgetTest {
     public void isValidBudget_validInput_success() {
         //valid Budget
         assertTrue(Budget.isValidBudget("0"));
-        assertTrue(Budget.isValidBudget("0.123"));
-        assertTrue(Budget.isValidBudget("10000"));
-        assertTrue(Budget.isValidBudget(0));
-        assertTrue(Budget.isValidBudget(0.123));
-        assertTrue(Budget.isValidBudget(10000));
+        assertTrue(Budget.isValidBudget("0.1"));
+        assertTrue(Budget.isValidBudget("0.12"));
+        assertTrue(Budget.isValidBudget("1000000000"));
     }
 
     @Test
@@ -69,7 +67,9 @@ class BudgetTest {
         assertFalse(Budget.isValidBudget(" ")); // spaces only
         assertFalse(Budget.isValidBudget("incorrect")); // strings need to be numbers
         assertFalse(Budget.isValidBudget("-1")); //  numeric strings need to be positive
-        assertFalse(Budget.isValidBudget(-1)); //  cannot be negative
+        assertFalse(Budget.isValidBudget("1000000001")); //  Cannot exceed max amount of 1000000000
+        assertFalse(Budget.isValidBudget("100.00000")); //  can only have 2 decimal points
+        assertFalse(Budget.isValidBudget("0.000000000000001")); //  can only have 2 decimal points
     }
 
     @Test

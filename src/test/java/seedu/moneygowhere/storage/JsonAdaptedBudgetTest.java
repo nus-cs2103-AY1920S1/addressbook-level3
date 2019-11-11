@@ -30,6 +30,7 @@ class JsonAdaptedBudgetTest {
         }
 
     }
+
     @Test
     public void toModelType_invalidMonth_throwsIllegalValueException() {
         JsonAdaptedBudget budget = new JsonAdaptedBudget(VALID_VALUE, INVALID_MONTH);

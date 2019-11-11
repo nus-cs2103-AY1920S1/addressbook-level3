@@ -55,12 +55,18 @@ public class BudgetMonth {
         return this.year;
     }
 
+    /**
+     * Gets today's date as a BudgetMonth
+     * @return A BudgetMonth representing today.
+     */
     public static BudgetMonth now() {
         return new BudgetMonth(DateUtil.getTodayDate());
     }
+
     /**
      * Checks whether a string is a valid BudgetMonth based on Regex.
      * It must be of format MM/YYYY where the year is >= 2010.
+     *
      * @param test The string to be tested.
      * @return whether the String is of format MM/YYYYor not.
      */
@@ -70,6 +76,7 @@ public class BudgetMonth {
 
     /**
      * Checks whether a date is behind a particular month.
+     *
      * @param date the date to check
      * @return whether or not the date was set before this month
      */

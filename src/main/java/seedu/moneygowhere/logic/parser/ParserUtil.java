@@ -35,8 +35,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String DATE_INVALID_TOO_FAR = "Date can only be until end of this month.";
-    public static final String DEADLINE_INVALID_FAR_BEHIND = "Deadline is 1 year behind from now";
-    public static final String DEADLINE_INVALID_TOO_FAR = "Deadline must be within 1 years from now.";
+    public static final String DEADLINE_INVALID_FAR_BEHIND = "Deadline must be in the future.";
+    public static final String DEADLINE_INVALID_TOO_FAR = "Deadline must be before the end of next year.";
     public static final int DATE_FAR_FORWARD_RANGE = 1;
     public static final int DATE_FAR_BEHIND_RANGE = 1;
 
@@ -209,16 +209,13 @@ public class ParserUtil {
      * @throws ParseException if the specified budget is invalid (negative integer).
      */
     public static Budget parseBudget(String budget) throws ParseException {
+        requireNonNull(budget);
         String trimmedBudget = budget.trim();
-        try {
-            double temp = Double.parseDouble(trimmedBudget);
-            if (temp < 0) {
-                throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
-            }
-            return new Budget(temp);
-        } catch (NumberFormatException e) {
+        if (!Budget.isValidBudget(trimmedBudget)) {
             throw new ParseException(Budget.MESSAGE_CONSTRAINTS);
         }
+
+        return new Budget(trimmedBudget);
     }
 
     /**
