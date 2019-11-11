@@ -96,7 +96,7 @@ public class EditContactCommand extends ContactCommand {
         Contact contactToEdit = contact.get();
         Contact editedContact = createEditedContact(contactToEdit, editContactDescriptor);
 
-        if (!contactToEdit.isSameContact(editedContact) && model.hasContact(editedContact)) {
+        if (!contactToEdit.equals(editedContact) && model.hasContact(editedContact)) {
             throw new CommandException(MESSAGE_DUPLICATE_CONTACT);
         }
 

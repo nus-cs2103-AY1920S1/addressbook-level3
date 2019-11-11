@@ -159,8 +159,6 @@ Examples:
 * `contact create --n John --p 81234567 --a 21 Kent Ridge Rd`
 * `contact create --n Dwayne Johnson --p 81234567 --e d.johnson@gmail.com --d Friend from CS2100`
 
-NOTE: Contacts with the same name is allowed only if they have different phone number and email address.
-
 ==== List all contacts: `list`
 
 Lists all contacts in the application.
@@ -533,6 +531,38 @@ Format:
 
 `note tag NOTE_ID [--t TAG]+`
 
+In Tagline, there are 3 types of tags. They are hash tag, contact tag and group tag.
+
+{empty} +
+
+===== Tag a note with a hash tag
+
+Hash tag is a tag of the form `#TOPIC` where `TOPIC` could be substituted with any string not longer than 30
+characters.
+
+Example: `#Assignment_1`, `#Project CS2103T`, `#Meeting Notes`
+
+By tagging a note with a hash tag, user can easily find all notes related to a certain topic.
+
+{empty} +
+
+Here is an example of tagging a note with a hash tag
+
+. Enter the command `note tag 1 --t #any topic` into the command box.
++
+image::ug_notetag_hashtag1.png[width="600"]
+
+. Send the command and you will be able to see the tag in the note view.
++
+image::ug_notetag_hashtag2.png[width="600"]
+
+{empty} +
+
+===== Tag a note with a contact tag
+===== Tag a note with a group tag
+===== Tag a note with all tags
+We can also combine the three tags above in one `note tag` command.
+
 Example:
 
 * `note tag 00002 --t #CS2103T --t #Duke --t @12300 --t %cs2103T`
@@ -546,6 +576,8 @@ Untags a note from one or more tags.
 Format:
 
 `note untag NOTE_ID [--t TAG]+`
+
+Similar with `note tag` command we can also untag a note with three types of tags.
 
 Example:
 

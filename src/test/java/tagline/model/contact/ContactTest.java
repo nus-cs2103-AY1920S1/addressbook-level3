@@ -14,37 +14,6 @@ import org.junit.jupiter.api.Test;
 public class ContactTest {
 
     @Test
-    public void isSameContact() {
-        // same object -> returns true
-        assertTrue(ALICE.isSameContact(ALICE));
-
-        // null -> returns false
-        assertFalse(ALICE.isSameContact(null));
-
-        // different phone and email -> returns false
-        Contact editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(ALICE.isSameContact(editedAlice));
-
-        // different name -> returns false
-        editedAlice = new ContactBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(ALICE.isSameContact(editedAlice));
-
-        // same name, same phone, different attributes -> returns true
-        editedAlice = new ContactBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .build();
-        assertTrue(ALICE.isSameContact(editedAlice));
-
-        // same name, same email, different attributes -> returns true
-        editedAlice = new ContactBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
-                .build();
-        assertTrue(ALICE.isSameContact(editedAlice));
-
-        // same name, same phone, same email, different attributes -> returns true
-        editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertTrue(ALICE.isSameContact(editedAlice));
-    }
-
-    @Test
     public void equals() {
         // same values -> returns true
         Contact aliceCopy = new ContactBuilder(ALICE).build();

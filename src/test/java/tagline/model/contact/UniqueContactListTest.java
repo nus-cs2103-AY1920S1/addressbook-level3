@@ -38,14 +38,6 @@ public class UniqueContactListTest {
     }
 
     @Test
-    public void containsContact_contactWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueContactList.addContact(ALICE);
-        Contact editedAlice = new ContactBuilder(ALICE).withAddress(VALID_ADDRESS_BOB)
-                .build();
-        assertTrue(uniqueContactList.containsContact(editedAlice));
-    }
-
-    @Test
     public void addContact_nullContact_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueContactList.addContact(null));
     }

@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSameContact comparison)
+ * Duplicates are not allowed (by .equals comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 

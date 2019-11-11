@@ -14,16 +14,11 @@ import tagline.model.contact.exceptions.DuplicateContactException;
 
 /**
  * A list of contacts that enforces uniqueness between its elements and does not allow nulls.
- * A contact is considered unique by comparing using {@code Contact#isSameContact(Contact)}.
- * As such, adding and updating of
- * contacts uses Contact#isSameContact(Contact) for equality so as to ensure that the contact being added or updated is
- * unique in terms of identity in the UniqueContactList. However, the removal of a contact uses Contact#equals
- * (Object) so
- * as to ensure that the contact with exactly the same fields will be removed.
+ * A contact is considered unique by comparing using {@code Contact#equals(Object)}.
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Contact#isSameContact(Contact)
+ * @see Contact#equals(Object)
  */
 public class UniqueContactList implements Iterable<Contact> {
 
@@ -36,7 +31,7 @@ public class UniqueContactList implements Iterable<Contact> {
      */
     public boolean containsContact(Contact toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSameContact);
+        return internalList.stream().anyMatch(toCheck::equals);
     }
 
     /**
@@ -85,7 +80,7 @@ public class UniqueContactList implements Iterable<Contact> {
             throw new ContactNotFoundException();
         }
 
-        if (!target.isSameContact(editedContact) && containsContact(editedContact)) {
+        if (!target.equals(editedContact) && containsContact(editedContact)) {
             throw new DuplicateContactException();
         }
 
@@ -151,7 +146,7 @@ public class UniqueContactList implements Iterable<Contact> {
     private boolean contactsAreUnique(List<Contact> contacts) {
         for (int i = 0; i < contacts.size() - 1; i++) {
             for (int j = i + 1; j < contacts.size(); j++) {
-                if (contacts.get(i).isSameContact(contacts.get(j))) {
+                if (contacts.get(i).equals(contacts.get(j))) {
                     return false;
                 }
             }
