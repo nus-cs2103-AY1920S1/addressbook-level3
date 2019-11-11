@@ -120,7 +120,7 @@ public class PersonBuilder {
      */
     public Employee build() {
         return new Employee(new EmployeeId("000"), employeeName, new EmployeeGender("male"),
-                        new EmployeePay("9"), employeePhone,
+                        new EmployeePay("10"), employeePhone,
                         employeeEmail, employeeAddress,
                         tags);
 

@@ -19,8 +19,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.tag.Tag;
 
 
+/**
+ * Contains unit tests for {@code AutoAllocateCommandParserTest}.
+ */
 public class AutoAllocateCommandParserTest {
-    private static final String TAG_EMPTY = " " + PREFIX_TAG;
     private static final String TAG_MALE = " " + PREFIX_TAG + "male";
 
     private static final String MESSAGE_INVALID_FORMAT =
@@ -58,7 +60,7 @@ public class AutoAllocateCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + CommandTestUtil.INVALID_MANPOWER_DESC, MESSAGE_INVALID_FORMAT); // invalid name
+        assertParseFailure(parser, "1" + CommandTestUtil.INVALID_MANPOWER_DESC, MESSAGE_INVALID_FORMAT);
         assertParseFailure(parser, "1" + INVALID_TAG_DESC, MESSAGE_INVALID_FORMAT); // invalid tag
         assertParseFailure(parser, "1" + CommandTestUtil.INVALID_MANPOWER_DESC + INVALID_TAG_DESC,
                 MESSAGE_INVALID_FORMAT);
@@ -72,7 +74,7 @@ public class AutoAllocateCommandParserTest {
         Index targetIndex = INDEX_FIRST_EVENT;
         String userInput = targetIndex.getOneBased() + "";
         AutoAllocateCommand expectedCommand = new AutoAllocateCommand(targetIndex, null,
-                new HashSet<Tag>());
+                new HashSet<>());
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
