@@ -1,3 +1,7 @@
+/*
+@@author DivineDX
+ */
+
 package seedu.address.model.event;
 
 import java.time.Duration;

@@ -1,3 +1,7 @@
+/*
+@@author DivineDX
+ */
+
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
