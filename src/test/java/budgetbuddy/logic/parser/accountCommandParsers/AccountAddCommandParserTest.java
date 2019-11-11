@@ -1,7 +1,6 @@
 package budgetbuddy.logic.parser.accountCommandParsers;
 
 import static budgetbuddy.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static budgetbuddy.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static budgetbuddy.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static budgetbuddy.logic.parser.CommandParserTestUtil.assertParseSuccess;
 

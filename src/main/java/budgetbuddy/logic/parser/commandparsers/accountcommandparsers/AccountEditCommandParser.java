@@ -29,9 +29,12 @@ public class AccountEditCommandParser implements CommandParser<AccountEditComman
         ArgumentMultimap argMultiMap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
 
+        checkArgumentMultimap(argMultiMap);
+
         if (argMultiMap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccountEditCommand.MESSAGE_USAGE));
         }
+
         Index accountIndex = CommandParserUtil.parseIndex(argMultiMap.getPreamble());
 
         AccountEditDescriptor accountEditDescriptor = new AccountEditDescriptor();
@@ -39,6 +42,7 @@ public class AccountEditCommandParser implements CommandParser<AccountEditComman
             accountEditDescriptor.setName(
                     CommandParserUtil.parseName(argMultiMap.getValue(PREFIX_NAME).get()));
         }
+
         if (argMultiMap.getValue(PREFIX_DESCRIPTION).isPresent()) {
             accountEditDescriptor.setDescription(
                     CommandParserUtil.parseDescription(argMultiMap.getValue(PREFIX_DESCRIPTION).get()));
@@ -49,6 +53,21 @@ public class AccountEditCommandParser implements CommandParser<AccountEditComman
         }
 
         return new AccountEditCommand(accountIndex, accountEditDescriptor);
+    }
+
+    /**
+     * Checks if the given {@code ArgumentMultimap} is valid for parsing into a {@code AccountEditCommand}.
+     * @throws ParseException If the {@code argMultimap} is invalid.
+     */
+    private void checkArgumentMultimap(ArgumentMultimap argMultimap) throws ParseException {
+        if (argMultimap.getValueCount(PREFIX_NAME) > 1
+                || argMultimap.getValueCount(PREFIX_DESCRIPTION) > 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccountEditCommand.MESSAGE_USAGE));
+        }
+
+        if (argMultimap.getPreamble().isBlank() || argMultimap.getPreamble().split("\\s+").length != 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AccountEditCommand.MESSAGE_USAGE));
+        }
     }
 }
 
