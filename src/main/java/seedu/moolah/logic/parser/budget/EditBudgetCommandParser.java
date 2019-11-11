@@ -33,6 +33,8 @@ public class EditBudgetCommandParser implements Parser<EditBudgetCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the EditBudgetCommand
      * and returns an EditBudgetCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public EditBudgetCommand parse(String args) throws ParseException {

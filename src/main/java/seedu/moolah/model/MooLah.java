@@ -139,6 +139,9 @@ public class MooLah implements ReadOnlyMooLah {
     /**
      * Returns true if a budget with the same identity as {@code budget}
      * exists in MooLah.
+     *
+     * @param budget The budget to check.
+     * @return True if MooLah contains budget identical to the budget to check.
      */
     public boolean hasBudget(Budget budget) {
         requireNonNull(budget);
@@ -148,12 +151,20 @@ public class MooLah implements ReadOnlyMooLah {
     /**
      * Adds a budget to MooLah.
      * The budget must not already exist in MooLah.
+     *
+     * @param budget The budget to be added.
      */
     public void addBudget(Budget budget) {
         requireNonNull(budget);
         budgets.add(budget);
     }
 
+    /**
+     * Adds a budget to MooLah when reconstructing MooLah from json storage file.
+     * The primary status of budget is maintained.
+     *
+     * @param budget The budget to be added to MooLah.
+     */
     public void addBudgetFromStorage(Budget budget) {
         budgets.addBudgetFromStorage(budget);
     }
@@ -171,15 +182,27 @@ public class MooLah implements ReadOnlyMooLah {
 
     /**
      * Returns the primary budget in the MooLah.
+     *
+     * @return The primary budget in MooLah.
      */
     public Budget getPrimaryBudget() {
         return budgets.getPrimaryBudget();
     }
 
+    /**
+     * Returns the description of the primary budget.
+     *
+     * @return A string that represents the primary budget name.
+     */
     public String getPrimaryBudgetName() {
         return getPrimaryBudget().getDescription().fullDescription;
     }
 
+    /**
+     * Sets the budget with the specified name to primary.
+     *
+     * @param name The specified name in string.
+     */
     public void setPrimaryBudget(String name) {
         budgets.setPrimaryFromString(name);
     }
@@ -194,6 +217,12 @@ public class MooLah implements ReadOnlyMooLah {
         budgets.switchBudgetTo(targetDescription);
     }
 
+    /**
+     * Replaces the target budget with an edited budget.
+     *
+     * @param target The budget to be replaced.
+     * @param editedBudget The updated budget.
+     */
     void setBudget(Budget target, Budget editedBudget) {
         requireNonNull(editedBudget);
         budgets.setBudget(target, editedBudget);
@@ -202,18 +231,22 @@ public class MooLah implements ReadOnlyMooLah {
     /**
      * Removes Budget {@code key} from this {@code MooLah}.
      * {@code key} must exist in the MooLah.
+     *
+     * @param key The budget to remove.
      */
     public void removeBudget(Budget key) {
         requireNonNull(key);
         budgets.remove(key);
     }
 
+    /** Clears all budgets in MooLah, except the default budget. */
     public void clearBudgets() {
         budgets.clearBudgets();
     }
 
     /**
      * Changes budget window of primary budget to a period in the past, as specified by the anchor date.
+     *
      * @param pastDate The date to anchor the period.
      */
     public void changePrimaryBudgetWindow(Timestamp pastDate) {
@@ -221,6 +254,11 @@ public class MooLah implements ReadOnlyMooLah {
         budgets.changePrimaryBudgetWindow(pastDate);
     }
 
+    /**
+     * Deletes the budget with the specified description from MooLah.
+     *
+     * @param description The specified description.
+     */
     public void deleteBudgetWithName(Description description) {
         budgets.deleteBudgetWithName(description);
     }

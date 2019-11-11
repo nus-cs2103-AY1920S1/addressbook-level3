@@ -16,6 +16,8 @@ public class DeleteBudgetByIndexCommandParser implements Parser<DeleteBudgetByIn
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteBudgetByIndexCommand
      * and returns a DeleteBudgetByIndexCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteBudgetByIndexCommand parse(String args) throws ParseException {

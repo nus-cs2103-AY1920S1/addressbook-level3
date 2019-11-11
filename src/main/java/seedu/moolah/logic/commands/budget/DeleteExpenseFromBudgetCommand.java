@@ -36,11 +36,22 @@ public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
         this.targetIndex = targetIndex;
     }
 
+    /**
+     * Returns a description of this DeleteExpenseFromBudgetCommand.
+     *
+     * @return A string that describes this DeleteExpenseFromBudgetCommand.
+     */
     @Override
     public String getDescription() {
         return String.format(COMMAND_DESCRIPTION, targetIndex.getOneBased());
     }
 
+    /**
+     * Validates this DeleteExpenseFromBudgetCommand with the current model, before execution.
+     *
+     * @param model The current model.
+     * @throws CommandException If the index is invalid.
+     */
     @Override
     protected void validate(Model model) throws CommandException {
         requireNonNull(model);
@@ -51,6 +62,12 @@ public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
         }
     }
 
+    /**
+     * Executes this DeleteExpenseFromBudgetCommand with the current model.
+     *
+     * @param model {@code Model} which the command should operate on.
+     * @return A CommandResult consisting of success message and panel change request.
+     */
     @Override
     protected CommandResult execute(Model model) {
         requireNonNull(model);
@@ -66,6 +83,12 @@ public class DeleteExpenseFromBudgetCommand extends UndoableCommand {
                 BudgetPanel.PANEL_NAME);
     }
 
+    /**
+     * Checks whether another object is identical to this DeleteExpenseFromBudgetCommand.
+     *
+     * @param other The other object to be compared.
+     * @return True if the other object is a DeleteExpenseFromBudgetCommand with the same index, false otherwise.
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

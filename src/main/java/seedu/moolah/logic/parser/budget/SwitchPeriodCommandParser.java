@@ -30,6 +30,8 @@ public class SwitchPeriodCommandParser implements Parser<SwitchPeriodCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the SwitchPeriodCommand
      * and returns a SwitchPeriodCommand object for execution.
+     *
+     * @param args String arguments inputted by the user.
      * @throws ParseException if the user input does not conform the expected format
      */
     public SwitchPeriodCommand parse(String args) throws ParseException {

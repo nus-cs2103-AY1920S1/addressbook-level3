@@ -139,6 +139,7 @@ public class ParserUtil {
      * Parses {@code String period} into a {@code BudgetPeriod}.
      * Leading and trailing whitespaces will be trimmed.
      *
+     * @param period A string that represents the period inputted by user.
      * @throws ParseException if the given {@code period} is invalid.
      */
     public static BudgetPeriod parsePeriod(String period) throws ParseException {

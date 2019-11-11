@@ -59,6 +59,8 @@ class JsonAdaptedBudget {
 
     /**
      * Converts a given {@code Budget} into this class for Jackson use.
+     *
+     * @param source The source budget to be converted.
      */
     public JsonAdaptedBudget(Budget source) {
         requireNonNull(source);
@@ -75,6 +77,7 @@ class JsonAdaptedBudget {
     /**
      * Converts this Jackson-friendly adapted budget object into the model's {@code Budget} object.
      *
+     * @param expenses A list of expenses to refer to when reconstructing expenses from UniqueIdentifiers.
      * @throws IllegalValueException if there were any data constraints violated in the adapted budget.
      */
     public Budget toModelType(List<JsonAdaptedExpense> expenses) throws IllegalValueException {

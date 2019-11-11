@@ -77,8 +77,20 @@ public interface Logic {
 
     CommandResult addExpenseFromEvent(Event currentEvent) throws CommandException, ParseException;
 
+    /**
+     * Records initial status of primary budget before executing a command.
+     *
+     * @return A boolean array containing initial {@code isHalf}, {@code isNear}, {@code isExceeded}
+     * flags of the primary budget.
+     */
     boolean[] recordInitialPrimaryBudgetStatus();
 
+    /**
+     * Records final status of primary budget after executing a command.
+     *
+     * @return A boolean array containing final {@code isHalf}, {@code isNear}, {@code isExceeded}
+     * flags of the primary budget.
+     */
     boolean[] recordFinalPrimaryBudgetStatus();
 
 
