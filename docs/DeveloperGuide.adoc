@@ -257,9 +257,9 @@ Lastly, while a `*ViewableFile*` contains the file's content for preview. It is 
 
 ==== Logic
 
-The user can perform the following operations: `encrypt`, `decrypt`, `add`, `remove`, `move`, `rename`, and `preview`. There are two differences between the commands of the file manager and those of the address book. First, some file commands require a password for encryption/decryption. Second, most file commands involve interaction with the external file system.
+The user can perform the following operations: `encrypt`, `decrypt`, `add`, `remove`, `move`, `rename`, and `preview`. There are two differences between the commands of the file manager and those of the address book. First, some file commands require a password for execution. Second, most file commands involve interaction with the external file system.
 
-The solution to the first difference is a `*FileCommandParser*` class which is similar to the `*Parser*` class, but it packages the password within the commands during parsing.
+The solution to the first difference is a `*FileCommandParser*` class which is similar to the `*Parser*` class, but it packages the password within the commands during parsing. It is illustrated in the class diagram below:
 
 image::FileCommandParserClassDiagram.png[]
 
@@ -274,7 +274,7 @@ Below is a summary of my considerations and analysis while developing the file m
 . When to do file validation with the file system
 +
 *Alternative 1*: When a command is parsed +
-*Pros*: No need to construct `*EncryptedFile*` objects for invalid files. +
+*Pros*: There is no need to construct `*EncryptedFile*` objects for invalid files. +
 *Cons*: Both the command parsing and execution require interaction with the file system. `*Parser*` violates the single responsibility principle.
 +
 *Alternative 2*: When a command is executed +
@@ -286,12 +286,12 @@ Alternative 2 is chosen because according to single responsibility principle, `*
 . How to implement the file preview feature
 +
 *Alternative 1*: UI components read file content +
-*Pros*: No need to create extra classes in `*Model*`, such as `*ViewableFile*` +
-*Cons*: UI has to interact directly with the file system
+*Pros*: There is no need to create extra classes in `*Model*`, such as `*ViewableFile*`. +
+*Cons*: UI components have to interact directly with the file system.
 +
 *Alternative 2*: Read file content during command execution +
-*Pros*: File system access is limited to command execution +
-*Cons*: Need to pass the file content to UI via `*CommandResult*`
+*Pros*: File system access is limited to command execution time only. +
+*Cons*: Need to pass the file content to the UI components via `*CommandResult*`.
 +
 Alternative 2 is chosen because it is better to keep all access to the file system in one place.
 

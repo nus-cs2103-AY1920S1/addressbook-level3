@@ -34,9 +34,9 @@ This section shows a summary of my coding, documentation, and other helpful cont
 * What it does: The master password converts the app's data into an encrypted format which is not readable by others. The app can also encrypt external files and manage them.
 * Justification: The data of small-to-medium enterprises are often stored as files and are vulnerable to cyberattacks. Hence, a mechanism has to be in place to protect the data.
 * Highlights: The encryption works seamlessly with existing and future commands. The file manager allows users to preview encrypted files without decrypting them in the file system. It can be expanded in future to allow edit of encrypted files.
-* Credits: The encryption relies on Java's build-in `*Cipher*` class without the need to implement encryption algorithms. Preview of PDF and Word documents relies on Apache PDFBox and Apache POI respectively.
+* Credits: The encryption relies on Java's build-in `*Cipher*` class without the need to implement encryption algorithms. Preview of PDF and Word documents relies on third-party libraries, Apache PDFBox and Apache POI, respectively.
 
-*Code Contributed*: Please click these links to see a sample of my code: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=niqiukun&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=niqiukun&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Code on RepoSense]]
+*Code Contributed*: Please click the link to see a sample of my code: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=niqiukun&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=niqiukun&tabRepo=AY1920S1-CS2103T-F11-3%2Fmain%5Bmaster%5D[Code on RepoSense]]
 
 *Other Contributions*:
 
