@@ -21,7 +21,7 @@ Security.
 === About the project
 
 This project is a 6 weeks long project for our software engineering module.
-We were tasked to either enhance or morph a basic command line interface (CLI) desktop
+We were tasked to either enhance or morph a basic command line interface desktop
 Address Book application and one of the main constraints of this project is that
 the application has to remain as a command line interface application.
 
@@ -133,5 +133,7 @@ This section showcases my contribution to the Developer Guide. They showcase my 
 documentation and the technical depth of my contributions to the project.
 
 {Start of extract from Developer Guide}
+
 include::../DeveloperGuide.adoc[tag=undoredo]
+
 {End of extract from Developer Guide}
