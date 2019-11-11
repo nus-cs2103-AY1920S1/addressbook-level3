@@ -60,7 +60,7 @@ This section provides an overview of my contributions to this project. As I was 
 
 === Design
 
-To enable users to visualise their schedule for the month and plan their trips accordingly, I designed the calendar user interface as follows:
+To enable users to better visualise their schedule for the month and plan their trips accordingly, I designed the calendar user interface as follows:
 
 .Calendar interface
 image::../images/calendarScreenshots/calendarInterface.png[Calendar interface,width=700]
