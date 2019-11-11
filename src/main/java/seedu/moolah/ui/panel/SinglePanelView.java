@@ -13,7 +13,7 @@ import seedu.moolah.ui.UiPart;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
 
 /**
- * Represents a Panel Manager and Viewer UiPart in the GUI which allows a single panel to be shown at a time.
+ * Implementation of the Panel Manager interface that allows viewing of a single GUI panel at a time.
  * Supports operations to enable switching which Panel is currently visible to the user in the GUI.
  */
 public class SinglePanelView extends UiPart<Region> implements PanelManager {
