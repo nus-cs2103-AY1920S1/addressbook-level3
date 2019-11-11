@@ -382,13 +382,8 @@ Tracks grades inputted by the user.
 
 Users can add files related to the module, and open them.
 
-=== CAP Calculator `[Coming in v2.0]`
-
-Calculates the cumulative GPA of all tracked modules.
-
 == Command Summary
 
-=== List View
 * *Help* : `help`
 * *Exit* : `exit`
 * *List* : `list`
