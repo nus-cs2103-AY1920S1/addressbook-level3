@@ -1,10 +1,13 @@
 @startuml
-!include ../style.puml
+!include ../style2.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 skinparam classAttributeIconSize 0
 skinparam classAttributeFontColor #FFFFFFF
+skinparam genericDisplay old
+show members
+
 
 Package AndOrNode <<Rectangle>> {
     Class "{abstract}\nAndOrNode<T>" as AndOrNode<T>
