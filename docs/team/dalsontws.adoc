@@ -5,8 +5,6 @@
 
 == PROJECT: KeyboardFlashCards
 
----
-
 == Introduction
 
 This project portfolio highlights the contributions I have made in for my project, _KeyboardFlashCards_, also know as KFC.
@@ -45,7 +43,6 @@ important dates and can now allocate their study and revision schedule according
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
 ** Credits: Credit goes to https://github.com/SirGoose3432/javafx-calendar[SirGoose3232] for the JavaFX Calendar GUI which was adapted before adding deadlines.
 
-
 * *Major enhancement #2*: added *the ability to perform spaced repetition of FlashCards*
 ** What it does: This feature allows the user to store specific tasks as deadlines that will be reminded to the user.
 The user can now add specific dates that are important to their study and revision i.e. Exam dates, revision dates.
@@ -60,32 +57,25 @@ learning technique
 Hermann Ebbinghaus, who theorised that training in mnemonic techniques can help overcome speed of forgetting.
 One effective way is the use of active recall, especially using https://en.wikipedia.org/wiki/Spaced_repetition[Spaced Repetition]
 I implemented a simple version of spaced repetition through rating of "Bad" FlashCards.
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dalsontws&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=dalsontws&tabRepo=AY1920S1-CS2103T-T12-4%2Fmain%5Bmaster%5D/[Contributed code]]
 
-* *Other contributions*:
+* *Other contributions*
 
-** Project management:
+** Project management
 *** Allocated various tasks and issues to the team (https://github.com/AY1920S1-CS2103T-T12-4/main/issues?utf8=%E2%9C%93&q=is%3Aissue+author%3Adalsontws/[Issues])
 ** Enhancements to existing features:
 *** Added new panel with Deadlines the GUI color scheme (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/105/[#105], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
+** Documentation
 *** Did cosmetic tweaks to existing contents of the User Guide: (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/147/[#147])
-*** Added the value proposition of our product, our target user profiles and user stories: https://github.com/AY1920S1-CS2103T-T12-4/main/pull/31[#31]
-** Community:
+*** Added the value proposition of our product, our target user profiles and user stories: (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/31[#31])
+** Community
 *** PRs reviewed (with non-trivial review comments): (Pull requests https://github.com/AY1920S1-CS2103T-T12-4/main/pull/151/[#151])
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (Pull requests https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/23/[23]
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/53/[53], https://github.com/nus-cs2103-AY1920S1/duke/pull/177/[177], https://github.com/nus-cs2103-AY1920S1/duke[246])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
+** Tools
 *** Integrated a third party library (Gson) to the project (https://github.com/AY1920S1-CS2103T-T12-4/main/pull/150/[#150])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
@@ -105,9 +95,3 @@ include::../DeveloperGuide.adoc[tag=deadline]
 
 include::../DeveloperGuide.adoc[tag=badflashcard]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
