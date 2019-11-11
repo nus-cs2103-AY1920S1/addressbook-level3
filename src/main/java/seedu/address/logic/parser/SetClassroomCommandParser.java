@@ -23,11 +23,11 @@ public class SetClassroomCommandParser implements Parser<SetClassroomCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public SetClassroomCommand parse(String args) throws ParseException {
+        System.out.println(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CLASSROOM);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSROOM)
-                    || !argMultimap.getPreamble().isEmpty()) {
+        System.out.println(arePrefixesPresent(argMultimap, PREFIX_CLASSROOM));
+        if (!arePrefixesPresent(argMultimap, PREFIX_CLASSROOM)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetClassroomCommand.MESSAGE_USAGE));
         }
 
