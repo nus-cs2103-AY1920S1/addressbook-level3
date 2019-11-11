@@ -27,7 +27,7 @@ Role: Teaching Assistant
 '''
 === Chaitanya Baranwal
 image::chaitanyabaranwal.png[width="150", align="left"]
-{empty}[http://chaitanyabaranwal.netlify.com[homepage]]{empty}[http://github.com/chaitanyabaranwal[github]][<<ChaitanyaBaranwal#, portfolio>>]
+{empty}[http://chaitanyabaranwal.netlify.com[homepage]]{empty}[http://github.com/chaitanyabaranwal[github]][<<chaitanyabaranwal#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Team Lead, Undo/Redo
@@ -57,7 +57,7 @@ image::ybchen97.png[width="150", align="left"]
 {empty}[https://ybchen97.github.io/[homepage]][http://github.com/ybchen97[github]] [<<ybchen97#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Code Quality, Intellij Expert, Recycling Bin
+Responsibilities: Code Quality, Intellij Expert, Recycling Bin, HDMI Cable Engineer
 
 '''
 
