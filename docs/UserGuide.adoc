@@ -897,6 +897,7 @@ image::add-dislike.png[align="center", width=700]
 
 {empty}
 |===
+//end::recommendations[]
 
 ==== Removing likes and dislikes from the recommendation system: `removelike` or `removedislike`
 Users are able to remove their previously added likes and dislikes (if they exist)
@@ -983,7 +984,6 @@ image::removedislike-all.png[align="center", width=700]
 
 {empty}
 |===
-//end::recommendations[]
 
 === Alias
 
