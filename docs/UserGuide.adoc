@@ -431,14 +431,8 @@ Usage:
 
 Restores the database to the state before the previous undoable command was executed.
 
-States will only be made if there is a modification to the notebook.
-Hence, commands like `help` and `liststudents` that do not change the internal structure of the notebook will not lead to a saved state. +
-
-Undo will only be executable if there is a previous state saved. Redo will only be executable if there is a previously undone method. +
-
-If a command that changes the state of the notebook is called after an `undo` command, the other states after the current pointer will be erased.
-This means that users will not be able to redo any of the previous states, until the user calls another `undo` command again.
-This mechanism is similar to how undo/redo works for modern desktop applications.
+[NOTE] Undoable commands are commands that modify the database's content: `add`, `delete`
+`edit`, `clear`, `upload`.
 
 Undo/redo cannot, however, undo actions made during previous activation of Teacher's Notebook. +
 This is to say, once the application is closed, all actions done cannot be undone. +

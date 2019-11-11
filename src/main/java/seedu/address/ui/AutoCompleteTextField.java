@@ -134,8 +134,7 @@ public class AutoCompleteTextField extends TextField {
             int inputIndexOfOtherCommand = otherCommand.indexOf(enteredText);
             if (inputIndexOfCommand < inputIndexOfOtherCommand) {
                 return 1;
-            }
-            else {
+            } else {
                 return 0;
             }
         }

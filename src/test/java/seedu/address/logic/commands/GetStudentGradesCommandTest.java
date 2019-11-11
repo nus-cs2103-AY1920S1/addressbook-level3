@@ -34,7 +34,7 @@ public class GetStudentGradesCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
-        GetStudentGradesCommand  getStudentGradesCommand = new  GetStudentGradesCommand(outOfBoundIndex);
+        GetStudentGradesCommand getStudentGradesCommand = new GetStudentGradesCommand(outOfBoundIndex);
         assertCommandFailure(getStudentGradesCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
     @Test
@@ -46,7 +46,7 @@ public class GetStudentGradesCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getNotebook().getCurrentClassroom().getStudentList()
                 .size());
 
-        GetStudentGradesCommand  getStudentGradesCommand = new  GetStudentGradesCommand(outOfBoundIndex);
+        GetStudentGradesCommand getStudentGradesCommand = new GetStudentGradesCommand(outOfBoundIndex);
 
         assertCommandFailure(getStudentGradesCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }

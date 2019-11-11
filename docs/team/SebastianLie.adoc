@@ -80,8 +80,6 @@ include::../UserGuide.adoc[tag=userfriendly]
 
 include::../UserGuide.adoc[tag=classes]
 
-include::../UserGuide.adoc[tag=upload]
-
 == Contributions to the Developer Guide
 
 |===
