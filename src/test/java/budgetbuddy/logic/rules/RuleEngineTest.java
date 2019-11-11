@@ -4,6 +4,7 @@ import static budgetbuddy.logic.rules.RuleEngine.TYPE_AMOUNT;
 import static budgetbuddy.logic.rules.RuleEngine.TYPE_BLANK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -56,7 +57,7 @@ class RuleEngineTest {
 
         // set up test account
         AccountsManager accountsManager = model.getAccountsManager();
-        account = new AccountStub();
+        account = new AccountMock();
         accountsManager.addAccount(account);
 
         // set up test rule
@@ -67,7 +68,7 @@ class RuleEngineTest {
 
     @Test
     public void executeRules_ruleAppliesToTxn_transactionEdited() {
-        Transaction txn = new TransactionStub("food for lunch");
+        Transaction txn = new TransactionMock("food for lunch");
         account.addTransaction(txn);
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
         RuleEngine.executeRules(model, scriptEngine, txnIndex, account);
@@ -85,7 +86,7 @@ class RuleEngineTest {
 
     @Test
     public void executeRules_ruleDoesNotApplyToTxn_nothingIsDone() {
-        Transaction txn = new TransactionStub("bought necessities");
+        Transaction txn = new TransactionMock("bought necessities");
         account.addTransaction(txn);
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
         RuleEngine.executeRules(model, scriptEngine, txnIndex, account);
@@ -103,7 +104,7 @@ class RuleEngineTest {
         ruleManager.addRule(TypicalRules.DAILY_DESC_PREP_DAILY);
         ruleManager.addRule(TypicalRules.MOREEQUAL100_OUTAMT_HIDDEN);
 
-        account.addTransaction(new TransactionStub("daily necessities"));
+        account.addTransaction(new TransactionMock("daily necessities"));
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
 
         RuleEngine.executeRules(model, scriptEngine, txnIndex, account);
@@ -170,13 +171,13 @@ class RuleEngineTest {
 
     @Test
     void convertValue_blankValue() throws ParseException {
-        assertEquals(null, RuleEngine.convertValue(TYPE_BLANK, new Value("200")));
+        assertNull(RuleEngine.convertValue(TYPE_BLANK, new Value("200")));
     }
 
     @Test
     void extractAttribute_descAttribute_sameDescAttributeExtracted() {
         String desc = "test";
-        Transaction txn = new TransactionStub(desc);
+        Transaction txn = new TransactionMock(desc);
         account.addTransaction(txn);
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
 
@@ -185,16 +186,16 @@ class RuleEngineTest {
 
     @Test
     void extractAttribute_inAmtAttribute_inAmtAttributeExtracted() {
-        Transaction txn = new TransactionStub("test");
+        Transaction txn = new TransactionMock("test");
         account.addTransaction(txn);
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
 
-        assertEquals(null, RuleEngine.extractAttribute(Attribute.IN_AMOUNT, txnIndex, account));
+        assertNull(RuleEngine.extractAttribute(Attribute.IN_AMOUNT, txnIndex, account));
     }
 
     @Test
     void extractAttribute_outAmtAttribute_outAmtAttributeExtracted() {
-        Transaction txn = new TransactionStub("test");
+        Transaction txn = new TransactionMock("test");
         account.addTransaction(txn);
         Index txnIndex = TypicalIndexes.INDEX_FIRST_ITEM;
 
@@ -204,9 +205,9 @@ class RuleEngineTest {
     /**
      * Represents a stub Account.
      */
-    public class AccountStub extends Account {
+    public class AccountMock extends Account {
 
-        public AccountStub() {
+        public AccountMock() {
             super(new Name("TestName"), new Description("TestDesc"), new TransactionList(), 0);
         }
     }
@@ -214,9 +215,9 @@ class RuleEngineTest {
     /**
      * Represents a stub Transaction.
      */
-    public class TransactionStub extends Transaction {
+    public class TransactionMock extends Transaction {
 
-        public TransactionStub(String desc) {
+        public TransactionMock(String desc) {
             super(LocalDate.now(), new Amount(10000), Direction.OUT, new Description(desc), new HashSet<>());
         }
     }
