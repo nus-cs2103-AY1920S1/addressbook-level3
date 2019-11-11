@@ -3,7 +3,6 @@ package seedu.ifridge.logic.commands.templatelist;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_ITEM_INDEX;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
