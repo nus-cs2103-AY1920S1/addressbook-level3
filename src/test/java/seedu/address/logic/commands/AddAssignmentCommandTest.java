@@ -203,6 +203,11 @@ public class AddAssignmentCommandTest {
         }
 
         @Override
+        public void updateAllAssignmentsWithName(Student oldStudent, Student newStudent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void setLesson(Lesson target, Lesson editedLesson) {
             throw new AssertionError("This method should not be called");
         }
@@ -219,6 +224,11 @@ public class AddAssignmentCommandTest {
 
         @Override
         public ObservableList<Classroom> getClassroomList() {
+            return null;
+        }
+
+        @Override
+        public ObservableList<Lesson> getLessonList() {
             return null;
         }
 

@@ -22,7 +22,7 @@ public class DeleteLessonCommand extends Command {
             + "by the index number used in the displayed lesson list in each day tab.\n"
             + "Parameters: LESSON_INDEX (must be a positive integer) "
             + PREFIX_DAY + "DAY_OF_THE_WEEK (Monday: 1, Tuesday: 2 etc) "
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "\nExample: " + COMMAND_WORD + " 1 "
             + PREFIX_DAY + "3 ";
 
     public static final String MESSAGE_DELETE_LESSON_SUCCESS = "Deleted Lesson: %1$s";

@@ -160,6 +160,12 @@ public interface Model {
      */
     void setAssignment(Assignment target, Assignment editedAssignment);
 
+    /**
+     * Replaces all the current key value {@code oldStudent} with {@code newStudent}.
+     * Does this for all the assignments.
+     */
+    void updateAllAssignmentsWithName(Student oldStudent, Student newStudent);
+
 
 
     //=========== Lesson ================================================================================
@@ -215,6 +221,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the classroom list. */
     ObservableList<Classroom> getClassroomList();
+
+    /** Returns an unmodifiable view of the lesson list. */
+    ObservableList<Lesson> getLessonList();
 
     /**
      * Updates the filter of the filtered student list to filter by the given {@code predicate}.

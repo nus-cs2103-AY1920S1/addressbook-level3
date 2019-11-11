@@ -49,6 +49,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the classrooms. */
     ObservableList<Classroom> getClassroomList();
 
+    /** Returns an unmodifiable view of the lessons. */
+    ObservableList<Lesson> getLessonList();
+
     /** Returns the user prefs' notebook file path. */
     Path getNotebookFilePath();
 

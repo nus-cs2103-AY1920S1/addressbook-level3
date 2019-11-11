@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalClassrooms.getTypicalClassroom;
-import static seedu.address.testutil.TypicalLessons.getTypicalLessons;
+import static seedu.address.testutil.TypicalLessons.getTypicalLessonLists;
 import static seedu.address.testutil.TypicalStudents.ALICE;
 
 import java.nio.file.Path;
@@ -97,7 +97,7 @@ public class ModelManagerTest {
     @Test
     public void equals() {
         Notebook notebook = new NotebookBuilder().withClassrooms(getTypicalClassroom())
-                .withLessons(getTypicalLessons()).build();
+                .withLessonLists(getTypicalLessonLists()).build();
         Notebook differentNotebook = new Notebook();
         UserPrefs userPrefs = new UserPrefs();
 

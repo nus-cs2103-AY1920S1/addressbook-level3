@@ -22,7 +22,7 @@ public class AddLessonCommand extends Command {
             + PREFIX_STARTTIME + "START TIME "
             + PREFIX_ENDTIME + "END TIME "
             + "[" + PREFIX_REPEAT + "repeat] "
-            + "Example: " + COMMAND_WORD + " "
+            + "\nExample: " + COMMAND_WORD + " "
             + PREFIX_LESSONNAME + "Math 4E7 "
             + PREFIX_STARTTIME + "14/07/2020 1200 "
             + PREFIX_ENDTIME + "14/07/2020 1400"

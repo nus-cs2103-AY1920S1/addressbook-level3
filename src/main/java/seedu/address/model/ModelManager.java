@@ -199,6 +199,15 @@ public class ModelManager implements Model {
         notebook.setAssignment(target, editedAssignment);
     }
 
+    /**
+     * Updates the assignments in the notebook with the new student's name.
+     */
+    public void updateAllAssignmentsWithName(Student oldStudent, Student newStudent) {
+        requireAllNonNull(oldStudent, newStudent);
+        notebook.updateAllAssignmentNamesWithName(oldStudent.getName().toString(), newStudent.getName().toString());
+    }
+
+
 
     //=========== Display Operations =====================================================================
 
@@ -290,7 +299,10 @@ public class ModelManager implements Model {
         return filteredLessonLists;
     }
 
-
+    @Override
+    public ObservableList<Lesson> getLessonList() {
+        return notebook.getLessonList();
+    }
     @Override
     public ObservableList<Classroom> getClassroomList() {
         return notebook.getClassroomList();
@@ -365,6 +377,11 @@ public class ModelManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
+        boolean note = notebook.equals(other.notebook);
+        boolean pre = userPrefs.equals(other.userPrefs);
+        boolean stu = filteredStudents.equals(other.filteredStudents);
+        boolean ass = filteredAssignments.equals(other.filteredAssignments);
+        boolean les = filteredLessonLists.equals(other.filteredLessonLists);
         return notebook.equals(other.notebook)
                 && userPrefs.equals(other.userPrefs)
                 && filteredStudents.equals(other.filteredStudents)

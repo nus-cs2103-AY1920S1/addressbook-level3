@@ -51,12 +51,24 @@ public class AssignmentGrades {
         }
     }
 
+    public void clear() {
+        this.assignmentGrades.clear();
+    }
+
     /**
      * Parses a {@code String studentName}.
      * Adds a key-value pair with key: studentName, value: "Not submitted.".
      */
-    public void addOneStudentGrade (String studentName) {
+    public void addOneUncompletedStudentGrade (String studentName) {
         assignmentGrades.put(studentName, "Not submitted.");
+    }
+
+    /**
+     * Parses a {@code String studentName}.
+     * Adds the key-value pair for key: studentName, value: Late to the party.
+     */
+    public void addOneCompletedStudentGrade (String studentName) {
+        assignmentGrades.put(studentName, "Late to the party.");
     }
 
     /**

@@ -1,6 +1,7 @@
 package seedu.address.model.lesson;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Class name in the Classroom.
@@ -16,6 +17,7 @@ public class ClassName {
 
     public ClassName(String className) {
         requireNonNull(className);
+        checkArgument(isValidClassName(className), MESSAGE_CONSTRAINTS);
         this.className = className;
     }
 

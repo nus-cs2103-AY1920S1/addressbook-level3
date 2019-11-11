@@ -211,6 +211,14 @@ public class Notebook implements ReadOnlyNotebook {
         currentClassroom.setAssignment(target, editedAssignment);
     }
 
+    /**
+     * Updates the assignments in the current classroom with the new student's name.
+     */
+    public void updateAllAssignmentNamesWithName(String oldStudentName, String newStudentName) {
+        requireAllNonNull(oldStudentName, newStudentName);
+        currentClassroom.updateAllAssignmentNamesWithName(oldStudentName, newStudentName);
+    }
+
     //=========== Display Operations =====================================================================
 
     public boolean isDisplayStudents() {
@@ -288,11 +296,19 @@ public class Notebook implements ReadOnlyNotebook {
     }
 
     /**
-     * Replaces the contents of the lesson list with {@code lessons}.
+     * Replaces the contents of the lesson list with {@code unique lesson lists}.
      * {@code lessons} must not contain duplicate lessons.
      */
     public void setAllLessons(List<UniqueLessonList> lessons) {
         this.lessonLists.setLessons(lessons);
+    }
+
+    /**
+     * Replaces the contents of the lesson list with {@code lessons}.
+     * {@code lessons} must not contain duplicate lessons.
+     */
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons.setLessons(lessons);
     }
 
 
