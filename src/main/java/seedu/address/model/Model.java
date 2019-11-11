@@ -183,9 +183,11 @@ public interface Model {
 
     void saveToMap(String key, ArrayList<Earnings> list);
 
-    void saveListToMap(String key, Earnings earnings);
+    void saveEarningsToMap(String key, Earnings earnings);
 
     HashMap<String, ArrayList<Earnings>> getMap();
+
+    void removeEarningsFromMap(String currentDay, Earnings earnings);
 
     /**
      * Returns true if a task with the same identity as {@code task} exists in the address book.

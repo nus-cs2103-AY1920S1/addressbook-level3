@@ -51,8 +51,7 @@ public class JsonAccountStorage implements AccountStorage {
     }
 
     /**
-     * Similar to {@link #readAddressBook()}.
-     *
+     * Returns the account list.
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -92,8 +91,7 @@ public class JsonAccountStorage implements AccountStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}.
-     *
+     * Saves account in the json file.
      * @param filePath location of the data. Cannot be null.
      */
     public void saveAccount(Account account, Path filePath) throws IOException {
@@ -107,7 +105,6 @@ public class JsonAccountStorage implements AccountStorage {
             JsonUtil.saveJsonFile(new JsonSerializableAccountBook(acctBook), filePath);
         } catch (DataConversionException e) {
             logger.info("Illegal values found in " + filePath + ": " + e.getMessage());
-            //throw new DataConversionException(e);
         }
 
     }

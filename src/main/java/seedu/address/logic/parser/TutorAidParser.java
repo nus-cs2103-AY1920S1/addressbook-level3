@@ -107,8 +107,9 @@ public class TutorAidParser {
             return new CancelCommand();
         } else {
             if (TutorAidParser.commandList.containsKey(trimmedInput)) {
-                TutorAidParser.commandList.put(prevUnknownCommand, TutorAidParser.commandList.get(trimmedInput));
-                return new NewCommand(TutorAidParser.commandList.get(trimmedInput), prevUnknownCommand);
+                String commandAction = TutorAidParser.commandList.get(trimmedInput);
+                TutorAidParser.commandList.put(prevUnknownCommand, commandAction);
+                return new NewCommand(commandAction, prevUnknownCommand);
             } else {
                 return new UnknownCommand(trimmedInput);
             }

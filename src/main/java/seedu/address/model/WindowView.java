@@ -60,7 +60,7 @@ public class WindowView {
     }
 
     /**
-     * Returns true if a given string is a valid week number.
+     * Returns true if a given string is a valid tab.
      */
     public static boolean isValidWindowView(String test) {
         return test.matches(VALIDATION_REGEX);

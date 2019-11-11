@@ -43,8 +43,8 @@ public class Notes {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both notes of the same module code have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two notes.
      */
     public boolean isSameNote(Notes otherNotes) {
         if (otherNotes == this) {
@@ -58,8 +58,8 @@ public class Notes {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both notes have the same identity and data fields.
+     * This defines a stronger notion of equality between two notes.
      */
     @Override
     public boolean equals(Object other) {

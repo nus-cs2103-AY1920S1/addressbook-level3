@@ -77,7 +77,7 @@ public class SuggestionsField extends TextField {
             Label commandDescription = new Label(
                     commandWord + " - executes a <" + commandList.get(commandWord) + "> command."
             );
-            CustomMenuItem commandMenuItem = new CustomMenuItem(commandDescription, false);
+            CustomMenuItem commandMenuItem = new CustomMenuItem(commandDescription, true);
             itemsToDisplay.push(commandMenuItem);
             EventHandler<ActionEvent> onEnter = new EventHandler<>() {
                 @Override

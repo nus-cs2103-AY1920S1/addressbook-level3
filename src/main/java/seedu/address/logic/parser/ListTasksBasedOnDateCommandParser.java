@@ -17,7 +17,7 @@ public class ListTasksBasedOnDateCommandParser {
      */
     public ListTasksBasedOnDateCommand parse(String arg) throws ParseException {
         String trimmedArg = arg.trim();
-        if (trimmedArg.isEmpty()) {
+        if (trimmedArg.isEmpty() || trimmedArg.contains(" ")) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTasksBasedOnDateCommand.MESSAGE_USAGE));
         }

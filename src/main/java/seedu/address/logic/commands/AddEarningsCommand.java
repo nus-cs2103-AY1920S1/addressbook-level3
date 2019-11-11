@@ -35,7 +35,6 @@ public class AddEarningsCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New earnings added: %1$s";
     public static final String MESSAGE_DUPLICATE_EARNINGS =
             "This earnings with the same module, date and amount already exists in the address book";
-    // For date, maybe can use this instead --> %tm/%td/%ty
 
     private final Earnings toAddEarnings;
 
@@ -55,7 +54,6 @@ public class AddEarningsCommand extends Command {
         }
 
         model.addEarnings(toAddEarnings);
-        //Earnings.getEarningsList().add(toAddEarnings);
         model.commitTutorAid();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEarnings),
                 false, false, true, false, false,

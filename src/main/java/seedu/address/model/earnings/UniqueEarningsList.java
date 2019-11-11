@@ -40,8 +40,8 @@ public class UniqueEarningsList implements Iterable<Earnings> {
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds an earnings to the list.
+     * The earnings must not already exist in the list.
      */
     public void add(Earnings toAdd) {
         requireNonNull(toAdd);
@@ -52,9 +52,9 @@ public class UniqueEarningsList implements Iterable<Earnings> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the earnings {@code target} in the list with {@code editedEarnings}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The earnings identity of {@code editedEarnings} must not be the same as another existing earnings in the list.
      */
     public void setEarnings(Earnings target, Earnings editedEarnings) {
         requireAllNonNull(target, editedEarnings);
@@ -77,8 +77,8 @@ public class UniqueEarningsList implements Iterable<Earnings> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code earnings}.
+     * {@code earnings} must not contain duplicate earnings.
      */
     public void setEarnings(List<Earnings> earnings) {
         requireAllNonNull(earnings);
@@ -90,8 +90,8 @@ public class UniqueEarningsList implements Iterable<Earnings> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent earnings from the list.
+     * The earnings must exist in the list.
      */
     public void remove(Earnings toRemove) {
         requireNonNull(toRemove);
@@ -125,7 +125,7 @@ public class UniqueEarningsList implements Iterable<Earnings> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code earnings} contains only unique earnings.
      */
     private boolean earningsAreUnique(List<Earnings> earnings) {
         for (int i = 0; i < earnings.size() - 1; i++) {

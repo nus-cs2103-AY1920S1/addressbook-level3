@@ -20,6 +20,11 @@ Those features of TutorAid was selected specifically for the target user - tutor
 
 The user interacts with TutorAid using a Command Line Interface (CLI), with a Graphical User Interface (GUI) created with JavaFX for user to better view the interactions.
 
+== Role
+
+My role in this project was to design and write the codes for the task-commands in Calendar feature as well as the undo and redo features. The sections below explain those enhancements in detail.
+
+
 == Summary of contributions
 
 * *_Major enhancement_*: added *the ability to undo/redo previous commands*
@@ -71,12 +76,12 @@ include::../UserGuide.adoc[tag=commandSummary]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are some sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Because of the limitation of number of pages, some contributions like the explanation of the add_task command, the considerations for undo/redo command, as well as the use case are not shown below._
+|_Given below are some sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project. Because of the limitation of number of pages, some contributions like the explanation of the add_task command, the considerations for undo/redo command, the manual testing instructions of some task and undo/redo commands, as well as some of the use cases are not shown below._
 |===
 
 include::../DeveloperGuide.adoc[tag=undoAndRedo]
-
 include::../DeveloperGuide.adoc[tag=userStoriesAndCase]
+include::../DeveloperGuide.adoc[tag=ManualTestTask]
 
 '''
 

@@ -7,7 +7,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.classid.ClassId;
 import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.ModuleCode;
 import seedu.address.model.note.Notes;
 
 /**
@@ -47,16 +46,16 @@ public class JsonAdaptedNote {
     public Notes toModelType() throws IllegalValueException {
         if (classId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ModuleCode.class.getSimpleName()));
+                    ClassId.class.getSimpleName()));
         }
-        if (!ModuleCode.isValidModuleCode(classId)) {
-            throw new IllegalValueException(ModuleCode.MESSAGE_CONSTRAINTS);
+        if (!ClassId.isValidClassId(classId)) {
+            throw new IllegalValueException(ClassId.MESSAGE_CONSTRAINTS);
         }
         final ClassId modelCode = new ClassId(classId);
 
         if (type == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    ModuleCode.class.getSimpleName()));
+                    ClassType.class.getSimpleName()));
         }
         if (!ClassType.isValidClassType(type)) {
             throw new IllegalValueException(ClassType.MESSAGE_CONSTRAINTS);

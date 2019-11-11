@@ -115,6 +115,8 @@ public class CommandTestUtil {
     public static final String VALID_CLASSID_NOTE_BOB = "CS3235";
     public static final String VALID_CLASSID_NOTE_CALVIN = "ES2660";
 
+    public static final String INVALID_NOTE_CONTENT = " " + PREFIX_CONTENT + " "; //empty content is not allowed.
+
     public static final String VALID_TYPE_NOTES_TUT = "tut";
     public static final String VALID_TYPE_NOTES_LAB = "lab";
     public static final String VALID_TYPE_NOTES_C = "c";
@@ -122,6 +124,7 @@ public class CommandTestUtil {
     public static final String VALID_NOTE_CONTENT_1 = "check project consultation time";
     public static final String VALID_NOTE_CONTENT_2 = "remember to bring test result";
     public static final String VALID_NOTE_CONTENT_3 = "meeting with lecturer";
+    public static final String VALID_NOTE_CONTENT_4 = "check report submission";
 
     public static final String CLASSID_DESC_NOTE_AMY = " " + PREFIX_CLASSID + VALID_CLASSID_NOTE_AMY;
     public static final String CLASSID_DESC_NOTE_BOB = " " + PREFIX_CLASSID + VALID_CLASSID_NOTE_BOB;

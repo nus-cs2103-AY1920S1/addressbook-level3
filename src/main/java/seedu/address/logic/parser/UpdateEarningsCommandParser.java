@@ -20,8 +20,8 @@ import seedu.address.model.earnings.Earnings;
 public class UpdateEarningsCommandParser implements Parser<UpdateEarningsCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the EditCommand
-     * and returns an EditCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the UpdateEarningsCommandParser
+     * and returns an UpdateEarningsCommandParser object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public UpdateEarningsCommand parse(String args) throws ParseException {

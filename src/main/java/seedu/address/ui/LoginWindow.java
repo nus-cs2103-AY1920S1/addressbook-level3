@@ -88,24 +88,6 @@ public class LoginWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
     }
 
-    /*void fillLogin() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
-        resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-
-        reminderBox = new ReminderBox();
-        //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
-
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-    }*/
-
-
     public Stage getPrimaryStage() {
         return primaryStage;
     }
