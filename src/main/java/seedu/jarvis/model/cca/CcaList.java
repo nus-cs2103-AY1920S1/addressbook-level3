@@ -46,6 +46,7 @@ public class CcaList {
     }
 
     public ObservableList<Cca> getInternalCcaList() {
+        assert internalCcaList != null : "internalCcaList is null.";
         return internalCcaList;
     }
 
@@ -53,6 +54,7 @@ public class CcaList {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Cca> asUnmodifiableObservableList() {
+        assert internalUnmodifiableCcaList != null : "internalUnmodifiableCcaList is null.";
         return internalUnmodifiableCcaList;
     }
 
@@ -64,7 +66,7 @@ public class CcaList {
      */
     public Cca getCca(Index index) {
         requireNonNull(index);
-
+        assert index.getZeroBased() >= 0 : "Target index is negative.";
         if (index.getZeroBased() >= internalCcaList.size()) {
             throw new CcaNotFoundException();
         }
@@ -77,6 +79,7 @@ public class CcaList {
      */
     public boolean containsCca(Cca toCheck) {
         requireNonNull(toCheck);
+        assert internalCcaList != null : "internalCcaList is null.";
         return internalCcaList.stream().anyMatch(toCheck::isSameCca);
     }
 
@@ -86,6 +89,7 @@ public class CcaList {
      * @return size of the current internalCcaList.
      */
     public int size() {
+        assert internalCcaList != null : "internalCcaList is null.";
         return internalCcaList.size();
     }
 
@@ -98,6 +102,7 @@ public class CcaList {
             throw new DuplicateCcaException();
         }
 
+        assert internalCcaList != null : "internalCcaList is null.";
         internalCcaList.add(cca);
     }
 
@@ -106,10 +111,12 @@ public class CcaList {
      */
     public void addCca(Index targetIndex, Cca cca) {
         requireAllNonNull(targetIndex, cca);
+        assert targetIndex.getZeroBased() >= 0 : "Target index is negative.";
         if (internalCcaList.contains(cca)) {
             throw new DuplicateCcaException();
         }
 
+        assert internalCcaList != null : "internalCcaList is null.";
         internalCcaList.add(targetIndex.getZeroBased(), cca);
     }
 
@@ -130,6 +137,7 @@ public class CcaList {
             throw new DuplicateCcaException();
         }
 
+        assert internalCcaList != null : "internalCcaList is null.";
         internalCcaList.set(toBeUpdatedCcaIndex, updatedCca);
     }
 
@@ -154,6 +162,7 @@ public class CcaList {
             throw new CcaNotFoundException();
         }
 
+        assert internalCcaList != null : "internalCcaList is null.";
         internalCcaList.remove(toBeRemovedCca);
     }
 
@@ -162,6 +171,7 @@ public class CcaList {
      */
     public void increaseProgress(Index index) {
         requireNonNull(index);
+        assert index.getZeroBased() >= 0 : "Target index is negative.";
         Cca cca = getCca(index);
         cca.increaseProgress();
     }
@@ -170,6 +180,7 @@ public class CcaList {
      * Checks if {@code} Cca contains progress already.
      */
     public boolean ccaContainsProgress(Index targetIndex) {
+        assert targetIndex.getZeroBased() >= 0 : "Target index is negative.";
         Cca targetCca = getCca(targetIndex);
         if (targetCca.containsProgress()) {
             return true;
@@ -182,6 +193,7 @@ public class CcaList {
      * Checks if the progress in {@code Cca} at {@code targetIndex} can be incremented any further.
      */
     public boolean ccaAtMaxIncrement(Index targetIndex) {
+        assert targetIndex.getZeroBased() >= 0 : "Target index is negative.";
         Cca targetCca = getCca(targetIndex);
         if (targetCca.progressAtMaxIncrement()) {
             return true;
@@ -204,6 +216,7 @@ public class CcaList {
      */
     public boolean ccaProgressAtMinLevel(Index targetIndex) {
         requireNonNull(targetIndex);
+        assert targetIndex.getZeroBased() >= 0 : "Target index is negative.";
         Cca targetCca = getCca(targetIndex);
         return targetCca.ccaProgressAtMinLevel();
     }
@@ -213,6 +226,7 @@ public class CcaList {
      */
     public void decreaseProgress(Index targetIndex) {
         requireNonNull(targetIndex);
+        assert targetIndex.getZeroBased() >= 0 : "Target index is negative.";
         Cca targetCca = getCca(targetIndex);
         targetCca.decreaseProgress();
     }
