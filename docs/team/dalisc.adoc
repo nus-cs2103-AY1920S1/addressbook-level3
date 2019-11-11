@@ -17,7 +17,7 @@ The interface is responsive to suit different screen sizes. However, due to its 
 The image below shows where the users can type the commands and where the details are displayed:
 
 .Mortago's dashboard.
-image::Ui.png[width="790", align="center"]
+image::Ui.png[]
 
 === 1.2. About the Team
 
