@@ -379,8 +379,9 @@ Command class also needs to be stored and VersionedMark might need to depend on 
 === Autotag feature
 ==== Implementation
 
-Autotags are represented as `SelectiveBookmarkTaggers` in the `Model`, while autotag names and conditions are
-represented as `Tags` and `BookmarkPredicates` respectively. The class diagram for the Autotag package illustrates this:
+Autotags, autotag names, and autotag conditions are represented as `SelectiveBookmarkTaggers`,
+`Tags` and `BookmarkPredicates` in the `Model` respectively. The class diagram for the Autotag package illustrates the
+structure of these classes:
 
 .Class diagram for the Autotag package
 image::AutotagPackageClassDiagram.png[300, 300]
@@ -406,9 +407,8 @@ The autotag mechanism itself is facilitated by the main class `AutotagController
 The `AutotagController` implements several operations to _add_, _remove_, and _apply_ taggers, as well as to _check_
 whether a given tagger exists. Four of these operations can be accessed via the `Model` interface:
 `hasTagger(SelectiveBookmarkTagger)`, `addTagger(SelectiveBookmarkTagger)`, `removeTagger(String)`,
-and `applyAllTaggers()`.
-
-These `Model` operations allow autotags to be added, edited, or removed by commands in the `Logic` component.
+and `applyAllTaggers()`. These `Model` operations allow autotags to be added, edited, or removed by commands
+in the `Logic` component.
 
 '''
 
@@ -419,7 +419,7 @@ Given below is an example usage scenario that shows the autotag mechanism at eac
 **Step 1**. The user opens the application with an existing list of bookmarks and no autotags.
 
 .The initial state of Mark
-image::AutotagState0.png[350, 350]
+image::AutotagState0.png[400, 350]
 
 **Step 2**. The user executes the command `**autotag** Help u/stackoverflow.com/questions` to add an autotag that tags all
 bookmarks from **stackoverflow.com/questions** with the tag **Help**.
@@ -429,8 +429,8 @@ The predicate's URL keyword is **stackoverflow.com/questions**.
 Bookmark `b2`, which matches the predicate's conditions, is replaced by a copy of itself
 (`b3`) that contains the additional tag **Help**.
 
-.The state of Mark after an autotag has been added
-image::AutotagState1.png[400, 400]
+.The state of Mark after adding an autotag
+image::AutotagState1.png[450, 400]
 
 **Step 3**. The user then executes the command `**add** n/JavaFX new scene u/https://stackoverflow.com/questions/29080759/`
 to bookmark a question on StackOverflow.
@@ -438,12 +438,12 @@ to bookmark a question on StackOverflow.
 * A new bookmark with the name `JavaFX new scene` is created. This bookmark matches the conditions for the
 autotag **Help**, so it is tagged **Help**.
 
-.The state of Mark after a new bookmark has been added and automatically tagged
-image::AutotagState2.png[400, 400]
+.The state of Mark after adding and automatically tagging a new bookmark
+image::AutotagState2.png[450, 400]
 
 ****
 
-The following diagrams show how the `*autotag*` command works in more detail.
+The next three diagrams show how the `*autotag*` command works in more detail.
 
 An `*autotag*` command is parsed using an `AutotagCommandParser` in a similar fashion as
 other commands, resulting in an `AutotagCommand` that contains the `SelectiveBookmarkTagger` to be added.
@@ -454,7 +454,8 @@ a valid autotag command is executed:
 image::AutotagSequenceDiagram.png[300, 300]
 
 The `AutotagCommand` first checks whether the given `model` contains the `tagger` to be added.
-Since it does not, the `tagger` is added and all taggers are applied to the bookmarks in `model`.
+Since it does not (the autotag command is valid), the `tagger` is added and all taggers are applied to
+the bookmarks in `model`.
 The current state of Mark is then saved.
 
 The next sequence diagram provides details of how taggers are applied to bookmarks in Mark.
@@ -464,9 +465,9 @@ image::ApplyAllTaggersSequenceDiagram.png[500, 500]
 
 NOTE: The **sd** frame should cover the whole diagram, but it does not due to a limitation of PlantUML.
 
-As seen above, the `Model` calls `VersionedMark`, which then obtains its `list` of bookmarks
+As seen above, the `Model` calls `VersionedMark`, which obtains its `list` of bookmarks
 and passes the list to `AutotagController`.
-`AutotagController` iterates through the bookmarks and taggers, applying tags to bookmarks by using
+`AutotagController` then iterates through the bookmarks and taggers, applying tags to bookmarks by using
 `SelectiveBookmarkTagger#applyTagSelectively(Bookmark)`. A new list of bookmarks is returned, which is set as the new
 bookmark list.
 

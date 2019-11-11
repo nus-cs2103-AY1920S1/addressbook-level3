@@ -21,8 +21,8 @@ This is what our product, Mark, looks like:
 image::Ui.png[400, 400]
 
 Our product, Mark, was conceptualised and implemented over a period of 8 weeks. My role as a developer was to design and
-implement a mechanism to allow bookmarks to be categorised automatically. I also implemented the `import` and `export`
-features and contributed to various team tasks. The following sections illustrate these contributions in more detail.
+implement a mechanism to allow bookmarks to be categorised automatically. I also improved Mark's storage functionality
+and contributed to various team tasks. The following sections describe these contributions in more detail.
 
 == Summary of contributions
 
