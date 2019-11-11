@@ -318,42 +318,6 @@ The active account will be highlighted, as shown below:
 .Account list after switching accounts
 image::AccountSwitch.png[]
 
-==== Switch the active account: `account switch`
-
-To switch the active account to another in the account list, specify the ID of the new account to switch to.
-
-Format: `account switch <id>`
-
-****
-* Switches the active account to the account with the specified index, and updates the shown `Transaction` list.
-The index refers to the index number as shown in the displayed account list. The index must be a positive integer 1, 2, 3...
-****
-
-Example:
-
-* `account switch 3` Will switch the active account to the third one in the list, as long as there are at least 3 accounts listed.
-The active account will be highlighted, as shown below:
-
-image::AccountSwitch1.png[]
-
-==== Switch the active account: `account switch`
-
-To switch the active account to another in the account list, specify the ID of the new account to switch to.
-
-Format: `account switch <id>`
-
-****
-* Switches the active account to the account with the specified index, and updates the shown `Transaction` list.
-The index refers to the index number as shown in the displayed account list. The index must be a positive integer 1, 2, 3...
-****
-
-Example:
-
-* `account switch 3` Will switch the active account to the third one in the list, as long as there are at least 3 accounts listed.
-The active account will be highlighted, as shown below:
-
-image::AccountSwitch1.png[]
-
 ==== Export the overview of all accounts: `account overview`
 
 If you want to see the overview of all accounts, Budget Buddy allows you to export the overview of all accounts in a HTML file.
