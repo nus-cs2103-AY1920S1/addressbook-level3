@@ -30,4 +30,4 @@ work on a Command Line Interface (CLI) while still having the benefits of a Grap
 
 * Original code source is taken from the AddressBook-Level3 project created by SE-EDU initiative at https://se-education.org
 
-== Licence : link:LICENSE[MIT]
+== Licence : link:https://github.com/AY1920S1-CS2103T-F13-2/main/blob/master/LICENSE[MIT]
