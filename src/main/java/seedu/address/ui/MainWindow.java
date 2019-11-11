@@ -385,7 +385,7 @@ public class MainWindow extends UiPart<Stage> {
                 }
             }
 
-            if (commandResult.getType().equals("Generate")) {
+            if (commandResult.getType().contains("Generate")) {
                 generateDate();
             }
 
