@@ -1,0 +1,20 @@
+@startuml
+start
+:Search term supplied;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([In LIST_ACTIVITY context])
+    :Find all Activities matching search term;
+    :Update GUI to show all search results;
+    stop
+elseif () then ([Exact search returns no contacts])
+    :Find all Contacts matching search term;
+    :Update GUI to show all search results;
+    stop
+else ([In other context])
+    :Invalid context, throw error;
+endif
+stop
+@enduml

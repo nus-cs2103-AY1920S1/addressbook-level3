@@ -3,7 +3,9 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+
 import seedu.address.model.activity.Activity;
+import seedu.address.ui.util.UiUtil;
 
 /**
  * An UI component that displays information of an {@code Activity}.
@@ -11,12 +13,10 @@ import seedu.address.model.activity.Activity;
 public class ActivityCard extends UiPart<Region> {
     private static final String FXML = "ActivityCard.fxml";
 
-    public final Activity activity;
+    private final Activity activity;
 
     @FXML
     private Label index;
-    @FXML
-    private Label id;
     @FXML
     private Label title;
     @FXML
@@ -25,12 +25,12 @@ public class ActivityCard extends UiPart<Region> {
     public ActivityCard(Activity activity, int displayedIndex) {
         super(FXML);
         this.activity = activity;
-        id.setText("ID: " + activity.getPrimaryKey());
+
         index.setText("#" + displayedIndex);
         title.setText(activity.getTitle().toString());
 
-        int numParticipants = activity.getParticipantIds().size();
-        participantCount.setText(numParticipants + (numParticipants != 1 ? " participants" : " participant"));
+        int numParticipants = activity.getParticipantCount();
+        participantCount.setText(UiUtil.formatParticipantCount(numParticipants));
     }
 
     @Override
@@ -47,7 +47,6 @@ public class ActivityCard extends UiPart<Region> {
 
         // state check
         ActivityCard card = (ActivityCard) other;
-        return id.getText().equals(card.id.getText())
-                && activity.equals(card.activity);
+        return activity.equals(card.activity);
     }
 }

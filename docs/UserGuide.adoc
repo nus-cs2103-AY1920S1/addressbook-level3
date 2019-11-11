@@ -51,7 +51,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 SplitWiser data is saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually - you don't have to worry about forgetting to save!
 
-=== Persistent app state
+=== Persistent app state (v2.0 only)
 
 SplitWiser also saves its application state with your data - meaning you can re-launch the app and continue where you left off!
 
@@ -119,16 +119,17 @@ Examples:
 * `contact n/John Doe p/98765432` +
 Creates a new contact with name John Doe and mobile number 98765432.
 
+// tag::create_activity[]
 === Create new activity: `activity`
 
 Creates a new activity with a title, contacts (optional) and no expenses.
 ****
-* Additional contacts to add to the activity can be specified by using `p/` prefix.
+* Additional contacts can be added to the activity by using `p/` prefix.
 ** Initially, the application will search for contact with exact matching name.
 ** If no exact match is found, keyword matching is used instead. Refer to <<Finding contacts or activities: `find`>> for more details.
 ** For a contact to be successfully added, given keywords must have exact 1 matching contact. Otherwise, the activity will be created without adding the contact suggested by the keywords, and warning message will be shown.
 * Changes the current view to this activity (as if `view a/ACTIVITY_ID` was called).
-* Each activity will be assigned an activity ID automatically. +
+* Each activity will be automatically assigned an activity ID. +
 ****
 
 Format: `activity t/ACTIVITY_TITLE [p/PERSON ...]`
@@ -140,6 +141,7 @@ Creates a new activity with title 'Chalet' John Doe as participants.
 
 * `activity t/Breakfast p/David Li p/Bernice Yu` +
 Creates a new activity with title 'Breakfast'. If the contact named 'Bernice Yu' doesn't exist, only the contact 'David Li' will be added in as a participant, and a warning message will be shown, stating that contact named 'Bernice Yu' could not be found.
+// end::create_activity[]
 
 // tag::invite[]
 === Inviting contacts to an activity: `invite`
@@ -301,6 +303,8 @@ Edits the phone number of the current contact in view to `999`. No changes are m
 Edits the title of the current activity in view to `BBQ`. No changes are made if an activity is not being viewed.
 // end::edit[]
 
+
+// tag::find[]
 === Finding contacts or activities: `find`
 
 Finds contacts or activities whose name or title respectively contain *any* of the given keywords.
@@ -322,6 +326,7 @@ Examples:
 * `find John` +
 If currently viewing list of contacts, returns contacts (e.g. `john` and `John Doe`).
 If currently viewing list of activities, returns activities (e.g `lunch with john`).
+// end::find[]
 
 // tag::delete[]
 === Deleting a contact, activity or expense: `delete`
