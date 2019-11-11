@@ -493,7 +493,7 @@ The following aspects of the autotag mechanism were considered when designing th
 ==== Implementation
 The annotation feature builds upon the structure of an offline document used to represent a _Readability4J-derived cache_.
 Such an offline document is represented by `OfflineDocument`, which contains at least one `Paragraph`. Each annotation is attached to an entire `Paragraph`. The annotation will be internally stored as an instance of `Annotation`.
-You can view the class structure of the annotation feature in the <<annotation-cd>>.
+You can view the class structure of the annotation feature <<link:DeveloperGuide.adoc#annotation-cd, here>>.
 
 The annotation feature supports adding, deleting and editing annotations. Command words
 `annotate`, `annotate-delete` and `annotate-edit` activate the respective functionality.
