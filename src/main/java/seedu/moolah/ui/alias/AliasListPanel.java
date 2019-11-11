@@ -50,7 +50,7 @@ public class AliasListPanel extends Panel {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Alias} using a {@code TextFlow}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Alias} using a {@code AliasCard}.
      */
     class AliasListCell extends ListCell<Alias> {
         @Override

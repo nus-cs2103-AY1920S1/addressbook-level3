@@ -28,7 +28,7 @@ public class DeleteAliasCommand extends UndoableCommand {
     private String aliasName;
 
     /**
-     * Creates an AddExpenseCommand to add the specified {@code Expense}
+     * Creates an DeleteAliasCommand to add the specified {@code AliasName}
      */
     public DeleteAliasCommand(String aliasName) {
         requireNonNull(aliasName);

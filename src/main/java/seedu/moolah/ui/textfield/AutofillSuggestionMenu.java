@@ -32,8 +32,8 @@ import javafx.util.Pair;
 import seedu.moolah.logic.parser.Prefix;
 
 /**
- * Context Menu to show suggestions to replace text in a Text Area. Cycle through suggestions using TAB key and press
- * ENTER to finalize choice.
+ * Context Menu to show suggestions to replace text in a Text Area. Disable and enable suggestions using TAB key, and
+ * scroll through options using the arrow keys.
  */
 public class AutofillSuggestionMenu extends ContextMenu {
 

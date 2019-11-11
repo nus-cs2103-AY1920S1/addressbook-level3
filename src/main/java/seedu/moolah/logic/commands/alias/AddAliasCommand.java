@@ -47,7 +47,7 @@ public class AddAliasCommand extends UndoableCommand {
     private Alias toAdd;
 
     /**
-     * Creates an AddExpenseCommand to add the specified {@code Expense}
+     * Creates an AddAliasCommand to add the specified {@code Alias}
      */
     public AddAliasCommand(Alias alias) {
         requireNonNull(alias);
