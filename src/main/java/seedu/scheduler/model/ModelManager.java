@@ -477,6 +477,22 @@ public class ModelManager implements Model {
     }
 
     /**
+<<<<<<< HEAD
+     * Updates schedule list based on interviewer's data.
+     */
+    public void updateScheduleList() {
+        try {
+            this.setEmptyScheduleList();
+            List<Schedule> schedules = this.getEmptyScheduleList();
+            this.setSchedulesList(schedules);
+        } catch (ParseException e) {
+            logger.log(Level.WARNING, "Should not have exceptions");
+        }
+    }
+
+    /**
+=======
+>>>>>>> e8736951f8be4c8d5b473d69aaa780c957765568
      * Returns the interview slot allocated to the interviewee with the {@code intervieweeName}.
      * @return
      */

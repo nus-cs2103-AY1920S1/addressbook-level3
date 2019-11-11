@@ -501,6 +501,8 @@ image::ScheduleSequenceDiagram.png[]
 
 // end::schedule[]
 
+// tag::import[]
+
 === Import
 ==== Implementation
 
@@ -577,7 +579,7 @@ the data of the InterviewerList. Therefore, modification of IntervieweeList will
 in the list of schedules at this point of time.
 
 To update the list of schedules in the model every time the InterviewerList is modified, the method
-`updateScheduleList()` is called in the model. The notable implementations of this method is discussed below.
+`updateScheduleList()` is called in the model. The notable implementations of this method are discussed below.
 
 * `updateScheduleList()` basically re-generates the list of schedules in the model from the updated InterviewerList.
 * It will get `startTime`, `endTime` and `duration` of a timeslot from `UserPref` and generates the
@@ -596,6 +598,9 @@ will be responsive to these changes. The only trade-off is performance, due to t
 the schedules every time a command is ran. However, this will not be a big issue if the number of
 interviewers is < 100.
 
+// end::import[]
+
+
 ==== After Scheduling of Interviews
 
 After the scheduling algorithm is ran, each interviewer should have a list of allocated interviewee slots.
@@ -606,6 +611,8 @@ To prevent confusion and to ensure that the scheduled result is always updated w
 and interviewers, add/delete/edit of interviewee or interviewer after scheduling will clear the scheduled result and reset
 the displayed schedules such that the schedules only display the availabilities of the interviewers. Thus, the user will need
 to run the schedule command again to re-schedule the interviews.
+
+// tag::export[]
 
 === Export
 ==== Implementation
@@ -627,6 +634,8 @@ The Activity Diagram below summarises the execution of the export command.
 
 .Export Activity Diagram
 image::ExportActivityDiagram.png[]
+
+// end::export[]
 
 // tag::email[]
 === Email
@@ -929,6 +938,7 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
+
 // end::DisplayUseCases[]
 
 === Use Case: (UC-6) Export Schedules
@@ -958,7 +968,6 @@ Use case resumes at step 3.
 ** 3a1. Scheduler displays error message in the UI.
 +
 Use case resumes at step 1.
-
 
 [appendix]
 == Non Functional Requirements
@@ -1022,6 +1031,7 @@ These instructions only provide a starting point for testers to work on; testers
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
+
 
 === Importing data
 

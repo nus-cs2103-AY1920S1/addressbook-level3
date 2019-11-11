@@ -8,10 +8,10 @@
 ---
 
 == Overview
-
-Scheduler is a desktop application which is used to automate the process of scheduling interviews.
-Its main feature is matching interviewees with interview time slots to generate an interview timetable.
-The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+_Scheduler_ automates the tedious process of interview scheduling for organisations. It is designed with convenience in mind,
+and apart from the efficient scheduling of interviews, it also empowers user with the ability to import/export timetables and even mass email the interviewees all on the same platform.
+The algorithm behind _Scheduler_ ensures the efficient and fair allocation interview slots, effectively minimising human-error.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
 
 == Summary of contributions
 
@@ -32,35 +32,23 @@ String processing of the imported data was also tedious and very prone to bugs d
 with colleagues/interviewers. It also allows the user to use third party applications (Excel) to touch-up/re-format the data.
  Most importantly, it frees Scheduler of the need to hold the current schedules so that it can be used again to schedule other interviews.
 
-* *Minor enhancement*:
+* *Minor enhancement*: Implemented responsive UI for `add`, `delete`, `edit`, `import` and `clear` commands, together with team mate Yau Dong.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=mirozo&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=mirozo&tabRepo=AY1920S1-CS2103-F09-1%2Fmain%5Bmaster%5D[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
 * *Other contributions*:
-** Designed a way to update Schedules by re-generating the list of schedules solely from a given list of Interviewers. This is the
+** Enhancements to existing features:
+*** Designed a way to update Schedules by re-generating the list of schedules solely from a given list of Interviewers. This is the
 backbone for the integration between UI and Model after the execution commands that modifies the model e.g. `add`, `delete`,
 `edit`, `import` and `clear` commands. The subsequent schedule command's integration with UI also builds upon this method.
 Look at section "Updating Schedule List" in Developer's Guide for a better idea of the above.
-** Implemented responsive UI for `add`, `delete`, `edit`, `import` and `clear` commands, together with team mate Yau Dong.
-
-
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the Developers Guide:
+*** Added User Preferences section into User Guide: https://github.com/AY1920S1-CS2103-F09-1/main/pull/164[164]
+*** Added User Stories https://github.com/AY1920S1-CS2103-F09-1/main/pull/35[35] and Use Cases https://github.com/AY1920S1-CS2103-F09-1/main/pull/186[186]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-F09-1/main/pull/161[#161]
+*** Handled merge conflicts for team: https://github.com/AY1920S1-CS2103-F09-1/main/pull/80[#80]
 
 == Contributions to the User Guide
 
@@ -69,9 +57,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=import]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=export]
 
 == Contributions to the Developer Guide
 
@@ -79,9 +67,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=import]
 
-include::../DeveloperGuide.adoc[tag=dataencryption]
+include::../DeveloperGuide.adoc[tag=export]
 
-
-== PROJECT: PowerPointLabs
