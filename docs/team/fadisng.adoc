@@ -1,19 +1,22 @@
 = Fadi Sng - Project Portfolio
+:site-section: AboutUs
 :imagesDir: ../images
+:stylesDir: ../stylesheets
+
 
 == PROJECT: MyProject
 
 == Background
-My team consists of a group of 5 NUS computer science students working on ths project as part of a software engineering project.
-The task was to enhance a basic CLI addressbook app into an app that suits the needs of a target group of people.
-We decided to morph it into a project management app for students as it was something closer to us and we could
+My team consists of a group of 5 NUS computer science students working on this project as part of a software engineering project.
+The task was to enhance a basic Command Line Interface(CLI) addressbook app into an app that suits the needs of a target group of people.
+We decided to morph it into a project management app for students as it is more relatable and we could
 make changes based on our own personal needs as students which are representative of the target group. Our app,
 _MyProject_ is for students, by students.
 
 == Overview
 
 _MyProject_ is a one stop project management app for team leaders to store and manage your multiple projects
-through the use of a Command Line Interface(CLI). _MyProject_ provides a centralized platform to store, edit and
+through the use of a CLI. _MyProject_ provides a centralized platform to store, edit and
 display all your important information in a simple and intuitive manner. _MyProject_ has unique functions
 such as sending emails to members within the app as well as financial tracking capabilities. Currently our main
 target group is for university students, but we intend to develop further to accommodate working adults as well in the future.
@@ -46,7 +49,7 @@ Giving the user such options to sort all these information helps them locate wha
 This reduces the need for users to continuously enter the sort command whenever they add or edit the list of items. +
 Another noteworthy highlight is that all sort commands follow the same format. For example `sortTask 1` and `sortSpending 1` will sort both lists by alphabetical order.
 Therefore users only need to remember the command for 1 sort command and the rest follows suit!
-** Challenges: The main challenge of this feature was that I needed to know how the other features were implemented before I can sort them. For example, I needed to wait
+** Challenges: The main challenge of this feature was that I needed to know how the other features were implemented before I can write the code to sort them. For example, I needed to wait
 for the completion of the meeting feature before I could implement the sorting feature for the list of meetings displayed. This also required
 me to understand the internal workings of other features like how these items are stored and displayed so that I could implement the appropriate methods to sort them.
 
@@ -93,8 +96,14 @@ All commands in this section follow this set of index/order pairing, where appli
 ****
 
 [NOTE]
-The default sorting order for the following lists is by increasing order of time(index 2). Whenever _MyProject_
+The default sorting order for the lists that can be sorted is by increasing order of time(index 2). Whenever _MyProject_
 is closed, the ordering will return to the default order.
+
+These are the lists that can currently be sorted.
+
+. Tasks
+. Spending
+. Meetings
 
 ==== Sort tasks: `sortTask` [Checkout]
 
@@ -120,21 +129,21 @@ you wish to add or edit tasks! +
 Here is a step by step process on how to do this.
 
 . Firstly, since this command is labeled with [Checkout] at the start, ensure that you `checkout` to a project first.
-Notice how the tasks in the task list are currently at the default sorting order which is by increasing order of time.
+Notice how the tasks in the task list are currently at the default sorting order which is by increasing order of time. +
 image:sortTask1.png[]
 
 . Next, enter the command `sortTask 4` into the command line and press enter. You can choose any index from 1-4 depending
-on which type of sorting order you wish to sort by based on the specifications provided in the highlighted section above.
+on which type of sorting order you wish to sort by based on the specifications provided in the highlighted section above. +
 image:sortTask2.png[]
 
 . The following success message will be displayed if the input was entered correctly. Check that the type of sorting
 displayed in the success message is the one you actually wanted. +
-The tasks in the task list will then be immediately sorted accordingly as shown in the white box.
+The tasks in the task list will then be immediately sorted accordingly as shown in the white box. +
 image:sortTask3.png[]
 
 . Now let's say the deadline for task 2(Do UG) is pushed forward by a week and you've just completed it. Type in the command
 `editTask 2 d/ c/04/12/2019 0000`(check out section 3.3.2 for more details on the editTask command) into the command line and press enter. +
-The task will be edited accordingly and immediately be sorted into the correct position as shown below.
+The task will be edited accordingly and immediately be sorted into the correct position as shown below. +
 image:sortTask4.png[]
 
 == Contributions to the Developer Guide

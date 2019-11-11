@@ -1,7 +1,10 @@
 package seedu.address.model.project;
 
 
+import seedu.address.commons.core.LogsCenter;
+
 import java.util.Objects;
+import java.util.logging.Logger;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.project.Description.isValidDescription;
@@ -13,6 +16,8 @@ import static seedu.address.model.project.Time.isValidTimeAndDate;
  * Guarantees: immutable; is always valid
  */
 public class Task {
+
+    private static final Logger logger = LogsCenter.getLogger(Task.class);
 
     public final Description description;
     public final Time time;
@@ -28,6 +33,7 @@ public class Task {
         this.description = description;
         this.time = time;
         this.isDone = isDone;
+        logger.info("task created.");
     }
 
     public Task(Description description, boolean isDone) {

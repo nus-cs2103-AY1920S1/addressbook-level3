@@ -7,11 +7,10 @@ import java.util.Objects;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents a date/time in the app.
+ */
 public class Time {
-
-    /**
-     * Represents a date/time in the app.
-     **/
 
 
     public static final String MESSAGE_CONSTRAINTS = "Date and Time should be written in the following format : dd/MM/yyyy hhmm\n"

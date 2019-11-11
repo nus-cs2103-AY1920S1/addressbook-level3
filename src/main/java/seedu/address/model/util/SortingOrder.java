@@ -1,17 +1,21 @@
 package seedu.address.model.util;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.finance.Spending;
 import seedu.address.model.person.Person;
 import seedu.address.model.project.Meeting;
 import seedu.address.model.project.Task;
 
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 /**
  * Container class to store the current and different types of sorting orders.
  */
 
 public class SortingOrder {
+
+    private static final Logger logger = LogsCenter.getLogger(SortingOrder.class);
 
     private static Comparator<Task> currentSortingOrderForTask = Comparator.comparing(task -> task.getTime().getDate());
     private static Comparator<String> currentSortingOrderForMember = (member1, member2) -> member1.compareToIgnoreCase(member2);
@@ -26,16 +30,19 @@ public class SortingOrder {
         currentSortingOrderForTask = (task1, task2) -> task1.getDescription().description
                 .compareToIgnoreCase(task2.getDescription().description);
         setTaskCurrentIndex(1);
+        logger.info("tasks sorted by alphabetical order.");
     }
 
     public static void setCurrentTaskSortingOrderByDate() {
         currentSortingOrderForTask = Comparator.comparing(task -> task.getTime().getDate());
         setTaskCurrentIndex(2);
+        logger.info("tasks sorted by increasing order of time.");
     }
 
     public static void setCurrentTaskSortingOrderByDone() {
         currentSortingOrderForTask = (task1, task2) -> Boolean.compare(task1.isDone(), task2.isDone());
         setTaskCurrentIndex(3);
+        logger.info("tasks sorted by progress.");
     }
 
     public static void setCurrentTaskSortingOrderByDoneThenDate() {
@@ -47,31 +54,37 @@ public class SortingOrder {
             }
         };
         setTaskCurrentIndex(5);
+        logger.info("tasks sorted by progress and then increasing order of time.");
     }
 
     public static void setCurrentSpendingSortingOrderByAlphabeticalOrder() {
         currentSortingOrderForSpending = (spending1, spending2) -> spending1.getDescription().compareToIgnoreCase(spending2.getDescription());
         setSpendingCurrentIndex(1);
+        logger.info("spending sorted by alphabetical order.");
     }
 
     public static void setCurrentSpendingSortingOrderByDate() {
         currentSortingOrderForSpending = Comparator.comparing(spending -> spending.getTime().getDate());
         setSpendingCurrentIndex(2);
+        logger.info("spending sorted by increasing order of time.");
     }
 
     public static void setCurrentSpendingSortingOrderByExpense() {
         currentSortingOrderForSpending = Comparator.comparing(spending -> spending.getTime().getDate());
         setSpendingCurrentIndex(5);
+        logger.info("spending sorted by increasing prices.");
     }
 
     public static void setCurrentMeetingSortingOrderByAlphabeticalOrder() {
         currentSortingOrderForMeeting = (meeting1, meeting2) -> meeting1.getDescription().description.compareToIgnoreCase(meeting2.getDescription().description);
         setMeetingCurrentIndex(1);
+        logger.info("meeting sorted by alphabetical order.");
     }
 
     public static void setCurrentMeetingSortingOrderByDate() {
         currentSortingOrderForMeeting = Comparator.comparing(meeting -> meeting.getTime().getDate());
         setMeetingCurrentIndex(2);
+        logger.info("meeting sorted by increasing order of time.");
     }
 
     public static Comparator<Task> getCurrentSortingOrderForTask() {
