@@ -160,6 +160,9 @@ Examples:
 * `event John’s Birthday -d 20/09/2019 1800 -r 19/09/2019 1800`
 * `event John’s Birthday -d 3.day.later -r 2.day.later -p high -t friend`
 
+[NOTE]
+It is currently not possible to set a reminder for events with an autoreschedule flag. We intend to include this in v2.0 .
+
 ==== Adding a reminder: `reminder`
 
 Adds a reminder to the reminder list +
@@ -366,16 +369,30 @@ Too stressed from all the work? Check out these features to take a short break s
 
 `game` switches your list of tasks into a game of Snakes!
 
-.Snake game of ELISA
-image::SnakeGame.PNG[Snake, 600, 600, float="right"]
+There are 2 modes to the game: `easy` and `hard`. Type `game hard` to enter the hard mode of the game!
 
-+++<u>Rules:</u>+++
+Controls: `UP`, `DOWN`, `LEFT`, `RIGHT`
 
-Control your snake by pressing the key commands `UP`, `DOWN`, `LEFT`, `RIGHT`. Careful not to let your snake bite it's own tail or it will be GAME OVER!
+.Snake game `EASY` +
+image::SnakeGame.PNG[Snake, 600, 600]
 
-Hit `ENTER` to reset the game when your snake dies.
 
-Pressing `ESC` key will exit the game and return you to your list of tasks!
+`EASY`
+
+New to the game? Try out the `easy` mode, where all you have to do is collect the food, which is indicated by the pink box. Biting your own tail will result in GAME OVER! Be careful!
+
+.Snake game `HARD` +
+image::snakegamehard.PNG[SnakeHard, 600, 600]
+
+
+`HARD`
+
+Find the game too easy? Enter the `hard` mode and there will be 20 random walls (indicated by blue box) placed all around the game. Colliding with any of these walls will result in a GAME OVER! You will need to navigate through these walls to collect your food!
+
+
+`EXIT`
+
+Realised that you have played for too long and want to get back to work? Hitting the `ESC` key will exit the game and return you to your list of tasks!
 
 // tag::joke[]
 === Asking ELISA for a joke : `joke`
@@ -481,27 +498,27 @@ Examples:
 Feeling overwhelmed by the sheer amount of tasks to do? Enter priority mode, a mode which will help you narrow down the most pressing task to be done.
 
 .ELISA before priority mode with a long list of tasks
-image::BeforePriority.PNG[600,600]
+image::BeforePriority.PNG[500,500]
 
 
 By simply typing `priority` into the command box, you will be given one single task of the highest priority among your task list. This task is chosen by ELISA base on priority and the order in which the task was added to the list.
 
 
 .ELISA in priority mode
-image::AfterPriority.PNG[600, 600]
+image::AfterPriority.PNG[500,500]
 
 Notice that the ELISA icon turns red to signify that you are in priority mode and your task list has shrunk from 5 tasks down to the 1 most important task.
 
 When you are done with your current task, just tell ELISA you are done by simply typing `done 1` and ELISA will generate the next task for you.
 
 .ELISA after completing the first task
-image::AfterDone.PNG[600, 600]
+image::AfterDone.PNG[500,500]
 
 Feeling less stressed? You can type `priority` again to bring you out of the priority mode and back into the normal task view. Or even better, finish all your undone tasks and you will be automatically brought out of priority mode.
 
 
 .ELISA after all tasks are completed
-image::AllDone.PNG[600, 600]
+image::AllDone.PNG[500,500]
 
 Feeling lazy? You can also opt to turn off priority mode at a specific time by typing `priority dd/mm/yyyy hhmm` and ELISA will turn it off at that specific time for you.
 
