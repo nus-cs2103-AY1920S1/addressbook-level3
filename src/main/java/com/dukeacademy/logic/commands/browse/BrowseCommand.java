@@ -43,7 +43,7 @@ public class BrowseCommand implements Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        if (validity == false) {
+        if (!validity) {
             throw new CommandException("Browse should be followed by keywords"
                 + ".");
         }

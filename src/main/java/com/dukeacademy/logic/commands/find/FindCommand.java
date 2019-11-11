@@ -43,7 +43,7 @@ public class FindCommand implements Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        if (validity == false) {
+        if (!validity) {
             throw new CommandException("Find should be followed by keywords.");
         }
         // Update status of question
