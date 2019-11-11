@@ -1102,6 +1102,44 @@ Message: "Listed all incident reports ready for submission".
 .. Test case: `submit 0`
    Expected: Message "Invalid command format!" is displayed along with command usage message.
 
+=== Editing Submitted Incidents
+. Attempting to execute `edit-i` without logging in
+.. Prerequisites: User not logged in.
+.. Test case: `edit-i` +
+Expected: Message "Only Register, Login, Exit and Help commands are availble. Please login to access other commands. See help page for more information."
+
+. Executing `edit-i` without any keywords
+.. Test case: `edit-i` +
+Expected: Message "Listed all submitted incident reports that can be edited."
+
+. Executing `edit-i` with some keywords when logged into admin account
+.. Test case: `edit-i 1 dist/21` +
+Expected: Message "Edited Incident: Incident #[ID]"
+
+. Executing `edit-i` with all keywords when logged into admin account
+.. Test case: `edit-i 1 dist/22 p/91234567 desc/This is an incident description.` +
+Expected: Message "Edited Incident: Incident #[ID]"
+
+. Executing `edit-i` on incident not created by logged in non admin account.
+..Test case `edit-i 1` +
+Expected: Message "Only the admin and the operator who filled in this report can edit the report."
+
+=== Adding vehicles
+
+. Attempting to execute `add-v` without logging in.
+
+.. Prerequisites: User not logged in.
+.. Test case: `add-v` +
+Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing 'add-v' with all valid inputs
+.. Test case : `add-v dist/2 vnum/SFD1356S vtype/Ambulance a/available` +
+Expected: Message "New vehicle added: Ambulance Vehicle Number: SFD1356S District: 2 Availability: AVAILABLE"
+
+. Executing `add-v` with invalid vnum
+.. Test case: `add-v dist/2 vnum/1234 vtype/Patrol Car a/available` +
+Expected: Message "Invalid vehicle number! All vehicle numbers must follow the format: ABC1234D"
+
 === Finding vehicles
 
 . Attempting to execute `find-v` without logging in.
@@ -1144,3 +1182,23 @@ Message: "Listed all incident reports ready for submission".
 .. Prerequisites: User must be logged in.
 .. Test case: `list-v` +
     Expected: Message "Listed all vehicles", and all vehicles in database will be listed in the vehicle pane.
+
+=== Deleting vehicles
+. Attempting to execute `delete-v` without logging in
+..  Prerequisites: User not logged in.
+.. Test case: `delete-v` +
+Expected: Message "Only Register, Login, Exit, and Help commands are available. Please login to access other commands. See help page for more information."
+
+. Executing `delete-v` with an admin account and dispatched vehicle
+.. Test case: `delete-v 1` +
+Expected: Message "You cannot delete a vehicle that is currently dispatched."
+
+. Executing `delete-v` with an admin account and non dispatched vehicle
+.. Test case:
+1. `edit-v 1 available`
+2. `delete-v 1` +
+Expected: Message "Deleted Vehicle Patrol Car Vehicle Number: SFD3204V District: 1 Availability: AVAILABLE"
+
+. Executing `delete-v` with a non admin account
+.. Test case: `delete-v 1` +
+Expected: Message "You must be an admin to perform this operation. Please see help page for more info."
