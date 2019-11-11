@@ -912,7 +912,8 @@ _ {More to be added}_
 [appendix]
 == Glossary
 
-. *Mainstream OS* +
+
+ [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
 . *SML* +
