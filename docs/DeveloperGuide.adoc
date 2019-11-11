@@ -1869,25 +1869,26 @@ size may not be optimal
    Expected: The app should re-launch into the same state as when it was
    closed.
 
-_{ more test cases ... }_
-
-=== Deleting data from a list
+=== Deleting Data from a list
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons
-   in the list.
+.. Prerequisites: List all tasks using the `list-task` command. Multiple
+   tasks in the list.
 
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted
-   contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-task 1` +
+   Expected: First task is deleted from the list. Details of the deleted
+   contact shown in the status message.
 
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message.
+.. Test case: `delete-task 0` +
+   Expected: No task is deleted. Error details shown in the result display.
    Status bar remains the same.
 
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is
-   larger than the list size) _{give more}_
+.. Other incorrect delete commands to try:
+
+... `delete-task`
+... `delete-task x` (where `x` is larger than the list size)
+... `delete-task y` (where `y` is any alphanumeric character)
 +
 **Expected**: Similar to previous.
 
@@ -1928,3 +1929,4 @@ should become
 .. Re-launch the app.
 +
 **Expected**: Go to the Courses tab and the tab should not have any data.
+`courseplanner.json` **still exists**.

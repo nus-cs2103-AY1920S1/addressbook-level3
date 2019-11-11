@@ -6,7 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":JarvisParser" as JarvisParser LOGIC_COLOR
 participant ":AddCourseCommandParser" as AddCourseCommandParser LOGIC_COLOR
-participant "d:AddCourseCommand" as AddCourseCommand LOGIC_COLOR
+participant "c:AddCourseCommand" as AddCourseCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -27,9 +27,9 @@ JarvisParser -> AddCourseCommandParser : parse("c/CS2102")
 create AddCourseCommand
 AddCourseCommandParser -> AddCourseCommand
 
-return aCC
-return aCC
-return aCC
+return c
+return c
+return c
 
 LogicManager -> AddCourseCommand : execute()
 
