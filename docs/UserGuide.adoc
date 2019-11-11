@@ -21,6 +21,10 @@ By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 PalPay is for those who *prefer to use a desktop app for managing personal finances*.
 More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps.
+
+.PalPay's Graphical User Interface
+image::dg_gui_example.png[]
+
 This User Guide is written for the users of PalPay as an introductory document of the application.
 You are strongly encouraged to read this document before using the application to enjoy the full functionality of the application.
 Ready to start your journey to financial freedom?
@@ -289,7 +293,10 @@ image::out_ug_8.png[]
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
 
+=======
 //end::out[]
+
+// tag::set[]
 
 [[Set]]
 === Setting a Budget : `set`
@@ -359,7 +366,7 @@ Examples:
 
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
-
+// end::set[]
 
 // tag::split[]
 
@@ -379,12 +386,13 @@ field to determine nature of bill.
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
 ** shares cannot be negative numbers
+** *shares can be 0 but result is not guaranteed to be meaningful*
 ====
 
 ===== Ledger GUI
 
 .Sample Ledger Graphical User Interface
-image::LedgerUI.png[]
+image::LedgerUI.png[pdfwidth=60%]
 
 This is how the *Ledger* looks when you switch to the *Ledger* tab. +
 The left shows the people who has unresolved balances with you, while the right lists
@@ -401,12 +409,12 @@ at the bottom right corner.
 . Enter appropriate command into the command line.
 +
 .Splitting evenly
-image::SplitEven1.png[]
+image::SplitEven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Splitting evenly (result)
-image::SplitEven2.png[]
+image::SplitEven2.png[pdfwidth=70%]
 +
 For an even split of $1000, each person pays $200. Therefore *Ledger* shows $200 on the tab of each person.
 *Ledger* balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
@@ -419,12 +427,12 @@ from the rest of his friends. Therefore *Ledger* balance is -$800, as shown in t
 . Enter appropriate command into the command line.
 +
 .Splitting unevenly
-image::SplitUneven1.png[]
+image::SplitUneven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Uneven split results
-image::SplitUneven2.png[]
+image::SplitUneven2.png[pdfwidth=70%]
 // end::split[]
 
 // tag::receive[]
@@ -443,12 +451,12 @@ Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 . Enter appropriate command into the command line.
 +
 .Receive payment
-image::Receive1.png[]
+image::Receive1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly.
 +
 .Receive payment result
-image::Receive2.png[]
+image::Receive2.png[pdfwidth=70%]
 +
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 //end::receive[]
