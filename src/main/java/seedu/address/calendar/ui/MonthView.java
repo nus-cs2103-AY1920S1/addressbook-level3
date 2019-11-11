@@ -1,5 +1,10 @@
 package seedu.address.calendar.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -10,21 +15,16 @@ import javafx.scene.layout.RowConstraints;
 import seedu.address.calendar.model.date.ViewOnlyDay;
 import seedu.address.calendar.model.date.ViewOnlyMonth;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
-
 /**
  * Creates a viewable month that can be used to display on GUI.
  */
 class MonthView {
     private static final int NUM_ROWS = 5;
     private static final int NUM_COLS = 7;
-    private ViewOnlyMonth viewOnlyMonth;
-    private ReadOnlyDoubleProperty monthViewWidth;
     private static List<DayView> dayViews;
     private static MonthView monthView;
+    private ViewOnlyMonth viewOnlyMonth;
+    private ReadOnlyDoubleProperty monthViewWidth;
 
     /**
      * Creates a month view.

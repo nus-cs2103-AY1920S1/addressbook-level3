@@ -6,6 +6,9 @@ import javafx.scene.layout.Region;
 import seedu.address.calendar.model.date.MonthOfYear;
 import seedu.address.ui.UiPart;
 
+/**
+ * Represents a month header.
+ */
 public class MonthHeader extends UiPart<Region> {
     private static final String FXML = "CalendarMonthHeader.fxml";
 

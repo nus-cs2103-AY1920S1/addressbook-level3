@@ -46,17 +46,17 @@ public class CalendarPage extends UiPart<Region> implements Page {
     private HelpWindow helpWindow;
 
     @FXML
-    StackPane commandBoxPlaceholder;
+    private StackPane commandBoxPlaceholder;
     @FXML
-    StackPane monthHeaderPlaceholder;
+    private StackPane monthHeaderPlaceholder;
     @FXML
-    StackPane yearHeaderPlaceholder;
+    private StackPane yearHeaderPlaceholder;
     @FXML
-    StackPane monthViewPlaceholder;
+    private StackPane monthViewPlaceholder;
     @FXML
-    VBox resultDisplayPlaceholder;
+    private VBox resultDisplayPlaceholder;
     @FXML
-    GridPane weekHeader;
+    private GridPane weekHeader;
 
     /**
      * Creates a calendar page.

@@ -217,7 +217,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 
 TravEzy has several features which are listed below.
 Each of these features have their own design and implementation logic.
-
+// tag::calendar[]
 === Calendar
 
 The calendar feature in _TravEzy_ allows users to easily plan when to travel. In this section, we will discuss how the calendar is designed and how the _add an event_ feature is implemented.
@@ -310,7 +310,7 @@ a|Allow users to specify day, month and year in whichever order they want.
 * I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
 
 |===
-
+// end::calendar[]
 
 === Itinerary
 

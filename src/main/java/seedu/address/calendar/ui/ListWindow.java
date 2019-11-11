@@ -92,6 +92,11 @@ public class ListWindow extends UiPart<Stage> {
         listWindow.show();
     }
 
+    /**
+     * Shows the relevant events.
+     *
+     * @param eventsToShow The relevant events to be shown
+     */
     void showEvents(String eventsToShow) {
         clearAll();
 
@@ -137,6 +142,9 @@ public class ListWindow extends UiPart<Stage> {
         showEventsContainer();
     }
 
+    /**
+     * Clears the screen.
+     */
     void clearAll() {
         commitmentCard.makeInvisible();
         schoolBreakCard.makeInvisible();
