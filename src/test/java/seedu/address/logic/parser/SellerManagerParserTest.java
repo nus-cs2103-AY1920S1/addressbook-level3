@@ -40,6 +40,9 @@ import seedu.address.logic.commands.clearcommand.ClearCustomerCommand;
 import seedu.address.logic.commands.clearcommand.ClearOrderCommand;
 import seedu.address.logic.commands.clearcommand.ClearPhoneCommand;
 import seedu.address.logic.commands.clearcommand.ClearScheduleCommand;
+import seedu.address.logic.commands.copycommand.CopyCustomerCommand;
+import seedu.address.logic.commands.copycommand.CopyOrderCommand;
+import seedu.address.logic.commands.copycommand.CopyPhoneCommand;
 import seedu.address.logic.commands.deletecommand.DeleteCustomerCommand;
 import seedu.address.logic.commands.deletecommand.DeletePhoneCommand;
 import seedu.address.logic.commands.deletecommand.DeleteScheduleCommand;
@@ -152,6 +155,27 @@ public class SellerManagerParserTest {
         assertTrue(parser.parseCommand(ClearArchivedOrderCommand.COMMAND_WORD) instanceof ClearArchivedOrderCommand);
         assertTrue(parser.parseCommand(ClearArchivedOrderCommand.COMMAND_WORD + " 3")
                 instanceof ClearArchivedOrderCommand);
+    }
+
+    @Test
+    public void parseCommand_copyCustomer() throws Exception {
+        CopyCustomerCommand command = (CopyCustomerCommand) parser.parseCommand(
+                CopyCustomerCommand.COMMAND_WORD + " " + INDEX_FIRST_CUSTOMER.getOneBased());
+        assertEquals(new CopyCustomerCommand(INDEX_FIRST_CUSTOMER), command);
+    }
+
+    @Test
+    public void parseCommand_copyPhone() throws Exception {
+        CopyPhoneCommand command = (CopyPhoneCommand) parser.parseCommand(
+                CopyPhoneCommand.COMMAND_WORD + " " + INDEX_FIRST_PHONE.getOneBased());
+        assertEquals(new CopyPhoneCommand(INDEX_FIRST_PHONE), command);
+    }
+
+    @Test
+    public void parseCommand_copyOrder() throws Exception {
+        CopyOrderCommand command = (CopyOrderCommand) parser.parseCommand(
+                CopyOrderCommand.COMMAND_WORD + " " + INDEX_FIRST_ORDER.getOneBased());
+        assertEquals(new CopyOrderCommand(INDEX_FIRST_ORDER), command);
     }
 
     @Test

@@ -513,7 +513,9 @@ Format: `find-o KEYWORD [KEYWORD]...`
 
 
 ==== Complete an order : `complete`
-Completes the order, order status changed to `COMPLETED`. Phone associated with order will also be deleted. +
+Completes the order, order status changed to `COMPLETED`. +
+Only `SCHEDULED` orders can be completed. +
+Phone associated with order will also be deleted. +
 Format: `complete INDEX`
 
 ==== Cancel an order : `cancel`
@@ -585,7 +587,9 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 Note:
 
 - You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
-- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
+- Venue that is too long will be truncated / not visible on the calendar schedule.
+- If a schedule spans across 2 days, the order index and venue might not be visible.
+- Simple hover your cursor over the schedule (where content is truncated), the full string (order index + venue) should appear as a temporary pop-up in a while.
 ****
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
 
@@ -809,13 +813,13 @@ Lacking any of this will cause its non-inclusion into the statistics calculation
 The value calculated is the sum over the total time period within a month, meaning that it will take the date period,
 calculate the statistics for orders within that time period, split it by month and display it.
 
-e.g `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
+e.g Total `revenue` between 2019.11.12 and 2019.11.29 will calculate the order between this 2 dates, sum up the revenue
 (as it falls within a single month) and
 display this value.
 
 * Accepts two types of input:
-** Without date input
-** with date input +
+** Without date input - display total value for that particular statistics
+** with date input - displays chart (Monthly value) and total value for that particular statistics  +
 
 Generates the statistics with no date input. +
 
@@ -829,7 +833,7 @@ The argument must match this three words perfectly.
 Shown below:
 
 
-image::StatsExampleDefault.png[width="600"]
+image::StatsExampleDefault.png[width="300"]
 
 
 Generates the statistics with date input in chart format (in pop-up modal dialog). +
@@ -839,8 +843,9 @@ Format for date is in YYYY.MM.DD e.g `2019.05.12`
 
 Shown below:
 
-image::StatsExampleGraph.png[width="600"]
+image::StatsExampleGraph.png[width="300"]
 
+// end::statisticsCommandUG[]
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
 [TIP]
@@ -861,10 +866,10 @@ This behaviour is intentional and not a bug.
 * Date range starts from 1970 onwards
 ** Date of year input starts from 1970 onwards. This is enough to fit our use case. Anything lower will be rejected.
 
-* Auto truncation of labels
+* Auto truncation of labels and values
 ** the X-axis labels will adjust automatically based on the range of inputs. This is intended to give users the
 flexibility with regards to the range of dates to be inputted. Above a certain range the interval between x-axis data
-will decrease e.g 2 months
+will decrease e.g 2 months. Above a certain values, labels will be replaced by standard notation e.g 9999999E8
 
 * Stats window data not updating
 ** If you already have a stats window open and you complete an order,
@@ -878,7 +883,6 @@ when the remaining statistic windows are closed manually.
 ** Do not be alarmed if the window does not pop up immediately upon click. For larger data sets
 we estimate at least a few seconds before the window will be loaded.
 
-
 ==== Average Statistics `[coming in v2.0]`
 ** More advanced commands like `average profit` etc
 
@@ -887,8 +891,6 @@ we estimate at least a few seconds before the window will be loaded.
 
 ==== Export Chart to PDF `[coming in v2.0]`
 ** User will be able to export their charts to pdf with a click of a button.
-
-// end::statisticsCommandUG[]
 
 === Exiting the program : `exit`
 

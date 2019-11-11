@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.CommandTestUtil.CONTACT_NUMBER_DESC_ALICE;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_ALICE;
@@ -87,10 +88,41 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_commandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete-c 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_CUSTOMER_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_validCommand_success() throws CommandException, ParseException {
         String listCommand = ListCustomerCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCustomerCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
+    }
+
+    @Test
+    public void getFilteredCustomerList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredCustomerList().remove(0));
+    }
+
+    @Test
+    public void getFilteredPhoneList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredPhoneList().remove(0));
+    }
+
+    @Test
+    public void getFilteredOrderList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredOrderList().remove(0));
+    }
+
+    @Test
+    public void getFilteredScheduleList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredScheduleList().remove(0));
+    }
+
+    @Test
+    public void getFilteredArchivedOrderList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredArchivedOrderList().remove(0));
     }
 
     @Test

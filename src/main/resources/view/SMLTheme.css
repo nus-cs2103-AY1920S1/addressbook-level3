@@ -458,6 +458,15 @@
     -fx-font-size: 11;
 }
 
+#phoneTags .label {
+    -fx-text-fill: white;
+    -fx-background-color: #85ED;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 2;
+    -fx-font-size: 11;
+}
+
 .panel-background {
     -fx-background-color: #484B95;
 }
