@@ -1,0 +1,98 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":iFridgeParser" as iFridgeParser LOGIC_COLOR
+participant ":TemplateListParser" as TemplateListParser LOGIC_COLOR
+participant ":AddTemplateListCommandParser" as AddTemplateListCommandParser LOGIC_COLOR
+participant "a:AddTemplateListCommand" as AddTemplateListCommand LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("args1")
+activate LogicManager
+
+LogicManager -> iFridgeParser : parseCommand("args1")
+activate iFridgeParser
+
+create TemplateListParser
+iFridgeParser -> TemplateListParser
+activate TemplateListParser
+
+TemplateListParser --> iFridgeParser
+deactivate TemplateListParser
+
+iFridgeParser -> TemplateListParser : parseCommand("args2")
+activate TemplateListParser
+
+create AddTemplateListCommandParser
+TemplateListParser -> AddTemplateListCommandParser
+activate AddTemplateListCommandParser
+
+AddTemplateListCommandParser --> TemplateListParser
+deactivate AddTemplateListCommandParser
+
+TemplateListParser -> AddTemplateListCommandParser
+activate AddTemplateListCommandParser
+
+create AddTemplateListCommand
+AddTemplateListCommandParser -> AddTemplateListCommand : parse("args3")
+activate AddTemplateListCommand
+
+AddTemplateListCommand -> AddTemplateListCommandParser : a
+deactivate AddTemplateListCommand
+
+AddTemplateListCommandParser --> TemplateListParser : a
+deactivate AddTemplateListCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+AddTemplateListCommandParser -[hidden]-> TemplateListParser
+destroy AddTemplateListCommandParser
+
+TemplateListParser --> iFridgeParser : a
+deactivate TemplateListParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+TemplateListParser -[hidden]-> iFridgeParser
+destroy TemplateListParser
+
+iFridgeParser --> LogicManager : a
+deactivate iFridgeParser
+
+LogicManager -> AddTemplateListCommand : execute()
+activate AddTemplateListCommand
+
+AddTemplateListCommand -> Model: addTemplate(toAdd)
+activate Model
+
+Model -> AddTemplateListCommand
+deactivate Model
+
+AddTemplateListCommand -> Model: commitTemplateList()
+activate Model
+
+Model -> AddTemplateListCommand
+deactivate Model
+
+create CommandResult
+AddTemplateListCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTemplateListCommand
+deactivate CommandResult
+
+AddTemplateListCommand -> CommandResult : setTemplateListCommand()
+activate CommandResult
+
+CommandResult --> AddTemplateListCommand
+deactivate CommandResult
+
+AddTemplateListCommand --> LogicManager : result
+deactivate AddTemplateListCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

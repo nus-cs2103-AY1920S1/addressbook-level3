@@ -56,10 +56,13 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
+//tag::logicClassDiagram[]
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 .Class Diagram of the Logic Component
 image::LogicClassDiagram.png[]
+
+//end::logicClassDiagram[]
 
 [discrete]
 ==== How the architecture components interact with each other
@@ -98,7 +101,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `iFridgeParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -106,10 +109,14 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
+.Interactions Inside the Logic Component for the `tlist add n/Tomato Soup` Command
+image::AddTemplateListSequenceDiagram.png[]
 
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+* args1: tlist add n/Tomato Soup
+* args2: add n/Tomato Soup
+* args3: n/Tomato Soup
+
+NOTE: The lifeline for `AddTemplateListCommandParser`, `TemplateListParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 [[Design-Model]]
 === Model component
@@ -479,78 +486,59 @@ a|Changing the original unit of item to the one input by user.
 //end::usegroceryfeature[]
 
 === WasteList Feature
-//tag::editTemplateItemfeature[]
+//tag::addTemplateListfeature[]
 
-=== Edit Template Item Feature
-The edit template item mechanism is facilitated by `UniqueTemplateItems`, `TemplateList` and `TemplateToBeShown`.
+=== Add Template Feature
+The add template mechanism is facilitated by `UniqueTemplateItems`, `TemplateList`.
 
 The `TemplateList` is an observable list of `UniqueTemplateItems` while the UniqueTemplateItems contains an observable list
-of template items. The `TemplateToBeShown` is a instance of the `UniqueTemplateItems` that is used to show the current template
-that is visible on the user interface.
+of template items.
 
-To edit the individual templates stored in the `TemplateList`, the command retrieves the template as well as the item to be edited.
-Retrieving the existing item allows for retrieval of unchanged data field. The template item at the specified index will then be
-overwritten with a new edited TemplateItem.
-
-Similarly, the `UniqueTemplateItems` object at the specified index will also be overwritten by a new `UniqueTemplateItems`
-containing the edited template item with unchanged template items already transferred into the new `UniqueTemplateItems` object.
-The model is updated with the new `TemplateList`, as well as the new `TemplateToBeShown`.
-
-The creation of new objects to override the previous is necessary as template items and templates are stored as immutable objects in the `UniqueTemplateItems`
-and `TemplateList` respectively, and therefore cannot be edited directly.
-
-* `Model#getFilteredTemplateList()` -- Gets an unmodifiable template list.
-* `Model#setTemplate()` -- Replaces the previous template object with the new template object.
-* `Model#setShownTemplate()` -- Replaces the previous templateToBeShown with the new template so that the edited template is visible in the UI.
-
-These operations are exposed in the `Model` interface as `Model#getFilteredTemplateList()`, `Model#setTemplate()`
-`Model#setShownTemplate()` and `Model#updateFilteredTemplateToBeShown()` respectively.
-
-NOTE: When the user launches the application for the first time. The `TemplateToBeShown` will be initialized however it will not
-be visible until a templateItemCommand is executed. This can be done using an AddTemplateItemCommand, a DeleteTemplateItemCommand,
-a ListTemplateItemCommand, or an EditTemplateItemCommand.
+To add a template into the `TemplateList`, a new `UniqueTemplateItems` object is created with the entered name.
+The model is updated with the new `TemplateList`, the `TemplateToBeShown`, which is an instance of the object `UniqueTemplateItems` containing
+the details of the template being edited or viewed will not be updated. Only a `TemplateItemCommand` will involve an update of the `TemplateToBeShown`.
 
 The following activity diagram summarizes what happens when a user executes a new command related to managing of template items:
+image::TemplateListCommandUIActivityDiagram.png[]
 
-image::TemplateItemCommandUIActivityDiagram.png[]
+NOTE: Due to multiple lists in the iFridge app, the template list will only be usable to the user when executing a TemplateList or
+a TemplateItem Command. For example, an AddTemplateListCommand or a AddTemplateItemCommand.
+
+The following activity diagram summarizes what happens when a user executes a new template list command related to the managing of templates and illustrates
+some differences in the UI as compared to when a template item command is executed:
+
+image::TemplateListCommandUIActivityDiagram.png[]
 
 The following sequence diagram shows how the edit template item operation works for the logic component:
 
-image::EditTemplateItemSequenceDiagram2.png[]
+image::AddTemplateListSequenceDiagram.png[]
 
-Due to lack of space, please refer to the below list for args1, args2, args3, args4 shown in the diagram above.
+Due to lack of space, please refer to the below list for args1, args2, args3 shown in the diagram above.
 
-* args1: "tlist template edit 1 i/1 a/2units"
-* args2: "template edit 1 i/1 a/2units"
-* args3: "edit 1 i/1 a/2units"
-* args4: "1 i/1 a/2units"
+* args1: "tlist add n/Tomato Soup"
+* args2: "add n/Tomato Soup"
+* args3: "n/Tomato Soup"
 
-NOTE: The lifeline for `TemplateListParser`, `TemplateItemParser`,
-`EditTemplateItemCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The following sequence diagram shows how the edit template item operation works for the model component:
-
-image::EditTemplateItemSequenceDiagram3.png[]
-NOTE: The lifeline for `TemplateListParser`, `TemplateItemParser`,
-`EditTemplateItemCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
+NOTE: The lifeline for `TemplateListParser`, `AddTemplateListCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 ==== Design Considerations
-Aspect: How edit command is parsed
+Aspect: How add command is parsed
 
-* Alternative 1 (current choice): Create a separate parser just for template item management
-    * Pros: Easy to implement. Parser structure follows the same structure as the model. More OOP.
-    * Cons: May be confusing to differentiate between TemplateItemParser and TemplateListParser.
-* Alternative 2: The TemplateListParser is able to distinguish between template and template item management
-    * Pros: Less confusing as there is only one parser managing the template list.
-    * Cons: Implementation of the commands becomes more complicated. Less OOP.
+The following class diagram shows the relationship between the TemplateListParser and the TemplateItemParser for the logic component:
+
+image::LogicClassDiagram.png[]
+
+* Alternative 1 (current choice): Create a separate parser for template list management and template item management
+    ** Pros: Easy to implement. Parser structure follows the same structure as the model. More OOP.
+    ** Cons: May be confusing to differentiate between TemplateItemParser and TemplateListParser.
+* Alternative 2: The TemplateListParser is able to distinguish between template and template item management and call the respective XYZCommandParsers
+    ** Pros: Less confusing as there is only one parser toggling between the different command parsers to managing the template list.
+    ** Cons: Implementation of the parser becomes less OOP.
 * Alternative 3: The TemplateItemParser is at the same hierarchy as the TemplateListParser instead of inside.
-    * Pros: The user command can be shorter. E.g. "template edit ..." instead of "tlist template edit ..."
-    * Cons: Not as obvious to the user that both commands involve the same template list.
+    ** Pros: The user command can be shorter. E.g. "template edit ..." instead of "tlist template edit ..."
+    ** Cons: Not as obvious to the user that both commands involve the same template list.
 
-
-The following sequence diagram shows how the edit template item operation works for the logic component:
-//end::editTemplateItemfeature[]
+//end::addTemplateListfeature[]
 
 === MergeBought Feature
 
@@ -877,6 +865,10 @@ _{ more test cases ... }_
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Adding a template
+. Adding a template which has the same name as another existing template
+.. Prerequisites: 
 
 === Saving data
 
