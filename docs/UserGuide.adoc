@@ -73,7 +73,7 @@ projection, it is automatically stored and thereafter accessible through the _Pr
 == Commands
 
 ====
-*Command Format*
+*Command Format* :
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
 Example: For `in $/AMOUNT n/ITEM d/DATE`, `AMOUNT`, `ITEM` and `DATE` are parameters which can be used as
@@ -86,6 +86,25 @@ Example: `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n
 Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also acceptable.
 * Parameters that need to be concatenated together are represented as `PARAM+PARAM`. +
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
+
+*Parameter Restrictions* :
+
+[width="100%",cols="30%,<70%",options="header",]
+|=======================================================================
+| Parameter | Restriction
+| AMOUNT | - a valid amount between 0 and 1000000 dollars exclusive +
+- a valid amount up to 2 decimal places
+| DATE | - a valid date with the format DDMMYY in the Gregorian calendar
+| DESCRIPTION | - a valid description with alphanumeric chacracters
+| CATEGORY | - a valid category with alphanumeric characters without space
+| TYPE | - a valid type containing one character +
+`t` : Transaction +
+`b` : Budget +
+`l` : Ledger +
+`p` : Projection
+| INDEX | - a valid entry number in the list
+|=======================================================================
+
 ====
 
 [[In]]
