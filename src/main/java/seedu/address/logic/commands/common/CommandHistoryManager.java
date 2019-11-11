@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 /**
  * Keeps track of the execution of {@code ReversibleActionPairCommand} commands that alters one or more entries.
  */
-public class CommandHistory {
+public class CommandHistoryManager {
 
     public static final String MESSAGE_NO_UNDO_HISTORY_ERROR = "Nothing to undo!";
     public static final String MESSAGE_NO_REDO_HISTORY_ERROR = "Nothing to redo!";

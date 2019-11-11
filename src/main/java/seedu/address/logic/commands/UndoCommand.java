@@ -4,7 +4,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.commands.common.Command;
-import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandHistoryManager;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -15,9 +15,9 @@ import seedu.address.model.Model;
 public class UndoCommand implements Command {
 
     public static final String COMMAND_WORD = "undo";
-    private final CommandHistory history;
+    private final CommandHistoryManager history;
 
-    public UndoCommand(CommandHistory history) {
+    public UndoCommand(CommandHistoryManager history) {
         requireNonNull(history);
         this.history = history;
     }

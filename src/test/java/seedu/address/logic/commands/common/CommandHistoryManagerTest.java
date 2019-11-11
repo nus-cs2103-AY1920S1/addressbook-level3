@@ -17,14 +17,14 @@ import seedu.address.testutil.TestUtil;
 /**
  * Contains unit tests for CommandHistoryTest.
  */
-class CommandHistoryTest {
-    private CommandHistory history;
+class CommandHistoryManagerTest {
+    private CommandHistoryManager history;
     private ModelManager model;
     private ModelManager expectedModel;
 
     @BeforeEach
     public void setUp() {
-        history = new CommandHistory();
+        history = new CommandHistoryManager();
         model = TestUtil.getTypicalModelManager();
         expectedModel = TestUtil.getTypicalModelManager();
     }
@@ -56,7 +56,7 @@ class CommandHistoryTest {
 
         // False: Nothing left to undo
         assertThrows(CommandException.class,
-                CommandHistory.MESSAGE_NO_UNDO_HISTORY_ERROR, () -> history.performUndo(model));
+                CommandHistoryManager.MESSAGE_NO_UNDO_HISTORY_ERROR, () -> history.performUndo(model));
 
         // True: model not be modified.
         assertTrue(model.equals(expectedModel));
@@ -98,7 +98,7 @@ class CommandHistoryTest {
 
         // exception thrown on undo request
         assertThrows(CommandException.class,
-                CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
+                CommandHistoryManager.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
 
         assertTrue(model.equals(expectedModel));
     }
@@ -119,7 +119,7 @@ class CommandHistoryTest {
 
         // exception thrown on undo request
         assertThrows(CommandException.class,
-                CommandHistory.MESSAGE_NO_UNDO_HISTORY_ERROR, () -> history.performUndo(model));
+                CommandHistoryManager.MESSAGE_NO_UNDO_HISTORY_ERROR, () -> history.performUndo(model));
 
         // False: Able to add action pair to the stack. Cmd 1 added to the undo stack, but redo stack is cleared.
         history.addToCommandHistory(new ReversibleActionPairCommandStub("cmd 1"));
@@ -128,7 +128,7 @@ class CommandHistoryTest {
 
         // exception thrown on redo request
         assertThrows(CommandException.class,
-                CommandHistory.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
+                CommandHistoryManager.MESSAGE_NO_REDO_HISTORY_ERROR, () -> history.performRedo(model));
 
         assertTrue(model.equals(expectedModel));
     }

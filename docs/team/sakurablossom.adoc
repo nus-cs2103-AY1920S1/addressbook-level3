@@ -16,11 +16,11 @@ This project portfolio briefly introduces the project, ClerkPro and outlines my 
 
 === About the Team
 
-My team consists of 4 year 2 Computer Science Undergraduate students, including myself.
+My team consists of 4 Computer Science Undergraduate students, including myself.
 
 === About the Project: ClerkPro
 
-ClerkPro is a desktop application used for appointments scheduling and queue management system targeted at clerks working in small clinics.
+ClerkPro is a desktop application used for appointments scheduling and queue management system targeted clerical staff working in small clinics.
 Our application is optimised for individuals who *prefer to work with a Command Line Interface (CLI)*
 while still having the benefits of a Graphical User Interface (GUI).
 
@@ -28,6 +28,9 @@ while still having the benefits of a Graphical User Interface (GUI).
 
 [NOTE]
 This symbol indicates extra information or definition.
+
+[IMPORTANT]
+This symbol indicates an important design decision.
 
 `Model` :
 Text with this font and grey highlight indicates a component, class or object in the architecture of
@@ -56,25 +59,32 @@ image::Ui.png[width="300"]
 == Summary of contributions
 
 My responsibilities includes management of patient particulars and morphing the backend of the application
-to support the its appointment management features. This section will describe my contributions in greater detail.
+to support the its appointment management features. This section will describe my contributions in to this project in greater details.
 
 * *Major enhancement*: Implementation of *Reactive Search (Multi-Threading and Logic)*
 ** What it does: As the user types, an instant preview of search results is provided.
 This feature is used to search for registered patients, appointments, doctors and duty shifts.
-** Justification: Enhances user experience (UX) significantly as the system is able to narrow down search
-search results as the user is giving new inputs.
+** Justification: Enhances user experience (UX) significantly as the system is able to narrow down search results as the user is giving new inputs.
 ** Highlights: Requires understanding the process of JavaFX main application thread and plan to defer updates in a way that is not disruptive to UX of other components.
 ** Credits: Daniel Tan Jun Xian (team member for the proposal of the UX concept)
 
 * *Major enhancement*: added *the ability to undo/redo previous commands*
 ** What it does: Allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
 ** Justification: Provide a convenient way to rectify any mistakes made by the user.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands.
+** Highlights: After in-depth analysis of design alternatives.
+We are able to mimic the undo/Redo behaviour without additional logic, by pairing the command to be executed with its inverse.
+The implementation was challenging as it required changes to existing commands.
 
 * *Major enhancement*: *prevents over scheduling of appointments*
 ** What it does: Ensures that user do not mistakenly schedule more patient appointments than available on-duty doctors at any given appointment of time.
 ** Justification: This feature assists the user to avoid mistakenly over scheduling appointments for patients.
-** Highlights: This same functionality can be used to determine the number of doctors on-duty during a given timing.
+** Highlights:
+Through the custom implementation of a TreeList, we are able find the number of scheduled appointments in a given time range, with a O(log(n)) time complexity.
+This same functionality can be used to determine the number of doctors on-duty during a given timing.
+Allowing the system to enforce that the number of scheduled appointments cannot be more than the on-duty doctors at point of time.
+Due to the limitation imposed the JavaFx's implementation of a non-extendable `FilteredList<E>`, which inherits from the abstract `TransformationList<E>` class,
+a custom implementation of a TreeSet that implements a `List<E>` was necessary.
+
 
 * *Minor enhancement*: Patients and doctors can be identified using a unique reference id.
 
@@ -87,21 +97,39 @@ search results as the user is giving new inputs.
 
 ** Project management:
 *** Managed releases `v1.1` and `v1.2` (2 releases) on GitHub
+*** Set up team repository.
 
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Set up travis
+*** CRUD for appointment management (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/41[#41],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/74[#74])
+*** Implements undo and redo functionality (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/3[#3],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/73[#73])
 
-_{you can add/remove categories in the list above}_
+*** Implements optional fields for person (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/115[#115])
+
+*** Implements reactive search (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/114[#114],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/145[#145])
+
+** Documentation:
+*** Updates to User and developer Guide: (Pull requests
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/99[#99],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/167[#167],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/235[#235],
+https://github.com/AY1920S1-CS2103T-T09-3/main/pull/247[#247])
+
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-T09-3/main/pull/173[#173], https://github.com/AY1920S1-CS2103T-T09-3/main/pull/188[#188]
+*** Reported bugs and suggestions for other teams in the class (issue
+ https://github.com/SakuraBlossom/ped/issues/7[1],
+https://github.com/SakuraBlossom/ped/issues/3[2],
+https://github.com/SakuraBlossom/ped/issues/6[3])
+
+** Tools:
+*** Set up Travis and Codacy for team repo
 
 == Contributions to the User Guide
 
@@ -109,10 +137,10 @@ _{you can add/remove categories in the list above}_
 |_Given below are some sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-====
+
 include::../UserGuide.adoc[tag=reactiveSearchUG]
-====
-//include::../UserGuide.adoc[tag=dataencryption]
+===
+include::../UserGuide.adoc[tag=patient]
 
 == Contributions to the Developer Guide
 
@@ -124,6 +152,6 @@ include::../DeveloperGuide.adoc[tag=reactivesearchIntro]
 
 include::../DeveloperGuide.adoc[tag=reactivesearchthreading]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=storage]
 
-include::../DeveloperGuide.adoc[tag=reactivesearch]
+include::../DeveloperGuide.adoc[tag=undoredo]

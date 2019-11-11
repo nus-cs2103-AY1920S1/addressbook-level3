@@ -14,7 +14,7 @@ import seedu.address.commons.core.OmniPanelTab;
 import seedu.address.commons.exceptions.ForceThreadInterruptException;
 import seedu.address.logic.commands.SetFocusOnTabCommand;
 import seedu.address.logic.commands.common.Command;
-import seedu.address.logic.commands.common.CommandHistory;
+import seedu.address.logic.commands.common.CommandHistoryManager;
 import seedu.address.logic.commands.common.CommandResult;
 import seedu.address.logic.commands.common.NonActionableCommand;
 import seedu.address.logic.commands.common.ReversibleActionPairCommand;
@@ -42,7 +42,7 @@ public class LogicManager implements Logic {
     private final Model model;
     private final Storage storage;
     private final SystemCommandParser addressBookParser;
-    private final CommandHistory commandHistory;
+    private final CommandHistoryManager commandHistoryManager;
     private final QueueManager queueManager;
     private Thread currentRequestThread;
     private String lastEagerCommandWord = "";
@@ -50,8 +50,8 @@ public class LogicManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.storage = storage;
-        this.commandHistory = new CommandHistory();
-        this.addressBookParser = new SystemCommandParser(commandHistory);
+        this.commandHistoryManager = new CommandHistoryManager();
+        this.addressBookParser = new SystemCommandParser(commandHistoryManager);
         this.queueManager = new QueueManager();
         this.currentRequestThread = new Thread();
     }
@@ -94,7 +94,7 @@ public class LogicManager implements Logic {
 
         CommandResult commandResult = command.execute(model);
         if (command instanceof ReversibleActionPairCommand) {
-            commandHistory.addToCommandHistory((ReversibleActionPairCommand) command);
+            commandHistoryManager.addToCommandHistory((ReversibleActionPairCommand) command);
         }
 
         try {
