@@ -280,29 +280,29 @@ public class SuggestionTemplates {
                 DELETE_TEAM_INSTRUCTION.getText()
         );
 
-        Text participantId7 = new Text("PARTICIPANT_ID ");
+        Text participantPrefixes7 = new Text("OTHER_PARAMETERS");
 
-        participantId7.setFill(Color.GREY);
+        participantPrefixes7.setFill(Color.GREY);
 
 
         FIND_PARTICIPANT_TEMPLATE = new TextFlow(
-                FIND_PARTICIPANT.getText(), participantId7,
+                FIND_PARTICIPANT.getText(), participantPrefixes7,
                 FIND_PARTICIPANT_INSTRUCTION.getText()
         );
 
-        Text mentorId8 = new Text("MENTOR_ID ");
+        Text mentorPrefixes8 = new Text("OTHER_PARAMETERS");
 
-        mentorId8.setFill(Color.GREY);
+        mentorPrefixes8.setFill(Color.GREY);
         FIND_MENTOR_TEMPLATE = new TextFlow(
-                FIND_MENTOR.getText(), mentorId8, FIND_MENTOR_INSTRUCTION.getText()
+                FIND_MENTOR.getText(), mentorPrefixes8, FIND_MENTOR_INSTRUCTION.getText()
         );
 
-        Text teamId8 = new Text("TEAM_ID ");
+        Text teamPrefixes8 = new Text("OTHER_PARAMETERS");
 
-        teamId8.setFill(Color.GREY);
+        teamPrefixes8.setFill(Color.GREY);
 
         FIND_TEAM_TEMPLATE = new TextFlow(
-                FIND_TEAM.getText(), teamId8, FIND_TEAM_INSTRUCTION.getText()
+                FIND_TEAM.getText(), teamPrefixes8, FIND_TEAM_INSTRUCTION.getText()
         );
 
 

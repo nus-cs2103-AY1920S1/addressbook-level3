@@ -21,7 +21,7 @@ public abstract class FindCommand extends Command {
             + "Find command must specify the entity being found "
             + "and its corresponding fields "
             + "Format: find [entity] [entity fields] \n"
-            + "Example: find team n/Teamnamehere";
+            + "Example: find team n/TeamNameHere";
 
     /**
      * Lists the results of the found values.
