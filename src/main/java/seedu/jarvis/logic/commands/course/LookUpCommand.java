@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.jarvis.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jarvis.logic.parser.CliSyntax.CourseSyntax.PREFIX_COURSE;
 
+import seedu.jarvis.commons.util.CourseUtil;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
@@ -58,6 +59,9 @@ public class LookUpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        assert CourseUtil.courseExists(toShow.toString())
+            : String.format("%s should exist", toShow);
+
         requireAllNonNull(model, toShow);
         model.lookUpCourse(toShow);
         model.setViewStatus(ViewType.LIST_COURSE);

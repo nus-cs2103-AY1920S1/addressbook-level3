@@ -1,9 +1,9 @@
 package seedu.jarvis.logic.parser.cca;
 
 import static seedu.jarvis.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.jarvis.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.EQUIPMENT_DESC_PADDLE;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.INVALID_EQUIPMENT_DESC;
+import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.INVALID_NAME_DESC;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.INVALID_TYPE_DESC;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.TYPE_DESC_CANOEING;
 import static seedu.jarvis.logic.commands.cca.CcaCommandTestUtil.VALID_NAME_CANOEING;

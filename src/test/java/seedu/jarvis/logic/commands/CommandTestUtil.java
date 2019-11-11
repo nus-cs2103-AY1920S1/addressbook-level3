@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_NAME;
 import static seedu.jarvis.logic.parser.CliSyntax.CcaTrackerCliSyntax.PREFIX_CCA_TYPE;
-import static seedu.jarvis.logic.parser.CliSyntax.FinanceSyntax.PREFIX_MONEY;
 import static seedu.jarvis.testutil.Assert.assertThrows;
 
 import java.util.Arrays;
@@ -25,13 +24,6 @@ public class CommandTestUtil {
 
     public static final String CCA_DESC = " " + PREFIX_CCA_NAME + VALID_CCA_DESC_TRACK;
     public static final String CCA_TYPE = " " + PREFIX_CCA_TYPE + VALID_CCA_TYPE_TRACK;
-
-    public static final String INVALID_NAME_DESC = " " + PREFIX_CCA_NAME + "James&"; // '&' not allowed in names
-
-    public static final String INVALID_INSTAL_MONEY = " " + PREFIX_MONEY + "-10.0";
-    public static final String INVALID_PURCHASE_MONEY = " " + PREFIX_MONEY + "-10.0";
-
-    public static final String INVALID_MONTHLY_LIMIT = " " + PREFIX_MONEY + "-500.0";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
