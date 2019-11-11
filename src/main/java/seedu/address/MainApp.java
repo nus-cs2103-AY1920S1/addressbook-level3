@@ -211,6 +211,7 @@ public class MainApp extends Application {
 
         try {
             ReimbursementList reimbursementList = storage.getReimbursementFromFile(transactionList);
+            logger.info("Successful inventory initialisation.");
             return new seedu.address.reimbursement.model.ModelManager(reimbursementList);
         } catch (FileReadException e) {
             logger.warning("Data file not in the correct format or problem reading from the file. "

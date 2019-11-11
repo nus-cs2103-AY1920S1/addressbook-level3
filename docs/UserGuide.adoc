@@ -646,7 +646,6 @@ This section will contain details on all commands in the Inventory Tab.
 * You may also sort the list of items by ascending quantity or by descending alphabetical order.
 * Description and category can be empty.
 
-
 [WARNING]
 Due to size limitations, a large number may be truncated when shown in the table. +
 To avoid this, you are advised to key in a number smaller than 10,000.
@@ -657,6 +656,7 @@ This command allows you to add an item to the table and saves it into the system
 
 [NOTE]
 Description and category can be empty, but their field prefixes (d/ and c/) must be present.
+Price and cost can be 0, but quality cannot be.
 
 * Command:
 `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
@@ -724,6 +724,7 @@ This command enables you to edit an existing item in the table.
 
 [NOTE]
 You may edit any combination, permutation and number of the attributes, as long as at least one attribute is present.
+Quantity can be 0, but all numeric fields must be a positive number lesser than 10,000.
 
 * Examples:
 ** [blue]`edit 1 d/T-Shirt q/6`

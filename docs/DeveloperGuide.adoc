@@ -834,18 +834,20 @@ memory complexity.
 
 | An ArrayList is used to store `Item` objects in the `InventoryList`.
 
-*Pros*:
+*Pros*: It retrieves most elements more efficiently.
 
-*Cons*:
+*Cons*: The head and tail are not retrieved as efficiently.
 
 | A LinkedList is used to store `Item` objects in the `InventoryList`.
 
-*Pros*:
+*Pros*: The head and tail of the list can be retrieved via linear time complexity.
 
-*Cons*:
+*Cons*: Every other element would be slower to retrieve.
 |
-Alternative 1 has been implemented. An ArrayList has better performance for the set and get methods than a LinkedList which
-would frequently used in `ModelManager`.
+Alternative 1 has been implemented. An ArrayList has better performance for the get and set methods than a LinkedList
+for elements not in the head and tail.
+As it is natural for the number of items in the inventory to be high, and the get and set methods would naturally be
+frequently used in the `ModelManager`, the ArrayList seems to be a better choice.
 |
 |===
 

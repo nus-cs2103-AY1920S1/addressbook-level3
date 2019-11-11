@@ -154,12 +154,14 @@ Leo will respond with a success message and the item will be removed from the ta
 
 //.Screenshot of a successful user input for the Delete Command in the Inventory tab
 image::inventoryUG/DeleteSuccess.png[width="600"]
+
 {End of the extract from the User Guide}
 
 == Contributions to the Developer Guide
 This section showcases some of my contributions to the User Guide.
 
 {Start of the first extract from Developer Guide}
+
 :sectnums!:
 [[AddCommandInventory]]
 ==== 3.4.1. Add Item Feature
@@ -211,12 +213,60 @@ The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Log
 `DeleteCommand` works:
 
 .Sequence Diagram of the Delete Command in the Inventory Tab (inventory package)
-image::inventoryDG/DeleteCommandSeqDiagram.png[]
+image::inventoryDG/DeleteCommandSeqDiagram.png[][alt=deleteSeq, width=300, height=400]
 
 The `DeleteCommandParser` is responsible for checking the validity of the input, and does not allow any indexes that
 are less than 1 or greater than the largest index currently in the list. It can also take in a description as input and
 compares it against existing `Item` s in the `InventoryList`. This comparison is case-insensitive.
+
 {End of the first extract from Developer Guide}
+
 {Start of the second extract from Developer Guide}
+
+:sectnums!:
+[[OverallDesignConsiderationsInventory]]
+==== 3.4.5. Overall Design Considerations
+
+This section explains the design considerations for some crucial implementations in the Inventory Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+| `ModelManager` could contain a separate `InventoryList` that stores the original list in order to restore the original
+order when [blue]`sort reset` is called.
+
+*Pros*: It is relatively fast.
+
+*Cons*: It takes up a lot of memory.
+
+| Each `Item` could store a copy of the original ID as a private attribute. When [blue]`sort reset` is called, the list
+is sorted by the original ID.
+
+*Pros*: Keeping one list is better for memory complexity.
+
+*Cons*: Sorting could be slightly slow.
+
+| Alternative 2 has been chosen. The time complexity of sorting is not very high, but it has a much higher advantage in
+memory complexity.
+
+| An ArrayList is used to store `Item` objects in the `InventoryList`.
+
+*Pros*: It retrieves most elements more efficiently.
+
+*Cons*: The head and tail are not retrieved as efficiently.
+
+| A LinkedList is used to store `Item` objects in the `InventoryList`.
+
+*Pros*: The head and tail of the list can be retrieved via linear time complexity.
+
+*Cons*: Every other element would be slower to retrieve.
+|
+Alternative 1 has been implemented. An ArrayList has better performance for the get and set methods than a LinkedList
+for elements not in the head and tail.
+As it is natural for the number of items in the inventory to be high, and the get and set methods would naturally be
+frequently used in the `ModelManager`, the ArrayList seems to be a better choice.
+|
+|===
+
 {End of the second extract from Developer Guide}
 
