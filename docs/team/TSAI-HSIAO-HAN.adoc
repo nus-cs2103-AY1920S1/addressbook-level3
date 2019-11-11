@@ -7,7 +7,7 @@
 
 ---
 :sectnums:
-== Overview
+== Introduction
 This document will introduce my role and contribution in Mark.
 Mark is a 6 weeks group project for the module CS2103T Software Engineering.
 Our team composed of 5 NUS Computer Science year 2 students.
