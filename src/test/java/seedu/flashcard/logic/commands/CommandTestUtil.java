@@ -47,8 +47,8 @@ public class CommandTestUtil {
     public static final String QUESTION_DESC_BANANA = " " + PREFIX_QUESTION + VALID_QUESTION_BANANA;
     public static final String DEFINITION_DESC_APPLE = " " + PREFIX_DEFINITION + VALID_DEFINITION_APPLE;
     public static final String DEFINITION_DESC_BANANA = " " + PREFIX_DEFINITION + VALID_DEFINITION_BANANA;
-    public static final String ANSWER_DESC_ANSWER_APPLE = " " + PREFIX_ANSWER + VALID_ANSWER_APPLE;
-    public static final String ANSWER_DESC_ANSWER_BANANA = " " + PREFIX_ANSWER + VALID_ANSWER_BANANA;
+    public static final String ANSWER_DESC_APPLE = " " + PREFIX_ANSWER + VALID_ANSWER_APPLE;
+    public static final String ANSWER_DESC_BANANA = " " + PREFIX_ANSWER + VALID_ANSWER_BANANA;
     public static final String TAG_DESC_ROUND = " " + PREFIX_TAG + VALID_TAG_ROUND;
     public static final String TAG_DESC_LONG = " " + PREFIX_TAG + VALID_TAG_LONG;
     public static final String CHOICE_DESC_RED = " " + PREFIX_CHOICE + VALID_CHOICE_RED;
@@ -58,8 +58,16 @@ public class CommandTestUtil {
 
     public static final String INVALID_QUESTION_DESC = " " + PREFIX_QUESTION + " "; // Questions cannot be empty
     public static final String INVALID_DEFINITION_DESC = " " + PREFIX_DEFINITION + " "; // Definitions cannot be empty
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + " "; //Tags cannot be empty
+    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "*"; //Tags cannot be empty
     public static final String INVALID_ANSWER_DESC = " " + PREFIX_ANSWER + " "; //Answers cannot be empty
+    public static final String INVALID_CHOICE_DESC = " " + PREFIX_CHOICE + " "; //Choice cannot be empty
+
+    public static final String INVALID_QUESTION = " "; // Questions cannot be empty
+    public static final String INVALID_DEFINITION = " "; // Definitions cannot be empty
+    public static final String INVALID_TAG = "*"; //Tags cannot be empty
+    public static final String INVALID_ANSWER = " "; //Answers cannot be empty
+    public static final String INVALID_CHOICE = " "; //Choice cannot be empty
+
 
     public static final String PREAMBLE_WHITESPACE = "\t \r \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -69,7 +77,7 @@ public class CommandTestUtil {
 
     static {
         DESC_APPLE = new EditFlashcardDescriptorBuilder().withQuestion(VALID_QUESTION_APPLE)
-                  .withAnswer(VALID_ANSWER_APPLE).withDefinition(VALID_DEFINITION_APPLE).withTag(VALID_TAG_ROUND)
+                  .withAnswer(VALID_ANSWER_APPLE).withDefinition(VALID_DEFINITION_APPLE)
                   .withChoices(VALID_CHOICE_RED, VALID_CHOICE_BLUE, VALID_CHOICE_GREEN, VALID_CHOICE_YELLOW).build();
         DESC_BANANA = new EditFlashcardDescriptorBuilder().withQuestion(VALID_QUESTION_BANANA)
                   .withAnswer(VALID_ANSWER_BANANA).withDefinition(VALID_DEFINITION_BANANA).withTag(VALID_TAG_LONG)

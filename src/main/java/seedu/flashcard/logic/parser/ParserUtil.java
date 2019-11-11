@@ -75,7 +75,7 @@ public class ParserUtil {
         requireNonNull(choice);
         String trimmedChoice = choice.trim();
         if (!Choice.isValidChoice(trimmedChoice)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Choice.MESSAGE_CONSTRAINTS);
         }
         return new Choice(trimmedChoice);
     }

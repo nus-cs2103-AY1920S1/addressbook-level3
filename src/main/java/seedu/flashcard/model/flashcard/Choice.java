@@ -9,7 +9,7 @@ import static seedu.flashcard.commons.util.AppUtil.checkArgument;
  */
 public class Choice {
     public static final String MESSAGE_CONSTRAINTS = "Choice can take any values, and it should not be blank";
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    public static final String VALIDATION_REGEX = "(?:[^\\s].*)";
 
     public final String choice;
 
