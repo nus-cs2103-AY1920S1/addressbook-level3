@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 import javafx.collections.ObservableList;
 import seedu.billboard.model.expense.Expense;
 import seedu.billboard.model.expense.ExpenseList;
+import seedu.billboard.model.recurrence.Recurrence;
+import seedu.billboard.model.recurrence.RecurrenceList;
 import seedu.billboard.model.tag.Tag;
 import seedu.billboard.model.tag.TagCountManager;
 import seedu.billboard.model.tag.UniqueTagList;
@@ -21,6 +23,7 @@ import seedu.billboard.model.tag.UniqueTagList;
 public class Billboard implements ReadOnlyBillboard {
 
     private final ExpenseList expenses;
+    private final RecurrenceList recurrences;
     private final UniqueTagList tags;
     private final TagCountManager count;
 
@@ -33,6 +36,7 @@ public class Billboard implements ReadOnlyBillboard {
      */
     {
         expenses = new ExpenseList();
+        recurrences = new RecurrenceList();
         tags = new UniqueTagList();
         count = new TagCountManager();
     }
@@ -47,8 +51,9 @@ public class Billboard implements ReadOnlyBillboard {
         resetData(toBeCopied);
     }
 
-    public Billboard(ExpenseList expenses, UniqueTagList tags, TagCountManager count) {
+    public Billboard(ExpenseList expenses, RecurrenceList recurrences, UniqueTagList tags, TagCountManager count) {
         setExpenses(expenses.asUnmodifiableObservableList());
+        setRecurrences(recurrences.asUnmodifiableList());
         setUniqueTagList(tags.getTagList());
         setCountManager(count.getCountMap());
     }
@@ -61,6 +66,14 @@ public class Billboard implements ReadOnlyBillboard {
      */
     public void setExpenses(List<Expense> expense) {
         this.expenses.setExpenses(expense);
+    }
+
+    public void setRecurrences(List<Recurrence> recurrences) {
+        this.recurrences.setRecurrences(recurrences);
+    }
+
+    public void setRecurrences(RecurrenceList recurrences) {
+        this.recurrences.setRecurrences(recurrences);
     }
 
     public void setUniqueTagList(Map<String, Tag> tagList) {
@@ -79,6 +92,7 @@ public class Billboard implements ReadOnlyBillboard {
         requireNonNull(newData);
 
         setExpenses(newData.getExpenses());
+        setRecurrences(newData.getRecurrences());
         setUniqueTagList(newData.getUniqueTagList());
         setCountManager(newData.getCountManager());
     }
@@ -95,13 +109,14 @@ public class Billboard implements ReadOnlyBillboard {
                 .stream().filter(x -> !x.isArchived()).collect(Collectors.toList());
         Billboard billboard = new Billboard();
         billboard.setExpenses(nonArchiveExpenses);
+        billboard.setRecurrences(recurrences);
         billboard.setCountManager(count.getCountMap());
         billboard.setUniqueTagList(tags.getTagList());
         return billboard;
     }
 
     public Billboard getClone() {
-        return new Billboard(expenses.getClone(), tags.getClone(), count.getClone());
+        return new Billboard(expenses.getClone(), recurrences.getClone(), tags.getClone(), count.getClone());
     }
 
     public void setBillboard(Billboard billboard) {
@@ -150,6 +165,71 @@ public class Billboard implements ReadOnlyBillboard {
      */
     public void removeExpense(Expense key) {
         expenses.remove(key);
+    }
+
+    //// Recurrence methods
+
+    public RecurrenceList getRecurrences() {
+        return recurrences;
+    }
+
+    /**
+     * Returns true if a recurrence with the same identity as {@code expense} exists in the billboard.
+     */
+    public boolean hasRecurrence(Recurrence recurrence) {
+        requireNonNull(recurrence);
+        return recurrences.contains(recurrence);
+    }
+
+    /**
+     * Replaces the given recurrence {@code target} in the list with {@code editedRecurrence}.
+     * {@code target} must exist in the billboard.
+     * The expense identity of {@code editedReccurence} must not be the same as another
+     * existing recurrence in the billboard.
+     */
+    public void setRecurrence(Recurrence target, Recurrence editedRecurrence) {
+        requireNonNull(editedRecurrence);
+        recurrences.setRecurrence(target, editedRecurrence);
+    }
+
+    /**
+     * Adds an recurrence to the billboard.
+     * The recurrence must not already exist in the billboard.
+     */
+    public void addRecurrence(Recurrence recurrence) {
+        requireNonNull(recurrence);
+        recurrences.add(recurrence);
+    }
+
+    /**
+     * Adds an recurrence to the billboard.
+     * The recurrence must not already exist in the billboard.
+     */
+    public void addRecurrence(List<Recurrence> recurrences) {
+        requireNonNull(recurrences);
+        for (Recurrence r : recurrences) {
+            recurrences.add(r);
+        }
+    }
+
+    /**
+     * Removes {@code key} from this {@code Billboard}.
+     * {@code key} must exist in the billboard.
+     */
+    public void removeRecurrence(Recurrence key) {
+        requireNonNull(key);
+
+        recurrences.remove(key);
+    }
+
+    /**
+     * Removes recurrence at {@code index} from this {@code Billboard}.
+     * Recurrence at {@code index} must exist in the billboard.
+     */
+    public Recurrence removeRecurrence(int index) {
+        requireNonNull(index);
+
+        return recurrences.remove(index);
     }
 
     //// Tag methods

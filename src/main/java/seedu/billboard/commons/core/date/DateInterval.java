@@ -17,6 +17,9 @@ public enum DateInterval {
     MONTH("month", Period.ofMonths(1), TemporalAdjusters.firstDayOfMonth()),
     YEAR("year", Period.ofYears(1), TemporalAdjusters.firstDayOfYear());
 
+    public static final String MESSAGE_CONSTRAINTS =
+            "Names should only contain alphanumeric characters and spaces, and it should not be blank";
+
     private static final Map<String, DateInterval> nameToDateIntervalMap;
     private final String name;
     private final Period period;
@@ -44,6 +47,18 @@ public enum DateInterval {
      */
     public static Optional<DateInterval> intervalFromName(String name) {
         return Optional.ofNullable(nameToDateIntervalMap.get(name));
+    }
+
+    /**
+     * Checks that {@code String interval} is a valid {@code DateInterval}
+     */
+    public static boolean isValidDateInterval(String interval) {
+        try {
+            DateInterval.valueOf(interval);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
 
