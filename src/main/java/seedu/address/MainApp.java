@@ -208,7 +208,20 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format or problem reading from the file. "
                     + "Will be starting with an empty transaction list");
             transactionList = new TransactionList();
+            initialiseEmptyTransactionFile(storage, transactionList);
             return new seedu.address.transaction.model.ModelManager(transactionList);
+        }
+    }
+
+    /**
+     * Sets the transaction file to be empty.
+     */
+    private void initialiseEmptyTransactionFile(seedu.address.transaction.storage.Storage storage,
+                                                TransactionList transactionList) {
+        try {
+            storage.writeFile(transactionList);
+        } catch (IOException e) {
+            logger.severe("Problem writing to storage transaction file.");
         }
     }
 
