@@ -29,7 +29,7 @@ The custom commands feature required handling command words that are not recogni
 == Summary of contributions
 
 |===
-|_Given below is a brief write-up of my biggest implemented feature and other helpful contributions to the project._
+|_Given below is a brief write-up of my implemented features and other helpful contributions to the project._
 |===
 
 * *Major enhancement*: Added *the learning of wrong commands into custom commands feature*
