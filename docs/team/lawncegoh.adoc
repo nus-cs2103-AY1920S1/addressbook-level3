@@ -7,7 +7,7 @@
 
 == Overview
 
-image::lawncegoh.png[width="80", align="left"]
+image::lawncegoh.png[width="100", align="left"]
 {empty}[https://github.com/lawncegoh[github]]
 
 Hi! My name is Lawnce. I am a second year student in School of Computing. This page aims to document the contributions I have made in a project that my team and I completed for the module CS2103T.
