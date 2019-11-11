@@ -1,0 +1,30 @@
+@startuml
+
+abstract class UIPart {
+}
+
+class CalendarPanel {
+-agenda: Agenda
+-scheduleList: ObservableList<Schedule>
+-orderList: ObservableList<Order>
+-calendarDate: CalendarDate
++CalendarPanel(ObservableList<Schedule>, ObservableList<Order>, CalendarDate)
++getAgenda()
+-populateAgenda()
+-setAgendaView(Calendar)
+}
+class CalendarDate {
+-property: SimpleObjectProperty
++CalendarDate(Calendar)
++setCalendar(Calendar)
++getProperty()
++getCalendar()
++equals(Object)
+}
+
+UIPart <|-down- CalendarPanel
+CalendarPanel --right--> CalendarDate
+
+note left of CalendarPanel: Only relevant attributes and methods \n(mentioned in explanation) are shown
+
+@enduml

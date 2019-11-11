@@ -105,7 +105,7 @@ Multi-purpose mobile computing device. Also known as smartphones.
 A request for goods.
 
 . *Schedule* +
-A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time.
+A meetup with buyer to pass the goods. There can only be 1 schedule associated with an order at any one time. Duration of schedule is set to be 1 hour.
 
 === SML-specific Terms
 
@@ -561,6 +561,8 @@ Prints the order lists with formatting that is appropriate for stock-take or ord
 Order list is converted into PDF format before being printed. +
 Format: `print-o`
 
+// tag::schedule[]
+
 === Schedule Commands
 Commands that work on schedules you have.
 
@@ -573,13 +575,20 @@ Shows the week of the date specified by the user. +
 [underline]#Format#: `schedule cd/DATE`
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+[TIP]
+Month and date can be *single digits* where applicable.
 
 ==== Add a schedule : `add-s`
 Adds a schedule. +
-If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
-*Note*: You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule. +
+If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules.
+****
+Note:
 
+- You can add multiple schedules at the same time slot but it will affect the visibility of the order index on the schedule.
+- Venue that is too long will be truncated / not visible on the calendar schedule. Simple hover your cursor over the schedule, the full venue should appear as a temporary pop-up in a while.
+****
 [underline]#Format#: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAG]… [-allow]` +
+
 [underline]#Example#: +
 
 * `add-s 3 cd/2018.7.25 ct/18.00 v/Starbucks t/freebie -allow` +
@@ -590,8 +599,10 @@ image::ug-command/ug-add-s.png[width="800"]
 Order index should be a positive integer and must exist in the order list.
 [TIP]
 Date should be in the format YYYY.MM.DD with valid year, month and date. Only dates from year 1970 onwards are valid.
+*Month and date can be single digits if applicable.*
 [TIP]
 Time should be in the 24-hour format HH.MM with valid hour and minute.
+*Hour and minute can be single digits if applicable.*
 [TIP]
 Schedule can have any number of tags, including 0.
 
@@ -610,7 +621,7 @@ Deletes a schedule. +
 
 ==== Edit a schedule : `edit-s`
 Edits an existing schedule. +
-If there are conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
+If the edited schedule has conflicts with the existing schedules, use the `-allow` flag to allow clashing schedules. +
 *Note*: You can add multiple schedules at the same time slot but it will affect the *visibility of the order index and schedule venue* on the calendar. +
 
 [underline]#Format#: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAG]… [-allow]`
@@ -631,6 +642,11 @@ If there are conflicts with the existing schedules, use the `-allow` flag to all
 Clears every schedule in SML. +
 
 [underline]#Format#: `clear-s`
+
+==== Customise schedule duration `[coming in v2.0]`
+There will be an additional attribute in schedule which takes in the duration of the event (in minutes).
+
+// end::schedule[]
 
 === Archived Orders Commands:
 

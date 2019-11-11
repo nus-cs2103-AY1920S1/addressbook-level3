@@ -117,6 +117,8 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
+// tag::logicsequencediagram[]
+
 .  `Logic` uses the `SellerManagerParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a customer/phone/order/schedule).
@@ -129,6 +131,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCustomerCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+// end::logicsequencediagram[]
 
 [[Design-Model]]
 === Model component
@@ -407,64 +411,72 @@ and a `Map<String, Node>` to represent outgoing edges. The keys of this map repr
 * Infinite structure: By having a `TagNode` store a reference to itself, it is possible to endlessly display `t/` as a possible argument at the end of the input text,
 which is consistent with the unlimited number of `Tag` a `Customer` can hold.
 
+
+// tag::schedule[]
+
 === Calendar / Schedule feature
 ==== Implementation
 
-We decided to incorporate a third party library, `JFXtras's Agenda`, to represent our schedules on a calendar for easy viewing by our users.
+We decided to incorporate a third party library, _JFXtras's Agenda_, to represent our schedules on a calendar for easy viewing by our users.
 
-`CalendarPanel` keeps `UniqueList<Schedule>` and `UniqueList<Order>` objects as class variables. On instantiation, all the schedules in `UniqueList<Schedule>` will be converted to `Appointments` and then added to `Agenda`.
-To set the display information of the `Schedule` object, we will find its `Order` in the `UniqueList<Order>` and retrieve its index.
-`CalendarPanel` also keeps `CalendarDate` as a variable to set the date shown by `Agenda`.
+Here is the class diagram for `CalendarPanel`:
 
-Schedule supports a few basic commands:
+image::CalendarPanelClassDiagram.png[]
+
+On instantiation of `CalendarPanel`, all the schedules in scheduleList will be converted to `Appointments` and then added to `Agenda` via `populateAgenda()`.
+To set the display information of the `Schedule` object, we will find its `Order` in the orderList and retrieve its index.
+
+Schedule supports a few main commands:
 
 * Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS] [-allow]`
 * Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS] [-allow]`
-* Delete -- delete an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
-* Schedule -- switches the week on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
+* Delete -- deletes an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
+* Schedule -- switches the view on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
 
-The schedules and date the calendar panel shows is automatically updated depending on the commands executed by the users.
+The schedules and date in the calendar panel shows is automatically updated depending on the commands executed by the users.
 For example:
 
 * If the user adds/edits/deletes a schedule -- calendar panel will display the week with the date of the schedule.
 * If the user uses the switch-s command -- calendar panel will display the week with today's date.
-* If the user uses the schedule command -- calendar will display the week with the date resquested by the user.
+* If the user uses the schedule command -- calendar panel will display the week with the date requested by the user.
 
-Changes to the schedules are made in the model by editing the `UniqueList<Schedule>` object.
-`CalendarPanel` adds a listener to its `UniqueList<Schedule>` variable.
-`CalendarPanel` listen to the changes and generates the updated list of `Schedules` into `Appointments` to add to `Agenda`.
+Changes to the schedules are made in the model by editing its own scheduleList.
+`CalendarPanel` adds a listener to its `scheduleList` variable and listens to the changes and calls `populateAgenda()` to generate the updated list of `Schedules` into `Appointments` to add to `Agenda`.
 
 The current date shown on the calendar panel is encapsulated in a `CalendarDate` object.
 The `CalendarDate` class uses `SimpleObjectProperty` to keep track of the Calendar (date).
-When any of the schedule commands are executed, the model will edit the `CalendarDate` object with the updated Calendar (date).
-`CalendarPanel` adds a listener to its `CalendarDate` variable.
-`CalendarPanel` listen to the changes and sets the agenda view to the new `Calendar` in `CalendarDate`.
 
-Here is a sample of what happens when a schedule command is entered by the user:
+When any of the schedule commands are executed, model will edit the `CalendarDate` object with the updated Calendar (date).
+`CalendarPanel` adds a listener to its `CalendarDate` variable and listens to the changes and calls `setAgendaView()` to set the new `Calendar` in `CalendarDate` accordingly.
+
+Here is a sample of what happens when a user adds a schedule (AddScheduleCommand):
 
 image::ScheduleCommandSequenceDiagram.png[]
 
-Basically, after the setCalendarDate(calendar) method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its setAgendaView(calendar) method.
+Basically, after the `setCalendarDate()` method in `Model` is executed, `CalendarPanel` listens to it and make the necessary changes to the agenda view by calling its `setAgendaView()` method.
 
 ===== Design Considerations / Alternative designs considered
 
-We do not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our system uses `Schedule`.
-Instead, we have decided to only convert `Schedule` into `Appointment` when needed - during the instantiation of `CalendarPanel` or when there are changes made to the `UniqueList<Schedule>`.
+* Whether schedules should be kept as `Appointment` objects instead of `Schedule` objects.
+** We felt that the existence of our own `Schedule` object ensures that we can design it the way we want.
+** We decided to not keep a list of `Appointment` in `CalendarPanel` as `Appointment` is only used for `Agenda` while the rest of our code uses `Schedule`.
+** Instead, we have decided to only convert `Schedule` into `Appointment` when needed - during the creation of `CalendarPanel` or when there are changes made to the `UniqueList<Schedule>` variable.
 Not keeping a list of `Appointment` ensures that we do not keep duplicate information.
 
-The changes to `CalendarDate` was initially done in the `CalendarPanel` itself.
+* Where to store and change the date shown on Calendar Panel.
+** The changes to `CalendarDate` was initially done in the `CalendarPanel` itself.
 So, `CommandResult` was made to have one more variable `Optional<Calendar>`.
 In that case, every time a schedule command was executed, a specific `Calendar` (if any) will be placed inside the constructor while creating the `CommandResult` object.
 Else, Optional.Empty() will be placed inside.
-
-When the `MainWindow` executes the method performUiChanges(CommandResult), it will call the handleSchedule method with Calendar (from CommandResult) as an argument.
+** When the `MainWindow` executes the method performUiChanges(CommandResult), it will call the handleSchedule method with `Calendar` (from CommandResult) as an argument.
 If `Optional<Calendar>` in `CommandResult` is empty, today's date and time will be used instead.
-Then, `CalendarPanel` will be called in the handleSchedule method to set the agenda view.
-
-This implementation was however changed because we thought that the date shown on the panel should be changed automatically.
+Then, `CalendarPanel` will be called in handleSchedule() to set the agenda view.
+** This implementation was however changed because we thought that the date shown on the panel should be updated automatically.
 Hence, we decided to use a listener instead.
-`CalendarDate` is then placed in `Model` so that it can be edited right away when `Model` executes any schedule related commands.
+`CalendarDate` is then placed in `Model` so that it can be edited immediately when `Model` executes any schedule related commands.
 Also, this ensures that `CommandResult` remains unchanged and kept as simple as possible.
+
+// end::schedule[]
 
 // tag::find[]
 
@@ -698,7 +710,7 @@ Refer to the guide <<DevOps#, here>>.
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: Keep track of your phone, orders and customers faster than a typical mouse/GUI driven app
+*Value proposition*: Keep track of your phone, orders, schedules and customers faster than a typical mouse/GUI driven application.
 
 [appendix]
 == User Stories
@@ -805,9 +817,9 @@ Use case resumes at step 2.
 
 *MSS*
 
-1. Actor input phone name and quantity.
-2. System adds phone to the list of phones.
-3. System shows the new list of phones.
+1. Actor input phone name and other phone attributes.
+2. SML adds phone to the list of phones.
+3. SML shows the new list of phones.
 
 *Extensions*
 
@@ -821,97 +833,66 @@ Use case ends.
 Use case resumes at step 1.
 
 [discrete]
-=== Use case: Check quantity of phone (UC03)
+=== Use case: Confirm order (UC03)
 
 *MSS*
 
-1. Actor requests to check stock of a phone.
-2. System displays the stock status for a phone.
+1. Actor add order to the system. SML displays the new order list.
+2. Actor schedule order. (UC04)
+3. Actor mark order as completed. SML displays completed order message.
 
 *Extensions*
 
 [none]
-* 1a. System is unable to find the phone as it does not exist.
+* 2a. SML is unable to add as command is missing fields.
 +
 Use case ends.
 [none]
-** 1a1. System shows error message that phone does not exist.
-+
-Use case resumes at step 1.
-
-[discrete]
-=== Use case: Confirm order (UC04)
-
-*MSS*
-
-1. Actor requests to check stock of a phone (UC03).
-2. Actor add order to the system. System displays the new order list.
-3. Actor schedule order. (UC05)
-4. Actor mark order as completed. System displays completed order message.
-
-
-*Extensions*
-
-[none]
-* 2a. System is unable to add as command is missing fields.
-+
-Use case ends.
-[none]
-** 2a1. System shows error message that command is missing fields.
+** 2a1. SML shows error message that command is missing fields.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Actor schedule order (UC05)
+=== Use case: Actor schedule order (UC04)
 
 *MSS*
 
-1. Actor adds order to schedule by some identifier.
-2. System check for conflict in timings.
-3. System displays the scheduled order.
+1. Actor adds a schedule to an order.
+2. SML check for conflict in timings.
+3. SML displays the scheduled order.
 
 *Extensions*
 
 [none]
-* 2a. System finds out that there is a conflict in timing for 2 or more orders.
+* 2a. SML finds out that there is a conflict in timing for 2 or more orders.
 
 +
 Use case ends.
 [none]
-** 2a1. System displays the 2 or more orders that have the same schedule timing.
+** 2a1. SML displays the 2 or more orders that have the same schedule timing.
 +
 Use case resumes at step 2.
 
 [discrete]
-=== Use case: Actor input data via .csv file (UC06)
+=== Use case: Actor export data to csv file (UC05)
 
 *MSS*
 
-1. Actor requests to import .csv file.
-2. System loads file into memory.
-3. System reads the file and saves it.
-4. System displays the updated data.
+1. Actor requests to export data to csv file.
+2. SML loads system data into the file.
 
 *Extensions*
 
 [none]
-* 1a. System finds that no file is found.
-* 1b. System finds that there is an error with the formatting.
+* 1a. Input file name does not follow constraints.
 
 +
 Use case ends.
 [none]
-** 1a1. System displays error message and does not add new data from the file.
-+
-Use case resumes at step 1.
-[none]
-** 1b1. System displays error message and does not add the new data from the file.
+** 1a1. SML displays error message and does not create the file.
 +
 Use case resumes at step 1.
 
-
-
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1030,35 +1011,54 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. Open your command line prompt / terminal, navigate and input `java -jar [filename]` to run the file +
+   Expected: Shows the GUI with a set of sample data. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app the same way you launched the application previously. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding a phone
+
+. Adding a phone while all phones are listed
+
+.. Test case: `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple $/$900 t/NEW t/Cool` +
+   Expected: Phone with the above details is added the list. Details of the phone shown in the status message.
+.. Test case: `add-p i/543407158585522 s/A123bcfe29 n/iPhone 11 b/Apple cp/128 cl/Purple t/NEW t/Cool` +
+   Expected: No phone is added. Error details shown in the status message. Missing fields.
+.. Other incorrect add commands to try: `add-c n/Steve Jobs c/12345678`, where the email field is missing. +
+   Expected: Similar to previous.
 
 === Deleting a customer
 
 . Deleting a customer while all customers are listed
 
-.. Prerequisites: List all customers using the `list` command. Multiple customers in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Prerequisites: List all customers using the `list-c` command. Multiple customers in the list.
+.. Test case: `delete-c 1` +
+   Expected: First customer is deleted from the list. Details of the deleted customer shown in the status message.
+.. Test case: `delete-c 0` +
    Expected: No customer is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect delete commands to try: `delete-p`, `delete-p x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Editing an order
+
+. Edit an order while all orders are listed.
+
+.. Prerequisites: List all customers using the `list-o` command. There must be at least 1 order in the list.
+.. Test case: `edit-o 1 $/$1000` +
+   Expected: Price of the first order is edited. Details of the edited order is shown in the status message.
+.. Test case: `edit-o 1` +
+   Expected: Nothing is edited. Error details shown in the status message. No fields to be edited.
+.. Other incorrect edit commands to try: `edit-c 1 c/abc`, c/ is the prefix for contact number but alphabets are entered instead +
+   Expected: Error message shown due to erroneous input.
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Data is automatically saved after every command.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. When the application is relaunched, it will check for the validity of the data.
+Any corrupted data in any of the data files (customer, phone, order, schedule, archived order) will cause SML to start with an empty data book for that particular corrupted type of data.
 
-_{ more test cases ... }_
