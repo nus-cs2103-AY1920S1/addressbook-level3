@@ -46,8 +46,8 @@ public class Session implements JsonInterface {
 
     /**
      * Constructs a new instance of session and sets the session's start and end time to arguments.
-     * @param start start time
-     * @param end   end time
+     * @param start Start time
+     * @param end End time
      */
     public Session(LocalDateTime start, LocalDateTime end) {
         startSession(start);
@@ -55,15 +55,15 @@ public class Session implements JsonInterface {
     }
 
     /**
-     * Start session start time to present.
+     * Sets session start time to the present.
      */
     public void startSession() {
         startSession(LocalDateTime.now());
     }
 
     /**
-     * Start session start time to argument.
-     * @param start start time
+     * Sets session start time to argument.
+     * @param start Start time
      */
     public void startSession(LocalDateTime start) {
         this.sessionStart = start;
