@@ -31,7 +31,7 @@ import seedu.ezwatchlist.model.show.TvShow;
  * likelihood that the recommendations are more suited to the user, with the best recommendation being the first entry
  * in the list.
  */
-public class RecommendationEngine {
+public class RecommendationEngine extends ApiUtil {
     private final List<Movie> userMovies;
     private final List<TvShow> userTvShows;
     private List<Integer> userMoviesId;
