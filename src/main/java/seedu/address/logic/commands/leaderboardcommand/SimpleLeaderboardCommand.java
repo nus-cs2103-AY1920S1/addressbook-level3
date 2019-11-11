@@ -23,6 +23,13 @@ public class SimpleLeaderboardCommand extends LeaderboardCommand {
     public static final String MESSAGE_SUCCESS = "Showing Leaderboard as it Stands.";
     private final Logger logger = LogsCenter.getLogger(getClass());
 
+    /**
+     * Creates a new {@code SimpleLeaderboardCommand} object.
+     *
+     * @param comparators the comparators to be used for tiebreaks.
+     * @param subjectName the subject name to be used for filtering the leaderboard by. Allows input to be null
+     *                    if the user hasn't specified a subject to filter by.
+     */
     public SimpleLeaderboardCommand(ArrayList<Comparator<Team>> comparators, SubjectName subjectName) {
         super(comparators, subjectName);
     }

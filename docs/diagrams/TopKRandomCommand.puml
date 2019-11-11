@@ -50,10 +50,10 @@ deactivate AlfredParser
 LogicManager -> topKRandomCommand : execute()
 activate topKRandomCommand
 
-topKRandomCommand -> Model : setTopKRandom(3, comparators)
+topKRandomCommand -> Model : setTopKRandom(3, comparators, subjectName)
 activate Model
 
-Model -> Model : setSimpleLeaderboard(comparators)
+Model -> Model : setSimpleLeaderboard(comparators, subjectName)
 activate Model
 
 Model --> Model

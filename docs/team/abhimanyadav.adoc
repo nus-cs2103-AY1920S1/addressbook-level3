@@ -5,68 +5,65 @@
 
 == PROJECT: Alfred - The Hackathon Butler
 
----
 
 == Overview
 
-For our software engineering project, my team of five software engineering students, including myself, were tasked with either improving an existing addressbook application's codebase, or completely modifying it into a new application. We decided to opt for the latter of the two options and morph the addressbook codebase into a command-line based hackathon organizing tool which we named "*Alfred*". Alfred is a desktop application targeted towards hackathon organizers and intends to aid them with several organizational and logistical needs, such as tracking the participants, teams and mentors involved in the hackathon; managing the relations between different these entities; and judging and determining winners within the hackathon. All of this intends to package the various complex tools required to organise a hackathon into a single application.
+For our software engineering project, my team of five software engineering students, including myself, were tasked with either improving an existing addressbook application's codebase, or completely modifying it into a new application. We opted to morph the addressbook codebase into a command-line based hackathon organizing tool which we named "*Alfred*". Alfred is a desktop application targeted towards hackathon organizers and intends to aid them with several organizational and logistical needs, such as tracking the participants, teams and mentors involved in the hackathon; managing the relations between different these entities; and judging and determining winners within the hackathon. All of this intends to package the various complex tools required to organise a hackathon into a single desktop application, resembling the image below.
+
+.Alfred's UI
+image::Ui.png[]
+
+My main role in this project was to design and write code for the judging and leaderboard functions we intended to equip our application with. Judging and leaderboard are essential components of a hackathon as every competition is bound to have winners based on their scores. The following sections of this document highlight in more detail the features I implemented and the enhancements I added to this project. Additionally, it also explores the relevant documentation I added to our application user guide and developer guide with regards to the enhancements I made.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+*Major enhancement*: added *the ability to assign scores to teams*
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+** *What it does*: allows the user to manage teams' scores by providing functionalities to add, subtract, set and reset the scores of the teams present within the hackathon.
+** *Justification*: Scoring is one of the core processes which take place within a hackathon in order to determine winners. This feature allows the user to conveniently change a team's score depending on their needs.
+** *Highlights*: This feature is equipped with appropriate feedback messages and error detection capabilities to ensure that the user uses it correctly to the fullest of its capabilities without leading to errors. The implementation was challenging as there were several edge cases and exceptional cases which needed to be considered. Thorough attention also had to be paid to make the best use of abstraction and polymorphism while implementing this feature to minimise the amount of duplicate code and ensure adherence to ideal software engineering practices.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+*Major enhancement*: implemented *the ability to view the leaderboard and top teams within the hackathon*
 
-* *Other contributions*:
+** *What it does*: allows the user to see the hackathon's leaderboard or any number of top teams within the hackathon to determine winners for the competition. Additionally, it provides tiebreaking capabilities to allow the user to break ties between teams with equal scores, based on certain metrics. Lastly, it allows the user to determine winners by categories by allowing the user to filter the leaderboard or top teams by the category they belong in.
+** *Justification*: At the end of a hackathon, the organizers need to determine the winners of the hackathon. This feature allows them to easily do so easily by running simple single line commands, rather than having to scroll and squint at different teams in the hackathon.
+** *Highlights*: This enhancement was particularly difficult to implement as it had several sub-parts to it, especially in handling cases when teams are ties. This required me to devise and code few complicated algorithms to ensure that the multiple edge cases, such as when teams are still tied after applying tiebreak methods, are appropriately handled in order to display the correct results to the user.
+
+*Code Contributed*: Please see the following links to see view the code I implemented for this project:
+
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=abhiman&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Abhiman2211&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Functional Code]: the functional lines of code contributed towards the project.
+* https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=abhiman&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Abhiman2211&tabRepo=AY1920S1-CS2103T-F11-1%2Fmain%5Bmaster%5D[Test Code]: the code written to test the code within the project.
+
+*Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed our team repository's Issue Tracker and Milestones Tracker.
+
 ** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** I refactored the addressbook application's original parser classes to better suit the needs of our application.
+*** Wrote tests for the Parser classes to ensure they functioned correctly. (Pull requests https://github.com[#36], https://github.com[#38])
+*** I abstracted several common bits of code into single methods which were then used by my teammates.
+
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Wrote the Score, Leaderboard and Top Teams command sections of the user guide.
+*** Explained the implementation of the Score, Leaderboard and Top Teams Command in the developer guide.
+*** Made cosmetic tweaks to the contents of the User Guide: https://github.com[#14]
+*** Made cosmetic changes to the contents of the Developer Guide to suit our application.
+
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
+Alfred's user guide is a thorough and intuitive guide which explains to the its users how to properly use each of its features. My extensive contributions to it showcase my ability to write documentation targeting the end-users. This section contains an excerpt from my additions to the user guide with regards to my Leaderboard and Get Top Teams feature which explains how to use the `leaderboard` and `getTop K` commands. You may also view the full version of my contributions in Alfred's User Guide found _https://ay1920s1-cs2103t-f11-1.github.io/main/UserGuide.html[here]_.
 
+//The following is an excerpt from the user guide which shows the contribution I made with regards to my Scoring feature. It explains to the user how to use the `score` command appropriately and clarifies some of the constraints and warning which the user may face.
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+//include::../UserGuide.adoc[tag=score]
 
-include::../UserGuide.adoc[tag=delete]
-
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=rankings]
 
 == Contributions to the Developer Guide
+Alfred's developer guide provides an in-depth look into the architecture of how Alfred and its various features were implemented. My extensive contributions to this document exhibit my ability to write technical documentation and showcase the technical depth of my contribution to the project. This section contains an excerpt from the developer guide which shows the contribution I made with regards to my Leaderboard feature. It explains to the reader how the `leaderboard` command has been implemented and design considerations which were made when implementing it. You may also view the full version of my contributions in Alfred's Developer Guide found _https://github.com/AY1920S1-CS2103T-F11-1/main/blob/master/docs/DeveloperGuide.adoc[here]_.
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+include::../DeveloperGuide.adoc[tag=leaderboardCommand]
 
-include::../DeveloperGuide.adoc[tag=undoredo]
-
-include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

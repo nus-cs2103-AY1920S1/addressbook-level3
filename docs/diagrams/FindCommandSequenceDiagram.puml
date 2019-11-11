@@ -4,7 +4,6 @@
 box Logic LOGIC_COLOR_T1
 participant ":Logic" as Logic LOGIC_COLOR
 participant ":AlfredParser" as AlfredParser LOGIC_COLOR
-participant ":FindCommandAllocator" as FindCommandAllocator LOGIC_COLOR
 participant ":FindParticipantCommandParser" as FindParticipantCommandParser LOGIC_COLOR
 participant ":FindParticipantCommand" as FindParticipantCommand LOGIC_COLOR
 participant ":CommmandResult" as CommandResult LOGIC_COLOR
@@ -21,24 +20,14 @@ activate Logic
 Logic -> AlfredParser : parseCommand("find participant n/Bergkamp")
 activate AlfredParser
 
-create FindCommandAllocator
-AlfredParser -> FindCommandAllocator: new FindCommandAllocator("participant n/Bergkamp")
-activate FindCommandAllocator
-
-FindCommandAllocator -> AlfredParser
-deactivate FindCommandAllocator
-
-AlfredParser -> FindCommandAllocator: allocate("participant n/Bergkamp")
-activate FindCommandAllocator
-
 create FindParticipantCommandParser
-FindCommandAllocator -> FindParticipantCommandParser: new FindParticipantCommandParser()
+AlfredParser -> FindParticipantCommandParser: new FindParticipantCommandParser()
 activate FindParticipantCommandParser
 
-FindParticipantCommandParser -> FindCommandAllocator
+FindParticipantCommandParser -> AlfredParser
 deactivate FindParticipantCommandParser
 
-FindCommandAllocator -> FindParticipantCommandParser: parse("n/Bergkamp")
+AlfredParser -> FindParticipantCommandParser: parse("n/Bergkamp")
 activate FindParticipantCommandParser
 
 create FindParticipantCommand
@@ -48,11 +37,8 @@ activate FindParticipantCommand
 FindParticipantCommand -> FindParticipantCommandParser: c
 deactivate FindParticipantCommand
 
-FindParticipantCommandParser -> FindCommandAllocator: c
+FindParticipantCommandParser -> AlfredParser: c
 deactivate FindParticipantCommandParser
-
-FindCommandAllocator -> AlfredParser: c
-deactivate FindCommandAllocator
 
 AlfredParser -> Logic: c
 deactivate AlfredParser

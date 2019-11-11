@@ -5,7 +5,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AlfredParser" as AlfredParser LOGIC_COLOR
 participant ":TopTeamsCommandParser" as TopTeamsCommandParser LOGIC_COLOR
-participant "l:SimpleTopKCommand" as SimpleTopKCommand LOGIC_COLOR
+participant "l:SimpleTopTeamsCommand" as SimpleTopTeamsCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -30,12 +30,12 @@ deactivate TopTeamsCommandParser
 AlfredParser -> TopTeamsCommandParser : parse(" 3 tb/moreParticipants")
 activate TopTeamsCommandParser
 
-create SimpleTopKCommand
-TopTeamsCommandParser -> SimpleTopKCommand
-activate SimpleTopKCommand
+create SimpleTopTeamsCommand
+TopTeamsCommandParser -> SimpleTopTeamsCommand
+activate SimpleTopTeamsCommand
 
-SimpleTopKCommand --> TopTeamsCommandParser : l
-deactivate SimpleTopKCommand
+SimpleTopTeamsCommand --> TopTeamsCommandParser : l
+deactivate SimpleTopTeamsCommand
 
 TopTeamsCommandParser --> AlfredParser : l
 deactivate TopTeamsCommandParser
@@ -47,30 +47,30 @@ destroy TopTeamsCommandParser
 AlfredParser --> LogicManager : l
 deactivate AlfredParser
 
-LogicManager -> SimpleTopKCommand : execute()
-activate SimpleTopKCommand
+LogicManager -> SimpleTopTeamsCommand : execute()
+activate SimpleTopTeamsCommand
 
-SimpleTopKCommand -> Model : setTopK(3, comparators)
+SimpleTopTeamsCommand -> Model : setTopK(3, comparators, subjectName)
 activate Model
 
-Model -> Model : setSimpleLeaderboard(comparators)
+Model -> Model : setSimpleLeaderboard(comparators, subjectName)
 activate Model
 
 Model --> Model
 deactivate Model
 
-Model --> SimpleTopKCommand
+Model --> SimpleTopTeamsCommand
 deactivate Model
 
 create CommandResult
-SimpleTopKCommand -> CommandResult
+SimpleTopTeamsCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> SimpleTopKCommand
+CommandResult --> SimpleTopTeamsCommand
 deactivate CommandResult
 
-SimpleTopKCommand --> LogicManager : result
-deactivate SimpleTopKCommand
+SimpleTopTeamsCommand --> LogicManager : result
+deactivate SimpleTopTeamsCommand
 
 [<--LogicManager
 deactivate LogicManager

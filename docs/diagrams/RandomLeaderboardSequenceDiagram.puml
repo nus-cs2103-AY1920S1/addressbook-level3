@@ -50,10 +50,10 @@ deactivate AlfredParser
 LogicManager -> LeaderboardWithRandomCommand : execute()
 activate LeaderboardWithRandomCommand
 
-LeaderboardWithRandomCommand -> Model : setTopKRandom(teamListSize, comparators)
+LeaderboardWithRandomCommand -> Model : setTopKRandom(teamListSize, comparators, subjectName)
 activate Model
 
-Model -> Model : setSimpleLeaderboard(comparators)
+Model -> Model : setSimpleLeaderboard(comparators, subjectName)
 activate Model
 
 Model --> Model

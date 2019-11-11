@@ -191,9 +191,6 @@ public class MainWindow extends UiPart<Stage> {
                     commandBox.setTextField(logic.getNextCommandString());
                 }
 
-                if (KeyCode.ENTER == ke.getCode()) {
-                    commandBox.handleCommandEntered();
-                }
             }
         });
     }
