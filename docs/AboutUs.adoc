@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Lim Yu Rong, Samuel
 image::sam-limyr.png[width="150", align="left"]
-{empty}[http://github.com/Sam-limyr[github]] [<<Sam-limyr#, portfolio>>]
+{empty}[http://github.com/Sam-limyr[github]] [<<sam-limyr#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Notes feature
@@ -29,7 +29,7 @@ Responsibilities: Tagging and Cheatsheet feature
 
 === Jasmine Yeo Jia Min
 image::jaesimin.png[width="150", align="left"]
-{empty}[http://github.com/jaesimin[github]] [<<jaesiminn#, portfolio>>]
+{empty}[http://github.com/jaesimin[github]] [<<jaesimin#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Cheatsheet feature

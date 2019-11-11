@@ -280,6 +280,10 @@ public class StudyBuddyPro implements ReadOnlyStudyBuddyPro {
         this.tags.setTags(tags);
     }
 
+    public void addAllTags(List<Tag> tags) {
+        this.tags.addAllTags(tags);
+    }
+
     /**
      * Replaces the given cheatsheet {@code target} in the list with {@code editedCheatSheet}.
      * {@code target} must exist in the StudyBuddy application.

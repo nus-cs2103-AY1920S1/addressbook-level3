@@ -21,7 +21,7 @@ public class Messages {
     public static final String MESSAGE_NO_FLASHCARD_LOADED = "No flashcard has been loaded";
     public static final String MESSAGE_ANSWER_ALREADY_LOADED = "Answer has already been loaded";
     public static final String MESSAGE_WELCOME_STUDYBUDDYPRO = "Welcome to StudyBuddyPro!" + "\n"
-            + "Please enter one of the following modes, using the following command : \n"
+            + "Please enter one of the following modes, using one of the following commands : \n"
             + "Format: switch fc/notes/cs.\nExample usages:\n\t"
             + "switch fc -> to enter flashcard feature\n\t"
             + "switch notes -> to enter notes feature\n\t"
@@ -36,6 +36,12 @@ public class Messages {
             + "to delete the following flashcard?";
     public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_DELETE_NOTE = "Are you sure you would like "
             + "to delete the following note?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_CLEAR_CHEATSHEET = "Are you sure you would like "
+            + "to clear all cheatsheets?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_CLEAR_FLASHCARD = "Are you sure you would like "
+            + "to clear all notes?";
+    public static final String MESSAGE_ARE_YOU_SURE_WANT_TO_CLEAR_NOTE = "Are you sure you would like "
+            + "to clear all flashcards?";
     public static final String MESSAGE_CONFIRM_DELETE = "Please use `delete %d` again to confirm your deletion.";
 
 

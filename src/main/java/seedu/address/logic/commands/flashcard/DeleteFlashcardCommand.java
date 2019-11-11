@@ -31,6 +31,12 @@ public class DeleteFlashcardCommand extends Command {
 
     public static final String MESSAGE_DELETE_FLASHCARD_SUCCESS = "Deleted Flashcard: %1$s";
 
+    /**
+     * The successfulDeletionOnPreviousCommand is to prevent the user from calling, for instance,
+     * 'delete 1' twice in a row and not get a prompt.
+     */
+    private static boolean successfulDeletionOnPreviousCommand = false;
+
     private final Index targetIndex;
 
     /**
@@ -66,10 +72,21 @@ public class DeleteFlashcardCommand extends Command {
                         .equals(this.targetIndex)) {
                     // correct. allow delete
                     model.deleteFlashcard(flashcardToDelete);
+
+                    // item has been deleted, set this to true
+                    successfulDeletionOnPreviousCommand = true;
+
                     commandResult = new FlashcardCommandResult(String.format
                             (MESSAGE_DELETE_FLASHCARD_SUCCESS, flashcardToDelete));
+                } else {
+                    // nothing has been deleted, set back to false
+                    successfulDeletionOnPreviousCommand = false;
                 }
+            } else {
+                successfulDeletionOnPreviousCommand = false;
             }
+        } else {
+            successfulDeletionOnPreviousCommand = false;
         }
         return commandResult;
     }

@@ -3,8 +3,6 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-
-
 == About The Project
 
 My team of 4 Computer Science students and I were tasked with enhancing a basic command line interface
@@ -199,12 +197,18 @@ The following commands assume that the user is in the _flashcard_ mode.
 
 ==== Implementation
 a.	The time trial mechanism is facilitated by the `FlashcardTabWindowController`, and mainly uses the `Timeline`, `KeyFrame` and `KeyValue` class from the JavaFX package to support its functionality.
-
++
 The following _figure_ shows a class diagram of the relevant classes of the time trial feature.
++
 
-image::jrImages/TimeTrialClassDiagram.png[]
 .Class diagram when the timetrial command is executed
+image::jrImages/TimeTrialClassDiagram.png[]
 
+
+The following _figure_ is an activity diagram of the flow of events when a user attempts to start a time trial.
+
+.Activity diagram when the timetrial command is executed
+image::jrImages/TimeTrialActivityDiagram.png[]
 
 b.	Given below is an example usage scenario and how the time trial mechanism behaves at each step.
 c. Upon initialization of the StudyBuddy and switching to the Flashcard window, the `StudyBuddyParser`’s function enum will be set to parse `Flashcard` commands.
