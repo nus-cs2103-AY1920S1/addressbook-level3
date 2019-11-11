@@ -14,9 +14,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OBJECT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OBJECT;
 import static seedu.address.testutil.TypicalNotebook.getTypicalNotebook;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Messages;
@@ -27,7 +24,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.Notebook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.student.Student;
 import seedu.address.testutil.AssignmentBuilder;
 import seedu.address.testutil.EditAssignmentDescriptorBuilder;
 
