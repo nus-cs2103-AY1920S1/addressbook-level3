@@ -82,3 +82,4 @@ include::../UserGuide.adoc[tag=deletecriteria]
 |===
 
 include::../DeveloperGuide.adoc[tag=eligibility]
+include::../DeveloperGuide.adoc[tag=manualtesteligibility]

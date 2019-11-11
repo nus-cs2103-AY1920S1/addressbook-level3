@@ -1126,3 +1126,25 @@ positive integer), `binitemexpiry day/30`, `binitemexpiry yrs/30` +
 
 [NOTE]
 While entering commands, you can also navigate to previous commands using the up/down keyboard keys.
+
+// tag::manualtesteligibility[]
+=== Eligibility
+
+. People who are eligible for policies show up during `eligiblepeople`
+.. Test case: +
+    `add n/John Doe ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.1982 g/Male` +
+    `addtag [INDEX OF PERSON JUST ADDED] t/test` +
+    `addpolicy n/Motor Care d/Insurance for cars c/months/10 pr/$50000 sa/18 ea/100` +
+    `addcriteria [INDEX OF POLICY JUST ADDED] cr/test
+    `eligiblepeople [INDEX OF PERSON JUST ADDED]` +
+    Expected: Person just added should show up on the list that appears during the run of `eligiblepeople`
+
+. Policies that are eligible for people show up during `eligiblepolicies`
+.. Test case: +
+    `add n/John Doe ic/S0000001J p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 dob/12.12.1982 g/Male` +
+    `addtag [INDEX OF PERSON JUST ADDED] t/test` +
+    `addpolicy n/Motor Care d/Insurance for cars c/months/10 pr/$50000 sa/18 ea/100` +
+    `addcriteria [INDEX OF POLICY JUST ADDED] cr/test
+    `eligiblepolicies [INDEX OF POLICY JUST ADDED]` +
+    Expected: Policy just added should show up on the list that appears during the run of `eligiblepolicies`
+// end::manualtesteligibility[]

@@ -343,7 +343,7 @@ Returns any policy having names or descriptions containing `family` or `children
 === Locating people by tags: `findtagpeople`
 
 Finds people who have the specified tag(s). +
-Format: `findtagpeople TAG [MORE_TAGS]`
+Format: `findtagpeople t/TAG [MORE_TAGS]`
 
 ****
 * The search is case insensitive. e.g. `diabetic` will match `Diabetic`
@@ -357,7 +357,7 @@ Format: `findtagpeople TAG [MORE_TAGS]`
 === Locating policies by tags: `findtagpolicy`
 
 Finds policies who have the specified tag(s) +
-Format: `findtagpolicy TAG [MORE_TAGS]`
+Format: `findtagpolicy t/TAG [MORE_TAGS]`
 
 ****
 * The search is case insensitive. e.g. `accident` will match `Accident`
@@ -1063,9 +1063,9 @@ e.g. `editpolicy 1 n/Seniors`
 e.g. `find James Jake`
 * *Find Policy* : `findpolicy KEYWORD [MORE_KEYWORDS]` +
 e.g. `findpolicy senior`
-* *Find People by Tags*: `findtagpeople TAG [MORE_TAGS]` +
+* *Find People by Tags*: `findtagpeople t/TAG [MORE_TAGS]` +
 e.g. `findtagpeople smoker diabetic`
-* *Find Policy by Tags*: `findtagpolicy TAG [MORE_TAGS]` +
+* *Find Policy by Tags*: `findtagpolicy t/TAG [MORE_TAGS]` +
 e.g. `findtagpolicy accident life`
 * *Find Policyholders*: `findpolicyholders INDEX` +
 e.g. `findpolicyholders 4`
