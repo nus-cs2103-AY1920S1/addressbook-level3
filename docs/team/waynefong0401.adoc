@@ -7,48 +7,61 @@
 
 ---
 
+== Introduction
+This portfolio is meant to document my overall contributions to the CS2103T Software Engineering Project, _Billboard_.
+
 == Overview
 
+In this project, we form a team of five to develop a cross platform financial tracking application _Billboard_.
 _Billboard_ is for those who prefer to use desktop applications to manage and keep track of their expenses.
 _Billboard_ is optimized for those who prefer to work with a Command Line Interface (CLI)
 while still enjoying all the benefits of having a fully fledged Graphical User Interface (GUI).
-It is written in Java, and has about 18 kLoC.
+It is written in Java, and has about 15 kLoC.
+
+The following is the UI of Billboard: +
+image:tagging/Billboardppp.png[] +
 
 == Summary of contributions
 
 * *Major enhancement*: added *the feature to undo/redo commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** What it does: allows you to undo all previous commands one at a time. The counter command redo can reverse the undone commands.
+** Justification: This feature improves the product significantly because it provides a convenient way for to user to
+rectify the mistakes made in previous commands.
+** Highlights: This enhancement affects existing and future commands.
+It required an in-depth analysis of design alternatives. The implementation too was challenging as it required deep copy of existing Billboard.
 
 * *Minor enhancement*:
 ** added a history command that allows the user to view all the previous commands.
 ** added a feature that allows the user to to navigate to previous commands using up/down keys.
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=waynefong0401[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=waynefong0401[Functional code]]
 
 * *Other contributions*:
 
 ** Project setup:
-*** Restructured the previous AddressBook Level-3 project to Billboard. Deleted the dead code and added attributes for Billboard.
-** Enhancements to existing features:
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Restructured the previous AddressBook Level-3 project to Billboard. Deleted the dead code and added attributes for Billboard. https://github.com/AY1920S1-CS2103T-F12-4/main/commit/357f64a5faf6a468ee72421892ec567d0709a5e7[#1]
 ** Documentation:
-*** Corrected mistakes and updated information of the project in the User Guide: https://github.com[#14]
+*** Corrected mistakes and updated information of the project in the User Guide:
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/24[#2], https://github.com/AY1920S1-CS2103T-F12-4/main/pull/25[#3],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/81[#4], https://github.com/AY1920S1-CS2103T-F12-4/main/pull/111[#5],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/199/files[#6]
+*** Update the image to the latest version of Billboard: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/94[#7],
+
 ** Community:
-*** PRs reviewed: https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to Telegram group discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
+*** PRs reviewed: https://github.com/AY1920S1-CS2103T-F12-4/main/pull/19[#8], https://github.com/AY1920S1-CS2103T-F12-4/main/pull/26[#9],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/38[#10], https://github.com/AY1920S1-CS2103T-F12-4/main/pull/62[#11]
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/77[#12], https://github.com/AY1920S1-CS2103T-F12-4/main/pull/78[#13],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/95[#14], https://github.com/AY1920S1-CS2103T-F12-4/main/pull/191[#15],
+https://github.com/AY1920S1-CS2103T-F12-4/main/pull/197[#16]
+*** Reported bugs and suggestions for other teams in the class (examples:
+https://github.com/waynefong0401/ped/issues/1[1], https://github.com/waynefong0401/ped/issues/2[2], https://github.com/waynefong0401/ped/issues/3[3])
 ** Tools:
 *** Applied Statistic Tool to get the statistics of the project.
 
 == Contributions to the User Guide
 
-
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
+Given below are sections I contributed to the User Guide of Billboard, including the usage of features that I implemented
+such as undo/redo, history and up/down navigation. They showcase my ability to write good documentation for target users.
 
 include::../UserGuide.adoc[tag=undoredo]
 
@@ -58,9 +71,9 @@ include::../UserGuide.adoc[tag=updownkey]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+Given below are sections I contributed to the Developer Guide of Billboard, including the technical information of features that I implemented
+such as undo/redo, history and up/down navigation. They showcase my ability to write good technical documentation for potential developers,
+and the technical depth of my contributions to the project.
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
