@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 :repoPRURL: https://github.com/AY1920S1-CS2103T-T11-3/main/pull
-
+:repoIssueURL: https://github.com/AY1920S1-CS2103T-T11-3/main/issues
 == PROJECT: AddMin+
 
 ---
@@ -12,47 +12,82 @@
 
 AddMin+ is student developed application under the National University of Singapore's __CS2103T Software Engineering Module__. In this module, we were organized to a team of 5 members for the software engineering project. The project requires us to enhance a basic command line interface desktop application, the https://github.com/nus-cs2103-AY1920S1/addressbook-level3[AddressBook - Level 3] developed by the https://se-education.org/[se-edu team] for the the purpose of teaching Software Engineering principles.
 
-== About AddMin+, the All in One Administration App
+== About AddMin+, the All-in-One Administration App
 
 ._The Graphical User Interface (GUI) for *AddMin+*_
-image::Ui.png[]
+image::AddMin+Ui.png[]
 
 include::../../README.adoc[tag=AboutAddMin+]
+
+== My Roles & Responsibilities
+
+As Team Leader, I took charge of the overall direction of the project, working and communicating closely with all my team members to ensure that the project is well-maintained and coordinated. In addition, I defined, assigned and tracked project tasks for the group, maximizing use of Github's Issue Tracker and Project Board for task and milestone managememt. By frequenting providing feedback, either through Pull-Request Reviews or direct, verbal communication, I also helped to enforce high code quality and software engineering standards.
+
+== Introduction to Application Components
+
+This is a short section that aims to get the reader familiar and up to speed with the components in the AddMin+ app. AddMin+ contains two main entities: the `Event` and `Employee` components. Besides __Create, Read, Update, Delete (CRUD)__ commands on both entities, AddMin+ is capable of manpower allocation, scheduling, salary management and statistics generation which requires interaction with both the `Event` and `Employee` objects through the use of the Date & Time mapping that sets the schedule and duration of an `Event`.
 
 == Summary of contributions
 
 * *Major enhancement*: Implemented the *`Event` Component*, and most significantly the *Event Date-Time Mapping and its ancillaries*
 ** What it does: The `Event` Component features basic __Create, Read, Update and Delete (CRUD)__ functionality, extended with the ability to store a list of `Employees` in a Manpower List and a Date-Time Map that stores the schedule of the `Event`. The Date-Time Mapping feature enables the user to accurately and precisely map a schedule of an existing `Event`, broken down into its individual dates and time period.
 
-** Justification: The `Event` Component is critical for our application's functionality as its target audience is Administrative Staff in small companies managing events. Having a known date-time schedule of each `Event` supports the ability for administrative matters such as manpower allocation and schedule generation, ensuring that the employees are allocated to events efficiently without overlaps/conflicts in schedule.
+** Justification: The `Event` Component is critical for our application's functionality as its target audience is Administrative Staff in small companies managing events. The `Event` Component provides full flexibility for the user to manage event details through its CRUD functionality. Additionally, having a known date-time schedule of each `Event` supports the ability for administrative matters such as manpower allocation and schedule generation, ensuring that the employees are allocated to events efficiently without overlaps/conflicts in schedule.
 
-** Highlights: This Date-Time Mapping feature is significant and is required for two other significant features of our application, manpower allocation and scheduling. To enhance the user experience and achieve our goal of simplifying tedious administrative work, we included methods for __quick assignment__ of dates and time. Overall, the implementation was challenging as I also needed to consider how edits to the start/end dates of the `Event` may break the manpower allocation or assigned date-time mapping and deal with them accordingly.
+** Highlights: This Date-Time Mapping feature is significant and is required for two other significant features of our application, manpower allocation and scheduling. To enhance the user experience and achieve our goal of simplifying tedious administrative work, I extended the functionality of the command to enable __quick assignment__ of dates and time by stating a date range, instead of just a single date to map. Overall, the implementation was challenging as I also needed to consider how edits to the start/end dates of the `Event` may break the manpower allocation or assigned date-time mapping and deal with them accordingly.
 
 * *Minor enhancement*: Implemented the *Fetch Employee* Command
-** What it does: Shows the schedule of a single `Employee`, which displays a list of dates which itslf contains a list of `Event` that the `Employee` is allocated to.
+** What it does: Shows the schedule of a single `Employee`, which displays a list of dates which itself contains a list of `Event` that the `Employee` is allocated to.
 
 ** Justification: It would be useful for either the adminstrative staff or the employee to view the current schedule of an `Employee` for tracking and logging purposes.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: Implemented the *Fetch Employee* Command
+** What it does: Shows the schedule of a single `Employee`, which displays a list of dates which itself contains a list of `Event` that the `Employee` is allocated to.
+
+** Justification: It would be useful for either the adminstrative staff or the employee to view the current schedule of an `Employee` for tracking and logging purposes.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=DivineDX&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=DivineDX&tabRepo=AY1920S1-CS2103T-T11-3%2Fmain%5Bmaster%5D[tp Code Dashboard]]
+
+* *Functional Code Contributed*:
+** *Event*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/Event.java[`Event`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventDate.java[`EventDate`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventDateTimeMap.java[`EventDateTimeMap`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/model/event/EventDayTime.java[`EventDayTime`]]
+** *Command*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/employee/FetchEmployeeCommand.java[`FetchEmployee`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/AssignDateCommand.java[`AssignDate`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/DeleteDateMappingCommand.java[`DeleteDateMapping`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/ClearDateMappingCommand.java[`ClearDateMapping`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/AddEventCommand.java[`AddEvent`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/EditEventCommand.java[`EditEvent`]]
+** *ParserUtil* [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/ParserUtil.java[*ParserUtil*]]
+*** `parseAnyDate()`, `parseEventDate()`, `parseTimePeriod()`, `parseEventDateTimeMap()`
+** *Parser*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/commands/event/ClearDateMappingCommand.java[`AssignDate`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/DeleteDateMappingCommandParser.java[`DeleteDateMapping`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/ClearDateMappingCommandParser.java[`ClearDateMapping`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/AddEventCommandParser.java[`AddEvent`], https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/parser/event/EditEventCommandParser.java[`EditEvent`]]
+** *Processor*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/main/java/seedu/address/logic/processor/EmployeeEventProcessor.java[*EmployeeEvent Processor*]]
+
+* *Test Code Contributed*:
+** *Event*: [https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventDateTest.java[`EventDate`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventDateTimeMapTest.java[`EventDateTimeMap`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/model/event/EventDayTimeTest.java[`EventDayTime`]]
+** *Parser*: [https://github.com/AY1920S1-CS2103T-T11-3/main/tree/master/src/main/java/seedu/address/logic/parser/event[`EventParsers`],
+https://github.com/AY1920S1-CS2103T-T11-3/main/blob/master/src/test/java/seedu/address/logic/parser/CommandParserTestUtil.java[`CommandParserTest`]]
 
 * *Other contributions*:
 
 ** Project management:
 *** Set-Up the Team Organization and Project Repo on Github
 *** Implemented and Enforced Protected Branching to ensure that PRs failing CI are not merged.
-*** Consistent contributor in PR Reviews and identifying bugs and code flaws for Team Members. PRs reviewed (with non-trivial review comments): link:{repoPRURL}/146[#146], link:{repoPRURL}/139[#139], link:{repoPRURL}/132[#132], link:{repoPRURL}/111[#111], link:{repoPRURL}/85[#85]
-*** Managed releases `v1.2.1`, `v1.3` and `v1.4` (3 releases) on GitHub
+*** Contributed consistently in PR Reviews and identifying bugs and code flaws for Team Members. PRs reviewed (with non-trivial review comments): link:{repoPRURL}/146[#146], link:{repoPRURL}/139[#139], link:{repoPRURL}/132[#132], link:{repoPRURL}/111[#111], link:{repoPRURL}/85[#85]
+*** Managed releases `v1.2.1`, `v1.3`, `v1.3.2`, `v1.3.3` on GitHub
+*** Hosted internal Practical Examination for Team to find Bugs. Manage to find multiple medium-severity bugs [link:{repoIssueURL}/253[#253], link:{repoIssueURL}/258[#258], link:{repoIssueURL}/259[#259], link:{repoIssueURL}/260[#260]], which were later resolved
 *** Extensively used https://github.com/AY1920S1-CS2103T-T11-3/main/projects?query=is%3Aclosed[Github Project Board] and https://github.com/AY1920S1-CS2103T-T11-3/main/issues[Issue Tracker] to manage Task Allocations for the Team
 *** Reorganized files to improve code tidiness (Pull requests link:{repoPRURL}/129[#129])
 ** Enhancements to existing features:
 *** GUI: Upgraded the `Employee` and `Event` Cards with a gradient background and image (Pull requests link:{repoPRURL}/140[#140])
 *** Assisted in the Refactoring of `Person` to `Employee` (Pull requests link:{repoPRURL}/92[#92])
+*** Assisted teammate in the implementation and code quality of the `Finance` component (link:{repoPRURL}/238[#238])
 ** Documentation:
 *** Did refactoring, overall editing and polishing to the User Guide: (link:{repoPRURL}/14[#14])
+*** Added `Parameter Constraint` section of UG which is referenced by most commands listed in the User Guide (link:{repoPRURL}/242[#242])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/56#pullrequestreview-296628495[#56]
-*** Contributed to forum discussions (https://github.com/nus-cs2103-AY1920S1/forum/issues/153[#153])
-// *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** Contributed to forum discussions (https://github.com/nus-cs2103-AY1920S1/forum/issues/153[#153], https://github.com/nus-cs2103-AY1920S1/forum/issues/159[#159])
 ** Tools:
 *** Integrated Travis CI to the Team Repo
 *** Integrated Netify (Automatic Website Hosting) to the Team Repo
@@ -76,8 +111,6 @@ include::../UserGuide.adoc[tag=DeXun2]
 include::../DeveloperGuide.adoc[tag=DeXun]
 
 
-== PROJECT: Duke
+== Conclusion
 
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+While AddMin+ is not my first experience with a software engineering project, it introduced many  __good, quality__ software engineering practices and principles that I would apply to my future projects. This includes advance uses of the Github Issue Tracker, Project Workflow, PR Reviews, testing, and documentation. Despite the heavy workload, I thoroughly appreciate the learning experiences that would shape me to become a better software developer. Overall, I am satisfied to have worked with my team to bring the project to completion and release an elegant, high-quality product.

@@ -53,6 +53,15 @@ AssignDateCommand -> AssignDateCommand: getEventToAssign
     Event --> AssignDateCommand:
     deactivate Event
 
+    else Start and End Date Range Specified
+        loop Start Date of Range till End Date of Range
+        AssignDateCommand -> Event: assignDateTime(eventDateInRange, eventDayTime)
+        activate Event
+
+        Event --> AssignDateCommand:
+        deactivate
+        end
+
     else No Target EventDate Stated
         AssignDateCommand -> Event: getStartDate()
         activate Event

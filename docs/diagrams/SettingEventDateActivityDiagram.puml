@@ -12,7 +12,7 @@ if () then ([Parse Successful])
     repeat
     :Set EventDate-EventDayTime map
     in EventDateTimeMap;
-    repeat while (Single Target EventDate?) is (no)
+    repeat while (Date Range stated & Next Day in Stated Range) is (Yes)
     :Save in EventBookStorage;
     else([Violation])
     endif

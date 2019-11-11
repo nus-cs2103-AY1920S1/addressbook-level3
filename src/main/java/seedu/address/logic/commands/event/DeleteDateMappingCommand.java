@@ -2,8 +2,10 @@ package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_FOUND_IN_MAP;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_IN_EVENT_RANGE;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -12,6 +14,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventDate;
 import seedu.address.model.event.EventDateTimeMap;
 import seedu.address.ui.MainWindow;
@@ -30,13 +33,22 @@ public class DeleteDateMappingCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 on/18/10/2019";
 
     public static final String MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS = "Deleted DateTime [%s] from Event: [%s]";
-
+    public static final String MESSAGE_CLEAR_EVENT_DATE_RANGE_MAPPING_SUCCESS = "Deleted DateTime Mapping of "
+            + "[%s] to [%s] from Event: [%s]";
     private final Index targetIndex;
-    private final EventDate targetDate;
+    private final EventDate startOrTargetEventDate;
+    private final Optional<EventDate> endDateRange;
 
     public DeleteDateMappingCommand(Index targetIndex, EventDate targetDate) {
         this.targetIndex = targetIndex;
-        this.targetDate = targetDate;
+        this.startOrTargetEventDate = targetDate;
+        this.endDateRange = Optional.empty();
+    }
+
+    public DeleteDateMappingCommand(Index targetIndex, EventDate startDateRange, EventDate endDateRange) {
+        this.targetIndex = targetIndex;
+        this.startOrTargetEventDate = startDateRange;
+        this.endDateRange = Optional.of(endDateRange);
     }
 
     @Override
@@ -55,14 +67,29 @@ public class DeleteDateMappingCommand extends Command {
         Event targetEvent = lastShownList.get(targetIndex.getZeroBased());
         EventDateTimeMap eventDateTimeMap = targetEvent.getEventDateTimeMap();
 
-        if (eventDateTimeMap.containsDateKey(targetDate)) {
-            eventDateTimeMap.deleteDateKey(targetDate);
-        } else {
-            throw new CommandException(String.format(MESSAGE_DATE_NOT_FOUND_IN_MAP, targetDate, targetEvent.getName()));
-        }
+        if (endDateRange.isPresent()) { //delete for a range
+            EventDate endDate = endDateRange.get();
+            EventContainsKeyDatePredicate startDateCheck = new EventContainsKeyDatePredicate(startOrTargetEventDate);
+            EventContainsKeyDatePredicate endDateCheck = new EventContainsKeyDatePredicate(endDate);
+            if (!startDateCheck.test(targetEvent) || !endDateCheck.test(targetEvent)) {
+                throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
+            }
 
-        return new CommandResult(String.format(MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS,
-                targetDate, targetEvent.getName()));
+            startOrTargetEventDate.datesUntil(endDateRange.get())
+                    .forEach(eventDate -> eventDateTimeMap.deleteDateKey(eventDate));
+
+            return new CommandResult(String.format(MESSAGE_CLEAR_EVENT_DATE_RANGE_MAPPING_SUCCESS,
+                    startOrTargetEventDate, endDateRange.get(), targetEvent.getName()));
+        } else { //delete for a single date
+            if (eventDateTimeMap.containsDateKey(startOrTargetEventDate)) {
+                eventDateTimeMap.deleteDateKey(startOrTargetEventDate);
+                return new CommandResult(String.format(MESSAGE_CLEAR_EVENT_DATE_MAPPING_SUCCESS,
+                        startOrTargetEventDate, targetEvent.getName()));
+            } else {
+                throw new CommandException(String.format(MESSAGE_DATE_NOT_FOUND_IN_MAP,
+                        startOrTargetEventDate, targetEvent.getName()));
+            }
+        }
     }
 
     @Override
@@ -80,6 +107,7 @@ public class DeleteDateMappingCommand extends Command {
         // state check
         DeleteDateMappingCommand e = (DeleteDateMappingCommand) other;
         return targetIndex.equals(e.targetIndex)
-                && targetDate.equals(e.targetDate);
+                && startOrTargetEventDate.equals(e.startOrTargetEventDate)
+                && endDateRange.equals(e.endDateRange);
     }
 }

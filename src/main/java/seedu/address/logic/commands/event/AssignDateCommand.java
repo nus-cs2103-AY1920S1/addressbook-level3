@@ -1,6 +1,11 @@
+/*
+@@author DivineDX
+*/
+
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_DATE_NOT_IN_EVENT_RANGE;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,25 +31,51 @@ public class AssignDateCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Assigns a Date-TimePeriod mapping to an existing Event identified"
             + " by the index number used in the displayed event list. \n"
-            + "Parameters: INDEX on/EVENTDATE time/TIMEPERIOD \n"
+            + "You may either state a single date, using the on/ prefix, "
+            + "or a range, using both the on/ and till/ prefixes \n"
+            + "Omitting both on/ and till/ will set the time mappings for the entire date range of the event.\n"
+            + "Parameters: INDEX [on/EVENTDATE] [till/EVENTDATE] time/TIMEPERIOD \n"
             + "Example: " + COMMAND_WORD + " 2 on/20/10/2019 time/0500-2000";
 
     private static final String MESSAGE_SUCCESS_TARGET = "[%s:%s] has been successfully assigned to Event: [%s]";
-    private static final String MESSAGE_SUCCESS_ALL =
+    private static final String MESSAGE_SUCCESS_RANGE =
             "Dates [%s] to [%s] of Event: [%s] has been successfully assigned with Time: [%s]";
-    private static final String EVENT_DATE_INVALID = "Date provided is not within range of the current Event!";
 
     private final Index index;
-    private final Optional<EventDate> targetEventDate;
+    private final Optional<EventDate> startOrTargetEventDate;
+    private final Optional<EventDate> endEventDate;
+
     private final EventDayTime eventDayTime;
 
+
     /**
-     * @param index of the event in the filtered event list to assign to
+     * Creates an AssignDateCommand where a range of dates is stated to be assigned
+     *
+     * @param index        Index of Event in Displayed List
+     * @param startDate    Starting Date of the Range of Dates to be assigned
+     * @param endDate      Ending Date (Inclusive) of the Range of Dates to be assigned
+     * @param eventDayTime Time Period to be assigned
+     */
+    public AssignDateCommand(Index index, EventDate startDate, EventDate endDate, EventDayTime eventDayTime) {
+        requireNonNull(index);
+        this.index = index;
+        this.startOrTargetEventDate = Optional.of(startDate);
+        this.endEventDate = Optional.of(endDate);
+        this.eventDayTime = eventDayTime;
+    }
+
+    /**
+     * Creates an AssignDateCommand where only a single date is stated to be assigned
+     *
+     * @param index           Index of Event in Displayed List
+     * @param targetEventDate Target Date to be assigned
+     * @param eventDayTime    Time Period to be assigned
      */
     public AssignDateCommand(Index index, EventDate targetEventDate, EventDayTime eventDayTime) {
         requireNonNull(index);
         this.index = index;
-        this.targetEventDate = Optional.of(targetEventDate);
+        this.startOrTargetEventDate = Optional.of(targetEventDate);
+        this.endEventDate = Optional.empty();
         this.eventDayTime = eventDayTime;
     }
 
@@ -54,7 +85,8 @@ public class AssignDateCommand extends Command {
     public AssignDateCommand(Index index, EventDayTime eventDayTime) {
         requireNonNull(index);
         this.index = index;
-        this.targetEventDate = Optional.empty();
+        this.startOrTargetEventDate = Optional.empty();
+        this.endEventDate = Optional.empty();
         this.eventDayTime = eventDayTime;
     }
 
@@ -73,26 +105,38 @@ public class AssignDateCommand extends Command {
 
         Event eventToAssign = lastShownList.get(index.getZeroBased());
 
-        if (targetEventDate.isPresent()) {
+        boolean isSingleAssign = startOrTargetEventDate.isPresent() && endEventDate.isEmpty();
+        boolean isDateRangeAssign = startOrTargetEventDate.isPresent() && endEventDate.isPresent();
+
+        if (isSingleAssign) {
             EventContainsKeyDatePredicate dateCheck =
-                    new EventContainsKeyDatePredicate(targetEventDate.get());
+                    new EventContainsKeyDatePredicate(startOrTargetEventDate.get());
             if (!dateCheck.test(eventToAssign)) { //date provided is out of range of Event
-                throw new CommandException(EVENT_DATE_INVALID);
+                throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
             }
 
-            eventToAssign.assignDateTime(targetEventDate.get(), eventDayTime);
+            eventToAssign.assignDateTime(startOrTargetEventDate.get(), eventDayTime);
             return new CommandResult(String.format(MESSAGE_SUCCESS_TARGET,
-                    targetEventDate.get(), eventDayTime, eventToAssign.getName()));
-        } else { //Empty, assign for all dates
-            EventDate startDate = eventToAssign.getStartDate();
-            EventDate endDate = eventToAssign.getEndDate();
+                    startOrTargetEventDate.get(), eventDayTime, eventToAssign.getName()));
+        } else { //Either Target or Range
+            EventDate startDate = isDateRangeAssign ? startOrTargetEventDate.get()
+                    : eventToAssign.getStartDate();
+            EventDate endDate = isDateRangeAssign ? endEventDate.get() : eventToAssign.getEndDate();
+
+            EventDate eventStartDate = eventToAssign.getStartDate();
+            EventDate eventEndDate = eventToAssign.getEndDate();
+
+            EventContainsKeyDatePredicate startDateCheck = new EventContainsKeyDatePredicate(startDate);
+            EventContainsKeyDatePredicate endDateCheck = new EventContainsKeyDatePredicate(endDate);
+
+            if (!startDateCheck.test(eventToAssign) || !endDateCheck.test(eventToAssign)) {
+                throw new CommandException(MESSAGE_DATE_NOT_IN_EVENT_RANGE);
+            }
 
             startDate.datesUntil(endDate)
-                    .forEach(eventDate -> {
-                        eventToAssign.assignDateTime(eventDate, eventDayTime);
-                    });
+                    .forEach(eventDate -> eventToAssign.assignDateTime(eventDate, eventDayTime));
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS_ALL,
+            return new CommandResult(String.format(MESSAGE_SUCCESS_RANGE,
                     startDate, endDate, eventToAssign.getName(), eventDayTime));
         }
 
@@ -110,6 +154,8 @@ public class AssignDateCommand extends Command {
 
         // state check
         AssignDateCommand e = (AssignDateCommand) other;
-        return index.equals(e.index);
+        return index.equals(e.index)
+                && startOrTargetEventDate.equals(e.startOrTargetEventDate)
+                && endEventDate.equals(e.endEventDate);
     }
 }
