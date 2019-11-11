@@ -226,18 +226,27 @@ This section describes some noteworthy details on how certain features are imple
 
 // tag::undoredo[]
 === Undo/Redo feature
+The Undo and Redo feature are crucial to give users the flexibility of reverting wrongly executed commands.
+This section explains the implementation of the undo/redo mechanism as well as some design considerations
+when implementing this feature.
+
 ==== Implementation
 
 The undo/redo mechanism is facilitated by `VersionedMark`.
 It extends `Mark` with an undo/redo history, stored internally as a list of `markStateRecord` and `currentPointer`.
-Additionally, it implements the following operations:
+The class diagram for `MarkStateRecord` and its relationship with `ReadonlyMark`, `Mark` and `VersionedMark` is shown below:
 
-* `VersionedMark#save()` -- Saves the current Mark state and the corresponding record to its history.
-* `VersionedMark#undo()` -- Restores the previous Mark state from its history and returns the record.
-* `VersionedMark#redo()` -- Restores a previously undone Mark state from its history and returns the record for that
-state.
+image::MarkStateRecordClassDiagram.png[]
 
-These operations are exposed in the `Model` interface as `Model#saveMark()`, `Model#undoMark()` and `Model#redoMark()`
+As shown in the class diagram, `VersionedMark` implements the following operations:
+
+* `VersionedMark#save(String record)` -- Saves the current Mark state and the corresponding record to its history.
+* `VersionedMark#undo(int step)` -- Undoes the given number of actions and returns the record which
+consists of the list of actions being undone.
+* `VersionedMark#redo(int step)` -- Redoes the given number actions and returns the record which
+consists of the list of actions being undone.
+
+These operations are exposed in the `Model` interface as `Model#saveMark(String record)`, `Model#undoMark(int step)` and `Model#redoMark(int step)`
 respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
@@ -248,24 +257,25 @@ Mark state and an empty record, and the `currentPointer` pointing to that single
 image::UndoRedoState0.png[]
 
 Step 2. The user executes `delete 5` command to delete the 5th bookmark in the Mark. The `delete` command calls
-`Model#saveMark()`, causing the modified state of the Mark and the record of the command after command execution to be
-saved in the `markStateRecords`, and the `currentPointer` is shifted to the newly inserted state record.
+`Model#saveMark(String record)`, causing the modified state of the Mark and the record of the command after command execution
+to be saved in the `markStateRecords`, and the `currentPointer` is shifted to the newly inserted state record.
 
 image::UndoRedoState1.png[]
 
 Step 3. The user executes `add u/www.google.com ...` to add a new bookmark. The `add` command also calls
-`Model#saveMark()`,
+`Model#saveMark(String record)`,
 causing another modified Mark state and the record to be saved into the `markStateRecords`, and the `currentPointer` is
 again shifted to the newly inserted state record..
 
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#saveMark()`, so the Mark state will not be saved into the
+If a command fails its execution, it will not call `Model#saveMark(String record)`, so the Mark state will not be saved into the
 `markStateRecords`.
 
 Step 4. The user now decides that adding the bookmark was a mistake, and decides to undo that action by executing the
-`undo` command. The `undo` command will call `Model#undoMark()`, which will shift the `currentPointer` once to the left,
+`undo` command. The `undo` command will call `Model#undoMark(1)` since by default the number of steps
+to undo is 1 if not specified. This command shifts the `currentPointer` once to the left,
 pointing it to the previous state record, and restores the Mark to that state.
 
 image::UndoRedoState3.png[]
@@ -273,8 +283,8 @@ image::UndoRedoState3.png[]
 [NOTE]
 If the `currentPointer` is at index 0, pointing to the initial Mark state, then there are no previous Mark states to
 restore.
-The `undo` command uses `Model#canUndoMark()` to check if this is the case. If so, it will return an error to the user
-rather than attempting to perform the undo.
+The `undo` command uses `Model#canUndoMark(1)` to check the if there are enough commands to undo.
+In this case, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -283,21 +293,21 @@ image::UndoSequenceDiagram.png[]
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
 the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoMark()`, which shifts the `currentPointer` once to the right,
-pointing to the previously undone state record, and restores the Mark to that state.
+The `redo` command does the opposite -- it calls `Model#redoMark(int step)`, which shifts the `currentPointer` to the right by the given number of steps,
+and restores the Mark to the state corresponding to the `currentPointer`.
 
 [NOTE]
 If the `currentPointer` is at index `markStateRecords.size() - 1`, pointing to the latest Mark state, then there
-are no undone Mark states to restore. The `redo` command uses `Model#canRedoMark()` to check if this is
-the case. If so, it will return an error to the user rather than attempting to perform the redo.
+are no undone Mark states to restore. The `redo` command uses `Model#canRedoMark(1)` to check the if there are enough commands to redo.
+In this case, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the Mark, such as `find`, will
-usually not call `Model#saveMark()`, `Model#undoMark()` or `Model#redoMark()`. Thus, the `markStateRecords` remains
+usually not call `Model#saveMark(String record)`, `Model#undoMark(int step)` or `Model#redoMark(int step)`. Thus, the `markStateRecords` remains
 unchanged.
 
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#saveMark()`. Since the `currentPointer` is not pointing at the end
+Step 6. The user executes `clear`, which calls `Model#saveMark(String record)`. Since the `currentPointer` is not pointing at the end
 of the `markStateRecords`, all state records after the `currentPointer` will be purged.
 We designed it this way because it no longer makes sense to redo the `add u/www.google.com ...` command. This is the
 behavior that most modern desktop applications follow.
@@ -310,6 +320,8 @@ image::SaveMarkActivityDiagram.png[]
 
 ==== Design Considerations
 
+This section explains some of the design considerations we had when implementing this feature.
+
 ===== Aspect: How undo & redo executes
 
 * **Alternative 1 (current choice):** Saves the entire Mark state.
@@ -317,7 +329,7 @@ image::SaveMarkActivityDiagram.png[]
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `delete`, just save the bookmark being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
+** Cons: Must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
@@ -328,6 +340,16 @@ image::SaveMarkActivityDiagram.png[]
 ** Pros: Clear state records after the current pointer can be achieved in O(1) time by clearing the redo stack.
 ** Cons: Undo/redo multiple commands can take O(n) time as each undo/redo action requires popping a state record from the
 undo stack and pushing it into the redo stack. There is no way to pop multiple state records efficiently at one time.
+
+===== Aspect: Commands to include for undo/redo
+* **Alternative 1 (current choice):** Include only commands that modify the state of Mark data.
+** Pros: Only meaningful app data is stored, less memory is consumed
+** Cons: Unable to retrieve commands that do not alter the state of Mark, such as `find`, `list`
+* **Alternative 2:** Include all commands
+** Pros: All commands can be undone and redone
+** Cons: More data to be stored and these data might not be meaningful to the users. More data related to
+Command class also needs to be stored and VersionedMark might need to depend on Logic which breaks the layered architecture of the existing application
+
 // end::undoredo[]
 
 // tag::autotag[]
@@ -889,11 +911,10 @@ Use case resumes at step 1.
 +
 Use case resumes at step 1.
 
-// tag::use-case-undo-redo[]
 [[UC09]]
 [discrete]
 === Use case: UC09 - Undo previous <<undoable-commands,undoable commands>>
-
+// tag::use-case-undo[]
 *MSS*
 
 1. User requests to undo the previous undoable command.
@@ -910,11 +931,12 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
+// end::use-case-undo[]
 
 [[UC10]]
 [discrete]
 === Use case: UC10 - Redo previously undone commands
-
+// tag::use-case-redo[]
 *MSS*
 
 1. User requests to redo the previously undone command.
@@ -930,7 +952,7 @@ Use case ends.
 Mark shows an error message.
 +
 Use case ends.
-// end::use-case-undo-redo[]
+// end::use-case-redo[]
 
 [[UC11]]
 [discrete]
@@ -1136,8 +1158,8 @@ Windows, Linux, Unix, OS-X
 The collection of offline copies of a specific bookmark
 
 [[undoable-commands]] Undoable commands::
-Commands that modify the bookmark list or reminders, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
-`reminder edit`, and `reminder delete`
+Commands that modify the bookmark list, reminders, folders or annotations, which include `add`, `edit`, `delete`, `clear`, `reminder`,
+`reminder-edit`, `reminder-delete`, `folder`, `folder-edit`, `folder-delete`, `autotag`, `autotag-delete`, `annotate`, `annotate-delete`, `annotate-edit`, etc
 
 [appendix]
 == Instructions for Manual Testing
@@ -1169,13 +1191,84 @@ _{ more test cases ... }_
 
 .. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
 .. Test case: `delete 1` +
-   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message. Timestamp in the status bar is updated.
+   Expected: First bookmark is deleted from the list. Details of the deleted bookmark shown in the status message.
 .. Test case: `delete 0` +
    Expected: No bookmark is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+.. Other incorrect `delete` commands to try: `delete`, `delete x` (where x is larger than the list size)  +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
+
+=== Opening a bookmark
+
+. Opening a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `goto 1` +
+   Expected: Tab view is switched to the online tab if the current view is not online tab.
+First bookmark is opened in the online tab.
+Details of the opened bookmark shown in the status message.
+.. Test case: `goto 0` +
+   Expected: No bookmark is opened. Error details shown in the status message.
+.. Other incorrect `goto` commands to try: `goto`, `goto x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
+
+=== Adding a bookmark to favorites
+
+. Adding a Favorite tag to a bookmark while all bookmarks are listed
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+The first bookmark does not contain `Favorite` tag.
+.. Test case: `favorite 1` or `fav 1` +
+   Expected: A `Favorite` tag is added to the first bookmark and the bookmark also appears in the list
+   of favorite bookmarks in the top right corner of the dashboard tab.
+Details of the bookmark shown in the status message.
+.. Test case: `fav 0` +
+   Expected: No bookmark is tagged `Favorite`. Error details shown in the status message.
+.. Other incorrect `favorite` commands to try: `favorite`, `favorite x` (where x is larger than the list size)  +
+   Expected: Similar to previous.
+
+=== Undoing previous commands
+
+. Undoing the most recent undoable command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+Details of the `delete` action shown in the status message.
+
+. Undoing multiple previous undoable commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and then `undo 2` +
+   Expected: The deleted bookmarks after the first two command re-appear in the bookmark list.
+Details of the two reverted `delete` actions shown in the status message.
+.. Test case: `undo 0` +
+   Expected: No action is undone. Error details shown in the status message.
+.. Other incorrect `undo` commands to try: `undo`, `undo x` (where x is larger than the maximum number of undoable actions)  +
+   Expected: Similar to previous.
+
+=== Redoing previous undo commands
+
+. Redoing the most recent undo command
+
+.. Prerequisites: List all bookmarks using the `list` command. Multiple bookmarks in the list.
+.. Test case: `delete 1` followed by `undo` and `redo` +
+   Expected: The deleted bookmark after the first command re-appears in the bookmark list.
+After the `redo` command, the deleted bookmark disappears from the bookmark list again.
+Details of the restored `delete` action shown in the status message.
+
+. Redoing multiple previous undo commands
+
+.. Prerequisites: List all bookmarks using the `list` command. More than two bookmarks in the list.
+.. Test case: `delete 1` followed by `delete 1` and `undo 2`, then `redo 2` +
+   Expected: The two deleted bookmarks after the first two command re-appear in the bookmark list after the `undo 2` command.
+After the `redo 2` commands, the two bookmarks get deleted again.
+Details of the two restored `delete` actions shown in the status message.
+.. Test case: `redo 0` +
+   Expected: No action is redone. Error details shown in the status message.
+.. Other incorrect `redo` commands to try: `redo`, `redo x` (where x is larger than the maximum number of actions to redo)  +
+   Expected: Similar to previous.
 
 === Saving data
 
