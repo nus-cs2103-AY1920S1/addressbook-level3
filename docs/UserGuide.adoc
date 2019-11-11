@@ -437,11 +437,12 @@ image:./icons/important.png[] Unfortunately, TimeBook does not let you see a sch
 === Schedule Management
 
 // tag::addmod[]
+// tag::addmod-short[]
 ==== Add Module to Schedule: `addmod`
 
 Want to add an NUS module to you or your friend's schedule on TimeBook? You can do so with the `addmod` command! If you already have your timetable on NUSMods, check out <<Add Modules via NUSMods Link: `addmods`,the `addmods` command>>!
 
-Format: `addmod [n/NAME] m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,CLASS_2_TYPE:CLASS_2_NUMBER,...`
+Format: `addmod [n/NAME] m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,...`
 
 ****
 * Currently supports academic year 2019/2020 and semester 1 only.
@@ -457,6 +458,8 @@ This adds CS2103T lecture G01 to your schedule.
 This adds CS3230 lecture 1 and tutorial 08 to John's schedule.
 * `addmod n/John m/CS2100 cl/LEC:1,TUT:01,LAB:08` +
 This adds CS2100 lecture 1, tutorial 01 and lab 08 to John's schedule.
+
+// end::addmod-short[]
 
 *How do I add an NUS module to my schedule?*
 
