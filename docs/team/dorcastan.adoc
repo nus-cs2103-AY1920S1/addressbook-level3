@@ -79,11 +79,11 @@ https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122#discussion_r340226693[#1
 It showcases my ability to write documentation targeting end-users._
 |===
 
-_<Start of excerpt>_
+_<Start of excerpt from Mark User Guide>_
 
 include::../UserGuide.adoc[tag=autotags]
 
-_<End of excerpt>_
+_<End of excerpt from Mark User Guide>_
 
 == Contributions to the Developer Guide
 
@@ -92,8 +92,8 @@ _<End of excerpt>_
 It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-_<Start of excerpt>_
+_<Start of excerpt from Mark Developer Guide>_
 
 include::../DeveloperGuide.adoc[tag=autotag]
 
-_<End of excerpt>_
+_<End of excerpt from Mark Developer Guide>_
