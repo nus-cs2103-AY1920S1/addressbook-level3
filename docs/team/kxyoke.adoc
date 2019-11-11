@@ -6,11 +6,9 @@
 == PROJECT: Mark
 :sectnums:
 
----
-
 == Overview
 
-This project portfolio showcases my contributions as part of my team consisting 5 Year 2 Computer Science students to our group Software Engineering project, Mark. We were tasked
+This project portfolio showcases my contributions to my team's group Software Engineering project, Mark. My team consisting 5 Year 2 Computer Science students were tasked
 with enhancing a basic desktop application, https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book (Level 3)], in short AB3, to solve a problem for a specific target group.
 AB3 uses a Command Line Interface (CLI) where users type their commands to navigate and use the application.
 
@@ -52,7 +50,7 @@ This makes being able to directly make notes on the web page an importantly conv
 because to support annotations, the offline document has to take into account different kinds of paragraphs, each having a unique set of restrictions.
 The functionality implemented is also massive. Nevertheless,
 the completed annotation feature works well and is aesthetically pleasing on the application.
-* Credits: I used the https://jsoup.org/[JSoup library] to extract the paragraph contents of the web pages. Colours of the highlight are selected from colours the javafx css extension provide.
+* Credits: I used the https://jsoup.org/[JSoup library] to extract the paragraph contents of the web pages. Colours of the highlight are provided by the javafx css extension.
 
 ==== Added the web browsing feature
 I added the ability to browse web pages on the application. Users can navigate the web using the embedded web view and the address bar.
@@ -61,7 +59,7 @@ I added the ability to browse web pages on the application. Users can navigate t
 
 * Highlights: This enhancement allows users to browse directly on the application. This allows them to directly bookmark the web page they are currently viewing without having to manually input the details.
 
-* Credits: I took inspiration from the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[Address Book (Level 4)], which was not navigable as a user would expect of a browser.
+* Credits: I took inspiration from the web view embedded in https://github.com/nus-cs2103-AY1819S2/addressbook-level4[AB-4], which was not navigable as a user would expect of a browser.
 
 
 === Minor enhancement added

@@ -917,14 +917,14 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
 For example:
 
-* Input `*annotate* 1 p/p2 n/summary of paragraph h/orange` into the command box.
+* Input `*annotate* 1 p/p1 n/summary of paragraph h/orange` into the command box (boxed in orange).
 
-image::AddAnnotationCommandUi1.png[]
+image::ui-screenshots/AddAnnotationCommandUi1.png[350,350]
 // offline tab, showing result after   annotate 1 p/p2
 
-* Observe that any pre-existing annotation is overwritten. Paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
+* Observe that paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
 
-image::AddAnnotationCommandUi2.png[]
+image::ui-screenshots/AddAnnotationCommandUi2.png[350,350]
 // offline tab, showing result.
 
 
@@ -942,7 +942,6 @@ the colour is set to yellow by default.
 If the colour provided is invalid, a warning message will be displayed.
 ****
 
-//TODO: remove all the description of result and replace with GUI image?
 Other examples:
 
 * `*annotate* 1 p/p2` +
