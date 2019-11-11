@@ -15,7 +15,7 @@ import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelManager;
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 
 public class SwitchBudgetCommandTest {
     @Test

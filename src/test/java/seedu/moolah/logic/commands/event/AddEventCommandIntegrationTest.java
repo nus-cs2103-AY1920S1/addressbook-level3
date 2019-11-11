@@ -10,7 +10,7 @@ import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddExpenseCommand}.

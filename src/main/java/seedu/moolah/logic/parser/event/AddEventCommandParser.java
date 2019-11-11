@@ -11,6 +11,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 import java.util.Collections;
 import java.util.List;
 
+import seedu.moolah.logic.Timekeeper;
 import seedu.moolah.logic.commands.event.AddEventCommand;
 import seedu.moolah.logic.parser.ArgumentMultimap;
 import seedu.moolah.logic.parser.ArgumentTokenizer;
@@ -18,12 +19,11 @@ import seedu.moolah.logic.parser.Parser;
 import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.Prefix;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.model.Timekeeper;
-import seedu.moolah.model.expense.Category;
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Event;
-import seedu.moolah.model.expense.Price;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.event.Event;
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
+import seedu.moolah.model.general.Timestamp;
 
 
 /**

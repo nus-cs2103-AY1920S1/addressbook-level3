@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.general;
 
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
-import seedu.moolah.model.Timekeeper;
+import seedu.moolah.logic.Timekeeper;
 import seedu.moolah.model.budget.BudgetPeriod;
 
 /**
@@ -64,11 +64,21 @@ public class Timestamp implements Comparable<Timestamp> {
     public static Optional<Timestamp> createTimestampIfValid(String rawTimestamp) {
         Matcher m = DDMM_PATTERN.matcher(rawTimestamp);
         if (m.find()) {
+            // changes International datetime format to American so that Natty can parse the input properly
             rawTimestamp = m.replaceFirst("$3$2$1");
         }
+        return parseRawTimestamp(rawTimestamp);
+    }
+
+    /**
+     * Returns an Optional timestamp from parsing a string through the Natty parser.
+     * @param rawTimestamp The raw timestamp input.
+     * @return An Optional that contains a timestamp if the raw timestamp input was successfully parsed by Natty.
+     */
+    private static Optional<Timestamp> parseRawTimestamp(String rawTimestamp) {
         try {
             Parser parser = new Parser();
-            List<DateGroup> groups = parser.parse(rawTimestamp);
+            List<DateGroup> groups = parser.parse(rawTimestamp); // Natty parses the datetime input
             DateGroup group = groups.get(0);
             Date datetime = group.getDates().get(0);
             LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
@@ -87,19 +97,12 @@ public class Timestamp implements Comparable<Timestamp> {
      * if the date given is of the valid format.
      */
     public static Optional<Timestamp> createPastTimestampFromStorage(String rawTimestamp) {
-        try {
-            Parser parser = new Parser();
-            List<DateGroup> groups = parser.parse(rawTimestamp);
-            DateGroup group = groups.get(0);
-            Date datetime = group.getDates().get(0);
-            LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
-            LocalDateTime currentTimestamp = getCurrentTimestamp().getFullTimestamp();
-            if (fullTimestamp.isAfter(currentTimestamp)) {
-                return Optional.empty();
-            }
-
-            return Optional.of(new Timestamp(fullTimestamp));
-        } catch (IndexOutOfBoundsException e) {
+        Optional<Timestamp> potentialTimestamp = parseRawTimestamp(rawTimestamp);
+        if (potentialTimestamp.isPresent()) {
+            Timestamp timestamp = potentialTimestamp.get();
+            Timestamp currentTimestamp = getCurrentTimestamp();
+            return timestamp.isAfter(currentTimestamp) ? Optional.empty() : Optional.of(timestamp);
+        } else {
             return Optional.empty();
         }
     }
@@ -113,17 +116,7 @@ public class Timestamp implements Comparable<Timestamp> {
      * if the date given is of the valid format.
      */
     public static Optional<Timestamp> createGeneralTimestampFromStorage(String rawTimestamp) {
-        try {
-            Parser parser = new Parser();
-            List<DateGroup> groups = parser.parse(rawTimestamp);
-            DateGroup group = groups.get(0);
-            Date datetime = group.getDates().get(0);
-            LocalDateTime fullTimestamp = Timekeeper.convertToLocalDateTime(datetime);
-
-            return Optional.of(new Timestamp(fullTimestamp));
-        } catch (IndexOutOfBoundsException e) {
-            return Optional.empty();
-        }
+        return parseRawTimestamp(rawTimestamp);
     }
 
     public LocalDateTime getFullTimestamp() {

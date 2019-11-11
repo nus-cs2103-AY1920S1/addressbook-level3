@@ -1,8 +1,4 @@
-package seedu.moolah.model.expense;
-
-// import java.time.LocalDateTime;
-// import java.time.temporal.ChronoUnit;
-// import java.util.Optional;
+package seedu.moolah.model.event;
 
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 

@@ -1,6 +1,6 @@
 package seedu.moolah.model.statistics;
 
-import seedu.moolah.model.expense.Category;
+import seedu.moolah.model.general.Category;
 
 /**
  * Utility class representing a row in a table. This class is used mainly by the TabularStatistics class.

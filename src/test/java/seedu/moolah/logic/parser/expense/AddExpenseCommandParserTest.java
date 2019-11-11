@@ -24,10 +24,10 @@ import static seedu.moolah.logic.parser.CommandParserTestUtil.assertParseFailure
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.expense.AddExpenseCommand;
-import seedu.moolah.model.expense.Category;
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Price;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
+import seedu.moolah.model.general.Timestamp;
 
 public class AddExpenseCommandParserTest {
     private AddExpenseCommandParser parser = new AddExpenseCommandParser();

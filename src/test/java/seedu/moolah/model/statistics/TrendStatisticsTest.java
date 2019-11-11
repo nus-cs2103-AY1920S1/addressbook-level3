@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.moolah.logic.commands.statistics.StatsTrendCommand;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.budget.BudgetPeriod;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.testutil.BudgetBuilder;
 import seedu.moolah.testutil.TypicalMooLah;
 

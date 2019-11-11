@@ -5,6 +5,10 @@ import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.moolah.model.budget.Budget;
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.menu.MenuItem;
 
 /**

@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.general;
 
 import static seedu.moolah.testutil.Assert.assertThrows;
 

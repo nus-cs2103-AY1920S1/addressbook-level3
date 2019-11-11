@@ -9,7 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.StackPane;
 import seedu.moolah.commons.core.LogsCenter;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.ui.panel.Panel;
 import seedu.moolah.ui.panel.PanelName;
 

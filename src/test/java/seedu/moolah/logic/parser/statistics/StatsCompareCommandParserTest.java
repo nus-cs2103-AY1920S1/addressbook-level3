@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import seedu.moolah.logic.commands.CommandTestUtil;
 import seedu.moolah.logic.commands.statistics.StatsCompareCommand;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 public class StatsCompareCommandParserTest {
     private StatsCompareCommandParser parser = new StatsCompareCommandParser();

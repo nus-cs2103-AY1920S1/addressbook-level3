@@ -40,7 +40,7 @@ public class AddExpenseCommand extends UndoableCommand {
             + PREFIX_TIMESTAMP + "10-10";
 
     public static final String MESSAGE_SUCCESS = "New expense added:\n %1$s";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in MooLah!";
     public static final String MESSAGE_BUDGET_EXCEEDED_TOO_FAR = "This expense will exceed the budget limit too far";
 
     private final Expense toAdd;

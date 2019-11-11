@@ -15,7 +15,7 @@ import guitests.guihandles.event.EventCardHandle;
 import guitests.guihandles.expense.ExpenseCardHandle;
 import guitests.guihandles.expense.ExpenseListPanelHandle;
 import seedu.moolah.model.alias.Alias;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 
 /**

@@ -7,7 +7,7 @@ import static seedu.moolah.ui.testutil.GuiTestAssert.assertCardDisplaysEvent;
 import org.junit.jupiter.api.Test;
 
 import guitests.guihandles.event.EventCardHandle;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.testutil.EventBuilder;
 import seedu.moolah.ui.GuiUnitTest;
 

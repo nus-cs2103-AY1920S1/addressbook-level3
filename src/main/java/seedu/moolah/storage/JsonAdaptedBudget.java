@@ -18,10 +18,10 @@ import seedu.moolah.logic.parser.ParserUtil;
 import seedu.moolah.logic.parser.exceptions.ParseException;
 import seedu.moolah.model.budget.Budget;
 import seedu.moolah.model.budget.BudgetPeriod;
-import seedu.moolah.model.expense.Description;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Price;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Price;
+import seedu.moolah.model.general.Timestamp;
 
 /**
  * Jackson-friendly version of {@link Budget}.

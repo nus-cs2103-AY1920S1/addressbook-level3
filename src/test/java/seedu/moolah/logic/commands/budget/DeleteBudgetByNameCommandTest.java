@@ -16,7 +16,7 @@ import seedu.moolah.model.ModelHistory;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 
 public class DeleteBudgetByNameCommandTest {
     private static final Description SCHOOL = new Description(VALID_BUDGET_DESCRIPTION_SCHOOL);

@@ -1,9 +1,10 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.general;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.moolah.commons.util.StringUtil;
+import seedu.moolah.model.expense.Expense;
 
 /**
  * Tests that a {@code Expense}'s {@code Description} matches any of the keywords given.

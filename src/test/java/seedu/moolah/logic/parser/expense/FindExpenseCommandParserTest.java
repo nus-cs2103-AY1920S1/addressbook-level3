@@ -9,7 +9,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.expense.FindExpenseCommand;
-import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
 
 public class FindExpenseCommandParserTest {
 

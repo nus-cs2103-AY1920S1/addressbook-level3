@@ -5,9 +5,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 
-import seedu.moolah.model.expense.Category;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Category;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.ui.statistics.StatisticsRegionFactory;
 import seedu.moolah.ui.statistics.TableViewRegionFactory;
 

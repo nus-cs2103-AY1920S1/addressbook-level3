@@ -7,7 +7,7 @@ import seedu.moolah.logic.commands.CommandGroup;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.model.Model;
-import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
 import seedu.moolah.ui.expense.ExpenseListPanel;
 
 /**
