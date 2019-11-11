@@ -265,7 +265,7 @@ Step 5. Finally, the `MainWindow` calls `DisplayController#getRoot()` and displa
 
 The following activity diagram summarizes what happens when a user executes the display command:
 
-image::DisplayActivityDiagram.png[]
+image::DisplayActivityDiagram.png[width=150]
 
 ==== Design Considerations
 ===== Aspect: How should controllers interact with model

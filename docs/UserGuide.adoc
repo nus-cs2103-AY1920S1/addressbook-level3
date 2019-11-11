@@ -732,7 +732,7 @@ This is not a valid Singapore Identification number.
 NRICs should only contain alphanumeric characters. It should start with S, T, F or G followed by 7 numerical numbers and a checksum letter.
 You might want to contact John Doe
 PHONE: 98765432
-EMAIL: johnd@example.com`
+EMAIL: johnd@example.com
 ```
 
 === Incorrect Contact Number Alert

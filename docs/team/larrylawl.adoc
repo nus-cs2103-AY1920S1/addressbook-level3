@@ -40,11 +40,11 @@ The OOP solution is illustrated in the link:../DeveloperGuide.adoc[developer’s
 * *Test Code Contributed*: [https://github.com[Display Command Test]][https://github.com[Display Command Parser Test]][https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/src/test/java/seedu/address/model/ModelManagerTest.java[Model Manager Test]]
 
 ifndef::env-github[]
-image::PolicyPopBreakdown.png[width="800", align="left"]
+image::PolicyPopBreakdown.png[width="700", align="left"]
 endif::[]
 
 ifdef::env-github[]
-image::PolicyPopBreakdown.png[width="800", align="left"]
+image::PolicyPopBreakdown.png[width="700", align="left"]
 endif::[]
 
 * *Minor enhancement*:
