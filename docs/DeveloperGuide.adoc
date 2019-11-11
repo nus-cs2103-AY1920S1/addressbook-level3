@@ -378,7 +378,7 @@ Certain properties of the application can be controlled (e.g user prefs file loc
 The visual representation refers to the beautiful graphics you see when you view a group or an individual's schedule in TimeBook.
 All of these graphics are created in the `ScheduleView` class. The model below illustrates the purpose of the `ScheduleView` class in TimeBook.
 
-image::./yijie/ScheduleViewDomainModel.png[]
+image::./yijie/ScheduleViewDomainModel.png[svdm,500,500]
 
 The `ScheduleView` class in TimeBook follows the above model closely. Let's walk you through how the graphics are created:
 
@@ -407,23 +407,22 @@ all the information needed to generate a schedule view.
 A sample usage of the ScheduleViewManager is described below.
 
 Step 1. The user wants to view a group called "Three musketeers" consisting of 3 members, Alice, Ben and Carl in TimeBook and executes the command
-`show g/Three musketeers` in the command line. The state of `ScheduleViewManager` will be initialised to show only the group's schedule for the first week.
+`show g/Three musketeers` in the command line. The state of `ScheduleViewManager` will be initialised to show only the group's schedule for the first week as shown in the object diagram below.
 
 image::./yijie/gsvm_state1.png[]
 
 Step 2. Suppose the user thinks that arranging a group meeting on the first week is too rushed, so he executes the `togglenext` command to view the group's schedule for the next week.
-The state of `ScheduleViewManager` is then modified to show the second week of the group's schedule.
+The state of `ScheduleViewManager` is then modified to show the second week of the group's schedule as shown in the diagram below.
 
 image::./yijie/gsvm_state2.png[]
 
 Step 3. Suppose the user wants to organise a group meeting with some of his group members and still want to keep track of the entire group schedule's free time slots, he
-executes the `lookat` command to inspect Alice's and Carl's schedules. The state of `ScheduleViewManager` is once again modified to only show the specified group members' schedules.
+executes the `lookat` command to inspect Alice's and Carl's schedules. The state of `ScheduleViewManager` is once again modified to only show the specified group members' schedules in the object diagram below.
 
 image::./yijie/gsvm_state3.png[]
 
 Now that we have the full picture of how the graphics are created and controlled, we are ready to show how the user obtain a visual representation of a person or group's schedule using the `show` command.
-The following sequence diagram shows how the `show` command eventually lead to changes in the UI to show the visual representation
-of Bobby's individual schedule.
+The following sequence diagram shows the sequence of events that lead to changes in the UI when an example of the `show` command is executed for a group called *CS2103*.
 
 image::./yijie/showCommandSequenceDiagram.png[]
 
@@ -434,22 +433,6 @@ image::./yijie/showCommandSdFrame.png[]
 Details of how the graphics are created within the `ScheduleView` have been described above and thus, are omitted in the diagram.
 
 ==== Design Considerations
-
-|===
-| Aspect: | Choice | Pros | Cons
-.2+| User experience of the schedule view.
-| 1. Use a separate container for headers and schedule contents (table cells & blocks). **(Current choice)**
-| 1. User can read the schedule in our application a lot more easier.
-| 1. Duplicated codes in the ScheduleView class to generate the separate containers.
-
-| 2. A single container to contain the schedule view.
-| 1. Easier to implement, lesser lines of codes.
-| 1. UX will decrease due to increase difficulty to read schedules in the application.
-
-4+| We understand many users want to look at date headers as they use our application to plan their group meetings.
-Therefore, we chose to implement separate headers and contents so that the user can still look at the date headers as they scroll the schedule view.
-|===
-
 |===
 | Aspect: | Choice | Pros | Cons
 .3+| Amount of detail present in schedule view.
@@ -461,7 +444,7 @@ Therefore, we chose to implement separate headers and contents so that the user 
 
 | 2. Enable users to see schedules up to 4 weeks in advance. **(Current choice)**
 | 1. Most users should be able to plan most of their meetings. (Up to 1 month in advance).
-| 1. Slightly more challenging to implement in order to make sure that the schedule view is not cluttered.
+| 1. Slightly more challenging to implement.
 
 2. Slower as each request will take 4 times as long.
 
@@ -478,21 +461,29 @@ after the 1 month mark since it is most likely to not have been updated yet.
 
 |===
 | Aspect: | Choice | Pros | Cons
-.2+| Color schemes for time slot blocks in schedule view.
-| 1. Select about 15 good contrast colours to dark theme for schedules. **(Current choice)**
-| 1. More aesthetically pleasing to the user.
-| 1. Groups that have more than 15 members will have the same colours for their blocks in the schedule.
+.2+| Viewing some group member's schedule in a group using the `lookat` command.
+| 1. Filter and only to the specified group members from the command. Does not recalculate and
+display the free time slots for the filtered group members. **(Current choice)**
+| 1. Easier to implement.
 
-| 2. Randomly generate colours depending on group size.
-| 1. All members in a group will very likely have different colours to indicate their schedule.
-| 1. Schedules with darker colours cannot be seen from a dark theme UI.
+2. Faster for each query when schedules are more complicated.
 
-2. The graphics of the schedule generated will always have different colour for every request.
+3. Enable users to see the filtered schedules and still keep track of the entire group's schedule.
 
-4+| It is unlikely for users of TimeBook to have a large number of group members in a group. Most projects have a limit to 5 persons
-per team and thus, it is unnecessary to randomly generate color for each group member. And even if a TimeBook user really has a group of
-more than 15 group members, the order of where the blocks are placed corresponds to the order of group members list.
-Hence, the user should still be able to figure out who's block it belongs to even if it is the same colour.
+| 1. Users may be misled to think that the `lookat` command is not working as it does not update the displayed free time slots.
+
+| 2. filters, recalculate and display the common free time slot for the filtered members.
+| 1. There will not be any misleading empty blocks in a group's schedule.
+
+| 1. Difficult to implement.
+
+2. Each query will take a lot longer to process the locations data.
+
+4+| We understand that users may want to inspect the schedules of some of his or her group members while still keeping track
+of the entire group's common free time slots. This would be useful for users who want to organise partial group meetings
+with some of his or her group members before or after the official group meeting (where everyone attends).
+Furthermore, filtering a group member can easily be done by just creating an entirely new group and adding
+the filtered group members in this newly created group.
 |===
 // end::visualrep[]
 

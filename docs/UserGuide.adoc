@@ -417,15 +417,17 @@ You should see a window similar to the one below.
 +
 image::showpersonresult.png[]
 
+// tag::navigationforshow[]
 *****
 image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `togglenext` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
-After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
+image:./icons/lightbulb.png[] You can use the command `togglenext` see the schedule for next week! You may see this schedule up to 4 weeks in advance.
+After you've reached the fourth week's schedule, the next `togglenext` command will start back on the first week's schedule.
 
 image:./icons/important.png[] Unfortunately, TimeBook does not let you see a schedule that has already passed.
-
 *****
+// end::navigationforshow[]
+
 // end::showperson[]
 
 === Schedule Management
@@ -761,16 +763,14 @@ Examples:
 image::showgroupcommand.png[]
 
 . Hit the kbd:[Enter] key and you should see the details of this group in a similar window below.
+
 +
+[[showgroupresult]]
+
 image::showgroupresult.png[]
 
-*****
-image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
+include::UserGuide.adoc[tag=navigationforshow]
 
-image:./icons/lightbulb.png[] You can use the command `togglenext` to help you show next week's schedule!
-After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
-
-*****
 
 ==== Look at some members: `lookat`
 Suppose that all of your group members are extremely busy and the common free time is too short to do any productive work,
@@ -785,11 +785,9 @@ The `lookat` command takes in any number of `n/Name` and highlights the group me
 
 Example:
 
-Suppose your group schedule looks like the one below.
+Let's use the same schedule exactly like the one shown <<#showgroupresult, above>>.
 
-image::showgroupresult.png[]
-
-* Simply type `lookat n/Bobby n/Denise` if you are interested in inspecting both of their schedules!
+* Simply type `lookat n/Bobby n/Denise` if you are interested to inspect both of their schedules!
 You should see that Bobby's and Denise's schedule become highlighted.
 
 image::lookatgroupresult.png[]
@@ -797,8 +795,6 @@ image::lookatgroupresult.png[]
 *****
 image:./icons/important.png[] *Empty blocks* represent the free time slots for the group members that you are looking at.
 The green blocks still represent the common free time slots for the entire group!
-
-image:./icons/lightbulb.png[] You can use the `lookat` command with no arguments to basically filter off the coloured blocks if your group size gets too big and messy!
 *****
 // end::showgroup[]
 
@@ -976,7 +972,7 @@ When you first start using TimeBook, it will create a hidden person called `Alic
 // end::alice-brief[]
  +
 {nbsp} +
-To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command,`edituser` command>>.
+To personalize TimeBook and make it yours, rename `Alice` by entering the command `edituser n/Your Name Here`. If you'd like to fill in more details, you can do so using the <<edit-user-command, `edituser`>> command.
 // end::alice-full[]
 +
 {nbsp} +
@@ -1007,7 +1003,6 @@ We understand that you may encounter a weird error message and are unsure of wha
 | Internal Error. Please try again later  | You'll see this error when our remote database cannot handle your requests.
 |===
 
-+
 {nbsp} +
 
 == Command Summary

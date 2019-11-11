@@ -1,9 +1,12 @@
-= Lim Yi Jie - Project Portfolio for TimeBook
+== Lim Yi Jie - Project Portfolio for TimeBook
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:experimental:
 
-== About the project
+:repoURL: https://github.com/AY1920S1-CS2103T-T10-4/main
+
+=== About the project
 
 Our team of 5 members were tasked to either enhance or morph an existing command line
 interface desktop address book application for our Software Engineering project. We chose
@@ -28,41 +31,51 @@ Note the common symbols and formatting used in this document.
 | +bluetext+ | A blue text with grey highlight indicates that this is a class or component in TimeBook.
 |===
 
-=== Overview of contributions
+==== Overview of contributions
 This section provides an overview of the code, documentation and administrative contributions to the team project
 
-==== Main feature added: The schedule graphic of multiple schedules in TimeBook.
+===== Main feature added: The schedule graphic of multiple schedules in TimeBook.
 
-* What: Enables users to see an elegant individual or group schedule graphic in the form of a time table in TimeBook. The `show` command does this.
+* What: Enables users to see an elegant individual or group 7-day schedule graphic in the form of a time table in TimeBook. The `show` command does this.
 * Justification: This is the key feature of TimeBook as it directly addresses the problem of having to tediously cross reference every separate schedule in order to identify free time slots for group meetings.
 * Highlights: This feature that I have implemented fits well with the other features that my teammates developed. For example, one of my teammates developed
 an NUSMods parser that makes use of parsing NUSMods links into data that is then displayed using my feature. Implementing this feature is not easy as I had to first create an empty time table
-and figure out a way to add events (represented by blocks) into this empty time table without distorting the other time table cells. This means that I had to ensure
-that no matter how small the event's duration is, it must still fit and not cause distortion in the schedule graphic. Lastly, I had to test my feature using TestFX to make sure that the graphic generated is correct.
+and figure out a way to add events (represented by blocks) into this empty time table without distorting the other contents in the time table. In addition, I had to design the graphic
+such that resizing the application or adjusting the screen resolution will not distort the time table. Finally, I had to test my feature using TestFX to make sure that the graphic generated is correct.
 * Credits: TestFX for providing a framework for automated GUI testing.
+
+====== Additional features that enhances the schedule graphic shown in TimeBook.
+
+. Scroll the schedule graphic when it does not fit the user's screen through the Command Line Interface (CLI). This is done through the `scroll` command.
+. Toggle the schedule graphic to show the graphics for subsequent week's schedule. This is done through the `togglenext` command.
+. Look at only schedules belonging to some members of a group. This is done through the `lookat` command.
 
 Other contributions:
 
 * Application
 ** Developed GUI color scheme and UI layout such as schedule window display, tabs panel and default home
-page to make significant cosmetic improvement to the application. #86 #93 #125 #254
-** Wrote GUI Test cases that increased coverage by about 4.3%. #263 #268
+page to make significant cosmetic improvement to the application. {repoURL}/pull/86[#86] {repoURL}/pull/93[#93] {repoURL}/pull/125[#125] {repoURL}/pull/254[#254]
+** Wrote test cases for the application itself and its GUI that increased coverage by about 5%. {repoURL}/pull/263[#263] {repoURL}/pull/268[#268] {repoURL}/pull/274[#274]
 * Community
-** Helped to develop non-trivial UI components for my team members. #237
+** Helped to develop non-trivial UI components for my team members. {repoURL}/pull/237[#237]
 * Documentation
 ** Made user guide and developer guide more reader-friendly.
 * Tools
-** Set up TestFX for GUI Testing. #206
+** Set up TestFX for GUI Testing. {repoURL}/pull/206[#206]
 ** Created a google spreadsheet for the team to share bugs the they have found.
 
-=== Contributions to User Guide
-Our team had to override the original addressbook User Guide with the instructions for TimeBook. This section shows my contributions
-to the User Guide and my ability to convey instructions for the application that my team has developed to target users.
+==== Contributions to User Guide
+Our team had to override the original addressbook documentation with the instructions for TimeBook. This section shows my contributions
+to the User Guide and my ability to convey instructions for the application that my team has developed to target users. I included the sections *Show person: `show`*
+and *Show group: `show`* in the User Guide, and I decided to omit *Show person: `show`* in this section as these two parts in the User Guide are very similar.
+
+The documentation I wrote for *Show person: `show`* can still be accessed {repoURL}/blob/master/docs/UserGuide.adoc[here].
 
 include::../UserGuide.adoc[tag=showgroup]
 
-=== Contributions to Developer Guide
-This section shows my contributions to the developer guide and my ability to convey information for the application that my team has developed to other developers.
+==== Contributions to Developer Guide
+This section shows my contributions to the developer guide and my ability to convey technical information for my feature in the application
+that my team has developed.
 
 include::../DeveloperGuide.adoc[tag=visualrep]
 
