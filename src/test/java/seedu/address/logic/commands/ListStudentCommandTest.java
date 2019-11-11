@@ -26,7 +26,6 @@ public class ListStudentCommandTest {
         expectedModel = new ModelManager(model.getNotebook(), new UserPrefs());
     }
 
-
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListStudentCommand(), model, ListStudentCommand.MESSAGE_SUCCESS, expectedModel);

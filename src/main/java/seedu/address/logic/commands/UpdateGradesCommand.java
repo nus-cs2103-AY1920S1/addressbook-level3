@@ -106,7 +106,6 @@ public class UpdateGradesCommand extends Command {
 
         if (updatingIndividualGrade) {
             marks = lastShownAssignmentList.get(assignment.getZeroBased()).marksStringListFromGrades();
-            System.out.println(marks);
         }
 
         Assignment assignmentToEdit;

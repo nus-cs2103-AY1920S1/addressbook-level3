@@ -237,10 +237,6 @@ The following diagram illustrates the process above.
 
 image::SebastianDG/UploadSequenceDiagram.png[]
 
-==== Design Considerations
-
-Alternative implementations:
-
 // end::upload[]
 
 // tag::undoredo[]

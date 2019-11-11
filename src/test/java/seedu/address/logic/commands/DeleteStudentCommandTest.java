@@ -29,30 +29,6 @@ public class DeleteStudentCommandTest {
 
     private Model model = new ModelManager(getTypicalNotebook(), new UserPrefs());
 
-
-    @Test
-    public void execute_validIndexUnfilteredList_success() {
-        model = new ModelManager(getTypicalNotebook(), new UserPrefs());
-        Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_OBJECT.getZeroBased());
-        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_OBJECT);
-
-        String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
-
-        ModelManager expectedModel = new ModelManager(model.getNotebook(), new UserPrefs());
-        // emulates delete command behaviour
-        expectedModel.deleteStudent(studentToDelete);
-        List<Assignment> assignmentList = expectedModel.getFilteredAssignmentList();
-        for (Assignment assignment: assignmentList) {
-            Assignment editedAssignment = new Assignment(assignment.getAssignmentName(),
-                    assignment.getAssignmentDeadline());
-            editedAssignment.setGrades(assignment.namesStringListFromGrades(), assignment.marksStringListFromGrades());
-            editedAssignment.deleteOneStudentGrade(studentToDelete.getName().fullName);
-            expectedModel.setAssignment(assignment, editedAssignment);
-        }
-        assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
-    }
-
-
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredStudentList().size() + 1);
@@ -61,7 +37,19 @@ public class DeleteStudentCommandTest {
         assertCommandFailure(deleteStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
+        showStudentAtIndex(model, INDEX_FIRST_OBJECT);
 
+        Index outOfBoundIndex = INDEX_SECOND_OBJECT;
+        // ensures that outOfBoundIndex is still in bounds of classroom list
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getNotebook().getCurrentClassroom().getStudentList()
+                .size());
+
+        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
+
+        assertCommandFailure(deleteStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+    }
     @Test
     public void execute_validIndexFilteredList_success() {
         showStudentAtIndex(model, INDEX_FIRST_OBJECT);
@@ -84,20 +72,28 @@ public class DeleteStudentCommandTest {
         assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
     }
 
+
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showStudentAtIndex(model, INDEX_FIRST_OBJECT);
+    public void execute_validIndexUnfilteredList_success() {
+        model = new ModelManager(getTypicalNotebook(), new UserPrefs());
+        Student studentToDelete = model.getFilteredStudentList().get(INDEX_FIRST_OBJECT.getZeroBased());
+        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(INDEX_FIRST_OBJECT);
 
-        Index outOfBoundIndex = INDEX_SECOND_OBJECT;
-        // ensures that outOfBoundIndex is still in bounds of classroom list
-        assertTrue(outOfBoundIndex.getZeroBased() < model.getNotebook().getCurrentClassroom().getStudentList()
-                .size());
+        String expectedMessage = String.format(DeleteStudentCommand.MESSAGE_DELETE_STUDENT_SUCCESS, studentToDelete);
 
-        DeleteStudentCommand deleteStudentCommand = new DeleteStudentCommand(outOfBoundIndex);
-
-        assertCommandFailure(deleteStudentCommand, model, Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
+        ModelManager expectedModel = new ModelManager(model.getNotebook(), new UserPrefs());
+        // emulates delete command behaviour
+        expectedModel.deleteStudent(studentToDelete);
+        List<Assignment> assignmentList = expectedModel.getFilteredAssignmentList();
+        for (Assignment assignment: assignmentList) {
+            Assignment editedAssignment = new Assignment(assignment.getAssignmentName(),
+                    assignment.getAssignmentDeadline());
+            editedAssignment.setGrades(assignment.namesStringListFromGrades(), assignment.marksStringListFromGrades());
+            editedAssignment.deleteOneStudentGrade(studentToDelete.getName().fullName);
+            expectedModel.setAssignment(assignment, editedAssignment);
+        }
+        assertCommandSuccess(deleteStudentCommand, model, expectedMessage, expectedModel);
     }
-
 
     @Test
     public void equals() {

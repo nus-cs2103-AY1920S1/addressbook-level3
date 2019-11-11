@@ -47,17 +47,17 @@ tasks and students’ information. It is optimized for teachers who prefer to wo
 === Classrooms
 The user can view his or her classrooms in the middle panel of the GUI of Teacher's Notebook as shown below. +
 
-image::class/class1.JPG[class,500,480,pdfwidth=50%,scaledwidth=50%]
+image::class/class2.JPG[class,600,480,pdfwidth=50%,scaledwidth=50%]
 
-The classroom colored in blue shows the classroom that the user is currently viewing.
-Viewing a classroom enables a user to see the full profiles of the students, +
-As well as full information about assignments. Changing classrooms will allow the user to view the students and assignments of another class.
-The number of students, and the number of assignments are displayed for each classroom +
+The first classroom in the panel is selected by default.
+
+[NOTE]
+Classroom names are case sensitive.
+
 
 ==== Adding Classroom: addclass
 
-Adds a new classroom to the list of existing classrooms. The name of the new classroom must not be empty,
-and it must be different from all the current classrooms names.
+Adds a new classroom to the list of existing classroom.
 
 Format: `addclass c/CLASS_NAME`
 
@@ -66,10 +66,14 @@ Examples:
 * `addclass c/4E7`
 * `addclass c/3E8`
 
+[NOTE]
+The name of the new classroom must not be empty,
+and it must be different from all current classroom names.
+
+
 ==== Deleting Classroom: deleteclass
 
-Allows a user to delete the selected classroom, if the user no longer needs the classroom or entered its name wrongly. +
-Classroom must be in the current list of classrooms, and classroom name cannot be empty. +
+Allows a user to delete the selected classroom. +
 
 Format: `deleteclass c/CLASS_NAME`
 
@@ -78,18 +82,28 @@ Examples:
 * `deleteclass c/4E7`
 * `deleteclass c/3E8`
 
+[NOTE]
+Classroom must be in the current list of classrooms, and CLASS_NAME cannot be empty.
+
+
 ==== Setting Classroom: setclass
 
-Allows a user to set a classroom as the selected classroom. +
-Student and Assignment functions will act on the selected classroom. +
-Classroom must be in the current list of classrooms, and classroom name cannot be empty. +
+Allows a user to select a classroom as the selected classroom.
+Student and Assignment functions will act on the selected classroom.
+The image below illustrates the change in
+the middle GUI panel when setclass is called.
 
-Format: `setclass c/CLASS_NAME`
+image::class/setclass.JPG[class,600,480,pdfwidth=50%,scaledwidth=50%]
+
+Format: `setclass c/CLASS_NAME` +
 
 Examples:
 
 * `setclass c/4E7`
 * `setclass c/3E8`
+
+[NOTE]
+Classroom must be in the current list of classrooms, and classroom name cannot be empty.
 // end::classes[]
 
 // tag::lessons[]
@@ -373,25 +387,34 @@ of Teacher's Notebook and make using the application a more forgiving, painless 
 
 ==== Autocomplete
 
-The Autocomplete feature allows a user to toggle through suggestions that guess at what command the user wants to type in. +
+Allows a user to toggle through suggestions that guess at what command the user wants to type in. +
 Upon typing any letters that resemble commands, a popup menu will appear as shown below:
 
 image::autocorrect/autocomplete2.jpg[auto,500,480,pdfwidth=50%,scaledwidth=50%]
 
-The user can then choose the first option of the menu using CTRL, use SHIFT + UP and SHIFT + DOWN to cycle through menu options, +
-or use ESC to turn the autocomplete feature off. CTRL can be used to turn the feature back on. +
-
 Usage:
 
-`SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete options +
-`CTRL` Key to choose the first autocomplete suggestion, or turn AutoComplete on if it's off. +
+`SHIFT + Arrow DOWN` and `SHIFT + Arrow UP` Keys to toggle between autocomplete suggestions +
+`CTRL` Key to choose the first autocomplete suggestion, or turn AutoComplete on if it is turned off. +
 `ESC` Key to close the autocomplete suggestions and turn off AutoComplete. +
+
+[NOTE]
+To facilitate the user learning the long and possibly tedious commands,
+the AutoComplete popup menu does not hide when a user's input greater than 6 characters does not match any command.
+This is why even if the input matches the suggestion, the matching part of the
+suggestion is not highlighted past 6 characters.
+6 characters is an arbitrary value and will be improved upon in future releases, and
+with user feedback.
 
 ==== History
 
-The History feature allows a user to toggle through their previously entered commands, +
-regardless of whether the user command was successful. As this may clash with autocomplete suggestion toggling, we recommend closing +
-autocomplete suggestions before using the History feature. +
+Allows a user to toggle through their previously entered commands,
+regardless of whether the command was successful.
+
+[IMPORTANT]
+It is likely that autocomplete and history will clash, as both use the arrow keys.
+We recommend that you turn the autocomplete feature off (`ESC` key) before using the
+history feature.
 
 Usage:
 
@@ -400,16 +423,10 @@ Usage:
 // tag::undoredo[]
 ==== Undo/Redo: Undo/Redo
 
-The undo/redo feature allows a user to undo any command, and there is no limit on the number of actions that can be undone or redone.
-After the undo/redo command the application will be in the state before/after the action was made. +
+Restores the database to the state before the previous undoable command was executed.
 
-States will only be made if there is a modification to the notebook. Hence, commands like `help` and `liststudents` that does not change the internal structure of the notebook will not lead to a saved state. +
-
-Undo will only be executable if there is a previous state saved. Redo will only be executable if there is a previously undone method. +
-
-If a command that changes the state of the notebook is called after an `undo` command, the other states after the current pointer will be erased.
-This means that users will not be able to redo any of the previous states, until the user calls another `undo` command again.
-This mechanism is similar to how undo/redo works for modern desktop applications.
+[NOTE] Undoable commands are commands that modify the database's content: `add`, `delete`
+`edit`, `clear`, `upload`.
 
 Undo/redo cannot, however, undo actions made during previous activation of Teacher's Notebook. +
 This is to say, once the application is closed, all actions done cannot be undone. +
@@ -417,6 +434,15 @@ This is to say, once the application is closed, all actions done cannot be undon
 Usage:
 
 Enter `undo` or `redo` +
+
+Examples:
+
+* `deletestudent 1` + `undo` (reverses the `delete 1` command) +
+`redo` (applies the delete command again) +
+
+* `liststudents` + `undo` (Error message pops up, no )
+
+
 
 // end::undoredo[]
 
@@ -430,7 +456,7 @@ Enter `help` +
 
 ==== Clear
 
-Clears all data from the notebook. If triggered erroneously, the clear command can be undone to reclaim all data.
+Clears all data from the notebook. If triggered erroneously, the undo command can be used to reclaim all data.
 
 Usage:
 

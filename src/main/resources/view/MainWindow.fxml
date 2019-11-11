@@ -13,9 +13,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
 
-<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root minHeight="600" minWidth="450" onCloseRequest="#handleExit" title="Teacher's Notebook" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -49,10 +50,13 @@
         </StackPane>
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4, 0.5" VBox.vgrow="ALWAYS">
           <VBox fx:id="reminderList" alignment="CENTER" maxWidth="700.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" minWidth="-Infinity" styleClass="cell_big_label" text="Lessons" textFill="#FFD300">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" minWidth="-Infinity" styleClass="cell_big_label" text="Lessons">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
             </Label>
                   <TabPane fx:id="lessonTabPanel" prefHeight="1700.0" prefWidth="2100.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
@@ -95,7 +99,7 @@
                   </TabPane>
           </VBox>
           <VBox fx:id="classroomList" alignment="CENTER" maxWidth="700.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Classrooms" textFill="#FFC300">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Classrooms">
 
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
@@ -104,7 +108,7 @@
               <StackPane fx:id="classroomListPanelPlaceholder" VBox.vgrow="ALWAYS" />
           </VBox>
           <VBox fx:id="combinedList" alignment="CENTER" maxWidth="700.0" minWidth="240.0" prefWidth="240.0" styleClass="pane-with-border" VBox.vgrow="ALWAYS">
-            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Students/Assignments" textFill="#FFD300">
+            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="9.0" styleClass="cell_big_label" text="Students/Assignments">
               <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
               </padding>

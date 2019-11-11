@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ASSIGNMENTS;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +37,6 @@ public class GetStudentGradesCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.updateFilteredStudentList(PREDICATE_SHOW_ALL_STUDENTS);
         model.updateFilteredAssignmentList(PREDICATE_SHOW_ALL_ASSIGNMENTS);
         List<Student> lastShownStudentList = model.getFilteredStudentList();
         List<Assignment> lastShownAssignmentList = model.getFilteredAssignmentList();
@@ -46,7 +44,6 @@ public class GetStudentGradesCommand extends Command {
         if (index.getZeroBased() >= lastShownStudentList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_STUDENT_DISPLAYED_INDEX);
         }
-
         Student student = lastShownStudentList.get(index.getZeroBased());
         StringBuilder output = new StringBuilder();
         for (Assignment assignment : lastShownAssignmentList) {
@@ -56,7 +53,6 @@ public class GetStudentGradesCommand extends Command {
                         + currentAssignmentGrades.get(student.getName().toString()) + "\n");
             }
         }
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, student.getName().toString(),
                 output.toString()));
     }
