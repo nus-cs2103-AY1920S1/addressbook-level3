@@ -1,4 +1,4 @@
-= Wilfred Bradley Tan - Project Portfolio for CS2103/T Revision Tool (RT)
+= Keng Jun Xin - Project Portfolio for CS2103/T Revision Tool (RT)
 :site-section: AboutUs
 :toc:
 :toc-title:
@@ -233,5 +233,4 @@ The activity diagram is outlined below.
 .Sequence Diagram of the StartAnswerableCommand during quiz mode
 image::CodingQuestionSessionActivityDiagram.png[]
 .Activity diagram showing the user flow for code input during quiz mode.
-
 //end:: junxian-proposed-features[]
