@@ -89,6 +89,7 @@ This part is about the sections I contributed to the User Guide.
 The section extracted from the User Guide below showcase my ability to write a formal document to our target users.
 
 _------------- This is the start of the excerpt -------------_
+
 include::../UserGuide.adoc[tag=ReminderCommand]
 include::../UserGuide.adoc[tag=sort]
 
