@@ -22,6 +22,7 @@ Class "{abstract}\nState" as State
 Class "{abstract}\nEndState" as EndState
 Class "{abstract}\nPenultimateState" as PenultimateState
 Interface OptionalState <<Interface>>
+Class XYZState
 }
 
 }
@@ -65,6 +66,9 @@ Parser ...> OptionalState
 ArgumentTokenizer ..> Prefix
 CliSyntax ..> Prefix
 
-
+State ..> StateUtil
+XYZState -up-|> State
+EndState -up-|> State
+PenultimateState -|> State
 
 @enduml
