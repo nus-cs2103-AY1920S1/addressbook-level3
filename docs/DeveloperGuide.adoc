@@ -44,7 +44,7 @@ The following class plays an important role at the architecture level:
 
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists of four components.
+The rest of the App consists of give components.
 
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
@@ -145,10 +145,31 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Watch list data in json format and read it back.
 
+// tag::apicomponent[]
+[[Design-API]]
+=== API component
+
+[[fig-LogicClassDiagram]]
+.Structure of the Api Component
+image::ApiClass.png[]
+
+*API* :
+link:{repoURL}/src/main/java/seedu/ezwatchlist/api/ApiManager.java[`ApiManager.java`]
+
+In Figure 9, we see the structure of the API component centered around `ApiManager`. Moreover:
+
+.  `ApiManager` uses the `ApiUtil` class for static methods for data handling.
+.  The `ApiUtil` class creates an `ImageRetrieval` object for retrieving images over the network and a `RecommendationEngine` object to generate recommendations.
+.  `ApiManager` object encapsulated by the interface `ApiInterface` can be created at any point in the application to access the online database.
+.  If no network connection can be established, an `OnlineConnectionException` is thrown.
+.  `ApiManager` will not affect any of the internal logic and model in the application.
+
+// end::apicomponent[]
+
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.ezwatchlist.commons` package.
 
 == Implementation
 
@@ -262,95 +283,6 @@ image::activityDiagram.png[]
 ** Cons: Appear less responsive.
 // end::statistics[]
 
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
-
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -366,6 +298,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+// tag::onlinedata[]
 === Online Data
 
 We are using https://www.themoviedb.org/documentation/api[The Movie Database (TMDB)] to retrieve information on movies and tv shows.
@@ -380,32 +313,40 @@ way the application retrieves any online information from the database.
 * `getMovieByName` : The method will return a list of movies in the database based on the name of the movie given
 * `getTvShowByName` : The method will return a list of tv shows in the database based on the name of the tv show given
 * `isConnected` : Checks if the application is connected online to the database
+* `getUpcomingMovies` : The method will return a list of upcoming movies from the database.
+* `getMovieByGenre` : The method will return a list of movies from the database based on a set of genres.
+* `getMovieRecommendations` : The method will return a list of movie recommendations specified by the amount required based on the user's movies.
+* `getTvShowRecommendations` : The method will return a list of tv shows recommendations specified by the amount required based on the user's tv shows.
 
-`ApiManager` is an implementation of `ApiInterface` and is done by using a https://github.com/holgerbrandl/themoviedbapi[java wrapper] for the TMDB api implemented by Holger Brandl.
+`ApiManager` is an implementation of `ApiInterface` and is dependent on a https://github.com/holgerbrandl/themoviedbapi[java wrapper] for the TMDB api implemented by Holger Brandl.
 Allowing us to retrieve information in the java code.
 
 Given below is an example of how the application might want to retrieve movie information through `ApiInterface`.
 
-Step 1. First an instance of a class implementing `ApiInterface` has to be created for the methods to be called. When `ApiManager` is instantiated the class api
-key's is used to create a call to the TMDB API. All information retrieved must go through the class's api call.
+Step 1. First an instance of a class implementing `ApiInterface` has to be created for the methods to be called such as `ApiManager`. When `ApiManager` is instantiated the class's internal field
+`Api Key` 's is used to create a *call object* to the TMDB database. All information retrieved must go through this class's api *call object*.
 
-Step 2. The method getMovieByName("Name Of Movie") is called and the api call searches the for the movie in the database with the name given.
+Step 2. The method getMovieByName("Name Of Movie") is called and the *api call object* is passed to the corresponding method in the class `ApiUtil`. The corresponding method then searches the for the movie in the database with the name given.
 A list of wrapped movies is given back, which is then read and used to create new instances of our application's `Show` model with information wrapped in classes such as
 `Name`, `Description`, and `Actor`.
 
 Step 3. To retrieve an image from the database, an image url is downloaded to the computer. The class `ImageRetrieval` does this. An
 `ImageRetrieval` instance is created by the method for each image, and is downloaded to a root folder determined by `ImageRetrieval#defaultDirectory()`.
 
-Step 4. A poster class is then created with the image path, to be used to load images in the application.
+Step 4. A `poster` class is then created with the image path of the downloaded image. At any point, the `poster` object can be used to load images in the application.
 
-Step 5. With the list of movies returned, the application is given access to online information in a readable format.
+Step 5. With the list of movies returned, the application can then read the internal `Movie` object returned. The `Poster` object in the `Movie` object can be used to load the poster of the movie, and the other fields can be shown to the user as seen in Figure 12.
 
+.The movie component shown to the user in `EzWatchlist`.
+image::moviecard.png[]
 [NOTE]
 At any point the application might fail due to the application not being connected to the internet. If that occurs a
 `OnlineConnectionException` is thrown for the application to handle.
 
 The relationship between all the classes are shown in the following class diagram:
-image:ApiClassDiagram.png[]
+
+.Detailed Api Class Diagram
+image::ApiClassDiagram.png[width=900]
 
 ==== Design Considerations
 
@@ -441,23 +382,23 @@ Recommendations are generated through the `RecommendationEngine` class in the AP
 recommendations are retrieved through the `ApiInterface` implemented in the API package.
 
 ===== Implementation
-Given below is a _sequence diagram_ of how the current Statistics page's retrieves recommendations from the class.
+Given below in Figure 14 is a _sequence diagram_ of how the recommendations are generated when called from the `ApiManager`.
 
 .Sequence Diagram of getMovieRecommendations
-image:getMovieRecommendationsSequenceDiagram.png[]
+image::movieRecommendationSD.png[width=900]
 
+Step 1. First an instance of `RecommendationEngine` is created by passing in the list of movies the user has and the *api call object* generated by the instance of the `ApiManager` object.
 
-Step 1. First an instance of `RecommendationEngine` is created by passing in the list of movies the user has and the amount of recommendations to be given back.
+Step 2. The method `getMovieRecommendations(noOfRecommendations)` is called in the `RecommendationEngine` object and it will:
 
-Step 2. The method getMovieRecommendations is called in the object and the object will:
+* Check if the list is valid to generate recommendations.
+* Parse the list to get the online entries in the database, and their recommendations from the database.
+* For each recommendation, store it in a _HashMap_ and if there are duplicates increase the value. This counts the amount of occurrences each recommendation occurs.
+* Filter the entries to remove all entries that the user already has.
 
-* Check if the list is valid to generate.
-* Parse the list to get the same online entry in the database.
-* Retrieve recommendations for each entry in the list.
+Step 3. The recommendations are then sorted based on the amount of occurrences in appears in the _HashMap_.
 
-Step 3. The recommendations are then sorted based on the amount of occurrences in appears in the recommendations.
-
-Step 4. The top entries limited by the amount of recommendations requested is passed back in a sorted list.
+Step 4. The recommendations are then returned in a list in which the length depends on the amount of recommendations requested.
 
 Step 5. With the list of movies returned, the application can then display the movie recommendations back to the user.
 
@@ -465,9 +406,7 @@ Step 5. With the list of movies returned, the application can then display the m
 If no recommendations can be generated, a `NoRecommendationsExceptions` is thrown. Moreover, an
 `OnlineConnectionException` is still thrown when not connected to the internet.
 
-
-
-
+// end::onlinedata[]
 [[Implementation-Configuration]]
 === Configuration
 

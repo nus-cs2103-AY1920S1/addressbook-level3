@@ -59,7 +59,7 @@ EzWatchlist is split into four different pages:
 . <<Watchlist Page, *Watchlist*>>, where shows you want to watch are added.
 . <<Watched List, *Watchedlist*>>, where shows you have watched are located.
 . <<Search Page, *Search*>>, where you search for shows both online and offline.
-. <<Statistics Page, *Statistics*>>, where information about your viewing habits is shown.
+. <<Statistics Page, *Statistics*>>, where information about your viewing habits are shown.
 
 This pages are represented by the <<Sidebar, *sidebar panel*>> shown visibly in Figure 1. Navigate between pages by using keyboard shortcuts kbd:[1], kbd:[2], kbd:[3], kbd:[4] respectively or
 through a button press on the graphical interface.
@@ -85,6 +85,7 @@ image::searchIpMan.png[width='500']
 .Watchlist page after adding the entry.
 image::watchlistIpMan.png[width='500']
 
+
 And that's it. Our <<Quick Start, quick start guide>> will guide you to set up our application. If you like to learn more head straight into our <<Features, features guide>> for a run down on our major features, or
 go to our <<UserCommands, commands guide>> to learn more on our commands. Otherwise, if you're a developer and are interested to
 understand how each of our features were implemented, our <<DeveloperGuide#, developer guide>> breaks down each of our major components.
@@ -109,7 +110,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<UserCommands>> for details of each command.
 
-// end:: intro[]
+// end::intro[]
+
 == Features
 
 === User-Interface
