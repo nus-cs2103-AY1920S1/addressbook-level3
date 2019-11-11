@@ -30,6 +30,7 @@ by supplying an athlete's name as a keyword.
 ** Justification: To find which athlete(s) is a consistent podium finisher.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shawnkoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Functional code]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=shawnkoh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Documentation code]]
 
 * *Other contributions*:
 
@@ -38,8 +39,8 @@ by supplying an athlete's name as a keyword.
 
 ** Enhancements to existing features:
 ** Documentation:
-*** Updated User Guide: https://github.com[#137]
-*** Updated Developer Guide: https://github.com[#137]
+*** Updated User Guide: https://github.com/AY1920S1-CS2103-T11-3/main/pull/137[#137]
+*** Updated Developer Guide: https://github.com/AY1920S1-CS2103-T11-3/main/pull/137[#137]
 
 
 _{you can add/remove categories in the list above}_

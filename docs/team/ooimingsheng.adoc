@@ -74,8 +74,8 @@ for additional entities to be added should a developer require this
 
 * *Minor enhancement*: Updated the user interface to support 3 different lists
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t11-3&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ooimingsheng&tabRepo=AY1920S1-CS2103-T11-3%2Fmain%5Bmaster%5D[Functional code]]
-[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ooimingsheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test code]] _
+* *Code contributed*: ( [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=t11-3&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ooimingsheng&tabRepo=AY1920S1-CS2103-T11-3%2Fmain%5Bmaster%5D[Functional code]]
+[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ooimingsheng&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Test code]] )
 
 * *Other contributions*:
 
@@ -84,16 +84,19 @@ for additional entities to be added should a developer require this
 *** Managed the integration of the various features from other group members
 
 ** Enhancements to existing features:
-*** Updated the layout to the application (Pull request https://github.com[#59])
-*** Wrote tests for new features to increase coverage (Pull requests https://github.com[#127])
+*** Updated the layout to the application (Pull request https://github.com/AY1920S1-CS2103-T11-3/main/pull/59[#59])
+*** Wrote tests for new features to increase coverage (Pull requests https://github.com/AY1920S1-CS2103-T11-3/main/pull/127[#127])
 
 ** Documentation:
-*** Updated the User Guide: (Pull request https://github.com[#129])
-*** Updated the Developer Guide: (Pull request https://github.com[#3], https://github.com[#129])
+*** Updated the User Guide: (Pull request https://github.com/AY1920S1-CS2103-T11-3/main/pull/129[#129])
+*** Updated the Developer Guide: (Pull request https://github.com/AY1920S1-CS2103-T11-3/main/pull/3[#3], https://github.com/AY1920S1-CS2103-T11-3/main/pull/129[#129])
 
 ** Community:
 *** PRs reviewed (with non-trivial review comments):
- https://github.com[#43], https://github.com[#49] https://github.com[#113], https://github.com[#114]
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/43[#43],
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/49[#49],
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/113[#113],
+ https://github.com/AY1920S1-CS2103-T11-3/main/pull/114[#114]
 *** Reported bugs and suggestions for other teams in the class (example: https://github.com/ooimingsheng/ped/issues)
 
 ** Tools:
