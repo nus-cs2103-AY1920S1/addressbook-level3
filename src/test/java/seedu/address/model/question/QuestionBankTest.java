@@ -162,7 +162,8 @@ public class QuestionBankTest {
     @Test
     public void remove_nonExistentQuestion_throwQuestionNotFoundException() {
         questions.addQuestion(question);
-        assertThrows(QuestionNotFoundException.class, () -> questions.deleteQuestion(differentQuestion));
+        assertThrows(QuestionNotFoundException.class, () ->
+            questions.deleteQuestion(differentQuestion));
     }
 
     @Test

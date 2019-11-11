@@ -180,8 +180,8 @@ The feature comprises of five commands namely,
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
 
+.Overview of questions classes.
 image::QuestionsClassDiagram.png[]
-_Figure 5. Overview of questions classes_
 
 [[Feature-Question-Add]]
 ==== Add command
@@ -284,8 +284,8 @@ they will be added to the temporary `similarAl` list instead.
 
 *Step 8*. A new `CommandResult` will be returned with a message stating the search term and the number of results returned.
 
+.Activity diagram of questions search.
 image::QuestionsSearchActivityDiagram.png[]
-_Figure 6. Activity diagram of questions search_
 
 // end::questions-find[]
 
@@ -337,8 +337,8 @@ of the various `QuestionPanel` that contains each question. +
 Below is the sequence diagram of the interactions that happen from when the slideshow command is entered, to the corresponding
 questions displayed in the slideshow.
 
+.Sequence diagram illustrating the interactions happening.
 image::SlideshowFeatureSequenceDiagram.png[scaledwidth=16cm]
-_Figure 7. Sequence diagram illustrating the interactions happening_
 
 ===== Implementation
 
@@ -366,8 +366,8 @@ the user navigates to the next question and decremented when navigating to the p
 *Step 5.* The user exits the slideshow when the `Esc` key event is triggered or when the `currQuestionIndex` exceeds the `questionPanels.size()`.
 The behaviour of this follows the common procedure that most presentation programs adopt thus, it will not  feel foreign to users.
 
+.Activity diagram of the actions performed.
 image::SlideshowFeatureActivityDiagram.png[]
-_Figure 8. Activity diagram of the actions performed_
 
 ==== Design Considerations
 
