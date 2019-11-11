@@ -13,7 +13,10 @@ import seedu.guilttrip.model.reminders.EntryReminder;
 import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.UiPart;
 
-public class IncomeReminderCard  extends UiPart<Region> {
+/**
+ * Displays entry pf EntryReminder
+ */
+public class IncomeReminderCard extends UiPart<Region> {
 
     private static final String FXML = "/income/IncomeCard.fxml";
 
@@ -24,10 +27,10 @@ public class IncomeReminderCard  extends UiPart<Region> {
      *
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on GuiltTrip level 4</a>
      */
-    public EntryReminder reminder;
     public final Income income;
     public final Period period;
     public final Frequency freq;
+    private EntryReminder reminder;
 
     @javafx.fxml.FXML
     private HBox cardPane;

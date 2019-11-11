@@ -7,6 +7,7 @@ import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.List;
 
+import seedu.guilttrip.commons.core.Messages;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.commons.util.TimeUtil;
 import seedu.guilttrip.logic.CommandHistory;
@@ -72,6 +73,9 @@ public class SetReminderCommand extends Command {
         switch(entryType) {
         case "expense":
             List<Expense> expenseList = model.getFilteredExpenses();
+            if (targetIndex.getZeroBased() >= expenseList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
+            }
             Expense targetExpense = expenseList.get(targetIndex.getZeroBased());
             if (targetExpense.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
@@ -80,6 +84,9 @@ public class SetReminderCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetExpense));
         case "income":
             List<Income> incomeList = model.getFilteredIncomes();
+            if (targetIndex.getZeroBased() >= incomeList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
+            }
             Income targetIncome = incomeList.get(targetIndex.getZeroBased());
             if (targetIncome.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);
@@ -88,6 +95,9 @@ public class SetReminderCommand extends Command {
             return new CommandResult(String.format(MESSAGE_SUCCESS, targetIncome));
         case "wish":
             List<Wish> wishList = model.getFilteredWishes();
+            if (targetIndex.getZeroBased() >= wishList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_ENTRY_DISPLAYED_INDEX);
+            }
             Wish targetWish = wishList.get(targetIndex.getZeroBased());
             if (targetWish.getDate().minus(period).isBefore(currDate)) {
                 throw new CommandException(INVALID_PERIOD);

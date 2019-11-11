@@ -35,8 +35,8 @@ public class AddGeneralReminderCommand extends Command {
 
     public static final String COMMAND_WORD = "addReminder";
 
-    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a general reminder that displays" +
-            "when the specified conditions are met. \n";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Adds a general reminder that displays"
+            + "when the specified conditions are met. \n";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "Parameters: "
             + PREFIX_TYPE + "Income or Expense "
@@ -53,6 +53,8 @@ public class AddGeneralReminderCommand extends Command {
             + PREFIX_END_DATE + "2019/12/30 \n";
 
     public static final String MESSAGE_SUCCESS = "New GeneralReminder added: %1$s";
+    public static final String INVALID_DATE = "Start date must be before end date";
+    public static final String INVALID_BOUNDS = "Lower Bounds must be below Upper Bound";
 
     private Description message;
     private String type = "expense";
@@ -107,6 +109,11 @@ public class AddGeneralReminderCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
+        if (lowerBound > upperBound) {
+            throw new CommandException(INVALID_BOUNDS);
+        } else if (start.isAfter(end)) {
+            throw new CommandException(INVALID_DATE);
+        }
         this.reminder = new GeneralReminder(message, conditions);
         for (Condition condition : conditions) {
             model.addCondition(condition);

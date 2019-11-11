@@ -45,8 +45,8 @@ public class EditReminderCommand extends Command {
     public static final String COMMAND_WORD = "editReminder";
 
 
-    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the display conditions " +
-            "of the reminder selected ";
+    public static final String ONE_LINER_DESC = COMMAND_WORD + ": Edits the display conditions "
+            + "of the reminder selected ";
     public static final String MESSAGE_USAGE = ONE_LINER_DESC
             + "\nExisting values will be overwritten by the input values.\n"
             + "GeneralReminder Parameters: "
@@ -66,10 +66,10 @@ public class EditReminderCommand extends Command {
     public static final String REMINDER_TYPE_NOT_SUPPORTED = "This reminder cannot be edited. \n";
     public static final String INVALID_PERIOD = "Invalid period. (Cannot set reminder to notify before today!)";
     public static final String INVALID_FREQ = "Frequency must be smaller than period.";
-
+    private static final Logger logger = LogsCenter.getLogger(EditReminderCommand.class);
 
     private EditReminderDescriptor editReminderDescriptor;
-    private static final Logger logger = LogsCenter.getLogger(EditReminderCommand.class);
+
 
 
     /**
@@ -80,9 +80,10 @@ public class EditReminderCommand extends Command {
             EditGeneralReminderDescriptor editGeneralReminderDescriptor =
                     (EditGeneralReminderDescriptor) editReminderDescriptor;
             this.editReminderDescriptor = new EditGeneralReminderDescriptor(editGeneralReminderDescriptor);
-        } else if (editReminderDescriptor instanceof EditIewReminderDescriptor) {
-            EditIewReminderDescriptor editIewReminderDescriptor = (EditIewReminderDescriptor) editReminderDescriptor;
-            this.editReminderDescriptor = new EditIewReminderDescriptor(editIewReminderDescriptor);
+        } else if (editReminderDescriptor instanceof EditEntryReminderDescriptor) {
+            EditEntryReminderDescriptor editEntryReminderDescriptor =
+                    (EditEntryReminderDescriptor) editReminderDescriptor;
+            this.editReminderDescriptor = new EditEntryReminderDescriptor(editEntryReminderDescriptor);
         } else {
             this.editReminderDescriptor = editReminderDescriptor;
         }
@@ -100,10 +101,10 @@ public class EditReminderCommand extends Command {
             logger.info("Editing GeneralReminder");
             editedReminder = createGeneralEditedReminder(model,
                     reminderToEdit, (EditGeneralReminderDescriptor) editReminderDescriptor);
-        } else if (editReminderDescriptor instanceof EditIewReminderDescriptor) {
+        } else if (editReminderDescriptor instanceof EditEntryReminderDescriptor) {
             logger.info("Editing EntryReminder");
-            editedReminder = createIewEditedReminder(model,
-                    reminderToEdit, (EditIewReminderDescriptor) editReminderDescriptor);
+            editedReminder = createEntryEditedReminder(model,
+                    reminderToEdit, (EditEntryReminderDescriptor) editReminderDescriptor);
             EntryReminder entryReminder = (EntryReminder) editedReminder;
             Entry targetEntry = entryReminder.getEntry();
             Period period = entryReminder.getPeriod();
@@ -236,29 +237,29 @@ public class EditReminderCommand extends Command {
      * Creates and returns a {@code Reinder} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Reminder createIewEditedReminder(
-            Model model, Reminder reminderToEdit, EditIewReminderDescriptor editIewReminderDescriptor)
+    private static Reminder createEntryEditedReminder(
+            Model model, Reminder reminderToEdit, EditEntryReminderDescriptor editEntryReminderDescriptor)
         throws CommandException {
         assert reminderToEdit != null;
-        EntryReminder entryReminderToEdit = (EntryReminder) reminderToEdit;
         if (!(model.getReminderSelected() instanceof EntryReminder)) {
             throw new CommandException(MISMATCHING_REMINDER_TYPES);
         }
+        EntryReminder entryReminderToEdit = (EntryReminder) reminderToEdit;
         final Period period;
         final Frequency freq;
-        if (editIewReminderDescriptor.getPeriod().isPresent()) {
-            period = editIewReminderDescriptor.getPeriod().get();
+        if (editEntryReminderDescriptor.getPeriod().isPresent()) {
+            period = editEntryReminderDescriptor.getPeriod().get();
         } else {
             period = entryReminderToEdit.getPeriod();
         }
-        if (editIewReminderDescriptor.getFrequency().isPresent()) {
-            freq = editIewReminderDescriptor.getFrequency().get();
+        if (editEntryReminderDescriptor.getFrequency().isPresent()) {
+            freq = editEntryReminderDescriptor.getFrequency().get();
         } else {
             freq = entryReminderToEdit.getFrequency();
         }
         Description header;
-        if (editIewReminderDescriptor.getHeader().isPresent()) {
-            header = editIewReminderDescriptor.getHeader().get();
+        if (editEntryReminderDescriptor.getHeader().isPresent()) {
+            header = editEntryReminderDescriptor.getHeader().get();
         } else {
             header = entryReminderToEdit.getHeader();
         }
@@ -278,8 +279,8 @@ public class EditReminderCommand extends Command {
             editedReminder = createGeneralEditedReminder(model,
                     (GeneralReminder) reminderToEdit, new EditGeneralReminderDescriptor(editReminderDescriptor));
         } else if (reminderToEdit instanceof EntryReminder) {
-            editedReminder = createIewEditedReminder(model,
-                    (EntryReminder) reminderToEdit, new EditIewReminderDescriptor(editReminderDescriptor));
+            editedReminder = createEntryEditedReminder(model,
+                    (EntryReminder) reminderToEdit, new EditEntryReminderDescriptor(editReminderDescriptor));
         } else {
             throw new CommandException(REMINDER_TYPE_NOT_SUPPORTED);
         }
@@ -428,17 +429,17 @@ public class EditReminderCommand extends Command {
     /**
      * Contains edited information for EntryReminder
      */
-    public static class EditIewReminderDescriptor extends EditReminderDescriptor {
+    public static class EditEntryReminderDescriptor extends EditReminderDescriptor {
         private Period period;
         private Frequency frequency;
 
-        public EditIewReminderDescriptor() {}
+        public EditEntryReminderDescriptor() {}
 
         /**
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditIewReminderDescriptor(EditIewReminderDescriptor toCopy) {
+        public EditEntryReminderDescriptor(EditEntryReminderDescriptor toCopy) {
             setHeader(toCopy.header);
             setPeriod(toCopy.period);
             setFrequency(toCopy.frequency);
@@ -448,7 +449,7 @@ public class EditReminderCommand extends Command {
          * Only header is modified.
          * @param toCopy
          */
-        public EditIewReminderDescriptor(EditReminderDescriptor toCopy) {
+        public EditEntryReminderDescriptor(EditReminderDescriptor toCopy) {
             setHeader(toCopy.header);
         }
 
@@ -479,10 +480,10 @@ public class EditReminderCommand extends Command {
         public boolean equals(Object other) {
             if (this == other) {
                 return true;
-            } else if (!(other instanceof EditIewReminderDescriptor)) {
+            } else if (!(other instanceof EditEntryReminderDescriptor)) {
                 return false;
             } else {
-                EditIewReminderDescriptor e = (EditIewReminderDescriptor) other;
+                EditEntryReminderDescriptor e = (EditEntryReminderDescriptor) other;
                 return getHeader().equals(e.getHeader())
                         && getPeriod().equals(e.getPeriod())
                         && getFrequency().equals(e.getFrequency());

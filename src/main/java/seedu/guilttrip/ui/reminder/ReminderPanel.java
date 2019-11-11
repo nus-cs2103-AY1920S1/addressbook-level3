@@ -3,8 +3,6 @@ package seedu.guilttrip.ui.reminder;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.swing.*;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -41,17 +39,22 @@ public class ReminderPanel extends UiPart<Region> {
         reminderListView1.setCellFactory(listView -> new ReminderListViewCell());
     }
 
+    /**
+     * Updates reminder pannel with details of reminder selected.
+     */
     public void updateReminderSelected(Reminder reminder) {
         if (reminder != null) {
             reminderSelected = reminder;
             if (reminder instanceof GeneralReminder) {
                 GeneralReminder generalReminder = (GeneralReminder) reminder;
-                ObservableList<ReminderListEntry> conditionList = FXCollections.observableArrayList(generalReminder.getConditions());
+                ObservableList<ReminderListEntry> conditionList =
+                        FXCollections.observableArrayList(generalReminder.getConditions());
                 reminderListView2.setItems(conditionList);
                 reminderListView2.setCellFactory(listView -> new ReminderDetailsListViewCell());
             } else {
                 EntryReminder entryReminder = (EntryReminder) reminder;
-                ObservableList<ReminderListEntry> reminderList = FXCollections.observableArrayList(List.of(entryReminder));
+                ObservableList<ReminderListEntry> reminderList =
+                        FXCollections.observableArrayList(List.of(entryReminder));
                 reminderListView2.setItems(reminderList);
                 reminderListView2.setCellFactory(listView -> new ReminderDetailsListViewCell());
             }

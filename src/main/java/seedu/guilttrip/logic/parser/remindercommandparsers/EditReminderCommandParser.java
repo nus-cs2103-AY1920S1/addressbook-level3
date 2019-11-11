@@ -1,7 +1,6 @@
 package seedu.guilttrip.logic.parser.remindercommandparsers;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_DESC;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_END_DATE;
 import static seedu.guilttrip.logic.parser.CliSyntax.PREFIX_FREQ;
@@ -21,9 +20,9 @@ import java.util.stream.Stream;
 import seedu.guilttrip.commons.core.LogsCenter;
 import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand;
-import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditReminderDescriptor;
+import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditEntryReminderDescriptor;
 import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditGeneralReminderDescriptor;
-import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditIewReminderDescriptor;
+import seedu.guilttrip.logic.commands.remindercommands.EditReminderCommand.EditReminderDescriptor;
 import seedu.guilttrip.logic.parser.ArgumentMultimap;
 import seedu.guilttrip.logic.parser.ArgumentTokenizer;
 import seedu.guilttrip.logic.parser.Parser;
@@ -61,7 +60,6 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
         boolean isGeneralReminder = isPrefixPresent(argMultimap, PREFIX_UPPER_BOUND, PREFIX_LOWER_BOUND,
                 PREFIX_START_DATE, PREFIX_END_DATE, PREFIX_TAG);
         boolean isEntryReminder = isPrefixPresent(argMultimap, PREFIX_PERIOD, PREFIX_FREQ);
-
         if (isEntryReminder && isGeneralReminder) {
             throw new ParseException(EditReminderCommand.MISMATCHING_REMINDER_TYPES);
         }
@@ -98,26 +96,26 @@ public class EditReminderCommandParser implements Parser<EditReminderCommand> {
             }
             return new EditReminderCommand(editGeneralReminderDescriptor);
         } else if (isEntryReminder) {
-            editReminderDescriptor = new EditIewReminderDescriptor();
-            EditIewReminderDescriptor editIewReminderDescriptor =
-                    (EditIewReminderDescriptor) editReminderDescriptor;
+            editReminderDescriptor = new EditEntryReminderDescriptor();
+            EditEntryReminderDescriptor editEntryReminderDescriptor =
+                    (EditEntryReminderDescriptor) editReminderDescriptor;
             if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
-                editIewReminderDescriptor.setHeader(
+                editEntryReminderDescriptor.setHeader(
                         ParserUtil.parseDescription(argMultimap.getValue(PREFIX_DESC).get()));
             }
             if (argMultimap.getValue(PREFIX_PERIOD).isPresent()) {
-                editIewReminderDescriptor.setPeriod(
+                editEntryReminderDescriptor.setPeriod(
                         ParserUtil.parsePeriods(argMultimap.getValue(PREFIX_PERIOD).get()));
             }
             if (argMultimap.getValue(PREFIX_FREQ).isPresent()) {
-                editIewReminderDescriptor.setFrequency(
+                editEntryReminderDescriptor.setFrequency(
                         ParserUtil.parseFrequency(argMultimap.getValue(PREFIX_FREQ).get()));
             }
             logger.info("Params match EntryReminder.");
-            if (!editIewReminderDescriptor.isAnyFieldEdited()) {
+            if (!editEntryReminderDescriptor.isAnyFieldEdited()) {
                 throw new ParseException(EditReminderCommand.MESSAGE_NOT_EDITED);
             }
-            return new EditReminderCommand(editIewReminderDescriptor);
+            return new EditReminderCommand(editEntryReminderDescriptor);
 
         } else if (argMultimap.getValue(PREFIX_DESC).isPresent()) {
             editReminderDescriptor = new EditReminderDescriptor();

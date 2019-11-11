@@ -12,6 +12,9 @@ import seedu.guilttrip.model.Model;
 import seedu.guilttrip.model.entry.Expense;
 import seedu.guilttrip.model.entry.Wish;
 
+/**
+ * Converts Wish to Expense.
+ */
 public class PurchaseWishCommand extends Command {
 
     public static final String COMMAND_WORD = "getWish";

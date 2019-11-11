@@ -24,7 +24,8 @@ public class RemoveConditionFromReminderCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1, 2";
 
     public static final String MESSAGE_SUCCESS = "Condition Removed: %1$s";
-    public static final String REMINDER_UNMODIFIABLE_MESSAGE = "Conditions cannot be removed from this generalReminder \n";
+    public static final String REMINDER_UNMODIFIABLE_MESSAGE =
+            "Conditions cannot be removed from this generalReminder \n";
     public static final String CONDITION_ABSENT_MESSAGE = "GeneralReminder does not have that condition \n";
     public static final String CONDITION_NOT_REMOVABLE = "GeneralReminder must have at least one condition \n";
 

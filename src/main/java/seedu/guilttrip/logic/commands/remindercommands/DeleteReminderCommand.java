@@ -1,11 +1,5 @@
 package seedu.guilttrip.logic.commands.remindercommands;
 
-import static java.util.Objects.requireNonNull;
-
-import java.util.List;
-
-import seedu.guilttrip.commons.core.Messages;
-import seedu.guilttrip.commons.core.index.Index;
 import seedu.guilttrip.logic.CommandHistory;
 import seedu.guilttrip.logic.commands.Command;
 import seedu.guilttrip.logic.commands.CommandResult;

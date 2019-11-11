@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.guilttrip.model.entry.Entry;
 import seedu.guilttrip.model.entry.Period;
 import seedu.guilttrip.model.entry.Wish;
 import seedu.guilttrip.model.reminders.EntryReminder;
@@ -15,7 +14,10 @@ import seedu.guilttrip.model.util.Frequency;
 import seedu.guilttrip.ui.UiPart;
 import seedu.guilttrip.ui.entry.EntryCard;
 
-public class WishReminderCard  extends UiPart<Region> {
+/**
+ * Displays entry of Entry Reminder
+ */
+public class WishReminderCard extends UiPart<Region> {
 
     private static final String FXML = "/wishlist/WishListCard.fxml";
 
@@ -27,10 +29,10 @@ public class WishReminderCard  extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on GuiltTrip level 4</a>
      */
 
-    private final EntryReminder reminder;
     public final Wish wish;
     public final Period period;
     public final Frequency freq;
+    private final EntryReminder reminder;
 
     @javafx.fxml.FXML
     private HBox cardPane;
