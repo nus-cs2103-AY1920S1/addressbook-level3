@@ -24,13 +24,6 @@ FinSec is a useful application that was created with the end goal of aiding Fina
 It is a Command Line Interface (CLI) based tool to cater to computing professionals who are highly adept at typing but
 also provides a Graphical User Interface (GUI) interface for users to easily view interact with FinSec.
 
-FinSec boasts relevant and useful features which have been carefully selected and scrutinised to fit the needs of our
-target audience. All of FinSec's features and implementations are well documented in guides for users and developers
-respectively.
-
-.A view of FinSec
-image::../images/Ui.png[width="602"]
-
 == Role
 
 My main role was to act as the Team Lead for the project, completing team tasks for the project and managing

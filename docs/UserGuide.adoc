@@ -189,6 +189,18 @@ Examples:
 add_claim n/Lee Wei Gen d/Sports Equipment c/115.2 date/29-12-2019 t/Sports t/Equipment
 ....
 
+<<UG-AddClaimExample>> and <<UG-AddClaimResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+[[UG-AddClaimExample]]
+[reftext="Figure 3.4.1"]
+[caption="Figure 3.4.1: "]
+.Type in the add_claim command.
+image::UG-beforeAddClaim.png[width="800"]
+[[UG-AddClaimResult]]
+[reftext="Figure 3.4.2"]
+[caption="Figure 3.4.2: "]
+.Result after adding the claim.
+image::UG-afterAddClaim.png[width="800"]
+
 ====
 --
 image::warning.png[width = "20", float = "left"]
@@ -216,6 +228,18 @@ approve 1
 ....
 
 The above example approves the first claim in the claim list.
+
+<<UG-ApproveExample>> and <<UG-ApproveResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+[[UG-ApproveExample]]
+[reftext="Figure 3.5.1"]
+[caption="Figure 3.5.1: "]
+.Type in the approve claim command.
+image::UG-beforeApprove.png[width="800"]
+[[UG-ApproveResult]]
+[reftext="Figure 3.5.2"]
+[caption="Figure 3.5.2: "]
+.Result after approving the claim.
+image::UG-afterApprove.png[width="800"]
 
 ====
 --
@@ -246,6 +270,19 @@ reject 1
 ....
 
 The above example rejects the first claim in the claim list.
+
+<<UG-RejectExample>> and <<UG-RejectResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+[[UG-RejectExample]]
+[reftext="Figure 3.6.1"]
+[caption="Figure 3.6.1: "]
+.Type in the reject claim command.
+image::UG-beforeReject.png[width="800"]
+[[UG-RejectResult]]
+[reftext="Figure 3.6.2"]
+[caption="Figure 3.6.2: "]
+.Result after rejecting the claim.
+image::UG-afterReject.png[width="800"]
+
 
 ====
 --
