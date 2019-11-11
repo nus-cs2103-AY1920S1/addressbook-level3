@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -125,7 +124,6 @@ public class EditEventCommand extends Command {
         }
 
         model.setEvent(eventToEdit, editedEvent);
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
