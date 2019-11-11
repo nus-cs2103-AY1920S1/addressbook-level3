@@ -50,10 +50,10 @@ public class EditActivityCommand extends EditCommand {
 
     public static final HelpExplanation MESSAGE_USAGE = new HelpExplanation(
             COMMAND_WORD + " " + SECOND_COMMAND_WORD,
-            ": Edits the details of an activity identified "
-                    + "by it's index number in the activity list. ",
+            "Edit the activity's details identified by "
+                    + "it's index number in activity list. ",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " "
-                    + "INDEX(must be a positive integer) "
+                    + "INDEX(a positive integer) "
                     + "[" + PREFIX_NAME + "NAME] "
                     + "[" + PREFIX_ADDRESS + "ADDRESS] "
                     + "[" + PREFIX_PHONE + "PHONE] "
@@ -62,7 +62,7 @@ public class EditActivityCommand extends EditCommand {
                     + "[" + PREFIX_COST + "COST] "
                     + "[" + PREFIX_TAG + "TAG]...",
             COMMAND_WORD + " " + SECOND_COMMAND_WORD + " 2 "
-                    + PREFIX_PHONE + "91234567 "
+                    + PREFIX_NAME + "May "
     );
 
     public static final CommandInformation COMMAND_INFORMATION = new CommandInformation(

@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Setting Up
+= Plan²travel - Setting Up
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -57,9 +57,9 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 === Updating documentation to match your fork
 
-After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level3` repo.
+After forking the repo, the documentation will still have the Plan²travel branding and refer to the `Plan²travel` repo.
 
-If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level3`), you should do the following:
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `Plan²travel`), you should do the following:
 
 . Configure the <<Documentation#Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
@@ -81,4 +81,4 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 === Getting started with coding
 
-When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, AddressBook's architecture>>.
+When you are ready to start coding, we recommend that you get some sense of the overall design by reading about <<DeveloperGuide#Design-Architecture, Plan²travel's architecture>>.

@@ -12,11 +12,11 @@ import seedu.planner.model.field.Cost;
 import seedu.planner.model.field.Name;
 import seedu.planner.model.tag.Tag;
 
+//@@author oscarsu97
+
 /**
  * Represents an Activity in the trip planner.
  * Guarantees: details are present and not null, field values are validated, immutable.
- *
- * @@author oscarsu97
  */
 public class Activity implements Comparable<Activity> {
 
@@ -75,8 +75,8 @@ public class Activity implements Comparable<Activity> {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both activities of the same name have the same addresses.
+     * This defines a weaker notion of equality between two activities.
      */
     public boolean isSameActivity(Activity otherActivity) {
         if (otherActivity == this) {

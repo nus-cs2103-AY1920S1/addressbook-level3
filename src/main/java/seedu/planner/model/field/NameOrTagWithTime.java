@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import seedu.planner.model.tag.Tag;
 
+//@@author oscarsu97
+
 /**
  * Represents a Name or Tag with a timing tagged to it.
  */

@@ -12,9 +12,10 @@ import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.schedulecommand.ScheduleCommand;
 import seedu.planner.logic.parser.exceptions.ParseException;
 
+//@@author oscarsu97
+
 /**
  * Parses input arguments and creates a new ScheduleCommand object
- * @@author oscarsu97
  */
 public class ScheduleCommandParser {
 
