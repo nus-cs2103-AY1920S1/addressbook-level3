@@ -580,14 +580,8 @@ image::warning.png[width = "20", float = "left"]
 //@@author {lawncegoh}
 // tag::introduction[]
 ---
-The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively.
-They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once
-you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that
-we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this
-list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check`
-feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you.
-Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
-
+[source, java]
+The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively. They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check` feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you. Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
 // end::introduction[]
 
 // tag::gotofeature[]
@@ -721,6 +715,9 @@ Keyword: `sort status`
 
 Format: `sort status`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `sort status` only applies to the claims list
 
@@ -759,6 +756,9 @@ Keyword: `reverse date`
 
 Format: `reverse date`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse date` doesn't apply to contacts list
 
@@ -775,6 +775,9 @@ Format: `reverse status`
 
 // end::reversefeature[]
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse status` only applies to the claims list
 
@@ -844,7 +847,7 @@ above to pop up.
 
 ====
 
-//@@{lawncegoh}
+//@@author{lawncegoh}
 // tag::clearfeature[]
 === Clearing all data : `clear`
 
@@ -891,7 +894,6 @@ Example:
 * Creates an alternative keyword for the command `add_contact`
 * Now `AC` can be used as a replacement to add a contact
 ****
-
 
 === Exiting the program : `exit`
 
@@ -1031,6 +1033,18 @@ e.g.
 
 * *Deleting Contacts* `delete_contact INDEX` +
 e.g. `delete_contact 3`
+
+* *Sorting Lists* `sort` +
+e.g.
+** `sort name`
+** `sort date`
+** `sort status` (only in Claims List)
+
+* *Sorting Lists in reverse order* `reverse` +
+e.g.
+** `reverse name`
+** `reverse date`
+** `reverse status` (only in Claims List)
 
 * *Viewing Budget* `budget`
 
