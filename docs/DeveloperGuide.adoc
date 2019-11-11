@@ -169,7 +169,7 @@ After a series of quizzes, each flashcard can automatically record how many corr
 The stats command helps the user to see their progress while doing the quizzes. Below is a sequence diagram of how this command
 works.
 
-.Component interaction for stats command
+.Component interactions for stats command
 image::StatsSequenceDiagram.png[]
 
 // end::quizdiagram[]
