@@ -38,6 +38,9 @@ Package Annotation {
 Class A #FFFFFF
 }
 
+Package Predicates {
+}
+
 Package Tag {
 Class Tag
 }
@@ -50,7 +53,7 @@ ModelManager .up.|> Model
 Model .left.> ObservableList
 ModelManager o-left-> "1" VersionedMark
 ModelManager o-right-> "1" UserPrefs
-ModelManager -down-> Bookmark
+ModelManager -down--> Bookmark : filtered list of >
 'ModelManager --> "1" Url : < currently viewed online in
 'ModelManager --> "1" Bookmark : < currently viewed offline in
 
@@ -58,7 +61,7 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 Mark .right.|> ReadOnlyMark
 VersionedMark -down-|> Mark
-VersionedMark +-left "*" VersionedMark.MarkStateRecord : contains >
+VersionedMark *-left "*" VersionedMark.MarkStateRecord : contains >
 VersionedMark.MarkStateRecord *-down> ReadOnlyMark
 
 Mark *--> Bookmark
@@ -70,7 +73,7 @@ FolderStructure -[hidden]left-> Autotag
 Autotag -[hidden]left-> Reminder
 
 'UniqueBookmarkList o--> Bookmark
-Bookmark *-left-> Tag
+Bookmark -left-> Tag
 Bookmark --> Annotation
 
 HiddenB1 -[hidden]right-> HiddenB2
@@ -80,6 +83,6 @@ HiddenB1 -[hidden]right-> HiddenB2
 Reminder -right-> Bookmark
 
 Autotag --> Tag
-Autotag ..> Bookmark
+Autotag -down-> Predicates
 
 @enduml

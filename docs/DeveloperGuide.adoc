@@ -142,64 +142,86 @@ The `Logic` component does the following:
 
 The following class diagram illustrates the structure of the `Model` component:
 
+[[model-class-diagram]]
 .Structure of the Model Component
 image::ModelClassDiagram.png[Model Class Diagram, 700]
 
 *API* : link:{repoURL}/src/main/java/seedu/mark/model/Model.java[`Model.java`]
 
-The `Model` component is in charge of storing the data of Mark. As such, it does not depend on any of
+The `Model` component manages the storage of data in Mark. Hence, it does not depend on any of
 the other three components.
 
-// TODO: update from here
-The `Model` consists of the following:
+As seen in the diagram above, the `Model` consists of the following:
 
 1. `VersionedMark` - contains Mark data
 2. `UserPrefs` - represents the user's preferences
-3. `OfflineDocument` - represents the current document being displayed in the offline tab
-4. `Url` - represents the current URL being displayed in the offline tab
 
-It also exposes an unmodifiable `ObservableList<Bookmark>` that
-can be 'observed', e.g. the UI can be bound to this list so that the UI automatically updates
-when the list data are changed.
+The `Model` also exposes several `Observable` properties so that the UI can 'observe' them and update
+automatically when `Model` data are changed. For simplicity's sake, some of these dependencies
+have been omitted from the Model class diagram. The observable properties are:
 
-`VersionedMark` contains a list of `ReadOnlyMark` objects that represent past or future states of
-Mark. Each `Mark`, in turn, comprises a `UniqueBookmarkList`, a `ReminderAssociation` object, an
-`AutotagController`, and a `FolderStructure`.
+[start=3]
+. An unmodifiable filtered `ObservableList` of bookmarks - represents the bookmarks that are
+currently being displayed in the bookmark list.
+. A second filtered `ObservableList` of bookmarks - represents the bookmarks that are currently
+being displayed in the favorites panel on the **Dashboard**.
+. A `SimpleObjectProperty` of a `Url` - contains the URL of the current web page that can be
+seen on the **Online** tab.
+. A `SimpleObjectProperty` of a `Bookmark` - represents the Bookmark whose `Offline Copy` is currently
+being viewed in the **Offline** tab.
+
+As seen in <<model-class-diagram>>, `VersionedMark` contains a list of `ReadOnlyMark` objects
+that represent past or future states of Mark. The class `Mark` implements `ReadOnlyMark`.
+Each of the `Mark` objects in `VersionedMark` comprises a `UniqueBookmarkList`
+from the `Bookmark` package, a `ReminderAssociation` object from the `Reminder` package, an
+`AutotagController` from the `Autotag` package, and a `FolderStructure` from the `FolderStructure` package.
+
+The structure of each package will now be explained in more detail.
 
 .Structure of the Bookmark Package
 image::BookmarkPackageClassDiagram.png[Bookmark Package Class Diagram, 600]
 
-More details regarding the implementation of Folders can be found in <<Folder feature>>.
+The `Bookmark` package contains classes relating to Bookmarks and their attributes, as shown above. The external
+class `Mark` contains a `UniqueBookmarkList`, which has one or more `Bookmarks`. As mentioned earlier, the
+`Bookmark` class is also accessed by `ModelManager`.
 
-// TODO: Mention that Tags and Folders are not very OOP (new object created for each bookmark)
+Each `Bookmark` has a `Name`, a `Url`, a
+`Remark`, a `Folder`, zero or one `CachedCopy`, and one or more `Tags`. Each `CachedCopy` has its own
+set of annotations (in the `Annotation` package).
 
-.Structure of the Annotation package
-image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 600]
+NOTE: Each Bookmark has a different `Tag` object and a different `Folder` object, even if bookmarks have the same
+tag or folder name. More details regarding the implementation of Folders can be found in <<Folders feature>>.
+
+.Structure of the Annotation Package
+image::AnnotationPackageClassDiagram.png[Annotation Package Class Diagram, 350]
 
 The above diagram shows the structure of the Annotation package, which is accessed by `ModelManager` via `OfflineDocument`.
-An `OfflineDocument` consists of zero or more `Paragraph` objects. A `Paragraph` can be either a `PhantomParagraph`, which
-contains only an `AnnotationNote` and a `ParagraphIdentifier`, or a `TrueParagraph`, which contains `AnnotationNote`,
-`ParagraphIdentifier`, `Highlight`, and `ParagraphContent`. `AnnotationNote` and `Highlight` are optional fields
-whenever they are used, i.e. in `PhantomParagraph` and/or `TrueParagraph`.
+An `OfflineDocument` consists of zero or more `Paragraph` objects, which are each identified by a `ParagraphIdentifier`.
+A `Paragraph` can either be a `TrueParagraph`, which has a `ParagraphContent` and zero or one `Annotation`,
+or a `PhantomParagraph`, which has no `ParagraphContent` but must have an `Annotation`.
+An `Annotation` consists of a `Highlight` and `AnnotationNote`.
 
-More details regarding the implementation of Annotations can be found in <<Annotation feature>>.
+NOTE: More details regarding the implementation of Annotations can be found in <<Annotation feature>>.
 
-.Structure of the Autotag package
+.Structure of the Autotag and Predicates Packages
 image::AutotagPackageClassDiagram.png[Autotag Package Class Diagram, 500]
 
 The Autotag package consists of a main `AutotagController` class, which controls one or more `SelectiveBookmarkTaggers`.
-The `SelectiveBookmarkTagger` class inherits the method `#applyTag(Bookmark)` from its parent class `BookmarkTagger`.
+The `SelectiveBookmarkTagger` class contains a `BookmarkPredicate` and a `Tag` (inherited from its parent class
+`BookmarkTagger`). Each `BookmarkPredicate`, in turn, makes use of a combination of predicates like
+`NameContainsKeywordsPredicate`, `UrlContainsKeywordsPredicate`, and `FolderContainsKeywordsPredicate` to test
+bookmarks.
 
-More details regarding the implementation of Autotags can be found in <<Autotag feature>>.
+NOTE: More details regarding the implementation of Autotags can be found in <<Autotag feature>>.
 
-.Structure of the Reminder package
+.Structure of the Reminder Package
 image::ReminderPackageClassDiagram.png[Reminder Package Class Diagram, 350]
 
 The Reminder package is managed by the `ReminderAssociation` class. It handles the association between a set of
-`Reminders` and a set of `Bookmarks`. Each `Reminder` consists of a `Note` that describes the task to be done
-and the `Url` of the `Bookmark` it is associated with.
+`Reminders` and a set of `Bookmarks`, making sure that the two sets remain synchronised. Each `Reminder` consists
+of a `Note` that describes the task to be done and the `Url` of the `Bookmark` it is associated with.
 
-More details regarding the implementation of Reminders can be found in <<Reminder feature>>.
+NOTE: More details regarding the implementation of Reminders can be found in <<Reminder feature>>.
 
 [[Design-Storage]]
 === Storage component
