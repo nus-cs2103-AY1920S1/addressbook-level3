@@ -88,7 +88,7 @@ public class InventoryTabParserTest {
     }
 
     @Test
-    public void parser_editCommand_quality_unsuccessful() {
+    public void parser_editCommandQuality_unsuccessful() {
         try {
             parser.parseCommand("edit number d/new c/test q/6 co/9 p/8", new InventoryList());
         } catch (Exception e) {
@@ -115,7 +115,7 @@ public class InventoryTabParserTest {
     }
 
     @Test
-    public void parser_editCommand_cost_unsuccessful() {
+    public void parser_editCommandCost_unsuccessful() {
         try {
             parser.parseCommand("edit 1 d/new c/test q/6 co/-1 p/6", new InventoryList());
         } catch (Exception e) {
@@ -136,7 +136,7 @@ public class InventoryTabParserTest {
     }
 
     @Test
-    public void parser_editCommand_price_unsuccessful() {
+    public void parser_editCommandPrice_unsuccessful() {
         try {
             parser.parseCommand("edit 1 d/new c/test q/5 co/9 p/-3", new InventoryList());
         } catch (Exception e) {
