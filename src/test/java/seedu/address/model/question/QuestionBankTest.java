@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.question.exceptions.DuplicateQuestionException;
+import seedu.address.model.question.exceptions.QuestionNotFoundException;
 import seedu.address.testutil.question.QuestionBankStub;
 import seedu.address.testutil.question.QuestionBuilder;
 
@@ -156,6 +157,13 @@ public class QuestionBankTest {
         questions.deleteQuestion(question);
         QuestionBank expectedQuestionBank = new QuestionBank();
         assertEquals(expectedQuestionBank, questions);
+    }
+
+    @Test
+    public void remove_nonExistentQuestion_throwQuestionNotFoundException() {
+        questions.addQuestion(question);
+        assertThrows(QuestionNotFoundException.class, () ->
+            questions.deleteQuestion(differentQuestion));
     }
 
     @Test

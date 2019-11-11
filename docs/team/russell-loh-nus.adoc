@@ -65,16 +65,17 @@ It was challenging to ensure that the controls are familiar to the teachers and 
 ** Enhancements to existing features:
 *** Wrote skeleton for commands and related prefix that the team can reuse. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/32[#32], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/33[#33])
 *** Added command summary and adjusted application help guide user interface. (Pull request https://github.com/AY1920S1-CS2103T-W13-2/main/pull/121[#121])
-*** Refactored and removed address book related commands and parser. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/106[#106], https://github.com[#34])
-*** Added tests for questions. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/185[#185], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/189[#189])
+*** Refactored and removed address book related commands and parser. (Pull request https://github.com/AY1920S1-CS2103T-W13-2/main/pull/106[#106])
+*** Added tests for questions. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/185[#185], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/189[#189], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/213[#213])
 ** Documentation:
 *** Added documentation for features implemented. (Pull requests https://github.com/AY1920S1-CS2103T-W13-2/main/pull/185[#185], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/121[#121], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/106[#106], https://github.com/AY1920S1-CS2103T-W13-2/main/pull/74[#74])
 *** Added first draft user guide, use cases and UI mockup to the developer guide. (Pull request https://github.com/AY1920S1-CS2103T-W13-2/main/pull/18[#18])
+*** Improved formatting for team Github page and both User and Developer guide. (Pull request https://github.com/AY1920S1-CS2103T-W13-2/main/pull/217[#217])
 ** Community:
 *** Team pull requests that I reviewed and merged. [https://github.com/AY1920S1-CS2103T-W13-2/main/pulls?utf8=%E2%9C%93&q=is%3Apr+is%3Aclosed+commenter%3ARussell-Loh-NUS+[Github]]
-*** Reviews done for other teams (Pull request https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/122[#122])
+*** Reviews done for other teams. (Pull request https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/122[#122])
 ** Tools:
-*** Integrated a third party library (commons-text by Apache) to the project
+*** Integrated a third party library (commons-text by Apache) to the project.
 
 ---
 

@@ -48,6 +48,7 @@ public class HelpWindow extends UiPart<Stage> {
         + "Listing a Quiz : quiz list quizID/…\n"
         + "Showing only Questions of a Quiz : quiz showQuestions quizID/…\n"
         + "Showing only Answers of a Quiz : quiz showAnswers quizID/…\n"
+        + "Exporting a quiz : quiz export quizID/…\n"
         + "\n"
         + "Adding an Event : event eventName/… startDateTime/… endDateTime/… recur/… color/…\n"
         + "Editing an Event : event [INDEX] eventName/… startDateTime/… endDateTime/… recur/… color/…\n"

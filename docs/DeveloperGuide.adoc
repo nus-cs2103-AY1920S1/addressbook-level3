@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3/tree/master
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-2/main
 
 By: `Team AY1920S1-CS2103T-W13-2`      Since: `September 2019`      Licence: `MIT`
 
@@ -180,8 +180,8 @@ The feature comprises of five commands namely,
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
 
+.Overview of questions classes.
 image::QuestionsClassDiagram.png[]
-_Figure 5. Overview of questions classes_
 
 [[Feature-Question-Add]]
 ==== Add command
@@ -284,8 +284,8 @@ they will be added to the temporary `similarAl` list instead.
 
 *Step 8*. A new `CommandResult` will be returned with a message stating the search term and the number of results returned.
 
+.Activity diagram of questions search.
 image::QuestionsSearchActivityDiagram.png[]
-_Figure 6. Activity diagram of questions search_
 
 // end::questions-find[]
 
@@ -337,8 +337,8 @@ of the various `QuestionPanel` that contains each question. +
 Below is the sequence diagram of the interactions that happen from when the slideshow command is entered, to the corresponding
 questions displayed in the slideshow.
 
+.Sequence diagram illustrating the interactions happening.
 image::SlideshowFeatureSequenceDiagram.png[scaledwidth=16cm]
-_Figure 7. Sequence diagram illustrating the interactions happening_
 
 ===== Implementation
 
@@ -366,8 +366,8 @@ the user navigates to the next question and decremented when navigating to the p
 *Step 5.* The user exits the slideshow when the `Esc` key event is triggered or when the `currQuestionIndex` exceeds the `questionPanels.size()`.
 The behaviour of this follows the common procedure that most presentation programs adopt thus, it will not  feel foreign to users.
 
+.Activity diagram of the actions performed.
 image::SlideshowFeatureActivityDiagram.png[]
-_Figure 8. Activity diagram of the actions performed_
 
 ==== Design Considerations
 
@@ -1290,7 +1290,7 @@ image::DeveloperGuideResources/StatisticsActivityDiagramResized.png[]
 
 [.big]##**Overview**##
 
-The events feature allows users of Njoy to manage, view and export their events. This feature is built based on the jfxtras iCalendarAgenda library.
+The events feature allows users of Njoy to manage, view and export their events. This feature is built based on the Jfxtras iCalendarAgenda library.
 The iCalendarAgenda object is used on the UI side to render VEvents. The VEvent object from the iCalendarAgenda library is used to encapsulate event details such as
 event name, start date time, recurrence, etc. Note that VEvent is primarily used throughout the application, as it is the required object type for iCalendarAgenda.
 At the model level, VEvents are mapped to Event objects for saving and vice versa for reading purposes in the storage layer.
@@ -1298,12 +1298,12 @@ At the model level, VEvents are mapped to Event objects for saving and vice vers
 The feature comprises of the following features:
 
 * <<Feature-Event-Add, `EventAddCommand`>> - Creates a new event.
-* <<Feature-Event-Index, `EventIndexCommand`>> -Gets the index of an event.
+* <<Feature-Event-Index, `EventIndexCommand`>> - Gets the index of an event.
 * <<Feature-Event-Edit, `EventEditCommand`>> - Edits an existing event, identified by their index.
 * <<Feature-Event-Delete, `EventDeleteCommand`>> - Deletes an existing event, identified by their index.
-* <<Feature-Event-View, `EventViewCommand`>> -View and set the preferences of the event schedule.
-* <<Feature-Event-Screenshot, `EventScreenshotCommand`>> -Takes a screenshot of the current event schedule.
-* <<Feature-Event-Export, `EventExportCommand`>> -Exports events to a .ics file type.
+* <<Feature-Event-View, `EventViewCommand`>> - View and set the preferences of the event schedule.
+* <<Feature-Event-Screenshot, `EventScreenshotCommand`>> - Takes a screenshot of the current event schedule.
+* <<Feature-Event-Export, `EventExportCommand`>> - Exports events to a .ics file type.
 
 The commands when executed, will interface with the methods exposed by the `Model` interface to perform the related operations
 (See <<Design-Logic, logic component>> for the general overview).
@@ -1314,9 +1314,9 @@ The figure below describes the interactions between event-related classes in the
 class has a dependency on `Event` object in its constructor, but only has a `VEvent` attribute: `vEvents`. This
 highlights a mapping between the Event and VEvent object within the `EventRecord` class. Althought the methods
 of the `EventRecord` class are omitted for brevity, they are mostly `VEvent` based, which again highlights that
-interactions with the `Logic` and `UI` layers will mostly be done in `VEvent` type.
+interactions with the `Logic` and `UI` components will mostly be done in `VEvent` type.
 
-.Class Diagram for EventRecord
+.Class Diagram for EventRecord and its related classes
 image::DeveloperGuideResources/EventClassDiagram.png[]
 
 [[Feature-Event-Add]]
@@ -1332,13 +1332,13 @@ The following is a detailed explanation of the operations `EventAddCommand` perf
 The `VEvent` added is validated for uniqueness by `EventUtil#isSameVEvent(VEvent vEvent)`.
 
 3. If successful, a success message will be generated and a new `CommandResult` will be returned with the generated success message.
-Otherwise, an error message showing proper note command syntax is thrown as `CommandException`.
+Otherwise, an error message showing the proper event add command syntax will be thrown as `CommandException`.
 
 4. If the command syntax was valid and `VEvent` was added to the `EventRecord`, `LogicManager`
 calls `Storage#saveEvents(ReadOnlyEvents eventRecord)` which saves the `EventRecord` in JSON format after serializing it using the `JsonEventStorage`.
 
 [NOTE]
-The `ReadOnlyVEventRecord` and `ReadOnlyEventRecord` hides the implementation of the EventRecord from the other layers of the software.
+The `ReadOnlyVEventRecord` and `ReadOnlyEventRecord` interfaces hides the implementation of the EventRecord from the other layers of the software.
 
 
 [[Feature-Event-Index]]
@@ -1346,7 +1346,7 @@ The `ReadOnlyVEventRecord` and `ReadOnlyEventRecord` hides the implementation of
 
 The following is a detailed explanation of the operations `EventIndexCommand` performs.
 The purpose of this command is to return the index of the vEvent(s) with event name that equals to the `desiredEventName` which is input from the user.
-And if there are no matching VEvents with the same string. Suggest the a VEvent with the most similar event name to that of
+And if there are no matching VEvents with the same event name. Suggest a VEvent with the most similar event name to that of
 the `desiredEventName` based on the https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]
 
 The following is a sample activity diagram of the execute method of `EventIndexCommand`. Note that the "details"
@@ -1361,8 +1361,8 @@ image::DeveloperGuideResources/EventIndexActivityDiagram.png[]
 
 2. The method `EventRecord#findVEvents(String desiredEventName)` is then called through the `Model#findVEvents(String desiredEventName)` method.
 
-3. The `EventRecord#vEvents` list is iterated once and the search is performed on the 'desiredEventName' using `String.util#equalsIgnoreCase` with the `summary`
-value of each VEvent. Matching VEvents and their corresponding index in vEvents will form a new `Pair<Index, VEvent>` and be added to the `resultIndexList`. At the end of the iteration
+3. The `EventRecord#vEvents` list is iterated once and the search is performed on the 'desiredEventName' using `StringUtil#equalsIgnoreCase` with the `summary`
+value of each `VEvent`. Matching `VEvent`'s and their corresponding index in `vEvents` will form a new `Pair<Index, VEvent>` and be added to the `resultIndexList`. At the end of the iteration
 `resultIndexList` is returned.
 
 4. If the `resultIndexList` returned is not empty, a new `CommandResult` will be returned with a message
@@ -1371,10 +1371,10 @@ stating the Index and the corresponding details of the VEvents found.
 5. Else, when the `resultIndexList` is empty, the method `EventRecord#findMostSimilarVEvent(String desiredEventName)`
 is then called through the `Model#findMostSimilarVEvent(String desiredEventName)` method.
 
-6. If the there are no VEvents, in `vEvents` of `EventRecord` the method will throw a `VEventNotFoundException` which will be caught and throw wrapped to a `CommandException` with a corresponding user message to be shown.
+6. If the there are no `VEvent`, in `vEvents` of `EventRecord` the method will throw a `VEventNotFoundException` which will be caught. This exception will then be wrapped to a `CommandException`  and thrown upwards with a corresponding user message to be shown.
 
-7. Otherwise, `EventRecord#vEvents` list will be iterated once, and the similarity between `desiredEventName` and the `summary` value of each VEvent will be calculated based on the
-https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]. At the end the event which is most similar and its index will create a new `Pair<Index, VEvent>` and be returned.
+7. Otherwise, `EventRecord#vEvents` will be iterated once, and the similarity between `desiredEventName` and the `summary` value of each VEvent will be calculated based on the
+https://en.wikipedia.org/wiki/Levenshtein_distance[Levenshtein distance formula]. At the end the event which is most similar and its index will create be returned as a new `Pair<Index, VEvent>`.
 
 8. A new `CommandResult` will be returned with a message stating the Index and the corresponding details of the most similar VEvent found.
 
@@ -1410,7 +1410,7 @@ This will replace the target VEvent with the new `editedVEvent`. A success messa
 
 The following is a detailed explanation of the operations `EventDeleteCommand` performs. +
 
-1. The `EventDeleteCommand#execute(Model model)` method is executed and it validates that the specified `VEvent` index to delete is within range. If valid, the vEvent is retrieved using its index in the `Model`’s `eventRecord`.
+1. The `EventDeleteCommand#execute(Model model)` method is executed and it validates that the specified `Index` to delete is within range. If valid, the vEvent to be deleted will be retrieved using its `Index`.
 
 2. The method `Model#deleteVEvent(Index index)` will then be called to remove the `VEvent` from the `EventRecord`. `EventRecord#deleteVEvent(Index index)` is invoked which makes a call to its internal list to remove the speficied vEvent.
 
@@ -1450,7 +1450,7 @@ call `Logic#getScheduleViewMode()` and `Logic#getEventScheduleTargetDateTime()` 
 
 [NOTE]
 The `EventSchedulePrefs` object is used to store the preference of the user for the `iCalendarAgenda`.
-Specifically the skin mode and the displayed date time
+Specifically the skin mode and the reference date time.
 
 [[Feature-Event-Screenshot]]
 ==== Screenshot event command
@@ -1463,18 +1463,18 @@ The following is a detailed explanation of the operations `EventScreenshotComman
 1. The `EventScreenshotCommand#execute(Model model)` method is executed. This simply returns a new
 `CommandResult` with type `CommandResultType.SCHEDULE_SCREENSHOT` and `targetPrintableFileName` from `Model#getEventSchedulePrefString()`
 
-2. The `MainWindow` which detects that the `CommandResult`is of type `CommandResultType.SCHEDULE_SCREENSHOT` will
+2. The `MainWindow` which detects that the `CommandResult` is of type `CommandResultType.SCHEDULE_SCREENSHOT` will
 call `MainWindow# handleScheduleScreenshot(String targetPrintableFileName)`.
 
 3. Within the `MainWindow# handleScheduleScreenshot(String targetPrintableFileName)` it will then open a new full-screen window
-of the current `EventSchedulePanel` and get its `WritableImage`. Then it will construct a new `SchedulePrintable` with the `targetPrintableFileName` and `WritabelImage` and call
+of the current `EventSchedulePanel` and get its `WritableImage`. Then it will construct a new `SchedulePrintable` with the `targetPrintableFileName` and `WritableImage` and call
 `logic#savePrintable(NjoyPrintable printable)`.
 
-4. If successful, this will save the EventSchedulePanel as .png file type in the printable directory with file name `targetPrintableFileName`
+4. If successful, this will save the `EventSchedulePanel` as .png file type in the printable directory with file name `targetPrintableFileName`
 
 [NOTE]
 The `Model#getEventSchedulePrefString()` method gets the a string representation of the current state of the Event Schedule Panel.
-This is to allow user to easily identify what the .png screenshot shows.
+This is to allow user to easily identify what the .png screenshot represents.
 
 [NOTE]
 The `NjoyPrintable` object is used to encapsulate the `WritableImage` of the JavaFX Node to be saved and the file name to save it to.
@@ -1491,13 +1491,13 @@ The following is a detailed explanation of the operations `EventScreenshotComman
 1. The `EventExportCommand#execute(Model model)` method is executed. This simply returns a new
 `CommandResult` with type `CommandResultType.EXPORT_CALENDAR`
 
-2. When the `LogicManager` detects that `CommandResultType` is equals to CommandResultType.EXPORT_CALENDAR`, it wil then call
-`Storage#exportEvent(ReadOnlyVEvents eventRecord)` which in turn calls `IcsEventExport#exportEvent(ReadOnlyVEvents eventRecord)`
+2. When the `LogicManager` detects that `CommandResultType` is equals to `CommandResultType.EXPORT_CALENDAR`, it wil then call
+`Storage#exportEvent(ReadOnlyVEvents eventRecord)` which in turn calls `IcsEventExport#exportEvent(ReadOnlyVEvents eventRecord)` to export the events.
 
-3. Then it will check and create the exports directory if it does not exist.
+3. Validation is done to check if the "export" directory exists within the `IcsEventExport#exportEvent(ReadOnlyVEvents eventRecord)` method. The directory will be created if it doesn't exist.
 
-4. The contents of the .ics file is generated by loading the 'VEvents' in `ReadOnlyVEvents` into a `VCalendar` object from the
-iCalendarAgenda library and calling its `toString()` method. Which formats the VEvents into .ics format. Then the contents are written into the .ics file
+4. Contents of the .ics file is generated by loading the `VEvents` in `ReadOnlyVEvents` into a `VCalendar` object from the
+`iCalendarAgenda` library and calling its `toString()` method. Which formats the VEvents details into .ics format. Then the contents are written into the .ics file
 with file name as specified in `EVENT_SCHEDULE_FILE_NAME` in `IcsEventExport`
 
 [NOTE]
@@ -2319,6 +2319,10 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Notes
 
+[NOTE]
+The test cases for this part are meant to be independent of each other. If there are existing data that causes the command to fail through purposeful or intended, validation, testers
+are expected to change to fields to attain the expected result.(e.g. to maintain the unique property of notes title et cetera)
+
 . Adding a note in the notes panel.
 
 .. Test case: `note note/Tuesday desc/Grade 6A prelim papers priority/high` +
@@ -2350,7 +2354,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Test case: `note delete 1` +
    Expected: First note is deleted from the list. Details of the deleted note shown in the status message. Notes panel is updated.
-.. Test case: `delete 0` +
+.. Test case: `note delete 0` +
    Expected: No note is deleted. Error details shown in the status message. No change observed in the notes panel.
 .. Other incorrect delete commands to try: `note delete`, `note delete x` (where x is larger than the list size), `note delete one` +
 Expected: Shows appropriate error messages of why the command failed.
@@ -2403,8 +2407,8 @@ Expected: Shows appropriate error messages of why the command failed.
    Expected: Shows error message that a student with the same name already exists in the student list.
 .. Test case: `student name/2231` +
    Expected: Shows error message that student names can only contain alphabets and spaces.
-.. Test case: `student name/Test Student tag/Tag` +
-   Expected: Adds student "Test Student" with tag "Tag"
+.. Test case: `student name/Test StudentTwo tag/Tag` +
+   Expected: Adds student "Test StudentTwo" with tag "Tag"
 .. Other incorrect add commands to try: `student name/new student tag/`, `student name/new student tag/tag with space` +
    Expected: Shows error message regarding reason for command failure or the correct command syntax.
 
@@ -2549,7 +2553,7 @@ and "Unmarked Student" at index 2, who is not marked.
 === Event
 
 . Adding a event to the event list.
-.. Prerequisites: The event list already already contains one event with event name "Test Event",
+.. Prerequisites: The event list already contains one event with event name "Test Event",
 startDateTime "2019-11-01T03:00" and endDateTime "2019-11-01T04:00". The recurrence type and color number do not matter as long
 as it is valid.
 
@@ -2558,7 +2562,7 @@ as it is valid.
 .. Test case: `event eventName/Test Event startDateTime/2019-11-01T03:00 endDateTime/2019-11-01T04:00 recur/none color/1` +
    Expected: Shows error message that will result in duplicate event being created
 .. Test case: `event eventName/\n` +
-   Expected: Shows error message that event name cannot contain backslash.
+   Expected: Shows error message for invalid command.
 .. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T06:00 recur/none color/1` +
    Expected: Shows error message for invalid date range
 .. Test case: `event eventName/teacher meeting startDateTime/2019-11-15T07:00 endDateTime/2019-11-15T09:00 recur/none color/24` +
