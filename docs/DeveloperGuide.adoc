@@ -373,7 +373,7 @@ a|The usual date format like dd/mm/yyyy (for example, 12/05/2019 to specify 12 M
 
 a|Allow users to specify day, month and year in whichever order they want.
 
-* Pros: More flexible. Furthermore, it can be implemented in a way that allows users to leave out the month and year information if they are referring to the current month and year. 
+* Pros: More flexible and less restrictive for users.
 * Cons: If caution is not taken, bugs can arise quite easily.
 * I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
 
