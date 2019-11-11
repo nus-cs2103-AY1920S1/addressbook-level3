@@ -851,6 +851,22 @@ These instructions only provide a starting point for testers to work on; testers
 .. Submit a solution with a runtime error +
    Expected: The application should display the runtime error
 
+//tag::manualtesting[]
+=== Bookmarking a question / Removing bookmark for a question
+
+. Bookmark a question
+
+.. Bookmark any question in the question library. For example, bookmark question 3 through `bookmark 3`.
+.. Navigate to the Dashboard tab, either through clicking or typing `dashboard`. +
+   Expected: The question you chose to bookmark should be in the list of bookmarked questions.
+
+. Removing a bookmark
+
+.. On the Dashboard, refer to the list of bookmarked questions and pick one question to remove the bookmark.
+.. Remove the bookmark for that question. For example, `deletebookmark 3` +
+   Expected: The question is no longer in the list of bookmarked questions.
+//end::manualtesting[]
+
 === Creating notes
 
 . Creating notes

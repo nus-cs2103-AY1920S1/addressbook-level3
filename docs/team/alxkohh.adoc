@@ -70,3 +70,4 @@ include::../UserGuide.adoc[tag=help]
 
 include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=bookmark]
+include::../DeveloperGuide.adoc[tag=manualtesting]
