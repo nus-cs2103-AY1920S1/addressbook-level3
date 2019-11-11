@@ -313,10 +313,7 @@ Example:
 
 * `account switch 3` +
 You have switched the active account to the third one in the list.
-The active account will be highlighted, as shown below:
-
-.Account list after switching accounts
-image::AccountSwitch.png[]
+The active account will be highlighted in dark blue color.
 
 ==== Export the overview of all accounts: `account overview`
 
@@ -328,9 +325,6 @@ Format: `account overview`
 Step 1. Type `account overview` in the command textfield input.
 
 Step 2. Successful message displayed, and you can navigate to the `exports` folder in the same directory of the source file.
-
-.Successful message displayed
-image::accountOverview_2.png[width=85%,scaledwidth=85%]
 
 .Exports folder
 image::AccountOverview_3.png[width=85%,scaledwidth=85%]

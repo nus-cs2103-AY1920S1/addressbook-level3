@@ -162,7 +162,7 @@ It is managed by `AccountsManager`, with `Account` objects stored internally in 
 
 The class diagram below shows how the `AccountsManager` manages its list of `Account` objects:
 
-image::accountclassdiagram.png[]
+image::accountclassdiagram.png[][width=85%,scaledwidth=85%]
 // end::accounts_1[]
 
 Each `Account` object has the following attributes:
@@ -224,7 +224,7 @@ In this case, an account with the `name` as Japan trip and `description` as expe
 
 The following sequence diagram shows how finding the accounts containing specified keyword works:
 
-image::AccountSequenceDiagram.png[]
+image::AccountSequenceDiagram.png[][width=85%,scaledwidth=85%]
 
 Most of the commands and operations behave in the same way.
 The only difference will be the the action taken by the operation (e.g. finding account or adding account).
@@ -240,7 +240,7 @@ A new `editedAccount` is created, which is the same as the first third account e
 
 The activity diagram below shows what happens when the user executes `account edit`:
 
-image::AccountActivityDiagram.png[]
+image::AccountActivityDiagram.png[][width=85%,scaledwidth=85%]
 
 Step 6. The user executes `account report 2` to view the details of the second account.
 Firstly, `AccountsManager#resetFilteredAccountList` will update the `filteredAccounts`,
