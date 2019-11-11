@@ -26,10 +26,11 @@ import seedu.revision.logic.commands.main.StartCommand;
 /**
  * This class is a TextField which implements an "autocomplete" functionality.
  * Entries based on Command_Usage.
+ * @@author ShaunNgTX
  */
 public class AutoComplete extends TextField {
     /** Entries based on Command_Usage. */
-    private final SortedSet<String> entries;
+    private static final SortedSet<String> entries = new TreeSet<>();
     /** The popup of Auto-Complete list. */
     private ContextMenu popUpEntries;
 
@@ -38,8 +39,7 @@ public class AutoComplete extends TextField {
      */
     public AutoComplete() {
         super();
-        entries = new TreeSet<>();
-        this.getEntries();
+        this.setEntries();
         popUpEntries = new ContextMenu();
         textProperty().addListener((observableValue, s, s2) -> {
             if (getText().length() == 0) {
@@ -63,7 +63,7 @@ public class AutoComplete extends TextField {
      * Get the existing set of autocomplete entries.
      * Basically the respective command words.
      */
-    public void getEntries() {
+    private void setEntries() {
         entries.add(AddCommand.COMPLETE_COMMAND);
         entries.add(ClearCommand.COMMAND_WORD);
         entries.add(DeleteCommand.COMMAND_WORD);
@@ -81,7 +81,6 @@ public class AutoComplete extends TextField {
         entries.add(StartCommand.COMMAND_AUTOCOMPLETE_CUSTOM);
         entries.add(HistoryCommand.COMMAND_WORD);
     }
-
     /**
      * Populate the entry set with the given search results.
      * @param searchResult The set of matching strings.
@@ -105,4 +104,5 @@ public class AutoComplete extends TextField {
         popUpEntries.getItems().addAll(menuItems);
 
     }
+
 }
