@@ -13,7 +13,7 @@ import seedu.moolah.MainApp;
 import seedu.moolah.commons.core.LogsCenter;
 import seedu.moolah.commons.util.StringUtil;
 import seedu.moolah.logic.Logic;
-import seedu.moolah.model.Timekeeper;
+import seedu.moolah.logic.Timekeeper;
 
 /**
  * The manager of the UI component.

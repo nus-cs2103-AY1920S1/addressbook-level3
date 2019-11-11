@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 
 public class MenuTest {
 

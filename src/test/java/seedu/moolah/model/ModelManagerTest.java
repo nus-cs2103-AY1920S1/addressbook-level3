@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.commons.core.GuiSettings;
-import seedu.moolah.model.expense.DescriptionContainsKeywordsPredicate;
+import seedu.moolah.model.general.DescriptionContainsKeywordsPredicate;
 import seedu.moolah.model.modelhistory.ModelChanges;
 import seedu.moolah.model.modelhistory.ModelHistory;
 import seedu.moolah.testutil.MooLahBuilder;

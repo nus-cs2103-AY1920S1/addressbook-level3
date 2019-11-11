@@ -7,7 +7,7 @@ import static seedu.moolah.logic.parser.CliSyntax.PREFIX_TIMESTAMP;
 
 import seedu.moolah.logic.commands.event.AddEventCommand;
 import seedu.moolah.logic.commands.event.EditEventCommand;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 
 /**
  * A utility class for Event.

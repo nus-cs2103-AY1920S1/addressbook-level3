@@ -4,7 +4,7 @@ import guitests.guihandles.CardHandle;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 
 /**
  * Provides a handle for {@code EventListPanel} containing the list of {@code Event}.

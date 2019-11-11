@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.general;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.util.AppUtil.checkArgument;

@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.modelhistory.ModelHistory;
 
 /**

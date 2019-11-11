@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 class BudgetWindowTest {
     private static final Timestamp NOV_1_START = Timestamp.createTimestampIfValid("01-11-2019").get()

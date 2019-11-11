@@ -12,7 +12,7 @@ import seedu.moolah.commons.core.Messages;
 import seedu.moolah.logic.commands.CommandTestUtil;
 import seedu.moolah.logic.commands.statistics.StatsCommand;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Timestamp;
 
 class StatsCommandParserTest {
     private StatsCommandParser parser = new StatsCommandParser();

@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
@@ -8,8 +8,8 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.moolah.model.expense.exceptions.DuplicateEventException;
-import seedu.moolah.model.expense.exceptions.EventNotFoundException;
+import seedu.moolah.model.event.exceptions.DuplicateEventException;
+import seedu.moolah.model.event.exceptions.EventNotFoundException;
 
 /**
  * A list of events that enforces uniqueness between its elements and does not allow nulls.
@@ -44,7 +44,7 @@ public class UniqueEventList implements Iterable<Event> {
     public void add(Event toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
-            throw new DuplicateEventException(); // rmb to add DuplicateEventException
+            throw new DuplicateEventException();
         }
         internalList.add(toAdd);
     }

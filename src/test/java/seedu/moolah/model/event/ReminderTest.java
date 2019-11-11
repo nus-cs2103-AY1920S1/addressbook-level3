@@ -1,4 +1,4 @@
-package seedu.moolah.model.expense;
+package seedu.moolah.model.event;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.moolah.testutil.Assert.assertThrows;

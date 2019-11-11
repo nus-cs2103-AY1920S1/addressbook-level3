@@ -16,7 +16,7 @@ import seedu.moolah.model.Model;
 import seedu.moolah.model.ModelManager;
 import seedu.moolah.model.UserPrefs;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 import seedu.moolah.model.modelhistory.ModelChanges;
 import seedu.moolah.model.modelhistory.ModelHistory;
 

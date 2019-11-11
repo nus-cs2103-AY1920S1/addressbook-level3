@@ -2,7 +2,8 @@ package seedu.moolah.logic.commands.budget;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.moolah.testutil.Assert.assertThrows;
 import static seedu.moolah.testutil.TypicalMooLah.OUTSIDE_SCHOOL;
 import static seedu.moolah.testutil.TypicalMooLah.SCHOOL;
@@ -26,10 +27,10 @@ import seedu.moolah.model.ReadOnlyUserPrefs;
 import seedu.moolah.model.alias.Alias;
 import seedu.moolah.model.alias.AliasMappings;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Description;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Timestamp;
+import seedu.moolah.model.general.Description;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.modelhistory.ModelChanges;
 import seedu.moolah.model.modelhistory.ReadOnlyModelHistory;
 import seedu.moolah.model.statistics.Statistics;
@@ -70,20 +71,20 @@ public class AddBudgetCommandTest {
         AddBudgetCommand addOutsideSchoolBudgetCommand = new AddBudgetCommand(OUTSIDE_SCHOOL);
 
         // same object -> returns true
-        assertEquals(addSchoolBudgetCommand, addSchoolBudgetCommand);
+        assertTrue(addSchoolBudgetCommand.equals(addSchoolBudgetCommand));
 
         // same values -> returns true
         AddBudgetCommand addSchoolBudgetCommandCopy = new AddBudgetCommand(SCHOOL);
-        assertEquals(addSchoolBudgetCommand, addSchoolBudgetCommandCopy);
+        assertTrue(addSchoolBudgetCommand.equals(addSchoolBudgetCommandCopy));
 
         // different types -> returns false
-        assertNotEquals(1, addSchoolBudgetCommand);
+        assertFalse(addSchoolBudgetCommand.equals(1));
 
         // null -> returns false
-        assertNotEquals(null, addSchoolBudgetCommand);
+        assertFalse(addSchoolBudgetCommand.equals(null));
 
         // different budget -> returns false
-        assertNotEquals(addSchoolBudgetCommand, addOutsideSchoolBudgetCommand);
+        assertFalse(addSchoolBudgetCommand.equals(addOutsideSchoolBudgetCommand));
     }
 
     /**

@@ -21,7 +21,7 @@ import java.util.List;
 
 import seedu.moolah.model.MooLah;
 import seedu.moolah.model.budget.Budget;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.model.expense.Expense;
 
 /**

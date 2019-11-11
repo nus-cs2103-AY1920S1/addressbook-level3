@@ -15,7 +15,7 @@ import seedu.moolah.logic.Logic;
 import seedu.moolah.logic.commands.CommandResult;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.logic.parser.exceptions.ParseException;
-import seedu.moolah.model.expense.Event;
+import seedu.moolah.model.event.Event;
 import seedu.moolah.ui.panel.exceptions.UnmappedPanelException;
 
 /**

@@ -12,8 +12,8 @@ import seedu.moolah.logic.commands.UndoableCommand;
 import seedu.moolah.logic.commands.exceptions.CommandException;
 import seedu.moolah.model.Model;
 import seedu.moolah.model.expense.Expense;
-import seedu.moolah.model.expense.Timestamp;
 import seedu.moolah.model.expense.util.UniqueIdentifierGenerator;
+import seedu.moolah.model.general.Timestamp;
 import seedu.moolah.model.menu.MenuItem;
 import seedu.moolah.ui.budget.BudgetPanel;
 
@@ -34,7 +34,7 @@ public class AddMenuExpenseCommand extends UndoableCommand {
             + PREFIX_MENU + "Deck Chicken Rice "
             + PREFIX_TIMESTAMP + "10-10";
     public static final String MESSAGE_SUCCESS = "New expense added:\n %1$s";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the MooLah";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in MooLah!";
 
     private Expense expense;
 

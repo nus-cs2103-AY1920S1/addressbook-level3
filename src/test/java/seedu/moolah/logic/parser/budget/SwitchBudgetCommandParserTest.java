@@ -12,7 +12,7 @@ import static seedu.moolah.logic.parser.CommandParserTestUtil.assertParseSuccess
 import org.junit.jupiter.api.Test;
 
 import seedu.moolah.logic.commands.budget.SwitchBudgetCommand;
-import seedu.moolah.model.expense.Description;
+import seedu.moolah.model.general.Description;
 
 public class SwitchBudgetCommandParserTest {
     private SwitchBudgetCommandParser parser = new SwitchBudgetCommandParser();

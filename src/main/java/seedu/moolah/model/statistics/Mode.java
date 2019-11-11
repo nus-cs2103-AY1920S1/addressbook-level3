@@ -5,6 +5,8 @@ import static seedu.moolah.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
 
+import seedu.moolah.model.general.Price;
+
 /**
  * Represents a Statistic's mode in the MooLah.
  * Guarantees: immutable; is valid as declared in {@link #isValidMode(String)}
@@ -46,7 +48,7 @@ public class Mode {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof seedu.moolah.model.expense.Price // instanceof handles nulls
+                || (other instanceof Price // instanceof handles nulls
                 && modeName.equals(((Mode) other).modeName)); // state check
     }
 
