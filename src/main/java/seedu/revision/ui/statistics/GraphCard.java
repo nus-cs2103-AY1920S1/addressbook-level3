@@ -56,11 +56,11 @@ public class GraphCard extends UiPart<Region> {
             assert false : displayedIndex;
         }
 
-        for (int i = 0; i < scoreList.size(); i++) {
-            series.getData().add(new XYChart.Data(i + 1, scoreList.get(i)));
-        }
+        //for (int i = 0; i < scoreList.size(); i++) {
+        //    series.getData().add(new XYChart.Data(i + 1, scoreList.get(i)));
+        //}
 
-        lineChart.getData().add(series);
+        //lineChart.getData().add(series);
 
         cardPane = new HBox();
         cardPane.getChildren().addAll(lineChart);

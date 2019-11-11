@@ -53,10 +53,11 @@ public class HistoryWindow extends ParentWindow {
         answerableListPanelPlaceholder.getChildren().add(graphListPanel.getRoot());
 
         resultDisplay = new ResultDisplay();
-        resultDisplay.setFeedbackToUser("History of all quiz attempts shown in line graphs!");
+        resultDisplay.setFeedbackToUser("History of all quiz attempts shown: \n" + logic.getStatisticsList()
+                        + "\nYou have attempted " + logic.getStatisticsList().size() + " quizzes so far.");
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRevisionToolFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, true);
@@ -180,7 +181,6 @@ public class HistoryWindow extends ParentWindow {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

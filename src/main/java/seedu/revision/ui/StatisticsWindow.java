@@ -52,7 +52,7 @@ public class StatisticsWindow extends ParentWindow {
         resultDisplay.setFeedbackToUser("Statistics of all quiz attempts shown!");
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
+        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getRevisionToolFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand, true);
@@ -176,7 +176,6 @@ public class StatisticsWindow extends ParentWindow {
 
             return commandResult;
         } catch (CommandException | ParseException e) {
-            logger.info("Invalid command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
