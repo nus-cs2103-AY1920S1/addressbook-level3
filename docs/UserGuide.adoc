@@ -221,6 +221,8 @@ it is important that your program uses the `Scanner` class to read inputs and fo
 Thus, *do not write any code that you would not want to run on your local machine*.
 
 . Most importantly, remember to have fun!
+
+
 //end::beforestart[]
 
 [[Features]]

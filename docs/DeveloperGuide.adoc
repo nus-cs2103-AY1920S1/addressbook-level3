@@ -128,7 +128,7 @@ image::QuestionsLogicClassDiagram.png[]
 image::ProgramSubmissionLogicClassDiagram.png[]
 - Orchestrates the evaluation of the user's program submissions.
 - Keeps track of a _currently attempting_ question which is used as the `Question` that user program submissions are tested against.
-- Uses the `UserProgramChannel` interface to enable other components such as the `UI` to serve as sources for `UserProgram` submissions without introducing them as dependencies.
+- Uses the `UserProgramChannel` interface to enable other components such as the `UI` to serve as a source for `UserProgram` submissions without introducing them as dependencies.
 ====
 
 ====
@@ -138,7 +138,7 @@ image::ProgramSubmissionLogicClassDiagram.png[]
 image::NotesLogicClassDiagram.png[]
 
 - Deals with all CRUD operations pertaining to the notes found in the application.
-- Uses the `NoteSubmissionChannel` interface to enable other components such as the `UI` to serve as sources for notes without introducing them as dependencies.
+- Uses the `NoteSubmissionChannel` interface to enable other components such as the `UI` to serve as a source for notes without introducing them as dependencies.
 
 *Note model:*
 [[fig-NoteClassDiagram]]
