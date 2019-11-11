@@ -2,7 +2,9 @@ package seedu.address.logic.parser.utility;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.utility.UpdateBodyDescriptor.checkDateSensibility;
 import static seedu.address.testutil.TypicalBodies.ALICE;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.entity.IdentificationNumber;
@@ -38,7 +41,7 @@ class UpdateBodyDescriptorTest {
     }
 
     @Test
-    void apply_fieldsPresent_success() {
+    void apply_fieldsPresent_success() throws CommandException {
         Body body = new BodyBuilder(ALICE).build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
         descriptor.setSex(Sex.MALE);
@@ -48,7 +51,7 @@ class UpdateBodyDescriptorTest {
     }
 
     @Test
-    void apply_allFieldsNotPresent_success() {
+    void apply_allFieldsNotPresent_success() throws CommandException {
         //  Success because apply does not check whether fields are present or not.
         Body body = new BodyBuilder(ALICE).build();
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
@@ -69,6 +72,26 @@ class UpdateBodyDescriptorTest {
         UpdateBodyDescriptor descriptor = new UpdateBodyDescriptor();
         assertTrue(descriptor.applyOriginal(body).equals(body));
     }
+
+    @Test
+    void checkDateSensibility_correctDates_noException() throws ParseException, CommandException {
+        Date dateOfAdmission = ParserUtil.parseDate("13/11/2019");
+        Date dod = ParserUtil.parseDate("11/11/2019");
+        Date dob = ParserUtil.parseDate("01/11/2019");
+
+        Date dobIdentical = ParserUtil.parseDate("11/11/2019");
+        assertTrue(checkDateSensibility(dateOfAdmission, dod, dob));
+        assertTrue(checkDateSensibility(dateOfAdmission, dod, dobIdentical));
+    }
+
+    @Test
+    void checkDateSensibility_wrongDates_throwCommandException() throws ParseException {
+        Date dateOfAdmission = ParserUtil.parseDate("13/11/2019");
+        Date dod = ParserUtil.parseDate("11/11/2019");
+        Date dob = ParserUtil.parseDate("12/11/2019");
+        assertThrows(CommandException.class, () -> checkDateSensibility(dateOfAdmission, dod, dob));
+    }
+
 
     @Test
     void getSetName() {

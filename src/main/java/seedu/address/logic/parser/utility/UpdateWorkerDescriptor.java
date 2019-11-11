@@ -62,6 +62,7 @@ public class UpdateWorkerDescriptor implements UpdateEntityDescriptor {
 
     /**
      * Checks whether two Dates make sense with each other, in the context of UpdateWorkerDescriptor.
+     *
      * @param dateJoined the date the Worker joined the mortuary
      * @param dateOfBirth the Worker's date of birth
      * @return true if the dates make sense
