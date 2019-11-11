@@ -47,16 +47,18 @@ easily import their NUSmod timetables, as well as GoogleMaps API to show to the 
 
 image::scheduler/schedulerdemo.png[]
 
-* *Minor enhancement*: added a select command that allows the user to navigate each time slot on the schedule
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Alvinnyk&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
+
+
+* *Minor enhancements*:
 
 ** *Select Command*:
 *** Allows the user to select any time slot on the schedule. It will generate a pop up window that shows the user
-details of the time slot such as the event name, timings and the location on Google Maps.
+details of the time slot such as the event name, timings and the location on Google Maps. (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/259[#259])
 
 ** *Implemented Websocket*:
-*** Allows the application to access external data sources such as NUSmods and GoogleMaps API.
+*** Allows the application to access external data sources such as NUSmods and GoogleMaps API. (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/42[#42], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/43[#43], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/44[#44])
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Alvinnyk&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
 
 * *Other contributions*:
 
