@@ -327,6 +327,9 @@ Examples:
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
 
+
+// tag::split[]
+
 [[Split]]
 === Splitting a Bill with Friends : `split`
 
@@ -389,7 +392,9 @@ image::SplitUneven1.png[]
 +
 .Uneven split results
 image::SplitUneven2.png[]
+// end::split[]
 
+// tag::receive[]
 [[Receive]]
 === Receiving Money from a Friend : `receive`
 
@@ -413,6 +418,7 @@ image::Receive1.png[]
 image::Receive2.png[]
 +
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
+//end::receive[]
 
 [[Project]]
 === Projecting Your Future Balance : `project`

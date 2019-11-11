@@ -32,6 +32,21 @@ elseif (Budget type) then ([yes])
     stop
     endif
 
+elseif (Projection) then ([yes])
+  if(Index extry exists) then ([yes])
+
+  else([no])
+  :Display error message;
+  stop
+  endif
+  :Checks for Date and Category fields;
+    if(Date parameter is valid) then([yes])
+
+    else([no])
+    :Display error message;
+    stop
+    endif
+
 else ([Invalid type])
   :Display error message;
 endif
