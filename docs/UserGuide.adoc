@@ -985,7 +985,7 @@ A redo does not work for commands which do not make a change in the address book
 // tag::history[]
 === Listing command history : `history`
 
-Shows a list of all previously entered (valid) commands in the right panel. Commands entered during the merging
+Shows a list of all previously entered (executed without exception) commands in the right panel. Commands entered during the merging
 period are not included. `history` itself is taken as a valid command too.
 
 Format: `history`
