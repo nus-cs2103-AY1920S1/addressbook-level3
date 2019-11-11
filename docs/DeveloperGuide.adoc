@@ -432,7 +432,7 @@ example scenario when `event freestyle 50m` is given as a user input (ie. when t
 50m` event).
 
 .Sequence diagram showing the operations in Logic and Model when an event is added.
-image::addevent_sequencediagram.png[width="700"]
+image::addevent_sequencediagram.png[width="600"]
 
 Deleting an event (with `[green]#DeleteEventCommand#`) does the opposite. The input `delete -e freestyle
 50m` will call `[green]#Model#deleteEvent()#`, after making sure the event exists in Athletick by getting a
@@ -460,10 +460,10 @@ The following sequence diagrams illustrate how the `[green]#Logic#`, `[green]#Ui
 `[green]#Model#` work together when `[green]#Record#` viewing is executed.
 
 .Sequence diagram showing how Records are viewed. Interactions in the RecordsPanel are omitted and shown in a separate sequence diagram below.
-image::viewrecords_sequencediagram.png[width="600"]
+image::viewrecords_sequencediagram.png[width="500"]
 
 .Reference frame for interactions in the RecordsPanel in the previous sequence diagram.
-image::recordspanel_sequencediagram.png[width="400"]
+image::recordspanel_sequencediagram.png[width="350"]
 
 // end::performance_view[]
 
