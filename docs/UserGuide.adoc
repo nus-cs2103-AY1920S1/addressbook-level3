@@ -59,9 +59,6 @@ Refer to <<Features>> for details of each command.
 [[Features]]
 == Features
 
-=== Viewing help : `help`
-
-Format: `help`
 
 //tag::interactive-parsing[]
 === Interactive Parsing
@@ -82,7 +79,7 @@ to type the relevant command word to get prompted about subsequent inputs.
 image::interactive_parsing_0.png[width='520']
 {empty} +
 
-With interactive parsing, the aforementioned `Add` command reduces to the following sequence of inputs: -
+With interactive parsing, the aforementioned 'Add' command reduces to the following sequence of inputs: -
 ```
 add
 t/meeting
@@ -102,7 +99,7 @@ Experienced users that have a grasp of the structure and format of various comma
 Interactive parsing allows multiple arguments to be input simultaneously, as long as the entered arguments adhere to a
 set of rules detailed in a later subsection.
 
-The same `Add` command can be constructed this way by a fairly experienced user: -
+The same 'Add' command can be constructed this way by a fairly experienced user: -
 ```
 add t/meeting
 s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2
@@ -110,7 +107,7 @@ d/Team Meeting
 a/John | Smith p/High
 ```
 
-.A user about to pass 3 arguments to Typee in one input, following `Add`.
+.A user about to pass 3 arguments to Typee in one input, following `add`.
 image::interactive_parsing_2.png[height='90' width='800']
 {empty} +
 
@@ -118,7 +115,7 @@ image::interactive_parsing_2.png[height='90' width='800']
 image::interactive_parsing_3.png[height='90' width='800']
 {empty} +
 
-Finally, a highly experienced user can create an `Add` command in the conventional manner, i.e. by typing out
+Finally, a highly experienced user can create an 'Add' command in the conventional manner, i.e. by typing out
 the entire command at once. This is identical to the format introduced in the beginning of this section: -
 `add t/meeting s/16/11/2019/1500 e/16/11/2019/1600 l/Meeting Room 2 d/Team Meeting a/John | Smith p/High`
 
@@ -138,13 +135,13 @@ parsing an ongoing static command.
 
 Examples:
 
-`Add` and `Delete` are static commands. The following input sequence is invalid: -
+'Add' and 'Delete' are static commands. The following input sequence is invalid: -
 ```
 add t/meeting
 delete
 ```
 
-`Help` and `Exit` are dynamic commands. Therefore, the following input sequence is *valid*: -
+'Help' and 'Exit' are dynamic commands. Therefore, the following input sequence is *valid*: -
 
 ```
 add t/meeting
@@ -155,8 +152,8 @@ exit
 
 [NOTE]
 Calling another dynamic command in the midst of building a `Tab` command will erase the details of the command preceding
-`Tab`. This happens if the command preceding `Tab` isn't fully built. +
-For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the `Add` command.
+'Tab'. This happens if the command preceding `Tab` isn't fully built. +
+For example: `add t/meeting` `tab` `// current` `b/calendar` will erase the information of the add command.
 
 ==== Valid Input Sequences
 
@@ -169,7 +166,7 @@ Valid input sequences can be one of three types.
 After the last argument is specified, the required command is built and executed, carrying out the operation
 intended by the user.
 
-*The order of arguments entered is important*. Consider the `Add` command. The ideal ordering is as follows: -
+*The order of arguments entered is important*. Consider the 'Add' command. The ideal ordering is as follows: -
 `add t/ s/ e/ l/ d/ a/ p/`
 
 When users resort to any of the three aforementioned forms of supplying arguments, they are required to conform to the
@@ -213,7 +210,7 @@ Erroneous inputs occur in three mutually exclusive categories.
 * Inputs with valid arguments, but irrelevant additional arguments.
 
 An example of the first case is as follows: `add t/teeming`. "Teeming" is an invalid engagement type. Typee flags this inaccuracy
-and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an `Add` command,
+and prompts the user to enter an acceptable engagement type instead. Since Typee has already begun building an 'Add' command,
 the subsequent input must begin with `t/...`
 
 .A user about to enter an invalid input.
@@ -240,7 +237,7 @@ t/interview
 
 Last but not least, Typee will reject cases wherein the user supplies excessive and irrelevant arguments.
 `add t/meeting s/16/11/2019/1600 e/16/11/2019/1700 l/COM-1 d/Meeting a/Damith p/High o/High` will be rejected because `o/`
-is not a parameter for the `Add` command.
+is not a parameter for the 'Add' command.
 
 //end::interactive-parsing[]
 
@@ -250,19 +247,18 @@ is not a parameter for the `Add` command.
 Switches to a different menu in the application window. +
 Format: `tab b/MENU_NAME`
 
-* Typee has 4 major features/menus. They comprise of:
+* Typee has four major features/menus. They comprise of:
 ** Engagements List
 ** Typing Game
 ** Calendar View
 ** Report Generator
+
 Users can switch between respective windows in order to make full use of the application.
 
 [NOTE]
-`tab b/game` is used instead of `tab b/typinggame` to simplify typing. +
 `Engagement` window is set to default window upon starting the application.
 
-If the user wants to switch to different windows, simply enter the `Tab` command
-with a reference to the menu name listed on the left end of the application window. +
+If user wants to switch to different windows, simply enter the tab command. Tab names can be seen on the top of the application display in green boxes. +
 
 For example, user enters `tab b/calendar`
 , which the system will switch to calendar view window with a result display message set to "Switched to window: Calendar". Refer to the screenshot below.
@@ -270,7 +266,8 @@ For example, user enters `tab b/calendar`
 [NOTE]
 Users who prefer using mouse over typing can alternatively click the green tabs on the top to switch to different menu windows.
 
-image::tab_2.png[width="800"]
+image::tab_2.png[width="600"]
+//end::tab-command[]
 
 Users can start building a command in one tab, switch tabs midway and finish building the command in another tab.
 This can be achieved by the following sequence of inputs.
@@ -281,9 +278,6 @@ tab
 b/calendar
 l/COM-1 d/Meeting a/Damith p/High
 ```
-
-
-//end::tab-command[]
 
 === Adding an engagement: `add`
 
@@ -316,7 +310,7 @@ image::add_2.png[width="800"]
 The arguments to this command can be entered sequentially, leveraging the interaction offered by Typee. +
 Example: `add` `t/meeting` `s/11/11/2019/1500` ... `p/High`
 
-The table below summarizes the parameters of the `Add` command.
+The table below summarizes the parameters of the add command.
 
 [%header, cols=3*]
 |===
@@ -435,7 +429,7 @@ l/Com Basement
 ```
 The non-interactive equivalent of this sequence is `find l/Com Basement`.
 
-[%header, cols=3*]
+[%header, cols="15%, 10%, 75%"]
 |===
 |Search parameter
 |Tag
@@ -569,8 +563,6 @@ image::redo-result.png[width="450"]
 --
 //end::undo-redo[]
 
-// tag::calendar[]
-
 === Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
 Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
 Nothing will happen if this command is used with a date which already has an open engagements list window.
@@ -591,7 +583,7 @@ The calendar's display then switches to December 2019 and the engagement list wi
 This command does not work if the application is in another tab or the specified date is invalid.
 
 .Engagement list for 01/11/2019
-image::calendar-open-display.png[width="450", align="center"]
+image::calendar-open-display.png[width="450"]
 {empty} +
 The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
 calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
@@ -612,8 +604,11 @@ application is in another tab or if attempting to go above the maximum allowable
 
 Format: `calendar c/nextmonth`
 
-.Changing to the next month from November 2019
-image::calendar-next-month.png[width="450", align="center"]
+.Calendar view for November 2019
+image::calendar-view.png[width="450", float="left"]
+[.left]
+.Calendar view after `nextmonth` command
+image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month. The button will not work if the calendar is displaying December 9999.
@@ -626,15 +621,16 @@ application is in another tab or if attempting to go below the minimum allowable
 
 Format: `calendar c/previousmonth`
 
-.Changing to the previous month from November 2019
-image::calendar-previous-month.png[width="450", align="center"]
+.Calendar view for November 2019
+image::calendar-view.png[width="450", float="left"]
+[.left]
+.Calendar view after `previousmonth` command
+image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
 
 This command closes any open engagement windows from the current month before updating the display to the previous month.
-// end::calendar[]
-
 
 // tag::game[]
 === Typing game : `tab b/game`
@@ -717,7 +713,7 @@ Delete function will only available when user has pre-selected the document list
 Below is the screenshot after user clicks the delete button.
 
 .pdf delete pop up message and after click
-image::pdf_delete_before_after.png[width="750"]
+image::pdf_delete_before_after.png[align="center", width="750"]
 
 Now, once system successfully deleted the selected document, system will display the status message above the documents explorer. Below is the screenshot of the system status message after deletion.
 
@@ -738,6 +734,16 @@ image::pdf_error_2.png[width="600"]
 image::pdf_error_1.png[width="600"]
 
 // end::pdf-command[]
+
+=== Help window : `help`
+
+.The help window
+image::help-window.png[width="600"]
+
+Format: `help`
+
+The user can type `help` in the input text area to open up a help window. It displays a basic command summary and a link to
+the user guide, which has more detailed information about using Typee.
 
 === Exiting the program : `exit`
 

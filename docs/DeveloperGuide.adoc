@@ -251,12 +251,12 @@ Tab switch function is implemented in using both CLI and GUI approach; user can 
 image::tabcmd_and_tabFetch_activity.png[width="750", float="left"]
 ---
 
-1. User has to use a specific `Command`; `TabCommand` in order to switch the window to another window.
-* Upon first startup of the system, by system default, system will display the `EngagementList` window.
+1. User is required to use a `Command`; `TabCommand` in order to switch the window to another window.
+* Upon first startup of the system, system will display the `EngagementList` window by default.
 2. New Ui Model class `Tab` is implemented to contain the respective fxml controller classes in a OOP manner.
 
 MainWindow will have an additional method `fetchTabInformation(tabName)`. After the parser executes the `TabCommand`, it will return a CommandResult with `Tab` property. +
-Next, system checks whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return withn an empty tab with only name attached.
+System will then check whether the input name matches with one of the tab names in the system. If there is a match, system will fetch the tab information and return the `Tab` object. If no match is found, system will return with an empty tab with only name attached.
 
 //end::tab-switch[]
 
@@ -310,24 +310,22 @@ Table below explains the components that are included in the `ReportWindow` with
 | `Refresh Button`
 | Button
 | Refreshes the tree-view file directory.
-| To help user to refresh the directory when there is a system glitch or manually adds document (.pdf) in the `reports/` directory.
+| To help user refresh the directory when there is a system glitch or when document (.pdf) is manually added in the `reports/` directory.
 
 | `Delete Button`
 | Button
 | Deletes the selected document item in the tree-view file directory.
-| To assist users who prefer using mouse (GUI over CLI) deletes document easily.
+| To assist users who prefer using mouse instead of typing command in keyboard can delete documents easily.
 
 | `File_Explorer`
 | Scrollable Tree View
 |
 1. Displays the list of document generated previously and stored under the directory `reports/`.
 
-2. Each list item is clickable with a MouseClick action of opening the document.
+2. Each list item is clickable with a mouse click action of opening the document.
 | To allow user to manage documents more time efficiently.
 |===
 //end::report[]
-
-// tag::calendar[]
 
 === Calendar Window
 
@@ -337,7 +335,7 @@ show more detailed descriptions of the stored engagements for a particular day.
 
 ==== Implementation Structure
 .Structure of the Calendar Window
-image::CalendarWindowClassDiagram.png[align="center"]
+image::CalendarWindowClassDiagram.png[]
 {empty} +
 The `CalendarWindow` is part of the `MainWindow`. Specifically, it is one possible `Tab` which can be
 displayed. The `CalendarWindow` class and any of its associated UI components can be found under the `com.typee.ui.calendar` package.
@@ -346,7 +344,7 @@ The following sequence diagram shows the creation of a `CalendarWindow` instance
 calendar window tab.
 
 .CalendarWindow Initialization Sequence Diagram
-image::CalendarWindowSequenceDiagram.png[align="center"]
+image::CalendarWindowSequenceDiagram.png[]
 {empty} +
 
 ==== UI Design
@@ -408,25 +406,25 @@ which are used to model their workflows:
 * `CalendarOpenDisplayCommand` -- Opens the engagements list window for the specified date.
 
 .Open Display Activity Diagram
-image::CalendarOpenDisplayActivityDiagram.png[align="center"]
+image::CalendarOpenDisplayActivityDiagram.png[]
 {empty} +
 
 * `CalendarCloseDisplayCommand` -- Closes the engagements list window for the specified date.
 
 .Close Display Activity Diagram
-image::CalendarCloseDisplayActivityDiagram.png[align="center"]
+image::CalendarCloseDisplayActivityDiagram.png[]
 {empty} +
 
 * `CalendarNextMonthCommand` -- Changes the calendar window's display to the month after the currently displayed month.
 
 .Next Month Activity Diagram
-image::CalendarNextMonthActivityDiagram.png[align="center"]
+image::CalendarNextMonthActivityDiagram.png[]
 {empty} +
 
 * `CalendarOpenDisplayCommand` -- Changes the calendar window's display to the month prior to the currently displayed month.
 
 .Previous Month Activity Diagram
-image::CalendarPreviousMonthActivityDiagram.png[align="center"]
+image::CalendarPreviousMonthActivityDiagram.png[]
 {empty} +
 
 ==== Design Considerations
@@ -451,9 +449,6 @@ by opening the engagements list window for that particular date.
 ** Pros: Shows more detailed information in the calendar window.
 ** Cons: Might end up distorting the shape of the calendar window's cells since some engagements have more information than others.
 The alternative would be to add fixed constraints to the size of each cell but then information would get cut off.
-// end::calendar[]
-
-
 
 // tag::typinggame[]
 

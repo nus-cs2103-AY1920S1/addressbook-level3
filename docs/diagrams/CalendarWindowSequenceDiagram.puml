@@ -3,14 +3,14 @@
 
 actor User
 
-box UI UI_COLOR_T1
-participant ":MainWindow" as MainWindow UI_COLOR
-participant ":Tab" as Tab UI_COLOR
-participant ":CalendarWindow" as CalendarWindow UI_COLOR
-participant ":CalendarDateCell" as CalendarDateCell UI_COLOR
+box "<color:black>UI</color>" CALENDAR_SEQUENCE_COLOR
+participant ":MainWindow" as MainWindow MODEL_COLOR
+participant ":Tab" as Tab MODEL_COLOR
+participant ":CalendarWindow" as CalendarWindow MODEL_COLOR
+participant ":CalendarDateCell" as CalendarDateCell MODEL_COLOR
 end box
 
-box Logic LOGIC_COLOR_T1
+box "<color:black>Logic</color>" CALENDAR_SEQUENCE_COLOR_2
 participant ":Logic" as Logic LOGIC_COLOR
 end box
 
