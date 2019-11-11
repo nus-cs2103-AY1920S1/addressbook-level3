@@ -62,6 +62,7 @@ to view my code contributions.
 * Git Workflow Management:
 ** Helped team members resolve Git related issues such as merge conflicts and taught them how to use more complicated
 features such as rebasing and stashing.
+
 ** Helped the team migrate to a branching Git workflow (Issue https://github.com/AY1920S1-CS2103T-T13-1/main/issues/39[#39])
 ** Set up team's GitHub repository including branch protection and requiring Travis checks and reviews before merging.
 * Documentation:

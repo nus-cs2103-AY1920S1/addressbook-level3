@@ -1,37 +1,32 @@
 @startuml
-!include style.puml
+!include ./style.puml
 
-Actor User as user USER_COLOR
-Participant ":UI" as ui UI_COLOR
-Participant ":Logic" as logic LOGIC_COLOR
-Participant ":Model" as model MODEL_COLOR
-Participant ":Storage" as storage STORAGE_COLOR
+Participant ":FindCommand   " as findCommand LOGIC_COLOR
+Participant ":model  " as model MODEL_COLOR
+Participant ":StringUtil  " as StringUtil STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "edit S5678908D n/Mr Lim"
-activate ui UI_COLOR
+[-> findCommand : execute
+activate findCommand LOGIC_COLOR
 
-ui -[UI_COLOR]> logic : execute("edit S5678908D n/Mr Lim")
-activate logic LOGIC_COLOR
-
-logic -[LOGIC_COLOR]> model : setPerson(target, editedPerson)
+findCommand -> model : getFullPersonList()
 activate model MODEL_COLOR
 
-model -[MODEL_COLOR]-> logic
+model --> findCommand
 deactivate model
 
-logic -[LOGIC_COLOR]> storage : saveAddressBook(addressBook)
-activate storage STORAGE_COLOR
+findCommand -> findCommand : fuzzyMatch(argMultimap, allExceptExactMatches)
+activate findCommand LOGIC_COLOR_T1
 
-storage -[STORAGE_COLOR]> storage : Save to file
-activate storage STORAGE_COLOR_T1
-deactivate storage
+findCommand -> StringUtil : calculateLevenshteinDistance(keyword, attribute)
+activate StringUtil STORAGE_COLOR
 
-storage --[STORAGE_COLOR]> logic
-deactivate storage
+StringUtil --> findCommand
+deactivate StringUtil
 
-logic --[LOGIC_COLOR]> ui
-deactivate logic
+findCommand --> findCommand
+deactivate findCommand
 
-ui--[UI_COLOR]> user
-deactivate ui
+findCommand -> model --: setDisplayedPersonList(finalArrayList)
+activate model MODEL_COLOR
+
 @enduml

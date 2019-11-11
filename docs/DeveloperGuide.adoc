@@ -473,19 +473,17 @@ This section will explain the reason for having some aspects.
 This section explains the implementation of the find persons by attributes feature.
 
 ==== Current Implementation
-The find feature is facilitated by `FindCommand`, `ExactFindCommand` and `PersonContainsPrefixesPredicate`. +
-
-===== FindCommand
-
-
-===== ExactFindCommand
-`ExactFindCommand` extends `Command` with a `predicate` that is used to determine whether a given `person` should be
-displayed. It implements `Command#execute(Model model)` which replaces the `predicate` of the current
-`model.filteredPersons` with the input predicate of `ExactFindCommand`. +
-
-TODO
+The find feature is facilitated by `PersonContainsPrefixesPredicate` and `FindCommand`. +
 
 ===== PersonContainsPrefixesPredicate
+`PersonContainsPrefixesPredicate` is used t
+
+===== FindCommand
+`FindCommand` extends extends `Command` with a `predicate` that is used to determine whether a given `person` should be
+displayed. It implements `Command#execute(Model model)` which replaces the `predicate` of the current
+`model.filteredPersons` with the input predicate of `ExactFindCommand`. This triggers a change in the displayed persons
+to the list of filtered persons.
+
 
 TODO
 
@@ -496,36 +494,35 @@ The behaviour of `FindCommand` and `ExactFindCommand` is consistent with that of
 
 ====== FindCommand Execution
 
-====== ExactFindCommand Execution
+Given below is a step by step description of the behaviour of `FindCommand#execute`
 
-Given below is an example usage scenario and the behaviour of `#execute` at each step. +
+Step 1: The full list of all persons in ORGA__Nice__ is retrieved and stored as [blue]`allPersons`.
 
-Step 1: The user inputs a find command, e.g. `find n/Marisha Rey n/Laura t/doctor t/donor`. It is parsed by
-`FindCommandParser` and used to create an `ArgumentMultimap`: `argMultimap`.
+Step 2: A list of exact matches is obtained by filtering [blue]`allPersons` using
+[blue]`PersonContainsPrefixesPredicate`.
 
-Step 2: `argMultimap` is used to initialize a `PersonContainsPrefixesPredicate` object: `predicate`.
+Step 3: A list containing all persons except exact matches is obtained and fuzzy matching is performed on it.
 
-Step 3: `predicate` is used to initialize a `FindCommand` object. `#execute` is then called on it.
+Step 4: A list containing all persons except exact matches is obtained and fuzzy matching is performed on it.
 
-Step 4: `#execute` calls the `#updateFilteredPersonList` of the current `Model` which causes it's
-`FilteredList<Person>`: `filteredPersons` to automatically filter out `persons` that fail `predicate#test`.
+Step 5: Fuzzy matching uses [blue]`StringUtil#calculateLevenshteinDistance` to filter out possible matches. The matches
+are then sorted in ascending order of similarity to input keywords.
 
-Step 5: `#updateFilteredPersonList` calls `#setDisplayedPersonList`.
+Step 6: [blue]`setDisplayedPersonList` is called.
 
-Additional UI logic occurs but is not relevant in the scope of this explanation.
+The following sequence diagram illustrates steps 1 to 6: +
 
-The following sequence diagram illustrates steps x to y: +
+image::ExactFindSequenceDiagram.png[]
 
-__insertar diagrama de secuencia__
+NOTE: The above diagram heavily simplifies the execution of `fuzzyMatch` as it is further explained in the section
+below.
+
+======= Fuzzy Matching
+
+
 
 ==== Design Considerations
 
-
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
