@@ -1,4 +1,4 @@
-=TravEzy
+= TravEzy
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -19,8 +19,9 @@ By: `Team SE-EDU`      Since: `Aug 2019`      Licence: `MIT`
 
 Team: *T17-2*
 
-*Content*
+//Welcome to TravEzy!
 
+*Content*
 
 == Introduction
 //tag::intro
