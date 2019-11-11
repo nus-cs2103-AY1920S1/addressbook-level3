@@ -478,9 +478,9 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
 // tag::visualrep[]
-=== Visual Representation of individual's or group's schedule feature
+=== Visual Representation of individual's or group's schedule
 
-The visual representation refers to the graphics you see when you view a group or an individual's schedule in TimeBook. We will first describe how the graphics are created.
+Visual representation here refers to the graphics you see when you view a group or an individual's schedule in TimeBook. We will first describe how the graphics are created.
 All of these graphics are created in the `ScheduleView` class. The object oriented domain model below illustrates the problem domain of the `ScheduleView` class in TimeBook.
 
 .Object oriented domain model for `ScheduleView`.

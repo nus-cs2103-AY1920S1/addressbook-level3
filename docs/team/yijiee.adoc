@@ -1,4 +1,4 @@
-= Project portfolio for TimeBook
+= Project Portfolio for TimeBook
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
