@@ -939,7 +939,7 @@ image::ExportCommand.png[width="800"]
 ****
 . The CSV file of file name "FILENAME" will be created in the data folder.
 ****
-image::ExportCSV.png[width="800"]
+image::exportCSV.png[width="800"]
 ****
 [underline]#Format#: `export FILE_NAME` +
 

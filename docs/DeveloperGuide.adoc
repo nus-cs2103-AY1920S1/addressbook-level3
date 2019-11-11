@@ -214,7 +214,7 @@ image::StatisticsCalculationAcitvityDiagram.png[]
 ===== Statistic Module
 The statistic module exposes the calculation operations in the `Statistics` interface.
 analogous to the output mode, there are 2 types of methods in this module, one that returns a
-`String` and the other and `XYChart.Series<String, Number>`.
+`String` and the other a `XYChart.Series<String, Number>`.
 
 * Methods that return a `String`:
 ** `calculateTotalProfitOnCompleted(...)`
@@ -294,7 +294,7 @@ Below is a more in-depth explanation at each step.
 
 *Note that this breakdown is for the mode with date input.
 For the default mode with no date, the steps are almost the same, except that
- `DefaultStatisticsWindow` is called in place of `StatisticsWindow`*.
+`DefaultStatisticsWindow` is called in place of `StatisticsWindow`.*
 
 Step 1: User inputs a stats command e.g `generate-s s/REVENUE d1/2018.12.13 d2/2019.11.13`.
 
@@ -307,9 +307,9 @@ Seen here is the sequence diagram of the first step
 
 image::StatsCommandSequenceDiagram1.png[width="400", align="center"]
 
-Step 2: the logic then calls `command.execute(command)`
+Step 2: the logic then calls `command.execute(command)`.
 
-When this happens, the `StatsCommand` execute triggering a call to create the new `StatsPayload`. Then this is used to
+When this happens, the `StatsCommand` executes, which triggers a call to create a new `StatsPayload`. Then this is used to
 create a new `CommandResult` object and returns that to `Logic`, completing the execution of the user input command.
 Seen here is the sequence diagram of the second step.
 
@@ -325,7 +325,7 @@ passed to `Logic` class and subsequently the `statistics` module,
 where the appropriate calculation will take place.
 
 
-Step 4: `Statistic Manager` calculates the date
+Step 4: `Statistic Manager` calculates the date.
 
 Depending on the input, the `Statistic Manager` will calculate the value and return that, either in the form of
 a `String` or a `XYChart.Series<String, Number>`.
