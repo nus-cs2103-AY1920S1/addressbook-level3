@@ -12,7 +12,7 @@ As part of the project requirement of CS2103T offered by NUS, my team of 4 softw
 .Graphical user interface of ModuleBook
 image::ModuleBookUILayout.png[]
 
-ModuleBook is a desktop module manager application designed with the needs of NUS students in mind, to streamline the process of managing time and resources related to the modules offered by NUS. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java.
+ModuleBook is a desktop module manager application designed with the needs of NUS students in mind. It is designed to streamline the process of managing time and resources related to the modules offered by NUS. The user interacts with it using a CLI, and comes with GUI created with JavaFX. It is written in Java.
 
 As of the current build (v1.4), ModuleBook offers the following features:
 
@@ -22,7 +22,7 @@ As of the current build (v1.4), ModuleBook offers the following features:
 . Add personalised deadlines to tracked modules.
 . Add links to tracked modules.
 
-My role was to adapt and migrate the base code of addressbook to the requirements of ModuleBook, as well as to design and enhance the codes for operations related to tracking a module. This includes the add, delete, list and find command.
+My role was to adapt and migrate the base code of addressbook to the requirements of ModuleBook, as well as to design and enhance the operations related to tracking a module. This includes the add, delete, list and find command.
 The following sections illustrate these enhancements in more detail, as well as the relevant documentation I have added to the user and developer guides in relation to these enhancements.
 
 == Summary of contributions
@@ -41,14 +41,14 @@ This section documents my contribution to this team project in the from of code,
 ** Highlights: The search is is able to detect and ignore minor spelling mistakes when searching within the title or description. Searching is also extremely fast, with most search cases taking less than a second. These would definitely improve the user friendliness of the search feature.
 ** Credits: Module information is directly adapted from the API provided by NUSMods. The adaptation and storage of module information is done by Ge Shuming, one of the students involved in this project. Without these information, this feature would not be possible.
 
-* *Minor enhancement*: improved the base add and delete module commands to be more in line with the program specifics.
+* *Minor enhancement*: Improved the base add and delete module commands to be more in line with the program specifics.
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=cowsaysbaa&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[Link to RepoSense]] [https://github.com/AY1920S1-CS2103T-W13-1/main/blob/master/src/test/java/seedu/module/logic/parser/FindCommandParserTest.java[Test code]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Took part in the release of `v1.1` - `v1.4` (3 releases) on GitHub
+*** Took part in the release of `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Overhauled the base addressbook code to meet the requirements of Modulebook features. (Pull request https://github.com/AY1920S1-CS2103T-W13-1/main/pull/16[#16])
 ** Documentations:

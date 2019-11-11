@@ -57,13 +57,11 @@ deactivate ModuleBookParser
 LogicManager -> FindCommand : execute()
 activate FindCommand
 
-loop until all predicates applied
 FindCommand -> Model : updateFilteredArchivedModuleList(pred)
 activate Model
 
 Model --> FindCommand
 deactivate Model
-end
 
 FindCommand -> Model : showAllTrackedModules()
 activate Model

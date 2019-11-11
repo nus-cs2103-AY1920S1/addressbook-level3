@@ -111,7 +111,7 @@ It is possible to use any number or combination of filters. Prefixes not present
 ****
 * Prefixes: (case sensitive)
 ** `all\` : List all the modules. *Overrides* all other prefixes.
-*** Example: `find mod\ cs all\` `all\` will override mod\ and list all the modules.
+*** Example: `find mod\ cs all\`, `all\` will override `mod\` and list all the modules.
 ** `mod\` : Find all modules with *module code* that contains *at least one* of the given *keyword(s)*.
 *** Example: `find mod\ cs ma st` will list all modules with module code containing `cs` *or* `ma` *or* `st`.
 ** `title\` : Find all modules with *title* that contains *all* of the given *keyword(s)*.
