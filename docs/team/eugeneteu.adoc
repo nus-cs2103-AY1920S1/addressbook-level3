@@ -8,7 +8,7 @@
 
 Seller Manager Lite is a desktop application used for managing a business operational and logistical needs.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has >10 kLoC.
-It was written over the span of 2 months and morphed from the original Address-book 3 application
+It was written over the span of 2 months and morphed from the original Address-book 3 application.
 
 == Summary of contributions
 
@@ -31,7 +31,7 @@ There was a very strong and conscientious effort to make the code easily extenda
 * *Other Major enhancement*:
 ** My other contributions to the codebase is as follows:
 *** Complete overhaul of User Interface. This includes generating the FXML files, creating the controller files, importing and GUI tests.
-*** UI commands. This includes the command that is directly related to switching of UI e.g `switch-o` which allows the user to switch their their focused tab panel with a command
+*** UI commands. This includes the command that is directly related to switching of UI e.g `switch-o` which allows the user to switch their their focused tab panel with a command.
 
 * *Other contributions*:
 
