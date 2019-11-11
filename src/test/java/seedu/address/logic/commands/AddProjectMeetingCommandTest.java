@@ -32,7 +32,7 @@ public class AddProjectMeetingCommandTest {
         assertThrows(NullPointerException.class, () -> new AddProjectMeetingCommand(null));
     }
 
-    //@Test
+    @Test
     public void execute_duplicateMeeting_throwsCommandException() throws ParseException {
         Meeting validMeeting = new MeetingBuilder().build();
         AddProjectMeetingCommand addProjectMeetingCommand = new AddProjectMeetingCommand(validMeeting);
@@ -384,6 +384,11 @@ public class AddProjectMeetingCommandTest {
         }
 
         @Override
+        public boolean isCheckedOut() {
+            return true;
+        }
+
+        @Override
         public void setProject(Project projectToEdit, Project editedProject) {
             projectToEdit = editedProject;
         }
@@ -414,7 +419,7 @@ public class AddProjectMeetingCommandTest {
         private List<Task> tasks;
         private Finance finance;
         private Timetable timetable;
-        private List<Meeting> meetingList;
+        private List<Meeting> meetingList = new ArrayList<>();
 
         public ProjectStubWithOneMeeting(Title title, Description description, List<String> members, List<Task> tasks, Finance finance, Timetable timetable) {
             super(title, description, members, tasks, finance, timetable);
