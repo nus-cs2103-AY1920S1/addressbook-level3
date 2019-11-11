@@ -9,8 +9,9 @@ HiddenOutside ..> Model
 
 Package Model <<Rectangle>>{
 Class Model
-Class Predicate
 Class EventList
+Class "Observable Event List" as OEL
+Class "Action List" as AL
 
 Package Event {
 Class Event
@@ -19,18 +20,22 @@ Class Date
 Class Time
 Class Location
 Class Description
+Class Tag
 }
 
-Model --> "1" Event : filtered list
-Model --> "1" Predicate
-Predicate --> Event
+Model -down-> Itinerary
 
-Itinerary *--> "1" EventList : Generates >
-EventList o--> "*" Event
+Itinerary .left-> OEL
+Itinerary ->"1" AL
+
+Itinerary -left-> "1" EventList
+EventList -left->"1" OEL
+EventList --> "*" Event :> Contains
 Event *-->"1" Title
 Event *-->"1" Date
 Event *-->"1" Time
 Event *-->"1" Location
 Event *-->"1" Description
+Event *-->"1" Tag
 
 @enduml

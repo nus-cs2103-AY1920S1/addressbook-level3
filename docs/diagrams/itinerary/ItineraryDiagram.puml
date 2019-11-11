@@ -8,9 +8,10 @@
 Package " "<<Rectangle>>{
     Class GUI UI_COLOR
     Class TextUI UI_COLOR
-    Class Calendar UI_COLOR_T2
-    Class "Logic\n(Command Parser)" as Logic LOGIC_COLOR
+    Class "Logic" as Logic LOGIC_COLOR_T2
+    Class "Logic Manager" as LM LOGIC_COLOR
     Class Storage STORAGE_COLOR
+    Class "Storage Manager" as SM STORAGE_COLOR_T2
     Class Model MODEL_COLOR
     Class Itinerary MODEL_COLOR_T1
     Class Commons LOGIC_COLOR_T2
@@ -23,25 +24,31 @@ Class "<$administrator>\nDeveloper" as Developer MODEL_COLOR_T2
 Class "<$documents>\nJson File" as File UI_COLOR_T1
 
 GUI -> Logic
-GUI -right-> Model
-GUI -up-> Calendar
 
 Logic -right-> Storage
 Logic -down-> Model
 
 TextUI -up-> GUI
 TextUI .up.> Commons
-Logic .up.> Commons
-Storage .up.> Commons
+
+Logic -up-> LM
+Storage -up-> SM
+
+LM .up.> Commons
+SM .up.> Commons
+
 
 Logs -right- Commons
 Storage .right.>File
 User -right-> GUI
 User <--> TextUI
-Test -up-> TextUI
-Developer -up[hidden]-> User
+Test -up[hidden]-> TextUI
+Test -up[hidden]-> Model
+Test -[hidden]> Itinerary
 Developer <-right-> Test
+Test -> Logic
 
 Model -down-> Itinerary
+Model -up-> GUI
 
 @enduml
