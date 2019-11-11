@@ -25,6 +25,7 @@ Keep a look out for more cool and exciting features coming soon!
 == Introduction
 
 Thank you for checking out TimeBook!
+// tag::ppp-introduction[]
 TimeBook is a desktop application that is morphed from AddressBook Level 3 (AB3).
 TimeBook is a scheduling application that aims to help busy NUS undergraduates keep track of the schedules of you and your friends.
 It also can find the common free time and venues among you and your friends.
@@ -35,6 +36,7 @@ TimeBook will have the following features:
 . Deconflict different schedules of different people and different groups to find the common free time among them.
 . Integration with NUSmods API to allow users to enter their NUSmods timetable link to add it to their schedule.
 . Integration with Google Maps API to allow the application to evaluate the best venue for the group to meet up during the free time in their schedules.
+// end::ppp-introduction[]
 
 == Understanding this guide
 
@@ -129,7 +131,7 @@ someone's schedule in the group. For example, the image below highlights all of 
 image::charlieBusyTimeslot.png[]
 
 Take note of the numbered green boxes you see below!
-
+[[FreeTimeSlot-Scheule]]
 image::freeTimeslot.png[]
 
 These are the common free time slot that you and your *entire* group members share! You can use
@@ -437,27 +439,28 @@ image:./icons/important.png[] Unfortunately, TimeBook does not let you see a sch
 // tag::addmod[]
 ==== Add Module to Schedule: `addmod`
 
-Adds an NUS module as an event to a person's schedule in TimeBook.
+Want to add an NUS module to you or your friend's schedule on TimeBook? You can do so with the `addmod` command! If you already have your timetable on NUSMods, check out <<Add Modules via NUSMods Link: `addmods`,the `addmods` command>>!
 
-Format: `addmod n/NAME m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,CLASS_2_TYPE:CLASS_2_NUMBER,...`
+Format: `addmod [n/NAME] m/MODULE_CODE cl/CLASS_1_TYPE:CLASS_1_NUMBER,CLASS_2_TYPE:CLASS_2_NUMBER,...`
 
 ****
 * Currently supports academic year 2019/2020 and semester 1 only.
+* If the NAME is not provided, then the modules will be added to the default user, which is you!
 * image:./icons/warning.png[]: Just like adding a normal event via `addevent`, the module will only be added if the specified classes does not clash with any events in the person's schedule.
 ****
 
 Examples:
 
-* `addmod n/John m/CS2103T cl/LEC:G01` +
-This adds CS2103T lecture G01 to John's schedule.
+* `addmod m/CS2103T cl/LEC:G01` +
+This adds CS2103T lecture G01 to your schedule.
 * `addmod n/John m/CS3230 cl/LEC:1,TUT:08` +
 This adds CS3230 lecture 1 and tutorial 08 to John's schedule.
 * `addmod n/John m/CS2100 cl/LEC:1,TUT:01,LAB:08` +
 This adds CS2100 lecture 1, tutorial 01 and lab 08 to John's schedule.
 
-Step-By-Step:
+*How do I add an NUS module to my schedule?*
 
-. Add a module's classes easily by typing `addmod` into the command box and specifying the appropriate parameters, then press btn:[Enter] to execute it.
+. Suppose you want to add CS3230 lecture 1 and tutorial 08 to your schedule. You can add the classes to your schedule easily by first typing `addmod m/CS3230 cl/LEC:1,TUT:08` into the command box, then pressing btn:[Enter] to execute it!
 +
 image::nusmods/addmod1.PNG[]
 
@@ -472,28 +475,31 @@ image::nusmods/addmod2.PNG[]
 Already have your modules timetable on NUSMods?
 Great, you can easily add your modules timetable into TimeBook with the `addmods` command!
 
-Format: `addmods n/NAME link/NUSMODS_SHARE_LINK`
+Format: `addmods [n/NAME] link/NUSMODS_SHARE_LINK`
 
 ****
 * Reads the specified `NUSMODS_SHARE_LINK` to get the modules and classes, then adds the classes into the person's schedule.
+* If the NAME is not provided, then the modules will be added to the default user, which is you!
 * Currently supports academic year 2019/2020 and semester 1 only.
 * image:./icons/warning.png[]: Just like adding a normal event via `addevent`, the module will only be added if the specified classes does not clash with any events in the person's schedule.
 ****
 
-Examples:
+*Examples:*
 
+* `addmods link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17` +
+This will add the modules in the NUSMods link to your schedule.
 * `addmods n/John link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17` +
 This will add the modules in the NUSMods link to John's schedule.
 * `addmods n/Bob link/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17` +
-This will add the modules in teh NUSMods link to Bob's schedule.
+This will add the modules in the NUSMods link to Bob's schedule.
 
-Step-By-Step:
+*How do I add my team member John's NUSMods timetable to TimeBook?*
 
-. Add an NUSMods timetable easily by typing `addmods` into the command box and follow the format as shown above, then press btn:[Enter] to execute it.
+. Well that is simple, add John's NUSMods timetable by first typing `addmods n/John link/` into the command box, then copy and paste his NUSMods link. Finally, press btn:[Enter] to execute it.
 +
 image::nusmods/addmods1.PNG[]
 
-. If you manage to successfully add all the modules and their respective classes into the person's schedule, you will see the person's schedule appearing with the newly added timeslots:
+. If the command succeeds, you will see John's schedule update with the newly added timeslots from his NUSMods timetable:
 +
 image::nusmods/addmods2.PNG[]
 // end::addmods[]
@@ -813,9 +819,11 @@ The green blocks still represent the common free time slots for the entire group
 
 Want to know more information about an NUS module? Use `showmod` to quickly open up the NUSMods page for a specific module on your browser!
 
-Format:
+Format: `showmod m/MODULE_CODE`
 
-* `showmod m/MODULE_CODE`
+****
+* image:./icons/warning.png[]: This command requires internet connection.
+****
 
 Examples:
 
@@ -839,6 +847,7 @@ image:./icons/warning.png[] Take note that if you are exporting a group's schedu
 Format:
 
 * Simply enter the `export` command to export the currently shown schedule in TimeBook! +
+
 
 ==== Select Time Slot: `select`
 
@@ -933,73 +942,82 @@ Example:
 
 After executing that command, a pop up will be shown similar to the one above!
 
-
-
+//tag::Closest-Common-Location[]
+[[Closest-Common-Location]]
 === Closest Common Location
 
-TimeBook will also help you to decide where to meet for your project meetings by suggesting to you which
-location is the center for everyone. The center location is the closest location for everyone to meet in NUS based
-on their schedule. In time book we define the center location for everyone as the _closest common location_.
+TimeBook will also help you to decide where to meet for your project meetings by suggesting to you an optimal
+location for everyone. The optimal location is the closest location for everyone to meet in NUS based
+on their schedule. In time book we define the optimal location for everyone as the _closest common location_.
 
 *Steps*
 
-. Setup your group by:
+. Set up your group by:
 .. Adding your group members to your TimeBook with `addperson` command
 .. Adding your group to TimeBook with `addgroup` command
 .. Add your group members to your group with `addtogroup` command
-. Find the free common time when you want to meet with `show` command
-. With the free time slot `id` get the details for the closest common location with `popup` command
+. Get the relevant information for your group schedule with `show g/[GROUP_NAME]`
+.. Identify the `ID` and `Week` of the time slot you want to get the closest common location for.
+. With the free time slot `id` and `week` get the details for the closest common location with `selectfreetime` command
 . Press `esc` button to close the popup
 
 *Constraints*
 
 Due to the lack of internet connectivity, TimeBook will only support locations that are in NUSMods and identifiable by Google Maps.
-The full list of the supported locations is below.
+The full list of supported locations is <<UserGuide#Supported-Locations, below>>.
 
 *Definitions*
 
-. We define closest common location as the location that requires the least average distance to travel to from different sources by car.
+. We define closest common location as the location that requires the least average distance to travel to and from different sources by car.
 . Locations that are not supported are voided and are not used for the calculations of the closest common location and average travelling distance.
-. Refer to the `Developer Guide` on how we compute the closest common location.
+. Refer to the `Developer Guide` on how we computed the closest common location.
 
-==== Closest Common Location Popup `popup`
+==== Select Free Time `selectfreetime`
 
-command: `popup g/ GROUP_NAME i/ID`
+Select a free time slot to launch a popup window with all the relevant information to help you make decide on the venue
+to conduct your project meetings at. The image below is an example of the popup.
+
+Below is an example of a popup.
+[#img-SuccessfulPopup]
+.An example of a popup when `selectfreetime` is executed
+image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
+
+command: `selectfreetime [week/WEEK_NUMBER] i/FREETIMESLOTID`
 
 Examples:
 
-* `popup g/CS2103T i/2`
-
-image::gmaps/SuccessfulPopup.png[SuccessfulPopup]
-
-[#img-SuccessfulPopup]
-.An example of a popup when `popup` is executed
+* `selectfreetime i/3`
+* `selectfreetime week/2 i/3`
 
 _Description_
 
-When the command is executed a popup will appear that shows the all the information of the closest common location
+When the command is executed, a popup will appear that shows all the information of the closest common location
 for a particular free time slot in a group.
+
+_Prerequisite_
+
+. You must be have group on TimeBook with members in it.
+. You must execute `show g/[GROUP NAME]` before executing `selectfreetime` command.
 
 _Parameters_
 
-. `GROUP_NAME`
-- Description: This is the name of the Group you want to find the free time for.
-The `groupname` can be found on the
-`groups` tab in the user interface.(Use `switch-tab` if your tab is on persons)
-- Type: `String`
-. `ID`
-- Description: This is the `id` of the free time slot of a group.
-You can get this `id` from the user interface when you use `show g/[groupname]` command.
+. `[WEEK_NUMBER]`
+- Description: The week(1-4) of the group schedule you want to select the free time slot from. If parameter is not
+stated, it will default to the first week(the default schedule when you execute `show g/GROUP_NAME`).
+- Type: `Integer`
+- Enum: `1`, `2`, `3`, `4`
+. `FREETIMESLOTID`
+- Description: ID of the free time slot in the <<UserGuide#Supported-Locations, schedule>>. You can get this from the number in the free time slot box.
 You can only enter the `id` that is shown on the screen.
-- Type: `String`
+- Type: `Integer`
 
 _Success Response_
 
 If you follow the steps above, a popup will appear as seen in the Figure above.
 
-There are two main information that you will see in the popup when you execute ththe command.
+There are two main information that you will see in the popup when you execute the command.
 
-. The summary of the results will be displayed on the top of the popup.
+. The summary of the results that will be `displayed` on the top of the popup.
 .. *Your best location to meet up is:* The first choice location to meet(closest for everyone).
 .. *Everyone's locations:* List of locations that the group members will be at before the free time slot.
 .. *Out of all these locations, the valid locations are:* List of TimeBook supported locations that the group members
@@ -1009,9 +1027,9 @@ will be at before the free time slot that.
 slot but not supported by TimeBook.
 ... Subset of the *Everyone's locations:* list
 ... If all the locations are valid, this attribute will be empty as seen in the Figure above
-. The full details of the first, second and third closest common location will be shown on the bottom of the popup.
+. The full details of the first, second and third closest common location will be shown at the bottom of the popup.
 .. First choice represents the first closest and so on and so forth.
-.. The average distance(m) to reach the various location will be displayed below the respective choices.
+.. The average distance(m) to reach the various locations will be displayed below the respective choices.
 .. The picture of the location of the venue on Google Maps will be displayed below each choice.
 ... For locations that are not supported on Google Maps, a picture of the center of NUS will be displayed.
 
@@ -1053,6 +1071,7 @@ After you are done with viewing the information on the popup press `esc` button 
 and return to the main screen.
 
 Format: kbd:[esc] button on keyboard.
+// end::Closest-Common-Location[]
 
 === Upcoming schedule list.
 
@@ -1145,12 +1164,13 @@ e.g. `show g/CS2030 T2`
 e.g. `export-vr g/TimeBook o/timetable.jpg`
 * *Closest Location* : `closestlocation l/LOCATIONA LOCATIONB ...` +
 e.g. `closestlocation l/LT16 LT15 AS5`
-* *Show Free Time Slot* : `popup g/GROUP_NAME i/SLOT_NUMBER` +
-e.g. `popup g/CS2103T i/2`
+* *Select Free Time Slot* : `selectfreetime [week/WEEK_NUMBER] i/FREETIMESLOTID` +
+e.g. `selectfreetime i/1`
 * *Help* : `help`
 * *Clear* : `clear`
 * *Exit* : `exit`
 
+[[Supported-Locations]]
 == Supported Locations
 
 !===
