@@ -7,7 +7,6 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY4;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY5;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY6;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY7;
-import static dukecooks.logic.parser.CliSyntax.PREFIX_INGREDIENT;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
 import static java.util.Objects.requireNonNull;
 
