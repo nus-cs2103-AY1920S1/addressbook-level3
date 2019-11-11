@@ -100,8 +100,6 @@ Refer to the guide <<SettingUp#, here>>.
 
 The architecture diagram below explains the high-level design of Jarvis.
 
-// TODO change architecture diagram
-
 .Architecture Diagram
 image::ArchitectureDiagram.png[]
 
@@ -149,12 +147,10 @@ exposes its functionality to the rest of the application.
 
 ==== Architecture: Interactions between Components
 
-The sequence diagram below shows how the components interact with each
-other for the scenario where the user issues the command `delete 1`.
+The sequence diagram below shows how the components interact with each other
+for the scenario where the user issues the command `delete-task 1`.
 
-// TODO change wording in this section and the image
-
-.Component interactions for `delete 1` command
+.Component interactions for `delete-task 1` command
 image::ArchitectureSequenceDiagram.png[]
 
 The sections below give more details of each component.
@@ -217,17 +213,11 @@ parts.
 Shown below is the Sequence Diagram within the `Logic` component for the API
 call: `execute("add-course c/CS1010")`.
 
-// TODO create a new sequence diagram, and change the above command accordingly
 .Interactions Inside the Logic Component for the `add-course c/CS1010` Command
-image::DeleteSequenceDiagram.png[]
+image::AddSequenceDiagram.png[]
 
 The original caller to `LogicManager`, in the context of Jarvis, is the `Ui`
 component.
-
-// TODO do I need this note?
-NOTE: The lifeline for `DeleteAddressCommandParser` should end at the destroy
-marker (X) but due to a limitation of PlantUML, the lifeline reaches the end
-of diagram.
 
 Links : link:{repoURL}/blob/master/src/main/java/seedu/jarvis/logic/Logic.java[[API\]]
 link:{repoURL}/blob/master/src/main/java/seedu/jarvis/logic/[[Package\]]
@@ -815,6 +805,7 @@ after executions of *non-invertible commands*. However, if a
  `HistoryManager#inverselyExecutedCommands` will be cleared. This is
 similar to how navigation works between pages you visit in a browser tab.
 
+// tag::courseplanner[]
 === Course Planner feature
 
 ==== Overview
@@ -1017,7 +1008,7 @@ The following class diagram demonstrates the structure of the `abstract class`
 `AndOrNode` and its sub-classes.
 
 .AndOrNode Inheritance Diagram
-image::AndOrNodeInheritanceClassDiagram.png[800,600]
+image::ryanytan-AndOrNodeInheritanceClassDiagram.png[800,600]
 
 Using this format, a static method of the form `AndOrNode#createNode(T,String)`
 is able to construct all instances of its sub-class, thus the caller will not
@@ -1086,7 +1077,7 @@ recursively from the root. The sequence diagram of the tree building process is
 shown below:
 
 .buildTree() Sequence Diagram
-image::AndOrSequenceDiagramSimplified.png[]
+image::ryanytan-AndOrSequenceDiagramSimplified.png[]
 
 The class looks at each node - checks if its is an `Object`, `Array` or a
 `String`, and does the appropriate actions and function calls.
@@ -1095,17 +1086,17 @@ Other ways of building the tree can be easily extended by overloading the
 `buildTree` method. However, this will not override the immutable properties of
 the tree.
 
-====== `AndOrTree` Dependency on Course
+====== Dependency on Course
 
-The `AndOrTree` posed some difficult for us in the decision to couple the
-implementation of `AndOrTree` with `Course`. This is because the tree would
+`AndOrTree` posed some difficulty for us, in the decision to couple the
+implementation of `AndOrTree` with `Course`. This is because the tree will
 only ever be used by the Course Planner within the program, and thus it is
 not required to implement the tree using generics. However, this would increase
 coupling between `AndOrTree` and `Course`, which is unfavourable for testing.
 
-We came up with two possible scenarios to this issue:
+Below are our considerations in implementing this data structure:
 
-* **Option 1: couple `AndOrTree` to `Course`**
+* **Option 1: Couple `AndOrTree` to `Course`**
 +
 This means that there is no need to pass any mapper function into the
 `buildTree()` method as the class does not need to know how to map from `String`
@@ -1152,13 +1143,15 @@ list. The following is the activity diagram of general overview of the process
 when the user types a `check` command.
 
 .Check Command Activity Diagram
-image::CheckActivityDiagram.png[TODO]
+image::ryanytan-CheckActivityDiagram.png[TODO]
 
 Additionally, the following below shows the sequence diagram of how the
 program checks if the user satisfies the course's prerequisites.
 
 .CheckCommand Sequence Diagram
-image::CheckCommandSequenceDiagram.png[]
+image::ryanytan-CheckCommandSequenceDiagram.png[]
+
+// end::courseplanner[]
 
 === Finance Tracker feature
 
@@ -1216,7 +1209,7 @@ and `PurchaseList`, which provide an abstraction with `add`, `delete`, and
 Shown below is the class diagram for the Finance Tracker.
 
 .Finance Tracker Class Diagram
-image::finance-tracker/ModelFinanceTrackerClassDiagram.png[]
+image::ModelFinanceTrackerClassDiagram.png[]
 
 ==== Finance Tracker Components
 
@@ -1261,7 +1254,7 @@ NOTE: An index is considered invalid if the numerical value provided is less
 than or equal to zero, or greater than the largest index in `InstallmentList`.
 
 .Activity Diagram for edit-install command
-image::finance-tracker/EditInstallmentActivityDiagram.png[]
+image::EditInstallmentActivityDiagram.png[]
 
 ==== Command Execution
 
@@ -1311,7 +1304,7 @@ level triggers a cascading series of `#setInstallment` method which culminates
 in target installment being edited with the corresponding fields.
 
 .Sequence Diagram for edit-install command
-image::finance-tracker/EditInstallmentSequenceDiagram.png[]
+image::EditInstallmentSequenceDiagram.png[]
 
 ===== Command `delete-paid`
 
@@ -1349,7 +1342,7 @@ level triggers a cascading series of `#deletePurchase` method which
 culminates in target purchase being deleted from model.
 
 .Sequence Diagram for delete-paid command
-image::finance-tracker/DeletePurchaseSequenceDiagram.png[]
+image::DeletePurchaseSequenceDiagram.png[]
 
 ==== Design Considerations
 
@@ -1425,7 +1418,7 @@ a user has. Each task has a `TaskType` and `Status` and may also have a `Priorit
 A simple outline of the `Planner` can be seen below, in Figure 26.
 
 .Overview of the entire Planner
-image::plannermodel.png[align=left]
+image::ModelPlannerClassDiagram.png[align=left]
 
 
 The `Model` in `Jarvis` extends `PlannerModel` which facilitates all operations
@@ -1743,7 +1736,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low
 Use case ends.
 
 [discrete]
-=== Use case: Marks task in planner as done
+=== Use case: Mark task in planner as done
 
 *MSS*
 
@@ -1776,40 +1769,40 @@ Use case resumes at step 2.
 Use case ends.
 
 [discrete]
-=== Use case: View prerequisite tree
+=== Use case: Check if the user can check a course
 
 *MSS*
 
-1. User requests to for the prerequisite tree of a certain module
-2. `Jarvis` shows the prerequisite tree
+1. User requests whether they can take a certain course.
+2. Jarvis shows whether they can take the course.
 +
 Use case ends.
 
 *Extensions*
 
-* 2a. The given module code is invalid
+* 2a. The given course code is invalid
 +
 [none]
-** 2a1. AddressBook shows an error message.
+** 2a1. Jarvis shows an error message.
 +
 Use case resumes at step 1.
 
 [appendix]
 == Non Functional Requirements
 
-. `Jarvis` should work on any mainstream OS as long as it has Java 11 or
+. Jarvis should work on any mainstream OS as long as it has Java 11 or
   above installed.
 
 . A user with above average typing speed for regular English text (i.e. not
   code, not system admin commands) should be able to accomplish most of the
   tasks faster using commands than using the mouse.
 
-. `Jarvis` should respond within two seconds.
+. Jarvis should respond within two seconds.
 
-. `Jarvis` should be usable by a novice who has never used a command line
+. Jarvis should be usable by a novice who has never used a command line
   interface.
 
-. `Jarvis` should be able to work without any internet connection.
+. Jarvis should be able to work without any internet connection.
 
 [appendix]
 == Glossary
@@ -1835,7 +1828,7 @@ Pros:
 Cons:
 
 * ...
-* ...
+ ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -1848,15 +1841,16 @@ testers are expected to do more _exploratory_ testing.
 
 === Launch and Shutdown
 
-. Initial launch
+. **Initial Launch**
 
 .. Download the jar file and copy into an empty folder
 
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may
-   not be optimum.
+.. Double-click the jar file
++
+Expected: Shows the GUI with a set of sample data in every feature. The window
+size may not be optimal
 
-. Saving window preferences
+. **Saving Window Preferences**
 
 .. Resize the window to an optimum size. Move the window to a different
    location. Close the window.
@@ -1864,32 +1858,73 @@ testers are expected to do more _exploratory_ testing.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+. **Storage**
 
-=== Deleting a person
+.. Launch the application and make a change that changes the state of the
+   program, such as `add-task` or `add-course`. Close the window.
+
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: The app should re-launch into the same state as when it was
+   closed.
+
+=== Deleting Data from a list
 
 . Deleting a person while all persons are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons
-   in the list.
+.. Prerequisites: List all tasks using the `list-task` command. Multiple
+   tasks in the list.
 
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted
-   contact shown in the status message. Timestamp in the status bar is updated.
+.. Test case: `delete-task 1` +
+   Expected: First task is deleted from the list. Details of the deleted
+   contact shown in the status message.
 
-.. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message.
+.. Test case: `delete-task 0` +
+   Expected: No task is deleted. Error details shown in the result display.
    Status bar remains the same.
 
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is
-   larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. Other incorrect delete commands to try:
+
+... `delete-task`
+... `delete-task x` (where `x` is larger than the list size)
+... `delete-task y` (where `y` is any alphanumeric character)
++
+**Expected**: Similar to previous.
 
 === Saving data
 
-. Dealing with missing/corrupted data files
+. Missing data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected
-  behavior}_
+.. Run the app once and play around with the application. Once a change is
+   made, the program will generate a data files in `./data/`
 
-_{ more test cases ... }_
+.. In `./data/`, delete `courseplanner.json`.
+
+.. Re-launch the app.
++
+**Expected**: Default Course data should now be present in the Courses tab.
+
+. Corrupted data files
+
+.. Run the app once and play around with the application. Once a change is
+   made, the program will generate a data files in `./data/`
+
+.. In `./data/`, open `courseplanner.json`. On line 2, delete the `[`:
++
+----
+1 {
+2   "courses" : [ {
+3 ...
+----
++
+should become
++
+----
+1 {
+2   "courses" : {
+3 ...
+----
+
+.. Re-launch the app.
++
+**Expected**: Go to the Courses tab and the tab should not have any data.
+`courseplanner.json` **still exists**.

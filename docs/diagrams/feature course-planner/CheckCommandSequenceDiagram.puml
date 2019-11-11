@@ -1,17 +1,18 @@
 @startuml
 autoactivate on
+!include ../style2.puml
 
-box Logic
-participant ":LogicManager" as LogicManager
-participant ":JarvisParser" as JarvisParser
-participant ":CheckCommandParser" as CheckCommandParser
-participant "c:CheckCommand" as CheckCommand
-participant "t:AndOrTree" as AndOrTree
-participant ":CommandResult" as CommandResult
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":JarvisParser" as JarvisParser LOGIC_COLOR
+participant ":CheckCommandParser" as CheckCommandParser LOGIC_COLOR
+participant "c:CheckCommand" as CheckCommand LOGIC_COLOR
+participant "t:AndOrTree" as AndOrTree LOGIC_COLOR
+participant ":CommandResult" as CommandResult LOGIC_COLOR
 end box
 
-box Model
-participant ":Model" as Model
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR_T1
 end box
 
 [-> LogicManager : execute("check c/CS2102")

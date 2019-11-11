@@ -6,16 +6,16 @@ if () then (course exists)
     if () then (course has prerequisites)
         :Create AndOrTree;
         :Compare tree against user's course list;
-        if () then (fulfils requirement)
-            :User receives message that he can take this course;
+        if () then (fulfillsRequirement)
+            :User receives message\nthat he can take this course;
         else (else)
-            :User receives message that he is unable to take this course;
+            :User receives message that he is\nunable to take this course;
         endif
     else (else)
-        :User receives message that course has no prerequisites;
+        :User receives message that\ncourse has no prerequisites;
     endif
 else (else)
-    :User receives message that course is not found;
+    :User receives message that\ncourse is not found;
 endif
 stop
 

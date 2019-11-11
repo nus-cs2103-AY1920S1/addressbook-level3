@@ -4,7 +4,204 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-Jarvis was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team.
-We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+// links
+:gh_team: https://ay1920s1-cs2103t-t10-1.github.io/main/AboutUs.html
+:nus_comp: http://www.comp.nus.edu.sg
+:nus_ab3: https://se-education.org/addressbook-level3/
+:credit_jackson: https://github.com/FasterXML/jackson
+:credit_nusmods: https://api.nusmods.com/v2/
+:pr_modelstub_refactor_131: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/131
+:pr_modifybuildgradle_108: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/108
+:pr_refactorclisyntax_110: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/110
+:pr_tabswitching_b832: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/193/commits/b8326f689ff2ad94354b3cb846a776619000e417
+:pr_tabswitching_4d9f: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/319/commits/4d9f595bf7495cc0d0ad6d9091cc07a9d5a54ecd
+:pr_dg1_156: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/156
+:pr_dg2_159: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/159
+:pr_dg3_169: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/169
+:pr_dg4_177: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/177
+:pr_dg5_178: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/178
+:pr_dg6_349: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/349
+:pr_dg7_365: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/365
+:pr_ug1_207: https://github.com/ay1920s1-cs2103t-t10-1/main/pull/207
+:pr_ui_330: https://github.com/AY1920S1-CS2103T-T10-1/main/pull/330
+:misc_codecontributed: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ryanytan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true
+:misc_tree: https://en.wikipedia.org/wiki/Tree_(data_structure)
 
-=== Ryan Tan Yu
+Jarvis was developed by {gh_team}[AY1920-CS2103T-T10-1]. We are a team based
+in the {nus_comp}[School of Computing, National University of Singapore].
+
+== Project Portfolio for Ryan Tan
+
+=== About the Project
+
+My team of 5 students in a Software Engineering module, including myself, was
+tasked with enhancing a program named {nus_ab3}[AddressBook]. AddressBook is
+a basic desktop application that features a Command Line Interface (CLI)
+style of input - meaning that a mouse need not be used for the application.
+
+We chose to enhance AddressBook into a Student Lifestyle application named
+**Jarvis**. Jarvis is meant to be able to manage many aspects of a regular
+university student's life - anywhere from finances to university course
+planning.
+
+Shown below is the UI of Jarvis, showing my feature:
+
+.User Interface of Jarvis
+image::ryanytan-JarvisUi.png[]
+
+My role in the development of Jarvis was the Course Planner feature. This
+document illustrate the methods I've used to integrate this feature into
+Jarvis, along with the challenges I have faced and how I have overcome them,
+plus any other contributions I had in the entire project.
+
+The link to the repository can be found {gh_team}[here].
+
+=== Summary of Contributions
+
+This section shows a summary of coding, documentation, and other helpful
+contributions to this team project. The link to the code I have contributed
+can be found at {misc_codecontributed}[this link].
+
+==== Course Planner
+
+The feature I have provided within Jarvis is a **Course Planner** - using this
+feature you are able to plan out, look up and check information about any
+course currently offered within the National University of Singapore. This is
+one of the big features (out of 4) of Jarvis.
+
+Since Jarvis is an integrated system with the focus of a Student Lifestyle
+tool targeted towards University students, streamlining course planning
+was determined to be a natural feature that this application should provide.
+The Course Planner allows an NUS student to keep track of their courses that
+they have taken and the courses they are taking, so that they can make
+more informed choices on the courses they wish to taken.
+
+The implementation of this feature was not as simple as expected. This is
+due to:
+
+1. Implementing a new {misc_tree}[tree] data structure that I had not learnt
+before in previous modules. Thus, research had to be done on how to
+create this data structure. I eventually had to come up with my own
+implementation using the new knowledge gained from my research.
+
+2. Management of the large amount of data from University courses proved
+challenging as many approaches could be taken to manage the data. This is
+mainly in terms of the data's storage and retrieval while the app was
+running.
++
+A poor solution could result in program freezes in the order of seconds, which
+would be detrimental to the user experience. Eventually, a reasonable solution
+to this problem of data storage and retrieval was reached after considering
+many avenues, that was relatively neat and had good performance.
+
+===== Credits
+* {credit_nusmods}[NUSMods API]
++
+Majority of the data used inside the Course Planner was downloaded directly
+from NUSMods.
+
+* {credit_jackson}[Jackson JSON API]
++
+Processing of `.json` files were handled by the Jackson JSON API.
+
+
+==== Other Contributions
+
+This sums up my contributes to the project that were not directly related to
+my main feature - Course Planner.
+
+* *Developer Guide* {pr_dg1_156}[#156] {pr_dg2_159}[#159] {pr_dg3_169}[#169]
+{pr_dg4_177}[#177] {pr_dg5_178}[#178] {pr_dg6_349}[#349] {pr_dg7_365}[#365]
++
+I was in charge of the Developer Guide, and hence did most of the formatting,
+editing and management of the document.
+
+* *Testability and Code Quality*
+
+** Refactored a `ModelStub` class that was being duplicated throughout the
+codebase {pr_modelstub_refactor_131}[#131]
++
+`ModelStub` is a stub class used for testing. As we developed our
+own features, any updates to `Model` had to be reflected in `ModelStub`. Since
+we had five different features, each changing `Model`, we had to edit every
+instance of `ModelStub` in the code. Eventually, it got very tiresome and
+I removed all static inner-class instances and refactored it into its own
+class for easier reuse.
+
+** Added additional compiler flags into our `gradle` build
+{pr_modifybuildgradle_108}[#108].
++
+This was added as some of us had pushed code that was using deprecated API.
+This change allowed the compiler to warn us if we were using deprecated API,
+along with any warnings related to Java Generics.
+
+** Refactored `CliSyntax` {pr_refactorclisyntax_110}[#110]
++
+`CliSyntax` is a class used to indicate different inputs into a command. So, in
+a command with the syntax `add n/NAME p/PHONE_NUMBER`, `n/` and `p/` are
+considered "CLI Syntax". Our team faced an issue where we had to reuse
+some syntax since similar ones thematically fit into our own individual
+features. For easier referencing and to avoid clashes, the team lead asked me
+to refactor the relevant constants into their own static classes for easy
+importing.
+
+* *User Interface*
+
+** Implemented switching using `<TAB>` {pr_tabswitching_b832}[b832] {pr_tabswitching_4d9f}[4d9f]
++
+Since Jarvis primarily uses the keyboard, I implemented tab-switching using
+the keyboard with the `<TAB>` key, instead of having to either type a command
+or use the mouse. I felt that this made the user experience more seamless and
+in line with the target audience's (fast typists used to a Command Line
+Interface) preferences.
+
+** Implemented Command-Box highlighting
++
+The colour scheme we had gone with in Jarvis did not allow us to highlight the
+text of wrong commands without it looking unappealing. Thus, I made the UI
+show a red highlighted box instead, as shown below:
++
+.Command Box Highlighting with Wrong Command
+image::ryanytan-CommandBoxHighlight.png[]
+
+** Implemented Styling for User Interface {pr_ui_330}[#330]
++
+Along with the help of another team member who worked on the layout, I did
+the styling seen in the application - such as the way the tabs look, the
+colour scheme of individual components and general look and feel of the UI.
+
+==== Contributions to User Guide
+
+We were put in charge of our own sections of the User Guide content while
+another member had styled and verified the cohesiveness of the User Guide as a
+whole. The following is my section of the User Guide:
+
+'''
+
+include::../UserGuide.adoc[tag=courseplanner]
+
+'''
+
+==== Contributions to Developer Guide
+
+As stated above, after the assigning of roles amongst the team, I was put
+in charge of the Developer Guide. While each person wrote their own sections,
+I was to audit them to ensure that they conformed to the specified format so
+as to give the document structure and cohesion.
+
+===== PlantUML
+
+I was initially in charge of drawing diagrams using PlantUML. This was
+handed over to another person further along the project. These are some of the
+diagrams I drew:
+
+===== Course Planner Section
+
+The following is an excerpt for my own section of the Developer Guide.
+
+'''
+
+include::../DeveloperGuide.adoc[tag=courseplanner]
+
+'''
+
