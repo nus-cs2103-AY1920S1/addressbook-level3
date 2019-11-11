@@ -16,6 +16,7 @@ image::ang-zeyu.png[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Logic, Deliverables and deadlines
+
 '''
 
 === Derrick
@@ -38,7 +39,7 @@ Responsibilities: Testing, Integration
 
 === Tianyi
 image::arjunwangty.png[width="150", align="left"]
-{empty}[https://github.com/arjunwangty[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/arjunwangty[github]] [<<wang_tianyi#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI

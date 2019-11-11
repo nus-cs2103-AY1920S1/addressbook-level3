@@ -241,4 +241,9 @@ public class ExpensesPage extends PageWithSidebar<AnchorPane> implements UiChang
     private void handleAddExpense() {
         mainWindow.executeGuiCommand(EnterCreateExpenseCommand.COMMAND_WORD);
     }
+
+    @FXML
+    private void handleHelp() {
+        mainWindow.executeGuiCommand("help");
+    }
 }

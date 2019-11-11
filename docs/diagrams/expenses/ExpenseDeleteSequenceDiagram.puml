@@ -1,0 +1,102 @@
+@startuml
+!include ../style.puml
+
+title Executing "DoneEditExpenseCommand.execute(model)" in Logic Manager
+box Logic LOGIC_COLOR_T1
+
+participant "command:\nDoneEditExpenseCommand" as DoneEditExpenseCommand LOGIC_COLOR
+participant "editExpense\nDescriptor:\nEditExpense\nDescriptor" as EditExpenseDescriptor LOGIC_COLOR
+participant "expenseToEdit:\nExpenseToEdit" as ExpenseToEdit LOGIC_COLOR
+participant "expenseToAdd:\nExpenseToAdd" as ExpenseToAdd LOGIC_COLOR
+participant "commandResult:\nCommandResult" as CommandResult LOGIC_COLOR
+
+end box
+box Model MODEL_COLOR_T1
+
+participant "model:\nModel" as Model MODEL_COLOR
+participant ":PageStatus" as PageStatus MODEL_COLOR
+participant ":Trip" as Trip MODEL_COLOR
+participant ":ExpenseList" as ExpenseList MODEL_COLOR
+
+participant ":DayList" as DayList MODEL_COLOR
+participant ":Day" as Day MODEL_COLOR
+participant ":EventList" as EventList MODEL_COLOR
+participant ":Event" as EventList MODEL_COLOR
+end box
+
+[-> DoneEditExpenseCommand : execute(model)
+activate DoneEditExpenseCommand
+DoneEditExpenseCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : getEditExpense\nDescriptor()
+activate PageStatus
+return editExpense\nDescriptor
+deactivate PageStatus
+Model --> DoneEditExpenseCommand: editExpenseDescriptor
+deactivate Model
+
+create EditExpenseDescriptor
+DoneEditExpenseCommand -> EditExpenseDescriptor
+activate EditExpenseDescriptor
+EditExpenseDescriptor -> DoneEditExpenseCommand
+deactivate EditExpenseDescriptor
+
+
+DoneEditExpenseCommand -> Model : getPageStatus()
+activate Model
+Model -> PageStatus : getExpense()
+activate PageStatus
+return expenseToEdit
+deactivate PageStatus
+Model --> DoneEditExpenseCommand:  expenseToEdit
+deactivate Model
+
+create ExpenseToEdit
+DoneEditExpenseCommand -> ExpenseToEdit
+activate ExpenseToEdit
+ExpenseToEdit -> DoneEditExpenseCommand
+deactivate ExpenseToEdit
+
+
+DoneEditExpenseCommand -> EditExpenseDescriptor: buildExpense()
+activate EditExpenseDescriptor
+return expenseToAdd
+
+create ExpenseToAdd
+DoneEditExpenseCommand -> ExpenseToAdd
+activate ExpenseToAdd
+ExpenseToAdd -> DoneEditExpenseCommand
+deactivate ExpenseToAdd
+
+DoneEditExpenseCommand -> Model : getPageStatus
+Model -> PageStatus: getTrip
+PageStatus -> Trip : getExpenseList
+Trip -> ExpenseList : set\n(expenseToEdit,\nexpenseToAdd)
+
+
+DoneEditExpenseCommand -> ExpenseToAdd: getDayNumber()
+activate ExpenseToAdd
+ExpenseToAdd --> DoneEditExpenseCommand
+deactivate ExpenseToAdd
+
+DoneEditExpenseCommand -> Model : getPageStatus
+Model -> PageStatus: getTrip
+PageStatus -> Trip : getDayList
+Trip -> DayList : getDay
+DayList -> Day : getEventList
+Day -> EventList: updateExpense\n(expenseToAdd)
+
+
+create CommandResult
+DoneEditExpenseCommand -> CommandResult
+activate CommandResult
+CommandResult -> DoneEditExpenseCommand
+deactivate CommandResult
+DoneEditExpenseCommand -> Model : setPageStatus(...)
+
+[<--DoneEditExpenseCommand: commandResult
+deactivate DoneEditExpenseCommand
+
+
+@enduml
+
