@@ -3,10 +3,9 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Modulo
+== PROJECT: Modulo image:modulo.png[align="center", width="50"]
 For the passionate.
 
-image::modulo.png[][Modulo,50,200]
 I am excited to introduce you to Modulo in this document. I have enjoyed building it despite the many
 challenges and sleepless nights. I hope you will enjoy Modulo as much as I do!
 
@@ -39,7 +38,7 @@ The UI is revamped to a new design that features modern curved edges and shadow-
 
 === Minor Enhancement: `Find` Command
 
-The find command was not adequately powerful. It has a number of limitations such as not being to work if the student user does not use very specific keywords that match the fields exactly.
+The find command was not adequately powerful. It has a number of limitations such as not being able to work if the student user does not use very specific keywords that match the fields exactly.
 
 The find command is enhanced to search for keywords in module code and module title. The enhanced search returns any module that contains the keyword in the module code and/or module title.
 
