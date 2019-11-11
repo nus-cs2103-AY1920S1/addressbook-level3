@@ -101,7 +101,7 @@ image::UiClassDiagram.png[]
 
 The *_UI_* consists of a *_MainWindow_* that is made up of parts e.g.*_CommandBox_*, *_ResultDisplay_*, *_DishListPanel_*, *_StatusBarFooter_* etc. All these parts, including the *_MainWindow_*, inherit from the abstract *_UiPart_* class. +
 
-The *_UI_* component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[*_MainWindow_*] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[*MainWindow.fxml*].
+The #UI# component uses JavaFx UI framework. The layout of these UI parts are defined in matching *.fxml* files that are in the *src/main/resources/view* folder. For example, the layout of the link:{repoURL}/src/main/java/calofit/ui/MainWindow.java[#MainWindow#] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[#MainWindow.fxml#]
 
 The *_UI_* component,
 
