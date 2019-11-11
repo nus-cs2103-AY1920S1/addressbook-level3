@@ -3,17 +3,19 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.commons.core.Messages.*;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_AMY;
-import static seedu.address.logic.parser.CliSyntax.SEARCH_PREFIX_SELF;
-import static seedu.address.testutil.TypicalIncidents.*;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.commons.core.Messages.MESSAGE_NO_INCIDENTS_FOUND;
+import static seedu.address.commons.core.Messages.MESSAGE_SINGLE_INCIDENT_LISTED;
+import static seedu.address.commons.core.Messages.MESSAGE_INCIDENTS_LISTED_OVERVIEW;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalIncidents.getTypicalIncidentManager;
+import static seedu.address.testutil.TypicalIncidents.firstIncident;
+import static seedu.address.testutil.TypicalIncidents.secondIncident;
+import static seedu.address.testutil.TypicalIncidents.thirdIncident;
+import static seedu.address.testutil.TypicalIncidents.fifthIncident;
+import static seedu.address.testutil.TypicalIncidents.seventhIncident;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -22,15 +24,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.incident.*;
-import seedu.address.model.person.LoginCredentialsPredicate;
-import seedu.address.model.person.Password;
-import seedu.address.model.person.Username;
-import seedu.address.model.vehicle.District;
-import seedu.address.model.vehicle.DistrictKeywordsPredicate;
-import seedu.address.model.vehicle.VNumKeywordsPredicate;
-import seedu.address.model.vehicle.VTypeKeywordsPredicate;
-import seedu.address.model.vehicle.VehicleType;
+import seedu.address.model.incident.DescriptionKeywordsPredicate;
+import seedu.address.model.incident.IdKeywordsPredicate;
+import seedu.address.model.incident.Incident;
+import seedu.address.model.incident.NameKeywordsPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindIncidentsCommand}.
@@ -40,12 +37,9 @@ public class FindIncidentsCommandTest {
 
     private Model model = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
     private Model expectedModel = new ModelManager(getTypicalIncidentManager(), new UserPrefs());
-    private LoginCredentialsPredicate firstPredicate = new LoginCredentialsPredicate(
-            new Username(VALID_USERNAME_AMY), new Password(VALID_PASSWORD_AMY));
 
     @Test
-    public void equals()
-    {
+    public void equals() {
         DescriptionKeywordsPredicate firstDescPredicate =
                 new DescriptionKeywordsPredicate(List.of("fire"));
         DescriptionKeywordsPredicate secondDescPredicate =
@@ -236,20 +230,6 @@ public class FindIncidentsCommandTest {
     }
 
     /**
-     * Parses {@code userInput} into a {@code DistrictKeywordsPredicate}.
-     * @param userInput
-     * @return
-     */
-    private DistrictKeywordsPredicate prepareDistrictPredicate(String userInput) {
-        List<String> splittedD = Arrays.asList(userInput.split("\\s+"));
-        List<District> districts = new ArrayList<>();
-        for (String s: splittedD) {
-            districts.add(new District(Integer.valueOf(s)));
-        }
-        return new DistrictKeywordsPredicate(districts);
-    }
-
-    /**
      * Parses {@code userInput} into a {@code DescriptionKeywordsPredicate}.
      * @param userInput
      * @return
@@ -276,24 +256,5 @@ public class FindIncidentsCommandTest {
     private NameKeywordsPredicate prepareNamePredicate(String userInput, boolean isFullMatch) {
         List<String> splittedN = Arrays.asList(userInput.split("\\s+"));
         return new NameKeywordsPredicate(splittedN, isFullMatch);
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code VTypeKeywordsPredicate}.
-     * @param userInput
-     * @return
-     */
-    private VTypeKeywordsPredicate prepareVTypePredicate(String userInput) {
-        VehicleType vType = new VehicleType(userInput.trim());
-        return new VTypeKeywordsPredicate(vType);
-    }
-
-    /**
-     * Parses {@code userInput} into a {@code VTypeKeywordsPredicate}.
-     * @param userInput
-     * @return
-     */
-    private VNumKeywordsPredicate prepareVNumPredicate(String userInput) {
-        return new VNumKeywordsPredicate(userInput.trim());
     }
 }
