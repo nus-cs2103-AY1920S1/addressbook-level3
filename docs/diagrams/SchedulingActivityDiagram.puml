@@ -1,0 +1,7 @@
+@startuml
+start
+:Observable list detects changes in UniqueLessonList;
+:Schedules alert for Lesson;
+:Creates alert box in GUI;
+stop
+@enduml
