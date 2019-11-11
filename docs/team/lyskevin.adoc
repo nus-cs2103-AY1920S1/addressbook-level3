@@ -46,7 +46,7 @@ https://github.com/AY1920S1-CS2103T-F14-3/main/pull/91/files[#91], and https://g
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-3/main/pull/65[#65]
 *** Reported bugs and suggestions for other teams in the class: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/111[Tagline],
 https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/11[MoneyGoWhere]
-*** Some class mates used parts of the calendar feature which I implemented (https://github.com/AY1920S1-CS2103T-F14-2/main/pull/221/files[TutorAid]) 
+*** Some class mates used parts of the calendar feature which I implemented (https://github.com/AY1920S1-CS2103T-F14-2/main/pull/221/files[TutorAid])
 ** Tools:
 *** Set up Travis Continuous Integration (CI) for the repository (https://github.com/AY1920S1-CS2103T-F14-3/main/pull/47/files[#47],
 https://github.com/AY1920S1-CS2103T-F14-3/main/pull/49/files[#49]).
