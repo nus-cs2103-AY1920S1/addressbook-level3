@@ -41,6 +41,7 @@ import seedu.address.ui.template.Page;
 public class EditEventPage extends Page<AnchorPane> {
     private static final String FXML = "itinerary/events/EditEventPage.fxml";
     private static final String FORM_ITEM_STYLESHEET = "/view/trips/trips.css";
+    private static final String INVENTORY_LIST_VIEW_STYLESHEET = "/view/inventory/InventoryListViewTheme.css";
 
     private TextFormItem eventNameFormItem;
     private TextFormItem eventDestinationFormItem;
@@ -159,8 +160,6 @@ public class EditEventPage extends Page<AnchorPane> {
 
         listView = new ListView<>();
 
-
-
         listView.setCellFactory(param -> new ListCell<Inventory>() {
             @Override
             protected void updateItem(Inventory item, boolean empty) {
@@ -168,8 +167,10 @@ public class EditEventPage extends Page<AnchorPane> {
 
                 if (empty || item == null || item.getName() == null) {
                     setText(null);
+                    getStylesheets().add(INVENTORY_LIST_VIEW_STYLESHEET);
                 } else {
                     setText(item.getName().fullName);
+                    getStylesheets().add(INVENTORY_LIST_VIEW_STYLESHEET);
                 }
             }
         });
@@ -199,9 +200,6 @@ public class EditEventPage extends Page<AnchorPane> {
         eventDestinationFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
 
         eventInventoryFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
-
-        //Looks like this has no effect
-        listView.getStylesheets().add(FORM_ITEM_STYLESHEET);
 
         eventDescriptionFormItem.getRoot().getStylesheets().add(FORM_ITEM_STYLESHEET);
 

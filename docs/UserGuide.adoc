@@ -177,7 +177,7 @@ image::createTrip.png[title=" `create` command generates empty fields, width=500
 
 image::editTrip.png[title=" `edit` command generates fields from your previously saved data, width=500]
 
-*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 6 different prefixes, each to edit one of the 6 fields displayed. The 6 prefixes refer to editing each fields as follows:
+*Step 3*: Now that you are on the edit page, to edit a specific field, execute the following command: `edit <prefix>/<value> <prefix>/<value> ...`. There are 8 different prefixes. The 8 prefixes refer to editing each fields as follows:
 
 1. Name :  `n/`
 2. Start Date : `ds/`
@@ -185,6 +185,9 @@ image::editTrip.png[title=" `edit` command generates fields from your previously
 4. Total Budget : `b/`
 5. Destination : `l/`
 6. Photo File Path : `fp/`
+7. Add an inventory item to the Event Inventory List: 'inv/' (This prefix can be called more than once in the edit command)
+8. Deletes an inventory item from the Event Inventory List: 'dinv/' (This prefix can be called more than once in the edit command)
+
 
 NOTE: You can execute `fc/` with `fp/` to open a file dialog to choose an image rather than type in absoulute path of the image.
 e.g. `edit fp/ fc/`
@@ -991,12 +994,43 @@ save the changes you made while the editor was open, and close the editor.
 
 '''
 
-=== Pre-trip Inventory Manager
+=== Trip Inventory Manager
 
-Allows the user to make a list of things (inventory of things) he/she needs for the trip.
+==== Introduction
 
-* add <item> : adds an item to the inventory list
-* delete <index of item> : deletes the item at the specified index from the inventory list
+TravelPal's __Trip Inventory Manager__ is an integrated inventory planning and management system. It displays all the inventory items required for your trip in an intuitive and simple manner. Thus, making packing for your next trip a super easy task!
+
+There are two types of inventory items:
+
+1. Event-specific inventory items (auto-generated from event)
+2. Non-event-specific inventory items
+
+This section of the user guide explains how to view and manage your inventory items using __Trip Inventory Manager__.
+
+==== User Interface Overview
+
+Shown below is the __Trip Inventory Manager__.
+
+image::expense/userguide/InventoryManager.png[title="Overview of Trip Inventory Manager user interface"]
+
+
+The __Trip Inventory Manger__ displays all your event-specific inventory items and non-even-specific inventory items in one table. To provide the best reading experience, __Trip Inventory Manger__ does not display duplicate names.
+
+==== Commands
+
+On the __Trip Inventory Manager__ page, the following command are available:
+
+* `add <name>`: Adds a non-event-specfic inventory item with the name, <name>.
+
+NOTE: <name> must not already exist in the __Trip Inventory Manger__
+
+* `delete <index of inventory item>`: deletes the inventory item
+
+NOTE: The inventory item to delete must exclusively be a non-event-specific inventory item. Otherwise, to delete it, you will have to delete the inventory item from all events it is inside.
+
+* `check <index of inventory item>`: marks the inventory item as packed
+* `uncheck <index of inventory item>`: marks the inventory item as not yet packed
+
 
 
 == General info
