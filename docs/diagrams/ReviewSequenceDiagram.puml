@@ -1,0 +1,72 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":EatMeParser" as EatMeParser LOGIC_COLOR
+participant ":ReviewCommandParser" as ReviewCommandParser LOGIC_COLOR
+participant "a:ReviewCommand" as ReviewCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "r:Review" as Review MODEL_COLOR
+participant ":Eatery" as Eatery MODEL_COLOR
+participant ":Model" as Model MODEL_COLOR
+end box
+[-> LogicManager : execute(review)
+activate LogicManager
+
+LogicManager -> EatMeParser : parseCommand(review)
+activate EatMeParser
+
+create ReviewCommandParser
+EatMeParser -> ReviewCommandParser : parse(args)
+activate ReviewCommandParser
+
+create Review
+ReviewCommandParser -> Review
+activate Review
+
+Review --> ReviewCommandParser
+deactivate Review
+Review -[hidden]-> ReviewCommandParser
+destroy Review
+
+create ReviewCommand
+ReviewCommandParser -> ReviewCommand : r
+activate ReviewCommand
+
+ReviewCommand --> ReviewCommandParser
+deactivate ReviewCommand
+
+ReviewCommandParser --> EatMeParser : a
+deactivate ReviewCommandParser
+ReviewCommandParser -[hidden]-> EatMeParser : a
+destroy ReviewCommandParser
+
+EatMeParser --> LogicManager : a
+deactivate EatMeParser
+
+LogicManager -> ReviewCommand : execute()
+activate ReviewCommand
+
+ReviewCommand -> Eatery : addReview(r)
+activate Eatery
+
+Eatery --> ReviewCommand
+deactivate Eatery
+
+ReviewCommand -> Model : updateFilteredEateryList()
+activate Model
+
+Model --> ReviewCommand
+deactivate Model
+
+ReviewCommand --> LogicManager : result
+deactivate ReviewCommand
+ReviewCommand -[hidden]-> LogicManager : result
+destroy ReviewCommand
+
+[<--LogicManager : result
+deactivate LogicManager
+@enduml

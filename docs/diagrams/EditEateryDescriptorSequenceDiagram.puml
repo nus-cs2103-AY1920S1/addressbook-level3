@@ -1,0 +1,20 @@
+@startuml
+!include style.puml
+box Logic LOGIC_COLOR_T1
+	participant "ecp:EditCommandParser" LOGIC_COLOR
+	participant "e:EditEateryDescriptor" LOGIC_COLOR
+end box
+
+activate "ecp:EditCommandParser"
+create "e:EditEateryDescriptor"
+"ecp:EditCommandParser" -> "e:EditEateryDescriptor"
+activate "e:EditEateryDescriptor"
+"e:EditEateryDescriptor" --> "ecp:EditCommandParser"
+deactivate "e:EditEateryDescriptor"
+
+"ecp:EditCommandParser" -> "e:EditEateryDescriptor" : setAddress(..)
+activate "e:EditEateryDescriptor"
+deactivate "e:EditEateryDescriptor"
+deactivate "ecp:EditCommandParser"
+
+@enduml

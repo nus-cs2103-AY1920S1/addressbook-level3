@@ -15,16 +15,16 @@ public class AddFeedCommand extends Command {
 
     public static final String COMMAND_WORD = "addfeed";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a feed to the feed list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a feed to the feed list.\n"
             + "Parameters: "
-            + PREFIX_NAME + "NAME "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_NAME + " [name] "
+            + PREFIX_ADDRESS + " [address]\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "Ladyironchef "
-            + PREFIX_ADDRESS + "https://www.ladyironchef.com/feed/";
+            + PREFIX_NAME + " Eatbook "
+            + PREFIX_ADDRESS + " https://eatbook.sg/feed";
 
-    public static final String MESSAGE_SUCCESS = "New feed added: %1$s";
-    public static final String MESSAGE_DUPLICATE_FEED = "This feed already exists in the feed list.";
+    public static final String MESSAGE_SUCCESS = "Feed successfully added: %s";
+    public static final String MESSAGE_DUPLICATE_FEED = "This feed already exists!";
 
     private final Feed toAdd;
 
@@ -45,7 +45,7 @@ public class AddFeedCommand extends Command {
         }
 
         model.addFeed(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
     }
 
     @Override

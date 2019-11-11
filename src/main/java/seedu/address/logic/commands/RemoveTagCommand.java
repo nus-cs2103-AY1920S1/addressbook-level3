@@ -25,14 +25,14 @@ public class RemoveTagCommand extends Command {
 
     public static final String COMMAND_WORD = "removetag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the TAGS of the eatery identified "
-            + "by the index number used in the displayed eatery list. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Removes tags from the eatery identified "
+            + "by the index number used in the displayed eatery list."
             + "The tags will be removed from the existing tags.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TAG + " TAG]...\n"
+            + "Parameters: [index] (must be a positive integer) "
+            + "{" + PREFIX_TAG + " [tag]} ...\n"
             + "Example: " + COMMAND_WORD + " 1 " + PREFIX_TAG + " good";
 
-    public static final String REMOVE_TAG_SUCCESS = "Removed tags from the Eatery: %1$s";
+    public static final String REMOVE_TAG_SUCCESS = "Tags successfully removed";
 
     private final Index index;
     private final EditEateryDescriptor editEateryDescriptor;
@@ -65,7 +65,7 @@ public class RemoveTagCommand extends Command {
         editedEatery.setReviews(eateryToEdit.getReviews());
         model.setEatery(eateryToEdit, editedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
-        return new CommandResult(String.format(REMOVE_TAG_SUCCESS, editedEatery));
+        return new CommandResult(REMOVE_TAG_SUCCESS);
     }
     /**
      * Creates and returns a {@code Eatery} with the details of {@code eateryToEdit}

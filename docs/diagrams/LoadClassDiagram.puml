@@ -1,0 +1,63 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+	participant ":LogicManager" LOGIC_COLOR
+	participant ":EatMeParser" LOGIC_COLOR
+	participant "lp:LoadCommandParser" LOGIC_COLOR
+	participant "l:LoadCommand" LOGIC_COLOR
+	participant "cr:CommandResult" LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+	participant "up:UserPrefs" MODEL_COLOR
+end box
+
+[-> ":LogicManager" : execute("load \u Alice")
+
+activate ":LogicManager"
+":LogicManager" -> ":EatMeParser" : parseCommand("load \u Alice")
+activate ":EatMeParser"
+
+create "lp:LoadCommandParser"
+":EatMeParser" -> "lp:LoadCommandParser" : parse("Alice")
+activate "lp:LoadCommandParser"
+
+create "l:LoadCommand"
+"lp:LoadCommandParser" -> "l:LoadCommand"
+activate "l:LoadCommand"
+"l:LoadCommand" --> "lp:LoadCommandParser"
+deactivate "l:LoadCommand"
+
+"lp:LoadCommandParser" --> ":EatMeParser" : l
+deactivate "lp:LoadCommandParser"
+destroy "lp:LoadCommandParser"
+
+":EatMeParser" --> ":LogicManager" : l
+deactivate ":EatMeParser"
+
+":LogicManager" -> "l:LoadCommand" : execute()
+activate "l:LoadCommand"
+
+create "up:UserPrefs"
+"l:LoadCommand" -> "up:UserPrefs"
+activate "up:UserPrefs"
+"up:UserPrefs" -> "up:UserPrefs" : setAddressBookFilePath()
+"up:UserPrefs" --> "l:LoadCommand"
+deactivate "up:UserPrefs"
+
+create "cr:CommandResult"
+"l:LoadCommand" -> "cr:CommandResult"
+activate "cr:CommandResult"
+"cr:CommandResult" --> "l:LoadCommand"
+deactivate "cr:CommandResult"
+
+"l:LoadCommand" --> ":LogicManager" : cr
+deactivate "l:LoadCommand"
+destroy "l:LoadCommand"
+
+[<-- ":LogicManager"
+
+@enduml
+
+

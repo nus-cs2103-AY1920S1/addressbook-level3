@@ -23,8 +23,10 @@ public class ModeCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_modeChanged() {
-        assertCommandSuccess(new ModeCommand(), model, ModeCommand.MESSAGE_SUCCESS_TODO, expectedModel);
-        assertCommandSuccess(new ModeCommand(), model, ModeCommand.MESSAGE_SUCCESS_MAIN, expectedModel);
+        assertCommandSuccess(new ModeCommand(), model,
+                String.format(ModeCommand.MESSAGE_SUCCESS, "todo mode"), expectedModel);
+        assertCommandSuccess(new ModeCommand(), model,
+                String.format(ModeCommand.MESSAGE_SUCCESS, "main mode"), expectedModel);
     }
 
 

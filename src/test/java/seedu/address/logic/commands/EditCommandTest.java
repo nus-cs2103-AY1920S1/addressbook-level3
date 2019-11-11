@@ -39,7 +39,8 @@ public class EditCommandTest {
         EditEateryDescriptor descriptor = new EditEateryDescriptorBuilder(editedEatery).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EATERY, descriptor);
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EATERY_SUCCESS, editedEatery);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EATERY_SUCCESS,
+                editedEatery.getName().fullName);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), model.getFeedList(), new UserPrefs());
@@ -53,7 +54,8 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_EATERY, new EditEateryDescriptor());
         Eatery editedEatery = model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased());
 
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EATERY_SUCCESS, editedEatery);
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_EATERY_SUCCESS,
+                editedEatery.getName().fullName);
 
         Model expectedModel =
                 new ModelManager(new AddressBook(model.getAddressBook()), model.getFeedList(), new UserPrefs());

@@ -16,11 +16,11 @@ public class DeleteFeedCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the feed identified using its name from the feed list.\n"
-            + "Parameters: " + PREFIX_NAME + " NAME"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " Seth Lui";
+            + "Parameters: " + PREFIX_NAME + " [name]\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_NAME + " Eatbook";
 
-    public static final String MESSAGE_DELETE_FEED_SUCCESS = "Deleted feed: %1$s";
-    public static final String MESSAGE_MISSING_FEED = "Feed does not exist in feed list.";
+    public static final String MESSAGE_DELETE_FEED_SUCCESS = "Feed successfully deleted: %s";
+    public static final String MESSAGE_MISSING_FEED = "Feed does not exist!";
 
     private final String name;
 
@@ -45,7 +45,7 @@ public class DeleteFeedCommand extends Command {
         }
 
         model.deleteFeed(feedToDelete);
-        return new CommandResult(String.format(MESSAGE_DELETE_FEED_SUCCESS, feedToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_FEED_SUCCESS, feedToDelete.getName()));
     }
 
     @Override

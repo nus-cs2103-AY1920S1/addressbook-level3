@@ -25,11 +25,11 @@ public class CloseCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Closes the eatery identified by the index number used in the displayed eatery list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: [index] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_EATERY_ALREADY_CLOSED = "This eatery is already closed in the address book.";
-    public static final String MESSAGE_CLOSED_EATERY_SUCCESS = "Closed Eatery: %1$s";
+    public static final String MESSAGE_EATERY_ALREADY_CLOSED = "This eatery is already closed!";
+    public static final String MESSAGE_CLOSED_EATERY_SUCCESS = "Eatery successfully closed: %s";
 
     private final Index targetIndex;
 
@@ -59,7 +59,7 @@ public class CloseCommand extends Command {
         model.setEatery(eateryToClose, closedEatery);
         model.updateFilteredEateryList(PREDICATE_SHOW_ALL_EATERIES);
 
-        return new CommandResult(String.format(MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery));
+        return new CommandResult(String.format(MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery.getName()));
     }
 
     @Override

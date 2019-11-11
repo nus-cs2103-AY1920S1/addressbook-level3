@@ -33,7 +33,8 @@ public class CloseCommandTest {
         Eatery closedEatery = new EateryBuilder().withTags("fastfood").withIsOpen(false).build();
         CloseCommand closeCommand = new CloseCommand(INDEX_FIRST_EATERY);
 
-        String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery);
+        String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS,
+                closedEatery.getName().fullName);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), closedEatery);
@@ -57,7 +58,8 @@ public class CloseCommandTest {
         Eatery closedEatery = new EateryBuilder().withTags("fastfood").withIsOpen(false).build();
         CloseCommand closeCommand = new CloseCommand(INDEX_FIRST_EATERY);
 
-        String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS, closedEatery);
+        String expectedMessage = String.format(CloseCommand.MESSAGE_CLOSED_EATERY_SUCCESS,
+                closedEatery.getName().fullName);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getFeedList(), new UserPrefs());
         expectedModel.setEatery(model.getFilteredEateryList().get(INDEX_FIRST_EATERY.getZeroBased()), closedEatery);

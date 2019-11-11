@@ -13,10 +13,10 @@ box Model MODEL_COLOR_T1
 	participant ":EateryList" MODEL_COLOR
 end box
 
-[-> ":LogicManager" : execute("add \\n..")
+[-> ":LogicManager" : execute("edit 1 \\a..")
 activate ":LogicManager"
 
-":LogicManager" -> ":EatMeParser" : parseCommand("add \\n..")
+":LogicManager" -> ":EatMeParser" : parseCommand("edit 1 \\a..")
 activate ":EatMeParser"
 
 create "ecp:EditCommandParser"
@@ -25,7 +25,7 @@ activate "ecp:EditCommandParser"
 "ecp:EditCommandParser" --> ":EatMeParser"
 deactivate "ecp:EditCommandParser"
 
-":EatMeParser" -> "ecp:EditCommandParser" : parse("\\n..")
+":EatMeParser" -> "ecp:EditCommandParser" : parse("\\a..")
 activate "ecp:EditCommandParser"
 ref over "ecp:EditCommandParser" : create EditEateryDescriptor e
 
@@ -50,9 +50,9 @@ deactivate ":Model"
 ref over "ec:EditCommand" : create Eatery edited
 
 opt Eatery edited is not a duplicate
-"ec:EditCommand" -> ":Model" : setEatery()
+"ec:EditCommand" -> ":Model" : setEatery(edited)
 activate ":Model"
-":Model" -> ":EateryList" : setEatery()
+":Model" -> ":EateryList" : setEatery(edited)
 activate ":EateryList"
 deactivate ":EateryList"
 "ec:EditCommand" -> ":Model" : updateFilteredEateryList()

@@ -17,32 +17,30 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE_MAIN = COMMAND_WORD + ": Adds a eatery to the address book. "
+    public static final String MESSAGE_USAGE_MAIN = COMMAND_WORD + ": Adds a eatery to the eatery list.\n"
             + "Parameters: "
-            + PREFIX_NAME + " NAME "
-            + PREFIX_ADDRESS + " ADDRESS "
-            + PREFIX_CATEGORY + " CATEGORY "
-            + "[" + PREFIX_TAG + " TAG]...\n"
+            + PREFIX_NAME + " [name] "
+            + PREFIX_ADDRESS + " [address] "
+            + PREFIX_CATEGORY + " [category] "
+            + "{" + PREFIX_TAG + " [tag]} ...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + " Inspirasi Stall "
-            + PREFIX_ADDRESS + " Blk 207 New Upper Changi Road, #01-11"
-            + PREFIX_CATEGORY + " Malay "
-            + PREFIX_TAG + " cheap "
-            + PREFIX_TAG + " nice";
+            + PREFIX_NAME + " Fei Fei Wanton Mee "
+            + PREFIX_ADDRESS + " 62 Joo Chiat Place "
+            + PREFIX_CATEGORY + " Chinese "
+            + PREFIX_TAG + " delicious";
 
-    public static final String MESSAGE_USAGE_TODO = COMMAND_WORD + ": Adds a eatery to the todo list. "
-        + "Parameters: "
-        + PREFIX_NAME + " NAME "
-        + PREFIX_ADDRESS + " ADDRESS "
-        + "[" + PREFIX_TAG + " TAG]...\n"
-        + "Example: " + COMMAND_WORD + " "
-        + PREFIX_NAME + " Inspirasi Stall "
-        + PREFIX_ADDRESS + " Blk 207 New Upper Changi Road, #01-11, "
-        + PREFIX_TAG + " cheap "
-        + PREFIX_TAG + " nice";
+    public static final String MESSAGE_USAGE_TODO = COMMAND_WORD + ": Adds a eatery to the todo list.\n"
+            + "Parameters: "
+            + PREFIX_NAME + " [name] "
+            + PREFIX_ADDRESS + " [address] "
+            + "{" + PREFIX_TAG + " [tag]} ...\n"
+            + "Example: " + COMMAND_WORD + " "
+            + PREFIX_NAME + " Fei Fei Wanton Mee "
+            + PREFIX_ADDRESS + " 62 Joo Chiat Place "
+            + PREFIX_TAG + " delicious";
 
-    public static final String MESSAGE_SUCCESS = "New eatery added: %1$s";
-    public static final String MESSAGE_DUPLICATE_EATERY = "This eatery already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "Eatery successfully added: %s";
+    public static final String MESSAGE_DUPLICATE_EATERY = "This eatery already exists!";
 
     private final Eatery toAdd;
 
@@ -63,7 +61,7 @@ public class AddCommand extends Command {
         }
 
         model.addEatery(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.getName()));
     }
 
     @Override

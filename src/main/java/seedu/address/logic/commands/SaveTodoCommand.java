@@ -24,14 +24,14 @@ public class SaveTodoCommand extends Command {
     public static final String COMMAND_WORD = "save";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Saves the eatery identified by the index number used in the displayed todo list to main list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + ": Saves the eatery identified by the index number in the displayed todo list to the main list.\n"
+            + "Parameters: [index] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_INVALID_MODE = "Save command is not available in main mode";
+    public static final String MESSAGE_INVALID_MODE = "Save command is not available in Main mode!";
 
-    public static final String MESSAGE_REMINDER_TO_USER = "Please include the category "
-        + "you wanted to add to following command:\n";
+    public static final String MESSAGE_REMINDER_TO_USER = "Please add the category for this eatery "
+        + "to the command:\n";
 
     private final Index targetIndex;
 
@@ -59,7 +59,7 @@ public class SaveTodoCommand extends Command {
             tags.append(PREFIX_TAG + " " + tag.getName() + " ");
         }
         String pendingCommand = String.format("add %s %s %s %s %s %s",
-            PREFIX_NAME, name, PREFIX_ADDRESS, address, tags.toString(), PREFIX_CATEGORY);
+            PREFIX_NAME, name, PREFIX_ADDRESS, address, tags.toString().trim(), PREFIX_CATEGORY);
 
         model.deleteEatery(eateryToSave);
         model.toggle();

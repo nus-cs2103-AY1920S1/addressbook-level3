@@ -19,10 +19,10 @@ public class DeleteReviewCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the review identified by the index number used in the displayed review list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: [index] (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_REVIEW_SUCCESS = "Deleted Review: %1$s";
+    public static final String MESSAGE_DELETE_REVIEW_SUCCESS = "Review successfully deleted";
 
     private final Index targetIndex;
 
@@ -42,7 +42,7 @@ public class DeleteReviewCommand extends Command {
         Review reviewToDelete = lastShownList.get(targetIndex.getZeroBased());
         lastShownList.remove(targetIndex.getZeroBased());
         model.getActiveEatery().setReviews(lastShownList);
-        return new CommandResult(String.format(MESSAGE_DELETE_REVIEW_SUCCESS, reviewToDelete));
+        return new CommandResult(MESSAGE_DELETE_REVIEW_SUCCESS);
     }
 
     @Override

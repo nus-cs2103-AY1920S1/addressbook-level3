@@ -19,12 +19,12 @@ public class LoadCommand extends Command {
     public static final String COMMAND_WORD = "load";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Loads the specified user profile.\n"
-            + "Parameters: " + PREFIX_USER + " username\n"
+            + "Parameters: " + PREFIX_USER + " [username]\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_USER + " john";
 
-    public static final String MESSAGE_SUCCESS_LOADED = "User profile loaded: %1$s. Please relaunch EatMe!";
-    public static final String MESSAGE_ALREADY_LOADED = "%1$s is already loaded.";
-    public static final String MESSAGE_PROFILE_NOT_FOUND = "Please check that user profile for %1$s exists.";
+    public static final String MESSAGE_SUCCESS_LOADED = "User profile successfully loaded: %s. Please relaunch EatMe!";
+    public static final String MESSAGE_ALREADY_LOADED = "This user profile is already loaded!";
+    public static final String MESSAGE_PROFILE_NOT_FOUND = "Profile not found! Please check that user profile exists.";
 
     public final Path toLoad;
 
@@ -45,11 +45,11 @@ public class LoadCommand extends Command {
         requireNonNull(model);
 
         if (model.getAddressBookFilePath().equals(toLoad)) {
-            throw new CommandException(String.format(MESSAGE_ALREADY_LOADED, toLoad));
+            throw new CommandException(MESSAGE_ALREADY_LOADED);
         }
 
         if (!new File(toLoad.toString()).exists()) {
-            throw new CommandException(String.format(MESSAGE_PROFILE_NOT_FOUND, toLoad));
+            throw new CommandException(MESSAGE_PROFILE_NOT_FOUND);
         }
 
         UserPrefs userPrefs = new UserPrefs();

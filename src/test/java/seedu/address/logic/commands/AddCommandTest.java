@@ -42,7 +42,8 @@ public class AddCommandTest {
 
         CommandResult commandResult = new AddCommand(validEatery).execute(modelStub);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEatery), commandResult.getFeedbackToUser());
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validEatery.getName().fullName),
+                commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validEatery), modelStub.eateriesAdded);
     }
 
