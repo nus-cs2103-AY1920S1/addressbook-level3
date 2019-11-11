@@ -123,11 +123,11 @@ of creation, editing and display for the features that I have created, as they a
 
 *The following is an example of `Event` screenshot section the User Guide:*
 
-include::../UserGuide.adoc[lines=1071..1114]
+include::../UserGuide.adoc[lines=1079..1124]
 
 *The following is an example of `Event` view section the User Guide:*
 
-include::../UserGuide.adoc[lines=1048..1068]
+include::../UserGuide.adoc[lines=1056..1078]
 
 === Contributions to the Developer Guide
 
@@ -140,7 +140,7 @@ have created. Also, some of the command hyperlinks will obviously not work becau
 
 *The following is the `EventRecord` class overview section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1311..1320]
+include::../DeveloperGuide.adoc[lines=1310..1320]
 
 
 *The following is the delete `Event` section of the Developer Guide:*
@@ -149,4 +149,4 @@ include::../DeveloperGuide.adoc[lines=1406..1425]
 
 *The following is the index `Event` section of the Developer Guide:*
 
-include::../DeveloperGuide.adoc[lines=1344..1382]
+include::../DeveloperGuide.adoc[lines=1344..1383]

@@ -194,17 +194,17 @@ of creation, editing and display for the features that I have created, as they a
 
 *The following is an example of `tag` creation section the User Guide:*
 
-include::../UserGuide.adoc[lines=226..260]
+include::../UserGuide.adoc[lines=230..264]
 
 *The following is an example of the `student` editing section in the User Guide:*
 
-include::../UserGuide.adoc[lines=159..190]
+include::../UserGuide.adoc[lines=163..194]
 
 *The following is an example of the `group` display section in the User Guide:*
 
-include::../UserGuide.adoc[lines=410..429]
+include::../UserGuide.adoc[lines=414..438]
 
-include::../UserGuide.adoc[lines=435..438]
+include::../UserGuide.adoc[lines=444..447]
 
 == Contributions to the Developer Guide
 

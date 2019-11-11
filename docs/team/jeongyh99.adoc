@@ -108,13 +108,13 @@ I have decided to select one command for each feature as a representation of my 
 
 *The following is an example of Creating Notes*:
 
-include::../UserGuide.adoc[lines=1155..1185]
+include::../UserGuide.adoc[lines=1167..1197]
 
 '''
 
 *The following is an example of Statistics Generation*:
 
-include::../UserGuide.adoc[lines=1266..1336]
+include::../UserGuide.adoc[lines=1277..1347]
 
 == Contributions to the Developer Guide
 
