@@ -14,12 +14,12 @@ endif::[]
 The purpose of this portfolio is to document my contributions to _PalPay_,
 a software engineering project under the module
 _CS2103T - Software Engineering_. PalPay is a personal finance management application.
-It is mostly written in Java, and has roughly 15,000 Lines of Code (LoC).
+It is mostly written in Java and has roughly 15,000 Lines of Code (LoC).
 Being a Command Line Interface (CLI) application, it is controlled mainly through
 the Command Line in the app, while displaying output through a Graphical User Interface (GUI)
 written in JavaFX.
 
-My main role within the team was to implement the *Projection* feature, which utilises
+My main role within the team was to implement the *Projection* feature, which utilizes
 a machine learning algorithm to predict the user's account balance and budget statuses at a specified point of time
 in the future. I was also in charge of implementing the *Display* feature, which
 further enhances the *Projection* feature by providing users with a graphical
