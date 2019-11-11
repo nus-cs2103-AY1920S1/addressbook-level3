@@ -60,14 +60,20 @@ We have used the following symbols to help you better understand our application
 
 == Quick Start
 
+====
+image:./icons/important.png[] Make sure that your screen resolution height is at least 720 pixels before you continue this section!
+====
+
 . Ensure you have Java `11` or above installed in your Computer.
 . Download the latest `timebook.jar` link:{repoURL}/releases[here].
 . Copy the file to the folder you want to use as the home folder for your TimeBook.
 . Double-click the file to start the app.
+
++
 The GUI should appear in a few seconds.
+image:Ui.png[width="790"]
 +
-image::Ui.png[width="790"]
-+
+
 . Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 . Some example commands you can try:
@@ -79,6 +85,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`addtogroup`* `n/John Doe` `g/CS2103` : Adds a person `John Doe` into the group `CS2103`.
 * *`exit`* : exits the app
 +
+
 [IMPORTANT]
 ====
 include::UserGuide.adoc[tag=alice-full]
@@ -125,8 +132,15 @@ Take note of the numbered green boxes you see below!
 
 image::freeTimeslot.png[]
 
-These are the common free time slot that you and your group members share! You can use
+These are the common free time slot that you and your *entire* group members share! You can use
 these numbered green boxes to arrange your meetings or share it with your group members to pick.
+
+****
+
+image:./icons/important.png[] Note that the labels for each of the coloured block will become hidden if each block becomes too small!
+To get more information about the coloured block, you can just hover your mouse over it! +
+
+****
 
 === Tabs
 
@@ -138,7 +152,7 @@ image::tabs.png[]
 === Result Display Box
 
 This box shows you whether your command executed is successful or unsuccessful.
-If you encounter an error message here, look at our errors meaning section to see what is the cause of error.
+If you encounter an error message here, look at our <<FAQ,*Frequently Asked Questions*>> section to see what is the cause of error.
 
 image::resultDisplayBox.png[]
 
@@ -220,7 +234,7 @@ The following sections will explain all the commands we have in TimeBook and wha
 
 ==== Home: `home`
 
-You can return back to the home page to see your upcoming schedule.
+You can return back to the home page to see your upcoming schedule for today.
 Format: `home`
 
 ==== Switch tabs: `switch-tab`
@@ -237,83 +251,153 @@ Format: `help`
 Exits the program. +
 Format: `exit`
 
+___
 === Person Management
-
-==== Adding a person: `addperson`
-
-Adds a person to the TimeBook +
-Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
-
-Examples:
-
-* `addperson n/Catherine em/catherineCanCook@imail.com`
-* `addperson n/John Doe em/JohnDoe@imail.com`
-
-==== Editing a person: `editperson`
-
-Edits an existing person in the TimeBook. +
-Format: `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
-
-****
-* Edits the person specified by `PERSON_NAME`.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `tag/` without specifying any tags after it.
-* Note: `TAG` cannot have white space in the argument.
-****
-
-Examples:
-
-* `editperson ed/John Doe p/91234567 em/johndoe@example.com` +
-Edits the phone number and email address of the person with name 'John Doe' to be `91234567` and `johndoe@example.com` respectively.
-* `editperson ed/Betsy n/Betsy Crower tag/` +
-Edits the person 'Betsy' to a new name 'Betsy Crower' and clears all existing tags.
 
 [[edit-user-command]]
 ==== Editing your details: `edituser`
 
 [IMPORTANT]
 ====
-include::UserGuide.adoc[tag=alice-brief]
+When you first start using TimeBook, a default profile has been created for you!
+This default profile will have a default name: `User`
 
-To personalize TimeBook and make it yours, use this `edituser` command as described below.
+To personalize TimeBook and make it yours, use the `edituser` command as described below.
 ====
 
-Edits your details in the TimeBook. +
+____
+Lets start off by editing our profile by using the command `edituser`!
+____
+
 Format: `edituser [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
 
 ****
-* Edits your details.
+* The `n/` prefix (optional) specifies your `name`
+** Names must be alphanumeric
+* The `p/` prefix (optional) specifies your `phone number`
+** Phone numbers must only contain numbers and must be at least 3 digits long
+* The `em/` prefix (optional) specifies your `email address`
+** Emails should be of the format local-part@domain and adhere to the following constraints:
+1. The local-part should only contain alphanumeric characters and these special characters, excluding the parentheses, (!#$%&'*+/=?`{|}~^.-) .
+2. This is followed by a '@' and then a domain name. The domain name must:
+- be at least 2 characters long
+- start and end with alphanumeric characters
+- consist of alphanumeric characters, a period or a hyphen for the characters in between, if any.
+* The `a/` prefix (optional) specifies your `address`
+** An address can take any values
+* The `r/` prefix (optional) specifies a `remark`
+** A remark must be alphanumeric
+* The `tag/` prefix (optional) specifies your `tag`
+** You can have multiple tags
+** A tag must be alphanumeric and cannot contain spaces
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 * When editing tags, your existing tags will be removed (i.e. adding of tags is not cumulative).
 * You can remove all your tags by typing `tag/` without specifying any tags after it.
 ****
 
-Examples:
+Suppose our name is `Alice`, we can edit our profile like this!
 
-* `edituser n/Frank` +
-Renames your profile to the new name `Frank`.
-* `edituser p/81234567 em/frank@example.com` +
-Edits your phone number and email address to be `81234567` and `frank@example.com` respectively.
+Example:
+
+* `edituser n/Alice p/91239123 a/Kent Ridge Drive em/alice@gmail.com r/Student`
+
+image::ugalvin/edituser.png[width=100%]
+
+After editing our profile, this is what we should see!
 
 
-// tag::delete[]
+==== Adding a person: `addperson`
+____
+The first thing to do in TimeBook is to add people that you know! It could be friends, family and even your colleagues!
+____
+
+To add a new person into TimeBook, simply use the command `addperson` and specify his or her name!
+
+You can also optionally specify his or her phone number, email address, home address, a remark and tags.
+
+Format: `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
+
+****
+* The `n/` prefix specifies the `name` of the person to add
+* The `p/` prefix (optional) specifies a `phone number`
+* The `em/` prefix (optional) specifies an `email address`
+* The `a/` prefix (optional) specifies an `address`
+* The `r/` prefix (optional) specifies a `remark`
+* The `tag/` prefix (optional) specifies a `tag`
+** A person can have multiple tags
+****
+
+Suppose we met our new friend `Fred` and want to add him into TimeBook, simply use this command!
+
+Example:
+
+* `addperson n/Fred p/91234567 em/fred@example.com a/kent ridge drive r/friend tag/Friends tag/Colleague`
+
+image::ugalvin/addperson.png[width=100%]
+
+After adding `Fred` into the TimeBook, his name will appear on the list of people on tabs in the side panel!
+
+==== Editing a person: `editperson`
+
+____
+Accidentally added the wrong info of a person into TimeBook?
+No worries, you can simple edit an existing person with our `editperson` command!
+____
+
+To edit an existing person, simply use the `editperson` command
+and specify the name of the person you wish to edit with the `ed/` prefix!
+
+Then, simply edit each of the fields of a person with their corresponding prefixes!
+
+Format: `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...`
+
+****
+* The `ed/` tag specifies the person to be edited
+** This person must exist in the TimeBook
+* At least one of the optional fields must be provided.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `tag/` without specifying any tags after it.
+* Note: `TAG` cannot have white space in the argument.
+****
+
+Suppose we added Fred's name wrongly, and he wants to be called `Freddie`.
+Additionally, he has also changed his phone number, and he wants to be your best friend!
+To update his particulars, simply execute this command!
+
+Example:
+
+* `editperson ed/Fred n/Freddie p/85868784 r/best friend tag/bestfriend`
+
+image::ugalvin/editperson.png[width=100%]
+
+After editing a person, this is what you will see! Freddie's details has been updated accordingly!
+
 ==== Deleting a person: `deleteperson`
+____
+Want to delete a person from TimeBook?
+That's easy! Simply use our `deleteperson` command!
+____
 
-Deletes the specified person from the TimeBook. +
+To delete a person from TimeBook, simply use the `deleteperson` command
+and specify the name of the person you wish to delete!
+
 Format: `deleteperson n/NAME`
 
+
 ****
-* Removes the person from all the groups they are in
-* Deletes the person specified by 'NAME'
+* the `n/` tag specifies the name of the person to be deleted
+* Only one person can be deleted at a time
 ****
+
+Suppose our business with Freddie is over, we can simply delete him from TimeBook!
 
 Examples:
 
-* `deleteperson n/Benedict` +
-Deletes the person named `Benedict` from the TimeBook.
+* `deleteperson n/Freddie`
+
+image::ugalvin/deleteperson.png[width=100%]
+
+As you can see, after deleting Freddie, he is removed from our persons tab!
 
 ==== Show person: `show`
 
@@ -336,79 +420,17 @@ You should see a window similar to the one below.
 image::showpersonresult.png[]
 
 *****
-image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
+image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `nw` see next week's schedule!
-You may see this person's schedule up to 4 weeks in advance.
+image:./icons/lightbulb.png[] You can use the command `togglenext` see next week's schedule! You may see this person's schedule up to 4 weeks in advance.
+After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
+
+image:./icons/important.png[] Unfortunately, TimeBook does not let you see a schedule that has already passed.
+
 *****
+___
 
 === Schedule Management
-
-==== Add Event to Schedule: `addevent`
-
-*Description*
-
-Adds an event into the schedule of a person in the TimeBook.
-Only schedules without clashes between time slots can be added to the TimeBook.
-Can be used to mark a person as unavailable either on one-off dates or on a particular day every week +
-
-*Format:*
-
-* `addevent e/EVENT_NAME t/DATETIME...` +
-* `addevent n/NAME e/EVENT_NAME t/DATETIME...` +
-
-*Parameters*
-
-. `NAME`
-.. *Description:* The name of the person you want to add the event to. If the parameter is empty, the event
-will be added to your own schedule.
-.. *Prefix:* `n/`
-.. *Requirements:* Optional
-.. *Data Type:* String
-. `EVENT_NAME`
-.. *Description:* The name of the event you want to add to your schedule
-.. *Prefix:* `e/`
-.. *Requirements:* Required
-.. *Data Type:* String
-. `DATETIME`
-.. *Description:* The date, time and location of the event. You can specify multiple `DATETIME` if you want the
-event to repeat in different `DATETIME`. Note that the location of the event cannot contain `e/`, `n/` or `t/`.
-.. *Prefix:* `t/`
-.. *Requirements:* Require at least one `DATETIME` per event. In the `DATETIME` parameter it is optional for you to
-specify the `LOCATION`
-.. *Data Type:* String
-.. *Format: * `e/DATE - START_TIME - END_TIME - [LOCATION]
-... `DATE` : ddMMyyyy
-... `TIME` : HHmm(24H)
-... `LOCATION`: String without `e/`, `n/`, `t/` (Optional)
-*****
-image:./icons/lightbulb.png[] By not specifying `NAME`, the event will be added to your schedule.
-*****
-
-* `addevent e/Project Meeting t/27092019-1500-1600-I3` +
-Adds an event `Project Meeting` to your schedule.
-
-Examples:
-
-* `addevent n/John e/Math Lecture t/26092019-1300-1400-LT25 t/03102019-1300-1400-LT25` +
-Adds an event `Math Lecture` that occurs on multiple dates to ``John``'s schedule.
-
-==== Delete an Event from a Schedule: `deleteevent`
-
-Deletes an event from the schedule of a person in the TimeBook.
-
-Format:
-
-* `deleteevent e/EVENT_NAME` +
-Deletes an event specified by `EVENT_NAME` from your schedule.
-
-* `deleteevent n/NAME e/EVENT_NAME` +
-Deletes an event specified by `EVENT_NAME` from the schedule of the person specified by `NAME`.
-
-Examples:
-
-* `deleteevent n/Bobby e/Swimming Lessons` +
-Deletes the event `Swimming Lessons` from `Bobby` 's schedule.
 
 // tag::addmod[]
 ==== Add Module to Schedule: `addmod`
@@ -474,60 +496,249 @@ image::nusmods/addmods1.PNG[]
 image::nusmods/addmods2.PNG[]
 // end::addmods[]
 
+==== Add Event to Schedule: `addevent`
+
+____
+Have an event outside of your NUSmods timetable? Simply add them in using the `addevent` command!
+____
+
+To add an event into TimeBook, simply specify the name of that event, and the time slots of that event!
+
+Format:
+
+* `addevent [n/NAME] e/EVENT_NAME t/DATETIME...`
+
+****
+* The `n/` (optional) prefix specifies the name of the person whom we want to add an event to.
+* If the `n/` prefix is not specified, TimeBook will add the event to your schedule!
+* The `e/` prefix specifies the name of the event to be added.
+** An event name must be alphanumeric and must not be blank
+* The `t/` prefix specifies the time slot of that event.
+** Format: `DATE-STARTTIME-ENDTIME-LOCATION`
+*** Date format: `ddMMyyyy`
+*** Start/End time format: `HHmm`
+*** Location: Can take in any values.
+** An event can have multiple time slots.
+** A time slot must be between `0800` to `2000` hrs.
+** A time slot must not have a clash with an existing event.
+****
+
+Suppose Bobby has to meet his project mates to work on his project, let's try adding that event into our TimeBook!
+
+Example:
+
+* `addevent n/Bobby e/Project Meeting t/10112019-1200-1400-COM1 t/13112019-1000-1200-AS6`
+
+image::ugalvin/addevent.png[width=100%]
+
+After adding the event into our TimeBook, Bobby's schedule is automatically updated!
+
+
+==== Delete an Event from a Schedule: `deleteevent`
+____
+What should I do if an event is cancelled? Simply delete it from TimeBook with our `deletevent` command!
+____
+
+To delete an event, simply execute the `deleteevent` command and specify the event to delete and the person
+to delete it from!
+
+Format:
+
+* `deleteevent [n/NAME] e/EVENT_NAME`
+
+****
+* The `n/` (optional) prefix specifies the name of the person whom we want to delete an event from.
+* If the `n/` prefix is not specified, TimeBook will try to delete the event from your schedule!
+* image:./icons/lightbulb.png[] You can delete a module by specifying the module code!
+A module's event name is its module code!
+****
+
+Suppose Bobby wants to drop CS2105 from his timetable as he finds it too hard to cope with so many modules.
+We can simply delete it!
+
+Example:
+
+* `deleteevent n/Bobby e/CS2105`
+
+image::ugalvin/deleteevent.png[width=100%]
+
+After deleting that event from TimeBook, Bobby's schedule is automatically updated!
+
+==== View a Schedule: `schedule`
+____
+Want to see a schedule between you and your friends? Simple use the `schedule` command!
+____
+
+To generate a schedule for you and your friends, simply execute the `schedule` command and
+specify who to add to this schedule!
+
+Format:
+
+* `schedule n/NAME...`
+
+****
+* The `n/` prefix specifies the name of the person whom we want to add to this schedule
+* You can add multiple people into a schedule
+****
+
+Lets try and generate a schedule between you, Bobby and Charlie! Execute the following command!
+
+Example:
+
+* `schedule n/Bobby n/Charlie`
+
+image::ugalvin/schedule.png[width=100%]
+
+When executing the command, TimeBook will calculate the free time slots among the schedule members!
+
 === Group Management
 
 ==== Adding a group: `addgroup`
+____
+In TimeBook, we allow you to organise your contacts too! This can be done through making groups!
+This can be done using our `addgroup` command!
+____
 
-Adds a group to the TimeBook +
-Format: `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [r/GROUP_REMARK] [role/USER_ROLE]`
+To add a new group into TimeBook, simply execute the `addgroup` command
+and specify the name of the group you want to make!
+
+Format:
+
+* `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [role/USER_ROLE]`
 
 ****
-* Creates a with name `GROUP_NAME`.
-* A group can be optionally created with a description, a remark, and your role in the Group.
+* image:./icons/important.png[] Whenever a new group is created, you are automatically added into that group!
+* The `g/` prefix specifies the name of the group you want to create.
+** A group name must be alphanumeric
+* The `d/` prefix (optional) gives a description to the group
+** A group description must be alphanumeric
+* The `role/` prefix (optional) specifies the role you play in that group
+** A role must be alphanumeric
 ****
 
-[IMPORTANT]
-====
-include::UserGuide.adoc[tag=alice-full]
-====
+Suppose you want to create a new group for your CS2103 project, and you are appointed as
+the leader for this group!
 
-Examples:
+Let's try to add a new group with the following command!
 
-* `addgroup g/Friends` +
-Creates a group called `Friends`
-* `addgroup g/CS2103 d/Project Group role/Leader` +
-Creates a group called `CS2103` with a description of `Project Group` and your role in the Group as the `Leader`.
+Example:
+
+* `addgroup g/CS2103 d/A CS2103 project group role/Leader`
+
+image::ugalvin/addgroup.png[width=100%]
+
+When a new group is added, it is automatically added into the list of groups!
 
 ==== Editing a group: `editgroup`
+____
+The details for your group has changed? Edit it with our `editgroup` command!
+____
 
-Edits an existing group in the TimeBook. +
-Format: `editgroup ed/GROUP_NAME [g/GROUP_NAME] [d/GROUP_DESCRIPTION] [r/GROUP_REMARK] [role/USER_ROLE]`
+To edit an existing group, simply use the `editgroup` command
+and specify the name of the group you wish to edit with the `ed/` prefix!
+
+Format: `editgroup ed/GROUP [g/GROUP_NAME] [d/GROUP_DESCRIPTION] [role/USER_ROLE]`
 
 ****
-* Edits the group specified by `GROUP_NAME`.
+* The `ed/` tag specifies the group to be edited
+** This group must exist in the TimeBook
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 ****
 
-Examples:
+Suppose we entered the details for our group wrongly, no worries we can edit them!
 
-* `editgroup ed/CS2103 g/CS3203 r/Project Discussion Group` +
-Edits the group specified by group name `CS2103` with a new group name `CS3203` and group remark `Project Discussion Group` respectively.
+Example:
+
+* `editgroup ed/CS2103 g/CS3203 d/A CS3203 project group role/Member`
+
+image::ugalvin/editgroup.png[width=100%]
+
+When a group is edited, it is automatically updated as shown above!
+
+
+==== Add Person to Group: `addtogroup`
+____
+After you have created your group, you can add people into the group with our `addtogroup` command!
+____
+
+To add a person into a group, simply execute the `addtogroup` command,
+and specify the person's name and the group's name!
+
+Format: `addtogroup n/PERSON_NAME g/GROUP_NAME role/ROLE`
+
+****
+* The `n/` prefix specifies the name of the existing `person` in TimeBook
+* The `g/` prefix specifies the name of the existing `group` in TimeBook
+* The `role/` prefix (optional) specifies the role this person would play in the group
+****
+
+Let's add a new person Denise into our CS3203 project group!
+
+Example:
+
+* `addtogroup n/Denise g/CS3203 role/Manager`
+
+image::ugalvin/addtogroup.png[width=100%]
+
+When a new person is added into the group, it automatically updates the group's schedule as well!
+
+==== Delete a Person from Group: `deletefromgroup`
+____
+What if I want to remove a person from my group? You can! With our `deletefromgroup` command!
+____
+
+To delete a person from a group, simply execute the `deletefromgroup` command,
+and specify the person's name and the group's name and the person will be removed from the group!
+
+Format:
+
+* `deletefromgroup n/NAME g/GROUP_NAME`
+
+****
+* The `n/` prefix specifies the name of the `person`
+* The `g/` prefix specifies the name of the `group`
+* This person must be in the group
+* image:./icons/important.png[] deleting a person from group does not delete your contacts!
+Your contacts still exists in your persons tab!
+****
+
+Let's remove Charlie from our group! We can simply execute the following command!
+
+Example:
+
+* `deletefromgroup n/Charlie g/CS3203`
+
+image::ugalvin/deletefromgroup.png[width=100%]
+
+When a person is removed from the group, the group's schedule will automatically be updated as well!
 
 ==== Deleting a group: `deletegroup`
+____
+The project is over, and there is no need for this group anymore? Delete it!
+____
 
-Deletes the specified group from the TimeBook. +
-Format: `deletegroup g/GROUP_NAME`
+To delete a group, simply execute the `deletegroup` command and
+specify the group's name!
+
+Format:
+
+* `deletegroup g/GROUP_NAME`
 
 ****
-* Deletes the group specified by 'GROUP_NAME'
-* The people who were in this group will not be deleted.
+* The `g/` prefix specifies the name of the `group`
+* image:./icons/important.png[] deleting a group does not delete your contacts!
+Your contacts still exists in your persons tab!
 ****
 
-Examples:
+Let's delete CS3203 group from our TimeBook! Simply use this command!
 
-* `deletegroup g/CS2103` +
-Deletes the `CS2103` group from the TimeBook.
+Example:
+
+* `deletegroup g/CS3203`
+
+image::ugalvin/deletegroup.png[width=100%]
+
+Deleteing a group will automatically update your groups tab!
 
 ==== Show group: `show`
 
@@ -555,41 +766,38 @@ image::showgroupcommand.png[]
 image::showgroupresult.png[]
 
 *****
-image:./icons/lightbulb.png[] You can use the command `n` to help you scroll the schedule view without touching your mouse!
+image:./icons/lightbulb.png[] You can use the command `scroll` to help you scroll the schedule view without touching your mouse!
 
-image:./icons/lightbulb.png[] You can use the command `nw` to help you show next week's schedule!
+image:./icons/lightbulb.png[] You can use the command `togglenext` to help you show next week's schedule!
+After you've reached the fourth week's schedule, the next `togglenext` command will reset the schedule view back to the first week's schedule.
 
 *****
 
-==== Add Person to Group: `addtogroup`
-
-Adds a person specified by `NAME` with a role specified by `ROLE` into a group specified by `GROUP_NAME` in the
-TimeBook.
-
-Format:
-
-* `addtogroup n/NAME g/GROUP_NAME [role/ROLE]`
-
-Examples:
-
-* `addtogroup n/John g/CS2103` +
-Adds `John` into group `CS2103`
-
-* `addtogroup n/Bobby g/CS3203 role/Leader` +
-Adds `Bobby` into group `CS3203` with a role `Leader`
-
-==== Delete a Person from Group: `deletefromgroup`
-
-Deletes a person specified by `NAME` from a group specified by `GROUP_NAME`
+==== Look at some members: `lookat`
+Suppose that all of your group members are extremely busy and the common free time is too short to do any productive work,
+you may use the `lookat` command to see if you can meet with some of your group members. You must be viewing a group's
+schedule in order for this command to work.
 
 Format:
 
-* `deletefromgroup n/NAME g/GROUP_NAME`
+* `lookat [n/Name]...`
 
-Examples:
+The `lookat` command takes in any number of `n/Name` and highlights the group members according to name.
 
-* `deletefromgroup n/Bobby g/CS2103` +
-Removes `Bobby` from the group `CS2103`
+Example:
+
+Suppose your group schedule looks like the one below.
+//Image1
+
+* Simply type `lookat n/Bobby n/Denise` if you are interested in inspecting both of their schedules!
+You should see that Bobby's and Denise's schedule become highlighted.
+//Image2
+
+*****
+image:./icons/important.png[] Empty blocks represent the free time slots for the group members that you are looking at.
+The green blocks still represent the common free time slots for the entire group.
+*****
+
 
 === Advanced Features
 
@@ -610,15 +818,20 @@ Opens up https://nusmods.com/modules/CS2103T on your default browser.
 Opens up https://nusmods.com/modules/CS2101 on your default browser.
 // end::showmod[]
 
-==== Export VR (Visual Representation): `export-vr`
+==== Export VR (Visual Representation): `export`
 
-This feature is currently work in progress!
+Want to share a schedule with your friends?
+This command exports a visualisation representation of the schedule (timetable) of a group or person to a PNG file! +
 
-Want to share your group's schedule with your friends?
-This command exports a visualisation representation of currently showing schedule (timetable) of a group or person(s) to a PNG file! +
+****
+image:./icons/warning.png[] Take note when exporting a person's schedule, *sensitive information* are omitted. Only the person's schedule is exported.
+
+image:./icons/warning.png[] Take note that if you are exporting a group's schedule, the *entire* group's schedule will be exported. If you have used the `lookat` command, this command disregards it.
+****
+
 Format:
 
-* `export-vr` +
+* `export` +
 
 === Closest Common Location
 
@@ -773,6 +986,24 @@ We understand that users occasionally make error while typing and it is frustrat
 of it. Thus for all commands that do not require any arguments(ie `help`, `home` and `exit`), TimeBook allows you to
 enter any value after the command word. For example `help 1` will execute `help` command eventhough `1` is irrelevant to
 the command. We hope with this feature you will have a seamless and pleasant experience with TimeBook.
++
+{nbsp} +
+Help! I encountered an error!::
+We understand that you may encounter a weird error message and are unsure of what it means so we prepared this section that describes the uncommon errors that you may see.
+
+[cols="25h, ~"]
+|===
+|Error message |What it means:
+| Invalid timing arguments | Ensure that the time you provide as argument follow the format. Example: 11 Nov 2019, 0800 to 0900 is represented as 11112019-0800-0900
+| Clash in events | There is already a pre-existing event that is happening at that time slot.
+| Duplicate Mapping | This person is already in the group.
+| Cannot find closest location | The closest common location cannot be determined because everyone is not in NUS.
+| XXX does not exist | This person or group does not exist in TimeBook. Some names are case-sensitive.
+| No schedule to XXX | This error occurs when you use `scroll` and `togglenext` command when there is no schedule shown.
+| No group schedule is shown | You'll see this error when you are invoking the `look at` command when a group schedule is not displayed.
+| Internal Error. Please try again later  | You'll see this error when our remote database cannot handle your requests.
+|===
+
 +
 {nbsp} +
 

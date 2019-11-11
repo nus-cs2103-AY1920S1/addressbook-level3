@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.grouputil.TypicalGroups.GROUP_NAME1;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.ALICE;
 import static seedu.address.testutil.personutil.TypicalPersonDescriptor.USER;
@@ -34,7 +35,7 @@ class SelectCommandTest {
 
     @Test
     void executeOnGroup_personNotSpecified() throws CommandException, GroupNotFoundException {
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
@@ -53,46 +54,29 @@ class SelectCommandTest {
 
     @Test
     void executeOnGroup_personNotFound() throws CommandException, GroupNotFoundException {
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
 
-        CommandResult actualCommandResult =
-                new SelectCommand(0, ZACK.getName(), 1).execute(model);
-
-        CommandResult expectedCommandResult =
-                new CommandResultBuilder(
-                        String.format(SelectCommand.MESSAGE_FAILURE,
-                                SelectCommand.MESSAGE_PERSON_NOT_FOUND)).build();
-
-        assertTrue(expectedCommandResult.equals(actualCommandResult));
+        assertThrows(CommandException.class, () -> new SelectCommand(0, ZACK.getName(), 1).execute(model));
 
     }
 
     @Test
     void executeOnGroup_timeslotNotFound() throws CommandException, GroupNotFoundException {
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
-
-        CommandResult actualCommandResult =
-                new SelectCommand(0, ALICE.getName(), 123).execute(model);
-
-        CommandResult expectedCommandResult =
-                new CommandResultBuilder(
-                        String.format(SelectCommand.MESSAGE_FAILURE,
-                                SelectCommand.MESSAGE_TIMESLOT_NOT_FOUND)).build();
-
-        assertTrue(expectedCommandResult.equals(actualCommandResult));
+        assertThrows(CommandException.class, () -> new SelectCommand(0, ALICE.getName(), 123).execute(model));
     }
 
     @Test
     void executeOnGroup_success()
             throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException, GroupNotFoundException {
 
-        model.updateDisplayWithGroup(
+        model.updateScheduleWithGroup(
                 GROUP_NAME1, LocalDateTime.now(), ScheduleState.GROUP);
 
         assertEquals(ScheduleState.GROUP, model.getState());
@@ -114,7 +98,7 @@ class SelectCommandTest {
     void executeOnPerson_success()
             throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException {
 
-        model.updateDisplayWithPerson(
+        model.updateScheduleWithPerson(
                 ALICE.getName(), LocalDateTime.now(), ScheduleState.PERSON);
 
         assertEquals(ScheduleState.PERSON, model.getState());
@@ -133,31 +117,20 @@ class SelectCommandTest {
     }
 
     @Test
-    void executeOnPerson_timeslotNotFound()
-            throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException {
+    void executeOnPerson_timeslotNotFound() throws PersonNotFoundException {
 
-        model.updateDisplayWithPerson(
+        model.updateScheduleWithPerson(
                 ALICE.getName(), LocalDateTime.now(), ScheduleState.PERSON);
 
         assertEquals(ScheduleState.PERSON, model.getState());
-
-        CommandResult actualCommandResult =
-                new SelectCommand(0, Name.emptyName(), 123).execute(model);
-
-
-        CommandResult expectedCommandResult =
-                new CommandResultBuilder(
-                        String.format(SelectCommand.MESSAGE_FAILURE,
-                                SelectCommand.MESSAGE_TIMESLOT_NOT_FOUND)).build();
-
-        assertTrue(expectedCommandResult.equals(actualCommandResult));
+        assertThrows(CommandException.class, () -> new SelectCommand(0, Name.emptyName(), 123).execute(model));
     }
 
     @Test
     void executeOnHome_success()
             throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException {
 
-        model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME);
+        model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
         assertEquals(ScheduleState.HOME, model.getState());
 
@@ -175,22 +148,13 @@ class SelectCommandTest {
     }
 
     @Test
-    void executeOnHome_timeslotNotFound()
-            throws CommandException, PersonTimeslotNotFoundException, PersonNotFoundException {
+    void executeOnHome_timeslotNotFound() {
 
-        model.updateDisplayWithUser(LocalDateTime.now(), ScheduleState.HOME);
+        model.updateScheduleWithUser(LocalDateTime.now(), ScheduleState.HOME);
 
         assertEquals(ScheduleState.HOME, model.getState());
 
-        CommandResult actualCommandResult =
-                new SelectCommand(0, Name.emptyName(), 1123).execute(model);
-
-        CommandResult expectedCommandResult =
-                new CommandResultBuilder(
-                        String.format(SelectCommand.MESSAGE_FAILURE,
-                                SelectCommand.MESSAGE_TIMESLOT_NOT_FOUND)).build();
-
-        assertTrue(expectedCommandResult.equals(actualCommandResult));
+        assertThrows(CommandException.class, () -> new SelectCommand(0, Name.emptyName(), 1123).execute(model));
     }
 
 

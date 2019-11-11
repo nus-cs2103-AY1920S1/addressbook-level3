@@ -70,26 +70,26 @@ public class ScheduleManager {
     /**
      * Updates with a schedule of a person specified by name.
      */
-    public void updateDisplayWithPerson(Person person, LocalDateTime time,
-                                        ScheduleState type) {
+    public void updateScheduleWithPerson(Person person, LocalDateTime time,
+                                         ScheduleState type) {
         updateScheduleWindowDisplay(person, time, type);
     }
 
     /**
      * Updates with a schedule of the user.
      */
-    public void updateDisplayWithUser(User user, LocalDateTime time, ScheduleState type) {
+    public void updateScheduleWithUser(User user, LocalDateTime time, ScheduleState type) {
         updateScheduleWindowDisplay(user, time, type);
     }
 
     /**
      * Update with a schedule of a group.
      */
-    public void updateDisplayWithGroup(Group group,
-                                       ArrayList<Person> persons,
-                                       ArrayList<PersonToGroupMapping> mappingList,
-                                       LocalDateTime time,
-                                       ScheduleState type) {
+    public void updateScheduleWithGroup(Group group,
+                                        ArrayList<Person> persons,
+                                        ArrayList<PersonToGroupMapping> mappingList,
+                                        LocalDateTime time,
+                                        ScheduleState type) {
 
         mappingList.add(new PersonToGroupMapping(new PersonId(-1), group.getGroupId(), group.getUserRole()));
         updateScheduleWindowDisplay(persons, mappingList, new GroupDisplay(group), time, type);
@@ -98,9 +98,9 @@ public class ScheduleManager {
     /**
      * Update with a schedule of an ArrayList of Persons.
      */
-    public void updateDisplayWithPersons(ArrayList<Person> persons,
-                                         LocalDateTime now,
-                                         ScheduleState type) {
+    public void updateScheduleWithPersons(ArrayList<Person> persons,
+                                          LocalDateTime now,
+                                          ScheduleState type) {
 
         GroupDisplay groupDisplay = new GroupDisplay(persons);
         updateScheduleWindowDisplay(persons, null, groupDisplay, now, type);
@@ -279,7 +279,7 @@ public class ScheduleManager {
             }
         }
 
-        for (int i = 1; i < DAYS_OF_A_WEEK; i++) {
+        for (int i = 1; i <= DAYS_OF_A_WEEK; i++) {
             scheduleDisplay.get(DayOfWeek.of(i)).sort(
                     Comparator.comparing(PersonTimeslot::getStartTime));
         }

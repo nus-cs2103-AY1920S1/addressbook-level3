@@ -1,4 +1,4 @@
-package seedu.address.ui.uicomponent;
+package seedu.address.ui.uicomponent.schedule;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -30,6 +30,30 @@ public class WeekScheduleBuilder {
         initialiseContents();
     }
 
+    public static WeekSchedule getValidSchedule() {
+        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekSch = new HashMap<>();
+        weekSch.put(DayOfWeek.of(1), simplePersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(2), backToBackPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(3), weirdGapsPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(4), anotherWeirdGapPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(5), fullDayPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(6), emptyPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(7), emptyPersonTimeslotsStub());
+        return new WeekSchedule(weekSch);
+    }
+
+    public static WeekSchedule getInvalidSchedule() {
+        HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekSch = new HashMap<>();
+        weekSch.put(DayOfWeek.of(1), simplePersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(2), backToBackPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(3), weirdGapsPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(4), anotherWeirdGapPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(5), fullDayPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(6), invalidPersonTimeslotsStub());
+        weekSch.put(DayOfWeek.of(7), emptyPersonTimeslotsStub());
+        return new WeekSchedule(weekSch);
+    }
+
     /**
      * Creates an empty schedule.
      * @return
@@ -38,6 +62,7 @@ public class WeekScheduleBuilder {
         HashMap<DayOfWeek, ArrayList<PersonTimeslot>> weekSch = new HashMap<>();
         for (int i = 1; i <= 7; i++) {
             ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
+            weekSch.put(DayOfWeek.of(i), timeslots);
         }
         return new WeekSchedule(weekSch);
     }
@@ -64,10 +89,27 @@ public class WeekScheduleBuilder {
     }
 
     /**
+     * Creates an invalid time slot.
+     */
+    public static ArrayList<PersonTimeslot> invalidPersonTimeslotsStub() {
+        ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
+        timeslots.add(new PersonTimeslot(
+                EVENT_NAMES.get(0), null, LocalTime.of(8, 0),
+                LocalTime.of(9, 0), VENUE, COLOR, false, null));
+        timeslots.add(new PersonTimeslot(
+                EVENT_NAMES.get(1), null, LocalTime.of(8, 40),
+                LocalTime.of(9, 30), VENUE, COLOR, false, null));
+        timeslots.add(new PersonTimeslot(
+                EVENT_NAMES.get(2), null, LocalTime.of(14, 0),
+                LocalTime.of(16, 0), VENUE, COLOR, false, null));
+        return timeslots;
+    }
+
+    /**
      * Creates a simple and ordinary list of PersonTimeslots.
      * @return ArrayList of PersonTimeslot.
      */
-    public ArrayList<PersonTimeslot> simplePersonTimeslotsStub() {
+    public static ArrayList<PersonTimeslot> simplePersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         timeslots.add(new PersonTimeslot(
                 EVENT_NAMES.get(0), null, LocalTime.of(8, 0),
@@ -85,7 +127,7 @@ public class WeekScheduleBuilder {
      * Creates an ArrayList of PersonTimeslot which has back to back time slots.
      * @return ArrayList of PersonTimeslot.
      */
-    public ArrayList<PersonTimeslot> backToBackPersonTimeslotsStub() {
+    public static ArrayList<PersonTimeslot> backToBackPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         //Back to back lessons.
         timeslots.add(new PersonTimeslot(
@@ -104,7 +146,7 @@ public class WeekScheduleBuilder {
      * Creates an ArrayList of PersonTimeslot that has irregular time slots.
      * @return ArrayList of irregular PersonTimeslot.
      */
-    public ArrayList<PersonTimeslot> weirdGapsPersonTimeslotsStub() {
+    public static ArrayList<PersonTimeslot> weirdGapsPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         //Lessons with weird gaps.
         timeslots.add(new PersonTimeslot(
@@ -123,7 +165,7 @@ public class WeekScheduleBuilder {
      * Creates a list of PersonTimeslot with irregular times.
      * @return ArrayList of PersonTimeslot.
      */
-    public ArrayList<PersonTimeslot> anotherWeirdGapPersonTimeslotsStub() {
+    public static ArrayList<PersonTimeslot> anotherWeirdGapPersonTimeslotsStub() {
         //Another weird set of time slots.
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         timeslots.add(new PersonTimeslot(
@@ -143,7 +185,7 @@ public class WeekScheduleBuilder {
      * Generates a list that contains one PersonTimeslot that span the whole schedule view duration.
      * @return ArrayList of PersonTimeslot containing the person with the entire schedule.
      */
-    public ArrayList<PersonTimeslot> fullDayPersonTimeslotsStub() {
+    public static ArrayList<PersonTimeslot> fullDayPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         //One long day
         timeslots.add(new PersonTimeslot(
@@ -156,7 +198,7 @@ public class WeekScheduleBuilder {
      * Creates an empty list of PersonTimeslot.
      * @return an empty ArrayList of PersonTimeslot.
      */
-    public ArrayList<PersonTimeslot> emptyPersonTimeslotsStub() {
+    public static ArrayList<PersonTimeslot> emptyPersonTimeslotsStub() {
         ArrayList<PersonTimeslot> timeslots = new ArrayList<>();
         return timeslots;
     }

@@ -46,9 +46,9 @@ import seedu.address.logic.commands.DeletePersonCommand;
 import seedu.address.logic.commands.EditGroupCommand;
 import seedu.address.logic.commands.EditPersonCommand;
 import seedu.address.logic.commands.EditUserCommand;
-import seedu.address.logic.commands.PopupCommand;
 import seedu.address.logic.commands.ScheduleCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SelectFreeTimeCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.testutil.scheduleutil.TypicalEvents;
 
@@ -187,12 +187,12 @@ class TimeBookParserTest {
 
     @Test
     void parseCommand_popup() throws ParseException {
-        PopupCommand command = (PopupCommand) parser.parseCommand(
-                PopupCommand.COMMAND_WORD
+        SelectFreeTimeCommand command = (SelectFreeTimeCommand) parser.parseCommand(
+                SelectFreeTimeCommand.COMMAND_WORD
                         + WHITESPACE + PREFIX_ID + 1
         );
 
-        assertTrue(command.equals(new PopupCommand(0, 1)));
+        assertTrue(command.equals(new SelectFreeTimeCommand(0, 1)));
     }
 
     @Test

@@ -66,7 +66,7 @@ public class EditPersonCommand extends Command {
             Person person = model.editPerson(name, personDescriptor);
 
             // update main window display
-            model.updateDisplayWithPerson(person.getName(), LocalDateTime.now(), ScheduleState.PERSON);
+            model.updateScheduleWithPerson(person.getName(), LocalDateTime.now(), ScheduleState.PERSON);
 
             // update side panel display
             model.updateSidePanelDisplay(SidePanelDisplayType.PERSON);

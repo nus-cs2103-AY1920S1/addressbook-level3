@@ -57,7 +57,7 @@ public class EditGroupCommand extends Command {
             Group group = model.editGroup(groupName, groupDescriptor);
 
             // update main window display
-            model.updateDisplayWithGroup(group.getGroupName(), LocalDateTime.now(),
+            model.updateScheduleWithGroup(group.getGroupName(), LocalDateTime.now(),
                     ScheduleState.GROUP);
 
             // update side panel display
