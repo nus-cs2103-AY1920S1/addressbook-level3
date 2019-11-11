@@ -5,52 +5,108 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyModulePlanner <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Class ModulePlanner
+Class ReadOnlyModulePlanner
+Class VersionedModulePlanner
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class ModuleInfo
+Class ModulesInfo
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package StudyPlan {
+Class StudyPlan
+Class Title
+Class UniqueStudyPlanList
+}
+
+Package Module {
+Class UniqueModuleList
+Class Module
+Class ModuleCode
 Class Name
-Class Phone
-Class UniquePersonList
+Class Color
+Interface PrereqTree <<Interface>>
 }
 
 Package Tag {
-Class Tag
+Interface Tag <<Interface>>
+Class UniqueTagList
+Class UserTag
+Class DefaultTag
+Class PriorityTag
+}
+
+Package Semester {
+Class Semester
+Class SemesterName
+Class UniqueSemesterList
+}
+
+Package VersionTracking {
+Class VersionTrackingManager
+Class StudyPlanCommitManagerList
+Class StudyPlanCommitManager
+Class CommitList
+Class Commit
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+StudyPlan -[hidden]- Tag
+
+VersionTrackingManager *--> StudyPlanCommitManagerList
+StudyPlanCommitManagerList o--> "*" StudyPlanCommitManager
+StudyPlanCommitManager *--> CommitList
+CommitList o--> "*" Commit
+Commit *--> StudyPlan
+
+ModulePlanner .up.|> ReadOnlyModulePlanner
+VersionedModulePlanner -up-|> ModulePlanner
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" VersionedModulePlanner
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+ModulePlanner *-down-> ModulesInfo
+ModulePlanner *-down-> VersionTrackingManager
+ModulePlanner *-right-> SemesterName : currentSemester
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+ModulesInfo o-down-> ModuleInfo
 
-ModelManager -->"1" Person : filtered list
+ModulePlanner *--> "1" UniqueStudyPlanList
+UniqueStudyPlanList o--> "*" StudyPlan
+StudyPlan *-----> SemesterName : currentSemester
+StudyPlan *-down-> "2" UniqueTagList : tags
+StudyPlan *--> Title
+StudyPlan *-right-> UniqueSemesterList
+StudyPlan *--> "129" Module : megaModuleHashMap
+
+Semester -[hidden]- Module
+
+UniqueModuleList o--> "*" Module
+Module *--> Name
+Module *--> PrereqTree
+Module *--> Color
+Module *--> ModuleCode
+Module *-right-> "1" UniqueTagList
+
+UniqueTagList o--> "*" Tag
+UserTag .up.|> Tag
+DefaultTag .up.|> Tag
+PriorityTag .up.|> Tag
+
+UniqueSemesterList o--> "*" Semester
+Semester *--> SemesterName
+Semester *--> UniqueModuleList
+
+ModelManager -->"1" StudyPlan : filtered list
 @enduml

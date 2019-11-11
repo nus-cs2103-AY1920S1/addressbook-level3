@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.StackPane?>
-
-<StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
-</StackPane>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="resultHolder" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <Label fx:id="resultDisplay" styleClass="result-display" wrapText="true"
+               minHeight="0" VBox.vgrow="ALWAYS"/>
+    </ScrollPane>
+        <StackPane fx:id="resultView" VBox.vgrow="ALWAYS"/>
+</VBox>

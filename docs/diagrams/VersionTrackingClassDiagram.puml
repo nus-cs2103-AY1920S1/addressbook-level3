@@ -1,0 +1,34 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor STORAGE_COLOR
+skinparam classBackgroundColor STORAGE_COLOR
+
+Interface Model <<Interface>>
+
+Class ModelManager
+Class ModulePlanner
+Class UniqueStudyPlanList
+Class VersionTrackingManager
+Class StudyPlanCommitManagerList
+Class StudyPlanCommitManager {
+    int studyPlanIndex
+}
+note right: Each manager is indexed by the study plan whose commit history it keeps track of.
+Class StudyPlan
+Class CommitList
+Class Commit
+note right: A snapshot of the state of the study plan at the moment of the commit.
+
+ModelManager .left.|> Model
+ModelManager -right-> "1" ModulePlanner
+ModulePlanner -right-> "1" UniqueStudyPlanList
+UniqueStudyPlanList o-right-> "*" StudyPlan
+ModulePlanner -down-> "1" VersionTrackingManager
+VersionTrackingManager -down-> "1" StudyPlanCommitManagerList
+StudyPlanCommitManagerList o-down-> "*" StudyPlanCommitManager
+StudyPlanCommitManager -down-> "1" CommitList
+CommitList o-down-> "*" Commit
+
+@enduml
+

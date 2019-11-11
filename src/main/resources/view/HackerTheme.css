@@ -1,0 +1,364 @@
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('../font/Inconsolata-Regular.ttf');
+}
+
+.background {
+    -fx-background-color: black;
+    background-color: #101010; /* Used in the default.html file */
+}
+
+.label {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Inconsolata";
+    -fx-text-fill: #555555;
+    -fx-opacity: 0.9;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Inconsolata";
+}
+
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}
+
+.list-cell {
+    -fx-padding: 0px 5px 5px 0px;
+    -fx-background-color: transparent, -fx-background ;
+    -fx-background-insets: 0px, 5px;
+}
+
+.list-cell:empty {
+    -fx-padding: 0px 5px 5px 0px;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+}
+
+.list-cell:filled {
+    -fx-background-color: transparent;
+}
+
+.list-cell .label {
+    -fx-text-fill: white;
+}
+
+.cell_big_label {
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 12pt;
+    -fx-text-fill: white;
+}
+
+.cell_small_label {
+    -fx-font-family: "Inconsolata";
+    -fx-font-size:  12pt;
+    -fx-text-fill: white;
+}
+
+.result-display {
+    -fx-background-color: transparent;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 12pt;
+    -fx-text-fill: white;
+}
+
+.result-display .label {
+    -fx-text-fill: white
+}
+
+.scroll-bar {
+    -fx-background-color: black;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: black;
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color : black;
+    -fx-border-color: #8ac0a6;
+}
+
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 10.0 0.0;
+
+}
+
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 10.0 0.0 0.0;
+
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color : #8ac0a6;
+    -fx-background-radius: 0;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+}
+
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color : white;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+}
+
+#resultView {
+    -fx-background-color: transparent;
+}
+
+#defaultTag {
+    -fx-text-fill: white;
+    -fx-background-color: black;
+}
+
+#userTag {
+    -fx-text-fill: #8ac0a6;
+    -fx-background-color: black;
+}
+
+
+#cardPane {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#commandTypeLabel {
+    -fx-font-size:  12pt;
+    -fx-text-fill: #F70D1A;
+}
+
+#commandTextField {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+    -fx-background-insets: 0;
+    -fx-font-family: "Inconsolata";
+    -fx-font-size:  12pt;
+    -fx-text-fill: #8ac0a6;
+}
+
+#commandTextField .label{
+    -fx-font-family: "Inconsolata";
+    -fx-font-size:  12pt;
+    -fx-text-fill: white;
+}
+
+#commandTextField .context-menu {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+#commandTextField .menu-item {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 0.5;
+    -fx-background-insets: 0;
+}
+
+#commandTextField .menu-item:focused{
+    -fx-background-color: #8ac0a6;
+    -fx-background-insets: 0;
+}
+
+#resultDisplay {
+    -fx-background-color: transparent;
+}
+
+#resultDisplay .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+#resultDisplay .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+#resultDisplay .scroll-pane .content{
+    -fx-background-color: transparent;
+}
+
+#resultHolder {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+}
+
+#highPriority {
+    -fx-text-fill: white;
+    -fx-background-color: #6c0000;
+}
+
+#mediumPriority {
+    -fx-text-fill: white;
+    -fx-background-color: #704800;
+}
+
+#lowPriority {
+    -fx-text-fill: white;
+    -fx-background-color: #676700;
+}
+
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-padding: 1 5 1 5;
+    -fx-border-color: white;
+    -fx-font-size: 11;
+}
+
+#semesterListView {
+    -fx-background-color: transparent;
+}
+
+#semesterCardPane {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+}
+
+#semesterCardPane.currentSemester {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 4;
+}
+
+#blockedSemesterCardPane {
+    -fx-background-color: #8ac0a6;
+}
+
+#tagListView {
+    -fx-background-color: transparent;
+}
+
+#moduleCardPane {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+}
+
+#modulePill {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+}
+
+#modulePill.prereqsNotMet, #moduleCardPane.prereqsNotMet {
+    -fx-background-color: #2b0000;
+    -fx-border-color: #ee6060;
+    -fx-border-width: 1;
+}
+
+.prereqsNotMet .label {
+    -fx-text-fill: #ffeeee;
+}
+
+#modulesCollapsedPlaceholder {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#moduleListView {
+    -fx-background-color: transparent;
+}
+
+#simpleModuleCardPane {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+}
+
+#studyPlan {
+    -fx-background-color: black;
+    -fx-border-color: #8ac0a6;
+    -fx-border-width: 1;
+}
+
+#title {
+    -fx-font-family: "Inconsolata";
+    -fx-font-size: 12pt;
+}
+
+#prereqs {
+    -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-border-color: #ee6060;
+    -fx-border-width: 1;
+    -fx-padding: 0 3 0 3;
+    -fx-font-size: 12;
+}
+
+#blockedFont {
+    -fx-font-size: 12pt;
+    -fx-text-fill: #EEEEEE;
+}
+
+#blockedReason {
+    -fx-font-size: 12pt;
+    -fx-text-fill: #EEEEEE;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+}

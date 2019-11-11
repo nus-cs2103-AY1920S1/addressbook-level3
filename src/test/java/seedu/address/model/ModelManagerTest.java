@@ -3,30 +3,41 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalStudyPlans.SP_5;
+import static seedu.address.testutil.TypicalStudyPlans.getTypicalModulePlanner;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.commons.core.GuiTheme;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.storage.JsonModulesInfoStorage;
+import seedu.address.storage.ModulesInfoStorage;
 
 public class ModelManagerTest {
 
-    private ModelManager modelManager = new ModelManager();
+    private ModulesInfo modulesInfo;
+    private ModelManager modelManager;
+
+    @BeforeEach
+    public void setUp() {
+        ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(Paths.get("modules_cs.json"));
+        modulesInfo = initModulesInfo(modulesInfoStorage);
+        modelManager = new ModelManager(getTypicalModulePlanner(), new UserPrefs(), modulesInfo);
+    }
 
     @Test
     public void constructor() {
         assertEquals(new UserPrefs(), modelManager.getUserPrefs());
         assertEquals(new GuiSettings(), modelManager.getGuiSettings());
-        assertEquals(new AddressBook(), new AddressBook(modelManager.getAddressBook()));
+        assertEquals(new ModulePlanner(), new ModulePlanner(modelManager.getModulePlanner(), modulesInfo));
     }
 
     @Test
@@ -37,14 +48,14 @@ public class ModelManagerTest {
     @Test
     public void setUserPrefs_validUserPrefs_copiesUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
-        userPrefs.setAddressBookFilePath(Paths.get("address/book/file/path"));
-        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4));
+        userPrefs.setModulePlannerFilePath(Paths.get("moduleplanner/file/path"));
+        userPrefs.setGuiSettings(new GuiSettings(1, 2, 3, 4, GuiTheme.LIGHT));
         modelManager.setUserPrefs(userPrefs);
         assertEquals(userPrefs, modelManager.getUserPrefs());
 
         // Modifying userPrefs should not modify modelManager's userPrefs
         UserPrefs oldUserPrefs = new UserPrefs(userPrefs);
-        userPrefs.setAddressBookFilePath(Paths.get("new/address/book/file/path"));
+        userPrefs.setModulePlannerFilePath(Paths.get("new/moduleplanner/file/path"));
         assertEquals(oldUserPrefs, modelManager.getUserPrefs());
     }
 
@@ -55,53 +66,53 @@ public class ModelManagerTest {
 
     @Test
     public void setGuiSettings_validGuiSettings_setsGuiSettings() {
-        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4);
+        GuiSettings guiSettings = new GuiSettings(1, 2, 3, 4, GuiTheme.LIGHT);
         modelManager.setGuiSettings(guiSettings);
         assertEquals(guiSettings, modelManager.getGuiSettings());
     }
 
     @Test
-    public void setAddressBookFilePath_nullPath_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.setAddressBookFilePath(null));
+    public void setModulePlannerFilePath_nullPath_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.setModulePlannerFilePath(null));
     }
 
     @Test
-    public void setAddressBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
-        modelManager.setAddressBookFilePath(path);
-        assertEquals(path, modelManager.getAddressBookFilePath());
+    public void setModulePlannerFilePath_validPath_setsModulePlannerFilePath() {
+        Path path = Paths.get("moduleplanner/file/path");
+        modelManager.setModulePlannerFilePath(path);
+        assertEquals(path, modelManager.getModulePlannerFilePath());
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> modelManager.hasPerson(null));
+    public void hasStudyPlan_nullStudyPlan_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> modelManager.hasStudyPlan(null));
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasStudyPlan_studyPlanNotInModulePlanner_returnsFalse() {
+        assertFalse(modelManager.hasStudyPlan(SP_5));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasStudyPlan_studyPlanInModulePlanner_returnsTrue() {
+        modelManager.addStudyPlan(SP_5);
+        assertTrue(modelManager.hasStudyPlan(SP_5));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    public void getFilteredStudyPlanList_modifyList_throwsUnsupportedOperationException() {
+        assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredStudyPlanList().remove(0));
     }
 
     @Test
     public void equals() {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
-        AddressBook differentAddressBook = new AddressBook();
+        ModulePlanner modulePlanner = getTypicalModulePlanner();
+        ModulePlanner differentModulePlanner = new ModulePlanner();
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        modelManager = new ModelManager(addressBook, userPrefs);
-        ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(modulePlanner, userPrefs, modulesInfo);
+        ModelManager modelManagerCopy = new ModelManager(modulePlanner, userPrefs, modulesInfo);
         assertTrue(modelManager.equals(modelManagerCopy));
 
         // same object -> returns true
@@ -113,20 +124,30 @@ public class ModelManagerTest {
         // different types -> returns false
         assertFalse(modelManager.equals(5));
 
-        // different addressBook -> returns false
-        assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
-
-        // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-
-        // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        // different modulePlanner -> returns false
+        assertFalse(modelManager.equals(new ModelManager(differentModulePlanner, userPrefs, modulesInfo)));
 
         // different userPrefs -> returns false
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
-        assertFalse(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
+        differentUserPrefs.setModulePlannerFilePath(Paths.get("differentFilePath"));
+        assertFalse(modelManager.equals(new ModelManager(modulePlanner, differentUserPrefs, modulesInfo)));
+
     }
+
+    /**
+     * Initialises modules info from storage.
+     */
+    protected ModulesInfo initModulesInfo(ModulesInfoStorage storage) {
+        ModulesInfo initializedModulesInfo;
+        try {
+            Optional<ModulesInfo> prefsOptional = storage.readModulesInfo();
+            initializedModulesInfo = prefsOptional.orElse(new ModulesInfo());
+        } catch (DataConversionException e) {
+            initializedModulesInfo = new ModulesInfo();
+        } catch (IOException e) {
+            initializedModulesInfo = new ModulesInfo();
+        }
+        return initializedModulesInfo;
+    }
+
 }

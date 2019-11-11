@@ -1,0 +1,18 @@
+@startuml
+hide circle
+title Class Diagram for Autocomplete
+class MainWindow
+class CommandBox
+class AutocompleteTextField
+class ModulePlannerAutocompleteSearch
+class TextField
+class ReadOnlyModulePlanner
+
+TextField <|-- AutocompleteTextField
+CommandBox *- AutocompleteTextField
+MainWindow *- CommandBox
+AutocompleteTextField *- ModulePlannerAutocompleteSearch
+ReadOnlyModulePlanner -- AutocompleteTextField
+ReadOnlyModulePlanner -- ModulePlannerAutocompleteSearch
+
+@enduml

@@ -1,0 +1,15 @@
+@startuml
+
+title AddTagCommand (New tag is created)
+
+object addTagCommand {
+    newTagCreated = true
+}
+
+object newUserTag
+
+newUserTag -left- addTagCommand : toAdd
+
+
+
+@enduml

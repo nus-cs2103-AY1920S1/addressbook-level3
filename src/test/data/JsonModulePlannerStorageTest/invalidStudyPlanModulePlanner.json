@@ -1,0 +1,108 @@
+{
+  "studyPlans" : [
+    {
+      "totalNumber": 5,
+      "index": 1,
+      "semesters": [
+        {
+          "semesterName": "Y1S1",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": [
+            {
+              "moduleCode": "CS1101S"
+            }
+          ]
+        },
+        {
+          "semesterName": "Y1S2",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": [
+            {
+              "moduleCode": "CS2030"
+            }
+          ]
+        },
+        {
+          "semesterName": "Y2S1",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": [
+            {
+              "moduleCode": "CS2040S"
+            }
+          ]
+        },
+        {
+          "semesterName": "Y2S2",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": []
+        },
+        {
+          "semesterName": "Y3S1",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": []
+        },
+        {
+          "semesterName": "Y3S2",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": []
+        },
+        {
+          "semesterName": "Y4S1",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": []
+        },
+        {
+          "semesterName": "Y4S2",
+          "isBlocked": false,
+          "reasonForBlocked": null,
+          "modules": []
+        }
+      ],
+      "modules": [
+        {
+          "moduleCode": "CP3107",
+          "color": "RED",
+          "userTags": []
+        },
+        {
+          "moduleCode": "CS2106",
+          "color": "RED",
+          "userTags": []
+        },
+        {
+          "moduleCode": "CS2105",
+          "color": "RED",
+          "userTags": []
+        },
+        {
+          "moduleCode": "CS2108",
+          "color": "RED",
+          "userTags": []
+        },
+        {
+          "moduleCode": "CS5219",
+          "color": "RED",
+          "userTags": []
+        },
+        {
+          "moduleCode": "CS5339",
+          "color": "RED",
+          "userTags": []
+        },
+        {
+          "moduleCode": "CP3880",
+          "color": "RED",
+          "userTags": []
+        }
+      ],
+      "tags": [],
+      "currentSemester": "Y1S1"
+    }]
+}

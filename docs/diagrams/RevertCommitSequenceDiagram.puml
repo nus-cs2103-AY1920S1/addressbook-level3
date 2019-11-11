@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModulePlannerParser" as ModulePlannerParser LOGIC_COLOR
+participant "r:RevertCommitCommand" as RevertCommitCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ModulePlanner" as ModulePlanner MODEL_COLOR
+participant ":StudyPlanCommitManager" as StudyPlanCommitManager MODEL_COLOR
+participant ":CommitList" as CommitList MODEL_COLOR
+end box
+[-> LogicManager : execute("revert 1.0")
+activate LogicManager
+
+LogicManager -> ModulePlannerParser : parseCommand("revert 1.0")
+activate ModulePlannerParser
+
+create RevertCommitCommand
+ModulePlannerParser -> RevertCommitCommand
+activate RevertCommitCommand
+
+RevertCommitCommand --> ModulePlannerParser
+deactivate RevertCommitCommand
+
+ModulePlannerParser --> LogicManager : r
+deactivate ModulePlannerParser
+
+LogicManager -> RevertCommitCommand : execute()
+activate RevertCommitCommand
+
+RevertCommitCommand -> Model : revert(commitNumber)
+activate Model
+
+Model -> ModulePlanner : revert(commitNumber)
+activate ModulePlanner
+
+ModulePlanner -> StudyPlanCommitManager : revert(commitNumber)
+activate StudyPlanCommitManager
+
+StudyPlanCommitManager -> CommitList : getStudyPlan(commitNumber)
+activate CommitList
+
+CommitList --> StudyPlanCommitManager : studyPlan
+deactivate CommitList
+
+StudyPlanCommitManager -> CommitList : getCommitMessage(commitNumber)
+activate CommitList
+
+CommitList --> StudyPlanCommitManager : commitMessage
+deactivate CommitList
+
+StudyPlanCommitManager -> StudyPlanCommitManager : commit(studyPlan, commitMessage)
+activate StudyPlanCommitManager
+
+StudyPlanCommitManager -> CommitList : commitStudyPlan(studyPlan, commitMessage)
+activate CommitList
+
+CommitList --> StudyPlanCommitManager :
+deactivate CommitList
+
+StudyPlanCommitManager --> StudyPlanCommitManager :
+deactivate StudyPlanCommitManager
+
+StudyPlanCommitManager --> ModulePlanner : newActivePlan
+deactivate StudyPlanCommitManager
+
+ModulePlanner -> ModulePlanner : activate(newActivePlan)
+activate ModulePlanner
+
+ModulePlanner --> ModulePlanner :
+deactivate ModulePlanner
+
+ModulePlanner --> Model :
+deactivate ModulePlanner
+
+Model --> RevertCommitCommand
+deactivate Model
+
+RevertCommitCommand --> LogicManager : result
+deactivate RevertCommitCommand
+RevertCommitCommand -[hidden]-> LogicManager : result
+destroy RevertCommitCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

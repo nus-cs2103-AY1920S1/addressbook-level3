@@ -7,8 +7,8 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.ReadOnlyModulePlanner;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * API of the Logic component
@@ -16,27 +16,35 @@ import seedu.address.model.person.Person;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     *
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      * @throws CommandException If an error occurs during command execution.
-     * @throws ParseException If an error occurs during parsing.
+     * @throws ParseException   If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /**
-     * Returns the AddressBook.
+     * Returns the ModulePlanner.
      *
-     * @see seedu.address.model.Model#getAddressBook()
+     * @see seedu.address.model.Model#getModulePlanner()
      */
-    ReadOnlyAddressBook getAddressBook();
-
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList();
+    ReadOnlyModulePlanner getModulePlanner();
 
     /**
-     * Returns the user prefs' address book file path.
+     * Returns the current active StudyPlan.
      */
-    Path getAddressBookFilePath();
+    StudyPlan getActiveStudyPlan();
+
+    /**
+     * Returns an unmodifiable view of the filtered list of study plans
+     */
+    ObservableList<StudyPlan> getFilteredStudyPlanList();
+
+    /**
+     * Returns the user prefs' module planner file path.
+     */
+    Path getModulePlannerFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

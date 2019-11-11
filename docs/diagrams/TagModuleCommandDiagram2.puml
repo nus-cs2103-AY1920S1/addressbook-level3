@@ -1,0 +1,20 @@
+@startuml
+
+title AddTagCommand (New tag is not created)
+
+object addTagCommand {
+    newTagCreated = false
+}
+
+object studyPlan
+
+object uniqueTagList
+
+object targetTag
+
+studyPlan -right- uniqueTagList
+uniqueTagList -right- targetTag
+
+targetTag -up- addTagCommand : toAdd
+
+@enduml

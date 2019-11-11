@@ -1,18 +1,21 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
+import seedu.address.model.PrereqLeaf;
+import seedu.address.model.PrereqNode;
+import seedu.address.model.PrereqTree;
+import seedu.address.model.semester.SemesterName;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,11 +23,10 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -36,89 +38,116 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses {@code semester} into an {@code SemesterName} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if specified semester is not valid.
      */
-    public static Name parseName(String name) throws ParseException {
-        requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
-            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+    public static SemesterName parseSemester(String semester) throws ParseException {
+        if (semester == null || !SemesterName.isValidSemesterName(semester)) {
+            throw new ParseException(MESSAGE_INVALID_SEMESTER);
         }
-        return new Name(trimmedName);
+        String trimmedSemester = semester.trim().toUpperCase();
+        int year = Character.getNumericValue(trimmedSemester.charAt(1));
+        int sem = Character.getNumericValue(trimmedSemester.charAt(trimmedSemester.length() - 1));
+        if (trimmedSemester.length() == 4) {
+            return SemesterName.getEnum(year, sem);
+        } else {
+            return SemesterName.getSpecialTermEnum(year, sem);
+        }
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Checks whether or not the module is valid.
      *
-     * @throws ParseException if the given {@code phone} is invalid.
+     * @throws ParseException if specified module is not valid.
      */
-    public static Phone parsePhone(String phone) throws ParseException {
-        requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        return new Phone(trimmedPhone);
+    public static String parseModule(String module) throws ParseException {
+        // TODO: Check module against megaList to ensure that it is valid
+        return module.toUpperCase().trim();
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
+     * Parses a raw {@code String tagName} into a formatted tagName.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code address} is invalid.
+     * @throws ParseException if the given {@code tagName} is invalid.
      */
-    public static Address parseAddress(String address) throws ParseException {
-        requireNonNull(address);
-        String trimmedAddress = address.trim();
-        if (!Address.isValidAddress(trimmedAddress)) {
-            throw new ParseException(Address.MESSAGE_CONSTRAINTS);
-        }
-        return new Address(trimmedAddress);
-    }
-
-    /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code email} is invalid.
-     */
-    public static Email parseEmail(String email) throws ParseException {
-        requireNonNull(email);
-        String trimmedEmail = email.trim();
-        if (!Email.isValidEmail(trimmedEmail)) {
-            throw new ParseException(Email.MESSAGE_CONSTRAINTS);
-        }
-        return new Email(trimmedEmail);
-    }
-
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
+    public static String parseTag(String tagName) throws ParseException {
+        requireNonNull(tagName);
+        String trimmedTagName = tagName.trim();
+        if (!Tag.isValidTagName(trimmedTagName)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
-        return new Tag(trimmedTag);
+        return trimmedTagName;
     }
 
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+    public static List<String> parseTags(Collection<String> tags) throws ParseException {
         requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
+        final List<String> tagSet = new ArrayList<>();
         for (String tagName : tags) {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses the prerequisite tree from a given string.
+     *
+     * @param s Given string representing the prerequisite tree. Either the empty string, a module code, or (OP _ _).
+     * @return Prerequisite tree
+     */
+    public static PrereqTree parsePrereqTree(String s) {
+        if ("".equals(s)) {
+            return null;
+        } else if (s.charAt(0) != '(') {
+            return new PrereqLeaf(s);
+        }
+
+        // Split the string into list of items
+        String removeBrackets = s.substring(1, s.length() - 1);
+        String[] operatorOperands = removeBrackets.split(" ", 2);
+        String operator = operatorOperands[0];
+        String operandsString = operatorOperands[1];
+        List<String> operands = splitOperands(operandsString);
+        List<PrereqTree> children = operands.stream()
+                .map(operand -> parsePrereqTree(operand))
+                .collect(Collectors.toList());
+        return new PrereqNode(operator, children);
+    }
+
+    /**
+     * Splits the String of operands into its logical groupings.
+     * Example: "CS1 (AND (OR CS2 CS3) CS4) CS5" => ["CS1", "(AND (OR CS2 CS3) CS4)", "CS5"]
+     *
+     * @param operands String that represents the operands all together
+     * @return List of Strings, where each represents a single operand to be further parsed
+     */
+    public static List<String> splitOperands(String operands) {
+        List<String> list = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        int balance = 0;
+        for (char c : operands.toCharArray()) {
+            sb.append(c);
+            if (c == ' ' && balance == 0) {
+                String trimmed = sb.toString().trim();
+                if (!"".equals(trimmed)) {
+                    list.add(trimmed);
+                }
+                sb.setLength(0);
+            } else if (c == '(') {
+                balance++;
+            } else if (c == ')' && --balance == 0) {
+                list.add(sb.toString().trim());
+                sb.setLength(0);
+            }
+        }
+        if (sb.length() > 0) {
+            list.add(sb.toString());
+        }
+        return list;
     }
 }

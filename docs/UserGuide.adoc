@@ -1,4 +1,4 @@
-= AddressBook Level 3 - User Guide
+= CS ModBuddy - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,32 +12,29 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level3
+:repoURL: https://github.com/AY1920S1-CS2103-F09-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+image::title.png[width="600"]
 
 == Introduction
 
-AddressBook Level 3 (AB3) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB3 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CS ModBuddy is for those who *prefer to use a desktop app for planning their modules*.
+More importantly, CS ModBuddy is *optimized for those who prefer to work with a Command Line Interface* (CLI)
+while still having the benefits of a Graphical User Interface (GUI).
+If you can type fast, CS ModBuddy can get your module planning done faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `csmodbuddy.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your module plan.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
-.  Some example commands you can try:
-
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
-
+e.g. typing *`help`* and pressing kbd:[Enter] will display instructions for all commands.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
@@ -46,132 +43,610 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addmod SEMESTER MODULE_CODE`, `SEMESTER`
+is a parameter which can be used as `addmod y1s1 cs1101s`.
+* Items in square brackets are optional e.g `newplan [TITLE]` can be used as `newplan`
+or as `newplan Algo and Graphics`.
+* Items with ... after them can be used multiple times e.g. `TAG_NAME...` can be used as `core`, `core completed`, etc.
+
 ====
 
-=== Viewing help : `help`
+// tag::help[]
+=== Basic
 
+==== General Help: `help`
+Provides a list of possible commands the user can type with brief descriptions. +
 Format: `help`
 
-=== Adding a person: `add`
+==== Help for a specific command: `help`
+Provides detailed help for a specific command, including the parameters required. +
+Format: `help COMMAND` +
+Example:
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+* `help newplan`
+
+// end::help[]
+
+// tag::autocomplete[]
+
+==== Autocompleting: `tab`
+When the user presses `tab`, the command word, or module code, or semester,
+or tag name will be autocompleted
+If there is only one possible completion, it will be filled immediately.
+If there is more than one possible completion, a menu of possible autocompletions
+is drawn that can be selected with the up and down buttons.
+
+// end::autocomplete[]
+
+// tag::undoredo[]
+
+==== Undo-ing the previous command: `undo`
+Undo the previous command. The state of the application will revert back to that before the previous command. This command cannot undo itself. +
+
+[NOTE]
+The commands that make changes to the storage file, such as `commit`, cannot be undone.
+
+Format: `undo`
+
+==== Redo-ing the previous undone command: `redo`
+Redo the previous undone command. The state of the application will revert back to that before the undo. This command cannot redo itself. +
+
+Format:  `redo`
+
+// end::undoredo[]
+
+//tag::errormessages[]
+==== Error messages
+Displays a useful error message if the input is invalid. For example,
+it should highlight wrong commands, wrong numbers of arguments, or arguments in the wrong format.
+//end::errormessages[]
+
+// tag::addremovemod[]
+=== Module
+
+==== Assigning a module to a given semester: `addmod`
+Assigns the specified module to a given semester of the current study plan.
+
+[NOTE]
+Only CS modules may be added to the study plan. Additional modules taken outside of the
+CS curriculum, such as other University Level Requirements (ULRs) or Unrestricted Electives (UEs),
+are outside the scope of our application.
+
+Format:  `addmod SEMESTER MODULE ...` +
+Examples:
+
+* `addmod y1s1 CS1101s`
+* `addmod y2s2 CS3244 CS3245 CS3233`
+
+==== Removing a module from a given semester: `removemod`
+Removes the specified module to a given semester of the current study plan. +
+Format: `removemod SEMESTER MODULE ...` +
+Examples:
+
+* `removemod y1s1 CS1101S`
+* `removemod y2s2 CS3244`
+
+// end::addremovemod[]
+
+// tag::dataone[]
+==== Finding modules using module code: `findmod`
+Shows the semester that the specified module is located at. +
+Format: `findmod MODULE_CODE` +
+Examples:
+
+* `findmod cs1101s`
+
+// end::dataone[]
+
+//tag::description[]
+==== Viewing description of a module: `description`
+Shows the description of a particular module, including its prerequisites.
+Only computer-science related modules will have these descriptions, and not general modules nor electives. +
+Format: `description MODULE_CODE` +
+Example:
+
+* `description CS2103T`
+//end::description[]
+
+//tag::showcore[]
+==== Showing all core modules: `showcore`
+Shows all core modules.
+
+Format: `showcore`
+
+//end::showcore[]
+
+//tag::showfocus[]
+==== Showing all focus area primary modules: `showfocus`
+Shows all focus area primary modules.
+
+Format: `showfocus`
+//end::showfocus[]
+
+//tag::display[]
+==== Display for invalid modules
+Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules.
+//end::display[]
+
+// tag::addremovesems[]
+
+=== Semester
+
+==== Adding a semester: `addsem`
+Adds a _non-mainstream semester_ (i.e. special term or Year 5 semester) to the current active study plan.
+
+[NOTE]
+The user is not allowed to add a _mainstream semester_. The eight default semesters will always be displayed on
+the GUI.
+
+Format: `addsem SEMESTER` +
+Example:
+
+* `addsem y5s1`
+
+==== Removing a semester from a study plan: `removesem`
+Deletes all the modules in the specified semester in the current active study plan, after which that
+semester will contain no modules. If the semester to be deleted is a _mainstream semester_  (i.e. not a special term
+or a Year 5 semester), an empty semester will remain on the GUI. If the semester is a _non-mainstream semester_,
+e.g. Y1ST1, the whole semester will disappear from the current study plan. +
+
+Format: `removesem SEMESTER` +
+Examples:
+
+* `removesem y2s2`
+* `removesem y1st2`
+
+// end::addremovesems[]
+
+==== Setting the current semester. `setcurrent`
+Sets the given semester as the current one. Semesters before the specified semester will be locked and therefore modules cannot be added or removed from them. +
+Format: `setcurrent SEMESTER` +
+Examples:
+
+* `setcurrent y1s2`
+
+==== Blocking off the given semester: `block`
+Block off the given semester, for reasons such as exchange, LOA, etc. +
+Format:  `block SEMESTER [REASON]`
+
+==== Unblocking the given semester: `unblock`
+Unblock the given semester. +
+Format:  `unblock SEMESTER`
+
+//tag::validmods[]
+==== Viewing modules that can be taken in a given semester : `validmods`
+Shows all the modules that can be taken in a given semester, based only on whether its prerequisites have been met.
+
+[NOTE]
+This semester need not necessarily exist in the module planner for you to view its valid modules.
+Moreover, certain modules such as the internship and dissertation may show up in early semesters,
+because their prerequisites are not expressible in terms of prerequisite modules.
+
+Format: `validmods SEMESTER`
+
+Example:
+
+* `validmods y2s1`
+//end::validmods[]
+
+// tag::datatwo[]
+
+=== Tagging
+
+[IMPORTANT]
+All tag names must be single words and cannot be more than 25 characters long.
+
+==== Viewing default tags : `viewdefaulttags`
+Shows all default tag types.
+
+Format: `viewdefaulttags`
+
+====
+List of default tags:
+
+- `Completed` :
+_Completed_ modules are modules that are in any semester before the *current semester*.
+
+- `Core` :
+_Core_ modules are *Computer Science Foundation* modules that count towards *Programme Requirements*.
+
+- `S/U-able` :
+_S/U-able_ modules are modules that permit the *Satisfactory/Unsatisfactory option*.
+
+- `UE [coming in v2.0]`:
+_UE_ modules are *Unrestricted Elective* modules.
+
+- `ULR [coming in v2.0]`:
+_ULR_ modules are modules that count towards *University Level Requirements*.
+
+- `FOCUS_AREA_NAME:P` :
+_P_ modules are modules that count towards Focus Area Primaries for _FOCUS_AREA_NAME_.
+
+- `FOCUS_AREA_NAME:E` :
+_E_ modules are modules that count towards Focus Area Electives for _FOCUS_AREA_NAME_.
+====
+
+==== Tagging modules : `addtag`
+Attaches a tag to a module. +
+Format: `addtag MODULE_CODE TAG_NAME`
 
 [TIP]
-A person can have any number of tags (including 0)
+If a tag with the given `TAG_NAME` does not exist, a new tag will automatically be created and tagged to the specified module.
+
+Example:
+
+* `addtag cs3230 exchange` +
+Attaches the tag with name _exchange_ to _CS3230_.
+
+==== Deleting tags: `deletetag`
+Deletes a tag completely and removes it from any module that it is attached to. +
+Format: `deletetag TAG_NAME`
+
+[NOTE]
+Only user-created tags can be deleted, i.e. default tag cannot be deleted.
+
+Example:
+
+* `deletetag exchange`
+
+==== Removing a tag from a module: `removetag`
+Removes a tag from a module. +
+Format: `removetag MODULE_CODE TAG_NAME`
+
+Example:
+
+* `removetag cs3230 exchange`
+
+==== Viewing all tags : `viewalltags`
+Shows all tag types. +
+Format: `viewalltags`
+
+==== Renaming an existing tag : `renametag`
+Renames a tag. +
+Format: `renametag ORIGINAL_TAG_NAME NEW_TAG_NAME`
+
+[NOTE]
+Only user-created tags can be renamed, i.e. default tag cannot be renamed. Also, `renametag` currently does not support
+renaming tags to names that differ only in letter case, i.e. if the new tag name is the same as the old tag name, it will not be renamed.
+This will be done in v2.0.
+
+Example:
+
+* `renametag exchange sep` +
+Renames the tag name from _exchange_ to _sep_.
+
+==== Viewing modules with specific tags : `viewtagged`
+Shows all modules attached to all the specified tags. +
+Format: `viewtagged TAG_NAME \...`
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `viewtagged completed` +
+Shows all modules that are tagged as _completed_.
+* `viewtagged core completed` +
+Shows all modules that are tagged as _core_ and _completed_.
 
-=== Listing all persons : `list`
+==== Viewing tags for a specific module : `viewtags`
+Shows all tags attached to the specified module. +
+Format: `viewtags MODULE_CODE`
 
-Shows a list of all persons in the address book. +
+Examples:
+
+* `viewtags cs2030`
+
+==== Removing all tags from the study plan : `removealltags`
+Removes all user-created tags in the entire study plan. +
+Format: `removealltags`
+// end::datatwo[]
+
+// tag::studyplan[]
+=== Study Plan
+
+==== Creating a new study plan: `newplan`
+Creates a new study plan with an optional title. The title should contain only ASCII characters, and should not be
+longer than 20 characters.
+
+[NOTE]
+Each study plan is assigned a unique ID upon its creation. This ID will remain the same throughout
+the life of the study plan. The ID will be reset to 1 when all study plans are deleted and the application is restarted.
+
+Format: `newplan [TITLE]` +
+Examples:
+
+* `newplan`
+* `newplan noc half year`
+* `newplan minor in maths`
+
+==== Deleting a study plan: `removeplan`
+Deletes a study plan with a given ID. +
+Format: `removeplan PLAN_NUMBER` +
+Example:
+
+* `removeplan 4`
+
+==== Listing all study plans: `list`
+Lists all the study plans that the user has created and has not deleted.
+
+[NOTE]
+Each study plan is assigned a unique ID upon its creation. This ID will remain the same throughout
+the life of the study plan.
+
 Format: `list`
 
-=== Editing a person : `edit`
+==== Viewing another study plan: `viewplan`
+Shows the study plan with a given ID. The specified study plan will be displayed on the left panel of the GUI
+as a simplified study plan. This does not activate that study plan, so it is for viewing only. +
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `viewplan PLAN_NUMBER` +
+Example:
 
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+* `viewplan 3` +
+This allows the user to view the study plan with an ID of 3.
 
-Examples:
+==== Setting another study plan as active: `activate`
+Replaces the current study plan with the specified study plan as the active one. +
+Format: `activate PLAN_NUMBER` +
+Example:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `activate 2`
 
-=== Locating persons by name: `find`
+==== Editing the title of current study plan: `title`
+Changes the title of the current active study plan. The title should contain only ASCII characters, and should not be
+longer than 20 characters. +
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `title PLAN_TITLE` +
+Example:
 
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
+* `title Algo and Graphics`
 
-Examples:
+==== Setting default study plan: `default`
+Generates a study plan with pre-populated modules according to the recommended study plan for a Year one CS student. +
+Format: `default`
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+// end::studyplan[]
 
-// tag::delete[]
-=== Deleting a person : `delete`
+// tag::datathree[]
 
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
+==== Adding priority tags to a study plan : `setpriority`
+Attaches a priority tag to the study plan. +
+Format: `setpriority PRIORITY_LEVEL STUDY_PLAN_ID`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+List of priority levels:
+
+* `HIGH` +
+* `MEDIUM` +
+* `LOW`
 ****
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `setpriority high 1`
+* `setpriority low 3`
 
-// end::delete[]
-=== Clearing all entries : `clear`
+==== Removing priority tags from study plan: `removepriority`
+Removes the priority tag from the study plan. +
+Format: `removepriority STUDY_PLAN_ID`
 
-Clears all entries from the address book. +
-Format: `clear`
+Examples
 
-=== Exiting the program : `exit`
+* `removepriority 1`
+* `removepriority 3`
 
-Exits the program. +
-Format: `exit`
+==== Listing study plans by priority: `listbypriority`
+Lists all study plans in the order of their priorities. +
+Format: `listbypriority`
 
-=== Saving the data
+// end::datathree[]
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+// tag::check[]
+==== Checking a study plan's feasibility : `check`
+Shows details about what graduation requirements are left to be fulfilled,
+such as MCs, core or focus area modules that remain to be taken.
 
-// tag::dataencryption[]
-=== Encrypting data files `[coming in v2.0]`
+[NOTE]
+This command will not check for the minimum number of MCs to be taken per semester,
+as additional modules that students may take (such as UEs or ULRs) are outside the scope of our project.
 
-_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
+Format: `check [AREA]`
+
+Examples
+
+* `check mcs`
+* `check core`
+* `check focus`
+* `check`
+
+// end::check[]
+
+// tag::clearinvalidmods[]
+==== Clear all currently invalid modules : `clearinvalidmods`
+Clears all modules that are currently invalid, whose prerequisites have not been met in previous semesters.
+This may cause other modules in future semesters to be invalidated as well. +
+Format: `clearinvalidmods`
+// end::clearinvalidmods[]
+
+// tag::versiontracking[]
+=== Version Tracking
+
+==== Committing edits to a study plan: `commit`
+Saves changes to a study plan with a short commit message.
+
+[NOTE]
+Even without committing, the module planner is automatically saved to storage after every command is
+executed successfully. However, commits allow the user to revert to a previous state of the study plan.
+
+[TIP]
+The user is allowed, but not recommended, to commit a study plan even when there are no changes
+since the previous commit.
+
+Format: `commit SHORT_MESSAGE` +
+Examples:
+
+* `commit planned until y2s2`
+* `commit haven’t added UEs`
+
+==== Checking commit history: `history`
+Shows all commit history of the current study plan. +
+Format: `history`
+
+==== Viewing a commit: `viewcommit`
+Shows the version of the current study plan for a particular commit. This does not create a new commit, nor does it
+return the study plan to a previous version. The commit will be displayed as a simplified study plan. +
+
+Format: `viewcommit COMMIT_NUMBER` +
+Example:
+
+* `viewcommit 1.1` +
+This allows the user to view commit 1 of study plan 1 (which is currently active).
+
+==== Reverting to a commit: `revert`
+Reverts to the version of the current study plan for a particular commit. This creates a new "Revert to" commit and
+returns the current active study plan back to the state in the specified commit.
+
+[TIP]
+The user is allowed, but not recommended, to revert to another "Revert to" commit. This will create a
+long chain of "Revert to Revert to ..." commit messages.
+
+Format: `revert COMMIT_NUMBER` +
+Example:
+
+* `revert 1.1` +
+Suppose there are commits `1.0`, `1.1`, `1.2`, and `1.3`. This allows the user to revert to commit 1 of study plan 1,
+creating a new commit called `1.4: Revert to "COMMIT_MESSAGE_OF_1.1"`.
+
+==== Removing a commit: `removecommit`
+Removes a commit in the current active study plan specified by the commit number. +
+Format: `removecommit COMMIT_NUMBER` +
+Example:
+
+* `removecommit 2.2`
+
+// end::versiontracking[]
+
+// tag::gui[]
+=== GUI
+
+==== Expanding a semester: `expand`
+Expands a semester so that more details can be seen. Will display module titles, MC count, and their tags. +
+Format: `expand SEMESTER` +
+Example:
+
+* `expand y1s1`
+
+==== Expanding all semesters: `expandall`
+Expands all semesters so that more details can be seen. Will display module titles, MC count, and their tags. +
+Format: `expandall`
+
+==== Collapsing a semester: `collapse`
+Collapses a semester so that most details are hidden. Will hide module titles, MC count, and their tags. +
+Format: `collapse SEMESTER` +
+Example:
+
+* `collapse y1s1`
+
+==== Collapsing all semesters: `collapseall`
+Collapses all semesters so that most details are hidden. Will hide module titles, MC count, and their tags. +
+Format: `collapseall`
+
+==== Changing the theme of the GUI: `theme`
+Changes the theme of the GUI. Existing themes are: light, dark, hacker, dawn. +
+Format: `theme THEME_NAME`
+
+Examples:
+
+* `theme light`
+* `theme dark`
+* `theme hacker`
+* `theme dawn`
+
+// end::gui[]
+
+== Upcoming Features [coming in v2.0]
+
+=== Basic
+
+==== Chaining commands `[coming in v2.0]`
+Chain commands together for greater efficiency. The commands, if different, are separated by a ‘&&’. ‘&&’ is not needed if the command is the same. +
+Format: `COMMAND_1 && COMMAND_2 && …` +
+Examples:
+
+* `addmod y1s1 CS1101S CS1231 MA1521`
+* `movemodule CS2105 y2s1 y2s2 && addmod CS2106 y2s2`
+
+// tag::movingasemester[]
+
+=== Semester
+
+==== Moving a semester to a study plan: `movesem` `[coming in v2.0]`
+Moves a semester of modules to another study plan with a specified ID. +
+
+Format: `movesem SEMESTER SOURCE_PLAN DESTINATION_PLAN` +
+Examples:
+
+* `movesem y2s2 1 3`
+* `movesem y3s1 2 1`
+
+// end::movingasemester[]
+
+=== Module
+
+==== Naming a UE from a semester. `[coming in v2.0]`
+Names a UE from the given semester with the given module name. This feature is purely for aesthetic purposes and has no functional implications.
+
+Format: `nameue SEMESTER NAME` +
+Examples:
+
+* `nameue y1s1 GER1000`
+
+==== Moving a module from one semester to another. `[coming in v2.0]`
+Moves a given module from a source semester to a destination semester, as specified. +
+Format: `movemod MODULE SEMESTER_SRC SEMESTER_DEST` +
+Examples:
+
+* `movemod CS3243 y2s1 y2s2`
+
+=== Tagging
+
+// tag::datafour[]
+==== Setting focus area tags to study plans: `[coming in v2.0]`
+A tag with the declared focus area will automatically appear when the user declares his/her focus area.
+
+==== Get module codes from keywords: `[coming in v2.0]`
+Shows all module codes of modules with names containing the specified keywords.
+
+==== Tagging modules across all study plans: `[coming in v2.0]`
+Attaches a specified tag to a module across all study plans. For example, a tag `difficult` can be attached to a
+given module across all study plans instead of tagging them individually in every study plan.
+// end::datafour[]
+
+==== Change colour theme of tags: `[coming in v2.0]`
+Changes the colour theme of all the tags in the study plan with the specified one.
+
+==== Change colour of specific tags: `[coming in v2.0]`
+Changes the colour of a specific tag.
+
+=== Study Plan
+
+==== Declaring a focus area: `[coming in v2.0]`
+Declares the given focus area as one of the focus areas of the study plan. This means that the requirements of the focus area has to be met to be eligible for graduation. +
+Format: `declarefocusarea FOCUS_AREA`
+
+==== Displays for an invalid study plan `[coming in v2.0]`
+The study plan will have a tick or cross beside it, which shows if the entire plan is feasible.
+
+// tag::guifuture[]
+=== GUI
+
+==== Animations: `[coming in v2.0]`
+Expanding and collapsing semesters will be fluidly animated.
+
+==== Colours: `[coming in v2.0]`
+Each module and tag can be assigned with a specific colour to allow more customisation.
+
+// end::guifuture[]
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
-
-== Command Summary
-
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
+*A*: Download the jar file in the other computer and overwrite the empty data folder it creates with the previous data folder containing the moduleplanner.json.

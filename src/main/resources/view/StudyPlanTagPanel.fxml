@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <FlowPane fx:id="tags" alignment="CENTER_LEFT" columnHalignment="CENTER" prefHeight="30.0" />
+    </children>
+</HBox>

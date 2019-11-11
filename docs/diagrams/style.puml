@@ -33,6 +33,18 @@
 
 !define USER_COLOR #000000
 
+!define MODULE_PLANNER_COLOR #1E2D47
+!define MODULE_PLANNER_COLOR_T1 #324B80
+
+!define STUDY_PLAN_COLOR #27403D
+!define STUDY_PLAN_COLOR_T1 #10A689
+
+!define TAG_COLOR #D46026
+!define TAG_COLOR_T1 #F9A21C
+
+!define MODULE_COLOR #DEADB8
+!define MODULE_COLOR_T1 #F9D7CD
+
 skinparam BackgroundColor #FFFFFFF
 
 skinparam Shadowing false

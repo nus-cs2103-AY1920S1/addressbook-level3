@@ -15,16 +15,19 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ModulesInfo;
+import seedu.address.model.ReadOnlyModulePlanner;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonModulePlannerStorage;
+import seedu.address.storage.JsonModulesInfoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ModulePlannerStorage;
+import seedu.address.storage.ModulesInfoStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
@@ -36,7 +39,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 6, 0, true);
+    public static final Version VERSION = new Version(1, 4, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -48,7 +51,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("=============================[ Initializing AddressBook ]===========================");
+        logger.info("=============================[ Initializing ModulePlanner ]===========================");
         super.init();
 
         AppParameters appParameters = AppParameters.parse(getParameters());
@@ -56,12 +59,15 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        ModulePlannerStorage modulePlannerStorage = new JsonModulePlannerStorage(userPrefs.getModulePlannerFilePath());
+        ModulesInfoStorage modulesInfoStorage = new JsonModulesInfoStorage(config.getModulesInfoFilePath());
+        ModulesInfo modulesInfo = initModulesInfo(modulesInfoStorage);
+
+        storage = new StorageManager(modulePlannerStorage, userPrefsStorage, modulesInfoStorage);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, userPrefs, modulesInfo);
 
         logic = new LogicManager(model, storage);
 
@@ -69,28 +75,31 @@ public class MainApp extends Application {
     }
 
     /**
-     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
-     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s module planner and {@code userPrefs}. <br>
+     * The data from the default module planner will be used instead if {@code storage}'s module planner is not found,
+     * or an empty module planner will be used instead if errors occur when reading {@code storage}'s module planner.
      */
-    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+    private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs, ModulesInfo modulesInfo) {
+        Optional<ReadOnlyModulePlanner> modulePlannerOptional;
+        ReadOnlyModulePlanner initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
-            if (!addressBookOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with a sample AddressBook");
+            modulePlannerOptional = storage.readModulePlanner(modulesInfo);
+            if (modulePlannerOptional.isEmpty()) {
+                logger.info("Data file not found. Will be starting with a default ModulePlanner");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialData = modulePlannerOptional.orElseGet(() -> SampleDataUtil.getSampleModulePlanner(modulesInfo));
         } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Data file not in the correct format. Will be starting with a default ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
+            logger.warning("Problem while reading from the file. Will be starting with a default ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
+        } catch (StudyPlanNotFoundException e) {
+            logger.warning("There is no active study plan. Will be starting with a default ModulePlanner");
+            initialData = SampleDataUtil.getSampleModulePlanner(modulesInfo);
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, modulesInfo);
     }
 
     private void initLogging(Config config) {
@@ -151,7 +160,7 @@ public class MainApp extends Application {
                     + "Using default user prefs");
             initializedPrefs = new UserPrefs();
         } catch (IOException e) {
-            logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. Will be starting with an empty ModulePlanner");
             initializedPrefs = new UserPrefs();
         }
 
@@ -165,15 +174,38 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
+    /**
+     * Returns a {@code ModulesInfo} using the file at {@code storage}'s modules info file path.
+     */
+    protected ModulesInfo initModulesInfo(ModulesInfoStorage storage) {
+        Path prefsFilePath = storage.getModulesInfoPath();
+        logger.info("Using modules info file : " + prefsFilePath);
+
+        ModulesInfo initializedModulesInfo;
+        try {
+            Optional<ModulesInfo> prefsOptional = storage.readModulesInfo();
+            initializedModulesInfo = prefsOptional.orElse(new ModulesInfo());
+        } catch (DataConversionException e) {
+            logger.warning("ModulesInfo file at " + prefsFilePath + " is not in the correct format. "
+                    + "Will proceed without modules information");
+            initializedModulesInfo = new ModulesInfo();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. Will be starting without modules information");
+            initializedModulesInfo = new ModulesInfo();
+        }
+
+        return initializedModulesInfo;
+    }
+
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting AddressBook " + MainApp.VERSION);
+        logger.info("Starting ModulePlanner " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("============================ [ Stopping Address Book ] =============================");
+        logger.info("============================ [ Stopping Module Planner ] =============================");
         try {
             storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {

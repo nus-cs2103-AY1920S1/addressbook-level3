@@ -2,12 +2,9 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
@@ -16,6 +13,8 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.semester.Semester;
+import seedu.address.model.studyplan.StudyPlan;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -25,30 +24,36 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
+    private static final String NO_ACTIVE_STUDY_PLAN = "No remaining study plans.";
+    private static final String STUDY_PLAN_ID = "(ID: %d)";
+
     private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
+    private SemesterListPanel semesterListPanel;
     private ResultDisplay resultDisplay;
-    private HelpWindow helpWindow;
+    private CommandBox commandBox;
+    private StudyPlanTagPanel studyPlanTagPanel;
 
+    @FXML
+    private Label studyPlanId;
+    @FXML
+    private Label title;
+    @FXML
+    private Label mcCount;
     @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
-
+    private StackPane semesterListPanelPlaceholder;
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
+    @FXML
+    private StackPane studyPlanTagsPlaceholder;
 
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -59,64 +64,48 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
-
-        setAccelerators();
-
-        helpWindow = new HelpWindow();
+        initialiseMode(logic.getGuiSettings());
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
     }
 
-    private void setAccelerators() {
-        setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
-    }
-
     /**
      * Sets the accelerator of a MenuItem.
      * @param keyCombination the KeyCombination value of the accelerator
      */
-    private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
-        menuItem.setAccelerator(keyCombination);
-
-        /*
-         * TODO: the code below can be removed once the bug reported here
-         * https://bugs.openjdk.java.net/browse/JDK-8131666
-         * is fixed in later version of SDK.
-         *
-         * According to the bug report, TextInputControl (TextField, TextArea) will
-         * consume function-key events. Because CommandBox contains a TextField, and
-         * ResultDisplay contains a TextArea, thus some accelerators (e.g F1) will
-         * not work when the focus is in them because the key event is consumed by
-         * the TextInputControl(s).
-         *
-         * For now, we add following event filter to capture such key events and open
-         * help window purposely so to support accelerators even when focus is
-         * in CommandBox or ResultDisplay.
-         */
-        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
-                menuItem.getOnAction().handle(new ActionEvent());
-                event.consume();
-            }
-        });
-    }
 
     /**
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        logger.info("Filling Main Window.");
+        StudyPlan sp = logic.getActiveStudyPlan();
+        if (sp == null) {
+            logger.info("No active study plan present.");
+            NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
+            semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
+            studyPlanId.setText("");
+            title.setText(NO_ACTIVE_STUDY_PLAN);
+            mcCount.setText("");
+        } else {
+            logger.info("An active study plan is present.");
+            ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
+            semesterListPanel = new SemesterListPanel(semesters, sp.getCurrentSemester());
+            semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+            studyPlanId.setText(String.format(STUDY_PLAN_ID, sp.getIndex()));
+            title.setText(sp.getTitle().toString());
+            mcCount.setText(sp.getMcCountString());
+            studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags()
+                    .asUnmodifiableObservableList());
+            studyPlanTagsPlaceholder.getChildren().add(studyPlanTagPanel.getRoot());
+        }
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox = new CommandBox(this::executeCommand, logic.getModulePlanner());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -132,18 +121,6 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleHelp() {
-        if (!helpWindow.isShowing()) {
-            helpWindow.show();
-        } else {
-            helpWindow.focus();
-        }
-    }
-
     void show() {
         primaryStage.show();
     }
@@ -153,15 +130,11 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
+        logger.info("Main Window closing.");
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), logic.getGuiSettings().getGuiTheme());
         logic.setGuiSettings(guiSettings);
-        helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
@@ -170,17 +143,53 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        resultDisplay.removeResultView();
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            semesterListPanel.refresh();
 
-            if (commandResult.isShowHelp()) {
-                handleHelp();
+            StudyPlan sp = logic.getActiveStudyPlan();
+            mcCount.setText(sp == null ? "" : sp.getMcCountString());
+
+            if (commandResult.isChangesActiveStudyPlan()) {
+                changeMode(logic.getGuiSettings());
+                logger.info("Study plan has been changed. Refreshing display.");
+                if (sp == null) {
+                    NoActiveStudyPlanDisplay noActiveStudyPlanDisplay = new NoActiveStudyPlanDisplay();
+                    if (semesterListPanelPlaceholder.getChildren().size() != 0) {
+                        semesterListPanelPlaceholder.getChildren().remove(0);
+                    }
+                    semesterListPanelPlaceholder.getChildren().add(noActiveStudyPlanDisplay.getRoot());
+                    studyPlanId.setText("");
+                    if (studyPlanTagsPlaceholder.getChildren().size() != 0) {
+                        studyPlanTagsPlaceholder.getChildren().remove(0);
+                    }
+                    title.setText(NO_ACTIVE_STUDY_PLAN);
+                } else {
+                    ObservableList<Semester> semesters = sp.getSemesters().asUnmodifiableObservableList();
+                    semesterListPanel = new SemesterListPanel(semesters, sp.getCurrentSemester());
+                    if (semesterListPanelPlaceholder.getChildren().size() != 0) {
+                        semesterListPanelPlaceholder.getChildren().remove(0);
+                    }
+                    semesterListPanelPlaceholder.getChildren().add(semesterListPanel.getRoot());
+                    studyPlanTagPanel = new StudyPlanTagPanel(sp.getStudyPlanTags().asUnmodifiableObservableList());
+                    if (studyPlanTagsPlaceholder.getChildren().size() != 0) {
+                        studyPlanTagsPlaceholder.getChildren().remove(0);
+                    }
+                    studyPlanTagsPlaceholder.getChildren().add(studyPlanTagPanel.getRoot());
+                    studyPlanId.setText(String.format(STUDY_PLAN_ID, sp.getIndex()));
+                    title.setText(sp.getTitle().toString());
+                    commandBox.handleChangeOfActiveStudyPlan();
+                }
             }
-
             if (commandResult.isExit()) {
                 handleExit();
+            }
+            ResultViewType resultViewType = commandResult.getResultViewType();
+            if (resultViewType != null) {
+                resultDisplay.handleResult(resultViewType, commandResult.getResultContent());
             }
 
             return commandResult;
@@ -190,4 +199,22 @@ public class MainWindow extends UiPart<Stage> {
             throw e;
         }
     }
+
+    /**
+     * Sets the initialised GUI mode based on {@code guiSettings}.
+     */
+    private void initialiseMode(GuiSettings guiSettings) {
+        ObservableList<String> styles = primaryStage.getScene().getStylesheets();
+        styles.add(guiSettings.getGuiTheme().getCssString());
+    }
+
+    /**
+     * Changes the current GUI mode based on {@code guiSettings}.
+     */
+    private void changeMode(GuiSettings guiSettings) {
+        ObservableList<String> styles = primaryStage.getScene().getStylesheets();
+        styles.remove(styles.size() - 1);
+        styles.add(guiSettings.getGuiTheme().getCssString());
+    }
+
 }

@@ -1,15 +1,14 @@
 package seedu.address.logic.parser;
 
+import java.util.regex.Pattern;
+
 /**
  * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
 public class CliSyntax {
-
-    /* Prefix definitions */
-    public static final Prefix PREFIX_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
-
+    public static final Pattern MODULE_PATTERN = Pattern.compile("^[a-zA-Z]{2,3}(\\d{4})[a-zA-Z]?$");
+    public static final Pattern SEMESTER_PATTERN = Pattern.compile("^[yY][1-5][sS][tT]?[1-2]$");
+    public static final Pattern TAG_PATTERN =
+            Pattern.compile("^(?![a-zA-Z]{2,3}(\\d{4})[a-zA-Z]?)(?![yY][1-5][sS][tT]?[1-2])\\p{ASCII}+$");
+    public static final Pattern GUI_THEME_PATTERN = Pattern.compile("^[a-zA-Z]+$");
 }

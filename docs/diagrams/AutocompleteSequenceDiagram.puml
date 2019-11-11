@@ -1,0 +1,81 @@
+@startuml
+!include style.puml
+
+box GUI MODEL_COLOR_T1
+participant ":UiManager" as UiManager MODEL_COLOR
+participant ":MainWindow" as MainWindow MODEL_COLOR
+participant ":CommandBox" as CommandBox MODEL_COLOR
+participant ":AutocompleteTextField" as AutocompleteTextField MODEL_COLOR
+participant ":ModulePlannerAutocompleteSearch" as ModulePlannerAutocompleteSearch MODEL_COLOR
+participant ":ContextMenu" as ContextMenu MODEL_COLOR
+end box
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ModulePlanner" as ReadOnlyModulePlanner LOGIC_COLOR
+end box
+
+activate UiManager
+create MainWindow
+UiManager -> MainWindow: MainWindow()
+activate MainWindow
+MainWindow --> UiManager: mainWindow
+deactivate MainWindow
+UiManager -> MainWindow: fillInnerParts()
+activate MainWindow
+MainWindow -> LogicManager: getModulePlanner()
+activate LogicManager
+LogicManager -> ReadOnlyModulePlanner
+activate ReadOnlyModulePlanner
+ReadOnlyModulePlanner --> LogicManager: modulePlanner
+deactivate ReadOnlyModulePlanner
+LogicManager --> MainWindow: modulePlanner
+
+deactivate LogicManager
+create CommandBox
+MainWindow -> CommandBox: constructor
+activate CommandBox
+
+create AutocompleteTextField
+CommandBox -> AutocompleteTextField: constructor
+activate AutocompleteTextField
+
+create ModulePlannerAutocompleteSearch
+AutocompleteTextField -> ModulePlannerAutocompleteSearch: constructor
+activate ModulePlannerAutocompleteSearch
+
+ModulePlannerAutocompleteSearch -> ReadOnlyModulePlanner: getActiveTags()
+activate ReadOnlyModulePlanner
+ReadOnlyModulePlanner --> ModulePlannerAutocompleteSearch: tags
+deactivate ReadOnlyModulePlanner
+
+ModulePlannerAutocompleteSearch -> ModulePlannerAutocompleteSearch: generateCommandKeywords()
+activate ModulePlannerAutocompleteSearch
+deactivate ModulePlannerAutocompleteSearch
+ModulePlannerAutocompleteSearch -> ModulePlannerAutocompleteSearch: generateArgumentKeywords()
+activate ModulePlannerAutocompleteSearch
+ModulePlannerAutocompleteSearch -> ReadOnlyModulePlanner: modulePlanner.getModuleCodes()
+activate ReadOnlyModulePlanner
+ReadOnlyModulePlanner --> ModulePlannerAutocompleteSearch: moduleCodes
+deactivate ReadOnlyModulePlanner
+ModulePlannerAutocompleteSearch -> ReadOnlyModulePlanner: modulePlanner.getActiveListOfSemesterNames()
+activate ReadOnlyModulePlanner
+ReadOnlyModulePlanner --> ModulePlannerAutocompleteSearch: semesterNames
+deactivate ReadOnlyModulePlanner
+deactivate ModulePlannerAutocompleteSearch
+create ContextMenu
+ModulePlannerAutocompleteSearch -> ContextMenu: ContextMenu()
+activate ContextMenu
+ContextMenu --> ModulePlannerAutocompleteSearch: keywordMenu
+deactivate ContextMenu
+
+ModulePlannerAutocompleteSearch --> AutocompleteTextField: autocompleteSearch
+deactivate ModulePlannerAutocompleteSearch
+AutocompleteTextField --> CommandBox: autocompleteTextField
+deactivate AutocompleteTextField
+CommandBox --> MainWindow: commandBox
+deactivate CommandBox
+MainWindow --> UiManager
+deactivate MainWindow
+
+@enduml

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<HBox id="modulePill" fx:id="modulePill" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label fx:id="name" text="\$first"/>
+    <padding>
+        <Insets top="1" bottom="1" right="5" left="5"/>
+    </padding>
+</HBox>

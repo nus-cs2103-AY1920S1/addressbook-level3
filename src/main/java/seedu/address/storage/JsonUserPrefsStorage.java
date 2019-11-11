@@ -10,7 +10,7 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 
 /**
- * A class to access UserPrefs stored in the hard disk as a json file
+ * A class to access UserPrefs stored in the hard disk as a JSON file.
  */
 public class JsonUserPrefsStorage implements UserPrefsStorage {
 
@@ -32,6 +32,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     /**
      * Similar to {@link #readUserPrefs()}
+     *
      * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */

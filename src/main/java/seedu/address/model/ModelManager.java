@@ -4,54 +4,66 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.person.Person;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.semester.Semester;
+import seedu.address.model.semester.SemesterName;
+import seedu.address.model.semester.UniqueSemesterList;
+import seedu.address.model.semester.exceptions.SemesterNotFoundException;
+import seedu.address.model.studyplan.StudyPlan;
+import seedu.address.model.studyplan.exceptions.StudyPlanNotFoundException;
+import seedu.address.model.tag.PriorityTag;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UserTag;
+import seedu.address.model.versiontracking.CommitList;
+import seedu.address.model.versiontracking.exception.StudyPlanCommitManagerNotFoundException;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the module planner data.
  */
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final VersionedModulePlanner modulePlanner;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
+    private final FilteredList<StudyPlan> filteredStudyPlans;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given ModulePlanner and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
+    public ModelManager(ReadOnlyModulePlanner modulePlanner, ReadOnlyUserPrefs userPrefs, ModulesInfo modulesInfo) {
         super();
-        requireAllNonNull(addressBook, userPrefs);
+        requireAllNonNull(modulePlanner, userPrefs);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with module planner: " + modulePlanner + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.modulePlanner = new VersionedModulePlanner(modulePlanner, modulesInfo);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-    }
-
-    public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        filteredStudyPlans = new FilteredList<>(this.modulePlanner.getStudyPlanList());
     }
 
     //=========== UserPrefs ==================================================================================
 
     @Override
-    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+    public ReadOnlyUserPrefs getUserPrefs() {
+        return userPrefs;
     }
 
     @Override
-    public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+    public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
+        requireNonNull(userPrefs);
+        this.userPrefs.resetData(userPrefs);
     }
 
     @Override
@@ -66,67 +78,175 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public Path getAddressBookFilePath() {
-        return userPrefs.getAddressBookFilePath();
+    public Path getModulePlannerFilePath() {
+        return userPrefs.getModulePlannerFilePath();
     }
 
     @Override
-    public void setAddressBookFilePath(Path addressBookFilePath) {
-        requireNonNull(addressBookFilePath);
-        userPrefs.setAddressBookFilePath(addressBookFilePath);
+    public void setModulePlannerFilePath(Path modulePlannerFilePath) {
+        requireNonNull(modulePlannerFilePath);
+        userPrefs.setModulePlannerFilePath(modulePlannerFilePath);
     }
 
-    //=========== AddressBook ================================================================================
+    //=========== ModulePlanner ================================================================================
 
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyModulePlanner getModulePlanner() {
+        return modulePlanner;
     }
 
     @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
+    public void setModulePlanner(ReadOnlyModulePlanner modulePlanner) {
+        this.modulePlanner.resetData(modulePlanner);
     }
 
     @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
+    public boolean hasStudyPlan(StudyPlan studyPlan) {
+        requireNonNull(studyPlan);
+        return modulePlanner.hasStudyPlan(studyPlan);
     }
 
     @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public StudyPlan getActiveStudyPlan() {
+        return modulePlanner.getActiveStudyPlan();
     }
 
     @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
+    public StudyPlan activateStudyPlan(int index) throws StudyPlanNotFoundException {
+        logger.info("Activating study plan with ID: " + index);
+        return modulePlanner.activateStudyPlan(index);
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    @Override
+    public boolean activateFirstStudyPlan() {
+        return modulePlanner.activateFirstStudyPlan();
+    }
+
+    @Override
+    public void deleteStudyPlan(StudyPlan target) {
+        logger.info("Deleting study plan with ID: " + target.getIndex());
+        modulePlanner.removeStudyPlan(target);
+    }
+
+    @Override
+    public void addStudyPlan(StudyPlan studyPlan) {
+        logger.info("Adding new study plan with ID: " + studyPlan.getIndex());
+        modulePlanner.addStudyPlan(studyPlan);
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
+    }
+
+    @Override
+    public void setStudyPlan(StudyPlan target, StudyPlan editedStudyPlan) {
+        requireAllNonNull(target, editedStudyPlan);
+
+        modulePlanner.setStudyPlan(target, editedStudyPlan);
+    }
+
+    @Override
+    public void changeActiveStudyPlanTitle(String title) {
+        requireNonNull(title);
+
+        modulePlanner.changeActiveStudyPlanTitle(title);
+    }
+
+    @Override
+    public void deleteAllModulesInSemester(SemesterName semesterName) {
+        requireNonNull(semesterName);
+
+        modulePlanner.deleteAllModulesInSemester(semesterName);
+    }
+
+    @Override
+    public void deleteSemester(SemesterName semesterName) throws SemesterNotFoundException {
+        requireNonNull(semesterName);
+
+        modulePlanner.deleteSemester(semesterName);
+    }
+
+    //=========== Version Tracking ============================================================================
+
+    @Override
+    public void commitActiveStudyPlan(String commitMessage) {
+        modulePlanner.commitActiveStudyPlan(commitMessage);
+    }
+
+    @Override
+    public CommitList getCommitListByStudyPlanIndex(int index) {
+        return modulePlanner.getCommitListByStudyPlanIndex(index);
+    }
+
+    @Override
+    public void deleteStudyPlanCommitManagerByIndex(int index) throws StudyPlanCommitManagerNotFoundException {
+        modulePlanner.deleteStudyPlanCommitManagerByIndex(index);
+    }
+
+    @Override
+    public void revertToCommit(int studyPlanIndex, int commitNumber) {
+        modulePlanner.revertToCommit(studyPlanIndex, commitNumber);
+    }
+
+    @Override
+    public void deleteCommit(int studyPlanIndex, int commitNumber) {
+        modulePlanner.deleteCommit(studyPlanIndex, commitNumber);
+    }
+
+    //=========== Module Information and Verification ===========================================================
+
+    @Override
+    public boolean isValidModuleCode(String moduleCode) {
+        return modulePlanner.getModule(moduleCode) != null;
+    }
+
+    @Override
+    public String getModuleInformation(String moduleCode) {
+        return modulePlanner.getModuleInformation(moduleCode);
+    }
+
+    @Override
+    public ModulesInfo getModulesInfo() {
+        return modulePlanner.getModulesInfo();
+    }
+
+    @Override
+    public void refresh() {
+        this.modulePlanner.updatePrereqs();
+    }
+
+    @Override
+    public List<Module> getValidMods(SemesterName semName) {
+        return this.modulePlanner.getValidMods(semName);
+    }
+
+    @Override
+    public int clearInvalidMods() {
+        if (getActiveStudyPlan() == null) {
+            return 0;
+        }
+        List<Pair<SemesterName, String>> invalidModuleCodes = this.modulePlanner.getInvalidModuleCodes();
+        for (Pair<SemesterName, String> p : invalidModuleCodes) {
+            SemesterName semName = p.getKey();
+            String moduleCode = p.getValue();
+            this.getSemester(semName).removeModule(moduleCode);
+        }
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
+        return invalidModuleCodes.size();
+    }
+
+    //=========== Filtered StudyPlan List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code StudyPlan} backed by the internal list of
+     * {@code versionedModulePlanner}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
+    public ObservableList<StudyPlan> getFilteredStudyPlanList() {
+        return filteredStudyPlans;
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
+    public void updateFilteredStudyPlanList(Predicate<StudyPlan> predicate) {
         requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+        filteredStudyPlans.setPredicate(predicate);
     }
 
     @Override
@@ -141,11 +261,169 @@ public class ModelManager implements Model {
             return false;
         }
 
-        // state check
+        // state checks
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredPersons.equals(other.filteredPersons);
+
+        // check filtered study plans
+        try {
+            for (int i = 0; i < filteredStudyPlans.size(); i++) {
+                StudyPlan sp1 = filteredStudyPlans.get(i);
+                StudyPlan sp2 = other.filteredStudyPlans.get(i);
+                if (!sp1.getTitle().equals(sp2.getTitle())) {
+                    return false;
+                }
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return false;
+        }
+
+        return modulePlanner.equals(other.modulePlanner)
+                && userPrefs.equals(other.userPrefs);
     }
 
+    @Override
+    public boolean semesterHasModule(String moduleCode, SemesterName semesterName) {
+        Semester semester = getSemester(semesterName);
+        return semester.getModules().contains(moduleCode);
+    }
+
+    @Override
+    public void addModule(String moduleCode, SemesterName semesterName) {
+        this.getActiveStudyPlan().addModuleToSemester(new ModuleCode(moduleCode), semesterName);
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
+    }
+
+    @Override
+    public void removeModule(String moduleCode, SemesterName semesterName) {
+        this.getSemester(semesterName).removeModule(moduleCode);
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
+    }
+
+    @Override
+    public Semester getSemester(SemesterName semesterName) {
+        for (Semester current : modulePlanner.getActiveStudyPlan().getSemesters()) {
+            if (current.getSemesterName() == semesterName) {
+                return current;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void setSemester(SemesterName semester) {
+        this.modulePlanner.setCurrentSemester(semester);
+    }
+
+    @Override
+    public void blockSemester(SemesterName sem, String reason) {
+        this.modulePlanner.getActiveStudyPlan().blockSemester(sem, reason);
+    }
+
+    @Override
+    public void unblockSemester(SemesterName sem) {
+        this.modulePlanner.getActiveStudyPlan().unblockSemester(sem);
+    }
+
+    // ===================== TAGGING ==========================================================================
+
+    public boolean addModuleTagToActiveSp(UserTag tag, String moduleCode) {
+        return modulePlanner.addTagToActiveSp(tag, moduleCode);
+    }
+
+    public void addStudyPlanTagToSp(Tag tag, int index) {
+        modulePlanner.addStudyPlanTagToSp(tag, index);
+    }
+
+    public void removeStudyPlanTagFromSp(Tag tag, int index) {
+        modulePlanner.removeStudyPlanTagFromSp(tag, index);
+    }
+
+    public void replaceTagInActiveSp(Tag original, Tag replacement) {
+        modulePlanner.replaceTagInActiveSp(original, replacement);
+    }
+
+    public PriorityTag getPriorityTagFromSp(int index) {
+        return modulePlanner.getPriorityTagFromSp(index);
+    }
+
+    public boolean spContainsPriorityTag(int index) {
+        return modulePlanner.spContainsPriorityTag(index);
+    }
+
+    public boolean activeSpContainsModuleTag(String tagName) {
+        return modulePlanner.activeSpContainsModuleTag(tagName);
+    }
+
+    public boolean spContainsStudyPlanTag(String tagName, int index) {
+        return modulePlanner.spContainsStudyPlanTag(tagName, index);
+    }
+
+    public Tag getModuleTagFromActiveSp(String tagName) {
+        return modulePlanner.getTagFromActiveSp(tagName);
+    }
+
+    public UniqueTagList getModuleTagsFromActiveSp() {
+        return modulePlanner.getTagsFromActiveSp();
+    }
+
+    public UniqueTagList getModuleTagsFromActiveSp(String moduleCode) {
+        return modulePlanner.getModuleTagsFromActiveSp(moduleCode);
+    }
+
+    public void deleteModuleTagFromActiveSp(UserTag toDelete) {
+        modulePlanner.deleteTagFromActiveSp(toDelete);
+    }
+
+    public boolean removeTagFromAllModulesInActiveSp(UserTag toRemove) {
+        return modulePlanner.removeTagFromAllModulesInActiveSp(toRemove);
+    }
+
+    public boolean removeTagFromModuleInActiveSp(UserTag toRemove, String moduleCode) {
+        return modulePlanner.removeTagFromModuleInActiveSp(toRemove, moduleCode);
+    }
+
+    public void updateAllCompletedTags() {
+        modulePlanner.updateAllCompletedTags();
+    }
+
+    public HashMap<String, Module> getModulesFromActiveSp() {
+        return modulePlanner.getModulesFromActiveSp();
+    }
+
+    public UniqueSemesterList getSemestersFromActiveSp() {
+        return modulePlanner.getSemestersFromActiveSp();
+    }
+
+    public StudyPlan getStudyPlan(int index) throws StudyPlanNotFoundException {
+        return modulePlanner.getStudyPlan(index);
+    }
+
+    //=========== Undo/Redo =================================================================================
+
+    @Override
+    public boolean canUndoModulePlanner() {
+        return modulePlanner.canUndo();
+    }
+
+    @Override
+    public boolean canRedoModulePlanner() {
+        return modulePlanner.canRedo();
+    }
+
+    @Override
+    public void undoModulePlanner() {
+        modulePlanner.undo();
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
+    }
+
+    @Override
+    public void redoModulePlanner() {
+        modulePlanner.redo();
+        updateFilteredStudyPlanList(PREDICATE_SHOW_ALL_STUDY_PLANS);
+    }
+
+    @Override
+    public void addToHistory() {
+        modulePlanner.commit();
+    }
 }
