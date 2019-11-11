@@ -5,28 +5,28 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Comic Sans MS";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Comic Sans MS";
     -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Comic Sans MS";
     -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Palatino";
 }
 
 .tab-pane {
@@ -117,13 +117,13 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Palatino";
     -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Palatino";
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
@@ -144,7 +144,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Comic Sans MS";
     -fx-font-size: 13pt;
     -fx-text-fill: black;
 }
@@ -319,7 +319,7 @@
     -fx-border-color: #E3D598 #E3D598 #000000 #E3D598;
     -fx-border-insets: 0;
     -fx-border-width: 1;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Comic Sans MS";
     -fx-font-size: 13pt;
     -fx-text-fill: black;
 }
@@ -349,4 +349,5 @@
 
 #expenseListTitle, #resultListTitle {
     -fx-padding: 10px 10px 10px 10px ;
+    -fx-font-family: "Comic Sans MS";
 }
