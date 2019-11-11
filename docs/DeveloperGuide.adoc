@@ -389,13 +389,13 @@ An unusual aspect of the above design is the fact that `SelectiveBookmarkTagger`
 rather than containing a `Tag` directly. The rationale for this design will be explained in the following section:
 <<autotag-design-considerations>>.
 
-The `BookmarkPredicate` class needs to keep track of multiple autotag conditions, including normal conditions and
+The `BookmarkPredicate` class keeps track of multiple autotag conditions, including normal conditions and
 not-conditions, as well those relating to different bookmark fields.
 To do so, it maintains _separate sets of keywords_ for each condition category; in other words, name keywords are stored
 separately from not-URL keywords.
-It also contains a single _predicate_ that tests whether a bookmark matches the given conditions.
-To generate this predicate from the keyword sets, the Predicates package contains several other classes that test
-individual conditions (i.e. those with names `XYZContainsKeywordsPredicate`).
+It also contains a single _predicate_ to test whether a bookmark matches the given conditions.
+The Predicates package contains several other classes (those with names `XYZContainsKeywordsPredicate`)
+that are used to generate this predicate from the keyword sets.
 
 TIP: You can refer to the link:UserGuide.adoc/#Autotag-Command[Autotags] section
 of the User Guide for details of autotag conditions.
