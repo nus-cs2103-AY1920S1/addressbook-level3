@@ -9,7 +9,7 @@ import dukecooks.logic.commands.health.EditRecordCommand;
 import dukecooks.logic.parser.CliSyntax;
 import dukecooks.logic.parser.CommandParserTestUtil;
 import dukecooks.model.health.components.Remark;
-import dukecooks.model.health.components.Type;
+import dukecooks.model.health.components.Value;
 import dukecooks.testutil.TypicalIndexes;
 import dukecooks.testutil.health.EditRecordDescriptorBuilder;
 
@@ -53,8 +53,6 @@ public class EditRecordCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_TYPE_DESC,
-                Type.messageConstraints()); // invalid type
         CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_REMARK_DESC,
                 Remark.MESSAGE_CONSTRAINTS); // invalid remark
 
@@ -71,21 +69,31 @@ public class EditRecordCommandParserTest {
                 Remark.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
-        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_TYPE_DESC
-                + CommandTestUtil.INVALID_REMARK_DESC, Type.messageConstraints());
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_VALUE_DESC
+                + CommandTestUtil.INVALID_REMARK_DESC, Value.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_recordTypeSpecified_failure() {
+        // invalid type
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.INVALID_TYPE_DESC,
+                Messages.MESSAGE_CANNOT_EDIT_RECORD_TYPE);
+
+        // valid type
+        CommandParserTestUtil.assertParseFailure(parser, "1" + CommandTestUtil.TYPE_DESC_CALORIES,
+                Messages.MESSAGE_CANNOT_EDIT_RECORD_TYPE);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = TypicalIndexes.INDEX_SECOND_RECORD;
-        String userInput = targetIndex.getOneBased() + CommandTestUtil.TYPE_DESC_CALORIES
+        String userInput = targetIndex.getOneBased()
                  + CommandTestUtil.REMARK_DESC_CALORIES + CommandTestUtil.VALUE_DESC_CALORIES
                  + CommandTestUtil.TIMESTAMP_DESC_CALORIES;
 
         EditRecordCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder()
                 .withRemarksToAdd(CommandTestUtil.VALID_REMARK_CALORIES)
                 .withValue(CommandTestUtil.VALID_VALUE_CALORIES)
-                .withType(CommandTestUtil.VALID_TYPE_CALORIES)
                 .withTimestamp(CommandTestUtil.VALID_TIMESTAMP_CALORIES)
                 .build();
         EditRecordCommand expectedCommand = new EditRecordCommand(targetIndex, descriptor);
@@ -96,19 +104,14 @@ public class EditRecordCommandParserTest {
 
     @Test
     public void parse_oneFieldSpecified_success() {
-        // type
         Index targetIndex = TypicalIndexes.INDEX_THIRD_RECORD;
-        String userInput = targetIndex.getOneBased() + CommandTestUtil.TYPE_DESC_CALORIES;
-        EditRecordCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder()
-                .withType(CommandTestUtil.VALID_TYPE_CALORIES).build();
-        EditRecordCommand expectedCommand = new EditRecordCommand(targetIndex, descriptor);
-        CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
         // remarks
-        userInput = targetIndex.getOneBased() + CommandTestUtil.REMARK_DESC_CALORIES;
-        descriptor = new EditRecordDescriptorBuilder().withRemarksToAdd(CommandTestUtil.VALID_REMARK_CALORIES)
+        String userInput = targetIndex.getOneBased() + CommandTestUtil.REMARK_DESC_CALORIES;
+        EditRecordCommand.EditRecordDescriptor descriptor = new EditRecordDescriptorBuilder()
+                .withRemarksToAdd(CommandTestUtil.VALID_REMARK_CALORIES)
                 .build();
-        expectedCommand = new EditRecordCommand(targetIndex, descriptor);
+        EditRecordCommand expectedCommand = new EditRecordCommand(targetIndex, descriptor);
         CommandParserTestUtil.assertParseSuccess(parser, userInput, expectedCommand);
 
         // remove remarks

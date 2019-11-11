@@ -16,7 +16,7 @@ public class Distance<Float> extends ExerciseDetail {
 
     private DistanceUnit unit;
 
-    public Distance(float distance, DistanceUnit unit) {
+    public Distance(java.lang.Float distance, DistanceUnit unit) {
         requireAllNonNull(distance, unit);
         super.magnitude = distance;
         this.unit = unit;

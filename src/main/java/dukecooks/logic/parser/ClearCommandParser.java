@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 import dukecooks.logic.commands.ClearCommand;
 import dukecooks.logic.commands.exercise.ClearExerciseCommand;
+import dukecooks.logic.commands.health.ClearRecordCommand;
 import dukecooks.logic.commands.mealplan.ClearMealPlanCommand;
 import dukecooks.logic.commands.recipe.ClearRecipeCommand;
 import dukecooks.logic.parser.exceptions.ParseException;
@@ -45,6 +46,9 @@ public class ClearCommandParser implements Parser<ClearCommand> {
 
         case ClearExerciseCommand.VARIANT_WORD:
             return new ClearExerciseCommand();
+
+        case ClearRecordCommand.VARIANT_WORD:
+            return new ClearRecordCommand();
 
         default:
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));

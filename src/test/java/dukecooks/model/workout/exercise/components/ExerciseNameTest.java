@@ -1,11 +1,11 @@
-package dukecooks.model.workout.exercise;
+package dukecooks.model.workout.exercise.components;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import dukecooks.model.workout.exercise.components.ExerciseName;
 import dukecooks.testutil.Assert;
 
 public class ExerciseNameTest {
@@ -38,5 +38,12 @@ public class ExerciseNameTest {
         assertTrue(ExerciseName.isValidName("peter the 2nd")); // alphanumeric characters
         assertTrue(ExerciseName.isValidName("Capital Tan")); // with capital letters
         assertTrue(ExerciseName.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
+    }
+
+    @Test
+    public void testExerciseNameToString() {
+        ExerciseName exerciseName = new ExerciseName("A");
+        String expected = "A";
+        assertEquals(exerciseName.toString(), expected);
     }
 }

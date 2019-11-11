@@ -126,7 +126,7 @@
                      </HBox>
                      <VBox styleClass="command-box">
                         <children>
-                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="50.0" prefHeight="70.0" styleClass="pane-with-border" />
+                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="70.0" styleClass="pane-with-border" />
                           <StackPane fx:id="commandBoxPlaceholder" maxHeight="-Infinity" minHeight="30.0" prefHeight="30.0" styleClass="pane-with-border" />
                         </children>
                      </VBox>

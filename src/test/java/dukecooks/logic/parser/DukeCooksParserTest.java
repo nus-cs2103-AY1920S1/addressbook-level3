@@ -291,7 +291,7 @@ public class DukeCooksParserTest {
         EditProfileCommand command = (EditProfileCommand) parser.parseCommand(EditProfileCommand.COMMAND_WORD
                 + " " + EditProfileCommand.VARIANT_WORD
                 + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
-        assertEquals(new EditProfileCommand(descriptor), command);
+        assertEquals(new EditProfileCommand(descriptor, false, false), command);
     }
 
     /**  ------------------------------------  PROFILE ----------------------------------------- */
@@ -319,7 +319,7 @@ public class DukeCooksParserTest {
 
     @Test
     public void parseCommand_addExercise() throws Exception {
-        Exercise exercise = new ExerciseBuilder().build();
+        Exercise exercise = new ExerciseBuilder().withEmptyHistory().build();
         AddExerciseCommand command = (AddExerciseCommand) parser.parseCommand(ExerciseUtil
                 .getAddExerciseCommand(exercise));
         assertEquals(new AddExerciseCommand(exercise), command);

@@ -34,6 +34,7 @@ public class EditExerciseDescriptorBuilder {
         descriptor.setPrimaryMuscle(exercise.getMusclesTrained().getPrimaryMuscle());
         descriptor.setIntensity(exercise.getIntensity());
         descriptor.setExerciseDetails(exercise.getExerciseDetails());
+        descriptor.setExerciseHistory(exercise.getHistory());
     }
 
     /**

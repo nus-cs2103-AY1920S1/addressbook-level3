@@ -51,7 +51,7 @@ public class ViewExerciseCommand extends ViewCommand {
         Exercise exerciseToShow = lastShownList.get(index);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, exerciseToShow),
-                false, false, false, false);
+                false, false, false, false, exerciseToShow, true);
     }
 
     @Override
