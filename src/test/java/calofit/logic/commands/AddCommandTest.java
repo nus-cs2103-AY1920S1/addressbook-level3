@@ -38,6 +38,11 @@ public class AddCommandTest {
         assertEquals(Arrays.asList(validDish), modelStub.dishesAdded);
     }
 
+    //@Test
+    //public void execute_mealAddedToMealLog_addSuccessful() {
+    //
+    //}
+
     @Test
     public void equals() {
         Dish alice = new DishBuilder().withName("Alice").build();

@@ -61,6 +61,16 @@ public class EditDishDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditDishDescriptor}
+     * that we are building.
+     */
+    public EditDishDescriptorBuilder withTagsToBeRemoved(Tag tags) {
+        Set<Tag> tagSet = Stream.of(tags).collect(Collectors.toSet());
+        descriptor.setTagsToRemove(tagSet);
+        return this;
+    }
+
     public EditCommand.EditDishDescriptor build() {
         return descriptor;
     }

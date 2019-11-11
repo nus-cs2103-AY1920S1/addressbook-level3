@@ -44,6 +44,12 @@ public class AddCommand extends Command {
             + "OR \n"
             + COMMAND_WORD + " 1";
 
+    public static final String MESSAGE_USAGE_FORMAT1 = COMMAND_WORD + ": Adds a meals to the meal list below. \n"
+            + "Parameters: "
+            + "INDEX (must be a positive integer between 1 and 2 billion that is in the suggested meal list) \n"
+            + "Example: \n" + COMMAND_WORD + " "
+            + COMMAND_WORD + " 1";
+
     public static final String MESSAGE_SUCCESS = "New meal added to meal log: %1$s";
     public static final String MESSAGE_DUPLICATE_MEAL = "This dish already exists in the dish database";
     public static final String MESSAGE_MEAL_NOT_IN_DATABASE = "This dish is not in our database. "

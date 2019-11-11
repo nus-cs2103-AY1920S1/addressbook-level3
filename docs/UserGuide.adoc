@@ -189,16 +189,37 @@ Commands below are come other example commands:
 ==== Editing previous meal entry : `edit`
 
 Edits a meal that the user previously ate today. +
+Format: `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>] [tr/TAGSTOREMOVE]` +
+The input of at least 1 field (either NAME, CALORIES, TAGS or TAGSTOREMOVE) is required.
+
 Format: `edit MEAL_NUMBER [n/<<mealname_syntax, MEAL_NAME>>] [c/<<calories_syntax, CALORIES>>] [t/TAGS]` +
 The input of at least 1 field (either NAME, <<calories_syntax, CALORIES>> or TAGS) is required.
 A mix of the different fields is possible as well.
+//with the exception of TAGS and TAGSTOREMOVE.
+//This means if you use the TAGS flag (t/), you cannot use the TAGSTOREMOVE flag (tr/).
 
-Examples:
+Example usages: +
+While rushing to type in the meals, you misspelled "Mushroom Soup" as "Mushroom Soop" and
+added 2000 calories instead of the correct 200 calories. What do you do?
 
-* `edit 1 n/Wanton Noodle c/1000`
-* `edit 2 n/Chicken Rice`
-* `edit 3 c/500`
-* `edit 4 t/tasty`
+* Type "edit 1 n/Mushroom Soup c/200" into the command bar and press the `enter` key.
+
+image::EditCommandInitial.png[]
+
+* The name of the meal will be edited to "Mushroom Soup" and the calories will be edited
+to the correct amount of 200 in the calorie bar.
+
+image::EditCommandSuccess.png[]
+
+Commands below are come other example commands:
+
+* `edit 1 n/Wanton Noodle c/1000` - Edits the meal at index 1 to name "Wanton Noodle" with calorie 1000.
+* `edit 2 n/Chicken Rice` - Edits the meal at index 2 to name "Chicken Rice" without changing anything else.
+* `edit 3 c/500` - Edits the meal at index 3 to have a calorie count of 500 without changing the other fields.
+* `edit 4 t/tasty` - Adds the tag "tasty" to the existing list of tags for meal at index 4.
+* `edit 5 tr/tasty` - Removes the tag "tasty" if it exists in the list of tags for meal at index 5.
+* `edit 6 t/` - Clears all tags for meal at index 6.
+
 
 ==== Deleting previous meal entry : `delete`
 
@@ -391,7 +412,7 @@ e.g. `edit 1 n/duck noodle c/250`
 e.g. `delete 3`
 * *Set* : `set <<calories_syntax, CALORIES>>` +
 e.g. `set 2600`
-* *Find* : `find MEAL_NAME` +
+* *Find* : `find <<mealname_syntax, MEAL_NAME>>` +
 e.g. `find soup`
 * *Suggest* : `suggest` +
 e.g. `suggest`
@@ -404,7 +425,7 @@ e.g. `help`
 // tag::syntax[]
 == Command Syntax Notes
 
-* [[calorie_syntax]] Calorie values are positive integers from 0 to 2 billion, inclusive.
+* [[calories_syntax]] Calorie values are positive integers from 0 to 2 billion, inclusive.
 * [[mealname_syntax]] Dish names must be alphanumeric (`[A-Z], [a-z],[0-9]`), and at most 30 characters long.
 // end::syntax[]
 

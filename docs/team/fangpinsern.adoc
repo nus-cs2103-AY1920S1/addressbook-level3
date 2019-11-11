@@ -5,8 +5,6 @@
 
 == PROJECT: CaloFit
 
----
-
 == Overview
 
 My team was tasked with improving the basic Address Book 3 (AB3) application
@@ -42,18 +40,19 @@ Note the following symbols and formatting used in this document:
 [NOTE]
 This symbol indicates important information.
 
-`add` A grey highlight(called a mark-up) indicates
+`add` - A grey highlight(called a mark-up) indicates
 that this is a command that can be inputted into the command line and executed by the application.
 
 == Summary of contributions
 This section shows a summary of my coding, documentation,
 and other helpful contributions to the team project
 
-* *Major enhancement*: added *the ability to generate a Report*.
-** What it does: creates a Report that displays the statistics calculated from the user's meal history for that particualar month.
-** Justification: This feature gives purpose to the application as the user should be someone who wants to keep track of their calorie intake. By implementing this feature, the user is able to know their calorie intake for the month, as well as other statistics generated from it, whenever they want.
-** Highlights: As virtually any form of statistical data can be generated from a user's meal history, the scope of the data calculated and shown to the user is not exhaustive. The statistics chosen to be calculated are decided based on the user stories and use cases that our team has considered and is linked here.
-** Credits: {Calculation of statistics}
+* *Major enhancement*: added *the ability to track consumed meals*.
+** What it does: Allows the user to add, edit and delete their meal entries from the meal section.
+** Justification: This achieves the main goal of CaloFit which is to allow for the users to track what they consume daily
+as well as their calorie intake.
+** Highlights:
+** Credits:
 
 * *Minor enhancement*: added *automatic saving of the meal history of the user as a JavaScript Objection Notation(JSON) file*.
 ** What it does: The user's meal entries into CaloFit will be saved into a JSON file, allowing the user's meal history to be loaded upon starting up CaloFit.
@@ -76,7 +75,11 @@ and other helpful contributions to the team project
 == Contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide as we had to update the original AddressBook-Level3 User Guide with instructions for the enhancements that we had added. The following is an excerpt from our *CaloFit User Guide*, showing additions that I have made for the `report` feature. They showcase my ability to write documentation targeting end-users._
+|_Given below are sections I contributed to the User Guide as we had to
+update the original AddressBook-Level3 User Guide with instructions for
+the enhancements that we had added. The following is an excerpt from our
+*CaloFit User Guide*, showing additions that I have made for the `Meal Tracking`
+feature. They showcase my ability to write documentation targeting end-users._
 |===
 
 include::../UserGuide.adoc[tag=mealTracking]
@@ -84,9 +87,9 @@ include::../UserGuide.adoc[tag=mealTracking]
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide for the `report` feature. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide for the
+`Meal Tracking` feature. They showcase my ability to write technical
+documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=add]
-
-include::../DeveloperGuide.adoc[tag=delete]
+include::../DeveloperGuide.adoc[tag=mealTracking]
