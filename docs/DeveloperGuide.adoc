@@ -7,6 +7,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 :xrefstyle: full
+:experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -38,6 +39,11 @@ In particular, the intended audience of this document will be the students takin
 
 _PalPay_ is a CLI application targeted for users who have poor financial management skills. The users should also prefer typing over mouse inputs.
 It allows the users to keep track of daily financial transactions, as well as set a budget for a time duration to achieve long-term financial success. Additionally, users can keep a ledger of lending and borrowing of money with others so that the users can keep track of the flow of their money.
+
+Below is the Graphical User Interface (GUI) of PalPay:
+
+.PalPay's GUI
+image::dg_gui_example.png[]
 
 == Setting up
 
