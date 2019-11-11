@@ -19,6 +19,15 @@ decided to transform it into Xpire, an expiry date tracker. Xpire targets studen
 identify and replenish any items, including but not limited to, perishable items like food, makeup and medicine, that have either already expired, are
 fully depleted, or are expiring soon.
 
+== Notations and formatting used
+[NOTE]
+This symbol is often followed by essential information that you can take note of.
+
+`sort`:
+A word styled in a different font (otherwise known as a markup) indicates a
+command that can be inputted into the command line and executed by the application.
+This notation can also represent a component, class or object in the architecture.
+
 == Summary of contributions
 
 |===

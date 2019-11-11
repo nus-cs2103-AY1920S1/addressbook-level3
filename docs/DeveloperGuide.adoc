@@ -984,7 +984,7 @@ _{More to be added}_
 Accessibility
 
 .  The app shall be accessible by people who have downloaded the JAR file.
-.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
+//.  The app shall be accessible to people who are colour blind, to the extent that they shall be able to discern all text and other information displayed by the system as easily as a person without colour blindness.
 
 Availability
 
@@ -1018,6 +1018,7 @@ Product Scope
 .  The product is not required to handle items without expiry dates.
 .  The product is not required to handle items without names.
 .  The product is not required to produce reminders when the app is inactive.
+.  The product is not required to handle intentionally corrupted json files.
 
 Usability
 
@@ -1131,14 +1132,48 @@ These instructions only provide a starting point for testers to work on; testers
 . Initial launch
 
 .. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+.. In the home folder for Xpire, launch the jar file using the `java -jar xpire.jar` command on +
+Terminal (for macOs) or Command Prompt (for Windows) to start the app. +
+   Expected: Shows the GUI with a set of sample items. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Re-launch the app by using the `java -jar xpire.jar` command. +
    Expected: The most recent window size and location is retained.
+
+=== Viewing items
+
+. Viewing items in the replenish list
+
+.. Test case: `view|replenish` +
+   Expected: All items in the replenish list are displayed.
+.. Test case: `view|replenihs` +
+   Expected:  No change in the display of items. The term `replenish` is given as a suggestion in the error message.
+.. Test case: `view|REPLENISH` +
+   Expected: Similar to previous.
+.. Test case: `view|something` +
+   Expected: No change in the display of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: , `view|3000`, `view|xyz` (where xyz is any garbage input)  +
+   Expected: Similar to previous.
+
+. Viewing items in the main tracking list
+
+.. Test case: `view|main` +
+   Expected: All items in the main list are displayed.
+.. Test case: `view|mainn` +
+   Expected:  No change in the display of items. The term `main` is given as a suggestion in the error message.
+.. Test case: `view|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect view commands to try: `view|-1`, view|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Viewing items in the current list
+
+.. Test case: `view` +
+   Expected: All items in the current list are displayed.
+.. Test case: `viwe` +
+   Expected: `view` is given as a recommendation in the error message.
 
 === Adding expired items to the tracking list for testing
 
@@ -1169,17 +1204,18 @@ For more information about JSON objects, please refer to https://www.digitalocea
 
 === Deleting an item
 
-. Deleting an item while all items are listed
+. Deleting an item in either list while all items are listed
 
-.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be deleted must exist
+in the list.
 .. Test case: `delete|1` +
    Expected: First item is deleted from the list. Details of the deleted item shown in the status message.
 .. Test case: `delete|0` +
-   Expected: No item is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No item is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
-. Deleting an item quantity
+. Deleting an item quantity in the main tracking list while all items are listed
 
 The examples given below acts according to the following list:
 
@@ -1193,8 +1229,97 @@ image::delete_example_list.png[]
    Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
    Details of this shift is reflected in the status message.
 .. Test case `delete|2|0` +
-   Expected: Quantity is not reduced. Error details showed in the status message. Status bar remains the same.
+   Expected: Quantity is not reduced. Error details showed in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
+   Expected: Similar to previous.
+
+. Deleting an item quantity in the replenish list while all items are listed
+
+.. Prerequisites: Input quantity to be deleted must be less than or equals to the item quantity.
+.. Test case `delete|2|1` +
+   Expected: Second item from the list has quantity reduced by 1. The new updated quantity is reflected in the item card.
+Details of the item with reduced quantity is reflected in the status message.
+.. Test case `delete|2|3` +
+   Expected: Second item from the list has quantity reduced by 3. The item is shifted to the replenish list.
+Details of this shift is reflected in the status message.
+.. Test case `delete|2|0` +
+   Expected: Quantity is not reduced. Error details showed in the status message.
+.. Other incorrect delete commands to try: `delete`, `delete|x` (where x is larger than the item's quantity) +
+   Expected: Similar to previous.
+
+=== Tagging an item
+
+. Tagging items in either list while all items are listed
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to be tagged must have less than
+5 existing tags.
+.. Test case: `tag|1|#fruit` +
+   Expected: The first item in the list will be tagged with #Fruit.
+.. Other incorrect tagging commands to try: `tag|0`, `tag|x` +
+   Expected: No item is tagged. Error details shown in the status message.
+
+=== Setting a reminder for an item
+
+. Setting a reminder for an item while all items are listed
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The item to set a reminder for should
+exist in the list and has not expired.
+.. Test case: `set reminder|1|2` +
+   Expected: A reminder for the first item in the list will be set to commence 2 days before it expires.
+.. Other incorrect set reminder commands to try: `set reminder|0` +
+   Expected: Similar to previous.
+
+=== Removing a reminder for an item
+
+. Removing a reminder for an item while all items are listed
+
+.. Prerequisites: The item to clear a reminder for should have a reminder set previously.
+.. Test case: `set reminder|1|0` +
+   Expected: The reminder previously set for the first item is removed.
+.. Test case: `set reminder|1|0000` +
+   Expected: Similar to previous
+
+=== Checking which items are expiring soon
+
+. Check which items are expiring soon in the main tracking list while all items are listed
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list. The items you wish to check must have either expired or have reminders
+set for them previously.
+.. Test case: `check` +
+   Expected: Items that are expiring soon or have already expired are listed.
+.. Test case: `check|2` +
+   Expected: Items that are expiring soon within 2 days or have already expired are listed.
+.. Other incorrect set reminder commands to try: `check|2000000` +
+   Expected: No change in the display of items. Error details shown in the status message.
+
+=== Sorting items
+
+. Sorting items by their name
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|name` +
+   Expected: The current item list is sorted with respect to their names in lexicographical order.
+.. Test case: `sort|naem` +
+   Expected:  No change in the order of items. The term `name` is given as a suggestion in the error message.
+.. Test case: `sort|NAME` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|0`, `sort|xyz` (where xyz is any garbage input) +
+   Expected: Similar to previous.
+
+. Sorting items by their date
+
+.. Prerequisites: List all items using the `view` command. Multiple items in the list.
+.. Test case: `sort|date` +
+   Expected: The current item list is sorted with respect to their dates in chronological order.
+.. Test case: `sort|datee` +
+   Expected:  No change in the order of items. The term `date` is given as a suggestion in the error message.
+.. Test case: `sort|DATE` +
+   Expected: Similar to previous.
+.. Test case: `sort|something` +
+   Expected: No change in the order of items. Error details shown in the status message.
+.. Other incorrect sort commands to try: `sort|`, `sort|xyz` (where xyz is any garbage input) +
    Expected: Similar to previous.
 
 === Saving data
