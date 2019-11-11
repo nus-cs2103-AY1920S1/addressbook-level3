@@ -124,14 +124,14 @@ public class MainApp extends Application {
         try {
             ruleManagerOptional = storage.readRules();
             if (ruleManagerOptional.isEmpty()) {
-                logger.info("Rule file not found. Will be starting with an empty RuleManager.");
+                logger.info("Rule file not found. Will be starting with an sample RuleManager.");
             }
-            return ruleManagerOptional.orElseGet(RuleManager::new);
+            return ruleManagerOptional.orElseGet(SampleDataUtil::getSampleRuleManager);
         } catch (Exception e) {
-            logger.log(Level.WARNING, "Error reading rules; starting with empty RuleManager", e);
+            logger.log(Level.WARNING, "Error reading rules; starting with sample RuleManager", e);
         }
 
-        return new RuleManager();
+        return SampleDataUtil.getSampleRuleManager();
     }
 
     /**
