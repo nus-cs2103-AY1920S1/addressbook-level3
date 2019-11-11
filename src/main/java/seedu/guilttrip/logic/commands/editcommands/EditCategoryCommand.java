@@ -15,7 +15,7 @@ import seedu.guilttrip.model.entry.Category;
 import seedu.guilttrip.model.util.CategoryType;
 
 /**
- * Edits a category from guilttrip();
+ * Edits a category from guiltTrip;
  */
 public class EditCategoryCommand extends Command {
 
@@ -117,8 +117,8 @@ public class EditCategoryCommand extends Command {
     }
 
     /**
-     * Stores the details to edit the entry with. Each non-empty field value will replace the
-     * corresponding field value of the entry.
+     * Stores the details to edit the Category with. Each non-empty field value will replace the
+     * corresponding field value of the Category.
      */
     public static class EditCategoryDescriptor {
         private String categoryName;
@@ -128,16 +128,12 @@ public class EditCategoryCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
+         * A defensive copy of {@code Category} is used internally.
          */
         public EditCategoryDescriptor(EditCategoryDescriptor toCopy) {
             setCategoryName(toCopy.categoryName);
             setCategoryType(toCopy.categoryType);
         }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
 
         public void setCategoryName(String catName) {
             this.categoryName = catName;
