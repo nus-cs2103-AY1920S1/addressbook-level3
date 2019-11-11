@@ -371,11 +371,11 @@ of the savings are added into the `SavingsHistoryList`, found within the `Saving
 
 The following sequence diagram shows how the making of a saving works:
 
-image::SaveSequenceDiagram.png[width=600]
+image::SaveSequenceDiagram.png[align="center"]
 
 The following activity diagram summarises what happens when a user executes a `SaveCommand`:
 
-ADD ACTIVITY DIAGRAM HERE.
+image::SaveActivityDiagram.png[width=450, align="center"]
 
 ===== Design Considerations
 
@@ -448,14 +448,6 @@ is of a negative value since this is a withdrawal.
 After a successful deduction from the savings account, `model#addToHistory(savingsAmount)` is called, and the details
 of the savings are added into the `SavingsHistoryList`, found within the `SavingsHistory` object.
 
-The following sequence diagram shows how the making of a withdrawal works:
-
-ADD SEQUENCE DIAGRAM HERE
-
-The following activity diagram summarises what happens when a user wishes to withdraw $10 from his savings account:
-
-ADD ACTIVITY DIAGRAM HERE.
-
 ===== Design Considerations
 
 Detailed below are the design considerations taken into account when engineering the
@@ -521,14 +513,6 @@ returns an unmodifiable list of savings made by the user thus far.
 
 Finally, the savings history panel in the `MainWindow` class is updated with this unmodifiable list. The result
 is that the user will see only his savings being displayed within the application's savings history panel.
-
-The following sequence diagram shows how the displaying of only savings/withdrawals works:
-
-ADD SEQUENCE DIAGRAM HERE
-
-The following activity diagram summarises what happens when a user requests to only view his savings:
-
-ADD ACTIVITY DIAGRAM HERE.
 
 //end::savings[]
 
