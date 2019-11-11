@@ -10,6 +10,7 @@ import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.CANCEL_
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.CLEAR_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.DELETE_APPT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.DELETE_DESCRIPTION;
+import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.DELETE_PERM_APPT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.EDIT_APPT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.EDIT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.EXIT_DESCRIPTION;
@@ -22,6 +23,7 @@ import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.IMPORT_
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.IMPORT_REPLACE_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.INDEX_A_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.INDEX_P_DESCRIPTION;
+import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.LIST_APPT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.LIST_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.PAT_DESCRIPTION;
 import static cs.f10.t1.nursetraverse.autocomplete.WordDescriptionHelper.PREFIX_ADDRESS_DESCRIPTION;
@@ -66,8 +68,10 @@ import cs.f10.t1.nursetraverse.logic.commands.RedoCommand;
 import cs.f10.t1.nursetraverse.logic.commands.UndoCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.AddAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.DeleteAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.DeletePermanentlyAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.EditAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.appointment.FindAppointmentCommand;
+import cs.f10.t1.nursetraverse.logic.commands.appointment.ListAppointmentCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.BeginVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.CancelOngoingVisitCommand;
 import cs.f10.t1.nursetraverse.logic.commands.visit.FinishOngoingVisitCommand;
@@ -183,14 +187,20 @@ public class AutoCompleteWordStorage {
 
         // Appointment commands
         oListAllCommandWord.add(new CommandWord(APPT_OBJECT_WORD,
+                parseFirstSegment(ListAppointmentCommand.COMMAND_WORD).get(1), LIST_APPT_DESCRIPTION,
+                false, false));
+        oListAllCommandWord.add(new CommandWord(APPT_OBJECT_WORD,
                 parseFirstSegment(AddAppointmentCommand.COMMAND_WORD).get(1), ADD_APPT_DESCRIPTION,
                 false, true));
         oListAllCommandWord.add(new CommandWord(APPT_OBJECT_WORD,
                 parseFirstSegment(DeleteAppointmentCommand.COMMAND_WORD).get(1), DELETE_APPT_DESCRIPTION,
                 true, false));
         oListAllCommandWord.add(new CommandWord(APPT_OBJECT_WORD,
+                parseFirstSegment(DeletePermanentlyAppointmentCommand.COMMAND_WORD).get(1),
+                DELETE_PERM_APPT_DESCRIPTION, true, false));
+        oListAllCommandWord.add(new CommandWord(APPT_OBJECT_WORD,
                 parseFirstSegment(EditAppointmentCommand.COMMAND_WORD).get(1), EDIT_APPT_DESCRIPTION,
-                false, true));
+                true, true));
         oListAllCommandWord.add(new CommandWord(APPT_OBJECT_WORD,
                 parseFirstSegment(FindAppointmentCommand.COMMAND_WORD).get(1), FIND_APPT_DESCRIPTION,
                 false, false));
