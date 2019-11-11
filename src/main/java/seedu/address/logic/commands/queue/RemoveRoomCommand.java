@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.queue.Room;
 
 /**
- * Deletes a person identified using it's displayed index from the address book.
+ * Removes a doctor who is on duty.
  */
 public class RemoveRoomCommand extends ReversibleCommand {
 

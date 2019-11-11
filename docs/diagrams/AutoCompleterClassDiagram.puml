@@ -1,0 +1,33 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class AutoCompleter {
+    -{static} SUPPORTED_ARGUMENTS : Map<String, Set<String>>
+    -{static} SUPPORTED_COMMANDS : String[]
+    -{static} NO_FLAG : Pattern
+    -{static} CONTINUOUS_SPACES : Pattern
+    -trie : Trie
+    -currentQuery : String
+
+    +update(currentQuery : String) : AutoCompleter
+    +getSuggestions() : List<String>
+}
+
+class Trie {
+    -root : TrieNode
+
+    -insert(word : String) : void
+    +find(word : String) : TrieNode
+}
+
+class TrieNode {
+    -children : HashMap<Character, TrieNode>
+
+    +getChildren() : HashMap<Character, TrieNode>
+    +getPossibilities() : List<String>
+}
+
+AutoCompleter -right-> Trie
+AutoCompleter .right.> TrieNode
+Trie -right-> TrieNode
+@enduml
