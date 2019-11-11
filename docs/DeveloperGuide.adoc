@@ -69,11 +69,13 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiComponentClassDiagram.png[]
+// end::ui[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/ui/Ui.java[`Ui.java`]
 
@@ -904,6 +906,7 @@ You can refer to the activity diagram here:
 
 image::RetrievePreviousCommandActivityDiagram.png[]
 
+// tag::userinterface[]
 === User Interface
 The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
 UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
@@ -978,10 +981,11 @@ The following changes have been made to the layout of the item card for a better
 . Move the position of the reminder and quantity to the left so that the right is not crowede.
 . Dynamically Change the colour of the card depending on the status of the item. Red for expired, yellow for alerting, green for healthy.
 . Expand the card on clicking and collapse it when not in focus to save space for more items to be displayed.
+// end::userinterface[]
 
 Here is the redesigned `ItemCard`:
 
-image::ExpandCard.png[]
+image::ExpandCard.png[300]
 
 === Logging
 

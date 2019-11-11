@@ -77,6 +77,7 @@ There are two lists shown on the GUI, `View` and `All Items`. On the left is the
 This is an active list that shows you the current view of items. As you manipulate the items using
 `search`, `view` or `check`, `View` list will change accordingly to show you only the items you want to see.
 
+// tag::card[]
 ==== Item Card
 image::ItemCard.png[width="710"]
 
@@ -97,6 +98,7 @@ image::ReminderCard.png[width="500]
 * An item that has *not expired* and is not going to expire soon will be green.
 
 image::ItemCard.png[width="710"]
+// end::card[]
 
 ==== All Items List
 
@@ -126,15 +128,19 @@ image::CommandBox.png[width="500"]
 
 This is where you can type your command. The maximum you can type is 60 characters. Try typing `add|Banana|1/11/2020` and press kbd:[enter], and you will see it appears in your lists!
 
-=== Tips
-==== Expand cards
 
+=== Tips
+
+// tag::expand[]
+==== Expand cards
 When you reduce the window size, the name or other details of the item in the item card could be shortened with `...`.
 You can click on the card to expand it and view more information.
 
 image::ShortenedCard.png[width="500"]
 image::ExpandCard.png[width="500"]
+// end::expand[]
 
+//tag::resize[]
 ==== Resize Feedback Box
 
 When the feedback message is too long, you can either scroll or adjust the height of the feedback box to display more information.
@@ -142,11 +148,14 @@ To resize, simply drag the horizontal bar above the feedback box to your desired
 
 image::ShortenedFeedbackBox.png[width = "500]
 image::ExpandedFeedbackBox.png[width = "500]
+// end::resize[]
 
+// tag::retrieve[]
 ==== Retrieve Previous Entry
 
 Just like any other Command Line App, you can easily retrieve your previous commands or go back to later commands using the
 kbd:[↑] and kbd:[↓] keys on your keyboard. You can call back up to 20 commands you entered.
+// end::retrieve[]
 
 [[Features]]
 == Features
@@ -642,7 +651,55 @@ image::delete_quantity_shift_success.png[width="790"]
 * The quantity specified must be more than the item's current quantity.
 ****
 
-// tag::set reminder[]
+Examples:
+
+* `view|main` +
+`delete|4|1` +
+Reduces the quantity of the 4th item by 1.
+// end::delete[]
+
+// tag::tag[]
+==== Tagging an item : `tag`
+
+===== Display all tags created
+Shows all the tags in the current list view.
+
+Format: `tag`
+
+[NOTE]
+Like `help` and `export`, this command is not undoable. +
+This command does not show tags of items that are not on the list you are viewing. +
+If you want to view all the tags in the main list or replenish list, simply key in `view`, followed by `tag`.
+
+===== Add new tag(s) to an item
+
+.Item at index 4 tagged with #Fruit and #Yellow
+image::tag.png[width="790"]
+
+[TIP]
+An item can have up to 5 tags.
+
+Tags an item from the list according to user input +
+Format: `tag|<index>|<tag>[<other tags>]...`
+
+****
+* Tags the item at the specified `<index>`.
+* The index refers to the index number shown in the list.
+* The index *must be a positive integer* (e.g. 1, 2, 3, ... ).
+* Tags must be prefixed with a '#'.
+* Only a maximum of 5 tags allowed per item.
+* Tag lengths are restricted to 20 characters. So make use of those 20 characters wisely!
+* Tags will be formatted in Sentence-Case (i.e. first letter will be upper-case while the rest of the letters are lower-case).
+****
+
+Examples:
+
+* `view|main` +
+`tag|2|#Nestle #Caffeine` +
+Tags the 2nd item in the main list with `#Nestle` and `#Caffeine`.
+// end::tag[]
+
+// tag::setreminder[]
 [[Reminder]]
 ==== Setting reminder for an item: `set reminder`
 
@@ -685,7 +742,7 @@ Removes the reminder for the first item in the list.
 However, the app understands that you want the reminder to be activated immediately, and will activate the reminder right away.
 * The maximum reminder threshold is 36500 days.
 ****
-// end::set reminder[]
+// end::setreminder[]
 
 // tag::check[]
 ==== Listing expiring items: `check`
@@ -758,7 +815,6 @@ Items with the same name will be sorted by their expiry dates.
 ****
 // end::sort[]
 
-<<<<<<< HEAD
 // tag::undoredo[]
 ==== Undo previous command : `undo`
 Undo the previous command that you have entered in. +
@@ -796,13 +852,6 @@ image::user-login.png[width="790"]
 
 .Sign-up page
 image::user-register.png[width="790"]
-=======
-// tag::dataencryption[]
-//=== Encrypting data files `[coming in v2.0]`
-
-//_{explain how the user can enable/disable data encryption}_
-// end::dataencryption[]
->>>>>>> 114fdebffc25d81ba3d9ab78491fdd472b66cc04
 
 == FAQ
 
