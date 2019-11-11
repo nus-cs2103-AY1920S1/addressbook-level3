@@ -259,6 +259,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Spending Book data in json format and read it back.
 // end::storage[]
+
 [[Design-Commons]]
 === Common classes
 
@@ -1772,7 +1773,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Importing valid spending while all spending are listed
 
-.. Prerequisites: Prepare a valid Csv file following the <<csv-constraints,csv constraints>>.
+.. Prerequisites: Prepare a valid Csv file following the <<csv-constraints,Csv constraints>>.
 .. Test case: `import p/./moneygowhere.csv` +
    Expected: All valid spending will be added to the spending list.
 
