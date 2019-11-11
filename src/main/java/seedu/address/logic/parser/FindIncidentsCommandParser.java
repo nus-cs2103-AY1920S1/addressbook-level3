@@ -10,11 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import seedu.address.MainApp;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.FindIncidentsCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.incident.Description;
