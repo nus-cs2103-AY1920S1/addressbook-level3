@@ -264,9 +264,7 @@ Deletes the 2nd reminder in the shown reminder list.
 //tag::autoreschedule[]
 === AutoReschedule Feature
 
-Do you have to go to the supermarket weekly? Complete a quiz weekly? Jog daily? +
-Well this would definitely make your life much easier! +
-
+Do you have to go to the supermarket weekly? Complete a quiz weekly? Jog daily? Well this would definitely make your life much easier! +
 Your events can now update its own time when it is already over! All you need to do is to add a `-auto` flag, along with a time period.
 
 Here is how you can do it. You might have weekly quizzes due on the same day every week, the command you can enter is `event CS2103T Quiz -d 23/11/2019 2359 -auto week`. +

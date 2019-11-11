@@ -105,17 +105,12 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `ElisaParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `ItemModel` (e.g. adding a person).
+.  The command execution can affect the `ItemModel` (e.g. adding an Item).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 .  More instructions for the `Ui` can be given through implementing `ScrollCommand`
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
-image::DeleteSequenceDiagram.png[]
-
-NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 //end::logic[]
 
 //tag::model[]
@@ -224,8 +219,9 @@ The following diagram shows the process of adding an Event with -auto flag:
 
 [Cols="2,2"]
 |===
-|Activity diagram of adding an Event with -auto flag |Explanation:
-a|image:AutoRescheduleActivity.png[100, 400]
+||
+a|.Activity diagram of AutoReschedule
+image:AutoRescheduleActivity.png[100, 200]
 |In the diagram, when we add the Event initially, we would check the start time of the Event and update it accordingly.
 However, this is not the only place where rescheduling occurs. +
 
@@ -277,12 +273,15 @@ image::AutoRescheduleSequence_2.png[100, 700]
 From the above diagram, we can see that the presence of `AutoReschedulePeriod` in Event results in the creation of `RescheduleTask` which would be queued into the Timer managed by `AutoRescheduleManager`.
 
 ==== Design considerations
-The design considerations for the classes are shown below:
-|===
-|Alternatives: |Pros: |Cons:
-|Creating a AutoRescheduleManager for every RescheduleTask | Easy for the Timer in AutoRescheduleManager to keep track of its TimerTask. | There could potentially be many Timer threads.
-|*(Current)* Singleton pattern for AutoRescheduleManager |Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. | Difficult to create tests for AutoResheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
-|===
+The design considerations for the classes are shown below: +
+
+*Alternative 1:* Creating a AutoRescheduleManager for every RescheduleTask +
+*Pros*: Easy for the Timer in AutoRescheduleManager to keep track of its TimerTask. +
+*Cons*: There could potentially be many Timer threads. +
+*Alternative 2: (Current)* Singleton pattern for AutoRescheduleManager +
+*Pros*: Ensure that only one instance can be instantiated as there should only be one manager for all the RescheduleTask. If there are multiple managers, it would be hard to keep track of all of them and it would be difficult to coordinate all the tasks. +
+*Cons*: Difficult to create tests for AutoRescheduleManager. Could have many hidden dependencies, which makes code harder to maintain.
+
 //end::autoreschedule[]
 
 
