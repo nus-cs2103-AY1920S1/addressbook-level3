@@ -467,7 +467,7 @@ After filtering the activity list, `AutoScheduleCommand` will proceed to begin p
 *Step 5.* After which it will sort the list such that the activity that has not been scheduled will be scheduled first.It will ensure that for cases where both activities has not been scheduled before, the one with the higher priority will be scheduled first.
 
 .Activity diagram showing how `AutoScheduleCommand` handles the preparation for the scheduling of the first activity:
-image::AutoscheduleActivityDiagram2.png[]
+image::AutoScheduleActivityDiagram2.png[]
 
 *Step 6.* Next, `AutoScheduleCommand` will check if the chosen activity to be scheduled does not overlap with the start time of the next activity if user specify.
 
