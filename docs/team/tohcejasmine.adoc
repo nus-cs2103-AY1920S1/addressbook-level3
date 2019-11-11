@@ -39,7 +39,7 @@ The user interacts with Modulo using a CLI, and it features an outstanding user-
 ** Project management:
 *** Set deadlines for milestones `v1.0` - `v1.4` on GitHub
 ** Documentation:
-*** Wrote introduction to the https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/UserGuide.adoc#introduction[User Guide]
+*** Co-wrote introduction to the https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/UserGuide.adoc#introduction[User Guide]
 *** Added command usage for _Finance_ feature in the https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/UserGuide.adoc#finances[User Guide]
 *** Wrote detailed process and implementation of the Budget command in the https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#budgets-in-finances[Developer Guide]
 *** Added some https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#user-stories[user stories] and https://github.com/AY1920S1-CS2103-T16-2/main/blob/master/docs/DeveloperGuide.adoc#appendix-c-use-cases[use cases] in the Developer Guide
