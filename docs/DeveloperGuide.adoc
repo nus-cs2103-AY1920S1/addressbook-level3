@@ -618,6 +618,7 @@ As the functionality can be mixed, there are a few options we can take to implem
 
 I decided to proceed with Alternative 1 as it is easier to implement. The overlaps in use cases of the `annotate-edit` command
 makes it difficult to separate the responsibility. Hence the first alternative is more feasible to implement.
+
 // end::addAnn[]
 
 // tag::folders[]
