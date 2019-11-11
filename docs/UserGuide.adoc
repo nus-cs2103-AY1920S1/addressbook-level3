@@ -13,6 +13,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T09-2/main/tree/master
+:baseRepoURL: https://github.com/AY1920S1-CS2103T-T09-2/main
 
 By: `Team ExerHealth`      Since: `Sep 2019`      Licence: `MIT`
 
@@ -34,7 +35,7 @@ Interested? Jump to <<Quick Start>> to get started! Enjoy!
 == Quick Start
 
 .  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `exerhealth.jar` link:{repoURL}/releases[here].
+.  Download the latest `exerhealth.jar` link:{baseRepoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for ExerHealth.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
