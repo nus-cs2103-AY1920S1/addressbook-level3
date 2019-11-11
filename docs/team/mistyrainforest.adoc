@@ -9,7 +9,40 @@
 
 == Overview
 
-Module Appeal Managament System (MAMS) is a desktop appeal management interface. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+Every semester, administrators from the National University of Singapore (NUS) have to
+systematically work their way through a heavy backlog of special requests, known as "appeals".
+These appeals are usually made by frantic students during Module Registration,
+a system where students register for their
+desired courses in the upcoming academic term, and represent special circumstances that require
+human judgement to resolve.
+
+**The Module Appeal Management System (MAMS)** is hence a desktop app that aims
+to fuse a Command Line Interface (CLI) style command input with a triple-pane
+GUI for easy navigation of appeals, module information, and student
+particulars all in a single display. By combining the precision and speed of a CLI
+input with the powerful side-by-side overview afforded by a GUI,
+this app is particularly aimed towards *appeal
+administrators who prefer to blaze through their heavy backload of appeals
+without ever having to leave the comfort of the keyboard for their mouse*. MAMS aims
+to be a self-contained application for fetching appeal, module, and student information, while
+providing a complete suite of tools for intuitive navigation of the comprehensive data display and
+resolving appeals. These include, but may not be limited to:
+
+- A *powerful side-by-side triple-pane list cell display of appeal, module, and student data*, with commands to quickly navigate between
+compact list views of multiple items and comprehensive expanded displays of single items.
+- A *command history feature* for administrators to quickly cycle through and re-use old commands, while providing a comprehensive
+and permanent log of all actions performed within the application.
+- A *clash feature* that allows administrators to accurately determine any potential timetable clashes in appeal cases,
+student workloads, or any two particular modules.
+- A *find feature* that enables administrators to quickly locate specific appeal, module, and student data, narrowing down clutter within the display.
+- An *add/remove module feature* that allows administrators to allocate or remove modules from students, while automatically checking for
+potential hiccups like duplicate assignments.
+- An *approve/reject feature* that allows administrators to close or resolve appeals in fast succession, and even provides functionality for mass operations.
+- A *set credits feature* that provides administrator with the functionality to override allowable student workloads.
+- An *undo/redo feature* to correct any recent unwanted data changes that may have been accidentally committed by the administrator.
+
+MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about
+13 kLoC.
 
 == Summary of contributions
 

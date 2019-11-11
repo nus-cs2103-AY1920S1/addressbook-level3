@@ -1349,3 +1349,12 @@ Specified lists will be updated to show items containing any of the keywords.
 
 // end::test4[]
 
+//tag::test5[]
+=== Resolve
+. Valid input format for single resolution: `approve a/INDEX [r/REASON]` or `reject a/INDEX [r/REASON]`
+.. Example: 'approve a/2' `reject a/3 r/student cannot cope`
+.. Expected: appeals selected will be resolved and changes on affected modules and students will be performed accordingly.  The message shown in the message bar will display the changes made to the related module and student.
+. Valid input format for mass resolution: `approve mass/[APPEALID]...` `reject mass/[APPEALID]...`
+.. Example: `approve mass/C000000 C000023` `reject mass/C001230  C0sdfsd`
+..Expected: Appeals that have not yet been resolved will be resolved and will be resolved.  Invalid appeal IDs will not be resolved.  The result message in the message bar will show the following - appeals that were successfully resolved, appeals that were already resolved, invalid appeal IDs, and appeal IDs that do not exist.
+//end::test5[]
