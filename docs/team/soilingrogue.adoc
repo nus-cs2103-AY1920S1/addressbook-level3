@@ -7,8 +7,6 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
-:warning-caption: `undo`
-:caution-caption: `[blue]#Logic#`
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103T-T12-2/main
 
@@ -21,17 +19,22 @@ This six week project was done by a group of 5 year 2 NUS School of Computing (S
 
 Below are the symbols and formatting used in this document.
 
+*Symbols*
 [NOTE]
 Requirements or important things you should take note of.
 
 [TIP]
 Tips to assist you.
 
-[WARNING]
-Commands or user input which can be entered into the application.
+*Text formatting*
+[cols="2,2"]
+|===
+|`undo`
+|Commands or user input which can be entered into the application.
 
-[CAUTION]
-Components, classes or objects used in the architecture of the application.
+|`[blue]#Logic#`
+|Components, classes or objects used in the architecture of the application.
+|===
 
 == Summary of contributions
 
