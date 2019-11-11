@@ -978,14 +978,14 @@ Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
 For example:
 
-* Input `*annotate* 24 p/p1 n/summary of paragraph h/orange` into the command box (boxed in orange).
+* Input `*annotate* 24 p/p1 n/summary of paragraph h/orange` into the command box.
 
-image::ui-screenshots/AddAnnotationCommandUi1.png[]
+image::ui-screenshots/AddAnnotationCommandUi1.png[100,400]
 // offline tab, showing result after   annotate 1 p/p2
 
 * Observe that paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
 
-image::ui-screenshots/AddAnnotationCommandUi2.png[]
+image::ui-screenshots/AddAnnotationCommandUi2.png[300, 400]
 // offline tab, showing result.
 
 
@@ -1044,12 +1044,12 @@ For example:
 
 * Input `*annotate-edit* 24 p/g1 to/p1 h/green` into the command box.
 
-image::ui-screenshots/EditAnnotationCommandUi1.png[]
+image::ui-screenshots/EditAnnotationCommandUi1.png[200,400]
 // offline tab after   annotate 1 p/null n/this note was once a general note
 
 * Observe that the general note removed from the bottom and attached to pararaph P1. At the same time, paragraph P1 is highlighted green.
 
-image::ui-screenshots/EditAnnotationCommandUi2.png[]
+image::ui-screenshots/EditAnnotationCommandUi2.png[400,400]
 
 Parameter constraints:
 ****
@@ -1109,12 +1109,12 @@ For example:
 
 * Input `*annotate-delete* 24 p/p1 n/true` into the command box.
 
-image::ui-screenshots/DeleteAnnotationCommandUi1.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi1.png[200,400]
 // offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
 
 * Observe that the highlight of paragraph P2 if removed and the note is moved to the _General notes section_.
 
-image::ui-screenshots/DeleteAnnotationCommandUi2.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi2.png[200,400]
 
 Parameter constraints:
 ****
