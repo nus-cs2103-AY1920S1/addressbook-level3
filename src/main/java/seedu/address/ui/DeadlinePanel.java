@@ -1,4 +1,8 @@
+//@@author dalsontws
+
 package seedu.address.ui;
+
+import java.time.LocalDate;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -9,10 +13,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import seedu.address.model.deadline.Deadline;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-
-//@@author dalsontws
 /**
  * An UI component that displays information of a {@code FlashCard}.
  */
