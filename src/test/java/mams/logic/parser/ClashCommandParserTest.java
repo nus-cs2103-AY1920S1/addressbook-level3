@@ -24,14 +24,14 @@ public class ClashCommandParserTest {
     }
 
     @Test
-    public void parse_noRelevantPrefixesPresent_throwParseException() {
+    public void parse_noRelevantPrefixesPresent_throwsParseException() {
         assertParseFailure(parser,
                 " t/1 y/1 8/ -s -all",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_someIrrelevantPrefixesPresent_throwParseException() {
+    public void parse_someIrrelevantPrefixesPresent_throwsParseException() {
 
         // irrelevant prefix without input
         assertParseFailure(parser,
@@ -45,7 +45,7 @@ public class ClashCommandParserTest {
     }
 
     @Test
-    public void parse_emptyFields_throwParseException() {
+    public void parse_emptyFields_throwsParseException() {
         // single prefix
         assertParseFailure(parser,
                 " a/",
@@ -69,7 +69,7 @@ public class ClashCommandParserTest {
     }
 
     @Test
-    public void parse_invalidFields_throwParseException() {
+    public void parse_invalidFields_throwsParseException() {
 
         // negative index
         assertParseFailure(parser,
@@ -102,10 +102,18 @@ public class ClashCommandParserTest {
                 " s/222222222222222222222222222",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
 
+        // mixture of module code and index
+        assertParseFailure(parser,
+                " m/1 m/cs1020",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
+
+        assertParseFailure(parser,
+                " m/cs1020 m/1",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClashCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void parse_incorrectNumberOfFields_throwParseException() {
+    public void parse_incorrectNumberOfFields_throwsParseException() {
 
         // checking two or more appeals
         assertParseFailure(parser, " a/1 a/2", ClashCommand.MESSAGE_ONLY_ONE_ITEM_ALLOWED);
@@ -125,7 +133,7 @@ public class ClashCommandParserTest {
     }
 
     @Test
-    public void parse_validArgs_returnsFindCommand() {
+    public void parse_validArgs_returnsClashCommand() {
 
         ClashCommand.ClashCommandParameters params = new ClashCommand.ClashCommandParameters();
 

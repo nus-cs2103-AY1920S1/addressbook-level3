@@ -150,12 +150,12 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
+*API* : link:https://github.com/AY1920S1-CS2103-T11-2/main/blob/master/src/main/java/mams/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Mams data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes

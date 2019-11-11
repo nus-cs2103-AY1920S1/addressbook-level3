@@ -1,5 +1,6 @@
 package mams.logic.commands;
 
+import java.io.File;
 import java.nio.file.Paths;
 
 import mams.commons.exceptions.DataConversionException;
@@ -33,6 +34,8 @@ public class UndoCommand extends StoreCommand {
         }
         new SaveCommand("redo").privateExecute(model);
         model.replaceMams(mamsToReplace);
+        File file = new File("data/mamshistory_undo.json");
+        file.delete();
         return new CommandResult("Undo Successful ");
 
     }

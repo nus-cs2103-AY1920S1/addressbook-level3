@@ -127,6 +127,22 @@ public class CommandTestUtil {
         assertEquals(expectedMams, actualModel.getMams());
         assertEquals(expectedFilteredList, actualModel.getFilteredStudentList());
     }
+
+    /**
+     *
+     * @param command
+     * @param model
+     * @param expectedMessage
+     */
+    public static void assertCommandFailureThrowsException(Command command, Model model, String expectedMessage) {
+        try {
+            CommandResult result = command.execute(model, new CommandHistory());
+            throw new AssertionError("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(expectedMessage, ce.getMessage());
+        }
+    }
+
     /**
      * Updates {@code model}'s filtered list to show only the appeal at the given {@code targetIndex} in the
      * {@code model}'s MAMS.
