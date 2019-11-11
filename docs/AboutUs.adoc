@@ -42,7 +42,7 @@ Role: Team Lead and Transaction Developer
 
 '''
 
-=== Olivia Yu
+=== Olivia Yu Wanzhi
 image::alaete.png[width="150", align="left"]
 {empty}[http://github.com/Alaete[github]] [<<alaete#, portfolio>>]
 
