@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Overview
+== What you can expect from this document
 
 This document serves as an overview of my contributions to the StudyBuddyPro project. This project was
 part of an introductory software engineering module known as *CS2103T*. Moreover,
@@ -17,7 +17,7 @@ https://github.com/ckb055[Chen Kai Bin] and
 https://github.com/jaesimin[Jasmine Yeo Jia Min], all sophomore students from National University of
 Singapore (NUS) studying Computer Science.
 
-== Introduction
+== What our project is about
 
 StudyBuddyPro is a desktop application designed for university students in computing-related
 fields to supplement their revision. StudyBuddyPro aims to consolidate commonly used studying tools
@@ -28,10 +28,8 @@ StudyBuddyPro was developed for use through a Command Line Interface (CLI) to ta
 of the typing proficiency of computing students. However, a Graphical User Interface (GUI) is
 also provided for easier viewing, therefore providing the best of both worlds.
 
-StudyBuddyPro has 3 main features: Flashcard, Notes and Cheatsheet. The purpose of each
-feature is summarized in the table below.
+StudyBuddyPro's 3 main features are summarized in the table below.
 
-.Features table
 [options = "header"]
 |===
 | Feature | Purpose
@@ -40,7 +38,7 @@ feature is summarized in the table below.
 | Cheatsheet | Create and customize cheatsheets from relevant content found in Flashcard and Note features
 |===
 
-== Summary of contributions
+== Summary of my contributions to our project
 
 |===
 |This section provides an overview of the technical and non-technical contributions I made to the development
@@ -56,89 +54,57 @@ https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sahilgat&sort=groupTi
 
 ** Developed the Flashcard `Model`, `Logic` and `Storage` components. This enhancement provides the functionality for one of
 the three core features in the StudyBuddyPro application. Without it, the application would be
-missing a key revision tool that students could have used and the application would be less attractive to the
+missing a key revision tool and the application would be less attractive to the
 target market.
-*** What this enhancement included:
-**** The `Flashcard` object model and its components such as `Question`, `Answer`, `Title` and `Statistics` objects.
+*** *What this enhancement included*:
+**** The `Flashcard` model and its components such as `Question`, `Answer`, 'Title' and `Statistics` objects and
+their respective storage.
 **** Basic commands to use the flashcard model such as `add` and `list`. Advanced features such as the *remind* feature.
-**** Saving to and reading from storage files.
-*** *Depth*:
+*** *How deep this feature was*:
 **** Implementing this enhancement required a deep technical understanding of the architecture of the
 software as it modified 3 out of the 4 major components.
-*** *Completeness*:
+*** *How complete this feature was*:
 **** The enhancement is fully functional and goes beyond the basic needs of the user.
-**** Advanced features like the *remind* feature makes use of scientifically established
+**** Advanced features like the *remind* feature makes use of
 spaced repetition techniques and automatic reminders so the user can effectively revise.
-*** *Effort*:
+*** *How much effort was needed to develop this feature*:
 **** The enhancement modified and improved existing commands, while also linking various
 commands which was very tricky to implement.
-**** The quantity of features added in this enhancement made it very time-consuming.
 
 * *Minor Feature Enhancements*
-
-** Added a `CommandHistory` class that stores all commands a user inputs while using StudyBuddyPro.
-*** This class was used to develop the *remind* feature described earlier.
-*** This class was later used by my teammates to improve the existing `delete` commands in all
-features. This provided an additional layer of safety for the user by preventing accidental deletions.
-
-** Added a *Flashcard Bank* that provides users with a set of useful flashcards when the application
-first starts up.
-*** The flashcards contained helpful tips for computing students (our target demographic).
-*** This feature was also used during the product demo of our application for the module.
 
 ** Code quality
 *** Refactored `CommandResult` that all other features used to have separate classes to make codebase
 more object-oriented. (Pull request https://github.com/AY1920S1-CS2103T-W13-3/main/pull/195[#195])
 *** Refactored `Storage` that all other features used to abide by the interface segregation principle.
 (Pull request https://github.com/AY1920S1-CS2103T-W13-3/main/pull/340[#340])
-*** Added more specific exceptions such as `DuplicateFlashcardQuestionException` and `DuplicateFlashcardTitleException`
-rather than generic exceptions such as `DuplicateFlashcardException`. This provided better logging for developers.
 
 * *Other contributions*
 
 ** Project Management
 
 *** Set-up the GitHub developers page for our team.
-*** Managed milestone https://github.com/AY1920S1-CS2103T-W13-3/main/milestone/1[v1.0] and https://github.com/AY1920S1-CS2103T-W13-3/main/milestone/2[v1.1] on GitHub. (2/5 milestones)
-*** Managed the issue tracker for our project repository by assigning issues, cross-referencing pull
-requests with issues and closing issues when completed. (Pull request https://10github.com/AY1920S1-CS2103T-W13-3/main/pull/340[#340], Issue https://github.com/AY1920S1-CS2103T-W13-3/main/issues/301[#301])
+*** Integrated Travis CI, a continuous integration service, into our repository.
+*** Managed the issue tracker for our repository by assigning issues, cross-referencing pull
+requests and closing issues when completed. (Pull request https://10github.com/AY1920S1-CS2103T-W13-3/main/pull/340[#340], Issue https://github.com/AY1920S1-CS2103T-W13-3/main/issues/301[#301])
 
-** Testing
+** Testing (Increased coverage by more than 5%)
 
 *** Wrote all test cases for Flashcard model. (Pull requests https://github.com/AY1920S1-CS2103T-W13-3/main/pull/321[#321], https://github.com/AY1920S1-CS2103T-W13-3/main/pull/333[#333], https://github.com/AY1920S1-CS2103T-W13-3/main/pull/337[#337])
-*** Wrote some test cases for Flashcard commands such as `add` and `remind`. (Pull request https://github.com/AY1920S1-CS2103T-W13-3/main/pull/321[#321])
 *** Wrote all test cases for overall StudyBuddyPro `Storage` component. (Pull request https://10github.com/AY1920S1-CS2103T-W13-3/main/pull/340[#340])
-*** Overall, increased coverage by more than 5%.
 
-*** Tools:
+** Documentation
 
-**** Integrated Travis CI, a continuous integration service, into our repository.
+*** Added comprehensive manual testing for *remind* feature in Developer Guide.
+*** Wrote the introduction for the User Guide in a concise yet inviting manner.
 
-== Contributions to the User Guide
+== My contributions to the User Guide
 
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write clear and concise
-documentation that helps the non-technical end user use the application. I also took active effort to ensure my writing
-was as friendly and inviting as possible._
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write clear and inviting
+documentation that helps the non-technical end user use the application. Please note that some sections
+may be slightly truncated or edited for formatting._
 |===
-
-== Introduction
-
-StudyBuddyPro is a student application that aims to simplify the hassle of revision
-by providing a suite of tools for effective revision.
-
-StudyBuddyPro is optimized for students who prefer to work with
-a Command Line Interface (CLI) while still having the benefits of a
-Graphical User Interface (GUI).
-
-Moreover, StudyBuddyPro comes geared with pre-loaded features specially
-catered for computing students. So whether you're a computing student getting
-used to a CLI for the first time or if you're a CLI expert who wants to reap
-the benefits of a fast typing speed, give StudyBuddyPro a try!
-
-If you're interested, head over to the
-https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#2-quick-start[Quick Start]
-section to get started!
 
 == Quick Start
 
@@ -166,17 +132,15 @@ will appear in the CLI highlighted in the purple box in the diagram above. Refer
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#9-command-summary[Command Summary]
 section for a quick overview of all the available commands!
 
-+
+5. Output from the command will be shown in the boxes highlighted in orange and green in
+the diagram above. The green box is used to display a flashcard, note or cheatsheet
+while the orange box outputs feedback from commands.
+
 [TIP]
 The blue box in the diagram above with the "Flashcards", "Notes" and "Cheatsheets" logo
 can be used to quickly check which mode you are in! Switching into a mode will highlight
 the relevant mode's logo in an orange circle, as shown in this
 https://github.com/AY1920S1-CS2103T-W13-3/main/blob/master/docs/UserGuide.adoc#5-flashcard-feature[figure].
-+
-
-5. Output from the command will be shown in the boxes highlighted in orange and green in
-the diagram above. The green box is used to display a flashcard, note or cheatsheet
-while the orange box outputs feedback from commands.
 
 == Flashcard Feature
 
@@ -255,30 +219,16 @@ Here are your overdue flashcards:
 1. Math Question 2 - What is 3 x 2? (Was due on 2019-10-30)
 ```
 
-== Contributions to the Developer Guide
+== My contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my advanced
-technical knowledge through the depth of my contributions. They also showcase my ability
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability
 to explain complicated technical information in an easy-to-read, digestible manner. This was achieved
-in a variety of ways, such as the use of examples and industry standard technical diagrams._
+through the use of examples and industry standard technical diagrams. Please note that some sections
+may be slightly truncated or edited for formatting._
 |===
 
 === Remind Feature
-
-[NOTE]
-====
-For this section, a _due flashcard_ refers to a flashcard that is due for revision today.
-In other words, the current date (according to the user's system date) matches the date the
-flashcard was next supposed to be viewed for optimum revision. Similarly, an _overdue flashcard_
-refers to a flashcard whose view date for optimum revision was _before_ the current date. Further
-details on how the optimum revision date is calculated is provided in this section.
-====
-
-[NOTE]
-For this section the `remind` command refers specifically to the command itself,
-while the remind feature encompasses the entire feature and all the
-relevant classes.
 
 ==== Overview
 
@@ -288,11 +238,11 @@ keep track of which flashcards are due or overdue for revision. The second sub-f
 integrated with the `exit` command and is illustrated in the activity diagram below. For example,
 a typical user may use the `exit` command to exit the application without realizing they still had
 due or overdue flashcards left to revise. StudyBuddyPro will automatically warn the user about these
-unrevised flashcards after which the user can decide if they wish to revise these flashcards or proceed
-to exit StudyBuddyPro anyway.
+unrevised flashcards after which the user can decide if they wish to revise these flashcards or
+exit StudyBuddyPro anyway.
 
 .Activity diagram of user trying to exit StudyBuddyPro through the `exit` command
-image::remindDiagrams/ExitCommandActivityDiagram.png[]
+image::remindDiagrams/ExitCommandActivityDiagram.png[pdfwidth=90%]
 
 ==== Implementation of `Statistics` class
 
@@ -305,11 +255,6 @@ of when the flashcard should be next viewed for optimum spaced repetition learni
 
 .Class diagram of `Flashcard`, `Statistics` and `ScheduleIncrement` classes
 image::remindDiagrams/RemindCommandModelsClassDiagram.png[]
-
-[TIP]
-There are currently 7 `ScheduleIncrements` implemented in StudyBuddyPro, each with a
-corresponding integer value. This integer values represent the number of days the flashcard
-should next be viewed (based on spaced repetition principles).
 
 The interactions between the relevant classes can be illustrated through the following
 scenario:
@@ -329,7 +274,8 @@ before the `increaseIncrement()` method would result in the wrong `ScheduleIncre
 used to update the `toViewNext` attribute.
 
 .Code snippet of `Statistics#onView()`
-image::remindDiagrams/OnView.PNG[]
+image::remindDiagrams/OnView.PNG[pdfwidth=90%]
+
 
 *Step 4*. In this case, the "if" clause of the code snippet above is triggered since
 the `toViewNext` date _(8/10/2019)_ was *before* the current date _(10/10/2019)_.
@@ -347,8 +293,7 @@ The `remind` command is facilitated by the `RemindFeatureUtil` class and extends
 the abstract `Command` class as summarized in the class diagram below. This diagram
 also provides a summary of the `Logic` components of the `remind` command.
 
-.Class diagram of `RemindCommand`
-image::remindDiagrams/RemindCommandLogicClassDiagram.png[]
+{_Please refer to the complete Developer Guide for the diagram!_}
 
 The `remind` command also interacts with the `Model` component, specifically through indirect
 interactions with each `Flashcard` object currently in `StudyBuddyPro`. This was explained
@@ -374,18 +319,15 @@ and displays it.
 
 These steps are illustrated in further detail in the sequence diagram below.
 
-NOTE: As is standard in this Developer Guide, red classes are part of the `Model` package, blue classes are part of
-the `Logic` package, and green classes are part of the `UI` package.
-
 .Sequence diagram of high-level overview of how the `remind` command works
-image::remindDiagrams/RemindFeatureSequenceDiagramMain.png[]
+image::remindDiagrams/RemindFeatureSequenceDiagramMain.png[pdfwidth=90%]
 
 With reference to *Step 4* above, the implementation of how the `RemindCommand` object determines
 which flashcards are due or overdue can be further examined. A broad overview is provided
 in the sequence diagram below and explained in further detail below the diagram.
 
 .Sequence diagram of checking for due and overdue flashcards
-image::remindDiagrams/RemindCommandReferenceSequenceDiagram.png[]
+image::remindDiagrams/RemindCommandReferenceSequenceDiagram.png[pdfwidth=90%]
 
 * Whenever a `RemindCommand` object is created, it creates its own `RemindFeatureUtil` object.
 
@@ -397,36 +339,16 @@ get the current list of flashcards in the application.
 retrieves due and overdue flashcards through the `RemindFeatureUtil#getDueFlashcards()` and
 `RemindFeatureUtil#getOverdueFlashcards()` respectively.
 
-* As seen from the code snippet below, overdue flashcards are collected by iterating through
+* Overdue flashcards are collected by iterating through
 the entire flashcard list and checking if each flashcard's `toViewNext` attribute is before
-the current system date. The `toViewNext` attribute is not stored in the `Flashcard` object
-itself but rather in the flashcard's `Statistics` object. A similar approach is adopted to
-check for due flashcards.
-
-.Method to collect overdue flashcards from a given list of flashcards
-image::remindDiagrams/OverdueFlashcards.PNG[]
+the current system date. A similar approach is adopted to check for due flashcards.
 
 * The two lists of due and overdue flashcards are formatted into a String and passed back
 through the `FlashcardCommandResult` object created.
 
-==== Implementation of the `exit` command
-
-[TIP]
-The `exit` command is a global command and can be used in any mode, not just in the _flashcard_ mode.
-
-The `exit` command is implemented in a similar fashion to the `remind` command described
-above. Each `ExitCommand` also contains a `RemindFeatureUtil` object it uses to check
-which flashcards are due and overdue.
-
-In addition, the `ExitCommand` object calls upon the `CommandHistory` object to check
-if the last command inputted was an `exit` command through the `CommandHistory#getLastCommand()` method.
-This was added to allow the double confirmation feature before the user can exit StudyBuddyPro
-while still having flashcards due or overdue for revision.
-
-
 ==== Design and Implementation Considerations
 
-The following describe two major considerations
+The following sections describes the considerations taken into account when developing this feature.
 
 ===== Implementation Consideration: How to keep track of when a `Flashcard` object was last viewed?
 
@@ -444,22 +366,7 @@ attribute field.
 ** Cons: Bad OOP practice and makes it difficult to implement future changes. It may be unclear what the
 integer value represents and makes debugging more difficult.
 
-===== Design Consideration: Should the user be given the option to toggle the `exit` command reminder?
-
-* **Alternative 1 (current choice):** User is not given the toggle option.
-** Pros: More in-line with target market. Since StudyBuddyPro is a revision tool the target
-market is likely to always want this feature and probably will not need to toggle it off.
-** Cons: Some users may face additional inconvenience when trying to exit StudyBuddyPro
-if they use StudyBuddyPro for other than its intended purpose. For example, a user that
-only wants to use the cheatsheet auto-generation feature may not care for the automatic reminder.
-* **Alternative 2:** User is provided with the toggle option.
-** Pros: More flexibility and customizability of StudyBuddyPro to suit each individual user's needs.
-** Cons: Extra work required to implement the toggle feature. A user may toggle the reminder off when first using the
-application, and forget about the feature since it is now out of sight. Even if the user requires
-such an automatic reminding functionality in the future, they may have forgotten this feature existed.
-
-
-==== [Proposed] Future improvements
+==== [Proposed] Future Improvements
 ** Improve the formula used for determining when flashcards should be revised.
 *** We could take into account other factors such as user confidence level or number of times flashcard was answered
 correctly or incorrectly to create a more dynamic reminding schedule.
