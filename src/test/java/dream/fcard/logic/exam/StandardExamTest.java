@@ -2,12 +2,14 @@
 
 package dream.fcard.logic.exam;
 
-import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
-import org.junit.jupiter.api.Test;
 
 class StandardExamTest {
 
@@ -23,6 +25,7 @@ class StandardExamTest {
         assertEquals(1, testExam.getIndex());
     }
 
+    // test method that checks the functionality of the downIndex() method.
     void testDownIndex() {
         StandardExam testExam = new StandardExam(new ArrayList<FlashCard>(), 0);
         testExam.downIndex();
@@ -38,6 +41,7 @@ class StandardExamTest {
         assertEquals(200, testExam.getDuration());
     }
 
+    //test method to check if getCurrentCard() returns the card of that specific index.
     void testGetCurrentCard() {
         ArrayList<FlashCard> testDeck = new ArrayList<FlashCard>();
         FlashCard testCard = new FrontBackCard("hi", "bye");
