@@ -167,7 +167,7 @@ the current Billboard state will automatically commit to the `VersionedBillboard
 The current state will be store into the `stateList`,
 and a state pointer `currentStatePointer` will be maintained.
 
- List of command that will commit to `VersionedBillboard`:
+ List of command that will commit to VersionedBillboard:
 - AddArchiveCommand
 - AddCommand
 - AddTagCommand
