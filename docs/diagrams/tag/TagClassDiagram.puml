@@ -21,11 +21,6 @@ class Tag {
     + isSameTag(Tag otherTag): boolean
 }
 
-class TagName {
-    + fullName: String
-    + {static} isValidName(String test):boolean
-    + equals(Object other): boolean
-}
 
 class UniqueTagList {
     + contains(): boolean
@@ -44,9 +39,9 @@ class UniqueTagList {
 class Tag
 class Id
 
-Tag --"1" Id
-Tag --"1" TagName
-Tag --"1" TagColor
+Tag -->"1" Id
+Tag -->"1" String: TagName
+Tag -->"1" String: TagColor
 
 UniqueTagList *--"*" Tag
 
