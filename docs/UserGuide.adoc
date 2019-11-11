@@ -1285,48 +1285,70 @@ image::FinancialTrackerSummary2.png[width=600]
 == Diary
 
 The sweetest part of any holiday is looking back at your fond memories. TravEzy's
-Diary allows you to do just that! Here is our Diary!
+_Diary_ allows you to do just that! Here is our _Diary_ right below!
+
 
 image::DiaryInterface.png[width=800]
 
 
+
+
 In TravEzy, we have broken down your memories into 4 key parts, namely _Title_, _Date and Time_, _Place_ and _Memory_.
 
-For example, here is a Diary Entry about our trip to Tioman
+For example, here is a _Diary Entry_ about our trip to Tioman
 
 . _Title_ -> First time Snorkeling
 . _Date and Time_  -> 30/12/2019 0900
 . _Place_ -> Tioman Island
-. _Memory_ -> Saw so may beautiful fish!
+. _Memory_ -> Saw so many beautiful fish!
 
-In the Diary, you will be able to add, delete, list and show your entries. There are also a few more special tasks that you can do with your diary.
+
+
+
+In the _Diary_, you will be able to add and delete your _Diary Entries_. There are also a few more *special* tasks that you can do with your _Diary_.
 Enjoy!
 
 
 === Adding diary entries to your diary ``add``
 
-Trying to journal about your fishing trip? The Diary allows you to add entries and keep them alive in your desktop forever.
+Trying to journal about your fishing trip? The _Diary_ allows you to add _Diary Entries_ and keep them alive in your desktop forever.
 
-Format:
+*Format:*
 
 `add t/TITLE d/DATE TIME [p/PLACE] [m/MEMORY]`
 
 
-Example:
+TIP: Keep your input for _Title_, _Place_ and _Memory_ short! No more than 50 characters for _title_ and 100 for _place_ and _memory_! This will help you
+keep your _Diary Entries_ short and sweet!
 
-``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!``
+
+
+*Example:*
+
+
+    add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!
+
+TIP: Note that _Date_ is input in this format:
+dd/mm/yyyy HHMM:
+| d = day | m = month | y = year | H = Hour (24HR) | M = Minute |
+
+
+
+WARNING: We know you're a young student, so we've kept the range for the year in _Date_ limited to 1980 - 2030
+
 
 *Step by step:*
 
-Lets take the example of our midnight fishing trip!
+Lets take the example of a midnight fishing trip!
 
-Step 1: Enter ``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!``
+Step 1: Type ``add t/Fishing Trip d/12/12/2019 2300 p/Pulau Tekong m/Caught the biggest fish ever!`` into the _User Input Box_ and
+press _Enter_ on your keyboard. You can refer to the picture below, where the number *1* is.
 
 image::DiaryAddBefore.png[width=600]
 
-Step 2: TravEzy will tell you if your `add` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `add` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Step 3: You can see you added entry in the _Diary List_
+Step 3: You can see your added entry in the _Diary List Panel_, similar to number *3* in the picture below.
 
 
 image::DiaryAddAfter.png[width=600]
@@ -1335,21 +1357,32 @@ image::DiaryAddAfter.png[width=600]
 
 === Deleting diary entries from your diary ``delete``
 
-For some memories, it's best to forget them ☹. The Diary can help you to get rid of unpleasant diary entries.
+For some memories, it's best to forget them ☹. The _Diary_ can help you to get rid of unpleasant _Diary Entries_.
 
-Format: ``delete INDEX``
+*Format:*
 
-Example: I lost my wallet at the amusement park in Genting, I don't want to remember
-that trip ever again :(
+``delete INDEX``
 
-Step 1: Enter ``delete 2``
+*Example:*
+
+    delete 2
+
+TIP: Can't delete what's not there! Try to keep the ``INDEX`` larger than 0 and smaller than the number of _Diary Entries_ in your list!
+
+*Step by step:*
+
+
+Let's say you lose your wallet while on holiday in Genting, That's definitely a trip that no one would want to remember :(.
+
+
+Step 1: Type ``delete 2`` into the _User Input Box_ and press _Enter_ on the keyboard.You can refer to the picture below, where the number *1* is.
 
 
 image::DiaryDeleteBefore.png[width=600]
 
-Step 2: TravEzy will tell you if your `delete` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `delete` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Step 3: You can see your updated _Diary List_ without the horrible memory
+Step 3: You can see your updated _Diary List Panel_ without the horrible memory, similar to number *3* in the picture below.
 
 
 image::DiaryDeleteAfter.png[width=600]
@@ -1359,20 +1392,29 @@ image::DiaryDeleteAfter.png[width=600]
 
 === List all your diary entries ``list``
 
-What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? The Diary allows you to see everything in on, convenient list!
+What if you want to see all your memories in _ONE_, _CONTINUOUS_ list? The _Diary_ can do that as well! It allows you to see everything in one, convenient list!
 
-Format: ``list``
+*Format:*
 
-Example: I want to relive *EVERYTHING*
+ ``list``
 
-Step 1: Enter ``list``
+*Example:*
+
+    list
+
+
+*Step by step:*
+
+Lets relive *EVERYTHING!*
+
+Step 1: Type ``list`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
 image::DiaryListBefore.png[width=600]
 
-Step 2: TravEzy will tell you if your `list` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `list` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Step 3: You can see all your entries in the _Diary List_
+Step 3: You can see all your _Diary Entries_ in the _Diary List Panel_, similar to number *3* in the picture below.
 
 
 image::DiaryListAfter.png[width=600]
@@ -1380,21 +1422,30 @@ image::DiaryListAfter.png[width=600]
 === Find diary entries ``find``
 
 "Hey, when did I go to Spain?" It can be hard to remember
-all the details of your trips. That's why, this Diary allows you to look through all your entries to find the ones you want!
+all the details of your trips. That's why, this _Diary_ allows you to look through all your _Diary Entries_ to find the ones you want!
 
-Format: ``find TARGET``
+*Format:*
 
-Example: I want to see what I wrote about the Rugby World Cup
+``find TARGET``
 
+*Example:*
 
-Step 1: Enter ``find rugby``
+    find rugby
+
+TIP: To search for _Dates_, enter them in the same format as before, when you added the _Diary Entry_ (dd/mm/yyyy HHMM)
+
+*Step by step:*
+
+That was the craziest Rugby World Cup ever! Who lost?
+
+Step 1: Type ``find rugby`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
 image::DiaryFindBefore.png[width=600]
 
-Step 2: TravEzy will tell you if your `find` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `find` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Step 3: You can see the matching entries in your _Diary List_
+Step 3: You can see the matching _Diary Entries_ in your _Diary List Panel_, similar to number *3* in the picture below.
 
 
 
@@ -1404,23 +1455,33 @@ image::DiaryFindAfter.png[width=600]
 
 === Find specific diary entries ``findSpecific``
 
-Let's narrow down your search! The diary allows you to look through specific sections of each entry to find the exact entry that you want!
+Let's narrow down your search! The _Diary_ allows you to look through specific sections of each _Diary Entry_ to find the exact entry that you want!
 
 
-Format: ``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
+*Format:*
 
-Example: I know that I had a trip on the 12th of December 2019, but I cant remember what I did...
+ ``findSpecific [t/TITLE] [d/DATE TIME] [p/PLACE] [m/MEMORY]``
+
+*Example:*
 
 
-Step 1: Enter ``findSpecific d/12/12/2019``
+    findSpecific d/12/12/2019
 
+
+*Step by step:*
+
+
+You know that you had a trip on the 12th of December 2019, but you cant remember what you did...
+
+
+Step 1: Type ``findSpecific d/12/12/2019`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
 image::DiaryFindSpecificBefore.png[width=600]
 
-Step 2: TravEzy will tell you if your `findSpecific` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `findSpecific` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Step 3: You can see the specific matching entries in your _Diary List_
+Step 3: You can see the specific matching _Diary Entries_ in your _Diary List Panel_, similar to number *3* in the picture below.
 
 
 
@@ -1429,20 +1490,35 @@ image::DiaryFindSpecificAfter.png[width=600]
 
 === Private personal memories ``private``
 
-There are some personal memories which are for our eyes only. The Diary can help you to private memories from prying eyes.
+There are some personal memories which are for our eyes only. The _Diary_ can help you to private memories from prying eyes.
 
-Format: ``private INDEX``
+*Format:*
 
-Example: I had my first sip of wine today at the restaurant! I don't want my mum to find out...
+``private INDEX``
 
-Step 1: Enter ``private  4``
+*Example:*
+
+
+    private 4
+
+
+
+TIP: Can't private what's not there! Try to keep the ``INDEX`` larger than 0 and smaller than the number of entries in your list!
+
+
+*Step by step:*
+
+You had your first sip of wine today! Better not let mum find out...
+
+
+Step 1: Type ``private 4`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
 image::DiaryPrivateBefore.png[width=600]
 
-Step 2: TravEzy will tell you if your `private` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `private` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Step 3: You can see your updated _Diary List_, after the memory has been hidden
+Step 3: You can see your updated _Diary List_, after the memory has been hidden, similar to number *3* in the picture below.
 
 
 
@@ -1453,19 +1529,32 @@ image::DiaryPrivateAfter.png[width=600]
 
 Once you know you are alone and away from prying eyes, you can look at your private memories safely. The Diary can help you to unprivate those memories.
 
-Format: ``unprivate INDEX``
+*Format:*
 
-Example: Ok!, I'm alone and I want to look at my private memories
+``unprivate INDEX``
 
-Step 1: Enter ``unprivate 4``
+*Example:*
+
+
+    unprivate 4
+
+Ok you're alone now! How was that wine? :)
+
+TIP: Can't unprivate what's not there! Try to keep the ``INDEX`` larger than 0 and smaller than the number of entries in your list!
+
+
+*Step by step:*
+
+
+Step 1: Type ``unprivate 4`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
 
 image::DiaryUnPrivateBefore.png[width=600]
 
-Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
-Step 3: You can see your updated _Diary List_, after the memory is visible again
+Step 3: You can see your updated _Diary List_, after the memory is visible again, similar to number *3* in the picture below.
 
 
 image::DiaryUnPrivateAfter.png[width=600]
@@ -1473,32 +1562,49 @@ image::DiaryUnPrivateAfter.png[width=600]
 
 === Keep your diary protected ``setDetails``
 
-You never know who may use your laptop when you're away. The Diary can help you to password protect your memories to stop hackers from looking at your private memories.
-If you ``setDetails``, you will not be able to use the ``unprivate`` command and will have to use the ``unlock`` command (See below)
+You never know who may use your laptop when you're away. The _Diary_ can help you to protect your memories to stop hackers from looking at your private memories with a _username_ and _password_.
+If you ``setDetails``, you will not be able to use the ``unprivate`` command and will have to use the ``unlock`` command (See below).
 
-Format: ``setDetails user/USERNAME password/PASSWORD``
+*Format:*
 
-Example: Better set a password to protect my memories against prying eyes
+``setDetails user/USERNAME password/PASSWORD``
 
-Step 1: Enter ``setDetails user/youcanthackme password/youreallycanthackme``
+*Example:*
+
+
+    setDetails user/youcanthackme password/youreallycanthackme
+
+
+WARNING: You can only set your details once! After that, you will have to delete TravEzy if you forget your password and need to unlock entries. This is done to ensure *NO ONE* misues your personal information
+
+
+TIP: Keep your username and password long to keep those pesky hackers out! Minimally, make sure your username and password are alphanumeric and 8 characters long
+
+
+*Step by step:*
+
+
+Better set a password to protect your memories against prying eyes
+
+Step 1: Type ``setDetails user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
 
 image::DiarySetDetailsBefore.png[width=600]
 
 
-Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `unprivate` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
 
 
 image::DiarySetDetailsAfter.png[width=600]
 
 
-Step 1: Lets say someone tries to hack you
+. Lets say someone tries to hack you
 
 image::DiarySetDetailsHack.png[width=600]
 
-Step 1: TravEzy will protect you if someone else tries to change your details
+. TravEzy will protect you if someone else tries to change your details
 
 
 image::DiarySetDetailsHackFail.png[width=600]
@@ -1509,29 +1615,39 @@ image::DiarySetDetailsHackFail.png[width=600]
 
 With password protection, we want to ensure no one else can access our memories . The Diary can do this by ensuring only you can see the private memories.
 
-Format: ``unlock INDEX user/USERNAME password/PASSWORD``
+*Format:*
 
-Example: Time to look at all my private memories
 
-Step 1: Enter ``unlock 4 user/youcanthackme password/youreallycanthackme``
+``unlock INDEX user/USERNAME password/PASSWORD``
+
+*Example:*
+
+    unlock 4 user/youcanthackme password/youreallycanthackme
+
+*Step by step:*
+
+
+Unlock your hidden memories!
+
+Step 1: Type ``unlock 4 user/youcanthackme password/youreallycanthackme`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
 
 
 
 image::DiaryUnLockBefore.png[width=600]
 
 
-Step 2: TravEzy will tell you if your `unlock` command was successful in the _Result Display_
+Step 2: TravEzy will tell you if your `unlock` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
 
 
 
 image::DiaryUnLockAfter.png[width=600]
 
 
-Step 1: Lets say someone tries to hack you
+. Lets say someone tries to hack you
 
 image::DiaryUnLockHackBefore.png[width=600]
 
-Step 1: TravEzy will protect you if someone else tries to change your details
+. TravEzy will protect you if someone else tries to change your details
 
 
 image::DiaryUnLockHackAfter.png[width=600]
