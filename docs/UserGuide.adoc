@@ -1,4 +1,3 @@
-
 = Teacher’s Notebook - User Guide
 :site-section: UserGuide
 :toc:
