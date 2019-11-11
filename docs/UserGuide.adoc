@@ -430,7 +430,7 @@ image::findIncidentsCommandWithSelfParameter.png[]
 * Requires an exact name match with the logged-in user's name
 
 ****
-* The search is case insensitive. e.g `dave` will match `Dave`
+* The search is case insensitive and punctuation insensitive. e.g `dave` and `Dav-e` will match `Dave`
 * The search returns all incidents found regardless of state (incomplete and complete drafts, submitted incidents)
 * Multiple words can be taken for the operator and description parameter. The command returns all incidents which contains at least one of the words within the parameter
 * The ID parameter requires an exact match
@@ -451,8 +451,16 @@ Returns any incidents whereby the operator's name matches the logged-in operator
 
 [NOTE]
 If multiple keywords of the same prefix are provided by user, the command will take the last valid parameter of each prefix. +
-For example `find-i desc/arson desc/fire op/alex op/charlotte` is equivalent to `new desc/fire op/charlotte`. +
+For example `find-i desc/arson desc/fire op/alex op/charlotte` is equivalent to `find-i desc/fire op/charlotte`. +
 Rationale: user need not waste time backspacing if an input was keyed in wrongly.
+
+==== Future Extensions
+* Find Command filters search results by the following:
+    ** Incident status
+    ** DateTime
+    ** District number of Incident
+    ** Vehicle Type of Vehicle involved
+    ** Vehicle Number of Vehicle involved
 
 // end::findi[]
 
