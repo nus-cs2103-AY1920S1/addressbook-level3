@@ -7,7 +7,9 @@
 
 == What is in this document?
 
-This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun . It will present the user and developer guide of the Dashboard function in DukeCooks.
+This document is a project portfolio documenting the contributions made for DukeCooks by the writer - Hua Lun. +
+DukeCooks is the only ever planner you ever need for a healthier lifestyle. +
+Here, the Dashboard function's user and developer guide in DukeCooks will be presented.
 
 == Who is behind DukeCooks?
 
@@ -463,3 +465,12 @@ This choice was chosen as it reduces the chance of errors and is a safer option.
 - Pros: Faster runtime. +
 - Cons: Additional lines of code needed to check if the date falls out of range. Higher chance of making mistakes during implementation.
 |===
+
+=== Acknowledgements
+DukeCooks would not be possible without the wonderful support from these people:
+
+I would like to thank Prof. Damith for his interesting and insightful lectures on
+Good Software Engineering Practice. Next, Ms Anita providing useful tips in communication and
+presentation skills. Also, Mr Jeffry for his guidance and suggestions for the team.
+Lastly, many thanks to my wonderful teammates and classmates for the support and help when needed.
+
