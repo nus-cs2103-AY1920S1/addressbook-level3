@@ -504,39 +504,39 @@ image::NotificationActivityDiagram.png[]
 === Report feature
 ==== Implementation
 
-The Report feature is implemented through a `ReportCommand` that extends from the abstract `Command` class. +
-It returns a `CommandResult` object that has the boolean "isReport" set to True when `ReportCommand#execute(Model)` is called. +
-The `MainWindow` Ui component will check the `CommandResult` for the "isReport" boolean and create a new `ReportWindow` through the `MainWindow#handleReport()` method. +
-The `ReportWindow` object takes in a `Statistics` object that is created by calling `Logic#getStatistics()` which subsequently calls `Model#getStatistics()`. The `Model` then returns the `Statistics` object that is created based on the `CalorieBudget` and `MealLog` in the `Model`. +
-Additionally, the following operations are implemented in `Statistics`:
+The Report feature is implemented through a #ReportCommand# that extends from the abstract #Command# class. +
+It returns a #CommandResult# object that has the boolean "isReport" set to True when #_ReportCommand#execute(Model)_# is called. +
+The #MainWindow# Ui component will check the #CommandResult# for the "isReport" boolean and create a new #ReportWindow# through the #_MainWindow#handleReport()_# method. +
+The #ReportWindow# object takes in a #Statistics# object that is created by calling #_Logic#getStatistics()_# which subsequently calls #_Model#getStatistics()_#. The #Model# then returns the #Statistics# object that is created based on the #CalorieBudget# and #MealLog# in the #Model#. +
+Additionally, the following operations are implemented in #Statistics#:
 
-* `Statistics#generateStatistics(ObservableList<Meal>, CalorieBudget)` -- gets the statistics of the current object. Maximum, Minimum and Average calorie intake per day of the current month are calculated internally in this method.
+* #_Statistics#generateStatistics(ObservableList<Meal>, CalorieBudget)_# -- gets the statistics of the current object. Maximum, Minimum and Average calorie intake per day of the current month are calculated internally in this method.
 
 [NOTE]
-While the above method takes in an `ObservableList<Meal>` instead of a `MealLog`, the list is generated from the `MealLog` and passed as the argument to avoid unnecessary interaction between the `MealLog` and `Statistics` classes. +
-Therefore, even though `MealLog` is not taken in as a parameter, `Statistics` still depeneds on `MealLog` to get the data for generating the report.
+While the above method takes in an #ObservableList<Meal># instead of a #MealLog#, the list is generated from the #MealLog# and passed as the argument to avoid unnecessary interaction between the #MealLog# and #Statistics# classes. +
+Therefore, even though #MealLog# is not taken in as a parameter, #Statistics# still depeneds on #MealLog# to get the data for generating the report.
 
-* `Statistics#getCalorieExceedCount(CalorieBudget, ObservableList<Meal>)` -- gets the number of days where calorie intake exceeded the calorie budget for that day.
-* `Statistics#getMostConsumedDishes(ObservableList<Meal>)` -- gets the list of dishes which are consumed the most in the current month.
-* `Statistics#getFoodChartSeries(ObservableList<Meal>)` -- gets the series containing the dishes eaten this month and their respective quantities.
-* `Statistics#getCalorieChartSeries(ObservableList<Meal)` -- gets the series that represents the amount of calories taken by the user over the past month.
+* #_Statistics#getCalorieExceedCount(CalorieBudget, ObservableList<Meal>)_# -- gets the number of days where calorie intake exceeded the calorie budget for that day.
+* #_Statistics#getMostConsumedDishes(ObservableList<Meal>)_# -- gets the list of dishes which are consumed the most in the current month.
+* #_Statistics#getFoodChartSeries(ObservableList<Meal>)_# -- gets the series containing the dishes eaten this month and their respective quantities.
+* #_Statistics#getCalorieChartSeries(ObservableList<Meal)_# -- gets the series that represents the amount of calories taken by the user over the past month.
 
-Given below is Figure 3.5.1.1 which is a Class Diagram that shows how the `ReportCommand` interacts with other components of CaloFit.
+Given below is Figure 3.5.1.1 which is a Class Diagram that shows how the #ReportCommand# interacts with other components of CaloFit.
 
 image::ReportClassDiagram.png[]
 
-Figure 3.5.1.1: Class Diagram showing interaction of `ReportCommand`.
+Figure 3.5.1.1: Class Diagram showing interaction of #ReportCommand#.
 
 Given below is an example usage scenario and how the Report feature behaves at each step.
 
-Step 1. The user starts up CaloFit for the first time. The `ModelManager` will contain a `MealLog` that has an empty list.
+Step 1. The user starts up CaloFit for the first time. The #ModelManager# will contain a #MealLog# that has an empty list.
 
 [NOTE]
-If the user enters "report" in the Command Line Input with a `MealLog` that has no `Meal` entered this month, a `CommandException` will be thrown since there are no `Meal` to gather statistics pertaining to this month.
+If the user enters "report" in the Command Line Input with a #MealLog# that has no #Meal# entered this month, a #CommandException# will be thrown since there are no #Meal# to gather statistics pertaining to this month.
 
-Step 2. The user has added a `Meal` into the `MealLog` through the `add` feature.
+Step 2. The user has added a #Meal# into the #MealLog# through the `add` feature.
 
-Step 3. The user enters "report" in the Command Line Input to generate the report of CaloFit. The `ReportCommand` created will return a `CommandResult` object with "isReport" set to True. When the `MainWindow` checks this boolean, it calls `MainWindow#handleReport()` that creates the `ReportWindow`.
+Step 3. The user enters "report" in the Command Line Input to generate the report of CaloFit. The #ReportCommand# created will return a #CommandResult# object with "isReport" set to True. When the #MainWindow# checks this boolean, it calls #_MainWindow#handleReport()_# that creates the #ReportWindow#.
 
 The following activity diagram in Figure 3.5.1.2 summarises the above usage scenario.
 
@@ -551,40 +551,40 @@ image::ReportCommand.png[]
 Figure 3.5.1.3: Sequence diagram of "report" command execution.
 
 [NOTE]
-The parameters of the constructor of `CommandResult` in the above diagram are as follows, from left to right: +
+The parameters of the constructor of #CommandResult# in the above diagram are as follows, from left to right: +
 String message -- the message to be displayed to the user in the GUI. +
-boolean showHelp: indicates if the `HelpWindow` should be generated. +
-boolean showReport: indicates if the `ReportWindow` should be generated. +
+boolean showHelp: indicates if the #HelpWindow# should be generated. +
+boolean showReport: indicates if the #ReportWindow# should be generated. +
 boolean isExit: indicates if the application should exit along with any other windows that are being shown. +
-Hence, only showReport is set to true to indicate that a `ReportWindow` should be created, while the rest of the booleans are set to false.
+Hence, only showReport is set to true to indicate that a #ReportWindow# should be created, while the rest of the booleans are set to false.
 
-The following sequence diagram in Figure 3.5.1.4 shows how the `ReportWindow` is generated.
+The following sequence diagram in Figure 3.5.1.4 shows how the #ReportWindow# is generated.
 
 image::ReportWindow.png[]
 
-Figure 3.5.1.4: Sequence Diagram showing the generation of the `ReportWindow`.
+Figure 3.5.1.4: Sequence Diagram showing the generation of the #ReportWindow#.
 
 ==== Design Considerations
 
-===== Aspect: When the `Statistics` object is created.
+===== Aspect: When the #Statistics# object is created.
 
 * **Alternative 1 (current choice):** Only when a "report" command is entered.
 ** Pros: Less processes carried out for each type of command.
 ** Cons: At any point in using CaloFit, the statistics are not updated since the object is only created when the "report" command is entered.
-* **Alternative 2:** Every command creates a new updated `Statistics` object.
+* **Alternative 2:** Every command creates a new updated #Statistics# object.
 ** Pros: Logging of statistics can be accurate, and statistics are always updated.
-** Cons: Unnecessary as user does not need to see the statistics other than through a "report" command and results in every command having to do more work and interact with the `Model` more, possibly creating more bugs.
-* **Explanation of Choice:** Since the user only needs to see the updated statistics when a "report" command is executed, we only need to generate a new `Statistics` object with the updated values for that command, hence **Alternative 1** is chosen to avoid adding unnecessary complexity to each command.
+** Cons: Unnecessary as user does not need to see the statistics other than through a "report" command and results in every command having to do more work and interact with the #Model# more, possibly creating more bugs.
+* **Explanation of Choice:** Since the user only needs to see the updated statistics when a "report" command is executed, we only need to generate a new #Statistics# object with the updated values for that command, hence **Alternative 1** is chosen to avoid adding unnecessary complexity to each command.
 
 ===== Aspect: Data structure to store the statistics in CaloFit.
 
-* **Alternative 1 (current choice):** Wrap the values in a `Statistics` object.
-** Pros: Neater code and easier to understand, since all statistic-related values are stored in the `Statistics` object and are not implemented in the `Model`.
+* **Alternative 1 (current choice):** Wrap the values in a #Statistics# object.
+** Pros: Neater code and easier to understand, since all statistic-related values are stored in the #Statistics# object and are not implemented in the #Model#.
 ** Cons: Additional class to maintain and test for dependencies.
-* **Alternative 2:** Store the values as a list in the `Model`.
-** Pros: The statistics can be updated easily through the `Model` itself by updating the elements in the list. Accessing the statistics to display is easier as well.
-** Cons: Burdens the `Model` with a responsibility that is largely irrelevant to its current ones, which is to keep track of the Objects that make up the CaloFit model.
-* **Explanation of Choice:** To try and enforce Single Responsibility Principle as much as possible and avoid adding irrelavant functionality to `Model`.
+* **Alternative 2:** Store the values as a #List# in the #Model#.
+** Pros: The statistics can be updated easily through the `Model` itself by updating the elements in the #List#. Accessing the statistics to display is easier as well.
+** Cons: Burdens the #Model# with a responsibility that is largely irrelevant to its current ones, which is to keep track of the Objects that make up the CaloFit model.
+* **Explanation of Choice:** To try and enforce Single Responsibility Principle as much as possible and avoid adding irrelavant functionality to #Model#.
 // end::report[]
 
 
