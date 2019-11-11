@@ -59,12 +59,6 @@ Refer to <<Features>> for details of each command.
 [[Features]]
 == Features
 
-=== Viewing help : `help`
-
-Format: `help`
-
-User can simply type in the `help` command in the input text area to gain additional information of the usage of our application. +
-Once `help` command is executed, system will pop out a dialog window that includes our development web page and some examples of the commands.
 
 //tag::interactive-parsing[]
 === Interactive Parsing
@@ -613,7 +607,7 @@ Format: `calendar c/nextmonth`
 .Calendar view for November 2019
 image::calendar-view.png[width="450", float="left"]
 [.left]
-.Calendar view (December 2019) after executing the `nextmonth` command
+.Calendar view after `nextmonth` command
 image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
@@ -630,7 +624,7 @@ Format: `calendar c/previousmonth`
 .Calendar view for November 2019
 image::calendar-view.png[width="450", float="left"]
 [.left]
-.Calendar view (October 2019) after executing the `previousmonth` command
+.Calendar view after `previousmonth` command
 image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
@@ -740,6 +734,16 @@ image::pdf_error_2.png[width="600"]
 image::pdf_error_1.png[width="600"]
 
 // end::pdf-command[]
+
+=== Help window : `help`
+
+.The help window
+image::help-window.png[width="600"]
+
+Format: `help`
+
+The user can type `help` in the input text area to open up a help window. It displays a basic command summary and a link to
+the user guide, which has more detailed information about using Typee.
 
 === Exiting the program : `exit`
 
