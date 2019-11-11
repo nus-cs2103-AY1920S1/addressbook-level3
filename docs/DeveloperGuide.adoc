@@ -617,9 +617,8 @@ This feature allows the user to add a repeater in IchiFund. Adding a repeater al
 ===== Implementation
 The `add` command is facilitated by the Logic and Model components of the application. The process of executing an `add` command is illustrated in the figure below:
 
-.Sequence Diagram for `repeater` Command under Repeater Tab
 image::AddRepeaterSequenceDiagram.png[]
-+
+
 Below is an example usage scenario of how `add` behaves at each step.
 
 *Step 1*: In the repeaters tab, the user executes `add de/Phone bills a/42.15 c/Utilities ty/exp so/3 eo/2 sd/1 sm/1 sy/2019 ed/31 em/12 ey/2019` to add a repeater for phone bills with an amount of $42.15 on the third and second last day of every month between 1st January 2019 and 31st December 2019.
