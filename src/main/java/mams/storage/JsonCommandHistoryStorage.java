@@ -37,9 +37,9 @@ public class JsonCommandHistoryStorage implements CommandHistoryStorage {
     }
 
     /**
-     * Similar to {@link #readCommandHistory()}.
+     * See {@link #readCommandHistory()}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param filePath the location of the data file. must point to a valid file, and cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyCommandHistory> readCommandHistory(Path filePath) throws DataConversionException {
@@ -65,9 +65,9 @@ public class JsonCommandHistoryStorage implements CommandHistoryStorage {
     }
 
     /**
-     * Similar to {@link #saveCommandHistory(ReadOnlyCommandHistory)}.
+     * See {@link #saveCommandHistory(ReadOnlyCommandHistory)}.
      *
-     * @param filePath location of the data. Cannot be null.
+     * @param filePath the location of the data file. must point to a valid file, and cannot be null
      */
     public void saveCommandHistory(ReadOnlyCommandHistory commandHistory, Path filePath) throws IOException {
         requireNonNull(commandHistory);

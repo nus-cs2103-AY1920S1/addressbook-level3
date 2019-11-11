@@ -25,13 +25,13 @@ public class Option {
 
     public Option(Option opt) {
         requireNonNull(opt);
-        this.optName = opt.optName;
+        this.optName = opt.getOptionNameOnly();
         this.fullOptLabel = opt.getFullOptLabel();
     }
 
     /**
-     * Checks if {@code arg} is a valid option, ie. it is prepended by a '-' character, and
-     * is is then proceeded by non-whitespace characters.
+     * Checks if {@code arg} is a valid option, ie. it is prepended by a '-' character, which
+     * is then proceeded by non-whitespace characters.
      * @param arg argument to be checked
      * @return true if it is a valid option, false otherwise.
      */
@@ -54,8 +54,8 @@ public class Option {
 
     @Override
     public int hashCode() {
-        // we only use the full label to hashcode since
-        // fullOptName simply adds preceding dash.
+        // we only use the optName to hashcode since
+        // fullOptName simply adds a common preceding dash.
         return optName.hashCode();
     }
 

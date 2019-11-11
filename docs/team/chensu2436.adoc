@@ -5,7 +5,7 @@
 
 == PROJECT: Module Appeal Management System (MAMS)
 
----
+'''
 
 == Overview
 
@@ -43,12 +43,14 @@ For example, to filter all appeals requesting to add a particular module and che
 *** Changed prefixes to suit our app and performed related refactoring https://github.com/AY1920S1-CS2103-T11-2/main/pull/85[#85]
 ** Enhancements to existing features:
 *** Rectified disagreement in sample data https://github.com/AY1920S1-CS2103-T11-2/main/pull/206[#206]
+*** Edited TestUtils to be used for more meaningful tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/211[#211]
 ** Documentation:
 *** Converted the first draft of User Guide to AsciiDoc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
 *** Enhanced the class diagrams of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
 *** Reported bugs and suggestions for other teams (examples:  https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
+*** Reviewed User Guide and Developer Guide for other teams in class
 
 == Contributions to the User Guide
 
@@ -61,14 +63,15 @@ include::../UserGuide.adoc[tag=clash]
 include::../UserGuide.adoc[tag=find]
 
 [NOTE]
-Due to page limit, only 1 find command example is included. Please refer to User Guide 3.4 for more examples.
+_Due to page limit, only 1 find command example is included. Please refer to User Guide 3.4 for more examples._
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide Design and Implementation section. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+[NOTE]
 _Due to page limit, only 1 class diagram of Logic Component is included. Refer to Developer Guide for other class diagrams_
 
 include::../DeveloperGuide.adoc[tag=logic]
@@ -79,3 +82,7 @@ include::../DeveloperGuide.adoc[tag=clash2]
 
 include::../DeveloperGuide.adoc[tag=find]
 
+[NOTE]
+_Due to page limit, only Find Section in Manual Testing is shown. Please refer to Developer Guide Appendix E for the Clash section._
+
+include::../DeveloperGuide.adoc[tag=test4]
