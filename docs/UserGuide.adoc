@@ -365,7 +365,6 @@ Using the `watch` command on an already watched show will un-mark the show as wa
 [TIP]
 `watch` would only work in **Watchlist page** and **Watched page**.
 
-
 Examples:
 
 * `watch 1` +
