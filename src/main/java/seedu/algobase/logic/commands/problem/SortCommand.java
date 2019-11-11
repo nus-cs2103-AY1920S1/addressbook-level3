@@ -55,7 +55,7 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sortprob";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Sorts the current view in a certain order. "
+            + ": Sorts the current problem list in a certain order. "
             + "Parameters:\n"
             + PREFIX_SORTING_METHOD + "SORTING_METHOD "
             + "[" + PREFIX_SORTING_ORDER + "SORTING_ORDER]\n"
