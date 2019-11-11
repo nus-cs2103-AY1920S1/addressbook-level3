@@ -163,7 +163,7 @@ You would like to add the meal into CaloFit to record it down. What do you do?
 
 If `format 1` is your preferred choice, you could do the following:
 
-* Type `add n/Mushroom Soup` into the command bar and press the `enter` key.
+* Type `add n/Mushroom Soup` into the command box and press the `enter` key.
 
 image::AddCommandInitialFormat1.png[]
 
@@ -178,7 +178,7 @@ the default calorie information will be 700 calories
 
 If `format 2` is your prefered choice, you could do the following:
 
-* Type `find mushroom soup` into the command bar and press the `enter` key.
+* Type `find mushroom soup` into the command box and press the `enter` key.
 
 image::AddCommandFind1Command.png[]
 
@@ -187,7 +187,7 @@ meals header.
 
 image::AddCommandSearchResult.png[]
 
-* Afterwards, enter the command `add 1` to the command bar and press the `enter` key.
+* Afterwards, enter the command `add 1` to the command box and press the `enter` key.
 
 image::AddCommandAdd1.png[]
 
@@ -195,7 +195,7 @@ image::AddCommandAdd1.png[]
 
 image::AddCommandAdd1Success.png[]
 
-Commands below are come other example commands:
+Commands below are some other example commands:
 
 * `add n/Spaghetti c/480 t/tasty` - Adds a meal named Spaghetti of 480 calories with the tag "tasty".
 * `add n/Chicken Rice c/500` - Adds a meal named Chicken Rice of 500 calories.
@@ -218,7 +218,7 @@ Example usages: +
 While rushing to type in the meals, you misspelled "Mushroom Soup" as "Mushroom Soop" and
 added 2000 calories instead of the correct 200 calories. What do you do?
 
-* Type "edit 1 n/Mushroom Soup c/200" into the command bar and press the `enter` key.
+* Type "edit 1 n/Mushroom Soup c/200" into the command box and press the `enter` key.
 
 image::EditCommandInitial.png[]
 
@@ -227,7 +227,7 @@ to the correct amount of 200 in the calorie bar.
 
 image::EditCommandSuccess.png[]
 
-Commands below are come other example commands:
+Commands below are some other example commands:
 
 * `edit 1 n/Wanton Noodle c/1000` - Edits the meal at index 1 to name "Wanton Noodle" with calorie 1000.
 * `edit 2 n/Chicken Rice` - Edits the meal at index 2 to name "Chicken Rice" without changing anything else.
@@ -247,7 +247,7 @@ Format: `delete MEAL_NUMBER [MEAL_NUMBER] ...`
 
 Example usage: +
 You thought you were going to have Mushroom Soup for lunch when you were queuing.
-So you decided add Mushroom Soup to the meal log using the add command.
+So you decided to add Mushroom Soup to the meal log using the add command.
 However, while queuing, your boss called you saying that there is an emergency and
 wants you back in the office immediately. You abandon the queue and go back to the office.
 Since you did not consume the meal, you would want to remove it from the meal log.
@@ -258,7 +258,7 @@ What do you do?
 image::DeleteCommandDelete1.png[]
 
 * When the meal is successfully deleted, a message will appear in the
-result box and the meal will be removed
+result box and the meal will be removed.
 
 image::DeleteCommandDelete1Success.png[]
 
@@ -266,7 +266,7 @@ image::DeleteCommandDelete1Success.png[]
 "1" can be changed to any number in the consumed meal section. However,
 in this example, Mushroom Soup is located at index 1.
 
-Commands below are come other example commands:
+Commands below are some other example commands:
 
 * `delete 1` - deletes the first meal in the consumed meal section.
 * `delete 1 2 3` - bulk deleting of meals 1, 2 and 3 in the consumed meal section.
@@ -282,7 +282,7 @@ Example usage:
 You would like to know the amount of calories in an "Apple Pie" which you know exist in the CaloFit database. However, you
 do not want to scroll through the entire suggested list just to find it.
 
-* Type `find apple pie` into the command bar and press the `enter` key.
+* Type `find apple pie` into the command box and press the `enter` key.
 
 image::FindCommandFindApplePie.png[]
 
@@ -304,7 +304,7 @@ Example usage:
 You're tired from work and you don't want to think about what to eat for the day, you just want to have a meal to keep yourself full and stay within the calorie budget that you want set for yourself.
 
 [NOTE]
-Type "suggest" into the command bar and press the 'enter' key, if you have previously used the find feature to look for a meal.
+Type "suggest" into the command box and press the 'enter' key, if you have previously used the find feature to look for a meal.
 
 image::SuggestCommandToggle.png[]
 
