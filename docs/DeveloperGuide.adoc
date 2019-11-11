@@ -599,6 +599,7 @@ These pieces of information will then be displayed on the Home Page through stan
 
 
 //tag::problem_description[]
+
 === Problem Statement Panel
 Since the problem description cannot be viewed fully from the question list, we introduced a new problem description panel. When type `view [id]`, the panel updates to
 display all the additional information a question has to provide.
@@ -654,10 +655,22 @@ Logic Manager` for compilation of the user-written code. It is capable of perfor
 this is achieved by overwriting the function of the Enter key. Through helper methods available in `Editor.java`, the
 number of unclosed braces can easily be counted so as to perform the appropriate indentations.
 
+There are other modifications to key inputs to make the text editor imitate the behaviour of an actual IDE editor. These
+include overwriting the `tab` key to input 4 spaces instead of 8, and also performing auto de-indentation when a right brace
+(i.e. "}") is typed. Refer to the activity diagram below for the possible outcomes.
+
+.Activity Diagram for Text Input
+image::TextInputActivityDiagram.png[]
+
 The line counter component of the editor keeps track of the number of lines written by the user in the editor. It takes
 in a `SimpleIntegerProperty` and is updated automatically whenever there are changes to the text observed in the editor.
+
 This is achieved through adding a `InvalidationListener` to the text property of the editor, along with using the
-necessary helper functions to count the number of newline characters in the text.
+necessary helper functions to count the number of newline characters in the text. The Sequence Diagram below shows how
+the `UI` interacts with the `Editor` class to generate the line counter in the text editor.
+
+.Sequence Diagram for Generating Line Counter Input
+image::LineCounterSequenceDiagram.png[]
 
 == Documentation
 
