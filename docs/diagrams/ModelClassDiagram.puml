@@ -16,18 +16,32 @@ Class UserPrefs
 Class ReadOnlyUserPrefs
 Class VersionedGuiltTrip
 
-enum CategoryType {
-EXPENSE
-INCOME
-}
 
 Package Entry {
 Class Entry
 Class Description
 Class Date
 Class Amount
+Class BudgetAmount
+Class Period
 Class ExpenseList
 Class Expense
+Class IncomeList
+Class Income
+Class WishList
+Class Wish
+Class BudgetList
+Class Budget
+Class AutoExpense
+Class AutoExpenseList
+}
+
+Package Util {
+Class Frequency
+enum CategoryType {
+EXPENSE
+INCOME
+}
 }
 
 Package Category {
@@ -70,14 +84,32 @@ CategoryList o--> "*" Category
 Category *--> CategoryType
 
 VersionedGuiltTrip *--> "1" ExpenseList
-Expense ---|> Entry
+VersionedGuiltTrip *--> "1" IncomeList
+VersionedGuiltTrip *--> "1" WishList
+VersionedGuiltTrip *--> "1" BudgetList
+VersionedGuiltTrip *--> "1" AutoExpenseList
+
 ExpenseList o--> "*" Expense
+IncomeList o--> "*" Income
+BudgetList o--> "*" Budget
+WishList o--> "*" Wish
+AutoExpenseList o--> "*" AutoExpense
+
+Expense ---|> Entry
+Income ---|> Entry
+Budget ---|> Entry
+Wish ---|> Entry
+AutoExpense ---|> Entry
+
 Entry *-->"1" Description
 Entry *-->"1" Date
 Entry *-->"1" Amount
 Entry *--> "*" Tag
 Entry *-->"1" Category
 
+Budget --> "1" BudgetAmount
+Budget --> "1" Period
+AutoExpense --> "1" Frequency
 
 StatisticsManager .up.|> Statistics
 StatisticsManager *--> "1..*" CategoryStatistics

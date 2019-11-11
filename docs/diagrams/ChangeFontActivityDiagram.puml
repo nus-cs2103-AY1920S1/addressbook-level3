@@ -1,0 +1,7 @@
+@startuml
+start
+:User executes change font command;
+:Change application font;
+
+stop
+@enduml
