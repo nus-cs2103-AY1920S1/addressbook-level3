@@ -689,7 +689,7 @@ closest common location.
 
 ==== Design Considerations
 
-===== Aspect: Limited Connectivity Support
+===== Aspect: Location
 
 |===
 | Aspect: | Choice | Pros | Cons
@@ -703,17 +703,6 @@ identify `AS6-0114` but not `AS6-0223`.
 | 1. Save time and space complexity as the number of venues will decrease by a factor of 10.
 | 1. Increase in complexity of the code base as an additional step of processing will be required.
 |===
-
-Current choice: we chose alternative 2 as we have limited Google Maps API calls and to reduce the time and space complexity
-of the application.
-
-* **Alternative 1:** Get the distance of the location directly from the NUSMods.
-** Pros: Simplify the code base as we can directly call Google Maps API after calling NUSMods API.
-** Cons: Bad time complexity as there would be quadratically more data to process. Prone to error as Google Maps might
-identify `AS6-0114` but not `AS6-0223`.
-* **Alternative 2:** Sanitize the Locations on NUSMods API according to their buildings(ie `AS6-0114`->`AS6`)
-** Pros: Save time and space complexity as the number of venues will decrease by a factor of 10.
-** Cons: Increase in complexity of the code base as an additional step of processing will be required.
 
 // tag::nusmods[]
 === Add NUSMods To Schedule
