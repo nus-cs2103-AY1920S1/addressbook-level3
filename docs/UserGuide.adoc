@@ -459,6 +459,21 @@ To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, an
 `edit n/USD s/1 r/0.74`
 ======
 
+// tag::booking_ppp[]
+=== Booking
+
+==== Introduction
+Welcome to the Booking feature of _TravelPal_!
+
+The Booking feature is one of the main features that allows you to add all the bookings pertaining to your trip in one
+single place with a user defined name, contact and the expense of the booking. You can easily add, edit and cancel
+bookings during creation of any booking.
+
+Furthermore, for almost every command, there is a GUI alternative using various buttons to execute the same operations.
+
+The following section of the User Guide explains hoe to use the Booking.
+
+==== Booking User Interface Overview
 
 === Diary
 

@@ -26,13 +26,14 @@ public class AddPhotoCommandIntegrationTest {
         PageStatus pageStatus = new PageStatus(null, null, null, null, diaryEntry,
                 null, null, null, null,
                 null, null, null, null,
-                null);
+                null, null, null);
         model.setPageStatus(pageStatus);
 
         Model expectedModel = new ModelManager();
         DiaryEntry diaryEntry2 = new DiaryEntry(Index.fromOneBased(1));
-        PageStatus pageStatus2 = new PageStatus(null, null, null, null, diaryEntry2, null,
+        PageStatus pageStatus2 = new PageStatus(null, null, null, null, diaryEntry2,
                 null, null, null, null, null,
+                null, null, null,
                 null, null, null);
         expectedModel.setPageStatus(pageStatus2);
 
@@ -50,8 +51,9 @@ public class AddPhotoCommandIntegrationTest {
     @Test
     void execute_modelHasNoDiaryEntry_throwsCommandException() {
         Model model = new ModelManager();
-        PageStatus pageStatus = new PageStatus(null, null, null, null, null, null,
+        PageStatus pageStatus = new PageStatus(null, null, null, null, null,
                 null, null, null, null, null,
+                null, null, null,
                 null, null, null);
         model.setPageStatus(pageStatus);
 
