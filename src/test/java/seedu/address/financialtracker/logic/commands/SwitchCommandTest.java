@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+
 import seedu.address.financialtracker.model.Model;
 import seedu.address.financialtracker.ui.CountriesDropdown;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -65,6 +66,7 @@ class SwitchCommandTest {
             this.country = null;
         }
 
+        @Override
         public void updateDropDownMenu(String args) throws CommandException {
             requireNonNull(args);
             if (!CountriesDropdown.isValidDropdownCountry(args)) {

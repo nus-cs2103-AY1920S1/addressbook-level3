@@ -1,13 +1,16 @@
 package seedu.address.calendar.logic.commands;
 
+import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.Holiday;
 import seedu.address.calendar.model.event.exceptions.ClashException;
 import seedu.address.calendar.model.event.exceptions.DuplicateEventException;
-import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ * Adds a holiday to the calendar.
+ */
 public class AddHolidayCommand extends AddCommand {
     public static final String COMMAND_WORD = "holiday";
     public static final String MESSAGE_USAGE = AddCommand.COMMAND_WORD + " " + COMMAND_WORD

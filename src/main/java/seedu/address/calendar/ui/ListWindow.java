@@ -1,21 +1,20 @@
 package seedu.address.calendar.ui;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Stream;
+
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
-
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import seedu.address.calendar.logic.commands.ListCommand;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.UiPart;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 /**
  * Pop-up window for list view. The pop-up disappears when it is out of focus and reappears with the default
@@ -92,6 +91,11 @@ public class ListWindow extends UiPart<Stage> {
         listWindow.show();
     }
 
+    /**
+     * Shows the relevant events.
+     *
+     * @param eventsToShow The relevant events to be shown
+     */
     void showEvents(String eventsToShow) {
         clearAll();
 
@@ -137,6 +141,9 @@ public class ListWindow extends UiPart<Stage> {
         showEventsContainer();
     }
 
+    /**
+     * Clears the screen.
+     */
     void clearAll() {
         commitmentCard.makeInvisible();
         schoolBreakCard.makeInvisible();

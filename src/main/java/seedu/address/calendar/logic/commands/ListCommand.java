@@ -2,9 +2,9 @@ package seedu.address.calendar.logic.commands;
 
 import java.util.Optional;
 
+import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.EventQuery;
-import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;

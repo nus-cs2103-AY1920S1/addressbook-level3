@@ -32,8 +32,8 @@ class DescriptionTest {
         // valid description
         assertTrue(Description.isValidDescription("bottle from FairPrice"));
         assertTrue(Description.isValidDescription("-")); // one character
-        assertTrue(Description.isValidDescription("I don't really care what I bought from" +
-                " the shop hahahahahahaahahahahaha")); // long description
+        assertTrue(Description.isValidDescription("I don't really care what I bought from"
+                + " the shop hahahahahahaahahahahaha")); // long description
     }
 
 }

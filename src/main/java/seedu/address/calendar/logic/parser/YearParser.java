@@ -1,9 +1,9 @@
 package seedu.address.calendar.logic.parser;
 
+import java.util.Optional;
+
 import seedu.address.calendar.model.date.Year;
 import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.Optional;
 
 class YearParser {
     private static final String MESSAGE_NON_INT_YEAR_ERROR = "Invalid year. Year should be represented numerically.";
