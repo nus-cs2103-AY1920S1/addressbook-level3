@@ -391,7 +391,7 @@ Returns any workers having names `Betsy`, `Tim`, or `John`
 
 
 // tag::delete[]
-
+[[delete]]
 ==== Deleting an entry : `delete` +
 You can delete a body, worker or fridge entry, using its Identification Number by entering a delete command with the
 given format below. +
@@ -404,7 +404,7 @@ you want to delete a `Fridge` with id `F01`, you need to only enter `delete -f 1
 When you delete a `Body`:
 
 * Mortago automatically deletes its associated `Notifs`. You can learn more
-about `Notifs` in <<showNotifs, Section 3.2.1>>.
+about `Notifs` in <<notifs, Section 3.2.1>>.
 * If you had assigned a `Fridge` to this `Body`, Mortago automatically sets the status of the `Fridge` to
 `UNOCCUPIED`.
 
@@ -430,7 +430,7 @@ image::delete-command/DeleteStep2.png[]
 
 image::delete-command/DeleteStep3.png[width="500"]
 
-// end::delete
+// end::delete[]
 
 // tag::clear[]
 
@@ -493,7 +493,7 @@ View a body with the ID B00000001.
 === General
 
 // tag::notifs[]
-[[showNotifs]]
+[[notifs]]
 ==== View notifs panel: `showNotifs` +
 This command allows you to view all `Notif`(s).
 

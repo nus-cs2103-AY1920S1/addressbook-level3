@@ -400,6 +400,8 @@ Alternative 1 was chosen as it causes almost no overhead, guarantees data integr
 
 // end::undoredo[]
 
+// tag::notifs[]
+
 === Notification Feature
 This feature in Mortago reminds a mortuary manager to contact the police when the next-of-kin of a body
 has not been contactable for a given period of time from the point of admission of the `Body`. He / She then needs
@@ -563,6 +565,8 @@ time and `notifCreationTime` exceeds `period`.
 
 Alternative 1 is the current choice because we want the app to be responsive and scalable in the long term. The
 notification bell is placed beside the command box to prevent instances of user forgetting to contact the police.
+
+// end::notifs[]
 
 // tag::genpdf[]
 === Generate PDF Feature

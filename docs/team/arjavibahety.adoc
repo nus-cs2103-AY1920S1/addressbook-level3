@@ -146,18 +146,27 @@ https://github.com/arjavibahety/ped/issues/13[#13],
 https://github.com/arjavibahety/ped/issues/15[#15]
 
 === 3 Contributions to the User Guide
-These sections of the user guide teach a user how the notification feature works and how they can use the delete
-command and any important considerations.
+The following are the excerpts I wrote in the Mortago user guide to teach a user how the notification feature works and
+how  they can use the delete command.
+
 _{start of extract 1: notification feature}_
 
 include::../UserGuide.adoc[tag=notifs]
 
 _{end of extract 1}_
 
-_{start of extract 2: document generation}_
+_{start of extract 2: delete command}_
 
-include::../UserGuide.adoc[tag=documentGeneration]
+include::../UserGuide.adoc[tag=delete]
 
 _{end of extract 2}_
 
 === 4 Contributions to the Developer Guide
+The following is the excerpt I wrote in the Mortago developer guide and are targeted at potential future developers.
+
+_{start of extract: notification feature}_
+
+include::../DeveloperGuide.adoc[tag=notifs]
+
+_{end of extract}_
+
