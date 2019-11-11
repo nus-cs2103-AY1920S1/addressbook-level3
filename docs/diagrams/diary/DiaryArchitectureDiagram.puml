@@ -1,31 +1,43 @@
 @startuml
-!include ../style.puml
 !include <office/Concepts/globe_internet>
 !include <office/Concepts/documents>
 !include <office/Users/user>
+!include <office/Users/administrator>
+!include ../style.puml
 
 Package " "<<Rectangle>>{
-    Class UI UI_COLOR
-    Class Parser LOGIC_COLOR
-    Class Command #345678
+    Class GUI UI_COLOR
+    Class DiaryParser LOGIC_COLOR
+    Class DiaryCommand LOGIC_COLOR
     Class Storage STORAGE_COLOR
-    Class Model MODEL_COLOR
+    Class DiaryModel MODEL_COLOR
     Class Commons LOGIC_COLOR_T2
-    Class Hidden #FFFFFF
-    Class HiddenUI #FFFFFF
-    Class HiddenModel #FFFFFF
-
-
+    Class "Log Center" as Logs UI_COLOR_T1
+    Class "Test Driver\nJunit Test" as Test MODEL_COLOR_T4
 }
-Class "<$user>" as User MODEL_COLOR_T2
-Class "<$documents>" as File UI_COLOR_T1
-User --> UI
-UI -down-> Parser
-Parser -right-> Command
-Command -right-> Model
-Command ..up..> Commons
-Model -right-> Storage
+
+Class "<$user>\nUser" as User MODEL_COLOR_T2
+Class "<$administrator>\nDeveloper" as Developer MODEL_COLOR_T2
+Class "<$documents>\nJson File" as File UI_COLOR_T1
+
+User -right-> GUI
+GUI -right-> DiaryParser
+DiaryParser -right-> DiaryCommand
+DiaryCommand -down-> DiaryModel
+DiaryModel -right-> Storage
+DiaryModel -up-> GUI
 
 
+Storage .up.> Commons
+DiaryParser .up.> Commons
+GUI .up.> Commons
+
+Logs -right- Commons
 Storage .right.>File
+Developer <-right-> Test
+Test -up-> DiaryModel
+
+
+
+
 @enduml

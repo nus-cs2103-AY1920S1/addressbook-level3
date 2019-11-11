@@ -30,21 +30,25 @@ Interface AddressBookModel <<Interface>>
 
 namespace Calendar {
 namespace Model {
+Class Calendar
 }
 }
 
 namespace diaryFeature {
 namespace diaryModel {
+Class DiaryModel
 }
 }
 
 namespace FinancialTracker {
 namespace Model {
+class Model
 }
 }
 
 namespace Itinerary {
 namespace Model {
+class Model
 }
 }
 
@@ -66,19 +70,17 @@ Model.ModelManager .up.|> Model.Model
 
 ''''''''''Model Interface
 Model.Model .down.> Address.Model.AddressBookModel :gets >
-Model.Model .down.> Achievements.Model.StatisticsModel :supplies >
 Model.Model .down.> Model.UserPrefsModel :gets >
-Model.Model .right.>Supplier
+Model.UserPrefsModel ..> Model.ReadOnlyUserPrefs
 
 ''''''''''ModelManager Constructor
-''' composition or aggregation?
-Model.ModelManager o--> "1" Address.Model.AddressBookModel
-Model.ModelManager o--> "1" Model.UserPrefsModel
-Model.ModelManager ..> "1" Achievements.Model.StatisticsModel
-
+Model.ModelManager o-- "1" Address.Model.AddressBookModel
+Model.ModelManager o-- "1" Model.UserPrefsModel
 
 ''''''''''UserPrefsModelManager
 Model.UserPrefsModelManager .up.|> Model.UserPrefsModel
+Model.UserPrefsModelManager .left.> Model.ReadOnlyUserPrefs
+Model.UserPrefsModelManager o-- "1" Model.UserPrefs
 
 ''''''''''UserPrefs
 Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
@@ -88,8 +90,6 @@ Model.UserPrefs .up.|> Model.ReadOnlyUserPrefs
 ''''''''''ADDRESS''''''''''
 Address.Model.AddressBookModel .right.> ObservableList
 
-''''''''''STATISTICS''''''''''
-Achievements.Model.StatisticsModel .right.> ObservableList
 
 ''''''''''LAYOUT''''''''''
 Model.ModelManager -[hidden]down-> Model.UserPrefsModel
@@ -99,6 +99,5 @@ Model.UserPrefsModelManager -[hidden]down->Calendar
 Model.UserPrefsModelManager -[hidden]down->diaryFeature
 Model.UserPrefsModelManager -[hidden]down->FinancialTracker
 Model.UserPrefsModelManager -[hidden]down->Itinerary
-Address -down[hidden]-> Achievements
 ''''''''''''''''''''''''''
 @enduml

@@ -16,6 +16,7 @@ public class UnPrivateCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of theUnPrivateCommand
      * and returns a UnPrivateCommand object for execution.    *
+     *
      * @param args is the user input
      * @return an UnPrivateCommand to execute
      * @throws EmptyArgumentException if the user input does not conform the expected format

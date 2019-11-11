@@ -2,52 +2,145 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:toc:
+:toc-placement: preamble
+:icons: font
+
+*Contents*
 
 == PROJECT: TravEzy
 
----
+=== Introduction
+_TravEzy_ is a desktop application that allows travellers to plan their trips, managing their expenses and relieving
+their favourite moments. The application aims to revolutionize your travelling experience by simplyifying your travel
+planning process.
 
-== Overview
+image:MainInterface.png[width=800]
 
-AddressBook - Level 3 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+==== Reading the document
+[%header, width=66%, cols="2,10"]
+|===
+^| Formatting | What it means
+^| _Italics_ | Application focused keywords
+^| *bold* | All important information
+^| `Code` | Indicates that the text is a piece of code
+^|[ ]| Optional parameters for a particular command
+^|CAPS| Parameters for a particular command
+^|`lowercase`| Lower case words in a code block denotes user input
+^a|image::bjhoohahaInfoIcon.png[width=60] | Additional useful information
+^a|image::bjhoohahaWarningIcon.png[width=60]| Denotes warning
+^a|image::bjhoohahaLightBulbIcon.png[width=60]| Useful tips or shortcut
+
+|===
+
+=== Components inside _TravEzy_
+
+_Travezy_ is a one-for-all desktop application that consist of the following features:
+
+.The different components inside _TravEzy_ Application
+image:bjhoohahaTravezy.png[width=600]
+
+[width=66%, cols="4,8"]
+|===
+| *AddressBook* | An address book containing all of your contact information.
+| *Achievements* | An achievements page that details all your progress within the application.
+| *Calendar* | A calendar that allows you to add a commitment, holiday, school break or trip.
+| *Diary* | travel diary to capture all your favourite moments.
+| *Financial Tracker* | A financial tracker to keep track of your expenses while travelling.
+| *Itinerary* |  An itinerary to plan and organize your events.
+|===
+
+
+****
+test
+****
+====
+test
+====
+
 
 == Summary of contributions
 
-* *Major enhancement*: generate *statistics* from the 5 different existing features: Address Book, Calendar, Diary, Itinerary and Financial tracker
-** What it does:
-*** It displays statistics of:
-**** The user's contacts from address book.
-** Justification:
-*** This feature allows the user to keep track of:
-**** Contacts from the Address Book
-*** This is also one feature that ties the 5 different features together to better improve the cohesiveness of the product between the different features.
-** Highlights:
-*** This enhancement takes information from 5 different places namely:
-**** AddressBook
-** Credits:
-*** https://www.genuinecoder.com/javafx-scene-switch-change-animation/[Asfal, Genuine Coder] : reused code for fade in and fade out transitions when navgiating between user interface of different features
+Out of the 6 different components of the _TravEzy_ application, I was responsible for the development of the
+*Achievements* and enhancing the *Address Book*.
 
-* *Minor enhancement*: added the ability to tag a Country _e.g. Singapore_ to a contact in the address book
+=== Major enhancement: +
+The achievements component of the _TravEzy_ application. The achievements page generate statistics from the 5
+different existing features: address book, calendar, diary, itinerary and financial tracker.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+==== Navigating around the achivements page:
 
-* *Other contributions*:
+image::AchievementsInterface.png[width=800]
+
+==== What it does:
+Upon navigating to the page, the achievements page generates the statistics for each feature. Thus this allows you to
+keep track of their progress within the application and provides a nice summary for each feature by looking at its
+statistics.
+
+For instance, if an input `delete 2` is entered in the address book, which deletes the 2nd person in the list. The
+achievements page will reflect the following changes:
+
+image::bjhoohahaAchievementChanges.png[width=800]
+
+[NOTE]
+Any recent changes in the other pre-existing feature of _Travezy_ namely: address book, calendar, diary,
+financial tracker and itinerary will update the  Statistics inside the Achievements Page.To find out more what statistics are generated for each feature, you can look
+https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html#statistics[here]. +
+
+====
+By looking at your overall progress, this feature aims to:
+
+* Motivate you to travel more during your free time
+* Provide insights on your travelling habits
+* Provide insights on your expenditure habits
+====
+
+==== Highlights
+The *Achievements* feature is live and up to date to reflect the latest statistics for each feature. To find out
+more what statistics are generated for each feature, you can look
+https://ay1920s1-cs2103t-t17-2.github.io/main/UserGuide.html#statistics[here]
+
+=== Minor enhancement: +
+In the address book component, I added a country field to the person in address book.  +
+
+image::AddressBookInterface.png[width=800]
+
+==== What it does
+When adding a person into the address book, you can specify the person's country. The contact's country will be
+displayed in the _persons list panel_.
+
+==== Justification
+A traveller travelling to many different country would have multiple contacts from different foreign countries.
+A specialized address book that specifies a country field for the added contact can better help to tailor to
+travellers need to better manage their contacts in the address book.
+
+=== Credits
+* https://www.genuinecoder.com/javafx-scene-switch-change-animation/[Asfal, Genuine Coder] : reused code for fade in
+and fade out transitions when navgiating between user interface of different features
+//== Code contributed: [https://github.com[Functional code]] [https://github.com[Test code]]
+//_{give links to collated code files}_
+
+=== Other contributions
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Managed release `v1.3` on GitHub
+** Refactoring:
+*** Refactor _TravEzy_ by moving address book into a new package and reorganize packages (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/53[#53])
+*** Refactor to seperate main window from individual pages and implemented `MainLogic`, `MainModel`, `MainParser` to execute commands in the `MainWindow` (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/169[#169])
+** User Interface enhacements:
+*** Designed the GUI template for _TravEzy_ adapted by other team members (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/83[#83])
+*** Updated the Address Book GUI to match the calendar and new color scheme (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/87[#87])
+** Fixing of Issues:
+*** Fix Ui resizing issues during full screen mode (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/169[#169])
+*** Implemeted saving of `GuiSettings` into `Storage` for all the pages inside _TravEzy_ (Pull request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/169[#169])
+*** Fix Ui resizing issues for Diary Book (Pull Request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/172[#172])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated UML diagrams for _TravEzy_ in the Developer Guide: (Pull Request https://github.com/AY1920S1-CS2103T-T17-2/main/pull/73[#73])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
 *** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
 _{you can add/remove categories in the list above}_
 
@@ -58,9 +151,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=address]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=achievements]
 
 == Contributions to the Developer Guide
 
@@ -72,9 +165,3 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

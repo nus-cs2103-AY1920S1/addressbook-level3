@@ -5,7 +5,10 @@ skinparam arrowColor LOGIC_COLOR_T4
 skinparam classBackgroundColor LOGIC_COLOR
 
 namespace Logic {
+Interface GuiSettingsLogic <<Interface>>
 Interface Logic <<Interface>>
+Interface MainLogic <<Interface>>
+class MainLogicManager
 Class LogicManager
 namespace Commands {
 Class CommandResult
@@ -36,51 +39,63 @@ interface AchievementsLogic <<interface>>
 }
 
 namespace Address {
-namespace Model {
-}
 namespace Logic {
 Interface AddressBookLogic <<interface>>
 }
 }
 
 namespace Calendar {
-namespace Parser {
+namespace Logic {
+class CalendarLogic
 }
 }
 
-namespace diaryFeature {
-namespace diaryParser {
+namespace DiaryFeature {
+namespace Logic {
+class DiaryLogic
 }
 }
 
 namespace FinancialTracker {
-namespace Parser {
+namespace Logic {
+class FinancialTrackerLogic
 }
 }
 
 namespace Itinerary {
-namespace Parser {
+namespace Logic {
+class ItineraryLogic
 }
 }
 
-Interface ObservableList <<Interface>>
 Class HiddenOutside #FFFFFF
 
 ''''''''''LOGIC''''''''''
-HiddenOutside ..> Logic.Logic
+HiddenOutside .down.> Logic.Logic
 
 ''''''''''Logic
+Logic.Logic --up-|> Logic.GuiSettingsLogic
 Logic.Logic .left.> Storage
 Logic.Logic .down.> Address.Logic.AddressBookLogic :gets >
 Logic.Logic .down.> Achievements.Logic.AchievementsLogic :gets >
+Logic.Logic .down.> Calendar.Logic.CalendarLogic :gets >
+Logic.Logic .down.> FinancialTracker.Logic.FinancialTrackerLogic :gets >
+Logic.Logic .down.> DiaryFeature.Logic.DiaryLogic :gets >
+Logic.Logic .down.> Itinerary.Logic.ItineraryLogic :gets >
 
 ''''''''''LogicManager
 Logic.LogicManager .up.|> Logic.Logic
-Logic.LogicManager ..> Model
-Logic.LogicManager o-right-> "1" Storage
-Logic.LogicManager o-right-> "1" Model
-Logic.LogicManager *-down-> "1" Address.Logic.AddressBookLogic
-Logic.LogicManager *-down-> "1" Achievements.Logic.AchievementsLogic
+Logic.LogicManager o-right- "1" Storage
+Logic.LogicManager o-left- "1" Model
+Logic.LogicManager o-down- "1" Logic.MainLogic
+Logic.LogicManager o-down- "1" Achievements.Logic.AchievementsLogic
+Logic.LogicManager o-down- "1" Address.Logic.AddressBookLogic
+Logic.LogicManager o-down- "1" Calendar.Logic.CalendarLogic
+Logic.LogicManager o-down- "1" DiaryFeature.Logic.DiaryLogic
+Logic.LogicManager o-down- "1" FinancialTracker.Logic.FinancialTrackerLogic
+Logic.LogicManager o-down- "1" Itinerary.Logic.ItineraryLogic
+
+Logic.MainLogicManager .up.|> Logic.MainLogic
 
 ''''''''''Command
 Logic.Commands.Command .up.> Logic.Commands.CommandResult
@@ -98,42 +113,65 @@ Logic.Parser.ParserUtil .down.>Logic.Parser.Prefix
 Logic.Parser.ArgumentTokenizer .left.> Logic.Parser.ArgumentMultimap
 Logic.Parser.ArgumentTokenizer .down.> Logic.Parser.Prefix
 
-'''''''''''''''''''''''''
+''''''''''''''''''''
 
 ''''''''''ACHIEVEMENTS''''''''''
 
 ''''''''''AchievementsLogic
 Achievements.Logic.AchievementsLogic .up.> Logic.Commands.CommandResult
 
-''''''''''AchievementsLogicManager
-Achievements.Logic.AchievementsLogicManager .up.|> Achievements.Logic.AchievementsLogic
+''''''''''''''''''''
 
-''''''''''''''''''''''''''''''''
-
-''''''''''ADDRESS''''''''''
+''''''''''ADDRESS'''''''''''''''
 
 ''''''''''AddressBookLogic
-Address.Logic.AddressBookLogic .up.> Storage
 Address.Logic.AddressBookLogic .up.> Logic.Commands.CommandResult
-Address.Logic.AddressBookLogic .right.> ObservableList
-Address.Logic.AddressBookLogic .right.> Address.Model
 
-''''''''''AddressBookLogicManager
-Address.Logic.AddressBookLogicManager .up.|> Address.Logic.AddressBookLogic
+''''''''''''''''''''
+
+''''''''''CALENDAR''''''''''
+
+''''''''''CalendarLogic
+Calendar.Logic.CalendarLogic .up.> Logic.Commands.CommandResult
+
+''''''''''''''''''''
+
+''''''''''DIARY''''''''''
+
+''''''''''DiaryLogic
+DiaryFeature.Logic.DiaryLogic .up.> Logic.Commands.CommandResult
+
+'''''''''''''''''''''''''''
+
+
+''''''''''FinancialTracker''''''''''
+
+''''''''''FinancialTracker
+FinancialTracker.Logic.FinancialTrackerLogic .up.> Logic.Commands.CommandResult
+
+'''''''''''''''''''''''''''
+
+''''''''''Itinerary''''''''''
+
+''''''''''Itinerary
+Itinerary.Logic.ItineraryLogic .up.> Logic.Commands.CommandResult
 
 '''''''''''''''''''''''''''
 
 ''''''''''LAYOUT''''''''''
-Logic.LogicManager .[hidden]left.> Storage
+Logic .[hidden]up.> HiddenOutside
+Logic.LogicManager .[hidden]right.> Storage
 Logic.LogicManager .[hidden]down.> Achievements
 Logic.LogicManager .[hidden]down.> Address
 Logic.LogicManager .[hidden]down.> Logic.Commands
 Logic.Commands.XYZCommand .[hidden]down.> Achievements
 Logic.Commands.XYZCommand .[hidden]down.> Address
 Logic.Commands.XYZCommand .[hidden]down.> Calendar
-Logic.Commands.XYZCommand .[hidden]down.> diaryFeature
-Logic.Commands.XYZCommand .[hidden]down.> FinancialTracker
-Logic.Commands.XYZCommand .[hidden]down.> Itinerary
+Logic.Commands.XYZCommand .[hidden]down.> DiaryFeature.Logic.DiaryLogic
+Logic.Commands.XYZCommand .[hidden]down.> FinancialTracker.Logic.FinancialTrackerLogic
+Logic.Commands.XYZCommand .[hidden]down.> Itinerary.Logic.ItineraryLogic
 Logic.Commands .[hidden]left.> Logic.Parser
+Logic.Parser .[hidden]left.> Logic.MainLogic
+Logic.Commands .[hidden]down.> Logic.Logic
 ''''''''''''''''''''''''''
 @enduml

@@ -40,7 +40,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
     private FinancialTrackerLogic financialTrackerLogic;
     private CountriesDropdown countriesDropdown;
     private CodeWindow codeWindow;
-    private HelpWindow helpMenuWindow;
 
     @FXML
     private VBox financialTrackerPane;
@@ -59,7 +58,6 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
 
     public FinancialTrackerPage(FinancialTrackerLogic logic) {
         super(FXML);
-        this.helpMenuWindow = new HelpWindow();
         this.codeWindow = new CodeWindow();
         this.financialTrackerLogic = logic;
         this.helpWindow = new FinancialTrackerHelpWindow();
@@ -138,21 +136,10 @@ public class FinancialTrackerPage extends UiPart<VBox> implements Page {
         }
     }
 
-    /**
-     * Opens the help window or focuses on it if it's already opened.
-     */
-    @FXML
-    public void handleMenuHelp() {
-        if (!helpMenuWindow.isShowing()) {
-            helpMenuWindow.show();
-        } else {
-            helpMenuWindow.focus();
-        }
-    }
-
     public void closeResources() {
-        helpWindow.hide();
-        codeWindow.hide();
+        // implemented auto close, thus these 2 lines is not needed
+        // helpWindow.hide();
+        // codeWindow.hide();
     }
 
     /**

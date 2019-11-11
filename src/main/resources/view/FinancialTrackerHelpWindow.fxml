@@ -22,11 +22,11 @@
   </icons>
   <scene>
     <Scene>
-         <VBox prefHeight="417.0" prefWidth="581.0">
+         <VBox prefHeight="494.0" prefWidth="581.0">
             <children>
                <HBox alignment="CENTER">
                   <children>
-                     <Label fx:id="helpMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="120.0" prefWidth="458.0" text="Label" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
+                     <Label fx:id="helpMessage" alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="458.0" text="Label" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                         <HBox.margin>
                            <Insets right="5.0" />
                         </HBox.margin>
@@ -115,8 +115,8 @@
                                        </ToolBar>
                                        <ToolBar prefHeight="25.0" prefWidth="582.0">
                                           <items>
-                                             <Label prefHeight="20.0" prefWidth="462.0" text="Edit expense: edit INDEX a/AMOUNT d/DESCRIPTION t/TYPE [date/DATE] [time/TIME]" wrapText="true" />
-                                             <Region prefHeight="0.0" prefWidth="13.0" />
+                                             <Label prefHeight="20.0" prefWidth="475.0" text="Edit expense: edit INDEX [a/AMOUNT] [d/DESCRIPTION] [t/TYPE] [date/DATE] [time/TIME]" wrapText="true" />
+                                             <Region prefHeight="27.0" prefWidth="0.0" />
                                              <Button fx:id="editCommand" mnemonicParsing="false" onAction="#copyEdit" text="Copy" />
                                           </items>
                                        </ToolBar>

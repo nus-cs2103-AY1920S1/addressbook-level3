@@ -80,9 +80,9 @@ public class Model {
     /**
      * Edits an expense from the financial tracker.
      */
-    public void setExpense(Expense expenseToEdit, Expense editedExpense) throws CommandException {
+    public void setExpense(int index, Expense expenseToEdit, Expense editedExpense) throws CommandException {
         CollectionUtil.requireAllNonNull(expenseToEdit, editedExpense);
-        financialTracker.setExpense(expenseToEdit, editedExpense);
+        financialTracker.setExpense(index, expenseToEdit, editedExpense);
     }
 
     public FinancialTracker getFinancialTracker() {

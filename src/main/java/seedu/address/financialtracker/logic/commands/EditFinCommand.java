@@ -27,7 +27,7 @@ public class EditFinCommand extends Command<Model> {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the expense identified "
-            + "by the index number used in the displayed expense list. "
+            + "by the index number used in the displayed expense list.\n"
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + CliSyntax.PREFIX_AMOUNT + "AMOUNT] "
@@ -74,7 +74,7 @@ public class EditFinCommand extends Command<Model> {
             throw new CommandException(MESSAGE_DUPLICATE);
         }
 
-        model.setExpense(expenseToEdit, editedExpense);
+        model.setExpense(index.getZeroBased(), expenseToEdit, editedExpense);
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
     }
 

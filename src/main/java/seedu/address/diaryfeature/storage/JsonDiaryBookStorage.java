@@ -13,38 +13,36 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 
 public class JsonDiaryBookStorage implements DiaryBookStorage {
     private static final Logger logger = LogsCenter.getLogger(seedu.address.diaryfeature.storage.JsonDiaryBookStorage.class);
-        private Path filePath;
+    private Path filePath;
 
-        public JsonDiaryBookStorage(Path filePath) {
-            this.filePath = filePath;
-        }
+    public JsonDiaryBookStorage(Path filePath) {
+        this.filePath = filePath;
+    }
 
-        public Path getDiaryBookFilePath() {
-            return filePath;
-        }
+    public Path getDiaryBookFilePath() {
+        return filePath;
+    }
 
-        @Override
-        public void saveDiaryBook(DiaryBook diaryBook) throws IOException {
-            saveDiaryBook(diaryBook, filePath);
-        }
+    @Override
+    public void saveDiaryBook(DiaryBook diaryBook) throws IOException {
+        saveDiaryBook(diaryBook, filePath);
+    }
 
-        /**
-         *
-         * @param filePath location of the data. Cannot be null.
-         */
-        public void saveDiaryBook(DiaryBook diaryBook, Path filePath) throws IOException {
-            requireNonNull(diaryBook);
-            requireNonNull(filePath);
+    /**
+     * @param filePath location of the data. Cannot be null.
+     */
+    public void saveDiaryBook(DiaryBook diaryBook, Path filePath) throws IOException {
+        requireNonNull(diaryBook);
+        requireNonNull(filePath);
 
-            FileUtil.createIfMissing(filePath);
-            JsonUtil.saveJsonFile(new JsonSerializableDiaryBook(diaryBook), filePath);
-        }
-
-
+        FileUtil.createIfMissing(filePath);
+        JsonUtil.saveJsonFile(new JsonSerializableDiaryBook(diaryBook), filePath);
+    }
 
 
     public Optional<DiaryBook> readDiaryBook() throws DataConversionException {
@@ -52,7 +50,6 @@ public class JsonDiaryBookStorage implements DiaryBookStorage {
     }
 
     /**
-     *
      * @param filePath location of the data. Cannot be null.
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -61,7 +58,7 @@ public class JsonDiaryBookStorage implements DiaryBookStorage {
 
         Optional<JsonSerializableDiaryBook> jsonDiaryBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableDiaryBook.class);
-        if (!jsonDiaryBook.isPresent()) {
+        if (jsonDiaryBook.isEmpty()) {
             logger.info("using empty book");
             return Optional.empty();
         }
@@ -70,7 +67,7 @@ public class JsonDiaryBookStorage implements DiaryBookStorage {
             logger.info("using written book");
             return Optional.of(jsonDiaryBook.get().toModelType());
 
-        } catch (DiaryEntryParseException error) {
+        } catch (ParseException error) {
             logger.info("Illegal values found in " + filePath + ": " + error);
             throw new DataConversionException(error);
         }

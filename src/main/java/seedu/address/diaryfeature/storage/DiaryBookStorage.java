@@ -20,6 +20,7 @@ public interface DiaryBookStorage {
     void saveDiaryBook(DiaryBook diaryBook) throws IOException;
 
     /**
+     *
      */
     void saveDiaryBook(DiaryBook diaryBook, Path filePath) throws IOException;
 

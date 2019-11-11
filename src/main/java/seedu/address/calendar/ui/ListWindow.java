@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import seedu.address.calendar.commands.ListCommand;
+import seedu.address.calendar.logic.commands.ListCommand;
 import seedu.address.ui.PageManager;
 import seedu.address.ui.UiPart;
 

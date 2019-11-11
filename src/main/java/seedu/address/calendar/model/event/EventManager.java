@@ -322,7 +322,11 @@ public class EventManager implements EventViewer {
     public boolean isAvailable(EventQuery eventQuery) {
         Event placeHolderEvent = Event.getEventPlaceHolder(eventQuery);
         boolean hasNoEventsPlanned = !engagedSchedule.hasCollision(placeHolderEvent);
-        boolean hasVacation = vacationSchedule.hasCollision(placeHolderEvent);
+        List<Event> availableSlots = vacationSchedule.getCollisions(eventQuery);
+        Stream<EventQuery> availableConstrainedSlots = getConstrainedSlots(availableSlots, eventQuery).stream();
+        Deque<EventQuery> availableBlocks = findBlocks(availableConstrainedSlots);
+        boolean hasVacation = availableBlocks.stream()
+                .anyMatch(processedEventQuery -> processedEventQuery.compareTo(eventQuery) == 0);
         return hasNoEventsPlanned && hasVacation;
     }
 
@@ -363,6 +367,12 @@ public class EventManager implements EventViewer {
                 .trim();
     }
 
+    /**
+     * Suggests blocks of time when the user can travel.
+     *
+     * @param eventQuery The relevant period of time
+     * @return Possible blocks of time when the user can travel, if any
+     */
     private Stream<EventQuery> suggestBlocks(EventQuery eventQuery) {
         List<Event> availableSlots = vacationSchedule.getCollisions(eventQuery);
         Stream<EventQuery> availableConstrainedSlots = getConstrainedSlots(availableSlots, eventQuery).stream();
@@ -375,6 +385,13 @@ public class EventManager implements EventViewer {
         return findSuitableBlocks(availableBlocks, engagedBlocks).stream();
     }
 
+    /**
+     * Gets the relevant blocks of time.
+     *
+     * @param eventList List of events which happen during the relevant period of time
+     * @param eventQuery The relevant period of time
+     * @return Relevant blocks of time
+     */
     private List<EventQuery> getConstrainedSlots(List<Event> eventList, EventQuery eventQuery) {
         List<EventQuery> constrainedEventList = new LinkedList<>();
         Date earliestStartDate = eventQuery.getStart();
