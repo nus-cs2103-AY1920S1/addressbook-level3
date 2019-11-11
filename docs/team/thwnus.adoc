@@ -1,7 +1,8 @@
-= Tee Hao Wei - Project Portfolio
+= Tee Hao Wei — Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:repoURL: https://github.com/AY1920S1-CS2103T-W13-4/main
 
 == PROJECT: Budget Buddy
 
@@ -15,7 +16,7 @@ Budget Buddy benefits users by allowing them to know what they are spending on, 
 
 Budget Buddy is based on the AddressBook-Level3 application by SE-EDU, and currently consists of about 15 thousand lines of code.
 
-My main contributions are the scripting engine, import and export feature and alias feature, as well as managing releases and integration of contributions from other team members.
+My main contributions are the scripting engine, as well as managing releases and integrating contributions from other team members.
 
 == Summary of contributions
 
@@ -23,32 +24,21 @@ My main contributions are the scripting engine, import and export feature and al
 | This section summarises the contributions I made to Budget Buddy.
 |===
 
-* *Major enhancement*: added a scripting engine and library
+* *Major enhancement*: added a scripting engine and library, as well as script bindings for accounts, transactions and loans
 ** What: This feature provides the user the ability to evaluate arbitrary scripts which have full access to the data and user interface of the application, and save these scripts in a library for convenient reuse.
 ** Why: This feature allows the user to perform complex operations that may be inconvenient or impossible to do through the CLI, and extend the application with new commands and features on their own, without having to modify the application's source code directly.
-** Highlights: This feature required thought to provide a ergonomic interface to allow scripts to do common operations easily, without restricting scripts from doing more complex operations.
+** Highlights: This feature required thought to provide a ergonomic scripting interface to allow scripts to do common operations easily, without restricting scripts from doing more complex operations.
 ** Credits: This feature is implemented using the Nashorn JavaScript engine, bundled with Java 11.
 
-* *Major enhancement*: added the ability to import and export transactions
-** What: This feature provides the user the ability to import and export transactions.
-** Why: This feature allows the user to import transactions exported from their bank transaction history and export transactions for further manipulation in an external program, such as Google Sheets or Excel.
-** Highlights: This feature required retrieving exports from various banks and writing parsers for each of their formats.
+* *Minor enhancement*: enhanced the command result mechanism to allow continuations, such as showing a file picker and performing actions after that; see {repoURL}/pull/170[PR #170].
 
-* *Minor enhancement*: added a command alias feature to allow users to create shorthands
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]]
+* *Code contributed*: See the link:++https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=thwnus&tabOpen=true&tabType=authorship&tabAuthor=thwnus&tabRepo=AY1920S1-CS2103T-W13-4%2Fmain[master]++[RepoSense report here].
 
 * *Other contributions*:
 ** Project management:
-*** Managed releases `v1.1` to `v1.3` (4 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme; see PRs https://github.com[#33], https://github.com[#34]
-*** Wrote additional tests for existing features to increase coverage from 88% to 92%; see PRs https://github.com[#36], https://github.com[#38]
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide; see PR https://github.com[#14]
+*** Managed releases v1.1 to v1.4 (4 releases) on GitHub
 ** Community:
-*** Reviewed PRs (with non-trivial comments) https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Rebased PRs #nn, #nn, #nn
+*** Helped to rebase and merge PRs, many with non-trivial merge conflicts, including PRs {repoURL}/pull/55[#55], {repoURL}/pull/66[#66], {repoURL}/pull/85[#85], {repoURL}/pull/157[#157], and {repoURL}/pull/162[#162]
 ** Tools:
 *** Integrated Netlify, Coveralls and Codacy to the team repository
 
@@ -58,19 +48,23 @@ My main contributions are the scripting engine, import and export feature and al
 | This section includes the parts of the user guide that I wrote, to demonstrate my ability to write end-user facing documentation.
 |===
 
-include::../UserGuide.adoc[tag=importexport]
-
 include::../UserGuide.adoc[tag=scripting]
 
-include::../UserGuide.adoc[tag=aliases]
+|===
+| The following is part of the Script API guide that I wrote, to demonstrate my ability to write end-user facing documentation for power users. https://ay1920s1-cs2103t-w13-4.github.io/main/UserGuide.html#scripting-api[See here for the full script API guide.]
+|===
+
+include::../UserGuide.adoc[tag=scriptingapi,leveloffset=+1]
+
+include::../UserGuide.adoc[tag=scriptingapi2,leveloffset=+1]
+
+include::../UserGuide.adoc[tag=scriptingapi3,leveloffset=+1]
 
 == Contributions to the Developer Guide
 
 |===
-| This section includes the parts of the user guide that I wrote, to demonstrate my ability to write technical documentation and the technical depth of my contributions to the project.
+| This section includes the parts of the developer guide that I wrote, to demonstrate my ability to write technical documentation and the technical depth of my contributions to the project.
 |===
-
-include::../DeveloperGuide.adoc[tag=importexport]
 
 include::../DeveloperGuide.adoc[tag=scripts]
 

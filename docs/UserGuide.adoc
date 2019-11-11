@@ -980,6 +980,7 @@ Displays detailed help for a specific command.
 
 Format: `help <command word>`
 
+// tag::scriptingapi[]
 == Scripting API
 
 The Nashorn scripting engine is used. All features and Java class access of the Nashorn engine are available. See the https://docs.oracle.com/en/java/javase/11/nashorn/nashorn-java-api.html[Nashorn documentation] for more details.
@@ -988,6 +989,8 @@ Budget Buddy defines a few global variables and functions to ease script writing
 
 NOTE: Due to the nature of JavaScript, scripts may modify these variables and functions. To reset the script
 environment, use <<script-reset,the `script reset` command>>.
+
+// end::scriptingapi[]
 
 === Global variables
 
@@ -1005,6 +1008,8 @@ To discourage use of `bb`, the API is intentionally left undocumented. You may
 https://github.com/AY1920S1-CS2103T-W13-4/main/blob/master/src/main/java/budgetbuddy/model/ModelManager.java[refer to the Java source code]
 if you wish to use `bb`.
 ====
+
+// tag::scriptingapi2[]
 
 === Functions
 
@@ -1030,6 +1035,8 @@ Optional arguments should be given as a single JavaScript object. For example, f
 ****
 
 ==== Account functions
+
+// end::scriptingapi2[]
 
 * `refreshAccountView()`
 +
@@ -1085,6 +1092,8 @@ Parameters:
 
 '''
 
+// tag::scriptingapi3[]
+
 * `addAccount(name, description) -> Account`
 +
 Adds an account with the given name and description.
@@ -1105,6 +1114,8 @@ Parameters:
 ** `oldAccount`: the `Account` to morph
 ** The remaining parameters are as in `addAccount`.
 ** If a parameter is not specified, then the associated property is not changed.
+
+// end::scriptingapi3[]
 
 '''
 
