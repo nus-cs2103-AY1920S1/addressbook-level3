@@ -701,7 +701,7 @@ The shifts command searches for duty shifts that belong to the doctor based on t
 
 Case 2: `shifts`
 
-The shifts behaves similarly to `shifts ReferenceId` when it does not take in any other arguments. Instead, it automatically executes with the predicate `EventContainsApprovedStatusPredicate`. updateFilteredEventList() is called and the entire list of the upcoming duty shifts is shown to the user.
+The shifts command behaves similarly to `shifts ReferenceId` when it does not take in any other arguments. Instead, it automatically executes with the predicate `EventContainsApprovedStatusPredicate`. updateFilteredEventList() is called and the entire list of the upcoming duty shifts is shown to the user.
 
 // end::shift[]
 
