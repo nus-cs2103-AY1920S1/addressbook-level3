@@ -1436,7 +1436,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: A new diary named "Yummy Food" is added to the list. Details of the added diary is shown in the result display.
 .. Test case: `add diary n/ Yummy Food` (A repeat of the previous test case) +
    Expected: No diary is added. Error message is shown in the result display. Status bar remains the same.
-.. Other incorrect delete commands to try: `add diary`, `add diary n/ <name>` (where <name> already exists in the diary list) +
+.. Other incorrect add commands to try: `add diary`, `add diary n/ <name>` (where <name> already exists in the diary list) +
 Expected: Similar error messages to previous.
 
 === Deleting a diary
