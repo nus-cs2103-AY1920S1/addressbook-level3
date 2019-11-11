@@ -43,12 +43,14 @@ public class AutoCompletePanelManager implements UiObserver, DataSender {
     }
 
     public void setSelected(int index) {
+
         if (index > getTotalItems() - 1) {
-            index = getTotalItems() - 1;
+            this.selectedIndex = getTotalItems() - 1;
         } else if (index < 0) {
-            index = 0;
+            this.selectedIndex = 0;
+        } else {
+            this.selectedIndex = index;
         }
-        this.selectedIndex = index;
         autoCompletePanel.getAutoCompleteWordListView().getSelectionModel().select(selectedIndex);
         autoCompletePanel.getAutoCompleteWordListView().scrollTo(selectedIndex);
     }

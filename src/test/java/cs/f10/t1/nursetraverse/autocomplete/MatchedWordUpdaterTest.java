@@ -14,7 +14,7 @@ class MatchedWordUpdaterTest {
             new MatchedWordUpdater(typicalAutoCompleteStorage, new AutoCompleteListHandler(typicalAutoCompleteStorage));
 
     @Test
-    void findMatchedWords_wrongCommandWord_onlyObjectWordMatches() {
+    public void findMatchedWords_wrongCommandWord_onlyObjectWordMatches() {
         LinkedList<String> testParsedUserinputList = new LinkedList<>();
         testParsedUserinputList.add("pat-");
         testParsedUserinputList.add("wrong input");
@@ -23,7 +23,7 @@ class MatchedWordUpdaterTest {
     }
 
     @Test
-    void findMatchedWords_emptyProvidedList_emptyMatchedList() {
+    public void findMatchedWords_emptyProvidedList_emptyMatchedList() {
         LinkedList<String> testParsedUserinputList = new LinkedList<>();
         LinkedList<AutoCompleteWord> matchedWords = matchedWordUpdater.findMatchedWords(testParsedUserinputList);
         assertEquals(0, matchedWords.size());
