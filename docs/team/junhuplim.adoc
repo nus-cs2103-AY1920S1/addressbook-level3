@@ -29,13 +29,17 @@ coaches of timing-based performance sports to help take and keep track of attend
 and performance of their teams. Other main features of Athletick include viewing of the training calendar
 and performance graph.
 
+This is what users see when they first launch Athletick:
+
+.The graphical user interface for Athletick.
+image::athletick.png[width="400"]
+
 My role was to design and implement the code for the `undo` and `redo` features.
 The following sections illustrate these enhancements in more detail, as
 well as the relevant documentation I have added to the user and developer guides
 in relation to these enhancements.
 
 Note the following symbols and formatting used in this document:
-
 
 NOTE: This symbol indicates important information
 
