@@ -1,0 +1,17 @@
+{
+  "expenses": [ {
+    "name" : "movie tickets",
+    "description" : "tickets to joker",
+    "amount" : "10.00",
+    "created" : "31/12/2019 1234",
+    "tagged" : [ "leisure" ],
+    "archiveName" : ""
+  }, {
+    "name" : "movie tickets",
+    "description" : "tickets to joker",
+    "amount" : "10.00",
+    "created" : "31/12/2019 1234",
+    "tagged" : [ "leisure" ],
+    "archiveName" : ""
+  } ]
+}

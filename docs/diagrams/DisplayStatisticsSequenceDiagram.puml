@@ -1,0 +1,50 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":StatisticsFormat" as StatisticsFormat MODEL_COLOR
+end box
+
+box Chart UI_COLOR_T1
+participant ":ChartBox" as ChartBox UI_COLOR_T3
+participant ":Chart" as Chart UI_COLOR_T3
+participant ":StatisticsGenerator" as StatisticsGenerator UI_COLOR_T3
+participant ":JavaFxChart" as JavaFxChart UI_COLOR_T3
+end box
+
+box UI UI_COLOR_T3
+participant ":UI" as Ui UI_COLOR_T1
+
+[-> Model : setStatisticsFormat(newFormat)
+activate Model
+Model -> StatisticsFormat : setValue(newFormat)
+deactivate Model
+
+activate StatisticsFormat
+StatisticsFormat -> ChartBox : notifyListeners(newFormat)
+deactivate StatisticsFormat
+
+activate ChartBox
+create Chart
+ChartBox -> Chart: new
+deactivate ChartBox
+
+activate Chart
+Chart -> StatisticsGenerator :generate(expenseList)
+deactivate Chart
+
+activate StatisticsGenerator
+StatisticsGenerator --> Chart : ExpenseXYZStatistic
+deactivate StatisticsGenerator
+
+activate Chart
+Chart --> JavaFxChart : display(formattedStatistic)
+deactivate Chart
+
+activate ChartBox
+ChartBox --> Ui : render(chart)
+deactivate ChartBox
+
+
+@enduml

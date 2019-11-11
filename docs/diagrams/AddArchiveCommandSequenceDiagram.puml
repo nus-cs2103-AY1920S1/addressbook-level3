@@ -1,0 +1,104 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":BillboardParser" as BillboardParser LOGIC_COLOR
+participant ":ArchiveCommandParser" as ArchiveCommandParser LOGIC_COLOR
+participant ":AddArchiveCommandParser" as AddArchiveCommandParser LOGIC_COLOR
+participant "a:AddArchiveCommand" as AddArchiveCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ArchiveWrapper" as ArchiveWrapper MODEL_COLOR
+participant ":Billboard" as Billboard MODEL_COLOR
+end box
+[-> LogicManager : execute(archive add 3 arc/archiveName)
+activate LogicManager
+
+LogicManager -> BillboardParser : parseCommand(archive add 3 arc/archiveName)
+activate BillboardParser
+
+BillboardParser -> ArchiveCommandParser : parse(add 3 arc/archiveName)
+activate ArchiveCommandParser
+
+ArchiveCommandParser -> AddArchiveCommandParser : parse(3 arc/archiveName)
+activate AddArchiveCommandParser
+
+create AddArchiveCommand
+AddArchiveCommandParser -> AddArchiveCommand : AddArchiveCommand(archiveName, 3)
+activate AddArchiveCommand
+
+AddArchiveCommand --> AddArchiveCommandParser : a
+deactivate AddArchiveCommand
+
+AddArchiveCommandParser --> ArchiveCommandParser : a
+deactivate AddArchiveCommandParser
+
+ArchiveCommandParser --> BillboardParser : a
+deactivate ArchiveCommandParser
+
+BillboardParser --> LogicManager : a
+deactivate BillboardParser
+
+LogicManager -> AddArchiveCommand : execute()
+activate AddArchiveCommand
+
+AddArchiveCommand -> Model : hasArchive(archiveName)
+activate Model
+
+Model -> ArchiveWrapper : hasArchive(archiveName)
+activate ArchiveWrapper
+
+ArchiveWrapper --> Model : hasArchive
+deactivate ArchiveWrapper
+
+Model --> AddArchiveCommand : hasArchive
+deactivate Model
+
+group !hasArchive
+    AddArchiveCommand -> Model : AddArchive(newArchive)
+    activate Model
+
+    Model -> ArchiveWrapper : AddArchive(newArchive)
+    activate ArchiveWrapper
+
+    ArchiveWrapper --> Model
+    deactivate ArchiveWrapper
+
+    Model --> AddArchiveCommand
+    deactivate Model
+
+AddArchiveCommand -> Model : deleteExpense(expenseTobeArchived)
+activate Model
+
+Model -> Billboard : deleteExpense(expenseTobeArchived)
+activate Billboard
+
+Billboard --> Model
+deactivate Billboard
+
+Model --> AddArchiveCommand
+deactivate Model
+
+AddArchiveCommand -> Model : AddArchiveExpense(archiveName, expenseTobeArchived)
+activate Model
+
+Model -> ArchiveWrapper : AddArchiveExpense(archiveName, expenseTobeArchived)
+activate ArchiveWrapper
+
+ArchiveWrapper --> Model
+deactivate ArchiveWrapper
+
+Model --> AddArchiveCommand
+deactivate Model
+
+AddArchiveCommand --> LogicManager : result
+deactivate AddArchiveCommand
+AddArchiveCommand -[hidden]-> LogicManager : result
+destroy AddArchiveCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

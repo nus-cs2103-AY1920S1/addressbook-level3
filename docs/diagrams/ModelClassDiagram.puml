@@ -5,52 +5,72 @@ skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
 Package Model <<Rectangle>>{
-Interface ReadOnlyAddressBook <<Interface>>
+Interface ReadOnlyBillboard <<Interface>>
+Interface ReadOnlyArchiveWrapper <<Interface>>
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
-Class AddressBook
-Class ReadOnlyAddressBook
+Interface ReadOnlyRecurrenceList <<Interface>>
+Class Billboard
+Class ReadOnlyBillboard
+Class ArchiveWrapper
 Class Model
 Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
+Class RecurrenceList
 
-Package Person {
-Class Person
-Class Address
-Class Email
+Package Expense {
+Class Expense
 Class Name
-Class Phone
-Class UniquePersonList
+Class Description
+Class Amount
+Class ExpenseList
+Class Archive
+Class Recurrence
+Class Date
 }
 
 Package Tag {
 Class Tag
+Class UniqueTagList
+Class TagCountManager
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-AddressBook .up.|> ReadOnlyAddressBook
+Billboard .up.|> ReadOnlyBillboard
+ArchiveWrapper .up.|> ReadOnlyArchiveWrapper
+RecurrenceList .up.|> ReadOnlyRecurrenceList
 
 ModelManager .up.|> Model
 Model .right.> ObservableList
-ModelManager o--> "1" AddressBook
+ModelManager o--> "1" Billboard
+ModelManager o--> "1" ArchiveWrapper
+ModelManager o--> "1" RecurrenceList
 ModelManager o-left-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList o--> "*" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+Billboard *--> "1" ExpenseList
+Billboard *--> "1" UniqueTagList
+Billboard *--> "1" TagCountManager
+UniqueTagList *--> "*" Tag
+TagCountManager o--> "*" Tag
+ArchiveWrapper *--> "*" Archive
+RecurrenceList *--> "*" Recurrence
+ExpenseList o--> "*" Expense
+Archive o--> "*" Expense
+Recurrence o--> "*" Expense
+ExpenseList <|-right Archive
+ExpenseList <|-right Recurrence
+Expense *--> Name
+Expense *--> Amount
+Expense *--> Description
+Expense *--> Date
+Expense o--> "*" Tag
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
+Description -[hidden]right-> Amount
 
-ModelManager -->"1" Person : filtered list
+ModelManager ->"1..*" Expense : filtered list
 @enduml

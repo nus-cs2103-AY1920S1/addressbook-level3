@@ -1,4 +1,4 @@
-= AddressBook Level 3 - Developer Guide
+= Billboard - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level3/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F12-4`      Since: `Sep 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -79,7 +79,7 @@ image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The UI consists of a `MainWindow` that is made up of parts e.g. CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter`, `ChartBox` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
@@ -87,6 +87,8 @@ The `UI` component,
 
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
+* Has a specialized `Chart` component that deals specifically with the generation and rendering of charts onto the `MainWindow`.
+
 
 [[Design-Logic]]
 === Logic component
@@ -98,7 +100,7 @@ image::LogicClassDiagram.png[]
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
-.  `Logic` uses the `AddressBookParser` class to parse the user command.
+.  `Logic` uses the `BillboardParser` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
 .  The command execution can affect the `Model` (e.g. adding a person).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
@@ -122,12 +124,13 @@ image::ModelClassDiagram.png[]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the Billboard and ArchiveWrapper data, i.e current expenses and archived past expenses.
+* stores `UniqueTagList` and `TagCountManager` to track tags.
+* exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Billboard`, which `Expense` can reference. This would allow `Billboard` to only require one `Tag` object per unique `Tag`, instead of each `Expense` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:BetterModelClassDiagram.png[]
 
@@ -142,72 +145,98 @@ image::StorageClassDiagram.png[]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in json format and read it back.
+* can save the Billboard data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.billboardbook.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
+=== Undo/Redo feature
+==== Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+The undo/redo mechanism is facilitated by `VersionedBillboard`.
+
+If you successfully execute a command that will change the Billboard state,
+the current Billboard state will automatically commit to the `VersionedBillboard`.
+The current state will be store into the `stateList`,
+and a state pointer `currentStatePointer` will be maintained.
+
+ List of command that will commit to VersionedBillboard:
+- AddArchiveCommand
+- AddCommand
+- AddTagCommand
+- ClearCommand
+- DeleteArchiveCommand
+- DeleteCommand
+- RevertArchiveCommand
+- EditCommand
+- RemoveTagCommand
+
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedBillboard#commit()` -- Saves the current billboard state in its history.
+* `VersionedBillboard#undo()` -- Restores the previous billboard state from its history.
+* `VersionedBillboard#redo()` -- Restores a previously undone billboard state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations is exposed in the `VersionedBillboard` class as `VersionedBillboard#commit()`., `VersionedBillboard#undo()` and `VersionedBillboard#redo()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedBillboard` will be initialized with the initial billboard state, and the `currentStatePointer` pointing to that single billboard state.
 
+.Initial state of VersionedBillboard
 image::UndoRedoState0.png[]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th expense in the billboard. The `delete` command calls `VersionedBillboard#commit()`, causing the modified state of the billboard after the `delete 5` command executes to be saved in the `stateList`, and the `statePointer` is shifted to the newly inserted billboard state.
 
+.State of VersionedBillboard after "delete 5" command
 image::UndoRedoState1.png[]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/buy ...` to add a new person. The `add` command also calls `Model#commit()`, causing another modified billboard state to be saved into the `stateList`.
 
+.State of VersionedBillboard after "add n/buy..." command
 image::UndoRedoState2.png[]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `VersionedBillboard#commit()`, so the billboard state will not be saved into the `stateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `VersionedBillboard#undo()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous billboard state, and restores the billboard to that state.
 
+.State of VersionedBillboard after "undo" command
 image::UndoRedoState3.png[]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is pointing to the initial billboard state,
+then there are no previous billboard states to restore.
+The `undo` command uses `VersionedBillboard#isRedoable()` to check if this is the case.
+If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
+.Interactions Inside the Logic Component for the `undo` Command
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `VersionedBillboard#redo()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the billboard to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `stateList.size() - 1`, pointing to the latest billboard state, then there are no undone billboard states to restore. The `redo` command uses `VersionedBillboard#isRedoable()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the billboard, such as `list`, will usually not call `VersionedBillboard#commit()`, `VersionedBillboard#undo()` or `VersionedBillboard#redo()`. Thus, the `stateList` remains unchanged.
 
+.State of VersionedBillboard after "list" command
 image::UndoRedoState4.png[]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `VersionedBillboard#commit()`. Since the `currentStatePointer` is not pointing at the end of the `stateList`, all billboard states after the `statePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/buy ...` command. This is the behavior that most modern desktop applications follow.
 
+.State of VersionedBillboard after "clear" command
 image::UndoRedoState5.png[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
@@ -218,29 +247,598 @@ image::CommitActivityDiagram.png[]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire billboard.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Pros: Will use less memory (e.g. for `delete`, just save the expense being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of billboard states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `Model` and `VersionedBillboard`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands.
+Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
+// tag::archive[]
+=== Archive
+==== Implementation
+===== Modelling Archive
+The archive feature supports the following actions:
 
-_{Explain here how the data encryption feature will be implemented}_
+* Creating an archive
+* Adding an expense to an archive
+* Reverting/"unarchiving" an archived expense
+* Deleting an archived expense
+* Displaying the list of expense of a particular archive
+* Listing all existing archive names
 
-// end::dataencryption[]
+
+These actions are facilitated by the `ArchiveWrapper` and `Archive` classes:
+
+.Structure and associations of `ArchiveWrapper` and `Archive` classes
+image::ArchiveClassDiagram.png[]
+
+*  `*Archive*` extends from `*ExpenseList*` in order to encapsulate an archive name and a list of expenses together as an archive.
+* `*ArchiveWrapper*` manages all existing archives and hashes each `*Archive*` object to its archive name.
+
+The implementation of the archive feature is located in the `*Model*` component in terms of the overall architecture of _Billboard_.
+
+`*ArchiveWrapper*` is used in `*ModelManager*` to manage all archives. Its respective operations are called to access and manipulate archive expenses when an archive command is entered. +
+Such operations include:
+
+* `*ArchiveWrapper#AddArchive(Archive)*` - Adds the given archive to the current map of archive objects.
+* `*ArchiveWrapper#HasArchive(String)*` - Checks if the specified archive by the given archive name exists.
+* `*ArchiveWrapper#removeArchive(Archive)*` - Deletes the given archive from the current map of archive objects. (Assumes given archive already exists)
+* `*ArchiveWrapper#hasArchiveExpense(String, Expense)*` - Checks if the specified archive by the given archive name has the given expense.
+* `*ArchiveWrapper#addArchiveExpense(String, Expense)*` - Adds the given expense into the specified archive by the given archive name. (Assumes given archive already exists)
+* `*ArchiveWrapper#removeArchiveExpense(String, Expense)*` - Deletes the given expense into the specified archive by the given archive name. (Assumes given archive and expense already exists)
+* `*ArchiveWrapper#getArchiveNames()*` - Returns a set of all existing archive names
+
+These operations are exposed in the `*Model*` interface respectively as:
+
+* `*Model#addArchive(Archive)*`
+* `*Model#HasArchive(String)*`
+* `*Model#deleteArchive(Archive)*`
+* `*Model#hasArchiveExpense(String, Expense)*`
+* `*Model#addArchiveExpense(String, Expense)*`
+* `*Model#deleteArchiveExpense(String, Expense)*`
+* `*Model#getArchiveNames()*`
+
+Given below is an example usage scenario of the add expense to archive function, showing how the command is parsed in `*Logic*` and how it interacts with `*Model*`: +
+
+Step 1. The user has the application running and has a non empty list of current expenses. The user can enter the `list` command to bring up
+this list. +
+
+Step 2. The user executes the command `archive add 3 arc/archiveName` to archive an expense. +
+The command is first parsed by `*BillboardParser*` to determine what kind of general command it is. `archive` indicates it is an archive command so the remaining input is parsed through `*ArchiveCommandParser*`. +
+`*ArchiveCommandParser*` determines which archive command should be called. `add` indicates it is an add command, so the input is parsed for the final time through `*AddArchiveCommandParser*` to extract out the arguments entered for the operation.
+In this case, the arguments are `3` and `archiveName` +
+
+This layered parsing process can be visualised below:
+
+.Process of parsing `AddArchiveCommand` in a cropped sequence diagram
+image::AddArchiveCommandSequenceDiagram_Parsing.png[]
+
+Step 3. `*AddArchiveCommandParser*` then returns an `*AddArchiveCommand*` object to be executed. The `*AddArchiveCommand*` performs two checks before executing any changes:
+
+* First, it is changed if entered index, `3`, is a valid index from the current expense list. An exception is thrown and the command is aborted if the index is invalid,
+so `*Model*` is left unmodified in this case.
+* Next, it is checked if the entered archive name, `archiveName`, is an existing archive by calling `*Model#HasArchive(String)*`. If the archive does not already exist,
+then a new archive is created with the given archive name using `*Model#addArchive(Archive)*`. +
+
+After the checks are completed and if no exception is thrown, the command executes the archiving of the expense through these steps:
+
+* The expense to be archived is first retrieved by `*Model#getFilteredList()#get(int)*`
+* The expense is then deleted from the list of current expenses by calling `*model#deleteExpense(Expense)*`
+* Next, the expense's `archiveName` field is updated using `*Expense#archiveTo(String)*`
+* Lastly, the expense is added to the specified archive using `*Model#addArchiveExpense(String, Expense)*`
+
+These interactions with `*Model*` by `*AddArchiveCommand*` can be shown in the cropped portion of the full sequence diagram below:
+
+.Interactions between `*Model*` and `*AddArchiveCommand*` during the execution of the command
+image::AddArchiveCommandSequenceDiagram_executeCommand.png[]
+
+Step 4. Finally, a `*CommandResult*` object initialised with the add expense to archive success message is returned to indicate to the user that the operation was successful. +
+
+Full Sequence diagram of the operation:
+
+.Full sequence diagram of the operation
+image::AddArchiveCommandSequenceDiagram.png[]
+
+The following activity diagram summarizes what happens when a user executes a new `*AddArchiveCommand*`:
+
+.`*AddArchiveCommand*` activity diagram
+image::AddArchiveCommandActivityDiagram.png[]
+
+===== Storing Archive
+All expenses, archived and non-archived, are stored in a single JSON file. +
+
+Upon start up of the application, all expenses are retrieved from JSON format and passed into
+`*ModelManager*` as a combined `*Billboard*` object. During the initialization of `*ModelManager*`, the expenses in this `*Billboard*` object are filtered out into non-archived and
+archived expenses by each `*Expense*` object's `*archiveName*` field. The separate lists of non-archive and archive expenses are then used to initialize new `*Billboard*` and
+`*ArchiveWrapper*` objects of `*ModelManager*` respectively. The `*Billboard*` object of `*ModelManager*` is used to maintain non-archive expenses.+
+
+After each command is executed, the expenses in `*Model*` are saved into the JSON file. The method `*Model#getCombinedBillboard*` is called which collates all `*Expense*` objects
+from its `*Billboard*` and `*ArchiveWrapper*` objects together into a single list and creates a new combined `*Billboard*` object. This combined `*Billboard*` is returned and used by
+`*Storage*` to serialize into JSON format and writes it into the JSON file.
+
+==== Design Considerations
+===== Aspect: Data Structure to hold archives in `ArchiveWrapper`
+* ** Alternative 1 (Current implementation): ** Use of HashMap, mapping each archive name to its `*Archive*` object
+** Pros: Accessing data in a HashMap is instant. Therefore, retrieving an archive when performing add/delete archive expense operations or checking if an archive exists is fast.
+** Cons: As `*ArchiveWrapper*` is initialized with a single list of archive `*Expense*` objects, the initialization process is slower as this given list needs to be iterated
+through to filter each `*Expense*` object into their respective `*Archive*` objects in the HashMap.
+
+* ** Alternative 2: ** Use a single list to store all archive expenses
+** Pros: Initialization of `*ArchiveWrapper*` is fast, as the given list of archive expenses need not be processed.
+** Cons: Some operations, like delete archive expense or get all archive names, are slower as the entire list must be iterated through each time in the worst case scenario.
+For example, to check if an expense exists in a particular archive, the entire list must be iterated if the expense to be found is at the end of the list.
+
+===== Aspect: Storing archives
+* ** Alternative 1 (Current implementation): ** Storing non-archive and archive expenses together
+** Pros: No new storage classes need to be implemented, as this implementation uses the existing classes only.
+** Cons: Initialization process of `*ModelManager*` is slower as the expenses need to be filtered into archive and non-archive expenses first.
+
+* ** Alternative 2: ** Storing archive expenses as `*Archive*` objects in a separate file
+** Pros: Initialization process of `*ModelManager*` is faster, as its `ArchiveWrapper` object can be initialized directly with the list of `Archive` objects retrieved from the JSON file.
+No filtering of archive and non-archive expense from the same list is needed.
+** Cons: More difficult to implement, as more JSON storage classes must be added and knowledge on serialising and deserialising new objects is needed.
+
+// end::archive[]
+
+// tag::tagging[]
+=== Tagging
+==== Proposed Implementation
+The tag feature supports the following operations:
+
+* Adding tags to an expense
+* Removing tags from an expense
+* Filtering expenses by tags
+* Listing all existing tags
+
+These actions are facilitated by the `*UniqueTagList*` and `*TagCountManager*` classes:
+
+* `*UniqueTagList*` maps `*String*` to `*Tag*` where `*String*` is the name of the `*Tag*`. It ensures that the same `*Tag*` object is referenced instead of creating many `*Tag*` objects of the same name during operations.
+* `*TagCountManager*` maps `*Tag*` to `*Integer*`, where `*Integer*` is the number of `*Expense*` tagged with each `*Tag*`. It allows `*Tag*` objects that are not tagged with any `*Expense*` to be tracked and removed.
+
+Operations include:
+
+* `*UniqueTagList#retrieveTags(List<String>)*` -- Retrieves corresponding tags from `*UniqueTagList*` based on the list of tag names.
+* `*UniqueTagList#removeAll(List<Tag>)*` -- Removes tags given in the list from the `*UniqueTagList*`.
+* `*UniqueTagList#getTagNames()*` -- Returns a list of existing tag names.
+* `*TagCountManager#incrementAllCount(Set<Tag>)*` -- Increments the `*Integer*` mapped to the tags in the set by 1.
+* `*TagCountManager#decreaseAllCount(Set<Tag>)*` -- Decreases the `*Integer*` mapped to the tags in the set by 1.
+* `*TagCountManager#removeZeroCount()*` -- Removes all mappings where the `*Integer*` is equal to 0.
+
+These operations are exposed in the `*Model*` interface as:
+
+* `*Model#retrieveTags(List<String>)*`
+* `*Model#incrementCount(Set<Tag>)*`
+* `*Model#decreaseCount(Set<Tag>)*` -- `*TagCountManager#removeZeroCount()*` and `*UniqueTagList#removeAll(List<Tag>)*` are called in this method to remove any tag not tagged to any expense from the `*UniqueTagList*` and `*TagCountManager*`.
+* `*Model#getTagNames()*`
+
+Given below is an example usage scenario and how adding tag executes at every step.
+
+* **Step 1:**
+The user launches the application. The `*Model*` is initialized with saved data. All tags are loaded into `*UniqueTagList*` and `*TagCountManager*`.
+
+* **Step 2:**
+User enters the command `tag add 1 t/test t/test2` to add tags to the `*Expense*` at index 1 in Billboard. +
+*2a*. `*BillboardParser*` parses this command, creating a `*TagCommandParser*` after determining that it is a tag command. +
+*2b*. The `*TagCommandParser*` then parses `add 1 t/test t/test2` and creates an `*AddTagCommandParser*` after determining that it is a command to add tags. +
+*2c*. Subsequently, the `*AddTagCommandParser*` parses `1 t/test1 t/test2` into `*Index*` 1 and
+a list of `*String*` consisting of `test1` and `test2`. `*AddTagCommandParser*` creates `*AddTagCommand*` with the `*Index*` and list of `*String*` as parameters.
+
+* **Step 3:**
+`*LogicManager*` executes the `*AddTagCommand*`. +
+During execution, +
+*3a*. `*AddTagCommand*` calls `*Model#retrieveTags(List<String>)*` on the list of `*String*` consisting of `test1` and `test2` which returns a set of `*Tag*` with tag names `test1` and `test2`. +
+*3b*. `*AddTagCommand*` then calls `*Model#incrementCount(Set<Tag>)*` on the set of `*Tag*`. +
+*3c*. Lastly, `*AddTagCommand*` calls `*Model#setExpense(Expense, Expense)*` which edits and updates the `*Expense*` at index 1 in the `*Model*`. The updated `*Expense*` is then reflected on the GUI.
+
+[NOTE]
+Duplicate tags in an `*Expense*` is not allowed. +
+If the user tries to add an existing `*Tag*` to an `*Expense*`, `*AddTagCommand*` throws an exception, leading to an error message. +
+If the user tries to add duplicate `*Tag*`, i.e enter 2 of the same `*Tag*`, `*AddTagCommand*` adds the tag once and increments the number of expenses tagged to it by 1.
+
+The following sequence diagram shows how the adding tag operation works.
+
+image::AddTagSequenceDiagram.png[]
+Figure 21. Sequence diagram of executing AddTagCommand.
+
+NOTE: The lifeline for `*TagCommandParser*` and `*AddTagCommandParser*` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+
+
+The following activity diagram summarizes what happens when a user enters a command to add tags to an expense.
+
+image::AddTagActivityDiagram.png[]
+Figure 22. Activity diagram of executing AddTagCommand.
+
+==== Design Considerations
+
+===== Aspect: Data structure to support tag commands
+* **Alternative 1 (current choice):** Use a `*UniqueTagList*` to map tag names to `*Tag*` and `*TagCountManager*` to map `*Tag*` to number of `*Expense*` tagged to it.
+** Pros:
+*** Each structure has only one responsibility.
+*** Fast retrieval and update of data
+** Cons:
+*** Requires maintenance of both structures as they need to sync with each other.
+*** Retrieval of all `*Expense*` under a `*Tag*` requires filtering through the whole list of `*Expense*`.
+
+* **Alternative 2 :** Have each `*Tag*` store a list of `*Expense*` tagged to it.
+** Pros:
+*** Fast retrieval of all `*Expenses*` under each `*Tag*`
+** Cons:
+*** Circular dependency
+*** Since implementation of Billboard objects are immutable, there is a constant need to update the `*Expense*` in the list even after executing non-tag related commands.
+
+* **Alternative 3 :** Use one map to map `*Tag*` to `*Expense*` tagged to it.
+** Pros:
+*** Fast retrieval of all `*Expenses*` under each `*Tag*`
+** Cons:
+*** Since implementation of Billboard objects are immutable, there is a constant need to update the `*Expense*` in the list even after executing non-tag related commands.
+
+// end::tagging[]
+
+// find:finding[]
+=== [Enhanced] Find
+==== Proposed Implementation
+The find feature supports the finding expenses by any combination of the following conditions:
+
+* Keywords
+* Lower/upper amount limit
+* Lower/upper creation date limit
+
+These actions are facilitated by the `MultiArgPredicate` class:
+
+* `MultiArgPredicate` implements the `Predicate` interface. It enables filtering of expenses by multiple attributes
+through keeping track of a set of predicates that can be applied when prompted by user input.
+
+Operations include:
+
+* `MultiArgPredicate#setKeywords(List<String>)` -- Set list of keywords to search by.
+* `MultiArgPredicate#setDateRange(CreatedDate, CreatedDate)` -- Set start date and end date limit to search by.
+* `MultiArgPredicate#setAmtRange(Amount, Amount)` -- Set upperLimit and lowerLimit of amount of expenses to search by.
+
+Given below is an example usage scenario and how the find mechanism behaves at each step.
+
+Step 1.
+The user launches the application. The `Model` is initialized with saved data. All expenses are loaded into `FilteredList`.
+
+Step 2.
+User enters the command `find d/keywords a/lowerAmtLimit al/upperAmtLimit sd/startDate ed/endDate` to find expenses that matches conditions set by user input. `BillboardParser` parses the command, creating a `FindCommandParser`.
+The `FindCommandParser` then parses `find d/keywords a/lowerAmtLimit al/upperAmtLimit sd/startDate ed/endDate` to create a `MultiArgPredicate` inputted with the different filter parameters.
+The `MultiArgPredicate` is then used to create the `FindCommand`.
+
+Step 3.
+`LogicManager` executes the `FindCommand`. During execution, `FindCommand` calls `Model#updateFilteredExpenses(Predicate<Expense>)` on the list consisting of `test1` and `test2` which returns a set of `Tag`.
+`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The 1st `Expense` is edited and updated in the `Model` using `Model#setExpense(Expense, Expense)` and is then shown on the UI.
+
+[NOTE]
+If the user tries to input 2 conditions of the same prefix, only the last condition will be used.
+
+// The following sequence diagram shows how the enhanced find operation works.
+
+// image::AddTagSequenceDiagram.png[]
+
+// The following activity diagram summarizes what happens when a user enters a command to find expenses by certain conditions.
+
+// image::AddTagActivityDiagram.png[]
+
+==== Design Considerations
+
+===== Aspect: Data structure to support enhanced find command
+* **Alternative 1 (current choice):** Use a `MultiArgPredicate` to filter selected expense from the `FilteredList`.
+`MultiArgPredicate` holds and combines a set of predicates of various types into a single predicate.
+Set of predicates can but do not need to include `AllContainsKeywordsPredicate`, `AmountWithinRangePredicate` and `DateWithinRangePredicate`.
+** Pros:
+*** Only one variation of input command required.
+*** No need for different kinds of find commands to handle filtering by different attribute.
+*** No need for different kinds of find command parsers to handle parsing of different variations of input command.
+** Cons:
+*** Higher complexity of code in FindCommandParser.
+*** User need to use prefix to indicate type of conditions inputted.
+*** Additional predicate `MultiArgPredicate` required to handle filtering by more than one condition.
+
+* **Alternative 2 :** `FindCommandParser` maps input command to individual type of predicate that is used to create find command.
+** Pros:
+*** Commands are simpler and shorter.
+** Cons:
+*** Limited functionality - can only find by one condition.
+*** Use of different types of find commands.
+
+// end::finding[]
+
+// recur:recurring[]
+=== Recurring Expenses
+==== Proposed Implementation
+The recurring expenses feature supports the adding of recurring expenses into Billboard. Recurring expenses have a start date and a end date.
+The date of the first expense will be the start date, and subsequent expenses will defer from the previous expenses by a date interval specified by the user.
+The recurring expense feature supports the following operations:
+
+* Listing all the recurrences
+* Adding a new recurrence which will add recurring expenses to the list of expenses
+* Editing an existing recurrence [Coming in V2.0]
+* Deleting an existing recurrence [Coming in V2.0]
+
+These actions are facilitated by the `Recurrence` and `RecurrenceList` classes:
+
+image::RecurrenceClassDiagram.png[]
+
+`*RecurrenceList*` is used in `*ModelManager*` to manage all recurrences. Its respective operations are called to access and manipulate recurrence expenses when an recurrence command is entered. +
+Such operations include:
+
+* `*RecurrenceList#add(Recurrence)*` - Adds the given recurrence to the current list of recurrence objects.
+* `*RecurrenceList#contains(Recurrence)*` - Checks if the specified recurrence by the given recurrence name exists.
+* `*RecurrenceList#remove(Recurrence)*` - Deletes the given recurrence from the current list of recurrence objects. (Assumes given recurrence already exists)
+* `*RecurrenceList#setRecurrence(Recurrence, Recurrence)*` - Set existing recurrence to new recurrence
+* `*RecurrenceList#setRecurrences(RecurrenceList)*` - Set the list of recurrences to the given recurrence list
+* `*RecurrenceList#setRecurrences(List<Recurrence>)*` - Set the list of recurrences to the given recurrence list
+
+These operations are exposed in the `*Model*` interface respectively as:
+
+* `*Model#addRecurrence(Recurrence)*`
+* `*Model#hasRecurrence(String)*`
+* `*Model#removeRecurrence(Recurrence)*`
+* `*Model#removeRecurrence(int)*`
+* `*Model#setRecurrences(RecurrenceList)*`
+* `*Model#setRecurrences(List<Recurrence>)*`
+* `*Model#getRecurrences()*`
+
+Given below is an example usage scenario and how the recurrence mechanism behaves at each step.
+
+Step 1.
+The user launches the application. The `Model` is initialized with saved data. All expenses are loaded into `FilteredList`. No recurrence data is saved for now so model starts with an empty `RecurrenceList`
+
+Step 2.
+User enters the command `recur add n/name d/description a/amount sd/startDate ed/endDate interval/interval` to add recurring expenses that matches conditions set by user input. `BillboardParser` parses the command, creating a `RecurringCommandParser`.
+The `RecurringCommandParser` then parses `add n/name d/description a/amount sd/startDate ed/endDate interval/interval` to create a `AddRecurrenceCommandParser` to parse all the variables.
+The variables are then used to create the `AddRecurrenceCommand`.
+
+The layered parsing process can be visualised below:
+{nbsp} +
+image:AddRecurrenceCommandSequenceDiagram.png[]
+
+Step 3.
+`LogicManager` executes the `AddRecurrenceCommand`. During execution, `AddRecurrenceCommand` calls `Model#addRecurrence(Recurrence)` and `Model#addExpense(Expense)`on the new recurrence and expenses created.
+`Model#incrementCount(Set<Tag>)` is then called on the set of `Tag`. The expense are then updated and shown on the UI.
+
+The following activity diagram summarizes what happens when a user executes a new `*AddRecurrenceCommand*`:
+
+.`*AddRecurrenceCommand*` activity diagram
+image::AddRecurrenceCommandActivityDiagram.png[]
+
+// end::recurring[]
+
+// tag::statistics[]
+=== Statistics
+Billboard includes a dynamically updating statistics panel containing a chart. It has the following functionality: +
+
+** Every time the displayed list of expenses changes, the chart automatically updates with the new changes
+** Users can submit commands to change the displayed chart as well as change configuration options for the charts
+
+This functionality is made possible through the statistics module. The statistics module is in charge of generating statistics from the currently displayed expenses and rendering it onto the main window.
+There are 2 components that help to do this - the chart component and the statistics generator component.
+[[Design-Ui-Chart]]
+==== Chart component
+
+[[fig-ChartClassDiagram]]
+.Structure of the Chart Component
+image::ChartClassDiagram.png[]
+{nbsp} +
+
+There is a special `Chart` component that deals with the generation and rendering of specific charts based on user input and the expenses being displayed.
+The `ChartBox` is the main orchestrating class. It is updated with the latest `StatisticsFormat` and `StatisticsFormatOptions` that the user selects, via the `MainWindow`.
+These are classes that represent user configuration on what to be displayed. Upon being updated, it creates the appropriate
+`ExpenseChart` with the selected options, to display the selected statistic based on the currently displayed expenses. To transform the data from
+the displayed list of expenses to the statistic format required, the `StatisticsGenerator` component is used. The concrete `ExpenseChart` obtains the formatted statistics from the
+`StatisticsGenerator` component.
+
+==== Statistics Generation Component
+.Structure of the Statistics Generation Component
+image::StatisticsGeneratorClassDiagram.png[]
+{nbsp} +
+
+The concrete `ExpenseChart` obtains the data to be displayed from the `StatisticsGenerator` component. A number of classes,
+such as `BreakdownGenerator` and `TimelineGenerator` extend `StatisticsGenerator`, and each is in charge of creating a specific
+statistic type, ie. `ExpenseBreakdown` and `ExpenseTimeline`. These concrete statistic types encapsulate all the information relevant
+to the statistic, which the concrete `ExpenseChart` then uses to render the statistic display.
+
+==== Proposed Implementation
+The chart feature can be roughly split two separate parts:
+
+** The dynamic rendering of the chart whenever the displayed expenses are updated
+** The functionality to switch between different statistic types and configure customization options
+
+[NOTE]
+The Observer pattern plays an integral role in the implementation of major part of the system. To summarize, it is a design pattern that achieves decoupling
+by having observers "subscribe" to changes in an observed object, and being notified upon any changes through callbacks. This is opposed to the observed class directly updating
+its observers. In the following, the term "notify observers" will be used to denote the act of an observed class being updated and updating all
+its observers, and the term "on update" will be used to denote the act of an observer receiving updates from its observed class.
+
+Below is a high level overview of the behaviour of the system when any command is called.
+
+image::DisplayStatisticsActivityDiagram.png[]
+
+As you can see the logic follows the two paths outlined above. One path where the displayed expenses are updated, and one path where `DisplayStatsCommand` is executed, updating the chart.
+Both paths can lead to the chart updating, followed by the end of the command. Each path will be explored in slightly further detail below.
+
+===== Update to displayed expenses
+. The current `ExpenseChart` observes the list of expenses that are contained in the `MainWindow`.
+. When a command which updates the expenses is executed, that command updates the list of expenses in the model.
+. That update propagates to the list of expenses in `MainWindow`, which notifies the current chart of its changes.
+. Using a `StatisticsGenerator`, the `ExpenseChart` then generates the statistics to be displayed from the new expenses.
+. In this manner, changes to the list of expenses are propagated to the display.
+
+An example of how this works can be seen in the sequence diagram below, in the example where the user changes the displayed expenses by using the `ListCommand`.
+
+image::UpdateExpensesSequenceDiagram.png[]
+
+{nbsp} +
+
+===== DisplayStatsCommand is called
+. The orchestrating `ChartBox` observes `StatisticsFormat` and `StatisticsFormatOptions` in the model.
+. When `DisplayStatsCommand` is called, it updates those two objects in the model sequentially.
+. First, `ChartBox` is notified about `StatisticsFormat`, and if there is a new one, it creates the appropriate chart and renders it.
+. Next, if there are changes to `StatisticsFormatOptions`, the `ChartBox` propagates the relevant changes to the current displayed chart, to update its display.
+. In this manner, the current chart can be updated with the new `StatisticsFormat` and `StatisticsFormatOptions`.
+
+An example of how this works can be seen in the sequence diagram below, where `DisplayStatsCommand` is called with a new `StatisticsFormat`.
+`StatisticsFormatOptions` is omitted for simplicity.
+
+image::DisplayStatisticsSequenceDiagram.png[]
+{nbsp} +
+
+==== Design Considerations
+
+===== Aspect: Approach to generating of statistics
+* ** Alternative one (current choice):** Each time there is a change in the backing list of expenses, the statistics are re-generated
+by the specific `StatisticsGenerator` for the appropriate statistics format.
+** Pros:
+*** Simplest implementation, each statistic generator can simply provide a pure function with no side effects that maps from
+a list of expenses to the desired format of statistics.
+*** Runtime is acceptable as most operations can run in O(n) time at worst, with a reasonable input size of expenses.
+*** Statelessness means it is thread safe.
+** Cons:
+*** Even in cases where the backing list of expenses only change by one element (eg. when a single expense is deleted), the entire
+set of statistics will still be re-generated from the list, thus potentially incurring an expensive operation each time
+the list is changed.
+
+* ** Alternative two:** Each `StatisticsGenerator` can be structured as a data structure that keeps track of the current statistics data.
+Upon a change in the backing list, only the specific change will be propagated, ie. addition of one new expense will internally call
+`StatisticsGenerator#AddExpense` which modifies the statistics data appropriately.
+** Pros:
+*** For simple list changes like adding/removing a single expense, this approach is much faster as it does not have to regenerate
+the statistics from the entire list, the statistics only needs to be updated with the specific change.
+** Cons:
+*** Complicated, need to include methods to handle cases where expenses are added, removed and updated, for every statistic type. If the entire
+list is changed frequently, there is no performance benefit.
+*** Worse in terms of testability. The `StatisticsGenerator` will depend on an internal state which can be complicated for certain statistics.
+*** Not thread safe, in the case of future upgrades to a multi-threaded application, will require adjustments.
+
+* **Alternative three:** The data for certain aggregate statistics formats can be serialized. These formats include things like lifetime average spending
+per day/week/month, total number of expenses etc. Upon addition/removal/update of expenses, an in-mem copy of the serialized data can be updated
+and saved.
+** Pros:
+*** The data for certain statistics formats will always be quickly available by simply querying the storage.
+*** The data can be stored in a human readable format, so users can view those statistics without opening the application.
+** Cons:
+*** Requires extra complexity to serialize the data upon each change to the overall list of expenses.
+
+#end::statistics[]
+
+// tag::history[]
+=== History feature
+==== Implementation
+
+You can use the `history` command to view previous actions.
+
+Billboard will store all the command entered even the command fails to execute or in wrong format.
+
+This function is facilitated by the `CommandHistory` class.
+
+All the histories will be store in a static list `cmdList` in `CommandHistory`.
+
+Also, a state pointer that initially point to the start of cmdList will be maintain
+for Up(`&uarr;`)/Down(`&darr;`) key feature(See <<Up-Down-Feature>>)
+
+Additionally, it implements the following operations:
+
+* `CommandHistory#addCmdHistory(String)` -- Store the command into cmdList.
+* `CommandHistory#peekNextCmd()` -- Get the next command in command history.
+* `CommandHistory#peekPreviousCmd()` -- Get the previous command in command history.
+* `CommandHistory#hasCommand()` -- Check whether any command is executed.
+
+.Sequence diagram of CommandHistory class
+image::CommandHistoryClassDiagram.png[]
+
+The following sequence diagram shows how the storing operation works:
+
+.Interactions Inside the Logic Component for the `delete` Command
+image::DeleteSequenceDiagram.png[]
+
+The LogicManager will store the command to CommandHistory before parsing it to ensure all commands are saved.
+
+==== Design Considerations
+
+===== Aspect: How command histories are stored
+
+* **Alternative 1 (current choice):** Store all commands including commands that fail to execute.
+** Pros: User can see what goes wrong in the previous command.
+This is the standard way to implement the history function.
+** Cons: Cost more memory to store all commands.
+* **Alternative 2:** Store commands that is successfully executed and can be undone/redone.
+** Pros: User will not need to view the command that is not useful.
+** Cons: User cannot view the invalid command.
+// end::history[]
+
+// tag::updownkey[]
+[[Up-Down-Feature]]
+=== Up/Down key feature
+==== Implementation
+
+You can navigate through the command history by pressing Up(`&uarr;`)/Down(`&darr;`) key in `TextFiled`.
+
+This feature makes use of the command history and state pointer stored while executing the previous command.
+
+When initializing the fxml object `TextFiled` in `CommandBox` class,
+an action listener will be set to monitor the keyboard activity.
+Whenever a Up(`&uarr;`)/Down(`&darr;`) key is pressed, it will retrieve the previous/next command from the `CommandHistory`.
+
+Given below is an example usage scenario and how the Up(`&uarr;`)/Down(`&darr;`) mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time.
+The CommandHistory will be initialized with no command state,
+and the statePointer is not pointing to any command state.
+
+.Initial state of CommandHistory
+image::UpDownKeyState0.png[]
+
+Step 2. The user then execute the delete 5 command to delete the 5th expense in the billboard.
+The LogicManager calls CommandHistory#addCmdHistory() and a new command is append to the end of cmdList.
+
+.State of CommandHistory after "delete 5" command
+image::UpDownKeyState1.png[]
+
+Step 3. The user now decides to execute the next command in the command history and press the Up(`&uarr;`)key.
+The actionListener of the TextField will call CommandHistory#peekNextCmd(),
+which will shift the statePointer once to the right,
+pointing it to the next command, and return it.
+
+.State of CommandHistory after Up(`&uarr;`)key
+image::UpDownKeyState2.png[]
+
+[NOTE]
+If the `statePointer` is at the end of cmdList, pointing to the final command state,
+then there are no next command states to get,
+it will return the last command to the user rather than attempting to get the next command.
+
+The following sequence diagram shows how the Up(`&uarr;`)key works:
+
+.Interactions between components of CommandBox and CommandHistory for the Up(`&uarr;`)key
+image::UpKeySequenceDiagram.png[]
+
+The Down(`&darr;`) key does the opposite — it calls CommandHistory#peekPreviousCmd(),
+which shifts the statePointer once to the left,
+pointing to the previous command state, and return the command.
+
+==== Design Considerations
+
+===== Aspect: How command histories are stored
+
+* **Alternative 1 (current choice):** Navigate through all commands including invalid commands.
+** Pros: User can edit the invalid command easily, without typing the whole command again.
+** Cons: The static object will need to stay in the memory.
+* **Alternative 2:** Only navigate through commands that can be undone/redone.
+** Pros: User require less time to navigate through the history to find the command(commands that can be undone/redone are usually long)
+** Cons: User will not be able to edited the previous invalid command, cost more time to type the whole command again.
+// end::updownkey[]
 
 === Logging
 
@@ -279,13 +877,13 @@ Refer to the guide <<DevOps#, here>>.
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of expenses
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage expenses faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -295,17 +893,53 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new user |See command instruction and usage |Refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new record | Track my spending/income
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Forgetful user | Add additional details through a description for each record | Better keep track of the details of an expense/income
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |Delete a record |Remove expenses/income that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Careless user |Edit an existing record |Make changes to any mistakes made
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |View a record | View additional information of an expense/income
+
+|`* * *` |user |Tag a record | Categorize and better manage my records
+
+|`* * *` |user |Specify a time stamp on expenses|Know when I spend my money
+
+|`* * *` |user | Sort and filter records by category or tag | Know how my spending/income is distributed
+
+|`* * *` |user | Archive past records | Better manage current expenses
+
+|`* * *` | user | Unarchive records |
+
+|`* * *` |user | View the list of records in an archive | Keep track of what records I have in a particular archive
+
+|`* * *` |user | View the list of all archives | Keep track of how many archives I have and what their names are
+
+|`* * *` |user | Delete an archived record | Delete archive entries that are no longer needed
+
+|`* * *` |user | Deleted an entire archive | Delete any unneeded archive
+
+|`* *` |Visually inclined user |Attach an image to each record |Conveniently record additional details of the expense instead of typing it all out
+
+|`* *` |user | Create custom tags | To better categorise my expenses
+
+|`* *` |user | Hide records | Maintain privacy on certain sensitive expenses/income
+
+|`* *` |Student who tends to overspend | Set a time-based budget | Regulate my spending for the day/week/month with a set limit
+
+|`* *` |Busy student | Automate archiving of outdated records | Not need to manually archive them constantly
+
+|`* *` |Frequent traveller | Add records in foreign currency | Track my expenses when overseas conveniently without having to manually convert currencies
+
+|`* *` |Data oriented user | Have monthly statistics on my expenses | Better track and manage my expenses
+
+|`* *` |User who manages my finance daily | Use one-shot/shortcut commands | Use the program more efficiently
+
+|`*` | User | Set a password for this application | Hide my data
 |=======================================================================
 
 _{More to be added}_
@@ -313,33 +947,202 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Billboard` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== UC01: Adding a tag to an expense
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list expenses
+2.  Billboard shows a list of recent expenses
+3.  User requests to tag a specific expense in the list
+4.  Billboard tags the specific expense with the input tag name
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 2a. There are no recent expenses.
++
+[none]
+** 2a1. Billboard displays an empty list
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given index or tag name is invalid
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1.  Billboard shows an error message.
 +
 Use case resumes at step 2.
+
+
+[Discrete]
+=== UC02: Filter expenses by tag
+
+*MSS*
+
+1. User requests to list all tags
+2. Billboard shows a list of tags
+3. User requests to filter expenses by specific tag
+4. Billboard shows a list of recent expenses under the specific tag.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no existing tags
++
+[none]
+** 2a1. Billboard displays an empty list
++
+Use case ends.
+
+* 3a. The given tag name is invalid
++
+[none]
+** 3a1.  Billboard shows an error message.
++
+Use case resumes at step 2.
+
+
+[Discrete]
+=== UC03: Add an expense to an archive
+
+*MSS*
+
+1. User requests to list recent expenses
+2. Billboard shows a list of recent expenses
+3. User requests to list all archives
+4. Billboard shows a list of archives
+5. User requests to add a specific expense into a specific archive
+6. Billboard removes the specific  expense from list of current records and adds it to the specific  archive
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There is no current records
++
+[none]
+** 2a1. Billboard displays an empty list
++
+Use case ends.
+
+* 4a. There are no existing archives
++
+[none]
+** 4a1.  Billboard shows an empty list.
++
+Use case ends.
+
+* 5a. The given record index or archive name is invalid
++
+[none]
+** 5a1.  Billboard shows an error message.
++
+Use case resumes at step 4.
+
+
+[Discrete]
+=== UC04: Deleting an archived expense
+
+*MSS*
+
+1. User requests to list all expenses under a specific archive
+2. Billboard shows a list of expenses under the specific archive
+3. User requests to delete a specific expense from the archive
+4. Billboard deletes the specific  expense from the specific  archive.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The archive has no expenses in it
++
+[none]
+** 2a1. Billboard displays an empty list
++
+Use case ends.
+
+* 2b. The archive name is invalid
++
+[none]
+** 2b1.  Billboard shows an error.
++
+Use case ends.
+
+* 3a. The given record index or archive name is invalid
++
+[none]
+** 3a1.  Billboard shows an error message.
++
+Use case resumes at step 2.
+
+
+[Discrete]
+=== UC05: Deleting an entire archive
+
+*MSS*
+
+1. User requests to list all existing archives
+2. Billboard shows a list of all existing archives
+3. User requests to delete a specific archive from the list
+4. Billboard deletes the specific archive
+
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no existing archives
++
+[none]
+** 2a1. Billboard displays an empty list
++
+Use case ends.
+
+* 3a.  The given archive name is invalid
++
+[none]
+** 3a1.  Billboard shows an error.
++
+Use case resumes at step 2.
+
+
+[Discrete]
+=== UC06: Finding a expense record by keywords, date created and amount spent
+
+*MSS*
+
+1. User enters parameters that is used to filter expenses.
+2. Billboard displays a list of expenses that satisfies all the parameters.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. There are no expenses that satisfies all the parameters in user input.
++
+[none]
+** 2a1. Billboard displays an empty list
++
+Use case ends.
+
+[none]
+* 2a. Parameters are not in the correct format.
++
+[none]
+** 2a1. Billboard displays an error message and informs user of correct usage.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -347,8 +1150,13 @@ _{More to be added}_
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 expenses/income records without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Commands are easy to remember and intuitive.
+. The software should work without requiring an installer./portable.
+. The data should be stored locally and should be in a human editable text file.
+. Software is for single users only.
+. The software should not depend on a remote server.
 
 _{More to be added}_
 
@@ -358,8 +1166,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
 
 [appendix]
 == Product Survey
@@ -402,24 +1208,140 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting an expense
 
-. Deleting a person while all persons are listed
+. Deleting an expense while all expenses are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First expense is deleted from the list. Details of the deleted expense shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
+=== Adding tags to an expense
+. Adding tags to an expense in a list with multiple expenses.
+.. Prerequisites: Multiple expenses in the list. First expense does not have the tag "_holiday_" but have the tag "_tech_".
+.. Test case: `tag add 1 t/holiday` +
+    Expected: Tag "_holiday_" is added to the first expense. Details of first expense shown in the status message.
+.. Test case: `tag add 1 t/tech` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 t/holiday t/tech` +
+    Expected: Tag "_holiday_" is added to the first expense. Details of first expense shown in the status message.
+.. Test case: `tag add 0 t/holiday` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 holiday` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 t/holiday time` +
+    Expected: No tags added to any expense. Error details shown in the status message.
+.. Test case: `tag add 1 t/holiday__` +
+    Expected: No tags added to any expense. Error details shown in the status message. +
 
-. Dealing with missing/corrupted data files
+. Adding tags to an expense in an empty list
+.. Test case: `tag add 1 t/holiday` +
+    Expected: No tags added to any expense. Error details shown in the status message.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Removing tags from an expense
+. Removing tags from an expense in a list with multiple expenses.
+.. Prerequisites: Multiple expenses in the list. First expense has the tag "_holiday_" but does not contain the tag "_tech_".
+.. Test case: `tag rm 1 t/holiday` +
+    Expected: Tag "_holiday_" is removed from the first expense. Details of first expense shown in the status message.
+.. Test case: `tag rm 1 t/tech` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 t/tech t/holiday` +
+    Expected: Tag "_holiday_" is removed from the first expense. Details of first expense shown in the status message.
+.. Test case: `tag rm 0 t/holiday` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 holiday` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 t/holiday time` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+.. Test case: `tag rm 1 t/holiday__` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
 
-_{ more test cases ... }_
+. Removing tags from an expense in an empty list
+.. Test case: `tag rm 1 t/holiday` +
+    Expected: No tag removed from any expense. Error details shown in the status message.
+
+=== Filtering expenses by tag
+. Filtering expenses by tag while all expenses are listed
+.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list. One or more expenses contain the tag "_holiday_". All expenses do not contain the tag "_tech_"
+.. Test case: `tag filter t/holiday` +
+    Expected: Expenses that contain the tag "_holiday_" are listed out. Number of expenses shown in status message.
+.. Test case: `tag filter t/tech` +
+    Expected: No expense listed out.
+
+=== Listing out all existing tags
+. Listing out all existing tags while all expenses are listed
+.. Prerequisites: List all expenses using the `list` command.
+.. Test case: `tag list` +
+    Expected: All existing tags are listed out in the status message.
+
+=== Adding an expense to an archive
+
+. Adding an expense to an archive when current expenses list.
+
+.. Prerequisites: List all expenses using the `list` command. At least 3 expenses in the list. Test cases should be completed in chronological order.
+.. Test case: `archive add 1 arc/test` +
+   Expected: First expense is removed from the list. Message in result box indicates that a `test` archive is created, since it was not an existing archive prior, and the first expense was added to it. +
+   Use the `archive list test` command to display the archive list to check if the expense was correctly archived. +
+   After verifying, use the `list` command to go back to the default list of expenses.
+.. Test case: `archive add 2 arc/test` +
+   Expected: Second expense is removed from the list. However, since the `test` archive was already created in the first test case, the message in the result box would only indicate that the second expense was added to the `test` archive. +
+   Use the `archive list test` command to display the archive list check if the expense was correctly archived. +
+   After verifying, use the `list` command to go back to the default list of expenses.
+.. Test case: `archive add 0 arc/test` +
+   Expected: No expenses removed from the list and no creation of archives. An invalid archive command message should appear in the result box.
+.. Test case: `archive add X arc/test` (where X is larger than the list size) +
+   Expected: No expenses removed from the list and no creation of archives. An error message indicating an invalid expense index will be shown in the result box.
+.. Test case: `archive add` or `archive add X` (where X is any invalid argument string not in the form of `[INDEX] arc/[ARCHIVE NAME]`) +
+   Expected: No expenses removed from the list and no creation of archives. The invalid archive command format message and the `archive add` usage message should appear in the result box.
+
+=== Displaying the expenses in an archive
+. Displaying the expenses in a particular archive when any list of expenses are listed.
+
+.. Prerequisites: Test cases in this section should be done after carrying out the test cases in the *_Adding an expense to an archive_* section.
+.. Test case: `archive list test` +
+   Expected: The list of expenses displayed should change to contain the two expenses archived in the prior *_Adding an expense to an archive_* section.
+.. Test case: `archive list` or `archive list X` (where X is any amount of whitespace) +
+   Expected: An error message indicating that the archive name cannot be empty and the `archive list` usage message will be displayed in the result box.
+.. Test case: `archive list X` (where X is any non-existent archive name) +
+   Expected: An error message indicating that there is no existing archive name and the `archive list` usage message will be displayed in the result box.
+
+=== Displaying a list of archive names
+. Displaying the list of archive name when any list of expenses are listed
+
+.. Prerequisites: Test cases in this section should be done after carrying out the test cases in the *_Adding an expense to an archive_* section.
+.. Test case: `archive listall` or `archive listall X` (where X is any String) +
+   Expected: The displayed list of expenses should not be changed. The result box should display a list of existing archive names, including `test` archive which was added in the prior *_Adding an expense to an archive_* section.
+
+=== Deleting an expense from an archive
+. Deleting an expense from an archive. Test cases should be completed in chronological order.
+
+.. Prerequisites: List the expenses in a particular archive using the `archive list [ARCHIVE NAME]` command. Have 2 expenses in this archive. All test cases in this section will be done using this same [ARCHIVE NAME] archive.
+.. Test case: `archive delete 1 arc/[ARCHIVE NAME]` +
+   Expected: The expense in the first index should be removed from the list. A message indicating that the expense is deleted from the archive will be displayed in the result box.
+.. Test case: `archive delete` or `archive delete X` (where X is any string not in the form of [INDEX] arc/[ARCHIVE NAME]) +
+   Expected: No change in the list of expenses displayed. The invalid command format message and `archive delete` usage message are displayed in the result box.
+.. Test case: `archive delete 1 arc/[ARCHIVE NAME]` +
+   Expected: Since there is only one expense in the [ARCHIVE NAME] archive left, the empty archive will be deleted together with the expense as well. +
+   The displayed list of expenses will switch back to the default non-archive expense list. +
+   A message indicating the deletion of the expense and the archive will be displayed in the result box.
+
+=== Reverting/unarchiving an expense from an archive
+. Unarchives an expense from an archive. Test cases should be completed in chronological order.
+
+.. Prerequisites: List the expenses in a particular archive using the `archive list [ARCHIVE NAME]` command. Have 2 expenses in this archive. All test cases in this section will be done using this same [ARCHIVE NAME] archive.
+.. Test case: `archive revert 1 arc/[ARCHIVE NAME]` +
+   Expected: The expense in the first index should be removed from the list. A message indicating that the expense is removed from the archive and added back to the current expense list will be displayed in the result box.
+   Use the `list` command to display the current non-archive expense list to check if the expense was correctly reverted back. The reverted expense should be at the last index of the current expense list. +
+   After verifying, use the `archive list [ARCHIVE NAME]` command to go back to the archive list of expenses.
+.. Test case: `archive revert` or `archive revert X` (where X is any string not in the form of [INDEX] arc/[ARCHIVE NAME]) +
+   Expected: No change in the list of expenses displayed. The invalid command format message and `archive revert` usage message are displayed in the result box.
+.. Test case: `archive revert 1 arc/[ARCHIVE NAME]` +
+   Expected: Since there is only one expense in the [ARCHIVE NAME] archive left, the empty archive will be deleted after the expense is removed from it. +
+   The displayed list of expenses will switch back to the default non-archive expense list. The reverted expenses should be at the last index of the displayed list of default non-archive expenses. +
+   A message indicating that the expense is removed from the archive and added back to the current expense list, and the deletion of the archive will be displayed in the result box.

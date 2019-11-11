@@ -1,0 +1,15 @@
+@startuml
+start
+: User enters command to add a recurrence;
+: command entered is parsed;
+: command is executed;
+
+if () then ([recurrence \n entered does not \n exist]\n)
+    : create new recurring expenses;
+    : create new recurrence;
+    : Add recurring expenses to list of current expenses;
+    : Add recurrence to list of current recurrences;
+else ([else])
+endif
+stop
+@enduml

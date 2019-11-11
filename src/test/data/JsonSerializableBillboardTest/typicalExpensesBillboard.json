@@ -1,0 +1,32 @@
+{
+  "_comment": "Billboard save file which contains the same Expense values as in TypicalExpenses#getTypicalBillboard()",
+  "expenses" : [ {
+    "name" : "monthly bills",
+    "description" : "pay phone company",
+    "amount" : "350.25",
+    "created" : "09/09/2018 2152",
+    "tagged" : [ "bills" ],
+    "archiveName" : ""
+  }, {
+    "name" : "monday breakfast food",
+    "description" : "toast with frens",
+    "amount" : "4.20",
+    "created" : "12/01/2019 0000",
+    "tagged" : [ "monday", "friends" ],
+    "archiveName" : ""
+  }, {
+    "name" : "groceries",
+    "description" : "bought from fairprice",
+    "amount" : "23.50",
+    "created" : "12/02/2019 1200",
+    "tagged" : [ ],
+    "archiveName" : ""
+  }, {
+    "name" : "movie tickets",
+    "description" : "tickets to joker",
+    "amount" : "10.00",
+    "created" : "01/01/2019 0530",
+    "tagged" : [ "leisure" ],
+    "archiveName" : ""
+  } ]
+}

@@ -3,10 +3,16 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":CommandHistory" as CommandHistory LOGIC_COLOR
+participant ":BillboardParser" as BillboardParser LOGIC_COLOR
 participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
 participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant ":CommandResult" as CommandResult LOGIC_COLOR
+participant ":VersionedBillboard" as VersionedBillboard LOGIC_COLOR
+end box
+
+box VersionedBillboard MODEL_COLOR_T2
+participant ":VersionedBillboard" as VersionedBillboard MODEL_COLOR_T3
 end box
 
 box Model MODEL_COLOR_T1
@@ -16,17 +22,23 @@ end box
 [-> LogicManager : execute("delete 1")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("delete 1")
-activate AddressBookParser
+LogicManager -> CommandHistory : addCmdHistory("delete 1")
+activate CommandHistory
+
+CommandHistory -> LogicManager
+deactivate CommandHistory
+
+LogicManager -> BillboardParser : parseCommand("delete 1")
+activate BillboardParser
 
 create DeleteCommandParser
-AddressBookParser -> DeleteCommandParser
+BillboardParser -> DeleteCommandParser
 activate DeleteCommandParser
 
-DeleteCommandParser --> AddressBookParser
+DeleteCommandParser --> BillboardParser
 deactivate DeleteCommandParser
 
-AddressBookParser -> DeleteCommandParser : parse("1")
+BillboardParser -> DeleteCommandParser : parse("1")
 activate DeleteCommandParser
 
 create DeleteCommand
@@ -36,19 +48,19 @@ activate DeleteCommand
 DeleteCommand --> DeleteCommandParser : d
 deactivate DeleteCommand
 
-DeleteCommandParser --> AddressBookParser : d
+DeleteCommandParser --> BillboardParser : d
 deactivate DeleteCommandParser
 'Hidden arrow to position the destroy marker below the end of the activation bar.
-DeleteCommandParser -[hidden]-> AddressBookParser
+DeleteCommandParser -[hidden]-> BillboardParser
 destroy DeleteCommandParser
 
-AddressBookParser --> LogicManager : d
-deactivate AddressBookParser
+BillboardParser --> LogicManager : d
+deactivate BillboardParser
 
 LogicManager -> DeleteCommand : execute()
 activate DeleteCommand
 
-DeleteCommand -> Model : deletePerson(1)
+DeleteCommand -> Model : deleteExpense(1)
 activate Model
 
 Model --> DeleteCommand
@@ -63,6 +75,12 @@ deactivate CommandResult
 
 DeleteCommand --> LogicManager : result
 deactivate DeleteCommand
+
+LogicManager -> VersionedBillboard : commit(model)
+activate VersionedBillboard
+
+VersionedBillboard -> LogicManager
+deactivate VersionedBillboard
 
 [<--LogicManager
 deactivate LogicManager

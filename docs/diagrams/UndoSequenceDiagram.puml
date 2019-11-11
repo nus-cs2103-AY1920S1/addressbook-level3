@@ -3,42 +3,44 @@
 
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
-participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":BillboardParser" as BillboardParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
+end box
+
+box VersionedBillboard MODEL_COLOR_T2
+participant ":VersionedBillboard" as VersionedBillboard MODEL_COLOR_T4
 end box
 
 box Model MODEL_COLOR_T1
 participant ":Model" as Model MODEL_COLOR
-participant ":VersionedAddressBook" as VersionedAddressBook MODEL_COLOR
 end box
 [-> LogicManager : execute(undo)
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand(undo)
-activate AddressBookParser
+LogicManager -> BillboardParser : parseCommand(undo)
+activate BillboardParser
 
 create UndoCommand
-AddressBookParser -> UndoCommand
+BillboardParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> BillboardParser
 deactivate UndoCommand
 
-AddressBookParser --> LogicManager : u
-deactivate AddressBookParser
+BillboardParser --> LogicManager : u
+deactivate BillboardParser
 
 LogicManager -> UndoCommand : execute()
 activate UndoCommand
 
-UndoCommand -> Model : undoAddressBook()
+UndoCommand -> VersionedBillboard : undo()
+activate VersionedBillboard
+
+VersionedBillboard --> UndoCommand : undoModel
+deactivate VersionedBillboard
+
+UndoCommand -> Model : setModel(undoModel)
 activate Model
-
-Model -> VersionedAddressBook : undo()
-activate VersionedAddressBook
-
-VersionedAddressBook -> VersionedAddressBook :resetData(ReadOnlyAddressBook)
-VersionedAddressBook --> Model :
-deactivate VersionedAddressBook
 
 Model --> UndoCommand
 deactivate Model

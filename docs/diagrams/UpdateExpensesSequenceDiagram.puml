@@ -1,0 +1,41 @@
+@startuml
+!include style.puml
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":ObservableList<Expense>" as ObservableList MODEL_COLOR
+end box
+
+box Chart UI_COLOR_T1
+participant ":Chart" as Chart UI_COLOR_T3
+participant ":StatisticsGenerator" as StatisticsGenerator UI_COLOR_T3
+participant ":JavaFxChart" as JavaFxChart UI_COLOR_T3
+
+end box
+
+
+[-> Model : updateFilteredExpenses(SHOW_ALL)
+activate Model
+Model -> ObservableList : setPredicate(SHOW_ALL)
+deactivate Model
+
+activate ObservableList
+ObservableList -> Chart : notifyListeners(expenseList)
+deactivate ObservableList
+
+activate Chart
+Chart -> Chart: onUpdate(expenseList)
+
+activate Chart
+Chart -> StatisticsGenerator :generate(expenseList)
+deactivate Chart
+
+activate StatisticsGenerator
+StatisticsGenerator --> Chart : ExpenseXYZStatistic
+deactivate StatisticsGenerator
+
+activate Chart
+Chart --> JavaFxChart : display(formattedStatistic)
+deactivate Chart
+
+@enduml

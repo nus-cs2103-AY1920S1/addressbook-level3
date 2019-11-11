@@ -1,0 +1,16 @@
+{
+  "expenses": [ {
+    "name" : "valid expense",
+    "description" : "tickets to joker",
+    "amount" : "10.00",
+    "created" : "12/31/2019 1234",
+    "tagged" : [ "leisure" ],
+    "archiveName" : ""
+  }, {
+    "name": "Expense With Invalid Amount Field",
+    "description" : "toast with frens",
+    "amount" : "4.20 blaze it",
+    "created" : "01/01/2019 0101",
+    "tagged" : [ "monday", "friends" ]
+  } ]
+}

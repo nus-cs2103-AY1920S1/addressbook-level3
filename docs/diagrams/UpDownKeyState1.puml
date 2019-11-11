@@ -1,0 +1,17 @@
+@startuml
+!include style.puml
+skinparam ClassFontColor #000000
+skinparam ClassBorderColor #000000
+
+title Initial state
+
+package cmdList {
+    class cmd0 as "__cmd0:String__"
+    class cmdInit as "__empty:String__"
+}
+
+cmdInit -[hidden]right-> cmd0
+
+class Pointer as "Current State" #FFFFF
+Pointer -up-> cmdInit
+@end

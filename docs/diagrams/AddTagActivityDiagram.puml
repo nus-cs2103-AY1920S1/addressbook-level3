@@ -1,0 +1,20 @@
+@startuml
+start
+:User enters command to add tags to an expense;
+:Parse command;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if () then ([correct command format])
+    :AddTagCommand executes command;
+if() then ([tag(s) does not exist in the expense])
+    :Expense is updated;
+else ([else])
+    :Show error message;
+endif
+else ([else])
+    :Show error message;
+endif
+stop
+@enduml

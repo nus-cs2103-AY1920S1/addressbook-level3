@@ -1,0 +1,38 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+
+Class MainWindow
+
+package Chart <<Rectangle>> {
+Class ChartBox
+Class StatisticsFormatOptions
+Class "{abstract}\nExpenseChart" as ExpenseChart
+Class ExpenseXYZChart
+
+
+enum StatisticsFormat {
+TIMELINE
+BREAKDOWN
+}
+}
+
+package StatisticsGenerator <<Rectangle>> {
+Class HiddenChart #FFFFFF
+}
+Class "{abstract}\nUiPart" as UiPart
+
+
+MainWindow *-right-> ChartBox
+ChartBox -right-> StatisticsFormat
+ChartBox *-down-> ExpenseChart
+ChartBox -down-> StatisticsFormatOptions
+ExpenseChart -left-|> UiPart
+ExpenseXYZChart -up-|> ExpenseChart
+ExpenseXYZChart *-> StatisticsGenerator
+note bottom of ExpenseXYZChart: ExpenseXYZChart: ExpenseTimelineChart, \nExpenseBreakdownChart, etc.
+
+@enduml
