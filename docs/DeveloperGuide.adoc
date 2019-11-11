@@ -578,6 +578,11 @@ And there can not be two reimbursements that refer to the same person.
 
 The user can add deadline to a reimbursement, mark a reimbursement, find a reimbursement and sort reimbursements.
 
+The following is an overview class diagram for reimbursement tab:
+
+.Overview class diagram of reimbursements tab (reimbursement package)
+image::Reimbursement/ReimbursementTabClassDiagram.png[]
+
 ==== Deadline Command feature
 
 This command is used to add a deadline date to a reimbursement for a person.
@@ -685,6 +690,36 @@ And reimbursement list is sorted using `SortByXYZ` comparator.
 For `SortAmountCommand`, the list will be sorted in descending order of absolute value of amount.
 For `SortNameCommand`, the list will be sorted in descending alphabetical order of person's name.
 For `SortDeadlineCommand`, the list will be sorted in the order that nearest deadlines are at the front.
+
+==== Overall design considerations
+
+This section's table explains the design considerations for some implementations in the reimbursement tab.
+
+.Table of design considerations and comparisons
+|===
+|Aspect|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|How [blue]`done` command in reimbursement tab updates transactions model and storage.
+|The `reimbursementLogic` keeps a `transactionModel` and a `transactionStorage` to update transactions.
+|`MainWindow` calls methods from `reimbursementLogic` and `transactionLogic` when a command is executed.
+|Alternative 2 is chosen.
+`transactionLogic` follows Façade pattern to prevent exposing the internal details of the transaction tab.
+So, instead of directly manipulating model and storage of transactions from `reimbursementLogic`,
+the operations are done through `transactionLogic` as shown in the <<facade, code snippet>> below the table.
+
+|How reimbursement records are saved and read from `.txt` files
+|The reimbursement tab saves all the information of transactions that make up a reimbursement into `reimbursementInformation.txt`.
+|The reimbursement tab only saves person's name, amount and the deadline information into `reimbursementInformation.txt`.
+When launching the application, reimbursement tab reads the transactions information from `transactionHistory.txt`.
+|Alternative 2 is chosen.
+Alternative 2 does not save duplicate information that has already been saved into `transactionHistory.txt`.
+So, alternative 2 is more efficient.
+|===
+
+[[facade]]
+.Code snippet of `transactionLogic` facade class in `MainWindow`
+image::Reimbursement/codeSnippetTransactionLogic.png[]
+
 
 === Inventory Tab
 
