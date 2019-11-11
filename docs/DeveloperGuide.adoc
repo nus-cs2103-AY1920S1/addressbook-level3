@@ -1266,17 +1266,6 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: `config.json`).
 
-== Documentation
-
-Refer to the guide <<Documentation#, here>>.
-
-== Testing
-
-Refer to the guide <<Testing#, here>>.
-
-== Dev Ops
-
-Refer to the guide <<DevOps#, here>>.
 
 [appendix]
 == Product Scope
@@ -1428,6 +1417,8 @@ A piece of executable code that is passed as an argument to other another
 code that is expected to _callback_ (execute) the argument at a given time.
 (Adapted from https://en.wikipedia.org/wiki/Callback_(computer_programming)[Wikipedia])
 
+[[gui]] GUI::
+_Graphical User Interface_, the primary interface of which _Dukemon_'s feedback to the user can be seen.
 
 [appendix]
 == Instructions for Manual Testing
@@ -1459,7 +1450,7 @@ The below instruction are only intended as starting points for testers to work o
 .. Enter `exit` and relaunch _Dukemon_. Enter `select triva` and then `open` upon restarting  +
    [underline]#Expected#: The new _Card_ ("Damith") added previously is correctly stored in the _Triva_ _WordBank_.
 
-=== Starting and Force-Stopping a _Game_ session without `Hints`.
+=== Starting and Terminating a _Game_ session without _Hints_.
 
 . Starting a _Game_ after a target _WordBank_ has been selected.
 
@@ -1485,23 +1476,28 @@ respectively for each _Card_. Other invalid commands will yield similar results 
 
 === Importing and Exporting a _WordBank_ using Drag-and-Drop.
 
-. Starting a _Game_ after a target _WordBank_ has been selected.
+. Exporting a _WordBank_ using Drag-and-Drop
 
-.. [underline]#Prerequisite#: A _WordBank_ with *3 or more _Cards_* has been selected using the `select` command.
-.. Enter `settings`
-   [underline]#Expected#: GUI switches to _Settings_ mode, and various configurable parameters are listed. (ie. _Theme_, _Hints_ etc)
-.. Enter `hints off` +
-   [underline]#Expected#: GUI feedback indicates that _Hints_ are turned OFF
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
-   Expected: Similar to previous.
+.. [underline]#Prerequisite#: There exists *at least one* _WordBank_ in _Dukemon_'s data storage. Let *W* be any _WordBank_ that currently exists in _Dukemon_'s storage.
+..  (Single) Click on Panel on the right half of the GUI that indicates _WordBank_ *W* +
+   [underline]#Expected#: _WordBank_ *W*'s panel on the GUI becomes highlighted.
+.. Use mouse cursor to click-and-drag highlighted panel *outside* of _Dukemon_ into an *empty* folder.  +
+   [underline]#Expected#: A file with name *W.json* appears in the folder where it was dragged into.
 
-_{ more test cases ... }_
+. Importing a _WordBank_ using Drag-and-Drop
 
+.. [underline]#Prerequisite#: _WordBank_ to be imported is in *valid .json format*, and all of its `Cards` are *valid within constraints.* Let *V* be the _WordBank_ to be imported.
+..  (Single) Click on *V.json* in your file directory. Start _Dukemon_ and drag *V.json* into the panel on the right side (where the list of _WordBanks_ is shown.)  +
+   [underline]#Expected#: _WordBank_ *V* is successfully added into the list of _WordBanks_, feedback indicates location where file was imported from.
 
-=== Saving data
+=== Changing and Saving _Dukemon_ Settings
 
-. Dealing with *missing/corrupted* data and configuration files
+. Changing Color Theme of _Dukemon_
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
+.. [underline]#Prerequisite#: A _WordBank_ has *already been selected* from the _Home_ mode, and no _Game_ session is in progress.
+.. Enter `settings` +
+   [underline]#Expected#: GUI switches to the _Settings_ screen.
+.. Enter `theme light` +
+   [underline]#Expected#: GUI's overall color theme switches to a lighter color.
+.. Enter `exit`, then restart _Dukemon_ (do not change any configuration or data files) +
+   [underline]#Expected#: GUI's color theme remains light after restarting.
