@@ -1,7 +1,7 @@
 package seedu.pluswork.commons;
 
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 import seedu.pluswork.logic.commands.AddCalendarCommand;
 import seedu.pluswork.logic.commands.AddInventoryCommand;
@@ -30,7 +30,6 @@ import seedu.pluswork.logic.commands.GetStatisticsCommand;
 import seedu.pluswork.logic.commands.HelpCommand;
 import seedu.pluswork.logic.commands.HomeCommand;
 import seedu.pluswork.logic.commands.ListInventoryCommand;
-import seedu.pluswork.logic.commands.ListMemberByTaskCommand;
 import seedu.pluswork.logic.commands.ListMemberCommand;
 import seedu.pluswork.logic.commands.ListTaskCommand;
 import seedu.pluswork.logic.commands.RedoCommand;

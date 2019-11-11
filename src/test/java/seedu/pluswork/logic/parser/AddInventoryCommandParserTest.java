@@ -28,9 +28,9 @@ public class AddInventoryCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, INVENTORY_NAME_DESC_SPORTS + INVENTORY_PRICE_DESC_SPORTS
-                + INVENTORY_TASKID_DESC_SPORTS + INVENTORY_MEMBERID_DESC_SPORTS,
+                        + INVENTORY_TASKID_DESC_SPORTS + INVENTORY_MEMBERID_DESC_SPORTS,
                 new AddInventoryCommand(new Index(0), expectedInv.getName(),
-                                                                    expectedInv.getPrice(), new MemberId("AR")));
+                        expectedInv.getPrice(), new MemberId("AR")));
     }
 
     @Test

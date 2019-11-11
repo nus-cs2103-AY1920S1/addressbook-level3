@@ -72,9 +72,9 @@ public class FindMeetingTimeCommandTest {
         requireNonNull(endTmp1);
         requireNonNull(endTmp2);
         requireNonNull(endTmp3);
-        assert(startTmp1.isBefore(endTmp1));
-        assert(startTmp2.isBefore(endTmp2));
-        assert(startTmp3.isBefore(endTmp3));
+        assert (startTmp1.isBefore(endTmp1));
+        assert (startTmp2.isBefore(endTmp2));
+        assert (startTmp3.isBefore(endTmp3));
         SAMPLE_START_DATE1 = startTmp1;
         SAMPLE_START_DATE2 = startTmp2;
         SAMPLE_START_DATE3 = startTmp3;
@@ -86,15 +86,15 @@ public class FindMeetingTimeCommandTest {
     @Test
     public void constructor_nullMeeting_throwsNullPointerException() {
         assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(null, null, null));
+                -> new FindMeetingTimeCommand(null, null, null));
         assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(SAMPLE_END_DATE1, null, SAMPLE_DURATION1));
+                -> new FindMeetingTimeCommand(SAMPLE_END_DATE1, null, SAMPLE_DURATION1));
         assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(null, null, SAMPLE_DURATION3));
+                -> new FindMeetingTimeCommand(null, null, SAMPLE_DURATION3));
         assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE3, null));
+                -> new FindMeetingTimeCommand(SAMPLE_START_DATE1, SAMPLE_END_DATE3, null));
         assertThrows(NullPointerException.class, ()
-            -> new FindMeetingTimeCommand(null, SAMPLE_END_DATE1, null));
+                -> new FindMeetingTimeCommand(null, SAMPLE_END_DATE1, null));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class FindMeetingTimeCommandTest {
         FindMeetingTimeCommand invalidCommand3 =
                 new FindMeetingTimeCommand(SAMPLE_END_DATE3, SAMPLE_START_DATE3, SAMPLE_DURATION3);
         MeetingQuery validMeetingQuery = new MeetingQueryBuilder().build();
-        assert(validMeetingQuery != null);
+        assert (validMeetingQuery != null);
         ModelStub modelStub = new ModelStubWithMeetingQuery(validMeetingQuery);
         assertThrows(CommandException.class, FindMeetingTimeCommand.ILLEGAL_END_DATE,
                 () -> invalidCommand1.execute(modelStub));

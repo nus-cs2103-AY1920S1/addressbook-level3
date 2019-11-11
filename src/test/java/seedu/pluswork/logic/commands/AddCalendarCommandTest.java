@@ -1,27 +1,22 @@
 package seedu.pluswork.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.pluswork.testutil.Assert.assertThrows;
 
-import org.junit.jupiter.api.Test;
-
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Predicate;
+
+import org.junit.jupiter.api.Test;
 
 import javafx.collections.ObservableList;
 import seedu.pluswork.commons.core.GuiSettings;
-import seedu.pluswork.commons.core.Messages;
-import seedu.pluswork.commons.core.index.Index;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.model.Model;
-import seedu.pluswork.model.ProjectDashboard;
 import seedu.pluswork.model.ReadOnlyProjectDashboard;
 import seedu.pluswork.model.ReadOnlyUserPrefs;
 import seedu.pluswork.model.UserSettings;
@@ -62,7 +57,7 @@ public class AddCalendarCommandTest {
         CalendarWrapper validCalendar = new CalendarWrapperBuilder().build();
         AddCalendarCommand validCommand = new AddCalendarCommand(validCalendar);
         ModelStub modelStub = new ModelStubAcceptingCalendarAdded();
-        assert(!modelStub.hasCalendar(validCalendar));
+        assert (!modelStub.hasCalendar(validCalendar));
 
         CommandResult commandResult = validCommand.execute(modelStub);
 
@@ -87,7 +82,7 @@ public class AddCalendarCommandTest {
         CalendarWrapper validCalendar1 = new CalendarWrapperBuilder().build();
         CalendarWrapper validCalendar2 = new CalendarWrapperBuilder()
                 .withMemberName(new MemberName("Bobby")).build();
-        assert(!validCalendar1.getMemberName().equals(validCalendar2.getMemberName()));
+        assert (!validCalendar1.getMemberName().equals(validCalendar2.getMemberName()));
 
         AddCalendarCommand addCalendarCommand1 = new AddCalendarCommand(validCalendar1);
         AddCalendarCommand addCalendarCommand2 = new AddCalendarCommand(validCalendar2);

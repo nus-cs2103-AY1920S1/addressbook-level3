@@ -35,7 +35,7 @@ public class AddTaskCommandIntegrationTest {
         expectedModel.addTask(validTask);
 
         assertCommandSuccess(new AddTaskCommand(validTask), model,
-        String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), expectedModel);
+                String.format(AddTaskCommand.MESSAGE_SUCCESS, validTask), expectedModel);
     }
 
     @Test

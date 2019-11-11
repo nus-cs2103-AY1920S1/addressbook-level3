@@ -60,7 +60,7 @@ public class FindMeetingTimeCommand extends Command {
 
         model.findMeetingTime(startDate, endDate, meetingDuration);
         MeetingQuery meetingQuery = model.getMeetingQuery();
-        assert(meetingQuery != null);
+        assert (meetingQuery != null);
         if (!meetingQuery.hasMeetings()) {
             String startDateString = DateTimeUtil.displayDateTime(startDate);
             String endDateString = DateTimeUtil.displayDateTime(endDate);

@@ -5,13 +5,10 @@ import static seedu.pluswork.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Stream;
 import java.util.stream.Collectors;
-
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import seedu.pluswork.model.member.MemberName;
 
 public class MeetingQuery {

@@ -3,38 +3,20 @@ package seedu.pluswork.ui;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import seedu.pluswork.commons.Keywords;
 import seedu.pluswork.logic.Logic;
 import seedu.pluswork.logic.commands.CommandResult;
 import seedu.pluswork.logic.commands.exceptions.CommandException;
 import seedu.pluswork.logic.parser.exceptions.ParseException;
-
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_STATUS;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_TASK_TAG;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_MEMBER_ID;
-import static seedu.pluswork.logic.parser.CliSyntax.PREFIX_INVENTORY_PDFTYPE;
 
 /**
  * The UI component that is responsible for receiving user command inputs.
@@ -59,11 +41,10 @@ public class CommandBox extends UiPart<Region> {
     private Label label;
 
     /**
+     * @param commandExecutor
      * @@author Caleb Brinkamn - reused
      * makes a new CommandBox adapted from Caleb Brinkman's AutoCompleteTextBox
      * https://gist.github.com/floralvikings/10290131
-     *
-     * @param commandExecutor
      */
     public CommandBox(CommandExecutor commandExecutor, Logic logic) {
         super(FXML);
@@ -79,7 +60,7 @@ public class CommandBox extends UiPart<Region> {
      * moves the caret position of textbox to the next input field / prefix if present
      */
 
-    public void handleShiftPressed(){
+    public void handleShiftPressed() {
         commandTextField.requestFocus();
         int caret = commandTextField.getCaretPosition();
         int nextSlash = commandTextField.getText().indexOf("/", caret + 1);
@@ -95,7 +76,6 @@ public class CommandBox extends UiPart<Region> {
      * @param s2
      */
     // adapted from group T12-2's autocomplete textfield architecture
-
     public void getSuggestions() {
         commandTextField.textProperty().addListener((observableValue, oldStr, newStr) -> {
             String text = commandTextField.getText().toLowerCase();
@@ -113,9 +93,9 @@ public class CommandBox extends UiPart<Region> {
             }
         });
         commandTextField.setOnKeyPressed(event -> {
-            LinkedList<String> searchResult = logic.getAutoCompleteResults(commandTextField.getText().toLowerCase());
-            populatePopup(searchResult);
-        }
+                    LinkedList<String> searchResult = logic.getAutoCompleteResults(commandTextField.getText().toLowerCase());
+                    populatePopup(searchResult);
+                }
         );
     }
 

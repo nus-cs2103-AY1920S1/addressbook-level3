@@ -84,10 +84,10 @@ public class AddMeetingCommandTest {
         Index invalidIndex3 = new Index(validIndexUpperBound + 1);
         Index invalidIndex4 = new Index(validIndexUpperBound + 200);
 
-        assert(invalidIndex1.getZeroBased() >= validIndexUpperBound);
-        assert(invalidIndex2.getZeroBased() >= validIndexUpperBound);
-        assert(invalidIndex3.getZeroBased() >= validIndexUpperBound);
-        assert(invalidIndex4.getZeroBased() >= validIndexUpperBound);
+        assert (invalidIndex1.getZeroBased() >= validIndexUpperBound);
+        assert (invalidIndex2.getZeroBased() >= validIndexUpperBound);
+        assert (invalidIndex3.getZeroBased() >= validIndexUpperBound);
+        assert (invalidIndex4.getZeroBased() >= validIndexUpperBound);
 
         AddMeetingCommand invalidCommand1 = new AddMeetingCommand(invalidIndex1);
         AddMeetingCommand invalidCommand2 = new AddMeetingCommand(invalidIndex2);

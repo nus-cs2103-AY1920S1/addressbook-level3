@@ -19,10 +19,10 @@ import seedu.pluswork.model.member.MemberId;
 import seedu.pluswork.model.task.Name;
 import seedu.pluswork.model.task.Task;
 
-class DoneTaskMl extends MultiLine{
+class DoneTaskMl extends MultiLine {
 
     CommandResult manageOne(CommandResult commandResult, Command command,
-                                   Model model, ArrayList<Command> commands) throws CommandException, ParseException {
+                            Model model, ArrayList<Command> commands) throws CommandException, ParseException {
         String commandWord = commandResult.getFeedbackToUser().split("/", 2)[0].trim();
         switch (commandWord) {
             case "Type-1":

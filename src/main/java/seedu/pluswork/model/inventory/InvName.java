@@ -3,8 +3,6 @@ package seedu.pluswork.model.inventory;
 import static java.util.Objects.requireNonNull;
 import static seedu.pluswork.commons.util.AppUtil.checkArgument;
 
-import seedu.pluswork.model.task.Name;
-
 /**
  * Represents a Inventory's name in ProjectDashBoard.
  * Guarantees: immutable; is valid as declared in {@link #isValidMemberName(String)}
