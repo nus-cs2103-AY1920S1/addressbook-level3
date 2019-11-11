@@ -376,7 +376,7 @@ The edit command allows the user to edit flashcards in any existing deck.
 
 Format: `edit deck/DECK_NAME index/CARD_INDEX [front/FRONT_TEXT] [back/BACK_TEXT] [choiceIndex/CHOICE_INDEX] [choice/CHOICE_TEXT]`
 
-Note:
+Note: Editing of Java and Javascript cards will be implemented in v2.0.
 
 ****
 
