@@ -9,7 +9,8 @@
 
 == Introduction
 
-BudgetBuddy is a desktop expense tracker application designed for computing students who wish to better manage their expenses.
+BudgetBuddy is a desktop expense tracker application designed for Computing students in National University of Singapore
+who wish to better manage their expenses.
 The user interacts with it using a Command-Line Interface (CLI), and it has a Graphical User Interface (GUI) created with JavaFX.
 It is written in Java, and has about 15 kLoC. The purpose of this Project Portfolio Page is to present my contribution to BudgetBuddy.
 

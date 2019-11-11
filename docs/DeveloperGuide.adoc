@@ -160,7 +160,7 @@ This section describes some noteworthy details on how certain features are imple
 The Accounts Feature allows the users to manage their accounts.
 It is managed by `AccountsManager`, with `Account` objects stored internally in an `accounts` and `filteredAccounts`.
 
-The class diagram below shows how the `AccountsManager` maanges its list of `Account` objects:
+The class diagram below shows how the `AccountsManager` manages its list of `Account` objects:
 
 image::accountclassdiagram.png[]
 // end::accounts_1[]

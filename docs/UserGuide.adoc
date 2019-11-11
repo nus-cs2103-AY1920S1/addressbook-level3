@@ -216,9 +216,9 @@ Format: `account add n/<name> [d/<description>]`
 
 Examples:
 
-* `account add n/Japan trip`
+* `account add n/Japan trip` +
 You have created an account with name of 'Japan trip'.
-* `account add n/Japan trip d/expense spent in Japan`
+* `account add n/Japan trip d/expense spent in Japan` +
 You have created an account with name of 'Japan trip' and description of 'expense spent in Japan'.
 
 ==== List accounts: `account list`
@@ -241,11 +241,11 @@ Format: `account edit <id> [n/<name>] [d/<description>]`
 
 Examples:
 
-* `account edit 1 n/food`
+* `account edit 1 n/food` +
 The name of your first account will be changed to 'food'.
-* `account edit 1 d/money spent on food`
+* `account edit 1 d/money spent on food` +
 The name of your first account will be changed to 'money spent on food'.
-* `account edit 1 n/food d/money spent on food`
+* `account edit 1 n/food d/money spent on food` +
 The name of your first account will be changed to 'food', at the same time the description of the same account will be changed to 'money spent on food'.
 
 ==== Delete account: `account delete`
@@ -261,7 +261,7 @@ Format: `account delete <id>`
 
 Examples:
 
-* `account delete 2`
+* `account delete 2` +
 You have deleted the second account in your account list.
 
 ==== Find account: `account find`
@@ -273,7 +273,7 @@ Format: `account find <keyword>`
 
 Examples:
 
-* `account find trip`
+* `account find trip` +
 You can see a list of accounts with the word 'trip' contained in their names.
 
 ==== View report of an account: `account report`
@@ -289,7 +289,8 @@ Format: `account report <id>`
 
 Example:
 
-* `account report 2` You can view the report of the first account.
+* `account report 2` +
+You can view the report of the first account.
 
 ==== Switch the active account: `account switch`
 
@@ -298,13 +299,14 @@ To switch the active account to another in the account list, specify the ID of t
 Format: `account switch <id>`
 
 ****
-* Switches the active account to the account with the specified index, and updates the shown `Transaction` list.
+* Switches the active account to the account with the specified index.
 The index refers to the index number as shown in the displayed account list. The index must be a positive integer 1, 2, 3...
 ****
 
 Example:
 
-* `account switch 3` Will switch the active account to the third one in the list, as long as there are at least 3 accounts listed.
+* `account switch 3` +
+You have switched the active account to the third one in the list.
 The active account will be highlighted, as shown below:
 
 image::AccountSwitch.png[]
