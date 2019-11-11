@@ -11,6 +11,7 @@ import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
  * The API of the Model component.
@@ -26,6 +27,9 @@ public interface Model {
     String BUDGET_TYPE = "b";
     String TRANSACTION_TYPE = "t";
     String PROJECTION_TYPE = "p";
+
+    //=========== UserPrefs ==================================================================================
+    Tab getCurrentTab();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -231,6 +235,8 @@ public interface Model {
 
     void updateProjectionsAfterDelete(BankAccountOperation deleted);
 
+    void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated);
+
     /**
      * Returns an unmodifiable view of the filtered budget list
      */
@@ -242,4 +248,6 @@ public interface Model {
     ObservableList<Projection> getFilteredProjectionsList();
 
     ObservableList<Person> getPeopleInLedger();
+
+    void setTab(Tab tab);
 }

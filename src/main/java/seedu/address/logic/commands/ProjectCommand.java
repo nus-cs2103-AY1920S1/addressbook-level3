@@ -24,7 +24,7 @@ import seedu.address.ui.tab.Tab;
 public class ProjectCommand extends Command {
 
     public static final String COMMAND_WORD = "project";
-    public static final String MESSAGE_INVALID_DATE = "Date must be set in the future";
+    public static final String MESSAGE_INVALID_DATE = "Date must be set in the future.";
     public static final String MESSAGE_BUDGET_CAUTION =
             "You are likely to exceed your budget of $%s, with a deficit of $%s!\n";
     public static final String MESSAGE_BUDGET_ON_TRACK =
@@ -43,7 +43,7 @@ public class ProjectCommand extends Command {
     private static final String MESSAGE_INSUFFICIENT_TRANSACTION_HISTORY =
             "There are too few transactions. It is impossible to cast a projection.";
     private static final String MESSAGE_PROJECTION_TOO_PROTRACTED =
-            "Projections should be a maximum of 2 years (730 days) from now";
+            "Projections should be a maximum of 2 years (730 days) from now.";
     private static final String SMALL_SAMPLE_SIZE =
             "Projection is based on a small sample size, and may be limited in its accuracy";
     private static final String PROTRACTED_PROJECTION =

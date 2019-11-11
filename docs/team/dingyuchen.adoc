@@ -93,7 +93,9 @@ https://github.com/AY1920S1-CS2103T-T12-4/main/issues/202[T12-4 #202]
 They showcase my ability to write documentation targeting end-users._
 |===
 
-Placeholder
+include::../UserGuide.adoc[tag=split]
+
+include::../UserGuide.adoc[tag=receive]
 
 == Contributions to the Developer Guide
 
@@ -102,7 +104,8 @@ Placeholder
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-Placeholder
+include::../DeveloperGuide.adoc[tag=split]
 
+include::../DeveloperGuide.adoc[tag=receive]
 
 '''

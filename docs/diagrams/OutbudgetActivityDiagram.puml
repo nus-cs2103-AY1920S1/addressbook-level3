@@ -13,12 +13,18 @@ else([Out Transaction])
 
 endif
 
-if(In Transaction) then ([yes])
+if() then ([In Transaction])
 
-elseif (Out Transaction) then ([Yes])
+else([Out Transaction])
+:Check if transaction has similar categories and is within the same time period as any Budget entries;
+
+if(Within time period and similar categories) then ([yes])
 :Budget's remaining amount to deduct from Transaction's amount;
 
-else([No])
+
+else([no])
+
+endif
 
 endif
 

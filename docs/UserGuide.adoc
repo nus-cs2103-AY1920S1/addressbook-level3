@@ -59,12 +59,22 @@ the category *food* and the description *pie*.
 === Ledgers
 
 === Projections
+By using the _Projections_ feature, you can project your:
+
+. Account Balance
+
+. Budget Deficits / Surpluses
+
+These projections are cast upon a specified `DATE`, and optionally, a specified `CATEGORY`. Upon casting a
+projection, it is automatically stored and thereafter accessible through the _Projection_ tab via the `view`
+command (see <<View>>).
+
 
 [[Commands]]
 == Commands
 
 ====
-*Command Format*
+*Command Format* :
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user. +
 Example: For `in $/AMOUNT n/ITEM d/DATE`, `AMOUNT`, `ITEM` and `DATE` are parameters which can be used as
@@ -77,6 +87,25 @@ Example: `[n/NAME]...` can be used as `{nbsp}` (i.e. 0 times), `n/Amy`, `n/Amy n
 Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also acceptable.
 * Parameters that need to be concatenated together are represented as `PARAM+PARAM`. +
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
+
+*Parameter Restrictions* :
+
+[width="100%",cols="30%,20%,<50%",options="header",]
+|=======================================================================
+| Parameter | Prefix | Restriction
+| AMOUNT | $/ | - a valid amount between 0 and 1000000 dollars exclusive +
+- a valid amount up to 2 decimal places
+| DATE | d/ |- a valid date with the format DDMMYY in the Gregorian calendar
+| DESCRIPTION | n/ | - a valid description with alphanumeric chacracters
+| CATEGORY | c/ | - a valid category with alphanumeric characters without space
+| TYPE | | - a valid type containing one character +
+`t` : Transaction +
+`b` : Budget +
+`l` : Ledger +
+`p` : Projection
+| INDEX | | - a valid entry number in the list
+|=======================================================================
+
 ====
 
 [[In]]
@@ -102,17 +131,19 @@ Format: `in $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
   in $/120 d/31122019 n/work
 
-. Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.
-. The income has not utilized the optional `CATEGORY` field.
-. Initial balance (red box in Figure 1) has a value of $0.
-
+. Logging income
+* Inputs an income of $120 with description set to 'work' and date set on 31/12/2019.
+* The income has not utilized the optional `CATEGORY` field.
+* Initial balance (red box in Figure 1) has a value of $0.
++
 .Income Logging Example 1
 image::in_ug_1.png[]
-
-. The income is added to the empty *Transactions* tab.
-. The added income is given a `GENERAL` category.
-. Balance has increased from $0 to $120 (red box in Figure 2).
-
++
+. Income added
+* The income is added to the empty *Transactions* tab.
+* The added income is given a `GENERAL` category.
+* Balance has increased from $0 to $120 (red box in Figure 2).
++
 .Sample Income 1 Added
 image::in_ug_2.png[]
 
@@ -120,17 +151,19 @@ image::in_ug_2.png[]
 
   in $/500.50 n/allowance d/01012020 c/parents
 
-. Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
-. The income includes `parents` under the `CATEGORY` field.
-. Initial balance (red box in Figure 3) has a value of $120.
-
+. Logging income
+* Inputs an income of $500.50 with description set to 'allowance' and date set on 01/01/2020.
+* The income includes `parents` under the `CATEGORY` field.
+* Initial balance (red box in Figure 3) has a value of $120.
++
 .Income Logging Example 2
 image::in_ug_3.png[]
-
-. The income is added to the bottom of the *Transactions* tab.
-. The added income tagged under `parents` category.
-. Balance has increased from $120 to $620.50 (red box in Figure 4).
-
++
+. Income added
+* The income is added to the bottom of the *Transactions* tab.
+* The added income tagged under `parents` category.
+* Balance has increased from $120 to $620.50 (red box in Figure 4).
++
 .Sample Income 2 Added
 image::in_ug_4.png[]
 
@@ -160,7 +193,8 @@ Format: `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]`
 
 ==== Important Details:
 
-Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
+* Note that `out` transactions differ from `in` transactions in the display amount. The `in` transactions are characterized by the *positive* value within their display box whilst the `out` transactions are characterized by the *negative* values in their display box. The difference can be observed in the example usage below.
+* `out` Transaction will affect the remaining amount of `Budget` entries with similar categories within the same time period (Refer to <<UG_OUT_EXAMPLE3>>).
 
 ==== Example Usage
 
@@ -168,18 +202,20 @@ Note that `out` transactions differ from `in` transactions in the display amount
 
  out $/5 d/01012020 n/burger
 
-. Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.
-. The expenditure has not utilized the optional `CATEGORY` field.
-. Initial balance (red box in Figure 5) has a value of $620.50.
-
+. Expenditure logging
+* Inputs an expenditure of $5 with description set to 'burger' and date set on 01/01/2020.
+* The expenditure has not utilized the optional `CATEGORY` field.
+* Initial balance (red box in Figure 5) has a value of $620.50.
++
 .Expenditure Logging Example 1
 image::out_ug_1.png[]
-
-. The expenditure is added to the bottom of the *Transactions* tab.
-. The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).
-. The added expenditure is given a `GENERAL` category.
-. Balance has decreased from $620.50 to $615.50 (red box in Figure 6).
-
++
+. Expenditure added
+* The expenditure is added to the bottom of the *Transactions* tab.
+* The amount value of the expenditure box should display a negative value (see Figure 6 entry 3).
+* The added expenditure is given a `GENERAL` category.
+* Balance has decreased from $620.50 to $615.50 (red box in Figure 6).
++
 .Sample Expenditure 1 Added
 image::out_ug_2.png[]
 
@@ -187,20 +223,56 @@ image::out_ug_2.png[]
 
  out $/1000 n/maintenance d/02012020 c/car c/transport
 
-. Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.
-. The income includes `car` and `transport` under the `CATEGORY` field.
-. Initial balance (red box in Figure 7) has a value of $615.50.
-
+. Expenditure logging
+* Inputs an expenditure of $1000 with description set to 'maintenance' and date set on 02/01/2020.
+* The income includes `car` and `transport` under the `CATEGORY` field.
+* Initial balance (red box in Figure 7) has a value of $615.50.
++
 .Expenditure Logging Example 2
 image::out_ug_3.png[]
-
-. The expenditure is added to the bottom of the *Transactions* tab.
-. The added expenditure is tagged under `car` and `transport` category.
-. Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).
-. The negative value of the balance indicates that the total spending amount outweighs the total savings amount.
-
++
+. Expenditure added
+* The expenditure is added to the bottom of the *Transactions* tab.
+* The added expenditure is tagged under `car` and `transport` category.
+* Balance has decreased from $615.50 to -$384.50 (red box in Figure 8).
+* The negative value of the balance indicates that the total spending amount outweighs the total savings amount.
++
 .Sample Expenditure 2 Added
 image::out_ug_4.png[]
+
+[[UG_OUT_EXAMPLE3]]
+===== Example 3
+
+ out $/100 n/pants d/02012020 c/clothes
+
+. Expenditure logging
+* Inputs an expenditure of $100 with description set to 'pants' and date set on 02/01/2020.
+* The income includes `clothes` under the `CATEGORY` field.
++
+.Expenditure Logging Example 3
+image::out_ug_5.png[]
++
+. Budget with similar categories and time period.
+* Entry 3 of the `Budget` tab has `clothes` under its `CATEGORY` field.
+* Entry 3 of the `Budget` tab has a deadline set to `01/01/2021`.
++
+.Budget with 'clothes' category
+image::out_ug_6.png[]
++
+. Expenditure added
+* The expenditure is added to the bottom of the *Transactions* tab.
+* The added expenditure has a date set to `02/01/2020`.
+* The added expenditure is tagged under the `clothes` category.
++
+.Sample Expenditure 3 Added
+image::out_ug_7.png[]
++
+. Budget entry updated
+* Remaining amount of entry 3 of the `Budget` tab has decreased from $1000 to $900.
++
+.Budget entry updated
+image::out_ug_8.png[]
+
 
 ===== Example Commands:
 
@@ -256,6 +328,9 @@ Examples:
 
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
+
+
+// tag::split[]
 
 [[Split]]
 === Splitting a Bill with Friends : `split`
@@ -319,7 +394,9 @@ image::SplitUneven1.png[]
 +
 .Uneven split results
 image::SplitUneven2.png[]
+// end::split[]
 
+// tag::receive[]
 [[Receive]]
 === Receiving Money from a Friend : `receive`
 
@@ -343,23 +420,18 @@ image::Receive1.png[]
 image::Receive2.png[]
 +
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
+//end::receive[]
 
 [[Project]]
-=== Projecting Balance : `project`
+=== Projecting Future Balance and Budgets : `project`
 
 Cast a projection on your future balance amount and budget statuses based on your transaction history. +
-Format: `project d/DATE [c/test]`
 
-****
-* `DATE` input only accepts date in format DDMMYYYY.
-* `DATE` input must be preceded by its tag `d/`.
-* `DATE` input must be set in the future.
-* `Date` cannot be more than _720_ days from the day of projection.
-* There must be a minimum of _5_ transactions in total, or in the specified category
-for a projection to be successfully cast.
-* Should the number of `transactions` in a  `projection` fall below _5_, the `projection`
-will be automatically deleted.
-****
+Format: `project d/DATE [c/CATEGORY]`
+[[Project-auto-cast]]
+[NOTE]
+If a `CATEGORY` is not specified, it will be set as `GENERAL` by default. `GENERAL` projections project
+upon *ALL* transactions, regardless of their categories.
 
 ==== Example Usage:
 
@@ -372,17 +444,64 @@ will be automatically deleted.
  Projected balance: $188.04
  You are on track to meeting your budget of $600 by 08122019, with a surplus of $484.32!
 
-=== Display Projection Graph: `display`
+==== Usage Constraints
+===== Command Format
+* `CATEGORY` must be preceded by its tag `c/`.
+A violation of any of the above will produce the following error message:
+****
+Invalid command format! +
+project: Project future balance based on past income/outflow. +
+Parameters: d/DATE [c/CATEGORY] +
+Example: project d/12122103 c/Food
+****
+===== Date Values +
+* `DATE` input must be set in the future.
+A violation of this constraint will produce the following
+error message:
+****
+Invalid command usage! +
+Date must be set in the future.
+****
+* `DATE` cannot be more than *720* days from the day of projection. +
+A violation of this constraint will produce the following error message:
+****
+Projections should be a maximum of 2 years (730 days) from now.
+****
+===== Minimum Number of Transactions
+* There must be a minimum of *5* transactions in total, or in the specified `CATEGORY`
+for a projection to be successfully cast.
+Should the requirement above be unmet, the following error message will be produced:
+****
+There are no transactions in [CATEGORY]. It is impossible to cast a projection.
+[NOTE]
+[GENERAL] will be displayed in place of [CATEGORY] if a `CATEGORY` is not specified. This is due to
+the auto-casting of uncategorised projections to the `GENERAL` category as explained <<Project-auto-cast, here>>.
+****
+* Should the number of transactions in a `projection` fall below *5*, it
+will be automatically deleted, as shown below:
+. Suppose there are *5* transactions, and a `GENERAL` projection, which projects upon them.
++
+.Five transactions under the projection tab
+image::project1.png[]
++
+[[Figure19]]
+.A projection which is cast based on the 5 transactions above
+image::project2.png[]
++
+. If a transaction being deleted causes the number of transactions being projected upon to fall below 5,
+the corresponding projection will automatically be deleted.
++
+.The fifth transaction has been deleted.
+image::project3.png[]
++
+.The project earlier seen in <<Figure19, Figure 19>> has been automatically deleted.
+image::project4.png[]
+
+=== Display a Projection Graph: `display`
 
 Display a graphical representation of a `projection` in a new window.
 
 Format: `display PROJECTION_ID`
-
-****
-* A `Projection` with `PROJECTION_ID` must exist.
-* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
-added or removed. Instead, they are statically rendered upon the `display` command.
-****
 
 ==== Example Usage
 
@@ -400,9 +519,25 @@ representation of the budget will be additionally displayed.
 image::display3.png[]
 +
 
+
+==== Usage Constraints
+===== Valid Projection ID
+* A `Projection` with `PROJECTION_ID` must exist.
+Attempting to display a non-existent `PROJECTION` will result in the following error message:
+****
+The projection index provided is invalid.
+****
+===== Static Graph Rendering
+* `Projection` graphs do not update automatically when a new `Transaction` or `Budget` is
+added or removed. Instead, they are statically rendered upon the `display` command.
+[NOTE]
+Due to the static nature of projection graphs, commands should *NOT* be executed while a projection
+graph is open, lest the behaviour of PalPay become unpredictable. +
+Consequently, a `display` command should *ALWAYS* be followed by closing the projection graph window, before
+any other actions are performed within _PalPay_.
+
 [[View]]
 // tag::view[]
-
 === Switching Tabs : `view`
 
 Want to switch tabs without using your mouse? You can switch to another tab with the `view` command.
@@ -431,7 +566,6 @@ image::view2.png[]
 +
 image::view3.png[]
 
-// end::view[]
 
 [[Delete]]
 // tag::delete[]
@@ -452,7 +586,9 @@ Format: `delete TYPE+INDEX`
 * Example: `delete t1` will delete the first transaction from the list of transactions.
 ****
 
-PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` is not allowed)
+==== Important Details:
+
+PalPay deletes items based on the entry index of the target item. You can only delete a maximum of 1 entry per command. (i.e. `delete t1 t2 b1` or `delete t1 t2` will not work)
 
 ==== Example Usage:
 
@@ -492,7 +628,7 @@ Format (Budget): `update TYPE+INDEX [$/AMOUNT] [d/DATE] [c/CATEGORY]` +
 
 Format (Ledger): Cannot be updated +
 
-Format (Projections): `update TYPE+INDEX [d/DATE]`
+Format (Projections): Cannot be updated
 
 ****
 * `AMOUNT` accepts a non-negative, non zero value lesser than 1,000,000.
@@ -501,7 +637,7 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 * `CATEGORY` accepts the CATEGORY for the entry.
 * At least one `AMOUNT`, `DATE`, `ITEM` or `CATEGORY` fields must be entered. You can input more than 1 of the mentioned fields (e.g. `update t1 $/100 n/milk`).
 * `INDEX` refers to the target item number. (Items are sorted starting from the **latest** input added).
-* `TYPE` accepts either `t` (Transaction), `b` (Budget), or `p` (Projection). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
+* `TYPE` only accepts either `t` (Transaction) or `b` (Budget). (e.g. `update t1 ..` refers to updating a *Transaction* of index 1).
 * `TYPE+INDEX` requires the TYPE and INDEX to be placed in sequential order (e.g. `update b 1 ..` or `update 1 ..` or `update 1b ..` will not work).
 * You can only update an existing transaction, budget or projection. Nothing will be updated if the entry of index `INDEX` does not exists.
 * Example: `update t1 $/3000 d/10102019` will update the first transaction from the list of transactions by changing it's *Amount* to $1000 and *Date* to 10/10/2019.
@@ -509,10 +645,12 @@ Format (Projections): `update TYPE+INDEX [d/DATE]`
 
 ==== Important Details:
 
-* `update` requires at least one field to be updated but also allows more than one field to be updated (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
-* Ledger does not have an update function. If you need to change specific fields within a ledger entry, you should delete the target entry and recreate a new ledger entry with your preferred fields.
-* You can not change an `in` transaction to an `out` transaction.
-* Changing an expenditure with the same category field as a budget will reflect changes on the `Budget` as well.
+* `update` requires at least one field to be updated. (e.g. `update t1 $/20 d/10102019 n/milk` and `update t1 $/10` will both be accepted).
+* `Ledger` and `Projection` do not have an update function. If you need to change specific fields within a ledger or projection entry, you should delete the target entry and recreate a new entry with your desired fields.
+* You cannot change an `in` Transaction to an `out` Transaction or vice versa.
+* Changing an expenditure's (`out` Transaction) category field to that of a Budget's entry will reflect changes on that particular Budget entry as well. (Further explained in <<UG_UPDATE_EXAMPLE_3>>)
+[NOTE]
+Changing the categories of an `out` Transaction entry with similar categories to that of a `Budget` entry to reflect changes on the budget's remaining amount will be incoming in version 2.0.
 
 ==== Example Usage
 
@@ -548,12 +686,36 @@ image::update_ug_5.png[]
 +
 image::update_ug_6.png[]
 
+[[UG_UPDATE_EXAMPLE_3]]
+===== Example 3:
+
+Updating a *Transaction* entry which has the same category field as a *Budget* entry.
+
+. Identify the index number of the *Transaction* entry you want to edit.
++
+image::update_ug_7.png[]
++
+. Notice that a *Budget* entry has the same category field as the *Transaction* entry mentioned above. (*Budget* entry 2).
++
+image::update_ug_8.png[]
++
+. Put `t` as your `TYPE` input and key in the fields you want to change. In this case, we will be changing only the amount of this *Transaction*.
++
+image::update_ug_9.png[]
++
+. Success message will be displayed upon successful update. Fields of the *Transaction* entry will now be updated accordingly.
++
+image::update_ug_10.png[]
++
+. Remaining amount of the *Budget* entry will also be updated accordingly.
++
+image::update_ug_11.png[]
+
 ===== Example Commands:
 
 * `update t1 $/20 n/coke c/drinks d/12122019`
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
-* `update p4 d/10102019`
 
 [[Sort]]
 // tag::sort[]
@@ -645,19 +807,9 @@ Format: `undo`
 
 ****
 * Once you exit PalPay, you cannot undo the previous commands.
-* List of Undoable Commands:
-** `in`
-** `out`
-** `set`
-** `split`
-** `receive`
-** `project`
-** `filter`
-** `sort`
-** `update`
-** `delete`
-** `clear`
-** `list`
+* Below are the commands that are undoable:
+** `in` / `out` / `set` / `split` / `receive` / `project` /
+`sort` / `filter` / `update` / `delete` / `clear` / `list`
 ****
 
 ==== Example Usage:

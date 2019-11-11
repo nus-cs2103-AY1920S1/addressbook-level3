@@ -1,11 +1,15 @@
 = Joel Loong - Project Portfolio
 :site-section: AboutUs
-:sectnums:
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:experimental:
+ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
+endif::[]
+
+== Project: PalPay
 
 == Overview
 
@@ -13,7 +17,11 @@ This portfolio documents my contributions to PalPay, a software engineering proj
 CS2103T Software Engineering. For this module, we were provided with a working software application which we
 could enhance or morph to suit our target audience.
 
-For the project, my main role was
+PalPay is a student application that effectively tackles the problem of the lack of a centralised platform to
+manage their finances. Hence, PalPay provides the ability to easily track their expenses and manage their finances.
+
+For the project, my main role was to develop the undo and redo feature for the application. Additionally,
+I was tasked to develop the view, sort and filter features.
 
 == Summary of contributions
 
@@ -29,8 +37,9 @@ the user experience and a more convenient way of self-correction.
 
 
 ** Highlights: This requires a thorough understanding of the starting infrastructure of the application in other
-to make changes to it. This enhancement affects existing commands and commands to be added in future. I need to
-ensure the commands are undoable and redoable, and that there are no conflicts.
+to make changes to it. This enhancement affects existing commands and commands to be added in future. In addition,
+I need to ensure the commands are undoable and redoable, and that there are no conflicts to the existing data
+in the application.
 
 * *Minor enhancement*:
 
@@ -57,15 +66,7 @@ https://github.com/AY1920S1-CS2103T-W12-3/main/pull/205[#205])
 ** Documentation:
 *** Reformatted the User Guide for a more sequential flow.
 *** Wrote the details for the following commands in the User Guide.
-**** View
-**** Sort
-**** Filter
-**** Undo
-**** Redo
-**** Clear
-**** List
-**** Help
-**** Exit
+**** View / Sort / Filter / Undo / Redo / Clear / List / Help / Exit
 *** Wrote user stories in the Developer Guide.
 *** Created UML diagrams to help in the explanation of view, sort and filter commands in the Developer Guide.
 
@@ -91,7 +92,15 @@ https://github.com/nus-cs2103-AY1920S1/forum/issues/110[#110])
 They showcase my ability to write documentation targeting end-users._
 |===
 
-Placeholder
+include::../UserGuide.adoc[tag=view]
+
+//include::../UserGuide.adoc[tag=sort]
+
+//include::../UserGuide.adoc[tag=filter]
+
+include::../UserGuide.adoc[tag=undo]
+
+//include::../UserGuide.adoc[tag=redo]
 
 == Contributions to the Developer Guide
 
@@ -100,7 +109,9 @@ Placeholder
 They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-Placeholder
+include::../DeveloperGuide.adoc[tag=sort]
+
+include::../DeveloperGuide.adoc[tag=undoredo]
 
 
 '''

@@ -16,11 +16,17 @@ import seedu.address.model.projection.Projection;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
 import seedu.address.model.transaction.LedgerOperation;
+import seedu.address.ui.tab.Tab;
 
 /**
  * A default model stub that has all of the methods failing.
  */
 public class ModelStub implements Model {
+    @Override
+    public Tab getCurrentTab() {
+        throw new AssertionError("This method should not be called.");
+    }
+
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         throw new AssertionError("This method should not be called.");
@@ -201,6 +207,10 @@ public class ModelStub implements Model {
     }
 
     @Override
+    public void updateProjectionsAfterUpdate(BankAccountOperation toUpdate, BankAccountOperation updated) {
+    }
+
+    @Override
     public void updateProjectionsAfterAdd(BankAccountOperation added) {
     }
 
@@ -226,6 +236,11 @@ public class ModelStub implements Model {
 
     @Override
     public ObservableList<Person> getPeopleInLedger() {
+        throw new AssertionError("This method should not be called.");
+    }
+
+    @Override
+    public void setTab(Tab tab) {
         throw new AssertionError("This method should not be called.");
     }
 }
