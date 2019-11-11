@@ -100,7 +100,7 @@ Deletes the expense with index 3. +
 {nbsp} +
 
 . _List all expenses: list_ +
-You can list all the expenses in the record list using this command. `list` will ignore all parameters. +
+You can list all the expenses in your expense list using this command. `list` will ignore all parameters. +
 {nbsp} +
 Usage:
 
@@ -113,6 +113,28 @@ Displays below expenses (for example) in the GUI:
 
 image::ListCommandExample.png[]
 {nbsp} +
+
+. _Clear all expenses: clear_ +
+You can clear all the expenses in your expense list using this command.
+
+[WARNING]
+This _actually_ deletes all your commands, use with caution! The undo feature may come in handy if you unintentionally used this command.
+
+[NOTE]
+Archived expenses are not cleared.
+
+{nbsp} +
+Usage:
+
+ clear
++
+Example: +
+`clear` +
+Clears all your expenses.
+ +
+
+
+
 
 // tag::tagging[]
 === Tagging expenses: `tag`
