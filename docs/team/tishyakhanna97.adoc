@@ -58,26 +58,6 @@ worked on the common code base and design. In addition, I provided structure and
 Developer guides. I shall elaborate more in the following sections.
 
 
-In order to increase readability, I have included a legend of the formatting and symbols used in this portfolio.
-
-
-.Diary Commands Summary
-|===
-|Format and special symbols |Purpose
-
-|``Command``
-| Text which is contained in a grey box (as can be seen on the left) refers to _commands_ that the user
-can type into the command line in order to interact with TravEzy
-
-|_Italics_
-| Text which is italicised refers to technical components in the application
-
-| https://github.com/AY1920S1-CS2103T-T17-2/main/blob/master/docs/DeveloperGuide.adoc[``Class``]
-| A grey highlight with blue text implies that the word refers to a component, class or object in the diagram shown.
-
-
-|===
-
 == Summary of contributions
 
 My contributions, summarised below. Given that the largest feature that I implemented was the Diary, I have discussed it in detail below.
@@ -152,38 +132,6 @@ https://github.com/AY1920S1-CS2103T-T17-2/main/commit/00ebf7dda94401bc4c980f850d
 In this section, I shall be sharing some of the portions from the *TravEzy* Userguide which I wrote.
 I shall be focusing on the ``find``, ``findSpecific`` and ``encrypt`` commands.
 They showcase my ability to write documentation targeting end-users.
-
-=== Find diary entries ``find``
-
-"Hey, when did I go to Spain?" It can be hard to remember
-all the details of your trips. That's why, this _Diary_ lets you look through all your entries quickly, to give you the entry that *you* want!
-
-*Format:* +
-``find TARGET``
-
-*Example:*
-
-    find rugby
-
-TIP: To search for _Dates_, enter them in the same format as before, when you added the _Diary Entry_ (dd/mm/yyyy HHMM)
-
-*Step by step:*
-
-That was the craziest Rugby World Cup ever! Who lost?
-
-Step 1: Type ``find rugby`` into the _User Input Box_ and press _Enter_ on the keyboard. You can refer to the picture below, where the number *1* is.
-
-
-image::DiaryFindBefore.png[width=600]
-
-Step 2: TravEzy will tell you if your `find` command was successful in the _Result Display_, as can be seen where the number *2* is, in the picture below.
-
-Step 3: You can see the matching _Diary Entries_ in your _Diary List Panel_, similar to number *3* in the picture below.
-
-
-
-image::DiaryFindAfter.png[width=600]
-
 
 
 === Find specific diary entries ``findSpecific``
