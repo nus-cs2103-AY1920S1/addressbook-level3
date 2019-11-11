@@ -39,9 +39,12 @@ deactivate Thread
 
 LogicManager -> Thread : start()
 activate Thread
+Thread -> Runnable : run()
+activate Runnable
 
 MainWindow <-- LogicManager
 deactivate LogicManager
+
 
 end
 

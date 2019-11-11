@@ -413,7 +413,7 @@ image::UndoRedoState5.png[]
 === Reactive Search
 
 The main concept behind reactive searching is to provide feedback to the user of their search results for
-a given keyword as they type. However, filtering larger data sets may be time consuming process.
+a given keyword as they type. However, filtering larger data sets may be a time consuming process.
 Hence, the queries are processed on a separate thread to avoid blocking the `UI` thread.
 
 // end::reactivesearchIntro[]
@@ -451,7 +451,7 @@ Hence, this ensures the main FX application thread is always polling for user in
 
 // tag::reactivesearchthreading[]
 
-If the main window triggers another reactive search request before previous request is completed,
+If the `UI` triggers another reactive search request before previous request is completed,
 the thread of the previous request is first interrupted and joined to the thread of the new request.
 Only after the previous thread has been successfully interrupted, the new request will be processed.
 This is done to ensure that the UI thread only displays the results of the latest request.

@@ -58,11 +58,6 @@ image::Ui.png[height="50"]
 My responsibilities includes management of patient particulars and morphing the backend of the application
 to support the its appointment management features. This section will describe my contributions in greater detail.
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: Allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: Provide a convenient way to rectify any mistakes made by the user.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands.
-
 * *Major enhancement*: Implementation of *Reactive Search (Multi-Threading and Logic)*
 ** What it does: As the user types, an instant preview of search results is provided.
 This feature is used to search for registered patients, appointments, doctors and duty shifts.
@@ -70,6 +65,11 @@ This feature is used to search for registered patients, appointments, doctors an
 search results as the user is giving new inputs.
 ** Highlights: Requires understanding the process of JavaFX main application thread and plan to defer updates in a way that is not disruptive to UX of other components.
 ** Credits: Daniel Tan Jun Xian (team member for the proposal of the UX concept)
+
+* *Major enhancement*: added *the ability to undo/redo previous commands*
+** What it does: Allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
+** Justification: Provide a convenient way to rectify any mistakes made by the user.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation was challenging as it required changes to existing commands.
 
 * *Major enhancement*: *prevents over scheduling of appointments*
 ** What it does: Ensures that user do not mistakenly schedule more patient appointments than available on-duty doctors at any given appointment of time.
@@ -124,6 +124,9 @@ _{you can add/remove categories in the list above}_
 |_Given below are some sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=reactivesearchIntro]
 
 include::../DeveloperGuide.adoc[tag=reactivesearchthreading]
+
+include::../DeveloperGuide.adoc[tag=undoredo]
+
