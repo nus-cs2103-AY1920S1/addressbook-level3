@@ -59,6 +59,9 @@ image::Ui.png[width="790"]
 * Command parameters are prefixed by `--`, and they are optional.
 - E.g. `*--date* 09/2019`
 - E.g. `*calendar* *--date* 09/2019`
+
+* Commands with extra arguments given are truncated.
+- E.g. `*calendar* 09/2019` will only execute the `calendar` command, and remove the `09/2019` portion.
 ====
 
 ====
@@ -97,6 +100,8 @@ The following commands are related to Events and Tasks, which Horo recognises as
 - Can be marked as done. **`[coming in v2.0]`**
 - If not accomplished by its due date, will be automatically archived into an undone list.
 
+__Note: For Events, Remind date must be before Start date, and Start date must be before End date. Likewise for Tasks, Remind date must be before the Due date__
+
 ==== Adding Events
 
 .Add Event Command
@@ -118,9 +123,9 @@ Argument Format: +
 `REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Examples: +
-`*add_event* “Rori’s Birthday” “18/08/2019 16:00”` +
-`*add_event* “Rori’s Birthday” “18/08/2019 16:00” *--end* “18/08/2019 20:00”` +
-`*add_event* “Rori’s Birthday” “18/08/2019 16:00” *--end* “18/08/2019 20:00” *--remind* “18/08/2019 12:00” *--tag* Birthday Rori`
+`*add_event* "Rori's Birthday" "18/08/2019 16:00"` +
+`*add_event* "Rori's Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00"` +
+`*add_event* "Rori's Birthday" "18/08/2019 16:00" *--end* "18/08/2019 20:00" *--remind* "18/08/2019 12:00" *--tag* Birthday Rori`
 
 ==== Deleting Events
 
@@ -169,11 +174,13 @@ Argument Format: +
 `REMIND_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Remarks: +
-Events which matches `INDEX` will be edited.
+
+* Events which matches `INDEX` will be edited.
+* Specifying the tag when editing an Event will replace the tag entirely instead of appending it.
 
 Examples: +
 `*edit_event* 1 2 3 *--tag* Rori` : Edits events 1, 2 and 3. +
-`*edit_event* 1 *--description* “Play Monster Hunter” *--start* “17/08/2019 19:00” *--remind* “17/08/2019 12:00” *--tag* Kyzure`
+`*edit_event* 1 *--description* "Play Monster Hunter" *--start* "17/08/2019 19:00" *--remind* "17/08/2019 12:00" *--tag* Kyzure`
 
 ==== Adding Tasks
 
@@ -193,9 +200,9 @@ Argument Format: +
 `DUE_DATE` : `"DD/MM/YYYY HH:MM"`
 
 Examples: +
-`*add_task* “Buy Rori a birthday cake”` +
-`*add_task* “Buy Rori a birthday cake” *--due* “18/08/2019 12:00”` +
-`*add_task* “Buy Rori a birthday cake” *--tag* "Birthday Rori"`
+`*add_task* "Buy Rori a birthday cake"` +
+`*add_task* "Buy Rori a birthday cake" *--due* "18/08/2019 12:00"` +
+`*add_task* "Buy Rori a birthday cake" *--tag* "Birthday Rori"`
 
 ==== Deleting Tasks
 
@@ -242,9 +249,13 @@ Command Parameters: +
 Argument Format: +
 `DUE_DATE` : `"DD/MM/YYYY HH:MM"` +
 
+Remarks: +
+
+* Specifying the tag when editing a Task will replace the tag entirely instead of appending it.
+
 Examples: +
 `*edit_task* 1 2 3 *--tag* Present` : Edits tasks 1, 2 and 3. +
-`*edit_task* 1 *--description* “Buy Rori a present” *--due* “17/08/2019 12:00” *--tag* Present`
+`*edit_task* 1 *--description* "Buy Rori a present" *--due* "17/08/2019 12:00" *--tag* Present`
 
 ==== Making recurring Events: `recur` **`[coming in v2.0]`**
 
@@ -499,7 +510,7 @@ Command Format: +
 image::NotificationOnCommandBoxScreenShot.png[]
 
 {empty} +
-2. An in-app popup should appear, displaying “Notifications switched on”. The log view should also record this action. +
+2. An in-app popup should appear, displaying "Notifications switched on". The log view should also record this action. +
 
 .Feedback for the `notif_on` command
 image::NotificationOnFeedbackScreenShot.png[]
@@ -519,7 +530,7 @@ Command Format: +
 image::NotificationOffCommandBoxScreenShot.png[]
 
 {empty} +
-2. An in-app popup should appear, displaying “Notifications switched off”. The log view should also record this action. +
+2. An in-app popup should appear, displaying "Notifications switched off". The log view should also record this action. +
 
 .Feedback for the `notif_off` command
 image::NotificationOffFeedbackScreenShot.png[]
@@ -553,8 +564,6 @@ Commands can be undone up to the program's launch.
 Command Format: +
 `*undo*`
 
-{empty} +
-
 Example:
 Suppose that you have deleted the wrong task from Horo. Rather than having to type the `add_task` command
 along with the description of the deleted task (to add back the wrongly deleted task), you can simply type in `undo`,
@@ -575,7 +584,7 @@ To undo:
 image::undoScenario1.png[]
 
 {empty} +
-2. The result box will display the message: “Previous command has been undone!” +
+2. The result box will display the message: "Previous command has been undone!" +
 
 .Feedback for the `undo` command
 image::undoScenario2.png[]
@@ -614,8 +623,6 @@ to revert Horo to before a task was added. +
 If no command has been previously executed, or if Horo has already been reverted to the earliest possible state by multiple `undos`,
 then calling `undo` further will amount to no effect.
 
-{empty} +
-
 ==== Redo
 
 .Redo Command
@@ -634,7 +641,6 @@ If you've ever used another application with undo-redo functionality, just imagi
 Command Format: +
 `*redo*`
 
-{empty} +
 
 Illustration:
 Suppose that you wrongly deleted task 3 from the list, but actually wanted to delete task 2 instead.
@@ -652,7 +658,7 @@ To redo:
 image::undoScenario4.png[]
 
 {empty} +
-2. The result box will display the message “Previous undone command has been redone!” +
+2. The result box will display the message "Previous undone command has been redone!" +
 
 .Feedback for the `redo` command
 image::undoScenario5.png[]
@@ -686,10 +692,8 @@ Horo will be restored to the state after the task was edited. +
 If no `undo` command has been executed since the starting up of Horo, or `undo` commands have been executed
 but other state-changing commands were executed after those `undos`, then executing the `redo` command amounts to no effect. +
 {empty} +
-For example, let’s say I deleted a task from the list, undid that deletion, and then added another task to the list.
+For example, let's say I deleted a task from the list, undid that deletion, and then added another task to the list.
 Executing the `redo` command here will not do anything because `add_task` was executed after the `undo`.
-
-{empty} +
 
 // tag::ics[]
 === iCalendar (ICS) Integration
@@ -721,8 +725,6 @@ Command Format: +
 
 Example: +
 `*export* *--directory* "C:\Users\USER_NAME\Desktop\Horo"`
-
-{empty} +
 
 ==== Import other ICS Data
 
