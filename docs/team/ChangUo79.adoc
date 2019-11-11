@@ -32,7 +32,7 @@ that the primary input to the application has to be CLI as it is meant for users
 over the use of mouse. The duration of this project spanned over a period of 6 weeks.
 
 .Main Window of Athletick
-image::Athletick.png[]
+image::athletick.png[]
 
 The following is a list of our main features:
 
@@ -75,7 +75,7 @@ of looking at the attendance and performance of all the athletes.
 such as JavaFX and SceneBuilder which were used to design the graphical user interface (GUI). With no prior experience, the learning
 curve was steep which required more effort to learn about these tools.
 
-*Code contributed:* Please click these links to see a sample of my code: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=changuo79&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ChangUo79&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[RepoSense Code Dashboard]][https://github.com/ChangUo79/main[GitHub Repository]]
+*Code contributed:* Please click these links to see a sample of my code:[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=changuo79&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=ChangUo79&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[RepoSense Code Dashboard]][https://github.com/ChangUo79/main[GitHub Repository]]
 
 *Other contributions*
 
