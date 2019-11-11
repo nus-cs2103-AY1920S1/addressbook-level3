@@ -115,3 +115,12 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 include::../DeveloperGuide.adoc[tag=editperson]
 
 include::../DeveloperGuide.adoc[tag=assignpolicy]
+
+== More contributions to UG and DG
+
+https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/docs/DeveloperGuide.adoc#assigning-a-policy[Manual Testing - Assign Policy] +
+https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/docs/DeveloperGuide.adoc#undoredo-feature-1[Manual Testing - Undo/redo Feature] +
+https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/docs/DeveloperGuide.adoc#history-feature[Manual Testing - History Feature] +
+https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/docs/UserGuide.adoc#editing-a-policy-editpolicy[Features - Edit Policy] +
+https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/docs/UserGuide.adoc#deleting-policies-from-a-person-unassignpolicy[Features - Unassign Policy] +
+https://github.com/AY1920S1-CS2103-F09-4/main/blob/master/docs/UserGuide.adoc#navigating-command-history-by-pressing-updown-keys[Features - Navigation Command History]
