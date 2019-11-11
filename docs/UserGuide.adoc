@@ -76,7 +76,8 @@ quickly.
 *Command Format*
 
 * Words in between `<` and `>` are the parameters which are to be supplied by you!
-** `add p/<PRICE>`, you will need to supply a value to be used as the `PRICE` such as `add p/2.50`.
+** `addexpense p/<PRICE> c/<CATEGORY> d/<DESCRIPTION>`, means you will need to supply a value to be used as the `PRICE`,
+ `DESCRIPTION` and `CATEGORY` such as `addexpense p/2.50 c/food d/chickenrice`.
 * You don't have to input the parameters in square brackets if you don't want to. These arguments are optional, and you
 may use them to specify more details.
 ** `addexpense d/<DESCRIPTION> p/<PRICE> c/<CATEGORY> [t/<DATE>]` means that both +
