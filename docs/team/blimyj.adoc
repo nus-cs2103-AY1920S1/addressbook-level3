@@ -77,3 +77,8 @@ include::../UserGuide.adoc[tag=snooze]
 |===
 
 include::../DeveloperGuide.adoc[tag=commons]
+
+include::../DeveloperGuide.adoc[tag=addreminder]
+
+include::../DeveloperGuide.adoc[tag=snoozereminder]
+

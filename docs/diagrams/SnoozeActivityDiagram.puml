@@ -1,0 +1,35 @@
+@startuml
+start
+:User snoozes reminder;
+
+'Since the beta syntax does not support placing the condition outside the
+'diamond we place it as the true branch instead.
+
+if (hasIndex) then ([Reminder is retrieved])
+    :Retrieve reminder
+    with specified index;
+
+else ()
+    if (Reminder has occurred recently) then ([yes])
+        :Retrieve most recent reminder;
+    else ([no])
+        :Throw exception;
+        end
+    endif
+endif
+
+if (durationIsSpecified) then ([yes])
+    :**newReminderOccurrence** = now + durationSpecified;
+else ([no])
+    :**newReminderOccurrence** = now + 5min;
+endif
+
+if (newReminderOccurrenceIsValid) then ([yes])
+    :Snooze reminder till newReminderOccurrence;
+else ([no])
+    :Throw exception;
+    end
+endif
+
+stop
+@enduml

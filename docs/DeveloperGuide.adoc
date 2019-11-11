@@ -569,10 +569,33 @@ The design considerations for the classes are shown below:
 // tag::addreminder[]
 === Add Reminder feature
 
+Step 1. The user enters the command `"reminder John's Birthday -r 3.day.later"`. +
+Step 2. The LogicManager creates an ELISAParser to parse the user input. +
+Step 3. ELISAParser creates a AddReminderCommandParser which parses the input and returns an ReminderCommand. +
+Step 4. LogicManager will execute the ReminderCommand. AddCommand will then invoke `ItemModel#add(Item)`, which adds the Item that contains the reminder to the `RemindersList` and the `futureRemindersList`. +
+Step 5. Each time an Item is added to the `futureRemindersList`, the Items in futureRemindersList is sorted according to the `occurrenceDateTime` of its Reminder in order of recency. +
+Step 6. AddCommand will also trigger a change in view by calling `ItemModel#setVisualList(taskList)` +
+Step 7. Upon the successful execution of AddCommand, a CommandResult is returned to the LogicManager, which will then be returned to the Ui to render the appropriate view. +
+
+When the application is launched, the LogicManager also creates a separate thread using the `ScheduledThreadPoolExecutor` that constantly runs checkTask every 5 seconds. +
+CheckTask is a runnable that monitors the ItemModelManager to see if there are any reminders in `futureRemindersList` that have an `occurrenceDateTime` after `LocalDateTime#now()`. +
+If there is, it transfers those reminders to `activeRemindersList` which is an ObservableList. +
+
+Meanwhile, the MainWindow binds a listener `activeRemindersList` in order to observe if any Items with Reminders have been added to it. +
+If so, it will add `ReminderDialogBox` with the appropriate details for the added Items to the `resultDisplay`. +
 // end::addreminder[]
 
 // tag::snoozereminder[]
 === Snooze Reminder feature
+We can see how snooze is performed through the activity diagram below.
+
+.Activity Diagram to snooze a reminder
+image::SnoozeActivityDiagram.png[]
+
+From the image above, we can see that there 2 guard conditions. +
+The first checks whether there is a reminder to snooze (either via an index or recently occurred reminder). If there isn't, an exception is thrown. +
+The second checks if the `newReminderOccurrenceIsValid` (i.e. reminder does not occur in the past). Otherwise, it throws an exception. +
+If the duration of the reminder is not specified, then the default duration for the snooze is 5 minutes.
 
 // end::snoozereminder[]
 === Logging
