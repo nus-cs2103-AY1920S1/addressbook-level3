@@ -131,11 +131,11 @@ Command arguments for calendar and reminder:
     - `dt/DATETIME` The format of date time is: `yyyy-mm-dd hh:mm` and the number should be valid.
 If more than one are present and the command only accepts one `dt/`, the last argument is taken. Otherwise, see below in `event` command for more details.
     - `r/REPETITION` Repetition can only take value `once`, `daily` or `weekly`(case insensitive). If more than one are present, the last argument is taken.
-    - `td/TIMEDURATION` The format of time duration is: `hh:mm` and it should not be blank. e.g.
+    - `td/TIME_DURATION` The format of time duration is: `hh:mm` and it should not be blank. e.g.
     `01:30` represents 1 hour and 30 minutes. If more than one are present, the last argument is taken.
     - `ym/YEAR_MONTH` The format of year month is: `yyyy-mm` and the number should be valid. If more than one are present, the last argument is taken.
     - `ymd/YEAR_MONTH_DAY` The format of year month day is: `yyyy-mm-dd` and the number should be valid. If more than one are present, the last argument is taken.
-    - `ymw/YEAR_MONTH_DAY` The format of year month day is: `yyyy-dd-dd` and the number should be valid(same as year month day). If more than one are present, the last argument is taken.
+    - `ymw/YEAR_MONTH_DAY` The format of year month day is: `yyyy-mm-dd` and the number should be valid(same as year month day). If more than one are present, the last argument is taken.
         See below in `calendar` command for more details if more than one of `ym/`, `ymd`, `ymw/` are present.
 
 ==== Add a reminder: `reminder`
