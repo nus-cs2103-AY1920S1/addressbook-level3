@@ -2037,15 +2037,25 @@ Expected: No item is added into the cart.
 Response message prompting positive integer for quantity shown.
 
 . Deleting an item
-.. Prerequisites: There are some sales items in the Inventory tab. +
+.. Prerequisites: There are some sales items in the cart on the Cashier tab. +
 Test case: [blue]`delete 1` +
 Expected: First item on the cart is deleted.
-Response message that cup has been deleted successfully shown.
+Response message that item has been deleted successfully shown.
+
+.. Prerequisites: There are no sales item in the Inventory tab. +
+Test case: [blue]`delete 1` +
+Expected: Response message that there is no item at the inputted index shown.
 
 . Editing an item
 .. Prerequisites: There are some sales items in the Inventory tab. +
 Test case: [blue]`edit i/1 q/2` +
-Expected: Quantity of first item on the cart is updated to 2. Response message that cup has been edited successfully shown.
+Expected: Quantity of first item on the cart is updated to 2.
+Response message that item has been edited successfully shown.
+
+.. Prerequisites: There is an item with description "cup" in the cart. +
+Test case: [blue]`edit d/cup q/1` +
+Expected: Quantity of item "cup" on the cart is updated to 1.
+Response message that quantity of cup has been edited successfully shown.
 
 . Setting cashier
 .. Prerequisites: There is an existing member called "Alice" on the Members tab. +
@@ -2054,13 +2064,13 @@ Expected: Cashier on the bottom row is updated to "Alice".
 Response message that cashier has been set successfully shown.
 
 . Clearing
-.. Prerequisites: A cashier is set and there are some sales item in the cart. +
+.. Prerequisites: A cashier is set and there are some sales items in the cart. +
 Test case: [blue]`clear` +
 Expected: Cashier on the bottom row is reset and all items in the cart are cleared.
 Response message that table has been cleared successfully shown.
 
 . Checking out
-.. Prerequisites: A cashier is set and there are some sales item in the cart. +
+.. Prerequisites: A cashier has been set and there are some sales item in the cart. +
 Test case: [blue]`checkout 9` +
 Expected: If amount inputted is sufficient, the total amount and change is shown.
 Cashier on the bottom row is reset and all items in the cart are cleared.
