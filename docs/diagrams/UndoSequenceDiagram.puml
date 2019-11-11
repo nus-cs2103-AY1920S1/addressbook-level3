@@ -12,10 +12,10 @@ participant ":Model" as Model MODEL_COLOR
 participant ":HistoryManager" as HistoryManager MODEL_COLOR
 end box
 
-[-> LogicManager : execute("app-undo 3")
+[-> LogicManager : execute("app-undo 1")
 activate LogicManager
 
-LogicManager -> AppParser : parseCommand("app-undo 3")
+LogicManager -> AppParser : parseCommand("app-undo 1")
 activate AppParser
 
 create UndoCommand

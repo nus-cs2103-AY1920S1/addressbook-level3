@@ -3,8 +3,6 @@
 skinparam ClassFontColor #000000
 skinparam ClassBorderColor #000000
 
-title After command "visit-start 1"
-
 package history {
     object hr1 {
         command = "visit-start 1"
