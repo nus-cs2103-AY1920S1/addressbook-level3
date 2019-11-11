@@ -520,7 +520,7 @@ the last day of your trip.
 
 Scenario: You already have entries for days 1 up to 8, and you want to create a new entry for day 9.
 
-. Type in the `create 9` command in the command line input, then press kbd:[Enter], or simply click the `+` button as shown
+. Type in the `create 9` command in the command line input, then press the 'enter' key, or simply click the `+` button as shown
 below.
 .. For the add entry button `+` (<<diary_create_entry_command_button>>), since the current latest day's entry is day 8,
 it would create an entry for the day right after that, which is day 9.
@@ -553,7 +553,7 @@ will flip to the diary entry for that day.
 
 Scenario: You are currently viewing the diary entry for day 9, which is empty, and you want to view the diary entry for day 3.
 
-. You should type in the `flip 3` command in the command line input, then press kbd:[Enter], or click the navigation button `3` for
+. You should type in the `flip 3` command in the command line input, then press the 'enter' key, or click the navigation button `3` for
 day 3, as highlighted below.
 +
 image::diary/userguide/diary_flip_command_with_button.png[title="Example usage of flipping the diary to day 3's diary entry"]
@@ -613,7 +613,7 @@ computer as the date taken for the photo. Shown below is an example of the photo
 
 image::diary/userguide/diary_addphoto_filepath_directory.png[title="Example file directory structure of the TravelPal application and snowymountains.jpg" width="80%" align="center"]
 
-. You should type in the `addphoto fp/snowymountains.jpg d/picturesque mountains` command in the command line input, then press kbd:[Enter]
+. You should type in the `addphoto fp/snowymountains.jpg d/picturesque mountains` command in the command line input, and press the 'enter' key.
 .. Here, the relative `<file path>` is simply the name of the file, `snowymountains.jpg`, since the image file is located in the
 same directory as the _TravelPal_ application.
 +
@@ -655,7 +655,7 @@ file choosing user interface, leaving the
 application to generate the `<description>` and `<date taken>` fields automatically.
 * Also, the image file you want to add is `snowymountains.jpg`, and is not located in the same place as the _TravelPal_ application.
 
-. You can type in the `addphoto fc/` command in the command line input as highlighted in yellow below, and press the kbd:[Enter] key,
+. You can type in the `addphoto fc/` command in the command line input as highlighted in yellow below, and press the 'enter' key,
 or you can click the `Add` button.
 +
 image::diary/userguide/diary_addphoto_command_filechooser.png[title="Example usage of adding a photo through the `addphoto` command using the `fc/` option, or the `Add` button"]
@@ -695,7 +695,7 @@ Scenario: You mistakenly added the photo 'qidu_marketplace.jpg' to your diary en
 added the day 2's diary entry.
 
 . You type in the `delphoto 1` command to delete the image with the same `1` numbering as shown in the gallery, and
-press the kbd:[Enter] key.
+press the 'enter' key.
 +
 image::diary/userguide/diary_delphoto_command_before.png[title="Example usage of `delphoto` command to delete the photo with number 1"]
 
@@ -731,7 +731,7 @@ Scenario: You are currently viewing your edited diary entry for day 3 of the tri
 paragraph of text using the handy command line interface.
 
 . You type in the `append` command, along with a simple line of text without images:
-`append After an entire day's drive, we arrived at the bustling city of Tai Chung`, and then you press the kbd:[Enter] key.
+`append After an entire day's drive, we arrived at the bustling city of Tai Chung`, and then you press the 'enter' key.
 +
 image::diary/userguide/diary_append_command_before.png[title="Example usage of `append` command to add a new paragraph of text to a diary entry"]
 . That's it! Your new paragraph will be saved and displayed automatically as shown below.
@@ -759,7 +759,7 @@ Scenario: Your diary entry has a sizeable amount of text already present, but yo
 day for the trip in between.
 
 . You type the `insert i/5 d/We passed by quite a few more scenic places on the road, along 合歡山.` command to add some
-text in between the existing lines 4 and 5, and press the kbd:[Enter] key.
+text in between the existing lines 4 and 5, and press the 'enter' key.
 +
 image::diary/userguide/diary_insert_command_before.png[title="Example usage of `insert` command to insert a new paragraph of text in a diary entry"]
 . The new paragraph of text you type will be inserted into the entry!
@@ -784,7 +784,7 @@ TIP: You can use this as a quick way to clear the entire diary entry's text!
 Scenario: You discovered that you made a minor spelling error - 'ou' instead of 'our' in line 1 of your diary entry, and
 want to rectify this.
 
-. You type in the command `edit i/1 d/On the third day, we departed from the Hua Lian county and began our drive to Tai Chung.` command to fix the mistake in the first line, and press the kbd:[Enter] key.
+. You type in the command `edit i/1 d/On the third day, we departed from the Hua Lian county and began our drive to Tai Chung.` command to fix the mistake in the first line, and press the 'enter' key.
 +
 image::diary/userguide/diary_edit_command_before.png[title="Example usage of `edit` command to edit an existing paragraph of text in a diary entry"]
 . The spelling error is gone, and you are shown the confirmation message!
@@ -807,7 +807,7 @@ to delete a paragraph of text in the entry!
 Scenario: You discovered that you made quite a few rather embarrassing, elementary spelling errors in a line 1 of your diary entry.
 You want to rectify this quickly, because your friend requested you share details of your trip with her.
 
-. You type in the command `delete 1` command to delete first line entirely, and press the kbd:[Enter] key.
+. You type in the command `delete 1` command to delete first line entirely, and press the 'enter' key.
 +
 image::diary/userguide/diary_delete_command_before.png[title="Example usage of `delete` command to delete an existing paragraph of text in a diary entry"]
 . The spelling error is gone, and you are shown the confirmation message!
@@ -834,7 +834,7 @@ command line text editors, such as _vim_, which can greatly improve the typing e
 
 Thus, you opted for using the edit box to write your diary entry, instead of repeating the same commands multiple times.
 
-. You type in the `editor` command, and press the kbd:[Enter] key.
+. You type in the `editor` command, and press the 'enter' key.
 +
 image::diary/userguide/diary_editor_command_before.png[title="Example usage of `editor` command to open the edit window"]
 . That's all! The edit box is opened, and the keyboard focus is shifted to it.
