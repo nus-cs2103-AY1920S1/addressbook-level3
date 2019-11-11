@@ -46,7 +46,7 @@ the most expensive food item will be on the bottom of the food list.
 Not only that, the user can turn autosorting on or off. As a result, when the user adds a new food item, the food list
 will be sorted immediately.
 
->>>
+<<<
 
 ==== Justification
 
@@ -349,7 +349,7 @@ As a result, we have chosen alternative 1. By specifying the specific fields in 
 the `DefaultComparator`, it makes it easier for future developers to create their own form of `DefaultComparator`.
 Not only that, it saves time and reduces duplicate code.
 
->>>
+<<<
 
 ==== Creation of new Custom Comparator
 
