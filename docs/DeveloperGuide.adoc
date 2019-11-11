@@ -724,20 +724,20 @@ Given below is an example usage scenario and how the undo/redo mechanism behaves
 The `VersionedUserState` will be initialized with the initial user state, and the `currentStatePointer`
 pointing to that single user state.
 
-image::UndoRedoState0.png[]
+image::UndoRedoState0.png[pdfwidth=50%, align="center"]
 
 **Step 2**. The user executes `delete t5` command to delete the 5th transaction in the transaction list.
 The `delete` command calls `Model#commitUserState()`, causing the modified state of the user state after the
 `delete t5` command executes to be saved in the `userStateList`, and the `currentStatePointer` is shifted
 to the newly inserted user state.
 
-image::UndoRedoState1.png[]
+image::UndoRedoState1.png[pdfwidth=50%, align="center"]
 
 **Step 3**. The user executes `in $/10 n/Allowance d/07112019` to log a new transaction.
 The `in` command also calls `Model#commitUserState()`, causing another modified user state to be saved
 into the `userStateList`.
 
-image::UndoRedoState2.png[]
+image::UndoRedoState2.png[pdfwidth=50%, align="center"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitUserState()`, so the user state will
@@ -748,7 +748,7 @@ executing the `undo` command. The `undo` command will call `Model#undoUserState(
 `currentStatePointer` once to the left, pointing it to the previous user state, and restores the user state
 to that state.
 
-image::UndoRedoState3.png[]
+image::UndoRedoState3.png[pdfwidth=50%, align="center"]
 
 [NOTE]
 If the `currentStatePointer` is at index 0, pointing to the initial user state, then there are no previous
@@ -759,14 +759,14 @@ If so, it will return an error to the user rather than attempting to perform the
 Commands that do not modify the user state, such as `list`, will usually not call `Model#commitUserState()`,
 `Model#undoUserState()` or `Model#redoUserState()`. Thus, the `userStateList` remains unchanged.
 
-image::UndoRedoState4.png[]
+image::UndoRedoState4.png[pdfwidth=50%, align="center"]
 
 **Step 6**. The user executes `clear`, which calls `Model#commitUserState()`.
 Since the `currentStatePointer` is not pointing at the end of the `userStateList`, all user states after
 the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the
 `in $/10 n/Allowance d/07112019` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoState5.png[]
+image::UndoRedoState5.png[pdfwidth=50%, align="center"]
 
 The following sequence diagram shows how the undo operation works:
 

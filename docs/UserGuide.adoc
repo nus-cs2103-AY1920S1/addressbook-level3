@@ -235,7 +235,7 @@ less than 1,000,000.
 
 Let's say you want to restrict your spending for a certain category until a certain deadline.
 PalPay allows you to set a budget and serve as a reminder to show how much of the budget set you have left
-until the deadline. You will be more self-conscious of your spending and minimise your spending by setting a budget. +
+until the deadline (inclusive). You will be more self-conscious of your spending and minimise your spending by setting a budget. +
 
 To set a new budget: +
 1. Type `set` and enter the relevant details (amount, deadline, category) in the format given above. +
@@ -246,7 +246,7 @@ To set a new budget: +
 As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
 to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted.
 Budget will not take into consideration past *OutTransaction* when calculating the remaining budget. Remember, you are setting a budget
-from TODAY till the stated `DATE`! +
+from TODAY till the stated `DATE` (inclusive)! +
 
 If you overspend beyond a set budget, the overspent budget will be displayed in red.
 Shown below as budget index 3 is an example of an overspent budget:
@@ -655,19 +655,9 @@ Format: `undo`
 
 ****
 * Once you exit PalPay, you cannot undo the previous commands.
-* List of Undoable Commands:
-** `in`
-** `out`
-** `set`
-** `split`
-** `receive`
-** `project`
-** `filter`
-** `sort`
-** `update`
-** `delete`
-** `clear`
-** `list`
+* Below are the commands that are undoable:
+** `in` / `out` / `set` / `split` / `receive` / `project` /
+`sort` / `filter` / `update` / `delete` / `clear` / `list`
 ****
 
 ==== Example Usage:
