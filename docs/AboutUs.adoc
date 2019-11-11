@@ -40,7 +40,7 @@ Responsibilities: Code Quality, Documentation, Integration, Testing
 
 === Stanley Yuan
 image::soilingrogue.png[width="150", align="left"]
-{empty}[https://github.com/SoilingRogue[github]]
+{empty}[https://github.com/SoilingRogue[github]][<<soilingrogue#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Code Quality, Documentation, Integration, Testing
