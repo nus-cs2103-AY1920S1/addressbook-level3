@@ -613,7 +613,7 @@ The Events feature allows users to add events that are supposed to occur on a fu
 On launch, MooLah will remind users of upcoming events. While the app is open, MooLah will also notify the user about any events that have transpired,
 and allow them to automatically add these events as expenses.
 
-image::EventClassDiagram.png[]
+image::EventClassDiagram.png[width=70%, align=center]
 
 Like expenses, events hold two Descriptions (one for its details and one for the budget it belongs to), a Price, a Timestamp
 and a Category. The `setBudget` method of Event is used for the Event to remember which budget it was added to. This facilitates
@@ -626,7 +626,7 @@ The Events feature supports the `addevent`, `deleteevent`, `editevent` and `list
 
 As mentioned earlier, MooLah displays reminders of upcoming events during launch. The implementation is shown below:
 
-image::DisplayReminders.png[]
+image::DisplayReminders.png[width = 70%, align=center]
 
 To allow for accurate prompting of transpired events, MooLah tracks system time every 10 seconds using a `Timer` running
 on a parallel thread. An event is then deemed to have transpired if its timestamp has gone past system time.
