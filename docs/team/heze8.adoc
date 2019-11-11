@@ -134,7 +134,7 @@ Documentation:
 
 Community:
 
-*** Reviewed Pull Request : https://github.com[#107], https://github.com[#30], https://github.com[#73], https://github.com[#51], https://github.com[#78]
+*** Reviewed Pull Request : https://github.com/AY1920S1-CS2103T-F13-4/main/pull/107[#107], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/30[#30], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/51[#51], https://github.com/AY1920S1-CS2103T-F13-4/main/pull/78[#78]
 *** Reported bugs and suggestions for other teams in the class: https://github.com/AY1920S1-CS2103T-T11-3/main/issues[T11-3 team], https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/20[F12-4 team]
 
 Tools:
@@ -179,9 +179,3 @@ include::../DeveloperGuide.adoc[tag=apicomponent]
 
 include::../DeveloperGuide.adoc[tag=onlinedata]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

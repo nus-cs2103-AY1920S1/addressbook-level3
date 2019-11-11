@@ -39,7 +39,7 @@ import seedu.ezwatchlist.model.show.TvShow;
 /**
  * Contains utility methods for extracting information from movies and tv shows.
  */
-public class ApiUtil extends ImageRetrieval {
+public class ApiUtil {
 
     /**
      * Passes the movies from the movies page into the movies list with the new Movie model used in the application.
