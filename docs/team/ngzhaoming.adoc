@@ -1,97 +1,319 @@
-= Welcome to TravEzy!
+:site-section: AboutUs
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+ifdef::env-github[]
+:tip-caption: :bulb:
+:warning-caption: ⚠️
+:note-caption: :information_source:
+endif::[]
 
----
 
-=== Introduction
+= Ng Zhao Ming - Project Portfolio
 
-===== TravEzy Team
 
-For my CS2103T module in NUS, we developed a software project in teams. My team consisted of Hon Hao Chen, Ong Bing Jue, Poh Lin Wei, Tishya Khanna, and I.
+== Introduction
 
-===== About TravEzy
+This project portfolio serves to note down my contributions to a team-based software engineering project in the
+NUS Computing module, CS2103T. During this module, my team of 5 were given six weeks to either
+_morph_ or _enhance_ an existing Java project,
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3].
 
-We have collectively decided to morph the basic command line interface desktop addressbook application into a Traveller's Diary called TravEzy. TravEzy boasts a plethora of features such as a financial tracker, diary and calendar in a single package. Hence, TravEzy is definitely your go to all-in-one solution to planning your trip, tracking your expense and reliving your best moments.
+=== Project Motivation
 
-Here is a sneak peek on what our project looks like:
+There are certain module requirements that our team have to adhere to when developing our application.
 
-(Put in a screenshot here.)
+*Constrains:*::
 
-Figure 1. The graphical user interface (GUI) for TravEzy
+.  Our application has to cater to individuals who can type fast and have a preference for typing over
+other forms of input.
+. The product has to be https://www.techopedia.com/definition/24409/brownfield[_Brownfield_].
 
-Based on Figure 1, TravEzy GUI contains the menu bar which provides you the convenience to access the most pivotal commands to using TravEzy. It also includes the *Window Pane*, *Result Display* and *Command Box* which worked in tandem with each other.
+*Our Decision:*::
+In order to address these requirements, we have collectively decided to _morph_
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Address Book - Level 3] into a Traveller's Diary, _TravEzy_.
+ +
 
-===== My contributions
+Here is how _Travezy_ will look when you first start it:
 
-I was tasked to implement the itinerary feature for TravEzy. The itinerary helps users to organize their busy schedule through inputting of timed events. The following sections illustrate these implementations in more detail, as well as the relevant documnetation I have added to the user and developere guides in relation to these enhancements.
+._TravEzy_ Interface
+image::../images/MainInterface.png[width=800]
 
-Here is a preview on what the itinerary feature entails:
+Highlights of _TravEzy_: +
 
-(Put in a screenshot here.)
+. As seen in _Figure 1._, _TravEzy_ utilizes the https://www.techopedia.com/definition/3336/command-line[Command Line Interface (CLI)]
+through the _command box_ and in turn, most user
+interactions are mediated through commands keyed into _TravEzy_.
+. Is a desktop application and can be accessed on the computer without the need of a web browser.
 
-Figure 2. The GUI for itinerary page
+=== About the project - _TravEzy_
 
-Likewise, the GUI for the itinerary page includes the menu bar followed by the *Window Pane*, *Result Display* and *Command Box* which helps to keep track of your various events.
+_TravEzy_ combines all the essential travelling application and present it as a single package. It is the ideal
+all-in-one application to assist globetrotters in planning their schedule, tracking their finances and
+relieving their best memories.
 
-===== Additional Information
+_TravEzy_ targets NUS students who loves to backpack across several countries. As a team of 5 NUS student
+who have a passion for travel, we believe that we are better to understand and cater to the needs of our target audience.
 
-Do take note of some of the annontations that you might encounter while reading the Project Portfolio Page as indicated below:
+Given that NUS students are constantly hustling and still love to find time to unwind and travel, _TravEzy_ is ideal
+application for them to do so.
+In addition, _TravEzy_ will also be useful for students who are embarking on their Semester Exchange Programmes
+during their junior and senior years in NUS.
 
-[TIP]
-The symbol indicates important information
+The list below highlights the main features _TravEzy_ has to offer:
+
+. Calendar
+. Itinerary
+. Financial Tracker
+. Address Book
+. Diary
+
+=== Overview of my role in _TravEzy_
+
+I was tasked to implement the itinerary feature for TravEzy.
+The itinerary helps users to organize their busy schedule through inputting of timed events.
+
+The following sections illustrate these implementations in more detail. Besides that, I will also delve into the contributions
+I have made in the documentations of _TravEzy's_ User and Developer guides.
+
+Before we move on, I would like to highlight the symbols and text formatting that will be used in this document,
+which aims to improve readability of this document.
 
 [IMPORTANT]
-Indicates crucial steps that are needed during the implementation needed for this feature.
+Crucial information that you should take note off while reading the document.
 
+
+``command``: Text which is contained in a grey box (as can be seen on the left) refers to _commands_ that the user
+can type into the _command box_ in order to interact with _TravEzy_
+
+_Components_: Italicised text indicates that the text has a definition that is specific to the application.
+
+*Highlight* Bold text is mainly used for headings
 
 === Summary of contributions
 
-In this section, I will delve into the 
+Here is a summary in order of importance on the contributions that I have made during the team project.
 
-This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
+*Major enhancement:*::
+*Itinerary Feature*
+* What it does: +
+** The Itinerary helps users to plan their schedule by organizing all their _Event Entries_ in a single convenient to access
+_Event List_.
 
-But wait there's more! On top of the itinerary feature, I have also made contributions to the following (Have to add the various pull request links here):
+* Justification:
+** According to a survey that we have conducted on the general NUS student population, an overwhelming 90 percent of the
+responders indicated their need to organize their trip while travelling overseas. Therefore, the Itinerary provides
+a platform for them to do so, together with other nifty features to improve the user's experience.
+This makes _TravEzy's_ Itinerary the frontier of convenience.
 
-. Enhancement of existing features
+* Highlights: +
+Other than being able to add, delete, check and display event entries, _TravEzy's_ Itinerary also offers several
+complex features to bring convenience to you when organizing your schedule. This includes: +
+. Searching and sorting of events in the _event list_
+. Ability to input your commands quicker through https://www.computerhope.com/jargon/a/autocomp.htm[autocomplete]
 
-. Designing the TravEzy Logo
+*Code contributed*::
+. https://github.com/AY1920S1-CS2103T-T17-2/main/pull/12[Itinerary (v1.1)]. Implemented the basic commands for _TravEzy's_ Itinerary.
+. https://github.com/AY1920S1-CS2103T-T17-2/main/pull/42[Itinerary (v1.2)]. Design the https://www.techopedia.com/definition/5435/graphical-user-interface-gui[Graphic User Interface (GUI)]
+for the Itinerary page.
+. https://github.com/AY1920S1-CS2103T-T17-2/main/pull/94[Itinerary (v1.3)]. Implemented the complex commands for _TravEzy's_ Itinerary.
+. https://github.com/AY1920S1-CS2103T-T17-2/main/pull/205[Itinerary (v1.4)]. Refine Itinerary, fixed bugs and work on _TravEzy_ documentation.
+. https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=ngzhaoming&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense].
+Keeps track of my code contribution to the team.
 
-. Enhancing the Graphical User Interface of TravEzy
+*Minor enhancement:*::
+*_TravEzy_ Design* +
+** Designed the https://github.com/AY1920S1-CS2103T-T17-2/main/pull/111[_Event Card_] for the Itinerary
+** Designed _TravEzy_ application https://github.com/AY1920S1-CS2103T-T17-2/main/pull/84[logo]
 
-. User and Developer guide
+*Other contributions:*
 
-=== Contributions to the User guide
+** Project management:
+*** Created and managed milestones (V1.1 - V1.3)
+*** Assigned https://github.com/AY1920S1-CS2103T-T17-2/main/labels[labels] to teammates to remind them of key deadlines
+through https://github.com/AY1920S1-CS2103T-T17-2/main/issues[Github Issues]
+*** Tested out _TravEzy_ software and fixed bug:
+https://github.com/AY1920S1-CS2103T-T17-2/main/pull/98[#98]
+https://github.com/AY1920S1-CS2103T-T17-2/main/pull/145[#145]
+https://github.com/AY1920S1-CS2103T-T17-2/main/pull/154[#154]
+** Documentation:
+*** Draft a skeletal of the User and Developer guide for the team to start working on:
+https://github.com/AY1920S1-CS2103T-T17-2/main/commit/8a8c9bfbd18a6fecaeffbbc51f73dcab02f9bebc[1],
+https://github.com/AY1920S1-CS2103T-T17-2/main/commit/8a018b2c524fb6cd6cc57753e9af19ea5da62d40[2],
+https://github.com/AY1920S1-CS2103T-T17-2/main/commit/1cc3ddb4020512ab6489bc73cc6cbd20d8c9510b[3]
+*** Draw the https://github.com/AY1920S1-CS2103T-T17-2/main/pull/227[Architecture Diagram] for _TravEzy_ in the Developer Guide
+*** Proof-read and refine the _QnA_ section of the User Guide:
+https://github.com/AY1920S1-CS2103T-T17-2/main/pull/101[#101]
+https://github.com/AY1920S1-CS2103T-T17-2/main/pull/161[#161]
+https://github.com/AY1920S1-CS2103T-T17-2/main/pull/198[#198]
 
-The following are the contributions that I have made in the TravEzy user guide. 
-It will include excerpt from our TravEzy user guide with accompanying screenshots, showing additions that I have made for the itinerary feature.
+** Community:
+* https://github.com/ngzhaoming/ped[Reported bugs and suggestions] for other teams
+* Proof-read other teams User and Developer guide: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/61[#61]
 
-Let's say you are on a trip to Japan and you plan to visit Tokyo Disneyland the next day. Here are some ways you can use the itinerary feature to plan your day there.
+== Contributions to the User Guide
 
-===== Add Command
+|===
+| Now, I will be sharing the documentation that I have contributed to the User Guide.
+It manifests my ability to provide clear and concise instructions for end-users to use _TravEzy_.
+I will be focusing on 2 relevant commands which are ``sort`` and ``search``.
+|===
 
-Kick starting the itinerary event list by adding some cool rides that you want to take while in Disneyland:
+=== Searching for an event: ``search``
 
-Add -> Edit -> Done -> Delete -> Sort -> Search
+Does your _event list_ too many events to browse through? Let _TravEzy_ Itinerary help you by searching for events that matches specific
+keywords. 😊
 
-===== Delete Command
+[TIP]
+If your _event list_ is too cluttered up, try using the ``clear`` command instead to reset the *whole* _event list_ instead.
 
-===== Edit Command
+*Format:*
 
-===== Done Command
+``search SEARCH CONDITION``
 
-===== Sort Commamd
+where ``SEARCH CONDITION`` can be any of the following: ``title/TITLE``, ``date/DATE``, ``time/TIME``, ``l/LOCATION``,
+``d/DESCRIPTION`` or ``tag/``
 
-===== Search Command
+*Example:*
 
-===== Clear Command
+    search date/12122019 l/DisneySea
 
-[Important]
-Do take note that the clear command is irreversible. Hence, use it with caution.
+*Step by step:*
 
-=== Contributions to the Developer Guide
+Step 1. Type ``search`` in the _command box_ and press _Enter_.
 
-I have also made contributions to the TravEzy Developer Guide which show case my expetise in documenting the techinal aspect of the itinerary feature.
+image::ItinerarySearch1.png[width=400]
 
-. Plan to add in some UML diagrams with explaination (Step by step guide on how to do it)
-. Design consideration / Other alternatives on how to do the application.
+Step 2. The _result box_ will display the message "Processing...
+Done!
+Here are the events that matches the details. ( ͡° ͜ʖ ͡°)"
 
----
+Step 3. The filtered _event list_ will be shown containing events that matches the keywords given.
+
+image::ItinerarySearch2.png[width=400]
+
+=== Sorting the events: ``sort``
+
+Organizing your events in the _event list_ has never been easier the Itinerary's awesome sorting capabilities. 💯
+
+Format:
+
+``sort by/SORT CONDITION``
+
+where ``SORT CONDITION`` can be any of the following: ``title``, ``location``, ``chronological``, ``completion`` or
+``priority``
+
+*Example:*
+
+    sort by/priority
+
+*Step by step:*
+
+Step 1. Type ``sort by/priority`` in the _command box_ and press _Enter_.
+
+image::ItinerarySort1.png[width=400]
+
+Step 2. The _result box_ will display the message "Processing...
+Done!
+TravEzy has helped sorted out your life!"
+
+Step 3. The Itinerary will present the sorted _event list_ based on the sort condition given.
+
+image::ItinerarySort2.png[width=400]
+
+== Contributions to the Developer Guide
+
+|===
+| Finally, I will be sharing the documentation that I have contributed to the Developer Guide.
+The Developer Guide showcase my ability to write technical documentation and the technical depth of my contributions to the project.
+|===
+
+=== Itinerary
+
+The itinerary feature in TravEzy allows users to organize their events and view these events in one convenient _Event List_.
+
+Current, the itinerary feature supports the basic commands of add, delete, edit and marking your events as done.
+In addition, it also includes other more advanced commands such as search and sort to better organize your events.
+With these implementations, _TravEzy_ aims to be at the frontier of convenience.
+
+The itinerary feature implements the aforementioned feature based on the use cases below:
+
+.Use Case Diagram of the Itinerary feature
+image::ItineraryUseCaseDiagram.png[width=400]
+
+Due to the numerous features supported by the itinerary, it requires a complex structure to ensure that each input
+by the user are cautiously parsed before giving the appropriate command result.
+
+.Architecture Diagram of the Itinerary feature
+image::ItineraryDiagram.png[width=400]
+
+The *_Architecture Diagram_* given above explains the high-level design of the itinerary feature.
+Inputs given by the user are channeled from the text UI and parsed in the logic package before different commands
+are formed which generates the model and updates the itinerary object which contains the event list.
+
+The `text UI`, `logic manager` and `storage manager` all stem from the common package of the main TravEzy application.
+However, in the `parser` package of itinerary, it contains various parser objects for the different command.
+This is to ensure that each command in the itinerary have only one parser validating the command.
+
+==== Model Component
+
+The implementation of the model class in TravEzy is to be a generic. Hence, the model object being instantiated
+could be any of the following 5 features, `Calendar`, `Itinerary`, `Financial Tracker`, `Travel Diary`
+and `Achievements`. Below is the model class diagram for the itinerary feature:
+
+.Model Diagram of the Itinerary feature
+image::ItineraryModelDiagram.png[width=400]
+
+The Model, is the crux of the itinerary feature which serves several functions this include:
+
+* stores the Itinerary data which includes the event list which keeps track of all the events that are
+included by the user and stores it into the storage in a JSON file.
+
+* exposes an unmodifiable ObservableList<Event> that can be 'observed' e.g. the UI can be bound to this list so that
+the UI automatically updates when the data in the list change.
+
+* does not depend on any of the other three components, UI, logic and storage which are common through all the features
+throughout TravEzy.
+
+==== Itinerary search command
+
+The search command for specified events in the event list is facilitated by the `Itinerary` class which contains
+an event list and keep track of the events that the user has inputted into TravEzy. There are several search conditions
+available for the users to search from based on the different class attributes that form the `Event` class:
+
+* search title/[title]
+* search date/[date]
+* search time/[time]
+* search l/[location]
+* search d/[description]
+
+Given below is the _sequence diagram_ of how the Itinerary feature interacts with TravEzy when the search command is
+being called.
+
+.Sequence Diagram of the Search Command
+image::ItinerarySearchCommand.png[width=400]
+
+[IMPORTANT]
+The lifeline for SearchCommandParser and SearchEventDescriptor should end at the destroy marker (X) but due to a
+limitation of PlantUML, the lifeline reaches the end of diagram.
+
+The search command is implement as follows, upon giving the command by the user in the text UI, the command
+will be channeled to the `Logic` class where it identifies it as a itinerary command and passes it to the `ItineraryParser`
+class.
+
+The `Itinerary Parser` passes through the command into a switch case block and identifies this as a `SearchCommand`.
+This will create a new `SearchCommandParser` which will then accept the arguments from the user's input and parse the
+arguments of the command.
+
+Once the arguments are parsed and considered as valid, the `SearchCommandParser` will generate a new `SearchCommand`.
+The `SearchCommand` will in turn create a "pseudo-event" known as the `SearchEventDescriptor` which is an event
+which only contains attributes with the search condition while the rest of it's attribute will be placed as null.
+
+This `SearchEventDescriptor` will in turn be returned and used in the `Predicate` field as the event in comparison.
+The `filterEvents(e)` method will be called with `e` being the `SearchEventDescriptor` that is being generated. Events
+that are currently in the event list will be filtered accordingly based on whether it matches the attributes in the
+`SearchEventDescriptor`. Finally, the `filteredList` will be generated and returned.
+

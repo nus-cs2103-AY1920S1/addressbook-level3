@@ -21,8 +21,8 @@ import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
  * Represents the in-memory model of the address book data.
  */
 public class DiaryModel {
-    private static final Logger logger = LogsCenter.getLogger(DiaryModel.class);
     public static final Predicate<DiaryEntry> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    private static final Logger logger = LogsCenter.getLogger(DiaryModel.class);
 
 
     private final DiaryBook diaryBook;
@@ -44,40 +44,39 @@ public class DiaryModel {
     }
 
     /**
-     *
-     * @param target
+     * @param input
      * @return
      */
-    public DiaryEntry deleteDiaryEntry(int target) {
+    public DiaryEntry deleteDiaryEntry(DiaryEntry input) {
 
-        return diaryBook.deleteDiaryEntry(target);
+        return diaryBook.deleteDiaryEntry(input);
     }
 
 
-    public void setDiaryEntryPrivate(int index) {
-        diaryBook.setDiaryEntryPrivate(index);
+    public void setDiaryEntryPrivate(DiaryEntry input) {
+        diaryBook.setDiaryEntryPrivate(input);
     }
 
-    public void setDiaryEntryUnPrivate(int index) {
-        diaryBook.setDiaryEntryUnPrivate(index);
+    public void setDiaryEntryUnPrivate(DiaryEntry input) {
+        diaryBook.setDiaryEntryUnPrivate(input);
     }
 
     public void setDetails(Details attempt) {
         diaryBook.setDetails(attempt);
     }
-    public String getEntriesAsString() {
-        return diaryBook.getEntriesAsString();
-    }
 
     /**
-     *
      * @param diaryEntry
      * @return
      */
 
-    public DiaryEntry addDiaryEntry (DiaryEntry diaryEntry) {
+    public DiaryEntry addDiaryEntry(DiaryEntry diaryEntry) {
 
         return diaryBook.addDiaryEntry(diaryEntry);
+    }
+
+    public boolean contains(DiaryEntry otherEntry) {
+        return diaryBook.contains(otherEntry);
     }
 
     public Optional<Details> getDetails() {
@@ -87,8 +86,9 @@ public class DiaryModel {
     public boolean checkDetails(Details input) {
         return diaryBook.checkDetails(input);
     }
-    public boolean hasPassword() {
-        return diaryBook.hasPassword();
+
+    public boolean hasDetails() {
+        return diaryBook.hasDetails();
     }
 
     /**
@@ -99,18 +99,25 @@ public class DiaryModel {
         return filteredDiaryBook;
     }
 
-
+    /**
+     *
+     * @param predicate
+     */
     public void updateFilteredDiaryList(Predicate<DiaryEntry> predicate) {
         requireNonNull(predicate);
         filteredDiaryBook.setPredicate(predicate);
     }
 
+    /**
+     *
+     * @param input
+     */
     public void setinnerDetails(Optional<Details> input) {
-       diaryBook.setinnerDetails(input);
+        diaryBook.setinnerDetails(input);
     }
 
     public DiaryBook getDiaryBook() {
-        return  this.diaryBook;
+        return this.diaryBook;
     }
 
     //=========== Statistics =================================================================================
@@ -123,7 +130,7 @@ public class DiaryModel {
     public XYChart.Series<String, Number> getDiaryBarChart() {
         SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-yyyy");
         Function<DiaryEntry, MonthData> toMonthDataFunction =
-                diaryEntry -> new MonthData(0, dateFormatter.format(diaryEntry.getDate()));
+            diaryEntry -> new MonthData(0, dateFormatter.format(diaryEntry.getDate()));
         return StatisticsUtil.getMonthDataSeries(filteredDiaryBook, toMonthDataFunction);
     }
 

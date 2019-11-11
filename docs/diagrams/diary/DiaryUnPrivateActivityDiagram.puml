@@ -1,0 +1,17 @@
+@startuml
+start
+:User enters tries to unprivate an entry;
+
+if () then ([no details set])
+    :Diary checks the specified entry;
+    if () then ([entry is private])
+        :Diary unprivates the entry;
+    else ([entry is already unprivate])
+        :Diary informs user that the entry is already unprivate;
+    endif
+
+else ([else])
+        :Diary informs user that there are details which have been set and that the user has to use the unlock command;
+endif
+stop
+@enduml

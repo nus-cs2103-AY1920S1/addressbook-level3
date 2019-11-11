@@ -12,7 +12,11 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.diaryfeature.logic.parser.exceptions.DiaryEntryExceptions.DiaryEntryParseException;
 import seedu.address.diaryfeature.model.DiaryBook;
 import seedu.address.diaryfeature.model.diaryEntry.DiaryEntry;
+import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Json serializable diary book
+ */
 @JsonRootName(value = "diaryBook")
 public class JsonSerializableDiaryBook {
 
@@ -25,7 +29,7 @@ public class JsonSerializableDiaryBook {
      */
     @JsonCreator
     public JsonSerializableDiaryBook(@JsonProperty("entries") List<JsonAdaptedDiaryEntry> entries,
-    @JsonProperty("details") JsonAdaptedDetails detail) {
+                                     @JsonProperty("details") JsonAdaptedDetails detail) {
         this.entries.addAll(entries);
         this.detail = detail;
 
@@ -37,7 +41,10 @@ public class JsonSerializableDiaryBook {
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableDiaryBook(DiaryBook source) {
-        entries.addAll(source.getDiaryEntryList().stream().map(JsonAdaptedDiaryEntry::new).collect(Collectors.toList()));
+        entries.addAll(
+                source.getDiaryEntryList().stream().
+                        map(JsonAdaptedDiaryEntry::new).
+                        collect(Collectors.toList()));
         detail = new JsonAdaptedDetails(source.getDetails());
     }
 
@@ -46,7 +53,7 @@ public class JsonSerializableDiaryBook {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public DiaryBook toModelType() throws DiaryEntryParseException {
+    public DiaryBook toModelType() throws DiaryEntryParseException, ParseException {
         DiaryBook diaryBook = new DiaryBook();
         for (JsonAdaptedDiaryEntry jsonAdaptedDiaryEntry : entries) {
             DiaryEntry diaryEntry = jsonAdaptedDiaryEntry.toModelType();
