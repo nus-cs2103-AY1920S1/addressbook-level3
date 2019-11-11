@@ -59,12 +59,12 @@ LogicManager --> SchedulerParser
 SchedulerParser ..> XYZCommandParser: creates >
 XYZCommandParser ..> XYZCommand: creates >
 XYZCommandParser .right.> ParseException: throws >
-XYZCommandParser --|> Parser
+XYZCommandParser -left-|> Parser
 XYZCommandParser ..> ArgumentMultimap
 XYZCommandParser ..> ArgumentTokenizer
 XYZCommandParser ..> CliSyntax
 XYZCommandParser ..> ParserUtil
-ArgumentTokenizer ..> ArgumentMultimap
+ArgumentTokenizer .right.> ArgumentMultimap
 ArgumentTokenizer ..> Prefix
 CliSyntax ..> Prefix
 ParserUtil ..> Prefix
@@ -81,11 +81,11 @@ XYZCommand -up-|> Command
 XYZCommand .right.> CommandException: throws >
 
 'mapping and arrows for graph
-XYZCommand ..> InterviewerSlot
-XYZCommand ..> IntervieweeVertex
-XYZCommand ..>BipartiteGraph
-XYZCommand ..> BipartiteGraphGenerator
-XYZCommand ..> HopcroftKarp
+XYZCommand .down.> InterviewerSlot
+XYZCommand .down.> IntervieweeVertex
+XYZCommand .down.>BipartiteGraph
+XYZCommand .down.> BipartiteGraphGenerator
+XYZCommand .down.> HopcroftKarp
 BipartiteGraph --> IntervieweeVertex
 BipartiteGraph --> InterviewerSlotVertex
 BipartiteGraphGenerator ..> BipartiteGraph
@@ -94,8 +94,8 @@ BipartiteGraphGenerator ..> InterviewerSlotVertex
 HopcroftKarp ..> InterviewerSlotVertex
 HopcroftKarp --> IntervieweeVertex
 HopcroftKarp --> BipartiteGraph
-IntervieweeVertex --|> Vertex
-InterviewerSlotVertex --|> Vertex
+IntervieweeVertex -left-|> Vertex
+InterviewerSlotVertex -up-|> Vertex
 DfsHopcroftKarp ..> IntervieweeVertex
 DfsHopcroftKarp ..> InterviewerSlotVertex
 DfsHopcroftKarp ..> Vertex

@@ -199,7 +199,7 @@ A command entered by the user is processed as follows:
 . The execution produces a result, which is encapsulated in a `CommandResult` object and returned to `LogicManager`.
 . `LogicManager` the processes the `CommandResult`. The `CommandResult` can instruct to `Ui` to perform certain actions,
 such as displaying help to the user.
-. Finally, `LogicManager` calls the `Storage` components to save the current `Model` to the hard disk.
+. Finally, `LogicManager` calls the `Storage` component to save the current `Model` to the hard disk.
 
 Given below is the general Sequence Diagram for interactions within the `Logic` component for the execution of the `add`,
 `edit` and `delete` API calls. Refer to <<Implementation, Section 3: Implementation>> for how different `Command` objects
@@ -234,11 +234,11 @@ or the schedules changes.
 * exposes a list of `ObservableList<Interviewee>` that can be 'observed' by the UI.
 * does not depend on any of the three components.
 
-// tag::storage[]
 ==== Schedule
 The `Schedule` objects are filled up and created by the imported interviewer's availability. The inner data of a `Schedule` object is the same as the corresponding availability
 table in the imported interviewer's availability. The data of the `Schedule` can be changed after running the scheduling algorithm.
 
+// tag::storage[]
 [[Design-Storage]]
 === Storage component
 
@@ -268,15 +268,14 @@ This section describes some noteworthy details on how certain features are imple
 === Add, Edit and Delete feature
 The `add`, `edit` and `delete` features allow interviewees and interviewers to be manually added to Scheduler.
 
-An `Interviewee` is associated with the following `Prefix`:
+The flow of logic for a successful execution of these commands can be summarised as follows:
 
-* `n/NAME`, `p/PHONE`, `t/TAG`, `f/FACULTY`, `y/YEAR_OF_STUDY`, `d/DEPARTMENT`, `s/SLOT`, `ep/PERSONAL_EMAIL` and `ew/NUS_WORK_EMAIL`.
+. Parse user input and populate an `ArgumentMultimap` instance with a mapping of prefixes (from user input) to String arguments following those prefixes.
+. Check the validity of these arguments using the `ParserUtil` class.
+. If the arguments are valid, carry out the necessary modifications to the `ModelManager` class, which contains the underlying `IntervieweeList` and `InterviewerList`
+, which we store our entities in.
 
-An `Interviewer` is associated with the following `Prefix`:
-
-* `n/NAME`, `p/PHONE`, `t/TAG`, `s/SLOT`, `d/DEPARTMENT` and `ew/NUS_WORK_EMAIL`.
-
-The Activity Diagram below illustrates the general flow of logic from command input (by a user) to command execution:
+The Activity Diagram below further illustrates the general flow of logic from command input (by a user) to command execution:
 
 .A general Activity Diagram illustrating logic flow in the `Logic` component.
 image::LogicGeneralActivityDiagram.png[200, 400]
@@ -289,11 +288,13 @@ Each of <<Add Interviewee/Interviewer feature, add>>, <<Edit Interviewee/Intervi
 // tag::add[]
 
 ==== Add Interviewee/Interviewer feature
-The `add` command feature essentially allows a user to add an `Interviewee` or `Interviewer` object to the underlying `IntervieweeList`
+The `add` command feature allows a user to add an `Interviewee` or `Interviewer` object to the underlying `IntervieweeList`
  or `InterviewerList` of `ModelManager`.
-Upon successful parsing of the `add` command arguments, an instance of `Interviewee`/`Interviewer` is created based on the preamble supplied,
-which is added to its corresponding list in `ModelManager`.
-The underlying `UniquePersonList` of `IntervieweeList` and `InterviewerList` ensures
+
+. Upon successful parsing of the `add` command arguments, an instance of `Interviewee`/`Interviewer` is created. (depending on the preamble supplied in the user input)
+.. I.e: `add interviewee n/John Doe`. The preamble starts after the command word "add" and before the first prefix "n/".
+. ModelManager#addInterviewee() is then called to add the entity to its corresponding list in `ModelManager`.
+.. The underlying `UniquePersonList` of `IntervieweeList` and `InterviewerList` ensures
 that no duplicate entities are present at any time, checked by Interviewee#isSamePerson() and Interviewer#isSamePerson().
 
 The following *Sequence Diagram* illustrates how the `add interviewee` command works. The `add interviewer` command works in a similar manner.
@@ -303,9 +304,11 @@ image::AddSequenceDiagram.png[]
 
 NOTE: The lifeline for `AddCommandParser` and `AddIntervieweeCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
+
 ====
 * See the general logic sequence diagram in <<Logic component, Section 2.3: Logic component>> for a more complete view of how
 `Storage` is affected as well.
+* For brevity, the input arguments to functions referenced in this guide may be omitted.
 ====
 
 To better illustrate the flow of events from the moment a user inputs an add command till completion of the command,
@@ -321,10 +324,15 @@ image::AddActivityDiagram.png[300,400]
 ==== Edit Interviewee/Interviewer feature
 The `edit` command allows a user to edit an `Interviewee` or `Interviewer` in the underlying `IntervieweeList` or `InterviewerList` of
 `ModelManager`.
-This is done through an `EditIntervieweeDescriptor` or `EditInterviewerDescriptor`, which stores the details to update the
-`Interviewee`/`Interviweer` with, which is created upon successful parsing of the `edit` command.
-A *new instance* of `Interviewee`/`Interviewer` is then created from the descriptor.
-The `Interviewee`/Interviewer` to be updated is then retrieved from the list by name, and is *replaced with the new instance*.
+
+. Upon successful parsing of the `edit` command arguments, the parser checks the `r/ROLE` prefix supplied
+. If "interviewee" is supplied, an `EditIntervieweeDescriptor` which stores the details to update the
+`Interviewee` with is created with arguments from the user input, stored in `ArgumentMultimap`.
+.. `ArgumentMultimap` is filled by a call to ArgumentMultimap.tokenize().
+. If "interviewer" is supplied, an `EditInterviewerDescriptor` is created and populated instead.
+. A *new instance* of `Interviewee` or `Interviewer` is then created from the descriptor.
+The entity to be updated is then retrieved from the list by name, and is *replaced with the new instance*.
+.. ModelManager#setInterviewee() or ModelManager#setInterviewer() is called.
 
 The following *Sequence Diagram* below shows how the `edit interviewee` command works. The `edit interviewer` command works in a similar manner.
 
@@ -351,11 +359,12 @@ image::EditActivityDiagram.png[300, 400]
 ==== Delete Interviewee/Interviewer feature
 The `delete` command allows a user to delete an `Interviewee` or `Interviewer` from the underlying `IntervieweeList` or `InterviewerList`
 of `ModelManager`.
-Upon successful parsing of the `delete` command's arguments, the name of the person to delete is retrieved.
-Based on the `r/ROLE` prefix supplied, the `IntervieweeList` or `InterviewerList` is searched, and the `Interviewee`/`Interviewer` with
-a matching name is deleted.
 
-* Note that the underlying `UniquePersonList` ensures that there are no two same `Interviewee`/`Interviewer` with the same name in the list.
+. Upon successful parsing of the `delete` command's arguments, the name of the person to delete is retrieved.
+. Based on the `r/ROLE` prefix supplied, the `IntervieweeList` or `InterviewerList` is searched, and the `Interviewee`/`Interviewer` with
+a matching name is deleted.
+.. ModelManager#deleteInterviewee() or ModelManager#deleteInterviewer() is called.
+.. Note that the underlying `UniquePersonList` ensures that there are no two interviewees or interviewers with the same name in the list.
 
 The following *Sequence Diagram* below shows how the `delete interviewee` command works. The `delete interviewer` command works in a similar manner.
 
