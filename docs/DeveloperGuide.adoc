@@ -496,6 +496,59 @@ send the emails.
 This may lead to confusion for the project's members.
 // end::signIn[]
 
+// tag::setTimetable[]
+
+=== Timetable input
+==== Description of Feature
+This feature is used to input timetable data, which would then be used in the `generate` command to find a suitable meeting timeslot.
+
+There are two ways to input member's timetable:
+
+. Member send a formatted text file to the team leader, which would then be parsed by the system. The file would be a list of newline separated time ranges
+. Member send their NUSMods timetable URL to the team leader, and the system would parse the URL and fetch timetable data using NUSMods API
+
+User command would be in the format: `setTimetable INDEX m/member [n/NUSMODS_URL] [f/FILEPATH]`
+
+The main logic is implemented within the `TimetableInput` class, which is invoked by the `SetTimetableCommand` class.
+
+==== Details
+
+Important functions in `TimetableInput`:
+
+* `TimetableInput#getTimetableFromNUSMods(Url url)` -- Parse URL and fetch timetable data using NUSMods API
+* `TimetableInput#getTimetableFromFile(String filepath)` -- Parse file to obtain timetable data
+
+Below is an overview of the classes related to time+table input:
+
+.Class diagram for timetable input feature
+image::set-timetable/SetTimetableClassDiagram.png[]
+
+`setTimetableCommand` accepts either a filepath or a URL, which is then supplied to `TimetableInput` to fetch the timetable data.
+
+Afterwards, the timetable is passed into `TimetableVisualization` to provide a visual representation of the set timetable. This visualization is then passed back as a `CommandResult` to be displayed to the user.
+
+The following sequence diagram illustrates what happens when the user issues the command `setTimetable` to add their timetable from a shared NUSMods timetable.
+
+.Timeline of entire process from user executing their command to getting the result back.
+image::set-timetable/SetTimetableSequenceDiagram.png[]
+
+
+==== Design Considerations
+
+===== Aspect: How to input timetable
+
+* **Alternative 1** (current choice): Input timetable by importing timetable from an already existing platform.
+** Pros: More practical and convenient for users to input, as opposed to manually typing in all the timetable for every single members.
+** Cons: Feature unreliable as it requires maintainance if the web API changes.
+* **Alternative 2:** Input all time ranges manually by user.
+** Pros: Very reliable due to lack of usage of online APIs.
+** Cons: Very impractical. Most users would not want to enter timetable data of all their members one by one, and would probably skip this feature.
+
+We realized that it is very impractical to expect users to input timetable manually all by themselves. No matter how unreliable the web API is, the feature would at least be useful to users. If users have to manually input all the data, we cannot realistically expect this feature to be useful at all.
+
+// end::setTimetable[]
+
+// tag::generate[]
 === Generate meeting timeslot
 ==== Description of Feature
 
@@ -578,53 +631,7 @@ image::GenerateSlotActivityDiagram.png[]
 
 We went with options 1 as there is no real difference in speed if the number of members is restricted to below 15 members, which many projects do not normally exceed. It is much easier to understand and maintain by other developers as well.
 
-=== Timetable input
-==== Description of Feature
-This feature is used to input timetable data, which would then be used in the `generate` command to find a suitable meeting timeslot.
-
-There are two ways to input member's timetable:
-
-. Member send a formatted text file to the team leader, which would then be parsed by the system. The file would be a list of newline separated time ranges
-. Member send their NUSMods timetable URL to the team leader, and the system would parse the URL and fetch timetable data using NUSMods API
-
-User command would be in the format: `setTimetable INDEX m/member [n/NUSMODS_URL] [f/FILEPATH]`
-
-The main logic is implemented within the `TimetableInput` class, which is invoked by the `SetTimetableCommand` class.
-
-==== Details
-
-Important functions in `TimetableInput`:
-
-* `TimetableInput#getTimetableFromNUSMods(Url url)` -- Parse URL and fetch timetable data using NUSMods API
-* `TimetableInput#getTimetableFromFile(String filepath)` -- Parse file to obtain timetable data
-
-Below is an overview of the classes related to time+table input:
-
-.Class diagram for timetable input feature
-image::set-timetable/SetTimetableClassDiagram.png[]
-
-`setTimetableCommand` accepts either a filepath or a URL, which is then supplied to `TimetableInput` to fetch the timetable data.
-
-Afterwards, the timetable is passed into `TimetableVisualization` to provide a visual representation of the set timetable. This visualization is then passed back as a `CommandResult` to be displayed to the user.
-
-The following sequence diagram illustrates what happens when the user issues the command `setTimetable` to add their timetable from a shared NUSMods timetable.
-
-.Timeline of entire process from user executing their command to getting the result back.
-image::set-timetable/SetTimetableSequenceDiagram.png[]
-
-
-==== Design Considerations
-
-===== Aspect: How to input timetable
-
-* **Alternative 1** (current choice): Input timetable by importing timetable from an already existing platform.
-** Pros: More practical and convenient for users to input, as opposed to manually typing in all the timetable for every single members.
-** Cons: Feature unreliable as it requires maintainance if the web API changes.
-* **Alternative 2:** Input all time ranges manually by user.
-** Pros: Very reliable due to lack of usage of online APIs.
-** Cons: Very impractical. Most users would not want to enter timetable data of all their members one by one, and would probably skip this feature.
-
-We realized that it is very impractical to expect users to input timetable manually all by themselves. No matter how unreliable the web API is, the feature would at least be useful to users. If users have to manually input all the data, we cannot realistically expect this feature to be useful at all.
+// end::generate[]
 
 === Logging
 

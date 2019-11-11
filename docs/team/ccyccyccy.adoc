@@ -69,3 +69,7 @@ include::../UserGuide.adoc[tag=setTimetable]
 include::../UserGuide.adoc[tag=generate]
 
 == Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=setTimetable]
+
+include::../DeveloperGuide.adoc[tag=generate]

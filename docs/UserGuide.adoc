@@ -216,6 +216,12 @@ Format:
 
 `setTimetable INDEX [n/NUSMODS_SHARE_URL] [f/FILEPATH_TO_TIMETABLE]`
 
+****
+* Assigns timetable to the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list using the command `list`.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
 Example:
 
 * `setTimetable 3 f//home/john/Desktop/aliceTimetable.txt` +
@@ -230,26 +236,31 @@ TUESDAY 1100 TUESDAY 1500
 * `setTimetable 2 n/https://nusmods.com/timetable/sem-1/share?CS2100=LAB:05,TUT:02,LEC:1&CS2101=&CS2103T=LEC:G13&CS2105=TUT:03,LEC:1&CS3241=TUT:05,LEC:1&CS3243=TUT:01,LEC:1&GEQ1000=TUT:D27` +
 Set timetable to the person with index 2 on the list of persons, by retrieving timetable data from NUSMods.
 
-Below is a step-by-step instruction to guide you through the process of setting a timetable to Alice, through the use of NUSMods:
+Below is a step-by-step instruction to guide you through the process of setting a timetable to Alex, through the use of NUSMods:
 
-* Step 1: Type `setTimetable`, followed by the index of the person you wish to set the timetable to, and the URL of the share link.
+* Step 1: Type `list` and enter to view the list of persons. Identify the index of the person you wish to set the timetable to.
 
-.User enters timetable of team member
+.List of person in the application
 image::set-timetable/set-timetable-step-1.png[]
 
-* Step 2: Press enter, and you would see the following message. You can even scroll down to view a simple visualization of the timetable set!
+* Step 2: Type `setTimetable`, followed by the index of the person you wish to set the timetable to, and the URL of the share link.
+
+.User enters timetable of team member
+image::set-timetable/set-timetable-step-2.png[]
+
+* Step 3: Press enter, and you would see the following message. You can even scroll down to view a simple visualization of the timetable set!
 
 .`setTimetable` command success
-image::set-timetable/set-timetable-step-2a.png[]
+image::set-timetable/set-timetable-step-3a.png[]
 
 .Visualization of timetable set
-image::set-timetable/set-timetable-step-2b.png[]
+image::set-timetable/set-timetable-step-3b.png[]
 
 [TIP]
 Even if you accidentally entered a wrong URL, MyProject would prompt you helpfully!
 
 .Error message when entered URL is invalid
-image::set-timetable/set-timetable-step-3.png[]
+image::set-timetable/set-timetable-step-3-error.png[]
 
 // end::setTimetable[]
 
@@ -475,7 +486,9 @@ associated with this functionality.
 
 Need to decide on a meeting timing, but having trouble finding a time where all members are free? This command can help suggest meeting timings!
 
-* Prerequisite: Timetables have been assigned to the members with the command `setTimetable`
+* Prerequisite:
+** Members have been assigned to the project using `addFromContacts` or `addMember`
+** Timetables have been assigned to the members with the command `setTimetable`
 
 [NOTE]
 `generate` would not give an error if some members do not have timetable assigned to them. Ensure that you have done `setTimetable` for each of the members in the project before using `generate`.
