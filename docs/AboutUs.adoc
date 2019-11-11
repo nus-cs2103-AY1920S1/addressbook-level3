@@ -22,7 +22,7 @@ Responsibilities: Documentation
 
 === Cheong Li Yuan
 image::cheongliyuan.png[width="150", align="left"]
-{empty}[http://github.com/cheongliyuan[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/cheongliyuan[github]] [<<cheongliyuan#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -54,6 +54,6 @@ image::mistyrainforest.png[width="150", align="left"]
 {empty}[http://github.com/MistyRainforest[github]] [<<mistyrainforest#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: Storage and Backup
 
 '''
