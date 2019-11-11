@@ -137,6 +137,7 @@ https://github.com/bakwxh/ped/issues/8[8])
 the *User Guide* documentation of the my other DukeCooks feature, the Recipe Book.
 |To view the full *User Guide* of DukeCooks, please visit this https://ay1920s1-cs2103t-t10-2.github.io/main/UserGuide.html[link].
 |===
+
 === Meal Plans
 
 Want a way to plan out your meals for an entire week? Using meal plans is a great way do that. Use the following meal plan commands to plan your weekly consumption!
@@ -154,7 +155,7 @@ Here's a quick way to check out your meal plans!
 
 Command: `goto mealplan`
 
-==== Add a meal plan
+==== Adding a meal plan
 Adds a new meal plan into the meal plan book. +
 Command: `add mealplan`
 Format: `add mealplan n/<name> day1/[name]... day2/[name]... day3/[name]... day4/[name]... day5/[name]... day6/[name]... day7/[name]...`
@@ -181,11 +182,13 @@ Creates a meal plan with the name "Keto" and the listed meals under each indicat
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
+.Adding a meal plan
 image::ug_mealplan_addMealPlan1.png[]
 +
 . If the command succeeds, you should see the following message in the result display
 and a new meal plan named "One Recipe" will be added.
 +
+.Successfully added meal plan
 image::ug_mealplan_addMealPlan2.png[]
 
 ==== Editing a meal plan
@@ -219,10 +222,12 @@ Updates the first listed meal plan to remove the recipe "Salad" from Day 1 and a
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
+.Editing a meal plan
 image::ug_mealplan_editMealPlan1.png[]
 +
 . If the command succeeds, the following result will be displayed and the meal plan will be edited as shown below.
 +
+.Successfully edited a meal plan
 image::ug_mealplan_editMealPlan2.png[]
 
 ==== Listing your meal plans
@@ -238,10 +243,12 @@ Lists all meal plans saved in the meal plan book.
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
+.Listing meal plans
 image::ug_mealplan_listMealPlan1.png[]
 +
 . If the command succeeds, all of the meal plans within DukeCooks would be listed as shown below.
 +
+.Successfully listed all meal plans
 image::ug_mealplan_listMealPlan2.png[]
 
 ==== Finding a meal plan
@@ -257,11 +264,13 @@ Lists all meal plans containing "Chicken" in their name.
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
+.Finding a meal plan
 image::ug_mealplan_findMealPlan1.png[]
 +
 . If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
 all meal plans with the keyword "Week" in its name would be found.
 +
+.Successfully found a meal plan
 image::ug_mealplan_findMealPlan2.png[]
 
 ==== Finding a meal plan containing a certain recipe
@@ -282,11 +291,13 @@ Lists all meal plans containing "Chicken Rice" in any of the meal plan days.
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
+.Finding a meal plan with recipe
 image::ug_mealplan_findWithMealPlan1.png[]
 +
 . If the command succeeds, only the found meal plans would be displayed as shown below. In this case,
 all meal plans with the recipe "Chilli Crab" in any of its days would be found.
 +
+.Successfully found meal plan with recipe
 image::ug_mealplan_findWithMealPlan2.png[]
 
 ====  Viewing a meal plan:
@@ -304,10 +315,12 @@ Views the first meal plan listed within the meal plan book.
 .Steps
 . Enter the command in the command box and hit the kbd:[Enter] key.
 +
+.Viewing a meal plan
 image::ug_mealplan_viewMealPlan1.png[]
 +
 . If the command succeeds, a different display showing all the details of the specified meal plan, in this case, the first indexed meal plan, will be brought up.
 +
+.Successfully viewed a meal plan
 image::ug_mealplan_viewMealPlan2.png[]
 
 ==== Delete a meal plan
