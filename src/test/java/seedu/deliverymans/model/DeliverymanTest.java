@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.AVAILABLE_STATUS;
 import static seedu.deliverymans.model.deliveryman.deliverymanstatus.UniqueStatusList.UNAVAILABLE_STATUS;
-import static seedu.deliverymans.model.util.SampleDataUtil.getMenu;
 import static seedu.deliverymans.model.util.SampleDataUtil.getTagSet;
 
 import org.junit.jupiter.api.Test;
