@@ -67,6 +67,9 @@ public class QuizCreateManuallyCommand extends QuizCommand {
         if (questionNumbers.size() == 0) {
             throw new CommandException(INVALID_QUESTION_NUMBERS);
         }
+        if (hasInvalidNumber(questionNumbers)) {
+            throw new CommandException(INVALID_QUESTION_NUMBERS);
+        }
 
         if (model.checkQuizExists(quizId)) {
             throw new CommandException(String.format(QUIZ_ALREADY_EXISTS, quizId));
@@ -117,6 +120,22 @@ public class QuizCreateManuallyCommand extends QuizCommand {
         // state check
         QuizCreateManuallyCommand e = (QuizCreateManuallyCommand) other;
         return this.quizId.equals(e.quizId);
+    }
+
+    /**
+     * Checks whether there are any invalid numbers.
+     * @param questionNumbers The question numbers to be checked.
+     * @return True if there are invalid numbers, else false.
+     */
+    private boolean hasInvalidNumber(ArrayList<Integer> questionNumbers) {
+        boolean hasInvalid = false;
+        for (Integer i : questionNumbers) {
+            if (i <= 0) {
+                hasInvalid = true;
+                break;
+            }
+        }
+        return hasInvalid;
     }
 
 }
