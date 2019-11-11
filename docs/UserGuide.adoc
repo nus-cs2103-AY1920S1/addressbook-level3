@@ -364,13 +364,13 @@ Returns the 2rd employee from the displayed employee list.
 //tag::calvin[]
 === Event-Specific Management
 
-[NOTE]
-Some event-specific commands have GUI features enabled to improve user experience. However, such features are
-implemented as a *best-effort service* and should not be heavily relied on.
-
 ==== Fetch Full Details of an Event: `fetch_ev`
 
 Fetches an event by displaying a pop-up window with full details of the event.
+
+[NOTE]
+The *Fetch Event Window* serves as a portable platform for event manpower allocation. It can be
+accessed from the `Main` and `Schedule` Tab.
 
 Format: `fetch_ev EVENT_INDEX`
 
@@ -399,7 +399,7 @@ image::afterfetch.png[width="600"]
 ==== Automated allocation of Employees to Events: `allocate`
 
 Automatically filters and allocates a specified number of employees from the
-complete employee list to an event. *Once an employee is allocated
+complete employee list to an event. There is no manual selection of employees. *Once an employee is allocated
 to an event, it is assumed that he will be unavailable
 from the start date to the end date of the event.*
 
@@ -431,7 +431,7 @@ Alternatively, the `allocate` command can be executed from the GUI in just 1 sim
 as shown in the *Fetch Event Window* in <<Fetch Full Details of an Event: `fetch_ev`>>.
 
 
-==== Manually allocation of Employees to Events: `allocatem`
+==== Manual allocation of Employees to Events: `allocatem`
 
 Manually chooses and allocates a single employee to an event.
 
