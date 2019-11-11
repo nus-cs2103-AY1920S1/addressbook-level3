@@ -33,7 +33,7 @@ the application.
 This is the application’s appearance when first opened:
 
 .Graphical User Interface of treasurerPro
-image::AnnotatedUi.png[width="700"]
+image::AnnotatedUi.png[]
 
 As seen from the above Figure, the application has 6 tabs with unique roles. All tabs are integrated. The 6 tabs are:
 
@@ -53,6 +53,7 @@ This symbol indicates extra information or definition.
 `Model` :
 Text with this font and grey highlight indicates a component, class or object in the architecture of
 the application. It also indicates a generic command format for the command box in the User Guide.
+
 
 [blue]`command` :
 Text with this blue font and grey highlight indicates a command that can be inputted by the user.
@@ -77,10 +78,13 @@ in when the application was first opened.
 
 === Other Contributions
 * Documentation:
+** Proofread User Guide and Developer Guide for spelling and grammatical errors.
 * Community:
-** Helped to fix teammates' test cases.
-** Cleaned checkstyle errors in other teammates' packages.
-** Helped to edit other teammate's User Guide.
+** Cleaned checkstyle errors and helped to solve bugs in other teammates' packages:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/98/commits/b66f1e4b99f3687e6c55894ae9aafa675468375a[(PR #98)]
+** Helped to edit other teammate's User Guide:
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/371[(PR #371)]
+https://github.com/AY1920S1-CS2103T-T13-3/main/pull/387[(PR #387)]
 
 == Contributions to the User Guide
 This section showcases some of my contributions to the User Guide.
@@ -95,7 +99,7 @@ This command allows you to add an item to the table and saves it into the system
 [NOTE]
 Description and category can be empty, but their field prefixes (d/ and c/) must be present.
 
-* Command:
+* Command: +
 `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
 
 * Examples:
@@ -109,7 +113,7 @@ The attributes can also be inputted in any order.
 . Type the command with all parameters filled in, as shown in the screenshot below:
 
 //.Screenshot of the user input into the Command Box for the Add Command in the Inventory tab
-image::inventoryUG/AddStep1.png[width="600"]
+image::inventoryUG/AddStep1.png[width="500"]
 
 [start = 2]
 . Hit `Enter`
@@ -118,7 +122,7 @@ If the command is successfully added, Leo will respond with a success message an
 will be shown in the table. This is shown in the screenshot below:
 
 //.Screenshot of a successful user input for the Add Command in the Inventory tab
-image::inventoryUG/AddSuccess.png[width="600"]
+image::inventoryUG/AddSuccess.png[width="400"]
 
 [NOTE]
 If the description of the input matches that of an existing item, a new item will not be added.
@@ -133,12 +137,12 @@ This command allows you to delete an item in the table by ID or by description.
 [NOTE]
 This command is case-insensitive.
 
-* Command:
-`delete ID`
+* Command: +
+`delete ID` +
 `delete DESCRIPTION`
 
-Example:
-[blue]`delete 1`
+* Example: +
+[blue]`delete 1` +
 [blue]`delete t-shirt`
 
 * Steps:
@@ -162,6 +166,18 @@ This section showcases some of my contributions to the User Guide.
 
 {Start of the first extract from Developer Guide}
 
+=== Inventory Tab
+
+This tab will help to keep records of all items currently in the club’s possession.
+
+Each item will require an input of its description, category, quantity, and cost per unit.
+Optionally, if the item is meant for sale, the price can be inputted as well.
+
+The following Class Diagram shows the architectural design of the tab:
+
+.Class Diagram of Inventory tab (inventory package)
+image::InventoryTabClassDiagram.png[][width="500"]
+
 :sectnums!:
 [[AddCommandInventory]]
 ==== 3.4.1. Add Item Feature
@@ -170,36 +186,44 @@ which allows the addition of items to the inventory. These items are represented
 The addition of an `Item` to the inventory requires an input of the `Item`’s description, category, quantity, and cost.
 The price field is optional and may be added only to an `Item` meant for sale.
 
-Due to the usage of `ArgumentMultimap`, the fields can be in any order as they are retrieved via the prefixes that
-precede them.
+The following Sequence Diagram shows how the AddCommandParser creates an `Item`:
+
+.Sequence Diagram of the add command parser in the Inventory tab (inventory package)
+image::inventoryDG/AddCommandParserSeqDiagram.png[]
+
+
+As seen in the above diagram, the parser takes in the user input as well as the existing `InventoryList`. Within the
+parser, it will use the `ArgumentTokenizer` to tokenize the arguments using the prefixes. This creates an
+`ArgumentMultimap`, allowing the system to retrieve the user input based on the prefixes that precede them. Thus, this
+increases the accuracy of the parsing and allows the fields to be in any order in the user input.
+
+If the description of the `Item` being added matches that of an existing `Item`, the new `Item`’s quantity is added to
+that of the existing `Item` and the cost per unit is recalculated. This is handled within the `AddCommandParser`,
+which also checks the validity of the input using the isValidNumericString(string) method.
+
+The code for the `AddCommandParser#isValidNumericString(String)` can be seen in the code snippet below:
+
+.Code snippet of the `AddCommandParser#isValidNumericString(String)` method in the Inventory tab (inventory package)
+image::inventoryDG/AddCommandSnippet.png[width="500"]
+
+Through this method, the application prohibits the addition of an `Item` with any value equivalent to or greater than
+10,000. This includes the total cost and expected revenue of each `Item`. It also prohibits non-numeric inputs where
+numeric inputs are expected. The `AddCommandParser#isValidNumericString(String)` method performs the aforementioned
+checks and returns a boolean that represents the validity of the input.
+
+After the `Item` is created and the command is executed, the `LogicManager` updates the in-app `InventoryList` via the
+`ModelManager` and saves to the data file via the `StorageManager`.
 
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
 AddCommand works:
 
-.Sequence Diagram of the Add Command in the Inventory Tab (inventory package)
+.Sequence Diagram of the add command in the Inventory tab (inventory package)
 image::inventoryDG/AddCommandSeqDiagram.png[][alt=addSeq, width=300, height=400]
 
-If the description of the `Item` being added matches that of an existing `Item`, the new `Item`’s quantity is added to
-that of the existing `Item` and the cost per unit is recalculated. This is handled within the `AddCommandParser`,
-which also checks the validity of the input.
+For a greater understanding of the flow of events and checks, you may consult the following activity diagram that
+shows the steps that follow the input of an add command:
 
-It prohibits the addition of an `Item` with any value equivalent to or greater than 10,000. This includes the total cost
-and expected revenue of each `Item`. It also prohibits non-numeric inputs where numeric inputs are expected.
-This is conducted through the isValidNumericString(string) method which performs the aforementioned checks and
-returns a `Boolean` that represents the validity of the input.
-
-The following Sequence Diagram shows how the AddCommandParser creates an `Item`:
-
-.Sequence Diagram of the Add Command Parser in the Inventory Tab (inventory package)
-image::inventoryDG/AddCommandParserSeqDiagram.png[][alt=addParserSeq, width=300, height=400]
-
-After the `Item` is created and the command is executed, the `LogicManager` updates the in-app `InventoryList` via the
-`ModelManager` and updates the data file via the `StorageManager`.
-
-For a greater understanding of the flow of events and checks, you may consult the following activity diagram that shows
-the steps that follow the input of an add command:
-
-.Activity Diagram of the Add Command in the Inventory Tab (inventory package)
+.Activity Diagram of the add command in the Inventory tab (inventory package)
 image::inventoryDG/AddCommandFlowChart.png[][alt=addFlowChart, width=450, height=600]
 
 :sectnums!:
@@ -212,12 +236,15 @@ of items from the inventory. This feature requires only the command keyword and 
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
 `DeleteCommand` works:
 
-.Sequence Diagram of the Delete Command in the Inventory Tab (inventory package)
+.Sequence Diagram of the delete command in the Inventory tab (inventory package)
 image::inventoryDG/DeleteCommandSeqDiagram.png[][alt=deleteSeq, width=300, height=400]
 
 The `DeleteCommandParser` is responsible for checking the validity of the input, and does not allow any indexes that
 are less than 1 or greater than the largest index currently in the list. It can also take in a description as input and
 compares it against existing `Item` s in the `InventoryList`. This comparison is case-insensitive.
+
+After the command is executed and the `Item` is deleted, the `LogicManager` updates the in-app `InventoryList` via the
+`ModelManager` and saves to the data file via the `StorageManager`.
 
 {End of the first extract from Developer Guide}
 
@@ -263,6 +290,7 @@ memory complexity.
 |
 Alternative 1 has been implemented. An ArrayList has better performance for the get and set methods than a LinkedList
 for elements not in the head and tail.
+
 As it is natural for the number of items in the inventory to be high, and the get and set methods would naturally be
 frequently used in the `ModelManager`, the ArrayList seems to be a better choice.
 |
