@@ -23,38 +23,44 @@ This is how our user interface looks like:
 
 image::blimyjUI.png[]
 
-My role was to implement the reminder and snooze functionality as well as Team Management.
+My role was to implement the reminder and snooze functionality as well as to design the underlying commons classes used by my teammates.
 
 == Summary of contributions
 
 In this section, I will be briefly going through my contributions to this team project. For the full extent of my contributions to the project, please visit https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#=undefined&search=blimyj[here].
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the ability to* set and snooze reminders
+** What it does: allows the user to remind himself of details of tasks or events when needed.
+** Justification: This feature improves the product significantly because the user now no longer needs to constantly scan through lists in order to remember information at the right time. Instead ELISA will now remind him when it's time.
+** Highlights: This enhancement had to deal with multiple threads and had to handle the occurrence of reminders correctly. Due to the undo / redo feature, it required an in-depth analysis of thread-safety and time-sensitive behaviour analysis. The implementation was challenging as it required modifications to other components such as the ItemModelManager in order to ensure the correct handling of reminders when edited, undone or redone.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: add *commons classes*
+** What it does: Contains the details required for tasks, events & reminders.
+** Justification: It allowed for cross-reference of information between the lists so that details of the  tasks, events & reminders could be accessed regardless of the type of list being viewed without cyclic dependencies.
+** Highlights: This enhancement had to support immutability in order ensure thread-safety as well as to make the code easier to maintain.
+** Credits:
+*** Ideas for considering builder pattern [https://stackoverflow.com/questions/29881135/difference-between-builder-pattern-and-constructor[StackOverflow]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.3.5` (5 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Managed releases `v1.1` - `v1.3.5` (5 releases, excluding `v1.3.4`) on GitHub
+*** Managed team meetings & agendas. (Week 4-10)
+*** Managed bug allocation for PE.
+*** Managed Github team repo. (Setting up of branch protection & tools mentioned below)
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
+*** Updated the developer guide by giving the implementation of the undo function as well as filling in use cases and user stories
+** Reviewed the following pull requests:
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/82[PR #82]:
+**** Suggested abstraction of arePrefixesPresent method to adhere to DRY principle.
+**** Suggested usage of Optional to prevent potential error.
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/116[PR #116]: Suggested changes in function naming in order to maintain code consistency which were eventually implemented.
+*** https://github.com/AY1920S1-CS2103T-T10-3/main/pull/266[PR #266]: Spotted potential conflict with reminder due to repeated addition from autoReschedule event.
+
 ** Tools:
 *** Integrated AppVeyor & Coveralls to the team repo [https://github.com/AY1920S1-CS2103T-T10-3/main/pull/281[#281]]
 
 == Contributions to the User Guide
-
 
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
