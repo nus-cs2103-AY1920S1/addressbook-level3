@@ -18,7 +18,7 @@ public class HistoryCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows all results from your past history. ";
 
-    private static final String MESSAGE_SUCCESS = "History shown! \n";
+    public static final String MESSAGE_SUCCESS = "History shown! \n";
 
     /**
      * Executes the command and returns the result message.

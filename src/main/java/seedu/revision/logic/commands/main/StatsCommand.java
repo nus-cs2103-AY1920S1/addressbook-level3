@@ -19,7 +19,7 @@ public class StatsCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows results breakdown of all your past "
             + "quiz performances.";
 
-    private static final String MESSAGE_SUCCESS = "Results breakdown shown!";
+    public static final String MESSAGE_SUCCESS = "Results breakdown shown!";
 
 
     /**
