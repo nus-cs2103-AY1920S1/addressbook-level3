@@ -57,6 +57,7 @@ This section shows a summary of my coding, documentation, and other helpful cont
 |===
 
 include::../UserGuide.adoc[tag=suggest]
+
 include::../UserGuide.adoc[tag=notification]
 
 == Contributions to the Developer Guide
