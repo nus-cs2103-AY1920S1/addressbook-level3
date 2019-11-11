@@ -398,7 +398,7 @@ Since AlgoBase is a management tool for algorithmic questions, the search functi
 
 This section will describe in detail the current implementation and design considerations of the find problem feature (i.e. search feature) of AlgoBase.
 
-The following activity diagram summarizes what happens when a user executes the find command:
+The following activity diagram summarizes what happens when a user executes the `findprob` command:
 
 .Activity Diagram for the Execution of `findprob` Command
 image::find/FindCommandActivityDiagram.png[]
@@ -408,7 +408,7 @@ image::find/FindCommandActivityDiagram.png[]
 The find problem feature mainly involves three parts:
 
 1. validating and parsing user input
-2. creating a filtering predicate from user’s search restrictions
+2. creating a filtering predicate from user’s search constraints
 3. update the displayed problem list with the filtering predicate.
 
 The find problem feature is facilitated by the following classes:
@@ -458,7 +458,7 @@ These are classes that describes whether an instance of `Problem` is considered 
 ** `DifficultyIsInRangePredicate`
 *** It matches problems with LOWER_BOUND \<= difficulty \<= UPPER_BOUND
 ** `TagIncludesKeywordsPredicate`
-*** Each keyword will be considered as a tag, and two tags are considered equal only when their names are exactly the same.
+*** Each keyword will be considered as a tag, and two tags are considered equal only when their names are exactly the same (i.e. an exact match).
 *** It returns true when the provided tags are a subset of the tags of the provided problem.
 
 .Class Diagram for Predicates in the Find Feature
@@ -473,7 +473,7 @@ Step 2. `FindCommandParser` processes the user input and returns a `FindCommand`
 [NOTE]
 If no valid search restriction is provided by the user, `FindCommandParser` will throw a parsing exception, which is handled and displayed to the user.
 
-Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search restrictions.
+Step 3. `LogicManager` invokes `execute()` method of the returned `FindCommand`. `FindCommand` updates the problem list with user’s search constraints.
 
 .Sequence Diagram for the Execution of `findprob` Command
 image::find/FindCommandSequenceDiagram.png[width="70%"]
@@ -496,7 +496,7 @@ image::find/FindCommandSequenceDiagram.png[width="70%"]
 ** Cons: Has to check there is at least one predicate provided, making the implementation a bit more complicated.
 * **Alternative 2:** Treat it as no restriction (i.e. `findprob` is equivalent to `list` in this case)
 ** Pros: Easier implementation (if all predicates are always-true predicates, using `.and` method to chain them together would naturally result in an always-true predicate).
-** Cons: Confusing definition of a search function.
+** Cons: Confusing definition of the search feature.
 
 ===== Aspect: How to make predicates optional (i.e. user doesn’t have to provide restrictions for all searchable fields)
 
@@ -556,23 +556,23 @@ The sequence diagram below shows the high-level abstraction of how AlgoBase proc
 .High-level Sequence Diagram for the Execution of `addfindrule rule1 n/Sequences`
 image::savefindrule/HighLevelAddFindRuleSequenceDiagram.png[width="70%", scaledwidth=12cm]
 
-The sequence diagram below illustrates the interaction between the `Logic` and `Model` component when executing `AddFindRuleCommand`. Notice that the constructor for `AddFindRuleCommand` requires `Name` to be non-null and accepts null values for other predicates. Thus if the predicate is not present in the arguments, `AddFindRuleCommandParser` will pass null to the constructor of `AddFindRuleCommand`.
+The sequence diagram below illustrates the interaction between the `Logic` and `Model` component when executing `AddFindRuleCommand`. Notice that the constructor for `ProblemSearchRule` requires `Name` to be non-null and accepts null values for other predicates. Thus if the predicate is not present in the arguments, `AddFindRuleCommandParser` will pass null to the constructor of `ProblemSearchRule`.
 
 .Sequence Diagram for the Execution of `addfindrule` Command
 image::savefindrule/AddFindRuleSequenceDiagram.png[width="70%", scaledwidth=12cm]
 
 ==== Design Considerations
 
-===== Aspect: To implement `ProblemSearchRule` as a subclass of `FindProblemDescriptor` or implement it as a immutable concrete class.
+===== Aspect: To implement `ProblemSearchRule` as a subclass of `FindProblemDescriptor` or implement it as an immutable concrete class.
 
 Since AlgoBase is forked from AddressBook 3, it also inherits AB3's design choice on all data classes - they are all immutable classes with all fields being `final`. However, `ProblemSearchRule` is essentially saving the information of a command input, where the user may provide any number of predicates as the argument. We implement mutable `FindProblemDescriptor` to accommodate variable user inputs, now we have to consider whether to keep `ProblemSearchRule` immutable or not.
 
 * **Alternative 1 (current choice):** `ProblemSearchRule` extends `FindProblemDescriptor` with an additional field `name`
-** Pros: Drastically reduces the amount of duplicate code as `ProblemSearchRule` shares most fields with `FindProblemDescriptor`
+** Pros: Greatly reduces the amount of duplicate code as `ProblemSearchRule` shares most fields with `FindProblemDescriptor`
 ** Cons: `ProblemSearchRule` as a data class is no longer immutable. We have to be careful not to call any setters it inherits from `FindProblemDescriptor`.
 * **Alternative 2:** `ProblemSearchRule` as an individual class with immutable fields.
 ** Pros: Provides good protection over unexpected changes to the data fields.
-** Cons: Lots of repeated code.
+** Cons: Lots of duplicated code.
 
 // end::savefindrule[]
 

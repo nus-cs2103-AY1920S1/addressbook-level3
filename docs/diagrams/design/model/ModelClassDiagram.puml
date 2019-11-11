@@ -42,7 +42,7 @@ ModelManager o---> "1" AlgoBase
 ModelManager o-left-> "1" UserPrefs
 ModelManager -right->"*" Problem : filtered and sorted list
 ModelManager -->"*" Tag: filtered list
-ModelManager -->"*" Plan: filtered list
+ModelManager --->"*" Plan: filtered list
 ModelManager -->"*" Task: filtered list
 ModelManager -->"*" ProblemSearchRule: filtered list
 UserPrefs .up.|> ReadOnlyUserPrefs
