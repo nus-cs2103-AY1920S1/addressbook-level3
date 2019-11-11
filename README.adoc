@@ -5,6 +5,7 @@ https://travis-ci.com/AY1920S1-CS2103-T16-4/main[image:https://travis-ci.org/AY1
 https://ci.appveyor.com/project/SwampertX/main[image:https://ci.appveyor.com/api/projects/status/elh2fnndihhk2lo0/branch/master?svg=true[Build status]]
 https://coveralls.io/github/AY1920S1-CS2103-T16-4/main?branch=master[image:https://coveralls.io/repos/github/AY1920S1-CS2103-T16-4/main/badge.svg?branch=master[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/ade65995a9774bcea86c51880077cd96["Codacy code quality", link="https://www.codacy.com/manual/SwampertX/main?utm_source=github.com&utm_medium=referral&utm_content=AY1920S1-CS2103-T16-4/main&utm_campaign=Badge_Grade"]
+image:https://api.netlify.com/api/v1/badges/f50bf27a-7895-43bd-af84-cec54ef67a35/deploy-status["Netlify Build", link="https://app.netlify.com/sites/guilttrip/deploys"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]

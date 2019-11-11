@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Tan Yee Jian - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,14 +9,8 @@
 
 == Overview
 
-GuiltTrip is a finance tracker application written in purely Java, and inherits the general structure of AddressBook -
-Level 3. It is created for the purpose of CS2103 Software Engineering module, AY19/20 Sem 1 in the National University
-of Singapore. This is a native JavaFX application that runs cross-platform on all major computer Operating Systems.
-
-The application is a Command-Line based finance tracker, with rich integration of statistical visualization
-tools, customizable User Interface (UI), expense automation and much more. It is designed for
-youths and young adults in Singapore in the age range of 20-30 who are interested in keeping track of their spending,
-who are at the same time interested in a Command-Lined centric solution to their financial tracking needs.
+Craving for a nice bowl of Mala but can’t seem to save up enough for it? guiltTrip() is the perfect platform for those
+*aspiring to be able to afford their Mala*, finally!
 
 == Summary of contributions
 

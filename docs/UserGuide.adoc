@@ -303,7 +303,7 @@ image::autoexpense_add.png[]
 Edits an automatically recurring expense every day/week/month (frequency) with the given description and amount.
 
 Format: `editAutoExp <index> [f/<frequency> n/<description> amt/<expenditure> cat/<category>
- t/<tag1> t/<tag2> d/<starting date>]`
+ tg/<tag1> tg/<tag2> d/<starting date>]`
 
 Note that only future `Expenses` generated will have the new properties you set in the current
 AutoExpense object. Well, you can't rewrite history! If you made a mistake creating an `AutoExpense`
