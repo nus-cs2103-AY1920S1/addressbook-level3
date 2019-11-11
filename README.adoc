@@ -35,5 +35,6 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://openjfx.io/[JavaFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/junit-team/junit5[JUnit5], https://github.com/TestFX/TestFX[TestFX]
+* PNG used for Documentation: https://github.com/AY1920S1-CS2103T-T11-2/main/blob/master/docs/Credits%20for%20PNG.txt[PNG Credits]
 
 == Licence : link:LICENSE[MIT]
