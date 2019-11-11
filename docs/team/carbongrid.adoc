@@ -4,6 +4,11 @@
 :stylesDir: ../stylesheets
 :xrefstyle: full
 :experimental:
+:icons: font
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
 
 == PROJECT: ClerkPro
 
@@ -66,5 +71,5 @@ include::../UserGuide.adoc[tag=reactiveSearchUG]
 |===
 
 include::../DeveloperGuide.adoc[tag=autocomplete]
-include::../DeveloperGuide.adoc[tag=reactivesearch]
+include::../DeveloperGuide.adoc[tag=reactivesearchUI]
 include::../DeveloperGuide.adoc[tag=carbongridContribManualTesting]

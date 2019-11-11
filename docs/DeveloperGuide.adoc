@@ -384,7 +384,7 @@ image::UndoRedoState5.png[]
 
 // end::undoredo[]
 
-// end::reactivesearch[]
+// tag::reactivesearchUI[]
 // tag::reactivesearchIntro[]
 
 === Reactive Search
@@ -423,10 +423,13 @@ class EventListViewCell extends ListCell<Event> {
 
 Hence, this ensures the main FX application thread is always polling for user inputs or graphical updates and handles them rapidly as they are lightweight tasks.
 
+// end::reactivesearchUI[]
+
+// tag::reactivesearchthreading[]
 
 ==== Phase 2: Multi-threading and synchronisation of Reactive Search requests
 
-// tag::reactivesearchthreading[]
+
 
 If the `UI` triggers another reactive search request before previous request is completed,
 the thread of the previous request is first interrupted and joined to the thread of the new request.
@@ -437,8 +440,6 @@ This is done to ensure that the UI thread only displays the results of the lates
 image::ReactiveSearchThreadingSequenceDiagram.png[]
 
 // end::reactivesearchthreading[]
-
-// end::reactivesearch[]
 
 // tag::autocomplete[]
 
