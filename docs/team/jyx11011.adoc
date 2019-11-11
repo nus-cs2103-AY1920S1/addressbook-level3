@@ -55,9 +55,3 @@ include::../UserGuide.adoc[tag=calendar]
 |===
 
 include::../DeveloperGuide.adoc[tag=calendar]
-
-include::../DeveloperGuide.adoc[tag=calendarcommand]
-
-
----
-

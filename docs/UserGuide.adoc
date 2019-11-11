@@ -172,8 +172,8 @@ Format: `event d/DESCRIPTION dt/DATETIME [dt/DATETIME] [td/TIME_DURATION]`
 
 Add an event with a starting time and an optional ending time(starting time before the current date time is accepted). There is no reminder for an event by default.
 User can also create a reminder for this event by specifying a time duration and a one time reminder will show up at the starting time of the event minus this time duration.
-For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 15:00 td/01:30` adds an appointment event on 2019 Dec 20 15:00 to the calendar and a reminder for it at
-13:30 on that day.
+For example, `event d/appointment dt/2019-12-20 14:00 dt/2019-12-20 15:00 td/01:30` adds an appointment event on 2019 Dec 20 from 14:00 to 15:00 to the calendar and a reminder for it at
+12:30 on that day.
 
 If only one `dt/` is present, it will be recognized as the starting date time. If there are more than one `dt/`, the first and second one are interpreted as starting and ending
 date time. Starting date time should come before ending date time. If they are equal, then ending date time is discarded.
