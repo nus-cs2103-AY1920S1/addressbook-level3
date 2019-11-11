@@ -60,6 +60,8 @@ team project.
 *** Overall project leader, scheduled meeting timings and summarised each meeting afterwards for dissemination to group members.
 ** Community:
 *** Reported bugs and suggestions for other teams in the class (https://github.com/FelixNWJ/ped/issues[List of bugs reported])
+** Documentation:
+*** Updated most of the front section of the Developer Guide(Pull Requests[https://github.com/AY1920S1-CS2103T-W11-4/main/pull/164[#164]])
 ** Tools:
 *** Set up *Travis Continuous Integration* for my Individual project and helped the team integrate it into the Team project.
 
