@@ -656,7 +656,7 @@ NOTE: _Dukemon_ only accepts json files when importing _WordBanks_. Attempting t
 
 // tag::chenhui-userRevisionBank[]
 
-=== Revision bank
+=== Revision _WordBank_
 
 A revision bank is automatically updated for you, every time a game session ends. +
 It collates all your wrong _cards_, whichever _WordBank_ it may have came from. +

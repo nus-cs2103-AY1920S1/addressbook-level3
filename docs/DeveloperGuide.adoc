@@ -922,9 +922,7 @@ your desktop, or chat applications. +
 ---
 
 // tag::chenhui-dragInWalkThrough[]
-
 ===== Walkthrough - Drag in.
-
 // tag::chenhui-dragAndDropSequenceDiagram[]
 .Sequence diagram showing how drag and drop utilises the `ImportCommand` and thus the _WordBank_'s storage.
 image::DragAndDropSequenceDiagram.png[]
