@@ -856,6 +856,9 @@ Expected: ELISA will automatically switch to the task list panel and a new task 
 Expected: Elisa will prompt you that the task already exist in the list and cannot be added.
 .. As an additional test case, you can mark a current task as done and then try adding that task into ELISA again. ELISA will still flag it as a repeated object despite the different state of completeness.
 
+[NOTE]
+Even though this is for task, the same tests can be used for testing events and reminders.
+
 === Deleting a task
 
 . Deleting a task while all tasks are listed
@@ -867,6 +870,39 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
    Expected: No person is deleted. Error details shown in the result display.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
+
+[NOTE]
+Even though this is for task, the same tests can be used for testing events and reminders.
+
+=== Editing a task
+
+. Editing a task while all tasks are listed
+
+.. Prerequisite: Switch to the task list panel using the `show T` command. There should be at least one task in the list
+.. Test case: `edit 1 -p high` +
+Expected: The priority of the first task is changed to high (if the original priority of the task is already high, try other priority).
+.. Test case: `edit 1 -desc testcase` +
+Expected: The description of the first task should change to "testcase".
+.. Test case: `edit 1 -d 1.min.later` +
+Expected: A new event should be created for the task. You can verify by switching to the event panel or opening the task using the `open 1` command.
+.. Test case: `edit 1 -p high -d 2.min.later` +
+Expected: A new event should be created for the task (if it does not already exist) or the time of the event will be updated. The priority of the task will also change.
+.. Test case: Try different variation of the edit command to ensure that it works.
+
+. Editing a task to another task that is in the list
+.. Prerequisite: Switch to the task list panel using the `show T` command. There should be at least two task in the list.
+.. Test case: Attempt to edit the first task such that it is the same as the second task. For example, if the second task has a description "testcase" and a priority of high, run `edit 1 -desc testcase -p high`. +
+Expected: ELISA will feedback that the task already exists and will prevent you from editing.
+
+. Editing a task to remove the task
+.. Prerequisite: Switch to the task list panel using the `show T` command. There should be at least one task in the list.
+.. Test case: `edit 1 --tk` when the task has an event and/or reminder. +
+Expected: ELISA will remove the task from the task list but the event and/or reminder will still be viewable in the event/reminder panel.
+.. Test case: `edit 1 --tk` when the task has no event and no reminder.
+Expected: ELISA will prompt that you cannot edit an item such that it has no task, event or reminder and the task will not be removed from the task list.
+
+[NOTE]
+Even though this is for task, the same tests can be used for testing events and reminders.
 
 === Priority mode testing
 . Toggling on priority mode
@@ -893,18 +929,23 @@ Expected: Same as above.
 Expected: ELISA will mark the task as done and generate the next task. If there is no next task, ELISA will automatically take you out of priority mode.
 .. Test case: `delete 1` +
 Expected: ELISA will delete the task and generate the next task. If there is no next task, ELISA will automatically take you out of priority mode.
-.. Test case: `edit 1 -p low` (most effective for a task list with more than 1 task and the current task priority is high) +
+.. Test case: `edit 1 -p low` (most effective for a task list with more than 1 task and the current task priority is high/medium) +
 Expected: ELISA will edit the priority of the current task to low (any other priority can be used). A new task with a higher priority will be generated.
 .. Test case: `undo` (used after one of the above has taken place) +
 Expected: ELISA will reverse the previous process and the old task will be generated again.
 .. Test case: `redo` (used after an undo command) +
 Expected: ELISA will reverse the undo command and a new task is generated.
-.. Other test cases: You can try doing all of these commands in focus mode to ensure that they work.
+.. Other test cases: You can try doing all of these commands in focus mode `priority -f` to ensure that they work. When in focus mode, you can try some of the banned command like `show`, `game` etc to make sure that it does not work.
 
 === Saving data
+. Checking that ELISA saves the data properly
+
+.. Copy `ELISA.jar` to a new directory and open it. This is to ensure that there is no old data file. An empty ELISA will be displayed. Type some sample data into ELISA and you will notice that a data file has been created at the path `data/itemstorage.json`. You can open the file to see that the data has been added.
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. To simulate a missing data file, start up ELISA. ELISA will create a data file for you as `data/itemstorage.json` (this is the default name of the storage file). Close ELISA and delete the itemstorage.json file. Re-open ELISA and ELISA will start with a new and empty data file. Verify it at `data/itemstorage.json`.
+
+.. To simulated a corrupted data file, start up ELISA. Type some test input into ELISA. Close ELISA. Open the `data/itemstorage.json` file and edit some of the fields there. Open ELISA again. ELISA will realize that the data is corrupted and will generate a new data file for you.
 
 _{ more test cases ... }_
