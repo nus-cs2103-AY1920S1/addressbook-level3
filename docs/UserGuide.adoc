@@ -518,7 +518,7 @@ You can use the `find` command to find repeaters whose description matches any t
 Examples:
 
 * `find phone john` +
-This finds all repeaters whose description contains all of the keywords "phone" and "john".
+This finds all repeaters whose description contains any of the keywords "phone" and "john".
 // end::findrep[]
 
 === Budgets

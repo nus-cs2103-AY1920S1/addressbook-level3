@@ -622,15 +622,22 @@ Below is an example usage scenario of how `add` behaves at each step.
 - The end date of the `Repeater` to be added is no earlier than its start date.
 - The start date and and end date of the `Repeater` to be added span no more than 60 months.
 
-*Step 8*: `AddRepeaterCommand` fetches the running `RepeaterUniqueId` counter tracked by the `Model`, and sets it as the created ``Repeater``'s unique id.
+*Step 8*: `AddRepeaterCommand` fetches the running `RepeaterUniqueId` counter tracked by the `Model`.
 
-*Step 9*: `AddRepeaterCommand` increments the current `RepeaterUniqueId` counter in the `Model`.
+*Step 9*: `AddRepeaterCommand` creates the `Repeater` and sets its unique id as the fetched `RepeaterUniqueId`.
 
-*Step 10*: `AddRepeaterCommand` adds the newly created `Repeater` to the `Model`.
+*Step 10*: `AddRepeaterCommand` increments the current `RepeaterUniqueId` counter in the `Model`.
 
-*Step 11*: `AddRepeaterCommand` creates the associated ``Transaction``s in the `Model`.
+*Step 11*: `AddRepeaterCommand` adds the newly created `Repeater` to the `Model`.
 
-*Step 12*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+*Step 12*: `AddRepeaterCommand` creates the associated ``Transaction``s in the `Model`.
+
+*Step 13*: `AddRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
+
+When creating a `Repeater`, `AddRepeaterCommandParser` fills in arguments unspecified by the user with default values, as shown in the activity diagram below:
+
+.Activity Diagram for Optional Arguments in `AddRepeaterCommandParser`
+image::RepeaterOptionalActivityDiagram.png[]
 // end::repeateradd[]
 
 // tag::repeateredit[]
@@ -669,12 +676,6 @@ The `edit` command is facilitated by the Logic and Model components of the appli
 *Step 12*: `EditRepeaterCommand` creates the ``Transaction``s associated with the updated `Repeater` in the `Model`.
 
 *Step 13*: `EditRepeaterCommand` returns a `CommandResult` to the `LogicManager` which is returned back to the user.
-
-When creating an `EditRepeaterDescriptor`, `EditRepeaterCommandParser` fills in arguments unspecified by the user with default values, as shown in the activity diagram below:
-
-.Activity Diagram for Optional Arguments in `EditRepeaterCommandParser`
-image::RepeaterOptionalActivityDiagram.png[]
-
 // end::repeateredit[]
 
 // tag::repeaterdelete[]
