@@ -153,6 +153,8 @@ public class ReminderList implements Iterable<Reminder>, ListenerSupport {
      * Transfers entry reminder from beingRemove to beingAdded.
      */
     public void setEntryUpdate(Entry beingRemove, Entry beingAdded) {
+        TimeUtil.startTimer();
+        TimeUtil.forceSetDate(new Date("11/11/2019"));
         if (beingAdded.getDate().isAfter(new Date(TimeUtil.getLastRecordedDate())) && beingRemove.hasReminder()) {
             Optional<Reminder> optReminder = findReminderFOrEntry(beingRemove);
             if (optReminder.isPresent()) {
