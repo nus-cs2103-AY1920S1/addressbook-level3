@@ -14,7 +14,6 @@ import seedu.address.inventory.logic.parser.exception.OnCashierModeException;
 import seedu.address.inventory.logic.parser.exception.ParseException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
-import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
 import seedu.address.inventory.model.exception.NoSuchItemException;
 import seedu.address.inventory.util.InventoryList;

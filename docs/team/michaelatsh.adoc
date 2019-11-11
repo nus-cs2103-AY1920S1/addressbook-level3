@@ -177,7 +177,7 @@ The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Log
 AddCommand works:
 
 .Sequence Diagram of the Add Command in the Inventory Tab (inventory package)
-image::inventoryDG/AddCommandSeqDiagram.png[]
+image::inventoryDG/AddCommandSeqDiagram.png[][alt=addSeq, width=300, height=400]
 
 If the description of the `Item` being added matches that of an existing `Item`, the new `Item`’s quantity is added to
 that of the existing `Item` and the cost per unit is recalculated. This is handled within the `AddCommandParser`,
@@ -191,7 +191,7 @@ returns a `Boolean` that represents the validity of the input.
 The following Sequence Diagram shows how the AddCommandParser creates an `Item`:
 
 .Sequence Diagram of the Add Command Parser in the Inventory Tab (inventory package)
-image::inventoryDG/AddCommandParserSeqDiagram.png[]
+image::inventoryDG/AddCommandParserSeqDiagram.png[][alt=addParserSeq, width=300, height=400]
 
 After the `Item` is created and the command is executed, the `LogicManager` updates the in-app `InventoryList` via the
 `ModelManager` and updates the data file via the `StorageManager`.
@@ -200,7 +200,7 @@ For a greater understanding of the flow of events and checks, you may consult th
 the steps that follow the input of an add command:
 
 .Activity Diagram of the Add Command in the Inventory Tab (inventory package)
-image::inventoryDG/AddCommandFlowChart.png[]
+image::inventoryDG/AddCommandFlowChart.png[][alt=addFlowChart, width=450, height=600]
 
 :sectnums!:
 [[DeleteCommandInventory]]
