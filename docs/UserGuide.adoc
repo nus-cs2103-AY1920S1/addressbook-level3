@@ -679,7 +679,7 @@ ____
 To add a person into a group, simply execute the `addtogroup` command,
 and specify the person's name and the group's name!
 
-Format: `addtogroup n/PERSON_NAME g/GROUP_NAME role/ROLE`
+Format: `addtogroup n/PERSON_NAME g/GROUP_NAME [role/ROLE]`
 
 ****
 * The `n/` prefix specifies the name of the existing `person` in TimeBook
@@ -1140,46 +1140,64 @@ We understand that you may encounter a weird error message and are unsure of wha
 
 == Command Summary
 
-* *List/Show All Persons* : `list`
-* *Add Person* `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]... [c/NUS_MOD_LINK]` +
+*Navigation*
+
+* *Return to Home page* : `home`
+* *Switch tabs* : `switch-tab`
+* *Viewing help* : `help`
+* *Exiting the program* : `exit`
+
+*Person Management*
+
+* *Edit your details* : `edituser`
+* *Add Person* `addperson n/NAME [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...` +
 e.g. `addperson n/James Ho p/22224444 em/jamesho@example.com a/123, Clementi Rd, 1234665 r/Always helpful tag/friend tag/colleague`
 * *Edit Person* : `editperson ed/PERSON_NAME [n/NAME] [p/PHONE] [em/EMAIL] [a/ADDRESS] [r/REMARK] [tag/TAG]...` +
 e.g. `editperson ed/James Lee em/jameslee@example.com`
-* *Delete Person* : `delete n/NAME` +
+* *Delete Person* : `deleteperson n/NAME` +
 e.g. `deleteperson n/Benedict`
-* *Find Person* : `findperson n/NAME` +
-e.g. `findperson n/James Jake`
-* *Add Event to Person's Schedule* : `addevent n/NAME e/EVENT_NAME t/DATETIME...` +
-e.g. `addevent n/John e/Math Lecture t/26092019:1300-26092019:1400-LT25`
+* *Show Person* : `show n/NAME` +
+e.g. `show n/James Jake`
+
+*Schedule Management*
+
 * *Add Module to Person's Schedule* : `addmod n/NAME m/MODULE_CODE class/CLASS_NUMBERS(comma-separated) [ay/ACADEMIC_YEAR] [s/SEMESTER]` +
 e.g. `addmod n/John m/CS2103T class/G01,T5 ay/2019/2020 s/1`
 * *Add Modules to Person's Schedule via NUSMods Link* : `addmods n/NAME l/NUSMODS_SHARE_LINK` +
 e.g. `addmods n/John l/https://nusmods.com/timetable/sem-1/share?CS2101=&CS2103T=LEC:G05&CS3230=LEC:1,TUT:08&CS3243=TUT:07,LEC:1&GEQ1000=TUT:D17`
 * *Show Module Classes Schedule* : `showmod m/MODULE_CODE [ay/ACADEMIC_YEAR] [s/SEMESTER]` +
 e.g. `showmod m/CS3230 ay/2019/2020 s/2`
-* *Show Person Details and Schedule* : `show n/NAME` +
-e.g. `show n/James Lee`
-* *Add Group* `addgroup g/GROUP_NAME [r/GROUP_REMARK]` +
-e.g. `addgroup g/CS2103 r/Project Group`
-* *Add Person to Group* : `addtogroup n/NAME g/GROUP_NAME` +
-e.g. `addtogroup n/John g/CS2103`
-* *Edit Group* `editgroup ed/GROUP_NAME [g/GROUP_NAME] [r/GROUP_REMARK]` +
-e.g. `editgroup ed/CS2103 g/CS3203 r/Project Discussion Group`
+* *Add Event to Person's Schedule* : `addevent n/NAME e/EVENT_NAME t/DATETIME...` +
+e.g. `addevent n/John e/Math Lecture t/26092019-1300-1400`
+* *Delete Event* : `deleteevent [n/NAME] e/EVENT_NAME` +
+e.g. `deleteevent n/Bobby e/CS2105`
+* *Generate Schedule* : `schedule n/NAME...` +
+e.g. `schedule n/Bobby n/Charlie`
+
+*Group Management*
+
+* *Add Group* `addgroup g/GROUP_NAME [d/GROUP_DESCRIPTION] [role/USER_ROLE]` +
+e.g. `addgroup g/CS2103 d/A CS2103 project group role/Leader`
+* *Add Person to Group* : `addtogroup n/PERSON_NAME g/GROUP_NAME [role/ROLE]` +
+e.g. `addtogroup n/Denise g/CS3203 role/Manager`
+* *Edit Group* `editgroup ed/GROUP [g/GROUP_NAME] [d/GROUP_DESCRIPTION] [role/USER_ROLE]` +
+e.g. `editgroup ed/CS2103 g/CS3203 d/A CS3203 project group role/Member`
 * *Delete Group* : `deletegroup g/GROUP_NAME` +
 e.g. `deletegroup g/CS2103`
-* *Find Group* : `findgroup g/GROUP_NAME` +
-e.g. `findgroup g/CS2103`
 * *Show Group Details and Schedule* : `show g/GROUP_NAME` +
-e.g. `show g/CS2030 T2`
+e.g. `show g/CS2030`
+
+*Advanced Features*
+
 * *Export Visual Representation* : `export-vr [n/NAME]… [g/GROUP_NAME]… o/SAVE_LOCATION` +
 e.g. `export-vr g/TimeBook o/timetable.jpg`
+* *Select Time slot* : `select n/NAME [week/WEEK_NUMBER] i/ID` +
+e.g. `select n/Bobby i/1`
 * *Closest Location* : `closestlocation l/LOCATIONA LOCATIONB ...` +
 e.g. `closestlocation l/LT16 LT15 AS5`
 * *Select Free Time Slot* : `selectfreetime [week/WEEK_NUMBER] i/FREETIMESLOTID` +
 e.g. `selectfreetime i/1`
-* *Help* : `help`
-* *Clear* : `clear`
-* *Exit* : `exit`
+
 
 [[Supported-Locations]]
 == Supported Locations

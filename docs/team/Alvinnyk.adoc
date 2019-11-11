@@ -26,7 +26,7 @@ of the group's schedule, as well as the common free time slots in the group.
 The following sections illustrate these enhancements in more detail as well as the relevant documentation I
 have added to the user and developer guides in relation to these enhancements.
 
-== Summary of contributions
+== Summary of Contributions
 This section shows a summary of my coding, documentation, and other helpful contributions to the team project.
 
 * *Major enhancement*: Schedule Generator
@@ -47,10 +47,10 @@ easily import their NUSmod timetables, as well as GoogleMaps API to show to the 
 
 image::scheduler/schedulerdemo.png[]
 
-* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Alvinnyk&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
+* *Code Contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=totalCommits%20dsc&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Alvinnyk&tabRepo=AY1920S1-CS2103T-T10-4%2Fmain%5Bmaster%5D[Repo Sense]]
 
 
-* *Minor enhancements*:
+* *Minor Enhancements*:
 
 ** *Select Command*:
 *** Allows the user to select any time slot on the schedule. It will generate a pop up window that shows the user
@@ -60,12 +60,13 @@ details of the time slot such as the event name, timings and the location on Goo
 *** Allows the application to access external data sources such as NUSmods and GoogleMaps API. (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/42[#42], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/43[#43], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/44[#44])
 
 
-* *Other contributions*:
+* *Other Contributions*:
 
-** Morphing and enhancement of existing features:
+** Morphing and Enhancement of Existing Features:
 *** Morphed existing model for use in TimeBook (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/56[#56], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/149[#149], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/265[#265])
 *** Implemented new commands to interact with model (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/56[#56], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/162[#162])
 *** Implemented storage component to save model data(Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/70[#70])
+** Application Testing:
 *** Wrote tests for model and logic component and increased coverage by a total of 11% (Pull requests https://github.com/AY1920S1-CS2103T-T10-4/main/pull/257[#257], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/262[#262], https://github.com/AY1920S1-CS2103T-T10-4/main/pull/266[#266])
 
 
