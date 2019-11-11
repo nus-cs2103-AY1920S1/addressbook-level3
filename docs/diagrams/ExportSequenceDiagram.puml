@@ -1,0 +1,58 @@
+@startuml
+!include style.puml
+
+Participant ":LogicManager" as LogicManager LOGIC_COLOR
+Participant ":SellerManagerParser" as SellerManagerParser LOGIC_COLOR
+Participant ":ExportCommandParser" as ExportCommandParser LOGIC_COLOR
+Participant "command:ExportCommand" as ExportCommand LOGIC_COLOR
+Participant "commandResult:CommandResult" as CommandResult LOGIC_COLOR
+Participant "storage:Storage" as Storage STORAGE_COLOR
+
+[-> LogicManager : execute(commandText)
+activate LogicManager
+LogicManager -> SellerManagerParser ++: parseCommand(commandText)
+
+create ExportCommandParser
+SellerManagerParser -> ExportCommandParser ++:
+
+ExportCommandParser --> SellerManagerParser
+deactivate ExportCommandParser
+SellerManagerParser -> ExportCommandParser ++: parse(arguments)
+
+create ExportCommand
+ExportCommandParser -> ExportCommand : FileName
+activate ExportCommand
+ExportCommand --> ExportCommandParser : command
+deactivate ExportCommand
+
+ExportCommandParser --> SellerManagerParser : command
+deactivate ExportCommandParser
+ExportCommandParser -[hidden]-> SellerManagerParser
+destroy ExportCommandParser
+
+SellerManagerParser --> LogicManager : command
+deactivate SellerManagerParser
+
+LogicManager -> ExportCommand : execute, storage
+activate ExportCommand
+
+
+create CommandResult
+ExportCommand -> CommandResult : message
+activate CommandResult
+CommandResult -> Storage : getCSVString()
+activate Storage
+Storage --> CommandResult
+deactivate Storage
+CommandResult -> ExportCommand : commandResult
+
+
+deactivate CommandResult
+
+ExportCommand --> LogicManager : commandResult
+deactivate ExportCommand
+
+[<--LogicManager
+deactivate LogicManager
+
+@enduml
