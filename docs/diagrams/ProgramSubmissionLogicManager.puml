@@ -1,0 +1,24 @@
+@startuml
+
+class ProgramSubmissionLogicManager
+class StandardCompiler
+class StandardCompilerEnvironment
+class StandardProgramExecutor
+class TestExecutor
+interface UserProgramChannel {
+    + UserProgram : getProgram()
+}
+
+TestExecutor *--"1" StandardCompilerEnvironment
+TestExecutor *--"1" StandardCompiler
+TestExecutor *--"1" StandardProgramExecutor
+
+ProgramSubmissionLogicManager *--"1" TestExecutor
+ProgramSubmissionLogicManager *--"1" StandardCompilerEnvironment
+ProgramSubmissionLogicManager *--"1" UserProgramChannel
+
+ProgramSubmissionLogicManager -|> StandardCompiler
+ProgramSubmissionLogicManager -|> StandardProgramExecutor
+
+
+@enduml

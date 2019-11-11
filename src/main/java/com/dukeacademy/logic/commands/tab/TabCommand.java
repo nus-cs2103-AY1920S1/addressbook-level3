@@ -24,27 +24,21 @@ public class TabCommand implements Command {
     public CommandResult execute() throws CommandException {
         Activity currentActivity = applicationState.getCurrentActivity();
 
-        if (currentActivity == null) {
-            this.applicationState.setCurrentActivity(Activity.DASHBOARD);
-            String userFeedback = FEEDBACK + Activity.DASHBOARD.toString();
-            return new CommandResult(userFeedback, false);
-        }
+        assert currentActivity != null;
 
+        // Retrieve the index of the current activity
         Activity[] activities = Activity.values();
         int numActivities = activities.length;
-
         OptionalInt currentActivityIndex = IntStream.range(0, numActivities)
                 .filter(i -> activities[i] == currentActivity).findFirst();
 
-        if (currentActivityIndex.isEmpty()) {
-            this.applicationState.setCurrentActivity(Activity.DASHBOARD);
-            String userFeedback = FEEDBACK + Activity.DASHBOARD.toString();
-            return new CommandResult(userFeedback, false);
-        }
+        assert currentActivityIndex.isPresent();
 
+        // The next activity is the activity found in the succeeding index
         int nextActivityIndex = (currentActivityIndex.getAsInt() + 1) % numActivities;
         Activity nextActivity = activities[nextActivityIndex];
 
+        // Set the current activity to the next activity
         this.applicationState.setCurrentActivity(nextActivity);
         String userFeedback = FEEDBACK + nextActivity.toString();
         return new CommandResult(userFeedback, false);
