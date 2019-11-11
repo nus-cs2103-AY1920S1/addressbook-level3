@@ -55,9 +55,9 @@ XYZCardFull -up-|> UiPart
 XYZCardSmall -up-|> UiPart
 XYZListPanel -up----|> UiPart
 
-UiManager .right.> Logic
-MainWindow .right.> Logic
-AutoCompleteTextField .right.> Logic
+UiManager -right-> Logic
+MainWindow -right-> Logic
+AutoCompleteTextField -right-> Logic
 
 XYZCardFull ..> Model
 XYZCardSmall ..>  Model
