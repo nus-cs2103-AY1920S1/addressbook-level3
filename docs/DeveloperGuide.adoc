@@ -1873,12 +1873,12 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Listing the transactions
 
-. Listing out transactions by month or by tag.
+. Listing out transactions by month.
 
 .. Prerequisites: At least one transaction in the list.
-.. Test case: `list` +
+.. Test case: **list** +
    Expected: The entire list of transactions will be shown.
-.. Test case: `list m/01/2019` +
+.. Test case: **list m/01/2019** +
    Expected: The list of transactions for January 2019 will be shown.
 
 === Tagging a transaction
