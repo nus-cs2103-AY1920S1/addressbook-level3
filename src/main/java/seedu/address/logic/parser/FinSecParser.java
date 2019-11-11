@@ -29,7 +29,7 @@ import seedu.address.logic.commands.EditIncomeCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.GotoCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.NoShortCutCommand;
+//import seedu.address.logic.commands.NoShortCutCommand;
 import seedu.address.logic.commands.RejectClaimCommand;
 import seedu.address.logic.commands.ShortCutRequestCommand;
 import seedu.address.logic.commands.SortCommand;
