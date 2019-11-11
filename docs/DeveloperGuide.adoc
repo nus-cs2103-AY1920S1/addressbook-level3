@@ -521,10 +521,17 @@ Additionally, the `Finance` uses the following operations:
 * `Employee#addSalaryPaid` -- Update the 'employeeSalaryPaid' for the specific employee.
 * `finance#updateCards()` -- Update the finance detail for all employees.
 
+The following class diagrams shows how the Finance` class and utility `EmployeeEventProcessor` class is implemented:
+
+._Class Diagram for Finance_
+image::FinanceClassDiagram.png[align="center", width = "300"]
+._Class Diagram for EmployeeEventProcessor_
+image::EmployeeEventProcessorClassDiagram.png[align="center", width = "300"]
+
 Given below is an example usage scenario and how the finance feature behaves at each step.
 
 ._Program flow of the Finance Feature_
-image::AutoAllocateFlowChart.png[align="center", width = "300"]
+image::FinanceFlowChart.png[align="center", width = "300"]
 
 **Step 1**. The user executes `pay 1 s/100` (undo_pay 1 s/100) with the intention to pay 100 dollar to
 the first employee in the employee list
@@ -549,16 +556,14 @@ For storage purposes, only the `Employee#employeeSalaryPaid` is saved.
 **Step 7**. The command calls `Finance#updatecard()` to update the `Pending To Pay` of
 the employee card. The UI will update accordingly.
 
-**Step 7**. Done.
+**Step 8**. Done.
 
 
 The following sequence diagram shows how the auto allocation works:
 
-._Sequence Diagram of the AutoAllocate Command_
-image::AutoAllocateSequenceDiagram.png[]
+._Sequence Diagram of the Finance Command_
+image::FinanceSequenceDiagram.png[]
 
-NOTE: The lifeline for `AutoAllocateCommand` should end at the destroy marker (X) but due to a limitation of
-PlantUML, the lifeline reaches the end of diagram.
 
 
 ==== Design Considerations
@@ -575,9 +580,16 @@ PlantUML, the lifeline reaches the end of diagram.
 
 *Cons*: Future accesses the 'Pending To Pay' and 'Total Salary' require more time.
 
-*I decided to proceed with this option* because it creates less fields of employees, the 'Pending To Pay'
+Decision: Alternative 1 :
+
+I decided to proceed with this option* because it creates less fields of employees, the 'Pending To Pay'
 and 'Total Salary' is calculated on real time. User do not need to type so many fields when they add the employees.
 
+|Saves the `Employee#employeeSalaryPaid`, `Employee#Pay`, `Employee#employeePendingPay`, `Employee#employeeTotalSalary` in storage.
+
+*Pros*: Easy to access the 'Pending To Pay' and 'Total Salary'.
+
+*Cons*: when the user want to add employees, the user have type in all these fields.
 |========================================================================================
 // end::Cris[]
 
