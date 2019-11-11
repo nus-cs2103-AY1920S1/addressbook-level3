@@ -50,12 +50,6 @@ public class SampleRecordDataUtil {
                 getRemarkSet()
             ),
             new Record(
-                Type.Height,
-                new Value("167"),
-                new Timestamp("05/10/2019 12:00"),
-                getRemarkSet()
-            ),
-            new Record(
                 Type.Calories,
                 new Value("500"),
                 new Timestamp("25/10/2019 22:00"),
@@ -66,12 +60,6 @@ public class SampleRecordDataUtil {
                 new Value("300"),
                 new Timestamp("24/10/2019 11:00"),
                 getRemarkSet("on a diet", "breakfast", "no carbs")
-            ),
-            new Record(
-                Type.Calories,
-                new Value("550"),
-                new Timestamp("24/10/2019 20:05"),
-                getRemarkSet("dinner")
             ),
             new Record(
                 Type.Carbs,
