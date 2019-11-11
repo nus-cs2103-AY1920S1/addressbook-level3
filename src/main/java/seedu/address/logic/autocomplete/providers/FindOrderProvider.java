@@ -1,4 +1,4 @@
-package seedu.address.logic.autocomplete.graphs.find;
+package seedu.address.logic.autocomplete.providers;
 
 import java.util.List;
 import java.util.SortedSet;
@@ -6,24 +6,19 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import seedu.address.logic.autocomplete.AutoCompleteResult;
-import seedu.address.logic.autocomplete.graphs.GraphBuiltFromModel;
+import seedu.address.logic.autocomplete.AutoCompleteResultProvider;
 import seedu.address.model.Model;
 import seedu.address.model.order.Order;
 
 /**
- * Represents a {@code Graph} used to support autocomplete for {@code FindOrderCommand}.
+ * Represents a {@code Provider} used to support autocomplete for {@code FindOrderCommand}.
  */
-public class FindOrderGraph extends GraphBuiltFromModel {
+public class FindOrderProvider implements AutoCompleteResultProvider {
 
     private List<Order> orderList;
 
-    public FindOrderGraph(Model model) {
-        super(model);
-    }
-
-    @Override
-    protected void build(Model model) {
-        orderList = model.getOrderBook().getList();
+    public FindOrderProvider(Model model) {
+        this.orderList = model.getOrderBook().getList();
     }
 
     @Override

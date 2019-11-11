@@ -12,8 +12,8 @@ import seedu.address.logic.commands.statisticcommand.StatisticType;
  */
 public class StatsTypeNode extends AutoCompleteNode<List<StatisticType>> {
 
-    public StatsTypeNode(List<StatisticType> backingList) {
-        super(backingList);
+    public StatsTypeNode(List<StatisticType> pointer) {
+        super(pointer);
     }
 
     @Override

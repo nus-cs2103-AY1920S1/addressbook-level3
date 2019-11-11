@@ -13,4 +13,8 @@ public abstract class Node<V> {
         this.pointer = pointer;
     }
 
+    public V getPointer() {
+        return pointer;
+    }
+
 }

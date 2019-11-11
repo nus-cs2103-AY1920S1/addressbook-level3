@@ -1,6 +1,9 @@
-package seedu.address.logic.autocomplete;
+package seedu.address.logic.autocomplete.providers;
 
 import java.util.Collections;
+
+import seedu.address.logic.autocomplete.AutoCompleteResult;
+import seedu.address.logic.autocomplete.AutoCompleteResultProvider;
 
 /**
  * Represents a {@code AutoCompleteResultProvider} that returns no results.

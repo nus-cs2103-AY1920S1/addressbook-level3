@@ -9,13 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SERIAL_NUM;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.autocomplete.edges.AutoCompleteEdge;
+import seedu.address.logic.autocomplete.graphs.Edge;
 import seedu.address.logic.autocomplete.graphs.GraphWithStartNode;
-import seedu.address.logic.autocomplete.nodes.AutoCompleteNode;
-import seedu.address.logic.autocomplete.nodes.EmptyAutoCompleteNode;
 import seedu.address.logic.autocomplete.nodes.phone.PhoneBrandNode;
 import seedu.address.logic.autocomplete.nodes.phone.PhoneCapacityNode;
 import seedu.address.logic.autocomplete.nodes.phone.PhoneColourNode;
@@ -33,14 +30,15 @@ import seedu.address.model.phone.Phone;
 public class AddPhoneGraph extends GraphWithStartNode {
 
     public AddPhoneGraph(Model model) {
-        super(model);
+        super();
+        initialise(model);
     }
 
-    @Override
-    protected void build(Model model) {
+    /**
+     * Initialises this graph's {@code Node}s.
+     */
+    private void initialise(Model model) {
         List<Phone> phoneList = model.getPhoneBook().getList();
-        AutoCompleteNode<?> addPhoneStartNode = EmptyAutoCompleteNode.getInstance();
-        setStartingNode(addPhoneStartNode);
         PhoneIdentityNumberNode phoneIdentityNumberNode = new PhoneIdentityNumberNode(phoneList);
         PhoneSerialNumberNode phoneSerialNumberNode = new PhoneSerialNumberNode(phoneList);
         PhoneNameNode phoneNameNode = new PhoneNameNode(phoneList);
@@ -49,17 +47,17 @@ public class AddPhoneGraph extends GraphWithStartNode {
         PhoneColourNode phoneColourNode = new PhoneColourNode(phoneList);
         PhoneCostNode phoneCostNode = new PhoneCostNode(phoneList);
         PhoneTagNode phoneTagNode = new PhoneTagNode(phoneList);
-        edgeList.addAll(Arrays.asList(
-                new AutoCompleteEdge<>(PREFIX_IDENTITY_NUM, addPhoneStartNode, phoneIdentityNumberNode),
-                new AutoCompleteEdge<>(PREFIX_SERIAL_NUM, phoneIdentityNumberNode, phoneSerialNumberNode),
-                new AutoCompleteEdge<>(PREFIX_PHONE_NAME, phoneSerialNumberNode, phoneNameNode),
-                new AutoCompleteEdge<>(PREFIX_BRAND, phoneNameNode, phoneBrandNode),
-                new AutoCompleteEdge<>(PREFIX_CAPACITY, phoneBrandNode, phoneCapacityNode),
-                new AutoCompleteEdge<>(PREFIX_COLOUR, phoneCapacityNode, phoneColourNode),
-                new AutoCompleteEdge<>(PREFIX_COST, phoneColourNode, phoneCostNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, phoneCostNode, phoneTagNode),
-                new AutoCompleteEdge<>(PREFIX_TAG, phoneTagNode, phoneTagNode)
-        ));
+        addEdges(
+                new Edge<>(PREFIX_IDENTITY_NUM, startingNode, phoneIdentityNumberNode),
+                new Edge<>(PREFIX_SERIAL_NUM, phoneIdentityNumberNode, phoneSerialNumberNode),
+                new Edge<>(PREFIX_PHONE_NAME, phoneSerialNumberNode, phoneNameNode),
+                new Edge<>(PREFIX_BRAND, phoneNameNode, phoneBrandNode),
+                new Edge<>(PREFIX_CAPACITY, phoneBrandNode, phoneCapacityNode),
+                new Edge<>(PREFIX_COLOUR, phoneCapacityNode, phoneColourNode),
+                new Edge<>(PREFIX_COST, phoneColourNode, phoneCostNode),
+                new Edge<>(PREFIX_TAG, phoneCostNode, phoneTagNode),
+                new Edge<>(PREFIX_TAG, phoneTagNode, phoneTagNode)
+        );
     }
 
 }
