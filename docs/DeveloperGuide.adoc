@@ -158,6 +158,7 @@ The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Mams data in json format and read it back.
+* can save the command history data in json format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -558,6 +559,7 @@ The core of the cycle-command-history feature is implemented through three diffe
  `CommandHistory`, `ListPointer`, and `InputOutput`. In addition, the `CommandBox` from AB3 was modified
 to accommodate the changes.
 
+* `TimeStamp`: Class representing a time-stamp. Internally, it functions as a higher-level wrapper around `java.util.Date`.
 * `InputOutput`: Class representing a single command history entry. Comprises of an `input` and `output` String,
 a `TimeStamp` object, and a flag indicating whether execution was successful.
 * `CommandHistory`: A wrapper around a list of `InputOutput` objects along with specific methods, representing
@@ -764,14 +766,14 @@ raised in the returned `CommandResult` object to indicate to the GUI that the hi
 
 ** Pros:
 *** The history window will update itself automatically (regardless of whether it is showing)
-after every change to the commandHistory, without the need to explicitly pass a list object to
+after every change to `CommandHistory`, without the need to explicitly pass a list object to
 the GUI controller (except during initialization) after every execution.
 *** Future commands will also have access to a version of `CommandHistory` that allows reading and filtering,
 which can be useful for commands that
 require knowledge of past commands eg. an undo command that can be specified to act only on certain commands.
 *** Using such an interface to access `CommandHistory` also prevents future commands by other developers
-from unwittingly modifying the `CommandHistory`, which should only take place after execution of command
-in `LogicManager` in order to maintain a true record of the executed commands.
+from unwittingly modifying the `CommandHistory`, which should only be performed by `LogicManager` after
+command executions. This is to maintain a true record of the executed commands.
 
 ** Cons:
 *** Requires a change to the method signature of every existing command, which may cause unexpected
@@ -833,6 +835,44 @@ Below is a class diagram depicting the relationship between the involved classes
 
 .Class diagram of the classes involved in saving and loading of `CommandHistory` from disk.
 image::CommandHistoryStorageClassDiagram.png[]
+
+**Design Considerations:**
+
+Aspect: Integrating storage mechanism for command history component with current MAMS architecture
+
+* Current Implementation: Introduce architecture for saving `CommandHistory` to a separate JSON file.
+
+** Pros:
+*** Command history saving is now separate from saving of `Model` data. If deserialization of `CommandHistory` fails,
+it should not affect the loading of `Model` data, and vice versa. This is especially important as command history is
+a non-critical portion of MAMS, whereas `Model` data is critical to operation of MAMS.
+*** If `Model` JSON data is corrupted, `CommandHistory` JSON data might not be since it is in a separate file,
+with its own pipeline for loading and saving within the `Storage` class. Moreover, the `CommandHistory` can be used
+to restore the `Model` data by repeating the same sequence of commands on the original data source for that semester, or from a
+backup copy of MAMS.
+*** Command history data file can be imported and archived separately (eg. for viewing on 3rd-party applications,
+for maintaining an archived log of administrator actions). This can improve future extensibility and potential areas of development
+for this feature, to fulfil its goal of maintaining a permanent record of administrator actions for accountability and logging purposes
+(possibly conducted by a third-party other than the administrator).
+
+** Cons:
+*** Harder to implement, with more more code to be written and bug-proofed.
+
+* Alternative Implementation: Serialize `CommandHistory` to the same file used by MAMS for its `Model` data.
+
+** Pros:
+*** Easier to implement and integrate into existing MAMS architecture.
+
+** Cons:
+*** Corruption of the non-critical `CommandHistory` data can cause `Model` data loading to fail, even if nothing is
+wrong with the serialized `Model` data.
+*** In the grand scheme of things, it may not be particularly useful to couple `Model` data to `CommandHistory` data.
+MAMS is designed as an intermediate application that takes in Appeal, Module, and Student information from a data source
+(eg. EduRec), allows administrators to resolve the appeal, then passes back the resolved appeal, module, and student data.
+Applications receiving the resolved data file in the form of the serialized data may not have any use for the command history.
+Of course, there can be alternative design solutions to this as well.
+
+
 
 // end::history[]
 
@@ -952,7 +992,7 @@ resolve appeal cases
 * has *neither the authority nor need* to add/remove students, appeals,
 and modules to/from the current database (out of job purview)
 * needs to keep a permanent log of all actions taken when resolving appeals
-for accountability purposes
+for accountability and logging purposes
 
 *Value proposition*: View, manage, and resolve appeals as fast as or
 faster than a typical mouse/GUI driven app.

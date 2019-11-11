@@ -231,7 +231,7 @@ and the command will be aborted.
 
 Hot-key Usage:
 
-When the history window is focused, you may use several hot-keys to navigate around the window.
+When the history display on the history window is focused, you may use several hot-keys to navigate around the window.
 They are as follows:
 
 * kbd:[&uarr;] kbd:[&darr;] Navigate up and down the history entries.

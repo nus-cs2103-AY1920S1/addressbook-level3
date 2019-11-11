@@ -3,8 +3,21 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor LOGIC_COLOR
 skinparam classBackgroundColor LOGIC_COLOR
-class ListPointer COMMON_COLOR
+
+
+package UI <<Rectangle>>{
 class CommandBox UI_COLOR
+class ListPointer UI_COLOR
+class List UI_COLOR
+}
+
+package Logic <<Rectangle>>{
+class LogicManager
+class CommandHistory
+class ObservableList
+class InputOutput
+class TimeStamp
+}
 
 LogicManager -down-> "1" CommandHistory: "stores/updates >"
 CommandHistory *-right-> "1" ObservableList
@@ -13,8 +26,9 @@ InputOutput -up[hidden]-> CommandHistory
 ListPointer .left.> ObservableList: "initializes defensive copy using >"
 ListPointer -down-> "1" List : "iterates"
 List o-left-> "*" InputOutput: "contains >"
+InputOutput *-down-> "1" TimeStamp
 
 CommandBox -down-> "1" ListPointer : "gets previous/next input from >"
-CommandBox -down-> "1" ObservableList : "updates \nListPointer \nusing >"
+CommandBox .down.> "1" ObservableList : "updates \nListPointer \nusing >"
 
 @enduml

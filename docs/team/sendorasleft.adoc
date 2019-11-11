@@ -12,15 +12,15 @@
 
 == Overview
 
-.Sample User Interface of MAMS
-image::Ui.png[height=50%]
-
 Every semester, administrators from the National University of Singapore (NUS) have to
 systematically work their way through a heavy backlog of special requests, known as "appeals".
 These appeals are usually made by frantic students during Module Registration,
 a system where students register for their
 desired courses in the upcoming academic term, and represent special circumstances that require
 human judgement to resolve.
+
+.Sample User Interface of MAMS
+image::Ui.png[height=50%]
 
 **The Module Appeal Management System (MAMS)** is hence a desktop app that aims
 to fuse a Command Line Interface (CLI) style command input with a triple-pane
@@ -68,7 +68,7 @@ time-stamped, displayable and filterable log of all executed commands and action
 - Improves usability and convenience of the product significantly as administrators can easily recycle past commands using arrow keys, drastically cutting down
 on monotonous and repetitive typing, which is crucial for a CLI-style application.
 - History window can also provide real-time display of recently entered commands, helping administrators to keep on track through a real-time display of recent commands. It also further enhances convenience
-by allowing users to quickly search through history (using hot-keys) and copy desired commands/parameters that may be too verbose or context-dependent to recall from memory
+by allowing users to quickly navigate through history (using hot-keys) and copy desired commands/parameters that may be too verbose or context-dependent to recall from memory
 or identify from cycling through the arrow keys alone.
 - Lastly but not exhaustively, persistent logging of history can allow administrators to quickly orientate themselves to what they did in a previous session,
 allowing them to resume their work much more quickly.
@@ -80,7 +80,7 @@ with the record of successful/non-successful commands, can provide valuable work
 catastrophic data corruption by repeating the same sequence of commands on the original data source retrieved from NUS.
 - This suite of history features was especially challenging as it required extensive end-to-end implementation across the whole of MAMS (from backend storage,
 to model and logic, and finally to extensive changes and creation of new element in GUI). To integrate the entire suite of features into MAMS smoothly, it
-required an in-depth analysis of design alternatives (eg. how existing commands can access history, placement of CommandHistory,
+required an in-depth analysis of design alternatives (eg. how existing commands can be made to access the history, placement of `CommandHistory`,
 implementing real-time updates of the history window) in order for it to mesh well with the existing code architecture.
 
 * *Minor enhancement*: Was solely in charge of the MAMS UI/UX. Re-worked entire GUI with revised layout/colour-scheme, and further improved the display and navigability of
