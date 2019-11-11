@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.List;
 
+import seedu.address.model.lesson.Lesson;
 import seedu.address.model.Notebook;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.lesson.UniqueLessonList;
@@ -34,8 +35,13 @@ public class NotebookBuilder {
     /**
      * Adds a list of new {@code Lessons} to the {@code Notebook} that we are building.
      */
-    public NotebookBuilder withLessons(List<UniqueLessonList> lessons) {
+    public NotebookBuilder withLessonLists(List<UniqueLessonList> lessons) {
         notebook.setAllLessons(lessons);
+        return this;
+    }
+
+    public NotebookBuilder withLessons(List<Lesson> lessons) {
+        notebook.setLessons(lessons);
         return this;
     }
 

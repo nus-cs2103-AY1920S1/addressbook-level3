@@ -94,6 +94,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ObservableList<Lesson> getLessonList() {
+        return model.getLessonList();
+    }
+
+    @Override
     public Path getNotebookFilePath() {
         return model.getNotebookFilePath();
     }

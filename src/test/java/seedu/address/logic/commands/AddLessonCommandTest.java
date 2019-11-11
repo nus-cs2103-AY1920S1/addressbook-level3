@@ -11,87 +11,72 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import org.junit.jupiter.api.Test;
-
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Test;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyNotebook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.assignment.Assignment;
-import seedu.address.model.assignment.AssignmentDeadline;
-import seedu.address.model.assignment.AssignmentName;
-import seedu.address.model.assignment.UniqueAssignmentList;
 import seedu.address.model.classroom.Classroom;
 import seedu.address.model.classroom.ReadOnlyClassroom;
 import seedu.address.model.lesson.Lesson;
 import seedu.address.model.lesson.UniqueLessonList;
-
 import seedu.address.model.student.Student;
-import seedu.address.testutil.StudentBuilder;
+import seedu.address.testutil.LessonBuilder;
 
-public class AddStudentCommandTest {
+public class AddLessonCommandTest {
 
     @Test
-    public void constructor_nullStudent_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
+    public void constructor_nullLesson_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddLessonCommand(null));
     }
 
     @Test
-    public void execute_studentAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        Student validStudent = new StudentBuilder().build();
+    public void execute_lessonAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingLessonAdded modelStub = new ModelStubAcceptingLessonAdded();
+        Lesson validLesson = new LessonBuilder().build();
 
-        CommandResult commandResult = new AddStudentCommand(validStudent).execute(modelStub);
+        CommandResult commandResult = new AddLessonCommand(validLesson).execute(modelStub);
 
-        assertEquals(String.format(AddStudentCommand.MESSAGE_SUCCESS, validStudent), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validStudent), modelStub.studentsAdded);
+        assertEquals(String.format(AddLessonCommand.MESSAGE_SUCCESS, validLesson), commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validLesson), modelStub.lessonsAdded);
     }
 
     @Test
-    public void execute_duplicateStudent_throwsCommandException() {
-        Student validStudent = new StudentBuilder().build();
-        AddStudentCommand addStudentCommand = new AddStudentCommand(validStudent);
-        ModelStub modelStub = new ModelStubWithStudent(validStudent);
+    public void execute_duplicateLesson_throwsCommandException() {
+        Lesson validLesson = new LessonBuilder().build();
+        AddLessonCommand addLessonCommand = new AddLessonCommand(validLesson);
+        ModelStub modelStub = new ModelStubWithLesson(validLesson);
 
-        assertThrows(CommandException.class, AddStudentCommand.MESSAGE_DUPLICATE_STUDENT, (
-            ) -> addStudentCommand.execute(modelStub));
-    }
-
-    @Test
-    public void execute_samePhoneAsParentPhone_throwsCommandException() {
-        ModelStubAcceptingStudentAdded modelStub = new ModelStubAcceptingStudentAdded();
-        Student invalidStudent = new StudentBuilder().withPhone("99999999").withParentPhone("99999999").build();
-
-        assertThrows(CommandException.class, String.format(AddStudentCommand.MESSAGE_SAME_PHONE_AND_PARENT_PHONE,
-                invalidStudent), () -> new AddStudentCommand(invalidStudent).execute(modelStub));
-
+        assertThrows(CommandException.class, AddLessonCommand.MESSAGE_DUPLICATE_LESSON, (
+        ) -> addLessonCommand.execute(modelStub));
     }
 
 
     @Test
     public void equals() {
-        Student alice = new StudentBuilder().withName("Alice").build();
-        Student bob = new StudentBuilder().withName("Bob").build();
-        AddStudentCommand addAliceCommand = new AddStudentCommand(alice);
-        AddStudentCommand addBobCommand = new AddStudentCommand(bob);
+        Lesson math = new LessonBuilder().withClassName("Math").build();
+        Lesson eng = new LessonBuilder().withClassName("English").build();
+        AddLessonCommand addMathCommand = new AddLessonCommand(math);
+        AddLessonCommand addEngCommand = new AddLessonCommand(eng);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        assertTrue(addMathCommand.equals(addMathCommand));
 
         // same values -> returns true
-        AddStudentCommand addAliceCommandCopy = new AddStudentCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        AddLessonCommand addMathCommandCopy = new AddLessonCommand(math);
+        assertTrue(addMathCommand.equals(addMathCommandCopy));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addMathCommand.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addMathCommand.equals(null));
 
         // different student -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        assertFalse(addMathCommand.equals(addEngCommand));
     }
 
     /**
@@ -334,66 +319,47 @@ public class AddStudentCommandTest {
         }
     }
 
-
     /**
      * A Model stub that contains a single student.
      */
-    private class ModelStubWithStudent extends ModelStub {
-        private final Student student;
+    private class ModelStubWithLesson extends AddLessonCommandTest.ModelStub {
+        private final Lesson lesson;
 
-        ModelStubWithStudent(Student student) {
-            requireNonNull(student);
-            this.student = student;
+        ModelStubWithLesson(Lesson lesson) {
+            requireNonNull(lesson);
+            this.lesson = lesson;
         }
 
         @Override
-        public boolean hasStudent(Student student) {
-            requireNonNull(student);
-            return this.student.isSameStudent(student);
+        public boolean hasLesson(Lesson lesson) {
+            requireNonNull(lesson);
+            return this.lesson.isSameLesson(lesson);
         }
     }
 
     /**
      * A Model stub that always accept the student being added.
      */
-    private class ModelStubAcceptingStudentAdded extends ModelStub {
-        final ArrayList<Student> studentsAdded = new ArrayList<>();
-        final UniqueAssignmentList assignments = new UniqueAssignmentList();
+    private class ModelStubAcceptingLessonAdded extends AddLessonCommandTest.ModelStub {
+        final ArrayList<Lesson> lessonsAdded = new ArrayList<>();
+        final UniqueLessonList lessons = new UniqueLessonList();
 
         @Override
-        public boolean hasStudent(Student student) {
-            requireNonNull(student);
-            return studentsAdded.stream().anyMatch(student::isSameStudent);
+        public boolean hasLesson(Lesson lesson) {
+            requireNonNull(lesson);
+            return lessonsAdded.stream().anyMatch(lesson::isSameLesson);
         }
 
         @Override
-        public void addStudent(Student student) {
-            requireNonNull(student);
-            studentsAdded.add(student);
+        public void addLesson(Lesson lesson) {
+            requireNonNull(lesson);
+            lessonsAdded.add(lesson);
         }
 
         @Override
-        public Classroom getCurrentClassroom() {
-            return new Classroom();
+        public boolean checkTimingExist(Lesson lesson) {
+            return lessons.checkTimingExist(lesson);
         }
 
-        @Override
-        public ObservableList<Assignment> getFilteredAssignmentList() {
-            AssignmentName assignmentName = new AssignmentName("Dummy Assignment");
-            AssignmentDeadline assignmentDeadline = new AssignmentDeadline("01/02/03 0456");
-            Assignment dummyAssignment = new Assignment(assignmentName, assignmentDeadline);
-            assignments.add(dummyAssignment);
-            return assignments.asUnmodifiableObservableList();
-        }
-
-        @Override
-        public void updateFilteredAssignmentList(Predicate<Assignment> predicate) {
-        }
-
-        @Override
-        public void setAssignment(Assignment target, Assignment editedAssignment) {
-            throw new AssertionError("This method should not be called.");
-        }
     }
-
 }
