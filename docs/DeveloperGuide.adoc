@@ -726,50 +726,102 @@ image::Reimbursement/codeSnippetTransactionLogic.png[]
 === Inventory Tab
 
 This tab will help to keep records of all items currently in the club’s possession.
+
 Each item will require an input of its description, category, quantity, and cost per unit.
 Optionally, if the item is meant for sale, the price can be inputted as well.
 
-This is the overall Class Diagram of this tab:
-
-
-.Class Diagram of Inventory tab (inventory package)
-image::InventoryTabClassDiagram.png[]
-
 ==== Add Item Feature
+This section explains the implementation of the add command feature of the Inventory Tab,
+which allows the addition of items to the inventory. These items are represented by `Item` objects.
+The addition of an `Item` to the inventory requires an input of the `Item`’s description, category, quantity, and cost.
+The price field is optional and may be added only to an `Item` meant for sale.
 
-This features allows the adding of items to the inventory.
+Due to the usage of `ArgumentMultimap`, the fields can be in any order as they are retrieved via the prefixes that
+precede them.
 
-When adding a new item, the user is required to input the description, category, quantity and cost per unit of the item.
-The only attribute that is optional is the price.
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+`AddCommand` works:
 
-For an input to be valid, it must contain all four of the previously mentioned attributes, and the input for each attribute must be of the correct type.
-For example, quantity and cost must be numbers.
-However, the attributes can be inputted in any order.
+.Sequence Diagram of the Add Command in the Inventory Tab (inventory package)
+image::inventoryDG/AddCommandSeqDiagram.png[]
 
-The following sequence diagram shows how an add command works with the description, category, quantity, cost and price fields present:
+//.Class Diagram of Inventory tab (inventory package)
+//image::InventoryTabClassDiagram.png[]
 
+If the description of the `Item` being added matches that of an existing `Item`, the new `Item`’s quantity is added to
+that of the existing `Item` and the cost per unit is recalculated. This is handled within the `AddCommandParser`,
+which also checks the validity of the input.
 
-.Sequence Diagram of Add Command in Inventory tab (inventory package)
-_{ to be added }_
+It prohibits the addition of an `Item` with any value equivalent to or greater than 10,000. This includes the total cost
+and expected revenue of each `Item`. It also prohibits non-numeric inputs where numeric inputs are expected.
+This is conducted through the isValidNumericString(string) method which performs the aforementioned checks and
+returns a `Boolean` that represents the validity of the input.
 
-The following activity diagram displays the process of adding a new item to the inventory:
+The following Sequence Diagram shows how the `AddCommandParser` creates an `Item`:
 
+.Sequence Diagram of the Add Command Parser in the Inventory Tab (inventory package)
+image::inventoryDG/AddCommandParserSeqDiagram.png[]
 
-.Activity Diagram of Add Command in Inventory tab (inventory package)
-image::InventoryAddCommandActivityDiagram.png[]
+After the `Item` is created and the command is executed, the `LogicManager` updates the in-app `InventoryList` via the
+`ModelManager` and updates the data file via the `StorageManager`.
 
-As shown above, the input will be evaluated for its validity.
-If the input is not valid, the user will be informed through Leo that the command was in an invalid format and reminded of the correct format.
+For a greater understanding of the flow of events and checks, you may consult the following activity diagram that shows
+the steps that follow the input of an add command:
 
-Otherwise, the user will be informed through Leo that their input was successful, and the item will immediately be displayed in the Table of the UI.
+.Activity Diagram of the Add Command in the Inventory Tab (inventory package)
+image::inventoryDG/AddCommandFlowChart.png[]
 
 ==== Delete Item Feature
 
+This section explains the implementation of the delete command feature of the Inventory Tab, which allows the deletion
+of items from the inventory. This feature requires only the command keyword and an index or description as input.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+`DeleteCommand` works:
+
+.Sequence Diagram of the Delete Command in the Inventory Tab (inventory package)
+image::inventoryDG/DeleteCommandSeqDiagram.png[]
+
+The `DeleteCommandParser` is responsible for checking the validity of the input, and does not allow any indexes that
+are less than 1 or greater than the largest index currently in the list. It can also take in a description as input and
+compares it against existing `Item` s in the `InventoryList`. This comparison is case-insensitive.
+
 ==== Edit Item Feature
+
+This section explains the implementation of the edit command feature of the Inventory Tab, which allows you to edit
+items in the inventory. This feature requires the command keyword, an index and at least one field as input.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+`EditCommand` works:
+
+.Sequence Diagram of the Edit Command in the Inventory Tab (inventory package)
+image::inventoryDG/EditCommandSeqDiagram.png[]
 
 ==== Sort Items Feature
 
-==== [Proposed] Auto-Complete Feature
+This section explains the implementation of the sort command feature of the Inventory Tab, which allows the sorting
+of items within the inventory. There are 3 ways items can be sorted - by description, category or quantity.
+
+The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the
+`SortCommand` works:
+
+.Sequence Diagram of the Sort Command in the Inventory Tab (inventory package)
+image::inventoryDG/SortCommandSeqDiagram.png[]
+
+==== Overall Design Considerations
+
+This section explains the design considerations for some crucial implementations in the Inventory Tab.
+
+|===
+|Alternative 1 |Alternative 2 |Conclusion and Explanation
+
+|
+
+*Pros*:
+
+*Cons*:
+
+|===
 
 === Cashier Tab
 
@@ -1890,6 +1942,64 @@ Expected: The full reimbursement list is now displayed.
 Expected: Leo responds with an error message that the command is invalid.
 
 === Testing Inventory Tab Features
+. Adding an item
+.. Prerequisites: The description, category, quantity and cost prefixes must be present. Quantity and cost must be a
+positive number less than 10,000. Quantity cannot be 0.
+.. Test case 1: [blue]`add d/Shorts c/Clothing q/10 co/9 p/9` +
+Expected: Leo responds with a success message with a brief description of the Item's information.
+.. Test case 2: [blue]`add d/ c/ q/10 co/9` +
+Expected: Leo responds with a success message with a brief description of the Item's information, where the description
+and category are empty, and the price is absent.
+.. Test case 3: [blue]`add d/Shorts c/Clothing q/10 co/9999 p/9999` +
+Expected: Leo responds with an error message that the total is too large.
+.. Test case 4: [blue]`add d/Shorts c/Clothing q/-1 co/9 p/9` +
+Expected: Leo responds with an error message with the specifications for valid numbers
+(positive number less than 10,000).
+.. Test case 5: [blue]`add d/Shorts c/Clothing q/number co/99 p/99` +
+Expected: Leo responds with an error message with the specifications for valid numbers
+(positive number less than 10,000).
+.. Test case 6: [blue]`add d/Shorts c/Clothing q/10 co/9 p/12` +
+[blue]`add d/shorts c/clothes q/50 co/8 p/9` +
+Expected: Leo responds with a success message, stating that the item already exists and that the quantity,
+cost/unit and price have been updated. The item will have the following information: +
+Description: Shorts +
+Category: Clothing +
+Quantity: 60 +
+Cost: 8.17 +
+Price: 9.00
+
+. Deleting an item
+.. Prerequisites: The index/description must exist in the list.
+.. Test case 1: [blue]`delete 1` +
+Expected: Leo responds with a success message and a brief description of the deleted item.
+.. Test case 2: [blue]`delete shorts` +
+Expected: Leo responds with a success message and a brief description of the deleted shorts item, given that an item
+with the description shorts had existed in the list.
+.. Test case 3: [blue]`delete -1` +
+Expected: Leo responds with an error message that there is no item at that index.
+.. Test case 4: [blue]`delete shirt` +
+Expected: If the list does not contain an item with the description shirt, Leo responds with an error message that there
+is no such item.
+
+. Editing an item
+.. Test case 1: [blue]`edit 1 d/new description` +
+Expected: The item at index 1 now has the description "new description". Leo responds with a success message comparing
+the item before and after the edit.
+.. Test case 2: [blue]`edit 1 d/` +
+Expected: The item at index 1 now has an empty description. Leo responds with a success message comparing
+the item before and after the edit.
+.. Test case 2: [blue]`edit` +
+Expected: Leo responds with an error message detailing the correct edit command format.
+.. Test case 2: [blue]`edit 1` +
+Expected: Leo responds with an error message that the item was not edited and detailing the correct edit command format.
+
+. Sorting the items
+.. Test case 1: [blue]`sort description` +
+Expected: Leo responds with a success message even if the list is empty.
+.. Test case 2: [blue]`sort category` +
+Expected: Leo responds with a success message even if the list is empty.
+.. Test case 3: [blue]`sort quantity` +
+Expected: Leo responds with a success message even if the list is empty.
 
 === Testing Cashier Tab Features
 

@@ -112,6 +112,7 @@ This section will contain details on all commands available in the Home tab.
 it adds money to the club's funds).
 * The amount input should be negative if the transaction is an expenditure made by the club (that is, it deducts money
 from the club's funds).
+* Description and category of a transaction can be empty.
 
 [WARNING]
 The amount you may enter is limited to -999999.99 to 999999.99. If more decimal points are entered, it will be rounded
@@ -131,6 +132,7 @@ This command allows you to add a transaction to the table and saves it into the 
 [NOTE]
 The format of the date has to be in dd-MMM-yyyy format and is case-sensitive. (Eg. 24-Aug-2019 or 03-Sep-2019)
 The person specified must already exist in the Members tab and is case-sensitive.
+While all field prefixes must be present, the description and category can still be empty.
 
 [WARNING]
 If you are adding a transaction meant to represent sales revenue, the transaction *must* be positive-valued
@@ -271,6 +273,7 @@ enter [blue]`back` command which is detailed in <<homeBackCommand, Section 5.1.6
 
 [NOTE]
 The Undo Sort command allows you to view the table of transactions in the order originally shown when the application was initially opened.
+The list can be sorted even if it is empty.
 
 * Steps
 1. Type any one of the above commands in blue font into the command box.
@@ -651,6 +654,9 @@ To avoid this, you are advised to key in a number smaller than 10,000.
 ==== Add an Item:
 This command allows you to add an item to the table and saves it into the system.
 
+[NOTE]
+Description and category can be empty, but their field prefixes (d/ and c/) must be present.
+
 * Command:
 `add d/DESCRIPTION c/CATEGORY q/QUANTITY co/COST_PER_UNIT [p/PRICE]`
 
@@ -677,21 +683,27 @@ will be shown in the table. This is shown in the screenshot below:
 image::inventoryUG/AddSuccess.png[width="600"]
 
 [NOTE]
-If the description and category of the input matches that of an existing item, a new item will not be added.
-Instead, the quantity will reflect the combined quantity of the input and the existing item, and the price will be updated.
+If the description of the input matches that of an existing item, a new item will not be added.
+Instead, the quantity will reflect the combined quantity of the input and the existing item, and the price and cost/unit
+will be updated. However, the category will not change, even if it differs from that of the original item.
 
 ==== Delete an Item:
-This command allows you to delete an item in the table by ID.
+This command allows you to delete an item in the table by ID or by description.
+
+[NOTE]
+This command is case-insensitive.
 
 * Command:
 `delete ID`
+`delete DESCRIPTION`
 
 Example:
 [blue]`delete 1`
+[blue]`delete t-shirt`
 
 * Steps:
-. Type the command with the ID of the item to be deleted as shown below:
-
+. Type the command with the ID or description of the item to be deleted. An example of deleting using the ID is shown
+below:
 
 //.Screenshot of the user input into Command Box for the Delete Command in the Inventory tab
 image::inventoryUG/DeleteStep1.png[width="600"]
@@ -741,6 +753,7 @@ This command allows you to sort the table of items into a specified order for vi
 
 [NOTE]
 Using the reset command, it can be reset to the initial order of the table when the app was first opened.
+Leo will still show a success message that the list is sorted even if it is empty.
 
 === Cashier Tab
 This section will contain the details on all commands available on the Cashier Tab.
