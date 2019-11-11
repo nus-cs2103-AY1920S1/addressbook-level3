@@ -1,3 +1,7 @@
+/*
+@@author DivineDX
+ */
+
 package seedu.address.model.event;
 
 import static seedu.address.logic.parser.ParserUtil.parseEventDate;
@@ -35,6 +39,13 @@ public class EventDateTimeMap {
     }
 
     /**
+     * Create a new, immutable copy of the EventDateTimeMap
+     */
+    public EventDateTimeMap(EventDateTimeMap other) {
+        this(other.getDateTimeMap());
+    }
+
+    /**
      * Used when constructing EventDateTimeMap object from JsonStorage.
      *
      * @param stringMap Stored String in JSON.
@@ -58,6 +69,16 @@ public class EventDateTimeMap {
 
         return;
     }
+
+    /**
+     * When Event object is first created, auto-initialize DateTime mapping for Start&End Date.
+     */
+    public void initalizeDateTime(EventDate startDate, EventDate endDate) {
+        EventDayTime defaultEventDayTime = EventDayTime.defaultEventDayTime();
+        mapDateTime(startDate, defaultEventDayTime);
+        mapDateTime(endDate, defaultEventDayTime);
+    }
+
 
     /**
      * Returns true if the given string represents a valid DateTime Mapping.

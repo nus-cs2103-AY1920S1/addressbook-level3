@@ -415,7 +415,6 @@ Below, we discuss two key aspects - how we store EventDateTimeMap and how comman
 Instantiation of the `Event` object when the app is started will be more complicated as well due to the need to read from two separate files
 
 3+|**Decision: Alternative 1** +
-
 Alternative 2 would make sense if our app is utilizing a DBMS and it would be a best practice to separate the information into separate tables.
 However, as we are constrained with not utilizing a DBMS, **Alternative 1** is a logically simpler, shorter, and more efficent solution from a software engineering standpoint as it limits the amount of repeated code that we would have written to support another storage unit.
 
@@ -440,7 +439,6 @@ Better User Experience - Narrowing the Start/End Date would naturally mean that 
 Increased risk of inadvertent deletion of existing Date-Time mappings from `Event`.
 
 3+|**Decision: Alternative 2** +
-
 Alternative 2 offers better user experience by reducing the addition steps of hassle, especially since AddMin+ is focussed on automating and reducing the burdensome workload of administrative staff. Even so, we understand the risk of a user executing a typo and inadvertently delete existing Date-Time mappings. Hence, as a mitgating measure, we would be introducing a 'Confirmation' command in a `V2.0` feature that would allow the user to confirm and proceed with the `edit_ev` command if it were to delete existing Date-Time mappings due to a narrowing of the range.
 
 |========================================================================================
