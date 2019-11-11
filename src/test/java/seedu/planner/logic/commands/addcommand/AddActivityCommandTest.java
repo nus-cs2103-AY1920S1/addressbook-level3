@@ -1,4 +1,4 @@
-package seedu.planner.logic.commands;
+package seedu.planner.logic.commands.addcommand;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,10 +20,9 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.ObservableList;
 import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.index.Index;
-import seedu.planner.logic.commands.addcommand.AddCommand;
-import seedu.planner.logic.commands.addcommand.AddContactCommand;
 import seedu.planner.logic.commands.exceptions.CommandException;
 import seedu.planner.logic.commands.result.CommandResult;
+import seedu.planner.model.ActivityManager;
 import seedu.planner.model.ContactManager;
 import seedu.planner.model.Model;
 import seedu.planner.model.ReadOnlyAccommodation;
@@ -38,58 +37,61 @@ import seedu.planner.model.contact.Phone;
 import seedu.planner.model.day.ActivityWithTime;
 import seedu.planner.model.day.Day;
 import seedu.planner.model.field.Name;
-import seedu.planner.testutil.contact.ContactBuilder;
+import seedu.planner.testutil.activity.ActivityBuilder;
+import seedu.planner.testutil.activity.TypicalActivity;
 
-public class AddContactCommandTest {
+public class AddActivityCommandTest {
 
     @Test
-    public void constructor_nullContact_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AddContactCommand((Contact) null, false));
+    public void constructor_nullActivity_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> new AddActivityCommand((Activity) null, false));
     }
 
     @Test
-    public void execute_contactAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingContactAdded modelStub = new ModelStubAcceptingContactAdded();
-        Contact validContact = new ContactBuilder().build();
+    public void execute_activityAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingActivityAdded modelStub = new ModelStubAcceptingActivityAdded();
+        Activity validActivity = new ActivityBuilder().build();
 
-        CommandResult commandResult = new AddContactCommand(validContact, false).execute(modelStub);
+        CommandResult commandResult = new AddActivityCommand(validActivity, false).execute(modelStub);
 
-        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, validContact), commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validContact), modelStub.contactsAdded);
+        assertEquals(String.format(AddActivityCommand.MESSAGE_SUCCESS, validActivity),
+                commandResult.getFeedbackToUser());
+        assertEquals(Arrays.asList(validActivity), modelStub.activitiesAdded);
     }
 
     @Test
-    public void execute_duplicateContact_throwsCommandException() {
-        Contact validContact = new ContactBuilder().build();
-        AddCommand addContactCommand = new AddContactCommand(validContact, false);
-        ModelStub modelStub = new ModelStubWithContact(validContact);
+    public void execute_duplicateActivity_throwsCommandException() {
+        Activity validActivity = new ActivityBuilder().build();
+        AddActivityCommand addActivityCommand = new AddActivityCommand(validActivity, false);
+        ModelStub modelStub = new ModelStubWithActivity(validActivity);
 
-        assertThrows(CommandException.class,
-                AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () -> addContactCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddActivityCommand.MESSAGE_DUPLICATE_ACTIVITY, () ->
+                addActivityCommand.execute(modelStub));
     }
 
     @Test
     public void equals() {
-        Contact alice = new ContactBuilder().withName("Alice").build();
-        Contact bob = new ContactBuilder().withName("Bob").build();
-        AddContactCommand addAliceCommand = new AddContactCommand(alice, false);
-        AddContactCommand addBobCommand = new AddContactCommand(bob, false);
+        Activity activity1 = TypicalActivity.ACTIVITY_A;
+        Activity activity2 = TypicalActivity.ACTIVITY_B;
 
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
+        AddActivityCommand addActivity1Command = new AddActivityCommand(activity1, false);
+        AddActivityCommand addActivity2Command = new AddActivityCommand(activity2, false);
 
-        // same values -> returns true
-        AddContactCommand addAliceCommandCopy = new AddContactCommand(alice, false);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        //same object -> returns true
+        assertTrue(addActivity1Command.equals(addActivity1Command));
 
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        //same values -> returns true
+        AddActivityCommand addActivity1CommandCopy = new AddActivityCommand(activity1, false);
+        assertTrue(addActivity1Command.equals(addActivity1CommandCopy));
 
-        // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        //different types -> returns false
+        assertFalse(addActivity1Command.equals(1));
 
-        // different contacts -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        //null -> returns false
+        assertFalse(addActivity1Command.equals(null));
+
+        //different activities -> returns false
+        assertFalse(addActivity1Command.equals(addActivity2Command));
     }
 
     /**
@@ -354,10 +356,6 @@ public class AddContactCommandTest {
             throw new AssertionError("This method should not be called.");
         }
 
-        public void setDays(ReadOnlyItinerary itinerary) {
-            throw new AssertionError("This method should not be called.");
-        }
-
         public void setDays(List<Day> days) {
             throw new AssertionError("This method should not be called.");
         }
@@ -427,28 +425,52 @@ public class AddContactCommandTest {
     }
 
     /**
-     * A Model stub that contains a single contacts.
+     * A Model stub that contains a single activity.
      */
-    private class ModelStubWithContact extends ModelStub {
-        private final Contact contact;
+    private class ModelStubWithActivity extends ModelStub {
+        private final Activity activity;
 
-        ModelStubWithContact(Contact contact) {
-            requireNonNull(contact);
-            this.contact = contact;
+        ModelStubWithActivity(Activity activity) {
+            requireNonNull(activity);
+            this.activity = activity;
         }
 
         @Override
-        public boolean hasContact(Contact contact) {
-            requireNonNull(contact);
-            return this.contact.isSameContact(contact);
+        public boolean hasActivity(Activity activity) {
+            requireNonNull(activity);
+            return this.activity.isSameActivity(activity);
         }
     }
 
     /**
-     * A Model stub that always accept the contacts being added.
+     * A Model stub that always accept the activities being added.
      */
-    private class ModelStubAcceptingContactAdded extends ModelStub {
+    private class ModelStubAcceptingActivityAdded extends ModelStub {
+        final ArrayList<Activity> activitiesAdded = new ArrayList<>();
         final ArrayList<Contact> contactsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasActivity(Activity activity) {
+            requireNonNull(activity);
+            return activitiesAdded.stream().anyMatch(activity::isSameActivity);
+        }
+
+        @Override
+        public Optional<Index> getActivityIndex(Activity activity) {
+            requireNonNull(activity);
+            return Optional.of(Index.fromZeroBased(activitiesAdded.indexOf(activity)));
+        }
+
+        @Override
+        public void addActivity(Activity activity) {
+            requireNonNull(activity);
+            activitiesAdded.add(activity);
+        }
+
+        @Override
+        public ReadOnlyActivity getActivities() {
+            return new ActivityManager();
+        }
 
         @Override
         public boolean hasContact(Contact contact) {
@@ -473,5 +495,4 @@ public class AddContactCommandTest {
             return new ContactManager();
         }
     }
-
 }
