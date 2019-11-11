@@ -2,6 +2,9 @@ package seedu.planner.logic.commands.system;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.logging.Logger;
+
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.result.CommandResult;
 import seedu.planner.logic.commands.result.UiFocus;
@@ -22,6 +25,7 @@ public class UndoClearCommand extends UndoableCommand {
     private final ReadOnlyActivity activity;
     private final ReadOnlyContact contact;
     private final ReadOnlyItinerary itinerary;
+    private final Logger logger = LogsCenter.getLogger(UndoClearCommand.class);
 
     public UndoClearCommand(ReadOnlyAccommodation accommodation, ReadOnlyActivity activity,
                             ReadOnlyContact contact, ReadOnlyItinerary itinerary) {
@@ -39,6 +43,7 @@ public class UndoClearCommand extends UndoableCommand {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
+        logger.info(String.format("----------------[Clear command undone!]", this));
         model.setContacts(contact);
         model.setAccommodations(accommodation);
         model.setActivities(activity);
