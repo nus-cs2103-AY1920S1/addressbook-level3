@@ -6,7 +6,7 @@
 image::febee99.png[width="150", align="left"]
 {empty}[https://febee99.github.io[homepage]] [https://github.com/febee99[github]] +
 Role: Developer +
-Responsibilities: Code Quality + Scheduling and Tracking + Replenish List Commands + Auto-sorting + Recommendations
+Responsibilities: Code Quality + Scheduling and Tracking + Replenish List Commands + Recommendations
 
 '''
 
@@ -64,16 +64,14 @@ allowing the user to add items and have them arranged in an organised fashion.
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=f11&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=febee99&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[Reposense]]
 //[https://github.com[Functional code]] [https://github.com[Test code]]
 * *Other contributions*:
-** Team tasks:
-*** Refactor Person to Item (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/3[#3])
-*** Set up and maintain the issue tracker, assign issues to team members for each milestone
-*** Integrated the team repo with Github's project board
+*** Team task: Refactor Person to Item (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/3[#3])
+*** Team task: Set up and maintain the issue tracker, assign issues to team members for each milestone, integrate the team repository with Github's project board
+
 //*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
 ** *Enhancements to existing features:*
 
-*** Add functionality to view different lists, edit FXML files (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
+*** Add functionality to view different lists, edit FXML files, allow storage of both lists in a single json object (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
 *** Create new parser and integrate existing commands with the replenish list(Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/198[#198])
-*** Allow storage of both lists in a single json object (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/issues/122[#122])
 *** Suggest closely related words when command executed displays no results (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/92[#92], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/121[#121])
 *** Wrote Sort Command, and relevant tests for its dependencies (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/7[#7], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/16[#16], https://github.com/AY1920S1-CS2103T-F11-2/main/issues/82[#82])
 *** Render commands stackable (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/issues/71[#71])
@@ -92,7 +90,7 @@ allowing the user to add items and have them arranged in an organised fashion.
 
 |===
 |_Given below are some snippets of the sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.
-For more of my personal work, please refer to sections 4.1.1 (Help), 4.2.6 (Sort) and 6.1 (Table Summary) of the User Guide._
+For more of my personal work, please refer to sections 4.1.1 (Help), 4.2.5 (Sort) and 6.1 (Table Summary) of the User Guide._
 |===
 
 include::../UserGuide.adoc[tag=view]
@@ -110,6 +108,11 @@ For more of my personal work and the omitted details, please refer to sections 3
 
 include::../DeveloperGuide.adoc[tag=replenishListCommands]
 
+.Activity Diagram for general parsing of commands
+image::ParseCommandActivityDiagram.png[]
+
+include::../DeveloperGuide.adoc[tag=replenishListCommandsTwo]
+
 include::../DeveloperGuide.adoc[tag=autosortPartOne]
 //include::../DeveloperGuide.adoc[tag=autosortPartTwo]
 include::../DeveloperGuide.adoc[tag=autosortPartThree]
@@ -118,7 +121,56 @@ include::../DeveloperGuide.adoc[tag=recommendationsIntro]
 
 include::../DeveloperGuide.adoc[tag=recommendationsPartOne]
 //include::../DeveloperGuide.adoc[tag=recommendationsPartTwo]
-include::../DeveloperGuide.adoc[tag=recommendationsPartThree]
+//include::../DeveloperGuide.adoc[tag=recommendationsPartThree]
+The figure below presents what happens when a user executes a command with invalid arguments.
+
+.Activity diagram showing what happens when a command is executed with misspelled arguments
+image::RecommendCommandArgumentsActivityDiagram.png[]
+
+[NOTE]
+Only search and sort commands support this operation.
+
+In the example below encapsulated in a sequence diagram, the user has misspelled `"date"` as `"dat"` in a sort command.
+
+.Sequence diagram illustrating the recommendations mechanism for command `sort|dat`
+
+image::RecommendationsSortSequenceDiagram.png[]
+
+The sequence diagram titled `find similar words` below expands on the process omitted above.
+
+.Sequence diagram showing how `"date"` is found to be the most similar word to `"dat"`
+
+image::FindSimilarSequenceDiagram.png[]
+
+The function `findSimilar` in `StringUtil` is called upon to return a set containing strings that are most similar to the misspelled argument, `"dat"`.
+In this process, `"dat"` is compared with a set of valid inputs, i.e. both `"name"` and `"date"`, and the corresponding edit distances are stored.
+`getSuggestions("dat")` then filters the results and finds `"date"` to be the best match.
+
+At last, a `ParseException` which contains the recommendation `"date"`
+is then thrown to the user as feedback.
+
+==== Design Considerations
+When tasked to implement this feature, I had to decide on what was the best way to display any form of recommendations to the user.
+I also evaluated multiple options to derive an optimal data structure to store the recommendations. The following is a brief summary of my analysis and decisions.
+
+===== Aspect: How recommendations execute
+
+* **Alternative 1 (current choice):** Displays recommendations after the user inputs a command that fails to produce results.
+** Pros: Simpler and straightforward implementation.
+** Cons: May be less intuitive to the user as opposed to auto-completed commands.
+
+* **Alternative 2:** Auto-completion of commands.
+** Pros: Lowers likelihood of spelling mistakes in user input.
+** Cons: We must ensure that the structure of every single command and their variations are taken into consideration.
+
+===== Aspect: Data structure to store the recommendations
+* **Alternative 1 (current choice):** Use a TreeMap to store entries that comprise a set of recommendations and their corresponding edit distance.
+** Pros: Entries are automatically sorted by their edit distance, thus words with a smaller edit distance will be recommended first. Duplicate entries are also prohibited.
+** Cons: May have performance issues in terms of memory usage.
+
+* **Alternative 2:** Store all possible recommendations in a long list.
+** Pros: Simpler implementation.
+** Cons: Not closely related words may also be recommended to the user.
 
 //== PROJECT: PowerPointLabs
 

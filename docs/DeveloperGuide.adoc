@@ -69,11 +69,13 @@ The _Sequence Diagram_ below shows how the components interact with each other f
 image::ArchitectureSequenceDiagram.png[]
 The sections below give more details of each component.
 
+// tag::ui[]
 [[Design-Ui]]
 === UI component
 
 .Structure of the UI Component
 image::UiComponentClassDiagram.png[]
+// end::ui[]
 
 *API* : link:{repoURL}/src/main/java/io/xpire/ui/Ui.java[`Ui.java`]
 
@@ -246,10 +248,12 @@ of item quantities are not permitted by `ReplenishParser`, as items in the reple
 
 The activity diagram below follows the general path of a command executed in either the main tracking list `Xpire`, or the
 replenish list.
+// end::replenishListCommands[]
 
 .Activity Diagram for general parsing of commands
-image::ParseCommandActivityDiagram.png[]
+image::ParseCommandActivityDiagram2.png[]
 
+// tag::replenishListCommandsTwo[]
 In the event that `ReplenishParser` is selected, it will prevent any invalid or prohibited commands and also check for spelling mistakes in the user input.
 This will be further explained to you in a <<Spelling correction with alternative recommendations,later section>>.
 
@@ -266,7 +270,7 @@ my analysis and decisions.
 * **Alternative 2: Create two versions of each command, one for each list.**
 ** Pros: This allows us to greatly customise the command for each list.
 ** Cons: This however would lead to unnecessary repetition of code across the code base.
-// end::replenishListCommands[]
+// end::replenishListCommandsTwo[]
 
 // tag::autosortPartOne[]
 === Auto-sorting of items by name then date
@@ -340,8 +344,9 @@ The SortedList changes accordingly based on the method of sorting specified.
 
 The activity diagram below details the explicit steps in the execution of a sort command.
 
+
 .Activity Diagram showing the control flow of a sort command executed by the user
-image::SortActivityDiagram.png[]
+image::SortActivityDiagram2.png[]
 
 If a `sort|date` command is executed, the comparator of the internal sorted list is set to be that of a `dateComparator`,
 and the list of items are updated accordingly.
@@ -551,33 +556,33 @@ image::UndoRedo/ActivityDiagramUndoRedoCommand.png[width="790"]
 
 ==== Design Considerations
 
-The following class diagram shows the entirety of the undo/redo mechanism and its associations.
-
-.Class Diagram for Undo/Redo mechanism (Note that only classes that are in the feature are included)
-image::UndoRedo/UndoRedoSystemClassDiagram.png[width="790"]
-
 There are two classes that inherit from the abstract class `State` which are `FilteredState` and `ModifiedState`.
 
 The states that are stored at each valid and undoable command depends on the type of command itself as `FilteredState` only copies over the predicate and method of sorting but not the backend `Xpire` or `ReplenishList` data. Thus, commands that do not alter items such as `SortCommand` and `CheckCommand` commands instantiate a `FilteredState`.
 
 On the other hand, `ModifiedState` is created with commands that alters the item of the data, thus new `Xpire` and `ReplenishList` objects will be stored within the state. Commands that instantiate a `ModifiedState` include `AddCommand`, `TagCommand` and `DeleteCommand`.
 
+The following class diagram shows the entirety of the undo/redo mechanism and its associations.
+
+.Class Diagram for Undo/Redo mechanism (Note that only classes that are in the feature are included)
+image::UndoRedo/UndoRedoSystemClassDiagram2.png[]
+
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves and clones the entire model.
+* **Option 1 (current choice):** Saves and clones the entire model.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage, need to have a limit for the amount of states that we can save.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
+* **Option 2:** Individual command knows how to undo/redo by itself.
 ** Pros: Will use less memory (e.g. for `DeleteCommand`, just save the item being deleted and apply the corresponding reverse command which is and `AddCommand`).
 ** Cons: Ensure that the implementation of each individual command are correct. +
 Hard to do when applying stackable `SearchCommand` and `SortCommand` as the `predicate` and XpireMethodOfSorting needs to be updated properly.
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a stack to store the different commands and states.
+* **Optional 1 (current choice):** Use a stack to store the different commands and states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update the filtered list shown to the user and the backend `Xpire`/`ReplenishList` data.
-* **Alternative 2:** Use `HistoryManager` for undo/redo that stores previous versions of Item/XpireItem
+* **Optional 2:** Use `HistoryManager` for undo/redo that stores previous versions of Item/XpireItem
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires `Item`/`XpireItem` to have a history of its edits. Violates Single Responsibility Principle and Separation of Concerns as each `Item` now needs to do two different things which is to store data and know its previous edited versions.
 // end::undoredo[]
@@ -608,7 +613,7 @@ image::SequenceDiagramSearchParseArgs.png[width="790"]
 Example usage scenario:
 
 [NOTE]
-Steps 1-3 and steps 4-5 describe what is shown in Figure 25 and Figure 24 respectively.
+Steps 1-3 and steps 4-5 describe what is shown in Figure 34 and Figure 33 respectively.
 
 Step 1. User enters command `search|banana`. The command is received by the `LogicManager` 's `execute` method which
 then calls the `getCurrentView` method of `Model` to determine which item list is currently being displayed, `XPIRE`
@@ -636,7 +641,7 @@ The selection of parser and the creation of `SearchCommand` object is omitted fo
 .Activity diagram illustrating the high-level workflow of search command
 image::ActivityDiagramSearchCommand.png[width="790"]
 
-As illustrated in Figure 26, the `search` functionality also considers the case where the current view list
+As illustrated in Figure 35, the `search` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `search` command is not executed
 successfully.
 
@@ -688,31 +693,19 @@ also be made "stackable" through using the API.
 // tag::tag[]
 === Tag Feature
 
-This feature allows users to tag specific items in the list. Items can only have a maximum of 5 tags and all of the tags are parsed in Sentence-Case and must not be more than 20 characters long each.
-
-If the user simply enters `tag`, all the tags in the current list view will be collected and displayed to the user.
-
-This implementation is under `Logic` and `Model` components.
+This feature allows users to tag specific items in the list. Items can only have a maximum of 5 tags and all tags are parsed in Sentence-Case and must not be more than 20 characters long each. If the user enters `tag`, all the tags in the current list view will be collected and displayed to the user.
 
 ==== Implementation
 
-Below is an activity diagram of what happens when a user keys in a Tag Command.
+Below are diagrams of what happens when a user keys in a Tag Command in `Xpire` as current list.
 
 .Activity Diagram for executing Tag Command
 image::Tag/ActivityDiagramTagCommand.png[width="790"]
 
-
-Below is a sequence diagram of what happens when a user keys in a Tag Command in the main list view. Note that the diagram has been simplified and assumes that all arguments are valid.
-
-.Sequence Diagram for executing Tag Command
-image::Tag/SequenceDiagramTagCommand.png[width="790"]
+.Simplified Sequence Diagram for executing Tag Command that assumes valid arguments.
+image::Tag/SequenceDiagramTagCommand.png[height="790"]
 
 // end::tag[]
-
-
-// tag::search[]
-=== Search
->>>>>>> 7a9c5fc271183379425342c81d2f7b0f441903f4
 
 // tag::export[]
 === Export
@@ -758,7 +751,7 @@ The selection of parser and the creation of `ExportCommand` object is omitted fo
 .Activity diagram illustrating the high-level workflow of search command
 image::ActivityDiagramExportCommand.png[width="790"]
 
-As illustrated in Figure 28, the `export` functionality also considers the case where the current view list
+As illustrated in Figure 39, the `export` functionality also considers the case where the current view list
 is empty and there will be a feedback to the user to inform him/her that the `export` command is not executed
 successfully.
 
@@ -832,7 +825,7 @@ The figure below depicts the flow of events that check for spelling errors when 
 
 .Activity diagram showing what happens when an unknown command is executed
 
-image::RecommendUnknownCommandActivityDiagram.png[]
+image::RecommendUnknownCommandActivityDiagram2.png[]
 
 For example, if `set reminder` was input incorrectly as `set remindre`, it will be flagged as an invalid command.
 It is then compared with an collection of all possible command words in the existing list. `set reminder` will be established
@@ -844,7 +837,7 @@ The figure below presents what happens when a user executes a command with inval
 
 .Activity diagram showing what happens when a command is executed with misspelled arguments
 
-image::RecommendCommandArgumentsActivityDiagram.png[]
+image::RecommendCommandArgumentsActivityDiagram2.png[]
 
 [NOTE]
 Only search and sort commands support this operation.
@@ -892,7 +885,32 @@ I also evaluated multiple options to derive an optimal data structure to store t
 ** Cons: Not closely related words may also be recommended to the user.
 // end::recommendationsPartThree[]
 
-=== User Interface Design
+=== Retrieval of Previous Commands
+
+The retrieval of previous commands and later commands are achieved through the `InputHistoryManager` class which implements `HistoryManager` interface.
+The `CommandBox` listens to the keyboard event kbd:[↑] and kbd:[↓] when user types in the `CommandBox`.
+
+Every user input that is non-blank will be saved as a String before execution by the `save(String)` method of `InputHistoryManager`. You can refer to the following
+steps for the retrieval of a *previous* command.
+
+. Step 1: `CommandBox` listens to the KeyPressed event and makes a call to `handleUpKey()` when an up key is pressed.
+. Step 2: `handleUpKey()` checks whether the current input is successfully executed or rejected as an invalid command. This makes a difference
+because successful commands are erased after execution while invalid commands remain in the `CommandBox`.
+. Step 3: If the command is valid and erased, `InputHistoryManager` will try to retrieve the previous command by calling `previous()`.
+. Step 4: `CommandBox` will set its text to be the returned String.
+
+[NOTE]
+If the current input has not been executed or has already been successfully executed, calling the previous command will return the command
+entered before the current input. If the current input is a rejected invalid command, it means that the command has already been
+saved. In this case, calling `previous()` once will retrieve back that invalid command which to user means that the command in the `CommandBox`
+has not been changed despite the up key pressed. Hence, two calls to `previous()` will be made to retrieve the command before the current invalid command.
+
+You can refer to the activity diagram here:
+
+image::RetrievePreviousCommandActivityDiagram.png[]
+
+// tag::userinterface[]
+=== User Interface
 The UI contains two panels that change according to the items in the `XpireItemList` and `ReplenishList`. However, these
 UI components are not able to update by listening to changes in these `ObservableLists`. This is because both lists are
 sorted and thus all items in the lists will be modified each time a `sort`, `add`, `delete`, `tag` or other commands that modify the lists
@@ -930,6 +948,47 @@ image::UpdateViewPanelActivityDiagram.png[]
 
 [NOTE]
 If the execution by `Logic` is not successful, an error will be thrown and the `ViewPanel` will not be updated and refreshed.
+
+==== Design Considerations
+
+===== Aspect: How ViewPanel and AllItemsPanel updates
+* **Alternative 1 (current choice):** Updates taking in the lists as parameters.
+** Pros: Straightforward implementation that grantees correct result if the list is correct.
+** Cons: It breaks the "Model View Controller" structure because the UI is not listening to the `ObservableList` anymore. Whenever a command is executed, a function
+call has to be made to update the `ViewPanel` and the `AllItemsPanel`.
+
+* **Alternative 2:** Updates using event listeners
+** Pros: It follows the MVC structure where the panels listen to the `ObservableList` for changes.
+** Cons: As mentioned earlier, it is difficult to use event listeners on the `SortedUniqueList` because the listener will catch the sorting
+as modification to the items. In the future, alternative 2 can be considered with changes to how the listener and sorting works.
+
+===== Aspect: Layout of ResultDisplay
+* **Alternative 1 (current choice):** Directly on top of the CommandBox with resizablility.
+** Pros: Long messages can be viewed and referred to when typing the next comment.
+** Cons: It takes up a fixed space on the GUI which could be used to display more items.
+
+* **Alternative 2 (initial implementation):** Use a pop up window to display the messages which disappears when
+any key is pressed and the user can continue.
+** Pros: It saves spaces on the GUI and success and error message can be dismissed so that user do not have to see it all the time.
+** Cons: User is not able to type while referring to the message.
+
+===== Aspect: Layout of ItemCard
+
+The original design does not fit the vertical list as seen below:
+
+image::OriginalItemCard.png[]
+
+The following changes have been made to the layout of the item card for a better view of the items.
+
+. Display the number of days left before the item expires in an obvious manner for user to see.
+. Move the position of the reminder and quantity to the left so that the right is not crowede.
+. Dynamically Change the colour of the card depending on the status of the item. Red for expired, yellow for alerting, green for healthy.
+. Expand the card on clicking and collapse it when not in focus to save space for more items to be displayed.
+// end::userinterface[]
+
+Here is the redesigned `ItemCard`:
+
+image::ExpandCard.png[300]
 
 === Logging
 
@@ -1069,6 +1128,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 [appendix]
 == Use Cases
+
+.Use case diagram for Xpire
+image::UseCaseDiagram.png[width="790"]
+
+The above use case diagram helps to summarise the use cases for Xpire.
 
 (For all use cases below, the *System* is `Xpire` and the *Actor* is the `user`, unless specified otherwise. Additionally, any references made to the `list` refers to the tracking list, unless specific otherwise.)
 
@@ -1227,7 +1291,15 @@ Precondition: Display board is showing a list of items.
 +
 Use case ends.
 
-_{More to be added}_
+[discrete]
+=== Use case: UC11 - Export
+
+*MSS*
+
+1.  User requests to export current list.
+2.  Xpire shows the QR code.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1634,6 +1706,29 @@ set for them previously.
    Expected: Expired items and items with active reminder in the `View` (items in red or yellow). +
    Feedback shows listing of expired items and items whose reminder has been activated.
 
+=== Undo/Redo commands
+. Undo an earlier command or redo a previously done command.
+
+.. Prerequisites: No commands have been entered yet and the current view is the main list. There is at least one item in the main list that is expiring within 50 days, and one item in the replenish list.
+.. Test case: `add|Apple|12/03/2025|3` followed by `undo` and then `redo` +
+   Expected: The item with name Apple, expiry date 12/03/2025 and with quantity 3 will be added. Undo command will proceed to remove the item whilst the Redo command will proceed to add the same item back.
+
+.. Test case: `check|50` followed by `undo` and then `redo` +
+   Expected: The items with 50 days before expiry date or less will be filtered out to you. Undo command will revert the current view to show all items. Redo command will then filter out those same items again.
+
+.. Test case: `shift|1` followed by `undo` and then `redo` +
+   Expected: The item on the first index will be shifted to the ReplenishList. Undo command will shift the item back to the main list. Redo command will shift the item back to the replenish list.
+
+.. Test case: `view|replenish` followed by `shift|1|12/03/2025` followed by `undo` and lastly `redo` +
+   Expected: The view changes to the replenish list and the first item on the list gets shifted to the main list with expiry date 12/03/2025. Undo command will shift the item back to the main list. Redo command will shift the item back to the replenish list.
+
+.. Test case: `undo` +
+   Expected: Feedback stating that there are no commands to undo.
+
+.. Test case: `redo` +
+   Expected: Feedback stating that there are no commands to redo.
+
+
 === Sorting items
 
 . Sorting items by their name
@@ -1663,6 +1758,18 @@ set for them previously.
    Expected: No change in the order of items. Error details shown in the status message.
 .. Other incorrect sort commands to try: `sort|`, `sort|xyz` (where xyz is any garbage input) +
    Expected: Similar to previous.
+
+=== Export data
+
+. Non empty current list
+
+.. Test case: `export` +
+   Expected: QR code containing item data.
+
+. Empty current list
+
+.. Test case: `export` +
+   Expected: Error message indicating that current list is empty.
 
 === Saving data
 

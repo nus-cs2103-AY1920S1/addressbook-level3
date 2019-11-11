@@ -8,7 +8,7 @@ image::xiaoyu-nus.png[width="150", align="left"]
 {empty}[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=xiaoyu-nus&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
 
 Role: Developer +
-Responsibilities: Reminder System + Logo and Website Designer
+Responsibilities: Reminder System + Logo and UI Designer
 
 '''
 
@@ -16,62 +16,67 @@ Responsibilities: Reminder System + Logo and Website Designer
 
 == Overview
 
-Xpire is a desktop application used for tracking expiry dates of items.  The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+My team of 5 computer science students have been given the task of morphing a command line interface(CLI) application named AddressBook into a brand new
+app. Being students staying on campus in National University of Singapore, as we are keen to solve the issue of food wastage due to them
+passing their expiry date. As such, we have created the app Xpire to help students track the expiry dates of items.
+Our app is equipped with many functions like reminder, search and sort.
+The application is written in Java over 3 months, and has about 15 kLoC.
 
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *the reminder system*
+** Purpose: to allow user to customise a reminder date, starting form which the item needs to be reminded of its expiry date.
+** Importance: As items last for different duration before which they expires, customising the reminder eases the user's mind as he or she does not have to remember when is the item supposed to be consumed or replaced.
+** Highlights: The reminder is enhanced by a filter to list down all items in alerting condition. It can also filter items based on number of days left before their expiration date. As such, the complexity of the implementation is high, requiring mastery knowledge of many components including the Module, User Interface as well as Logic.
+The feature works with existing and also future commands, and can be turned into active notification readily.
+* *Major enhancement*: redesigned *graphic user interface(GUI)*
+** Purpose: to make the GUI one that specifically serves Xpire and no other purposes by displaying the number of days left before an item expires and changes its colour accordingly.
+** Importance: to make our application different from a notebook or to-do list on paper, it is important that the information regarding the item dynamically changes according to its status
+so that the user can easily identify expiring items and handle them properly.
+** Highlights: Despite limited resources on the use of JavaFX, the overall effect achieves high degree of comfort and convenience. The task is especially challenging as the UI components interacts with many other modules such as the lists of items, the feedback and the commands entered.
+The feature is not hard coded and can easily integrate with future commands.
+* *Minor enhancement*: added a command history which allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added the all items panel which displays a static view of all items in both tracking list and to-buy list.
+* *Minor enhancement*: enabled a clickable hyperlink to our User Guide page.
+* *Minor enhancement*: set the upper and lower bonds for expiry date and reminder threshold to prevent unwanted bugs.
+* *Minor enhancement*: set a restriction on the input command length through the UI to prevent String overflow.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
-
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=xiaoyu-nus&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
 
 * *Other contributions*:
+** Team tasks:
+*** Refactor UI components from the AddressBook. (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/48[#48])
+*** Designed the logo. (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/77[#77])
+*** Designed the mock-up UI.
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Added GUI and User Guide writing instructions of the User Guide: (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/134[#134])
+** *Enhancements to existing features:*
+*** Refactored and expanded TypicalItems to be used by J-Unit Testing. (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/219[#219])
+*** Make the ResultDisplay resizable. (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/184[#184])
 
 == Contributions to the User Guide
 
-
 |===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|_You can refer to parts of my changes to the User Guide below, including some GUI components and reminder components._
 |===
 
-include::../UserGuide.adoc[tag=delete]
+include::../UserGuide.adoc[tag=retrieve]
 
-include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=setreminder]
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_The following section are parts of my changes to the Developer Guide. Hope you can understands my features from a more technical point of view._
 |===
 
+include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=setreminder]
-
-
-== PROJECT: PowerPointLabs
+include::../DeveloperGuide.adoc[tag=userinterface]
+//
+//
+//== PROJECT: PowerPointLabs
 
 ---
 
-_{Optionally, you may include other projects in your portfolio.}_
