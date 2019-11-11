@@ -7,12 +7,12 @@ import java.util.Objects;
 import javafx.collections.ObservableList;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.ReadOnlyExpenseList;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
 import seedu.address.model.exchangedata.ExchangeDataSingleton;
-import seedu.address.model.expense.Amount;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
 
 /**
  * Represents an expense in the expense list.

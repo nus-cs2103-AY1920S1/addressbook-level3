@@ -11,11 +11,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddExpenseCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.expense.Amount;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
 /**

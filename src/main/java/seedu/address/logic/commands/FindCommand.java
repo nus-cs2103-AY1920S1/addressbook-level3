@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.expense.NameContainsKeywordsPredicate;
+import seedu.address.model.commons.NameContainsKeywordsPredicate;
 
 /**
  * Finds and lists all expenses in expense list whose name contains any of the argument keywords.

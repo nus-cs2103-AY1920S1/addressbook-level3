@@ -1,11 +1,15 @@
 package seedu.address.model.expense;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.address.model.expense.Currency.DEFAULT_BASE_CURRENCY;
+import static seedu.address.model.commons.Currency.DEFAULT_BASE_CURRENCY;
 
 import java.util.Comparator;
 import java.util.Objects;
 
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
 import seedu.address.model.exchangedata.ExchangeDataSingleton;
 import seedu.address.model.tag.Tag;
 

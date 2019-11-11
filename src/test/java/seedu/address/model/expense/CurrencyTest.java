@@ -6,6 +6,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.commons.Currency;
 import seedu.address.model.exchangedata.ExchangeDataSingleton;
 
 public class CurrencyTest {

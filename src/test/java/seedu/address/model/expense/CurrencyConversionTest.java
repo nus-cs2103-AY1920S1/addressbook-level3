@@ -6,6 +6,8 @@ import static seedu.address.testutil.TypicalExpenses.VODKA;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
 import seedu.address.model.exchangedata.ExchangeDataSingleton;
 
 public class CurrencyConversionTest {

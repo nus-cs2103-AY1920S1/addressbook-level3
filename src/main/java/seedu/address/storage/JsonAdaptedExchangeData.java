@@ -2,18 +2,15 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
 import seedu.address.model.exchangedata.ExchangeData;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
-
 import seedu.address.model.rates.Rates;
 
 

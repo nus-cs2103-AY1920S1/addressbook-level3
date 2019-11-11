@@ -1,6 +1,6 @@
 package seedu.address;
 
-import static seedu.address.model.expense.Currency.DEFAULT_BASE_CURRENCY;
+import static seedu.address.model.commons.Currency.DEFAULT_BASE_CURRENCY;
 
 import java.io.IOException;
 import java.nio.file.Path;

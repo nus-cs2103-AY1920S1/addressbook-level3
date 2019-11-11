@@ -13,10 +13,10 @@ import seedu.address.logic.commands.AddBudgetCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ExpenseList;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.expense.Amount;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
-import seedu.address.model.expense.Name;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
 
 /**
  * Parses input arguments and creates a new AddBudgetCommand object

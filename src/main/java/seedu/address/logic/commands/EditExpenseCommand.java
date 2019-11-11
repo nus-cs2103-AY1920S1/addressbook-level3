@@ -18,11 +18,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ViewState;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.expense.Amount;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 
 /**

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.expense.Amount;
-import seedu.address.model.expense.Currency;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
 
 /**
  * Jackson-friendly version of {@link Currency}.

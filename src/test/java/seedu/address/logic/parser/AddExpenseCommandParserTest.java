@@ -30,11 +30,11 @@ import static seedu.address.testutil.TypicalExpenses.VODKA;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddExpenseCommand;
-import seedu.address.model.expense.Amount;
-import seedu.address.model.expense.Currency;
-import seedu.address.model.expense.Date;
+import seedu.address.model.commons.Amount;
+import seedu.address.model.commons.Currency;
+import seedu.address.model.commons.Date;
+import seedu.address.model.commons.Name;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ExpenseBuilder;
 
