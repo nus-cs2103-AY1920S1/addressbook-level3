@@ -198,23 +198,16 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            viewPanel.displayItems(logic.getCurrentFilteredItemList());
-            viewPanelPlaceholder.getChildren().remove(viewPanel.getRoot());
-            viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
-            allItemsPanel.displayItems(logic.getXpireItemList(), logic.getReplenishItemList());
-            allItemsPanelPlaceholder.getChildren().remove(allItemsPanel.getRoot());
-            allItemsPanelPlaceholder.getChildren().add(allItemsPanel.getRoot());
 
             if (commandResult.isShowHelp()) {
                 handleHelp();
-            }
-
-            if (commandResult.isExit()) {
+            } else if (commandResult.isExit()) {
                 handleExit();
-            }
-
-            if (commandResult.isShowQr()) {
+            } else if (commandResult.isShowQr()) {
                 handleExport(commandResult.getPngData());
+            } else {
+                updateViewPanel();
+                updateAllItemsPanel();
             }
 
             return commandResult;
@@ -223,5 +216,17 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
+    }
+
+    private void updateAllItemsPanel() {
+        allItemsPanel.displayItems(logic.getXpireItemList(), logic.getReplenishItemList());
+        allItemsPanelPlaceholder.getChildren().remove(allItemsPanel.getRoot());
+        allItemsPanelPlaceholder.getChildren().add(allItemsPanel.getRoot());
+    }
+
+    private void updateViewPanel() {
+        viewPanel.displayItems(logic.getCurrentFilteredItemList());
+        viewPanelPlaceholder.getChildren().remove(viewPanel.getRoot());
+        viewPanelPlaceholder.getChildren().add(viewPanel.getRoot());
     }
 }

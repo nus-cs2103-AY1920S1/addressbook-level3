@@ -17,7 +17,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 
-
 /**
  * The UI component that is responsible for receiving user command inputs.
  */
@@ -65,6 +64,7 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    //@@author xiaoyu-nus
     /**
      * Returns whether the commandBox has received a wrong command.
      */
@@ -134,6 +134,7 @@ public class CommandBox extends UiPart<Region> {
         };
         this.commandTextField.setTextFormatter(new TextFormatter<>(modifyChange));
     }
+    //@@author
 
     /**
      * Sets the command box style to use the default style.
