@@ -1,6 +1,5 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
@@ -25,16 +24,17 @@ public class AutoCompleteListHandler {
      * Generate final list to be set in autocomplete panel
      *
      * @param matchedWords Linkedlist of matched words
-     * @param segments Array of segments(splited by " ") of the full command in textfield
+     * @param parsedUserInputList list of parsed userinput {objectword, commandword, ...}
      * @return An observable list of final suggested autocomplete words
      */
-    public ObservableList<AutoCompleteWord> generateList(LinkedList<AutoCompleteWord> matchedWords, String[] segments) {
+    public ObservableList<AutoCompleteWord> generateList(LinkedList<AutoCompleteWord> matchedWords,
+                                                         LinkedList<String> parsedUserInputList) {
         // Choose initial list
         ObservableList<AutoCompleteWord> chosenList = chooseList(matchedWords);
         // Filter list based on previous matched words
         ObservableList<AutoCompleteWord> filteredList = filterList(matchedWords, chosenList);
         // Update list based on userinput
-        ObservableList<AutoCompleteWord> updatedList = updateList(matchedWords, filteredList, segments);
+        ObservableList<AutoCompleteWord> updatedList = updateList(matchedWords, filteredList, parsedUserInputList);
 
         return updatedList;
     }
@@ -78,24 +78,21 @@ public class AutoCompleteListHandler {
      * Update list of autocomplete words to be suggested according to current phrase in command box textfield
      *
      * @param matchedAutoCompleteWords Linkedlist of matched words
-     * @param currentList       List to be updated
-     * @param segments          Array of segments of the full command in textfield
+     * @param currentList List to be updated
+     * @param parsedUserInputList list of parsed userinput {objectword, commandword, ...}
      * @return updatedList
      */
     public ObservableList<AutoCompleteWord> updateList(LinkedList<AutoCompleteWord> matchedAutoCompleteWords,
                                                        ObservableList<AutoCompleteWord> currentList,
-                                                       String[] segments) {
-        LinkedList<String> firstSegmentParts = UserinputParserUtil.parseFirstSegment(segments[0]);
+                                                       LinkedList<String> parsedUserInputList) {
         ObservableList<AutoCompleteWord> updatedList = FXCollections.observableArrayList();
 
-        LinkedList<String> combinedList = new LinkedList<>(firstSegmentParts);
-        combinedList.addAll(Arrays.asList(segments).subList(1, segments.length));
-
-        if (matchedAutoCompleteWords.size() == combinedList.size()) {
+        if (matchedAutoCompleteWords.size() == parsedUserInputList.size()) {
             return currentList;
         } else {
             for (AutoCompleteWord autoCompleteWord : currentList) {
-                if (autoCompleteWord.getSuggestedWord().startsWith(combinedList.get(matchedAutoCompleteWords.size()))) {
+                if (autoCompleteWord.getSuggestedWord()
+                        .startsWith(parsedUserInputList.get(matchedAutoCompleteWords.size()))) {
                     updatedList.add(autoCompleteWord);
                 }
             }

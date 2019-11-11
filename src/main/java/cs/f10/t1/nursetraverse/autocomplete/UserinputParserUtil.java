@@ -1,11 +1,29 @@
 package cs.f10.t1.nursetraverse.autocomplete;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
  * Utility class for parsing userinput
  */
 public class UserinputParserUtil {
+
+    /**
+     * Parse and return user input (eg: pat-edit 1 n/jo) in a linkedlist in the following format
+     * {object word, command word, (if any) prefix/index word, (if any) prefix word, ...}
+     *
+     * @param currentPhraseInCommandBox string in command box text field
+     * @return combinedList a list containing parsed userinputs in the specified format
+     */
+    public static LinkedList<String> parse(String currentPhraseInCommandBox) {
+        String[] segments = splitIntoSegments(currentPhraseInCommandBox);
+        LinkedList<String> parsedFirstSegment = parseFirstSegment(segments[0]);
+
+        LinkedList<String> parsedList = new LinkedList<>(parsedFirstSegment);
+        parsedList.addAll(Arrays.asList(segments).subList(1, segments.length));
+
+        return parsedList;
+    }
 
     /**
      * Parse userinput by spaces

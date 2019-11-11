@@ -64,13 +64,13 @@ public class AutoCompletePanelManager implements UiObserver, DataSender {
      */
     public void updateListView(String currentPhraseInCommandBox) {
         // Pre-parse userinput before passing to list handling methods
-        String[] segments = UserinputParserUtil.splitIntoSegments(currentPhraseInCommandBox);
+        LinkedList<String> parsedList = UserinputParserUtil.parse(currentPhraseInCommandBox);
 
         // Check and update matched words
-        LinkedList<AutoCompleteWord> matchedWords = matchedWordUpdater.findMatchedWords(segments);
+        LinkedList<AutoCompleteWord> matchedWords = matchedWordUpdater.findMatchedWords(parsedList);
 
         // Generate list using autoCompleteListHandler and and set list in autoCompletePanel
-        autoCompletePanel.setList(autoCompleteListHandler.generateList(matchedWords, segments));
+        autoCompletePanel.setList(autoCompleteListHandler.generateList(matchedWords, parsedList));
     }
 
     @Override
