@@ -23,7 +23,7 @@ To make the application more user friendly, the application automatically switch
 ** Schedule commands (Logic) to complement the calendar display.
 ** Assisted to set up some parts in Model initially. (Order and Schedule)
 
-* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qiujiaaa&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense tP Code Dashboard]
+* *Code contributed*: https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=qiujiaaa&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=false[RepoSense tP Code Dashboard]
 ** Functional Code
 *** Calendar GUI (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/105[#105])
 *** Logic: Basic CRUD + other Schedule commands (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/115[#115], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/138/files[#138], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/162[#162], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/187[#187])

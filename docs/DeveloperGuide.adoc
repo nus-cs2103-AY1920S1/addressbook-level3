@@ -400,22 +400,32 @@ which is consistent with the unlimited number of `Tag` a `Customer` can hold.
 === Calendar / Schedule feature
 ==== Implementation
 
-We decided to incorporate a third party library, _JFXtras's Agenda_, to represent our schedules on a calendar for easy viewing by our users.
+===== Overview
+We decided to incorporate a third party library, _JFXtras's Agenda_, to represent our schedules on a calendar for easy viewing by our users. +
+The full documentation for `Agenda` can be found http://jfxtras.org/doc/8.0/jfxtras-agenda/index.html[here].
 
+===== Calendar Panel
+`CalendarPanel` is a wrapper class designed to contain `Agenda` for rendering events as a calendar. +
 Here is the class diagram for `CalendarPanel`:
 
 image::CalendarPanelClassDiagram.png[]
 
-On instantiation of `CalendarPanel`, all the schedules in scheduleList will be converted to `Appointments` and then added to `Agenda` via `populateAgenda()`.
-To set the display information of the `Schedule` object, we will find its `Order` in the orderList and retrieve its index.
+===== Integration with SML
+- On instantiation of `CalendarPanel`, all the schedules in scheduleList will be converted to `Appointments` and then added to `Agenda` via `populateAgenda()`.
+- To set the display information of the `Schedule` object, we will find its `Order` in the orderList and retrieve its index.
+- Date shown on the calendar will be today's date by default.
+- Adds a listener to `scheduleList`.
+- Adds a listener to `calendarDate`.
 
-Schedule supports a few main commands:
+===== Complementing CRUD commands
+SML supports a few main `Schedule` commands:
 
 * Add -- adds a new schedule into SML, command will be in this format: `add-s ORDER_INDEX cd/DATE ct/TIME v/VENUE [t/TAGS] [-allow]`
 * Edit -- edits an existing schedule in SML, command will be in this format: `edit-s ORDER_INDEX [cd/DATE] [ct/TIME] [v/VENUE] [t/TAGS] [-allow]`
 * Delete -- deletes an existing schedule in SML, command will be in this format: `delete-s ORDER_INDEX`
 * Schedule -- switches the view on the panel to the week containing the date entered, command will be in this format: `schedule cd/DATE`
 
+===== How the display works
 The schedules and date in the calendar panel shows is automatically updated depending on the commands executed by the users.
 For example:
 
@@ -423,16 +433,16 @@ For example:
 * If the user uses the switch-s command -- calendar panel will display the week with today's date.
 * If the user uses the schedule command -- calendar panel will display the week with the date requested by the user.
 
-Changes to the schedules are made in the model by editing its own scheduleList.
-`CalendarPanel` adds a listener to its `scheduleList` variable and listens to the changes and calls `populateAgenda()` to generate the updated list of `Schedules` into `Appointments` to add to `Agenda`.
+Changes to the schedules are made in the `Model` by editing its own scheduleList.
+`CalendarPanel` listens to the changes and calls `populateAgenda()` to generate the updated list of `Schedules` into `Appointments` to add to `Agenda`.
 
 The current date shown on the calendar panel is encapsulated in a `CalendarDate` object.
-The `CalendarDate` class uses `SimpleObjectProperty` to keep track of the Calendar (date).
+The `CalendarDate` class uses `SimpleObjectProperty` to keep track of the Calendar (date) to be displayed.
 
-When any of the schedule commands are executed, model will edit the `CalendarDate` object with the updated Calendar (date).
-`CalendarPanel` adds a listener to its `CalendarDate` variable and listens to the changes and calls `setAgendaView()` to set the new `Calendar` in `CalendarDate` accordingly.
+When any of the schedule commands are executed, model will edit `CalendarDate` with the updated Calendar (date).
+`CalendarPanel` listens to the changes and calls `setAgendaView()` to set the new `Calendar` in `CalendarDate` accordingly.
 
-Here is a sample of what happens when a user adds a schedule (AddScheduleCommand):
+Here is an example of what happens when a user adds a schedule (AddScheduleCommand):
 
 image::ScheduleCommandSequenceDiagram.png[]
 
