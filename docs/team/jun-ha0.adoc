@@ -8,20 +8,19 @@
 
 ====
 --
-image::jun-ha0.png[width="130", align="left"]
+image::jun-ha0.png[width="130", align="center"]
 --
-[blue]#This page serves as my _CS2103T_ project portfolio page on project *_Typee_*.# The following technologies
-and software were used in the development of *_Typee_* application:
+[blue]#This page serves as my _CS2103T_ project portfolio page on project *_Typee_*.# The following software were used in the development of *_Typee_* application:
 --
-image::java-logo.png[width="80", height="80", float="left"]
-image::javafx-logo.png[width="80", height="80", float="left"]
-image::junit5-logo.png[width="80", height="80", 66,70, float="left"]
-image::json-logo.png[width="80", height="80", 67,70, float="left"]
-image::travis-logo.png[width="80", height="80", 68,70,float="left"]
-//image::appveyor-logo.png[width="80", height="80", float="left"]
-//image::coveralls-logo.png[width="80", height="80", float="left"]
-image::github-logo.png[width="80", height="80"]
-
+image:java-logo.png[width="50", height="50"]
+image:junit5-logo.png[width="50", height="50"]
+image:json-logo.png[width="50", height="50"]
+image:travis-logo.png[width="50", height="50"]
+image:appveyor-logo.png[width="50", height="50"]
+image:github-logo.png[width="50", height="60"]
+image:javafx-logo.png[width="80"]
+image:coveralls-logo.png[width="80"]
+image:codacy-logo.png[width="100"]
 ====
 
 == PROJECT: Typee
@@ -39,7 +38,8 @@ manage appointments. Receptionists and secretaries possess one of the fastest ty
 productivity using the CLI-based *_Typee_*. The CLI application boosts productivity by having a comprehensive
 appointment management system with calendar view, pdf report generation, as well as a typing game.
 
-image::Ui.png[width="900", height="900"]
+.Graphical UserInterface of *_Typee_*
+image::Ui.png[width="900", height="900" align="center"]
 
 The sections below will cover the following:
 
@@ -112,7 +112,41 @@ displays my code contribution.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=game]
+//include::../UserGuide.adoc[tag=game]
+=== Typing game : `tab b/game`
+Changes the current window to the TypingGame window which has a kbd:[Start] button.
+
+.Starting window of the TypingGame Window
+image::StartWindow.png[width="400"]
+Click the kbd:[Start] button to open the game in a new window.
+
+There are moving words that you can type in order to score points. Once you correctly type the specified word,
+the word disappears and the increase in points is reflected in the player information panel in the game window.
+
+.Sample game play
+image::GameWindow.png[width="300" float="left"]
+
+.Sample game play when game is over
+image::GameOver.png[width="300" float="left]
+
+[TIP]
+Press kbd:[SPACEBAR] or kbd:[Enter] to clear the text area which is located at the bottom of the screen.
+
+When you fail to type the word before the moving word reaches the bottom of screen, the decrease in health points
+is reflected in the player information panel in the game window.
+
+[NOTE]
+As the game progresses, the words move faster, hence increasing difficulty such that you can improve your typing speed.
+
+[WARNING]
+Closing the game midway would result in loss of in-game progress.
+
+After the health points reaches zero, `GAME OVER` is displayed as shown below.
+
+
+Once the game is over, you can manually close the application by clicking the kbd:[x] on the top right hand corner of the window.
+If you want to play the game again, click the kbd:[Start] button shown in the Start window.
+
 
 == Contributions to the Developer Guide
 
@@ -120,6 +154,77 @@ include::../UserGuide.adoc[tag=game]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=typinggame]
+=== Game Feature
+==== Implementation
+The game feature is implemented using the singleton pattern using the singleton class `GameWindow` which is created
+by button-click in `StartWindow`. This means that there can only be one `gameInstance` at any given time with the exception
+of the game being over.
+
+//image::GameActivityDiagram.png[float="left"]
+image::GameActivityDiagram.png[width="60%" align="center"]
+.Activity Diagram of the Game Window
+
+`GameWindow` has three main components `PlayerInformation`, `GameBody` and `Player`.
+
+.Structure of the Game Window
+image::GameWindowClassDiagram.png[align="center"]
+
+The component `GameBody` makes use of `javafx.animation.AnimationTimer` API to continuously loop `MovingWords` objects moving from top
+to bottom of the window using `GameBody#loopWords()`. `MovingWords` are created using
+`HighlighterUtil#convertToTextFlowUsing(String word)`
+, which appears as a `TextFlow` object of `javafx.scene.text` API.
+
+Player input is represented as  a `javafx.beans.property.StringProperty` in `Player`.
+Based on player input, `MovingWords` are updated using
+`HighlighterUtil#convertToTextFlowUsing(String playerInput, String word)`
+, which appears as a highlighted `TextFlow` object. In order to update the `MovingWords` object, the API
+`javafx.animation.AnimationTimer` is used by calling `MovingWords#continuouslyUpdate()`.
+
+The component `PlayerInformation` is bound to `Player` using `javafx.beans.property` API and is also updated when
+`MovingWords#continuouslyUpdate()` is called.
+
+The table below summarises the various purposes of the 3 main Game Window UI components.
+
+.Game Window UI Components
+[%header, cols=4*]
+|===
+|
+|UI Component Type
+|Feature
+|Purpose
+
+| `PlayerInformation`
+| Scrollable Stack Pane
+| Displays the user's score and health points.
+| To inform user about the in-game progress.
+
+| `GameBody`
+| AnchorPane
+| Displays the animation of the game.
+| To allow the user to view the animation of the moving words in a continuous manner.
+
+| `MovingWords`
+| Scrollable Stack Pane
+| Displays the individual word.
+| To allow user to know the next word to type.
+|===
+
+==== Design Considerations
+
+===== Aspect: Singleton pattern design of Game Window
+
+* **Alternative 1 (current choice):** Game Window with Singleton pattern design
+** Pros: +
+*** Prevent users from instantiating multiple Game Windows which may cause performance issues or even cause the application
+to crash.
+** Cons:
+*** Reduced testability as it is difficult to replace Singleton objects with stubs, and increased coupling across code base.
+
+* **Alternative 2:** Game Window without Singleton pattern design
+** Pros: Increased testability and reduced coupling.
+** Cons: There could be the risk of users being able to instantiate hundreds or thousands of GameWindows which would cause
+performance issues or application crash issues.
+
+//include::../DeveloperGuide.adoc[tag=typinggame]
 
 include::../DeveloperGuide.adoc[tag=use-case-game]
