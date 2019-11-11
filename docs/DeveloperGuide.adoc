@@ -616,7 +616,7 @@ The following sequence diagram shows how the `add` extension operation works:
 
 image::AddSequenceDiagram2.png[width="500"]
 
-The following activity diagram summarises the workflow of Add:
+The following activity diagram summarises the workflow of Add extension:
 
 image::AddActivitySequenceDiagram2.png[width="350"]
 
