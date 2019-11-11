@@ -21,8 +21,9 @@ By: `DukeCooks`      Since: `Sep 2019`      Licence: `MIT`
 
 === Who are we?
 
-DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals. DukeCooks
-runs on the Command-Line Interface (CLI), allowing you to execute different commands, all within a single line.
+DukeCooks is a revolutionary lifestyle application, specially designed for health-conscious individuals.Targeting busy
+students that are long-time users of the Command-Line Interface (CLI), DukeCooks offers such users a CLI healthy
+lifestyle application. This means, expert-CLI student users will be able to execute different commands, all within a single line.
 You will be able to manage various aspects of your lifestyle, from your diet, to exercises and health records.
 
 You can use DukeCooks to manage all your lifestyle needs, all within one single app.
@@ -61,6 +62,17 @@ guide.
 Want a quick summary of all the available commands? You can find them at our <<Command Summary, Command Summary>>
 section.
 
+== Quick Start
+
+.  Ensure you have Java `11` or above installed in your Computer.
+.  Download the latest `DukeCooks` from here (Include link).
+.  Copy the file to the folder you want to use as the home folder for DukeCooks.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
+
+.  Refer to <<Features>> for details of each command.
+
 === Quick Look at DukeCooks
 
 Welcome to DukeCooks! The only planner you ever need for a healthier lifestyle! +
@@ -84,17 +96,6 @@ Start making a task list for the things you plan to do and never have to forget 
 * Workout Planner - Create custom workouts and track your progress!
 * Health - (Fill in a simple line for your feature?)
 * Diary - Create diary posts to share with your friends and family!
-
-== Quick Start
-
-.  Ensure you have Java `11` or above installed in your Computer.
-.  Download the latest `DukeCooks` from here (Include link).
-.  Copy the file to the folder you want to use as the home folder for DukeCooks.
-.  Double-click the file to start the app. The GUI should appear in a few seconds.
-+
-image::Ui.png[width="790"]
-
-.  Refer to <<Features>> for details of each command.
 
 == Commands
 === General
@@ -127,7 +128,8 @@ Delete commands will be used to delete a specific entry within DukeCooks.
 Clear commands will be used to clear all saved data.
 
 === Breaking down the Dashboard
-For first time users of the CLI, working with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
+Although DukeCooks is developed for expert CLI users, beginners fret not as DukeCooks' interface is very easy to pick up.
+For first time users of the CLI, we acknowledge that working with it can be a daunting task. So, let's first start off by understanding what makes up the Dashboard!
 
 In the image below (Figure 1), accompanied with text on the right, provides a brief explanation of the key components found in the Dashboard.
 
@@ -156,7 +158,8 @@ Format: `add task tn/_insert task here_ td/ _insert date here_`
 
 [NOTE]
 ====
-When entering the date for a task, please follow the given format: day/month/year
+Task name entered should not exceed 30 characters.
+When entering the date for a task, please follow the given format: day/month/year.
 ====
 
 Example usage (Figure 3.3.2a & 3.3.3b): `add task tn/Bake CupCakes td/11/11/2019`
@@ -293,14 +296,14 @@ Step 4. You can view the task relating to the keyword under the Dashboard.
 [caption="Figure 3.2.6b: "]
 image::findtask2.png[width="500"]
 
-==== pass:[<u>Viewing completed/incompleted tasks</u>]
+==== pass:[<u>Viewing completed/incomplete tasks</u>]
 
 Look at all those tasks!
 
 To view completed tasks: +
 Command: `list taskcomplete`
 
-For incompleted tasks: +
+For incomplete tasks: +
 Command: `list taskincomplete`
 
 ==== pass:[<u>Postponing a task's date</u>] `Coming in v2.0`
@@ -1382,6 +1385,8 @@ Create a workout to be added in to your schedule that will show up in your dashb
 Now you know all there is to the workout planner! What are you waiting for? Go out there and put your
 gym membership to use!
 
+// tag::diary[]
+[[DiaryTag]]
 === Diary
 
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
@@ -1638,6 +1643,7 @@ Examples:
 
 * `link records BP129391 /to Healthy Living` +
  Creates a health page about “BP129391” and adds it to the diary named “Healthy Living”
+// end::diary[]
 
 == Command Summary
 

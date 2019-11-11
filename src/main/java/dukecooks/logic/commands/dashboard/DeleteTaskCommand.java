@@ -21,8 +21,9 @@ public class DeleteTaskCommand extends DeleteCommand {
     public static final String VARIANT_WORD = "task";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the displayed task list. \n"
-            + "Parameters: INDEX (must be a positive integer)\n";
+            + "delete : Deletes the task identified by the index number used in the displayed task list. \n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 1";
 
     private static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
@@ -37,6 +38,10 @@ public class DeleteTaskCommand extends DeleteCommand {
         requireNonNull(model);
         List<Dashboard> lastShownList = model.getFilteredDashboardList();
 
+        // Navigate to dashboard tab
+        Event event = Event.getInstance();
+        event.set("dashboard", "all");
+
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -46,10 +51,6 @@ public class DeleteTaskCommand extends DeleteCommand {
         if (taskToDelete.getTaskStatus().getDoneStatus()) {
             throw new CommandException(Messages.MESSAGE_INVALID_TASK_IS_COMPLETE);
         }
-
-        // Navigate to dashboard tab
-        Event event = Event.getInstance();
-        event.set("dashboard", "all");
 
         model.deleteDashboard(taskToDelete);
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));

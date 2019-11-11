@@ -31,10 +31,10 @@ Responsibilities: Recipe Book
 
 === Liew Jun Wei
 image::bigjunnn.png[width="150", align="left"]
-{empty}[http://github.com/bigjunnn[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/bigjunnn[github]] [<<liewjunwei#, portfolio>>]
 
 Role: Documentation +
-Responsibilities: Food Diary
+Responsibilities: Diary
 
 '''
 
