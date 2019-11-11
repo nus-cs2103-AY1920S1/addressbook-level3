@@ -8,3 +8,5 @@ buff pikachu PNG: https://picsart.com/i/sticker-pikachu-buff-freetoedit-27396218
 statistics-icon.png: https://www.pngsee.com/maxp/iibbTh/
 bag-icon.png: https://www.pngsee.com/maxp/hhJxxmx/
 github-mark.png: https://github.com/logos
+switch-icon.png: https://www.pngsee.com/maxp/iRiJTmo/
+misc-icon.png: https://www.pngsee.com/maxp/hhmhwJT/
