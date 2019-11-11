@@ -1,7 +1,16 @@
 = Jonathan Tjendana - Project Portfolio
 :site-section: AboutUs
+:icons: font
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:warning-caption: :warning:
+endif::[]
 
 == PROJECT: MoneyGoWhere
 
@@ -95,11 +104,11 @@ include::../UserGuide.adoc[tag=export]
 | Listed below are sections I contributed to the Developer Guide. This includes the features section for Import and Export, and the components for UI, model and storage section.
 |===
 
-include::../DeveloperGuide.adoc[tag=Ui]
-
-include::../DeveloperGuide.adoc[tag=model]
-
-include::../DeveloperGuide.adoc[tag=storage]
+//include::../DeveloperGuide.adoc[tag=Ui]
+//
+//include::../DeveloperGuide.adoc[tag=model]
+//
+//include::../DeveloperGuide.adoc[tag=storage]
 
 include::../DeveloperGuide.adoc[tag=import]
 
