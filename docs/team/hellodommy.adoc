@@ -79,12 +79,9 @@ certain tags to be filtered out of the general athlete list.
 * Highlights: This enhancement provides the necessary framework for further types of filtering, such as by
 gender or location.
 
-*Code contributed:* Please click these links to see a sample of my code:
-https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/src/main/java/seedu/address/model/performance/Event.java[[Functional code]]
-https://github.com/AY1920S1-CS2103T-T12-3/main/blob/master/src/test/java/seedu/address/logic/commands/EventCommandTest.java[[Test Code]]
-
-A compilation of all the code I contributed can be found
-https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hellodommy&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[here].
+*Code contributed:* The links provided are a compilation of my code contributed to the project:
+https://github.com/AY1920S1-CS2103T-T12-3/main/commits?author=hellodommy[[GitHub repository]]
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=hellodommy&tabRepo=AY1920S1-CS2103T-T12-3%2Fmain%5Bmaster%5D[[RepoSense]]
 
 *Other contributions*
 
@@ -102,8 +99,8 @@ of the product, prior to the final v1.4 release
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64],
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/84[#84])
 * Documentation
-** Modified the colour scheme of the documentation for consistency with *Athletick*'s dark blue (Pull
-request
+** Modified the colour scheme of the documentation for consistency with *Athletick*'s signature dark blue
+(Pull request
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/79/files[#79])
 ** Added Developer Guide documentation for `filter`, `[green]#Performance#` and `[green]#Storage#` (Pull requests
 https://github.com/AY1920S1-CS2103T-T12-3/main/pull/83[#83],
