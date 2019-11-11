@@ -21,6 +21,10 @@ By: `AY1920S1-CS2103T-W12-3`      Since: `SEPT 2019`      Licence: `MIT`
 PalPay is for those who *prefer to use a desktop app for managing personal finances*.
 More importantly, PalPay is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI).
 If you can type fast, PalPay can get your finance management tasks done faster than traditional GUI apps.
+
+.PalPay's Graphical User Interface
+image::dg_gui_example.png[]
+
 This User Guide is written for the users of PalPay as an introductory document of the application.
 You are strongly encouraged to read this document before using the application to enjoy the full functionality of the application.
 Ready to start your journey to financial freedom?
@@ -97,6 +101,7 @@ Example: If the command specifies `$/AMOUNT n/ITEM`, `n/ITEM $/AMOUNT` is also a
 * Parameters that need to be concatenated together are represented as `PARAM+PARAM`. +
 Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a space, such as `t1`.
 
+[[Parameter-constraints]]
 * *Parameter Constraints* :
 +
 [width="100%",cols="30%,20%,<50%",options="header",]
@@ -117,6 +122,7 @@ Example: `TYPE+INDEX` refers to joining `TYPE` and `INDEX` together without a sp
 
 ====
 
+// tag::in[]
 [[In]]
 === Logging Income : `in`
 
@@ -180,6 +186,9 @@ image::in_ug_4.png[]
 * `in $/250.50 d/29022020 n/mom c/family`
 * `in $/120 d/31122019 n/helping friend`
 
+//end::in[]
+
+//tag::out[]
 [[Out]]
 === Logging Expense : `out`
 
@@ -284,6 +293,11 @@ image::out_ug_8.png[]
 * `out $/29 d/29022020 n/taxi c/transport`
 * `out $/12 d/31122019 n/burger`
 
+=======
+//end::out[]
+
+// tag::set[]
+
 [[Set]]
 === Setting a Budget : `set`
 
@@ -294,10 +308,12 @@ If you attempt to do so, you will receive an error message: `This budget already
 Format: `set $/AMOUNT d/DATE [c/CATEGORY]...`
 
 ****
-* `AMOUNT` input accepts the new budget amount to be set. This amount must be non-negative, non-zero and
-less than 1,000,000.
+Paramters follow the same restrictions as highlighted in <<Parameter-constraints, parameter constraints>>. +
+
+* `AMOUNT` input accepts the budget amount to be set.
 * `DATE` input accepts the deadline to be set. It cannot be a date in the past.
-* `CATEGORY` accepts the CATEGORY for the budget. A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
+* `CATEGORY` accepts the CATEGORY for the budget.
+A budget can be created without `CATEGORY` inputs in which case, the budget will automatically be assigned `GENERAL' category.
 ****
 
 Let's say you want to restrict your spending for a certain category until a certain deadline.
@@ -311,7 +327,25 @@ To set a new budget: +
 4. Now you can see the newly set budget in the budget list.
 
 As you make an *OutTransaction* of a particular `CATEGORY`, your budgets with the same `CATEGORY` will be adjusted
-to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted.
+to display the remaining amount of budget. Other budgets in the list belonging to different `CATEGORY` will not be adjusted. +
+
+For example, you went out with your friends and bought a cup of Gong Cha.
+Before you log your spending, your budget list looks like this:
+
+.Budget List before Executing OutTransaction
+image::approachingBudget.png[]
+
+You then type in the command `out $/5 c/BBT c/friends n/gong cha d/11112019`.
+
+.New OutTransaction Command
+image::newOutTransaction.png[]
+
+Your budget list now shows the updated budgets. Observe how Budget 3 is not affected because it does not belong to the relevant *category*.
+
+.Updated Budget List
+image::budgetAffected.png[]
+
+
 Budget will not take into consideration past *OutTransaction* when calculating the remaining budget. Remember, you are setting a budget
 from TODAY till the stated `DATE` (inclusive)! +
 
@@ -332,7 +366,7 @@ Examples:
 
 * `set $/100 d/010120120 c/BBT`
 * `set $/300 d/29022020 c/shopping`
-
+// end::set[]
 
 // tag::split[]
 
@@ -352,12 +386,13 @@ field to determine nature of bill.
 ** each person's share is assigned in order
 *** i.e. last person's share is the last share listed
 ** shares cannot be negative numbers
+** *shares can be 0 but result is not guaranteed to be meaningful*
 ====
 
 ===== Ledger GUI
 
 .Sample Ledger Graphical User Interface
-image::LedgerUI.png[]
+image::LedgerUI.png[pdfwidth=60%]
 
 This is how the *Ledger* looks when you switch to the *Ledger* tab. +
 The left shows the people who has unresolved balances with you, while the right lists
@@ -374,12 +409,12 @@ at the bottom right corner.
 . Enter appropriate command into the command line.
 +
 .Splitting evenly
-image::SplitEven1.png[]
+image::SplitEven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Splitting evenly (result)
-image::SplitEven2.png[]
+image::SplitEven2.png[pdfwidth=70%]
 +
 For an even split of $1000, each person pays $200. Therefore *Ledger* shows $200 on the tab of each person.
 *Ledger* balance does not include the amount spent by the user. In this bill, the user is owed $800 in total
@@ -392,12 +427,12 @@ from the rest of his friends. Therefore *Ledger* balance is -$800, as shown in t
 . Enter appropriate command into the command line.
 +
 .Splitting unevenly
-image::SplitUneven1.png[]
+image::SplitUneven1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly
 +
 .Uneven split results
-image::SplitUneven2.png[]
+image::SplitUneven2.png[pdfwidth=70%]
 // end::split[]
 
 // tag::receive[]
@@ -416,12 +451,12 @@ Format: `receive $/AMOUNT n/NAME1 [d/DATE] [a/DESCRIPTION]`
 . Enter appropriate command into the command line.
 +
 .Receive payment
-image::Receive1.png[]
+image::Receive1.png[pdfwidth=70%]
 +
 . Result is displayed accordingly.
 +
 .Receive payment result
-image::Receive2.png[]
+image::Receive2.png[pdfwidth=70%]
 +
 Albert is removed from the *Ledger* since he no longer owes any money. *Ledger* balance is also updated accordingly.
 //end::receive[]
@@ -678,7 +713,12 @@ image::delete_ug_3.png[]
 * `delete l2`
 * `delete p4`
 
+//end::delete[]
+
 [[Update]]
+
+//tag::update[]
+
 === Updating Finance : `update`
 
 Did you make a mistake in one of your entries? Perhaps you over counted that expenditure you made. PalPay provides you with an `update` feature which helps you change specific fields within your entries.
@@ -777,6 +817,8 @@ image::update_ug_11.png[]
 * `update t1 $/20 n/coke c/drinks d/12122019`
 * `update b2 $/300`
 * `update t4 $/30 d/12102019`
+
+//end::update[]
 
 [[Sort]]
 // tag::sort[]
