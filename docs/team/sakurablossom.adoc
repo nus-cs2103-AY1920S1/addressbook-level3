@@ -83,12 +83,10 @@ search results as the user is giving new inputs.
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sakurablossom&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=SakuraBlossom&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Functional code]]
 [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sakurablossom&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=SakuraBlossom&tabRepo=AY1920S1-CS2103T-T09-3%2Fmain%5Bmaster%5D[Test code]] +
 
-
-{YET TO DO}
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+*** Managed releases `v1.1` and `v1.2` (2 releases) on GitHub
 
 ** Enhancements to existing features:
 *** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
@@ -101,8 +99,7 @@ search results as the user is giving new inputs.
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
 *** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Set up travis
 
 _{you can add/remove categories in the list above}_
 
