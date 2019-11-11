@@ -298,7 +298,7 @@ Example:
 
 * `edituser n/Alice p/91239123 a/Kent Ridge Drive em/alice@gmail.com r/Student`
 
-image::ugalvin/edituser.png[width=100%]
+image::scheduler/edituser.png[width=100%]
 
 After editing our profile, this is what we should see!
 
@@ -330,7 +330,7 @@ Example:
 
 * `addperson n/Fred p/91234567 em/fred@example.com a/kent ridge drive r/friend tag/Friends tag/Colleague`
 
-image::ugalvin/addperson.png[width=100%]
+image::scheduler/addperson.png[width=100%]
 
 After adding `Fred` into the TimeBook, his name will appear on the list of people on tabs in the side panel!
 
@@ -365,7 +365,7 @@ Example:
 
 * `editperson ed/Fred n/Freddie p/85868784 r/best friend tag/bestfriend`
 
-image::ugalvin/editperson.png[width=100%]
+image::scheduler/editperson.png[width=100%]
 
 After editing a person, this is what you will see! Freddie's details has been updated accordingly!
 
@@ -392,7 +392,7 @@ Examples:
 
 * `deleteperson n/Freddie`
 
-image::ugalvin/deleteperson.png[width=100%]
+image::scheduler/deleteperson.png[width=100%]
 
 As you can see, after deleting Freddie, he is removed from our persons tab!
 
@@ -526,7 +526,7 @@ Example:
 
 * `addevent n/Bobby e/Project Meeting t/10112019-1200-1400-COM1 t/13112019-1000-1200-AS6`
 
-image::ugalvin/addevent.png[width=100%]
+image::scheduler/addevent.png[width=100%]
 
 After adding the event into our TimeBook, Bobby's schedule is automatically updated!
 
@@ -557,7 +557,7 @@ Example:
 
 * `deleteevent n/Bobby e/CS2105`
 
-image::ugalvin/deleteevent.png[width=100%]
+image::scheduler/deleteevent.png[width=100%]
 
 After deleting that event from TimeBook, Bobby's schedule is automatically updated!
 
@@ -585,7 +585,7 @@ Example:
 
 * `schedule n/Bobby n/Charlie`
 
-image::ugalvin/schedule.png[width=100%]
+image::scheduler/schedule.png[width=100%]
 
 When executing the command, TimeBook will calculate the free time slots among the schedule members!
 
@@ -625,7 +625,7 @@ Example:
 
 * `addgroup g/CS2103 d/A CS2103 project group role/Leader`
 
-image::ugalvin/addgroup.png[width=100%]
+image::scheduler/addgroup.png[width=100%]
 
 When a new group is added, it is automatically added into the list of groups!
 
@@ -651,7 +651,7 @@ Example:
 
 * `editgroup ed/CS2103 g/CS3203 d/A CS3203 project group role/Member`
 
-image::ugalvin/editgroup.png[width=100%]
+image::scheduler/editgroup.png[width=100%]
 
 When a group is edited, it is automatically updated as shown above!
 
@@ -678,7 +678,7 @@ Example:
 
 * `addtogroup n/Denise g/CS3203 role/Manager`
 
-image::ugalvin/addtogroup.png[width=100%]
+image::scheduler/addtogroup.png[width=100%]
 
 When a new person is added into the group, it automatically updates the group's schedule as well!
 
@@ -708,7 +708,7 @@ Example:
 
 * `deletefromgroup n/Charlie g/CS3203`
 
-image::ugalvin/deletefromgroup.png[width=100%]
+image::scheduler/deletefromgroup.png[width=100%]
 
 When a person is removed from the group, the group's schedule will automatically be updated as well!
 
@@ -736,7 +736,7 @@ Example:
 
 * `deletegroup g/CS3203`
 
-image::ugalvin/deletegroup.png[width=100%]
+image::scheduler/deletegroup.png[width=100%]
 
 Deleteing a group will automatically update your groups tab!
 
@@ -878,7 +878,7 @@ We have also integrated this service with GoogleMaps and shows you the location 
 
 The figure below shows how a pop up window will look like!
 
-image::ugalvin/selectpopup.png[width=100%]
+image::scheduler/selectpopup.png[width=100%]
 
 After you have viewed the time slot details, simply press the `ESC` key on your keyboard, and it will close the pop up!
 You will never have to touch your mouse!
@@ -888,7 +888,7 @@ will not be shown on the map!
 
 The following shows some example usage!
 
-image::ugalvin/select1.png[width=100%]
+image::scheduler/select1.png[width=100%]
 
 When a group's schedule is shown, each members time slots are colour coded as shown above.
 Each time slot is also labeled with an ID for easy reference!
@@ -902,7 +902,7 @@ Example:
 After executing that command, a pop up will be shown just like the one above!
 
 
-image::ugalvin/select2.png[width=100%]
+image::scheduler/select2.png[width=100%]
 
 When a person's schedule is shown, each events are colour coded as shown above.
 Each time slot is also labeled with an ID for easy reference! The name of the event is also shown!
@@ -915,7 +915,7 @@ Example:
 
 After executing that command, a pop up will be shown just like the one above!
 
-image::ugalvin/select3.png[width=100%]
+image::scheduler/select3.png[width=100%]
 
 When the home page is shown, you can select each time slot on the list! Do note that the first time slot on the list
 will have `ID:1` and the following time slots will follow with the next number. We chose to omit the number so you have

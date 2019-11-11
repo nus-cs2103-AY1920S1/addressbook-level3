@@ -244,7 +244,7 @@ object to get the `Person` object specified by the `Name` object.
 
 The following sequence diagram shows how the ScheduleCommand is executed:
 
-image::ugalvin/scheduleGeneratorSequenceDiagram1.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram1.png[width=100%]
 
 * `Step 4`: Generate the Schedule
 ** `ModelManager` calls the `ScheduleManager#updateScheduleWithPersons` method with the List of `Persons`
@@ -262,7 +262,7 @@ such as previous location data of each person, start time and end time.
 
 The following sequence diagram shows how the `ScheduleDisplay` is generated:
 
-image::ugalvin/scheduleGeneratorSequenceDiagram2.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram2.png[width=100%]
 
 * `Step 6`: Return feedback to user
 -	The `ScheduleCommand` has finished executing and returns a `CommandResult` with the feedback to user
@@ -274,7 +274,7 @@ Schedules of a `Person` or a `User` as well.
 The following activity diagram summarizes what happens when the `ScheduleManager` is invoked to
 generate a `ScheduleDisplay`:
 
-image::ugalvin/scheduleGeneratorActivityDiagram.png[width=100%]
+image::scheduler/scheduleGeneratorActivityDiagram.png[width=100%]
 
 ==== Design Considerations
 

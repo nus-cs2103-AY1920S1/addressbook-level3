@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Alvin Ng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -14,6 +14,10 @@ My team was tasked with enhancing a basic command line interface desktop address
 We chose to morph it into scheduler application called *TimeBook*. Our application aims to help NUS (National University of Singapore) students
 keep track of their schedules and that of their peers. It has unique features such as NUSmods integration, GoogleMaps enabled location suggestion service,
 as well as the ability to generate common free time slots among the a group of individual schedules.
+
+*TimeBook*
+
+image::scheduler/homepage.png[]
 
 My main role was to design a model for users to input their schedules, as well as the schedules of their peers.
 I also implemented an algorithm that generates a combined schedule of a group of schedules that shows the overview
@@ -38,6 +42,10 @@ people, deconflicting the schedules and shows which are the time slots where eve
 ** *Highlights*:
 *** This feature works closely with external data sources such as NUSMods API(Application Programming Interface) to
 easily import their NUSmod timetables, as well as GoogleMaps API to show to the user the location of each of the time slots.
+
+*A combined schedule:*
+
+image::scheduler/schedulerdemo.png[]
 
 * *Minor enhancement*: added a select command that allows the user to navigate each time slot on the schedule
 
