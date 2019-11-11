@@ -3,6 +3,7 @@
 :toc:
 :toc-title:
 :toc-placement: preamble
+:toclevels: 3
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
@@ -38,7 +39,7 @@ Here are a few steps to get you started on Mark: +
 //TODO: update UI screenshot
 +
 .GUI for Mark
-image::Ui.png[width="790"]
+image::Ui.png[]
 +
 // TODO: move this part to <<Using Mark>>
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
@@ -251,6 +252,20 @@ save manually.
 
 Format: `*export* [FILENAME]`
 
+For example:
+
+* If you want a quick way to save your current bookmarks before modifying them,
+you can input `*export* myBookmarks` into the command box.
++
+image::ui-screenshots/ExportCommandUi1.png[]
+
+* Mark displays a confirmation message, and you can verify that your Mark data
+has been exported to the folder `/data/bookmarks/myBookmarks.json`.
++
+// not sure if we should show a screenshot of the directory
+image::ui-screenshots/ExportCommandUi2.png[]
+
+Parameter constraints:
 ****
 * {blank}
 +
@@ -261,25 +276,48 @@ Format: `*export* [FILENAME]`
 If the given file already exists, it is overwritten.
 ****
 
-Example:
+Another example:
 
-* `*export* myBookmarks` +
-Exports all bookmark manager data to a file named `mark/data/bookmarks/myBookmarks.json`
-(assuming `mark.jar` is stored in the folder `mark`). The content of `myBookmarks.json`
+* `*export* CS2103TStuff` +
+Exports all bookmark manager data to a file named `mark/data/bookmarks/CS2103TStuff.json`
+(assuming `mark.jar` is located in the folder `mark`). The content of `CS2103TStuff.json`
 is identical to the current content of `mark.json`.
 // end::exportcommand[]
 
 ==== Importing bookmarks: *`import`*
 
-This command imports bookmarks from a file on the hard disk to Mark. A bookmark is, by default, imported
-into a folder with the same name as its original folder (even if the folder
+If you need a way to re-add bookmarks to Mark after deleting them and closing the application,
+the `*import*` command will help you along. This command imports bookmarks from JSON files
+like those produced by `*export*`.
+
+A bookmark is, by default, imported into a folder with the same name as its original folder (even if the folder
 structure is different). If no such folder is found, the bookmark will be imported
 into the folder `ImportedBookmarks`.
 
-Bookmarks with the same name or URL as existing bookmarks are not imported.
+NOTE: Bookmarks with the same name or URL as existing bookmarks are not imported.
 
 Format: `*import* FILENAME`
 
+For example:
+
+* Let's say you originally have many CS2103T bookmarks that you exported to a file named `CS2103TStuff`.
++
+// show the bookmarks, or maybe "succesfully exported"
+image::ui-screenshots/ImportCommandUi0.png[]
+
+* If you accidentally delete all of the bookmarks _and_ exit from Mark before realising that you
+still need them for finals, you can input `*import* CS2103TStuff` to add them back.
++
+// show a limited set of Mark sample data - i.e. 2103 things are gone
+image::ui-screenshots/ImportCommandUi1.png[]
+
+* You can then rest assured that all of your bookmarks are back in their respective folders, ready for
+your use.
++
+// show that 2103 things have been put back
+image::ui-screenshots/ImportCommandUi2.png[]
+
+Parameter constraints:
 ****
 * `FILENAME` is case sensitive and should not include the file extension. E.g.
 `myBookmarks` and not `myBookmarks.json`
@@ -290,11 +328,6 @@ Format: `*import* FILENAME`
 to the JSON files produced by `*export*`.
 ****
 
-Example:
-
-* `*import* myBookmarks` +
-Assuming `mark.jar` is stored in the folder `mark`, imports bookmarks from the
-file `mark/data/bookmarks/myBookmarks.json`.
 
 ==== Clearing all data: *`clear`*
 
@@ -430,14 +463,14 @@ Other examples:
 * `*add* u/https://nus-cs2103-ay1920s1.github.io/website/ n/Module Website
 f/CS2103T r/Contains textbook & important deadlines`
 +
-image::ui-screenshots/AddCommandExample1.png[Add Module Website command result, 300]
+image::ui-screenshots/AddCommandExample1.png[]
 +
 Bookmarks the given website, names it `Module Website`, and adds it to the folder `CS2103T`.
 The new bookmark's remark is `Contains textbook & important deadlines`, as seen above.
 
 * `*add* u/https://www.youtube.com/watch?v=9AMcN-wkspU n/IntelliJ Tips and Tricks t/video t/watchLater`
 +
-image::ui-screenshots/AddCommandExample2.png[Add IntelliJ Tips and Tricks command result, 300]
+image::ui-screenshots/AddCommandExample2.png[]
 +
 Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookmark's tags include
 `video` and `watchLater`.
@@ -712,27 +745,24 @@ Parameter constraints:
 // tag::autotags[]
 === Autotags
 
-_Autotags_ are tags that will be automatically applied to bookmarks which match their
-respective autotag conditions.
+_Autotags_ are tags that will be automatically applied to bookmarks that match their
+autotag conditions.
 You can view the details of existing autotags in the autotag panel at the bottom-right of
 the **Dashboard** tab, as seen below.
 
 .The autotag panel on the Dashboard tab
 image::ui-screenshots/AutotagPanel.png[]
 
-The commands in this section provide a way to add and remove autotags in Mark.
-
 // tag::autotagcommand[]
 [[Autotag-Command]]
 ==== Creating an automatic tag: *`autotag`*
 
-If you are looking to tag a group of similar bookmarks without manually editing each one, you
-can use the `autotag` command to create an autotag that will do that for you. You can define
-the group of bookmarks to be tagged using _conditions_, which describe the key characteristics
-of those bookmarks.
+If you want to tag a group of similar bookmarks without manually editing each one, you
+can use the `autotag` command to create an autotag to do it for you.
+You will need to define _conditions_ that describe the key characteristics of the bookmarks to be tagged.
 
 NOTE: Conditions fall into two categories: _normal conditions_, which are characteristics that
-bookmarks to be tagged should match, and _not-conditions_, which are conditions that bookmarks
+bookmarks to be tagged **should** match, and _not-conditions_, which are conditions that bookmarks
 should *not* match.
 
 You can specify conditions relating to the name, URL, and/or folder (also known as _attributes_)
@@ -749,27 +779,24 @@ For example:
 
 * To add a new autotag, input `*autotag* NUS n/NUS n/School n/Uni` into the command box.
 +
-// show dashboard and bookmark list, with some bookmarks named NUS/School/Uni but no tags
-// also show the command in the command box
 image::ui-screenshots/AutotagCommandUi1.png[]
 
 * You can then check that an autotag named `NUS` with three name conditions (`NUS`, `School`, and `Uni`)
 has been added to the autotag panel of the Dashboard. Also, notice that bookmarks with names
 that contain `NUS`, `School` or `Uni` now have the tag `NUS`.
 +
-// show updated dashboard and bookmark list, with the relevant bookmarks having been tagged
 image::ui-screenshots/AutotagCommandUi2.png[]
 
 [[autotag-parameter-constraints]]
 There are several restrictions on the usage of command parameters:
 ****
 * At least one condition (`n/`, `nn/`, `u/`, `nu/`, `f/`, or `nf/`) must be specified.
-* `TAG_NAME` should be a valid tag name. No existing autotag should have this tag name.
+* `TAG_NAME` should be a valid tag name that is not the name of an existing autotag.
 However, `TAG_NAME` can still be used as a normal tag. E.g. if an autotag `YouTube` matches
 bookmarks with URLs containing `youtube.com`, other bookmarks can still be
 tagged with the tag `YouTube`.
 * `NAME_KEYWORD` and `URL_KEYWORD` are used to match bookmarks in a similar way
-as the keywords in `*find*` (see <<finding-bookmarks>>). The only difference is that a single
+as the keywords in <<finding-bookmarks, `*find*`>>. The only difference is that a single
 keyword parameter can contain multiple words. E.g. `n/Module W` will match names
 `CS2103T Module Website` and `module work to do` but not `Future modules`.
 * `FOLDER` should be the exact name of a folder (case insensitive). E.g. `wiki` will match
@@ -779,27 +806,26 @@ URL keywords, or folder names that bookmarks to be tagged should *not* match.
 ****
 
 IMPORTANT: If an autotag's conditions contradict each other, no bookmarks will be tagged.
-E.g. an autotag with conditions `u/github.com/mark nu/github.com/` effectively does nothing as no
+E.g. an autotag with conditions `u/github.com/mark nu/github.com/` will do nothing as no
 bookmark can have a URL containing `github.com/mark` and not `github.com`.
 
-// TODO: move this somewhere else?
 [NOTE]
 ====
-If multiple conditions are specified, bookmarks are matched in the following way:
-    * For normal conditions (`n/`, `u/`, and `f/`), bookmarks that match at least one condition
-    within the same attribute type will be matched (i.e. OR search). E.g. `n/wiki n/comput` will match
+If multiple conditions are specified, bookmarks that meet the following requirements will be matched:
+
+    * Matches at least one condition within the same attribute type
+    for normal conditions (`n/`, `u/`, and `f/`) (i.e. OR search). E.g. `n/wiki n/comput` will match
     names `WikiHow` and `Computer Science`.
-    * For negative conditions (`nn/`, `nu/`, and `nf/`), bookmarks that match all of the conditions
-    within the same condition type are matched (i.e. AND search). E.g. `nf/Work nf/School` will
+    * Matches all conditions within the same condition type
+    for not-conditions (`nn/`, `nu/`, and `nf/`) (i.e. AND search). E.g. `nf/Work nf/School` will
     match bookmarks that are not in the folder `Work` and not in the folder `School`.
-    * Bookmarks that match all conditions across different condition types are matched. E.g. `n/web
+    * Matches all conditions across different condition types are matched. E.g. `n/web
     n/mod f/NUS` will match bookmarks with [names that match `web` and/or `mod`] AND [are in the
     folder `NUS`].
 ====
 
 Other examples:
 
-// TODO: add screenshots and improve descriptions
 * `*autotag* LumiNUS u/luminus.nus.edu.sg nf/Miscellaneous`
 +
 image::ui-screenshots/AutotagCommandExample1.png[]
@@ -812,7 +838,7 @@ containing `luminus.nus.edu.sg` that are not in the folder `Miscellaneous`.
 image::ui-screenshots/AutotagCommandExample2.png[]
 +
 Creates an autotag named `Quiz` which tags all bookmarks that are either in
-the folder `NUS` or in the folder `Module`, and that do not contain any of the
+the folder `NUS` or in the folder `Module`, and that do not contain the
 keywords `github` or `stackoverflow` in their URLs.
 // end::autotagcommand[]
 
@@ -828,7 +854,7 @@ Format: `*autotag-edit* TAG_NAME [t/NEW_TAG_NAME] [n/NAME_KEYWORD]... [u/URL_KEY
 
 For example:
 
-* To modify the autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
+* To modify an autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
 +
 image::ui-screenshots/AutotagEditCommandUi1.png[]
 
@@ -837,7 +863,7 @@ include the folder `CS2103T`.
 +
 image::ui-screenshots/AutotagEditCommandUi2.png[]
 
-The parameter constraints are similar to <<autotag-parameter-constraints, those for the `*autotag*` command>>,
+The parameter constraints are similar to <<autotag-parameter-constraints, the `*autotag*` command's>>,
 with the following differences:
 ****
 * There should only be one `NEW_TAG_NAME`.
@@ -863,13 +889,13 @@ Modifies the name of the autotag `Quiz` such that it now tags bookmarks with the
 ==== Deleting an automatic tag: *`autotag-delete`*
 
 If you no longer need an autotag, you can delete it from Mark using the `autotag-delete`
-command. None of your existing tags are affected when an autotag is deleted.
+command. None of your existing tags will be affected.
 
 Format: `*autotag-delete* TAG_NAME`
 
 For example:
 
-* If you want to delete the autotag `NUS`, input `*autotag-delete* NUS` into the command box.
+* To delete the autotag `NUS`, input `*autotag-delete* NUS` into the command box.
 +
 image::ui-screenshots/AutotagDeleteCommandUi1.png[]
 
@@ -882,14 +908,13 @@ Parameter constraints:
 ****
 * `TAG_NAME` should be the name of an existing autotag.
 ****
+// end::autotags[]
 
-Example:
+Another example:
 
 * `*autotag-delete* Quiz` +
  Deletes the autotag that would have tagged bookmarks that match its conditions
-with the tag `Quiz`. No existing tags are removed, but new and edited bookmarks
-will no longer be automatically tagged with `Quiz`.
-// end::autotags[]
+with the tag `Quiz`. New and edited bookmarks will no longer be automatically tagged `Quiz`.
 
 '''
 
@@ -1184,15 +1209,15 @@ Now you can use the `reminder` command to add a reminder to Luminus.
 
 To add a reminder:
 
-* The index of Luminus on reminder list is 1.
-You type the command `*reminder* 1 t/11/11/2019 1900 n/Do the quiz` into the command box and press _Enter_ to execute it.
+* The index of Luminus on reminder list is 2.
+You type the command `*reminder* 2 t/18/11/2019 2000 n/Do the quiz` into the command box and press _Enter_ to execute it.
 
 image::ui-screenshots/AddReminderUi1.png[400, 500]
 
 //The image of dashboard that shows the bookmark Luminus. before command: reminder 1 t/18/11/2019 2000 n/Do the quiz
 
 * The result box will show the message: +
-"New reminder added: Do the quiz Time: t/11/11/2019 1900 URL:https://luminus.nus.edu.sg/". +
+"New reminder added: Do the quiz Time: 18/11/2019 2000 URL:https://luminus.nus.edu.sg/". +
 And the reminder is added to the reminder list.
 
 image::ui-screenshots/AddReminderUi2.png[400, 500]
@@ -1238,10 +1263,10 @@ image::ui-screenshots/EditReminderUi1.png[400, 500]
 //The image of dashboard that shows the reminder for Luminus.
 
 * The result box will show the message: +
-"Edited Reminder: Do the quiz and the assignment Time: t/11/11/2019 1900 URL:https://luminus.nus.edu.sg/". +
+"Edited Reminder: Do the quiz and the assignment Time: 18/11/2019 2000 URL:https://luminus.nus.edu.sg/". +
 The reminder is edited in the reminder list.
 
-image::ui-screenshots/EditReminderUi2.png[400, 400]
+image::ui-screenshots/EditReminderUi2.png[400, 500]
 //The image of the result box
 
 There are some parameter constraints:
@@ -1283,10 +1308,10 @@ image::ui-screenshots/DeleteReminderUi1.png[400, 500]
 //The image of dashboard that shows the reminder for Luminus.
 
 * The result box will show the message: +
-"Deleted Reminder: Do the quiz and the assignment Time: 10/11/2019 0700 URL:https://luminus.nus.edu.sg/" +
+"Deleted Reminder: Do the quiz and the assignment Time: 18/11/2019 2000 URL:https://luminus.nus.edu.sg/" +
 The reminder is deleted in the reminder list.
 
-image::ui-screenshots/DeleteReminderUi2.png[400, 400]
+image::ui-screenshots/DeleteReminderUi2.png[400, 500]
 //The image of the result box
 
 Other examples:
@@ -1321,7 +1346,7 @@ image::ui-screenshots/GotoReminderUi1.png[400, 500]
 "Opening Reminder: Open Time: 07/12/2019 1000 URL: https://www.comp.nus.edu.sg/programmes/ug/cs/curr/" +
 The tab will switch to Online and show NUS Computing website.
 
-image::ui-screenshots/GotoReminderUi2.png[400, 400]
+image::ui-screenshots/GotoReminderUi2.png[400, 500]
 
 Other examples:
 

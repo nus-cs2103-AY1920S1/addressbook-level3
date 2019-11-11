@@ -1,128 +1,99 @@
 = Dorcas Tan - Project Portfolio
 :site-section: AboutUs
-:toc:
-:toclevels: 2
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: Mark
+[discrete]
+== PROJECT: Mark (Bookmark Manager)
 
 :sectnums:
 
 == Overview
 
-My team of 5 software engineering students was tasked with morphing an existing Command Line Interface (CLI)
-https://github.com/nus-cs2103-AY1920S1/addressbook-level3[desktop application]
+My team of 5 software engineering students was tasked with morphing an existing
+https://github.com/nus-cs2103-AY1920S1/addressbook-level3[Command Line Interface (CLI) desktop application]
 into a useful application for a specific target group. We chose to create a bookmark manager application
-named Mark, which aims to help computing students manage their web browsing activities. Mark was conceptualised and
-implemented over a period of 8 weeks. It is written in Java and has a Graphical User Interface (GUI) that was
-created using JavaFX.
+known as Mark, which is intended to help computing students manage their web browsing activities.
+Mark was conceptualised and implemented over a period of 8 weeks.
 
 This is what Mark looks like:
 
 .Mark's user interface
-image:Ui.png[]
+image::Ui.png[400, 400]
 
-My role as a developer was to design and implement the `autotag` feature. I also implemented the `import` and `export`
-features and contributed to various team tasks.
-
-The following sections illustrate these contributions in more detail and showcase documentation that I added to
-the User and Developer Guides in relation to the enhancements made.
+My role as a developer was to design and
+implement a mechanism to allow bookmarks to be categorised automatically. I also improved Mark's storage functionality
+and contributed to various team tasks. The following sections describe these contributions in more detail.
 
 == Summary of contributions
 
-This section provides a summary of my contributions regarding code, documentation and other team-related matters.
+This section summarizes my code, documentation, and team-related contributions to Mark.
 
-=== Enhancements added
-* *Major enhancement*: added the ability to *tag bookmarks automatically* based on specific conditions
-** Description
-*** The `autotag` mechanism applies autotags to bookmarks based on a set of criteria, known as autotag conditions.
-Mark contains a list of predeclared autotags, and the user can also create custom autotags if desired.
-** Justification
-*** It is troublesome for users to have to manually tag similar bookmarks individually.
-The autotag feature allows them to do so in a single step. They can also set up an autotagging system to categorise
-bookmarks automatically.
-** Highlights
-*** Designing this feature required significant planning regarding the design of the automatic tagging mechanism and
-how autotags should be stored.
-*** Implementing this feature involved development in all components of the project: starting with
-creating the mechanism in the Model and Logic components, then enabling the saving of autotags in Storage,
-and finally making autotags visible in the UI component.
-** Credits
-*** One of my team members suggested a more elegant way to combine autotag conditions, which I adapted.
+*Major feature*: I implemented the *autotag* mechanism to facilitate the automatic categorisation of bookmarks.
 
-* *Minor enhancement*: added the ability to *export* data from and *import* bookmarks into Mark.
-** Description
-*** The `export` command saves all of Mark's data to a given file on the hard disk.
-*** The `import` command imports bookmarks from a specified file into Mark.
-** Justification
-*** Users may want to preserve old bookmarks without cluttering their current Mark dashboard. This can be
-done by exporting all current Mark data to a file on the hard disk. Bookmarks can then be imported from any
-previously-saved file whenever they are needed.
-** Highlights
-*** The `import` command required different elements in Mark to be considered, including folders. While the final
-choice of implementation only imports bookmarks, the handling of other components had to be considered when
-planning this enhancement.
+* _What it does_: Allows bookmarks to be tagged automatically based on a predefined set of conditions.
+* _Justification_: Organising bookmarks is time-consuming as bookmarks must be edited individually. This enhancement
+allows users to categorise their bookmarks without additional effort.
+* _Highlights_: Designing the autotag mechanism required significant planning to conceptualize
+how abstract autotag conditions should be stored. In addition, this feature involved development in all
+major components of Mark.
 
-=== Code contributed
+*Minor feature*: I enhanced Mark's existing storage system by adding the capacity to *export* and *import* bookmarks.
+It allows users to save and retrieve bookmarks from different files on the hard disk without exiting Mark, so that
+they can preserve old bookmarks without cluttering their current dashboard.
 
-Please click on the following links to see a sample of my code: +
-[https://github.com/dorcastan/main[Functional code]] [https://github.com/dorcastan/main[Test code]]
-// TODO: figure out how to collate code into a single file, then upload and update links
-// Export/import
-// * Original PR: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/75
-// * Set to ROOT: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/113
-// * Set to ImportedBookmarks: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/152
+*Code contributed*: Click
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=dorcastan&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=true&tabOpen=true&tabType=authorship&tabAuthor=dorcastan&tabRepo=AY1920S1-CS2103T-T13-4%2Fmain%5Bmaster%5D[here]
+to see the code and documentation that I contributed to Mark.
 
-// Autotag
-// * Original PR: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/112
-// * Not-conditions: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/125
-// * Storage, autotag-delete, and folder conditions: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/141
+*Other contributions*
 
-=== Other contributions
-// TODO: Improve this section for CS2101
+* *Project management*: I facilitated weekly team meetings to discuss the team's progress and
+managed release https://github.com/AY1920S1-CS2103T-T13-4/main/releases/tag/v1.2.1[`v1.2.1`] on GitHub.
 
-** Project management:
-*** Facilitated weekly team meetings to discuss the project's progress
-*** Managed releases `v1.2.1` on GitHub
+* *Enhancements to existing features and code-related contributions*: I migrated the code from AddressBook Level 3 to Mark
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/62[#62]),
+created a custom URL validation to be used when no Internet connection is available
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-T13-4/main/pull/117[#117]),
+and updated the list of sample data used when Mark is first opened
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/227[#227]).
 
-** Enhancements to existing features and code-related contributions:
-*** Migrated code from AddressBook Level 3 to Mark (Pull requests
-https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14] and https://github.com/AY1920S1-CS2103T-T13-4/main/pull/62[#62])
-*** Created a custom URL validation to be used when no connection is available (Pull requests
-https://github.com/AY1920S1-CS2103T-T13-4/main/pull/14[#14] and https://github.com/AY1920S1-CS2103T-T13-4/main/pull/117[#117])
-*** Improved the search function to search URLs and partially matched keywords (Pull request
-https://github.com/AY1920S1-CS2103T-T13-4/main/pull/64[#64])
+* *Documentation*:
+I improved the layout and organisation of the User Guide
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/248[#248],
+https://github.com/AY1920S1-CS2103T-T13-4/main/pull/254/files[#254]) as well as
+documented the design of the Model component in the Developer Guide
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/129[#129],
+https://github.com/AY1920S1-CS2103T-T13-4/main/pull/264[#264]).
 
-** Documentation:
-// *** Ensured quality of documentation
-*** Made cosmetic changes to contents of the (README page) and Developer Guide: (Pull request https://github.com/AY1920S1-CS2103T-T13-4/main/pull/42[#42])
-// Standardise Quick Start section of User Guide: [https://github.com/AY1920S1-CS2103T-T13-4/main/pull/55[#55]]
-// Standardise headings and update glossary section: [https://github.com/AY1920S1-CS2103T-T13-4/main/pull/139/files[#139]] // should go to files or PR?
-// Cosmetic changes to Developer Guide appendices: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/221/files
-// UI screenshots: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/159/files
-
-** Community:
-*** Reviewed team members' Pull Requests and offered suggestions to increase clarity of messages and improve code quality
-// user-visible messages: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/148#pullrequestreview-308374800
-// only reviewer for mega-PR (annotations), suggested General Notes section: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122#discussion_r340226693
-// suggested message to save for undo/redo: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/119#pullrequestreview-303684906
-// suggested parseTab: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74#discussion_r332867503
-//       and switch tab keywords: https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74#discussion_r333014719
-*** Reported bugs and suggestions for other teams in the class (TBC)
+* **Community**:
+I reviewed team members' Pull Requests and offered suggestions to increase the clarity of messages and improve code quality
+(https://github.com/AY1920S1-CS2103T-T13-4/main/pull/74#discussion_r332867503[#74],
+https://github.com/AY1920S1-CS2103T-T13-4/main/pull/119#pullrequestreview-303684906[#119],
+https://github.com/AY1920S1-CS2103T-T13-4/main/pull/122#discussion_r340226693[#122]).
 
 == Contributions to the User Guide
 
 |===
-|_Given below is a sample section that I contributed to the User Guide. It showcases my ability to write documentation targeting end-users._
+|_Given below is a sample section that I contributed to the User Guide.
+It showcases my ability to write documentation targeting end-users._
 |===
 
+_<Start of excerpt>_
+
 include::../UserGuide.adoc[tag=autotags]
+
+_<End of excerpt>_
 
 == Contributions to the Developer Guide
 
 |===
-|_Given below is a sample section I contributed to the Developer Guide. It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below is a sample section that I contributed to the Developer Guide.
+It showcases my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
+_<Start of excerpt>_
+
 include::../DeveloperGuide.adoc[tag=autotag]
+
+_<End of excerpt>_

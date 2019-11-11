@@ -7,12 +7,12 @@ skinparam ClassBorderColor #000000
 
 show object fields
 package Bookmarks <<rectangle>> {
-    object "<u>b1:Bookmark" as Bookmark1 {
-        name : CS2103T Website
-        url : https://nus-cs2103-ay1920s1.github.io/website/
-        tags : School
-    }
-    object "<u>b2:Bookmark" as Bookmark2 {
+'    object "<u>b1:Bookmark" as Bookmark1 {
+'        name : CS2103T Website
+'        url : https://nus-cs2103-ay1920s1.github.io/website/
+'        tags : School
+'    }
+    object "<u>b1:Bookmark" as Bookmark2 {
         name : PlantUML mix different elements
         url : https://stackoverflow.com/questions/54020731
         tags :
@@ -24,6 +24,6 @@ package AutotagController {
 
 Bookmarks -[hidden]right> AutotagController
 
-Bookmark1 -[hidden]down-> Bookmark2
+'Bookmark1 -[hidden]down-> Bookmark2
 
 @end
