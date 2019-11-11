@@ -29,7 +29,7 @@ Refer to the guide <<SettingUp#, here>>.
 === Architecture
 
 .Architecture Diagram
-image::ArchitectureDiagram.png[]
+image::ArchitectureDiagramMams.png[]
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -48,9 +48,11 @@ The rest of the App consists of four components.
 * <<Design-Ui,*`UI`*>>: The UI of the App.
 * <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
-* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
+* <<Design-Storage,*`MamsStorage`*>>: Reads data from, and writes data to, the hard disk. Holds data of Students, Modules and Appeals.
+* <<Design-Storage,*`CommandHistoryStorage`*>>: Reads data from, and writes data to, the hard disk. Contains history of user inputs.
 
-Each of the four components
+
+Each of the five components
 
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
@@ -60,10 +62,10 @@ For example, the `Logic` component (see the class diagram in <<fig-LogicClassDia
 [discrete]
 ==== How the architecture components interact with each other
 
-The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `addmod s/1 m/1`.
 
-.Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+.Component interactions for `addmod s/1 m/1` command
+image::ArchitectureSequenceDiagramMams.png[]
 
 The sections below give more details of each component.
 
@@ -101,16 +103,20 @@ The `UI` component,
 [[Design-Logic]]
 === Logic component
 
-// tag::logic[]
+
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
 image::LogicClassDiagram.png[]
 
+// tag::logic[]
 .Structure of the Parser Component
-image::ParserClassDiagram.png[]
+image::ParserClassDiagram.png[width=650]
+// end::logic[]
 
 .Structure of the Command Component
 image::CommandClassDiagram.png[]
+
+
 
 *API* :
 link:{repoURL}/src/main/java/mams/logic/Logic.java[`Logic.java`]
@@ -120,8 +126,6 @@ link:{repoURL}/src/main/java/mams/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a module to a student).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
-
-// end::logic[]
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call.
 
@@ -171,44 +175,36 @@ This section describes some noteworthy details on how certain features are imple
 
 //tag::find[]
 === Find feature
-==== Implementation
 
 The find feature is facilitated by `FindCommand` class. The `FindCommand` stores a `List` of `Predicates`, which can be
-StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`. Each `Predicate` stores a `List` of String of keywords.
+`StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`. Each `Predicate` stores a `List` of String of keywords.
 
 .Predicate Class Diagram
 image::PredicateClassDiagram.png[]
-
-Each `FindCommand` has a `execute()` method that takes in a `Model` object and a `FilterOnlyCommandHistory` object.
-`FindCommand` only retrieves information from model and returns a message to be shown in the message bar but do not alter anything in the existing lists.
 
 Below shows how the Find Command mechanism behaves at each step.
 
 Step 1. The user inputs `find ...`.
 
-Step 2. The `FindCommandParser` is called first to create `StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, and `AppealContainsKeywordsPredicate` by checking the prefixes.
+Step 2. The `FindCommandParser` is called first to create relevant `Predicate` by checking the prefixes.
 
 Step 3. A new `FindCommand` is created by passing in the `List` of `Predicates`.
 
-Step 4. `FindCommand.execute()` is called. Each `Predicate` object is examined and calls `Predicate.test()`. `Model#updateStudentList()`, `Model#updateModuleList()`, or `Module#updateAppealList()` is called accordingly.
+Step 4. `FindCommand.execute()` is called. Each `Predicate` calls respective `Predicate.test()`. `Model#updateStudentList()`, `Model#updateModuleList()`, or `Module#updateAppealList()` is called accordingly.
 
-Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list. The target list only shows the item(s) that contain(s) any of the keywords.
+Step 5. A `CommandResult` object is returned, which contains message about the number of items found in the target list.
 
 The following sequence diagram shows how the Find command works:
 
 .Find Command Sequence Diagram - user input: "find m/cs1010"
 image::FindSequenceDiagram.png[]
 
-
 // end::find[]
 
-//tag::clash[]
+//tag::clash1[]
 === Clash feature
-==== Implementation
 
-The clash feature is facilitated by `ClashCommand` class.
-
-There are two additional static classes in `ClashCommand` to facilitate the feature. The two classes are:
+The clash feature is facilitated by `ClashCommand` class, and two additional static classes:
 
 * `ClashCommandParameters`: Stores the details of the parsed parameters that a `ClashCommand` will operate on.
 
@@ -223,8 +219,7 @@ image::ClashCaseClassDiagram.png[]
 Similar to how time slot is stored in `Module` class, the clashing slots in `ClashCase` are represented as Integers and
 each integer value corresponds to a particular 1-hour time slot in a week.
 
-Each `ClashCommand` has a `execute()` method that takes in a `Model` object and a `FilterOnlyCommandHistory` object.
-`ClashCommand` only retrieves information from model and returns a message to be shown in the message bar but do not alter anything in the existing lists.
+// end::clash1[]
 
 ====
 There are a few formats allowed for user inputs:
@@ -235,21 +230,17 @@ There are a few formats allowed for user inputs:
 
 ====
 
+// tag::clash2[]
+
 Below shows how the Clash Command mechanism behaves at each step.
 
 Step 1. The user inputs `clash ...` to check whether there is clash in the timetable.
 
-Step 2. The `ClashCommandParser` will be called to create a new `ClashCommandParameters` and set the relevant parameter values accordingly.
+Step 2. The `ClashCommandParser` is called to create a new `ClashCommandParameters` and set the relevant parameter values accordingly.
 
 Step 3. A new `ClashCommand` is created by passing in the `ClashCommandParameters` object.
-The following sequence diagram shows how `ClashCommandParser` works:
 
 Step 4. `ClashCommand.execute()` is called. The types of checking will be determined by checking the presence of relevant parameters in `ClashCommandParameters`.
-
-[NOTE]
-** The `Student` who submits the appeal is stored as String of Matric ID and `Module` to add/drop is stored as String of module code in an `Appeal` object.
-Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
-and `Module` to add/drop is retrieved from `model.getFullModuleList()` by matching module codes.
 
 Step 5. Each `ClashCommand` returns a `CommandResult` object which contains the message of the clash details if there are clashes and 'No clashes detected' if there is no clash.
 
@@ -258,43 +249,45 @@ The following activity diagram shows how the clash command works:
 .Work Flow of Clash Command
 image::ClashCommandActivityDiagram.png[]
 
-===== Design Consideration: How to deal with different user input formats for different types of checking
+[NOTE]
+The `Student` who submits the appeal is stored as String of Matric ID and `Module` to add/drop is stored as String of module code in an `Appeal` object.
+Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
+and `Module` to add/drop is retrieved from `model.getFullModuleList()` by matching module codes.
+
+===== Design Consideration 1: How to deal with different user input formats for different types of checking
 
 * **Current choice:** Only 1 `ClashCommand` class. Every `ClashCommand` object keeps a `ClashCommandParameters` object which stores the parameters passed in.
-The value of parameters are set when parsing user inputs by a few setter methods.
+The value of parameters are set when parsing user inputs using a few setter methods.
 The cases of checking are determined in `ClashCommand.execute()` by checking the presence of each parameter.
 ** Pros:
 *** Avoid having too many unnecessary constructors (or passing of null-values) caused by the optional nature of the parameters passed to ClashCommand.
 *** If more user input formats are allowed in the future to improve user experience (not restricted to index and module codes),
 we can simply add more setter and getter methods in `ClashCommandParameters` accordingly.
 ** Cons:
-*** More defensive programming is needed to ensure that no multiple parameters of different types of checking are present at the same time.
-* **Alternative considered:** Create three different sub-classes (i.e. `ClashAppealCommand`, `ClashModuleCommand`, and `ClashStudentCommand`) which extend an abstract `ClashCommand` class.
-`ClashCommandParser` deals with differentiating cases for checking (by looking at prefixes) and create Command object accordingly.
+*** More defensive programming is needed to ensure that no parameters of different types of checking are present at the same time.
+* **Alternative considered:** Create three different sub-classes (i.e. `ClashAppealCommand`, `ClashModuleCommand`, and `ClashStudentCommand`) which extend from an abstract `ClashCommand` class.
+`ClashCommandParser` deals with differentiating cases for checking (by looking at prefixes) and creates `ClashCommand` object accordingly.
 ** Pros:
 *** Each `ClashCommand` has knowledge about what type of checking is evoked. Less checking is required in `ClashCommand.execute()`.
 ** Cons:
-*** Each sub-class will have different attributes.
-*** Tedious modification will be needed if we allow more user input formats in the future to improve user experience.
+*** Each sub-class will have different attributes. Tedious modification will be needed if we allow more user input formats in the future to improve user experience.
 
-===== Design Consideration: How to show details of the clashing time slots
+===== Design Consideration 2: How to show details of the clashing time slots
 
-* **Current choice:** Use a static class `ClashCase` to store each clash case detected.
+* **Current choice:** Use a static class `ClashCase` to store each clash case.
 ** Pros:
 *** No need to hardcode the string representation of clash details since all information needed is stored in the `ClashCase` and we can simply call `toString()`.
 Even if the way of representation is to be changed in the future, we only need to modify `toString()` (and add attributes in `ClashCase` if needed).
 ** Cons:
-*** Additional objects being created for each clash detected between two modules. More memory space used.
+*** Additional objects created for each clash detected between two modules. More memory space used.
 * **Alternative considered:** Every `ClashCommand` object keeps a list of to store time slot index and use them to create a temporary `Module` object.
 ** Pros:
-*** Easy to implement.
 *** Can reuse `getTimeSlotToString()` to obtain the string representation. (The current choice also keeps this part)
 ** Cons:
-*** Redundant objects are created. More memory space used.
 *** Need to hardcode information like module codes of the two modules having clashes since the list only stores the clashing slots.
 *** Tedious modification needed if the way of response changes in the future. For example, instead of showing the clash details in the message bar,
 we decide to a pop-up window to show more detailed information or include graphic representation.
-// end::clash[]
+// end::clash2[]
 
 //tag::addremovemod[]
 === Add and remove module feature
@@ -1740,8 +1733,8 @@ Expected: History window contains command history from previous sessions.
 
 .. All undoable commands are undid, the final result is checked against the previous state to ensure that the undo function correctly reverts the data back to the previous state.
 
-// tag::test4[]
 === Check Clash
+. Prerequisites: At least one or more items shown in the lists.
 . Check timetable clashes for in an appeal
 .. Input format: `clash a/INDEX` example: `clash a/1`
 .. Expected output:
@@ -1757,7 +1750,9 @@ Expected: History window contains command history from previous sessions.
 Example: `clash a/1 a/2` `clash y/ s/1`
 . Invalid index or module code will be detected and relevant message will be shown in the message bar. Example: `clash m/123 m/3` `clash a/999999`
 
+// tag::test4[]
 === Find
+. Prerequisites: At least one or more items shown in the lists.
 . Valid input format: `find [a/KEYWORD...] [m/KEYWORD..] [s/KEYWORD]`
 .. Example: `find a/unresolved` `find s/larry m/cs1231` `find m/cs10 data`
 .. Expected: Number of results found will be shown in the message bar.
@@ -1778,4 +1773,20 @@ Specified lists will be updated to show items containing any of the keywords.
 .. Example: `approve mass/C000000 C000023` `reject mass/C001230  C0sdfsd`
 .. Expected: Appeals that have not yet been resolved will be resolved and will be resolved.  Invalid appeal IDs will not be resolved.  The result message in the message bar will show the following - appeals that were successfully resolved, appeals that were already resolved, invalid appeal IDs, and appeal IDs that do not exist.
 //end::test5[]
+
+//tag::test6[]
+=== Addmod
+. Valid input format for single resolution: `addmod s/INDEX m/INDEX` or `addmod s/MATRIC_ID m/MODULE_CODE`
+.. Example: `addmod s/1 m/7`
+.. Expected: The student will register for the module, and the details are upgraded accordingly as seen in the list.
+The message shown in the message bar will display the changes made to the student.
+//end::test6[]
+
+//tag::test7[]
+=== Removemod
+. Valid input format for single resolution: `removemod s/INDEX m/INDEX` or `removemod s/MATRIC_ID m/MODULE_CODE`
+.. Example: `removemod s/A0180000 m/CS2100`
+.. Expected: The student will be dropped from the module, and the details are upgraded accordingly as seen in the list.
+The message shown in the message bar will display the changes made to the student.
+//end::test7[]
 

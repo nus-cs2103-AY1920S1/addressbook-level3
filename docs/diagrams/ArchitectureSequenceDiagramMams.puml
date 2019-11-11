@@ -1,0 +1,61 @@
+@startuml
+!include style.puml
+
+Actor User as user USER_COLOR
+Participant ":UI" as ui UI_COLOR
+Participant ":Logic" as logic LOGIC_COLOR
+Participant ":Model" as model MODEL_COLOR
+Participant ":MamsStorage" as storage STORAGE_COLOR
+Participant ":CommandHistoryStorage" as historyStorage STORAGE_COLOR_T2
+
+user -[USER_COLOR]> ui : "addmod s/1 m/1"
+activate ui UI_COLOR
+
+ui -[UI_COLOR]> logic : execute("addmod s/1 m/1")
+activate logic LOGIC_COLOR
+
+logic -[LOGIC_COLOR]> model : setStudent(new, old)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> model : setModule(new, old)
+activate model MODEL_COLOR
+
+model -[MODEL_COLOR]-> logic
+deactivate model
+
+logic -[LOGIC_COLOR]> storage : saveMams(mams)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --[STORAGE_COLOR]> logic
+deactivate storage
+
+logic -[LOGIC_COLOR]> historyStorage : add("addmod s/1 m/1", feedback, true, timeStamp)
+activate historyStorage STORAGE_COLOR_T2
+
+historyStorage --[STORAGE_COLOR_T2]> logic
+deactivate historyStorage
+
+logic -[LOGIC_COLOR]> storage : saveCommandHistory(commandHistory)
+activate storage STORAGE_COLOR
+
+storage -[STORAGE_COLOR]> storage : Save to file
+activate storage STORAGE_COLOR_T1
+deactivate storage
+
+storage --[STORAGE_COLOR]> logic
+deactivate storage
+
+
+logic --[LOGIC_COLOR]> ui
+deactivate logic
+
+ui--[UI_COLOR]> user
+deactivate ui
+@enduml
