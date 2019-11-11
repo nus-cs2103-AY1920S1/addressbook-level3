@@ -190,7 +190,7 @@ During quiz mode, the flip command can be called consecutively for as long as th
 image::FlipSequenceDiagram.png[]
 
 The flip command interacts with the model to check if there are any quizable flashcards.
-If there are none, the flip command toggles the quiz mode in FlashcardListParser off. 
+If there are none, the flip command toggles the quiz mode in FlashcardListParser off.
 
 // end::quiztagfeature[]
 
