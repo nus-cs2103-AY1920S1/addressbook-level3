@@ -8,9 +8,9 @@ import static seedu.address.testutil.Assert.assertThrows;
 
 import java.nio.file.Paths;
 
-import jfxtras.icalendarfx.components.VEvent;
 import org.junit.jupiter.api.Test;
 
+import jfxtras.icalendarfx.components.VEvent;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.group.exceptions.GroupNotFoundException;
