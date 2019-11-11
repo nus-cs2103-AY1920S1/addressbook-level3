@@ -1041,37 +1041,8 @@ In order to support the `info` command, new classes were added that correspond t
 This is to allow for easy access and also to better organize the information to be displayed for each commands.
 
 These classes only has public fields without any methods as it is only needed by `InfoWindow` to access the information
-stored within the class.
 
-The classes added where each class represents an info card:
-
-===== `AddInfo`
-===== `AliasInfo`
-===== `AutoSortInfo`
-===== `BudgetInfo`
-===== `BuyInfo`
-===== `ClearInfo`
-===== `CustomSortInfo`
-===== `DefaultInfo`
-===== `DeleteInfo`
-===== `DislikeInfo`
-===== `EditInfo`
-===== `ExitInfo`
-===== `FilterInfo`
-===== `HelpInfo`
-===== `HistoryInfo`
-===== `InfoInfo`
-===== `LikeInfo`
-===== `MakeSortInfo`
-===== `RecommendInfo`
-===== `RemoveDislikeInfo`
-===== `RemoveLikeInfo`
-===== `SaveInfo`
-===== `ShowInfo`
-===== `ThemeInfo`
-===== `TopUpInfo`
-===== `ViewSortInfo`
-===== `WithdrawInfo`
+Here are some example classes: `AddInfo`, `AliasInfo`, `AutoSortInfo`, `BudgetInfo`
 
 Each of these classes contains these fields:
 
