@@ -43,10 +43,9 @@ deactivate DeleteIntervieweeCommand
 DeleteCommandParser --> SchedulerParser
 deactivate DeleteCommandParser
 
-destroy DeleteCommandParser
-
 SchedulerParser --> LogicManager
 deactivate SchedulerParser
+destroy DeleteCommandParser
 
 LogicManager -> DeleteIntervieweeCommand: execute(model)
 activate DeleteIntervieweeCommand
@@ -67,9 +66,8 @@ deactivate CommandResult
 DeleteIntervieweeCommand --> LogicManager: commandResult
 deactivate DeleteIntervieweeCommand
 
-destroy DeleteIntervieweeCommand
-
 [<-- LogicManager
+destroy DeleteIntervieweeCommand
 deactivate LogicManager
 
 @enduml
