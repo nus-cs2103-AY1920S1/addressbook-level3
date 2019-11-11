@@ -12,6 +12,7 @@ public class DescriptionKeywordsPredicate implements Predicate<Incident> {
     private final List<String> keywords;
 
     public DescriptionKeywordsPredicate(List<String> descriptionKeywords) {
+        assert descriptionKeywords != null : "No description keywords found.";
         this.keywords = descriptionKeywords;
     }
 
