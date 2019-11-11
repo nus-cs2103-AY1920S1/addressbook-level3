@@ -1,4 +1,4 @@
-TravEzy
+= TravEzy
 :site-section: UserGuide
 :toc:
 :toc-title:
