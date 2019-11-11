@@ -85,7 +85,7 @@ folders, and autotags in Mark.
 +
 [#imgId-dashboard]
 .Mark's Dashboard tab
-image::ui-screenshots/Ui_DashboardTab.png[@Dashboard Tab View, 600, 400]
+image::Ui.png[@Dashboard Tab View, 600, 400]
 
 * The **Online** tab contains a web browser, which you can use to search for
 and view web pages.
@@ -147,16 +147,28 @@ E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 The following commands carry out general operations in Mark.
 
 ==== Viewing help: *`help`*
-Shows the list of commands in the bookmark manager.
+Displays a link that you can copy to this page.
 
 Format: *`help`*
 
 ==== Switching tabs: *`tab`*
 
-Switches the current app view to the <<Tabs, tab>> that corresponds to the given
-index. For your convenience, you can use keywords `dash`, `on` or `off` instead of an index.
+You can switch the current app view to a another <<Tabs, tab>> with this command.
+
+Just provide an index as specified below. For your convenience, you can also use keywords `dash`, `on` or `off` instead of an index.
 
 Format: `*tab* INDEX` or `*tab* KEYWORD`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You want to go to the dashboard. So you type `*tab* 1` and press kbd:[Enter].
++
+image::ui-screenshots/TabUI1.png[]
+// dashboard tab, showing many CS2103T related bookmarks not in folder
+* You see the dashboard tab instead of the previously showing online tab.
++
+image::ui-screenshots/TabUi2.png[]
 
 ****
 * `INDEX` is `1`, `2` or `3`, which correspond to the
@@ -165,10 +177,7 @@ Format: `*tab* INDEX` or `*tab* KEYWORD`
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
 ****
 
-Examples:
-
-* `*tab* 1` +
-Goes to the <<Dashboard,Dashboard>> tab.
+Other examples:
 
 * `*tab* on` +
 Goes to the Online tab which is a web view.
@@ -515,11 +524,11 @@ For example:
 
 * You want to expand all unexpanded folders by one level with just one command. Type `*expand*` in the command box and hit kbd:[Enter].
 +
-image::ExpandCommandUi1.png[]
+image::ui-screenshots/ExpandCommandUi1.png[]
 // unexpanded folders
 * You see all folders expanded by one level.
 +
-image::ExpandCommandUi2.png[]
+image::ui-screenshots/ExpandCommandUi2.png[]
 
 
 ****
@@ -543,11 +552,11 @@ For example:
 
 * You want to collapse the deepest expanded folders by one level with just one command. Type `*collapse*` in the command box and hit kbd:[Enter].
 +
-image::CollapseCommandUi1.png[]
+image::ui-screenshots/CollapseCommandUi1.png[]
 // expanded folders
 * You see the deepest expanded folders collapsed by one level.
 +
-image::CollapseCommandUi2.png[]
+image::ui-screenshots/CollapseCommandUi2.png[]
 
 ****
 * `LEVEL` should be a positive integer.
@@ -574,11 +583,11 @@ For example:
 
 * You notice you have 20 bookmarks all related to CS2103T. You decide to create a folder for them, so you enter the command `*folder* CS2103T` and hit kbd:[Enter].
 +
-image::AddFolderCommandUi1.png[]
+image::ui-screenshots/AddFolderCommandUi1.png[]
 // dashboard tab, showing many CS2103T related bookmarks not in folder
 * You see a new empty folder `CS2103T` appear in the dashboard.
 +
-image::AddFolderCommandUi2.png[]
+image::ui-screenshots/AddFolderCommandUi2.png[]
 
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
@@ -605,11 +614,11 @@ For example:
 
 * You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit kbd:[Enter].
 +
-image::EditFolderCommandUi1.png[]
+image::ui-screenshots/EditFolderCommandUi1.png[]
 // dashboard tab, showing Dear folder with links of photo albums etc.
 * You see folder `Dear` renamed to `Ex`. All your bookmarks previously in the folder `Dear` have also been edited to now be in the folder `Ex`.
 +
-image::EditFolderCommandUi2.png[]
+image::ui-screenshots/EditFolderCommandUi2.png[]
 
 // More details about command constraints
 ****
@@ -632,11 +641,11 @@ For example:
 
 * You see an unused folder `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
 +
-image::DeleteFolderCommandUi1.png[]
+image::ui-screenshots/DeleteFolderCommandUi1.png[]
 // dashboard tab, showing CS2101 folder with no bookmarks/subfolders
 * You no longer see folder `CS2101` appear in the folders section of the Dashboard.
 +
-image::DeleteFolderCommandUi2.png[]
+image::ui-screenshots/DeleteFolderCommandUi2.png[]
 
 // More details about command constraints
 ****
