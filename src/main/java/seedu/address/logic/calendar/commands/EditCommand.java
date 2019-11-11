@@ -21,6 +21,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.calendar.commands.exceptions.CommandException;
 import seedu.address.model.calendar.CalendarModel;
 import seedu.address.model.calendar.tag.TaskTag;
+import seedu.address.model.calendar.task.ModuleTask;
 import seedu.address.model.calendar.task.Task;
 import seedu.address.model.calendar.task.TaskDay;
 import seedu.address.model.calendar.task.TaskDeadline;
@@ -111,8 +112,15 @@ public class EditCommand extends Command {
         TaskTime updatedTaskTime = editTaskDescriptor.getTaskTime().orElse(taskToEdit.getTaskTime());
         Set<TaskTag> updatedTaskTags = editTaskDescriptor.getTaskTags().orElse(taskToEdit.getTaskTags());
 
-        return new ToDoTask(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
-            updatedTaskTime, updatedTaskTags, taskToEdit.getWeek());
+        if (taskToEdit.isPersistent()) {
+            return new ModuleTask(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
+                updatedTaskTime, updatedTaskTags, taskToEdit.getWeek());
+        } else {
+            return new ToDoTask(updatedTaskTitle, updatedTaskDay, updatedTaskDescription, updatedTaskDeadline,
+                updatedTaskTime, updatedTaskTags, taskToEdit.getWeek());
+        }
+
+
     }
 
     @Override
