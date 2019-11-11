@@ -105,6 +105,8 @@ Format: `-deliverymen`
 
 {nbsp} +
 
+// tag::order[]
+
 ==== Adding an order: `-add_order`
 This command allows you to add a new order to the database to be processed. The deliveryman to deliver the order will be allocated
 automatically based on the internal algorithms.
@@ -344,6 +346,9 @@ image::userguide\ListOrder3.png[width="790"]
 
 {nbsp} +
 
+// end::order[]
+// tag::undoRedo[]
+
 ==== Undoing a command: `-undo`
 This command undoes the effects of a command that you have previously executed.
 
@@ -371,6 +376,8 @@ After performing `-redo`, the result pane will show:
 Successfully redid: (your previous command here)
 
 {nbsp} +
+
+// end::undoRedo[]
 
 ==== Exiting program: `-exit`
 This command exits the program.
