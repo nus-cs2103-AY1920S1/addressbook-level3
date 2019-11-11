@@ -29,7 +29,9 @@ public class MemeLikeCommandPrompter implements Prompter {
         }
 
         try {
-            Integer.parseInt(arguments.trim());
+            if (!arguments.trim().matches("\\d+") || Integer.parseInt(arguments.trim()) == 0) {
+                throw new NumberFormatException();
+            };
             return new CommandPrompt(ARROW_KEY_LIKE_USAGE, userInput);
         } catch (NumberFormatException e) {
             throw new PromptException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));

@@ -171,6 +171,7 @@ public class CommandBox extends UiPart<Region> {
         }
 
         final String commandWord = matcher.group(WemeParser.COMMAND_WORD);
+        final String argument = matcher.group(WemeParser.ARGUMENTS);
         if ((commandWord.equals(MemeLikeCommand.COMMAND_WORD)
                 || commandWord.equals(MemeDislikeCommand.COMMAND_WORD))
                 && event.getCode().equals(KeyCode.UP)) {

@@ -1187,6 +1187,25 @@ The template is displayed in the create tab.
 .. Test case: `create d/My great meme` +
    Expected: A new meme is created and added to the memes list, with description "My great meme". The UI goes into view mode, as if triggered by a `view` command, displaying the newly created meme.
 
+=== Like and dislike a Meme
+
+1. Like a meme when there are memes listed
+
+a. Prerequisites: List at least some memes using either `find` or `list`.
+
+b. Test case: `like 1` +
+Expected: Meme at index 1 has its like count incremented. Details of the meme liked shown in the status message.
+
+c. Test case: `like 1` and then `UP` +
+Expected: As `UP` key is pressed down while command `like 1` is still in command text area, meme at index
+is liked multiple times consecutively. Details of the meme liked shown in the status message.
+
+d. Test case: `like 0`
+Expected: No meme is liked. Error details shown in the status message. Status bar remains the same.
+
+2. Dislike a meme when there are memes listed +
+Similar to like. Command is `dislike`.
+
 === Saving data
 
 . Dealing with missing/corrupted data files

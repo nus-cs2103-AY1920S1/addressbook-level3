@@ -22,7 +22,7 @@ the statistics data is stored in a similar fashion as the memes. As such, an und
 and JavaFX is required.
 ** Credits: AddressBook 3 implementation gave rise to the infrastructure of the statistics feature.
 
-* *Minor enhancement*: created wrapper class ImagePath during morphing stage for internal use.
+* *Minor enhancement*: created wrapper class ImagePath during morphing stage for internal use. https://github.com/AY1920S1-CS2103-T16-3/main/pull/38[#38]
 
 * *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=moziliar&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense code]]
 
