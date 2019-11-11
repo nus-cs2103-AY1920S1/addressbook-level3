@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -15,7 +16,6 @@ import seedu.address.model.category.Category;
 import seedu.address.model.transaction.Amount;
 import seedu.address.model.transaction.BankAccountOperation;
 import seedu.address.model.transaction.Budget;
-import seedu.address.model.transaction.UniqueBudgetList;
 import seedu.address.model.util.Date;
 
 /**
@@ -25,7 +25,7 @@ public class Projection {
 
     private final ObservableList<BankAccountOperation> transactionHistory;
     private final Date date;
-    private ObservableList<Budget> budgets = new UniqueBudgetList().asUnmodifiableObservableList();
+    private ObservableList<Budget> budgets = FXCollections.observableArrayList();
     private List<Amount> budgetProjections = new ArrayList<>();
     private List<Amount> budgetStartValues = new ArrayList<>();
     private List<Amount> budgetThresholds = new ArrayList<>();

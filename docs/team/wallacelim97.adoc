@@ -13,7 +13,8 @@ endif::[]
 
 The purpose of this portfolio is to document my contributions to _PalPay_,
 a software engineering project under the module
-_CS2103T - Software Engineering_. PalPay is a personal finance management application.
+_CS2103T - Software Engineering_. PalPay is a personal finance management application developed by a team of
+5 students taking the module, including myself.
 It is mostly written in Java and has roughly 15,000 Lines of Code (LoC).
 Being a Command Line Interface (CLI) application, it is controlled mainly through
 the Command Line in the app, while displaying output through a Graphical User Interface (GUI)
@@ -32,7 +33,7 @@ representation of their balance and budget states.
 * *Major enhancement*: Implemented the `Projection` feature, along with various functions associated with it.
 
 ** What it does:
-*** Uses https://en.wikipedia.org/wiki/Gradient_descent[Gradient Descent] to project the user's account balance
+*** Uses the https://en.wikipedia.org/wiki/Gradient_descent[Gradient Descent] algorithm to project the user's account balance
 in the future
 *** Allows users to predict whether they will meet their budget goals based on past income/outflow trends
 
