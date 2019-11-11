@@ -366,12 +366,12 @@ a|The calendar stores the events in an interval search tree.
 | Required date format for user input
 a|The usual date format like dd/mm/yy (for example, 12/05/2019 to specify 12 May 2019)
 
-* Pros: Easy to implement and is similar to the required date format in most online form
+* Pros: Easy to implement. It can be intuitive for users since this date format is common.
 * Cons: Very restrictive and not everyone uses the above format (for instance, in some countries, people specify date using the mm/dd/yyyy format).
 
 a|Allow users to specify day, month and year in whichever order they want.
 
-* Pros: More flexible. Furthermore, it can be implementd in a way that allows users to leave out the month and year information if they are referring to the current month and year. 
+* Pros: More flexible. Furthermore, it can be implemented in a way that allows users to leave out the month and year information if they are referring to the current month and year. 
 * Cons: If caution is not taken, bugs can arise quite easily.
 * I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
 
