@@ -456,20 +456,22 @@ public enum Responses {
                     boolean hasDeck = res.get(0).size() == 1;
                     boolean hasIndex = res.get(1).size() == 1;
 
-                    if (!hasDeck) {
-                        Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! To see the "
-                                + "correct format of the Delete command, type 'help command/delete'");
-                        return true;
-                    }
-
                     String deckName = res.get(0).get(0);
 
-                    if (!hasIndex) {
+                    if (!hasIndex && hasDeck) {
                         // Delete deck
                         try {
                             StatsHolder.getDeckStats().deleteDeck(deckName);
                             State s = StateHolder.getState();
                             s.removeDeck(deckName);
+
+                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Deleted deck " + deckName);
+
+                            Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
+                            Consumers.doTask(ConsumerSchema.SEE_SPECIFIC_DECK, StateHolder.getState().getDecks().size());
+
+                            return true;
+
                         } catch (DeckNotFoundException dnf) {
                             Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, dnf.getMessage());
                             return true;
@@ -481,14 +483,6 @@ public enum Responses {
                         Deck deck = StateHolder.getState().getDeck(deckName);
                         int index = Integer.parseInt(res.get(1).get(0));
 
-                        /*
-                        boolean isIndexValid = index > 0 && index <= deck.getSize();
-                        if (!isIndexValid) {
-                            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "Delete command is invalid! "
-                                    + "Index is invalid");
-                        }
-
-                         */
                         //@@author PhireHandy
                         StateHolder.getState().addCurrDecksToDeckHistory();
                         StateHolder.getState().resetUndoHistory();
