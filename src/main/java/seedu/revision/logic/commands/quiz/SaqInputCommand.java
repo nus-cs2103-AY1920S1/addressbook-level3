@@ -1,6 +1,7 @@
 package seedu.revision.logic.commands.quiz;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.revision.ui.bar.Timer.TIMER_UP_SKIP_QUESTION;
 
 import seedu.revision.logic.commands.Command;
 
@@ -15,6 +16,7 @@ import seedu.revision.model.answerable.Answerable;
  */
 public class SaqInputCommand extends Command {
     public static final String MESSAGE_USAGE = "Input cannot be blank and must start with letter or number";
+    public static final String MESSAGE_INVALID_INPUT_TIMER_UP = "The input cannot be " + TIMER_UP_SKIP_QUESTION;
     private final String saqInput;
     private final Answerable currentAnswerable;
 
@@ -27,6 +29,10 @@ public class SaqInputCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        if (saqInput.equalsIgnoreCase(TIMER_UP_SKIP_QUESTION)) {
+            return new CommandResultBuilder().withCorrect(false).build();
+        }
+
         Answer selectedAnswer = new Answer(saqInput);
 
         requireNonNull(selectedAnswer);
@@ -34,4 +40,12 @@ public class SaqInputCommand extends Command {
 
         return new CommandResultBuilder().withCorrect(result).build();
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SaqInputCommand // instanceof handles nulls
+                && saqInput.equalsIgnoreCase(((SaqInputCommand) other).saqInput));
+    }
+
 }

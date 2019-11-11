@@ -58,5 +58,5 @@ Responsibilities: Storage
 image::jxofficial.png[width="150", align="left"]
 {empty}[http://github.com/jxofficial[github]] [<<johndoe#, portfolio>>]
 
-Role: Testing +
+Role: InCharge of Model Component +
 Responsibilities: Model

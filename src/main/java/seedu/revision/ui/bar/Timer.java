@@ -22,10 +22,12 @@ import seedu.revision.ui.UiPart;
 
 /**
  * Timer class which handles the animations and implementation of the quiz session timer.
+ * @@author jxofficial
  */
 public class Timer extends UiPart<Region> {
     public static final String MESSAGE_CONSTRAINTS = "Timer must be a number that is greater 1, and "
             + "double values will be truncated.";
+    public static final String TIMER_UP_SKIP_QUESTION = "Timer up, skipped to next question with wrong answer";
     private static final String FXML = "Timer.fxml";
     private static final Logger logger = LogsCenter.getLogger(Timer.class);
 
@@ -68,7 +70,7 @@ public class Timer extends UiPart<Region> {
             if (currentTime.get() <= 0) {
                 timeline.stop();
                 try {
-                    commandExecutor.execute("n");
+                    commandExecutor.execute(TIMER_UP_SKIP_QUESTION);
                 } catch (CommandException | ParseException | IOException e) {
                     logger.severe("Timer failed to go next question");
                 }
@@ -102,6 +104,10 @@ public class Timer extends UiPart<Region> {
 
     public Label getTimerLabel() {
         return timerLabel;
+    }
+
+    public boolean isTimeUp() {
+        return currentTime.get() <= 0;
     }
 
     /**

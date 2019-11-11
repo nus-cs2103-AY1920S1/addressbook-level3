@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_MCQ_QUESTION_2;
 import static seedu.revision.testutil.Assert.assertThrows;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_B;
+import static seedu.revision.testutil.TypicalMcqs.MCQ_C;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_CORRECT_ANSWER_A;
-import static seedu.revision.testutil.TypicalMcqs.MCQ_STUB;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_VALID_CORRECT_ANSWER_LIST;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_VALID_WRONG_ANSWER_LIST;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_WRONG_ANSWER_A;
@@ -78,60 +78,60 @@ public class McqTest {
 
     @Test
     public void isCorrect() {
-        assertTrue(MCQ_STUB.isAnswerCorrect(MCQ_CORRECT_ANSWER_A));
-        assertFalse(MCQ_STUB.isAnswerCorrect(MCQ_WRONG_ANSWER_A));
-        assertThrows(NullPointerException.class, () -> MCQ_STUB.isAnswerCorrect(null));
+        assertTrue(MCQ_C.isAnswerCorrect(MCQ_CORRECT_ANSWER_A));
+        assertFalse(MCQ_C.isAnswerCorrect(MCQ_WRONG_ANSWER_A));
+        assertThrows(NullPointerException.class, () -> MCQ_C.isAnswerCorrect(null));
     }
 
     //Concrete method implemented by abstract alass Answerable.
     @Test
     public void isSameAnswerable() {
         // same object -> returns true
-        assertTrue(MCQ_STUB.isSameAnswerable(MCQ_STUB));
+        assertTrue(MCQ_C.isSameAnswerable(MCQ_C));
 
         // null -> returns false
-        assertFalse(MCQ_STUB.isSameAnswerable(null));
+        assertFalse(MCQ_C.isSameAnswerable(null));
 
         // different question -> returns false
-        Answerable editedAnswerable = new McqBuilder(MCQ_STUB).withQuestion(VALID_QUESTION_BETA).build();
-        assertFalse(MCQ_STUB.isSameAnswerable(editedAnswerable));
+        Answerable editedAnswerable = new McqBuilder(MCQ_C).withQuestion(VALID_MCQ_QUESTION_2).build();
+        assertFalse(MCQ_C.isSameAnswerable(editedAnswerable));
 
         // same question, same difficulty, different attributes -> returns true
-        editedAnswerable = new McqBuilder(MCQ_STUB).withCategories(VALID_CATEGORY_GREENFIELD).build();
-        assertTrue(MCQ_STUB.isSameAnswerable(editedAnswerable));
+        editedAnswerable = new McqBuilder(MCQ_C).withCategories(VALID_CATEGORY_GREENFIELD).build();
+        assertTrue(MCQ_C.isSameAnswerable(editedAnswerable));
 
         // same question, same difficulty, different attributes -> returns true
-        editedAnswerable = new McqBuilder(MCQ_STUB).withCategories(VALID_CATEGORY_GREENFIELD).build();
-        assertTrue(MCQ_STUB.isSameAnswerable(editedAnswerable));
+        editedAnswerable = new McqBuilder(MCQ_C).withCategories(VALID_CATEGORY_GREENFIELD).build();
+        assertTrue(MCQ_C.isSameAnswerable(editedAnswerable));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Answerable answerableCopy = new McqBuilder(MCQ_STUB).build();
-        assertTrue(MCQ_STUB.equals(answerableCopy));
+        Answerable answerableCopy = new McqBuilder(MCQ_C).build();
+        assertTrue(MCQ_C.equals(answerableCopy));
 
         // same object -> returns true
-        assertTrue(MCQ_STUB.equals(MCQ_STUB));
+        assertTrue(MCQ_C.equals(MCQ_C));
 
-        assertFalse(MCQ_STUB.equals(null));
+        assertFalse(MCQ_C.equals(null));
 
         // different type -> returns false
-        assertFalse(MCQ_STUB.equals(5));
+        assertFalse(MCQ_C.equals(5));
 
         // different answerable -> returns false
-        assertFalse(MCQ_STUB.equals(MCQ_B));
+        assertFalse(MCQ_C.equals(MCQ_B));
 
         // different question -> returns false
-        Answerable editedAnswerable = new McqBuilder(MCQ_STUB).withQuestion(VALID_QUESTION_BETA).build();
-        assertFalse(MCQ_STUB.equals(editedAnswerable));
+        Answerable editedAnswerable = new McqBuilder(MCQ_C).withQuestion(VALID_MCQ_QUESTION_2).build();
+        assertFalse(MCQ_C.equals(editedAnswerable));
 
         // different difficulty -> returns false
-        editedAnswerable = new McqBuilder(MCQ_STUB).withDifficulty(VALID_DIFFICULTY_BETA).build();
-        assertFalse(MCQ_STUB.equals(editedAnswerable));
+        editedAnswerable = new McqBuilder(MCQ_C).withDifficulty(VALID_DIFFICULTY_BETA).build();
+        assertFalse(MCQ_C.equals(editedAnswerable));
 
         // different categories -> returns false
-        editedAnswerable = new McqBuilder(MCQ_STUB).withCategories(VALID_CATEGORY_GREENFIELD).build();
-        assertFalse(MCQ_STUB.equals(editedAnswerable));
+        editedAnswerable = new McqBuilder(MCQ_C).withCategories(VALID_CATEGORY_GREENFIELD).build();
+        assertFalse(MCQ_C.equals(editedAnswerable));
     }
 }

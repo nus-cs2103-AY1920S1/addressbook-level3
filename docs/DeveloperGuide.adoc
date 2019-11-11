@@ -74,21 +74,44 @@ The sections below give more details of each component.
 
 [[Design-Ui]]
 === UI component
-
+//tag::junxian-ui[]
 .Structure of the UI Component
 image::UiClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/revision/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `AnswerableListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+The abstract class `ParentWindow` consists of individual Ui parts e.g.`CommandBox`, `ResultDisplay`, `AnswerableListPanel`, `StatusBarFooter` etc. All Ui classes inherit from the abstract `UiPart` class.
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/revision/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+The `MainWindow` inherits from the `ParentWindow` class and handles the display of information in the configuration mode. Key responsibilities of the `MainWindow` include
 
-The `UI` component,
+* Execute user commands through the `CommandBox` using the `Logic` component.
+* Listen for changes to `Model` data so that the UI can be updated to reflect the modified data. This occurs for two types of situations
+** Direct modification to the information inside the Answerables List, such as `AddCommand` or `EditCommand`
+** Filtering of the currently shown list, for commands such as `FindCommand` and `ListCommand`
 
-* Executes user commands using the `Logic` component.
-* Listens for changes to `Model` data so that the UI can be updated with the modified data.
+The `StartQuizWindow` inherits from the `ParentWindow` class and handles the display of information during quiz mode. It has an additional `ScoreProgressAndTimerGridPane` Ui component, which
+is used to contain score progress and timer related Ui. Key responsibilities of the `StartQuizWindow` include
 
+* Execute user answer input, e.g. "A", "B", "C", "D" for `Mcq`
+* Adapt to changes in the current `Answerable` and update the Ui accordingly based on a few typical situations
+** from the four options of `Mcq` to the two options for `TrueFalse`
+** update the progress bar for every `Answerable`
+** update the timer every second and switch to the next `Answerable` when countdown reaches 0.
+
+==== Design Considerations
+
+===== Aspect: Implementation of the Ui for both windows
+* **Alternative 1 (current choice):** Have a parent class `ParentWindow` which is extended by `MainWindow` and `StartQuizWindow`
+** Pro1: Adheres to the Single Responsibility Principle, where the `MainWindow` only has one reason to change, and changes in quiz mode should not affect the `MainWindow`
+** Pro2: The abstract `ParentWindow` class follows the Open/Closed Principle, where the `StartQuizWindow` extends upon the Ui components and adds it's own Timer and ProgressBar Ui component.
+Each class is also able to have their own implementation of the `executeCommand(String commandText)` method.
+** Con: Dependency between `MainWindow` and `StartQuizWindow` classes in the methods `MainWindow#handleStart` and `StartQuizWindow#handleEnd` respectively
+* **Alternative 2 (initial choice):** Handle all user commands and changes in Ui within the MainWindow.
+** Pro: Less overall code, quiz mode only needs to edit the content in the `AnswerableListPanel`.
+** Con: As the CommandBox is a functional interface, it can only take in one abstract method as a parameter. This would mean that `MainWindow#executeCommand` would need to handle all cases of
+user inputs, for both answerable input commands and configuration mode commands. The `MainWindow#executeCommand` would be very long with complicated logic, thus violating SLAP.
+//end::junxian-ui[]
 
 [[Design-Logic]]
 === Logic component
@@ -97,14 +120,14 @@ The `UI` component,
 
 [[fig-LogicClassDiagram]]
 .Structure of the Logic Component
-image::LogicClassDiagram.png[]
+image::LogicClassDiagram2.png[]
 
 *API* :
 link:{repoURL}/src/main/java/seedu/revision/logic/Logic.java[`Logic.java`]
 
 .  `Logic` uses the `ParserManager` class to parse the user command.
 .  This results in a `Command` object which is executed by the `LogicManager`.
-.  The command execution can affect the `Model` (e.g. adding a question).
+.  The command execution can affect the `Model` (e.g. adding an `Answerable`).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
 .  In quiz mode, the `CommandResult` object is also used to determine whether the user's answer is correct.
@@ -112,7 +135,7 @@ link:{repoURL}/src/main/java/seedu/revision/logic/Logic.java[`Logic.java`]
 //end::shaun-logic[]
 
 //tag::wilfred-overview[]
-==== Managing parsing in Configuration and Quiz Mode
+==== Managing parsing in Configuration and Quiz Mode (Overview)
 The Revision Tool uses two Parser interfaces (`Parser` and `QuizParser`) to parse different sets of commands (i.e. in Configuration Mode and in Quiz Mode).
 
 .Class Diagram of ParserManager to display how parsers are created in both modes.
@@ -157,14 +180,13 @@ image::ModelClassDiagram2.png[]
 
 The `Model`,
 
-* stores a `QuestionBank` object that represents the Question Bank.
-* stores the Question Bank data.
+* stores a `QuestionBank` object that represents the `QuestionBank`.
+* stores the `Question Bank` data.
 * exposes an unmodifiable `ObservableList<Answerable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 //end::shaun-designmodel[]
 
-//tag::wilfred-answerable[
-]
+//tag::wilfred-answerable[]
 ==== The `Answerable` Class
 
 .Class Diagram of the Answerable Class
@@ -172,7 +194,7 @@ image::AnswerableClassDiagram.png[]
 
 The main class that the Revision Tool operates on is the `Answerable` class.
 
-Each `Answerable` class must have 1 `Question`, 1 `Difficulty` and can have any amount of categories associated with it.
+Each `Answerable` class must have 1 `Answerable`, 1 `Difficulty` and can have any amount of categories associated with it.
 The amount of answers that an `Answerable` can have depends on its type.
 
 There are 3 subclasses of the `Answerable` Class which are: `Mcq`, `TrueFalse` and `Saq`. Each class defines it's
@@ -214,21 +236,22 @@ This section describes some noteworthy details on how certain features are imple
 
 //tag::shaun-add[]
 
-=== Add questions feature
+=== Add `Answerable` feature
 ==== Implementation
 
-The add questions mechanism is facilitated by `AddCommand`.
+The add `Answerable`s mechanism is facilitated by `AddCommand`.
 It extends `Command` that will read a user command and execute the command result.
 Additionally, it implements the following operations:
 
-* `AddCommand#addMcq()` -- Adds a mcq question to the test bank.
-* `AddCommand#addShortAns()` -- Adds a short answer question to the test bank.
+* `AddCommand#addMcq()` -- Adds a mcq question to the question bank.
+* `AddCommand#addShortAns()` -- Adds a short answer question to the question bank.
+* `AddCommand#addTf()` -- Adds a True False answer question to the question bank.
 
-These operations are exposed in the `Model` interface as `Model#addMcqCommand()` and `Model#addShortAnsCommand()` respectively.
+These operations are exposed in the `Model` interface as `Model#addMcqCommand()`, `Model#addTfCommand()` and `Model#addShortAnsCommand()` respectively.
 
-Given below is an example usage scenario and how the add questions mechanism behaves at each step.
+Given below is an example usage scenario and how the add `Answerable`s mechanism behaves at each step.
 
-Step 1. The user types `add type/mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.
+Step 1. The user types `add type/mcq q/"string of `Answerable`" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq `Answerable` about UML with 4 options and option3 being the correct answer.
 
 image::InitialState.png[]
 
@@ -236,47 +259,48 @@ Step 2. The command is being parse into the parser and the AddCommand object of 
 
 image::FirstState.png[]
 
-Step 3. The AddCommand object will call its `addMcq()` method, this method will read the command and store the question with the answers into the `test bank` accordingly.
+Step 3. The AddCommand object will call its `addMcq()` method, this method will read the command and store the `Answerable` with the answers into the `test bank` accordingly.
 
 image::SecondState.png[]
 
 [NOTE]
-If a command fails its execution, it will not save the question into the `revision tool`. It will however throw an invalid command exception.
+If a command fails its execution, it will not save the `Answerable` into the `revision tool`. It will however throw an invalid command exception.
 //end::shaun-add[]
 
 ==== Design Considerations
 
 ===== Aspect: How add executes
 
-* **Alternative 1 (current choice):** Read and parse the command to execute it
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
+** User enters the command "add ...".
+** Command is taken in and parsed to validate if it is a valid command.
+** Add command is executed.
+** New question is saved in the question bank.
 
 ===== Aspect: Format of the add command
 
-* **Alternative 1 (current choice):** Use a single line containing all the information of the question.
+** Use a single line containing all the information of the question.
 ** Pros: Faster for user to add a question.
 ** Cons: Hard for user to memorize the long sequence which may cause invalid command input.
-* **Alternative 2:** Use multiple steps to guide user on adding the question.
+* **Other alternative we considered:** Use multiple steps to guide user on adding the question.
 ** Pros: User do not have to memorize the correct format and less chance for an invalid command input.
-** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
+** Cons: Slow to add `Answerable`s, requiring multiple steps to fully complete an `Answerable`.
 
 //tag::wilfred-implementation[]
 [[Implementation-ConfigQuiz]]
 === Configuration and Quiz Mode
 As different commands are available for Configuration and Quiz Mode, we have to determine which commands are valid based on
-the state of the application. To do so, we had two main design considerations: The structure of the parser component and how to
-determine which parser to use. We will discuss these considerations in the following segment.
+the state of the application. To implement this, we had to examine two main design considerations: The *structure of the parser component* and *how to
+determine which parser to use*. We will discuss these considerations in the following segment.
 
 ==== Design Considerations
 |===
-|Aspect | Alternative 1 | Alternative 2 | Conclusion and Explanation
+|*Aspect* | *Alternative 1* | *Alternative 2* | *Conclusion and Explanation*
 |Structure of the Parser Component
-|Command parsers for both modes implement the same interface (i.e. implement both parse(String) and parse(String, Answerable) methods)
+|Command parsers for both modes implement the same interface (i.e. implement both `parse(String)` and `parse(String, Answerable)` methods)
 but for the method which is not used, throw an error if a client calls it.
 |Command parsers belonging to each mode implement different interfaces (i.e. a `Parser` or `QuizParser` interface)
-which dictates the parameters of their parse() methods. (i.e. parse(String) for Configuration Mode vs parse(String, Answerable) for Quiz Mode)
-|Alternative 2 was implemented. The main reason for this choice was to adhere to the interface-segregation principle.
+which dictates the parameters of their parse() methods. (i.e. `parse(String)` for Configuration Mode vs `parse(String, Answerable)` for Quiz Mode)
+|*Alternative 2 was implemented.* The main reason for this choice was to adhere to the interface-segregation principle.
 If alternative 1 were to be implemented, a Configuration Mode command may have to implement a parse(String, Answerable)
 dummy method which it will not use. This is bad design as a client might be able to call the dummy method and receive
 unexpected results. Thus, by separating the interfaces, clients will only need to know about the methods that they need.
@@ -287,15 +311,14 @@ with accompanying `QuizLogicManager` and `LogicManager` classes whose methods wi
 |Use a single `ParserManager` class which has overloaded methods of parse(String) and parse(String, Answerable). A
 single `LogicManager` will also implement `execute(String)` and `execute(String, Answerable)`. In Configuration Mode, the
 `LogicManager` will call `execute(String)` as there is no need to take in an Answerable and in Quiz Mode, the `LogicManager`
-will call `execute(String, Answerable) to initiate quiz-related commands.
-|Alternative 2 was implemented. By doing so, we were able to adopt a facade design pattern. The main benefit would be that
+will call `execute(String, Answerable)` to initiate quiz-related commands.
+|*Alternative 2 was implemented.* By doing so, we were able to adopt a facade design pattern. The main benefit would be that
 the client doesn't need to know the logic involved in selecting which type of parser and logic to use. This hides the internal
 complexity of the `ParserManager` class which will be responsible for determining which type of parser to use.
 |===
 
 ==== Commands in Configuration Mode
-In Configuration Mode, a single string is passed as an argument to the Logic#execute method (i.e. execute(String)).
-
+In Configuration Mode, a single string is passed as an argument to the Logic#execute method (i.e. `execute(String)`).
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 .Interactions Inside the Logic Component for the `delete 1` Command
@@ -304,7 +327,7 @@ image::DeleteSequenceDiagram.png[]
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
 ==== Commands in Quiz Mode
-In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the Logic#execute method. (i.e. execute(String, Answerable))
+In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the Logic#execute method. (i.e. `execute(String, Answerable)`)
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("c", answerable)` API call.
 
 .Interactions Inside the Logic Component for the `c` input command.
@@ -313,14 +336,14 @@ image::QuizSequenceDiagram.png[width=790]
 ==== Key differences between Configuration Mode and Quiz Mode:
 
 |===
-|Configuration Mode | Quiz Mode
+|*Configuration Mode* | *Quiz Mode*
 |Logic#execute takes in a single string. | Logic#execute takes in a String and an Answerable.
-|No methods of answerables are called. | Answerable#isCorrect(Answer)) is called from the AnswerableInputCommands such as `McqInputCommand` to check whether the user's answer is correct.
-|CommandResult is used to display feedback to the user| CommandResult is used to display feedback to the user and inform `LogicManager` whether the selected answer is correct.
-|Model is used to save actions such as the addition/deletion of answerables. | Model is used to update the score history statistics.
+|No methods of `Answerable` are called. | `Answerable#isCorrect(Answer)` is called from `AnswerableInputCommand`s such as `McqInputCommand` to check whether the user's answer is correct.
+|`CommandResult` is used to display feedback to the user| `CommandResult` is used to display feedback to the user and inform `LogicManager` whether the selected answer is correct.
+|`Model` is used to save actions such as the addition/deletion of answerables. | `Model` is used to update the score history statistics.
 |===
 
-==== Implementation of CommandResult (Builder Design Pattern)
+==== Implementation of `CommandResult` (Builder Design Pattern)
 The `CommandResult` class is designed using a builder pattern to allow flexibility of values returned to the `LogicManager`.
 To guard against null values, default values are provided to every field in the `CommandResult` class upon construction.
 Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
@@ -344,20 +367,22 @@ session has started.
 .Activity Diagram of a Quiz Session in `NormalMode`
 image::QuizSessionActivityDiagram.png[width=790]
 
-Elaboration of Steps:
+*Elaboration of Steps:*
 
-. After the user has started either a normal / custom mode quiz. He/she will be prompted to key in their answer.
+. After the user has started a normal mode quiz. He/she will be prompted to key in their answer.
 . If the input is valid, the revision tool will display the subsequent question until the level / entire quiz has ended.
 . If the input is invalid, the revision tool will prompt the user to key in their input again with guidance provided on
 the commands accepted.
-. If the time limit is exceeded (e.g. 30 seconds in Normal Mode), the revision tool will mark the question as wrong and
-move on to the next question.
+. If the time limit is exceeded (e.g. 30 seconds in Normal Mode), the revision tool will mark the `Answerable` as wrong and
+move on to the next `Answerable`.
 . Once a level has ended, the user will be given the choice to move on to the next level or exit the quiz.
 . Once the entire quiz has ended, the user will be given the choice to restart or exit the quiz.
 
 [NOTE]
+For Custom Mode, the game play is the same except that user can choose the category and difficulty of questions. +
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 //end::wilfred-implementation[]
+
 
 //tag::khiangleon-stats[]
 [[Implementation-DataAnalytics]]
@@ -408,6 +433,143 @@ to the user through the `CommandResultBuilder`. The `CommandResultBuilder` will 
 
 //end::khiangleon-stats[]
 
+
+//tag::sihao-saq[]
+=== Saq feature
+==== How Saq works
+The Saq input mechanism is facilitated by `SaqInputCommand`. It extends `Command` and execute the `CommandResult`. The input
+will be  parse into `SaqInputCommandParser` to check for input validity. If the input String is not valid (i.e the String
+does not start with a letter of number), an invalid command parse exception will be thrown, indicating to user that the
+input String requires a letter or a number at the start of the String.
+
+If the input is valid, `SaqInputCommand` object of type `Command` will be created. The execute command of the
+`SaqInputCommand` object will be executed. The execute command will call the `isCorrect` method of Saq to check if the
+user input is correct or not.
+
+The activity diagram below shows the steps the user takes to answer an SAQ.
+
+.Activity Diagram of checking answer for SAQ
+image::SaqAnswerCheckerActivityDiagram.png[width=700]
+
+==== NLP Libraries
+External libraries were used to determine if the user input is correct or not. `StanfordCoreNLP` library was used to
+check for sentimental value of user input and the list of correct answers. This helps to check for negative sentence
+against a neutral or positive sentence (eg. "not a uml diagram" and "it's a uml diagram"). The `FuzzyWuzzy` library was
+also used to determine the similarity percentage of the user input to the correct answer using fuzzy string matching
+technique.
+
+The class diagram below shows the relationship between the classes that are used to validate the correctness of the
+user input.
+
+.Class Diagram of SAQ Answer Checker
+image::SaqAnswerCheckerClassDiagram.png[width=790]
+
+==== Validating the answer
+The `execute` method will return the `CommandResult`, correct or wrong. The currentAnswerable of type `Saq` will call its
+`isCorrect` method and return a boolean value, true for correct answer and false for wrong answer. The sequence diagram
+below shows the steps taken by the `isCorrect` method to determine if the user input is correct or wrong.
+
+.Sequence Diagram of SAQ isCorrect Method
+image::SaqIsCorrectSequenceDiagram.png[width=790]
+
+//end::sihao-saq[]
+
+//tag::shaun-restore[]
+=== Restore feature
+==== Implementation
+The restore mechanism is facilitated by `RestoreCommand`.
+It extends `Command` that will read a user command and execute the command result.
+Additionally, it implements the following operations:
+
+* `#handleRestore()` -- Prompts the user with an alert box if he really wishes to execute the restore function.
+* `#setRevisionTool()` -- Clears the current question bank and reset it with our own default questions.
+
+
+These operations are exposed in the `Model` interface as `Model#setRevisionTool()` and from `MainWindow` as `#handleRestore()` respectively.
+
+==== Design Considerations
+* When implementing the restore feature, we didn't want users to face a problem if they entered the command accidentally hence the alert popup was implemented, to prompt users if they really want to carry out the command before executing it.
+* With this popup, users will now be more cautious when trying to restore and only do so when they really want to reset their revision tool.
+* Furthermore, the questions that we included in the default revision tool question bank are questions taken from the lecture quiz and weekly quiz which are most probably deemed important by the professor himself.
+
+===== Aspect: How Restore executes
+** User enters the command "restore".
+** Command is taken in and a popup is shown to reconfirm if the user would like to carry out the restore command.
+** Upon clicking yes, restore command will be handled.
+** Current questions will be deleted and default questions will reset to the revision tool.
+
+//end::shaun-restore[]
+
+//tag::shaun-autocomplete[]
+=== AutoComplete feature
+==== Implementation
+* A set of commands and auto completed text are saved in a set.
+* When users type a command on the text box, method `#populatePopup` will be called where the user's command will be matched against our SortedSet.
+* If there is a match, a contextMenu showing all possible auto complete text will show up.
+* This method is implemented such that the results in the contextMenu will change and show as the user is typing and this would make it more intuitive for users.
+
+==== Design Considerations
+* The main design consideration here would be to have value added auto complete list to pop up.
+* How we managed that is to show:
+** The basic command
+** Basic command + possible parse commands where they can easily fill in.
+
+image::AutoComplete2.png[]
+
+===== Aspect: How AutoComplete works
+** Users wishes to enter an "Add" command `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1`
+** Upon typing either "a", "ad" or even "add", the auto complete context menu will pop up showing possible auto complete list, mainly:
+*** add
+*** add type/ q/ y/ x/ cat/ diff/
+** Upon seeing that, users will be able to select those options or use those as a guideline to complete his commands more intuitively.
+//end::shaun-autocomplete[]
+
+
+//tag::junxian-list[]
+=== List feature
+ListCommand` extends `Command` that will read in user command and execute the command result. User can filter by `Catergory` and/or `Difficulty`
+
+==== Design Considerations
+
+===== Aspect: Showing the filtered list
+* **Current Implementation** `ListCommand#excute` combines the `CategoryPredicate` and `DifficultyPredicate` to update the answerable list through `Model#updateFilteredAnswerableList`
+** Pro: Uses Java 8 streams which supports immutability. This is in line with the immutability clause enforced by the `ObservableList` returned by `Model#updateFilteredAnswerableList`
+//end::junxian-list[]
+
+//tag:: junxian-proposed-features[]
+=== Proposed Features
+==== Star Answerable Command
+===== Overview of feature
+User will be able to star an `Answerable` during the test, which marks the `Answerable`
+to remind them to revisit it after the test. The `Answerable` will have an additional `boolean` field `star`.
+The code flow follows the sequence diagram in section 3.2.3, but without the call to `Answerable#isCorrect`.
+The `LogicManager` then calls `execute(String)` in the reference frame "edit question as starred". This will involve the `EditCommand`
+which is typically used in the configuration mode. It is now being called internally inside the quiz mode to update the `Answerable` as starred.
+
+.Sequence Diagram of the StartAnswerableCommand during quiz mode
+image::StarQuestionInputSequenceDiagram.png[]
+.Sequence Diagram of editing the `Answerable` as starred.
+image::EditQuestionAsStarredSequenceDiagram.png[]
+
+===== Aspect: Updating the `Answerable` to be marked as starred while inside quiz mode.
+* **Alternative 1 (current choice):** Update the `Answerable` through a call to `LogicManager#execute`. This is primarily used during the configuration mode and not the quiz mode.
+** Pro: Uses existing commands to implement a new feature for the user, appropriate code reuse
+** Con: No clear separation of logic as quiz mode should not know about configuration mode commands.
+* **Alternative 2:** Directly edit the `Answerable` as it is accessible in the `execute(String, Answerable)` for quiz mode commands.
+** Pro: Less code needed.
+** Con: It breaks the implicit immutability of the `Answerable`, which should only be edited through the `EditCommand` (which creates a new `Answerable`)
+
+==== Input short code for quiz questions
+===== Overview of feature
+User will be able to input code, during the quiz session, and the `RevisionTool` will check the syntax as the user types in the code.
+The activity diagram is outlined below.
+
+.Sequence Diagram of the StartAnswerableCommand during quiz mode
+image::CodingQuestionSessionActivityDiagram.png[]
+.Activity diagram showing the user flow for code input during quiz mode.
+
+//end:: junxian-proposed-features[]
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -453,6 +615,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: helps student to ace CS2103/T
 
+//tag::sihao-userstories[]
 [appendix]
 == User Stories
 
@@ -519,14 +682,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |CS2103 student who keeps having stomach ache |the application to tell me where the nearest toilet is |go and shit
 |=======================================================================
+//end::sihao-userstories[]
 
+//tag::wilfred-use-case[]
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `RevisionTool` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete answerable
+=== Use case (UC01): Add answerable
+
+*MSS*
+
+1.  User requests to add an answerable
+2.  RevisionTool adds the answerable
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The answerable already exists in the list.
++
+[none]
+** 2a1. RevisionTool shows an error message.
++
+Use case ends.
+
+* 2a. Any of the parameters provided are invalid.
++
+[none]
+** 2a1. RevisionTool shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case (UC02): Delete answerable
 
 *MSS*
 
@@ -551,16 +743,92 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+[discrete]
+=== Use case (UC03): Start Quiz in `Normal Mode`
+*MSS*
 
+1.  User requests to start quiz in Normal Mode
+2.  RevisionTool shows the Quiz Mode window with the first question displayed.
+3.  User enters his input into the command box.
+4.  RevisionTool checks the input and records the result of the answer (i.e. whether correct or not).
+5.  RevisionTool displays the next question. Use case resumes at step 3.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list of questions for the quiz is empty.
++
+Use case ends.
+
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. RevisionTool shows an error message.
++
+Use case resumes at step 3.
+
+* 3c. User inputs an exit command.
++
+Use case ends.
+[none]
+* 5a. The current level of the quiz has ended.
++
+[none]
+** 5a1. RevisionTool prompts the user to continue or end the quiz.
+** 5a2. User chooses to proceed to the next level.
++
+Use case resumes at step 5.
+
+* 5b. The current level of the quiz has ended.
++
+[none]
+** 5b1. RevisionTool prompts the user to continue or end the quiz.
+** 5b2. User chooses to end the quiz.
++
+Use case ends.
+
+* 5c. The entire quiz has ended.
++
+[none]
+** 5c1. RevisionTool prompts the user to restart or end the quiz.
+** 5c2. User chooses to restart the quiz.
++
+Use case ends resumes at step 2.
+
+* 5d. The entire quiz has ended.
++
+[none]
+** 5d1. RevisionTool prompts the user to restart or end the quiz.
+** 5d2. User chooses to end the quiz.
++
+Use case ends.
+
+* *a. Time available to answer each question of the quiz runs out (30 seconds for Normal Mode).
++
+[none]
+** *a1. RevisionTool marks the question as wrong.
++
+Use case resumes at step 5.
+
+[NOTE]
+For Custom Mode, the use case is the same except timer can be customised. +
+For Arcade Mode, an extension 4a will be added. If the user gets the question wrong, the quiz will end and the User will
+be prompted to restart or end the quiz.
+
+//end::wilfred-use-case[]
+
+//tag::shaun-appendix[]
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  RevisionTool should work on any <<mainstream-os,mainstream OS>> as long as it has Java `11` or above installed.
+.  RevisionTool be able to hold up to 1000 questions without any significant reduction in performance for typical usage.
+.  A user with above slow typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  RevisionTool should be able to run without any internet connectivity.
+.  RevisionTool does not require any further installation upon downloading the jar file.
 
-_{More to be added}_
 
 [appendix]
 == Glossary
@@ -568,25 +836,14 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
+[[Answerables]] Answerables::
+A set of question answers, which includes :
+* Type: MCQ, True False, Short Answered Question
+* Question
+* Correct Answers (Can contain multiple answers)
+* Wrong Answers (Can contain multiple answers)
+* Category
+* Difficulty
 
 [appendix]
 == Instructions for Manual Testing
@@ -606,11 +863,30 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Saving window preferences
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
+.. Resize the window to an optimum size. Move the window to a different location. Close the window by using the `x` button at the top right hand corner or by using the command `exit`.
+.. Re-launch the app by double clicking the jar file. +
    Expected: The most recent window size and location is retained.
 
-_{ more test cases ... }_
+=== Adding an answerable
+
+. Adding a MCQ to the current list
+
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: new MCQ answerable will be created and appended at the bottom of the list. Details of the the added answerable will be shown at the bottom of the list, and the correct answer will be highlighted in green.
+
+. Adding a True False to the current list
+
+.. Test case: `add type/tf q/What is 1 + 1 = 2 y/true cat/easy diff/1` +
+Expected: new True False answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list, and only the correct answer will be shown and highlighted in green.
+
+. Adding a Short Answer Question (SAQ) to the current list
+
+.. Test case: `add type/saq q/What is smaller than 10 but bigger than 7? y/8 y/9 cat/easy diff/1` +
+Expected: new SAQ answerable will be created and appended at the bottom of the list. Details of the added answerable will be shown at the bottom of the list and all the correct answers state will be highlighted in green.
+
+. Adding an Answerable that already exist in the Revision Tool
+.. Test case: `add type/mcq q/What is 1 + 1 y/2 x/1 x/3 x/4 cat/easy diff/1` +
+Expected: No new answerable will be added as the question already exist in the Revision Tool. An error message will be thrown, informing users that the answerable already exist in the Revision Tool.
 
 === Deleting an answerable
 
@@ -624,12 +900,24 @@ _{ more test cases ... }_
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Starting quiz
+
+. Starting a quiz
+.. Test case: `start mode/normal` +
+Expected: Start quiz window will pop up with a question showing under the command box and the answers in the result box further below. Answer the questions using the CLI accordingly to see the progress bar move till quiz completion. Users will be prompted if he wishes to proceed to level 2.
+.. Test case: `start mode/arcade` +
+Expected: Start quiz window will pop up similar to previous test case. The only difference would be that once the quiz proceeds and an incorrect answer is input, the quiz ends and the score will be shown. This is the "hard mode" of our quiz mode.
+.. Test case `start mode/custom timer/3` +
+Expected: Start quiz window will pop up similar to previous test case. The difference here will be the timer. Instead of the 30 seconds timer per question, the new timer (seen at the bottom right beside the status progress bar) will be at 3 seconds as set by the user.
 
 === Saving data
 
 . Dealing with missing/corrupted data files
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+.. If there is a missing answerables data file, the RevisionTool will automatically create a default data file with all the default answerables inside.
+.. If there is a corrupted answerable data file, the RevisionTool will automatically start with a list of empty file. Users will then be able to use the `#restoreCommand` here to get a list of default answerables or alternatively, create a new set of answerables manually.
 
-_{ more test cases ... }_
+. To identify missing/corrupted data files:
+.. `.\data\revisiontool.json`
+.. `.\data\history.json`
+//end::shaun-appendix[]

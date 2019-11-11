@@ -1,10 +1,13 @@
 package seedu.revision.testutil;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 
 import seedu.revision.model.answerable.Answer;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.answerable.Mcq;
+import seedu.revision.testutil.builder.AnswerableBuilder;
 
 /** Builder class to create {@code Mcq} objects. **/
 public class McqBuilder extends AnswerableBuilder<Mcq> {
@@ -12,13 +15,14 @@ public class McqBuilder extends AnswerableBuilder<Mcq> {
     public McqBuilder() {
         super();
         wrongAnswerList = new ArrayList<>();
-        wrongAnswerList.add(new Answer("Wrong answer A"));
         wrongAnswerList.add(new Answer("Wrong answer B"));
         wrongAnswerList.add(new Answer("Wrong answer C"));
+        wrongAnswerList.add(new Answer("Wrong answer D"));
     }
 
     public McqBuilder(Answerable answerableToCopy) {
         super(answerableToCopy);
+        assertTrue(answerableToCopy instanceof Mcq);
         wrongAnswerList = new ArrayList<>(answerableToCopy.getWrongAnswerList());
     }
 
@@ -37,7 +41,4 @@ public class McqBuilder extends AnswerableBuilder<Mcq> {
         return new Mcq(question, correctAnswerList, wrongAnswerList, difficulty, categories);
     }
 
-    public Mcq buildTest() {
-        return new Mcq(correctAnswerList, wrongAnswerList);
-    }
 }

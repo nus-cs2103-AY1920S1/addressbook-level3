@@ -17,7 +17,7 @@ import static seedu.revision.logic.commands.CommandTestUtil.QUESTION_TYPE_MCQ;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_GREENFIELD;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_CATEGORY_UML;
 import static seedu.revision.logic.commands.CommandTestUtil.VALID_DIFFICULTY_BETA;
-import static seedu.revision.logic.commands.CommandTestUtil.VALID_QUESTION_BETA;
+import static seedu.revision.logic.commands.CommandTestUtil.VALID_MCQ_QUESTION_2;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.revision.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.revision.testutil.TypicalMcqs.MCQ_B;
@@ -69,13 +69,13 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing question prefix
-        assertParseFailure(parser, VALID_QUESTION_BETA + DIFFICULTY_DESC_BETA, expectedMessage);
+        assertParseFailure(parser, VALID_MCQ_QUESTION_2 + DIFFICULTY_DESC_BETA, expectedMessage);
 
         // missing difficulty prefix
         assertParseFailure(parser, QUESTION_DESC_BETA + VALID_DIFFICULTY_BETA, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_QUESTION_BETA + VALID_DIFFICULTY_BETA, expectedMessage);
+        assertParseFailure(parser, VALID_MCQ_QUESTION_2 + VALID_DIFFICULTY_BETA, expectedMessage);
     }
 
     @Test
