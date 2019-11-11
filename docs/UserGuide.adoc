@@ -570,7 +570,8 @@ You can schedule a meeting by specifying the **duration** of the meeting in hour
 Format: `find-meeting-time [start/START_DATE] [end/END_DATE] [hours/DURATION]`
 
 [NOTE]
-+Work recognises date and time in the format 'dd-mm-yyyy hh:mm
++Work recognises date and time in the format 'dd-mm-yyyy hh:mm`
+
 [TIP]
 +Work shows you the meeting times where the **most** number of people are available
 
@@ -865,7 +866,7 @@ image::ml-task_4_5.PNG[]
 // end::Multiline[]
 
 
-
+'''
 // tag::autocomplete[]
 === Command Line Autocomplete
 
@@ -1057,8 +1058,8 @@ The following is a summary of all the commands +Work offers arranged in alphabet
 
 == Upcoming Features
 
-Our team is currently working hard on the following exciting features. Make sure to follow our application for any
-updates in the future!
+Our team is currently working hard on the following exciting features! Make sure to follow our application for any
+updates in the future.
 
 // tag::version-2.0[]
 === Cloud Integration `[coming in v2.0]`
