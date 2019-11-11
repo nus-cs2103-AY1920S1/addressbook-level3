@@ -528,19 +528,12 @@ Example Usage:
 
 * `viewEntry`
 
-<<<<<<< HEAD
 === Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`, `sortAutoExp`
 Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
 `tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
 
 [NOTE] Sorting of Budget by Amount refers to the original Budget Total Amount.
 
-=======
-=== Sorting : `sortExpense`, `sortIncome`, `sortBudget`, `sortWish`
-Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
-`tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
-
->>>>>>> 48d72ea145d90f52dc5a57d05ee1812bb2078e7a
 Format: `sortExpense typ/<sort type> s/<sort sequence>`
 
 * `<sort type>`: The type to sort the entries by. The default order or sorting is by `time`, followed by `amount`, `description`, `category` and finally `tags`.
@@ -569,25 +562,6 @@ Find income/expenditure by Category, Description, Amount, Date or Tags. There mu
 
 [NOTE]
 Finding by `Amount` will show the entries that are above a certain amount. Budget's Amount refers to the total amount allocated for the Budget.
-
-[NOTE]
-Finding by `Description` will show all entries which have some parts of the description keyword in them. For example,
-finding `mala food` will show entries with either mala or food or both in their Description.
-
-[NOTE]
-Finding by `Tag` will show all entries with all the tags in them. For example, finding by `tg/eat tg/entertainment` will show entries with only
-both tags. The reason for this is that tags should be more specific that entry Description.
-
-Format: `findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] [t/<tag>]`
-
-=======
-
-=== Find : `findExpense`, `findIncome`, `findWish`, `findBudget`
-
-Find income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
-
-[NOTE]
-Finding by `Amount` will show the entries that are above a certain amount.
 
 [NOTE]
 Finding by `Description` will show all entries which have some parts of the description keyword in them. For example,
