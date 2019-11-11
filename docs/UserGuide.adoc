@@ -34,7 +34,7 @@ Interested? Refer to <<Quick-Start>> below to get started. Enjoy!
 [[Quick-Start]]
 == Quick Start
 
-This section summarizes how you can quickly set up Mortago on your computer
+This section summarizes how you can quickly set up Mortago on your computer.
 
 === Setting Up
 .  Ensure you have `Java 11` or above installed in your Computer.
@@ -54,11 +54,11 @@ image::Ui.png[width="790"]
 Type the command in the command box and press kbd:[Enter] to execute it. +
 The following are examples of some commands you can try:
 
-* *`list -b`* : lists all bodies
+* *`list -b`* : lists all bodies.
 * *`add -w/name John Doe /sex male /dateJoined 12/12/2019`* :
 adds a worker named John Doe to the management system.
-* *`delete -w 1`* : deletes the worker with worker ID W000001
-* *`exit`* : exits the app
+* *`delete -w 1`* : deletes the worker with worker ID W000001.
+* *`exit`* : exits the app.
 
 // tag::commandspecs[]
 
@@ -458,15 +458,15 @@ After filtering specific bodies, you may now want to view the full list of bodie
 
 1) Mortago shows filtered list of bodies.
 
-image::List1.png
+image::List1.png[]
 
 2) Type `list -b` in the Command Line Interface (CLI).
 
-image::List2.png
+image::List2.png[]
 
 3) Mortago shows unfiltered list of bodies.
 
-image::List3.png
+image::List3.png[]
 
 // end::list[]
 
@@ -480,7 +480,7 @@ Format: `select id`
 
 Example: `select 1`
 
-The following illustrates how you can use the select command.
+The following illustrates how you can use the `select` command.
 
 . Suppose you wish to select a body with ID B00000001.
 
@@ -603,12 +603,12 @@ Example: +
 Imagine that you wanted to delete a `Body` with ID 10 from Mortago. However, your finger slips and you type `20` instead
 of `10`!
 
-image::Undo2.png
+image::Undo2.png[]
 
 You don't realise and execute the command. When you look at the dashboard, you realise you have deleted body 20.
 Even worse, you have no recollection of body 20's name or information.
 
-image::UndoBodyDeleted.png
+image::UndoBodyDeleted.png[]
 
 
 You can easily reverse that mistake with the `undo` command instead of adding body 20 all over again!
@@ -617,11 +617,11 @@ To undo:
 
 1) Type `undo` or `u` into the command box.
 
-image::Undo4.png
+image::Undo4.png[]
 
 2) Press `Enter` to execute the command.
 
-image::Undo5.png
+image::Undo5.png[]
 
 3) Notice that the result box shows text telling you what was undone, and body 20 is back in the list of bodies.
 
