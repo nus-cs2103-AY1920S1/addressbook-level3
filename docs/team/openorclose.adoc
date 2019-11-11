@@ -2,11 +2,12 @@
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
-:sectnums:
 
 == Project: Mark (adapted from AddressBook - Level 3)
 
 '''
+
+:sectnums:
 
 == Introduction
 
