@@ -948,12 +948,12 @@ Use case resumes at step 4.
 
 1. User requests to open the import tab
 2. Weme opens the import tab
-3. User requests to import a meme collection from a directory
-4. Weme adds the memes from the collection into the staging area
-5. User requests to delete unwanted memes in the staging area
-6. Weme deletes those memes from the staging area
-7. User confirms the import
-8. Weme successfully imports the selected memes from the collection
+3. User requests to load a meme collection from a directory
+4. Weme adds the memes from the collection into the import tab
+5. User requests to delete unwanted memes in the import tab
+6. Weme deletes those memes from the import tab
+7. User executes the import command
+8. Weme successfully imports memes from the import tab into weme
 +
 Use case ends
 
@@ -965,20 +965,12 @@ Use case ends
 +
 Use case resumes at step 2
 
-* 3b. The given collection is corrupted
+* 3b. Some files in the folder are corrupted
 +
 [none]
-** 3b1. Weme shows an error message
+** 3b1. Weme adds only valid images into the import tab
 +
-Use case resumes at step 2
-
-* 7a. There are no memes left in the staging area
-+
-[none]
-** 7a1. Weme shows an error message
-+
-Use case resumes at step 2
-
+Use case resumes at step 4
 
 [discrete]
 === Use case 4: Undo/Redo
@@ -1120,6 +1112,52 @@ These instructions only provide a starting point for testers to work on; testers
 .. Prerequisites: Weme is in the memes tab and just executed a `find` command. An image file is on the hard disk.
 .. Similar to above, but after successful execution of `add`, the user is redirected to the `list` view.
 
+=== Editing a meme
+
+. Editing a meme while all memes are listed
+
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `edit 1 d/new description t/tag` +
+   Expected: The meme in the given index is edited. The view is updated to reflect this change. The status message states the edit was successful.
+.. Test case: `edit 1` +
+   Expected: no meme is edited. Error details shown in the status message states that at least one field to edit must be provided.
+.. Other incorrect edit commands to try: `edit`, +
+   Expected: No meme is edited. Error details shown in the status message states that the command is of invalid format.
+
+. Editing a meme while in `find`
+
+.. Prerequisites: Weme is in the memes tab and just executed a `find` command.
+.. Similar to above. Weme will edit the meme specified by the index in the displayed index.
+
+=== Deleting a meme
+
+. Deleting a meme while all memes are listed
+
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `delete 1` +
+   Expected: The meme in the given index is deleted. Meme is removed from the view. The status message states the delete was successful.
+.. Test case: `delete 0` +
+   Expected: No meme is deleted. Error details shown in the status message states that the command is of invalid format.
+.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
+   Expected: Similar to previous.
+
+. Deleting a meme while in `find`
+
+.. Prerequisites: Weme is in the memes tab and just executed a `find` command.
+.. Similar to above. Weme will delete the meme specified by the index in the displayed list.
+
+=== Clearing memes
+
+. Clearing all memes in the memes tab
+
+.. Prerequisites: Weme is in the memes tab.
+.. Test case: `clear` +
+   Expected: All memes in the memes tab has been cleared. The status message states the clearing was successful.
+
+****
+* Note: This command is able to be undone by executing the undo command.
+****
+
 === Archiving a meme
 
 . Archiving an unarchived meme
@@ -1232,8 +1270,8 @@ Similar to like. Command is `dislike`.
 
 === Staging a Meme
 
-. Stages a meme while all memes are listed.
-.. Prerequisites: User is in the memes tab.
+. Staging a meme while all memes are listed.
+.. Prerequisites: Weme is in the memes tab.
 .. Test case: `stage 1` +
    Expected: Stages the meme by the given index to the export staging area. User can view this staged meme
    by switching to the export tab.
@@ -1244,8 +1282,8 @@ Similar to like. Command is `dislike`.
 
 === Unstaging a meme
 
-. Unstages a meme from the export tab.
-.. Prerequisites: User is in the export tab.
+. Unstages a meme from the export tab
+.. Prerequisites: Weme is in the export tab.
 .. Test case: `unstage 1` +
    Expected: Unstages the meme by the given index from the export staging area. The meme
    will be removed from the export tab and the user can choose to stage it again by going back to the
@@ -1258,14 +1296,14 @@ Similar to like. Command is `dislike`.
 === Clearing staged memes
 
 . Similar to the clear command in the memes tab. User can clear the memes in the export tab.
-.. Prerequisites: User is in the export tab.
+.. Prerequisites: Weme is in the export tab.
 
 
 === Exporting memes
 
 . Exports all the memes in the export tab to a folder which can be specified by the user by
-   giving the directory path.
-.. Prerequisites: User is in the export tab. User has the path to the folder for the memes
+   giving the directory path
+.. Prerequisites: Weme is in the export tab. User has the path to the folder for the memes
    to be exported to.
 .. Test case: `export` +
    Expected: Creates a folder named "export" in the same directory as the jar file.
@@ -1278,8 +1316,8 @@ Similar to like. Command is `dislike`.
 === Loading a meme
 
 . Loads all the memes into the import tab from a folder which is specified by the user by
-   giving the directory path containing the memes.
-.. Prerequisites: User is in the import tab. User has the path to the folder for the memes
+   giving the directory path containing the memes
+.. Prerequisites: Weme is in the import tab. User has the path to the folder for the memes
 to be loaded from.
 .. Test case: `load` +
    Expected: Nothing is loaded. Error message is shown to prompt the user to specify a valid
@@ -1293,8 +1331,8 @@ to be loaded from.
 
 === Importing memes
 
-. Imports all the memes from the import tab into Weme.
-.. Prerequisites: User is in the import tab.
+. Imports all the memes from the import tab into Weme
+.. Prerequisites: Weme is in the import tab.
 .. Test case: `import` +
    Expected: The memes (if any) in the import tab will be successfully imported into Weme. The user
    can now view these memes in the memes tab. The import tab will then be cleared so that
@@ -1303,24 +1341,24 @@ to be loaded from.
 === Editing loaded memes
 
 . Similar to the edit command in the memes tab. User can edit the memes before importing them.
-.. Prerequisites: User is in the import tab.
+.. Prerequisites: Weme is in the import tab.
 
 === Deleting loaded memes
 
 . Similar to the delete command in the memes tab. User can delete unwanted memes before importing
    the remaining memes over to the memes tab.
-.. Prerequisites: User is in the import tab.
+.. Prerequisites: Weme is in the import tab.
 
 === Clearing loaded memes
 
 . Similar to the clear command in the memes tab. User can clear the memes in the import tab.
-.. Prerequisites: User is in the import tab.
+.. Prerequisites: Weme is in the import tab.
 
 
 === Viewing a meme
 
-. Views a meme while all memes are listed.
-.. Prerequisites: User is in the memes tab.
+. Views a meme while all memes are listed
+.. Prerequisites: Weme is in the memes tab.
 .. Test case: `View 1` +
    Expected: Views the meme by the given index as an enlarged picture. User can exit this view
    by doing a tab command (e.g. `tab memes` to go back to the memes tab).
