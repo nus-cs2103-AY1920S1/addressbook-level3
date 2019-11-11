@@ -5,73 +5,38 @@
 
 == PROJECT: Module Appeal Management System (MAMS)
 
----
+'''
 
 == Overview
 
-
-.Sample User Interface of MAMS
-
-image::Ui.png[height=50%]
-
-Every semester, administrators from the National University of Singapore (NUS) have to
-systematically work their way through a heavy backlog of special requests, known as "appeals".
-These appeals are usually made by frantic students during Module Registration,
-a system where students register for their
-desired courses in the upcoming academic term, and represent special circumstances that require
-human judgement to resolve.
-
-**The Module Appeal Management System (MAMS)** is hence a desktop app that aims
-to fuse a Command Line Interface (CLI) style command input with a triple-pane
-GUI for easy navigation of appeals, module information, and student
-particulars all in a single display. By combining the precision and speed of a CLI
-input with the powerful side-by-side overview afforded by a GUI,
-this app is particularly aimed towards *appeal
-administrators who prefer to blaze through their heavy backload of appeals
-without ever having to leave the comfort of the keyboard for their mouse*. MAMS aims
-to be a self-contained application for fetching appeal, module, and student information, while
-providing a complete suite of tools for intuitive navigation of the comprehensive data display and
-resolving appeals. These include, but may not be limited to:
-
-- A *powerful side-by-side triple-pane list cell display of appeal, module, and student data*, with commands to quickly navigate between
-compact list views of multiple items and comprehensive expanded displays of single items.
-- A *command history feature* for administrators to quickly cycle through and re-use old commands, while providing a comprehensive
-and permanent log of all actions performed within the application.
-- A *clash feature* that allows administrators to accurately determine any potential timetable clashes in appeal cases,
-student workloads, or any two particular modules.
-- A *find feature* that enables administrators to quickly locate specific appeal, module, and student data, narrowing down clutter within the display.
-- An *add/remove module feature* that allows administrators to allocate or remove modules from students, while automatically checking for
-potential hiccups like duplicate assignments.
-- An *approve/reject feature* that allows administrators to close or resolve appeals in fast succession, and even provides functionality for mass operations.
-- A *set credits feature* that provides administrator with the functionality to override allowable student workloads.
-- An *undo/redo feature* to correct any recent unwanted data changes that may have been accidentally committed by the administrator.
-
-MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about
-13 kLoC.
+**The Module Appeal Management System (MAMS)** is a desktop appeal management app for module appeal administrators.
+MAMS aims to fuse a Command Line Interface (CLI) style command input with a triple-pane GUI for easy navigation of appeals, module information, and student
+particulars all in a single display.
+MAMS provides a complete suite of tools for intuitive navigation of the comprehensive data display and
+resolving appeals (_for feature details, please refer to User Guide_).
+MAMS is written primarily in Java, and features a GUI created with JavaFX, with CSS used to augment the GUI for improved user experience. It has about 13 kLoC.
 
 == Summary of contributions
 
 * *Major enhancement 1: added the ability to check clashes for various cases*
-** What it does: allows the admin to check timetable clash between 2 modules or in a student's current timetable;
-Provides a shortcut for the admin to retrieve information on timetable clash in appeals requesting to add or drop modules.
+** What it does: allows the admin to check timetable clash in appeals requesting to add or drop modules, between 2 modules or in a student's current timetable
 ** Justification: Checking timetable clash is one of the most important checks that an admin needs to perform before he/she decides to approve or reject an appeal.
 This feature improves the user experience significantly because it provides a convenient way for the admin who needs to perform such checks constantly.
-** Highlights: There are a few types of checks can be performed. Therefore, the user inputs for this command can take various forms and are highly flexible.
+** Highlights: There are a few types of check that can be performed. Therefore, the user inputs for this command can take various forms.
 An in-depth analysis of design alternatives is required to deal with these variations.
 
 * *Major enhancement 2: enhanced the find command that allows the user to search in different lists*
-** What it does: allows the admin to search multiple keywords in multiple lists at the same time.
+** What it does: allows the admin to search multiple keywords in multiple lists at the same time
 ** Justification: There are a huge number of appeals, modules and students given the size of the university.
-This feature improves the user experience significantly by providing a convenient way to search items that he/she is more interested in.
+This feature provides a convenient way to locate items which the admin wants to look for.
 ** Highlights: This enhancement affects other commands since it will be used together with other commands often.
-For example, to filter all appeals requesting to add a particular module and perform checks in one go.
+For example, to filter all appeals requesting to add a particular module and check clashes in one go.
 
-* *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test/java/mams[Test code]]
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=chensu2436&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=chensu2436&tabRepo=AY1920S1-CS2103-T11-2%2Fmain%5Bmaster%5D[RepoSense Link]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed project schedule tracking
 *** Migrated user stories to GitHub issues
 *** Managed issues on GitHub and assigned issues to corresponding Milestones and team members
 *** Managed releases `v1.3` on GitHub
@@ -80,14 +45,14 @@ For example, to filter all appeals requesting to add a particular module and per
 *** Changed prefixes to suit our app and performed related refactoring https://github.com/AY1920S1-CS2103-T11-2/main/pull/85[#85]
 ** Enhancements to existing features:
 *** Rectified disagreement in sample data https://github.com/AY1920S1-CS2103-T11-2/main/pull/206[#206]
-*** Edited TestUtils to rectify data disagreement for more meaningful tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/211[#211]
+*** Edited TestUtils to be used for more meaningful tests https://github.com/AY1920S1-CS2103-T11-2/main/pull/211[#211]
 ** Documentation:
-*** Converted the first draft of User Guide to ascii doc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
-*** Enhanced the class diagram of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
+*** Converted the first draft of User Guide to AsciiDoc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
+*** Enhanced the class diagrams of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
-*** Reported bugs and suggestions for other teams (examples:  https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
-*** Reviewed User Guide and Developer Guide, and reported suggestions for other teams in class
+*** Reported bugs and suggestions for other teams (examples: https://github.com/chensu2436/ped/issues/8[1], https://github.com/chensu2436/ped/issues/6[2], https://github.com/chensu2436/ped/issues/7[3])
+*** Reviewed User Guide and Developer Guide for other teams in class (example: https://github.com/nus-cs2103-AY1920S1/addressbook-level3/pull/33[1])
 
 == Contributions to the User Guide
 
@@ -99,16 +64,27 @@ include::../UserGuide.adoc[tag=clash]
 
 include::../UserGuide.adoc[tag=find]
 
+[NOTE]
+_Due to page limit, only 1 find command example is included. Please refer to User Guide 3.4 for more examples._
+
 == Contributions to the Developer Guide
 
 |===
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=clash]
+[NOTE]
+_Due to page limit, only 1 class diagram of Logic Component is included. Refer to Developer Guide for other class diagrams_
+
+include::../DeveloperGuide.adoc[tag=logic]
+
+include::../DeveloperGuide.adoc[tag=clash1]
+
+include::../DeveloperGuide.adoc[tag=clash2]
 
 include::../DeveloperGuide.adoc[tag=find]
 
-include::../DeveloperGuide.adoc[tag=uc4]
+[NOTE]
+_Due to page limit, only Find Section in Manual Testing is shown. Please refer to Developer Guide Appendix E for the Clash section._
 
 include::../DeveloperGuide.adoc[tag=test4]
