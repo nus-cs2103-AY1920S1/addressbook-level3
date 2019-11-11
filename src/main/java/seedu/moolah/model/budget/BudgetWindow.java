@@ -5,6 +5,7 @@ import static seedu.moolah.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Objects;
 
 import seedu.moolah.model.expense.Timestamp;
@@ -68,24 +69,24 @@ public class BudgetWindow {
         requireNonNull(rawAnchor);
         LocalDateTime anchor = rawAnchor.toStartOfDay().fullTimestamp;
         LocalDateTime normalized;
+        int currentDayOfMonth = startDate.getDayOfMonth();
 
         switch(period) {
         case YEAR:
             int currentDayOfYear = startDate.getDayOfYear();
             int anchorDayOfYear = anchor.getDayOfYear();
+            int currentMonth = startDate.getMonthValue();
             normalized = (anchorDayOfYear >= currentDayOfYear)
-                    ? anchor.withMonth(startDate.getMonthValue())
-                    .withDayOfMonth(startDate.getDayOfMonth())
-                    : anchor.minusYears(1)
-                    .withMonth(startDate.getMonthValue())
-                    .withDayOfMonth(startDate.getDayOfMonth());
+                    ? withDayOfMonthValid(anchor.withMonth(currentMonth),
+                    currentDayOfMonth)
+                    : withDayOfMonthValid(anchor.minusYears(1).withMonth(currentMonth),
+                    currentDayOfMonth);
             break;
         case MONTH:
-            int currentDayOfMonth = startDate.getDayOfMonth();
             int anchorDayOfMonth = anchor.getDayOfMonth();
             normalized = (anchorDayOfMonth >= currentDayOfMonth)
-                    ? anchor.withDayOfMonth(currentDayOfMonth)
-                    : anchor.minusMonths(1).withDayOfMonth(currentDayOfMonth);
+                    ? withDayOfMonthValid(anchor, currentDayOfMonth)
+                    : withDayOfMonthValid(anchor.minusMonths(1), currentDayOfMonth);
             break;
         case WEEK:
             long daysDiff = ChronoUnit.DAYS.between(startDate.getDate(), anchor.toLocalDate());
@@ -97,6 +98,29 @@ public class BudgetWindow {
         }
         startDate = new Timestamp(normalized);
         endDate = calculateEndDate();
+    }
+
+    /**
+     * Returns a LocalDateTime with specified day of month. If the specified day of month is larger than
+     * total number of days in the month, the last day of month is taken instead.
+     */
+    private LocalDateTime withDayOfMonthValid(LocalDateTime anchor, int dayOfMonth) {
+        boolean isLeapYear = isLeapYear(anchor.getYear());
+        int anchorMonthLength = anchor.getMonth().length(isLeapYear);
+        if (anchorMonthLength < dayOfMonth) {
+            return anchor.withDayOfMonth(anchorMonthLength);
+        } else {
+            return anchor.withDayOfMonth(dayOfMonth);
+        }
+    }
+
+    /**
+     * Checks if a given year is leap year.
+     */
+    private boolean isLeapYear(int year) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        return cal.getActualMaximum(Calendar.DAY_OF_YEAR) > 365;
     }
 
     /**
