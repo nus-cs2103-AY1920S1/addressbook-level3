@@ -65,25 +65,6 @@ public class AddCommandParserTest {
     public void parse_allFieldsPresent_success() throws NoSuchIndexException {
         setInventoryList();
         model.clearSalesList();
-        // whitespace only preamble
-        /*assertCommandParserSuccess(parser, PREAMBLE_WHITESPACE + DESC_DESCRIPTION_STORYBOOK
-                        + DESC_QUANTITY_1,
-                new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_1), model, personModel);
-
-        //no whitespace preamble
-        assertCommandParserSuccess(parser, DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_2,
-                new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_2), model, personModel);
-
-        // multiple description - last description accepted
-        assertCommandParserSuccess(parser, DESC_DESCRIPTION_FISH_BURGER + DESC_DESCRIPTION_STORYBOOK
-                        + DESC_QUANTITY_1,
-                new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_1), model, personModel);
-
-        // multiple quantity - last quantity accepted
-        assertCommandParserSuccess(parser, DESC_DESCRIPTION_STORYBOOK + DESC_QUANTITY_1
-                        + DESC_QUANTITY_2,
-                new AddCommand(VALID_DESCRIPTION_STORYBOOK, VALID_QUANTITY_2), model, personModel);*/
-
         // optional category included
         assertCommandParserSuccess(parser, DESC_CATEGORY_1 + DESC_DESCRIPTION_CHIPS + DESC_QUANTITY_1
                         + DESC_QUANTITY_2,

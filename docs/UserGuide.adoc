@@ -775,7 +775,7 @@ update of items.
 the inventory.
 * After every checkout, the sales made will be recorded as one transaction which will be then labelled as "Items sold"
 under the category "Sales" and person will be the cashier-in-charge. The Home tab will be updated with this transaction.
-* Once there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
+* Whenever there are items on the cart, `Cashier Mode` will automatically be turned on. When `Cashier Mode` is turned on, you cannot
 make any modification to existing items in the inventory except for the adding of new items.
 
 [NOTE]
@@ -786,7 +786,7 @@ Due to size limitation, you will not be allowed to add any items into the table 
 are advised to reduce the quantity of items or checkout separately in another cart.
 
 [NOTE]
-The description is case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
+The description and category are case-insensitive. Regardless of the case, as long as the description matches, it can be added to the cart.
 
 ====
 
@@ -1136,6 +1136,17 @@ Data in treasurerPro is saved automatically after executing any command. There i
 
 *Q*: Can I modify the data files myself? +
 *A*: No, any external modification to the app's data files *WILL* result in loss of all data. You have been warned.
+
+*Q*: What happens if I accidentally modified the data files? +
+*A*: If the transactionHistory.txt file is changed, the Home and Reimbursements tab will start with an empty table.
+If the inventoryInformation.txt file is changed, the app will not open. To remedy, delete the txt file.
+If the overviewInformation.txt files are changed, the Overview tab lose the notification reminders set.
+If the addressbook.json is changed, the Members tab will start with an empty list.
+On the other hand, if the addressbook.json is deleted and not found, a sample list of members will be populated in
+the Members tab.
+If the reimbursementInformation.txt is altered, all deadline data will be lost but the application will still start.
+In the scenario that the application cannot start, the cases above do not apply and you are not sure what file is modified,
+you would have to delete all the data files which *WILL* result in loss of all data.
 
 *Q*: Can I resize the app window? +
 *A*: No, you may not resize the app window.

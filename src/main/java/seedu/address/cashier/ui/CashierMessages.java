@@ -26,7 +26,7 @@ public class CashierMessages {
     public static final String NO_SUCH_DESCRIPTION_CASHIER = "There is no such item with "
             + "the specified description in the sales list.\n";
 
-    public static final String NO_SUCH_INDEX_CASHIER = "Sorry! There is no such item of the inputted index. Please "
+    public static final String NO_SUCH_INDEX_CASHIER = "Sorry! There is no such item at the inputted index. Please "
             + "make sure the index is within the table.\n";
 
     public static final String NO_SUCH_ITEM_FOR_SALE_CASHIER = "Sorry! This item is not available for sale!\n";
