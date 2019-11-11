@@ -1,0 +1,121 @@
+= Chow Jia Ying - Project Portfolio
+
+== PROJECT: ORGANice
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+:xrefstyle: full
+:experimental:
+:sectnums:
+
+== Overview
+This document is written to document my role and contributions to ORGANice. ORGANice is a project
+undertaken in CS2103T, the introductory Software Engineering module offered by NUS.
+I was required to work with 4 other students to morph Address Book 3, an existing desktop application,
+to another desktop application within 7 weeks. +
+
+As part of the module constraints, the application must have a Command Line Interface (CLI).
+This means that users must be able to use the application's features by typing commands instead of
+clicking buttons. +
+
+Our team chose to morph Address Book 3 to ORGANice, an organ matching desktop application designed for
+hospital administration staff who prefer typing. It is written in Java, and has about 10,000 lines of code (LoC). The JavaFX framework is used to create the
+Graphical User Interface (GUI) of this application. +
+
+The main features of ORGANice includes:
+
+* storing information of patients, donors and donors
+* finding potential organ donors for patients
+* managing administrative procedures relating to organ matching.
+
+
+Note the formatting used in this document:
+
+`match` - Words highlighted in grey (called a mark-up) indicates that this is a command that can
+be executed by the application or a technical term.
+
+kbd:[Enter] - Words highlighted in white and encased in a box indicates that it is a key on a keyboard.
+
+<<Summary of contributions>> - Words in blue and underlined indicates that it is a clickable link.
+
+<<Some link>> - Words in blue, underlined and encased in square brackets indicates that the links
+are not clickable. Note that they appear in the excerpts because they are links to other documents
+that are not in the excerpts.
+
+<<<
+== Summary of contributions
+The following sections presents the enhancements I implemented in greater detail.
+
+* *Major enhancement 1*: added the ability to match patients and donors
+** What it does: identifies potential donors for patients in the application.
+** Justification: allows users to find suitable donors for patients efficiently
+based on compatibility between patients and donors.
+//tutor said don't use 'affects' but i'm struggling to think of another word rn.
+** Highlights: Other features, such as sorting and processing matches, depend on this feature.
+Therefore, I had to think of a design solution that allows for the seamless integration of other features.
+Also, implementing this feature required a deep understanding of how to store and change the list
+displayed in Address Book 3.
+
+* *Major enhancement 2*: added the ability to add patients in ORGANice.
+** What it does: allows patients to be added and stored in ORGANice
+** Justification: allows users to easily manage patient data. Storing patient data is also
+required for matching of patients and donors to take place.
+** Highlights: The addition of this feature required careful consideration of how
+to display, store and differentiate patients from other types of people in ORGANice.
+
+* *Minor enhancement 1*: added coloured tags to patients and donors.
+** What it does: indicates the statuses of patients and donors.
+** Justification: allows users to identify unmatched patients and donors at a glance.
+** Highlights: The tags are coloured differently depending on the statuses displayed.
+While this feature is minor, it still required careful thought to implement this.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=c-likethis123&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=C-likethis123&tabRepo=AY1920S1-CS2103T-T13-1%2Fmain%5Bmaster%5D[RepoSense]]
+
+* *Other contributions*:
+
+** Project management:
+*** Created issues to keep track of work to be done.
+*** Managed release v1.3.1 on Github
+** Enhancements to existing features:
+*** Wrote additional unit and integration tests for existing features to increase coverage
+(Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/275[#275])
+** Documentation:
+*** Authored the 'Introduction', 'Quick Start', 'Components of ORGANice' and
+'Detecting matches' sub-sections in the 'Features' section
+(Pull request https://github.com/AY1920S1-CS2103T-T13-1/main/pull/138/files[#138])
+** Community:
+*** Initiated discussions: https://github.com/AY1920S1-CS2103T-T13-1/main/issues/110[#110]
+*** Reviewed PRs:
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/127[#127],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/18[#18],
+https://github.com/AY1920S1-CS2103T-T13-1/main/pull/113[#113]
+
+
+== Contributions to the User Guide
+This section documents my contributions to the User Guide. I wrote the following sections:
+
+* Introduction
+* Quick Start
+* Components of ORGANice
+* Detecting matches
+
+Given below is an excerpt of my contribution to the User Guide.
+
+_(Start of extract from User Guide)_
+
+include::../UserGuide.adoc[tag=intro,match]
+
+_(End of extract from User Guide)_
+
+== Contributions to the Developer Guide
+This section documents my contributions to the Developer Guide. I wrote the following sections:
+
+* Introduction
+* Setting up
+* 'Matching feature'
+
+Given below is an excerpt of my contribution to the Developer Guide.
+
+_(Start of extract from Developer Guide)_
+include::../DeveloperGuide.adoc[tag=matching]
+_(End of extract from Developer Guide)_
