@@ -311,7 +311,6 @@ In this case, it will return an error to the user rather than attempting to perf
 
 The following sequence diagram shows how the undo operation works:
 
-[[undo-sequence-diagram]]
 image::UndoSequenceDiagram.png[]
 
 NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML,
@@ -380,21 +379,46 @@ Command class also needs to be stored and VersionedMark might need to depend on 
 === Autotag feature
 ==== Implementation
 
-// TODO: rewrite this part
-The autotag mechanism is facilitated by the main class `AutotagController`. It stores and manages a list of
-`SelectiveBookmarkTaggers`, which represent autotags in the `Model`.
+Autotags are represented as `SelectiveBookmarkTaggers` in the `Model`, while autotag names and conditions are
+stored in `Tags` and `BookmarkPredicates` respectively. This is illustrated in the class diagram below.
 
-`AutotagController` implements the following operations:
+.Class diagram for the Autotag package
+image::AutotagPackageClassDiagram.png[300, 300]
 
-* `AutotagController#hasTagger(SelectiveBookmarkTagger)` -- Checks whether the controller contains the given tagger.
-* `AutotagController#addTagger(SelectiveBookmarkTagger)` -- Starts managing the given tagger.
-* `AutotagController#applyTaggersToList(List<Bookmark>)` -- Tags the bookmarks in the list using all relevant taggers.
-* `AutotagController#applyTaggers(Bookmark)` -- Tags the bookmark using all relevant taggers.
+An unusual aspect of the above design is the fact that `SelectiveBookmarkTagger` inherits from `BookmarkTagger`,
+rather than containing a `Tag` directly. The rationale for this design will be explained in the following section:
+<<autotag-design-considerations>>.
 
-The first three operations are exposed in the `Model` interface as `Model#hasTagger(SelectiveBookmarkTagger)`, `Model#addTagger(SelectiveBookmarkTagger)`,
-and `Model#applyAllTaggers()` respectively.
+The `BookmarkPredicate` class needs to keep track of multiple autotag conditions, including normal conditions and
+not-conditions, as well those relating to different bookmark fields.
+To do so, it maintains _separate sets of keywords_ for each condition category; in other words, name keywords are stored
+separately from not-URL keywords.
+It also contains a single _predicate_ that tests whether a bookmark matches the given conditions.
+To generate this predicate from the keyword sets, the Predicates package contains several other classes that test
+individual conditions (i.e. those with names `XYZContainsKeywordsPredicate`).
 
-Given below is an example usage scenario and how the autotag mechanism behaves at each step.
+TIP: You can refer to the link:UserGuide.adoc/#Autotag-Command[Autotags] section
+of the User Guide for details of autotag conditions.
+
+'''
+
+The autotag mechanism itself is facilitated by the main class `AutotagController`. It stores and manages the list of
+`SelectiveBookmarkTaggers`, which will henceforth be referred to as _taggers_ for simplicity.
+
+The `AutotagController` implements several operations to _add_, _remove_, and _apply_ taggers, as well as to _check_
+whether a given tagger exists. Four of these operations can be accessed via the `Model` interface:
+
+. `Model#hasTagger(SelectiveBookmarkTagger)` -- Checks whether the `Model` contains the given tagger.
+. `Model#addTagger(SelectiveBookmarkTagger)` -- Adds the given tagger to the `Model`.
+. `Model#removeTagger(String)` -- Removes the tagger with the given name if it exists.
+. `Model#applyAllTaggers()` -- Tags all bookmarks in the Model's bookmark list using all relevant taggers.
+
+Using these operations, autotags can be added, edited, or removed from the `#execute(Model, Storage)` method of any
+command in the `Logic` component.
+
+'''
+
+Given below is an example usage scenario that shows the autotag mechanism's behaviour at each step.
 
 ****
 **Step 1**. The user opens the application with an existing list of bookmarks and no autotags.
@@ -407,7 +431,7 @@ bookmarks from **stackoverflow.com/questions** with the tag **Help**.
 
 * A `SelectiveBookmarkTagger` is created with a `BookmarkPredicate` and a `Tag` named **Help**.
 The predicate's URL keyword is **stackoverflow.com/questions**.
-* The new autotag is applied to bookmark `b2`, which matches the `UrlContainsKeywordsPredicate`. This is carried out by
+* The new autotag is applied to bookmark `b2`, which matches the predicate's conditions. This is carried out by
 replacing `b2` with a copy of itself (`b3`) that also contains the tag **Help**.
 
 .The state of Mark after an autotag is added and applied to existing bookmarks
@@ -417,7 +441,7 @@ image::AutotagState1.png[400, 400]
 to bookmark a question on StackOverflow.
 
 * A new bookmark with the name `JavaFX new scene` is created.
-* This bookmark matches the conditions for the previously added autotag, so it is tagged **Help**.
+* This bookmark matches the conditions for the autotag **Help**, so it is tagged **Help**.
 
 .The state of Mark after a new bookmark is added and tagged automatically
 image::AutotagState2.png[400, 400]
@@ -426,18 +450,21 @@ image::AutotagState2.png[400, 400]
 
 The following diagrams show how the `*autotag*` command works in more detail.
 
-The parsing of an `*autotag*` command is done in a similar way as shown in the first half of the
-<<undo-sequence-diagram, sequence diagram for the `undo` command>>. This result in the creation of an
-`AutotagCommand` that contains a `SelectiveBookmarkTagger` to be added to the `Model`.
+The parsing of an `*autotag*` command is carried out using an `AutotagCommandParser` in a similar manner as
+other commands. This result in the creation of an
+`AutotagCommand` that contains the `SelectiveBookmarkTagger` to be added.
 
-When `AutotagCommand#execute(model, storage)` is called, the command first checks whether the given `model` contains
-the command's `SelectiveBookmarkTagger` (also known as `tagger`).
-If it does not, `tagger` is added to `model`, and all taggers in `model` are then applied to the bookmarks in `model`.
-Finally, the current state of Mark is saved with a message that indicates the successful execution of the
-`*autotag*` command. This sequence of operations is illustrated in the following diagram:
+The sequence of operations that occur when `AutotagCommand#execute(model, storage)` is called is illustrated
+in the following diagram:
 
 .Sequence diagram showing the general execution of an `AutotagCommand`
 image::AutotagSequenceDiagram.png[300, 300]
+
+The `AutotagCommand` first checks whether the given `model` contains the `tagger` to be added.
+If it does, an error message is shown. Otherwise, the `tagger` is added to `model`, and all taggers in `model` are
+applied to the bookmarks in `model`.
+Finally, the current state of Mark is saved with a message indicating the successful execution of an
+`*autotag*` command.
 
 The next sequence diagram provides more details of how taggers are applied to bookmarks in Mark.
 
@@ -447,42 +474,56 @@ image::ApplyAllTaggersSequenceDiagram.png[500, 500]
 NOTE: The **sd** frame should cover the whole diagram, but due to a limitation of PlantUML, it does not.
 
 With reference to the above diagram, the `Model`
-first calls the method `VersionedMark#applyAllTaggers()`. `VersionedMark` then obtains its `list` of bookmarks, and
-passes the list to its `AutotagController` to apply all `SelectiveBookmarkTaggers` to the list.
-The `AutotagController` then iterates through all the bookmarks and taggers, and applies tags to bookmarks using the method
-`SelectiveBookmarkTagger#applyTagSelectively(Bookmark)`. A new list of bookmarks is returned, which `VersionedMark`
-sets as its bookmark list.
+first calls the method `VersionedMark#applyAllTaggers()`. `VersionedMark` obtains its `list` of bookmarks and
+passes the list to `AutotagController` to apply all of its `SelectiveBookmarkTaggers` to the bookmarks in the list.
+`AutotagController` then iterates through all the bookmarks and taggers. It applies tags to bookmarks using the method
+`SelectiveBookmarkTagger#applyTagSelectively(Bookmark)`. A new list of bookmarks is returned, which is set as the
+bookmark list in `VersionedMark`.
 
-The following activity diagram summarizes what happens when an autotag is added (assuming valid user input).
-A similar mechanism is used to tag bookmarks when a bookmark is added or modified.
+The following activity diagram summarizes what happens when an autotag is added (assuming the user input is valid).
+A similar mechanism is used for tagging bookmarks when a bookmark is added or modified.
 
 [[autotag-activity-diagram]]
 .Activity diagram showing how an autotag is added
 image::AutotagActivityDiagram.png[300, 300]
 
+[[autotag-design-considerations]]
 ==== Design Considerations
 
-The following aspects of the autotag mechanism were considered when designing the autotag implementation.
+Several aspects were considered when designing the autotag mechanism. The next two sections explain the key
+reasons why certain implementations were selected over others.
 
-// TODO: ===== Aspect: How autotags are represented
+[[autotag-representation]]
+===== Aspect: How to tag bookmarks based on specific conditions
 
-===== Aspect: How autotags are applied
+* **Alternative 1:** Implement all the logic in a single class. In other words, the class first checks
+whether a bookmark matches its conditions, then tags the bookmark if it does.
+** Pros: Simpler to implement.
+** Cons: Violates the Single Responsiblity Principle.
+* **Alternative 2 (current choice):** Separate the checking and tagging mechanisms by creating two classes. The first
+class implements the tagging, while the second class inherits that functionality and implements an additional check
+before tagging.
+** Pros: Allows the 'tagger' class to be re-used elsewhere.
+** Cons: Increases coupling across different classes as changes to the first class would affect the second.
 
-* **Alternative 1 (current choice):** Iterate through each autotag and bookmark, then apply tags to all bookmarks that match.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of runtime, as bookmarks can be checked multiple times.
-* **Alternative 2:** Check for changes in the bookmark list then edit tags accordingly.
-** Pros: Will be faster if most bookmarks are unchanged.
-** Cons: More complicated to implement.
+// Note: removed so that PPP can fit into 10 pages
+//===== Aspect: How autotags are applied
+//
+//* **Alternative 1 (current choice):** Iterate through each autotag and bookmark, then apply tags to all bookmarks that match.
+//** Pros: Easy to implement.
+//** Cons: May have performance issues in terms of runtime, as bookmarks can be checked multiple times.
+//* **Alternative 2:** Check for changes in the bookmark list then edit tags accordingly.
+//** Pros: Will be faster if most bookmarks are unchanged.
+//** Cons: More complicated to implement.
 
 ===== Aspect: How to apply taggers to a bookmark list in Mark
 
-* **Alternative 1:** Modify individual bookmarks when adding tags.
-** Pros: Eliminates the need to reset Mark's bookmark list whenever taggers are applied.
-** Cons: Can cause unanticipated changes in other parts of the Model.
-* **Alternative 2 (current choice):** Replace the whole bookmark list with a new list of bookmarks, some of which have been tagged.
-** Pros: Simple to implement, ensures immutability of bookmarks.
+* **Alternative 1 (current choice):** Replace the whole bookmark list with a new list of bookmarks, some of which have been tagged.
+** Pros: Simple to implement, maintains immutability of bookmarks.
 ** Cons: Inefficient to construct a new list each time a single bookmark is tagged.
+* **Alternative 2:** Modify individual bookmarks when adding tags.
+** Pros: Eliminates the need to reset Mark's bookmark list whenever taggers are applied.
+** Cons: Can cause unanticipated changes in other parts of the Model as bookmarks are modified.
 * **Alternative 3:** Replace only those bookmarks that were tagged.
 ** Pros: Minimises performance issues from creating a new bookmark list.
 ** Cons: More complicated to implement.
@@ -1643,8 +1684,6 @@ Expected: No reminder is added into the reminder list. Error details shown in th
 .. Test case: `reminder 1 t/30/02/2030 1200` +
 Expected: No reminder is added into the reminder list. Error details shown in the status message. Status bar remains the same.
 
-_{ more test cases ... }_
-
 ==== Editing a reminder
 
 . Editing a reminder
@@ -1656,8 +1695,6 @@ Expected: The note of the first reminder changes to "Read".
 Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
 .. Test case: `reminder-edit 6 n/Read` +
 Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
-
-_{ more test cases ... }_
 
 ==== Deleting a reminder
 
@@ -1672,8 +1709,6 @@ Expected: No reminder is deleted in the reminder list. Error details shown in th
 .. Test case: `reminder-delete 6` +
 Expected: No reminder is edited in the reminder list. Error details shown in the status message. Status bar remains the same.
 
-_{ more test cases ... }_
-
 ==== Opening the bookmark associated with a reminder
 
 . Opening a bookmark using a reminder
@@ -1682,10 +1717,9 @@ _{ more test cases ... }_
 
 .. Test case: `reminder-goto 1` +
 Expected: The first reminder in the list is opened.
-.. Test case: `reminder-goto 0 ` +
+.. Test case: `reminder-goto 0` +
 Expected: No website will show. Error details shown in the status message. Status bar remains the same.
 .. Test case: `reminder-goto 6` +
 Expected: No website will show. Error details shown in the status message. Status bar remains the same.
 
-_{ more test cases ... }_
 //end::test-reminder[]
