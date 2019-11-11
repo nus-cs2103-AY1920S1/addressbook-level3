@@ -105,7 +105,7 @@ Format: `help`
 
 Did something wrong? You can undo it.
 
-However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense`, and so on.
+However, do keep in mind that you can only undo commands that modify the data in MooLah, such as `addexpense`, `deleteexpense-primary`, and so on.
 Head over to <<Command Summary>> for list of commands that are undoable.
 
 Do not worry if you forgot what you did a few steps back (it happens!). MooLah will display a short description of what
@@ -115,11 +115,11 @@ Format: `undo`
 
 Example:
 ----
-deleteexpense 5
+deleteexpense-primary 5
 undo
 ----
 Result:
-The deletion of expense #5 will be undone, or in other words, re-added to MooLah.
+The deletion of expense #5 in the primary budget will be undone, or in other words, re-added back to MooLah.
 MooLah will then display the message `Undid "Delete expense with index 5"`.
 
 // end::undo[]
@@ -135,12 +135,13 @@ Format: `redo`
 
 Example:
 ----
-deleteexpense 5
+deleteexpense-primary 5
 undo
 redo
 ----
 Result:
-At the end, expense #5 will keep being deleted (poor thing!). MooLah will also display a message `Redid "Delete expense with index 5"`.
+At the end, expense #5 in the primary budget will keep being deleted (poor thing!).
+MooLah will also display a message `Redid "Delete expense with index 5"`.
 
 // end::redo[]
 
@@ -1139,6 +1140,7 @@ e.g. `editexpense 1 p/2.50 t/15-09-2019 1230 c/Food`
 
 * *Clear all expenses and budgets* (_undoable_) : +
 `clearmoolah`
+
 ---
 
 *All about events:*
@@ -1198,6 +1200,9 @@ e.g. `alias a/chicken rice c/ add d/ Chicken Rice p/2.50 c/Food`
 
 == Menu Items List
 
+This is the list of menu items that are supported by MooLah as of v1.4. More menu items are on its way in v2.0!
+
+.List of menu items supported
 [width="59%",cols="30%,<25%",options="header",]
 |=======================================================================
 |Menu Item                       |Price
