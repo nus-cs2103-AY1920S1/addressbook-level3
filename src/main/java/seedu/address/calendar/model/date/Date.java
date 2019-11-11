@@ -3,16 +3,16 @@ package seedu.address.calendar.model.date;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.calendar.model.util.DateUtil;
-import seedu.address.calendar.model.util.IntervalPart;
-import seedu.address.commons.exceptions.IllegalValueException;
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.address.calendar.model.util.DateUtil;
+import seedu.address.calendar.model.util.IntervalPart;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a date with specified day, month and year.

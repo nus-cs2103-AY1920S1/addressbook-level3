@@ -3,12 +3,12 @@ package seedu.address.calendar.model.date;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.calendar.model.util.DateUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import seedu.address.calendar.model.util.DateUtil;
 
 /**
  * Creates a day object which contains information about the day of month and day of week.

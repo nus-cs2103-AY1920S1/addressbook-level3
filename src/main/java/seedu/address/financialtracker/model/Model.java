@@ -79,6 +79,8 @@ public class Model {
 
     /**
      * Edits an expense from the financial tracker.
+     * @param index of the expenseToEdit in the expense list.
+     * @throws CommandException if the expenseToEdit and it's respectie index doesn't match.
      */
     public void setExpense(int index, Expense expenseToEdit, Expense editedExpense) throws CommandException {
         CollectionUtil.requireAllNonNull(expenseToEdit, editedExpense);

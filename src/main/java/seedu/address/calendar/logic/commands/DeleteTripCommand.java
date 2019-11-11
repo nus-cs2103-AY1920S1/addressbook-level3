@@ -1,16 +1,13 @@
 package seedu.address.calendar.logic.commands;
 
+import java.util.NoSuchElementException;
+
+import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.calendar.model.Calendar;
 import seedu.address.calendar.model.event.Trip;
-import seedu.address.calendar.logic.parser.CliSyntax;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import java.util.NoSuchElementException;
-
-/**
- * Deletes a trip from the calendar.
- */
 public class DeleteTripCommand extends DeleteCommand {
     public static final String COMMAND_WORD = "trip";
     public static final String MESSAGE_USAGE = DeleteCommand.COMMAND_WORD + " " + COMMAND_WORD
