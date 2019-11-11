@@ -5,7 +5,10 @@ import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.moneygowhere.logic.parser.CliSyntax.PREFIX_DATE;
 
 import java.util.LinkedHashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.sorting.SortField;
 import seedu.moneygowhere.logic.sorting.SpendingComparator;
 import seedu.moneygowhere.model.Model;
@@ -32,6 +35,8 @@ public class SortCommand extends Command {
 
     private final LinkedHashSet<SortField> fields;
 
+    private final Logger logger = LogsCenter.getLogger(SortCommand.class);
+
     public SortCommand(LinkedHashSet<SortField> fields) {
         this.fields = fields;
     }
@@ -42,6 +47,8 @@ public class SortCommand extends Command {
 
         SpendingComparator spendingComparator = new SpendingComparator(fields);
         model.updateSortedSpendingList(spendingComparator);
+        logger.log(Level.INFO, spendingComparator.toString());
+
         return new CommandResult(MESSAGE_SUCCESS + "\n" + spendingComparator);
     }
 
