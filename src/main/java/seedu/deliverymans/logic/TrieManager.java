@@ -33,6 +33,8 @@ import seedu.deliverymans.logic.commands.universal.HelpCommand;
 import seedu.deliverymans.logic.commands.universal.ListOrderCommand;
 import seedu.deliverymans.logic.commands.universal.RedoCommand;
 import seedu.deliverymans.logic.commands.universal.UndoCommand;
+import seedu.deliverymans.logic.commands.universal.UndoListCommand;
+import seedu.deliverymans.logic.commands.universal.UndoTillCommand;
 import seedu.deliverymans.logic.parser.Prefix;
 import seedu.deliverymans.logic.parser.customer.CustomerParser;
 import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
@@ -120,6 +122,8 @@ class TrieManager {
         insertCommandToAllTries(ListOrderCommand.COMMAND_WORD);
         insertCommandToAllTries(RedoCommand.COMMAND_WORD);
         insertCommandToAllTries(UndoCommand.COMMAND_WORD);
+        insertCommandToAllTries(UndoListCommand.COMMAND_WORD);
+        insertCommandToAllTries(UndoTillCommand.COMMAND_WORD);
         insertCommandToAllTries(CustomerParser.COMMAND_WORD);
         insertCommandToAllTries(DeliverymanParser.COMMAND_WORD);
         insertCommandToAllTries(RestaurantParser.COMMAND_WORD);

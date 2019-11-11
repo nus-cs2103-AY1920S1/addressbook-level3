@@ -21,6 +21,8 @@ import seedu.deliverymans.logic.commands.universal.ListOrderCommand;
 import seedu.deliverymans.logic.commands.universal.RedoCommand;
 import seedu.deliverymans.logic.commands.universal.SummaryCommand;
 import seedu.deliverymans.logic.commands.universal.UndoCommand;
+import seedu.deliverymans.logic.commands.universal.UndoListCommand;
+import seedu.deliverymans.logic.commands.universal.UndoTillCommand;
 import seedu.deliverymans.logic.parser.customer.CustomerParser;
 import seedu.deliverymans.logic.parser.deliveryman.DeliverymanParser;
 import seedu.deliverymans.logic.parser.exceptions.ParseException;
@@ -88,6 +90,12 @@ public class UniversalParser {
 
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+
+        case UndoListCommand.COMMAND_WORD:
+            return new UndoListCommand();
+
+        case UndoTillCommand.COMMAND_WORD:
+            return new UndoTillCommandParser().parse(arguments);
 
         case CustomerParser.COMMAND_WORD:
             if (arguments.length() != 0) {

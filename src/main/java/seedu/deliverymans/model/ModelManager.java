@@ -6,6 +6,8 @@ import static seedu.deliverymans.commons.util.CollectionUtil.requireAllNonNull;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -13,7 +15,6 @@ import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-
 import seedu.deliverymans.commons.core.GuiSettings;
 import seedu.deliverymans.commons.core.LogsCenter;
 import seedu.deliverymans.logic.Context;
@@ -501,6 +502,43 @@ public class ModelManager implements Model {
         UndoHistory<Data>.State state = undoHistory.redo();
         setData(state.getData());
         return state.getCause();
+    }
+
+    @Override
+    public List<Optional<String>> getUndoList() {
+        int currPos = undoHistory.getCurrentPosition();
+        List<UndoHistory<Data>.State> states = undoHistory.getStateList();
+        List<Optional<String>> list = new ArrayList<>();
+        for (int i = 0; i < states.size(); i++) {
+            if (i < currPos) {
+                list.add(Optional.of(states.get(i).getSubsequentCause()));
+            } else if (i > currPos) {
+                list.add(Optional.of(states.get(i).getCause()));
+            } else {
+                list.add(Optional.empty());
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public int undoSize() {
+        return undoHistory.size();
+    }
+
+    @Override
+    public String undoTill(int position) {
+        int currPos = undoHistory.getCurrentPosition();
+        if (position == currPos) {
+            return "Already at this position";
+        }
+        UndoHistory<Data>.State state = undoHistory.undoTill(position);
+        setData(state.getData());
+        if (position < currPos) {
+            return "Undid till: " + state.getSubsequentCause();
+        } else {
+            return "Redid till: " + state.getCause();
+        }
     }
 
     private void setData(Data data) {

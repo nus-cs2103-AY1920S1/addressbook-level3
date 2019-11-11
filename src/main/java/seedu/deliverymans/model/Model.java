@@ -1,6 +1,8 @@
 package seedu.deliverymans.model;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -177,6 +179,21 @@ public interface Model {
      * Redoes an action
      */
     String redo();
+
+    /**
+     * Returns a list of actions that can be undone to
+     */
+    List<Optional<String>> getUndoList();
+
+    /**
+     * Returns the size of the undo history
+     */
+    int undoSize();
+
+    /**
+     * Undoes (or redoes) till a particular state
+     */
+    String undoTill(int position);
 
     //=========== Customer methods =============================================================
 
