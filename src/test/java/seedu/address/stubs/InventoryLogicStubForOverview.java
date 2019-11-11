@@ -19,7 +19,7 @@ public class InventoryLogicStubForOverview implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws Exception {
+    public CommandResult execute(String commandText) {
         throw new AssertionError("This should not be called.");
     }
 
@@ -29,12 +29,12 @@ public class InventoryLogicStubForOverview implements Logic {
     }
 
     @Override
-    public ArrayList<Item> getInventoryListInArrayList() throws Exception {
+    public ArrayList<Item> getInventoryListInArrayList() {
         throw new AssertionError("This should not be called.");
     }
 
     @Override
-    public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) throws Exception {
+    public void resetAndWriteIntoInventoryFile(InventoryList inventoryList) {
         throw new AssertionError("This should not be called.");
     }
 }

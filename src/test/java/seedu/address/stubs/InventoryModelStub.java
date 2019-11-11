@@ -1,5 +1,6 @@
 package seedu.address.stubs;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import seedu.address.inventory.model.Item;
@@ -34,12 +35,12 @@ public class InventoryModelStub implements Model {
     }
 
     @Override
-    public void writeInInventoryFile() throws Exception {
+    public void writeInInventoryFile() throws IOException, NoSuchIndexException {
         throw new AssertionError("This method should not be called.");
     }
 
     @Override
-    public void setItem(int i, Item editedItem) throws Exception {
+    public void setItem(int i, Item editedItem) {
         throw new AssertionError("This method should not be called.");
     }
 
