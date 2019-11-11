@@ -24,6 +24,7 @@ class JsonAdaptedEventTest {
                 ParserDateUtil.getDateTimeFromString(VALID_ENDDATE_EVENT_1_2),
                 VALID_DESTINATION_EVENT_1,
                 Optional.empty(),
+                Optional.empty(),
                 Optional.empty()
         );
         String expectedMessage = seedu.address.model.itinerary.Name.MESSAGE_CONSTRAINTS;
@@ -36,6 +37,7 @@ class JsonAdaptedEventTest {
                 ParserDateUtil.getDateTimeFromString(VALID_ENDDATE_EVENT_1_2),
                 ParserDateUtil.getDateTimeFromString(VALID_STARTDATE_EVENT_1_2),
                 VALID_DESTINATION_EVENT_1,
+                Optional.empty(),
                 Optional.empty(),
                 Optional.empty()
         );

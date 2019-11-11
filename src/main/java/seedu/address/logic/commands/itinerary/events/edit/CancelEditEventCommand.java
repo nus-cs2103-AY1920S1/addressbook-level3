@@ -10,7 +10,7 @@ import seedu.address.model.appstatus.PageType;
 import seedu.address.model.itinerary.event.Event;
 
 /**
- * Placeholder.
+ * Cancel editing an event on the {@link seedu.address.ui.itinerary.EditEventPage}.
  */
 public class CancelEditEventCommand extends Command {
     public static final String COMMAND_WORD = "cancel";

@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.time.LocalDateTime;
 
 import seedu.address.model.booking.BookingList;
+import seedu.address.model.common.Photo;
 import seedu.address.model.diary.Diary;
 import seedu.address.model.expense.ExpenseList;
 import seedu.address.model.inventory.InventoryList;
@@ -12,7 +13,6 @@ import seedu.address.model.itinerary.Budget;
 import seedu.address.model.itinerary.Location;
 import seedu.address.model.itinerary.Name;
 import seedu.address.model.itinerary.day.DayList;
-import seedu.address.model.trip.Photo;
 import seedu.address.model.trip.Trip;
 
 /**

@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import seedu.address.model.trip.Photo;
+import seedu.address.model.common.Photo;
 
 /**
  * Abstraction of a form object that handle photos.

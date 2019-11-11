@@ -21,6 +21,8 @@ public class CliSyntax {
     public static final Prefix PREFIX_INVENTORY = new Prefix("inv/");
     public static final Prefix PREFIX_CONTACT = new Prefix("c/");
     public static final Prefix PREFIX_BOOKING = new Prefix("b/");
+    public static final Prefix PREFIX_ADD_INVENTORY = new Prefix("inv/");
+    public static final Prefix PREFIX_DELETE_INVENTORY = new Prefix("dinv/");
     public static final Prefix PREFIX_DAY_NUMBER = new Prefix("dn/");
     public static final Prefix PREFIX_DATA_FILE_PATH = new Prefix("fp/");
     public static final Prefix PREFIX_FILE_CHOOSER = new Prefix("fc/");

@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.diary.photo.Photo;
+import seedu.address.model.diary.photo.DiaryPhoto;
 
 /**
- * Jackson-friendly version of {@link Photo}.
+ * Jackson-friendly version of {@link DiaryPhoto}.
  */
-public class JsonAdaptedPhoto {
+public class JsonAdaptedDiaryPhoto {
     private static final String MISSING_FIELD_MESSAGE_FORMAT = "One of the fields provided is invalid!\n"
             + "Cause: %1$s";
 
@@ -27,7 +27,7 @@ public class JsonAdaptedPhoto {
      * Constructs a {@code JsonAdaptedDiary} with the given diary details.
      */
     @JsonCreator
-    public JsonAdaptedPhoto(
+    public JsonAdaptedDiaryPhoto(
             @JsonProperty("imagePath") String imagePath,
             @JsonProperty("description") String description,
             @JsonProperty("dateTaken") LocalDateTime dateTaken) {
@@ -40,7 +40,7 @@ public class JsonAdaptedPhoto {
     /**
      * Converts a given {@code Diary} into this class for Jackson use.
      */
-    public JsonAdaptedPhoto(Photo source) {
+    public JsonAdaptedDiaryPhoto(DiaryPhoto source) {
         requireNonNull(source);
         this.imagePath = source.getImageFilePath();
         this.description = source.getDescription();
@@ -52,10 +52,10 @@ public class JsonAdaptedPhoto {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted diary.
      */
-    public Photo toModelType() throws IllegalValueException {
-        Photo photo;
+    public DiaryPhoto toModelType() throws IllegalValueException {
+        DiaryPhoto photo;
         try {
-            photo = new Photo(imagePath, description, dateTaken);
+            photo = new DiaryPhoto(imagePath, description, dateTaken);
         } catch (IllegalArgumentException ex) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, ex.getMessage()));
         }

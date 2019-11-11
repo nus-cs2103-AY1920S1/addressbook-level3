@@ -70,9 +70,9 @@ public class ItineraryPage extends PageWithSidebar<AnchorPane> {
     @Override
     public void fillPage() {
         nameLabel.setText(model.getPageStatus().getTrip().getName().toString());
-        startDateLabel.setText("Arrival: " + model.getPageStatus()
+        startDateLabel.setText("Start Date: " + model.getPageStatus()
                 .getTrip().getStartDate().format(dateFormatter).toString());
-        endDateLabel.setText("Start Date: " + model
+        endDateLabel.setText("End Date: " + model
                 .getPageStatus().getTrip().getEndDate().format(dateFormatter).toString());
         destinationLabel.setWrapText(true);
         destinationLabel.setText("Destination: " + model.getPageStatus().getTrip().getDestination().toString());
