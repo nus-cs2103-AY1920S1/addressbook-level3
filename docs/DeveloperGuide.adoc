@@ -360,6 +360,47 @@ For Custom Mode, the game play is the same except that user can choose the categ
 For Arcade Mode, when a users enters a wrong answer, the quiz will end.
 //end::wilfred-implementation[]
 
+
+//tag::sihao-saq[]
+=== Saq feature
+==== How Saq works
+The Saq input mechanism is facilitated by `SaqInputCommand`. It extends `Command` and execute the `CommandResult`. The input
+will be  parse into `SaqInputCommandParser` to check for input validity. If the input String is not valid (i.e the String
+does not start with a letter of number), an invalid command parse exception will be thrown, indicating to user that the
+input String requires a letter or a number at the start of the String.
+
+If the input is valid, `SaqInputCommand` object of type `Command` will be created. The execute command of the
+`SaqInputCommand` object will be executed. The execute command will call the `isCorrect` method of Saq to check if the
+user input is correct or not.
+
+The activity diagram below shows the steps the user takes to answer an SAQ.
+
+.Activity Diagram of checking answer for SAQ
+image::SaqAnswerCheckerActivityDiagram.png[width=700]
+
+==== NLP Libraries
+External libraries were used to determine if the user input is correct or not. `StanfordCoreNLP` library was used to
+check for sentimental value of user input and the list of correct answers. This helps to check for negative sentence
+against a neutral or positive sentence (eg. "not a uml diagram" and "it's a uml diagram"). The `FuzzyWuzzy` library was
+also used to determine the similarity percentage of the user input to the correct answer using fuzzy string matching
+technique.
+
+The class diagram below shows the relationship between the classes that are used to validate the correctness of the
+user input.
+
+.Class Diagram of SAQ Answer Checker
+image::SaqAnswerCheckerClassDiagram.png[width=790]
+
+==== Validating the answer
+The `execute` method will return the `CommandResult`, correct or wrong. The currentAnswerable of type `Saq` will call its
+`isCorrect` method and return a boolean value, true for correct answer and false for wrong answer. The sequence diagram
+below shows the steps taken by the `isCorrect` method to determine if the user input is correct or wrong.
+
+.Sequence Diagram of SAQ isCorrect Method
+image::SaqIsCorrectSequenceDiagram.png[width=790]
+
+//end::sihao-saq[]
+
 //tag::shaun-restore[]
 === Restore feature
 ==== Implementation
@@ -369,6 +410,7 @@ Additionally, it implements the following operations:
 
 * `#handleRestore()` -- Prompts the user with an alert box if he really wishes to execute the restore function.
 * `#setRevisionTool()` -- Clears the current question bank and reset it with our own default questions.
+
 
 These operations are exposed in the `Model` interface as `Model#setRevisionTool()` and from `MainWindow` as `#handleRestore()` respectively.
 
@@ -454,6 +496,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: helps student to ace CS2103/T
 
+//tag::sihao-userstories[]
 [appendix]
 == User Stories
 
@@ -520,6 +563,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |CS2103 student who keeps having stomach ache |the application to tell me where the nearest toilet is |go and shit
 |=======================================================================
+//end::sihao-userstories[]
 
 //tag::wilfred-use-case[]
 [appendix]
