@@ -82,11 +82,11 @@ Format: `addCategory cat/<category type> n/<category name>`
 Example Usage:
 [start = 1]
 . If you want to add a new category *CodingServices* under Income, enter the command `addCategory cat/Income n/CodingServices`
-
++
 image::addingCategory-1.png[]
 
-. The new category will thus be added to guiltTrip. You can verify it using listCategories.
-
+. The new category will thus be added to guiltTrip. You can verify it using `listCategories`.
++
 image::addingCategory-2.png[]
 
 Other Examples:
@@ -108,11 +108,11 @@ Format: `editCategory cat/<category type> o/<old category name> n/<new category 
 Example Usage:
 [start = 1]
 . If you would like to edit an existing Category *Business* to *Bursary* under Income, enter the command `editCategory cat/Income o/Business n/Bursary`.
-
++
 image::editingCategory-1.png[]
 
 . The old category will thus be edited in guiltTrip. All existing entries will also be renamed as shown below.
-
++
 image::editingCategory-2.png[]
 
 Other Examples:
@@ -139,11 +139,11 @@ Format: `deleteCategory cat/<category type> n/<category name>`
 Example Usage:
 [start = 1]
 . If you would like to remove an existing Category *Rent* under Expense, type `deleteCategory cat/Expense n/Rent`
-
++
 image::deletingCategory-1.png[]
 
 . The old category will thus be deleted from guiltTrip. You can verify that it is removed using `listCategories`.
-
++
 image::deletingCategory-2.png[]
 
 Other Examples:
@@ -169,11 +169,11 @@ Format: `addExpense cat/<category> n/<description> a/<expenditure> d/<date> [t/<
 Example Usage:
 [start = 1]
 . If you would like to add a record of a recent splurging on mala, key in the command  `addExpense cat/Food typ/Expense n/Mala amt/5.50 d/2019 11 09 tg/food tg/indulgence` .
-
++
 image::addingExpense-1.png[]
 
 . You should see the new expense being added into in the list of entries as displayed below.
-
++
 image::addingExpense-2.png[]
 
 Other examples:
@@ -217,11 +217,11 @@ Example Usage:
 [start = 1]
 . If you would like to edit a recent Expense's tag, whereby the expense is located at index 2 as shown below,
 key in the command  `editExpense 2 amt/999.99 tg/irreversiblecatastrophicdestructiontomykidneysandhealth`.
-
++
 image::editingExpense-1.png[]
 
 . You should see the new expense being edited in the list of entries as displayed below.
-
++
 image::editingExpense-2.png[]
 
 Other Examples:
@@ -244,11 +244,11 @@ Example Usage:
 [start = 1]
 . If you would like to delete an expense, whereby the expense is located at index 2 as shown below,
 key in the command  `deleteExpense 2`.
-
++
 image::deleteExpense-1.png[]
 
 . You should see the expense being deleted in the list of entries as displayed below.
-
++
 image::deleteExpense-2.png[]
 
 Other Examples:
@@ -392,11 +392,11 @@ Example Usage:
 
 [start = 1]
 . Let's say you want to view the Statistics in table form for period *2018/01* to *2019/12*. You then type in the command `viewTable p/2018-01,2019-12`.
-
++
 image::viewTable-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
-
++
 image::viewTable-2.png[]
 
 Other Examples:
@@ -418,11 +418,11 @@ Format: `viewPie [p/<RangeOfMonths>]`
 Example Usage:
 [start = 1]
 . Let's say you want to view the Statistics in pie chart form for period *2018/01* to *2019/12*. You then type in the command `viewPie p/2018-01,2019-12`.
-
++
 image::ViewPie-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
-
++
 image::viewPie-2.png[]
 
 Other Examples:
@@ -448,11 +448,11 @@ Example Usage:
 
 [start = 1]
 . Let's say you want to view the Statistics in bar chart form for period *2019/10*. You then type in the command `viewBar p/2019-10`.
-
++
 image::viewBar-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
-
++
 image::viewBar-2.png[]
 
 Other Examples:
@@ -482,12 +482,12 @@ Example Usage:
 
 [start = 1]
 . Let's say you want to view the entries sorted by Category in ascending order. You then type `sortExpense typ/Category s/ascending`
-
++
 image::Sort-1.png[]
 
 . GuiltTrip will display to you the entries sorted by Category in the proper order as shown below.
-
-image::sort-1.png[]
++
+image::sort-2.png[]
 
 Other Examples:
 
@@ -495,9 +495,9 @@ Other Examples:
 * `sortExpense typ/category s/descending`
 * `sortIncome typ/category s/ascending`
 
-==== Search : `findExpense`, `findIncome`, `findWish`, `findBudget`
+==== Find : `findExpense`, `findIncome`, `findWish`, `findBudget`
 
-Search income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
+Find income/expenditure by Category, Description, Amount, Date or Tags. There must be at least one find parameter.
 
 [NOTE]
 Finding by `Amount` will show the entries that are above a certain amount.
@@ -514,14 +514,15 @@ Format: `findExpense [cat/<category>] [n/<description>] [a/<amount>] [d/<date>] 
 
 [start = 1]
 . Let's say you want to find all the expenses with Category name food. You then type `findExpense cat/Food`
-
++
 image::find-1.png[]
 
 . GuiltTrip will display to you the expenses with the Category Name as shown below.
-
++
 image::find-2.png[]
 
 Other Examples:
+
 * `findExpense cat/food n/mala`: lists each entry in expenditure and income with title containing keyword “mala” and category of Food.
 * `findIncome cat/business d/2019-09-09`: lists each entry in expenditure and income with date of "2019-09-09" and category of business.
 * `findWish d/2019-09-09 tg/a tg/b`: lists each entry in expenditure and income with date of "2019-09-09" and tags of a and b.
