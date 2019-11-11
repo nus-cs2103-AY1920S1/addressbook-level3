@@ -113,7 +113,7 @@ public class UniqueInvTasMappingList implements Iterable<InvTasMapping> {
             if (mappingIndex == index) {
                 iterator.remove();
             } else if (mappingIndex > index) {
-                InvTasMapping updatedMapping = new InvTasMapping(mapping.getInventoryIndex(), mappingIndex - 1);
+                InvTasMapping updatedMapping = new InvTasMapping(mappingIndex - 1, mapping.getInventoryIndex());
                 iterator.remove();
                 iterator.add(updatedMapping);
             }
