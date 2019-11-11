@@ -105,6 +105,7 @@ Format: `-deliverymen`
 
 {nbsp} +
 
+// end::universalCommand[]
 // tag::order[]
 
 ==== Adding an order: `-add_order`
@@ -378,13 +379,14 @@ Successfully redid: (your previous command here)
 {nbsp} +
 
 // end::undoRedo[]
+// tag::universalCommand2[]
 
 ==== Exiting program: `-exit`
 This command exits the program.
 
 Format: `-exit`
 
-// end::universalCommand[]
+// end::universalCommand2[]
 // tag::customerCommand[]
 
 {nbsp} +
