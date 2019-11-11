@@ -2,14 +2,7 @@ package seedu.elisa.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.elisa.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DATETIME;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DELETE_EVENT;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DELETE_REMINDER;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DELETE_TASK;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_PRIORITY;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_REMINDER;
-import static seedu.elisa.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.elisa.logic.parser.CliSyntax.*;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -43,7 +36,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         String processArgs = args + " "; // account for the possibility that --tk or --r or --e is given with no space
         try {
             argMultiMap = ArgumentTokenizer.tokenize(processArgs, PREFIX_DESCRIPTION, PREFIX_DATETIME, PREFIX_REMINDER,
-                    PREFIX_PRIORITY, PREFIX_TAG, PREFIX_DELETE_TASK, PREFIX_DELETE_REMINDER, PREFIX_DELETE_EVENT);
+                    PREFIX_PRIORITY, PREFIX_TAG, PREFIX_DELETE_TASK, PREFIX_DELETE_REMINDER, PREFIX_DELETE_EVENT, PREFIX_AUTO_RESCHEDULE);
         } catch (Exception e) {
             logger.info("Failure to tokenize arguments: EditCommand");
             throw new ParseException("Edit command format is incorrect.");
@@ -72,6 +65,11 @@ public class EditCommandParser implements Parser<EditCommand> {
             editItemDescriptor.setReminder(
                     ParserUtil.parseReminder(
                             argMultiMap.getValue(PREFIX_REMINDER).get()).get());
+        }
+        if (argMultiMap.getValue(PREFIX_AUTO_RESCHEDULE).isPresent()) {
+            editItemDescriptor.setAutoReschedulePeriod(
+                    ParserUtil.parseReschedule(
+                            argMultiMap.getValue(PREFIX_AUTO_RESCHEDULE).get()).get());
         }
         if (argMultiMap.getValue(PREFIX_PRIORITY).isPresent()) {
             editItemDescriptor.setPriority(

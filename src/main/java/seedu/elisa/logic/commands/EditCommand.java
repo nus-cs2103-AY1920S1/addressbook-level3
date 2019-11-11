@@ -23,7 +23,10 @@ import seedu.elisa.commons.core.item.Task;
 import seedu.elisa.commons.core.item.tag.Tag;
 import seedu.elisa.commons.util.CollectionUtil;
 import seedu.elisa.logic.commands.exceptions.CommandException;
+import seedu.elisa.model.AutoRescheduleManager;
+import seedu.elisa.model.AutoReschedulePeriod;
 import seedu.elisa.model.ItemModel;
+import seedu.elisa.model.RescheduleTask;
 import seedu.elisa.model.item.VisualizeList;
 
 /**
@@ -78,12 +81,18 @@ public class EditCommand extends UndoableCommand {
         }
 
         Item oldItem = lastShownList.get(index.getZeroBased());
-        this.oldItem = oldItem; //Is this line of code necessary?
+        this.oldItem = oldItem;
         Item editedItem = createEditedItem(oldItem, editItemDescriptor, lastShownList);
-        this.editedItem = editedItem; //Is this line of code necessary?
+        this.editedItem = editedItem;
 
         if (model.hasItem(editedItem)) {
             throw new CommandException("Edit failed! Don't you remember that this item already exists?");
+        }
+        // if event has AutoReschedule, add it to the AutoRescheduleManager
+        if (editedItem.hasAutoReschedule()) {
+            Event event = editedItem.getEvent().get();
+            RescheduleTask task = new RescheduleTask(editedItem, event.getPeriod(), model);
+            AutoRescheduleManager.getInstance().add(task);
         }
 
         model.editItem(oldItem, editedItem);
@@ -132,6 +141,10 @@ public class EditCommand extends UndoableCommand {
                         .orElse(null)));
         Set<Tag> updatedTags = editItemDescriptor.getTags().orElse(itemToEdit.getTags());
         Priority updatedPriority = editItemDescriptor.getPriority().orElse(itemToEdit.getPriority());
+        Optional<AutoReschedulePeriod> updatedPeriod = Optional.ofNullable(editItemDescriptor
+                .getAutoReschedulePeriod()
+                .orElse(itemToEdit.hasEvent()
+                        ? itemToEdit.getEvent().get().getPeriod() : null));
 
         ItemBuilder itemBuilder = new ItemBuilder();
         itemBuilder.setItemDescription(updatedDescription);
@@ -142,6 +155,9 @@ public class EditCommand extends UndoableCommand {
             itemBuilder.setTask(updatedTask.get());
         }
         if (updatedEvent.isPresent()) {
+            if (updatedPeriod.isPresent()) {
+                updatedEvent = Optional.of(updatedEvent.get().setReschedulePeriod(updatedPeriod.get()));
+            }
             itemBuilder.setEvent(updatedEvent.get());
         }
         if (updatedReminder.isPresent()) {
@@ -178,6 +194,7 @@ public class EditCommand extends UndoableCommand {
         private Reminder reminder;
         private Priority priority;
         private Set<Tag> tags;
+        private AutoReschedulePeriod period;
         private boolean hasDeleteTask = false;
         private boolean hasDeleteEvent = false;
         private boolean hasDeleteReminder = false;
@@ -196,6 +213,7 @@ public class EditCommand extends UndoableCommand {
             setReminder(toCopy.reminder);
             setPriority(toCopy.priority);
             setTags(toCopy.tags);
+            setAutoReschedulePeriod(toCopy.period);
             setHasDeleteTask(toCopy.hasDeleteTask);
             setHasDeleteEvent(toCopy.hasDeleteEvent);
             setHasDeleteReminder(toCopy.hasDeleteReminder);
@@ -205,7 +223,7 @@ public class EditCommand extends UndoableCommand {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(description, task, event, reminder, priority, tags);
+            return CollectionUtil.isAnyNonNull(description, task, event, reminder, priority, tags, period);
         }
 
         public void setDescription(ItemDescription description) {
@@ -263,6 +281,14 @@ public class EditCommand extends UndoableCommand {
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        public void setAutoReschedulePeriod(AutoReschedulePeriod period) {
+            this.period = period;
+        }
+
+        public Optional<AutoReschedulePeriod> getAutoReschedulePeriod() {
+            return Optional.ofNullable(period);
         }
 
         public boolean hasAnyDelete() {
