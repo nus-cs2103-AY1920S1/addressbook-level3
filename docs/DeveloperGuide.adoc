@@ -458,7 +458,7 @@ The notification feature prompts the user with new window if a meal had been mis
 
 ===== Implementation
 
-The notification feature is automatically activated when the application starts up. On start up, it is implemented through a  `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal had been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
+The notification feature is automatically activated when the application starts up. On start up, it is implemented through a `NotificationHelper` that gets information from `Model#getMealLog().getTodayMeals()` method to check if there are any meal consumed and if a meal had been consumed. The `NotificationHelper` class would the do a check on the timestamp of the latest meals by using various methods in the `Notification` class, more details are given below. If a meal had been missed, a notification will be prompted to the user to consume his meal, this prompt will constantly pop up every 10 minutes until a meal had been consumed. If a meal had been consumed within the period then the user can continue using the application without any prompt.
 
 [NOTE]
 Notification will be prompted: +
