@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.autocomplete.exceptions.CommandNotFoundException;
 import seedu.planner.logic.commands.ClearCommand;
+import seedu.planner.logic.commands.CopyToCommand;
 import seedu.planner.logic.commands.ExitCommand;
 import seedu.planner.logic.commands.HelpCommand;
 import seedu.planner.logic.commands.LoadCommand;
@@ -74,6 +75,7 @@ public class AutoCompleteSuggester {
         UnscheduleCommand.COMMAND_INFORMATION,
         NewCommand.COMMAND_INFORMATION,
         LoadCommand.COMMAND_INFORMATION,
+        CopyToCommand.COMMAND_INFORMATION,
         OptimiseCommand.COMMAND_INFORMATION,
         UndoCommand.COMMAND_INFORMATION,
         RedoCommand.COMMAND_INFORMATION,

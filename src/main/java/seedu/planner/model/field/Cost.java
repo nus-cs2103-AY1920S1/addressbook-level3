@@ -9,12 +9,13 @@ import static seedu.planner.commons.util.AppUtil.checkArgument;
  */
 public class Cost {
     public static final String MESSAGE_CONSTRAINTS =
-            "Costs should only be a positive integer to the nearest 2 decimal places. They should also not be blank.";
+            "Costs should only be a positive decimal number less than 10^25 to the nearest 2 decimal places."
+                    + "They should also not be blank.";
 
     /*
      *
      */
-    public static final String VALIDATION_REGEX = "\\d+(\\.\\d{2})?";
+    public static final String VALIDATION_REGEX = "^[\\d]{0,25}(\\.\\d{2})?$";
 
     public final String cost;
 

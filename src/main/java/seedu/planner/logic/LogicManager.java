@@ -9,6 +9,7 @@ import seedu.planner.commons.core.GuiSettings;
 import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.exceptions.DataConversionException;
 import seedu.planner.logic.commands.Command;
+import seedu.planner.logic.commands.CopyToCommand;
 import seedu.planner.logic.commands.LoadCommand;
 import seedu.planner.logic.commands.NewCommand;
 import seedu.planner.logic.commands.SetCommand;
@@ -58,7 +59,8 @@ public class LogicManager implements Logic {
         if (command instanceof SetCommand) {
             storage.deletePlannerFilePath();
         }
-        if (command instanceof SetCommand || command instanceof NewCommand || command instanceof LoadCommand) {
+        if (command instanceof SetCommand || command instanceof NewCommand || command instanceof LoadCommand
+                || command instanceof CopyToCommand) {
             storage.setAccommodationFilePath(getAccommodationFilePath());
             storage.setActivityFilePath(getActivityFilePath());
             storage.setContactFilePath(getContactFilePath());
