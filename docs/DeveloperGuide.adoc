@@ -507,6 +507,8 @@ athletes) is made possible.
 .Sequence Diagram for the StartSessionCommand
 image::StartSequenceDiagram.png[]
 
+// end::outSession[]
+
 //tag::Competition[]
 
 ==== Competition features
@@ -680,6 +682,8 @@ image::StorageClassDiagram.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/system/storage/Storage.java[`Storage.java`]
 
+// tag::partcommands[]
+
 ===== Create a new Participation
 To create a new Participation, the associated Person and Competition must exist. If either doesnt,
 an exception will be thrown to the user through the result box to prompt the user to input an existing one.
@@ -718,7 +722,7 @@ Cons:
 
 * User will have to scroll through the participation list on the app to type in the index.
 
-// end::outSession[]
+// end::partcommands[]
 
 //tag::overallRank[]
 
