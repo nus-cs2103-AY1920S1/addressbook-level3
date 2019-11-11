@@ -1,4 +1,4 @@
-= Ryan Tay - Project Portfolio for DeliveryMANS
+= Ryan Tay Jia Jian - Project Portfolio for DeliveryMANS
 :site-section: RyanTayProjectPortfolio
 :sectnums:
 :imagesDir: ../images
