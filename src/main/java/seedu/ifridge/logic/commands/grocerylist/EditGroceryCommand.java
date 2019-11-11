@@ -5,6 +5,7 @@ import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_EXPIRY_DATE;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.ifridge.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.ifridge.model.Model.PREDICATE_SHOW_ALL_GROCERY_ITEMS;
+import static seedu.ifridge.model.food.Amount.MESSAGE_INCORRECT_UNIT;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -19,6 +20,7 @@ import seedu.ifridge.logic.commands.Command;
 import seedu.ifridge.logic.commands.CommandResult;
 import seedu.ifridge.logic.commands.exceptions.CommandException;
 import seedu.ifridge.model.Model;
+import seedu.ifridge.model.UnitDictionary;
 import seedu.ifridge.model.food.Amount;
 import seedu.ifridge.model.food.ExpiryDate;
 import seedu.ifridge.model.food.GroceryItem;
@@ -84,6 +86,13 @@ public class EditGroceryCommand extends Command {
             // continue if other fields are the same and tag is edited
         } else if (model.hasGroceryItem(editedGroceryItem)) { // if changes done on different index
             throw new CommandException(MESSAGE_DUPLICATE_GROCERY_ITEM);
+        }
+
+        UnitDictionary unitDictionary = model.getUnitDictionary();
+        try {
+            unitDictionary.checkUnitDictionary(editedGroceryItem, model);
+        } catch (InvalidUnitException e) {
+            throw new CommandException(MESSAGE_INCORRECT_UNIT);
         }
 
         model.setGroceryItem(groceryItemToEdit, editedGroceryItem);
