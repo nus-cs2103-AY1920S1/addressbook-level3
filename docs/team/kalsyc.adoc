@@ -4,8 +4,7 @@
 :stylesDir: ../stylesheets
 
 image::kalsyc.png[width="150", align="left"]
-{empty}[https://kalsyc.github.io[homepage]] [https://github.com/kalsyc[github]] +
-{empty}[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kalsyc&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
+{empty}[https://kalsyc.github.io[Homepage]] [https://github.com/kalsyc[GitHub]] {empty}[https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=Kalsyc&tabRepo=AY1920S1-CS2103T-F11-2%2Fmain%5Bmaster%5D[RepoSense]]
 
 Role: Developer +
 Responsibilities: Testing + Undo/Redo/Tagging System
@@ -16,7 +15,27 @@ Responsibilities: Testing + Undo/Redo/Tagging System
 
 == Overview
 
-Xpire is a desktop application used for tracking expiry dates of items.  The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 15 kLoC.
+My team and I were tasked to morph an existing Desktop application called AddressBook3 for our Software Engineering Team Project (Module Code: CS2103T). Our team has chosen to morph the application into an Expiry Date Tracker named Xpire that targets students living in residences and halls.
+
+Our application allows users to track expiry dates of items and be reminded when they are about to expire. Examples of items that can be tracked include perishable items such as Milk, Bread, Fruits or even non-perishable items such as Medicine and Passwords. +
+
+Our application also features a ReplenishList where users can track what items they need to replenish after it expires or has been used up.
+
+== Xpire Interface
+
+Currently, this is what our project, Xpire, looks like in v1.4:
+
+.User Interface of Xpire
+
+image::Ui.png[width="790"]
+
+== Formatting used in this Project Portfolio
+
+`undo` - This grey highlight represents a class, a variable or method that exists in the codebase. It can also represent a command that has to be entered into the application.
+
+`Xpire` - This refers to the main list in the application and not the entire application. The Xpire application will be simply referred to as 'the application'.
+
+`ReplenishList` - This refers to the replenish list in the application.
 
 == Summary of contributions
 
