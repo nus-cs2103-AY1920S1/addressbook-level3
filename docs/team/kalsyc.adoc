@@ -29,7 +29,7 @@ Currently, this is what our project, Xpire, looks like in v1.4:
 
 image::Ui.png[width="790"]
 
-== Formatting used in this Project Portfolio
+== Formatting and Terms used in this Project Portfolio
 
 `undo` - This grey highlight represents a class, a variable or method that exists in the codebase. It can also represent a command that has to be entered into the application.
 
@@ -37,37 +37,56 @@ image::Ui.png[width="790"]
 
 `ReplenishList` - This refers to the replenish list in the application.
 
+`current view` - This refers to the current list that the user is viewing (either the main list (`Xpire`) or the replenish list (`ReplenishList`)).
+
 == Summary of contributions
 
+|===
+|_This section details the contributions I have made to the team as well as any documentation or code I have written._
+|===
+
 * *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** What it does: allows the user to undo previous commands or redo commands that have been entered earlier.
+** Justification: This feature enhances the application by introducing Error Prevention as the user may accidentally key in a command wrongly and may want a convenient way of undoing that particular command. The redo command also provides convenience as it allows users to go back and forth in history to see the changes.
+** Highlights: This feature must work with existing commands as well as future commands and also not slow down the application. A proper brainstorming of design choices must be made as the undo/redo mechanism will affect most commands and the current status of the application. The implementation was challenging as there are two lists that the application contains which is `Xpire` and `ReplenishList` and there is a need to find a way to archive the data in order to support undoing of commands. +
+Also, efficiency and memory is a concern as we do not want to store too many archival data which may slow down the application, thus only items or views that have been changed should be noted by the mechanism and not create duplicates.
+** Code contributed for this enhancement: (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/138[#138], https://github.com/AY1920S1-CS2103T-F11-2/main/pull/181[#181])
 
-* *Minor enhancement*: added a tagging command that allows users to tag items in Xpire so that they are able to search it up easily and group items together easily.
+* *Major enhancement*: added a *tagging command that allows users to tag items in the application*
+** What it does: allows the user to tag items so that they are able to search it up or group items together easily.
+** Justification: This feature improves the application by allowing users the freedom to categorise their items and organise them properly. This is important as the application may contain many items at any time and there should be a convenient way of organising them into separate groups.
+** Highlights: This enhancement works well with the two existing lists, `Xpire` and `ReplenishList`. Some thought must be given to parsing and storing tags in items as our team has decided on a limit of the amount of tags each item can have as well as a limit on how long the tag should be. The implementation was difficult when trying to apply defensive programmming as we do not want tags to be accidentally deleted away or have been duplicated. +
+Furthermore, tag must support deletion and stackable commands as our application so that the user can add or delete tags easily in the current view.
+** Code contributed for this enhancement: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/17[#17])
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Minor enhancement*: created a history manager which stores commands and user input for feedback as well as for use in retrieving previous user inputs.
+** Code contributed for this enhancement: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/197[#197])
 
-* *Other contributions*: In-charge of writing tests as well as approving tests written by other members.
+* *Minor enhancement*: implemented a show all tags function that allows users to see all the tags that are present in the current view.
+** Code contributed for this enhancement: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/83[#83])
+
+* *Other contributions*:
+
+** Testing:
+*** In-charge of writing tests as well as approving tests written by other members in the team.
+*** Refactor tests and set standards for testing
+**** Code contributed: (Pull requests https://github.com/AY1920S1-CS2103T-F11-2/main/pull/83[#83], https://github.com/AY1920S1-CS2103T-F11-2/main/pull/110[#110], https://github.com/AY1920S1-CS2103T-F11-2/main/pull/59[#59])
 
 ** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Assign issues related to bugs and tests to other team members.
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
 
-_{you can add/remove categories in the list above}_
+** Documentation/User Study:
+*** Update DG for user stories, value proposition and target user profile. Helped to do up user persona.
+**** Code contributed: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/31[#31])
+
+** Debugging:
+*** Fixed issues from dry-run PE as well as other bugs such as unchecked type casting of objects.
+**** Code contributed: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/180[#180])
+
+** Enhancements to existing work/features:
+*** Helped to refactor and integrate the new Model API so that it is easier for developers in the future to use.
+**** Code contributed: (Pull request https://github.com/AY1920S1-CS2103T-F11-2/main/pull/194[#194])
 
 == Contributions to the User Guide
 
