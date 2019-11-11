@@ -1,0 +1,73 @@
+= Alex Koh - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images/ak_ppp
+:stylesDir: ../stylesheets
+
+== PROJECT: Duke Academy
+
+'''
+
+== Overview
+
+Duke Academy is an all-in-one programming practice app targeted for students taking introductory and intermediate programming classes. While most of the user interaction happens through a CLI, the app also comes with a GUI built with JavaFX. Duke Academy was developed by a team of 4 software engineering students, and has a codebase of about 15k LOC, mostly written in Java. +
+
+Here is a preview of Duke Academy:
+
+image::UiPreview.png[width="1000"]
+
+== Summary of contributions
+
+* *Major enhancement*: Implemented the Dashboard, as well as two relevant user commands that interacts with it, namely `bookmark` `deletebookmark`.
+** What it does: The Dashboard allows the user to keep track of his learning journey in Duke Academy, through three GUI components.
++
+1) Gamified progress indicator, with both percentage of questions completed and a corresponding skill tier
++
+2) The list of questions the user is still attempting
++
+3) The list of questions specially bookmarked by the user +
++
+The `bookmark` command allows the user to add a question to the list of bookmarked questions, while the `deletebookmark` command allows the user to remove any question from that list.
+** Justification: The Personal Dashboard improves user experience significantly. When it comes to programming practice, there are many cases where a student wants to note down a particular question for future reference. For example, a student might find a few questions particularly challenging for him, and he wants to note down these questions for future revision. The `bookmark` command would allow him to conveniently do that, without the traditional need for pen and paper or an external notepad application. This is because the list of bookmarked questions on the Personal Dashboard would update immediately upon the bookmark command. The student is also able to remove any of the questions from the bookmarked list using the deletebookmark command. Also, the inclusion of a gamified progress indicator can actually provide many students with an extra source of motivation and interest towards the arduous and challenging activity of programming.
+** Highlights: The implementation of `bookmark` command and `deletebookmark` command required a deep understanding of the Question class, because Question objects were required to be either bookmarked or not bookmarked. Also, the Personal Dashboard was developed to be able to support other commands implemented by other developers in the team, namely `attempt` and `submit`. Hence, it required strong understanding of the code written by other developers, and more importantly, effective communication with them to deliver a fully functional dashboard that can accurately support all 4 commands, `bookmark`, `deletebookmark`, `attempt` and `submit`.
+
+* *Minor enhancement*: Added a Program Evaluation Panel that allows the user to view how well his program performed against the pre-defined test cases tied to each question.
+
+* *Code contributed*: [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=alxkohh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=alxkohh&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Functional code]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=alxkohh&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false&tabOpen=true&tabType=authorship&tabAuthor=alxkohh&tabRepo=AY1920S1-CS2103T-F14-1%2Fmain%5Bmaster%5D[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub, in terms of creation, assignment and tracking of GitHub issues, and also deadline scheduling of the version release.
+** Enhancements to existing features:
+*** Modified AB3's `help` command to provide user with a quick overview of all commands used in Duke Academy, through the Help Tab (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/175[#175])
+** Documentation:
+*** Updated README Page to be aligned with the app's full release (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/95[#95], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/125[#125])
+*** Wrote About Us Page (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/14[#14], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/19[#19], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/96[#96], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/116[#116])
+*** Wrote Contact Us Page (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/15[#15], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/20[#20], https://github.com/AY1920S1-CS2103T-F14-1/main/pull/98[#98])
+*** Contributed to the User Guide for Dashboard, Bookmark, DeleteBookmark, Help (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/174[#174])
+*** Contributed to the Developer Guide for Ui component, Dashboard, BookmarkCommand (https://github.com/AY1920S1-CS2103T-F14-1/main/pull/79[#79])
+** Tools:
+*** Provided assistance with GUI development through expertise with Gluon Scene Builder
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+include::../UserGuide.adoc[tag=dashboard1]
+include::../UserGuide.adoc[tag=dashboard]
+include::../UserGuide.adoc[tag=bookmark]
+include::../UserGuide.adoc[tag=deletebookmark]
+include::../UserGuide.adoc[tag=help1]
+include::../UserGuide.adoc[tag=help]
+
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=ui]
+include::../DeveloperGuide.adoc[tag=bookmark]
+include::../DeveloperGuide.adoc[tag=manualtesting]

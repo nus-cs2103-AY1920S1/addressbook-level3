@@ -1,13 +1,25 @@
 @startuml
 Application -> ProgramSubmissionLogicManager: setUserProgramChannel(UI)
+activate ProgramSubmissionLogicManager
+deactivate ProgramSubmissionLogicManager
 User -> Application: Attempt new question
 Application -> ProgramSubmissionLogicManager: setCurrentQuestion(question)
+activate ProgramSubmissionLogicManager
+deactivate ProgramSubmissionLogicManager
 User -> UI: Enter solution
 User -> Application: Submit command
 Application -> ProgramSubmissionLogicManager: submitUserProgramFromSubmissionChannel()
+activate ProgramSubmissionLogicManager
 ProgramSubmissionLogicManager -> UI: getUserProgram()
+activate UI
 UI -> ProgramSubmissionLogicManager: userProgram
+deactivate UI
 ProgramSubmissionLogicManager -> TestExecutor: runTestCases(testCases, userProgram)
+activate TestExecutor
 TestExecutor -> ProgramSubmissionLogicManager: TestResult
+deactivate TestExecutor
+deactivate ProgramSubmissionLogicManager
 UI -> UI: Update result from observable
+activate UI
+deactivate UI
 @enduml
