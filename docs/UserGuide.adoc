@@ -134,9 +134,6 @@ The watchlist page is the default page that is opened upon start-up of `EzWatchl
 It shows the user’s unwatched movies and television series.
 The user can navigate to this list by clicking the “Watchlist” tab on the side bar or by using the keyboard short-cut `1`.
 
-.Main page of the UI: watchlist page
-image::Ui.png[width="790"]
-
 **Characteristics of the watchlist page:**
 
 * Movie/TV show poster
@@ -148,7 +145,11 @@ image::Ui.png[width="790"]
 * Last watched episode (For TV series that have been updated using the `watch` command)
 * Checkbox to indicate if the show has been watched
 
-==== Watched List
+.Main page of the UI: watchlist page
+image::Ui.png[width="790"]
+
+
+==== Watched List Page
 
 The user has the option to view the list of shows that have been marked as watched in the watched list. The user can navigate to this list by clicking the “Watched” tab on the side bar or by using the keyboard short-cut `2`.
 
