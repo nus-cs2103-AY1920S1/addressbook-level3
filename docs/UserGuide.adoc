@@ -187,7 +187,7 @@ Adds a new expenditure to your total spending.
 Inputs can be arranged in a different order. Tag may be omitted from the expenditure record. Category must already exist
 in the list of categories. Amount must be larger than 0 and positive. Amount should also not be larger than 9999999.99.
 
-Format: `addExpense cat/<category> n/<description> a/<expenditure> d/<date> [tg/<tag>]`
+Format: `addExpense cat/<category> n/<description> amt/<expenditure> d/<date> [tg/<tag>]`
 
 * `<category name>`: The `category` that the expense belongs to.
 * `<description>`: The name of this expense.
@@ -207,8 +207,8 @@ image::addingExpense-2.png[]
 
 Other examples:
 
-* `addExpense c/Gifts typ/Expense n/Rubber Duck for Yee Jian a/55 d/2019 11 09 tg/sanity check`
-* `addExpense c/Travel typ/Expense n/Travel To Alaska a/550000 d/2019 09 09`
+* `addExpense cat/Gifts typ/Expense n/Rubber Duck for Yee Jian amt/55 d/2019 11 09 tg/sanity check`
+* `addExpense cat/Travel typ/Expense n/Travel To Alaska amt/550000 d/2019 09 09`
 
 ==== Adding Income : `addIncome`
 Adds a new Income to your total income.
@@ -229,14 +229,14 @@ Example Usage:
 
 Other examples:
 
-* `add c/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 tg/food`
-* `add c/Business typ/Income n/business Trip To Mars a/20000.00 d/2019 09 09`
+* `addIncome cat/Gifts typ/Income n/Durian a/200.00 d/2019 09 09 tg/food`
+* `addIncome cat/Business typ/Income n/business Trip To Mars a/20000.00 d/2019 09 09`
 
 ==== Editing a Expense: `editExpense`
 
 Edits a current entry with the given index number. You may edit one or more fields, but the category must already exist in the list of categories, whether it is Income Category or Expense Category.
 
-Format: `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [a/<expenditure>] [tg/<tag>]`
+Format: `editExpense <index> [cat/<category>] [n/<description>] [d/<date>] [amt/<expenditure>] [tg/<tag>]`
 
 * `<index>`: The `index` of the entry in the entry panel. Additionally the index must be greater than zero and positive.
 * You can update any of the fields of the entry. But you must at least edit one field.
@@ -256,7 +256,7 @@ image::editingExpense-2.png[]
 Other Examples:
 
 * `editExpense 1 cat/Food n/deck mala with friends`
-* `editExpense 3 cat/Business n/Selling Coding Services a/0.01`
+* `editExpense 3 cat/Business n/Selling Coding Services amt/0.01`
 * `editExpense 5 tg/helpmykidneys`
 
 ==== Deleting a Expense: `deleteExpense`
@@ -539,7 +539,8 @@ Example Usage:
 Sorts the aforementioned list currently displayed according to sort type which can be `amount`, `time`, `description`,
 `tags` and `category`, and sort sequence which can be in `ascending`, `descending` order.
 
-[NOTE] Sorting of Budget by Amount refers to the original Budget Total Amount.
+[NOTE]
+Sorting of Budget by Amount refers to the original Budget Total Amount.
 
 Format: `sortExpense typ/<sort type> s/<sort sequence>`
 

@@ -131,12 +131,13 @@ Other Examples:
 * `viewBar`
 
 === Sorting and Finding
-Sorting allows the user to organize GuiltTrip to sort what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#37-sorting--sortexpense-sortincome-sortbudget-sortwish[Link For Sorting]
-Finding allows the user to organize GuiltTrip to filter out what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#38-find--findexpense-findincome-findwish-findbudget[Link For Finding]
+Sorting allows the user to organize GuiltTrip to sort what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#38-sorting--sortexpense-sortincome-sortbudget-sortwish-sortautoexp[Link For Sorting]
+Finding allows the user to organize GuiltTrip to filter out what he wants to see. For more information visit: https://github.com/AY1920S1-CS2103-T16-4/main/blob/master/docs/UserGuide.adoc#39-find--findexpense-findincome-findwish-findbudget-findautoexp[Link For Finding]
 
 == Contributions to the Developer Guide
 === Data Presentation: Categories
 As the section for Categories is too huge, I included a small section on editingCategories command function.
+For more information: https://github.com/Dandford/main/blob/master/docs/DeveloperGuide.adoc#31-data-presentation-categories[Categories]
 
 * When editing a `Category`, there is a need to check that the new Category added does not
 exist in the existing guiltTrip, hence the need for `CategoryList#contains(Category)` as well as a need to check
@@ -145,12 +146,12 @@ if there are existing entries of the original `Category` to carry out modificati
 Given below is an example of an activity diagram for editing a category to illustrate the point above.
 
 .Activity Diagram for Editing Category
-image::EditingCategory.png[width=50%]
+image::EditingCategory.png[width=30%]
 
 === Data Presentation: Statistics
 
 .Class Diagram for Statistics Component.
-image::StatisticsClassDiagram.png[width=50%]
+image::StatisticsClassDiagram.png[width=40%]
 
 The Statistics class diagram is shown above. Many of the operations are handled by StatisticsManager.
 The two main operations for calculation of Statistics are:
