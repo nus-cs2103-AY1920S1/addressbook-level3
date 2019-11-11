@@ -919,15 +919,13 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with an empty set of tasks. The window size may not be optimum.
 
 . Saving window preferences
 
 .. Resize the window to an optimum size. Move the window to a different location. Close the window.
 .. Re-launch the app by double-clicking the jar file. +
    Expected: The most recent window size and location is retained.
-
-_{ more test cases ... }_
 
 === Adding a task
 
@@ -957,9 +955,40 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
 .. Test case: `delete 1` +
    Expected: First task is deleted from the list. Details of the deleted task will show in the result display.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the result display.
+   Expected: No task is deleted. Error details shown in the result display.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
+
+=== Adding a reminder
+. Adding a reminder
+.. Prerequisites: Know the current date and time. Volume of computer is audible to tester. +
+.. Test case: `reminder John's Birthday -r 1.min.later` +
+   Expected: View is switched to reminder list panel (if not already there). A reminder is added to the reminder list. Details of the reminder will be shown in the result display. After 1 minute, a chime is played and a red dialog box with the details of the reminder will appear in the result display.
+.. Test case: `reminder John's Birthday -r x` (where x is the date and time 1 minute later from now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -r 15/11/2019 1800)
+   Expected: Similar to previous test case. (Since x is 1 minute from now.) +
+.. Test case: `reminder John's Birthday -r y` (where y is the date and time 1 minute later from now in the format `yyyy-MM-ddTHHmm`. E.g. `reminder John's Birthday` -r 2019-11-15T18:00)
+   Expected: Similar to previous test case. (Since y is 1 minute from now.) +
+.. Test case: `undo` (used after one of the above has taken place)
+   Expected: ELISA will reverse the addition of the reminder and no reminder will occur later on. +
+.. Test case: `undo` (used after one of the above has taken place)
+Expected: ELISA will reverse the undo of the addition of the reminder and a reminder will occur as if . +
+.. Test case: `reminder John's Birthday -r z` (where z is the date and time 1 minute before now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -r 15/11/2019 1358)
+   Expected: No reminder is added. Error details shown in result display. (Since z is 1 minute before now.)
+
+=== Snoozing a reminder
+. Snoozing a reminder
+.. Prerequisites: Reminder has been added. Know the current date and time. Volume of computer is audible to tester. +
+.. Test case: `snooze 1` +
+   Expected: First reminder of the reminder list will occur again five minutes from now.
+.. Test case: `snooze 1 -s 1.min.later` +
+   Expected: First reminder of the reminder list will occur again one minute from now.
+.. Test case: `snooze 1 -s x` (where x is the date and time 1 minute later from now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -r 15/11/2019 1800)
+   Expected: Similar to previous test case. (Since x is 1 minute from now.) +
+.. Test case: `snooze John's Birthday -s y` (where y is the date and time 1 minute later from now in the format `yyyy-MM-ddTHHmm`. E.g. `reminder John's Birthday` -s 2019-11-15T18:00)
+   Expected: Similar to previous test case. (Since y is 1 minute from now.) +
+.. Test case: `snooze John's Birthday -s z` (where z is the date and time 1 minute before now in the format `dd/MM/yyyy HHmm`. E.g. `reminder John's Birthday` -s 15/11/2019 1358)
+   Expected: No reminder is snoozed. Error details shown in result display. (Since z is 1 minute before now.)
+
 
 === Priority mode testing
 . Toggling on priority mode

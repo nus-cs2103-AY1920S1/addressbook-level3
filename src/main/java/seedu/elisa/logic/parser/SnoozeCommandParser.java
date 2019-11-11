@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import seedu.elisa.commons.core.LogsCenter;
 import seedu.elisa.commons.core.index.Index;
 import seedu.elisa.logic.LogicManager;
-import seedu.elisa.logic.commands.EditCommand;
 import seedu.elisa.logic.commands.SnoozeCommand;
 import seedu.elisa.logic.parser.exceptions.ParseException;
 
@@ -50,7 +49,7 @@ public class SnoozeCommandParser implements Parser<SnoozeCommand> {
                 hasIndex = true;
             } catch (ParseException pe) {
                 //TODO: Auto snooze most recent reminder
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SnoozeCommand.MESSAGE_USAGE), pe);
             }
         } else {
             index = null;
