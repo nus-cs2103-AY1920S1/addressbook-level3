@@ -653,7 +653,7 @@ The above high-level Architecture Diagram only provides the summarized steps tak
 // end::reminder[]
 
 // tag::import[]
-=== Import Feature
+=== Import feature
 [NOTE]
 ====
 The current implementation only imports spending data.
@@ -738,7 +738,7 @@ Hence, alternative 1 was implemented and now the application could handle large 
 // end::import[]
 
 // tag::export[]
-=== Export Feature
+=== Export feature
 [NOTE]
 ====
 The current implementation only exports spending data.
