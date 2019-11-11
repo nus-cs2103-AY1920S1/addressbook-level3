@@ -161,7 +161,7 @@ This section describes some noteworthy details on how certain features are imple
 ==== Implementation
 
 The find feature is facilitated by `FindCommand` class. The `FindCommand` stores a `List` of `Predicates`, which can be
-StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`. Each `Predicate` stores a `List` of String of keywords.
+`StudentContainsKeywordsPredicate`, `ModuleContainsKeywordsPredicate`, or `AppealContainsKeywordsPredicate`. Each `Predicate` stores a `List` of String of keywords.
 
 .Predicate Class Diagram
 image::PredicateClassDiagram.png[]
@@ -189,9 +189,7 @@ image::FindSequenceDiagram.png[]
 === Clash feature
 ==== Implementation
 
-The clash feature is facilitated by `ClashCommand` class.
-
-There are two additional static classes in `ClashCommand` to facilitate the feature:
+The clash feature is facilitated by `ClashCommand` class, and two additional static classes:
 
 * `ClashCommandParameters`: Stores the details of the parsed parameters that a `ClashCommand` will operate on.
 
@@ -226,14 +224,8 @@ Step 1. The user inputs `clash ...` to check whether there is clash in the timet
 Step 2. The `ClashCommandParser` is called to create a new `ClashCommandParameters` and set the relevant parameter values accordingly.
 
 Step 3. A new `ClashCommand` is created by passing in the `ClashCommandParameters` object.
-The following sequence diagram shows how `ClashCommandParser` works:
 
 Step 4. `ClashCommand.execute()` is called. The types of checking will be determined by checking the presence of relevant parameters in `ClashCommandParameters`.
-
-[NOTE]
-The `Student` who submits the appeal is stored as String of Matric ID and `Module` to add/drop is stored as String of module code in an `Appeal` object.
-Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
-and `Module` to add/drop is retrieved from `model.getFullModuleList()` by matching module codes.
 
 Step 5. Each `ClashCommand` returns a `CommandResult` object which contains the message of the clash details if there are clashes and 'No clashes detected' if there is no clash.
 
@@ -242,39 +234,41 @@ The following activity diagram shows how the clash command works:
 .Work Flow of Clash Command
 image::ClashCommandActivityDiagram.png[]
 
-===== Design Consideration: How to deal with different user input formats for different types of checking
+[NOTE]
+The `Student` who submits the appeal is stored as String of Matric ID and `Module` to add/drop is stored as String of module code in an `Appeal` object.
+Hence, `Student` who submits the appeal is retrieved from `model.getFullStudentList()` by matching Matric ID,
+and `Module` to add/drop is retrieved from `model.getFullModuleList()` by matching module codes.
+
+===== Design Consideration 1: How to deal with different user input formats for different types of checking
 
 * **Current choice:** Only 1 `ClashCommand` class. Every `ClashCommand` object keeps a `ClashCommandParameters` object which stores the parameters passed in.
-The value of parameters are set when parsing user inputs by a few setter methods.
+The value of parameters are set when parsing user inputs using a few setter methods.
 The cases of checking are determined in `ClashCommand.execute()` by checking the presence of each parameter.
 ** Pros:
 *** Avoid having too many unnecessary constructors (or passing of null-values) caused by the optional nature of the parameters passed to ClashCommand.
 *** If more user input formats are allowed in the future to improve user experience (not restricted to index and module codes),
 we can simply add more setter and getter methods in `ClashCommandParameters` accordingly.
 ** Cons:
-*** More defensive programming is needed to ensure that no multiple parameters of different types of checking are present at the same time.
-* **Alternative considered:** Create three different sub-classes (i.e. `ClashAppealCommand`, `ClashModuleCommand`, and `ClashStudentCommand`) which extend an abstract `ClashCommand` class.
-`ClashCommandParser` deals with differentiating cases for checking (by looking at prefixes) and create Command object accordingly.
+*** More defensive programming is needed to ensure that no parameters of different types of checking are present at the same time.
+* **Alternative considered:** Create three different sub-classes (i.e. `ClashAppealCommand`, `ClashModuleCommand`, and `ClashStudentCommand`) which extend from an abstract `ClashCommand` class.
+`ClashCommandParser` deals with differentiating cases for checking (by looking at prefixes) and creates `ClashCommand` object accordingly.
 ** Pros:
 *** Each `ClashCommand` has knowledge about what type of checking is evoked. Less checking is required in `ClashCommand.execute()`.
 ** Cons:
-*** Each sub-class will have different attributes.
-*** Tedious modification will be needed if we allow more user input formats in the future to improve user experience.
+*** Each sub-class will have different attributes. Tedious modification will be needed if we allow more user input formats in the future to improve user experience.
 
-===== Design Consideration: How to show details of the clashing time slots
+===== Design Consideration 2: How to show details of the clashing time slots
 
-* **Current choice:** Use a static class `ClashCase` to store each clash case detected.
+* **Current choice:** Use a static class `ClashCase` to store each clash case.
 ** Pros:
 *** No need to hardcode the string representation of clash details since all information needed is stored in the `ClashCase` and we can simply call `toString()`.
 Even if the way of representation is to be changed in the future, we only need to modify `toString()` (and add attributes in `ClashCase` if needed).
 ** Cons:
-*** Additional objects being created for each clash detected between two modules. More memory space used.
+*** Additional objects created for each clash detected between two modules. More memory space used.
 * **Alternative considered:** Every `ClashCommand` object keeps a list of to store time slot index and use them to create a temporary `Module` object.
 ** Pros:
-*** Easy to implement.
 *** Can reuse `getTimeSlotToString()` to obtain the string representation. (The current choice also keeps this part)
 ** Cons:
-*** Redundant objects are created. More memory space used.
 *** Need to hardcode information like module codes of the two modules having clashes since the list only stores the clashing slots.
 *** Tedious modification needed if the way of response changes in the future. For example, instead of showing the clash details in the message bar,
 we decide to a pop-up window to show more detailed information or include graphic representation.

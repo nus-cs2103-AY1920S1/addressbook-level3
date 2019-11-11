@@ -216,7 +216,7 @@ _Tags can be in any order. User may enter multiple keywords after a tag._
 ====
 *Searching Criteria*
 
-* `find` supports searching in multiple lists for multiple keywords. All items contains the keyword as a word or a part of word (See examples for more details).
+* `find` supports searching in the specified lists for all items containing the keyword as a word or a part of word (See examples for more details).
 * Searching is case-insensitive.
 * In Appeal list, items that contains any of the keywords in Appeal Type, Appeal ID, Status(resolved/unresolved),
  Requested Module or Module to Drop will be displayed.
@@ -232,7 +232,10 @@ Examples:
 
 Sample Output:
 
-All items containing "larry" in Student list and all items containing "programming" are displayed. Student list defaults to expanded view since there is only 1 search result.
+All items containing "larry" in Student list and all items containing "programming" are displayed.
+Student list defaults to expanded view since there is only 1 search result.
+
+_CS1020 and CS2105 are displayed since they contain "programming" in their Module Description. You may use `view` command to see._
 
 image::FindDemoSingleKeyword.png[width="790"]
 
@@ -259,15 +262,15 @@ image::FindDemoModuleSearch.png[width="790"]
 
 //tag::clash[]
 
-=== Show clashes: `clash`
+=== Check clashes: `clash`
 
 [NOTE]
-If you execute `clash` command by index, the index will refer for the current index in the current showing list. Please
+If you execute `clash` command by index, the index will refer for the current index in the list showing currently. Please
 use `list` command to go back to the full list if your target appeal/module/student is not shown in the current list.
 
-==== Show clashes in an appeal
+==== Check clashes in an appeal
 
-Checks if there is clash between the module which a student is requesting to add or drop and his/her current modules.
+This command checks if there is clash between the module which a student is requesting to add or drop and his/her current modules.
 Only appeals requesting to add or drop module will need for clash checks. If the target appeal is not of any of the two
 types, a reminder message will be shown.
 
@@ -287,10 +290,10 @@ Sample output:
 
 image::AppealClashDetected.png[width="790"]
 
-==== Show clashes in student timetable
+==== Check clashes in a student's timetable
 
-Checks if there are clashes in a student’s (pre-allocated) timetable. This command is typically used to verify whether
-there is really a timetable clash in the student's pre-allocated timetable if the student submits an appeal to drop a
+This command checks if there are clashes in a student’s current timetable. This command is typically used to verify whether
+there is really a timetable clash in the student's timetable if the student submits an appeal to drop a
 pre-allocated module due to timetable clash.
 
 Format: `clash s/INDEX`
@@ -303,8 +306,8 @@ Sample output:
 
 image::StudentClashDetected.png[width="790"]
 
-==== Show clashes between 2 modules
-This command checks to see if the lecture slots of 2 modules clashes, and displays the result to the user.
+==== Check clashes between 2 modules
+This command checks if the lecture slots of 2 modules have clashes, and displays the result to the user.
 
 Format: `clash m/MODULE_CODE m/MODULE_CODE` or `clash m/INDEX m/INDEX`
 

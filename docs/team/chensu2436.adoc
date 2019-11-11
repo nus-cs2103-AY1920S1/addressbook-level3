@@ -10,25 +10,25 @@
 == Overview
 
 The Module Appeal Management System (MAMS) is a desktop appeal management app for module appeal administrators.
-The MAMS system provides display commands to view the expanded details of any particular object,
+The MAMS system provides display commands to view the expanded details of any particular appeal, module, or student object,
 a suite of commands for resolving appeals, checking timetable clashes, overriding MC limits, and leaving special notes on students.
 The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
 
 * *Major enhancement 1: added the ability to check clashes for various cases*
-** What it does: allows the admin to check timetable clash in appeals requesting to add or drop modules, between 2 modules or in a student's current timetable;
+** What it does: allows the admin to check timetable clash in appeals requesting to add or drop modules, between 2 modules or in a student's current timetable
 ** Justification: Checking timetable clash is one of the most important checks that an admin needs to perform before he/she decides to approve or reject an appeal.
 This feature improves the user experience significantly because it provides a convenient way for the admin who needs to perform such checks constantly.
-** Highlights: There are a few types of checks can be performed. Therefore, the user inputs for this command can take various forms.
+** Highlights: There are a few types of check that can be performed. Therefore, the user inputs for this command can take various forms.
 An in-depth analysis of design alternatives is required to deal with these variations.
 
 * *Major enhancement 2: enhanced the find command that allows the user to search in different lists*
-** What it does: allows the admin to search multiple keywords in multiple lists at the same time.
+** What it does: allows the admin to search multiple keywords in multiple lists at the same time
 ** Justification: There are a huge number of appeals, modules and students given the size of the university.
-This feature provides a convenient way to search items that admin is more interested in.
+This feature provides a convenient way to locate items which the admin wants to look for.
 ** Highlights: This enhancement affects other commands since it will be used together with other commands often.
-For example, to filter all appeals requesting to add a particular module and perform checks in one go.
+For example, to filter all appeals requesting to add a particular module and check clashes in one go.
 
 * *Code contributed*: [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/main/java/mams[Functional code]] [https://github.com/AY1920S1-CS2103-T11-2/main/tree/master/src/test/java/mams[Test code]]
 
@@ -44,7 +44,7 @@ For example, to filter all appeals requesting to add a particular module and per
 ** Enhancements to existing features:
 *** Rectified disagreement in sample data https://github.com/AY1920S1-CS2103-T11-2/main/pull/206[#206]
 ** Documentation:
-*** Converted the first draft of User Guide to ascii doc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
+*** Converted the first draft of User Guide to AsciiDoc https://github.com/AY1920S1-CS2103-T11-2/main/pull/25[#25]
 *** Enhanced the class diagrams of logic component in Developer Guide https://github.com/AY1920S1-CS2103-T11-2/main/pull/214[#214]
 ** Community:
 *** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103-T11-2/main/pull/92[#92]
