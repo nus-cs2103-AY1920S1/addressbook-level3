@@ -92,10 +92,6 @@ Ensure that your scaling setting is set to 100% as anything higher might result 
 image::ScalingSetting.png[]
 //end::roby1[]
 
-=== Navigating $aveNUS
-
-* TODO insert when we complete the user interface.
-
 === Using Commands
 
 You can use the commands described in <<Features>> by typing them into
@@ -437,6 +433,14 @@ You must always provide pairs of `FIELD` and `DIRECTION` to execute the Sorting 
 `CATEGORY`, `LOCATION`, `OPENING_HOURS` and `RESTRICTIONS`.
 * The `DIRECTION` are as follows: `ASC` or `DESC`.
 ****
+
+[NOTE]
+`NAME`, `DESCRIPTION`, `CATEGORY`, `LOCATION` and `RESTRICTIONS` are sorted in lexicographical order. For example, `Chicken`
+has a smaller lexicographical value than `chicken` due to case sensitivity.
+
+[NOTE]
+`OPENING_HOURS` are sorted based on start time and end time. If one food's start time is earlier than another food,
+then the food with the earlier start time will have a smaller comparison value.
 
 [IMPORTANT]
 Ordering of pairs matters! For example, specifying: `PRICE ASC NAME DESC` sorts the food items first based on
