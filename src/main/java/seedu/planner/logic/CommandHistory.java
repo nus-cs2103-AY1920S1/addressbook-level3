@@ -1,7 +1,9 @@
 package seedu.planner.logic;
 
 import java.util.Stack;
+import java.util.logging.Logger;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.logic.events.Event;
 //@@author OneArmyj
 /**
@@ -10,6 +12,7 @@ import seedu.planner.logic.events.Event;
 public class CommandHistory {
     private static Stack<Event> undoEventStack = new Stack<>();
     private static Stack<Event> redoEventStack = new Stack<>();
+    private static final Logger logger = LogsCenter.getLogger(CommandHistory.class);
 
     /**
      * Checks if undo event stack is empty.
@@ -32,6 +35,7 @@ public class CommandHistory {
      * @param undoableEvent Undoable event to be added.
      */
     public static void addToUndoStack(Event undoableEvent) {
+        logger.info(String.format("----------------[%s ADDED TO UNDO STACK]", undoableEvent));
         undoEventStack.push(undoableEvent);
     }
 
@@ -40,10 +44,15 @@ public class CommandHistory {
      * @param redoableEvent Redoable event to be added.
      */
     public static void addToRedoStack(Event redoableEvent) {
+        logger.info("----------------[EVENT ADDED TO REDO STACK]");
         redoEventStack.push(redoableEvent);
     }
 
+    /**
+     * Clears the redoEventStack in CommandHistory.
+     */
     public static void clearRedoStack() {
+        logger.info("----------------[REDO EVENT STACK CLEARED]");
         redoEventStack.clear();
     }
 

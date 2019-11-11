@@ -2,7 +2,9 @@ package seedu.planner.logic.events.schedule;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
+import seedu.planner.commons.core.LogsCenter;
 import seedu.planner.commons.core.index.Index;
 import seedu.planner.logic.commands.UndoableCommand;
 import seedu.planner.logic.commands.schedulecommand.AutoScheduleCommand;
@@ -22,6 +24,7 @@ public class AutoScheduleEvent implements Event {
     private final List<NameOrTagWithTime> draftSchedule;
     private final Optional<Address> address;
     private final List<Index> days;
+    private final Logger logger = LogsCenter.getLogger(AutoScheduleEvent.class);
 
     public AutoScheduleEvent(List<NameOrTagWithTime> draftSchedule, Optional<Address> address,
                              List<Index> days, Model model) {
@@ -31,11 +34,26 @@ public class AutoScheduleEvent implements Event {
         this.previousItinerary = new Itinerary(model.getItinerary());
     }
 
+    /**
+     * A method to undo the effects of AutoScheduleCommand.
+     * @return returns SetItineraryCommand to restore the previous itinerary in the model.
+     */
     public UndoableCommand undo() {
+        logger.info(String.format("----------------[UNDOING][%s]", this));
         return new SetItineraryCommand(previousItinerary);
     }
 
+    /**
+     * A method to redo the effects of AutoScheduleCommand
+     * @return returns AutoScheduleCommand with initial user input parameter.
+     */
     public UndoableCommand redo() {
+        logger.info(String.format("----------------[REDOING][%s]", this));
         return new AutoScheduleCommand(draftSchedule, address, days, true);
+    }
+
+    @Override
+    public String toString() {
+        return "AUTOSCHEDULE EVENT";
     }
 }
