@@ -191,28 +191,28 @@ image::warning.png[width = "20", float = "left"]
 
 === Adding a claim : `add_claim`
 
-Adds a claim to the claims list. +
+To add a claim to the claim list. +
 
 Keyword: `add_claim`
 
 Format: `add_claim n/NAME d/DESCRIPTION_OF_CLAIM c/AMOUNT date/DATE [t/TAG]`
 
-Examples:
+Example:
 
 ....
 add_claim n/Lee Wei Gen d/Sports Equipment c/115.2 date/29-12-2019 t/Sports t/Equipment
 ....
 
-<<UG-AddClaimExample>> and <<UG-AddClaimResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+<<UG-AddClaimExample>> and <<UG-AddClaimResult>> shows what you can expect to see after adding a claim.
 [[UG-AddClaimExample]]
 [reftext="Figure 3.4.1"]
 [caption="Figure 3.4.1: "]
-.Type in the add_claim command.
+.Type in the command to add claim.
 image::UG-beforeAddClaim.png[width="800"]
 [[UG-AddClaimResult]]
 [reftext="Figure 3.4.2"]
 [caption="Figure 3.4.2: "]
-.Result after adding the claim.
+.Result after addition of claim.
 image::UG-afterAddClaim.png[width="800"]
 
 ====
@@ -223,19 +223,19 @@ image::warning.png[width = "20", float = "left"]
 
 * `AMOUNT` should be up to 2 decimal places only. +
 * `DATE` should be a valid date in the form of "dd-MM-yyyy"_(eg. 29-02-2019 not valid)_. +
-* A contact must already exist with the inputted `NAME`.
+* A contact must already exist with the inputted `NAME` _(if not who is claiming it?)_
 
 ====
 
 === Approving a claim : `approve`
 
-Approves an existing pending claim at the specified `INDEX`. +
+To approve a claim at the specified `INDEX`. +
 
 Keyword: `approve`
 
 Format: `approve INDEX`
 
-Examples:
+Example:
 
 ....
 approve 1
@@ -243,11 +243,11 @@ approve 1
 
 The above example approves the first claim in the claim list.
 
-<<UG-ApproveExample>> and <<UG-ApproveResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+<<UG-ApproveExample>> and <<UG-ApproveResult>> shows what you can expect to see after approving a claim.
 [[UG-ApproveExample]]
 [reftext="Figure 3.5.1"]
 [caption="Figure 3.5.1: "]
-.Type in the approve claim command.
+.Type in the command to approve claim.
 image::UG-beforeApprove.png[width="800"]
 [[UG-ApproveResult]]
 [reftext="Figure 3.5.2"]
@@ -262,7 +262,7 @@ image::warning.png[width = "20", float = "left"]
 *Warning*
 
 * The claim list must be currently displayed.
-* Claim at the specified `INDEX` must be a pending claim.
+* Claim at the specified `INDEX` must be a [.underline]#pending# claim.
 * `INDEX` refers to the index number shown in the displayed claim list.
 * `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
 claim list.
@@ -271,13 +271,13 @@ claim list.
 
 === Rejecting a claim : `reject`
 
-Rejects an existing pending claim at the specified `INDEX`. +
+To reject a claim at the specified `INDEX`. +
 
 Keyword: `reject`
 
 Format: `reject INDEX`
 
-Examples:
+Example:
 
 ....
 reject 1
@@ -285,11 +285,11 @@ reject 1
 
 The above example rejects the first claim in the claim list.
 
-<<UG-RejectExample>> and <<UG-RejectResult>> shows what you can expect to see after entering a valid AddClaimCommand.
+<<UG-RejectExample>> and <<UG-RejectResult>> shows what you can expect to see after rejecting a claim.
 [[UG-RejectExample]]
 [reftext="Figure 3.6.1"]
 [caption="Figure 3.6.1: "]
-.Type in the reject claim command.
+.Type in the command to reject claim.
 image::UG-beforeReject.png[width="800"]
 [[UG-RejectResult]]
 [reftext="Figure 3.6.2"]
@@ -304,11 +304,7 @@ image::warning.png[width = "20", float = "left"]
 --
 *Warning*
 
-* The displayed list must be the claim list.
-* Claim at the specified `INDEX` must be a pending claim.
-* `INDEX` refers to the index number shown in the displayed claim list.
-* `INDEX` *must be a positive integer* 1, 2, 3, ..., and cannot be larger than the maximum index of the displayed
-claim list.
+* Warning as per *Approve* command!
 ====
 
 
@@ -580,14 +576,8 @@ image::warning.png[width = "20", float = "left"]
 //@@author {lawncegoh}
 // tag::introduction[]
 ---
-The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively.
-They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once
-you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that
-we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this
-list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check`
-feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you.
-Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
-
+[source, java]
+The 3 features below are made to be used in conjunction with each other. They are `goto`, `check` and `sort`/`reverse` respectively. They are an implementation of the other objects created in this application. You will be able to use these 3 features smoothly once you have input objects like `claim`, `income` into FinSec. You would then be able to switch between the different "tabs" that we call as `View`. Once you are in the specific `View` that displays the list of objects you created. You can`sort` or `reverse` this list. The list will then be sorted into a more organised manner for you. Once you have sorted the list, you can then use the `check` feature in the `contact` or `claim` View to sieve out a specific contact or claim that interests you. Now that you have gotten a clearer picture of how these 3 features will work together, read on to know more specific details about each feature.
 // end::introduction[]
 
 // tag::gotofeature[]
@@ -721,6 +711,9 @@ Keyword: `sort status`
 
 Format: `sort status`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `sort status` only applies to the claims list
 
@@ -759,6 +752,9 @@ Keyword: `reverse date`
 
 Format: `reverse date`
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse date` doesn't apply to contacts list
 
@@ -775,6 +771,9 @@ Format: `reverse status`
 
 // end::reversefeature[]
 
+--
+image::warning.png[width = "20", float = "left"]
+--
 *Warning*
 `reverse status` only applies to the claims list
 
@@ -845,7 +844,7 @@ shown in the picture above to pop up.
 
 ====
 
-//@@{lawncegoh}
+//@@author{lawncegoh}
 // tag::clearfeature[]
 === Clearing all data : `clear`
 
@@ -892,7 +891,6 @@ Example:
 * Creates an alternative keyword for the command `add_contact`
 * Now `AC` can be used as a replacement to add a contact
 ****
-
 
 === Exiting the program : `exit`
 
@@ -1032,6 +1030,18 @@ e.g.
 
 * *Deleting Contacts* `delete_contact INDEX` +
 e.g. `delete_contact 3`
+
+* *Sorting Lists* `sort` +
+e.g.
+** `sort name`
+** `sort date`
+** `sort status` (only in Claims List)
+
+* *Sorting Lists in reverse order* `reverse` +
+e.g.
+** `reverse name`
+** `reverse date`
+** `reverse status` (only in Claims List)
 
 * *Viewing Budget* `budget`
 
