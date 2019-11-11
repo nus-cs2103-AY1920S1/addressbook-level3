@@ -561,15 +561,19 @@ Format: `preview INDEX`
 Example: `preview 1`
 
 ===  Note
+Want to have a secure place to write down some of your confidential information? SecureIT's notes feature is here to help!
+
 Accessing note directory : `goto note`
 
 ==== Creating a note : `add`
 
-Adds a note to the app.
+Simply `add` a note into SecureIT using our `add` command!
 
 Format: `add ti/TITLE d/DESCRIPTION t/TAG [c/CONTENT] `
 
-Example: `add ti/Diary d/documentation of 2020 t/Personal c/day1 documentation`
+Example: `add ti/Work Schedule t/Work d/daily work schedule c/go to event X tomorrow at 8am `
+
+image::AddNoteCommand2.png[width="500"]
 
 ====
 --
@@ -582,40 +586,13 @@ image::warning.png[width = "20", float = "left"]
 * Content field with c/ prefix is optional.
 ====
 
-==== Accessing a note : `open`
-
-Opens the note corresponding to the index in the app.
-
-Format: `open INDEX`
-
-Example: `open 1`
-
-====
---
-image::tip.png[width = "20", float = "left"]
---
-*Tip*
-
-* Opens a new panel on the right that allows you to read and edit easily.
-* Click on save button after editing to save changes made to the content of the note.
-====
-
-==== Deleting a note: `delete`
-
-Deletes a note as specified by the user.
-
-Format: `delete INDEX`
-
-Example: `delete 1`
-
 ==== Editing a note: `edit`
 
-Edits a note specified by the user.
+Want to update or make changes to any parts of your note? Make use of our `edit` command!
 
-Format: `edit INDEX [ti/TITLE] [d/DESCRIPTION] [t/TAG c/CONTENT]`
+Format: `edit INDEX [ti/TITLE] [d/DESCRIPTION] [t/TAG]... [c/CONTENT]`
 
-Example: `edit 1 ti/NewTitle d/NewDescription t/NewTag c/NewContent`
-Example: `edit 1 ti/NewTitle`
+Example: `edit 1 ti/April Daily Work Schedule`
 
 
 ====
@@ -628,13 +605,48 @@ image::warning.png[width = "20", float = "left"]
 * You are not allowed to edit notes to have the same title.
 ====
 
+==== Accessing a note : `open`
+
+Too much hassle to type out everything in the `edit` command to make a small change to your note? Want to read
+your note and edit your note easily? The `open` command is designed for you!
+
+Format: `open INDEX`
+
+Example: `open 1`
+
+Opens a new panel on the right that allows you to read and edit easily.
+
+image::OpenNote2.png[width="500"]
+
+Click on save button after editing to save changes made to the content of the note.
+
+image::OpenNote3.png[width="500"]
+
+image::OpenNote4.png[width="500"]
+
+
+
+==== Deleting a note: `delete`
+
+The note is no longer relevant? You can `Delete` it!
+
+Format: `delete INDEX`
+
+Example: `delete 1`
+
+image::DeleteNote2.png[width="500"]
+
+
 ==== Finding a note: `find`
 
 Finds a note as specified by the user.
 
 Format: `find TEXT`
 
-Example:`find Personal_diary`
+Example:`find diet`
+
+image::FindNote2.png[width="500"]
+
 ====
 --
 image::tip.png[width = "20", float = "left"]
@@ -647,19 +659,31 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Sorting notes: `sort`
 
-Sorts notes in ways specified by the user.
+Want to be able to access your notes more easily? `Sort` them up using three different conditions to view notes most relevant to
+you at the top of the list!
+
+Available sorting conditions include:
+
+. NumOfAccess
+. DateAdded
+. DateModified
 
 Format: `sort by/SORTBYCONDITION1 SORTBYCONDITION2`
 
-Example: `sort by/DateModified`
+Example: `sort by/NumOfAccess DateModified`
+
+image::SortNote2.png[width="500"]
+
 ====
 --
 image::tip.png[width = "20", float = "left"]
 --
 *Tip*
 
-* You can sort by multiple conditions separated by a whitespace.
-* The leftmost condition takes the greatest precedence in sorting.
+* You can sort by one or more conditions separated by a whitespace.
+* The first condition takes the greatest precedence in sorting.
+EG: NumOfAccess condition in above example has greater precedence
+over DateModified condition.
 ====
 ====
 --
@@ -672,14 +696,30 @@ image::warning.png[width = "20", float = "left"]
 * SORTBYCONDITION is not case-sensitive.
 ====
 
+=== Clearing all entries : `clear`
+
+Want to delete all the notes in your note book but too much trouble to perform `delete` for every one of them?
+Make use of our `clear` command!
+
+You can clear all entries from your note book one single command.
+
+Format: `clear`
+
+image:: Clear1.png
+
 ==== Undo notes action: `undo`
 
-Undo last action on notes.
+Made a mistake in the notes feature? Worry not for you can `undo` your mistake!
+
+Using our `undo` feature will also inform you of exactly what action is being undone!
 
 Format: `undo`
 
 Example: `undo`
 
+Undoing a `clear` command:
+
+image::Undo2.png[width="500"]
 ====
 --
 image::tip.png[width = "20", float = "left"]
@@ -692,11 +732,16 @@ image::tip.png[width = "20", float = "left"]
 
 ==== Redo notes action: `redo`
 
-Redo last undone action on notes.
+Regret making that undo action? Once again, worry not for you can `redo` your action!
+
+Using our `redo` feature will also inform you of exactly what action is being redone!
 
 Format: `redo`
 
 Example: `redo`
+Redoing a `clear` command:
+
+image::Redo1.png[width="500"]
 
 ====
 --
@@ -707,11 +752,6 @@ image::tip.png[width = "20", float = "left"]
 * You can redo as many commands as you wish until there are no more commands that can be redone.
 * If you perform a new undo-able command, all existing redo-able commands will be cleared.
 ====
-
-=== Clearing all entries : `clear`
-
-Clears all entries from the current book user is on. +
-Format: `clear`
 
 === Exiting the program : `exit`
 
