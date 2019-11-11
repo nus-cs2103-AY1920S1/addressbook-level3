@@ -31,7 +31,7 @@ to include allowing it to find for all fields of the entry.
 * *Other contributions*:
 
 ** Project management:
-*** Managed releases `v1.1` - `v1.4rc` (3 releases) on GitHub
+*** Managed releases `v1.1` - `v1.4` (3 releases) on GitHub
 *** Assign tasks and issues to team members.
 *** Managed issues related to *Statistics* and *Categories*
 ** Enhancements to existing features:
@@ -73,9 +73,7 @@ Example Usage:
 +
 image::viewTable-1.png[width=50%]
 
-. GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
-+
-image::viewTable-2.png[width=50%]
+. GuiltTrip will display to you the statistics for this period of time broken down in table form.
 
 Other Examples:
 
@@ -99,9 +97,7 @@ Example Usage:
 +
 image::ViewPie-1.png[width=50%]
 
-. GuiltTrip will display to you the statistics for this period of time broken down in pie chart form as shown below.
-+
-image::viewPie-2.png[width=50%]
+. GuiltTrip will display to you the statistics for this period of time broken down in pie chart form.
 
 [NOTE]
 If the data category percentage is too small, it could be rounded off to 0.0% and
@@ -134,8 +130,6 @@ Example Usage:
 image::viewBar-1.png[width=50%]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
-+
-image::viewBar-2.png[width=50%]
 
 Other Examples:
 

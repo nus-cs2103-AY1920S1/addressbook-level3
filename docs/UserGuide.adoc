@@ -397,7 +397,7 @@ image::viewTable-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
 +
-image::viewTable-2.png[]
+image::viewTable-2.PNG[]
 
 Other Examples:
 
@@ -423,7 +423,7 @@ image::ViewPie-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in pie chart form as shown below.
 +
-image::viewPie-2.png[]
+image::ViewPie-2.PNG[]
 
 [NOTE]
 If the data category percentage is too small, it could be rounded off to 0.0% and
@@ -457,7 +457,7 @@ image::viewBar-1.png[]
 
 . GuiltTrip will display to you the statistics for this period of time broken down in table form as shown below.
 +
-image::viewBar-2.png[]
+image::viewBar-2.PNG[]
 
 Other Examples:
 
