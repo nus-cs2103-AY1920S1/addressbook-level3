@@ -92,15 +92,19 @@ All engagement list windows will be closed if something is done to change the di
 
 Example: The calendar is currently displaying information for November 2019 and there are engagement list windows open for three dates
 in the display. If `calendar c/opendisplay d/11/12/2019` is entered into the input box, all three engagement list windows will be closed.
-The calendar's display then switches to December 2019 and the engagement list window for 11 December 2019 opens up.
+The calendar's display then switches to December 2019 and the engagements list window for 11 December 2019 opens up.
 
 This command does not work if the application is in another tab or the specified date is invalid.
 
+[.float-group]
+[.clearfix]
+--
 .Calendar view for November 2019
 image::calendar-view-modified.png[width="450", float="left"]
 [.left]
-.Engagement list for 29/10/2019 (circled date)
-image::calendar-open-display.png[]
+.Engagements list for circled date
+image::calendar-open-display.png[width="450"]
+--
 {empty} +
 
 The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
@@ -115,6 +119,28 @@ Closes the open engagements list window for the specified date. This command doe
 if in another tab, the specified date is invalid, or there is no open engagements list window for the specified date.
 
 Format: `calendar c/closedisplay d/[date]`. The date must follow a DD/MM/YYYY format. The range of allowable years is 0001 to 9999.
+
+=== Changing the calendar display to the next month (calendar view only): `calendar c/nextmonth`
+Changes the calendar view to the month following the currently displayed one. This command does not work if the
+application is in another tab or if attempting to go above the maximum allowable year of 9999.
+
+Format: `calendar c/nextmonth`
+
+[.float-group]
+[.clearfix]
+--
+.Calendar view for November 2019
+image::calendar-view.png[width="450", float="left"]
+[.left]
+.After `nextmonth` command
+image::calendar-next-month.png[width="450"]
+--
+{empty} +
+
+Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
+to change the display to the next month. The button will not work if the calendar is displaying December 9999.
+
+This command closes any open engagement windows from the current month before updating the display to the next month.
 
 == Contributions to the Developer Guide
 
