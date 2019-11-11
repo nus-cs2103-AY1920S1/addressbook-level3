@@ -1,3 +1,7 @@
+/*
+@@author calvincxz
+ */
+
 package seedu.address.ui;
 
 import java.util.Objects;
@@ -126,7 +130,7 @@ public class FetchEventWindow extends UiPart<Stage> {
     public void updateCards() {
         event = filteredEventList.get(index);
         ObservableList<Employee> employeeListForEvent = getEmployeeListForEvent(event, employeeList);
-        String currentEventIndex = "Current Event Index: " + (index + 1) + "\n";
+        String currentEventIndex = "Event Index (at time of fetch command): " + (index + 1) + "\n";
         eventDescription.setText(currentEventIndex + event.toStringWithNewLine());
         personListView.setItems(employeeList.filtered(x -> event.isAvailableForEvent(x, filteredEventList)));
         personListView.setCellFactory(listView -> new AvailablePersonListViewCell(this));

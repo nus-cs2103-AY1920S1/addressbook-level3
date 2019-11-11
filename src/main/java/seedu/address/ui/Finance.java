@@ -48,7 +48,7 @@ public class Finance extends Tabs<AnchorPane> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new EmployeeCard_Finance(employee, getIndex() + 1, eventList).getRoot());
+                setGraphic(new EmployeeCardForFinance(employee, getIndex() + 1, eventList).getRoot());
             }
         }
     }

@@ -34,7 +34,7 @@ public class ModelManager implements Model {
     private ObservableList<DistinctDate> eventDistinctDatesList;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook, eventBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyEventBook eventBook, ReadOnlyUserPrefs userPrefs) {
         super();
@@ -150,7 +150,6 @@ public class ModelManager implements Model {
     @Override
     public void setEmployee(Employee target, Employee editedEmployee) {
         requireAllNonNull(target, editedEmployee);
-
         addressBook.setEmployee(target, editedEmployee);
     }
 
@@ -199,8 +198,7 @@ public class ModelManager implements Model {
     //=========== Filtered Employee List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Employee} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Employee}
      */
     @Override
     public ObservableList<Employee> getFilteredEmployeeList() {
@@ -216,8 +214,7 @@ public class ModelManager implements Model {
     //=========== Filtered Event List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
-     * {@code versionedEventBook}
+     * Returns an unmodifiable view of the list of {@code Event}
      */
     @Override
     public ObservableList<Event> getFilteredEventList() {
@@ -233,8 +230,7 @@ public class ModelManager implements Model {
     //=========== Filtered Scheduled Event List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Event} backed by the internal list of
-     * {@code versionedEventBook}
+     * Returns an unmodifiable view of the list of {@code Event}
      */
     @Override
     public ObservableList<Event> getFilteredScheduledEventList() {

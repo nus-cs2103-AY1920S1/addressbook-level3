@@ -17,10 +17,9 @@ import seedu.address.model.event.Event;
 /**
  * An UI component that displays information of a {@code Employee}.
  */
-public class EmployeeCard_Finance extends UiPart<Region> {
+public class EmployeeCardForFinance extends UiPart<Region> {
 
     private static final String FXML = "EmployeeListCard.fxml";
-    private static final String FETCH_WINDOW_FXML = "EmployeeListCardForFetch.fxml";
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -31,10 +30,6 @@ public class EmployeeCard_Finance extends UiPart<Region> {
      */
 
     public final Employee employee;
-    private MainWindow mainWindow;
-    private Integer index;
-    private ErrorWindow errorWindow;
-
 
     @FXML
     private HBox cardPane;
@@ -53,7 +48,7 @@ public class EmployeeCard_Finance extends UiPart<Region> {
     @FXML
     private ImageView imgBox;
 
-    public EmployeeCard_Finance(Employee employee, int displayedIndex, ObservableList<Event> eventList) {
+    public EmployeeCardForFinance(Employee employee, int displayedIndex, ObservableList<Event> eventList) {
         super(FXML);
         this.employee = employee;
         if (employee.getEmployeeGender().gender.equals("male")) {
@@ -85,12 +80,12 @@ public class EmployeeCard_Finance extends UiPart<Region> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof seedu.address.ui.EmployeeCard)) {
+        if (!(other instanceof EmployeeCardForFinance)) {
             return false;
         }
 
         // state check
-        seedu.address.ui.EmployeeCard_Finance card = (seedu.address.ui.EmployeeCard_Finance) other;
+        EmployeeCardForFinance card = (EmployeeCardForFinance) other;
         return id.getText().equals(card.id.getText())
                 && employee.equals(card.employee);
     }

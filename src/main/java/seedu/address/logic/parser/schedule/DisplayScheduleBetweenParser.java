@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.logic.parser.schedule;
 
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_START_AFTER_END;

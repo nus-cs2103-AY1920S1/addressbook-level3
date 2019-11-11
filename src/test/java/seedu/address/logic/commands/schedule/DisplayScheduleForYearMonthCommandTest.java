@@ -1,3 +1,7 @@
+/*
+@@author shihaoyap
+ */
+
 package seedu.address.logic.commands.schedule;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

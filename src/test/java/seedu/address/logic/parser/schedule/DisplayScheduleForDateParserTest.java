@@ -1,4 +1,8 @@
-package seedu.address.logic.parser;
+/*
+@@author shihaoyap
+ */
+
+package seedu.address.logic.parser.schedule;
 
 import static seedu.address.commons.core.Messages.MESSAGE_DATE_INVALID;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -9,8 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.schedule.DisplayScheduleForDateCommand;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.schedule.DisplayScheduleForDateParser;
 import seedu.address.model.event.EventContainsKeyDatePredicate;
 import seedu.address.model.event.EventDate;
 
@@ -50,7 +54,7 @@ public class DisplayScheduleForDateParserTest {
 
     @Test
     public void parse_validDateSpecified2_success() throws ParseException {
-        EventDate expectedStart = ParserUtil.parseEventDate("10/10/2021");
+        EventDate expectedStart = ParserUtil.parseEventDate("22/10/2019");
         DisplayScheduleForDateCommand expectedCommand =
                 new DisplayScheduleForDateCommand(new EventContainsKeyDatePredicate(expectedStart));
         assertParseSuccess(parser, CommandTestUtil.VALID_DATE_2, expectedCommand);

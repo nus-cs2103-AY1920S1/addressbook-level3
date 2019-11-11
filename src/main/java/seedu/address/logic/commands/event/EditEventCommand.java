@@ -1,3 +1,7 @@
+/*
+@@author DivineDX
+ */
+
 package seedu.address.logic.commands.event;
 
 import static java.util.Objects.requireNonNull;
@@ -10,7 +14,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_START_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EVENT_VENUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EVENTS;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -63,6 +66,7 @@ public class EditEventCommand extends Command {
     private static final String MESSAGE_EVENT_HAS_ALLOCATED_MANPOWER =
             "Free all allocated manpower before editing Event Date";
 
+
     private final Index index;
     private final EditEventDescriptor editEventDescriptor;
 
@@ -81,6 +85,11 @@ public class EditEventCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        if (MainWindow.isFinanceTab()) {
+            throw new CommandException(Messages.MESSAGE_WRONG_TAB_MISSING_EVENT_LIST);
+        }
+
         List<Event> lastShownList = MainWindow.getCurrentEventList(model);
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
@@ -119,7 +128,6 @@ public class EditEventCommand extends Command {
         }
 
         model.setEvent(eventToEdit, editedEvent);
-        model.updateFilteredEventList(PREDICATE_SHOW_ALL_EVENTS);
         return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editedEvent));
     }
 
@@ -141,8 +149,7 @@ public class EditEventCommand extends Command {
         EventDate updatedEndDate = editEventDescriptor.getEndDate().orElse(eventToEdit.getEndDate());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
         EventManpowerAllocatedList updatedManpowerAllocatedList = eventToEdit.getManpowerAllocatedList();
-        EventDateTimeMap updatedDateTimeMap =
-                new EventDateTimeMap(eventToEdit.getEventDateTimeMap().getDateTimeMap());
+        EventDateTimeMap updatedDateTimeMap = new EventDateTimeMap(eventToEdit.getEventDateTimeMap());
 
         if (updatedStartDate != eventToEdit.getStartDate()
                 || updatedEndDate != eventToEdit.getEndDate()) {
@@ -193,7 +200,7 @@ public class EditEventCommand extends Command {
          * Copy constructor.
          * A defensive copy of {@code tags} is used internally.
          */
-        public EditEventDescriptor(EditEventDescriptor toCopy) {
+        EditEventDescriptor(EditEventDescriptor toCopy) {
             setName(toCopy.name);
             setVenue(toCopy.venue);
             setManpowerNeeded(toCopy.manpowerNeeded);

@@ -2,7 +2,7 @@
 start
 :Step 1: User inputs command ;
 :Step 2: Ensure no syntax error;
-if () then ([No syntax error])
+if () then ([No syntax or logic error])
 :Step 3: Calculate manpower required by the event;
 :Step 4: Create a list of available employees;
 :Step 5: Check if supply exceeds demand;
@@ -11,7 +11,7 @@ if () then ([supply >= demand])
 :Step 7: Done;
 else ([supply < demand])
 endif
-else ([Invalid event index])
+else ([Error])
 endif
 stop
 @enduml

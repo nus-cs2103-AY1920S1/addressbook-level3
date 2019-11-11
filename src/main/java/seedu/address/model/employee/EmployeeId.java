@@ -23,7 +23,7 @@ public class EmployeeId {
     }
 
     public EmployeeId(String id) {
-        this.id = String.format("%03d", Integer.valueOf(id));
+        this.id = id;
     }
 
 

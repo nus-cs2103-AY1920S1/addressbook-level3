@@ -38,10 +38,35 @@ public class Messages {
                     + "The number of days between your stated Start Date [%s] and your End Date [%s] is %s days";
     public static final String MESSAGE_DATE_START_AFTER_END =
             "Your stated Start Date [%s] is after your End Date [%s]!";
+    public static final String MESSAGE_DATE_NOT_IN_EVENT_RANGE =
+            "The Date provided is not within the range of the current Event!";
     public static final String MESSAGE_EMPLOYEE_ALREADY_ALLOCATED = "Employee to allocate is already "
             + "allocated to the event!";
     public static final String MESSAGE_EMPLOYEE_DOES_NOT_EXIST = "Employee to free is currently"
             + " not allocated to event!";
     public static final String MESSAGE_WRONG_WINDOW = "Command should be executed in the Main Window since it "
             + "requires references to the Employee list.";
+    public static final String MESSAGE_INVALID_ALLOCATEM_INPUT = "Only one of EmployeeID or EmployeeIndex "
+            + "should be used as input!";
+    public static final String MESSAGE_WRONG_TAB_AUTO_ALLOCATE = "Current Window does not support the "
+            + "auto allocate feature\n" + "Note: Auto Allocate Commands should be executed in "
+            + "the Main Tab.\n";
+    public static final String MESSAGE_WRONG_TAB_DE_ALLOCATE = "Current Window does not support the "
+            + "de-allocate feature\n" + "Note: De-allocate Commands should be executed in "
+            + "the Main Tab.\n";
+    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE_BY_INDEX = "Current Window does not support "
+            + "manual allocation by index\n" + "Consider doing the allocation using Employee ID.";
+    public static final String MESSAGE_WRONG_TAB_MANUAL_ALLOCATE = "Current Window does not support the "
+            + "manual allocate feature\n" + "Note: Manual Allocate Commands should be executed in the "
+            + "Main Tab.\n";
+    public static final String MESSAGE_WRONG_TAB_FETCH = "Current Window does not support the "
+            + "fetch feature\n" + "Note: Fetch Commands should be executed in the "
+            + "Main Tab.\n";
+    public static final String MESSAGE_WRONG_TAB_MISSING_EMPLOYEE_LIST = "Current Window does not have "
+            + "an Employee List\n" + "Note: Employee Commands should be executed in either the Main or Finance Tab.";
+    public static final String MESSAGE_WRONG_TAB_MISSING_EVENT_LIST = "Current Window does not have an Event List\n"
+            + "Note: Event Commands should be executed in either the Main or Schedule or Statistics Tab.";
+
+    public static final String MESSAGE_WRONG_TAB = "Current Window does not support this "
+            + "command\n" + "Note: This command should be executed in the Main Tab";
 }

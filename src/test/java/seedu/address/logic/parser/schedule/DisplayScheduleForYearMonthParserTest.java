@@ -1,4 +1,8 @@
-package seedu.address.logic.parser;
+/*
+@@author shihaoyap
+ */
+
+package seedu.address.logic.parser.schedule;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -10,8 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.logic.commands.schedule.DisplayScheduleForYearMonthCommand;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.schedule.DisplayScheduleForYearMonthParser;
 import seedu.address.model.event.EventContainsKeyYearMonthPredicate;
 import seedu.address.model.event.EventDate;
 
