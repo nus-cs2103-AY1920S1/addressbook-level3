@@ -17,10 +17,10 @@ public class FindMealPlanWithCommand extends FindCommand {
 
     public static final String VARIANT_WORD = "mealplanwith";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all meal plans whose recipes contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " chicken noodle";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all meal plans whose days contain "
+            + "the specified recipe name keyword (case-insensitive) and displays them as a list with index numbers.\n"
+            + "Parameters: RECIPE NAME KEYWORD\n"
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " Chicken Noodle";
 
     private static Event event;
 

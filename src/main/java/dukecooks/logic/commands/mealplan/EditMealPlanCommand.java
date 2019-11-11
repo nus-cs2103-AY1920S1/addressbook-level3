@@ -8,6 +8,13 @@ import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY5;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY6;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_DAY7;
 import static dukecooks.logic.parser.CliSyntax.PREFIX_NAME;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY1;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY2;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY3;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY4;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY5;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY6;
+import static dukecooks.logic.parser.CliSyntax.PREFIX_REMOVEDAY7;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -55,7 +62,15 @@ public class EditMealPlanCommand extends EditCommand {
             + "[" + PREFIX_DAY4 + "RECIPE NAME]... "
             + "[" + PREFIX_DAY5 + "RECIPE NAME]... "
             + "[" + PREFIX_DAY6 + "RECIPE NAME]... "
-            + "[" + PREFIX_DAY7 + "RECIPE NAME]... \n";
+            + "[" + PREFIX_DAY7 + "RECIPE NAME]... "
+            + "[" + PREFIX_REMOVEDAY1 + "RECIPE NAME]... "
+            + "[" + PREFIX_REMOVEDAY2 + "RECIPE NAME]... "
+            + "[" + PREFIX_REMOVEDAY3 + "RECIPE NAME]... "
+            + "[" + PREFIX_REMOVEDAY4 + "RECIPE NAME]... "
+            + "[" + PREFIX_REMOVEDAY5 + "RECIPE NAME]... "
+            + "[" + PREFIX_REMOVEDAY6 + "RECIPE NAME]... "
+            + "[" + PREFIX_REMOVEDAY7 + "RECIPE NAME]...\n"
+            + "Example: " + COMMAND_WORD + " " + VARIANT_WORD + " 2 " + PREFIX_DAY1 + " Broccoli Soup";
 
     public static final String MESSAGE_EDIT_MEALPLAN_SUCCESS = "Edited MealPlanBook: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

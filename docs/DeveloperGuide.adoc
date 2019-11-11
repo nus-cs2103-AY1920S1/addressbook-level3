@@ -479,23 +479,37 @@ The DeleteRecipeCommand will also delete the recipe from all meal plans that by 
 checking for the existence of the recipe it is about to delete, and replace that meal plan with a new one. This is done
 using MealPlan#removeRecipe.
 
-*Design Considerations*
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-The current implementation uses the DeleteRecipeCommand to do dynamic deletion of recipes from meal plans whenever
-a recipe is deleted.
+|Updating of recipe components in meal plans upon recipe modifications
+| Dynamic updates upon recipe modification
 
-*Alternatives*
+*Pros* +
+Allows for a better user experience, less reliance on the user to ensure that all displayed information is updated.
 
-An alternative would be create an update command that would update meal plans upon any changes made to the recipe book,
-be it deletion or editing of recipes. This means that the user must manually call for a command that goes through the meal plans
-to validate that they are up to date with the recipe book commands.
+*Cons* +
+Harder to implement, requires for checks on meal plans upon every recipe modification, reducing performance of modification operations.
 
-*Our Choice*
-
-We chose to have the updating of the recipes within meal plans to be done whenever a relevant recipe operation occures,
+*Our Choice* +
+We chose to have the updating of the recipes within meal plans to be done whenever a relevant recipe operation occurs,
 namely recipe deletion and edition. This provides a better user experience as the user will never need to remember that
-they have to run an update every single time they modify their recipes. A similar design consideration and choice was made
-for EditRecipeCommand.
+they have to run an update every single time they modify their recipes. This is favourable as we wish for DukeCooks to
+be as easy to use as possible.
+
+
+| Manual updates at any point in time
+
+*Pros* +
+Simplest implementation and most novice programmers are familiar with it.
+
+*Cons* +
+Relies on user to remember they need to update the meal plans upon recipe modification. Could result in confusion on the
+user's end. Also unintuitive from the user's standpoint, and makes recipe modification a hassle.
+|===
 
 === Meal Plan feature
 The current implementation of Meal Plan consists of the following:
@@ -532,24 +546,41 @@ image::DeleteMealPlanSequenceDiagram.png[]
 
 After a successful execution, the meal plan with the specified index will be deleted from the meal plan book.
 
-*Design Considerations*
+==== Design Considerations
+[cols="20%,40%,40%""]
+[width="100%"]
+|===
+|Aspect |Option 1 (Chosen)|Option 2
 
-The current implementation of `MealPlan` stores recipe data only in the form of `RecipeName`.
+|Amount of recipe information to be saved in a meal plan
+| Saving only the recipe name
 
-*Alternatives*
+*Pros* +
+Less memory required to save meal plan as it only keeps track of recipe names. Easier to maintain dynamic updates upon recipe
+modification.
 
-An alternative would be for meal plans to save all the data the recipe contains within it, namely all of its ingredients,
-nutritional value, and once implemented, the difficulty, preparation time, and image, all saved within the meal plan. This
-would make the viewing of the meal plan easier as all the relevant information is being stored within the meal plan.
+*Cons* +
+Requires that meal plans make a query to obtain the rest of a recipe's information using that recipe's name whenever the user
+views that meal plan.
 
-*Our Choice*
-
-We decided to only capture `RecipeName` information within the meal plan, as we concluded that the meal plan need not know
+*Our Choice* +
+We decided to only capture recipe name information within the meal plan, as we concluded that the meal plan need not know
 of a recipe's nutritional value, difficulty, preparation time, or image location until the meal plan is viewed by the user.
 This allows for smaller storage of meal plans as each meal plan does not need to hold that much information about the recipes
-that it contains. Only when the meal plan is viewed will it use the `RecipeName` data it has to query for the rest of that
-recipe's information. Additionally, only storing the `RecipeName` makes the implementation of dynamic updating between meal
+that it contains. Only when the meal plan is viewed will it use the recipe name data it has to query for the rest of that
+recipe's information. Additionally, only storing the recipe name makes the implementation of dynamic updating between meal
 plans and recipes much easier.
+
+
+| Saving the entire recipe
+
+*Pros* +
+Easier to implement view command as the meal plan does not need to query for the recipe's other information whenever it needs to.
+
+*Cons* +
+Requires more memory to save each meal plan as recipe ingredients can be very extensive. Also requires more checks to be done
+upon recipe modification to allow for dynamic updates, which is harder to implement.
+|===
 
 === Workout Planner feature
 
