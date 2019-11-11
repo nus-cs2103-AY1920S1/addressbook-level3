@@ -1657,10 +1657,51 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `delete_contact 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message.
+   Expected: No contact is deleted. Error details shown in the status message.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
    Expected: Similar to previous.
 
+
+=== Adding an income
+. Adding an income while all incomes are listed
+
+.. Prerequisites: List all incomes using the `goto_incomes` command. Multiple incomes in the list.
+.. Test case: `add_income d/Shirt sales c/307 date/11-11-2019 n/John Doe p/98765432` +
+   Expected: An income is added to the incomes list. Details of the added income shown in the status message.
+
+.. Test case: `add_income` +
+   Expected: No income is added. Error details shown in the status message.
+.. Other incorrect add income commands to try: `add_income d/Shirtsales`, `add_income x` (where x is a random string) +
+   Expected: Similar to previous.
+
+
+=== Entering an unknown command word
+. Entering a command that is not in FinSec
+
+.. Prerequisites: None.
+.. Test case (part 1): `thisisatest` +
+   Expected: FinSec does not recognise the command. FinSec will ask whether a shortcut is to be created or not in the status message. +
+   Test case (part 2): `n` +
+   Expected: FinSec does not create a shortcut. FinSec will continue. Details will be shown in the status message.
+
+.. Test case (part 1): `ac` +
+   Expected: FinSec does not recognise the command. FinSec will ask whether a shortcut is to be created or not in the status message. +
+   Test case (part 2): `add_contact` +
+   Expected: FinSec creates a shortcut. Details will be shown in the status message.
+.. Other incorrect add shortcut commands to try: ` ` (empty string) +
+   Expected: Similar to previous.
+
+=== Viewing added autocorrect suggestion
+. See autocorrect suggestion list
+
+.. Prerequisites: Add a new shortcut `addI` that is an alias to `add_income` and that is the only shortcut created.
+.. Test case: Type `ad` into the command bar without entering +
+   Expected: FinSec will show a dropdown list containing `addI`.
+
+.. Test case: Type `test` into the command bar without entering +
+   Expected: The dropdown list will not contain the word `test`.
+
+.. Other incorrect commands to type into the command bar: `x` (where x is a random string).
 
 
 === Displaying budget values
