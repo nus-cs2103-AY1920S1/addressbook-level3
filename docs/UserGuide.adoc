@@ -689,7 +689,7 @@ Example: `add n/John Doe p/91234567`
 ====
 .Note:
 * A newly-added deliveryman will be assigned with the default status *UNAVAILABLE*.
-* Tags cannot be added through this command. Refer to the `edit` command in <<Editing a deliveryman: `edit`, [Section 3.4.2]>> to add tags to a deliveryman.
+* Tags cannot be added through this command. Refer to the `edit` command in <<Editing a deliveryman: `edit`, Section 3.4.2>> to add tags to a deliveryman.
 ====
 
 {nbsp}
@@ -749,7 +749,7 @@ Example: `lists`
 ==== Changing status of a deliveryman: `status`
 
 This command allows you to switch the status of a deliveryman between *AVAILABLE* and *UNAVAILABLE*. Using this command
-will prompt the status lists as well (that can also be done through `lists` command explained in <<Listing status lists of deliverymen: `lists`, [Section 3.4.4]>>).
+will prompt the status lists as well (that can also be done through `lists` command explained in <<Listing status lists of deliverymen: `lists`, Section 3.4.4>>).
 
 Format: `status INDEX`
 
