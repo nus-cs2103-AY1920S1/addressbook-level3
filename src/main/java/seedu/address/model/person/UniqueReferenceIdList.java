@@ -134,7 +134,6 @@ public class UniqueReferenceIdList implements Iterable<ReferenceId> {
     @Override
     public String toString() {
         return internalList.size() + " persons";
-        // TODO: refine later
     }
 
     @Override

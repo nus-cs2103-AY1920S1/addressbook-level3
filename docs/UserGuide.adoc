@@ -222,7 +222,6 @@ Format: `dequeue <QUEUE_INDEX>`
 * e.g. `dequeue E0000001A`
 
 ==== Assigns next patient to an available doctor : `next` ====
-//todo add doctor first
 
 Assigns the next patient in the queue to a doctor. +
 
