@@ -289,7 +289,7 @@ public class Mark implements ReadOnlyMark {
     }
 
     /**
-     * Checks whether Mark contains the given tagger.
+     * Checks whether Mark contains a tagger with the same name as the given tagger.
      */
     public boolean hasTagger(SelectiveBookmarkTagger tagger) {
         return autotagController.hasTagger(tagger);

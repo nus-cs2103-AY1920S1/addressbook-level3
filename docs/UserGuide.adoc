@@ -86,7 +86,7 @@ folders, and autotags in Mark.
 +
 [#imgId-dashboard]
 .Mark's Dashboard tab
-image::ui-screenshots/Ui_DashboardTab.png[@Dashboard Tab View, 600, 400]
+image::Ui.png[@Dashboard Tab View, 600, 400]
 
 * The **Online** tab contains a web browser, which you can use to search for
 and view web pages.
@@ -148,17 +148,29 @@ E.g. if the command specifies `u/URL n/NAME`, `n/NAME u/URL` is also acceptable.
 The following commands carry out general operations in Mark.
 
 ==== Viewing help: *`help`*
-Shows the list of commands in the bookmark manager.
+Displays a link that you can copy to this page.
 
 Format: *`help`*
 
 ==== Switching tabs: *`tab`*
 
-Switches the current app view to the <<Tabs, tab>> that corresponds to the given
-index. For your convenience, you can use keywords `dash`, `on` or `off` instead of an index.
+You can switch the current app view to a another <<Tabs, tab>> with this command.
+
+Just provide an index as specified below. For your convenience, you can also use keywords `dash`, `on` or `off` instead of an index.
 
 Format: `*tab* INDEX` or `*tab* KEYWORD`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You want to go to the dashboard. So you type `*tab* 1` and press kbd:[Enter].
++
+image::ui-screenshots/TabUI1.png[]
+* You see the dashboard tab instead of the previously showing online tab.
++
+image::ui-screenshots/TabUi2.png[]
+
+Parameter constraints:
 ****
 * `INDEX` is `1`, `2` or `3`, which correspond to the
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
@@ -166,10 +178,7 @@ Format: `*tab* INDEX` or `*tab* KEYWORD`
 <<Dashboard,Dashboard>>, Online, and Offline tabs respectively.
 ****
 
-Examples:
-
-* `*tab* 1` +
-Goes to the <<Dashboard,Dashboard>> tab.
+Other examples:
 
 * `*tab* on` +
 Goes to the Online tab which is a web view.
@@ -194,17 +203,16 @@ in the command box, the deleted bookmark will reappear in your bookmark list.
 * Suppose you have entered two `delete` commands, `*delete* 1` and `*delete* 2`, and now you
 want to get back both bookmarks, a possible way is enter `undo` twice. Besides, Mark also
 offers an alternative where you can just type `undo 2` to undo these two commands.
-// end::undo-command[]
 
 Parameter constraints:
-//TODO:Check whether reminder supports undo/redo, include other
-//undoable commands as well
 ****
 * `STEP` must be a positive integer `1`, `2`, `3`, ...
 * Undoable commands include commands that modify the bookmark list, folders,
 reminders or annotations, which includes `add`, `edit`, `delete`, `clear`, `reminder`,
 `folder`, `annotate`, etc).
 ****
+
+// end::undo-command[]
 
 ==== Redoing previously undone commands: *`redo`*
 // tag::redo-command[]
@@ -221,14 +229,13 @@ Reverses the most recent `*undo*` command.
 `*delete* 2` +
 `*undo* 2` +
 `*redo* 2` +
-Restores the bookmark list to the state before the `*undo* 2` command was executed. The
-two bookmarks get deleted again.
+The `*redo* 2` command restores the bookmark list to the state before the `*undo* 2` command was executed.
+You will see the two bookmarks you just recovered get deleted again.
 
 Parameter constraints:
 ****
 * `STEP` must be a positive integer `1`, `2`, `3`, ...
 ****
-
 // end::redo-command[]
 
 // tag::exportcommand[]
@@ -324,9 +331,19 @@ to the JSON files produced by `*export*`.
 
 ==== Clearing all data: *`clear`*
 
-Clears all data from Mark. All bookmarks, folders, autotags, and reminders will be cleared.
+You can start your life anew with Mark! With this command, all bookmarks, folders, autotags, and reminders will be cleared.
 
 Format: `*clear*`
+
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You decide that Mark is too cluttered, and so out of frustration you type `clear` into the command box and smash kbd:[Enter].
++
+image::ui-screenshots/ClearCommandUi1.png[]
+* Mark is now empty!
++
+image::ui-screenshots/ClearCommandUi2.png[]
 
 ==== Exiting the program: *`exit`*
 
@@ -351,11 +368,23 @@ Format: `*list*`
 [[finding-bookmarks]]
 ==== Locating bookmarks by name, URL, tag or folder: *`find`*
 
-Finds bookmarks that contain any of the given keywords in their name or
+With this command, you can find bookmarks that contain any of the given keywords in their name or
 URL, or that are tagged with the given tag(s) or stored under the given folder(s).
 
 Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You decide to search for a bookmark with `Website` or `Video` in its name or url, or with the tag `Fun`.
+You type `*find* Website Video t/Fun` and press kbd:[Enter].
++
+image::ui-screenshots/FindCommandUi1.png[]
+* Opps! You realise you have no life. You only have CS2103T-related bookmarks and no fun bookmarks.
++
+image::ui-screenshots/FindCommandUi2.png[]
+
+Parameter constraints:
 ****
 * At least one keyword, tag or folder must be provided.
 * The list of keywords to be searched must be before tags and folders.
@@ -367,7 +396,7 @@ Format: `*find* [KEYWORD]... [t/TAG]... [f/FOLDER]...`
 * Bookmarks matching at least one search criterion will be returned (i.e. OR search).
 ****
 
-Examples:
+Other examples:
 
 * `*find* Website Video t/Fun` +
 Returns all the bookmarks with CS2103T or Video in its name or URL, and all bookmarks tagged with Fun.
@@ -449,10 +478,22 @@ Bookmarks the given website, names it `IntelliJ Tips and Tricks`. The new bookma
 [[editing-bookmarks]]
 ==== Editing a bookmark: *`edit`*
 
-Edits an existing bookmark in the bookmark manager.
+IVLE changed to LumiNUS? No worries! With the edit command you can easily fix your incorrect bookmarks.
 
 Format: `*edit* INDEX [u/URL] [n/NAME] [r/REMARK] [f/FOLDER] [t/TAG]...`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* Your school learning management system has changed hands, so you enter the command `*edit* 2 n/LumiNUS u/https://luminus.nus.edu.sg`
+ and press kbd:[Enter].
++
+image::ui-screenshots/EditCommandUi1.png[]
+* Yay! Now all that's left to do is to appreciate the new cutting-edge technology...
++
+image::ui-screenshots/EditCommandUi2.png[]
+
+Parameter constraints:
 ****
 * The bookmark at the specified `INDEX` will be edited. The index refers to the index
 number shown in the displayed bookmark list. The index must be a
@@ -465,7 +506,7 @@ adding of tags is not cumulative.
 any tags after it.
 ****
 
-Examples:
+Other examples:
 
 * `*edit* 1 n/CS2103T Website f/AY1920S1` +
 Edits the name and folder of the 1st bookmark to be CS2103T Website and AY1920S1 respectively.
@@ -475,17 +516,29 @@ Clears all existing tags from the 2nd bookmark.
 
 ==== Deleting a bookmark: *`delete`*
 
-Deletes the specified bookmark from the bookmark manager.
+Mark values your right to data privacy. Unlike competing software from major industry leaders, you can actually delete bookmarks you don't want anymore.
 
 Format: `*delete* INDEX`
 
+// How to use the command (what should you see) i.e. before/after
+For example:
+
+* You receive the heartbreaking news that Club Penguin is now closed forever. Painfully, you type `*delete* 1` (of course you only have 1 bookmark, Club Penguin is your life)
+ and press kbd:[Enter].
++
+image::ui-screenshots/DeleteCommandUi1.png[]
+* What else do you have to live for?
++
+image::ui-screenshots/DeleteCommandUi2.png[]
+
+Parameter constraints:
 ****
 * Deletes the bookmark at the specified INDEX.
 * The index refers to the index number shown in the displayed bookmark list.
 * The index must be a positive integer `1`, `2`, `3`, …​
 ****
 
-Examples:
+Other examples:
 
 * `*list*` +
 `*delete* 2` +
@@ -501,6 +554,19 @@ This command adds a `Favorite` tag to the specified bookmark.
 
 Format: `*favorite|fav* INDEX`
 
+For example:
+
+* If you want to add the first bookmark in the bookmark list to your favorite bookmarks,
+simply input `*favorite* 1`, a `Favorite` tag will be added to the fist bookmark and the
+bookmark will also appear in the favorite bookmark list in the dashboard.
+// end::favorite-command[]
+
+image::ui-screenshots/FavoriteCommandUI1.png[]
+
+// tag::favorite-command-2[]
+* Alternatively, you can also type a shorter command `*fav* 1` to add the first bookmark to your
+favorite bookmarks as well.
+
 Parameter constraints:
 ****
 * `fav` is an alias for `favorite`
@@ -508,15 +574,7 @@ Parameter constraints:
 * The index refers to the index number shown in the displayed bookmark list.
 * The index must be a positive integer `1`, `2`, `3`, …​
 ****
-
-Examples:
-
-* `*favorite* 1` +
-Adds a Favorite tag to the first bookmark in the bookmark manager.
-
-* `*fav* 2` +
-Adds a Favorite tag to the second bookmark in the bookmark manager.
-// end::favorite-command[]
+// end::favorite-command-2[]
 
 '''
 
@@ -526,6 +584,9 @@ Adds a Favorite tag to the second bookmark in the bookmark manager.
 
 The following commands carry out operations on folders in Mark.
 The results of these operations can be viewed in the folder hierarchy of dashboard tab.
+
+.Folder hierarchy as seen in the dashboard tab
+image::ui-screenshots/FolderHierarchy.png[]
 
 IMPORTANT: The bookmarks that are displayed in the folder hierarchy correspond to the bookmarks in the bookmarks list on the left. +
  +
@@ -546,13 +607,13 @@ For example:
 
 * You want to expand all unexpanded folders by one level with just one command. Type `*expand*` in the command box and hit kbd:[Enter].
 +
-image::ExpandCommandUi1.png[]
+image::ui-screenshots/ExpandCommandUi1.png[]
 // unexpanded folders
 * You see all folders expanded by one level.
 +
-image::ExpandCommandUi2.png[]
+image::ui-screenshots/ExpandCommandUi2.png[]
 
-
+Parameter constraints:
 ****
 * `LEVEL` should be a positive integer.
 * If `LEVEL` is higher than the maximum possible level of folders to expand, it will simply expand all of them.
@@ -574,12 +635,13 @@ For example:
 
 * You want to collapse the deepest expanded folders by one level with just one command. Type `*collapse*` in the command box and hit kbd:[Enter].
 +
-image::CollapseCommandUi1.png[]
+image::ui-screenshots/CollapseCommandUi1.png[]
 // expanded folders
 * You see the deepest expanded folders collapsed by one level.
 +
-image::CollapseCommandUi2.png[]
+image::ui-screenshots/CollapseCommandUi2.png[]
 
+Parameter constraints:
 ****
 * `LEVEL` should be a positive integer.
 * If `LEVEL` is higher than the maximum possible level of folders to collapse, it will simply collapse all of them.
@@ -605,12 +667,13 @@ For example:
 
 * You notice you have 20 bookmarks all related to CS2103T. You decide to create a folder for them, so you enter the command `*folder* CS2103T` and hit kbd:[Enter].
 +
-image::AddFolderCommandUi1.png[]
+image::ui-screenshots/AddFolderCommandUi1.png[]
 // dashboard tab, showing many CS2103T related bookmarks not in folder
 * You see a new empty folder `CS2103T` appear in the dashboard.
 +
-image::AddFolderCommandUi2.png[]
+image::ui-screenshots/AddFolderCommandUi2.png[]
 
+Parameter constraints:
 ****
 * `ROOT` is the topmost folder already created by Mark, and all folders will be descendants of this folder.
 * `FOLDER_NAME` must NOT be an existing folder. (Note that it can't be `ROOT` also, since it already exists.)
@@ -636,13 +699,13 @@ For example:
 
 * You recently broke up, and want to edit the folder `Dear` containing all your previous memories to `Ex`. So you enter the command `*folder-edit* Dear t/Ex` and hit kbd:[Enter].
 +
-image::EditFolderCommandUi1.png[]
+image::ui-screenshots/EditFolderCommandUi1.png[]
 // dashboard tab, showing Dear folder with links of photo albums etc.
 * You see folder `Dear` renamed to `Ex`. All your bookmarks previously in the folder `Dear` have also been edited to now be in the folder `Ex`.
 +
-image::EditFolderCommandUi2.png[]
+image::ui-screenshots/EditFolderCommandUi2.png[]
 
-// More details about command constraints
+Parameter constraints:
 ****
 * `FROM_FOLDER_NAME` and `TO_FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
 * `FROM_FOLDER_NAME` must exist be an existing folder. (Note that you cannot edit the `ROOT` folder.)
@@ -663,13 +726,13 @@ For example:
 
 * You see an unused folder `CS2101` in the Dashboard, and input `*folder-delete* CS2101` into the command box.
 +
-image::DeleteFolderCommandUi1.png[]
+image::ui-screenshots/DeleteFolderCommandUi1.png[]
 // dashboard tab, showing CS2101 folder with no bookmarks/subfolders
 * You no longer see folder `CS2101` appear in the folders section of the Dashboard.
 +
-image::DeleteFolderCommandUi2.png[]
+image::ui-screenshots/DeleteFolderCommandUi2.png[]
 
-// More details about command constraints
+Parameter constraints:
 ****
 * `FOLDER_NAME` must start with an alphanumeric character, and can only contain alphanumeric characters and spaces.
 * `FOLDER_NAME` must be an existing folder.
@@ -798,12 +861,12 @@ For example:
 
 * To modify an autotag named `NUS`, type `*autotag-edit* NUS t/University f/School f/General f/Modules f/CS2103T`
 +
-image::AutotagEditCommandUi1.png[]
+image::ui-screenshots/AutotagEditCommandUi1.png[]
 
 * You can then observe that the autotag `NUS` has been renamed `University`, and its folder conditions now
 include the folder `CS2103T`.
 +
-image::AutotagEditCommandUi2.png[]
+image::ui-screenshots/AutotagEditCommandUi2.png[]
 
 The parameter constraints are similar to <<autotag-parameter-constraints, the `*autotag*` command's>>,
 with the following differences:
@@ -817,14 +880,14 @@ Other examples:
 
 * `*autotag-edit* Quiz u/luminus.nus.edu.sg u/quiz nu/attempt`
 +
-image::AutotagEditCommandExample1.png[]
+image::ui-screenshots/AutotagEditCommandExample1.png[]
 +
 Modifies the autotag `Quiz` such that it tags bookmarks with URLs that contain either of the keywords
 `luminus.nus.edu.sg` or `quiz`, but do not contain the keyword `attempt`.
 
 * `*autotag-edit* Quiz t/Quizzes`
 +
-image::AutotagEditCommandExample2.png[]
+image::ui-screenshots/AutotagEditCommandExample2.png[]
 +
 Modifies the name of the autotag `Quiz` such that it now tags bookmarks with the tag `Quizzes` instead of `Quiz`.
 
@@ -925,7 +988,7 @@ If you want to add a new annotation on the offline copy of a bookmark,
 you can do so using the `annotate` command.
 With this command, you can highlight a paragraph on the offline document and
 optionally attach a supplementary note to said paragraph. You can add notes
-to justify the highlight or as content-relevant notes to refer to in future.
+to explain the highlight or as content-relevant notes to refer to in future.
 
 If you are looking to add a general note not pertaining to any specific paragraph, you
 can also use this command to add it to the bottom of the page, hereby known as the _General notes section_.
@@ -934,15 +997,15 @@ Upon annotating, the your view will be switched to the offline tab
 showing the results of your command.
 
 NOTE: A general note is not attached to any paragraph of the original web page. Instead, when adding general notes, they are attached
-to newly created paragraphs that do not have any content displayed.
+to invisible at the bottom of the document.
 General notes are found at the bottom of the page, referred to as the _General notes section_.
 
-You can choose to use this command to overwrite any existing note. However, note that when you use this command to highlight
+You can choose to use this command to overwrite any existing note. However, note that when you highlight
 the paragraph of a general note, Mark remembers the hidden highlight colour, but no highlight is reflected on the application.
 
 NOTE: Paragraphs are identified using a numbered identifier that starts with either `P` or `G`. You can refer to the
 numbered identifier in the leftmost column of the offline document to check out the respective identifier for each paragraph.
-Paragraphs of general notes are identified using numbered identifiers that begin with `G`, as opposed to paragraphs originating from the original web page, whose identifiers begin with `P`.
+Paragraphs of general notes have identifiers that begin with `G`, while paragraphs from the original web page have identifiers that begin with `P`.
 
 Format: `*annotate* INDEX p/PARA_NUM [n/NOTES] [h/HIGHLIGHT_COLOUR=yellow]`
 
@@ -950,12 +1013,12 @@ For example:
 
 * Input `*annotate* 1 p/p2 n/summary of paragraph h/orange` into the command box.
 
-image::AddAnnotationCommandUi1.png[]
+image::ui-screenshots/AddAnnotationCommandUi1.png[]
 // offline tab, showing result after   annotate 1 p/p2
 
 * Observe that any pre-existing annotation is overwritten. Paragraph P2 is now highlighted orange and a note with content “summary of paragraph” is attached to it.
 
-image::AddAnnotationCommandUi2.png[]
+image::ui-screenshots/AddAnnotationCommandUi2.png[]
 // offline tab, showing result.
 
 
@@ -1014,12 +1077,12 @@ For example:
 
 * Input `*annotate-edit* 1 p/g1 to/p1 h/green` into the command box.
 
-image::EditAnnotationCommandUi1.png[]
+image::ui-screenshots/EditAnnotationCommandUi1.png[]
 // offline tab after   annotate 1 p/null n/this note was once a general note
 
 * Observe that the general note removed from the bottom and attached to pararaph P1. At the same time, paragraph P1 is highlighted green.
 
-image::EditAnnotationCommandUi2.png[]
+image::ui-screenshots/EditAnnotationCommandUi2.png[]
 
 ****
 * `INDEX` is the bookmark that you want to annotate offline version of.
@@ -1078,12 +1141,12 @@ For example:
 
 * Input `*annotate-delete* 1 p/p2 n/true` into the command box.
 
-image::DeleteAnnotationCommandUi1.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi1.png[]
 // offline tab, after   annotate 1 p/p2 h/pink n/this note is originally not general
 
 * Observe that the highlight of paragraph P2 if removed and the note is moved to the _General notes section_.
 
-image::DeleteAnnotationCommandUi2.png[]
+image::ui-screenshots/DeleteAnnotationCommandUi2.png[]
 
 
 ****

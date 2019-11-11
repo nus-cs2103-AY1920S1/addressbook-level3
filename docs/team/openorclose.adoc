@@ -3,7 +3,7 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: Mark (adapted from AddressBook - Level 3)
+== Project: Mark (adapted from AddressBook (Level 3))
 
 '''
 
@@ -13,7 +13,12 @@
 
 This project portfolio aims to document my contributions to Mark, a project by my team of 5 Computer Science students from NUS.
 
-Adapted from AddressBook - Level 3, Mark is a user-friendly bookmark manager desktop application targeted at *NUS Computing students*, mainly for use on a computer and for students who prefer getting things done by typing out commands via the command line interface (CLI).
+Mark is a user-friendly bookmark manager desktop application targeted at *NUS Computing students*, mainly for use on a computer and for students who prefer getting things done by typing out commands via the command line interface (CLI).
+
+My team was tasked to develop this application over the course of six weeks by morphing https://se-education.org/addressbook-level3/[AddressBook (Level 3)].
+
+.A screenshot of Mark in use
+image::Ui.png[]
 
 Here are some key features of Mark:
 
@@ -22,6 +27,16 @@ Here are some key features of Mark:
 - Set reminders for your to-dos
 
 - Organize your bookmarks automatically
+
+In particular, my task was to help achieve the last point, and I did so by implementing an alternative way to organize bookmarks via folders.
+
+Some special symbols and formatting are used later on in the text, so here is a list of them and what they mean:
+
+IMPORTANT: Important text critical to the usage of Mark.
+
+TIP: Helpful tips that can make using Mark easier.
+
+NOTE: Information that is good to know.
 
 
 == Contribution Summary
