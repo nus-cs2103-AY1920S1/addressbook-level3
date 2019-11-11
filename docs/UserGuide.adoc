@@ -685,6 +685,11 @@ Finds meal plans with a specified recipe name. +
 Command: `find mealplanwith` +
 Format: `find mealplanwith <recipe name keyword>`
 
+[IMPORTANT]
+====
+You can only search for one recipe at a time. The recipe's name must be entered exactly as it is in the recipe book.
+====
+
 Examples:
 
 * `find mealplanwith Chicken Rice` +
