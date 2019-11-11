@@ -43,7 +43,7 @@ include::../DeveloperGuide.adoc[tag=symbol]
 
 This section shows a summary of my coding, documentation, and other helpful contributions to *Athletick*.
 
-*Enhancement added (major):*  I added the ability to _add_, _delete_, and _view_ events and records.
+*Major enhancement added:*  I added the ability to _add_, _delete_, and _view_ events and records.
 
 * What it does: It allows coaches and captains to log records that an athlete completed for a certain
 event, on a certain day, into *Athletick*. An event can store multiple records over time for the same athlete
@@ -67,7 +67,7 @@ which required efficient storage and retrieval. There was up to 4 levels of nest
 each event with a list of athletes paired with their personal list of records, each record having a date and
 timing. This also made the implementation exceptionally challenging.
 
-*Enhancement added (minor):* I added the ability to _filter_ athletes by their tags.
+*Minor enhancement added:* I added the ability to _filter_ athletes by their tags.
 
 * What it does: It allows captains and coaches to find athletes through their tags. Filtering by multiple
 tags is supported.
@@ -94,10 +94,6 @@ https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/3[v1.3],
 https://github.com/AY1920S1-CS2103T-T12-3/main/milestone/4[v1.4]
 ** Released https://github.com/AY1920S1-CS2103T-T12-3/main/releases/tag/v1.3.3[v1.3.3]
 of the product, before the final v1.4 release
-* Enhancement to an existing feature
-** Extended the existing _find by name_ feature to allow users to _find by tags_ (Pull requests
-https://github.com/AY1920S1-CS2103T-T12-3/main/pull/64[#64],
-https://github.com/AY1920S1-CS2103T-T12-3/main/pull/84[#84])
 * Documentation
 ** Modified the colour scheme of the documentation for consistency with *Athletick*'s signature dark blue
 (Pull request
