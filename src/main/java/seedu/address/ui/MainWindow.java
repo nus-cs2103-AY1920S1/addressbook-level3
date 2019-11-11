@@ -427,10 +427,9 @@ public class MainWindow extends UiPart<Stage> {
             public void onChanged(Change<? extends Lesson> c) {
                 while (c.next()) {
                     if (c.wasAdded()) {
-                        for (Object addedItem : c.getAddedSubList()) {
-                            logger.info("creating scheduler");
-                            createSchedule((Lesson) addedItem);
-                        }
+                        Object addedItem = c.getAddedSubList().get(c.getAddedSubList().size() - 1);
+                        logger.info("creating scheduler");
+                        createSchedule((Lesson) addedItem);
                     }
                 }
             }
