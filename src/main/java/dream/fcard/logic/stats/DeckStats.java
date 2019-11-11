@@ -70,7 +70,7 @@ public class DeckStats extends Stats implements JsonInterface {
             logger.info("Existing test session detected. Terminating it first...");
         }
 
-        logger.info("Starting a test session of deck " + currentDeck + "...");
+        logger.info("Starting a test session of deck: " + currentDeck + "...");
 
         this.currentSession = new Session();
     }
@@ -136,7 +136,7 @@ public class DeckStats extends Stats implements JsonInterface {
     public void addSessionToDeckSessionList(Session session, String deckName) {
         SessionList sessionList = this.getSessionListForDeck(deckName);
         sessionList.addSession(session);
-        logger.info("Added a session to the sessionList for deck: " + deckName + "!");
+        logger.info("Added a session to the sessionList for deck: " + deckName + ".");
     }
 
     /**
