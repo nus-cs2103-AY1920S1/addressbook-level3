@@ -569,8 +569,6 @@ image::redo-result.png[width="450"]
 --
 //end::undo-redo[]
 
-// tag::calendar[]
-
 === Displaying the list of engagements for a specified date (calendar view only): `calendar c/opendisplay`
 Opens a separate window displaying the list of engagements for the specified date. Only one such window is allowed per date.
 Nothing will happen if this command is used with a date which already has an open engagements list window.
@@ -591,7 +589,7 @@ The calendar's display then switches to December 2019 and the engagement list wi
 This command does not work if the application is in another tab or the specified date is invalid.
 
 .Engagement list for 01/11/2019
-image::calendar-open-display.png[width="450", align="center"]
+image::calendar-open-display.png[width="450"]
 {empty} +
 The above calendar window opens up after entering `calendar c/opendisplay d/29/10/2019` into the input box while in the
 calendar view for November 2019. This does not change the display to October 2019 because 29/10/2019 is displayed in
@@ -612,8 +610,11 @@ application is in another tab or if attempting to go above the maximum allowable
 
 Format: `calendar c/nextmonth`
 
-.Changing to the next month from November 2019
-image::calendar-next-month.png[width="450", align="center"]
+.Calendar view for November 2019
+image::calendar-view.png[width="450", float="left"]
+[.left]
+.Calendar view (December 2019) after executing the `nextmonth` command
+image::calendar-next-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the right arrow next to the calendar's month title
 to change the display to the next month. The button will not work if the calendar is displaying December 9999.
@@ -626,15 +627,16 @@ application is in another tab or if attempting to go below the minimum allowable
 
 Format: `calendar c/previousmonth`
 
-.Changing to the previous month from November 2019
-image::calendar-previous-month.png[width="450", align="center"]
+.Calendar view for November 2019
+image::calendar-view.png[width="450", float="left"]
+[.left]
+.Calendar view (October 2019) after executing the `previousmonth` command
+image::calendar-previous-month.png[width="450"]
 {empty} +
 Alternatively, you may click on the blue button with the left arrow next to the calendar's month title
 to change the display to the previous month. The button will not work if the calendar is displaying January 0001.
 
 This command closes any open engagement windows from the current month before updating the display to the previous month.
-// end::calendar[]
-
 
 // tag::game[]
 === Typing game : `tab b/game`
