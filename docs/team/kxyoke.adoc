@@ -124,6 +124,5 @@ _End of extract from Mark Developer Guide_
 
 ---
 
----
 
 //_{Optionally, you may include other projects in your portfolio.}_
