@@ -18,6 +18,8 @@ import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
+import seedu.address.logic.commands.datamanagement.ShowCoreCommand;
+import seedu.address.logic.commands.datamanagement.ShowFocusCommand;
 import seedu.address.logic.commands.datamanagement.SortStudyPlansByPriorityTagCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
 import seedu.address.logic.commands.datamanagement.TagStudyPlanCommand;
@@ -95,6 +97,8 @@ public class HelpCommand extends Command {
             + RemoveTagFromStudyPlanCommand.HELP_MESSAGE + "\n"
             + "\nModule information:\n"
             + DescriptionCommand.HELP_MESSAGE + "\n"
+            + ShowCoreCommand.HELP_MESSAGE + "\n"
+            + ShowFocusCommand.HELP_MESSAGE + "\n"
             + ValidModsCommand.HELP_MESSAGE + "\n"
             + FindModuleCommand.HELP_MESSAGE + "\n"
             + CheckCommand.HELP_MESSAGE + "\n"
@@ -143,6 +147,12 @@ public class HelpCommand extends Command {
 
         case DescriptionCommand.COMMAND_WORD:
             return new CommandResult(DescriptionCommand.MESSAGE_USAGE, false, false);
+
+        case ShowCoreCommand.COMMAND_WORD:
+            return new CommandResult(ShowCoreCommand.MESSAGE_USAGE, false, false);
+
+        case ShowFocusCommand.COMMAND_WORD:
+            return new CommandResult(ShowFocusCommand.MESSAGE_USAGE, false, false);
 
         case CheckCommand.COMMAND_WORD:
             return new CommandResult(CheckCommand.MESSAGE_USAGE, false, false);

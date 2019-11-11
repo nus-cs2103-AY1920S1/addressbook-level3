@@ -145,6 +145,16 @@ Example:
 
 * `description CS2103T`
 
+==== Showing all core modules: `showcore`
+Shows all core modules.
+
+Format: `showcore`
+
+==== Showing all focus area primary modules: `showfocus`
+Shows all focus area primary modules.
+
+Format: `showfocus`
+
 ==== Display for invalid modules
 Highlights a module in red if it doesn't satisfy any of its prerequisites, displaying these required modules.
 

@@ -16,6 +16,8 @@ import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
+import seedu.address.logic.commands.datamanagement.ShowCoreCommand;
+import seedu.address.logic.commands.datamanagement.ShowFocusCommand;
 import seedu.address.logic.commands.datamanagement.SortStudyPlansByPriorityTagCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
 import seedu.address.logic.commands.datamanagement.TagStudyPlanCommand;
@@ -74,6 +76,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         case SetCurrentSemesterCommand.COMMAND_WORD:
         case FindModuleCommand.COMMAND_WORD:
         case DescriptionCommand.COMMAND_WORD:
+        case ShowCoreCommand.COMMAND_WORD:
+        case ShowFocusCommand.COMMAND_WORD:
         case CheckCommand.COMMAND_WORD:
         case ValidModsCommand.COMMAND_WORD:
         case CommitStudyPlanCommand.COMMAND_WORD:

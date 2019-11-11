@@ -23,6 +23,8 @@ import seedu.address.logic.commands.datamanagement.RemoveAllTagsCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromModuleCommand;
 import seedu.address.logic.commands.datamanagement.RemoveTagFromStudyPlanCommand;
 import seedu.address.logic.commands.datamanagement.RenameTagCommand;
+import seedu.address.logic.commands.datamanagement.ShowCoreCommand;
+import seedu.address.logic.commands.datamanagement.ShowFocusCommand;
 import seedu.address.logic.commands.datamanagement.SortStudyPlansByPriorityTagCommand;
 import seedu.address.logic.commands.datamanagement.TagModuleCommand;
 import seedu.address.logic.commands.datamanagement.TagStudyPlanCommand;
@@ -115,6 +117,8 @@ public class ModulePlannerAutocompleteSearch {
         commandKeywords.add(SortStudyPlansByPriorityTagCommand.COMMAND_WORD);
         commandKeywords.add(ValidModsCommand.COMMAND_WORD);
         commandKeywords.add(DescriptionCommand.COMMAND_WORD);
+        commandKeywords.add(ShowCoreCommand.COMMAND_WORD);
+        commandKeywords.add(ShowFocusCommand.COMMAND_WORD);
         commandKeywords.add(CheckCommand.COMMAND_WORD);
         commandKeywords.add(ClearInvalidModsCommand.COMMAND_WORD);
         commandKeywords.add(DeleteSemesterCommand.COMMAND_WORD);
