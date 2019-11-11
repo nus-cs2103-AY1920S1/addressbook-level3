@@ -54,6 +54,7 @@ e.g. typing `help` and pressing kbd:[Enter] will open the help window. Alternati
 
 Do not directly edit any of the  following json files: e.g. `appointments.json`, `dutyRoster.json`, `patientDetails.json`, `staffDetails.json`, `preferences.json`, `config.json`
 
+// tag::ui[]
 [[Features]]
 
 == Features
@@ -71,7 +72,10 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * kbd:[TAB] changes focus from TabBar/OmniPanel to CommandBox and from CommandBox to TabBar.
 
-
+====
+// end::ui[]
+// tag::ux[]
+====
 *Reactive search*
 
 * The listing automatically filters to display only the most relevant results when searching for an existing entry.
@@ -91,9 +95,8 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 * The cancellation or changing of a doctor's duty shift will be rejected by the system, if the action results in there being
     insufficient staffing to accommodate already scheduled appointments.
-
 ====
-// end::ui[]
+// end::ux[]
 ====
 *Command Format*
 
@@ -115,6 +118,7 @@ Do not directly edit any of the  following json files: e.g. `appointments.json`,
 
 IMPORTANT: All timings are based on the system's clock.
 
+// tag::patient[]
 === Patient Management
 
 ==== Searches patient by arguments: `patient` ====
@@ -135,7 +139,7 @@ Format:  `newpatient -id <PATIENT_REFERENCE_ID> -name <PATIENT_NAME> [-phone <PH
 
 * e.g. `newpatient -id E0000001A -name Edmond Halley -phone 85732743 -email halley@example.com -address 12, Kent ridge Ave 3, #01-11 -tag AIDS`
 
-IMPORTANT: As a design decision, undoing the registration of a patient is allowed, via the `undo` command.
+IMPORTANT: As a design decision, undoing the registration of a patient via the `undo` command is allowed.
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
 Hence, the user *should not have administrative privilege to unregister any patient already in the system.*
 
@@ -151,6 +155,8 @@ Format: `editpatient -entry <ENTRY_ID> [-id <PATIENT_REFERENCE_ID>] [-name <NAME
  [-email <EMAIL>] [-address <ADDRESS>] [-tag <Tags>]...`
 
 * e.g. `editpatient -entry 1 -phone 91200567 -email edmond@example.com`
+
+// end::patient[]
 
 === Staff Personal Management ===
 
@@ -172,7 +178,7 @@ Format: `newdoctor -id <STAFF_REFERENCE_ID> -name <NAME> [-phone <PHONE_NUM>]
 
 * e.g. `newdoctor -id W0000001A -name John Doe -phone 98765432 -email johnd@example.com -address 311, Clementi Ave 2, #02-25 -tag Male`
 
-IMPORTANT: As a design decision, undoing the registration of a staff doctor is allowed, via the `undo` command.
+IMPORTANT: As a design decision, undoing the registration of a staff doctor via the `undo` command is allowed.
 However, though our target users are clerks working at clinics, our clients would be the employers and stakeholders of said clinics.
 Hence, the user *should not have administrative privilege to unregister any staff doctor already in the system.*
 

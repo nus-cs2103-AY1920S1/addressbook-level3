@@ -51,7 +51,7 @@ The following shows the various tabs and their respective purposes (from top to 
     . Duty Shift tab: Records the shift timings of which doctor is on duty.
 
 .A quick glance at ClerkPro in action.
-image::Ui.png[height="50"]
+image::Ui.png[width="300"]
 
 == Summary of contributions
 
@@ -75,7 +75,6 @@ search results as the user is giving new inputs.
 ** What it does: Ensures that user do not mistakenly schedule more patient appointments than available on-duty doctors at any given appointment of time.
 ** Justification: This feature assists the user to avoid mistakenly over scheduling appointments for patients.
 ** Highlights: This same functionality can be used to determine the number of doctors on-duty during a given timing.
-
 
 * *Minor enhancement*: Patients and doctors can be identified using a unique reference id.
 
@@ -108,15 +107,12 @@ search results as the user is giving new inputs.
 _{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
-{YET TO DO}
 
 |===
 |_Given below are some sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-//include::../UserGuide.adoc[tag=delete]
-
-//include::../UserGuide.adoc[tag=dataencryption]
+include::../UserGuide.adoc[tag=patient]
 
 == Contributions to the Developer Guide
 
