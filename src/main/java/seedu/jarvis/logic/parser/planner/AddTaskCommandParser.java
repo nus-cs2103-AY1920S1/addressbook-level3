@@ -126,9 +126,9 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
     }
 
     /**
-     * Checks to see if the given task is  a valid Todo
+     * Checks to see if the given task is a valid {@code Todo}
      * @param argumentMultimap {@code ArgumentMultiMap}
-     * @return true if task is a Todo & does not have a date, false if it does
+     * @return true if task is a {@code Todo} & does not have a date, false if it does
      */
     private static boolean isValidTodo(ArgumentMultimap argumentMultimap) {
         String type = argumentMultimap.getValue(PREFIX_TASK_TYPE).get();

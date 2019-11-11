@@ -51,7 +51,7 @@ public class TaskDateMatchesDatePredicate implements Predicate<Task> {
             return dates.stream()
                         .anyMatch(date -> date.compareTo(deadline.getDueDate()) == 0);
         } else {
-            //instanceof Todo
+            //instanceof {@code Todo}
             return false;
         }
     }
