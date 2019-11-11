@@ -253,10 +253,14 @@ Executing this command will trigger a confirmation in the chatbot:
 Then, if you answer "Y", the chatbot will clear all data in your contact list.
 If you press the ESC key, the command will be aborted.
 
+
+
+// tag::group-command[]
 === Manage groups: `group`
 
 NOTE: group descriptions and editing groups will be supported in v2.0, disregard any group description references here
 
+// tag::groupcreate-command[]
 ==== Create a contact group: `create`
 Creates a new group. If any contacts are mentioned, the new group will contain all of the mentioned contacts.
 
@@ -266,7 +270,7 @@ Format:
 
 Example:
 
-* We wish to organize our contacts better by grouping '_ao3_' readers together.
+* Lets imagine we wish to organize our contacts better by starting a mailing list of '_ao3_' fanfic readers.
 We can start by creating an '_ao3_' group with a few initial members using the command
  `group create ao3 --i 212 --i 215`
 
@@ -280,7 +284,9 @@ The display will show the group created and the contact that has been added.
 image::ug_groupcreate2.png[width="600"]
 
 NOTE: group descriptions and editing groups will be supported in v2.0
+// end::groupcreate-command[]
 
+// tag::groupremove-command[]
 ==== Remove member from a group: `remove`
 Removes member from a group.
 
@@ -290,7 +296,8 @@ Format:
 
 Example:
 
-* To remove an '_ao3_' members we can do so with the command
+* Social circles change over time. One of our former '_ao3_' members have left us to join rival
+fanfic site '_wattpad_'. To remove an '_ao3_' members we can do so with the command
  `group remove ao3 --i 215`
 
 .Entering the command
@@ -301,6 +308,16 @@ The display will show the group and the contact left in the group.
 
 .Command executed group member removed
 image::ug_groupremove2.png[width="600"]
+// end::groupremove-command[]
+
+
+NOTE: The UI prompt would indicate 'Attempting to remove contact(s) from group' this
+prompt is a confirmation and signals that the command has been executed and no other
+prompt will be given. The prompts purpose is to warn that contact ids given which
+do not appear in the Group would not be detected and the user should check it manually.
+Auto detection of contacts to be deleted that are not found in the Group is left to v2.0
+
+// tag::groupadd-command[]
 
 ==== Add member to a group: `add`
 Adds members to a group.
@@ -312,7 +329,8 @@ Format:
 Example:
 
 
-* To add a member to our '_ao3_' group we can use the command
+* Over time our '_ao3_' group has grown with new members joining. We need to update our
+group to record the recent addition. To add a member to our '_ao3_' group we can use the command
  `group create ao3 --i 90040`
 
 .Entering the command
@@ -323,6 +341,13 @@ The display will show the group and the contact that has been added.
 
 .Command executed Group created
 image::ug_groupadd2.PNG[width="600"]
+// end::groupadd-command[]
+
+NOTE: The UI prompt would indicate 'Attempting to add contact(s) from group' this
+prompt is a confirmation and signals that the command has been executed and no other
+prompt will be given. The prompts purpose is to warn that contact ids given which
+do not appear in the Addressbook would not be detected and the user should check it manually.
+Auto detection of contacts to be added that are not found in the Addressbook is left to v2.0
 
 ==== List all groups: `list`
 Lists all groups
@@ -333,7 +358,8 @@ Format:
 
 Example:
 
-* To show all the groups stored we can use the command
+* Sometimes we may wish to take a step back and view all the groups we are managing.
+To show all the groups stored we can use the command
  `group list`
 
 .Entering the command
@@ -344,6 +370,8 @@ image::ug_grouplist1.png[width="600"]
 .Command executed, Groups displayed
 image::ug_grouplist2.png[width="600"]
 
+NOTE: group descriptions will be supported in v2.0
+
 ==== Find a group: `find`
 Finds a specific group and display the members
 
@@ -353,7 +381,8 @@ Format:
 
 Example:
 
-* To find a '_ao3_' group from the list of groups we have, we can use command
+* Often we may forget who is in a group and wish to know the contacts currently in
+a group. To find the '_ao3_' group from the list of groups, we can use command
  `group find ao3` with the exact group name we are looking for
 
 .Entering the command
@@ -364,6 +393,8 @@ The display will show the group and the group members
 
 .Command executed, Group found and displaying Contacts
 image::ug_groupfind2.png[width="600"]
+
+NOTE: group descriptions will be supported in v2.0
 
 ==== Display profile of a group: `show` `[coming in v2.0]`
 Display the profile page of a contact group which shows the members of the group and notes tagged with the group.
@@ -377,7 +408,7 @@ Example:
 * `group show CS2103-F12-3`
 
 ==== Delete a group: `delete`
-Deletes a group.
+Deletes a group. Note the contacts in the deleted group still exists, only the group has been disbanded.
 
 Format:
 
@@ -385,8 +416,10 @@ Format:
 
 Example:
 
-* To delete the group '_ao3_', we can use command
- `group delete ao3`
+* Suffering from success, our little mailing list of '_ao3_' members have grown
+too large and split into several regional chapters to facilitate organization.
+Its time to disband the original '_ao3_' group and make new groups for each chapter.
+To delete the group '_ao3_', we can use command `group delete ao3`
 
 .Entering the command
 image::ug_groupdelete1.png[width="600"]
@@ -396,6 +429,9 @@ The display will display all remaining groups in a list.
 
 .Command executed Group deleted
 image::ug_groupdelete2.png[width="600"]
+
+NOTE: group descriptions will be supported in v2.0
+// end::group-command[]
 
 // tag::note-command[]
 === Manage your notes: `note`
@@ -552,8 +588,8 @@ Example:
 |Lists all notes tagged with the contact of ID '_12345_'.
 
 |`note list %GROUPNAME`
-|`note list %cs2103t`
-|Lists all notes tagged with the group '_cs2103 team_'.
+|`note list %cs2103-team`
+|Lists all notes tagged with the group '_cs2103-team_'.
 |===
 
 . When you would like to see all the notes you have in TagLine, you can enter the command `note list`.
