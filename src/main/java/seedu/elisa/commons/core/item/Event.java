@@ -145,7 +145,8 @@ public class Event {
         return otherEvent.getStartDateTime().equals(getStartDateTime())
                 && otherEvent.getEndDateTime().equals(getEndDateTime())
                 && otherEvent.getDuration().equals(getDuration())
-                && otherEvent.getPeriod().equals(getPeriod());
+                && (getPeriod() == otherEvent.getPeriod() //checks if they are both null or same item
+                || (getPeriod() != null ? getPeriod().equals(otherEvent.getPeriod()) : false));
     }
 
     @Override
