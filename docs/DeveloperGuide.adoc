@@ -346,6 +346,8 @@ Upon creation of a new Assignment, `Assignment#initialiseGrades()` is called, wh
 with keys (students' names) and the value "Not Submitted". The user can then update the grades of a student individually or
 all of the students simultaneously through the `UpdateGrades` command, which calls the method `Assignment#setGrades()`.
 
+image::AddAssignmentActivityDiagram.png[]
+
 After every command, `Assignment#checkCompletion()` is called to determine the completion status of the assignment,
 which will be "Completed" if none of the grades are "Not Submitted". Upon addition of a new student into the classroom,
 each Assignment present in the classroom will add another entry into the AssignmentGrade. If the Assignment was Not Completed,

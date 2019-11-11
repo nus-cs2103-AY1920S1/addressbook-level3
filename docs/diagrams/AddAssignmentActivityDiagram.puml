@@ -1,0 +1,13 @@
+@startuml
+start
+:User calls AddAssignmentCommand;
+
+if () then ([Inputs are valid])
+    :Grades are initialized;
+    :Deadline is set;
+else ([else])
+    :Exception thrown;
+
+endif
+stop
+@enduml
