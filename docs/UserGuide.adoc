@@ -920,7 +920,7 @@ There is no need to save manually.
 Example: `in $/100 n/allowance d/11112019 c/income`
 * <<Out, *Out*>> : `out $/AMOUNT n/ITEM d/DATE [c/CATEGORY]` +
 Example: `out $/20 n/coke d/19112019 c/drink c/lunch`
-* <<Set, *Set*>> : `set $/AMOUNT d/DATE c/CATEGORY` +
+* <<Set, *Set*>> : `set $/AMOUNT d/DATE [c/CATEGORY]...` +
 Example: `set $/100 d/10102019 c/food`
 * <<Split, *Split*>> : `split $/AMOUNT n/NAME1 [n/NAME2]... [s/SHARE]...` +
 Example: `split $/100 n/Albert n/Bernard n/Clement s/2 s/1 s/7`
