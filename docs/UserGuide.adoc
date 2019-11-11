@@ -348,6 +348,7 @@ image::daysCommand.png[]
 image::daysPage.png[]
 
 
+// tag::expense_ppp1[]
 
 === Expense Manager
 
@@ -360,12 +361,14 @@ This section of the user guide explains how to view and manage your expenses usi
 
 ==== User Interface Overview
 
-Shown below is the landing page of the __Expense Manager__.
+Shown below is the landing page of the __Expense Manager__:
 
 image::expense/userguide/ExpenseManager.png[title="Overview of Expense Manager user interface"]
 
-To toggle the display of expenses between list view and day view, use the command `showdays` or `showlist`. Alternatively,
-you may click the toggle button on the page.
+To toggle the display of expenses between list view and days view, use the command `showdays` or `showlist`. Alternatively,
+you may click on the _toggle button_ on the page.
+
+The following screenshot is the days view of the _Expense Manager_:
 
 image::expense/userguide/ExpenseManagerDays.png[title="Expense Manager user interface showing the daily expenses and budget summary"]
 
@@ -383,14 +386,23 @@ On the __Expense Manager__ page, the following command are available:
 * `edit <index of expense>`: edit an expense, this command bring up the expense setup page.
 * `delete <index of expense>`: delete an expense, note that only miscellaneous expenses can be deleted.
 * `showdays`: enter the days view of expense manager, the expenses will be grouped according to the days they belong to.
-* `currency`: enter the currency page of TravelPal, can also be accessed by clicking the `Edit Currency` button
+* `showlist`: enter the list view of expense manager, the expenses will be shown in one list.
+* `goto <index of expense>`: go to the event page containing the event associated with this expense.
+* `sort name`: sort the expenses according to the name lexicographically. Enter the command again to sort in reverse order.
+* `sort amount`: sort the expenses according to the amount of expense in ascending order. Enter the command again to sort in descending order.
+* `currency`: enter the _Currency_ page of TravelPal, can also be accessed by clicking on the _Edit Currency_ button
+
+NOTE: `delete` command can only be used on miscellaneous expense, however, you may delete the event associated with a planned expense, which will
+delete the expense as well. `goto` command is only for planned expense associated with an event.
 
 ==== Expense Setup
 
-Expense setup creates/edits properties of a specified expense.
-To access the __Expense Setup__ page, use `create` or `edit <index of expense>` command on`Expense Manager` page.
+_Expense Setup_ creates/edits properties of a specified expense.
+To access the __Expense Setup__ page, use `create` or `edit <index of expense>` command on _Expense Manager_ page. Shown below is an screenshot of the page:
 
-It is necessary for expense to contains a name and amount. It can also contain an optional day number, indicating which day the expense belong to.
+image::expense/userguide/ExpenseSetup.png[title="Expense Setup page user interface"]
+
+It is necessary for expense to contain a name, an amount and a day number.
 
 The following commands are available on __Expense Setup__ page.
 
@@ -404,7 +416,7 @@ The prefixes refer to editing each fields as follows:
 * `b/` The amount of expense, in Singapore dollars.
 * `dn/` The day number the expense belongs to.
 
-NOTE: For Planned expense linked to an event, the `name` and `day number` fields are not editable. However, you may
+NOTE: For planned expense linked to an event, the `name` and `day number` fields are not editable. However, you may
 edit the name of the corresponding event, this will also update the name of the planned expenses.
 
 ====== Example Usage for `edit` command:
@@ -414,22 +426,30 @@ To add an expense with the name _Miscellaneous Expenses_ of $_10.5_ SGD to day _
 `edit n/Miscellaneous Expenses b/10.5 dn/2`
 ======
 
+// end::expense_ppp1[]
 
-=== Currency Manager
+
+// tag::currency_ppp1[]
+
+=== Currency
 
 ==== Introduction
 
-With _Currency manager_, you can add and select currencies with customised currency name, symbol and exchange rate.
+On _Currency_ page, you can add and select currencies with customised currency name, symbol and exchange rate.
 When a currency is selected, all the monetary valued will be displayed in that currency
 
 ==== User Interface Overview
 
-Shown below is a screenshot of the __Currency Manager__ page.
+Shown below is a screenshot of the __Currency__ page:
 
 image::currency/userguide/CurrencyPage.png[title="Overview of Currency Manager user interface"]
 
-The left half of the __Currency Manager__ page consists of editable text fields for creating a new currency, under the
-`Symbol of Currency` section, the most commonly used currency symbols are indexed. You can also input other currency symbols.
+The left half of the __Currency Manager__ page consists of editable text fields for creating a new currency.
+
+Under the
+`Symbol of Currency` section, you can find _preset currency symbols_, in which the most commonly used currency symbols are indexed. You can select a currency
+by entering the index in place of the actual symbol, or just by clicking on the button.
+You can also manually input other currency symbols.
 
 On the right hand side of the page, the customised currencies are listed. _Singapore Dollar(SGD)_ is pre-defined as the base currency.
 You may select or delete a customised currency.
@@ -462,6 +482,8 @@ To add an currency with name _USD_, symbol _$ (pre-set symbol with index 1)_, an
 `edit n/USD s/1 r/0.74`
 ======
 
+// end::currency_ppp1[]
+
 // tag::booking_ppp[]
 === Booking
 
@@ -477,6 +499,7 @@ Furthermore, for almost every command, there is a GUI alternative using various 
 The following section of the User Guide explains hoe to use the Booking.
 
 ==== Booking User Interface Overview
+>>>>>>> master
 
 === Diary
 

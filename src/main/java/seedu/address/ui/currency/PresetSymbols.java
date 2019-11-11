@@ -6,11 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.currency.EditCurrencyFieldCommand;
-import seedu.address.model.Model;
 import seedu.address.model.currency.Symbol;
-import seedu.address.model.expense.Expense;
 import seedu.address.ui.MainWindow;
 import seedu.address.ui.UiPart;
 
@@ -40,9 +37,6 @@ public class PresetSymbols extends UiPart<VBox> {
     @FXML
     private VBox propertiesContainer;
     private ToggleGroup group;
-    private Expense expense;
-    private Index displayedIndex;
-    private Model model;
     private MainWindow mainWindow;
 
     public PresetSymbols(MainWindow mainWindow) {

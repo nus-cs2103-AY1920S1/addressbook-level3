@@ -1,0 +1,22 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor MODEL_COLOR
+skinparam classBackgroundColor MODEL_COLOR
+
+class ExpenseList
+class Name
+class Budget
+class DayNumber
+class "{abstract}\nExpense" as Expense
+
+Trip *-down--> "1"ExpenseList
+ExpenseList *-left-> "0..*" Expense
+
+MiscExpense --|> Expense
+PlannedExpense --|> Expense
+Expense *--> "1" Name
+Expense *--> "1" Budget
+Expense *--> "1" DayNumber
+
+@enduml

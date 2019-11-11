@@ -1,0 +1,43 @@
+@startuml
+!include style.puml
+skinparam arrowThickness 1.1
+skinparam arrowColor UI_COLOR_T4
+skinparam classBackgroundColor UI_COLOR
+
+package UI.currency <<Rectangle>> {
+Class CurrencyCard
+Class SelectedCurrencyCard
+Class UnselectedCurrencyCard
+Class CurrencyPage
+Class PresetSymbols
+}
+
+package UI.expense <<Rectangle>> {
+Class ExpensesPage #FFFFFF
+}
+
+package UI <<Rectangle>> {
+    Class MainWindow
+}
+
+package Model <<Rectangle>> {
+Class HiddenModel #FFFFFF
+}
+
+package Logic <<Rectangle>> {
+Class HiddenLogic #FFFFFF
+}
+
+Class HiddenOutside #FFFFFF
+HiddenOutside ..> MainWindow
+MainWindow *-- CurrencyPage
+ExpensesPage <--> CurrencyPage
+CurrencyPage *--> PresetSymbols
+PresetSymbols -up-> MainWindow
+CurrencyPage *--> "1..*"CurrencyCard
+CurrencyCard <|-- SelectedCurrencyCard
+CurrencyCard <|-- UnselectedCurrencyCard
+CurrencyPage -left-> HiddenModel
+CurrencyPage -right-> HiddenLogic
+
+@enduml
