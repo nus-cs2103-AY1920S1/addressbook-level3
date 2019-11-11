@@ -345,6 +345,38 @@ From the diagram, it can be seen that there are three major reasons that can int
 * the user tried to add a duplicate event 
 * the user tried to add an event that may result in conflicts in his/her schedule
 
+==== Design considerations
+
+.Design considerations for calendar
+[grid="rows", frame="none"]
+|===
+| Aspect | Alternative 1 | Alternative 2
+
+| Data structure to support ``suggest`` and ``check`` commands
+a|The calendar simply stores all events in a list.
+
+* Pros: Easy to implement
+* Cons: Possibly slower performance, especially when users have many events in their calendars
+a|The calendar stores the events in an interval search tree.
+
+* Pros: On average, ``suggest`` and ``check`` commands can be performed more quickly, especially when there are many events in the calendar. In turn, this can improve user experience.
+* Cons: Implementation of interval search tree is tedious.
+* I chose this option because performance efficiency is essential if TravEzy is to scale. Furthermore, I can use the interval search tree to implement enhancements for ``add`` and ``delete`` commands more easily. 
+
+| Required date format for user input
+a|The usual date format like dd/mm/yy (for example, 12/05/2019 to specify 12 May 2019)
+
+* Pros: Easy to implement and is similar to the required date format in most online form
+* Cons: Very restrictive and not everyone uses the above format (for instance, in some countries, people specify date using the mm/dd/yyyy format).
+
+a|Allow users to specify day, month and year in whichever order they want.
+
+* Pros: More flexible. Furthermore, it can be implementd in a way that allows users to leave out the month and year information if they are referring to the current month and year. 
+* Cons: If caution is not taken, bugs can arise quite easily.
+* I chose this implementation because it allows users to specify dates in the format which they are most familiar with.
+
+|===
+
 
 === Itinerary
 
