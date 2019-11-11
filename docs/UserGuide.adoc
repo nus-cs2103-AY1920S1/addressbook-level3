@@ -428,7 +428,7 @@ Parameter constraints:
 
 // end::goto-command[]
 
-==== Adding a bookmark: *add*
+==== Adding a bookmark: *`add`*
 
 // Context: When to use this command?
 If you're browsing the web and want to bookmark a website, you can do so using the `add` command.
