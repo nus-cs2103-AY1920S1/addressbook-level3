@@ -1,6 +1,5 @@
 package seedu.billboard.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.billboard.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.billboard.testutil.TypicalExpenses.getTypicalBillboard;
 import static seedu.billboard.testutil.TypicalRecurrences.getTypicalBillboardWithRecurrenceExpenses;
