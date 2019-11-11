@@ -10,7 +10,7 @@ import javafx.scene.Node;
 import seedu.revision.ui.testutil.UiPartExtension;
 
 /**
- * A GUI unit test class for AddressBook.
+ * A GUI unit test class for RevisionTool.
  */
 public abstract class GuiUnitTest {
     // TODO: Remove this workaround after using JavaFX version 13 or above

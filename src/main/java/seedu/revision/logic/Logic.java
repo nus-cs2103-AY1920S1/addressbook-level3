@@ -9,7 +9,6 @@ import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
 import seedu.revision.model.ReadOnlyHistory;
-import seedu.revision.model.ReadOnlyRevisionTool;
 import seedu.revision.model.answerable.Answerable;
 import seedu.revision.model.quiz.Statistics;
 
@@ -17,13 +16,6 @@ import seedu.revision.model.quiz.Statistics;
  * API of the Logic component
  */
 public interface Logic {
-
-    /**
-     * Returns the RevisionTool.
-     *
-     * @see seedu.revision.model.Model#getRevisionTool()
-     */
-    ReadOnlyRevisionTool getAddressBook();
 
     /**
      * Returns the History.
@@ -50,7 +42,7 @@ public interface Logic {
     /**
      * Returns the user prefs' revision tool file path.
      */
-    Path getAddressBookFilePath();
+    Path getRevisionToolFilePath();
 
     /**
      * Returns the user prefs' revision tool file path.

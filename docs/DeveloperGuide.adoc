@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/AY1920S1-CS2103-F10-3/main
 
-By: `Group F10-3`      Since: `Aug 2019`      Licence: `MIT`
+By: `Team F10-3`      Since: `Aug 2019`      Licence: `MIT`
 
 == Setting up
 
@@ -23,6 +23,7 @@ Refer to the guide <<SettingUp#, here>>.
 == Design
 
 [[Design-Architecture]]
+
 === Architecture
 
 .Architecture Diagram
@@ -67,7 +68,7 @@ image::LogicClassDiagram.png[]
 The _Sequence Diagram_ below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
 
 .Component interactions for `delete 1` command
-image::ArchitectureSequenceDiagram.png[]
+image::ArchitectureSequenceDiagram2.png[]
 
 The sections below give more details of each component.
 
@@ -88,8 +89,10 @@ The `UI` component,
 * Executes user commands using the `Logic` component.
 * Listens for changes to `Model` data so that the UI can be updated with the modified data.
 
+
 [[Design-Logic]]
 === Logic component
+//tag::shaun-logic[]
 ==== Overview of Logic Component
 
 [[fig-LogicClassDiagram]]
@@ -104,6 +107,8 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 .  The command execution can affect the `Model` (e.g. adding a question).
 .  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 .  In addition, the `CommandResult` object can also instruct the `Ui` to perform certain actions, such as displaying help to the user.
+
+//end::shaun-logic[]
 
 //tag::wilfred-logic[]
 ==== Managing parsing in Configuration and Quiz Mode
@@ -128,7 +133,7 @@ decide the valid commands in each mode. The following are the parsers used in ea
 ** TfInputCommandParser
 ** SaqInputCommandParser
 
-=== Parsing in Configuration Mode
+==== Parsing in Configuration Mode
 In Configuration Mode, a single string is passed as an argument to the execute method.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
@@ -137,7 +142,7 @@ image::DeleteSequenceDiagram.png[]
 
 NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
 
-=== Parsing in Quiz Mode
+==== Parsing in Quiz Mode
 In Quiz Mode, a string and the current `Answerable` object are passed as arguments to the execute method.
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("c", answerable)` API call.
 
@@ -156,11 +161,12 @@ To guard against null values, default values are provided to every field in the 
 Objects that call `CommandResult` can choose to customise `CommandResult` according to their needs.
 //end::wilfred-logic[]
 
+//tag::shaun-designmodel[]
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::ModelClassDiagram.png[]
+image::ModelClassDiagram2.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -170,12 +176,14 @@ The `Model`,
 * stores the Question Bank data.
 * exposes an unmodifiable `ObservableList<Answerable>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
+//end::shaun-designmodel[]
 
 //tag::wilfred-answerable[]
 ==== The `Answerable` Class
 
 .Class Diagram of the Answerable Class
 image::AnswerableClassDiagram.png[]
+
 The main class that the Revision Tool operates on is the `Answerable` class.
 
 Each `Answerable` class must have 1 `Question`, 1 `Difficulty` and can have any amount of categories associated with it.
@@ -194,11 +202,12 @@ For all subclasses, there cannot be any duplicates of answers. For example, if a
 wrong answers, it cannot have "option1" as its correct answer or another wrong answer.
 //end::wilfred-answerable[]
 
+//tag::shaun-storage[]
 [[Design-Storage]]
 === Storage component
 
 .Structure of the Storage Component
-image::StorageClassDiagram.png[]
+image::StorageClassDiagram2.png[]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -206,19 +215,21 @@ The `Storage` component,
 
 * can save `Question Bank` objects in json format and read it back.
 * can save the Test Bank data in json format and read it back.
+//end::shaun-storage[]
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.revision.commons` package.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
-// tag::undoredo[]
-=== [Proposed] Add questions feature
-==== Proposed Implementation
+//tag::shaun-add[]
+
+=== Add questions feature
+==== Implementation
 
 The add questions mechanism is facilitated by `AddCommand`.
 It extends `Command` that will read a user command and execute the command result.
@@ -231,26 +242,21 @@ These operations are exposed in the `Model` interface as `Model#addMcqCommand()`
 
 Given below is an example usage scenario and how the add questions mechanism behaves at each step.
 
-Step 1. The user types `add mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.
+Step 1. The user types `add type/mcq q/"string of question" x/option1 x/option2 y/option3 x/option4 cat/[UML] diff/[easy]`, this command adds a easy difficulty mcq question about UML with 4 options and option3 being the correct answer.
 
-image::UndoRedoState0.png[]
+image::InitialState.png[]
 
 Step 2. The command is being parse into the parser and the AddCommand object of type Command will be created.
 
-image::UndoRedoState1.png[]
+image::FirstState.png[]
 
 Step 3. The AddCommand object will call its `addMcq()` method, this method will read the command and store the question with the answers into the `test bank` accordingly.
 
-image::UndoRedoState2.png[]
+image::SecondState.png[]
 
 [NOTE]
-If a command fails its execution, it will not save the question into the `test bank`. It will however throw an invalid command exception.
-
-The following sequence diagram shows how the add question operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+If a command fails its execution, it will not save the question into the `revision tool`. It will however throw an invalid command exception.
+//end::shaun-add[]
 
 ==== Design Considerations
 
@@ -268,7 +274,6 @@ NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but du
 * **Alternative 2:** Use multiple steps to guide user on adding the question.
 ** Pros: User do not have to memorize the correct format and less chance for an invalid command input.
 ** Cons: Slow to add questions, requiring multiple steps to fully complete a question.
-// end::undoredo[]
 
 //tag::wilfred-quiz[]
 === Quiz Mode
@@ -415,17 +420,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `RevisionTool` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Delete answerable
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list answerables
+2.  RevisionTool shows a list of answerables
+3.  User requests to delete a specific answerable in the list
+4.  RevisionTool deletes the answerable
 +
 Use case ends.
 
@@ -439,7 +444,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. RevisionTool shows an error message.
 +
 Use case resumes at step 2.
 
@@ -494,7 +499,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 .. Download the jar file and copy into an empty folder
 .. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   Expected: Shows the GUI with a set of sample answerables. The window size may not be optimum.
 
 . Saving window preferences
 
@@ -504,15 +509,15 @@ These instructions only provide a starting point for testers to work on; testers
 
 _{ more test cases ... }_
 
-=== Deleting a person
+=== Deleting an answerable
 
-. Deleting a person while all persons are listed
+. Deleting an answerable while all answerables are listed
 
-.. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+.. Prerequisites: List all answerables using the `list` command. Multiple answerables in the list.
 .. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   Expected: First answerable is deleted from the list. Details of the deleted answerable shown in the status message. Timestamp in the status bar is updated.
 .. Test case: `delete 0` +
-   Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+   Expected: No answerable is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 

@@ -28,6 +28,10 @@ public class ProgressIndicatorBar extends UiPart<Region> {
     public ProgressIndicatorBar(final ReadOnlyDoubleProperty currentProgress, final double totalProgress,
                                 final String labelFormatSpecifier) {
         super(FXML);
+
+        assert currentProgress.get() >= 0 && currentProgress.get() <= totalProgress : "invalid total progress provided";
+        assert totalProgress > 0 : "invalid total progress provided";
+
         this.currentProgress = currentProgress;
         this.totalProgress = totalProgress;
         this.labelFormatSpecifier = labelFormatSpecifier;
@@ -53,6 +57,9 @@ public class ProgressIndicatorBar extends UiPart<Region> {
             text.setText("");
             bar.setProgress(ProgressBar.INDETERMINATE_PROGRESS);
         } else {
+            assert currentProgress.get() >= 0 && currentProgress.get() <= totalProgress
+                    : "invalid total progress provided";
+            assert totalProgress > 0 : "invalid total progress provided";
             text.setText(String.format(labelFormatSpecifier, Math.ceil(currentProgress.get())));
             bar.setProgress(currentProgress.get() / totalProgress);
         }

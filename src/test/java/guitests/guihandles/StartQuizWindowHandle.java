@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 /**
  * Provides a handle for {@code MainWindow}.
  */
-public class MainWindowHandle extends StageHandle {
+public class StartQuizWindowHandle extends StageHandle {
 
     private final AnswerableListPanelHandle answerableListPanel;
     private final ResultDisplayHandle resultDisplay;
@@ -13,7 +13,7 @@ public class MainWindowHandle extends StageHandle {
     private final StatusBarFooterHandle statusBarFooter;
     private final MainMenuHandle mainMenu;
 
-    public MainWindowHandle(Stage stage) {
+    public StartQuizWindowHandle(Stage stage) {
         super(stage);
 
         answerableListPanel = new AnswerableListPanelHandle(

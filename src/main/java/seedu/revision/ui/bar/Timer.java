@@ -11,24 +11,27 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 import seedu.revision.commons.core.LogsCenter;
 import seedu.revision.logic.Logic;
 import seedu.revision.logic.commands.exceptions.CommandException;
 import seedu.revision.logic.commands.main.CommandResult;
 import seedu.revision.logic.parser.exceptions.ParseException;
+import seedu.revision.ui.UiPart;
 
 /**
  * Timer class which handles the animations and implementation of the quiz session timer.
  */
-public class Timer {
+public class Timer extends UiPart<Region> {
     public static final String MESSAGE_CONSTRAINTS = "Timer must be a number that is greater 1, and "
             + "double values will be truncated.";
+    private static final String FXML = "Timer.fxml";
     private static final Logger logger = LogsCenter.getLogger(Timer.class);
 
     private final Integer startTime;
     @FXML
-    private final Label label;
+    private final Label timerLabel;
     private final CommandExecutor commandExecutor;
     private ReadOnlyIntegerWrapper currentTime;
     private Timeline timeline;
@@ -39,10 +42,11 @@ public class Timer {
      * @param commandExecutor command that will be executed at the end of the countdown.
      */
     public Timer(Integer startTime, CommandExecutor commandExecutor) {
+        super(FXML);
         this.startTime = startTime;
         this.currentTime = new ReadOnlyIntegerWrapper(
                 this, "currentTime", startTime);
-        this.label = new Label();
+        this.timerLabel = new Label();
         this.commandExecutor = commandExecutor;
 
         currentTime.addListener(new ChangeListener<Number>() {
@@ -76,15 +80,11 @@ public class Timer {
         timeline.play();
     }
 
-    public Label getLabel() {
-        return label;
-    }
-
     /** Syncs the observable value with the progress. **/
     private void syncProgress() {
-        //Run of the JavaFX Application Thread.
+        //Run on the JavaFX Application Thread.
         Platform.runLater(() -> {
-            label.setText(((Integer) currentTime.get()).toString());
+            timerLabel.setText(((Integer) currentTime.get()).toString());
         });
     }
 
@@ -98,6 +98,10 @@ public class Timer {
     /** Stops the timer. **/
     public void stopTimer() {
         timeline.stop();
+    }
+
+    public Label getTimerLabel() {
+        return timerLabel;
     }
 
     /**
