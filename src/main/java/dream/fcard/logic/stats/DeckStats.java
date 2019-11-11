@@ -211,7 +211,7 @@ public class DeckStats extends Stats implements JsonInterface {
         for (String k : deckHashMap.keySet()) {
             try {
                 names.add(k);
-                sessions.add(deckHashMap.get(k).toJson().getArray());
+                sessions.add(getSessionListForDeck(k).toJson().getArray());
             } catch (JsonWrongValueException e) {
                 System.out.println("SESSIONS MUST BE ARRAY");
             }
