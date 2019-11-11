@@ -41,6 +41,7 @@ public class MainWindow extends UiPart<Stage> {
     private CommandBox commandBox;
     private DataPanelsTabPaneManager dataPanelsTabPaneManager;
     private HistoryPanel historyPanel;
+    private AutoCompletePanelManager autoCompletePanelManager;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -139,8 +140,13 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getPatientBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        autoCompletePanel = new AutoCompletePanel(logic.getFilteredPatientList(), logic.getFilteredAppointmentList());
+        autoCompletePanel = new AutoCompletePanel();
         autoCompletePanelPlaceholder.getChildren().add(autoCompletePanel.getRoot());
+        autoCompletePanelManager = new AutoCompletePanelManager(
+                autoCompletePanel,
+                logic.getFilteredPatientList(),
+                logic.getFilteredAppointmentList(),
+                logic.getObservableHistoryList());
 
         commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
@@ -152,10 +158,10 @@ public class MainWindow extends UiPart<Stage> {
         appointmentListPanelPlaceholder.getChildren().add(appointmentListPanel.getRoot());
 
         // Add observers into commandBox observer list
-        commandBox.addObserver(autoCompletePanel);
+        commandBox.addObserver(autoCompletePanelManager);
         commandBox.addObserver(resultDisplay);
         // Set data sender for commandBox
-        commandBox.setDataSender(autoCompletePanel);
+        commandBox.setDataSender(autoCompletePanelManager);
 
         dataPanelsTabPaneManager = new DataPanelsTabPaneManager(dataPanelsTabPane,
                 patientTabPage,
@@ -248,12 +254,5 @@ public class MainWindow extends UiPart<Stage> {
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }
-    }
-
-    /**
-     * Set listeners for all individual components in main window
-     */
-    public void setAllListeners() {
-        commandBox.setOnButtonPressedListener();
     }
 }

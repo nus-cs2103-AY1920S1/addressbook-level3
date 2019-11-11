@@ -1,0 +1,49 @@
+@startuml
+!include style.puml
+
+participant ":CommandBox" as CommandBox UI_COLOR
+participant ":AutoCompletePanelManager" as AutoCompletePanelManager UI_COLOR
+participant ":AutoCompletePanel" as AutoCompletePanel UI_COLOR
+participant ":AutoCompleteWord" as AutoCompleteWord UI_COLOR
+participant ":MatchWordUpdater" as MatchWordUpdater UI_COLOR
+participant ":AutoCompleteListHandler" as AutoCompleteListHandler UI_COLOR
+participant ":AutoCompleteStorage" as AutoCompleteStorage UI_COLOR
+
+[-> CommandBox : User presses any other key other than UP, DOWN, SHIFT, ENTER;
+activate CommandBox
+CommandBox -> CommandBox : notifyObserversToChange(event.getCode(), commandTextField.getText() + event.getText());
+activate CommandBox
+
+CommandBox -> AutoCompletePanelManager : update(event.getCode(), commandTextField.getText() + event.getText());
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> AutoCompletePanelManager : updateListView(event.getCode(), commandTextField.getText() + event.getText())
+activate AutoCompletePanelManager
+
+AutoCompletePanelManager -> MatchWordUpdater : findMatchedWords(commandTextField.getText() + event.getText())
+activate MatchWordUpdater
+
+MatchWordUpdater -->  AutoCompletePanelManager: matchedWords
+deactivate MatchWordUpdater
+
+AutoCompletePanelManager ->  AutoCompleteListHandler: generateList(matchedWords, commandTextField.getText() + event.getText())
+activate AutoCompleteListHandler
+
+ref over AutoCompleteListHandler, AutoCompleteStorage : generating list
+
+AutoCompleteListHandler --> AutoCompletePanelManager: generatedList
+deactivate AutoCompleteListHandler
+
+AutoCompletePanelManager -> AutoCompletePanel: setList(generatedList)
+activate AutoCompletePanel
+
+AutoCompletePanel --> AutoCompletePanelManager
+deactivate AutoCompletePanel
+return
+
+AutoCompletePanelManager --> CommandBox
+deactivate AutoCompletePanelManager
+return
+
+@enduml
+

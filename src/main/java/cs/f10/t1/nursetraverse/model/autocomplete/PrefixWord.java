@@ -1,6 +1,10 @@
-package cs.f10.t1.nursetraverse.autocomplete;
+//@@author francislow
+
+package cs.f10.t1.nursetraverse.model.autocomplete;
 
 import java.util.LinkedList;
+
+import cs.f10.t1.nursetraverse.model.appointment.AutoCompleteWord;
 
 /**
  * Represents a prefix word(eg: n/, t/) in application.
