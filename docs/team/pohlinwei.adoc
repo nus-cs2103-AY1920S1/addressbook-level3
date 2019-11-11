@@ -129,13 +129,13 @@ Let's find out how!
 
 Step 1. Type ``check d/9 m/Dec y/2019`` in the _command box_ and press _Enter_. +
 
-image::calendarScreenshots/check1.png[Check command,width=600]
+image::../images/calendarScreenshots/check1.png[Check command,width=600]
 
 Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
 
 Step 3. The _result box_ will display a message to indicate whether you are available to travel during the specified time. If you happen to be free (like in this case), you may start booking your trip! 😀 +
 
-image::calendarScreenshots/check2.png[Check result,width=600]
+image::../images/calendarScreenshots/check2.png[Check result,width=600]
 
 
 === Suggesting a suitable time for a trip: ``suggest``
@@ -163,13 +163,13 @@ How so? Just ask _TravEzy_ to suggest a suitable time!
 
 Step 1. Type ``suggest d/9 m/Dec y/2019 D/20 M/Dec Y/2019`` in the _command box_ and press _Enter_. +
 
-image::calendarScreenshots/suggest1.png[Suggest command,width=600]
+image::../images/calendarScreenshots/suggest1.png[Suggest command,width=600]
 
 Step 2. The _month and year panel_ and _month view panel_ will change to show you your schedule for this December.
 
 Step 3. The _result box_ will display a message to indicate when you are able to travel during the specified time. +
 
-image::calendarScreenshots/suggest2.png[Suggest result,width=600]
+image::../images/calendarScreenshots/suggest2.png[Suggest result,width=600]
 
 To view all my contributions to the user guide, please click https://github.com/AY1920S1-CS2103T-T17-2/main/blob/master/docs/UserGuide.adoc#calendar[here].
 
@@ -187,8 +187,7 @@ This section discusses some design details of the calendar model.
 
 The following diagram illustrates the class diagram of the most important part of the calendar model. Specifically, it focuses on the https://github.com/AY1920S1-CS2103T-T17-2/main/tree/master/src/main/java/seedu/address/calendar/model/event[``Event`` component].
 
-.Calendar model class diagram
-image::CalendarClassDiagram.png[Calendar model class diagram]
+image::../images/CalendarClassDiagram.png[Calendar model class diagram]
 
 As shown above, the ``Calendar`` instance interacts with the ``EventManager`` by querying it. With the help of ``EventManger``, the ``Calendar`` instance does not need to deal with "lower-level" concerns (for instance, how ``Event``s are managed internally). 
 
@@ -215,8 +214,7 @@ More information about this package is provided below.
 
 To find out how ``Calendar``, ``EventManager`` and ``IntervalSearchTree`` described above interact, consider the following sequence diagram. It describes how these classes work together when the user tries to add a holiday, which is represented by ``event`` (a ``Holiday`` instance) in the diagram below. 
 
-.Calendar model sequence diagram
-image::CalendarSequenceDiagram.png[Calendar model sequence diagram]
+image::../images/CalendarSequenceDiagram.png[Calendar model sequence diagram]
 
 ==== Add An Event Feature
 
@@ -224,8 +222,7 @@ This section provides some details about how the _add an event_ feature is imple
 
 The following diagram illustrates the course of action(s) that is(are) possibly taken when a user tries to add a new trip to his/her calendar.
 
-.Calendar activity diagram
-image::CalendarActivityDiagram.png[Calendar activity diagram]
+image::../images/CalendarActivityDiagram.png[Calendar activity diagram]
 
 From the diagram, it can be seen that there are three major reasons that can interrupt the user request:
 
