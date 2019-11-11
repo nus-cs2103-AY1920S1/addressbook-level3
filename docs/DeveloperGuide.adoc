@@ -615,3 +615,43 @@ Note: If the format of `visit-now-update` arguments are wrong, the error message
 .. Prerequisite: `./imports/testcase4.csv` exists and contains **only new** patient data in the correct format.
 .. Test case: `app-import-merge n/testcase3` +
    Expected: All patients in `testcase4.csv` added into the app.
+
+=== Viewing the command history:
+
+. Viewing the command history.
+
+.. Prerequisite: None.
+... Test case: `pat-list` +
+    Expected: No change to the history panel.
+
+.. Prerequisites: List all patients using the `pat-list` command. At least one patient in the list. No ongoing visit.
+... Test case: `pat-delete 1` +
+    Expected: `pat-delete 1` appears in the history panel at the bottom of the list with the greatest index number.
+
+=== Undoing a command:
+
+. Undoing a command.
+
+.. Prerequisite: There are commands in the history.
+... Test case: `app-undo` +
+    Expected: The previous command in the history is undone.
+... Test case: `app-undo 1` +
+    Expected: All commands in the history are undone.
+
+.. Prerequisite: There are no commands in the history.
+... Test case: `app-undo` +
+    Expected: No command is undone. An error message appears in the status box.
+... Test case: `app-undo 1` +
+    Expected: No command is undone. An error message appears in the status box.
+
+=== Redoing a command:
+
+. Redoing a command.
+
+.. Prerequisite: `app-undo` is the last successful data-modifying command.
+... Test case: `app-redo` +
+    Expected: The undone command is redone.
+
+.. Prerequisite: `app-undo` is **not** the last successful data-modifying command.
+... Test case: `app-redo` +
+    Expected: No command is redone. An error message appears in the status box.
