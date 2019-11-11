@@ -53,6 +53,8 @@ Codes contributed: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/96[96 (v1
 
 Project management:
 
+* Contributed to the idea of using `Page Manager` to handle pages switching among the six different features.
+
 * Started implementing user interface(Ui) components and link them to FXML. This provides skeletal codes for the rest of my teammates to adapt with. +
 Code for reference: https://github.com/AY1920S1-CS2103T-T17-2/main/pull/36[36]
 

@@ -56,7 +56,7 @@ public class Date {
             } else if ((day.equals("30") || day.equals("31")) && month.equals("02")) {
                 return false;
             } else if (day.equals("31") && (month.equals("04") || month.equals("06")
-                    || month.equals("09")) || month.equals("11")) {
+                    || month.equals("09") || month.equals("11"))) {
                 return false;
             } else {
                 return true;

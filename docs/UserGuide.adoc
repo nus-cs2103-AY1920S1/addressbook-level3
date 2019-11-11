@@ -114,7 +114,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | Symbol/font | What does it mean?
 
 | _italics_
-| Italicised text indicates that the text has a definition that is specific to the application. Do look out for the definitions of these words along the way. If not, please look at the glossary in section 13).
+| Italicised text indicates that the text has a definition that is specific to the application. Do look out for the definitions of these words along the way.
 
 | ``command``
 | A grey highlight means that you can type the words into _TravEzy_ and it will start performing tasks to make travel easier for you
@@ -126,7 +126,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | The slash and letter (or word) before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
 
 | ``[m/MONTH]``
-| Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
+| Square brackets imply that the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
 | 💡
 | A light bulb indicates that the enclosed text is a tip.
@@ -166,11 +166,11 @@ where ``PAGE TYPE`` can be any of the following: ``calendar``, ``itinerary``, ``
 
 Step 1. Type ``goto itinerary`` in the _command box_ and press _Enter_. +
 
-image::MainGoto1.png[Goto command]
+image::MainGoto1.png[Goto command,width=600]
 
 Step 2. You will be directed to the _itinerary page_.
 
-image::MainGoto2.png[Goto result]
+image::MainGoto2.png[Goto result,width=600]
 
 
 === Viewing help: ``help``
@@ -184,13 +184,13 @@ If you are lost, this command will be helpful.
 
 Step 1. Type ``help`` in the _command box_ and press _Enter_. +
 
-image::MainHelp1.png[Help command]
+image::MainHelp1.png[Help command,width=600]
 
 Step 2. The message in the _result box_ will be updated to indicate that the help window has been opened.
 
 Step 3. The help window will appear as a pop-up and you may click the "copy link". This link will direct you to _TravEzy's_ user guide (i.e. this document).😊 +
 
-image::MainHelp2.png[Help result]
+image::MainHelp2.png[Help result,width=600]
 
 === Exiting the application: ``exit``
 
@@ -203,7 +203,7 @@ It's time to catch your flight, exit  _TravEzy_ and start your trip!
 
 Step 1. Type ``exit`` in the _command box_ and press _Enter_. +
 
-image::MainExit1.png[Exit command]
+image::MainExit1.png[Exit command,width=600]
 
 Step 2. All _TravEzy's_ windows will close.
 
@@ -226,6 +226,8 @@ image::calendarScreenshots/calendarInterfaceUG.png[Calendar interface,width=800]
 To help you easily differentiate between various types of _events_, _TravEzy_ has categorised the _events_ into four types: _commitment_, _holiday_, _school break_ and _trip_. Visually, _TravEzy_ also uses different _labels_ for the different types of _events_, as shown in the image above.
 
 WARNING: The _labels_ indicate the *type* of _event_ you have for that particular day. It does not indicate the number of _events_.
+
+WARNING: You will not be able to see the _labels_ on your calendar if your window (the display screen of this application) size is too small. If you need some help with that, click https://www.computerhope.com/issues/ch001478.htm[here].
 
 === Adding an event to your calendar: ``add``
 
@@ -268,9 +270,11 @@ Step 4. The _result box_ will also display a message to indicate that your _comm
 
 image::calendarScreenshots/add2.png[Add result,width=600]
 
+WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
+
 TIP: You do not have to specify the ``END YEAR``, ``END MONTH`` and/or ``END DAY`` if they are the same as ``START YEAR``, ``START MONTH`` and/or ``START DAY``, respectively. This applies to the following commands as well.
 
-WARNING: If you leave out the month and/or year, the current month and/or year will be used. This applies to the following commands as well.
+TIP: _TravEzy's calendar_ understands that ``12`` refers to ``Dec`` as well! Furthermore, it understands that ``Decem`` refers to ``Dec``. This means that you can either type a *1 or 2 digit number* to represent a month *or* you can indicate a month with *at least first three letters* of the month.
 
 === Deleting an event from your calendar: ``delete``
 
@@ -465,22 +469,6 @@ This is how _TravEzy's_ Itinerary looks like:
 
 image::ItineraryInterface.png[width=800]
 
-=== Auto-completion feature
-
-Don't you wish there's a way to quickly type all your commands. Well _TravEzy's_ Itinerary got you covered! _TravEzy's_
-Itinerary _command box_ has auto-completion function which offers suggestions based on your input.
-
-This is how _TravEzy's_ Itinerary auto-complete looks like:
-
-image::ItineraryAuto.png[width=600]
-
-1. _Auto-complete dropdown bar_. Provides suggestions to complete your command base on your current input typed in the
-_command box_.
-
-[WARNING]
-The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
-it to read the input before hitting _Enter_
-
 === Adding an event: ``add``
 
 Planning to visit DisneySea tomorrow? Add some rides that you plan to take then! 🎢
@@ -513,7 +501,7 @@ Step 3. The _result box_ will display the message "Processing...
 Done!
 Your event has been successfully added! HAND, TravEzy! :D"
 
-Step 4. Now you can find your added event in the the event list.
+Step 4. Now you can find your added event in the event list.
 
 image::ItineraryAdd2.png[width=600]
 
@@ -785,8 +773,25 @@ Step 3. The Itinerary will present the sorted _event list_ based on the sort con
 
 image::ItinerarySort2.png[width=600]
 
-== Address Book
+=== Auto-completion feature
 
+Don't you wish there's a way to quickly type all your commands. Well _TravEzy's_ Itinerary got you covered! _TravEzy's_
+Itinerary _command box_ has auto-completion function which offers suggestions based on your input.
+
+This is how _TravEzy's_ Itinerary auto-complete looks like:
+
+image::ItineraryAuto.png[width=600]
+
+1. _Auto-complete dropdown bar_. Provides suggestions to complete your command base on your current input typed in the
+_command box_.
+
+[WARNING]
+The _auto-complete dropdown bar_ requires some time to sync with the input typed in the command box. Hence, give some time for
+it to read the input before hitting _Enter_
+
+//tag::address[]
+
+== Address Book
 You are heading to a different country for a trip this holiday and you want to let your friends in other countries know
 that you are coming over. The trouble of managing contacts from many different countries can be overwhelming with a
 large number of contacts. Looking for a better contacts management application?
@@ -1038,6 +1043,8 @@ image::AddressBookClear2.png[width=600]
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 
 There is no need to save manually.
+
+//end::address[]
 
 == Financial Tracker
 Scare that you're gonna overspend whenever you're on a trip? Afraid no more! _TravEzy's_ _Financial Tracker_ allow you to track your expenses seamlessly!
@@ -1505,7 +1512,7 @@ Step 1: TravEzy will protect you if someone else tries to change your details
 image::DiaryUnLockHackAfter.png[width=600]
 
 
-
+//tag::achievements[]
 == Achievements
 
 
@@ -1593,6 +1600,8 @@ image::AchievementsItinerary.png[width=800]
 If the number of entries in the itinerary has past the target goal of 200, the _progress bar_ will show 100% instead
 of the actual percentage.
 
+//end::achievements[]
+
 == FAQ
 
 *Q:* How do I backup my data onto cloud storage? +
@@ -1619,11 +1628,14 @@ of the actual percentage.
 *Q:* Who can I contact should there be a bug or feedback that I would like to share? +
 *A:* Feel free to send an email to the developer team: mailto:thetravellerdiary@gmail.com[thetravellerdiary@gmail.com] and we will access to your queries within three working days. We also value your feedback and will use it to improve _TravEzy_. Thank you and we looking forward to serving you better!
 
-*Q:* Is it advisable to edit the storage files in _TravEzy_ so that the changes will be reflected when I start the application? +
+*Q:* Is it advisable to edit the storage files in _TravEzy_ so that the changes will also be reflected when I start the application? +
 *A:* _TravEzy_ gives you a caveat and strongly advise against tempering with the storage files in _TravEzy_ as this could result in falsification of the data.
 
-*Q:* Why are there data which I did not included when I first startup _TravEzy_?
+*Q:* Why are there data which I did not included when I first startup _TravEzy_? +
 *A:* Being a new user, _TravEzy_ will provide you with some sample data to experiment first before you start using _TravEzy_ proper. Hope that you will enjoy using _TravEzy_.
+
+*Q:* I'm seemed to be having a bug whereby when given multiple similar prefixes, _TravEzy_ will still accept the input but only takes in the second prefix argument. Is this suppose to work as expected? +
+*A:* Yes, _TravEzy_ allows users to implement multiple similar prefixes for some commands so it reduce the trouble to delete the previous prefix argument in order to add in a new one.
 
 *Q:* What are some of the cool features that are available in _TravEzy_ currently? +
 *A:* _TravEzy_ currently boast a plethora of features such as calendar, itinerary, address book, travelling diary, financial tracker and achievements page. All these features work in tandem with each other to give you the best and only the best travelling experience. Not only that, the _TravEzy_ team also decided to spice things up and included some easter eggs scattered throughout the
