@@ -2,6 +2,7 @@ package seedu.address.inventory.logic.commands;
 
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.util.CommandResult;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

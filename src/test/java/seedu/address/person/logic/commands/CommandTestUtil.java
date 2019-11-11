@@ -37,6 +37,7 @@ import seedu.address.transaction.logic.Logic;
 import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.StorageManager;
+import seedu.address.util.CommandResult;
 
 /**
  * Contains helper methods for testing commands.
@@ -90,10 +91,12 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
-     * - the returned {@link CommandResult} matches {@code expectedCommandResult} <br>
+     * - the returned {@link seedu.address.util.CommandResult} matches
+     * {@code expectedCommandResult} <br>
      * - the {@code actualModel} matches {@code expectedModel}
      */
-    public static void assertCommandSuccess(Command command, Model actualModel, CommandResult expectedCommandResult,
+    public static void assertCommandSuccess(Command command, Model actualModel,
+                                            CommandResult expectedCommandResult,
                                             Model expectedModel) {
         try {
             TypicalTransactions typicalTransactions = new TypicalTransactions();
@@ -133,7 +136,8 @@ public class CommandTestUtil {
     }
 
     /**
-     * Convenience wrapper to {@link #assertCommandSuccess(Command, Model, CommandResult, Model)}
+     * Convenience wrapper to {@link #assertCommandSuccess(Command, seedu.address.person.model.Model,
+     * String, seedu.address.person.model.Model)}
      * that takes a string {@code expectedMessage}.
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,

@@ -2,9 +2,9 @@ package seedu.address.inventory.logic;
 
 import java.util.ArrayList;
 
-import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.util.CommandResult;
 
 /**
  * API of the Logic component

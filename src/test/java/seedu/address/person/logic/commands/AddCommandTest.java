@@ -31,6 +31,7 @@ import seedu.address.transaction.logic.LogicManager;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.TransactionList;
 import seedu.address.transaction.storage.StorageManager;
+import seedu.address.util.CommandResult;
 
 public class AddCommandTest {
     private static final String FILE_PATH_REIMBURSEMENT = "data/reimbursementInformation.txt";

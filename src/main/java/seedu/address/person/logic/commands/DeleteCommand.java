@@ -10,6 +10,8 @@ import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.ui.TransactionMessages;
+import seedu.address.util.CommandResult;
+
 
 /**
  * Deletes a person identified using it's displayed index from the address book.

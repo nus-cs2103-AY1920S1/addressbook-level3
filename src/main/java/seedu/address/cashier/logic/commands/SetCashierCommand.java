@@ -10,6 +10,7 @@ import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.person.Person;
 import seedu.address.transaction.model.exception.NoSuchPersonException;
+import seedu.address.util.CommandResult;
 
 /**
  * Sets a cashier who is in-charge of the sales made.

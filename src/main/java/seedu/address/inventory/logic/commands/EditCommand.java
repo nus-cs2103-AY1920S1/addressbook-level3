@@ -9,6 +9,7 @@ import seedu.address.inventory.logic.commands.exception.CommandException;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.person.commons.util.CollectionUtil;
+import seedu.address.util.CommandResult;
 
 /**
  * Edits an item to the inventory list.

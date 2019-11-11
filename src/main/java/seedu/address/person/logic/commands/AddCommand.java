@@ -10,6 +10,8 @@ import static seedu.address.util.CliSyntax.PREFIX_TAG;
 import seedu.address.person.logic.commands.exceptions.CommandException;
 import seedu.address.person.model.Model;
 import seedu.address.person.model.person.Person;
+import seedu.address.util.CommandResult;
+
 
 /**
  * Adds a person to the address book.

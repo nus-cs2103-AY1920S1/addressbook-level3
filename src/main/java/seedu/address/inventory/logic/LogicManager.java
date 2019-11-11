@@ -3,12 +3,12 @@ package seedu.address.inventory.logic;
 import java.util.ArrayList;
 
 import seedu.address.inventory.logic.commands.Command;
-import seedu.address.inventory.logic.commands.CommandResult;
 import seedu.address.inventory.logic.parser.InventoryTabParser;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.ModelManager;
 import seedu.address.inventory.util.InventoryList;
+import seedu.address.util.CommandResult;
 
 /**
  * Manages the logic behind the inventory tab.

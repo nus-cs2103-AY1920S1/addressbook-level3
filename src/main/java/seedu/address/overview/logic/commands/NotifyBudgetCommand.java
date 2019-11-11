@@ -5,6 +5,7 @@ import static seedu.address.overview.ui.OverviewMessages.MESSAGE_NOTIFY_BUDGET_S
 
 import seedu.address.overview.logic.commands.exception.InvalidValueException;
 import seedu.address.overview.model.Model;
+import seedu.address.util.CommandResult;
 
 /**
  * Represents a command to set the percentage value by which to notify the user for budget target.

@@ -16,7 +16,7 @@ import seedu.address.person.commons.core.GuiSettings;
 import seedu.address.person.commons.core.LogsCenter;
 import seedu.address.ui.logic.Logic;
 import seedu.address.ui.logic.LogicManager;
-import seedu.address.util.OverallCommandResult;
+import seedu.address.util.CommandResult;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -189,9 +189,9 @@ public class MainWindow extends UiPart<Stage> {
      * Executes the command and returns the result.
      *
      */
-    private OverallCommandResult executeCommand(String commandText) throws Exception {
+    private CommandResult executeCommand(String commandText) throws Exception {
         try {
-            OverallCommandResult commandResult;
+            CommandResult commandResult;
             logger.info("---------[User input] " + commandText + "--------");
             if (isUiCommand(commandText)) {
                 commandResult = uiLogic.execute(commandText);
@@ -262,9 +262,9 @@ public class MainWindow extends UiPart<Stage> {
      * Checks if notifications need to be printed and prints them if applicable.
      */
     private void checkIfNotify() {
-        List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
+        List<CommandResult> notifications = overviewLogic.checkNotifications();
 
-        for (OverallCommandResult notif: notifications) {
+        for (CommandResult notif: notifications) {
             lion.setResponse(notif.getFeedbackToUser());
         }
     }

@@ -6,6 +6,7 @@ import static seedu.address.transaction.ui.TransactionMessages.MESSAGE_FIND_COMM
 import seedu.address.person.model.CheckAndGetPersonByNameModel;
 import seedu.address.transaction.model.Model;
 import seedu.address.transaction.model.transaction.TransactionContainsKeywordsPredicate;
+import seedu.address.util.CommandResult;
 
 /**
  * Finds a transaction in the transaction list.

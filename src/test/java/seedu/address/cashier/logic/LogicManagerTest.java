@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.cashier.logic.commands.ClearCommand;
-import seedu.address.cashier.logic.commands.CommandResult;
 import seedu.address.cashier.logic.commands.exception.NoCashierFoundException;
 import seedu.address.cashier.model.Model;
 import seedu.address.cashier.model.exception.AmountExceededException;
@@ -30,6 +29,7 @@ import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalItem;
 import seedu.address.testutil.TypicalTransactions;
 import seedu.address.transaction.model.AddTransactionOnlyModel;
+import seedu.address.util.CommandResult;
 
 public class LogicManagerTest {
 

@@ -5,6 +5,7 @@ import static seedu.address.inventory.ui.InventoryMessages.MESSAGE_DELETED_ITEM;
 import seedu.address.inventory.model.Item;
 import seedu.address.inventory.model.Model;
 import seedu.address.inventory.model.exception.NoSuchIndexException;
+import seedu.address.util.CommandResult;
 
 /**
  * Deletes a transaction to the transaction list.
