@@ -1383,7 +1383,6 @@ Now you know all there is to the workout planner! What are you waiting for? Go o
 gym membership to use!
 
 // tag::diary[]
-[[DiaryTag]]
 === Diary
 
 Want to share great recipes and workout tips with your friends? Look through the available commands in this section and
@@ -1443,6 +1442,9 @@ will be removed.
 +
 image::deleteDiary_after.png[]
 
+// end::diary[]
+
+// start:: otherDiary[]
 ==== Editing a diary
 
 Made a minor mistake and would like to correct it? You can do so with our `edit diary` command!
@@ -1640,7 +1642,8 @@ Examples:
 
 * `link records BP129391 /to Healthy Living` +
  Creates a health page about “BP129391” and adds it to the diary named “Healthy Living”
-// end::diary[]
+
+// end:: otherDiary[]
 
 == Command Summary
 
