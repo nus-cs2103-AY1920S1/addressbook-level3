@@ -22,9 +22,11 @@ import tagline.model.note.TimeCreated;
 import tagline.model.note.TimeLastEdited;
 import tagline.model.note.Title;
 import tagline.model.tag.ContactTag;
+import tagline.model.tag.GroupTag;
 import tagline.model.tag.HashTag;
 import tagline.model.tag.Tag;
 import tagline.storage.tag.JsonAdaptedContactTag;
+import tagline.storage.tag.JsonAdaptedGroupTag;
 import tagline.storage.tag.JsonAdaptedHashTag;
 import tagline.storage.tag.JsonAdaptedTag;
 
@@ -79,6 +81,8 @@ public class JsonAdaptedNote {
             .flatMap(tag -> {
                 if (tag instanceof ContactTag) {
                     return Stream.of(new JsonAdaptedContactTag((ContactTag) tag));
+                } else if (tag instanceof GroupTag) {
+                    return Stream.of(new JsonAdaptedGroupTag((GroupTag) tag));
                 } else if (tag instanceof HashTag) {
                     return Stream.of(new JsonAdaptedHashTag((HashTag) tag));
                 } else {
