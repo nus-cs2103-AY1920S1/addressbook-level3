@@ -113,8 +113,11 @@ that different accounts will see different data.
 
 The Tab that you are currently on will be shown on the bottom right corner +
 
+//end::userinterface[]
+
 image::tabstatus.png[width=600"]
 
+//tag::userinterface2[]
 ==== Change tab : `tab`
 
 Change tab to any of the available ones. +
@@ -129,8 +132,12 @@ Examples (All available destinations listed):
 * `change_tab tab/notepad`
 * `change_tab tab/task`
 
+//end::userinterface2[]
+
 .Tab Change GUI
 image::tabchange.png[width=600]
+
+//tag::userinterface3[]
 
 The user may alternatively choose to change tab by using the Items on the Menu Bar.
 
@@ -138,9 +145,11 @@ The user may alternatively choose to change tab by using the Items on the Menu B
 
 Delete Button for Reminders and Notes for quick and easy removal of Reminder or Note.
 
+//end::userinterface3[]
+
 .Delete Button GUI
 image::reminders/deletebutton.png[width=600]
-//end::userinterface[]
+
 
 === Tasks
 
@@ -264,8 +273,9 @@ If there is a Task starting on that date, only the Task's `DESCRIPTION` and `STA
 * If there is a Task starting on that date, only the Task's `DESCRIPTION` and `START_TIME` will be displayed on the calendar.
 ****
 
-image:calendarview.png[width="700"]
 //end::calendar[]
+
+image:calendarview.png[width="700"]
 
 //tag::reminders[]
 === Reminders
@@ -287,11 +297,13 @@ Examples:
 
 * `add_reminder rd/CS2103T Homework rt/13/10/2019 13:00, 13/10/2019 15:00`
 
+//end::reminders[]
+
 image:reminders/add_reminder.png[width="500"]
 
 image:reminders/add_reminder_2.png[width="500"]
 
-
+//tag::reminders2[]
 ==== Delete Reminder
 
 Removes the reminder. +
@@ -305,12 +317,16 @@ Examples:
 * `INDEX` must be a positive integer.
 ****
 
+//end::reminders2[]
+
 image:reminders/delete_reminder.png[width="500"]
 
 image:reminders/delete_reminder_2.png[width="500"]
 
 .Deleting a Reminder using the delete button
 image::reminders/deletebutton.png[width="500"]
+
+//tag::reminders3[]
 
 Reminders can also be deleted easily by clicking the delete button
 
@@ -328,12 +344,15 @@ Format: `find_reminder_by_description DESCRIPTION ...`
 Examples:
 
 * `find_reminder_by_description CS2103T`
+* `find_reminder_by_description CS2103T, cs2100`
+
+//end::reminders3[]
 
 image:reminders/find_reminder_1.png[width="500"]
 
 image:reminders/find_reminder_2.png[width="500"]
 
-* `find_reminder_by_description CS2103T, cs2100`
+//tag::reminders4[]
 
 ==== Finding Reminders based on Date : `find_reminder_by_date`
 
@@ -348,11 +367,13 @@ Examples:
 
 * `find_reminders_by_date 13/10/2019`
 
+//end::reminders4[]
+
 image:reminders/find_reminder_3.png[width="500"]
 
 image:reminders/find_reminder_4.png[width="500"]
 
-
+//tag::reminders5[]
 ==== Listing all reminders : `list_reminder`
 
 List all reminders. +
@@ -367,8 +388,9 @@ Format: `list_reminder`
 The Reminder Window will pop up when Tutoraid is first loaded up. +
 It will list all the Reminders at hand.
 
+//end::reminders5[]
+
 image:reminders/reminderwindow.png[width="500"]
-//end::reminders[]
 
 === Earnings
 

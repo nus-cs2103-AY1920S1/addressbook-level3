@@ -18,13 +18,14 @@ This portfolio page aims to document the contributions I have made in the develo
 == Overview
 
 TutorAid is a useful application created for Tutors, by Tutors. The purpose of our application is to be a all encompassing solution to store information such as notes and reminders. Our product is made for tutors and teaching assistants in NUS. However, we have plans to expand to tutors in general. +
-By storing their information in one cent ral location, tutors' workspace can be made more simple and organized. This can help improve productivity and enable a smooth workflow. A clear space is indeed a clear mind. +
-TutorAid is a Command Line Interface (CLI) based tool that caters to professionals adept at typing. We have recently added more Graphical User Interface (GUI) features to make TutorAid more user friendly and to increase efficiency.
 
-TutorAid boasts well thought out features which have been carefully selected and reviewed to fit the exact needs of our target audience. All of TutorAid's features and implementations are well documented in guides for users and developers respectively.
+TutorAid is a comprehensive solution with complete integration of its features. Some of its features include: tasks, reminders, notes, student profile and earnings. Our features have been tailored to suit the needs of our target audience.
+By storing their information in one central location, tutors' workspace can be made more organized. This can help improve productivity and enable a smooth workflow. A clear space is indeed a clear mind. +
+
+TutorAid is a Command Line Interface (CLI) based tool that caters to professionals adept at typing. We have recently added more Graphical User Interface (GUI) features to make TutorAid more user friendly and to increase efficiency..
 
 .The Graphical User Interface of TutorAid
-image::reminders/UI.png[width="600"]
+image::reminders/UI.png[width="500"]
 
 == Role
 
@@ -35,16 +36,15 @@ The following sections illustrate these enhancements in more detail, as well as 
 == Summary of contributions
 
 * *Major enhancement*: added *Reminders Feature*
-** What it does: allows ysers to add Reminders. These will then be displayed in a reminders window that will pop up and remind users of urgent tasks.
+** What it does: allows users to add Reminders. These will then be displayed in a reminders window that will pop up and remind users of urgent tasks.
 ** Justification: This feature improves the product significantly because users can be reminded of urgent and important tasks at hand. This will ensure that users have ample time to plan and complete their tasks punctually.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** Highlights: This feature allows users to create, remove and find Reminders. It required an in-depth analysis of design as it is also linked to the the Tasks feature. Users can create reminders for a specific task when creating said task. This highlights TutorAid's integration of all features with each other.
 
 * *Major enhancement*: added *Calendar Graphical User Interface*
-** What it does: allows users to view their Tasks chronologically. These will then be displayed in a reminders window that will pop up and remind users of urgent tasks.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+** What it does: allows users to view their Tasks chronologically. These will be reflected on the Calendar in Calendar View. Calendar View helps users keep track of tasks and plan their schedule better.
+** Justification: This feature improves the product significantly because a user can view their overall schedule. This can help users locate their busy periods and plan accordingly. It will also alert users of what tasks are due and when.
+** Highlights: Calendars have a plethora of benefits: helping users prioritize, stay on task, increase productivity etc. Its implementation required integrating with the Tasks feature to be able to accurately display the Tasks Description and Start Date. Clicking on a date will also bring up the list of tasks due on that particular date.
+
 
 .Calendar View
 image::calendarview.png[width=500]
@@ -52,40 +52,39 @@ image::calendarview.png[width=500]
 * *Minor enhancement*: added delete button for easy deletion of Reminders and Notes.
 
 .Delete Button
-image::reminders/deletebutton.png[width=500]
+image::reminders/deletebutton2.png[width=500]
 
 * *Minor enhancement*: added tabs in the Menu Bar for easy changing of tab.
 
 .Change Tab
-image::tabchange.png[width=500]
+image::reminders/tabchange2.png[width=500]
 
 * *Minor enhancement*: added a tab status at the bottom right corner for users to know which tab they are viewing.
 
 .Tab status
 image::tabstatus.png[width=500]
 
+* *Minor enhancement*: improved overall Graphical User Interface such as designing of the Login Page.
+
+
 * *Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=kerwin97[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=kerwin97[Code Contributions]]
 
 * *Other contributions*:
 
 ** Project management:
-*** Managed and assigned these issues for the project: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/82[#177], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/94[#178], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/104[#229], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/104[#230]
-*** Managed bugs reported by other users in Practical Exam Dry Run: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/296[#268], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/296[#297]
+*** Managed and assigned these issues for the project: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/177[#177], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/178[#178], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/229[#229], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/230[#230]
+*** Managed bugs reported by other users in Practical Exam Dry Run: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/268[#268], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/297[#297]
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
 *** Wrote multiple tests for existing features to increase code coverage incrementally (https://coveralls.io/builds/26875321[#], https://coveralls.io/builds/26800524[#], https://coveralls.io/builds/26771396[#])
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+*** Updated the GUI (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/issues/222[#222], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/329[#329], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/337[#337], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/346[#346])
 ** Documentation:
 *** Added detailed implementation documentation for the reminders, calendar and gui feature in User Guide
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/362[#362]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+*** PRs reviewed (with non-trivial review comments): https://github.com/AY1920S1-CS2103T-F14-2/main/issues/161[#161], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/188[#188]
+*** Reported bugs and suggestions for other teams in the class (examples: https://github.com/AY1920S1-CS2103T-F11-4/main/issues/109[#109], https://github.com/AY1920S1-CS2103T-F11-4/main/issues/105[#105] )
 
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
 
 
 == Contributions to the User Guide
@@ -97,7 +96,15 @@ image::tabstatus.png[width=500]
 
 include::../UserGuide.adoc[tag=userinterface]
 
+include::../UserGuide.adoc[tag=userinterface2]
+
+include::../UserGuide.adoc[tag=userinterface3]
+
 include::../UserGuide.adoc[tag=reminders]
+include::../UserGuide.adoc[tag=reminders2]
+include::../UserGuide.adoc[tag=reminders3]
+include::../UserGuide.adoc[tag=reminders4]
+include::../UserGuide.adoc[tag=reminders5]
 
 include::../UserGuide.adoc[tag=calendar]
 
