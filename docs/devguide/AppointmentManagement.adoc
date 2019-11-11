@@ -175,6 +175,8 @@ The appointment is then recurred to get the next appointment (i.e. with the next
 Assuming the first appointment in the appointment list is recurring. The following sequence diagrams show the object interactions for user command `appt-delete 1`:
 
 image::AppointmentManagementSequenceDiagram.png[]
+_Figure: Delete Appointment Sequence Diagram_
 
 image::AppointmentManagementSequenceDiagramRef.png[]
+_Figure: Reference - delete appointment, recur, and add the recurred appointment_
 
