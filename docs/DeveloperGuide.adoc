@@ -1205,8 +1205,8 @@ These instructions only provide a starting point for testers to work on; testers
 
 === Deleting a Body
 
-. Deleting a body while all bodies are listed
-_
+* Deleting a body while all bodies are listed
+
 .. Prerequisites: List all bodies using the `list -b` command. Multiple bodies in the list.
 .. Test case: `delete -b 1` +
    Expected: Body with body ID number 1 is deleted from the list. Details of the deleted body shown in the status message. Timestamp in the status bar is updated.
@@ -1217,7 +1217,7 @@ _
 
 === Generating a Report
 
-. Generating a report for a specific body while all bodies are listed
+* Generating a report for a specific body while all bodies are listed
 
 .. Prerequisites: List all bodies using the `list -b` command. At least one body in the list. Ensure all existing PDF reports are closed.
 .. Test case: `genReport 1 John Doe` +
