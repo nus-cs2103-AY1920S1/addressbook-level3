@@ -76,7 +76,7 @@ image::tabstatus.png[width=500]
 *** Managed bugs reported by other users in Practical Exam Dry Run: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/268[#268], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/297[#297]
 *** Managed releases `v1.1` - `v1.4` (4 releases) on GitHub
 ** Enhancements to existing features:
-*** Wrote multiple tests for existing features to increase code coverage incrementally (https://coveralls.io/builds/26912030[#508], )
+*** Wrote multiple tests for existing features to increase code coverage incrementally (https://coveralls.io/builds/26912030[#508], https://coveralls.io/builds/26912847[#514])
 *** Updated the GUI (Pull requests https://github.com/AY1920S1-CS2103T-F14-2/main/issues/222[#222], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/329[#329], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/337[#337], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/346[#346])
 ** Documentation:
 *** Added detailed implementation documentation for the reminders, calendar and gui feature in User Guide
