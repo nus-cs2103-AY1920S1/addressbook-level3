@@ -2,10 +2,8 @@ package seedu.address.model.lesson;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Represents a class time in the Classroom.
