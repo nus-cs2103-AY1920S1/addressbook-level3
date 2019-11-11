@@ -94,6 +94,15 @@ public class DayList implements Iterable<Day> {
         internalList.set(index, editedDay);
     }
 
+    public Day getDay(Index index) {
+        requireNonNull(index);
+        if (index.getZeroBased() < 0 || index.getZeroBased() >= internalList.size()) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            return internalList.get(index.getZeroBased());
+        }
+    }
+
     /**
      * Removes the equivalent days from the list.
      * The days must exist in the list.

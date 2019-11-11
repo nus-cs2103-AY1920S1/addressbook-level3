@@ -174,6 +174,10 @@ public class Itinerary implements ReadOnlyItinerary {
         return new Day(listOfActivityWithTime);
     }
 
+    public Day getDay(Index index) {
+        return this.days.getDay(index);
+    }
+
     @Override
     public Name getName() {
         return this.nameProperty.getValue();

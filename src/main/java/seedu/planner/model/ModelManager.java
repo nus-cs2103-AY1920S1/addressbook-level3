@@ -172,6 +172,16 @@ public class ModelManager implements Model {
 
     //@@author KxxMxxx
     /**
+     * Creates a mapping between an {@code Activity} and the {@code Day} containing it.
+     */
+    private void addDayMapping(Day day) {
+        for (ActivityWithTime act : day.getListOfActivityWithTime()) {
+            addDayMapping(act.getActivity(), day);
+        }
+    }
+
+    //@@author KxxMxxx
+    /**
      * Removes the mapping of an {@code Activity} in all the relevant {@code Contact} related {@code HashMap}.
      */
     private void removeActivityMapping(Activity act) {
@@ -770,6 +780,7 @@ public class ModelManager implements Model {
     @Override
     public void addDayAtIndex(Index index, Day day) {
         itinerary.addDayAtIndex(index, day);
+        addDayMapping(day);
         updateFilteredItinerary(PREDICATE_SHOW_ALL_DAYS);
     }
 
@@ -782,6 +793,10 @@ public class ModelManager implements Model {
     public void setDay(Day oldDay, Day newDay) {
         updateMapping(oldDay, newDay);
         this.itinerary.setDay(oldDay, newDay);
+    }
+
+    public Day getDay(Index index) {
+        return this.itinerary.getDay(index);
     }
 
     @Override

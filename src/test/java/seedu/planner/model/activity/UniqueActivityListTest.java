@@ -8,8 +8,8 @@ import static seedu.planner.logic.commands.CommandTestUtil.VALID_COST_TWO_HUNDRE
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_PRIORITY_SEVEN;
 import static seedu.planner.logic.commands.CommandTestUtil.VALID_TAG_HIKING;
 import static seedu.planner.testutil.Assert.assertThrows;
-import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYONE;
-import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITYTWO;
+import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITY_ONE;
+import static seedu.planner.testutil.activity.TypicalActivity.ACTIVITY_TWO;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -32,19 +32,19 @@ public class UniqueActivityListTest {
 
     @Test
     public void contains_activityNotInList_returnsFalse() {
-        assertFalse(uniqueActivityList.contains(ACTIVITYONE));
+        assertFalse(uniqueActivityList.contains(ACTIVITY_ONE));
     }
 
     @Test
     public void contains_activityInList_returnsTrue() {
-        uniqueActivityList.add(ACTIVITYONE);
-        assertTrue(uniqueActivityList.contains(ACTIVITYONE));
+        uniqueActivityList.add(ACTIVITY_ONE);
+        assertTrue(uniqueActivityList.contains(ACTIVITY_ONE));
     }
 
     @Test
     public void contains_activityWithSameIdentityFieldsInList_returnsTrue() {
-        uniqueActivityList.add(ACTIVITYONE);
-        Activity editedActivity = new ActivityBuilder(ACTIVITYONE).withContact(new ContactBuilder().build())
+        uniqueActivityList.add(ACTIVITY_ONE);
+        Activity editedActivity = new ActivityBuilder(ACTIVITY_ONE).withContact(new ContactBuilder().build())
                 .withCost(VALID_COST_TWO_HUNDRED).withPriority(VALID_PRIORITY_SEVEN)
                 .withTags(VALID_TAG_HIKING).build();
         assertTrue(uniqueActivityList.contains(editedActivity));
@@ -57,40 +57,40 @@ public class UniqueActivityListTest {
 
     @Test
     public void add_duplicateActivity_throwsDuplicateActivityException() {
-        uniqueActivityList.add(ACTIVITYONE);
-        assertThrows(DuplicateActivityException.class, () -> uniqueActivityList.add(ACTIVITYONE));
+        uniqueActivityList.add(ACTIVITY_ONE);
+        assertThrows(DuplicateActivityException.class, () -> uniqueActivityList.add(ACTIVITY_ONE));
     }
 
     @Test
     public void setActivity_nullTargetActivity_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueActivityList.setActivity(null, ACTIVITYONE));
+        assertThrows(NullPointerException.class, () -> uniqueActivityList.setActivity(null, ACTIVITY_ONE));
     }
 
     @Test
     public void setActivity_nullEditedActivity_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniqueActivityList.setActivity(ACTIVITYONE, null));
+        assertThrows(NullPointerException.class, () -> uniqueActivityList.setActivity(ACTIVITY_ONE, null));
     }
 
     @Test
     public void setActivity_targetActivityNotInList_throwsActivityNotFoundException() {
-        assertThrows(ActivityNotFoundException.class, () -> uniqueActivityList.setActivity(ACTIVITYONE, ACTIVITYONE));
+        assertThrows(ActivityNotFoundException.class, () -> uniqueActivityList.setActivity(ACTIVITY_ONE, ACTIVITY_ONE));
     }
 
     @Test
     public void setActivity_editedActivityIsSameActivity_success() {
-        uniqueActivityList.add(ACTIVITYONE);
-        uniqueActivityList.setActivity(ACTIVITYONE, ACTIVITYONE);
+        uniqueActivityList.add(ACTIVITY_ONE);
+        uniqueActivityList.setActivity(ACTIVITY_ONE, ACTIVITY_ONE);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
-        expectedUniqueActivityList.add(ACTIVITYONE);
+        expectedUniqueActivityList.add(ACTIVITY_ONE);
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
     }
 
     @Test
     public void setActivity_editedActivityHasSameIdentity_success() {
-        uniqueActivityList.add(ACTIVITYONE);
-        Activity editedActivity = new ActivityBuilder(ACTIVITYONE).withAddress(VALID_ACTIVITY_ADDRESS_A)
+        uniqueActivityList.add(ACTIVITY_ONE);
+        Activity editedActivity = new ActivityBuilder(ACTIVITY_ONE).withAddress(VALID_ACTIVITY_ADDRESS_A)
                 .withTags(VALID_TAG_HIKING).build();
-        uniqueActivityList.setActivity(ACTIVITYONE, editedActivity);
+        uniqueActivityList.setActivity(ACTIVITY_ONE, editedActivity);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
         expectedUniqueActivityList.add(editedActivity);
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
@@ -98,18 +98,19 @@ public class UniqueActivityListTest {
 
     @Test
     public void setActivity_editedActivityHasDifferentIdentity_success() {
-        uniqueActivityList.add(ACTIVITYONE);
-        uniqueActivityList.setActivity(ACTIVITYONE, ACTIVITYTWO);
+        uniqueActivityList.add(ACTIVITY_ONE);
+        uniqueActivityList.setActivity(ACTIVITY_ONE, ACTIVITY_TWO);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
-        expectedUniqueActivityList.add(ACTIVITYTWO);
+        expectedUniqueActivityList.add(ACTIVITY_TWO);
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
     }
 
     @Test
     public void setActivity_editedActivityHasNonUniqueIdentity_throwsDuplicateActivityException() {
-        uniqueActivityList.add(ACTIVITYONE);
-        uniqueActivityList.add(ACTIVITYTWO);
-        assertThrows(DuplicateActivityException.class, () -> uniqueActivityList.setActivity(ACTIVITYONE, ACTIVITYTWO));
+        uniqueActivityList.add(ACTIVITY_ONE);
+        uniqueActivityList.add(ACTIVITY_TWO);
+        assertThrows(DuplicateActivityException.class, () ->
+                uniqueActivityList.setActivity(ACTIVITY_ONE, ACTIVITY_TWO));
     }
 
     @Test
@@ -119,13 +120,13 @@ public class UniqueActivityListTest {
 
     @Test
     public void remove_activityDoesNotExist_throwsActivityNotFoundException() {
-        assertThrows(ActivityNotFoundException.class, () -> uniqueActivityList.remove(ACTIVITYONE));
+        assertThrows(ActivityNotFoundException.class, () -> uniqueActivityList.remove(ACTIVITY_ONE));
     }
 
     @Test
     public void remove_existingActivity_removesActivity() {
-        uniqueActivityList.add(ACTIVITYONE);
-        uniqueActivityList.remove(ACTIVITYONE);
+        uniqueActivityList.add(ACTIVITY_ONE);
+        uniqueActivityList.remove(ACTIVITY_ONE);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
     }
@@ -137,9 +138,9 @@ public class UniqueActivityListTest {
 
     @Test
     public void setActivities_uniqueActivityList_replacesOwnListWithProvidedUniqueActivityList() {
-        uniqueActivityList.add(ACTIVITYONE);
+        uniqueActivityList.add(ACTIVITY_ONE);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
-        expectedUniqueActivityList.add(ACTIVITYTWO);
+        expectedUniqueActivityList.add(ACTIVITY_TWO);
         uniqueActivityList.setActivities(expectedUniqueActivityList);
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
     }
@@ -151,17 +152,17 @@ public class UniqueActivityListTest {
 
     @Test
     public void setActivities_list_replacesOwnListWithProvidedList() {
-        uniqueActivityList.add(ACTIVITYONE);
-        List<Activity> activityList = Collections.singletonList(ACTIVITYTWO);
+        uniqueActivityList.add(ACTIVITY_ONE);
+        List<Activity> activityList = Collections.singletonList(ACTIVITY_TWO);
         uniqueActivityList.setActivities(activityList);
         UniqueActivityList expectedUniqueActivityList = new UniqueActivityList();
-        expectedUniqueActivityList.add(ACTIVITYTWO);
+        expectedUniqueActivityList.add(ACTIVITY_TWO);
         assertEquals(expectedUniqueActivityList, uniqueActivityList);
     }
 
     @Test
     public void setActivities_listWithDuplicateActivities_throwsDuplicateActivityException() {
-        List<Activity> listWithDuplicateActivities = Arrays.asList(ACTIVITYONE, ACTIVITYONE);
+        List<Activity> listWithDuplicateActivities = Arrays.asList(ACTIVITY_ONE, ACTIVITY_ONE);
         assertThrows(DuplicateActivityException.class, ()
             -> uniqueActivityList.setActivities(listWithDuplicateActivities));
     }
