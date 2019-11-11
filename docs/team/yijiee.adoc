@@ -1,7 +1,9 @@
-== Lim Yi Jie - Project Portfolio for TimeBook
+= Project portfolio for TimeBook
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
+
+== By Lim Yi Jie
 
 === About the project
 
