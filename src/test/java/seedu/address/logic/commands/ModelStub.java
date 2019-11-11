@@ -286,41 +286,41 @@ public class ModelStub implements Model {
 
     @Override
     public void updateFilteredPasswordList(Predicate<Password> predicate) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addPassword(Password password) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deletePassword(Password password) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public PasswordBook getPasswordBook() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasPassword(Password password) {
-        return false;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setPasswordBookFilePath(Path passwordBookFilePath) {
-
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Path getPasswordBookFilePath() {
-        return null;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setPassword(Password target, Password editedPassword) {
-
+        throw new AssertionError("This method should not be called.");
     }
 }

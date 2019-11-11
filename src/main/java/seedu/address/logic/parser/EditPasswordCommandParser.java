@@ -2,9 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_TOO_MANY_TAG_FIELDS;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORDVALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddPasswordCommand;
 import seedu.address.logic.commands.EditPasswordCommand;
 import seedu.address.logic.commands.EditPasswordCommand.EditPasswordDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -50,13 +49,6 @@ public class EditPasswordCommandParser implements Parser<EditPasswordCommand> {
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditPasswordCommand.MESSAGE_USAGE), pe);
-        }
-
-        if (argMultimap.getAllValues(PREFIX_DESCRIPTION).size() > 1
-                || argMultimap.getAllValues(PREFIX_USERNAME).size() > 1
-                || argMultimap.getAllValues(PREFIX_PASSWORDVALUE).size() > 1
-                || argMultimap.getAllValues(PREFIX_WEBSITE).size() > 1) {
-            throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, AddPasswordCommand.MESSAGE_USAGE));
         }
 
         if (argMultimap.getAllValues(PREFIX_TAG).size() > 5) {
