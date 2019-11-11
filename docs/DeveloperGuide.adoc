@@ -662,7 +662,7 @@ Step 4. The filled `desc` will be returned to the `LogicManager` where a new `St
 
 Figure 1. below illustrates the details from Steps 2 to 4.
 
-image::BasicStatisticsParserToCommand.png
+image::BasicStatisticsParserToCommand.png[]
 
 Figure 1. Reference Diagram for creating a `StatsCommand`
 
@@ -686,7 +686,7 @@ to the `Statistics Panel` where a Pie Chart will be generated.
 
 Figure 2. below illustrates the details from Steps 6 to 9.
 
-image::CreatePieChartReference.png
+image::CreatePieChartReference.png[]
 
 Figure 2. Reference Diagram for creating a `StatsCommand`
 
