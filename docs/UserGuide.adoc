@@ -644,6 +644,8 @@ This section will contain details on all commands in the Inventory Tab.
 * Leo will also give replies to guide you when there is a wrong input.
 * You may also sort the list of items by ascending quantity or by descending alphabetical order.
 * Description and category can be empty.
+* Cost and price can be 0. Quantity cannot be 0 only when adding. It can be 0 after editing or through sales to
+represent it being out-of-stock.
 
 [WARNING]
 Due to size limitations, a large number may be truncated when shown in the table. +
