@@ -6,6 +6,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
@@ -21,6 +22,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -140,6 +142,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Students Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -160,6 +163,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Earnings Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -180,6 +184,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Reminders Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -200,6 +205,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Tasks Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -222,6 +228,7 @@ public class MainWindow extends UiPart<Stage> {
         //reminderBoxPlaceholder.getChildren().add(reminderBox.getRoot());
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Tasks Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -241,6 +248,7 @@ public class MainWindow extends UiPart<Stage> {
         reminderBox = new ReminderBox();
 
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getTutorAidFilePath());
+        statusBarFooter.setTab("Notes Tab");
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
@@ -364,8 +372,8 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Switches to the calendar tab sorted by the task.
+     *
      */
-    @FXML
     public void findTaskByDate(LocalDate date) throws ParseException, CommandException {
         try {
             System.out.println(date);
@@ -374,6 +382,23 @@ public class MainWindow extends UiPart<Stage> {
             executeCommand(userCommand);
         } catch (CommandException e) {
             logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
+    /**
+     * Switches to the calendar tab sorted by the task.
+     */
+    @FXML
+    public ObservableList<Task> returnTaskByDate(LocalDate date) throws ParseException, CommandException {
+        try {
+            System.out.println(date);
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            String userCommand = "find_task_by_date " + formattedDate;
+            logic.execute(userCommand, this.isUnknown);
+            return logic.getFilteredTaskList();
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+            return logic.getFilteredTaskList();
         }
     }
 
@@ -418,11 +443,23 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Switches to the calendar tab sorted by the date.
+     * Deletes Note with index.
      */
     public void deleteNoteButton(int index) throws ParseException, CommandException {
         try {
             String userCommand = "deletenote " + index;
+            executeCommand(userCommand);
+        } catch (CommandException e) {
+            logger.info("User attempting to change tab during the learning of an unknown command!");
+        }
+    }
+
+    /**
+     * Deletes reminder with index.
+     */
+    public void deleteReminderButton(int index) throws ParseException, CommandException {
+        try {
+            String userCommand = "delete_reminder " + index;
             executeCommand(userCommand);
         } catch (CommandException e) {
             logger.info("User attempting to change tab during the learning of an unknown command!");
@@ -440,11 +477,13 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText, this.isUnknown);
             if (this.isUnknown) {
                 if (!commandResult.isUnknown()) {
+                    logger.info("TutorAid back to normal mode.");
                     setUnknownFalse();
                 }
             }
 
             if (commandResult.isUnknown()) {
+                logger.info("TutorAid going to learner mode.");
                 setUnknownTrue();
             } else if (commandResult.isExit()) {
                 handleExit();
@@ -460,8 +499,6 @@ public class MainWindow extends UiPart<Stage> {
                 UiManager.startNotes();
             } else if (commandResult.isReminder()) {
                 UiManager.startReminders();
-            } else if (commandResult.isLogin()) {
-                UiManager.startLoginWindow();
             }
 
             logger.info("Result: " + commandResult.getFeedbackToUser());

@@ -74,6 +74,11 @@ public class TaskTime implements Comparable<TaskTime> {
         return simpleDateFormat.parse(time);
     }
     */
+
+    public String toStartingString() {
+        return starting;
+    }
+
     @Override
     public String toString() {
         return "Starting:" + starting + " ,Ending:" + ending;

@@ -117,6 +117,7 @@ NOTE: The lifeline for `DeleteCommandParser` should end at the destroy marker (X
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
+
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
 The `Model`,
@@ -132,12 +133,47 @@ The `Model`,
 .Structure of the Storage Component
 image::StorageClassDiagram.png[]
 
+
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in json format and read it back.
+
+// tag::accountStorage[]
+==== Account Storage
+All accounts are stored in a JSON file called accountslist.json. This file is generated once you register an account. The username
+and password is stored inside the the JSON file with salt hashing thus, the account details cannot be seen by everyone.
+
+*Design Considerations*
+We realised that storing the accounts by itself would allow anyone to see the username and passwords. Hence, we decided to
+use a password authentication method and salt hashing to cover the passwords of the accounts.
+
+In addition, we decided to go with using a JSON file instead of XML file due to these considerations:
+
+.Account File Storage function alternatives
+[options="header,footer"]
+|=======================
+| Design Consideration | Pros and Cons
+| JSON File (Current Choice)   | *Pros* : More familiarity with JSON files. More compact and can be easily loaded. Flexible
+
+                                        *Cons* : Bad Schema support and namespace support
+
+| XML File | *Pros* : Easy transfer of data between seperate systems. Good at storing data that will be readby 3rd parties.
+
+                                        *Cons* : Not familiar with it and we would require more time to learn how to use it.
+|=======================
+
+*Security Considerations*
+As of now, only password hashing is done to protect the accounts from being seen by unwanted eyes. We have planned ahead of time and decided
+to implement better security options for v2.0.
+
+* *Store accounts on a backend server:* The project restricts us and as of now, it is not implemented. The advantages of storing the accounts in  database
+is that it can be a lot more secure.
+
+* *Encrypt the Account JSON file:* This will prevent other users from easily clicking into the data file and make it more secure.
+// end::accountStorage[]
 
 [[Design-Commons]]
 === Common classes
@@ -147,7 +183,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
-
+// tag::earnings[]
 === Earnings Feature
 
 ==== Add Earnings
@@ -160,11 +196,11 @@ The format for the `add_earnings` command is as follows:
 
 *Overview*
 
-The add claim `add_earnings` mechanism is facilitated by `AddEarningsCommand` and `AddEarningsCommandParser`, taking in the
+The `add_earnings` mechanism is facilitated by `AddEarningsCommand` and `AddEarningsCommandParser`, taking in the
 following input from the user: `Date`, `Type`, `ClassId`, `Amount`, which will construct `Earnings` objects.
 
 .Add Earnings Command Sequence Diagram
-image::AddEarningsSequenceDiagram.png[]
+image::AddEarningsSequenceDiagram.png[width="600"]
 
 The `AddEarningsCommand` implements `Parser` with the following operation:
 
@@ -189,15 +225,12 @@ DD/MM/YYYY.
 
 * `AddEarningsCommandParser` would then return a `AddEarningsCommand` object with the parameter, `Earnings` object.
 
-The following activity diagram summarizes what happens when a user executes a new command.
-
-image::AddEarningsActivityDiagram.png[]
 
 *Example Scenerio*
 
 
-* Step 1: The user enters `add_earnings d/04/08/2019 c/CS1231 amt/50.00` to add an earning for teaching classes.
-This adds an `Earnings` object that the user has earned by teaching a CS1231 class on 4th August 2019. The user has
+* Step 1: The user enters `add_earnings d/04/08/2019 type/tut c/CS1231 amt/50.00` to add an earning for teaching classes.
+This adds an `Earnings` object that the user has earned by teaching a CS1231 tutorial class on 4th August 2019. The user has
 earned $50.00.
 
 * Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
@@ -215,8 +248,169 @@ check with the rest of the prior `Earnings` object, to ensure that there is no d
 
 * Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
 object have been successfully added.
+// end::earnings[]
 
-//tag::Calendar[]
+==== Delete Earnings
+This command allows the user to delete an earnings from the existing earnings list through
+its index.
+
+The delete earnings command is facilitated by the `DeleteEarningsCommand` and `DeleteEarningsCommandParser`.
+
+The delete earnings command is part of the logic component of our application. It interacts with the model component
+of or software application.
+
+*Overview*
+
+The `DeleteEarningsCommandParser` implements `Parser` with the following operation:
+
+* `DeleteEarningsCommandParser#parse()` - This operation will take in an `int` input from the user, that the
+ user wants to delete, which will correspond to the index shown on the earnings list on the application. This will delete
+ the earnings in the earnings list. If an invalid format is entered or an invalid index is entered, there will be a prompt
+ from the commmand parser.
+
+*Current Implementation*
+
+The delete earnings command is executed by the `DeleteEarningsCommand`. Currently, the deletion of any earnings is done based
+on the `INDEX` of te earnings entry.
+
+During the design of our delete earnings function, we considered between two alternatives.
+
+* *Alternative 1: (Current Choice)*
+Delete Earnings by Index.
+** *Pros:* Each earnings is already listed with a unique index, deletion by index is intuitive, less prone to bugs and
+ easier to implement.
+
+** *Cons:*  If the user has added a long list of earnings, the user has to look through the whole list and scroll down
+to look for the index of the earnings that the user wants to delete.
+
+* *Alternative 2:*
+Delete Earnings by Class Id or Date.
+** *Pros:* User has no need to scroll through the list and can delete the earnings in mind easily by typing in the class id or
+ the date.
+
+** *Cons:* Different Earnings might have similar class id and/or date, thus deleting by class id or date might
+cause many earnings to be deleted or the wrong ones to be deleted.
+
+We have decided to go with the first alternative as it reduces the number of potential bugs and the complexities involved
+when taking into accout the different cases and scenarios upon the second alternative. In addition, by using the first alternative,
+users can take advantage of the `find_earnings` command and then delete from that list.
+
+==== Update Earnings
+*TutorAid* allows the user to update any earnings by using a combination of its `INDEX` and any of the attributes of earnings.
+
+* `update_earnings 3 type/tutorials`
+* `update_earnings 1 d/03/11/2019`
+
+The above commands update the earnings type at index 3 on the list to type-tutorials and updates the earnings date at
+index 1 to date 03/11/2019.
+
+*Current Implementation*
+
+The `UpdateEarningsCommandParser` implements `Parser` with the following operation:
+
+* `UpdateEarningsCommandParser#parse()` - This operation will take in an `int` input and any combination of the attributes
+of earnings that the user wants to update, namely: `DATE`, `TYPE`, `AMOUNT` and `CLASSID`. Attributes that are to be updated
+have to be preceded by their respective prefixes, `d/`, `type/`, `amt/` and `c/`. A validation check will be imposed upon updating of each
+object. Any checks that fails the verification will prompt the user on the failed attribute.
+
+Here is a step-by-step process on how the update earnings command alters and updates the attribute of the earnings entry.
+
+*Example Scenario*
+
+* Step 1: The user enters `update_earnings 3 c/CS1101S` to correct a mistake in entering the `CLASS_ID`
+for an earning for teaching classes. This updates the `Earnings` object at index 3 and changes the class id to
+CS1101S.
+
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
+the given command is `update_earnings`, thus, `UpdateEarningsCommandParser` object would be created with the user's input.
+
+* Step 4: `UpdateEarningsCommandParser` performs a validation check on each of the respective objects through
+`UpdateEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseClassId()`.
+It would then return a `UpdateEarningsCommand` object with an `Index` object and an `EditEarningsDescriptor` object.
+
+* Step 5: `LogicManager` would execute `UpdateEarningsCommand#execute`. In this particular method, another
+method `UpdateEarningsCommand#createEditedEarnings` would make use of the `EditEarningsDescriptor` object to
+create a new `Earnings` object. Afterwards, this `Earnings` object would be check with the rest of
+the prior `Earnings` object, to ensure that there is no duplicate `Earnings` object. If there are no similar
+`Earnings` object with the same parameters created previously, it would then be added into the earnings list.
+
+* Step 6: `UpdateEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+object have been successfully updated.
+
+// tag::otherEarnings[]
+==== Weekly Earnings
+The `weekly_earnings` command allows users to add earnings into a list that adds earnings weekly automatically by invoking the `auto` command.
+This helps to lessen the workload on the user as the user does not need to add a new earnings every week.
+
+The format for the `weekly_earnings` command is as follows:
+
+ weekly_earnings INDEX count/<NUM_OF_WEEKS>
+
+*Overview*
+
+The `weekly_earnings` mechanism is facilitated by `AutoAddEarningsCommand` and `AutoAddEarningsCommandParser`, taking in the
+following input from the user: `Index` and `Count`, which would be associated with the  `Earnings` object that is
+referenced from the `Index`. The `Count` object represents the number of weeks the earnings are to be added to the list.
+
+The `AutoAddEarningsCommand` implements `Parser` with the following operation:
+
+* `AutoAddEarningsCommandParser#parse()` - This operation will take in an `int` input from the user, followed by a
+ `String` input from the user and create individual objects based on the prefix `count/`. The `String` value after the prefix
+will create a `Count` object. A validation check will be done to ensure that the string that is entered
+by the user is entered correctly. If the string entered are invalid, an error will be shown to the user to
+enter the correct format of the `Count` object.
+
+** `index` would use `ParserUtil#parseIndex()` to ensure that the index typed in by the user is in the correct format and is valid.
+
+** `count` would use `ParserUtil#parseCount()` to ensure that the count typed by the user is in the correct format and
+between 0 - 13 (inclusive).
+
+* After validation of the individual objects, the particular `Earnings` object would have a `Count` object and be added to a list
+that is for automatically adding earnings to the list.
+
+* `AutoAddEarningsCommandParser` would then return a `AutoAddEarningsCommand` object with the parameters, `Index` and `Count` object.
+
+*Example Scenerio*
+
+
+* Step 1: The user enters `weekly_earnings 2 count/3` to add that indexed earnings to a list of earnings to be added on the
+same day of the week, every week. This particular earnings is then added to the list on the specified day for a total of 3 weeks.
+
+* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+
+* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
+the given command is `weekly_earnings`, thus, `AutoAddEarningsCommandParser` object would be created with the user's input.
+
+* Step 4: `AutoAddEarningsCommandParser` performs a validation check on each of the respective objects through
+`AutoAddEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseIndex()` and `ParserUtil#parseCount()`.
+It would then return a `AutoAddEarningsCommand` object with an `Index` and `Count` objects.
+
+* Step 5: `LogicManager` would execute `AutoAddEarningsCommand#execute`. In this particular method, the `Earnings` object will be
+check with the rest of the prior `Earnings` object that has been added to the auto addition of earnings list,
+ to ensure that there is no duplicate `Earnings` object in the list. If there are no similar
+`Earnings` object with the same parameters created previously, it would then be added into the auto addition earnings list.
+
+* Step 6: `AutoAddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+object have been successfully added to the list.
+
+==== Auto Add
+This command, `auto`, allows the user to add all the earnings that has been previously added before and the command `weekly_earnings`
+ has been used on the particular earnings. You can refer to the activity diagram below to have a clearer understanding.
+
+.Auto Command Activity Diagram
+image::AutoActivityDiagram.png[width="500"]
+
+*Overview*
+The auto command is facilitated by `AutoCommand`.
+
+* `AutoCommand#execute` - This operation checks the current day of the week and checks against the `HashMap` of the earnings list.
+If there are `Earnings` object associated with the current day of the week and the `Earnings` object has a `Count` object associated
+with it that is more than 1. The earnings inside the `ArrayList` inside the `HashMap` would be added into the earnings list.
+// end::otherEarnings[]
+
+// tag::Calendar[]
 === Calendar Feature
 
 ==== Add Tasks
@@ -261,26 +455,27 @@ image::AddTaskActivityDiagram.png[]
 *Example Scenerio*
 
 
-* Step 1: The user enters `add_earnings d/04/08/2019 c/CS1231 amt/50.00` to add an earning for teaching classes.
-This adds an `Earnings` object that the user has earned by teaching a CS1231 class on 4th August 2019. The user has
-earned $50.00.
+* Step 1: The user enters `add_task c/CS2103T Lecture  mark/Y tt/20/9/2019 13:00, 21/9/2019 16:00 tt/21/9/2019 13:00, 21/9/2019 15:00`
+to add an task into the calendar.
+This adds an `Task` object, which is a module CS2103T that the user need to attempt at 1pm of 20th and 21st September 2019.
+The task is marked so that it would be reminded.
 
-* Step 2: `LogicManager` would use `TutorAidParser#parse()` to parse input from the user.
+* Step 2: `LogicManager` would use `AddressBookParser#parse()` to parse input from the user.
 
-* Step 3: `TutorAidParser` would match the command word given by the user with the correct command. In this example,
-the given command is `add_earnings`, thus, `AddEarningsCommandParser` object would be created with the user's input.
+* Step 3: `AddressBookParser` would match the command word given by the user with the correct command. In this example,
+the given command is `add_task`, thus, `AddTaskCommandParser` object would be created with the user's input.
 
-* Step 4: `AddEarningsCommandParser` performs a validation check on each of the respective objects through
-`AddEarningsCommandParser#parse()`. In this case, it would use `ParserUtil#parseDate()`, `ParserUtil#parseClassId()` and
-`ParserUtil#parseAmount()`. It would then return a `AddEarningsCommand` object with an `Earnings` object.
+* Step 4: `AddTaskCommandParser` performs a validation check on each of the respective objects through
+`AddTaskCommandParser#parse()`. In this case, it would use `ParserUtil#parseClassId()`, `ParserUtil#parseMarking()`, and
+`ParserUtil#parseTaskTimes()`. It would then return a `AddTaskCommand` object with an `Task` object.
 
-* Step 5: `LogicManager` would execute `AddEarningsCommand#execute`. In this particular method, the `Earnings` object will be
-check with the rest of the prior `Earnings` object, to ensure that there is no duplicate `Earnings` object. If there are no similar
-`Earnings` object with the same parameters created previously, it would then be added into the earnings list.
+* Step 5: `LogicManager` would execute `AddTaskCommand#execute`. In this particular method, the `Task` object will be
+check with the rest of the prior `Task` object, to ensure that there is no duplicate `Task` object. If there are no similar
+`Task` object with the same parameters created previously, it would then be added into the task list.
 
-* Step 6: `AddEarningsCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Earnings`
+* Step 6: `AddTaskCommand` would then return a `CommandResult` to `LogicManager`, which would show the user that the new `Task`
 object have been successfully added.
-//end::Calendar[]
+// end::Calendar[]
 
 === Notes Features
 ==== Add Notes
@@ -400,11 +595,11 @@ check with the rest of the prior `Reminder` object, to ensure that there is no d
 
 // tag::learncustomcommands[]
 === Learn wrong commands as custom commands feature
-==== Implementation
 The main point of this feature is to learn a user's typing habits so as to give them a more seamless experience
 while using TutorAid by adapting to their typing style so that they do not have to memorize
 built in commands. This is done by having TutorAid trigger in and out of "learner" mode.
 
+==== Implementation
 A `CommandResult` object now has an added boolean `isUnknown` instance variable to indicate if the command entered is
 an unknown command. Using this, TutorAid shifts between "learner" mode and normal mode:
 
@@ -417,38 +612,29 @@ image::changeNormal.png[width="800"]
 The effect of being in "learner" mode results in the `TutorAidParser` using different methods to parse the command. This will be elaborated on in the sample use scenario below.
 
 While in "learner" mode, TutorAid can map wrong commands to the actions of known commands. These wrong/custom command keywords and their mappings are stored locally in TutorAid.json with
-the help of `JsonAdaptedCommand`.
+the help of `JsonAdaptedCommand` and the fact that commands are now modelled as a `CommandObject` that contains their `CommandWord` and `CommandAction`.
 
 A TreeMap is now being used in the process of parsing commands. New command classes such as `UnknownCommand`, `NewCommand` and `CancelCommand` were also created.
-
-* `TutorAidParser#checkCommand` -- Separate "parser" functions for unknown command operations.
-Checks if the command a user wants to map his unknown command to is valid and exists or if the user wishes
-to exit the operation.
-* `TutorAidParser#initialiseBasicCommands` -- Initialises the functionality of the `TutorAidParser` by adding
-the basic command mappings to its TreeMap.
 
 Given below is an example usage scenario and how the learn custom command mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `TutorAidParser` will be initialized and all basic
-commands and previous existing custom commands will be added to its TreeMap via `TutorAidParser#initialiseBasicCommands`.
+commands and previous existing custom commands will be added to its TreeMap via `TutorAidParser#initialiseBasicCommands()`.
 
-Step 2. The user enters "plus" instead of "add". `TutorAidParser` does a lookup in its TreeMap in the `TutorAidParser#parseCommand(String userInput)` method and returns a new `UnknownCommand` since
-the TreeMap does not contain the keyword "plus".
+Step 2. The user enters `plus` instead of `add`. `TutorAidParser` does a lookup in its TreeMap in the `TutorAidParser#parseCommand(String userInput)` method and returns a new `UnknownCommand` since
+the TreeMap does not contain the keyword `plus`.
 
-Step 3. The `UnknownCommand` is executed by `Logic` and "plus" is saved on `savedCommand` in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
+Step 3. The `UnknownCommand` is executed by `Logic` and `plus` is saved on the `savedCommand` Stack in the `Model` component. Subsequently, the `CommandResult` is passed to `MainWindow` to display the corresponding text on the GUI. This `CommandResult` triggers TutorAid into "learner" mode via the earlier explained implementation.
 
-Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters "ad" instead of "add". Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`.
+Step 4. TutorAid prompts the user to type in a valid command to map the unknown command to. The user types in another wrong command that is not recognised. This time, he enters `ad` instead of `add`. Since TutorAid is in "learner" mode, the method `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` is now called instead of `TutorAidParser#parseCommand(String userInput)`. Note that `prevUnknownCommand` is the last saved command retrieved from the `savedCommand` Stack.
 
 [NOTE]
 Logic#execute(String userInput) has been changed to Logic#execute(String userInput, boolean isUnknown) to account for different execution pathways when in normal and "learner" mode.
 
-[NOTE]
-`prevUnknownCommand` variable is retrieved from executing a `peek()` command on the `savedCommand` stack in `Model`.
+Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and `ad` is also saved.
+Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in `cancel`.
 
-Step 5. In `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`, the command is still not recognized and another `UnknownCommand` is returned and "ad" is also saved.
-Steps 3-5 occurs continuously as long as an unknown command is being supplied or until the user cancels the operation by typing in "cancel".
-
-Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new command mapping with the help of `Model`.
+Step 6. The user inputs a valid command. `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)` now finds the valid command in the TreeMap. With the latest `prevUnknownCommand` retrieved from the Stack, the unknown command and action of the valid command is added as a key-value pair to the TreeMap and a `NewCommand` object is returned and executed to store this new command mapping with the help of `Model`.
 
 Step 7. `NewCommand` has a `CommandResult` with an `isUnknown` value of `false`. This will trigger TutorAid back to normal mode. Normal commands can then be performed as `TutorAidParser#parseCommand(String userInput)` will now be called again instead of `TutorAidParser#checkCommand(String userInput, String prevUnknownCommand)`.
 
@@ -472,16 +658,16 @@ image::LearnCustomCommandsActivityDiagram.png[width="500"]
 
 ===== Aspect: Data structure to support the learning of custom commands
 
-* **Alternative 1 (current choice):** Add all CommandObject objects in the ObservableList<CommandObject> into a TreeMap.
+* **Alternative 1 (current choice):** Add all `CommandObject` objects in the `ObservableList<CommandObject>` into a TreeMap.
 ** Pros: Future queries to determine if a command exists or not only requires O(1) time.
 ** Cons: The first iteration to populate the TreeMap still takes O(n) time.
-* **Alternative 2:** Iterate through the ObservableList<CommandObject> to check if the command exists.
+* **Alternative 2:** Iterate through the `ObservableList<CommandObject>` to check if the command exists.
 ** Pros: We do not need to maintain a separate data structure, and just reuse what is already in the codebase. We also
 do not need to waste time populating a TreeMap.
 ** Cons: Every single query costs O(n) time to check if the command exists.
 // end::learncustomcommands[]
 
-// tag::undo/redo[]
+// tag::undoAndRedo[]
 === Undo/Redo feature
 
 The undo/redo mechanism is facilitated by `VersionedTutorAid`.
@@ -536,6 +722,7 @@ image::UndoRedoState4.png[]
 Step 6. The user executes `clear`, which calls `Model#commitTutorAid()`. Since the `currentStatePointer` is not pointing at the end of the `tutorAidStateList`, all tutor aid states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add_task c/CS2103T ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoState5.png[]
+// end::undoAndRedo[]
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -552,15 +739,6 @@ image::CommitActivityDiagram.png[]
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of tutor aid states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedTutorAid`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undo/redo[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
@@ -615,6 +793,7 @@ Refer to the guide <<DevOps#, here>>.
 
 *Value proposition*: manage calendar and track earnings faster than a typical mouse/GUI driven app
 
+// tag::userStoriesAndCase[]
 [appendix]
 == User Stories
 
@@ -641,7 +820,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |caring tutor user |check the upcoming events |remind my students
 |=======================================================================
-
+// end::userStoriesAndCase[]
 _{More to be added}_
 
 [appendix]
@@ -676,7 +855,10 @@ Use case ends.
 [none]
 ** 3a1. TutorAid shows an error message.
 +
-Use case resumes at step 2.
+Use case resumes at step 2. +
+
+
+
 
 [discrete]
 === Use case: Delete Reminder

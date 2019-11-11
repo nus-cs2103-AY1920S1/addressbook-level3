@@ -48,6 +48,9 @@ import seedu.address.logic.commands.note.FindNotesCommand;
 import seedu.address.logic.commands.note.ListNotesCommand;
 import seedu.address.logic.commands.reminder.AddReminderCommand;
 import seedu.address.logic.commands.reminder.DeleteReminderCommand;
+import seedu.address.logic.commands.reminder.FindReminderCommand;
+import seedu.address.logic.commands.reminder.ListReminderBasedOnDateCommand;
+import seedu.address.logic.commands.reminder.ListReminderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.WindowView;
 import seedu.address.model.account.Username;
@@ -60,6 +63,7 @@ import seedu.address.model.earnings.Claim;
 import seedu.address.model.earnings.Count;
 import seedu.address.model.earnings.Date;
 import seedu.address.model.earnings.Type;
+import seedu.address.model.note.ClassType;
 import seedu.address.model.note.Content;
 import seedu.address.model.note.ModuleCode;
 import seedu.address.model.person.Attendance;
@@ -371,6 +375,21 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String content} into an {@code Content}.
+     * @param type String of class type.
+     * @return ClassType.
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static ClassType parseClassType(String type) throws ParseException {
+        requireNonNull(type);
+        String trimmedType = type.trim();
+        if (!ClassType.isValidClassType(trimmedType)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new ClassType(trimmedType);
+    }
+
+    /**
      * Parses a {@code String type} into an {@code Type}.
      * @param type String of type.
      * @return Type.
@@ -436,9 +455,12 @@ public class ParserUtil {
         commandList.put(FindEarningsCommand.COMMAND_WORD, FindEarningsCommand.COMMAND_WORD);
         commandList.put(DeleteTaskCommand.COMMAND_WORD, DeleteTaskCommand.COMMAND_WORD);
         commandList.put(ListTasksCommand.COMMAND_WORD, ListTasksCommand.COMMAND_WORD);
+        commandList.put(ListReminderCommand.COMMAND_WORD, ListReminderCommand.COMMAND_WORD);
         commandList.put(ChangeTabCommand.COMMAND_WORD, ChangeTabCommand.COMMAND_WORD);
         commandList.put(AddReminderCommand.COMMAND_WORD, AddReminderCommand.COMMAND_WORD);
         commandList.put(DeleteReminderCommand.COMMAND_WORD, DeleteReminderCommand.COMMAND_WORD);
+        commandList.put(FindReminderCommand.COMMAND_WORD, FindReminderCommand.COMMAND_WORD);
+        commandList.put(ListReminderBasedOnDateCommand.COMMAND_WORD, ListReminderBasedOnDateCommand.COMMAND_WORD);
         commandList.put(ListTasksBasedOnDateCommand.COMMAND_WORD,
                 ListTasksBasedOnDateCommand.COMMAND_WORD);
         commandList.put(AddNotesCommand.COMMAND_WORD, AddNotesCommand.COMMAND_WORD);

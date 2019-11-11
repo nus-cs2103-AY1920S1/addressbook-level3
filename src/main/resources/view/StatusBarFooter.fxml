@@ -9,4 +9,6 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10" />
   </columnConstraints>
   <Label fx:id="saveLocationStatus" />
+  <Label fx:id="tab"
+         GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 </GridPane>

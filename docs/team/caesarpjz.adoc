@@ -1,0 +1,105 @@
+= Caesar Pang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Introduction
+
+image::caesarpjz.png[width="150", align="left"]
+{empty}[https://github.com/caesarpjz[github]] [https://www.linkedin.com/in/caesarpangjianzhang/[linkedin]]
+
+Hi! My name is Caesar Pang. I'm currently a Year 2 student studying Computer Science, in School of Computing (SOC) in NUS.
+
+This portfolio page aims to document the contributions I have made in the development of TutorAid, which is a
+project that my team and I completed for the module CS2103T. This project has definitely taught me many skills that
+are extremely relevant in the real world and in the future. It has allowed me
+to be a more competent and knowledgable software engineer.
+
+== PROJECT: TutorAid
+
+== Overview
+
+TutorAid is an easy-to-use Command Line Interface (CLI) based application that helps to makes the lives of tutors easier
+by organizing their workflow and all their related tasks into one location. It is extremely beneficial to Computing
+tutors as they are already highly adept at typing on CLI interface and TutorAid also provides a Graphical User Interface (GUI) interface for users to easily view and interact
+with TutorAid.
+
+The features of TutorAid has been well-thought out, keeping in mind the necessities and wants of tutors alike. To meet the
+exact needs of our target audience, we have conducted several surveys to ask current tutors what they would like in an
+application and thus, TutorAid was created. All of TutorAid's features and implementations are well documented
+in guides for users and developers respectively.
+
+.A view of TutorAid
+image::../images/Ui.png[width="500"]
+
+== Role
+
+My main role was to prototype and develop the Login feature and the Earnings Tracker feature.
+The login command required me to think of how to put up a login window that only shows the main window when the user
+has logged in successfully. It also required me to think of how to encrypt the passwords stored and how to check whether they
+ are valid as well. I also did the Earning feature where it tracks what earnings you have earned throughout the weeks. It has a claim status that
+allows you to see if you have claimed your earnings from your respective faculties.
+
+== Summary of contributions
+
+* *Largest Enhancement*: Auto addition of earnings.
+** What it does: It allows the user to auto add all of the earnings of the day (provided that the earnings is a routine), into the earnings list with only one short `auto` command.
+** Justification: This feature improves the product significantly because as a Tutor, it is normal to have tutorials or labs or consultations to give
+at the same day of the week, every week. If a tutor, for example, has many lessons in a day to teach, he/she has to add the earnings into the list one by one, which is
+extremely hard and tedious to do. If the tutor has added the earnings into the list once already, the tutor can repeat this earnings by invoking the `weekly_earnings` command and the
+number of times to add into the list. Afterwards, the tutor just has to invoke the `auto` command on the day itself to auto add all his routine lessons.
+** Implementation: This enhancement alters how TutorAid is used. Instead of just being a normal, "key in earnings" tracker, the addition of such a feature has helped to
+ease the use of earnings tracking for the users. This is facilitated by the use of a HashMap in the Earnings list. This HashMap only has at most 7 keys as these keys are
+determined by the name of the days in a week. Inside the HashMap, there are ArrayList mapped as the values of the HashMap. This feature consists of 2 main commands. The first command is `weekly_earnings INDEX count/COUNT` and the second command is `auto`. Users have to add the earnings that they want to repeat over the weeks manually first. After they have added the earnings, they can invoke the `weekly_earnings` command to auto add the earnings for the next few weeks depending on the number of counts they have inputted. The `weekly_earnings` command add the key-value pair to a HashMap in `Earnings` class. Once the user invokes the `auto` command, the parser will check the current day of the week and
+get the value of the HashMap that is associated with the key value (that is the day of the week). If there exists an ArrayList, the parser will check through the entire list and
+check if the Earnings in the ArrayList has more than a `Count` of 0. If the `Count` is more than zero, then the parser adds the `Earnings` object into the current list. If the `Count` is zero, the `Earnings object would be removed from the ArrayList.
+
+* *Minor Enhancement*: Register and Login feature.
+** What it does: It allows the user to register and login into the application.
+** Justification: This feature improves the product significantly because as a Tutor, you would enter in critical and
+sensitive information of your students and of your earnings. By adding a register and login feature, it makes the
+app a lot more secure and tutors can confidently enter data into their application worry-free.
+** Implementation: This enhancement alters the way TutorAid is used. Normally, users could enter into the application once they launched it.
+ But with the register and login feature, it only allows users to login when they have the correct credentials. The register and login feature is aided by a password encryption method.
+When users register, the passwords of the accounts created will be hashed with a salt so that there will be more security.
+I created a Login Window as well so that the users can have a visual cue when they login into their account.
+
+* *Code contributed*: [https://github.com/AY1920S1-CS2103T-F14-2/main/commits?author=caesarpjz[All commits]] [https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=caesarpjz[Project Code Dashboard]]
+
+* *Other contributions*:
+
+** Project management:
+*** Managed and assigned the issues at the start of the project: https://github.com/AY1920S1-CS2103T-F14-2/main/issues/82[#82], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/94[#94], https://github.com/AY1920S1-CS2103T-F14-2/main/issues/104[#104]
+*** Managed release `First Draft`, `v1.2` and `v1.3.2` on Github
+*** Ensured the travis build was always working and passed before milestone deadlines.  https://github.com/AY1920S1-CS2103T-F14-2/main/commit/feee21152bea43b0628d957ac54ea7cede6909ba[#246], https://github.com/AY1920S1-CS2103T-F14-2/main/commit/dd1d1b4306a3296e2b87e9fafa2d413b1f18afdc[#173]
+*** Implemented Protected Branches on team repository so as to have teammates review each other and prevent accidental merges.
+** Enhancements to existing features:
+*** Wrote multiple tests for existing features to increase code coverage incrementally (https://coveralls.io/builds/26875321[#386], https://coveralls.io/builds/26800524[#345], https://coveralls.io/builds/26771396[#337])
+** Documentation:
+*** Added detailed implementation documentation for the account storage and earnings feature in Developer Guide, including diagrams
+*** Customized and updated ReadMe for TutorAid
+** Community:
+*** Consistently reviewed and gave feedback to team members. PRs reviewed: https://github.com/AY1920S1-CS2103T-F14-2/main/pull/243[#243], https://github.com/AY1920S1-CS2103T-F14-2/main/pull/214[#214]
+** Tools:
+*** Set up Netlify
+*** Set up Token Generator Account for team repository.
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=startEarningsTag]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=earnings]
+
+include::../DeveloperGuide.adoc[tag=otherEarnings]
+
+include::../DeveloperGuide.adoc[tag=accountStorage]

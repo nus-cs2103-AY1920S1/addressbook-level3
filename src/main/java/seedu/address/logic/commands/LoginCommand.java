@@ -6,11 +6,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.account.Account;
+import seedu.address.model.earnings.Earnings;
 import seedu.address.storage.AccountStorage;
 import seedu.address.storage.JsonAccountStorage;
 import seedu.address.ui.UiManager;
@@ -47,7 +51,17 @@ public class LoginCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        List<Earnings> lastShownList = model.getFilteredEarningsList();
+        Earnings.setList(lastShownList);
+        HashMap<String, ArrayList<Earnings>> list = model.getMap();
+        Earnings.setHashMap(list);
         AccountStorage accountStorage = new JsonAccountStorage();
+
+        if (Earnings.getTotalEarnings().equals("0.00")) {
+            for (Earnings e : Earnings.getEarningsList()) {
+                Earnings.addToTotalEarnings(e.getAmount());
+            }
+        }
 
         try {
             if (accountStorage.getAccountsList().get().sameCredentials(account.getUsername(), account.getPassword())) {

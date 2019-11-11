@@ -16,7 +16,11 @@ image::caesarpjz.png[width="150", align="left"]
 link:https://github.com/caesarpjz[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Team Leader
-Responsibilities: Data + Dev Ops
+Responsibilities:
+
+* Travis Expert
+* Storage Expert
+* Dev Ops
 
 '''
 
@@ -34,7 +38,10 @@ image::ngswbryan.png[width="150", align="left"]
 link:https://github.com/ngswbryan[image:github_logo.png[width="30", align="left"]]
 
 ==== Role: Developer +
-Responsibilities: Data + Dev Ops
+Responsibilities:
+
+* Coveralls Expert
+* Data + Dev Ops
 
 '''
 

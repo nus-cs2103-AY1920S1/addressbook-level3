@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_AMOUNT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ATTENDANCE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSID;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PARTICIPATION;
@@ -59,7 +60,6 @@ public class CommandTestUtil {
     public static final String VALID_TASK_TIME_3 = "30/01/2020 12:00, 30/01/2019 14:00";
 
 
-
     public static final String CLASSID_DESC_AMY = " " + PREFIX_CLASSID + VALID_CLASSID_AMY;
     public static final String CLASSID_DESC_BOB = " " + PREFIX_CLASSID + VALID_CLASSID_BOB;
     public static final String ATTENDANCE_DESC_AMY = " " + PREFIX_ATTENDANCE + VALID_ATTENDANCE_AMY;
@@ -81,11 +81,14 @@ public class CommandTestUtil {
     public static final String INVALID_CLASSID_DESC = " " + PREFIX_CLASSID + " "; // Class ID should not be blank
     public static final String INVALID_PARTICIPATION_DESC = " " + PREFIX_PARTICIPATION + "Good"; // Only numbers
 
+
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
+
     public static final EditPersonDescriptor DESC_AMY;
     public static final EditPersonDescriptor DESC_BOB;
+
 
     public static final String VALID_DATE_EARNINGS_CS2100_A01 = "03/04/2020";
     public static final String VALID_DATE_EARNINGS_CS1231_T05 = "06/04/2019";
@@ -105,6 +108,33 @@ public class CommandTestUtil {
     public static final String INVALID_TYPE_DESC = " " + PREFIX_TYPE + "consulting"; // "consulting" is not allowed
     public static final String INVALID_AMOUNT_DESC =
             " " + PREFIX_AMOUNT + "323.332"; // Only 2 decimal places are allowed
+
+
+
+    public static final String VALID_CLASSID_NOTE_AMY = "CS2103T";
+    public static final String VALID_CLASSID_NOTE_BOB = "CS3235";
+    public static final String VALID_CLASSID_NOTE_CALVIN = "ES2660";
+
+    public static final String VALID_TYPE_NOTES_TUT = "tut";
+    public static final String VALID_TYPE_NOTES_LAB = "lab";
+    public static final String VALID_TYPE_NOTES_C = "c";
+
+    public static final String VALID_NOTE_CONTENT_1 = "check project consultation time";
+    public static final String VALID_NOTE_CONTENT_2 = "remember to bring test result";
+    public static final String VALID_NOTE_CONTENT_3 = "meeting with lecturer";
+
+    public static final String CLASSID_DESC_NOTE_AMY = " " + PREFIX_CLASSID + VALID_CLASSID_NOTE_AMY;
+    public static final String CLASSID_DESC_NOTE_BOB = " " + PREFIX_CLASSID + VALID_CLASSID_NOTE_BOB;
+    public static final String CLASSID_DESC_NOTE_CALVIN = " " + PREFIX_CLASSID + VALID_CLASSID_NOTE_CALVIN;
+
+    public static final String TYPE_DESC_NOTE_AMY = " " + PREFIX_TYPE + VALID_TYPE_NOTES_TUT;
+    public static final String TYPE_DESC_NOTE_BOB = " " + PREFIX_TYPE + VALID_TYPE_NOTES_LAB;
+    public static final String TYPE_DESC_NOTE_CALVIN = " " + PREFIX_TYPE + VALID_TYPE_NOTES_C;
+
+    public static final String CONTENT_DESC_NOTE_AMY = " " + PREFIX_CONTENT + VALID_NOTE_CONTENT_1;
+    public static final String CONTENT_DESC_NOTE_BOB = " " + PREFIX_CONTENT + VALID_NOTE_CONTENT_2;
+    public static final String CONTENT_DESC_NOTE_CALVIN = " " + PREFIX_CONTENT + VALID_NOTE_CONTENT_3;
+
 
     public static final EditEarningsDescriptor DESC_CS2100;
     public static final EditEarningsDescriptor DESC_CS1231;
