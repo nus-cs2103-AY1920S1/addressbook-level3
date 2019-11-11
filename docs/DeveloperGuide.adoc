@@ -368,8 +368,8 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 [[Implementation]]
 == Implementation
 This section describes some noteworthy details on how certain features are implemented and works.
-There are a total of 6 tabs in our application for each feature: Home Tab, Members Tab, Reimbursement Tab,
-Inventory Tab, Cashier Tab, Overview Tab.
+There are a total of 6 tabs in our application for each feature: Home tab, Members tab, Reimbursement tab,
+Inventory tab, Cashier tab, Overview tab.
 
 === Home Tab
 This tab will help to show records of individual transactions from miscellaneous spending, revenue from sales and
@@ -595,7 +595,7 @@ tab.
 
 The following Sequence Diagram shows the execution of Deadline command:
 
-.Sequence Diagram of Deadline Command in the Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Deadline Command in the Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementDeadlineCommandSD.png[]
 
 As shown, a user needs to add a deadline to a reimbursement by specifying
@@ -605,7 +605,7 @@ This `DeadlineCommand` is returned back to `LogicManager` of reimbursement and i
 `ModelManager`. After the operations, `LogicManager` gets updated reimbursement list from `ModelManager` and displays the deadline in reimbursement list.
 After that, the deadline is saved into a `.txt` file.
 
-.Activity Diagram of Deadline command in the Reimbursements Tab (reimbursement package)
+.Activity Diagram of Deadline command in the Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDeadlineCommand.png[]
 
 As shown by the above activity diagram, when a user inputs a person who does not exist in any
@@ -619,7 +619,7 @@ The find command requires access to `Model` of the
 person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
-.Sequence Diagram of Find Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Find Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementFindCommandSD.png[]
 
 A user needs to find a reimbursement by providing the person's name.
@@ -628,7 +628,7 @@ As shown in the above figure, `FindCommand` is executed by calling `findReimburs
 and reimbursement tab only shows a `filteredList` which contains this single reimbursement.
 
 [[ReimbursementTabActivityDiagramFindCommand]]
-.Activity Diagram of Find Command in Reimbursements Tab (reimbursement package)
+.Activity Diagram of Find Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramFindCommand.png[]
 
 The above activity diagram shows the steps needed for find command.
@@ -639,7 +639,7 @@ is found and displayed in the tab.
 ==== Back Command feature
 This command is used to return to the original list after executing find command
 
-.Sequence Diagram of Back Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Back Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementBackCommandSD.png[]
 
 `BackCommand` execution updates `filteredList` inside `ModelManager` to the original full `reimbursementList`.
@@ -652,7 +652,7 @@ person package which the `AddressBook` implementation is contained in.
 Person field should be provided and the person's name should exist in reimbursement list.
 
 [[ReimbursementDoneCommandSD]]
-.Sequence Diagram of Done Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Done Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementDoneCommandSD.png[]
 
 A user needs to mark a reimbursement as done by specifying the person's name for the specific reimbursement.
@@ -669,7 +669,7 @@ Then `LogicManager` gets the updated transaction list and passes this list to `S
 of transaction tab to save it.
 
 [[ReimbursementUpdateTransactionsSD]]
-.Sequence Diagram of updating transactions in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of updating transactions in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementUpdateTransactionsSD.png[]
 
 <<ReimbursementTabActivityDiagramDoneCommand, The following activity diagram>> shows the steps needed for done command.
@@ -678,13 +678,13 @@ If not, our app informs the user that command is incorrect. If command is valid,
 containing the provided person's name is deleted from reimbursement list and will not be displayed.
 
 [[ReimbursementTabActivityDiagramDoneCommand]]
-.Activity Diagram of Done Command in Reimbursements Tab (reimbursement package)
+.Activity Diagram of Done Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementTabActivityDiagramDoneCommand.png[]
 
 ==== Sort Command feature
 This command is used to sort reimbursements and the user can choose to sort based on name, amount or deadline.
 
-.Sequence Diagram of Sort Command in Reimbursements Tab (reimbursement package)
+.Sequence Diagram of Sort Command in Reimbursements tab (reimbursement package)
 image::Reimbursement/ReimbursementSortCommandSD.png[]
 
 As shown in the above figure, `SortXYZCommand` is executed by calling `sortListByXYZ` method in
@@ -701,7 +701,7 @@ sale, the price can be inputted as well.
 
 This is the overall Class Diagram of this tab:
 
-.Class Diagram of Inventory Tab (inventory package)
+.Class Diagram of Inventory tab (inventory package)
 
 image::InventoryTabClassDiagram.png[]
 
@@ -718,13 +718,13 @@ order.
 The following sequence diagram shows how an add command works with the description, category, quantity, cost and price fields
 present:
 
-.Sequence Diagram of Add Command in Inventory Tab (inventory package)
+.Sequence Diagram of Add Command in Inventory tab (inventory package)
 
 _{ to be added }_
 
 The following activity diagram displays the process of adding a new item to the inventory:
 
-.Activity Diagram of Add Command in Inventory Tab (inventory package)
+.Activity Diagram of Add Command in Inventory tab (inventory package)
 
 image::InventoryAddCommandActivityDiagram.png[]
 
@@ -803,13 +803,13 @@ If description and quantity are both valid, the `ModelManager` will add the item
 
 The following sequence diagram which is referenced in <<GeneralLogicSD, 2.3. Logic component: Figure 5>>, shows how the `AddCommand` works:
 
-.Sequence Diagram of Add Command in Cashier Tab (cashier package)
+.Sequence Diagram of Add Command in Cashier tab (cashier package)
 
 image::AddCommandCashierSeq.png[]
 
 
 [NOTE]
-After every add command, the quantity of items in the Inventory Tab will still remain the same. The remaining stock
+After every add command, the quantity of items in the Inventory tab will still remain the same. The remaining stock
 will only be updated after the Checkout Command.
 
 [NOTE]
@@ -1052,7 +1052,6 @@ implementation of this function,
 
 The following are code snippets of each of the chosen implementations above:
 
-.Code snippet of calculation of summary statistics.
     public double getTotalExpenses() {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
@@ -1062,7 +1061,6 @@ The following are code snippets of each of the chosen implementations above:
             .sum() * -1;
     }
 
-.Code snippet of notifications implementation.
     private void checkIfNotify() {
         List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
         for (OverallCommandResult notif: notifications) {
@@ -1667,24 +1665,6 @@ Contains items that are stored either to be sold or to be used for functional pu
 Cashier Mode::
 Automatically switches on when there are sales items in the cart on the `Cashier Tab`
 
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
 [appendix]
 == Instructions for Manual Testing
 
@@ -1914,6 +1894,24 @@ Response message that items has been checked out successfully shown.
 
 
 === Testing Overview Tab Features
+. Setting goals
+.. Test case 1: [blue]`set b/500` +
+Expected: The budget goal is set to 500.
+.. Test case 2: [blue]`set e/500` +
+Expected: The expense goal is set to 500.
+.. Test case 3: [blue]`set s/500` +
+Expected: The sales target is set to 500.
+
+. Setting notification thresholds
+.. Test case 1: [blue]`notify b/80` +
+Expected: The budget notification threshold is set to 80%, and the application will notify you when you hit
+80% of the goal.
+.. Test case 2: [blue]`notify e/80` +
+Expected: The expense notification threshold is set to 80%, and the application will notify you when you hit
+80% of the goal.
+.. Test case 3: [blue]`notify s/80` +
+Expected: The sales notification threshold is set to 80%, and the application will notify you when you hit
+80% of the goal.
 
 === Saving data
 

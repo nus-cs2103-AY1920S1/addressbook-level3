@@ -65,7 +65,7 @@ Additionally, there are two common elements across all tabs. The command box, fo
 commands, and Leo, the mascot of treasurerPro, who acts as a personal assistant and guides the user.
 
 The following screenshot shows the User Interface of the application on first launch:
-image:Ui.png[width="600"]
+image:annotatedUi2.png[width="600"]
 
 == Summary of contributions
 I served as Team Lead for the project, and my responsibilities included designing the new User Interface, as well
@@ -366,7 +366,6 @@ implementation of this function,
 
 The following are code snippets of each of the chosen implementations above:
 
-.Code snippet of calculation of summary statistics.
     public double getTotalExpenses() {
         Stream<Transaction> transactionStream = transactionLogic.getTransactionList().stream();
         return transactionStream
@@ -376,7 +375,6 @@ The following are code snippets of each of the chosen implementations above:
             .sum() * -1;
     }
 
-.Code snippet of notifications implementation.
     private void checkIfNotify() {
         List<OverallCommandResult> notifications = overviewLogic.checkNotifications();
         for (OverallCommandResult notif: notifications) {

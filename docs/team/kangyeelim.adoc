@@ -252,9 +252,33 @@ The following section shows my contribution to the treasurerPro Developer Guide 
 my ability to write documentation of technical concepts and the technical-depth of my contributions to the project.
 
 === Current enhancement
-{Start of Extract from Developer Guide}
-
+{Start of First Extract from Developer Guide}
 :sectnums!:
+==== 2.3.1. Details on `Logic` Implementation for the Home and Reimbursements Tab
+This section will show further details of the `Logic` component of the Home tab and Reimbursements tab.
+
+Given below is a Class Diagram showing the structure of `Parser` within the `Logic` component which is a reference for <<fig-LogicClassDiagram, 2.3. Logic Component: Figure 4>>:
+
+[caption = "Figure 6. "]
+.Structure of `Parser` for the Home and Reimbursements tab.
+image::LogicForR&T.png[]
+
+[NOTE]
+The `XYZTabParser` represents the `TransactionTabParser` for Home Tab and `ReimbursementTabParser` for the Reimbursements
+tab.
+
+The parsers represented by the `ABCParser` and `DEFParser` are:
+
+`ABCParser`:
+
+* Transaction Tab:
+** `EditCommandParser`
+** `AddCommandParser`
+** `DeleteCommandParser`
+
+{End of First Extract}
+
+{Start of Second Extract from Developer Guide}
 [[DeleteCommandHome]]
 ==== 3.1.2. Delete Feature
 
@@ -372,4 +396,4 @@ image::homeDG/2lists.png[width = "450"]
 .Code snippet of `CheckAndGetPersonByNameOnly` facade class for `ModelManager` from Members Tab
 image::homeDG/facadeForDesignConsiderations.png[width = "450"]
 
-{End of Extract}
+{End of Second Extract}
