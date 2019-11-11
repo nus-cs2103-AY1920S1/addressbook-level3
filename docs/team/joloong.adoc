@@ -13,7 +13,8 @@ This portfolio documents my contributions to PalPay, a software engineering proj
 CS2103T Software Engineering. For this module, we were provided with a working software application which we
 could enhance or morph to suit our target audience.
 
-For the project, my main role was
+For the project, my main role was to develop the undo and redo feature for the application. Additionally,
+I was tasked to develop the view, sort and filter features.
 
 == Summary of contributions
 
@@ -29,8 +30,9 @@ the user experience and a more convenient way of self-correction.
 
 
 ** Highlights: This requires a thorough understanding of the starting infrastructure of the application in other
-to make changes to it. This enhancement affects existing commands and commands to be added in future. I need to
-ensure the commands are undoable and redoable, and that there are no conflicts.
+to make changes to it. This enhancement affects existing commands and commands to be added in future. In addition,
+I need to ensure the commands are undoable and redoable, and that there are no conflicts to the existing data
+in the application.
 
 * *Minor enhancement*:
 
