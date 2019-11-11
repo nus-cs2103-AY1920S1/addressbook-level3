@@ -7,19 +7,21 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PASSWORDS;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.core.Dictionary;
-import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.DictionaryAnalyser;
+import seedu.address.model.password.analyser.KeyboardAnalyser;
 import seedu.address.model.password.analyser.SequenceAnalyser;
 import seedu.address.model.password.analyser.SimilarityAnalyser;
 import seedu.address.model.password.analyser.StrengthAnalyser;
 import seedu.address.model.password.analyser.UniqueAnalyser;
 import seedu.address.model.password.analyser.report.AnalysisReport;
+import seedu.address.model.password.analyser.resources.Dictionary;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.exceptions.DictionaryNotFoundException;
+
 
 /**
  * Analyses passwords in the password book.
@@ -39,31 +41,40 @@ public class AnalysePasswordCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, DictionaryException {
-        requireNonNull(model);
-        model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
-        List<Password> passwordList = model.getFilteredPasswordList();
-        List<Analyser> analyserList = getRequiredAnalysers();
-        AnalysisReport analysisReport = new AnalysisReport();
-        for (Analyser analyser : analyserList) {
-            analysisReport.writeHeading(analyser.getHeader());
-            List<Result> results = analyser.analyse(passwordList);
-            analysisReport.write(results);
+    public CommandResult execute(Model model) throws CommandException {
+        try {
+            requireNonNull(model);
+            model.updateFilteredPasswordList(PREDICATE_SHOW_ALL_PASSWORDS);
+            List<Password> passwords = model.getFilteredPasswordList();
+            List<Analyser> analysers = getRequiredAnalysers();
+            AnalysisReport analysisReport = new AnalysisReport();
+            for (Analyser analyser : analysers) {
+                List<Result> results = analyser.analyse(passwords);
+                analysisReport.write(analyser, results);
+            }
+            return CommandResult.builder(MESSAGE_SUCCESS)
+                    .read()
+                    .setObject(analysisReport)
+                    .build();
+        } catch (DictionaryNotFoundException e) {
+            return new CommandResult(e.getMessage());
         }
-        return CommandResult.builder(MESSAGE_SUCCESS)
-                .read()
-                .setObject(analysisReport)
-                .build();
     }
 
-    List<Analyser> getRequiredAnalysers() throws DictionaryException {
+    /**
+     * Creates a {@code List} of all the {@code Analyser} objects.
+     *
+     * @return the current list of analyser objects
+     * @throws DictionaryNotFoundException if the {@code Dictionary} cannot be loaded.
+     */
+    List<Analyser> getRequiredAnalysers() throws DictionaryNotFoundException {
         ArrayList<Analyser> analyserList = new ArrayList<>();
         analyserList.add(new UniqueAnalyser());
-        //analyserList.add(new UserAsPassAnalyser());
         analyserList.add(new StrengthAnalyser());
         analyserList.add(new SimilarityAnalyser());
         analyserList.add(new DictionaryAnalyser(Dictionary.build(DICTIONARY_PASSWORD)));
         analyserList.add(new SequenceAnalyser());
+        analyserList.add(new KeyboardAnalyser());
 
         return analyserList;
     }

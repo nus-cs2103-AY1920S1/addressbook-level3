@@ -23,21 +23,37 @@ import seedu.address.model.tag.Tag;
 public class SampleDataPasswordUtil {
     public static Password[] getSamplePasswords() {
         return new Password[] {
-            new Password(new PasswordDescription("Gmail"), new Username("Randomguy"),
-                        new PasswordValue("password"), new PasswordModifiedAt(new Date()),
-                        new Website("www.gmail.com"), getTagSet("SocialMedia")),
-            new Password(new PasswordDescription("gmail"), new Username("Randomguy1"),
-                        new PasswordValue("password1"), new PasswordModifiedAt(new Date()),
-                        new Website("www.gmail.com"), getTagSet("Work")),
-            new Password(new PasswordDescription("Gmail"), new Username("Randomguy2"),
-                        new PasswordValue("password2"), new PasswordModifiedAt(new Date()),
-                        new Website("www.gmail.com"), getTagSet("SocialMedia")),
-            new Password(new PasswordDescription("Gmail"), new Username("Randomguy3"),
+            new Password(new PasswordDescription("DropBox"), new Username("SecureIT@secureIT.com"),
+                        new PasswordValue("password1234"), new PasswordModifiedAt(new Date()),
+                        new Website("www.dropbox.com"), getTagSet("Work")),
+            new Password(new PasswordDescription("Facebook"), new Username("SecureIT@secureIT.com"),
+                        new PasswordValue("password1234"), new PasswordModifiedAt(new Date()),
+                        new Website("www.facebook.com"), getTagSet("Marketing")),
+            new Password(new PasswordDescription("GitHub"), new Username("JohnDoe"),
                         new PasswordValue("password3"), new PasswordModifiedAt(new Date()),
-                        new Website("www.gmail.com"), getTagSet("Game")),
-            new Password(new PasswordDescription("Gmail"), new Username("Randomguy4"),
-                        new PasswordValue("password4"), new PasswordModifiedAt(new Date()),
-                        new Website("www.gmail.com"), getTagSet("Help")),
+                        new Website("https://github.com/login"), getTagSet("Work")),
+            new Password(new PasswordDescription("Gmail"), new Username("SecureIT@secureIT.com"),
+                        new PasswordValue("password1"), new PasswordModifiedAt(new Date()),
+                            new Website("https://accounts.google.com/signin/v2/identifier?hl=en&p"
+                                    + "assive=true&continue=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq"
+                                    + "%3Dgmail%2Bsign%2Bin%26oq%3Dgmail%2Bsign%2Bin%26aqs%3Dchrome..69"
+                                    + "i57.1886j0j1%26sourceid%3Dchrome%26ie%3DUTF-8&flowName=GlifWebSig"
+                                    + "nIn&flowEntry=ServiceLogin"), getTagSet("Work")),
+            new Password(new PasswordDescription("Gmail"), new Username("JohnDoe@gmail.com"),
+                        new PasswordValue("password2"), new PasswordModifiedAt(new Date()),
+                        new Website("https://accounts.google.com/signin/v2/identifier?hl=en&p"
+                                + "assive=true&continue=https%3A%2F%2Fwww.google.com%2Fsearch%3Fq"
+                                + "%3Dgmail%2Bsign%2Bin%26oq%3Dgmail%2Bsign%2Bin%26aqs%3Dchrome..69"
+                                + "i57.1886j0j1%26sourceid%3Dchrome%26ie%3DUTF-8&flowName=GlifWebSig"
+                                + "nIn&flowEntry=ServiceLogin"), getTagSet("Personal")),
+            new Password(new PasswordDescription("Slack"), new Username("JohnDoe"),
+                        new PasswordValue("DRCTFYG$%^&*"),
+                        new PasswordModifiedAt(new Date(new Date().getTime() - 1000L * 60L * 60L * 24L * 335L)),
+                        new Website("https://slack.com/signin"), getTagSet("Work")),
+            new Password(new PasswordDescription("Instagram"), new Username("SecureIT"),
+                        new PasswordValue("pascnj%^&"),
+                        new PasswordModifiedAt(new Date(new Date().getTime() - 1000L * 60L * 60L * 24L * 366L)),
+                        new Website("https://slack.com/signin"), getTagSet("Work")),
         };
     }
 

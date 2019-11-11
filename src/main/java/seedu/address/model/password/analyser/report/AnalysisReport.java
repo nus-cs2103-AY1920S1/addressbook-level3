@@ -1,23 +1,26 @@
 package seedu.address.model.password.analyser.report;
 
+import java.util.HashMap;
 import java.util.List;
 
-import seedu.address.model.password.Password;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import seedu.address.model.password.analyser.Analyser;
 import seedu.address.model.password.analyser.result.Result;
 
 /**
- * Represents the Analysis Report formed from the {@code Result} objects from the various {@code Anlayser} Objects
+ * Represents an Analysis Report that compiles the {@code List} of {@code Result} from the each {@code Analyser}.
  */
 public class AnalysisReport {
-    private static final String MESSAGE_DIVIDER = "----------------------------------------\n";
-    private static final String MESSAGE_INIT =
+    protected static final String MESSAGE_DIVIDER = "-------------------------------------------\n";
+    protected static final String MESSAGE_LOGO =
             "  ____                           ___ _____  \n"
                     + " / ___|  ___  ___ _   _ _ __ ___|_ _|_   _| \n"
                     + " \\___ \\ / _ \\/ __| | | | '__/ _ \\| |  | |   \n"
                     + "  ___) |  __/ (__| |_| | | |  __/| |  | |   \n"
                     + " |____/ \\___|\\___|\\__,_|_|  \\___|___| |_|   \n"
                     + "                                            \n"
-                    + "---- Password analysis ----\n"
+                    + "------------ Password analysis ------------\n"
                     + "\n";
     private static final String MESSAGE_UNDERSCORE = "--------------------";
     private static final String COLUMN1 = String.format("%-20s %-5s %-20s %-5s %-20s %-5s %-20s",
@@ -26,52 +29,45 @@ public class AnalysisReport {
             "Description", ":", "Username", ":", "Password", ":", "Result") + "\n";
     private static final String MESSAGE_COLUMNS = COLUMN1 + COLUMN2 + COLUMN1;
 
-    private StringBuilder reportBuilder;
+    protected StringBuilder reportBuilder;
+    protected HashMap<Analyser, List<Result>> reports;
     /**
      * Constructs an Analysis Report.
      */
     public AnalysisReport() {
         this.reportBuilder = new StringBuilder();
-        reportBuilder.append(MESSAGE_INIT);
+        this.reports = new HashMap<>();
+        reportBuilder.append(MESSAGE_LOGO);
     }
 
     /**
      * Writes summary information about analysis for all passwords.
      */
-    public void write(List<Result> results) {
+    public void write(Analyser analyser, List<Result> analysisResults) {
+        reports.put(analyser, analysisResults);
+        reportBuilder.append(analyser.getHeader());
         reportBuilder.append(MESSAGE_COLUMNS);
-        for (Result o : results) {
+        for (Result o : analysisResults) {
             reportBuilder.append(o);
         }
         reportBuilder.append("\n");
-        //TODO good way to write title
-    }
-    /**
-     * Writes further in-depth information about a specific result.
-     */
-    public void write(Result result) {
-        reportBuilder.append(result.getGreaterDetail());
-        reportBuilder.append(MESSAGE_DIVIDER);
     }
 
     /**
-     * Writes header message for the various analysers.
+     * Returns a {@code ObservableList} of {@code Result}.
      *
-     * @param header
+     * @param results the list of {@code Result} produced from {@code Analyser}.
      */
-    public void writeHeading(String header) {
-        reportBuilder.append(header);
+    public ObservableList<Result> getObservableResults(List<Result> results) {
+        ObservableList<Result> resultObservableList = FXCollections.observableArrayList();
+        resultObservableList.addAll(results);
+        return resultObservableList;
     }
 
-    /**
-     * Writes password in String format.
-     *
-     * @param password
-     */
-    public void writePassword(Password password) {
-        reportBuilder.append(password);
-        reportBuilder.append(MESSAGE_DIVIDER);
+    public HashMap<Analyser, List<Result>> getReports() {
+        return this.reports;
     }
+
     @Override
     public String toString() {
         return reportBuilder.toString();

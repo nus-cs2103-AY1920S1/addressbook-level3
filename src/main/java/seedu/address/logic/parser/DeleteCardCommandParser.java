@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Description;
@@ -18,11 +19,16 @@ public class DeleteCardCommandParser implements Parser<DeleteCardCommand> {
      */
     public DeleteCardCommand parse(String args) throws ParseException {
         try {
-            Description description = ParserUtil.parseCardDescription(args);
-            return new DeleteCardCommand(description);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE), pe);
+            Index index = ParserUtil.parseIndex(args);
+            return new DeleteCardCommand(index);
+        } catch (ParseException ipe) {
+            try {
+                Description description = ParserUtil.parseCardDescription(args);
+                return new DeleteCardCommand(description);
+            } catch (ParseException dpe) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCardCommand.MESSAGE_USAGE), dpe);
+            }
         }
     }
 }

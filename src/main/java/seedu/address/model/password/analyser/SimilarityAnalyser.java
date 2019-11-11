@@ -6,15 +6,16 @@ import java.util.List;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.SimilarityMatch;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.SimilarityResult;
 
 /**
- * Represents analyser object that analyses passwords in password book for similar passwords.
+ * Represents an {@code Analyser} that analyses passwords in password book for similar passwords.
  */
 
 public class SimilarityAnalyser implements Analyser {
 
-    private static final String MESSAGE_HEADER = "Analyzing password for similarity: \n";
+    private static final String MESSAGE_HEADER = "Analysing passwords for similarity: \n";
 
     @Override
     public List<Result> analyse(List<Password> passwordList) {
@@ -22,9 +23,9 @@ public class SimilarityAnalyser implements Analyser {
         for (Password acc : passwordList) {
             List<SimilarityMatch> matches = getAllMatches(acc, passwordList);
             if (!matches.isEmpty()) {
-                results.add(new SimilarityResult(acc, DESC_FAIL, matches));
+                results.add(new SimilarityResult(acc, ResultOutcome.FAIL, matches));
             } else {
-                results.add(new SimilarityResult(acc, DESC_PASS, matches));
+                results.add(new SimilarityResult(acc, ResultOutcome.PASS, matches));
             }
         }
         return results;

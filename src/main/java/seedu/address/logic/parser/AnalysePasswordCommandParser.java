@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STRONG;
 
@@ -17,7 +18,7 @@ public class AnalysePasswordCommandParser implements Parser {
 
     /**
      * Parses the given {@code String} of arguments in the context of the AnalysePasswordCommand
-     * and returns a AnlaysePasswordCommand object for execution.
+     * and returns a AnalysePasswordCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public AnalysePasswordCommand parse(String userInput) throws ParseException {
@@ -26,6 +27,11 @@ public class AnalysePasswordCommandParser implements Parser {
         }
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(userInput, PREFIX_STRONG);
+
+        if (argMultimap.getAllValues(PREFIX_STRONG).size() > 1) {
+            throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, AnalysePasswordCommand.MESSAGE_USAGE));
+        }
+
         if (!isPrefixPresent(argMultimap, PREFIX_STRONG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -33,7 +39,6 @@ public class AnalysePasswordCommandParser implements Parser {
         }
         try {
             Index index = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_STRONG).get());
-
             return new AnalyseStrongPasswordCommand(index);
         } catch (ParseException pe) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

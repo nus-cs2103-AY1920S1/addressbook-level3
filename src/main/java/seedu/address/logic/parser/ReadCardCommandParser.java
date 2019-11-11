@@ -1,12 +1,13 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_DUPLICATE_FIELDS;
+import static seedu.address.commons.core.Messages.MESSAGE_EXCESS_CARD_FIELDS;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CVC;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ReadCardCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.Cvc;
@@ -27,20 +28,35 @@ public class ReadCardCommandParser implements Parser<ReadCardCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_CVC, PREFIX_DESCRIPTION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_CVC, PREFIX_DESCRIPTION)
-                || !argMultimap.getPreamble().isEmpty()) {
+        // runs if no cvc is provided
+        if (!arePrefixesPresent(argMultimap, PREFIX_CVC)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCardCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getAllValues(PREFIX_DESCRIPTION).size() > 1
-                || argMultimap.getAllValues(PREFIX_CVC).size() > 1) {
-            throw new ParseException(String.format(MESSAGE_DUPLICATE_FIELDS, ReadCardCommand.MESSAGE_USAGE));
+        // runs if description and preamble are both present
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)
+                && !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_EXCESS_CARD_FIELDS, ReadCardCommand.MESSAGE_USAGE));
+        }
+        // runs if description and preamble are both absent
+        if (!arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)
+                && argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCardCommand.MESSAGE_USAGE));
         }
 
         Cvc cvc = ParserUtil.parseCvc(argMultimap.getValue(PREFIX_CVC).get());
-        Description description = ParserUtil.parseCardDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-
-        return new ReadCardCommand(cvc, description);
+        if (arePrefixesPresent(argMultimap, PREFIX_DESCRIPTION)) {
+            Description description = ParserUtil.parseCardDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
+            return new ReadCardCommand(cvc, description);
+        } else {
+            try {
+                Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+                return new ReadCardCommand(cvc, index);
+            } catch (ParseException e) {
+                throw new ParseException(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, ReadCardCommand.MESSAGE_USAGE));
+            }
+        }
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

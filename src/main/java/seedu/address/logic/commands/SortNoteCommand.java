@@ -8,8 +8,8 @@ import java.util.function.Predicate;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 
 
 
@@ -32,25 +32,26 @@ public class SortNoteCommand extends Command {
     public static final String MESSAGE_SORT_NOTE_SUCCESS = "Sorted Note by: %1$s";
     public static final String MESSAGE_NOT_SORTED = "Must provide at one and only one field to sort by.";
     public static final String MESSAGE_DUPLICATE_NOTE = "This notebook is already sorted.";
-    private SortByCond sortByCond;
+    private MultipleSortByCond sortByConds;
+    private final String command;
 
     /**
-     * @param sortByCond condition to sort NoteBook by.
+     * @param sortByConds condition to sort NoteBook by.
      */
-    public SortNoteCommand(SortByCond sortByCond) {
-        requireNonNull(sortByCond);
-        this.sortByCond = sortByCond;
+    public SortNoteCommand(MultipleSortByCond sortByConds, String commandArgs) {
+        requireNonNull(sortByConds);
+        this.sortByConds = sortByConds;
+        this.command = COMMAND_WORD + commandArgs;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.commitNote();
         Predicate<Note> notePredicate = model.getFilteredNoteListPred();
-        model.editNoteSortByCond(sortByCond);
+        model.editNoteSortByCond(sortByConds);
         model.sortNoteBook();
         model.updateFilteredNoteList(notePredicate);
-        return new CommandResult(String.format(MESSAGE_SORT_NOTE_SUCCESS, sortByCond.sortByCond));
+        return new CommandResult(String.format(MESSAGE_SORT_NOTE_SUCCESS, sortByConds.toString()));
     }
 
 
@@ -69,7 +70,7 @@ public class SortNoteCommand extends Command {
 
         // state check
         SortNoteCommand e = (SortNoteCommand) other;
-        return sortByCond.equals(e.sortByCond);
+        return sortByConds.equals(e.sortByConds);
     }
 
 }

@@ -62,7 +62,7 @@ public class NoteBookParser {
             return new DeleteNoteCommandParser().parse(arguments);
 
         case OpenNoteCommand.COMMAND_WORD:
-            return new ReadNoteCommandParser().parse(arguments);
+            return new OpenNoteCommandParser().parse(arguments);
 
         case ClearNoteCommand.COMMAND_WORD:
             return new ClearNoteCommand();

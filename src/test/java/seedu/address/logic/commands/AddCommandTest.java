@@ -29,8 +29,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.card.Card;
 import seedu.address.model.file.EncryptedFile;
 import seedu.address.model.file.FileStatus;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Note;
-import seedu.address.model.note.SortByCond;
 import seedu.address.model.password.Password;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
@@ -300,7 +300,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void editNoteSortByCond(SortByCond sortByCond) {
+        public void editNoteSortByCond(MultipleSortByCond sortByConds) {
 
         }
 
@@ -323,19 +323,20 @@ public class AddCommandTest {
         public void setNoteBookFilePath(Path noteBookFilePath) {
 
         }
+
         @Override
-        public void commitNote() {
+        public void commitNote(String command) {
 
         }
 
         @Override
-        public void undoNote() {
-
+        public String undoNote() {
+            return null;
         }
 
         @Override
-        public void redoNote() {
-
+        public String redoNote() {
+            return null;
         }
 
         @Override

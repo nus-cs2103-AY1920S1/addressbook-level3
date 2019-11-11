@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.commons.util.ClipboardUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -21,7 +20,8 @@ public class CopyWebsiteCommand extends CopyPasswordCommand {
     public static final String COMMAND_WORD = "website";
     public static final String COMMAND_WORD1 = "w";
 
-    public static final String MESSAGE_SUCCESS = "Copied website";
+    public static final String MESSAGE_SUCCESS = "Copied website to clipboard!";
+    public static final String MESSAGE_FAILURE = "There is no website to be copied.";
 
     private final Index targetIndex;
 
@@ -30,7 +30,7 @@ public class CopyWebsiteCommand extends CopyPasswordCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, DictionaryException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Password> lastShownList = model.getFilteredPasswordList();
 
@@ -40,6 +40,9 @@ public class CopyWebsiteCommand extends CopyPasswordCommand {
 
         Password passwordToRead = lastShownList.get(targetIndex.getZeroBased());
         passwordToRead.updateExpiry();
+        if (passwordToRead.getWebsite().isNilWebsite()) {
+            throw new CommandException(MESSAGE_FAILURE);
+        }
         ClipboardUtil.copyToClipboard(passwordToRead.getWebsite().value, null);
         return CommandResult.builder(MESSAGE_SUCCESS)
                 .setObject(passwordToRead)

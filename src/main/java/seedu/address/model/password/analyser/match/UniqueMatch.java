@@ -1,9 +1,11 @@
 package seedu.address.model.password.analyser.match;
 
+import java.util.Objects;
+
 import seedu.address.model.password.Password;
 
 /**
- * Represents a {@code match} which was found  by {@code UniqueAnalyser}.
+ * Represents a {@code Match} which was found  by {@code UniqueAnalyser}.
  */
 public class UniqueMatch extends BaseMatch {
     private Password password;
@@ -38,4 +40,8 @@ public class UniqueMatch extends BaseMatch {
         return password.equals(that.password);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), password);
+    }
 }

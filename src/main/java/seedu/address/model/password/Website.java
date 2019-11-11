@@ -27,6 +27,10 @@ public class Website {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public boolean isNilWebsite() {
+        return value.equals("NIL");
+    }
+
     @Override
     public String toString() {
         if (!value.equals("NIL")) {

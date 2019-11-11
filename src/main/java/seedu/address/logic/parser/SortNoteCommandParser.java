@@ -8,8 +8,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.SortNoteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.note.SortByCond;
-
+import seedu.address.model.note.MultipleSortByCond;
 
 
 /**
@@ -31,8 +30,8 @@ public class SortNoteCommandParser implements Parser<SortNoteCommand> {
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortNoteCommand.MESSAGE_USAGE));
         }
-        SortByCond sortByCond = ParserUtil.parseSortByCond(argMultimap.getValue(PREFIX_SORTBY).get());
-        return new SortNoteCommand(sortByCond);
+        MultipleSortByCond sortByConds = ParserUtil.parseSortByCond(argMultimap.getValue(PREFIX_SORTBY).get());
+        return new SortNoteCommand(sortByConds, args);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

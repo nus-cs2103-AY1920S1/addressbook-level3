@@ -34,9 +34,11 @@ public class OpenNoteCommand extends Command {
     public static final String MESSAGE_READ_NOTE_SUCCESS = "Note title: %1$s\n";
 
     private final Index targetIndex;
+    private final String command;
 
     public OpenNoteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
+        this.command = COMMAND_WORD + " " + targetIndex.getOneBased();
     }
 
     @Override
@@ -49,6 +51,7 @@ public class OpenNoteCommand extends Command {
         Note noteToRead = lastShownList.get(targetIndex.getZeroBased());
         Note updatedNote = createEditedNote(noteToRead);
         //TODO: assert here to ensure updated note is different from any other note in the list
+        model.commitNote(command);
         model.setNote(noteToRead, updatedNote);
         model.sortNoteBook();
         Index updatedIndex = model.getNoteIndex(updatedNote);

@@ -1,5 +1,9 @@
 package seedu.address.model.file;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 /**
  * Represents a File's FileName in SecureIT.
  */
@@ -15,6 +19,8 @@ public class FileName {
      * @param fileName A file's name.
      */
     public FileName(String fileName) {
+        requireNonNull(fileName);
+        checkArgument(isValidFileName(fileName));
         value = fileName;
     }
 
@@ -25,6 +31,7 @@ public class FileName {
      * @param extension A file's extension.
      */
     public static FileName constructWithExtension(String fileName, String extension) {
+        requireAllNonNull(fileName, extension);
         if (extension.trim().equals("")) {
             return new FileName(fileName);
         }

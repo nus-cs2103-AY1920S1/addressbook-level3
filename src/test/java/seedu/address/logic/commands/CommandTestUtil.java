@@ -14,7 +14,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -81,7 +80,7 @@ public class CommandTestUtil {
             CommandResult result = command.execute(actualModel);
             assertEquals(expectedCommandResult, result);
             assertEquals(expectedModel, actualModel);
-        } catch (CommandException | DictionaryException ce) {
+        } catch (CommandException ce) {
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }

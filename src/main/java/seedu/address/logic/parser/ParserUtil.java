@@ -9,8 +9,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.GeneratorUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.GeneratePasswordCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.card.CardNumber;
 import seedu.address.model.card.Cvc;
@@ -19,7 +19,7 @@ import seedu.address.model.card.ExpiryDate;
 import seedu.address.model.file.FileName;
 import seedu.address.model.file.FilePath;
 import seedu.address.model.note.Content;
-import seedu.address.model.note.SortByCond;
+import seedu.address.model.note.MultipleSortByCond;
 import seedu.address.model.note.Title;
 import seedu.address.model.password.PasswordDescription;
 import seedu.address.model.password.PasswordValue;
@@ -279,13 +279,14 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code sortByCond} is invalid.
      */
-    public static SortByCond parseSortByCond(String sortByCond) throws ParseException {
+    public static MultipleSortByCond parseSortByCond(String sortByCond) throws ParseException {
         requireNonNull(sortByCond);
         String trimmedSortByCond = sortByCond.trim();
-        if (!SortByCond.isValidSortByCond(trimmedSortByCond)) {
-            throw new ParseException(SortByCond.MESSAGE_CONSTRAINTS);
+        String[] sortByConditions = trimmedSortByCond.split(" ");
+        if (!MultipleSortByCond.isValidSortByCond(sortByConditions)) {
+            throw new ParseException(MultipleSortByCond.MESSAGE_CONSTRAINTS);
         }
-        return new SortByCond(trimmedSortByCond);
+        return new MultipleSortByCond(sortByConditions);
     }
     /**
      * Parses a {@code String description} into a {@code Description}.
@@ -350,20 +351,24 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a string length into an integer length.
+     * Parses a {@code String} length into an {@code Integer} length.
      * Checks that length requirements are met.
      *
      * @throws ParseException if the given length is invalid.
      */
-    public static int parseLength(String length) throws ParseException {
+    public static int parsePasswordLength(String length) throws ParseException {
+        requireNonNull(length);
         try {
             int lengthNum = Integer.parseInt(length);
-            if (lengthNum <= 3) {
-                throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+            if (lengthNum < 4) {
+                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH_MIN);
+            }
+            if (lengthNum > 25) {
+                throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH_MAX);
             }
             return lengthNum;
         } catch (NumberFormatException e) {
-            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_LENGTH);
+            throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_LENGTH);
         }
     }
 
@@ -374,9 +379,10 @@ public class ParserUtil {
      * @throws ParseException if the given length is invalid.
      */
     public static boolean parseBool(String bool) throws ParseException {
-        if (!(bool.equals("true") || bool.equals("false"))) {
-            throw new ParseException(GeneratorUtil.MESSAGE_CONSTRAINTS_BOOLEAN);
+        requireNonNull(bool);
+        if (!(bool.toLowerCase().equals("false"))) {
+            throw new ParseException(GeneratePasswordCommand.MESSAGE_CONSTRAINTS_BOOLEAN);
         }
-        return Boolean.valueOf(bool);
+        return Boolean.valueOf(bool.toLowerCase());
     }
 }

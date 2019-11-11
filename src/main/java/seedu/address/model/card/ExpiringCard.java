@@ -1,12 +1,11 @@
 package seedu.address.model.card;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 import java.util.Set;
 
+import seedu.address.commons.util.ExpiryUtil;
 import seedu.address.model.tag.Tag;
 
 
@@ -32,9 +31,7 @@ public class ExpiringCard extends Card {
      * Get extended ExpiringCard object from a {@code Card}
      */
     public static ExpiringCard of(Card card) {
-        LocalDate date = LocalDate.parse(card.getExpiryDate().toString(), dateTimeFormat);
-        Period period = LocalDate.now().until(date);
-        int monthsToExpiry = period.getMonths() + period.getYears() * 12 + (period.getDays() > 0 ? 1 : 0);
+        int monthsToExpiry = ExpiryUtil.getMonthToExp(card.getExpiryDate().toString());
         return new ExpiringCard(card.getDescription(), card.getCardNumber(), card.getCvc(),
                 card.getExpiryDate(), card.getTags(), monthsToExpiry);
     }

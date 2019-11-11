@@ -6,10 +6,11 @@ import java.util.List;
 import seedu.address.model.password.Password;
 import seedu.address.model.password.analyser.match.SequenceMatch;
 import seedu.address.model.password.analyser.result.Result;
+import seedu.address.model.password.analyser.result.ResultOutcome;
 import seedu.address.model.password.analyser.result.SequenceResult;
 
 /**
- * Represents analyser object that analyses passwords in password book for common sequence string.
+ * Represents an {@code Analyser} that analyses passwords in password book for common sequence string.
  */
 public class SequenceAnalyser implements Analyser {
 
@@ -29,9 +30,9 @@ public class SequenceAnalyser implements Analyser {
             String password = acc.getPasswordValue().value;
             List<SequenceMatch> matches = getAllMatches(password);
             if (matches.isEmpty()) {
-                results.add(new SequenceResult(acc, DESC_PASS, matches));
+                results.add(new SequenceResult(acc, ResultOutcome.PASS, matches));
             } else {
-                results.add(new SequenceResult(acc, DESC_FAIL, matches));
+                results.add(new SequenceResult(acc, ResultOutcome.FAIL, matches));
             }
         }
         return results;
@@ -108,10 +109,9 @@ public class SequenceAnalyser implements Analyser {
     }
 
     /**
-     * Checks that both current and next character are within the same ASCII range type.
+     * Returns true if both current and next character are within the same ASCII range type.
      * @param curr the current character
      * @param next the next character
-     * @return true if both current and next character are within the same ASCII range type, else false
      */
     private static boolean inSameRange(Character curr, Character next) {
         if (curr >= 65 && curr <= 90) { //ALPHA_UPPER

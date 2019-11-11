@@ -7,10 +7,6 @@ import java.util.ArrayList;
  * A class for generating random passwords.
  */
 public class GeneratorUtil {
-    public static final String MESSAGE_CONSTRAINTS_LENGTH = "Length of password should be positive "
-            + "and at least of length 4.";
-    public static final String MESSAGE_CONSTRAINTS_BOOLEAN = "Please input \"true\" or \"false\" "
-            + "when customizing password generation configuration.";
 
     private static String[] lowAlpha = new String[] {
         "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
@@ -30,39 +26,80 @@ public class GeneratorUtil {
 
     /**
      * Generates random password value based on user input.
-     * @return a random password value string
+     *
+     * @return the random password value string
      */
-    public static String generateRandomPassword(int length, boolean lower,
-                                                boolean upper, boolean num, boolean special) {
-        ArrayList<String[]> characterSet = setCharacterSet(lower, upper, special, num);
-        SecureRandom randomNumGen = new SecureRandom();
+    public static String generateRandomPassword(int length, boolean hasLower,
+                                                boolean hasUpper, boolean hasNum, boolean hasSpecial) {
+        ArrayList<String[]> characterSetsToUse = setCharacterSet(hasLower, hasUpper, hasSpecial, hasNum);
+        SecureRandom rand = new SecureRandom();
         StringBuilder password = new StringBuilder();
 
-        //generate random character from characterSet for 8 times.
-        for (int k = 0; k < length; k++) {
-            int ranArrayChooser = randomNumGen.nextInt(characterSet.size());
-            int randomLetterIndex = randomNumGen.nextInt(characterSet.get(ranArrayChooser).length - 1);
-            password.append(characterSet.get(ranArrayChooser)[randomLetterIndex]);
+        while (!meetUserRequirement(password.toString(), hasLower, hasUpper, hasNum, hasSpecial)) {
+            password.setLength(0);
+            for (int k = 0; k < length; k++) {
+                int ranArrayChooser = rand.nextInt(characterSetsToUse.size());
+                int randomLetterIndex = rand.nextInt(characterSetsToUse.get(ranArrayChooser).length - 1);
+                password.append(characterSetsToUse.get(ranArrayChooser)[randomLetterIndex]);
+            }
         }
 
         return password.toString();
     }
 
-    private static ArrayList<String[]> setCharacterSet(boolean lower,
-                                                       boolean upper, boolean special, boolean num) {
+    /**
+     * Returns true if the randomly generated password string meets the user's configuration requirement.
+     *
+     * @param password the current randomly generated password string.
+     * @param hasLower the option to include lower case alphabets.
+     * @param hasUpper the option to include upper case alphabets.
+     * @param hasNum the option to include numbers.
+     * @param hasSpecial the option to include lower case alphabets.
+     */
+    private static boolean meetUserRequirement(String password, boolean hasLower, boolean hasUpper,
+                                                      boolean hasNum, boolean hasSpecial) {
+        if (password.length() == 0) {
+            return false;
+        }
+        if (hasNum && !password.matches("(?=.*[0-9]).*")) {
+            return false;
+        }
+        if (hasLower && !password.matches("(?=.*[a-z]).*")) {
+            return false;
+        }
+        if (hasUpper && !password.matches("(?=.*[A-Z]).*")) {
+            return false;
+        }
+        if (hasSpecial && !password.matches("(?=.*[^a-z A-Z0-9]).*")) {
+            return false;
+        }
+        return true;
+    }
 
+    /**
+     * Appends the character sets based on user configuration.
+     *
+     * @param hasLower the option to include lower case alphabets.
+     * @param hasUpper the option to include upper case alphabets.
+     * @param hasSpecial the option to include lower case alphabets.
+     * @param hasNum the option to include numbers.
+     * @return the character set based on user configuration.
+     */
+    private static ArrayList<String[]> setCharacterSet(boolean hasLower,
+                                                       boolean hasUpper, boolean hasSpecial, boolean hasNum) {
+        assert hasLower == true || hasUpper == true || hasSpecial == true || hasNum == true; //Precondition
         ArrayList<String[]> characterSet = new ArrayList<>();
 
-        if (lower) {
+        if (hasLower) {
             characterSet.add(lowAlpha);
         }
-        if (upper) {
+        if (hasUpper) {
             characterSet.add(highAlpha);
         }
-        if (special) {
+        if (hasSpecial) {
             characterSet.add(specialChars);
         }
-        if (num) {
+        if (hasNum) {
             characterSet.add(numbers);
         }
 

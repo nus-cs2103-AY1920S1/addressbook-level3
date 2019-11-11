@@ -38,6 +38,19 @@ public class CardCard extends UiPart<Region> {
         c.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+
+        Label l = null;
+        if (c.hasExpired()) {
+            l = new Label("expired");
+            l.setStyle("-fx-background-color: #dc143c");
+        } else if (c.isExpiring()) {
+            l = new Label("expiring");
+            l.setStyle("-fx-background-color: #ce8500");
+        }
+
+        if (l != null) {
+            tags.getChildren().add(l);
+        }
     }
 
     @Override

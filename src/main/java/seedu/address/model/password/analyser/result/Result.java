@@ -3,6 +3,9 @@ package seedu.address.model.password.analyser.result;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.password.Password;
+import seedu.address.model.password.PasswordDescription;
+import seedu.address.model.password.PasswordValue;
+import seedu.address.model.password.Username;
 
 /**
  * Represents a result produced by an {@code Analyser} for a particular password.
@@ -11,7 +14,10 @@ import seedu.address.model.password.Password;
  */
 public abstract class Result {
     protected Password password;
-    protected String description;
+    protected ResultOutcome description;
+    protected PasswordDescription passwordDesc;
+    protected Username passwordUser;
+    protected PasswordValue passwordValue;
 
     /**
      * Constructs a basic {@code Result}
@@ -19,25 +25,33 @@ public abstract class Result {
      * @param password the specific password to which the result holds information about.
      * @param description the evaluation description of the {@code Analyser}.
      */
-    public Result(Password password, String description) {
+    public Result(Password password, ResultOutcome description) {
         requireNonNull(password);
+        requireNonNull(description);
         this.password = password;
         this.description = description;
+        this.passwordDesc = password.getPasswordDescription();
+        this.passwordUser = password.getUsername();
+        this.passwordValue = password.getPasswordValue();
     }
 
-    /**
-     * Sets the evaluation description of the Result.
-     * @param description the evaluation description of the {@code Analyser}.
-     */
-    public void setDescription(String description) {
+    public String getPasswordDesc() {
+        return passwordDesc.value;
+    }
+
+    public String getPasswordUser() {
+        return passwordUser.value;
+    }
+
+    public String getPasswordValue() {
+        return passwordValue.getEncryptedPasswordValue();
+    }
+
+    public void setDescription(ResultOutcome description) {
         this.description = description;
     }
 
-    /**
-     * Returns the evaluation description of the Result.
-     * @return the description attribute.
-     */
-    public String getDescription() {
+    public ResultOutcome getDescription() {
         return description;
     }
 
@@ -56,7 +70,8 @@ public abstract class Result {
             return false;
         }
         Result that = (Result) o;
-        return password.equals(that.password);
+        return password.equals(that.password)
+                && description.equals(that.description);
     }
 
     /**

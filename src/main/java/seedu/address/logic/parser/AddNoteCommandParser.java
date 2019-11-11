@@ -33,18 +33,21 @@ public class AddNoteCommandParser implements Parser<AddNotesCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_TITLE, PREFIX_DESCRIPTION, PREFIX_TAG, PREFIX_CONTENT);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DESCRIPTION, PREFIX_TAG, PREFIX_CONTENT)
+        if (!arePrefixesPresent(argMultimap, PREFIX_TITLE, PREFIX_DESCRIPTION, PREFIX_TAG)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNotesCommand.MESSAGE_USAGE));
         }
 
         Title title = ParserUtil.parseTitle(argMultimap.getValue(PREFIX_TITLE).get());
         Description description = ParserUtil.parseNoteDescription(argMultimap.getValue(PREFIX_DESCRIPTION).get());
-        Content content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
+        Content content = new Content("");
+        if (argMultimap.getValue(PREFIX_CONTENT).isPresent()) {
+            content = ParserUtil.parseContent(argMultimap.getValue(PREFIX_CONTENT).get());
+        }
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         Note note = new Note(title, description, tagList, content);
-        return new AddNotesCommand(note);
+        return new AddNotesCommand(note, args);
     }
 
     /**

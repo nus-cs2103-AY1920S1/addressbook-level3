@@ -62,18 +62,18 @@
               <Button fx:id="b4" minWidth="130" styleClass="buttonSide" text="Note" HBox.hgrow="ALWAYS" />
             </children>
           </VBox>
-          <VBox fx:id="objectList" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+          <VBox fx:id="objectList" styleClass="pane-with-border" HBox.hgrow="SOMETIMES" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="objectListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+            <StackPane fx:id="objectListPanelPlaceholder" VBox.vgrow="SOMETIMES" />
           </VBox>
 
-          <VBox fx:id="readList" maxWidth="0" minWidth="0" prefWidth="0" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+          <VBox fx:id="readList" minWidth="420" prefWidth="420" styleClass="pane-with-border" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
-            <StackPane fx:id="readListPanelPlaceholder" />
+            <StackPane fx:id="readListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
         </HBox>

@@ -6,7 +6,6 @@ import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.DictionaryException;
 import seedu.address.commons.util.ClipboardUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -20,7 +19,7 @@ public class CopyUsernameCommand extends CopyPasswordCommand {
     public static final String COMMAND_WORD = "username";
     public static final String COMMAND_WORD1 = "u";
 
-    public static final String MESSAGE_SUCCESS = "Copied username";
+    public static final String MESSAGE_SUCCESS = "Copied username to clipboard!";
 
     private final Index targetIndex;
 
@@ -29,7 +28,7 @@ public class CopyUsernameCommand extends CopyPasswordCommand {
     }
 
     @Override
-    public CommandResult execute(Model model) throws CommandException, DictionaryException {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
         List<Password> lastShownList = model.getFilteredPasswordList();
 
