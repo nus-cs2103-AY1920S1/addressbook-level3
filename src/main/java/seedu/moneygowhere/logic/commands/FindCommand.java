@@ -5,7 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.logging.Logger;
 
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.commons.core.Messages;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.spending.Spending;
@@ -37,6 +39,8 @@ public class FindCommand extends Command {
 
     private final List<Predicate<Spending>> predicates;
 
+    private final Logger logger = LogsCenter.getLogger(FindCommand.class);
+
     public FindCommand(List<Predicate<Spending>> predicates) {
         this.predicates = predicates;
     }
@@ -48,11 +52,13 @@ public class FindCommand extends Command {
         Optional<Predicate<Spending>> predicate = predicates.stream().reduce(Predicate::and);
 
         if (predicate.isEmpty()) {
+            logger.warning("Predicate is empty. Showing empty list.");
             model.updateFilteredSpendingList(failed -> false);
             return new CommandResult(
                     String.format(Messages.MESSAGE_SPENDING_LISTED_OVERVIEW, model.getFilteredSpendingList().size()));
         }
 
+        logger.info("Updated find predicate");
         model.updateFilteredSpendingList(predicate.get());
         return new CommandResult(
                 String.format(Messages.MESSAGE_SPENDING_LISTED_OVERVIEW, model.getFilteredSpendingList().size()));

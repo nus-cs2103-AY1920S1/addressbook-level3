@@ -3,8 +3,10 @@ package seedu.moneygowhere.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import seedu.moneygowhere.commons.core.LogsCenter;
 import seedu.moneygowhere.logic.commands.exceptions.CommandException;
 import seedu.moneygowhere.model.Model;
 import seedu.moneygowhere.model.currency.Currency;
@@ -27,6 +29,8 @@ public class CurrencyCommand extends Command {
 
     private String currency;
 
+    private final Logger logger = LogsCenter.getLogger(CurrencyCommand.class);
+
     public CurrencyCommand(String currency) {
         requireNonNull(currency);
         this.currency = currency;
@@ -37,6 +41,7 @@ public class CurrencyCommand extends Command {
         requireNonNull(model);
 
         if (currency.isEmpty()) {
+            logger.warning("User entered empty currency, displaying currency in use.");
             return new CommandResult(String.format(MESSAGE_CURRENCY_DISPLAY_IN_USE, model.getCurrencyInUse().name));
         }
 
@@ -46,15 +51,18 @@ public class CurrencyCommand extends Command {
                 .collect(Collectors.toList());
 
         if (currencies.isEmpty()) {
+            logger.warning("Cannot find currency: " + currency);
             throw new CommandException(MESSAGE_CURRENCY_NONEXISTENT);
         }
 
         Currency newCurrency = currencies.get(0);
 
         if (newCurrency.isSameCurrency(model.getCurrencyInUse())) {
+            logger.warning("Currency is already changed to: " + newCurrency.name);
             return new CommandResult(String.format(MESSAGE_CURRENCY_ALREADY_CHANGED, newCurrency.name));
         }
 
+        logger.info("New currency set to: " + newCurrency.name);
         model.setCurrencyInUse(newCurrency);
 
         return new CommandResult(String.format(MESSAGE_CURRENCY_CHANGE_SUCCESS, newCurrency.name));
