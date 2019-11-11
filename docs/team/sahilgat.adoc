@@ -3,20 +3,31 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== PROJECT: StudyBuddyPro
-
----
-
 == Overview
 
-This document serves as an overview of my contributions to the StudyBuddyPro project. Moreover,
+This document serves as an overview of my contributions to the StudyBuddyPro project. This project was
+part of an introductory software engineering module known as *CS2103T*. Moreover,
 the document aims to highlight my technical competence and documentation skills by using
 the StudyBuddyPro project as an example.
+
+StudyBuddyPro was developed by https://github.com/Sahilgat[me],
+https://github.com/Sam-limyr[Samuel Lim],
+https://github.com/chanjunren[Chan Jun Ren],
+https://github.com/ckb055[Chen Kai Bin] and
+https://github.com/jaesimin[Jasmine Yeo Jia Min], all sophomore students from National University of
+Singapore (NUS) studying Computer Science.
 
 == Introduction
 
 StudyBuddyPro is a desktop application designed for university students in computing-related
-fields to supplement their revision. StudyBuddyPro aims to consolidate
+fields to supplement their revision. StudyBuddyPro aims to consolidate commonly used studying tools
+into one integrated platform so the student does not have to fuss about switching between different
+applications. This prevents disorganisation and improves convenience.
+
+StudyBuddyPro was developed for use through a Command Line Interface (CLI) to take advantage
+of the typing proficiency of computing students. However, a Graphical User Interface (GUI) is
+also provided for easier viewing, therefore providing the best of both worlds.
+
 StudyBuddyPro has 3 main features: Flashcard, Notes and Cheatsheet. The purpose of each
 feature is summarized in the table below.
 
@@ -29,56 +40,102 @@ feature is summarized in the table below.
 | Cheatsheet | Create and customize cheatsheets from relevant content found in Flashcard and Note features
 |===
 
-
-interacts with it
-using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
-
-StudyBuddyPro was developed by https://github.com/Sahilgat[me],
-https://github.com/Sam-limyr[Samuel Lim],
-https://github.com/chanjunren[Chan Jun Ren],
-https://github.com/ckb055[Chen Kai Bin] and
-https://github.com/jaesimin[Jasmine Yeo Jia Min], all sophomore students from National University of
-Singapore (NUS) studying Computer Science.
-
-• It clearly and concisely describes the
-project and the team.
-• There is a clear and concise description of
-the application (X is a what that does
-what…, includes mention of desktop
-application and CLI in terms that a 3rd
-party would understand).
-
 == Summary of contributions
 
-* *Major enhancement*: added *the ability to undo/redo previous commands*
-** What it does: allows the user to undo all previous commands one at a time. Preceding undo commands can be reversed by using the redo command.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+|===
+|This section provides an overview of the technical and non-technical contributions I made to the development
+of StudyBuddyPro. They highlight my ability to: +
+1) Design, model and implement features that are appropriate for our target users. +
+2) Work in a software development team setting and handle non-technical tasks such as documentation. +
+3) Design test cases and write quality code that abides by software engineering principles. +
+You can find an overall summary of my contributions at my
+https://nus-cs2103-ay1920s1.github.io/tp-dashboard/#search=sahilgat&sort=groupTitle&sortWithin=title&since=2019-09-06&timeframe=commit&mergegroup=false&groupSelect=groupByRepos&breakdown=false[RepoSense].
+|===
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Major Feature Enhancements*
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+** Developed the Flashcard `Model`, `Logic` and `Storage` components. This enhancement provides the functionality for one of
+the three core features in the StudyBuddyPro application. Without it, the application would be
+missing a key revision tool that students could have used and the application would be less attractive to the
+target market.
+*** What this enhancement included:
+**** The `Flashcard` object model and its components such as `Question`, `Answer`, `Title` and `Statistics` objects.
+**** Basic commands to use the flashcard model such as `add` and `list`. Advanced features such as the *remind* feature.
+**** Saving to and reading from storage files.
+*** *Depth*:
+**** Implementing this enhancement required a deep technical understanding of the architecture of the
+software as it modified 3 out of the 4 major components.
+*** *Completeness*:
+**** The enhancement is fully functional and goes beyond the basic needs of the user.
+**** Advanced features like the *remind* feature makes use of scientifically established
+spaced repetition techniques so the user can effectively revise.
+**** Each flashcard's last viewed
+date is tracked and our application automatically sets the next date the flashcard should
+be viewed next which the user can check.
+**** If the user tries to exit the application while there
+are still unrevised flashcards, the application will automatically warn the user about the
+unrevised flashcards and require a second confirmation before exiting.
+*** *Effort*:
+**** Understanding the entire existing architecture of the software was extremely challenging.
+**** The enhancement modified and improved existing commands, while also linking various
+commands which was very tricky to implement.
+**** The quantity of features added in this enhancement made it very time-consuming.
 
-* *Other contributions*:
+* *Minor Feature Enhancements*
 
-** Project management:
-*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
-** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
-** Community:
+** Added a `CommandHistory` class that stores all commands a user inputs while using StudyBuddyPro.
+*** This class was used to develop the *remind* feature described earlier.
+*** This class was later used by my teammates to improve the existing `delete` commands in all
+features. This provided an additional layer of safety for the user by preventing accidental deletions.
+
+** Added a *Flashcard Bank* that provides users with a set of useful flashcards when the application
+first starts up.
+*** The flashcards contained helpful tips for computing students. (Our target demographic)
+*** This feature was also used during the product demo of our application for the module.
+
+** Code quality
+*** Refactored `CommandResult` that all other features used. (Pull request https://github.com/AY1920S1-CS2103T-W13-3/main/pull/195[#195])
+*** Refactored `Storage` that all other features used. (Pull request https://github.com/AY1920S1-CS2103T-W13-3/main/pull/340[#340])
+*** Added more specific exceptions such as `DuplicateFlashcardQuestionException` and `DuplicateFlashcardTitleException`
+rather than generic exceptions such as `DuplicateFlashcardException`. This provided better logging for developers.
+
+[In line with SRP?]
+
+* *Other contributions*
+
+** Project Management
+
+*** Set-up the GitHub developers page for our team.
+*** Managed milestone https://github.com/AY1920S1-CS2103T-W13-3/main/milestone/1[v1.0] and https://github.com/AY1920S1-CS2103T-W13-3/main/milestone/2[v1.1] on GitHub. (2/5 milestones)
+*** Managed the issue tracker for our project repository by assigning issues, cross-referencing pull
+requests with issues and closing issues when completed. (Pull request https://10github.com/AY1920S1-CS2103T-W13-3/main/pull/340[#340], Issue https://github.com/AY1920S1-CS2103T-W13-3/main/issues/301[#301])
+
+** Testing
+
+*** Wrote all test cases for Flashcard model. (Pull requests https://github.com/AY1920S1-CS2103T-W13-3/main/pull/321[#321], https://github.com/AY1920S1-CS2103T-W13-3/main/pull/333[#333], https://github.com/AY1920S1-CS2103T-W13-3/main/pull/337[#337])
+*** Wrote some test cases for Flashcard commands such as `add` and `remind`. (Pull requests https://github.com/AY1920S1-CS2103T-W13-3/main/pull/321[#321], TOADD)
+*** Wrote all test cases for overall StudyBuddyPro `Storage` component. (Pull request https://10github.com/AY1920S1-CS2103T-W13-3/main/pull/340[#340])
+*** Overall, increased coverage by more than 5%. TOADD
+
+** Documentation
+
+*** User Guide
+
+**** [To add - Introduction, Quick start?]
+
+*** Developer Guide
+
+**** [To add - Manual Testing?, Use Cases]
+
+*** Tools:
+
+**** Integrated Travis CI, a continuous integration service, into our repository.
+
+** Community Contributions [ADD IF HAVE SPACE]
+
+*** Contributed to forum discussions (Examples:  https://github.com[1])
+*** Reported bugs and suggestions for other teams in the class (Examples:  https://github.com[1])
 *** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
-** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 
@@ -101,9 +158,4 @@ include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_
+_{Include summary}_

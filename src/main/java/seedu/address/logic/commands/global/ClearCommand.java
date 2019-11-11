@@ -44,18 +44,21 @@ public class ClearCommand extends Command {
                 newStudyBuddyBook.setCheatSheets(new ArrayList<>());
                 newStudyBuddyBook.setNotes(model.getStudyBuddyPro().getNoteList());
                 newStudyBuddyBook.setFlashcards(model.getStudyBuddyPro().getFlashcardList());
+                newStudyBuddyBook.addAllTags(model.getStudyBuddyPro().getTagList());
                 break;
 
             case FLASHCARD:
                 newStudyBuddyBook.setCheatSheets(model.getStudyBuddyPro().getCheatSheetList());
                 newStudyBuddyBook.setNotes(model.getStudyBuddyPro().getNoteList());
                 newStudyBuddyBook.setFlashcards(new ArrayList<>());
+                newStudyBuddyBook.addAllTags(model.getStudyBuddyPro().getTagList());
                 break;
 
             case NOTE:
                 newStudyBuddyBook.setCheatSheets(model.getStudyBuddyPro().getCheatSheetList());
                 newStudyBuddyBook.setNotes(new ArrayList<>());
                 newStudyBuddyBook.setFlashcards(model.getStudyBuddyPro().getFlashcardList());
+                newStudyBuddyBook.addAllTags(model.getStudyBuddyPro().getTagList());
                 break;
 
             default:
@@ -67,8 +70,8 @@ public class ClearCommand extends Command {
         model.setStudyBuddyPro(newStudyBuddyBook);
 
         return isGlobal
-            ? new GlobalCommandResult(MESSAGE_SUCCESS + "the entire StudyBuddy book!")
-            : new GlobalCommandResult(MESSAGE_SUCCESS + LogicManager.getMode().toString() + " book!");
+            ? new GlobalCommandResult(MESSAGE_SUCCESS + "the entire StudyBuddyPro!")
+            : new GlobalCommandResult(MESSAGE_SUCCESS + LogicManager.getMode().toString() + "!");
 
     }
 }
