@@ -4,10 +4,15 @@ package dream.fcard.logic.respond.commands;
 
 import java.util.ArrayList;
 
+import dream.fcard.logic.respond.ConsumerSchema;
+import dream.fcard.logic.respond.Consumers;
 import dream.fcard.model.Deck;
 import dream.fcard.model.State;
+import dream.fcard.model.StateEnum;
+import dream.fcard.model.StateHolder;
 import dream.fcard.model.cards.FlashCard;
 import dream.fcard.model.cards.FrontBackCard;
+import dream.fcard.model.cards.JavascriptCard;
 import dream.fcard.model.cards.MultipleChoiceCard;
 import dream.fcard.model.cards.Priority;
 import dream.fcard.model.exceptions.DeckAlreadyExistsException;
@@ -172,5 +177,24 @@ public class CreateCommand extends Command {
             }
         }
         return Priority.LOW_PRIORITY;
+    }
+
+    /**
+     * Make a Javascript card.
+     * @param asserts the input in multiline.
+     */
+    public static void createJavascriptCard(String asserts) {
+        asserts = asserts.replace("Enter your asserts below.", "");
+        asserts = asserts.strip();
+        if (asserts.isBlank()) {
+            Consumers.doTask(ConsumerSchema.DISPLAY_MESSAGE, "You need to enter a test case!");
+            return;
+        }
+        JavascriptCard transientFromState = StateHolder.getState().getTransientCard();
+        transientFromState.setBack(asserts);
+        Deck deck = StateHolder.getState().getAddToThis();
+        deck.addNewCard(transientFromState);
+        StateHolder.getState().setCurrState(StateEnum.DEFAULT);
+        Consumers.doTask(ConsumerSchema.DISPLAY_DECKS, true);
     }
 }
