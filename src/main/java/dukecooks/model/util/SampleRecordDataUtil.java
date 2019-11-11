@@ -51,12 +51,6 @@ public class SampleRecordDataUtil {
             ),
             new Record(
                 Type.Weight,
-                new Value("65"),
-                new Timestamp("23/10/2019 12:00"),
-                getRemarkSet()
-            ),
-            new Record(
-                Type.Weight,
                 new Value("55"),
                 new Timestamp("09/11/2019 19:05"),
                 getRemarkSet()
@@ -84,18 +78,6 @@ public class SampleRecordDataUtil {
                 new Value("165"),
                 new Timestamp("03/10/2019 12:00"),
                 getRemarkSet()
-            ),
-            new Record(
-                Type.Calories,
-                new Value("500"),
-                new Timestamp("25/10/2019 22:00"),
-                getRemarkSet("on a diet", "dinner")
-            ),
-            new Record(
-                Type.Calories,
-                new Value("300"),
-                new Timestamp("24/10/2019 11:00"),
-                getRemarkSet("on a diet", "breakfast", "no carbs")
             ),
             new Record(
                 Type.Calories,
