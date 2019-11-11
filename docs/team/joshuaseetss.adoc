@@ -26,7 +26,7 @@ FinSec is a useful application that was created as an aid to financial secretari
 FinSec comprises carefully evaluated and selected features that are tailored to be relevant to the specific needs of our target audience. All of FinSec's features and implementations are clearly and exhaustively documented in written guides for users and developers.
 
 .A view of FinSec
-image::../images/Ui.png[width="602"]
+image::../images/Ui.png[width="400"]
 
 == Role
 |===
