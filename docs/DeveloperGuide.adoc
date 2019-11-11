@@ -931,6 +931,38 @@ Expected: Elisa will prompt you that the task already exist in the list and cann
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is greater than the size of the list), `delete y` (where y is a negative index) +
    Expected: Similar to previous.
 
+=== Game mode testing
+
+. Entering game mode (easy)
+
+image::SnakeGame.png[500,600]
+
+.. Test case: `game` +
+Expected: Enters easy mode of game (Refer to figure above)
+
+.. Test case: `game e` +
+Expected: Same as above.
+
+.. Test case: `game EASY` +
+Expected: Same as above.
+
+. Entering game mode (hard)
+
+image::snakegameHard.png[500,600]
+
+.. Test case: `game H` +
+Expected: Enters hard mode of game (Refer to figure above)
+
+.. Test case: `game hard` +
+Expected: Same as above.
+
+=== Change theme testing
+
+. Changing theme of ELISA
+.. Prerequisites: You must be in a different theme from the theme you are switching to before you can see the change.
+.. Test case: `theme white`
+Expected: Change ELISA's theme to white.
+
 === Priority mode testing
 . Toggling on priority mode
 .. Prerequisites: Switch to the task list panel using the `show T` command. There should be at least 1 incomplete task in the list and priority mode should be disabled at the moment.
