@@ -513,6 +513,13 @@ as a `LinkedList` implementation.
 NOTE: **Alternative 1** is preferred due to better readability while maintaining O(1) efficiency, i.e. `remove(0)`
 instead of `remove(list.size() - 1)` in `ArrayList` to remove either ends of the list.
 
+Aspect: Hiding of the list of `FlashCards` during test mode:
+
+* **Alternative 1 (Current choice):** Adding a new scene in test mode:
+** Pros: There is no need to interfere with the `ObservableList` to hide the `FlashCards` as the
+new scene is layered on top of it.
+** Cons
+
 // end::dataencryption[]
 
 //@@author LeonardTay748
