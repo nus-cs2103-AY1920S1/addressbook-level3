@@ -716,6 +716,36 @@ The user can restrict his/her view of the savings history display, such that the
 The restricted display will not be applied after another command is typed. +
 When new command is entered that is not `show` the savings history display is reverted back to display all savings and withdrawals.
 
+==== Setting a savings target: `target` _(Coming in v2.0)_
+
+Another feature that many students want is to set a savings target
+in which they can be constantly reminded about whenever they open up the application,
+which can further encourage them to take up certain savings habits and cut down on certain unnecessary expenditures.
+
+****
+*Format*: `target AMOUNT [r/REASON] [by/DATE]` +
+*Example*: `target 4000.00 r/For BTO by/06062019`
+
+*Note*: +
+`AMOUNT` cannot be a negative number.
+`r/REASON` and `by/DATE` are optional fields.
+****
+
+[width="100%",cols="5%,95%", grid=none]
+|===
+ifdef::env-github[| :white_check_mark: a| You will see a success message in the Results Display]
+ifndef::env-github[a| icon:check[role="green", size="2x"] a| You will see a success message in the Results Display and your target shall be updated below your Savings Account display in the UI.]
+
+For example, executing `target 4000.00 r/For BTO by/06062019`, the following confirmation message shall appear: "Your savings target is
+set at: $4000.00 For BTO expiring 6th June 2019".
+
+{empty}
+
+|===
+
+[NOTE]
+Only the date shall be entered, no time is required.
+
 //tag::purchasing[]
 === Purchasing
 
