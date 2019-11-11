@@ -27,4 +27,17 @@ public class Timer {
         exec.scheduleAtFixedRate(() -> threadExecutor.execute(task),
             period.toMillis(), period.toMillis(), TimeUnit.MILLISECONDS);
     }
+
+    /**
+     * Shuts down the timer and any pending tasks.
+     */
+    public void stop() {
+        exec.shutdown();
+        try {
+            exec.awaitTermination(500, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            exec.shutdownNow();
+        }
+    }
 }

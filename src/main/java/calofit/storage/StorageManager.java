@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import calofit.commons.core.LogsCenter;
 import calofit.commons.exceptions.DataConversionException;
+import calofit.model.CalorieBudget;
 import calofit.model.ReadOnlyUserPrefs;
 import calofit.model.UserPrefs;
 import calofit.model.dish.ReadOnlyDishDatabase;
@@ -21,14 +22,18 @@ public class StorageManager implements Storage {
     private DishDatabaseStorage dishDatabaseStorage;
     private MealLogStorage mealLogStorage;
     private UserPrefsStorage userPrefsStorage;
+    private CalorieBudgetStorage calorieBudgetStorage;
 
 
     public StorageManager(DishDatabaseStorage dishDatabaseStorage,
-                          MealLogStorage mealLogStorage, UserPrefsStorage userPrefsStorage) {
+                          MealLogStorage mealLogStorage,
+                          UserPrefsStorage userPrefsStorage,
+                          CalorieBudgetStorage calorieBudgetStorage) {
         super();
         this.dishDatabaseStorage = dishDatabaseStorage;
         this.mealLogStorage = mealLogStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.calorieBudgetStorage = calorieBudgetStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -106,5 +111,33 @@ public class StorageManager implements Storage {
     public void saveMealLog(ReadOnlyMealLog mealLog, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         mealLogStorage.saveMealLog(mealLog, filePath);
+    }
+    // CalorieBudget methods
+
+    @Override
+    public Path getCalorieBudgetFilePath() {
+        return calorieBudgetStorage.getCalorieBudgetFilePath();
+    }
+
+    @Override
+    public Optional<CalorieBudget> readCalorieBudget() throws DataConversionException, IOException {
+        return readCalorieBudget(calorieBudgetStorage.getCalorieBudgetFilePath());
+    }
+
+    @Override
+    public Optional<CalorieBudget> readCalorieBudget(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return calorieBudgetStorage.readCalorieBudget(filePath);
+    }
+
+    @Override
+    public void saveCalorieBudget(CalorieBudget budget) throws IOException {
+        saveCalorieBudget(budget, calorieBudgetStorage.getCalorieBudgetFilePath());
+    }
+
+    @Override
+    public void saveCalorieBudget(CalorieBudget budget, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        calorieBudgetStorage.saveCalorieBudget(budget, filePath);
     }
 }

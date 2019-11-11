@@ -16,6 +16,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
     private GuiSettings guiSettings = new GuiSettings();
     private Path dishDatabaseFilePath = Paths.get("data" , "dishDb.json");
     private Path mealLogFilePath = Paths.get("data", "mealLog.json");
+    private Path calorieBudgetFilePath = Paths.get("data", "budget.json");
 
     /**
      * Creates a {@code UserPrefs} with default values.
@@ -38,6 +39,7 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         setGuiSettings(newUserPrefs.getGuiSettings());
         setDishDatabaseFilePath(newUserPrefs.getDishDatabaseFilePath());
         setMealLogFilePath(newUserPrefs.getMealLogFilePath());
+        setCalorieBudgetFilePath(newUserPrefs.getCalorieBudgetFilePath());
     }
 
     public GuiSettings getGuiSettings() {
@@ -80,12 +82,13 @@ public class UserPrefs implements ReadOnlyUserPrefs {
 
         return guiSettings.equals(o.guiSettings)
                 && dishDatabaseFilePath.equals(o.dishDatabaseFilePath)
-                && mealLogFilePath.equals(o.mealLogFilePath);
+                && mealLogFilePath.equals(o.mealLogFilePath)
+                && calorieBudgetFilePath.equals(o.calorieBudgetFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, dishDatabaseFilePath, mealLogFilePath);
+        return Objects.hash(guiSettings, dishDatabaseFilePath, mealLogFilePath, calorieBudgetFilePath);
     }
 
     @Override
@@ -94,7 +97,16 @@ public class UserPrefs implements ReadOnlyUserPrefs {
         sb.append("Gui Settings : " + guiSettings);
         sb.append("\nLocal dish database data file location : " + dishDatabaseFilePath);
         sb.append("\nLocal mealLog data file location : " + mealLogFilePath);
+        sb.append("\nLocal calorie budget data file location : " + calorieBudgetFilePath);
         return sb.toString();
     }
 
+    public Path getCalorieBudgetFilePath() {
+        return calorieBudgetFilePath;
+    }
+
+    public void setCalorieBudgetFilePath(Path calorieBudgetFilePath) {
+        requireNonNull(calorieBudgetFilePath);
+        this.calorieBudgetFilePath = calorieBudgetFilePath;
+    }
 }

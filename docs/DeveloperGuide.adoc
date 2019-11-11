@@ -141,19 +141,21 @@ NOTE: The lifeline for *_DeleteCommandParser_* should end at the destroy marker 
 .Structure of the Model Component
 image::ModelClassDiagram.png[]
 
-*API* : link:{repoURL}/src/main/java/calofit/model/Model.java[*_Model.java_*]
+*API* : link:{repoURL}/src/main/java/calofit/model/Model.java[#Model.java#]
 
 The *_Model_*,
 
-* stores a *_UserPref_* object that represents the user's preferences.
-* stores the *_DishDatabase_* data and *_MealLog_* data.
-* exposes an unmodifiable *_ObservableList<Meal>_* and *_ObservableList<Dish>_* that can be 'observed' e.g. the *_UI_* can be bound to this list so that it automatically updates when the data in the list change.
+* stores a `UserPref` object that represents the user's preferences.
+* stores the DishDatabase data, MealLog data and CalorieBudget data.
+* exposes many unmodifiable properties that can be 'observed' by the UI component
+** List of today meals (`ObservableList<Meal>`)
+** List of suggested/filtered dishes (`ObservableList<Dish>`)
+** Current calorie budget (`CalorieBudget`)
+  The UI components can be bound to this list, so that the UI automatically updates when the data in the list changes.
 * does not depend on any of the other three components.
 
-This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the *_Model_* interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
-[NOTE]
-As a more OOP model, we can store a *_Tag_* list in *_ModelManager_*, which *_Dish_* can reference. This would allow *_ModelManager_* to only require one *_Tag_* object per unique *_Tag_*, instead of each *_Dish_* needing their own *_Tag_* object. An example of how such a model may look like is given below. +
- +
+This design allows many parts of CaloFit to be created without the fear of conflict with other classes. This is due to the #Model# interface acting as a Facade class that manages the interactions between the components that makeup CaloFit.
+
 image:BetterModelClassDiagram.png[]
 
 [[Design-Storage]]
@@ -323,6 +325,7 @@ only has 1 meal.)
 Hence on average, the most meals to be deleted is 4. Thus the sorting time would not be too significant.
 // end::delete[]
 
+// tag::budgetbar[]
 === Budget Bar display
 
 The budget bar display provides a graphic overview of meals consumed on the current day,
@@ -352,7 +355,7 @@ From there, we again construct further observable/reactive values representing:
 ** Each meal is displayed as a proportionally-sized segment in the whole bar.
 * Position of warning/danger markers
 
-The following activity diagram shows the reactive update dependencies.
+The following object diagram shows the reactive update dependencies.
 
 image::BudgetMealUpdate.png[]
 
@@ -376,6 +379,7 @@ Use JavaFx's `GridPane` to lay out bar segments, and `ColumnConstraints` to appr
 *** Poor performance to due `Observable` machinery and `GridPane` layout
 * Explanation of choice:
 Simpler implementation and better performance outweighs the cost of using an external library.
+// end::budgetbar[]
 
 
 // tag::assistance[]
