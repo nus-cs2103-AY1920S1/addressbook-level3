@@ -1,5 +1,7 @@
 package seedu.address.logic.autocomplete.graphs;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.SortedSet;
@@ -9,22 +11,24 @@ import java.util.regex.Pattern;
 
 import seedu.address.logic.autocomplete.AutoCompleteResult;
 import seedu.address.logic.autocomplete.nodes.AutoCompleteNode;
+import seedu.address.logic.autocomplete.nodes.EmptyAutoCompleteNode;
 import seedu.address.logic.parser.Prefix;
-import seedu.address.model.Model;
 
 /**
  * Represents a {@code Graph} that supports commands that accept arguments only.
  */
-public abstract class GraphWithStartNode extends GraphBuiltFromModel<Prefix> {
+public abstract class GraphWithStartNode extends AutoCompleteGraph {
 
-    private AutoCompleteNode<?> startingNode;
+    protected final AutoCompleteNode<?> startingNode;
 
-    public GraphWithStartNode(Model model) {
-        super(model);
+    public GraphWithStartNode(AutoCompleteNode<?> startingNode) {
+        super();
+        requireNonNull(startingNode);
+        this.startingNode = startingNode;
     }
 
-    protected void setStartingNode(AutoCompleteNode<?> startingNode) {
-        this.startingNode = startingNode;
+    public GraphWithStartNode() {
+        this(EmptyAutoCompleteNode.getInstance());
     }
 
     @Override
@@ -49,7 +53,7 @@ public abstract class GraphWithStartNode extends GraphBuiltFromModel<Prefix> {
 
         if (offset == -1) { // no prefix entered
             // suggest prefixes
-            List<Prefix> prefixes = getWeights(currentNode);
+            List<?> prefixes = getWeights(currentNode);
             prefixes.forEach(p -> values.add(p.toString()));
             // match input
             stringToCompare = input.stripLeading();
@@ -62,7 +66,7 @@ public abstract class GraphWithStartNode extends GraphBuiltFromModel<Prefix> {
                 stringToCompare = input.substring(offset); // match the partially entered argument
             } else {
                 // suggest possible prefixes
-                List<Prefix> prefixes = getWeights(currentNode);
+                List<?> prefixes = getWeights(currentNode);
                 prefixes.forEach(p -> values.add(p.toString()));
                 stringToCompare = input.substring(lastSpace + 1); // match the partially entered prefix
             }

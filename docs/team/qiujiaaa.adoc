@@ -40,7 +40,7 @@ To make the application more user friendly, the application automatically switch
 *** Wrote Contact Us page. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/47[#47])
 *** Initial tweak of AB3 User Guide to fit our application. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/52[#52])
 *** Edited and added diagrams in Developer Guide. (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/150/files[#150])
-*** Added test cases in Appendix G (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/268[#268])
+*** Added test cases in Appendix (https://github.com/AY1920S1-CS2103T-T09-4/main/pull/268[#268])
 
 ** Community:
 *** Reviewed PRs (with non-trivial review comments). (examples: https://github.com/AY1920S1-CS2103T-T09-4/main/pull/61[#61], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/73[#73], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/102[#102], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/111[#111], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/119[#119], https://github.com/AY1920S1-CS2103T-T09-4/main/pull/133[#133])
