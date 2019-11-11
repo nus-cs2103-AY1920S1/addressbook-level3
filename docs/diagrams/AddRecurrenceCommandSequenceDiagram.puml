@@ -1,0 +1,117 @@
+@startuml
+!include style.puml
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":BillboardParser" as BillboardParser LOGIC_COLOR
+participant ":RecurrenceCommandParser" as RecurrenceCommandParser LOGIC_COLOR
+participant ":AddRecurrenceCommandParser" as AddRecurrenceCommandParser LOGIC_COLOR
+participant "a:AddRecurrenceCommand" as AddRecurrenceCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant ":Model" as Model MODEL_COLOR
+participant ":RecurrenceList" as RecurrenceList MODEL_COLOR
+participant ":Billboard" as Billboard MODEL_COLOR
+end box
+[-> LogicManager : execute(recur add n/buy food a/1 \n sd/1/1/2019 ed/1/2/2019 interval/week)
+activate LogicManager
+
+LogicManager -> BillboardParser : parseCommand(recur add n/buy food a/1 \n sd/1/1/2019 ed/1/2/2019 interval/week)
+activate BillboardParser
+
+BillboardParser -> RecurrenceCommandParser : parse(recur add n/buy food a/1 \n sd/1/1/2019 ed/1/2/2019 interval/week)
+activate RecurrenceCommandParser
+
+RecurrenceCommandParser -> AddRecurrenceCommandParser : parse(recur add n/buy food a/1 \n sd/1/1/2019 ed/1/2/2019 interval/week)
+activate AddRecurrenceCommandParser
+
+create AddRecurrenceCommand
+AddRecurrenceCommandParser -> AddRecurrenceCommand : AddRecurrenceCommand( \n recurrence)
+activate AddRecurrenceCommand
+
+AddRecurrenceCommand --> AddRecurrenceCommandParser : a
+deactivate AddRecurrenceCommand
+
+AddRecurrenceCommandParser --> RecurrenceCommandParser : a
+deactivate AddRecurrenceCommandParser
+
+RecurrenceCommandParser --> BillboardParser : a
+deactivate RecurrenceCommandParser
+
+BillboardParser --> LogicManager : a
+deactivate BillboardParser
+
+LogicManager -> AddRecurrenceCommand : execute()
+activate AddRecurrenceCommand
+
+AddRecurrenceCommand -> Model : hasRecurrence(recurrence)
+activate Model
+
+Model -> RecurrenceList : hasRecurrence(recurrence)
+activate RecurrenceList
+
+RecurrenceList --> Model : hasRecurrence
+deactivate RecurrenceList
+
+Model --> AddRecurrenceCommand : hasRecurrence
+deactivate Model
+
+group !hasExpense
+    AddRecurrenceCommand -> Model : AddExpense(newArchive)
+    activate Model
+
+    Model -> RecurrenceList : AddRecurrence(newArchive)
+    activate RecurrenceList
+
+    RecurrenceList --> Model
+    deactivate RecurrenceList
+
+    Model --> AddRecurrenceCommand
+    deactivate Model
+
+RecurrenceList --> Model : hasRecurrence
+deactivate RecurrenceList
+
+Model --> AddRecurrenceCommand : hasRecurrence
+deactivate Model
+
+group !hasRecurrence
+    AddRecurrenceCommand -> Model : AddRecurrence(newArchive)
+    activate Model
+
+    Model -> RecurrenceList : AddRecurrence(newArchive)
+    activate RecurrenceList
+
+    RecurrenceList --> Model
+    deactivate RecurrenceList
+
+    Model --> AddRecurrenceCommand
+    deactivate Model
+
+Billboard --> Model
+deactivate Billboard
+
+Model --> AddRecurrenceCommand
+deactivate Model
+
+AddRecurrenceCommand -> Model : AddArchiveExpense(archiveName, expenseTobeArchived)
+activate Model
+
+Model -> RecurrenceList : AddArchiveExpense(archiveName, expenseTobeArchived)
+activate RecurrenceList
+
+RecurrenceList --> Model
+deactivate RecurrenceList
+
+Model --> AddRecurrenceCommand
+deactivate Model
+
+AddRecurrenceCommand --> LogicManager : result
+deactivate AddRecurrenceCommand
+AddRecurrenceCommand -[hidden]-> LogicManager : result
+destroy AddRecurrenceCommand
+
+[<--LogicManager
+deactivate LogicManager
+@enduml

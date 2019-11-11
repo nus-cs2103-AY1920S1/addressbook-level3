@@ -28,6 +28,8 @@ import seedu.billboard.model.ReadOnlyBillboard;
 import seedu.billboard.model.ReadOnlyUserPrefs;
 import seedu.billboard.model.archive.Archive;
 import seedu.billboard.model.expense.Expense;
+import seedu.billboard.model.recurrence.Recurrence;
+import seedu.billboard.model.recurrence.RecurrenceList;
 import seedu.billboard.model.statistics.formats.StatisticsFormat;
 import seedu.billboard.model.statistics.formats.StatisticsFormatOptions;
 import seedu.billboard.model.tag.Tag;
@@ -284,6 +286,41 @@ public class AddCommandTest {
 
         @Override
         public HashMap<String, FilteredList<Expense>> getFilteredArchives() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasRecurrence(Recurrence recurrence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public RecurrenceList getRecurrences() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecurrences(RecurrenceList recurrences) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setRecurrences(List<Recurrence> recurrences) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addRecurrence(Recurrence recurrence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void removeRecurrence(Recurrence recurrence) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Recurrence removeRecurrence(int index) {
             throw new AssertionError("This method should not be called.");
         }
     }
