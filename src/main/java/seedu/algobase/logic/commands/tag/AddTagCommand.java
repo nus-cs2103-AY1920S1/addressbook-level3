@@ -26,7 +26,7 @@ public class AddTagCommand extends Command {
             + "Example:\n"
             + COMMAND_WORD + " "
             + PREFIX_TAG + "Easy "
-            + PREFIX_TAG_COLOR + "BULE";
+            + PREFIX_TAG_COLOR + "BLUE";
 
     public static final String MESSAGE_SUCCESS = "New Tag [%1$s] added to AlgoBase.";
     public static final String MESSAGE_DUPLICATE_TAG = "Tag [%1$s] already exists in AlgoBase.";

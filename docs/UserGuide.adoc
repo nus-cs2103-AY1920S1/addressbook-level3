@@ -294,6 +294,7 @@ Examples:
 Deletes the second find rule in the displayed list.
 // end::findrule[]
 
+// tag::tag[]
 === Tags
 
 ==== Creating new tags: `addtag`
@@ -331,6 +332,7 @@ Format: `edittag INDEX [t/NAME] [c/COLOR]`
 Examples:
 
 * `edittag 1 t/difficult c/BLUE`
+// end::tag[]
 
 // tag::plan[]
 === Training Plans
