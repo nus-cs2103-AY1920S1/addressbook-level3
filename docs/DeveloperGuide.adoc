@@ -33,7 +33,7 @@ The following class plays an important role at the architecture level:
 The rest of the App consists of four components.
 
 * <<Design-gui,*`GUI`*>>: The GUI of the App.
-* <<Design-Responder,*`Responder`*>>: The command executor.
+* <<Design-Logic,*`Logic`*>>: The command executor.
 * <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
 * <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 * <<Design-Util,*`Utilities`*>>: Shared resources of the App.
@@ -65,23 +65,22 @@ link:{repoURL}/src/main/java/dream/fcard/logic [`Logic Package`]
 
 The Logic package manages the internal logic of the application. +
 
-When the User passes in their commands from the Command Line, it is passed to the Responder class via the method takeInput().
+When the User passes in their commands from the Command Line, it is passed to the `Responder` class via the method `takeInput()`.
 This then passes the input String to the Responses enumerations which will parse the String into the appropriate command.
-While parsing, Responses will consider 2 criteria:
+While parsing, `Responses` will consider 2 criteria:
 
-. Only the Responses that exist in the ResponseGroup matching the State.currState StateEnum will be considered.
-. Only Responses with a regex that matches the input String will be considered. +
+. Only the `Responses` that exist in the `ResponseGroup` matching the `State.currState` `StateEnum` will be considered.
+. Only `Responses` with a regex that matches the input String will be considered. +
 
-As such, depending on the StateEnum (a.k.a. the current 'mode' of the application), only some Responses will be considered.
-For simplicity's sake, the Responses that exist for each application 'mode' can be said to exist in a specific bucket
-(when the application is in TEST mode, the Responses that exist in the Test bucket are TEST_NEXT, TEST_PREV and TEST_EXIT). +
+As such, depending on the `StateEnum` (a.k.a. the current 'mode' of the application), only some `Responses` will be considered.
+For simplicity's sake, the `Responses` that exist for each application 'mode' can be said to exist in a specific bucket
+(when the application is in `TEST` mode, the `Responses` that exist in the Test bucket are TEST_NEXT`, `TEST_PREV` and `TEST_EXIT`). +
 
-When the right command is found, the specific Responses enumeration will execute its own ResponseFunc, which is the
-implementation of the specific command (eg a 'help' command will print out the appropriate help message for the user). +
+When the right command is found, the specific `Responses` enumeration will execute its own `ResponseFunc`, which is the
+implementation of the specific command (eg a '`help`' command will print out the appropriate help message for the user). +
 
-To assist with the running of certain commands, the HelpCommand and CreateCommand classes are used to abstract the logic
+To assist with the running of certain commands, the `HelpCommand` and `CreateCommand` classes are used to abstract the logic
 further.
-
 
 
 [[Design-Model]]
