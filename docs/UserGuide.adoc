@@ -43,11 +43,16 @@ Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 First, let's familiarize ourselves with the symbols and formats used in this document:
 
-NOTE: Contains key information relevant to the execution of commands.
+NOTE: Contains key information relevant to the execution of commands in MooLah.
+
+IMPORTANT: Contains important information on feature implementation.
 
 ```
 {contains sample command-line input}
 ```
+
+`TAB` `Enter` : keys on the keyboard of your computer
+
 
 == Quick Start
 Follow this installation guide to get MooLah up and running in your computer:
@@ -1163,25 +1168,25 @@ e.g. `editexpense 1 p/2.50 c/Food`
 
 ---
 
-*All About Budgeting:*
+*All about Budgeting:*
 
 * *Create a new budget* (_undoable_) : `addbudget d/<DESCRIPTION> p/<AMOUNT> sd/<START_DATE> pr/<PERIOD>` +
 e.g. `budget d/school p/300 sd/01-10-2019 pr/month`
 * *Switch between budgets* (_undoable_) : `switchbudget d/DESCRIPTION` +
 e.g. `switchbudget d/outside school`
 * *List all budgets* : `listbudget`
-* *Edit a budget* (_undoable_): `editbudget <INDEX> [d/<DESCRIPTION>] [p/<AMOUNT>] sd/<START_DATE> pr/<PERIOD>` +
+* *Edit a budget* (_undoable_) : `editbudget <INDEX> [d/<DESCRIPTION>] [p/<AMOUNT>] sd/<START_DATE> pr/<PERIOD>` +
 e.g. `editbudget 2 d/school expenses p/400 sd/05-10 pr/week`
-* *Delete a budget by name* (_undoable_): `deletebudget d/<DESCRIPTION>` +
+* *Delete a budget by name* (_undoable_) : `deletebudget d/<DESCRIPTION>` +
 e.g. `deletebudget d/school`
-* *Delete a budget by index* (_undoable_): `deletebudget-id <INDEX>` +
+* *Delete a budget by index* (_undoable_) : `deletebudget-id <INDEX>` +
 e.g. `deletebudget-id 2`
 * *Clear all budgets* : `clearbudget` (_undoable_)
-* *View expenses in a different period* (_undoable_): `switchperiod t/<DATE>` +
+* *View expenses in a different period* (_undoable_) : `switchperiod t/<DATE>` +
 e.g. `switchperiod t/01-05`
-* *Edit expense inside a budget* (_undoable_): `editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]` +
+* *Edit expense inside a budget* (_undoable_) : `editexpense-primary <INDEX> [d/<DESCRIPTION>] [p/<PRICE>] [c/<CATEGORY>] [t/<TIMESTAMP>]` +
 e.g. `editexpense-primary 1 d/chicken`
-* *Delete expense inside a budget* : `deleteexpense-primary` <INDEX> +
+* *Delete expense inside a budget* (_undoable_) : `deleteexpense-primary` <INDEX> +
 e.g. `deleteexpense-primary 2`
 
 ---
