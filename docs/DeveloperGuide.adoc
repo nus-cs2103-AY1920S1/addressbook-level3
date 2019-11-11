@@ -183,22 +183,7 @@ The `Storage` component,
 * can save the Time Book data in json format and read it back.
 
 [[Design-API]]
-=== Api component
-
-The following diagram explains the design of the API component:
-
-.Expected structure of API Component in `v2.0`.
-image::api/ApiComponentClassDiagram.png[]
-[NOTE]
-Currently there is no `Api` interface or `ApiManager` to manage the external interactions with other components. Other components are directly accessing static methods in the `xxxApi` classes and `Cache` class for accessing API data. We intend to refactor the component to make it more OOP as shown in the figure above in `v2.0`.
-
-The `Api`,
-
-* handles queries to external APIs such as Google Maps and NUSMods.
-* handles caching of API results for limited connectivity support.
-
-[[Design-API]]
-=== Api component
+=== Api Component
 
 The following diagram explains the design of the API component:
 
@@ -312,7 +297,7 @@ object to get the `Person` object specified by the `Name` object.
 
 The following sequence diagram shows how the ScheduleCommand is executed:
 
-image::scheduler/scheduleGeneratorSequenceDiagram1.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram1.png[width=100%,pdfwidth=100%]
 
 * `Step 4`: Generate the Schedule
 ** `ModelManager` calls the `ScheduleManager#updateScheduleWithPersons` method with the List of `Persons`
@@ -330,7 +315,7 @@ such as previous location data of each person, start time and end time.
 
 The following sequence diagram shows how the `ScheduleDisplay` is generated:
 
-image::scheduler/scheduleGeneratorSequenceDiagram2.png[width=100%]
+image::scheduler/scheduleGeneratorSequenceDiagram2.png[width=100%,pdfwidth=100%]
 
 * `Step 6`: Return feedback to user
 -	The `ScheduleCommand` has finished executing and returns a `CommandResult` with the feedback to user
@@ -342,7 +327,7 @@ Schedules of a `Person` or a `User` as well.
 The following activity diagram summarizes what happens when the `ScheduleManager` is invoked to
 generate a `ScheduleDisplay`:
 
-image::scheduler/scheduleGeneratorActivityDiagram.png[width=100%]
+image::scheduler/scheduleGeneratorActivityDiagram.png[width=100%,pdfwidth=100%]
 
 ==== Design Considerations
 
@@ -358,88 +343,6 @@ needs to show a schedule to the user.
 ** Cons: Will have perfomance issues in terms of memory usage. Each Group's and Person's `ScheduleDisplay` will also
 have to be generated and stored in memory.
 //end::scheduler[]
-
-// tag::undoredo[]
-=== [Proposed] Undo/Redo feature
-==== Proposed Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoState0.png[]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoState1.png[]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoState2.png[]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoState3.png[]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoSequenceDiagram.png[]
-
-NOTE: The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoState4.png[]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoState5.png[]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::CommitActivityDiagram.png[]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
 
 // tag::suggestions[]
 [#command-suggestions]
@@ -500,13 +403,13 @@ image::command-suggestions/Step7.svg[]
 The following sequence diagram condenses all the above diagrams into one, given the input `deleteperson n/|`:
 
 .Full sequence diagram for input `deleteperson n/|`
-image:command-suggestions/DeletePersonSequenceDiagram.svg[pdfwidth=100%]
+image:command-suggestions/DeletePersonSequenceDiagram.svg[pdfwidth=100%,pdfwidth=100%]
 
 [#command-suggestions-caret-within-commandWord]
 The `SuggestionLogic` behaves differently when the caret position is within the `commandWord` section. The sequence diagram below shows the behaviour for the case of `find|person n/`. <<command-suggestions-caret-within-arguments,To read how the behaviour changes if the caret was placed within the `arguments` section, click here.>>
 
 .Sequence diagram for when the caret position is within the `commandWord` section
-image:command-suggestions/SuggestingCommands.svg[pdfwidth=100%]
+image:command-suggestions/SuggestingCommands.svg[pdfwidth=100%,pdfwidth=100%]
 
 The result is the following:
 
@@ -541,13 +444,6 @@ image::command-suggestions/ActivityDiagram.svg[pdfwidth=65%]
 ** Cons: ``Suggester``s are restricted in terms of the flexibility of their suggestions, as they lack info about the relative ordering of all the arguments.
 // end::suggestions-design-considerations[]
 // end::suggestions[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -711,7 +607,7 @@ image::gmaps/SuccessfulPopup.png[Popup]
 
 Below is an example of how the algorithm is applied on arbitrary locations `l1...ln` with arbitrary travelling distance
 to compute the closest common location for `l2,ln-2 and ln1`.
-[#img-GmapsClassDiagram]
+[#img-Algorithm]
 .Example of how the algorithm is used. The closest common location for this instance is `ln-2`.
 image::gmaps/Algorithm.png[Algorithm]
 
@@ -793,7 +689,7 @@ closest common location.
 
 ==== Design Considerations
 
-====== Aspect: Limited Connectivity Support
+===== Aspect: Limited Connectivity Support
 Current choice: we chose alternative 2 as we have limited Google Maps API calls and to reduce the time and space complexity
 of the application.
 
