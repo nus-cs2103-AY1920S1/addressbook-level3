@@ -126,7 +126,7 @@ Symbols and fanciful (okay, different) fonts are exciting, aren't they? Let's fi
 | The slash and letter (or word) before the _parameter_ is a _prefix_. It is used to separate the current _parameter_ from other _parameters_.
 
 | ``[m/MONTH]``
-| Square brackets imply that the the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
+| Square brackets imply that the stated _prefix_ and _parameter_ are optional. (This means less typing! 😆)
 
 | 💡
 | A light bulb indicates that the enclosed text is a tip.
@@ -501,7 +501,7 @@ Step 3. The _result box_ will display the message "Processing...
 Done!
 Your event has been successfully added! HAND, TravEzy! :D"
 
-Step 4. Now you can find your added event in the the event list.
+Step 4. Now you can find your added event in the event list.
 
 image::ItineraryAdd2.png[width=600]
 
